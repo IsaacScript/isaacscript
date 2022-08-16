@@ -1,6 +1,4 @@
 /**
- * Corresponds to `RoomDescriptorFlag`.
- *
  * Matches the `RoomDescriptor.FLAG_*` members of the `RoomDescriptor` class. In IsaacScript, we
  * reimplement this as an object instead, since it is cleaner.
  *
@@ -9,6 +7,7 @@
  *
  * @enum
  * @notExported
+ * @rename RoomDescriptorFlag
  */
 const RoomDescriptorFlagInternal = {
   /**

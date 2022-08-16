@@ -10,6 +10,7 @@ const PACKAGE_DOCS_DIR = path.join(DOCS_DIR, PACKAGE_NAME);
 const MODULES_DIR = path.join(PACKAGE_DOCS_DIR, "modules");
 const MODULES_MD_PATH = path.join(PACKAGE_DOCS_DIR, "modules.md");
 const CATEGORY_FILE_NAME = "_category_.yml";
+const ENUMS_DIR = path.join(PACKAGE_DOCS_DIR, "enums");
 
 /** We hard-code the title for some specific files. */
 const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
@@ -41,6 +42,7 @@ function main() {
   file.deleteFileOrDirectory(MODULES_MD_PATH, false);
 
   addCategoryFilesAndMarkdownHeaders();
+  renameEnumFiles();
 }
 
 function addCategoryFilesAndMarkdownHeaders() {
@@ -123,6 +125,32 @@ function getTitle(filePath: string) {
   }
 
   return properName;
+}
+
+/**
+ * The enum files will be a mix of files like "ActiveSlot.ActiveSlot.md" and files like
+ * "collections_entityState.BigHornState.md". We want all of the enums to appear in the left-hand
+ * sidebar in alphabetical order, so we want to rename everything to just be named after the enum.
+ */
+function renameEnumFiles() {
+  const markdownFileNames = getMarkdownFileNames(ENUMS_DIR);
+  for (const markdownFileName of markdownFileNames) {
+    const markdownFilePath = path.join(ENUMS_DIR, markdownFileName);
+    const match = markdownFileName.match(/\.(\w+\.md)/);
+    if (match === null) {
+      error(`Failed to parse the Markdown file name of: ${markdownFileName}`);
+    }
+
+    const simplifiedFileName = match[1];
+    if (simplifiedFileName === undefined) {
+      error(
+        `Failed to parse the simplified file name from the Markdown file name of: ${markdownFileName}`,
+      );
+    }
+
+    const dstPath = path.join(ENUMS_DIR, simplifiedFileName);
+    file.rename(markdownFilePath, dstPath, false);
+  }
 }
 
 // ----------------

@@ -199,7 +199,11 @@
     "ImmutableObject",
     "Serializable",
   ],
-  "plugin": ["typedoc-plugin-markdown", "@zamiell/typedoc-plugin-not-exported"],
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "@zamiell/typedoc-plugin-not-exported",
+    "typedoc-plugin-rename",
+  ],
   "githubPages": false,
   "hideBreadcrumbs": true,
   "hideInPageTOC": true,

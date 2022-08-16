@@ -3,13 +3,12 @@ import { DoorSlot } from "../DoorSlot";
 /**
  * For `GridEntityType.DOOR` (16)
  *
- * Corresponds to `DoorSlotFlag`.
- *
  * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
  * want this type to be a child of the `BitFlag` type.)
  *
  * @enum
  * @notExported
+ * @rename DoorSlotFlag
  */
 const DoorSlotFlagInternal = {
   /** 1 << 0 */

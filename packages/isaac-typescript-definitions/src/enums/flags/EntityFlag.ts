@@ -1,11 +1,10 @@
 /**
- * Corresponds to `EntityFlag`.
- *
  * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
  * want this type to be a child of the `BitFlag` type.)
  *
  * @enum
  * @notExported
+ * @rename EntityFlag
  */
 const EntityFlagInternal = {
   /** 1 << 0 */

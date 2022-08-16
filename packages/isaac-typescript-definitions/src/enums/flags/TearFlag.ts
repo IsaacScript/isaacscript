@@ -1,8 +1,6 @@
 /**
  * For `EntityType.TEAR` (2)
  *
- * Corresponds to `TearFlag`.
- *
  * This enum was renamed from "TearFlags" to be consistent with the other flag enums.
  *
  * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
@@ -20,6 +18,7 @@
  *
  * @enum
  * @notExported
+ * @rename TearFlag
  */
 const TearFlagInternal = {
   /** Default tear (no special effects). */

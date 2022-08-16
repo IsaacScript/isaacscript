@@ -1,6 +1,4 @@
 /**
- * Corresponds to `ItemConfigTag`.
- *
  * Matches the ItemConfig.TAG_ members of the ItemConfig class. In IsaacScript, we re-implement this
  * as an object instead, since it is cleaner.
  *
@@ -9,6 +7,7 @@
  *
  * @enum
  * @notExported
+ * @rename ItemConfigTag
  */
 const ItemConfigTagInternal = {
   /**

@@ -1,5 +1,6 @@
-- polty doesn't trigger grid entity break
-- use typedoc rename plugin
+- rename Card to CardType (and all args)
+- make TSTL plugins inside npm
+
 
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897

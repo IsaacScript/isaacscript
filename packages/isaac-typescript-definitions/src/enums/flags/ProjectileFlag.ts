@@ -1,8 +1,6 @@
 /**
  * For `EntityType.PROJECTILE` (9)
  *
- * Corresponds to `ProjectileFlag`.
- *
  * This enum was renamed from "ProjectileFlags" to be consistent with the other flag enums.
  *
  * This is represented as an object instead of an enum due to limitations with TypeScript enums. (We
@@ -10,6 +8,7 @@
  *
  * @enum
  * @notExported
+ * @rename ProjectileFlag
  */
 const ProjectileFlagInternal = {
   /** 1 << 0 */

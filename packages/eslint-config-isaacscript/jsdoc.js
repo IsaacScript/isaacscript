@@ -55,7 +55,8 @@ module.exports = {
           // https://typedoc.org/guides/doccomments/
           "category",
           "hidden",
-          "notExported",
+          "notExported", // From: typedoc-plugin-not-exported
+          "rename", // From: typedoc-plugin-rename
 
           // Ignore tags used in TypeScriptToLua:
           // https://typescripttolua.github.io/docs/advanced/compiler-annotations
