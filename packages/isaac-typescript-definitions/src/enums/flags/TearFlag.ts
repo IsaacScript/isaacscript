@@ -729,7 +729,7 @@ export const TearFlagZero = TearFlag.NORMAL;
 
 // cspell:ignore TEARFLAG
 /** Identical to the `TEARFLAG` function in "enums.lua". */
-function getTearFlag(shift: int) {
+function getTearFlag(shift: int): BitSet128 {
   return shift >= 64
     ? BitSet128(0, 1 << (shift - 64))
     : BitSet128(1 << shift, 0);

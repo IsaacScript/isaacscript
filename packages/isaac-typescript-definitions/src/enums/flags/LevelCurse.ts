@@ -1,3 +1,5 @@
+import { CurseID } from "../CurseID";
+
 /**
  * Corresponds to `LevelCurse`.
  *
@@ -13,63 +15,63 @@ const LevelCurseInternal = {
    *
    * Equal to 0.
    */
-  NONE: 1 << -1,
+  NONE: 0,
 
   /**
    * 1 << 0
    *
    * Corresponds to `CurseID.DARKNESS` (1).
    */
-  DARKNESS: 1 << 0,
+  DARKNESS: getLevelCurse(CurseID.DARKNESS),
 
   /**
    * 1 << 1
    *
    * Corresponds to `CurseID.LABYRINTH` (2).
    */
-  LABYRINTH: 1 << 1,
+  LABYRINTH: getLevelCurse(CurseID.LABYRINTH),
 
   /**
    * 1 << 2
    *
    * Corresponds to `CurseID.LOST` (3).
    */
-  LOST: 1 << 2,
+  LOST: getLevelCurse(CurseID.LOST),
 
   /**
    * 1 << 3
    *
    * Corresponds to `CurseID.UNKNOWN` (4).
    */
-  UNKNOWN: 1 << 3,
+  UNKNOWN: getLevelCurse(CurseID.UNKNOWN),
 
   /**
    * 1 << 4
    *
    * Corresponds to `CurseID.CURSED` (5).
    */
-  CURSED: 1 << 4,
+  CURSED: getLevelCurse(CurseID.CURSED),
 
   /**
    * 1 << 5
    *
    * Corresponds to `CurseID.MAZE` (6).
    */
-  MAZE: 1 << 5,
+  MAZE: getLevelCurse(CurseID.MAZE),
 
   /**
    * 1 << 6
    *
    * Corresponds to `CurseID.BLIND` (7).
    */
-  BLIND: 1 << 6,
+  BLIND: getLevelCurse(CurseID.BLIND),
 
   /**
    * 1 << 7
    *
    * Corresponds to `CurseID.GIANT` (8).
    */
-  GIANT: 1 << 7,
+  GIANT: getLevelCurse(CurseID.BLIND),
 } as const;
 
 type LevelCurseValue = BitFlag & {
@@ -84,3 +86,11 @@ export const LevelCurse = LevelCurseInternal as LevelCurseType;
 export type LevelCurse = LevelCurseType[keyof LevelCurseType];
 
 export const LevelCurseZero = 0 as BitFlags<LevelCurse>;
+
+/**
+ * In the "enums.lua" file, the values of the `LevelCurse` enum are hardcoded. We compute them here
+ * to have cleaner code.
+ */
+function getLevelCurse(curseID: int): int {
+  return 1 << (curseID - 1);
+}
