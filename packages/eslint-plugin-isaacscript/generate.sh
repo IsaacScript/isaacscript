@@ -20,7 +20,7 @@ if [ "$1" = "check" ]; then
   npx git-dirty
 fi
 
-npm run generate
+yarn generate
 
 if [ "$1" = "check" ]; then
   echo "Checking to see if any files have changed..."

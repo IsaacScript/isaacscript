@@ -108,7 +108,7 @@ Thanks for helping out with this open-source project!
 If you are adding a new rule, start by using the npm script to automate a few things:
 
 ```sh
-npm run create-rule
+yarn create-rule
 git status # Show what the script did
 ```
 

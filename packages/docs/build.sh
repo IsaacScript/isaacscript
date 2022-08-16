@@ -28,6 +28,6 @@ npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacScriptCommon.ts
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"
-npm run build
+yarn build
 
 echo "Successfully built all docs in $SECONDS seconds."
