@@ -1,6 +1,6 @@
 import { Challenge } from "../../enums/Challenge";
 import {
-  Card,
+  CardType,
   CollectibleType,
   PillColor,
   PlayerType,
@@ -126,14 +126,14 @@ declare global {
      * (We have to retrieve the sub-type of a custom card at run-time, because it is dynamically
      * calculated based on the current mods that the end-user currently has enabled.)
      *
-     * It is conventional to name your local enum `CardCustom` (because that corresponds to the
-     * vanilla enum of `Card`).
+     * It is conventional to name your local enum `CardTypeCustom` (because that corresponds to the
+     * vanilla enum of `CardType`).
      *
-     * Never use this method to get the sub-type of a vanilla card; use the `Card` enum instead.
+     * Never use this method to get the sub-type of a vanilla card; use the `CardType` enum instead.
      *
      * Returns -1 if no card with the specified name was found.
      */
-    function GetCardIdByName(name: string): Card;
+    function GetCardIdByName(name: string): CardType;
 
     /**
      * Returns the ID of the current challenge, like `Challenge.PITCH_BLACK` for the "Pitch Black"

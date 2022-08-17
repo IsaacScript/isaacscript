@@ -1,4 +1,4 @@
-import { Card, CollectibleType } from "../../enums/collections/subTypes";
+import { CardType, CollectibleType } from "../../enums/collections/subTypes";
 
 declare global {
   /**
@@ -12,7 +12,7 @@ declare global {
      * real player, so it should never be used. Instead, use the `getSubPlayerParent` helper
      * function to get the "parent" player, and call `GetCardRNG` from that.
      */
-    GetCardRNG(card: Card): never;
+    GetCardRNG(cardType: CardType): never;
 
     /**
      * The RNG returned by the `EntitySubPlayer.GetCollectibleRNG` method will not match the RNG for

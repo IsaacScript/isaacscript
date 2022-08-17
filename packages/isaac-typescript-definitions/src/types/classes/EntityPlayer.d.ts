@@ -2,7 +2,7 @@ import { ActiveSlot } from "../../enums/ActiveSlot";
 import { CollectibleAnimation } from "../../enums/CollectibleAnimation";
 import {
   BabySubType,
-  Card,
+  CardType,
   CollectibleType,
   DipFamiliarSubType,
   PillColor,
@@ -64,7 +64,7 @@ declare global {
      */
     AddCacheFlags(cacheFlags: CacheFlag | BitFlags<CacheFlag>): void;
 
-    AddCard(card: Card): void;
+    AddCard(cardType: CardType): void;
 
     /** Remove them with negative numbers. */
     AddCoins(amount: int): void;
@@ -238,10 +238,13 @@ declare global {
     AnimateAppear(): void;
 
     /**
-     * @param card
+     * @param cardType
      * @param playerItemAnimation Default is "Pickup".
      */
-    AnimateCard(card: Card, playerItemAnimation?: PlayerItemAnimation): void;
+    AnimateCard(
+      cardType: CardType,
+      playerItemAnimation?: PlayerItemAnimation,
+    ): void;
 
     /**
      * @param collectibleType
@@ -584,9 +587,9 @@ declare global {
     GetBrokenHearts(): int;
 
     /** Returns 0 if there is no card. */
-    GetCard(pocketItemSlot: PocketItemSlot): Card;
+    GetCard(pocketItemSlot: PocketItemSlot): CardType;
 
-    GetCardRNG(card: Card): RNG;
+    GetCardRNG(card: CardType): RNG;
 
     /**
      * Returns the total amount of collectibles that the player has. For example, if the player has
@@ -1009,7 +1012,7 @@ declare global {
     /** This sets Tainted Bethany's blood charges. Only works on Tainted Bethany. */
     SetBloodCharge(num: int): void;
 
-    SetCard(pocketItemSlot: PocketItemSlot, card: Card): void;
+    SetCard(pocketItemSlot: PocketItemSlot, cardType: CardType): void;
     SetFullHearts(): void;
     SetMinDamageCooldown(damageCooldown: int): void;
     SetPill(pocketItemSlot: PocketItemSlot, pillColor: PillColor): void;
@@ -1157,10 +1160,10 @@ declare global {
     ): void;
 
     /**
-     * @param card
+     * @param cardType
      * @param useFlag Default is 0.
      */
-    UseCard(card: Card, useFlag?: UseFlag | BitFlags<UseFlag>): void;
+    UseCard(cardType: CardType, useFlag?: UseFlag | BitFlags<UseFlag>): void;
 
     /**
      * @param pillEffect

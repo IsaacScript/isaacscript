@@ -1,5 +1,5 @@
 import {
-  Card,
+  CardType,
   CollectibleType,
   PillColor,
   TrinketType,
@@ -19,7 +19,7 @@ declare global {
       playing: boolean,
       rune: boolean,
       onlyRunes: boolean,
-    ): Card;
+    ): CardType;
 
     /**
      * @param itemPoolType

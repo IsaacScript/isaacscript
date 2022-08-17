@@ -3,7 +3,7 @@
 import { ActiveSlot } from "../../enums/ActiveSlot";
 import { ButtonAction } from "../../enums/ButtonAction";
 import {
-  Card,
+  CardType,
   CollectibleType,
   PillColor,
   PlayerType,
@@ -69,11 +69,11 @@ declare global {
     // 5
     [ModCallback.POST_USE_CARD]: [
       callback: (
-        card: Card,
+        cardType: CardType,
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
       ) => void,
-      card?: Card,
+      cardType?: CardType,
     ];
 
     // 6
@@ -160,11 +160,11 @@ declare global {
     [ModCallback.GET_CARD]: [
       callback: (
         rng: RNG,
-        card: Card,
+        cardType: CardType,
         includePlayingCards: boolean,
         includeRunes: boolean,
         onlyRunes: boolean,
-      ) => Card | undefined,
+      ) => CardType | undefined,
     ];
 
     // 21

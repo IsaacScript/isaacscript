@@ -303,11 +303,7 @@ export function getCollectibleMaxCharges(
  * Helper function to get the name of a collectible. Returns "Unknown" if the provided collectible
  * type is not valid.
  *
- * For example:
- *
- * ```ts
- * const sadOnionName = getCollectibleName(CollectibleType.SAD_ONION); // "Sad Onion"
- * ```
+ * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
  */
 export function getCollectibleName(collectibleType: CollectibleType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map

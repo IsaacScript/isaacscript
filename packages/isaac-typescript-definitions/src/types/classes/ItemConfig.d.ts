@@ -1,5 +1,5 @@
 import {
-  Card,
+  CardType,
   CollectibleType,
   TrinketType,
 } from "../../enums/collections/subTypes";
@@ -9,7 +9,7 @@ import { PillEffect } from "../../enums/PillEffect";
 declare global {
   interface ItemConfig extends IsaacAPIClass {
     /** Returns undefined if the card was not found. */
-    GetCard(card: Card): Readonly<ItemConfigCard> | undefined;
+    GetCard(cardType: CardType): Readonly<ItemConfigCard> | undefined;
 
     GetCards(): Readonly<CardConfigList>;
 

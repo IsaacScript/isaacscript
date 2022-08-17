@@ -1,7 +1,7 @@
 import {
   BatterySubType,
   BombSubType,
-  Card,
+  CardType,
   CoinSubType,
   CollectibleType,
   HeartSubType,
@@ -149,7 +149,7 @@ declare global {
 
   /** For `PickupVariant.TAROT_CARD` (300) */
   interface EntityPickupCard extends EntityPickup {
-    SubType: Card;
+    SubType: CardType;
     Variant: PickupVariant.TAROT_CARD;
   }
 

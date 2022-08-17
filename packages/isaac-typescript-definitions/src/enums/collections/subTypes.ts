@@ -1183,8 +1183,11 @@ export enum CollectibleType {
  * For `EntityType.PICKUP` (5), `PickupVariant.TAROT_CARD` (300)
  *
  * This is the sub-type of a card.
+ *
+ * This enum was renamed from "Card" to be consistent with the `CollectibleType` and `TrinketType`
+ * enums.
  */
-export enum Card {
+export enum CardType {
   /**
    * Spawning cards with this sub-type will produce a random card with the following probabilities:
    *
