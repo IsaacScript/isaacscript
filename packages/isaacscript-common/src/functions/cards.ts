@@ -1,40 +1,52 @@
-import { Card, ItemConfigCardType } from "isaac-typescript-definitions";
+import { CardType, ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
-import { FIRST_CARD, LAST_VANILLA_CARD } from "../core/constantsFirstLast";
+import {
+  FIRST_CARD_TYPE,
+  LAST_VANILLA_CARD_TYPE,
+} from "../core/constantsFirstLast";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
 } from "../objects/cardDescriptions";
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
-import { CARD_TYPES, DEFAULT_CARD_TYPE } from "../objects/cardTypes";
+import {
+  CARD_TYPE_TO_ITEM_CONFIG_CARD_TYPE,
+  DEFAULT_CARD_TYPE,
+} from "../objects/cardTypeToItemConfigCardType";
 import { getEnumValues } from "./enums";
 import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
 import { irange } from "./utils";
 
-const CARD_TYPE_TO_CARDS_MAP = new Map<ItemConfigCardType, Set<Card>>();
+const ITEM_CONFIG_CARD_TYPE_TO_CARD_TYPE_MAP = new Map<
+  ItemConfigCardType,
+  Set<CardType>
+>();
 
 /**
- * Contains all of the entries in the `Card` enum with the following types:
+ * Contains all of the entries in the `CardType` enum with the following types:
  * - ItemConfigCardType.TAROT
  * - ItemConfigCardType.SUIT
  * - ItemConfigCardType.SPECIAL
  * - ItemConfigCardType.TAROT_REVERSE
  */
-const CARD_SET = new Set<Card>();
+const CARD_SET = new Set<CardType>();
 
 function lazyInitCardMapsSets() {
   // The card type to cards map should be valid for every card type, so we initialize it with empty
   // sets.
   for (const cardType of getEnumValues(ItemConfigCardType)) {
-    CARD_TYPE_TO_CARDS_MAP.set(cardType, new Set<Card>());
+    ITEM_CONFIG_CARD_TYPE_TO_CARD_TYPE_MAP.set(cardType, new Set<CardType>());
   }
 
-  for (const card of getVanillaCards()) {
-    const cardType = getCardType(card);
-    const cardTypeSet = CARD_TYPE_TO_CARDS_MAP.get(cardType);
+  for (const card of getVanillaCardTypes()) {
+    const itemConfigCardType = getItemConfigCardType(card);
+    const cardTypeSet =
+      ITEM_CONFIG_CARD_TYPE_TO_CARD_TYPE_MAP.get(itemConfigCardType);
     if (cardTypeSet === undefined) {
-      error(`Failed to get the card set for card type: ${cardType}`);
+      error(
+        `Failed to get the card set for item config card type: ${itemConfigCardType}`,
+      );
     }
     cardTypeSet.add(card);
   }
@@ -43,7 +55,7 @@ function lazyInitCardMapsSets() {
   // - ItemConfigCardType.RUNE
   // - ItemConfigCardType.SPECIAL_OBJECT
   // - ItemConfigCardType.MODDED
-  const cards = getCardsOfType(
+  const cards = getCardTypesOfType(
     ItemConfigCardType.TAROT,
     ItemConfigCardType.SUIT,
     ItemConfigCardType.SPECIAL,
@@ -55,23 +67,18 @@ function lazyInitCardMapsSets() {
 /**
  * Helper function to get a card description from a Card enum value.
  *
- * For example:
- *
- * ```ts
- * const card = Card.FOOL;
- * const cardDescription = getCardDescription(card); // cardDescription is "Where journey begins"
- * ```
+ * For example, `getCardDescription(card)` returns "Where journey begins".
  */
-export function getCardDescription(card: Card): string {
+export function getCardDescription(cardType: CardType): string {
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
-  const cardDescription = CARD_DESCRIPTIONS[card];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const cardDescription = CARD_DESCRIPTIONS[cardType];
+
   if (cardDescription !== undefined) {
     return cardDescription;
   }
 
-  const itemConfigCard = itemConfig.GetCard(card);
+  const itemConfigCard = itemConfig.GetCard(cardType);
   if (itemConfigCard !== undefined) {
     return itemConfigCard.Description;
   }
@@ -82,23 +89,18 @@ export function getCardDescription(card: Card): string {
 /**
  * Helper function to get a card name from a Card.
  *
- * For example:
- *
- * ```ts
- * const card = Card.FOOL;
- * const cardName = getCardName(card); // cardName is "0 - The Fool"
- * ```
+ * For example, `getCardName(Card.FOOL)` would return "0 - The Fool".
  */
-export function getCardName(card: Card): string {
+export function getCardName(cardType: CardType): string {
   // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
-  const cardName = CARD_NAMES[card];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const cardName = CARD_NAMES[cardType];
+
   if (cardName !== undefined) {
     return cardName;
   }
 
-  const itemConfigCard = itemConfig.GetCard(card);
+  const itemConfigCard = itemConfig.GetCard(cardType);
   if (itemConfigCard !== undefined) {
     return itemConfigCard.Name;
   }
@@ -106,37 +108,45 @@ export function getCardName(card: Card): string {
   return DEFAULT_CARD_NAME;
 }
 
-export function getCardType(card: Card): ItemConfigCardType {
-  const cardType = CARD_TYPES[card];
-  // Handle modded cards.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return cardType === undefined ? DEFAULT_CARD_TYPE : cardType;
-}
-
 /**
- * Helper function to get a set of cards matching the type. Also see the `CardType` enum.
+ * Helper function to get a set of card types matching the `ItemConfigCardType`.
  *
  * This function is variadic, meaning that you can you can specify N card types to get a set
  * containing cards that match any of the specified types.
  */
-export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
-  if (CARD_TYPE_TO_CARDS_MAP.size === 0) {
+export function getCardTypesOfType(
+  ...itemConfigCardTypes: ItemConfigCardType[]
+): Set<CardType> {
+  if (ITEM_CONFIG_CARD_TYPE_TO_CARD_TYPE_MAP.size === 0) {
     lazyInitCardMapsSets();
   }
 
-  const matchingCards = new Set<Card>();
-  for (const cardType of cardTypes) {
-    const cardSet = CARD_TYPE_TO_CARDS_MAP.get(cardType);
-    if (cardSet === undefined) {
-      error(`Failed to get the cards for type: ${cardType}`);
+  const matchingCardTypes = new Set<CardType>();
+  for (const itemConfigCardType of itemConfigCardTypes) {
+    const cardTypeSet =
+      ITEM_CONFIG_CARD_TYPE_TO_CARD_TYPE_MAP.get(itemConfigCardType);
+    if (cardTypeSet === undefined) {
+      error(
+        `Failed to get the card type set for item config type: ${itemConfigCardType}`,
+      );
     }
 
-    for (const card of cardSet.values()) {
-      matchingCards.add(card);
+    for (const cardType of cardTypeSet.values()) {
+      matchingCardTypes.add(cardType);
     }
   }
 
-  return matchingCards;
+  return matchingCardTypes;
+}
+
+export function getItemConfigCardType(cardType: CardType): ItemConfigCardType {
+  const itemConfigCardType = CARD_TYPE_TO_ITEM_CONFIG_CARD_TYPE[cardType];
+
+  // Handle modded cards.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return itemConfigCardType === undefined
+    ? DEFAULT_CARD_TYPE
+    : itemConfigCardType;
 }
 
 /**
@@ -154,24 +164,25 @@ export function getCardsOfType(...cardTypes: ItemConfigCardType[]): Set<Card> {
  */
 export function getRandomCard(
   seedOrRNG: Seed | RNG = getRandomSeed(),
-  exceptions: Card[] = [],
-): Card {
+  exceptions: CardType[] = [],
+): CardType {
   return getRandomSetElement(CARD_SET, seedOrRNG, exceptions);
 }
 
 /**
- * @param cardType The card type that represents the pool of cards to select from.
+ * @param itemConfigCardType The item config card type that represents the pool of cards to select
+ *                           from.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of cards to not select.
  */
-export function getRandomCardOfType(
-  cardType: ItemConfigCardType,
+export function getRandomCardTypeOfType(
+  itemConfigCardType: ItemConfigCardType,
   seedOrRNG: Seed | RNG = getRandomSeed(),
-  exceptions: Card[] = [],
-): Card {
-  const cardSet = getCardsOfType(cardType);
-  return getRandomSetElement(cardSet, seedOrRNG, exceptions);
+  exceptions: CardType[] = [],
+): CardType {
+  const cardTypeSet = getCardTypesOfType(itemConfigCardType);
+  return getRandomSetElement(cardTypeSet, seedOrRNG, exceptions);
 }
 
 /**
@@ -184,16 +195,16 @@ export function getRandomCardOfType(
  */
 export function getRandomRune(
   seedOrRNG: Seed | RNG = getRandomSeed(),
-  exceptions: Card[] = [],
-): Card {
-  const runesSet = getCardsOfType(ItemConfigCardType.RUNE);
-  runesSet.delete(Card.RUNE_SHARD);
+  exceptions: CardType[] = [],
+): CardType {
+  const runesSet = getCardTypesOfType(ItemConfigCardType.RUNE);
+  runesSet.delete(CardType.RUNE_SHARD);
   return getRandomSetElement(runesSet, seedOrRNG, exceptions);
 }
 
 /** Helper function to get an array with every valid vanilla card sub-type. */
-export function getVanillaCards(): Card[] {
-  return irange(FIRST_CARD, LAST_VANILLA_CARD);
+export function getVanillaCardTypes(): CardType[] {
+  return irange(FIRST_CARD_TYPE, LAST_VANILLA_CARD_TYPE);
 }
 
 /**
@@ -203,51 +214,54 @@ export function getVanillaCards(): Card[] {
  * - CardType.SPECIAL
  * - CardType.TAROT_REVERSE
  */
-export function isCard(card: Card): boolean {
-  return CARD_SET.has(card);
+export function isCard(cardType: CardType): boolean {
+  return CARD_SET.has(cardType);
 }
 
-/** Returns whether or not the given card matches the specified card type. */
-export function isCardType(card: Card, cardType: ItemConfigCardType): boolean {
-  return cardType === getCardType(card);
+/** Returns whether or not the given card type matches the specified item config card type. */
+export function isCardType(
+  cardType: CardType,
+  itemConfigCardType: ItemConfigCardType,
+): boolean {
+  return itemConfigCardType === getItemConfigCardType(cardType);
 }
 
 /** Returns true for any card or rune added by a mod. */
-export function isModdedCard(card: Card): boolean {
-  return !isVanillaCard(card);
+export function isModdedCardType(cardType: CardType): boolean {
+  return !isVanillaCardType(cardType);
 }
 
-/** Returns true for cards that have `CardType.SPECIAL_OBJECT`. */
-export function isPocketItemObject(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.SPECIAL_OBJECT);
+/** Returns true for cards that have `ItemConfigCardType.SPECIAL_OBJECT`. */
+export function isPocketItemObject(cardType: CardType): boolean {
+  return isCardType(cardType, ItemConfigCardType.SPECIAL_OBJECT);
 }
 
-/** Returns true for cards that have `CardType.TAROT_REVERSE`. */
-export function isReverseTarotCard(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.TAROT_REVERSE);
+/** Returns true for cards that have `ItemConfigCardType.TAROT_REVERSE`. */
+export function isReverseTarotCard(cardType: CardType): boolean {
+  return isCardType(cardType, ItemConfigCardType.TAROT_REVERSE);
 }
 
 /** Returns true for cards that have `CardType.RUNE`. */
-export function isRune(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.RUNE);
+export function isRune(cardType: CardType): boolean {
+  return isCardType(cardType, ItemConfigCardType.RUNE);
 }
 
 /** Returns true for cards that have `CardType.SPECIAL`. */
-export function isSpecialCard(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.SPECIAL);
+export function isSpecialCard(cardType: CardType): boolean {
+  return isCardType(cardType, ItemConfigCardType.SPECIAL);
 }
 
 /** Returns true for cards that have `CardType.SUIT`. */
-export function isSuitCard(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.SUIT);
+export function isSuitCard(cardType: CardType): boolean {
+  return isCardType(cardType, ItemConfigCardType.SUIT);
 }
 
 /** Returns true for cards that have `CardType.TAROT`. */
-export function isTarotCard(card: Card): boolean {
-  return isCardType(card, ItemConfigCardType.TAROT);
+export function isTarotCard(cardType: CardType): boolean {
+  return isCardType(cardType, ItemConfigCardType.TAROT);
 }
 
 /** Returns true for any vanilla card or rune. */
-export function isVanillaCard(card: Card): boolean {
-  return card <= LAST_VANILLA_CARD;
+export function isVanillaCardType(cardType: CardType): boolean {
+  return cardType <= LAST_VANILLA_CARD_TYPE;
 }

@@ -128,12 +128,7 @@ export function getPillEffectClass(
 /**
  * Helper function to get a pill effect name from a PillEffect enum value.
  *
- * For example:
- *
- * ```ts
- * const pillEffect = PillEffect.BAD_GAS;
- * const pillEffectName = getPillEffectName(pillEffect); // trinketName is "Bad Gas"
- * ```
+ * For example, `getPillEffectName(PillEffect.BAD_GAS)` would return "Bad Gas".
  */
 export function getPillEffectName(pillEffect: PillEffect): string {
   // `ItemConfigPillEffect.Name` is bugged with vanilla pill effects on patch v1.7.6, so we use a

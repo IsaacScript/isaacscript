@@ -24,7 +24,7 @@
 import {
   ActiveSlot,
   CacheFlag,
-  Card,
+  CardType,
   Challenge,
   CollectibleType,
   Direction,
@@ -43,7 +43,7 @@ import {
 import { game, sfxManager } from "../../core/cachedClasses";
 import { MAX_LEVEL_GRID_INDEX } from "../../core/constants";
 import {
-  FIRST_CARD,
+  FIRST_CARD_TYPE,
   FIRST_CHARACTER,
   FIRST_PILL_EFFECT,
   FIRST_ROOM_TYPE,
@@ -88,13 +88,13 @@ import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom } from "../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
 import { getGoldenTrinketType } from "../../functions/trinkets";
-import { asCard } from "../../functions/types";
+import { asCardType } from "../../functions/types";
 import { irange, printConsole, printEnabled } from "../../functions/utils";
 import { CARD_MAP } from "../../maps/cardMap";
 import { CHARACTER_MAP } from "../../maps/characterMap";
 import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
 import { ROOM_TYPE_MAP } from "../../maps/roomTypeMap";
-import { getLastCard, getLastPillEffect } from "../firstLast";
+import { getLastCardType, getLastPillEffect } from "../firstLast";
 import {
   addHeart,
   devilAngel,
@@ -326,8 +326,8 @@ export function card(params: string): void {
     return;
   }
 
-  let cardNum: Card;
-  const num = tonumber(params) as Card | undefined;
+  let cardType: CardType;
+  const num = tonumber(params) as CardType | undefined;
   if (num === undefined) {
     const match = getMapPartialMatch(params, CARD_MAP);
     if (match === undefined) {
@@ -335,35 +335,35 @@ export function card(params: string): void {
       return;
     }
 
-    cardNum = match[1];
+    cardType = match[1];
   } else {
-    const lastCard = getLastCard();
-    if (num < FIRST_CARD || num > lastCard) {
+    const lastCardType = getLastCardType();
+    if (num < FIRST_CARD_TYPE || num > lastCardType) {
       printConsole(`Invalid card sub-type: ${num}`);
       return;
     }
 
-    cardNum = num;
+    cardType = num;
   }
 
-  const cardName = getCardName(cardNum);
-  Isaac.ExecuteCommand(`g k${cardNum}`);
-  printConsole(`Gave card: ${cardName} (${cardNum})`);
+  const cardName = getCardName(cardType);
+  Isaac.ExecuteCommand(`g k${cardType}`);
+  printConsole(`Gave card: ${cardName} (${cardType})`);
 }
 
 /** Spawns every card on the ground, starting at the top-left-most tile. */
 export function cards(): void {
-  const lastCard = getLastCard();
+  const lastCardType = getLastCardType();
 
   let cardType = 1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (asCard(cardType) === lastCard) {
+      if (asCardType(cardType) === lastCardType) {
         return;
       }
 
       const position = gridCoordinatesToWorldPosition(x, y);
-      spawnCard(asCard(cardType), position);
+      spawnCard(asCardType(cardType), position);
       cardType++;
     }
   }

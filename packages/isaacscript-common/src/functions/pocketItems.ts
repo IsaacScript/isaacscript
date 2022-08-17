@@ -1,6 +1,6 @@
 import {
   ActiveSlot,
-  Card,
+  CardType,
   CollectibleType,
   PillColor,
   PlayerType,
@@ -64,14 +64,14 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
   for (const slot of pocketItemSlots) {
-    const card = player.GetCard(slot);
+    const cardType = player.GetCard(slot);
     const pillColor = player.GetPill(slot);
 
-    if (card !== Card.NULL) {
+    if (cardType !== CardType.NULL) {
       pocketItems.push({
         slot,
         type: PocketItemType.CARD,
-        subType: card,
+        subType: cardType,
       });
     } else if (pillColor !== PillColor.NULL) {
       pocketItems.push({

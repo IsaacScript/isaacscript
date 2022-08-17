@@ -1,5 +1,5 @@
 import {
-  Card,
+  CardType,
   CollectibleType,
   PillEffect,
   TrinketType,
@@ -7,14 +7,14 @@ import {
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { itemConfig } from "../core/cachedClasses";
 import {
-  FIRST_CARD,
+  FIRST_CARD_TYPE,
   FIRST_PILL_EFFECT,
   FIRST_TRINKET_TYPE,
-  LAST_VANILLA_CARD,
+  LAST_VANILLA_CARD_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
   LAST_VANILLA_PILL_EFFECT,
   LAST_VANILLA_TRINKET_TYPE,
-  NUM_VANILLA_CARDS,
+  NUM_VANILLA_CARD_TYPES,
   NUM_VANILLA_COLLECTIBLE_TYPES,
   NUM_VANILLA_PILL_EFFECTS,
   NUM_VANILLA_TRINKET_TYPES,
@@ -22,7 +22,7 @@ import {
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import {
-  asCard,
+  asCardType,
   asCollectibleType,
   asNumber,
   asPillEffect,
@@ -168,7 +168,7 @@ export function getFirstModdedTrinketType(): TrinketType | undefined {
 }
 
 /**
- * Will change depending on how many modded cards there are.
+ * Will change depending on how many modded trinkets there are.
  *
  * This is equal to the number of trinket types, since all trinket types are contiguous (unlike
  * collectibles).
@@ -206,7 +206,7 @@ export function getModdedTrinketTypes(): TrinketType[] {
 }
 
 /**
- * Will change depending on how many modded cards there are.
+ * Will change depending on how many modded trinkets there are.
  *
  * Equal to `itemConfig.GetTrinkets().Size - 1`. (We subtract one to account for
  * `TrinketType.NULL`.)
@@ -254,9 +254,9 @@ export function getTrinketTypes(): TrinketType[] {
  * This function can only be called if at least one callback has been executed. This is because not
  * all cards will necessarily be present when a mod first loads (due to mod load order).
  */
-export function getAllCards(): Card[] {
-  const lastCard = getLastCard();
-  return irange(FIRST_CARD, lastCard);
+export function getAllCardTypes(): CardType[] {
+  const lastCardType = getLastCardType();
+  return irange(FIRST_CARD_TYPE, lastCardType);
 }
 
 /**
@@ -265,13 +265,13 @@ export function getAllCards(): Card[] {
  * This function can only be called if at least one callback has been executed. This is because not
  * all cards will necessarily be present when a mod first loads (due to mod load order).
  */
-export function getFirstModdedCard(): Card | undefined {
+export function getFirstModdedCardType(): CardType | undefined {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   errorIfNoCallbacksFired("card");
 
-  const firstModdedCard = asCard(asNumber(LAST_VANILLA_CARD) + 1);
-  const itemConfigCard = itemConfig.GetCard(firstModdedCard);
-  return itemConfigCard === undefined ? undefined : firstModdedCard;
+  const firstModdedCardType = asCardType(asNumber(LAST_VANILLA_CARD_TYPE) + 1);
+  const itemConfigCard = itemConfig.GetCard(firstModdedCardType);
+  return itemConfigCard === undefined ? undefined : firstModdedCardType;
 }
 
 /**
@@ -283,12 +283,12 @@ export function getFirstModdedCard(): Card | undefined {
  * This function can only be called if at least one callback has been executed. This is because not
  * all cards will necessarily be present when a mod first loads (due to mod load order).
  */
-export function getLastCard(): Card {
+export function getLastCardType(): CardType {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   errorIfNoCallbacksFired("card");
 
-  const numCards = getNumCards();
-  return asCard(numCards);
+  const numCards = getNumCardTypes();
+  return asCardType(numCards);
 }
 
 /**
@@ -299,14 +299,14 @@ export function getLastCard(): Card {
  * This function can only be called if at least one callback has been executed. This is because not
  * all cards will necessarily be present when a mod first loads (due to mod load order).
  */
-export function getModdedCards(): Card[] {
-  const firstModdedCard = getFirstModdedCard();
-  if (firstModdedCard === undefined) {
+export function getModdedCardTypes(): CardType[] {
+  const firstModdedCardType = getFirstModdedCardType();
+  if (firstModdedCardType === undefined) {
     return [];
   }
 
-  const lastCard = getLastCard();
-  return irange(firstModdedCard, lastCard);
+  const lastCardType = getLastCardType();
+  return irange(firstModdedCardType, lastCardType);
 }
 
 /**
@@ -317,7 +317,7 @@ export function getModdedCards(): Card[] {
  * This function can only be called if at least one callback has been executed. This is because not
  * all cards will necessarily be present when a mod first loads (due to mod load order).
  */
-export function getNumCards(): int {
+export function getNumCardTypes(): int {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   errorIfNoCallbacksFired("card");
 
@@ -328,12 +328,12 @@ export function getNumCards(): int {
  * This function can only be called if at least one callback has been executed. This is because not
  * all trinkets will necessarily be present when a mod first loads (due to mod load order).
  */
-export function getNumModdedCards(): int {
+export function getNumModdedCardTypes(): int {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
   errorIfNoCallbacksFired("card");
 
-  const numCards = getNumCards();
-  return numCards - NUM_VANILLA_CARDS;
+  const numCardTypes = getNumCardTypes();
+  return numCardTypes - NUM_VANILLA_CARD_TYPES;
 }
 
 // ------------

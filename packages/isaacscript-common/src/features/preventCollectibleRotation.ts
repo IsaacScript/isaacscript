@@ -2,7 +2,7 @@
 // switching mechanic.
 
 import {
-  Card,
+  CardType,
   CollectibleType,
   ModCallback,
   PickupVariant,
@@ -39,7 +39,7 @@ export function preventCollectibleRotationInit(mod: Mod): void {
   mod.AddCallback(
     ModCallback.POST_USE_CARD,
     useCardSoulOfIsaac,
-    Card.SOUL_ISAAC,
+    CardType.SOUL_ISAAC,
   ); // 5
 
   mod.AddCallback(

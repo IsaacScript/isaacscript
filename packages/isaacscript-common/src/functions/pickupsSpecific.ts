@@ -1,7 +1,7 @@
 import {
   BatterySubType,
   BombSubType,
-  Card,
+  CardType,
   CoinSubType,
   CollectibleType,
   HeartSubType,
@@ -45,11 +45,11 @@ export function getBombPickups(
 /**
  * Helper function to get all of the card entities in the room.
  *
- * @param card Optional. If specified, will only get the cards that match the sub-type. Default is
- *             -1, which matches every sub-type.
+ * @param cardType Optional. If specified, will only get the cards that match the sub-type. Default
+ *                 is -1, which matches every sub-type.
  */
-export function getCards(card: Card = -1): EntityPickupCard[] {
-  return getPickups(PickupVariant.TAROT_CARD, card) as EntityPickupCard[];
+export function getCards(cardType: CardType = -1): EntityPickupCard[] {
+  return getPickups(PickupVariant.TAROT_CARD, cardType) as EntityPickupCard[];
 }
 
 /**
@@ -176,15 +176,18 @@ export function removeAllBombPickups(
 /**
  * Helper function to remove all of the cards in the room.
  *
- * @param card Optional. If specified, will only remove cards that match this sub-type. Default is
- *             -1, which matches every sub-type.
+ * @param cardType Optional. If specified, will only remove cards that match this sub-type. Default
+ *                 is -1, which matches every sub-type.
  * @param cap Optional. If specified, will only remove the given amount of cards.
  * @returns The cards that were removed.
  */
-export function removeAllCards(card: Card = -1, cap?: int): EntityPickupCard[] {
+export function removeAllCards(
+  cardType: CardType = -1,
+  cap?: int,
+): EntityPickupCard[] {
   return removeAllPickups(
     PickupVariant.TAROT_CARD,
-    card,
+    cardType,
     cap,
   ) as EntityPickupCard[];
 }
@@ -392,7 +395,7 @@ export function spawnBombPickupWithSeed(
  * Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.TAROT_CARD` (300).
  */
 export function spawnCard(
-  card: Card,
+  cardType: CardType,
   position: Vector,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -400,7 +403,7 @@ export function spawnCard(
 ): EntityPickupCard {
   return spawnPickup(
     PickupVariant.TAROT_CARD,
-    card,
+    cardType,
     position,
     velocity,
     spawner,
@@ -413,13 +416,13 @@ export function spawnCard(
  * and a specific seed.
  */
 export function spawnCardWithSeed(
-  card: Card,
+  cardType: CardType,
   position: Vector,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
 ): EntityPickupCard {
-  return spawnCard(card, position, velocity, spawner, seedOrRNG);
+  return spawnCard(cardType, position, velocity, spawner, seedOrRNG);
 }
 
 /** Helper function to spawn a `EntityType.PICKUP` (5) with variant `PickupVariant.COIN` (20). */

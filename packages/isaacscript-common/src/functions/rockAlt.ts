@@ -1,5 +1,5 @@
 import {
-  Card,
+  CardType,
   CoinSubType,
   CollectibleType,
   EffectVariant,
@@ -278,7 +278,7 @@ function spawnRockAltRewardSkull(position: Vector, rng: RNG): boolean {
 
   totalChance += ROCK_ALT_CHANCES.BASIC_DROP;
   if (chance < totalChance) {
-    spawnCardWithSeed(Card.NULL, position, rng);
+    spawnCardWithSeed(CardType.NULL, position, rng);
     return true;
   }
 

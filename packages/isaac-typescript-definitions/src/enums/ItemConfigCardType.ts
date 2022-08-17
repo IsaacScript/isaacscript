@@ -3,6 +3,9 @@
  *
  * Matches the `ItemConfig.CARDTYPE_` members of the `ItemConfig` class. In IsaacScript, we
  * reimplement this as an enum instead, since it is cleaner.
+ *
+ * Note that this enum is not to be confused with the `CardType` enum; the latter denotes the
+ * in-game sub-type of the card, which is completely different.
  */
 export enum ItemConfigCardType {
   /** No valid card will have this type. */

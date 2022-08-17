@@ -1,5 +1,5 @@
 import {
-  Card,
+  CardType,
   CollectibleType,
   LevelStage,
   NpcState,
@@ -10,12 +10,12 @@ import {
 } from "isaac-typescript-definitions";
 
 /**
- * Helper function to safely cast a `number` to a `Card`. (This is better than using the `as`
+ * Helper function to safely cast a `number` to a `CardType`. (This is better than using the `as`
  * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
  *
  * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
  */
-export function asCard(num: number): Card {
+export function asCardType(num: number): CardType {
   return num;
 }
 

@@ -1,7 +1,7 @@
 // Constants related to modded items can be found in the "firstLast.ts" file.
 
 import {
-  Card,
+  CardType,
   CollectibleType,
   LevelStage,
   PillColor,
@@ -48,13 +48,13 @@ export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
 // -----
 
 /** Equal to `Card.FOOL`. */
-export const FIRST_CARD = Card.FOOL;
+export const FIRST_CARD_TYPE = CardType.FOOL;
 
 /** Calculated from the `Card` enum. */
-export const LAST_VANILLA_CARD = getLastEnumValue(Card);
+export const LAST_VANILLA_CARD_TYPE = getLastEnumValue(CardType);
 
 /** Calculated from the `Card` enum. `Card.NULL` is not included. */
-export const NUM_VANILLA_CARDS = getEnumLength(Card) - 1;
+export const NUM_VANILLA_CARD_TYPES = getEnumLength(CardType) - 1;
 
 // ------------
 // Pill Effects
