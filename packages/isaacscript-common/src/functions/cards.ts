@@ -73,7 +73,8 @@ export function getCardDescription(cardType: CardType): string {
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
   const cardDescription = CARD_DESCRIPTIONS[cardType];
-
+  // Handle modded cards.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (cardDescription !== undefined) {
     return cardDescription;
   }
@@ -95,7 +96,8 @@ export function getCardName(cardType: CardType): string {
   // "ItemConfigCard.Name" is bugged with vanilla cards on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
   const cardName = CARD_NAMES[cardType];
-
+  // Handle modded cards.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (cardName !== undefined) {
     return cardName;
   }
