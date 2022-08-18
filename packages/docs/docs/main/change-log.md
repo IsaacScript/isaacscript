@@ -9,14 +9,14 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## August 18th, 2022 (Unreleased)
+## August 18th, 2022
 
 - The `Card` enum is now renamed to `CardType` in order to be more consistent with the `CollectibleType` and the `TrinketType` enums. Many helper functions have also changed accordingly, like `isVanillaCard` --> `isVanillaCardType`.
 - Added the following helper functions:
   - `removeAllActiveItems`
   - `removeAllPlayerTrinkets`
   - `getPartialMatch`
-  - `isVanillaCard`
+  - `isVanillaCardType`
   - `isVanillaCollectibleType`
   - `isModdedCollectibleType`
   - `isVanillaTrinketType`
@@ -46,8 +46,8 @@ This page lists the changes to the IsaacScript framework.
   - `getLastTrinketType`
   - `getNumTrinketTypes`
   - `getNumModdedTrinketTypes`
-  - `getFirstModdedCard`
-  - `getLastCard`
+  - `getFirstModdedCardType`
+  - `getLastCardType`
   - `getNumCards`
   - `getNumModdedCards`
   - `getFirstModdedPillEffect`
