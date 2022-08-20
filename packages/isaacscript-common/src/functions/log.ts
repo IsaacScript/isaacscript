@@ -1,4 +1,5 @@
 import {
+  CollectibleType,
   DamageFlag,
   EntityFlag,
   GameStateFlag,
@@ -71,6 +72,20 @@ export function log(this: void, msg: string): void {
 export function logArray<T>(this: void, array: T[] | readonly T[]): void {
   const arrayString = arrayToString(array);
   log(`Array: ${arrayString}`);
+}
+
+export function logCollectibleTypes(
+  this: void,
+  collectibleTypes: CollectibleType[],
+): void {
+  log("Collectibles:");
+
+  let i = 1;
+  for (const collectibleType of collectibleTypes) {
+    const collectibleName = getCollectibleName(collectibleType);
+    log(`${i}) ${collectibleName} (${collectibleType})`);
+    i++;
+  }
 }
 
 export function logColor(this: void, color: Color): void {

@@ -12,7 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## August 25th, 2022 (Unreleased)
 
 - Added the following helper functions:
-  - `logCollectibles`
+  - `logCollectibleTypes`
 
 ## August 18th, 2022
 
