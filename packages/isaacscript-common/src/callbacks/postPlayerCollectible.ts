@@ -2,9 +2,15 @@
 // - `POST_PLAYER_COLLECTIBLE_ADDED`
 // - `POST_PLAYER_COLLECTIBLE_REMOVED`
 
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  ActiveSlot,
+  CollectibleType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { saveDataManager } from "../features/saveDataManager/exports";
+import { arrayEquals } from "../functions/array";
+import { getEnumValues } from "../functions/enums";
 import {
   defaultMapGetPlayer,
   mapGetPlayer,
@@ -28,6 +34,10 @@ const v = {
     playersCollectibleMap: new DefaultMap<
       PlayerIndex,
       Map<CollectibleType, int>
+    >(() => new Map()),
+    playersActiveItemMap: new DefaultMap<
+      PlayerIndex,
+      Map<ActiveSlot, CollectibleType>
     >(() => new Map()),
   },
 };
@@ -65,16 +75,17 @@ function postPEffectUpdate(player: EntityPlayer) {
   const difference = newCollectibleCount - oldCollectibleCount;
 
   if (difference > 0) {
-    collectibleCountChanged(player, difference, true);
+    collectibleCountChanged(player, difference);
   } else if (difference < 0) {
-    collectibleCountChanged(player, difference * -1, false);
+    collectibleCountChanged(player, difference * -1);
+  } else if (difference === 0) {
+    checkActiveItemsChanged(player);
   }
 }
 
 function collectibleCountChanged(
   player: EntityPlayer,
   numCollectiblesChanged: int,
-  increased: boolean,
 ) {
   const oldCollectibleMap = defaultMapGetPlayer(
     v.run.playersCollectibleMap,
@@ -83,19 +94,20 @@ function collectibleCountChanged(
   const newCollectibleMap = getPlayerCollectibleMap(player);
   mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
 
-  const collectibleTypes = [
+  const collectibleTypeSet = new Set<CollectibleType>([
     ...oldCollectibleMap.keys(),
     ...newCollectibleMap.keys(),
-  ];
-  collectibleTypes.sort();
+  ]);
 
   let numFired = 0;
-  for (const collectibleType of collectibleTypes) {
+  for (const collectibleType of collectibleTypeSet.values()) {
     const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
     const newNum = newCollectibleMap.get(collectibleType) ?? 0;
-    const difference = Math.abs(newNum - oldNum);
+    const difference = newNum - oldNum;
+    const increased = difference > 0;
+    const absoluteDifference = Math.abs(difference);
 
-    repeat(difference, () => {
+    repeat(absoluteDifference, () => {
       if (increased) {
         postPlayerCollectibleAddedFire(player, collectibleType);
       } else {
@@ -107,5 +119,72 @@ function collectibleCountChanged(
     if (numFired === numCollectiblesChanged) {
       return;
     }
+  }
+}
+
+/**
+ * The special case is when a player swaps their active item for another active item. In this
+ * situation, their overall collectible count will not change. Thus, we explicitly check for this.
+ */
+function checkActiveItemsChanged(player: EntityPlayer) {
+  const activeItemMap = defaultMapGetPlayer(v.run.playersActiveItemMap, player);
+
+  const oldCollectibleTypes: CollectibleType[] = [];
+  const newCollectibleTypes: CollectibleType[] = [];
+
+  for (const activeSlot of getEnumValues(ActiveSlot)) {
+    const oldCollectibleType =
+      activeItemMap.get(activeSlot) ?? CollectibleType.NULL;
+    const newCollectibleType = player.GetActiveItem(activeSlot);
+    activeItemMap.set(activeSlot, newCollectibleType);
+
+    oldCollectibleTypes.push(oldCollectibleType);
+    newCollectibleTypes.push(newCollectibleType);
+  }
+
+  // For example, it is possible for the player to switch Schoolbag items, which will cause the
+  // collectibles in the array to be the same, but in a different order. Thus, sort both arrays
+  // before comparing them.
+  oldCollectibleTypes.sort();
+  newCollectibleTypes.sort();
+
+  if (!arrayEquals(oldCollectibleTypes, newCollectibleTypes)) {
+    const collectibleTypeSet = new Set<CollectibleType>([
+      ...oldCollectibleTypes,
+      ...newCollectibleTypes,
+    ]);
+    activeItemsChanged(player, collectibleTypeSet);
+  }
+}
+
+/**
+ * One or more active items have changed (with the player's total collectible count remaining the
+ * same).
+ */
+function activeItemsChanged(
+  player: EntityPlayer,
+  collectibleTypesSet: Set<CollectibleType>,
+) {
+  const oldCollectibleMap = defaultMapGetPlayer(
+    v.run.playersCollectibleMap,
+    player,
+  );
+  const newCollectibleMap = getPlayerCollectibleMap(player);
+  mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
+
+  for (const collectibleType of collectibleTypesSet.values()) {
+    const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
+    const newNum = newCollectibleMap.get(collectibleType) ?? 0;
+    const difference = newNum - oldNum;
+    const increased = difference > 0;
+    const absoluteDifference = Math.abs(difference);
+
+    repeat(absoluteDifference, () => {
+      if (increased) {
+        postPlayerCollectibleAddedFire(player, collectibleType);
+      } else {
+        postPlayerCollectibleRemovedFire(player, collectibleType);
+      }
+    });
   }
 }
