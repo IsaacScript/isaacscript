@@ -1,4 +1,8 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  ActiveSlot,
+  CollectibleType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -28,6 +32,7 @@ const v = {
       CollectibleType[],
       [player: EntityPlayer]
     >((player: EntityPlayer) => newPlayerInventory(player)),
+    playersActiveItems: new Map<ActiveSlot, CollectibleType>(),
   },
 };
 
