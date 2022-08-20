@@ -40,16 +40,12 @@ function newPlayerInventory(player: EntityPlayer) {
   const inventory: CollectibleType[] = [];
 
   for (const collectibleType of getCollectibleArray()) {
-    // We have to use the `EntityPlayer.HasCollectible` method in addition to the
-    // `EntityPlayer.GetCollectibleNum` method in order to mitigate situations like Lilith's Incubus
-    // counting as a collectible. (The former method will return false for her innate Incubus, but
-    // the latter method will return 1.)
-    if (player.HasCollectible(collectibleType)) {
-      const numCollectibles = player.GetCollectibleNum(collectibleType, true);
-      repeat(numCollectibles, () => {
-        inventory.push(collectibleType);
-      });
-    }
+    // We need to specify "true" as the second argument here to filter out things like Lilith's
+    // Incubus.
+    const numCollectibles = player.GetCollectibleNum(collectibleType, true);
+    repeat(numCollectibles, () => {
+      inventory.push(collectibleType);
+    });
   }
 
   return inventory;

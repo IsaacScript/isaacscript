@@ -128,13 +128,12 @@ function removeItemsAndTrinketsThatAffectItemPools(): [
   for (const player of getPlayers()) {
     const removedItems: CollectibleType[] = [];
     for (const itemToRemove of COLLECTIBLES_THAT_AFFECT_ITEM_POOLS) {
-      if (player.HasCollectible(itemToRemove)) {
-        const numCollectibles = player.GetCollectibleNum(itemToRemove);
-        repeat(numCollectibles, () => {
-          player.RemoveCollectible(itemToRemove);
-          removedItems.push(itemToRemove);
-        });
-      }
+      // We need to include non-real collectibles, like Lilith's Incubus.
+      const numCollectibles = player.GetCollectibleNum(itemToRemove);
+      repeat(numCollectibles, () => {
+        player.RemoveCollectible(itemToRemove);
+        removedItems.push(itemToRemove);
+      });
     }
 
     mapSetPlayer(removedItemsMap, player, removedItems);

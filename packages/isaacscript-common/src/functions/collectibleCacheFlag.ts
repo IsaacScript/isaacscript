@@ -64,7 +64,7 @@ export function getCollectiblesForCacheFlag(
 
 /**
  * Returns an array containing every collectible type that the player has that matches the provided
- * CacheFlag.
+ * `CacheFlag`.
  *
  * For example, if the cache flag is `CacheFlag.FLYING`, and the player has one Lord of the Pit and
  * two Dead Doves, then this function would return:
@@ -77,6 +77,9 @@ export function getCollectiblesForCacheFlag(
  * ]
  * ```
  *
+ * Note that this array will not include collectibles that the player does not really have, like
+ * Lilith's Incubus.
+ *
  * This function can only be called if at least one callback has been executed. This is because not
  * all collectibles will necessarily be present when a mod first loads (due to mod load order).
  */
@@ -88,7 +91,8 @@ export function getPlayerCollectiblesForCacheFlag(
 
   const playerCollectibles: CollectibleType[] = [];
   for (const collectibleType of getSortedSetValues(collectiblesForCacheFlag)) {
-    const numCollectibles = player.GetCollectibleNum(collectibleType);
+    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
+    const numCollectibles = player.GetCollectibleNum(collectibleType, true);
     repeat(numCollectibles, () => {
       playerCollectibles.push(collectibleType);
     });

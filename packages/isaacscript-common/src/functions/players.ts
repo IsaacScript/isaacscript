@@ -223,6 +223,8 @@ export function getPlayerCloserThan(
  * collectible type(s) provided.
  *
  * This function is variadic, meaning that you can specify N collectible types.
+ *
+ * Note that this will filter out non-real collectibles like Lilith's Incubus.
  */
 export function getPlayerCollectibleCount(
   player: EntityPlayer,
@@ -230,6 +232,8 @@ export function getPlayerCollectibleCount(
 ): int {
   let numCollectibles = 0;
   for (const collectibleType of collectibleTypes) {
+    // We need to specify "true" as the second argument here to filter out things like Lilith's
+    // Incubus.
     numCollectibles += player.GetCollectibleNum(collectibleType, true);
   }
 
@@ -239,6 +243,8 @@ export function getPlayerCollectibleCount(
 /**
  * Iterates over every item in the game and returns a map containing the number of each item that
  * the player has.
+ *
+ * Note that this will filter out non-real collectibles like Lilith's Incubus.
  */
 export function getPlayerCollectibleMap(
   player: EntityPlayer,
@@ -247,6 +253,8 @@ export function getPlayerCollectibleMap(
 
   const collectibleMap = new Map<CollectibleType, int>();
   for (const collectibleType of collectibleArray) {
+    // We need to specify "true" as the second argument here to filter out things like Lilith's
+    // Incubus.
     const collectibleNum = player.GetCollectibleNum(collectibleType, true);
     if (collectibleNum > 0) {
       collectibleMap.set(collectibleType, collectibleNum);
@@ -374,14 +382,19 @@ export function getPlayersWithTrinket(
 /**
  * Returns the total number of collectibles amongst all players. For example, if player 1 has 1 Sad
  * Onion and player 2 has 2 Sad Onions, then this function would return 3.
+ *
+ * Note that this will filter out non-real collectibles like Lilith's Incubus.
  */
 export function getTotalPlayerCollectibles(
   collectibleType: CollectibleType,
 ): int {
   const players = getPlayers();
   const numCollectiblesArray = players.map((player) =>
-    player.GetCollectibleNum(collectibleType),
+    // We need to specify "true" as the second argument here to filter out things like Lilith's
+    // Incubus.
+    player.GetCollectibleNum(collectibleType, true),
   );
+
   return sumArray(numCollectiblesArray);
 }
 
