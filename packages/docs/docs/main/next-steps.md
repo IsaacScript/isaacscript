@@ -92,6 +92,6 @@ Remember that because Lua is so similar to TypeScript, you can also download any
 
 <br />
 
-### Discord
+## Discord
 
 The IsaacScript community can help you with any questions that you have. Use the `#help-and-questions` channel of [the Discord server](discord.md).
