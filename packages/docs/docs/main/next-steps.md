@@ -18,7 +18,7 @@ For intermediate to advanced programmers, the Green Candle tutorial should be en
 
 <br />
 
-#### Experienced Isaac Modders
+### Experienced Isaac Modders
 
 For people who already have experience in Isaac modding in Lua, the [Green Candle tutorial](example-mod.md) should be enough to get you familiar with how exactly IsaacScript mods are different from Lua mods. And the [JavaScript tutorial](javascript-tutorial.md) should be enough to get you familiar with the syntax differences between the two languages. (Overall, they are pretty similar.)
 
