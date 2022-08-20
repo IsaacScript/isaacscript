@@ -14,7 +14,7 @@ What to do next probably depends on your skill level.
 
 ### Intermediate & Advanced Programmers
 
-For intermediate to advanced programmers, the Green Candle tutorial should be enough for you to understand the anatomy of an Isaac mod. From here, you can use the [API reference documentation](https://wofsauge.github.io/IsaacDocs/rep/) and the [IsaacScript standard library documentation](/isaacscript-common) to go forth and build whatever it is you want to build, using [the appropriate callbacks](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html).
+For intermediate to advanced programmers, the Green Candle tutorial should be enough for you to understand the anatomy of an Isaac mod. From here, you can use the [API reference documentation](https://wofsauge.github.io/IsaacDocs/rep/) and the [IsaacScript standard library documentation](/isaacscript-common) to go forth and build whatever it is you want to build, using [the appropriate callbacks](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html). (Also check out the [IsaacScript-specific callbacks](/isaacscript-common/other/enums/ModCallbackCustom.md).
 
 <br />
 
