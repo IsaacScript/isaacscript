@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 25th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `logCollectibles`
+
 ## August 18th, 2022
 
 - The `Card` enum is now renamed to `CardType` in order to be more consistent with the `CollectibleType` and the `TrinketType` enums. Many helper functions have also changed accordingly, like `isVanillaCard` --> `isVanillaCardType`.

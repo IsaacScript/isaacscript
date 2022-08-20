@@ -482,38 +482,3 @@ export function logVector(this: void, vector: Vector, round = false): void {
   const vectorString = vectorToString(vector, round);
   log(`Vector: ${vectorString}`);
 }
-
-/**
- * Converts every `isaacscript-common` function that begins with "log" to a global function.
- *
- * This is useful when printing out variables from the in-game debug console.
- */
-export function setLogFunctionsGlobal(): void {
-  const globals = _G as Record<string, unknown>;
-
-  globals["log"] = log;
-  globals["logArray"] = logArray;
-  globals["logColor"] = logColor;
-  globals["logDamageFlags"] = logDamageFlags;
-  globals["logEntityID"] = logEntityID;
-  globals["logEntityFlags"] = logEntityFlags;
-  globals["logError"] = logError;
-  globals["logFlags"] = logFlags;
-  globals["logGameStateFlags"] = logGameStateFlags;
-  globals["logKColor"] = logKColor;
-  globals["logLevelStateFlags"] = logLevelStateFlags;
-  globals["logMap"] = logMap;
-  globals["logPlayerEffects"] = logPlayerEffects;
-  globals["logPlayerHealth"] = logPlayerHealth;
-  globals["logProjectileFlags"] = logProjectileFlags;
-  globals["logRoom"] = logRoom;
-  globals["logSeedEffects"] = logSeedEffects;
-  globals["logSet"] = logSet;
-  globals["logSounds"] = logSounds;
-  globals["logTable"] = logTable;
-  globals["logTableDifferences"] = logTableDifferences;
-  globals["logTearFlags"] = logTearFlags;
-  globals["logUseFlags"] = logUseFlags;
-  globals["logUserdata"] = logUserdata;
-  globals["logVector"] = logVector;
-}
