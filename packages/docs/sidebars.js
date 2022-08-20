@@ -23,6 +23,7 @@ const sidebars = {
       items: [
         "main/javascript-tutorial",
         "main/example-mod",
+        "main/intermediate",
         "main/refactoring-mod",
         "main/using-get-data",
         "main/enums-and-objects",

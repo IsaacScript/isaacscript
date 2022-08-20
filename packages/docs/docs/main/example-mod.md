@@ -329,3 +329,13 @@ function shouldApplyGreenCandleEffectToNPC(npc: EntityNPC) {
   return npc.IsVulnerableEnemy() && getRandomInt(1, 500) === 1;
 }
 ```
+
+You should now know the basic anatomy of an Isaac mod:
+
+- using the `content` folder for merging content additions
+- using the `resources` folder for blowing away vanilla assets and adding new files
+- adding TypeScript code to the `main.ts` file
+- using callbacks such as `POST_GAME_STARTED` and `POST_UPDATE`
+- using the IsaacScript watcher to automatically compile and see your changes in-game
+
+For a recommendation on what to do next, see the [next steps](next-steps.md) page.
