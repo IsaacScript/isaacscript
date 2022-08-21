@@ -10,12 +10,6 @@ import { spawnCustomTrapdoorToDestination } from "./spawn";
  * want to create a custom trapdoor that goes to a vanilla stage instead, use the
  * `spawnCustomTrapdoorToVanilla` helper function.
  *
- * Custom trapdoors can have one or more of the following attributes:
- *
- * - custom destination (or custom logic for after the player enters)
- * - custom graphics
- * - custom logic for opening/closing
- *
  * Under the hood, the custom trapdoor is represented by a decoration grid entity and is manually
  * respawned every time the player re-enters the room.
  *
