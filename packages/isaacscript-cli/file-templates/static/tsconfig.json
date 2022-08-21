@@ -30,7 +30,7 @@
 
       // Uncomment this and recompile the mod to enable crash debugging, which will tell you the
       // exact line of the mod that is causing the crash.
-      // { "name": "isaacscript/src/plugins//addCrashDebugStatements.js" },
+      // { "name": "isaacscript/src/plugins/addCrashDebugStatements.js" },
     ],
     "noHeader": true,
     "noImplicitGlobalVariables": true,
