@@ -6,6 +6,7 @@ import { SaveDataKey } from "../../enums/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/log";
+import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
 import { loadFromDisk } from "./load";
@@ -49,6 +50,8 @@ function postPlayerInit() {
     );
   }
 
+  // We want to only load data once per run to handle the case of a player using Genesis, a second
+  // player joining the run, and so on.
   if (loadedDataOnThisRun) {
     return;
   }
@@ -86,7 +89,19 @@ function preGameExit() {
 
 // ModCallback.POST_NEW_LEVEL (18)
 function postNewLevel() {
+  if (mod === null) {
+    error(
+      `The mod for the ${SAVE_DATA_MANAGER_FEATURE_NAME} was not initialized.`,
+    );
+  }
+
   restoreDefaults(SaveDataKey.LEVEL);
+
+  // We save data to disk at the beginning of every floor (for the 2nd floor and beyond) to emulate
+  // what the game does internally. (This mitigates data loss in the event of a crash).
+  if (!onFirstFloor()) {
+    saveToDisk(mod, saveDataMap, saveDataConditionalFuncMap);
+  }
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_EARLY

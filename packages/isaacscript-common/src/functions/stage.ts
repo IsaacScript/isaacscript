@@ -178,6 +178,19 @@ export function onFinalFloor(): boolean {
   );
 }
 
+/**
+ * Returns whether or not the player is on the first floor of the particular run.
+ *
+ * This is tricky to determine because we have to handle the cases of Downpour/Dross 1 not being the
+ * first floor and The Ascent.
+ */
+export function onFirstFloor(): boolean {
+  const effectiveStage = getEffectiveStage();
+  const isOnAscent = onAscent();
+
+  return effectiveStage === 1 && !isOnAscent;
+}
+
 export function onRepentanceStage(): boolean {
   const level = game.GetLevel();
   const stageType = level.GetStageType();
