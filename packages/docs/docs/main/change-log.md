@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## August 25th, 2022 (Unreleased)
 
+- TSTL plugins are now compiled and located inside of the `isaacscript` package. See the new [`tsconfig.json` template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/tsconfig.json) for more information. This means that you no longer have to have a dependency of `@types/node` or `ts-node` in your mods.
 - Added the following helper functions:
   - `logCollectibleTypes`
   - `onFirstFloor`
