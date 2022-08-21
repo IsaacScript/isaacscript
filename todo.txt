@@ -1,6 +1,3 @@
-- add/remove collectible active items
-- genesis on inventory
-
 - make TSTL plugins inside npm
 
 - Lint:
