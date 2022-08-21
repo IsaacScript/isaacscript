@@ -76,7 +76,7 @@ local function setBlindfold(player, enabled)
 end
 ```
 
-As you can see, besides some shenanigans with Lua using colons, and having to include the types inside of the function declaration, the code is almost identical. For this reason, you can easily use any Isaac modding tutorial that is made for Lua and then apply it in IsaacScript. Coding in IsaacScript has the advantage of type safety - you get a red squiggly line in your editor when you make a typo.
+As you can see, besides some shenanigans with Lua using colons, and having to include the types inside of the function declaration, the code is almost identical. For this reason, you can pretty easily use any Isaac modding tutorial that is made for Lua and then apply it in IsaacScript. Coding in IsaacScript has the advantage of type safety - you get a red squiggly line in your editor when you make a typo.
 
 With that said, if you are brand new to coding, you might want to make things easier on yourself by switching to Lua. That way, you can follow along exactly with what the tutorial is doing without having to worry about converting code back and forth between Lua and TypeScript. You can always come back to TypeScript later on once you have a better grasp on modding in Lua.
 
