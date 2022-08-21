@@ -1,4 +1,4 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import { DefaultMap } from "../classes/DefaultMap";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -9,13 +9,7 @@ import {
   getLastElement,
 } from "../functions/array";
 import { isActiveCollectible } from "../functions/collectibles";
-import { getCollectibleArray } from "../functions/collectibleSet";
-import {
-  defaultMapGetPlayer,
-  mapSetPlayer,
-} from "../functions/playerDataStructures";
-import { getAllPlayers, getPlayerIndex } from "../functions/playerIndex";
-import { repeat } from "../functions/utils";
+import { defaultMapGetPlayer } from "../functions/playerDataStructures";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { saveDataManager } from "./saveDataManager/exports";
 
@@ -27,36 +21,14 @@ const v = {
       PlayerIndex,
       CollectibleType[],
       [player: EntityPlayer]
-    >((player: EntityPlayer) => newPlayerInventory(player)),
+    >(() => []),
   },
 };
-
-function newPlayerInventory(player: EntityPlayer) {
-  const inventory: CollectibleType[] = [];
-
-  for (const collectibleType of getCollectibleArray()) {
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
-    const numCollectibles = player.GetCollectibleNum(collectibleType, true);
-    repeat(numCollectibles, () => {
-      inventory.push(collectibleType);
-    });
-  }
-
-  return inventory;
-}
-
-function resetInventory(player: EntityPlayer) {
-  const inventory = newPlayerInventory(player);
-  mapSetPlayer(v.run.playersInventory, player, inventory);
-}
 
 /** @internal */
 export function playerInventoryInit(mod: ModUpgraded): void {
   saveDataManager(FEATURE_NAME, v);
 
-  mod.AddCallback(ModCallback.POST_USE_ITEM, useItemD4, CollectibleType.D4); // 3
-  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
     postCollectibleAdded,
@@ -65,33 +37,6 @@ export function playerInventoryInit(mod: ModUpgraded): void {
     ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED,
     postCollectibleRemoved,
   );
-}
-
-// ModCallback.POST_USE_ITEM (3)
-// CollectibleType.D4 (284)
-function useItemD4(
-  _collectibleType: CollectibleType,
-  _rng: RNG,
-  player: EntityPlayer,
-): boolean | undefined {
-  // This function is also triggered when the player uses D100, D Infinity, a 1-pip dice room, or a
-  // 6-pip dice room. (Genesis should be automatically handled by the
-  // `POST_PLAYER_COLLECTIBLE_REMOVED` callback.)
-  resetInventory(player);
-
-  return undefined;
-}
-
-// ModCallback.POST_GAME_STARTED (15)
-function postGameStarted() {
-  // We don't use the `POST_PLAYER_INIT` callback because some items are not given to the player at
-  // that point.
-  for (const player of getAllPlayers()) {
-    const playerIndex = getPlayerIndex(player);
-    if (!v.run.playersInventory.has(playerIndex)) {
-      resetInventory(player);
-    }
-  }
 }
 
 // ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED
@@ -140,12 +85,11 @@ export function getPlayerInventory(
 
   const inventory = defaultMapGetPlayer(v.run.playersInventory, player, player);
 
-  const copiedInventory = copyArray(inventory);
   if (includeActiveCollectibles) {
-    return copiedInventory;
+    return copyArray(inventory);
   }
 
-  return copiedInventory.filter(
+  return inventory.filter(
     (collectibleType) => !isActiveCollectible(collectibleType),
   );
 }

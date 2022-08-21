@@ -959,7 +959,8 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is higher than
-   * what it was on the previous frame or when a new active collectible is acquired.
+   * what it was on the previous frame, or when the active items change, or when the build is
+   * rerolled.
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if the collectible matches the `CollectibleType` provided.
@@ -975,7 +976,8 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is lower than
-   * what it was on the previous frame or when an active collectible is no longer present.
+   * what it was on the previous frame, or when the active items change, or when the build is
+   * rerolled.
    *
    * When registering the callback, takes an optional second argument that will make the callback
    * only fire if the collectible matches the `CollectibleType` provided.
