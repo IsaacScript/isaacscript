@@ -1,6 +1,3 @@
-- make TSTL plugins inside npm
-  - https://github.com/shughes-uk/PipeWrench-Compiler
-
 - Lint:
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
   - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
