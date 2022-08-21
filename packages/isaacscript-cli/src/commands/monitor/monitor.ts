@@ -27,13 +27,11 @@ import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
 
 const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
-  "@types/node",
   "isaac-typescript-definitions",
   "isaacscript",
   // - "isaacscript-common" is not required.
   // - "isaacscript-lint" is not required.
   // - "isaacscript-spell" is not required.
-  "ts-node",
   "typescript",
   "typescript-to-lua",
 ];

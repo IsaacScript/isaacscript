@@ -23,14 +23,14 @@
     "luaBundleEntry": "./src/main.ts",
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file.
-      { "name": "./plugins/addIsaacScriptCommentHeader.ts" },
+      { "name": "isaacscript/src/plugins/addIsaacScriptCommentHeader.js" },
 
       // A plugin to make enums safe from global variables.
-      { "name": "./plugins/noExtendedEnums.ts" },
+      { "name": "isaacscript/src/plugins/noExtendedEnums.ts" },
 
       // Uncomment this and recompile the mod to enable crash debugging, which will tell you the
       // exact line of the mod that is causing the crash.
-      // { "name": "./plugins/addCrashDebugStatements.ts" },
+      // { "name": "isaacscript/src/plugins//addCrashDebugStatements.js" },
     ],
     "noHeader": true,
     "noImplicitGlobalVariables": true,
