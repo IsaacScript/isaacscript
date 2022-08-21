@@ -26,7 +26,7 @@
       { "name": "isaacscript/src/plugins/addIsaacScriptCommentHeader.js" },
 
       // A plugin to make enums safe from global variables.
-      { "name": "isaacscript/src/plugins/noExtendedEnums.ts" },
+      { "name": "isaacscript/src/plugins/noExtendedEnums.js" },
 
       // Uncomment this and recompile the mod to enable crash debugging, which will tell you the
       // exact line of the mod that is causing the crash.
