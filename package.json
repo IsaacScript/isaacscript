@@ -18,9 +18,9 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "^5.33.1",
-    "@typescript-eslint/types": "^5.33.1",
-    "@typescript-eslint/utils": "^5.33.1",
+    "@typescript-eslint/type-utils": "^5.34.0",
+    "@typescript-eslint/types": "^5.34.0",
+    "@typescript-eslint/utils": "^5.34.0",
     "ajv": "^8.11.0",
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
@@ -73,8 +73,8 @@
     "@types/update-notifier": "5.1.0",
     "@types/xml2js": "^0.4.11",
     "@types/yargs": "^17.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "@typescript-eslint/parser": "^5.33.1",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/parser": "^5.34.0",
     "@zamiell/typedoc-plugin-not-exported": "^0.2.0",
     "clsx": "^1.2.1",
     "cspell": "^6.8.0",
