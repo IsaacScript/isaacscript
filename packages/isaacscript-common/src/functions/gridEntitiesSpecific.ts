@@ -174,6 +174,21 @@ export function getTNT(variant = -1): GridEntityTNT[] {
 }
 
 /**
+ * Helper function to get all of the grid entities of type `GridEntityType.TELEPORTER` (23) in the
+ * room.
+ *
+ * @param variant Optional. If specified, will only get the teleporters that match the variant.
+ *                Default is -1, which matches every variant.
+ */
+export function getTeleporters(variant = -1): GridEntity[] {
+  if (variant === -1) {
+    return getGridEntities(GridEntityType.TELEPORTER);
+  }
+
+  return getMatchingGridEntities(GridEntityType.TELEPORTER, variant);
+}
+
+/**
  * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` (17) in the
  * room. Specify a specific trapdoor variant to select only trapdoors of that variant.
  */
@@ -331,6 +346,26 @@ export function removeAllTNT(
 ): GridEntityTNT[] {
   const tnt = getTNT(variant);
   return removeGridEntities(tnt, updateRoom, cap);
+}
+
+/**
+ * Helper function to remove all of the `GridEntityType.TELEPORTER` (23) in the room.
+ *
+ * @param variant Optional. If specified, will only remove the teleporters that match this variant.
+ *                Default is -1, which matches every variant.
+ * @param updateRoom Optional. Whether or not to update the room after the teleporters are removed.
+ *                   Default is false. For more information, see the description of the
+ *                   `removeGridEntities` helper function.
+ * @param cap Optional. If specified, will only remove the given amount of teleporters.
+ * @returns The teleporters that were removed.
+ */
+export function removeAllTeleporters(
+  variant = -1,
+  updateRoom = false,
+  cap?: int,
+): GridEntity[] {
+  const teleporters = getTeleporters(variant);
+  return removeGridEntities(teleporters, updateRoom, cap);
 }
 
 /**
@@ -582,6 +617,25 @@ export function spawnTNTWithVariant(
   }
 
   return tnt;
+}
+
+/** Helper function to spawn a `GridEntityType.TELEPORTER` (23). */
+export function spawnTeleporter(
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnTeleporterWithVariant(0, gridIndexOrPosition);
+}
+
+/** Helper function to spawn a `GridEntityType.TELEPORTER` (23) with a specific variant. */
+export function spawnTeleporterWithVariant(
+  variant: int,
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnGridEntityWithVariant(
+    GridEntityType.TELEPORTER,
+    variant,
+    gridIndexOrPosition,
+  );
 }
 
 /** Helper function to spawn a `GridEntityType.TRAPDOOR` (17). */

@@ -26,10 +26,12 @@ export function getRedHearts(): EntityPickupHeart[] {
   return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
 }
 
+/** Helper function to test if the provided pickup matches one of the various chest variants. */
 export function isChest(pickup: EntityPickup): boolean {
   return CHEST_PICKUP_VARIANTS.has(pickup.Variant);
 }
 
+/** Helper function to test if the provided pickup matches on of the various red heart sub types. */
 export function isRedHeart(pickup: EntityPickup): boolean {
   return isHeart(pickup) && RED_HEART_SUB_TYPES_SET.has(pickup.SubType);
 }
