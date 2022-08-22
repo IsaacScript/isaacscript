@@ -1249,7 +1249,7 @@ export function sounds(): void {
  */
 export function spam(): void {
   v.run.spamBloodRights = !v.run.spamBloodRights;
-  printEnabled(v.run.maxSpeed, "spamming Blood Rights");
+  printEnabled(v.run.spamBloodRights, "spamming Blood Rights");
 }
 
 /** Spawns a golden version of the specified trinket type. */
