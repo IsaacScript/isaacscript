@@ -26,7 +26,7 @@ export enum RockState {
   HALF_BROKEN = 4,
 }
 
-/** For `GridEntityType.PIT` (7) */
+/** For `GridEntityType.PIT` (7). */
 export enum PitState {
   NORMAL = 0,
 
@@ -38,19 +38,19 @@ export enum PitState {
   FILLED = 1,
 }
 
-/** For `GridEntityType.SPIKES_ON_OFF` (9) */
+/** For `GridEntityType.SPIKES_ON_OFF` (9). */
 export enum SpikesOnOffState {
   ON = 0,
   OFF = 1,
 }
 
-/** For `GridEntityType.SPIDERWEB` (10) */
+/** For `GridEntityType.SPIDERWEB` (10). */
 export enum SpiderWebState {
   UNBROKEN = 0,
   BROKEN = 1,
 }
 
-/** For `GridEntityType.LOCK` (11) */
+/** For `GridEntityType.LOCK` (11). */
 export enum LockState {
   LOCKED = 0,
 
@@ -63,7 +63,7 @@ export enum LockState {
 }
 
 /**
- * For `GridEntityType.TNT` (12)
+ * For `GridEntityType.TNT` (12).
  *
  * The health of a TNT barrel is represented by its state. It starts at 0 and climbs upwards in
  * increments of 1. Once the state reaches 4, the barrel explodes, and remains at state 4.
@@ -81,7 +81,7 @@ export enum TNTState {
 }
 
 /**
- * For `GridEntityType.POOP` (14)
+ * For `GridEntityType.POOP` (14).
  *
  * The health of a poop is represented by its state. It starts at 0 and climbs upwards in increments
  * of 250. Once the state reaches 1000, the poop is completely broken.
@@ -100,7 +100,7 @@ export enum PoopState {
   COMPLETELY_DESTROYED = 1000,
 }
 
-/** For `GridEntityType.DOOR` (16) */
+/** For `GridEntityType.DOOR` (16). */
 export enum DoorState {
   INIT = 0,
   CLOSED = 1,
@@ -109,19 +109,19 @@ export enum DoorState {
   HALF_CRACKED = 4,
 }
 
-/** For `GridEntityType.TRAPDOOR` (17) */
+/** For `GridEntityType.TRAPDOOR` (17). */
 export enum TrapdoorState {
   CLOSED = 0,
   OPEN = 1,
 }
 
-/** For `GridEntityType.CRAWL_SPACE` (18) */
+/** For `GridEntityType.CRAWL_SPACE` (18). */
 export enum CrawlSpaceState {
   CLOSED = 0,
   OPEN = 1,
 }
 
-/** For `GridEntityType.PRESSURE_PLATE` (20) */
+/** For `GridEntityType.PRESSURE_PLATE` (20). */
 export enum PressurePlateState {
   UNPRESSED = 0,
   STATE_1_UNKNOWN = 1,
@@ -130,10 +130,11 @@ export enum PressurePlateState {
   REWARD_PLATE_PRESSED = 4,
 }
 
-/** For `GridEntityType.TELEPORTER` (23) */
+/** For `GridEntityType.TELEPORTER` (23). */
 export enum TeleporterState {
   NORMAL = 0,
   ACTIVATED = 1,
+
   /**
    * Set when a player stands on a teleport pad that has no corresponding pad for the player to be
    * sent to. When this happens, the pad turns black and deactivates.

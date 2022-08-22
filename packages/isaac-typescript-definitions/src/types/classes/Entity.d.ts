@@ -162,7 +162,7 @@ declare global {
     Visible: boolean;
   }
 
-  /** For `EntityType.SLOT` (6) */
+  /** For `EntityType.SLOT` (6). */
   interface EntitySlot extends Entity {
     Type: EntityType.SLOT;
     Variant: SlotVariant;

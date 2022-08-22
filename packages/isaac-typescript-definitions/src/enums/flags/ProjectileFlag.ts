@@ -1,5 +1,5 @@
 /**
- * For `EntityType.PROJECTILE` (9)
+ * For `EntityType.PROJECTILE` (9).
  *
  * This enum was renamed from "ProjectileFlags" to be consistent with the other flag enums.
  *

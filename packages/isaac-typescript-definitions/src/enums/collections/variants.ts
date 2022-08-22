@@ -1,13 +1,13 @@
 /* eslint-disable sort-exports/sort-exports */
 
-/** For `EntityType.PLAYER` (1) */
+/** For `EntityType.PLAYER` (1). */
 export enum PlayerVariant {
   PLAYER = 0,
   COOP_BABY = 1,
 }
 
 /**
- * For `EntityType.TEAR` (2)
+ * For `EntityType.TEAR` (2).
  *
  * Generally, the `TearVariant` affects the graphics of the tear, while the `TearFlag` affects the
  * gameplay mechanic. For example, the Euthanasia collectible grants a chance for needle tears that
@@ -77,7 +77,7 @@ export enum TearVariant {
   TECH_SWORD_BEAM = 49,
 }
 
-/** For `EntityType.FAMILIAR` (3) */
+/** For `EntityType.FAMILIAR` (3). */
 export enum FamiliarVariant {
   FAMILIAR_NULL = 0,
   BROTHER_BOBBY = 1,
@@ -245,7 +245,7 @@ export enum FamiliarVariant {
   FORGOTTEN_BODY = 900,
 }
 
-/** For `EntityType.BOMB` (4) */
+/** For `EntityType.BOMB` (4). */
 export enum BombVariant {
   NORMAL = 0,
 
@@ -291,7 +291,7 @@ export enum BombVariant {
   ROCKET_GIGA = 20,
 }
 
-/** For `EntityType.PICKUP` (5) */
+/** For `EntityType.PICKUP` (5). */
 export enum PickupVariant {
   NULL = 0,
   HEART = 10,
@@ -328,7 +328,7 @@ export enum PickupVariant {
   MOMS_CHEST = 390,
 }
 
-/** For `EntityType.SLOT` (6) */
+/** For `EntityType.SLOT` (6). */
 export enum SlotVariant {
   SLOT_MACHINE = 1,
   BLOOD_DONATION_MACHINE = 2,
@@ -350,7 +350,7 @@ export enum SlotVariant {
   ROTTEN_BEGGAR = 18,
 }
 
-/** For `EntityType.LASER` (7) */
+/** For `EntityType.LASER` (7). */
 export enum LaserVariant {
   /** Used for Brimstone. */
   THICK_RED = 1,
@@ -383,7 +383,7 @@ export enum LaserVariant {
   GIANT_BRIMSTONE_TECHNOLOGY = 15,
 }
 
-/** For `EntityType.KNIFE` (8) */
+/** For `EntityType.KNIFE` (8). */
 export enum KnifeVariant {
   MOMS_KNIFE = 8,
   BONE_CLUB = 1,
@@ -396,7 +396,7 @@ export enum KnifeVariant {
   TECH_SWORD = 11,
 }
 
-/** For `EntityType.PROJECTILE` (9) */
+/** For `EntityType.PROJECTILE` (9). */
 export enum ProjectileVariant {
   NORMAL = 0,
   BONE = 1,
@@ -417,7 +417,7 @@ export enum ProjectileVariant {
   PEEP = 16,
 }
 
-/** For `EntityType.GAPER` (10) */
+/** For `EntityType.GAPER` (10). */
 export enum GaperVariant {
   FROWNING_GAPER = 0,
   GAPER = 1,
@@ -425,20 +425,20 @@ export enum GaperVariant {
   ROTTEN_GAPER = 3,
 }
 
-/** For `EntityType.GUSHER` (11) */
+/** For `EntityType.GUSHER` (11). */
 export enum GusherVariant {
   GUSHER = 0,
   PACER = 1,
 }
 
-/** For `EntityType.POOTER` (14) */
+/** For `EntityType.POOTER` (14). */
 export enum PooterVariant {
   POOTER = 0,
   SUPER_POOTER = 1,
   TAINTED_POOTER = 2,
 }
 
-/** For `EntityType.CLOTTY` (15) */
+/** For `EntityType.CLOTTY` (15). */
 export enum ClottyVariant {
   CLOTTY = 0,
   CLOT = 1,
@@ -446,14 +446,14 @@ export enum ClottyVariant {
   GRILLED_CLOTTY = 3,
 }
 
-/** For `EntityType.MULLIGAN` (16) */
+/** For `EntityType.MULLIGAN` (16). */
 export enum MulliganVariant {
   MULLIGAN = 16,
   MULLIGOON = 1,
   MULLIBOOM = 2,
 }
 
-/** For `EntityType.SHOPKEEPER` (17) */
+/** For `EntityType.SHOPKEEPER` (17). */
 export enum ShopkeeperVariant {
   SHOPKEEPER = 0,
   SECRET_ROOM_KEEPER = 1,
@@ -462,7 +462,7 @@ export enum ShopkeeperVariant {
   SPECIAL_SECRET_ROOM_KEEPER = 4,
 }
 
-/** For `EntityType.LARRY_JR` (19) */
+/** For `EntityType.LARRY_JR` (19). */
 export enum LarryJrVariant {
   LARRY_JR = 0,
   THE_HOLLOW = 1,
@@ -470,7 +470,7 @@ export enum LarryJrVariant {
   THE_SHELL = 3,
 }
 
-/** For `EntityType.HIVE` (22) */
+/** For `EntityType.HIVE` (22). */
 export enum HiveVariant {
   HIVE = 0,
   DROWNED_HIVE = 1,
@@ -478,7 +478,7 @@ export enum HiveVariant {
   TAINTED_MULLIGAN = 3,
 }
 
-/** For `EntityType.CHARGER` (23) */
+/** For `EntityType.CHARGER` (23). */
 export enum ChargerVariant {
   CHARGER = 0,
   DROWNED_CHARGER = 1,
@@ -486,7 +486,7 @@ export enum ChargerVariant {
   CARRION_PRINCESS = 3,
 }
 
-/** For `EntityType.GLOBIN` (24) */
+/** For `EntityType.GLOBIN` (24). */
 export enum GlobinVariant {
   GLOBIN = 0,
   GAZING_GLOBIN = 1,
@@ -494,7 +494,7 @@ export enum GlobinVariant {
   CURSED_GLOBIN = 3,
 }
 
-/** For `EntityType.BOOM_FLY` (25) */
+/** For `EntityType.BOOM_FLY` (25). */
 export enum BoomFlyVariant {
   BOOM_FLY = 0,
   RED_BOOM_FLY = 1,
@@ -505,28 +505,28 @@ export enum BoomFlyVariant {
   TAINTED_BOOM_FLY = 6,
 }
 
-/** For `EntityType.MAW` (26) */
+/** For `EntityType.MAW` (26). */
 export enum MawVariant {
   MAW = 0,
   RED_MAW = 1,
   PSYCHIC_MAW = 2,
 }
 
-/** For `EntityType.HOST` (27) */
+/** For `EntityType.HOST` (27). */
 export enum HostVariant {
   HOST = 0,
   RED_HOST = 1,
   HARD_HOST = 2,
 }
 
-/** For `EntityType.CHUB` (28) */
+/** For `EntityType.CHUB` (28). */
 export enum ChubVariant {
   CHUB = 0,
   CHAD = 1,
   CARRION_QUEEN = 2,
 }
 
-/** For `EntityType.HOPPER` (29) */
+/** For `EntityType.HOPPER` (29). */
 export enum HopperVariant {
   HOPPER = 0,
   TRITE = 1,
@@ -534,20 +534,25 @@ export enum HopperVariant {
   TAINTED_HOPPER = 3,
 }
 
-/** For `EntityType.BOIL` (30) */
+/** For `EntityType.BOIL` (30). */
 export enum BoilVariant {
   BOIL = 0,
   GUT = 1,
   SACK = 2,
 }
 
-/** For `EntityType.SPITTY` (31) */
+/** For `EntityType.SPITTY` (31). */
 export enum SpittyVariant {
   SPITTY = 0,
   TAINTED_SPITTY = 1,
 }
 
-/** For `EntityType.FIREPLACE` (33) */
+/**
+ * For `EntityType.FIREPLACE` (33).
+ *
+ * Also see the `FireplaceGridEntityVariant` enum, which is different and used for the grid entity
+ * version.
+ */
 export enum FireplaceVariant {
   NORMAL = 0,
   RED = 1,
@@ -560,13 +565,13 @@ export enum FireplaceVariant {
   MOVEABLE_PURPLE = 13,
 }
 
-/** For `EntityType.LEAPER` (34) */
+/** For `EntityType.LEAPER` (34). */
 export enum LeaperVariant {
   LEAPER = 0,
   STICKY_LEAPER = 1,
 }
 
-/** For `EntityType.MR_MAW` (35) */
+/** For `EntityType.MR_MAW` (35). */
 export enum MrMawVariant {
   MR_MAW = 0,
   MR_MAW_HEAD = 1,
@@ -575,7 +580,7 @@ export enum MrMawVariant {
   MR_MAW_NECK = 10,
 }
 
-/** For `EntityType.BABY` (38) */
+/** For `EntityType.BABY` (38). */
 export enum BabyVariant {
   BABY = 0,
   ANGELIC_BABY = 1,
@@ -583,7 +588,7 @@ export enum BabyVariant {
   WRINKLY_BABY = 3,
 }
 
-/** For `EntityType.VIS` (39) */
+/** For `EntityType.VIS` (39). */
 export enum VisVariant {
   VIS = 0,
   DOUBLE_VIS = 1,
@@ -592,14 +597,14 @@ export enum VisVariant {
   CHUBBER_PROJECTILE = 22,
 }
 
-/** For `EntityType.GUTS` (40) */
+/** For `EntityType.GUTS` (40). */
 export enum GutsVariant {
   GUTS = 0,
   SCARRED_GUTS = 1,
   SLOG = 2,
 }
 
-/** For `EntityType.KNIGHT` (41) */
+/** For `EntityType.KNIGHT` (41). */
 export enum KnightVariant {
   KNIGHT = 0,
   SELFLESS_KNIGHT = 1,
@@ -608,63 +613,63 @@ export enum KnightVariant {
   BLACK_KNIGHT = 4,
 }
 
-/** For `EntityType.GRIMACE` (42) */
+/** For `EntityType.GRIMACE` (42). */
 export enum GrimaceVariant {
   STONE_GRIMACE = 0,
   VOMIT_GRIMACE = 1,
   TRIPLE_GRIMACE = 2,
 }
 
-/** For `EntityType.MONSTRO_2` (43) */
+/** For `EntityType.MONSTRO_2` (43). */
 export enum Monstro2Variant {
   MONSTRO_2 = 0,
   GISH = 1,
 }
 
-/** For `EntityType.POKY` (44) */
+/** For `EntityType.POKY` (44). */
 export enum PokyVariant {
   POKY = 0,
   SLIDE = 1,
 }
 
-/** For `EntityType.MOM` (45) */
+/** For `EntityType.MOM` (45). */
 export enum MomVariant {
   MOM = 0,
   STOMP = 10,
 }
 
-/** For `EntityType.SLOTH` (46) */
+/** For `EntityType.SLOTH` (46). */
 export enum SlothVariant {
   SLOTH = 0,
   SUPER_SLOTH = 1,
   ULTRA_PRIDE = 2,
 }
 
-/** For `EntityType.LUST` (47) */
+/** For `EntityType.LUST` (47). */
 export enum LustVariant {
   LUST = 0,
   SUPER_LUST = 1,
 }
 
-/** For `EntityType.WRATH` (48) */
+/** For `EntityType.WRATH` (48). */
 export enum WrathVariant {
   WRATH = 0,
   SUPER_WRATH = 1,
 }
 
-/** For `EntityType.GLUTTONY` (49) */
+/** For `EntityType.GLUTTONY` (49). */
 export enum GluttonyVariant {
   GLUTTONY = 0,
   SUPER_GLUTTONY = 1,
 }
 
-/** For `EntityType.GREED` (50) */
+/** For `EntityType.GREED` (50). */
 export enum GreedVariant {
   GREED = 0,
   SUPER_GREED = 1,
 }
 
-/** For `EntityType.ENVY` (51) */
+/** For `EntityType.ENVY` (51). */
 export enum EnvyVariant {
   ENVY = 0,
   SUPER_ENVY = 1,
@@ -676,46 +681,46 @@ export enum EnvyVariant {
   SUPER_ENVY_SMALL = 31,
 }
 
-/** For `EntityType.PRIDE` (52) */
+/** For `EntityType.PRIDE` (52). */
 export enum PrideVariant {
   PRIDE = 0,
   SUPER_PRIDE = 1,
 }
 
-/** For `EntityType.DOPLE` (53) */
+/** For `EntityType.DOPLE` (53). */
 export enum DopleVariant {
   DOPLE = 0,
   EVIL_TWIN = 1,
 }
 
-/** For `EntityType.LEECH` (55) */
+/** For `EntityType.LEECH` (55). */
 export enum LeechVariant {
   LEECH = 0,
   KAMIKAZE_LEECH = 1,
   HOLY_LEECH = 2,
 }
 
-/** For `EntityType.MEMBRAIN` (57) */
+/** For `EntityType.MEMBRAIN` (57). */
 export enum MemBrainVariant {
   MEMBRAIN = 0,
   MAMA_GUTS = 1,
   DEAD_MEAT = 2,
 }
 
-/** For `EntityType.PARA_BITE` (58) */
+/** For `EntityType.PARA_BITE` (58). */
 export enum ParaBiteVariant {
   PARA_BITE = 0,
   SCARRED_PARA_BITE = 1,
 }
 
-/** For `EntityType.EYE` (60) */
+/** For `EntityType.EYE` (60). */
 export enum EyeVariant {
   EYE = 0,
   BLOODSHOT_EYE = 1,
   HOLY_EYE = 2,
 }
 
-/** For `EntityType.SUCKER` (61) */
+/** For `EntityType.SUCKER` (61). */
 export enum SuckerVariant {
   SUCKER = 0,
   SPIT = 1,
@@ -727,7 +732,7 @@ export enum SuckerVariant {
   TAINTED_SUCKER = 7,
 }
 
-/** For `EntityType.PIN` (62) */
+/** For `EntityType.PIN` (62). */
 export enum PinVariant {
   PIN = 0,
   SCOLEX = 1,
@@ -735,14 +740,14 @@ export enum PinVariant {
   WORMWOOD = 3,
 }
 
-/** For `EntityType.WAR` (65) */
+/** For `EntityType.WAR` (65). */
 export enum WarVariant {
   WAR = 0,
   CONQUEST = 1,
   WAR_WITHOUT_HORSE = 2,
 }
 
-/** For `EntityType.DEATH` (66) */
+/** For `EntityType.DEATH` (66). */
 export enum DeathVariant {
   DEATH = 0,
   DEATH_SCYTHE = 10,
@@ -750,13 +755,13 @@ export enum DeathVariant {
   DEATH_WITHOUT_HORSE = 30,
 }
 
-/** For `EntityType.DUKE` (67) */
+/** For `EntityType.DUKE` (67). */
 export enum DukeVariant {
   DUKE_OF_FLIES = 0,
   THE_HUSK = 1,
 }
 
-/** For `EntityType.PEEP` (68) */
+/** For `EntityType.PEEP` (68). */
 export enum PeepVariant {
   PEEP = 0,
   BLOAT = 1,
@@ -764,7 +769,7 @@ export enum PeepVariant {
   BLOAT_EYE = 11,
 }
 
-/** For `EntityType.LOKI` (69) */
+/** For `EntityType.LOKI` (69). */
 export enum LokiVariant {
   LOKI = 0,
   LOKII = 1,
@@ -781,14 +786,14 @@ export enum FistulaVariant {
   TERATOMA = 1,
 }
 
-/** For `EntityType.MOMS_HEART` (78) */
+/** For `EntityType.MOMS_HEART` (78). */
 export enum MomsHeartVariant {
   MOMS_HEART = 0,
   IT_LIVES = 1,
   MOMS_GUTS = 2,
 }
 
-/** For `EntityType.GEMINI` (79) */
+/** For `EntityType.GEMINI` (79). */
 export enum GeminiVariant {
   GEMINI = 0,
   STEVEN = 1,
@@ -799,88 +804,88 @@ export enum GeminiVariant {
   UMBILICAL_CORD = 20,
 }
 
-/** For `EntityType.FALLEN` (81) */
+/** For `EntityType.FALLEN` (81). */
 export enum FallenVariant {
   FALLEN = 0,
   KRAMPUS = 1,
 }
 
-/** For `EntityType.SATAN` (84) */
+/** For `EntityType.SATAN` (84). */
 export enum SatanVariant {
   SATAN = 0,
   STOMP = 10,
 }
 
-/** For `EntityType.GURGLE` (87) */
+/** For `EntityType.GURGLE` (87). */
 export enum GurgleVariant {
   GURGLE = 0,
   CRACKLE = 1,
 }
 
-/** For `EntityType.WALKING_BOIL` (88) */
+/** For `EntityType.WALKING_BOIL` (88). */
 export enum WalkingBoilVariant {
   WALKING_BOIL = 0,
   WALKING_GUT = 1,
   WALKING_SACK = 2,
 }
 
-/** For `EntityType.HEART` (92) */
+/** For `EntityType.HEART` (92). */
 export enum HeartVariant {
   HEART = 0,
   HALF_HEART = 1,
 }
 
-/** For `EntityType.MASK` (93) */
+/** For `EntityType.MASK` (93). */
 export enum MaskVariant {
   MASK = 0,
   MASK_2 = 1,
 }
 
-/** For `EntityType.WIDOW` (100) */
+/** For `EntityType.WIDOW` (100). */
 export enum WidowVariant {
   WIDOW = 0,
   THE_WRETCHED = 1,
 }
 
-/** For `EntityType.DADDY_LONG_LEGS` (101) */
+/** For `EntityType.DADDY_LONG_LEGS` (101). */
 export enum DaddyLongLegsVariant {
   DADDY_LONG_LEGS = 0,
   TRIACHNID = 1,
 }
-/** For `EntityType.ISAAC` (102) */
+/** For `EntityType.ISAAC` (102). */
 export enum IsaacVariant {
   ISAAC = 0,
   BLUE_BABY = 1,
   BLUE_BABY_HUSH = 2,
 }
 
-/** For `EntityType.CONSTANT_STONE_SHOOTER` (202) */
+/** For `EntityType.CONSTANT_STONE_SHOOTER` (202). */
 export enum ConstantStoneShooterVariant {
   CONSTANT_STONE_SHOOTER = 0,
   CROSS_STONE_SHOOTER = 10,
   CROSS_STONE_SHOOTER_ALWAYS_ON = 11,
 }
 
-/** For `EntityType.BABY_LONG_LEGS` (206) */
+/** For `EntityType.BABY_LONG_LEGS` (206). */
 export enum BabyLongLegsVariant {
   BABY_LONG_LEGS = 0,
   SMALL_BABY_LONG_LEGS = 1,
 }
 
-/** For `EntityType.CRAZY_LONG_LEGS` (207) */
+/** For `EntityType.CRAZY_LONG_LEGS` (207). */
 export enum CrazyLongLegsVariant {
   CRAZY_LONG_LEGS = 0,
   SMALL_CRAZY_LONG_LEGS = 1,
 }
 
-/** For `EntityType.FATTY` (208) */
+/** For `EntityType.FATTY` (208). */
 export enum FattyVariant {
   FATTY = 0,
   PALE_FATTY = 1,
   FLAMING_FATTY = 2,
 }
 
-/** For `EntityType.DEATHS_HEAD` (212) */
+/** For `EntityType.DEATHS_HEAD` (212). */
 export enum DeathsHeadVariant {
   DEATHS_HEAD = 0,
   /**
@@ -893,14 +898,14 @@ export enum DeathsHeadVariant {
   RED_SKULL = 4,
 }
 
-/** For `EntityType.SWINGER` (216) */
+/** For `EntityType.SWINGER` (216). */
 export enum SwingerVariant {
   SWINGER = 0,
   SWINGER_HEAD = 1,
   SWINGER_NECK = 2,
 }
 
-/** For `EntityType.DIP` (217) */
+/** For `EntityType.DIP` (217). */
 export enum DipVariant {
   DIP = 0,
   CORN = 1,
@@ -908,58 +913,58 @@ export enum DipVariant {
   BIG_CORN = 3,
 }
 
-/** For `EntityType.SQUIRT` (220) */
+/** For `EntityType.SQUIRT` (220). */
 export enum SquirtVariant {
   SQUIRT = 0,
   DANK_SQUIRT = 1,
 }
 
-/** For `EntityType.SKINNY` (226) */
+/** For `EntityType.SKINNY` (226). */
 export enum SkinnyVariant {
   SKINNY = 0,
   ROTTY = 1,
   CRISPY = 2,
 }
 
-/** For `EntityType.BONY` (227) */
+/** For `EntityType.BONY` (227). */
 export enum BonyVariant {
   BONY = 0,
   HOLY_BONY = 1,
 }
 
-/** For `EntityType.HOMUNCULUS` (228) */
+/** For `EntityType.HOMUNCULUS` (228). */
 export enum HomunculusVariant {
   HOMUNCULUS = 0,
   HOMUNCULUS_CORD = 10,
 }
 
-/** For `EntityType.TUMOR` (229) */
+/** For `EntityType.TUMOR` (229). */
 export enum TumorVariant {
   TUMOR = 0,
   PLANETOID = 1,
 }
 
-/** For `EntityType.NERVE_ENDING` (231) */
+/** For `EntityType.NERVE_ENDING` (231). */
 export enum NerveEndingVariant {
   NERVE_ENDING = 0,
   NERVE_ENDING_2 = 1,
 }
 
-/** For `EntityType.GURGLING` (237) */
+/** For `EntityType.GURGLING` (237). */
 export enum GurglingVariant {
   GURGLING = 0,
   GURGLING_BOSS = 1,
   TURDLING = 2,
 }
 
-/** For `EntityType.GRUB` (239) */
+/** For `EntityType.GRUB` (239). */
 export enum GrubVariant {
   GRUB = 0,
   CORPSE_EATER = 1,
   CARRION_RIDER = 2,
 }
 
-/** For `EntityType.WALL_CREEP` (240) */
+/** For `EntityType.WALL_CREEP` (240). */
 export enum WallCreepVariant {
   WALL_CREEP = 0,
   SOY_CREEP = 1,
@@ -967,13 +972,13 @@ export enum WallCreepVariant {
   TAINTED_SOY_CREEP = 3,
 }
 
-/** For `EntityType.RAGE_CREEP` (241) */
+/** For `EntityType.RAGE_CREEP` (241). */
 export enum RageCreepVariant {
   RAGE_CREEP = 0,
   SPLIT_RAGE_CREEP = 1,
 }
 
-/** For `EntityType.ROUND_WORM` (244) */
+/** For `EntityType.ROUND_WORM` (244). */
 export enum RoundWormVariant {
   ROUND_WORM = 0,
   TUBE_WORM = 1,
@@ -981,7 +986,7 @@ export enum RoundWormVariant {
   TAINTED_TUBE_WORM = 3,
 }
 
-/** For `EntityType.POOP` (245) */
+/** For `EntityType.POOP` (245). */
 export enum PoopEntityVariant {
   NORMAL = 0,
   GOLDEN = 1,
@@ -993,82 +998,82 @@ export enum PoopEntityVariant {
   HOLY = 16,
 }
 
-/** For `EntityType.RAGLING` (246) */
+/** For `EntityType.RAGLING` (246). */
 export enum RaglingVariant {
   RAGLING = 0,
   RAG_MANS_RAGLING = 1,
 }
 
-/** For `EntityType.BEGOTTEN` (251) */
+/** For `EntityType.BEGOTTEN` (251). */
 export enum BegottenVariant {
   BEGOTTEN = 0,
   BEGOTTEN_CHAIN = 10,
 }
 
-/** For `EntityType.CONJOINED_FATTY` (257) */
+/** For `EntityType.CONJOINED_FATTY` (257). */
 export enum ConjoinedFattyVariant {
   CONJOINED_FATTY = 0,
   BLUE_CONJOINED_FATTY = 1,
 }
 
-/** For `EntityType.THE_HAUNT` (260) */
+/** For `EntityType.THE_HAUNT` (260). */
 export enum HauntVariant {
   HAUNT = 0,
   LIL_HAUNT = 10,
 }
 
-/** For `EntityType.DINGLE` (261) */
+/** For `EntityType.DINGLE` (261). */
 export enum DingleVariant {
   DINGLE = 0,
   DANGLE = 1,
 }
 
-/** For `EntityType.MAMA_GURDY` (266) */
+/** For `EntityType.MAMA_GURDY` (266). */
 export enum MamaGurdyVariant {
   MAMA_GURDY = 0,
   LEFT_HAND = 1,
   RIGHT_HAND = 2,
 }
 
-/** For `EntityType.POLYCEPHALUS` (269) */
+/** For `EntityType.POLYCEPHALUS` (269). */
 export enum PolycephalusVariant {
   POLYCEPHALUS = 0,
   THE_PILE = 1,
 }
 
-/** For `EntityType.URIEL` (271) and `EntityType.GABRIEL` (272) */
+/** For `EntityType.URIEL` (271) and `EntityType.GABRIEL` (272). */
 export enum AngelVariant {
   NORMAL = 0,
   FALLEN = 1,
 }
 
-/** For `EntityType.THE_LAMB` (273) */
+/** For `EntityType.THE_LAMB` (273). */
 export enum LambVariant {
   LAMB = 0,
   BODY = 10,
 }
 
-/** For `EntityType.MEGA_SATAN` (274) and `EntityType.MEGA_SATAN_2` (275) */
+/** For `EntityType.MEGA_SATAN` (274) and `EntityType.MEGA_SATAN_2` (275). */
 export enum MegaSatanVariant {
   MEGA_SATAN = 0,
   MEGA_SATAN_RIGHT_HAND = 1,
   MEGA_SATAN_LEFT_HAND = 2,
 }
 
-/** For `EntityType.PITFALL` (291) */
+/** For `EntityType.PITFALL` (291). */
 export enum PitfallVariant {
   PITFALL = 0,
   SUCTION_PITFALL = 1,
   TELEPORT_PITFALL = 2,
 }
 
-/** For `EntityType.MOVABLE_TNT` (292) */
+/** For `EntityType.MOVABLE_TNT` (292). */
 export enum MoveableTNTVariant {
   MOVEABLE_TNT = 0,
   MINE_CRAFTER = 1,
 }
 
-/** For `EntityType.ULTRA_COIN` (293) */
+/** For `EntityType.ULTRA_COIN` (293). */
 export enum UltraCoinVariant {
   SPINNER = 0,
   KEY = 1,
@@ -1076,224 +1081,224 @@ export enum UltraCoinVariant {
   HEART = 3,
 }
 
-/** For `EntityType.STONEY` (302) */
+/** For `EntityType.STONEY` (302). */
 export enum StoneyVariant {
   STONEY = 0,
   CROSS_STONEY = 10,
 }
 
-/** For `EntityType.PORTAL` (306) */
+/** For `EntityType.PORTAL` (306). */
 export enum PortalVariant {
   PORTAL = 0,
   LIL_PORTAL = 1,
 }
 
-/** For `EntityType.LEPER` (310) */
+/** For `EntityType.LEPER` (310). */
 export enum LeperVariant {
   LEPER = 0,
   LEPER_FLESH = 1,
 }
 
-/** For `EntityType.MR_MINE` (311) */
+/** For `EntityType.MR_MINE` (311). */
 export enum MrMineVariant {
   MR_MINE = 0,
   MR_MINE_NECK = 10,
 }
 
-/** For `EntityType.LITTLE_HORN` (404) */
+/** For `EntityType.LITTLE_HORN` (404). */
 export enum LittleHornVariant {
   LITTLE_HORN = 0,
   DARK_BALL = 1,
 }
 
-/** For `EntityType.RAG_MAN` (405) */
+/** For `EntityType.RAG_MAN` (405). */
 export enum RagManVariant {
   RAG_MAN = 0,
   RAG_MAN_HEAD = 1,
 }
 
-/** For `EntityType.ULTRA_GREED` (406) */
+/** For `EntityType.ULTRA_GREED` (406). */
 export enum UltraGreedVariant {
   ULTRA_GREED = 0,
   ULTRA_GREEDIER = 1,
 }
 
-/** For `EntityType.RAG_MEGA` (409) */
+/** For `EntityType.RAG_MEGA` (409). */
 export enum RagMegaVariant {
   RAG_MEGA = 0,
   PURPLE_BALL = 1,
   REBIRTH_PILLAR = 2,
 }
 
-/** For `EntityType.BIG_HORN` (411) */
+/** For `EntityType.BIG_HORN` (411). */
 export enum BigHornVariant {
   BIG_HORN = 0,
   SMALL_HOLE = 1,
   BIG_HOLE = 2,
 }
 
-/** For `EntityType.BLOOD_PUPPY` (802) */
+/** For `EntityType.BLOOD_PUPPY` (802). */
 export enum BloodPuppyVariant {
   SMALL = 0,
   LARGE = 1,
 }
 
-/** For `EntityType.SUB_HORF` (812) */
+/** For `EntityType.SUB_HORF` (812). */
 export enum SubHorfVariant {
   SUB_HORF = 0,
   TAINTED_SUB_HORF = 1,
 }
 
-/** For `EntityType.POLTY` (816) */
+/** For `EntityType.POLTY` (816). */
 export enum PoltyVariant {
   POLTY = 0,
   KINETI = 1,
 }
 
-/** For `EntityType.PREY` (817) */
+/** For `EntityType.PREY` (817). */
 export enum PreyVariant {
   PREY = 0,
   MULLIGHOUL = 1,
 }
 
-/** For `EntityType.ROCK_SPIDER` (818) */
+/** For `EntityType.ROCK_SPIDER` (818). */
 export enum RockSpiderVariant {
   ROCK_SPIDER = 0,
   TINTED_ROCK_SPIDER = 1,
   COAL_SPIDER = 2,
 }
 
-/** For `EntityType.FLY_BOMB` (819) */
+/** For `EntityType.FLY_BOMB` (819). */
 export enum FlyBombVariant {
   FLY_BOMB = 0,
   ETERNAL_FLY_BOMB = 1,
 }
 
-/** For `EntityType.DANNY` (820) */
+/** For `EntityType.DANNY` (820). */
 export enum DannyVariant {
   DANNY = 0,
   COAL_BOY = 1,
 }
 
-/** For `EntityType.GYRO` (824) */
+/** For `EntityType.GYRO` (824). */
 export enum GyroVariant {
   GYRO = 0,
   GRILLED_GYRO = 1,
 }
 
-/** For `EntityType.FACELESS` (827) */
+/** For `EntityType.FACELESS` (827). */
 export enum FacelessVariant {
   FACELESS = 0,
   TAINTED_FACELESS = 1,
 }
 
-/** For `EntityType.MOLE` (829) */
+/** For `EntityType.MOLE` (829). */
 export enum MoleVariant {
   MOLE = 0,
   TAINTED_MOLE = 1,
 }
 
-/** For `EntityType.BIG_BONY` (830) */
+/** For `EntityType.BIG_BONY` (830). */
 export enum BigBonyVariant {
   BIG_BONY = 0,
   BIG_BONE = 10,
 }
 
-/** For `EntityType.GUTTED_FATTY` (831) */
+/** For `EntityType.GUTTED_FATTY` (831). */
 export enum GuttyFattyVariant {
   GUTTED_FATTY = 0,
   GUTTY_FATTY_EYE = 10,
   FESTERING_GUTS = 20,
 }
 
-/** For `EntityType.EXORCIST` (832) */
+/** For `EntityType.EXORCIST` (832). */
 export enum ExorcistVariant {
   EXORCIST = 0,
   FANATIC = 1,
 }
 
-/** For `EntityType.WHIPPER` (834) */
+/** For `EntityType.WHIPPER` (834). */
 export enum WhipperVariant {
   WHIPPER = 0,
   SNAPPER = 1,
   FLAGELLANT = 2,
 }
 
-/** For `EntityType.PEEPER_FATTY` (835) */
+/** For `EntityType.PEEPER_FATTY` (835). */
 export enum PeeperFattyVariant {
   PEEPING_FATTY = 0,
   PEEPING_FATTY_EYE = 10,
 }
 
-/** For `EntityType.REVENANT` (841) */
+/** For `EntityType.REVENANT` (841). */
 export enum RevenantVariant {
   REVENANT = 0,
   QUAD_REVENANT = 1,
 }
 
-/** For `EntityType.CANARY` (843) */
+/** For `EntityType.CANARY` (843). */
 export enum CanaryVariant {
   CANARY = 0,
   FOREIGNER = 1,
 }
 
-/** For `EntityType.GAPER_L2` (850) */
+/** For `EntityType.GAPER_L2` (850). */
 export enum Gaper2Variant {
   GAPER = 0,
   HORF = 1,
   GUSHER = 2,
 }
 
-/** For `EntityType.CHARGER_L2` (855) */
+/** For `EntityType.CHARGER_L2` (855). */
 export enum Charger2Variant {
   CHARGER = 0,
   ELLEECH = 1,
 }
 
-/** For `EntityType.EVIS` (865) */
+/** For `EntityType.EVIS` (865). */
 export enum EvisVariant {
   EVIS = 0,
   EVIS_GUTS = 10,
 }
 
-/** For `EntityType.DARK_ESAU` (866) */
+/** For `EntityType.DARK_ESAU` (866). */
 export enum DarkEsauVariant {
   DARK_ESAU = 0,
   PIT = 1,
 }
 
-/** For `EntityType.DUMP` (876) */
+/** For `EntityType.DUMP` (876). */
 export enum DumpVariant {
   DUMP = 0,
   DUMP_HEAD = 1,
 }
 
-/** For `EntityType.NEEDLE` (881) */
+/** For `EntityType.NEEDLE` (881). */
 export enum NeedleVariant {
   NEEDLE = 0,
   PASTY = 1,
 }
 
-/** For `EntityType.CULTIST` (885) */
+/** For `EntityType.CULTIST` (885). */
 export enum CultistVariant {
   CULTIST = 0,
   BLOOD_CULTIST = 1,
   BONE_TRAP = 10,
 }
 
-/** For `EntityType.VIS_FATTY` (886) */
+/** For `EntityType.VIS_FATTY` (886). */
 export enum VisFattyVariant {
   VIS_FATTY = 0,
   FETAL_DEMON = 1,
 }
 
-/** For `EntityType.GOAT` (891) */
+/** For `EntityType.GOAT` (891). */
 export enum GoatVariant {
   GOAT = 0,
   BLACK_GOAT = 1,
 }
 
-/** For `EntityType.VISAGE` (903) */
+/** For `EntityType.VISAGE` (903). */
 export enum VisageVariant {
   VISAGE = 0,
   VISAGE_MASK = 1,
@@ -1301,34 +1306,34 @@ export enum VisageVariant {
   VISAGE_PLASMA = 20,
 }
 
-/** For `EntityType.SIREN` (904) */
+/** For `EntityType.SIREN` (904). */
 export enum SirenVariant {
   SIREN = 0,
   SIREN_SKULL = 1,
   SIREN_HELPER_PROJECTILE = 10,
 }
 
-/** For `EntityType.SCOURGE` (909) */
+/** For `EntityType.SCOURGE` (909). */
 export enum ScourgeVariant {
   SCOURGE = 0,
   SCOURGE_CHAIN = 10,
 }
 
-/** For `EntityType.CHIMERA` (910) */
+/** For `EntityType.CHIMERA` (910). */
 export enum ChimeraVariant {
   CHIMERA = 0,
   CHIMERA_BODY = 1,
   CHIMERA_HEAD = 2,
 }
 
-/** For `EntityType.ROTGUT` (911) */
+/** For `EntityType.ROTGUT` (911). */
 export enum RotgutVariant {
   PHASE_1_HEAD = 0,
   PHASE_2_MAGGOT = 1,
   PHASE_3_HEART = 2,
 }
 
-/** For `EntityType.MOTHER` (912) */
+/** For `EntityType.MOTHER` (912). */
 export enum MotherVariant {
   /**
    * The body that is attached to the top of the screen in phase 1. During phase 2, it remains alive
@@ -1342,25 +1347,25 @@ export enum MotherVariant {
   BALL = 100,
 }
 
-/** For `EntityType.SINGE` (915) */
+/** For `EntityType.SINGE` (915). */
 export enum SingeVariant {
   SINGE = 0,
   SINGE_BALL = 1,
 }
 
-/** For `EntityType.RAGLICH` (919) */
+/** For `EntityType.RAGLICH` (919). */
 export enum RaglichVariant {
   RAGLICH = 0,
   RAGLICH_ARM = 1,
 }
 
-/** For `EntityType.CLUTCH` (921) */
+/** For `EntityType.CLUTCH` (921). */
 export enum ClutchVariant {
   CLUTCH = 0,
   CLUTCH_ORBITAL = 1,
 }
 
-/** For `EntityType.DOGMA` (950) */
+/** For `EntityType.DOGMA` (950). */
 export enum DogmaVariant {
   DOGMA_PHASE_1 = 0,
   TV = 1,
@@ -1368,7 +1373,7 @@ export enum DogmaVariant {
   ANGEL_BABY_UNUSED = 10,
 }
 
-/** For `EntityType.BEAST` (951) */
+/** For `EntityType.BEAST` (951). */
 export enum BeastVariant {
   BEAST = 0,
   STALACTITE = 1,
@@ -1392,7 +1397,7 @@ export enum BeastVariant {
   BACKGROUND_DEATH = 104,
 }
 
-/** For `EntityType.GENERIC_PROP` (960) */
+/** For `EntityType.GENERIC_PROP` (960). */
 export enum GenericPropVariant {
   GENERIC_PROP = 0,
   MOMS_DRESSER = 1,
@@ -1401,7 +1406,7 @@ export enum GenericPropVariant {
   TV = 4,
 }
 
-/** For `EntityType.EFFECT` (1000) */
+/** For `EntityType.EFFECT` (1000). */
 export enum EffectVariant {
   EFFECT_NULL = 0,
   BOMB_EXPLOSION = 1,

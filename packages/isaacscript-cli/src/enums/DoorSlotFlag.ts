@@ -8,7 +8,7 @@ declare type BitFlags<T extends BitFlag> = T & {
 };
 
 /**
- * For `GridEntityType.DOOR` (16)
+ * For `GridEntityType.DOOR` (16).
  *
  * Corresponds to `DoorSlotFlag`.
  *

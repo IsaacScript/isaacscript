@@ -11,45 +11,45 @@ export enum CollectiblePedestalType {
   /** The normal grey pedestal. */
   NORMAL,
 
-  /** From SlotVariant.FORTUNE_TELLING_MACHINE (3) */
+  /** From `SlotVariant.FORTUNE_TELLING_MACHINE` (3). */
   FORTUNE_TELLING_MACHINE,
 
-  /** From SlotVariant.BLOOD_DONATION_MACHINE (2) */
+  /** From `SlotVariant.BLOOD_DONATION_MACHINE` (2). */
   BLOOD_DONATION_MACHINE,
 
-  /** From SlotVariant.SLOT_MACHINE (1) */
+  /** From `SlotVariant.SLOT_MACHINE` (1). */
   SLOT_MACHINE,
 
-  /** From PickupVariant.LOCKED_CHEST (60) */
+  /** From `PickupVariant.LOCKED_CHEST` (60). */
   LOCKED_CHEST,
 
-  /** From PickupVariant.RED_CHEST (360) */
+  /** From `PickupVariant.RED_CHEST` (360). */
   RED_CHEST,
 
-  /** From PickupVariant.BOMB_CHEST (51) */
+  /** From `PickupVariant.BOMB_CHEST` (51). */
   BOMB_CHEST,
 
-  /** From PickupVariant.SPIKED_CHEST (52) */
+  /** From `PickupVariant.SPIKED_CHEST` (52). */
   SPIKED_CHEST,
 
-  /** From PickupVariant.ETERNAL_CHEST (53) */
+  /** From `PickupVariant.ETERNAL_CHEST` (53). */
   ETERNAL_CHEST,
 
-  /** From SlotVariant.MOMS_DRESSING_TABLE (12) */
+  /** From `SlotVariant.MOMS_DRESSING_TABLE` (12). */
   MOMS_DRESSING_TABLE,
 
-  /** From PickupVariant.CHEST (50) */
+  /** From `PickupVariant.CHEST` (50). */
   CHEST,
 
-  /** From PickupVariant.MOMS_CHEST (390) */
+  /** From `PickupVariant.MOMS_CHEST` (390). */
   MOMS_CHEST,
 
-  /** From PickupVariant.OLD_CHEST (55) */
+  /** From `PickupVariant.OLD_CHEST` (55). */
   OLD_CHEST,
 
-  /** From PickupVariant.WOODEN_CHEST (56) */
+  /** From `PickupVariant.WOODEN_CHEST` (56). */
   WOODEN_CHEST,
 
-  /** From PickupVariant.MEGA_CHEST (57) */
+  /** From `PickupVariant.MEGA_CHEST` (57). */
   MEGA_CHEST,
 }

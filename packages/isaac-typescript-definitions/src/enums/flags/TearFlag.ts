@@ -1,5 +1,5 @@
 /**
- * For `EntityType.TEAR` (2)
+ * For `EntityType.TEAR` (2).
  *
  * This enum was renamed from "TearFlags" to be consistent with the other flag enums.
  *

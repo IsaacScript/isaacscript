@@ -1,6 +1,6 @@
 /* eslint-disable sort-exports/sort-exports */
 
-/** For `GridEntityType.ROCK` (2) */
+/** For `GridEntityType.ROCK` (2). */
 export enum RockVariant {
   NORMAL = 0,
   EVENT = 1,
@@ -66,13 +66,24 @@ export enum BucketVariant {
   EMPTY_AND_SHIFTED_UPWARDS = 2,
 }
 
-/** For `GridEntityType.PIT` (7) */
+/** For `GridEntityType.PIT` (7). */
 export enum PitVariant {
   NORMAL = 0,
   FISSURE_SPAWNER = 16,
 }
 
-/** For `GridEntityType.POOP` (14) */
+/**
+ * For `GridEntityType.FIREPLACE`. (13).
+ *
+ * This only partially corresponds to the `FireplaceVariant` for non-grid entities. (Spawning a grid
+ * entity fireplace with a variant higher than 1 will result in a normal fireplace.)
+ */
+export enum FireplaceGridEntityVariant {
+  NORMAL = 0,
+  RED = 1,
+}
+
+/** For `GridEntityType.POOP`. (14). */
 export enum PoopGridEntityVariant {
   NORMAL = 0,
   RED = 1,
@@ -88,7 +99,7 @@ export enum PoopGridEntityVariant {
   CHARMING = 11,
 }
 
-/** For `GridEntityType.DOOR` (16) */
+/** For `GridEntityType.DOOR`. (16). */
 export enum DoorVariant {
   UNSPECIFIED = 0,
   LOCKED = 1,
@@ -101,7 +112,7 @@ export enum DoorVariant {
   UNLOCKED = 8,
 }
 
-/** For `GridEntityType.TRAPDOOR` (17) */
+/** For `GridEntityType.TRAPDOOR` (17). */
 export enum TrapdoorVariant {
   NORMAL = 0,
 
@@ -116,7 +127,7 @@ export enum TrapdoorVariant {
   VOID_PORTAL = 1,
 }
 
-/** For `GridEntityType.CRAWL_SPACE` (18) */
+/** For `GridEntityType.CRAWL_SPACE`. (18). */
 export enum CrawlSpaceVariant {
   NORMAL = 0,
 
@@ -137,7 +148,7 @@ export enum CrawlSpaceVariant {
   NULL = 4,
 }
 
-/** For `GridEntityType.PRESSURE_PLATE` (20) */
+/** For `GridEntityType.PRESSURE_PLATE` (20). */
 export enum PressurePlateVariant {
   PRESSURE_PLATE = 0,
   REWARD_PLATE = 1,
@@ -147,7 +158,7 @@ export enum PressurePlateVariant {
   SPAWN_ROCKS_PLATE = 10,
 }
 
-/** For `GridEntityType.STATUE` (21) */
+/** For `GridEntityType.STATUE` (21). */
 export enum StatueVariant {
   DEVIL = 0,
   ANGEL = 1,

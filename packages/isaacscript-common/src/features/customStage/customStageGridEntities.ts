@@ -25,7 +25,7 @@ import {
 import { DEFAULT_BASE_STAGE } from "./exports";
 import v from "./v";
 
-/** For `GridEntityType.DECORATION` (1) */
+/** For `GridEntityType.DECORATION` (1). */
 export function setCustomDecorationGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,
@@ -71,7 +71,7 @@ export function setCustomDecorationGraphics(
   }
 }
 
-/** For `GridEntityType.ROCK` (2) */
+/** For `GridEntityType.ROCK` (2). */
 export function setCustomRockGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,
@@ -134,7 +134,7 @@ export function setCustomRockGraphics(
   }
 }
 
-/** For `GridEntityType.PIT` (7) */
+/** For `GridEntityType.PIT` (7). */
 export function setCustomPitGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,
@@ -164,7 +164,7 @@ export function setCustomPitGraphics(
   }
 }
 
-/** For GridEntityType.DOOR (16) */
+/** For `GridEntityType.DOOR` (16). */
 export function setCustomDoorGraphics(
   customStage: CustomStage,
   gridEntity: GridEntity,

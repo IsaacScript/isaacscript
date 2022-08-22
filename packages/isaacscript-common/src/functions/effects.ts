@@ -1,6 +1,6 @@
 import { inRectangle } from "./math";
 
-/** For `EntityType.EFFECT` (1000), `EffectVariant.DICE_FLOOR` (76) */
+/** For `EntityType.EFFECT` (1000), `EffectVariant.DICE_FLOOR` (76). */
 export const DICE_FLOOR_TRIGGER_SQUARE_SIZE = 75;
 
 /** Helper function to see if a player is close enough to activate a Dice Room floor. */

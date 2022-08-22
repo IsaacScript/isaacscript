@@ -15,6 +15,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `logCollectibleTypes`
   - `onFirstFloor`
+- Added the following enums:
+  - `GridEntityFireplaceVariant`
 - Added the following constants:
   - `TELEPORTER_ACTIVATION_DISTANCE`
 
