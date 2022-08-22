@@ -161,6 +161,9 @@ export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 /** After taking damage, `EntityPlayer.SamsonBerserkCharge` is incremented by this amount. */
 export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
 
+/** For `GridEntityType.TELEPORTER` (23). */
+export const TELEPORTER_ACTIVATION_DISTANCE = DISTANCE_OF_GRID_TILE / 2;
+
 /**
  * This is the number of draw coordinates that each heart spans on the UI in the upper left hand
  * corner.
