@@ -356,8 +356,10 @@ export enum ModCallbackCustom {
    * For grid entities created with `spawnCustomGridEntity`, use the
    * `POST_GRID_ENTITY_CUSTOM_BROKEN` callback instead.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided.
    *
    * ```ts
    * function postGridEntityBroken(gridEntity: GridEntity): void {}
@@ -373,8 +375,12 @@ export enum ModCallbackCustom {
    * For grid entities created with `spawnCustomGridEntity`, use the
    * `POST_GRID_ENTITY_CUSTOM_COLLISION` callback instead.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided (for the grid entity).
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the `EntityType` provided.
    *
    * ```ts
    * function postGridEntityCollision(
@@ -390,7 +396,8 @@ export enum ModCallbackCustom {
    * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   * variants, so there is no need for an optional third argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomBroken(
@@ -405,8 +412,11 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_COLLISION` callback, but only fires for grid entities created
    * with the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   *   variants, so there is no need for an optional third argument to filter by variant.)
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the `EntityType` provided.
    *
    * ```ts
    * function postGridEntityCustomCollision(
@@ -423,7 +433,8 @@ export enum ModCallbackCustom {
    * the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   * variants, so there is no need for an optional third argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomInit(
@@ -439,7 +450,8 @@ export enum ModCallbackCustom {
    * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   * variants, so there is no need for an optional third argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomRemove(
@@ -455,7 +467,8 @@ export enum ModCallbackCustom {
    * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   * variants, so there is no need for an optional third argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomRender(
@@ -471,7 +484,8 @@ export enum ModCallbackCustom {
    * created with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   * variants, so there is no need for an optional third argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomStateChanged(
@@ -489,7 +503,8 @@ export enum ModCallbackCustom {
    * with the `spawnCustomGridEntity` helper function.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
+   * variants, so there is no need for an optional third argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomUpdate(
@@ -511,8 +526,10 @@ export enum ModCallbackCustom {
    * For grid entities created with `spawnCustomGridEntity`, use the `POST_GRID_ENTITY_CUSTOM_INIT`
    * callback instead.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided.
    *
    * ```ts
    * function postGridEntityInit(gridEntity: GridEntity): void {}
@@ -531,8 +548,10 @@ export enum ModCallbackCustom {
    * For grid entities created with `spawnCustomGridEntity`, use the
    * `POST_GRID_ENTITY_CUSTOM_REMOVE` callback instead.
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided.
    *
    * ```ts
    * function postGridEntityRemove(
@@ -546,13 +565,13 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a grid entity exists.
    *
+   * For grid entities created with `spawnCustomGridEntity`, use the
+   * `POST_GRID_ENTITY_CUSTOM_RENDER` callback instead.
+   *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if it matches the `GridEntityType` provided.
    * - When registering the callback, takes an optional third argument that will make the callback
    *   only fire if it matches the variant provided.
-   *
-   * For grid entities created with `spawnCustomGridEntity`, use the
-   * `POST_GRID_ENTITY_CUSTOM_RENDER` callback instead.
    *
    * ```ts
    * function postGridEntityRender(gridEntity: GridEntity): void {}
@@ -564,11 +583,13 @@ export enum ModCallbackCustom {
    * Fires from the `POST_UPDATE` callback when a grid entity changes its state. (In this context,
    * "state" refers to the `GridEntity.State` field.)
    *
-   * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `GridEntityType` provided.
-   *
    * For grid entities created with `spawnCustomGridEntity`, use the
    * `POST_GRID_ENTITY_CUSTOM_STATE_CHANGED` callback instead.
+   *
+   * - When registering the callback, takes an optional second argument that will make the callback
+   *   only fire if it matches the `GridEntityType` provided.
+   * - When registering the callback, takes an optional third argument that will make the callback
+   *   only fire if it matches the variant provided.
    *
    * ```ts
    * function postGridEntityStateChanged(
@@ -583,13 +604,13 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a grid entity exists.
    *
+   * For grid entities created with `spawnCustomGridEntity`, use the
+   * `POST_GRID_ENTITY_CUSTOM_UPDATE` callback instead.
+   *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if it matches the `GridEntityType` provided.
    * - When registering the callback, takes an optional third argument that will make the callback
    *   only fire if it matches the variant provided.
-   *
-   * For grid entities created with `spawnCustomGridEntity`, use the
-   * `POST_GRID_ENTITY_CUSTOM_UPDATE` callback instead.
    *
    * ```ts
    * function postGridEntityUpdate(gridEntity: GridEntity): void {}

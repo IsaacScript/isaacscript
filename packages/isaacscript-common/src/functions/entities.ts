@@ -234,6 +234,10 @@ export function getFilteredNewEntities<T extends AnyEntity>(
 /**
  * Helper function to measure an entity's velocity to see if it is moving.
  *
+ * Use this helper function over checking if the velocity length is equal to 0 because entities can
+ * look like they are completely immobile but yet still have a non zero velocity. Thus, using a
+ * threshold is needed.
+ *
  * @param entity The entity whose velocity to measure.
  * @param threshold Optional. The threshold from 0 to consider to be moving. Default is 0.01.
  */
