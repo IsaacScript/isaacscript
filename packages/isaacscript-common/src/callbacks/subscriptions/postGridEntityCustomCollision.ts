@@ -1,4 +1,4 @@
-import { GridEntityType } from "isaac-typescript-definitions";
+import { EntityType, GridEntityType } from "isaac-typescript-definitions";
 
 export type PostGridEntityCustomCollisionRegisterParameters = [
   callback: (
@@ -7,6 +7,8 @@ export type PostGridEntityCustomCollisionRegisterParameters = [
     entity: Entity,
   ) => void,
   gridEntityTypeCustom?: GridEntityType,
+  entityType?: EntityType,
+  entityVariant?: int,
 ];
 
 const subscriptions: PostGridEntityCustomCollisionRegisterParameters[] = [];
@@ -26,11 +28,32 @@ export function postGridEntityCustomCollisionFire(
   gridEntityTypeCustom: GridEntityType,
   entity: Entity,
 ): void {
-  for (const [callback, callbackGridEntityTypeCustom] of subscriptions) {
+  for (const [
+    callback,
+    callbackGridEntityTypeCustom,
+    callbackEntityType,
+    callbackEntityVariant,
+  ] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
       callbackGridEntityTypeCustom !== undefined &&
       callbackGridEntityTypeCustom !== gridEntityTypeCustom
+    ) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument.
+    if (
+      callbackEntityType !== undefined &&
+      callbackEntityType !== entity.Type
+    ) {
+      continue;
+    }
+
+    // Handle the optional 4th callback argument.
+    if (
+      callbackEntityVariant !== undefined &&
+      callbackEntityVariant !== entity.Variant
     ) {
       continue;
     }

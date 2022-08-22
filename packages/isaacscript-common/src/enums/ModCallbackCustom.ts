@@ -379,8 +379,10 @@ export enum ModCallbackCustom {
    *   only fire if it matches the `GridEntityType` provided.
    * - When registering the callback, takes an optional third argument that will make the callback
    *   only fire if it matches the variant provided (for the grid entity).
-   * - When registering the callback, takes an optional third argument that will make the callback
-   *   only fire if it matches the `EntityType` provided.
+   * - When registering the callback, takes an optional fourth argument that will make the callback
+   *   only fire if the colliding entity matches the `EntityType` provided.
+   * - When registering the callback, takes an optional fifth argument that will make the callback
+   *   only fire if the colliding entity matches the variant provided.
    *
    * ```ts
    * function postGridEntityCollision(
@@ -416,7 +418,9 @@ export enum ModCallbackCustom {
    *   only fire if it matches the `GridEntityType` provided. (Custom grid entities do not have
    *   variants, so there is no need for an optional third argument to filter by variant.)
    * - When registering the callback, takes an optional third argument that will make the callback
-   *   only fire if it matches the `EntityType` provided.
+   *   only fire if the the colliding entity matches the `EntityType` provided.
+   * - When registering the callback, takes an optional fourth argument that will make the callback
+   *   only fire if the the colliding entity matches the variant provided.
    *
    * ```ts
    * function postGridEntityCustomCollision(
@@ -1272,7 +1276,8 @@ export enum ModCallbackCustom {
    * certain conditions, like if the slot entity is playing the "Idle" animation, and so on.
    *
    * When registering the callback, takes an optional second argument that will make the callback
-   * only fire if it matches the `SlotVariant` provided.
+   * only fire if it matches the `SlotVariant` provided. (There is no need for any additional
+   * arguments, since only players will cause this callback to fire.)
    *
    * ```ts
    * function postSlotCollision(

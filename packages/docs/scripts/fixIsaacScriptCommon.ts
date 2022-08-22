@@ -83,6 +83,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   ["saveDataManager_exports", "Save Data Manager"],
 
   // Functions
+  ["bitSet128", "BitSet128"],
   ["kColor", "KColor"],
   ["jsonHelpers", "JSON"],
   ["jsonRoom", "JSON Room"],
