@@ -388,6 +388,7 @@ export function inLRoom(): boolean {
   );
 }
 
+/** Helper function to determine if the current room index is equal to `GridRoom.MEGA_SATAN`. */
 export function inMegaSatanRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
 
