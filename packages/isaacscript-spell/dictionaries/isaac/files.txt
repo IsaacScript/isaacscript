@@ -18,10 +18,10 @@ chargebar # ui_chargebar.anm2
 chargetype # items.xml
 chestroomdoor # door_02b_chestroomdoor.png
 CNDL # BLCK CNDL seed
+combineddoor # door_07_combineddoor.png
 corpsehole # door_11_corpsehole_custom.anm2
 deathanm # items.xml
 devilroomdoor # door_07_devilroomdoor.png
-combineddoor # door_07_combineddoor.png
 endstage # challenges.xml
 fadecolor # cutscenes.xml
 gfxroot # items.xml
