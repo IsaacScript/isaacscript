@@ -116,6 +116,10 @@ export function goToStage(stage: LevelStage, stageType: StageType): void {
   Isaac.ExecuteCommand(command);
 }
 
+/**
+ * Helper function to check if the provided stage type is equal to `StageType.REPENTANCE` or
+ * `StageType.REPENTANCE_B`.
+ */
 export function isRepentanceStage(stageType: StageType): boolean {
   return (
     stageType === StageType.REPENTANCE || stageType === StageType.REPENTANCE_B
@@ -191,6 +195,10 @@ export function onFirstFloor(): boolean {
   return effectiveStage === 1 && !isOnAscent;
 }
 
+/**
+ * Helper function to check if the current stage type is equal to `StageType.REPENTANCE` or
+ * `StageType.REPENTANCE_B`.
+ */
 export function onRepentanceStage(): boolean {
   const level = game.GetLevel();
   const stageType = level.GetStageType();
