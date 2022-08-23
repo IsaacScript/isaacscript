@@ -282,6 +282,8 @@ export function logProjectileFlags(
 
 /** Helper function for logging information about the current room. */
 export function logRoom(this: void): void {
+  const room = game.GetRoom();
+  const bossID = room.GetBossID();
   const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
   const roomData = getRoomData();
@@ -306,6 +308,7 @@ export function logRoom(this: void): void {
   }
 
   log(`Current room list index: ${roomListIndex}`);
+  log(`Current room boss ID: ${bossID}`);
 }
 
 /**

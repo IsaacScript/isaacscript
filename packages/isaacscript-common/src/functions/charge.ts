@@ -6,7 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../core/cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getAllPlayers } from "./playerIndex";
+import { getPlayers } from "./playerIndex";
 import { getRoomShapeCharges } from "./roomShape";
 
 /**
@@ -208,7 +208,7 @@ function getChargesToAddWithAAAModifier(
  *                            is true.
  */
 export function addRoomClearCharges(bigRoomDoubleCharge = true): void {
-  for (const player of getAllPlayers()) {
+  for (const player of getPlayers()) {
     addRoomClearCharge(player, bigRoomDoubleCharge);
   }
 }
