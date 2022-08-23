@@ -135,6 +135,7 @@ declare global {
      *
      * @param speed A value between 0 and 1. Using a value of 0 will never trigger the fade out
      *              target. Using a value of 1 will instantaneously trigger the fade out target.
+     * @param fadeoutTarget
      */
     Fadeout(speed: float, fadeoutTarget: FadeoutTarget): void;
 
