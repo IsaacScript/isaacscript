@@ -6,7 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../core/cachedClasses";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getPlayers } from "./playerIndex";
+import { getAllPlayers } from "./playerIndex";
 import { getRoomShapeCharges } from "./roomShape";
 
 /**
@@ -203,13 +203,13 @@ function getChargesToAddWithAAAModifier(
  * - The Battery
  * - AAA Battery
  *
- * @param ignoreBigRoomDoubleCharge Optional. If set to true, it will treat the current room as a
- *                                 1x1 room for the purposes of calculating how much charge to
- *                                 grant. Default is false.
+ * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
+ *                            room for the purposes of calculating how much charge to grant. Default
+ *                            is true.
  */
-export function addRoomClearCharges(ignoreBigRoomDoubleCharge = false): void {
-  for (const player of getPlayers()) {
-    addRoomClearCharge(player, ignoreBigRoomDoubleCharge);
+export function addRoomClearCharges(bigRoomDoubleCharge = true): void {
+  for (const player of getAllPlayers()) {
+    addRoomClearCharge(player, bigRoomDoubleCharge);
   }
 }
 

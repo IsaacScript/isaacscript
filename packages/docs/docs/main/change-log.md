@@ -249,7 +249,6 @@ This page lists the changes to the IsaacScript framework.
 
 ## July 20th, 2022
 
-- When using the "Go to Definition" feature of VSCode with exports from "isaac-typescript-definitions" or "isaacscript-common", it will now warp you to the real TypeScript files (instead of the definitions stub).
 - The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
 - Breaking:
   - The `removeAllNPCs` function now takes "entityType", "variant", and "subType" parameters, which moves the location of the "cap" parameter.
