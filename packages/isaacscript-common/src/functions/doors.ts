@@ -97,6 +97,17 @@ export function getAngelRoomDoor(): GridEntityDoor | undefined {
   return angelRoomDoors.length === 0 ? undefined : angelRoomDoors[0];
 }
 
+/**
+ * Helper function to get the door that leads to the off-grid room that contains the hole to the
+ * Blue Womb.
+ *
+ * Returns undefined if the room has no Blue Womb doors.
+ */
+export function getBlueWombDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isBlueWombDoor(door));
+}
+
 export function getDevilRoomDoor(): GridEntityDoor | undefined {
   const devilRoomDoors = getDoors(RoomType.DEVIL);
   return devilRoomDoors.length === 0 ? undefined : devilRoomDoors[0];
@@ -260,6 +271,10 @@ export function getUnusedDoorSlots(): DoorSlot[] {
 
 export function isAngelRoomDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomType === RoomType.ANGEL;
+}
+
+export function isBlueWombDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.BLUE_WOMB);
 }
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {

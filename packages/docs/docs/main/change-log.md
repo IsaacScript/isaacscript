@@ -20,6 +20,8 @@ This page lists the changes to the IsaacScript framework.
   - `spawnTeleporter`
   - `spawnTeleporterWithVariant`
   - `inSecretExit`
+  - `isBlueWombDoor`
+  - `getBlueWombDoor`
 - Added the following enums:
   - `GridEntityFireplaceVariant`
 - Added the following constants:
