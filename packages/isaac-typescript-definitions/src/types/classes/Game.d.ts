@@ -129,6 +129,10 @@ declare global {
     DonateGreed(donate: int): void;
     End(ending: Ending): void;
     Fadein(speed: float): void;
+
+    /**
+     * Using non-valid `FadeoutTarget` values will be interpreted the same as `FadeoutTarget.NONE`.
+     */
     Fadeout(speed: float, fadeoutTarget: FadeoutTarget): void;
 
     /**
