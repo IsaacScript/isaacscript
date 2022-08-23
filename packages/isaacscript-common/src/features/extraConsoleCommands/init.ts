@@ -68,6 +68,7 @@ function initMap() {
   extraConsoleCommandsFunctionMap.set("crawlSpace", commands.crawlSpace);
   extraConsoleCommandsFunctionMap.set("d20", commands.d20);
   extraConsoleCommandsFunctionMap.set("d6", commands.d6);
+  extraConsoleCommandsFunctionMap.set("dadsNote", commands.dadsNote);
   extraConsoleCommandsFunctionMap.set("damage", commands.damage);
   extraConsoleCommandsFunctionMap.set("dd", commands.dd);
   extraConsoleCommandsFunctionMap.set("devilRoom", commands.devilRoom);

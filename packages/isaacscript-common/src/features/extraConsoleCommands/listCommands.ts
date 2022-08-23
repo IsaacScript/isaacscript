@@ -38,6 +38,7 @@ import {
   PlayerType,
   RoomType,
   SoundEffect,
+  StageType,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../core/cachedClasses";
@@ -87,6 +88,7 @@ import {
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom } from "../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
+import { setStage } from "../../functions/stage";
 import { getGoldenTrinketType } from "../../functions/trinkets";
 import { asCardType } from "../../functions/types";
 import { irange, printConsole, printEnabled } from "../../functions/utils";
@@ -285,7 +287,7 @@ export function boneHearts(params: string): void {
   addHeart(params, HealthType.BONE);
 }
 
-/** Alias for the "boss" command. */
+/** Alias for the "bossRoom" command. */
 export function boss(): void {
   bossRoom();
 }
@@ -497,6 +499,13 @@ export function d20(): void {
 export function d6(): void {
   const player = Isaac.GetPlayer();
   useActiveItemTemp(player, CollectibleType.D6);
+}
+
+/** Warps to the Mausoleum 2 Boss Room that has Dad's Note in it. */
+export function dadsNote(): void {
+  game.SetStateFlag(GameStateFlag.BACKWARDS_PATH_INIT, true);
+  setStage(LevelStage.DEPTHS_2, StageType.REPENTANCE);
+  bossRoom();
 }
 
 /** Toggles extremely high-damage tears for the player. */
