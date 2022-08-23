@@ -445,7 +445,18 @@ export function inMirrorRoom(): boolean {
 }
 
 /**
- * Helper function for checking if the room is a secret shop (from the Member Card collectible).
+ * Helper function for checking if the current room is a secret exit that leads to a Repentance
+ * floor.
+ */
+export function inSecretExit(): boolean {
+  const roomGridIndex = getRoomGridIndex();
+
+  return roomGridIndex === asNumber(GridRoom.SECRET_EXIT);
+}
+
+/**
+ * Helper function for checking if the current room is a secret shop (from the Member Card
+ * collectible).
  *
  * Secret shops are simply copies of normal shops, but with the backdrop of a secret room. In other
  * words, they will have the same room type, room variant, and room sub-type of a normal shop. Thus,

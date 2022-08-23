@@ -1,6 +1,7 @@
 - use stack overflow to remove isaac-typescript-definitions from deps
 
 - Lint:
+  - add:     "no-unused-expressions": "warn",
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
   - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
   - double period for end of JSDoc comment lint

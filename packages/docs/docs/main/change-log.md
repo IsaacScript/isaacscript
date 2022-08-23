@@ -19,6 +19,7 @@ This page lists the changes to the IsaacScript framework.
   - `removeAllTeleporters`
   - `spawnTeleporter`
   - `spawnTeleporterWithVariant`
+  - `inSecretExit`
 - Added the following enums:
   - `GridEntityFireplaceVariant`
 - Added the following constants:
