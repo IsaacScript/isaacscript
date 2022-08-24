@@ -70,7 +70,7 @@ const LevelCurseInternal = {
    *
    * Corresponds to `CurseID.GIANT` (8).
    */
-  GIANT: getLevelCurse(CurseID.BLIND),
+  GIANT: getLevelCurse(CurseID.GIANT),
 } as const;
 
 type LevelCurseValue = BitFlag & {

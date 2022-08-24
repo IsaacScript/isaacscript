@@ -9,7 +9,7 @@ import {
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { MAX_SPEED_STAT } from "../../core/constants";
-import { addFlag, bitFlags, hasFlag } from "../../functions/flag";
+import { addFlag, bitFlags } from "../../functions/flag";
 import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
 import { debugDisplayInit } from "../debugDisplay/debugDisplay";
@@ -118,47 +118,49 @@ function postCurseEval(
     return bitFlags(LevelCurse.NONE);
   }
 
+  let newCurses = curses;
+
   // 1
-  if (v.persistent.darkness && !hasFlag(curses, LevelCurse.DARKNESS)) {
-    curses = addFlag(curses, LevelCurse.DARKNESS);
+  if (v.persistent.darkness) {
+    newCurses = addFlag(newCurses, LevelCurse.DARKNESS);
   }
 
   // 2
-  if (v.persistent.labyrinth && !hasFlag(curses, LevelCurse.LABYRINTH)) {
-    curses = addFlag(curses, LevelCurse.LABYRINTH);
+  if (v.persistent.labyrinth) {
+    newCurses = addFlag(newCurses, LevelCurse.LABYRINTH);
   }
 
   // 3
-  if (v.persistent.lost && !hasFlag(curses, LevelCurse.LOST)) {
-    curses = addFlag(curses, LevelCurse.LOST);
+  if (v.persistent.lost) {
+    newCurses = addFlag(newCurses, LevelCurse.LOST);
   }
 
   // 4
-  if (v.persistent.unknown && !hasFlag(curses, LevelCurse.UNKNOWN)) {
-    curses = addFlag(curses, LevelCurse.UNKNOWN);
+  if (v.persistent.unknown) {
+    newCurses = addFlag(newCurses, LevelCurse.UNKNOWN);
   }
 
   // 5
-  if (v.persistent.cursed && !hasFlag(curses, LevelCurse.CURSED)) {
-    curses = addFlag(curses, LevelCurse.CURSED);
+  if (v.persistent.cursed) {
+    newCurses = addFlag(newCurses, LevelCurse.CURSED);
   }
 
   // 6
-  if (v.persistent.maze && !hasFlag(curses, LevelCurse.MAZE)) {
-    curses = addFlag(curses, LevelCurse.MAZE);
+  if (v.persistent.maze) {
+    newCurses = addFlag(newCurses, LevelCurse.MAZE);
   }
 
   // 7
-  if (v.persistent.blind && !hasFlag(curses, LevelCurse.BLIND)) {
-    curses = addFlag(curses, LevelCurse.BLIND);
+  if (v.persistent.blind) {
+    newCurses = addFlag(newCurses, LevelCurse.BLIND);
   }
 
   // 8
-  if (v.persistent.giant && !hasFlag(curses, LevelCurse.GIANT)) {
-    curses = addFlag(curses, LevelCurse.GIANT);
+  if (v.persistent.giant) {
+    newCurses = addFlag(newCurses, LevelCurse.GIANT);
   }
 
-  return curses;
+  return curses === newCurses ? undefined : newCurses;
 }
 
 // ModCallback.EXECUTE_CMD (22)
