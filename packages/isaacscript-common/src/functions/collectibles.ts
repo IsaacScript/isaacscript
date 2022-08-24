@@ -494,6 +494,11 @@ export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
  *
  * The "item tracker" in this function does not refer to the in-game item tracker, but rather to the
  * Python program located at: https://github.com/Rchardon/RebirthItemTracker
+ *
+ * This function is useful when you need to add a "fake" collectible to a player. Note that calling
+ * this function is not necessary when removing items from players. For example, when you remove a
+ * collectible with the `EntityPlayer.RemoveCollectible` method, a proper message is sent to the log
+ * the item tracker will automatically remove it.
  */
 export function removeCollectibleFromItemTracker(
   collectibleType: CollectibleType,
