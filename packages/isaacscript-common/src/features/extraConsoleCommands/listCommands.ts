@@ -97,6 +97,7 @@ import {
 } from "../../functions/players";
 import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom } from "../../functions/rooms";
+import { reloadRoom as reloadRoomFunction } from "../../functions/roomTransition";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
 import { setStage } from "../../functions/stage";
 import { getGoldenTrinketType } from "../../functions/trinkets";
@@ -1048,6 +1049,11 @@ export function position(): void {
 /** Alias for the "hearts" command. */
 export function redHearts(params: string): void {
   hearts(params);
+}
+
+/** Starts a room transition to the same room that you are already in. */
+export function reloadRoom(): void {
+  reloadRoomFunction();
 }
 
 /** Moves the player 0.5 units right. Provide a number to move a custom amount of units. */
