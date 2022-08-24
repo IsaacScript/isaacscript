@@ -5,6 +5,7 @@ import {
   ChargerVariant,
   DarkEsauVariant,
   DeathVariant,
+  DumpVariant,
   EntityType,
   HopperVariant,
   MamaGurdyVariant,
@@ -101,6 +102,11 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
     return true;
   }
 
+  // EntityType.DUMP (876)
+  if (isDyingDump(npc)) {
+    return true;
+  }
+
   return false;
 }
 
@@ -115,6 +121,19 @@ export function isAliveExceptionNPC(npc: EntityNPC): boolean {
 export function isDaddyLongLegsChildStompEntity(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.DADDY_LONG_LEGS && npc.SpawnerEntity !== undefined
+  );
+}
+
+/**
+ * Helper function to detect the custom death state of a Dump. When Dumps die, they go to
+ * `NpcState.SPECIAL`, spit out their head, and then slowly fade away while shooting a burst of
+ * tears.
+ */
+export function isDyingDump(npc: EntityNPC): boolean {
+  return (
+    npc.Type === EntityType.DUMP &&
+    npc.Variant === asNumber(DumpVariant.DUMP) &&
+    npc.State === NpcState.SPECIAL
   );
 }
 

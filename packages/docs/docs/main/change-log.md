@@ -25,6 +25,7 @@ This page lists the changes to the IsaacScript framework.
   - `getEntityFromPtrHash`
   - `logPtrHash`
   - `logPtrHashes`
+  - `isDyingDump`
 - Added the following enums:
   - `GridEntityFireplaceVariant`
 - Added the following constants:
