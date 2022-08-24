@@ -194,6 +194,16 @@ function setPrimitiveEntityFields(
   }
 }
 
+/**
+ * Helper function to get an entity from a `PtrHash`. Note that doing this is very expensive, so you
+ * should only use this function when debugging. (Normally, if you need to work backwards from a
+ * reference, you would use an `EntityPtr` instead of a `PtrHash`.
+ */
+export function getEntityFromPtrHash(ptrHash: PtrHash): Entity | undefined {
+  const entities = getEntities();
+  return entities.find((entity) => GetPtrHash(entity) === ptrHash);
+}
+
 /** Helper function to return a string containing the entity's type, variant, and sub-type. */
 export function getEntityID(entity: Entity): string {
   return `${entity.Type}.${entity.Variant}.${entity.SubType}`;

@@ -22,6 +22,9 @@ This page lists the changes to the IsaacScript framework.
   - `inSecretExit`
   - `isBlueWombDoor`
   - `getBlueWombDoor`
+  - `getEntityFromPtrHash`
+  - `logPtrHash`
+  - `logPtrHashes`
 - Added the following enums:
   - `GridEntityFireplaceVariant`
 - Added the following constants:

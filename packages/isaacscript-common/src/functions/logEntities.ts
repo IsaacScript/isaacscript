@@ -3,7 +3,7 @@ import {
   EntityType,
   GridEntityType,
 } from "isaac-typescript-definitions";
-import { getEntities, getEntityID } from "./entities";
+import { getEntities, getEntityFromPtrHash, getEntityID } from "./entities";
 import { getGridEntities, getGridEntityID } from "./gridEntities";
 import { log } from "./log";
 
@@ -273,4 +273,28 @@ function getGridEntityLogLine(gridEntity: GridEntity, num?: int): string {
   }
 
   return msg;
+}
+
+/**
+ * Helper function to log information about the entity that corresponding to a pointer hash. (Only
+ * use this when debugging, since retrieving the corresponding entity is expensive.)
+ */
+export function logPtrHash(this: void, ptrHash: PtrHash): void {
+  log(`PtrHash: ${ptrHash}`);
+  const entity = getEntityFromPtrHash(ptrHash);
+  if (entity === undefined) {
+    log("No corresponding entity found.");
+  } else {
+    logEntity(entity);
+  }
+}
+
+/**
+ * Helper function to log information about the entity that corresponding to one or more pointer
+ * hashes. (Only use this when debugging, since retrieving the corresponding entity is expensive.)
+ */
+export function logPtrHashes(this: void, ptrHashes: PtrHash[]): void {
+  for (const ptrHash of ptrHashes) {
+    logPtrHash(ptrHash);
+  }
 }
