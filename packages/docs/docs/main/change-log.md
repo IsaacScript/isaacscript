@@ -32,6 +32,7 @@ This page lists the changes to the IsaacScript framework.
   - `TELEPORTER_ACTIVATION_DISTANCE`
 - Added the following custom commands:
   - `dadsNote` (to warp to the Mausoleum 2 Boss Room with Dad's Note in it)
+  - `reloadRoom`
   - `darkness` (for permanent Curse of Darkness)
   - `labyrinth` (for permanent Curse of the Labyrinth)
   - `lost` (for permanent Curse of the Lost)
