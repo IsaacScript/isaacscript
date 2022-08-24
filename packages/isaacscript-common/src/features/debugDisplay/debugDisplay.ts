@@ -11,7 +11,7 @@ import v, { debugDisplayTextCallbacks, setDebugDisplayEnabled } from "./v";
  */
 export function debugDisplayInit(mod: ModUpgraded): void {
   setDebugDisplayEnabled();
-  saveDataManager("debugDisplay", v, () => false);
+  saveDataManager("debugDisplay", v, false);
 
   mod.AddCallback(ModCallback.POST_FAMILIAR_RENDER, postFamiliarRender); // 25
   mod.AddCallback(ModCallback.POST_NPC_RENDER, postNPCRender); // 28

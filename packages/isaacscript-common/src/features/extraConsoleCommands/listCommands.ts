@@ -2,6 +2,16 @@
 // below "exports.ts".
 
 // cspell:ignore addcharges
+
+/*
+eslint "sort-exports/sort-exports": [
+  "error",
+  {
+    sortDir: "asc",
+  },
+],
+*/
+
 /**
  * This is a list of custom console commands that are included with the standard library.
  *
@@ -214,6 +224,12 @@ export function blackMarket(): void {
   changeRoom(GridRoom.BLACK_MARKET);
 }
 
+/** Toggles permanent Curse of the Blind. */
+export function blind(): void {
+  v.persistent.blind = !v.persistent.blind;
+  printEnabled(!v.persistent.blind, "permanent Curse of the Blind");
+}
+
 /**
  * Gives a blood charge. This only affects Bethany. Provide a number to give a custom amount of
  * charges. (You can use negative numbers to remove charges.)
@@ -376,17 +392,6 @@ export function cc(): void {
   chaosCardTears();
 }
 
-/** Displays the current challenge, if any. */
-export function getChallenge(): void {
-  const challenge = Isaac.GetChallenge();
-  const challengeName = Challenge[challenge];
-  const challengeDescription =
-    challengeName === undefined
-      ? `${challenge} (custom)`
-      : `Challenge.${challengeName} (${challenge})`;
-  printConsole(`The current challenge is: ${challengeDescription}`);
-}
-
 /**
  * Toggles Chaos Card tears for the player. Useful for killing enemies very fast without using
  * "debug 10".
@@ -489,6 +494,12 @@ export function crawlSpace(): void {
   spawnTrapdoorOrCrawlSpace(false);
 }
 
+/** Toggles permanent Curse of the Cursed. */
+export function cursed(): void {
+  v.persistent.cursed = !v.persistent.cursed;
+  printEnabled(!v.persistent.cursed, "permanent Curse of the Cursed");
+}
+
 /** Uses the D20. */
 export function d20(): void {
   const player = Isaac.GetPlayer();
@@ -512,6 +523,12 @@ export function dadsNote(): void {
 export function damage(): void {
   v.run.maxDamage = !v.run.maxDamage;
   printEnabled(v.run.maxDamage, "debug damage");
+}
+
+/** Toggles permanent Curse of Darkness. */
+export function darkness(): void {
+  v.persistent.darkness = !v.persistent.darkness;
+  printEnabled(!v.persistent.darkness, "permanent Curse of Darkness");
 }
 
 /** Alias for the "devil" command. */
@@ -604,6 +621,17 @@ export function fool(): void {
   startingRoom();
 }
 
+/** Displays the current challenge, if any. */
+export function getChallenge(): void {
+  const challenge = Isaac.GetChallenge();
+  const challengeName = Challenge[challenge];
+  const challengeDescription =
+    challengeName === undefined
+      ? `${challenge} (custom)`
+      : `Challenge.${challengeName} (${challenge})`;
+  printConsole(`The current challenge is: ${challengeDescription}`);
+}
+
 /** Prints the current position of all players. */
 export function getPosition(): void {
   for (const player of getPlayers()) {
@@ -612,6 +640,12 @@ export function getPosition(): void {
       `Player position for ${playerName}: (${player.Position.X}, ${player.Position.Y})`,
     );
   }
+}
+
+/** Toggles permanent Curse of the Giant. */
+export function giant(): void {
+  v.persistent.giant = !v.persistent.giant;
+  printEnabled(!v.persistent.giant, "permanent Curse of the Giant");
 }
 
 /**
@@ -764,6 +798,12 @@ export function keys(params: string): void {
   player.AddKeys(numKeys);
 }
 
+/** Toggles permanent Curse of the Labyrinth. */
+export function labyrinth(): void {
+  v.persistent.labyrinth = !v.persistent.labyrinth;
+  printEnabled(!v.persistent.labyrinth, "permanent Curse of the Labyrinth");
+}
+
 /** Moves the player 0.5 units left. Provide a number to move a custom amount of units. */
 export function left(params: string): void {
   movePlayer(params, Direction.LEFT);
@@ -812,6 +852,12 @@ export function listGridAll(params: string): void {
   listGridEntities(params, true);
 }
 
+/** Toggles permanent Curse of the Lost. */
+export function lost(): void {
+  v.persistent.lost = !v.persistent.lost;
+  printEnabled(!v.persistent.lost, "permanent Curse of the Lost");
+}
+
 /** Alias for the "1hp" command. */
 export function lowHP(): void {
   oneHP();
@@ -852,6 +898,12 @@ export function map(): void {
  */
 export function maxHearts(params: string): void {
   addHeart(params, HealthType.MAX_HEARTS);
+}
+
+/** Toggles permanent Curse of the Maze. */
+export function maze(): void {
+  v.persistent.maze = !v.persistent.maze;
+  printEnabled(!v.persistent.maze, "permanent Curse of the Maze");
 }
 
 /** Warps to the first Miniboss Room on the floor. */
@@ -1297,16 +1349,16 @@ export function speed(): void {
   printEnabled(v.run.maxSpeed, "max speed and flight");
 }
 
+/** Alias for the "startingRoom" command. */
+export function startRoom(): void {
+  startingRoom();
+}
+
 /** Warps to the starting room of the floor. */
 export function startingRoom(): void {
   const level = game.GetLevel();
   const startingRoomIndex = level.GetStartingRoomIndex();
   changeRoom(startingRoomIndex);
-}
-
-/** Alias for the "startingRoom" command. */
-export function startRoom(): void {
-  startingRoom();
 }
 
 /** Warps to the first Super Secret Room on the floor. */
@@ -1346,6 +1398,12 @@ export function treasureRoom(): void {
 /** Warps to the first Ultra Secret Room on the floor. */
 export function ultraSecretRoom(): void {
   warpToRoomType(RoomType.ULTRA_SECRET);
+}
+
+/** Toggles permanent Curse of the Unknown. */
+export function unknown(): void {
+  v.persistent.unknown = !v.persistent.unknown;
+  printEnabled(!v.persistent.unknown, "permanent Curse of the Unknown");
 }
 
 /** If currently on a set seed, changes to an unseeded state and restarts the game. */

@@ -28,7 +28,7 @@ const v = {
 };
 
 export function postPlayerFatalDamageInit(mod: Mod): void {
-  saveDataManager("postPlayerFatalDamage", v);
+  saveDataManager("postPlayerFatalDamage", v, hasSubscriptions);
 
   mod.AddCallback(
     ModCallback.ENTITY_TAKE_DMG,
