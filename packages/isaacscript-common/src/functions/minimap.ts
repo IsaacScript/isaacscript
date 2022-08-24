@@ -90,6 +90,9 @@ export function setFloorDisplayFlags(
  * Helper function to set a particular room's minimap display flags (e.g. whether or not it is
  * visible and so on).
  *
+ * You must call the `Level.UpdateVisibility` method after using this function for the changes to
+ * take effect.
+ *
  * @param roomGridIndex Set to undefined to use the current room index.
  * @param displayFlags The bit flags value to set. (See the `DisplayFlag` enum.)
  */
