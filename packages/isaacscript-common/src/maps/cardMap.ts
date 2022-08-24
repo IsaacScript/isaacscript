@@ -71,8 +71,8 @@ export const CARD_MAP: ReadonlyMap<string, CardType> = new Map([
   ["algiz", CardType.RUNE_ALGIZ], // 39
   ["resistance", CardType.RUNE_ALGIZ], // 39
   ["shield", CardType.RUNE_ALGIZ], // 39
-  ["blank", CardType.RUNE_BLANK], // 40
-  ["black", CardType.RUNE_BLACK], // 41
+  ["blankRune", CardType.RUNE_BLANK], // 40
+  ["blackRune", CardType.RUNE_BLACK], // 41
   ["chaos", CardType.CHAOS], // 42
   ["credit", CardType.CREDIT], // 43
   ["rules", CardType.RULES], // 44
