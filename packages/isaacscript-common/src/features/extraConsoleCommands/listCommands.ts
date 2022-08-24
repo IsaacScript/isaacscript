@@ -380,8 +380,8 @@ export function cards(): void {
         return;
       }
 
-      const position = gridCoordinatesToWorldPosition(x, y);
-      spawnCard(asCardType(cardType), position);
+      const worldPosition = gridCoordinatesToWorldPosition(x, y);
+      spawnCard(asCardType(cardType), worldPosition);
       cardType++;
     }
   }
@@ -409,13 +409,13 @@ export function chaosCardTears(): void {
  * - character 2 - Restarts as Cain.
  * - character ta - Restarts as Tainted Azazel.
  */
-export function characterCommand(params: string): void {
+export function character(params: string): void {
   if (params === "") {
     printConsole("You must specify a character name or number.");
     return;
   }
 
-  let character: PlayerType;
+  let playerType: PlayerType;
   const num = tonumber(params) as PlayerType | undefined;
   if (num === undefined) {
     const match = getMapPartialMatch(params, CHARACTER_MAP);
@@ -424,19 +424,19 @@ export function characterCommand(params: string): void {
       return;
     }
 
-    character = match[1];
+    playerType = match[1];
   } else {
     if (num < FIRST_CHARACTER || num > LAST_VANILLA_CHARACTER) {
       printConsole(`Invalid player sub-type: ${num}`);
       return;
     }
 
-    character = num;
+    playerType = num;
   }
 
-  const characterName = getCharacterName(character);
-  restart(character);
-  printConsole(`Restarting as character: ${characterName} (${character})`);
+  const characterName = getCharacterName(playerType);
+  restart(playerType);
+  printConsole(`Restarting as character: ${characterName} (${playerType})`);
 }
 
 /** Alias for the "addCharges" command. */
@@ -734,8 +734,8 @@ export function gridEntities(): void {
         return;
       }
 
-      const position = gridCoordinatesToWorldPosition(x, y);
-      spawnGridEntity(gridEntityType, position);
+      const worldPosition = gridCoordinatesToWorldPosition(x, y);
+      spawnGridEntity(gridEntityType, worldPosition);
     }
   }
 }
@@ -980,8 +980,8 @@ export function pills(): void {
         return;
       }
 
-      const position = gridCoordinatesToWorldPosition(x, y);
-      spawnPill(pillColor, position);
+      const worldPosition = gridCoordinatesToWorldPosition(x, y);
+      spawnPill(pillColor, worldPosition);
     }
   }
 }
@@ -1041,7 +1041,7 @@ export function poopMana(params: string): void {
 }
 
 /** Alias for the "getPosition" command. */
-export function positionCommand(): void {
+export function position(): void {
   getPosition();
 }
 
@@ -1056,7 +1056,7 @@ export function right(params: string): void {
 }
 
 /** Logs information about the room to the "log.txt" file. */
-export function roomCommand(): void {
+export function room(): void {
   logRoom();
   printConsole('Logged room information to the "log.txt" file.');
 }
@@ -1140,13 +1140,13 @@ export function secretRoom(): void {
 
 /** Changes to a seeded run, using the seed of the current run. */
 export function seedStick(): void {
-  const seeds = game.GetSeeds();
-  const startSeedString = seeds.GetStartSeedString();
+  const seedsClass = game.GetSeeds();
+  const startSeedString = seedsClass.GetStartSeedString();
   Isaac.ExecuteCommand(`seed ${startSeedString}`);
 }
 
 /** Logs all of the current run's seed effects to the "log.txt" file. */
-export function seedsCommand(): void {
+export function seeds(): void {
   logSeedEffects();
   printConsole('Logged the seed effects to the "log.txt" file.');
 }
@@ -1237,8 +1237,8 @@ export function setPosition(params: string): void {
   }
 
   const player = Isaac.GetPlayer();
-  const position = Vector(x, y);
-  player.Position = position;
+  const newPosition = Vector(x, y);
+  player.Position = newPosition;
 }
 
 /** Warps to the first shop on the floor. */
@@ -1329,8 +1329,8 @@ export function spawnGoldenTrinket(params: string): void {
   }
 
   const goldenTrinketType = getGoldenTrinketType(trinketType);
-  const room = game.GetRoom();
-  const centerPos = room.GetCenterPos();
+  const roomClass = game.GetRoom();
+  const centerPos = roomClass.GetCenterPos();
   spawnTrinket(goldenTrinketType, centerPos);
 }
 
@@ -1386,7 +1386,7 @@ export function tests(): void {
 }
 
 /** Creates a trapdoor next to the player. */
-export function trapdoorCommand(): void {
+export function trapdoor(): void {
   spawnTrapdoorOrCrawlSpace(true);
 }
 
