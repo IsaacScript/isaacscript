@@ -41,6 +41,9 @@ This page lists the changes to the IsaacScript framework.
   - `maze` (for permanent Curse of the Maze)
   - `blind` (for permanent Curse of the Blind)
   - `giant` (for permanent Curse of the Giant)
+- Deleted the following custom commands:
+  - `eh` (use `eternalHearts` instead)
+  - `bh` (use `blackHearts` instead)
 
 ## August 18th, 2022
 

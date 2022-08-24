@@ -207,11 +207,6 @@ export function bedroom(): void {
   printConsole("There are no Clean Bedrooms or Dirty Bedrooms on this floor.");
 }
 
-/** Alias for the "blackhearts" command. */
-export function bh(params: string): void {
-  blackHearts(params);
-}
-
 /**
  * Gives a half black heart. Provide a number to give a custom amount of hearts. (You can use
  * negative numbers to remove hearts.)
@@ -571,11 +566,6 @@ export function effects(): void {
   const player = Isaac.GetPlayer();
   logPlayerEffects(player);
   printConsole('Logged the player\'s effects to the "log.txt" file.');
-}
-
-/** Alias for the "eternalHearts" command. */
-export function eh(params: string): void {
-  eternalHearts(params);
 }
 
 /** Alias for the "iAmError" command. */
