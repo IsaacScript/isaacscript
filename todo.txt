@@ -1,5 +1,6 @@
 - use stack overflow to remove isaac-typescript-definitions from deps
 
+
 - Lint:
   - add:     "no-unused-expressions": "warn",
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897

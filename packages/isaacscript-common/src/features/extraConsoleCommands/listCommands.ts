@@ -227,7 +227,7 @@ export function blackMarket(): void {
 /** Toggles permanent Curse of the Blind. */
 export function blind(): void {
   v.persistent.blind = !v.persistent.blind;
-  printEnabled(!v.persistent.blind, "permanent Curse of the Blind");
+  printEnabled(v.persistent.blind, "permanent Curse of the Blind");
 }
 
 /**
@@ -497,7 +497,7 @@ export function crawlSpace(): void {
 /** Toggles permanent Curse of the Cursed. */
 export function cursed(): void {
   v.persistent.cursed = !v.persistent.cursed;
-  printEnabled(!v.persistent.cursed, "permanent Curse of the Cursed");
+  printEnabled(v.persistent.cursed, "permanent Curse of the Cursed");
 }
 
 /** Uses the D20. */
@@ -528,7 +528,7 @@ export function damage(): void {
 /** Toggles permanent Curse of Darkness. */
 export function darkness(): void {
   v.persistent.darkness = !v.persistent.darkness;
-  printEnabled(!v.persistent.darkness, "permanent Curse of Darkness");
+  printEnabled(v.persistent.darkness, "permanent Curse of Darkness");
 }
 
 /** Alias for the "devil" command. */
@@ -645,7 +645,7 @@ export function getPosition(): void {
 /** Toggles permanent Curse of the Giant. */
 export function giant(): void {
   v.persistent.giant = !v.persistent.giant;
-  printEnabled(!v.persistent.giant, "permanent Curse of the Giant");
+  printEnabled(v.persistent.giant, "permanent Curse of the Giant");
 }
 
 /**
@@ -801,7 +801,7 @@ export function keys(params: string): void {
 /** Toggles permanent Curse of the Labyrinth. */
 export function labyrinth(): void {
   v.persistent.labyrinth = !v.persistent.labyrinth;
-  printEnabled(!v.persistent.labyrinth, "permanent Curse of the Labyrinth");
+  printEnabled(v.persistent.labyrinth, "permanent Curse of the Labyrinth");
 }
 
 /** Moves the player 0.5 units left. Provide a number to move a custom amount of units. */
@@ -855,7 +855,7 @@ export function listGridAll(params: string): void {
 /** Toggles permanent Curse of the Lost. */
 export function lost(): void {
   v.persistent.lost = !v.persistent.lost;
-  printEnabled(!v.persistent.lost, "permanent Curse of the Lost");
+  printEnabled(v.persistent.lost, "permanent Curse of the Lost");
 }
 
 /** Alias for the "1hp" command. */
@@ -903,7 +903,7 @@ export function maxHearts(params: string): void {
 /** Toggles permanent Curse of the Maze. */
 export function maze(): void {
   v.persistent.maze = !v.persistent.maze;
-  printEnabled(!v.persistent.maze, "permanent Curse of the Maze");
+  printEnabled(v.persistent.maze, "permanent Curse of the Maze");
 }
 
 /** Warps to the first Miniboss Room on the floor. */
@@ -1403,7 +1403,7 @@ export function ultraSecretRoom(): void {
 /** Toggles permanent Curse of the Unknown. */
 export function unknown(): void {
   v.persistent.unknown = !v.persistent.unknown;
-  printEnabled(!v.persistent.unknown, "permanent Curse of the Unknown");
+  printEnabled(v.persistent.unknown, "permanent Curse of the Unknown");
 }
 
 /** If currently on a set seed, changes to an unseeded state and restarts the game. */
