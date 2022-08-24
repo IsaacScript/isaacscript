@@ -160,6 +160,42 @@ function postNewRoomReordered() {
  * Custom grid entities are an IsaacScript feature because the vanilla game does not support any
  * custom grid entities.
  *
+ * For example, this would be code to create a custom rock called a "Silver Rock" that produces a
+ * dime when destroyed:
+ *
+ * ```ts
+ * // This is local to the mod and can safely overlap with the values of `GridEntityType`.
+ * const GridEntityTypeCustom = {
+ *   SILVER_ROCK: 0 as GridEntityType,
+ * } as const;
+ *
+ * // This is copied from "gfx/grid/grid_rock.anm2" with some tweaks to make it look special.
+ * const SILVER_ROCK_ANM2_PATH = "gfx/grid/grid_rock_silver.anm2";
+ *
+ * export function silverRockInit(mod: ModUpgraded): void {
+ *   mod.AddCallbackCustom(
+ *     ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_BROKEN,
+ *     postGridEntityCustomBrokenSilverRock,
+ *     GridEntityTypeCustom.SILVER_ROCK,
+ *   );
+ * }
+ *
+ * function postGridEntityCustomBrokenSilverRock(gridEntity: GridEntity) {
+ *   spawnCoin(CoinSubType.DIME, gridEntity.Position);
+ * }
+ *
+ * export function spawnSilverRock(gridIndex: int): GridEntity {
+ *   return spawnCustomGridEntity(
+ *     GridEntityTypeCustom.SILVER_ROCK,
+ *     gridIndex,
+ *     undefined,
+ *     SILVER_ROCK_ANM2_PATH,
+ *     undefined,
+ *     GridEntityType.ROCK,
+ *   );
+ * }
+ * ```
+ *
  * @param gridEntityTypeCustom An integer that identifies what kind of grid entity you are creating.
  *                             It should correspond to a local enum value created in your mod. The
  *                             integer can be any unique value and will not correspond to the actual
