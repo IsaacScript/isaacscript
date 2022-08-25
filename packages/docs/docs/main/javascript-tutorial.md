@@ -177,7 +177,7 @@ In TypeScript, you would use the handy `push` method:
 myArray.push("someNewElement");
 ```
 
-In addition to `push`, you can see all of the handy methods [shown in the MDN docs]([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+In addition to `push`, you can see all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 <br />
 
