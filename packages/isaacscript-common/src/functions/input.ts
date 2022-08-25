@@ -135,6 +135,11 @@ export function isShootActionTriggeredOnAnyInput(): boolean {
 
 /**
  * Helper function to get the string that would be typed if someone pressed the corresponding key.
+ * This is useful for creating in-game chat.
+ *
+ * Note that this function will only work for the keyboard values that are printable. Thus, it will
+ * return undefined for e.g. `Keyboard.LEFT_SHIFT` (340). If all you want is the corresponding name
+ * of the key, then simply use the enum reverse mapping (e.g. `Keyboard[keyboard]`).
  */
 export function keyboardToString(
   keyboard: Keyboard,
