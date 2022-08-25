@@ -540,7 +540,7 @@ function addSadOnion(player: EntityPlayer) {
 }
 ```
 
-One exception is when the function is exported. (More on what exported functions are later.) By default, the IsaacScript linter is configured to require return types for exported functions. So, if the previous function was exported, you would write it like this:
+One exception is when the function is exported. (More on what exported functions are later.) By default, the IsaacScript linter is configured to require return types for all exported functions. So, if the previous function was exported, you would write it like this:
 
 ```ts
 export function addSadOnion(player: EntityPlayer): void {
