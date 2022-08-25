@@ -483,9 +483,68 @@ function postPlayerInit(player: EntityPlayer) {
 
 In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically added to any IsaacScript project.)
 
-Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell you by drawing a squiggly line underneath it.
+Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell you by drawing a red squiggly line underneath it.
 
 When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
+
+(Note that if you are just prototyping a function, then you can quickly type it out without the types. The compiler will give errors, but you can ignore them and everything will work fine as you test the function in-game. Once you are satisfied with the function, you can go back and fill in the types.)
+
+<br />
+
+### Type Inference
+
+In the previous section, we provided a type annotation for a function argument (by using a colon). It is also possible to provide a type annotation for other things. For example, this is providing a type annotation for a variable declaration:
+
+```ts
+const myNumber: number = 123;
+```
+
+However, you almost never need to do this. You can just type out the variable like normal:
+
+```ts
+const myNumber = 123;
+```
+
+Here, TypeScript will infer that "myNumber" is of type "number", because it is being initialized with a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single varaible, which is a pain.)
+
+You can also use type annotiations to specify the return type of a function, like this:
+
+```ts
+// The return type is "boolean".
+function isEven(num: number): boolean {
+  return num % 2 === 0;
+}
+```
+
+Annotating the return type of functions is optional, but pretty useful, as it can catch bugs when you accidently return things that you did not intend.
+
+<br />
+
+### Void
+
+If a function is not expected to return anything, then the return type is `void`. For example:
+
+```ts
+function addSadOnion(player: EntityPlayer): void {
+  player.AddCollectible(CollectibleType.SAD_ONION);
+}
+```
+
+But annotiating a return type of void is pretty pointless, so the function is better written without the return type annotation:
+
+```ts
+function addSadOnion(player: EntityPlayer) {
+  player.AddCollectible(CollectibleType.SAD_ONION);
+}
+```
+
+One exception is when the function is exported. (More on what exported functions are later.) By default, the IsaacScript linter is configured to require return types for exported functions. So, if the previous function was exported, you would write it like this:
+
+```ts
+export function addSadOnion(player: EntityPlayer): void {
+  player.AddCollectible(CollectibleType.SAD_ONION);
+}
+```
 
 <br />
 
