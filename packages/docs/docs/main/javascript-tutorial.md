@@ -487,7 +487,7 @@ Once the type has been annotated, your editor will know about all of the legal m
 
 When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
 
-(Note that if you are just prototyping a function, then you can quickly type it out without the types. The compiler will give errors, but you can ignore them and everything will work fine as you test the function in-game. Once you are satisfied with the function, you can go back and fill in the types.)
+(Note that if you are just trying out a new function, then you can quickly type it out without the types. The compiler will give errors, but you can ignore them and everything will work fine as you test the function in-game. Once you are satisfied with the function, you can go back and fill in the types.)
 
 <br />
 
