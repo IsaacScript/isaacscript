@@ -167,8 +167,8 @@ const myArray = ["foo", "bar", "baz"];
 In Lua, there are two different ways to add an element to an array:
 
 ```lua
-myArray[#myArray + 1] = "someNewElement"
 table.insert(myArray, "anotherNewElement")
+myArray[#myArray + 1] = "someNewElement"
 ```
 
 In TypeScript, you would use the handy `push` method:
