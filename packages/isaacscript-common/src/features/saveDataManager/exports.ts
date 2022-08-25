@@ -22,8 +22,8 @@ import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./saveDataManagerConstants";
  * 1. automatic resetting of variables on a new run, on a new level, or on a new room (as desired)
  * 2. automatic saving and loading of all tracked data to the "save#.dat" file
  *
- * You feed this function with an anonymous object containing your variables, and then it will
- * automatically manage them for you. (See below for an example.)
+ * You feed this function with an object containing your variables, and then it will automatically
+ * manage them for you. (See below for an example.)
  *
  * The save data manager is meant to be called once for each feature of your mod. In other words,
  * you should not put all of the data for your mod on the same object. Instead, scope your variables

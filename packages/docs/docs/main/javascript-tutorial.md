@@ -150,6 +150,46 @@ mod.AddCallback(ModCallbacks.POST_NEW_LEVEL, () => {
 
 <br />
 
+### Arrays
+
+An array is a data structure that is an ordered list of elements. In Lua, you use a table to represent an array.
+
+```lua
+local myArray = {"foo", "bar", "baz"}
+```
+
+In TypeScript, there is a dedicated syntax for arrays - the square brackets.
+
+```ts
+const myArray = ["foo", "bar", "baz"];
+```
+
+<br />
+
+### Objects
+
+An object is a data structure that stores key/value pairs. In Lua, you use a table to represent an object. (An equal sign is used in between the keys and values.)
+
+```js
+local myObject = {
+  foo = 123,
+  bar = 456,
+  baz = 789,
+}
+```
+
+In TypeScript, there is a dedicated syntax for arrays - the curly brackets. (A colon is used in between the keys and the values.)
+
+```ts
+const myObject = {
+  foo: 123,
+  bar: 456,
+  baz: 789,
+};
+```
+
+<br />
+
 ### `if` Statements and Operators
 
 In Lua, you don't put parentheses around the conditions of an `if` statement. But in TypeScript, you do.
