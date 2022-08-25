@@ -505,9 +505,9 @@ However, you almost never need to do this. You can just type out the variable li
 const myNumber = 123;
 ```
 
-Here, TypeScript will infer that "myNumber" is of type "number", because it is being initialized with a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single varaible, which is a pain.)
+Here, TypeScript will infer that "myNumber" is of type "number", because it is being initialized with a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
 
-You can also use type annotiations to specify the return type of a function, like this:
+You can also use type annotations to specify the return type of a function, like this:
 
 ```ts
 // The return type is "boolean".
@@ -516,7 +516,9 @@ function isEven(num: number): boolean {
 }
 ```
 
-Annotating the return type of functions is optional, but pretty useful, as it can catch bugs when you accidently return things that you did not intend.
+Here, providing the return type annotiation is optional. If we don't specify it, the compiler would infer what the return type is automatically, saving us the time from having to type it out.
+
+With that said, just because we don't *have* to type it does not mean that we should *never* type it. Having return type annotiations are often pretty useful, as it can catch bugs when you accidentally return things that you did not intend.
 
 <br />
 
@@ -530,7 +532,7 @@ function addSadOnion(player: EntityPlayer): void {
 }
 ```
 
-But annotiating a return type of void is pretty pointless, so the function is better written without the return type annotation:
+But annotating a return type of void is pretty pointless, so the function is better written without the return type annotation:
 
 ```ts
 function addSadOnion(player: EntityPlayer) {
