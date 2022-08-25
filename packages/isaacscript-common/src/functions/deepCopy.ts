@@ -34,10 +34,13 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  * `deepCopy` is a semi-generic deep cloner. It will recursively copy all of the values so that none
  * of the nested references remain.
  *
- * It supports the following object types:
+ * `deepCopy` is used by the IsaacScript save data manager to make a backup of your variables, so
+ * that it can restore them to the default values at the beginning of a new room, floor, or run.
+ *
+ * `deepCopy` supports the following object types:
  *
  * - Primitives (i.e. strings, numbers, and booleans)
- * - Basic TSTL objects / tables
+ * - Basic TSTL objects (which are the same thing as Lua tables)
  * - TSTL `Map`
  * - TSTL `Set`
  * - TSTL classes
