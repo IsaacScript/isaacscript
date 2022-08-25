@@ -47,7 +47,7 @@ export function getOtherPlayers(player: EntityPlayer): EntityPlayer[] {
 export function getPlayerFromIndex(
   playerIndex: PlayerIndex,
 ): EntityPlayer | undefined {
-  const players = getPlayers();
+  const players = getAllPlayers();
   return players.find((player) => getPlayerIndex(player) === playerIndex);
 }
 

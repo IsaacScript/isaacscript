@@ -21,7 +21,12 @@ export function anyEntityCloserThan(
   );
 }
 
-/** Iterates over all players and checks if any player is close enough to the specified position. */
+/**
+ * Iterates over all players and checks if any player is close enough to the specified position.
+ *
+ * Note that this function does not consider players with a non-undefined parent, since they are not
+ * real players (e.g. the Strawman Keeper).
+ */
 export function anyPlayerCloserThan(
   position: Vector,
   distance: float,
