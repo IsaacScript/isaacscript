@@ -10,7 +10,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getPlayers } from "../functions/playerIndex";
+import { getPlayersWithControllerIndex } from "../functions/players";
 import {
   postEsauJrFire,
   postEsauJrHasSubscriptions,
@@ -65,8 +65,12 @@ function postUpdate() {
   if (v.run.usedEsauJrControllerIndex === null) {
     return;
   }
-  const player = getPlayerWithControllerIndex(v.run.usedEsauJrControllerIndex);
+  const players = getPlayersWithControllerIndex(
+    v.run.usedEsauJrControllerIndex,
+  );
   v.run.usedEsauJrControllerIndex = null;
+
+  const player = players[0];
   if (player === undefined) {
     return;
   }
@@ -77,11 +81,6 @@ function postUpdate() {
   }
 
   postEsauJrFire(player);
-}
-
-function getPlayerWithControllerIndex(controllerIndex: ControllerIndex) {
-  const players = getPlayers();
-  return players.find((player) => player.ControllerIndex === controllerIndex);
 }
 
 // ModCallback.POST_USE_ITEM (3)

@@ -2,6 +2,7 @@ import {
   ActiveSlot,
   Challenge,
   CollectibleType,
+  ControllerIndex,
   FamiliarVariant,
   NullItemID,
   PlayerForm,
@@ -348,6 +349,21 @@ export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
 }
 
 /**
+ * Helper function to get all of the players that match the provided controller index. This function
+ * returns an array of players because it is possible that there is more than one player with the
+ * same controller index (e.g. Jacob & Esau).
+ *
+ * Note that this function includes players with a non-undefined parent like e.g. the Strawman
+ * Keeper.
+ */
+export function getPlayersOnKeyboard(): EntityPlayer[] {
+  const players = getAllPlayers();
+  return players.filter(
+    (player) => player.ControllerIndex === ControllerIndex.KEYBOARD,
+  );
+}
+
+/**
  * Helper function to get only the players that have a certain collectible.
  *
  * This function is variadic, meaning that you can supply as many collectible types as you want to
@@ -362,6 +378,21 @@ export function getPlayersWithCollectible(
       player.HasCollectible(collectibleType),
     ),
   );
+}
+
+/**
+ * Helper function to get all of the players that match the provided controller index. This function
+ * returns an array of players because it is possible that there is more than one player with the
+ * same controller index (e.g. Jacob & Esau).
+ *
+ * Note that this function includes players with a non-undefined parent like e.g. the Strawman
+ * Keeper.
+ */
+export function getPlayersWithControllerIndex(
+  controllerIndex: ControllerIndex,
+): EntityPlayer[] {
+  const players = getAllPlayers();
+  return players.filter((player) => player.ControllerIndex === controllerIndex);
 }
 
 /**
