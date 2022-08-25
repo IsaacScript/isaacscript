@@ -204,14 +204,13 @@ export function getEntityFromPtrHash(ptrHash: PtrHash): Entity | undefined {
   return entities.find((entity) => GetPtrHash(entity) === ptrHash);
 }
 
-/** Helper function to return a string containing the entity's type, variant, and sub-type. */
+/** Helper function to get a string containing the entity's type, variant, and sub-type. */
 export function getEntityID(entity: Entity): string {
   return `${entity.Type}.${entity.Variant}.${entity.SubType}`;
 }
 
 /**
- * Helper function to return a formatted string in the format returned by the `getEntityID`
- * function.
+ * Helper function to get a formatted string in the format returned by the `getEntityID` function.
  */
 export function getEntityIDFromConstituents(
   entityType: EntityType,

@@ -226,7 +226,7 @@ export function getGridEntitiesMap(
   return gridEntityMap;
 }
 
-/** Helper function to return a string containing the grid entity's type and variant. */
+/** Helper function to get a string containing the grid entity's type and variant. */
 export function getGridEntityID(gridEntity: GridEntity): string {
   const gridEntityType = gridEntity.GetType();
   const variant = gridEntity.GetVariant();
@@ -234,7 +234,7 @@ export function getGridEntityID(gridEntity: GridEntity): string {
 }
 
 /**
- * Helper function to return a formatted string in the format returned by the `getGridEntityID`
+ * Helper function to get a formatted string in the format returned by the `getGridEntityID`
  * function.
  */
 export function getGridEntityIDFromConstituents(
