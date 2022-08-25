@@ -15,7 +15,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "dead" in "items_metadata.xml".
    *
-   * 1 << 0
+   * 1 << 0 (1)
    */
   DEAD: 1 << 0,
 
@@ -24,7 +24,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "syringe" in "items_metadata.xml".
    *
-   * 1 << 1
+   * 1 << 1 (2)
    */
   SYRINGE: 1 << 1,
 
@@ -33,7 +33,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "mom" in "items_metadata.xml".
    *
-   * 1 << 2
+   * 1 << 2 (4)
    */
   MOM: 1 << 2,
 
@@ -42,7 +42,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "tech" in "items_metadata.xml".
    *
-   * 1 << 3
+   * 1 << 3 (8)
    */
   TECH: 1 << 3,
 
@@ -51,7 +51,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "battery" in "items_metadata.xml".
    *
-   * 1 << 4
+   * 1 << 4 (16)
    */
   BATTERY: 1 << 4,
 
@@ -60,7 +60,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "guppy" in "items_metadata.xml".
    *
-   * 1 << 5
+   * 1 << 5 (32)
    */
   GUPPY: 1 << 5,
 
@@ -69,7 +69,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "fly" in "items_metadata.xml".
    *
-   * 1 << 6
+   * 1 << 6 (64)
    */
   FLY: 1 << 6,
 
@@ -78,7 +78,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "bob" in "items_metadata.xml".
    *
-   * 1 << 7
+   * 1 << 7 (128)
    */
   BOB: 1 << 7,
 
@@ -87,7 +87,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "mushroom" in "items_metadata.xml".
    *
-   * 1 << 8
+   * 1 << 8 (256)
    */
   MUSHROOM: 1 << 8,
 
@@ -96,7 +96,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "mushroom" in "items_metadata.xml".
    *
-   * 1 << 9
+   * 1 << 9 (512)
    */
   BABY: 1 << 9,
 
@@ -105,7 +105,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "angel" in "items_metadata.xml".
    *
-   * 1 << 10
+   * 1 << 10 (1024)
    */
   ANGEL: 1 << 10,
 
@@ -114,7 +114,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "devil" in "items_metadata.xml".
    *
-   * 1 << 11
+   * 1 << 11 (2048)
    */
   DEVIL: 1 << 11,
 
@@ -123,7 +123,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "poop" in "items_metadata.xml".
    *
-   * 1 << 12
+   * 1 << 12 (4096)
    */
   POOP: 1 << 12,
 
@@ -132,7 +132,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "book" in "items_metadata.xml".
    *
-   * 1 << 13
+   * 1 << 13 (8192)
    */
   BOOK: 1 << 13,
 
@@ -141,7 +141,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "spider" in "items_metadata.xml".
    *
-   * 1 << 14
+   * 1 << 14 (16384)
    */
   SPIDER: 1 << 14,
 
@@ -150,7 +150,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "quest" in "items_metadata.xml".
    *
-   * 1 << 15
+   * 1 << 15 (32768)
    */
   QUEST: 1 << 15,
 
@@ -159,7 +159,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "monstermanual" in "items_metadata.xml".
    *
-   * 1 << 16
+   * 1 << 16 (65536)
    */
   MONSTER_MANUAL: 1 << 16,
 
@@ -168,7 +168,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "nogreed" in "items_metadata.xml".
    *
-   * 1 << 17
+   * 1 << 17 (131072)
    */
   NO_GREED: 1 << 17,
 
@@ -177,7 +177,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "food" in "items_metadata.xml".
    *
-   * 1 << 18
+   * 1 << 18 (262144)
    */
   FOOD: 1 << 18,
 
@@ -186,7 +186,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "tearsup" in "items_metadata.xml".
    *
-   * 1 << 19
+   * 1 << 19 (524288)
    */
   TEARS_UP: 1 << 19,
 
@@ -195,7 +195,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "offensive" in "items_metadata.xml".
    *
-   * 1 << 20
+   * 1 << 20 (1048576)
    */
   OFFENSIVE: 1 << 20,
 
@@ -204,7 +204,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "nokeeper" in "items_metadata.xml".
    *
-   * 1 << 21
+   * 1 << 21 (2097152)
    */
   NO_KEEPER: 1 << 21,
 
@@ -213,7 +213,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "nolostbr" in "items_metadata.xml".
    *
-   * 1 << 22
+   * 1 << 22 (4194304)
    */
   NO_LOST_BR: 1 << 22,
 
@@ -222,7 +222,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "stars" in "items_metadata.xml".
    *
-   * 1 << 23
+   * 1 << 23 (8388608)
    */
   STARS: 1 << 23,
 
@@ -231,7 +231,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "summonable" in "items_metadata.xml".
    *
-   * 1 << 24
+   * 1 << 24 (16777216)
    */
   SUMMONABLE: 1 << 24,
 
@@ -240,7 +240,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "nocantrip" in "items_metadata.xml".
    *
-   * 1 << 25
+   * 1 << 25 (33554432)
    */
   NO_CANTRIP: 1 << 25,
 
@@ -250,7 +250,7 @@ const ItemConfigTagInternal = {
    * Not equal to any particular tag in "items_metadata.xml". Instead, this is set for all of the
    * items in the "wisps.xml" file.
    *
-   * 1 << 26
+   * 1 << 26 (67108864)
    */
   WISP: 1 << 26,
 
@@ -259,7 +259,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "uniquefamiliar" in "items_metadata.xml".
    *
-   * 1 << 27
+   * 1 << 27 (134217728)
    */
   UNIQUE_FAMILIAR: 1 << 27,
 
@@ -268,7 +268,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "nochallenge" in "items_metadata.xml".
    *
-   * 1 << 28
+   * 1 << 28 (268435456)
    */
   NO_CHALLENGE: 1 << 28,
 
@@ -277,7 +277,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "nodaily" in "items_metadata.xml".
    *
-   * 1 << 29
+   * 1 << 29 (536870912)
    */
   NO_DAILY: 1 << 29,
 
@@ -289,7 +289,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "lazarusshared" in "items_metadata.xml".
    *
-   * 1 << 30
+   * 1 << 30 (1073741824)
    */
   LAZ_SHARED: 1 << 30,
 
@@ -302,7 +302,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "lazarussharedglobal" in "items_metadata.xml".
    *
-   * 1 << 31
+   * 1 << 31 (2147483648)
    */
   LAZ_SHARED_GLOBAL: 1 << 31,
 
@@ -311,7 +311,7 @@ const ItemConfigTagInternal = {
    *
    * Equal to "noeden" in "items_metadata.xml".
    *
-   * 1 << 32
+   * 1 << 32 (4294967296)
    */
   NO_EDEN: 1 << 32,
 } as const;

@@ -7,16 +7,16 @@
  * @rename DisplayFlag
  */
 const DisplayFlagInternal = {
-  /** 1 << -1 */
+  /** 1 << -1 (0) */
   INVISIBLE: 1 << -1,
 
-  /** 1 << 0 */
+  /** 1 << 0 (1) */
   VISIBLE: 1 << 0,
 
-  /** 1 << 1 */
+  /** 1 << 1 (2) */
   SHADOW: 1 << 1,
 
-  /** 1 << 2 */
+  /** 1 << 2 (4) */
   SHOW_ICON: 1 << 2,
 } as const;
 

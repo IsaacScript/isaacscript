@@ -7,25 +7,25 @@
  * @rename ActionTrigger
  */
 const ActionTriggerInternal = {
-  /** 1 << -1 */
+  /** 1 << -1 (0) */
   NONE: 1 << -1,
 
-  /** 1 << 0 */
+  /** 1 << 0 (1) */
   BOMB_PLACED: 1 << 0,
 
-  /** 1 << 1 */
+  /** 1 << 1 (2) */
   MOVED: 1 << 1,
 
-  /** 1 << 2 */
+  /** 1 << 2 (4) */
   SHOOTING: 1 << 2,
 
-  /** 1 << 3 */
+  /** 1 << 3 (8) */
   CARD_PILL_USED: 1 << 3,
 
-  /** 1 << 4 */
+  /** 1 << 4 (16) */
   ITEM_ACTIVATED: 1 << 4,
 
-  /** 1 << 5 */
+  /** 1 << 5 (32) */
   ITEMS_DROPPED: 1 << 5,
 } as const;
 

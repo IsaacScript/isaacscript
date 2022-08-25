@@ -10,28 +10,28 @@ const TargetFlagInternal = {
   /**
    * Allow switching to a better target even if we already have one.
    *
-   * 1 << 0
+   * 1 << 0 (1)
    */
   ALLOW_SWITCHING: 1 << 0,
 
   /**
    * Do not prioritize enemies that are close to the familiar's owner.
    *
-   * 1 << 1
+   * 1 << 1 (2)
    */
   DONT_PRIORITIZE_ENEMIES_CLOSE_TO_PLAYER: 1 << 1,
 
   /**
    * Prioritize enemies with higher HP.
    *
-   * 1 << 2
+   * 1 << 2 (4)
    */
   PRIORITIZE_ENEMIES_WITH_HIGH_HP: 1 << 2,
 
   /**
    * Prioritize enemies with higher HP.
    *
-   * 1 << 3
+   * 1 << 3 (8)
    */
   PRIORITIZE_ENEMIES_WITH_LOW_HP: 1 << 3,
 
@@ -39,7 +39,7 @@ const TargetFlagInternal = {
    * Give a lower priority to our current target. (This makes it more likely for the familiar to
    * switch between targets.)
    *
-   * 1 << 4
+   * 1 << 4 (16)
    */
   GIVE_LOWER_PRIORITY_TO_CURRENT_TARGET: 1 << 4,
 } as const;
