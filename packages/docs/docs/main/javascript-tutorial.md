@@ -164,6 +164,21 @@ In TypeScript, there is a dedicated syntax for arrays - the square brackets.
 const myArray = ["foo", "bar", "baz"];
 ```
 
+In Lua, there are two different ways to add an element to an array:
+
+```lua
+myArray[#myArray + 1] = "someNewElement"
+table.insert(myArray, "anotherNewElement")
+```
+
+In TypeScript, you would use the handy `push` method:
+
+```ts
+myArray.push("someNewElement");
+```
+
+In addition to `push`, you can see all of the handy methods [shown in the MDN docs]([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
 <br />
 
 ### Objects
@@ -186,6 +201,20 @@ const myObject = {
   bar: 456,
   baz: 789,
 };
+```
+
+In Lua, there are two different ways to set an element:
+
+```lua
+myObject.foo = 999
+myObject["foo"] = 999
+```
+
+In TypeScript, it is the exact same thing:
+
+```ts
+myObject.foo = 999;
+myObject["foo"] = 999;
 ```
 
 <br />
@@ -491,7 +520,7 @@ When coding in TypeScript, you will need to add the type for every function argu
 
 <br />
 
-### Type Inference
+### Type Inference For Variables
 
 In the previous section, we provided a type annotation for a function argument (by using a colon). It is also possible to provide a type annotation for other things. For example, this is providing a type annotation for a variable declaration:
 
@@ -499,13 +528,34 @@ In the previous section, we provided a type annotation for a function argument (
 const myNumber: number = 123;
 ```
 
-However, you almost never need to do this. You can just type out the variable like normal:
+Here, we are explicitly telling the compiler what the type of the variable is. But in this case, doing this is redundant. The type is obviously a number, because 123 is a number. So we can just type out the variable like normal:
 
 ```ts
 const myNumber = 123;
 ```
 
-Here, TypeScript will infer that "myNumber" is of type "number", because it is being initialized with a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
+Here, TypeScript will infer that "myNumber" is of type "number", because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
+
+However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain collectible types:
+
+```ts
+// We will add some collectible types later on, but right now we just need to initialize the array.
+const collectibleTypes = [];
+```
+
+Here, TypeScript is able to infer that the type of the variable is an array. But it can't infer what is supposed to go inside of the array, for obvious reasons. So the type defaults to `any[]` (which means "an array containing anything").
+
+This is bad, because we want our arrays to be type safe. Thus, when we declare arrays (and other container-like objects), we have to tell TypeScript what kinds of things they should contain:
+
+```ts
+const collectibleTypes: CollectibleType[] = [];
+```
+
+Much better!
+
+<br />
+
+### Type Inference For Functions
 
 You can also use type annotations to specify the return type of a function, like this:
 
