@@ -1,7 +1,7 @@
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { isNumber, isTable } from "./types";
-import { erange, repeat } from "./utils";
+import { erange } from "./utils";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements. Note that this
@@ -397,24 +397,6 @@ export function getRandomArrayIndex<T>(
   }
 
   return getRandomInt(0, array.length - 1, seedOrRNG, exceptions);
-}
-
-/**
- * Initializes an array with all elements containing the specified default value.
- *
- * For example:
- *
- * ```ts
- * const arrayWithZeroes = initArray(0, 10);
- * ```
- */
-export function initArray<T>(defaultValue: T, size: int): T[] {
-  const array: T[] = [];
-  repeat(size, () => {
-    array.push(defaultValue);
-  });
-
-  return array;
 }
 
 /**

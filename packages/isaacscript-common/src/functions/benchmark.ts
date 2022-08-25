@@ -3,7 +3,12 @@ import { log } from "./log";
 /**
  * Helper function to benchmark the performance of a function.
  *
- * This function is variadic, which means that you can supply as many as you want to benchmark.
+ * This function is variadic, which means that you can supply as many functions as you want to
+ * benchmark.
+ *
+ * This function uses the `Isaac.GetTime` method to record how long the function took to execute.
+ * This method only reports time in milliseconds. For this reason, if you are benchmarking smaller
+ * functions, then you should provide a very high value for the number of trials.
  *
  * @returns An array containing the average time in milliseconds for each function. (This will also
  *          be printed to the log.)
