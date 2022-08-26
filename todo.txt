@@ -1,5 +1,4 @@
 - use stack overflow to remove isaac-typescript-definitions from deps
-- eslint-disable isaacscript/complete-sentences-line-comments - ignore let const etc
 
 
 - Lint:
