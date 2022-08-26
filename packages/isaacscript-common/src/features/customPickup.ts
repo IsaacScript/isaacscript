@@ -13,9 +13,10 @@ import { spawnEffect } from "../functions/entitiesSpecific";
 
 const FEATURE_NAME = "customPickup";
 
+/** We must specify "this: void" to prevent compiler errors. */
 interface CustomPickupFunctions {
-  collectFunc: (player: EntityPlayer) => void;
-  collisionFunc: (player: EntityPlayer) => boolean;
+  collectFunc: (this: void, player: EntityPlayer) => void;
+  collisionFunc: (this: void, player: EntityPlayer) => boolean;
 }
 
 /**
