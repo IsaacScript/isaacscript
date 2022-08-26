@@ -467,11 +467,23 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc link with URL",
+  name: "Comment with JSDoc link with URL without trailing text",
   code: `
 /**
  * This starts a debug session with ZeroBrane Studio. For more information, see the
  * [documentation](https://wofsauge.github.io/IsaacDocs/rep/tutorials/ZeroBraneStudio.html).
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc link with URL and trailing text",
+  code: `
+/**
+ * Also see the [documentation for the socket
+ * library](https://web.tecgraf.puc-rio.br/luasocket/old/luasocket-2.0-beta/tcp.html).
+ *
+ * @noSelf
  */
   `,
 });

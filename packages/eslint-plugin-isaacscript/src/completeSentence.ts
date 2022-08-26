@@ -34,7 +34,7 @@ export function getIncompleteSentences(text: string): IncompleteSentence[] {
   const textBlocks = splitOnSpecialText(text);
   textBlocks.forEach((textBlock) => {
     // Handle text that "spills over" to the next line by simply converting all newlines to spaces.
-    const squishedText = textBlock.split("\n").join(" ");
+    const squishedText = textBlock.split("\n").join(" ").trim();
 
     // Handling all edge cases for "e.g." or "i.e." is very difficult, since sometimes it is correct
     // to put a period after them, and sometimes not. Thus, ignore all text that contains them.
