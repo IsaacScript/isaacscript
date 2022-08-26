@@ -122,8 +122,8 @@ function postEffectRenderPickupEffect(effect: EntityEffect) {
 export function registerCustomPickup(
   pickupVariantCustom: PickupVariant,
   subType: int,
-  collectFunc: (player: EntityPlayer) => void,
-  collisionFunc: (player: EntityPlayer) => boolean = () => true,
+  collectFunc: (this: void, player: EntityPlayer) => void,
+  collisionFunc: (this: void, player: EntityPlayer) => boolean = () => true,
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
