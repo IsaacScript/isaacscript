@@ -1,3 +1,4 @@
+- write development guide for yarn link
 - use stack overflow to remove isaac-typescript-definitions from deps
 
 

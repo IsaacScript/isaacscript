@@ -27,7 +27,7 @@ import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomSha
 import { getRandomArrayElement } from "./array";
 import { doorSlotToDoorSlotFlag } from "./doors";
 import { addFlag, hasFlag, removeFlag } from "./flag";
-import { getRandomSeed } from "./rng";
+import { getRandomSeed, isRNG, newRNG } from "./rng";
 import {
   getRoomAllowedDoors,
   getRoomData,
@@ -460,17 +460,25 @@ export function isRoomInsideGrid(roomGridIndex?: int): boolean {
  * The newly created room will have data corresponding to the game's randomly generated red room. If
  * you want to modify this, use the `setRoomData` helper function.
  *
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. Default is `Level.GetDungeonPlacementSeed`.
  * @returns The room grid index of the new room or undefined if the floor had no valid dead ends to
  *          place a room.
  */
-export function newRoom(): int | undefined {
-  const newRoomCandidate = getNewRoomCandidate();
+export function newRoom(seedOrRNG?: Seed | RNG): int | undefined {
+  const level = game.GetLevel();
+
+  if (seedOrRNG === undefined) {
+    seedOrRNG = level.GetDungeonPlacementSeed();
+  }
+  const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
+
+  const newRoomCandidate = getNewRoomCandidate(rng);
   if (newRoomCandidate === undefined) {
     return undefined;
   }
   const [adjacentRoomGridIndex, doorSlot, newRoomGridIndex] = newRoomCandidate;
 
-  const level = game.GetLevel();
   level.MakeRedRoomDoor(adjacentRoomGridIndex, doorSlot);
 
   // By default, the room will be a "red room" and have a red graphical tint, so we want to make it
