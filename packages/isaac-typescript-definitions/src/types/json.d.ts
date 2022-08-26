@@ -19,8 +19,9 @@
  * is not supposed to exist inside of end-user mods.
  *
  * @noResolution
+ * @noSelf
  */
 declare module "json" {
-  function encode(this: void, data: unknown): string;
-  function decode(this: void, data: string): unknown;
+  function encode(data: unknown): string;
+  function decode(data: string): unknown;
 }

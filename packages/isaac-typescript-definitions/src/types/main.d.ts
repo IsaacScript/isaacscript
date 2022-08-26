@@ -1,5 +1,3 @@
-/* eslint-disable jsdoc/check-param-names */
-
 /**
  * These are functions and constants from the "main.lua" file, which is located at:
  *
@@ -7,6 +5,7 @@
  * C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\main.lua
  * ```
  *
+ * @noSelfInFile
  * @module
  */
 
@@ -18,17 +17,13 @@
  *             anything.
  * @param apiVersion In both Afterbirth and Repentance, the only valid API version is 1.
  */
-declare function RegisterMod(
-  this: void,
-  name: string,
-  apiVersion: APIVersion,
-): Mod;
+declare function RegisterMod(name: string, apiVersion: APIVersion): Mod;
 
 /**
  * This starts a debug session with ZeroBrane Studio. For more information, see the
  * [documentation](https://wofsauge.github.io/IsaacDocs/rep/tutorials/ZeroBraneStudio.html).
  */
-declare function StartDebug(this: void): void;
+declare function StartDebug(): void;
 
 /**
  * This will be set to true if the end-user has the Repentance DLC installed. You can use this

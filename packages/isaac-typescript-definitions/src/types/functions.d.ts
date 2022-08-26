@@ -2,6 +2,7 @@
  * These are global functions provided by C++ code. Note that additional global functions are
  * located in the "main.d.ts" file (which corresponds to the "main.lua" file).
  *
+ * @noSelfInFile
  * @module
  */
 
@@ -13,7 +14,6 @@
  * A `PtrHash` object is simply a branded number for better type safety and code clarity.
  */
 declare function GetPtrHash(
-  this: void,
   pointer: Entity | GridEntity | RoomDescriptor | Readonly<RoomDescriptor>,
 ): PtrHash;
 
@@ -31,11 +31,11 @@ declare function GetPtrHash(
  *
  * @deprecated Can return a value of 0 and crash the game.
  */
-declare function Random(this: void): int;
+declare function Random(): int;
 
 /**
  * Returns a random vector between (-1, -1) and (1, 1).
  *
  * To get random vectors with a bigger length, multiply this with a number.
  */
-declare function RandomVector(this: void): Vector;
+declare function RandomVector(): Vector;
