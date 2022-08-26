@@ -34,7 +34,7 @@
     ],
     "noHeader": true,
     "noImplicitGlobalVariables": true,
-    "noImplicitSelf": true,
+    // "noImplicitSelf": true, // Will eventually be enabled by default when it becomes stable.
   },
 
   // IsaacScript settings
