@@ -1,5 +1,6 @@
 import { isSeparatorLine } from "../comments";
 import { getIncompleteSentences } from "../completeSentence";
+import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";
 import {
   getCommentBlocks,
   getLeadingLineComments,
@@ -68,7 +69,14 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
         continue;
       }
 
+      // Unlike JSDoc comments, we want to whitelist comment blocks that begin with JavaScript
+      // keywords. This is to make commenting out code less painful. e.g. `// const foo = 123;`
       const text = commentBlock.mergedText;
+      const firstWord = getFirstWord(text);
+      if (JAVASCRIPT_RESERVED_WORDS_SET.has(firstWord)) {
+        continue;
+      }
+
       const incompleteSentences = getIncompleteSentences(text);
       incompleteSentences.forEach((incompleteSentence) => {
         context.report({
@@ -87,3 +95,9 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
     return {};
   },
 });
+
+function getFirstWord(text: string): string {
+  const words = text.split(" ");
+  const firstWord = words[0];
+  return firstWord ?? "";
+}

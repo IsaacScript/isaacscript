@@ -273,6 +273,13 @@ invalid.push({
   errors: [{ messageId: "missingPeriod" }],
 });
 
+valid.push({
+  name: "Commenting out code",
+  code: `
+// const foo = 123;
+  `,
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,
