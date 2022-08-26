@@ -62,6 +62,7 @@ module.exports = {
           // https://typescripttolua.github.io/docs/advanced/compiler-annotations
           "noResolution",
           "noSelf",
+          "noSelfInFile",
 
           // Ignore tags used in ts-json-schema-generator:
           // https://github.com/vega/ts-json-schema-generator
