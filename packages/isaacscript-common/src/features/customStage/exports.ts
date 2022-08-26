@@ -1,4 +1,3 @@
-// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
  * These are helper functions relating to creating custom stages with the built-in standard library.
  * For more information about custom stages, see the [main
