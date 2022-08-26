@@ -67,9 +67,9 @@ declare global {
     Variant: LaserVariant;
   }
 
+  /** @noSelf */
   namespace EntityLaser {
     function CalculateEndPoint(
-      this: void,
       start: Vector,
       dir: Vector,
       positionOffset: Vector,
@@ -78,7 +78,6 @@ declare global {
     ): Vector;
 
     function ShootAngle(
-      this: void,
       variant: LaserVariant,
       sourcePos: Vector,
       angleDegrees: float,

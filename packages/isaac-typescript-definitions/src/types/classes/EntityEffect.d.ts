@@ -24,7 +24,8 @@ declare global {
     m_Height: float;
   }
 
+  /** @noSelf */
   namespace EntityEffect {
-    function IsPlayerCreep(this: void, variant: int): boolean;
+    function IsPlayerCreep(variant: int): boolean;
   }
 }

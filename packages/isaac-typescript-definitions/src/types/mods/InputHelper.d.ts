@@ -4,8 +4,9 @@ declare global {
   /** This is a global variable exposed as part of ModConfigMenu. */
   const InputHelper: InputHelperInterface | undefined;
 
+  /** @noSelf */
   interface InputHelperInterface {
-    KeyboardPressed(this: void, key: Keyboard, controllerIndex: int): boolean;
+    KeyboardPressed(key: Keyboard, controllerIndex: int): boolean;
 
     ControllerToString: LuaMap<Keyboard, string>;
     KeyboardToString: LuaMap<Keyboard, string>;

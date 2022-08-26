@@ -48,8 +48,9 @@ declare interface Vector extends IsaacAPIClass {
   sub: LuaSubtractionMethod<Vector, Vector>;
 }
 
+/** @noSelf */
 declare namespace Vector {
-  function FromAngle(this: void, angleDegrees: float): Vector;
+  function FromAngle(angleDegrees: float): Vector;
 
   /**
    * @deprecated This can be mutated by other mods, so it is never safe to use. Use the `VectorOne`

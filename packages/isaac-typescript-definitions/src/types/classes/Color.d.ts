@@ -53,8 +53,9 @@ declare interface Color extends IsaacAPIClass {
   RO: float;
 }
 
+/** @noSelf */
 declare namespace Color {
-  function Lerp(this: void, m1: Color, m2: Color, t: float): Color;
+  function Lerp(m1: Color, m2: Color, t: float): Color;
 
   /**
    * @deprecated This can be mutated by other mods, so it is never safe to use. Use the

@@ -60,20 +60,21 @@ declare global {
     SetStartSeed(startSeed: string): void;
   }
 
+  /** @noSelf */
   namespace Seeds {
-    function CountUnlockedSeedEffects(this: void): int;
-    function GetSeedEffect(this: void, str: string): SeedEffect;
-    function InitSeedInfo(this: void): void;
-    function IsSpecialSeed(this: void, str: string): boolean;
-    function IsStringValidSeed(this: void, str: string): boolean;
+    function CountUnlockedSeedEffects(): int;
+    function GetSeedEffect(str: string): SeedEffect;
+    function InitSeedInfo(): void;
+    function IsSpecialSeed(str: string): boolean;
+    function IsStringValidSeed(str: string): boolean;
 
     /**
      * Converts a numerical seed into the format used in the in-game pause menu. For example,
      * converts 0 to "B911 99JA".
      */
-    function Seed2String(this: void, seed: int): string;
+    function Seed2String(seed: int): string;
 
     /** Converts a seed string into a number. For example, converts "B911 99JA" to 0. */
-    function String2Seed(this: void, str: string): int;
+    function String2Seed(str: string): int;
   }
 }

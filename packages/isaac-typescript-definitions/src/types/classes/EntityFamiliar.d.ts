@@ -66,7 +66,8 @@ declare global {
     Variant: FamiliarVariant;
   }
 
+  /** @noSelf */
   namespace EntityFamiliar {
-    function GetOrbitDistance(this: void, layer: int): Vector;
+    function GetOrbitDistance(layer: int): Vector;
   }
 }

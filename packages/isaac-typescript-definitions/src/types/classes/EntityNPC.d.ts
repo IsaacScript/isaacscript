@@ -110,6 +110,7 @@ declare global {
     V2: Vector;
   }
 
+  /** @noSelf */
   namespace EntityNPC {
     /**
      * This method returns a read-only version of the `EntityNPC` class. If you need to mutate the
@@ -117,7 +118,6 @@ declare global {
      * Alternatively, you can re-acquire the entity after it has already been spawned.
      */
     function ThrowSpider(
-      this: void,
       position: Vector,
       spawner: Entity | undefined,
       targetPos: Vector,
