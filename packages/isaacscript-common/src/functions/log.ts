@@ -64,20 +64,17 @@ export function getDebugPrependString(
  * If you have the "--luadebug" launch flag turned on or the Racing+ sandbox enabled, then this
  * function will also prepend the function name and the line number before the string.
  */
-export function log(this: void, msg: string): void {
+export function log(msg: string): void {
   const debugMsg = getDebugPrependString(msg);
   Isaac.DebugString(debugMsg);
 }
 
-export function logArray<T>(this: void, array: T[] | readonly T[]): void {
+export function logArray<T>(array: T[] | readonly T[]): void {
   const arrayString = arrayToString(array);
   log(`Array: ${arrayString}`);
 }
 
-export function logCollectibleTypes(
-  this: void,
-  collectibleTypes: CollectibleType[],
-): void {
+export function logCollectibleTypes(collectibleTypes: CollectibleType[]): void {
   log("Collectibles:");
 
   let i = 1;
@@ -88,29 +85,23 @@ export function logCollectibleTypes(
   }
 }
 
-export function logColor(this: void, color: Color): void {
+export function logColor(color: Color): void {
   log(
     `Color: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
   );
 }
 
 /** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
-export function logDamageFlags(
-  this: void,
-  flags: DamageFlag | BitFlags<DamageFlag>,
-): void {
+export function logDamageFlags(flags: DamageFlag | BitFlags<DamageFlag>): void {
   logFlags(flags, DamageFlag, "damage");
 }
 
 /** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
-export function logEntityFlags(
-  this: void,
-  flags: EntityFlag | BitFlags<EntityFlag>,
-): void {
+export function logEntityFlags(flags: EntityFlag | BitFlags<EntityFlag>): void {
   logFlags(flags, EntityFlag, "entity");
 }
 
-export function logEntityID(this: void, entity: Entity): void {
+export function logEntityID(entity: Entity): void {
   const entityID = getEntityID(entity);
   log(`Entity: ${entityID}`);
 }
@@ -121,7 +112,7 @@ export function logEntityID(this: void, entity: Entity): void {
  * This is useful in situations where using the `error` function would be dangerous (since it
  * prevents all of the subsequent code in the callback from running).
  */
-export function logError(this: void, msg: string): void {
+export function logError(msg: string): void {
   const errorMsg = `Error: ${msg}`;
   log(errorMsg);
   printConsole(errorMsg);
@@ -129,7 +120,6 @@ export function logError(this: void, msg: string): void {
 
 /** Helper function for printing out every flag that is turned on. Useful when debugging. */
 export function logFlags<T extends BitFlag | BitFlag128>(
-  this: void,
   flags: T | BitFlags<T>,
   flagEnum: Record<string, T>,
   description = "",
@@ -157,7 +147,7 @@ export function logFlags<T extends BitFlag | BitFlag128>(
 /**
  * Helper function for printing out every game state flag that is turned on. Useful when debugging.
  */
-export function logGameStateFlags(this: void): void {
+export function logGameStateFlags(): void {
   log("Logging game state flags:");
 
   const gameStateFlagEntries = getEnumEntries(GameStateFlag);
@@ -176,7 +166,7 @@ export function logGameStateFlags(this: void): void {
   }
 }
 
-export function logKColor(this: void, kColor: KColor): void {
+export function logKColor(kColor: KColor): void {
   log(
     `Color: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
   );
@@ -185,7 +175,7 @@ export function logKColor(this: void, kColor: KColor): void {
 /**
  * Helper function for printing out every level state flag that is turned on. Useful when debugging.
  */
-export function logLevelStateFlags(this: void): void {
+export function logLevelStateFlags(): void {
   const level = game.GetLevel();
 
   const levelStateFlagEntries = getEnumEntries(LevelStateFlag);
@@ -205,7 +195,7 @@ export function logLevelStateFlags(this: void): void {
   }
 }
 
-export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
+export function logMap(map: Map<AnyNotNil, unknown>): void {
   log("Printing out a TSTL Map:");
 
   const mapKeys = [...map.keys()];
@@ -220,7 +210,7 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   log(`  The size of the map was: ${map.size}`);
 }
 
-export function logPlayerEffects(this: void, player: EntityPlayer): void {
+export function logPlayerEffects(player: EntityPlayer): void {
   const effects = getEffectsList(player);
 
   log("Logging player effects:");
@@ -248,7 +238,7 @@ export function logPlayerEffects(this: void, player: EntityPlayer): void {
   });
 }
 
-export function logPlayerHealth(this: void, player: EntityPlayer): void {
+export function logPlayerHealth(player: EntityPlayer): void {
   const playerName = getPlayerName(player);
   const playerHealth = getPlayerHealth(player);
 
@@ -274,14 +264,13 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
  * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
  */
 export function logProjectileFlags(
-  this: void,
   flags: ProjectileFlag | BitFlags<ProjectileFlag>,
 ): void {
   logFlags(flags, ProjectileFlag, "projectile");
 }
 
 /** Helper function for logging information about the current room. */
-export function logRoom(this: void): void {
+export function logRoom(): void {
   const room = game.GetRoom();
   const bossID = room.GetBossID();
   const roomGridIndex = getRoomGridIndex();
@@ -315,7 +304,7 @@ export function logRoom(this: void): void {
  * Helper function for printing out every seed effect (i.e. Easter Egg) that is turned on for the
  * particular run.
  */
-export function logSeedEffects(this: void): void {
+export function logSeedEffects(): void {
   const seeds = game.GetSeeds();
 
   const seedEffectEntries = getEnumEntries(SeedEffect);
@@ -334,10 +323,7 @@ export function logSeedEffects(this: void): void {
   }
 }
 
-export function logSet(
-  this: void,
-  set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>,
-): void {
+export function logSet(set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>): void {
   log("Printing out a TSTL Set:");
 
   const setValues = getSortedSetValues(set);
@@ -350,7 +336,7 @@ export function logSet(
 }
 
 /** Helper function for logging every sound effect that is currently playing. */
-export function logSounds(this: void): void {
+export function logSounds(): void {
   const soundEffects = getEnumEntries(SoundEffect);
 
   for (const [key, soundEffect] of soundEffects) {
@@ -367,11 +353,7 @@ export function logSounds(this: void): void {
  * This function will only work on tables that have string keys (because it logs the keys in order,
  * instead of randomly). It will throw a run-time error if it encounters a non-string key.
  */
-export function logTable(
-  this: void,
-  luaTable: unknown,
-  parentTables = 0,
-): void {
+export function logTable(luaTable: unknown, parentTables = 0): void {
   if (parentTables === 0) {
     log("Printing out a Lua table:");
   }
@@ -421,7 +403,6 @@ export function logTable(
  * will only do a shallow comparison.
  */
 export function logTableDifferences<K, V>(
-  this: void,
   table1: LuaMap<K, V>,
   table2: LuaMap<K, V>,
 ): void {
@@ -453,18 +434,12 @@ export function logTableDifferences<K, V>(
 }
 
 /** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
-export function logTearFlags(
-  this: void,
-  flags: TearFlag | BitFlags<TearFlag>,
-): void {
+export function logTearFlags(flags: TearFlag | BitFlags<TearFlag>): void {
   logFlags(flags, TearFlag, "tear");
 }
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
-export function logUseFlags(
-  this: void,
-  flags: UseFlag | BitFlags<UseFlag>,
-): void {
+export function logUseFlags(flags: UseFlag | BitFlags<UseFlag>): void {
   logFlags(flags, UseFlag, "use");
 }
 
@@ -472,7 +447,7 @@ export function logUseFlags(
  * Helper function to enumerate all of the properties of a "userdata" object (i.e. an object from
  * the Isaac API).
  */
-export function logUserdata(this: void, userdata: unknown): void {
+export function logUserdata(userdata: unknown): void {
   if (!isUserdata(userdata)) {
     log("Userdata: [not userdata]");
     return;
@@ -496,7 +471,7 @@ export function logUserdata(this: void, userdata: unknown): void {
   logTable(metatable);
 }
 
-export function logVector(this: void, vector: Vector, round = false): void {
+export function logVector(vector: Vector, round = false): void {
   const vectorString = vectorToString(vector, round);
   log(`Vector: ${vectorString}`);
 }

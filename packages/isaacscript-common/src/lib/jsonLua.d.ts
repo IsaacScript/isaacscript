@@ -4,7 +4,9 @@
  *
  * This parser was measured to be 11.8 times faster than the vanilla parser at decoding a sample
  * "save1.dat" file.
+ *
+ * @noSelfInFile
  */
 
-export function encode(this: void, data: unknown): string;
-export function decode(this: void, data: string): unknown;
+export function encode(data: unknown): string;
+export function decode(data: string): unknown;

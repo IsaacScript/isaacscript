@@ -9,6 +9,10 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 1st, 2022 (Unreleased)
+
+- The "tsconfig.json" template now has the "noImplicitSelf" compiler flag set to true. It is recommended to turn this flag on for better Lua interoperability.
+
 ## August 25th, 2022
 
 - TSTL plugins are now compiled and located inside of the `isaacscript` package. See the new [`tsconfig.json` template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/tsconfig.json) for more information. This means that you no longer need to have to have a "plugins" directory in your mod or have a dependency of `@types/node` or `ts-node`.

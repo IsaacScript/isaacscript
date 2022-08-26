@@ -42,5 +42,6 @@
     ],
     "noHeader": true,
     "noImplicitGlobalVariables": true,
+    "noImplicitSelf": true,
   },
 }
