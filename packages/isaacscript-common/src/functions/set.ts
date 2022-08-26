@@ -1,5 +1,6 @@
 import { getArrayCombinations, getRandomArrayElement, sumArray } from "./array";
 import { getRandomSeed } from "./rng";
+import { isPrimitive } from "./types";
 
 /**
  * Helper function to add all of the values in one set to another set. The first set passed will be
@@ -118,6 +119,18 @@ export function getSetCombinations<T>(
 export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
   const values = set.values();
   const array = [...values];
+
+  // Check for problematic types in order to throw a helpful error message.
+  const firstElement = array[0];
+  if (firstElement !== undefined) {
+    const arrayType = type(firstElement);
+    if (!isPrimitive(arrayType)) {
+      error(
+        `Failed to get the sorted set values because the provided set was of type "${arrayType}". Having sets with non-primitive types doesn't make much sense in general, so you might need to rethink what you are doing.`,
+      );
+    }
+  }
+
   array.sort();
 
   return array;
