@@ -14,6 +14,12 @@ A helper script called `update.sh` is included in IsaacScript projects to help y
 
 The helper script will automatically update the versions in your `package.json` file and tell the package manager to install the new versions, if necessary.
 
-If you don't want to use the helper script, then you can run just the [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates) tool yourself, or you could manually change the versions in your `package.json` file. For more information, check out [this blog](https://www.netwoven.com/2017/03/21/how-to-update-node-js-modules-to-latest-versions/), which goes over this process in more detail.
+If you don't want to use the helper script, then you can run just the [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates) tool yourself:
+
+```sh
+npx npm-check-updates --upgrade
+```
+
+Or, you could manually change the versions in your `package.json` file. For more information, check out [this blog](https://www.netwoven.com/2017/03/21/how-to-update-node-js-modules-to-latest-versions/), which goes over this process in more detail.
 
 The latest version of the IsaacScript tool can always be found [on the npm page](https://www.npmjs.com/package/isaacscript).
