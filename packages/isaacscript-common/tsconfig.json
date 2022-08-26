@@ -45,6 +45,7 @@
     ],
     "noHeader": true,
     "noImplicitGlobalVariables": true,
-    "noImplicitSelf": true,
+    // Commented out for now since it causes problems.
+    // "noImplicitSelf": true,
   },
 }
