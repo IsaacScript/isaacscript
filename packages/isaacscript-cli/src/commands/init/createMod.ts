@@ -190,7 +190,14 @@ function updateNodeModules(projectPath: string, verbose: boolean) {
   );
   execShell(
     "npx",
-    ["npm-check-updates", "--upgrade", "--packageFile", "package.json"],
+    [
+      "npm-check-updates",
+      "--upgrade",
+      "--packageFile",
+      "package.json",
+      "--filterVersion",
+      "^*",
+    ],
     verbose,
     false,
     projectPath,
