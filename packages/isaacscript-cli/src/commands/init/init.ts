@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
-import { file } from "isaacscript-cli";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
 import { execShell } from "../../exec";
+import * as file from "../../file";
 import { getPackageManagerUsedForNewProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { error } from "../../utils";
