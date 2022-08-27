@@ -104,7 +104,13 @@ function linkDevelopmentIsaacScriptCommon(
   console.log(
     'Linking this repository to the development version of "isaacscript-common"...',
   );
-  execShell("yarn", ["link", "isaacscript-common"], verbose);
+  execShell(
+    "yarn",
+    ["link", "isaacscript-common"],
+    verbose,
+    false,
+    projectPath,
+  );
 }
 
 async function openVSCode(
