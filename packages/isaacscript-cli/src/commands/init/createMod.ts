@@ -6,6 +6,7 @@ import {
   CI_YML_TEMPLATE_PATH,
   GITIGNORE,
   GITIGNORE_TEMPLATE_PATH,
+  MAIN_DEV_TS_TEMPLATE_PATH,
   MAIN_TS,
   MAIN_TS_TEMPLATE_PATH,
   METADATA_XML,
@@ -47,7 +48,7 @@ export function createMod(
   createConfigFile(projectPath, config, verbose);
 
   copyStaticFiles(projectPath, verbose);
-  copyDynamicFiles(projectName, projectPath, packageManager, verbose);
+  copyDynamicFiles(projectName, projectPath, packageManager, dev, verbose);
   updateNodeModules(projectPath, verbose);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, verbose);
@@ -93,6 +94,7 @@ function copyDynamicFiles(
   projectName: string,
   projectPath: string,
   packageManager: PackageManager,
+  dev: boolean,
   verbose: boolean,
 ) {
   const workflowsPath = path.join(projectPath, ".github", "workflows");
@@ -179,6 +181,17 @@ function copyDynamicFiles(
     const templatePath = MAIN_TS_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
     const mainTS = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
+    const destinationPath = path.join(srcPath, fileName);
+    file.write(destinationPath, mainTS, verbose);
+  }
+
+  // If we are initializing an IsaacScript project intended to be used for development, we can
+  // include a better starter file.
+  if (dev) {
+    const fileName = MAIN_TS;
+    const templatePath = MAIN_DEV_TS_TEMPLATE_PATH;
+    const template = file.read(templatePath, verbose);
+    const mainTS = template; // No replacements are necessary for this file.
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);
   }

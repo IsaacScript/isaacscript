@@ -65,6 +65,12 @@ export const MAIN_TS_TEMPLATE_PATH = path.join(
   "src",
   MAIN_TS,
 );
+export const MAIN_DEV_TS = "main-dev.ts";
+export const MAIN_DEV_TS_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  "src",
+  MAIN_DEV_TS,
+);
 export const METADATA_XML = "metadata.xml";
 export const METADATA_XML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
