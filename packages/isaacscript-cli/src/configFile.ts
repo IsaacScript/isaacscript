@@ -8,11 +8,12 @@ import { getJSONC } from "./json";
 import { Args } from "./parseArgs";
 import { error } from "./utils";
 
-const NUM_SPACES = 2;
+const NUM_INDENT_SPACES = 2;
 
-export async function get(args: Args): Promise<Config> {
+export async function getConfigFromFile(args: Args): Promise<Config> {
   const verbose = args.verbose === true;
   const yes = args.yes === true;
+  const dev = args.dev === true;
 
   const existingConfig = getExistingConfig(verbose);
   if (existingConfig !== undefined) {
@@ -22,8 +23,8 @@ export async function get(args: Args): Promise<Config> {
   // No config file exists, so prompt the user for some information and create one.
   const modsDirectory = await getModsDir(args, verbose);
   const saveSlot = await promptSaveSlot(args, yes);
-  const config = createObject(modsDirectory, saveSlot);
-  createFile(CWD, config, verbose);
+  const config = newConfig(modsDirectory, saveSlot, dev);
+  createConfigFile(CWD, config, verbose);
 
   return config;
 }
@@ -34,9 +35,16 @@ function getExistingConfig(verbose: boolean): Config | undefined {
   }
 
   const config = getJSONC(CONFIG_FILE_PATH, verbose);
+  validateMandatoryConfigFields(config);
 
-  // Even though the "modsDirectory" field is always initialized in the class, it may not be
-  // necessarily exist in the JSON file.
+  return config as unknown as Config;
+}
+
+/**
+ * Even though some fields are always initialized in the class, it may not be necessarily exist in
+ * the JSON file.
+ */
+function validateMandatoryConfigFields(config: Record<string, unknown>) {
   if (config["modsDirectory"] === undefined) {
     errorMissing(
       "modsDirectory",
@@ -44,16 +52,12 @@ function getExistingConfig(verbose: boolean): Config | undefined {
     );
   }
 
-  // Even though the "saveSlot" field is always initialized in the class, it may not be necessarily
-  // exist in the JSON file.
   if (config["saveSlot"] === undefined) {
     errorMissing(
       "saveSlot",
       "This should be equal to the save slot that you test your mods on.",
     );
   }
-
-  return config as unknown as Config;
 }
 
 function errorMissing(field: string, description: string) {
@@ -62,14 +66,19 @@ function errorMissing(field: string, description: string) {
   );
 }
 
-export function createObject(modsDirectory: string, saveSlot: number): Config {
+export function newConfig(
+  modsDirectory: string,
+  saveSlot: number,
+  isaacScriptCommonDev?: boolean,
+): Config {
   return {
     modsDirectory,
     saveSlot,
+    isaacScriptCommonDev,
   };
 }
 
-export function createFile(
+export function createConfigFile(
   projectPath: string,
   config: Config,
   verbose: boolean,
@@ -77,7 +86,9 @@ export function createFile(
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
 
   // Add a newline at the end to satisfy Prettier.
-  const configContents = JSON.stringify(config, null, NUM_SPACES).concat("\n");
+  const configContents = JSON.stringify(config, null, NUM_INDENT_SPACES).concat(
+    "\n",
+  );
 
   file.write(configFilePath, configContents, verbose);
 }

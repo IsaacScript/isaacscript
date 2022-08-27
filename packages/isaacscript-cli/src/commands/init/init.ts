@@ -60,6 +60,7 @@ export async function init(args: Args): Promise<void> {
     gitRemoteURL,
     skipInstall,
     packageManager,
+    dev,
     verbose,
   );
 

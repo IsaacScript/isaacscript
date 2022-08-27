@@ -13,7 +13,7 @@ import { copy } from "./commands/copy/copy";
 import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
 import { publish } from "./commands/publish/publish";
-import * as configFile from "./configFile";
+import { getConfigFromFile } from "./configFile";
 import { CWD, PROJECT_NAME } from "./constants";
 import { execShell } from "./exec";
 import {
@@ -93,7 +93,7 @@ async function handleCommands(args: Args) {
     if (!skipProjectChecks) {
       validateInIsaacScriptProject(verbose);
     }
-    config = await configFile.get(args);
+    config = await getConfigFromFile(args);
 
     ensureDepsAreInstalled(args, verbose);
   }

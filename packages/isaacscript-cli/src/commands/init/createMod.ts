@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import path from "path";
-import * as configFile from "../../configFile";
+import { createConfigFile, newConfig } from "../../configFile";
 import {
   CI_YML,
   CI_YML_TEMPLATE_PATH,
@@ -36,14 +36,15 @@ export function createMod(
   gitRemoteURL: string | undefined,
   skipInstall: boolean,
   packageManager: PackageManager,
+  dev: boolean,
   verbose: boolean,
 ): void {
   if (createNewDir) {
     file.makeDir(projectPath, verbose);
   }
 
-  const config = configFile.createObject(modsDirectory, saveSlot);
-  configFile.createFile(projectPath, config, verbose);
+  const config = newConfig(modsDirectory, saveSlot, dev);
+  createConfigFile(projectPath, config, verbose);
 
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, packageManager, verbose);
