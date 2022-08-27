@@ -51,4 +51,18 @@ cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
 cp --recursive "$DIR/schemas" "$OUT_DIR/"
 
+if [ "$1" == "global" ]; then
+  # We make a separate variable because "REPO_NAME" is equal to "isaacscript-cli".
+  REPO="isaacscript"
+
+  rm -rf "$DIR/dist" # Remove any previous build artifacts
+  rm -rf "$HOME/AppData/Roaming/npm/$REPO" # Previous file from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/$REPO.cmd" # Previous file from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/$REPO.ps1" # Previous file from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/node_modules/$REPO" # Previous link from "npm i . -g"
+
+  cd "$OUT_DIR"
+  npm install . --global
+fi
+
 echo "Successfully built in $SECONDS seconds."
