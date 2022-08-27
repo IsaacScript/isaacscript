@@ -63,6 +63,7 @@ selfsacrificeroomdoor # door_04_selfsacrificeroomdoor.png
 shotspeed # items.xml
 shutdoors # entities2.xml
 steamapps # The resources directory
+stringtable # stringtable.sta
 summonable # items_metadata.xml
 swallowedpenny # trinket_001_swallowedpenny.png
 teammeatfont # font
