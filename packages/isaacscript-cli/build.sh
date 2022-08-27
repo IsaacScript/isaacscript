@@ -53,13 +53,13 @@ cp --recursive "$DIR/schemas" "$OUT_DIR/"
 
 if [ "$1" == "global" ]; then
   # We make a separate variable because "REPO_NAME" is equal to "isaacscript-cli".
-  REPO="isaacscript"
+  BINARY_NAME="isaacscript"
 
   rm -rf "$DIR/dist" # Remove any previous build artifacts
-  rm -rf "$HOME/AppData/Roaming/npm/$REPO" # Previous file from "npm i . -g"
-  rm -rf "$HOME/AppData/Roaming/npm/$REPO.cmd" # Previous file from "npm i . -g"
-  rm -rf "$HOME/AppData/Roaming/npm/$REPO.ps1" # Previous file from "npm i . -g"
-  rm -rf "$HOME/AppData/Roaming/npm/node_modules/$REPO" # Previous link from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/$BINARY_NAME" # Previous file from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/$BINARY_NAME.cmd" # Previous file from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/$BINARY_NAME.ps1" # Previous file from "npm i . -g"
+  rm -rf "$HOME/AppData/Roaming/npm/node_modules/$BINARY_NAME" # Previous link from "npm i . -g"
 
   cd "$OUT_DIR"
   npm install . --global
