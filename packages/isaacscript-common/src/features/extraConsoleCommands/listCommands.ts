@@ -744,6 +744,12 @@ export function hitboxes(): void {
   Isaac.ExecuteCommand("debug 6");
 }
 
+/** Warps to the Blue Womb Boss Room. */
+export function hush(): void {
+  setStage(LevelStage.BLUE_WOMB, StageType.ORIGINAL);
+  bossRoom();
+}
+
 /** Warps to the I AM ERROR room for the floor. */
 export function iAmErrorRoom(): void {
   changeRoom(GridRoom.ERROR);
