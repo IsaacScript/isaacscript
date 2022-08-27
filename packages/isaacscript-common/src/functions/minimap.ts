@@ -1,7 +1,47 @@
 import { DisplayFlag, DisplayFlagZero } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { getRoomDescriptor } from "./roomData";
+import { addFlag } from "./flag";
+import { getRoomDescriptor, getRoomGridIndex } from "./roomData";
 import { getRoomsInsideGrid } from "./rooms";
+
+/**
+ * Helper function to add a `DisplayFlag` to a particular room's minimap display flags (e.g. whether
+ * or not it is visible and so on).
+ *
+ * @param roomGridIndex Set to undefined to use the current room index.
+ * @param displayFlag The `DisplayFlag` to set. (See the `DisplayFlag` enum.)
+ * @param updateVisibility Optional. Whether to call the `Level.UpdateVisibility` method in order to
+ *                         make the changes immediately visible. Default is true.
+ */
+export function addRoomDisplayFlag(
+  roomGridIndex: int | undefined,
+  displayFlag: DisplayFlag,
+  updateVisibility = true,
+): void {
+  if (MinimapAPI === undefined) {
+    const roomDescriptor = getRoomDescriptor(roomGridIndex);
+    roomDescriptor.DisplayFlags = addFlag(
+      roomDescriptor.DisplayFlags,
+      displayFlag,
+    );
+  } else {
+    if (roomGridIndex === undefined) {
+      roomGridIndex = getRoomGridIndex();
+    }
+    const roomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
+    if (roomDescriptor !== undefined) {
+      roomDescriptor.DisplayFlags = addFlag(
+        roomDescriptor.DisplayFlags,
+        displayFlag,
+      );
+    }
+  }
+
+  if (updateVisibility) {
+    const level = game.GetLevel();
+    level.UpdateVisibility();
+  }
+}
 
 /**
  * Helper function to set the value of `DisplayFlag` for every room on the floor to 0.
@@ -66,7 +106,8 @@ export function setDisplayFlags(
 
   for (const [roomGridIndex, displayFlags] of displayFlagsMap.entries()) {
     if (MinimapAPI === undefined) {
-      setRoomDisplayFlags(roomGridIndex, displayFlags);
+      // We pass false to the `updateVisibility` argument as a small optimization.
+      setRoomDisplayFlags(roomGridIndex, displayFlags, false);
     } else {
       const roomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
       if (roomDescriptor !== undefined) {
@@ -90,16 +131,46 @@ export function setFloorDisplayFlags(
  * Helper function to set a particular room's minimap display flags (e.g. whether or not it is
  * visible and so on).
  *
- * You must call the `Level.UpdateVisibility` method after using this function for the changes to
- * take effect.
- *
  * @param roomGridIndex Set to undefined to use the current room index.
  * @param displayFlags The bit flags value to set. (See the `DisplayFlag` enum.)
+ * @param updateVisibility Optional. Whether to call the `Level.UpdateVisibility` method in order to
+ *                         make the changes immediately visible. Default is true.
  */
 export function setRoomDisplayFlags(
   roomGridIndex: int | undefined,
   displayFlags: BitFlags<DisplayFlag>,
+  updateVisibility = true,
 ): void {
-  const roomDescriptor = getRoomDescriptor(roomGridIndex);
-  roomDescriptor.DisplayFlags = displayFlags;
+  if (MinimapAPI === undefined) {
+    const roomDescriptor = getRoomDescriptor(roomGridIndex);
+    roomDescriptor.DisplayFlags = displayFlags;
+  } else {
+    if (roomGridIndex === undefined) {
+      roomGridIndex = getRoomGridIndex();
+    }
+    const roomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
+    if (roomDescriptor !== undefined) {
+      roomDescriptor.DisplayFlags = displayFlags;
+    }
+  }
+
+  if (updateVisibility) {
+    const level = game.GetLevel();
+    level.UpdateVisibility();
+  }
+}
+
+/**
+ * Helper function to make a single room visible in a similar way to how the Compass makes a Boss
+ * Room visible (e.g. by adding `DisplayFlag.SHOW_ICON`).
+ *
+ * @param roomGridIndex Set to undefined to use the current room index.
+ * @param updateVisibility Optional. Whether to call the `Level.UpdateVisibility` method in order to
+ *                         make the changes immediately visible. Default is true.
+ */
+export function setRoomVisible(
+  roomGridIndex: int | undefined,
+  updateVisibility = true,
+): void {
+  addRoomDisplayFlag(roomGridIndex, DisplayFlag.SHOW_ICON, updateVisibility);
 }
