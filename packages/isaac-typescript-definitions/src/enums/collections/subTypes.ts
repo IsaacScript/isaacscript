@@ -28,7 +28,7 @@ export enum PlayerType {
   LAZARUS_2 = 11,
 
   /** Dark Judas, from the Judas' Shadow collectible. */
-  BLACK_JUDAS = 12,
+  DARK_JUDAS = 12,
 
   LILITH = 13,
   KEEPER = 14,
