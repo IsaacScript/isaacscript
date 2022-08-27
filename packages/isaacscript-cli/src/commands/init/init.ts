@@ -94,14 +94,16 @@ function linkDevelopmentIsaacScriptCommon(
     );
   }
 
-  // Build "isaacscript-common" and set up the link.
+  console.log('Building "isaacscript-common" and setting up the link...');
   const linkScript = path.join(
     isaacScriptMonorepoDirectory,
     "link-isaacscript-common.sh",
   );
   execShell("bash", [linkScript], verbose);
 
-  // Link this repository to the development version of "isaacscript-common".
+  console.log(
+    'Linking this repository to the development version of "isaacscript-common"...',
+  );
   execShell("yarn", ["link", "isaacscript-common"], verbose);
 }
 
