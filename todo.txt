@@ -1,3 +1,4 @@
+- update fork command
 - write development guide for yarn link
 - add development scripts to update fork + get everything set up
 - use stack overflow to remove isaac-typescript-definitions from deps
