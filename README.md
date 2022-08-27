@@ -43,21 +43,34 @@ For getting started in building your own mods, see the [website](https://isaacsc
 - Configure Git, if you have not done so already:
   - `git config --global user.name "Your_Username"`
   - `git config --global user.email "your@email.com"`
-- Clone the repository:
+- Fork the IsaacScript repository by clicking on the "Fork" button in the top-right-hand corner of this page.
+- Clone the forked repository:
   - `cd [the path where you want the code to live]`
   - If you already have an SSH key pair and have the public key attached to your GitHub profile, then use the following command to clone the repository via SSH:
-    - `git clone git@github.com:IsaacScript/isaacscript.git`
+    - `git clone git@github.com:[username]/isaacscript.git` <br>
+      (replace "[username]" with your GitHub username)
   - If you do not already have an SSH key pair, then use the following command to clone the repository via HTTPS:
-    - `git clone https://github.com/IsaacScript/isaacscript.git`
-  - Or, if you are doing development work, then clone your forked version of the repository. For example:
-    - `git clone https://github.com/Your_Username/isaacscript.git`
+    - `git clone https://github.com/[username]/isaacscript.git` <br>
+      (replace "[username]" with your GitHub username)
 - Enter the cloned repository:
   - `cd isaacscript`
 - Ensure that [Yarn](https://classic.yarnpkg.com/lang/en/) (v1) is installed:
   - `corepack enable`
 - Install dependencies:
-  - `yarn`
+  - `yarn install`
 - Open the monorepo in VSCode:
   - `code .`
 
 <br>
+
+## Working with `isaacscript-common`
+
+If you want to fix a bug or add a new feature to `isaacscript-common`, then you need to set up a testing mod that links to your compiled development version. (This is so that you can test out your changes inside of the game.)
+
+The `isaacscript` command line tool has a `--dev` flag that will set this up for you automatically:
+
+```sh
+npx isaacscript init test --dev
+```
+
+This command will initialize a new mod named "test" that automatically links to your locally compiled `isaacscript-common`. Additionally, when you do `npx isaacscript` to initiate the file watcher, it will also spawn an additional watcher process for the files in `isaacscript-common`.

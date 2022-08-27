@@ -20,6 +20,7 @@ export interface Args {
   noGit?: boolean;
   skipInstall?: boolean;
   forceName?: boolean;
+  dev?: boolean;
 
   // publish
   skip?: boolean;
@@ -126,6 +127,12 @@ export function parseArgs(): Args {
             alias: "f",
             type: "boolean",
             description: "Allow project names that are normally illegal",
+          })
+          .option("dev", {
+            alias: "d",
+            type: "boolean",
+            description:
+              "Link the resulting mod to the local development version of isaacscript-common",
           })
           .option("verbose", {
             alias: "v",

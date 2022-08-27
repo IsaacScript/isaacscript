@@ -24,6 +24,7 @@ export async function init(args: Args): Promise<void> {
   const vscode = args.vscode === true;
   const yes = args.yes === true;
   const forceName = args.forceName === true;
+  /// const dev = args.dev === true;
 
   // Prompt the end-user for some information (and validate it as we go).
   const [projectPath, createNewDir] = await getProjectPath(

@@ -21,4 +21,11 @@ export class Config {
    * run-related variables are properly reset. This is set to true by default.
    */
   enableIsaacScriptWatcherAutoRestart?: boolean;
+
+  /**
+   * If set to true, the IsaacScript watcher will spawn an additional watcher process for the files
+   * in the `isaacscript-common` directory. (It assumes that you have `isaacscript-common` linked to
+   * a forked development repository.)
+   */
+  isaacScriptCommonDev?: boolean;
 }
