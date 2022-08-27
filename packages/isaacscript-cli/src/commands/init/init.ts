@@ -2,11 +2,10 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
+import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev";
 import { execShell } from "../../exec";
-import * as file from "../../file";
 import { getPackageManagerUsedForNewProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
-import { error } from "../../utils";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
 import { checkModSubdirectory } from "./checkModSubdirectory";
 import { checkModTargetDirectory } from "./checkModTargetDirectory";
@@ -78,22 +77,8 @@ function linkDevelopmentIsaacScriptCommon(
   projectPath: string,
   verbose: boolean,
 ) {
-  const parentDirectory = path.join(projectPath, "..");
-  const isaacScriptMonorepoDirectory = path.join(
-    parentDirectory,
-    "isaacscript",
-  );
-  if (
-    !file.exists(isaacScriptMonorepoDirectory, verbose) ||
-    !file.isDir(isaacScriptMonorepoDirectory, verbose)
-  ) {
-    console.error(
-      `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,
-    );
-    error(
-      "In order to link a development version of IsaacScript common, you must place the repositories side by side.",
-    );
-  }
+  const isaacScriptMonorepoDirectory =
+    getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
 
   console.log('Building "isaacscript-common" and setting up the link...');
   const linkScript = path.join(

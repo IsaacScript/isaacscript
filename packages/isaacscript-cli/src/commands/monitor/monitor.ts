@@ -11,6 +11,7 @@ import {
   PROJECT_NAME,
 } from "../../constants";
 import { prepareCustomStages } from "../../customStage";
+import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
 import {
@@ -41,6 +42,7 @@ let compilationStartTime = new Date();
 export async function monitor(args: Args, config: Config): Promise<void> {
   const verbose = args.verbose === true;
   const skipProjectChecks = args.skipProjectChecks === true;
+  const dev = args.dev === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   // If they specified some command-line flags, override the values found in the config file.
@@ -81,8 +83,20 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   // Subprocess #2 - The mod directory syncer.
   spawnModDirectorySyncer(config);
 
-  // Subprocess #3 - tstl --watch (to automatically convert TypeScript to Lua).
-  spawnTSTLWatcher();
+  // Subprocess #3 - `tstl --watch` (to automatically convert TypeScript to Lua).
+  spawnTSTLWatcher(CWD);
+
+  // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
+  if (dev) {
+    const isaacScriptMonorepoDirectory =
+      getAndValidateIsaacScriptMonorepoDirectory(CWD, verbose);
+    const isaacScriptCommonDirectory = path.join(
+      isaacScriptMonorepoDirectory,
+      "packages",
+      "isaacscript-common",
+    );
+    spawnTSTLWatcher(isaacScriptCommonDirectory);
+  }
 
   // Also, start constantly pinging the watcher mod.
   setInterval(() => {
@@ -160,10 +174,11 @@ function spawnModDirectorySyncer(config: Config) {
   });
 }
 
-function spawnTSTLWatcher() {
+function spawnTSTLWatcher(cwd: string) {
   const processDescription = "tstl";
   const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
     shell: true,
+    cwd,
   });
 
   tstl.stdout.on("data", (data: Buffer[]) => {
