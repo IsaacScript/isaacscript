@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-git pull
-git fetch upstream
-git merge upstream/main
-git push
+yarn install
+bash "$DIR/packages/isaacscript-common/build.sh"
+cd "$DIR/dist/packages/isaacscript-common"
+yarn link
