@@ -15,7 +15,11 @@ export class ModUpgraded implements Mod {
   // Vanilla variables
   // -----------------
 
-  Name: string; // The vanilla mod object stores this for some reason
+  /**
+   * The vanilla mod object stores the name of the mod for some reason. (It is never used or
+   * referenced.
+   */
+  Name: string;
 
   // ----------------
   // Custom variables

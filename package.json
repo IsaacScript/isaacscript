@@ -29,7 +29,7 @@
     "fs-extra": "^10.1.0",
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
-    "isaac-typescript-definitions": "^4.0.5",
+    "isaac-typescript-definitions": "^4.0.6",
     "jsonc-parser": "^3.1.0",
     "moment": "^2.29.4",
     "npm-check-updates": "^16.0.6",
@@ -46,8 +46,8 @@
     "yargs": "^17.5.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
+    "@commitlint/cli": "^17.1.1",
+    "@commitlint/config-conventional": "^17.1.0",
     "@docusaurus/core": "^2.0.1",
     "@docusaurus/preset-classic": "^2.0.1",
     "@mdx-js/react": "1.6.2",

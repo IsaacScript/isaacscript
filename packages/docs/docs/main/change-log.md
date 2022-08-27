@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## September 1st, 2022 (Unreleased)
 
-- The "tsconfig.json" template now has the "noImplicitSelf" compiler flag set to true. It is recommended to turn this flag on for better Lua interoperability.
+- `isaacscript init` now has a `--dev` flag for setting up a mod that will be testing out a development version of `isaacscript-common`. For more information, see the [README](https://github.com/IsaacScript/isaacscript#working-with-isaacscript-common).
 
 ## August 25th, 2022
 

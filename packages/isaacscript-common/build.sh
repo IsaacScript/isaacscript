@@ -41,7 +41,6 @@ npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclaration
 # https://github.com/microsoft/rushstack/issues/1886
 # https://github.com/timocov/dts-bundle-generator/issues/218
 npx api-extractor run
-#npx dts-bundle-generator -o "$OUT_DIR/dist/index.d.ts" "$DIR/src/index.ts"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
