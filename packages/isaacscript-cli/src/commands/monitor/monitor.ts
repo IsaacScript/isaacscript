@@ -42,7 +42,6 @@ let compilationStartTime = new Date();
 export async function monitor(args: Args, config: Config): Promise<void> {
   const verbose = args.verbose === true;
   const skipProjectChecks = args.skipProjectChecks === true;
-  const dev = args.dev === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   // If they specified some command-line flags, override the values found in the config file.
@@ -84,10 +83,10 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   spawnModDirectorySyncer(config);
 
   // Subprocess #3 - `tstl --watch` (to automatically convert TypeScript to Lua).
-  spawnTSTLWatcher(CWD);
+  spawnTSTLWatcher(config, CWD);
 
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
-  if (dev) {
+  if (config.isaacScriptCommonDev === true) {
     const isaacScriptMonorepoDirectory =
       getAndValidateIsaacScriptMonorepoDirectory(CWD, verbose);
     const isaacScriptCommonDirectory = path.join(
@@ -95,7 +94,19 @@ export async function monitor(args: Args, config: Config): Promise<void> {
       "packages",
       "isaacscript-common",
     );
-    spawnTSTLWatcher(isaacScriptCommonDirectory);
+    if (
+      !file.exists(isaacScriptCommonDirectory, verbose) ||
+      !file.isDir(isaacScriptCommonDirectory, verbose)
+    ) {
+      console.error(
+        `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
+      );
+      error(
+        'Please make sure that the IsaacScript repository is placed next to this one. If you do not want to test a local version of "isaacscript-common", then set the "isaacScriptCommonDev" field to false in your "isaacscript.json" file.',
+      );
+    }
+
+    spawnTSTLWatcher(config, isaacScriptCommonDirectory);
   }
 
   // Also, start constantly pinging the watcher mod.
@@ -174,7 +185,7 @@ function spawnModDirectorySyncer(config: Config) {
   });
 }
 
-function spawnTSTLWatcher(cwd: string) {
+function spawnTSTLWatcher(config: Config, cwd: string) {
   const processDescription = "tstl";
   const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
     shell: true,
@@ -192,7 +203,8 @@ function spawnTSTLWatcher(cwd: string) {
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
       compilationStartTime = new Date();
-      const newMsg = "TypeScript change detected. Compiling...";
+      const suffix = getChangeMessageSuffix(config, cwd);
+      const newMsg = `TypeScript change detected${suffix}. Compiling...`;
       notifyGame.msg(newMsg);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
       const compilationFinishTime = new Date();
@@ -222,4 +234,15 @@ function spawnTSTLWatcher(cwd: string) {
   tstl.on("exit", (code) => {
     error(`Error: ${processDescription} subprocess exited with code: ${code}`);
   });
+}
+
+function getChangeMessageSuffix(config: Config, cwd: string): string {
+  if (config.isaacScriptCommonDev !== true) {
+    return "";
+  }
+
+  const baseName = path.basename(cwd);
+  return baseName === "isaacscript-common"
+    ? ' (in "isaacscript-common")'
+    : " (in this mod)";
 }

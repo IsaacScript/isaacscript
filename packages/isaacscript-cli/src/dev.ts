@@ -19,7 +19,7 @@ export function getAndValidateIsaacScriptMonorepoDirectory(
       `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,
     );
     error(
-      "In order to link a development version of IsaacScript common, you must place the repositories side by side. (If you do not already have the Isaacscript repository cloned, then you need to fork the repo and then clone your fork.)",
+      "In order to link a development version of IsaacScript common, you must place the repositories side by side. (If you do not already have the IsaacScript repository cloned, then you need to fork the repo and then clone your fork.)",
     );
   }
 

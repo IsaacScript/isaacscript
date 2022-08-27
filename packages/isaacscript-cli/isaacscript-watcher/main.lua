@@ -217,7 +217,7 @@ function mod:LoadSuccessful(saveDatContents)
       pushMessageArray(entry.data)
 
       if sprite ~= nil then
-        local starting1 = string.match(entry.data, "TypeScript change detected.")
+        local starting1 = string.match(entry.data, "TypeScript change detected")
         local starting2 = string.match(entry.data, "Compiling the mod for the first time...")
         local finished1 = string.match(entry.data, "Compilation successful.")
         -- Found 1 error. Watching for file changes.
