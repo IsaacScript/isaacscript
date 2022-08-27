@@ -38,8 +38,8 @@ export function parseArgs(): Args {
     .usage("usage: isaacscript <command> [options]")
     .scriptName("isaacscript")
 
-    .alias("h", "help") // By default, only "--help" is enabled
-    .alias("V", "version") // By default, only "--version" is enabled
+    .alias("h", "help") // By default, only "--help" is enabled.
+    .alias("V", "version") // By default, only "--version" is enabled.
 
     .command("monitor", "Monitor a project for changes. (default)", (builder) =>
       builder
