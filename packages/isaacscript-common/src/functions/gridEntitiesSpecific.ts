@@ -191,9 +191,14 @@ export function getTeleporters(variant = -1): GridEntity[] {
 /**
  * Helper function to get all of the grid entities of type `GridEntityType.TRAPDOOR` (17) in the
  * room. Specify a specific trapdoor variant to select only trapdoors of that variant.
+ *
+ * @param trapdoorVariant Optional. If specified, will only get the trapdoors that match the
+ *                        variant. Default is -1, which matches every variant.
  */
-export function getTrapdoors(trapdoorVariant?: TrapdoorVariant): GridEntity[] {
-  if (trapdoorVariant === undefined) {
+export function getTrapdoors(
+  trapdoorVariant: TrapdoorVariant = -1,
+): GridEntity[] {
+  if (asNumber(trapdoorVariant) === -1) {
     return getGridEntities(GridEntityType.TRAPDOOR);
   }
 
