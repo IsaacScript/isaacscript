@@ -62,7 +62,15 @@ export function execPowershell(
   return stdout;
 }
 
-/** Returns a tuple of exit status and stdout. The stdout is trimmed for convenience. */
+/**
+ * Returns a tuple of exit status and stdout. The stdout is trimmed for convenience.
+ *
+ * @param command The command to run.
+ * @param args Default is [].
+ * @param verbose Default is false.
+ * @param allowFailure Default is false.
+ * @param cwd Default is CWD.
+ */
 export function execShell(
   command: string,
   args: string[] = [],

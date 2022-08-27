@@ -108,6 +108,18 @@ export function getPackageManagerUsedForExistingProject(
 }
 
 function getPackageManagerFromArgs(args: Args) {
+  const dev = args.dev === true;
+  if (dev) {
+    const yarnExists = commandExists.sync("yarn");
+    if (!yarnExists) {
+      error(
+        'You specified the "dev" flag, but "yarn" does not seem to be a valid command. The IsaacScript monorepo uses yarn, so in order to initiate a linked development mod, you must also have yarn installed. Try running "corepack enable" to install it.',
+      );
+    }
+
+    return PackageManager.YARN;
+  }
+
   const npm = args.npm === true;
   if (npm) {
     const npmExists = commandExists.sync("npm");
@@ -122,7 +134,7 @@ function getPackageManagerFromArgs(args: Args) {
 
   const yarn = args.yarn === true;
   if (yarn) {
-    const yarnExists = commandExists.sync("npm");
+    const yarnExists = commandExists.sync("yarn");
     if (!yarnExists) {
       error(
         'You specified the "yarn" flag, but "yarn" does not seem to be a valid command.',

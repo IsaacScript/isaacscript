@@ -1,9 +1,12 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
+import { file } from "isaacscript-cli";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
+import { execShell } from "../../exec";
 import { getPackageManagerUsedForNewProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
+import { error } from "../../utils";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
 import { checkModSubdirectory } from "./checkModSubdirectory";
 import { checkModTargetDirectory } from "./checkModTargetDirectory";
@@ -24,7 +27,7 @@ export async function init(args: Args): Promise<void> {
   const vscode = args.vscode === true;
   const yes = args.yes === true;
   const forceName = args.forceName === true;
-  /// const dev = args.dev === true;
+  const dev = args.dev === true;
 
   // Prompt the end-user for some information (and validate it as we go).
   const [projectPath, createNewDir] = await getProjectPath(
@@ -43,6 +46,7 @@ export async function init(args: Args): Promise<void> {
     projectName,
     noGit,
     yes,
+    dev,
     verbose,
   );
 
@@ -59,8 +63,46 @@ export async function init(args: Args): Promise<void> {
     verbose,
   );
 
+  // Now that the project is created, we can perform the steps to link to a development version of
+  // "isaacscript-common", if necessary.
+  if (dev) {
+    linkDevelopmentIsaacScriptCommon(projectPath, verbose);
+  }
+
   await openVSCode(projectPath, vscode, yes, verbose);
   printFinishMessage(projectPath, projectName);
+}
+
+function linkDevelopmentIsaacScriptCommon(
+  projectPath: string,
+  verbose: boolean,
+) {
+  const parentDirectory = path.join(projectPath, "..");
+  const isaacScriptMonorepoDirectory = path.join(
+    parentDirectory,
+    "isaacscript",
+  );
+  if (
+    !file.exists(isaacScriptMonorepoDirectory, verbose) ||
+    !file.isDir(isaacScriptMonorepoDirectory, verbose)
+  ) {
+    console.error(
+      `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,
+    );
+    error(
+      "In order to link a development version of IsaacScript common, you must place the repositories side by side.",
+    );
+  }
+
+  // Build "isaacscript-common" and set up the link.
+  const linkScript = path.join(
+    isaacScriptMonorepoDirectory,
+    "link-isaacscript-common.sh",
+  );
+  execShell("bash", [linkScript], verbose);
+
+  // Link this repository to the development version of "isaacscript-common".
+  execShell("yarn", ["link", "isaacscript-common"], verbose);
 }
 
 async function openVSCode(

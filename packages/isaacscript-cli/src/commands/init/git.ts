@@ -16,9 +16,10 @@ export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
   noGit: boolean,
   yes: boolean,
+  dev: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
-  if (noGit) {
+  if (noGit || dev) {
     return undefined;
   }
 
