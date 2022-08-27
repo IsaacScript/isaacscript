@@ -19,7 +19,7 @@ export const PLAYER_PORTRAIT_PNG_FILE_NAMES: {
   [PlayerType.EDEN]: "playerportrait_eden.png", // 9
   [PlayerType.THE_LOST]: "playerportrait_thelost.png", // 10
   [PlayerType.LAZARUS_2]: "playerportrait_lazarus2.png", // 11
-  [PlayerType.BLACK_JUDAS]: "playerportrait_darkjudas.png", // 12
+  [PlayerType.DARK_JUDAS]: "playerportrait_darkjudas.png", // 12
   [PlayerType.LILITH]: "playerportrait_lilith.png", // 13
   [PlayerType.KEEPER]: "playerportrait_keeper.png", // 14
   [PlayerType.APOLLYON]: "playerportrait_apollyon.png", // 15

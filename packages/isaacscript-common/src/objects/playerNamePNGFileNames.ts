@@ -21,7 +21,7 @@ export const PLAYER_NAME_PNG_FILE_NAMES: {
   // Lazarus 2 uses the same name as Lazarus 1.
   [PlayerType.LAZARUS_2]: "playername_10_lazarus.png", // 11
   // Dark Judas uses the same name as Judas.
-  [PlayerType.BLACK_JUDAS]: "playername_04_judas.png", // 12
+  [PlayerType.DARK_JUDAS]: "playername_04_judas.png", // 12
   [PlayerType.LILITH]: "playername_13_lilith.png", // 13
   [PlayerType.KEEPER]: "playername_14_thekeeper.png", // 14
   [PlayerType.APOLLYON]: "playername_15_apollyon.png", // 15

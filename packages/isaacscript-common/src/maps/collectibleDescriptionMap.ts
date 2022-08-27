@@ -5,8 +5,12 @@ import { CollectibleType } from "isaac-typescript-definitions";
 
 export const DEFAULT_COLLECTIBLE_DESCRIPTION = "Unknown";
 
-// This is a temporary map due to missing features in the vanilla API. (Otherwise, this would be
-// converted to a type-safe object.)
+/**
+ * Maps collectible types to the real English descriptions from the "stringtable.sta" file.
+ *
+ * This is a temporary map due to missing features in the vanilla API. (Otherwise, this would be
+ * converted to a type-safe object.)
+ */
 export const COLLECTIBLE_DESCRIPTION_MAP: ReadonlyMap<CollectibleType, string> =
   new Map([
     [1, "Tears up"],

@@ -20,9 +20,9 @@ import {
   DEFAULT_COLLECTIBLE_DESCRIPTION,
 } from "../maps/collectibleDescriptionMap";
 import {
-  COLLECTIBLE_NAME_MAP,
+  COLLECTIBLE_TYPE_TO_NAME_MAP,
   DEFAULT_COLLECTIBLE_NAME,
-} from "../maps/collectibleNameMap";
+} from "../maps/collectibleTypeToNameMap";
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
 import { getEntityID } from "./entities";
@@ -308,7 +308,7 @@ export function getCollectibleMaxCharges(
 export function getCollectibleName(collectibleType: CollectibleType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
-  const collectibleName = COLLECTIBLE_NAME_MAP.get(collectibleType);
+  const collectibleName = COLLECTIBLE_TYPE_TO_NAME_MAP.get(collectibleType);
   if (collectibleName !== undefined) {
     return collectibleName;
   }

@@ -54,3 +54,10 @@ lint failure:
 
 lint TODO:
 "Implicit iteration is disallowed" marks error over whole function instead of just the set
+
+
+lint:
+
+ * @returns If a match was found, returns a tuple of the map key and value. If a match was not
+ * found, returns undefined.
+(should indent)

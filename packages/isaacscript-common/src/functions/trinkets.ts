@@ -13,7 +13,10 @@ import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,
 } from "../maps/trinketDescriptionMap";
-import { DEFAULT_TRINKET_NAME, TRINKET_NAME_MAP } from "../maps/trinketNameMap";
+import {
+  DEFAULT_TRINKET_NAME,
+  TRINKET_TYPE_TO_NAME_MAP,
+} from "../maps/trinketTypeToNameMap";
 import { getEntityID } from "./entities";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
@@ -123,7 +126,7 @@ export function getTrinketGfxFilename(trinketType: TrinketType): string {
 export function getTrinketName(trinketType: TrinketType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
-  const trinketName = TRINKET_NAME_MAP.get(trinketType);
+  const trinketName = TRINKET_TYPE_TO_NAME_MAP.get(trinketType);
   if (trinketName !== undefined) {
     return trinketName;
   }

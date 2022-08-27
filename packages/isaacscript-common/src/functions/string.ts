@@ -55,6 +55,12 @@ export function removeCharactersBefore(
   return string.slice(index);
 }
 
+/** Helper function to remove all characters from a string that are not letters or numbers. */
+export function removeNonAlphanumericCharacters(str: string): string {
+  const [returnValue, _] = string.gsub(str, "%W", "");
+  return returnValue;
+}
+
 /**
  * Helper function to remove one or more substrings from a string, if they exist. Returns the
  * modified string.

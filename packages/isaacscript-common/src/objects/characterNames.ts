@@ -14,7 +14,7 @@ export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.EDEN]: "Eden", // 9
   [PlayerType.THE_LOST]: "The Lost", // 10
   [PlayerType.LAZARUS_2]: "Lazarus II", // 11
-  [PlayerType.BLACK_JUDAS]: "Dark Judas", // 12
+  [PlayerType.DARK_JUDAS]: "Dark Judas", // 12
   [PlayerType.LILITH]: "Lilith", // 13
   [PlayerType.KEEPER]: "Keeper", // 14
   [PlayerType.APOLLYON]: "Apollyon", // 15

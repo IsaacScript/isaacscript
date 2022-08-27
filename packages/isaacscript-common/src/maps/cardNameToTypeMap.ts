@@ -2,8 +2,8 @@ import { CardType } from "isaac-typescript-definitions";
 
 // cspell:ignore hiero
 
-/** Maps card names to card sub-types. */
-export const CARD_MAP: ReadonlyMap<string, CardType> = new Map([
+/** Maps card names to the values of the `CardType` enum. */
+export const CARD_NAME_TO_TYPE_MAP: ReadonlyMap<string, CardType> = new Map([
   ["fool", CardType.FOOL], // 1
   ["magician", CardType.MAGICIAN], // 2
   ["mag", CardType.MAGICIAN], // 2 - Needed since we have "mag?"

@@ -17,7 +17,7 @@ export const CHARACTER_DAMAGE_MULTIPLIERS: {
   [PlayerType.EDEN]: 1.0, // 9
   [PlayerType.THE_LOST]: 1.0, // 10
   [PlayerType.LAZARUS_2]: 1.4, // 11
-  [PlayerType.BLACK_JUDAS]: 2.0, // 12
+  [PlayerType.DARK_JUDAS]: 2.0, // 12
   [PlayerType.LILITH]: 1.0, // 13
   [PlayerType.KEEPER]: 1.2, // 14
   [PlayerType.APOLLYON]: 1.0, // 15

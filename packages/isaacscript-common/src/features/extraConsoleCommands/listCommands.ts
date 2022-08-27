@@ -85,7 +85,7 @@ import { runMergeTests } from "../../functions/mergeTests";
 import {
   spawnCard,
   spawnPill,
-  spawnTrinket,
+  spawnTrinket as spawnTrinketFunction,
 } from "../../functions/pickupsSpecific";
 import { getPillEffectName } from "../../functions/pills";
 import { getPlayers } from "../../functions/playerIndex";
@@ -99,14 +99,21 @@ import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
 import { changeRoom } from "../../functions/rooms";
 import { reloadRoom as reloadRoomFunction } from "../../functions/roomTransition";
 import { onSetSeed, restart, setUnseeded } from "../../functions/run";
+import { spawnCollectible as spawnCollectibleFunction } from "../../functions/spawnCollectible";
 import { setStage } from "../../functions/stage";
 import { getGoldenTrinketType } from "../../functions/trinkets";
-import { asCardType } from "../../functions/types";
+import {
+  asCardType,
+  asCollectibleType,
+  asTrinketType,
+} from "../../functions/types";
 import { irange, printConsole, printEnabled } from "../../functions/utils";
-import { CARD_MAP } from "../../maps/cardMap";
-import { CHARACTER_MAP } from "../../maps/characterMap";
-import { PILL_EFFECT_MAP } from "../../maps/pillEffectMap";
-import { ROOM_TYPE_MAP } from "../../maps/roomTypeMap";
+import { CARD_NAME_TO_TYPE_MAP } from "../../maps/cardNameToTypeMap";
+import { CHARACTER_NAME_TO_TYPE_MAP } from "../../maps/characterNameToTypeMap";
+import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../maps/collectibleNameToTypeMap";
+import { PILL_NAME_TO_EFFECT_MAP } from "../../maps/pillNameToEffectMap";
+import { ROOM_NAME_TO_TYPE_MAP } from "../../maps/roomNameToTypeMap";
+import { TRINKET_NAME_TO_TYPE_MAP } from "../../maps/trinketNameToTypeMap";
 import { getLastCardType, getLastPillEffect } from "../firstLast";
 import {
   addHeart,
@@ -343,7 +350,7 @@ export function card(params: string): void {
   let cardType: CardType;
   const num = tonumber(params) as CardType | undefined;
   if (num === undefined) {
-    const match = getMapPartialMatch(params, CARD_MAP);
+    const match = getMapPartialMatch(params, CARD_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       printConsole(`Unknown card: ${params}`);
       return;
@@ -414,7 +421,7 @@ export function character(params: string): void {
   let playerType: PlayerType;
   const num = tonumber(params) as PlayerType | undefined;
   if (num === undefined) {
-    const match = getMapPartialMatch(params, CHARACTER_MAP);
+    const match = getMapPartialMatch(params, CHARACTER_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       printConsole(`Unknown character: ${params}`);
       return;
@@ -940,7 +947,7 @@ export function pill(params: string): void {
   let pillEffect: PillEffect;
   const num = tonumber(params) as PillEffect | undefined;
   if (num === undefined) {
-    const match = getMapPartialMatch(params, PILL_EFFECT_MAP);
+    const match = getMapPartialMatch(params, PILL_NAME_TO_EFFECT_MAP);
     if (match === undefined) {
       printConsole(`Unknown pill effect: ${params}`);
       return;
@@ -1315,25 +1322,87 @@ export function spam(): void {
   printEnabled(v.run.spamBloodRights, "spamming Blood Rights");
 }
 
-/** Spawns a golden version of the specified trinket type. */
-export function spawnGoldenTrinket(params: string): void {
+export function spawnCollectible(params: string): void {
   if (params === "") {
     printConsole(
-      "You must specify the number corresponding to the trinket type.",
+      "You must specify the name or number corresponding to the collectible type.",
     );
     return;
   }
 
-  const trinketType = tonumber(params) as TrinketType | undefined;
-  if (trinketType === undefined) {
-    printConsole(`That is an invalid trinket type: ${params}`);
+  const collectibleTypeNumber = tonumber(params);
+  let collectibleType: CollectibleType;
+  if (collectibleTypeNumber === undefined) {
+    const match = getMapPartialMatch(params, COLLECTIBLE_NAME_TO_TYPE_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown collectible: ${params}`);
+      return;
+    }
+
+    collectibleType = match[1];
+  } else {
+    collectibleType = asCollectibleType(collectibleTypeNumber);
+  }
+
+  const roomClass = game.GetRoom();
+  const centerPos = roomClass.GetCenterPos();
+  spawnCollectibleFunction(collectibleType, centerPos);
+}
+
+/** Spawns a golden version of the specified trinket type. */
+export function spawnGoldenTrinket(params: string): void {
+  if (params === "") {
+    printConsole(
+      "You must specify the name or number corresponding to the trinket type.",
+    );
     return;
   }
 
-  const goldenTrinketType = getGoldenTrinketType(trinketType);
+  const trinketTypeNumber = tonumber(params);
+  let trinketType: TrinketType;
+  if (trinketTypeNumber === undefined) {
+    const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown trinket: ${params}`);
+      return;
+    }
+
+    trinketType = match[1];
+  } else {
+    trinketType = asTrinketType(trinketTypeNumber);
+  }
+
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
-  spawnTrinket(goldenTrinketType, centerPos);
+  const goldenTrinketType = getGoldenTrinketType(trinketType);
+  spawnTrinketFunction(goldenTrinketType, centerPos);
+}
+
+export function spawnTrinket(params: string): void {
+  if (params === "") {
+    printConsole(
+      "You must specify the name or number corresponding to the trinket type.",
+    );
+    return;
+  }
+
+  const trinketTypeNumber = tonumber(params);
+  let trinketType: TrinketType;
+  if (trinketTypeNumber === undefined) {
+    const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
+    if (match === undefined) {
+      printConsole(`Unknown trinket: ${params}`);
+      return;
+    }
+
+    trinketType = match[1];
+  } else {
+    trinketType = asTrinketType(trinketTypeNumber);
+  }
+
+  const roomClass = game.GetRoom();
+  const centerPos = roomClass.GetCenterPos();
+  spawnTrinketFunction(trinketType, centerPos);
 }
 
 /** Toggles maximum movement speed and flight for the player. */
@@ -1441,7 +1510,7 @@ export function warp(params: string): void {
   let roomType: RoomType;
   const num = tonumber(params) as RoomType | undefined;
   if (num === undefined) {
-    const match = getMapPartialMatch(params, ROOM_TYPE_MAP);
+    const match = getMapPartialMatch(params, ROOM_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       printConsole(`Unknown room type: ${params}`);
       return;

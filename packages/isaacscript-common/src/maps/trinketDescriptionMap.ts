@@ -5,8 +5,12 @@ import { TrinketType } from "isaac-typescript-definitions";
 
 export const DEFAULT_TRINKET_DESCRIPTION = "Unknown";
 
-// This is a temporary map due to missing features in the vanilla API. (Otherwise, this would be
-// converted to a type-safe object.)
+/**
+ * Maps trinket types to the real English descriptions from the "stringtable.sta" file.
+ *
+ * This is a temporary map due to missing features in the vanilla API. (Otherwise, this would be
+ * converted to a type-safe object.)
+ */
 export const TRINKET_DESCRIPTION_MAP: ReadonlyMap<TrinketType, string> =
   new Map([
     [1, "Gulp!"],

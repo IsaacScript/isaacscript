@@ -8,7 +8,7 @@ export const CHARACTERS_WITH_NO_RED_HEARTS_SET: ReadonlySet<PlayerType> =
   new Set([
     PlayerType.BLUE_BABY, // 4
     PlayerType.THE_LOST, // 10
-    PlayerType.BLACK_JUDAS, // 12
+    PlayerType.DARK_JUDAS, // 12
     PlayerType.JUDAS_B, // 24
     PlayerType.BLUE_BABY_B, // 25
     PlayerType.THE_LOST_B, // 31
