@@ -69,6 +69,24 @@ export function addPlayerHealthType(
 }
 
 /**
+ * Helper function to see if the provided player can pick up an eternal heart.
+ *
+ * This function's name matches the existing `EntityPlayer` methods.
+ */
+export function canPickEternalHearts(player: EntityPlayer): boolean {
+  const eternalHearts = player.GetEternalHearts();
+  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
+  const heartLimit = player.GetHeartLimit();
+  const boneHearts = player.GetBoneHearts();
+
+  return !(
+    eternalHearts > 0 &&
+    effectiveMaxHearts === heartLimit &&
+    boneHearts * 2 !== effectiveMaxHearts
+  );
+}
+
+/**
  * Returns whether or not all of the player's soul-heart-type hearts are black hearts.
  *
  * Note that this function does not consider red heart containers.

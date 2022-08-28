@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
   - `removeAllNonAlphanumericCharacters`
   - `addRoomDisplayFlag`
   - `setRoomVisible`
+  - `canPickEternalHearts`
 - Added the following custom commands:
   - `hush` (to warp to the Blue Womb Boss Room)
   - `spawnCollectible` (to spawn a collectible by name)

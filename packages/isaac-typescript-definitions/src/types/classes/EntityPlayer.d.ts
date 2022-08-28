@@ -646,6 +646,15 @@ declare global {
     GetGreedDonationBreakChance(): float;
     GetHeadColor(): SkinColor;
     GetHeadDirection(): Direction;
+
+    /**
+     * Returns the maximum heart containers that the provided player can have. Normally, this is 12,
+     * but it can change depending on the character (e.g. Keeper) and other things (e.g. Mother's
+     * Kiss).
+     *
+     * This function automatically accounts for Broken Hearts. For example, if Isaac has one broken
+     * heart, this function will return 22 instead of 24.
+     */
     GetHeartLimit(): int;
 
     /**
