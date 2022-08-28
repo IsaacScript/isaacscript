@@ -138,7 +138,8 @@ export function getNewRoomCandidate(
 
 /**
  * Helper function to iterate through the possible doors for a room and see if any of them would be
- * a valid spot to insert a brand new room on the floor.
+ * a valid spot to insert a brand new room on the floor. (Any potential new rooms cannot be
+ * connected to any other existing rooms on the floor.)
  *
  * @param roomGridIndex Optional. Default is the current room index.
  * @returns A array of tuples of `DoorSlot` and room grid index.
@@ -148,10 +149,14 @@ export function getNewRoomCandidatesBesideRoom(
 ): Array<[doorSlot: DoorSlot, roomGridIndex: int]> {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
 
+  // First, handle the case of rooms outside of the grid, which obviously cannot have any possible
+  // adjacent new room candidates.
   if (!isRoomInsideGrid(roomDescriptor.SafeGridIndex)) {
     return [];
   }
 
+  // Rooms without data are non-existent, so they obviously cannot have any possible adjacent new
+  // room candidates.
   const roomData = roomDescriptor.Data;
   if (roomData === undefined) {
     return [];
@@ -193,16 +198,22 @@ export function getNewRoomCandidatesBesideRoom(
  * Helper function to search through all of the rooms on the floor for a spot to insert a brand new
  * room.
  *
- * @returns A array of tuples of adjacent room grid index, `DoorSlot`, and new room grid index.
+ * @returns A array of tuples containing the adjacent room grid index, the `DoorSlot`, and the new
+ *          room grid index.
  */
 export function getNewRoomCandidatesForLevel(): Array<
   [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
 > {
+  // We want to iterate over every room on the floor and search for potential new room spots.
   const rooms = getRoomsInsideGrid();
+
+  // However, we want to filter out special rooms because they are supposed to be dead ends.
   const normalRooms = rooms.filter(
     (room) =>
       room.Data !== undefined &&
       room.Data.Type === RoomType.DEFAULT &&
+      // The mirror room and the mineshaft entrance count as normal rooms, but those are supposed to
+      // be dead ends as well.
       room.Data.Subtype !== asNumber(DownpourRoomSubType.MIRROR) &&
       room.Data.Subtype !== asNumber(MinesRoomSubType.MINESHAFT_ENTRANCE),
   );
@@ -385,10 +396,10 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
  * @param roomGridIndex Optional. Default is the current room index.
  */
 export function isDeadEnd(roomGridIndex?: int): boolean {
-  const adjacentNonExistingRoomGridIndexes =
-    getAdjacentNonExistingRoomGridIndexes(roomGridIndex);
+  const adjacentExistingRoomGridIndexes =
+    getAdjacentExistingRoomGridIndexes(roomGridIndex);
 
-  return adjacentNonExistingRoomGridIndexes.length === 1;
+  return adjacentExistingRoomGridIndexes.length === 1;
 }
 
 export function isDoorSlotValidAtGridIndex(
