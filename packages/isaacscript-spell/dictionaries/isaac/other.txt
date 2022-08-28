@@ -53,6 +53,7 @@ Sanio # Creator of Character Costume Protector library
 satans
 scolexes
 shroom
+shrooms
 softlock
 softlocked
 softlocking
