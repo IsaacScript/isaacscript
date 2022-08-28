@@ -69,21 +69,18 @@ export function addPlayerHealthType(
 }
 
 /**
- * Helper function to see if the provided player can pick up an eternal heart.
+ * Helper function to see if the provided player can pick up an eternal heart. (If a player already
+ * has an eternal heart and full heart containers, they are not able to pick up any additional
+ * eternal hearts.)
  *
  * This function's name matches the existing `EntityPlayer` methods.
  */
 export function canPickEternalHearts(player: EntityPlayer): boolean {
   const eternalHearts = player.GetEternalHearts();
-  const effectiveMaxHearts = player.GetEffectiveMaxHearts();
+  const maxHearts = player.GetMaxHearts();
   const heartLimit = player.GetHeartLimit();
-  const boneHearts = player.GetBoneHearts();
 
-  return !(
-    eternalHearts > 0 &&
-    effectiveMaxHearts === heartLimit &&
-    boneHearts * 2 !== effectiveMaxHearts
-  );
+  return eternalHearts === 0 || maxHearts !== heartLimit;
 }
 
 /**
