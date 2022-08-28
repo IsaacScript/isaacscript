@@ -2,6 +2,7 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
 import yaml from "yaml";
+import { version as toolVersion } from "../../../package.json";
 import { PROJECT_NAME } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
@@ -196,7 +197,7 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} template`;
+    const commitMessage = `chore: add files from ${PROJECT_NAME} ${toolVersion} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],
