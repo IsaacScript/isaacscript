@@ -24,5 +24,5 @@ if test -d "$NODE_MODULES"; then
   echo "Successfully deleted: $NODE_MODULES"
 fi
 
-yarn install
+npm install
 echo "Successfully reinstalled Node dependencies."

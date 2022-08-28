@@ -21,6 +21,7 @@ CNDL # BLCK CNDL seed
 combineddoor # door_07_combineddoor.png
 corpsehole # door_11_corpsehole_custom.anm2
 deathanm # items.xml
+devilprice # items.xml
 devilroomdoor # door_07_devilroomdoor.png
 endstage # challenges.xml
 fadecolor # cutscenes.xml

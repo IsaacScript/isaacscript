@@ -14,14 +14,17 @@ despawns
 Dollys
 Dreamcatcher
 Eggies
+ENCYCLOPEDIARARY # Encyclopedia parameter
 esaus
 Fallens
 Filloax # Revelations developer
 fistuloids
 forgottens
+fsize # Encyclopedia parameter
 Gabriels
 gameplay
 giveitem # Console command
+halign # Encyclopedia parameter
 hitbox
 hitboxes
 Kilburn # Repentance developer
@@ -36,7 +39,7 @@ nerfed
 nerfs
 Nicalis
 npcs
-piber # Creator of Mod Config Menu.
+piber # Creator of Mod Config Menu
 polties
 pooters
 propget # Key of userdata
@@ -46,8 +49,10 @@ respawn
 respawned
 respawning
 respawns
+Sanio # Creator of Character Costume Protector library
 satans
 scolexes
+shroom
 softlock
 softlocked
 softlocking
