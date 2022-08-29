@@ -7,8 +7,8 @@ bootstrapper
 cacheable
 decompilation
 easings
-interactable
 grimoire
+interactable
 keyof
 leaderboard
 leaderboards
