@@ -22,7 +22,27 @@ export function postPurchaseFire(
   player: EntityPlayer,
   pickup: EntityPickup,
 ): void {
-  for (const [callback] of subscriptions) {
+  for (const [
+    callback,
+    callbackPickupVariant,
+    callbackPickupSubType,
+  ] of subscriptions) {
+    // Handle the optional 2nd callback argument.
+    if (
+      callbackPickupVariant !== undefined &&
+      callbackPickupVariant !== pickup.Variant
+    ) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument.
+    if (
+      callbackPickupSubType !== undefined &&
+      callbackPickupSubType !== pickup.SubType
+    ) {
+      continue;
+    }
+
     callback(player, pickup);
   }
 }
