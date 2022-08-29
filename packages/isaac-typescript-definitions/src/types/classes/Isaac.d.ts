@@ -328,6 +328,9 @@ declare global {
     /**
      * This function is very expensive and is the main cause of lag in mods across the Isaac
      * ecosystem. Be careful about calling this multiple times per frame.
+     *
+     * If possible, use the `Isaac.FindByType` method or the `getEntities` helper function instead
+     * of using this method.
      */
     function GetRoomEntities(): Entity[];
 
