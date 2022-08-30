@@ -2,6 +2,7 @@ import {
   CollectiblePedestalType,
   CollectibleType,
   EntityType,
+  ItemConfigChargeType,
   ItemConfigTag,
   ItemConfigTagZero,
   ItemType,
@@ -80,6 +81,21 @@ export function collectibleSpriteEquals(
     yFinish,
     yIncrement,
   );
+}
+
+/**
+ * Helper function to get the charge type that a collectible has. Returns
+ * `ItemConfigChargeType.NORMAL` if the provided collectible type was not valid.
+ */
+export function getCollectibleChargeType(
+  collectibleType: CollectibleType,
+): ItemConfigChargeType {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return ItemConfigChargeType.NORMAL;
+  }
+
+  return itemConfigItem.ChargeType;
 }
 
 /**

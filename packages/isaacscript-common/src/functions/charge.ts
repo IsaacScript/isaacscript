@@ -1,11 +1,15 @@
 import {
   ActiveSlot,
   CollectibleType,
+  ItemConfigChargeType,
   SoundEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../core/cachedClasses";
-import { getCollectibleMaxCharges } from "./collectibles";
+import {
+  getCollectibleChargeType,
+  getCollectibleMaxCharges,
+} from "./collectibles";
 import { getPlayers } from "./playerIndex";
 import { getRoomShapeCharges } from "./roomShape";
 
@@ -70,6 +74,7 @@ export function addCharge(
  * - 2x2 rooms and L rooms granting a double charge
  * - The Battery
  * - AAA Battery
+ * - Not charging active items with `chargetype="special"`
  *
  * @param player The player to grant the charges to.
  * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
@@ -104,6 +109,7 @@ export function addRoomClearCharge(
  * - L rooms and 2x2 rooms granting a double charge
  * - The Battery
  * - AAA Battery
+ * - Not charging active items with `chargetype="special"`
  *
  * @param player The player to grant the charges to.
  * @param activeSlot The active item slot to grant the charges to.
@@ -118,6 +124,18 @@ export function addRoomClearChargeToSlot(
   bigRoomDoubleCharge = true,
   playSoundEffect = true,
 ): void {
+  const activeItem = player.GetActiveItem(activeSlot);
+  if (activeItem === CollectibleType.NULL) {
+    return;
+  }
+
+  // Certain collectibles have special charge mechanisms and are not charged upon a room being
+  // cleared.
+  const chargeType = getCollectibleChargeType(activeItem);
+  if (chargeType === ItemConfigChargeType.SPECIAL) {
+    return;
+  }
+
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
