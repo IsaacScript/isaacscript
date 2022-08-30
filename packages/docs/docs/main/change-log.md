@@ -18,6 +18,8 @@ This page lists the changes to the IsaacScript framework.
   - `setRoomVisible`
   - `canPickEternalHearts`
   - `getCollectibleChargeType`
+- Added the following enums:
+  - `CollectibleSpriteLayer`
 - Added the following custom commands:
   - `hush` (to warp to the Blue Womb Boss Room)
   - `spawnCollectible` (to spawn a collectible by name)

@@ -1,3 +1,4 @@
+/** Corresponds to "001.000_player.anm2". */
 export enum PlayerSpriteLayer {
   GLOW = 0,
   BODY = 1,

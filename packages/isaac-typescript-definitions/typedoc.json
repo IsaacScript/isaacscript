@@ -18,6 +18,7 @@
     "src/enums/ChampionColor.ts",
     "src/enums/CollectibleAnimation.ts",
     "src/enums/CollectiblePedestalType.ts",
+    "src/enums/CollectibleSpriteLayer.ts",
     "src/enums/collections/entityState.ts",
     "src/enums/collections/gridEntityState.ts",
     "src/enums/collections/gridEntityVariants.ts",

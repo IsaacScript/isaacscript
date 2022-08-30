@@ -11,6 +11,7 @@ export * from "./enums/Challenge";
 export * from "./enums/ChampionColor";
 export * from "./enums/CollectibleAnimation";
 export * from "./enums/CollectiblePedestalType";
+export * from "./enums/CollectibleSpriteLayer";
 export * from "./enums/collections/entityState";
 export * from "./enums/collections/gridEntityState";
 export * from "./enums/collections/gridEntityVariants";
