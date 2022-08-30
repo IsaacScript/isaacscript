@@ -1,5 +1,6 @@
 import {
   CollectiblePedestalType,
+  CollectibleSpriteLayer,
   CollectibleType,
   EntityType,
   ItemConfigChargeType,
@@ -33,8 +34,6 @@ import { clearSprite, spriteEquals } from "./sprites";
 import { irange } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
-const COLLECTIBLE_SPRITE_LAYER = 1;
-const COLLECTIBLE_SHADOW_LAYER = 4;
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards.
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
@@ -73,7 +72,7 @@ export function collectibleSpriteEquals(
   return spriteEquals(
     sprite1,
     sprite2,
-    COLLECTIBLE_SPRITE_LAYER,
+    CollectibleSpriteLayer.HEAD,
     xStart,
     xFinish,
     xIncrement,
@@ -498,7 +497,7 @@ export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
   clearSprite(sprite);
 
   const gfxFileName = getCollectibleGfxFilename(collectibleType);
-  sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, gfxFileName);
+  sprite.ReplaceSpritesheet(CollectibleSpriteLayer.HEAD, gfxFileName);
   sprite.LoadGraphics();
 
   return sprite;
@@ -631,9 +630,15 @@ export function setCollectibleSprite(
 
   const sprite = collectible.GetSprite();
   if (pngPath === undefined) {
-    clearSprite(sprite, COLLECTIBLE_SPRITE_LAYER, COLLECTIBLE_SHADOW_LAYER);
+    // We want to remove the little circle that appears on top of the pedestal, which is why we also
+    // clear `CollectibleSpriteLayer.ITEM_SHADOW`.
+    clearSprite(
+      sprite,
+      CollectibleSpriteLayer.HEAD,
+      CollectibleSpriteLayer.ITEM_SHADOW,
+    );
   } else {
-    sprite.ReplaceSpritesheet(COLLECTIBLE_SPRITE_LAYER, pngPath);
+    sprite.ReplaceSpritesheet(CollectibleSpriteLayer.HEAD, pngPath);
     sprite.LoadGraphics();
   }
 }
