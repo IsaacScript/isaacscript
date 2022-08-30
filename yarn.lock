@@ -3484,10 +3484,18 @@
   dependencies:
     "@types/node" "*"
 
-"@types/glob@^7.1.1", "@types/glob@^7.2.0":
+"@types/glob@^7.1.1":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.2.0.tgz#bc1b5bf3aa92f25bd5dd39f35c57361bdce5b2eb"
   integrity sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==
+  dependencies:
+    "@types/minimatch" "*"
+    "@types/node" "*"
+
+"@types/glob@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-8.0.0.tgz#321607e9cbaec54f687a0792b2d1d370739455d2"
+  integrity sha512-l6NQsDDyQUVeoTynNpC9uRvCUint/gSUXQA2euwmTuWGvPY5LSDUu6tkCtJB2SvGQlJQzLaKqcGZP4//7EDveA==
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
@@ -6404,10 +6412,10 @@ dot-prop@^6.0.1:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv@^16.0.1:
-  version "16.0.1"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
-  integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
+dotenv@^16.0.2:
+  version "16.0.2"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.2.tgz#0b0f8652c016a3858ef795024508cddc4bffc5bf"
+  integrity sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==
 
 dotenv@~10.0.0:
   version "10.0.0"
@@ -8879,12 +8887,12 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.0.tgz#714d94453327db9ea98fbf1a0c5f2b88f59ddd5c"
   integrity sha512-HneQBCrXGBy15QnaDfcn6OLoU8AQPAa0Qn0IeJR/QCo4E8dNZaGGwxpCwWyEBQC5QvFonP8d6t60iGpAHVAfNA==
 
-isaac-typescript-definitions@^4.0.7:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-4.0.7.tgz#c1b716088c0782fa30c8b8065cf8f07fe0725179"
-  integrity sha512-5h9axmOZ6gl0xSjfxEkUCT/nduz5swUpyIhv60uXO6eAPQ1P65yHqUT6pgFgTGA5mNhg5AGngEmQk6/tp/DW7w==
+isaac-typescript-definitions@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-4.1.1.tgz#90ee4f3162515f1e2fb947689ba365c81a84f1ec"
+  integrity sha512-JblhrZENaWAN2NOsSvojwrZuaBJeKJGUCTnkWMfMnee6aeh8gjFskJ7SzM+xvWXE4UsLVKYsNiVW2ZUtCatZFA==
   dependencies:
-    lua-types "^2.12.0"
+    lua-types "^2.12.1"
 
 isarray@0.0.1:
   version "0.0.1"
@@ -10170,11 +10178,6 @@ lru-cache@^7.4.4, lru-cache@^7.5.1, lru-cache@^7.7.1:
   version "7.14.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.0.tgz#21be64954a4680e303a09e9468f880b98a0b3c7f"
   integrity sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==
-
-lua-types@^2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/lua-types/-/lua-types-2.12.0.tgz#a03bc52b76fdaf88b4a596bf26ef27a670c3a29e"
-  integrity sha512-s96z1Zcz3KRXfWyNFM3KP2zpNYTfZwgHo8X/yFXveyS8Dux+cUuyT+zA5tFZbmGh8VViwNs9bFbzNevAR/18uw==
 
 lua-types@^2.12.1:
   version "2.12.1"

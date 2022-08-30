@@ -29,7 +29,7 @@
     "ajv": "^8.11.0",
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
     "git-dirty": "^1.0.2",
