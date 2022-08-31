@@ -18,4 +18,3 @@ npx tsc
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-cp --recursive "$DIR/src" "$OUT_DIR/"
