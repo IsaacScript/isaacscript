@@ -18,6 +18,7 @@ OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 npx tstl
+npx tsc
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
