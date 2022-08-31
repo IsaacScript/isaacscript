@@ -13,8 +13,8 @@ export const COLORS = {
   Green: Color(0, 1, 0) as Readonly<Color>,
   Blue: Color(0, 0, 1) as Readonly<Color>,
   Yellow: Color(1, 1, 0) as Readonly<Color>,
-  Pink: Color(1, 0, 1) as Readonly<Color>,
   Cyan: Color(0, 1, 1) as Readonly<Color>,
+  Magenta: Color(1, 0, 1) as Readonly<Color>,
   White: Color(1, 1, 1) as Readonly<Color>,
 
   Brown: Color(0.588, 0.294, 0) as Readonly<Color>,

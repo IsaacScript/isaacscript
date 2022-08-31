@@ -12,3 +12,5 @@ declare interface KColor extends IsaacAPIClass {
   Green: float;
   Red: float;
 }
+
+// The `KColor` presets are not implemented, since they are unsafe. See the `K_COLORS` constant.

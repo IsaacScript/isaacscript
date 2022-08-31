@@ -20,6 +20,8 @@ This page lists the changes to the IsaacScript framework.
   - `getCollectibleChargeType`
 - Added the following enums:
   - `CollectibleSpriteLayer`
+- Added the following constants:
+  - `K_COLORS` (a collection of pre-defined `KColor` object)
 - Added the following custom commands:
   - `hush` (to warp to the Blue Womb Boss Room)
   - `spawnCollectible` (to spawn a collectible by name)
