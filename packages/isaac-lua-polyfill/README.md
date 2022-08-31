@@ -8,12 +8,15 @@ Currently, only `BitSet128` polyfill is provided.
 ## Usage
 
 To use it, just import it at the top of the file to register all polyfills:
+
 ```ts
 import "isaac-lua-polyfill";
 ```
 
 ### Usage with Jest
+
 You can put `"isaac-lua-polyfill"` into `setupFiles` in your `jest.config.js` to have it automatically loaded for each test suite:
+
 ```ts
 module.exports = {
   setupFiles: ["isaac-lua-polyfill"],
