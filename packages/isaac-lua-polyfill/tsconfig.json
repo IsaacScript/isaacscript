@@ -3,7 +3,7 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaac-lua-polyfills/dist",
+    "outDir": "../../dist/packages/isaac-lua-polyfill/dist",
 
     // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
     "rootDir": "./src",
