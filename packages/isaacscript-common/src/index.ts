@@ -164,6 +164,7 @@ export * from "./maps/characterNameToTypeMap";
 export * from "./maps/pillNameToEffectMap";
 export * from "./maps/roomNameToTypeMap";
 export * from "./objects/colors";
+export * from "./objects/kColors";
 export * from "./types/AnyEntity";
 export * from "./types/AnyGridEntity";
 export * from "./types/CollectibleIndex";

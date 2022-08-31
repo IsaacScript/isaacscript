@@ -188,6 +188,7 @@
     "src/types/PossibleStatType.ts",
     "src/types/SerializedIsaacAPIClass.ts",
     "src/types/TSTLClass.ts",
+    "src/objects/kColors.ts",
     "src/objects/colors.ts",
   ],
   "intentionallyNotExported": [
