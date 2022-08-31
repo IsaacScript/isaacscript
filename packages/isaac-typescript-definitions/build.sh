@@ -17,6 +17,12 @@ cd "$DIR"
 OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
+
+# Convert the TypeScript to JavaScript. (We want to generate JavaScript files in addition to Lua
+# files so that Jest tests can consume this library.)
+npx tsc
+
+# Convert the TypeScript to Lua. (We provide compiled enums in addition to ambient declarations.)
 npx tstl
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script

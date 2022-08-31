@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.monorepo.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "outDir": "../../dist/packages/isaac-lua-polyfills/dist",
+
+    // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
+    "rootDir": "./src",
+
+    // Needed to hide internal functions from the auto-complete of end-users.
+    "stripInternal": true,
+
+    // Recommended as per TypeScriptToLua:
+    // https://typescripttolua.github.io/docs/getting-started/
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+
+    // We use TypeScript definitions for the Lua standard library:
+    // https://github.com/TypeScriptToLua/lua-types
+    "types": ["lua-types/5.3", "isaac-typescript-definitions"],
+  },
+
+  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
+  // "tsconfig.eslint.json" file.
+  "include": ["./src/**/*.ts", ".eslintrc.js"],
+}
