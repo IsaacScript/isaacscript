@@ -2705,7 +2705,7 @@
     rxjs "^6.5.4"
     tslib "^2.3.0"
 
-"@nrwl/js@14.6.1", "@nrwl/js@^14.6.0":
+"@nrwl/js@14.6.1", "@nrwl/js@^14.6.1":
   version "14.6.1"
   resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-14.6.1.tgz#8e5023969e8c100bdf8a2b5fb9213e23047a95ed"
   integrity sha512-aNRLYN3qRXIkJXHnBCuZrMpYicKpSHtiChxLzKtIPkmo+3DUHM52csjFiSraPqO+vhls5tuwd8Jqllkt7JHlRA==
@@ -8688,10 +8688,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.0.tgz#714d94453327db9ea98fbf1a0c5f2b88f59ddd5c"
   integrity sha512-HneQBCrXGBy15QnaDfcn6OLoU8AQPAa0Qn0IeJR/QCo4E8dNZaGGwxpCwWyEBQC5QvFonP8d6t60iGpAHVAfNA==
 
-isaac-typescript-definitions@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-4.1.1.tgz#90ee4f3162515f1e2fb947689ba365c81a84f1ec"
-  integrity sha512-JblhrZENaWAN2NOsSvojwrZuaBJeKJGUCTnkWMfMnee6aeh8gjFskJ7SzM+xvWXE4UsLVKYsNiVW2ZUtCatZFA==
+isaac-typescript-definitions@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-5.0.0.tgz#eba101ef1ddb9c4852af270e78021e69c07895d1"
+  integrity sha512-9oscyTIn6AC41kJYFAdI9+1+ZKemz4t/zOd7Q/KdreH+KmDi97DpaoidaC5s10Nbg6Tkx5UCsHsJrXGIAKOBfw==
   dependencies:
     lua-types "^2.12.1"
 
