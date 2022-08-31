@@ -16,6 +16,7 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
+    "module": "commonjs",
 
     // We use TypeScript definitions for the Lua standard library:
     // https://github.com/TypeScriptToLua/lua-types
