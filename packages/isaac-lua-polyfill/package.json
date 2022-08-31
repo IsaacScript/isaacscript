@@ -1,0 +1,26 @@
+{
+  "name": "isaac-lua-polyfill",
+  "version": "1.0.0",
+  "description": "Lua polyfills for The Binding of Isaac: Repentance.",
+  "keywords": [
+    "isaac",
+    "rebirth",
+    "afterbirth",
+    "repentance"
+  ],
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+  },
+  "license": "GPL-3.0",
+  "author": "Zamiell",
+  "type": "commonjs",
+  "main": "dist/index",
+  "dependencies": {
+    "isaac-typescript-definitions": "^4.1.1"
+  }
+}
