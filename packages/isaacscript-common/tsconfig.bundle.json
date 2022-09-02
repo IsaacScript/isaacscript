@@ -3,8 +3,6 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaacscript-common-bundle",
-
     // We want the only output to be the bundled Lua file.
     "declaration": false,
     "declarationMap": false,
@@ -16,6 +14,12 @@
     "luaBundle": "isaacscript-common.lua", // Will bundle all output Lua files into a single file.
     "luaBundleEntry": "./src/index.ts",
     "luaPlugins": [
+      // A plugin to add an explanatory comment at the top of the compiled "main.lua" file (for
+      // `isaacscript-common` specifically).
+      {
+        "name": "../isaacscript-cli/src/plugins/addIsaacScriptCommentHeaderLibrary.ts",
+      },
+
       // A plugin to make enums safe from global variables.
       {
         "name": "../isaacscript-cli/src/plugins/noExtendedEnums.ts",
