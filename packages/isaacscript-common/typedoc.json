@@ -62,6 +62,7 @@
     "src/features/taintedLazarusPlayers.ts",
     "src/functions/ambush.ts",
     "src/functions/array.ts",
+    "src/functions/arrayLua.ts",
     "src/functions/benchmark.ts",
     "src/functions/bombs.ts",
     "src/functions/bitSet128.ts",

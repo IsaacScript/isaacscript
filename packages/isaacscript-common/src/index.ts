@@ -48,6 +48,7 @@ export * from "./features/stageHistory";
 export * from "./features/taintedLazarusPlayers";
 export * from "./functions/ambush";
 export * from "./functions/array";
+export * from "./functions/arrayLua";
 export * from "./functions/benchmark";
 export * from "./functions/bitSet128";
 export * from "./functions/bitwise";
