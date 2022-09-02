@@ -61,3 +61,5 @@ lint:
  * @returns If a match was found, returns a tuple of the map key and value. If a match was not
  * found, returns undefined.
 (should indent)
+
+lint: remove all whitespace in comment (tabs)
