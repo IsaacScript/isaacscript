@@ -51,7 +51,7 @@
     "@docusaurus/core": "^2.1.0",
     "@docusaurus/preset-classic": "^2.1.0",
     "@mdx-js/react": "1.6.2",
-    "@microsoft/api-extractor": "^7.29.5",
+    "@microsoft/api-extractor": "^7.30.0",
     "@nrwl/cli": "^14.6.3",
     "@nrwl/devkit": "^14.6.3",
     "@nrwl/eslint-plugin-nx": "^14.6.3",
