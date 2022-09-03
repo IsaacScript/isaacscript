@@ -217,6 +217,8 @@ myObject.foo = 999;
 myObject["foo"] = 999;
 ```
 
+(But ESLint will change the second form to the first form automatically when you save the file, so that everything remains consistent.)
+
 <br />
 
 ### `if` Statements and Operators
