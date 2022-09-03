@@ -23,7 +23,7 @@ If you have Python installed on your computer and you know what a terminal/shell
 - Install the tool: `pip install isaacscript-lua`
 - Install the Lua library: `isaacscript-lua install`
 
-If you get `ERROR: Could not find a version that satisfies the requirement isaacscript-lua (from versions: none)`, that means that your version of Python is too old. Make sure that you have at least Python version 3.10 or later installed.
+If you get `ERROR: Could not find a version that satisfies the requirement isaacscript-lua (from versions: none)`, that means that your version of Python is too old. Make sure that you have Python version 3.10 or later installed.
 
 <br />
 
