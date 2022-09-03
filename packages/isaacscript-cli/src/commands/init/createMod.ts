@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import path from "path";
-import { createConfigFile, newConfig } from "../../configFile";
+import { Config } from "../../classes/Config";
+import { createConfigFile } from "../../configFile";
 import {
   CI_YML,
   CI_YML_TEMPLATE_PATH,
@@ -44,7 +45,7 @@ export function createMod(
     file.makeDir(projectPath, verbose);
   }
 
-  const config = newConfig(modsDirectory, saveSlot, dev);
+  const config = new Config(modsDirectory, saveSlot, dev);
   createConfigFile(projectPath, config, verbose);
 
   copyStaticFiles(projectPath, verbose);

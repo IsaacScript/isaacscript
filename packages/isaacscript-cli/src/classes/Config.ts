@@ -31,4 +31,22 @@ export class Config {
    * a forked development repository.)
    */
   isaacScriptCommonDev?: boolean;
+
+  constructor(
+    modsDirectory?: string,
+    saveSlot?: number,
+    isaacScriptCommonDev?: boolean,
+  ) {
+    if (modsDirectory !== undefined) {
+      this.modsDirectory = modsDirectory;
+    }
+
+    if (saveSlot !== undefined) {
+      this.saveSlot = saveSlot;
+    }
+
+    if (isaacScriptCommonDev !== undefined) {
+      this.isaacScriptCommonDev = isaacScriptCommonDev;
+    }
+  }
 }
