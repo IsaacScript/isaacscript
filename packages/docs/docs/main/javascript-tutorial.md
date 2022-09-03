@@ -158,7 +158,7 @@ An array is a data structure that is an ordered list of elements. In Lua, you us
 local myArray = {"foo", "bar", "baz"}
 ```
 
-In TypeScript, there is a dedicated syntax for arrays - the square brackets.
+In TypeScript, there is a dedicated syntax for arrays: the square brackets.
 
 ```ts
 const myArray = ["foo", "bar", "baz"];
