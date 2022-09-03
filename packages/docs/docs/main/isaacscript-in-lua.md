@@ -62,7 +62,7 @@ my-mod/
 
 ### Import the Library
 
-At the top of the Lua file where you want to use the enums or functions, use one of the following import statement, depending on the library that you want to use:
+At the top of the Lua file where you want to use the enums or functions, use one of the following import statements, depending on the library that you want to use:
 
 ```lua
 local itd = require("my-mod.lib.isaac-typescript-definitions")
