@@ -3,7 +3,7 @@ import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
 export type PreGetPedestalRegisterParameters = [
   callback: (
     player: EntityPlayer,
-    pickup: EntityPickupCollectible,
+    collectible: EntityPickupCollectible,
   ) => boolean | undefined,
   playerVariant?: PlayerVariant,
   character?: PlayerType,

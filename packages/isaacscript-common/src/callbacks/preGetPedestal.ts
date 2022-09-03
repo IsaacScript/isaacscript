@@ -42,13 +42,13 @@ function prePickupCollision(
   }
 
   const numCoins = player.GetNumCoins();
-  if (pickup.Price > numCoins) {
+  if (collectible.Price > numCoins) {
     return undefined;
   }
 
   // Collectibles have a special variable to prevent them from being picked up for a certain time.
   // Players have special variable to prevent them from picking up a collectible for a certain time.
-  if (pickup.Wait > 0 || player.ItemHoldCooldown > 0) {
+  if (collectible.Wait > 0 || player.ItemHoldCooldown > 0) {
     return undefined;
   }
 
