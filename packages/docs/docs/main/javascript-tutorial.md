@@ -69,22 +69,22 @@ In TypeScript, you just call everything with a period. Easy.
 ```lua
 -- Lua code
 Isaac.DebugString("hello world")
-Game():GetPlayer():AddMaxHearts(2)
+Isaac.GetPlayer():AddMaxHearts(2)
 ```
 
 ```ts
 // TypeScript code
 Isaac.DebugString("hello world");
-Game().GetPlayer().AddMaxHearts(2);
+Isaac.GetPlayer().AddMaxHearts(2);
 ```
 
 <br />
 
 ### Variables: `local` --> `const` and `let`
 
-In Lua, you generally type `local` before declaring a variable to stop it from being turned into a global.
+In Lua, you type `local` before declaring a variable to stop it from being turned into a global.
 
-In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
+In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly decide to create one.
 
 Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
 (Don't ever use `var`, which is only used in older JavaScript code.)
