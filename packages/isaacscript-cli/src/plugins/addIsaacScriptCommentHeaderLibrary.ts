@@ -5,6 +5,8 @@ import * as tstl from "typescript-to-lua";
 
 const INFORMATIONAL_HEADER = `--[[
 
+isaacscript-common v0.0.0
+
 This is the "isaacscript-common" standard library, which was created with the IsaacScript tool.
 
 This library contains many helper functions and features that abstract away much of the complexity
