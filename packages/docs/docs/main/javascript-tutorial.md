@@ -881,7 +881,7 @@ In this example, `collectiblePrices` has a type of `Map<number, CollectiblePrice
 
 We initialize the map by passing an array of key/value pairs to the constructor. (Alternatively, we could start the map empty and then use the `set` method to set some values later on.)
 
-With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
+With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get` method to emulate checking for a value in a Lua table:
 
 ```lua
 -- Lua code
