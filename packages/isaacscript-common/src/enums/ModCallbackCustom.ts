@@ -1493,11 +1493,13 @@ export enum ModCallbackCustom {
   PRE_CUSTOM_REVIVE,
 
   /**
-   * Fires from the `PRE_PICKUP_COLLISION` callback when a player touches a collectible pedestal.
+   * Fires from the `PRE_PICKUP_COLLISION` callback when a player touches a collectible pedestal and
+   * meets all of the conditions to pick it up.
+   *
    * The return values of this callback are the same as the `PRE_PICKUP_COLLISION` callback. For
    * example, you can prevent a player from picking up the collectible by returning false. (However,
    * note that this callback will continue to fire for every frame that the player touches the
-   * pedestal.)
+   * pedestal, so you would need to continue returning false.)
    *
    * - When registering the callback, takes an optional second argument that will make the callback
    *   only fire if the player matches the `PlayerVariant` provided.

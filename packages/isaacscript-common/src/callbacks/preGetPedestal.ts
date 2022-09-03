@@ -8,7 +8,7 @@ import {
   preGetPedestalHasSubscriptions,
 } from "./subscriptions/preGetPedestal";
 
-export function preGetPedestalCollectibleInit(mod: Mod): void {
+export function preGetPedestalInit(mod: Mod): void {
   mod.AddCallback(
     ModCallback.PRE_PICKUP_COLLISION,
     prePickupCollision,

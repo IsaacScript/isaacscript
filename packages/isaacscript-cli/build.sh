@@ -33,7 +33,12 @@ done
 
 # Second, generate the JSON schema for the special "isaacscript" section in "tsconfig.json".
 SCHEMA_PATH="$DIR/schemas/tsconfig-isaacscript-section-schema.json"
-npx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts" --type "IsaacScriptTSConfig" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
+npx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
+npx prettier "$SCHEMA_PATH" --write
+
+# Also, generate the JSON schema for the "isaacscript.json" file.
+SCHEMA_PATH="$DIR/schemas/isaacscript-schema.json"
+npx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
 npx prettier "$SCHEMA_PATH" --write
 
 # Third, compile the program.
