@@ -3,13 +3,13 @@ title: Change Log
 ---
 
 <!-- markdownlint-disable MD024 -->
-<!-- cspell:ignore Somdudewillson,Siramok,Gamonymous,Aleksander,Ciesielski -->
+<!-- cspell:ignore aleksander,ciesielski,gamonymous,popjam,siramok,somdudewillson -->
 
 This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## September 2nd, 2022 (Unreleased)
+## September 3rd, 2022
 
 - `isaac-typescript-definitions` and `isaacscript-common` can now be imported by Lua mods. See [the documentation](https://isaacscript.github.io/main/isaacscript-in-lua).
 - `isaacscript init` now has a `--dev` flag for setting up a mod that will be testing out a development version of `isaacscript-common`. For more information, see the [README](https://github.com/IsaacScript/isaacscript#working-with-isaacscript-common).
@@ -24,6 +24,8 @@ This page lists the changes to the IsaacScript framework.
   - `CollectibleSpriteLayer`
 - Added the following constants:
   - `K_COLORS` (a collection of pre-defined `KColor` object)
+- Added the following custom callbacks:
+  - `PRE_PICKUP_COLLISION` (Thanks @popjam)
 - Added the following custom commands:
   - `hush` (to warp to the Blue Womb Boss Room)
   - `spawnCollectible` (to spawn a collectible by name)

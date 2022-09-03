@@ -89,6 +89,7 @@ import { PostTransformationRegisterParameters } from "../../callbacks/subscripti
 import { PostTrinketBreakRegisterParameters } from "../../callbacks/subscriptions/postTrinketBreak";
 import { PreBerserkDeathRegisterParameters } from "../../callbacks/subscriptions/preBerserkDeath";
 import { PreCustomReviveRegisterParameters } from "../../callbacks/subscriptions/preCustomRevive";
+import { PreGetPedestalRegisterParameters } from "../../callbacks/subscriptions/preGetPedestal";
 import { PreItemPickupRegisterParameters } from "../../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelRegisterParameters } from "../../callbacks/subscriptions/preNewLevel";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
@@ -185,6 +186,7 @@ export interface AddCallbackParameterCustom {
   [ModCallbackCustom.POST_TRINKET_BREAK]: PostTrinketBreakRegisterParameters;
   [ModCallbackCustom.PRE_BERSERK_DEATH]: PreBerserkDeathRegisterParameters;
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: PreCustomReviveRegisterParameters;
+  [ModCallbackCustom.PRE_GET_PEDESTAL]: PreGetPedestalRegisterParameters;
   [ModCallbackCustom.PRE_ITEM_PICKUP]: PreItemPickupRegisterParameters;
   [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevelRegisterParameters;
 }
