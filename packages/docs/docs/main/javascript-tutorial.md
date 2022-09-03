@@ -674,8 +674,7 @@ postGameStartedInit(mod);
 #### `callbacks/postGameStarted.ts`
 
 ```ts
-// "export" makes it so that other files can use this function
-// "void" is an return-type annotation, meaning "this function returns nothing"
+// "export" makes it so that other files can use this function.
 export function postGameStartedInit(mod: Mod): void {
   mod.AddCallback(ModCallbacks.POST_GAME_STARTED, main);
 }
