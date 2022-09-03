@@ -51,6 +51,7 @@ export function anyPlayerCloserThan(
 export function findFreePosition(
   startingPosition: Vector,
   avoidActiveEntities = false,
+  minimumDistance?: float,
 ): Vector {
   const room = game.GetRoom();
   const heavenDoors = getEffects(
@@ -77,6 +78,13 @@ export function findFreePosition(
     );
     if (isCloseHeavenDoor) {
       continue;
+    }
+
+    if (minimumDistance !== undefined) {
+      const distance = startingPosition.Distance(position);
+      if (distance < minimumDistance) {
+        continue;
+      }
     }
 
     return position;
