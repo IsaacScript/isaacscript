@@ -516,24 +516,21 @@ The main thing that TypeScript adds to JavaScript is type annotations. Here's a 
 ```lua
 -- Lua code
 function postPlayerInit(player)
-  -- Add Sad Onion
-  player:AddCollectible(1, 0, false)
+  player:AddCollectible(1, 0, false) -- Sad Onion
 end
 ```
 
 ```javascript
 // JavaScript code
 function postPlayerInit(player) {
-  // Add Sad Onion
-  player.AddCollectible(1, 0, false);
+  player.AddCollectible(1, 0, false); // Sad Onion
 }
 ```
 
 ```ts
 // TypeScript code
 function postPlayerInit(player: EntityPlayer) {
-  // Add Sad Onion
-  player.AddCollectible(1, 0, false);
+  player.AddCollectible(1, 0, false); // Sad Onion
 }
 ```
 
@@ -651,9 +648,8 @@ function postGameStarted:init(mod)
 end
 
 function postGameStarted:main()
-  -- Add Sad Onion
   local player = Isaac.GetPlayer()
-  player:AddCollectible(1, 0, false)
+  player:AddCollectible(1, 0, false) -- Sad Onion
 end
 
 return postGameStarted
@@ -680,9 +676,8 @@ export function postGameStartedInit(mod: Mod): void {
 }
 
 function main() {
-  // Add Sad Onion
   const player = Isaac.GetPlayer();
-  player.AddCollectible(1, 0, false);
+  player.AddCollectible(1, 0, false); // Sad Onion
 }
 ```
 
