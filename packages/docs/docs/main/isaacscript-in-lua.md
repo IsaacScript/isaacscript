@@ -138,7 +138,7 @@ In JavaScript/TypeScript, arrays come preloaded with [a bunch of useful methods]
 
 Many of these array methods are now provided as [convenience functions](/isaacscript-common/functions/arrayLua) inside of `isaacscript-common` specifically for Lua users who don't have these methods natively.
 
-If you find yourself using a `for` loop to iterating over an array - stop. [Use a higher-order function instead.](https://www.syncfusion.com/blogs/post/javascript-higher-order-functions-a-complete-guide.aspx)
+If you find yourself using a `for` loop to iterate over an array - stop. Become a better programmer and [use a higher-order function instead.](https://www.syncfusion.com/blogs/post/javascript-higher-order-functions-a-complete-guide.aspx)
 
 <br />
 
