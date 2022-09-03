@@ -1,3 +1,4 @@
+import { version } from "../../package.json";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { enableExtraConsoleCommands } from "../features/extraConsoleCommands/exports";
 import { removeFadeIn } from "../features/fadeInRemover";
@@ -33,6 +34,14 @@ export function enableDevFeatures(mod: ModUpgraded): void {
 }
 
 /**
+ * Helper function to get the current version of this library, according to the "package.json" file
+ * at the time of compilation. (The version is in the Semantic Versioning format, e.g. "1.0.0".)
+ */
+export function getIsaacScriptCommonVersion(): string {
+  return version;
+}
+
+/**
  * Helper function to get a stack trace.
  *
  * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
@@ -62,6 +71,10 @@ export function getTraceback(): string {
  *
  * This function uses the `package` global variable as a proxy to determine if the "--luadebug" flag
  * is enabled or not.
+ *
+ * Note that this function will return false if the Racing+ sandbox is enabled, even if the
+ * "--luadebug" flag is really turned on. If checking for this case is needed, check for the
+ * presence of the `sandboxGetTraceback` function.
  */
 export function isLuaDebugEnabled(): boolean {
   // "package" is not always defined like the Lua definitions imply.
@@ -98,6 +111,11 @@ export function traceback(): void {
   log(tracebackOutput);
 }
 
+// If the debug functions will provide useful output, make them global by default.
+if (isLuaDebugEnabled() || sandboxGetTraceback !== undefined) {
+  setDebugFunctionsGlobal();
+}
+
 function setDebugFunctionsGlobal() {
   // "debug" is not always defined like the Lua definitions imply.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -109,9 +127,4 @@ function setDebugFunctionsGlobal() {
 
   globals["getTraceback"] = getTraceback;
   globals["traceback"] = traceback;
-}
-
-// If the debug functions will provide useful output, make them global by default.
-if (isLuaDebugEnabled() || sandboxGetTraceback !== undefined) {
-  setDebugFunctionsGlobal();
 }

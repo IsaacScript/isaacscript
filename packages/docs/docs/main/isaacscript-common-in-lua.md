@@ -4,7 +4,7 @@ title: Using isaacscript-common in Lua
 
 <!-- markdownlint-disable MD034 -->
 
-The IsaacScript standard library lives in a package called `isaacscript-common`. It contains many helper functions and features that abstract away much of the complexity in working with the Isaac API. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
+The IsaacScript standard library lives in a package called `isaacscript-common`. It contains helper functions and features that abstract away much of the complexity in working with the Isaac API. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
 
 If you are writing your mod in TypeScript, then using the standard library is effortless - you can just start typing the names of the functions, and the auto-complete will automatically import them (and include them in your final bundled mod).
 

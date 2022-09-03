@@ -153,24 +153,25 @@ export function todo(...args: unknown[]): void {}
  * From:
  * https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
  */
-export function twoDimensionalSort<T>(a: T[], b: T[]): -1 | 0 | 1 {
-  const firstElementA = a[0];
-  const firstElementB = b[0];
+export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
+  const firstElement1 = array1[0];
+  const firstElement2 = array2[0];
 
-  if (
-    firstElementA === undefined ||
-    firstElementA === null ||
-    firstElementB === undefined ||
-    firstElementB === null
-  ) {
+  if (firstElement1 === undefined || firstElement1 === null) {
     error(
-      "Failed to two-dimensional sort since the first element of the array was undefined.",
+      "Failed to two-dimensional sort since the first element of the first array was undefined.",
     );
   }
 
-  if (firstElementA === firstElementB) {
+  if (firstElement2 === undefined || firstElement2 === null) {
+    error(
+      "Failed to two-dimensional sort since the first element of the second array was undefined.",
+    );
+  }
+
+  if (firstElement1 === firstElement2) {
     return 0;
   }
 
-  return firstElementA < firstElementB ? -1 : 1;
+  return firstElement1 < firstElement2 ? -1 : 1;
 }

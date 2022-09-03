@@ -6,7 +6,7 @@
     "outDir": "../../dist/packages/isaacscript-common/dist",
 
     // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
-    "rootDir": "./src",
+    "rootDir": ".",
 
     // Needed since this is a library.
     "declaration": true,
