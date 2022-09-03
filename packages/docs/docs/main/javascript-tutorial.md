@@ -366,12 +366,12 @@ for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
   // Do something with "collectibleType" and "price".
 }
 
-// Or, if you just need the collectible type, you would use the "keys()" method
+// Or, if you just need the collectible type, you would use the "keys()" method.
 for (const collectibleType of Object.keys(collectiblePrices)) {
   // Do something with "collectibleType".
 }
 
-// Or, if you just need the price, you would use the "values()" method
+// Or, if you just need the price, you would use the "values()" method.
 for (const price of Object.values(collectiblePrices)) {
   // Do something with "price".
 }
