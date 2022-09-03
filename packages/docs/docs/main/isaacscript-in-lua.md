@@ -140,6 +140,14 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 <br />
 
+## The IsaacScript Stage Library
+
+The IsaacScript standard library contains [the most advanced stage library ever created](custom-stages.md), building on [the failures of StageAPI](custom-stage.md#motivation).
+
+Note that some of the custom stage functions (such as e.g. [`setCustomStage`](/isaacscript-common/features/customStage_exports/#setcustomstage)) cannot be used in Lua, since they require a compiler to generate the custom stage metadata. For advanced users, you could manually prepare the metadata, but at that point you would probably be better off using [StageAPI](https://github.com/Meowlala/BOIStageAPI15), since nothing you write is going to be type safe anyway.
+
+<br />
+
 ## TypeScript
 
 If you find `isaac-typescript-definitions` or `isaacscript-common` useful, you should consider using these libraries in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler automatically preventing you from misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience that has to be seen to be believed.
