@@ -341,9 +341,9 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 -- Define a table of collectible prices.
 -- (We must put "[]" around the collectible types since the table keys are numbers.)
 local collectiblePrices = {
-  [1] = 15, -- Sad Onion
-  [2] = 15, -- The Inner Eye
-  [3] = 7, -- Spoon Bender
+  [3] = 15, -- Spoon Bender
+  [4] = 15, -- Cricket's Head
+  [5] = 7, -- My Reflection
 }
 
 for collectibleType, price in pairs(collectiblePrices) do
@@ -357,9 +357,9 @@ In TypeScript, you have a few different options.
 // TypeScript code
 // Define an anonymous object containing collectible prices.
 const collectiblePrices = {
-  [1]: 15, // Sad Onion
-  [2]: 15, // The Inner Eye
-  [3]: 7, // Spoon Bender
+  [3]: 15, // Spoon Bender
+  [4]: 15, // Cricket's Head
+  [5]: 7, // My Reflection
 };
 
 for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
@@ -833,9 +833,9 @@ enum CollectiblePrice {
 
 // collectiblePrices now only has values of CollectiblePrice, which is even safer than before!
 const collectiblePrices = {
-  [1]: CollectiblePrice.NORMAL, // Sad Onion
-  [2]: CollectiblePrice.NORMAL, // The Inner Eye
-  [3]: CollectiblePrice.SALE, // Spoon Bender
+  [CollectibleType.SPOON_BENDER]: CollectiblePrice.NORMAL,
+  [CollectibleType.CRICKETS_HEAD]: CollectiblePrice.NORMAL,
+  [CollectibleType.MY_REFLECTION]: CollectiblePrice.SALE,
 };
 ```
 
@@ -843,24 +843,25 @@ const collectiblePrices = {
 
 ### Maps
 
-In the previous [enums](#enums) section, we defined "collectiblePrices" as an object, which is roughly equivalent to a Lua table.
+In the previous [enums](#enums) section, we defined `collectiblePrices` as an object, which is roughly equivalent to a Lua table.
 
-Objects are good for cases where every possibility is accounted for. But this isn't the case for "collectiblePrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+Objects are good for cases where every possibility is accounted for. But this isn't the case for `collectiblePrices`. Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what "collectiblePrices" _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what `collectiblePrices` _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```ts
-const collectiblePrices = new Map<int, CollectiblePrice>([
-  [1, CollectiblePrice.NORMAL], // Sad Onion
-  [2, CollectiblePrice.NORMAL], // The Inner Eye
-  [3, CollectiblePrice.SALE], // Spoon Bender
+const collectiblePrices = new Map<CollectibleType, CollectiblePrice>([
+  [CollectibleType.SPOON_BENDER, CollectiblePrice.NORMAL],
+  [CollectibleType.CRICKETS_HEAD, CollectiblePrice.NORMAL],
+  [CollectibleType.MY_REFLECTION, CollectiblePrice.SALE],
 ]);
+
 for (const [collectibleType, price] of collectiblePrices.entries()) {
   // Do something with "collectibleType" and "price".
 }
 ```
 
-In this example, collectiblePrices has a type of `Map<int, number>`, which makes much more sense than an anonymous object.
+In this example, `collectiblePrices` has a type of `Map<int, number>`, which makes much more sense than an anonymous object.
 
 - The first value in the angle brackets corresponds to the map key type.
 - The second value in the angle brackets corresponds to the map value type.
