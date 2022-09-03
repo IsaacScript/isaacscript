@@ -421,6 +421,24 @@ numFarts += 1; // numFarts is now equal to 2.
 
 <br />
 
+### Increment and Decrement Operators
+
+Lua does not have increment or decrement operators, because it is a terrible language.
+
+```lua
+-- Lua code
+local numFarts = 1
+numFarts = numFarts + 1 -- numFarts is now equal to 2.
+```
+
+```ts
+// TypeScript code
+let numFarts = 1;
+numFarts++; // numFarts is now equal to 2.
+```
+
+<br />
+
 ### String Concatenation
 
 The way to concatenate strings is different:
