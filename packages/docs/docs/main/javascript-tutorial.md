@@ -171,13 +171,13 @@ table.insert(myArray, "someNewElement")
 myArray[#myArray + 1] = "anotherNewElement"
 ```
 
-In TypeScript, you would use the handy `push` method:
+In TypeScript, you use the `push` method:
 
 ```ts
 myArray.push("someNewElement");
 ```
 
-In addition to `push`, you can see all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+In addition to `push`, arrays have a lot of other handy methods that you can use. You can see all of them in [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 <br />
 
