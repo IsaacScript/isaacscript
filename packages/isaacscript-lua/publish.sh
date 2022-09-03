@@ -37,11 +37,5 @@ echo "Make sure that you bump the version in the \"$PROJECT_FILE\" file."
 echo "Using version: $VERSION"
 pause "Press enter to continue..."
 
-# Commit.
-git add -A
-git commit -a -m "$VERSION"
-git pull
-git push
-
 # From: https://levelup.gitconnected.com/how-to-publish-a-python-command-line-application-to-pypi-5b97a6d586f1
 poetry publish --username $PYPI_USERNAME --password $PYPI_PASS --build

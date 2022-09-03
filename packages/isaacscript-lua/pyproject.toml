@@ -6,7 +6,7 @@ authors = ["Zamiell <5511220+Zamiell@users.noreply.github.com>"]
 license = "GPL-3.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 

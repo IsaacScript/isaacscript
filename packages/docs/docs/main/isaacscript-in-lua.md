@@ -140,6 +140,6 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 ## TypeScript
 
-If you find `isaac-typescript-definitions` or `isaacscript-common` useful, you should consider using them in a TypeScript mod. This has the advantage of the compiler making it impossible to misuse anything in the library. (And it also eliminates all runtime errors in general, making it the ultimate Isaac mod developing experience.)
+If you find `isaac-typescript-definitions` or `isaacscript-common` useful, you should consider using them in a TypeScript mod. This has the advantage of the compiler automatically preventing you from misusing anything in the library.
 
-For more information, see the [list of features](features.md). (If you don't know how to program in TypeScript, then you can learn in just [half an hour](javascript-tutorial.md).)
+For more information, see the [list of features](features.md). (If you don't know how to program in TypeScript, then you can learn in just [30 minutes](javascript-tutorial.md).)
