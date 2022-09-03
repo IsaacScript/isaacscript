@@ -132,6 +132,16 @@ To update, you can manually download the latest Lua file again from the links ab
 
 <br />
 
+## Using JavaScript/TypeScript Array Methods in Lua
+
+In JavaScript/TypeScript, arrays come preloaded with [a bunch of useful methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) such as `map` and `filter`, which allow you to write functional, high-level code.
+
+Many of these array methods are now provided as [convenience functions](/isaacscript-common/functions/arrayLua) inside of `isaacscript-common` specifically for Lua users who don't have these methods natively.
+
+If you find yourself using a `for` loop to iterating over an array - stop. [Use a higher-order function instead.](https://www.syncfusion.com/blogs/post/javascript-higher-order-functions-a-complete-guide.aspx)
+
+<br />
+
 ## Steam Workshop
 
 You might be wondering why `isaac-typescript-definitions` or `isaacscript-common` is not offered on the Steam Workshop. Having Isaac libraries live on the workshop is a poor design choice, as it forces end-users to subscribe to an extra thing. When someone wants to play your mod, they should only have to subscribe to one thing - your mod.

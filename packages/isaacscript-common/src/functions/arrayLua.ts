@@ -47,6 +47,18 @@ export function find<T>(
 }
 
 /**
+ * Helper function for non-TypeScript users to iterate over an array.
+ *
+ * Internally, this just calls `array.forEach`.
+ */
+export function forEach<T>(
+  array: T[],
+  func: (value: T, index: number, array: T[]) => void,
+): void {
+  array.forEach(func);
+}
+
+/**
  * Helper function for non-TypeScript users to check if an element is in an array.
  *
  * Since this takes O(N) time, using this function is usually a mistake, since you can use a `Map`
@@ -79,4 +91,17 @@ export function map<T, U>(
   func: (value: T, index: number, array: T[]) => U,
 ): U[] {
   return array.map(func);
+}
+
+/**
+ * Helper function for non-TypeScript users to check if one or more elements in the array is equal
+ * to a condition.
+ *
+ * Internally, this just calls `array.some`.
+ */
+export function some<T>(
+  array: T[],
+  func: (value: T, index: number, array: T[]) => boolean,
+): boolean {
+  return array.some(func);
 }
