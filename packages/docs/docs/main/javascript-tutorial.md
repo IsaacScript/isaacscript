@@ -249,6 +249,8 @@ if (x === 1 && y !== 0) {
 }
 ```
 
+If you find typing three equal signs annoying, then don't: if you type `==` instead, ESLint will automatically convert it to `===` when you save the file.
+
 <br />
 
 ### `for` Statements for Counting
