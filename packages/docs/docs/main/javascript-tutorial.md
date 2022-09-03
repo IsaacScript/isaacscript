@@ -395,7 +395,7 @@ if (entity.SpawnerEntity === undefined) {
 }
 ```
 
-Note that `null` also transpiles to `nil` (in addition to `undefined`). But `null` should be reserved for situations where you want to model an actual null-type defined value.
+Note that `null` also transpiles to `nil` (in addition to `undefined`). In order to keep your code easy to read, never use `null` unless you specifically want to model an actual null-type defined value.
 
 <br />
 
