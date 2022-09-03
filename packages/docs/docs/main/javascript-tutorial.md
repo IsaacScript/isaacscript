@@ -561,7 +561,7 @@ Here, we are explicitly telling the compiler what the type of the variable is. B
 const myNumber = 123;
 ```
 
-Here, TypeScript will infer that "myNumber" is of type "number", because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
+Here, TypeScript will infer that `myNumber` is of type `number`, because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
 
 However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain collectible types:
 
