@@ -631,7 +631,8 @@ In Lua, you split your code into multiple files by using `require()`.
 #### `main.lua`
 
 ```lua
--- In Lua, we must namespace the mod to avoid require conflicts.
+-- In Lua, we must namespace the mod's Lua files in a directory of the same name to avoid require
+-- conflicts.
 local postGameStarted = require("revelations.callbacks.postGameStarted")
 
 local mod = RegisterMod("Revelations", 1)
