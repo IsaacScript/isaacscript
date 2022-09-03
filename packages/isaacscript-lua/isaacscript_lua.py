@@ -19,8 +19,7 @@ if sys.version_info < (3, 0):
 VERSION = pkg_resources.get_distribution("isaacscript_lua").version
 DIR = os.getcwd()
 PROJECT_NAME = os.path.basename(DIR)
-# FILE_NAMES_TO_CHECK = ["main.lua", "metadata.xml"] # TODO
-FILE_NAMES_TO_CHECK = []
+FILE_NAMES_TO_CHECK = ["main.lua", "metadata.xml"]
 LIBRARY_NAMES = ["isaac-typescript-definitions", "isaacscript-common"]
 
 
