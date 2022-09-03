@@ -15,7 +15,7 @@
     // Needed to hide internal functions from the auto-complete of end-users.
     "stripInternal": true,
 
-    // We need to read JSON files for the custom stage feature.
+    // We need to read the version of the library from the "package.json" file.
     "resolveJsonModule": true,
 
     // Recommended as per TypeScriptToLua:

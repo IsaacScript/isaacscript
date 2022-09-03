@@ -25,6 +25,9 @@ npx tsc
 # Convert the TypeScript to Lua. (We provide compiled enums in addition to ambient declarations.)
 npx tstl
 
+# Also bundle the entire library into one file, which makes it easier for Lua users to consume.
+npx tstl --project tsconfig.bundle.json
+
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"

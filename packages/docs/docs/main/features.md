@@ -38,6 +38,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 ### <img src="/img/items/magic-mushroom.png" className="features-icon" /> The Entire Isaac API, Strongly Typed
 
 - Code fearlessly without having to worry about the format of the API call or whether using it incorrectly will crash the game.
+- The compiler catches every possible type error, making refactoring your code easier than you ever imagined that it could be.
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 

@@ -34,8 +34,9 @@ export function enableDevFeatures(mod: ModUpgraded): void {
 }
 
 /**
- * Helper function to get the current version of this library, according to the "package.json" file
- * at the time of compilation. (The version is in the Semantic Versioning format, e.g. "1.0.0".)
+ * Helper function to get the current version of the `isaacscript-common` library, according to the
+ * "package.json" file at the time of compilation. (The version is in the Semantic Versioning
+ * format, e.g. "1.0.0".)
  */
 export function getIsaacScriptCommonVersion(): string {
   return version;

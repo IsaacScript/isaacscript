@@ -11,13 +11,13 @@
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
-    "luaBundle": "isaacscript-common.lua", // Will bundle all output Lua files into a single file.
+    "luaBundle": "isaac-typescript-definitions.lua", // Will bundle all output Lua files into a single file.
     "luaBundleEntry": "./src/index.ts",
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file (for
-      // `isaacscript-common` specifically).
+      // `isaac-typescript-definitions` specifically).
       {
-        "name": "../isaacscript-cli/src/plugins/addIsaacScriptCommentHeaderCommon.ts",
+        "name": "../isaacscript-cli/src/plugins/addIsaacScriptCommentHeaderDefinitions.ts",
       },
 
       // A plugin to make enums safe from global variables.
