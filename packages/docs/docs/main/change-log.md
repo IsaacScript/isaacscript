@@ -13,7 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - `isaac-typescript-definitions` and `isaacscript-common` can now be imported by Lua mods. See [the documentation](https://isaacscript.github.io/main/isaacscript-in-lua).
 - `isaacscript init` now has a `--dev` flag for setting up a mod that will be testing out a development version of `isaacscript-common`. For more information, see the [README](https://github.com/IsaacScript/isaacscript#working-with-isaacscript-common).
-- `isaacscript.json` now has [a schema file]().
+- `isaacscript.json` now has [a schema file](https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/isaacscript-schema.json).
 - IsaacScript now provides the `isaac-lua-polyfill` package, which assists in unit testing your mods using e.g. Jest. Thanks to Aleksander Ciesielski for this.
 - Added the following helper functions:
   - `removeAllNonAlphanumericCharacters`

@@ -1,5 +1,8 @@
 /** The mandatory properties must be explicitly validated in `configFile.ts`. */
 export class Config {
+  $schema =
+    "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/isaacscript-schema.json";
+
   /** The "mods" directory that lives next to the "isaac-ng.exe" program. */
   modsDirectory =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\mods";
