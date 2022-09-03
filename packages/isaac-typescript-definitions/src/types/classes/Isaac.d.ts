@@ -399,8 +399,8 @@ declare global {
      * Normally, this function will always return a `GridEntity`, even if the spawned grid entity
      * will not actually be placed. However, in very rare cases, it can return undefined.
      *
-     * Note that in the docs, a fourth "forced" argument is listed, but this is omitted in the
-     * function definition since it is bugged and has no effect.
+     * Note that in the docs, a 4th "forced" argument is listed, but this is omitted in the function
+     * definition since it is bugged and has no effect.
      *
      * @param gridEntityType
      * @param variant

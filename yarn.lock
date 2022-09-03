@@ -8609,10 +8609,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.0.tgz#714d94453327db9ea98fbf1a0c5f2b88f59ddd5c"
   integrity sha512-HneQBCrXGBy15QnaDfcn6OLoU8AQPAa0Qn0IeJR/QCo4E8dNZaGGwxpCwWyEBQC5QvFonP8d6t60iGpAHVAfNA==
 
-isaac-typescript-definitions@^5.0.5:
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-5.0.5.tgz#34e497ee17384b281e0742779f144e3442fb175d"
-  integrity sha512-BzgPwKoOH02NUUMPqWpTn8ulbun2GZVr3whaIQOPEs0ffZiBILlVlAqDXdI32d0Roegwir1br3rL34cwuT6FOA==
+isaac-typescript-definitions@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-6.0.0.tgz#a1cde4923e348300225bd82be9878d76786b6c5e"
+  integrity sha512-3L98r5dk+bSTkWWqXAzetIYLTJ8povcplPmhYNy3BkUiriCPNGKgiVpVbpBAO+PUbe5Vc53EAZkg7kDAaJcoAw==
   dependencies:
     lua-types "^2.12.2"
 
@@ -14745,10 +14745,10 @@ typedoc-plugin-rename@^1.0.1:
   resolved "https://registry.yarnpkg.com/typedoc-plugin-rename/-/typedoc-plugin-rename-1.0.1.tgz#ad772766ba3068ee5019fa966d890646fc782a7c"
   integrity sha512-Rl+5EhFPFuEvK/XwfW1K/6URyDGfqv61xq36HWPN6M9nRffLAw5k0owReLKmVS9eMm1nbIjtD3uLUTWhF4gT3Q==
 
-typedoc@^0.23.13:
-  version "0.23.13"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.13.tgz#a522ed86eb326c918a05d4acad4e6d815cd1b1f8"
-  integrity sha512-47VgWyZ5Q8g5dtJxjIHvFqX7ZD+YQRLAFRhLjt6v9KW0//feHtLUrbukHkKcvQuua1xQtdvkQ17fCjmF7qLXlg==
+typedoc@^0.23.14:
+  version "0.23.14"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.14.tgz#d3af50b38fe98210ac39e112b5892f9d88546c93"
+  integrity sha512-s2I+ZKBET38EctZvbXp2GooHrNaKjWZkrwGEK/sttnOGiKJqU0vHrsdcwLgKZGuo2aedNL3RRPj1LnAAeYscig==
   dependencies:
     lunr "^2.3.9"
     marked "^4.0.19"
