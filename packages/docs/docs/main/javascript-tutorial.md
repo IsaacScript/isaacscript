@@ -595,7 +595,7 @@ function isEven(num: number): boolean {
 
 Here, providing the return type annotation is optional. If we don't specify it, the compiler would infer what the return type is automatically, saving us the time from having to type it out.
 
-With that said, just because we don't _have_ to type it does not mean that we should _never_ type it. Having return type annotations are often pretty useful, as it can catch bugs when you accidentally return things that you did not intend.
+With that said, just because we don't _have_ to type it does not mean that we should _never_ type it. Having return type annotations on functions is often pretty useful, as it can catch bugs when you accidentally return things that you did not intend.
 
 <br />
 
