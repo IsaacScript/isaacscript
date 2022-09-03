@@ -926,7 +926,7 @@ const player = entity.ToPlayer();
 player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
 ```
 
-This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined`. To solve this, we can use _type narrowing_:
+This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing). To solve this error, we can use _type narrowing_:
 
 ```ts
 const player = entity.ToPlayer();
@@ -938,6 +938,6 @@ player.AddMaxHearts(2); // The type of player is now narrowed to "EntityPlayer".
 
 Here, we explicitly handle the error case and supply a helpful error message. But this code does something more important than simply providing the error message.
 
-`error()` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts()` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
+`error` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
 
-Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that run-time errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
+Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely compartmentalize the damage that run-time errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
