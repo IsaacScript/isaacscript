@@ -37,9 +37,11 @@ npx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts"
 npx prettier "$SCHEMA_PATH" --write
 
 # Also, generate the JSON schema for the "isaacscript.json" file.
-SCHEMA_PATH="$DIR/schemas/isaacscript-schema.json"
-npx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
-npx prettier "$SCHEMA_PATH" --write
+# The `npx ts-json-schema-generator` tool is broken with classes:
+# https://github.com/vega/ts-json-schema-generator/issues/1390
+#SCHEMA_PATH="$DIR/schemas/isaacscript-schema.json"
+#npx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
+#npx prettier "$SCHEMA_PATH" --write
 
 # Third, compile the program.
 # (Normally, we would use the "@nrwl/js:tsc" plugin to do this, but we always want to generate the
