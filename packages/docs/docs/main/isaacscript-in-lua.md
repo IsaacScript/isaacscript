@@ -7,7 +7,7 @@ title: Using IsaacScript in Lua
 The IsaacScript framework contains two libraries:
 
 - `isaac-typescript-definitions` - A leveled-up version of the vanilla enums with many bug fixes and community contributed additions for everything that the developers forgot to include. You can learn more about every enum by [reading the documentation](/isaac-typescript-definitions).
-- `isaacscript-common` - Helper functions and features that abstract away much of the complexity in working with the Isaac API. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
+- `isaacscript-common` - Helper functions and features that abstract away much of the complexity in working with the Isaac API. It's the most complete and most advanced Isaac library ever written. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
 
 If you are writing your mod in TypeScript, then using these libraries is effortless - you can just start typing the names of the enums or functions, and the auto-complete will automatically import them (and include them in your final bundled mod).
 
