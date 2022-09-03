@@ -32,9 +32,8 @@ Please open bug reports and pull requests on GitHub. You can also ask questions 
 server: https://discord.gg/KapmKQ2gUD
 
 Note that if you are writing your mod in TypeScript, using this file is unnecessary, as every
-"isaac-typescript-definitions" enum will be automatically bundled with your mod as needed.
-Programming in TypeScript also has the advantage of the compiler automatically preventing you from
-misusing anything in this library. For more information, see the website:
+"isaac-typescript-definitions" feature will be automatically bundled with your mod as needed. For
+more information about using TypeScript, see the website:
 https://isaacscript.github.io/main/features
 
 --]]

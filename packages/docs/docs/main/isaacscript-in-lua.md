@@ -132,7 +132,7 @@ To update, you can manually download the latest Lua file again from the links ab
 
 ## Steam Workshop
 
-You might be wondering why `isaacscript-common` is not offered on the Steam Workshop. Having Isaac libraries live on the workshop is a poor design choice, as it forces end-users to subscribe to an extra thing. When someone wants to play your mod, they should only have to subscribe to one thing - your mod.
+You might be wondering why `isaac-typescript-definitions` or `isaacscript-common` is not offered on the Steam Workshop. Having Isaac libraries live on the workshop is a poor design choice, as it forces end-users to subscribe to an extra thing. When someone wants to play your mod, they should only have to subscribe to one thing - your mod.
 
 Furthermore, having the library logic bundled with the mod preserves backwards compatibility and ensures that library is tightly-coupled to the mod logic that is using it. It also allows the mod author to be in complete control of when they update to the latest version, if ever. This also allows the upstream library to make breaking changes and stay clean without having to worry about having perpetual technical debt.
 
@@ -140,6 +140,6 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 ## TypeScript
 
-If you find `isaac-typescript-definitions` or `isaacscript-common` useful, you should consider using them in a TypeScript mod. This has the advantage of the compiler automatically preventing you from misusing anything in the library.
+If you find `isaac-typescript-definitions` or `isaacscript-common` useful, you should consider using these libraries in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler automatically preventing you from misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience that has to be seen to be believed.
 
 For more information, see the [list of features](features.md). (If you don't know how to program in TypeScript, then you can learn in just [30 minutes](javascript-tutorial.md).)
