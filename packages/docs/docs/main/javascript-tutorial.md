@@ -602,7 +602,7 @@ If a function is not expected to return anything, then the return type is `void`
 
 ```ts
 function addSadOnion(player: EntityPlayer): void {
-  player.AddCollectible(CollectibleType.SAD_ONION);
+  player.AddCollectible(1); // Sad Onion
 }
 ```
 
@@ -610,7 +610,7 @@ But annotating a return type of void is pretty pointless, so the function is bet
 
 ```ts
 function addSadOnion(player: EntityPlayer) {
-  player.AddCollectible(CollectibleType.SAD_ONION);
+  player.AddCollectible(1); // Sad Onion
 }
 ```
 
@@ -618,7 +618,7 @@ One exception is when the function is exported. (More on what exported functions
 
 ```ts
 export function addSadOnion(player: EntityPlayer): void {
-  player.AddCollectible(CollectibleType.SAD_ONION);
+  player.AddCollectible(1); // Sad Onion
 }
 ```
 
@@ -846,9 +846,9 @@ enum CollectiblePrice {
 
 // collectiblePrices now only has values of CollectiblePrice, which is even safer than before!
 const collectiblePrices = {
-  [CollectibleType.SPOON_BENDER]: CollectiblePrice.NORMAL,
-  [CollectibleType.CRICKETS_HEAD]: CollectiblePrice.NORMAL,
-  [CollectibleType.MY_REFLECTION]: CollectiblePrice.SALE,
+  [3: CollectiblePrice.NORMAL, // Spoon Bender
+  [4]: CollectiblePrice.NORMAL, // Cricket's Head
+  [5]: CollectiblePrice.SALE, // My Reflection
 };
 ```
 
@@ -864,9 +864,9 @@ In this example, what `collectiblePrices` _really_ represents is a _map_ of a sp
 
 ```ts
 const collectiblePrices = new Map<CollectibleType, CollectiblePrice>([
-  [CollectibleType.SPOON_BENDER, CollectiblePrice.NORMAL],
-  [CollectibleType.CRICKETS_HEAD, CollectiblePrice.NORMAL],
-  [CollectibleType.MY_REFLECTION, CollectiblePrice.SALE],
+  [3, CollectiblePrice.NORMAL], // Spoon Bender
+  [4, CollectiblePrice.NORMAL], // Cricket's Head
+  [5, CollectiblePrice.SALE], // My Reflection
 ]);
 
 for (const [collectibleType, price] of collectiblePrices.entries()) {
