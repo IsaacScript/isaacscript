@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "isaacscript-lua"
+version = "1.0.0"
+description = "a script to manage IsaacScript libraries in a Lua mod"
+authors = ["Zamiell <5511220+Zamiell@users.noreply.github.com>"]
+license = "GPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+isaacscript-lua = 'isaacscript_lua:main'

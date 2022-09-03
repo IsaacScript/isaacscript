@@ -25,4 +25,6 @@ tsconfig.json linguist-language=JSON-with-Comments
 api-extractor.json linguist-language=JSON-with-Comments
 gitattributes linguist-language=Git-Attributes
 gitignore linguist-language=Ignore-List
+packages/isaacscript-cli/file-templates/static/.vscode/extensions.json linguist-language=JSON-with-Comments
+packages/isaacscript-cli/file-templates/static/.vscode/settings.json linguist-language=JSON-with-Comments
 typedoc.json linguist-language=JSON-with-Comments

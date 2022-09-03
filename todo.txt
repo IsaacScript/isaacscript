@@ -1,7 +1,5 @@
 - add new callback - https://discord.com/channels/843174215287832626/843174215287832628/1014423684926144564
-- fix docs syntax highlighting
-- add version to ISC bundle
-- isaacscript-common python tool
+- isaacscript-lua python tool
 
 - use stack overflow to remove isaac-typescript-definitions from deps
 
