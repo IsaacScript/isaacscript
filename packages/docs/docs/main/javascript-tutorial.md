@@ -766,9 +766,9 @@ The solution is to add the `AddCharacter()` method to our definition file. We ne
 // which we will immediately define below.
 declare const InfinityTrueCoopInterface: TrueCoop | undefined;
 
-// We declare a TrueCoop class that has as many methods or members as we need.
+// We declare a TrueCoop interface that has as many methods or members as we need.
 // (But for now, we will only add one.)
-declare class TrueCoop() {
+declare interface TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
