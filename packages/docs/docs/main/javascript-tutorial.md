@@ -498,7 +498,7 @@ Isaac.DebugString("numPoops: " + numPoops + ", numFarts: " + numFarts); // No co
 
 TypeScript has a special feature that Lua does not have called _string templates_. String templates allow you to easily create a string that has a bunch of variables in it. They are denoted by the <code>`</code> character.
 
-In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would probably be better written by using a string template, like this:
+In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would be better written by using a string template, like this:
 
 ```ts
 // Typescript code
