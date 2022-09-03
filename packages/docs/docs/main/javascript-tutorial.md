@@ -919,7 +919,7 @@ local player = entity:ToPlayer() -- Convert the entity to a player.
 player:AddMaxHearts(2) -- Give them a heart container.
 ```
 
-Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer()` method would return `nil` and cause the next line to throw a run-time error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
+Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer` method would return `nil` and cause the next line to throw a run-time error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
 
 ```ts
 const player = entity.ToPlayer();
