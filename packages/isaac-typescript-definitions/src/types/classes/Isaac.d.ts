@@ -399,17 +399,17 @@ declare global {
      * Normally, this function will always return a `GridEntity`, even if the spawned grid entity
      * will not actually be placed. However, in very rare cases, it can return undefined.
      *
+     * Note that in the docs, a fourth "forced" argument is listed, but this is omitted in the
+     * function definition since it is bugged and has no effect.
+     *
      * @param gridEntityType
      * @param variant
      * @param position
-     * @param forced Forced has no effect and will not override a grid entity on the given location.
-     *               Remove any existing grid entities first. Default is false.
      */
     function GridSpawn(
       gridEntityType: GridEntityType,
       variant: int,
       position: Vector,
-      forced?: boolean,
     ): GridEntity | undefined;
 
     /**
