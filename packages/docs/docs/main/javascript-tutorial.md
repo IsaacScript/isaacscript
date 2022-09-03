@@ -193,7 +193,7 @@ local myObject = {
 }
 ```
 
-In TypeScript, there is a dedicated syntax for arrays - the curly brackets. (A colon is used in between the keys and the values.)
+In TypeScript, there is a dedicated syntax for objects: the curly brackets. (A colon is used in between the keys and the values.)
 
 ```ts
 const myObject = {
