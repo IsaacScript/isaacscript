@@ -863,7 +863,7 @@ Objects are good for cases where every possibility is accounted for. But this is
 In this example, what `collectiblePrices` _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```ts
-const collectiblePrices = new Map<CollectibleType, CollectiblePrice>([
+const collectiblePrices = new Map<number, CollectiblePrice>([
   [3, CollectiblePrice.NORMAL], // Spoon Bender
   [4, CollectiblePrice.NORMAL], // Cricket's Head
   [5, CollectiblePrice.SALE], // My Reflection
@@ -874,12 +874,12 @@ for (const [collectibleType, price] of collectiblePrices.entries()) {
 }
 ```
 
-In this example, `collectiblePrices` has a type of `Map<int, number>`, which makes much more sense than an anonymous object.
+In this example, `collectiblePrices` has a type of `Map<number, CollectiblePrice>`, which is more specific than an untyped object.
 
 - The first value in the angle brackets corresponds to the map key type.
 - The second value in the angle brackets corresponds to the map value type.
 
-We initialize the map by passing an array of key/value pairs to the constructor.
+We initialize the map by passing an array of key/value pairs to the constructor. (Alternatively, we could start the map empty and then use the `set` method to set some values later on.)
 
 With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
 
