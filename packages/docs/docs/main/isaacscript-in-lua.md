@@ -128,7 +128,7 @@ The `isaac-typescript-definitions` and `isaacscript-common` packages change freq
 - The version of your downloaded library can be found in a comment at the top of your `isaac-typescript-definitions.lua` or `isaacscript-common.lua` file.
 - The latest version of the [`isaac-typescript-definitions` library](https://www.npmjs.com/package/isaac-typescript-definitions) or [`isaacscript-common` library](https://www.npmjs.com/package/isaacscript-common) can be found on their respective npm pages (below the title at the top of the page).
 
-To update, you can manually download the latest Lua file again from the links above. Or, if you have the `isaacscript-common` Python tool installed, you simply run `isaacscript-common update`.
+To update, you can manually download the latest Lua file again from the links above. Or, if you have the `isaacscript-common` Python tool installed, you simply run: `isaacscript-common update`
 
 <br />
 
