@@ -29,6 +29,8 @@ If you get `ERROR: Could not find a version that satisfies the requirement isaac
 
 ## Manual Installation
 
+Here, "installing" is a loose term. All you really need to do is to put the Lua file for the library inside your mod. (This is essentially the same thing as copy-pasting code into your mod, except that the third-party code lives in its own dedicated file.)
+
 ### Step 1 - Download the Library
 
 Depending on which library you want to use, download it from the npm registry:
