@@ -46,7 +46,7 @@ function main() {
 }
 
 function addCategoryFilesAndMarkdownHeaders() {
-  // Do every sub-directory. (As of August 2022, it should only be the "enums" directory.)
+  // Do every subdirectory. (As of August 2022, it should only be the "enums" directory.)
   const directories = getDirectoryNames(PACKAGE_DOCS_DIR);
   for (const directoryName of directories) {
     const directoryPath = path.join(PACKAGE_DOCS_DIR, directoryName);
