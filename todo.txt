@@ -66,3 +66,25 @@ lint:
 (should indent)
 
 lint: remove all whitespace in comment (tabs)
+
+
+lint error if arg is removed:
+
+/**
+ * Helper function to get a room position that is not overlapping with a grid entity, a heaven door,
+ * or a player. The `Room.FindFreePickupSpawnPosition` method will return locations that overlap
+ * with heaven doors and partially overlap with players, if the thing being spawned is bigger than a
+ * tile (like a Blood Donation Machine). Use this function instead if you want to account for those
+ * specific situations.
+ *
+ * @param startingPosition The position to start searching from. If this position is not overlapping
+ *                         with anything, then it will be returned.
+ * @param avoidActiveEntities Optional. Default is false.
+ * @param minimumDistance Optional. If specified, will ensure that the randomly generated position
+ *                        is equal to or greater than the distance provided.
+ */
+export function findFreePosition(
+  startingPosition: Vector,
+  avoidActiveEntities = false,
+  minimumDistance?: float,
+): Vector {
