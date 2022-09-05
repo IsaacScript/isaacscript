@@ -17,7 +17,7 @@ If you are writing your mod in Lua, then you can also leverage the power of thes
 
 ## Automatic Installation (Optional)
 
-If you have Python installed on your computer and you know what a terminal/shell is, then the easiest way is to use the `isaacscript-lua` Python tool. Otherwise, you can use the [manual installation](#manual-installation) (see below).
+If you have Python installed on your computer and you know what a terminal/shell is, then the easiest way to install the libraries is to use the `isaacscript-lua` Python tool. Otherwise, you can use the [manual installation](#manual-installation) (see below).
 
 - In a terminal, navigate to the directory of your mod.
 - Install the tool: `pip install isaacscript-lua`
