@@ -24,7 +24,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following enums:
   - `CollectibleSpriteLayer`
 - Added the following constants:
-  - `K_COLORS` (a collection of pre-defined `KColor` object)
+  - `K_COLORS` (a collection of pre-defined `KColor` objects)
 - Added the following custom callbacks:
   - `PRE_PICKUP_COLLISION` (Thanks @popjam)
 - Added the following custom commands:
