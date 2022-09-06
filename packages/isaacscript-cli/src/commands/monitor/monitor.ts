@@ -234,13 +234,11 @@ function spawnTSTLWatcher(config: Config, cwd: string) {
     if (msg.includes("Starting compilation in watch mode...")) {
       const newMsg1 = `${PROJECT_NAME} is now watching for future changes${suffix}.`;
       notifyGame.msg(newMsg1);
-      if (suffix.includes("isaacscript-common")) {
-        const newMsg2 = 'Compiling "isaacscript-common" for the first time...';
-        notifyGame.msg(newMsg2);
-      } else {
-        const newMsg2 = "Compiling the mod for the first time...";
-        notifyGame.msg(newMsg2);
-      }
+      const target = suffix.includes("isaacscript-common")
+        ? '"isaacscript-common"'
+        : "the mod";
+      const newMsg2 = `Compiling ${target} for the first time...`;
+      notifyGame.msg(newMsg2);
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
