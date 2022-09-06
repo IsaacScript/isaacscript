@@ -12,6 +12,7 @@ import {
 } from "../../constants";
 import { prepareCustomStages } from "../../customStage";
 import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev";
+import { PackageManager } from "../../enums/PackageManager";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
@@ -82,7 +83,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
 
   // Perform the steps to link to a development version of "isaacscript-common", if necessary.
   if (config.isaacScriptCommonDev === true) {
-    linkDevelopmentIsaacScriptCommon(CWD, verbose);
+    linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
@@ -167,8 +168,15 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
 
 function linkDevelopmentIsaacScriptCommon(
   projectPath: string,
+  packageManager: PackageManager,
   verbose: boolean,
 ) {
+  if (packageManager !== PackageManager.YARN) {
+    error(
+      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the Yarn package manager instead of: ${packageManager}`,
+    );
+  }
+
   const isaacScriptMonorepoDirectory =
     getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
 

@@ -1,6 +1,3 @@
-- better messages for dev version
-- send touch to main.ts once "Complication successful on isaacscript-common"
-
 - use stack overflow to remove isaac-typescript-definitions from deps
 
 
