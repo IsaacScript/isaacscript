@@ -12,6 +12,7 @@ import {
 } from "../../constants";
 import { prepareCustomStages } from "../../customStage";
 import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev";
+import { execShell } from "../../exec";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
 import {
@@ -51,6 +52,9 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   if (args.saveSlot !== undefined) {
     config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
   }
+  if (args.dev !== undefined) {
+    config.isaacScriptCommonDev = args.dev; // eslint-disable-line no-param-reassign
+  }
 
   // Pre-flight checks
   if (!skipProjectChecks) {
@@ -74,6 +78,11 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   // latest version.
   if (file.exists(modTargetPath, verbose)) {
     file.deleteFileOrDirectory(modTargetPath, verbose);
+  }
+
+  // Perform the steps to link to a development version of "isaacscript-common", if necessary.
+  if (config.isaacScriptCommonDev === true) {
+    linkDevelopmentIsaacScriptCommon(CWD, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
@@ -156,6 +165,32 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
   }
 }
 
+function linkDevelopmentIsaacScriptCommon(
+  projectPath: string,
+  verbose: boolean,
+) {
+  const isaacScriptMonorepoDirectory =
+    getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
+
+  console.log('Building "isaacscript-common" and setting up the link...');
+  const linkScript = path.join(
+    isaacScriptMonorepoDirectory,
+    "link-isaacscript-common.sh",
+  );
+  execShell("bash", [linkScript], verbose);
+
+  console.log(
+    'Linking this repository to the development version of "isaacscript-common"...',
+  );
+  execShell(
+    "yarn",
+    ["link", "isaacscript-common"],
+    verbose,
+    false,
+    projectPath,
+  );
+}
+
 function spawnModDirectorySyncer(config: Config) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
@@ -194,16 +229,22 @@ function spawnTSTLWatcher(config: Config, cwd: string) {
 
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
+    const suffix = getMonitorMessageSuffix(config, cwd);
+
     if (msg.includes("Starting compilation in watch mode...")) {
-      const newMsg1 = `${PROJECT_NAME} is now watching for future changes.`;
+      const newMsg1 = `${PROJECT_NAME} is now watching for future changes${suffix}.`;
       notifyGame.msg(newMsg1);
-      const newMsg2 = "Compiling the mod for the first time...";
-      notifyGame.msg(newMsg2);
+      if (suffix.includes("isaacscript-common")) {
+        const newMsg2 = 'Compiling "isaacscript-common" for the first time...';
+        notifyGame.msg(newMsg2);
+      } else {
+        const newMsg2 = "Compiling the mod for the first time...";
+        notifyGame.msg(newMsg2);
+      }
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
       compilationStartTime = new Date();
-      const suffix = getChangeMessageSuffix(config, cwd);
       const newMsg = `TypeScript change detected${suffix}. Compiling...`;
       notifyGame.msg(newMsg);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
@@ -211,7 +252,7 @@ function spawnTSTLWatcher(config: Config, cwd: string) {
       const elapsedTimeMilliseconds =
         compilationFinishTime.getTime() - compilationStartTime.getTime();
       const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
-      const newMsg = `${COMPILATION_SUCCESSFUL} (in ${elapsedTimeSeconds} seconds)`;
+      const newMsg = `${COMPILATION_SUCCESSFUL} (in ${elapsedTimeSeconds} seconds)${suffix}`;
       notifyGame.msg(newMsg);
     } else {
       notifyGame.msg(msg);
@@ -236,7 +277,7 @@ function spawnTSTLWatcher(config: Config, cwd: string) {
   });
 }
 
-function getChangeMessageSuffix(config: Config, cwd: string): string {
+function getMonitorMessageSuffix(config: Config, cwd: string): string {
   if (config.isaacScriptCommonDev !== true) {
     return "";
   }

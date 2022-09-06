@@ -20,7 +20,6 @@ export interface Args {
   noGit?: boolean;
   skipInstall?: boolean;
   forceName?: boolean;
-  dev?: boolean;
 
   // publish
   skip?: boolean;
@@ -29,6 +28,7 @@ export interface Args {
   onlyUpload?: boolean;
 
   // shared
+  dev?: boolean;
   verbose?: boolean;
 }
 
@@ -57,6 +57,12 @@ export function parseArgs(): Args {
         .option("skip-project-checks", {
           type: "boolean",
           description: 'Skip checking for "package.json" and "node_modules"',
+        })
+        .option("dev", {
+          alias: "d",
+          type: "boolean",
+          description:
+            "Link the mod to the local development version of isaacscript-common",
         })
         .option("verbose", {
           alias: "v",

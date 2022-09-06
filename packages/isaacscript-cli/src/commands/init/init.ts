@@ -2,8 +2,6 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "path";
 import { CWD, PROJECT_NAME } from "../../constants";
-import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev";
-import { execShell } from "../../exec";
 import { getPackageManagerUsedForNewProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
@@ -63,40 +61,8 @@ export async function init(args: Args): Promise<void> {
     verbose,
   );
 
-  // Now that the project is created, we can perform the steps to link to a development version of
-  // "isaacscript-common", if necessary.
-  if (dev) {
-    linkDevelopmentIsaacScriptCommon(projectPath, verbose);
-  }
-
   await openVSCode(projectPath, vscode, yes, verbose);
   printFinishMessage(projectPath, projectName);
-}
-
-function linkDevelopmentIsaacScriptCommon(
-  projectPath: string,
-  verbose: boolean,
-) {
-  const isaacScriptMonorepoDirectory =
-    getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
-
-  console.log('Building "isaacscript-common" and setting up the link...');
-  const linkScript = path.join(
-    isaacScriptMonorepoDirectory,
-    "link-isaacscript-common.sh",
-  );
-  execShell("bash", [linkScript], verbose);
-
-  console.log(
-    'Linking this repository to the development version of "isaacscript-common"...',
-  );
-  execShell(
-    "yarn",
-    ["link", "isaacscript-common"],
-    verbose,
-    false,
-    projectPath,
-  );
 }
 
 async function openVSCode(
