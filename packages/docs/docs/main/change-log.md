@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 11th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `getWeightedRandom` (thanks popjam)
+
 ## September 4th, 2022
 
 - `isaac-typescript-definitions` and `isaacscript-common` can now be imported by Lua mods. See [the documentation](https://isaacscript.github.io/main/isaacscript-in-lua).

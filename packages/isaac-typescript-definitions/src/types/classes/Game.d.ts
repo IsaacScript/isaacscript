@@ -319,6 +319,7 @@ declare global {
     StartStageTransition(
       sameStage: boolean,
       stageTransition: StageTransition,
+      player?: EntityPlayer,
     ): void;
 
     Update(): void;
