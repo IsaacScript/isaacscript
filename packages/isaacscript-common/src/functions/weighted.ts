@@ -16,11 +16,13 @@ export function getRandomFromWeightedArray<T>(
   const totalWeight = sumArray(weights);
   const randomWeight = getRandomFloat(0, totalWeight);
 
-  let countNumber = 0;
-  for (const value of weightedArray) {
-    countNumber += value[1];
-    if (countNumber >= randomWeight) {
-      return value[0];
+  let weightAccumulator = 0;
+  for (const tuple of weightedArray) {
+    const [element, weight] = tuple;
+
+    weightAccumulator += weight;
+    if (weightAccumulator >= randomWeight) {
+      return element;
     }
   }
 
