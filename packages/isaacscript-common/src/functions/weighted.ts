@@ -1,10 +1,12 @@
 import { WeightedArray } from "../types/WeightedArray";
 import { arrayToString, sumArray } from "./array";
 import { getRandomFloat } from "./random";
+import { getRandomSeed } from "./rng";
 
 /** Get a random value from a `WeightedArray`. (The second element in the array is the weight.) */
 export function getRandomFromWeightedArray<T>(
   weightedArray: WeightedArray<T>,
+  seedOrRNG: Seed | RNG = getRandomSeed(),
 ): T {
   if (weightedArray.length === 0) {
     error(
@@ -14,7 +16,7 @@ export function getRandomFromWeightedArray<T>(
 
   const weights = weightedArray.map((tuple) => tuple[1]);
   const totalWeight = sumArray(weights);
-  const randomWeight = getRandomFloat(0, totalWeight);
+  const randomWeight = getRandomFloat(0, totalWeight, seedOrRNG);
 
   let weightAccumulator = 0;
   for (const tuple of weightedArray) {
