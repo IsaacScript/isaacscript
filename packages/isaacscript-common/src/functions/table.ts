@@ -1,4 +1,4 @@
-import { isBoolean, isNumber, isString, isTable } from "./types";
+import { isBoolean, isNumber, isString, isUserdata } from "./types";
 
 /**
  * In a `Map`, you can use the `clear` method to delete every element. However, in a `LuaMap`, the
@@ -10,13 +10,13 @@ export function clearTable(luaMap: LuaMap<AnyNotNil, unknown>): void {
   }
 }
 
-/** Helper function to copy specific values from a object to a table. */
-export function copyValuesToTable(
+/** Helper function to copy specific values from a userdata object (e.g. `Vector`) to a table. */
+export function copyUserdataValuesToTable(
   object: unknown,
   keys: string[],
   luaMap: LuaMap<string, unknown>,
 ): void {
-  if (!isTable(object)) {
+  if (!isUserdata(object)) {
     error(
       `Failed to copy an object values to a table, since the object was of type: ${type(
         object,
@@ -24,8 +24,11 @@ export function copyValuesToTable(
     );
   }
 
+  // We can access values on userdata objects similar to a normal table.
+  const userdata = object as unknown as LuaMap<AnyNotNil, unknown>;
+
   for (const key of keys) {
-    const value = object.get(key);
+    const value = userdata.get(key);
     luaMap.set(key, value);
   }
 }

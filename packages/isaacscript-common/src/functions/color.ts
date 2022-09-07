@@ -2,7 +2,11 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
-import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import {
+  copyUserdataValuesToTable,
+  getNumbersFromTable,
+  tableHasKeys,
+} from "./table";
 import { isTable } from "./types";
 
 export type SerializedColor = LuaMap<string, unknown> & {
@@ -120,7 +124,7 @@ export function serializeColor(color: Color): SerializedColor {
   }
 
   const colorTable = new LuaMap<string, unknown>();
-  copyValuesToTable(color, KEYS, colorTable);
+  copyUserdataValuesToTable(color, KEYS, colorTable);
   colorTable.set(SerializationBrand.COLOR, "");
   return colorTable as SerializedColor;
 }

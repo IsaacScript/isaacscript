@@ -4,7 +4,11 @@ import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandomFloat } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
-import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import {
+  copyUserdataValuesToTable,
+  getNumbersFromTable,
+  tableHasKeys,
+} from "./table";
 import { isTable } from "./types";
 
 export type SerializedVector = LuaMap<string, unknown> & {
@@ -104,7 +108,7 @@ export function serializeVector(vector: Vector): SerializedVector {
   }
 
   const vectorTable = new LuaMap<string, unknown>();
-  copyValuesToTable(vector, KEYS, vectorTable);
+  copyUserdataValuesToTable(vector, KEYS, vectorTable);
   vectorTable.set(SerializationBrand.VECTOR, "");
   return vectorTable as SerializedVector;
 }

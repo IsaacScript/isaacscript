@@ -316,10 +316,11 @@ declare global {
       dimension?: Dimension,
     ): void;
 
+    /** If the `player` argument is not provided, the game will crash. */
     StartStageTransition(
       sameStage: boolean,
       stageTransition: StageTransition,
-      player?: EntityPlayer,
+      player: EntityPlayer,
     ): void;
 
     Update(): void;
