@@ -902,7 +902,7 @@ export enum DeathsHeadVariant {
 export enum SwingerVariant {
   SWINGER = 0,
   SWINGER_HEAD = 1,
-  SWINGER_NECK = 2,
+  SWINGER_NECK = 10,
 }
 
 /** For `EntityType.DIP` (217). */
