@@ -23,7 +23,7 @@ export function initArray<T>(defaultValue: T, size: int): T[] {
     if (isPrimitive(defaultValue)) {
       array.push(defaultValue);
     } else {
-      const copy = deepCopy(defaultValue) as T;
+      const copy = deepCopy(defaultValue);
       array.push(copy);
     }
   });
