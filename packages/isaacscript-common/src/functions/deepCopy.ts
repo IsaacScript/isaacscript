@@ -65,12 +65,12 @@ export function deepCopy<T>(
   traversalDescription?: string,
   insideMap?: boolean,
 ): T;
-export function deepCopy<T>(
-  value: T,
+export function deepCopy(
+  value: unknown,
   serializationType: SerializationType,
   traversalDescription?: string,
   insideMap?: boolean,
-): unknown;
+): unknown; // The return types for serialization/deserialization are non-trivial, so we do not type them.
 export function deepCopy(
   value: unknown,
   serializationType = SerializationType.NONE,

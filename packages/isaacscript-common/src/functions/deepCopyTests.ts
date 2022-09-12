@@ -49,7 +49,7 @@ function copiedObjectIsTable() {
     abc: "def",
   };
   const newObject = deepCopy(
-    oldObject as unknown as LuaMap,
+    oldObject,
     SerializationType.NONE,
     "copiedObjectIsTable",
   );
@@ -64,12 +64,11 @@ function copiedObjectHasKeyAndValueString() {
   const oldObject = {
     abc: valueToLookFor,
   };
-  const newTable = deepCopy(
-    oldObject as unknown as LuaMap,
+  const newObject = deepCopy(
+    oldObject,
     SerializationType.NONE,
     "copiedObjectHasKeyAndValueString",
   );
-  const newObject = newTable as typeof oldObject;
 
   const value = newObject[keyToLookFor];
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -91,12 +90,11 @@ function copiedTableHasKeyAndValueNumber() {
   const oldTable = new LuaMap<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
-  const newObject = deepCopy(
+  const newTable = deepCopy(
     oldTable,
     SerializationType.NONE,
     "copiedTableHasKeyAndValueNumber",
   );
-  const newTable = newObject as LuaMap<AnyNotNil, unknown>;
 
   const value = newTable.get(keyToLookFor) as number | undefined;
   if (value === undefined) {
@@ -117,12 +115,11 @@ function copiedTableDoesNotCoerceTypes() {
   const oldTable = new LuaMap<AnyNotNil, unknown>();
   oldTable.set(keyToLookFor, valueToLookFor);
 
-  const newObject = deepCopy(
+  const newTable = deepCopy(
     oldTable,
     SerializationType.NONE,
     "copiedTableDoesNotCoerceTypes",
   );
-  const newTable = newObject as LuaMap<AnyNotNil, unknown>;
 
   const keyString = tostring(keyToLookFor);
   const valueString = tostring(valueToLookFor);
@@ -148,12 +145,11 @@ function copiedObjectHasNoReferencesForPrimitivesForward() {
     abc: originalStringValue,
     def: originalNumberValue,
   };
-  const newTable = deepCopy(
-    oldObject as unknown as LuaMap,
+  const newObject = deepCopy(
+    oldObject,
     SerializationType.NONE,
     "copiedObjectHasNoReferencesForPrimitivesForward",
   );
-  const newObject = newTable as typeof oldObject;
 
   oldObject.abc = "newValue";
   if (oldObject.abc === newObject.abc) {
@@ -173,12 +169,11 @@ function copiedObjectHasNoReferencesForPrimitivesBackward() {
     abc: originalStringValue,
     def: originalNumberValue,
   };
-  const newTable = deepCopy(
-    oldObject as unknown as LuaMap,
+  const newObject = deepCopy(
+    oldObject,
     SerializationType.NONE,
     "copiedObjectHasNoReferencesForPrimitivesBackward",
   );
-  const newObject = newTable as typeof oldObject;
 
   newObject.abc = "newValue";
   if (newObject.abc === oldObject.abc) {
@@ -196,12 +191,11 @@ function copiedObjectHasNoReferencesForArray() {
   const oldObject = {
     abc: [1, 2, 3],
   };
-  const newTable = deepCopy(
-    oldObject as unknown as LuaMap,
+  const newObject = deepCopy(
+    oldObject,
     SerializationType.NONE,
     "copiedObjectHasNoReferencesForArray",
   );
-  const newObject = newTable as typeof oldObject;
 
   if (oldObject.abc === newObject.abc) {
     error("The copied object has the same point to the child array.");
@@ -237,12 +231,11 @@ function copiedObjectHasChildObject() {
       def: valueToLookFor,
     },
   };
-  const newTable = deepCopy(
-    oldObject as unknown as LuaMap,
+  const newObject = deepCopy(
+    oldObject,
     SerializationType.NONE,
     "copiedObjectHasChildObject",
   );
-  const newObject = newTable as typeof oldObject;
 
   const childObject = newObject[childObjectIndex];
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -274,8 +267,7 @@ function copiedMapIsMap() {
   const oldMap = new Map<string, string>();
   oldMap.set(keyToLookFor, valueToLookFor);
 
-  const newObject = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
-  const newMap = newObject as Map<string, string>;
+  const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
 
   if (!isTSTLMap(newMap)) {
     error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
@@ -288,13 +280,7 @@ function copiedMapHasValue() {
   const oldMap = new Map<string, string>();
   oldMap.set(keyToLookFor, valueToLookFor);
 
-  const newTable = deepCopy(
-    oldMap,
-    SerializationType.NONE,
-    "copiedMapHasValue",
-  );
-
-  const newMap = newTable as typeof oldMap;
+  const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapHasValue");
 
   if (!isTSTLMap(newMap)) {
     error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
@@ -314,8 +300,7 @@ function copiedSetIsSet() {
   const oldSet = new Set<string>();
   oldSet.add(valueToLookFor);
 
-  const newTable = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
-  const newSet = newTable as Set<string>;
+  const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
 
   if (!isTSTLSet(newSet)) {
     error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
@@ -327,12 +312,7 @@ function copiedSetHasValue() {
   const oldSet = new Set<string>();
   oldSet.add(valueToLookFor);
 
-  const newTable = deepCopy(
-    oldSet,
-    SerializationType.NONE,
-    "copiedSetHasValue",
-  );
-  const newSet = newTable as Set<string>;
+  const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetHasValue");
 
   if (!isTSTLSet(newSet)) {
     error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
@@ -354,12 +334,11 @@ function copiedMapHasChildMap() {
   const oldMap = new Map<string, Map<number, number>>();
   oldMap.set(keyToLookFor, oldChildMap);
 
-  const newTable = deepCopy(
+  const newMap = deepCopy(
     oldMap,
     SerializationType.NONE,
     "copiedMapHasChildMap",
   );
-  const newMap = newTable as typeof oldMap;
 
   if (!isTSTLMap(newMap)) {
     error(`The copied Map was not a Map and had a type of: ${typeof newMap}`);
@@ -398,12 +377,11 @@ function copiedDefaultMapHasChildDefaultMap() {
   oldChildMap.getAndSetDefault(childMapKey1);
   oldChildMap.set(childMapKey2, childMapCustomValue);
 
-  const newTable = deepCopy(
+  const newParentMap = deepCopy(
     oldParentMap,
     SerializationType.NONE,
     "copiedDefaultMapHasChildDefaultMap",
   );
-  const newParentMap = newTable as typeof oldParentMap;
 
   if (!isDefaultMap(newParentMap)) {
     error(
