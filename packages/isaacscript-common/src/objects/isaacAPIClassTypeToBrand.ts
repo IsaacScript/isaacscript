@@ -1,4 +1,4 @@
-import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
+import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 
 export const ISAAC_API_CLASS_TYPE_TO_BRAND: {

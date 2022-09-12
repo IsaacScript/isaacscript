@@ -1,3 +1,4 @@
+import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isIsaacAPIClassOfType } from "./isaacAPIClass";
 import {
@@ -9,6 +10,7 @@ import { isTable } from "./types";
 
 export type SerializedBitSet128 = LuaMap<string, unknown> & {
   readonly __serializedBitSet128Brand: symbol;
+  readonly __kind: CopyableIsaacAPIClassType.BIT_SET_128;
 };
 
 const OBJECT_NAME = "BitSet128";

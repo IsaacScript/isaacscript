@@ -175,6 +175,5 @@ export * from "./types/PickingUpItem";
 export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
 export * from "./types/PossibleStatType";
-export * from "./types/SerializedIsaacAPIClass";
 export * from "./types/TSTLClass";
 export * from "./types/WeightedArray";

@@ -1,4 +1,7 @@
-import { Direction } from "isaac-typescript-definitions";
+import {
+  CopyableIsaacAPIClassType,
+  Direction,
+} from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
@@ -13,6 +16,7 @@ import { isTable } from "./types";
 
 export type SerializedVector = LuaMap<string, unknown> & {
   readonly __serializedVectorBrand: symbol;
+  readonly __kind: CopyableIsaacAPIClassType.VECTOR;
 };
 
 const OBJECT_NAME = "Vector";

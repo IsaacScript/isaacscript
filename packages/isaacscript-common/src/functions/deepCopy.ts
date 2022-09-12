@@ -1,17 +1,16 @@
 import { DefaultMap } from "../classes/DefaultMap";
-import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/saveDataManagerConstants";
 import { isSerializationBrand } from "../features/saveDataManager/serializationBrands";
 import { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";
-import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { log } from "./log";
 import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
+  isCopyableIsaacAPIClass,
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";
@@ -25,10 +24,6 @@ import {
 } from "./tstlClass";
 import { asString, isNumber, isPrimitive } from "./types";
 import { getTraversalDescription, twoDimensionalSort } from "./utils";
-
-const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
-  getEnumValues(CopyableIsaacAPIClassType),
-);
 
 /**
  * `deepCopy` is a semi-generic deep cloner. It will recursively copy all of the values so that none
@@ -116,7 +111,11 @@ export function deepCopy(
     }
 
     case "userdata": {
-      return deepCopyUserdata(value, serializationType, traversalDescription);
+      return deepCopyIsaacAPIClass(
+        value,
+        serializationType,
+        traversalDescription,
+      );
     }
   }
 }
@@ -126,7 +125,7 @@ function deepCopyTable(
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
-) {
+): unknown {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
   if (isDefaultMap(luaMap) || luaMap.has(SerializationBrand.DEFAULT_MAP)) {
     return deepCopyDefaultMap(
@@ -646,11 +645,11 @@ function checkMetatable(
 }
 
 /** Isaac API classes are of type "userdata". End-user code cannot create userdata. */
-function deepCopyUserdata(
+function deepCopyIsaacAPIClass(
   value: unknown,
   serializationType: SerializationType,
   traversalDescription: string,
-) {
+): unknown {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying userdata.");
@@ -663,22 +662,34 @@ function deepCopyUserdata(
     );
   }
 
-  if (!COPYABLE_ISAAC_API_CLASS_TYPES_SET.has(classType)) {
-    error(
-      `The deep copy function does not support copying "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
-    );
-  }
-
   switch (serializationType) {
     case SerializationType.NONE: {
+      if (!isCopyableIsaacAPIClass(value)) {
+        error(
+          `The deep copy function does not support copying "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
+        );
+      }
+
       return copyIsaacAPIClass(value);
     }
 
     case SerializationType.SERIALIZE: {
+      if (!isCopyableIsaacAPIClass(value)) {
+        error(
+          `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
+        );
+      }
+
       return serializeIsaacAPIClass(value);
     }
 
     case SerializationType.DESERIALIZE: {
+      if (!isSerializedIsaacAPIClass(value)) {
+        error(
+          `The deep copy function does not support deserializing "${traversalDescription}", since it is not a serialized Isaac API class.`,
+        );
+      }
+
       return deserializeIsaacAPIClass(value);
     }
   }
