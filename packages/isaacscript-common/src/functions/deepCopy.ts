@@ -59,6 +59,18 @@ import { getTraversalDescription, twoDimensionalSort } from "./utils";
  * @param insideMap Optional. Tracks whether or not the deep copy function is in the process of
  *                  recursively copying a TSTL Map. Default is false.
  */
+export function deepCopy<T>(
+  value: T,
+  serializationType?: SerializationType.NONE,
+  traversalDescription?: string,
+  insideMap?: boolean,
+): T;
+export function deepCopy<T>(
+  value: T,
+  serializationType: SerializationType,
+  traversalDescription?: string,
+  insideMap?: boolean,
+): unknown;
 export function deepCopy(
   value: unknown,
   serializationType = SerializationType.NONE,
@@ -96,6 +108,12 @@ export function deepCopy(
         );
       }
 
+      if (serializationType === SerializationType.DESERIALIZE) {
+        error(
+          `The deep copy function does not support deserialization of "${traversalDescription}", since it is type: ${valueType}`,
+        );
+      }
+
       // We cannot copy this, so simply return the reference.
       return value;
     }
@@ -111,11 +129,7 @@ export function deepCopy(
     }
 
     case "userdata": {
-      return deepCopyIsaacAPIClass(
-        value,
-        serializationType,
-        traversalDescription,
-      );
+      return deepCopyUserdata(value, serializationType, traversalDescription);
     }
   }
 }
@@ -645,16 +659,11 @@ function checkMetatable(
 }
 
 /** Isaac API classes are of type "userdata". End-user code cannot create userdata. */
-function deepCopyIsaacAPIClass(
+function deepCopyUserdata(
   value: unknown,
   serializationType: SerializationType,
   traversalDescription: string,
-): unknown {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log("deepCopy is copying userdata.");
-  }
-
+) {
   const classType = getIsaacAPIClassName(value);
   if (classType === undefined) {
     error(
@@ -662,35 +671,25 @@ function deepCopyIsaacAPIClass(
     );
   }
 
+  if (!isCopyableIsaacAPIClass(value)) {
+    error(
+      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
+    );
+  }
+
   switch (serializationType) {
     case SerializationType.NONE: {
-      if (!isCopyableIsaacAPIClass(value)) {
-        error(
-          `The deep copy function does not support copying "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
-        );
-      }
-
       return copyIsaacAPIClass(value);
     }
 
     case SerializationType.SERIALIZE: {
-      if (!isCopyableIsaacAPIClass(value)) {
-        error(
-          `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
-        );
-      }
-
       return serializeIsaacAPIClass(value);
     }
 
     case SerializationType.DESERIALIZE: {
-      if (!isSerializedIsaacAPIClass(value)) {
-        error(
-          `The deep copy function does not support deserializing "${traversalDescription}", since it is not a serialized Isaac API class.`,
-        );
-      }
-
-      return deserializeIsaacAPIClass(value);
+      error(
+        `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
+      );
     }
   }
 }
