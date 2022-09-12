@@ -27,6 +27,7 @@
     "src/enums/collections/variants.ts",
     "src/enums/Controller.ts",
     "src/enums/ControllerIndex.ts",
+    "src/enums/CopyableIsaacAPIClassType.ts",
     "src/enums/CurseID.ts",
     "src/enums/Difficulty.ts",
     "src/enums/Dimension.ts",
