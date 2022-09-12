@@ -195,12 +195,16 @@
   ],
   "intentionallyNotExported": [
     "AddCallbackParameterCustom",
+    "CopyableIsaacAPIClass",
     "ImmutablePrimitive",
     "ImmutableArray",
     "ImmutableMap",
     "ImmutableSet",
     "ImmutableObject",
+    "IsaacAPIClassTypeToSerializedType",
+    "IsaacAPIClassTypeToType",
     "Serializable",
+    "SerializedIsaacAPIClass",
   ],
   "plugin": [
     "typedoc-plugin-markdown",
