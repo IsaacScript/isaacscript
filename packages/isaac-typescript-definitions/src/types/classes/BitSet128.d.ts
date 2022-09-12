@@ -42,4 +42,7 @@ declare interface BitSet128 extends IsaacAPIClass {
   bor: LuaBitwiseOrMethod<BitSet128, BitSet128>;
   bshl: LuaBitwiseLeftShiftMethod<BitSet128, BitSet128>;
   bshr: LuaBitwiseRightShiftMethod<BitSet128, BitSet128>;
+
+  /** An identifier that does not exist at run-time. */
+  __kind: "BitSet128";
 }

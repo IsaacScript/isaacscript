@@ -46,6 +46,10 @@ declare interface Vector extends IsaacAPIClass {
 
   mul: LuaMultiplicationMethod<number | Vector, Vector>;
   sub: LuaSubtractionMethod<Vector, Vector>;
+
+  /** An identifier that does not exist at run-time. */
+  // eslint-disable-next-line isaacscript/member-ordering
+  __kind: "Vector";
 }
 
 /** @noSelf */

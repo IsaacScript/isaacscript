@@ -51,6 +51,9 @@ declare interface Color extends IsaacAPIClass {
 
   /** Range is 0-1. */
   RO: float;
+
+  /** An identifier that does not exist at run-time. */
+  __kind: "Color";
 }
 
 /** @noSelf */

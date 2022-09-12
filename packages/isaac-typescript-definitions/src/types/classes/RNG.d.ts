@@ -30,4 +30,7 @@ declare interface RNG extends IsaacAPIClass {
   RandomInt(max: int): int;
 
   SetSeed(seed: Seed, shiftIdx: int): void;
+
+  /** An identifier that does not exist at run-time. */
+  __kind: "RNG";
 }
