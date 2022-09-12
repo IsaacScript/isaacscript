@@ -226,7 +226,7 @@
     "UseFlagValue",
 
     "BitFlags",
-    "BitSet128",
+    "global.BitSet128",
   ],
   "plugin": [
     "typedoc-plugin-markdown",
