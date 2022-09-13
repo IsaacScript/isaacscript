@@ -259,7 +259,10 @@ export function getRoomShapeDoorSlotCoordinates(
   return coordinatesMap.get(doorSlot);
 }
 
-/** Helper function to find unused door slots in the room that can be used to make custom doors. */
+/**
+ * Helper function to find unused door slots in the current room that can be used to make custom
+ * doors.
+ */
 export function getUnusedDoorSlots(): DoorSlot[] {
   const room = game.GetRoom();
   const doorSlots = getEnumValues(DoorSlot);
@@ -267,6 +270,15 @@ export function getUnusedDoorSlots(): DoorSlot[] {
     (doorSlot) =>
       room.IsDoorSlotAllowed(doorSlot) && room.GetDoor(doorSlot) === undefined,
   );
+}
+
+/**
+ * Helper function to check if the current room has one or more open door slots that can be used to
+ * make custom doors.
+ */
+export function hasUnusedDoorSlot(): boolean {
+  const unusedDoorSlots = getUnusedDoorSlots();
+  return unusedDoorSlots.length > 0;
 }
 
 export function isAngelRoomDoor(door: GridEntityDoor): boolean {
