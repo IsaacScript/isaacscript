@@ -42,6 +42,9 @@ export function getTearsStat(fireDelay: float): float {
  * only use this function in the `POST_TEAR_INIT_VERY_LATE` callback or on frame 1+.
  *
  * If this function is called on frame 0, it will throw a run-time error.
+ *
+ * Note that this function does not work properly when the tear is from a Lead Pencil barrage. In
+ * this case, it will always appear as if the tear is coming from a player.
  */
 export function isTearFromFamiliar(tear: EntityTear): boolean {
   if (tear.FrameCount === 0) {
@@ -71,6 +74,9 @@ export function isTearFromFamiliar(tear: EntityTear): boolean {
  * only use this function in the `POST_TEAR_INIT_VERY_LATE` callback or on frame 1+.
  *
  * If this function is called on frame 0, it will throw a run-time error.
+ *
+ * Note that this function does not work properly when the tear is from a Lead Pencil barrage. In
+ * this case, it will always appear as if the tear is coming from a player.
  */
 export function isTearFromPlayer(tear: EntityTear): boolean {
   if (tear.FrameCount === 0) {
