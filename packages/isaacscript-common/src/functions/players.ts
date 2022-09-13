@@ -3,7 +3,6 @@ import {
   Challenge,
   CollectibleType,
   ControllerIndex,
-  FamiliarVariant,
   NullItemID,
   PlayerForm,
   PlayerType,
@@ -274,10 +273,7 @@ export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
     }
 
     const familiar = entity.Parent.ToFamiliar();
-    if (
-      familiar !== undefined &&
-      familiar.Variant === FamiliarVariant.INCUBUS
-    ) {
+    if (familiar !== undefined) {
       return familiar.Player;
     }
   }
@@ -289,10 +285,7 @@ export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
     }
 
     const familiar = entity.SpawnerEntity.ToFamiliar();
-    if (
-      familiar !== undefined &&
-      familiar.Variant === FamiliarVariant.INCUBUS
-    ) {
+    if (familiar !== undefined) {
       return familiar.Player;
     }
   }

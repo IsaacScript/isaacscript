@@ -122,7 +122,7 @@
     "retext-syntax-mentions": "^3.1.0",
     "retext-syntax-urls": "^3.1.2",
     "syncpack": "^8.2.4",
-    "ts-jest": "^29.0.0",
+    "ts-jest": "^29.0.1",
     "ts-json-schema-generator": "^1.0.0",
     "ts-node": "^10.9.1",
     "ts-prune": "^0.10.3",
