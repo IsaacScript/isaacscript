@@ -60,6 +60,7 @@
     "src/features/sirenHelpers.ts",
     "src/features/stageHistory.ts",
     "src/features/taintedLazarusPlayers.ts",
+    "src/features/playerSpritesheet.ts",
     "src/functions/ambush.ts",
     "src/functions/array.ts",
     "src/functions/arrayLua.ts",

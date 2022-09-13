@@ -17,6 +17,7 @@ import { pauseInit } from "./features/pause";
 import { persistentEntitiesInit } from "./features/persistentEntities";
 import { pickupIndexInit } from "./features/pickupIndex";
 import { playerInventoryInit } from "./features/playerInventory";
+import { playerSpritesheetPostPlayerInit } from "./features/playerSpritesheet";
 import { ponyDetectionInit } from "./features/ponyDetection";
 import { preventChildEntitiesInit } from "./features/preventChildEntities";
 import { preventCollectibleRotationInit } from "./features/preventCollectibleRotation";
@@ -67,4 +68,5 @@ function initFeaturesMinor(mod: ModUpgraded) {
   sirenHelpersInit(mod);
   stageHistoryInit(mod);
   taintedLazarusPlayersInit(mod);
+  playerSpritesheetPostPlayerInit(mod);
 }

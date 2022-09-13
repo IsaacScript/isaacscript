@@ -35,6 +35,7 @@ export * from "./features/pause";
 export * from "./features/persistentEntities";
 export * from "./features/pickupIndex";
 export * from "./features/playerInventory";
+export * from "./features/playerSpritesheet";
 export * from "./features/ponyDetection";
 export * from "./features/preventChildEntities";
 export * from "./features/preventCollectibleRotation";
