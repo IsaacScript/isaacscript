@@ -8,7 +8,7 @@ import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
 const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
-const DEBUG = false;
+const DEBUG = false as boolean;
 
 type Options = [
   {
@@ -99,7 +99,6 @@ export const formatLineComments = createRule<Options, MessageIds>({
         leftWhitespace,
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (DEBUG) {
         console.log("originalText:");
         console.log(originalText);

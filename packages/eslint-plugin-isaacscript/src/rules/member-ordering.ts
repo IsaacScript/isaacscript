@@ -610,14 +610,14 @@ export const memberOrdering = createRule<Options, MessageIds>({
       let isCorrectlySorted = true;
 
       // Find first member which isn't correctly sorted.
-      members.forEach((member) => {
+      for (const member of members) {
         const rank = getRank(member, groupOrder, supportsModifiers);
         const name = getMemberName(member, context.getSourceCode());
 
         const rankLastMember = previousRanks[previousRanks.length - 1]!;
 
         if (rank === -1) {
-          return;
+          continue;
         }
 
         // Works for 1st item because x < undefined === false for any x (typeof string).
@@ -641,9 +641,8 @@ export const memberOrdering = createRule<Options, MessageIds>({
           previousRanks.push(rank);
           memberGroups.push([member]);
         }
-      });
+      }
 
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       return isCorrectlySorted ? memberGroups : null;
     }
 

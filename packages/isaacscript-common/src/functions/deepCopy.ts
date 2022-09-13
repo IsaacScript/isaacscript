@@ -77,7 +77,6 @@ export function deepCopy(
   traversalDescription = "",
   insideMap = false,
 ): unknown {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
     if (serializationType === SerializationType.SERIALIZE) {
@@ -227,7 +226,6 @@ function deepCopyDefaultMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a DefaultMap.");
   }
@@ -359,7 +357,6 @@ function deepCopyMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a Map.");
   }
@@ -412,7 +409,6 @@ function deepCopySet(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a Set.");
   }
@@ -466,7 +462,6 @@ function deepCopyTSTLClass(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a TSTL class.");
   }
@@ -505,7 +500,6 @@ function deepCopyArray(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying an array.");
   }
@@ -531,7 +525,6 @@ function deepCopyNormalLuaTable(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a normal Lua table.");
   }
@@ -581,7 +574,6 @@ function getCopiedEntries(
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     entries.sort(twoDimensionalSort);
   }

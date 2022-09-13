@@ -29,7 +29,7 @@ import {
   preCustomReviveHasSubscriptions,
 } from "./subscriptions/preCustomRevive";
 
-const DEBUG = false;
+const DEBUG = false as boolean;
 
 enum CustomReviveState {
   DISABLED,
@@ -203,7 +203,6 @@ function playerIsAboutToDie(player: EntityPlayer) {
 }
 
 function logStateChanged() {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (DEBUG) {
     log(
       `Custom revive state changed: ${CustomReviveState[v.run.state]} (${
