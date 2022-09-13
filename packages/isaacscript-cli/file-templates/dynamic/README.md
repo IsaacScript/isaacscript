@@ -18,5 +18,5 @@ If you are a developer, or the mod is not yet uploaded to the Steam Workshop, yo
 - Unzip the zip file to a new directory.
 - Open up the repository folder and double-click on the `run.sh` script. If prompted, choose to open it with Git for Windows. You will see a Git Bash terminal window open.
 - The script might ask you some questions, like which save file that you use for testing.
-- If the script is successful, you will see "Compilation successful". (You can continue to leave the terminal window open; it will monitor for changes in your project, and recompile if necessary.)
+- If the script is successful, you will see "Compilation successful." (You can continue to leave the terminal window open; it will monitor for changes in your project, and recompile if necessary.)
 - Completely close Isaac if it is already open, and then open the game again, and the mod should be in the list of mods. You can now play or test the mod.

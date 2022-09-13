@@ -4,7 +4,7 @@ title: JavaScript/TypeScript Tutorial
 
 If you have never programmed in JavaScript/TypeScript before, but you **have** programmed in Lua, then this page is for you. Below, you can compare Lua code side by side with the equivalent TypeScript code. If you have coded a mod in Lua before, reading through this page will probably be enough to get you started.
 
-If you have never programmed in Lua before, then skip reading this page.
+If you have never programmed in Lua before, then this page will still be useful, but you can skip reading all of the Lua code blocks. (But it can't hurt to learn some Lua too. The best Isaac modders will fluently know both languages.)
 
 <br />
 
@@ -64,27 +64,27 @@ But don't bother typing the semi-colons yourself - just hit `Ctrl + s` and the e
 
 In Lua, you sometimes call functions with a colon, and you sometimes call functions with a period. This is really annoying.
 
-In TypeScript, you just call everything with a period. Easy.
+In TypeScript, you call all functions with a period. Easy.
 
 ```lua
 -- Lua code
 Isaac.DebugString("hello world")
-Game():GetPlayer():AddMaxHearts(2)
+Isaac.GetPlayer():AddMaxHearts(2)
 ```
 
 ```ts
 // TypeScript code
 Isaac.DebugString("hello world");
-Game().GetPlayer().AddMaxHearts(2);
+Isaac.GetPlayer().AddMaxHearts(2);
 ```
 
 <br />
 
 ### Variables: `local` --> `const` and `let`
 
-In Lua, you generally type `local` before declaring a variable to stop it from being turned into a global.
+In Lua, you type `local` before declaring a variable to stop it from being turned into a global.
 
-In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly create one.
+In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly decide to create one.
 
 Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
 (Don't ever use `var`, which is only used in older JavaScript code.)
@@ -158,7 +158,7 @@ An array is a data structure that is an ordered list of elements. In Lua, you us
 local myArray = {"foo", "bar", "baz"}
 ```
 
-In TypeScript, there is a dedicated syntax for arrays - the square brackets.
+In TypeScript, there is a dedicated syntax for arrays: the square brackets.
 
 ```ts
 const myArray = ["foo", "bar", "baz"];
@@ -167,17 +167,17 @@ const myArray = ["foo", "bar", "baz"];
 In Lua, there are two different ways to add an element to an array:
 
 ```lua
-table.insert(myArray, "anotherNewElement")
-myArray[#myArray + 1] = "someNewElement"
+table.insert(myArray, "someNewElement")
+myArray[#myArray + 1] = "anotherNewElement"
 ```
 
-In TypeScript, you would use the handy `push` method:
+In TypeScript, you use the `push` method:
 
 ```ts
 myArray.push("someNewElement");
 ```
 
-In addition to `push`, you can see all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+In addition to `push`, arrays have a lot of other handy methods that you can use. You can see all of them in [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 <br />
 
@@ -193,7 +193,7 @@ local myObject = {
 }
 ```
 
-In TypeScript, there is a dedicated syntax for arrays - the curly brackets. (A colon is used in between the keys and the values.)
+In TypeScript, there is a dedicated syntax for objects: the curly brackets. (A colon is used in between the keys and the values.)
 
 ```ts
 const myObject = {
@@ -216,6 +216,8 @@ In TypeScript, it is the exact same thing:
 myObject.foo = 999;
 myObject["foo"] = 999;
 ```
+
+(But ESLint will change the second form to the first form automatically when you save the file, so that everything remains consistent.)
 
 <br />
 
@@ -246,6 +248,8 @@ if (x === 1 && y !== 0) {
   // Do something.
 }
 ```
+
+If you find typing three equal signs annoying, then don't: if you type `==` instead, ESLint will automatically convert it to `===` when you save the file.
 
 <br />
 
@@ -314,11 +318,16 @@ for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// Or, use a "normal" for loop if you need the array index too.
-for (let i = 0; i < gaper.length; i++) {
-  const gaper = gapers[i];
+// Or, you can use the "forEach" method.
+gaper.forEach((gaper) => {
   gaper.Remove();
-}
+});
+
+// If you need the array index, it is passed as the second argument.
+gaper.forEach((gaper, i) => {
+  gaper.Remove();
+  print("Removed gaper number:", i);
+});
 ```
 
 <br />
@@ -332,9 +341,9 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 -- Define a table of collectible prices.
 -- (We must put "[]" around the collectible types since the table keys are numbers.)
 local collectiblePrices = {
-  [1] = 15, -- Sad Onion
-  [2] = 15, -- The Inner Eye
-  [3] = 7, -- Spoon Bender
+  [3] = 15, -- Spoon Bender
+  [4] = 15, -- Cricket's Head
+  [5] = 7, -- My Reflection
 }
 
 for collectibleType, price in pairs(collectiblePrices) do
@@ -348,21 +357,21 @@ In TypeScript, you have a few different options.
 // TypeScript code
 // Define an anonymous object containing collectible prices.
 const collectiblePrices = {
-  [1]: 15, // Sad Onion
-  [2]: 15, // The Inner Eye
-  [3]: 7, // Spoon Bender
+  [3]: 15, // Spoon Bender
+  [4]: 15, // Cricket's Head
+  [5]: 7, // My Reflection
 };
 
 for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
   // Do something with "collectibleType" and "price".
 }
 
-// Or, if you just need the collectible type, you would use the "keys()" method
+// Or, if you just need the collectible type, you would use the "keys()" method.
 for (const collectibleType of Object.keys(collectiblePrices)) {
   // Do something with "collectibleType".
 }
 
-// Or, if you just need the price, you would use the "values()" method
+// Or, if you just need the price, you would use the "values()" method.
 for (const price of Object.values(collectiblePrices)) {
   // Do something with "price".
 }
@@ -386,7 +395,7 @@ if (entity.SpawnerEntity === undefined) {
 }
 ```
 
-Note that `null` also transpiles to `nil` (in addition to `undefined`). But `null` should be reserved for situations where you want to model an actual null-type defined value.
+Note that `null` also transpiles to `nil` (in addition to `undefined`). In order to keep your code easy to read, never use `null` unless you specifically want to model an actual null-type defined value.
 
 <br />
 
@@ -408,6 +417,24 @@ numFarts = numFarts + 1 -- numFarts is now equal to 2.
 // TypeScript code
 let numFarts = 1;
 numFarts += 1; // numFarts is now equal to 2.
+```
+
+<br />
+
+### Increment and Decrement Operators
+
+Lua does not have increment or decrement operators, because it is a terrible language.
+
+```lua
+-- Lua code
+local numFarts = 1
+numFarts = numFarts + 1 -- numFarts is now equal to 2.
+```
+
+```ts
+// TypeScript code
+let numFarts = 1;
+numFarts++; // numFarts is now equal to 2.
 ```
 
 <br />
@@ -471,7 +498,7 @@ Isaac.DebugString("numPoops: " + numPoops + ", numFarts: " + numFarts); // No co
 
 TypeScript has a special feature that Lua does not have called _string templates_. String templates allow you to easily create a string that has a bunch of variables in it. They are denoted by the <code>`</code> character.
 
-In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would probably be better written by using a string template, like this:
+In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would be better written by using a string template, like this:
 
 ```ts
 // Typescript code
@@ -489,30 +516,27 @@ The main thing that TypeScript adds to JavaScript is type annotations. Here's a 
 ```lua
 -- Lua code
 function postPlayerInit(player)
-  -- Add Sad Onion
-  player:AddCollectible(1, 0, false)
+  player:AddCollectible(1, 0, false) -- Sad Onion
 end
 ```
 
 ```javascript
 // JavaScript code
 function postPlayerInit(player) {
-  // Add Sad Onion
-  player.AddCollectible(1, 0, false);
+  player.AddCollectible(1, 0, false); // Sad Onion
 }
 ```
 
 ```ts
 // TypeScript code
 function postPlayerInit(player: EntityPlayer) {
-  // Add Sad Onion
-  player.AddCollectible(1, 0, false);
+  player.AddCollectible(1, 0, false); // Sad Onion
 }
 ```
 
-In the TypeScript code snippet, you can see that we marked "player" as the "EntityPlayer" type by using a colon. The "EntityPlayer" type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to "EntityPlayer" in the official docs. (The `isaac-typescript-definitions` package is automatically added to any IsaacScript project.)
+In the TypeScript code snippet, you can see that we marked the `player` function argument as the `EntityPlayer` type by using a colon. The `EntityPlayer` type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to [`EntityPlayer` in the official docs](https://wofsauge.github.io/IsaacDocs/rep/EntityPlayer.html). (The `isaac-typescript-definitions` package is automatically added to any IsaacScript project.)
 
-Once the type has been annotated, your editor will know about all of the legal methods for the "player" variable. If you make a typo on the "AddCollectible" method, the editor will immediately tell you by drawing a red squiggly line underneath it.
+Once the type has been annotated, your editor will know about all of the legal methods for the `player` variable. For example, if you make a typo on the `AddCollectible` method, the editor will immediately tell you by drawing a red squiggly line underneath it.
 
 When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
 
@@ -534,7 +558,7 @@ Here, we are explicitly telling the compiler what the type of the variable is. B
 const myNumber = 123;
 ```
 
-Here, TypeScript will infer that "myNumber" is of type "number", because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
+Here, TypeScript will infer that `myNumber` is of type `number`, because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred, because it adds useless noise to the code. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
 
 However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain collectible types:
 
@@ -568,7 +592,7 @@ function isEven(num: number): boolean {
 
 Here, providing the return type annotation is optional. If we don't specify it, the compiler would infer what the return type is automatically, saving us the time from having to type it out.
 
-With that said, just because we don't _have_ to type it does not mean that we should _never_ type it. Having return type annotations are often pretty useful, as it can catch bugs when you accidentally return things that you did not intend.
+With that said, just because we don't _have_ to type it does not mean that we should _never_ type it. Having return type annotations on functions is often pretty useful, as it can catch bugs when you accidentally return things that you did not intend.
 
 <br />
 
@@ -578,7 +602,7 @@ If a function is not expected to return anything, then the return type is `void`
 
 ```ts
 function addSadOnion(player: EntityPlayer): void {
-  player.AddCollectible(CollectibleType.SAD_ONION);
+  player.AddCollectible(1); // Sad Onion
 }
 ```
 
@@ -586,7 +610,7 @@ But annotating a return type of void is pretty pointless, so the function is bet
 
 ```ts
 function addSadOnion(player: EntityPlayer) {
-  player.AddCollectible(CollectibleType.SAD_ONION);
+  player.AddCollectible(1); // Sad Onion
 }
 ```
 
@@ -594,7 +618,7 @@ One exception is when the function is exported. (More on what exported functions
 
 ```ts
 export function addSadOnion(player: EntityPlayer): void {
-  player.AddCollectible(CollectibleType.SAD_ONION);
+  player.AddCollectible(1); // Sad Onion
 }
 ```
 
@@ -607,7 +631,8 @@ In Lua, you split your code into multiple files by using `require()`.
 #### `main.lua`
 
 ```lua
--- In Lua, we must namespace the mod to avoid require conflicts.
+-- In Lua, we must namespace the mod's Lua files in a directory of the same name to avoid require
+-- conflicts.
 local postGameStarted = require("revelations.callbacks.postGameStarted")
 
 local mod = RegisterMod("Revelations", 1)
@@ -624,9 +649,8 @@ function postGameStarted:init(mod)
 end
 
 function postGameStarted:main()
-  -- Add Sad Onion
   local player = Isaac.GetPlayer()
-  player:AddCollectible(1, 0, false)
+  player:AddCollectible(1, 0, false) -- Sad Onion
 end
 
 return postGameStarted
@@ -647,16 +671,14 @@ postGameStartedInit(mod);
 #### `callbacks/postGameStarted.ts`
 
 ```ts
-// "export" makes it so that other files can use this function
-// "void" is an return-type annotation, meaning "this function returns nothing"
+// "export" makes it so that other files can use this function.
 export function postGameStartedInit(mod: Mod): void {
   mod.AddCallback(ModCallbacks.POST_GAME_STARTED, main);
 }
 
 function main() {
-  // Add Sad Onion
   const player = Isaac.GetPlayer();
-  player.AddCollectible(1, 0, false);
+  player.AddCollectible(1, 0, false); // Sad Onion
 }
 ```
 
@@ -744,9 +766,9 @@ The solution is to add the `AddCharacter()` method to our definition file. We ne
 // which we will immediately define below.
 declare const InfinityTrueCoopInterface: TrueCoop | undefined;
 
-// We declare a TrueCoop class that has as many methods or members as we need.
+// We declare a TrueCoop interface that has as many methods or members as we need.
 // (But for now, we will only add one.)
-declare class TrueCoop() {
+declare interface TrueCoop() {
   AddCharacter(playerData: TrueCoopPlayerData)
 }
 
@@ -824,9 +846,9 @@ enum CollectiblePrice {
 
 // collectiblePrices now only has values of CollectiblePrice, which is even safer than before!
 const collectiblePrices = {
-  [1]: CollectiblePrice.NORMAL, // Sad Onion
-  [2]: CollectiblePrice.NORMAL, // The Inner Eye
-  [3]: CollectiblePrice.SALE, // Spoon Bender
+  [3: CollectiblePrice.NORMAL, // Spoon Bender
+  [4]: CollectiblePrice.NORMAL, // Cricket's Head
+  [5]: CollectiblePrice.SALE, // My Reflection
 };
 ```
 
@@ -834,31 +856,32 @@ const collectiblePrices = {
 
 ### Maps
 
-In the previous [enums](#enums) section, we defined "collectiblePrices" as an object, which is roughly equivalent to a Lua table.
+In the previous [enums](#enums) section, we defined `collectiblePrices` as an object, which is roughly equivalent to a Lua table.
 
-Objects are good for cases where every possibility is accounted for. But this isn't the case for "collectiblePrices". Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+Objects are good for cases where every possibility is accounted for. But this isn't the case for `collectiblePrices`. Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what "collectiblePrices" _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what `collectiblePrices` _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
 
 ```ts
-const collectiblePrices = new Map<int, CollectiblePrice>([
-  [1, CollectiblePrice.NORMAL], // Sad Onion
-  [2, CollectiblePrice.NORMAL], // The Inner Eye
-  [3, CollectiblePrice.SALE], // Spoon Bender
+const collectiblePrices = new Map<number, CollectiblePrice>([
+  [3, CollectiblePrice.NORMAL], // Spoon Bender
+  [4, CollectiblePrice.NORMAL], // Cricket's Head
+  [5, CollectiblePrice.SALE], // My Reflection
 ]);
+
 for (const [collectibleType, price] of collectiblePrices.entries()) {
   // Do something with "collectibleType" and "price".
 }
 ```
 
-In this example, collectiblePrices has a type of `Map<int, number>`, which makes much more sense than an anonymous object.
+In this example, `collectiblePrices` has a type of `Map<number, CollectiblePrice>`, which is more specific than an untyped object.
 
 - The first value in the angle brackets corresponds to the map key type.
 - The second value in the angle brackets corresponds to the map value type.
 
-We initialize the map by passing an array of key/value pairs to the constructor.
+We initialize the map by passing an array of key/value pairs to the constructor. (Alternatively, we could start the map empty and then use the `set` method to set some values later on.)
 
-With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get()` method to emulate checking for a value in a Lua table:
+With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get` method to emulate checking for a value in a Lua table:
 
 ```lua
 -- Lua code
@@ -896,14 +919,14 @@ local player = entity:ToPlayer() -- Convert the entity to a player.
 player:AddMaxHearts(2) -- Give them a heart container.
 ```
 
-Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer()` method would return `nil` and cause the next line to throw a run-time error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
+Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer` method would return `nil` and cause the next line to throw a run-time error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
 
 ```ts
 const player = entity.ToPlayer();
 player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
 ```
 
-This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined`. To solve this, we can use _type narrowing_:
+This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing). To solve this error, we can use _type narrowing_:
 
 ```ts
 const player = entity.ToPlayer();
@@ -915,6 +938,6 @@ player.AddMaxHearts(2); // The type of player is now narrowed to "EntityPlayer".
 
 Here, we explicitly handle the error case and supply a helpful error message. But this code does something more important than simply providing the error message.
 
-`error()` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts()` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
+`error` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
 
-Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely limit the damage that run-time errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
+Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely compartmentalize the damage that run-time errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.

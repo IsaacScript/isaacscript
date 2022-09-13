@@ -1,5 +1,7 @@
 /* eslint-disable max-classes-per-file */
 
+import { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";
+
 /**
  * This is the format of the object that you give to the save data manager. It will contains all of
  * the variables for the particular mod feature.
@@ -45,7 +47,7 @@ type Serializable<T> =
   T extends SerializablePrimitive
     ? T
     : // Allow a specific subset of Isaac API classes that are copyable / serializable.
-    T extends SerializableIsaacAPIClass
+    T extends CopyableIsaacAPIClass
     ? T
     : // Disallow all other Isaac API classes.
     T extends IsaacAPIClass
@@ -77,7 +79,7 @@ type SerializableInsideArrayOrMap<T> =
   T extends SerializablePrimitive
     ? T
     : // Allow a specific subset of Isaac API classes that are copyable / serializable.
-    T extends SerializableIsaacAPIClass
+    T extends CopyableIsaacAPIClass
     ? T
     : // Disallow all other Isaac API classes.
     T extends IsaacAPIClass
@@ -125,7 +127,6 @@ type SerializableReadonlyMap<K, V> = ReadonlyMap<
 type SerializableSet<T> = Set<SerializableInsideArrayOrMap<T>>;
 type SerializableReadonlySet<T> = ReadonlySet<SerializableInsideArrayOrMap<T>>;
 type SerializableObject<T> = { [K in keyof T]: Serializable<T[K]> };
-type SerializableIsaacAPIClass = BitSet128 | Color | KColor | RNG | Vector;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type HasMethods<T> = {} extends {

@@ -5,7 +5,7 @@ import { hasFlag } from "./flag";
 /**
  * Helper function to get the actual bit flag for modded curses.
  *
- * Will throw a runtime error if the provided curse does not exist.
+ * Will throw a run-time error if the provided curse does not exist.
  *
  * Use this over the `Isaac.GetCurseIdByName` method because that will return an integer instead of
  * a bit flag.

@@ -23,7 +23,7 @@ export async function getConfigFromFile(args: Args): Promise<Config> {
   // No config file exists, so prompt the user for some information and create one.
   const modsDirectory = await getModsDir(args, verbose);
   const saveSlot = await promptSaveSlot(args, yes);
-  const config = newConfig(modsDirectory, saveSlot, dev);
+  const config = new Config(modsDirectory, saveSlot, dev);
   createConfigFile(CWD, config, verbose);
 
   return config;
@@ -64,18 +64,6 @@ function errorMissing(field: string, description: string) {
   error(
     `The "${CONFIG_FILE_NAME}" file is missing a "${field}" value. ${description} Please add it.`,
   );
-}
-
-export function newConfig(
-  modsDirectory: string,
-  saveSlot: number,
-  isaacScriptCommonDev?: boolean,
-): Config {
-  return {
-    modsDirectory,
-    saveSlot,
-    isaacScriptCommonDev,
-  };
 }
 
 export function createConfigFile(

@@ -24,7 +24,6 @@ export function loadFromDisk(
   const jsonString = readSaveDatFile(mod);
   const newSaveData = jsonDecode(jsonString);
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log('Converted data from the "save#.dat" to a Lua table.');
   }
@@ -51,7 +50,6 @@ export function loadFromDisk(
         return;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (SAVE_DATA_MANAGER_DEBUG) {
         log(`Merging in stored data for feature: ${key}`);
       }

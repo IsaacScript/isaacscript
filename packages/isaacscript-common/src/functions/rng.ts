@@ -1,3 +1,4 @@
+import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
@@ -6,6 +7,7 @@ import { isTable } from "./types";
 
 export type SerializedRNG = LuaMap<string, unknown> & {
   readonly __serializedRNGBrand: symbol;
+  readonly __kind: CopyableIsaacAPIClassType.RNG;
 };
 
 /**

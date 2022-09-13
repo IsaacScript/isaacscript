@@ -38,6 +38,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 ### <img src="/img/items/magic-mushroom.png" className="features-icon" /> The Entire Isaac API, Strongly Typed
 
 - Code fearlessly without having to worry about the format of the API call or whether using it incorrectly will crash the game.
+- The compiler catches every possible type error, making refactoring your code easier than you ever imagined that it could be.
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
@@ -50,10 +51,6 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 - With the IsaacScript watcher, as soon as you press `Ctrl + s` to save a file, you can instantly view the changes in-game without having to do anything else.
 - If you use `require` hacks to get around the limitations of `include` + `luamod`, don't bother - that isn't needed here.
 
-### <img src="/img/items/humbling-bundle.png" className="features-icon" /> Extra Enums
-
-- Seamlessly utilize [community-contributed enums](/isaac-typescript-definitions) for things that the developers forgot to include in the "enums.lua" file.
-
 ### <img src="/img/items/pencil.png" className="features-icon" /> Automatic Formatting
 
 - Never waste time formatting a file again. Automatic file formatting with [Prettier](https://prettier.io/) comes running out-of-the-box.
@@ -62,20 +59,17 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 - Squash all the bugs and ensure code consistency with the world's best linter, [ESLint](https://eslint.org/). It comes running out-of-the-box.
 
-### <img src="/img/items/poke-go.png" className="features-icon" /> Extra Callbacks
+### <img src="/img/items/humbling-bundle.png" className="features-icon" /> Extra Enums
 
-- Ever wish that there was a callback for the particular thing you are working on? Wish no longer.
-- IsaacScript mods can use [many extra callbacks](/isaacscript-common/other/enums/ModCallbackCustom.md) as part of the expanded standard library.
+- Seamlessly utilize [community-contributed enums](/isaac-typescript-definitions) for things that the developers forgot to include in the "enums.lua" file.
 
 ### <img src="/img/items/book-of-virtues.png" className="features-icon" /> Expanded Standard Library
 
-- In Lua, leveraging 3rd party modules is a pain, so you typically end up copy-pasting the same boilerplate functions into your mods. But there's a better way.
-- IsaacScript offers [an expanded standard library](/isaacscript-common) out of the box for you to use, allowing you to write high-level code that is concise and easy to read.
+- Seamlessly utilize hundreds of helper functions and features from the [expanded standard library](/isaacscript-common), allowing you to write high-level code that is concise and easy to read.
 
-### <img src="/img/items/box.png" className="features-icon" /> Save Data Manager
+### <img src="/img/items/poke-go.png" className="features-icon" /> Extra Callbacks
 
-- The best mods serialize all state to disk so that saving and continuing a run results in a seamless experience. But getting this right is tricky.
-- Optionally leverage IsaacScript's built-in save data manager that allows for automatic resetting of variables and keeping mod-feature variables scoped as locally as possible.
+- Seamlessly utilize [many extra callbacks](/isaacscript-common/other/enums/ModCallbackCustom.md) as part of the expanded standard library.
 
 <br />
 

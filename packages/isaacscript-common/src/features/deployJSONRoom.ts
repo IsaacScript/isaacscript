@@ -225,16 +225,21 @@ function respawnPersistentEntities() {
  * Specifically, this will clear the current room of all entities and grid entities, and then spawn
  * all of the entries and grid entities in the provided JSON room.
  *
+ * You can create JSON rooms by using the `convert-xml-to-json` tool (e.g. `npx convert-xml-to-json
+ * my-rooms.xml`).
+ *
  * This function is meant to be used in the `POST_NEW_ROOM` callback.
  *
  * For example:
  *
  * ```ts
  *
- * import customRooms from "./customRooms";
+ * import customRooms from "./customRooms.json";
  *
- * const firstJSONRoom = customRooms.rooms.room[0];
- * deployJSONRoom(firstJSONRoom);
+ * export function postNewRoom(): void {
+ *   const firstJSONRoom = customRooms.rooms.room[0];
+ *   deployJSONRoom(firstJSONRoom);
+ * }
  * ```
  *
  * @param jsonRoom The JSON room to deploy. *
@@ -277,6 +282,9 @@ export function deployJSONRoom(
  * Specifically, this will clear the current room of all entities and grid entities, and then spawn
  * all of the entries and grid entities in one of the provided JSON rooms.
  *
+ * You can create JSON rooms by using the `convert-xml-to-json` tool (e.g. `npx convert-xml-to-json
+ * my-rooms.xml`).
+ *
  * This function is meant to be used in the `POST_NEW_ROOM` callback.
  *
  * Note that this function does not simply choose a random element in the provided array; it will
@@ -286,10 +294,12 @@ export function deployJSONRoom(
  * For example:
  *
  * ```ts
- * import customRooms from "./customRooms";
+ * import customRooms from "./customRooms.json";
  *
- * const jsonRooms = customRooms.rooms.room;
- * deployRandomJSONRoom(jsonRooms);
+ * export function postNewRoom(): void {
+ *   const jsonRooms = customRooms.rooms.room;
+ *   deployRandomJSONRoom(jsonRooms);
+ * }
  * ```
  *
  * @param jsonRooms An array of JSON rooms to randomly select from. In practice, this will be

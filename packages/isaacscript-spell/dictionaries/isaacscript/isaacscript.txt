@@ -37,6 +37,8 @@ preid # Monorepo word
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
 publishedfileid # metadata.vdf
+pypi # The Python package repository
+pyproject # Python package word
 remarkignore # Monorepo word
 remarkrc # Monorepo word
 retext # Monorepo word

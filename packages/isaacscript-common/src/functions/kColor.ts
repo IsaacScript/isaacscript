@@ -1,12 +1,18 @@
+import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
-import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import {
+  copyUserdataValuesToTable,
+  getNumbersFromTable,
+  tableHasKeys,
+} from "./table";
 import { isTable } from "./types";
 
 export type SerializedKColor = LuaMap<string, unknown> & {
   readonly __serializedKColorBrand: symbol;
+  readonly __kind: CopyableIsaacAPIClassType.K_COLOR;
 };
 
 const OBJECT_NAME = "KColor";
@@ -117,7 +123,7 @@ export function serializeKColor(kColor: KColor): SerializedKColor {
   }
 
   const kColorTable = new LuaMap<string, unknown>();
-  copyValuesToTable(kColor, KEYS, kColorTable);
+  copyUserdataValuesToTable(kColor, KEYS, kColorTable);
   kColorTable.set(SerializationBrand.K_COLOR, "");
   return kColorTable as SerializedKColor;
 }

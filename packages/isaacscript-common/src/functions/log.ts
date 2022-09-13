@@ -402,7 +402,7 @@ export function logTable(luaTable: unknown, parentTables = 0): void {
  * Helper function to print out the differences between the entries of two tables. Note that this
  * will only do a shallow comparison.
  */
-export function logTableDifferences<K, V>(
+export function logTableDifferences<K extends AnyNotNil, V>(
   table1: LuaMap<K, V>,
   table2: LuaMap<K, V>,
 ): void {
@@ -420,13 +420,17 @@ export function logTableDifferences<K, V>(
 
   for (const key of keys) {
     if (!table1KeysSet.has(key)) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Table 1 is missing key: ${key}`);
     } else if (!table2KeysSet.has(key)) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Table 2 is missing key: ${key}`);
     } else {
-      const value1 = table1.get(key as unknown as K);
-      const value2 = table2.get(key as unknown as K);
+      const value1 = table1.get(key);
+
+      const value2 = table2.get(key);
       if (value1 !== value2) {
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         log(`  ${key} --> "${value1}" versus "${value2}"`);
       }
     }
@@ -453,9 +457,7 @@ export function logUserdata(userdata: unknown): void {
     return;
   }
 
-  const metatable = getmetatable(userdata) as
-    | LuaMap<AnyNotNil, unknown>
-    | undefined;
+  const metatable = getmetatable(userdata);
   if (metatable === undefined) {
     log("Userdata: [no metatable]");
     return;

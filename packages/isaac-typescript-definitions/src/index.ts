@@ -3,6 +3,7 @@
 // Import the Isaac API definitions, which are declared as global variables.
 /// <reference path="types/index.d.ts" />
 
+export * from "./debug";
 export * from "./enums/ActiveSlot";
 export * from "./enums/BackdropType";
 export * from "./enums/BrokenWatchState";
@@ -20,6 +21,7 @@ export * from "./enums/collections/subTypes";
 export * from "./enums/collections/variants";
 export * from "./enums/Controller";
 export * from "./enums/ControllerIndex";
+export * from "./enums/CopyableIsaacAPIClassType";
 export * from "./enums/CurseID";
 export * from "./enums/Difficulty";
 export * from "./enums/Dimension";

@@ -89,6 +89,7 @@ import { postTransformationRegister } from "../callbacks/subscriptions/postTrans
 import { postTrinketBreakRegister } from "../callbacks/subscriptions/postTrinketBreak";
 import { preBerserkDeathRegister } from "../callbacks/subscriptions/preBerserkDeath";
 import { preCustomReviveRegister } from "../callbacks/subscriptions/preCustomRevive";
+import { preGetPedestalRegister } from "../callbacks/subscriptions/preGetPedestal";
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -211,6 +212,7 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_TRINKET_BREAK]: postTrinketBreakRegister,
   [ModCallbackCustom.PRE_BERSERK_DEATH]: preBerserkDeathRegister,
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: preCustomReviveRegister,
+  [ModCallbackCustom.PRE_GET_PEDESTAL]: preGetPedestalRegister,
   [ModCallbackCustom.PRE_ITEM_PICKUP]: preItemPickupRegister,
   [ModCallbackCustom.PRE_NEW_LEVEL]: preNewLevelRegister,
 } as const;

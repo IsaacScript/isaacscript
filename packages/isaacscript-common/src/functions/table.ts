@@ -1,4 +1,4 @@
-import { isBoolean, isNumber, isString } from "./types";
+import { isBoolean, isNumber, isString, isUserdata } from "./types";
 
 /**
  * In a `Map`, you can use the `clear` method to delete every element. However, in a `LuaMap`, the
@@ -10,16 +10,25 @@ export function clearTable(luaMap: LuaMap<AnyNotNil, unknown>): void {
   }
 }
 
-/** Helper function to copy specific values from a object to a table. */
-export function copyValuesToTable(
+/** Helper function to copy specific values from a userdata object (e.g. `Vector`) to a table. */
+export function copyUserdataValuesToTable(
   object: unknown,
   keys: string[],
   luaMap: LuaMap<string, unknown>,
 ): void {
-  const otherTable = object as LuaMap<string, string | number>;
+  if (!isUserdata(object)) {
+    error(
+      `Failed to copy an object values to a table, since the object was of type: ${type(
+        object,
+      )}`,
+    );
+  }
+
+  // We can access values on userdata objects similar to a normal table.
+  const userdata = object as unknown as LuaMap<AnyNotNil, unknown>;
 
   for (const key of keys) {
-    const value = otherTable.get(key);
+    const value = userdata.get(key);
     luaMap.set(key, value);
   }
 }
@@ -142,7 +151,7 @@ export function getStringsFromTable(
  *                false in situations where iterating randomly would not matter and you need the
  *                extra performance.
  */
-export function iterateTableInOrder<K, V>(
+export function iterateTableInOrder<K extends AnyNotNil, V>(
   luaMap: LuaMap<K, V>,
   func: (key: K, value: V) => void,
   inOrder = true,

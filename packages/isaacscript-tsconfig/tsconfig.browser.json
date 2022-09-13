@@ -12,7 +12,7 @@
     // debugging.
     "sourceMap": true,
 
-    // "lib" specifies a set of bundled library declaration files that describe the target runtime
+    // "lib" specifies a set of bundled library declaration files that describe the target run-time
     // environment.
     "lib": ["DOM", "ES2017"],
   },

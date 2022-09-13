@@ -1,17 +1,16 @@
 import { DefaultMap } from "../classes/DefaultMap";
-import { CopyableIsaacAPIClassType } from "../enums/private/CopyableIsaacAPIClassType";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/saveDataManagerConstants";
 import { isSerializationBrand } from "../features/saveDataManager/serializationBrands";
 import { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";
-import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { log } from "./log";
 import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
+  isCopyableIsaacAPIClass,
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";
@@ -25,10 +24,6 @@ import {
 } from "./tstlClass";
 import { asString, isNumber, isPrimitive } from "./types";
 import { getTraversalDescription, twoDimensionalSort } from "./utils";
-
-const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
-  getEnumValues(CopyableIsaacAPIClassType),
-);
 
 /**
  * `deepCopy` is a semi-generic deep cloner. It will recursively copy all of the values so that none
@@ -64,13 +59,24 @@ const COPYABLE_ISAAC_API_CLASS_TYPES_SET = new Set<string>(
  * @param insideMap Optional. Tracks whether or not the deep copy function is in the process of
  *                  recursively copying a TSTL Map. Default is false.
  */
+export function deepCopy<T>(
+  value: T,
+  serializationType?: SerializationType.NONE,
+  traversalDescription?: string,
+  insideMap?: boolean,
+): T;
+export function deepCopy(
+  value: unknown,
+  serializationType: SerializationType,
+  traversalDescription?: string,
+  insideMap?: boolean,
+): unknown; // The return types for serialization/deserialization are non-trivial, so we do not type them.
 export function deepCopy(
   value: unknown,
   serializationType = SerializationType.NONE,
   traversalDescription = "",
   insideMap = false,
 ): unknown {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     let logString = `deepCopy is operating on: ${traversalDescription}`;
     if (serializationType === SerializationType.SERIALIZE) {
@@ -101,6 +107,12 @@ export function deepCopy(
         );
       }
 
+      if (serializationType === SerializationType.DESERIALIZE) {
+        error(
+          `The deep copy function does not support deserialization of "${traversalDescription}", since it is type: ${valueType}`,
+        );
+      }
+
       // We cannot copy this, so simply return the reference.
       return value;
     }
@@ -126,7 +138,7 @@ function deepCopyTable(
   serializationType: SerializationType,
   traversalDescription: string,
   insideMap: boolean,
-) {
+): unknown {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
   if (isDefaultMap(luaMap) || luaMap.has(SerializationBrand.DEFAULT_MAP)) {
     return deepCopyDefaultMap(
@@ -214,7 +226,6 @@ function deepCopyDefaultMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a DefaultMap.");
   }
@@ -346,7 +357,6 @@ function deepCopyMap(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a Map.");
   }
@@ -399,7 +409,6 @@ function deepCopySet(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a Set.");
   }
@@ -453,7 +462,6 @@ function deepCopyTSTLClass(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a TSTL class.");
   }
@@ -492,7 +500,6 @@ function deepCopyArray(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying an array.");
   }
@@ -518,7 +525,6 @@ function deepCopyNormalLuaTable(
   traversalDescription: string,
   insideMap: boolean,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a normal Lua table.");
   }
@@ -568,7 +574,6 @@ function getCopiedEntries(
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SAVE_DATA_MANAGER_DEBUG) {
     entries.sort(twoDimensionalSort);
   }
@@ -651,11 +656,6 @@ function deepCopyUserdata(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log("deepCopy is copying userdata.");
-  }
-
   const classType = getIsaacAPIClassName(value);
   if (classType === undefined) {
     error(
@@ -663,9 +663,9 @@ function deepCopyUserdata(
     );
   }
 
-  if (!COPYABLE_ISAAC_API_CLASS_TYPES_SET.has(classType)) {
+  if (!isCopyableIsaacAPIClass(value)) {
     error(
-      `The deep copy function does not support copying "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
+      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
     );
   }
 
@@ -679,7 +679,9 @@ function deepCopyUserdata(
     }
 
     case SerializationType.DESERIALIZE: {
-      return deserializeIsaacAPIClass(value);
+      error(
+        `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
+      );
     }
   }
 }

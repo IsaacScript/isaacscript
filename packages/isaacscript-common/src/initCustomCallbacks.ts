@@ -67,6 +67,7 @@ import { postTNTUpdateInit } from "./callbacks/postTNTUpdate";
 import { postTransformationInit } from "./callbacks/postTransformation";
 import { postTrinketBreakInit } from "./callbacks/postTrinketBreak";
 import { preBerserkDeathInit } from "./callbacks/preBerserkDeath";
+import { preGetPedestalInit } from "./callbacks/preGetPedestal";
 import { preNewLevelInit } from "./callbacks/preNewLevel";
 import { reorderedCallbacksInit } from "./callbacks/reorderedCallbacks";
 import { ModUpgraded } from "./classes/ModUpgraded";
@@ -141,6 +142,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postTransformationInit(mod);
   postTrinketBreakInit(mod);
   preBerserkDeathInit(mod);
+  preGetPedestalInit(mod);
   preNewLevelInit(mod);
   reorderedCallbacksInit(mod);
 }

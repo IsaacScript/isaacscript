@@ -4,7 +4,7 @@ import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
 const RULE_NAME = "format-jsdoc-comments";
 const EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE = 4;
-const DEBUG = false;
+const DEBUG = false as boolean;
 
 type Options = [
   {
@@ -80,7 +80,6 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         ? getJSDocCommentSingleLine(formattedText, leftWhitespace)
         : getJSDocCommentMultiLine(formattedText, leftWhitespace);
 
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (DEBUG) {
         console.log("originalComment:");
         console.log(originalComment);

@@ -25,6 +25,9 @@ npx tsc
 # Convert the TypeScript to Lua. (We provide compiled enums in addition to ambient declarations.)
 npx tstl
 
+# Also bundle the entire library into one file, which makes it easier for Lua users to consume.
+npx tstl --project tsconfig.bundle.json
+
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
@@ -37,13 +40,13 @@ cp --recursive "$DIR/src" "$OUT_DIR/"
 
 # Copy the declarations into place. (The TypeScript compiler does not do this automatically for some
 # reason.)
-cp --recursive "$DIR/src/types" "$OUT_DIR/dist"
+cp --recursive "$DIR/src/types" "$OUT_DIR/dist/src"
 
 # TypeScript messes up the path inside of the triple slash directive, so we must manually repair it.
 # e.g.
 # /// <reference types="packages/isaac-typescript-definitions/src/types" />
 # -->
 # /// <reference path="types/index.d.ts" />
-sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/dist/index.d.ts"
+sed --in-place 's/types="packages\/isaac-typescript-definitions\/src\/types"/path="types\/index.d.ts"/' "$OUT_DIR/dist/src/index.d.ts"
 
 echo "Successfully built in $SECONDS seconds."

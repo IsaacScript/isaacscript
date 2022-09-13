@@ -1,10 +1,16 @@
+import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isIsaacAPIClassOfType } from "./isaacAPIClass";
-import { copyValuesToTable, getNumbersFromTable, tableHasKeys } from "./table";
+import {
+  copyUserdataValuesToTable,
+  getNumbersFromTable,
+  tableHasKeys,
+} from "./table";
 import { isTable } from "./types";
 
 export type SerializedBitSet128 = LuaMap<string, unknown> & {
   readonly __serializedBitSet128Brand: symbol;
+  readonly __kind: CopyableIsaacAPIClassType.BIT_SET_128;
 };
 
 const OBJECT_NAME = "BitSet128";
@@ -86,7 +92,7 @@ export function serializeBitSet128(bitSet128: BitSet128): SerializedBitSet128 {
   }
 
   const bitSet128Table = new LuaMap<string, unknown>();
-  copyValuesToTable(bitSet128, KEYS, bitSet128Table);
+  copyUserdataValuesToTable(bitSet128, KEYS, bitSet128Table);
   bitSet128Table.set(SerializationBrand.BIT_SET_128, "");
   return bitSet128Table as SerializedBitSet128;
 }

@@ -38,6 +38,7 @@ const sidebars = {
         "main/custom-stages",
         "main/publishing-to-the-workshop",
         "main/gotchas",
+        "main/isaacscript-in-lua",
       ],
     },
     "main/change-log",

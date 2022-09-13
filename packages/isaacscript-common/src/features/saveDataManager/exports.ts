@@ -153,7 +153,7 @@ export function saveDataManager<Persistent, Run, Level>(
 
   // Make a copy of the initial save data so that we can use it to restore the default values later
   // on.
-  const saveDataCopy = deepCopy(v, SerializationType.NONE, key) as typeof v;
+  const saveDataCopy = deepCopy(v, SerializationType.NONE, key);
   saveDataDefaultsMap.set(key, saveDataCopy);
 
   // Store the conditional function for later, if present.
