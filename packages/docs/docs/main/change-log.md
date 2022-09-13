@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 20th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `isTearFromPlayer`
+  - `isTearFromFamiliar`
+
 ## September 13th, 2022
 
 - Added the following helper functions:
