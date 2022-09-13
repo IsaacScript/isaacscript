@@ -264,7 +264,12 @@ export function getPlayerCollectibleMap(
   return collectibleMap;
 }
 
-/** Helper function to get the player from a tear, laser, bomb, etc. */
+/**
+ * Helper function to get the player from a tear, laser, bomb, etc. Returns undefined if the entity
+ * does not correspond to any particular player.
+ *
+ * This function works by looking at the `Parent` and the `SpawnerEntity` fields (in that order).
+ */
 export function getPlayerFromEntity(entity: Entity): EntityPlayer | undefined {
   if (entity.Parent !== undefined) {
     const player = entity.Parent.ToPlayer();
