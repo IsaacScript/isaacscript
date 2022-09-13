@@ -265,7 +265,7 @@ export function getPlayerCollectibleMap(
 }
 
 /** Helper function to get the player from a tear, laser, bomb, etc. */
-export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
+export function getPlayerFromEntity(entity: Entity): EntityPlayer | undefined {
   if (entity.Parent !== undefined) {
     const player = entity.Parent.ToPlayer();
     if (player !== undefined) {
@@ -498,7 +498,7 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
     return true;
   }
 
-  const indirectPlayer = getPlayerFromTear(damageSource);
+  const indirectPlayer = getPlayerFromEntity(damageSource);
   return indirectPlayer !== undefined;
 }
 

@@ -14,6 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `isTearFromPlayer`
   - `isTearFromFamiliar`
+- Renamed the following helper functions:
+  - `getPlayerFromTear` --> `getPlayerFromEntity`
 
 ## September 13th, 2022
 
