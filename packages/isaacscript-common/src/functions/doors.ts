@@ -268,7 +268,10 @@ export function getUnusedDoorSlots(): DoorSlot[] {
   const doorSlots = getEnumValues(DoorSlot);
   return doorSlots.filter(
     (doorSlot) =>
-      room.IsDoorSlotAllowed(doorSlot) && room.GetDoor(doorSlot) === undefined,
+      // We need to filter out the -1 value to prevent crashes.
+      doorSlot !== DoorSlot.NO_DOOR_SLOT &&
+      room.IsDoorSlotAllowed(doorSlot) &&
+      room.GetDoor(doorSlot) === undefined,
   );
 }
 
