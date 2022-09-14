@@ -83,6 +83,8 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
 /**
  * Helper function to get the in-game description for a trinket. Returns "Unknown" if the provided
  * trinket type was not valid.
+ *
+ * This function works for both vanilla and modded trinkets.
  */
 export function getTrinketDescription(trinketType: TrinketType): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
@@ -122,6 +124,8 @@ export function getTrinketGfxFilename(trinketType: TrinketType): string {
  * not valid.
  *
  * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
+ *
+ * This function works for both vanilla and modded trinkets.
  */
 export function getTrinketName(trinketType: TrinketType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map

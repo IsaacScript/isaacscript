@@ -100,6 +100,8 @@ export function getCollectibleChargeType(
 /**
  * Helper function to get the in-game description for a collectible. Returns "Unknown" if the
  * provided collectible type was not valid.
+ *
+ * This function works for both vanilla and modded collectibles.
  */
 export function getCollectibleDescription(
   collectibleType: CollectibleType,
@@ -319,6 +321,8 @@ export function getCollectibleMaxCharges(
  * type is not valid.
  *
  * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
+ *
+ * This function works for both vanilla and modded collectibles.
  */
 export function getCollectibleName(collectibleType: CollectibleType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
