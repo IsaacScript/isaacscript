@@ -5,10 +5,8 @@ import {
   EntityType,
   LevelCurse,
   ModCallback,
-  TearVariant,
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
-import { MAX_SPEED_STAT } from "../../core/constants";
 import { addFlag, bitFlags } from "../../functions/flag";
 import { getMapPartialMatch } from "../../functions/map";
 import { printConsole } from "../../functions/utils";
@@ -39,6 +37,11 @@ function initCallbacks(mod: ModUpgraded) {
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate); // 1
   mod.AddCallback(
     ModCallback.EVALUATE_CACHE,
+    evaluateCacheDamage,
+    CacheFlag.DAMAGE, // 1 << 0
+  ); // 8
+  mod.AddCallback(
+    ModCallback.EVALUATE_CACHE,
     evaluateCacheFireDelay,
     CacheFlag.FIRE_DELAY, // 1 << 1
   ); // 8
@@ -59,37 +62,44 @@ function initCallbacks(mod: ModUpgraded) {
   ); // 11
   mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12
   mod.AddCallback(ModCallback.EXECUTE_CMD, executeCmd); // 22
-  mod.AddCallback(ModCallback.POST_FIRE_TEAR, postFireTear); // 61
 }
 
 // ModCallback.POST_UPDATE (1)
 function postUpdate() {
-  if (v.run.spamBloodRights) {
+  if (v.persistent.spamBloodRights) {
     const player = Isaac.GetPlayer();
     player.UseActiveItem(CollectibleType.BLOOD_RIGHTS);
   }
 }
 
 // ModCallback.EVALUATE_CACHE (8)
+// CacheFlag.DAMAGE (1 << 0)
+function evaluateCacheDamage(player: EntityPlayer) {
+  if (v.persistent.damage) {
+    player.Damage = v.persistent.damageAmount;
+  }
+}
+
+// ModCallback.EVALUATE_CACHE (8)
 // CacheFlag.FIRE_DELAY (1 << 1)
 function evaluateCacheFireDelay(player: EntityPlayer) {
-  if (v.run.maxTears) {
-    player.FireDelay = 1; // Equivalent to Soy Milk
+  if (v.persistent.tears) {
+    player.FireDelay = v.persistent.tearsAmount; // Equivalent to Soy Milk
   }
 }
 
 // ModCallback.EVALUATE_CACHE (8)
 // CacheFlag.SPEED (1 << 4)
 function evaluateCacheSpeed(player: EntityPlayer) {
-  if (v.run.maxSpeed) {
-    player.MoveSpeed = MAX_SPEED_STAT;
+  if (v.persistent.speed) {
+    player.MoveSpeed = v.persistent.speedAmount;
   }
 }
 
 // ModCallback.EVALUATE_CACHE (8)
 // CacheFlag.FLYING (1 << 7)
 function evaluateCacheFlying(player: EntityPlayer) {
-  if (v.run.flight) {
+  if (v.persistent.flight) {
     player.CanFly = true;
   }
 }
@@ -103,7 +113,7 @@ function entityTakeDmgPlayer(
   _damageSource: EntityRef,
   _damageCountdownFrames: int,
 ) {
-  if (v.run.spamBloodRights) {
+  if (v.persistent.spamBloodRights) {
     return false;
   }
 
@@ -177,20 +187,4 @@ function executeCmd(command: string, params: string) {
   const [commandName, commandFunction] = resultTuple;
   printConsole(`Command: ${commandName}`);
   commandFunction(params);
-}
-
-// ModCallback.POST_FIRE_TEAR (61)
-function postFireTear(tear: EntityTear) {
-  if (v.run.chaosCardTears) {
-    tear.ChangeVariant(TearVariant.CHAOS_CARD);
-  }
-
-  if (v.run.maxDamage) {
-    // If we increase the damage stat too high, then the tears will become bigger than the screen.
-    // Instead, increase the collision damage of the tear.
-    tear.CollisionDamage *= 1000;
-
-    // Change the visual of the tear so that it is more clear that we have debug-damage turned on.
-    tear.ChangeVariant(TearVariant.TOOTH);
-  }
 }

@@ -1,5 +1,6 @@
 const v = {
   persistent: {
+    // Curses
     darkness: false, // 1
     labyrinth: false, // 2
     lost: false, // 3
@@ -8,17 +9,20 @@ const v = {
     maze: false, // 6
     blind: false, // 7
     giant: false, // 8
-
     disableCurses: false,
-  },
 
-  run: {
+    // Stats
+    damage: false,
+    damageAmount: 500,
+    speed: false,
+    speedAmount: 2.0,
+    tears: false,
+    tearsAmount: 1, // In tear delay, not tears stat
+    flight: false,
+
+    // Other
     chaosCardTears: false,
     spamBloodRights: false,
-    maxDamage: false,
-    maxSpeed: false,
-    maxTears: false,
-    flight: false,
   },
 };
 export default v;

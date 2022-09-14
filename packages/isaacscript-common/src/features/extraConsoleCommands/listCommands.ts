@@ -407,8 +407,8 @@ export function cc(): void {
  * "debug 10".
  */
 export function chaosCardTears(): void {
-  v.run.chaosCardTears = !v.run.chaosCardTears;
-  printEnabled(v.run.chaosCardTears, "Chaos Card tears");
+  v.persistent.chaosCardTears = !v.persistent.chaosCardTears;
+  printEnabled(v.persistent.chaosCardTears, "Chaos Card tears");
 }
 
 /**
@@ -529,10 +529,23 @@ export function dadsNote(): void {
   bossRoom();
 }
 
-/** Toggles extremely high-damage tears for the player. */
-export function damage(): void {
-  v.run.maxDamage = !v.run.maxDamage;
-  printEnabled(v.run.maxDamage, "debug damage");
+/**
+ * Toggles a set damage stat for the player. You can provide an optional argument to this command in
+ * order to set the damage to a specific amount. Default is 500.
+ */
+export function damage(params: string): void {
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole(`The provided damage amount is invalid: ${params}`);
+      return;
+    }
+
+    v.persistent.damageAmount = num;
+  }
+
+  v.persistent.damage = !v.persistent.damage;
+  printEnabled(v.persistent.damage, "debug damage");
 }
 
 /** Toggles permanent Curse of Darkness. */
@@ -599,26 +612,26 @@ export function eternalHearts(params: string): void {
 export function flight(params: string): void {
   const player = Isaac.GetPlayer();
 
-  v.run.flight = !v.run.flight;
+  v.persistent.flight = !v.persistent.flight;
 
   // Optionally, allow the toggle to be overridden by a parameter.
   if (params === "true") {
-    v.run.flight = true;
+    v.persistent.flight = true;
   } else if (params === "false") {
-    v.run.flight = false;
+    v.persistent.flight = false;
   }
 
   player.AddCacheFlags(CacheFlag.FLYING);
   player.EvaluateItems();
 
   const collectibleUsedToShowFlight = CollectibleType.FATE;
-  if (v.run.flight) {
+  if (v.persistent.flight) {
     addCollectibleCostume(player, collectibleUsedToShowFlight);
   } else {
     removeCollectibleCostume(player, collectibleUsedToShowFlight);
   }
 
-  printEnabled(v.run.maxSpeed, "max speed");
+  printEnabled(v.persistent.speed, "max speed");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1330,8 +1343,8 @@ export function sounds(): void {
  * "debug 10".
  */
 export function spam(): void {
-  v.run.spamBloodRights = !v.run.spamBloodRights;
-  printEnabled(v.run.spamBloodRights, "spamming Blood Rights");
+  v.persistent.spamBloodRights = !v.persistent.spamBloodRights;
+  printEnabled(v.persistent.spamBloodRights, "spamming Blood Rights");
 }
 
 export function spawnCollectible(params: string): void {
@@ -1417,19 +1430,33 @@ export function spawnTrinket(params: string): void {
   spawnTrinketFunction(trinketType, centerPos);
 }
 
-/** Toggles maximum movement speed and flight for the player. */
-export function speed(): void {
+/**
+ * Toggles a set movement speed and flight for the player. You can provide an optional argument to
+ * this command in order to set the speed to a specific amount. Default is 2.0 (which is the maximum
+ * that the stat can be set to).
+ */
+export function speed(params: string): void {
   const player = Isaac.GetPlayer();
 
-  v.run.maxSpeed = !v.run.maxSpeed;
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole(`The provided speed amount is invalid: ${params}`);
+      return;
+    }
+
+    v.persistent.damageAmount = num;
+  }
+
+  v.persistent.speed = !v.persistent.speed;
 
   player.AddCacheFlags(CacheFlag.SPEED);
   player.EvaluateItems();
 
-  const value = tostring(v.run.maxSpeed);
+  const value = tostring(v.persistent.speed);
   flight(value);
 
-  printEnabled(v.run.maxSpeed, "max speed and flight");
+  printEnabled(v.persistent.speed, "max speed and flight");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1450,17 +1477,28 @@ export function superSecretRoom(): void {
 }
 
 /**
- * Toggles an extremely high tears stat (e.g. fire rate) for the player, equivalent of that to soy
- * milk.
+ * Toggles a set tear delay (e.g. fire rate) for the player. You can provide an optional argument to
+ * this command in order to set the tear delay to a specific amount. Default is 1 (which is
+ * equivalent to the Soy Milk tear rate).
  */
-export function tears(): void {
-  v.run.maxTears = !v.run.maxTears;
+export function tears(params: string): void {
+  if (params !== "") {
+    const num = tonumber(params);
+    if (num === undefined) {
+      printConsole(`The provided tear delay amount is invalid: ${params}`);
+      return;
+    }
+
+    v.persistent.tearsAmount = num;
+  }
+
+  v.persistent.tears = !v.persistent.tears;
 
   const player = Isaac.GetPlayer();
   player.AddCacheFlags(CacheFlag.FIRE_DELAY);
   player.EvaluateItems();
 
-  printEnabled(v.run.maxDamage, "debug tear-rate");
+  printEnabled(v.persistent.damage, "debug tear-rate");
 }
 
 /** Alias for the "runTests" command. */
