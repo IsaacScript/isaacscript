@@ -16,6 +16,9 @@ This page lists the changes to the IsaacScript framework.
   - `isTearFromFamiliar`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
+- Added the following custom commands:
+  - `transformation`
+  - `playerForm` (alias for `transformation`)
 
 ## September 13th, 2022
 

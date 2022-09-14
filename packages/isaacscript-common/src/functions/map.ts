@@ -24,7 +24,7 @@ export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
  *   ["bar", 456],
  * ]);
  * const searchText = "f";
- * const match = getMapPartialMatch(map, searchText); // match is now equal to 123
+ * const match = getMapPartialMatch(map, searchText); // match is now equal to ["foo", 123]
  *
  * @returns If a match was found, returns a tuple of the map key and value. If a match was not
  * found, returns undefined.
