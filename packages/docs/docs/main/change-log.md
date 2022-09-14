@@ -19,6 +19,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following custom commands:
   - `transformation`
   - `playerForm` (alias for `transformation`)
+- The `damage`, `tears`, and `speed` custom commands now take optional arguments to set the player's stat to the specific amount.
 
 ## September 13th, 2022
 
