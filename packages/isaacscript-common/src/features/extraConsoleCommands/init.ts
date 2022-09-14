@@ -5,6 +5,7 @@ import {
   EntityType,
   LevelCurse,
   ModCallback,
+  TearVariant,
 } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { addFlag, bitFlags } from "../../functions/flag";
@@ -62,6 +63,7 @@ function initCallbacks(mod: ModUpgraded) {
   ); // 11
   mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12
   mod.AddCallback(ModCallback.EXECUTE_CMD, executeCmd); // 22
+  mod.AddCallback(ModCallback.POST_FIRE_TEAR, postFireTear); // 61
 }
 
 // ModCallback.POST_UPDATE (1)
@@ -187,4 +189,11 @@ function executeCmd(command: string, params: string) {
   const [commandName, commandFunction] = resultTuple;
   printConsole(`Command: ${commandName}`);
   commandFunction(params);
+}
+
+// ModCallback.POST_FIRE_TEAR (61)
+function postFireTear(tear: EntityTear) {
+  if (v.persistent.chaosCardTears) {
+    tear.ChangeVariant(TearVariant.CHAOS_CARD);
+  }
 }
