@@ -7,6 +7,7 @@ import {
   TrinketType,
 } from "../../enums/collections/subTypes";
 import { EntityType } from "../../enums/EntityType";
+import { EntityPartition } from "../../enums/flags/EntityPartition";
 import { GridEntityType } from "../../enums/GridEntityType";
 import { ModCallback } from "../../enums/ModCallback";
 import { Music } from "../../enums/Music";
@@ -118,7 +119,7 @@ declare global {
     function FindInRadius(
       position: Vector,
       radius: float,
-      partitions?: int,
+      partitions?: BitFlags<EntityPartition>,
     ): Entity[];
 
     /**
