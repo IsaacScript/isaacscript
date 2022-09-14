@@ -1,4 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../../classes/ModUpgraded";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
@@ -33,6 +33,11 @@ let loadedDataOnThisRun = false;
 export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod = incomingMod;
 
+  mod.AddCallback(
+    ModCallback.POST_USE_ITEM,
+    postUseItemGlowingHourGlass,
+    CollectibleType.GLOWING_HOUR_GLASS,
+  ); // 3
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallback.PRE_GAME_EXIT, preGameExit); // 17
   mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
@@ -40,6 +45,12 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
     ModCallbackCustom.POST_NEW_ROOM_EARLY,
     postNewRoomEarly,
   ); // 19
+}
+
+// ModCallback.POST_USE_ITEM (3)
+// CollectibleType.GLOWING_HOUR_GLASS (422)
+function postUseItemGlowingHourGlass() {
+  return undefined;
 }
 
 // ModCallback.POST_PLAYER_INIT (9)
