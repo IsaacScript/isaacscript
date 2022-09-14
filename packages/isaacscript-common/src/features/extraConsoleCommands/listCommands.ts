@@ -544,8 +544,12 @@ export function damage(params: string): void {
     v.persistent.damageAmount = num;
   }
 
+  const player = Isaac.GetPlayer();
+  player.AddCacheFlags(CacheFlag.DAMAGE);
+  player.EvaluateItems();
+
   v.persistent.damage = !v.persistent.damage;
-  printEnabled(v.persistent.damage, "debug damage");
+  printEnabled(v.persistent.damage, "debug set damage");
 }
 
 /** Toggles permanent Curse of Darkness. */
@@ -631,7 +635,7 @@ export function flight(params: string): void {
     removeCollectibleCostume(player, collectibleUsedToShowFlight);
   }
 
-  printEnabled(v.persistent.speed, "max speed");
+  printEnabled(v.persistent.speed, "debug set speed");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1456,7 +1460,7 @@ export function speed(params: string): void {
   const value = tostring(v.persistent.speed);
   flight(value);
 
-  printEnabled(v.persistent.speed, "max speed and flight");
+  printEnabled(v.persistent.speed, "debug set speed and flight");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1498,7 +1502,7 @@ export function tears(params: string): void {
   player.AddCacheFlags(CacheFlag.FIRE_DELAY);
   player.EvaluateItems();
 
-  printEnabled(v.persistent.damage, "debug tear-rate");
+  printEnabled(v.persistent.damage, "debug set tear delay");
 }
 
 /** Alias for the "runTests" command. */
