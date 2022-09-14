@@ -119,7 +119,7 @@ declare global {
     function FindInRadius(
       position: Vector,
       radius: float,
-      partitions?: BitFlags<EntityPartition>,
+      partitions?: BitFlags<EntityPartition> | EntityPartition,
     ): Entity[];
 
     /**
