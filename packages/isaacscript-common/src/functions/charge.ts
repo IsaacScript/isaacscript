@@ -40,8 +40,12 @@ export function addCharge(
 ): int {
   const hud = game.GetHUD();
 
-  // Ensure that there is enough space on the active item to store these amount of charges.
-  const chargesToAdd = getClampedChargesToAdd(player, activeSlot, numCharges);
+  // Ensure that there is enough space on the active item to store these amount of charges. (If we
+  // add too many charges, it will grant orange "battery" charges, even if the player does not have
+  // The Battery.)
+  const chargesAwayFromMax = getChargesAwayFromMax(player, activeSlot);
+  const chargesToAdd =
+    numCharges > chargesAwayFromMax ? chargesAwayFromMax : numCharges;
 
   // The AAA Battery trinket might grant an additional charge.
   const modifiedChargesToAdd = getChargesToAddWithAAAModifier(
@@ -139,46 +143,18 @@ export function addRoomClearChargeToSlot(
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
-  const numCharges = bigRoomDoubleCharge ? getRoomShapeCharges(roomShape) : 1;
+  // Big rooms grant two charges and normal rooms grant one charge.
+  let numCharges = bigRoomDoubleCharge ? getRoomShapeCharges(roomShape) : 1;
+
+  // Handle the special case of a timed item. When clearing a room with a timed item, it should
+  // become fully charged.
+  if (chargeType === ItemConfigChargeType.TIMED) {
+    // The charges will become clamped to the proper amount in the `addCharge` function. (If the
+    // item is at 50% charge and the player has The Battery, it should go to 150% charged.)
+    numCharges = getCollectibleMaxCharges(activeItem);
+  }
+
   addCharge(player, activeSlot, numCharges, playSoundEffect);
-}
-
-/**
- * We don't want to add more charges than is normally possible, so we must check to see if the
- * player can hold the specified amount of charges in the given slot.
- */
-function getClampedChargesToAdd(
-  player: EntityPlayer,
-  activeSlot: ActiveSlot,
-  numCharges: int,
-) {
-  const activeItem = player.GetActiveItem(activeSlot);
-  const activeCharge = player.GetActiveCharge(activeSlot);
-  const batteryCharge = player.GetBatteryCharge(activeSlot);
-  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
-  const maxCharges = getCollectibleMaxCharges(activeItem);
-
-  if (!hasBattery && activeCharge === maxCharges) {
-    return 0;
-  }
-
-  if (hasBattery && batteryCharge === maxCharges) {
-    return 0;
-  }
-
-  if (!hasBattery && activeCharge + 1 === maxCharges) {
-    // We are only 1 charge away from a full charge, so only add one charge to avoid an overcharge.
-    // (It is possible to set orange charges without the player actually having The Battery.)
-    return 1;
-  }
-
-  if (hasBattery && batteryCharge + 1 === maxCharges) {
-    // We are only 1 charge away from a full double-charge, so only add one charge to avoid an
-    // overcharge.
-    return 1;
-  }
-
-  return numCharges;
 }
 
 /**
@@ -190,26 +166,14 @@ function getChargesToAddWithAAAModifier(
   activeSlot: ActiveSlot,
   chargesToAdd: int,
 ) {
-  const activeItem = player.GetActiveItem(activeSlot);
-  const activeCharge = player.GetActiveCharge(activeSlot);
-  const batteryCharge = player.GetBatteryCharge(activeSlot);
-  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
   const hasAAABattery = player.HasTrinket(TrinketType.AAA_BATTERY);
-  const maxCharges = getCollectibleMaxCharges(activeItem);
-
   if (!hasAAABattery) {
     return chargesToAdd;
   }
 
-  if (!hasBattery && activeCharge + chargesToAdd === maxCharges - 1) {
-    return chargesToAdd + 1;
-  }
-
-  if (hasBattery && batteryCharge + chargesToAdd === maxCharges - 1) {
-    return chargesToAdd + 1;
-  }
-
-  return chargesToAdd;
+  const chargesAwayFromMax = getChargesAwayFromMax(player, activeSlot);
+  const AAABatteryShouldApply = chargesToAdd === chargesAwayFromMax - 1;
+  return AAABatteryShouldApply ? chargesToAdd + 1 : chargesToAdd;
 }
 
 /**
@@ -229,6 +193,27 @@ export function addRoomClearCharges(bigRoomDoubleCharge = true): void {
   for (const player of getPlayers()) {
     addRoomClearCharge(player, bigRoomDoubleCharge);
   }
+}
+
+/**
+ * Helper function to get the amount of charges away from the maximum charge that a particular
+ * player is.
+ *
+ * This function accounts for The Battery. For example, if the player has 2/6 charges on a D6, this
+ * function will return 10 (because there are 4 charges remaining on the base charge and 6 charges
+ * remaining on The Battery charge).
+ */
+export function getChargesAwayFromMax(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+): int {
+  const totalCharge = getTotalCharge(player, activeSlot);
+  const activeItem = player.GetActiveItem(activeSlot);
+  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
+  const maxCharges = getCollectibleMaxCharges(activeItem);
+  const effectiveMaxCharges = hasBattery ? maxCharges * 2 : maxCharges;
+
+  return effectiveMaxCharges - totalCharge;
 }
 
 /**
