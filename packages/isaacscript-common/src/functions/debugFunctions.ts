@@ -1,4 +1,3 @@
-import { version } from "../../package.json";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { enableExtraConsoleCommands } from "../features/extraConsoleCommands/exports";
 import { removeFadeIn } from "../features/fadeInRemover";
@@ -31,15 +30,6 @@ export function enableDevFeatures(mod: ModUpgraded): void {
   enableExtraConsoleCommands(mod);
   enableFastReset();
   removeFadeIn();
-}
-
-/**
- * Helper function to get the current version of the `isaacscript-common` library, according to the
- * "package.json" file at the time of compilation. (The version is in the Semantic Versioning
- * format, e.g. "1.0.0".)
- */
-export function getIsaacScriptCommonVersion(): string {
-  return version;
 }
 
 /**
