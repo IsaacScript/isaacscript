@@ -39,6 +39,13 @@ information about using TypeScript, see the website: https://isaacscript.github.
 
 `;
 
+const LUA_LANGUAGE_SERVER_DISABLES = `
+---@diagnostic disable: deprecated
+---@diagnostic disable: lowercase-global
+`
+  .trim()
+  .concat("\n\n");
+
 const plugin: tstl.Plugin = {
   beforeEmit(
     _program: ts.Program,
@@ -47,7 +54,8 @@ const plugin: tstl.Plugin = {
     result: tstl.EmitFile[],
   ) {
     for (const file of result) {
-      file.code = `${INFORMATIONAL_HEADER}${file.code}`;
+      file.code =
+        INFORMATIONAL_HEADER + LUA_LANGUAGE_SERVER_DISABLES + file.code;
     }
   },
 };

@@ -30,6 +30,7 @@
  * enum Foo {
  *   Value1,
  * }
+ *
  * enum Foo {
  *   Value2,
  * }
@@ -51,12 +52,19 @@ const plugin: tstl.Plugin = {
       // Get the first element, which will be equal to something like:
       //
       // ```lua
+      // local Foo = Foo or ({})
+      // ```
+      //
+      // Or, if exported:
+      //
+      // ```lua
       // local ____exports.Foo = Foo or ({})
       // ```
       const oldDeclaration = statements[0];
       if (
         oldDeclaration !== undefined &&
-        tstl.isAssignmentStatement(oldDeclaration)
+        (tstl.isAssignmentStatement(oldDeclaration) ||
+          tstl.isVariableDeclarationStatement(oldDeclaration))
       ) {
         // Replace the right side of the assignment with a blank Lua table, e.g.
         //
