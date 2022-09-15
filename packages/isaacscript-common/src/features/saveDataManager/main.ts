@@ -182,6 +182,14 @@ function restoreGlowingHourGlassBackup() {
           continue;
         }
 
+        // Ignore child tables that the end-user has explicitly annotated.
+        const childTableLuaMap = childTable as LuaMap<AnyNotNil, unknown>;
+        if (
+          childTableLuaMap.has(SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_IGNORE_KEY)
+        ) {
+          continue;
+        }
+
         const saveDataGlowingHourGlass =
           saveDataGlowingHourGlassMap.get(subscriberName);
         if (saveDataGlowingHourGlass === undefined) {
