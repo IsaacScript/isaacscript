@@ -163,7 +163,12 @@ function makeGlowingHourGlassBackup() {
           );
         }
 
-        const copiedChildTable = deepCopy(childTable);
+        // We serialize the table so that we can use the `merge` function later on with no other
+        // modifications.
+        const copiedChildTable = deepCopy(
+          childTable,
+          SerializationType.SERIALIZE,
+        ) as Record<string, unknown>;
         saveDataGlowingHourGlass[saveDataKey] = copiedChildTable;
       }
     },

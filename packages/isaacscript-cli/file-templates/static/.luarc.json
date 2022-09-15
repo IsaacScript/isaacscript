@@ -141,9 +141,11 @@
     "ModConfigMenu",
     "MinimapAPI",
     "StageAPI",
-    "sandboxTraceback",
+    "g",
+    "gd",
+    "getParentFunctionDescription",
     "sandboxGetTraceback",
-    "getParentFunctionDescription"
+    "sandboxTraceback"
   ],
   "preloadFileSize": 5000,
   "runtime.version": "Lua 5.3"

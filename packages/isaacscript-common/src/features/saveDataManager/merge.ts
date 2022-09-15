@@ -59,23 +59,28 @@ export function merge(
 
   // First, handle the special case of an array with a shallow copy.
   if (isArray(oldObject) && isArray(newTable)) {
-    mergeArray(oldObject, newTable);
+    mergeSerializedArray(oldObject, newTable, traversalDescription);
     return;
   }
 
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object, we need to
   // iterate in a specific way.
   if (isTSTLMap(oldObject) || isTSTLSet(oldObject) || isDefaultMap(oldObject)) {
-    mergeTSTLObject(oldObject, newTable, traversalDescription);
+    mergeSerializedTSTLObject(oldObject, newTable, traversalDescription);
   } else {
-    mergeTable(oldObject, newTable, traversalDescription);
+    mergeSerializedTable(oldObject, newTable, traversalDescription);
   }
 }
 
-function mergeArray(
+function mergeSerializedArray(
   oldArray: LuaMap<AnyNotNil, unknown>,
   newArray: LuaMap<AnyNotNil, unknown>,
+  traversalDescription: string,
 ) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log(`merge encountered an array: ${traversalDescription}`);
+  }
+
   // Assume that we should blow away all array values with whatever is present in the incoming
   // array.
   clearTable(oldArray);
@@ -88,11 +93,15 @@ function mergeArray(
   );
 }
 
-function mergeTSTLObject(
+function mergeSerializedTSTLObject(
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log(`merge encountered a TSTL object: ${traversalDescription}`);
+  }
+
   // We blow away the old object and recursively copy over all of the incoming values.
   oldObject.clear();
 
@@ -139,11 +148,15 @@ function mergeTSTLObject(
   );
 }
 
-function mergeTable(
+function mergeSerializedTable(
   oldTable: LuaMap<AnyNotNil, unknown>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
 ) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log(`merge encountered a Lua table: ${traversalDescription}`);
+  }
+
   iterateTableInOrder(
     newTable,
     (key, value) => {
