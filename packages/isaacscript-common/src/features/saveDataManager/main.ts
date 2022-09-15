@@ -18,8 +18,10 @@ import { loadFromDisk } from "./load";
 import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
+  saveDataGlowingHourGlassMap,
   saveDataMap,
 } from "./maps";
+import { merge } from "./merge";
 import { saveToDisk } from "./save";
 
 const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
@@ -30,6 +32,7 @@ const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
 
 let mod: ModUpgraded | null = null;
 let loadedDataOnThisRun = false;
+let restoreGlowingHourGlassDataOnNextRoom = false;
 
 export function saveDataManagerInit(incomingMod: ModUpgraded): void {
   mod = incomingMod;
@@ -51,13 +54,8 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
 // ModCallback.POST_USE_ITEM (3)
 // CollectibleType.GLOWING_HOUR_GLASS (422)
 function postUseItemGlowingHourGlass() {
-  restoreGlowingHourGlassBackups();
-
+  restoreGlowingHourGlassDataOnNextRoom = true;
   return undefined;
-}
-
-function restoreGlowingHourGlassBackups() {
-  // TODO
 }
 
 // ModCallback.POST_PLAYER_INIT (9)
@@ -124,9 +122,15 @@ function postNewLevel() {
 
 // ModCallbackCustom.POST_NEW_ROOM_EARLY
 function postNewRoomEarly() {
-  makeGlowingHourGlassBackup();
-
   restoreDefaults(SaveDataKey.ROOM);
+
+  // Handle the Glowing Hour Glass.
+  if (restoreGlowingHourGlassDataOnNextRoom) {
+    restoreGlowingHourGlassDataOnNextRoom = false;
+    restoreGlowingHourGlassBackup();
+  } else {
+    makeGlowingHourGlassBackup();
+  }
 }
 
 function makeGlowingHourGlassBackup() {
@@ -134,6 +138,56 @@ function makeGlowingHourGlassBackup() {
     saveDataMap,
     (subscriberName, saveData) => {
       for (const saveDataKey of SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+        const childTable = saveData[saveDataKey];
+        if (childTable === undefined) {
+          // This feature does not happen to store any variables on this particular child table.
+          continue;
+        }
+
+        let saveDataGlowingHourGlass =
+          saveDataGlowingHourGlassMap.get(subscriberName);
+        if (saveDataGlowingHourGlass === undefined) {
+          saveDataGlowingHourGlass = new LuaMap<string, unknown>() as SaveData;
+        }
+
+        const copiedChildTable = deepCopy(childTable);
+        saveDataGlowingHourGlass[saveDataKey] = copiedChildTable;
+      }
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
+}
+
+function restoreGlowingHourGlassBackup() {
+  iterateTableInOrder(
+    saveDataMap,
+    (subscriberName, saveData) => {
+      for (const saveDataKey of SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+        const childTable = saveData[saveDataKey];
+        if (childTable === undefined) {
+          // This feature does not happen to store any variables on this particular child table.
+          continue;
+        }
+
+        const saveDataGlowingHourGlass =
+          saveDataGlowingHourGlassMap.get(subscriberName);
+        if (saveDataGlowingHourGlass === undefined) {
+          // This should never happen.
+          continue;
+        }
+
+        const childTableBackup = saveDataGlowingHourGlass[saveDataKey];
+        if (childTableBackup === undefined) {
+          // This should never happen.
+          continue;
+        }
+
+        merge(
+          childTable as LuaMap<AnyNotNil, unknown>,
+          childTableBackup as LuaMap<AnyNotNil, unknown>,
+          // Append an arbitrary suffix for better error messages.
+          `${subscriberName}__glowingHourGlass`,
+        );
       }
     },
     SAVE_DATA_MANAGER_DEBUG,

@@ -7,7 +7,7 @@ import { SaveData } from "../../interfaces/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
-} from "./saveDataManagerConstants";
+} from "./constants";
 
 export function saveToDisk(
   mod: Mod,

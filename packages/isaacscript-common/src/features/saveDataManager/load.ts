@@ -3,11 +3,11 @@ import { log, logError } from "../../functions/log";
 import { iterateTableInOrder } from "../../functions/table";
 import { isString, isTable } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
-import { merge } from "./merge";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
-} from "./saveDataManagerConstants";
+} from "./constants";
+import { merge } from "./merge";
 
 const DEFAULT_MOD_DATA = "{}";
 
@@ -31,33 +31,37 @@ export function loadFromDisk(
   // Second, iterate over all the fields of the new table.)
   iterateTableInOrder(
     newSaveData,
-    (key, value) => {
+    (subscriberName, saveData) => {
       // All elements of loaded save data should have keys that are strings equal to the name of the
       // subscriber/feature. Ignore elements with other types of keys.
-      if (!isString(key)) {
+      if (!isString(subscriberName)) {
         return;
       }
 
       // All elements of loaded save data should be tables that contain fields corresponding to the
-      // SaveData interface. Ignore elements that are not tables.
-      if (!isTable(value)) {
+      // `SaveData` interface. Ignore elements that are not tables.
+      if (!isTable(saveData)) {
         return;
       }
 
       // Ignore elements that represent subscriptions that no longer exist in the current save data.
-      const oldSaveDataForSubscriber = oldSaveData.get(key);
+      const oldSaveDataForSubscriber = oldSaveData.get(subscriberName);
       if (oldSaveDataForSubscriber === undefined) {
         return;
       }
 
       if (SAVE_DATA_MANAGER_DEBUG) {
-        log(`Merging in stored data for feature: ${key}`);
+        log(`Merging in stored data for feature: ${subscriberName}`);
       }
 
       // We do not want to blow away the child tables of the existing map, because save data could
       // contain out-of-date fields. Instead, merge it one field at a time in a recursive way (and
       // convert Lua tables back to TypeScriptToLua Maps, if necessary).
-      merge(oldSaveDataForSubscriber as LuaMap<AnyNotNil, unknown>, value, key);
+      merge(
+        oldSaveDataForSubscriber as LuaMap<AnyNotNil, unknown>,
+        saveData,
+        subscriberName,
+      );
     },
     SAVE_DATA_MANAGER_DEBUG,
   );

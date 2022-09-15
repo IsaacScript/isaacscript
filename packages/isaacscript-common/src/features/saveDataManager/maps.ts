@@ -9,4 +9,9 @@ export const saveDataMap = new LuaMap<string, SaveData>();
 
 export const saveDataDefaultsMap = new LuaMap<string, SaveData>();
 export const saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
+
+/**
+ * We backup some save data keys on every new room for the purposes of restoring it when Glowing
+ * Hour Glass is used.
+ */
 export const saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();

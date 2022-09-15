@@ -88,9 +88,14 @@ import {
  * data manager cannot do this on its own because it cannot know when your mod features are finished
  * initializing.)
  *
- * Finally, some features may have variables that need to be automatically reset per run/level, but
- * not saved to disk on game exit. (For example, if they contain functions or other non-serializable
- * data.) For these cases, set the second argument to `() => false`.
+ * Some features may have variables that need to be automatically reset per run/level, but not saved
+ * to disk on game exit. (For example, if they contain functions or other non-serializable data.)
+ * For these cases, set the second argument to `() => false`.
+ *
+ * Note that when the player uses Glowing Hour Glass, the save data manager will automatically
+ * restore any variables on a "run" or "level" object with a backup that was created when the room
+ * was entered. Thus, you should not have to explicitly program support for Glowing Hour Glass into
+ * your mod features that use the save data manager.
  *
  * @param key The name of the file or feature that is submitting data to be managed by the save data
  *            manager. The save data manager will throw an error if the key is already registered.
