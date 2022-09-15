@@ -491,17 +491,19 @@ export function inStartingRoom(): boolean {
  *                           checked. Undefined by default.
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
-  const roomTypeWhitelist =
-    onlyCheckRoomTypes === undefined ? undefined : new Set(onlyCheckRoomTypes);
   const rooms = getRoomsInsideGrid();
-  const matchingRooms =
-    roomTypeWhitelist === undefined
-      ? rooms
-      : rooms.filter(
-          (roomDescriptor) =>
-            roomDescriptor.Data !== undefined &&
-            roomTypeWhitelist.has(roomDescriptor.Data.Type),
-        );
+
+  let matchingRooms: RoomDescriptor[];
+  if (onlyCheckRoomTypes === undefined) {
+    matchingRooms = rooms;
+  } else {
+    const roomTypeWhitelist = new Set(onlyCheckRoomTypes);
+    matchingRooms = rooms.filter(
+      (roomDescriptor) =>
+        roomDescriptor.Data !== undefined &&
+        roomTypeWhitelist.has(roomDescriptor.Data.Type),
+    );
+  }
 
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
 }
