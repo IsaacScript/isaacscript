@@ -85,6 +85,8 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   // Perform the steps to link to a development version of "isaacscript-common", if necessary.
   if (config.isaacScriptCommonDev === true) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
+  } else {
+    warnIfIsaacScriptCommonLinkExists(CWD, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
@@ -198,6 +200,26 @@ function linkDevelopmentIsaacScriptCommon(
     false,
     projectPath,
   );
+}
+
+function warnIfIsaacScriptCommonLinkExists(
+  projectPath: string,
+  verbose: boolean,
+) {
+  const isaacScriptCommonPath = path.join(
+    projectPath,
+    "node_modules",
+    "isaacscript-common",
+  );
+  if (!file.exists(isaacScriptCommonPath, verbose)) {
+    return;
+  }
+
+  if (file.isLink(isaacScriptCommonPath, verbose)) {
+    console.warn(
+      'Warning: Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file.',
+    );
+  }
 }
 
 function spawnModDirectorySyncer(config: Config) {
