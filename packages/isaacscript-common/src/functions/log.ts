@@ -362,9 +362,12 @@ export function logTable(luaTable: unknown, parentTables = 0): void {
   const indentation = " ".repeat(numSpaces);
 
   if (!isTable(luaTable)) {
-    // Put it in an IIFE so that the it will show as "func" instead of "logTable" and align with the
-    // other text.
-    (() => {
+    // Put it in an IIFE so that it will show as "func" instead of "logTable" and align with the
+    // other text. We have to use a non-arrow function to prevent Lua language server errors with
+    // the self argument.
+    /** @noSelf */
+    // eslint-disable-next-line func-names
+    (function () {
       log(
         `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
       );
@@ -391,9 +394,12 @@ export function logTable(luaTable: unknown, parentTables = 0): void {
     numElements++;
   });
 
-  // Put it in an IIFE so that the it will show as "func" instead of "logTable" and align with the
-  // other text.
-  (() => {
+  // Put it in an IIFE so that it will show as "func" instead of "logTable" and align with the other
+  // text. We have to use a non-arrow function to prevent Lua language server errors with the self
+  // argument.
+  /** @noSelf */
+  // eslint-disable-next-line func-names
+  (function () {
     log(`${indentation}The size of the table was: ${numElements}`);
   })();
 }
