@@ -12,6 +12,7 @@ gsub # String method
 ipairs # Global
 linedefined # Debug library word
 loadfile # Global
+luarc # Configuration file for the Lua language server
 metatable
 metatables
 pcall # Global
