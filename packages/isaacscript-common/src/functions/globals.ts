@@ -1,4 +1,4 @@
-import { isLuaDebugEnabled } from "./debug";
+import { isLuaDebugEnabled } from "./debugFunctions";
 import { log } from "./log";
 import { addSetsToSet, copySet } from "./set";
 import { twoDimensionalSort } from "./utils";

@@ -1,4 +1,4 @@
-import { getTraceback, isLuaDebugEnabled } from "./functions/debug";
+import { getTraceback, isLuaDebugEnabled } from "./functions/debugFunctions";
 
 declare let error: ErrorFunction;
 declare let __PATCHED_ERROR: boolean | undefined; // eslint-disable-line

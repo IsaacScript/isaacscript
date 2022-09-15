@@ -79,7 +79,7 @@
     "src/functions/collectibleTag.ts",
     "src/functions/color.ts",
     "src/functions/curses.ts",
-    "src/functions/debug.ts",
+    "src/functions/debugFunctions.ts",
     "src/functions/deepCopy.ts",
     "src/functions/deepCopyTests.ts",
     "src/functions/dimensions.ts",
