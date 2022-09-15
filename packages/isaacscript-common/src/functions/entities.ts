@@ -9,6 +9,17 @@ import { isRNG, newRNG } from "./rng";
 import { asNumber, isPrimitive } from "./types";
 import { isVector, vectorToString } from "./vector";
 
+/** From DeadInfinity. */
+const DAMAGE_FLASH_COLOR: Readonly<Color> = Color(
+  0.5,
+  0.5,
+  0.5,
+  1.0,
+  200 / 255,
+  0 / 255,
+  0 / 255,
+);
+
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
  * `Isaac.CountEntities` method to avoid having to specify a spawner and to handle ignoring charmed
@@ -402,6 +413,15 @@ export function rerollEnemy(entity: Entity): Entity | undefined {
   }
 
   return filteredNewEntities[0];
+}
+
+/**
+ * Helper function to make an entity flash red like it is taking damage. This is useful when you
+ * want to make it appear as if an entity is taking damage without actually dealing any damage to
+ * it.
+ */
+export function setEntityDamageFlash(entity: Entity): void {
+  entity.SetColor(DAMAGE_FLASH_COLOR, 2, 0);
 }
 
 export function setEntityRandomColor(entity: Entity): void {
