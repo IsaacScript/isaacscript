@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
+import { LUA_LANGUAGE_SERVER_DISABLES } from "./constants";
 
 const cwd = process.cwd();
 const packageJSONPath = path.join(cwd, "package.json");
@@ -38,13 +39,6 @@ information about using TypeScript, see the website: https://isaacscript.github.
 --]]
 
 `;
-
-const LUA_LANGUAGE_SERVER_DISABLES = `
----@diagnostic disable: deprecated
----@diagnostic disable: lowercase-global
-`
-  .trim()
-  .concat("\n\n");
 
 const plugin: tstl.Plugin = {
   beforeEmit(

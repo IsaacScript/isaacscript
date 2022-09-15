@@ -492,10 +492,10 @@ export function inStartingRoom(): boolean {
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const roomTypeWhitelist =
-    onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
+    onlyCheckRoomTypes === undefined ? undefined : new Set(onlyCheckRoomTypes);
   const rooms = getRoomsInsideGrid();
   const matchingRooms =
-    roomTypeWhitelist === null
+    roomTypeWhitelist === undefined
       ? rooms
       : rooms.filter(
           (roomDescriptor) =>
