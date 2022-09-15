@@ -13,3 +13,6 @@ export const SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS = [
   SaveDataKey.RUN,
   SaveDataKey.LEVEL,
 ];
+
+export const SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_IGNORE_KEY =
+  "__ignoreGlowingHourGlass";

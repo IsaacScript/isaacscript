@@ -13,6 +13,7 @@ import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
   SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS,
+  SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_IGNORE_KEY,
 } from "./constants";
 import { loadFromDisk } from "./load";
 import {
@@ -144,10 +145,22 @@ function makeGlowingHourGlassBackup() {
           continue;
         }
 
+        // Ignore child tables that the end-user has explicitly annotated.
+        const childTableLuaMap = childTable as LuaMap<AnyNotNil, unknown>;
+        if (
+          childTableLuaMap.has(SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_IGNORE_KEY)
+        ) {
+          continue;
+        }
+
         let saveDataGlowingHourGlass =
           saveDataGlowingHourGlassMap.get(subscriberName);
         if (saveDataGlowingHourGlass === undefined) {
           saveDataGlowingHourGlass = new LuaMap<string, unknown>() as SaveData;
+          saveDataGlowingHourGlassMap.set(
+            subscriberName,
+            saveDataGlowingHourGlass,
+          );
         }
 
         const copiedChildTable = deepCopy(childTable);
