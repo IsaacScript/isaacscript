@@ -7,10 +7,7 @@ import {
   getScreenTopCenterPos,
 } from "../../functions/ui";
 import { CustomStage } from "../../interfaces/private/CustomStage";
-import {
-  UIStreakAnimation,
-  UI_STREAK_ANIMATION_END_FRAMES,
-} from "./customStageConstants";
+import { UIStreakAnimation, UI_STREAK_ANIMATION_END_FRAMES } from "./constants";
 import v from "./v";
 
 /** This must match the name of the shader in "shaders.xml". */

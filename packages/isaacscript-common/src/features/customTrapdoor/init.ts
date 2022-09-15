@@ -25,7 +25,7 @@ import {
   CUSTOM_TRAPDOOR_FEATURE_NAME,
   GridEntityTypeCustom,
   PIXELATION_TO_BLACK_FRAMES,
-} from "./customTrapdoorConstants";
+} from "./constants";
 import { checkCustomTrapdoorOpenClose } from "./openClose";
 import { checkCustomTrapdoorPlayerTouched } from "./touched";
 import v from "./v";

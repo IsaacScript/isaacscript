@@ -8,7 +8,7 @@ import {
   TRAPDOOR_BOSS_REACTION_FRAMES,
   TRAPDOOR_OPEN_DISTANCE,
   TRAPDOOR_OPEN_DISTANCE_AFTER_BOSS,
-} from "./customTrapdoorConstants";
+} from "./constants";
 
 export function checkCustomTrapdoorOpenClose(
   gridEntity: GridEntity,

@@ -24,7 +24,7 @@ import { runNextGameFrame } from "../runInNFrames";
 import {
   CUSTOM_STAGE_FEATURE_NAME,
   ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
-} from "./customStageConstants";
+} from "./constants";
 import {
   CUSTOM_FLOOR_STAGE,
   CUSTOM_FLOOR_STAGE_TYPE,

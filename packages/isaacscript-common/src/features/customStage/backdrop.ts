@@ -17,7 +17,7 @@ import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
 import { removeCharactersBefore, trimPrefix } from "../../functions/string";
 import { erange, irange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/private/CustomStage";
-import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./customStageConstants";
+import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 enum BackdropKind {
   /** The "N" stands for narrow rooms. */

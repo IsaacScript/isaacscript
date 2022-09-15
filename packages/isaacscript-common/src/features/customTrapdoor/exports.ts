@@ -2,7 +2,7 @@ import { LevelStage, StageType } from "isaac-typescript-definitions";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { getNextStage, getNextStageType } from "../../functions/nextStage";
 import { CustomTrapdoorDestination } from "../../interfaces/private/CustomTrapdoorDestination";
-import { CUSTOM_TRAPDOOR_FEATURE_NAME } from "./customTrapdoorConstants";
+import { CUSTOM_TRAPDOOR_FEATURE_NAME } from "./constants";
 import { spawnCustomTrapdoorToDestination } from "./spawn";
 
 /**

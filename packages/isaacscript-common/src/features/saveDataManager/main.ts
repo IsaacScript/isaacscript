@@ -9,6 +9,11 @@ import { logError } from "../../functions/log";
 import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
+import {
+  SAVE_DATA_MANAGER_DEBUG,
+  SAVE_DATA_MANAGER_FEATURE_NAME,
+  SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS,
+} from "./constants";
 import { loadFromDisk } from "./load";
 import {
   saveDataConditionalFuncMap,
@@ -16,10 +21,6 @@ import {
   saveDataMap,
 } from "./maps";
 import { saveToDisk } from "./save";
-import {
-  SAVE_DATA_MANAGER_DEBUG,
-  SAVE_DATA_MANAGER_FEATURE_NAME,
-} from "./saveDataManagerConstants";
 
 const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
   SaveDataKey.RUN,
@@ -50,7 +51,13 @@ export function saveDataManagerInit(incomingMod: ModUpgraded): void {
 // ModCallback.POST_USE_ITEM (3)
 // CollectibleType.GLOWING_HOUR_GLASS (422)
 function postUseItemGlowingHourGlass() {
+  restoreGlowingHourGlassBackups();
+
   return undefined;
+}
+
+function restoreGlowingHourGlassBackups() {
+  // TODO
 }
 
 // ModCallback.POST_PLAYER_INIT (9)
@@ -117,7 +124,20 @@ function postNewLevel() {
 
 // ModCallbackCustom.POST_NEW_ROOM_EARLY
 function postNewRoomEarly() {
+  makeGlowingHourGlassBackup();
+
   restoreDefaults(SaveDataKey.ROOM);
+}
+
+function makeGlowingHourGlassBackup() {
+  iterateTableInOrder(
+    saveDataMap,
+    (subscriberName, saveData) => {
+      for (const saveDataKey of SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+      }
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
 }
 
 function restoreDefaultsAll() {

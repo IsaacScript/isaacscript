@@ -9,3 +9,4 @@ export const saveDataMap = new LuaMap<string, SaveData>();
 
 export const saveDataDefaultsMap = new LuaMap<string, SaveData>();
 export const saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
+export const saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();

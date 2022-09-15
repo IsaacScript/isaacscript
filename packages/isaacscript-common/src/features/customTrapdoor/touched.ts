@@ -24,7 +24,7 @@ import {
   OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES,
   OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES,
   TRAPDOOR_TOUCH_DISTANCE,
-} from "./customTrapdoorConstants";
+} from "./constants";
 import v from "./v";
 
 export function checkCustomTrapdoorPlayerTouched(

@@ -6,7 +6,7 @@ import { isVector } from "../../functions/vector";
 import { CustomTrapdoorDescription } from "../../interfaces/private/CustomTrapdoorDescription";
 import { CustomTrapdoorDestination } from "../../interfaces/private/CustomTrapdoorDestination";
 import { spawnCustomGridEntity } from "../customGridEntity";
-import { GridEntityTypeCustom } from "./customTrapdoorConstants";
+import { GridEntityTypeCustom } from "./constants";
 import { shouldTrapdoorSpawnOpen } from "./openClose";
 import v from "./v";
 

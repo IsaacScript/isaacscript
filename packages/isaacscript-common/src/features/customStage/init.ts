@@ -17,7 +17,7 @@ import {
 import { CustomStage, RoomTypeMap } from "../../interfaces/private/CustomStage";
 import { saveDataManager } from "../saveDataManager/exports";
 import { setCustomStageBackdrop } from "./backdrop";
-import { CUSTOM_STAGE_FEATURE_NAME } from "./customStageConstants";
+import { CUSTOM_STAGE_FEATURE_NAME } from "./constants";
 import {
   convertVanillaTrapdoors,
   removeUrnRewards,
