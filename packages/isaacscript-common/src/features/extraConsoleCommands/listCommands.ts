@@ -67,7 +67,7 @@ import {
 import { HealthType } from "../../enums/HealthType";
 import { getCardName } from "../../functions/cards";
 import { getCharacterName } from "../../functions/characters";
-import { addCharge } from "../../functions/charge";
+import { addCharge, getTotalCharge } from "../../functions/charge";
 import { isValidCollectibleType } from "../../functions/collectibles";
 import { runDeepCopyTests } from "../../functions/deepCopyTests";
 import { getNPCs } from "../../functions/entitiesSpecific";
@@ -653,6 +653,26 @@ export function getChallenge(): void {
       ? `${challenge} (custom)`
       : `Challenge.${challengeName} (${challenge})`;
   printConsole(`The current challenge is: ${challengeDescription}`);
+}
+
+/** Prints the charge for the specified slot. By default, will use `ActiveSlot.PRIMARY`. */
+export function getCharge(params: string): void {
+  let activeSlot = ActiveSlot.PRIMARY;
+  if (params !== "") {
+    const num = tonumber(params) as ActiveSlot | undefined;
+    if (num === undefined) {
+      printConsole(`The provided slot number is invalid: ${params}`);
+      return;
+    }
+
+    activeSlot = num;
+  }
+
+  const player = Isaac.GetPlayer();
+  const totalCharge = getTotalCharge(player, activeSlot);
+  printConsole(
+    `Total charge for ActiveSlot.${ActiveSlot[activeSlot]} (${activeSlot}) is: ${totalCharge}`,
+  );
 }
 
 /** Prints the current position of all players. */
