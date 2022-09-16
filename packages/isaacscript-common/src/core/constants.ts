@@ -44,6 +44,8 @@ export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 /** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
 
+export const DOGMA_ROOM_GRID_INDEX = 109;
+
 export const DOOR_HITBOX_RADIUS = 11;
 
 /**
