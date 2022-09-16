@@ -185,7 +185,7 @@ The file size of the library is around 2 megabytes, so it will increase the tota
 
 ### Running Time
 
-A library's run-time is defined as the time it takes for its code to execute while the player is inside of the game. Just because a library has a large file size does not mean that it takes a long time to execute. Obviously, not all lines of code are created equal, and different kinds of code will take varying amounts of time to execute.
+A library's run-time is defined as the time it takes for its code to execute while the player is inside of the game, actively playing. Just because a library has a large file size does not mean that it takes a long time to execute. Obviously, not all lines of code are created equal, and different kinds of code will take varying amounts of time to execute.
 
 As [previously mentioned](#callback-and-extra-feature-usage), `isaacscript-common` will not cause any code to be executed in your mod by default. Thus, it has no run-time cost whatsoever if you are just using enums and pure functions.
 
