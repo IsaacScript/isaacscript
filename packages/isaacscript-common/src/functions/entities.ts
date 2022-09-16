@@ -1,6 +1,7 @@
 import { EntityType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
+import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
@@ -249,6 +250,17 @@ export function getFilteredNewEntities<T extends AnyEntity>(
     const ptrHash = GetPtrHash(entity);
     return !oldEntitiesSet.has(ptrHash);
   });
+}
+
+/**
+ * Helper function to see if a particular entity has armor. In this context, armor refers to the
+ * damage scaling mechanic. For example, Ultra Greed has armor, but a Gaper does not.
+ *
+ * For more on armor, see the wiki: https://bindingofisaacrebirth.fandom.com/wiki/Damage_Scaling
+ */
+export function hasArmor(entity: Entity): boolean {
+  const typeVariantString = `${entity.Type}.${entity.Variant}`;
+  return ENTITIES_WITH_ARMOR_SET.has(typeVariantString);
 }
 
 /**

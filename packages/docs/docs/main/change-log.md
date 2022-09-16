@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
   - `isTearFromPlayer`
   - `isTearFromFamiliar`
   - `setEntityDamageFlash`
+  - `hasArmor`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
 - Added the following custom commands:
