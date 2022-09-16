@@ -10,7 +10,7 @@ import { copyVector } from "./vector";
  *
  * For example:
  * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
- * - If the user has a HUD offset of 1.0 configured, this function will return 10
+ * - If the user has a HUD offset of 1.0 configured, this function will return `Vector(20, 12)`.
  */
 export function getHUDOffsetVector(): Vector {
   // Convert e.g. 0.4 to 4.
