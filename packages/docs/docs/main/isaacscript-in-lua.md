@@ -171,7 +171,7 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 ## The IsaacScript Stage Library
 
-The IsaacScript standard library contains [the most advanced stage library ever created](custom-stages.md), building on [the failures of StageAPI](custom-stages.md#motivation).
+The IsaacScript standard library contains [the most advanced stage library ever created](custom-stages.md), building on [the downsides of StageAPI](custom-stages.md#motivation).
 
 <!-- cspell:ignore setcustomstage -->
 
@@ -217,7 +217,7 @@ In order to further drive home the point that mod file size is irrelevant, consi
 
 ### Minification
 
-It is possible to reduce the file size of the library by using a [Lua minifier](https://www.npmjs.com/package/isaacscript-common). However, it is not recommended to do this, because it will not affect the run-time speed of your mod. (The file size of your mod is largely irrelevant; see the previous sections.) Furthermore, minification is actively harmful since it will obfuscate the line numbers of your run-time errors. (Run-time errors are mostly non-existent if you use TypeScript, but they happen a ton in Lua.)
+It is possible to reduce the file size of the library by using a [Lua minifier](https://www.npmjs.com/package/isaacscript-common). However, it is not recommended to do this, because it will not improve the run-time speed of your mod. (The file size of your mod is largely irrelevant; see the previous sections.) Furthermore, minification is actively harmful since it will obfuscate the line numbers of your run-time errors. (Run-time errors are mostly non-existent if you use TypeScript, but they happen a ton in Lua.)
 
 ## TypeScript
 
