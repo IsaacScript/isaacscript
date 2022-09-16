@@ -217,7 +217,9 @@ In order to further drive home the point that mod file size does not matter, con
 
 ### Minification
 
-It is possible to reduce the file size of the library by using a [Lua minifier](https://www.npmjs.com/package/isaacscript-common). However, it is not recommended to do this, because it will not improve the run-time speed of your mod. (The whole point of minification is to just reduce the file size of the mod, and doing so is near-pointless, as the previous sections have explained.) Furthermore, minification is actively harmful since it will obfuscate the line numbers of your run-time errors. (Run-time errors are mostly non-existent if you use TypeScript, but they happen a ton in Lua.)
+It is possible to reduce the file size of the library by using a [Lua minifier](https://www.npmjs.com/package/isaacscript-common). However, it is not recommended to do this, because it will not improve the run-time speed of your mod. (The whole point of minification is to reduce the file size of the mod, but doing that is near-pointless, as the previous sections have established.)
+
+Furthermore, minification is actively harmful since it will obfuscate the line numbers of your run-time errors. (Run-time errors are mostly non-existent if you use TypeScript, but they happen a ton in Lua.)
 
 ## TypeScript
 
