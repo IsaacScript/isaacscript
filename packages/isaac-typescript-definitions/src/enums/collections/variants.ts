@@ -449,7 +449,7 @@ export enum ClottyVariant {
 
 /** For `EntityType.MULLIGAN` (16). */
 export enum MulliganVariant {
-  MULLIGAN = 16,
+  MULLIGAN = 0,
   MULLIGOON = 1,
   MULLIBOOM = 2,
 }
