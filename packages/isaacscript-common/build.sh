@@ -28,6 +28,7 @@ LUA_INDEX="$DIR/src/indexLua.ts"
 cp "$DIR/src/index.ts" "$LUA_INDEX"
 echo "export * from \"isaac-typescript-definitions\";" >> "$LUA_INDEX"
 npx tstl --project tsconfig.bundle.json
+rm -f "$LUA_INDEX"
 
 # Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
 npx tstl
