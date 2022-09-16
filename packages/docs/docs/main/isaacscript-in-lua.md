@@ -213,7 +213,7 @@ How much does 0.3 seconds matter? That depends on your much you value sub-second
 
 Note that for many mods, the size of your assets (e.g. sprite files, sound files, music files, room files) will vastly outweigh the size of all of your code. For example, [Racing+](https://isaacracing.net/) has 1.9 megabytes of code and a 384 megabyte "resources" folder. So it's a waste of time in this case to worry about the size of code.
 
-In order to further drive home the point that mod file size is irrelevant, consider that the most popular Repentance mod of all time is [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2851063440), which clocks in at around 581 megabytes. That is several orders of magnitude larger than `isaacscript-common`, and virtually no-one in the Isaac ecosystem cares.
+In order to further drive home the point that mod file size is irrelevant, consider that the most popular Repentance mod of all time is [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2851063440), which clocks in at around 581 megabytes. That is several orders of magnitude larger than the standard library, and yet virtually no-one in the Isaac ecosystem cares.
 
 ### Minification
 
