@@ -221,6 +221,6 @@ It is possible to reduce the file size of the library by using a [Lua minifier](
 
 ## TypeScript
 
-If you find the IsaacScript library useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience that has to be seen to be believed.
+If you find the IsaacScript standard library useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience that has to be seen to be believed.
 
 For more information, see the [list of features](features.md). (If you don't know how to program in TypeScript, then you can learn in just [30 minutes](javascript-tutorial.md).)
