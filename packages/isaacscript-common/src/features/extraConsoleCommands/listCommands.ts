@@ -53,7 +53,10 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../../core/cachedClasses";
-import { MAX_LEVEL_GRID_INDEX } from "../../core/constants";
+import {
+  DOGMA_ROOM_GRID_INDEX,
+  MAX_LEVEL_GRID_INDEX,
+} from "../../core/constants";
 import {
   FIRST_CARD_TYPE,
   FIRST_CHARACTER,
@@ -581,6 +584,12 @@ export function dirtyBedroom(): void {
 export function disableCurses(): void {
   v.persistent.disableCurses = !v.persistent.disableCurses;
   printEnabled(!v.persistent.disableCurses, "curses");
+}
+
+/** Warps to the Dogma Boss Room. */
+export function dogma(): void {
+  setStage(LevelStage.HOME, StageType.WRATH_OF_THE_LAMB);
+  changeRoom(DOGMA_ROOM_GRID_INDEX);
 }
 
 /** Moves the player 0.5 units down. Provide a number to move a custom amount of units. */
