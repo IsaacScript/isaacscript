@@ -90,7 +90,7 @@ import {
  *
  * Some features may have variables that need to be automatically reset per run/level, but not saved
  * to disk on game exit. (For example, if they contain functions or other non-serializable data.)
- * For these cases, set the second argument to `() => false`.
+ * For these cases, set the second argument to `false`.
  *
  * Note that when the player uses Glowing Hour Glass, the save data manager will automatically
  * restore any variables on a "run" or "level" object with a backup that was created when the room

@@ -138,6 +138,18 @@ function makeGlowingHourGlassBackup() {
   iterateTableInOrder(
     saveDataMap,
     (subscriberName, saveData) => {
+      // We make the Glowing Hour Glass backup using `SerializationType.SERIALIZE`, which means that
+      // we cannot operate on unserializable data, such as functions. Save data that utilizes
+      // unserializable data will typically be marked using a conditional function that evaluates to
+      // false, so we skip all save data that matches this criteria.
+      const conditionalFunc = saveDataConditionalFuncMap.get(subscriberName);
+      if (conditionalFunc !== undefined) {
+        const shouldSave = conditionalFunc();
+        if (!shouldSave) {
+          return;
+        }
+      }
+
       for (const saveDataKey of SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS) {
         const childTable = saveData[saveDataKey];
         if (childTable === undefined) {
@@ -180,6 +192,18 @@ function restoreGlowingHourGlassBackup() {
   iterateTableInOrder(
     saveDataMap,
     (subscriberName, saveData) => {
+      // We make the Glowing Hour Glass backup using `SerializationType.SERIALIZE`, which means that
+      // we cannot operate on unserializable data, such as functions. Save data that utilizes
+      // unserializable data will typically be marked using a conditional function that evaluates to
+      // false, so we skip all save data that matches this criteria.
+      const conditionalFunc = saveDataConditionalFuncMap.get(subscriberName);
+      if (conditionalFunc !== undefined) {
+        const shouldSave = conditionalFunc();
+        if (!shouldSave) {
+          return;
+        }
+      }
+
       for (const saveDataKey of SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS) {
         const childTable = saveData[saveDataKey];
         if (childTable === undefined) {

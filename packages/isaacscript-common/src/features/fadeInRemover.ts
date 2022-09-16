@@ -16,7 +16,7 @@ const v = {
 
 /** @internal */
 export function fadeInRemoverInit(mod: Mod): void {
-  saveDataManager(FEATURE_NAME, v, () => false);
+  saveDataManager(FEATURE_NAME, v, false);
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
