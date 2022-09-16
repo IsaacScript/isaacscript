@@ -211,13 +211,13 @@ How much does 0.3 seconds matter? That depends on your much you value sub-second
 
 ### Other Assets
 
-Note that for many mods, the size of your assets (e.g. sprite files, sound files, music files, room files) will vastly outweigh the size of all of your code. For example, [Racing+](https://isaacracing.net/) has 1.9 megabytes of code and 384 megabytes of resources. So it's a waste of time in this case to worry about the size of code.
+Note that for many mods, the size of your assets (e.g. sprite files, sound files, music files, room files) will vastly outweigh the size of all of your code. So even if the file size of your code did matter (which it doesn't), it would quickly become more important to spend time and energy on reducing the file size of the assets instead of worrying about optimizing the code.
 
-In order to further drive home the point that mod file size does not matter, consider that the most popular Repentance mod of all time is [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2851063440), which clocks in at around 581 megabytes. That is several orders of magnitude larger than the standard library, and yet virtually no-one in the Isaac ecosystem cares.
+In order to further drive home this point home, consider that the most popular Repentance mod of all time is [Fiend Folio](https://steamcommunity.com/sharedfiles/filedetails/?id=2851063440), which clocks in at around 581 megabytes. That is **several orders of magnitude larger than the standard library**, and yet virtually no-one in the Isaac ecosystem cares.
 
 ### Minification
 
-It is possible to reduce the file size of the library by using a [Lua minifier](https://www.npmjs.com/package/isaacscript-common). However, it is not recommended to do this, because it will not improve the run-time speed of your mod. (The whole point of minification is to reduce the file size of the mod, but doing that is near-pointless, as the previous sections have established.)
+It is possible to reduce the file size of the library by using a [Lua minifier](https://www.npmjs.com/package/isaacscript-common). However, it is not recommended to do this, because it will not improve the run-time speed of your mod. (The whole point of minification is to reduce the file size of the mod, but doing that is near-pointless, as the previous four sections have established.)
 
 Furthermore, minification is actively harmful since it will obfuscate the line numbers of your run-time errors. (Run-time errors are mostly non-existent if you use TypeScript, but they happen a ton in Lua.)
 
