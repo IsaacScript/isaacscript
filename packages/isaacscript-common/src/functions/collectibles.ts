@@ -9,6 +9,7 @@ import {
   ItemType,
   PickupPrice,
   PickupVariant,
+  RenderMode,
   RoomType,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
@@ -408,12 +409,25 @@ export function isActiveCollectible(collectibleType: CollectibleType): boolean {
   return itemType === ItemType.ACTIVE;
 }
 
-/** Returns true if the collectible has a red question mark sprite. */
+/**
+ * Returns true if the collectible has a red question mark sprite.
+ *
+ * Note that this function will not work properly in a render callback with the `RenderMode` set to
+ * `RenderMode.WATER_REFLECT`. If this is detected, this function will throw a run-time error.
+ */
 export function isBlindCollectible(collectible: EntityPickup): boolean {
   if (!isCollectible(collectible)) {
     const entityID = getEntityID(collectible);
     error(
       `The "isBlindCollectible" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  const room = game.GetRoom();
+  const renderMode = room.GetRenderMode();
+  if (renderMode === RenderMode.WATER_REFLECT) {
+    error(
+      'The "isBlindCollectible" function will not work properly in a render callback with the render mode equal to "RenderMode.WATER_REFLECT". Make sure that you properly account for this case if you are calling this function in a render callback.',
     );
   }
 
