@@ -13,6 +13,8 @@ keyof
 leaderboard
 leaderboards
 licence
+mbps
+minifier
 minimalistic
 mkdir
 namespacing

@@ -6,13 +6,17 @@
     // We want the only output to be the bundled Lua file.
     "declaration": false,
     "declarationMap": false,
+
+    // We want to slightly reduce the file size of the output.
+    "removeComments": true,
   },
 
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
     "luaBundle": "isaacscript-common.lua", // Will bundle all output Lua files into a single file.
-    "luaBundleEntry": "./src/index.ts",
+    // Also exports everything from `isaac-typescript-definitions`
+    "luaBundleEntry": "./src/indexLua.ts",
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file (for
       // `isaacscript-common` specifically).

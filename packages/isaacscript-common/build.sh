@@ -21,11 +21,16 @@ rm -rf "$OUT_DIR"
 # API Extractor will make a "dist/tsdoc-metadata.json" file, which we don't need.
 rm -rf "$DIR/dist"
 
+# First, bundle the entire library into one file specifically for Lua consumers. We also include
+# `isaac-typescript-definitions` in the bundled exports so that Lua users do not have to consume two
+# separate libraries.
+LUA_INDEX="$DIR/src/indexLua.ts"
+cp "$DIR/src/index.ts" "$LUA_INDEX"
+echo "export * from \"isaac-typescript-definitions\";" >> "$LUA_INDEX"
+npx tstl --project tsconfig.bundle.json
+
 # Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
 npx tstl
-
-# Also bundle the entire library into one file, which makes it easier for Lua users to consume.
-npx tstl --project tsconfig.bundle.json
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
