@@ -17,6 +17,9 @@ This page lists the changes to the IsaacScript framework.
   - `isTearFromFamiliar`
   - `setEntityDamageFlash`
   - `hasArmor`
+  - `defaultMapGetHash`
+  - `defaultMapSetHash` (just an alias for `mapSetHash`)
+  - `mapSetHash`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
 - Added the following custom commands:
