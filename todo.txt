@@ -1,4 +1,4 @@
-- export isaac-typescript-definitions from isaacscript-common lua bundle
+- "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 
 

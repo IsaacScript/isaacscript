@@ -46,7 +46,7 @@ import {
   setGridEntityInvisible,
   spawnGridEntityWithVariant,
 } from "../functions/gridEntities";
-import { getRandomJSONRoom } from "../functions/jsonRoom";
+import { getRandomJSONEntity, getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
@@ -316,7 +316,7 @@ export function deployJSONRoom(
  *                what the function is doing. Default is false.
  */
 export function deployRandomJSONRoom(
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
+  jsonRooms: JSONRoom[],
   seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): void {
@@ -469,16 +469,9 @@ function spawnAllEntities(
       );
     }
 
-    if (jsonSpawn.entity.length > 1) {
-      error("Stacked entities are not implemented for JSON rooms.");
-    }
+    const jsonEntity = getRandomJSONEntity(jsonSpawn.entity);
 
-    const firstXMLEntity = jsonSpawn.entity[0];
-    if (firstXMLEntity === undefined) {
-      error('Failed to get the first JSON entity from an "entity" array.');
-    }
-
-    const entityTypeString = firstXMLEntity.$.type;
+    const entityTypeString = jsonEntity.$.type;
     const entityTypeNumber = tonumber(entityTypeString);
     if (entityTypeNumber === undefined) {
       error(
@@ -486,13 +479,13 @@ function spawnAllEntities(
       );
     }
 
-    const variantString = firstXMLEntity.$.variant;
+    const variantString = jsonEntity.$.variant;
     const variant = tonumber(variantString);
     if (variant === undefined) {
       error(`Failed to convert the entity variant to a number: ${variant}`);
     }
 
-    const subTypeString = firstXMLEntity.$.subtype;
+    const subTypeString = jsonEntity.$.subtype;
     const subType = tonumber(subTypeString);
     if (subType === undefined) {
       error(`Failed to convert the entity sub-type to a number: ${subType}`);
