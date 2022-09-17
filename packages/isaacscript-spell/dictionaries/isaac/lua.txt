@@ -3,6 +3,7 @@
 Brane # ZeroBrane Studio
 collectgarbage # Global
 dofile # Lua global
+emmylua # Lua language server
 getinfo # Debug library method
 getmetatable # Global
 getpeername # socket.lua
