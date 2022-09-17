@@ -1,3 +1,4 @@
+- registerHotkey --> setHotkey
 - "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 

@@ -6,7 +6,6 @@
 import {
   ActiveSlot,
   CollectibleType,
-  EffectVariant,
   EntityCollisionClass,
   EntityFlag,
   EntityGridCollisionClass,
@@ -26,22 +25,16 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { emptyArray } from "../functions/array";
 import {
+  getEntities,
   getEntityIDFromConstituents,
-  removeAllMatchingEntities,
   spawn,
   spawnWithSeed,
 } from "../functions/entities";
-import {
-  getNPCs,
-  removeAllBombs,
-  removeAllPickups,
-} from "../functions/entitiesSpecific";
 import { getEnumValues } from "../functions/enums";
 import {
   convertXMLGridEntityType,
   getAllGridIndexes,
   getGridEntities,
-  removeAllGridEntitiesExcept,
   removeGridEntity,
   setGridEntityInvisible,
   spawnGridEntityWithVariant,
@@ -51,7 +44,11 @@ import { log } from "../functions/log";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
-import { setRoomCleared, setRoomUncleared } from "../functions/rooms";
+import {
+  roomUpdateSafe,
+  setRoomCleared,
+  setRoomUncleared,
+} from "../functions/rooms";
 import { spawnCollectible } from "../functions/spawnCollectible";
 import { asCollectibleType, asNumber } from "../functions/types";
 import { JSONRoom } from "../interfaces/JSONRoomsFile";
@@ -67,10 +64,6 @@ interface PersistentEntityDescription {
 
 const FEATURE_NAME = "deployJSONRoom";
 
-const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
-  EntityType.DARK_ESAU,
-]);
-
 const PERSISTENT_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
   EntityType.WALL_HUGGER,
 ]);
@@ -79,6 +72,22 @@ const gridEntityXMLTypes = getEnumValues(GridEntityXMLType);
 const GRID_ENTITY_XML_TYPE_SET: ReadonlySet<number> = new Set(
   gridEntityXMLTypes,
 );
+
+const EMPTY_ROOM_BLACKLIST_ENTITY_SET: ReadonlySet<EntityType> = new Set([
+  EntityType.PLAYER, // 1
+  EntityType.TEAR, // 2
+  EntityType.FAMILIAR, // 3
+  EntityType.LASER, // 7
+  EntityType.KNIFE, // 8
+  EntityType.PROJECTILE, // 9
+  EntityType.DARK_ESAU, // 866
+]);
+
+const EMPTY_ROOM_BLACKLIST_GRID_ENTITY_SET: ReadonlySet<GridEntityType> =
+  new Set([
+    GridEntityType.WALL, // 15
+    GridEntityType.DOOR, // 16
+  ]);
 
 const v = {
   level: {
@@ -348,21 +357,10 @@ export function emptyRoom(fillWithDecorations: boolean): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
 
   const roomListIndex = getRoomListIndex();
-
   v.level.deployedRoomListIndexes.add(roomListIndex);
 
-  removeAllBombs(); // 4
-  removeAllPickups(); // 5
-  removeAllMatchingEntities(EntityType.SLOT); // 6
-  removeSpecificNPCs();
-  removeAllMatchingEntities(EntityType.EFFECT, EffectVariant.DEVIL);
-  removeAllMatchingEntities(EntityType.EFFECT, EffectVariant.ANGEL);
-
-  removeAllGridEntitiesExcept(
-    GridEntityType.WALL, // 15
-    GridEntityType.DOOR, // 16
-  );
-
+  emptyRoomEntities();
+  emptyRoomGridEntities();
   setRoomCleared();
 
   if (fillWithDecorations) {
@@ -371,35 +369,51 @@ export function emptyRoom(fillWithDecorations: boolean): void {
 }
 
 /**
- * We remove entities in the `POST_NEW_ROOM` callback instead of in the PreRoomEntitySpawn callback
- * so that they will not re-appear when we re-enter the room.
+ * We remove entities in the `POST_NEW_ROOM` callback instead of in the `PRE_ROOM_ENTITY_SPAWN`
+ * callback so that they will not re-appear when we re-enter the room.
  */
-function removeSpecificNPCs() {
+function emptyRoomEntities() {
   const room = game.GetRoom();
 
-  for (const npc of getNPCs()) {
-    if (NPC_TYPES_TO_NOT_REMOVE.has(npc.Type)) {
+  for (const entity of getEntities()) {
+    if (EMPTY_ROOM_BLACKLIST_ENTITY_SET.has(entity.Type)) {
       continue;
     }
 
     if (
-      npc.HasEntityFlags(EntityFlag.CHARM) ||
-      npc.HasEntityFlags(EntityFlag.FRIENDLY) ||
-      npc.HasEntityFlags(EntityFlag.PERSISTENT)
+      entity.HasEntityFlags(EntityFlag.CHARM) ||
+      entity.HasEntityFlags(EntityFlag.FRIENDLY) ||
+      entity.HasEntityFlags(EntityFlag.PERSISTENT)
     ) {
       continue;
     }
 
-    npc.ClearEntityFlags(EntityFlag.APPEAR);
-    npc.Remove();
+    entity.ClearEntityFlags(EntityFlag.APPEAR);
+    entity.Remove();
 
     // When fire places are removed, they will leave behind a "path" that will prevent future grid
     // entities from being spawned on the same tile. Thus, reset the path for this tile if this is a
     // fire place.
-    if (npc.Type === EntityType.FIREPLACE) {
-      const gridIndex = room.GetGridIndex(npc.Position);
+    if (entity.Type === EntityType.FIREPLACE) {
+      const gridIndex = room.GetGridIndex(entity.Position);
       room.SetGridPath(gridIndex, 0);
     }
+  }
+}
+
+function emptyRoomGridEntities() {
+  let removedOneOrMoreGridEntities = false;
+  for (const gridEntity of getGridEntities()) {
+    const gridEntityType = gridEntity.GetType();
+    if (EMPTY_ROOM_BLACKLIST_GRID_ENTITY_SET.has(gridEntityType)) {
+      continue;
+    }
+
+    removeGridEntity(gridEntity, false);
+    removedOneOrMoreGridEntities = true;
+  }
+  if (removedOneOrMoreGridEntities) {
+    roomUpdateSafe();
   }
 }
 
