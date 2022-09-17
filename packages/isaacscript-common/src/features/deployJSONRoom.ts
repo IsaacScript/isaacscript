@@ -36,6 +36,7 @@ import {
   removeAllBombs,
   removeAllPickups,
 } from "../functions/entitiesSpecific";
+import { getEnumValues } from "../functions/enums";
 import {
   convertXMLGridEntityType,
   getAllGridIndexes,
@@ -73,6 +74,11 @@ const NPC_TYPES_TO_NOT_REMOVE: ReadonlySet<EntityType> = new Set([
 const PERSISTENT_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
   EntityType.WALL_HUGGER,
 ]);
+
+const gridEntityXMLTypes = getEnumValues(GridEntityXMLType);
+const GRID_ENTITY_XML_TYPE_SET: ReadonlySet<number> = new Set(
+  gridEntityXMLTypes,
+);
 
 const v = {
   level: {
@@ -492,8 +498,8 @@ function spawnAllEntities(
       error(`Failed to convert the entity sub-type to a number: ${subType}`);
     }
 
-    // Note that XML entity type 1000 is a rock, not an effect.
-    if (entityTypeNumber >= 1000) {
+    const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(entityTypeNumber);
+    if (isGridEntity) {
       const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
       if (verbose) {
         log(
