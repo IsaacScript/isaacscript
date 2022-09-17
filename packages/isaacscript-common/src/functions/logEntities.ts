@@ -1,7 +1,15 @@
 import {
+  BombVariant,
   EffectVariant,
   EntityType,
+  FamiliarVariant,
   GridEntityType,
+  KnifeVariant,
+  LaserVariant,
+  PickupVariant,
+  PlayerVariant,
+  ProjectileVariant,
+  TearVariant,
 } from "isaac-typescript-definitions";
 import { getEntities, getEntityFromPtrHash, getEntityID } from "./entities";
 import { getGridEntities, getGridEntityID } from "./gridEntities";
@@ -137,27 +145,31 @@ function getEntityLogLine(entity: Entity, num?: int): string {
 
   const bomb = entity.ToBomb();
   if (bomb !== undefined) {
-    msg += " (bomb)";
+    msg += ` (bomb - BombVariant.${BombVariant[bomb.Variant]})`;
   }
 
   const effect = entity.ToEffect();
   if (effect !== undefined) {
-    msg += ` (effect) (State: ${effect.State})`;
+    msg += ` (effect - EffectVariant.${
+      EffectVariant[effect.Variant]
+    }) (State: ${effect.State})`;
   }
 
   const familiar = entity.ToFamiliar();
   if (familiar !== undefined) {
-    msg += ` (familiar) (State: ${familiar.State})`;
+    msg += ` (familiar - FamiliarVariant.${
+      FamiliarVariant[familiar.Variant]
+    }) (State: ${familiar.State})`;
   }
 
   const knife = entity.ToKnife();
   if (knife !== undefined) {
-    msg += " (knife)";
+    msg += ` (knife - KnifeVariant.${KnifeVariant[knife.Variant]})`;
   }
 
   const laser = entity.ToLaser();
   if (laser !== undefined) {
-    msg += " (laser)";
+    msg += ` (laser - LaserVariant.${LaserVariant[laser.Variant]})`;
   }
 
   const npc = entity.ToNPC();
@@ -167,22 +179,26 @@ function getEntityLogLine(entity: Entity, num?: int): string {
 
   const pickup = entity.ToPickup();
   if (pickup !== undefined) {
-    msg += ` (pickup) (State: ${pickup.State})`;
+    msg += ` (pickup - PickupVariant.${
+      PickupVariant[pickup.Variant]
+    }) (State: ${pickup.State})`;
   }
 
   const player = entity.ToPlayer();
   if (player !== undefined) {
-    msg += " (player)";
+    msg += ` (player - PlayerVariant.${PlayerVariant[player.Variant]})`;
   }
 
   const projectile = entity.ToProjectile();
   if (projectile !== undefined) {
-    msg += " (projectile)";
+    msg += ` (projectile - ProjectileVariant.${
+      ProjectileVariant[projectile.Variant]
+    }))`;
   }
 
   const tear = entity.ToTear();
   if (tear !== undefined) {
-    msg += " (tear)";
+    msg += ` (tear - TearVariant.${TearVariant[tear.Variant]}))`;
   }
 
   msg += "\n";
