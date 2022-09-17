@@ -100,16 +100,12 @@ export function getPreviousRoomDescription(): RoomDescription {
  * array.
  *
  * This is useful in the `POST_ENTITY_REMOVE` callback; see the `isLeavingRoom` function.
+ *
+ * Note that this function can return undefined in the case where it is called on the first room of
+ * the run.
  */
-export function getLatestRoomDescription(): RoomDescription {
-  const latestRoomDescription = getLastElement(v.run.roomHistory);
-  if (latestRoomDescription === undefined) {
-    error(
-      "Failed to get the latest room description since the room history array was empty.",
-    );
-  }
-
-  return latestRoomDescription;
+export function getLatestRoomDescription(): RoomDescription | undefined {
+  return getLastElement(v.run.roomHistory);
 }
 
 /**
@@ -119,12 +115,18 @@ export function getLatestRoomDescription(): RoomDescription {
  * in the room history array for the current room.)
  *
  * This function is intended to be used in the `POST_ENTITY_REMOVE` callback to detect when an
- * entity is pseudo-persistent entity such as a pickup is despawning.
+ * entity is despawning.
  */
 export function isLeavingRoom(): boolean {
   const roomListIndex = getRoomListIndex();
   const roomVisitedCount = getRoomVisitedCount();
   const latestRoomDescription = getLatestRoomDescription();
+
+  // Sometimes, this function can be called in situations where entities from the previous run are
+  // being despawned. If this is the case, then the room history will currently be empty.
+  if (latestRoomDescription === undefined) {
+    return false;
+  }
 
   return (
     roomListIndex !== latestRoomDescription.roomListIndex ||

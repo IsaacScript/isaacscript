@@ -114,6 +114,10 @@ function trackDespawningPickupMetadata(
   // The "latest" room description is really the previous room, because the `POST_NEW_ROOM` callback
   // was not fired yet.
   const previousRoomDescription = getLatestRoomDescription();
+  if (previousRoomDescription === undefined) {
+    return;
+  }
+
   const previousRoomListIndex = previousRoomDescription.roomListIndex;
   const pickupDescriptions = v.level.pickupData.getAndSetDefault(
     previousRoomListIndex,
