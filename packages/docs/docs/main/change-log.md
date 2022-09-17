@@ -22,6 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `mapSetHash`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
+  - `registerHotkey` --> `setHotkey`
 - Added the following custom commands:
   - `transformation`
   - `playerForm` (alias for `transformation`)

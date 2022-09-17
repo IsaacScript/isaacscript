@@ -122,7 +122,7 @@ During development, you might want to set up a custom hotkey to warp to your cus
 For example:
 
 ```ts
-registerHotkey(Keyboard.F1, () => {
+setHotkey(Keyboard.F1, () => {
   setCustomStage("Slaughterhouse");
   reloadRoom();
 });

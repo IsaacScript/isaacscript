@@ -4,7 +4,7 @@ import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { isKeyboardPressed } from "../functions/input";
 import { isFunction } from "../functions/types";
 
-const FEATURE_NAME = "registerHotkeys";
+const FEATURE_NAME = "setHotkey";
 
 /**
  * The keys are the keyboard keys that trigger the hotkey. The values are the functions that contain
@@ -24,7 +24,7 @@ const dynamicHotkeyFunctionMap = new Map<
 const keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
 /** @internal */
-export function registerHotkeyInit(mod: Mod): void {
+export function setHotkeyInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
 
@@ -69,7 +69,7 @@ function checkIfTriggered(keyboard: Keyboard, triggerFunc: () => void) {
  * @param triggerFunc A function containing the arbitrary code that you want to execute when the
  *                    hotkey is triggered.
  */
-export function registerHotkey(
+export function setHotkey(
   keyboardOrFunc: Keyboard | (() => Keyboard | undefined),
   triggerFunc: () => void,
 ): void {
@@ -95,11 +95,11 @@ export function registerHotkey(
 }
 
 /**
- * Helper function to remove a hotkey created with the `registerHotkey` function.
+ * Helper function to remove a hotkey created with the `setHotkey` function.
  *
  * @param keyboardOrFunc Equal to the value that you passed when initially registering the hotkey.
  */
-export function unregisterHotkey(
+export function unsetHotkey(
   keyboardOrFunc: Keyboard | (() => Keyboard | undefined),
 ): void {
   errorIfFeaturesNotInitialized(FEATURE_NAME);
