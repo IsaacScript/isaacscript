@@ -42,6 +42,8 @@ npcs
 piber # Creator of Mod Config Menu
 polties
 pooters
+proc
+procs
 propget # Key of userdata
 propset # Key of userdata
 Raglings
