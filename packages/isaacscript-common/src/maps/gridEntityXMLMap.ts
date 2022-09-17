@@ -18,6 +18,9 @@ export const GRID_ENTITY_XML_MAP: ReadonlyMap<
   GridEntityXMLType,
   [GridEntityType, int]
 > = new Map([
+  // 0
+  [GridEntityXMLType.DECORATION, [GridEntityType.DECORATION, 0]],
+
   // 1000
   [GridEntityXMLType.ROCK, [GridEntityType.ROCK, RockVariant.NORMAL]],
 
