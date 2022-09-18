@@ -16,7 +16,7 @@ import {
 import { reorderedCallbacksSetStageInternal } from "../../callbacks/reorderedCallbacks";
 import { game } from "../../core/cachedClasses";
 import { doorSlotFlagsToDoorSlots } from "../../functions/doors";
-import { logError } from "../../functions/log";
+import { logError } from "../../functions/logMisc";
 import { newRNG } from "../../functions/rng";
 import {
   getRoomDataForTypeVariant,

@@ -205,7 +205,7 @@ export function getDefaultGlobals(): ReadonlySet<string> {
 }
 
 function isRacingPlusSandboxEnabled() {
-  return getParentFunctionDescription !== undefined;
+  return SandboxGetParentFunctionDescription !== undefined;
 }
 
 /**

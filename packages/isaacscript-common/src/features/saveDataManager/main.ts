@@ -5,7 +5,7 @@ import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../enums/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
-import { logError } from "../../functions/log";
+import { logError } from "../../functions/logMisc";
 import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";

@@ -113,6 +113,7 @@
     "src/functions/levelGrid.ts",
     "src/functions/log.ts",
     "src/functions/logEntities.ts",
+    "src/functions/logMisc.ts",
     "src/functions/map.ts",
     "src/functions/math.ts",
     "src/functions/mergeTests.ts",

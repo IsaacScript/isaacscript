@@ -8,7 +8,7 @@ import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
 } from "../functions/gridEntities";
-import { logError } from "../functions/log";
+import { logError } from "../functions/logMisc";
 import {
   postNewRoomEarlyFire,
   postNewRoomEarlyHasSubscriptions,

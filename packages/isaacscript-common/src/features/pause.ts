@@ -12,7 +12,7 @@ import {
   removeAllTears,
 } from "../functions/entitiesSpecific";
 import { isTear } from "../functions/isaacAPIClass";
-import { logError } from "../functions/log";
+import { logError } from "../functions/logMisc";
 import { getAllPlayers } from "../functions/playerIndex";
 import { useActiveItemTemp } from "../functions/players";
 import { disableAllInputsExceptFor, enableAllInputs } from "./disableInputs";

@@ -28,10 +28,18 @@ import { loadShaderCrashFix } from "../shaderCrashFix";
  * ```
  *
  * @param modVanilla The mod object returned by the `RegisterMod` function.
+ * @param debug Optional. Whether to log additional output when a callback is fired. Default is
+ *              false.
+ * @param timeThreshold Optional. If provided, will only log callbacks that take longer than the
+ *                      specified number of seconds.
  * @returns The upgraded mod object.
  */
-export function upgradeMod(modVanilla: Mod): ModUpgraded {
-  const mod = new ModUpgraded(modVanilla);
+export function upgradeMod(
+  modVanilla: Mod,
+  debug = false,
+  timeThreshold?: float,
+): ModUpgraded {
+  const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
 
   if (!areFeaturesInitialized()) {
     setFeaturesInitialized();

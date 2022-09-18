@@ -4,7 +4,7 @@
 import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { logError } from "../functions/log";
+import { logError } from "../functions/logMisc";
 import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "taintedLazarusPlayers";

@@ -83,7 +83,7 @@ import {
   logRoom,
   logSeedEffects,
   logSounds,
-} from "../../functions/log";
+} from "../../functions/logMisc";
 import { getMapPartialMatch } from "../../functions/map";
 import { runMergeTests } from "../../functions/mergeTests";
 import {

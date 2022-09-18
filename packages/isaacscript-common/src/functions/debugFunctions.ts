@@ -6,6 +6,7 @@ import { saveDataManagerSetGlobal } from "../features/saveDataManager/exports";
 import * as logExports from "./log";
 import { log } from "./log";
 import * as logEntitiesExports from "./logEntities";
+import * as logMiscExports from "./logMisc";
 
 /**
  * Helper function to enable some IsaacScript features that are useful when developing a mod. They
@@ -27,6 +28,7 @@ import * as logEntitiesExports from "./logEntities";
 export function enableDevFeatures(mod: ModUpgraded): void {
   saveDataManagerSetGlobal();
   setLogFunctionsGlobal();
+  setTracebackFunctionsGlobal();
   enableExtraConsoleCommands(mod);
   enableFastReset();
   removeFadeIn();
@@ -45,8 +47,8 @@ export function getTraceback(): string {
     return debug.traceback();
   }
 
-  if (sandboxGetTraceback !== undefined) {
-    return sandboxGetTraceback();
+  if (SandboxGetTraceback !== undefined) {
+    return SandboxGetTraceback();
   }
 
   return 'stack traceback:\n(the "--luadebug" flag is not enabled)';
@@ -81,13 +83,19 @@ export function isLuaDebugEnabled(): boolean {
 export function setLogFunctionsGlobal(): void {
   const globals = _G as Record<string, unknown>;
 
-  for (const [logFuncName, logFunc] of Object.entries(logExports)) {
-    globals[logFuncName] = logFunc;
+  for (const exports of [logExports, logMiscExports, logEntitiesExports]) {
+    // eslint-disable-next-line isaacscript/no-object-any
+    for (const [logFuncName, logFunc] of Object.entries(exports)) {
+      globals[logFuncName] = logFunc;
+    }
   }
+}
 
-  for (const [logFuncName, logFunc] of Object.entries(logEntitiesExports)) {
-    globals[logFuncName] = logFunc;
-  }
+export function setTracebackFunctionsGlobal(): void {
+  const globals = _G as Record<string, unknown>;
+
+  globals["getTraceback"] = getTraceback;
+  globals["traceback"] = traceback;
 }
 
 /**
@@ -100,22 +108,4 @@ export function setLogFunctionsGlobal(): void {
 export function traceback(): void {
   const tracebackOutput = getTraceback();
   log(tracebackOutput);
-}
-
-// If the debug functions will provide useful output, make them global by default.
-if (isLuaDebugEnabled() || sandboxGetTraceback !== undefined) {
-  setDebugFunctionsGlobal();
-}
-
-function setDebugFunctionsGlobal() {
-  // "debug" is not always defined like the Lua definitions imply.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (_G.debug === undefined && sandboxGetTraceback === undefined) {
-    return;
-  }
-
-  const globals = _G as Record<string, unknown>;
-
-  globals["getTraceback"] = getTraceback;
-  globals["traceback"] = traceback;
 }
