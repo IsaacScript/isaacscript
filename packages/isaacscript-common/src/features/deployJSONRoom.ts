@@ -36,6 +36,7 @@ import {
   getGridEntities,
   removeGridEntity,
   setGridEntityInvisible,
+  spawnGridEntity,
   spawnGridEntityWithVariant,
 } from "../functions/gridEntities";
 import { getRandomJSONEntity, getRandomJSONRoom } from "../functions/jsonRoom";
@@ -145,6 +146,11 @@ function preUseItemWeNeedToGoDeeper(
       return;
     }
 
+    const futureRoomListIndex = getRoomListIndex();
+    if (futureRoomListIndex !== roomListIndex) {
+      return;
+    }
+
     v.room.manuallyUsingShovel = true;
     futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
     v.room.manuallyUsingShovel = false;
@@ -152,7 +158,7 @@ function preUseItemWeNeedToGoDeeper(
     const decorationGridIndexes =
       v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
     emptyArray(decorationGridIndexes);
-    fillRoomWithDecorations();
+    preventGridEntityRespawn();
   });
 
   // Cancel the original effect.
@@ -273,7 +279,7 @@ export function deployJSONRoom(
   }
 
   fixPitGraphics();
-  fillRoomWithDecorations();
+  preventGridEntityRespawn();
 }
 
 /**
@@ -328,26 +334,34 @@ export function deployRandomJSONRoom(
 }
 
 /**
- * We removed most normal entities, which should prevent them from respawning when the player
- * re-enters the room. However, this is not the case for grid entities; even if they are removed,
- * they will come back when the player re-enters the room.
+ * Helper function to prevent any removed grid entities from respawning if the player re-enters the
+ * room.
  *
- * In order to prevent this from happening, we can spawn a grid entity on every tile that does not
- * already have a grid entity. The natural grid entity to choose for this purpose is a decoration,
- * since it is non-interacting.
+ * This is accomplished by spawning a new grid entity on every tile that does not already have a
+ * grid entity. This will force the game to spawn the new grid entity instead of the old one. The
+ * natural grid entity to choose for this purpose is a decoration, since it is non-interacting.
+ * Then, the decorations are made invisible and any shovel uses are intercepted to avoid creating a
+ * crawl space (instead of a trapdoor).
  *
  * Another option besides decorations would be to use a pressure plates with a state of 1, which is
  * a state that is normally unused by the game and makes it invisible & persistent. However, pickups
  * will not be able to spawn on pressure plates, which lead to various bugs (e.g. pickups spawning
- * on top of pits). Thus, we use a decoration and remove its sprite to make it invisible.
+ * on top of pits). Thus, using a decoration is preferable.
  *
- * Yet another option is to replace the room data with that of an empty room. However, the room data
- * must exactly match the room type, the room shape, and the doors, so this is not possible to do in
- * a robust way without adding empty rooms to the mod's `content` folder to draw the data from.
+ * Yet another option to accomplish this would be to replace the room data with that of an empty
+ * room. However, the room data must exactly match the room type, the room shape, and the doors, so
+ * this is not possible to do in a robust way without adding empty rooms to the mod's `content`
+ * folder to draw the data from.
  */
-function fillRoomWithDecorations() {
+export function preventGridEntityRespawn(): void {
+  errorIfFeaturesNotInitialized(FEATURE_NAME);
+
   const room = game.GetRoom();
   const roomListIndex = getRoomListIndex();
+
+  // Ensure that this room is in the deployed room set, or else the shovel interception code will
+  // not work properly.
+  v.level.deployedRoomListIndexes.add(roomListIndex);
 
   const decorationGridIndexes =
     v.level.roomToDecorationGridIndexesMap.getAndSetDefault(roomListIndex);
@@ -358,9 +372,7 @@ function fillRoomWithDecorations() {
       continue;
     }
 
-    const position = room.GetGridPosition(gridIndex);
-    const decoration = Isaac.GridSpawn(GridEntityType.DECORATION, 0, position);
-
+    const decoration = spawnGridEntity(GridEntityType.DECORATION, gridIndex);
     if (decoration !== undefined) {
       setGridEntityInvisible(decoration);
     }
