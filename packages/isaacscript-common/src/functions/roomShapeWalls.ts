@@ -42,14 +42,38 @@ function getVanillaWallGridIndexSetForRoomShape(
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
       return new Set([
         // Horizontal
-        ...getGridIndexesBetween(topMiddle.gridIndex, topRight.gridIndex),
-        ...getGridIndexesBetween(middleLeft.gridIndex, middle.gridIndex),
-        ...getGridIndexesBetween(bottomLeft.gridIndex, bottomRight.gridIndex),
+        ...getGridIndexesBetween(
+          topMiddle.gridIndex,
+          topRight.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middleLeft.gridIndex,
+          middle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          bottomLeft.gridIndex,
+          bottomRight.gridIndex,
+          roomShape,
+        ),
 
         // Vertical
-        ...getGridIndexesBetween(middleLeft.gridIndex, bottomLeft.gridIndex),
-        ...getGridIndexesBetween(topMiddle.gridIndex, middle.gridIndex),
-        ...getGridIndexesBetween(topRight.gridIndex, bottomRight.gridIndex),
+        ...getGridIndexesBetween(
+          middleLeft.gridIndex,
+          bottomLeft.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          topMiddle.gridIndex,
+          middle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          topRight.gridIndex,
+          bottomRight.gridIndex,
+          roomShape,
+        ),
       ]);
     }
 
@@ -59,14 +83,38 @@ function getVanillaWallGridIndexSetForRoomShape(
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
       return new Set([
         // Horizontal
-        ...getGridIndexesBetween(topLeft.gridIndex, topMiddle.gridIndex),
-        ...getGridIndexesBetween(middle.gridIndex, middleRight.gridIndex),
-        ...getGridIndexesBetween(bottomLeft.gridIndex, bottomRight.gridIndex),
+        ...getGridIndexesBetween(
+          topLeft.gridIndex,
+          topMiddle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middle.gridIndex,
+          middleRight.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          bottomLeft.gridIndex,
+          bottomRight.gridIndex,
+          roomShape,
+        ),
 
         // Vertical
-        ...getGridIndexesBetween(topLeft.gridIndex, bottomLeft.gridIndex),
-        ...getGridIndexesBetween(topMiddle.gridIndex, middle.gridIndex),
-        ...getGridIndexesBetween(middleRight.gridIndex, bottomRight.gridIndex),
+        ...getGridIndexesBetween(
+          topLeft.gridIndex,
+          bottomLeft.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          topMiddle.gridIndex,
+          middle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middleRight.gridIndex,
+          bottomRight.gridIndex,
+          roomShape,
+        ),
       ]);
     }
 
@@ -76,14 +124,38 @@ function getVanillaWallGridIndexSetForRoomShape(
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
       return new Set([
         // Horizontal
-        ...getGridIndexesBetween(topLeft.gridIndex, topRight.gridIndex),
-        ...getGridIndexesBetween(middleLeft.gridIndex, middle.gridIndex),
-        ...getGridIndexesBetween(bottomMiddle.gridIndex, bottomRight.gridIndex),
+        ...getGridIndexesBetween(
+          topLeft.gridIndex,
+          topRight.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middleLeft.gridIndex,
+          middle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          bottomMiddle.gridIndex,
+          bottomRight.gridIndex,
+          roomShape,
+        ),
 
         // Vertical
-        ...getGridIndexesBetween(topLeft.gridIndex, middleLeft.gridIndex),
-        ...getGridIndexesBetween(middle.gridIndex, bottomMiddle.gridIndex),
-        ...getGridIndexesBetween(topRight.gridIndex, bottomRight.gridIndex),
+        ...getGridIndexesBetween(
+          topLeft.gridIndex,
+          middleLeft.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middle.gridIndex,
+          bottomMiddle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          topRight.gridIndex,
+          bottomRight.gridIndex,
+          roomShape,
+        ),
       ]);
     }
 
@@ -93,24 +165,53 @@ function getVanillaWallGridIndexSetForRoomShape(
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
       return new Set([
         // Horizontal
-        ...getGridIndexesBetween(topLeft.gridIndex, topRight.gridIndex),
-        ...getGridIndexesBetween(middle.gridIndex, middleRight.gridIndex),
-        ...getGridIndexesBetween(bottomLeft.gridIndex, bottomMiddle.gridIndex),
+        ...getGridIndexesBetween(
+          topLeft.gridIndex,
+          topRight.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middle.gridIndex,
+          middleRight.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          bottomLeft.gridIndex,
+          bottomMiddle.gridIndex,
+          roomShape,
+        ),
 
         // Vertical
-        ...getGridIndexesBetween(topLeft.gridIndex, bottomLeft.gridIndex),
-        ...getGridIndexesBetween(middle.gridIndex, bottomMiddle.gridIndex),
-        ...getGridIndexesBetween(topRight.gridIndex, middleRight.gridIndex),
+        ...getGridIndexesBetween(
+          topLeft.gridIndex,
+          bottomLeft.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          middle.gridIndex,
+          bottomMiddle.gridIndex,
+          roomShape,
+        ),
+        ...getGridIndexesBetween(
+          topRight.gridIndex,
+          middleRight.gridIndex,
+          roomShape,
+        ),
       ]);
     }
 
     default: {
-      return getWallGridIndexSetForRectangleShape(corners);
+      return getWallGridIndexSetForRectangleRoomShape(roomShape, corners);
     }
   }
 }
 
-function getWallGridIndexSetForRectangleShape(
+/**
+ * Providing the room shape is necessary so that the `getGridIndexesBetween` function can use the
+ * corresponding grid width.
+ */
+function getWallGridIndexSetForRectangleRoomShape(
+  roomShape: RoomShape,
   corners: readonly Corner[],
 ): ReadonlySet<int> {
   if (corners.length !== 4) {
@@ -128,12 +229,24 @@ function getWallGridIndexSetForRectangleShape(
 
   return new Set([
     // Horizontal
-    ...getGridIndexesBetween(topLeft.gridIndex, topRight.gridIndex),
-    ...getGridIndexesBetween(bottomLeft.gridIndex, bottomRight.gridIndex),
+    ...getGridIndexesBetween(topLeft.gridIndex, topRight.gridIndex, roomShape),
+    ...getGridIndexesBetween(
+      bottomLeft.gridIndex,
+      bottomRight.gridIndex,
+      roomShape,
+    ),
 
     // Vertical
-    ...getGridIndexesBetween(topLeft.gridIndex, bottomLeft.gridIndex),
-    ...getGridIndexesBetween(topRight.gridIndex, bottomRight.gridIndex),
+    ...getGridIndexesBetween(
+      topLeft.gridIndex,
+      bottomLeft.gridIndex,
+      roomShape,
+    ),
+    ...getGridIndexesBetween(
+      topRight.gridIndex,
+      bottomRight.gridIndex,
+      roomShape,
+    ),
   ]);
 }
 
@@ -161,8 +274,10 @@ const HOME_CLOSET_CORNERS = [
   },
 ] as const;
 
-const HOME_CLOSET_CORNERS_SET =
-  getWallGridIndexSetForRectangleShape(HOME_CLOSET_CORNERS);
+const HOME_CLOSET_CORNERS_SET = getWallGridIndexSetForRectangleRoomShape(
+  RoomShape.IH,
+  HOME_CLOSET_CORNERS,
+);
 
 /**
  * The Mother Boss Room is 15x11, which is different from `RoomShape.SHAPE_1x2` (which is 15x16).
@@ -190,8 +305,10 @@ const MOTHER_ROOM_CORNERS = [
   },
 ] as const;
 
-const MOTHER_ROOM_CORNERS_SET =
-  getWallGridIndexSetForRectangleShape(MOTHER_ROOM_CORNERS);
+const MOTHER_ROOM_CORNERS_SET = getWallGridIndexSetForRectangleRoomShape(
+  RoomShape.SHAPE_1x2,
+  MOTHER_ROOM_CORNERS,
+);
 
 /**
  * Helper function to determine if a given wall is a "real" wall generated by the vanilla game. This

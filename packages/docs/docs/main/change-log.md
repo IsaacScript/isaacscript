@@ -25,6 +25,8 @@ This page lists the changes to the IsaacScript framework.
   - `isVanillaWallGridIndex`
   - `inHomeCloset`
   - `getGridIndexesBetween`
+  - `setConditionalHotkey`
+  - `unsetConditionalHotkey`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`
