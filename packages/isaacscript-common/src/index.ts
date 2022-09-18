@@ -127,6 +127,7 @@ export * from "./functions/roomData";
 export * from "./functions/roomGrid";
 export * from "./functions/rooms";
 export * from "./functions/roomShape";
+export * from "./functions/roomShapeWalls";
 export * from "./functions/roomTransition";
 export * from "./functions/run";
 export * from "./functions/saveFile";

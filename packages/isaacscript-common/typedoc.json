@@ -141,6 +141,7 @@
     "src/functions/roomData.ts",
     "src/functions/roomGrid.ts",
     "src/functions/roomShape.ts",
+    "src/functions/roomShapeWalls.ts",
     "src/functions/roomTransition.ts",
     "src/functions/run.ts",
     "src/functions/saveFile.ts",
