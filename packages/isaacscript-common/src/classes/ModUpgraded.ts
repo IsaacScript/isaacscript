@@ -75,7 +75,7 @@ export class ModUpgraded implements Mod {
         const elapsedTime = endTime - startTime;
         if (
           this.TimeThreshold === undefined ||
-          this.TimeThreshold >= elapsedTime
+          this.TimeThreshold <= elapsedTime
         ) {
           Isaac.DebugString(`${signature} - END - time: ${elapsedTime}`);
         } else {
