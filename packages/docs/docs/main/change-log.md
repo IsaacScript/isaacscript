@@ -27,6 +27,9 @@ This page lists the changes to the IsaacScript framework.
   - `setConditionalHotkey`
   - `unsetConditionalHotkey`
   - `preventGridEntityRespawn`
+  - `getTime`
+  - `setTracebackFunctionsGlobal` (for easier debugging)
+  - `getParentFunctionDescription`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`

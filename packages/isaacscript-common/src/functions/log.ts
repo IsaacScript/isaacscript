@@ -1,33 +1,36 @@
 /**
- * Helper function to prefix the name of the function and the line number before a debug message.
+ * Helper function to get the name and the line number of the current calling function.
+ *
+ * For this function to work properly, the "--luadebug" flag must be enabled. Otherwise, it will
+ * always return undefined.
+ *
+ * @param levels Optional. The amount of levels to look backwards in the call stack. Default is 3
+ *               (because the first level is this function, the second level is the calling
+ *               function, and the third level is the parent of the calling function).
  */
-export function getDebugPrependString(
-  msg: string,
+export function getParentFunctionDescription(
   // We use 3 as a default because:
   // - 1 - getDebugPrependString
   // - 2 - calling function
   // - 3 - the function that calls the calling function
-  numParentFunctions = 3,
-): string {
+  levels = 3,
+): string | undefined {
   // "debug" is not always defined like the Lua definitions imply.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (debug !== undefined) {
     // The "--luadebug" launch flag is enabled.
-    const debugTable = debug.getinfo(numParentFunctions);
+    const debugTable = debug.getinfo(levels);
     if (debugTable !== undefined) {
-      return `${debugTable.name}:${debugTable.linedefined} - ${msg}`;
+      return `${debugTable.name}:${debugTable.linedefined}`;
     }
   }
 
   if (SandboxGetParentFunctionDescription !== undefined) {
     // The Racing+ sandbox is enabled.
-    const parentFunctionDescription = SandboxGetParentFunctionDescription(
-      numParentFunctions + 1,
-    );
-    return `${parentFunctionDescription} - ${msg}`;
+    return SandboxGetParentFunctionDescription(levels + 1);
   }
 
-  return msg;
+  return undefined;
 }
 
 /**
@@ -37,6 +40,10 @@ export function getDebugPrependString(
  * function will also prepend the function name and the line number before the string.
  */
 export function log(msg: string): void {
-  const debugMsg = getDebugPrependString(msg);
+  const parentFunctionDescription = getParentFunctionDescription();
+  const debugMsg =
+    parentFunctionDescription === undefined
+      ? msg
+      : `${parentFunctionDescription} - ${msg}`;
   Isaac.DebugString(debugMsg);
 }

@@ -1,7 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getTime } from "../functions/benchmark";
-import { log } from "../functions/log";
+import { getParentFunctionDescription, log } from "../functions/log";
 import { AddCallbackParameterCustom } from "../interfaces/private/AddCallbackParameterCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 
@@ -53,12 +53,16 @@ export class ModUpgraded implements Mod {
       const callback = args[0];
       const optionalArg = args[1];
 
+      const parentFunctionDescription = getParentFunctionDescription();
       const callbackName = `ModCallback.${ModCallback[modCallback]}`;
+      const signature =
+        parentFunctionDescription === undefined
+          ? callbackName
+          : `${parentFunctionDescription} - ${callbackName}`;
 
-      // We can't use the "log" helper function since that would cause a dependency cycle.
       const callbackWithLogger = (...callbackArgs: unknown[]) => {
         const startTime = getTime();
-        log(`${callbackName} - START`);
+        log(`${signature} - START`);
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -70,9 +74,9 @@ export class ModUpgraded implements Mod {
           this.TimeThreshold === undefined ||
           this.TimeThreshold >= elapsedTime
         ) {
-          log(`${callbackName} - END - time: ${elapsedTime}`);
+          log(`${signature} - END - time: ${elapsedTime}`);
         } else {
-          log(`${callbackName} - END`);
+          log(`${signature} - END`);
         }
       };
 
