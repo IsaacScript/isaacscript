@@ -10,9 +10,9 @@
  */
 export function getParentFunctionDescription(
   // We use 3 as a default because:
-  // - 1 - getDebugPrependString
-  // - 2 - calling function
-  // - 3 - the function that calls the calling function
+  // - The first level is this function.
+  // - The second level is the calling function.
+  // - The third level is the parent of the calling function.
   levels = 3,
 ): string | undefined {
   // "debug" is not always defined like the Lua definitions imply.
@@ -27,7 +27,7 @@ export function getParentFunctionDescription(
 
   if (SandboxGetParentFunctionDescription !== undefined) {
     // The Racing+ sandbox is enabled.
-    return SandboxGetParentFunctionDescription(levels + 1);
+    return SandboxGetParentFunctionDescription(levels);
   }
 
   return undefined;
