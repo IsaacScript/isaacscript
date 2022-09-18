@@ -98,6 +98,7 @@
     "src/functions/globals.ts",
     "src/functions/gridEntities.ts",
     "src/functions/gridEntitiesSpecific.ts",
+    "src/functions/gridIndex.ts",
     "src/functions/hex.ts",
     "src/functions/initArray.ts",
     "src/functions/input.ts",

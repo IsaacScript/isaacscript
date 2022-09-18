@@ -15,7 +15,7 @@ import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { newRNG } from "../../functions/rng";
 import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
 import { removeCharactersBefore, trimPrefix } from "../../functions/string";
-import { erange, irange } from "../../functions/utils";
+import { eRange, iRange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
@@ -163,7 +163,7 @@ function spawnWallEntity(
     sprite.ReplaceSpritesheet(0, cornerPNGPath);
   }
 
-  for (const layerID of irange(1, numWallLayers)) {
+  for (const layerID of iRange(1, numWallLayers)) {
     const wallPNGPath = getBackdropPNGPath(customStage, BackdropKind.WALL, rng);
     sprite.ReplaceSpritesheet(layerID, wallPNGPath);
   }
@@ -214,7 +214,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
 
   const numFloorLayers = getNumFloorLayers(roomShape);
   if (numFloorLayers !== undefined) {
-    for (const layerID of erange(0, numFloorLayers)) {
+    for (const layerID of eRange(0, numFloorLayers)) {
       // The wall spritesheet is used for the "normal" floors.
       const wallPNGPath = getBackdropPNGPath(
         customStage,

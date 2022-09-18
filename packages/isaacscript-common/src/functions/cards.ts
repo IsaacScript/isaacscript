@@ -16,7 +16,7 @@ import {
 import { getEnumValues } from "./enums";
 import { getRandomSeed } from "./rng";
 import { addSetsToSet, getRandomSetElement } from "./set";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 const ITEM_CONFIG_CARD_TYPE_TO_CARD_TYPE_MAP = new Map<
   ItemConfigCardType,
@@ -206,7 +206,7 @@ export function getRandomRune(
 
 /** Helper function to get an array with every valid vanilla card sub-type. */
 export function getVanillaCardTypes(): CardType[] {
-  return irange(FIRST_CARD_TYPE, LAST_VANILLA_CARD_TYPE);
+  return iRange(FIRST_CARD_TYPE, LAST_VANILLA_CARD_TYPE);
 }
 
 /**

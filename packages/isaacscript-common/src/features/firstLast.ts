@@ -28,7 +28,7 @@ import {
   asPillEffect,
   asTrinketType,
 } from "../functions/types";
-import { irange } from "../functions/utils";
+import { iRange } from "../functions/utils";
 
 const FEATURE_NAME = "firstLast";
 
@@ -117,7 +117,7 @@ export function getModdedCollectibleTypes(): CollectibleType[] {
   }
 
   const lastCollectibleType = getLastCollectibleType();
-  return irange(firstModdedCollectibleType, lastCollectibleType);
+  return iRange(firstModdedCollectibleType, lastCollectibleType);
 }
 
 /**
@@ -202,7 +202,7 @@ export function getModdedTrinketTypes(): TrinketType[] {
   }
 
   const lastTrinketType = getLastTrinketType();
-  return irange(firstModdedTrinketType, lastTrinketType);
+  return iRange(firstModdedTrinketType, lastTrinketType);
 }
 
 /**
@@ -241,7 +241,7 @@ export function getNumModdedTrinketTypes(): int {
  */
 export function getTrinketTypes(): TrinketType[] {
   const lastTrinketType = getLastTrinketType();
-  return irange(FIRST_TRINKET_TYPE, lastTrinketType);
+  return iRange(FIRST_TRINKET_TYPE, lastTrinketType);
 }
 
 // -----
@@ -256,7 +256,7 @@ export function getTrinketTypes(): TrinketType[] {
  */
 export function getAllCardTypes(): CardType[] {
   const lastCardType = getLastCardType();
-  return irange(FIRST_CARD_TYPE, lastCardType);
+  return iRange(FIRST_CARD_TYPE, lastCardType);
 }
 
 /**
@@ -306,7 +306,7 @@ export function getModdedCardTypes(): CardType[] {
   }
 
   const lastCardType = getLastCardType();
-  return irange(firstModdedCardType, lastCardType);
+  return iRange(firstModdedCardType, lastCardType);
 }
 
 /**
@@ -348,7 +348,7 @@ export function getNumModdedCardTypes(): int {
  */
 export function getAllPillEffects(): PillEffect[] {
   const lastPillEffect = getLastPillEffect();
-  return irange(FIRST_PILL_EFFECT, lastPillEffect);
+  return iRange(FIRST_PILL_EFFECT, lastPillEffect);
 }
 
 /**
@@ -400,7 +400,7 @@ export function getModdedPillEffects(): PillEffect[] {
   }
 
   const lastPillEffect = getLastPillEffect();
-  return irange(firstModdedPillEffect, lastPillEffect);
+  return iRange(firstModdedPillEffect, lastPillEffect);
 }
 
 /**

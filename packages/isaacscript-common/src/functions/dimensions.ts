@@ -2,13 +2,13 @@ import { Dimension } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { NUM_DIMENSIONS } from "../core/constants";
 import { getRoomGridIndex } from "./roomData";
-import { erange } from "./utils";
+import { eRange } from "./utils";
 
 /**
  * Helper function to get an array with every valid `Dimension` (not including `Dimension.CURRENT`).
  */
 export function getAllDimensions(): Dimension[] {
-  return erange(NUM_DIMENSIONS);
+  return eRange(NUM_DIMENSIONS);
 }
 
 /**

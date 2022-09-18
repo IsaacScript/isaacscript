@@ -10,7 +10,7 @@ import { arrayRemove } from "../../functions/array";
 import { getBosses } from "../../functions/bosses";
 import { getRoomSubType } from "../../functions/roomData";
 import { removeCharactersBefore } from "../../functions/string";
-import { erange } from "../../functions/utils";
+import { eRange } from "../../functions/utils";
 import { CustomStage } from "../../interfaces/private/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
 import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../objects/bossPortraitPNGFileNames";
@@ -58,7 +58,7 @@ const PLAYER_PORTRAIT_ALT_ANM2_LAYER = 12;
 
 /** These are the non-special layers that we will render last. */
 const OTHER_ANM2_LAYERS: readonly int[] = arrayRemove(
-  erange(NUM_VERSUS_SCREEN_ANM2_LAYERS),
+  eRange(NUM_VERSUS_SCREEN_ANM2_LAYERS),
   BACKGROUND_ANM2_LAYER,
   BOSS_DIRT_SPOT_ANM2_LAYER,
   PLAYER_DIRT_SPOT_ANM2_LAYER,

@@ -3,22 +3,25 @@ import { game } from "../core/cachedClasses";
 import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
 
 /**
- * Helper function to return an array with the elements from start to end. It is inclusive at the
- * start and exclusive at the end. (The "e" stands for exclusive.)
+ * Helper function to return an array of integers with the specified range, inclusive on the lower
+ * end and exclusive on the high end. (The "e" stands for exclusive.)
  *
- * If only one argument is specified, then it will assume that the start is 0.
+ * - For example, `eRange(1, 3)` will return `[1, 2]`.
+ * - For example, `eRange(2)` will return `[0, 1]`.
  *
- * - For example, `erange(1, 3)` will return `[1, 2]`.
- * - For example, `erange(2)` will return `[0, 1]`.
+ * @param start The number to start at.
+ * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ *            first argument will be the end.
+ * @param increment Optional. The increment to use. Default is 1.
  */
-export function erange(start: int, end?: int): int[] {
+export function eRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
     end = start;
     start = 0;
   }
 
   const array: int[] = [];
-  for (let i = start; i < end; i++) {
+  for (let i = start; i < end; i += increment) {
     array.push(i);
   }
 
@@ -43,22 +46,25 @@ export function getTraversalDescription(
 }
 
 /**
- * Helper function to return an array with the elements from start to end, inclusive. (The "i"
- * stands for inclusive.)
+ * Helper function to return an array of integers with the specified range, inclusive on both ends.
+ * (The "i" stands for inclusive.)
  *
- * If only one argument is specified, then it will assume that the start is 0.
+ * - For example, `iRange(1, 3)` will return `[1, 2, 3]`.
+ * - For example, `iRange(2)` will return `[0, 1, 2]`.
  *
- * - For example, `irange(1, 3)` will return `[1, 2, 3]`.
- * - For example, `irange(2)` will return `[0, 1, 2]`.
+ * @param start The number to start at.
+ * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ *            first argument will be the end.
+ * @param increment Optional. The increment to use. Default is 1.
  */
-export function irange(start: int, end?: int): int[] {
+export function iRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
     end = start;
     start = 0;
   }
 
   const array: int[] = [];
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i <= end; i += increment) {
     array.push(i);
   }
 

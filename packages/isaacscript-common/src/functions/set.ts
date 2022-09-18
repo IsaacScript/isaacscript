@@ -136,6 +136,18 @@ export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
   return array;
 }
 
+/**
+ * Helper function to add one or more elements to a set at once without having to repeatedly call
+ * the `Set.add` method.
+ *
+ * This function is variadic, meaning that you can pass as many things as you want to add.
+ */
+export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
+  for (const element of elements) {
+    set.add(element);
+  }
+}
+
 /** Helper function to sum every value in a set together. */
 export function sumSet(set: Set<number> | ReadonlySet<number>): number {
   const values = [...set.values()];

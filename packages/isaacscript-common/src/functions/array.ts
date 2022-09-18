@@ -1,7 +1,7 @@
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { isNumber, isTable } from "./types";
-import { erange } from "./utils";
+import { eRange } from "./utils";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements. Note that this
@@ -310,7 +310,7 @@ export function getArrayCombinations<T>(
  * For example, an array of `["Apple", "Banana"]` would return an array of `[0, 1]`.
  */
 export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
-  return erange(array.length);
+  return eRange(array.length);
 }
 
 /**

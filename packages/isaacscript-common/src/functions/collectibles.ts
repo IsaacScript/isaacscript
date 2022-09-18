@@ -32,7 +32,7 @@ import { getEntityID } from "./entities";
 import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprites";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 
@@ -400,7 +400,7 @@ export function getCollectibleTags(
  * instead.
  */
 export function getVanillaCollectibleTypeRange(): CollectibleType[] {
-  return irange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
+  return iRange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */

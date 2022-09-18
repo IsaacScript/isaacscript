@@ -20,9 +20,17 @@ This page lists the changes to the IsaacScript framework.
   - `defaultMapGetHash`
   - `defaultMapSetHash` (just an alias for `mapSetHash`)
   - `mapSetHash`
+  - `setAdd`
+  - `isVanillaWall`
+  - `isVanillaWallGridIndex`
+  - `inHomeCloset`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`
+  - `irange` --> `iRange`
+  - `erange` --> `eRange`
+- Changed the following helper functions:
+  - `iRange` and `eRange` now take an optional `increment` argument.
 - Added the following custom commands:
   - `transformation`
   - `playerForm` (alias for `transformation`)

@@ -22,7 +22,7 @@ import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
 import { asNumber } from "./types";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.
@@ -145,7 +145,7 @@ export function getTrinketName(trinketType: TrinketType): string {
 
 /** Helper function to get an array that represents every vanilla trinket type. */
 export function getVanillaTrinketTypes(): TrinketType[] {
-  return irange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
+  return iRange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
 }
 
 /**

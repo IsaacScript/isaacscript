@@ -116,7 +116,7 @@ import {
   asCollectibleType,
   asTrinketType,
 } from "../../functions/types";
-import { irange, printConsole, printEnabled } from "../../functions/utils";
+import { iRange, printConsole, printEnabled } from "../../functions/utils";
 import { CARD_NAME_TO_TYPE_MAP } from "../../maps/cardNameToTypeMap";
 import { CHARACTER_NAME_TO_TYPE_MAP } from "../../maps/characterNameToTypeMap";
 import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../maps/collectibleNameToTypeMap";
@@ -941,7 +941,7 @@ export function map(): void {
     DisplayFlag.SHOW_ICON, // 1 << 2
   );
 
-  for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+  for (const roomGridIndex of iRange(MAX_LEVEL_GRID_INDEX)) {
     const roomDesc = level.GetRoomByIdx(roomGridIndex);
     roomDesc.DisplayFlags = displayFlags;
   }

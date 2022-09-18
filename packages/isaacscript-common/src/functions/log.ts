@@ -277,27 +277,26 @@ export function logRoom(): void {
   const roomListIndex = getRoomListIndex();
   const roomData = getRoomData();
 
+  log("Current room information:");
   if (roomData === undefined) {
-    log("Current room data is undefined.");
+    log("- Room data is undefined.");
   } else {
-    log(`Current room stage ID: ${roomData.StageID}`);
+    log(`- Room stage ID: ${roomData.StageID}`);
     log(
-      `Current room type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
+      `- Type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
     );
-    log(`Current room name: ${roomData.Name}`);
+    log(`- Name: ${roomData.Name}`);
   }
 
   const roomGridIndexName = GridRoom[roomGridIndex];
   if (roomGridIndexName === undefined) {
-    log(`Current room grid index: ${roomGridIndex}`);
+    log(`- Grid index: ${roomGridIndex}`);
   } else {
-    log(
-      `Current room grid index: ${roomGridIndex} (GridRoom.${roomGridIndexName})`,
-    );
+    log(`- Grid index: GridRoom.${roomGridIndexName} (${roomGridIndex})`);
   }
 
-  log(`Current room list index: ${roomListIndex}`);
-  log(`Current room boss ID: ${bossID}`);
+  log(`- List index: ${roomListIndex}`);
+  log(`- Boss ID: ${bossID}`);
 }
 
 /**

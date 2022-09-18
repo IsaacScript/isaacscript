@@ -22,7 +22,7 @@ import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprites";
 import { asNumber, isNumber } from "./types";
-import { erange } from "./utils";
+import { eRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
@@ -87,7 +87,7 @@ export function getAllGridIndexes(): int[] {
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
 
-  return erange(gridSize);
+  return eRange(gridSize);
 }
 
 /**
