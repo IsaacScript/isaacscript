@@ -7,6 +7,7 @@ import { game } from "../core/cachedClasses";
 import { getEntities } from "./entities";
 import { getGridEntities, removeGridEntity } from "./gridEntities";
 import { roomUpdateSafe } from "./rooms";
+import { isVanillaWallGridIndex } from "./roomShapeWalls";
 
 const EMPTY_ROOM_BLACKLIST_ENTITY_SET: ReadonlySet<EntityType> = new Set([
   EntityType.PLAYER, // 1
@@ -17,12 +18,6 @@ const EMPTY_ROOM_BLACKLIST_ENTITY_SET: ReadonlySet<EntityType> = new Set([
   EntityType.PROJECTILE, // 9
   EntityType.DARK_ESAU, // 866
 ]);
-
-const EMPTY_ROOM_BLACKLIST_GRID_ENTITY_SET: ReadonlySet<GridEntityType> =
-  new Set([
-    GridEntityType.WALL, // 15
-    GridEntityType.DOOR, // 16
-  ]);
 
 /**
  * Helper function to remove all naturally spawning entities and grid entities from a room. Notably,
@@ -68,11 +63,23 @@ function emptyRoomEntities() {
   }
 }
 
+/** We want to remove all grid entities except for walls and doors. */
 function emptyRoomGridEntities() {
   let removedOneOrMoreGridEntities = false;
   for (const gridEntity of getGridEntities()) {
     const gridEntityType = gridEntity.GetType();
-    if (EMPTY_ROOM_BLACKLIST_GRID_ENTITY_SET.has(gridEntityType)) {
+    const gridIndex = gridEntity.GetGridIndex();
+
+    // We cannot simply check if the grid entity type is equal to a wall because other mods use
+    // walls as a base for custom grid entities.
+    if (
+      gridEntityType === GridEntityType.WALL &&
+      isVanillaWallGridIndex(gridIndex)
+    ) {
+      continue;
+    }
+
+    if (gridEntityType === GridEntityType.DOOR) {
       continue;
     }
 

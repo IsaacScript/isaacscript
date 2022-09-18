@@ -21,7 +21,6 @@ This page lists the changes to the IsaacScript framework.
   - `defaultMapSetHash` (just an alias for `mapSetHash`)
   - `mapSetHash`
   - `setAdd`
-  - `isVanillaWall`
   - `isVanillaWallGridIndex`
   - `inHomeCloset`
   - `getGridIndexesBetween`
