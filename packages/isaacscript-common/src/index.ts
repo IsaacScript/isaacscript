@@ -74,6 +74,7 @@ export * from "./functions/doors";
 export * from "./functions/easing";
 export * from "./functions/eden";
 export * from "./functions/effects";
+export * from "./functions/emptyRoom";
 export * from "./functions/entities";
 export * from "./functions/entitiesSpecific";
 export * from "./functions/entityTypes";

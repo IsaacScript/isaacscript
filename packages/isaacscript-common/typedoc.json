@@ -88,6 +88,7 @@
     "src/functions/easing.ts",
     "src/functions/eden.ts",
     "src/functions/effects.ts",
+    "src/functions/emptyRoom.ts",
     "src/functions/entities.ts",
     "src/functions/entitiesSpecific.ts",
     "src/functions/entityTypes.ts",
