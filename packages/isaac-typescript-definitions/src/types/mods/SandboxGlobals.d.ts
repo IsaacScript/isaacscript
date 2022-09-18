@@ -13,7 +13,7 @@ declare const SandboxGetDate: (() => string) | undefined;
  * @param levels The amount of levels to look backwards in the call stack.
  */
 declare const SandboxGetParentFunctionDescription:
-  | ((levels: int) => void)
+  | ((levels: int) => string)
   | undefined;
 
 /**
