@@ -821,7 +821,7 @@ In the previous [enums](#enums) section, we defined `collectiblePrices` as an ob
 
 Objects are good for cases where every possibility is accounted for. But this isn't the case for `collectiblePrices`. Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what `collectiblePrices` _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what `collectiblePrices` _really_ represents is a [_map_](https://en.wikipedia.org/wiki/Associative_array) of a specific collectible type to a price. Unlike Lua, TypeScript has a built-in `Map` data type. So, the example would be better written like this:
 
 ```ts
 const collectiblePrices = new Map<number, CollectiblePrice>([
