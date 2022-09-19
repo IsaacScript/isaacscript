@@ -8,7 +8,7 @@ declare global {
   interface Mod {
     AddCallback<T extends ModCallback>(
       modCallback: T,
-      ...args: AddCallbackParameter[T]
+      ...args: AddCallbackParameters[T]
     ): void;
 
     HasData(): boolean;
@@ -20,7 +20,7 @@ declare global {
      */
     RemoveCallback<T extends ModCallback>(
       modCallback: T,
-      callback: AddCallbackParameter[T][0],
+      callback: AddCallbackParameters[T][0],
     ): void;
 
     RemoveData(): void;

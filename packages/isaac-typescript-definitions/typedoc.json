@@ -182,7 +182,7 @@
     "src/types/mods/StageAPIInterfaces.d.ts",
     "src/types/mods/StageAPIUnofficial.d.ts",
     "src/types/socket.d.ts",
-    "src/types/unofficial/AddCallbackParameter.d.ts",
+    "src/types/unofficial/AddCallbackParameters.d.ts",
     "src/types/unofficial/APIVersion.d.ts",
     "src/types/unofficial/BitFlag.d.ts",
     "src/types/unofficial/BitFlag128.d.ts",
