@@ -562,8 +562,8 @@ Here, TypeScript will infer that `myNumber` is of type `number`, because it know
 However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain collectible types:
 
 ```ts
-// We will add some collectible types later on, but right now we just need to initialize the array.
-const collectibleTypes = [];
+// We will add some numbers types later on, but right now we just need to initialize the array.
+const numberArray = [];
 ```
 
 Here, TypeScript is able to infer that the type of the variable is an array. But it can't infer what is supposed to go inside of the array, for obvious reasons. So the type defaults to `any[]` (which means "an array containing anything").
@@ -571,7 +571,7 @@ Here, TypeScript is able to infer that the type of the variable is an array. But
 This is bad, because we want our arrays to be type safe. Thus, when we declare arrays (and other container-like objects), we have to tell TypeScript what kinds of things they should contain:
 
 ```ts
-const collectibleTypes: CollectibleType[] = [];
+const numberArray: number[] = [];
 ```
 
 Much better!
