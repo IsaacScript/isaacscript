@@ -68,6 +68,7 @@ export * from "./functions/curses";
 export * from "./functions/debugFunctions";
 export * from "./functions/deepCopy";
 export * from "./functions/deepCopyTests";
+export * from "./functions/dev";
 export * from "./functions/dimensions";
 export * from "./functions/direction";
 export * from "./functions/doors";

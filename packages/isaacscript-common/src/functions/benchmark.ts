@@ -1,4 +1,3 @@
-import { SECOND_IN_MILLISECONDS } from "../core/constants";
 import { log } from "./log";
 
 /**
@@ -39,26 +38,4 @@ export function benchmark(
   });
 
   return averages;
-}
-
-/**
- * Helper function to get the current time in seconds for benchmarking / profiling purposes.
- *
- * - If the "--luadebug" flag is enabled, then this function will use the `socket.gettime` method,
- *   which returns the epoch timestamp in seconds (e.g. "1640320492.5779"). This is preferable over
- *   the `Isaac.GetTime` method, since it has one extra decimal point of precision.
- * - If the "--luadebug" flag is disabled, then this function will use the `Isaac.GetTime` method,
- *   which returns the number of seconds since the computer's operating system was started (e.g.
- *   "739454.963"). (The milliseconds return value of `Isaac.GetTime` is converted to seconds to
- *   align with the return value of `socket.gettime`.)
- */
-export function getTime(): float {
-  const [ok, requiredSocket] = pcall(require, "socket");
-  if (ok) {
-    const socket = requiredSocket as Socket;
-    return socket.gettime();
-  }
-
-  // The "--luadebug" launch option is not enabled.
-  return Isaac.GetTime() / SECOND_IN_MILLISECONDS;
 }

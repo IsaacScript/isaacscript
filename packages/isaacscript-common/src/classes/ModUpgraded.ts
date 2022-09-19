@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { getTime } from "../functions/benchmark";
+import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
 import { AddCallbackParameterCustom } from "../interfaces/private/AddCallbackParameterCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";

@@ -1,37 +1,42 @@
-import { ModUpgraded } from "../classes/ModUpgraded";
-import { enableExtraConsoleCommands } from "../features/extraConsoleCommands/exports";
-import { removeFadeIn } from "../features/fadeInRemover";
-import { enableFastReset } from "../features/fastReset";
-import { saveDataManagerSetGlobal } from "../features/saveDataManager/exports";
-import * as logExports from "./log";
 import { log } from "./log";
-import * as logEntitiesExports from "./logEntities";
-import * as logMiscExports from "./logMisc";
 
 /**
- * Helper function to enable some IsaacScript features that are useful when developing a mod. They
- * should not be enabled when your mod goes to production (i.e. when it is uploaded to the Steam
- * Workshop).
+ * Helper function to get the current time for benchmarking / profiling purposes.
  *
- * The list of development features that are enabled are as follows:
+ * The return value will either be in seconds or milliseconds, depending on if the "--luadebug" flag
+ * is turned on or not.
  *
- * - `saveDataManagerSetGlobal` - Sets your local variables registered with the save data manager as
- *   global variables so you can access them from the in-game console.
- * - `setLogFunctionsGlobal` - Sets the various log functions global so that you can access them
- *   from the in-game console.
- * - `enableExtraConsoleCommands` - Enables many extra in-game console commands that make warping
- *   around easier (like e.g. `angel` to warp to the Angel Room).
- * - `enableFastReset` - Makes it so that the r key resets the game instantaneously.
- * - `removeFadeIn` - Removes the slow fade in that occurs at the beginning of the run, so that you
- *   can immediately start playing or testing.
+ * If the "--luadebug" flag is present, then this function will use the `socket.gettime` method,
+ * which returns the epoch timestamp in seconds (e.g. "1640320492.5779"). This is preferable over
+ * the more conventional `Isaac.GetTime` method, since it has one extra decimal point of precision.
+ *
+ * If the "--luadebug" flag is not present, then this function will use the `Isaac.GetTime` method,
+ * which returns the number of milliseconds since the computer's operating system was started (e.g.
+ * "739454963").
+ *
+ * @param useSocketIfAvailable Optional. Whether to use the `socket.gettime` method, if available.
+ *                             Default is true. If set to false, the `Isaac.GetTime()` method will
+ *                             always be used.
  */
-export function enableDevFeatures(mod: ModUpgraded): void {
-  saveDataManagerSetGlobal();
-  setLogFunctionsGlobal();
-  setTracebackFunctionsGlobal();
-  enableExtraConsoleCommands(mod);
-  enableFastReset();
-  removeFadeIn();
+export function getTime(useSocketIfAvailable = true): float {
+  if (useSocketIfAvailable) {
+    if (SandboxGetTime !== undefined) {
+      return SandboxGetTime();
+    }
+
+    if (isLuaDebugEnabled()) {
+      const [ok, requiredSocket] = pcall(require, "socket");
+      if (ok) {
+        const socket = requiredSocket as Socket;
+        return socket.gettime();
+      }
+    }
+  }
+
+  // We could divide the result by 1000 in order to unify the return type with `socket.gettime`.
+  // However, this causes floating point inaccuracies in the number when subtracting, so it is
+  // better to keep it as an integer.
+  return Isaac.GetTime();
 }
 
 /**
@@ -41,14 +46,15 @@ export function enableDevFeatures(mod: ModUpgraded): void {
  * enabled.
  */
 export function getTraceback(): string {
+  if (SandboxGetTraceback !== undefined) {
+    return SandboxGetTraceback();
+  }
+
+  // "debug" will be equal to undefined if the "--luadebug" launch flag is not present.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (debug !== undefined) {
     // The --luadebug launch flag is enabled.
     return debug.traceback();
-  }
-
-  if (SandboxGetTraceback !== undefined) {
-    return SandboxGetTraceback();
   }
 
   return 'stack traceback:\n(the "--luadebug" flag is not enabled)';
@@ -73,29 +79,6 @@ export function isLuaDebugEnabled(): boolean {
   // "package" is not always defined like the Lua definitions imply.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return _G.package !== undefined;
-}
-
-/**
- * Converts every `isaacscript-common` function that begins with "log" to a global function.
- *
- * This is useful when printing out variables from the in-game debug console.
- */
-export function setLogFunctionsGlobal(): void {
-  const globals = _G as Record<string, unknown>;
-
-  for (const exports of [logExports, logMiscExports, logEntitiesExports]) {
-    // eslint-disable-next-line isaacscript/no-object-any
-    for (const [logFuncName, logFunc] of Object.entries(exports)) {
-      globals[logFuncName] = logFunc;
-    }
-  }
-}
-
-export function setTracebackFunctionsGlobal(): void {
-  const globals = _G as Record<string, unknown>;
-
-  globals["getTraceback"] = getTraceback;
-  globals["traceback"] = traceback;
 }
 
 /**

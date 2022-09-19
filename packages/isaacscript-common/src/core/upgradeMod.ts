@@ -31,7 +31,8 @@ import { loadShaderCrashFix } from "../shaderCrashFix";
  * @param debug Optional. Whether to log additional output when a callback is fired. Default is
  *              false.
  * @param timeThreshold Optional. If provided, will only log callbacks that take longer than the
- *                      specified number of seconds.
+ *                      specified number of seconds (if the "--luadebug" launch flag is turned on)
+ *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
  */
 export function upgradeMod(

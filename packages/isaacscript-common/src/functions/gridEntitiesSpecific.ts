@@ -43,10 +43,8 @@ export function getCrawlSpaces(
  *                   is -1, which matches every variant.
  */
 export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
-  const gridEntities = getGridEntities();
-
   const pits: GridEntityPit[] = [];
-  for (const gridEntity of gridEntities) {
+  for (const gridEntity of getGridEntities()) {
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       const gridEntityVariant = pit.GetVariant();
@@ -68,10 +66,8 @@ export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
 export function getPoops(
   poopVariant: PoopGridEntityVariant = -1,
 ): GridEntityPoop[] {
-  const gridEntities = getGridEntities();
-
   const poops: GridEntityPoop[] = [];
-  for (const gridEntity of gridEntities) {
+  for (const gridEntity of getGridEntities()) {
     const poop = gridEntity.ToPoop();
     if (poop !== undefined) {
       const gridEntityVariant = poop.GetVariant();
@@ -93,10 +89,8 @@ export function getPoops(
 export function getPressurePlates(
   pressurePlateVariant: PressurePlateVariant = -1,
 ): GridEntityPressurePlate[] {
-  const gridEntities = getGridEntities();
-
   const pressurePlates: GridEntityPressurePlate[] = [];
-  for (const gridEntity of gridEntities) {
+  for (const gridEntity of getGridEntities()) {
     const pressurePlate = gridEntity.ToPressurePlate();
     if (pressurePlate !== undefined) {
       const gridEntityVariant = pressurePlate.GetVariant();
@@ -121,10 +115,8 @@ export function getPressurePlates(
  *                types of grid entities can be the `GridEntityRock` class.
  */
 export function getRocks(variant = -1): GridEntityRock[] {
-  const gridEntities = getGridEntities();
-
   const rocks: GridEntityRock[] = [];
-  for (const gridEntity of gridEntities) {
+  for (const gridEntity of getGridEntities()) {
     const rock = gridEntity.ToRock();
     if (rock !== undefined) {
       const gridEntityVariant = rock.GetVariant();
@@ -139,10 +131,8 @@ export function getRocks(variant = -1): GridEntityRock[] {
 
 /** Helper function to get all of the `GridEntitySpikes` in the room. */
 export function getSpikes(variant = -1): GridEntitySpikes[] {
-  const gridEntities = getGridEntities();
-
   const spikes: GridEntitySpikes[] = [];
-  for (const gridEntity of gridEntities) {
+  for (const gridEntity of getGridEntities()) {
     const spike = gridEntity.ToSpikes();
     if (spike !== undefined) {
       const gridEntityVariant = spike.GetVariant();
@@ -157,10 +147,8 @@ export function getSpikes(variant = -1): GridEntitySpikes[] {
 
 /** Helper function to get all of the `GridEntityTNT` in the room. */
 export function getTNT(variant = -1): GridEntityTNT[] {
-  const gridEntities = getGridEntities();
-
   const tntArray: GridEntityTNT[] = [];
-  for (const gridEntity of gridEntities) {
+  for (const gridEntity of getGridEntities()) {
     const tnt = gridEntity.ToTNT();
     if (tnt !== undefined) {
       const gridEntityVariant = tnt.GetVariant();
