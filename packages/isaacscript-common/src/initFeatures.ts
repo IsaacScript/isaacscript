@@ -3,6 +3,7 @@ import { characterHealthConversionInit } from "./features/characterHealthConvers
 import { characterStatsInit } from "./features/characterStats";
 import { collectibleItemPoolTypeInit } from "./features/collectibleItemPoolType";
 import { customGridEntityInit } from "./features/customGridEntity";
+import { customHotkeysInit } from "./features/customHotkeys";
 import { customPickupInit } from "./features/customPickup";
 import { customStageInit } from "./features/customStage/init";
 import { customTrapdoorInit } from "./features/customTrapdoor/init";
@@ -24,7 +25,6 @@ import { roomClearFrameInit } from "./features/roomClearFrame";
 import { roomHistoryInit } from "./features/roomHistory";
 import { runInNFramesInit } from "./features/runInNFrames";
 import { runNextRoomInit } from "./features/runNextRoom";
-import { setHotkeyInit } from "./features/setHotkey";
 import { sirenHelpersInit } from "./features/sirenHelpers";
 import { stageHistoryInit } from "./features/stageHistory";
 import { taintedLazarusPlayersInit } from "./features/taintedLazarusPlayers";
@@ -44,6 +44,7 @@ function initFeaturesMajor(mod: ModUpgraded) {
 }
 
 function initFeaturesMinor(mod: ModUpgraded) {
+  customHotkeysInit(mod);
   customPickupInit(mod);
   customTrapdoorInit(mod);
   disableAllSoundInit(mod);
@@ -63,7 +64,6 @@ function initFeaturesMinor(mod: ModUpgraded) {
   roomClearFrameInit(mod);
   roomHistoryInit(mod);
   runNextRoomInit(mod);
-  setHotkeyInit(mod);
   sirenHelpersInit(mod);
   stageHistoryInit(mod);
   taintedLazarusPlayersInit(mod);

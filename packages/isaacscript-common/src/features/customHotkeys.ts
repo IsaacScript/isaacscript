@@ -3,7 +3,7 @@ import { DefaultMap } from "../classes/DefaultMap";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import { isKeyboardPressed } from "../functions/input";
 
-const FEATURE_NAME = "setHotkey";
+const FEATURE_NAME = "customHotkeys";
 
 /**
  * The keys are the keyboard keys that trigger the hotkey. The values are the functions that contain
@@ -23,7 +23,7 @@ const dynamicHotkeyFunctionMap = new Map<
 const keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
 /** @internal */
-export function setHotkeyInit(mod: Mod): void {
+export function customHotkeysInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
 }
 
