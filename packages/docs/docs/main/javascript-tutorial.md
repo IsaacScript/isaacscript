@@ -80,7 +80,7 @@ Isaac.GetPlayer().AddMaxHearts(2);
 
 <br />
 
-### Variables: `local` --> `const` and `let`
+### Variables: `local` ➜ `const` and `let`
 
 In Lua, you type `local` before declaring a variable to stop it from being turned into a global.
 
@@ -226,11 +226,11 @@ In Lua, you don't put parentheses around the conditions of an `if` statement. Bu
 
 Also, the operators are a bit different:
 
-- `and` --> `&&`
-- `or` --> `||`
-- `==` --> `===`
-- `~=` --> `!==`
-- `..` --> `+`
+- `and` ➜ `&&`
+- `or` ➜ `||`
+- `==` ➜ `===`
+- `~=` ➜ `!==`
+- `..` ➜ `+`
 
 For example:
 
@@ -378,7 +378,7 @@ for (const price of Object.values(collectiblePrices)) {
 
 <br />
 
-### `nil` --> `undefined`
+### `nil` ➜ `undefined`
 
 ```lua
 -- Lua code
@@ -623,7 +623,7 @@ export function addSadOnion(player: EntityPlayer): void {
 
 <br />
 
-### Splitting Your Code Into Multiple Files: `require()` --> `import`
+### Splitting Your Code Into Multiple Files: `require()` ➜ `import`
 
 In Lua, you split your code into multiple files by using `require()`.
 
@@ -826,7 +826,7 @@ RevelationsExports = {
 
 ### Enums
 
-In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices. <!-- cspell:ignore keyvalue -->
+In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices.
 
 Imagine that in our mod, collectibles can only be sold for three different prices:
 
