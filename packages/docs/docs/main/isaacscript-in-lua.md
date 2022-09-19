@@ -181,7 +181,7 @@ Note that some of the custom stage functions (such as e.g. [`setCustomStage`](/i
 
 ## File Size
 
-The file size of the library is around 2 megabytes, so it will increase the total size of your mod by that amount. With that said, the file size of your mod is mostly irrelevant for a few reasons. This is a common misconception by newer programmers, so it is worth taking a few minutes to explain why this is.
+The file size of the library is around 2 megabytes, so using the library will increase the total size of your mod by that amount. With that said, the file size of your mod is mostly irrelevant for a few reasons. This is a common misconception by newer programmers, so it is worth taking a few minutes to explain why this is.
 
 ### Running Time
 
