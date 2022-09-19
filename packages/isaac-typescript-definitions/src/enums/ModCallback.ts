@@ -1,5 +1,8 @@
 export enum ModCallback {
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function postNPCUpdate(npc: EntityNPC): void {}
    * ```
@@ -21,6 +24,10 @@ export enum ModCallback {
   POST_RENDER = 2,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `CollectibleType`
+   * provided.
+   *
    * ```ts
    * function useItem(
    *   collectibleType: CollectibleType,
@@ -38,6 +45,9 @@ export enum ModCallback {
   POST_USE_ITEM = 3,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PlayerType` provided.
+   *
    * ```ts
    * function postPEffectUpdate(player: EntityPlayer): void {}
    * ```
@@ -45,9 +55,12 @@ export enum ModCallback {
   POST_PEFFECT_UPDATE = 4,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `CardType` provided.
+   *
    * ```ts
    * function postUseCard(
-   *   card: Card,
+   *   card: CardType,
    *   player: EntityPlayer,
    *   useFlags: BitFlags<UseFlag>,
    * ): void {}
@@ -56,6 +69,10 @@ export enum ModCallback {
   POST_USE_CARD = 5,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `FamiliarVariant`
+   * provided.
+   *
    * ```ts
    * function postFamiliarUpdate(familiar: EntityFamiliar): void {}
    * ```
@@ -71,6 +88,10 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `FamiliarVariant`
+   * provided.
+   *
    * ```ts
    * function postFamiliarInit(familiar: EntityFamiliar): void {}
    * ```
@@ -78,6 +99,9 @@ export enum ModCallback {
   POST_FAMILIAR_INIT = 7,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `CacheFlag` provided.
+   *
    * ```ts
    * function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag): void {}
    * ```
@@ -102,6 +126,10 @@ export enum ModCallback {
    * players, use the `POST_PLAYER_INIT_FIRST or the `POST_PLAYER_INIT_LATE` custom callbacks
    * instead.
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PlayerVariant`
+   * provided.
+   *
    * ```ts
    * function postPlayerInit(player: EntityPlayer): void {}
    * ```
@@ -109,6 +137,9 @@ export enum ModCallback {
   POST_PLAYER_INIT = 9,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PillEffect` provided.
+   *
    * ```ts
    * function postUsePill(
    *   pillEffect: PillEffect,
@@ -120,6 +151,9 @@ export enum ModCallback {
   POST_USE_PILL = 10,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function entityTakeDmg(
    *   entity: Entity,
@@ -140,6 +174,9 @@ export enum ModCallback {
   POST_CURSE_EVAL = 12,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `InputHook` provided.
+   *
    * ```ts
    * function inputAction(
    *   entity: Entity | undefined,
@@ -191,7 +228,7 @@ export enum ModCallback {
    * ```ts
    * function getCard(
    *   rng: RNG,
-   *   card: Card,
+   *   card: CardType,
    *   includePlayingCards: boolean,
    *   includeRunes: boolean,
    *   onlyRunes: boolean,
@@ -219,6 +256,10 @@ export enum ModCallback {
   EXECUTE_CMD = 22,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `CollectibleType`
+   * provided.
+   *
    * ```ts
    * function preUseItem(
    *   collectibleType: CollectibleType,
@@ -248,6 +289,10 @@ export enum ModCallback {
   PRE_ENTITY_SPAWN = 24,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `FamiliarVariant`
+   * provided.
+   *
    * ```ts
    * function postFamiliarRender(
    *   entityFamiliar: EntityFamiliar,
@@ -258,6 +303,10 @@ export enum ModCallback {
   POST_FAMILIAR_RENDER = 25,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `FamiliarVariant`
+   * provided.
+   *
    * ```ts
    * function preFamiliarCollision(
    *   familiar: EntityFamiliar,
@@ -277,6 +326,9 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function postNPCInit(npc: EntityNPC): void {}
    * ```
@@ -284,6 +336,9 @@ export enum ModCallback {
   POST_NPC_INIT = 27,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function postNPCRender(npc: EntityNPC, renderOffset: Vector): void {}
    * ```
@@ -291,6 +346,9 @@ export enum ModCallback {
   POST_NPC_RENDER = 28,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function postNPCDeath(npc: EntityNPC): void {}
    * ```
@@ -298,6 +356,9 @@ export enum ModCallback {
   POST_NPC_DEATH = 29,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function preNPCCollision(
    *   npc: EntityNPC,
@@ -309,6 +370,10 @@ export enum ModCallback {
   PRE_NPC_COLLISION = 30,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PlayerVariant`
+   * provided.
+   *
    * ```ts
    * function postPlayerUpdate(player: EntityPlayer): void {}
    * ```
@@ -316,6 +381,10 @@ export enum ModCallback {
   POST_PLAYER_UPDATE = 31,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PlayerVariant`
+   * provided.
+   *
    * ```ts
    * function postPlayerRender(player: EntityPlayer, renderOffset: Vector): void {}
    * ```
@@ -323,6 +392,10 @@ export enum ModCallback {
   POST_PLAYER_RENDER = 32,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PlayerVariant`
+   * provided.
+   *
    * ```ts
    * function prePlayerCollision(
    *   player: EntityPlayer,
@@ -342,6 +415,10 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PickupVariant`
+   * provided.
+   *
    * ```ts
    * function postPickupInit(pickup: EntityPickup): void {}
    * ```
@@ -349,6 +426,10 @@ export enum ModCallback {
   POST_PICKUP_INIT = 34,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PickupVariant`
+   * provided.
+   *
    * ```ts
    * function postPickupUpdate(pickup: EntityPickup): void {}
    * ```
@@ -356,6 +437,10 @@ export enum ModCallback {
   POST_PICKUP_UPDATE = 35,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PickupVariant`
+   * provided.
+   *
    * ```ts
    * function postPickupRender(pickup: EntityPickup, renderOffset: Vector): void {}
    * ```
@@ -375,6 +460,10 @@ export enum ModCallback {
 
   /**
    * ```ts
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `PickupVariant`
+   * provided.
+   *
    * function prePickupCollision(
    *   pickup: EntityPickup,
    *   collider: Entity,
@@ -393,6 +482,9 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `TearVariant` provided.
+   *
    * ```ts
    * function postTearInit(tear: EntityTear): void {}
    * ```
@@ -400,6 +492,9 @@ export enum ModCallback {
   POST_TEAR_INIT = 39,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `TearVariant` provided.
+   *
    * ```ts
    * function postTearUpdate(tear: EntityTear): void {}
    * ```
@@ -407,6 +502,9 @@ export enum ModCallback {
   POST_TEAR_UPDATE = 40,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `TearVariant` provided.
+   *
    * ```ts
    * function postTearRender(tear: EntityTear, renderOffset: Vector): void {}
    * ```
@@ -414,6 +512,9 @@ export enum ModCallback {
   POST_TEAR_RENDER = 41,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `TearVariant` provided.
+   *
    * ```ts
    * function preTearCollision(
    *   tear: EntityTear,
@@ -433,6 +534,10 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `ProjectileVariant`
+   * provided.
+   *
    * ```ts
    * function postProjectileInit(projectile: EntityProjectile): void {}
    * ```
@@ -440,6 +545,10 @@ export enum ModCallback {
   POST_PROJECTILE_INIT = 43,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `ProjectileVariant`
+   * provided.
+   *
    * ```ts
    * function postProjectileUpdate(projectile: EntityProjectile): void {}
    * ```
@@ -447,6 +556,10 @@ export enum ModCallback {
   POST_PROJECTILE_UPDATE = 44,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `ProjectileVariant`
+   * provided.
+   *
    * ```ts
    * function postProjectileRender(
    *   projectile: EntityProjectile,
@@ -457,6 +570,10 @@ export enum ModCallback {
   POST_PROJECTILE_RENDER = 45,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `ProjectileVariant`
+   * provided.
+   *
    * ```ts
    * function preProjectileCollision(
    *   projectile: EntityProjectile,
@@ -476,6 +593,9 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `LaserVariant` provided.
+   *
    * ```ts
    * function postLaserInit(laser: EntityLaser): void {}
    * ```
@@ -483,6 +603,9 @@ export enum ModCallback {
   POST_LASER_INIT = 47,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `LaserVariant` provided.
+   *
    * ```ts
    * function postLaserUpdate(laser: EntityLaser): void {}
    * ```
@@ -490,6 +613,9 @@ export enum ModCallback {
   POST_LASER_UPDATE = 48,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `LaserVariant` provided.
+   *
    * ```ts
    * function postLaserRender(laser: EntityLaser, renderOffset: Vector): void {}
    * ```
@@ -505,6 +631,9 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `KnifeVariant` provided.
+   *
    * ```ts
    * function postKnifeInit(knife: EntityKnife): void {}
    * ```
@@ -512,6 +641,9 @@ export enum ModCallback {
   POST_KNIFE_INIT = 50,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `KnifeVariant` provided.
+   *
    * ```ts
    * function postKnifeUpdate(knife: EntityKnife): void {}
    * ```
@@ -519,6 +651,9 @@ export enum ModCallback {
   POST_KNIFE_UPDATE = 51,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `KnifeVariant` provided.
+   *
    * ```ts
    * function postKnifeRender(knife: EntityKnife, renderOffset: Vector): void {}
    * ```
@@ -526,6 +661,9 @@ export enum ModCallback {
   POST_KNIFE_RENDER = 52,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `KnifeVariant` provided.
+   *
    * ```ts
    * function preKnifeCollision(
    *   knife: EntityKnife,
@@ -545,6 +683,10 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EffectVariant`
+   * provided.
+   *
    * ```ts
    * function postEffectInit(effect: EntityEffect): void {}
    * ```
@@ -552,6 +694,10 @@ export enum ModCallback {
   POST_EFFECT_INIT = 54,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EffectVariant`
+   * provided.
+   *
    * ```ts
    * function postEffectUpdate(effect: EntityEffect): void {}
    * ```
@@ -559,6 +705,10 @@ export enum ModCallback {
   POST_EFFECT_UPDATE = 55,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EffectVariant`
+   * provided.
+   *
    * ```ts
    * function postEffectRender(effect: EntityEffect, renderOffset: Vector): void {}
    * ```
@@ -574,6 +724,9 @@ export enum ModCallback {
    * - `SpawnerVariant`
    * - `Velocity`
    *
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `BombVariant` provided.
+   *
    * ```ts
    * function postBombInit(bomb: EntityBomb): void {}
    * ```
@@ -581,6 +734,9 @@ export enum ModCallback {
   POST_BOMB_INIT = 57,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `BombVariant` provided.
+   *
    * ```ts
    * function postBombUpdate(bomb: EntityBomb): void {}
    * ```
@@ -588,6 +744,9 @@ export enum ModCallback {
   POST_BOMB_UPDATE = 58,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `BombVariant` provided.
+   *
    * ```ts
    * function postBombRender(bomb: EntityBomb, renderOffset: Vector): void {}
    * ```
@@ -595,6 +754,9 @@ export enum ModCallback {
   POST_BOMB_RENDER = 59,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `BombVariant` provided.
+   *
    * ```ts
    * function preBombCollision(
    *   bomb: EntityBomb,
@@ -663,6 +825,9 @@ export enum ModCallback {
   GET_TRINKET = 66,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function postEntityRemove(entity: Entity): void {}
    * ```
@@ -670,6 +835,9 @@ export enum ModCallback {
   POST_ENTITY_REMOVE = 67,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function postEntityKill(entity: Entity): void {}
    * ```
@@ -677,6 +845,9 @@ export enum ModCallback {
   POST_ENTITY_KILL = 68,
 
   /**
+   * When registering this callback with the `Mod.AddCallback` method, you can provide an optional
+   * third argument that will make the callback only fire if it matches the `EntityType` provided.
+   *
    * ```ts
    * function preNPCUpdate(entity: Entity): boolean | undefined {}
    * ```

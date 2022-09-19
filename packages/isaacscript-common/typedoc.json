@@ -19,6 +19,7 @@
     "src/enums/AmbushType.ts",
     "src/enums/CornerType.ts",
     "src/enums/HealthType.ts",
+    "src/enums/IsaacScriptCommonFeature.ts",
     "src/enums/ModCallbackCustom.ts",
     "src/enums/PocketItemType.ts",
     "src/enums/RockAltType.ts",
