@@ -340,9 +340,9 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 -- Define a table of collectible prices.
 -- (We must put "[]" around the collectible types since the table keys are numbers.)
 local collectiblePrices = {
-  [3] = 15, -- Spoon Bender
-  [4] = 15, -- Cricket's Head
-  [5] = 7, -- My Reflection
+  [3] = 15, -- Spoon Bender is 15 coins.
+  [4] = 15, -- Cricket's Head is 15 coins.
+  [5] = 7, -- My Reflection is 7 coins.
 }
 
 for collectibleType, price in pairs(collectiblePrices) do
@@ -356,9 +356,9 @@ In TypeScript, you have a few different options.
 // TypeScript code
 // Define an anonymous object containing collectible prices.
 const collectiblePrices = {
-  [3]: 15, // Spoon Bender
-  [4]: 15, // Cricket's Head
-  [5]: 7, // My Reflection
+  [3]: 15, // Spoon Bender is 15 coins.
+  [4]: 15, // Cricket's Head is 15 coins.
+  [5]: 7, // My Reflection is 7 coins.
 };
 
 for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
