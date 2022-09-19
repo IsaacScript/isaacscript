@@ -752,45 +752,7 @@ Now, your other TypeScript files will "see" it as a global variable without you 
 
 <br />
 
-### Using Complicated Global Variables
-
-First, see the previous section on [using global variables](#using-global-variables).
-
-In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. Imagine that your mod creates a new character and you want to add that character to the True Co-op Mod. If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw an error and say that it doesn't exist.
-
-The solution is to add the `AddCharacter()` method to our definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
-
-```ts
-// The global variable exists and it is a Lua table of type TrueCoop,
-// which we will immediately define below.
-declare const InfinityTrueCoopInterface: TrueCoop | undefined;
-
-// We declare a TrueCoop interface that has as many methods or members as we need.
-// (But for now, we will only add one.)
-declare interface TrueCoop() {
-  AddCharacter(playerData: TrueCoopPlayerData)
-}
-
-// We also have to specify what the True Co-op mod expects to be passed for the
-// first argument of the "AddCharacter" method (which is a table with a bunch of
-// things in it. This (partially) matches the documentation near the top of the
-// "main.lua" file for the True Co-op Mod.
-interface TrueCoopPlayerData {
-  Name: string;
-  Type: PlayerType;
-  SelectionGfx: string;
-  GhostCostume: NullCostumeID;
-  MaxHearts: int;
-  Hearts: int;
-  // etc.
-}
-```
-
-After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacter(playerData)` successfully in our code.
-
-<br />
-
-### Exporting Global Variables
+### Creating Global Variables
 
 In Lua, some mods export functionality by using a global variable:
 
