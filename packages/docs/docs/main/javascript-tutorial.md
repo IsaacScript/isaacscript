@@ -120,8 +120,7 @@ end
 
 ```ts
 // TypeScript code
-// All functions in TypeScript are local by default.
-function getNumPoops() {
+function getNumPoops() { // All functions in TypeScript are local by default.
   return 2;
 }
 ```
