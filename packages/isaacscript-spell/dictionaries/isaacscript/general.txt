@@ -41,6 +41,7 @@ transpiling
 unexported
 unfade
 unfixable
+uninit
 uninitialize
 unopenable
 unranked

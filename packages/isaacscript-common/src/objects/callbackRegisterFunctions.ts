@@ -93,7 +93,7 @@ import { preGetPedestalRegister } from "../callbacks/subscriptions/preGetPedesta
 import { preItemPickupRegister } from "../callbacks/subscriptions/preItemPickup";
 import { preNewLevelRegister } from "../callbacks/subscriptions/preNewLevel";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParameterCustom";
+import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 
 export const CALLBACK_REGISTER_FUNCTIONS: {
   readonly [key in ModCallbackCustom]: (

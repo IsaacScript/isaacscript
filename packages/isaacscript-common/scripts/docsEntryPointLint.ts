@@ -17,7 +17,11 @@ function main() {
 
   checkEntryPointsBrokenLink(entryPoints);
 
-  checkEntryPointsForDirectory("src/classes/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory(
+    "src/classes/*.ts",
+    entryPointsSet,
+    (filePath) => !filePath.endsWith("CustomCallback.ts"),
+  );
   checkEntryPointsForDirectory("src/core/*.ts", entryPointsSet);
   checkEntryPointsForDirectory(
     "src/enums/*.ts",

@@ -2,7 +2,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
-import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParameterCustom";
+import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 
 /**
@@ -19,7 +19,7 @@ export class ModUpgraded implements Mod {
 
   /**
    * The vanilla mod object stores the name of the mod for some reason. (It is never used or
-   * referenced.
+   * referenced. (We match the casing of the vanilla variable.)
    */
   Name: string;
 
@@ -28,16 +28,27 @@ export class ModUpgraded implements Mod {
   // ----------------
 
   /** We store a copy of the original mod object so that we can re-implement its functions. */
-  Mod: Mod;
+  private mod: Mod;
 
-  Debug: boolean;
-  TimeThreshold: float | undefined;
+  private debug: boolean;
+  private timeThreshold: float | undefined;
+
+  // TODO
+  /*
+  callbacks: {
+    readonly [key in ModCallbackCustom]: CustomCallback<
+      AddCallbackParametersCustom[key]
+    >;
+  } = {
+    [ModCallbackCustom.POST_PIT_RENDER]: new PostPitRender(this),
+  };
+  */
 
   constructor(mod: Mod, debug: boolean, timeThreshold?: float) {
     this.Name = mod.Name;
-    this.Mod = mod;
-    this.Debug = debug;
-    this.TimeThreshold = timeThreshold;
+    this.mod = mod;
+    this.debug = debug;
+    this.timeThreshold = timeThreshold;
   }
 
   // ---------------
@@ -48,7 +59,7 @@ export class ModUpgraded implements Mod {
     modCallback: T,
     ...args: AddCallbackParameters[T]
   ): void {
-    if (this.Debug) {
+    if (this.debug) {
       const callback = args[0];
       const optionalArg = args[1];
 
@@ -73,8 +84,8 @@ export class ModUpgraded implements Mod {
         const endTime = getTime();
         const elapsedTime = endTime - startTime;
         if (
-          this.TimeThreshold === undefined ||
-          this.TimeThreshold <= elapsedTime
+          this.timeThreshold === undefined ||
+          this.timeThreshold <= elapsedTime
         ) {
           Isaac.DebugString(`${signature} - END - time: ${elapsedTime}`);
         } else {
@@ -84,18 +95,18 @@ export class ModUpgraded implements Mod {
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      this.Mod.AddCallback(modCallback, callbackWithLogger, optionalArg);
+      this.mod.AddCallback(modCallback, callbackWithLogger, optionalArg);
     } else {
-      this.Mod.AddCallback(modCallback, ...args);
+      this.mod.AddCallback(modCallback, ...args);
     }
   }
 
   HasData(): boolean {
-    return this.Mod.HasData();
+    return this.mod.HasData();
   }
 
   LoadData(): string {
-    return this.Mod.LoadData();
+    return this.mod.LoadData();
   }
 
   /**
@@ -106,15 +117,15 @@ export class ModUpgraded implements Mod {
     modCallback: T,
     callback: AddCallbackParameters[T][0],
   ): void {
-    this.Mod.RemoveCallback(modCallback, callback);
+    this.mod.RemoveCallback(modCallback, callback);
   }
 
   RemoveData(): void {
-    this.Mod.RemoveData();
+    this.mod.RemoveData();
   }
 
   SaveData(data: string): void {
-    this.Mod.SaveData(data);
+    this.mod.SaveData(data);
   }
 
   // --------------
@@ -129,6 +140,12 @@ export class ModUpgraded implements Mod {
     const callbackRegisterFunction =
       CALLBACK_REGISTER_FUNCTIONS[modCallbackCustom];
     callbackRegisterFunction(...args);
+
+    // TODO: new way
+    /*
+    const callback = this.callbacks[modCallbackCustom];
+    callback.add(...args);
+    */
   }
 
   /**
