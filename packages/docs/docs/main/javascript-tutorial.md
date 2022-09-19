@@ -354,7 +354,7 @@ In TypeScript, you have a few different options.
 
 ```ts
 // TypeScript code
-// Define an anonymous object containing collectible prices.
+// Define an object containing collectible prices.
 const collectiblePrices = {
   [3]: 15, // Spoon Bender is 15 coins.
   [4]: 15, // Cricket's Head is 15 coins.
