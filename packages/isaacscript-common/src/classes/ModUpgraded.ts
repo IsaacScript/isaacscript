@@ -2,14 +2,13 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
-import { AddCallbackParameterCustom } from "../interfaces/private/AddCallbackParameterCustom";
+import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParameterCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
  * hijacking the vanilla `Mod` object, we provide a `ModUpgraded` object for you to use, which
- * extends the base class and adds a new method of `AddCallbackCustom`. (There is no corresponding
- * `RemoveCallbackCustom`.)
+ * extends the base class and adds a new method of `AddCallbackCustom`.
  *
  * To upgrade your mod, use the `upgradeMod` helper function.
  */
@@ -47,7 +46,7 @@ export class ModUpgraded implements Mod {
 
   AddCallback<T extends ModCallback>(
     modCallback: T,
-    ...args: AddCallbackParameter[T]
+    ...args: AddCallbackParameters[T]
   ): void {
     if (this.Debug) {
       const callback = args[0];
@@ -105,7 +104,7 @@ export class ModUpgraded implements Mod {
    */
   RemoveCallback<T extends ModCallback>(
     modCallback: T,
-    callback: AddCallbackParameter[T][0],
+    callback: AddCallbackParameters[T][0],
   ): void {
     this.Mod.RemoveCallback(modCallback, callback);
   }
@@ -125,10 +124,21 @@ export class ModUpgraded implements Mod {
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
-    ...args: AddCallbackParameterCustom[T]
+    ...args: AddCallbackParametersCustom[T]
   ): void {
     const callbackRegisterFunction =
       CALLBACK_REGISTER_FUNCTIONS[modCallbackCustom];
     callbackRegisterFunction(...args);
+  }
+
+  /**
+   * This method does not care about the tertiary argument. Regardless of the conditions of how you
+   * registered the callback, it will be removed.
+   */
+  RemoveCallbackCustom<T extends ModCallbackCustom>(
+    modCallback: T,
+    callback: AddCallbackParametersCustom[T][0],
+  ): void {
+    print(this, modCallback, callback); // TODO
   }
 }

@@ -199,7 +199,7 @@
     "src/objects/colors.ts",
   ],
   "intentionallyNotExported": [
-    "AddCallbackParameterCustom",
+    "AddCallbackParametersCustom",
     "CopyableIsaacAPIClass",
     "ImmutablePrimitive",
     "ImmutableArray",

@@ -94,7 +94,7 @@ import { PreItemPickupRegisterParameters } from "../../callbacks/subscriptions/p
 import { PreNewLevelRegisterParameters } from "../../callbacks/subscriptions/preNewLevel";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 
-export interface AddCallbackParameterCustom {
+export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinishedRegisterParameters;
   [ModCallbackCustom.POST_AMBUSH_STARTED]: PostAmbushStartedRegisterParameters;
   [ModCallbackCustom.POST_BOMB_EXPLODED]: PostBombExplodedRegisterParameters;
@@ -193,7 +193,7 @@ export interface AddCallbackParameterCustom {
 
 // Make copies of the objects we need to verify so that we can easily re-use the code block below.
 type EnumToCheck = ModCallbackCustom;
-type InterfaceToCheck = AddCallbackParameterCustom;
+type InterfaceToCheck = AddCallbackParametersCustom;
 
 // Throw a compiler error if InterfaceToCheck does not match the values of EnumToCheck.
 // From: https://stackoverflow.com/questions/51829842
