@@ -29,7 +29,7 @@ declare global {
     AddVelocity(velocity: Vector): void;
     BloodExplode(): void;
 
-    // CanShutDoors is deliberately not implemented here because it conflicts with
+    // `CanShutDoors` is deliberately not implemented here because it conflicts with
     // `EntityNPC.CanShutDoors`.
 
     ClearEntityFlags(entityFlags: EntityFlag | BitFlags<EntityFlag>): void;
@@ -119,6 +119,9 @@ declare global {
 
     Child?: Entity;
     CollisionDamage: float;
+
+    // `Color` is deliberately not implemented in favor of `GetColor` and `SetColor`.
+
     DepthOffset: float;
     readonly DropSeed: Seed;
     EntityCollisionClass: EntityCollisionClass;

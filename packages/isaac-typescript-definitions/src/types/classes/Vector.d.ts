@@ -61,7 +61,7 @@ declare global {
   namespace Vector {
     function FromAngle(angleDegrees: float): Vector;
 
-    // The "One" and "Zero" constants are deliberately not implemented, since they are unsafe. See
-    // `VectorOne` and `VectorZero` constants.
+    // The `One` and `Zero` constants are deliberately not implemented, since they are unsafe. See
+    // the `VectorOne` and `VectorZero` constants.
   }
 }

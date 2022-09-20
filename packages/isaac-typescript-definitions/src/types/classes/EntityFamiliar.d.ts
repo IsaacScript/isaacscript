@@ -14,6 +14,8 @@ declare global {
     FollowParent(): void;
     FollowPosition(position: Vector): void;
     GetOrbitPosition(position: Vector): Vector;
+    IsDelayed(): boolean;
+    IsFollower(): boolean;
     MoveDelayed(numFrames: int): void;
     MoveDiagonally(speed: float): void;
 
@@ -53,6 +55,8 @@ declare global {
     MoveDirection: Direction;
     OrbitAngleOffset: float;
     OrbitDistance: Vector;
+    OrbitLayer: int;
+    OrbitSpeed: float;
 
     /**
      * This is the player object that "owns" this familiar. All familiars are associated with an

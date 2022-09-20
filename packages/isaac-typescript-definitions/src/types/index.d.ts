@@ -43,6 +43,7 @@
 /// <reference path="classes/EntityPtr.d.ts" />
 /// <reference path="classes/EntityRef.d.ts" />
 /// <reference path="classes/EntityTear.d.ts" />
+/// <reference path="classes/EntriesList.d.ts" />
 /// <reference path="classes/Font.d.ts" />
 /// <reference path="classes/Game.d.ts" />
 /// <reference path="classes/GridEntity.d.ts" />

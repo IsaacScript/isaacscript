@@ -1231,8 +1231,6 @@ declare global {
     /** Only change this in the `EVALUATE_CACHE` callback. */
     ShotSpeed: float;
 
-    SpriteScale: Vector;
-
     /** Only change this in the `EVALUATE_CACHE` callback. */
     TearColor: Color;
 
