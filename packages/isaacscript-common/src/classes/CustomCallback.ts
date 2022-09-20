@@ -11,20 +11,27 @@ type CustomCallbackParameters = [
   ...optionalArgs: unknown[],
 ];
 
-type CallbackTuple<T extends ModCallback> = [T, AddCallbackParameters[T][0]];
-type CustomCallbackTuple<T extends ModCallbackCustom> = [
-  T,
-  AddCallbackParametersCustom[T],
-];
+/**
+ * A mapping of the callback enum to the associated callback functions (and optional arguments).
+ * This is so that the respective callback functions can be added/removed on demand as subscribers
+ * get added/removed.
+ */
+type CallbackTuple = {
+  [K in ModCallback]: [K, AddCallbackParameters[K]];
+}[ModCallback];
+type CustomCallbackTuple = {
+  [K in ModCallbackCustom]: [K, AddCallbackParametersCustom[K]];
+}[ModCallbackCustom];
 
 /**
  * The base class for a custom callback. Individual custom callbacks will extend from this class.
  */
 export abstract class CustomCallback<T extends CustomCallbackParameters> {
   subscriptions: T[] = [];
-  otherCallbacksUsed: Array<CallbackTuple<ModCallback>> = [];
-  otherCustomCallbacksUsed: Array<CustomCallbackTuple<ModCallbackCustom>> = [];
-  saveDataManager: [key: string, v: SaveData] | null = null;
+
+  otherCallbacksUsed?: CallbackTuple[];
+  otherCustomCallbacksUsed?: CustomCallbackTuple[];
+  saveDataManager?: [key: string, v: SaveData];
 
   hasSubscriptions(): boolean {
     return this.subscriptions.length > 0;

@@ -15,11 +15,7 @@ export class PostPitRender extends CustomCallback<PostPitRenderParameters> {
   constructor() {
     super();
 
-    this.otherCallbacksUsed.push([
-      ModCallback.ENTITY_TAKE_DMG,
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.postRender,
-    ]);
+    this.otherCallbacksUsed = [[ModCallback.POST_RENDER, [this.postRender]]];
   }
 
   override fire(pit: GridEntityPit): void {
@@ -38,9 +34,9 @@ export class PostPitRender extends CustomCallback<PostPitRenderParameters> {
   }
 
   // ModCallback.POST_RENDER (2)
-  postRender(_npc: EntityNPC): void {
+  postRender = (): void => {
     for (const pit of getPits()) {
       this.fire(pit);
     }
-  }
+  };
 }
