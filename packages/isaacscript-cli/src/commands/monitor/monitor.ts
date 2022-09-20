@@ -211,13 +211,14 @@ function warnIfIsaacScriptCommonLinkExists(
     "node_modules",
     "isaacscript-common",
   );
+
   if (!file.exists(isaacScriptCommonPath, verbose)) {
     return;
   }
 
   if (file.isLink(isaacScriptCommonPath, verbose)) {
-    console.warn(
-      'Warning: Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file.',
+    error(
+      'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
     );
   }
 }
