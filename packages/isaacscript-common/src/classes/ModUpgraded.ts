@@ -33,16 +33,9 @@ export class ModUpgraded implements Mod {
   private debug: boolean;
   private timeThreshold: float | undefined;
 
-  // TODO
-  /*
-  callbacks: {
-    readonly [key in ModCallbackCustom]: CustomCallback<
-      AddCallbackParametersCustom[key]
-    >;
-  } = {
-    [ModCallbackCustom.POST_PIT_RENDER]: new PostPitRender(this),
-  };
-  */
+  // -----------
+  // Constructor
+  // -----------
 
   constructor(mod: Mod, debug: boolean, timeThreshold?: float) {
     this.Name = mod.Name;
@@ -142,10 +135,6 @@ export class ModUpgraded implements Mod {
     callbackRegisterFunction(...args);
 
     // TODO: new way
-    /*
-    const callback = this.callbacks[modCallbackCustom];
-    callback.add(...args);
-    */
   }
 
   /**

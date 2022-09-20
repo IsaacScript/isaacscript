@@ -1,3 +1,4 @@
+- helper function to get get how custom callbacks are currently turned on
 - isaacscript-cli in lua
 - pass object into upgradeMod that allows conditional features - IsaacScriptCommonFeature enum
 - "jsonRoom" command

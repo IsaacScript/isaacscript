@@ -1,36 +1,30 @@
-import { ModUpgraded } from "./ModUpgraded";
+import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import { SaveData } from "../interfaces/SaveData";
 
 /** This is the shape of all of the entries in the `AddCallbackParametersCustom` interface. */
 type CustomCallbackParameters = [
-  // Use any instead of unknown to prevent compiler errors and to avoid having to manually cast the
-  // arguments.
+  // We have to use any instead of unknown.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   callback: (...args: any[]) => unknown,
   ...optionalArgs: unknown[],
+];
+
+type CallbackTuple<T extends ModCallback> = [T, AddCallbackParameters[T][0]];
+type CustomCallbackTuple<T extends ModCallbackCustom> = [
+  T,
+  AddCallbackParametersCustom[T],
 ];
 
 /**
  * The base class for a custom callback. Individual custom callbacks will extend from this class.
  */
 export abstract class CustomCallback<T extends CustomCallbackParameters> {
-  mod: ModUpgraded;
-  initialized = false;
   subscriptions: T[] = [];
-
-  constructor(mod: ModUpgraded) {
-    this.mod = mod;
-  }
-
-  /**
-   * In the init function, we subscribe to the specific vanilla callbacks that the custom callback
-   * will need.
-   */
-  abstract init(): void;
-
-  /**
-   * In the uninit function, we unsubscribe from the specific vanilla callbacks that we were using.
-   */
-  abstract uninit(): void;
+  otherCallbacksUsed: Array<CallbackTuple<ModCallback>> = [];
+  otherCustomCallbacksUsed: Array<CustomCallbackTuple<ModCallbackCustom>> = [];
+  saveDataManager: [key: string, v: SaveData] | null = null;
 
   hasSubscriptions(): boolean {
     return this.subscriptions.length > 0;
@@ -38,11 +32,6 @@ export abstract class CustomCallback<T extends CustomCallbackParameters> {
 
   add(...args: T): void {
     this.subscriptions.push(args);
-
-    if (!this.initialized) {
-      this.initialized = true;
-      this.init();
-    }
   }
 
   /**
@@ -58,11 +47,6 @@ export abstract class CustomCallback<T extends CustomCallbackParameters> {
     );
     if (subscriptionIndexMatchingCallback !== -1) {
       this.subscriptions.splice(subscriptionIndexMatchingCallback, 1);
-    }
-
-    if (!this.hasSubscriptions()) {
-      this.initialized = false;
-      this.uninit();
     }
   }
 
