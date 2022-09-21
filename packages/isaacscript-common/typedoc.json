@@ -201,7 +201,9 @@
   ],
   "intentionallyNotExported": [
     "AddCallbackParametersCustom",
+    "AddCallbackParametersCustom2", // TODO
     "CopyableIsaacAPIClass",
+    "CustomCallback",
     "ImmutablePrimitive",
     "ImmutableArray",
     "ImmutableMap",
