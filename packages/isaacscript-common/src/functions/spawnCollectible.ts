@@ -1,8 +1,10 @@
 import {
   CollectibleType,
+  ItemPoolType,
   PickupVariant,
   PlayerType,
 } from "isaac-typescript-definitions";
+import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { preventCollectibleRotation } from "../features/preventCollectibleRotation";
 import { areFeaturesInitialized } from "../featuresInitialized";
@@ -13,10 +15,11 @@ import { anyPlayerIs } from "./players";
 import { getRandomSeed, isRNG } from "./rng";
 
 /**
- * Helper function to spawn a collectible. Use this instead of the `Game.Spawn` method because it
- * handles the cases of Tainted Keeper collectibles costing coins and preventing quest items from
- * being rotated by Tainted Isaac's rotation mechanic. (Rotation prevention will only occur in
- * upgraded mods.)
+ * Helper function to spawn a collectible.
+ *
+ * Use this instead of the `Game.Spawn` method because it handles the cases of Tainted Keeper
+ * collectibles costing coins and preventing quest items from being rotated by Tainted Isaac's
+ * rotation mechanic. (Rotation prevention will only occur in upgraded mods.)
  *
  * @param collectibleType The collectible type to spawn.
  * @param position The position to spawn the collectible at.
@@ -72,6 +75,43 @@ export function spawnCollectible(
   }
 
   return collectible;
+}
+
+/**
+ * Helper function to spawn a collectible from a specific item pool.
+ *
+ * Use this instead of the `Game.Spawn` method because it handles the cases of Tainted Keeper
+ * collectibles costing coins and preventing quest items from being rotated by Tainted Isaac's
+ * rotation mechanic. (Rotation prevention will only occur in upgraded mods.)
+ *
+ * @param itemPoolType The item pool to draw the collectible type from.
+ * @param position The position to spawn the collectible at.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param options Optional. Set to true to make the collectible a "There's Options" style
+ *                collectible. Default is false.
+ * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
+ *                      Tainted Keeper. Default is false.
+ * @param spawner Optional.
+ */
+export function spawnCollectibleFromPool(
+  itemPoolType: ItemPoolType,
+  position: Vector,
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  options = false,
+  forceFreeItem = false,
+  spawner?: Entity,
+): EntityPickupCollectible {
+  const itemPool = game.GetItemPool();
+  const collectibleType = itemPool.GetCollectible(itemPoolType);
+  return spawnCollectible(
+    collectibleType,
+    position,
+    seedOrRNG,
+    options,
+    forceFreeItem,
+    spawner,
+  );
 }
 
 /**

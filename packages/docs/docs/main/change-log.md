@@ -30,6 +30,7 @@ This page lists the changes to the IsaacScript framework.
   - `getTime`
   - `setTracebackFunctionsGlobal` (for easier debugging)
   - `getParentFunctionDescription`
+  - `spawnCollectibleFromPool`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`
