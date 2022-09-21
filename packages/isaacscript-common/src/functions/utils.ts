@@ -72,8 +72,13 @@ export function iRange(start: int, end?: int, increment = 1): int[] {
 }
 
 /**
- * Since this is a UI element, we do not want to draw it in water reflections. `renderOffset` will
- * be a non-zero value in reflections.
+ * Helper function to see if the current render callback is rendering a water reflection.
+ *
+ * When the player is in a room with water, things will be rendered twice: once for the normal
+ * rendering, and once for the reflecting rendering. Thus, any mod code in a render callback will
+ * run twice per frame in these situations, which may be unexpected or cause bugs.
+ *
+ * This function is typically used to early return from a render function if it returns true.
  */
 export function isReflectionRender(): boolean {
   const room = game.GetRoom();
