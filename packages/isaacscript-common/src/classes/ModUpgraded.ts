@@ -1,14 +1,12 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import {
-  ModCallbackCustom,
-  ModCallbackCustom2,
-} from "../enums/ModCallbackCustom";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
+import { saveDataManager } from "../features/saveDataManager/exports";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
-import {
-  AddCallbackParametersCustom,
-  AddCallbackParametersCustom2,
-} from "../interfaces/private/AddCallbackParametersCustom";
+import { getTSTLClassName } from "../functions/tstlClass";
+import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
@@ -182,6 +180,16 @@ export class ModUpgraded implements Mod {
           const [modCallback, callbackArgs] = callbackTuple;
           this.AddCallbackCustom(modCallback, ...callbackArgs);
         }
+      }
+
+      if (callback.saveDataManager !== undefined) {
+        const callbackName = getTSTLClassName(callback);
+        if (callbackName === undefined) {
+          error(
+            `Failed to get the name of the callback: ModCallbackCustom.${ModCallbackCustom2[modCallbackCustom]} (${modCallbackCustom})`,
+          );
+        }
+        saveDataManager(callbackName, {}); // TODO
       }
     }
   }

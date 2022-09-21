@@ -1,4 +1,3 @@
-import { PitVariant } from "isaac-typescript-definitions";
 import { PostAmbushFinishedRegisterParameters } from "../../callbacks/subscriptions/postAmbushFinished";
 import { PostAmbushStartedRegisterParameters } from "../../callbacks/subscriptions/postAmbushStarted";
 import { PostBombInitRegisterParameters } from "../../callbacks/subscriptions/postBombInitLate";
@@ -93,10 +92,7 @@ import { PreCustomReviveRegisterParameters } from "../../callbacks/subscriptions
 import { PreGetPedestalRegisterParameters } from "../../callbacks/subscriptions/preGetPedestal";
 import { PreItemPickupRegisterParameters } from "../../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelRegisterParameters } from "../../callbacks/subscriptions/preNewLevel";
-import {
-  ModCallbackCustom,
-  ModCallbackCustom2,
-} from "../../enums/ModCallbackCustom";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 
 export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinishedRegisterParameters;
@@ -193,18 +189,4 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.PRE_GET_PEDESTAL]: PreGetPedestalRegisterParameters;
   [ModCallbackCustom.PRE_ITEM_PICKUP]: PreItemPickupRegisterParameters;
   [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevelRegisterParameters;
-}
-
-export interface AddCallbackParametersCustom2 {
-  [ModCallbackCustom2.POST_PIT_RENDER]: [
-    callback: (pit: GridEntityPit) => void,
-    pitVariant?: PitVariant,
-  ];
-
-  [ModCallbackCustom2.POST_SPIKES_RENDER]: [
-    callback: (spikes: GridEntitySpikes) => void,
-    gridEntityVariant?: int,
-  ];
-
-  [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: [callback: () => void];
 }

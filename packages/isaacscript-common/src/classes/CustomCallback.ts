@@ -1,5 +1,5 @@
-import { ModCallbackCustom2 } from "../enums/ModCallbackCustom";
-import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom";
+import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
+import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { SaveData } from "../interfaces/SaveData";
 import { CallbackTuple, CustomCallbackTuple } from "../types/CallbackTuple";
 

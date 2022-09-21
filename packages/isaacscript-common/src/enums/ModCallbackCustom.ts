@@ -1631,9 +1631,3 @@ export enum ModCallbackCustom {
    */
   PRE_NEW_LEVEL,
 }
-
-export enum ModCallbackCustom2 {
-  POST_NEW_ROOM_EARLY,
-  POST_PIT_RENDER,
-  POST_SPIKES_RENDER,
-}

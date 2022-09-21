@@ -21,6 +21,7 @@
     "src/enums/HealthType.ts",
     "src/enums/IsaacScriptCommonFeature.ts",
     "src/enums/ModCallbackCustom.ts",
+    "src/enums/ModCallbackCustom2.ts", // TODO
     "src/enums/PocketItemType.ts",
     "src/enums/RockAltType.ts",
     "src/enums/SaveDataKey.ts",
@@ -211,7 +212,6 @@
     "ImmutableObject",
     "IsaacAPIClassTypeToSerializedType",
     "IsaacAPIClassTypeToType",
-    "ModCallbackCustom2", // TODO
     "Serializable",
     "SerializedIsaacAPIClass",
   ],

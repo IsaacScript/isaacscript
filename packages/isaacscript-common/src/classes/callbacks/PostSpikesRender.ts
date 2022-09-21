@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom";
+import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getSpikes } from "../../functions/gridEntitiesSpecific";
 import { CustomCallback } from "../CustomCallback";
 

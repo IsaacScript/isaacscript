@@ -4,7 +4,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom";
+import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
@@ -15,10 +15,7 @@ import { CustomCallback } from "../CustomCallback";
 export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom2.POST_NEW_ROOM_EARLY> {
   currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
-  /**
-   * The wall entity directly to the right of the top-left wall. We use this as a test to see if it
-   * improves the consistency of the callback firing.
-   */
+  /** The wall entity directly to the right of the top-left wall. */
   currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
 
   constructor() {

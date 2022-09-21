@@ -9,6 +9,7 @@ export * from "./enums/CornerType";
 export * from "./enums/HealthType";
 export * from "./enums/IsaacScriptCommonFeature";
 export * from "./enums/ModCallbackCustom";
+export * from "./enums/ModCallbackCustom2";
 export * from "./enums/PocketItemType";
 export * from "./enums/RockAltType";
 export * from "./enums/SaveDataKey";
