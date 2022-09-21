@@ -10,7 +10,7 @@ import {
   spawnGridEntity,
 } from "../../functions/gridEntities";
 import { logError } from "../../functions/logMisc";
-import { CustomCallback } from "../CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom2.POST_NEW_ROOM_EARLY> {
   currentRoomTopLeftWallPtrHash: PtrHash | null = null;

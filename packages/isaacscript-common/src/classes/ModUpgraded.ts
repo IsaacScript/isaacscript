@@ -8,10 +8,12 @@ import { getTSTLClassName } from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
+import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
+import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
 import { PostSpikesRender } from "./callbacks/PostSpikesRender";
-import { CustomCallback } from "./CustomCallback";
+import { CustomCallback } from "./private/CustomCallback";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
@@ -44,6 +46,8 @@ export class ModUpgraded implements Mod {
   private callbacks: {
     readonly [key in ModCallbackCustom2]: CustomCallback<key>;
   } = {
+    [ModCallbackCustom2.POST_AMBUSH_FINISHED]: new PostAmbushFinished(),
+    [ModCallbackCustom2.POST_AMBUSH_STARTED]: new PostAmbushStarted(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
     [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
@@ -182,14 +186,14 @@ export class ModUpgraded implements Mod {
         }
       }
 
-      if (callback.saveDataManager !== undefined) {
+      if (callback.v !== undefined) {
         const callbackName = getTSTLClassName(callback);
         if (callbackName === undefined) {
           error(
             `Failed to get the name of the callback: ModCallbackCustom.${ModCallbackCustom2[modCallbackCustom]} (${modCallbackCustom})`,
           );
         }
-        saveDataManager(callbackName, {}); // TODO
+        saveDataManager(callbackName, callback.v);
       }
     }
   }

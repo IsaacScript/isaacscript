@@ -1,7 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getSpikes } from "../../functions/gridEntitiesSpecific";
-import { CustomCallback } from "../CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 export class PostSpikesRender extends CustomCallback<ModCallbackCustom2.POST_SPIKES_RENDER> {
   constructor() {

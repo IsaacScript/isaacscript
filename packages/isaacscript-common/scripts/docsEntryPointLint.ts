@@ -20,7 +20,7 @@ function main() {
   checkEntryPointsForDirectory(
     "src/classes/*.ts",
     entryPointsSet,
-    (filePath) => !filePath.endsWith("CustomCallback.ts"),
+    (filePath) => !filePath.endsWith("private"),
   );
   checkEntryPointsForDirectory("src/core/*.ts", entryPointsSet);
   checkEntryPointsForDirectory(
@@ -44,7 +44,7 @@ function main() {
   checkEntryPointsForDirectory(
     "src/types/*.ts",
     entryPointsSet,
-    (filePath) => !filePath.endsWith(".d.ts"),
+    (filePath) => !filePath.endsWith(".d.ts") && !filePath.endsWith("private"),
   );
 }
 
