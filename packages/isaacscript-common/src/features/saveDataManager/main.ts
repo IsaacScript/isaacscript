@@ -8,7 +8,10 @@ import { logError } from "../../functions/logMisc";
 import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
-import { CallbackTuple, CustomCallbackTuple } from "../../types/CallbackTuple";
+import {
+  CallbackTuple,
+  CustomCallbackTuple,
+} from "../../types/private/CallbackTuple";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,

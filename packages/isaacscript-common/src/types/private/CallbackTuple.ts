@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
 
 /**
  * A mapping of the callback enum to the associated callback functions (and optional arguments).
