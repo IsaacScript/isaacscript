@@ -203,6 +203,7 @@
   "intentionallyNotExported": [
     "AddCallbackParametersCustom",
     "AddCallbackParametersCustom2", // TODO
+    "CallbackTuple",
     "CopyableIsaacAPIClass",
     "CustomCallback",
     "ImmutablePrimitive",
