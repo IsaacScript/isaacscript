@@ -1,10 +1,10 @@
 import {
   CardType,
   CollectibleType,
+  ModCallback,
   PillEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { ModUpgraded } from "../classes/ModUpgraded";
 import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_CARD_TYPE,
@@ -19,7 +19,6 @@ import {
   NUM_VANILLA_PILL_EFFECTS,
   NUM_VANILLA_TRINKET_TYPES,
 } from "../core/constantsFirstLast";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import {
   asCardType,
@@ -35,11 +34,8 @@ const FEATURE_NAME = "firstLast";
 let atLeastOneCallbackFired = false;
 
 /** @internal */
-export function firstLastInit(mod: ModUpgraded): void {
-  mod.AddCallbackCustom(
-    ModCallbackCustom.POST_NEW_ROOM_EARLY,
-    postNewRoomEarly,
-  );
+export function firstLastInit(mod: Mod): void {
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoomEarly);
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_EARLY

@@ -73,7 +73,7 @@ function checkRoomChanged() {
   }
 
   // For some reason, the above check will rarely fail. We duplicate the check with another wall
-  // segment to go from 99% to 100% reliability.
+  // segment to increase the reliability.
   if (topLeftWall2 === undefined) {
     topLeftWall2 = spawnGridEntity(
       GridEntityType.WALL,

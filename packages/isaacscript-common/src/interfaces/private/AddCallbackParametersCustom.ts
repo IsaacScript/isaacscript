@@ -1,3 +1,4 @@
+import { PitVariant } from "isaac-typescript-definitions";
 import { PostAmbushFinishedRegisterParameters } from "../../callbacks/subscriptions/postAmbushFinished";
 import { PostAmbushStartedRegisterParameters } from "../../callbacks/subscriptions/postAmbushStarted";
 import { PostBombInitRegisterParameters } from "../../callbacks/subscriptions/postBombInitLate";
@@ -92,7 +93,10 @@ import { PreCustomReviveRegisterParameters } from "../../callbacks/subscriptions
 import { PreGetPedestalRegisterParameters } from "../../callbacks/subscriptions/preGetPedestal";
 import { PreItemPickupRegisterParameters } from "../../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelRegisterParameters } from "../../callbacks/subscriptions/preNewLevel";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import {
+  ModCallbackCustom,
+  ModCallbackCustom2,
+} from "../../enums/ModCallbackCustom";
 
 export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinishedRegisterParameters;
@@ -148,7 +152,6 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: PostPickupInitFirstRegisterParameters;
   [ModCallbackCustom.POST_PICKUP_INIT_LATE]: PostPickupInitLateRegisterParameters;
   [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: PostPickupStateChangedRegisterParameters;
-  [ModCallbackCustom.POST_PIT_RENDER]: PostPitRenderRegisterParameters;
   [ModCallbackCustom.POST_PIT_UPDATE]: PostPitUpdateRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: PostPlayerChangeHealthRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_CHANGE_STAT]: PostPlayerChangeStatRegisterParameters;
@@ -160,6 +163,7 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_PLAYER_INIT_LATE]: PostPlayerInitLateRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReorderedRegisterParameters;
   [ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReorderedRegisterParameters;
+  [ModCallbackCustom.POST_PIT_RENDER]: PostPitRenderRegisterParameters;
   [ModCallbackCustom.POST_POOP_RENDER]: PostPoopRenderRegisterParameters;
   [ModCallbackCustom.POST_POOP_UPDATE]: PostPoopUpdateRegisterParameters;
   [ModCallbackCustom.POST_PRESSURE_PLATE_RENDER]: PostPressurePlateRenderRegisterParameters;
@@ -191,22 +195,16 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevelRegisterParameters;
 }
 
-// Make copies of the objects we need to verify so that we can easily re-use the code block below.
-type EnumToCheck = ModCallbackCustom;
-type InterfaceToCheck = AddCallbackParametersCustom;
+export interface AddCallbackParametersCustom2 {
+  [ModCallbackCustom2.POST_PIT_RENDER]: [
+    callback: (pit: GridEntityPit) => void,
+    pitVariant?: PitVariant,
+  ];
 
-// Throw a compiler error if InterfaceToCheck does not match the values of EnumToCheck.
-// From: https://stackoverflow.com/questions/51829842
-type KeysMissing = Exclude<EnumToCheck, keyof InterfaceToCheck>;
-type ExtraKeys = {
-  [K in keyof InterfaceToCheck]: Extract<EnumToCheck, K> extends never
-    ? K
-    : never;
-}[keyof InterfaceToCheck];
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type Verify<
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  _Missing extends never = KeysMissing,
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  _Extra extends never = ExtraKeys,
-> = 0;
+  [ModCallbackCustom2.POST_SPIKES_RENDER]: [
+    callback: (spikes: GridEntitySpikes) => void,
+    gridEntityVariant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: [callback: () => void];
+}

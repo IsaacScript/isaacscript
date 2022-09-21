@@ -1,9 +1,19 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import {
+  ModCallbackCustom,
+  ModCallbackCustom2,
+} from "../enums/ModCallbackCustom";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
-import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import {
+  AddCallbackParametersCustom,
+  AddCallbackParametersCustom2,
+} from "../interfaces/private/AddCallbackParametersCustom";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
+import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
+import { PostPitRender } from "./callbacks/PostPitRender";
+import { PostSpikesRender } from "./callbacks/PostSpikesRender";
+import { CustomCallback } from "./CustomCallback";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
@@ -32,6 +42,14 @@ export class ModUpgraded implements Mod {
 
   private debug: boolean;
   private timeThreshold: float | undefined;
+
+  private callbacks: {
+    readonly [key in ModCallbackCustom2]: CustomCallback<key>;
+  } = {
+    [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
+    [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
+    [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
+  };
 
   // -----------
   // Constructor
@@ -64,15 +82,18 @@ export class ModUpgraded implements Mod {
           : `${parentFunctionDescription} - ${callbackName}`;
 
       /**
-       * We don't use the "log" helper function since it will always show the same "unknown" prefix.
+       * We don't use the "log" helper function here since it will always show the same "unknown"
+       * prefix.
        */
-      const callbackWithLogger = (...callbackArgs: unknown[]) => {
+      const callbackWithLogger: typeof callback = (
+        ...callbackArgs: Parameters<typeof callback>
+      ) => {
         const startTime = getTime();
         Isaac.DebugString(`${signature} - START`);
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        callback(...callbackArgs);
+        // @ts-expect-error The compiler is not smart enough to know that the callback args should
+        // match the callback.
+        const returnValue = callback(...callbackArgs);
 
         const endTime = getTime();
         const elapsedTime = endTime - startTime;
@@ -84,11 +105,15 @@ export class ModUpgraded implements Mod {
         } else {
           Isaac.DebugString(`${signature} - END`);
         }
+
+        return returnValue;
       };
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      this.mod.AddCallback(modCallback, callbackWithLogger, optionalArg);
+      const newArgs = [
+        callbackWithLogger,
+        optionalArg,
+      ] as unknown as AddCallbackParameters[T];
+      this.mod.AddCallback(modCallback, ...newArgs);
     } else {
       this.mod.AddCallback(modCallback, ...args);
     }
@@ -133,8 +158,32 @@ export class ModUpgraded implements Mod {
     const callbackRegisterFunction =
       CALLBACK_REGISTER_FUNCTIONS[modCallbackCustom];
     callbackRegisterFunction(...args);
+  }
 
-    // TODO: new way
+  AddCallbackCustom2<T extends ModCallbackCustom2>(
+    modCallbackCustom: T,
+    ...args: AddCallbackParametersCustom2[T]
+  ): void {
+    const callback = this.callbacks[modCallbackCustom];
+    callback.add(...args);
+
+    if (!callback.initialized) {
+      callback.initialized = true;
+
+      if (callback.otherCallbacksUsed !== undefined) {
+        for (const callbackTuple of callback.otherCallbacksUsed) {
+          const [modCallback, callbackArgs] = callbackTuple;
+          this.AddCallback(modCallback, ...callbackArgs);
+        }
+      }
+
+      if (callback.otherCustomCallbacksUsed !== undefined) {
+        for (const callbackTuple of callback.otherCustomCallbacksUsed) {
+          const [modCallback, callbackArgs] = callbackTuple;
+          this.AddCallbackCustom(modCallback, ...callbackArgs);
+        }
+      }
+    }
   }
 
   /**
@@ -145,6 +194,7 @@ export class ModUpgraded implements Mod {
     modCallback: T,
     callback: AddCallbackParametersCustom[T][0],
   ): void {
-    print(this, modCallback, callback); // TODO
+    // TODO
+    print(this, modCallback, callback);
   }
 }

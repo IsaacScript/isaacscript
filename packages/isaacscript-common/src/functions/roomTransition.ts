@@ -1,12 +1,9 @@
 import {
   Direction,
   DoorSlot,
-  LevelCurse,
   RoomTransitionAnim,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { runNextRoom } from "../features/runNextRoom";
-import { hasCurse } from "./curses";
 import { getRoomData, getRoomGridIndex } from "./roomData";
 
 /**
@@ -17,12 +14,7 @@ import { getRoomData, getRoomGridIndex } from "./roomData";
  */
 export function reloadRoom(): void {
   const roomGridIndex = getRoomGridIndex();
-  teleport(
-    roomGridIndex,
-    Direction.NO_DIRECTION,
-    RoomTransitionAnim.FADE,
-    true,
-  );
+  teleport(roomGridIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE);
 }
 
 /**
@@ -33,28 +25,19 @@ export function reloadRoom(): void {
  * Use this function instead of invoking the `Game.StartRoomTransition` method directly so that:
  * - you do not forget to set the `Level.LeaveDoor` field
  * - to prevent crashing on invalid room grid indexes
- * - to automatically handle Curse of the Maze
+ *
+ * Note that if the current floor has Curse of the Maze, it may redirect the intended teleport.
  *
  * @param roomGridIndex The room grid index of the destination room.
  * @param direction Optional. Default is `Direction.NO_DIRECTION`.
  * @param roomTransitionAnim Optional. Default is `RoomTransitionAnim.TELEPORT`.
- * @param force Optional. Whether to temporarily disable Curse of the Maze. Default is false. If set
- *              to false, then this function may not go to the provided room grid index.
  */
 export function teleport(
   roomGridIndex: int,
   direction = Direction.NO_DIRECTION,
   roomTransitionAnim = RoomTransitionAnim.TELEPORT,
-  force = false,
 ): void {
   const level = game.GetLevel();
-
-  // Before starting a room transition, we must ensure that Curse of the Maze is not in effect, or
-  // else the room transition might send us to the wrong room.
-  const shouldTempDisableCurse = force && hasCurse(LevelCurse.MAZE);
-  if (shouldTempDisableCurse) {
-    level.RemoveCurses(LevelCurse.MAZE);
-  }
 
   const roomData = getRoomData(roomGridIndex);
   if (roomData === undefined) {
@@ -68,11 +51,4 @@ export function teleport(
   level.LeaveDoor = DoorSlot.NO_DOOR_SLOT;
 
   game.StartRoomTransition(roomGridIndex, direction, roomTransitionAnim);
-
-  if (shouldTempDisableCurse) {
-    runNextRoom(() => {
-      const futureLevel = game.GetLevel();
-      futureLevel.AddCurse(LevelCurse.MAZE, false);
-    });
-  }
 }

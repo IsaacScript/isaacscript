@@ -17,5 +17,5 @@ function main() {
 }
 
 function postGameStarted() {
-  Isaac.DebugString("Callback triggered: POST_GAME_STARTED");
+  Isaac.DebugString("Callback fired: POST_GAME_STARTED");
 }

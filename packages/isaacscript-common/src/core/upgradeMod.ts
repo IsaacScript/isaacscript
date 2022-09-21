@@ -1,6 +1,10 @@
 import { postNewRoomEarlyCallbackInit } from "../callbacks/postNewRoomEarly";
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { saveDataManagerInit } from "../features/saveDataManager/main";
+import {
+  saveDataManagerInit,
+  SAVE_DATA_MANAGER_CALLBACKS,
+  SAVE_DATA_MANAGER_CUSTOM_CALLBACKS,
+} from "../features/saveDataManager/main";
 import {
   areFeaturesInitialized,
   setFeaturesInitialized,
@@ -53,8 +57,18 @@ export function upgradeMod(
     postNewRoomEarlyCallbackInit(mod);
 
     // We initialized the save data manager second since it is used by the other custom callbacks
-    // and features.
+    // and features. We can't pass the instantiated `ModUpgraded` class to the "saveDataManagerInit"
+    // function since it causes a circular dependency. Thus, we emulate the initialization process
+    // that the `ModUpgraded.AddCallbackCustom` method uses.
     saveDataManagerInit(mod);
+    for (const callbackTuple of SAVE_DATA_MANAGER_CALLBACKS) {
+      const [modCallback, callbackArgs] = callbackTuple;
+      mod.AddCallback(modCallback, ...callbackArgs);
+    }
+    for (const callbackTuple of SAVE_DATA_MANAGER_CUSTOM_CALLBACKS) {
+      const [modCallback, callbackArgs] = callbackTuple;
+      mod.AddCallbackCustom(modCallback, ...callbackArgs);
+    }
 
     // We initialize custom callbacks next since some features use custom callbacks.
     initCustomCallbacks(mod);

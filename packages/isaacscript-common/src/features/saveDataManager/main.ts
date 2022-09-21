@@ -1,5 +1,4 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { ModUpgraded } from "../../classes/ModUpgraded";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../enums/SaveDataKey";
@@ -9,6 +8,7 @@ import { logError } from "../../functions/logMisc";
 import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
+import { CallbackTuple, CustomCallbackTuple } from "../../types/CallbackTuple";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
@@ -31,36 +31,38 @@ const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
   SaveDataKey.ROOM,
 ]);
 
-let mod: ModUpgraded | null = null;
+let mod: Mod | null = null;
 let loadedDataOnThisRun = false;
 let restoreGlowingHourGlassDataOnNextRoom = false;
 
-export function saveDataManagerInit(incomingMod: ModUpgraded): void {
-  mod = incomingMod;
-
-  mod.AddCallback(
+export const SAVE_DATA_MANAGER_CALLBACKS: CallbackTuple[] = [
+  [
     ModCallback.POST_USE_ITEM,
-    postUseItemGlowingHourGlass,
-    CollectibleType.GLOWING_HOUR_GLASS,
-  ); // 3
-  mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit); // 9
-  mod.AddCallback(ModCallback.PRE_GAME_EXIT, preGameExit); // 17
-  mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
-  mod.AddCallbackCustom(
-    ModCallbackCustom.POST_NEW_ROOM_EARLY,
-    postNewRoomEarly,
-  ); // 19
+    [postUseItemGlowingHourGlass, CollectibleType.GLOWING_HOUR_GLASS],
+  ], // 3
+  [ModCallback.POST_PLAYER_INIT, [postPlayerInit]], // 9
+  [ModCallback.PRE_GAME_EXIT, [preGameExit]], // 17
+  [ModCallback.POST_NEW_LEVEL, [postNewLevel]], // 18
+];
+
+export const SAVE_DATA_MANAGER_CUSTOM_CALLBACKS: CustomCallbackTuple[] = [
+  [ModCallbackCustom.POST_NEW_ROOM_EARLY, [postNewRoomEarly]],
+];
+
+export function saveDataManagerInit(incomingMod: Mod): void {
+  mod = incomingMod;
 }
 
 // ModCallback.POST_USE_ITEM (3)
 // CollectibleType.GLOWING_HOUR_GLASS (422)
-function postUseItemGlowingHourGlass() {
+function postUseItemGlowingHourGlass(): boolean | undefined {
   restoreGlowingHourGlassDataOnNextRoom = true;
   return undefined;
 }
 
 // ModCallback.POST_PLAYER_INIT (9)
-function postPlayerInit() {
+// eslint-disable-next-line isaacscript/no-void-return-type
+function postPlayerInit(): void {
   if (mod === null) {
     error(
       `The mod for the ${SAVE_DATA_MANAGER_FEATURE_NAME} was not initialized.`,
@@ -73,6 +75,9 @@ function postPlayerInit() {
     return;
   }
   loadedDataOnThisRun = true;
+
+  // Handle the race-condition of using the Glowing Hour Glass and then resetting the run.
+  restoreGlowingHourGlassDataOnNextRoom = false;
 
   // We want to unconditionally load save data on every new run since there might be persistent data
   // that is not tied to an individual run.
@@ -89,7 +94,8 @@ function postPlayerInit() {
 }
 
 // ModCallback.PRE_GAME_EXIT (17)
-function preGameExit() {
+// eslint-disable-next-line isaacscript/no-void-return-type
+function preGameExit(): void {
   if (mod === null) {
     error(
       `The mod for the ${SAVE_DATA_MANAGER_FEATURE_NAME} was not initialized.`,
@@ -105,7 +111,8 @@ function preGameExit() {
 }
 
 // ModCallback.POST_NEW_LEVEL (18)
-function postNewLevel() {
+// eslint-disable-next-line isaacscript/no-void-return-type
+function postNewLevel(): void {
   if (mod === null) {
     error(
       `The mod for the ${SAVE_DATA_MANAGER_FEATURE_NAME} was not initialized.`,
@@ -122,7 +129,8 @@ function postNewLevel() {
 }
 
 // ModCallbackCustom.POST_NEW_ROOM_EARLY
-function postNewRoomEarly() {
+// eslint-disable-next-line isaacscript/no-void-return-type
+function postNewRoomEarly(): void {
   restoreDefaults(SaveDataKey.ROOM);
 
   // Handle the Glowing Hour Glass.

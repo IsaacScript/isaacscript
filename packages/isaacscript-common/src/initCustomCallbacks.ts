@@ -103,6 +103,7 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postItemDischargeInit(mod);
   postLaserInitLateInit(mod);
   postKnifeInitLateInit(mod);
+  // "postNewRoomEarlyCallbackInit" has already been called.
   postNPCInitLateInit(mod);
   postNPCStateChangedInit(mod);
   postPickupCollectInit(mod);

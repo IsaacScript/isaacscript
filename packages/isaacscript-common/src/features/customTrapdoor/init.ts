@@ -125,7 +125,6 @@ function checkPixelationToBlackComplete() {
       startingRoomIndex,
       Direction.NO_DIRECTION,
       RoomTransitionAnim.PIXELATION,
-      true,
     );
   });
 }

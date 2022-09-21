@@ -1,21 +1,15 @@
-// TODO
-
-import { ModCallback, PitVariant } from "isaac-typescript-definitions";
-import { CustomCallback } from "../../classes/CustomCallback";
+import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom";
 import { getPits } from "../../functions/gridEntitiesSpecific";
+import { CustomCallback } from "../CustomCallback";
 
-// ts-prune-ignore-next
-export type PostPitRenderParameters = [
-  callback: (pit: GridEntityPit) => void,
-  pitVariant?: PitVariant,
-];
-
-// ts-prune-ignore-next
-export class PostPitRender extends CustomCallback<PostPitRenderParameters> {
+export class PostPitRender extends CustomCallback<ModCallbackCustom2.POST_PIT_RENDER> {
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [[ModCallback.POST_RENDER, [this.postRender]]];
+    this.otherCallbacksUsed = [
+      [ModCallback.POST_RENDER, [this.postRender]], // 2
+    ];
   }
 
   override fire(pit: GridEntityPit): void {
