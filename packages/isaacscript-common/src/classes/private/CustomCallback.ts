@@ -59,7 +59,7 @@ export abstract class CustomCallback<T extends ModCallbackCustom2> {
       if (this.shouldFire(fireArgs, optionalArgs)) {
         // @ts-expect-error The compiler is not smart enough to know that the arguments should match
         // the callback.
-        callback(...fireArgs); // eslint-disable-line isaacscript/strict-enums
+        callback(...fireArgs);
       }
     }
   }

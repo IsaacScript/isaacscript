@@ -11,6 +11,7 @@ import {
   getEntityIDFromConstituents,
 } from "../functions/entities";
 import { spawnEffect } from "../functions/entitiesSpecific";
+import { asNumber } from "../functions/types";
 
 const FEATURE_NAME = "customPickup";
 
@@ -86,7 +87,7 @@ function prePickupCollision(
 // ModCallback.POST_EFFECT_RENDER (56)
 // PICKUP_EFFECT_VARIANT
 function postEffectRenderPickupEffect(effect: EntityEffect) {
-  if (effect.SubType !== PICKUP_EFFECT_SUB_TYPE) {
+  if (effect.SubType !== asNumber(PICKUP_EFFECT_SUB_TYPE)) {
     return;
   }
 
