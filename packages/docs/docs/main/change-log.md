@@ -9,9 +9,10 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## September 20th, 2022 (Unreleased)
+## September 22th, 2022
 
 - The save data manager will now restore any data on a `run` or `level` object when the Glowing Hour Glass is used to what it was when the room was entered.
+- The custom door feature of the standard library is removed. (It may be reimplemented in the future if needed.)
 - Added the following helper functions:
   - `isTearFromPlayer`
   - `isTearFromFamiliar`
