@@ -3,7 +3,7 @@ import { BOMB_EXPLODE_FRAME } from "../core/constants";
 import {
   postBombExplodedFire,
   postBombExplodedHasSubscriptions,
-} from "./subscriptions/postBoneExploded";
+} from "./subscriptions/postBombExploded";
 
 export function postBombExplodedInit(mod: Mod): void {
   mod.AddCallback(ModCallback.POST_BOMB_UPDATE, postBombUpdate); // 58

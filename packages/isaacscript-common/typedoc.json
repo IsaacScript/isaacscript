@@ -20,6 +20,7 @@
     "src/enums/CornerType.ts",
     "src/enums/HealthType.ts",
     "src/enums/IsaacScriptCommonFeature.ts",
+    "src/enums/LadderSubTypeCustom.ts",
     "src/enums/ModCallbackCustom.ts",
     "src/enums/ModCallbackCustom2.ts", // TODO
     "src/enums/PocketItemType.ts",
@@ -29,7 +30,6 @@
     "src/enums/SlotDestructionType.ts",
     "src/enums/StatType.ts",
     "src/features/collectibleItemPoolType.ts",
-    "src/features/customDoor.ts",
     "src/features/customGridEntity.ts",
     "src/features/customHotkeys.ts",
     "src/features/customPickup.ts",

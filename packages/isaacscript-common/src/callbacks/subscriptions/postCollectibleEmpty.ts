@@ -2,7 +2,7 @@ import { CollectibleType } from "isaac-typescript-definitions";
 
 export type PostCollectibleEmptyRegisterParameters = [
   callback: (
-    collectible: EntityPickup,
+    collectible: EntityPickupCollectible,
     oldCollectibleType: CollectibleType,
   ) => void,
   collectibleType?: CollectibleType,

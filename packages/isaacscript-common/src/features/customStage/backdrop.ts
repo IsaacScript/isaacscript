@@ -10,6 +10,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { VectorZero } from "../../core/constants";
+import { LadderSubTypeCustom } from "../../enums/LadderSubTypeCustom";
 import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { newRNG } from "../../functions/rng";
@@ -83,7 +84,7 @@ const N_FLOOR_ANM2_LAYERS: readonly int[] = [18, 19];
  * time passes, like most other effects.
  */
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
-const BACKDROP_EFFECT_SUB_TYPE = 101;
+const BACKDROP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_BACKDROP;
 
 const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
   RoomType.DEFAULT,

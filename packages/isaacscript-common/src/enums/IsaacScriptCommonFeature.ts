@@ -2,7 +2,6 @@ export enum IsaacScriptCommonFeature {
   CHARACTER_HEALTH_CONVERSION = "characterHealthConversion",
   CHARACTER_STATS = "characterStats",
   COLLECTIBLE_ITEM_POOL_TYPE = "collectibleItemPoolType",
-  CUSTOM_DOOR = "customDoor",
   CUSTOM_GRID_ENTITY = "customGridEntity",
   CUSTOM_HOTKEYS = "customHotkeys",
   CUSTOM_PICKUP = "customPickup",

@@ -33,7 +33,8 @@ function postKnifeRender(knife: EntityKnife) {
     return;
   }
 
-  // The PostKnifeRender callback cannot be registered with knife variants for some reason.
+  // The tertiary argument of the `POST_KNIFE_RENDER` callback takes sub-types instead of knife
+  // variants.
   if (knife.Variant !== KnifeVariant.BONE_CLUB) {
     return;
   }

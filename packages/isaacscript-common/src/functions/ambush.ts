@@ -1,10 +1,35 @@
-import { SackSubType } from "isaac-typescript-definitions";
+import { RoomType, SackSubType } from "isaac-typescript-definitions";
+import { game } from "../core/cachedClasses";
+import { AmbushType } from "../enums/AmbushType";
 import { runNextGameFrame } from "../features/runInNFrames";
 import { removeEntities } from "./entities";
 import { getCoins, spawnSackWithSeed } from "./pickupsSpecific";
 
 /** Hard-coding this makes it easier to clean up the pickups afterwards. */
 const SACK_SEED_THAT_SPAWNS_TWO_COINS = 6 as Seed;
+
+/**
+ * Helper function to get the corresponding ambush type for the current room. Returns undefined if
+ * the current room does not correspond to any particular ambush type.
+ */
+export function getAmbushType(): AmbushType | undefined {
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+
+  switch (roomType) {
+    case RoomType.BOSS_RUSH: {
+      return AmbushType.BOSS_RUSH;
+    }
+
+    case RoomType.CHALLENGE: {
+      return AmbushType.CHALLENGE_ROOM;
+    }
+
+    default: {
+      return undefined;
+    }
+  }
+}
 
 /**
  * Helper function to start a Challenge Room or the Boss Rush.

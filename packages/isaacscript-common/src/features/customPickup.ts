@@ -4,6 +4,7 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
+import { LadderSubTypeCustom } from "../enums/LadderSubTypeCustom";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
 import {
   getEntityID,
@@ -27,7 +28,7 @@ interface CustomPickupFunctions {
  * time passes, like most other effects.
  */
 const PICKUP_EFFECT_VARIANT = EffectVariant.LADDER;
-const PICKUP_EFFECT_SUB_TYPE = 103;
+const PICKUP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_PICKUP;
 
 /** Indexed by entity ID. */
 const customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();

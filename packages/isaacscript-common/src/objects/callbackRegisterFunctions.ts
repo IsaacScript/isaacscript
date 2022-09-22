@@ -1,12 +1,11 @@
 import { postAmbushFinishedRegister } from "../callbacks/subscriptions/postAmbushFinished";
 import { postAmbushStartedRegister } from "../callbacks/subscriptions/postAmbushStarted";
+import { postBombExplodedRegister } from "../callbacks/subscriptions/postBombExploded";
 import { postBombInitLateRegister } from "../callbacks/subscriptions/postBombInitLate";
-import { postBombExplodedRegister } from "../callbacks/subscriptions/postBoneExploded";
 import { postBoneSwingRegister } from "../callbacks/subscriptions/postBoneSwing";
 import { postCollectibleEmptyRegister } from "../callbacks/subscriptions/postCollectibleEmpty";
 import { postCollectibleInitFirstRegister } from "../callbacks/subscriptions/postCollectibleInitFirst";
 import { postCursedTeleportRegister } from "../callbacks/subscriptions/postCursedTeleport";
-import { postCustomDoorEnterRegister } from "../callbacks/subscriptions/postCustomDoorEnter";
 import { postCustomReviveRegister } from "../callbacks/subscriptions/postCustomRevive";
 import { postDiceRoomActivatedRegister } from "../callbacks/subscriptions/postDiceRoomActivated";
 import { postDoorRenderRegister } from "../callbacks/subscriptions/postDoorRender";
@@ -109,7 +108,6 @@ export const CALLBACK_REGISTER_FUNCTIONS: {
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]:
     postCollectibleInitFirstRegister,
   [ModCallbackCustom.POST_CURSED_TELEPORT]: postCursedTeleportRegister,
-  [ModCallbackCustom.POST_CUSTOM_DOOR_ENTER]: postCustomDoorEnterRegister,
   [ModCallbackCustom.POST_CUSTOM_REVIVE]: postCustomReviveRegister,
   [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED]: postDiceRoomActivatedRegister,
   [ModCallbackCustom.POST_DOOR_RENDER]: postDoorRenderRegister,

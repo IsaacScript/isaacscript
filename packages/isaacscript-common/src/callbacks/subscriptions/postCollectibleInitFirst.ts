@@ -1,7 +1,7 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 
 export type PostCollectibleInitFirstRegisterParameters = [
-  callback: (collectible: EntityPickup) => void,
+  callback: (collectible: EntityPickupCollectible) => void,
   collectibleType?: CollectibleType,
 ];
 

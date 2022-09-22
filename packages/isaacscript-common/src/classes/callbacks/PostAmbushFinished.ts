@@ -1,28 +1,39 @@
-import { AmbushType } from "../../enums/AmbushType";
+import { ModCallback } from "isaac-typescript-definitions";
+import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallback } from "../private/CustomCallback";
+import { getAmbushType } from "../../functions/ambush";
+import { CustomCallbackAmbush } from "./validation/CustomCallbackAmbush";
 
-const v = {};
+export class PostAmbushFinished extends CustomCallbackAmbush<ModCallbackCustom2.POST_AMBUSH_FINISHED> {
+  override v = {
+    room: {
+      ambushDone: false,
+    },
+  };
 
-export class PostAmbushFinished extends CustomCallback<ModCallbackCustom2.POST_AMBUSH_FINISHED> {
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [];
-
-    this.v = v;
+    this.otherCallbacksUsed = [
+      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+    ];
   }
 
-  override fire(ambushType: AmbushType): void {
-    for (const [callback, callbackAmbushType] of this.subscriptions) {
-      if (
-        callbackAmbushType !== undefined &&
-        callbackAmbushType !== ambushType
-      ) {
-        continue;
-      }
-
-      callback(ambushType);
+  postUpdate = (): void => {
+    if (this.v.room.ambushDone) {
+      return;
     }
-  }
+
+    const room = game.GetRoom();
+    const ambushDone = room.IsAmbushDone();
+    if (!ambushDone) {
+      return;
+    }
+    this.v.room.ambushDone = true;
+
+    const ambushType = getAmbushType();
+    if (ambushType !== undefined) {
+      this.fire(ambushType);
+    }
+  };
 }

@@ -29,9 +29,16 @@ export function postHolyMantleRemovedFire(
 ): void {
   const character = player.GetPlayerType();
 
-  for (const [callback, callbackVariant, callbackCharacter] of subscriptions) {
+  for (const [
+    callback,
+    callbackPlayerVariant,
+    callbackCharacter,
+  ] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (callbackVariant !== undefined && callbackVariant !== player.Variant) {
+    if (
+      callbackPlayerVariant !== undefined &&
+      callbackPlayerVariant !== player.Variant
+    ) {
       continue;
     }
 

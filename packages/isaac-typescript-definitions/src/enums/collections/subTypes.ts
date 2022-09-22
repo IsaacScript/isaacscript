@@ -1609,7 +1609,7 @@ export enum DiceFloorSubType {
 }
 
 /** For `EntityType.EFFECT` (1000), `EffectVariant.TALL_LADDER` (156). */
-export enum LadderSubType {
+export enum TallLadderSubType {
   TALL_LADDER = 0,
   STAIRWAY = 1,
 }

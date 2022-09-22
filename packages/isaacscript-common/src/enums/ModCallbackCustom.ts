@@ -113,7 +113,7 @@ export enum ModCallbackCustom {
    * `CollectibleType` provided.
    *
    * ```ts
-   * function postCollectibleInitLate(collectible: EntityPickup): void {}
+   * function postCollectibleInitLate(collectible: EntityPickupCollectible): void {}
    * ```
    */
   POST_COLLECTIBLE_INIT_FIRST,
@@ -123,30 +123,17 @@ export enum ModCallbackCustom {
    * begins playing after a player triggers a Cursed Eye teleport or a Cursed Skull teleport. (Both
    * of these have the same effect in causing Isaac to be teleported to a random room.)
    *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
    * ```ts
    * function postCursedTeleport(player: EntityPlayer): void {}
    * ```
    */
   POST_CURSED_TELEPORT,
-
-  /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player enters the loading zone of a custom
-   * door created with the `spawnCustomDoor` helper function.
-   *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `DoorVariant` provided.
-   *
-   * ```ts
-   * function postCustomDoorEnter(
-   *   player: EntityPlayer,
-   *   effectVariant: int,
-   *   doorSlot: DoorSlot,
-   *   direction: Direction,
-   * ): void {}
-   * ```
-   */
-  POST_CUSTOM_DOOR_ENTER,
 
   /**
    * Fires from the `POST_PLAYER_UPDATE` callback after the player has finished the death animation,

@@ -1,5 +1,9 @@
+import { PlayerType, PlayerVariant } from "isaac-typescript-definitions";
+
 export type PostCursedTeleportRegisterParameters = [
   callback: (player: EntityPlayer) => void,
+  playerVariant?: PlayerVariant,
+  character?: PlayerType,
 ];
 
 const subscriptions: PostCursedTeleportRegisterParameters[] = [];
@@ -15,7 +19,26 @@ export function postCursedTeleportRegister(
 }
 
 export function postCursedTeleportFire(player: EntityPlayer): void {
-  for (const [callback] of subscriptions) {
+  const character = player.GetPlayerType();
+
+  for (const [
+    callback,
+    callbackPlayerVariant,
+    callbackCharacter,
+  ] of subscriptions) {
+    // Handle the optional 2nd callback argument.
+    if (
+      callbackPlayerVariant !== undefined &&
+      callbackPlayerVariant !== player.Variant
+    ) {
+      continue;
+    }
+
+    // Handle the optional 3rd callback argument.
+    if (callbackCharacter !== undefined && callbackCharacter !== character) {
+      continue;
+    }
+
     callback(player);
   }
 }

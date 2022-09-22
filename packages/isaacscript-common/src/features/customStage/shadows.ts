@@ -1,5 +1,6 @@
 import { EffectVariant, RoomShape } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
+import { LadderSubTypeCustom } from "../../enums/LadderSubTypeCustom";
 import { getRandomArrayElement } from "../../functions/array";
 import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
 import { removeCharactersBefore } from "../../functions/string";
@@ -18,7 +19,7 @@ type ShadowAnimation = "1x1" | "1x2" | "2x1" | "2x2";
  * time passes, like most other effects.
  */
 const SHADOW_EFFECT_VARIANT = EffectVariant.LADDER;
-const SHADOW_EFFECT_SUB_TYPE = 102;
+const SHADOW_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_SHADOW;
 
 /** The animation comes from StageAPI. */
 const ROOM_SHAPE_TO_SHADOW_ANIMATION: {

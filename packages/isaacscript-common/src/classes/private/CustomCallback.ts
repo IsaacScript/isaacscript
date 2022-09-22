@@ -1,13 +1,21 @@
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallbackParametersCustom2";
 import { SaveData } from "../../interfaces/SaveData";
+import { AllButFirst } from "../../types/private/AllButFirst";
 import {
   CallbackTuple,
   CustomCallbackTuple,
 } from "../../types/private/CallbackTuple";
 
+export type FireArgs<T extends ModCallbackCustom2> = Parameters<
+  AddCallbackParametersCustom2[T][0]
+>;
+export type OptionalArgs<T extends ModCallbackCustom2> = AllButFirst<
+  AddCallbackParametersCustom2[T]
+>;
+
 /**
- * The base class for a custom callback. Individual custom callbacks will extend from this class.
+ * The base class for a custom callback. Validation custom callbacks will extend from this class.
  */
 export abstract class CustomCallback<T extends ModCallbackCustom2> {
   /** This is manually managed by the `ModUpgraded` class. */
@@ -43,15 +51,28 @@ export abstract class CustomCallback<T extends ModCallbackCustom2> {
     }
   }
 
-  /**
-   * For any callback that has one or more optional filtration arguments, this method must be
-   * overridden.
-   */
-  fire(...args: Parameters<AddCallbackParametersCustom2[T][0]>): void {
-    for (const [callback] of this.subscriptions) {
-      // @ts-expect-error The compiler is not smart enough to discern that the arguments should
-      // match the callback.
-      callback(...args);
+  fire(...fireArgs: FireArgs<T>): void {
+    for (const [callback, ...optionalArgs] of this.subscriptions) {
+      // @ts-expect-error The compiler is not smart enough to know that the arguments should match
+      // the method.
+      if (this.shouldFire(fireArgs, optionalArgs)) {
+        // @ts-expect-error The compiler is not smart enough to know that the arguments should match
+        // the callback.
+        callback(...fireArgs);
+      }
     }
+  }
+
+  /**
+   * This method needs to be overwritten for any callback that has optional filtration arguments.
+   */
+  // eslint-disable-next-line class-methods-use-this
+  shouldFire(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    fireArgs: FireArgs<T>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    optionalArgs: OptionalArgs<T>,
+  ): boolean {
+    return true;
   }
 }

@@ -7,7 +7,6 @@ import { postBoneSwingInit } from "./callbacks/postBoneSwing";
 import { postCollectibleEmptyInit } from "./callbacks/postCollectibleEmpty";
 import { postCollectibleInitFirstInit } from "./callbacks/postCollectibleInitFirst";
 import { postCursedTeleportInit } from "./callbacks/postCursedTeleport";
-import { postCustomDoorEnterInit } from "./callbacks/postCustomDoorEnter";
 import { postDiceRoomActivatedInit } from "./callbacks/postDiceRoomActivated";
 import { postDoorRenderInit } from "./callbacks/postDoorRender";
 import { postDoorUpdateInit } from "./callbacks/postDoorUpdate";
@@ -82,7 +81,6 @@ export function initCustomCallbacks(mod: ModUpgraded): void {
   postCollectibleEmptyInit(mod);
   postCollectibleInitFirstInit(mod);
   postCursedTeleportInit(mod);
-  postCustomDoorEnterInit();
   postDiceRoomActivatedInit(mod);
   postDoorRenderInit(mod);
   postDoorUpdateInit(mod);

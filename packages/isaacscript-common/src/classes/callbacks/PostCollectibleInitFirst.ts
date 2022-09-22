@@ -1,0 +1,37 @@
+import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
+import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { getCollectibleIndex } from "../../functions/collectibles";
+import { CollectibleIndex } from "../../types/CollectibleIndex";
+import { CustomCallbackCollectible } from "./validation/CustomCallbackCollectible";
+
+export class PostCollectibleEmpty extends CustomCallbackCollectible<ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST> {
+  override v = {
+    run: {
+      seenCollectibles: new Set<CollectibleIndex>(),
+    },
+  };
+
+  constructor() {
+    super();
+
+    this.otherCallbacksUsed = [
+      [
+        ModCallback.POST_PICKUP_INIT,
+        [this.postPickupInitCollectible, PickupVariant.COLLECTIBLE],
+      ], // 34
+    ];
+  }
+
+  // ModCallback.POST_PICKUP_INIT (34)
+  // PickupVariant.COLLECTIBLE (100)
+  postPickupInitCollectible = (pickup: EntityPickup): void => {
+    const collectible = pickup as EntityPickupCollectible;
+    const collectibleIndex = getCollectibleIndex(collectible);
+    if (this.v.run.seenCollectibles.has(collectibleIndex)) {
+      return;
+    }
+
+    this.v.run.seenCollectibles.add(collectibleIndex);
+    this.fire(collectible);
+  };
+}

@@ -31,6 +31,7 @@ This page lists the changes to the IsaacScript framework.
   - `setTracebackFunctionsGlobal` (for easier debugging)
   - `getParentFunctionDescription`
   - `spawnCollectibleFromPool`
+  - `getAmbushType`
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`
@@ -38,6 +39,10 @@ This page lists the changes to the IsaacScript framework.
   - `erange` --> `eRange`
 - Changed the following helper functions:
   - `iRange` and `eRange` now take an optional `increment` argument.
+- Added the following enums:
+  - `LadderSubType`
+- Renamed the following enums:
+  - `LadderSubType` --> `TallLadderSubType`
 - Added the following custom commands:
   - `transformation`
   - `playerForm` (alias for `transformation`)

@@ -169,33 +169,38 @@ export class ModUpgraded implements Mod {
     const callback = this.callbacks[modCallbackCustom];
     callback.add(...args);
 
-    if (!callback.initialized) {
-      callback.initialized = true;
+    if (callback.initialized) {
+      return;
+    }
+    callback.initialized = true;
 
-      if (callback.otherCallbacksUsed !== undefined) {
-        for (const callbackTuple of callback.otherCallbacksUsed) {
-          const [modCallback, callbackArgs] = callbackTuple;
-          this.AddCallback(modCallback, ...callbackArgs);
-        }
-      }
-
-      if (callback.otherCustomCallbacksUsed !== undefined) {
-        for (const callbackTuple of callback.otherCustomCallbacksUsed) {
-          const [modCallback, callbackArgs] = callbackTuple;
-          this.AddCallbackCustom(modCallback, ...callbackArgs);
-        }
-      }
-
-      if (callback.v !== undefined) {
-        const callbackName = getTSTLClassName(callback);
-        if (callbackName === undefined) {
-          error(
-            `Failed to get the name of the callback: ModCallbackCustom.${ModCallbackCustom2[modCallbackCustom]} (${modCallbackCustom})`,
-          );
-        }
-        saveDataManager(callbackName, callback.v);
+    if (callback.otherCallbacksUsed !== undefined) {
+      for (const callbackTuple of callback.otherCallbacksUsed) {
+        const [modCallback, callbackArgs] = callbackTuple;
+        this.AddCallback(modCallback, ...callbackArgs);
       }
     }
+
+    if (callback.otherCustomCallbacksUsed !== undefined) {
+      for (const callbackTuple of callback.otherCustomCallbacksUsed) {
+        const [modCallback, callbackArgs] = callbackTuple;
+        this.AddCallbackCustom(modCallback, ...callbackArgs);
+      }
+    }
+
+    if (callback.v !== undefined) {
+      const callbackName = getTSTLClassName(callback);
+      if (callbackName === undefined) {
+        error(
+          `Failed to get the name of the callback: ModCallbackCustom.${ModCallbackCustom2[modCallbackCustom]} (${modCallbackCustom})`,
+        );
+      }
+      saveDataManager(callbackName, callback.v);
+    }
+
+    /*
+    if (callback.feature !== undefined) {}
+    */
   }
 
   /**

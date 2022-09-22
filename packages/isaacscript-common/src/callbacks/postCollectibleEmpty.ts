@@ -29,6 +29,8 @@ function hasSubscriptions() {
   return postCollectibleEmptyHasSubscriptions();
 }
 
+// ModCallback.POST_PICKUP_UPDATE (35)
+// PickupVariant.COLLECTIBLE (100)
 function postPickupUpdateCollectible(pickup: EntityPickup) {
   const collectible = pickup as EntityPickupCollectible;
   const ptrHash = GetPtrHash(collectible);

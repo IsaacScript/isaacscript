@@ -27,6 +27,8 @@ function hasSubscriptions() {
   return postCollectibleInitFirstHasSubscriptions();
 }
 
+// ModCallback.POST_PICKUP_INIT (34)
+// PickupVariant.COLLECTIBLE (100)
 function postPickupInitCollectible(pickup: EntityPickup) {
   const collectible = pickup as EntityPickupCollectible;
   const collectibleIndex = getCollectibleIndex(collectible);

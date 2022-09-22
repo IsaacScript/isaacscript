@@ -1,12 +1,11 @@
 import { PostAmbushFinishedRegisterParameters } from "../../callbacks/subscriptions/postAmbushFinished";
 import { PostAmbushStartedRegisterParameters } from "../../callbacks/subscriptions/postAmbushStarted";
+import { PostBombExplodedRegisterParameters } from "../../callbacks/subscriptions/postBombExploded";
 import { PostBombInitRegisterParameters } from "../../callbacks/subscriptions/postBombInitLate";
-import { PostBombExplodedRegisterParameters } from "../../callbacks/subscriptions/postBoneExploded";
 import { PostBoneSwingRegisterParameters } from "../../callbacks/subscriptions/postBoneSwing";
 import { PostCollectibleEmptyRegisterParameters } from "../../callbacks/subscriptions/postCollectibleEmpty";
 import { PostCollectibleInitFirstRegisterParameters } from "../../callbacks/subscriptions/postCollectibleInitFirst";
 import { PostCursedTeleportRegisterParameters } from "../../callbacks/subscriptions/postCursedTeleport";
-import { PostCustomDoorEnterRegisterParameters } from "../../callbacks/subscriptions/postCustomDoorEnter";
 import { PostCustomReviveRegisterParameters } from "../../callbacks/subscriptions/postCustomRevive";
 import { PostDiceRoomActivatedRegisterParameters } from "../../callbacks/subscriptions/postDiceRoomActivated";
 import { PostDoorRenderRegisterParameters } from "../../callbacks/subscriptions/postDoorRender";
@@ -103,7 +102,6 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_COLLECTIBLE_EMPTY]: PostCollectibleEmptyRegisterParameters;
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirstRegisterParameters;
   [ModCallbackCustom.POST_CURSED_TELEPORT]: PostCursedTeleportRegisterParameters;
-  [ModCallbackCustom.POST_CUSTOM_DOOR_ENTER]: PostCustomDoorEnterRegisterParameters;
   [ModCallbackCustom.POST_CUSTOM_REVIVE]: PostCustomReviveRegisterParameters;
   [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED]: PostDiceRoomActivatedRegisterParameters;
   [ModCallbackCustom.POST_DOOR_RENDER]: PostDoorRenderRegisterParameters;
