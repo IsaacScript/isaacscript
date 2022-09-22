@@ -14,5 +14,4 @@ export enum LadderSubTypeCustom {
   CUSTOM_BACKDROP = 101,
   CUSTOM_SHADOW = 102,
   CUSTOM_PICKUP = 103,
-  CUSTOM_DOOR = 104,
 }

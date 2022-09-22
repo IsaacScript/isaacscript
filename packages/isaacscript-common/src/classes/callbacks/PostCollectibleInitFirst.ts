@@ -4,7 +4,7 @@ import { getCollectibleIndex } from "../../functions/collectibles";
 import { CollectibleIndex } from "../../types/CollectibleIndex";
 import { CustomCallbackCollectible } from "./validation/CustomCallbackCollectible";
 
-export class PostCollectibleEmpty extends CustomCallbackCollectible<ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST> {
+export class PostCollectibleInitFirst extends CustomCallbackCollectible<ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST> {
   override v = {
     run: {
       seenCollectibles: new Set<CollectibleIndex>(),

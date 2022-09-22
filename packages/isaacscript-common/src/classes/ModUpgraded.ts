@@ -10,8 +10,16 @@ import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackP
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
+import { PostBombExploded } from "./callbacks/PostBombExploded";
+import { PostBombInitLate } from "./callbacks/PostBombInitLate";
+import { PostBoneSwing } from "./callbacks/PostBoneSwing";
+import { PostCollectibleEmpty } from "./callbacks/PostCollectibleEmpty";
+import { PostCollectibleInitFirst } from "./callbacks/PostCollectibleInitFirst";
+import { PostCursedTeleport } from "./callbacks/PostCursedTeleport";
+import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
+import { PostRoomClearChanged } from "./callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./callbacks/PostSpikesRender";
 import { CustomCallback } from "./private/CustomCallback";
 
@@ -48,8 +56,18 @@ export class ModUpgraded implements Mod {
   } = {
     [ModCallbackCustom2.POST_AMBUSH_FINISHED]: new PostAmbushFinished(),
     [ModCallbackCustom2.POST_AMBUSH_STARTED]: new PostAmbushStarted(),
+    [ModCallbackCustom2.POST_BOMB_EXPLODED]: new PostBombExploded(),
+    [ModCallbackCustom2.POST_BOMB_INIT_LATE]: new PostBombInitLate(),
+    [ModCallbackCustom2.POST_BONE_SWING]: new PostBoneSwing(),
+    [ModCallbackCustom2.POST_COLLECTIBLE_EMPTY]: new PostCollectibleEmpty(),
+    [ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST]:
+      new PostCollectibleInitFirst(),
+    [ModCallbackCustom2.POST_CURSED_TELEPORT]: new PostCursedTeleport(),
+
+    [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: new PostKnifeInitLate(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
+    [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: new PostRoomClearChanged(),
     [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
   };
 

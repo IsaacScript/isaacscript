@@ -15,7 +15,8 @@ export type OptionalArgs<T extends ModCallbackCustom2> = AllButFirst<
 >;
 
 /**
- * The base class for a custom callback. Validation custom callbacks will extend from this class.
+ * The base class for a custom callback. Individual custom callbacks (and validation callbacks) will
+ * extend from this class.
  */
 export abstract class CustomCallback<T extends ModCallbackCustom2> {
   /** This is manually managed by the `ModUpgraded` class. */
@@ -58,7 +59,7 @@ export abstract class CustomCallback<T extends ModCallbackCustom2> {
       if (this.shouldFire(fireArgs, optionalArgs)) {
         // @ts-expect-error The compiler is not smart enough to know that the arguments should match
         // the callback.
-        callback(...fireArgs);
+        callback(...fireArgs); // eslint-disable-line isaacscript/strict-enums
       }
     }
   }

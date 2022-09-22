@@ -1,8 +1,7 @@
 import {
   BombVariant,
   CollectibleType,
-  Direction,
-  DoorSlot,
+  KnifeVariant,
   PitVariant,
   PlayerType,
   PlayerVariant,
@@ -54,17 +53,12 @@ export interface AddCallbackParametersCustom2 {
     character?: PlayerType,
   ];
 
-  [ModCallbackCustom2.POST_CUSTOM_DOOR_ENTER]: [
-    callback: (
-      player: EntityPlayer,
-      effectVariant: int,
-      doorSlot: DoorSlot,
-      direction: Direction,
-    ) => void,
-    effectVariant?: int,
-  ];
-
   // -------------------------------------------
+
+  [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: [
+    callback: (knife: EntityKnife) => void,
+    knifeVariant?: KnifeVariant,
+  ];
 
   [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: [callback: () => void];
 

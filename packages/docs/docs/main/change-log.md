@@ -40,7 +40,7 @@ This page lists the changes to the IsaacScript framework.
 - Changed the following helper functions:
   - `iRange` and `eRange` now take an optional `increment` argument.
 - Added the following enums:
-  - `LadderSubType`
+  - `LadderSubTypeCustom`
 - Renamed the following enums:
   - `LadderSubType` --> `TallLadderSubType`
 - Added the following custom commands:

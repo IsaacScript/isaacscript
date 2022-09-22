@@ -2,11 +2,10 @@
 // - `POST_AMBUSH_STARTED`
 // - `POST_AMBUSH_FINISHED`
 
-import { ModCallback, RoomType } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { AmbushType } from "../enums/AmbushType";
 import { saveDataManager } from "../features/saveDataManager/exports";
-import { getRoomType } from "../functions/roomData";
+import { getAmbushType } from "../functions/ambush";
 import {
   postAmbushFinishedFire,
   postAmbushFinishedHasSubscriptions,
@@ -41,14 +40,17 @@ function postUpdate() {
     return;
   }
 
+  const ambushType = getAmbushType();
+  if (ambushType === undefined) {
+    return;
+  }
+
   const room = game.GetRoom();
 
   if (!v.room.ambushActive) {
     const ambushActive = room.IsAmbushActive();
     if (ambushActive) {
       v.room.ambushActive = true;
-
-      const ambushType = getAmbushType();
       postAmbushStartedFire(ambushType);
     }
   }
@@ -57,16 +59,7 @@ function postUpdate() {
     const ambushDone = room.IsAmbushDone();
     if (ambushDone) {
       v.room.ambushDone = true;
-
-      const ambushType = getAmbushType();
       postAmbushFinishedFire(ambushType);
     }
   }
-}
-
-function getAmbushType(): AmbushType {
-  const roomType = getRoomType();
-  return roomType === RoomType.BOSS_RUSH
-    ? AmbushType.BOSS_RUSH
-    : AmbushType.CHALLENGE_ROOM;
 }
