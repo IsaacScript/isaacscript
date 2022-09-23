@@ -6,6 +6,6 @@ export class PostFirstEsauJr extends CustomCallback<ModCallbackCustom2.POST_FIRS
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature2.ESAU_JR];
+    this.featuresUsed = [IsaacScriptCommonFeature2.ESAU_JR_DETECTION];
   }
 }

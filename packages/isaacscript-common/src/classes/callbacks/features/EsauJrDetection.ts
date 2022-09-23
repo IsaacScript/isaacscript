@@ -14,7 +14,7 @@ import { Feature } from "../../private/Feature";
 import { PostEsauJr } from "../PostEsauJr";
 import { PostFirstEsauJr } from "../PostFirstEsauJr";
 
-export class EsauJr extends Feature {
+export class EsauJrDetection extends Feature {
   override v = {
     run: {
       usedEsauJrFrame: null as int | null,

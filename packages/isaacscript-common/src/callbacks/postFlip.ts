@@ -71,7 +71,7 @@ function useItemFlip(
   return undefined;
 }
 
-function getNewLazarus(oldLazarus: EntityPlayer) {
+function getNewLazarus(oldLazarus: EntityPlayer): EntityPlayer | undefined {
   const oldCharacter = oldLazarus.GetPlayerType();
 
   let newCharacter: PlayerType;
@@ -80,7 +80,7 @@ function getNewLazarus(oldLazarus: EntityPlayer) {
   } else if (oldCharacter === PlayerType.LAZARUS_2_B) {
     newCharacter = PlayerType.LAZARUS_B;
   } else {
-    error("Failed to determine the character in the postFlip callback.");
+    return undefined;
   }
 
   const playersOfType = getPlayersOfType(newCharacter);

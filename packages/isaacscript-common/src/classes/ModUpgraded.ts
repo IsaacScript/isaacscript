@@ -10,7 +10,8 @@ import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackPa
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { CustomRevive } from "./callbacks/features/CustomRevive";
-import { EsauJr } from "./callbacks/features/EsauJr";
+import { EsauJrDetection } from "./callbacks/features/EsauJrDetection";
+import { FlipDetection } from "./callbacks/features/FlipDetection";
 import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
 import { PostBombExploded } from "./callbacks/PostBombExploded";
@@ -29,6 +30,8 @@ import { PostEsauJr } from "./callbacks/PostEsauJr";
 import { PostFamiliarInitLate } from "./callbacks/PostFamiliarInitLate";
 import { PostFamiliarStateChanged } from "./callbacks/PostFamiliarStateChanged";
 import { PostFirstEsauJr } from "./callbacks/PostFirstEsauJr";
+import { PostFirstFlip } from "./callbacks/PostFirstFlip";
+import { PostFlip } from "./callbacks/PostFlip";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
@@ -89,6 +92,8 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: new PostFamiliarInitLate(),
     [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]:
       new PostFamiliarStateChanged(),
+    [ModCallbackCustom2.POST_FIRST_FLIP]: new PostFirstFlip(),
+    [ModCallbackCustom2.POST_FLIP]: new PostFlip(),
 
     // ----------------
 
@@ -108,9 +113,13 @@ export class ModUpgraded implements Mod {
       this.callbacks[ModCallbackCustom2.PRE_CUSTOM_REVIVE],
       this.callbacks[ModCallbackCustom2.POST_CUSTOM_REVIVE],
     ),
-    [IsaacScriptCommonFeature2.ESAU_JR]: new EsauJr(
+    [IsaacScriptCommonFeature2.ESAU_JR_DETECTION]: new EsauJrDetection(
       this.callbacks[ModCallbackCustom2.POST_ESAU_JR],
       this.callbacks[ModCallbackCustom2.POST_FIRST_ESAU_JR],
+    ),
+    [IsaacScriptCommonFeature2.FLIP_DETECTION]: new FlipDetection(
+      this.callbacks[ModCallbackCustom2.POST_FLIP],
+      this.callbacks[ModCallbackCustom2.POST_FIRST_FLIP],
     ),
   };
 
