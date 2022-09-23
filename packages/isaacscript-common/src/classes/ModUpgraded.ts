@@ -10,6 +10,7 @@ import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackPa
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { CustomRevive } from "./callbacks/features/CustomRevive";
+import { EsauJr } from "./callbacks/features/EsauJr";
 import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
 import { PostBombExploded } from "./callbacks/PostBombExploded";
@@ -24,6 +25,8 @@ import { PostDoorRender } from "./callbacks/PostDoorRender";
 import { PostDoorUpdate } from "./callbacks/PostDoorUpdate";
 import { PostEffectInitLate } from "./callbacks/PostEffectInitLate";
 import { PostEffectStateChanged } from "./callbacks/PostEffectStateChanged";
+import { PostEsauJr } from "./callbacks/PostEsauJr";
+import { PostFirstEsauJr } from "./callbacks/PostFirstEsauJr";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
@@ -80,9 +83,11 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_EFFECT_INIT_LATE]: new PostEffectInitLate(),
     [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]:
       new PostEffectStateChanged(),
+    [ModCallbackCustom2.POST_ESAU_JR]: new PostEsauJr(),
 
     // ----------------
 
+    [ModCallbackCustom2.POST_FIRST_ESAU_JR]: new PostFirstEsauJr(),
     [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: new PostKnifeInitLate(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
@@ -97,6 +102,10 @@ export class ModUpgraded implements Mod {
     [IsaacScriptCommonFeature2.CUSTOM_REVIVE]: new CustomRevive(
       this.callbacks[ModCallbackCustom2.PRE_CUSTOM_REVIVE],
       this.callbacks[ModCallbackCustom2.POST_CUSTOM_REVIVE],
+    ),
+    [IsaacScriptCommonFeature2.ESAU_JR]: new EsauJr(
+      this.callbacks[ModCallbackCustom2.POST_ESAU_JR],
+      this.callbacks[ModCallbackCustom2.POST_FIRST_ESAU_JR],
     ),
   };
 
