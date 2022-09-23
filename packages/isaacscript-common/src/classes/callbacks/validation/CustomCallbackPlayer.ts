@@ -5,7 +5,7 @@ import {
   OptionalArgs,
 } from "../../private/CustomCallback";
 
-type CallbackSignaturePlayer = (player: EntityPlayer) => void;
+type CallbackSignaturePlayer = (player: EntityPlayer) => unknown;
 type ModCallbackCustomPlayer = MatchingCallbackCustom<CallbackSignaturePlayer>;
 
 export class CustomCallbackPlayer<

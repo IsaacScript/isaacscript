@@ -8,6 +8,8 @@ import {
 /**
  * The IsaacScript standard library contains many optional features, such as the ability to create
  * custom pickups.
+ *
+ * Additionally, all custom callbacks extend from this class.
  */
 export class Feature {
   initialized = false;
