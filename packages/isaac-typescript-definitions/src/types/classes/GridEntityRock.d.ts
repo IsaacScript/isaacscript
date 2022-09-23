@@ -1,5 +1,4 @@
 import { RockState } from "../../enums/collections/gridEntityState";
-import { RockVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
   /**
@@ -32,6 +31,5 @@ declare global {
     FrameCnt: int;
     RubbleAnim: string;
     State: RockState;
-    Variant: RockVariant;
   }
 }
