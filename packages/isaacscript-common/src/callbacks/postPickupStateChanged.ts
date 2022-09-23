@@ -8,7 +8,7 @@ import {
 
 const v = {
   run: {
-    pickupStateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
+    stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
   },
 };
 
@@ -29,12 +29,9 @@ function postPickupUpdate(pickup: EntityPickup) {
   }
 
   const ptrHash = GetPtrHash(pickup);
-  const previousState = v.run.pickupStateMap.getAndSetDefault(
-    ptrHash,
-    pickup.State,
-  );
+  const previousState = v.run.stateMap.getAndSetDefault(ptrHash, pickup.State);
   const currentState = pickup.State;
-  v.run.pickupStateMap.set(ptrHash, currentState);
+  v.run.stateMap.set(ptrHash, currentState);
 
   if (previousState !== currentState) {
     postPickupStateChangedFire(pickup, previousState, currentState);

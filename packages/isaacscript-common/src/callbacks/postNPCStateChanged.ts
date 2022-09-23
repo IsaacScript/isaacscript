@@ -8,7 +8,7 @@ import {
 
 const v = {
   run: {
-    npcStateMap: new DefaultMap<PtrHash, NpcState, [NpcState]>(
+    stateMap: new DefaultMap<PtrHash, NpcState, [NpcState]>(
       (state) => state, // eslint-disable-line isaacscript/strict-enums
     ),
   },
@@ -31,9 +31,9 @@ function postNPCUpdate(npc: EntityNPC) {
   }
 
   const ptrHash = GetPtrHash(npc);
-  const previousState = v.run.npcStateMap.getAndSetDefault(ptrHash, npc.State);
+  const previousState = v.run.stateMap.getAndSetDefault(ptrHash, npc.State);
   const currentState = npc.State;
-  v.run.npcStateMap.set(ptrHash, currentState);
+  v.run.stateMap.set(ptrHash, currentState);
 
   if (previousState !== currentState) {
     postNPCStateChangedFire(npc, previousState, currentState);

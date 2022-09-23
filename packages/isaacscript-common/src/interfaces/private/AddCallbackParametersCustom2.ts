@@ -4,6 +4,7 @@ import {
   DiceFloorSubType,
   DoorVariant,
   EffectVariant,
+  FamiliarVariant,
   KnifeVariant,
   PitVariant,
   PlayerType,
@@ -98,6 +99,20 @@ export interface AddCallbackParametersCustom2 {
   // - The character of Esau Jr. is equal to `PlayerType.ISAAC`, so it does not make sense to filter
   //   by character.
   [ModCallbackCustom2.POST_ESAU_JR]: [callback: (player: EntityPlayer) => void];
+
+  [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: [
+    callback: (familiar: EntityFamiliar) => void,
+    familiarVariant?: FamiliarVariant,
+  ];
+
+  [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]: [
+    callback: (
+      familiar: EntityFamiliar,
+      previousState: int,
+      currentState: int,
+    ) => void,
+    familiarVariant?: FamiliarVariant,
+  ];
 
   // -------------------------------------------
 

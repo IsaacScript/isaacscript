@@ -1,9 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { DefaultMap } from "../DefaultMap";
-import { CustomCallbackEffect } from "./validation/CustomCallbackEffect";
+import { CustomCallbackFamiliar } from "./validation/CustomCallbackFamiliar";
 
-export class PostEffectStateChanged extends CustomCallbackEffect<ModCallbackCustom2.POST_EFFECT_STATE_CHANGED> {
+export class PostFamiliarStateChanged extends CustomCallbackFamiliar<ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED> {
   override v = {
     run: {
       stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
@@ -14,22 +14,22 @@ export class PostEffectStateChanged extends CustomCallbackEffect<ModCallbackCust
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_EFFECT_UPDATE, [this.postEffectUpdate]],
-    ]; // 55
+      [ModCallback.POST_FAMILIAR_UPDATE, [this.postFamiliarUpdate]],
+    ]; // 6
   }
 
-  // ModCallback.POST_EFFECT_UPDATE (55)
-  postEffectUpdate = (effect: EntityEffect): void => {
-    const ptrHash = GetPtrHash(effect);
+  // ModCallback.POST_FAMILIAR_UPDATE (6)
+  postFamiliarUpdate = (familiar: EntityFamiliar): void => {
+    const ptrHash = GetPtrHash(familiar);
     const previousState = this.v.run.stateMap.getAndSetDefault(
       ptrHash,
-      effect.State,
+      familiar.State,
     );
-    const currentState = effect.State;
+    const currentState = familiar.State;
     this.v.run.stateMap.set(ptrHash, currentState);
 
     if (previousState !== currentState) {
-      this.fire(effect, previousState, currentState);
+      this.fire(familiar, previousState, currentState);
     }
   };
 }

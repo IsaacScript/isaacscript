@@ -8,7 +8,7 @@ import {
 
 const v = {
   run: {
-    effectStateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
+    stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
   },
 };
 
@@ -29,12 +29,9 @@ function postEffectUpdate(effect: EntityEffect) {
   }
 
   const ptrHash = GetPtrHash(effect);
-  const previousState = v.run.effectStateMap.getAndSetDefault(
-    ptrHash,
-    effect.State,
-  );
+  const previousState = v.run.stateMap.getAndSetDefault(ptrHash, effect.State);
   const currentState = effect.State;
-  v.run.effectStateMap.set(ptrHash, currentState);
+  v.run.stateMap.set(ptrHash, currentState);
 
   if (previousState !== currentState) {
     postEffectStateChangedFire(effect, previousState, currentState);

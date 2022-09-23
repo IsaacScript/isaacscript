@@ -8,7 +8,7 @@ import {
 
 const v = {
   run: {
-    familiarStateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
+    stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
   },
 };
 
@@ -29,12 +29,12 @@ function postFamiliarUpdate(familiar: EntityFamiliar) {
   }
 
   const ptrHash = GetPtrHash(familiar);
-  const previousState = v.run.familiarStateMap.getAndSetDefault(
+  const previousState = v.run.stateMap.getAndSetDefault(
     ptrHash,
     familiar.State,
   );
   const currentState = familiar.State;
-  v.run.familiarStateMap.set(ptrHash, currentState);
+  v.run.stateMap.set(ptrHash, currentState);
 
   if (previousState !== currentState) {
     postFamiliarStateChangedFire(familiar, previousState, currentState);
