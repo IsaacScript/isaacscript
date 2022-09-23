@@ -11,7 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## September 29th, 2022 (Unreleased)
 
-- n/a
+- Added the following helper functions:
+  - `isGreedMode`
 
 ## September 22th, 2022
 

@@ -130,7 +130,21 @@ export interface AddCallbackParametersCustom2 {
     callback: (newLazarus: EntityPlayer, oldLazarus: EntityPlayer) => void,
   ];
 
+  [ModCallbackCustom2.POST_GAME_STARTED_REORDERED]: [
+    callback: (isContinued: boolean) => void,
+  ];
+
+  [ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST]: [
+    callback: (isContinued: boolean) => void,
+  ];
+
+  [ModCallbackCustom2.POST_GREED_MODE_WAVE]: [
+    callback: (oldWave: int, newWave: int) => void,
+  ];
+
   // -------------------------------------------
+
+  [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
 
   [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: [
     callback: (knife: EntityKnife) => void,
@@ -138,6 +152,8 @@ export interface AddCallbackParametersCustom2 {
   ];
 
   [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: [callback: () => void];
+
+  [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: [callback: () => void];
 
   [ModCallbackCustom2.POST_PIT_RENDER]: [
     callback: (pit: GridEntityPit) => void,

@@ -1,5 +1,6 @@
 import {
   Challenge,
+  Difficulty,
   PlayerType,
   SlotVariant,
 } from "isaac-typescript-definitions";
@@ -24,6 +25,17 @@ export function canRunUnlockAchievements(): boolean {
   greedDonationMachine.Remove();
 
   return canUnlockAchievements;
+}
+
+/**
+ * Helper function to check if the difficulty of the current run is equal to `Difficulty.GREED` or
+ * `Difficulty.GREEDIER`.
+ */
+export function isGreedMode(): boolean {
+  return (
+    game.Difficulty === Difficulty.GREED ||
+    game.Difficulty === Difficulty.GREEDIER
+  );
 }
 
 /**

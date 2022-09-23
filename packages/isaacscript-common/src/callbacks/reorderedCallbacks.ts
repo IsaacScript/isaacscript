@@ -48,9 +48,9 @@ export function reorderedCallbacksInit(mod: Mod): void {
     useItemGlowingHourGlass,
     CollectibleType.GLOWING_HOUR_GLASS,
   ); // 3
-  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStartedVanilla); // 15
-  mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevelVanilla); // 18
-  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoomVanilla); // 19
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
+  mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
+  mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
 }
 
 function hasSubscriptions() {
@@ -73,7 +73,7 @@ function useItemGlowingHourGlass(): boolean | undefined {
 }
 
 // ModCallback.POST_GAME_STARTED (15)
-function postGameStartedVanilla(isContinued: boolean) {
+function postGameStarted(isContinued: boolean) {
   if (!hasSubscriptions()) {
     return;
   }
@@ -87,7 +87,7 @@ function postGameStartedVanilla(isContinued: boolean) {
 }
 
 // ModCallback.POST_NEW_LEVEL (18)
-function postNewLevelVanilla() {
+function postNewLevel() {
   if (!hasSubscriptions()) {
     return;
   }
@@ -106,7 +106,7 @@ function postNewLevelVanilla() {
 }
 
 // ModCallback.POST_NEW_ROOM (19)
-function postNewRoomVanilla() {
+function postNewRoom() {
   if (!hasSubscriptions()) {
     return;
   }

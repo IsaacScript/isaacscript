@@ -12,6 +12,7 @@ import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunction
 import { CustomRevive } from "./callbacks/features/CustomRevive";
 import { EsauJrDetection } from "./callbacks/features/EsauJrDetection";
 import { FlipDetection } from "./callbacks/features/FlipDetection";
+import { ReorderedCallbacks } from "./callbacks/features/ReorderedCallbacks";
 import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
 import { PostBombExploded } from "./callbacks/PostBombExploded";
@@ -32,8 +33,13 @@ import { PostFamiliarStateChanged } from "./callbacks/PostFamiliarStateChanged";
 import { PostFirstEsauJr } from "./callbacks/PostFirstEsauJr";
 import { PostFirstFlip } from "./callbacks/PostFirstFlip";
 import { PostFlip } from "./callbacks/PostFlip";
+import { PostGameStartedReordered } from "./callbacks/PostGameStartedReordered";
+import { PostGameStartedReorderedLast } from "./callbacks/PostGameStartedReorderedLast";
+import { PostGreedModeWave } from "./callbacks/PostGreedModeWave";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
+import { PostNewLevelReordered } from "./callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
+import { PostNewRoomReordered } from "./callbacks/PostNewRoomReordered";
 import { PostPitRender } from "./callbacks/PostPitRender";
 import { PostRoomClearChanged } from "./callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./callbacks/PostSpikesRender";
@@ -69,7 +75,7 @@ export class ModUpgraded implements Mod {
   private debug: boolean;
   private timeThreshold: float | undefined;
 
-  private callbacks: {
+  callbacks: {
     readonly [key in ModCallbackCustom2]: CustomCallback<key>;
   } = {
     [ModCallbackCustom2.POST_AMBUSH_FINISHED]: new PostAmbushFinished(),
@@ -93,20 +99,27 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]:
       new PostFamiliarStateChanged(),
     [ModCallbackCustom2.POST_FIRST_FLIP]: new PostFirstFlip(),
+    [ModCallbackCustom2.POST_FIRST_ESAU_JR]: new PostFirstEsauJr(),
     [ModCallbackCustom2.POST_FLIP]: new PostFlip(),
+    [ModCallbackCustom2.POST_GAME_STARTED_REORDERED]:
+      new PostGameStartedReordered(),
+    [ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST]:
+      new PostGameStartedReorderedLast(),
+    [ModCallbackCustom2.POST_GREED_MODE_WAVE]: new PostGreedModeWave(),
 
     // ----------------
 
-    [ModCallbackCustom2.POST_FIRST_ESAU_JR]: new PostFirstEsauJr(),
     [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: new PostKnifeInitLate(),
+    [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: new PostNewLevelReordered(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
+    [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: new PostNewRoomReordered(),
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
     [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: new PostRoomClearChanged(),
     [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
     [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: new PreCustomRevive(),
-  };
+  } as const;
 
-  private features: {
+  features: {
     readonly [key in IsaacScriptCommonFeature2]: Feature;
   } = {
     [IsaacScriptCommonFeature2.CUSTOM_REVIVE]: new CustomRevive(
@@ -121,7 +134,13 @@ export class ModUpgraded implements Mod {
       this.callbacks[ModCallbackCustom2.POST_FLIP],
       this.callbacks[ModCallbackCustom2.POST_FIRST_FLIP],
     ),
-  };
+    [IsaacScriptCommonFeature2.REORDERED_CALLBACKS]: new ReorderedCallbacks(
+      this.callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED],
+      this.callbacks[ModCallbackCustom2.POST_NEW_LEVEL_REORDERED],
+      this.callbacks[ModCallbackCustom2.POST_NEW_ROOM_REORDERED],
+      this.callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST],
+    ),
+  } as const;
 
   // -----------
   // Constructor
@@ -232,7 +251,7 @@ export class ModUpgraded implements Mod {
     callbackRegisterFunction(...args);
   }
 
-  /** Add a callback in the new callback system format. */
+  /** Add a callback in the new callback system format. This method is only temporary. */
   AddCallbackCustom2<T extends ModCallbackCustom2>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom2[T]
@@ -253,6 +272,21 @@ export class ModUpgraded implements Mod {
     // TODO
     print(this, modCallback, callback);
   }
+
+  /*
+  forceNewLevelCallback(): void {
+    const reorderedCallbacks = this.features[IsaacScriptCommonFeature2.REORDERED_CALLBACKS];
+    reorderedCallbacks.
+    // TODO
+  }
+
+  forceNewRoomCallback(): void {}
+
+  reorderedCallbacksSetStageInternal(
+    stage: LevelStage,
+    stageType: StageType,
+  ): void {}
+  */
 
   // ----------------------
   // Custom private methods
