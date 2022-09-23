@@ -1,4 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { IsaacScriptCommonFeature2 } from "../enums/IsaacScriptCommonFeature2";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
 import { saveDataManager } from "../features/saveDataManager/exports";
@@ -8,6 +9,7 @@ import { getTSTLClassName } from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
+import { CustomRevive } from "./callbacks/features/CustomRevive";
 import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
 import { PostBombExploded } from "./callbacks/PostBombExploded";
@@ -16,11 +18,13 @@ import { PostBoneSwing } from "./callbacks/PostBoneSwing";
 import { PostCollectibleEmpty } from "./callbacks/PostCollectibleEmpty";
 import { PostCollectibleInitFirst } from "./callbacks/PostCollectibleInitFirst";
 import { PostCursedTeleport } from "./callbacks/PostCursedTeleport";
+import { PostCustomRevive } from "./callbacks/PostCustomRevive";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
 import { PostRoomClearChanged } from "./callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./callbacks/PostSpikesRender";
+import { Feature } from "./Feature";
 import { CustomCallback } from "./private/CustomCallback";
 
 /**
@@ -63,12 +67,19 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST]:
       new PostCollectibleInitFirst(),
     [ModCallbackCustom2.POST_CURSED_TELEPORT]: new PostCursedTeleport(),
+    [ModCallbackCustom2.POST_CUSTOM_REVIVE]: new PostCustomRevive(),
 
     [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: new PostKnifeInitLate(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
     [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: new PostRoomClearChanged(),
     [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
+  };
+
+  private features: {
+    readonly [key in IsaacScriptCommonFeature2]: Feature;
+  } = {
+    [IsaacScriptCommonFeature2.CUSTOM_REVIVE]: new CustomRevive(),
   };
 
   // -----------
@@ -166,9 +177,9 @@ export class ModUpgraded implements Mod {
     this.mod.SaveData(data);
   }
 
-  // --------------
-  // Custom methods
-  // --------------
+  // ---------------------
+  // Custom public methods
+  // ---------------------
 
   // eslint-disable-next-line class-methods-use-this
   AddCallbackCustom<T extends ModCallbackCustom>(
@@ -180,45 +191,14 @@ export class ModUpgraded implements Mod {
     callbackRegisterFunction(...args);
   }
 
+  /** Add a callback in the new callback system format. */
   AddCallbackCustom2<T extends ModCallbackCustom2>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom2[T]
   ): void {
-    const callback = this.callbacks[modCallbackCustom];
-    callback.add(...args);
-
-    if (callback.initialized) {
-      return;
-    }
-    callback.initialized = true;
-
-    if (callback.otherCallbacksUsed !== undefined) {
-      for (const callbackTuple of callback.otherCallbacksUsed) {
-        const [modCallback, callbackArgs] = callbackTuple;
-        this.AddCallback(modCallback, ...callbackArgs);
-      }
-    }
-
-    if (callback.otherCustomCallbacksUsed !== undefined) {
-      for (const callbackTuple of callback.otherCustomCallbacksUsed) {
-        const [modCallback, callbackArgs] = callbackTuple;
-        this.AddCallbackCustom(modCallback, ...callbackArgs);
-      }
-    }
-
-    if (callback.v !== undefined) {
-      const callbackName = getTSTLClassName(callback);
-      if (callbackName === undefined) {
-        error(
-          `Failed to get the name of the callback: ModCallbackCustom.${ModCallbackCustom2[modCallbackCustom]} (${modCallbackCustom})`,
-        );
-      }
-      saveDataManager(callbackName, callback.v);
-    }
-
-    /*
-    if (callback.feature !== undefined) {}
-    */
+    const callbackClass = this.callbacks[modCallbackCustom];
+    this.initFeature(callbackClass);
+    callbackClass.add(...args);
   }
 
   /**
@@ -231,5 +211,45 @@ export class ModUpgraded implements Mod {
   ): void {
     // TODO
     print(this, modCallback, callback);
+  }
+
+  // ----------------------
+  // Custom private methods
+  // ----------------------
+
+  private initFeature(feature: Feature): void {
+    if (feature.initialized) {
+      return;
+    }
+    feature.initialized = true;
+
+    if (feature.featuresUsed !== undefined) {
+      for (const featureUsed of feature.featuresUsed) {
+        const featureClass = this.features[featureUsed];
+        this.initFeature(featureClass);
+      }
+    }
+
+    if (feature.callbacksUsed !== undefined) {
+      for (const callbackTuple of feature.callbacksUsed) {
+        const [modCallback, callbackArgs] = callbackTuple;
+        this.AddCallback(modCallback, ...callbackArgs);
+      }
+    }
+
+    if (feature.customCallbacksUsed !== undefined) {
+      for (const callbackTuple of feature.customCallbacksUsed) {
+        const [modCallback, callbackArgs] = callbackTuple;
+        this.AddCallbackCustom(modCallback, ...callbackArgs);
+      }
+    }
+
+    if (feature.v !== undefined) {
+      const className = getTSTLClassName(feature);
+      if (className === undefined) {
+        error("Failed to get the name of a feature.");
+      }
+      saveDataManager(className, feature.v);
+    }
   }
 }

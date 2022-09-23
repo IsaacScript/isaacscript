@@ -1,11 +1,7 @@
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallbackParametersCustom2";
-import { SaveData } from "../../interfaces/SaveData";
 import { AllButFirst } from "../../types/private/AllButFirst";
-import {
-  CallbackTuple,
-  CustomCallbackTuple,
-} from "../../types/private/CallbackTuple";
+import { Feature } from "../Feature";
 
 export type FireArgs<T extends ModCallbackCustom2> = Parameters<
   AddCallbackParametersCustom2[T][0]
@@ -18,15 +14,10 @@ export type OptionalArgs<T extends ModCallbackCustom2> = AllButFirst<
  * The base class for a custom callback. Individual custom callbacks (and validation callbacks) will
  * extend from this class.
  */
-export abstract class CustomCallback<T extends ModCallbackCustom2> {
-  /** This is manually managed by the `ModUpgraded` class. */
-  initialized = false;
-
+export abstract class CustomCallback<
+  T extends ModCallbackCustom2,
+> extends Feature {
   subscriptions: Array<AddCallbackParametersCustom2[T]> = [];
-
-  otherCallbacksUsed?: CallbackTuple[];
-  otherCustomCallbacksUsed?: CustomCallbackTuple[];
-  v?: SaveData;
 
   hasSubscriptions(): boolean {
     return this.subscriptions.length > 0;
@@ -59,7 +50,7 @@ export abstract class CustomCallback<T extends ModCallbackCustom2> {
       if (this.shouldFire(fireArgs, optionalArgs)) {
         // @ts-expect-error The compiler is not smart enough to know that the arguments should match
         // the callback.
-        callback(...fireArgs);
+        callback(...fireArgs); // eslint-disable-line isaacscript/strict-enums
       }
     }
   }

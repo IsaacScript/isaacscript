@@ -79,6 +79,10 @@ function hasSubscriptions() {
 
 // ModCallback.POST_RENDER (2)
 function postRender() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
   if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
     return;
   }
@@ -90,6 +94,10 @@ function postRender() {
 
 // ModCallbackCustom.POST_NEW_ROOM_REORDERED
 function postNewRoomReordered() {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
   if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
     return;
   }
@@ -100,6 +108,10 @@ function postNewRoomReordered() {
 
 // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 function postPEffectUpdateReordered(player: EntityPlayer) {
+  if (!hasSubscriptions()) {
+    return;
+  }
+
   checkWaitingForItemAnimation(player);
 }
 

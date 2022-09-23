@@ -9,6 +9,10 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 29th, 2022 (Unreleased)
+
+- n/a
+
 ## September 22th, 2022
 
 - The save data manager will now restore any data on a `run` or `level` object when the Glowing Hour Glass is used to what it was when the room was entered.

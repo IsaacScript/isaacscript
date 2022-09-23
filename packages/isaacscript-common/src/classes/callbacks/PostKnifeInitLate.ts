@@ -12,7 +12,7 @@ export class PostKnifeInitLate extends CustomCallbackKnife<ModCallbackCustom2.PO
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [ModCallback.POST_KNIFE_UPDATE, [this.postKnifeUpdate]], // 51
     ];
   }

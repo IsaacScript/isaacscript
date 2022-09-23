@@ -7,7 +7,7 @@ export class PostSpikesRender extends CustomCallbackSpikes<ModCallbackCustom2.PO
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [ModCallback.POST_RENDER, [this.postRender]], // 2
     ];
   }

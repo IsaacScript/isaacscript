@@ -14,7 +14,7 @@ export class PostAmbushStarted extends CustomCallbackAmbush<ModCallbackCustom2.P
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
     ];
   }

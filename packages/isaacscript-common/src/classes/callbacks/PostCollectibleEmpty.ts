@@ -22,7 +22,7 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [
         ModCallback.POST_PICKUP_UPDATE,
         [this.postPickupUpdateCollectible, PickupVariant.COLLECTIBLE],

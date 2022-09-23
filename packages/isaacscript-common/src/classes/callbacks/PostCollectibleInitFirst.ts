@@ -14,7 +14,7 @@ export class PostCollectibleInitFirst extends CustomCallbackCollectible<ModCallb
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [
         ModCallback.POST_PICKUP_INIT,
         [this.postPickupInitCollectible, PickupVariant.COLLECTIBLE],

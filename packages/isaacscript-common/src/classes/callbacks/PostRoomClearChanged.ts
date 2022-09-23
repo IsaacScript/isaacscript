@@ -13,7 +13,7 @@ export class PostRoomClearChanged extends CustomCallback<ModCallbackCustom2.POST
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
       [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
     ];

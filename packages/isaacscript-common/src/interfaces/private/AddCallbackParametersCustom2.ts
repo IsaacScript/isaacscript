@@ -53,6 +53,11 @@ export interface AddCallbackParametersCustom2 {
     character?: PlayerType,
   ];
 
+  [ModCallbackCustom2.POST_CUSTOM_REVIVE]: [
+    callback: (player: EntityPlayer, revivalType: int) => void,
+    revivalType?: int,
+  ];
+
   // -------------------------------------------
 
   [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: [

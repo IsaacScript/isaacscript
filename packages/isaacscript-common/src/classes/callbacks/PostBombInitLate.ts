@@ -12,7 +12,7 @@ export class PostBombInitLate extends CustomCallbackBomb<ModCallbackCustom2.POST
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [ModCallback.POST_BOMB_UPDATE, [this.postBombUpdate]], // 58
     ];
   }

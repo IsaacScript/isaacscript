@@ -35,7 +35,7 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
   constructor() {
     super();
 
-    this.otherCallbacksUsed = [
+    this.callbacksUsed = [
       [
         ModCallback.ENTITY_TAKE_DMG,
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
