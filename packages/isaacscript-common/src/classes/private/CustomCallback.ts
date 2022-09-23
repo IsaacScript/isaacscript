@@ -1,7 +1,7 @@
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallbackParametersCustom2";
 import { AllButFirst } from "../../types/private/AllButFirst";
-import { Feature } from "../Feature";
+import { Feature } from "./Feature";
 
 export type FireArgs<T extends ModCallbackCustom2> = Parameters<
   AddCallbackParametersCustom2[T][0]

@@ -24,8 +24,9 @@ import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
 import { PostRoomClearChanged } from "./callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./callbacks/PostSpikesRender";
-import { Feature } from "./Feature";
+import { PreCustomRevive } from "./callbacks/PreCustomRevive";
 import { CustomCallback } from "./private/CustomCallback";
+import { Feature } from "./private/Feature";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
@@ -74,12 +75,16 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
     [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: new PostRoomClearChanged(),
     [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
+    [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: new PreCustomRevive(),
   };
 
   private features: {
     readonly [key in IsaacScriptCommonFeature2]: Feature;
   } = {
-    [IsaacScriptCommonFeature2.CUSTOM_REVIVE]: new CustomRevive(),
+    [IsaacScriptCommonFeature2.CUSTOM_REVIVE]: new CustomRevive(
+      this.callbacks[ModCallbackCustom2.PRE_CUSTOM_REVIVE],
+      this.callbacks[ModCallbackCustom2.POST_CUSTOM_REVIVE],
+    ),
   };
 
   // -----------

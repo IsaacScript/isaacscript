@@ -1,8 +1,8 @@
 import { IsaacScriptCommonFeature2 } from "../../enums/IsaacScriptCommonFeature2";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallbackRevive } from "./validation/CustomCallbackRevive";
+import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
 
-export class PostCustomRevive extends CustomCallbackRevive<ModCallbackCustom2.POST_CUSTOM_REVIVE> {
+export class PreCustomRevive extends CustomCallbackPlayer<ModCallbackCustom2.PRE_CUSTOM_REVIVE> {
   constructor() {
     super();
 

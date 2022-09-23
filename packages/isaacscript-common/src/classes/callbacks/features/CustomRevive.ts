@@ -22,7 +22,9 @@ import {
 } from "../../../functions/playerIndex";
 import { isCharacter } from "../../../functions/players";
 import { PlayerIndex } from "../../../types/PlayerIndex";
-import { Feature } from "../../Feature";
+import { Feature } from "../../private/Feature";
+import { PostCustomRevive } from "../PostCustomRevive";
+import { PreCustomRevive } from "../PreCustomRevive";
 
 const DEBUG = false as boolean;
 
@@ -47,7 +49,13 @@ export class CustomRevive extends Feature {
     },
   };
 
-  constructor() {
+  preCustomRevive: PreCustomRevive;
+  postCustomRevive: PostCustomRevive;
+
+  constructor(
+    preCustomRevive: PreCustomRevive,
+    postCustomRevive: PostCustomRevive,
+  ) {
     super();
 
     this.callbacksUsed = [
@@ -66,6 +74,9 @@ export class CustomRevive extends Feature {
       ],
       [ModCallbackCustom.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
     ];
+
+    this.preCustomRevive = preCustomRevive;
+    this.postCustomRevive = postCustomRevive;
   }
 
   // ModCallback.POST_RENDER (2)

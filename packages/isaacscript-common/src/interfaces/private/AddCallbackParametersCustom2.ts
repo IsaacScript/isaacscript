@@ -81,4 +81,10 @@ export interface AddCallbackParametersCustom2 {
     callback: (spikes: GridEntitySpikes) => void,
     gridEntityVariant?: int,
   ];
+
+  [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: [
+    callback: (player: EntityPlayer) => int | undefined,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
 }
