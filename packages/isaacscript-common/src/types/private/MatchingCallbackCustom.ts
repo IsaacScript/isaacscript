@@ -10,6 +10,8 @@ import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallba
  *
  * "extends Parameters<FuncSignature>" is necessary because "() => void" will match "(arg1: number)
  * => void", since in JavaScript, functions ignore extra arguments.
+ *
+ * "extends ReturnType<FuncSignature>" is necessary because "() => void" will match "() => number".
  */
 export type MatchingCallbackCustom<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,7 +22,11 @@ export type MatchingCallbackCustom<
     ? Parameters<
         AddCallbackParametersCustom2[T][0]
       > extends Parameters<FuncSignature>
-      ? T
+      ? ReturnType<
+          AddCallbackParametersCustom2[T][0]
+        > extends ReturnType<FuncSignature>
+        ? T
+        : never
       : never
     : never
   : never;

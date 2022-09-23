@@ -43,16 +43,28 @@ export abstract class CustomCallback<
     }
   }
 
-  fire(...fireArgs: FireArgs<T>): void {
-    for (const [callback, ...optionalArgs] of this.subscriptions) {
-      // @ts-expect-error The compiler is not smart enough to know that the arguments should match
-      // the method.
+  fire(
+    ...fireArgs: FireArgs<T>
+  ): ReturnType<AddCallbackParametersCustom2[T][0]> {
+    for (const [callback, ...optionalArgsArray] of this.subscriptions) {
+      // The TypeScript compiler is bugged with the spread operator here, as it converts the
+      // optional arguments to an array instead of a tuple.
+      const optionalArgs = optionalArgsArray as OptionalArgs<T>;
+
       if (this.shouldFire(fireArgs, optionalArgs)) {
-        // @ts-expect-error The compiler is not smart enough to know that the arguments should match
-        // the callback.
-        callback(...fireArgs); // eslint-disable-line isaacscript/strict-enums
+        // The TypeScript compiler is not smart enough to know that the fire args match the callback
+        // signature.
+        const callbackCasted = callback as (
+          ...args: FireArgs<T>
+        ) => ReturnType<AddCallbackParametersCustom2[T][0]>;
+        const value = callbackCasted(...fireArgs);
+        if (value !== undefined) {
+          return value;
+        }
       }
     }
+
+    return undefined as ReturnType<AddCallbackParametersCustom2[T][0]>;
   }
 
   /**

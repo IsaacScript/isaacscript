@@ -137,8 +137,10 @@ export class CustomRevive extends Feature {
     // 1-Up animation.
 
     if (this.v.run.revivalType !== null) {
-      // TODO
-      /// postCustomReviveFire(playerToCheckHoldingItem, this.v.run.revivalType);
+      this.postCustomRevive.fire(
+        playerToCheckHoldingItem,
+        this.v.run.revivalType,
+      );
     }
 
     this.v.run.state = CustomReviveState.DISABLED;
@@ -163,14 +165,10 @@ export class CustomRevive extends Feature {
    * this from happening, we grant the 1-Up item.
    */
   playerIsAboutToDie(player: EntityPlayer): void {
-    // TODO
-    const revivalType = 0;
-    /*
-    const revivalType = preCustomReviveFire(player);
+    const revivalType = this.preCustomRevive.fire(player);
     if (revivalType === undefined) {
       return;
     }
-    */
 
     this.v.run.state = CustomReviveState.WAITING_FOR_ROOM_TRANSITION;
     this.v.run.revivalType = revivalType;

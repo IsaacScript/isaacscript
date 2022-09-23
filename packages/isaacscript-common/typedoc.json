@@ -20,6 +20,7 @@
     "src/enums/CornerType.ts",
     "src/enums/HealthType.ts",
     "src/enums/IsaacScriptCommonFeature.ts",
+    "src/enums/IsaacScriptCommonFeature2.ts", // TODO
     "src/enums/LadderSubTypeCustom.ts",
     "src/enums/ModCallbackCustom.ts",
     "src/enums/ModCallbackCustom2.ts", // TODO
