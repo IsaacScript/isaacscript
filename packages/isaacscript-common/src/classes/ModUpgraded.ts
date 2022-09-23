@@ -26,6 +26,8 @@ import { PostDoorUpdate } from "./callbacks/PostDoorUpdate";
 import { PostEffectInitLate } from "./callbacks/PostEffectInitLate";
 import { PostEffectStateChanged } from "./callbacks/PostEffectStateChanged";
 import { PostEsauJr } from "./callbacks/PostEsauJr";
+import { PostFamiliarInitLate } from "./callbacks/PostFamiliarInitLate";
+import { PostFamiliarStateChanged } from "./callbacks/PostFamiliarStateChanged";
 import { PostFirstEsauJr } from "./callbacks/PostFirstEsauJr";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
@@ -84,6 +86,9 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]:
       new PostEffectStateChanged(),
     [ModCallbackCustom2.POST_ESAU_JR]: new PostEsauJr(),
+    [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: new PostFamiliarInitLate(),
+    [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]:
+      new PostFamiliarStateChanged(),
 
     // ----------------
 
