@@ -1,6 +1,7 @@
 import {
   BombVariant,
   CollectibleType,
+  DiceFloorSubType,
   KnifeVariant,
   PitVariant,
   PlayerType,
@@ -56,6 +57,14 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_CUSTOM_REVIVE]: [
     callback: (player: EntityPlayer, revivalType: int) => void,
     revivalType?: int,
+  ];
+
+  [ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED]: [
+    callback: (
+      player: EntityPlayer,
+      diceFloorSubType: DiceFloorSubType,
+    ) => void,
+    diceFloorSubType?: DiceFloorSubType,
   ];
 
   // -------------------------------------------

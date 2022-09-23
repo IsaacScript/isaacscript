@@ -19,6 +19,7 @@ import { PostCollectibleEmpty } from "./callbacks/PostCollectibleEmpty";
 import { PostCollectibleInitFirst } from "./callbacks/PostCollectibleInitFirst";
 import { PostCursedTeleport } from "./callbacks/PostCursedTeleport";
 import { PostCustomRevive } from "./callbacks/PostCustomRevive";
+import { PostDiceRoomActivated } from "./callbacks/PostDiceRoomActivated";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostPitRender } from "./callbacks/PostPitRender";
@@ -69,6 +70,9 @@ export class ModUpgraded implements Mod {
       new PostCollectibleInitFirst(),
     [ModCallbackCustom2.POST_CURSED_TELEPORT]: new PostCursedTeleport(),
     [ModCallbackCustom2.POST_CUSTOM_REVIVE]: new PostCustomRevive(),
+    [ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED]: new PostDiceRoomActivated(),
+
+    // ----------------
 
     [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: new PostKnifeInitLate(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
