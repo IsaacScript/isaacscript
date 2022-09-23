@@ -19,7 +19,7 @@ function postRender() {
     return;
   }
 
-  for (const doors of getDoors()) {
-    postDoorRenderFire(doors);
+  for (const door of getDoors()) {
+    postDoorRenderFire(door);
   }
 }

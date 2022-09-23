@@ -3,7 +3,6 @@ import {
   EffectVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { postDiceRoomActivatedFire } from "../../callbacks/subscriptions/postDiceRoomActivated";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { isCloseEnoughToTriggerDiceFloor } from "../../functions/effects";
 import { getClosestPlayer } from "../../functions/players";
@@ -63,10 +62,7 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
     const closestPlayer = getClosestPlayer(effect.Position);
     if (isCloseEnoughToTriggerDiceFloor(closestPlayer, effect)) {
       this.v.room.diceRoomActivated = true;
-      postDiceRoomActivatedFire(
-        closestPlayer,
-        effect.SubType as DiceFloorSubType,
-      );
+      this.fire(closestPlayer, effect.SubType as DiceFloorSubType);
     }
   };
 }

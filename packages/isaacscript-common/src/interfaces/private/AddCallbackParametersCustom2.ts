@@ -2,6 +2,8 @@ import {
   BombVariant,
   CollectibleType,
   DiceFloorSubType,
+  DoorVariant,
+  EffectVariant,
   KnifeVariant,
   PitVariant,
   PlayerType,
@@ -65,6 +67,30 @@ export interface AddCallbackParametersCustom2 {
       diceFloorSubType: DiceFloorSubType,
     ) => void,
     diceFloorSubType?: DiceFloorSubType,
+  ];
+
+  [ModCallbackCustom2.POST_DOOR_RENDER]: [
+    callback: (door: GridEntityDoor) => void,
+    doorVariant?: DoorVariant,
+  ];
+
+  [ModCallbackCustom2.POST_DOOR_UPDATE]: [
+    callback: (door: GridEntityDoor) => void,
+    doorVariant?: DoorVariant,
+  ];
+
+  [ModCallbackCustom2.POST_EFFECT_INIT_LATE]: [
+    callback: (effect: EntityEffect) => void,
+    effectVariant?: EffectVariant,
+  ];
+
+  [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]: [
+    callback: (
+      effect: EntityEffect,
+      previousState: int,
+      currentState: int,
+    ) => void,
+    effectVariant?: EffectVariant,
   ];
 
   // -------------------------------------------
