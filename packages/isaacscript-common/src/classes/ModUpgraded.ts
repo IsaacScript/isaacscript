@@ -171,7 +171,9 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: new PreCustomRevive(),
   } as const;
 
-  features;
+  // Features must be marked as internal to prevent TypeDoc from complaining.
+  /** @internal */
+  private features;
 
   // -----------
   // Constructor
