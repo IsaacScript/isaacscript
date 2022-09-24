@@ -13,6 +13,7 @@ import {
 import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
+  saveDataGlowingHourGlassMap,
   saveDataMap,
 } from "./maps";
 
@@ -251,4 +252,30 @@ export function saveDataManagerReset(
   }
 
   restoreDefaultSaveData(key, saveData, childObjectKey);
+}
+
+/**
+ * Removes a previously registered key from the save data manager. This is the opposite of the
+ * "saveDataManager" function.
+ */
+export function saveDataManagerRemove(key: string): void {
+  errorIfFeaturesNotInitialized(SAVE_DATA_MANAGER_FEATURE_NAME);
+
+  if (!isString(key)) {
+    error(
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} requires that keys are strings. You tried to use a key of type: ${typeof key}`,
+    );
+  }
+
+  if (!saveDataMap.has(key)) {
+    error(
+      `The ${SAVE_DATA_MANAGER_FEATURE_NAME} is not managing save data for a key of: ${key}`,
+    );
+  }
+
+  // Delete the save data from the map.
+  saveDataMap.delete(key);
+  saveDataDefaultsMap.delete(key);
+  saveDataConditionalFuncMap.delete(key);
+  saveDataGlowingHourGlassMap.delete(key);
 }

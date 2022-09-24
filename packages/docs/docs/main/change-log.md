@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
   - `validateInterfaceMatchesEnum`
   - `newObjectWithEnumKeys`
   - `getPlayerFromPtr`
+  - `saveDataManagerRemove`
 
 ## September 22th, 2022
 

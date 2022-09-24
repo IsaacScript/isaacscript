@@ -6,7 +6,10 @@ import {
 import { IsaacScriptCommonFeature } from "../enums/IsaacScriptCommonFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
-import { saveDataManager } from "../features/saveDataManager/exports";
+import {
+  saveDataManager,
+  saveDataManagerRemove,
+} from "../features/saveDataManager/exports";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
 import { getTSTLClassName } from "../functions/tstlClass";
@@ -38,7 +41,9 @@ import { PostGameStartedReordered } from "./callbacks/PostGameStartedReordered";
 import { PostGameStartedReorderedLast } from "./callbacks/PostGameStartedReorderedLast";
 import { PostGreedModeWave } from "./callbacks/PostGreedModeWave";
 import { PostGridEntityBroken } from "./callbacks/PostGridEntityBroken";
+import { PostGridEntityCollision } from "./callbacks/PostGridEntityCollision";
 import { PostGridEntityCustomBroken } from "./callbacks/PostGridEntityCustomBroken";
+import { PostGridEntityCustomCollision } from "./callbacks/PostGridEntityCustomCollision";
 import { PostGridEntityCustomInit } from "./callbacks/PostGridEntityCustomInit";
 import { PostGridEntityCustomRemove } from "./callbacks/PostGridEntityCustomRemove";
 import { PostGridEntityCustomStateChanged } from "./callbacks/PostGridEntityCustomStateChanged";
@@ -47,6 +52,7 @@ import { PostGridEntityInit } from "./callbacks/PostGridEntityInit";
 import { PostGridEntityRemove } from "./callbacks/PostGridEntityRemove";
 import { PostGridEntityStateChanged } from "./callbacks/PostGridEntityStateChanged";
 import { PostGridEntityUpdate } from "./callbacks/PostGridEntityUpdate";
+import { PostHolyMantleRemoved } from "./callbacks/PostHolyMantleRemoved";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewLevelReordered } from "./callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
@@ -65,6 +71,7 @@ import { CustomRevive } from "./features/callbackLogic/CustomRevive";
 import { EsauJrDetection } from "./features/callbackLogic/EsauJrDetection";
 import { FlipDetection } from "./features/callbackLogic/FlipDetection";
 import { GameReorderedCallbacks } from "./features/callbackLogic/GameReorderedCallbacks";
+import { GridEntityCollisionDetection } from "./features/callbackLogic/GridEntityCollisionDetection";
 import { GridEntityDetection } from "./features/callbackLogic/GridEntityDetection";
 import { PlayerReorderedCallbacks } from "./features/callbackLogic/PlayerReorderedCallbacks";
 import { RunInNFrames } from "./features/other/RunInNFrames";
@@ -131,10 +138,12 @@ export class ModUpgraded implements Mod {
       new PostGameStartedReorderedLast(),
     [ModCallbackCustom2.POST_GREED_MODE_WAVE]: new PostGreedModeWave(),
     [ModCallbackCustom2.POST_GRID_ENTITY_BROKEN]: new PostGridEntityBroken(),
-    // [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]: new PostGridEntityCollision(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]:
+      new PostGridEntityCollision(),
     [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]:
       new PostGridEntityCustomBroken(),
-    // [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]: new PostGridEntityCustomCollision(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]:
+      new PostGridEntityCustomCollision(),
     [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]:
       new PostGridEntityCustomInit(),
     [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]:
@@ -150,6 +159,7 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]:
       new PostGridEntityStateChanged(),
     [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: new PostGridEntityUpdate(),
+    [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: new PostHolyMantleRemoved(),
 
     // ----------------
 
@@ -204,6 +214,12 @@ export class ModUpgraded implements Mod {
         this.callbacks[ModCallbackCustom2.POST_FLIP],
         this.callbacks[ModCallbackCustom2.POST_FIRST_FLIP],
       ),
+      [IsaacScriptCommonFeature.GRID_ENTITY_COLLISION_DETECTION]:
+        new GridEntityCollisionDetection(
+          this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_COLLISION],
+          this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION],
+          customGridEntities,
+        ),
       [IsaacScriptCommonFeature.GRID_ENTITY_DETECTION]: new GridEntityDetection(
         this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_INIT],
         this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT],
@@ -351,9 +367,9 @@ export class ModUpgraded implements Mod {
    * This method does not care about the tertiary argument. Regardless of the conditions of how you
    * registered the callback, it will be removed.
    */
-  RemoveCallbackCustom<T extends ModCallbackCustom>(
+  RemoveCallbackCustom<T extends ModCallbackCustom2>(
     modCallback: T,
-    callback: AddCallbackParametersCustom[T][0],
+    callback: AddCallbackParametersCustom2[T][0],
   ): void {
     // TODO
     print(this, modCallback, callback);
@@ -414,6 +430,44 @@ export class ModUpgraded implements Mod {
         error("Failed to get the name of a feature.");
       }
       saveDataManager(className, feature.v);
+    }
+  }
+
+  private uninitFeature(feature: Feature): void {
+    if (!feature.initialized) {
+      return;
+    }
+    feature.initialized = false;
+
+    if (feature.featuresUsed !== undefined) {
+      for (const featureUsed of feature.featuresUsed) {
+        const featureClass = this.features[featureUsed];
+        this.uninitFeature(featureClass);
+      }
+    }
+
+    if (feature.callbacksUsed !== undefined) {
+      for (const callbackTuple of feature.callbacksUsed) {
+        const [modCallback, callbackArgs] = callbackTuple;
+        const callback = callbackArgs[0];
+        this.RemoveCallback(modCallback, callback);
+      }
+    }
+
+    if (feature.customCallbacksUsed !== undefined) {
+      for (const callbackTuple of feature.customCallbacksUsed) {
+        const [modCallback, callbackArgs] = callbackTuple;
+        const callback = callbackArgs[0];
+        this.RemoveCallbackCustom(modCallback, callback);
+      }
+    }
+
+    if (feature.v !== undefined) {
+      const className = getTSTLClassName(feature);
+      if (className === undefined) {
+        error("Failed to get the name of a feature.");
+      }
+      saveDataManagerRemove(className);
     }
   }
 }

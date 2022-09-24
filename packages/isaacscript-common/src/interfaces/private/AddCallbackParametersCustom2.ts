@@ -5,6 +5,7 @@ import {
   DiceFloorSubType,
   DoorVariant,
   EffectVariant,
+  EntityType,
   FamiliarVariant,
   GridEntityType,
   KnifeVariant,
@@ -151,7 +152,6 @@ export interface AddCallbackParametersCustom2 {
     variant?: int,
   ];
 
-  /*
   [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]: [
     callback: (gridEntity: GridEntity, entity: Entity) => void,
     gridEntityType?: GridEntityType,
@@ -159,7 +159,6 @@ export interface AddCallbackParametersCustom2 {
     entityType?: EntityType,
     entityVariant?: int,
   ];
-  */
 
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]: [
     callback: (
@@ -169,7 +168,6 @@ export interface AddCallbackParametersCustom2 {
     gridEntityTypeCustom?: GridEntityType,
   ];
 
-  /*
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]: [
     callback: (
       gridEntity: GridEntity,
@@ -180,7 +178,6 @@ export interface AddCallbackParametersCustom2 {
     entityType?: EntityType,
     entityVariant?: int,
   ];
-  */
 
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]: [
     callback: (
@@ -257,6 +254,16 @@ export interface AddCallbackParametersCustom2 {
     callback: (gridEntity: GridEntity) => void,
     gridEntityType?: GridEntityType,
     variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: [
+    callback: (
+      player: EntityPlayer,
+      oldNumHolyMantles: int,
+      newNumHolyMantles: int,
+    ) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
   ];
 
   // -------------------------------------------

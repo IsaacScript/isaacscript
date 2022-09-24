@@ -34,7 +34,7 @@ export function postGridEntityCollisionFire(
     callbackEntityType,
     callbackEntityVariant,
   ] of subscriptions) {
-    // Handle the optional 2nd callback argument.
+    // Handle the optional 3rd callback argument.
     if (
       callbackGridEntityType !== undefined &&
       callbackGridEntityType !== gridEntityType
@@ -42,7 +42,7 @@ export function postGridEntityCollisionFire(
       continue;
     }
 
-    // Handle the optional 3rd callback argument.
+    // Handle the optional 4th callback argument.
     if (
       callbackGridEntityVariant !== undefined &&
       callbackGridEntityVariant !== gridEntityVariant
@@ -50,7 +50,7 @@ export function postGridEntityCollisionFire(
       continue;
     }
 
-    // Handle the optional 4th callback argument.
+    // Handle the optional 5th callback argument.
     if (
       callbackEntityType !== undefined &&
       callbackEntityType !== entity.Type
@@ -58,7 +58,7 @@ export function postGridEntityCollisionFire(
       continue;
     }
 
-    // Handle the optional 5th callback argument.
+    // Handle the optional 6th callback argument.
     if (
       callbackEntityVariant !== undefined &&
       callbackEntityVariant !== entity.Variant

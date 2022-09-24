@@ -7,6 +7,7 @@ export enum IsaacScriptCommonFeature {
   CUSTOM_REVIVE = "CustomRevive",
   ESAU_JR_DETECTION = "EsauJrDetection",
   FLIP_DETECTION = "FlipDetection",
+  GRID_ENTITY_COLLISION_DETECTION = "GridEntityCollisionDetection",
   GRID_ENTITY_DETECTION = "GridEntityDetection",
   GAME_REORDERED_CALLBACKS = "GameReorderedCallbacks",
   PLAYER_REORDERED_CALLBACKS = "PlayerReorderedCallbacks",
