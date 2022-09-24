@@ -94,18 +94,6 @@ export class GridEntityDetection extends Feature {
     this.customGridEntities = customGridEntities;
   }
 
-  getCustomGridEntityType(
-    gridEntityOrGridIndex: GridEntity | int,
-  ): GridEntityType | undefined {
-    if (!this.customGridEntities.initialized) {
-      return undefined;
-    }
-
-    return this.customGridEntities.getCustomGridEntityType(
-      gridEntityOrGridIndex,
-    );
-  }
-
   // ModCallback.POST_UPDATE (1)
   postUpdate = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
@@ -118,7 +106,8 @@ export class GridEntityDetection extends Feature {
       this.checkGridEntityStateChanged(gridIndex, gridEntity);
       this.checkNewGridEntity(gridIndex, gridEntity);
 
-      const gridEntityTypeCustom = this.getCustomGridEntityType(gridIndex);
+      const gridEntityTypeCustom =
+        this.customGridEntities.getCustomGridEntityType(gridIndex);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityUpdate.fire(gridEntity);
       } else {
@@ -140,7 +129,8 @@ export class GridEntityDetection extends Feature {
       ) {
         this.v.room.initializedGridEntities.delete(gridIndex);
 
-        const gridEntityTypeCustom = this.getCustomGridEntityType(gridIndex);
+        const gridEntityTypeCustom =
+          this.customGridEntities.getCustomGridEntityType(gridIndex);
         if (gridEntityTypeCustom === undefined) {
           this.postGridEntityRemove.fire(
             gridIndex,
@@ -167,7 +157,8 @@ export class GridEntityDetection extends Feature {
     if (oldState !== newState) {
       this.updateTupleInMap(gridEntity);
 
-      const gridEntityTypeCustom = this.getCustomGridEntityType(gridEntity);
+      const gridEntityTypeCustom =
+        this.customGridEntities.getCustomGridEntityType(gridEntity);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityStateChanged.fire(gridEntity, oldState, newState);
       } else {
@@ -202,7 +193,8 @@ export class GridEntityDetection extends Feature {
     ) {
       this.updateTupleInMap(gridEntity);
 
-      const gridEntityTypeCustom = this.getCustomGridEntityType(gridEntity);
+      const gridEntityTypeCustom =
+        this.customGridEntities.getCustomGridEntityType(gridEntity);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityInit.fire(gridEntity);
       } else {

@@ -95,8 +95,8 @@ export function isVanillaConsoleCommand(commandName: string): boolean {
 }
 
 /**
- * Helper function for creating objects that represent a mapping of an enum value to some value in a
- * type-safe way.
+ * Helper function for creating objects that represent a mapping of an enum value to some other
+ * value in a type-safe way.
  *
  * This function will ensure that the provided object has a key for each value in the enum.
  *

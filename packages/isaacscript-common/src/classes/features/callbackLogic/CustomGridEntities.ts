@@ -361,6 +361,10 @@ export class CustomGridEntities extends Feature {
   public getCustomGridEntityType(
     gridEntityOrGridIndex: GridEntity | int,
   ): GridEntityType | undefined {
+    if (!this.initialized) {
+      return undefined;
+    }
+
     const gridIndex = isNumber(gridEntityOrGridIndex)
       ? gridEntityOrGridIndex
       : gridEntityOrGridIndex.GetGridIndex();

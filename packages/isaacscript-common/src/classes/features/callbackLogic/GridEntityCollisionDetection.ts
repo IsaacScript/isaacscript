@@ -60,7 +60,18 @@ export class GridEntityCollisionDetection extends Feature {
         const entityPtrHash = GetPtrHash(entity);
         if (!oldCollidingEntities.has(entityPtrHash)) {
           oldCollidingEntities.add(entityPtrHash);
-          this.postGridEntityCollision.fire(gridEntity, entity);
+
+          const gridEntityTypeCustom =
+            this.customGridEntities.getCustomGridEntityType(gridEntity);
+          if (gridEntityTypeCustom === undefined) {
+            this.postGridEntityCollision.fire(gridEntity, entity);
+          } else {
+            this.postGridEntityCustomCollision.fire(
+              gridEntity,
+              gridEntityTypeCustom,
+              entity,
+            );
+          }
         }
       }
 
