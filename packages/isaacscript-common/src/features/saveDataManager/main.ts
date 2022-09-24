@@ -8,10 +8,7 @@ import { logError } from "../../functions/logMisc";
 import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
-import {
-  CallbackTuple,
-  CustomCallbackTuple,
-} from "../../types/private/CallbackTuple";
+import { CallbackTuple } from "../../types/private/CallbackTuple";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
@@ -48,9 +45,10 @@ export const SAVE_DATA_MANAGER_CALLBACKS: CallbackTuple[] = [
   [ModCallback.POST_NEW_LEVEL, [postNewLevel]], // 18
 ];
 
-export const SAVE_DATA_MANAGER_CUSTOM_CALLBACKS: CustomCallbackTuple[] = [
+// TODO: add tuple type annotation
+export const SAVE_DATA_MANAGER_CUSTOM_CALLBACKS = [
   [ModCallbackCustom.POST_NEW_ROOM_EARLY, [postNewRoomEarly]],
-];
+] as const;
 
 export function saveDataManagerInit(incomingMod: Mod): void {
   mod = incomingMod;

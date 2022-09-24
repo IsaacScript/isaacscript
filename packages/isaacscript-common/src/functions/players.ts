@@ -300,6 +300,21 @@ export function getPlayerFromEntity(entity: Entity): EntityPlayer | undefined {
 }
 
 /**
+ * Helper function to get an `EntityPlayer` object from an `EntityPtr`. Returns undefined if the
+ * entity has gone out of scope or if the associated entity is not a player.
+ */
+export function getPlayerFromPtr(
+  entityPtr: EntityPtr,
+): EntityPlayer | undefined {
+  const entity = entityPtr.Ref;
+  if (entity === undefined) {
+    return undefined;
+  }
+
+  return entity.ToPlayer();
+}
+
+/**
  * Helper function to get the proper name of the player. Use this instead of the
  * `EntityPlayer.GetName` method because it accounts for Blue Baby, Lazarus II, and Tainted
  * characters.

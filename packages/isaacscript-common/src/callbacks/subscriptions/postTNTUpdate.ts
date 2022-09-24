@@ -1,6 +1,6 @@
 export type PostTNTUpdateRegisterParameters = [
   callback: (tnt: GridEntityTNT) => void,
-  gridEntityVariant?: int,
+  variant?: int,
 ];
 
 const subscriptions: PostTNTUpdateRegisterParameters[] = [];
@@ -16,14 +16,11 @@ export function postTNTUpdateRegister(
 }
 
 export function postTNTUpdateFire(tnt: GridEntityTNT): void {
-  const gridEntityVariant = tnt.GetVariant();
+  const variant = tnt.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
-    ) {
+    if (callbackVariant !== undefined && callbackVariant !== variant) {
       continue;
     }
 

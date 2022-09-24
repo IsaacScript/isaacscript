@@ -95,6 +95,21 @@ export function isVanillaConsoleCommand(commandName: string): boolean {
 }
 
 /**
+ * Helper function for creating objects that represent a mapping of an enum value to some value in a
+ * type-safe way.
+ *
+ * This function will ensure that the provided object has a key for each value in the enum.
+ *
+ * After the `satisfies` operator is released in TypeScript 4.9, this function should be deleted.
+ */
+export function newObjectWithEnumKeys<
+  Enum extends number | string,
+  T extends Record<Enum, unknown>,
+>(_theEnum: Record<string, Enum>, obj: T): T {
+  return obj;
+}
+
+/**
  * Helper function to print something to the in-game console. Use this instead of invoking the
  * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
  * of the message (which `Isaac.ConsoleOutput` does not do by default).
@@ -186,3 +201,36 @@ export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
 
   return firstElement1 < firstElement2 ? -1 : 1;
 }
+
+/**
+ * Helper function to validate that an interface contains all of the keys of an enum. You must
+ * specify both generic parameters in order for this to work properly (i.e. the interface and then
+ * the enum).
+ *
+ * For example:
+ *
+ * ```ts
+ * enum MyEnum {
+ *   Value1,
+ *   Value2,
+ *   Value3,
+ * }
+ *
+ * interface MyEnumToType {
+ *   [MyEnum.Value1]: boolean;
+ *   [MyEnum.Value2]: number;
+ *   [MyEnum.Value3]: string;
+ * }
+ *
+ * validateInterfaceMatchesEnum<MyEnumToType, MyEnum>();
+ * ```
+ *
+ * This function is only meant to be used with interfaces (i.e. types that will not exist at
+ * run-time). If you are generating an object that will contain all of the keys of an enum, use the
+ * `newObjectWithEnumKeys` helper function instead.
+ */
+export function validateInterfaceMatchesEnum<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  T extends Record<Enum, unknown>,
+  Enum extends string | number,
+>(): void {}

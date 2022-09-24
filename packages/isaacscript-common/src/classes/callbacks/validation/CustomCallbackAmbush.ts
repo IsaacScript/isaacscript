@@ -1,5 +1,5 @@
-import { AmbushType } from "packages/isaacscript-common/src/enums/AmbushType";
-import { MatchingCallbackCustom } from "packages/isaacscript-common/src/types/private/MatchingCallbackCustom";
+import { AmbushType } from "../../../enums/AmbushType";
+import { MatchingCallbackCustom } from "../../../types/private/MatchingCallbackCustom";
 import {
   CustomCallback,
   FireArgs,

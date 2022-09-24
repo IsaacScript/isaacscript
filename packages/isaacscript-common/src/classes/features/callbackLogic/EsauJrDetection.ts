@@ -8,11 +8,11 @@ import {
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game } from "packages/isaacscript-common/src/core/cachedClasses";
-import { getPlayersWithControllerIndex } from "packages/isaacscript-common/src/functions/players";
+import { game } from "../../../core/cachedClasses";
+import { getPlayersWithControllerIndex } from "../../../functions/players";
+import { PostEsauJr } from "../../callbacks/PostEsauJr";
+import { PostFirstEsauJr } from "../../callbacks/PostFirstEsauJr";
 import { Feature } from "../../private/Feature";
-import { PostEsauJr } from "../PostEsauJr";
-import { PostFirstEsauJr } from "../PostFirstEsauJr";
 
 export class EsauJrDetection extends Feature {
   override v = {

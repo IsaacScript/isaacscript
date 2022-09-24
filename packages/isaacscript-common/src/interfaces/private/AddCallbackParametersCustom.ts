@@ -92,6 +92,7 @@ import { PreGetPedestalRegisterParameters } from "../../callbacks/subscriptions/
 import { PreItemPickupRegisterParameters } from "../../callbacks/subscriptions/preItemPickup";
 import { PreNewLevelRegisterParameters } from "../../callbacks/subscriptions/preNewLevel";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { validateInterfaceMatchesEnum } from "../../functions/utils";
 
 export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinishedRegisterParameters;
@@ -188,3 +189,5 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.PRE_ITEM_PICKUP]: PreItemPickupRegisterParameters;
   [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevelRegisterParameters;
 }
+
+validateInterfaceMatchesEnum<AddCallbackParametersCustom, ModCallbackCustom>();

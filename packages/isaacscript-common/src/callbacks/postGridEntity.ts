@@ -62,7 +62,7 @@ import {
 
 type GridEntityTuple = [
   gridEntityType: GridEntityType,
-  gridEntityVariant: int,
+  variant: int,
   state: int,
 ];
 
@@ -204,13 +204,9 @@ function checkNewGridEntity(gridIndex: int, gridEntity: GridEntity) {
 
 function updateTupleInMap(gridEntity: GridEntity) {
   const gridEntityType = gridEntity.GetType();
-  const gridEntityVariant = gridEntity.GetVariant();
+  const variant = gridEntity.GetVariant();
   const gridIndex = gridEntity.GetGridIndex();
-  const newTuple: GridEntityTuple = [
-    gridEntityType,
-    gridEntityVariant,
-    gridEntity.State,
-  ];
+  const newTuple: GridEntityTuple = [gridEntityType, variant, gridEntity.State];
   v.room.initializedGridEntities.set(gridIndex, newTuple);
 }
 

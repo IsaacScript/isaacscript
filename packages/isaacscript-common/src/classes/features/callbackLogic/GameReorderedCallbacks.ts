@@ -1,17 +1,31 @@
+// This provides the logic for the following callbacks:
+// - `POST_GAME_STARTED_REORDERED`
+// - `POST_GAME_STARTED_REORDERED_LAST`
+// - `POST_NEW_LEVEL_REORDERED`
+// - `POST_NEW_ROOM_REORDERED`
+
+// By default, callbacks fire in the following order:
+// - `POST_NEW_ROOM` --> `POST_NEW_LEVEL` --> `POST_GAME_STARTED`
+
+// It is easier to write mod code if the callbacks run in a more logical order:
+// - `POST_GAME_STARTED` --> `POST_NEW_LEVEL` --> `POST_NEW_ROOM`
+
+// Manually reorganize the callback execution so that this is the case.
+
 import {
   CollectibleType,
   LevelStage,
   ModCallback,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "packages/isaacscript-common/src/core/cachedClasses";
+import { game } from "../../../core/cachedClasses";
+import { PostGameStartedReordered } from "../../callbacks/PostGameStartedReordered";
+import { PostGameStartedReorderedLast } from "../../callbacks/PostGameStartedReorderedLast";
+import { PostNewLevelReordered } from "../../callbacks/PostNewLevelReordered";
+import { PostNewRoomReordered } from "../../callbacks/PostNewRoomReordered";
 import { Feature } from "../../private/Feature";
-import { PostGameStartedReordered } from "../PostGameStartedReordered";
-import { PostGameStartedReorderedLast } from "../PostGameStartedReorderedLast";
-import { PostNewLevelReordered } from "../PostNewLevelReordered";
-import { PostNewRoomReordered } from "../PostNewRoomReordered";
 
-export class ReorderedCallbacks extends Feature {
+export class GameReorderedCallbacks extends Feature {
   currentStage: int | null = null;
   currentStageType: int | null = null;
   usedGlowingHourGlass = false;

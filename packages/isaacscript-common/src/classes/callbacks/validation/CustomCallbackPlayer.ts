@@ -1,4 +1,5 @@
-import { MatchingCallbackCustom } from "packages/isaacscript-common/src/types/private/MatchingCallbackCustom";
+import { DamageFlag } from "isaac-typescript-definitions";
+import { MatchingCallbackCustom } from "../../../types/private/MatchingCallbackCustom";
 import {
   CustomCallback,
   FireArgs,
@@ -7,7 +8,14 @@ import {
 
 type CallbackSignaturePlayer =
   | ((player: EntityPlayer) => void)
-  | ((player: EntityPlayer) => int | undefined);
+  | ((player: EntityPlayer) => int | undefined)
+  | ((
+      player: EntityPlayer,
+      amount: float,
+      damageFlags: BitFlags<DamageFlag>,
+      source: EntityRef,
+      countdownFrames: int,
+    ) => boolean | undefined);
 type ModCallbackCustomPlayer = MatchingCallbackCustom<CallbackSignaturePlayer>;
 
 export class CustomCallbackPlayer<

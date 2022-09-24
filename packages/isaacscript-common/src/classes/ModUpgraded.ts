@@ -1,18 +1,19 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { IsaacScriptCommonFeature2 } from "../enums/IsaacScriptCommonFeature2";
+import {
+  LevelStage,
+  ModCallback,
+  StageType,
+} from "isaac-typescript-definitions";
+import { IsaacScriptCommonFeature } from "../enums/IsaacScriptCommonFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
 import { saveDataManager } from "../features/saveDataManager/exports";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
 import { getTSTLClassName } from "../functions/tstlClass";
+import { newObjectWithEnumKeys } from "../functions/utils";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
-import { CustomRevive } from "./callbacks/features/CustomRevive";
-import { EsauJrDetection } from "./callbacks/features/EsauJrDetection";
-import { FlipDetection } from "./callbacks/features/FlipDetection";
-import { ReorderedCallbacks } from "./callbacks/features/ReorderedCallbacks";
 import { PostAmbushFinished } from "./callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./callbacks/PostAmbushStarted";
 import { PostBombExploded } from "./callbacks/PostBombExploded";
@@ -36,14 +37,37 @@ import { PostFlip } from "./callbacks/PostFlip";
 import { PostGameStartedReordered } from "./callbacks/PostGameStartedReordered";
 import { PostGameStartedReorderedLast } from "./callbacks/PostGameStartedReorderedLast";
 import { PostGreedModeWave } from "./callbacks/PostGreedModeWave";
+import { PostGridEntityBroken } from "./callbacks/PostGridEntityBroken";
+import { PostGridEntityCustomBroken } from "./callbacks/PostGridEntityCustomBroken";
+import { PostGridEntityCustomInit } from "./callbacks/PostGridEntityCustomInit";
+import { PostGridEntityCustomRemove } from "./callbacks/PostGridEntityCustomRemove";
+import { PostGridEntityCustomStateChanged } from "./callbacks/PostGridEntityCustomStateChanged";
+import { PostGridEntityCustomUpdate } from "./callbacks/PostGridEntityCustomUpdate";
+import { PostGridEntityInit } from "./callbacks/PostGridEntityInit";
+import { PostGridEntityRemove } from "./callbacks/PostGridEntityRemove";
+import { PostGridEntityStateChanged } from "./callbacks/PostGridEntityStateChanged";
+import { PostGridEntityUpdate } from "./callbacks/PostGridEntityUpdate";
 import { PostKnifeInitLate } from "./callbacks/PostKnifeInitLate";
 import { PostNewLevelReordered } from "./callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./callbacks/PostNewRoomEarly";
 import { PostNewRoomReordered } from "./callbacks/PostNewRoomReordered";
+import { PostPEffectUpdateReordered } from "./callbacks/PostPEffectUpdateReordered";
 import { PostPitRender } from "./callbacks/PostPitRender";
+import { PostPlayerFatalDamage } from "./callbacks/PostPlayerFatalDamage";
+import { PostPlayerRenderReordered } from "./callbacks/PostPlayerRenderReordered";
+import { PostPlayerUpdateReordered } from "./callbacks/PostPlayerUpdateReordered";
 import { PostRoomClearChanged } from "./callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./callbacks/PostSpikesRender";
+import { PreBerserkDeath } from "./callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./callbacks/PreCustomRevive";
+import { CustomGridEntities } from "./features/callbackLogic/CustomGridEntities";
+import { CustomRevive } from "./features/callbackLogic/CustomRevive";
+import { EsauJrDetection } from "./features/callbackLogic/EsauJrDetection";
+import { FlipDetection } from "./features/callbackLogic/FlipDetection";
+import { GameReorderedCallbacks } from "./features/callbackLogic/GameReorderedCallbacks";
+import { GridEntityDetection } from "./features/callbackLogic/GridEntityDetection";
+import { PlayerReorderedCallbacks } from "./features/callbackLogic/PlayerReorderedCallbacks";
+import { RunInNFrames } from "./features/other/RunInNFrames";
 import { CustomCallback } from "./private/CustomCallback";
 import { Feature } from "./private/Feature";
 
@@ -75,7 +99,7 @@ export class ModUpgraded implements Mod {
   private debug: boolean;
   private timeThreshold: float | undefined;
 
-  callbacks: {
+  private callbacks: {
     readonly [key in ModCallbackCustom2]: CustomCallback<key>;
   } = {
     [ModCallbackCustom2.POST_AMBUSH_FINISHED]: new PostAmbushFinished(),
@@ -106,6 +130,26 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST]:
       new PostGameStartedReorderedLast(),
     [ModCallbackCustom2.POST_GREED_MODE_WAVE]: new PostGreedModeWave(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_BROKEN]: new PostGridEntityBroken(),
+    // [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]: new PostGridEntityCollision(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]:
+      new PostGridEntityCustomBroken(),
+    // [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]: new PostGridEntityCustomCollision(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]:
+      new PostGridEntityCustomInit(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]:
+      new PostGridEntityCustomRemove(),
+    // [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]: new PostGridEntityCustomRender(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
+      new PostGridEntityCustomStateChanged(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE]:
+      new PostGridEntityCustomUpdate(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_INIT]: new PostGridEntityInit(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_REMOVE]: new PostGridEntityRemove(),
+    // [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: new PostGridEntityRender(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]:
+      new PostGridEntityStateChanged(),
+    [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: new PostGridEntityUpdate(),
 
     // ----------------
 
@@ -113,34 +157,21 @@ export class ModUpgraded implements Mod {
     [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: new PostNewLevelReordered(),
     [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
     [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: new PostNewRoomReordered(),
+    [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]:
+      new PostPEffectUpdateReordered(),
     [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
+    [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: new PostPlayerFatalDamage(),
+    [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]:
+      new PostPlayerRenderReordered(),
+    [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]:
+      new PostPlayerUpdateReordered(),
     [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: new PostRoomClearChanged(),
     [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
+    [ModCallbackCustom2.PRE_BERSERK_DEATH]: new PreBerserkDeath(),
     [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: new PreCustomRevive(),
   } as const;
 
-  features: {
-    readonly [key in IsaacScriptCommonFeature2]: Feature;
-  } = {
-    [IsaacScriptCommonFeature2.CUSTOM_REVIVE]: new CustomRevive(
-      this.callbacks[ModCallbackCustom2.PRE_CUSTOM_REVIVE],
-      this.callbacks[ModCallbackCustom2.POST_CUSTOM_REVIVE],
-    ),
-    [IsaacScriptCommonFeature2.ESAU_JR_DETECTION]: new EsauJrDetection(
-      this.callbacks[ModCallbackCustom2.POST_ESAU_JR],
-      this.callbacks[ModCallbackCustom2.POST_FIRST_ESAU_JR],
-    ),
-    [IsaacScriptCommonFeature2.FLIP_DETECTION]: new FlipDetection(
-      this.callbacks[ModCallbackCustom2.POST_FLIP],
-      this.callbacks[ModCallbackCustom2.POST_FIRST_FLIP],
-    ),
-    [IsaacScriptCommonFeature2.REORDERED_CALLBACKS]: new ReorderedCallbacks(
-      this.callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED],
-      this.callbacks[ModCallbackCustom2.POST_NEW_LEVEL_REORDERED],
-      this.callbacks[ModCallbackCustom2.POST_NEW_ROOM_REORDERED],
-      this.callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST],
-    ),
-  } as const;
+  features;
 
   // -----------
   // Constructor
@@ -151,6 +182,59 @@ export class ModUpgraded implements Mod {
     this.mod = mod;
     this.debug = debug;
     this.timeThreshold = timeThreshold;
+
+    // Next, we initialize the extra features that the upgraded mod provides. Some features rely on
+    // other features; we must initialize those first.
+    const runInNFrames = new RunInNFrames();
+    const customGridEntities = new CustomGridEntities(runInNFrames);
+
+    this.features = newObjectWithEnumKeys(IsaacScriptCommonFeature, {
+      // Callback logic
+      [IsaacScriptCommonFeature.CUSTOM_REVIVE]: new CustomRevive(
+        this.callbacks[ModCallbackCustom2.PRE_CUSTOM_REVIVE],
+        this.callbacks[ModCallbackCustom2.POST_CUSTOM_REVIVE],
+      ),
+      [IsaacScriptCommonFeature.ESAU_JR_DETECTION]: new EsauJrDetection(
+        this.callbacks[ModCallbackCustom2.POST_ESAU_JR],
+        this.callbacks[ModCallbackCustom2.POST_FIRST_ESAU_JR],
+      ),
+      [IsaacScriptCommonFeature.FLIP_DETECTION]: new FlipDetection(
+        this.callbacks[ModCallbackCustom2.POST_FLIP],
+        this.callbacks[ModCallbackCustom2.POST_FIRST_FLIP],
+      ),
+      [IsaacScriptCommonFeature.GRID_ENTITY_DETECTION]: new GridEntityDetection(
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_INIT],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_UPDATE],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_REMOVE],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED],
+        this.callbacks[
+          ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED
+        ],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_BROKEN],
+        this.callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN],
+        customGridEntities,
+      ),
+      [IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS]:
+        new GameReorderedCallbacks(
+          this.callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED],
+          this.callbacks[ModCallbackCustom2.POST_NEW_LEVEL_REORDERED],
+          this.callbacks[ModCallbackCustom2.POST_NEW_ROOM_REORDERED],
+          this.callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST],
+        ),
+      [IsaacScriptCommonFeature.PLAYER_REORDERED_CALLBACKS]:
+        new PlayerReorderedCallbacks(
+          this.callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
+          this.callbacks[ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED],
+          this.callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
+        ),
+
+      // Extra features
+      [IsaacScriptCommonFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
+      [IsaacScriptCommonFeature.RUN_IN_N_FRAMES]: runInNFrames,
+    } as const);
   }
 
   // ---------------
@@ -273,20 +357,23 @@ export class ModUpgraded implements Mod {
     print(this, modCallback, callback);
   }
 
-  /*
   forceNewLevelCallback(): void {
-    const reorderedCallbacks = this.features[IsaacScriptCommonFeature2.REORDERED_CALLBACKS];
-    reorderedCallbacks.
-    // TODO
+    const gameReorderedCallbacks =
+      this.features[IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+    gameReorderedCallbacks.forceNewLevelCallback();
   }
 
-  forceNewRoomCallback(): void {}
+  forceNewRoomCallback(): void {
+    const gameReorderedCallbacks =
+      this.features[IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+    gameReorderedCallbacks.forceNewRoomCallback();
+  }
 
-  reorderedCallbacksSetStageInternal(
-    stage: LevelStage,
-    stageType: StageType,
-  ): void {}
-  */
+  reorderedCallbacksSetStage(stage: LevelStage, stageType: StageType): void {
+    const gameReorderedCallbacks =
+      this.features[IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+    gameReorderedCallbacks.reorderedCallbacksSetStage(stage, stageType);
+  }
 
   // ----------------------
   // Custom private methods
@@ -315,7 +402,7 @@ export class ModUpgraded implements Mod {
     if (feature.customCallbacksUsed !== undefined) {
       for (const callbackTuple of feature.customCallbacksUsed) {
         const [modCallback, callbackArgs] = callbackTuple;
-        this.AddCallbackCustom(modCallback, ...callbackArgs);
+        this.AddCallbackCustom2(modCallback, ...callbackArgs);
       }
     }
 

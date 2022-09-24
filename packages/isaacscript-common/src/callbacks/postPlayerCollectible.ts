@@ -20,7 +20,10 @@ import {
   defaultMapGetPlayer,
   mapSetPlayer,
 } from "../functions/playerDataStructures";
-import { getPlayerCollectibleMap } from "../functions/players";
+import {
+  getPlayerCollectibleMap,
+  getPlayerFromPtr,
+} from "../functions/players";
 import { repeat } from "../functions/utils";
 import { PlayerIndex } from "../types/PlayerIndex";
 import {
@@ -228,19 +231,12 @@ function entityTakeDmgPlayer(
   }
 
   // The items will only be rerolled after the damage is successfully applied.
-  const ptr = EntityPtr(player);
+  const entityPtr = EntityPtr(player);
   runNextGameFrame(() => {
-    const futureEntity = ptr.Ref;
-    if (futureEntity === undefined) {
-      return;
+    const futurePlayer = getPlayerFromPtr(entityPtr);
+    if (futurePlayer !== undefined) {
+      updateCollectibleMapAndFire(player, undefined);
     }
-
-    const futurePlayer = futureEntity.ToPlayer();
-    if (futurePlayer === undefined) {
-      return;
-    }
-
-    updateCollectibleMapAndFire(player, undefined);
   });
 
   return undefined;

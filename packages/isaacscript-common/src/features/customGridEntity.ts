@@ -18,6 +18,7 @@ import {
   removeGridEntity,
   spawnGridEntityWithVariant,
 } from "../functions/gridEntities";
+import { getPlayerFromPtr } from "../functions/players";
 import { getRoomListIndex } from "../functions/roomData";
 import { isNumber } from "../functions/types";
 import { isVector } from "../functions/vector";
@@ -91,14 +92,9 @@ function preUseItemWeNeedToGoDeeper(
 
   removeGridEntity(customGridEntity.gridIndex, false);
 
-  const playerPtr = EntityPtr(player);
+  const entityPtr = EntityPtr(player);
   runNextGameFrame(() => {
-    const futureEntity = playerPtr.Ref;
-    if (futureEntity === undefined) {
-      return;
-    }
-
-    const futurePlayer = futureEntity.ToPlayer();
+    const futurePlayer = getPlayerFromPtr(entityPtr);
     if (futurePlayer === undefined) {
       return;
     }

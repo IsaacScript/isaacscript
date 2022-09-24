@@ -47,8 +47,8 @@ export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
   for (const gridEntity of getGridEntities()) {
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
-      const gridEntityVariant = pit.GetVariant();
-      if (asNumber(pitVariant) === -1 || pitVariant === gridEntityVariant) {
+      const thisPitVariant = pit.GetVariant();
+      if (asNumber(pitVariant) === -1 || pitVariant === thisPitVariant) {
         pits.push(pit);
       }
     }
@@ -70,8 +70,8 @@ export function getPoops(
   for (const gridEntity of getGridEntities()) {
     const poop = gridEntity.ToPoop();
     if (poop !== undefined) {
-      const gridEntityVariant = poop.GetVariant();
-      if (asNumber(poopVariant) === -1 || poopVariant === gridEntityVariant) {
+      const thisPoopVariant = poop.GetVariant();
+      if (asNumber(poopVariant) === -1 || poopVariant === thisPoopVariant) {
         poops.push(poop);
       }
     }
@@ -93,10 +93,10 @@ export function getPressurePlates(
   for (const gridEntity of getGridEntities()) {
     const pressurePlate = gridEntity.ToPressurePlate();
     if (pressurePlate !== undefined) {
-      const gridEntityVariant = pressurePlate.GetVariant();
+      const thisPressurePlateVariant = pressurePlate.GetVariant();
       if (
         asNumber(pressurePlateVariant) === -1 ||
-        pressurePlateVariant === gridEntityVariant
+        pressurePlateVariant === thisPressurePlateVariant
       ) {
         pressurePlates.push(pressurePlate);
       }
@@ -119,8 +119,8 @@ export function getRocks(variant = -1): GridEntityRock[] {
   for (const gridEntity of getGridEntities()) {
     const rock = gridEntity.ToRock();
     if (rock !== undefined) {
-      const gridEntityVariant = rock.GetVariant();
-      if (variant === -1 || variant === gridEntityVariant) {
+      const thisVariant = rock.GetVariant();
+      if (variant === -1 || variant === thisVariant) {
         rocks.push(rock);
       }
     }
@@ -135,8 +135,8 @@ export function getSpikes(variant = -1): GridEntitySpikes[] {
   for (const gridEntity of getGridEntities()) {
     const spike = gridEntity.ToSpikes();
     if (spike !== undefined) {
-      const gridEntityVariant = spike.GetVariant();
-      if (variant === -1 || variant === gridEntityVariant) {
+      const thisVariant = spike.GetVariant();
+      if (variant === -1 || variant === thisVariant) {
         spikes.push(spike);
       }
     }
@@ -151,8 +151,8 @@ export function getTNT(variant = -1): GridEntityTNT[] {
   for (const gridEntity of getGridEntities()) {
     const tnt = gridEntity.ToTNT();
     if (tnt !== undefined) {
-      const gridEntityVariant = tnt.GetVariant();
-      if (variant === -1 || variant === gridEntityVariant) {
+      const thisVariant = tnt.GetVariant();
+      if (variant === -1 || variant === thisVariant) {
         tntArray.push(tnt);
       }
     }

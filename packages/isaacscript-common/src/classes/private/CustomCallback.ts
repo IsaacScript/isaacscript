@@ -43,9 +43,9 @@ export abstract class CustomCallback<
     }
   }
 
-  fire(
+  fire = (
     ...fireArgs: FireArgs<T>
-  ): ReturnType<AddCallbackParametersCustom2[T][0]> {
+  ): ReturnType<AddCallbackParametersCustom2[T][0]> => {
     for (const [callback, ...optionalArgsArray] of this.subscriptions) {
       // The TypeScript compiler is bugged with the spread operator here, as it converts the
       // optional arguments to an array instead of a tuple.
@@ -65,7 +65,7 @@ export abstract class CustomCallback<
     }
 
     return undefined as ReturnType<AddCallbackParametersCustom2[T][0]>;
-  }
+  };
 
   /**
    * This method needs to be overwritten for any callback that has optional filtration arguments.

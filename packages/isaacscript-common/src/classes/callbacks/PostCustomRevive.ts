@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature2 } from "../../enums/IsaacScriptCommonFeature2";
+import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallbackRevive } from "./validation/CustomCallbackRevive";
 
@@ -6,6 +6,6 @@ export class PostCustomRevive extends CustomCallbackRevive<ModCallbackCustom2.PO
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature2.CUSTOM_REVIVE];
+    this.featuresUsed = [IsaacScriptCommonFeature.CUSTOM_REVIVE];
   }
 }

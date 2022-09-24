@@ -1,6 +1,6 @@
 export type PostSpikesRenderRegisterParameters = [
   callback: (spikes: GridEntitySpikes) => void,
-  gridEntityVariant?: int,
+  variant?: int,
 ];
 
 const subscriptions: PostSpikesRenderRegisterParameters[] = [];
@@ -16,14 +16,11 @@ export function postSpikesRenderRegister(
 }
 
 export function postSpikesRenderFire(spikes: GridEntitySpikes): void {
-  const gridEntityVariant = spikes.GetVariant();
+  const variant = spikes.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
-    ) {
+    if (callbackVariant !== undefined && callbackVariant !== variant) {
       continue;
     }
 

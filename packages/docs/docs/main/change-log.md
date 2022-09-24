@@ -13,6 +13,9 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `isGreedMode`
+  - `validateInterfaceMatchesEnum`
+  - `newObjectWithEnumKeys`
+  - `getPlayerFromPtr`
 
 ## September 22th, 2022
 

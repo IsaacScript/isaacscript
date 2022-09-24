@@ -5,6 +5,8 @@
 - "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 
+- see if TypeScript 4.9 satisfies operator can fix all enum objects
+  - e.g. "readonly [key in Direction]: Readonly<Vector>;"
 
 - Lint:
   - add:     "no-unused-expressions": "warn",

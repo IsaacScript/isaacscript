@@ -10,7 +10,7 @@ import {
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { sfxManager } from "../../../core/cachedClasses";
-import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
+import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
 import { runNextGameFrame } from "../../../features/runInNFrames";
 import { removeCollectibleFromItemTracker } from "../../../functions/collectibles";
 import { removeAllFamiliars } from "../../../functions/entitiesSpecific";
@@ -22,9 +22,9 @@ import {
 } from "../../../functions/playerIndex";
 import { isCharacter } from "../../../functions/players";
 import { PlayerIndex } from "../../../types/PlayerIndex";
+import { PostCustomRevive } from "../../callbacks/PostCustomRevive";
+import { PreCustomRevive } from "../../callbacks/PreCustomRevive";
 import { Feature } from "../../private/Feature";
-import { PostCustomRevive } from "../PostCustomRevive";
-import { PreCustomRevive } from "../PreCustomRevive";
 
 const DEBUG = false as boolean;
 
@@ -63,16 +63,16 @@ export class CustomRevive extends Feature {
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
       [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
       [
-        ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE,
+        ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE,
         [this.postPlayerFatalDamage],
       ],
-      [ModCallbackCustom.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
+      [ModCallbackCustom2.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
     ];
 
     this.preCustomRevive = preCustomRevive;

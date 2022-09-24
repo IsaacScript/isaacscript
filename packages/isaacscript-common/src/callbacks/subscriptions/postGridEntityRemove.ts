@@ -1,9 +1,13 @@
 import { GridEntityType } from "isaac-typescript-definitions";
 
 export type PostGridEntityRemoveRegisterParameters = [
-  callback: (gridIndex: int, gridEntityType: GridEntityType) => void,
+  callback: (
+    gridIndex: int,
+    gridEntityType: GridEntityType,
+    variant: int,
+  ) => void,
   gridEntityType?: GridEntityType,
-  gridEntityVariant?: int,
+  variant?: int,
 ];
 
 const subscriptions: PostGridEntityRemoveRegisterParameters[] = [];
@@ -21,12 +25,12 @@ export function postGridEntityRemoveRegister(
 export function postGridEntityRemoveFire(
   gridIndex: int,
   gridEntityType: GridEntityType,
-  gridEntityVariant: int,
+  variant: int,
 ): void {
   for (const [
     callback,
     callbackGridEntityType,
-    callbackGridEntityVariant,
+    callbackVariant,
   ] of subscriptions) {
     // Handle the optional 2nd callback argument.
     if (
@@ -37,13 +41,10 @@ export function postGridEntityRemoveFire(
     }
 
     // Handle the optional 3rd callback argument.
-    if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
-    ) {
+    if (callbackVariant !== undefined && callbackVariant !== variant) {
       continue;
     }
 
-    callback(gridIndex, gridEntityType);
+    callback(gridIndex, gridEntityType, variant);
   }
 }

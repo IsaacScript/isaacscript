@@ -41,6 +41,7 @@ import {
 } from "../functions/gridEntities";
 import { getRandomJSONEntity, getRandomJSONRoom } from "../functions/jsonRoom";
 import { log } from "../functions/log";
+import { getPlayerFromPtr } from "../functions/players";
 import { getRandomSeed, isRNG, newRNG } from "../functions/rng";
 import { getRoomListIndex } from "../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../functions/roomGrid";
@@ -134,14 +135,9 @@ function preUseItemWeNeedToGoDeeper(
     removeGridEntity(decoration, false);
   }
 
-  const playerPtr = EntityPtr(player);
+  const entityPtr = EntityPtr(player);
   runNextGameFrame(() => {
-    const futureEntity = playerPtr.Ref;
-    if (futureEntity === undefined) {
-      return;
-    }
-
-    const futurePlayer = futureEntity.ToPlayer();
+    const futurePlayer = getPlayerFromPtr(entityPtr);
     if (futurePlayer === undefined) {
       return;
     }

@@ -63,7 +63,7 @@ export function convertXMLGridEntityType(
     );
   }
   const gridEntityType = gridEntityArray[0];
-  let gridEntityVariant = gridEntityArray[1];
+  let variant = gridEntityArray[1];
 
   // For some specific grid entities, the variant defined in the XML is what is used by the actual
   // game (which is not the case for e.g. poops).
@@ -72,10 +72,10 @@ export function convertXMLGridEntityType(
     gridEntityType === GridEntityType.PRESSURE_PLATE || // 20
     gridEntityType === GridEntityType.TELEPORTER // 23
   ) {
-    gridEntityVariant = gridEntityXMLVariant;
+    variant = gridEntityXMLVariant;
   }
 
-  return [gridEntityType, gridEntityVariant];
+  return [gridEntityType, variant];
 }
 
 /**
@@ -323,8 +323,8 @@ export function isGridEntityBreakableByExplosion(
   gridEntity: GridEntity,
 ): boolean {
   const gridEntityType = gridEntity.GetType();
-  const gridEntityVariant = gridEntity.GetVariant();
-  const gridEntityTypeVariant = `${gridEntityType}.${gridEntityVariant}`;
+  const variant = gridEntity.GetVariant();
+  const gridEntityTypeVariant = `${gridEntityType}.${variant}`;
 
   return (
     BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS.has(gridEntityType) ||

@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature2 } from "../../enums/IsaacScriptCommonFeature2";
+import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -6,6 +6,6 @@ export class PostFirstFlip extends CustomCallback<ModCallbackCustom2.POST_FIRST_
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature2.FLIP_DETECTION];
+    this.featuresUsed = [IsaacScriptCommonFeature.FLIP_DETECTION];
   }
 }

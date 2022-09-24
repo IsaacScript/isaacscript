@@ -1,6 +1,8 @@
 export type PostRockRenderRegisterParameters = [
   callback: (rock: GridEntityRock) => void,
-  gridEntityVariant?: int,
+  // This is not `RockVariant` because `GridEntityRock` can be other grid entity types than just
+  // `GridEntityType.ROCK`.
+  variant?: int,
 ];
 
 const subscriptions: PostRockRenderRegisterParameters[] = [];
@@ -16,14 +18,11 @@ export function postRockRenderRegister(
 }
 
 export function postRockRenderFire(rock: GridEntityRock): void {
-  const gridEntityVariant = rock.GetVariant();
+  const variant = rock.GetVariant();
 
-  for (const [callback, callbackGridEntityVariant] of subscriptions) {
+  for (const [callback, callbackVariant] of subscriptions) {
     // Handle the optional 2nd callback argument.
-    if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
-    ) {
+    if (callbackVariant !== undefined && callbackVariant !== variant) {
       continue;
     }
 

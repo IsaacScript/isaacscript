@@ -1,10 +1,12 @@
 import {
   BombVariant,
   CollectibleType,
+  DamageFlag,
   DiceFloorSubType,
   DoorVariant,
   EffectVariant,
   FamiliarVariant,
+  GridEntityType,
   KnifeVariant,
   PitVariant,
   PlayerType,
@@ -12,6 +14,7 @@ import {
 } from "isaac-typescript-definitions";
 import { AmbushType } from "../../enums/AmbushType";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { validateInterfaceMatchesEnum } from "../../functions/utils";
 
 export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_AMBUSH_FINISHED]: [
@@ -142,6 +145,120 @@ export interface AddCallbackParametersCustom2 {
     callback: (oldWave: int, newWave: int) => void,
   ];
 
+  [ModCallbackCustom2.POST_GRID_ENTITY_BROKEN]: [
+    callback: (gridEntity: GridEntity) => void,
+    gridEntityType?: GridEntityType,
+    variant?: int,
+  ];
+
+  /*
+  [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]: [
+    callback: (gridEntity: GridEntity, entity: Entity) => void,
+    gridEntityType?: GridEntityType,
+    gridEntityVariant?: int,
+    entityType?: EntityType,
+    entityVariant?: int,
+  ];
+  */
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]: [
+    callback: (
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+    ) => void,
+    gridEntityTypeCustom?: GridEntityType,
+  ];
+
+  /*
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]: [
+    callback: (
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+      entity: Entity,
+    ) => void,
+    gridEntityTypeCustom?: GridEntityType,
+    entityType?: EntityType,
+    entityVariant?: int,
+  ];
+  */
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]: [
+    callback: (
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+    ) => void,
+    gridEntityTypeCustom?: GridEntityType,
+  ];
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]: [
+    callback: (gridIndex: int, gridEntityTypeCustom: GridEntityType) => void,
+    gridEntityTypeCustom?: GridEntityType,
+  ];
+
+  /*
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]: [
+    callback: (
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+    ) => void,
+    gridEntityTypeCustom?: GridEntityType,
+  ];
+  */
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]: [
+    callback: (
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+      oldState: int,
+      newState: int,
+    ) => void,
+    gridEntityTypeCustom?: GridEntityType,
+  ];
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE]: [
+    callback: (
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+    ) => void,
+    gridEntityTypeCustom?: GridEntityType,
+  ];
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_INIT]: [
+    callback: (gridEntity: GridEntity) => void,
+    gridEntityType?: GridEntityType,
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_REMOVE]: [
+    callback: (
+      gridIndex: int,
+      gridEntityType: GridEntityType,
+      variant: int,
+    ) => void,
+    gridEntityType?: GridEntityType,
+    variant?: int,
+  ];
+
+  /*
+  [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: [
+    callback: (gridEntity: GridEntity) => void,
+    gridEntityType?: GridEntityType,
+    variant?: int,
+  ]
+  */
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]: [
+    callback: (gridEntity: GridEntity, oldState: int, newState: int) => void,
+    gridEntityType?: GridEntityType,
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: [
+    callback: (gridEntity: GridEntity) => void,
+    gridEntityType?: GridEntityType,
+    variant?: int,
+  ];
+
   // -------------------------------------------
 
   [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
@@ -155,9 +272,39 @@ export interface AddCallbackParametersCustom2 {
 
   [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: [callback: () => void];
 
+  [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]: [
+    callback: (player: EntityPlayer) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
   [ModCallbackCustom2.POST_PIT_RENDER]: [
     callback: (pit: GridEntityPit) => void,
     pitVariant?: PitVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: [
+    callback: (
+      player: EntityPlayer,
+      amount: float,
+      damageFlags: BitFlags<DamageFlag>,
+      source: EntityRef,
+      countdownFrames: int,
+    ) => boolean | undefined,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: [
+    callback: (player: EntityPlayer) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: [
+    callback: (player: EntityPlayer) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
   ];
 
   [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: [
@@ -167,7 +314,13 @@ export interface AddCallbackParametersCustom2 {
 
   [ModCallbackCustom2.POST_SPIKES_RENDER]: [
     callback: (spikes: GridEntitySpikes) => void,
-    gridEntityVariant?: int,
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.PRE_BERSERK_DEATH]: [
+    callback: (player: EntityPlayer) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
   ];
 
   [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: [
@@ -176,3 +329,8 @@ export interface AddCallbackParametersCustom2 {
     character?: PlayerType,
   ];
 }
+
+validateInterfaceMatchesEnum<
+  AddCallbackParametersCustom2,
+  ModCallbackCustom2
+>();

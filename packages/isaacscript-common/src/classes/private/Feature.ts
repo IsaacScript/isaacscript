@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature2 } from "../../enums/IsaacScriptCommonFeature2";
+import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
 import { SaveData } from "../../interfaces/SaveData";
 import {
   CallbackTuple,
@@ -15,7 +15,7 @@ export class Feature {
   initialized = false;
 
   v?: SaveData;
-  featuresUsed?: IsaacScriptCommonFeature2[];
+  featuresUsed?: IsaacScriptCommonFeature[];
   callbacksUsed?: CallbackTuple[];
   customCallbacksUsed?: CustomCallbackTuple[];
 }

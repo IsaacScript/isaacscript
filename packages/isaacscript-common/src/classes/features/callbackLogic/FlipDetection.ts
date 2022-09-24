@@ -4,13 +4,10 @@ import {
   PlayerType,
   UseFlag,
 } from "isaac-typescript-definitions";
-import {
-  getPlayersOfType,
-  isTaintedLazarus,
-} from "packages/isaacscript-common/src/functions/players";
+import { getPlayersOfType, isTaintedLazarus } from "../../../functions/players";
+import { PostFirstFlip } from "../../callbacks/PostFirstFlip";
+import { PostFlip } from "../../callbacks/PostFlip";
 import { Feature } from "../../private/Feature";
-import { PostFirstFlip } from "../PostFirstFlip";
-import { PostFlip } from "../PostFlip";
 
 export class FlipDetection extends Feature {
   override v = {

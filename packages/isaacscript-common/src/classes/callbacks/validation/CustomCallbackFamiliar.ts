@@ -1,4 +1,4 @@
-import { MatchingCallbackCustom } from "packages/isaacscript-common/src/types/private/MatchingCallbackCustom";
+import { MatchingCallbackCustom } from "../../../types/private/MatchingCallbackCustom";
 import {
   CustomCallback,
   FireArgs,
