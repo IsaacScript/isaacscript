@@ -26,16 +26,16 @@ import { PostNewRoomReordered } from "../../callbacks/PostNewRoomReordered";
 import { Feature } from "../../private/Feature";
 
 export class GameReorderedCallbacks extends Feature {
-  currentStage: int | null = null;
-  currentStageType: int | null = null;
-  usedGlowingHourGlass = false;
-  forceNewLevel = false;
-  forceNewRoom = false;
+  private currentStage: int | null = null;
+  private currentStageType: int | null = null;
+  private usedGlowingHourGlass = false;
+  private forceNewLevel = false;
+  private forceNewRoom = false;
 
-  postGameStartedReordered: PostGameStartedReordered;
-  postNewLevelReordered: PostNewLevelReordered;
-  postNewRoomReordered: PostNewRoomReordered;
-  postGameStartedReorderedLast: PostGameStartedReorderedLast;
+  private postGameStartedReordered: PostGameStartedReordered;
+  private postNewLevelReordered: PostNewLevelReordered;
+  private postNewRoomReordered: PostNewRoomReordered;
+  private postGameStartedReorderedLast: PostGameStartedReorderedLast;
 
   constructor(
     postGameStartedReordered: PostGameStartedReordered,
@@ -63,7 +63,7 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
-  useItemGlowingHourGlass = (): boolean | undefined => {
+  private useItemGlowingHourGlass = (): boolean | undefined => {
     // If Glowing Hour Glass is used on the first room of a floor, it will send the player to the
     // previous floor without triggering the `POST_NEW_LEVEL` callback. Manually check for this.
     this.usedGlowingHourGlass = true;
@@ -72,7 +72,7 @@ export class GameReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_GAME_STARTED (15)
-  postGameStarted = (isContinued: boolean): void => {
+  private postGameStarted = (isContinued: boolean): void => {
     this.recordCurrentStage();
     this.postGameStartedReordered.fire(isContinued);
     this.postNewLevelReordered.fire();
@@ -81,7 +81,7 @@ export class GameReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
-  postNewLevel = (): void => {
+  private postNewLevel = (): void => {
     const gameFrameCount = game.GetFrameCount();
 
     if (gameFrameCount === 0 && !this.forceNewLevel) {
@@ -96,7 +96,7 @@ export class GameReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_NEW_ROOM (19)
-  postNewRoom = (): void => {
+  private postNewRoom = (): void => {
     const gameFrameCount = game.GetFrameCount();
     const level = game.GetLevel();
     const stage = level.GetStage();
@@ -129,7 +129,7 @@ export class GameReorderedCallbacks extends Feature {
     this.postNewRoomReordered.fire();
   };
 
-  recordCurrentStage(): void {
+  private recordCurrentStage(): void {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();

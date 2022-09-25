@@ -17,8 +17,8 @@ export class FlipDetection extends Feature {
     },
   };
 
-  postFlip: PostFlip;
-  postFirstFlip: PostFirstFlip;
+  private postFlip: PostFlip;
+  private postFirstFlip: PostFirstFlip;
 
   constructor(postFlip: PostFlip, postFirstFlip: PostFirstFlip) {
     super();
@@ -33,7 +33,7 @@ export class FlipDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.FLIP (711)
-  useItemFlip = (
+  private useItemFlip = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

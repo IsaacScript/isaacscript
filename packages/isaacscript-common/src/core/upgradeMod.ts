@@ -1,5 +1,6 @@
 import { postNewRoomEarlyCallbackInit } from "../callbacks/postNewRoomEarly";
 import { ModUpgraded } from "../classes/ModUpgraded";
+import { Feature } from "../classes/private/Feature";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ISCFeatureToClass } from "../features";
 import {
@@ -15,6 +16,7 @@ import { initCustomCallbacks } from "../initCustomCallbacks";
 import { initFeatures } from "../initFeatures";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { loadShaderCrashFix } from "../shaderCrashFix";
+import { LowercaseKeys } from "../types/LowercaseKeys";
 import { UnionToIntersection } from "../types/UnionToIntersection";
 
 /**
@@ -26,7 +28,12 @@ import { UnionToIntersection } from "../types/UnionToIntersection";
  */
 type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
   ? ModUpgraded
-  : ModUpgraded & UnionToIntersection<ISCFeatureToClass[T]>;
+  : Omit<
+      ModUpgraded & UnionToIntersection<ISCFeatureToClass[T]>,
+      KeysToScrubFromModClass
+    >;
+
+type KeysToScrubFromModClass = keyof Feature | LowercaseKeys<ModUpgraded>;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
@@ -55,7 +62,7 @@ type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
  *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
  */
-export function upgradeMod<T extends ISCFeature>(
+export function upgradeMod<T extends ISCFeature = never>(
   modVanilla: Mod,
   features: T[] = [],
   debug = false,
@@ -77,6 +84,7 @@ export function upgradeMod<T extends ISCFeature>(
 
   for (const feature of features) {
     mod.initOptionalFeature(feature);
+    // TODO: add decorated public methods
   }
 
   return mod as ModUpgradedWithFeatures<T>;

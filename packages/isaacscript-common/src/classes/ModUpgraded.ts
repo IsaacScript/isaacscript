@@ -1,8 +1,4 @@
-import {
-  LevelStage,
-  ModCallback,
-  StageType,
-} from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCallbacks } from "../callbacks";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
@@ -194,24 +190,6 @@ export class ModUpgraded implements Mod {
   public initOptionalFeature(feature: ISCFeature): void {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);
-  }
-
-  forceNewLevelCallback(): void {
-    const gameReorderedCallbacks =
-      this.features[ISCFeature.GAME_REORDERED_CALLBACKS];
-    gameReorderedCallbacks.forceNewLevelCallback();
-  }
-
-  forceNewRoomCallback(): void {
-    const gameReorderedCallbacks =
-      this.features[ISCFeature.GAME_REORDERED_CALLBACKS];
-    gameReorderedCallbacks.forceNewRoomCallback();
-  }
-
-  reorderedCallbacksSetStage(stage: LevelStage, stageType: StageType): void {
-    const gameReorderedCallbacks =
-      this.features[ISCFeature.GAME_REORDERED_CALLBACKS];
-    gameReorderedCallbacks.reorderedCallbacksSetStage(stage, stageType);
   }
 
   // ----------------------
