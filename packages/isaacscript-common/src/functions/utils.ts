@@ -105,7 +105,8 @@ export function isVanillaConsoleCommand(commandName: string): boolean {
 export function newObjectWithEnumKeys<
   Enum extends number | string,
   T extends Record<Enum, unknown>,
->(_theEnum: Record<string, Enum>, obj: T): T {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+>(theEnum: Record<string, Enum>, obj: T): T {
   return obj;
 }
 

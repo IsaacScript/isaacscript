@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
 
@@ -6,6 +6,6 @@ export class PostPlayerRenderReordered extends CustomCallbackPlayer<ModCallbackC
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.PLAYER_REORDERED_CALLBACKS];
+    this.featuresUsed = [ISCFeature.PLAYER_REORDERED_CALLBACKS];
   }
 }

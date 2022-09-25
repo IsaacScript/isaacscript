@@ -17,6 +17,9 @@ This page lists the changes to the IsaacScript framework.
   - `newObjectWithEnumKeys`
   - `getPlayerFromPtr`
   - `saveDataManagerRemove`
+- Added the following helper types:
+  - `HasAllEnumKeys`
+  - `UnionToIntersection`
 
 ## September 22th, 2022
 

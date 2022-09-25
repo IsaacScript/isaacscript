@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallbackGridEntity } from "./validation/CustomCallbackGridEntity";
 
@@ -6,6 +6,6 @@ export class PostGridEntityUpdate extends CustomCallbackGridEntity<ModCallbackCu
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.GRID_ENTITY_DETECTION];
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_DETECTION];
   }
 }

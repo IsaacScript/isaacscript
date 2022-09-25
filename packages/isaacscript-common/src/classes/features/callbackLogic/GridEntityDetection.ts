@@ -11,7 +11,7 @@
 // - `POST_GRID_ENTITY_CUSTOM_BROKEN`
 
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
-import { IsaacScriptCommonFeature } from "../../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
 import {
   getGridEntitiesMap,
@@ -71,7 +71,7 @@ export class GridEntityDetection extends Feature {
   ) {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.RUN_IN_N_FRAMES];
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1

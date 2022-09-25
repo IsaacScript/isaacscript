@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import {
   CustomCallback,
@@ -12,7 +12,7 @@ export class PostGridEntityCustomRemove extends CustomCallback<T> {
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.GRID_ENTITY_DETECTION];
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_DETECTION];
   }
 
   // eslint-disable-next-line class-methods-use-this

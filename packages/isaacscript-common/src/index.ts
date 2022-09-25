@@ -7,7 +7,7 @@ export * from "./core/upgradeMod";
 export * from "./enums/AmbushType";
 export * from "./enums/CornerType";
 export * from "./enums/HealthType";
-export * from "./enums/IsaacScriptCommonFeature";
+export * from "./enums/ISCFeature";
 export * from "./enums/LadderSubTypeCustom";
 export * from "./enums/ModCallbackCustom";
 export * from "./enums/ModCallbackCustom2";

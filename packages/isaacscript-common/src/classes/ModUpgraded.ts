@@ -4,7 +4,7 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { getCallbacks } from "../callbacks";
-import { IsaacScriptCommonFeature } from "../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
 import { getFeatures } from "../features";
@@ -190,21 +190,27 @@ export class ModUpgraded implements Mod {
     }
   }
 
+  /** This method should only be used by the `upgradeMod` function. */
+  public initOptionalFeature(feature: ISCFeature): void {
+    const featureClass = this.features[feature];
+    this.initFeature(featureClass);
+  }
+
   forceNewLevelCallback(): void {
     const gameReorderedCallbacks =
-      this.features[IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+      this.features[ISCFeature.GAME_REORDERED_CALLBACKS];
     gameReorderedCallbacks.forceNewLevelCallback();
   }
 
   forceNewRoomCallback(): void {
     const gameReorderedCallbacks =
-      this.features[IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+      this.features[ISCFeature.GAME_REORDERED_CALLBACKS];
     gameReorderedCallbacks.forceNewRoomCallback();
   }
 
   reorderedCallbacksSetStage(stage: LevelStage, stageType: StageType): void {
     const gameReorderedCallbacks =
-      this.features[IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+      this.features[ISCFeature.GAME_REORDERED_CALLBACKS];
     gameReorderedCallbacks.reorderedCallbacksSetStage(stage, stageType);
   }
 

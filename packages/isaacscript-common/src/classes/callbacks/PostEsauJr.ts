@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -6,6 +6,6 @@ export class PostEsauJr extends CustomCallback<ModCallbackCustom2.POST_ESAU_JR> 
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.ESAU_JR_DETECTION];
+    this.featuresUsed = [ISCFeature.ESAU_JR_DETECTION];
   }
 }

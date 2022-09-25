@@ -7,7 +7,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
-import { IsaacScriptCommonFeature } from "../../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
 import {
   removeGridEntity,
@@ -42,7 +42,7 @@ export class CustomGridEntities extends Feature {
   constructor(runInNFrames: RunInNFrames) {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.RUN_IN_N_FRAMES];
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
       [

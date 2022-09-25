@@ -1,4 +1,4 @@
-import { IsaacScriptCommonFeature } from "../../enums/IsaacScriptCommonFeature";
+import { ISCFeature } from "../../enums/ISCFeature";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -6,6 +6,6 @@ export class PostGameStartedReorderedLast extends CustomCallback<ModCallbackCust
   constructor() {
     super();
 
-    this.featuresUsed = [IsaacScriptCommonFeature.GAME_REORDERED_CALLBACKS];
+    this.featuresUsed = [ISCFeature.GAME_REORDERED_CALLBACKS];
   }
 }
