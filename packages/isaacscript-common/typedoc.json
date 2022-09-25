@@ -196,6 +196,7 @@
     "src/types/PickupIndex.ts",
     "src/types/PlayerIndex.ts",
     "src/types/PossibleStatType.ts",
+    "src/types/UnionToIntersection.ts",
     "src/types/WeightedArray.ts",
     "src/types/TSTLClass.ts",
     "src/objects/kColors.ts",
