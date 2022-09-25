@@ -19,7 +19,7 @@
     "src/enums/AmbushType.ts",
     "src/enums/CornerType.ts",
     "src/enums/HealthType.ts",
-    "src/enums/IsaacScriptCommonFeature.ts",
+    "src/enums/ISCFeature.ts",
     "src/enums/LadderSubTypeCustom.ts",
     "src/enums/ModCallbackCustom.ts",
     "src/enums/ModCallbackCustom2.ts", // TODO
@@ -214,6 +214,7 @@
     "ImmutableObject",
     "IsaacAPIClassTypeToSerializedType",
     "IsaacAPIClassTypeToType",
+    "ModUpgradedWithFeatures",
     "Serializable",
     "SerializedIsaacAPIClass",
   ],
