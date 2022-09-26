@@ -11,7 +11,7 @@ import { AllButFirst } from "../types/AllButFirst";
  */
 export function Callback<T extends ModCallback>(
   modCallback: T,
-  ...args: AllButFirst<AddCallbackParameters[T]>
+  ...optionalArgs: AllButFirst<AddCallbackParameters[T]>
 ) {
   return <Class extends ModFeature, Fn extends AddCallbackParameters[T][0]>(
     target: Class,
@@ -21,7 +21,7 @@ export function Callback<T extends ModCallback>(
     const methodName = propertyKey as keyof Class;
     const method = target[methodName] as AddCallbackParameters[T][0];
     // @ts-expect-error The compiler is not smart enough to join the types together.
-    target.mod.AddCallback(modCallback, method, ...args);
+    target.mod.AddCallback(modCallback, method, ...optionalArgs);
   };
 }
 
@@ -31,7 +31,7 @@ export function Callback<T extends ModCallback>(
  */
 export function CallbackCustom<T extends ModCallbackCustom2>(
   modCallbackCustom: T,
-  ...args: AllButFirst<AddCallbackParametersCustom2[T]>
+  ...optionalArgs: AllButFirst<AddCallbackParametersCustom2[T]>
 ) {
   return <Class extends { mod: ModUpgraded }>(
     target: Class,
@@ -40,6 +40,6 @@ export function CallbackCustom<T extends ModCallbackCustom2>(
     const methodName = propertyKey as keyof Class;
     const method = target[methodName] as AddCallbackParametersCustom2[T][0];
     // @ts-expect-error The compiler is not smart enough to join the types together.
-    target.mod.AddCallbackCustom2(modCallbackCustom, method, ...args);
+    target.mod.AddCallbackCustom2(modCallbackCustom, method, ...optionalArgs);
   };
 }
