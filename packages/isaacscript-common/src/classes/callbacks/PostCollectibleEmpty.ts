@@ -13,7 +13,7 @@ import {
 type T = ModCallbackCustom2.POST_COLLECTIBLE_EMPTY;
 
 export class PostCollectibleEmpty extends CustomCallback<T> {
-  override v = {
+  public override v = {
     room: {
       collectibleTypeMap: new Map<PtrHash, CollectibleType>(),
     },
@@ -31,7 +31,7 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  override shouldFire(
+  protected override shouldFire(
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ): boolean {
@@ -46,7 +46,7 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   // PickupVariant.COLLECTIBLE (100)
-  postPickupUpdateCollectible = (pickup: EntityPickup): void => {
+  private postPickupUpdateCollectible = (pickup: EntityPickup): void => {
     const collectible = pickup as EntityPickupCollectible;
 
     const ptrHash = GetPtrHash(collectible);
@@ -61,7 +61,7 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
     }
   };
 
-  collectibleTypeChanged(
+  private collectibleTypeChanged(
     collectible: EntityPickupCollectible,
     oldCollectibleType: CollectibleType,
   ): void {

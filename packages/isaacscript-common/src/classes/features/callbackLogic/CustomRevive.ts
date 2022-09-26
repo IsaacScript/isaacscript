@@ -41,7 +41,7 @@ enum CustomReviveState {
 }
 
 export class CustomRevive extends Feature {
-  override v = {
+  public override v = {
     run: {
       state: CustomReviveState.DISABLED,
       revivalType: null as int | null,
@@ -49,8 +49,8 @@ export class CustomRevive extends Feature {
     },
   };
 
-  preCustomRevive: PreCustomRevive;
-  postCustomRevive: PostCustomRevive;
+  private preCustomRevive: PreCustomRevive;
+  private postCustomRevive: PostCustomRevive;
 
   constructor(
     preCustomRevive: PreCustomRevive,
@@ -80,7 +80,7 @@ export class CustomRevive extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  postRender = (): void => {
+  private postRender = (): void => {
     if (this.v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
@@ -91,7 +91,7 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  postNewRoomReordered = (): void => {
+  private postNewRoomReordered = (): void => {
     if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
       return;
     }
@@ -101,11 +101,11 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
     this.checkWaitingForItemAnimation(player);
   };
 
-  checkWaitingForItemAnimation(player: EntityPlayer): void {
+  private checkWaitingForItemAnimation(player: EntityPlayer): void {
     if (this.v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
@@ -150,13 +150,15 @@ export class CustomRevive extends Feature {
   }
 
   // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
-  postPlayerFatalDamage = (player: EntityPlayer): boolean | undefined => {
+  private postPlayerFatalDamage = (
+    player: EntityPlayer,
+  ): boolean | undefined => {
     this.playerIsAboutToDie(player);
     return undefined;
   };
 
   // ModCallbackCustom.PRE_BERSERK_DEATH
-  preBerserkDeath = (player: EntityPlayer): void => {
+  private preBerserkDeath = (player: EntityPlayer): void => {
     this.playerIsAboutToDie(player);
   };
 
@@ -164,7 +166,7 @@ export class CustomRevive extends Feature {
    * The player is about to die, which will immediately delete the save data for the run. To prevent
    * this from happening, we grant the 1-Up item.
    */
-  playerIsAboutToDie(player: EntityPlayer): void {
+  private playerIsAboutToDie(player: EntityPlayer): void {
     const revivalType = this.preCustomRevive.fire(player);
     if (revivalType === undefined) {
       return;
@@ -200,7 +202,7 @@ export class CustomRevive extends Feature {
     });
   }
 
-  logStateChanged(): void {
+  private logStateChanged(): void {
     if (DEBUG) {
       log(
         `Custom revive state changed: ${CustomReviveState[this.v.run.state]} (${

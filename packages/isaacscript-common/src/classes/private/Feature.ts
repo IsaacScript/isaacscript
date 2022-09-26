@@ -13,10 +13,12 @@ import {
  * Additionally, all custom callbacks extend from this class.
  */
 export class Feature {
-  initialized = false;
+  public initialized = false;
 
-  v?: SaveData;
-  featuresUsed?: ISCFeature[];
-  callbacksUsed?: CallbackTuple[];
-  customCallbacksUsed?: CustomCallbackTuple[];
+  public v?: SaveData;
+  public featuresUsed?: ISCFeature[];
+  public callbacksUsed?: CallbackTuple[];
+  public customCallbacksUsed?: CustomCallbackTuple[];
+
+  public exportedMethods: string[] = [];
 }

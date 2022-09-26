@@ -11,7 +11,7 @@ export class PostDoorUpdate extends CustomCallbackDoor<ModCallbackCustom2.POST_D
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     for (const door of getDoors()) {
       this.fire(door);
     }

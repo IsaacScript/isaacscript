@@ -3,7 +3,7 @@ import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallbackBomb } from "./validation/CustomCallbackBomb";
 
 export class PostBombInitLate extends CustomCallbackBomb<ModCallbackCustom2.POST_BOMB_INIT_LATE> {
-  override v = {
+  public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
     },
@@ -18,7 +18,7 @@ export class PostBombInitLate extends CustomCallbackBomb<ModCallbackCustom2.POST
   }
 
   // ModCallback.POST_BOMB_UPDATE (58)
-  postBombUpdate = (bomb: EntityBomb): void => {
+  private postBombUpdate = (bomb: EntityBomb): void => {
     const ptrHash = GetPtrHash(bomb);
     if (!this.v.room.firedSet.has(ptrHash)) {
       this.v.room.firedSet.add(ptrHash);

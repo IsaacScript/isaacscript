@@ -38,6 +38,7 @@ toggleable
 tracebacks
 transpiles
 transpiling
+uncapitalize
 unexported
 unfade
 unfixable

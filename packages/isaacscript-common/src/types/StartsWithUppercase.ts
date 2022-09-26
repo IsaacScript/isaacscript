@@ -1,6 +1,3 @@
-export type StartsWithUppercase<T> =
-  T extends `${infer FirstCharacter}${string}`
-    ? FirstCharacter extends Uppercase<FirstCharacter>
-      ? T
-      : never
-    : never;
+export type StartsWithUppercase<S> = S extends string
+  ? Extract<S, Capitalize<S>>
+  : never;

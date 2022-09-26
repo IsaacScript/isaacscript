@@ -3,7 +3,7 @@ import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallbackEffect } from "./validation/CustomCallbackEffect";
 
 export class PostEffectInitLate extends CustomCallbackEffect<ModCallbackCustom2.POST_EFFECT_INIT_LATE> {
-  override v = {
+  public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
     },
@@ -18,7 +18,7 @@ export class PostEffectInitLate extends CustomCallbackEffect<ModCallbackCustom2.
   }
 
   // ModCallback.POST_EFFECT_UPDATE (55)
-  postEffectUpdate = (effect: EntityEffect): void => {
+  private postEffectUpdate = (effect: EntityEffect): void => {
     const index = GetPtrHash(effect);
     if (!this.v.room.firedSet.has(index)) {
       this.v.room.firedSet.add(index);

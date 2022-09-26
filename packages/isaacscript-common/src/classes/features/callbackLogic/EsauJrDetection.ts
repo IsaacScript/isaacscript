@@ -15,7 +15,7 @@ import { PostFirstEsauJr } from "../../callbacks/PostFirstEsauJr";
 import { Feature } from "../../private/Feature";
 
 export class EsauJrDetection extends Feature {
-  override v = {
+  public override v = {
     run: {
       usedEsauJrFrame: null as int | null,
       usedEsauJrControllerIndex: null as ControllerIndex | null,
@@ -23,8 +23,8 @@ export class EsauJrDetection extends Feature {
     },
   };
 
-  postEsauJr: PostEsauJr;
-  postFirstEsauJr: PostFirstEsauJr;
+  private postEsauJr: PostEsauJr;
+  private postFirstEsauJr: PostFirstEsauJr;
 
   constructor(postEsauJr: PostEsauJr, postFirstEsauJr: PostFirstEsauJr) {
     super();
@@ -42,7 +42,7 @@ export class EsauJrDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     const gameFrameCount = game.GetFrameCount();
 
     // Check to see if it is the frame after the player has used Esau Jr.
@@ -79,7 +79,7 @@ export class EsauJrDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.ESAU_JR (703)
-  useItemEsauJr = (
+  private useItemEsauJr = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

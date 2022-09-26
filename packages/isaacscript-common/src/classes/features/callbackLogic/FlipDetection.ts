@@ -10,7 +10,7 @@ import { PostFlip } from "../../callbacks/PostFlip";
 import { Feature } from "../../private/Feature";
 
 export class FlipDetection extends Feature {
-  override v = {
+  public override v = {
     run: {
       /** We don't consider the case of a multiplayer game with more than one Tainted Lazarus. */
       usedFlipAtLeastOnce: false,

@@ -4,7 +4,7 @@ import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostRoomClearChanged extends CustomCallback<ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED> {
-  override v = {
+  public override v = {
     room: {
       cleared: false,
     },
@@ -20,7 +20,7 @@ export class PostRoomClearChanged extends CustomCallback<ModCallbackCustom2.POST
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 
@@ -31,7 +31,7 @@ export class PostRoomClearChanged extends CustomCallback<ModCallbackCustom2.POST
   };
 
   // ModCallback.POST_NEW_ROOM (19)
-  postNewRoom = (): void => {
+  private postNewRoom = (): void => {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 

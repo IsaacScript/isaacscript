@@ -37,24 +37,24 @@ type GridEntityTuple = [
 ];
 
 export class GridEntityDetection extends Feature {
-  override v = {
+  public override v = {
     room: {
       /** Indexed by grid index. */
       initializedGridEntities: new Map<int, GridEntityTuple>(),
     },
   };
 
-  postGridEntityInit: PostGridEntityInit;
-  postGridEntityCustomInit: PostGridEntityCustomInit;
-  postGridEntityUpdate: PostGridEntityUpdate;
-  postGridEntityCustomUpdate: PostGridEntityCustomUpdate;
-  postGridEntityRemove: PostGridEntityRemove;
-  postGridEntityCustomRemove: PostGridEntityCustomRemove;
-  postGridEntityStateChanged: PostGridEntityStateChanged;
-  postGridEntityCustomStateChanged: PostGridEntityCustomStateChanged;
-  postGridEntityBroken: PostGridEntityBroken;
-  postGridEntityCustomBroken: PostGridEntityCustomBroken;
-  customGridEntities: CustomGridEntities;
+  private postGridEntityInit: PostGridEntityInit;
+  private postGridEntityCustomInit: PostGridEntityCustomInit;
+  private postGridEntityUpdate: PostGridEntityUpdate;
+  private postGridEntityCustomUpdate: PostGridEntityCustomUpdate;
+  private postGridEntityRemove: PostGridEntityRemove;
+  private postGridEntityCustomRemove: PostGridEntityCustomRemove;
+  private postGridEntityStateChanged: PostGridEntityStateChanged;
+  private postGridEntityCustomStateChanged: PostGridEntityCustomStateChanged;
+  private postGridEntityBroken: PostGridEntityBroken;
+  private postGridEntityCustomBroken: PostGridEntityCustomBroken;
+  private customGridEntities: CustomGridEntities;
 
   constructor(
     postGridEntityInit: PostGridEntityInit,
@@ -95,7 +95,7 @@ export class GridEntityDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
     // We check for removed grid entities first so that grid entities that change type will count as
@@ -116,7 +116,9 @@ export class GridEntityDetection extends Feature {
     }
   };
 
-  checkGridEntitiesRemoved(gridEntitiesMap: Map<int, GridEntity>): void {
+  private checkGridEntitiesRemoved(
+    gridEntitiesMap: Map<int, GridEntity>,
+  ): void {
     for (const [
       gridIndex,
       gridEntityTuple,
@@ -144,7 +146,10 @@ export class GridEntityDetection extends Feature {
     }
   }
 
-  checkGridEntityStateChanged(gridIndex: int, gridEntity: GridEntity): void {
+  private checkGridEntityStateChanged(
+    gridIndex: int,
+    gridEntity: GridEntity,
+  ): void {
     const gridEntityTuple = this.v.room.initializedGridEntities.get(gridIndex);
     if (gridEntityTuple === undefined) {
       // This grid entity did not exist a frame ago; we don't want to fire the state changed
@@ -183,7 +188,7 @@ export class GridEntityDetection extends Feature {
     }
   }
 
-  checkNewGridEntity(gridIndex: int, gridEntity: GridEntity): void {
+  private checkNewGridEntity(gridIndex: int, gridEntity: GridEntity): void {
     const gridEntityType = gridEntity.GetType();
     const gridEntityTuple = this.v.room.initializedGridEntities.get(gridIndex);
 
@@ -203,7 +208,7 @@ export class GridEntityDetection extends Feature {
     }
   }
 
-  updateTupleInMap(gridEntity: GridEntity): void {
+  private updateTupleInMap(gridEntity: GridEntity): void {
     const gridEntityType = gridEntity.GetType();
     const variant = gridEntity.GetVariant();
     const gridIndex = gridEntity.GetGridIndex();
@@ -216,7 +221,7 @@ export class GridEntityDetection extends Feature {
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  postNewRoomReordered = (): void => {
+  private postNewRoomReordered = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
     for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {

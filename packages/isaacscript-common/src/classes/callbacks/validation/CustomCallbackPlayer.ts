@@ -22,7 +22,7 @@ export class CustomCallbackPlayer<
   T extends ModCallbackCustomPlayer,
 > extends CustomCallback<T> {
   // eslint-disable-next-line class-methods-use-this
-  override shouldFire(
+  protected override shouldFire(
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ): boolean {

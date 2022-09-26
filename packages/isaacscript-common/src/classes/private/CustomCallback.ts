@@ -17,13 +17,13 @@ export type OptionalArgs<T extends ModCallbackCustom2> = AllButFirst<
 export abstract class CustomCallback<
   T extends ModCallbackCustom2,
 > extends Feature {
-  subscriptions: Array<AddCallbackParametersCustom2[T]> = [];
+  private subscriptions: Array<AddCallbackParametersCustom2[T]> = [];
 
-  hasSubscriptions(): boolean {
+  public hasSubscriptions(): boolean {
     return this.subscriptions.length > 0;
   }
 
-  add(...args: AddCallbackParametersCustom2[T]): void {
+  public add(...args: AddCallbackParametersCustom2[T]): void {
     this.subscriptions.push(args);
   }
 
@@ -31,7 +31,7 @@ export abstract class CustomCallback<
    * If the submitted function does not match any of the existing subscriptions, this method will do
    * nothing.
    */
-  remove(callback: AddCallbackParametersCustom2[T][0]): void {
+  public remove(callback: AddCallbackParametersCustom2[T][0]): void {
     const subscriptionIndexMatchingCallback = this.subscriptions.findIndex(
       (subscription) => {
         const subscriptionCallback = subscription[0];
@@ -43,7 +43,7 @@ export abstract class CustomCallback<
     }
   }
 
-  fire = (
+  public fire = (
     ...fireArgs: FireArgs<T>
   ): ReturnType<AddCallbackParametersCustom2[T][0]> => {
     for (const [callback, ...optionalArgsArray] of this.subscriptions) {
@@ -71,7 +71,7 @@ export abstract class CustomCallback<
    * This method needs to be overwritten for any callback that has optional filtration arguments.
    */
   // eslint-disable-next-line class-methods-use-this
-  shouldFire(
+  protected shouldFire(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fireArgs: FireArgs<T>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

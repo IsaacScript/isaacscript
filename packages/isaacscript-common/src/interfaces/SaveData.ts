@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable max-classes-per-file */
 
 import { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";
@@ -233,7 +235,7 @@ function test<Persistent, Run, Level>(
 {
   class Foo {
     someField = 123;
-    someMethod() {} // eslint-disable-line class-methods-use-this
+    someMethod() {}
   }
 
   const saveDataWithClassWithMethod = {
@@ -264,7 +266,7 @@ function test<Persistent, Run, Level>(
 {
   class Foo {
     someField = 123;
-    someMethod() {} // eslint-disable-line class-methods-use-this
+    someMethod() {}
   }
 
   const saveDataWithNestedClass = {

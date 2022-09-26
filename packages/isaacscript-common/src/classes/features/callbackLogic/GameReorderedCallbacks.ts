@@ -19,6 +19,7 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
+import { Exported } from "../../../decorators";
 import { PostGameStartedReordered } from "../../callbacks/PostGameStartedReordered";
 import { PostGameStartedReorderedLast } from "../../callbacks/PostGameStartedReorderedLast";
 import { PostNewLevelReordered } from "../../callbacks/PostNewLevelReordered";
@@ -138,14 +139,17 @@ export class GameReorderedCallbacks extends Feature {
     this.currentStageType = stageType;
   }
 
+  @Exported()
   public forceNewLevelCallback(): void {
     this.forceNewLevel = true;
   }
 
+  @Exported()
   public forceNewRoomCallback(): void {
     this.forceNewRoom = true;
   }
 
+  @Exported()
   public reorderedCallbacksSetStage(
     stage: LevelStage,
     stageType: StageType,

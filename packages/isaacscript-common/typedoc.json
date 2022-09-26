@@ -190,6 +190,7 @@
     "src/types/AnyEntity.ts",
     "src/types/AnyGridEntity.ts",
     "src/types/CollectibleIndex.ts",
+    "src/types/FunctionTuple.ts",
     "src/types/HasAllEnumKeys.ts",
     "src/types/Immutable.ts",
     "src/types/LowercaseKeys.ts",

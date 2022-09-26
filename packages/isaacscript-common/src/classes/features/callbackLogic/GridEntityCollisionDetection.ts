@@ -14,7 +14,7 @@ import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "./CustomGridEntities";
 
 export class GridEntityCollisionDetection extends Feature {
-  override v = {
+  public override v = {
     room: {
       /** Indexed by grid entity pointer hash. */
       collidingEntitiesMap: new DefaultMap<PtrHash, Set<PtrHash>>(
@@ -23,9 +23,9 @@ export class GridEntityCollisionDetection extends Feature {
     },
   };
 
-  postGridEntityCollision: PostGridEntityCollision;
-  postGridEntityCustomCollision: PostGridEntityCustomCollision;
-  customGridEntities: CustomGridEntities;
+  private postGridEntityCollision: PostGridEntityCollision;
+  private postGridEntityCustomCollision: PostGridEntityCustomCollision;
+  private customGridEntities: CustomGridEntities;
 
   constructor(
     postGridEntityCollision: PostGridEntityCollision,
@@ -44,7 +44,7 @@ export class GridEntityCollisionDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     const gridEntities = getGridEntities();
     const gridEntitiesWithCollision = gridEntities.filter(
       (gridEntity) => gridEntity.CollisionClass !== GridCollisionClass.NONE,

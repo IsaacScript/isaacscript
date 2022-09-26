@@ -18,7 +18,7 @@ type IntervalFunctionTuple = [
 ];
 
 export class RunInNFrames extends Feature {
-  override v = {
+  public override v = {
     run: {
       queuedGameFunctionTuples: [] as QueuedFunctionTuple[],
       queuedRenderFunctionTuples: [] as QueuedFunctionTuple[],
@@ -38,7 +38,7 @@ export class RunInNFrames extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     const gameFrameCount = game.GetFrameCount();
 
     checkExecuteQueuedFunctions(
@@ -52,7 +52,7 @@ export class RunInNFrames extends Feature {
   };
 
   // ModCallback.POST_RENDER (2)
-  postRender = (): void => {
+  private postRender = (): void => {
     const renderFrameCount = Isaac.GetFrameCount();
 
     checkExecuteQueuedFunctions(

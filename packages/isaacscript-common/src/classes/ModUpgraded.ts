@@ -10,10 +10,11 @@ import {
 } from "../features/saveDataManager/exports";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
-import { getTSTLClassName } from "../functions/tstlClass";
+import { getTSTLClassMethods, getTSTLClassName } from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
+import { FunctionTuple } from "../types/FunctionTuple";
 import { Feature } from "./private/Feature";
 
 /**
@@ -32,7 +33,7 @@ export class ModUpgraded implements Mod {
    * The vanilla mod object stores the name of the mod for some reason. (It is never used or
    * referenced. (We match the casing of the vanilla variable.)
    */
-  Name: string;
+  public Name: string;
 
   // ----------------
   // Custom variables
@@ -67,7 +68,7 @@ export class ModUpgraded implements Mod {
   // Vanilla methods
   // ---------------
 
-  AddCallback<T extends ModCallback>(
+  public AddCallback<T extends ModCallback>(
     modCallback: T,
     ...args: AddCallbackParameters[T]
   ): void {
@@ -120,11 +121,11 @@ export class ModUpgraded implements Mod {
     }
   }
 
-  HasData(): boolean {
+  public HasData(): boolean {
     return this.mod.HasData();
   }
 
-  LoadData(): string {
+  public LoadData(): string {
     return this.mod.LoadData();
   }
 
@@ -132,18 +133,18 @@ export class ModUpgraded implements Mod {
    * This method does not care about the tertiary argument. Regardless of the conditions of how you
    * registered the callback, it will be removed.
    */
-  RemoveCallback<T extends ModCallback>(
+  public RemoveCallback<T extends ModCallback>(
     modCallback: T,
     callback: AddCallbackParameters[T][0],
   ): void {
     this.mod.RemoveCallback(modCallback, callback);
   }
 
-  RemoveData(): void {
+  public RemoveData(): void {
     this.mod.RemoveData();
   }
 
-  SaveData(data: string): void {
+  public SaveData(data: string): void {
     this.mod.SaveData(data);
   }
 
@@ -152,7 +153,7 @@ export class ModUpgraded implements Mod {
   // ---------------------
 
   // eslint-disable-next-line class-methods-use-this
-  AddCallbackCustom<T extends ModCallbackCustom>(
+  public AddCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom[T]
   ): void {
@@ -162,7 +163,7 @@ export class ModUpgraded implements Mod {
   }
 
   /** Add a callback in the new callback system format. This method is only temporary. */
-  AddCallbackCustom2<T extends ModCallbackCustom2>(
+  public AddCallbackCustom2<T extends ModCallbackCustom2>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom2[T]
   ): void {
@@ -175,7 +176,7 @@ export class ModUpgraded implements Mod {
    * This method does not care about the tertiary argument. Regardless of the conditions of how you
    * registered the callback, it will be removed.
    */
-  RemoveCallbackCustom<T extends ModCallbackCustom2>(
+  public RemoveCallbackCustom<T extends ModCallbackCustom2>(
     modCallbackCustom: T,
     callback: AddCallbackParametersCustom2[T][0],
   ): void {
@@ -187,15 +188,18 @@ export class ModUpgraded implements Mod {
   }
 
   /** This method should only be used by the `upgradeMod` function. */
-  public initOptionalFeature(feature: ISCFeature): void {
+  public initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);
+
+    return getTSTLClassMethods(featureClass);
   }
 
   // ----------------------
   // Custom private methods
   // ----------------------
 
+  /** This is used to initialize both custom callbacks and "extra features". */
   private initFeature(feature: Feature): void {
     if (feature.initialized) {
       return;

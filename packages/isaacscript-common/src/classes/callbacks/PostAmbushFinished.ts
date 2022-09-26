@@ -5,7 +5,7 @@ import { getAmbushType } from "../../functions/ambush";
 import { CustomCallbackAmbush } from "./validation/CustomCallbackAmbush";
 
 export class PostAmbushFinished extends CustomCallbackAmbush<ModCallbackCustom2.POST_AMBUSH_FINISHED> {
-  override v = {
+  public override v = {
     room: {
       ambushDone: false,
     },
@@ -19,7 +19,7 @@ export class PostAmbushFinished extends CustomCallbackAmbush<ModCallbackCustom2.
     ];
   }
 
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     if (this.v.room.ambushDone) {
       return;
     }

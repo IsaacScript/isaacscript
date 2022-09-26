@@ -475,9 +475,15 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
   return activeItemPrimary === CollectibleType.NULL;
 }
 
+/**
+ * Helper function to check if the active slot of a particular player is empty.
+ *
+ * @param player The player to check.
+ * @param activeSlot Optional. The active slot to check. Default is `ActiveSlot.PRIMARY`.
+ */
 export function isActiveSlotEmpty(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
 ): boolean {
   const activeCollectibleType = player.GetActiveItem(activeSlot);
   return activeCollectibleType === CollectibleType.NULL;
@@ -729,7 +735,7 @@ export function removeTrinketCostume(
  *
  * @param player The player to give the item to.
  * @param collectibleType The collectible type of the item to give.
- * @param activeSlot The slot to set.
+ * @param activeSlot Optional. The slot to set. Default is `ActiveSlot.PRIMARY`.
  * @param charge Optional. The argument of charges to set. If not specified, the item will be set
  *               with maximum charges.
  * @param keepInPools Optional. Whether or not to remove the item from pools. Default is false.
@@ -737,7 +743,7 @@ export function removeTrinketCostume(
 export function setActiveItem(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
   charge?: int,
   keepInPools = false,
 ): void {

@@ -15,7 +15,7 @@ import {
 type T = ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED;
 
 export class PostDiceRoomActivated extends CustomCallback<T> {
-  override v = {
+  public override v = {
     room: {
       diceRoomActivated: false,
     },
@@ -33,7 +33,7 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  override shouldFire(
+  protected override shouldFire(
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ): boolean {
@@ -48,7 +48,7 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
 
   // ModCallback.POST_EFFECT_UPDATE (55)
   // EffectVariant.DICE_FLOOR (76)
-  postEffectUpdateDiceFloor = (effect: EntityEffect): void => {
+  private postEffectUpdateDiceFloor = (effect: EntityEffect): void => {
     if (this.v.room.diceRoomActivated) {
       return;
     }

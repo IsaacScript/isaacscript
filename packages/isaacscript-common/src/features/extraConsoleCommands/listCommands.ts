@@ -5,7 +5,7 @@
 
 /*
 eslint "sort-exports/sort-exports": [
-  "error",
+  "warn",
   {
     sortDir: "asc",
   },

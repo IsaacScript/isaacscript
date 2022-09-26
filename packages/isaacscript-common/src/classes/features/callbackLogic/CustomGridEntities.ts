@@ -23,7 +23,7 @@ import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "../other/RunInNFrames";
 
 export class CustomGridEntities extends Feature {
-  override v = {
+  public override v = {
     level: {
       /** Indexed by room list index and grid index. */
       customGridEntities: new DefaultMap<int, Map<int, GridEntityCustomData>>(
@@ -37,7 +37,7 @@ export class CustomGridEntities extends Feature {
     },
   };
 
-  runInNFrames: RunInNFrames;
+  private runInNFrames: RunInNFrames;
 
   constructor(runInNFrames: RunInNFrames) {
     super();
@@ -60,7 +60,7 @@ export class CustomGridEntities extends Feature {
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
-  preUseItemWeNeedToGoDeeper = (
+  private preUseItemWeNeedToGoDeeper = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -110,7 +110,7 @@ export class CustomGridEntities extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  postNewRoomReordered = (): void => {
+  private postNewRoomReordered = (): void => {
     // When we re-enter a room, the graphics for any custom entities will be reverted back to that
     // of a normal decoration. Thus, we must re-apply the anm2.
     const roomListIndex = getRoomListIndex();

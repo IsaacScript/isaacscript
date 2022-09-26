@@ -4,7 +4,7 @@ import { DefaultMap } from "../DefaultMap";
 import { CustomCallbackEffect } from "./validation/CustomCallbackEffect";
 
 export class PostEffectStateChanged extends CustomCallbackEffect<ModCallbackCustom2.POST_EFFECT_STATE_CHANGED> {
-  override v = {
+  public override v = {
     run: {
       stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
     },
@@ -19,7 +19,7 @@ export class PostEffectStateChanged extends CustomCallbackEffect<ModCallbackCust
   }
 
   // ModCallback.POST_EFFECT_UPDATE (55)
-  postEffectUpdate = (effect: EntityEffect): void => {
+  private postEffectUpdate = (effect: EntityEffect): void => {
     const ptrHash = GetPtrHash(effect);
     const previousState = this.v.run.stateMap.getAndSetDefault(
       ptrHash,

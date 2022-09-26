@@ -17,7 +17,7 @@ import { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdateReord
 import { Feature } from "../../private/Feature";
 
 export class PlayerReorderedCallbacks extends Feature {
-  override v = {
+  public override v = {
     run: {
       postGameStartedFiredOnThisRun: false,
 
@@ -27,9 +27,9 @@ export class PlayerReorderedCallbacks extends Feature {
     },
   };
 
-  postPEffectUpdateReordered: PostPEffectUpdateReordered;
-  postPlayerRenderReordered: PostPlayerRenderReordered;
-  postPlayerUpdateReordered: PostPlayerUpdateReordered;
+  private postPEffectUpdateReordered: PostPEffectUpdateReordered;
+  private postPlayerRenderReordered: PostPlayerRenderReordered;
+  private postPlayerUpdateReordered: PostPlayerUpdateReordered;
 
   constructor(
     postPEffectUpdateReordered: PostPEffectUpdateReordered,
@@ -57,7 +57,7 @@ export class PlayerReorderedCallbacks extends Feature {
   }
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
-  postPEffectUpdate = (player: EntityPlayer): void => {
+  private postPEffectUpdate = (player: EntityPlayer): void => {
     if (this.v.run.postGameStartedFiredOnThisRun) {
       this.postPEffectUpdateReordered.fire(player);
     } else {
@@ -68,7 +68,7 @@ export class PlayerReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_PLAYER_UPDATE (31)
-  postPlayerUpdate = (player: EntityPlayer): void => {
+  private postPlayerUpdate = (player: EntityPlayer): void => {
     if (this.v.run.postGameStartedFiredOnThisRun) {
       this.postPlayerUpdateReordered.fire(player);
     } else {
@@ -79,7 +79,10 @@ export class PlayerReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_PLAYER_RENDER (32)
-  postPlayerRender = (player: EntityPlayer, _renderOffset: Vector): void => {
+  private postPlayerRender = (
+    player: EntityPlayer,
+    _renderOffset: Vector,
+  ): void => {
     if (this.v.run.postGameStartedFiredOnThisRun) {
       this.postPlayerRenderReordered.fire(player);
     } else {
@@ -90,7 +93,7 @@ export class PlayerReorderedCallbacks extends Feature {
   };
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST
-  postGameStartedReorderedLast = (): void => {
+  private postGameStartedReorderedLast = (): void => {
     this.v.run.postGameStartedFiredOnThisRun = true;
 
     dequeue(

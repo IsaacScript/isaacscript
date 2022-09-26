@@ -13,7 +13,7 @@ export class PostPitRender extends CustomCallbackPit<ModCallbackCustom2.POST_PIT
   }
 
   // ModCallback.POST_RENDER (2)
-  postRender = (): void => {
+  private postRender = (): void => {
     for (const pit of getPits()) {
       this.fire(pit);
     }

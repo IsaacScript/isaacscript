@@ -18,7 +18,7 @@ export class PreBerserkDeath extends CustomCallbackPlayer<ModCallbackCustom2.PRE
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
     // This callback should not trigger for the Strawman Keeper and other players that are "child"
     // players.
     if (isChildPlayer(player)) {

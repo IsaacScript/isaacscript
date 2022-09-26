@@ -13,7 +13,7 @@ export class PostSpikesRender extends CustomCallbackSpikes<ModCallbackCustom2.PO
   }
 
   // ModCallback.POST_RENDER (2)
-  postRender = (): void => {
+  private postRender = (): void => {
     for (const spikes of getSpikes()) {
       this.fire(spikes);
     }

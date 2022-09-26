@@ -4,7 +4,7 @@ import { DefaultMap } from "../DefaultMap";
 import { CustomCallbackFamiliar } from "./validation/CustomCallbackFamiliar";
 
 export class PostFamiliarStateChanged extends CustomCallbackFamiliar<ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED> {
-  override v = {
+  public override v = {
     run: {
       stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
     },
@@ -19,7 +19,7 @@ export class PostFamiliarStateChanged extends CustomCallbackFamiliar<ModCallback
   }
 
   // ModCallback.POST_FAMILIAR_UPDATE (6)
-  postFamiliarUpdate = (familiar: EntityFamiliar): void => {
+  private postFamiliarUpdate = (familiar: EntityFamiliar): void => {
     const ptrHash = GetPtrHash(familiar);
     const previousState = this.v.run.stateMap.getAndSetDefault(
       ptrHash,

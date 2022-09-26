@@ -5,7 +5,7 @@ import { CollectibleIndex } from "../../types/CollectibleIndex";
 import { CustomCallbackCollectible } from "./validation/CustomCallbackCollectible";
 
 export class PostCollectibleInitFirst extends CustomCallbackCollectible<ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST> {
-  override v = {
+  public override v = {
     run: {
       seenCollectibles: new Set<CollectibleIndex>(),
     },
@@ -24,7 +24,7 @@ export class PostCollectibleInitFirst extends CustomCallbackCollectible<ModCallb
 
   // ModCallback.POST_PICKUP_INIT (34)
   // PickupVariant.COLLECTIBLE (100)
-  postPickupInitCollectible = (pickup: EntityPickup): void => {
+  private postPickupInitCollectible = (pickup: EntityPickup): void => {
     const collectible = pickup as EntityPickupCollectible;
     const collectibleIndex = getCollectibleIndex(collectible);
     if (this.v.run.seenCollectibles.has(collectibleIndex)) {

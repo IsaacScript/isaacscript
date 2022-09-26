@@ -9,7 +9,7 @@ import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED> {
-  override v = {
+  public override v = {
     run: {
       playersHolyMantleMap: new DefaultMap<PlayerIndex, int>(0),
     },
@@ -27,7 +27,7 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POS
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
     const effects = player.GetEffects();
     const newNumHolyMantles = effects.GetCollectibleEffectNum(
       CollectibleType.HOLY_MANTLE,

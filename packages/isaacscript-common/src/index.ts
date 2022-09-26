@@ -177,6 +177,7 @@ export * from "./objects/kColors";
 export * from "./types/AnyEntity";
 export * from "./types/AnyGridEntity";
 export * from "./types/CollectibleIndex";
+export * from "./types/FunctionTuple";
 export * from "./types/HasAllEnumKeys";
 export * from "./types/Immutable";
 export * from "./types/LowercaseKeys";

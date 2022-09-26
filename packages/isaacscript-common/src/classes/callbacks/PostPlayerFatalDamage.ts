@@ -24,7 +24,7 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
 
 export class PostPlayerFatalDamage extends CustomCallbackPlayer<ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE> {
-  override v = {
+  public override v = {
     run: {
       /** Needed to detect if Glass Cannon will kill the player or not. */
       playersLastDamageGameFrame: new Map<PlayerIndex, int>(),
@@ -45,7 +45,7 @@ export class PostPlayerFatalDamage extends CustomCallbackPlayer<ModCallbackCusto
 
   // ModCallback.ENTITY_TAKE_DMG (11)
   // EntityType.PLAYER (1)
-  entityTakeDmgPlayer = (
+  private entityTakeDmgPlayer = (
     entity: Entity,
     amount: float,
     damageFlags: BitFlags<DamageFlag>,
@@ -95,7 +95,7 @@ export class PostPlayerFatalDamage extends CustomCallbackPlayer<ModCallbackCusto
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.BIBLE (33)
-  preUseItemBible = (
+  private preUseItemBible = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

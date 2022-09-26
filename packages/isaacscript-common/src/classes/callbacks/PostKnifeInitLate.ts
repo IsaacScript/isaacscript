@@ -3,7 +3,7 @@ import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { CustomCallbackKnife } from "./validation/CustomCallbackKnife";
 
 export class PostKnifeInitLate extends CustomCallbackKnife<ModCallbackCustom2.POST_KNIFE_INIT_LATE> {
-  override v = {
+  public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
     },
@@ -18,7 +18,7 @@ export class PostKnifeInitLate extends CustomCallbackKnife<ModCallbackCustom2.PO
   }
 
   // ModCallback.POST_KNIFE_UPDATE (51)
-  postKnifeUpdate = (knife: EntityKnife): void => {
+  private postKnifeUpdate = (knife: EntityKnife): void => {
     const ptrHash = GetPtrHash(knife);
     if (!this.v.room.firedSet.has(ptrHash)) {
       this.v.room.firedSet.add(ptrHash);

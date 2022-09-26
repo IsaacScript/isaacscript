@@ -13,10 +13,10 @@ import { logError } from "../../functions/logMisc";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom2.POST_NEW_ROOM_EARLY> {
-  currentRoomTopLeftWallPtrHash: PtrHash | null = null;
+  private currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
   /** The wall entity directly to the right of the top-left wall. */
-  currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
+  private currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
 
   constructor() {
     super();
@@ -28,23 +28,23 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom2.POST_NEW
   }
 
   // ModCallback.POST_NEW_ROOM (19)
-  postNewRoom = (): void => {
+  private postNewRoom = (): void => {
     this.checkRoomChanged();
   };
 
   // ModCallback.PRE_ENTITY_SPAWN (24)
-  preEntitySpawn = (): [EntityType, int, int, int] | undefined => {
+  private preEntitySpawn = (): [EntityType, int, int, int] | undefined => {
     this.checkRoomChanged();
     return undefined;
   };
 
-  checkRoomChanged(): void {
+  private checkRoomChanged(): void {
     if (this.isNewRoom()) {
       this.fire();
     }
   }
 
-  isNewRoom(): boolean {
+  private isNewRoom(): boolean {
     const room = game.GetRoom();
     const topLeftWallGridIndex = getTopLeftWallGridIndex();
     const rightOfTopWallGridIndex = topLeftWallGridIndex + 1;

@@ -13,7 +13,7 @@ export class PostBombExploded extends CustomCallbackBomb<ModCallbackCustom2.POST
   }
 
   // ModCallback.POST_BOMB_UPDATE (58)
-  postBombUpdate = (bomb: EntityBomb): void => {
+  private postBombUpdate = (bomb: EntityBomb): void => {
     if (bomb.FrameCount === BOMB_EXPLODE_FRAME) {
       this.fire(bomb);
     }

@@ -19,7 +19,7 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
 
 export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.POST_CURSED_TELEPORT> {
-  override v = {
+  public override v = {
     run: {
       playersDamageFrameMap: new Map<
         PlayerIndex,
@@ -50,7 +50,7 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
 
   // ModCallback.ENTITY_TAKE_DMG (11)
   // EntityType.PLAYER (1)
-  entityTakeDmgPlayer = (
+  private entityTakeDmgPlayer = (
     entity: Entity,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
@@ -63,7 +63,10 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
     return undefined;
   };
 
-  setDamageFrame(entity: Entity, damageFlags: BitFlags<DamageFlag>): void {
+  private setDamageFrame(
+    entity: Entity,
+    damageFlags: BitFlags<DamageFlag>,
+  ): void {
     const gameFrameCount = game.GetFrameCount();
 
     const player = entity.ToPlayer();
@@ -92,7 +95,7 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
     mapSetPlayer(this.v.run.playersDamageFrameMap, player, newTrackingArray);
   }
 
-  isPotentialNaturalTeleportFromSacrificeRoom(
+  private isPotentialNaturalTeleportFromSacrificeRoom(
     damageFlags: BitFlags<DamageFlag>,
   ): boolean {
     const room = game.GetRoom();
@@ -108,7 +111,7 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
     );
   }
 
-  incrementNumSacrifices(damageFlags: BitFlags<DamageFlag>): void {
+  private incrementNumSacrifices(damageFlags: BitFlags<DamageFlag>): void {
     const room = game.GetRoom();
     const roomType = room.GetType();
     const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
@@ -120,7 +123,7 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
 
   // ModCallback.POST_PLAYER_RENDER (32)
   // PlayerVariant.PLAYER (0)
-  postPlayerRenderPlayer = (
+  private postPlayerRenderPlayer = (
     player: EntityPlayer,
     _renderOffset: Vector,
   ): void => {

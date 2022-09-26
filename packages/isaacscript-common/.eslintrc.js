@@ -21,7 +21,22 @@ module.exports = {
     project: path.join(__dirname, "tsconfig.json"),
   },
 
-  rules: {},
+  rules: {
+    /**
+     * Documentation:
+     * https://typescript-eslint.io/rules/explicit-member-accessibility/
+     *
+     * Not defined in parent configs.
+     */
+    "@typescript-eslint/explicit-member-accessibility": [
+      "warn",
+      {
+        overrides: {
+          constructors: "off",
+        },
+      },
+    ],
+  },
 
   overrides: [
     {
@@ -29,20 +44,12 @@ module.exports = {
       rules: {
         /**
          * Documentation:
-         * https://typescript-eslint.io/rules/explicit-member-accessibility/
-         *
-         * Not defined in parent configs.
-         */
-        "@typescript-eslint/explicit-member-accessibility": "warn",
-
-        /**
-         * Documentation:
          * https://github.com/jrdrg/eslint-plugin-sort-exports
          *
          * Not defined in parent configs.
          */
         "sort-exports/sort-exports": [
-          "error",
+          "warn",
           {
             sortDir: "asc",
           },

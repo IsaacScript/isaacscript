@@ -11,12 +11,15 @@ This page lists the changes to the IsaacScript framework.
 
 ## September 29th, 2022 (Unreleased)
 
+- The helper functions relating to charge now have an `activeSlot` parameter that defaults to `ActiveSlot.PRIMARY`.
 - Added the following helper functions:
   - `isGreedMode`
   - `validateInterfaceMatchesEnum`
   - `newObjectWithEnumKeys`
   - `getPlayerFromPtr`
   - `saveDataManagerRemove`
+  - `getTSTLClassConstructor`
+  - `getTSTLClassMethods`
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`

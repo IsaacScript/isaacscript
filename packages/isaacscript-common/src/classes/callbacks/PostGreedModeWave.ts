@@ -5,7 +5,7 @@ import { isGreedMode } from "../../functions/run";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostGreedModeWave extends CustomCallback<ModCallbackCustom2.POST_GREED_MODE_WAVE> {
-  override v = {
+  public override v = {
     run: {
       currentGreedWave: 0,
     },
@@ -20,7 +20,7 @@ export class PostGreedModeWave extends CustomCallback<ModCallbackCustom2.POST_GR
   }
 
   // ModCallback.POST_UPDATE (1)
-  postUpdate = (): void => {
+  private postUpdate = (): void => {
     if (!isGreedMode()) {
       return;
     }

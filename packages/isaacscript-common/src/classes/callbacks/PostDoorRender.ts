@@ -11,7 +11,7 @@ export class PostDoorRender extends CustomCallbackDoor<ModCallbackCustom2.POST_D
   }
 
   // ModCallback.POST_RENDER (2)
-  postRender = (): void => {
+  private postRender = (): void => {
     for (const door of getDoors()) {
       this.fire(door);
     }

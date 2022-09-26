@@ -9,7 +9,7 @@ const BONE_SWING_ANIMATIONS: ReadonlySet<string> = new Set([
 ]);
 
 export class PostBoneSwing extends CustomCallback<ModCallbackCustom2.POST_BONE_SWING> {
-  override v = {
+  public override v = {
     room: {
       boneClubAnimations: new Map<PtrHash, string>(),
     },
@@ -24,7 +24,7 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom2.POST_BONE_S
   }
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  postKnifeRender = (knife: EntityKnife): void => {
+  private postKnifeRender = (knife: EntityKnife): void => {
     // The tertiary argument of the `POST_KNIFE_RENDER` callback takes sub-types instead of knife
     // variants.
     if (knife.Variant === KnifeVariant.BONE_CLUB) {
@@ -34,7 +34,7 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom2.POST_BONE_S
 
   // ModCallback.POST_KNIFE_RENDER (52)
   // KnifeVariant.BONE_CLUB (1)
-  postKnifeRenderBoneClub(knife: EntityKnife): void {
+  private postKnifeRenderBoneClub(knife: EntityKnife): void {
     const sprite = knife.GetSprite();
     const animation = sprite.GetAnimation();
     const ptrHash = GetPtrHash(knife);
@@ -50,7 +50,10 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom2.POST_BONE_S
     }
   }
 
-  boneClubAnimationChanged(knife: EntityKnife, animation: string): void {
+  private boneClubAnimationChanged(
+    knife: EntityKnife,
+    animation: string,
+  ): void {
     if (BONE_SWING_ANIMATIONS.has(animation)) {
       this.fire(knife);
     }
