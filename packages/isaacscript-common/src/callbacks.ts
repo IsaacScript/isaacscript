@@ -47,82 +47,88 @@ import { PostRoomClearChanged } from "./classes/callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./classes/callbacks/PostSpikesRender";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
-import { CustomCallback } from "./classes/private/CustomCallback";
 import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
+import { newObjectWithEnumKeys } from "./functions/utils";
 
-export function getCallbacks(): {
-  readonly [key in ModCallbackCustom2]: CustomCallback<key>;
-} {
-  return {
-    [ModCallbackCustom2.POST_AMBUSH_FINISHED]: new PostAmbushFinished(),
-    [ModCallbackCustom2.POST_AMBUSH_STARTED]: new PostAmbushStarted(),
-    [ModCallbackCustom2.POST_BOMB_EXPLODED]: new PostBombExploded(),
-    [ModCallbackCustom2.POST_BOMB_INIT_LATE]: new PostBombInitLate(),
-    [ModCallbackCustom2.POST_BONE_SWING]: new PostBoneSwing(),
-    [ModCallbackCustom2.POST_COLLECTIBLE_EMPTY]: new PostCollectibleEmpty(),
-    [ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST]:
-      new PostCollectibleInitFirst(),
-    [ModCallbackCustom2.POST_CURSED_TELEPORT]: new PostCursedTeleport(),
-    [ModCallbackCustom2.POST_CUSTOM_REVIVE]: new PostCustomRevive(),
-    [ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED]: new PostDiceRoomActivated(),
-    [ModCallbackCustom2.POST_DOOR_RENDER]: new PostDoorRender(),
-    [ModCallbackCustom2.POST_DOOR_UPDATE]: new PostDoorUpdate(),
-    [ModCallbackCustom2.POST_EFFECT_INIT_LATE]: new PostEffectInitLate(),
-    [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]:
-      new PostEffectStateChanged(),
-    [ModCallbackCustom2.POST_ESAU_JR]: new PostEsauJr(),
-    [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: new PostFamiliarInitLate(),
-    [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]:
-      new PostFamiliarStateChanged(),
-    [ModCallbackCustom2.POST_FIRST_FLIP]: new PostFirstFlip(),
-    [ModCallbackCustom2.POST_FIRST_ESAU_JR]: new PostFirstEsauJr(),
-    [ModCallbackCustom2.POST_FLIP]: new PostFlip(),
-    [ModCallbackCustom2.POST_GAME_STARTED_REORDERED]:
-      new PostGameStartedReordered(),
-    [ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST]:
-      new PostGameStartedReorderedLast(),
-    [ModCallbackCustom2.POST_GREED_MODE_WAVE]: new PostGreedModeWave(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_BROKEN]: new PostGridEntityBroken(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]:
-      new PostGridEntityCollision(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]:
-      new PostGridEntityCustomBroken(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]:
-      new PostGridEntityCustomCollision(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]:
-      new PostGridEntityCustomInit(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]:
-      new PostGridEntityCustomRemove(),
-    // [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]: new PostGridEntityCustomRender(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
-      new PostGridEntityCustomStateChanged(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE]:
-      new PostGridEntityCustomUpdate(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_INIT]: new PostGridEntityInit(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_REMOVE]: new PostGridEntityRemove(),
-    // [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: new PostGridEntityRender(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]:
-      new PostGridEntityStateChanged(),
-    [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: new PostGridEntityUpdate(),
-    [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: new PostHolyMantleRemoved(),
+const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
+  [ModCallbackCustom2.POST_AMBUSH_FINISHED]: PostAmbushFinished,
+  [ModCallbackCustom2.POST_AMBUSH_STARTED]: PostAmbushStarted,
+  [ModCallbackCustom2.POST_BOMB_EXPLODED]: PostBombExploded,
+  [ModCallbackCustom2.POST_BOMB_INIT_LATE]: PostBombInitLate,
+  [ModCallbackCustom2.POST_BONE_SWING]: PostBoneSwing,
+  [ModCallbackCustom2.POST_COLLECTIBLE_EMPTY]: PostCollectibleEmpty,
+  [ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirst,
+  [ModCallbackCustom2.POST_CURSED_TELEPORT]: PostCursedTeleport,
+  [ModCallbackCustom2.POST_CUSTOM_REVIVE]: PostCustomRevive,
+  [ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED]: PostDiceRoomActivated,
+  [ModCallbackCustom2.POST_DOOR_RENDER]: PostDoorRender,
+  [ModCallbackCustom2.POST_DOOR_UPDATE]: PostDoorUpdate,
+  [ModCallbackCustom2.POST_EFFECT_INIT_LATE]: PostEffectInitLate,
+  [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]: PostEffectStateChanged,
+  [ModCallbackCustom2.POST_ESAU_JR]: PostEsauJr,
+  [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: PostFamiliarInitLate,
+  [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]: PostFamiliarStateChanged,
+  [ModCallbackCustom2.POST_FIRST_FLIP]: PostFirstFlip,
+  [ModCallbackCustom2.POST_FIRST_ESAU_JR]: PostFirstEsauJr,
+  [ModCallbackCustom2.POST_FLIP]: PostFlip,
+  [ModCallbackCustom2.POST_GAME_STARTED_REORDERED]: PostGameStartedReordered,
+  [ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST]:
+    PostGameStartedReorderedLast,
+  [ModCallbackCustom2.POST_GREED_MODE_WAVE]: PostGreedModeWave,
+  [ModCallbackCustom2.POST_GRID_ENTITY_BROKEN]: PostGridEntityBroken,
+  [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]: PostGridEntityCollision,
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]:
+    PostGridEntityCustomBroken,
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]:
+    PostGridEntityCustomCollision,
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]: PostGridEntityCustomInit,
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]:
+    PostGridEntityCustomRemove,
+  // [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]: new PostGridEntityCustomRender(),
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
+    PostGridEntityCustomStateChanged,
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE]:
+    PostGridEntityCustomUpdate,
+  [ModCallbackCustom2.POST_GRID_ENTITY_INIT]: PostGridEntityInit,
+  [ModCallbackCustom2.POST_GRID_ENTITY_REMOVE]: PostGridEntityRemove,
+  // [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: new PostGridEntityRender(),
+  [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]:
+    PostGridEntityStateChanged,
+  [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: PostGridEntityUpdate,
+  [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: PostHolyMantleRemoved,
 
-    // ----------------
+  // ----------------
 
-    [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: new PostKnifeInitLate(),
-    [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: new PostNewLevelReordered(),
-    [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: new PostNewRoomEarly(),
-    [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: new PostNewRoomReordered(),
-    [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]:
-      new PostPEffectUpdateReordered(),
-    [ModCallbackCustom2.POST_PIT_RENDER]: new PostPitRender(),
-    [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: new PostPlayerFatalDamage(),
-    [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]:
-      new PostPlayerRenderReordered(),
-    [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]:
-      new PostPlayerUpdateReordered(),
-    [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: new PostRoomClearChanged(),
-    [ModCallbackCustom2.POST_SPIKES_RENDER]: new PostSpikesRender(),
-    [ModCallbackCustom2.PRE_BERSERK_DEATH]: new PreBerserkDeath(),
-    [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: new PreCustomRevive(),
-  } as const;
+  [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: PostKnifeInitLate,
+  [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: PostNewLevelReordered,
+  [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: PostNewRoomEarly,
+  [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: PostNewRoomReordered,
+  [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]:
+    PostPEffectUpdateReordered,
+  [ModCallbackCustom2.POST_PIT_RENDER]: PostPitRender,
+  [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
+  [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
+  [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,
+  [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChanged,
+  [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
+  [ModCallbackCustom2.PRE_BERSERK_DEATH]: PreBerserkDeath,
+  [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: PreCustomRevive,
+} as const);
+
+export type ModCallbackCustomToClass = {
+  [Property in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
+    typeof MOD_CALLBACK_CUSTOM_TO_CLASS[Property]
+  >;
+};
+
+export function getCallbacks(): ModCallbackCustomToClass {
+  const entries = Object.entries(MOD_CALLBACK_CUSTOM_TO_CLASS);
+  const instantiatedClasses = entries.map(
+    ([modCallbackCustom, constructor]) => [
+      modCallbackCustom,
+      new constructor(),
+    ],
+  );
+
+  return instantiatedClasses as unknown as ModCallbackCustomToClass;
 }

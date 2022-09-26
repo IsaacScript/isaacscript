@@ -31,7 +31,7 @@ export class ModUpgraded implements Mod {
 
   /**
    * The vanilla mod object stores the name of the mod for some reason. (It is never used or
-   * referenced. (We match the casing of the vanilla variable.)
+   * referenced.
    */
   public Name: string;
 
@@ -68,6 +68,11 @@ export class ModUpgraded implements Mod {
   // Vanilla methods
   // ---------------
 
+  /**
+   * Registers a function to be executed when an in-game event happens. For example, the
+   * `ModCallback.POST_UPDATE` event corresponds to being executed once at the end of every game
+   * logic frame.
+   */
   public AddCallback<T extends ModCallback>(
     modCallback: T,
     ...args: AddCallbackParameters[T]
@@ -121,17 +126,24 @@ export class ModUpgraded implements Mod {
     }
   }
 
+  /** Returns whether or not a corresponding "save#.dat" file exists for the current mod. */
   public HasData(): boolean {
     return this.mod.HasData();
   }
 
+  /**
+   * Returns a string containing all of the data inside of the corresponding "save#.dat" file for
+   * this mod.
+   */
   public LoadData(): string {
     return this.mod.LoadData();
   }
 
   /**
-   * This method does not care about the tertiary argument. Regardless of the conditions of how you
-   * registered the callback, it will be removed.
+   * Unregisters a function that was previously registered with the `AddCallback` method.
+   *
+   * This method does not care about the tertiary argument. In other words, regardless of the
+   * conditions of how you registered the callback, it will be removed.
    */
   public RemoveCallback<T extends ModCallback>(
     modCallback: T,
@@ -140,10 +152,14 @@ export class ModUpgraded implements Mod {
     this.mod.RemoveCallback(modCallback, callback);
   }
 
+  /** Deletes the corresponding "save#.dat" file for this mod, if it exists. */
   public RemoveData(): void {
     this.mod.RemoveData();
   }
 
+  /**
+   * Creates or updates the corresponding "save#.dat" file for this mod with the provided string.
+   */
   public SaveData(data: string): void {
     this.mod.SaveData(data);
   }
@@ -152,6 +168,11 @@ export class ModUpgraded implements Mod {
   // Custom public methods
   // ---------------------
 
+  /**
+   * Registers a function to be executed when an in-game event happens. This method is specifically
+   * for events that are provided by the IsaacScript standard library. For example, the
+   * `ModCallbackCustom.POST_BOMB_EXPLODE` event corresponds to when a bomb explodes.
+   */
   // eslint-disable-next-line class-methods-use-this
   public AddCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
@@ -162,32 +183,39 @@ export class ModUpgraded implements Mod {
     callbackRegisterFunction(...args);
   }
 
-  /** Add a callback in the new callback system format. This method is only temporary. */
+  /** Adds a callback in the new callback system format. This method is only temporary. */
   public AddCallbackCustom2<T extends ModCallbackCustom2>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom2[T]
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
+    // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
     callbackClass.add(...args);
     this.initFeature(callbackClass);
   }
 
   /**
-   * This method does not care about the tertiary argument. Regardless of the conditions of how you
-   * registered the callback, it will be removed.
+   * Unregisters a function that was previously registered with the `AddCallbackCustom` method.
+   *
+   * This method does not care about the tertiary argument. In other words, regardless of the
+   * conditions of how you registered the callback, it will be removed.
    */
   public RemoveCallbackCustom<T extends ModCallbackCustom2>(
     modCallbackCustom: T,
     callback: AddCallbackParametersCustom2[T][0],
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
+    // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
     callbackClass.remove(callback);
     if (!callbackClass.hasSubscriptions()) {
       this.uninitFeature(callbackClass);
     }
   }
 
-  /** This method should only be used by the `upgradeMod` function. */
+  /**
+   * This method should only be used by the `upgradeMod` function. Returns the class methods from
+   * the features that were added.
+   */
   public initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);

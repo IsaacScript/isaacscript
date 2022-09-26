@@ -1,3 +1,4 @@
+import { ModCallbackCustomToClass } from "./callbacks";
 import { CustomGridEntities } from "./classes/features/callbackLogic/CustomGridEntities";
 import { CustomRevive } from "./classes/features/callbackLogic/CustomRevive";
 import { EsauJrDetection } from "./classes/features/callbackLogic/EsauJrDetection";
@@ -7,7 +8,6 @@ import { GridEntityCollisionDetection } from "./classes/features/callbackLogic/G
 import { GridEntityDetection } from "./classes/features/callbackLogic/GridEntityDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
-import { CustomCallback } from "./classes/private/CustomCallback";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
 import {
@@ -33,9 +33,7 @@ export interface ISCFeatureToClass {
 validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getFeatures(callbacks: {
-  readonly [key in ModCallbackCustom2]: CustomCallback<key>;
-}) {
+export function getFeatures(callbacks: ModCallbackCustomToClass) {
   // Some features rely on other features; we must initialize those first.
   const runInNFrames = new RunInNFrames();
   const customGridEntities = new CustomGridEntities(runInNFrames);
