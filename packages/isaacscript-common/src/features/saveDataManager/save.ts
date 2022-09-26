@@ -2,7 +2,7 @@ import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { jsonEncode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
-import { iterateTableInOrder } from "../../functions/table";
+import { isTableEmpty, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
 import {
   SAVE_DATA_MANAGER_DEBUG,
@@ -53,7 +53,7 @@ function getAllSaveDataToWriteToDisk(
       };
 
       // If there is no data, then we can move on to the next feature.
-      if (Object.keys(saveDataWithoutRoom).length === 0) {
+      if (isTableEmpty(saveDataWithoutRoom as LuaTable<AnyNotNil, unknown>)) {
         return;
       }
 

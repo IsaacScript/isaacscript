@@ -12,7 +12,7 @@ export const SAVE_DATA_MANAGER_FEATURE_NAME = "save data manager";
 export const SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_BACKUP_KEYS = [
   SaveDataKey.RUN,
   SaveDataKey.LEVEL,
-];
+] as const;
 
 export const SAVE_DATA_MANAGER_GLOWING_HOUR_GLASS_IGNORE_KEY =
   "__ignoreGlowingHourGlass";
