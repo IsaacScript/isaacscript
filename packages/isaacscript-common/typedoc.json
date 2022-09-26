@@ -220,6 +220,7 @@
     "ImmutableObject",
     "IsaacAPIClassTypeToSerializedType",
     "IsaacAPIClassTypeToType",
+    "ModCallbackCustomToClass",
     "ModUpgradedWithFeatures",
     "Serializable",
     "SerializedIsaacAPIClass",
