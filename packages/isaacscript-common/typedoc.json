@@ -212,7 +212,6 @@
     "AddCallbackParametersCustom",
     "AddCallbackParametersCustom2", // TODO
     "CopyableIsaacAPIClass",
-    "CustomCallback",
     "Feature",
     "ImmutablePrimitive",
     "ImmutableArray",
