@@ -30,8 +30,8 @@ export class ModUpgraded implements Mod {
   // -----------------
 
   /**
-   * The vanilla mod object stores the name of the mod for some reason. (It is never used or
-   * referenced.
+   * The `RegisterMod` function stores the name of the mod on the mod object for some reason. (It is
+   * never used or referenced.)
    */
   public Name: string;
 

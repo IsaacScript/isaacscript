@@ -1,5 +1,5 @@
 import { DefaultMap } from "../classes/DefaultMap";
-import { TSTLClassMetatable } from "../interfaces/private/TSTLClassMetatable";
+import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { FunctionTuple } from "../types/FunctionTuple";
 import { TSTLClass } from "../types/TSTLClass";
 import { isString, isTable } from "./types";

@@ -183,6 +183,7 @@
     "src/interfaces/SaveData.ts",
     "src/interfaces/StatTypeType.ts",
     "src/interfaces/TrinketSituation.ts",
+    "src/interfaces/TSTLClassMetatable.ts",
     "src/maps/cardNameToTypeMap.ts",
     "src/maps/characterNameToTypeMap.ts",
     "src/maps/pillNameToEffectMap.ts",
