@@ -855,7 +855,7 @@ declare global {
 
     GetTrinketRNG(trinketType: TrinketType): RNG;
     GetVelocityBeforeUpdate(): Readonly<Vector>;
-    GetZodiacEffect(): ZodiacCollectibles;
+    GetZodiacEffect(): ZodiacCollectibleType;
 
     /**
      * @param collectibleType

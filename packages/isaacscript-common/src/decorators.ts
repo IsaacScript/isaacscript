@@ -1,8 +1,10 @@
 import { Feature } from "./classes/private/Feature";
 
 /**
- * A decorator function that signifies that the decorated method should be added to the
+ * A decorator function that signifies that the decorated class method should be added to the
  * `ModUpgraded` object.
+ *
+ * This is only meant to be used internally.
  */
 export function Exported() {
   return <T extends Feature>(target: T, propertyKey: keyof T): void => {

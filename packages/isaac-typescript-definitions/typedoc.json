@@ -192,7 +192,7 @@
     "src/types/unofficial/primitives.d.ts",
     "src/types/unofficial/PtrHash.d.ts",
     "src/types/unofficial/Seed.d.ts",
-    "src/types/unofficial/ZodiacCollectibles.d.ts",
+    "src/types/unofficial/ZodiacCollectibleTypes.d.ts",
     */
   ],
   "intentionallyNotExported": [

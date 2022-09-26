@@ -23,6 +23,13 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`
+  - `Constructor`
+  - `AllButFirst`
+  - `AllButLast`
+  - `LowercaseKeys`
+  - `UppercaseKeys`
+  - `StartsWithLowercase`
+  - `StartsWithUppercase`
 
 ## September 22th, 2022
 
