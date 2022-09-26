@@ -6,7 +6,7 @@ title: Getting Started
 
 You can go from zero to up-and-running with a new mod in around 5 minutes, depending on how fast your computer and internet speed is.
 
-(If you don't know what IsaacScript is or you are not yet convinced that you should use it, start by looking at the [features](features.md) page first.)
+(If you don't know what IsaacScript is or you are not yet convinced that you should use it, look at the [features](features.md) page first.)
 
 <br />
 
