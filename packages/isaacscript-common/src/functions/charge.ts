@@ -25,7 +25,7 @@ import { getRoomShapeCharges } from "./roomShape";
  * - AAA Battery
  *
  * @param player The player to grant the charges to.
- * @param activeSlot The slot to grant the charges to.
+ * @param activeSlot Optional. The slot to grant the charges to. Default is `ActiveSlot.PRIMARY`.
  * @param numCharges Optional. The amount of charges to grant. Default is 1.
  * @param playSoundEffect Optional. Whether to play a charge-related sound effect. Default is true.
  * @returns The amount of charges that were actually granted. For example, if the active item was
@@ -34,7 +34,7 @@ import { getRoomShapeCharges } from "./roomShape";
  */
 export function addCharge(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
   numCharges = 1,
   playSoundEffect = true,
 ): int {
@@ -116,7 +116,8 @@ export function addRoomClearCharge(
  * - Not charging active items with `chargetype="special"`
  *
  * @param player The player to grant the charges to.
- * @param activeSlot The active item slot to grant the charges to.
+ * @param activeSlot Optional. The active item slot to grant the charges to. Default is
+ *                   `ActiveSlot.PRIMARY`.
  * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
  *                            room for the purposes of calculating how much charge to grant. Default
  *                            is true.
@@ -124,7 +125,7 @@ export function addRoomClearCharge(
  */
 export function addRoomClearChargeToSlot(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
   bigRoomDoubleCharge = true,
   playSoundEffect = true,
 ): void {
@@ -202,10 +203,13 @@ export function addRoomClearCharges(bigRoomDoubleCharge = true): void {
  * This function accounts for The Battery. For example, if the player has 2/6 charges on a D6, this
  * function will return 10 (because there are 4 charges remaining on the base charge and 6 charges
  * remaining on The Battery charge).
+ *
+ * @param player The player to get the charges from.
+ * @param activeSlot Optional. The slot to get the charges from. Default is `ActiveSlot.PRIMARY`.
  */
 export function getChargesAwayFromMax(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
 ): int {
   const totalCharge = getTotalCharge(player, activeSlot);
   const activeItem = player.GetActiveItem(activeSlot);
@@ -220,10 +224,13 @@ export function getChargesAwayFromMax(
  * Helper function to get the combined normal charge and the battery charge for the player's active
  * item. This is useful because you have to add these two values together when setting the active
  * charge.
+ *
+ * @param player The player to get the charges from.
+ * @param activeSlot Optional. The slot to get the charges from. Default is `ActiveSlot.PRIMARY`.
  */
 export function getTotalCharge(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
 ): int {
   const activeCharge = player.GetActiveCharge(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
@@ -231,9 +238,16 @@ export function getTotalCharge(
   return activeCharge + batteryCharge;
 }
 
+/**
+ * Helper function to check if a player's active item is "double charged", meaning that it has both
+ * a full normal charge and a full charge from The Battery.
+ *
+ * @param player The player to check.
+ * @param activeSlot Optional. The slot to check. Default is `ActiveSlot.PRIMARY`.
+ */
 export function isActiveSlotDoubleCharged(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
 ): boolean {
   const collectibleType = player.GetActiveItem(activeSlot);
   const batteryCharge = player.GetBatteryCharge(activeSlot);
@@ -242,9 +256,17 @@ export function isActiveSlotDoubleCharged(
   return batteryCharge >= maxCharges;
 }
 
+/**
+ * Helper function to play the appropriate sound effect for a player after getting one or more
+ * charges on their active item. (There is a different sound depending on whether the item is fully
+ * charged or not.)
+ *
+ * @param player The player to play the sound effect for.
+ * @param activeSlot Optional. The slot that was just charged. Default is `ActiveSlot.PRIMARY`.
+ */
 export function playChargeSoundEffect(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
 ): void {
   for (const soundEffect of [
     SoundEffect.BATTERY_CHARGE, // 170
