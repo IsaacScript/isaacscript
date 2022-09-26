@@ -22,7 +22,7 @@ export enum PlayerType {
   AZAZEL = 7,
   LAZARUS = 8,
   EDEN = 9,
-  THE_LOST = 10,
+  LOST = 10,
 
   /** Lazarus Risen, from the Lazarus' Rags collectible. */
   LAZARUS_2 = 11,
@@ -33,8 +33,8 @@ export enum PlayerType {
   LILITH = 13,
   KEEPER = 14,
   APOLLYON = 15,
-  THE_FORGOTTEN = 16,
-  THE_SOUL = 17,
+  FORGOTTEN = 16,
+  SOUL = 17,
   BETHANY = 18,
   JACOB = 19,
   ESAU = 20,
@@ -70,7 +70,7 @@ export enum PlayerType {
   EDEN_B = 30,
 
   /** Tainted Lost */
-  THE_LOST_B = 31,
+  LOST_B = 31,
 
   /** Tainted Lilith */
   LILITH_B = 32,
@@ -82,7 +82,7 @@ export enum PlayerType {
   APOLLYON_B = 34,
 
   /** Tainted Forgotten */
-  THE_FORGOTTEN_B = 35,
+  FORGOTTEN_B = 35,
 
   /** Tainted Bethany */
   BETHANY_B = 36,
@@ -97,7 +97,7 @@ export enum PlayerType {
   JACOB_2_B = 39,
 
   /** Tainted Soul */
-  THE_SOUL_B = 40,
+  SOUL_B = 40,
 }
 
 /** For `EntityType.PLAYER` (1), `PlayerVariant.COOP_BABY` (1). */
@@ -536,7 +536,7 @@ export enum CollectibleType {
   PACT = 80,
   DEAD_CAT = 81,
   LORD_OF_THE_PIT = 82,
-  THE_NAIL = 83,
+  NAIL = 83,
   WE_NEED_TO_GO_DEEPER = 84,
   DECK_OF_CARDS = 85,
   MONSTROS_TOOTH = 86,
@@ -742,7 +742,7 @@ export enum CollectibleType {
   BOOK_OF_SECRETS = 287,
   BOX_OF_SPIDERS = 288,
   RED_CANDLE = 289,
-  THE_JAR = 290,
+  JAR = 290,
   FLUSH = 291,
   SATANIC_BIBLE = 292,
   HEAD_OF_KRAMPUS = 293,
@@ -810,7 +810,7 @@ export enum CollectibleType {
   MOMS_PEARLS = 355,
   CAR_BATTERY = 356,
   BOX_OF_FRIENDS = 357,
-  THE_WIZ = 358,
+  WIZ = 358,
   EIGHT_INCH_NAILS = 359,
   INCUBUS = 360,
   FATES_REWARD = 361,
@@ -1500,7 +1500,7 @@ export enum TrinketType {
   FOUND_SOUL = 180,
   EXPANSION_PACK = 181,
   BETHS_ESSENCE = 182,
-  THE_TWINS = 183,
+  TWINS = 183,
   ADOPTION_PAPERS = 184,
   CRICKET_LEG = 185,
   APOLLYONS_BEST_FRIEND = 186,
