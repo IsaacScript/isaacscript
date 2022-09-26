@@ -1,4 +1,5 @@
 export * from "./classes/DefaultMap";
+export * from "./classes/ModFeature";
 export * from "./classes/ModUpgraded";
 export * from "./core/cachedClasses";
 export * from "./core/constants";

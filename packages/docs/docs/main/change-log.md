@@ -30,6 +30,8 @@ This page lists the changes to the IsaacScript framework.
   - `UppercaseKeys`
   - `StartsWithLowercase`
   - `StartsWithUppercase`
+- Added the following classes:
+  - `ModFeature` (extend from this if you want to use decorators)
 - Added the following decorator functions:
   - `@Callback` (for specifying that a class method should automatically be subscribed to the corresponding callback)
   - `@CallbackCustom` (for specifying that a class method should automatically be subscribed to the corresponding custom callback)

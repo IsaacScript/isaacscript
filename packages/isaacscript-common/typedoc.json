@@ -15,6 +15,7 @@
     "src/core/constantsFirstLast.ts",
     "src/core/upgradeMod.ts",
     "src/classes/DefaultMap.ts",
+    "src/classes/ModFeature.ts",
     "src/classes/ModUpgraded.ts",
     "src/enums/AmbushType.ts",
     "src/enums/CornerType.ts",
