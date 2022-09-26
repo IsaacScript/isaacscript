@@ -109,7 +109,8 @@
 /// <reference path="unofficial/IsaacAPIClass.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
 /// <reference path="unofficial/Seed.d.ts" />
-/// <reference path="unofficial/ZodiacCollectibles.d.ts" />
+/// <reference path="unofficial/TemporaryCollectibleType.d.ts" />
+/// <reference path="unofficial/ZodiacCollectibleType.d.ts" />
 
 // ----------------------------
 // Definitions for Popular Mods

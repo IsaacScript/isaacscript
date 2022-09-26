@@ -86,7 +86,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   if (config.isaacScriptCommonDev === true) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
   } else {
-    warnIfIsaacScriptCommonLinkExists(CWD, verbose);
+    warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
@@ -204,6 +204,7 @@ function linkDevelopmentIsaacScriptCommon(
 
 function warnIfIsaacScriptCommonLinkExists(
   projectPath: string,
+  packageManager: PackageManager,
   verbose: boolean,
 ) {
   const isaacScriptCommonPath = path.join(
@@ -216,7 +217,10 @@ function warnIfIsaacScriptCommonLinkExists(
     return;
   }
 
-  if (file.isLink(isaacScriptCommonPath, verbose)) {
+  if (
+    file.isLink(isaacScriptCommonPath, verbose) &&
+    packageManager !== PackageManager.PNPM // pnpm uses links, so it will cause a false positive.
+  ) {
     error(
       'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
     );
