@@ -82,6 +82,7 @@
     "src/functions/color.ts",
     "src/functions/curses.ts",
     "src/functions/debugFunctions.ts",
+    "src/functions/decorators.ts",
     "src/functions/deepCopy.ts",
     "src/functions/deepCopyTests.ts",
     "src/functions/dev.ts",

@@ -68,6 +68,7 @@ export * from "./functions/collectibleTag";
 export * from "./functions/color";
 export * from "./functions/curses";
 export * from "./functions/debugFunctions";
+export * from "./functions/decorators";
 export * from "./functions/deepCopy";
 export * from "./functions/deepCopyTests";
 export * from "./functions/dev";
