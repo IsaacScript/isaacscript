@@ -457,7 +457,7 @@ export function hasLostCurse(player: EntityPlayer): boolean {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
+  if (isCharacter(player, PlayerType.SOUL_B)) {
     return false;
   }
 
@@ -567,9 +567,7 @@ export function isKeeper(player: EntityPlayer): boolean {
 export function isLost(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return (
-    character === PlayerType.THE_LOST || character === PlayerType.THE_LOST_B
-  );
+  return character === PlayerType.LOST || character === PlayerType.LOST_B;
 }
 
 export function isModdedPlayer(player: EntityPlayer): boolean {

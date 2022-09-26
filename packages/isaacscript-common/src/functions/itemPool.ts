@@ -61,7 +61,7 @@ export function isCollectibleInItemPool(
 
   // On Tainted Lost, it is impossible to retrieve non-offensive collectibles from pools, so we
   // temporarily change the character to Isaac.
-  const taintedLosts = getPlayersOfType(PlayerType.THE_LOST_B);
+  const taintedLosts = getPlayersOfType(PlayerType.LOST_B);
   const isOffensive = collectibleHasTag(
     collectibleType,
     ItemConfigTag.OFFENSIVE,
@@ -108,7 +108,7 @@ export function isCollectibleInItemPool(
   // Change any players back to Tainted Lost, if necessary.
   if (changedPlayerTypes) {
     for (const player of taintedLosts) {
-      player.ChangePlayerType(PlayerType.THE_LOST_B);
+      player.ChangePlayerType(PlayerType.LOST_B);
     }
   }
 

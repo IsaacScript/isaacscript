@@ -79,7 +79,7 @@ export function getCharacterDeathAnimationName(character: PlayerType): string {
     return "LostDeath";
   }
 
-  if (character === PlayerType.THE_FORGOTTEN_B) {
+  if (character === PlayerType.FORGOTTEN_B) {
     return "ForgottenDeath";
   }
 
@@ -98,12 +98,12 @@ export function getCharacterMaxHeartContainers(character: PlayerType): int {
   }
 
   // 16
-  if (character === PlayerType.THE_FORGOTTEN) {
+  if (character === PlayerType.FORGOTTEN) {
     return 6;
   }
 
   // 17
-  if (character === PlayerType.THE_SOUL) {
+  if (character === PlayerType.SOUL) {
     return 6;
   }
 

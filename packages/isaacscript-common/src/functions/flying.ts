@@ -10,11 +10,11 @@ import { copySet, deleteSetsFromSet } from "./set";
 
 const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.AZAZEL, // 7
-  PlayerType.THE_LOST, // 10
-  PlayerType.THE_SOUL, // 17
-  PlayerType.THE_LOST_B, // 31
+  PlayerType.LOST, // 10
+  PlayerType.SOUL, // 17
+  PlayerType.LOST_B, // 31
   PlayerType.JACOB_2_B, // 39
-  PlayerType.THE_SOUL_B, // 40
+  PlayerType.SOUL_B, // 40
 ]);
 
 const FLYING_TRINKETS: ReadonlySet<TrinketType> = new Set([

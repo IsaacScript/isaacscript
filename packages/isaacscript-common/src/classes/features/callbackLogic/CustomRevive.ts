@@ -120,7 +120,7 @@ export class CustomRevive extends Feature {
     }
 
     let playerToCheckHoldingItem = player;
-    if (isCharacter(player, PlayerType.THE_SOUL_B)) {
+    if (isCharacter(player, PlayerType.SOUL_B)) {
       const forgottenBody = player.GetOtherTwin();
       if (forgottenBody !== undefined) {
         playerToCheckHoldingItem = forgottenBody;

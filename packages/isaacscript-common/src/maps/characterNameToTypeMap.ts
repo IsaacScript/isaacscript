@@ -16,8 +16,8 @@ export const CHARACTER_NAME_TO_TYPE_MAP = new Map<string, PlayerType>([
   // Needed so that "laz2" does not take precedence over "lazarus".
   ["laz", PlayerType.LAZARUS], // 8
   ["eden", PlayerType.EDEN], // 9
-  ["theLost", PlayerType.THE_LOST], // 10
-  ["lost", PlayerType.THE_LOST], // 10
+  ["theLost", PlayerType.LOST], // 10
+  ["lost", PlayerType.LOST], // 10
   ["lazarus2", PlayerType.LAZARUS_2], // 11
   ["laz2", PlayerType.LAZARUS_2], // 11
   ["darkJudas", PlayerType.DARK_JUDAS], // 12
@@ -27,10 +27,10 @@ export const CHARACTER_NAME_TO_TYPE_MAP = new Map<string, PlayerType>([
   ["lilith", PlayerType.LILITH], // 13
   ["keeper", PlayerType.KEEPER], // 14
   ["apollyon", PlayerType.APOLLYON], // 15
-  ["theForgotten", PlayerType.THE_FORGOTTEN], // 16
-  ["forgotten", PlayerType.THE_FORGOTTEN], // 16
-  ["theSoul", PlayerType.THE_SOUL], // 17
-  ["soul", PlayerType.THE_SOUL], // 17
+  ["theForgotten", PlayerType.FORGOTTEN], // 16
+  ["forgotten", PlayerType.FORGOTTEN], // 16
+  ["theSoul", PlayerType.SOUL], // 17
+  ["soul", PlayerType.SOUL], // 17
   ["bethany", PlayerType.BETHANY], // 18
   ["jacob", PlayerType.JACOB], // 19
   ["esau", PlayerType.ESAU], // 20
@@ -59,16 +59,16 @@ export const CHARACTER_NAME_TO_TYPE_MAP = new Map<string, PlayerType>([
   ["tLaz", PlayerType.LAZARUS_B], // 29
   ["taintedEden", PlayerType.EDEN_B], // 30
   ["tEden", PlayerType.EDEN_B], // 30
-  ["taintedLost", PlayerType.THE_LOST_B], // 31
-  ["tLost", PlayerType.THE_LOST_B], // 31
+  ["taintedLost", PlayerType.LOST_B], // 31
+  ["tLost", PlayerType.LOST_B], // 31
   ["taintedLilith", PlayerType.LILITH_B], // 32
   ["tLilith", PlayerType.LILITH_B], // 32
   ["taintedKeeper", PlayerType.KEEPER_B], // 33
   ["tKeeper", PlayerType.KEEPER_B], // 33
   ["taintedApollyon", PlayerType.APOLLYON_B], // 34
   ["tApollyon", PlayerType.APOLLYON_B], // 34
-  ["taintedForgotten", PlayerType.THE_FORGOTTEN_B], // 35
-  ["tForgotten", PlayerType.THE_FORGOTTEN_B], // 35
+  ["taintedForgotten", PlayerType.FORGOTTEN_B], // 35
+  ["tForgotten", PlayerType.FORGOTTEN_B], // 35
   ["taintedBethany", PlayerType.BETHANY_B], // 36
   ["tBethany", PlayerType.BETHANY_B], // 36
   ["taintedJacob", PlayerType.JACOB_B], // 37
@@ -83,6 +83,6 @@ export const CHARACTER_NAME_TO_TYPE_MAP = new Map<string, PlayerType>([
   ["deadTLaz", PlayerType.LAZARUS_2_B], // 38
   ["taintedJacobGhost", PlayerType.JACOB_2_B], // 39
   ["tJacobGhost", PlayerType.JACOB_2_B], // 39
-  ["taintedSoul", PlayerType.THE_SOUL_B], // 40
-  ["tSoul", PlayerType.THE_SOUL_B], // 40
+  ["taintedSoul", PlayerType.SOUL_B], // 40
+  ["tSoul", PlayerType.SOUL_B], // 40
 ]);

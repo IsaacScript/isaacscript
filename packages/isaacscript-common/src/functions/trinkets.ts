@@ -156,7 +156,7 @@ export function getVanillaTrinketTypes(): TrinketType[] {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
+  if (isCharacter(player, PlayerType.SOUL_B)) {
     return false;
   }
 
