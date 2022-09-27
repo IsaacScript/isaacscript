@@ -34,7 +34,7 @@
     "fs-extra": "^10.1.0",
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
-    "isaacscript-tsconfig": "^2.1.0",
+    "isaacscript-tsconfig": "^2.2.0",
     "jsonc-parser": "^3.2.0",
     "moment": "^2.29.4",
     "npm-check-updates": "^16.3.2",
