@@ -7,7 +7,7 @@ import { Feature } from "./classes/private/Feature";
  * This is only meant to be used internally.
  */
 export function Exported() {
-  return <T extends Feature>(target: T, propertyKey: keyof T): void => {
-    target.exportedMethods.push(propertyKey as string);
+  return <T extends Feature>(_target: T, _propertyKey: keyof T): void => {
+    // target.exportedMethods.push(propertyKey as string);
   };
 }
