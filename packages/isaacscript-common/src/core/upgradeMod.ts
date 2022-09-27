@@ -16,24 +16,20 @@ import { initCustomCallbacks } from "../initCustomCallbacks";
 import { initFeatures } from "../initFeatures";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { loadShaderCrashFix } from "../shaderCrashFix";
-import { LowercaseKeys } from "../types/LowercaseKeys";
 import { UnionToIntersection } from "../types/UnionToIntersection";
 
 /**
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
  * has extra methods corresponding to the features.
  *
- * We have to explicitly account for the empty array case, since `never` will cause mess up the
- * union.
+ * We have to explicitly account for the empty array case, since the `never` will mess up the union.
  */
 type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
   ? ModUpgraded
-  : Omit<
-      ModUpgraded & UnionToIntersection<ISCFeatureToClass[T]>,
-      KeysToScrubFromModClass
-    >;
+  : ModUpgraded &
+      Omit<UnionToIntersection<ISCFeatureToClass[T]>, KeysToScrubFromModClass>;
 
-type KeysToScrubFromModClass = keyof Feature | LowercaseKeys<ModUpgraded>;
+type KeysToScrubFromModClass = keyof Feature;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
@@ -83,6 +79,7 @@ export function upgradeMod<T extends ISCFeature = never>(
   legacyInit(mod); // TODO: remove
 
   for (const feature of features) {
+    // @ts-expect-error We intentionally access the private function here.
     const exportedMethodTuples = mod.initOptionalFeature(feature);
 
     // If the optional feature provides helper functions, attach them to the base mod object. (This

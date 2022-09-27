@@ -216,17 +216,6 @@ export class ModUpgraded implements Mod {
     }
   }
 
-  /**
-   * This method should only be used by the `upgradeMod` function. Returns the names of the exported
-   * class methods from the features that were added.
-   */
-  public initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
-    const featureClass = this.features[feature];
-    this.initFeature(featureClass);
-
-    return getExportedMethodsFromFeature(featureClass);
-  }
-
   // ----------------------
   // Custom private methods
   // ----------------------
@@ -304,6 +293,14 @@ export class ModUpgraded implements Mod {
       }
       saveDataManagerRemove(className);
     }
+  }
+
+  /** Returns the names of the exported class methods from the features that were added. */
+  private initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
+    const featureClass = this.features[feature];
+    this.initFeature(featureClass);
+
+    return getExportedMethodsFromFeature(featureClass);
   }
 }
 

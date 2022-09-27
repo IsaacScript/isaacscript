@@ -20,6 +20,7 @@ This page lists the changes to the IsaacScript framework.
   - `saveDataManagerRemove`
   - `getTSTLClassConstructor`
   - `isTableEmpty`
+  - `logTableKeys`
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`

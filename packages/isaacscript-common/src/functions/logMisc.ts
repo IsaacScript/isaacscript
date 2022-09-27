@@ -307,8 +307,8 @@ export function logSounds(): void {
 }
 
 /**
- * Helper function for logging every key and value of a table. This is a deep log; the function will
- * recursively call itself if it counters a table within a table.
+ * Helper function for logging every key and value of a Lua table. This is a deep log; the function
+ * will recursively call itself if it counters a table within a table.
  *
  * This function will only work on tables that have string keys (because it logs the keys in order,
  * instead of randomly). It will throw a run-time error if it encounters a non-string key.
@@ -397,6 +397,32 @@ export function logTableDifferences<K extends AnyNotNil, V>(
       }
     }
   }
+}
+
+/**
+ * Helper function to log the keys of a Lua table. This is not a deep log; only the keys of the
+ * top-most table will be logged.
+ *
+ * This function is useful for tables that have recursive references.
+ */
+export function logTableKeys(luaTable: unknown): void {
+  log("Printing out the keys of a Lua table:");
+
+  if (!isTable(luaTable)) {
+    log(
+      `  n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
+    );
+    return;
+  }
+
+  let numElements = 0;
+  iterateTableInOrder(luaTable, (key) => {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    log(`${key}`);
+    numElements++;
+  });
+
+  log(`  The size of the table was: ${numElements}`);
 }
 
 /** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
