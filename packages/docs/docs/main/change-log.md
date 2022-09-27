@@ -19,7 +19,6 @@ This page lists the changes to the IsaacScript framework.
   - `getPlayerFromPtr`
   - `saveDataManagerRemove`
   - `getTSTLClassConstructor`
-  - `getTSTLClassMethods`
   - `isTableEmpty`
 - Added the following helper types:
   - `HasAllEnumKeys`

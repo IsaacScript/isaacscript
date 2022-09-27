@@ -48,6 +48,7 @@ import { PostSpikesRender } from "./classes/callbacks/PostSpikesRender";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
 import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
+import { getEnumValues } from "./functions/enums";
 import { newObjectWithEnumKeys } from "./functions/utils";
 
 const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
@@ -116,19 +117,18 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
 } as const);
 
 export type ModCallbackCustomToClass = {
-  [Property in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
-    typeof MOD_CALLBACK_CUSTOM_TO_CLASS[Property]
+  readonly [key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
+    typeof MOD_CALLBACK_CUSTOM_TO_CLASS[key]
   >;
 };
 
 export function getCallbacks(): ModCallbackCustomToClass {
-  const entries = Object.entries(MOD_CALLBACK_CUSTOM_TO_CLASS);
-  const instantiatedClasses = entries.map(
-    ([modCallbackCustom, constructor]) => [
-      modCallbackCustom,
-      new constructor(),
-    ],
-  );
+  const instantiatedClasses: Record<number, unknown> = {};
+
+  for (const modCallbackCustom of getEnumValues(ModCallbackCustom2)) {
+    const constructor = MOD_CALLBACK_CUSTOM_TO_CLASS[modCallbackCustom];
+    instantiatedClasses[modCallbackCustom] = new constructor();
+  }
 
   return instantiatedClasses as unknown as ModCallbackCustomToClass;
 }

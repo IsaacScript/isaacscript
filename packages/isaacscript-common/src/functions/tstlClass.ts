@@ -1,6 +1,5 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
-import { FunctionTuple } from "../types/FunctionTuple";
 import { TSTLClass } from "../types/TSTLClass";
 import { isString, isTable } from "./types";
 
@@ -31,20 +30,6 @@ export function getTSTLClassConstructor(
   }
 
   return metatable.constructor;
-}
-
-export function getTSTLClassMethods(object: unknown): FunctionTuple[] {
-  const constructor = getTSTLClassConstructor(object);
-  if (constructor === undefined) {
-    return [];
-  }
-
-  const classEntries = Object.entries(constructor.prototype);
-  return classEntries.filter(
-    ([key, value]) =>
-      // Ignore the stock TSTL keys that are baked into every class.
-      !TSTL_CLASS_METATABLE_KEYS.has(key) && type(value) === "function",
-  );
 }
 
 /**

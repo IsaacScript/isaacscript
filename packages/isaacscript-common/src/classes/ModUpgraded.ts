@@ -1,5 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { getCallbacks } from "../callbacks";
+import { EXPORTED_METHOD_NAMES_KEY } from "../decorators";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
@@ -10,7 +11,10 @@ import {
 } from "../features/saveDataManager/exports";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
-import { getTSTLClassMethods, getTSTLClassName } from "../functions/tstlClass";
+import {
+  getTSTLClassConstructor,
+  getTSTLClassName,
+} from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
@@ -213,14 +217,14 @@ export class ModUpgraded implements Mod {
   }
 
   /**
-   * This method should only be used by the `upgradeMod` function. Returns the class methods from
-   * the features that were added.
+   * This method should only be used by the `upgradeMod` function. Returns the names of the exported
+   * class methods from the features that were added.
    */
   public initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);
 
-    return getTSTLClassMethods(featureClass);
+    return getExportedMethodsFromFeature(featureClass);
   }
 
   // ----------------------
@@ -301,4 +305,42 @@ export class ModUpgraded implements Mod {
       saveDataManagerRemove(className);
     }
   }
+}
+
+/**
+ * In this context, "exported" methods are methods that are annotated with the "@Exported"
+ * decorator, which signify that the method should be attached to the `ModUpgraded` class.
+ *
+ * Exported methods are stored in an internal static array on the class that is created by the
+ * decorator.
+ */
+function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
+  const constructor = getTSTLClassConstructor(featureClass) as Record<
+    string,
+    unknown
+  >;
+  const exportedMethodNames = constructor[
+    EXPORTED_METHOD_NAMES_KEY
+  ] as string[];
+
+  return exportedMethodNames.map((name) => {
+    const featureClassRecord = featureClass as Record<
+      string,
+      (...args: unknown[]) => unknown
+    >;
+    const method = featureClassRecord[name];
+    if (method === undefined) {
+      error(`Failed to find a decorated exported method: ${name}`);
+    }
+
+    // In order for "this" to work properly in the method, we have to wrap the method invocation in
+    // an arrow function.
+    const wrappedMethod = (...args: unknown[]) =>
+      // We cannot split out the method to a separate variable or else the "self" parameter will not
+      // be properly passed to the method.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      featureClassRecord[name]!(...args);
+
+    return [name, wrappedMethod];
+  });
 }

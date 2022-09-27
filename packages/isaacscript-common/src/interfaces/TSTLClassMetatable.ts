@@ -4,5 +4,6 @@ export interface TSTLClassMetatable {
   constructor: {
     name: string;
     prototype: LuaMetatable<LuaMap<AnyNotNil, unknown>>;
+    // Other static things on the class will be here, if any.
   };
 }

@@ -1,5 +1,7 @@
 import { Feature } from "./classes/private/Feature";
 
+export const EXPORTED_METHOD_NAMES_KEY = "__exportedMethodNames";
+
 /**
  * A decorator function that signifies that the decorated class method should be added to the
  * `ModUpgraded` object.
@@ -7,7 +9,20 @@ import { Feature } from "./classes/private/Feature";
  * This is only meant to be used internally.
  */
 export function Exported() {
-  return <T extends Feature>(_target: T, _propertyKey: keyof T): void => {
-    // target.exportedMethods.push(propertyKey as string);
+  return <T extends Feature>(target: T, propertyKey: keyof T): void => {
+    // Since the decorator runs prior to instantiation, we only have access to get and set static
+    // properties, which are located on the "constructor" table.
+    const constructor = target.constructor as unknown as LuaTable<
+      AnyNotNil,
+      unknown
+    >;
+    if (!constructor.has(EXPORTED_METHOD_NAMES_KEY)) {
+      constructor.set(EXPORTED_METHOD_NAMES_KEY, []);
+    }
+
+    const exportedMethodNames = constructor.get(
+      EXPORTED_METHOD_NAMES_KEY,
+    ) as string[];
+    exportedMethodNames.push(propertyKey as string);
   };
 }

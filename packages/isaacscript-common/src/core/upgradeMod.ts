@@ -83,7 +83,7 @@ export function upgradeMod<T extends ISCFeature = never>(
   legacyInit(mod); // TODO: remove
 
   for (const feature of features) {
-    const tstlClassMethods = mod.initOptionalFeature(feature);
+    const exportedMethodTuples = mod.initOptionalFeature(feature);
 
     // If the optional feature provides helper functions, attach them to the base mod object. (This
     // provides a convenient API for end-users.)
@@ -91,7 +91,7 @@ export function upgradeMod<T extends ISCFeature = never>(
       string,
       (...args: unknown[]) => unknown
     >;
-    for (const [funcName, func] of tstlClassMethods) {
+    for (const [funcName, func] of exportedMethodTuples) {
       modRecord[funcName] = func;
     }
   }

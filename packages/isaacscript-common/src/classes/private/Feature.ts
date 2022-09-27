@@ -19,6 +19,4 @@ export class Feature {
   public featuresUsed?: ISCFeature[];
   public callbacksUsed?: CallbackTuple[];
   public customCallbacksUsed?: CustomCallbackTuple[];
-
-  public exportedMethods: string[] = [];
 }
