@@ -102,8 +102,10 @@ As an example, let's imagine that we want a trapdoor to appear in the top-left h
 ```ts
 const TOP_LEFT_CORNER_GRID_INDEX = 32;
 
-function postGameStarted() {
-  spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", 1);
+function postGameStarted(isContinued: boolean) {
+  if (!isContinued) {
+    spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", 1);
+  }
 }
 ```
 

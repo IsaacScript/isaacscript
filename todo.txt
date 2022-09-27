@@ -1,3 +1,5 @@
+- test save data manager automatic registration
+
 - save data manager uninit
 - helper function to get get how custom callbacks are currently turned on
 - isaacscript-cli in lua

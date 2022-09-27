@@ -33,6 +33,7 @@
     "src/features/collectibleItemPoolType.ts",
     "src/features/customGridEntity.ts",
     "src/features/customHotkeys.ts",
+    "src/features/customItemPool.ts",
     "src/features/customPickup.ts",
     "src/features/customStage/exports.ts",
     "src/features/customTrapdoor/exports.ts",

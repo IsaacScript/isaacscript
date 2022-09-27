@@ -21,6 +21,7 @@ This page lists the changes to the IsaacScript framework.
   - `getTSTLClassConstructor`
   - `isTableEmpty`
   - `logTableKeys`
+  - `getRandomIndexFromWeightedArray`
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`

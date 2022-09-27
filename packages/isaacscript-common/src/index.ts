@@ -23,6 +23,7 @@ export * from "./features/characterStats";
 export * from "./features/collectibleItemPoolType";
 export * from "./features/customGridEntity";
 export * from "./features/customHotkeys";
+export * from "./features/customItemPool";
 export * from "./features/customPickup";
 export * from "./features/customStage/exports";
 export * from "./features/customTrapdoor/exports";
