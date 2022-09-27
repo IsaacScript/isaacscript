@@ -1,3 +1,25 @@
+/**
+ * If you decide to structure your mod as a set of feature classes, you can use decorators to
+ * automatically register callbacks.
+ *
+ * Currently, there are two decorators:
+ * - @Callback
+ * - @CallbackCustom
+ *
+ * For example:
+ *
+ * ```ts
+ * export class MyFeature extends ModFeature {
+ *   @Callback(ModCallback.POST_GAME_STARTED)
+ *   postGameStarted(isContinued: boolean): void {
+ *     Isaac.DebugString(`Callback fired: POST_GAME_STARTED`);
+ *   }
+ * }
+ * ```
+ *
+ * @module
+ */
+
 import { ModCallback } from "isaac-typescript-definitions";
 import {
   ADD_CALLBACK_ARGS_KEY,

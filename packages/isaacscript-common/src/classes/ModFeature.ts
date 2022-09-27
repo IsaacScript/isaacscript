@@ -1,4 +1,8 @@
-import { getTSTLClassConstructor } from "../functions/tstlClass";
+import {
+  getTSTLClassConstructor,
+  getTSTLClassName,
+} from "../functions/tstlClass";
+import { isTable } from "../functions/types";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { ModUpgraded } from "./ModUpgraded";
 
@@ -37,6 +41,7 @@ export class ModFeature {
     const modFeatureConstructor = constructor as ModFeatureConstructor;
     addDecoratedCallbacks(mod, modFeatureConstructor);
     addDecoratedCallbacksCustom(mod, modFeatureConstructor);
+    registerSaveDataManager(mod, this);
   }
 }
 
@@ -71,4 +76,29 @@ function addDecoratedCallbacksCustom(
     // eslint-disable-next-line isaacscript/strict-enums
     mod.AddCallbackCustom(...args);
   }
+}
+
+function registerSaveDataManager(mod: ModUpgraded, modFeature: ModFeature) {
+  // Do nothing if this class does not have any variables.
+  const { v } = modFeature as unknown as Record<string, unknown>;
+  if (v === undefined) {
+    return;
+  }
+
+  if (!isTable(v)) {
+    error(
+      'Failed to initialize a mod feature class due to having a "v" property that is not an object. (The "v" property is supposed to be an object that holds the variables for the class, managed by the save data manager.)',
+    );
+  }
+
+  // Do nothing if we have not enabled the save data manager.
+  const { saveDataManager } = mod as unknown as Record<string, unknown>;
+  if (saveDataManager === undefined) {
+    error(
+      'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
+    );
+  }
+
+  const tstlClassName = getTSTLClassName(modFeature);
+  (saveDataManager as (...args: unknown[]) => void)(tstlClassName, v);
 }
