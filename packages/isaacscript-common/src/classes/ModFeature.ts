@@ -36,7 +36,7 @@ export class ModFeature {
 
     const modFeatureConstructor = constructor as ModFeatureConstructor;
     addDecoratedCallbacks(mod, modFeatureConstructor);
-    addDecoratedCustomCallbacks(mod, modFeatureConstructor);
+    addDecoratedCallbacksCustom(mod, modFeatureConstructor);
   }
 }
 
@@ -56,7 +56,7 @@ function addDecoratedCallbacks(
   }
 }
 
-function addDecoratedCustomCallbacks(
+function addDecoratedCallbacksCustom(
   mod: ModUpgraded,
   modFeatureConstructor: ModFeatureConstructor,
 ) {

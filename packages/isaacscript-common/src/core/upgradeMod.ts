@@ -27,9 +27,7 @@ import { UnionToIntersection } from "../types/UnionToIntersection";
 type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
   ? ModUpgraded
   : ModUpgraded &
-      Omit<UnionToIntersection<ISCFeatureToClass[T]>, KeysToScrubFromModClass>;
-
-type KeysToScrubFromModClass = keyof Feature;
+      Omit<UnionToIntersection<ISCFeatureToClass[T]>, keyof Feature>;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
