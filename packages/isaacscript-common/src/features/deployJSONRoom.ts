@@ -221,8 +221,9 @@ function respawnPersistentEntities() {
  * Specifically, this will clear the current room of all entities and grid entities, and then spawn
  * all of the entries and grid entities in the provided JSON room.
  *
- * You can create JSON rooms by using the `convert-xml-to-json` tool (e.g. `npx convert-xml-to-json
- * my-rooms.xml`).
+ * A JSON room is simply an XML file converted to JSON. You can create JSON rooms by using the
+ * Basement Renovator room editor to create an XML file, and then convert it to JSON using the
+ * `convert-xml-to-json` tool (e.g. `npx convert-xml-to-json my-rooms.xml`).
  *
  * This function is meant to be used in the `POST_NEW_ROOM` callback.
  *
@@ -283,8 +284,9 @@ export function deployJSONRoom(
  * Specifically, this will clear the current room of all entities and grid entities, and then spawn
  * all of the entries and grid entities in one of the provided JSON rooms.
  *
- * You can create JSON rooms by using the `convert-xml-to-json` tool (e.g. `npx convert-xml-to-json
- * my-rooms.xml`).
+ * A JSON room is simply an XML file converted to JSON. You can create JSON rooms by using the
+ * Basement Renovator room editor to create an XML file, and then convert it to JSON using the
+ * `convert-xml-to-json` tool (e.g. `npx convert-xml-to-json my-rooms.xml`).
  *
  * This function is meant to be used in the `POST_NEW_ROOM` callback.
  *

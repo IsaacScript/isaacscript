@@ -19,6 +19,8 @@ interface JSONObject {
 /**
  * Helper function to calculate what the resulting `BitFlags<DoorSlotFlag>` value would be for a
  * given JSON room.
+ *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
  */
 export function getJSONRoomDoorSlotFlags(
   jsonRoom: JSONRoom,
@@ -75,6 +77,8 @@ export function getJSONRoomDoorSlotFlags(
 /**
  * Helper function to find a specific room from an array of JSON rooms.
  *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
+ *
  * @param jsonRooms The array of rooms to search through.
  * @param variant The room variant to select. (The room variant can be thought of as the ID of the
  *                room.)
@@ -107,6 +111,8 @@ export function getJSONRoomOfVariant(
 /**
  * Helper function to find all of the JSON rooms that match the sub-type provided.
  *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
+ *
  * @param jsonRooms The array of rooms to search through.
  * @param subType The sub-type to match.
  */
@@ -123,6 +129,9 @@ export function getJSONRoomsOfSubType(
 
 /**
  * Helper function to get a random JSON entity from an array of JSON entities.
+ *
+ * (A JSON entity is an entity inside of a JSON room. A JSON room is an XML file converted to JSON
+ * so that it can be directly imported into your mod.)
  *
  * Note that this function does not simply choose a random element in the provided array; it will
  * properly account for each room weight using the algorithm from:
@@ -162,6 +171,8 @@ export function getRandomJSONEntity(
 
 /**
  * Helper function to get a random JSON room from an array of JSON rooms.
+ *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
  *
  * Note that this function does not simply choose a random element in the provided array; it will
  * properly account for each room weight using the algorithm from:
