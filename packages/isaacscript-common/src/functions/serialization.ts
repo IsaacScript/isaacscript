@@ -144,6 +144,23 @@ export function isCopyableIsaacAPIClass(
 }
 
 /**
+ * Helper function to check if a key of a table in the "save#.dat" file is a serialization brand
+ * inserted by the save data manager (i.e. the `deepCopy` function).
+ *
+ * This is marked internal because end-users would not normally be serializing or deserializing data
+ * directly.
+ *
+ * @internal
+ */
+export function isSerializationBrand(key: unknown): boolean {
+  if (!isString(key)) {
+    return false;
+  }
+
+  return SERIALIZATION_BRAND_SET.has(key);
+}
+
+/**
  * Helper function to generically check if a given Lua table is a serialized Isaac API class. (This
  * is used by the save data manager when reading data from the "save#.dat" file.)
  *
@@ -159,14 +176,6 @@ export function isSerializedIsaacAPIClass(
   return isSerializedFunctions.some((identityFunction) =>
     identityFunction(object),
   );
-}
-
-export function isSerializationBrand(key: unknown): boolean {
-  if (!isString(key)) {
-    return false;
-  }
-
-  return SERIALIZATION_BRAND_SET.has(key);
 }
 
 /**

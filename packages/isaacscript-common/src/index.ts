@@ -15,6 +15,7 @@ export * from "./enums/ModCallbackCustom2";
 export * from "./enums/PocketItemType";
 export * from "./enums/RockAltType";
 export * from "./enums/SaveDataKey";
+export * from "./enums/SerializationBrand";
 export * from "./enums/SerializationType";
 export * from "./enums/SlotDestructionType";
 export * from "./enums/StatType";
