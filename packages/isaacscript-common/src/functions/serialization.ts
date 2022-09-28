@@ -147,8 +147,8 @@ export function isCopyableIsaacAPIClass(
  * Helper function to check if a key of a table in the "save#.dat" file is a serialization brand
  * inserted by the save data manager (i.e. the `deepCopy` function).
  *
- * This is marked internal because end-users would not normally be serializing or deserializing data
- * directly.
+ * This is marked internal because end-users would not normally be iterating through a serialized
+ * object directly.
  *
  * @internal
  */

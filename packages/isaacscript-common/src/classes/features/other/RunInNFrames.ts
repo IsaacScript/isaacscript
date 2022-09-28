@@ -1,5 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
+import { Exported } from "../../../decorators";
 import { arrayRemoveInPlace } from "../../../functions/array";
 import { Feature } from "../../private/Feature";
 
@@ -79,6 +80,7 @@ export class RunInNFrames extends Feature {
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
    */
+  @Exported
   public runInNGameFrames(func: () => void, gameFrames: int): void {
     const gameFrameCount = game.GetFrameCount();
     const functionFireFrame = gameFrameCount + gameFrames;
@@ -96,6 +98,7 @@ export class RunInNFrames extends Feature {
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
    */
+  @Exported
   public runInNRenderFrames(func: () => void, renderFrames: int): void {
     const renderFrameCount = Isaac.GetFrameCount();
     const functionFireFrame = renderFrameCount + renderFrames;
@@ -131,6 +134,7 @@ export class RunInNFrames extends Feature {
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
    */
+  @Exported
   public runNextGameFrame(func: () => void): void {
     this.runInNGameFrames(func, 1);
   }
@@ -143,6 +147,7 @@ export class RunInNFrames extends Feature {
    *
    * Note that this function will not handle saving and quitting.
    */
+  @Exported
   public runNextRenderFrame(func: () => void): void {
     this.runInNRenderFrames(func, 1);
   }
@@ -163,6 +168,7 @@ export class RunInNFrames extends Feature {
    * @param runImmediately Whether or not to execute the function right now before waiting for the
    *                       interval.
    */
+  @Exported
   public setIntervalGameFrames(
     func: () => boolean,
     gameFrames: int,
@@ -194,6 +200,7 @@ export class RunInNFrames extends Feature {
    * @param runImmediately Whether or not to execute the function right now before waiting for the
    *                       interval.
    */
+  @Exported
   public setIntervalRenderFrames(
     func: () => boolean,
     renderFrames: int,

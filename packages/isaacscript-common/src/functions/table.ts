@@ -140,7 +140,7 @@ export function getStringsFromTable(
 export function isTableEmpty(luaMap: LuaMap<AnyNotNil, unknown>): boolean {
   // Using `next` does not seem to work properly, so we use `pairs` instead.
   // eslint-disable-next-line no-unreachable-loop
-  for (const [_key, _value] of pairs(luaMap)) {
+  for (const [_key, _value] of luaMap) {
     return false;
   }
 

@@ -8,7 +8,7 @@ import { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";
  * This is the format of the object that you give to the save data manager. It will contains all of
  * the variables for the particular mod feature.
  *
- * Depending on which object keys you use, the variables will be automatically reset at certain
+ * Depending on which object keys you use, the variables will automatically be reset at certain
  * times and automatically saved to disk.
  *
  * Each sub-object of save data has a string as a key and arbitrary data as a value. However, the

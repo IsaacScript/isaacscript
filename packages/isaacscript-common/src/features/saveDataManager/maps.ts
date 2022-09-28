@@ -7,7 +7,16 @@ import { SaveData } from "../../interfaces/SaveData";
  */
 export const saveDataMap = new LuaMap<string, SaveData>();
 
+/**
+ * When mod feature data is initialized, we copy the initial values into a separate map so that we
+ * can restore them later on.
+ */
 export const saveDataDefaultsMap = new LuaMap<string, SaveData>();
+
+/**
+ * Each mod feature can optionally provide a function that can control whether or not the save data
+ * is written to disk.
+ */
 export const saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
 
 /**
