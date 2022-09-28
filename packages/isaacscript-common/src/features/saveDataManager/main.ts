@@ -5,6 +5,7 @@ import { SaveDataKey } from "../../enums/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { deepCopy } from "../../functions/deepCopy";
 import { logError } from "../../functions/logMisc";
+import { merge } from "../../functions/merge";
 import { onFirstFloor } from "../../functions/stage";
 import { clearTable, iterateTableInOrder } from "../../functions/table";
 import { SaveData } from "../../interfaces/SaveData";
@@ -22,7 +23,6 @@ import {
   saveDataGlowingHourGlassMap,
   saveDataMap,
 } from "./maps";
-import { merge } from "./merge";
 import { saveToDisk } from "./save";
 
 const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([

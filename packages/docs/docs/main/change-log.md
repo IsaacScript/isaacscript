@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## September 29th, 2022 (Unreleased)
 
-- The helper functions relating to charge now have an `activeSlot` parameter that defaults to `ActiveSlot.PRIMARY`.
+- Added the `@Callback` and `@CustomCallback` decorators, which automatically subscribing the decorated function to the corresponding callback. This unlocks a new style of Isaac mods where you do not have to manage adding callbacks directly. In order for this to work properly, your mod features should be represented by classes that extend from the `ModFeature` class.
 - Added the following helper functions:
   - `isGreedMode`
   - `validateInterfaceMatchesEnum`
@@ -22,6 +22,8 @@ This page lists the changes to the IsaacScript framework.
   - `isTableEmpty`
   - `logTableKeys`
   - `getRandomIndexFromWeightedArray`
+  - `merge`
+- The helper functions relating to charge now have an `activeSlot` parameter that defaults to `ActiveSlot.PRIMARY`.
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`
@@ -32,11 +34,6 @@ This page lists the changes to the IsaacScript framework.
   - `UppercaseKeys`
   - `StartsWithLowercase`
   - `StartsWithUppercase`
-- Added the following classes:
-  - `ModFeature` (extend from this if you want to use decorators)
-- Added the following decorator functions:
-  - `@Callback` (for specifying that a class method should automatically be subscribed to the corresponding callback)
-  - `@CallbackCustom` (for specifying that a class method should automatically be subscribed to the corresponding custom callback)
 
 ## September 22th, 2022
 

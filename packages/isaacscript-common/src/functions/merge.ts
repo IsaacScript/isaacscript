@@ -1,18 +1,18 @@
-import { SerializationBrand } from "../../enums/private/SerializationBrand";
-import { SerializationType } from "../../enums/SerializationType";
-import { isArray } from "../../functions/array";
-import { deepCopy } from "../../functions/deepCopy";
-import { log } from "../../functions/log";
+import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationType } from "../enums/SerializationType";
+import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
+import { isArray } from "./array";
+import { deepCopy } from "./deepCopy";
+import { log } from "./log";
 import {
   deserializeIsaacAPIClass,
+  isSerializationBrand,
   isSerializedIsaacAPIClass,
-} from "../../functions/serialization";
-import { clearTable, iterateTableInOrder } from "../../functions/table";
-import { isDefaultMap, isTSTLMap, isTSTLSet } from "../../functions/tstlClass";
-import { isTable } from "../../functions/types";
-import { getTraversalDescription } from "../../functions/utils";
-import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
-import { isSerializationBrand } from "./serializationBrands";
+} from "./serialization";
+import { clearTable, iterateTableInOrder } from "./table";
+import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
+import { isTable } from "./types";
+import { getTraversalDescription } from "./utils";
 
 /**
  * `merge` takes the values from a new table and recursively merges them into an old object (while
@@ -31,11 +31,22 @@ import { isSerializationBrand } from "./serializationBrands";
  * - Isaac `RNG` objects
  * - Isaac `Vector` objects
  *
- * Since it is common for a variable to have a type of `something | null`, we must iterate over the
- * new object and copy over all of the values. (A value of null transpiles to nil, which means the
- * table key does not exist.) The consequence of this is that it can copy over old variables that
- * are no longer used in the code, or copy over old variables of a different type, which can cause
- * run-time errors. In such cases, users will have to manually delete their save data.
+ * This function is designed to merge incoming data from the "save#.dat" file into a mod's
+ * variables. Merging is useful instead of blowing away a table entirely because mod code often
+ * relies on the local table/object references.
+ *
+ * This function always assumes that the new table is serialized data and will attempt to perform
+ * deserialization on the objects within. In other words, unlike the `deepCopy` function, the
+ * `merge` function will always operates in the mode of `SerializationType.DESERIALIZE`.
+ *
+ * This function does not iterate over the old object, like you would naively expect. This is
+ * because it is common for a variable to have a type of `something | null`. If this is the case,
+ * the key would not appear when iterating over the old object (because a value of null transpiles
+ * to nil, which means the table key does not exist). Thus, we must instead iterate over the new
+ * object and copy the values backwards. The consequence of this is that `merge` can copy over old
+ * variables that are no longer used in the code, or copy over old variables of a different type,
+ * which can cause run-time errors. In such cases, users will have to manually delete their save
+ * data.
  */
 export function merge(
   oldObject:

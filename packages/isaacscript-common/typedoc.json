@@ -122,6 +122,7 @@
     "src/functions/logMisc.ts",
     "src/functions/map.ts",
     "src/functions/math.ts",
+    "src/functions/merge.ts",
     "src/functions/mergeTests.ts",
     "src/functions/minimap.ts",
     "src/functions/nextStage.ts",

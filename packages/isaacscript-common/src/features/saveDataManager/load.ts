@@ -1,6 +1,7 @@
 import { jsonDecode } from "../../functions/jsonHelpers";
 import { log } from "../../functions/log";
 import { logError } from "../../functions/logMisc";
+import { merge } from "../../functions/merge";
 import { iterateTableInOrder } from "../../functions/table";
 import { isString, isTable } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
@@ -8,7 +9,6 @@ import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
 } from "./constants";
-import { merge } from "./merge";
 
 const DEFAULT_MOD_DATA = "{}";
 

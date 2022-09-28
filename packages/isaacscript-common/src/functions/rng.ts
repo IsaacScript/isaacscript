@@ -1,6 +1,6 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";

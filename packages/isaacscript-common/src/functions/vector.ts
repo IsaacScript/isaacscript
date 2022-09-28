@@ -2,7 +2,7 @@ import {
   CopyableIsaacAPIClassType,
   Direction,
 } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandomFloat } from "./random";

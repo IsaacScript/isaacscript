@@ -38,7 +38,8 @@ export enum TreasureRoomSubType {
 /**
  * For `StageID.SPECIAL_ROOMS` (0), `RoomType.BOSS` (5).
  *
- * This matches the sub-type in the "00.special rooms.stb" file.
+ * This matches the "bossID" attribute in the "entities2.xml" file. It also matches the sub-type in
+ * the "00.special rooms.stb" file.
  *
  * The enum is named `BossID` instead of `BossRoomSubType` in order to match the `Entity.GetBossID`,
  * `Room.GetBossID` and `Room.GetSecondBossID` methods.

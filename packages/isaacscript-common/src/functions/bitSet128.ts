@@ -1,5 +1,5 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { isIsaacAPIClassOfType } from "./isaacAPIClass";
 import {
   copyUserdataValuesToTable,

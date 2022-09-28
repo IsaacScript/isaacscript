@@ -108,6 +108,7 @@ export * from "./functions/logEntities";
 export * from "./functions/logMisc";
 export * from "./functions/map";
 export * from "./functions/math";
+export * from "./functions/merge";
 export * from "./functions/mergeTests";
 export * from "./functions/minimap";
 export * from "./functions/nextStage";
