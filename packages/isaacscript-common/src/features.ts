@@ -8,6 +8,7 @@ import { GridEntityCollisionDetection } from "./classes/features/callbackLogic/G
 import { GridEntityDetection } from "./classes/features/callbackLogic/GridEntityDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
+import { SaveDataManager } from "./classes/features/other/SaveDataManager";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
 import {
@@ -28,12 +29,13 @@ export interface ISCFeatureToClass {
   // Extra features
   [ISCFeature.CUSTOM_GRID_ENTITIES]: CustomGridEntities;
   [ISCFeature.RUN_IN_N_FRAMES]: RunInNFrames;
+  [ISCFeature.SAVE_DATA_MANAGER]: SaveDataManager;
 }
 
 validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getFeatures(callbacks: ModCallbackCustomToClass) {
+export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
   // Some features rely on other features; we must initialize those first.
   const runInNFrames = new RunInNFrames();
   const customGridEntities = new CustomGridEntities(runInNFrames);
@@ -86,5 +88,6 @@ export function getFeatures(callbacks: ModCallbackCustomToClass) {
     // Extra features
     [ISCFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
+    [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
   } as const);
 }

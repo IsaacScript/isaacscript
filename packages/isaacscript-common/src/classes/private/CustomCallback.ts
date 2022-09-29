@@ -19,11 +19,7 @@ export abstract class CustomCallback<
 > extends Feature {
   private subscriptions: Array<AddCallbackParametersCustom2[T]> = [];
 
-  public hasSubscriptions(): boolean {
-    return this.subscriptions.length > 0;
-  }
-
-  public add(...args: AddCallbackParametersCustom2[T]): void {
+  public addSubscriber(...args: AddCallbackParametersCustom2[T]): void {
     this.subscriptions.push(args);
   }
 
@@ -31,7 +27,7 @@ export abstract class CustomCallback<
    * If the submitted function does not match any of the existing subscriptions, this method will do
    * nothing.
    */
-  public remove(callback: AddCallbackParametersCustom2[T][0]): void {
+  public removeSubscriber(callback: AddCallbackParametersCustom2[T][0]): void {
     const subscriptionIndexMatchingCallback = this.subscriptions.findIndex(
       (subscription) => {
         const subscriptionCallback = subscription[0];

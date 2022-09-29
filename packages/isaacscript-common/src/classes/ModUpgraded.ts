@@ -5,10 +5,6 @@ import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
 import { getFeatures } from "../features";
-import {
-  saveDataManager,
-  saveDataManagerRemove,
-} from "../features/saveDataManager/exports";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription } from "../functions/log";
 import {
@@ -18,6 +14,7 @@ import {
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
+import { AnyFunction } from "../types/AnyFunction";
 import { FunctionTuple } from "../types/FunctionTuple";
 import { Feature } from "./private/Feature";
 
@@ -33,10 +30,6 @@ export class ModUpgraded implements Mod {
   // Vanilla variables
   // -----------------
 
-  /**
-   * The `RegisterMod` function stores the name of the mod on the mod object for some reason. (It is
-   * never used or referenced.)
-   */
   public Name: string;
 
   // ----------------
@@ -65,7 +58,7 @@ export class ModUpgraded implements Mod {
     this.debug = debug;
     this.timeThreshold = timeThreshold;
     this.callbacks = getCallbacks();
-    this.features = getFeatures(this.callbacks);
+    this.features = getFeatures(mod, this.callbacks);
   }
 
   // ---------------
@@ -194,7 +187,7 @@ export class ModUpgraded implements Mod {
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
-    callbackClass.add(...args);
+    callbackClass.addSubscriber(...args);
     this.initFeature(callbackClass);
   }
 
@@ -210,22 +203,36 @@ export class ModUpgraded implements Mod {
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
-    callbackClass.remove(callback);
-    if (!callbackClass.hasSubscriptions()) {
-      this.uninitFeature(callbackClass);
-    }
+    callbackClass.removeSubscriber(callback);
+    this.uninitFeature(callbackClass);
   }
 
   // ----------------------
   // Custom private methods
   // ----------------------
 
-  /** This is used to initialize both custom callbacks and "extra features". */
+  /**
+   * This is used to initialize both custom callbacks and "extra features".
+   *
+   * This mirrors the `uninitFeature` method.
+   */
   private initFeature(feature: Feature): void {
+    feature.numConsumers++;
+
     if (feature.initialized) {
       return;
     }
+
     feature.initialized = true;
+
+    if (feature.v !== undefined) {
+      if (feature.featuresUsed === undefined) {
+        feature.featuresUsed = [];
+      }
+      if (!feature.featuresUsed.includes(ISCFeature.SAVE_DATA_MANAGER)) {
+        feature.featuresUsed.unshift(ISCFeature.SAVE_DATA_MANAGER);
+      }
+    }
 
     if (feature.featuresUsed !== undefined) {
       for (const featureUsed of feature.featuresUsed) {
@@ -253,14 +260,37 @@ export class ModUpgraded implements Mod {
       if (className === undefined) {
         error("Failed to get the name of a feature.");
       }
-      saveDataManager(className, feature.v);
+      const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
+      saveDataManagerClass.saveDataManager(className, feature.v);
     }
   }
 
+  /**
+   * This is used to uninitialize both custom callbacks and "extra features".
+   *
+   * This mirrors the `initFeature` method.
+   */
   private uninitFeature(feature: Feature): void {
+    if (feature.numConsumers <= 0) {
+      const className = getTSTLClassName(feature) ?? "unknown";
+      error(
+        `Failed to uninit feature "${className}" since it has ${feature.numConsumers} consumers, which should never happen.`,
+      );
+    }
+
     if (!feature.initialized) {
+      const className = getTSTLClassName(feature) ?? "unknown";
+      error(
+        `Failed to uninit feature "${className}" since it was not initialized, which should never happen.`,
+      );
+    }
+
+    feature.numConsumers--;
+
+    if (feature.numConsumers > 0) {
       return;
     }
+
     feature.initialized = false;
 
     if (feature.featuresUsed !== undefined) {
@@ -291,7 +321,8 @@ export class ModUpgraded implements Mod {
       if (className === undefined) {
         error("Failed to get the name of a feature.");
       }
-      saveDataManagerRemove(className);
+      const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
+      saveDataManagerClass.saveDataManagerRemove(className);
     }
   }
 
@@ -321,10 +352,7 @@ function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
   ] as string[];
 
   return exportedMethodNames.map((name) => {
-    const featureClassRecord = featureClass as Record<
-      string,
-      (...args: unknown[]) => unknown
-    >;
+    const featureClassRecord = featureClass as Record<string, AnyFunction>;
     const method = featureClassRecord[name];
     if (method === undefined) {
       error(`Failed to find a decorated exported method: ${name}`);

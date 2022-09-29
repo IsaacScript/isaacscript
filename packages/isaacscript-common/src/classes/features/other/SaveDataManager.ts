@@ -23,9 +23,6 @@ import { saveToDisk } from "./saveDataManager/saveToDisk";
 /** "g" stands for "globals". */
 declare let g: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-/** "gd" stands for "globals defaults". */
-declare let gd: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
-
 export class SaveDataManager extends Feature {
   /**
    * We store a local reference to the mod object so that we can access the corresponding methods
@@ -190,7 +187,7 @@ export class SaveDataManager extends Feature {
    * register them. For example:
    *
    * ```ts
-   * // in file: feature1.ts
+   * // In file: feature1.ts
    * import { saveDataManager } from "isaacscript-common";
    *
    * // Declare local variables for this file or feature.
@@ -235,9 +232,9 @@ export class SaveDataManager extends Feature {
    *   that can possibly run).
    * - Save data is recorded to disk in the `PRE_GAME_EXIT` callback.
    *
-   * You can put lots of data types on your variable objects, but not everything is supported. For
-   * the specific things that are supported, see the documentation for the `deepCopy` helper
-   * function.
+   * You can use many different variable types on your variable object, but not everything is
+   * supported. For the specific things that are supported, see the documentation for the `deepCopy`
+   * helper function.
    *
    * Note that before using the save data manager, you must call the `upgradeMod` function. (Upgrade
    * your mod before registering any of your own callbacks so that the save data manager will run
@@ -352,22 +349,19 @@ export class SaveDataManager extends Feature {
   }
 
   /**
-   * - Sets the global variable of "g" equal to all of the save data variables for this mod.
-   * - Sets the global variable of "gd" equal to all of the save data default variables for this
-   *   mod.
+   * Sets the global variable of "g" equal to all of the save data variables for this mod.
    *
    * This can make debugging easier, as you can access the variables from the game's debug console.
-   * e.g. `l print(g.feature1.foo)`
+   * e.g. `l print(g.feature1.run.foo)`
    */
   @Exported
   public saveDataManagerSetGlobal(): void {
     g = this.saveDataMap;
-    gd = this.saveDataDefaultsMap;
   }
 
   /**
-   * The save data manager will automatically reset variables at the appropriate times (i.e. when a
-   * player enters a new room). Use this function to explicitly force the save data manager to reset
+   * The save data manager will automatically reset variables at the appropriate times, like when a
+   * player enters a new room. Use this function to explicitly force the save data manager to reset
    * a specific variable group.
    *
    * For example:
@@ -379,10 +373,10 @@ export class SaveDataManager extends Feature {
    *   },
    * };
    *
-   * saveDataManager("file1", v);
+   * mod.saveDataManager("file1", v);
    *
    * // Then, later on, to explicit reset all of the "room" variables:
-   * saveDataManagerReset("file1", "room");
+   * mod.saveDataManagerReset("file1", "room");
    * ```
    */
   @Exported
@@ -410,7 +404,7 @@ export class SaveDataManager extends Feature {
 
   /**
    * Removes a previously registered key from the save data manager. This is the opposite of the
-   * "saveDataManager" function.
+   * "saveDataManager" method.
    */
   @Exported
   public saveDataManagerRemove(key: string): void {

@@ -16,6 +16,7 @@ import { initCustomCallbacks } from "../initCustomCallbacks";
 import { initFeatures } from "../initFeatures";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { loadShaderCrashFix } from "../shaderCrashFix";
+import { AnyFunction } from "../types/AnyFunction";
 import { UnionToIntersection } from "../types/UnionToIntersection";
 
 /**
@@ -82,10 +83,7 @@ export function upgradeMod<T extends ISCFeature = never>(
 
     // If the optional feature provides helper functions, attach them to the base mod object. (This
     // provides a convenient API for end-users.)
-    const modRecord = mod as unknown as Record<
-      string,
-      (...args: unknown[]) => unknown
-    >;
+    const modRecord = mod as unknown as Record<string, AnyFunction>;
     for (const [funcName, func] of exportedMethodTuples) {
       modRecord[funcName] = func;
     }

@@ -65,8 +65,8 @@ export function isBitSet128(object: unknown): object is BitSet128 {
 }
 
 /**
- * Used to determine is the given table is a serialized `BitSet128` object created by the save data
- * manager and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `BitSet128` object created by the `deepCopy`
+ * function.
  */
 export function isSerializedBitSet128(
   object: unknown,

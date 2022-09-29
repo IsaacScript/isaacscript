@@ -71,8 +71,8 @@ export function isRNG(object: unknown): object is RNG {
 }
 
 /**
- * Used to determine is the given table is a serialized `RNG` object created by the save data
- * manager and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `RNG` object created by the `deepCopy`
+ * function.
  */
 export function isSerializedRNG(object: unknown): object is SerializedRNG {
   if (!isTable(object)) {

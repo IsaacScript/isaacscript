@@ -1,4 +1,3 @@
-export type FunctionTuple = [
-  name: string,
-  func: (...args: unknown[]) => unknown,
-];
+import { AnyFunction } from "./AnyFunction";
+
+export type FunctionTuple = [name: string, func: AnyFunction];

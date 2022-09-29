@@ -182,6 +182,7 @@ export * from "./objects/kColors";
 export * from "./types/AllButFirst";
 export * from "./types/AllButLast";
 export * from "./types/AnyEntity";
+export * from "./types/AnyFunction";
 export * from "./types/AnyGridEntity";
 export * from "./types/CollectibleIndex";
 export * from "./types/Constructor";

@@ -18,26 +18,14 @@ import { getTraversalDescription } from "./utils";
  * `merge` takes the values from a new table and recursively merges them into an old object (while
  * performing appropriate deserialization).
  *
- * It supports the following object types:
- *
- * - Basic TSTL objects / tables
- * - TSTL `Map`
- * - TSTL `Set`
- * - TSTL classes
- * - `DefaultMap`
- * - Isaac `BitSet128` objects
- * - Isaac `Color` objects
- * - Isaac `KColor` objects
- * - Isaac `RNG` objects
- * - Isaac `Vector` objects
- *
  * This function is designed to merge incoming data from the "save#.dat" file into a mod's
  * variables. Merging is useful instead of blowing away a table entirely because mod code often
  * relies on the local table/object references.
  *
  * This function always assumes that the new table is serialized data and will attempt to perform
  * deserialization on the objects within. In other words, unlike the `deepCopy` function, the
- * `merge` function will always operates in the mode of `SerializationType.DESERIALIZE`.
+ * `merge` function will always operates in the mode of `SerializationType.DESERIALIZE`. For the
+ * types of objects that will be deserialized, see the documentation for the `deepCopy` function.
  *
  * This function does not iterate over the old object, like you would naively expect. This is
  * because it is common for a variable to have a type of `something | null`. If this is the case,

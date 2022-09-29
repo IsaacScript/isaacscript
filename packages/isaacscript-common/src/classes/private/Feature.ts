@@ -14,6 +14,7 @@ import {
  */
 export class Feature {
   public initialized = false;
+  public numConsumers = 0;
 
   public v?: SaveData;
   public featuresUsed?: ISCFeature[];

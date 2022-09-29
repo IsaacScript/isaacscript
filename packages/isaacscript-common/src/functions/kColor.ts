@@ -92,8 +92,8 @@ export function isKColor(object: unknown): object is KColor {
 }
 
 /**
- * Used to determine is the given table is a serialized `KColor` object created by the save data
- * manager and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `KColor` object created by the `deepCopy`
+ * function.
  */
 export function isSerializedKColor(
   object: unknown,
