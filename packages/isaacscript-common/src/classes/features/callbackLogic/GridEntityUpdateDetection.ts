@@ -36,7 +36,7 @@ type GridEntityTuple = [
   state: int,
 ];
 
-export class GridEntityDetection extends Feature {
+export class GridEntityUpdateDetection extends Feature {
   public override v = {
     room: {
       /** Indexed by grid index. */

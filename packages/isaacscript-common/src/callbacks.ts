@@ -27,10 +27,12 @@ import { PostGridEntityCustomBroken } from "./classes/callbacks/PostGridEntityCu
 import { PostGridEntityCustomCollision } from "./classes/callbacks/PostGridEntityCustomCollision";
 import { PostGridEntityCustomInit } from "./classes/callbacks/PostGridEntityCustomInit";
 import { PostGridEntityCustomRemove } from "./classes/callbacks/PostGridEntityCustomRemove";
+import { PostGridEntityCustomRender } from "./classes/callbacks/PostGridEntityCustomRender";
 import { PostGridEntityCustomStateChanged } from "./classes/callbacks/PostGridEntityCustomStateChanged";
 import { PostGridEntityCustomUpdate } from "./classes/callbacks/PostGridEntityCustomUpdate";
 import { PostGridEntityInit } from "./classes/callbacks/PostGridEntityInit";
 import { PostGridEntityRemove } from "./classes/callbacks/PostGridEntityRemove";
+import { PostGridEntityRender } from "./classes/callbacks/PostGridEntityRender";
 import { PostGridEntityStateChanged } from "./classes/callbacks/PostGridEntityStateChanged";
 import { PostGridEntityUpdate } from "./classes/callbacks/PostGridEntityUpdate";
 import { PostHolyMantleRemoved } from "./classes/callbacks/PostHolyMantleRemoved";
@@ -85,14 +87,15 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]: PostGridEntityCustomInit,
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]:
     PostGridEntityCustomRemove,
-  // [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]: new PostGridEntityCustomRender(),
+  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]:
+    PostGridEntityCustomRender,
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
     PostGridEntityCustomStateChanged,
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE]:
     PostGridEntityCustomUpdate,
   [ModCallbackCustom2.POST_GRID_ENTITY_INIT]: PostGridEntityInit,
   [ModCallbackCustom2.POST_GRID_ENTITY_REMOVE]: PostGridEntityRemove,
-  // [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: new PostGridEntityRender(),
+  [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: PostGridEntityRender,
   [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]:
     PostGridEntityStateChanged,
   [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: PostGridEntityUpdate,

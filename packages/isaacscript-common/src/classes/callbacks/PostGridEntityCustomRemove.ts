@@ -12,7 +12,7 @@ export class PostGridEntityCustomRemove extends CustomCallback<T> {
   constructor() {
     super();
 
-    this.featuresUsed = [ISCFeature.GRID_ENTITY_DETECTION];
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
   }
 
   // eslint-disable-next-line class-methods-use-this

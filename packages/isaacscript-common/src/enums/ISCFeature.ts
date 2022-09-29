@@ -7,7 +7,8 @@ export enum ISCFeature {
   ESAU_JR_DETECTION = "EsauJrDetection",
   FLIP_DETECTION = "FlipDetection",
   GRID_ENTITY_COLLISION_DETECTION = "GridEntityCollisionDetection",
-  GRID_ENTITY_DETECTION = "GridEntityDetection",
+  GRID_ENTITY_RENDER_DETECTION = "GridEntityRenderDetection",
+  GRID_ENTITY_UPDATE_DETECTION = "GridEntityUpdateDetection",
   GAME_REORDERED_CALLBACKS = "GameReorderedCallbacks",
   PLAYER_REORDERED_CALLBACKS = "PlayerReorderedCallbacks",
 

@@ -6,6 +6,6 @@ export class PostGridEntityCustomUpdate extends CustomCallbackGridEntityCustom<M
   constructor() {
     super();
 
-    this.featuresUsed = [ISCFeature.GRID_ENTITY_DETECTION];
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
   }
 }

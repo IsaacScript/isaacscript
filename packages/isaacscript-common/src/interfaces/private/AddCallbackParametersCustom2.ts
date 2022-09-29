@@ -192,7 +192,6 @@ export interface AddCallbackParametersCustom2 {
     gridEntityTypeCustom?: GridEntityType,
   ];
 
-  /*
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]: [
     callback: (
       gridEntity: GridEntity,
@@ -200,7 +199,6 @@ export interface AddCallbackParametersCustom2 {
     ) => void,
     gridEntityTypeCustom?: GridEntityType,
   ];
-  */
 
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]: [
     callback: (
@@ -236,13 +234,11 @@ export interface AddCallbackParametersCustom2 {
     variant?: int,
   ];
 
-  /*
   [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: [
     callback: (gridEntity: GridEntity) => void,
     gridEntityType?: GridEntityType,
     variant?: int,
-  ]
-  */
+  ];
 
   [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]: [
     callback: (gridEntity: GridEntity, oldState: int, newState: int) => void,

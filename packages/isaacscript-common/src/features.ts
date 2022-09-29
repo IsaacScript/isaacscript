@@ -5,7 +5,8 @@ import { EsauJrDetection } from "./classes/features/callbackLogic/EsauJrDetectio
 import { FlipDetection } from "./classes/features/callbackLogic/FlipDetection";
 import { GameReorderedCallbacks } from "./classes/features/callbackLogic/GameReorderedCallbacks";
 import { GridEntityCollisionDetection } from "./classes/features/callbackLogic/GridEntityCollisionDetection";
-import { GridEntityDetection } from "./classes/features/callbackLogic/GridEntityDetection";
+import { GridEntityRenderDetection } from "./classes/features/callbackLogic/GridEntityRenderDetection";
+import { GridEntityUpdateDetection } from "./classes/features/callbackLogic/GridEntityUpdateDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
@@ -22,7 +23,8 @@ export interface ISCFeatureToClass {
   [ISCFeature.ESAU_JR_DETECTION]: EsauJrDetection;
   [ISCFeature.FLIP_DETECTION]: FlipDetection;
   [ISCFeature.GRID_ENTITY_COLLISION_DETECTION]: GridEntityCollisionDetection;
-  [ISCFeature.GRID_ENTITY_DETECTION]: GridEntityDetection;
+  [ISCFeature.GRID_ENTITY_RENDER_DETECTION]: GridEntityRenderDetection;
+  [ISCFeature.GRID_ENTITY_UPDATE_DETECTION]: GridEntityUpdateDetection;
   [ISCFeature.GAME_REORDERED_CALLBACKS]: GameReorderedCallbacks;
   [ISCFeature.PLAYER_REORDERED_CALLBACKS]: PlayerReorderedCallbacks;
 
@@ -60,7 +62,7 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
         callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION],
         customGridEntities,
       ),
-    [ISCFeature.GRID_ENTITY_DETECTION]: new GridEntityDetection(
+    [ISCFeature.GRID_ENTITY_UPDATE_DETECTION]: new GridEntityUpdateDetection(
       callbacks[ModCallbackCustom2.POST_GRID_ENTITY_INIT],
       callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT],
       callbacks[ModCallbackCustom2.POST_GRID_ENTITY_UPDATE],
@@ -71,6 +73,11 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
       callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED],
       callbacks[ModCallbackCustom2.POST_GRID_ENTITY_BROKEN],
       callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN],
+      customGridEntities,
+    ),
+    [ISCFeature.GRID_ENTITY_RENDER_DETECTION]: new GridEntityRenderDetection(
+      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_RENDER],
+      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER],
       customGridEntities,
     ),
     [ISCFeature.GAME_REORDERED_CALLBACKS]: new GameReorderedCallbacks(

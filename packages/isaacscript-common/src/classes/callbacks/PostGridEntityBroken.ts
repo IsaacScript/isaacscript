@@ -6,6 +6,6 @@ export class PostGridEntityBroken extends CustomCallbackGridEntity<ModCallbackCu
   constructor() {
     super();
 
-    this.featuresUsed = [ISCFeature.GRID_ENTITY_DETECTION];
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
   }
 }
