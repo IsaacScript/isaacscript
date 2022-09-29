@@ -36,6 +36,7 @@ import { PostGridEntityRender } from "./classes/callbacks/PostGridEntityRender";
 import { PostGridEntityStateChanged } from "./classes/callbacks/PostGridEntityStateChanged";
 import { PostGridEntityUpdate } from "./classes/callbacks/PostGridEntityUpdate";
 import { PostHolyMantleRemoved } from "./classes/callbacks/PostHolyMantleRemoved";
+import { PostItemDischarge } from "./classes/callbacks/PostItemDischarge";
 import { PostKnifeInitLate } from "./classes/callbacks/PostKnifeInitLate";
 import { PostNewLevelReordered } from "./classes/callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./classes/callbacks/PostNewRoomEarly";
@@ -100,6 +101,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
     PostGridEntityStateChanged,
   [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: PostGridEntityUpdate,
   [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: PostHolyMantleRemoved,
+  [ModCallbackCustom2.POST_ITEM_DISCHARGE]: PostItemDischarge,
 
   // ----------------
 

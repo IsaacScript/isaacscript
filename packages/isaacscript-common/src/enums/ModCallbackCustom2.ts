@@ -38,6 +38,7 @@ export enum ModCallbackCustom2 {
   POST_GRID_ENTITY_STATE_CHANGED,
   POST_GRID_ENTITY_UPDATE,
   POST_HOLY_MANTLE_REMOVED,
+  POST_ITEM_DISCHARGE,
 
   // ---------------------
 

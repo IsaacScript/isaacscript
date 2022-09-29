@@ -1,4 +1,5 @@
 import {
+  ActiveSlot,
   BombVariant,
   CollectibleType,
   DamageFlag,
@@ -260,6 +261,15 @@ export interface AddCallbackParametersCustom2 {
     ) => void,
     playerVariant?: PlayerVariant,
     character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_ITEM_DISCHARGE]: [
+    callback: (
+      player: EntityPlayer,
+      collectibleType: CollectibleType,
+      activeSlot: ActiveSlot,
+    ) => void,
+    collectibleType?: CollectibleType,
   ];
 
   // -------------------------------------------
