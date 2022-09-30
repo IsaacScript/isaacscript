@@ -1,18 +1,5 @@
-// This provides the logic for the following callbacks:
-// - `POST_GRID_ENTITY_INIT`
-// - `POST_GRID_ENTITY_CUSTOM_INIT`
-// - `POST_GRID_ENTITY_UPDATE`
-// - `POST_GRID_ENTITY_CUSTOM_UPDATE`
-// - `POST_GRID_ENTITY_REMOVE`
-// - `POST_GRID_ENTITY_CUSTOM_REMOVE`
-// - `POST_GRID_ENTITY_STATE_CHANGED`
-// - `POST_GRID_ENTITY_CUSTOM_STATE_CHANGED`
-// - `POST_GRID_ENTITY_BROKEN`
-// - `POST_GRID_ENTITY_CUSTOM_BROKEN`
-
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { ISCFeature } from "../../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
 import {
   getGridEntitiesMap,
   isGridEntityBroken,
@@ -75,10 +62,7 @@ export class GridEntityUpdateDetection extends Feature {
 
     this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
     ];
 
     this.postGridEntityInit = postGridEntityInit;
@@ -220,8 +204,8 @@ export class GridEntityUpdateDetection extends Feature {
     this.v.room.initializedGridEntities.set(gridIndex, newTuple);
   }
 
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = (): void => {
+  // ModCallback.POST_NEW_ROOM (19)
+  private postNewRoom = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
     for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {

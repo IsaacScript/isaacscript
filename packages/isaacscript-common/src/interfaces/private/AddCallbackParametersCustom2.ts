@@ -11,19 +11,24 @@ import {
   GridEntityType,
   ItemType,
   KnifeVariant,
+  LaserVariant,
+  PickupVariant,
   PitVariant,
   PlayerType,
   PlayerVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { AmbushType } from "../../enums/AmbushType";
+import { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { StatType } from "../../enums/StatType";
 import { validateInterfaceMatchesEnum } from "../../functions/utils";
 import {
   PickingUpItem,
   PickingUpItemCollectible,
   PickingUpItemTrinket,
 } from "../../types/PickingUpItem";
+import { StatTypeType } from "../StatTypeType";
 
 export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_AMBUSH_FINISHED]: [
@@ -298,18 +303,33 @@ export interface AddCallbackParametersCustom2 {
         trinketType?: TrinketType,
       ];
 
-  // -------------------------------------------
-
-  [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
-
   [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: [
     callback: (knife: EntityKnife) => void,
     knifeVariant?: KnifeVariant,
   ];
 
+  [ModCallbackCustom2.POST_LASER_INIT_LATE]: [
+    callback: (laser: EntityLaser) => void,
+    laserVariant?: LaserVariant,
+  ];
+
+  [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
+
   [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: [callback: () => void];
 
   [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: [callback: () => void];
+
+  [ModCallbackCustom2.POST_NPC_INIT_LATE]: [
+    callback: (npc: EntityNPC) => void,
+    entityType?: EntityType,
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_NPC_STATE_CHANGED]: [
+    callback: (npc: EntityNPC, previousState: int, currentState: int) => void,
+    entityType?: EntityType,
+    variant?: int,
+  ];
 
   [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]: [
     callback: (player: EntityPlayer) => void,
@@ -317,10 +337,84 @@ export interface AddCallbackParametersCustom2 {
     character?: PlayerType,
   ];
 
+  [ModCallbackCustom2.POST_PICKUP_COLLECT]: [
+    callback: (pickup: EntityPickup, player: EntityPlayer) => void,
+    pickupVariant?: PickupVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PICKUP_INIT_FIRST]: [
+    callback: (pickup: EntityPickup) => void,
+    pickupVariant?: PickupVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PICKUP_INIT_LATE]: [
+    callback: (pickup: EntityPickup) => void,
+    pickupVariant?: PickupVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PICKUP_STATE_CHANGED]: [
+    callback: (
+      pickup: EntityPickup,
+      previousState: int,
+      currentState: int,
+    ) => void,
+    pickupVariant?: PickupVariant,
+  ];
+
   [ModCallbackCustom2.POST_PIT_RENDER]: [
     callback: (pit: GridEntityPit) => void,
     pitVariant?: PitVariant,
   ];
+
+  [ModCallbackCustom2.POST_PIT_UPDATE]: [
+    callback: (pit: GridEntityPit) => void,
+    pitVariant?: PitVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_CHANGE_HEALTH]: [
+    callback: (
+      player: EntityPlayer,
+      healthType: HealthType,
+      difference: int,
+      oldValue: int,
+      newValue: int,
+    ) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_CHANGE_STAT]: [
+    callback: <T extends StatType>(
+      player: EntityPlayer,
+      statType: StatType,
+      difference: int,
+      oldValue: StatTypeType[T],
+      newValue: StatTypeType[T],
+    ) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE]: [
+    callback: (
+      player: EntityPlayer,
+      oldCharacter: PlayerType,
+      newCharacter: PlayerType,
+    ) => void,
+    playerVariant?: PlayerVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_ADDED]: [
+    callback: (player: EntityPlayer, collectibleType: CollectibleType) => void,
+    collectibleType?: CollectibleType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED]: [
+    callback: (player: EntityPlayer, collectibleType: CollectibleType) => void,
+    collectibleType?: CollectibleType,
+  ];
+
+  // -------------------------------------------
 
   [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: [
     callback: (

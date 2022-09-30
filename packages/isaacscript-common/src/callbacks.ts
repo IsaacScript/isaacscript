@@ -39,11 +39,24 @@ import { PostHolyMantleRemoved } from "./classes/callbacks/PostHolyMantleRemoved
 import { PostItemDischarge } from "./classes/callbacks/PostItemDischarge";
 import { PostItemPickup } from "./classes/callbacks/PostItemPickup";
 import { PostKnifeInitLate } from "./classes/callbacks/PostKnifeInitLate";
+import { PostLaserInitLate } from "./classes/callbacks/PostLaserInitLate";
 import { PostNewLevelReordered } from "./classes/callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./classes/callbacks/PostNewRoomEarly";
 import { PostNewRoomReordered } from "./classes/callbacks/PostNewRoomReordered";
+import { PostNPCInitLate } from "./classes/callbacks/PostNPCInitLate";
+import { PostNPCStateChanged } from "./classes/callbacks/PostNPCStateChanged";
 import { PostPEffectUpdateReordered } from "./classes/callbacks/PostPEffectUpdateReordered";
+import { PostPickupCollect } from "./classes/callbacks/PostPickupCollect";
+import { PostPickupInitFirst } from "./classes/callbacks/PostPickupInitFirst";
+import { PostPickupInitLate } from "./classes/callbacks/PostPickupInitLate";
+import { PostPickupStateChanged } from "./classes/callbacks/PostPickupStateChanged";
 import { PostPitRender } from "./classes/callbacks/PostPitRender";
+import { PostPitUpdate } from "./classes/callbacks/PostPitUpdate";
+import { PostPlayerChangeHealth } from "./classes/callbacks/PostPlayerChangeHealth";
+import { PostPlayerChangeStat } from "./classes/callbacks/PostPlayerChangeStat";
+import { PostPlayerChangeType } from "./classes/callbacks/PostPlayerChangeType";
+import { PostPlayerCollectibleAdded } from "./classes/callbacks/PostPlayerCollectibleAdded";
+import { PostPlayerCollectibleRemoved } from "./classes/callbacks/PostPlayerCollectibleRemoved";
 import { PostPlayerFatalDamage } from "./classes/callbacks/PostPlayerFatalDamage";
 import { PostPlayerRenderReordered } from "./classes/callbacks/PostPlayerRenderReordered";
 import { PostPlayerUpdateReordered } from "./classes/callbacks/PostPlayerUpdateReordered";
@@ -105,16 +118,31 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: PostHolyMantleRemoved,
   [ModCallbackCustom2.POST_ITEM_DISCHARGE]: PostItemDischarge,
   [ModCallbackCustom2.POST_ITEM_PICKUP]: PostItemPickup,
-
-  // ----------------
-
   [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: PostKnifeInitLate,
+  [ModCallbackCustom2.POST_LASER_INIT_LATE]: PostLaserInitLate,
   [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: PostNewLevelReordered,
   [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: PostNewRoomEarly,
   [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: PostNewRoomReordered,
+  [ModCallbackCustom2.POST_NPC_INIT_LATE]: PostNPCInitLate,
+  [ModCallbackCustom2.POST_NPC_STATE_CHANGED]: PostNPCStateChanged,
   [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]:
     PostPEffectUpdateReordered,
+  [ModCallbackCustom2.POST_PICKUP_COLLECT]: PostPickupCollect,
+  [ModCallbackCustom2.POST_PICKUP_INIT_FIRST]: PostPickupInitFirst,
+  [ModCallbackCustom2.POST_PICKUP_INIT_LATE]: PostPickupInitLate,
+  [ModCallbackCustom2.POST_PICKUP_STATE_CHANGED]: PostPickupStateChanged,
   [ModCallbackCustom2.POST_PIT_RENDER]: PostPitRender,
+  [ModCallbackCustom2.POST_PIT_UPDATE]: PostPitUpdate,
+  [ModCallbackCustom2.POST_PLAYER_CHANGE_HEALTH]: PostPlayerChangeHealth,
+  [ModCallbackCustom2.POST_PLAYER_CHANGE_STAT]: PostPlayerChangeStat,
+  [ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE]: PostPlayerChangeType,
+  [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_ADDED]:
+    PostPlayerCollectibleAdded,
+  [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED]:
+    PostPlayerCollectibleRemoved,
+
+  // ----------------
+
   [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
   [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
   [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,

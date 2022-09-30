@@ -1,0 +1,44 @@
+import { ModCallback, PlayerType } from "isaac-typescript-definitions";
+import { postPlayerChangeTypeFire } from "../../callbacks/subscriptions/postPlayerChangeType";
+import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import {
+  defaultMapGetPlayer,
+  mapSetPlayer,
+} from "../../functions/playerDataStructures";
+import { PlayerIndex } from "../../types/PlayerIndex";
+import { DefaultMap } from "../DefaultMap";
+import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+
+export class PostPlayerChangeType extends CustomCallbackPlayer<ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE> {
+  public override v = {
+    run: {
+      playersCharacterMap: new DefaultMap<
+        PlayerIndex,
+        PlayerType,
+        [character: PlayerType]
+      >((character: PlayerType) => character), // eslint-disable-line isaacscript/strict-enums
+    },
+  };
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffect]], // 4
+    ];
+  }
+
+  // ModCallback.POST_PEFFECT_UPDATE (4)
+  private postPEffect = (player: EntityPlayer) => {
+    const character = player.GetPlayerType();
+    const storedCharacter = defaultMapGetPlayer(
+      this.v.run.playersCharacterMap,
+      player,
+      character,
+    );
+    if (character !== storedCharacter) {
+      mapSetPlayer(this.v.run.playersCharacterMap, player, character);
+      postPlayerChangeTypeFire(player, storedCharacter, character);
+    }
+  };
+}

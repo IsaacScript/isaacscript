@@ -51,17 +51,11 @@ export class PostItemDischarge extends CustomCallback<T> {
     super();
 
     this.callbacksUsed = [
+      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
       [
         ModCallback.PRE_NPC_COLLISION,
         [this.preNPCCollisionSucker, EntityType.SUCKER],
       ], // 30
-    ];
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
-      ],
     ];
   }
 
@@ -79,56 +73,8 @@ export class PostItemDischarge extends CustomCallback<T> {
     return collectibleType === callbackCollectibleType;
   }
 
-  // ModCallback.PRE_NPC_COLLISION (30)
-  // EntityType.SUCKER (61)
-  private preNPCCollisionSucker = (
-    npc: EntityNPC,
-    collider: Entity,
-  ): boolean | undefined => {
-    if (npc.Variant === asNumber(SuckerVariant.BULB)) {
-      return this.preNPCCollisionBulb(npc, collider);
-    }
-
-    return undefined;
-  };
-
-  // ModCallback.PRE_NPC_COLLISION (30)
-  // EntityType.SUCKER (61)
-  private preNPCCollisionBulb(
-    _npc: EntityNPC,
-    collider: Entity,
-  ): boolean | undefined {
-    this.checkPlayerCollidedWithBulb(collider);
-    return undefined;
-  }
-
-  /**
-   * The algorithm for detecting a discharge is checking if the current charge is less than the
-   * charge on the previous frame. Thus, when a Bulb zaps a player and drains their charge, this
-   * will be a false position, so Bulbs have to be handled.
-   *
-   * When Bulbs zap a player, they go to `NpcState.STATE_JUMP` for a frame. However, this only
-   * happens on the frame after the player is discharged, which is too late to be of any use.
-   *
-   * Instead, we track the frames that Bulbs collide with players and assume that a collision means
-   * a zap has occurred.
-   */
-  private checkPlayerCollidedWithBulb(collider: Entity) {
-    const player = collider.ToPlayer();
-    if (player === undefined) {
-      return;
-    }
-
-    const gameFrameCount = game.GetFrameCount();
-    mapSetPlayer(
-      this.v.room.playersBulbLastCollisionFrame,
-      player,
-      gameFrameCount,
-    );
-  }
-
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  // ModCallback.POST_PEFFECT (4)
+  private postPEffectUpdate = (player: EntityPlayer) => {
     const activeItemMap = defaultMapGetPlayer(
       this.v.run.playersActiveItemMap,
       player,
@@ -183,5 +129,53 @@ export class PostItemDischarge extends CustomCallback<T> {
     const collidedOnThisFrame = gameFrameCount === bulbLastCollisionFrame;
     const collidedOnLastFrame = gameFrameCount - 1 === bulbLastCollisionFrame;
     return collidedOnThisFrame || collidedOnLastFrame;
+  }
+
+  // ModCallback.PRE_NPC_COLLISION (30)
+  // EntityType.SUCKER (61)
+  private preNPCCollisionSucker = (
+    npc: EntityNPC,
+    collider: Entity,
+  ): boolean | undefined => {
+    if (npc.Variant === asNumber(SuckerVariant.BULB)) {
+      return this.preNPCCollisionBulb(npc, collider);
+    }
+
+    return undefined;
+  };
+
+  // ModCallback.PRE_NPC_COLLISION (30)
+  // EntityType.SUCKER (61)
+  private preNPCCollisionBulb(
+    _npc: EntityNPC,
+    collider: Entity,
+  ): boolean | undefined {
+    this.checkPlayerCollidedWithBulb(collider);
+    return undefined;
+  }
+
+  /**
+   * The algorithm for detecting a discharge is checking if the current charge is less than the
+   * charge on the previous frame. Thus, when a Bulb zaps a player and drains their charge, this
+   * will be a false position, so Bulbs have to be handled.
+   *
+   * When Bulbs zap a player, they go to `NpcState.STATE_JUMP` for a frame. However, this only
+   * happens on the frame after the player is discharged, which is too late to be of any use.
+   *
+   * Instead, we track the frames that Bulbs collide with players and assume that a collision means
+   * a zap has occurred.
+   */
+  private checkPlayerCollidedWithBulb(collider: Entity) {
+    const player = collider.ToPlayer();
+    if (player === undefined) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+    mapSetPlayer(
+      this.v.room.playersBulbLastCollisionFrame,
+      player,
+      gameFrameCount,
+    );
   }
 }

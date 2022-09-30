@@ -1,4 +1,7 @@
-import { DamageFlag } from "isaac-typescript-definitions";
+import { DamageFlag, PlayerType } from "isaac-typescript-definitions";
+import { HealthType } from "../../../enums/HealthType";
+import { StatType } from "../../../enums/StatType";
+import { StatTypeType } from "../../../interfaces/StatTypeType";
 import { MatchingCallbackCustom } from "../../../types/private/MatchingCallbackCustom";
 import {
   CustomCallback,
@@ -15,7 +18,27 @@ type CallbackSignaturePlayer =
       damageFlags: BitFlags<DamageFlag>,
       source: EntityRef,
       countdownFrames: int,
-    ) => boolean | undefined);
+    ) => boolean | undefined)
+  | ((
+      player: EntityPlayer,
+      healthType: HealthType,
+      difference: int,
+      oldValue: int,
+      newValue: int,
+    ) => void)
+  | (<T extends StatType>(
+      player: EntityPlayer,
+      statType: StatType,
+      difference: int,
+      oldValue: StatTypeType[T],
+      newValue: StatTypeType[T],
+    ) => void)
+  | ((
+      player: EntityPlayer,
+      oldCharacter: PlayerType,
+      newCharacter: PlayerType,
+    ) => void);
+
 type ModCallbackCustomPlayer = MatchingCallbackCustom<CallbackSignaturePlayer>;
 
 export class CustomCallbackPlayer<

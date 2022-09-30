@@ -1,4 +1,4 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { isChildPlayer } from "../../functions/playerIndex";
 import { getPlayerNumHitsRemaining } from "../../functions/players";
@@ -9,16 +9,13 @@ export class PreBerserkDeath extends CustomCallbackPlayer<ModCallbackCustom2.PRE
   constructor() {
     super();
 
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
-      ],
+    this.callbacksUsed = [
+      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
     ];
   }
 
-  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  // ModCallback.POST_PEFFECT_UPDATE (4)
+  private postPEffectUpdate = (player: EntityPlayer): void => {
     // This callback should not trigger for the Strawman Keeper and other players that are "child"
     // players.
     if (isChildPlayer(player)) {

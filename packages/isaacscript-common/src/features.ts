@@ -8,6 +8,7 @@ import { GridEntityCollisionDetection } from "./classes/features/callbackLogic/G
 import { GridEntityRenderDetection } from "./classes/features/callbackLogic/GridEntityRenderDetection";
 import { GridEntityUpdateDetection } from "./classes/features/callbackLogic/GridEntityUpdateDetection";
 import { ItemPickupDetection } from "./classes/features/callbackLogic/ItemPickupDetection";
+import { PlayerCollectibleDetection } from "./classes/features/callbackLogic/PlayerCollectibleDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
@@ -28,6 +29,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.GRID_ENTITY_UPDATE_DETECTION]: GridEntityUpdateDetection;
   [ISCFeature.GAME_REORDERED_CALLBACKS]: GameReorderedCallbacks;
   [ISCFeature.ITEM_PICKUP_DETECTION]: ItemPickupDetection;
+  [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: PlayerCollectibleDetection;
   [ISCFeature.PLAYER_REORDERED_CALLBACKS]: PlayerReorderedCallbacks;
 
   // Extra features
@@ -91,6 +93,11 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
     [ISCFeature.ITEM_PICKUP_DETECTION]: new ItemPickupDetection(
       callbacks[ModCallbackCustom2.POST_ITEM_PICKUP],
       callbacks[ModCallbackCustom2.PRE_ITEM_PICKUP],
+    ),
+    [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: new PlayerCollectibleDetection(
+      callbacks[ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_ADDED],
+      callbacks[ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED],
+      runInNFrames,
     ),
     [ISCFeature.PLAYER_REORDERED_CALLBACKS]: new PlayerReorderedCallbacks(
       callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],

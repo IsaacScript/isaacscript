@@ -1,9 +1,3 @@
-// This provides the logic for the following callbacks:
-// - `POST_GAME_STARTED_REORDERED`
-// - `POST_GAME_STARTED_REORDERED_LAST`
-// - `POST_NEW_LEVEL_REORDERED`
-// - `POST_NEW_ROOM_REORDERED`
-
 // By default, callbacks fire in the following order:
 // - `POST_NEW_ROOM` --> `POST_NEW_LEVEL` --> `POST_GAME_STARTED`
 

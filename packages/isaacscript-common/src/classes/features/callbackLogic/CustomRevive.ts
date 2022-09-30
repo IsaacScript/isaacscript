@@ -1,7 +1,3 @@
-// This provides the logic for the following callbacks:
-// - `PRE_CUSTOM_REVIVE`
-// - `POST_CUSTOM_REVIVE`
-
 import {
   CollectibleType,
   FamiliarVariant,
@@ -60,14 +56,11 @@ export class CustomRevive extends Feature {
 
     this.callbacksUsed = [
       [ModCallback.POST_RENDER, [this.postRender]], // 2
+      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
-      [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
-      ],
       [
         ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE,
         [this.postPlayerFatalDamage],
@@ -90,18 +83,8 @@ export class CustomRevive extends Feature {
     sfxManager.Stop(SoundEffect.ONE_UP);
   };
 
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = (): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
-      return;
-    }
-
-    this.v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
-    this.logStateChanged();
-  };
-
-  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  // ModCallback.POST_PEFFECT_UPDATE (4)
+  private postPEffectUpdate = (player: EntityPlayer): void => {
     this.checkWaitingForItemAnimation(player);
   };
 
@@ -148,6 +131,16 @@ export class CustomRevive extends Feature {
     this.v.run.dyingPlayerIndex = null;
     this.logStateChanged();
   }
+
+  // ModCallback.POST_NEW_ROOM (19)
+  private postNewRoom = (): void => {
+    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+      return;
+    }
+
+    this.v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
+    this.logStateChanged();
+  };
 
   // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
   private postPlayerFatalDamage = (

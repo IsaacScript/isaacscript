@@ -794,9 +794,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_NPC_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the `EntityType`
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postNPCInitLate(npc: EntityNPC): void {}
@@ -984,13 +986,13 @@ export enum ModCallbackCustom {
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function postPlayerChangeStat(
+   * function postPlayerChangeStat<T extends StatType>(
    *   player: EntityPlayer,
-   *   statType: StatType,
+   *   statType: T,
    *   difference: int,
-   *   oldValue: number | boolean | BitFlags<TearFlag> | Color | Vector,
-   *   newValue: number | boolean | BitFlags<TearFlag> | Color | Vector,
-   * ): void {}
+   *   oldValue: StatTypeType[T],
+   *   newValue: StatTypeType[T],
+   * ) => void {}
    * ```
    */
   POST_PLAYER_CHANGE_STAT,

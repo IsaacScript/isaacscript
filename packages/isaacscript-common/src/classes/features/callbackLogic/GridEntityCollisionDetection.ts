@@ -1,7 +1,3 @@
-// This provides the logic for the following callbacks:
-// - `POST_GRID_ENTITY_COLLISION`
-// - `POST_GRID_ENTITY_CUSTOM_COLLISION`
-
 import { GridCollisionClass, ModCallback } from "isaac-typescript-definitions";
 import {
   getCollidingEntitiesWithGridEntity,
