@@ -58,10 +58,18 @@ import { PostPlayerChangeType } from "./classes/callbacks/PostPlayerChangeType";
 import { PostPlayerCollectibleAdded } from "./classes/callbacks/PostPlayerCollectibleAdded";
 import { PostPlayerCollectibleRemoved } from "./classes/callbacks/PostPlayerCollectibleRemoved";
 import { PostPlayerFatalDamage } from "./classes/callbacks/PostPlayerFatalDamage";
+import { PostPlayerInitFirst } from "./classes/callbacks/PostPlayerInitFirst";
+import { PostPlayerInitLate } from "./classes/callbacks/PostPlayerInitLate";
 import { PostPlayerRenderReordered } from "./classes/callbacks/PostPlayerRenderReordered";
 import { PostPlayerUpdateReordered } from "./classes/callbacks/PostPlayerUpdateReordered";
+import { PostPoopRender } from "./classes/callbacks/PostPoopRender";
+import { PostPoopUpdate } from "./classes/callbacks/PostPoopUpdate";
+import { PostPressurePlateRender } from "./classes/callbacks/PostPressurePlateRender";
+import { PostPressurePlateUpdate } from "./classes/callbacks/PostPressurePlateUpdate";
+import { PostProjectileInitLate } from "./classes/callbacks/PostProjectileInitLate";
 import { PostRoomClearChanged } from "./classes/callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./classes/callbacks/PostSpikesRender";
+import { PostTearInitLate } from "./classes/callbacks/PostTearInitLate";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
 import { PreItemPickup } from "./classes/callbacks/PreItemPickup";
@@ -140,14 +148,22 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
     PostPlayerCollectibleAdded,
   [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED]:
     PostPlayerCollectibleRemoved,
+  [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
+  [ModCallbackCustom2.POST_PLAYER_INIT_FIRST]: PostPlayerInitFirst,
+  [ModCallbackCustom2.POST_PLAYER_INIT_LATE]: PostPlayerInitLate,
+  [ModCallbackCustom2.POST_POOP_RENDER]: PostPoopRender,
+  [ModCallbackCustom2.POST_POOP_UPDATE]: PostPoopUpdate,
+  [ModCallbackCustom2.POST_PRESSURE_PLATE_RENDER]: PostPressurePlateRender,
+  [ModCallbackCustom2.POST_PRESSURE_PLATE_UPDATE]: PostPressurePlateUpdate,
+  [ModCallbackCustom2.POST_PROJECTILE_INIT_LATE]: PostProjectileInitLate,
 
   // ----------------
 
-  [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
   [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
   [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,
   [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChanged,
   [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
+  [ModCallbackCustom2.POST_TEAR_INIT_LATE]: PostTearInitLate,
   [ModCallbackCustom2.PRE_BERSERK_DEATH]: PreBerserkDeath,
   [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: PreCustomRevive,
   [ModCallbackCustom2.PRE_ITEM_PICKUP]: PreItemPickup,

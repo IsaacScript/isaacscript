@@ -16,6 +16,10 @@ import {
   PitVariant,
   PlayerType,
   PlayerVariant,
+  PoopGridEntityVariant,
+  PressurePlateVariant,
+  ProjectileVariant,
+  TearVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { AmbushType } from "../../enums/AmbushType";
@@ -414,8 +418,6 @@ export interface AddCallbackParametersCustom2 {
     collectibleType?: CollectibleType,
   ];
 
-  // -------------------------------------------
-
   [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: [
     callback: (
       player: EntityPlayer,
@@ -424,6 +426,18 @@ export interface AddCallbackParametersCustom2 {
       source: EntityRef,
       countdownFrames: int,
     ) => boolean | undefined,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_INIT_FIRST]: [
+    callback: (player: EntityPlayer) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_PLAYER_INIT_LATE]: [
+    callback: (player: EntityPlayer) => void,
     playerVariant?: PlayerVariant,
     character?: PlayerType,
   ];
@@ -440,6 +454,33 @@ export interface AddCallbackParametersCustom2 {
     character?: PlayerType,
   ];
 
+  [ModCallbackCustom2.POST_POOP_RENDER]: [
+    callback: (poop: GridEntityPoop) => void,
+    poopVariant?: PoopGridEntityVariant,
+  ];
+
+  [ModCallbackCustom2.POST_POOP_UPDATE]: [
+    callback: (poop: GridEntityPoop) => void,
+    poopVariant?: PoopGridEntityVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PRESSURE_PLATE_RENDER]: [
+    callback: (pressurePlate: GridEntityPressurePlate) => void,
+    pressurePlateVariant?: PressurePlateVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PRESSURE_PLATE_UPDATE]: [
+    callback: (pressurePlate: GridEntityPressurePlate) => void,
+    pressurePlateVariant?: PressurePlateVariant,
+  ];
+
+  [ModCallbackCustom2.POST_PROJECTILE_INIT_LATE]: [
+    callback: (projectile: EntityProjectile) => void,
+    projectileVariant?: ProjectileVariant,
+  ];
+
+  // -------------------------------------------
+
   [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: [
     callback: (roomClear: boolean) => void,
     roomClear?: boolean,
@@ -448,6 +489,11 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_SPIKES_RENDER]: [
     callback: (spikes: GridEntitySpikes) => void,
     variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_TEAR_INIT_LATE]: [
+    callback: (tear: EntityTear) => void,
+    tearVariant?: TearVariant,
   ];
 
   [ModCallbackCustom2.PRE_BERSERK_DEATH]: [
