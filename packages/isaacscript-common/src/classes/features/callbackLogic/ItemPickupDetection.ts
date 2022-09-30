@@ -1,0 +1,94 @@
+import {
+  CollectibleType,
+  ItemType,
+  TrinketType,
+} from "isaac-typescript-definitions";
+import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
+import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
+import { asNumber } from "../../../functions/types";
+import {
+  newPickingUpItem,
+  PickingUpItem,
+  resetPickingUpItem,
+} from "../../../types/PickingUpItem";
+import { PlayerIndex } from "../../../types/PlayerIndex";
+import { PostItemPickup } from "../../callbacks/PostItemPickup";
+import { PreItemPickup } from "../../callbacks/PreItemPickup";
+import { DefaultMap } from "../../DefaultMap";
+import { Feature } from "../../private/Feature";
+
+export class ItemPickupDetection extends Feature {
+  public override v = {
+    run: {
+      playersPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
+        newPickingUpItem(),
+      ),
+    },
+  };
+
+  private postItemPickup: PostItemPickup;
+  private preItemPickup: PreItemPickup;
+
+  constructor(postItemPickup: PostItemPickup, preItemPickup: PreItemPickup) {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        [this.postPEffectUpdateReordered],
+      ],
+    ];
+
+    this.postItemPickup = postItemPickup;
+    this.preItemPickup = preItemPickup;
+  }
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+    const pickingUpItem = defaultMapGetPlayer(
+      this.v.run.playersPickingUpItemMap,
+      player,
+    );
+
+    if (player.IsItemQueueEmpty()) {
+      this.queueEmpty(player, pickingUpItem);
+      // If a player enters a room with a trinket next to the entrance, the player will pick up the
+      // trinket, but it will not become queued (it will be deposited into their inventory
+      // immediately). Since we don't know what type of item the player is holding, don't account
+      // for this bug.
+    } else {
+      this.queueNotEmpty(player, pickingUpItem);
+    }
+  };
+
+  private queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
+    if (
+      pickingUpItem.itemType === ItemType.NULL ||
+      asNumber(pickingUpItem.subType) === 0
+    ) {
+      return;
+    }
+
+    this.postItemPickup.fire(player, pickingUpItem);
+    resetPickingUpItem(pickingUpItem);
+  }
+
+  private queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
+    const queuedItem = player.QueuedItem.Item;
+    if (queuedItem === undefined || queuedItem.Type === ItemType.NULL) {
+      // This should never happen, since the `EntityPlayer.IsItemQueueEmpty` method returned true.
+      return;
+    }
+
+    if (
+      queuedItem.Type !== pickingUpItem.itemType ||
+      queuedItem.ID !== pickingUpItem.subType
+    ) {
+      // Record which item we are picking up.
+      pickingUpItem.itemType = queuedItem.Type;
+      pickingUpItem.subType = queuedItem.ID as CollectibleType | TrinketType;
+
+      this.preItemPickup.fire(player, pickingUpItem);
+    }
+  }
+}

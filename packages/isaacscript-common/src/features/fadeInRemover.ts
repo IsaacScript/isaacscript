@@ -1,40 +1,22 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { errorIfFeaturesNotInitialized } from "../featuresInitialized";
-import { saveDataManager } from "./saveDataManager/exports";
 
 const FEATURE_NAME = "fadeInRemover";
 const FADE_IN_SPEED = 1;
 
 let enabled = false;
 
-const v = {
-  run: {
-    removedFadeIn: false,
-  },
-};
-
 /** @internal */
 export function fadeInRemoverInit(mod: Mod): void {
-  saveDataManager(FEATURE_NAME, v, false);
-
-  mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
 }
 
-function postRender() {
-  if (!enabled) {
-    return;
-  }
-
-  if (shouldRemoveFadeIn()) {
-    v.run.removedFadeIn = true;
+// ModCallback.POST_GAME_STARTED (15)
+function postGameStarted(_isContinued: boolean) {
+  if (enabled) {
     game.Fadein(FADE_IN_SPEED);
   }
-}
-
-function shouldRemoveFadeIn() {
-  const gameFrameCount = game.GetFrameCount();
-  return !v.run.removedFadeIn && gameFrameCount === 0;
 }
 
 /**

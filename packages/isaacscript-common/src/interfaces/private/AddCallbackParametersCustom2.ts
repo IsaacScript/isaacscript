@@ -9,14 +9,21 @@ import {
   EntityType,
   FamiliarVariant,
   GridEntityType,
+  ItemType,
   KnifeVariant,
   PitVariant,
   PlayerType,
   PlayerVariant,
+  TrinketType,
 } from "isaac-typescript-definitions";
 import { AmbushType } from "../../enums/AmbushType";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { validateInterfaceMatchesEnum } from "../../functions/utils";
+import {
+  PickingUpItem,
+  PickingUpItemCollectible,
+  PickingUpItemTrinket,
+} from "../../types/PickingUpItem";
 
 export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_AMBUSH_FINISHED]: [
@@ -272,6 +279,25 @@ export interface AddCallbackParametersCustom2 {
     collectibleType?: CollectibleType,
   ];
 
+  [ModCallbackCustom2.POST_ITEM_PICKUP]:
+    | [callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void]
+    | [
+        callback: (
+          player: EntityPlayer,
+          pickingUpItem: PickingUpItemCollectible,
+        ) => void,
+        itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
+        collectibleType?: CollectibleType,
+      ]
+    | [
+        callback: (
+          player: EntityPlayer,
+          pickingUpItem: PickingUpItemTrinket,
+        ) => void,
+        itemType: ItemType.TRINKET,
+        trinketType?: TrinketType,
+      ];
+
   // -------------------------------------------
 
   [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
@@ -341,6 +367,25 @@ export interface AddCallbackParametersCustom2 {
     playerVariant?: PlayerVariant,
     character?: PlayerType,
   ];
+
+  [ModCallbackCustom2.PRE_ITEM_PICKUP]:
+    | [callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void]
+    | [
+        callback: (
+          player: EntityPlayer,
+          pickingUpItem: PickingUpItemCollectible,
+        ) => void,
+        itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
+        collectibleType?: CollectibleType,
+      ]
+    | [
+        callback: (
+          player: EntityPlayer,
+          pickingUpItem: PickingUpItemTrinket,
+        ) => void,
+        itemType: ItemType.TRINKET,
+        trinketType?: TrinketType,
+      ];
 }
 
 validateInterfaceMatchesEnum<

@@ -39,6 +39,7 @@ export enum ModCallbackCustom2 {
   POST_GRID_ENTITY_UPDATE,
   POST_HOLY_MANTLE_REMOVED,
   POST_ITEM_DISCHARGE,
+  POST_ITEM_PICKUP,
 
   // ---------------------
 
@@ -55,4 +56,5 @@ export enum ModCallbackCustom2 {
   POST_SPIKES_RENDER,
   PRE_BERSERK_DEATH,
   PRE_CUSTOM_REVIVE,
+  PRE_ITEM_PICKUP,
 }

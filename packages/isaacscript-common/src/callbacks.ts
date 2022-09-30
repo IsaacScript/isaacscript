@@ -37,6 +37,7 @@ import { PostGridEntityStateChanged } from "./classes/callbacks/PostGridEntitySt
 import { PostGridEntityUpdate } from "./classes/callbacks/PostGridEntityUpdate";
 import { PostHolyMantleRemoved } from "./classes/callbacks/PostHolyMantleRemoved";
 import { PostItemDischarge } from "./classes/callbacks/PostItemDischarge";
+import { PostItemPickup } from "./classes/callbacks/PostItemPickup";
 import { PostKnifeInitLate } from "./classes/callbacks/PostKnifeInitLate";
 import { PostNewLevelReordered } from "./classes/callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./classes/callbacks/PostNewRoomEarly";
@@ -50,6 +51,7 @@ import { PostRoomClearChanged } from "./classes/callbacks/PostRoomClearChanged";
 import { PostSpikesRender } from "./classes/callbacks/PostSpikesRender";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
+import { PreItemPickup } from "./classes/callbacks/PreItemPickup";
 import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
 import { getEnumValues } from "./functions/enums";
 import { newObjectWithEnumKeys } from "./functions/utils";
@@ -102,6 +104,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: PostGridEntityUpdate,
   [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: PostHolyMantleRemoved,
   [ModCallbackCustom2.POST_ITEM_DISCHARGE]: PostItemDischarge,
+  [ModCallbackCustom2.POST_ITEM_PICKUP]: PostItemPickup,
 
   // ----------------
 
@@ -119,6 +122,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
   [ModCallbackCustom2.PRE_BERSERK_DEATH]: PreBerserkDeath,
   [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: PreCustomRevive,
+  [ModCallbackCustom2.PRE_ITEM_PICKUP]: PreItemPickup,
 } as const);
 
 export type ModCallbackCustomToClass = {

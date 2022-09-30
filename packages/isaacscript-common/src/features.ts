@@ -7,6 +7,7 @@ import { GameReorderedCallbacks } from "./classes/features/callbackLogic/GameReo
 import { GridEntityCollisionDetection } from "./classes/features/callbackLogic/GridEntityCollisionDetection";
 import { GridEntityRenderDetection } from "./classes/features/callbackLogic/GridEntityRenderDetection";
 import { GridEntityUpdateDetection } from "./classes/features/callbackLogic/GridEntityUpdateDetection";
+import { ItemPickupDetection } from "./classes/features/callbackLogic/ItemPickupDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
@@ -26,6 +27,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.GRID_ENTITY_RENDER_DETECTION]: GridEntityRenderDetection;
   [ISCFeature.GRID_ENTITY_UPDATE_DETECTION]: GridEntityUpdateDetection;
   [ISCFeature.GAME_REORDERED_CALLBACKS]: GameReorderedCallbacks;
+  [ISCFeature.ITEM_PICKUP_DETECTION]: ItemPickupDetection;
   [ISCFeature.PLAYER_REORDERED_CALLBACKS]: PlayerReorderedCallbacks;
 
   // Extra features
@@ -85,6 +87,10 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
       callbacks[ModCallbackCustom2.POST_NEW_LEVEL_REORDERED],
       callbacks[ModCallbackCustom2.POST_NEW_ROOM_REORDERED],
       callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST],
+    ),
+    [ISCFeature.ITEM_PICKUP_DETECTION]: new ItemPickupDetection(
+      callbacks[ModCallbackCustom2.POST_ITEM_PICKUP],
+      callbacks[ModCallbackCustom2.PRE_ITEM_PICKUP],
     ),
     [ISCFeature.PLAYER_REORDERED_CALLBACKS]: new PlayerReorderedCallbacks(
       callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
