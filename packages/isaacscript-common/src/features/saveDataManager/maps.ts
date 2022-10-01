@@ -1,4 +1,5 @@
 import { SaveData } from "../../interfaces/SaveData";
+import { AnyClass } from "../../types/AnyClass";
 
 /**
  * The save data map is indexed by subscriber name. We use Lua tables instead of TypeScriptToLua
@@ -27,3 +28,9 @@ export const saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
  * to restore it.
  */
 export const saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
+
+/**
+ * End-users can register their classes with the save data manager for proper serialization when
+ * contained in nested maps, sets, and arrays.
+ */
+export const saveDataManagerUserClasses = new LuaMap<string, AnyClass>();

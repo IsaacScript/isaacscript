@@ -5,8 +5,10 @@ import { SaveDataKey } from "../../../enums/SaveDataKey";
 import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
 import { onFirstFloor } from "../../../functions/stage";
+import { getTSTLClassName } from "../../../functions/tstlClass";
 import { isString } from "../../../functions/types";
 import { SaveData } from "../../../interfaces/SaveData";
+import { AnyClass } from "../../../types/AnyClass";
 import { Feature } from "../../private/Feature";
 import {
   makeGlowingHourGlassBackup,
@@ -57,6 +59,12 @@ export class SaveDataManager extends Feature {
    * to restore it.
    */
   private saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
+
+  /**
+   * End-users can register their classes with the save data manager for proper serialization when
+   * contained in nested maps, sets, and arrays.
+   */
+  private userClasses = new LuaMap<string, AnyClass>();
 
   // Other variables
   private loadedDataOnThisRun = false;
@@ -360,6 +368,55 @@ export class SaveDataManager extends Feature {
   }
 
   /**
+   * By default, the save data manager will not be able to serialize classes that are nested inside
+   * of maps, sets, and arrays, because it does not have access to the corresponding class
+   * constructor. If you want to use nested classes in this way, then use this function to register
+   * a class constructor with the save data manager. If the save data manager finds a registered
+   * class of the same name when deserializing, it will automatically run the registered constructor
+   * (in addition to copying over the data fields).
+   *
+   * This function is variadic, which means you can pass as many classes as you want to register.
+   */
+  @Exported
+  public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
+    for (const tstlClass of tstlClasses) {
+      const tstlClassName = getTSTLClassName(tstlClass);
+      if (tstlClassName === undefined) {
+        error(
+          "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
+        );
+      }
+
+      this.userClasses.set(tstlClassName, tstlClass);
+    }
+  }
+
+  /**
+   * Removes a previously registered key from the save data manager. This is the opposite of the
+   * "saveDataManager" method.
+   */
+  @Exported
+  public saveDataManagerRemove(key: string): void {
+    if (!isString(key)) {
+      error(
+        `The save data manager requires that keys are strings. You tried to use a key of type: ${typeof key}`,
+      );
+    }
+
+    if (!this.saveDataMap.has(key)) {
+      error(
+        `The save data manager is not managing save data for a key of: ${key}`,
+      );
+    }
+
+    // Delete the save data from the map.
+    this.saveDataMap.delete(key);
+    this.saveDataDefaultsMap.delete(key);
+    this.saveDataConditionalFuncMap.delete(key);
+    this.saveDataGlowingHourGlassMap.delete(key);
+  }
+
+  /**
    * The save data manager will automatically reset variables at the appropriate times, like when a
    * player enters a new room. Use this function to explicitly force the save data manager to reset
    * a specific variable group.
@@ -400,30 +457,5 @@ export class SaveDataManager extends Feature {
       saveData,
       childObjectKey,
     );
-  }
-
-  /**
-   * Removes a previously registered key from the save data manager. This is the opposite of the
-   * "saveDataManager" method.
-   */
-  @Exported
-  public saveDataManagerRemove(key: string): void {
-    if (!isString(key)) {
-      error(
-        `The save data manager requires that keys are strings. You tried to use a key of type: ${typeof key}`,
-      );
-    }
-
-    if (!this.saveDataMap.has(key)) {
-      error(
-        `The save data manager is not managing save data for a key of: ${key}`,
-      );
-    }
-
-    // Delete the save data from the map.
-    this.saveDataMap.delete(key);
-    this.saveDataDefaultsMap.delete(key);
-    this.saveDataConditionalFuncMap.delete(key);
-    this.saveDataGlowingHourGlassMap.delete(key);
   }
 }

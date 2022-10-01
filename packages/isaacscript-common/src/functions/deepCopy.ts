@@ -470,8 +470,13 @@ function deepCopyTSTLClass(
   if (serializationType === SerializationType.SERIALIZE) {
     // Since we are serializing, the new object will be a Lua table.
     newClass = new LuaMap<AnyNotNil, unknown>();
-    // (We do not brand it with the class type because we will not have the associated class
-    // constructor during deserialization, so knowing what type of class it is is pointless.)
+
+    // We brand it with the name of the class so that we can (potentially) run the corresponding
+    // constructor during deserialization.
+    const tstlClassName = getTSTLClassName(tstlClass);
+    if (tstlClassName !== undefined) {
+      newClass.set(SerializationBrand.TSTL_CLASS, tstlClassName);
+    }
   } else {
     newClass = newTSTLClass(tstlClass);
   }

@@ -195,6 +195,7 @@
     "src/maps/roomNameToTypeMap.ts",
     "src/types/AllButFirst.ts",
     "src/types/AllButLast.ts",
+    "src/types/AnyClass.ts",
     "src/types/AnyEntity.ts",
     "src/types/AnyFunction.ts",
     "src/types/AnyGridEntity.ts",

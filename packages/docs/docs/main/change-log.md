@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## October 7th, 2022 (Unreleased)
+
+- Added the following helper types:
+  - `AnyClass`
+
 ## September 30th, 2022
 
 - Added the `@Callback` and `@CustomCallback` method decorators, which automatically subscribe the decorated method to the corresponding callback. This unlocks a new style of Isaac mods where you do not have to manage adding callbacks directly. In order for this to work properly, your mod features should be represented by classes that extend from the `ModFeature` class.

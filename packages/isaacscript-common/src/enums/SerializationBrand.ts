@@ -36,4 +36,10 @@ export enum SerializationBrand {
    * to keep track of the mutation.
    */
   OBJECT_WITH_NUMBER_KEYS = "__TSTL_OBJECT_WITH_NUMBER_KEYS",
+
+  /**
+   * This brand represents a user-defined class other than a `DefaultMap`, `Map`, or `Set`. It will
+   * have a string value that corresponds to the name of the class.
+   */
+  TSTL_CLASS = "__TSTL_CLASS",
 }

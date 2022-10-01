@@ -2,8 +2,10 @@ import { SaveDataKey } from "../../enums/SaveDataKey";
 import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
+import { getTSTLClassName } from "../../functions/tstlClass";
 import { isString } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
+import { AnyClass } from "../../types/AnyClass";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
 import {
   forceSaveDataManagerLoad,
@@ -14,6 +16,7 @@ import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
   saveDataGlowingHourGlassMap,
+  saveDataManagerUserClasses,
   saveDataMap,
 } from "./maps";
 
@@ -278,4 +281,27 @@ export function saveDataManagerRemove(key: string): void {
   saveDataDefaultsMap.delete(key);
   saveDataConditionalFuncMap.delete(key);
   saveDataGlowingHourGlassMap.delete(key);
+}
+
+/**
+ * By default, the save data manager will not be able to serialize classes that are nested inside of
+ * maps, sets, and arrays, because it does not have access to the corresponding class constructor.
+ * If you want to use nested classes in this way, then use this function to register a class
+ * constructor with the save data manager. If the save data manager finds a registered class of the
+ * same name when deserializing, it will automatically run the registered constructor (in addition
+ * to copying over the data fields).
+ *
+ * This function is variadic, which means you can pass as many classes as you want to register.
+ */
+export function saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
+  for (const tstlClass of tstlClasses) {
+    const tstlClassName = getTSTLClassName(tstlClass);
+    if (tstlClassName === undefined) {
+      error(
+        "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
+      );
+    }
+
+    saveDataManagerUserClasses.set(tstlClassName, tstlClass);
+  }
 }
