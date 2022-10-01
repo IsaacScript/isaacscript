@@ -7,9 +7,19 @@ import {
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { hasFlag } from "../../functions/flag";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import {
+  CustomCallback,
+  FireArgs,
+  OptionalArgs,
+} from "../private/CustomCallback";
 
-export class PostSacrifice extends CustomCallbackPlayer<ModCallbackCustom2.POST_SACRIFICE> {
+type T = ModCallbackCustom2.POST_SACRIFICE;
+
+// We don't extend from `CustomCallbackPlayer` since there is a function type overlap with
+// `ModCallbackCustom2.POST_CUSTOM_REVIVE`. (Even though that callback does not extend from
+// `CustomCallbackPlayer`, including this callback's signature in the list of function signatures
+// will cause it to match.)
+export class PostSacrifice extends CustomCallback<T> {
   public override v = {
     level: {
       numSacrifices: 0,
@@ -25,6 +35,30 @@ export class PostSacrifice extends CustomCallbackPlayer<ModCallbackCustom2.POST_
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
       ], // 11
     ];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected override shouldFire(
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean {
+    const [player] = fireArgs;
+    const [callbackPlayerVariant, callbackCharacter] = optionalArgs;
+
+    if (
+      callbackPlayerVariant !== undefined &&
+      callbackPlayerVariant !== player.Variant
+    ) {
+      return false;
+    }
+
+    const character = player.GetPlayerType();
+
+    if (callbackCharacter !== undefined && callbackCharacter !== character) {
+      return false;
+    }
+
+    return true;
   }
 
   // ModCallback.ENTITY_TAKE_DMG (11)

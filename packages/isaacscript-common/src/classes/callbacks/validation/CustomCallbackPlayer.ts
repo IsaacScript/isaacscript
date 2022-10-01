@@ -12,7 +12,6 @@ import {
 type CallbackSignaturePlayer =
   | ((player: EntityPlayer) => void)
   | ((player: EntityPlayer) => int | undefined)
-  | ((player: EntityPlayer, numSacrifices: int) => void)
   | ((
       player: EntityPlayer,
       oldCharacter: PlayerType,

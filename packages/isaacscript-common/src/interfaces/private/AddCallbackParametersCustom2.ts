@@ -554,9 +554,12 @@ export interface AddCallbackParametersCustom2 {
     slotVariant?: SlotVariant,
   ];
 
-  // -------------------------------------------
-
   [ModCallbackCustom2.POST_SPIKES_RENDER]: [
+    callback: (spikes: GridEntitySpikes) => void,
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_SPIKES_UPDATE]: [
     callback: (spikes: GridEntitySpikes) => void,
     variant?: int,
   ];
@@ -565,6 +568,23 @@ export interface AddCallbackParametersCustom2 {
     callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant,
   ];
+
+  [ModCallbackCustom2.POST_TEAR_INIT_VERY_LATE]: [
+    callback: (tear: EntityTear) => void,
+    tearVariant?: TearVariant,
+  ];
+
+  [ModCallbackCustom2.POST_TNT_RENDER]: [
+    callback: (tnt: GridEntityTNT) => void,
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_TNT_UPDATE]: [
+    callback: (tnt: GridEntityTNT) => void,
+    variant?: int,
+  ];
+
+  // -------------------------------------------
 
   [ModCallbackCustom2.PRE_BERSERK_DEATH]: [
     callback: (player: EntityPlayer) => void,

@@ -79,7 +79,11 @@ import { PostSlotInit } from "./classes/callbacks/PostSlotInit";
 import { PostSlotRender } from "./classes/callbacks/PostSlotRender";
 import { PostSlotUpdate } from "./classes/callbacks/PostSlotUpdate";
 import { PostSpikesRender } from "./classes/callbacks/PostSpikesRender";
+import { PostSpikesUpdate } from "./classes/callbacks/PostSpikesUpdate";
 import { PostTearInitLate } from "./classes/callbacks/PostTearInitLate";
+import { PostTearInitVeryLate } from "./classes/callbacks/PostTearInitVeryLate";
+import { PostTNTRender } from "./classes/callbacks/PostTNTRender";
+import { PostTNTUpdate } from "./classes/callbacks/PostTNTUpdate";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
 import { PreItemPickup } from "./classes/callbacks/PreItemPickup";
@@ -179,11 +183,15 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_SLOT_INIT]: PostSlotInit,
   [ModCallbackCustom2.POST_SLOT_RENDER]: PostSlotRender,
   [ModCallbackCustom2.POST_SLOT_UPDATE]: PostSlotUpdate,
+  [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
+  [ModCallbackCustom2.POST_SPIKES_UPDATE]: PostSpikesUpdate,
+  [ModCallbackCustom2.POST_TEAR_INIT_LATE]: PostTearInitLate,
+  [ModCallbackCustom2.POST_TEAR_INIT_VERY_LATE]: PostTearInitVeryLate,
+  [ModCallbackCustom2.POST_TNT_RENDER]: PostTNTRender,
+  [ModCallbackCustom2.POST_TNT_UPDATE]: PostTNTUpdate,
 
   // ----------------
 
-  [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
-  [ModCallbackCustom2.POST_TEAR_INIT_LATE]: PostTearInitLate,
   [ModCallbackCustom2.PRE_BERSERK_DEATH]: PreBerserkDeath,
   [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: PreCustomRevive,
   [ModCallbackCustom2.PRE_ITEM_PICKUP]: PreItemPickup,

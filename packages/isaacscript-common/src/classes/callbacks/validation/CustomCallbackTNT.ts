@@ -5,11 +5,11 @@ import {
   OptionalArgs,
 } from "../../private/CustomCallback";
 
-type CallbackSignatureSpikes = (spikes: GridEntitySpikes) => void;
-type ModCallbackCustomSpikes = MatchingCallbackCustom<CallbackSignatureSpikes>;
+type CallbackSignatureTNT = (tnt: GridEntityTNT) => void;
+type ModCallbackCustomTNT = MatchingCallbackCustom<CallbackSignatureTNT>;
 
-export class CustomCallbackSpikes<
-  T extends ModCallbackCustomSpikes,
+export class CustomCallbackTNT<
+  T extends ModCallbackCustomTNT,
 > extends CustomCallback<T> {
   // eslint-disable-next-line class-methods-use-this
   protected override shouldFire(
@@ -21,8 +21,8 @@ export class CustomCallbackSpikes<
       return true;
     }
 
-    const [spikes] = fireArgs;
-    const variant = spikes.GetVariant();
+    const [tnt] = fireArgs;
+    const variant = tnt.GetVariant();
     return variant === callbackVariant;
   }
 }
