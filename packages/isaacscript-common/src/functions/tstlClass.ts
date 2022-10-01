@@ -1,15 +1,7 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { TSTLClass } from "../types/TSTLClass";
-import { isString, isTable } from "./types";
-
-const VANILLA_TSTL_CLASSES = new Set(["Map", "Set", "WeakMap", "WeakSet"]);
-
-const TSTL_CLASS_METATABLE_KEYS: ReadonlySet<string> = new Set([
-  "____constructor",
-  "__index",
-  "constructor",
-]);
+import { isTable } from "./types";
 
 /**
  * Helper function to get the constructor from an instantiated TypeScriptToLua class, which is
@@ -65,14 +57,6 @@ export function isDefaultMap(
 }
 
 /**
- * Returns whether or not this is a class that is provided by the `isaacscript-common` library, such
- * as a `DefaultMap`.
- */
-export function isIsaacScriptCommonClass(object: unknown): boolean {
-  return isDefaultMap(object);
-}
-
-/**
  * Helper function to determine if a given object is a TypeScriptToLua `Map`.
  *
  * It is not reliable to use the `instanceof` operator to determine this because each Lua module
@@ -98,46 +82,8 @@ export function isTSTLSet(object: unknown): object is Set<AnyNotNil> {
 
 /** TypeScriptToLua classes are Lua tables that have a metatable with a certain amount of keys. */
 export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
-  if (isVanillaTSTLClass(object) || isIsaacScriptCommonClass(object)) {
-    return false;
-  }
-
-  if (!isTable(object)) {
-    return false;
-  }
-
-  const metatable = getmetatable(object);
-  if (metatable === undefined) {
-    return false;
-  }
-
-  let numKeys = 0;
-  for (const [key] of pairs(metatable)) {
-    numKeys++;
-
-    if (!isString(key)) {
-      return false;
-    }
-
-    if (!TSTL_CLASS_METATABLE_KEYS.has(key)) {
-      return false;
-    }
-  }
-
-  return numKeys === TSTL_CLASS_METATABLE_KEYS.size;
-}
-
-/**
- * Returns whether or not this is a class that is provided as part of the TypeScriptToLua
- * transpiler, such as a `Map` or a `Set`.
- */
-export function isVanillaTSTLClass(object: unknown): boolean {
-  const className = getTSTLClassName(object);
-  if (className === undefined) {
-    return false;
-  }
-
-  return VANILLA_TSTL_CLASSES.has(className);
+  const tstlClassName = getTSTLClassName(object);
+  return tstlClassName !== undefined;
 }
 
 /**
