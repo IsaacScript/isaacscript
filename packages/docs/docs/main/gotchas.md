@@ -517,7 +517,7 @@ Here, a TSTL class refers to a TypeScriptToLua class. In other words, when you u
 
 The error message means that the player started a new run or continued an old run, which caused the save data manager to read the "save#.dat" file, which caused it to try and deserialize all the data, and it found a class that it could not instantiate because it has no corresponding constructor.
 
-In order to create a TSTL class, you use the corresponding constructor (e.g. `new Foo()`). Normally, when the save data manager copies a TSTL class, it uses the constructor from the old copy of the object. However, when a TSTL class is nested inside of an array, map, or set, there is no reference object to "get" the constructor from. Thus, it can't copy classes in this situation without knowing about the class beforehand.
+In order to create a TSTL class, you use the corresponding constructor (e.g. `new Foo()`). Normally, when the save data manager copies a TSTL class, it uses the constructor from the old object. However, when a TSTL class is nested inside of an array, map, or set, there is no reference object to "get" the constructor from. Thus, it can't copy classes in this situation without knowing about the class beforehand.
 
 If you want to use nested classes in this way, you can register them with the save data manager immediately after upgrading your mod with the `saveDataManagerRegisterClass` method:
 
