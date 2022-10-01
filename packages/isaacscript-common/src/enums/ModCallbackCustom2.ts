@@ -1,3 +1,12 @@
+/*
+eslint isaacscript/member-ordering: ["warn", {
+  enums: {
+    memberTypes: ["method", "field"],
+    order: "alphabetically"
+  },
+}]
+*/
+
 /** TODO */
 export enum ModCallbackCustom2 {
   POST_AMBUSH_FINISHED,
@@ -69,10 +78,20 @@ export enum ModCallbackCustom2 {
   POST_PRESSURE_PLATE_RENDER,
   POST_PRESSURE_PLATE_UPDATE,
   POST_PROJECTILE_INIT_LATE,
+  POST_PURCHASE,
+  POST_ROCK_RENDER,
+  POST_ROCK_UPDATE,
+  POST_ROOM_CLEAR_CHANGED,
+  POST_SACRIFICE,
+  POST_SLOT_ANIMATION_CHANGED,
+  POST_SLOT_COLLISION,
+  POST_SLOT_DESTROYED,
+  POST_SLOT_INIT,
+  POST_SLOT_RENDER,
+  POST_SLOT_UPDATE,
 
   // ---------------------
 
-  POST_ROOM_CLEAR_CHANGED,
   POST_SPIKES_RENDER,
   POST_TEAR_INIT_LATE,
   PRE_BERSERK_DEATH,

@@ -12,6 +12,12 @@ import {
 type CallbackSignaturePlayer =
   | ((player: EntityPlayer) => void)
   | ((player: EntityPlayer) => int | undefined)
+  | ((player: EntityPlayer, numSacrifices: int) => void)
+  | ((
+      player: EntityPlayer,
+      oldCharacter: PlayerType,
+      newCharacter: PlayerType,
+    ) => void)
   | ((
       player: EntityPlayer,
       amount: float,
@@ -32,11 +38,6 @@ type CallbackSignaturePlayer =
       difference: int,
       oldValue: StatTypeType[T],
       newValue: StatTypeType[T],
-    ) => void)
-  | ((
-      player: EntityPlayer,
-      oldCharacter: PlayerType,
-      newCharacter: PlayerType,
     ) => void);
 
 type ModCallbackCustomPlayer = MatchingCallbackCustom<CallbackSignaturePlayer>;

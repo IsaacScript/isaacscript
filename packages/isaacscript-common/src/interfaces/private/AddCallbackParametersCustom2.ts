@@ -19,12 +19,14 @@ import {
   PoopGridEntityVariant,
   PressurePlateVariant,
   ProjectileVariant,
+  SlotVariant,
   TearVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { AmbushType } from "../../enums/AmbushType";
 import { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { SlotDestructionType } from "../../enums/SlotDestructionType";
 import { StatType } from "../../enums/StatType";
 import { validateInterfaceMatchesEnum } from "../../functions/utils";
 import {
@@ -344,16 +346,19 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_PICKUP_COLLECT]: [
     callback: (pickup: EntityPickup, player: EntityPlayer) => void,
     pickupVariant?: PickupVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_PICKUP_INIT_FIRST]: [
     callback: (pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_PICKUP_INIT_LATE]: [
     callback: (pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_PICKUP_STATE_CHANGED]: [
@@ -363,6 +368,7 @@ export interface AddCallbackParametersCustom2 {
       currentState: int,
     ) => void,
     pickupVariant?: PickupVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_PIT_RENDER]: [
@@ -479,12 +485,76 @@ export interface AddCallbackParametersCustom2 {
     projectileVariant?: ProjectileVariant,
   ];
 
-  // -------------------------------------------
+  [ModCallbackCustom2.POST_PURCHASE]: [
+    callback: (player: EntityPlayer, pickup: EntityPickup) => void,
+    pickupVariant?: PickupVariant,
+    pickupSubType?: int,
+  ];
+
+  [ModCallbackCustom2.POST_ROCK_RENDER]: [
+    callback: (rock: GridEntityRock) => void,
+    // This is not `RockVariant` because `GridEntityRock` can be other grid entity types than just
+    // `GridEntityType.ROCK`.
+    variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_ROCK_UPDATE]: [
+    callback: (rock: GridEntityRock) => void,
+    // This is not `RockVariant` because `GridEntityRock` can be other grid entity types than just
+    // `GridEntityType.ROCK`.
+    variant?: int,
+  ];
 
   [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: [
     callback: (roomClear: boolean) => void,
     roomClear?: boolean,
   ];
+
+  [ModCallbackCustom2.POST_SACRIFICE]: [
+    callback: (player: EntityPlayer, numSacrifices: int) => void,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
+  [ModCallbackCustom2.POST_SLOT_ANIMATION_CHANGED]: [
+    callback: (
+      slot: EntitySlot,
+      previousAnimation: string,
+      currentAnimation: string,
+    ) => void,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbackCustom2.POST_SLOT_COLLISION]: [
+    callback: (slot: EntitySlot, player: EntityPlayer) => void,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbackCustom2.POST_SLOT_DESTROYED]: [
+    callback: (
+      slot: EntitySlot,
+      slotDestructionType: SlotDestructionType,
+    ) => void,
+    slotVariant?: SlotVariant,
+    slotDestructionType?: SlotDestructionType,
+  ];
+
+  [ModCallbackCustom2.POST_SLOT_INIT]: [
+    callback: (slot: EntitySlot) => void,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbackCustom2.POST_SLOT_RENDER]: [
+    callback: (slot: EntitySlot) => void,
+    slotVariant?: SlotVariant,
+  ];
+
+  [ModCallbackCustom2.POST_SLOT_UPDATE]: [
+    callback: (slot: EntitySlot) => void,
+    slotVariant?: SlotVariant,
+  ];
+
+  // -------------------------------------------
 
   [ModCallbackCustom2.POST_SPIKES_RENDER]: [
     callback: (spikes: GridEntitySpikes) => void,

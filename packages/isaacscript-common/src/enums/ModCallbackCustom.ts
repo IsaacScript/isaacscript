@@ -857,9 +857,11 @@ export enum ModCallbackCustom {
    *
    * Use this callback to know when a pickup is added to the player's inventory or health.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `PickupVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {}
@@ -874,9 +876,11 @@ export enum ModCallbackCustom {
    * This callback is useful because pickups will despawn upon leaving the room and respawn upon
    * re-entering the room.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `PickupVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postPickupInitFirst(pickup: EntityPickup): void {}
@@ -890,9 +894,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_PICKUP_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `PickupVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postPickupInitLate(pickup: EntityPickup): void {}
@@ -904,9 +910,11 @@ export enum ModCallbackCustom {
    * Fires from the `POST_PICKUP_UPDATE` callback when a pickup's state has changed from what it was
    * on the previous frame. (In this context, "state" refers to the `EntityPickup.State` field.)
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `PickupVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postPickupStateChanged(

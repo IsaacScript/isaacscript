@@ -67,7 +67,17 @@ import { PostPoopUpdate } from "./classes/callbacks/PostPoopUpdate";
 import { PostPressurePlateRender } from "./classes/callbacks/PostPressurePlateRender";
 import { PostPressurePlateUpdate } from "./classes/callbacks/PostPressurePlateUpdate";
 import { PostProjectileInitLate } from "./classes/callbacks/PostProjectileInitLate";
+import { PostPurchase } from "./classes/callbacks/PostPurchase";
+import { PostRockRender } from "./classes/callbacks/PostRockRender";
+import { PostRockUpdate } from "./classes/callbacks/PostRockUpdate";
 import { PostRoomClearChanged } from "./classes/callbacks/PostRoomClearChanged";
+import { PostSacrifice } from "./classes/callbacks/PostSacrifice";
+import { PostSlotAnimationChanged } from "./classes/callbacks/PostSlotAnimationChanged";
+import { PostSlotCollision } from "./classes/callbacks/PostSlotCollision";
+import { PostSlotDestroyed } from "./classes/callbacks/PostSlotDestroyed";
+import { PostSlotInit } from "./classes/callbacks/PostSlotInit";
+import { PostSlotRender } from "./classes/callbacks/PostSlotRender";
+import { PostSlotUpdate } from "./classes/callbacks/PostSlotUpdate";
 import { PostSpikesRender } from "./classes/callbacks/PostSpikesRender";
 import { PostTearInitLate } from "./classes/callbacks/PostTearInitLate";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
@@ -151,17 +161,27 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
   [ModCallbackCustom2.POST_PLAYER_INIT_FIRST]: PostPlayerInitFirst,
   [ModCallbackCustom2.POST_PLAYER_INIT_LATE]: PostPlayerInitLate,
+  [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
+  [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,
   [ModCallbackCustom2.POST_POOP_RENDER]: PostPoopRender,
   [ModCallbackCustom2.POST_POOP_UPDATE]: PostPoopUpdate,
   [ModCallbackCustom2.POST_PRESSURE_PLATE_RENDER]: PostPressurePlateRender,
   [ModCallbackCustom2.POST_PRESSURE_PLATE_UPDATE]: PostPressurePlateUpdate,
   [ModCallbackCustom2.POST_PROJECTILE_INIT_LATE]: PostProjectileInitLate,
+  [ModCallbackCustom2.POST_PURCHASE]: PostPurchase,
+  [ModCallbackCustom2.POST_ROCK_RENDER]: PostRockRender,
+  [ModCallbackCustom2.POST_ROCK_UPDATE]: PostRockUpdate,
+  [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChanged,
+  [ModCallbackCustom2.POST_SACRIFICE]: PostSacrifice,
+  [ModCallbackCustom2.POST_SLOT_ANIMATION_CHANGED]: PostSlotAnimationChanged,
+  [ModCallbackCustom2.POST_SLOT_COLLISION]: PostSlotCollision,
+  [ModCallbackCustom2.POST_SLOT_DESTROYED]: PostSlotDestroyed,
+  [ModCallbackCustom2.POST_SLOT_INIT]: PostSlotInit,
+  [ModCallbackCustom2.POST_SLOT_RENDER]: PostSlotRender,
+  [ModCallbackCustom2.POST_SLOT_UPDATE]: PostSlotUpdate,
 
   // ----------------
 
-  [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
-  [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,
-  [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChanged,
   [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
   [ModCallbackCustom2.POST_TEAR_INIT_LATE]: PostTearInitLate,
   [ModCallbackCustom2.PRE_BERSERK_DEATH]: PreBerserkDeath,

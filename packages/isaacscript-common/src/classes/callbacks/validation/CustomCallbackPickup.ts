@@ -19,12 +19,23 @@ export class CustomCallbackPickup<
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ): boolean {
-    const [callbackPickupVariant] = optionalArgs;
-    if (callbackPickupVariant === undefined) {
-      return true;
+    const [pickup] = fireArgs;
+    const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
+
+    if (
+      callbackPickupVariant !== undefined &&
+      callbackPickupVariant !== pickup.Variant
+    ) {
+      return false;
     }
 
-    const [pickup] = fireArgs;
-    return pickup.Variant === callbackPickupVariant;
+    if (
+      callbackPickupSubType !== undefined &&
+      callbackPickupSubType !== pickup.SubType
+    ) {
+      return false;
+    }
+
+    return true;
   }
 }

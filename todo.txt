@@ -1,3 +1,5 @@
+- double check to see if sub-type can be added to any callbacks with a variant (not grid entities obviously)
+
 - test save data manager automatic registration
 
 - save data manager uninit

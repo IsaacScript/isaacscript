@@ -10,6 +10,8 @@ import { GridEntityUpdateDetection } from "./classes/features/callbackLogic/Grid
 import { ItemPickupDetection } from "./classes/features/callbackLogic/ItemPickupDetection";
 import { PlayerCollectibleDetection } from "./classes/features/callbackLogic/PlayerCollectibleDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
+import { SlotRenderDetection } from "./classes/features/callbackLogic/SlotRenderDetection";
+import { SlotUpdateDetection } from "./classes/features/callbackLogic/SlotUpdateDetection";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
 import { ISCFeature } from "./enums/ISCFeature";
@@ -31,6 +33,8 @@ export interface ISCFeatureToClass {
   [ISCFeature.ITEM_PICKUP_DETECTION]: ItemPickupDetection;
   [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: PlayerCollectibleDetection;
   [ISCFeature.PLAYER_REORDERED_CALLBACKS]: PlayerReorderedCallbacks;
+  [ISCFeature.SLOT_RENDER_DETECTION]: SlotRenderDetection;
+  [ISCFeature.SLOT_UPDATE_DETECTION]: SlotUpdateDetection;
 
   // Extra features
   [ISCFeature.CUSTOM_GRID_ENTITIES]: CustomGridEntities;
@@ -103,6 +107,14 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
       callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
       callbacks[ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED],
       callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
+    ),
+    [ISCFeature.SLOT_RENDER_DETECTION]: new SlotRenderDetection(
+      callbacks[ModCallbackCustom2.POST_SLOT_RENDER],
+      callbacks[ModCallbackCustom2.POST_SLOT_ANIMATION_CHANGED],
+    ),
+    [ISCFeature.SLOT_UPDATE_DETECTION]: new SlotUpdateDetection(
+      callbacks[ModCallbackCustom2.POST_SLOT_INIT],
+      callbacks[ModCallbackCustom2.POST_SLOT_UPDATE],
     ),
 
     // Extra features
