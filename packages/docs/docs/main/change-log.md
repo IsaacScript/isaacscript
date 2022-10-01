@@ -11,8 +11,12 @@ This page lists the changes to the IsaacScript framework.
 
 ## October 7th, 2022 (Unreleased)
 
+- Deleted the following helper functions:
+  - `isIsaacScriptCommonClass`
+  - `isVanillaTSTLClass`
 - Added the following helper types:
   - `AnyClass`
+  - `HasFunction`
 
 ## September 30th, 2022
 
