@@ -74,7 +74,7 @@ type Serializable<T> =
 
 /**
  * This is mostly copied from the `Serializable` type. The difference is that we want to disallow
- * classes with methods.
+ * functions inside of containers.
  */
 type SerializableInsideArrayOrMap<T> =
   // Allow the trivial case of primitives.
@@ -101,16 +101,12 @@ type SerializableInsideArrayOrMap<T> =
     ? SerializableSet<V>
     : T extends ReadonlySet<infer V>
     ? SerializableReadonlySet<V>
-    : // Disallow objects with functions on them (i.e. classes with methods).
-    // (This has to be after allowing maps and sets, because those have functions inside of them.)
-    T extends HasMethods<T>
-    ? ErrorCustomClassNotSerializable
     : // Disallow functions.
     // (We can only disallow functions when inside of containers, because we want to allow classes
     // with methods attached to normal objects.)
     T extends Function // eslint-disable-line @typescript-eslint/ban-types
     ? FunctionIsNotSerializable
-    : // Finally, allow any other object, as long as the values are themselves serializable.
+    : // Allow any other object, as long as the values are themselves serializable.
       SerializableObject<T>;
 
 type SerializablePrimitive = boolean | string | number | undefined | null;
@@ -130,22 +126,11 @@ type SerializableSet<T> = Set<SerializableInsideArrayOrMap<T>>;
 type SerializableReadonlySet<T> = ReadonlySet<SerializableInsideArrayOrMap<T>>;
 type SerializableObject<T> = { [K in keyof T]: Serializable<T[K]> };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type HasMethods<T> = {} extends {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  [K in keyof T as T[K] extends Function ? K : never]-?: 1;
-}
-  ? never
-  : T;
-
 type FunctionIsNotSerializable =
   "Error: Functions are not serializable. For more information, see: https://isaacscript.github.io/main/gotchas#functions-are-not-serializable";
 
 type ErrorIsaacAPIClassIsNotSerializable =
   "Error: Isaac API classes (such as e.g. `Entity` or `RoomConfig`) are not serializable. For more information, see: https://isaacscript.github.io/main/gotchas#isaac-api-classes-are-not-serializable";
-
-type ErrorCustomClassNotSerializable =
-  "Error: Custom classes with one or more methods are not serializable when inside of an array, map, or set. For more information, see: https://isaacscript.github.io/main/gotchas#custom-classes-are-not-serializable";
 
 // -----
 // Tests
@@ -260,21 +245,5 @@ function test<Persistent, Run, Level>(
   };
 
   // Nested custom classes without methods are allowed.
-  test(saveDataWithNestedClass);
-}
-
-{
-  class Foo {
-    someField = 123;
-    someMethod() {}
-  }
-
-  const saveDataWithNestedClass = {
-    run: {
-      fooMap: new Map<string, Foo>(),
-    },
-  };
-
-  // @ts-expect-error Nested custom classes with methods are not serializable.
   test(saveDataWithNestedClass);
 }

@@ -495,20 +495,6 @@ In most cases, if you are trying to save an Isaac API class, then you are probab
 
 If you absolutely have to work with Isaac API classes, then you could move this field to a `room` sub-object, which is never saved to disk. Otherwise, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
 
-#### Custom classes are not serializable
-
-(This is a compiler error.)
-
-Custom classes with one or more methods are not serializable when inside of an array, map, or set.
-
-In other words, the class cannot be written to the "save#.dat" file when the player saves and quits a run. (This is because the save data manager has no reference to the class constructor, so the deserializer cannot recreate the object. If you really need this functionality, then open an issue on GitHub for the ability to register custom class constructors with the save data manager.)
-
-To work around this problem, you could use a "normal" interface instead of a custom class. This is probably the most straightforward way to fix the problem.
-
-Additionally, a custom class that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the custom class is not nested inside of the array, map, or set.
-
-If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
-
 #### Failed to deep copy a `DefaultMap`
 
 (This is a run-time error, so you will see it in the console or in the "log.txt" file.)
@@ -520,6 +506,22 @@ In other words, the map cannot be written to the "save#.dat" file when the playe
 To work around this problem, you could use a normal `Map` instead of a `DefaultMap`. This is probably the most straightforward way to fix the problem.
 
 Additionally, a `DefaultMap` that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the `DefaultMap` is not nested inside of the array, map, or set.
+
+If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
+
+#### Failed to deep copy a custom class
+
+(This is a run-time error, so you will see it in the console or in the "log.txt" file.)
+
+TODO
+
+Custom classes with one or more methods are not serializable when inside of an array, map, or set.
+
+In other words, the class cannot be written to the "save#.dat" file when the player saves and quits a run. (This is because the save data manager has no reference to the class constructor, so the deserializer cannot recreate the object. If you really need this functionality, then open an issue on GitHub for the ability to register custom class constructors with the save data manager.)
+
+To work around this problem, you could use a "normal" interface instead of a custom class. This is probably the most straightforward way to fix the problem.
+
+Additionally, a custom class that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the custom class is not nested inside of the array, map, or set.
 
 If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
 

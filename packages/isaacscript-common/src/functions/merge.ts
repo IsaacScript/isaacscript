@@ -1,6 +1,7 @@
 import { SerializationBrand } from "../enums/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
+import { AnyClass } from "../types/AnyClass";
 import { isArray } from "./array";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
@@ -18,9 +19,9 @@ import { getTraversalDescription } from "./utils";
  * `merge` takes the values from a new table and recursively merges them into an old object (while
  * performing appropriate deserialization).
  *
- * This function is designed to merge incoming data from the "save#.dat" file into a mod's
- * variables. Merging is useful instead of blowing away a table entirely because mod code often
- * relies on the local table/object references.
+ * This function is used to merge incoming data from the "save#.dat" file into a mod's variables.
+ * Merging is useful instead of blowing away a table entirely because mod code often relies on the
+ * local table/object references.
  *
  * This function always assumes that the new table is serialized data and will attempt to perform
  * deserialization on the objects within. In other words, unlike the `deepCopy` function, the
@@ -35,6 +36,20 @@ import { getTraversalDescription } from "./utils";
  * variables that are no longer used in the code, or copy over old variables of a different type,
  * which can cause run-time errors. In such cases, users will have to manually delete their save
  * data.
+ *
+ * @param oldObject The old object to merge the values into. This can be either a Lua table, a TSTL
+ *                  map, or a TSTL set.
+ * @param newTable The new table to merge the values from. This must be a Lua table that represents
+ *                 serialized data. In other words, it should be created with the `deepCopy`
+ *                 function using `SerializationType.SERIALIZE`.
+ * @param traversalDescription Used to track the current key that we are operating on for debugging
+ *                             purposes. Use a name that corresponds to the name of the merging
+ *                             table.
+ * @param classConstructors Optional. A Lua table that maps the name of a user-defined TSTL class to
+ *                          its corresponding constructor. If the `deepCopy` function finds any
+ *                          user-defined TSTL classes when recursively iterating through the given
+ *                          object, it will use this map to instantiate a new class. Default is an
+ *                          empty Lua table.
  */
 export function merge(
   oldObject:
@@ -43,6 +58,7 @@ export function merge(
     | Set<AnyNotNil>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
+  classConstructors = new LuaMap<string, AnyClass>(),
 ): void {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log(`merge is traversing: ${traversalDescription}`);
@@ -58,16 +74,31 @@ export function merge(
 
   // First, handle the special case of an array with a shallow copy.
   if (isArray(oldObject) && isArray(newTable)) {
-    mergeSerializedArray(oldObject, newTable, traversalDescription);
+    mergeSerializedArray(
+      oldObject,
+      newTable,
+      traversalDescription,
+      classConstructors,
+    );
     return;
   }
 
   // Depending on whether we are working on a Lua table or a TypeScriptToLua object, we need to
   // iterate in a specific way.
   if (isTSTLMap(oldObject) || isTSTLSet(oldObject) || isDefaultMap(oldObject)) {
-    mergeSerializedTSTLObject(oldObject, newTable, traversalDescription);
+    mergeSerializedTSTLObject(
+      oldObject,
+      newTable,
+      traversalDescription,
+      classConstructors,
+    );
   } else {
-    mergeSerializedTable(oldObject, newTable, traversalDescription);
+    mergeSerializedTable(
+      oldObject,
+      newTable,
+      traversalDescription,
+      classConstructors,
+    );
   }
 }
 
@@ -75,6 +106,7 @@ function mergeSerializedArray(
   oldArray: LuaMap<AnyNotNil, unknown>,
   newArray: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log(`merge encountered an array: ${traversalDescription}`);
@@ -86,7 +118,13 @@ function mergeSerializedArray(
   iterateTableInOrder(
     newArray,
     (key, value) => {
-      oldArray.set(key, value);
+      const deserializedValue = deepCopy(
+        value,
+        SerializationType.DESERIALIZE,
+        traversalDescription,
+        classConstructors,
+      );
+      oldArray.set(key, deserializedValue);
     },
     SAVE_DATA_MANAGER_DEBUG,
   );
@@ -96,6 +134,7 @@ function mergeSerializedTSTLObject(
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log(`merge encountered a TSTL object: ${traversalDescription}`);
@@ -127,18 +166,13 @@ function mergeSerializedTSTLObject(
       }
 
       if (isTSTLMap(oldObject) || isDefaultMap(oldObject)) {
-        let valueCopy: unknown;
-        if (isTable(value)) {
-          valueCopy = deepCopy(
-            value,
-            SerializationType.DESERIALIZE,
-            traversalDescription,
-          );
-        } else {
-          valueCopy = value;
-        }
-
-        oldObject.set(keyToUse, valueCopy);
+        const deserializedValue = deepCopy(
+          value,
+          SerializationType.DESERIALIZE,
+          traversalDescription,
+          classConstructors,
+        );
+        oldObject.set(keyToUse, deserializedValue);
       } else if (isTSTLSet(oldObject)) {
         oldObject.add(keyToUse);
       }
@@ -151,6 +185,7 @@ function mergeSerializedTable(
   oldTable: LuaMap<AnyNotNil, unknown>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log(`merge encountered a Lua table: ${traversalDescription}`);
@@ -193,7 +228,7 @@ function mergeSerializedTable(
           key,
           traversalDescription,
         );
-        merge(oldValue, value, traversalDescription);
+        merge(oldValue, value, traversalDescription, classConstructors);
       } else {
         // Base case: copy the value
         oldTable.set(key, value);

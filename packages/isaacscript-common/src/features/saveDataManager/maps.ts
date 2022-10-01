@@ -33,4 +33,4 @@ export const saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
  * End-users can register their classes with the save data manager for proper serialization when
  * contained in nested maps, sets, and arrays.
  */
-export const saveDataManagerUserClasses = new LuaMap<string, AnyClass>();
+export const saveDataManagerClassConstructors = new LuaMap<string, AnyClass>();

@@ -418,21 +418,20 @@ export function isArray(object: unknown): object is unknown[] {
     return false;
   }
 
-  // Second, handle the case of non-numerical keys.
+  // Second, handle the case of an "empty" table.
   const keys = Object.keys(object);
+  if (keys.length === 0) {
+    return true;
+  }
+
+  // Third, handle the case of non-numerical keys.
   const hasAllNumberKeys = keys.every((key) => isNumber(key));
   if (!hasAllNumberKeys) {
     return false;
   }
 
-  // Third, handle the case of an "empty" table.
-  const tableLength = Object.keys(object).length;
-  if (tableLength === 0) {
-    return true;
-  }
-
-  // Third, check for non-contiguous elements. (Lua tables start at an index of 1.)
-  for (let i = 1; i <= tableLength; i++) {
+  // Fourth, check for non-contiguous elements. (Lua tables start at an index of 1.)
+  for (let i = 1; i <= keys.length; i++) {
     const element = object.get(i);
     if (element === undefined) {
       return false;

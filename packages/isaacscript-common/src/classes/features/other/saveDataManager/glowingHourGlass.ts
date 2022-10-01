@@ -8,6 +8,7 @@ import { deepCopy } from "../../../../functions/deepCopy";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
 import { SaveData } from "../../../../interfaces/SaveData";
+import { AnyClass } from "../../../../types/AnyClass";
 
 /**
  * When the Glowing Hour Glass is used, certain save data keys will automatically be restored to a
@@ -80,6 +81,7 @@ export function restoreGlowingHourGlassBackup(
   saveDataMap: LuaMap<string, SaveData>,
   saveDataConditionalFuncMap: LuaMap<string, () => boolean>,
   saveDataGlowingHourGlassMap: LuaMap<string, SaveData>,
+  classConstructors: LuaMap<string, AnyClass>,
 ): void {
   iterateTableInOrder(
     saveDataMap,
@@ -127,6 +129,7 @@ export function restoreGlowingHourGlassBackup(
           childTableBackup as LuaMap<AnyNotNil, unknown>,
           // Append an arbitrary suffix for better error messages.
           `${subscriberName}__glowingHourGlass`,
+          classConstructors,
         );
       }
     },

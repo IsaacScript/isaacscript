@@ -6,7 +6,7 @@ import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
 import { onFirstFloor } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
-import { isString } from "../../../functions/types";
+import { isString, isTable } from "../../../functions/types";
 import { SaveData } from "../../../interfaces/SaveData";
 import { AnyClass } from "../../../types/AnyClass";
 import { Feature } from "../../private/Feature";
@@ -24,6 +24,12 @@ import { saveToDisk } from "./saveDataManager/saveToDisk";
 
 /** "g" stands for "globals". */
 declare let g: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
+
+const NON_USER_DEFINED_CLASS_NAMES: ReadonlySet<string> = new Set([
+  "Map",
+  "Set",
+  "DefaultMap",
+]);
 
 export class SaveDataManager extends Feature {
   /**
@@ -64,7 +70,7 @@ export class SaveDataManager extends Feature {
    * End-users can register their classes with the save data manager for proper serialization when
    * contained in nested maps, sets, and arrays.
    */
-  private userClasses = new LuaMap<string, AnyClass>();
+  private classConstructors = new LuaMap<string, AnyClass>();
 
   // Other variables
   private loadedDataOnThisRun = false;
@@ -108,7 +114,7 @@ export class SaveDataManager extends Feature {
 
     // We want to unconditionally load save data on every new run since there might be persistent
     // data that is not tied to an individual run.
-    loadFromDisk(this.mod, this.saveDataMap);
+    loadFromDisk(this.mod, this.saveDataMap, this.classConstructors);
 
     const gameFrameCount = game.GetFrameCount();
     const isContinued = gameFrameCount !== 0;
@@ -166,6 +172,7 @@ export class SaveDataManager extends Feature {
         this.saveDataMap,
         this.saveDataConditionalFuncMap,
         this.saveDataGlowingHourGlassMap,
+        this.classConstructors,
       );
     } else {
       makeGlowingHourGlassBackup(
@@ -306,6 +313,10 @@ export class SaveDataManager extends Feature {
       );
     }
 
+    // First, recursively look through the new save data for any classes, so we can register them
+    // with the save data manager.
+    this.storeClassConstructorsFromObject(v as LuaMap);
+
     // Add the new save data to the map.
     this.saveDataMap.set(key, v);
 
@@ -334,6 +345,25 @@ export class SaveDataManager extends Feature {
   }
 
   /**
+   * Recursively traverses an object, collecting all of the class constructors that it encounters.
+   */
+  private storeClassConstructorsFromObject(luaMap: LuaMap<AnyNotNil, unknown>) {
+    const tstlClassName = getTSTLClassName(luaMap);
+    if (
+      tstlClassName !== undefined &&
+      !NON_USER_DEFINED_CLASS_NAMES.has(tstlClassName)
+    ) {
+      this.classConstructors.set(tstlClassName, luaMap as unknown as AnyClass);
+    }
+
+    for (const [_key, value] of luaMap) {
+      if (isTable(value)) {
+        this.storeClassConstructorsFromObject(value);
+      }
+    }
+  }
+
+  /**
    * The save data manager will automatically load variables from disk at the appropriate times
    * (i.e. when a new run is started). Use this function to explicitly force the save data manager
    * to load all of its variables from disk immediately.
@@ -343,7 +373,7 @@ export class SaveDataManager extends Feature {
    */
   @Exported
   public saveDataManagerLoad(): void {
-    loadFromDisk(this.mod, this.saveDataMap);
+    loadFromDisk(this.mod, this.saveDataMap, this.classConstructors);
   }
 
   /**
@@ -368,26 +398,27 @@ export class SaveDataManager extends Feature {
   }
 
   /**
-   * By default, the save data manager will not be able to serialize classes that are nested inside
-   * of maps, sets, and arrays, because it does not have access to the corresponding class
-   * constructor. If you want to use nested classes in this way, then use this function to register
-   * a class constructor with the save data manager. If the save data manager finds a registered
-   * class of the same name when deserializing, it will automatically run the registered constructor
-   * (in addition to copying over the data fields).
+   * By default, the save data manager will not be able to serialize/deserialize classes that are
+   * nested inside of maps, sets, and arrays, because it does not have access to the corresponding
+   * class constructor. If you want to use nested classes in this way, then use this function to
+   * register the class constructor with the save data manager. Once registered, the save data
+   * manager will automatically run the constructor when deserializing (in addition to copying over
+   * the data fields).
    *
    * This function is variadic, which means you can pass as many classes as you want to register.
    */
   @Exported
   public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
     for (const tstlClass of tstlClasses) {
-      const tstlClassName = getTSTLClassName(tstlClass);
-      if (tstlClassName === undefined) {
+      const { name } = tstlClass;
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (name === undefined) {
         error(
           "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
         );
       }
 
-      this.userClasses.set(tstlClassName, tstlClass);
+      this.classConstructors.set(name, tstlClass);
     }
   }
 

@@ -3,7 +3,7 @@ import { SerializationType } from "../../enums/SerializationType";
 import { errorIfFeaturesNotInitialized } from "../../featuresInitialized";
 import { deepCopy } from "../../functions/deepCopy";
 import { getTSTLClassName } from "../../functions/tstlClass";
-import { isString } from "../../functions/types";
+import { isString, isTable } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
 import { AnyClass } from "../../types/AnyClass";
 import { SAVE_DATA_MANAGER_FEATURE_NAME } from "./constants";
@@ -16,9 +16,15 @@ import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
   saveDataGlowingHourGlassMap,
-  saveDataManagerUserClasses,
+  saveDataManagerClassConstructors,
   saveDataMap,
 } from "./maps";
+
+const NON_USER_DEFINED_CLASS_NAMES: ReadonlySet<string> = new Set([
+  "Map",
+  "Set",
+  "DefaultMap",
+]);
 
 /**
  * This is the entry point to the save data manager, a system which provides two major features:
@@ -117,12 +123,14 @@ import {
  *                        `EntityPtr`.
  */
 export function saveDataManager<Persistent, Run, Level>(
-  key: string, // This is the overload for the standard case with serializable data.
+  // This is the overload for the standard case with serializable data.
+  key: string,
   v: SaveData<Persistent, Run, Level>,
   conditionalFunc?: () => boolean,
 ): void;
 export function saveDataManager(
-  key: string, // This is the overload for the case when saving data is disabled.
+  // This is the overload for the case when saving data is disabled.
+  key: string,
   v: SaveData,
   conditionalFunc: false,
 ): void;
@@ -144,6 +152,10 @@ export function saveDataManager<Persistent, Run, Level>(
       `The ${SAVE_DATA_MANAGER_FEATURE_NAME} is already managing save data for a key of: ${key}`,
     );
   }
+
+  // First, recursively look through the new save data for any classes, so we can register them with
+  // the save data manager.
+  storeClassConstructorsFromObject(v as LuaMap);
 
   // Add the new save data to the map.
   saveDataMap.set(key, v);
@@ -169,6 +181,26 @@ export function saveDataManager<Persistent, Run, Level>(
   // Store the conditional function for later, if present.
   if (conditionalFunc !== undefined) {
     saveDataConditionalFuncMap.set(key, conditionalFunc);
+  }
+}
+
+/** Recursively traverses an object, collecting all of the class constructors that it encounters. */
+function storeClassConstructorsFromObject(luaMap: LuaMap<AnyNotNil, unknown>) {
+  const tstlClassName = getTSTLClassName(luaMap);
+  if (
+    tstlClassName !== undefined &&
+    !NON_USER_DEFINED_CLASS_NAMES.has(tstlClassName)
+  ) {
+    saveDataManagerClassConstructors.set(
+      tstlClassName,
+      luaMap as unknown as AnyClass,
+    );
+  }
+
+  for (const [_key, value] of luaMap) {
+    if (isTable(value)) {
+      storeClassConstructorsFromObject(value);
+    }
   }
 }
 
@@ -295,13 +327,14 @@ export function saveDataManagerRemove(key: string): void {
  */
 export function saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
   for (const tstlClass of tstlClasses) {
-    const tstlClassName = getTSTLClassName(tstlClass);
-    if (tstlClassName === undefined) {
+    const { name } = tstlClass;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (name === undefined) {
       error(
         "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
       );
     }
 
-    saveDataManagerUserClasses.set(tstlClassName, tstlClass);
+    saveDataManagerClassConstructors.set(name, tstlClass);
   }
 }

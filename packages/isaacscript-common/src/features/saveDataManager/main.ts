@@ -21,6 +21,7 @@ import {
   saveDataConditionalFuncMap,
   saveDataDefaultsMap,
   saveDataGlowingHourGlassMap,
+  saveDataManagerClassConstructors,
   saveDataMap,
 } from "./maps";
 import { saveToDisk } from "./save";
@@ -82,7 +83,7 @@ function postPlayerInit(): void {
 
   // We want to unconditionally load save data on every new run since there might be persistent data
   // that is not tied to an individual run.
-  loadFromDisk(mod, saveDataMap);
+  loadFromDisk(mod, saveDataMap, saveDataManagerClassConstructors);
 
   const gameFrameCount = game.GetFrameCount();
   const isContinued = gameFrameCount !== 0;
@@ -246,6 +247,7 @@ function restoreGlowingHourGlassBackup() {
           childTableBackup as LuaMap<AnyNotNil, unknown>,
           // Append an arbitrary suffix for better error messages.
           `${subscriberName}__glowingHourGlass`,
+          saveDataManagerClassConstructors,
         );
       }
     },
@@ -347,5 +349,5 @@ export function forceSaveDataManagerLoad(): void {
     return;
   }
 
-  loadFromDisk(mod, saveDataMap);
+  loadFromDisk(mod, saveDataMap, saveDataManagerClassConstructors);
 }

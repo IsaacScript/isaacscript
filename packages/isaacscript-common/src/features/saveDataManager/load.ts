@@ -5,6 +5,7 @@ import { merge } from "../../functions/merge";
 import { iterateTableInOrder } from "../../functions/table";
 import { isString, isTable } from "../../functions/types";
 import { SaveData } from "../../interfaces/SaveData";
+import { AnyClass } from "../../types/AnyClass";
 import {
   SAVE_DATA_MANAGER_DEBUG,
   SAVE_DATA_MANAGER_FEATURE_NAME,
@@ -15,6 +16,7 @@ const DEFAULT_MOD_DATA = "{}";
 export function loadFromDisk(
   mod: Mod,
   oldSaveData: LuaMap<string, SaveData>,
+  classConstructors: LuaMap<string, AnyClass>,
 ): void {
   if (!mod.HasData()) {
     // There is no "save#.dat" file for this save slot.
@@ -62,6 +64,7 @@ export function loadFromDisk(
         oldSaveDataForSubscriber as LuaMap<AnyNotNil, unknown>,
         saveData,
         subscriberName,
+        classConstructors,
       );
     },
     SAVE_DATA_MANAGER_DEBUG,

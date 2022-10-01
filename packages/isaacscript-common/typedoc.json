@@ -203,6 +203,7 @@
     "src/types/Constructor.ts",
     "src/types/FunctionTuple.ts",
     "src/types/HasAllEnumKeys.ts",
+    "src/types/HasFunction.ts",
     "src/types/Immutable.ts",
     "src/types/LowercaseKeys.ts",
     "src/types/PickingUpItem.ts",
