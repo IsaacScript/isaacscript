@@ -1,3 +1,8 @@
+- use postPEffectReordered for every callback - why? not sure if necessary
+- use postNewRoomReordered for every callback - otherwise, things fire before post new level
+
+- don't double extend class, override shouldFire with function
+
 - double check to see if sub-type can be added to any callbacks with a variant (not grid entities obviously)
 
 - test save data manager automatic registration

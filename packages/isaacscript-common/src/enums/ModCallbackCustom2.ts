@@ -95,6 +95,7 @@ export enum ModCallbackCustom2 {
   POST_TEAR_INIT_VERY_LATE,
   POST_TNT_RENDER,
   POST_TNT_UPDATE,
+  POST_TRANSFORMATION,
 
   // ---------------------
 

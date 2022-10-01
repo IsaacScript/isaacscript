@@ -84,6 +84,7 @@ import { PostTearInitLate } from "./classes/callbacks/PostTearInitLate";
 import { PostTearInitVeryLate } from "./classes/callbacks/PostTearInitVeryLate";
 import { PostTNTRender } from "./classes/callbacks/PostTNTRender";
 import { PostTNTUpdate } from "./classes/callbacks/PostTNTUpdate";
+import { PostTransformation } from "./classes/callbacks/PostTransformation";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
 import { PreItemPickup } from "./classes/callbacks/PreItemPickup";
@@ -189,6 +190,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
   [ModCallbackCustom2.POST_TEAR_INIT_VERY_LATE]: PostTearInitVeryLate,
   [ModCallbackCustom2.POST_TNT_RENDER]: PostTNTRender,
   [ModCallbackCustom2.POST_TNT_UPDATE]: PostTNTUpdate,
+  [ModCallbackCustom2.POST_TRANSFORMATION]: PostTransformation,
 
   // ----------------
 

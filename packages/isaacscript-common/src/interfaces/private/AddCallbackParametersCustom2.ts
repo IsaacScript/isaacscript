@@ -14,6 +14,7 @@ import {
   LaserVariant,
   PickupVariant,
   PitVariant,
+  PlayerForm,
   PlayerType,
   PlayerVariant,
   PoopGridEntityVariant,
@@ -582,6 +583,15 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_TNT_UPDATE]: [
     callback: (tnt: GridEntityTNT) => void,
     variant?: int,
+  ];
+
+  [ModCallbackCustom2.POST_TRANSFORMATION]: [
+    callback: (
+      player: EntityPlayer,
+      playerForm: PlayerForm,
+      hasForm: boolean,
+    ) => void,
+    playerForm?: PlayerForm,
   ];
 
   // -------------------------------------------
