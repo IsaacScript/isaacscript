@@ -1292,6 +1292,10 @@ export enum ModCallbackCustom {
    * Fires from the `POST_UPDATE` callback when the clear state of a room changes (as according to
    * the `Room.IsClear` method).
    *
+   * For example, this callback fires when you defeat all the enemies in a room (clear --> not
+   * clear) or when you bomb an angel (not clear --> clear). This callback does not fire when you
+   * travel between a cleared room and an uncleared room.
+   *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
    * an optional third argument that will make the callback only fire if the room clear state
    * matches the boolean provided.

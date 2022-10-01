@@ -10,8 +10,6 @@ import {
   OptionalArgs,
 } from "../private/CustomCallback";
 
-const PLAYER_FORMS: readonly PlayerForm[] = getEnumValues(PlayerForm);
-
 type T = ModCallbackCustom2.POST_TRANSFORMATION;
 
 export class PostTransformation extends CustomCallback<T> {
@@ -57,7 +55,7 @@ export class PostTransformation extends CustomCallback<T> {
       player,
     );
 
-    for (const playerForm of PLAYER_FORMS) {
+    for (const playerForm of getEnumValues(PlayerForm)) {
       const hasForm = player.HasPlayerForm(playerForm);
       let storedForm = playerTransformationsMap.get(playerForm);
       if (storedForm === undefined) {
