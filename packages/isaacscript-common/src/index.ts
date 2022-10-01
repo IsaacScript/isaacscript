@@ -188,6 +188,7 @@ export * from "./types/CollectibleIndex";
 export * from "./types/Constructor";
 export * from "./types/FunctionTuple";
 export * from "./types/HasAllEnumKeys";
+export * from "./types/HasFunction";
 export * from "./types/Immutable";
 export * from "./types/LowercaseKeys";
 export * from "./types/PickingUpItem";

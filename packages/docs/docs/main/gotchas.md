@@ -509,20 +509,24 @@ Additionally, a `DefaultMap` that is placed as a field of a normal `run` or `lev
 
 If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
 
-#### Failed to deep copy a custom class
+#### Failed to deserialize a TSTL class
 
 (This is a run-time error, so you will see it in the console or in the "log.txt" file.)
 
-TODO
+Here, a TSTL class refers to a TypeScriptToLua class. In other words, when you use the TypeScript `class` keyword, under the hood TypeScriptToLua will convert that to a special kind of Lua table.
 
-Custom classes with one or more methods are not serializable when inside of an array, map, or set.
+The error message means that the player started a new run or continued an old run, which caused the save data manager to read the "save#.dat" file, which caused it to try and deserialize all the data, and it found a class that it could not instantiate because it has no corresponding constructor.
 
-In other words, the class cannot be written to the "save#.dat" file when the player saves and quits a run. (This is because the save data manager has no reference to the class constructor, so the deserializer cannot recreate the object. If you really need this functionality, then open an issue on GitHub for the ability to register custom class constructors with the save data manager.)
+In order to create a TSTL class, you use the corresponding constructor (e.g. `new Foo()`). Normally, when the save data manager copies a TSTL class, it uses the constructor from the old copy of the object. However, when a TSTL class is nested inside of an array, map, or set, there is no reference object to "get" the constructor from. Thus, it can't copy classes in this situation without knowing about the class beforehand.
 
-To work around this problem, you could use a "normal" interface instead of a custom class. This is probably the most straightforward way to fix the problem.
+If you want to use nested classes in this way, you can register them with the save data manager immediately after upgrading your mod with the `saveDataManagerRegisterClass` method:
 
-Additionally, a custom class that is placed as a field of a normal `run` or `level` sub-object is serializable. Thus, you could refactor your data structure so that the custom class is not nested inside of the array, map, or set.
+```ts
+class Foo {}
+class Bar {}
 
-If you want to give up entirely on saving the data, then you could move this field to a `room` sub-object, which is never saved to disk. Alternatively, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
+const mod = upgradeMod(modVanilla, [ISCFeature.SAVE_DATA_MANAGER]);
+mod.saveDataManagerRegisterClass(Foo, Bar);
+```
 
 <br />
