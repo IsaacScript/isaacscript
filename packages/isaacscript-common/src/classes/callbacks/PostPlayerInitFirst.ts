@@ -1,4 +1,3 @@
-import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getPlayers, isChildPlayer } from "../../functions/playerIndex";
 import { inGenesisRoom } from "../../functions/rooms";
@@ -9,11 +8,10 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom2.POST_
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
-    ];
+    this.callbacksUsed = [];
 
     this.customCallbacksUsed = [
+      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
       [ModCallbackCustom2.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
     ];
   }
@@ -21,7 +19,7 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom2.POST_
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoom = () => {
+  private postNewRoomReordered = () => {
     // When a player uses the Genesis collectible, they will lose all of their collectibles,
     // trinkets, pocket items, and stats, so they will need to be re-initialized like they would be
     // at the beginning of a run. However, in this case, the `POST_PLAYER_INIT_FIRST` callback will

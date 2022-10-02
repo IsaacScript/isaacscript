@@ -21,7 +21,10 @@ export class PostRoomClearChanged extends CustomCallback<T> {
 
     this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
     ];
   }
 
@@ -47,8 +50,8 @@ export class PostRoomClearChanged extends CustomCallback<T> {
     }
   };
 
-  // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
+  // ModCallbackCustom2.POST_NEW_ROOM_REORDERED (19)
+  private postNewRoomReordered = (): void => {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 
