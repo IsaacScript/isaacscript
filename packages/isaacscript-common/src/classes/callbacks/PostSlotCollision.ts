@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { isSlot } from "../../functions/entityTypes";
-import { CustomCallbackSlot } from "./validation/CustomCallbackSlot";
+import { shouldFireSlot } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSlotCollision extends CustomCallbackSlot<ModCallbackCustom2.POST_SLOT_COLLISION> {
+export class PostSlotCollision extends CustomCallback<ModCallbackCustom2.POST_SLOT_COLLISION> {
   constructor() {
     super();
 
@@ -11,6 +12,8 @@ export class PostSlotCollision extends CustomCallbackSlot<ModCallbackCustom2.POS
       [ModCallback.PRE_PLAYER_COLLISION, [this.prePlayerCollision]], // 33
     ];
   }
+
+  protected override shouldFire = shouldFireSlot;
 
   // ModCallback.PRE_PLAYER_COLLISION (33)
   private prePlayerCollision = (

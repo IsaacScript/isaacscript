@@ -20,10 +20,11 @@ import {
   willPlayerRevive,
 } from "../../functions/revive";
 import { inBossRoomOf } from "../../functions/rooms";
+import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerFatalDamage extends CustomCallbackPlayer<ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE> {
+export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE> {
   public override v = {
     run: {
       /** Needed to detect if Glass Cannon will kill the player or not. */
@@ -42,6 +43,8 @@ export class PostPlayerFatalDamage extends CustomCallbackPlayer<ModCallbackCusto
       [ModCallback.PRE_USE_ITEM, [this.preUseItemBible, CollectibleType.BIBLE]], // 23
     ];
   }
+
+  protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.ENTITY_TAKE_DMG (11)
   // EntityType.PLAYER (1)

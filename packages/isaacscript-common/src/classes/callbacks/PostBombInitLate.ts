@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallbackBomb } from "./validation/CustomCallbackBomb";
+import { shouldFireBomb } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostBombInitLate extends CustomCallbackBomb<ModCallbackCustom2.POST_BOMB_INIT_LATE> {
+export class PostBombInitLate extends CustomCallback<ModCallbackCustom2.POST_BOMB_INIT_LATE> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
@@ -16,6 +17,8 @@ export class PostBombInitLate extends CustomCallbackBomb<ModCallbackCustom2.POST
       [ModCallback.POST_BOMB_UPDATE, [this.postBombUpdate]], // 58
     ];
   }
+
+  protected override shouldFire = shouldFireBomb;
 
   // ModCallback.POST_BOMB_UPDATE (58)
   private postBombUpdate = (bomb: EntityBomb): void => {

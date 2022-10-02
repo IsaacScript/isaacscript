@@ -51,11 +51,13 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_BOMB_EXPLODED]: [
     callback: (bomb: EntityBomb) => void,
     bombVariant?: BombVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_BOMB_INIT_LATE]: [
     callback: (bomb: EntityBomb) => void,
     bombVariant?: BombVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_BONE_SWING]: [
@@ -107,6 +109,7 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_EFFECT_INIT_LATE]: [
     callback: (effect: EntityEffect) => void,
     effectVariant?: EffectVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]: [
@@ -116,6 +119,7 @@ export interface AddCallbackParametersCustom2 {
       currentState: int,
     ) => void,
     effectVariant?: EffectVariant,
+    subType?: int,
   ];
 
   // - Co-op babies cannot turn into Esau Jr, so it does not make sense to filter by
@@ -127,6 +131,7 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: [
     callback: (familiar: EntityFamiliar) => void,
     familiarVariant?: FamiliarVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]: [
@@ -136,6 +141,7 @@ export interface AddCallbackParametersCustom2 {
       currentState: int,
     ) => void,
     familiarVariant?: FamiliarVariant,
+    subType?: int,
   ];
 
   // - Co-op babies cannot turn into Esau Jr, so it does not make sense to filter by
@@ -178,6 +184,7 @@ export interface AddCallbackParametersCustom2 {
     gridEntityVariant?: int,
     entityType?: EntityType,
     entityVariant?: int,
+    entitySubType?: int,
   ];
 
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]: [
@@ -197,6 +204,7 @@ export interface AddCallbackParametersCustom2 {
     gridEntityTypeCustom?: GridEntityType,
     entityType?: EntityType,
     entityVariant?: int,
+    entitySubType?: int,
   ];
 
   [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]: [
@@ -313,11 +321,13 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: [
     callback: (knife: EntityKnife) => void,
     knifeVariant?: KnifeVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_LASER_INIT_LATE]: [
     callback: (laser: EntityLaser) => void,
     laserVariant?: LaserVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
@@ -330,12 +340,14 @@ export interface AddCallbackParametersCustom2 {
     callback: (npc: EntityNPC) => void,
     entityType?: EntityType,
     variant?: int,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_NPC_STATE_CHANGED]: [
     callback: (npc: EntityNPC, previousState: int, currentState: int) => void,
     entityType?: EntityType,
     variant?: int,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]: [
@@ -489,20 +501,18 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_PURCHASE]: [
     callback: (player: EntityPlayer, pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant,
-    pickupSubType?: int,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_ROCK_RENDER]: [
     callback: (rock: GridEntityRock) => void,
-    // This is not `RockVariant` because `GridEntityRock` can be other grid entity types than just
-    // `GridEntityType.ROCK`.
+    gridEntityType?: GridEntityType,
     variant?: int,
   ];
 
   [ModCallbackCustom2.POST_ROCK_UPDATE]: [
     callback: (rock: GridEntityRock) => void,
-    // This is not `RockVariant` because `GridEntityRock` can be other grid entity types than just
-    // `GridEntityType.ROCK`.
+    gridEntityType?: GridEntityType,
     variant?: int,
   ];
 
@@ -524,11 +534,13 @@ export interface AddCallbackParametersCustom2 {
       currentAnimation: string,
     ) => void,
     slotVariant?: SlotVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_SLOT_COLLISION]: [
     callback: (slot: EntitySlot, player: EntityPlayer) => void,
     slotVariant?: SlotVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_SLOT_DESTROYED]: [
@@ -537,22 +549,25 @@ export interface AddCallbackParametersCustom2 {
       slotDestructionType: SlotDestructionType,
     ) => void,
     slotVariant?: SlotVariant,
-    slotDestructionType?: SlotDestructionType,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_SLOT_INIT]: [
     callback: (slot: EntitySlot) => void,
     slotVariant?: SlotVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_SLOT_RENDER]: [
     callback: (slot: EntitySlot) => void,
     slotVariant?: SlotVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_SLOT_UPDATE]: [
     callback: (slot: EntitySlot) => void,
     slotVariant?: SlotVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_SPIKES_RENDER]: [
@@ -568,11 +583,13 @@ export interface AddCallbackParametersCustom2 {
   [ModCallbackCustom2.POST_TEAR_INIT_LATE]: [
     callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_TEAR_INIT_VERY_LATE]: [
     callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom2.POST_TNT_RENDER]: [

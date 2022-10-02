@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallbackTear } from "./validation/CustomCallbackTear";
+import { shouldFireTear } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostTearInitLate extends CustomCallbackTear<ModCallbackCustom2.POST_TEAR_INIT_LATE> {
+export class PostTearInitLate extends CustomCallback<ModCallbackCustom2.POST_TEAR_INIT_LATE> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
@@ -16,6 +17,8 @@ export class PostTearInitLate extends CustomCallbackTear<ModCallbackCustom2.POST
       [ModCallback.POST_TEAR_UPDATE, [this.postTearUpdate]], // 40
     ];
   }
+
+  protected override shouldFire = shouldFireTear;
 
   // ModCallback.POST_TEAR_UPDATE (40)
   private postTearUpdate = (tear: EntityTear): void => {

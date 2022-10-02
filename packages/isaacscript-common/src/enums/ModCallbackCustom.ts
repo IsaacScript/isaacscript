@@ -1,10 +1,13 @@
 /*
-eslint isaacscript/member-ordering: ["warn", {
-  enums: {
-    memberTypes: ["method", "field"],
-    order: "alphabetically"
+eslint isaacscript/member-ordering: [
+  "warn",
+  {
+    enums: {
+      memberTypes: ["method", "field"],
+      order: "alphabetically",
+    },
   },
-}]
+]
 */
 
 /**
@@ -20,9 +23,9 @@ export enum ModCallbackCustom {
    * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is started.
    * Specifically, this happens on the first frame that `Room.IsAmbushDone` is true.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the `AmbushType`
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `AmbushType` provided.
    *
    * ```ts
    * function postAmbushFinished(ambushType: AmbushType): void {}
@@ -34,9 +37,9 @@ export enum ModCallbackCustom {
    * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is completed.
    * Specifically, this happens on the first frame that `Room.IsAmbushActive` is true.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the `AmbushType`
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `AmbushType` provided.
    *
    * ```ts
    * function postAmbushStarted(ambushType: AmbushType): void {}
@@ -47,9 +50,11 @@ export enum ModCallbackCustom {
   /**
    * Fires on the `POST_BOMB_UPDATE` callback that it explodes.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `BombVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postBombDetonated(bomb: EntityBomb): void {}
@@ -63,9 +68,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_BOMB_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `BombVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postBombInitLate(bomb: EntityBomb): void {}
@@ -86,9 +93,9 @@ export enum ModCallbackCustom {
    * Fires from the `POST_PICKUP_UPDATE` callback when a collectible goes from a non-zero sub-type
    * to `CollectibleType.NULL` (i.e. an "empty" pedestal).
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if the pedestal changed from
-   * the `CollectibleType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the
+   *   pedestal changed from the `CollectibleType` provided.
    *
    * ```ts
    * function postCollectibleEmpty(
@@ -108,9 +115,9 @@ export enum ModCallbackCustom {
    * upon re-entering the room. Additionally, when playing as Tainted Isaac, the `POST_PICKUP_INIT`
    * callback will fire every time the item shifts.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `CollectibleType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CollectibleType` provided.
    *
    * ```ts
    * function postCollectibleInitLate(collectible: EntityPickupCollectible): void {}
@@ -144,9 +151,9 @@ export enum ModCallbackCustom {
    * `player.AnimateCollectible(CollectibleTypeCustom.COLLECTIBLE_MY_REVIVAL_ITEM);`, otherwise the
    * animation for a 1-Up will play.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if the revival type matches
-   * the one provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the
+   *   revival type matches the one provided.
    *
    * ```ts
    * function postCustomRevive(player: EntityPlayer, revivalType: int): void {}
@@ -158,9 +165,9 @@ export enum ModCallbackCustom {
    * Fires from the `EFFECT_POST_UPDATE` callback after a player has entered the range of a Dice
    * Room floor.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `DiceFloorSubType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `DiceFloorSubType` provided.
    *
    * ```ts
    * function postDiceRoomActivated(
@@ -174,9 +181,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a door exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postDoorRender(door: GridEntityDoor): void {}
@@ -187,9 +194,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a door exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postDoorUpdate(door: GridEntityDoor): void {}
@@ -203,9 +210,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_EFFECT_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `EffectVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EffectVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postEffectInitLate(effect: EntityEffect): void {}
@@ -217,9 +226,11 @@ export enum ModCallbackCustom {
    * Fires from the `POST_EFFECT_UPDATE` callback when an effect's state has changed from what it
    * was on the previous frame. (In this context, "state" refers to the `EntityEffect.State` field.)
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `EffectVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EffectVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postEffectStateChanged(
@@ -247,9 +258,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_TEAR_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `FamiliarVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postFamiliarInitLate(familiar: EntityFamiliar): void {}
@@ -262,9 +275,11 @@ export enum ModCallbackCustom {
    * was on the previous frame. (In this context, "state" refers to the `EntityFamiliar.State`
    * field.)
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `FamiliarVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postFamiliarStateChanged(
@@ -387,6 +402,8 @@ export enum ModCallbackCustom {
    *   colliding entity matches the `EntityType` provided.
    * - You can provide an optional sixth argument that will make the callback only fire if the
    *   colliding entity matches the variant provided.
+   * - You can provide an optional seventh argument that will make the callback only fire if the
+   *   colliding entity matches the sub-type provided.
    *
    * ```ts
    * function postGridEntityCollision(
@@ -401,10 +418,10 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_BROKEN` callback, but only fires for grid entities created
    * with the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the custom
-   * `GridEntityType` provided. (Custom grid entities do not have variants, so there is no need for
-   * an optional argument to filter by variant.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the custom `GridEntityType` provided. (Custom grid entities do not have variants, so
+   *   there is no need for an optional argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomBroken(
@@ -427,6 +444,8 @@ export enum ModCallbackCustom {
    *   colliding entity matches the `EntityType` provided.
    * - You can provide an optional fifth argument that will make the callback only fire if the
    *   colliding entity matches the variant provided.
+   * - You can provide an optional sixth argument that will make the callback only fire if the
+   *   colliding entity matches the sub-type provided.
    *
    * ```ts
    * function postGridEntityCustomCollision(
@@ -442,10 +461,10 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_INIT` callback, but only fires for grid entities created with
    * the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the custom
-   * `GridEntityType` provided. (Custom grid entities do not have variants, so there is no need for
-   * an optional argument to filter by variant.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the custom `GridEntityType` provided. (Custom grid entities do not have variants, so
+   *   there is no need for an optional argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomInit(
@@ -460,10 +479,10 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_REMOVE` callback, but only fires for grid entities created
    * with the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the custom
-   * `GridEntityType` provided. (Custom grid entities do not have variants, so there is no need for
-   * an optional argument to filter by variant.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the custom `GridEntityType` provided. (Custom grid entities do not have variants, so
+   *   there is no need for an optional argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomRemove(
@@ -478,10 +497,10 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_RENDER` callback, but only fires for grid entities created
    * with the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the custom
-   * `GridEntityType` provided. (Custom grid entities do not have variants, so there is no need for
-   * an optional argument to filter by variant.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the custom `GridEntityType` provided. (Custom grid entities do not have variants, so
+   *   there is no need for an optional argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomRender(
@@ -496,10 +515,10 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_STATE_CHANGED` callback, but only fires for grid entities
    * created with the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the custom
-   * `GridEntityType` provided. (Custom grid entities do not have variants, so there is no need for
-   * an optional argument to filter by variant.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the custom `GridEntityType` provided. (Custom grid entities do not have variants, so
+   *   there is no need for an optional argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomStateChanged(
@@ -516,10 +535,10 @@ export enum ModCallbackCustom {
    * The same as the `POST_GRID_ENTITY_UPDATE` callback, but only fires for grid entities created
    * with the `spawnCustomGridEntity` helper function.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the custom
-   * `GridEntityType` provided. (Custom grid entities do not have variants, so there is no need for
-   * an optional argument to filter by variant.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the custom `GridEntityType` provided. (Custom grid entities do not have variants, so
+   *   there is no need for an optional argument to filter by variant.)
    *
    * ```ts
    * function postGridEntityCustomUpdate(
@@ -672,9 +691,9 @@ export enum ModCallbackCustom {
    * Note that this callback will not fire if the active item is both discharged and swapped for
    * another item / discharged on the same frame, like in the case of Alabaster Box.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `CollectibleType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CollectibleType` provided.
    *
    * ```ts
    * function postItemDischarge(
@@ -714,9 +733,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_KNIFE_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `KnifeVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postKnifeInitLate(knife: EntityKnife): void {}
@@ -730,9 +751,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_LASER_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `LaserVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional forth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postLaserInitLate(laser: EntityLaser): void {}
@@ -799,6 +822,8 @@ export enum ModCallbackCustom {
    *   matches the `EntityType` provided.
    * - You can provide an optional fourth argument that will make the callback only fire if it
    *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postNPCInitLate(npc: EntityNPC): void {}
@@ -815,6 +840,8 @@ export enum ModCallbackCustom {
    *   matches the `EntityType` provided.
    * - You can provide an optional fourth argument that will make the callback only fire if it
    *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postNPCStateChanged(
@@ -929,9 +956,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a pit exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postPitRender(pit: GridEntityPit): void {}
@@ -942,9 +969,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a pit exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postPitUpdate(pit: GridEntityPit): void {}
@@ -1014,9 +1041,9 @@ export enum ModCallbackCustom {
    * those items cause separate player entities to be created. Use the `POST_FLIP` and
    * `POST_ESAU_JR` callbacks to handle those situations.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `PlayerVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
    *
    * ```ts
    * function postPlayerChangeType(
@@ -1033,9 +1060,9 @@ export enum ModCallbackCustom {
    * what it was on the previous frame, or when the active items change, or when the build is
    * rerolled.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if the collectible matches the
-   * `CollectibleType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the
+   *   collectible matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerCollectibleAdded(
@@ -1051,9 +1078,9 @@ export enum ModCallbackCustom {
    * what it was on the previous frame, or when the active items change, or when the build is
    * rerolled.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if the collectible matches the
-   * `CollectibleType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the
+   *   collectible matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerCollectibleRemoved(
@@ -1181,9 +1208,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a poop exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postPoopRender(poop: GridEntityPoop): void {}
@@ -1194,9 +1221,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a poop exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postPoopUpdate(poop: GridEntityPoop): void {}
@@ -1207,9 +1234,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a pressure plate exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postPressurePlateRender(pressurePlate: GridEntityPressurePlate): void {}
@@ -1220,9 +1247,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a pressure plate exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postPressurePlateUpdate(pressurePlate: GridEntityPressurePlate): void {}
@@ -1236,9 +1263,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_PROJECTILE_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if matches the
-   * `ProjectileVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if matches
+   *   the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postProjectileInitLate(projectile: EntityProjectile): void {}
@@ -1265,9 +1294,11 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a rock exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postRockRender(rock: GridEntityRock): void {}
@@ -1278,9 +1309,11 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a rock exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postRockUpdate(rock: GridEntityRock): void {}
@@ -1296,9 +1329,9 @@ export enum ModCallbackCustom {
    * clear) or when you bomb an angel statue (not clear --> clear). This callback does not fire when
    * you travel between a cleared room and an uncleared room.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if the room clear state
-   * matches the boolean provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the room
+   *   clear state matches the boolean provided.
    *
    * ```ts
    * function postRoomClearChanged(roomClear: boolean): void {}
@@ -1325,9 +1358,11 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback when a slot entity's animation changes.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `SlotVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postSlotAnimationChanged(slot: Entity): void {}
@@ -1343,10 +1378,13 @@ export enum ModCallbackCustom {
    * colliding with it on every frame. Thus, you should only perform actions in this callback under
    * certain conditions, like if the slot entity is playing the "Idle" animation, and so on.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `SlotVariant` provided. (Only players will cause this callback to fire, so there is no need for
-   * an optional argument to filter by `EntityType`.)
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   * - (Only players will cause this callback to fire, so there is no need for an optional argument
+   *   to filter by `EntityType`.)
    *
    * ```ts
    * function postSlotCollision(
@@ -1365,7 +1403,7 @@ export enum ModCallbackCustom {
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    * - You can provide an optional fourth argument that will make the callback only fire if it
-   *   matches the `SlotDestructionType` provided.
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postSlotDestroyed(slot: Entity, slotDestructionType: SlotDestructionType): void {}
@@ -1381,9 +1419,11 @@ export enum ModCallbackCustom {
    * - in the `POST_UPDATE` callback (if the entity appeared mid-way through the room, like when a
    *   Wheel of Fortune card is used)
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `SlotVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postSlotInit(slot: Entity): void {}
@@ -1394,9 +1434,11 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a slot entity exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `SlotVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postSlotRender(slot: Entity): void {}
@@ -1407,9 +1449,11 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a slot entity exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `SlotVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postSlotUpdate(slot: Entity): void {}
@@ -1420,9 +1464,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that spikes exist.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postSpikesRender(spikes: GridEntitySpikes): void {}
@@ -1433,9 +1477,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that spikes exist.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postSpikesUpdate(spikes: GridEntitySpikes): void {}
@@ -1450,9 +1494,11 @@ export enum ModCallbackCustom {
    * This callback is useful because many attributes cannot be set or retrieved properly in the
    * normal `POST_TEAR_INIT` callback.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `TearVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postTearInitLate(tear: EntityTear): void {}
@@ -1466,9 +1512,11 @@ export enum ModCallbackCustom {
    *
    * This callback is useful because Incubus tears are not distinguishable until the second frame.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `TearVariant` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
    *
    * ```ts
    * function postTearInitVeryLate(tear: EntityTear): void {}
@@ -1479,9 +1527,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_RENDER` callback on every frame that a TNT exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postTNTRender(tnt: GridEntityTNT): void {}
@@ -1492,9 +1540,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from the `POST_UPDATE` callback on every frame that a TNT exists.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the variant
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the variant provided.
    *
    * ```ts
    * function postTNTUpdate(tnt: GridEntityTNT): void {}
@@ -1508,9 +1556,9 @@ export enum ModCallbackCustom {
    *
    * Note that this callback will only fire once per Forgotten/Soul pair.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the `PlayerForm`
-   * provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerForm` provided.
    *
    * ```ts
    * function postTransformation(
@@ -1525,9 +1573,9 @@ export enum ModCallbackCustom {
   /**
    * Fires from `ENTITY_TAKE_DMG` callback when a Wishbone or a Walnut breaks.
    *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method, you can provide
-   * an optional third argument that will make the callback only fire if it matches the
-   * `TrinketType` provided.
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TrinketType` provided.
    *
    * ```ts
    * function postTrinketBreak(

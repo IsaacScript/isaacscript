@@ -4,6 +4,7 @@ import {
   defaultMapGetPlayer,
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
+import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
@@ -22,6 +23,8 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POS
       [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
     ];
   }
+
+  protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private postPEffectUpdate = (player: EntityPlayer): void => {

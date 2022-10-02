@@ -16,24 +16,17 @@ export class PostGridEntityRemove extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
+  ): boolean => {
     const [_gridIndex, gridEntityType, variant] = fireArgs;
     const [callbackGridEntityType, callbackVariant] = optionalArgs;
 
-    if (
-      callbackGridEntityType !== undefined &&
-      callbackGridEntityType !== gridEntityType
-    ) {
-      return false;
-    }
-
-    if (callbackVariant !== undefined && callbackVariant !== variant) {
-      return false;
-    }
-
-    return true;
-  }
+    return (
+      (callbackGridEntityType === undefined ||
+        callbackGridEntityType === gridEntityType) &&
+      (callbackVariant === undefined || callbackVariant === variant)
+    );
+  };
 }

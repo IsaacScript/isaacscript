@@ -106,7 +106,7 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
     [ISCFeature.PLAYER_REORDERED_CALLBACKS]: new PlayerReorderedCallbacks(
       callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
       callbacks[ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED],
-      callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
+      callbacks[ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED],
     ),
     [ISCFeature.SLOT_RENDER_DETECTION]: new SlotRenderDetection(
       callbacks[ModCallbackCustom2.POST_SLOT_RENDER],

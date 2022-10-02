@@ -6,11 +6,12 @@ import {
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { SlotDestructionType } from "../../enums/SlotDestructionType";
-import { CustomCallbackSlot } from "./validation/CustomCallbackSlot";
+import { shouldFireSlot } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
 const PRIZE_GAME_FRAME_DELAY_UNTIL_REMOVAL = 3;
 
-export class PostSlotDestroyed extends CustomCallbackSlot<ModCallbackCustom2.POST_SLOT_DESTROYED> {
+export class PostSlotDestroyed extends CustomCallback<ModCallbackCustom2.POST_SLOT_DESTROYED> {
   public override v = {
     room: {
       brokenSlots: new Set<PtrHash>(),
@@ -35,6 +36,8 @@ export class PostSlotDestroyed extends CustomCallbackSlot<ModCallbackCustom2.POS
       ],
     ];
   }
+
+  protected override shouldFire = shouldFireSlot;
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   // EntityType.SLOT (6)

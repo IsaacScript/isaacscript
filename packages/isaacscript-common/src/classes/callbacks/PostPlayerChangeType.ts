@@ -5,11 +5,12 @@ import {
   defaultMapGetPlayer,
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
+import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerChangeType extends CustomCallbackPlayer<ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE> {
+export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE> {
   public override v = {
     run: {
       playersCharacterMap: new DefaultMap<
@@ -27,6 +28,8 @@ export class PostPlayerChangeType extends CustomCallbackPlayer<ModCallbackCustom
       [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffect]], // 4
     ];
   }
+
+  protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private postPEffect = (player: EntityPlayer) => {

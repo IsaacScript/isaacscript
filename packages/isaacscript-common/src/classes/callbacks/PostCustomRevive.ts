@@ -16,16 +16,15 @@ export class PostCustomRevive extends CustomCallback<ModCallbackCustom2.POST_CUS
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
-    const [callbackRevivalType] = optionalArgs;
-    if (callbackRevivalType === undefined) {
-      return true;
-    }
-
+  ): boolean => {
     const [_player, revivalType] = fireArgs;
-    return revivalType === callbackRevivalType;
-  }
+    const [callbackRevivalType] = optionalArgs;
+
+    return (
+      callbackRevivalType === undefined || revivalType === callbackRevivalType
+    );
+  };
 }

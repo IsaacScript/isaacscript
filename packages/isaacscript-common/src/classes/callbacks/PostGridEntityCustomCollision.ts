@@ -16,38 +16,27 @@ export class PostGridEntityCustomCollision extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
+  ): boolean => {
     const [_gridEntity, gridEntityTypeCustom, entity] = fireArgs;
     const [
       callbackGridEntityTypeCustom,
       callbackEntityType,
       callbackEntityVariant,
+      callbackEntitySubType,
     ] = optionalArgs;
 
-    if (
-      callbackGridEntityTypeCustom !== undefined &&
-      callbackGridEntityTypeCustom !== gridEntityTypeCustom
-    ) {
-      return false;
-    }
-
-    if (
-      callbackEntityType !== undefined &&
-      callbackEntityType !== entity.Type
-    ) {
-      return false;
-    }
-
-    if (
-      callbackEntityVariant !== undefined &&
-      callbackEntityVariant !== entity.Variant
-    ) {
-      return false;
-    }
-
-    return true;
-  }
+    return (
+      (callbackGridEntityTypeCustom === undefined ||
+        callbackGridEntityTypeCustom === gridEntityTypeCustom) &&
+      (callbackEntityType === undefined ||
+        callbackEntityType === entity.Type) &&
+      (callbackEntityVariant === undefined ||
+        callbackEntityVariant === entity.Variant) &&
+      (callbackEntitySubType === undefined ||
+        callbackEntitySubType === entity.SubType)
+    );
+  };
 }

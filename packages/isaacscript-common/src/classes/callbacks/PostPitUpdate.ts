@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getPits } from "../../functions/gridEntitiesSpecific";
-import { CustomCallbackPit } from "./validation/CustomCallbackPit";
+import { shouldFirePit } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPitUpdate extends CustomCallbackPit<ModCallbackCustom2.POST_PIT_UPDATE> {
+export class PostPitUpdate extends CustomCallback<ModCallbackCustom2.POST_PIT_UPDATE> {
   constructor() {
     super();
 
@@ -11,6 +12,8 @@ export class PostPitUpdate extends CustomCallbackPit<ModCallbackCustom2.POST_PIT
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
     ];
   }
+
+  protected override shouldFire = shouldFirePit;
 
   // ModCallback.POST_UPDATE (1)
   private postUpdate = (): void => {

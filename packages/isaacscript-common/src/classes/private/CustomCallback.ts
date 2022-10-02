@@ -65,14 +65,11 @@ export abstract class CustomCallback<
 
   /**
    * This method needs to be overwritten for any callback that has optional filtration arguments.
+   * See "shouldFire.ts" for methods tailored to specific kinds of callbacks.
    */
   // eslint-disable-next-line class-methods-use-this
-  protected shouldFire(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected shouldFire: (
     fireArgs: FireArgs<T>,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
-    return true;
-  }
+  ) => boolean = () => true;
 }

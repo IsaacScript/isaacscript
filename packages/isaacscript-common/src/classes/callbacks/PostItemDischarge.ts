@@ -25,7 +25,8 @@ import {
 
 type T = ModCallbackCustom2.POST_ITEM_DISCHARGE;
 
-// Unfortunately, we cannot use a nested `DefaultMap` here.
+// Unfortunately, we cannot use a nested `DefaultMap` here due to limitations with the save data
+// manager.
 type ActiveSlotToCollectibleTypeMap = Map<ActiveSlot, CollectibleType>;
 type ActiveSlotToChargeMap = Map<ActiveSlot, int>;
 
@@ -60,18 +61,18 @@ export class PostItemDischarge extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
-    const [callbackCollectibleType] = optionalArgs;
-    if (callbackCollectibleType === undefined) {
-      return true;
-    }
-
+  ): boolean => {
     const [_player, collectibleType] = fireArgs;
-    return collectibleType === callbackCollectibleType;
-  }
+    const [callbackCollectibleType] = optionalArgs;
+
+    return (
+      callbackCollectibleType === undefined ||
+      callbackCollectibleType === collectibleType
+    );
+  };
 
   // ModCallback.POST_PEFFECT (4)
   private postPEffectUpdate = (player: EntityPlayer) => {

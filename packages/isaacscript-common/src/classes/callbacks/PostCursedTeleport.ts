@@ -15,10 +15,11 @@ import {
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
 import { getPlayerNumHitsRemaining } from "../../functions/players";
+import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.POST_CURSED_TELEPORT> {
+export class PostCursedTeleport extends CustomCallback<ModCallbackCustom2.POST_CURSED_TELEPORT> {
   public override v = {
     run: {
       playersDamageFrameMap: new Map<
@@ -31,6 +32,8 @@ export class PostCursedTeleport extends CustomCallbackPlayer<ModCallbackCustom2.
       numSacrifices: 0,
     },
   };
+
+  protected override shouldFire = shouldFirePlayer;
 
   constructor() {
     super();

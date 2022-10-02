@@ -8,12 +8,13 @@ import { getPlayerIndex } from "../../functions/playerIndex";
 import { getPlayerStat } from "../../functions/playerStats";
 import { isBoolean, isNumber } from "../../functions/types";
 import { isVector, vectorEquals } from "../../functions/vector";
+import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { PossibleStatType } from "../../types/PossibleStatType";
 import { DefaultMap } from "../DefaultMap";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerChangeStat extends CustomCallbackPlayer<ModCallbackCustom2.POST_PLAYER_CHANGE_STAT> {
+export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom2.POST_PLAYER_CHANGE_STAT> {
   public override v = {
     run: {
       playersStatMap: new DefaultMap<
@@ -30,6 +31,8 @@ export class PostPlayerChangeStat extends CustomCallbackPlayer<ModCallbackCustom
       [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffect]], // 4
     ];
   }
+
+  protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private postPEffect = (player: EntityPlayer) => {

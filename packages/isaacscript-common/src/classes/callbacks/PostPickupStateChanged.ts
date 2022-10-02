@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { shouldFirePickup } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
-import { CustomCallbackPickup } from "./validation/CustomCallbackPickup";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPickupStateChanged extends CustomCallbackPickup<ModCallbackCustom2.POST_PICKUP_STATE_CHANGED> {
+export class PostPickupStateChanged extends CustomCallback<ModCallbackCustom2.POST_PICKUP_STATE_CHANGED> {
   public override v = {
     run: {
       stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
@@ -17,6 +18,8 @@ export class PostPickupStateChanged extends CustomCallbackPickup<ModCallbackCust
       [ModCallback.POST_PICKUP_UPDATE, [this.postPickupUpdate]], // 35
     ];
   }
+
+  protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   private postPickupUpdate = (pickup: EntityPickup) => {

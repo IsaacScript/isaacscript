@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallbackFamiliar } from "./validation/CustomCallbackFamiliar";
+import { shouldFireFamiliar } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostFamiliarInitLate extends CustomCallbackFamiliar<ModCallbackCustom2.POST_FAMILIAR_INIT_LATE> {
+export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom2.POST_FAMILIAR_INIT_LATE> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
@@ -16,6 +17,8 @@ export class PostFamiliarInitLate extends CustomCallbackFamiliar<ModCallbackCust
       [ModCallback.POST_FAMILIAR_UPDATE, [this.postFamiliarUpdate]],
     ]; // 6
   }
+
+  protected override shouldFire = shouldFireFamiliar;
 
   // ModCallback.POST_FAMILIAR_UPDATE (6)
   private postFamiliarUpdate = (familiar: EntityFamiliar): void => {

@@ -3,9 +3,10 @@ import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { isChildPlayer } from "../../functions/playerIndex";
 import { getPlayerNumHitsRemaining } from "../../functions/players";
 import { willPlayerRevive } from "../../functions/revive";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import { shouldFirePlayer } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PreBerserkDeath extends CustomCallbackPlayer<ModCallbackCustom2.PRE_BERSERK_DEATH> {
+export class PreBerserkDeath extends CustomCallback<ModCallbackCustom2.PRE_BERSERK_DEATH> {
   constructor() {
     super();
 
@@ -13,6 +14,8 @@ export class PreBerserkDeath extends CustomCallbackPlayer<ModCallbackCustom2.PRE
       [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
     ];
   }
+
+  protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private postPEffectUpdate = (player: EntityPlayer): void => {

@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getPoops } from "../../functions/gridEntitiesSpecific";
-import { CustomCallbackPoop } from "./validation/CustomCallbackPoop";
+import { shouldFirePoop } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPoopUpdate extends CustomCallbackPoop<ModCallbackCustom2.POST_POOP_UPDATE> {
+export class PostPoopUpdate extends CustomCallback<ModCallbackCustom2.POST_POOP_UPDATE> {
   constructor() {
     super();
 
@@ -11,6 +12,8 @@ export class PostPoopUpdate extends CustomCallbackPoop<ModCallbackCustom2.POST_P
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
     ];
   }
+
+  protected override shouldFire = shouldFirePoop;
 
   // ModCallback.POST_UPDATE (1)
   private postUpdate = (): void => {

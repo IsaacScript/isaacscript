@@ -16,50 +16,33 @@ export class PostGridEntityCollision extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
+  ): boolean => {
     const [gridEntity, entity] = fireArgs;
     const [
       callbackGridEntityType,
       callbackGridEntityVariant,
       callbackEntityType,
       callbackEntityVariant,
+      callbackEntitySubType,
     ] = optionalArgs;
 
     const gridEntityType = gridEntity.GetType();
-
-    if (
-      callbackGridEntityType !== undefined &&
-      callbackGridEntityType !== gridEntityType
-    ) {
-      return false;
-    }
-
     const gridEntityVariant = gridEntity.GetVariant();
 
-    if (
-      callbackGridEntityVariant !== undefined &&
-      callbackGridEntityVariant !== gridEntityVariant
-    ) {
-      return false;
-    }
-
-    if (
-      callbackEntityType !== undefined &&
-      callbackEntityType !== entity.Type
-    ) {
-      return false;
-    }
-
-    if (
-      callbackEntityVariant !== undefined &&
-      callbackEntityVariant !== entity.Variant
-    ) {
-      return false;
-    }
-
-    return true;
-  }
+    return (
+      (callbackGridEntityType === undefined ||
+        callbackGridEntityType === gridEntityType) &&
+      (callbackGridEntityVariant === undefined ||
+        callbackGridEntityVariant === gridEntityVariant) &&
+      (callbackEntityType === undefined ||
+        callbackEntityType === entity.Type) &&
+      (callbackEntityVariant === undefined ||
+        callbackEntityVariant === entity.Variant) &&
+      (callbackEntitySubType === undefined ||
+        callbackEntitySubType === entity.SubType)
+    );
+  };
 }

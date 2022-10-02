@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getSpikes } from "../../functions/gridEntitiesSpecific";
-import { CustomCallbackSpikes } from "./validation/CustomCallbackSpikes";
+import { shouldFireSpikes } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSpikesRender extends CustomCallbackSpikes<ModCallbackCustom2.POST_SPIKES_RENDER> {
+export class PostSpikesRender extends CustomCallback<ModCallbackCustom2.POST_SPIKES_RENDER> {
   constructor() {
     super();
 
@@ -11,6 +12,8 @@ export class PostSpikesRender extends CustomCallbackSpikes<ModCallbackCustom2.PO
       [ModCallback.POST_RENDER, [this.postRender]], // 2
     ];
   }
+
+  protected override shouldFire = shouldFireSpikes;
 
   // ModCallback.POST_RENDER (2)
   private postRender = (): void => {

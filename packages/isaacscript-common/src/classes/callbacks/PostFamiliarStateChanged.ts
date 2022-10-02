@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { shouldFireFamiliar } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
-import { CustomCallbackFamiliar } from "./validation/CustomCallbackFamiliar";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostFamiliarStateChanged extends CustomCallbackFamiliar<ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED> {
+export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED> {
   public override v = {
     run: {
       stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),
@@ -17,6 +18,8 @@ export class PostFamiliarStateChanged extends CustomCallbackFamiliar<ModCallback
       [ModCallback.POST_FAMILIAR_UPDATE, [this.postFamiliarUpdate]],
     ]; // 6
   }
+
+  protected override shouldFire = shouldFireFamiliar;
 
   // ModCallback.POST_FAMILIAR_UPDATE (6)
   private postFamiliarUpdate = (familiar: EntityFamiliar): void => {

@@ -31,18 +31,18 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
-    const [callbackCollectibleType] = optionalArgs;
-    if (callbackCollectibleType === undefined) {
-      return true;
-    }
-
+  ): boolean => {
     const [_collectible, oldCollectibleType] = fireArgs;
-    return oldCollectibleType === callbackCollectibleType;
-  }
+    const [callbackCollectibleType] = optionalArgs;
+
+    return (
+      callbackCollectibleType === undefined ||
+      callbackCollectibleType === oldCollectibleType
+    );
+  };
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   // PickupVariant.COLLECTIBLE (100)

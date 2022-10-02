@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallbackLaser } from "./validation/CustomCallbackLaser";
+import { shouldFireLaser } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostLaserInitLate extends CustomCallbackLaser<ModCallbackCustom2.POST_LASER_INIT_LATE> {
+export class PostLaserInitLate extends CustomCallback<ModCallbackCustom2.POST_LASER_INIT_LATE> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
@@ -16,6 +17,8 @@ export class PostLaserInitLate extends CustomCallbackLaser<ModCallbackCustom2.PO
       [ModCallback.POST_LASER_UPDATE, [this.postLaserUpdate]], // 51
     ];
   }
+
+  protected override shouldFire = shouldFireLaser;
 
   // ModCallback.POST_LASER_UPDATE (48)
   private postLaserUpdate = (laser: EntityLaser) => {

@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallbackPickup } from "./validation/CustomCallbackPickup";
+import { shouldFirePickup } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPickupInitLate extends CustomCallbackPickup<ModCallbackCustom2.POST_PICKUP_INIT_LATE> {
+export class PostPickupInitLate extends CustomCallback<ModCallbackCustom2.POST_PICKUP_INIT_LATE> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
@@ -16,6 +17,8 @@ export class PostPickupInitLate extends CustomCallbackPickup<ModCallbackCustom2.
       [ModCallback.POST_PICKUP_UPDATE, [this.postPickupUpdate]], // 35
     ];
   }
+
+  protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   private postPickupUpdate = (pickup: EntityPickup) => {

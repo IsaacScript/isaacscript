@@ -2,9 +2,10 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getPlayers, isChildPlayer } from "../../functions/playerIndex";
 import { inGenesisRoom } from "../../functions/rooms";
-import { CustomCallbackPlayer } from "./validation/CustomCallbackPlayer";
+import { shouldFirePlayer } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerInitFirst extends CustomCallbackPlayer<ModCallbackCustom2.POST_PLAYER_INIT_FIRST> {
+export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom2.POST_PLAYER_INIT_FIRST> {
   constructor() {
     super();
 
@@ -16,6 +17,8 @@ export class PostPlayerInitFirst extends CustomCallbackPlayer<ModCallbackCustom2
       [ModCallbackCustom2.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
     ];
   }
+
+  protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoom = () => {

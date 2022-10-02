@@ -1,10 +1,13 @@
 /*
-eslint isaacscript/member-ordering: ["warn", {
-  enums: {
-    memberTypes: ["method", "field"],
-    order: "alphabetically"
+eslint isaacscript/member-ordering: [
+  "warn",
+  {
+    enums: {
+      memberTypes: ["method", "field"],
+      order: "alphabetically",
+    },
   },
-}]
+]
 */
 
 /** TODO */

@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getClosestPlayer } from "../../functions/players";
-import { CustomCallbackPickup } from "./validation/CustomCallbackPickup";
+import { shouldFirePickup } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPickupCollect extends CustomCallbackPickup<ModCallbackCustom2.POST_PICKUP_COLLECT> {
+export class PostPickupCollect extends CustomCallback<ModCallbackCustom2.POST_PICKUP_COLLECT> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),
@@ -17,6 +18,8 @@ export class PostPickupCollect extends CustomCallbackPickup<ModCallbackCustom2.P
       [ModCallback.POST_PICKUP_RENDER, [this.postPickupRender]], // 36
     ];
   }
+
+  protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_RENDER (36)
   private postPickupRender = (pickup: EntityPickup) => {

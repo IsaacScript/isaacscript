@@ -1,9 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getRocks } from "../../functions/gridEntitiesSpecific";
-import { CustomCallbackRock } from "./validation/CustomCallbackRock";
+import { shouldFireRock } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostRockRender extends CustomCallbackRock<ModCallbackCustom2.POST_ROCK_RENDER> {
+export class PostRockRender extends CustomCallback<ModCallbackCustom2.POST_ROCK_RENDER> {
   constructor() {
     super();
 
@@ -11,6 +12,8 @@ export class PostRockRender extends CustomCallbackRock<ModCallbackCustom2.POST_R
       [ModCallback.POST_RENDER, [this.postRender]], // 2
     ];
   }
+
+  protected override shouldFire = shouldFireRock;
 
   // ModCallback.POST_RENDER (2)
   private postRender = (): void => {

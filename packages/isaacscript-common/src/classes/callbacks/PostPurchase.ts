@@ -33,29 +33,20 @@ export class PostPurchase extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
+  ): boolean => {
     const [_player, pickup] = fireArgs;
     const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
 
-    if (
-      callbackPickupVariant !== undefined &&
-      callbackPickupVariant !== pickup.Variant
-    ) {
-      return false;
-    }
-
-    if (
-      callbackPickupSubType !== undefined &&
-      callbackPickupSubType !== pickup.SubType
-    ) {
-      return false;
-    }
-
-    return true;
-  }
+    return (
+      (callbackPickupVariant === undefined ||
+        callbackPickupVariant === pickup.Variant) &&
+      (callbackPickupSubType === undefined ||
+        callbackPickupSubType === pickup.SubType)
+    );
+  };
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private postPEffectUpdate = (player: EntityPlayer) => {

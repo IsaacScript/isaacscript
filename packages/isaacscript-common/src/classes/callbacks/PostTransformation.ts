@@ -35,18 +35,17 @@ export class PostTransformation extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
-    const [callbackPlayerForm] = optionalArgs;
-    if (callbackPlayerForm === undefined) {
-      return true;
-    }
-
+  ): boolean => {
     const [_player, playerForm] = fireArgs;
-    return playerForm === callbackPlayerForm;
-  }
+    const [callbackPlayerForm] = optionalArgs;
+
+    return (
+      callbackPlayerForm === undefined || callbackPlayerForm === playerForm
+    );
+  };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {

@@ -1,14 +1,17 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getDoors } from "../../functions/doors";
-import { CustomCallbackDoor } from "./validation/CustomCallbackDoor";
+import { shouldFireDoor } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostDoorUpdate extends CustomCallbackDoor<ModCallbackCustom2.POST_DOOR_UPDATE> {
+export class PostDoorUpdate extends CustomCallback<ModCallbackCustom2.POST_DOOR_UPDATE> {
   constructor() {
     super();
 
     this.callbacksUsed = [[ModCallback.POST_UPDATE, [this.postUpdate]]]; // 1
   }
+
+  protected override shouldFire = shouldFireDoor;
 
   // ModCallback.POST_UPDATE (1)
   private postUpdate = (): void => {

@@ -1,9 +1,15 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
-import { CustomCallback } from "../private/CustomCallback";
+import {
+  CustomCallback,
+  FireArgs,
+  OptionalArgs,
+} from "../private/CustomCallback";
 
-export class PostRoomClearChanged extends CustomCallback<ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED> {
+type T = ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED;
+
+export class PostRoomClearChanged extends CustomCallback<T> {
   public override v = {
     room: {
       cleared: false,
@@ -18,6 +24,17 @@ export class PostRoomClearChanged extends CustomCallback<ModCallbackCustom2.POST
       [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
     ];
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [roomClear] = fireArgs;
+    const [callbackRoomClear] = optionalArgs;
+
+    return callbackRoomClear === undefined || callbackRoomClear === roomClear;
+  };
 
   // ModCallback.POST_UPDATE (1)
   private postUpdate = (): void => {

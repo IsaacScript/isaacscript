@@ -33,18 +33,18 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override shouldFire(
+  protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
-  ): boolean {
-    const [callbackDiceFloorSubType] = optionalArgs;
-    if (callbackDiceFloorSubType === undefined) {
-      return true;
-    }
-
+  ): boolean => {
     const [_player, diceFloorSubType] = fireArgs;
-    return diceFloorSubType === callbackDiceFloorSubType;
-  }
+    const [callbackDiceFloorSubType] = optionalArgs;
+
+    return (
+      callbackDiceFloorSubType === undefined ||
+      diceFloorSubType === callbackDiceFloorSubType
+    );
+  };
 
   // ModCallback.POST_EFFECT_UPDATE (55)
   // EffectVariant.DICE_FLOOR (76)

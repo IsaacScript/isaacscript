@@ -2,9 +2,10 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { getAmbushType } from "../../functions/ambush";
-import { CustomCallbackAmbush } from "./validation/CustomCallbackAmbush";
+import { shouldFireAmbush } from "../../shouldFire";
+import { CustomCallback } from "../private/CustomCallback";
 
-export class PostAmbushFinished extends CustomCallbackAmbush<ModCallbackCustom2.POST_AMBUSH_FINISHED> {
+export class PostAmbushFinished extends CustomCallback<ModCallbackCustom2.POST_AMBUSH_FINISHED> {
   public override v = {
     room: {
       ambushDone: false,
@@ -18,6 +19,8 @@ export class PostAmbushFinished extends CustomCallbackAmbush<ModCallbackCustom2.
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
     ];
   }
+
+  protected override shouldFire = shouldFireAmbush;
 
   private postUpdate = (): void => {
     if (this.v.room.ambushDone) {

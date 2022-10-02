@@ -1,3 +1,5 @@
+- rewrite shouldFire
+
 - use postPEffectReordered for every callback - why? not sure if necessary
 - use postNewRoomReordered for every callback - otherwise, things fire before post new level
 
