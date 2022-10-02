@@ -50,7 +50,7 @@ export class PostPurchase extends CustomCallback<T> {
     );
   };
 
-  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const isHoldingItem = player.IsHoldingItem();
     const wasHoldingItemOnLastFrame = defaultMapGetPlayer(

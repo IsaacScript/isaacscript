@@ -29,7 +29,7 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POS
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer): void => {
     const effects = player.GetEffects();
     const newNumHolyMantles = effects.GetCollectibleEffectNum(

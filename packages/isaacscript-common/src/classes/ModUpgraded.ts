@@ -6,7 +6,7 @@ import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
 import { getFeatures } from "../features";
 import { getTime } from "../functions/debugFunctions";
-import { getParentFunctionDescription } from "../functions/log";
+import { getParentFunctionDescription, log } from "../functions/log";
 import {
   getTSTLClassConstructor,
   getTSTLClassName,
@@ -205,6 +205,46 @@ export class ModUpgraded implements Mod {
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
     callbackClass.removeSubscriber(callback);
     this.uninitFeature(callbackClass);
+  }
+
+  /**
+   * Logs every custom callback and extra feature that is currently enabled. Useful for debugging or
+   * profiling.
+   */
+  public logUsedFeatures(): void {
+    for (const [modCallbackCustomString, callbackClass] of Object.entries(
+      this.callbacks,
+    )) {
+      if (callbackClass.numConsumers === 0) {
+        continue;
+      }
+
+      const modCallbackCustom = tonumber(modCallbackCustomString);
+      if (modCallbackCustom === undefined) {
+        error(
+          "Failed to convert an index on the callbacks object to a number.",
+        );
+      }
+
+      log(
+        `- ModCallbackCustom.${ModCallbackCustom[modCallbackCustom]} (${modCallbackCustom})`,
+      );
+    }
+
+    for (const [iscFeatureString, featureClass] of Object.entries(
+      this.features,
+    )) {
+      if (featureClass.numConsumers === 0) {
+        continue;
+      }
+
+      const iscFeature = tonumber(iscFeatureString);
+      if (iscFeature === undefined) {
+        error("Failed to convert an index on the features object to a number.");
+      }
+
+      log(`- ISCFeature.${ISCFeature[iscFeature]} (${iscFeature})`);
+    }
   }
 
   // ----------------------

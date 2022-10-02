@@ -50,7 +50,7 @@ export class PostRoomClearChanged extends CustomCallback<T> {
     }
   };
 
-  // ModCallbackCustom2.POST_NEW_ROOM_REORDERED
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoomReordered = (): void => {
     const room = game.GetRoom();
     const roomClear = room.IsClear();

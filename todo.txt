@@ -1,13 +1,4 @@
-- don't double extend class, override shouldFire with function
-
-- double check to see if sub-type can be added to any callbacks with a variant (not grid entities obviously)
-
-- test save data manager automatic registration
-
-- save data manager uninit
-- helper function to get get how custom callbacks are currently turned on
 - isaacscript-cli in lua
-- pass object into upgradeMod that allows conditional features - IsaacScriptCommonFeature enum
 - "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 
@@ -54,8 +45,6 @@ lint failure, complete sentences:
 
 (no trailing period in the middle)
 
-
-lint: make "//  Foo" illegal
 
 lint failure:
 

@@ -30,7 +30,7 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom2.PO
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectReordered = (player: EntityPlayer) => {
     // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument. If
     // we don't differentiate between The Forgotten and The Soul, the callback will fire every time

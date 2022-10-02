@@ -34,7 +34,7 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom2.POST
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
     const storedCharacter = defaultMapGetPlayer(

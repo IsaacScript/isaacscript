@@ -128,7 +128,7 @@ export class PostItemDischarge extends CustomCallback<T> {
     );
   }
 
-  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const activeItemMap = defaultMapGetPlayer(
       this.v.run.playersActiveItemMap,

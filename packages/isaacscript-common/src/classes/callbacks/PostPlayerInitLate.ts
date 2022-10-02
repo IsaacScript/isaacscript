@@ -27,7 +27,7 @@ export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom2.POST_P
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     if (!setHasPlayer(this.v.run.playersFiredSet, player)) {
       setAddPlayer(this.v.run.playersFiredSet, player);

@@ -4,6 +4,7 @@ import {
 } from "../functions/tstlClass";
 import { isTable } from "../functions/types";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
+import { AnyFunction } from "../types/AnyFunction";
 import { ModUpgraded } from "./ModUpgraded";
 
 export const ADD_CALLBACK_ARGS_KEY = "__addCallbackArgs";
@@ -39,13 +40,13 @@ export class ModFeature {
     }
 
     const modFeatureConstructor = constructor as ModFeatureConstructor;
-    addDecoratedCallbacks(mod, modFeatureConstructor);
-    addDecoratedCallbacksCustom(mod, modFeatureConstructor);
-    registerSaveDataManager(mod, this);
+    checkAddDecoratedCallbacks(mod, modFeatureConstructor);
+    checkAddDecoratedCallbacksCustom(mod, modFeatureConstructor);
+    checkRegisterSaveDataManager(mod, this);
   }
 }
 
-function addDecoratedCallbacks(
+function checkAddDecoratedCallbacks(
   mod: ModUpgraded,
   modFeatureConstructor: ModFeatureConstructor,
 ) {
@@ -61,7 +62,7 @@ function addDecoratedCallbacks(
   }
 }
 
-function addDecoratedCallbacksCustom(
+function checkAddDecoratedCallbacksCustom(
   mod: ModUpgraded,
   modFeatureConstructor: ModFeatureConstructor,
 ) {
@@ -78,7 +79,10 @@ function addDecoratedCallbacksCustom(
   }
 }
 
-function registerSaveDataManager(mod: ModUpgraded, modFeature: ModFeature) {
+function checkRegisterSaveDataManager(
+  mod: ModUpgraded,
+  modFeature: ModFeature,
+) {
   // Do nothing if this class does not have any variables.
   const { v } = modFeature as unknown as Record<string, unknown>;
   if (v === undefined) {
@@ -100,5 +104,5 @@ function registerSaveDataManager(mod: ModUpgraded, modFeature: ModFeature) {
   }
 
   const tstlClassName = getTSTLClassName(modFeature);
-  (saveDataManager as (...args: unknown[]) => void)(tstlClassName, v);
+  (saveDataManager as AnyFunction)(tstlClassName, v);
 }
