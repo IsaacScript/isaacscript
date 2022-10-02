@@ -1,4 +1,3 @@
-import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import { StatType } from "../../enums/StatType";
 import { isBitSet128 } from "../../functions/bitSet128";
@@ -27,15 +26,18 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom2.POST
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffect]], // 4
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        [this.postPEffectReordered],
+      ],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffect = (player: EntityPlayer) => {
+  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectReordered = (player: EntityPlayer) => {
     // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument. If
     // we don't differentiate between The Forgotten and The Soul, the callback will fire every time
     // the player switches between the two.

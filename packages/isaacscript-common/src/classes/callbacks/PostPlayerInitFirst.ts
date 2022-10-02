@@ -8,8 +8,6 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom2.POST_
   constructor() {
     super();
 
-    this.callbacksUsed = [];
-
     this.customCallbacksUsed = [
       [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
       [ModCallbackCustom2.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],

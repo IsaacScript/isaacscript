@@ -1,4 +1,3 @@
-import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import {
   setAddPlayer,
@@ -18,15 +17,18 @@ export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom2.POST_P
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        [this.postPEffectUpdateReordered],
+      ],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallback.POST_PEFFECT_UPDATE
-  private postPEffectUpdate = (player: EntityPlayer) => {
+  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectUpdateReordered = (player: EntityPlayer) => {
     if (!setHasPlayer(this.v.run.playersFiredSet, player)) {
       setAddPlayer(this.v.run.playersFiredSet, player);
       this.fire(player);

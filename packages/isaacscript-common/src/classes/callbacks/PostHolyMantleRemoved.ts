@@ -1,4 +1,4 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import {
   defaultMapGetPlayer,
@@ -19,15 +19,18 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POS
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        [this.postPEffectUpdateReordered],
+      ],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer): void => {
+  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
     const effects = player.GetEffects();
     const newNumHolyMantles = effects.GetCollectibleEffectNum(
       CollectibleType.HOLY_MANTLE,

@@ -1,4 +1,4 @@
-import { ModCallback, PlayerType } from "isaac-typescript-definitions";
+import { PlayerType } from "isaac-typescript-definitions";
 import { postPlayerChangeTypeFire } from "../../callbacks/subscriptions/postPlayerChangeType";
 import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
 import {
@@ -24,15 +24,18 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom2.POST
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffect]], // 4
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        [this.postPEffectReordered],
+      ],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffect = (player: EntityPlayer) => {
+  // ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
     const storedCharacter = defaultMapGetPlayer(
       this.v.run.playersCharacterMap,
