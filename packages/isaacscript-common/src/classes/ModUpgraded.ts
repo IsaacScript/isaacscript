@@ -11,7 +11,6 @@ import {
   getTSTLClassName,
 } from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
-import { AddCallbackParametersCustom2 } from "../interfaces/private/AddCallbackParametersCustom2";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { AnyFunction } from "../types/AnyFunction";
 import { FunctionTuple } from "../types/FunctionTuple";
@@ -182,7 +181,7 @@ export class ModUpgraded implements Mod {
   /** Adds a callback in the new callback system format. This method is only temporary. */
   public AddCallbackCustom2<T extends ModCallbackCustom>(
     modCallbackCustom: T,
-    ...args: AddCallbackParametersCustom2[T]
+    ...args: AddCallbackParametersCustom[T]
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
@@ -198,7 +197,7 @@ export class ModUpgraded implements Mod {
    */
   public RemoveCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
-    callback: AddCallbackParametersCustom2[T][0],
+    callback: AddCallbackParametersCustom[T][0],
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.

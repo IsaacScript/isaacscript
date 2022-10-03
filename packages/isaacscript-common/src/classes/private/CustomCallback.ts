@@ -1,13 +1,13 @@
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallbackParametersCustom2";
+import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
 import { AllButFirst } from "../../types/private/AllButFirst";
 import { Feature } from "./Feature";
 
 export type FireArgs<T extends ModCallbackCustom> = Parameters<
-  AddCallbackParametersCustom2[T][0]
+  AddCallbackParametersCustom[T][0]
 >;
 export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
-  AddCallbackParametersCustom2[T]
+  AddCallbackParametersCustom[T]
 >;
 
 /**
@@ -17,9 +17,9 @@ export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
 export abstract class CustomCallback<
   T extends ModCallbackCustom,
 > extends Feature {
-  private subscriptions: Array<AddCallbackParametersCustom2[T]> = [];
+  private subscriptions: Array<AddCallbackParametersCustom[T]> = [];
 
-  public addSubscriber(...args: AddCallbackParametersCustom2[T]): void {
+  public addSubscriber(...args: AddCallbackParametersCustom[T]): void {
     this.subscriptions.push(args);
   }
 
@@ -27,7 +27,7 @@ export abstract class CustomCallback<
    * If the submitted function does not match any of the existing subscriptions, this method will do
    * nothing.
    */
-  public removeSubscriber(callback: AddCallbackParametersCustom2[T][0]): void {
+  public removeSubscriber(callback: AddCallbackParametersCustom[T][0]): void {
     const subscriptionIndexMatchingCallback = this.subscriptions.findIndex(
       (subscription) => {
         const subscriptionCallback = subscription[0];
@@ -41,7 +41,7 @@ export abstract class CustomCallback<
 
   public fire = (
     ...fireArgs: FireArgs<T>
-  ): ReturnType<AddCallbackParametersCustom2[T][0]> => {
+  ): ReturnType<AddCallbackParametersCustom[T][0]> => {
     for (const [callback, ...optionalArgsArray] of this.subscriptions) {
       // The TypeScript compiler is bugged with the spread operator here, as it converts the
       // optional arguments to an array instead of a tuple.
@@ -52,7 +52,7 @@ export abstract class CustomCallback<
         // signature.
         const callbackCasted = callback as (
           ...args: FireArgs<T>
-        ) => ReturnType<AddCallbackParametersCustom2[T][0]>;
+        ) => ReturnType<AddCallbackParametersCustom[T][0]>;
         const value = callbackCasted(...fireArgs);
         if (value !== undefined) {
           return value;
@@ -60,7 +60,7 @@ export abstract class CustomCallback<
       }
     }
 
-    return undefined as ReturnType<AddCallbackParametersCustom2[T][0]>;
+    return undefined as ReturnType<AddCallbackParametersCustom[T][0]>;
   };
 
   /**
