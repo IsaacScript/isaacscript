@@ -15,9 +15,10 @@ import {
 import { initCustomCallbacks } from "../initCustomCallbacks";
 import { initFeatures } from "../initFeatures";
 import { patchErrorFunction } from "../patchErrorFunctions";
-import { loadShaderCrashFix } from "../shaderCrashFix";
 import { AnyFunction } from "../types/AnyFunction";
 import { UnionToIntersection } from "../types/UnionToIntersection";
+
+const MANDATORY_FEATURES: readonly ISCFeature[] = [ISCFeature.SHADER_CRASH_FIX];
 
 /**
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
@@ -65,6 +66,7 @@ export function upgradeMod<T extends ISCFeature = never>(
 ): ModUpgradedWithFeatures<T> {
   const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
 
+  // TODO: remove
   if (areFeaturesInitialized()) {
     error(
       "Failed to upgrade the mod since a mod has already been initialized. (You can only upgrade one mod per IsaacScript project.)",
@@ -73,10 +75,17 @@ export function upgradeMod<T extends ISCFeature = never>(
   setFeaturesInitialized();
 
   patchErrorFunction();
-  loadShaderCrashFix(modVanilla);
 
   legacyInit(mod); // TODO: remove
 
+  // All upgraded mods should use some critical features.
+  for (const mandatoryFeature of MANDATORY_FEATURES) {
+    if (!features.includes(mandatoryFeature as T)) {
+      features.unshift(mandatoryFeature as T);
+    }
+  }
+
+  // Initialize every optional feature that the end-user specified.
   for (const feature of features) {
     // We intentionally access the private method here, so we use the string index escape hatch:
     // https://github.com/microsoft/TypeScript/issues/19335

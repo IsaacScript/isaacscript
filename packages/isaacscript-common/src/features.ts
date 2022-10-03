@@ -12,8 +12,32 @@ import { PlayerCollectibleDetection } from "./classes/features/callbackLogic/Pla
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
 import { SlotRenderDetection } from "./classes/features/callbackLogic/SlotRenderDetection";
 import { SlotUpdateDetection } from "./classes/features/callbackLogic/SlotUpdateDetection";
+import { CharacterHealthConversion } from "./classes/features/other/CharacterHealthConversion";
+import { CharacterStats } from "./classes/features/other/CharacterStats";
+import { CollectibleItemPoolType } from "./classes/features/other/CollectibleItemPoolType";
+import { CustomHotkeys } from "./classes/features/other/CustomHotkeys";
+import { CustomPickups } from "./classes/features/other/CustomPickups";
+import { DisableAllSound } from "./classes/features/other/DisableAllSound";
+import { DisableInputs } from "./classes/features/other/DisableInputs";
+import { FadeInRemover } from "./classes/features/other/FadeInRemover";
+import { FastReset } from "./classes/features/other/FastReset";
+import { ForgottenSwitch } from "./classes/features/other/ForgottenSwitch";
+import { NoSirenSteal } from "./classes/features/other/NoSirenSteal";
+import { Pause } from "./classes/features/other/Pause";
+import { PersistentEntities } from "./classes/features/other/PersistentEntities";
+import { PickupIndexCreation } from "./classes/features/other/PickupIndexCreation";
+import { PlayerInventory } from "./classes/features/other/PlayerInventory";
+import { PonyDetection } from "./classes/features/other/PonyDetection";
+import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
+import { PreventCollectibleRotation } from "./classes/features/other/PreventCollectibleRotation";
+import { RoomClearFrame } from "./classes/features/other/RoomClearFrame";
+import { RoomHistory } from "./classes/features/other/RoomHistory";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
+import { RunNextRoom } from "./classes/features/other/RunNextRoom";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
+import { ShaderCrashFix } from "./classes/features/other/ShaderCrashFix";
+import { StageHistory } from "./classes/features/other/StageHistory";
+import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPlayers";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import {
@@ -37,9 +61,39 @@ export interface ISCFeatureToClass {
   [ISCFeature.SLOT_UPDATE_DETECTION]: SlotUpdateDetection;
 
   // Extra features
+  [ISCFeature.CHARACTER_HEALTH_CONVERSION]: CharacterHealthConversion;
+  [ISCFeature.CHARACTER_STATS]: CharacterStats;
+  [ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE]: CollectibleItemPoolType;
   [ISCFeature.CUSTOM_GRID_ENTITIES]: CustomGridEntities;
+  [ISCFeature.CUSTOM_HOTKEYS]: CustomHotkeys;
+  [ISCFeature.CUSTOM_PICKUPS]: CustomPickups;
+  /// [ISCFeature.CUSTOM_STAGES]: CustomStages;
+  /// [ISCFeature.CUSTOM_TRAPDOORS]: CustomTrapdoors;
+  /// [ISCFeature.DEBUG_DISPLAY]: DebugDisplay;
+  /// [ISCFeature.DEPLOY_JSON_ROOM]: DeployJSONRoom;
+  [ISCFeature.DISABLE_ALL_SOUND]: DisableAllSound;
+  [ISCFeature.DISABLE_INPUTS]: DisableInputs;
+  [ISCFeature.FADE_IN_REMOVER]: FadeInRemover;
+  [ISCFeature.FAST_RESET]: FastReset;
+  // [ISCFeature.FIRST_LAST]: FirstLast,
+  [ISCFeature.FORGOTTEN_SWITCH]: ForgottenSwitch;
+  // [ISCFeature.EXTRA_CONSOLE_COMMANDS]: ExtraConsoleCommands,
+  [ISCFeature.NO_SIREN_STEAL]: NoSirenSteal;
+  [ISCFeature.PAUSE]: Pause;
+  [ISCFeature.PERSISTENT_ENTITIES]: PersistentEntities;
+  [ISCFeature.PICKUP_INDEX]: PickupIndexCreation;
+  [ISCFeature.PLAYER_INVENTORY]: PlayerInventory;
+  [ISCFeature.PONY_DETECTION]: PonyDetection;
+  [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
+  [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: PreventCollectibleRotation;
+  [ISCFeature.ROOM_CLEAR_FRAME]: RoomClearFrame;
+  [ISCFeature.ROOM_HISTORY]: RoomHistory;
   [ISCFeature.RUN_IN_N_FRAMES]: RunInNFrames;
+  [ISCFeature.RUN_NEXT_ROOM]: RunNextRoom;
   [ISCFeature.SAVE_DATA_MANAGER]: SaveDataManager;
+  [ISCFeature.SHADER_CRASH_FIX]: ShaderCrashFix;
+  [ISCFeature.STAGE_HISTORY]: StageHistory;
+  [ISCFeature.TAINTED_LAZARUS_PLAYERS]: TaintedLazarusPlayers;
 }
 
 validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
@@ -47,6 +101,8 @@ validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
   // Some features rely on other features; we must initialize those first.
+  const disableInputs = new DisableInputs();
+  const roomHistory = new RoomHistory();
   const runInNFrames = new RunInNFrames();
   const customGridEntities = new CustomGridEntities(runInNFrames);
 
@@ -118,8 +174,38 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
     ),
 
     // Extra features
+    [ISCFeature.CHARACTER_HEALTH_CONVERSION]: new CharacterHealthConversion(),
+    [ISCFeature.CHARACTER_STATS]: new CharacterStats(),
+    [ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE]: new CollectibleItemPoolType(),
     [ISCFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
+    [ISCFeature.CUSTOM_HOTKEYS]: new CustomHotkeys(),
+    [ISCFeature.CUSTOM_PICKUPS]: new CustomPickups(),
+    /// [ISCFeature.CUSTOM_STAGES]: new CustomStages();
+    /// [ISCFeature.CUSTOM_TRAPDOORS]: new CustomTrapdoors();
+    /// [ISCFeature.DEBUG_DISPLAY]: new DebugDisplay();
+    /// [ISCFeature.DEPLOY_JSON_ROOM]: new DeployJSONRoom();
+    [ISCFeature.DISABLE_ALL_SOUND]: new DisableAllSound(),
+    [ISCFeature.DISABLE_INPUTS]: disableInputs,
+    [ISCFeature.FADE_IN_REMOVER]: new FadeInRemover(),
+    [ISCFeature.FAST_RESET]: new FastReset(),
+    // [ISCFeature.FIRST_LAST]: new FirstLast(),
+    [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(),
+    // [ISCFeature.EXTRA_CONSOLE_COMMANDS,]: new ExtraConsoleCommands(),
+    [ISCFeature.NO_SIREN_STEAL]: new NoSirenSteal(),
+    [ISCFeature.PAUSE]: new Pause(disableInputs),
+    [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),
+    [ISCFeature.PICKUP_INDEX]: new PickupIndexCreation(roomHistory),
+    [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
+    [ISCFeature.PONY_DETECTION]: new PonyDetection(),
+    [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
+    [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: new PreventCollectibleRotation(),
+    [ISCFeature.ROOM_CLEAR_FRAME]: new RoomClearFrame(),
+    [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
+    [ISCFeature.RUN_NEXT_ROOM]: new RunNextRoom(),
     [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
+    [ISCFeature.SHADER_CRASH_FIX]: new ShaderCrashFix(),
+    [ISCFeature.STAGE_HISTORY]: new StageHistory(),
+    [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),
   } as const);
 }

@@ -299,7 +299,11 @@ export class ModUpgraded implements Mod {
         error("Failed to get the name of a feature.");
       }
       const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
-      saveDataManagerClass.saveDataManager(className, feature.v);
+      saveDataManagerClass.saveDataManager(
+        className,
+        feature.v,
+        feature.vConditionalFunc,
+      );
     }
   }
 

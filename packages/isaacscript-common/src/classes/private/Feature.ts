@@ -17,6 +17,7 @@ export class Feature {
   public numConsumers = 0;
 
   public v?: SaveData;
+  public vConditionalFunc?: () => boolean;
   public featuresUsed?: ISCFeature[];
   public callbacksUsed?: CallbackTuple[];
   public customCallbacksUsed?: CustomCallbackTuple[];

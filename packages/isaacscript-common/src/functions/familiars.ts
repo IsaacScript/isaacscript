@@ -1,6 +1,11 @@
-import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  EntityType,
+  FamiliarVariant,
+} from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
+import { getEntities } from "./entities";
 import { getFamiliars } from "./entitiesSpecific";
 
 /**
@@ -111,6 +116,43 @@ export function getPlayerFamiliars(player: EntityPlayer): EntityFamiliar[] {
   });
 }
 
+/**
+ * Helper function to get the corresponding "Siren Helper" entity for a stolen familiar.
+ *
+ * When The Siren boss "steals" your familiars, a hidden "Siren Helper" entity is spawned to control
+ * each familiar stolen. (Checking for the presence of this entity seems to be the only way to
+ * detect when the Siren steals a familiar.)
+ *
+ * @param familiar The familiar to be checked.
+ * @returns Returns the hidden "Siren Helper" entity corresponding to the given familiar, if it
+ *          exists. Returns undefined otherwise.
+ */
+export function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
+  const familiarPtrHash = GetPtrHash(familiar);
+
+  const sirenHelpers = getEntities(EntityType.SIREN_HELPER);
+  return sirenHelpers.find(
+    (sirenHelper) =>
+      sirenHelper.Target !== undefined &&
+      GetPtrHash(sirenHelper.Target) === familiarPtrHash,
+  );
+}
+
+/**
+ * Helper function to detect if the given familiar is "stolen" by The Siren boss.
+ *
+ * This function is useful because some familiars may need to behave differently when under The
+ * Siren's control (e.g. if they auto-target enemies).
+ */
+export function isFamiliarStolenBySiren(familiar: EntityFamiliar): boolean {
+  const sirenHelper = getSirenHelper(familiar);
+  return sirenHelper !== undefined;
+}
+
+/**
+ * Helper function to check if a familiar is the type that shoots tears that mimic the players
+ * tears, like Incubus, Fate's Reward, Sprinkler, and so on.
+ */
 export function isFamiliarThatShootsPlayerTears(
   familiar: EntityFamiliar,
 ): boolean {

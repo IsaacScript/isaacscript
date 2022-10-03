@@ -11,6 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## October 7th, 2022 (Unreleased)
 
+- Renamed the following helper functions:
+  - `hasSirenStolenFamiliar` --> `isFamiliarStolenBySiren`
 - Deleted the following helper functions:
   - `isIsaacScriptCommonClass`
   - `isVanillaTSTLClass`
