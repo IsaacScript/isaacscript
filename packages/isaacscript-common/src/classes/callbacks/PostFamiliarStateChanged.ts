@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireFamiliar } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED> {
+export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_STATE_CHANGED> {
   public override v = {
     run: {
       stateMap: new DefaultMap<PtrHash, int, [int]>((state) => state),

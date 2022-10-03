@@ -1,6 +1,6 @@
 import { PlayerType } from "isaac-typescript-definitions";
 import { postPlayerChangeTypeFire } from "../../callbacks/subscriptions/postPlayerChangeType";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   defaultMapGetPlayer,
   mapSetPlayer,
@@ -10,7 +10,7 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE> {
+export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_TYPE> {
   public override v = {
     run: {
       playersCharacterMap: new DefaultMap<
@@ -26,7 +26,7 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom2.POST
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectReordered],
       ],
     ];

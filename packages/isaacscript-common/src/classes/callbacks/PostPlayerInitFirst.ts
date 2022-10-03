@@ -1,16 +1,16 @@
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPlayers, isChildPlayer } from "../../functions/playerIndex";
 import { inGenesisRoom } from "../../functions/rooms";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom2.POST_PLAYER_INIT_FIRST> {
+export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_FIRST> {
   constructor() {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
-      [ModCallbackCustom2.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
     ];
   }
 

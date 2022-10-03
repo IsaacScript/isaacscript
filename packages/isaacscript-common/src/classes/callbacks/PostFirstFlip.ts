@@ -1,8 +1,8 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostFirstFlip extends CustomCallback<ModCallbackCustom2.POST_FIRST_FLIP> {
+export class PostFirstFlip extends CustomCallback<ModCallbackCustom.POST_FIRST_FLIP> {
   constructor() {
     super();
 

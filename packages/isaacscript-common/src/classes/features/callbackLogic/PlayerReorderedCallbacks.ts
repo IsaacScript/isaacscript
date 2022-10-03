@@ -4,7 +4,7 @@
 // - POST_PLAYER_UPDATE_REORDERED
 
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { emptyArray } from "../../../functions/array";
 import {
   getPlayerFromIndex,
@@ -46,7 +46,7 @@ export class PlayerReorderedCallbacks extends Feature {
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST,
+        ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST,
         [this.postGameStartedReorderedLast],
       ], // 19
     ];

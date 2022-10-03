@@ -3,14 +3,14 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   CustomCallback,
   FireArgs,
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_COLLECTIBLE_EMPTY;
+type T = ModCallbackCustom.POST_COLLECTIBLE_EMPTY;
 
 export class PostCollectibleEmpty extends CustomCallback<T> {
   public override v = {

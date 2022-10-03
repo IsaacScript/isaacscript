@@ -85,118 +85,119 @@ import { PostTearInitVeryLate } from "./classes/callbacks/PostTearInitVeryLate";
 import { PostTNTRender } from "./classes/callbacks/PostTNTRender";
 import { PostTNTUpdate } from "./classes/callbacks/PostTNTUpdate";
 import { PostTransformation } from "./classes/callbacks/PostTransformation";
+import { PostTrinketBreak } from "./classes/callbacks/PostTrinketBreak";
 import { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
+import { PreGetPedestal } from "./classes/callbacks/PreGetPedestal";
 import { PreItemPickup } from "./classes/callbacks/PreItemPickup";
-import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
+import { PreNewLevel } from "./classes/callbacks/PreNewLevel";
+import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { getEnumValues } from "./functions/enums";
 import { newObjectWithEnumKeys } from "./functions/utils";
 
-const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom2, {
-  [ModCallbackCustom2.POST_AMBUSH_FINISHED]: PostAmbushFinished,
-  [ModCallbackCustom2.POST_AMBUSH_STARTED]: PostAmbushStarted,
-  [ModCallbackCustom2.POST_BOMB_EXPLODED]: PostBombExploded,
-  [ModCallbackCustom2.POST_BOMB_INIT_LATE]: PostBombInitLate,
-  [ModCallbackCustom2.POST_BONE_SWING]: PostBoneSwing,
-  [ModCallbackCustom2.POST_COLLECTIBLE_EMPTY]: PostCollectibleEmpty,
-  [ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirst,
-  [ModCallbackCustom2.POST_CURSED_TELEPORT]: PostCursedTeleport,
-  [ModCallbackCustom2.POST_CUSTOM_REVIVE]: PostCustomRevive,
-  [ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED]: PostDiceRoomActivated,
-  [ModCallbackCustom2.POST_DOOR_RENDER]: PostDoorRender,
-  [ModCallbackCustom2.POST_DOOR_UPDATE]: PostDoorUpdate,
-  [ModCallbackCustom2.POST_EFFECT_INIT_LATE]: PostEffectInitLate,
-  [ModCallbackCustom2.POST_EFFECT_STATE_CHANGED]: PostEffectStateChanged,
-  [ModCallbackCustom2.POST_ESAU_JR]: PostEsauJr,
-  [ModCallbackCustom2.POST_FAMILIAR_INIT_LATE]: PostFamiliarInitLate,
-  [ModCallbackCustom2.POST_FAMILIAR_STATE_CHANGED]: PostFamiliarStateChanged,
-  [ModCallbackCustom2.POST_FIRST_FLIP]: PostFirstFlip,
-  [ModCallbackCustom2.POST_FIRST_ESAU_JR]: PostFirstEsauJr,
-  [ModCallbackCustom2.POST_FLIP]: PostFlip,
-  [ModCallbackCustom2.POST_GAME_STARTED_REORDERED]: PostGameStartedReordered,
-  [ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST]:
+const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
+  [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinished,
+  [ModCallbackCustom.POST_AMBUSH_STARTED]: PostAmbushStarted,
+  [ModCallbackCustom.POST_BOMB_EXPLODED]: PostBombExploded,
+  [ModCallbackCustom.POST_BOMB_INIT_LATE]: PostBombInitLate,
+  [ModCallbackCustom.POST_BONE_SWING]: PostBoneSwing,
+  [ModCallbackCustom.POST_COLLECTIBLE_EMPTY]: PostCollectibleEmpty,
+  [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: PostCollectibleInitFirst,
+  [ModCallbackCustom.POST_CURSED_TELEPORT]: PostCursedTeleport,
+  [ModCallbackCustom.POST_CUSTOM_REVIVE]: PostCustomRevive,
+  [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED]: PostDiceRoomActivated,
+  [ModCallbackCustom.POST_DOOR_RENDER]: PostDoorRender,
+  [ModCallbackCustom.POST_DOOR_UPDATE]: PostDoorUpdate,
+  [ModCallbackCustom.POST_EFFECT_INIT_LATE]: PostEffectInitLate,
+  [ModCallbackCustom.POST_EFFECT_STATE_CHANGED]: PostEffectStateChanged,
+  [ModCallbackCustom.POST_ESAU_JR]: PostEsauJr,
+  [ModCallbackCustom.POST_FAMILIAR_INIT_LATE]: PostFamiliarInitLate,
+  [ModCallbackCustom.POST_FAMILIAR_STATE_CHANGED]: PostFamiliarStateChanged,
+  [ModCallbackCustom.POST_FIRST_FLIP]: PostFirstFlip,
+  [ModCallbackCustom.POST_FIRST_ESAU_JR]: PostFirstEsauJr,
+  [ModCallbackCustom.POST_FLIP]: PostFlip,
+  [ModCallbackCustom.POST_GAME_STARTED_REORDERED]: PostGameStartedReordered,
+  [ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST]:
     PostGameStartedReorderedLast,
-  [ModCallbackCustom2.POST_GREED_MODE_WAVE]: PostGreedModeWave,
-  [ModCallbackCustom2.POST_GRID_ENTITY_BROKEN]: PostGridEntityBroken,
-  [ModCallbackCustom2.POST_GRID_ENTITY_COLLISION]: PostGridEntityCollision,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN]:
+  [ModCallbackCustom.POST_GREED_MODE_WAVE]: PostGreedModeWave,
+  [ModCallbackCustom.POST_GRID_ENTITY_BROKEN]: PostGridEntityBroken,
+  [ModCallbackCustom.POST_GRID_ENTITY_COLLISION]: PostGridEntityCollision,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_BROKEN]:
     PostGridEntityCustomBroken,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION]:
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_COLLISION]:
     PostGridEntityCustomCollision,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT]: PostGridEntityCustomInit,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE]:
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_INIT]: PostGridEntityCustomInit,
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE]:
     PostGridEntityCustomRemove,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER]:
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER]:
     PostGridEntityCustomRender,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED]:
     PostGridEntityCustomStateChanged,
-  [ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE]:
+  [ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE]:
     PostGridEntityCustomUpdate,
-  [ModCallbackCustom2.POST_GRID_ENTITY_INIT]: PostGridEntityInit,
-  [ModCallbackCustom2.POST_GRID_ENTITY_REMOVE]: PostGridEntityRemove,
-  [ModCallbackCustom2.POST_GRID_ENTITY_RENDER]: PostGridEntityRender,
-  [ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED]:
+  [ModCallbackCustom.POST_GRID_ENTITY_INIT]: PostGridEntityInit,
+  [ModCallbackCustom.POST_GRID_ENTITY_REMOVE]: PostGridEntityRemove,
+  [ModCallbackCustom.POST_GRID_ENTITY_RENDER]: PostGridEntityRender,
+  [ModCallbackCustom.POST_GRID_ENTITY_STATE_CHANGED]:
     PostGridEntityStateChanged,
-  [ModCallbackCustom2.POST_GRID_ENTITY_UPDATE]: PostGridEntityUpdate,
-  [ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED]: PostHolyMantleRemoved,
-  [ModCallbackCustom2.POST_ITEM_DISCHARGE]: PostItemDischarge,
-  [ModCallbackCustom2.POST_ITEM_PICKUP]: PostItemPickup,
-  [ModCallbackCustom2.POST_KNIFE_INIT_LATE]: PostKnifeInitLate,
-  [ModCallbackCustom2.POST_LASER_INIT_LATE]: PostLaserInitLate,
-  [ModCallbackCustom2.POST_NEW_LEVEL_REORDERED]: PostNewLevelReordered,
-  [ModCallbackCustom2.POST_NEW_ROOM_EARLY]: PostNewRoomEarly,
-  [ModCallbackCustom2.POST_NEW_ROOM_REORDERED]: PostNewRoomReordered,
-  [ModCallbackCustom2.POST_NPC_INIT_LATE]: PostNPCInitLate,
-  [ModCallbackCustom2.POST_NPC_STATE_CHANGED]: PostNPCStateChanged,
-  [ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED]:
-    PostPEffectUpdateReordered,
-  [ModCallbackCustom2.POST_PICKUP_COLLECT]: PostPickupCollect,
-  [ModCallbackCustom2.POST_PICKUP_INIT_FIRST]: PostPickupInitFirst,
-  [ModCallbackCustom2.POST_PICKUP_INIT_LATE]: PostPickupInitLate,
-  [ModCallbackCustom2.POST_PICKUP_STATE_CHANGED]: PostPickupStateChanged,
-  [ModCallbackCustom2.POST_PIT_RENDER]: PostPitRender,
-  [ModCallbackCustom2.POST_PIT_UPDATE]: PostPitUpdate,
-  [ModCallbackCustom2.POST_PLAYER_CHANGE_HEALTH]: PostPlayerChangeHealth,
-  [ModCallbackCustom2.POST_PLAYER_CHANGE_STAT]: PostPlayerChangeStat,
-  [ModCallbackCustom2.POST_PLAYER_CHANGE_TYPE]: PostPlayerChangeType,
-  [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_ADDED]:
-    PostPlayerCollectibleAdded,
-  [ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED]:
+  [ModCallbackCustom.POST_GRID_ENTITY_UPDATE]: PostGridEntityUpdate,
+  [ModCallbackCustom.POST_HOLY_MANTLE_REMOVED]: PostHolyMantleRemoved,
+  [ModCallbackCustom.POST_ITEM_DISCHARGE]: PostItemDischarge,
+  [ModCallbackCustom.POST_ITEM_PICKUP]: PostItemPickup,
+  [ModCallbackCustom.POST_KNIFE_INIT_LATE]: PostKnifeInitLate,
+  [ModCallbackCustom.POST_LASER_INIT_LATE]: PostLaserInitLate,
+  [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: PostNewLevelReordered,
+  [ModCallbackCustom.POST_NEW_ROOM_EARLY]: PostNewRoomEarly,
+  [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: PostNewRoomReordered,
+  [ModCallbackCustom.POST_NPC_INIT_LATE]: PostNPCInitLate,
+  [ModCallbackCustom.POST_NPC_STATE_CHANGED]: PostNPCStateChanged,
+  [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]: PostPEffectUpdateReordered,
+  [ModCallbackCustom.POST_PICKUP_COLLECT]: PostPickupCollect,
+  [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: PostPickupInitFirst,
+  [ModCallbackCustom.POST_PICKUP_INIT_LATE]: PostPickupInitLate,
+  [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: PostPickupStateChanged,
+  [ModCallbackCustom.POST_PIT_RENDER]: PostPitRender,
+  [ModCallbackCustom.POST_PIT_UPDATE]: PostPitUpdate,
+  [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: PostPlayerChangeHealth,
+  [ModCallbackCustom.POST_PLAYER_CHANGE_STAT]: PostPlayerChangeStat,
+  [ModCallbackCustom.POST_PLAYER_CHANGE_TYPE]: PostPlayerChangeType,
+  [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED]: PostPlayerCollectibleAdded,
+  [ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED]:
     PostPlayerCollectibleRemoved,
-  [ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
-  [ModCallbackCustom2.POST_PLAYER_INIT_FIRST]: PostPlayerInitFirst,
-  [ModCallbackCustom2.POST_PLAYER_INIT_LATE]: PostPlayerInitLate,
-  [ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
-  [ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,
-  [ModCallbackCustom2.POST_POOP_RENDER]: PostPoopRender,
-  [ModCallbackCustom2.POST_POOP_UPDATE]: PostPoopUpdate,
-  [ModCallbackCustom2.POST_PRESSURE_PLATE_RENDER]: PostPressurePlateRender,
-  [ModCallbackCustom2.POST_PRESSURE_PLATE_UPDATE]: PostPressurePlateUpdate,
-  [ModCallbackCustom2.POST_PROJECTILE_INIT_LATE]: PostProjectileInitLate,
-  [ModCallbackCustom2.POST_PURCHASE]: PostPurchase,
-  [ModCallbackCustom2.POST_ROCK_RENDER]: PostRockRender,
-  [ModCallbackCustom2.POST_ROCK_UPDATE]: PostRockUpdate,
-  [ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChanged,
-  [ModCallbackCustom2.POST_SACRIFICE]: PostSacrifice,
-  [ModCallbackCustom2.POST_SLOT_ANIMATION_CHANGED]: PostSlotAnimationChanged,
-  [ModCallbackCustom2.POST_SLOT_COLLISION]: PostSlotCollision,
-  [ModCallbackCustom2.POST_SLOT_DESTROYED]: PostSlotDestroyed,
-  [ModCallbackCustom2.POST_SLOT_INIT]: PostSlotInit,
-  [ModCallbackCustom2.POST_SLOT_RENDER]: PostSlotRender,
-  [ModCallbackCustom2.POST_SLOT_UPDATE]: PostSlotUpdate,
-  [ModCallbackCustom2.POST_SPIKES_RENDER]: PostSpikesRender,
-  [ModCallbackCustom2.POST_SPIKES_UPDATE]: PostSpikesUpdate,
-  [ModCallbackCustom2.POST_TEAR_INIT_LATE]: PostTearInitLate,
-  [ModCallbackCustom2.POST_TEAR_INIT_VERY_LATE]: PostTearInitVeryLate,
-  [ModCallbackCustom2.POST_TNT_RENDER]: PostTNTRender,
-  [ModCallbackCustom2.POST_TNT_UPDATE]: PostTNTUpdate,
-  [ModCallbackCustom2.POST_TRANSFORMATION]: PostTransformation,
-
-  // ----------------
-
-  [ModCallbackCustom2.PRE_BERSERK_DEATH]: PreBerserkDeath,
-  [ModCallbackCustom2.PRE_CUSTOM_REVIVE]: PreCustomRevive,
-  [ModCallbackCustom2.PRE_ITEM_PICKUP]: PreItemPickup,
+  [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE]: PostPlayerFatalDamage,
+  [ModCallbackCustom.POST_PLAYER_INIT_FIRST]: PostPlayerInitFirst,
+  [ModCallbackCustom.POST_PLAYER_INIT_LATE]: PostPlayerInitLate,
+  [ModCallbackCustom.POST_PLAYER_RENDER_REORDERED]: PostPlayerRenderReordered,
+  [ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED]: PostPlayerUpdateReordered,
+  [ModCallbackCustom.POST_POOP_RENDER]: PostPoopRender,
+  [ModCallbackCustom.POST_POOP_UPDATE]: PostPoopUpdate,
+  [ModCallbackCustom.POST_PRESSURE_PLATE_RENDER]: PostPressurePlateRender,
+  [ModCallbackCustom.POST_PRESSURE_PLATE_UPDATE]: PostPressurePlateUpdate,
+  [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: PostProjectileInitLate,
+  [ModCallbackCustom.POST_PURCHASE]: PostPurchase,
+  [ModCallbackCustom.POST_ROCK_RENDER]: PostRockRender,
+  [ModCallbackCustom.POST_ROCK_UPDATE]: PostRockUpdate,
+  [ModCallbackCustom.POST_ROOM_CLEAR_CHANGED]: PostRoomClearChanged,
+  [ModCallbackCustom.POST_SACRIFICE]: PostSacrifice,
+  [ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED]: PostSlotAnimationChanged,
+  [ModCallbackCustom.POST_SLOT_COLLISION]: PostSlotCollision,
+  [ModCallbackCustom.POST_SLOT_DESTROYED]: PostSlotDestroyed,
+  [ModCallbackCustom.POST_SLOT_INIT]: PostSlotInit,
+  [ModCallbackCustom.POST_SLOT_RENDER]: PostSlotRender,
+  [ModCallbackCustom.POST_SLOT_UPDATE]: PostSlotUpdate,
+  [ModCallbackCustom.POST_SPIKES_RENDER]: PostSpikesRender,
+  [ModCallbackCustom.POST_SPIKES_UPDATE]: PostSpikesUpdate,
+  [ModCallbackCustom.POST_TEAR_INIT_LATE]: PostTearInitLate,
+  [ModCallbackCustom.POST_TEAR_INIT_VERY_LATE]: PostTearInitVeryLate,
+  [ModCallbackCustom.POST_TNT_RENDER]: PostTNTRender,
+  [ModCallbackCustom.POST_TNT_UPDATE]: PostTNTUpdate,
+  [ModCallbackCustom.POST_TRANSFORMATION]: PostTransformation,
+  [ModCallbackCustom.POST_TRINKET_BREAK]: PostTrinketBreak,
+  [ModCallbackCustom.PRE_BERSERK_DEATH]: PreBerserkDeath,
+  [ModCallbackCustom.PRE_CUSTOM_REVIVE]: PreCustomRevive,
+  [ModCallbackCustom.PRE_GET_PEDESTAL]: PreGetPedestal,
+  [ModCallbackCustom.PRE_ITEM_PICKUP]: PreItemPickup,
+  [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevel,
 } as const);
 
 export type ModCallbackCustomToClass = {
@@ -208,7 +209,7 @@ export type ModCallbackCustomToClass = {
 export function getCallbacks(): ModCallbackCustomToClass {
   const instantiatedClasses: Record<number, unknown> = {};
 
-  for (const modCallbackCustom of getEnumValues(ModCallbackCustom2)) {
+  for (const modCallbackCustom of getEnumValues(ModCallbackCustom)) {
     const constructor = MOD_CALLBACK_CUSTOM_TO_CLASS[modCallbackCustom];
     instantiatedClasses[modCallbackCustom] = new constructor();
   }

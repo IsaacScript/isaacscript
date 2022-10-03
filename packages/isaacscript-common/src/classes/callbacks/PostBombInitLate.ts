@@ -1,9 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostBombInitLate extends CustomCallback<ModCallbackCustom2.POST_BOMB_INIT_LATE> {
+export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB_INIT_LATE> {
   public override v = {
     room: {
       firedSet: new Set<PtrHash>(),

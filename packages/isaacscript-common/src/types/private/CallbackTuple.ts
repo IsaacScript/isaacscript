@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallbackParametersCustom2";
 
 /**
@@ -17,5 +17,5 @@ export type CallbackTuple = {
  * subscribers get added/removed.
  */
 export type CustomCallbackTuple = {
-  [K in ModCallbackCustom2]: [K, AddCallbackParametersCustom2[K]];
-}[ModCallbackCustom2];
+  [K in ModCallbackCustom]: [K, AddCallbackParametersCustom2[K]];
+}[ModCallbackCustom];

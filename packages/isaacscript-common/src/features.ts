@@ -15,7 +15,7 @@ import { SlotUpdateDetection } from "./classes/features/callbackLogic/SlotUpdate
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
 import { ISCFeature } from "./enums/ISCFeature";
-import { ModCallbackCustom2 } from "./enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import {
   newObjectWithEnumKeys,
   validateInterfaceMatchesEnum,
@@ -53,68 +53,68 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
   return newObjectWithEnumKeys(ISCFeature, {
     // Callback logic
     [ISCFeature.CUSTOM_REVIVE]: new CustomRevive(
-      callbacks[ModCallbackCustom2.PRE_CUSTOM_REVIVE],
-      callbacks[ModCallbackCustom2.POST_CUSTOM_REVIVE],
+      callbacks[ModCallbackCustom.PRE_CUSTOM_REVIVE],
+      callbacks[ModCallbackCustom.POST_CUSTOM_REVIVE],
     ),
     [ISCFeature.ESAU_JR_DETECTION]: new EsauJrDetection(
-      callbacks[ModCallbackCustom2.POST_ESAU_JR],
-      callbacks[ModCallbackCustom2.POST_FIRST_ESAU_JR],
+      callbacks[ModCallbackCustom.POST_ESAU_JR],
+      callbacks[ModCallbackCustom.POST_FIRST_ESAU_JR],
     ),
     [ISCFeature.FLIP_DETECTION]: new FlipDetection(
-      callbacks[ModCallbackCustom2.POST_FLIP],
-      callbacks[ModCallbackCustom2.POST_FIRST_FLIP],
+      callbacks[ModCallbackCustom.POST_FLIP],
+      callbacks[ModCallbackCustom.POST_FIRST_FLIP],
     ),
     [ISCFeature.GRID_ENTITY_COLLISION_DETECTION]:
       new GridEntityCollisionDetection(
-        callbacks[ModCallbackCustom2.POST_GRID_ENTITY_COLLISION],
-        callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_COLLISION],
+        callbacks[ModCallbackCustom.POST_GRID_ENTITY_COLLISION],
+        callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_COLLISION],
         customGridEntities,
       ),
     [ISCFeature.GRID_ENTITY_UPDATE_DETECTION]: new GridEntityUpdateDetection(
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_INIT],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_INIT],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_UPDATE],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_UPDATE],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_REMOVE],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_REMOVE],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_STATE_CHANGED],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_BROKEN],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_BROKEN],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_INIT],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_INIT],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_UPDATE],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_REMOVE],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_STATE_CHANGED],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_STATE_CHANGED],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_BROKEN],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_BROKEN],
       customGridEntities,
     ),
     [ISCFeature.GRID_ENTITY_RENDER_DETECTION]: new GridEntityRenderDetection(
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_RENDER],
-      callbacks[ModCallbackCustom2.POST_GRID_ENTITY_CUSTOM_RENDER],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_RENDER],
+      callbacks[ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_RENDER],
       customGridEntities,
     ),
     [ISCFeature.GAME_REORDERED_CALLBACKS]: new GameReorderedCallbacks(
-      callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED],
-      callbacks[ModCallbackCustom2.POST_NEW_LEVEL_REORDERED],
-      callbacks[ModCallbackCustom2.POST_NEW_ROOM_REORDERED],
-      callbacks[ModCallbackCustom2.POST_GAME_STARTED_REORDERED_LAST],
+      callbacks[ModCallbackCustom.POST_GAME_STARTED_REORDERED],
+      callbacks[ModCallbackCustom.POST_NEW_LEVEL_REORDERED],
+      callbacks[ModCallbackCustom.POST_NEW_ROOM_REORDERED],
+      callbacks[ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST],
     ),
     [ISCFeature.ITEM_PICKUP_DETECTION]: new ItemPickupDetection(
-      callbacks[ModCallbackCustom2.POST_ITEM_PICKUP],
-      callbacks[ModCallbackCustom2.PRE_ITEM_PICKUP],
+      callbacks[ModCallbackCustom.POST_ITEM_PICKUP],
+      callbacks[ModCallbackCustom.PRE_ITEM_PICKUP],
     ),
     [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: new PlayerCollectibleDetection(
-      callbacks[ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_ADDED],
-      callbacks[ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED],
+      callbacks[ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED],
+      callbacks[ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED],
       runInNFrames,
     ),
     [ISCFeature.PLAYER_REORDERED_CALLBACKS]: new PlayerReorderedCallbacks(
-      callbacks[ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED],
-      callbacks[ModCallbackCustom2.POST_PLAYER_RENDER_REORDERED],
-      callbacks[ModCallbackCustom2.POST_PLAYER_UPDATE_REORDERED],
+      callbacks[ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED],
+      callbacks[ModCallbackCustom.POST_PLAYER_RENDER_REORDERED],
+      callbacks[ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED],
     ),
     [ISCFeature.SLOT_RENDER_DETECTION]: new SlotRenderDetection(
-      callbacks[ModCallbackCustom2.POST_SLOT_RENDER],
-      callbacks[ModCallbackCustom2.POST_SLOT_ANIMATION_CHANGED],
+      callbacks[ModCallbackCustom.POST_SLOT_RENDER],
+      callbacks[ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED],
     ),
     [ISCFeature.SLOT_UPDATE_DETECTION]: new SlotUpdateDetection(
-      callbacks[ModCallbackCustom2.POST_SLOT_INIT],
-      callbacks[ModCallbackCustom2.POST_SLOT_UPDATE],
+      callbacks[ModCallbackCustom.POST_SLOT_INIT],
+      callbacks[ModCallbackCustom.POST_SLOT_UPDATE],
     ),
 
     // Extra features

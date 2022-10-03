@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isSlot } from "../../functions/entityTypes";
 import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSlotCollision extends CustomCallback<ModCallbackCustom2.POST_SLOT_COLLISION> {
+export class PostSlotCollision extends CustomCallback<ModCallbackCustom.POST_SLOT_COLLISION> {
   constructor() {
     super();
 

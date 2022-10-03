@@ -6,7 +6,7 @@ import {
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { sfxManager } from "../../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { runNextGameFrame } from "../../../features/runInNFrames";
 import { removeCollectibleFromItemTracker } from "../../../functions/collectibles";
 import { removeAllFamiliars } from "../../../functions/entitiesSpecific";
@@ -62,10 +62,10 @@ export class CustomRevive extends Feature {
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE,
+        ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE,
         [this.postPlayerFatalDamage],
       ],
-      [ModCallbackCustom2.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
+      [ModCallbackCustom.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
     ];
 
     this.preCustomRevive = preCustomRevive;

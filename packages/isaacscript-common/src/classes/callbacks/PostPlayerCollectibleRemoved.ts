@@ -1,9 +1,9 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireCollectibleType } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerCollectibleRemoved extends CustomCallback<ModCallbackCustom2.POST_PLAYER_COLLECTIBLE_REMOVED> {
+export class PostPlayerCollectibleRemoved extends CustomCallback<ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED> {
   constructor() {
     super();
 

@@ -1,8 +1,8 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostGameStartedReorderedLast extends CustomCallback<ModCallbackCustom2.POST_GAME_STARTED_REORDERED> {
+export class PostGameStartedReorderedLast extends CustomCallback<ModCallbackCustom.POST_GAME_STARTED_REORDERED> {
   constructor() {
     super();
 

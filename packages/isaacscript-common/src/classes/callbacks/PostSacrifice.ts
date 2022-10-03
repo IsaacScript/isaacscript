@@ -5,12 +5,12 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { hasFlag } from "../../functions/flag";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSacrifice extends CustomCallback<ModCallbackCustom2.POST_SACRIFICE> {
+export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFICE> {
   public override v = {
     level: {
       numSacrifices: 0,

@@ -1,5 +1,5 @@
 import { PlayerForm } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getEnumValues } from "../../functions/enums";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
 import { PlayerIndex } from "../../types/PlayerIndex";
@@ -10,7 +10,7 @@ import {
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_TRANSFORMATION;
+type T = ModCallbackCustom.POST_TRANSFORMATION;
 
 export class PostTransformation extends CustomCallback<T> {
   public override v = {
@@ -28,7 +28,7 @@ export class PostTransformation extends CustomCallback<T> {
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
     ];

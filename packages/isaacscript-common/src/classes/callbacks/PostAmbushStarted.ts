@@ -1,11 +1,11 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getAmbushType } from "../../functions/ambush";
 import { shouldFireAmbush } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostAmbushStarted extends CustomCallback<ModCallbackCustom2.POST_AMBUSH_STARTED> {
+export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMBUSH_STARTED> {
   public override v = {
     room: {
       ambushActive: false,

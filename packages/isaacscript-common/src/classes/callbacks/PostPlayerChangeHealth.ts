@@ -1,5 +1,5 @@
 import { HealthType } from "../../enums/HealthType";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getEnumValues } from "../../functions/enums";
 import { getPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayerIndex } from "../../functions/playerIndex";
@@ -8,7 +8,7 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom2.POST_PLAYER_CHANGE_HEALTH> {
+export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH> {
   public override v = {
     run: {
       playersHealthMap: new DefaultMap<PlayerIndex, Map<HealthType, int>>(
@@ -22,7 +22,7 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom2.PO
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectReordered],
       ],
     ];

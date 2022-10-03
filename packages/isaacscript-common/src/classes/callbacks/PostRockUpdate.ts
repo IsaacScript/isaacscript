@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getRocks } from "../../functions/gridEntitiesSpecific";
 import { shouldFireRock } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostRockUpdate extends CustomCallback<ModCallbackCustom2.POST_ROCK_UPDATE> {
+export class PostRockUpdate extends CustomCallback<ModCallbackCustom.POST_ROCK_UPDATE> {
   constructor() {
     super();
 

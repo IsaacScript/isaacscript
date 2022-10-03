@@ -1,4 +1,4 @@
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPickups } from "../../functions/entitiesSpecific";
 import {
   defaultMapGetPlayer,
@@ -12,7 +12,7 @@ import {
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_PURCHASE;
+type T = ModCallbackCustom.POST_PURCHASE;
 
 export class PostPurchase extends CustomCallback<T> {
   public override v = {
@@ -28,7 +28,7 @@ export class PostPurchase extends CustomCallback<T> {
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
     ];

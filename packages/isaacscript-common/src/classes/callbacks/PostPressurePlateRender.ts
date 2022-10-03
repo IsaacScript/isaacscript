@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPressurePlates } from "../../functions/gridEntitiesSpecific";
 import { shouldFirePressurePlate } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPressurePlateRender extends CustomCallback<ModCallbackCustom2.POST_PRESSURE_PLATE_RENDER> {
+export class PostPressurePlateRender extends CustomCallback<ModCallbackCustom.POST_PRESSURE_PLATE_RENDER> {
   constructor() {
     super();
 

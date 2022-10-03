@@ -1,5 +1,5 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   defaultMapGetPlayer,
   mapSetPlayer,
@@ -9,7 +9,7 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POST_HOLY_MANTLE_REMOVED> {
+export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom.POST_HOLY_MANTLE_REMOVED> {
   public override v = {
     run: {
       playersHolyMantleMap: new DefaultMap<PlayerIndex, int>(0),
@@ -21,7 +21,7 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom2.POS
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
     ];

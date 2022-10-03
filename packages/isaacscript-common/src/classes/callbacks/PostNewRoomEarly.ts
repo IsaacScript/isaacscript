@@ -4,7 +4,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
@@ -12,7 +12,7 @@ import {
 import { logError } from "../../functions/logMisc";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom2.POST_NEW_ROOM_EARLY> {
+export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_ROOM_EARLY> {
   private currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
   /** The wall entity directly to the right of the top-left wall. */

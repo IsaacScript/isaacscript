@@ -78,8 +78,10 @@ export function upgradeMod<T extends ISCFeature = never>(
   legacyInit(mod); // TODO: remove
 
   for (const feature of features) {
-    // @ts-expect-error We intentionally access the private function here.
-    const exportedMethodTuples = mod.initOptionalFeature(feature);
+    // We intentionally access the private method here, so we use the string index escape hatch:
+    // https://github.com/microsoft/TypeScript/issues/19335
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    const exportedMethodTuples = mod["initOptionalFeature"](feature);
 
     // If the optional feature provides helper functions, attach them to the base mod object. (This
     // provides a convenient API for end-users.)

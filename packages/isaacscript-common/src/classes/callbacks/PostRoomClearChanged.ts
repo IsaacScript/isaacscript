@@ -1,13 +1,13 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   CustomCallback,
   FireArgs,
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_ROOM_CLEAR_CHANGED;
+type T = ModCallbackCustom.POST_ROOM_CLEAR_CHANGED;
 
 export class PostRoomClearChanged extends CustomCallback<T> {
   public override v = {
@@ -24,7 +24,7 @@ export class PostRoomClearChanged extends CustomCallback<T> {
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
     ];
   }
 

@@ -1,14 +1,14 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   CustomCallback,
   FireArgs,
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_CUSTOM_REVIVE;
+type T = ModCallbackCustom.POST_CUSTOM_REVIVE;
 
-export class PostCustomRevive extends CustomCallback<ModCallbackCustom2.POST_CUSTOM_REVIVE> {
+export class PostCustomRevive extends CustomCallback<ModCallbackCustom.POST_CUSTOM_REVIVE> {
   constructor() {
     super();
 

@@ -1,18 +1,18 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isChildPlayer } from "../../functions/playerIndex";
 import { getPlayerNumHitsRemaining } from "../../functions/players";
 import { willPlayerRevive } from "../../functions/revive";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PreBerserkDeath extends CustomCallback<ModCallbackCustom2.PRE_BERSERK_DEATH> {
+export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSERK_DEATH> {
   constructor() {
     super();
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
     ];

@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { getSlots } from "../../../functions/entitiesSpecific";
 import { PostSlotInit } from "../../callbacks/PostSlotInit";
 import { PostSlotUpdate } from "../../callbacks/PostSlotUpdate";
@@ -25,7 +25,7 @@ export class SlotUpdateDetection extends Feature {
     this.customCallbacksUsed = [
       // This has to be the reordered callback because we don't want the `POST_SLOT_INIT` callback
       // firing on the first room of a floor before the `POST_NEW_LEVEL` callback.
-      [ModCallbackCustom2.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
     ];
 
     this.postSlotInit = postSlotInit;

@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPoops } from "../../functions/gridEntitiesSpecific";
 import { shouldFirePoop } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPoopRender extends CustomCallback<ModCallbackCustom2.POST_POOP_RENDER> {
+export class PostPoopRender extends CustomCallback<ModCallbackCustom.POST_POOP_RENDER> {
   constructor() {
     super();
 

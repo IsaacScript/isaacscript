@@ -9,7 +9,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   mapGetPlayer,
   mapSetPlayer,
@@ -24,7 +24,7 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom2.POST_PLAYER_FATAL_DAMAGE> {
+export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE> {
   public override v = {
     run: {
       /** Needed to detect if Glass Cannon will kill the player or not. */

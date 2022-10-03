@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isGreedMode } from "../../functions/run";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostGreedModeWave extends CustomCallback<ModCallbackCustom2.POST_GREED_MODE_WAVE> {
+export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GREED_MODE_WAVE> {
   public override v = {
     run: {
       currentGreedWave: 0,

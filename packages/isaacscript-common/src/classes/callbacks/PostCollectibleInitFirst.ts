@@ -1,11 +1,11 @@
 import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getCollectibleIndex } from "../../functions/collectibles";
 import { shouldFireCollectible } from "../../shouldFire";
 import { CollectibleIndex } from "../../types/CollectibleIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostCollectibleInitFirst extends CustomCallback<ModCallbackCustom2.POST_COLLECTIBLE_INIT_FIRST> {
+export class PostCollectibleInitFirst extends CustomCallback<ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST> {
   public override v = {
     run: {
       seenCollectibles: new Set<CollectibleIndex>(),

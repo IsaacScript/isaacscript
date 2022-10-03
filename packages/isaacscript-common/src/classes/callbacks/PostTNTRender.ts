@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getTNT } from "../../functions/gridEntitiesSpecific";
 import { shouldFireTNT } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostTNTRender extends CustomCallback<ModCallbackCustom2.POST_TNT_RENDER> {
+export class PostTNTRender extends CustomCallback<ModCallbackCustom.POST_TNT_RENDER> {
   constructor() {
     super();
 

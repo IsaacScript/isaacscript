@@ -1,5 +1,5 @@
 import { KnifeVariant, ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { CustomCallback } from "../private/CustomCallback";
 
 const BONE_SWING_ANIMATIONS: ReadonlySet<string> = new Set([
@@ -8,7 +8,7 @@ const BONE_SWING_ANIMATIONS: ReadonlySet<string> = new Set([
   "Spin",
 ]);
 
-export class PostBoneSwing extends CustomCallback<ModCallbackCustom2.POST_BONE_SWING> {
+export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SWING> {
   public override v = {
     room: {
       boneClubAnimations: new Map<PtrHash, string>(),

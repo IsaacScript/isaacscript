@@ -1,12 +1,12 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   CustomCallback,
   FireArgs,
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_GRID_ENTITY_REMOVE;
+type T = ModCallbackCustom.POST_GRID_ENTITY_REMOVE;
 
 export class PostGridEntityRemove extends CustomCallback<T> {
   constructor() {

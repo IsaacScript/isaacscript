@@ -1,10 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { BOMB_EXPLODE_FRAME } from "../../core/constants";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostBombExploded extends CustomCallback<ModCallbackCustom2.POST_BOMB_EXPLODED> {
+export class PostBombExploded extends CustomCallback<ModCallbackCustom.POST_BOMB_EXPLODED> {
   constructor() {
     super();
 

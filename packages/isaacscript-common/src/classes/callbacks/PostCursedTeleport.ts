@@ -8,7 +8,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { hasFlag } from "../../functions/flag";
 import {
   mapGetPlayer,
@@ -19,7 +19,7 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostCursedTeleport extends CustomCallback<ModCallbackCustom2.POST_CURSED_TELEPORT> {
+export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CURSED_TELEPORT> {
   public override v = {
     run: {
       playersDamageFrameMap: new Map<

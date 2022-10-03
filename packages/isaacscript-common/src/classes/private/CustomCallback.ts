@@ -1,12 +1,12 @@
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { AddCallbackParametersCustom2 } from "../../interfaces/private/AddCallbackParametersCustom2";
 import { AllButFirst } from "../../types/private/AllButFirst";
 import { Feature } from "./Feature";
 
-export type FireArgs<T extends ModCallbackCustom2> = Parameters<
+export type FireArgs<T extends ModCallbackCustom> = Parameters<
   AddCallbackParametersCustom2[T][0]
 >;
-export type OptionalArgs<T extends ModCallbackCustom2> = AllButFirst<
+export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
   AddCallbackParametersCustom2[T]
 >;
 
@@ -15,7 +15,7 @@ export type OptionalArgs<T extends ModCallbackCustom2> = AllButFirst<
  * extend from this class.
  */
 export abstract class CustomCallback<
-  T extends ModCallbackCustom2,
+  T extends ModCallbackCustom,
 > extends Feature {
   private subscriptions: Array<AddCallbackParametersCustom2[T]> = [];
 

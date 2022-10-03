@@ -1,4 +1,4 @@
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   setAddPlayer,
   setHasPlayer,
@@ -7,7 +7,7 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom2.POST_PLAYER_INIT_LATE> {
+export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_LATE> {
   public override v = {
     run: {
       playersFiredSet: new Set<PlayerIndex>(),
@@ -19,7 +19,7 @@ export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom2.POST_P
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
     ];

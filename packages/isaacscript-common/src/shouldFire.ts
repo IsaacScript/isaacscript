@@ -35,6 +35,7 @@ import {
   ProjectileVariant,
   SlotVariant,
   TearVariant,
+  TrinketType,
 } from "isaac-typescript-definitions";
 import { AmbushType } from "./enums/AmbushType";
 import { HealthType } from "./enums/HealthType";
@@ -271,6 +272,7 @@ export function shouldFirePlayer(
   fireArgs:
     | [player: EntityPlayer]
     | [player: EntityPlayer, numSacrifices: int]
+    | [player: EntityPlayer, collectible: EntityPickupCollectible]
     | [player: EntityPlayer, oldCharacter: PlayerType, newCharacter: PlayerType]
     | [
         player: EntityPlayer,
@@ -421,5 +423,17 @@ export function shouldFireTear(
     (callbackTearVariant === undefined ||
       callbackTearVariant === tear.Variant) &&
     (callbackSubType === undefined || callbackSubType === tear.SubType)
+  );
+}
+
+export function shouldFireTrinketType(
+  fireArgs: [player: EntityPlayer, trinketType: TrinketType],
+  optionalArgs: [trinketType?: TrinketType],
+): boolean {
+  const [_player, trinketType] = fireArgs;
+  const [callbackTrinketType] = optionalArgs;
+
+  return (
+    callbackTrinketType === undefined || callbackTrinketType === trinketType
   );
 }

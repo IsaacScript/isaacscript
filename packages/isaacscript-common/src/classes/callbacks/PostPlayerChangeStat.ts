@@ -1,4 +1,4 @@
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { StatType } from "../../enums/StatType";
 import { isBitSet128 } from "../../functions/bitSet128";
 import { colorEquals, isColor } from "../../functions/color";
@@ -13,7 +13,7 @@ import { PossibleStatType } from "../../types/PossibleStatType";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom2.POST_PLAYER_CHANGE_STAT> {
+export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_STAT> {
   public override v = {
     run: {
       playersStatMap: new DefaultMap<
@@ -28,7 +28,7 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom2.POST
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectReordered],
       ],
     ];

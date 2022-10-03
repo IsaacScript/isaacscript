@@ -3,7 +3,7 @@ import {
   EffectVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isCloseEnoughToTriggerDiceFloor } from "../../functions/effects";
 import { getClosestPlayer } from "../../functions/players";
 import {
@@ -12,7 +12,7 @@ import {
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_DICE_ROOM_ACTIVATED;
+type T = ModCallbackCustom.POST_DICE_ROOM_ACTIVATED;
 
 export class PostDiceRoomActivated extends CustomCallback<T> {
   public override v = {

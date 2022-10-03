@@ -3,7 +3,6 @@ import { getCallbacks } from "../callbacks";
 import { EXPORTED_METHOD_NAMES_KEY } from "../decorators";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { ModCallbackCustom2 } from "../enums/ModCallbackCustom2";
 import { getFeatures } from "../features";
 import { getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription, log } from "../functions/log";
@@ -181,7 +180,7 @@ export class ModUpgraded implements Mod {
   }
 
   /** Adds a callback in the new callback system format. This method is only temporary. */
-  public AddCallbackCustom2<T extends ModCallbackCustom2>(
+  public AddCallbackCustom2<T extends ModCallbackCustom>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom2[T]
   ): void {
@@ -197,7 +196,7 @@ export class ModUpgraded implements Mod {
    * This method does not care about the tertiary argument. In other words, regardless of the
    * conditions of how you registered the callback, it will be removed.
    */
-  public RemoveCallbackCustom<T extends ModCallbackCustom2>(
+  public RemoveCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
     callback: AddCallbackParametersCustom2[T][0],
   ): void {

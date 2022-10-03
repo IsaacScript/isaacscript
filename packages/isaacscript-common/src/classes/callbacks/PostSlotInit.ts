@@ -1,9 +1,9 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSlotInit extends CustomCallback<ModCallbackCustom2.POST_SLOT_INIT> {
+export class PostSlotInit extends CustomCallback<ModCallbackCustom.POST_SLOT_INIT> {
   constructor() {
     super();
 

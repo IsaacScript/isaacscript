@@ -4,14 +4,14 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { SlotDestructionType } from "../../enums/SlotDestructionType";
 import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 const PRIZE_GAME_FRAME_DELAY_UNTIL_REMOVAL = 3;
 
-export class PostSlotDestroyed extends CustomCallback<ModCallbackCustom2.POST_SLOT_DESTROYED> {
+export class PostSlotDestroyed extends CustomCallback<ModCallbackCustom.POST_SLOT_DESTROYED> {
   public override v = {
     room: {
       brokenSlots: new Set<PtrHash>(),
@@ -31,7 +31,7 @@ export class PostSlotDestroyed extends CustomCallback<ModCallbackCustom2.POST_SL
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_SLOT_ANIMATION_CHANGED,
+        ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED,
         [this.postSlotAnimationChanged],
       ],
     ];

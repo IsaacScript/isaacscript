@@ -6,7 +6,7 @@ import {
   SuckerVariant,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom2 } from "../../enums/ModCallbackCustom2";
+import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getTotalCharge } from "../../functions/charge";
 import { getEnumValues } from "../../functions/enums";
 import {
@@ -23,7 +23,7 @@ import {
   OptionalArgs,
 } from "../private/CustomCallback";
 
-type T = ModCallbackCustom2.POST_ITEM_DISCHARGE;
+type T = ModCallbackCustom.POST_ITEM_DISCHARGE;
 
 // Unfortunately, we cannot use a nested `DefaultMap` here due to limitations with the save data
 // manager.
@@ -60,7 +60,7 @@ export class PostItemDischarge extends CustomCallback<T> {
 
     this.customCallbacksUsed = [
       [
-        ModCallbackCustom2.POST_PEFFECT_UPDATE_REORDERED,
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
         [this.postPEffectUpdateReordered],
       ],
     ];
