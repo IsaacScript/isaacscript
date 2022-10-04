@@ -17,10 +17,13 @@ import { CharacterStats } from "./classes/features/other/CharacterStats";
 import { CollectibleItemPoolType } from "./classes/features/other/CollectibleItemPoolType";
 import { CustomHotkeys } from "./classes/features/other/CustomHotkeys";
 import { CustomPickups } from "./classes/features/other/CustomPickups";
+import { DebugDisplay } from "./classes/features/other/DebugDisplay";
+import { DeployJSONRoom } from "./classes/features/other/DeployJSONRoom";
 import { DisableAllSound } from "./classes/features/other/DisableAllSound";
 import { DisableInputs } from "./classes/features/other/DisableInputs";
 import { FadeInRemover } from "./classes/features/other/FadeInRemover";
 import { FastReset } from "./classes/features/other/FastReset";
+import { FirstLast } from "./classes/features/other/FirstLast";
 import { ForgottenSwitch } from "./classes/features/other/ForgottenSwitch";
 import { NoSirenSteal } from "./classes/features/other/NoSirenSteal";
 import { Pause } from "./classes/features/other/Pause";
@@ -30,6 +33,7 @@ import { PlayerInventory } from "./classes/features/other/PlayerInventory";
 import { PonyDetection } from "./classes/features/other/PonyDetection";
 import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
 import { PreventCollectibleRotation } from "./classes/features/other/PreventCollectibleRotation";
+import { PreventGridEntityRespawn } from "./classes/features/other/PreventGridEntityRespawn";
 import { RoomClearFrame } from "./classes/features/other/RoomClearFrame";
 import { RoomHistory } from "./classes/features/other/RoomHistory";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
@@ -44,6 +48,7 @@ import {
   newObjectWithEnumKeys,
   validateInterfaceMatchesEnum,
 } from "./functions/utils";
+import { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
 
 export interface ISCFeatureToClass {
   // Callback logic
@@ -69,13 +74,13 @@ export interface ISCFeatureToClass {
   [ISCFeature.CUSTOM_PICKUPS]: CustomPickups;
   /// [ISCFeature.CUSTOM_STAGES]: CustomStages;
   /// [ISCFeature.CUSTOM_TRAPDOORS]: CustomTrapdoors;
-  /// [ISCFeature.DEBUG_DISPLAY]: DebugDisplay;
-  /// [ISCFeature.DEPLOY_JSON_ROOM]: DeployJSONRoom;
+  [ISCFeature.DEBUG_DISPLAY]: DebugDisplay;
+  [ISCFeature.DEPLOY_JSON_ROOM]: DeployJSONRoom;
   [ISCFeature.DISABLE_ALL_SOUND]: DisableAllSound;
   [ISCFeature.DISABLE_INPUTS]: DisableInputs;
   [ISCFeature.FADE_IN_REMOVER]: FadeInRemover;
   [ISCFeature.FAST_RESET]: FastReset;
-  // [ISCFeature.FIRST_LAST]: FirstLast,
+  [ISCFeature.FIRST_LAST]: FirstLast;
   [ISCFeature.FORGOTTEN_SWITCH]: ForgottenSwitch;
   // [ISCFeature.EXTRA_CONSOLE_COMMANDS]: ExtraConsoleCommands,
   [ISCFeature.NO_SIREN_STEAL]: NoSirenSteal;
@@ -86,6 +91,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.PONY_DETECTION]: PonyDetection;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
   [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: PreventCollectibleRotation;
+  [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: PreventGridEntityRespawn;
   [ISCFeature.ROOM_CLEAR_FRAME]: RoomClearFrame;
   [ISCFeature.ROOM_HISTORY]: RoomHistory;
   [ISCFeature.RUN_IN_N_FRAMES]: RunInNFrames;
@@ -99,12 +105,16 @@ export interface ISCFeatureToClass {
 validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
+export function getFeatures(
+  mod: ModUpgradedInterface,
+  callbacks: ModCallbackCustomToClass,
+) {
   // Some features rely on other features; we must initialize those first.
   const disableInputs = new DisableInputs();
   const roomHistory = new RoomHistory();
   const runInNFrames = new RunInNFrames();
   const customGridEntities = new CustomGridEntities(runInNFrames);
+  const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
 
   return newObjectWithEnumKeys(ISCFeature, {
     // Callback logic
@@ -180,15 +190,15 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
     [ISCFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
     [ISCFeature.CUSTOM_HOTKEYS]: new CustomHotkeys(),
     [ISCFeature.CUSTOM_PICKUPS]: new CustomPickups(),
-    /// [ISCFeature.CUSTOM_STAGES]: new CustomStages();
-    /// [ISCFeature.CUSTOM_TRAPDOORS]: new CustomTrapdoors();
-    /// [ISCFeature.DEBUG_DISPLAY]: new DebugDisplay();
-    /// [ISCFeature.DEPLOY_JSON_ROOM]: new DeployJSONRoom();
+    /// [ISCFeature.CUSTOM_STAGES]: new CustomStages(),
+    /// [ISCFeature.CUSTOM_TRAPDOORS]: new CustomTrapdoors(),
+    [ISCFeature.DEBUG_DISPLAY]: new DebugDisplay(mod),
+    [ISCFeature.DEPLOY_JSON_ROOM]: new DeployJSONRoom(preventGridEntityRespawn),
     [ISCFeature.DISABLE_ALL_SOUND]: new DisableAllSound(),
     [ISCFeature.DISABLE_INPUTS]: disableInputs,
     [ISCFeature.FADE_IN_REMOVER]: new FadeInRemover(),
     [ISCFeature.FAST_RESET]: new FastReset(),
-    // [ISCFeature.FIRST_LAST]: new FirstLast(),
+    [ISCFeature.FIRST_LAST]: new FirstLast(),
     [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(),
     // [ISCFeature.EXTRA_CONSOLE_COMMANDS,]: new ExtraConsoleCommands(),
     [ISCFeature.NO_SIREN_STEAL]: new NoSirenSteal(),
@@ -199,6 +209,9 @@ export function getFeatures(mod: Mod, callbacks: ModCallbackCustomToClass) {
     [ISCFeature.PONY_DETECTION]: new PonyDetection(),
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
     [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: new PreventCollectibleRotation(),
+    [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: new PreventGridEntityRespawn(
+      runInNFrames,
+    ),
     [ISCFeature.ROOM_CLEAR_FRAME]: new RoomClearFrame(),
     [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,

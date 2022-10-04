@@ -133,10 +133,6 @@ export class GameReorderedCallbacks extends Feature {
     this.currentStageType = stageType;
   }
 
-  // --------------
-  // Public methods
-  // --------------
-
   @Exported
   public forceNewLevelCallback(): void {
     this.forceNewLevel = true;

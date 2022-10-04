@@ -1,5 +1,4 @@
 /* eslint-disable isaacscript/format-line-comments */
-/* eslint-disable isaacscript/complete-sentences-line-comments */
 
 export enum ISCFeature {
   // Callback logic
@@ -25,13 +24,13 @@ export enum ISCFeature {
   CUSTOM_PICKUPS,
   // CUSTOM_STAGES,
   // CUSTOM_TRAPDOORS,
-  // DEBUG_DISPLAY,
-  // DEPLOY_JSON_ROOM,
+  DEBUG_DISPLAY,
+  DEPLOY_JSON_ROOM,
   DISABLE_ALL_SOUND,
   DISABLE_INPUTS,
   FADE_IN_REMOVER,
   FAST_RESET,
-  // FIRST_LAST,
+  FIRST_LAST,
   FORGOTTEN_SWITCH,
   // EXTRA_CONSOLE_COMMANDS,
   NO_SIREN_STEAL,
@@ -42,6 +41,7 @@ export enum ISCFeature {
   PONY_DETECTION,
   PREVENT_CHILD_ENTITIES,
   PREVENT_COLLECTIBLE_ROTATION,
+  PREVENT_GRID_ENTITY_RESPAWN,
   ROOM_CLEAR_FRAME,
   ROOM_HISTORY,
   RUN_IN_N_FRAMES,

@@ -1,3 +1,5 @@
+// One of the functions below causes a false positive for ESLint:
+// https://github.com/gajus/eslint-plugin-jsdoc/issues/915
 /* eslint-disable jsdoc/check-param-names */
 
 import {

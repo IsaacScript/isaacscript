@@ -1,4 +1,5 @@
 import {
+  Dimension,
   EntityFlag,
   EntityType,
   ModCallback,
@@ -15,15 +16,20 @@ interface PersistentEntityDescription {
   entityType: EntityType;
   variant: int;
   subType: int;
+  dimension: Dimension;
   roomListIndex: int;
   position: Readonly<Vector>;
 }
 
-export class PersistentEntities extends Feature {
-  /** Iterates upward as new persistent entities are created. */
-  private persistentEntityIndexCounter = 0;
+type PersistentEntityTuple = [index: int, entityPtr: EntityPtr];
 
+export class PersistentEntities extends Feature {
   public override v = {
+    run: {
+      /** Iterates upward as new persistent entities are created. */
+      persistentEntityIndexCounter: 0,
+    },
+
     level: {
       /**
        * Indexed by persistent entity index.
@@ -35,10 +41,7 @@ export class PersistentEntities extends Feature {
     },
 
     room: {
-      spawnedPersistentEntities: new Map<
-        PtrHash,
-        [index: int, entityPtr: EntityPtr]
-      >(),
+      spawnedPersistentEntities: new Map<PtrHash, PersistentEntityTuple>(),
     },
   };
 
@@ -47,6 +50,8 @@ export class PersistentEntities extends Feature {
   constructor(roomHistory: RoomHistory) {
     super();
 
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
+
     this.callbacksUsed = [
       [ModCallback.POST_ENTITY_REMOVE, [this.postEntityRemove]], // 67
     ];
@@ -54,8 +59,6 @@ export class PersistentEntities extends Feature {
     this.customCallbacksUsed = [
       [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
     ];
-
-    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
 
     this.roomHistory = roomHistory;
   }
@@ -92,12 +95,12 @@ export class PersistentEntities extends Feature {
       return;
     }
 
-    const previousRoomListIndex = previousRoomDescription.roomListIndex;
     const persistentEntityDescription: PersistentEntityDescription = {
       entityType: entity.Type,
       variant: entity.Variant,
       subType: entity.SubType,
-      roomListIndex: previousRoomListIndex,
+      dimension: previousRoomDescription.dimension,
+      roomListIndex: previousRoomDescription.roomListIndex,
       position: entity.Position,
     };
     this.v.level.persistentEntities.set(index, persistentEntityDescription);
@@ -106,15 +109,12 @@ export class PersistentEntities extends Feature {
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoomReordered = () => {
     const roomListIndex = getRoomListIndex();
+    const persistentEntities = [...this.v.level.persistentEntities.entries()];
+    const persistentEntitiesInThisRoom = persistentEntities.filter(
+      ([_index, description]) => roomListIndex === description.roomListIndex,
+    );
 
-    for (const [
-      index,
-      description,
-    ] of this.v.level.persistentEntities.entries()) {
-      if (roomListIndex !== description.roomListIndex) {
-        continue;
-      }
-
+    for (const [index, description] of persistentEntitiesInThisRoom) {
       this.v.level.persistentEntities.delete(index);
       this.spawnAndTrack(
         description.entityType,
@@ -150,42 +150,6 @@ export class PersistentEntities extends Feature {
   }
 
   /**
-   * Helper function to spawn an entity that will have persistence similar to a pickup.
-   *
-   * By default, as soon as you leave a room, any spawned entities will be despawned and will not
-   * return if the player revisits the room. This means that if you want to have an entity like a
-   * pickup, you have to manually respawn it when the player re-enters the room. Use this helper
-   * function to avoid having to do any tracking on your own.
-   *
-   * Conventionally, the word "persistent" refers to `EntityFlag.FLAG_PERSISTENT`, which is used on
-   * e.g. familiars to make them appear in every room. On the other hand, pickups are also
-   * persistent, but they are not present in every room, only one specific room. This function
-   * spawns entities like pickups, not familiars.
-   *
-   * @returns A tuple containing the entity and the persistent entity index. You can use the index
-   *          with the `removePersistentEntity` function.
-   */
-  @Exported
-  public spawnPersistentEntity(
-    entityType: EntityType,
-    variant: int,
-    subType: int,
-    position: Vector,
-  ): [Entity, int] {
-    this.persistentEntityIndexCounter++;
-
-    const entity = this.spawnAndTrack(
-      entityType,
-      variant,
-      subType,
-      position,
-      this.persistentEntityIndexCounter,
-    );
-
-    return [entity, this.persistentEntityIndexCounter];
-  }
-
-  /**
    * Helper function to stop an entity spawned with the `spawnPersistentEntity` helper function from
    * respawning.
    *
@@ -217,5 +181,41 @@ export class PersistentEntities extends Feature {
         entityPtr.Ref.Remove();
       }
     }
+  }
+
+  /**
+   * Helper function to spawn an entity that will have persistence similar to a pickup.
+   *
+   * By default, as soon as you leave a room, any spawned entities will be despawned and will not
+   * return if the player revisits the room. This means that if you want to have an entity like a
+   * pickup, you have to manually respawn it when the player re-enters the room. Use this helper
+   * function to avoid having to do any tracking on your own.
+   *
+   * Conventionally, the word "persistent" refers to `EntityFlag.FLAG_PERSISTENT`, which is used on
+   * e.g. familiars to make them appear in every room. On the other hand, pickups are also
+   * persistent, but they are not present in every room, only one specific room. This function
+   * spawns entities like pickups, not familiars.
+   *
+   * @returns A tuple containing the entity and the persistent entity index. You can use the index
+   *          with the `removePersistentEntity` function.
+   */
+  @Exported
+  public spawnPersistentEntity(
+    entityType: EntityType,
+    variant: int,
+    subType: int,
+    position: Vector,
+  ): [Entity, int] {
+    this.v.run.persistentEntityIndexCounter++;
+
+    const entity = this.spawnAndTrack(
+      entityType,
+      variant,
+      subType,
+      position,
+      this.v.run.persistentEntityIndexCounter,
+    );
+
+    return [entity, this.v.run.persistentEntityIndexCounter];
   }
 }

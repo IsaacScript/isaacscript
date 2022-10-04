@@ -48,6 +48,8 @@ export class PickupIndexCreation extends Feature {
   constructor(roomHistory: RoomHistory) {
     super();
 
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
+
     this.callbacksUsed = [
       [ModCallback.POST_PICKUP_INIT, [this.postPickupInit]], // 34
       [
@@ -59,8 +61,6 @@ export class PickupIndexCreation extends Feature {
     this.customCallbacksUsed = [
       [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
     ];
-
-    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
 
     this.roomHistory = roomHistory;
   }

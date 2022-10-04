@@ -94,3 +94,5 @@ lint:
 //test
 ctrl+s --> // est
 (maybe fix is to just disable other eslint rule)
+
+lint: add no null

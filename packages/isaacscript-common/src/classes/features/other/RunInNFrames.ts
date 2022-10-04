@@ -66,10 +66,6 @@ export class RunInNFrames extends Feature {
     );
   };
 
-  // --------------
-  // Public methods
-  // --------------
-
   /**
    * Supply a function to run N game frames from now in the `POST_UPDATE` callback.
    *

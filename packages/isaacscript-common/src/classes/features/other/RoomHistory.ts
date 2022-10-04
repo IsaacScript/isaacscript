@@ -2,6 +2,7 @@ import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { getLastElement } from "../../../functions/array";
+import { getDimension } from "../../../functions/dimensions";
 import {
   getRoomGridIndex,
   getRoomListIndex,
@@ -37,6 +38,7 @@ export class RoomHistory extends Feature {
     const room = game.GetRoom();
     const roomType = room.GetType();
     const stageID = getRoomStageID();
+    const dimension = getDimension();
     const roomVariant = getRoomVariant();
     const roomSubType = getRoomSubType();
     const roomName = getRoomName();
@@ -48,6 +50,7 @@ export class RoomHistory extends Feature {
       stage,
       stageType,
       stageID,
+      dimension,
       roomType,
       roomVariant,
       roomSubType,

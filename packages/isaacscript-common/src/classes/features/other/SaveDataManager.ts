@@ -183,10 +183,6 @@ export class SaveDataManager extends Feature {
     }
   };
 
-  // --------------
-  // Public methods
-  // --------------
-
   /**
    * This is the entry point to the save data manager, a system which provides two major features:
    *

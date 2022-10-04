@@ -11,6 +11,7 @@ import {
   getTSTLClassName,
 } from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
 import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { AnyFunction } from "../types/AnyFunction";
 import { FunctionTuple } from "../types/FunctionTuple";
@@ -56,7 +57,10 @@ export class ModUpgraded implements Mod {
     this.debug = debug;
     this.timeThreshold = timeThreshold;
     this.callbacks = getCallbacks();
-    this.features = getFeatures(mod, this.callbacks);
+    this.features = getFeatures(
+      this as unknown as ModUpgradedInterface,
+      this.callbacks,
+    );
   }
 
   // ---------------
@@ -368,7 +372,11 @@ export class ModUpgraded implements Mod {
     }
   }
 
-  /** Returns the names of the exported class methods from the features that were added. */
+  /**
+   * Returns the names of the exported class methods from the features that were added. This is
+   * called from the "upgradeMod" function, but we want to mark it as private so that end-users
+   * don't have access to it..
+   */
   private initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);

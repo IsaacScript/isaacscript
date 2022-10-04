@@ -6,6 +6,7 @@ import {
   ModCallback,
   PlayerType,
 } from "isaac-typescript-definitions";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { arrayEquals } from "../../../functions/array";
 import { getEnumValues } from "../../../functions/enums";
 import { hasFlag } from "../../../functions/flag";
@@ -50,6 +51,8 @@ export class PlayerCollectibleDetection extends Feature {
     runInNFrames: RunInNFrames,
   ) {
     super();
+
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
       [ModCallback.POST_USE_ITEM, [this.useItemD4, CollectibleType.D4]], // 3
