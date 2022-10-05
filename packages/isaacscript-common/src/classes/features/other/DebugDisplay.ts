@@ -55,9 +55,9 @@ export class DebugDisplay extends Feature {
   // -------------
 
   /**
-   * If the "extra console commands" feature is specified, the "playerDisplay" console command will
-   * draw text on the screen next to each player. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "togglePlayerDisplay" function is called, text will be drawn on the screen next to each
+   * player. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setPlayerDisplay(
@@ -67,9 +67,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "tearDisplay" console command will
-   * draw text on the screen next to each tear. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleTearDisplay" function is called, text will be drawn on the screen next to each
+   * tear. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setTearDisplay(textCallback: (tear: EntityTear) => string): void {
@@ -77,9 +77,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "familiarDisplay" console command
-   * will draw text on the screen for each familiar for debugging purposes. Use this function to
-   * specify a callback function that returns the string that should be drawn.
+   * If the "toggleFamiliarDisplay" function is called, text will be drawn on the screen next to
+   * each familiar. Use this function to specify a callback function that returns the string that
+   * should be drawn.
    */
   @Exported
   public setFamiliarDisplay(
@@ -89,9 +89,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "bombDisplay" console command will
-   * draw text on the screen next to each bomb. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleBombDisplay" function is called, text will be drawn on the screen next to each
+   * bomb. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setBombDisplay(textCallback: (bomb: EntityBomb) => string): void {
@@ -99,9 +99,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "pickupDisplay" console command will
-   * draw text on the screen next to each pickup. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "togglePickupDisplay" function is called, text will be drawn on the screen next to each
+   * pickup. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setPickupDisplay(
@@ -111,9 +111,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "slotDisplay" console command will
-   * draw text on the screen next to each slot. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleSlotDisplay" function is called, text will be drawn on the screen next to each
+   * slot. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setSlotDisplay(textCallback: (slot: Entity) => string): void {
@@ -121,9 +121,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "laserDisplay" console command will
-   * draw text on the screen next to each laser. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleLaserDisplay" function is called, text will be drawn on the screen next to each
+   * laser. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setLaserDisplay(textCallback: (laser: EntityLaser) => string): void {
@@ -131,9 +131,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "knifeDisplay" console command will
-   * draw text on the screen next to each knife. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleKnifeDisplay" function is called, text will be drawn on the screen next to each
+   * knife. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setKnifeDisplay(textCallback: (knife: EntityKnife) => string): void {
@@ -141,9 +141,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "projectileDisplay" console command
-   * will draw text on the screen next to each projectile. Use this function to specify a callback
-   * function that returns the string that should be drawn.
+   * If the "toggleProjectileDisplay" function is called, text will be drawn on the screen next to
+   * each projectile. Use this function to specify a callback function that returns the string that
+   * should be drawn.
    */
   @Exported
   public setProjectileDisplay(
@@ -165,9 +165,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "npcDisplay" console command will
-   * draw text on the screen next to each NPC. Use this function to specify a callback function that
-   * returns the string that should be drawn.
+   * If the "toggleNPCDisplay" function is called, text will be drawn on the screen next to each
+   * NPC. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setNPCDisplay(textCallback: (npc: EntityNPC) => string): void {
@@ -175,9 +175,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "rockDisplay" console command will
-   * draw text on the screen next to each rock. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleRockDisplay" function is called, text will be drawn on the screen next to each
+   * rock. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setRockDisplay(textCallback: (rock: GridEntityRock) => string): void {
@@ -185,9 +185,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "pitDisplay" console command will
-   * draw text on the screen next to each pit. Use this function to specify a callback function that
-   * returns the string that should be drawn.
+   * If the "togglePitDisplay" function is called, text will be drawn on the screen next to each
+   * pit. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setPitDisplay(textCallback: (pit: GridEntityPit) => string): void {
@@ -195,9 +195,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "spikesDisplay" console command will
-   * draw text on the screen next to each spikes. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleSpikesDisplay" function is called, text will be drawn on the screen next to each
+   * spikes. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setSpikesDisplay(
@@ -207,9 +207,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "tntDisplay" console command will
-   * draw text on the screen next to each TNT. Use this function to specify a callback function that
-   * returns the string that should be drawn.
+   * If the "toggleTNTDisplay" function is called, text will be drawn on the screen next to each
+   * TNT. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setTNTDisplay(textCallback: (tnt: GridEntityTNT) => string): void {
@@ -217,9 +217,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "poopDisplay" console command will
-   * draw text on the screen next to each poop. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "togglePoopDisplay" function is called, text will be drawn on the screen next to each
+   * poop. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setPoopDisplay(textCallback: (poop: GridEntityPoop) => string): void {
@@ -227,9 +227,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "doorDisplay" console command will
-   * draw text on the screen next to each door. Use this function to specify a callback function
-   * that returns the string that should be drawn.
+   * If the "toggleDoorDisplay" function is called, text will be drawn on the screen next to each
+   * door. Use this function to specify a callback function that returns the string that should be
+   * drawn.
    */
   @Exported
   public setDoorDisplay(textCallback: (door: GridEntityDoor) => string): void {
@@ -237,9 +237,9 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * If the "extra console commands" feature is specified, the "pressurePlateDisplay" console
-   * command will draw text on the screen next to each pressure plate. Use this function to specify
-   * a callback function that returns the string that should be drawn.
+   * If the "togglePressurePlateDisplay" function is called, text will be drawn on the screen next
+   * to each pressure plate. Use this function to specify a callback function that returns the
+   * string that should be drawn.
    */
   @Exported
   public setPressurePlateDisplay(
@@ -263,83 +263,50 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * Toggles the debug display for players. This is the function that runs when you use the
-   * "playerDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for players, which will draw text on the screen next to each player.
    */
   @Exported
   public togglePlayerDisplay(): void {
     this.toggleFeature(this.player, "player");
   }
 
-  /**
-   * Toggles the debug display for tears. This is the function that runs when you use the
-   * "tearDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for tears, which will draw text on the screen next to each tear. */
   @Exported
   public toggleTearDisplay(): void {
     this.toggleFeature(this.tear, "tear");
   }
 
   /**
-   * Toggles the debug display for familiars. This is the function that runs when you use the
-   * "familiarDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for familiars, which will draw text on the screen next to each
+   * familiar.
    */
   @Exported
   public toggleFamiliarDisplay(): void {
     this.toggleFeature(this.familiar, "familiar");
   }
 
-  /**
-   * Toggles the debug display for bombs. This is the function that runs when you use the
-   * "bombDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for bombs, which will draw text on the screen next to each bomb. */
   @Exported
   public toggleBombDisplay(): void {
     this.toggleFeature(this.bomb, "bomb");
   }
 
   /**
-   * Toggles the debug display for pickups. This is the function that runs when you use the
-   * "pickupDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for pickups, which will draw text on the screen next to each pickup.
    */
   @Exported
   public togglePickupDisplay(): void {
     this.toggleFeature(this.pickup, "pickup");
   }
 
-  /**
-   * Toggles the debug display for slots. This is the function that runs when you use the
-   * "slotDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for slots, which will draw text on the screen next to each slot. */
   @Exported
   public toggleSlotDisplay(): void {
     this.toggleFeature(this.slot, "slot");
   }
 
   /**
-   * Toggles the debug display for lasers. This is the function that runs when you use the
-   * "laserDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for lasers, which will draw text on the screen next to each laser.
    */
   @Exported
   public toggleLaserDisplay(): void {
@@ -347,11 +314,7 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * Toggles the debug display for knives. This is the function that runs when you use the
-   * "knifeDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for knives, which will draw text on the screen next to each knife.
    */
   @Exported
   public toggleKnifeDisplay(): void {
@@ -359,11 +322,8 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * Toggles the debug display for projectiles. This is the function that runs when you use the
-   * "projectileDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for projectiles, which will draw text on the screen next to each
+   * projectile.
    */
   @Exported
   public toggleProjectileDisplay(): void {
@@ -371,107 +331,60 @@ export class DebugDisplay extends Feature {
   }
 
   /**
-   * Toggles the debug display for effects. This is the function that runs when you use the
-   * "effectDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for effects, which will draw text on the screen next to each effect.
    */
   @Exported
   public toggleEffectDisplay(): void {
     this.toggleFeature(this.effect, "effect");
   }
 
-  /**
-   * Toggles the debug display for NPCs. This is the function that runs when you use the
-   * "npcDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for NPCs, which will draw text on the screen next to each NPC. */
   @Exported
   public toggleNPCDisplay(): void {
     this.toggleFeature(this.npc, "NPC");
   }
 
-  /**
-   * Toggles the debug display for rocks. This is the function that runs when you use the
-   * "rockDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for rocks, which will draw text on the screen next to each rock. */
   @Exported
   public toggleRockDisplay(): void {
     this.toggleFeature(this.rock, "rock");
   }
 
-  /**
-   * Toggles the debug display for pits. This is the function that runs when you use the
-   * "pitDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for pits, which will draw text on the screen next to each pit. */
   @Exported
   public togglePitDisplay(): void {
     this.toggleFeature(this.pit, "pit");
   }
 
   /**
-   * Toggles the debug display for spikes. This is the function that runs when you use the
-   * "spikesDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for spikes, which will draw text on the screen next to each spike.
    */
   @Exported
   public toggleSpikesDisplay(): void {
     this.toggleFeature(this.spikes, "spikes");
   }
 
-  /**
-   * Toggles the debug display for TNT. This is the function that runs when you use the "tntDisplay"
-   * custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for TNT, which will draw text on the screen next to each TNT. */
   @Exported
   public toggleTNTDisplay(): void {
     this.toggleFeature(this.tnt, "tnt");
   }
 
-  /**
-   * Toggles the debug display for poop. This is the function that runs when you use the
-   * "poopDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for poops, which will draw text on the screen next to each poop. */
   @Exported
   public togglePoopDisplay(): void {
     this.toggleFeature(this.poop, "poop");
   }
 
-  /**
-   * Toggles the debug display for doors. This is the function that runs when you use the
-   * "doorDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
-   */
+  /** Toggles the debug display for doors, which will draw text on the screen next to each door. */
   @Exported
   public toggleDoorDisplay(): void {
     this.toggleFeature(this.door, "door");
   }
 
   /**
-   * Toggles the debug display for pressure plates. This is the function that runs when you use the
-   * "pressurePlateDisplay" custom console command.
-   *
-   * Note that you have to run the `enableExtraConsoleCommands` function once at the beginning of
-   * your mod in order for this feature to work.
+   * Toggles the debug display for pressure plates, which will draw text on the screen next to each
+   * pressure plate.
    */
   @Exported
   public togglePressurePlateDisplay(): void {

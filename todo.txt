@@ -95,4 +95,4 @@ lint:
 ctrl+s --> // est
 (maybe fix is to just disable other eslint rule)
 
-lint: add no null
+lint: add no null (only for non isaacscript projects)

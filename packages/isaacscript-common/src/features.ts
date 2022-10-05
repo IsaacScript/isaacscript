@@ -21,6 +21,7 @@ import { DebugDisplay } from "./classes/features/other/DebugDisplay";
 import { DeployJSONRoom } from "./classes/features/other/DeployJSONRoom";
 import { DisableAllSound } from "./classes/features/other/DisableAllSound";
 import { DisableInputs } from "./classes/features/other/DisableInputs";
+import { ExtraConsoleCommands } from "./classes/features/other/ExtraConsoleCommands";
 import { FadeInRemover } from "./classes/features/other/FadeInRemover";
 import { FastReset } from "./classes/features/other/FastReset";
 import { FirstLast } from "./classes/features/other/FirstLast";
@@ -82,7 +83,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.FAST_RESET]: FastReset;
   [ISCFeature.FIRST_LAST]: FirstLast;
   [ISCFeature.FORGOTTEN_SWITCH]: ForgottenSwitch;
-  // [ISCFeature.EXTRA_CONSOLE_COMMANDS]: ExtraConsoleCommands,
+  [ISCFeature.EXTRA_CONSOLE_COMMANDS]: ExtraConsoleCommands;
   [ISCFeature.NO_SIREN_STEAL]: NoSirenSteal;
   [ISCFeature.PAUSE]: Pause;
   [ISCFeature.PERSISTENT_ENTITIES]: PersistentEntities;
@@ -200,7 +201,7 @@ export function getFeatures(
     [ISCFeature.FAST_RESET]: new FastReset(),
     [ISCFeature.FIRST_LAST]: new FirstLast(),
     [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(),
-    // [ISCFeature.EXTRA_CONSOLE_COMMANDS,]: new ExtraConsoleCommands(),
+    [ISCFeature.EXTRA_CONSOLE_COMMANDS]: new ExtraConsoleCommands(),
     [ISCFeature.NO_SIREN_STEAL]: new NoSirenSteal(),
     [ISCFeature.PAUSE]: new Pause(disableInputs),
     [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),

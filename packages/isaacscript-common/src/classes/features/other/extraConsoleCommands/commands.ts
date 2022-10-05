@@ -49,79 +49,85 @@ import {
   StageType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../../core/cachedClasses";
+import { game, sfxManager } from "../../../../core/cachedClasses";
 import {
   DOGMA_ROOM_GRID_INDEX,
   MAX_LEVEL_GRID_INDEX,
-} from "../../core/constants";
+} from "../../../../core/constants";
 import {
   FIRST_CARD_TYPE,
   FIRST_CHARACTER,
+  FIRST_PILL_COLOR,
   FIRST_PILL_EFFECT,
   FIRST_ROOM_TYPE,
   FIRST_STAGE,
   LAST_ROOM_TYPE,
   LAST_STAGE,
+  LAST_VANILLA_CARD_TYPE,
   LAST_VANILLA_CHARACTER,
-} from "../../core/constantsFirstLast";
-import { HealthType } from "../../enums/HealthType";
-import { getCardName } from "../../functions/cards";
-import { getCharacterName } from "../../functions/characters";
-import { addCharge, getTotalCharge } from "../../functions/charge";
-import { isValidCollectibleType } from "../../functions/collectibles";
-import { runDeepCopyTests } from "../../functions/deepCopyTests";
-import { getNPCs } from "../../functions/entitiesSpecific";
-import { getEnumValues, getLastEnumValue } from "../../functions/enums";
-import { addFlag } from "../../functions/flag";
-import { spawnGridEntity } from "../../functions/gridEntities";
-import { getRoomGridIndexesForType } from "../../functions/levelGrid";
+  LAST_VANILLA_PILL_EFFECT,
+} from "../../../../core/constantsFirstLast";
+import { HealthType } from "../../../../enums/HealthType";
+import { getCardName } from "../../../../functions/cards";
+import { getCharacterName } from "../../../../functions/characters";
+import { addCharge, getTotalCharge } from "../../../../functions/charge";
+import { isValidCollectibleType } from "../../../../functions/collectibles";
+import { runDeepCopyTests } from "../../../../functions/deepCopyTests";
+import { getNPCs } from "../../../../functions/entitiesSpecific";
+import { getEnumValues, getLastEnumValue } from "../../../../functions/enums";
+import { addFlag } from "../../../../functions/flag";
+import { spawnGridEntity } from "../../../../functions/gridEntities";
+import { getRoomGridIndexesForType } from "../../../../functions/levelGrid";
 import {
   logPlayerEffects,
   logRoom,
   logSeedEffects,
   logSounds,
-} from "../../functions/logMisc";
-import { getMapPartialMatch } from "../../functions/map";
-import { runMergeTests } from "../../functions/mergeTests";
+} from "../../../../functions/logMisc";
+import { getMapPartialMatch } from "../../../../functions/map";
+import { runMergeTests } from "../../../../functions/mergeTests";
 import {
   spawnCard,
   spawnPill,
   spawnTrinket as spawnTrinketFunction,
-} from "../../functions/pickupsSpecific";
-import { getPillEffectName } from "../../functions/pills";
-import { getPlayers } from "../../functions/playerIndex";
+} from "../../../../functions/pickupsSpecific";
+import { getPillEffectName } from "../../../../functions/pills";
+import { getPlayers } from "../../../../functions/playerIndex";
 import {
   addCollectibleCostume,
   getPlayerName,
   removeCollectibleCostume,
   useActiveItemTemp,
-} from "../../functions/players";
-import { gridCoordinatesToWorldPosition } from "../../functions/roomGrid";
-import { changeRoom } from "../../functions/rooms";
-import { reloadRoom as reloadRoomFunction } from "../../functions/roomTransition";
-import { onSetSeed, restart, setUnseeded } from "../../functions/run";
-import { getSortedSetValues } from "../../functions/set";
-import { spawnCollectible as spawnCollectibleFunction } from "../../functions/spawnCollectible";
-import { setStage } from "../../functions/stage";
+} from "../../../../functions/players";
+import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
+import { changeRoom } from "../../../../functions/rooms";
+import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
+import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
+import { getSortedSetValues } from "../../../../functions/set";
+import { spawnCollectible as spawnCollectibleFunction } from "../../../../functions/spawnCollectible";
+import { setStage } from "../../../../functions/stage";
 import {
   getCollectibleTypesForTransformation,
   getTransformationName,
-} from "../../functions/transformations";
-import { getGoldenTrinketType } from "../../functions/trinkets";
+} from "../../../../functions/transformations";
+import { getGoldenTrinketType } from "../../../../functions/trinkets";
 import {
   asCardType,
   asCollectibleType,
   asTrinketType,
-} from "../../functions/types";
-import { iRange, printConsole, printEnabled } from "../../functions/utils";
-import { CARD_NAME_TO_TYPE_MAP } from "../../maps/cardNameToTypeMap";
-import { CHARACTER_NAME_TO_TYPE_MAP } from "../../maps/characterNameToTypeMap";
-import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../maps/collectibleNameToTypeMap";
-import { PILL_NAME_TO_EFFECT_MAP } from "../../maps/pillNameToEffectMap";
-import { ROOM_NAME_TO_TYPE_MAP } from "../../maps/roomNameToTypeMap";
-import { TRANSFORMATION_NAME_TO_PLAYER_FORM_MAP } from "../../maps/transformationNameToPlayerForm";
-import { TRINKET_NAME_TO_TYPE_MAP } from "../../maps/trinketNameToTypeMap";
-import { getLastCardType, getLastPillEffect } from "../firstLast";
+} from "../../../../functions/types";
+import {
+  iRange,
+  printConsole,
+  printEnabled,
+} from "../../../../functions/utils";
+import { CARD_NAME_TO_TYPE_MAP } from "../../../../maps/cardNameToTypeMap";
+import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToTypeMap";
+import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../../../maps/collectibleNameToTypeMap";
+import { PILL_NAME_TO_EFFECT_MAP } from "../../../../maps/pillNameToEffectMap";
+import { ROOM_NAME_TO_TYPE_MAP } from "../../../../maps/roomNameToTypeMap";
+import { TRANSFORMATION_NAME_TO_PLAYER_FORM_MAP } from "../../../../maps/transformationNameToPlayerForm";
+import { TRINKET_NAME_TO_TYPE_MAP } from "../../../../maps/trinketNameToTypeMap";
 import {
   addHeart,
   devilAngel,
@@ -131,8 +137,8 @@ import {
   spawnTrapdoorOrCrawlSpace,
   warpNextToRoomType,
   warpToRoomType,
-} from "./commandsSubroutines";
-import v from "./v";
+} from "./subroutines";
+import { v } from "./v";
 
 /**
  * Adds a single charge to the player's specified active item. You must provide the active slot
@@ -365,8 +371,7 @@ export function card(params: string): void {
 
     cardType = match[1];
   } else {
-    const lastCardType = getLastCardType();
-    if (num < FIRST_CARD_TYPE || num > lastCardType) {
+    if (num < FIRST_CARD_TYPE || num > LAST_VANILLA_CARD_TYPE) {
       printConsole(`Invalid card sub-type: ${num}`);
       return;
     }
@@ -381,18 +386,16 @@ export function card(params: string): void {
 
 /** Spawns every card on the ground, starting at the top-left-most tile. */
 export function cards(): void {
-  const lastCardType = getLastCardType();
-
-  let cardType = 1;
+  let cardType = FIRST_CARD_TYPE;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      if (asCardType(cardType) === lastCardType) {
+      if (cardType > LAST_VANILLA_CARD_TYPE) {
         return;
       }
 
       const worldPosition = gridCoordinatesToWorldPosition(x, y);
       spawnCard(asCardType(cardType), worldPosition);
-      cardType++;
+      cardType++; // eslint-disable-line isaacscript/strict-enums
     }
   }
 }
@@ -1006,8 +1009,7 @@ export function pill(params: string): void {
 
     pillEffect = match[1];
   } else {
-    const lastPillEffect = getLastPillEffect();
-    if (num < FIRST_PILL_EFFECT || num > lastPillEffect) {
+    if (num < FIRST_PILL_EFFECT || num > LAST_VANILLA_PILL_EFFECT) {
       printConsole(`Invalid pill effect ID: ${num}`);
       return;
     }
@@ -1022,21 +1024,16 @@ export function pill(params: string): void {
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */
 export function pills(): void {
-  const pillColors = getEnumValues(PillColor).filter(
-    (pillColor) => pillColor !== PillColor.NULL,
-  );
-
-  let pillColorIndex = -1;
+  let pillColor = FIRST_PILL_COLOR;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
-      pillColorIndex++;
-      const pillColor = pillColors[pillColorIndex];
-      if (pillColor === undefined) {
+      if (pillColor > PillColor.GOLD) {
         return;
       }
 
       const worldPosition = gridCoordinatesToWorldPosition(x, y);
       spawnPill(pillColor, worldPosition);
+      pillColor++; // eslint-disable-line isaacscript/strict-enums
     }
   }
 }
