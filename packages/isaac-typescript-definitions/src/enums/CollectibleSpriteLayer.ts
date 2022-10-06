@@ -1,4 +1,4 @@
-/** Corresponds to "005.100_collectible.anm2". */
+/** Corresponds to "resources/gfx/005.100_collectible.anm2". */
 export enum CollectibleSpriteLayer {
   /** The pedestal. */
   BODY = 0,

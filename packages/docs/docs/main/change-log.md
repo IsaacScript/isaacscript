@@ -11,6 +11,9 @@ This page lists the changes to the IsaacScript framework.
 
 ## October 7th, 2022 (Unreleased)
 
+- Added the following helper functions:
+  - `removeUrnRewards`
+  - `removeEntitiesSpawnedFromGridEntity`
 - Renamed the following helper functions:
   - `hasSirenStolenFamiliar` --> `isFamiliarStolenBySiren`
 - Deleted the following helper functions:

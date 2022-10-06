@@ -7,32 +7,30 @@ import {
   SoundEffect,
   StageID,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../../core/cachedClasses";
-import { arrayRemove } from "../../functions/array";
-import { getBosses } from "../../functions/bosses";
-import { getRoomSubType } from "../../functions/roomData";
-import { removeCharactersBefore } from "../../functions/string";
-import { eRange } from "../../functions/utils";
-import { CustomStage } from "../../interfaces/private/CustomStage";
-import { BOSS_NAME_PNG_FILE_NAMES } from "../../objects/bossNamePNGFileNames";
-import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../objects/bossPortraitPNGFileNames";
-import { PLAYER_NAME_PNG_FILE_NAMES } from "../../objects/playerNamePNGFileNames";
-import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../objects/playerPortraitPNGFileNames";
-import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../objects/versusScreenBackgroundColors";
-import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../objects/versusScreenDirtSpotColors";
-import { disableAllSound, enableAllSound } from "../disableAllSound";
-import { pause, unpause } from "../pause";
-import { runNextGameFrame } from "../runInNFrames";
-import {
-  CUSTOM_STAGE_FEATURE_NAME,
-  ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
-} from "./constants";
+import { game, sfxManager } from "../../../../core/cachedClasses";
+import { arrayRemove } from "../../../../functions/array";
+import { getBosses } from "../../../../functions/bosses";
+import { getRoomSubType } from "../../../../functions/roomData";
+import { removeCharactersBefore } from "../../../../functions/string";
+import { eRange } from "../../../../functions/utils";
+import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { BOSS_NAME_PNG_FILE_NAMES } from "../../../../objects/bossNamePNGFileNames";
+import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/bossPortraitPNGFileNames";
+import { PLAYER_NAME_PNG_FILE_NAMES } from "../../../../objects/playerNamePNGFileNames";
+import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/playerPortraitPNGFileNames";
+import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../../../objects/versusScreenBackgroundColors";
+import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../../../objects/versusScreenDirtSpotColors";
+import { DisableAllSound } from "../DisableAllSound";
+import { Pause } from "../Pause";
+import { RunInNFrames } from "../RunInNFrames";
 import {
   CUSTOM_FLOOR_STAGE,
   CUSTOM_FLOOR_STAGE_TYPE,
+  CUSTOM_STAGE_FEATURE_NAME,
   DEFAULT_BASE_STAGE,
   DEFAULT_BASE_STAGE_TYPE,
-} from "./exports";
+  ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
+} from "./constants";
 
 interface VersusScreenVars {
   run: {
@@ -121,6 +119,9 @@ const versusScreenDirtSpotSprite = Sprite();
 export function playVersusScreenAnimation(
   v: VersusScreenVars,
   customStage: CustomStage,
+  disableAllSound: DisableAllSound,
+  pause: Pause,
+  runInNFrames: RunInNFrames,
 ): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
@@ -140,7 +141,7 @@ export function playVersusScreenAnimation(
     // Revert to using the background from the default stage.
     const level = game.GetLevel();
     level.SetStage(DEFAULT_BASE_STAGE, DEFAULT_BASE_STAGE_TYPE);
-    runNextGameFrame(() => {
+    runInNFrames.runNextGameFrame(() => {
       const futureLevel = game.GetLevel();
       futureLevel.SetStage(CUSTOM_FLOOR_STAGE, CUSTOM_FLOOR_STAGE_TYPE);
     });
@@ -149,9 +150,9 @@ export function playVersusScreenAnimation(
 
   v.run.showingBossVersusScreen = true;
 
-  pause();
+  pause.pause();
   hud.SetVisible(false);
-  disableAllSound(CUSTOM_STAGE_FEATURE_NAME);
+  disableAllSound.disableAllSound(CUSTOM_STAGE_FEATURE_NAME);
 
   // In vanilla, the "overlay.png" file has a white background. We must convert it to a PNG that
   // uses a transparent background in order for the background behind it to be visible. We use the
@@ -312,21 +313,29 @@ function getBossPNGPathsCustom(
   return matchingBossEntry.versusScreen;
 }
 
-function finishVersusScreenAnimation(v: VersusScreenVars) {
+function finishVersusScreenAnimation(
+  v: VersusScreenVars,
+  pause: Pause,
+  disableAllSound: DisableAllSound,
+) {
   const hud = game.GetHUD();
 
   v.run.showingBossVersusScreen = false;
 
-  unpause();
+  pause.unpause();
   hud.SetVisible(true);
-  enableAllSound(CUSTOM_STAGE_FEATURE_NAME);
+  disableAllSound.enableAllSound(CUSTOM_STAGE_FEATURE_NAME);
 
   // The sound effect only plays once the versus cutscene is over.
   sfxManager.Play(SoundEffect.CASTLE_PORTCULLIS);
 }
 
 // ModCallback.POST_RENDER (2)
-export function versusScreenPostRender(v: VersusScreenVars): void {
+export function versusScreenPostRender(
+  v: VersusScreenVars,
+  pause: Pause,
+  disableAllSound: DisableAllSound,
+): void {
   if (!v.run.showingBossVersusScreen) {
     return;
   }
@@ -335,7 +344,7 @@ export function versusScreenPostRender(v: VersusScreenVars): void {
   // black screen as soon as the slide animation starts.
 
   if (versusScreenSprite.IsFinished(VERSUS_SCREEN_ANIMATION_NAME)) {
-    finishVersusScreenAnimation(v);
+    finishVersusScreenAnimation(v, pause, disableAllSound);
     return;
   }
 

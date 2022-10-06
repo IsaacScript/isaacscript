@@ -8,7 +8,6 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { ISCFeature } from "../../../enums/ISCFeature";
 import { addFlag, bitFlags } from "../../../functions/flag";
 import { getMapPartialMatch } from "../../../functions/map";
 import {
@@ -32,8 +31,6 @@ export class ExtraConsoleCommands extends Feature {
 
   constructor() {
     super();
-
-    this.featuresUsed = [ISCFeature.DEBUG_DISPLAY];
 
     this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1

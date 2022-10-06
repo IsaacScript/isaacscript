@@ -1,28 +1,10 @@
-import {
-  CollectibleType,
-  EntityType,
-  GridEntityType,
-  LevelStage,
-  TrinketType,
-} from "isaac-typescript-definitions";
-import { removeEntities } from "../../functions/entities";
-import { getNPCs } from "../../functions/entitiesSpecific";
-import { removeGridEntity } from "../../functions/gridEntities";
-import {
-  getCoins,
-  getCollectibles,
-  getTrinkets,
-} from "../../functions/pickupsSpecific";
-import { calculateStageType } from "../../functions/stage";
-import { removeCharactersBefore } from "../../functions/string";
-import { vectorEquals } from "../../functions/vector";
-import { CustomStage } from "../../interfaces/private/CustomStage";
-import { isCustomGridEntity } from "../customGridEntity";
-import {
-  spawnCustomTrapdoor,
-  spawnCustomTrapdoorToVanilla,
-} from "../customTrapdoor/exports";
-import { DEFAULT_BASE_STAGE } from "./exports";
+import { GridEntityType, LevelStage } from "isaac-typescript-definitions";
+import { removeGridEntity } from "../../../../functions/gridEntities";
+import { calculateStageType } from "../../../../functions/stage";
+import { removeCharactersBefore } from "../../../../functions/string";
+import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { CustomTrapdoors } from "../CustomTrapdoors";
+import { DEFAULT_BASE_STAGE } from "./constants";
 
 /** For `GridEntityType.DECORATION` (1). */
 export function setCustomDecorationGraphics(
@@ -35,10 +17,6 @@ export function setCustomDecorationGraphics(
     customStage.decorationsPNGPath === undefined &&
     customStage.decorationsANM2Path === undefined
   ) {
-    return;
-  }
-
-  if (isCustomGridEntity(gridEntity)) {
     return;
   }
 
@@ -81,10 +59,6 @@ export function setCustomRockGraphics(
     customStage.rocksPNGPath === undefined &&
     customStage.rocksANM2Path === undefined
   ) {
-    return;
-  }
-
-  if (isCustomGridEntity(gridEntity)) {
     return;
   }
 
@@ -146,10 +120,6 @@ export function setCustomPitGraphics(
 
   const pngPath = removeCharactersBefore(customStage.pitsPNGPath, "gfx/");
 
-  if (isCustomGridEntity(gridEntity)) {
-    return;
-  }
-
   const gridEntityPit = gridEntity.ToPit();
   if (gridEntityPit === undefined) {
     return;
@@ -171,10 +141,6 @@ export function setCustomDoorGraphics(
   // If the end-user did not specify custom pit graphics, default to Basement graphics. (We don't
   // have to adjust anything for this case.)
   if (customStage.doorPNGPaths === undefined) {
-    return;
-  }
-
-  if (isCustomGridEntity(gridEntity)) {
     return;
   }
 
@@ -250,6 +216,7 @@ export function convertVanillaTrapdoors(
   customStage: CustomStage,
   gridEntity: GridEntity,
   isFirstFloor: boolean,
+  customTrapdoors: CustomTrapdoors,
 ): void {
   const gridEntityType = gridEntity.GetType();
   if (gridEntityType !== GridEntityType.TRAPDOOR) {
@@ -261,7 +228,11 @@ export function convertVanillaTrapdoors(
   if (isFirstFloor) {
     // If we are on the first floor of a custom stage, then the destination will be the second floor
     // of the custom stage. (e.g. Caves 1 to Caves 2)
-    spawnCustomTrapdoor(gridEntity.Position, customStage.name, 2);
+    customTrapdoors.spawnCustomTrapdoor(
+      gridEntity.Position,
+      customStage.name,
+      2,
+    );
   } else {
     // If we are on the second floor of a custom stage, then the destination will be the vanilla
     // floor equivalent to 2 floors after the floor used as a basis for the custom stage.
@@ -272,52 +243,10 @@ export function convertVanillaTrapdoors(
     const stage = (baseStage + 2) as LevelStage;
     const stageType = calculateStageType(stage);
 
-    spawnCustomTrapdoorToVanilla(gridEntity.Position, stage, stageType);
+    customTrapdoors.spawnCustomTrapdoorToVanilla(
+      gridEntity.Position,
+      stage,
+      stageType,
+    );
   }
-}
-
-/**
- * The rewards are based on the ones from the wiki:
- * https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Urns
- *
- * On the bugged stage of -1, only urns will spawn, so we do not have to handle the case of mushroom
- * rewards, skull rewards, and so on.
- */
-export function removeUrnRewards(
-  customStage: CustomStage,
-  gridEntity: GridEntity,
-): void {
-  // Assume that if the end-user does not have custom rock graphics specified, they want to keep the
-  // vanilla urn reward functionality.
-  if (customStage.rocksPNGPath === undefined) {
-    return;
-  }
-
-  // Coins
-  const coins = getCoins();
-  removeEntitiesSpawnedFromGridEntity(coins, gridEntity);
-
-  // A Quarter
-  const quarters = getCollectibles(CollectibleType.QUARTER);
-  removeEntitiesSpawnedFromGridEntity(quarters, gridEntity);
-
-  // Swallowed Penny
-  const swallowedPennies = getTrinkets(TrinketType.SWALLOWED_PENNY);
-  removeEntitiesSpawnedFromGridEntity(swallowedPennies, gridEntity);
-
-  // Spiders
-  const spiders = getNPCs(EntityType.SPIDER);
-  removeEntitiesSpawnedFromGridEntity(spiders, gridEntity);
-}
-
-function removeEntitiesSpawnedFromGridEntity(
-  entities: Entity[],
-  gridEntity: GridEntity,
-) {
-  const entitiesFromGridEntity = entities.filter(
-    (entity) =>
-      entity.FrameCount === 0 &&
-      vectorEquals(entity.Position, gridEntity.Position),
-  );
-  removeEntities(entitiesFromGridEntity);
 }

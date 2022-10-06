@@ -14,9 +14,17 @@ import { game } from "../core/cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../core/constants";
 import { RockAltType } from "../enums/RockAltType";
 import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAltType";
-import { spawnEffectWithSeed, spawnNPCWithSeed } from "./entitiesSpecific";
+import {
+  getNPCs,
+  spawnEffectWithSeed,
+  spawnNPCWithSeed,
+} from "./entitiesSpecific";
+import { removeEntitiesSpawnedFromGridEntity } from "./gridEntities";
 import { isCollectibleInItemPool } from "./itemPool";
 import {
+  getCoins,
+  getCollectibles,
+  getTrinkets,
   spawnCardWithSeed,
   spawnCoinWithSeed,
   spawnHeartWithSeed,
@@ -70,6 +78,30 @@ export function getRockAltType(): RockAltType {
   const backdropType = room.GetBackdropType();
 
   return BACKDROP_TYPE_TO_ROCK_ALT_TYPE[backdropType];
+}
+
+/**
+ * Helper function to remove all coins, trinkets, and so on that spawned from breaking an urn.
+ *
+ * The rewards are based on the ones from the wiki:
+ * https://bindingofisaacrebirth.fandom.com/wiki/Rocks#Urns
+ */
+export function removeUrnRewards(gridEntity: GridEntity): void {
+  // Coins
+  const coins = getCoins();
+  removeEntitiesSpawnedFromGridEntity(coins, gridEntity);
+
+  // A Quarter
+  const quarters = getCollectibles(CollectibleType.QUARTER);
+  removeEntitiesSpawnedFromGridEntity(quarters, gridEntity);
+
+  // Swallowed Penny
+  const swallowedPennies = getTrinkets(TrinketType.SWALLOWED_PENNY);
+  removeEntitiesSpawnedFromGridEntity(swallowedPennies, gridEntity);
+
+  // Spiders
+  const spiders = getNPCs(EntityType.SPIDER);
+  removeEntitiesSpawnedFromGridEntity(spiders, gridEntity);
 }
 
 /**

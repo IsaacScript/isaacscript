@@ -5,8 +5,6 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { hasVisitedStage } from "../features/stageHistory";
-import { areFeaturesInitialized } from "../featuresInitialized";
 import { getRoomGridIndex } from "./roomData";
 import {
   calculateStageType,
@@ -19,9 +17,9 @@ import { asNumber } from "./types";
  * Helper function to get the stage that a trapdoor or heaven door would take the player to, based
  * on the current stage, room, and game state flags.
  *
- * Note that in non-upgraded mods, this function will not account for the player having visited
- * Repentance floors in The Ascent. (Handling this requires stateful tracking as the player
- * progresses through the run.)
+ * If you want to account for the player having visited Repentance floors in The Ascent, use the
+ * `getNextStageUsingHistory` helper function instead (from the stage history feature). Handling
+ * this requires stateful tracking as the player progresses through the run.
  */
 export function getNextStage(): LevelStage {
   const level = game.GetLevel();
@@ -35,7 +33,7 @@ export function getNextStage(): LevelStage {
 
   // First, handle the special case of being on the backwards path.
   if (backwardsPath) {
-    return getNextStageBackwardsPath(stage, repentanceStage);
+    return asNumber(stage) - 1;
   }
 
   // Second, handle the special case of being in a specific off-grid room.
@@ -113,134 +111,13 @@ export function getNextStage(): LevelStage {
   return asNumber(stage) + 1;
 }
 
-function getNextStageBackwardsPath(
-  stage: LevelStage,
-  repentanceStage: boolean,
-): LevelStage {
-  // If we have no stage history to work with, then default to the previous stage.
-  if (!areFeaturesInitialized()) {
-    return asNumber(stage) - 1;
-  }
-
-  const visitedDownpour1 = hasVisitedStage(
-    LevelStage.BASEMENT_1,
-    StageType.REPENTANCE,
-  );
-  const visitedDross1 = hasVisitedStage(
-    LevelStage.BASEMENT_1,
-    StageType.REPENTANCE_B,
-  );
-  const visitedDownpour2 = hasVisitedStage(
-    LevelStage.BASEMENT_2,
-    StageType.REPENTANCE,
-  );
-  const visitedDross2 = hasVisitedStage(
-    LevelStage.BASEMENT_2,
-    StageType.REPENTANCE_B,
-  );
-  const visitedMines1 = hasVisitedStage(
-    LevelStage.CAVES_1,
-    StageType.REPENTANCE,
-  );
-  const visitedAshpit1 = hasVisitedStage(
-    LevelStage.CAVES_1,
-    StageType.REPENTANCE_B,
-  );
-  const visitedMines2 = hasVisitedStage(
-    LevelStage.DEPTHS_2,
-    StageType.REPENTANCE,
-  );
-  const visitedAshpit2 = hasVisitedStage(
-    LevelStage.DEPTHS_2,
-    StageType.REPENTANCE_B,
-  );
-
-  if (stage === LevelStage.BASEMENT_1) {
-    if (repentanceStage) {
-      // From Downpour 1 to Basement 1.
-      return LevelStage.BASEMENT_1;
-    }
-
-    // From Basement 1 to Home.
-    return LevelStage.HOME;
-  }
-
-  if (stage === LevelStage.BASEMENT_2) {
-    if (repentanceStage) {
-      if (visitedDownpour1 || visitedDross1) {
-        // From Downpour 2 to Downpour 1.
-        return LevelStage.BASEMENT_1;
-      }
-
-      // From Downpour 2 to Basement 2.
-      return LevelStage.BASEMENT_2;
-    }
-
-    // From Basement 2 to Basement 1.
-    return LevelStage.BASEMENT_1;
-  }
-
-  if (stage === LevelStage.CAVES_1) {
-    if (repentanceStage) {
-      if (visitedDownpour2 || visitedDross2) {
-        // From Mines 1 to Downpour 1.
-        return LevelStage.BASEMENT_2;
-      }
-
-      // From Mines 1 to Caves 1.
-      return LevelStage.CAVES_1;
-    }
-
-    // From Caves 1 to Basement 2.
-    return LevelStage.BASEMENT_2;
-  }
-
-  if (stage === LevelStage.CAVES_2) {
-    if (repentanceStage) {
-      if (visitedMines1 || visitedAshpit1) {
-        // From Mines 2 to Mines 1.
-        return LevelStage.CAVES_1;
-      }
-
-      // From Mines 2 to Caves 2.
-      return LevelStage.CAVES_2;
-    }
-
-    // From Caves 2 to Caves 1.
-    return LevelStage.CAVES_1;
-  }
-
-  if (stage === LevelStage.DEPTHS_1) {
-    if (repentanceStage) {
-      if (visitedMines2 || visitedAshpit2) {
-        // From Mausoleum 1 to Mines 2.
-        return LevelStage.CAVES_2;
-      }
-
-      // From Mausoleum 1 to Depths 1.
-      return LevelStage.DEPTHS_1;
-    }
-
-    // From Depths 1 to Caves 2.
-    return LevelStage.CAVES_2;
-  }
-
-  if (stage === LevelStage.DEPTHS_2) {
-    if (repentanceStage) {
-      // From Mausoleum 2 to Depths 2.
-      return LevelStage.DEPTHS_2;
-    }
-
-    // From Depths 2 to Depths 1.
-    return LevelStage.DEPTHS_1;
-  }
-
-  return asNumber(stage) - 1;
-}
-
 /**
  * Helper function to get the stage type that a trapdoor or heaven door would take the player to,
  * based on the current stage, room, and game state flags.
+ *
+ * If you want to account for previous floors visited on The Ascent, use the
+ * `getNextStageTypeUsingHistory` helper function instead (from the stage history feature). Handling
+ * this requires stateful tracking as the player progresses through the run.
  *
  * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
  *                2. Default is false.
@@ -259,7 +136,7 @@ export function getNextStageType(upwards = false): StageType {
 
   // First, handle the special case of being on the backwards path.
   if (backwardsPath) {
-    return getStageTypeBackwardsPath(stage, nextStage, repentanceStage);
+    return calculateStageType(nextStage);
   }
 
   // Second, handle the special case of being in a specific off-grid room.
@@ -323,97 +200,6 @@ export function getNextStageType(upwards = false): StageType {
   if (nextStage === LevelStage.HOME) {
     // Home does not have any alternate floors.
     return StageType.ORIGINAL;
-  }
-
-  return calculateStageType(nextStage);
-}
-
-function getStageTypeBackwardsPath(
-  stage: LevelStage,
-  nextStage: LevelStage,
-  repentanceStage: boolean,
-): StageType {
-  const visitedDownpour1 = hasVisitedStage(
-    LevelStage.BASEMENT_1,
-    StageType.REPENTANCE,
-  );
-  const visitedDross1 = hasVisitedStage(
-    LevelStage.BASEMENT_1,
-    StageType.REPENTANCE_B,
-  );
-  const visitedDownpour2 = hasVisitedStage(
-    LevelStage.BASEMENT_2,
-    StageType.REPENTANCE,
-  );
-  const visitedDross2 = hasVisitedStage(
-    LevelStage.BASEMENT_2,
-    StageType.REPENTANCE_B,
-  );
-  const visitedMines1 = hasVisitedStage(
-    LevelStage.CAVES_1,
-    StageType.REPENTANCE,
-  );
-  const visitedAshpit1 = hasVisitedStage(
-    LevelStage.CAVES_1,
-    StageType.REPENTANCE_B,
-  );
-  const visitedMines2 = hasVisitedStage(
-    LevelStage.DEPTHS_2,
-    StageType.REPENTANCE,
-  );
-  const visitedAshpit2 = hasVisitedStage(
-    LevelStage.DEPTHS_2,
-    StageType.REPENTANCE_B,
-  );
-
-  if (stage === LevelStage.BASEMENT_2 && repentanceStage) {
-    if (visitedDownpour1) {
-      return StageType.REPENTANCE;
-    }
-
-    if (visitedDross1) {
-      return StageType.REPENTANCE_B;
-    }
-  }
-
-  if (stage === LevelStage.CAVES_1 && repentanceStage) {
-    if (visitedDownpour2) {
-      return StageType.REPENTANCE;
-    }
-
-    if (visitedDross2) {
-      return StageType.REPENTANCE_B;
-    }
-  }
-
-  if (stage === LevelStage.CAVES_2 && !repentanceStage) {
-    if (visitedDownpour2) {
-      return StageType.REPENTANCE;
-    }
-
-    if (visitedDross2) {
-      return StageType.REPENTANCE_B;
-    }
-  }
-
-  if (stage === LevelStage.CAVES_2 && repentanceStage) {
-    if (visitedMines1) {
-      return StageType.REPENTANCE;
-    }
-
-    if (visitedAshpit1) {
-      return StageType.REPENTANCE_B;
-    }
-  }
-
-  if (stage === LevelStage.DEPTHS_2 && !repentanceStage) {
-    if (visitedAshpit2) {
-      return StageType.REPENTANCE_B;
-    }
-
-    if (visitedMines2) {
-      return StageType.REPENTANCE;
-    }
   }
 
   return calculateStageType(nextStage);

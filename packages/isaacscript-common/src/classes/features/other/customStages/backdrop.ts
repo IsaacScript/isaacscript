@@ -8,16 +8,19 @@ import {
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import { game } from "../../core/cachedClasses";
-import { VectorZero } from "../../core/constants";
-import { LadderSubTypeCustom } from "../../enums/LadderSubTypeCustom";
-import { getRandomArrayElement } from "../../functions/array";
-import { spawnEffectWithSeed } from "../../functions/entitiesSpecific";
-import { newRNG } from "../../functions/rng";
-import { isLRoom, isNarrowRoom } from "../../functions/roomShape";
-import { removeCharactersBefore, trimPrefix } from "../../functions/string";
-import { eRange, iRange } from "../../functions/utils";
-import { CustomStage } from "../../interfaces/private/CustomStage";
+import { game } from "../../../../core/cachedClasses";
+import { VectorZero } from "../../../../core/constants";
+import { LadderSubTypeCustom } from "../../../../enums/LadderSubTypeCustom";
+import { getRandomArrayElement } from "../../../../functions/array";
+import { spawnEffectWithSeed } from "../../../../functions/entitiesSpecific";
+import { newRNG } from "../../../../functions/rng";
+import { isLRoom, isNarrowRoom } from "../../../../functions/roomShape";
+import {
+  removeCharactersBefore,
+  trimPrefix,
+} from "../../../../functions/string";
+import { eRange, iRange } from "../../../../functions/utils";
+import { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 enum BackdropKind {

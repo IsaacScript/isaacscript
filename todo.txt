@@ -1,3 +1,5 @@
+- lazy load all sprites
+
 - add comment to all feature public methods about having to register
 
 - isaacscript-cli in lua
@@ -96,3 +98,5 @@ ctrl+s --> // est
 (maybe fix is to just disable other eslint rule)
 
 lint: add no null (only for non isaacscript projects)
+
+lint: no default export

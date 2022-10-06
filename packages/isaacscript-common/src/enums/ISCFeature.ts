@@ -1,5 +1,3 @@
-/* eslint-disable isaacscript/format-line-comments */
-
 export enum ISCFeature {
   // Callback logic
   CUSTOM_REVIVE,
@@ -22,8 +20,8 @@ export enum ISCFeature {
   CUSTOM_GRID_ENTITIES,
   CUSTOM_HOTKEYS,
   CUSTOM_PICKUPS,
-  // CUSTOM_STAGES,
-  // CUSTOM_TRAPDOORS,
+  CUSTOM_STAGES,
+  CUSTOM_TRAPDOORS,
   DEBUG_DISPLAY,
   DEPLOY_JSON_ROOM,
   DISABLE_ALL_SOUND,

@@ -17,6 +17,8 @@ import { CharacterStats } from "./classes/features/other/CharacterStats";
 import { CollectibleItemPoolType } from "./classes/features/other/CollectibleItemPoolType";
 import { CustomHotkeys } from "./classes/features/other/CustomHotkeys";
 import { CustomPickups } from "./classes/features/other/CustomPickups";
+import { CustomStages } from "./classes/features/other/CustomStages";
+import { CustomTrapdoors } from "./classes/features/other/CustomTrapdoors";
 import { DebugDisplay } from "./classes/features/other/DebugDisplay";
 import { DeployJSONRoom } from "./classes/features/other/DeployJSONRoom";
 import { DisableAllSound } from "./classes/features/other/DisableAllSound";
@@ -73,8 +75,8 @@ export interface ISCFeatureToClass {
   [ISCFeature.CUSTOM_GRID_ENTITIES]: CustomGridEntities;
   [ISCFeature.CUSTOM_HOTKEYS]: CustomHotkeys;
   [ISCFeature.CUSTOM_PICKUPS]: CustomPickups;
-  /// [ISCFeature.CUSTOM_STAGES]: CustomStages;
-  /// [ISCFeature.CUSTOM_TRAPDOORS]: CustomTrapdoors;
+  [ISCFeature.CUSTOM_STAGES]: CustomStages;
+  [ISCFeature.CUSTOM_TRAPDOORS]: CustomTrapdoors;
   [ISCFeature.DEBUG_DISPLAY]: DebugDisplay;
   [ISCFeature.DEPLOY_JSON_ROOM]: DeployJSONRoom;
   [ISCFeature.DISABLE_ALL_SOUND]: DisableAllSound;
@@ -111,9 +113,14 @@ export function getFeatures(
   callbacks: ModCallbackCustomToClass,
 ) {
   // Some features rely on other features; we must initialize those first.
+  const customStages = new CustomStages();
   const disableInputs = new DisableInputs();
+  const ponyDetection = new PonyDetection();
+  const roomClearFrame = new RoomClearFrame();
   const roomHistory = new RoomHistory();
   const runInNFrames = new RunInNFrames();
+  const runNextRoom = new RunNextRoom();
+  const stageHistory = new StageHistory();
   const customGridEntities = new CustomGridEntities(runInNFrames);
   const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
 
@@ -191,8 +198,17 @@ export function getFeatures(
     [ISCFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
     [ISCFeature.CUSTOM_HOTKEYS]: new CustomHotkeys(),
     [ISCFeature.CUSTOM_PICKUPS]: new CustomPickups(),
-    /// [ISCFeature.CUSTOM_STAGES]: new CustomStages(),
-    /// [ISCFeature.CUSTOM_TRAPDOORS]: new CustomTrapdoors(),
+    [ISCFeature.CUSTOM_STAGES]: customStages,
+    [ISCFeature.CUSTOM_TRAPDOORS]: new CustomTrapdoors(
+      customGridEntities,
+      customStages,
+      disableInputs,
+      ponyDetection,
+      roomClearFrame,
+      runInNFrames,
+      runNextRoom,
+      stageHistory,
+    ),
     [ISCFeature.DEBUG_DISPLAY]: new DebugDisplay(mod),
     [ISCFeature.DEPLOY_JSON_ROOM]: new DeployJSONRoom(preventGridEntityRespawn),
     [ISCFeature.DISABLE_ALL_SOUND]: new DisableAllSound(),
@@ -207,19 +223,19 @@ export function getFeatures(
     [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),
     [ISCFeature.PICKUP_INDEX]: new PickupIndexCreation(roomHistory),
     [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
-    [ISCFeature.PONY_DETECTION]: new PonyDetection(),
+    [ISCFeature.PONY_DETECTION]: ponyDetection,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
     [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: new PreventCollectibleRotation(),
     [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: new PreventGridEntityRespawn(
       runInNFrames,
     ),
-    [ISCFeature.ROOM_CLEAR_FRAME]: new RoomClearFrame(),
+    [ISCFeature.ROOM_CLEAR_FRAME]: roomClearFrame,
     [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
-    [ISCFeature.RUN_NEXT_ROOM]: new RunNextRoom(),
+    [ISCFeature.RUN_NEXT_ROOM]: runNextRoom,
     [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
     [ISCFeature.SHADER_CRASH_FIX]: new ShaderCrashFix(),
-    [ISCFeature.STAGE_HISTORY]: new StageHistory(),
+    [ISCFeature.STAGE_HISTORY]: stageHistory,
     [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),
   } as const);
 }

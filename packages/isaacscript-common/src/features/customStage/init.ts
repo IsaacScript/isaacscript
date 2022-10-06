@@ -32,7 +32,6 @@ import { streakTextGetShaderParams, streakTextPostRender } from "./streakText";
 import v, { customStagesMap } from "./v";
 import {
   playVersusScreenAnimation,
-  versusScreenInit,
   versusScreenPostRender,
 } from "./versusScreen";
 
@@ -44,7 +43,6 @@ export function customStageInit(mod: ModUpgraded): void {
   }
 
   saveDataManager(CUSTOM_STAGE_FEATURE_NAME, v);
-  versusScreenInit();
 
   mod.AddCallback(ModCallback.POST_RENDER, postRender); // 2
   mod.AddCallback(ModCallback.POST_CURSE_EVAL, postCurseEval); // 12

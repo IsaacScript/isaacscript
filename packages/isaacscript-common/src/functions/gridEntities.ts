@@ -431,6 +431,25 @@ export function removeAllMatchingGridEntities(
 }
 
 /**
+ * Helper function to remove all entities that just spawned from a grid entity breaking.
+ * Specifically, this is any entities that overlap with the position of a grid entity and are on
+ * frame 0.
+ *
+ * You must specify an array of entities to look through.
+ */
+export function removeEntitiesSpawnedFromGridEntity(
+  entities: Entity[],
+  gridEntity: GridEntity,
+): void {
+  const entitiesFromGridEntity = entities.filter(
+    (entity) =>
+      entity.FrameCount === 0 &&
+      vectorEquals(entity.Position, gridEntity.Position),
+  );
+  removeEntities(entitiesFromGridEntity);
+}
+
+/**
  * Helper function to remove all of the grid entities in the supplied array.
  *
  * @param gridEntities The array of grid entities to remove.

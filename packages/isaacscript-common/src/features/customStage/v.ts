@@ -28,10 +28,6 @@ const v = {
       pauseFrame: false,
     },
   },
-
-  room: {
-    showingShadows: false,
-  },
 };
 export default v;
 
