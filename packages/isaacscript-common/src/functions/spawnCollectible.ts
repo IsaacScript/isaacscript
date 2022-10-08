@@ -13,6 +13,9 @@ import { getRandomSeed, isRNG } from "./rng";
 /**
  * Helper function to spawn a collectible.
  *
+ * Use this instead of the `Game.Spawn` method because it handles the cases of Tainted Keeper
+ * collectibles costing coins.
+ *
  * This function is unsafe because it will not correctly handle quest items being rotated by Tainted
  * Isaac's rotation mechanic. To handle that, use the `spawnCollectible` helper function instead
  * (which is provided by `ISCFeature.SPAWN_COLLECTIBLE`).

@@ -1,10 +1,13 @@
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { Feature } from "../classes/private/Feature";
 import { ISCFeature } from "../enums/ISCFeature";
-import { ISCFeatureToClass } from "../features";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { AnyFunction } from "../types/AnyFunction";
-import { UnionToIntersection } from "../types/UnionToIntersection";
+import { ModUpgradedWithFeatures } from "../types/ModUpgradedWithFeatures";
+
+type ISCFeatureTuple<T extends readonly ISCFeature[]> =
+  ISCFeature extends T["length"]
+    ? 'The list of features must be a tuple. Use the "as const" assertion when declaring the array.'
+    : T;
 
 /**
  * Some features are very light in that they do not require any callback code to run besides simply
@@ -12,25 +15,14 @@ import { UnionToIntersection } from "../types/UnionToIntersection";
  *
  * The crash fix is also very light, so it is always included as a quality of life feature.
  */
-const MANDATORY_FEATURES: readonly ISCFeature[] = [
+const MANDATORY_FEATURES = [
   ISCFeature.FLYING_DETECTION,
   ISCFeature.ITEM_POOL_DETECTION,
   ISCFeature.MODDED_ELEMENT_DETECTION,
   ISCFeature.MODDED_ELEMENT_SETS,
   ISCFeature.SHADER_CRASH_FIX,
   ISCFeature.SPAWN_ALT_ROCK_REWARDS,
-];
-
-/**
- * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
- * has extra methods corresponding to the features.
- *
- * We have to explicitly account for the empty array case, since the `never` will mess up the union.
- */
-type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
-  ? ModUpgraded
-  : ModUpgraded &
-      Omit<UnionToIntersection<ISCFeatureToClass[T]>, keyof Feature>;
+] as const;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
@@ -59,9 +51,9 @@ type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
  *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
  */
-export function upgradeMod<T extends ISCFeature = never>(
+export function upgradeMod<T extends readonly ISCFeature[]>(
   modVanilla: Mod,
-  features: T[] = [],
+  features: ISCFeatureTuple<T>,
   debug = false,
   timeThreshold?: float,
 ): ModUpgradedWithFeatures<T> {
@@ -69,16 +61,18 @@ export function upgradeMod<T extends ISCFeature = never>(
 
   const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
 
+  const iscFeatures = features as ISCFeature[];
+
   // All upgraded mods should use some basic features. (See the documentation for
   // `MANDATORY_FEATURES`.)
   for (const mandatoryFeature of MANDATORY_FEATURES) {
-    if (!features.includes(mandatoryFeature as T)) {
-      features.unshift(mandatoryFeature as T);
+    if (!iscFeatures.includes(mandatoryFeature)) {
+      iscFeatures.unshift(mandatoryFeature);
     }
   }
 
   // Initialize every optional feature that the end-user specified.
-  for (const feature of features) {
+  for (const feature of iscFeatures) {
     // We intentionally access the private method here, so we use the string index escape hatch:
     // https://github.com/microsoft/TypeScript/issues/19335
     // eslint-disable-next-line @typescript-eslint/dot-notation

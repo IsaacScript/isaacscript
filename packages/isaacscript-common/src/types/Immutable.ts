@@ -1,5 +1,5 @@
 /**
- * Immutable is a utility type that will make the given array/map/set/object recursively read-only.
+ * Helper type to make the given array/map/set/object recursively read-only.
  *
  * You can use this type to easily build safe data structures.
  *

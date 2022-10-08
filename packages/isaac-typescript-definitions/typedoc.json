@@ -9,6 +9,7 @@
     "invalidLink": true,
     "notExported": true,
   },
+  "excludePrivate": true,
   "entryPoints": [
     "src/enums/ActiveSlot.ts",
     "src/enums/BackdropType.ts",

@@ -22,8 +22,6 @@ rm -rf "$OUT_DIR"
 bash "$DIR/../isaac-typescript-definitions/docs.sh"
 bash "$DIR/../isaacscript-common/docs.sh"
 
-exit 0
-
 # Second, apply transformations on top of the TypeDoc output.
 npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacTypeScriptDefinitions.ts"
 npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacScriptCommon.ts"

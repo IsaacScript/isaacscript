@@ -43,6 +43,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper types:
   - `AnyClass`
   - `HasFunction`
+  - `TupleToUnion`
 
 ## September 30th, 2022
 
@@ -62,7 +63,6 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`
-  - `Constructor`
   - `AllButFirst`
   - `AllButLast`
   - `LowercaseKeys`

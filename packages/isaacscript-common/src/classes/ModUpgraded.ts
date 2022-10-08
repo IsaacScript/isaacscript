@@ -43,7 +43,6 @@ export class ModUpgraded implements Mod {
   private callbacks;
 
   // Features must be marked as internal to prevent TypeDoc from complaining.
-  /** @internal */
   private features;
 
   // -----------
@@ -171,7 +170,7 @@ export class ModUpgraded implements Mod {
    * for events that are provided by the IsaacScript standard library. For example, the
    * `ModCallbackCustom.POST_BOMB_EXPLODE` event corresponds to when a bomb explodes.
    */
-  public AddCallbackCustom2<T extends ModCallbackCustom>(
+  public AddCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom[T]
   ): void {
@@ -281,7 +280,7 @@ export class ModUpgraded implements Mod {
     if (feature.customCallbacksUsed !== undefined) {
       for (const callbackTuple of feature.customCallbacksUsed) {
         const [modCallback, callbackArgs] = callbackTuple;
-        this.AddCallbackCustom2(modCallback, ...callbackArgs);
+        this.AddCallbackCustom(modCallback, ...callbackArgs);
       }
     }
 

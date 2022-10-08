@@ -16,7 +16,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
 };
 
 /**
- * A helper class for mods that wants to represent their individual features as classes. Extend your
+ * Helper class for mods that wants to represent their individual features as classes. Extend your
  * mod features from this class in order to enable the `@Callback` and `@CustomCallback` decorators
  * that automatically subscribe to callbacks.
  *
@@ -74,7 +74,7 @@ function checkAddDecoratedCallbacksCustom(
 
   for (const args of addCallbackCustomArgs) {
     // @ts-expect-error The compiler does not know that the arguments match the method.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
     mod.AddCallbackCustom(...args);
   }
 }
