@@ -74,7 +74,7 @@ function checkAddDecoratedCallbacksCustom(
 
   for (const args of addCallbackCustomArgs) {
     // @ts-expect-error The compiler does not know that the arguments match the method.
-    // eslint-disable-next-line isaacscript/strict-enums
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     mod.AddCallbackCustom(...args);
   }
 }
