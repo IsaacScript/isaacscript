@@ -1,7 +1,7 @@
 import { DefaultMap } from "../classes/DefaultMap";
+import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManager/constants";
 import { SerializationBrand } from "../enums/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { AnyClass } from "../types/AnyClass";
 import { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";

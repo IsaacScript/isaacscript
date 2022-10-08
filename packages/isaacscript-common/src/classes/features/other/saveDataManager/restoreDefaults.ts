@@ -3,11 +3,11 @@
 
 import { SaveDataKey } from "../../../../enums/SaveDataKey";
 import { SerializationType } from "../../../../enums/SerializationType";
-import { SAVE_DATA_MANAGER_DEBUG } from "../../../../features/saveDataManager/constants";
 import { deepCopy } from "../../../../functions/deepCopy";
 import { logError } from "../../../../functions/logMisc";
 import { clearTable, iterateTableInOrder } from "../../../../functions/table";
 import { SaveData } from "../../../../interfaces/SaveData";
+import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
   SaveDataKey.RUN,

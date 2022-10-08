@@ -1,24 +1,25 @@
-import { postNewRoomEarlyCallbackInit } from "../callbacks/postNewRoomEarly";
 import { ModUpgraded } from "../classes/ModUpgraded";
 import { Feature } from "../classes/private/Feature";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ISCFeatureToClass } from "../features";
-import {
-  saveDataManagerInit,
-  SAVE_DATA_MANAGER_CALLBACKS,
-  SAVE_DATA_MANAGER_CUSTOM_CALLBACKS,
-} from "../features/saveDataManager/main";
-import {
-  areFeaturesInitialized,
-  setFeaturesInitialized,
-} from "../featuresInitialized";
-import { initCustomCallbacks } from "../initCustomCallbacks";
-import { initFeatures } from "../initFeatures";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { AnyFunction } from "../types/AnyFunction";
 import { UnionToIntersection } from "../types/UnionToIntersection";
 
-const MANDATORY_FEATURES: readonly ISCFeature[] = [ISCFeature.SHADER_CRASH_FIX];
+/**
+ * Some features are very light in that they do not require any callback code to run besides simply
+ * checking if a run has been booted at least one time.
+ *
+ * The crash fix is also very light, so it is always included as a quality of life feature.
+ */
+const MANDATORY_FEATURES: readonly ISCFeature[] = [
+  ISCFeature.FLYING_DETECTION,
+  ISCFeature.ITEM_POOL_DETECTION,
+  ISCFeature.MODDED_ELEMENT_DETECTION,
+  ISCFeature.MODDED_ELEMENT_SETS,
+  ISCFeature.SHADER_CRASH_FIX,
+  ISCFeature.SPAWN_ALT_ROCK_REWARDS,
+];
 
 /**
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
@@ -64,21 +65,12 @@ export function upgradeMod<T extends ISCFeature = never>(
   debug = false,
   timeThreshold?: float,
 ): ModUpgradedWithFeatures<T> {
-  const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
-
-  // TODO: remove
-  if (areFeaturesInitialized()) {
-    error(
-      "Failed to upgrade the mod since a mod has already been initialized. (You can only upgrade one mod per IsaacScript project.)",
-    );
-  }
-  setFeaturesInitialized();
-
   patchErrorFunction();
 
-  legacyInit(mod); // TODO: remove
+  const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
 
-  // All upgraded mods should use some critical features.
+  // All upgraded mods should use some basic features. (See the documentation for
+  // `MANDATORY_FEATURES`.)
   for (const mandatoryFeature of MANDATORY_FEATURES) {
     if (!features.includes(mandatoryFeature as T)) {
       features.unshift(mandatoryFeature as T);
@@ -101,30 +93,4 @@ export function upgradeMod<T extends ISCFeature = never>(
   }
 
   return mod as ModUpgradedWithFeatures<T>;
-}
-
-/** Initialize features in the old way. */
-function legacyInit(mod: ModUpgraded) {
-  // We initialize the `POST_NEW_ROOM_EARLY` callback first since it is used by the save data
-  // manager.
-  postNewRoomEarlyCallbackInit(mod);
-
-  // We initialized the save data manager second since it is used by the other custom callbacks and
-  // features. We can't pass the instantiated `ModUpgraded` class to the "saveDataManagerInit"
-  // function since it causes a circular dependency. Thus, we emulate the initialization process
-  // that the `ModUpgraded.AddCallbackCustom` method uses.
-  saveDataManagerInit(mod);
-  for (const callbackTuple of SAVE_DATA_MANAGER_CALLBACKS) {
-    const [modCallback, callbackArgs] = callbackTuple;
-    mod.AddCallback(modCallback, ...callbackArgs);
-  }
-  for (const callbackTuple of SAVE_DATA_MANAGER_CUSTOM_CALLBACKS) {
-    const [modCallback, callbackArgs] = callbackTuple;
-    mod.AddCallbackCustom(modCallback, ...callbackArgs);
-  }
-
-  // We initialize custom callbacks next since some features use custom callbacks.
-  initCustomCallbacks(mod);
-
-  initFeatures(mod);
 }

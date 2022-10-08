@@ -1,7 +1,8 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { arrayRemoveInPlace } from "../../../functions/array";
+import { restart } from "../../../functions/run";
 import { Feature } from "../../private/Feature";
 
 /** Used for `runInNFrames` functions. */
@@ -65,6 +66,20 @@ export class RunInNFrames extends Feature {
       this.v.run.intervalRenderFunctionTuples,
     );
   };
+
+  /**
+   * Helper function to restart on the next render frame. Useful because it is impossible to restart
+   * the game inside of the `POST_NEW_ROOM`, `POST_NEW_LEVEL`, or `POST_GAME_STARTED` callbacks when
+   * a run is first starting.
+   *
+   * You can optionally specify a `PlayerType` to restart the game as that character.
+   */
+  @Exported
+  public restartNextRenderFrame(character?: PlayerType): void {
+    this.runNextRenderFrame(() => {
+      restart(character);
+    });
+  }
 
   /**
    * Supply a function to run N game frames from now in the `POST_UPDATE` callback.

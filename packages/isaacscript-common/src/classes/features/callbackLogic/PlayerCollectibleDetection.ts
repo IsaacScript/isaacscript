@@ -14,16 +14,14 @@ import {
   defaultMapGetPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
-import {
-  getPlayerCollectibleMap,
-  getPlayerFromPtr,
-} from "../../../functions/players";
+import { getPlayerFromPtr } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
 import { PlayerIndex } from "../../../types/PlayerIndex";
 import { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
 import { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
+import { ModdedElementSets } from "../other/ModdedElementSets";
 import { RunInNFrames } from "../other/RunInNFrames";
 
 export class PlayerCollectibleDetection extends Feature {
@@ -43,16 +41,21 @@ export class PlayerCollectibleDetection extends Feature {
 
   private postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
   private postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
+  private moddedElementSets: ModdedElementSets;
   private runInNFrames: RunInNFrames;
 
   constructor(
     postPlayerCollectibleAdded: PostPlayerCollectibleAdded,
     postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved,
+    moddedElementSets: ModdedElementSets,
     runInNFrames: RunInNFrames,
   ) {
     super();
 
-    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
+    this.featuresUsed = [
+      ISCFeature.MODDED_ELEMENT_SETS,
+      ISCFeature.RUN_IN_N_FRAMES,
+    ];
 
     this.callbacksUsed = [
       [ModCallback.POST_USE_ITEM, [this.useItemD4, CollectibleType.D4]], // 3
@@ -65,6 +68,7 @@ export class PlayerCollectibleDetection extends Feature {
 
     this.postPlayerCollectibleAdded = postPlayerCollectibleAdded;
     this.postPlayerCollectibleRemoved = postPlayerCollectibleRemoved;
+    this.moddedElementSets = moddedElementSets;
     this.runInNFrames = runInNFrames;
   }
 
@@ -88,7 +92,8 @@ export class PlayerCollectibleDetection extends Feature {
       this.v.run.playersCollectibleMap,
       player,
     );
-    const newCollectibleMap = getPlayerCollectibleMap(player);
+    const newCollectibleMap =
+      this.moddedElementSets.getPlayerCollectibleMap(player);
     mapSetPlayer(this.v.run.playersCollectibleMap, player, newCollectibleMap);
 
     const collectibleTypesSet = new Set<CollectibleType>([

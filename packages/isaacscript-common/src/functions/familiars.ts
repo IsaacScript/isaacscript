@@ -87,7 +87,8 @@ export function checkFamiliarFromCollectibles(
   familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
-  // We need to include non-real collectibles, like Lilith's Incubus.
+  // We need to include non-real collectibles (like Lilith's Incubus), so we omit the second
+  // argument.
   const numCollectibles = player.GetCollectibleNum(collectibleType);
   const effects = player.GetEffects();
 

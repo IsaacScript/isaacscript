@@ -42,7 +42,6 @@ import {
   LevelStage,
   PillColor,
   PillEffect,
-  PlayerForm,
   PlayerType,
   RoomType,
   SoundEffect,
@@ -74,7 +73,7 @@ import { addCharge, getTotalCharge } from "../../../../functions/charge";
 import { isValidCollectibleType } from "../../../../functions/collectibles";
 import { runDeepCopyTests } from "../../../../functions/deepCopyTests";
 import { getNPCs } from "../../../../functions/entitiesSpecific";
-import { getEnumValues, getLastEnumValue } from "../../../../functions/enums";
+import { getEnumValues } from "../../../../functions/enums";
 import { addFlag } from "../../../../functions/flag";
 import { spawnGridEntity } from "../../../../functions/gridEntities";
 import { getRoomGridIndexesForType } from "../../../../functions/levelGrid";
@@ -103,13 +102,8 @@ import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
 import { changeRoom } from "../../../../functions/rooms";
 import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
 import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
-import { getSortedSetValues } from "../../../../functions/set";
-import { spawnCollectible as spawnCollectibleFunction } from "../../../../functions/spawnCollectible";
+import { spawnCollectibleUnsafe } from "../../../../functions/spawnCollectible";
 import { setStage } from "../../../../functions/stage";
-import {
-  getCollectibleTypesForTransformation,
-  getTransformationName,
-} from "../../../../functions/transformations";
 import { getGoldenTrinketType } from "../../../../functions/trinkets";
 import {
   asCardType,
@@ -126,7 +120,6 @@ import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToType
 import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../../../maps/collectibleNameToTypeMap";
 import { PILL_NAME_TO_EFFECT_MAP } from "../../../../maps/pillNameToEffectMap";
 import { ROOM_NAME_TO_TYPE_MAP } from "../../../../maps/roomNameToTypeMap";
-import { TRANSFORMATION_NAME_TO_PLAYER_FORM_MAP } from "../../../../maps/transformationNameToPlayerForm";
 import { TRINKET_NAME_TO_TYPE_MAP } from "../../../../maps/trinketNameToTypeMap";
 import {
   addHeart,
@@ -1048,11 +1041,6 @@ export function playSound(params: string): void {
   sound(params);
 }
 
-/** Alias for the "transformation" command. */
-export function playerForm(params: string): void {
-  transformation(params);
-}
-
 /** Sets the player's pocket item to the specified collectible type. */
 export function pocket(params: string): void {
   if (params === "") {
@@ -1399,7 +1387,7 @@ export function spawnCollectible(params: string): void {
 
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
-  spawnCollectibleFunction(collectibleType, centerPos);
+  spawnCollectibleUnsafe(collectibleType, centerPos);
 }
 
 /** Spawns a golden version of the specified trinket type. */
@@ -1532,60 +1520,6 @@ export function tears(params: string): void {
 /** Alias for the "runTests" command. */
 export function tests(): void {
   runTests();
-}
-
-/**
- * Gives the specified transformation. Accepts either the transformation number or the partial name
- * of the transformation.
- *
- * For example:
- * - transformation 1 - Gives the Beelzebub transformation.
- * - transformation gup - Gives the Guppy transformation.
- */
-export function transformation(params: string): void {
-  if (params === "") {
-    printConsole("You must specify a transformation name or number.");
-    return;
-  }
-
-  let targetPlayerForm: PlayerForm;
-  const num = tonumber(params) as PlayerForm | undefined;
-  if (num === undefined) {
-    const match = getMapPartialMatch(
-      params,
-      TRANSFORMATION_NAME_TO_PLAYER_FORM_MAP,
-    );
-    if (match === undefined) {
-      printConsole(`Unknown transformation: ${params}`);
-      return;
-    }
-
-    targetPlayerForm = match[1];
-  } else {
-    const lastPlayerForm = getLastEnumValue(PlayerForm);
-    if (num < PlayerForm.GUPPY || num > lastPlayerForm) {
-      printConsole(`Invalid transformation number: ${num}`);
-      return;
-    }
-
-    targetPlayerForm = num;
-  }
-
-  const transformationName = getTransformationName(targetPlayerForm);
-  const player = Isaac.GetPlayer();
-  const collectibleTypesSet =
-    getCollectibleTypesForTransformation(targetPlayerForm);
-  const collectiblesTypes = getSortedSetValues(collectibleTypesSet);
-  for (let i = 0; i < 3; i++) {
-    const collectibleType = collectiblesTypes[i];
-    if (collectibleType !== undefined) {
-      player.AddCollectible(collectibleType);
-    }
-  }
-
-  printConsole(
-    `Gave transformation: ${transformationName} (${targetPlayerForm})`,
-  );
 }
 
 /** Creates a trapdoor next to the player. */

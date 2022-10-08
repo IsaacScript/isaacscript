@@ -562,8 +562,8 @@ export interface CustomStageBossPoolEntry {
 }
 
 /**
- * An object that represents a custom stage. The "metadata.lua" file contains an array of these
- * objects. Besides the room metadata, the data is the same as what is specified inside the
+ * An object that represents a custom stage. The "customStageMetadata.lua" file contains an array of
+ * these objects. Besides the room metadata, the data is the same as what is specified inside the
  * "tsconfig.json" file.
  *
  * The `CustomStage` interface extends this, adding more data.

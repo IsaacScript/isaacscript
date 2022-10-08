@@ -231,7 +231,7 @@ export function convertVanillaTrapdoors(
     customTrapdoors.spawnCustomTrapdoor(
       gridEntity.Position,
       customStage.name,
-      2,
+      LevelStage.BASEMENT_2,
     );
   } else {
     // If we are on the second floor of a custom stage, then the destination will be the vanilla
@@ -240,13 +240,14 @@ export function convertVanillaTrapdoors(
       customStage.baseStage === undefined
         ? DEFAULT_BASE_STAGE
         : customStage.baseStage;
-    const stage = (baseStage + 2) as LevelStage;
-    const stageType = calculateStageType(stage);
+    const destinationStage = (baseStage + 2) as LevelStage;
+    const destinationStageType = calculateStageType(destinationStage);
 
-    customTrapdoors.spawnCustomTrapdoorToVanilla(
+    customTrapdoors.spawnCustomTrapdoor(
       gridEntity.Position,
-      stage,
-      stageType,
+      undefined,
+      destinationStage,
+      destinationStageType,
     );
   }
 }

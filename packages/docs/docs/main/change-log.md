@@ -14,11 +14,32 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `removeUrnRewards`
   - `removeEntitiesSpawnedFromGridEntity`
+  - `spawnRockAltRewardUrn`
+  - `spawnRockAltRewardMushroom`
+  - `spawnRockAltRewardSkull`
+  - `spawnRockAltRewardPolyp`
+  - `spawnRockAltRewardBucketDownpour`
+  - `spawnRockAltRewardBucketDross`
+  - `getPlayerCollectiblesWithTag`
+  - `getPlayerCollectiblesForTransformation`
+  - `getEdenActiveCollectibles`
+  - `getRandomEdenActiveCollectible`
+  - `spawnCollectibleUnsafe`
 - Renamed the following helper functions:
   - `hasSirenStolenFamiliar` --> `isFamiliarStolenBySiren`
+  - `getCollectiblesForCacheFlag` --> `getCollectibleTypesWithCacheFlag`
+  - `getTrinketsForCacheFlag` --> `getTrinketsWithCacheFlag`
+  - `getPlayerCollectiblesForCacheFlag` --> `getPlayerCollectiblesWithCacheFlag`
+  - `getPlayerTrinketsForCacheFlag` --> `getPlayerTrinketsWithCacheFlag`
+  - `getCollectibleTypesWithTag` --> `getCollectiblesWithTag`
+  - `getCollectibleTypesForTransformation` --> `getCollectiblesForTransformation`
+  - `getEdenPassives` --> `getEdenPassiveCollectibles`
+  - `getRandomEdenPassive` --> `getRandomEdenPassiveCollectible`
 - Deleted the following helper functions:
   - `isIsaacScriptCommonClass`
   - `isVanillaTSTLClass`
+  - `getPlayerNumCollectiblesWithTag` (use `getPlayerCollectiblesWithTag` instead)
+  - `getPlayerNumCollectiblesForTransformation` (use `getPlayerCollectiblesForTransformation` instead)
 - Added the following helper types:
   - `AnyClass`
   - `HasFunction`

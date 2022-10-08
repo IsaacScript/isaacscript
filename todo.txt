@@ -1,5 +1,3 @@
-- lazy load all sprites
-
 - add comment to all feature public methods about having to register
 
 - isaacscript-cli in lua

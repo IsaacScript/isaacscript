@@ -6,8 +6,8 @@ import {
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { sfxManager } from "../../../core/cachedClasses";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { runNextGameFrame } from "../../../features/runInNFrames";
 import { removeCollectibleFromItemTracker } from "../../../functions/collectibles";
 import { removeAllFamiliars } from "../../../functions/entitiesSpecific";
 import { log } from "../../../functions/log";
@@ -21,6 +21,7 @@ import { PlayerIndex } from "../../../types/PlayerIndex";
 import { PostCustomRevive } from "../../callbacks/PostCustomRevive";
 import { PreCustomRevive } from "../../callbacks/PreCustomRevive";
 import { Feature } from "../../private/Feature";
+import { RunInNFrames } from "../other/RunInNFrames";
 
 const DEBUG = false as boolean;
 
@@ -47,12 +48,16 @@ export class CustomRevive extends Feature {
 
   private preCustomRevive: PreCustomRevive;
   private postCustomRevive: PostCustomRevive;
+  private runInNFrames: RunInNFrames;
 
   constructor(
     preCustomRevive: PreCustomRevive,
     postCustomRevive: PostCustomRevive,
+    runInNFrames: RunInNFrames,
   ) {
     super();
+
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
       [ModCallback.POST_RENDER, [this.postRender]], // 2
@@ -70,6 +75,7 @@ export class CustomRevive extends Feature {
 
     this.preCustomRevive = preCustomRevive;
     this.postCustomRevive = postCustomRevive;
+    this.runInNFrames = runInNFrames;
   }
 
   // ModCallback.POST_RENDER (2)
@@ -178,7 +184,7 @@ export class CustomRevive extends Feature {
     // wrong, probably with the `isDamageToPlayerFatal` function. Since end-user code is already
     // assuming that a custom revive is occurring, explicitly kill the player.
     const playerIndex = getPlayerIndex(player);
-    runNextGameFrame(() => {
+    this.runInNFrames.runNextGameFrame(() => {
       const futurePlayer = getPlayerFromIndex(playerIndex);
       if (futurePlayer === undefined) {
         return;

@@ -158,7 +158,8 @@ export class CustomGridEntities extends Feature {
    * dime when destroyed:
    *
    * ```ts
-   * // This is local to the mod and can safely overlap with the values of `GridEntityType`.
+   * // This is local to the mod and can safely overlap with the values of `GridEntityType` (or
+   * // values chosen by other mods).
    * const GridEntityTypeCustom = {
    *   SILVER_ROCK: 0 as GridEntityType,
    * } as const;

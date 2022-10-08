@@ -12,7 +12,6 @@ import {
 } from "../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
-import { CALLBACK_REGISTER_FUNCTIONS } from "../objects/callbackRegisterFunctions";
 import { AnyFunction } from "../types/AnyFunction";
 import { FunctionTuple } from "../types/FunctionTuple";
 import { Feature } from "./private/Feature";
@@ -172,17 +171,6 @@ export class ModUpgraded implements Mod {
    * for events that are provided by the IsaacScript standard library. For example, the
    * `ModCallbackCustom.POST_BOMB_EXPLODE` event corresponds to when a bomb explodes.
    */
-  // eslint-disable-next-line class-methods-use-this
-  public AddCallbackCustom<T extends ModCallbackCustom>(
-    modCallbackCustom: T,
-    ...args: AddCallbackParametersCustom[T]
-  ): void {
-    const callbackRegisterFunction =
-      CALLBACK_REGISTER_FUNCTIONS[modCallbackCustom];
-    callbackRegisterFunction(...args);
-  }
-
-  /** Adds a callback in the new callback system format. This method is only temporary. */
   public AddCallbackCustom2<T extends ModCallbackCustom>(
     modCallbackCustom: T,
     ...args: AddCallbackParametersCustom[T]

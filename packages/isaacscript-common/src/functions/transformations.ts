@@ -5,10 +5,8 @@ import {
 } from "isaac-typescript-definitions";
 import { TRANSFORMATION_NAMES } from "../objects/transformationNames";
 import { getCollectibleTags } from "./collectibles";
-import { getCollectibleTypesWithTag } from "./collectibleTag";
 import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
-import { getPlayerCollectibleCount } from "./players";
 
 const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
   new Map([
@@ -34,38 +32,6 @@ const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([
   PlayerForm.SERAPHIM, // 3
   PlayerForm.LEVIATHAN, // 8
 ]);
-
-/**
- * Helper function to get all of the collectible types in the game that count towards a particular
- * transformation.
- *
- * For example, to get all of the collectible types that count towards Guppy:
- *
- * ```ts
- * const guppyCollectibleTypes = getCollectibleTypesForTransformation(PlayerForm.GUPPY);
- * ```
- */
-export function getCollectibleTypesForTransformation(
-  playerForm: PlayerForm,
-): ReadonlySet<CollectibleType> {
-  const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
-  if (itemConfigTag === undefined) {
-    error(
-      `Failed to get the collectible types for the transformation of ${playerForm} because that transformation is not based on collectibles.`,
-    );
-  }
-
-  return getCollectibleTypesWithTag(itemConfigTag);
-}
-
-/** Returns the number of items that a player has towards a particular transformation. */
-export function getPlayerNumCollectiblesForTransformation(
-  player: EntityPlayer,
-  playerForm: PlayerForm,
-): int {
-  const collectibleTypes = getCollectibleTypesForTransformation(playerForm);
-  return getPlayerCollectibleCount(player, ...collectibleTypes.values());
-}
 
 /** Returns a set of the player's current transformations. */
 export function getPlayerTransformations(
@@ -95,6 +61,10 @@ export function getTransformationName(playerForm: PlayerForm): string {
   return TRANSFORMATION_NAMES[playerForm];
 }
 
+/**
+ * Returns a set containing all of the transformations that the given collectible types contribute
+ * towards.
+ */
 export function getTransformationsForCollectibleType(
   collectibleType: CollectibleType,
 ): Set<PlayerForm> {

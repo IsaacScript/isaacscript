@@ -15,7 +15,6 @@ import * as metadataJSON from "../../../customStageMetadata.json"; // This will 
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { streakTextPostRender } from "../../../features/customStage/streakText";
 import { isArray } from "../../../functions/array";
 import { doorSlotFlagsToDoorSlots } from "../../../functions/doors";
 import { hasFlag, removeFlag } from "../../../functions/flag";
@@ -57,6 +56,7 @@ import {
 import { setShadows } from "./customStages/shadows";
 import {
   streakTextGetShaderParams,
+  streakTextPostRender,
   topStreakTextStart,
 } from "./customStages/streakText";
 import {
@@ -155,26 +155,46 @@ export class CustomStages extends Feature {
     this.pause = pause;
     this.runInNFrames = runInNFrames;
 
-    this.initRoomTypeMaps();
+    this.initCustomStageMetadata();
   }
 
-  private initRoomTypeMaps() {
+  private initCustomStageMetadata() {
     if (!isArray(metadataJSON)) {
       error(
-        'The IsaacScript standard library attempted to read the custom stage metadata from the "metadata.lua" file, but it was not an array.',
+        'The IsaacScript standard library attempted to read the custom stage metadata from the "customStageMetadata.lua" file, but it was not an array.',
       );
     }
     const customStagesLua = metadataJSON as CustomStageLua[];
 
     for (const customStageLua of customStagesLua) {
-      const roomTypeMap = getRoomTypeMap(customStageLua);
-      const customStage: CustomStage = {
-        ...customStageLua,
-        roomTypeMap,
-      };
-      this.customStagesMap.set(customStage.name, customStage);
+      this.initRoomTypeMap(customStageLua);
+      this.initCustomTrapdoorDestination(customStageLua);
     }
   }
+
+  private initRoomTypeMap(customStageLua: CustomStageLua) {
+    const roomTypeMap = getRoomTypeMap(customStageLua);
+    const customStage: CustomStage = {
+      ...customStageLua,
+      roomTypeMap,
+    };
+    this.customStagesMap.set(customStage.name, customStage);
+  }
+
+  private initCustomTrapdoorDestination(customStageLua: CustomStageLua) {
+    this.customTrapdoors.registerCustomTrapdoorDestination(
+      customStageLua.name,
+      this.goToCustomStage,
+    );
+  }
+
+  private goToCustomStage = (
+    destinationStage: LevelStage,
+    _destinationStageType: StageType,
+  ) => {
+    const firstFloor = destinationStage === LevelStage.BASEMENT_1;
+    this.setCustomStage("Slaughterhouse", firstFloor);
+  };
 
   // ModCallback.POST_RENDER (2)
   private postRender = () => {

@@ -1,5 +1,4 @@
 import { PlayerType } from "isaac-typescript-definitions";
-import { postPlayerChangeTypeFire } from "../../callbacks/subscriptions/postPlayerChangeType";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   defaultMapGetPlayer,
@@ -44,7 +43,7 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_
     );
     if (character !== storedCharacter) {
       mapSetPlayer(this.v.run.playersCharacterMap, player, character);
-      postPlayerChangeTypeFire(player, storedCharacter, character);
+      this.fire(player, storedCharacter, character);
     }
   };
 }

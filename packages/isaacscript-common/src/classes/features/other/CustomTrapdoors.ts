@@ -38,7 +38,6 @@ import { setStage } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
 import { isVector } from "../../../functions/vector";
 import { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
-import { CustomTrapdoorDestination } from "../../../interfaces/private/CustomTrapdoorDestination";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
@@ -48,8 +47,6 @@ import { RoomClearFrame } from "./RoomClearFrame";
 import { RunInNFrames } from "./RunInNFrames";
 import { RunNextRoom } from "./RunNextRoom";
 import { StageHistory } from "./StageHistory";
-
-export const CUSTOM_TRAPDOOR_FEATURE_NAME = "customTrapdoor";
 
 /** This also applies to crawl spaces. The value was determined through trial and error. */
 export const TRAPDOOR_OPEN_DISTANCE = 60;
@@ -68,12 +65,20 @@ export const OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES = 6;
 export const OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES = 5;
 
 export class CustomTrapdoors extends Feature {
+  /** Indexed by custom trapdoor ID. */
+  private destinationFuncMap = new Map<
+    string,
+    (destinationStage: LevelStage, destinationStageType: StageType) => void
+  >();
+
   public override v = {
     run: {
       state: StageTravelState.NONE,
 
       /** The render frame that this state was reached. */
       stateRenderFrame: null as int | null,
+
+      customTrapdoorActivated: null as CustomTrapdoorDescription | null,
     },
 
     level: {
@@ -237,6 +242,44 @@ export class CustomTrapdoors extends Feature {
     });
   }
 
+  private goToCustomTrapdoorDestination() {
+    if (this.v.run.customTrapdoorActivated === null) {
+      // This should never happen; provide some sane default values.
+      this.v.run.customTrapdoorActivated = {
+        destinationName: undefined,
+        destinationStage: LevelStage.BASEMENT_1,
+        destinationStageType: StageType.ORIGINAL,
+        open: true,
+        firstSpawn: true,
+      };
+    }
+
+    const destinationFunc = this.getDestinationFunc(
+      this.v.run.customTrapdoorActivated,
+    );
+    destinationFunc(
+      this.v.run.customTrapdoorActivated.destinationStage,
+      this.v.run.customTrapdoorActivated.destinationStageType,
+    );
+  }
+
+  private getDestinationFunc(
+    customTrapdoorDescription: CustomTrapdoorDescription,
+  ): (destinationStage: LevelStage, destinationStageType: StageType) => void {
+    if (customTrapdoorDescription.destinationName === undefined) {
+      return goToVanillaStage;
+    }
+
+    const destinationFunc = this.destinationFuncMap.get(
+      customTrapdoorDescription.destinationName,
+    );
+    if (destinationFunc === undefined) {
+      return goToVanillaStage;
+    }
+
+    return destinationFunc;
+  }
+
   private checkSecondPixelationHalfWay() {
     if (
       this.v.run.state !==
@@ -295,27 +338,6 @@ export class CustomTrapdoors extends Feature {
     }
 
     this.disableInputs.enableAllInputs(tstlClassName);
-  }
-
-  private goToCustomTrapdoorDestination() {
-    if (this.v.run.destination === null) {
-      return;
-    }
-
-    const {
-      customStageName,
-      customStageFloorNum,
-      vanillaStage,
-      vanillaStageType,
-    } = this.v.run.destination;
-
-    if (customStageName !== undefined && customStageFloorNum !== undefined) {
-      const firstFloor = customStageFloorNum === 1;
-      this.customStages.setCustomStage("Slaughterhouse", firstFloor);
-    } else if (vanillaStage !== undefined && vanillaStageType !== undefined) {
-      this.customStages.disableCustomStage();
-      setStage(vanillaStage, vanillaStageType);
-    }
   }
 
   private drawBlackSprite(): void {
@@ -446,7 +468,7 @@ export class CustomTrapdoors extends Feature {
     player: EntityPlayer,
   ) {
     this.v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
-    this.v.run.destination = trapdoorDescription.destination;
+    this.v.run.customTrapdoorActivated = trapdoorDescription;
 
     const tstlClassName = getTSTLClassName(this);
     if (tstlClassName === undefined) {
@@ -566,51 +588,6 @@ export class CustomTrapdoors extends Feature {
     }
   }
 
-  private spawnCustomTrapdoorToDestination(
-    gridIndexOrPosition: int | Vector,
-    destination: CustomTrapdoorDestination,
-    anm2Path: string,
-    spawnOpen?: boolean,
-  ): GridEntity {
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-    const roomListIndex = getRoomListIndex();
-    const gridIndex = isVector(gridIndexOrPosition)
-      ? room.GetGridIndex(gridIndexOrPosition)
-      : gridIndexOrPosition;
-
-    const gridEntity = this.customGridEntities.spawnCustomGridEntity(
-      GridEntityTypeCustom.TRAPDOOR_CUSTOM,
-      gridIndexOrPosition,
-      GridCollisionClass.NONE,
-      anm2Path,
-      TrapdoorAnimation.OPENED,
-    );
-
-    const firstSpawn = roomFrameCount !== 0;
-    const open =
-      spawnOpen === undefined
-        ? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn)
-        : spawnOpen;
-
-    const roomTrapdoorMap =
-      this.v.level.trapdoors.getAndSetDefault(roomListIndex);
-    const customTrapdoorDescription: CustomTrapdoorDescription = {
-      open,
-      destination,
-      firstSpawn,
-    };
-    roomTrapdoorMap.set(gridIndex, customTrapdoorDescription);
-
-    const sprite = gridEntity.GetSprite();
-    const animation = open
-      ? TrapdoorAnimation.OPENED
-      : TrapdoorAnimation.CLOSED;
-    sprite.Play(animation, true);
-
-    return gridEntity;
-  }
-
   private shouldTrapdoorSpawnOpen(
     gridEntity: GridEntity,
     firstSpawn: boolean,
@@ -640,17 +617,69 @@ export class CustomTrapdoors extends Feature {
   }
 
   /**
-   * Helper function to spawn a trapdoor grid entity that will take a player to a custom stage. If
-   * you want to create a custom trapdoor that goes to a vanilla stage instead, use the
-   * `spawnCustomTrapdoorToVanilla` helper function.
+   * Helper function to specify where your custom trapdoor should take the player. Call this once at
+   * the beginning of your mod for each kind of custom trapdoor that you want to have. The provided
+   * `destinationFunc` will be executed when the player jumps into the trapdoor and the pixelation
+   * effect fades to black.
+   *
+   * Registration is needed so that custom trapdoors can be serializable when the player saves and
+   * quits.
+   *
+   * @param destinationName The integer that identifies the type of custom trapdoor. It should
+   *                        correspond to a local `CustomTrapdoorType` enum in your mod. The integer
+   *                        can be any unique value and can safely overlap with values chosen by
+   *                        other mods.
+   * @param destinationFunc A function that takes the player to the destination that you want.
+   *                        Inside this function, use the `setStage` or `setCustomStage` helper
+   *                        functions, or do something completely custom.
+   */
+  @Exported
+  public registerCustomTrapdoorDestination(
+    destinationName: string,
+    destinationFunc: (
+      destinationStage: LevelStage,
+      destinationStageType: StageType,
+    ) => void,
+  ): void {
+    if (this.destinationFuncMap.has(destinationName)) {
+      error(
+        `Failed to register a custom trapdoor type of ${destinationName} since this custom trapdoor type has already been registered.`,
+      );
+    }
+
+    this.destinationFuncMap.set(destinationName, destinationFunc);
+  }
+
+  /**
+   * Helper function to spawn a trapdoor grid entity that will take a player to a vanilla stage or
+   * custom location.
+   *
+   * - If you want to create a custom trapdoor that goes to a vanilla stage, pass `undefined` for
+   *   the `destinationName` parameter.
+   * - If you want to create a custom trapdoor that takes the player to a custom location, you must
+   *   have registered the corresponding `destinationName` at the beginning of your mod with the
+   *   `registerCustomTrapdoorDestination` function. (This is necessary so that custom trapdoors can
+   *   be serializable when the player saves and quits.)
    *
    * Under the hood, the custom trapdoor is represented by a decoration grid entity and is manually
    * respawned every time the player re-enters the room.
    *
    * @param gridIndexOrPosition The location in the room to spawn the trapdoor.
-   * @param customStageName The name of the custom stage.
-   * @param customStageFloorNum The floor of the custom stage. For most purposes, you should use 1
-   *                            or 2.
+   * @param destinationName Optional. A string representing the name of the of destination that the
+   *                        custom trapdoor will take the player to. Default is undefined, which
+   *                        will take the player to a vanilla stage.
+   * @param destinationStage Optional. The first argument that will be passed to the
+   *                         `destinationFunc` corresponding to this custom trapdoor. This is
+   *                         essentially metadata for the custom trapdoor. Leave this undefined if
+   *                         your corresponding custom trapdoor function does not care what the
+   *                         destination stage should be. Default is the "normal" next vanilla
+   *                         stage.
+   * @param destinationStageType Optional. The second argument that will be passed to the
+   *                             `destinationFunc` corresponding to this custom trapdoor. This is
+   *                             essentially metadata for the custom trapdoor. Leave this undefined
+   *                             if your corresponding custom trapdoor function does not care what
+   *                             the destination stage type should be. Default is the "normal" next
+   *                             vanilla stage type.
    * @param anm2Path Optional. The path to the anm2 file to use. By default, the vanilla trapdoor
    *                 anm2 of "gfx/grid/door_11_trapdoor.anm2" will be used. The specified anm2 file
    *                 must have animations called "Opened", "Closed", and "Open Animation".
@@ -660,67 +689,68 @@ export class CustomTrapdoors extends Feature {
   @Exported
   public spawnCustomTrapdoor(
     gridIndexOrPosition: int | Vector,
-    customStageName: string,
-    customStageFloorNum: int,
+    destinationName?: string,
+    destinationStage?: LevelStage,
+    destinationStageType?: StageType,
     anm2Path = "gfx/grid/door_11_trapdoor.anm2",
     spawnOpen?: boolean,
   ): GridEntity {
-    const destination: CustomTrapdoorDestination = {
-      customStageName,
-      customStageFloorNum,
-    };
+    if (
+      destinationName !== undefined &&
+      !this.destinationFuncMap.has(destinationName)
+    ) {
+      error(
+        `Failed to spawn a custom trapdoor with a destination of "${destinationName}" since a destination with that name has not been registered with the "registerCustomTrapdoor" function.`,
+      );
+    }
 
-    return this.spawnCustomTrapdoorToDestination(
+    if (destinationStage === undefined) {
+      destinationStage = this.stageHistory.getNextStageWithHistory();
+    }
+
+    if (destinationStageType === undefined) {
+      destinationStageType = this.stageHistory.getNextStageTypeWithHistory();
+    }
+
+    const room = game.GetRoom();
+    const roomFrameCount = room.GetFrameCount();
+    const roomListIndex = getRoomListIndex();
+    const gridIndex = isVector(gridIndexOrPosition)
+      ? room.GetGridIndex(gridIndexOrPosition)
+      : gridIndexOrPosition;
+
+    const gridEntity = this.customGridEntities.spawnCustomGridEntity(
+      GridEntityTypeCustom.TRAPDOOR_CUSTOM,
       gridIndexOrPosition,
-      destination,
+      GridCollisionClass.NONE,
       anm2Path,
-      spawnOpen,
+      TrapdoorAnimation.OPENED,
     );
-  }
 
-  /**
-   * This is the same thing as the `spawnCustomTrapdoor` function, but instead of having a
-   * destination of a custom stage, it has a destination of a vanilla stage.
-   *
-   * For more information, see the `spawnCustomTrapdoor` function.
-   *
-   * @param gridIndexOrPosition The location in the room to spawn the trapdoor.
-   * @param stage Optional. The number of the vanilla stage to go to. If not provided, the "normal"
-   *              next stage will be selected.
-   * @param stageType The stage type of the vanilla stage to go to. If not provided, the "normal"
-   *                  next stage type will be selected.
-   * @param anm2Path Optional. The path to the anm2 file to use. By default, the vanilla trapdoor
-   *                 anm2 of "gfx/grid/door_11_trapdoor.anm2" will be used. The specified anm2 file
-   *                 must have animations called "Opened", "Closed", and "Open Animation".
-   * @param spawnOpen Optional. Whether or not to spawn the trapdoor in an open state. By default,
-   *                  behavior will be used that emulates a vanilla trapdoor.
-   */
-  @Exported
-  public spawnCustomTrapdoorToVanilla(
-    gridIndexOrPosition: int | Vector,
-    stage?: LevelStage,
-    stageType?: StageType,
-    anm2Path = "gfx/grid/door_11_trapdoor.anm2",
-    spawnOpen?: boolean,
-  ): GridEntity {
-    const vanillaStage =
-      stage === undefined ? this.stageHistory.getNextStageWithHistory() : stage;
-    const vanillaStageType =
-      stageType === undefined
-        ? this.stageHistory.getNextStageTypeWithHistory()
-        : stageType;
+    const firstSpawn = roomFrameCount !== 0;
+    const open =
+      spawnOpen === undefined
+        ? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn)
+        : spawnOpen;
 
-    const destination: CustomTrapdoorDestination = {
-      vanillaStage,
-      vanillaStageType,
+    const roomTrapdoorMap =
+      this.v.level.trapdoors.getAndSetDefault(roomListIndex);
+    const customTrapdoorDescription: CustomTrapdoorDescription = {
+      destinationName,
+      destinationStage,
+      destinationStageType,
+      open,
+      firstSpawn,
     };
+    roomTrapdoorMap.set(gridIndex, customTrapdoorDescription);
 
-    return this.spawnCustomTrapdoorToDestination(
-      gridIndexOrPosition,
-      destination,
-      anm2Path,
-      spawnOpen,
-    );
+    const sprite = gridEntity.GetSprite();
+    const animation = open
+      ? TrapdoorAnimation.OPENED
+      : TrapdoorAnimation.CLOSED;
+    sprite.Play(animation, true);
+
+    return gridEntity;
   }
 }
 
@@ -784,4 +814,12 @@ function dropTaintedForgotten(player: EntityPlayer) {
       taintedSoul.ThrowHeldEntity(VectorZero);
     }
   }
+}
+
+/** The default `destinationFunc` for a custom trapdoor. */
+function goToVanillaStage(
+  destinationStage: LevelStage,
+  destinationStageType: StageType,
+) {
+  setStage(destinationStage, destinationStageType);
 }
