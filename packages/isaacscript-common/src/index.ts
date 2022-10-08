@@ -134,6 +134,7 @@ export * from "./maps/cardNameToTypeMap";
 export * from "./maps/characterNameToTypeMap";
 export * from "./maps/pillNameToEffectMap";
 export * from "./maps/roomNameToTypeMap";
+export * from "./maps/transformationNameToPlayerFormMap";
 export * from "./objects/colors";
 export * from "./objects/kColors";
 export * from "./types/AllButFirst";

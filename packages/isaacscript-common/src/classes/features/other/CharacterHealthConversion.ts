@@ -7,9 +7,8 @@ import {
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { isRedHeart } from "../../../functions/pickups";
+import { ConversionHeartSubType } from "../../../types/ConversionHeartSubType";
 import { Feature } from "../../private/Feature";
-
-export type ConversionHeartSubType = HeartSubType.SOUL | HeartSubType.BLACK;
 
 export class CharacterHealthConversion extends Feature {
   private characterHealthReplacementMap = new Map<
