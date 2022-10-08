@@ -235,8 +235,6 @@
   ],
   "intentionallyNotExported": [
     "AddCallbackParametersCustom",
-    "CallbackTuple",
-    "CustomCallbackTuple",
     "CopyableIsaacAPIClass",
     "CustomStageLuaUnsafe",
     "ImmutablePrimitive",
