@@ -547,6 +547,16 @@ export function isModdedPlayer(player: EntityPlayer): boolean {
   return !isVanillaPlayer(player);
 }
 
+/**
+ * Helper function for determining if a player is able to turn their head by pressing the shooting
+ * buttons.
+ *
+ * Under the hood, this function uses the `EntityPlayer.IsExtraAnimationFinished` method.
+ */
+export function isPlayerAbleToAim(player: EntityPlayer): boolean {
+  return player.IsExtraAnimationFinished();
+}
+
 /** Helper function for detecting if a player is one of the Tainted characters. */
 export function isTainted(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
