@@ -5,7 +5,7 @@ import {
 import { isTable } from "../functions/types";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgraded } from "./ModUpgraded";
+import { ModUpgradedBase } from "./ModUpgradedBase";
 
 export const ADD_CALLBACK_ARGS_KEY = "__addCallbackArgs";
 export const ADD_CALLBACK_CUSTOM_ARGS_KEY = "__addCallbackCustomArgs";
@@ -33,7 +33,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  */
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class ModFeature {
-  constructor(mod: ModUpgraded) {
+  constructor(mod: ModUpgradedBase) {
     const constructor = getTSTLClassConstructor(this);
     if (constructor === undefined) {
       error("Failed to get the TSTL class constructor for a mod feature.");
@@ -47,7 +47,7 @@ export class ModFeature {
 }
 
 function checkAddDecoratedCallbacks(
-  mod: ModUpgraded,
+  mod: ModUpgradedBase,
   modFeatureConstructor: ModFeatureConstructor,
 ) {
   const addCallbackArgs = modFeatureConstructor[ADD_CALLBACK_ARGS_KEY];
@@ -63,7 +63,7 @@ function checkAddDecoratedCallbacks(
 }
 
 function checkAddDecoratedCallbacksCustom(
-  mod: ModUpgraded,
+  mod: ModUpgradedBase,
   modFeatureConstructor: ModFeatureConstructor,
 ) {
   const addCallbackCustomArgs =
@@ -74,13 +74,13 @@ function checkAddDecoratedCallbacksCustom(
 
   for (const args of addCallbackCustomArgs) {
     // @ts-expect-error The compiler does not know that the arguments match the method.
-
+    // eslint-disable-next-line isaacscript/strict-enums
     mod.AddCallbackCustom(...args);
   }
 }
 
 function checkRegisterSaveDataManager(
-  mod: ModUpgraded,
+  mod: ModUpgradedBase,
   modFeature: ModFeature,
 ) {
   // Do nothing if this class does not have any variables.

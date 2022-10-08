@@ -18,7 +18,7 @@
 
     "src/classes/DefaultMap.ts",
     "src/classes/ModFeature.ts",
-    "src/classes/ModUpgraded.ts",
+    "src/classes/ModUpgradedBase.ts",
 
     "src/classes/features/callbackLogic/CustomGridEntities.ts",
     "src/classes/features/callbackLogic/GameReorderedCallbacks.ts",
@@ -57,7 +57,6 @@
     "src/classes/features/other/RunInNFrames.ts",
     "src/classes/features/other/RunNextRoom.ts",
     "src/classes/features/other/SaveDataManager.ts",
-    "src/classes/features/other/ShaderCrashFix.ts",
     "src/classes/features/other/SpawnCollectible.ts",
     "src/classes/features/other/SpawnRockAltRewards.ts",
     "src/classes/features/other/StageHistory.ts",
@@ -216,7 +215,7 @@
     "src/types/HasFunction.ts",
     "src/types/Immutable.ts",
     "src/types/LowercaseKeys.ts",
-    "src/types/ModUpgradedWithFeatures.ts",
+    "src/types/ModUpgraded.ts",
     "src/types/PickingUpItem.ts",
     "src/types/PickupIndex.ts",
     "src/types/PlayerIndex.ts",
@@ -248,7 +247,6 @@
     "IsaacAPIClassTypeToSerializedType",
     "IsaacAPIClassTypeToType",
     "ModCallbackCustomToClass",
-    "ModUpgradedWithFeatures",
     "Serializable",
     "SerializedIsaacAPIClass",
   ],

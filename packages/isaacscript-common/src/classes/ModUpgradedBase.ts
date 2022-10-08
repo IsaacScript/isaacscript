@@ -22,8 +22,11 @@ import { Feature } from "./private/Feature";
  * extends the base class and adds a new method of `AddCallbackCustom`.
  *
  * To upgrade your mod, use the `upgradeMod` helper function.
+ *
+ * `ModUpgradedBase` provides the core functionality of the `ModUpgraded` class. (It does not
+ * include the methods for the individual ISC features.)
  */
-export class ModUpgraded implements Mod {
+export class ModUpgradedBase implements Mod {
   // -----------------
   // Vanilla variables
   // -----------------

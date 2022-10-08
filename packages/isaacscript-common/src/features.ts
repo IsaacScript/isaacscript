@@ -46,7 +46,6 @@ import { RoomHistory } from "./classes/features/other/RoomHistory";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { RunNextRoom } from "./classes/features/other/RunNextRoom";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
-import { ShaderCrashFix } from "./classes/features/other/ShaderCrashFix";
 import { SpawnCollectible } from "./classes/features/other/SpawnCollectible";
 import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltRewards";
 import { StageHistory } from "./classes/features/other/StageHistory";
@@ -111,7 +110,6 @@ export interface ISCFeatureToClass {
   [ISCFeature.RUN_IN_N_FRAMES]: RunInNFrames;
   [ISCFeature.RUN_NEXT_ROOM]: RunNextRoom;
   [ISCFeature.SAVE_DATA_MANAGER]: SaveDataManager;
-  [ISCFeature.SHADER_CRASH_FIX]: ShaderCrashFix;
   [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: SpawnRockAltRewards;
   [ISCFeature.SPAWN_COLLECTIBLE]: SpawnCollectible;
   [ISCFeature.STAGE_HISTORY]: StageHistory;
@@ -274,7 +272,6 @@ export function getFeatures(
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
     [ISCFeature.RUN_NEXT_ROOM]: runNextRoom,
     [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
-    [ISCFeature.SHADER_CRASH_FIX]: new ShaderCrashFix(),
     [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: new SpawnRockAltRewards(
       itemPoolDetection,
     ),

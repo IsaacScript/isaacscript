@@ -1,6 +1,6 @@
 export * from "./classes/DefaultMap";
 export * from "./classes/ModFeature";
-export * from "./classes/ModUpgraded";
+export * from "./classes/ModUpgradedBase";
 export * from "./core/cachedClasses";
 export * from "./core/constants";
 export * from "./core/constantsFirstLast";
@@ -150,7 +150,7 @@ export * from "./types/HasAllEnumKeys";
 export * from "./types/HasFunction";
 export * from "./types/Immutable";
 export * from "./types/LowercaseKeys";
-export * from "./types/ModUpgradedWithFeatures";
+export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";
 export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
