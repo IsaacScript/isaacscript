@@ -102,6 +102,7 @@ export class ModdedElementSets extends Feature {
 
   private moddedElementDetection: ModdedElementDetection;
 
+  /** @internal */
   constructor(moddedElementDetection: ModdedElementDetection) {
     super();
 

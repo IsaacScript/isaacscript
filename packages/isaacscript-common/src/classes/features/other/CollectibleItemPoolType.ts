@@ -22,6 +22,7 @@ export class CollectibleItemPoolType extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

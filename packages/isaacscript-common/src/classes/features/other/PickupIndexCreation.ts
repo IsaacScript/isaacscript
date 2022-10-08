@@ -46,6 +46,7 @@ export class PickupIndexCreation extends Feature {
 
   private roomHistory: RoomHistory;
 
+  /** @internal */
   constructor(roomHistory: RoomHistory) {
     super();
 

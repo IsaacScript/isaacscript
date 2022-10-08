@@ -48,6 +48,7 @@ export class PersistentEntities extends Feature {
 
   private roomHistory: RoomHistory;
 
+  /** @internal */
   constructor(roomHistory: RoomHistory) {
     super();
 

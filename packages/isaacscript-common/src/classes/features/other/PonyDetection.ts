@@ -24,6 +24,7 @@ export class PonyDetection extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

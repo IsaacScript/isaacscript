@@ -17,6 +17,7 @@ const FLYING_NULL_ITEMS: readonly NullItemID[] = [
 export class FlyingDetection extends Feature {
   private moddedElementSets: ModdedElementSets;
 
+  /** @internal */
   constructor(moddedElementSets: ModdedElementSets) {
     super();
 

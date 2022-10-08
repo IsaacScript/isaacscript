@@ -29,6 +29,7 @@ export class ExtraConsoleCommands extends Feature {
 
   private commandFunctionMap = new Map<string, (params: string) => void>();
 
+  /** @internal */
   constructor() {
     super();
 

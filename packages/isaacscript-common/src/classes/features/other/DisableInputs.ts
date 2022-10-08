@@ -27,6 +27,7 @@ export class DisableInputs extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

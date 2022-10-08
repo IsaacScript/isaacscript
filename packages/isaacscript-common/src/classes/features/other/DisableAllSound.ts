@@ -13,6 +13,7 @@ export class DisableAllSound extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

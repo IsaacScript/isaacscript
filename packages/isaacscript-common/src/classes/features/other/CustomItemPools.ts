@@ -20,6 +20,7 @@ export class CustomItemPools extends Feature {
     WeightedArray<CollectibleType>
   >();
 
+  /** @internal */
   constructor() {
     super();
 

@@ -13,6 +13,7 @@ export class ForgottenSwitch extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

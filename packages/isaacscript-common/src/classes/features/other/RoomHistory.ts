@@ -22,6 +22,7 @@ export class RoomHistory extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

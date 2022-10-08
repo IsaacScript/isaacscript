@@ -63,6 +63,7 @@ const POLYP_NUM_PROJECTILES = 6;
 export class SpawnRockAltRewards extends Feature {
   private itemPoolDetection: ItemPoolDetection;
 
+  /** @internal */
   constructor(itemPoolDetection: ItemPoolDetection) {
     super();
 

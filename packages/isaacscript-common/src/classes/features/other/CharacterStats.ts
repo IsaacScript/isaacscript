@@ -13,6 +13,7 @@ type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
 export class CharacterStats extends Feature {
   private charactersStatMap = new Map<PlayerType, StatMap>();
 
+  /** @internal */
   constructor() {
     super();
 

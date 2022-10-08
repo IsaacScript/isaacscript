@@ -23,6 +23,7 @@ export class PlayerInventory extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

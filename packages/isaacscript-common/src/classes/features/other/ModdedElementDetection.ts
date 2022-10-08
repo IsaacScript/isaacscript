@@ -46,6 +46,7 @@ import { Feature } from "../../private/Feature";
 export class ModdedElementDetection extends Feature {
   private atLeastOneCallbackFired = false;
 
+  /** @internal */
   constructor() {
     super();
 

@@ -11,6 +11,7 @@ export class RoomClearFrame extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

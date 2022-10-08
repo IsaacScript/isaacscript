@@ -16,6 +16,7 @@ export class CharacterHealthConversion extends Feature {
     ConversionHeartSubType
   >();
 
+  /** @internal */
   constructor() {
     super();
 

@@ -32,6 +32,7 @@ export class GameReorderedCallbacks extends Feature {
   private postNewRoomReordered: PostNewRoomReordered;
   private postGameStartedReorderedLast: PostGameStartedReorderedLast;
 
+  /** @internal */
   constructor(
     postGameStartedReordered: PostGameStartedReordered,
     postNewLevelReordered: PostNewLevelReordered,

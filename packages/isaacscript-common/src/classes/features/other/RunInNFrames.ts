@@ -31,6 +31,7 @@ export class RunInNFrames extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

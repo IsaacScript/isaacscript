@@ -41,6 +41,7 @@ export class Pause extends Feature {
 
   private disableInputs: DisableInputs;
 
+  /** @internal */
   constructor(disableInputs: DisableInputs) {
     super();
 

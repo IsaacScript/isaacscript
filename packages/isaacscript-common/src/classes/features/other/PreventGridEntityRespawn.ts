@@ -37,6 +37,7 @@ export class PreventGridEntityRespawn extends Feature {
 
   private runInNFrames: RunInNFrames;
 
+  /** @internal */
   constructor(runInNFrames: RunInNFrames) {
     super();
 

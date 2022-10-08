@@ -76,6 +76,7 @@ export class SaveDataManager extends Feature {
   private loadedDataOnThisRun = false;
   private restoreGlowingHourGlassDataOnNextRoom = false;
 
+  /** @internal */
   constructor(mod: Mod) {
     super();
 

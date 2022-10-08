@@ -42,6 +42,7 @@ const TRINKETS_THAT_AFFECT_ITEM_POOLS: readonly TrinketType[] = [
 export class ItemPoolDetection extends Feature {
   private moddedElementSets: ModdedElementSets;
 
+  /** @internal */
   constructor(moddedElementSets: ModdedElementSets) {
     super();
 

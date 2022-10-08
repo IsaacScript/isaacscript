@@ -11,6 +11,7 @@ import { PreventCollectibleRotation } from "./PreventCollectibleRotation";
 export class SpawnCollectible extends Feature {
   private preventCollectibleRotation: PreventCollectibleRotation;
 
+  /** @internal */
   constructor(preventCollectibleRotation: PreventCollectibleRotation) {
     super();
 

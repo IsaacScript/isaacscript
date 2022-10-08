@@ -44,6 +44,7 @@ export class DebugDisplay extends Feature {
   private door = new DebugDisplayDoor(); // 16
   private pressurePlate = new DebugDisplayPressurePlate(); // 20
 
+  /** @internal */
   constructor(mod: ModUpgradedInterface) {
     super();
 

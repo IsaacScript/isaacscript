@@ -39,6 +39,7 @@ export class CustomGridEntities extends Feature {
 
   private runInNFrames: RunInNFrames;
 
+  /** @internal */
   constructor(runInNFrames: RunInNFrames) {
     super();
 

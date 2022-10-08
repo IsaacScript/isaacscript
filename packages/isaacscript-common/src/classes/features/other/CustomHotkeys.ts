@@ -21,6 +21,7 @@ export class CustomHotkeys extends Feature {
 
   private keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
+  /** @internal */
   constructor() {
     super();
 

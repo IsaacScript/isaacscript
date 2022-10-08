@@ -116,9 +116,11 @@ As a general safety practice, you should always use the library enums over the v
 
 ## Callback and Extra Feature Usage
 
-Like any good library, importing `isaacscript-common` will not cause any code to be executed in your mod. Most of its functions are [pure functions](https://en.wikipedia.org/wiki/Pure_function).
+Like any good library, importing anything in `isaacscript-common` will not cause any code to be executed in your mod. Most of its functions are [pure functions](https://en.wikipedia.org/wiki/Pure_function).
 
-However, in order for [the custom callbacks](/isaacscript-common/other/enums/ModCallbackCustom) and the ["Extra Features"](/isaacscript-common/features/characterHealthConversion) to work, some code does need to be executed. This is because these features need to track when certain things happen in-game. In order to enable this functionality, you must upgrade your mod with the `upgradeMod` function. For example:
+However, in order for [the custom callbacks](/isaacscript-common/other/enums/ModCallbackCustom) and the ["Extra Features"](/isaacscript-common/) to work, some code does need to be executed. This is because these features need to track when certain things happen in-game. In order to enable this functionality, you must upgrade your mod with the `upgradeMod` function.
+
+For example:
 
 ```lua
 -- Imports
@@ -175,7 +177,7 @@ The IsaacScript standard library contains [the most advanced stage library ever 
 
 <!-- cspell:ignore setcustomstage -->
 
-Note that some of the custom stage functions (such as e.g. [`setCustomStage`](/isaacscript-common/features/customStage_exports/#setcustomstage)) cannot be used in Lua, since they require a compiler to generate the custom stage metadata. For advanced users, you could manually prepare the metadata, but at that point you would probably be better off using [StageAPI](https://github.com/Meowlala/BOIStageAPI15), since nothing you write is going to be type safe anyway.
+Note that some of the custom stage functions (such as e.g. [`setCustomStage`](/isaacscript-common/)) cannot be used in Lua, since they require a compiler to generate the custom stage metadata. For advanced users, you could manually prepare the metadata, but at that point you would probably be better off using [StageAPI](https://github.com/Meowlala/BOIStageAPI15), since nothing you write is going to be type safe anyway.
 
 <br />
 

@@ -8,6 +8,7 @@ const FADE_IN_SPEED = 1;
 export class FadeInRemover extends Feature {
   private enabled = false;
 
+  /** @internal */
   constructor() {
     super();
 

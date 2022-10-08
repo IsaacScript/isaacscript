@@ -38,6 +38,7 @@ export class CustomPickups extends Feature {
   /** Indexed by entity ID. */
   private customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
 
+  /** @internal */
   constructor() {
     super();
 

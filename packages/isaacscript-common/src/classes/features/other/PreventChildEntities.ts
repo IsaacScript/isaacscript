@@ -9,6 +9,7 @@ export class PreventChildEntities extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

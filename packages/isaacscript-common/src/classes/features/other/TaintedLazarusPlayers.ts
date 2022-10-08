@@ -33,6 +33,7 @@ export class TaintedLazarusPlayers extends Feature {
   // eslint-disable-next-line class-methods-use-this
   public override vConditionalFunc = (): boolean => false;
 
+  /** @internal */
   constructor() {
     super();
 

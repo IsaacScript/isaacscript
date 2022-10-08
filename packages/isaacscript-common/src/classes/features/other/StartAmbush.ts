@@ -15,6 +15,7 @@ const SACK_SEED_THAT_SPAWNS_TWO_COINS = 6 as Seed;
 export class StartAmbush extends Feature {
   private runInNFrames: RunInNFrames;
 
+  /** @internal */
   constructor(runInNFrames: RunInNFrames) {
     super();
 

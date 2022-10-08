@@ -115,6 +115,7 @@ export class CustomStages extends Feature {
   private pause: Pause;
   private runInNFrames: RunInNFrames;
 
+  /** @internal */
   constructor(
     customGridEntities: CustomGridEntities,
     customTrapdoors: CustomTrapdoors,

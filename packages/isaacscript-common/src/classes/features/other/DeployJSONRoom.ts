@@ -42,6 +42,7 @@ export class DeployJSONRoom extends Feature {
   private preventGridEntityRespawn: PreventGridEntityRespawn;
   private spawnCollectible: SpawnCollectible;
 
+  /** @internal */
   constructor(
     preventGridEntityRespawn: PreventGridEntityRespawn,
     spawnCollectible: SpawnCollectible,

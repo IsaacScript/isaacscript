@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 7th, 2022 (Unreleased)
+## October 8th, 2022 (Unreleased)
 
 - Added the following helper functions:
   - `removeUrnRewards`
@@ -25,6 +25,7 @@ This page lists the changes to the IsaacScript framework.
   - `getEdenActiveCollectibles`
   - `getRandomEdenActiveCollectible`
   - `spawnCollectibleUnsafe`
+  - `isPlayerAbleToAim`
 - Renamed the following helper functions:
   - `hasSirenStolenFamiliar` --> `isFamiliarStolenBySiren`
   - `getCollectiblesForCacheFlag` --> `getCollectibleTypesWithCacheFlag`
@@ -44,6 +45,8 @@ This page lists the changes to the IsaacScript framework.
   - `AnyClass`
   - `HasFunction`
   - `TupleToUnion`
+  - `TupleToIntersection`
+  - `Writable`
 
 ## September 30th, 2022
 

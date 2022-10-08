@@ -21,6 +21,7 @@ export class StageHistory extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

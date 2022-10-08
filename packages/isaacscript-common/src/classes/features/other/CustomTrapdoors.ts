@@ -109,6 +109,7 @@ export class CustomTrapdoors extends Feature {
   private runNextRoom: RunNextRoom;
   private stageHistory: StageHistory;
 
+  /** @internal */
   constructor(
     customGridEntities: CustomGridEntities,
     disableInputs: DisableInputs,

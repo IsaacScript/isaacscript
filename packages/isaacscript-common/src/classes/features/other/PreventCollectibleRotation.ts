@@ -28,6 +28,7 @@ export class PreventCollectibleRotation extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 

@@ -3,8 +3,7 @@ import { Feature } from "../classes/private/Feature";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ISCFeatureToClass } from "../features";
 import { PublicInterface } from "./PublicInterface";
-import { TupleToUnion } from "./TupleToUnion";
-import { UnionToIntersection } from "./UnionToIntersection";
+import { TupleToIntersection } from "./TupleToIntersection";
 import { Writeable } from "./Writable";
 
 /**
@@ -20,11 +19,19 @@ import { Writeable } from "./Writable";
 export type ModUpgraded<T extends readonly ISCFeature[]> = ModUpgradedBase &
   ISCFeaturesToKeys<T>;
 
+/**
+ * We want to only extract the class public methods, so we omit the keys of the `Feature` base
+ * class.
+ */
 type ISCFeaturesToKeys<T extends readonly ISCFeature[]> = Omit<
-  UnionToIntersection<TupleToUnion<ISCFeatureTupleToClassTuple<Writeable<T>>>>,
+  TupleToIntersection<ISCFeatureTupleToClassTuple<Writeable<T>>>,
   keyof Feature
 >;
 
+/**
+ * We need to use the `PublicInterface` helper type because an intersection of two classes with the
+ * same private fields will cause a `never` type.
+ */
 type ISCFeatureTupleToClassTuple<T extends ISCFeature[]> = {
   [K in keyof T]: PublicInterface<ISCFeatureToClass[T[K]]>;
 };

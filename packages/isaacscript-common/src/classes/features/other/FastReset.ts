@@ -14,6 +14,7 @@ declare let AwaitingTextInput: boolean;
 export class FastReset extends Feature {
   private enabled = false;
 
+  /** @internal */
   constructor() {
     super();
 

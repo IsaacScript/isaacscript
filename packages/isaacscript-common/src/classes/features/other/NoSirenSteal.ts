@@ -15,6 +15,7 @@ export class NoSirenSteal extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 
