@@ -184,28 +184,6 @@ export function makeDir(dirPath: string, verbose: boolean): void {
   }
 }
 
-// ts-prune-ignore-next (used by other code in the monorepo)
-export function move(srcPath: string, dstPath: string, verbose: boolean): void {
-  if (verbose) {
-    console.log(`Moving: ${srcPath} --> ${dstPath}`);
-  }
-
-  try {
-    fs.moveSync(srcPath, dstPath);
-  } catch (err) {
-    error(
-      `Failed to move file "${chalk.green(srcPath)}" to "${chalk.green(
-        dstPath,
-      )}":`,
-      err,
-    );
-  }
-
-  if (verbose) {
-    console.log(`Moved: ${srcPath} --> ${dstPath}`);
-  }
-}
-
 export function read(filePath: string, verbose: boolean): string {
   if (verbose) {
     console.log(`Reading a file: ${filePath}`);

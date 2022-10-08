@@ -15,6 +15,7 @@ import { asNumber } from "../../../functions/types";
 import { Feature } from "../../private/Feature";
 
 export class StageHistory extends Feature {
+  /** @internal */
   public override v = {
     run: {
       stageHistory: [] as Array<[stage: LevelStage, stageType: StageType]>,

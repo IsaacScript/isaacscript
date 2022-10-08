@@ -24,6 +24,7 @@ import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "./RunInNFrames";
 
 export class PreventGridEntityRespawn extends Feature {
+  /** @internal */
   public override v = {
     level: {
       /** Indexed by room list index. */

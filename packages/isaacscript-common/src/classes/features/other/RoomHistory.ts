@@ -16,6 +16,7 @@ import { RoomDescription } from "../../../interfaces/RoomDescription";
 import { Feature } from "../../private/Feature";
 
 export class RoomHistory extends Feature {
+  /** @internal */
   public override v = {
     run: {
       roomHistory: [] as Array<Readonly<RoomDescription>>,

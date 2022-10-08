@@ -5,13 +5,14 @@ import { stopAllSoundEffects } from "../../../functions/sound";
 import { Feature } from "../../private/Feature";
 
 export class DisableAllSound extends Feature {
-  private musicWasEnabled = false;
-
+  /** @internal */
   public override v = {
     run: {
       disableSoundSet: new Set<string>(),
     },
   };
+
+  private musicWasEnabled = false;
 
   /** @internal */
   constructor() {

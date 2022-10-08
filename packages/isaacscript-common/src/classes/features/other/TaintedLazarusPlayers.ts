@@ -8,6 +8,7 @@ import { Feature } from "../../private/Feature";
  * Lazarus.
  */
 export class TaintedLazarusPlayers extends Feature {
+  /** @internal */
   public override v = {
     run: {
       queuedTaintedLazarus: [] as EntityPlayer[],

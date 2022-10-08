@@ -9,6 +9,7 @@ import { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
 
 export class CustomItemPools extends Feature {
+  /** @internal */
   public override v = {
     run: {
       customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),

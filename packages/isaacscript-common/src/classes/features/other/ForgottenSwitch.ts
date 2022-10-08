@@ -7,6 +7,7 @@ import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
 export class ForgottenSwitch extends Feature {
+  /** @internal */
   public override v = {
     run: {
       shouldSwitch: false,

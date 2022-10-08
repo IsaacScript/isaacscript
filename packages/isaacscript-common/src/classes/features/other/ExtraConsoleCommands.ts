@@ -19,6 +19,7 @@ import * as commands from "./extraConsoleCommands/commands";
 import { v } from "./extraConsoleCommands/v";
 
 export class ExtraConsoleCommands extends Feature {
+  /** @internal */
   public override v = v;
 
   /** The contents of the map are initialized in the "init.ts" file. */

@@ -200,10 +200,11 @@ export class ModUpgradedBase implements Mod {
   }
 
   /**
-   * Logs every custom callback and extra feature that is currently enabled. Useful for debugging or
+   * Logs every custom callback or extra feature that is currently enabled. Useful for debugging or
    * profiling.
    */
   public logUsedFeatures(): void {
+    // Custom callbacks
     for (const [modCallbackCustomString, callbackClass] of Object.entries(
       this.callbacks,
     )) {
@@ -223,6 +224,7 @@ export class ModUpgradedBase implements Mod {
       );
     }
 
+    // Extra features
     for (const [iscFeatureString, featureClass] of Object.entries(
       this.features,
     )) {

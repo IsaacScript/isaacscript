@@ -16,6 +16,7 @@ import { Feature } from "../../private/Feature";
  * collectible has this item pool type.
  */
 export class CollectibleItemPoolType extends Feature {
+  /** @internal */
   public override v = {
     run: {
       collectibleItemPoolTypeMap: new Map<PtrHash, ItemPoolType>(),

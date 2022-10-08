@@ -13,6 +13,7 @@ import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
 export class PlayerInventory extends Feature {
+  /** @internal */
   public override v = {
     run: {
       playersInventory: new DefaultMap<

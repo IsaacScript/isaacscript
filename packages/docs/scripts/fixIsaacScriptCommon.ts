@@ -42,22 +42,15 @@ import glob from "glob";
 import { file } from "isaacscript-cli";
 import path from "path";
 
+const DEBUG = false as boolean;
 const PACKAGE_NAME = "isaacscript-common";
 const DOCS_DIR = path.join(__dirname, "..", "docs");
 const PACKAGE_DOCS_DIR = path.join(DOCS_DIR, PACKAGE_NAME);
 const MODULES_DIR = path.join(PACKAGE_DOCS_DIR, "modules");
 const MODULES_MD_PATH = path.join(PACKAGE_DOCS_DIR, "modules.md");
 const OTHER_DIR = path.join(PACKAGE_DOCS_DIR, "other");
+const FEATURES_DIR = path.join(PACKAGE_DOCS_DIR, "features");
 const CATEGORY_FILE_NAME = "_category_.yml";
-
-/*
-const TITLE_FIX_DIRECTORIES: readonly string[] = [
-  "Core",
-  "Features",
-  "Functions",
-  "Maps",
-];
-*/
 
 /** We hard-code the label for some specific directories. */
 const DIRECTORY_NAME_TO_LABEL: ReadonlyMap<string, string> = new Map([
@@ -74,14 +67,6 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   ["constantsFirstLast", "Constants (First & Last)"],
   ["upgradeMod", "Upgrading Your Mod"],
 
-  // Features
-  ["debugDisplay_exports", "Debug Display"],
-  ["customTrapdoor_exports", "Custom Trapdoors"],
-  ["customStage_exports", "Custom Stages"],
-  ["extraConsoleCommands_exports", "Extra Console Commands (Init)"],
-  ["extraConsoleCommands_listCommands", "Extra Console Commands (List)"],
-  ["saveDataManager_exports", "Save Data Manager"],
-
   // Functions
   ["arrayLua", "Array (in Lua)"],
   ["bitSet128", "BitSet128"],
@@ -92,14 +77,18 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   ["rng", "RNG"],
   ["tstlClass", "TSTL Class"],
   ["ui", "UI"],
+
+  // Objects
+  ["colors", "COLORS"],
+  ["kColors", "K_COLORS"],
 ]);
 
 const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
   // "Introduction" is hard coded as position 0 in "website-root.md".
   ["Core", 1],
-  ["Extra Callbacks", 2],
-  ["Extra Features", 3],
-  ["Helper Functions by Category", 4],
+  ["Helper Functions by Category", 2],
+  ["Extra Callbacks", 3],
+  ["Extra Features", 4],
   ["Other Miscellaneous Exports", 5],
 ]);
 
@@ -136,6 +125,7 @@ function main() {
   moveModulesFiles();
   file.deleteFileOrDirectory(MODULES_MD_PATH, false);
   file.makeDir(OTHER_DIR, false);
+  file.makeDir(FEATURES_DIR, false);
   addCategoryFilesAndMarkdownHeaders();
   moveDirsToOther();
   deleteDuplicatedPages();
@@ -153,7 +143,7 @@ function createCallbackFile() {
   const fileContent = `
 ---
 sidebar_label: Extra Callbacks
-sidebar_position: 2
+sidebar_position: 3
 custom_edit_url: null
 ---
 
@@ -195,7 +185,11 @@ function moveModulesFiles() {
       const dstDirectory = path.join(PACKAGE_DOCS_DIR, directoryName);
       file.makeDir(dstDirectory, false);
       const dstPath = path.join(dstDirectory, newFileName);
-      file.move(markdownFilePath, dstPath, false);
+      file.rename(markdownFilePath, dstPath, false);
+
+      if (DEBUG) {
+        console.log(`Moved:\n  ${markdownFilePath}\n  -->\n  ${dstPath}`);
+      }
     }
   }
 
@@ -234,7 +228,7 @@ function moveDirsToOther() {
   for (const dirName of OTHER_DIR_NAMES) {
     const srcPath = path.join(PACKAGE_DOCS_DIR, dirName);
     const dstPath = path.join(OTHER_DIR, dirName);
-    file.move(srcPath, dstPath, false);
+    file.rename(srcPath, dstPath, false);
   }
 }
 
@@ -309,11 +303,18 @@ function getTitle(filePath: string, directoryName: string) {
       error(`Failed to parse the proper name from the match: ${fileName}`);
     }
 
-    return properName;
+    return fileName.includes("_features_")
+      ? pascalCaseToTitleCase(properName)
+      : properName;
   }
 
-  // Base case: convert the file names to title case.
-  return pascalCaseToTitleCase(pageName);
+  // Third, file names should be title-cased in certain directories.
+  if (directoryName === "core" || directoryName === "functions") {
+    return pascalCaseToTitleCase(pageName);
+  }
+
+  // Base case: use the file name without the ".md" suffix.
+  return pageName;
 }
 
 function deleteDuplicatedPages() {
@@ -329,6 +330,10 @@ function deleteDuplicatedPages() {
       if (!isValidDuplicate(fileName, directoryName)) {
         const filePath = path.join(directoryPath, fileName);
         file.deleteFileOrDirectory(filePath, false);
+
+        if (DEBUG) {
+          console.log(`Deleted duplicate page:\n  ${filePath}`);
+        }
       }
     }
   }
@@ -344,20 +349,34 @@ function renameDuplicatedPages() {
         continue;
       }
 
-      if (isValidDuplicate(fileName, directoryName)) {
-        const properNameMatch = fileName.match(/\.(\w+\.md)/);
-        if (properNameMatch === null) {
-          error(`Failed to parse the file name: ${fileName}`);
-        }
+      if (!isValidDuplicate(fileName, directoryName)) {
+        continue;
+      }
 
-        const properName = properNameMatch[1];
-        if (properName === undefined) {
-          error(`Failed to parse the file name match: ${fileName}`);
-        }
+      const properNameMatch = fileName.match(/\.(\w+\.md)/);
+      if (properNameMatch === null) {
+        error(`Failed to parse the file name: ${fileName}`);
+      }
 
-        const filePath = path.join(directoryPath, fileName);
-        const properPath = path.join(directoryPath, properName);
-        file.rename(filePath, properPath, false);
+      const properName = properNameMatch[1];
+      if (properName === undefined) {
+        error(`Failed to parse the file name match: ${fileName}`);
+      }
+
+      const filePath = path.join(directoryPath, fileName);
+      let properPath = path.join(directoryPath, properName);
+
+      // Handle the special case of feature classes, which should go in the "features" directory.
+      // First, handle the special case of feature classes, which should go to the "features"
+      // directory instead of the "classes" directory.
+      if (fileName.includes("_features_")) {
+        properPath = path.join(FEATURES_DIR, properName);
+      }
+
+      file.rename(filePath, properPath, false);
+
+      if (DEBUG) {
+        console.log(`Renamed:\n  ${filePath}\n  -->\n  ${properPath}`);
       }
     }
   }

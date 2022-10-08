@@ -23,6 +23,7 @@ import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "../other/RunInNFrames";
 
 export class CustomGridEntities extends Feature {
+  /** @internal */
   public override v = {
     level: {
       /** Indexed by room list index and grid index. */

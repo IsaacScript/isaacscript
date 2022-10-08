@@ -3,6 +3,7 @@ import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
 export class PreventChildEntities extends Feature {
+  /** @internal */
   public override v = {
     room: {
       preventingEntities: new Set<PtrHash>(),

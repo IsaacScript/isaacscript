@@ -4,6 +4,7 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { Feature } from "../../private/Feature";
 
 export class RoomClearFrame extends Feature {
+  /** @internal */
   public override v = {
     room: {
       roomClearGameFrame: undefined as int | undefined,

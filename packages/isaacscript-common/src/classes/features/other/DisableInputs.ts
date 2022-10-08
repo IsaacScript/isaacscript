@@ -8,6 +8,7 @@ import { getMoveActions, getShootActions } from "../../../functions/input";
 import { Feature } from "../../private/Feature";
 
 export class DisableInputs extends Feature {
+  /** @internal */
   public override v = {
     run: {
       /** Indexed by the requesting feature key. */

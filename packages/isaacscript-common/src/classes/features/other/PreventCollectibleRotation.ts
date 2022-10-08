@@ -12,6 +12,7 @@ import { isCollectible } from "../../../functions/pickupVariants";
 import { Feature } from "../../private/Feature";
 
 export class PreventCollectibleRotation extends Feature {
+  /** @internal */
   public override v = {
     room: {
       /**

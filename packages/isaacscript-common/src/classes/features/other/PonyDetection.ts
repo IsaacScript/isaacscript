@@ -18,6 +18,7 @@ const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
 ];
 
 export class PonyDetection extends Feature {
+  /** @internal */
   public override v = {
     run: {
       playersIsPonyActive: new Set<PlayerIndex>(),
