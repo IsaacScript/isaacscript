@@ -575,14 +575,11 @@ interface CustomStageLuaUnsafe extends CustomStageTSConfig {
   roomsMetadata: CustomStageRoomMetadata[];
 }
 
-/** @internal */
 export type CustomStageLua = Immutable<CustomStageLuaUnsafe>;
 
 /**
  * Metadata about a custom stage room. Each custom stage object contains an array with metadata for
  * each room.
- *
- * @internal
  */
 export interface CustomStageRoomMetadata {
   type: number;
