@@ -13,12 +13,24 @@ import {
  * Additionally, all custom callbacks extend from this class.
  */
 export class Feature {
+  /** @internal */
   public initialized = false;
+
+  /** @internal */
   public numConsumers = 0;
 
+  /** @internal */
   public v?: SaveData;
+
+  /** @internal */
   public vConditionalFunc?: () => boolean;
+
+  /** @internal */
   public featuresUsed?: ISCFeature[];
+
+  /** @internal */
   public callbacksUsed?: CallbackTuple[];
+
+  /** @internal */
   public customCallbacksUsed?: CustomCallbackTuple[];
 }
