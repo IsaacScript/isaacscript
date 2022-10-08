@@ -91,29 +91,11 @@ The extra methods are type safe such that if you tried to use the `isPlayerUsing
 
 ## Passing the `mod` Object Throughout Your Mod
 
-Conventionally, Isaac mods create the `mod` object in the `main.ts` root file, and then pass it elsewhere if needed. (You only typically need to pass it around for callback registration purposes, since the IsaacScript save data manager handles all saving and loading of the "save#.dat" file.)
+Historically, Isaac mods have created the `mod` object in the `main.ts` root file, and then passed it elsewhere if needed. (You only typically need to pass it around for callback registration purposes, since the IsaacScript save data manager handles all saving and loading of the "save#.dat" file.)
 
-However, now that the `mod` object contains useful methods for various library functionality, the various files in your mod will need access to it. There are a few different ways to accomplish this. For example, you could use [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection), or create a `getMod` function. However, the simplest way is to just upgrade the mod in a separate file, and then import it for side-effects, like this:
+However, now that the `mod` object contains useful methods, the various files in your mod will need access to the `mod` object. There are a few different ways to accomplish this. For example, you could use [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) or create a `getMod` function. However, the simplest way is to just upgrade the mod in a separate file, and then import it for side-effects, like this:
 
 <!-- markdownlint-disable MD001 -->
-
-#### `main.lua`
-
-```ts
-import { mod } from "./mod";
-
-main();
-
-function main() {
-  initCallbacks();
-}
-
-function initCallbacks() {
-  mod.AddCallback(ModCallback.POST_UPDATE, (player) => {
-    Isaac.DebugString("ModCallback.POST_UPDATE");
-  });
-}
-```
 
 #### `mod.ts`
 
@@ -121,6 +103,20 @@ function initCallbacks() {
 const modVanilla = RegisterMod("Foo", 1);
 const features = [ISCFeature.PONY_DETECTION] as const;
 export const mod = upgradeMod(modVanilla);
+```
+
+#### `callbacks/postUpdate.ts`
+
+```ts
+import { mod } from "./mod";
+
+export function postUpdateInit(): void {
+  mod.AddCallback(ModCallback.POST_UPDATE, main);
+}
+
+function main() {
+  Isaac.DebugString("ModCallback.POST_UPDATE");
+}
 ```
 
 This has the downside of importing for side-effects, but it keeps your mod clean of other boilerplate.
