@@ -15,6 +15,7 @@ import * as metadataJSON from "../../../customStageMetadata.json"; // This will 
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
+import { UIStreakAnimation } from "../../../enums/private/UIStreakAnimation";
 import { isArray } from "../../../functions/array";
 import { doorSlotFlagsToDoorSlots } from "../../../functions/doors";
 import { hasFlag, removeFlag } from "../../../functions/flag";
@@ -44,7 +45,6 @@ import {
   CUSTOM_FLOOR_STAGE_TYPE,
   DEFAULT_BASE_STAGE,
   DEFAULT_BASE_STAGE_TYPE,
-  UIStreakAnimation,
 } from "./customStages/constants";
 import {
   convertVanillaTrapdoors,
@@ -73,6 +73,7 @@ import { Pause } from "./Pause";
 import { RunInNFrames } from "./RunInNFrames";
 
 export class CustomStages extends Feature {
+  /** @internal */
   public override v = {
     run: {
       currentCustomStage: null as CustomStage | null,

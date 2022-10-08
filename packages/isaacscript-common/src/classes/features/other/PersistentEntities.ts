@@ -24,6 +24,7 @@ interface PersistentEntityDescription {
 type PersistentEntityTuple = [index: int, entityPtr: EntityPtr];
 
 export class PersistentEntities extends Feature {
+  /** @internal */
   public override v = {
     run: {
       /** Iterates upward as new persistent entities are created. */

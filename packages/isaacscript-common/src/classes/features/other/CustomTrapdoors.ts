@@ -74,6 +74,7 @@ export class CustomTrapdoors extends Feature {
     (destinationStage: LevelStage, destinationStageType: StageType) => void
   >();
 
+  /** @internal */
   public override v = {
     run: {
       state: StageTravelState.NONE,

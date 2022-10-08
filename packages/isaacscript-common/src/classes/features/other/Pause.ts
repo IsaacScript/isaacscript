@@ -30,6 +30,7 @@ interface InitialDescription {
 }
 
 export class Pause extends Feature {
+  /** @internal */
   public override v = {
     run: {
       isPseudoPaused: false,

@@ -23,6 +23,7 @@ interface PickupDescription {
 }
 
 export class PickupIndexCreation extends Feature {
+  /** @internal */
   public override v = {
     run: {
       pickupCounter: 0 as PickupIndex,

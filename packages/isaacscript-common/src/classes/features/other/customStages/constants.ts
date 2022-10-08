@@ -1,12 +1,5 @@
 import { LevelStage, StageType } from "isaac-typescript-definitions";
 
-/** Corresponds to "resources/gfx/ui/ui_streak.anm2". */
-export enum UIStreakAnimation {
-  NONE,
-  TEXT,
-  TEXT_STAY,
-}
-
 export const CUSTOM_STAGE_FEATURE_NAME = "CustomStage";
 
 export const ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH = "gfx/isaacscript-custom-stage";

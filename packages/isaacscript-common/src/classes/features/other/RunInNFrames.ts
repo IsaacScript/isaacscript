@@ -20,6 +20,7 @@ type IntervalFunctionTuple = [
 ];
 
 export class RunInNFrames extends Feature {
+  /** @internal */
   public override v = {
     run: {
       queuedGameFunctionTuples: [] as QueuedFunctionTuple[],

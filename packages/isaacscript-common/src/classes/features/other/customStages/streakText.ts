@@ -1,13 +1,13 @@
 import { ButtonAction, ControllerIndex } from "isaac-typescript-definitions";
 import { fonts, game } from "../../../../core/cachedClasses";
 import { KColorDefault, VectorOne } from "../../../../core/constants";
+import { UIStreakAnimation } from "../../../../enums/private/UIStreakAnimation";
 import { getEnumValues } from "../../../../functions/enums";
 import {
   getScreenBottomCenterPos,
   getScreenTopCenterPos,
 } from "../../../../functions/ui";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
-import { UIStreakAnimation } from "./constants";
 
 /** Corresponds to "resources/gfx/ui/ui_streak.anm2". */
 const UI_STREAK_ANIMATION_END_FRAMES: {
