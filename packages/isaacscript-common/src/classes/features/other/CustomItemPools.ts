@@ -8,7 +8,7 @@ import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
 import { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
 
-export class CustomItemPool extends Feature {
+export class CustomItemPools extends Feature {
   public override v = {
     run: {
       customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),

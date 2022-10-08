@@ -10,6 +10,10 @@ const FLYING_NULL_ITEMS: readonly NullItemID[] = [
   NullItemID.LOST_CURSE, // 112
 ];
 
+/**
+ * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
+ * include it in the list of features.
+ */
 export class FlyingDetection extends Feature {
   private moddedElementSets: ModdedElementSets;
 

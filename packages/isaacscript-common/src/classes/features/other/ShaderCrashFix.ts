@@ -7,7 +7,7 @@ import { Feature } from "../../private/Feature";
  * discovered by AgentCucco.
  *
  * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
- * include it when upgrading.
+ * include it in the list of features.
  */
 export class ShaderCrashFix extends Feature {
   constructor() {

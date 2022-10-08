@@ -35,6 +35,10 @@ const TRINKETS_THAT_AFFECT_ITEM_POOLS: readonly TrinketType[] = [
   TrinketType.NO,
 ];
 
+/**
+ * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
+ * include it in the list of features.
+ */
 export class ItemPoolDetection extends Feature {
   private moddedElementSets: ModdedElementSets;
 

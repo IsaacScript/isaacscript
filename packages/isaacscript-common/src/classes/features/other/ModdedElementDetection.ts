@@ -39,6 +39,9 @@ import { Feature } from "../../private/Feature";
  * throw a runtime error if they are called in the menu, before any callbacks have occurred. This
  * ensures that the proper values are always returned and allows you to get immediate feedback if
  * you accidentally access them from the menu.
+ *
+ * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
+ * include it in the list of features.
  */
 export class ModdedElementDetection extends Feature {
   private atLeastOneCallbackFired = false;

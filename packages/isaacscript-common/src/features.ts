@@ -16,7 +16,7 @@ import { CharacterHealthConversion } from "./classes/features/other/CharacterHea
 import { CharacterStats } from "./classes/features/other/CharacterStats";
 import { CollectibleItemPoolType } from "./classes/features/other/CollectibleItemPoolType";
 import { CustomHotkeys } from "./classes/features/other/CustomHotkeys";
-import { CustomItemPool } from "./classes/features/other/CustomItemPool";
+import { CustomItemPools } from "./classes/features/other/CustomItemPools";
 import { CustomPickups } from "./classes/features/other/CustomPickups";
 import { CustomStages } from "./classes/features/other/CustomStages";
 import { CustomTrapdoors } from "./classes/features/other/CustomTrapdoors";
@@ -48,7 +48,7 @@ import { RunNextRoom } from "./classes/features/other/RunNextRoom";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
 import { ShaderCrashFix } from "./classes/features/other/ShaderCrashFix";
 import { SpawnCollectible } from "./classes/features/other/SpawnCollectible";
-import { SpawnRockAltReward } from "./classes/features/other/SpawnRockAltReward";
+import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltRewards";
 import { StageHistory } from "./classes/features/other/StageHistory";
 import { StartAmbush } from "./classes/features/other/StartAmbush";
 import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPlayers";
@@ -80,7 +80,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.CHARACTER_STATS]: CharacterStats;
   [ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE]: CollectibleItemPoolType;
   [ISCFeature.CUSTOM_GRID_ENTITIES]: CustomGridEntities;
-  [ISCFeature.CUSTOM_ITEM_POOL]: CustomItemPool;
+  [ISCFeature.CUSTOM_ITEM_POOLS]: CustomItemPools;
   [ISCFeature.CUSTOM_HOTKEYS]: CustomHotkeys;
   [ISCFeature.CUSTOM_PICKUPS]: CustomPickups;
   [ISCFeature.CUSTOM_STAGES]: CustomStages;
@@ -112,7 +112,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.RUN_NEXT_ROOM]: RunNextRoom;
   [ISCFeature.SAVE_DATA_MANAGER]: SaveDataManager;
   [ISCFeature.SHADER_CRASH_FIX]: ShaderCrashFix;
-  [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: SpawnRockAltReward;
+  [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: SpawnRockAltRewards;
   [ISCFeature.SPAWN_COLLECTIBLE]: SpawnCollectible;
   [ISCFeature.STAGE_HISTORY]: StageHistory;
   [ISCFeature.START_AMBUSH]: StartAmbush;
@@ -231,7 +231,7 @@ export function getFeatures(
     [ISCFeature.CHARACTER_STATS]: new CharacterStats(),
     [ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE]: new CollectibleItemPoolType(),
     [ISCFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
-    [ISCFeature.CUSTOM_ITEM_POOL]: new CustomItemPool(),
+    [ISCFeature.CUSTOM_ITEM_POOLS]: new CustomItemPools(),
     [ISCFeature.CUSTOM_HOTKEYS]: new CustomHotkeys(),
     [ISCFeature.CUSTOM_PICKUPS]: new CustomPickups(),
     [ISCFeature.CUSTOM_STAGES]: new CustomStages(
@@ -275,7 +275,7 @@ export function getFeatures(
     [ISCFeature.RUN_NEXT_ROOM]: runNextRoom,
     [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
     [ISCFeature.SHADER_CRASH_FIX]: new ShaderCrashFix(),
-    [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: new SpawnRockAltReward(
+    [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: new SpawnRockAltRewards(
       itemPoolDetection,
     ),
     [ISCFeature.SPAWN_COLLECTIBLE]: spawnCollectible,

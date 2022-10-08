@@ -7,6 +7,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
+import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import {
   removeGridEntity,
@@ -213,6 +214,7 @@ export class CustomGridEntities extends Feature {
    * @param baseGridEntityVariant Optional. The variant of the grid entity to use as a "base" for
    *                              this custom grid entity. Default is 0.
    */
+  @Exported
   public spawnCustomGridEntity(
     gridEntityTypeCustom: GridEntityType,
     gridIndexOrPosition: int | Vector,
@@ -282,6 +284,7 @@ export class CustomGridEntities extends Feature {
    * @returns The grid entity that was removed. Returns undefined if no grid entity was found at the
    *          given location or if the given grid entity was not a custom grid entity.
    */
+  @Exported
   public removeCustomGridEntity(
     gridIndexOrPositionOrGridEntity: int | Vector | GridEntity,
     updateRoom = true,
@@ -328,6 +331,7 @@ export class CustomGridEntities extends Feature {
    * Helper function to get the custom grid entities in the current room. Returns an array of tuples
    * containing the raw decoration grid entity and the associated entity data.
    */
+  @Exported
   public getCustomGridEntities(): Array<
     [gridEntity: GridEntity, data: GridEntityCustomData]
   > {
@@ -355,6 +359,7 @@ export class CustomGridEntities extends Feature {
    * undefined if the provided `GridEntity` is not a custom grid entity, or if there was not a grid
    * entity on the provided grid index.
    */
+  @Exported
   public getCustomGridEntityType(
     gridEntityOrGridIndex: GridEntity | int,
   ): GridEntityType | undefined {
@@ -386,6 +391,7 @@ export class CustomGridEntities extends Feature {
    * Helper function to check if a `GridEntity` is a custom grid entity or if a grid index has a
    * custom grid entity.
    */
+  @Exported
   public isCustomGridEntity(gridEntityOrGridIndex: GridEntity | int): boolean {
     const gridEntityTypeCustom = this.getCustomGridEntityType(
       gridEntityOrGridIndex,

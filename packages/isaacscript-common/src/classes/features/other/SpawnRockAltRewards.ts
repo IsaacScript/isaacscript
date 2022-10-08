@@ -56,7 +56,11 @@ const FART_RADIUS = DISTANCE_OF_GRID_TILE * 3;
 const POLYP_PROJECTILE_SPEED = 10;
 const POLYP_NUM_PROJECTILES = 6;
 
-export class SpawnRockAltReward extends Feature {
+/**
+ * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
+ * include it in the list of features.
+ */
+export class SpawnRockAltRewards extends Feature {
   private itemPoolDetection: ItemPoolDetection;
 
   constructor(itemPoolDetection: ItemPoolDetection) {

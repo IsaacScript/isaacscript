@@ -58,6 +58,10 @@ const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
     // PlayerForm.STOMPY (13) is based on size.
   ]);
 
+/**
+ * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
+ * include it in the list of features.
+ */
 export class ModdedElementSets extends Feature {
   private allCollectibleTypesArray: CollectibleType[] = [];
   private allCollectibleTypesSet = new Set<CollectibleType>();
