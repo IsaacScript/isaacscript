@@ -18,8 +18,9 @@ eslint "sort-exports/sort-exports": [
  * Additionally, you can also abbreviate any command by omitting letters that do not overlap with
  * any other command. For example, the command of "c" will be interpreted as the "card" command.
  *
- * In order for the custom console commands to work, you first have to call
- * `enableExtraConsoleCommands`. (See the "Extra Console Commands (Init)" page for more details.)
+ * In order for the custom console commands to work, you first have to enable
+ * `ISCFeature.EXTRA_CONSOLE_COMMANDS` when upgrading your mod. (See the "Extra Console Commands
+ * (Init)" page for more details.)
  *
  * Each command has a corresponding function of the same name, but these functions are not actually
  * exported for end-user consumption. (This is to cut down on namespace conflicts and because the
