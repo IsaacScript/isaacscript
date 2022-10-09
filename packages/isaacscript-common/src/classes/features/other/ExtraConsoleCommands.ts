@@ -22,12 +22,6 @@ export class ExtraConsoleCommands extends Feature {
   /** @internal */
   public override v = v;
 
-  /** The contents of the map are initialized in the "init.ts" file. */
-  private extraConsoleCommandsFunctionMap = new Map<
-    string,
-    (params: string) => void
-  >();
-
   private commandFunctionMap = new Map<string, (params: string) => void>();
 
   /** @internal */
@@ -214,13 +208,13 @@ export class ExtraConsoleCommands extends Feature {
       );
     }
 
-    if (this.extraConsoleCommandsFunctionMap.has(commandName)) {
+    if (this.commandFunctionMap.has(commandName)) {
       error(
         `Failed to add a new console command of "${commandName}" because there is already an existing custom command by that name. If you want to overwrite a command from the standard library, you can use the "removeExtraConsoleCommand" function.`,
       );
     }
 
-    this.extraConsoleCommandsFunctionMap.set(commandName, commandFunction);
+    this.commandFunctionMap.set(commandName, commandFunction);
   }
 
   /**
@@ -231,12 +225,12 @@ export class ExtraConsoleCommands extends Feature {
    */
   @Exported
   public removeConsoleCommand(commandName: string): void {
-    if (!this.extraConsoleCommandsFunctionMap.has(commandName)) {
+    if (!this.commandFunctionMap.has(commandName)) {
       error(
         `Failed to remove the console command of "${commandName}", since it does not already exist in the map.`,
       );
     }
 
-    this.extraConsoleCommandsFunctionMap.delete(commandName);
+    this.commandFunctionMap.delete(commandName);
   }
 }

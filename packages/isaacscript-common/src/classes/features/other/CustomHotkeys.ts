@@ -1,4 +1,5 @@
 import { Keyboard, ModCallback } from "isaac-typescript-definitions";
+import { Exported } from "../../../decorators";
 import { isKeyboardPressed } from "../../../functions/input";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
@@ -74,6 +75,7 @@ export class CustomHotkeys extends Feature {
    * @param triggerFunc A function containing the arbitrary code that you want to execute when the
    *                    hotkey is triggered.
    */
+  @Exported
   public setConditionalHotkey(
     getKeyFunc: () => Keyboard | undefined,
     triggerFunc: () => void,
@@ -97,6 +99,7 @@ export class CustomHotkeys extends Feature {
    * @param triggerFunc A function containing the arbitrary code that you want to execute when the
    *                    hotkey is triggered.
    */
+  @Exported
   public setHotkey(keyboard: Keyboard, triggerFunc: () => void): void {
     if (this.staticHotkeyFunctionMap.has(keyboard)) {
       error(
@@ -113,6 +116,7 @@ export class CustomHotkeys extends Feature {
    * @param getKeyFunc Equal to the `getKeyFunc` that you passed when initially registering the
    *                   hotkey.
    */
+  @Exported
   public unsetConditionalHotkey(getKeyFunc: () => Keyboard | undefined): void {
     if (!this.dynamicHotkeyFunctionMap.has(getKeyFunc)) {
       error(
@@ -129,6 +133,7 @@ export class CustomHotkeys extends Feature {
    * @param keyboard Equal to the keyboard value that you passed when initially registering the
    *                 hotkey.
    */
+  @Exported
   public unsetHotkey(keyboard: Keyboard): void {
     if (!this.staticHotkeyFunctionMap.has(keyboard)) {
       error(

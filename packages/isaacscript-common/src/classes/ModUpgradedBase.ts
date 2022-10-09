@@ -389,9 +389,16 @@ function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
     string,
     unknown
   >;
-  const exportedMethodNames = constructor[
-    EXPORTED_METHOD_NAMES_KEY
-  ] as string[];
+  const exportedMethodNames = constructor[EXPORTED_METHOD_NAMES_KEY] as
+    | string[]
+    | undefined;
+
+  if (exportedMethodNames === undefined) {
+    const tstlClassName = getTSTLClassName(featureClass) ?? "Unknown";
+    error(
+      `Failed to find the exported method names for the class of "${tstlClassName}". This probably means that it does not have any public methods that are tagged with the @Exported decorator. Ensure that this class has at least one export.`,
+    );
+  }
 
   return exportedMethodNames.map((name) => {
     const featureClassRecord = featureClass as Record<string, AnyFunction>;
