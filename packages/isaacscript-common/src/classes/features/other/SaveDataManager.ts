@@ -1,6 +1,12 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  ActiveSlot,
+  CollectibleType,
+  ModCallback,
+  UseFlag,
+} from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../../enums/SaveDataKey";
 import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
@@ -90,19 +96,29 @@ export class SaveDataManager extends Feature {
       [ModCallback.POST_NEW_LEVEL, [this.postNewLevel]], // 18
     ];
 
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_EARLY, [this.postNewRoomEarly]],
+    ];
+
     this.mod = mod;
   }
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
-  private postUseItemGlowingHourGlass = (): boolean | undefined => {
+  private postUseItemGlowingHourGlass = (
+    _collectibleType: CollectibleType,
+    _rng: RNG,
+    _player: EntityPlayer,
+    _useFlags: BitFlags<UseFlag>,
+    _activeSlot: ActiveSlot,
+    _customVarData: int,
+  ): boolean | undefined => {
     this.restoreGlowingHourGlassDataOnNextRoom = true;
     return undefined;
   };
 
   // ModCallback.POST_PLAYER_INIT (9)
-
-  private postPlayerInit = (): void => {
+  private postPlayerInit = (_player: EntityPlayer): void => {
     // We want to only load data once per run to handle the case of a player using Genesis, a second
     // player joining the run, and so on.
     if (this.loadedDataOnThisRun) {

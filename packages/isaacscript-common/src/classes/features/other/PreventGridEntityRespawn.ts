@@ -17,6 +17,8 @@ import {
   setGridEntityInvisible,
   spawnGridEntity,
 } from "../../../functions/gridEntities";
+import { log } from "../../../functions/log";
+import { logArray, logMap } from "../../../functions/logMisc";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { DefaultMap } from "../../DefaultMap";
@@ -27,8 +29,9 @@ export class PreventGridEntityRespawn extends Feature {
   /** @internal */
   public override v = {
     level: {
-      /** Indexed by room list index. */
-      roomToDecorationGridIndexes: new DefaultMap<int, int[]>(() => []),
+      roomListIndexToDecorationGridIndexes: new DefaultMap<int, int[]>(
+        () => [],
+      ),
     },
 
     room: {
@@ -73,7 +76,7 @@ export class PreventGridEntityRespawn extends Feature {
     }
 
     const roomListIndex = getRoomListIndex();
-    if (!this.v.level.roomToDecorationGridIndexes.has(roomListIndex)) {
+    if (!this.v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
       return;
     }
 
@@ -104,7 +107,7 @@ export class PreventGridEntityRespawn extends Feature {
       this.v.room.manuallyUsingShovel = false;
 
       const decorationGridIndexes =
-        this.v.level.roomToDecorationGridIndexes.getAndSetDefault(
+        this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
           roomListIndex,
         );
       emptyArray(decorationGridIndexes);
@@ -141,7 +144,15 @@ export class PreventGridEntityRespawn extends Feature {
     const roomListIndex = getRoomListIndex();
 
     const decorationGridIndexes =
-      this.v.level.roomToDecorationGridIndexes.getAndSetDefault(roomListIndex);
+      this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+        roomListIndex,
+      );
+
+    log(
+      `GETTING HERE SET NEW ARRAY - roomListIndex: ${roomListIndex}, size: ${this.v.level.roomListIndexToDecorationGridIndexes.size}`,
+    );
+    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
+    logArray(decorationGridIndexes);
 
     for (const gridIndex of getAllGridIndexes()) {
       const existingGridEntity = room.GetGridEntity(gridIndex);
@@ -171,10 +182,15 @@ export class PreventGridEntityRespawn extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
     const decorationGridIndexes =
-      this.v.level.roomToDecorationGridIndexes.get(roomListIndex);
+      this.v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
+    Isaac.DebugString(
+      `GETTING HERE 1 - roomListIndex: ${roomListIndex}, size: ${this.v.level.roomListIndexToDecorationGridIndexes.size}`,
+    );
     if (decorationGridIndexes === undefined) {
       return;
     }
+
+    Isaac.DebugString("GETTING HERE 2");
 
     for (const gridIndex of decorationGridIndexes) {
       const gridEntity = room.GetGridEntity(gridIndex);

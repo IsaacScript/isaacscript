@@ -13,7 +13,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../core/cachedClasses";
-import { arrayToString } from "./array";
+import { arrayToString, isArray } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
@@ -26,11 +26,17 @@ import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { combineSets, getSortedSetValues } from "./set";
 import { iterateTableInOrder } from "./table";
 import { getTrinketName } from "./trinkets";
+import { isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isTable, isUserdata } from "./types";
 import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
 
 export function logArray<T>(array: T[] | readonly T[]): void {
+  if (!isArray(array)) {
+    log("Tried to log an array, but the given object was not an array.");
+    return;
+  }
+
   const arrayString = arrayToString(array);
   log(`Array: ${arrayString}`);
 }
@@ -157,7 +163,12 @@ export function logLevelStateFlags(): void {
 }
 
 export function logMap(map: Map<AnyNotNil, unknown>): void {
-  log("Printing out a TSTL Map:");
+  if (!isTSTLMap(map)) {
+    log("Tried to log a TSTL map, but the given object was not a TSTL map.");
+    return;
+  }
+
+  log("Printing out a TSTL map:");
 
   const mapKeys = [...map.keys()];
   mapKeys.sort();
@@ -284,7 +295,12 @@ export function logSeedEffects(): void {
 }
 
 export function logSet(set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>): void {
-  log("Printing out a TSTL Set:");
+  if (!isTSTLSet(set)) {
+    log("Tried to log a TSTL set, but the given object was not a TSTL set.");
+    return;
+  }
+
+  log("Printing out a TSTL set:");
 
   const setValues = getSortedSetValues(set);
   for (const value of setValues) {
