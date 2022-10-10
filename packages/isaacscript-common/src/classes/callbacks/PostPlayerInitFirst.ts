@@ -12,8 +12,6 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
       [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
       [ModCallbackCustom.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
     ];
-
-    Isaac.DebugString("GETTING HERE ZZZZZ");
   }
 
   protected override shouldFire = shouldFirePlayer;
