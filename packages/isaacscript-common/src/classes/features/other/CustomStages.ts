@@ -400,8 +400,9 @@ export class CustomStages extends Feature {
    * Helper function to warp to a custom stage/level.
    *
    * Custom stages/levels must first be defined in the "tsconfig.json" file. See the documentation
-   * for
-   * more details: https://isaacscript.github.io/main/custom-stages/
+   * for more details: https://isaacscript.github.io/main/custom-stages/
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_STAGES`.
    *
    * @param name The name of the custom stage, corresponding to what is in the "tsconfig.json" file.
    * @param firstFloor Optional. Whether to go to the first floor or the second floor. For example,
@@ -489,6 +490,8 @@ export class CustomStages extends Feature {
   /**
    * Helper function to disable the custom stage. This is typically called before taking the player
    * to a vanilla floor.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_STAGES`.
    */
   @Exported
   public disableCustomStage(): void {

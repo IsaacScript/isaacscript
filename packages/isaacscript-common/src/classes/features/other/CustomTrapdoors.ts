@@ -630,6 +630,8 @@ export class CustomTrapdoors extends Feature {
    * Registration is needed so that custom trapdoors can be serializable when the player saves and
    * quits.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_TRAPDOORS`.
+   *
    * @param destinationName The integer that identifies the type of custom trapdoor. It should
    *                        correspond to a local `CustomTrapdoorType` enum in your mod. The integer
    *                        can be any unique value and can safely overlap with values chosen by
@@ -668,6 +670,8 @@ export class CustomTrapdoors extends Feature {
    *
    * Under the hood, the custom trapdoor is represented by a decoration grid entity and is manually
    * respawned every time the player re-enters the room.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_TRAPDOORS`.
    *
    * @param gridIndexOrPosition The location in the room to spawn the trapdoor.
    * @param destinationName Optional. A string representing the name of the of destination that the

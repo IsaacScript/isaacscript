@@ -37,6 +37,8 @@ export class DisableAllSound extends Feature {
    *
    * Use this function to set things back to normal after having used `disableAllSounds`.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_ALL_SOUND`.
+   *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
    */
@@ -60,6 +62,8 @@ export class DisableAllSound extends Feature {
    * Helper function to disable all sound effects and music (by constantly musting them).
    *
    * Use the `enableAllSounds` helper function to set things back to normal.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_ALL_SOUND`.
    *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.

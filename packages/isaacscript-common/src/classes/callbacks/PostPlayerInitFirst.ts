@@ -12,6 +12,8 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
       [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
       [ModCallbackCustom.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
     ];
+
+    Isaac.DebugString("GETTING HERE ZZZZZ");
   }
 
   protected override shouldFire = shouldFirePlayer;
@@ -34,7 +36,7 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
   // ModCallbackCustom.POST_PLAYER_INIT_LATE
   private postPlayerInitLate = (player: EntityPlayer) => {
     // We want to exclude non-real players like the Strawman keeper.
-    if (!isChildPlayer(player)) {
+    if (isChildPlayer(player)) {
       return;
     }
 

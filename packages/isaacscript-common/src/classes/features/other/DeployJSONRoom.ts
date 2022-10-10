@@ -216,6 +216,8 @@ export class DeployJSONRoom extends Feature {
    * }
    * ```
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEPLOY_JSON_ROOM`.
+   *
    * @param jsonRoom The JSON room to deploy.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
