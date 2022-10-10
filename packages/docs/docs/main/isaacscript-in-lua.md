@@ -148,7 +148,7 @@ end)
 
 ## Using Extra Features
 
-Some helper functions rely on stateful tracking (like `isPlayerUsingPony`) or store data about what you want to do for later (like `setCustomHotkey`). These fall under the category of "extra features". Since they are non-pure, you are only able to access them if you upgrade your mod. However, this is slightly different than upgrading your mod for custom callbacks.
+Some helper functions rely on stateful tracking (like `isPlayerUsingPony`) or store data about what you want to do for later (like `setHotkey`). These fall under the category of "extra features". Since they are non-pure, you are only able to access them if you upgrade your mod. However, this is slightly different than upgrading your mod for custom callbacks.
 
 Instead of activating every feature when you upgrade your mod, the standard library keeps things blazing fast by only activating the specific features that you need. Thus, when you upgrade your mod, you have to tell the library which features you want by passing them as the second argument to the `upgradeMod` function.
 
