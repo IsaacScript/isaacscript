@@ -264,9 +264,7 @@ export function getFeatures(
     [ISCFeature.PONY_DETECTION]: ponyDetection,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
     [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: preventCollectibleRotation,
-    [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: new PreventGridEntityRespawn(
-      runInNFrames,
-    ),
+    [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: preventGridEntityRespawn,
     [ISCFeature.ROOM_CLEAR_FRAME]: roomClearFrame,
     [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,

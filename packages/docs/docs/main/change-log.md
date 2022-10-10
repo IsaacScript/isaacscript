@@ -41,6 +41,7 @@ This page lists the changes to the IsaacScript framework.
   - `isVanillaTSTLClass`
   - `getPlayerNumCollectiblesWithTag` (use `getPlayerCollectiblesWithTag` instead)
   - `getPlayerNumCollectiblesForTransformation` (use `getPlayerCollectiblesForTransformation` instead)
+  - `enableDevFeatures`
 - Added the following helper types:
   - `AnyClass`
   - `HasFunction`

@@ -26,7 +26,7 @@ import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { combineSets, getSortedSetValues } from "./set";
 import { iterateTableInOrder } from "./table";
 import { getTrinketName } from "./trinkets";
-import { isTSTLMap, isTSTLSet } from "./tstlClass";
+import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isTable, isUserdata } from "./types";
 import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
@@ -163,7 +163,7 @@ export function logLevelStateFlags(): void {
 }
 
 export function logMap(map: Map<AnyNotNil, unknown>): void {
-  if (!isTSTLMap(map)) {
+  if (!isTSTLMap(map) && !isDefaultMap(map)) {
     log("Tried to log a TSTL map, but the given object was not a TSTL map.");
     return;
   }

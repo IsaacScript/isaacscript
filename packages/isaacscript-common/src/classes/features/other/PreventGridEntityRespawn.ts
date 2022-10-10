@@ -118,57 +118,6 @@ export class PreventGridEntityRespawn extends Feature {
     return true;
   };
 
-  /**
-   * Helper function to prevent any removed grid entities from respawning if the player re-enters
-   * the current room.
-   *
-   * This is accomplished by spawning a new grid entity on every tile that does not already have a
-   * grid entity. This will force the game to spawn the new grid entity instead of the old one. The
-   * natural grid entity to choose for this purpose is a decoration, since it is non-interacting.
-   * Then, the decorations are made invisible and any shovel uses are intercepted to avoid creating
-   * a crawl space (instead of a trapdoor).
-   *
-   * Another option besides decorations would be to use a pressure plates with a state of 1, which
-   * is a state that is normally unused by the game and makes it invisible & persistent. However,
-   * pickups will not be able to spawn on pressure plates, which lead to various bugs (e.g. pickups
-   * spawning on top of pits). Thus, using a decoration is preferable.
-   *
-   * Yet another option to accomplish this would be to replace the room data with that of an empty
-   * room. However, the room data must exactly match the room type, the room shape, and the doors,
-   * so this is not possible to do in a robust way without adding empty rooms to the mod's `content`
-   * folder to draw the data from.
-   */
-  @Exported
-  public preventGridEntityRespawn(): void {
-    const room = game.GetRoom();
-    const roomListIndex = getRoomListIndex();
-
-    const decorationGridIndexes =
-      this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
-        roomListIndex,
-      );
-
-    log(
-      `GETTING HERE SET NEW ARRAY - roomListIndex: ${roomListIndex}, size: ${this.v.level.roomListIndexToDecorationGridIndexes.size}`,
-    );
-    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
-    logArray(decorationGridIndexes);
-
-    for (const gridIndex of getAllGridIndexes()) {
-      const existingGridEntity = room.GetGridEntity(gridIndex);
-      if (existingGridEntity !== undefined) {
-        continue;
-      }
-
-      const decoration = spawnGridEntity(GridEntityType.DECORATION, gridIndex);
-      if (decoration !== undefined) {
-        setGridEntityInvisible(decoration);
-      }
-
-      decorationGridIndexes.push(gridIndex);
-    }
-  }
-
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoomReordered = () => {
     this.setDecorationsInvisible();
@@ -203,5 +152,65 @@ export class PreventGridEntityRespawn extends Feature {
         }
       }
     }
+  }
+
+  /**
+   * Helper function to prevent any removed grid entities from respawning if the player re-enters
+   * the current room.
+   *
+   * This is accomplished by spawning a new grid entity on every tile that does not already have a
+   * grid entity. This will force the game to spawn the new grid entity instead of the old one. The
+   * natural grid entity to choose for this purpose is a decoration, since it is non-interacting.
+   * Then, the decorations are made invisible and any shovel uses are intercepted to avoid creating
+   * a crawl space (instead of a trapdoor).
+   *
+   * Another option besides decorations would be to use a pressure plates with a state of 1, which
+   * is a state that is normally unused by the game and makes it invisible & persistent. However,
+   * pickups will not be able to spawn on pressure plates, which lead to various bugs (e.g. pickups
+   * spawning on top of pits). Thus, using a decoration is preferable.
+   *
+   * Yet another option to accomplish this would be to replace the room data with that of an empty
+   * room. However, the room data must exactly match the room type, the room shape, and the doors,
+   * so this is not possible to do in a robust way without adding empty rooms to the mod's `content`
+   * folder to draw the data from.
+   */
+  @Exported
+  public preventGridEntityRespawn(): void {
+    const room = game.GetRoom();
+    const roomListIndex = getRoomListIndex();
+
+    Isaac.DebugString("GETTING HERE - BEFORE GET AND SET DEFAULT");
+    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
+    const decorationGridIndexes =
+      this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+        roomListIndex,
+      );
+    Isaac.DebugString("GETTING HERE - AFTER GET AND SET DEFAULT");
+    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
+    log(
+      `GETTING HERE - roomListIndex: ${roomListIndex}, size: ${this.v.level.roomListIndexToDecorationGridIndexes.size}`,
+    );
+    log("GETTING HERE - decorationGridIndexes:");
+    logArray(decorationGridIndexes);
+
+    for (const gridIndex of getAllGridIndexes()) {
+      const existingGridEntity = room.GetGridEntity(gridIndex);
+      if (existingGridEntity !== undefined) {
+        continue;
+      }
+
+      const decoration = spawnGridEntity(GridEntityType.DECORATION, gridIndex);
+      if (decoration !== undefined) {
+        setGridEntityInvisible(decoration);
+      }
+
+      decorationGridIndexes.push(gridIndex);
+    }
+  }
+
+  @Exported
+  public preventGridEntityRespawnDebug(): void {
+    Isaac.DebugString("GETTING HERE - DEBUG");
+    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
   }
 }
