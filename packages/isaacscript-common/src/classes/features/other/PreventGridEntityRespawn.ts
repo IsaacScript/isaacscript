@@ -17,8 +17,6 @@ import {
   setGridEntityInvisible,
   spawnGridEntity,
 } from "../../../functions/gridEntities";
-import { log } from "../../../functions/log";
-import { logArray, logMap } from "../../../functions/logMisc";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { DefaultMap } from "../../DefaultMap";
@@ -132,14 +130,9 @@ export class PreventGridEntityRespawn extends Feature {
     const roomListIndex = getRoomListIndex();
     const decorationGridIndexes =
       this.v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
-    Isaac.DebugString(
-      `GETTING HERE 1 - roomListIndex: ${roomListIndex}, size: ${this.v.level.roomListIndexToDecorationGridIndexes.size}`,
-    );
     if (decorationGridIndexes === undefined) {
       return;
     }
-
-    Isaac.DebugString("GETTING HERE 2");
 
     for (const gridIndex of decorationGridIndexes) {
       const gridEntity = room.GetGridEntity(gridIndex);
@@ -179,19 +172,10 @@ export class PreventGridEntityRespawn extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
 
-    Isaac.DebugString("GETTING HERE - BEFORE GET AND SET DEFAULT");
-    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
     const decorationGridIndexes =
       this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
         roomListIndex,
       );
-    Isaac.DebugString("GETTING HERE - AFTER GET AND SET DEFAULT");
-    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
-    log(
-      `GETTING HERE - roomListIndex: ${roomListIndex}, size: ${this.v.level.roomListIndexToDecorationGridIndexes.size}`,
-    );
-    log("GETTING HERE - decorationGridIndexes:");
-    logArray(decorationGridIndexes);
 
     for (const gridIndex of getAllGridIndexes()) {
       const existingGridEntity = room.GetGridEntity(gridIndex);
@@ -206,11 +190,5 @@ export class PreventGridEntityRespawn extends Feature {
 
       decorationGridIndexes.push(gridIndex);
     }
-  }
-
-  @Exported
-  public preventGridEntityRespawnDebug(): void {
-    Isaac.DebugString("GETTING HERE - DEBUG");
-    logMap(this.v.level.roomListIndexToDecorationGridIndexes);
   }
 }
