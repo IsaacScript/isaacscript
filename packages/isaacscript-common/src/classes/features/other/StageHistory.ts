@@ -51,6 +51,8 @@ export class StageHistory extends Feature {
    * that the next stage type can be properly calculated on The Ascent (which makes it unlike the
    * `getNextStageType` function).
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
+   *
    * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
    *                2. Default is false.
    */
@@ -159,6 +161,8 @@ export class StageHistory extends Feature {
    * This function accounts for the previous floors that a player has visited thus far on the run so
    * that the next stage can be properly calculated on The Ascent (which makes it unlike the
    * `getNextStage` function).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
    */
   @Exported
   public getNextStageWithHistory(): LevelStage {
@@ -287,7 +291,11 @@ export class StageHistory extends Feature {
     return asNumber(stage) - 1;
   }
 
-  /** Helper function to get all of the stages that a player has visited thus far on this run. */
+  /**
+   * Helper function to get all of the stages that a player has visited thus far on this run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
+   */
   @Exported
   public getStageHistory(): ReadonlyArray<
     [stage: LevelStage, stageType: StageType]
@@ -298,6 +306,8 @@ export class StageHistory extends Feature {
   /**
    * Helper function to check if a player has previous visited a particular stage (or stage + stage
    * type combination) on this run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
    *
    * @param stage The stage to check for.
    * @param stageType Optional. If provided, will check for a specific stage and stage type

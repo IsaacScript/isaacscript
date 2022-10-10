@@ -16,8 +16,8 @@ import { Writeable } from "./Writable";
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
  * has extra methods corresponding to the features that were specified.
  */
-export type ModUpgraded<T extends readonly ISCFeature[]> = ModUpgradedBase &
-  ISCFeaturesToKeys<T>;
+export type ModUpgraded<T extends readonly ISCFeature[] = []> =
+  ModUpgradedBase & ISCFeaturesToKeys<T>;
 
 /**
  * We want to only extract the class public methods, so we omit the keys of the `Feature` base

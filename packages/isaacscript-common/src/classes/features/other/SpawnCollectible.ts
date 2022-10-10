@@ -31,6 +31,8 @@ export class SpawnCollectible extends Feature {
    * to be a quest item), then you can use the `spawnCollectibleUnsafe` helper function instead
    * (which does not require an upgraded mod).
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
+   *
    * @param collectibleType The collectible type to spawn.
    * @param position The position to spawn the collectible at.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
@@ -75,6 +77,8 @@ export class SpawnCollectible extends Feature {
    * Use this instead of the `Game.Spawn` method because it handles the cases of Tainted Keeper
    * collectibles costing coins and preventing quest items from being rotated by Tainted Isaac's
    * rotation mechanic.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
    *
    * @param itemPoolType The item pool to draw the collectible type from.
    * @param position The position to spawn the collectible at.

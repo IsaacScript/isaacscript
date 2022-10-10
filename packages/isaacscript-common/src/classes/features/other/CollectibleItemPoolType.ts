@@ -49,6 +49,9 @@ export class CollectibleItemPoolType extends Feature {
    * Helper function to get the item pool type that a given collectible came from. Since there is no
    * native method in the API to get this, we listen in the `PRE_GET_COLLECTIBLE` callback for item
    * pool types, and then assume that the next spawned collectible will match.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE`.
    */
   @Exported
   public getCollectibleItemPoolType(collectible: EntityPickup): ItemPoolType {

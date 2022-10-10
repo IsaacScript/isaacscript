@@ -89,6 +89,9 @@ export class SpawnRockAltRewards extends Feature {
    * The logic in this function is based on the rewards listed on the wiki:
    * https://bindingofisaacrebirth.fandom.com/wiki/Rocks
    *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
+   *
    * @param position The place to spawn the reward.
    * @param rockAltType The type of reward to spawn. For example, `RockAltType.URN` will have a
    *                    chance at spawning coins and spiders.
@@ -137,6 +140,9 @@ export class SpawnRockAltRewards extends Feature {
    * breaks of `RockAltType.URN`.
    *
    * For more information, see the documentation for the `spawnRockAltReward` function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    */
   @Exported
   public spawnRockAltRewardUrn(position: Vector, rng: RNG): boolean {
@@ -200,6 +206,9 @@ export class SpawnRockAltRewards extends Feature {
    * breaks of `RockAltType.MUSHROOM`.
    *
    * For more information, see the documentation for the `spawnRockAltReward` function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    */
   @Exported
   public spawnRockAltRewardMushroom(position: Vector, rng: RNG): boolean {
@@ -286,6 +295,9 @@ export class SpawnRockAltRewards extends Feature {
    * breaks of `RockAltType.SKULL`.
    *
    * For more information, see the documentation for the `spawnRockAltReward` function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    */
   @Exported
   public spawnRockAltRewardSkull(position: Vector, rng: RNG): boolean {
@@ -354,6 +366,9 @@ export class SpawnRockAltRewards extends Feature {
    * breaks of `RockAltType.POLYP`.
    *
    * For more information, see the documentation for the `spawnRockAltReward` function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    */
   @Exported
   public spawnRockAltRewardPolyp(position: Vector, rng: RNG): boolean {
@@ -429,6 +444,9 @@ export class SpawnRockAltRewards extends Feature {
    * breaks of `RockAltType.BUCKET_DOWNPOUR`.
    *
    * For more information, see the documentation for the `spawnRockAltReward` function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    */
   @Exported
   public spawnRockAltRewardBucketDownpour(position: Vector, rng: RNG): boolean {
@@ -511,6 +529,9 @@ export class SpawnRockAltRewards extends Feature {
    * breaks of `RockAltType.BUCKET_DROSS`.
    *
    * For more information, see the documentation for the `spawnRockAltReward` function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    */
   @Exported
   public spawnRockAltRewardBucketDross(position: Vector, rng: RNG): boolean {

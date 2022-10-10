@@ -64,6 +64,8 @@ export class CustomItemPools extends Feature {
    *
    * Note that custom item pools do not currently support partial weight decrementation on sight.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_ITEM_POOLS`.
+   *
    * @param itemPoolTypeCustom An integer that identifies what kind of item pool you are creating.
    *                           It should correspond to a local `ItemPoolTypeCustom` enum in your
    *                           mod. The integer can be any unique value and can safely overlap with
@@ -94,6 +96,8 @@ export class CustomItemPools extends Feature {
    *
    * By default, a collectible will not be removed from the pool once it is selected, unless the
    * `decrease` argument is set to true (similar to how a vanilla item pool works).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_ITEM_POOLS`.
    *
    * @param itemPoolTypeCustom An integer representing the custom item pool to use.
    * @param decrease Optional. Whether or not to remove the selected collectible from the item pool.

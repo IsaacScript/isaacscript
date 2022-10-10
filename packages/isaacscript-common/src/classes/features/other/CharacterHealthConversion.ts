@@ -80,6 +80,9 @@ export class CharacterHealthConversion extends Feature {
    * containers --> soul hearts) or Dark Judas (red heart containers --> black hearts).
    *
    * Call this function once at the beginning of your mod to declare the health conversion type.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CHARACTER_HEALTH_CONVERSION`.
    */
   @Exported
   public registerCharacterHealthConversion(

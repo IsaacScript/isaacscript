@@ -29,6 +29,8 @@ export class StartAmbush extends Feature {
    *
    * Specifically, this is performed by spawning a sack on top of the player, waiting a game frame,
    * and then removing the sack and the pickups that the sack dropped.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.START_AMBUSH`.
    */
   @Exported
   public startAmbush(): void {
