@@ -9,8 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 8th, 2022 (Unreleased)
+## October 10th, 2022
 
+- `isaacscript-common` has been rewritten to only enable the custom features that you are actually using (rather than all of them). The idea here is to keep the library blazing fast and allow it to scale well into the future as more features are added.
+- Breaking:
+  - All of the extra feature functions in `isaacscript-common` are now attached to the `ModUpgraded` object (instead of being normal functions that you import). The idea here is to eliminate run-time errors from non-upgraded mods. See [the website](https://isaacscript.github.io/isaacscript-common#using-extra-features) for more details.
 - Added the following helper functions:
   - `removeUrnRewards`
   - `removeEntitiesSpawnedFromGridEntity`
