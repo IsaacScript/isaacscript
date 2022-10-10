@@ -344,6 +344,8 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getCollectibleArray(): readonly CollectibleType[] {
@@ -361,6 +363,8 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getCollectibleSet(): ReadonlySet<CollectibleType> {
@@ -377,6 +381,8 @@ export class ModdedElementSets extends Feature {
    * ```ts
    * const guppyCollectibleTypes = getCollectiblesForTransformation(PlayerForm.GUPPY);
    * ```
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getCollectiblesForTransformation(
@@ -399,6 +405,8 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getCollectiblesWithCacheFlag(
@@ -423,6 +431,8 @@ export class ModdedElementSets extends Feature {
    * ```ts
    * const offensiveCollectibleTypes = getCollectibleTypesWithTag(ItemConfigTag.OFFENSIVE);
    * ```
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getCollectiblesWithTag(
@@ -443,6 +453,8 @@ export class ModdedElementSets extends Feature {
   /**
    * Returns a set containing every valid passive item that can be randomly granted to Eden as a
    * starting item.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getEdenActiveCollectibles(): ReadonlySet<CollectibleType> {
@@ -453,6 +465,8 @@ export class ModdedElementSets extends Feature {
   /**
    * Returns a set containing every valid passive item that can be randomly granted to Eden as a
    * starting item.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getEdenPassiveCollectibles(): ReadonlySet<CollectibleType> {
@@ -466,6 +480,8 @@ export class ModdedElementSets extends Feature {
    *
    * Collectibles that only grant flight conditionally are manually pruned. Collectibles such as
    * Empty Vessel should be checked for via the `hasFlyingTemporaryEffect` function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
    * @param pruneConditionalItems Whether or not collectibles that only grant flight conditionally
    *                              should be included in the set (like Empty Vessel).
@@ -484,6 +500,8 @@ export class ModdedElementSets extends Feature {
   /**
    * Returns a set of all of the trinkets that grant flight. (All trinkets that grant flight do so
    * conditionally, like Bat Wing and Azazel's Stump.)
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getFlyingTrinkets(): ReadonlySet<TrinketType> {
@@ -501,6 +519,8 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getModdedCollectibleArray(): readonly CollectibleType[] {
@@ -517,6 +537,8 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
@@ -532,6 +554,8 @@ export class ModdedElementSets extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getModdedTrinketArray(): readonly TrinketType[] {
@@ -547,6 +571,8 @@ export class ModdedElementSets extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getModdedTrinketSet(): ReadonlySet<TrinketType> {
@@ -559,6 +585,8 @@ export class ModdedElementSets extends Feature {
    * the player has.
    *
    * Note that this will filter out non-real collectibles like Lilith's Incubus.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getPlayerCollectibleMap(
@@ -599,6 +627,8 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getPlayerCollectiblesWithCacheFlag(
@@ -622,7 +652,11 @@ export class ModdedElementSets extends Feature {
     return playerCollectibles;
   }
 
-  /** Returns the number of items that a player has towards a particular transformation. */
+  /**
+   * Returns the number of items that a player has towards a particular transformation.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
   @Exported
   public getPlayerCollectiblesWithTag(
     player: EntityPlayer,
@@ -642,7 +676,11 @@ export class ModdedElementSets extends Feature {
     return playerCollectibles;
   }
 
-  /** Returns the number of items that a player has towards a particular transformation. */
+  /**
+   * Returns the number of items that a player has towards a particular transformation.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
   @Exported
   public getPlayerCollectiblesForTransformation(
     player: EntityPlayer,
@@ -671,6 +709,8 @@ export class ModdedElementSets extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getPlayerTrinketsWithCacheFlag(
@@ -690,7 +730,11 @@ export class ModdedElementSets extends Feature {
     return playerTrinkets;
   }
 
-  /** Returns a random active collectible type that that is a valid starting item for Eden. */
+  /**
+   * Returns a random active collectible type that that is a valid starting item for Eden.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
   @Exported
   public getRandomEdenActiveCollectible(
     seedOrRNG: Seed | RNG = getRandomSeed(),
@@ -704,7 +748,11 @@ export class ModdedElementSets extends Feature {
     );
   }
 
-  /** Returns a random passive collectible type that that is a valid starting item for Eden. */
+  /**
+   * Returns a random passive collectible type that that is a valid starting item for Eden.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
   @Exported
   public getRandomEdenPassiveCollectible(
     seedOrRNG: Seed | RNG = getRandomSeed(),
@@ -726,6 +774,8 @@ export class ModdedElementSets extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getTrinketArray(): readonly TrinketType[] {
@@ -741,6 +791,8 @@ export class ModdedElementSets extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getTrinketSet(): ReadonlySet<TrinketType> {
@@ -754,6 +806,8 @@ export class ModdedElementSets extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getTrinketsWithCacheFlag(
@@ -774,6 +828,8 @@ export class ModdedElementSets extends Feature {
    *
    * Use this if you need to iterate over the collectibles in order. If you need to do O(1) lookups,
    * then use the `getVanillaCollectibleSet` helper function instead.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getVanillaCollectibleArray(): readonly CollectibleType[] {
@@ -786,6 +842,8 @@ export class ModdedElementSets extends Feature {
    *
    * Use this if you need to do O(1) lookups. If you need to iterate over the collectibles in order,
    * then use the `getVanillaCollectibleArray` helper function instead.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getVanillaCollectibleSet(): ReadonlySet<CollectibleType> {
@@ -798,6 +856,8 @@ export class ModdedElementSets extends Feature {
    *
    * Use this if you need to iterate over the trinkets in order. If you need to do O(1) lookups,
    * then use the `getVanillaTrinketSet` helper function instead.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getVanillaTrinketArray(): readonly TrinketType[] {
@@ -810,6 +870,8 @@ export class ModdedElementSets extends Feature {
    *
    * Use this if you need to do O(1) lookups. If you need to iterate over the trinkets in order,
    * then use the `getVanillaTrinketArray` helper function instead.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
   public getVanillaTrinketSet(): ReadonlySet<TrinketType> {

@@ -50,6 +50,8 @@ export class ItemPoolDetection extends Feature {
   /**
    * Helper function to get the remaining collectibles in a given item pool. This function is
    * expensive, so only use it in situations where the lag is acceptable.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ITEM_POOL_DETECTION`.
    */
   @Exported
   public getCollectiblesInItemPool(
@@ -70,6 +72,8 @@ export class ItemPoolDetection extends Feature {
    *
    * Under the hood, this function works by using the `ItemPool.AddRoomBlacklist` method to
    * blacklist every collectible except for the one provided.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ITEM_POOL_DETECTION`.
    */
   @Exported
   public isCollectibleInItemPool(
@@ -151,6 +155,8 @@ export class ItemPoolDetection extends Feature {
    * - If the collectible is non-offensive, any Tainted Losts will be temporarily changed to Isaac
    *   and then changed back. (This is because Tainted Lost is not able to retrieve non-offensive
    *   collectibles from item pools).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ITEM_POOL_DETECTION`.
    */
   @Exported
   public isCollectibleUnlocked(

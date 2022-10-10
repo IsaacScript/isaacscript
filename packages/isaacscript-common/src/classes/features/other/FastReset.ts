@@ -39,6 +39,8 @@ export class FastReset extends Feature {
    * This is useful for debugging, when you are resetting the game often.
    *
    * You can disable the fast-reset feature with the `disableFastReset` function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.FAST_RESET`.
    */
   @Exported
   public enableFastReset(): void {
@@ -48,6 +50,8 @@ export class FastReset extends Feature {
   /**
    * Disables the fast-reset feature. Only useful if you have previously called the
    * `enableFastReset` function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.FAST_RESET`.
    */
   @Exported
   public disableFastReset(): void {

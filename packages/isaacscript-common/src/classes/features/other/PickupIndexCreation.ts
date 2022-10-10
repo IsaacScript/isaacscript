@@ -232,6 +232,9 @@ export class PickupIndexCreation extends Feature {
    * have an index of 2, and so on.
    *
    * Tracking pickups requires stateful tracking, so using pickup indexes requires an upgraded mod.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.PICKUP_INDEX_CREATION`.
    */
   @Exported
   public getPickupIndex(pickup: EntityPickup): PickupIndex {

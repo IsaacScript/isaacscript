@@ -209,6 +209,8 @@ export class SaveDataManager extends Feature {
    * You feed this function with an object containing your variables, and then it will automatically
    * manage them for you. (See below for an example.)
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
    * The save data manager is meant to be called once for each feature of your mod. In other words,
    * you should not put all of the data for your mod on the same object. Instead, scope your
    * variables locally to a single file that contains a mod feature, and then call this function to
@@ -383,6 +385,8 @@ export class SaveDataManager extends Feature {
    *
    * Obviously, doing this will overwrite the current data, so using this function can potentially
    * result in lost state.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    */
   @Exported
   public saveDataManagerLoad(): void {
@@ -393,6 +397,8 @@ export class SaveDataManager extends Feature {
    * The save data manager will automatically save variables to disk at the appropriate times (i.e.
    * when the run is exited). Use this function to explicitly force the save data manager to write
    * all of its variables to disk immediately.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    */
   @Exported
   public saveDataManagerSave(): void {
@@ -404,6 +410,8 @@ export class SaveDataManager extends Feature {
    *
    * This can make debugging easier, as you can access the variables from the game's debug console.
    * e.g. `l print(g.feature1.run.foo)`
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    */
   @Exported
   public saveDataManagerSetGlobal(): void {
@@ -419,6 +427,8 @@ export class SaveDataManager extends Feature {
    * the data fields).
    *
    * This function is variadic, which means you can pass as many classes as you want to register.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    */
   @Exported
   public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
@@ -438,6 +448,8 @@ export class SaveDataManager extends Feature {
   /**
    * Removes a previously registered key from the save data manager. This is the opposite of the
    * "saveDataManager" method.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    */
   @Exported
   public saveDataManagerRemove(key: string): void {
@@ -479,6 +491,8 @@ export class SaveDataManager extends Feature {
    * // Then, later on, to explicit reset all of the "room" variables:
    * mod.saveDataManagerReset("file1", "room");
    * ```
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    */
   @Exported
   public saveDataManagerReset(key: string, childObjectKey: SaveDataKey): void {

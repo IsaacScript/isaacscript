@@ -31,6 +31,8 @@ export class FadeInRemover extends Feature {
    * This is useful for debugging, when you are resetting the game often.
    *
    * You can restore the vanilla behavior with the `restoreFadeIn` function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.FADE_IN_REMOVER`.
    */
   @Exported
   public removeFadeIn(): void {
@@ -40,6 +42,8 @@ export class FadeInRemover extends Feature {
   /**
    * Disables the fade-in remover. Only useful if you have previously called the `removeFadeIn`
    * function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.FADE_IN_REMOVER`.
    */
   @Exported
   public restoreFadeIn(): void {

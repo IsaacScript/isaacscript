@@ -67,6 +67,8 @@ export class RoomHistory extends Feature {
   /**
    * Helper function to get information about all of the rooms that a player has visited thus far on
    * this run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
    */
   @Exported
   public getRoomHistory(): ReadonlyArray<Readonly<RoomDescription>> {
@@ -78,6 +80,8 @@ export class RoomHistory extends Feature {
    *
    * In the special case of only one room having been visited thus far (i.e. the starting room of
    * the run), the starting room will be returned.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
    */
   @Exported
   public getPreviousRoomDescription(): Readonly<RoomDescription> {
@@ -105,6 +109,8 @@ export class RoomHistory extends Feature {
    *
    * Note that this function can return undefined in the case where it is called on the first room
    * of the run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
    */
   @Exported
   public getLatestRoomDescription(): Readonly<RoomDescription> | undefined {
@@ -119,6 +125,8 @@ export class RoomHistory extends Feature {
    *
    * This function is intended to be used in the `POST_ENTITY_REMOVE` callback to detect when an
    * entity is despawning.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
    */
   @Exported
   public isLeavingRoom(): boolean {

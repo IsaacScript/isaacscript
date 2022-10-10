@@ -166,6 +166,9 @@ export class PreventGridEntityRespawn extends Feature {
    * room. However, the room data must exactly match the room type, the room shape, and the doors,
    * so this is not possible to do in a robust way without adding empty rooms to the mod's `content`
    * folder to draw the data from.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.PREVENT_GRID_ENTITY_RESPAWN`.
    */
   @Exported
   public preventGridEntityRespawn(): void {

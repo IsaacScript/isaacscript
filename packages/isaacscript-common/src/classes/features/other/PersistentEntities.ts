@@ -155,6 +155,8 @@ export class PersistentEntities extends Feature {
    * Helper function to stop an entity spawned with the `spawnPersistentEntity` helper function from
    * respawning.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PERSISTENT_ENTITIES`.
+   *
    * @param persistentEntityIndex The index that was returned by the `spawnPersistentEntity`
    *                              function.
    * @param removeEntity Optional. True by default. Set to false if you want to stop an entity from
@@ -197,6 +199,8 @@ export class PersistentEntities extends Feature {
    * e.g. familiars to make them appear in every room. On the other hand, pickups are also
    * persistent, but they are not present in every room, only one specific room. This function
    * spawns entities like pickups, not familiars.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PERSISTENT_ENTITIES`.
    *
    * @returns A tuple containing the entity and the persistent entity index. You can use the index
    *          with the `removePersistentEntity` function.

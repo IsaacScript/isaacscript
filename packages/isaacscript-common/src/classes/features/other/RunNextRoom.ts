@@ -40,6 +40,8 @@ export class RunNextRoom extends Feature {
    * Note that this function will not handle saving and quitting. If a player saving and quitting
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_NEXT_ROOM`.
    */
   @Exported
   public runNextRoom(func: () => void): void {

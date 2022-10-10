@@ -25,6 +25,8 @@ export class FlyingDetection extends Feature {
   /**
    * Helper function to see if the player currently has flying from a temporary effect such as
    * Hanged Man, Bat Wing, and so on.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.FLYING_DETECTION`.
    */
   @Exported
   public hasFlyingTemporaryEffect(player: EntityPlayer): boolean {

@@ -99,7 +99,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.NO_SIREN_STEAL]: NoSirenSteal;
   [ISCFeature.PAUSE]: Pause;
   [ISCFeature.PERSISTENT_ENTITIES]: PersistentEntities;
-  [ISCFeature.PICKUP_INDEX]: PickupIndexCreation;
+  [ISCFeature.PICKUP_INDEX_CREATION]: PickupIndexCreation;
   [ISCFeature.PLAYER_INVENTORY]: PlayerInventory;
   [ISCFeature.PONY_DETECTION]: PonyDetection;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
@@ -259,7 +259,7 @@ export function getFeatures(
     [ISCFeature.NO_SIREN_STEAL]: new NoSirenSteal(),
     [ISCFeature.PAUSE]: pause,
     [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),
-    [ISCFeature.PICKUP_INDEX]: new PickupIndexCreation(roomHistory),
+    [ISCFeature.PICKUP_INDEX_CREATION]: new PickupIndexCreation(roomHistory),
     [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
     [ISCFeature.PONY_DETECTION]: ponyDetection,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),

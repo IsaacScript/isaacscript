@@ -44,6 +44,8 @@ export class ForgottenSwitch extends Feature {
   /**
    * When used on The Forgotten, switches to The Soul. When used on The Soul, switches to The
    * Forgotten. This takes 1 game frame to take effect.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.FORGOTTEN_SWITCH`.
    */
   @Exported
   public forgottenSwitch(): void {

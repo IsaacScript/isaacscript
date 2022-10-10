@@ -75,6 +75,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getFirstModdedCollectibleType(): CollectibleType | undefined {
@@ -100,6 +103,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getLastCollectibleType(): CollectibleType {
@@ -124,6 +130,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getModdedCollectibleTypes(): CollectibleType[] {
@@ -142,6 +151,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumCollectibleTypes(): int {
@@ -157,6 +169,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumModdedCollectibleTypes(): int {
@@ -175,6 +190,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getFirstModdedTrinketType(): TrinketType | undefined {
@@ -195,6 +213,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getLastTrinketType(): TrinketType {
@@ -215,6 +236,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getModdedTrinketTypes(): TrinketType[] {
@@ -237,6 +261,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumTrinketTypes(): int {
@@ -248,6 +275,9 @@ export class ModdedElementDetection extends Feature {
   /**
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumModdedTrinketTypes(): int {
@@ -262,6 +292,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getTrinketTypes(): TrinketType[] {
@@ -280,6 +313,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getAllCardTypes(): CardType[] {
@@ -294,6 +330,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getFirstModdedCardType(): CardType | undefined {
@@ -314,6 +353,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getLastCardType(): CardType {
@@ -330,6 +372,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getModdedCardTypes(): CardType[] {
@@ -351,6 +396,9 @@ export class ModdedElementDetection extends Feature {
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumCardTypes(): int {
@@ -362,6 +410,9 @@ export class ModdedElementDetection extends Feature {
   /**
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumModdedCardTypes(): int {
@@ -382,6 +433,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all pill effects will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getAllPillEffects(): PillEffect[] {
@@ -397,6 +451,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all pill effects will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getFirstModdedPillEffect(): PillEffect | undefined {
@@ -422,6 +479,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all pill effects will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getLastPillEffect(): PillEffect {
@@ -439,6 +499,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all pill effects will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getModdedPillEffects(): PillEffect[] {
@@ -462,6 +525,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all pill effects will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumPillEffects(): int {
@@ -474,6 +540,9 @@ export class ModdedElementDetection extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all pill effects will necessarily be present when a mod first loads (due to mod load
    * order).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
    */
   @Exported
   public getNumModdedPillEffects(): int {

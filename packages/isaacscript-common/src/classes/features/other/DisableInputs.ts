@@ -97,6 +97,8 @@ export class DisableInputs extends Feature {
    * Helper function to enable all inputs. Use this function to set things back to normal after
    * having used one of the other helper functions to disable inputs.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
    */
@@ -114,6 +116,8 @@ export class DisableInputs extends Feature {
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
    * @param buttonActions An array of the actions to action.
@@ -130,6 +134,8 @@ export class DisableInputs extends Feature {
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
    */
@@ -144,6 +150,8 @@ export class DisableInputs extends Feature {
    * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
@@ -163,6 +171,8 @@ export class DisableInputs extends Feature {
    * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
@@ -184,6 +194,8 @@ export class DisableInputs extends Feature {
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.
    */
@@ -198,6 +210,8 @@ export class DisableInputs extends Feature {
    * `EntityPlayer.ControlsEnabled` can be changed by the game under certain conditions.
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
    * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
    *            that multiple mod features can work in tandem.

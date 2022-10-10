@@ -81,6 +81,8 @@ export class NoSirenSteal extends Feature {
    * Blacklists a familiar from being stolen by The Siren boss. This should be called once at the
    * beginning of every run.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.NO_SIREN_STEAL`.
+   *
    * @param familiarVariant The familiar variant to blacklist.
    * @param familiarSubType The sub-type to blacklist. Optional. The default is to blacklist all
    *                        sub-types of the given variant.

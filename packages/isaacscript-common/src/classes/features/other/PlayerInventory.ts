@@ -82,6 +82,8 @@ export class PlayerInventory extends Feature {
    * might do this for some reason. (With that said, the next time that a collectible is normally
    * added or removed, it would trigger a re-scan, and the previous changes would be picked up.)
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PLAYER_INVENTORY`.
+   *
    * @param player The player to get the inventory for.
    * @param includeActiveCollectibles Optional. If true, will include all active collectibles.
    *                                Default is true.
@@ -111,6 +113,8 @@ export class PlayerInventory extends Feature {
    * this will be the passive that is removed when the player would use Clicker.
    *
    * Returns undefined if the player does not have any passive collectibles.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PLAYER_INVENTORY`.
    */
   @Exported
   public getPlayerLastPassiveCollectible(
