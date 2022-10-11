@@ -100,7 +100,8 @@ export function getAllGridIndexes(): int[] {
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
-  const gridEntityCollisionPoints = getGridEntityCollisionPoints(gridEntity);
+  const [topLeftCollisionPoint, bottomRightCollisionPoint] =
+        getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
     gridEntity.Position,
@@ -115,8 +116,8 @@ export function getCollidingEntitiesWithGridEntity(
         // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
         // the `POST_UPDATE` callback fires.
         entity.Size + 0.1,
-        gridEntityCollisionPoints.topLeft,
-        gridEntityCollisionPoints.bottomRight,
+        topLeftCollisionPoint,
+        bottomRightCollisionPoint,
       ),
   );
 }
@@ -670,7 +671,7 @@ export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
 
 /**
  * Helper function to get the top left and bottom right corners
- * of a given Grid Entity.
+ * of a given grid entity.
  */
 export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
   topLeft: Vector;
@@ -692,7 +693,7 @@ export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
 }
 
 /**
- * Helper function to get all Grid Entities in a given radius
+ * Helper function to get all grid entities in a given radius
  * around a given point.
  */
 export function getGridEntitiesInRadius(
@@ -720,13 +721,15 @@ export function getGridEntitiesInRadius(
         continue;
       }
 
-      const gridEntityCollisionPoints = getGridEntityCollisionPoints(gridEntity);
+      const [topLeftCollisionPoint, bottomRightCollisionPoint] =
+        getGridEntityCollisionPoints(gridEntity);
+
       if (
         isCircleIntersectingRectangle(
           targetPosition,
           radius,
-          gridEntityCollisionPoints.topLeft,
-          gridEntityCollisionPoints.bottomRight,
+          topLeftCollisionPoint,
+          bottomRightCollisionPoint,
         )
       ) {
         gridEntities.push(gridEntity);
