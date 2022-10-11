@@ -100,8 +100,7 @@ export function getAllGridIndexes(): int[] {
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
-  const [topLeftCollisionPoint, bottomRightCollisionPoint] =
-        getGridEntityCollisionPoints(gridEntity);
+  const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
     gridEntity.Position,
@@ -116,8 +115,8 @@ export function getCollidingEntitiesWithGridEntity(
         // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
         // the `POST_UPDATE` callback fires.
         entity.Size + 0.1,
-        topLeftCollisionPoint,
-        bottomRightCollisionPoint,
+        topLeft,
+        bottomRight,
       ),
   );
 }
@@ -721,15 +720,14 @@ export function getGridEntitiesInRadius(
         continue;
       }
 
-      const [topLeftCollisionPoint, bottomRightCollisionPoint] =
-        getGridEntityCollisionPoints(gridEntity);
+      const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
 
       if (
         isCircleIntersectingRectangle(
           targetPosition,
           radius,
-          topLeftCollisionPoint,
-          bottomRightCollisionPoint,
+          topLeft,
+          bottomRight,
         )
       ) {
         gridEntities.push(gridEntity);
