@@ -634,7 +634,12 @@ export function spawnEffectWithSeed(
   );
 }
 
-/** Helper function to spawn a `EntityType.FAMILIAR` (3). */
+/**
+ * Helper function to spawn a `EntityType.FAMILIAR` (3).
+ *
+ * If you are trying to implement a custom familiar, you probably want to use the
+ * `checkFamiliarFromCollectibles` helper function instead.
+ */
 export function spawnFamiliar(
   familiarVariant: FamiliarVariant,
   subType: int,
