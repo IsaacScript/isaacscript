@@ -224,7 +224,7 @@ On the other hand, if you explicitly upgrade your mod, some extra code is execut
 
 ### Loading Time
 
-Loading time is defined as the time it takes for the game to first load the Lua code. Just because a library has a large file size does not mean that it takes a long time for the game to load it.
+Loading time is defined as the time it takes for the game to load the Lua code when the game first boots. Just because a library has a large file size does not mean that it takes a long time for the game to load it.
 
 In general, we care about loading time a lot less than the run-time, because it only happens when the user first launches the game. And it is largely invisible to the end-user playing the mod.
 
