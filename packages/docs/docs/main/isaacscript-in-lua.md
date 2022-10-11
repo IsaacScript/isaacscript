@@ -202,7 +202,7 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 ## The IsaacScript Stage Library
 
-The IsaacScript standard library contains [the most advanced stage library ever created](custom-stages.md), building on [the downsides of StageAPI](custom-stages.md#motivation).
+The IsaacScript standard library contains the ability to create [custom stages](custom-stages.md), which was inspired by StageAPI and aims [to improve upon it](custom-stages.md#motivation).
 
 <!-- cspell:ignore setcustomstage -->
 
