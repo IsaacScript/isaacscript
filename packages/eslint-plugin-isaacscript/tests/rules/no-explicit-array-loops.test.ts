@@ -54,6 +54,8 @@ for (const line of data.split("a")) {}
 });
 
 ruleTester.run("no-explicit-array-loops", noExplicitArrayLoops, {
-  valid,
-  invalid,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  valid: valid as any,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  invalid: invalid as any,
 });

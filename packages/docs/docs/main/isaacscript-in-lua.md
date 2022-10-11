@@ -79,7 +79,7 @@ Note that:
 
 ### Using Pure Functions
 
-Every function in the library is exported from the root. Thus, you can simply call any function you want from the `isc` import. For example:
+Most functions in the library are exported from the root. For example:
 
 ```lua
 local isc = require("my-mod.lib.isaacscript-common")
@@ -202,7 +202,7 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 ## The IsaacScript Stage Library
 
-The IsaacScript standard library contains [the most advanced stage library ever created](custom-stages.md), building on [the downsides of StageAPI](custom-stages.md#motivation).
+The IsaacScript standard library contains the ability to create [custom stages](custom-stages.md), which was inspired by StageAPI and aims [to improve upon it](custom-stages.md#motivation).
 
 <!-- cspell:ignore setcustomstage -->
 
@@ -224,7 +224,7 @@ On the other hand, if you explicitly upgrade your mod, some extra code is execut
 
 ### Loading Time
 
-Loading time is defined as the time it takes for the game to first load the Lua code. Just because a library has a large file size does not mean that it takes a long time for the game to load it.
+Loading time is defined as the time it takes for the game to load the Lua code when the game first boots. Just because a library has a large file size does not mean that it takes a long time for the game to load it.
 
 In general, we care about loading time a lot less than the run-time, because it only happens when the user first launches the game. And it is largely invisible to the end-user playing the mod.
 
@@ -254,6 +254,6 @@ Furthermore, minification is actively harmful since it will obfuscate the line n
 
 ## TypeScript
 
-If you find the IsaacScript standard library useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience that has to be seen to be believed.
+If you find the IsaacScript standard library useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience.
 
 For more information, see the [list of features](features.md). (If you don't know how to program in TypeScript, then you can learn in around [30 minutes](javascript-tutorial.md).)

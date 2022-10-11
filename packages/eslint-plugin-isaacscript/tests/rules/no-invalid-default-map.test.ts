@@ -80,6 +80,8 @@ const defaultMap = new DefaultMap<string, string[]>(new Map());
 });
 
 ruleTester.run("no-invalid-default-map", noInvalidDefaultMap, {
-  valid,
-  invalid,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  valid: valid as any,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  invalid: invalid as any,
 });
