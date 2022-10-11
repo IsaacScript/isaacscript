@@ -91,74 +91,6 @@ export function getAllGridIndexes(): int[] {
 }
 
 /**
- * Helper function to get the top left and bottom right corners
- * of a given Grid Entity.
- */
-export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
-  topLeft: Vector;
-  bottomRight: Vector;
-} {
-  const gridEntityCollisionTopLeft = Vector(
-    gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
-    gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
-  );
-  const gridEntityCollisionBottomRight = Vector(
-    gridEntity.Position.X + DISTANCE_OF_GRID_TILE / 2,
-    gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
-  );
-
-  return {
-    topLeft: gridEntityCollisionTopLeft,
-    bottomRight: gridEntityCollisionBottomRight,
-  };
-}
-
-/**
- * Helper function to get all Grid Entities in a given radius
- * around a given point.
- */
-export function getGridEntitiesInRadius(
-  targetPosition: Vector,
-  radius: number,
-): GridEntity[] {
-  radius = math.abs(radius);
-  const topLeftOffset = VectorOne.mul(-radius);
-  const mostTopLeftPosition = targetPosition.sub(topLeftOffset);
-  const room = game.GetRoom();
-
-  const diameter = radius * 2;
-  const iterations = math.ceil(diameter / DISTANCE_OF_GRID_TILE);
-  const separation = diameter / iterations;
-
-  const gridEntities: GridEntity[] = [];
-  for (let x = 0; x <= iterations; x++) {
-    for (let y = 0; x <= iterations; x++) {
-      const position = mostTopLeftPosition.add(
-        Vector(x * separation, y * separation),
-      );
-
-      const gridEntity = room.GetGridEntityFromPos(position);
-      if (gridEntity === undefined) {
-        continue;
-      }
-
-      const gridCollisionPoints = getGridEntityCollisionPoints(gridEntity);
-      if (
-        isCircleIntersectingRectangle(
-          targetPosition,
-          radius,
-          gridCollisionPoints.topLeft,
-          gridCollisionPoints.bottomRight,
-        )
-      ) {
-        gridEntities.push(gridEntity);
-      }
-    }
-  }
-  return gridEntities;
-}
-
-/**
  * Gets the entities that have a hitbox that overlaps with any part of the square that the grid
  * entity is on.
  *
@@ -168,7 +100,7 @@ export function getGridEntitiesInRadius(
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
-  const collisionPoints = getGridEntityCollisionPoints(gridEntity);
+  const gridEntityCollisionPoints = getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
     gridEntity.Position,
@@ -183,8 +115,8 @@ export function getCollidingEntitiesWithGridEntity(
         // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
         // the `POST_UPDATE` callback fires.
         entity.Size + 0.1,
-        collisionPoints.topLeft,
-        collisionPoints.bottomRight,
+        gridEntityCollisionPoints.topLeft,
+        gridEntityCollisionPoints.bottomRight,
       ),
   );
 }
@@ -734,4 +666,72 @@ export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
   sprite.Load("gfx/grid/voidtrapdoor.anm2", true);
 
   return voidPortal;
+}
+
+/**
+ * Helper function to get the top left and bottom right corners
+ * of a given Grid Entity.
+ */
+export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
+  topLeft: Vector;
+  bottomRight: Vector;
+} {
+  const gridEntityCollisionTopLeft = Vector(
+    gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
+    gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
+  );
+  const gridEntityCollisionBottomRight = Vector(
+    gridEntity.Position.X + DISTANCE_OF_GRID_TILE / 2,
+    gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
+  );
+
+  return {
+    topLeft: gridEntityCollisionTopLeft,
+    bottomRight: gridEntityCollisionBottomRight,
+  };
+}
+
+/**
+ * Helper function to get all Grid Entities in a given radius
+ * around a given point.
+ */
+export function getGridEntitiesInRadius(
+  targetPosition: Vector,
+  radius: number,
+): GridEntity[] {
+  radius = math.abs(radius);
+  const topLeftOffset = VectorOne.mul(-radius);
+  const mostTopLeftPosition = targetPosition.sub(topLeftOffset);
+  const room = game.GetRoom();
+
+  const diameter = radius * 2;
+  const iterations = math.ceil(diameter / DISTANCE_OF_GRID_TILE);
+  const separation = diameter / iterations;
+
+  const gridEntities: GridEntity[] = [];
+  for (let x = 0; x <= iterations; x++) {
+    for (let y = 0; x <= iterations; x++) {
+      const position = mostTopLeftPosition.add(
+        Vector(x * separation, y * separation),
+      );
+
+      const gridEntity = room.GetGridEntityFromPos(position);
+      if (gridEntity === undefined) {
+        continue;
+      }
+
+      const gridEntityCollisionPoints = getGridEntityCollisionPoints(gridEntity);
+      if (
+        isCircleIntersectingRectangle(
+          targetPosition,
+          radius,
+          gridEntityCollisionPoints.topLeft,
+          gridEntityCollisionPoints.bottomRight,
+        )
+      ) {
+        gridEntities.push(gridEntity);
+      }
+    }
+  }
+  return gridEntities;
 }
