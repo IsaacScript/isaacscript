@@ -672,23 +672,19 @@ export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
  * Helper function to get the top left and bottom right corners
  * of a given grid entity.
  */
-export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
-  topLeft: Vector;
-  bottomRight: Vector;
-} {
-  const gridEntityCollisionTopLeft = Vector(
+export function getGridEntityCollisionPoints(
+  gridEntity: GridEntity,
+): [topLeft: Vector, bottomRight: Vector] {
+  const topLeft = Vector(
     gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
     gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
   );
-  const gridEntityCollisionBottomRight = Vector(
+  const bottomRight = Vector(
     gridEntity.Position.X + DISTANCE_OF_GRID_TILE / 2,
     gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
   );
 
-  return {
-    topLeft: gridEntityCollisionTopLeft,
-    bottomRight: gridEntityCollisionBottomRight,
-  };
+  return [topLeft, bottomRight];
 }
 
 /**
@@ -701,7 +697,7 @@ export function getGridEntitiesInRadius(
 ): GridEntity[] {
   radius = math.abs(radius);
   const topLeftOffset = VectorOne.mul(-radius);
-  const mostTopLeftPosition = targetPosition.sub(topLeftOffset);
+  const mostTopLeftPosition = targetPosition.add(topLeftOffset);
   const room = game.GetRoom();
 
   const diameter = radius * 2;
@@ -709,8 +705,8 @@ export function getGridEntitiesInRadius(
   const separation = diameter / iterations;
 
   const gridEntities: GridEntity[] = [];
-  for (let x = 0; x <= iterations; x++) {
-    for (let y = 0; x <= iterations; x++) {
+  for (const x of iRange(iterations)) {
+    for (const y of iRange(iterations)) {
       const position = mostTopLeftPosition.add(
         Vector(x * separation, y * separation),
       );
@@ -734,6 +730,5 @@ export function getGridEntitiesInRadius(
       }
     }
   }
-
   return gridEntities;
 }
