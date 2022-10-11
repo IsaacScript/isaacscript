@@ -71,6 +71,8 @@ const MY_CONSTANT = [];
 });
 
 ruleTester.run("require-const-assertions", requireConstAssertions, {
-  valid,
-  invalid,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  valid: valid as any,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  invalid: invalid as any,
 });

@@ -109,6 +109,8 @@ fruit -= 1;
 });
 
 ruleTester.run("strict-enums-incrementing", strictEnums, {
-  valid,
-  invalid,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  valid: valid as any,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+  invalid: invalid as any,
 });
