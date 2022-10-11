@@ -4,7 +4,7 @@ title: Using IsaacScript in Lua
 
 <!-- markdownlint-disable MD034 -->
 
-The IsaacScript framework contains two of the most advanced _Binding of Isaac: Repentance_ libraries ever written:
+The IsaacScript framework contains two _Binding of Isaac: Repentance_ libraries:
 
 - `isaac-typescript-definitions` - A leveled-up version of the vanilla enums with many bug fixes and community contributed additions for everything that the developers forgot to include. You can learn more about every enum by [reading the documentation](/isaac-typescript-definitions).
 - `isaacscript-common` - Helper functions and features that abstract away much of the complexity in working with the Isaac API. It's the most complete and most advanced Isaac library ever written. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
