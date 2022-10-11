@@ -79,7 +79,7 @@ Note that:
 
 ### Using Pure Functions
 
-Every function in the library is exported from the root. Thus, you can simply call any function you want from the `isc` import. For example:
+Most functions in the library are exported from the root. For example:
 
 ```lua
 local isc = require("my-mod.lib.isaacscript-common")
