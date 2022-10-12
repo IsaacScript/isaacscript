@@ -8,7 +8,7 @@ import {
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { DISTANCE_OF_GRID_TILE } from "../core/constants";
+import { DISTANCE_OF_GRID_TILE, VectorOne } from "../core/constants";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
 import { GRID_ENTITY_XML_MAP } from "../maps/gridEntityXMLMap";
 import {
@@ -22,7 +22,7 @@ import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { clearSprite } from "./sprites";
 import { asNumber, isNumber } from "./types";
-import { eRange } from "./utils";
+import { eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
@@ -100,15 +100,7 @@ export function getAllGridIndexes(): int[] {
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
-  const gridEntityCollisionTopLeft = Vector(
-    gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
-    gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
-  );
-
-  const gridEntityCollisionBottomRight = Vector(
-    gridEntity.Position.X + DISTANCE_OF_GRID_TILE / 2,
-    gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
-  );
+  const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
     gridEntity.Position,
@@ -123,8 +115,8 @@ export function getCollidingEntitiesWithGridEntity(
         // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
         // the `POST_UPDATE` callback fires.
         entity.Size + 0.1,
-        gridEntityCollisionTopLeft,
-        gridEntityCollisionBottomRight,
+        topLeft,
+        bottomRight,
       ),
   );
 }
@@ -205,6 +197,53 @@ export function getGridEntitiesExcept(
   });
 }
 
+/** Helper function to get all grid entities in a given radius around a given point. */
+export function getGridEntitiesInRadius(
+  targetPosition: Vector,
+  radius: number,
+): GridEntity[] {
+  radius = math.abs(radius);
+  const topLeftOffset = VectorOne.mul(-radius);
+  const mostTopLeftPosition = targetPosition.add(topLeftOffset);
+  const room = game.GetRoom();
+
+  const diameter = radius * 2;
+  const iterations = math.ceil(diameter / DISTANCE_OF_GRID_TILE);
+  const separation = diameter / iterations;
+
+  const gridEntities: GridEntity[] = [];
+  const registeredGridIndexes = new Set<number>();
+  for (const x of iRange(iterations)) {
+    for (const y of iRange(iterations)) {
+      const position = mostTopLeftPosition.add(
+        Vector(x * separation, y * separation),
+      );
+
+      const gridIndex = room.GetGridIndex(position);
+      const gridEntity = room.GetGridEntityFromPos(position);
+      if (gridEntity === undefined || registeredGridIndexes.has(gridIndex)) {
+        continue;
+      }
+
+      registeredGridIndexes.add(gridIndex);
+      const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
+
+      if (
+        isCircleIntersectingRectangle(
+          targetPosition,
+          radius,
+          topLeft,
+          bottomRight,
+        )
+      ) {
+        gridEntities.push(gridEntity);
+      }
+    }
+  }
+
+  return gridEntities;
+}
+
 /**
  * Helper function to get a map of every grid entity in the current room. The indexes of the map are
  * equal to the grid index. The values of the map are equal to the grid entities.
@@ -224,6 +263,22 @@ export function getGridEntitiesMap(
   }
 
   return gridEntityMap;
+}
+
+/** Helper function to get the top left and bottom right corners of a given grid entity. */
+export function getGridEntityCollisionPoints(
+  gridEntity: GridEntity,
+): [topLeft: Vector, bottomRight: Vector] {
+  const topLeft = Vector(
+    gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
+    gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
+  );
+  const bottomRight = Vector(
+    gridEntity.Position.X + DISTANCE_OF_GRID_TILE / 2,
+    gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
+  );
+
+  return [topLeft, bottomRight];
 }
 
 /** Helper function to get a string containing the grid entity's type and variant. */
