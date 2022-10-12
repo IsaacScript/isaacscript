@@ -158,7 +158,9 @@ For example:
 local isc = require("my-mod.lib.isaacscript-common")
 
 local modVanilla = RegisterMod("Foo", 1)
-local features = {isc.ISCFeature.PONY_DETECTION}
+local features = { -- An array of features.
+  isc.ISCFeature.PONY_DETECTION,
+}
 local mod = isc:upgradeMod(modVanilla, features)
 
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function (player)
