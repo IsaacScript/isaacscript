@@ -14,7 +14,6 @@ import { newRNG } from "./rng";
  * re-use the same RNG object. This makes it less likely that the `InitSeed` of the familiar will
  * overlap, since we are "nexting" instead of doing a fresh reroll.
  */
-
 const familiarGenerationRNG = newRNG();
 
 /**
