@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## October 17th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `getGridEntitiesInRadius` (Thanks NFrost)
+  - `getGridEntityCollisionPoints` (Thanks NFrost)
+
 ## October 10th, 2022
 
 - `isaacscript-common` has been rewritten to only enable the custom features that you are actually using (rather than all of them). The idea here is to keep the library blazing fast and allow it to scale well into the future as more features are added.
