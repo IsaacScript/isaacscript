@@ -240,6 +240,7 @@ export function getGridEntitiesInRadius(
       }
     }
   }
+
   return gridEntities;
 }
 
