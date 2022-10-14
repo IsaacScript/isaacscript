@@ -29,6 +29,7 @@ import {
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import { AllButFirst } from "../types/AllButFirst";
+import { getTSTLClassName } from "./tstlClass";
 
 /**
  * A decorator function that signifies that the decorated class method should be automatically
@@ -57,10 +58,17 @@ export function Callback<T extends ModCallback>(
     // Since the decorator runs prior to instantiation, we only have access to get and set static
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
-    const constructor = target.constructor as unknown as LuaTable<
-      AnyNotNil,
-      unknown
-    >;
+    const constructor = target.constructor as unknown as
+      | LuaTable<AnyNotNil, unknown>
+      | undefined;
+
+    if (constructor === undefined) {
+      const tstlClassName = getTSTLClassName(target) ?? "Unknown";
+      error(
+        `Failed to get the constructor for class "${tstlClassName}". Did you decorate a static method? You can only decorate non-static class methods, because the "Mod" object is not present before the class is instantiated.`,
+      );
+    }
+
     if (!constructor.has(ADD_CALLBACK_ARGS_KEY)) {
       constructor.set(ADD_CALLBACK_ARGS_KEY, []);
     }
@@ -100,10 +108,17 @@ export function CallbackCustom<T extends ModCallbackCustom>(
     // Since the decorator runs prior to instantiation, we only have access to get and set static
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
-    const constructor = target.constructor as unknown as LuaTable<
-      AnyNotNil,
-      unknown
-    >;
+    const constructor = target.constructor as unknown as
+      | LuaTable<AnyNotNil, unknown>
+      | undefined;
+
+    if (constructor === undefined) {
+      const tstlClassName = getTSTLClassName(target) ?? "Unknown";
+      error(
+        `Failed to get the constructor for class "${tstlClassName}". Did you decorate a static method? You can only decorate non-static class methods, because the "Mod" object is not present before the class is instantiated.`,
+      );
+    }
+
     if (!constructor.has(ADD_CALLBACK_CUSTOM_ARGS_KEY)) {
       constructor.set(ADD_CALLBACK_CUSTOM_ARGS_KEY, []);
     }
