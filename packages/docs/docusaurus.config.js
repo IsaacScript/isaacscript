@@ -19,6 +19,19 @@ module.exports = {
       apiKey: "212a5e2442aa0e579f2f7bba22ee529a",
       indexName: "isaacscript",
       contextualSearch: false, // Enabled by default; only useful for versioned sites.
+      recordExtractor: ({ _, helpers }) =>
+        helpers.docsearch({
+          recordProps: {
+            lvl0: "header h1",
+            lvl1: "article h2",
+            lvl2: "article h3",
+            lvl3: "article h4",
+            lvl4: "article h5",
+            lvl5: "article h6",
+            content: "article p, article li",
+          },
+          aggregateContent: true,
+        }),
     },
     colorMode: {
       defaultMode: "dark",
