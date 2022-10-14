@@ -334,6 +334,13 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: [callback: () => void];
 
+  [ModCallbackCustom.POST_NPC_INIT_FILTER]: [
+    callback: (npc: EntityNPC) => void,
+    entityType?: EntityType,
+    variant?: int,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_NPC_INIT_LATE]: [
     callback: (npc: EntityNPC) => void,
     entityType?: EntityType,
@@ -343,6 +350,13 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_NPC_STATE_CHANGED]: [
     callback: (npc: EntityNPC, previousState: int, currentState: int) => void,
+    entityType?: EntityType,
+    variant?: int,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_NPC_UPDATE_FILTER]: [
+    callback: (npc: EntityNPC) => void,
     entityType?: EntityType,
     variant?: int,
     subType?: int,

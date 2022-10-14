@@ -43,8 +43,10 @@ import { PostLaserInitLate } from "./classes/callbacks/PostLaserInitLate";
 import { PostNewLevelReordered } from "./classes/callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./classes/callbacks/PostNewRoomEarly";
 import { PostNewRoomReordered } from "./classes/callbacks/PostNewRoomReordered";
+import { PostNPCInitFilter } from "./classes/callbacks/PostNPCInitFilter";
 import { PostNPCInitLate } from "./classes/callbacks/PostNPCInitLate";
 import { PostNPCStateChanged } from "./classes/callbacks/PostNPCStateChanged";
+import { PostNPCUpdateFilter } from "./classes/callbacks/PostNPCUpdateFilter";
 import { PostPEffectUpdateReordered } from "./classes/callbacks/PostPEffectUpdateReordered";
 import { PostPickupCollect } from "./classes/callbacks/PostPickupCollect";
 import { PostPickupInitFirst } from "./classes/callbacks/PostPickupInitFirst";
@@ -149,8 +151,10 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
   [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: PostNewLevelReordered,
   [ModCallbackCustom.POST_NEW_ROOM_EARLY]: PostNewRoomEarly,
   [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: PostNewRoomReordered,
+  [ModCallbackCustom.POST_NPC_INIT_FILTER]: PostNPCInitFilter,
   [ModCallbackCustom.POST_NPC_INIT_LATE]: PostNPCInitLate,
   [ModCallbackCustom.POST_NPC_STATE_CHANGED]: PostNPCStateChanged,
+  [ModCallbackCustom.POST_NPC_UPDATE_FILTER]: PostNPCUpdateFilter,
   [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]: PostPEffectUpdateReordered,
   [ModCallbackCustom.POST_PICKUP_COLLECT]: PostPickupCollect,
   [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: PostPickupInitFirst,

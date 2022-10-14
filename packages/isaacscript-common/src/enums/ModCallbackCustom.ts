@@ -812,6 +812,20 @@ export enum ModCallbackCustom {
   POST_NEW_ROOM_REORDERED,
 
   /**
+   * The exact same thing as the vanilla `POST_NPC_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  POST_NPC_INIT_FILTER,
+
+  /**
    * Fires on the first `NPC_UPDATE` frame for each NPC.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -852,6 +866,20 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_NPC_STATE_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_NPC_UPDATE` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  POST_NPC_UPDATE_FILTER,
 
   /**
    * Similar to the vanilla callback of the same name, but fires after the
