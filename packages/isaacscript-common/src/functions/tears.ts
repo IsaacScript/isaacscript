@@ -3,6 +3,16 @@
  *   adds it to the player.
  * - This function should only be used inside the `EVALUATE_CACHE` callback.
  * - In this context, the "tears stat" represents what is shown on the in-game stat UI.
+ *
+ * For example:
+ *
+ * ```ts
+ * function evaluateCacheTears(player: EntityPlayer) {
+ *   const numFoo = player.GetNumCollectible(CollectibleTypeCustom.FOO);
+ *   const tearsStat = numFoo * FOO_TEARS_STAT;
+ *   addTearsStat(player, tearsStat);
+ * }
+ * ```
  */
 export function addTearsStat(player: EntityPlayer, tearsStat: float): void {
   const existingTearsStat = getTearsStat(player.MaxFireDelay);
