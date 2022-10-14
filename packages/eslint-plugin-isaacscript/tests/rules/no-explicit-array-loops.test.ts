@@ -2,11 +2,12 @@ import { TSESLint } from "@typescript-eslint/utils";
 import {
   MessageIds,
   noExplicitArrayLoops,
+  Options,
 } from "../../src/rules/no-explicit-array-loops";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Implicit iteration over array",
@@ -54,8 +55,6 @@ for (const line of data.split("a")) {}
 });
 
 ruleTester.run("no-explicit-array-loops", noExplicitArrayLoops, {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  valid: valid as any,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  invalid: invalid as any,
+  valid,
+  invalid,
 });

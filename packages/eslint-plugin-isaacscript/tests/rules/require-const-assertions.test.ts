@@ -1,12 +1,13 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import {
   MessageIds,
+  Options,
   requireConstAssertions,
 } from "../../src/rules/require-const-assertions";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Normal object assignment with const assertion",
@@ -71,8 +72,6 @@ const MY_CONSTANT = [];
 });
 
 ruleTester.run("require-const-assertions", requireConstAssertions, {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  valid: valid as any,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  invalid: invalid as any,
+  valid,
+  invalid,
 });

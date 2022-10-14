@@ -1,10 +1,10 @@
 import { TSESLint } from "@typescript-eslint/utils";
-import { MessageIds, strictEnums } from "../../src/rules/strict-enums";
+import { MessageIds, Options, strictEnums } from "../../src/rules/strict-enums";
 import { ruleTester } from "../utils";
 import { fruitEnumDefinition, vegetableEnumDefinition } from "./strict-enums";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 /** A function that takes a number enum. */
 const fruitFunctionDefinition = `${fruitEnumDefinition}
@@ -861,8 +861,6 @@ foo(Fruit.Apple, 123, 456);
 });
 
 ruleTester.run("strict-enums-functions", strictEnums, {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  valid: valid as any,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  invalid: invalid as any,
+  valid,
+  invalid,
 });

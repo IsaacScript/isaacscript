@@ -1,11 +1,14 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import { CompleteSentenceMessageIds } from "../../src/completeSentence";
-import { completeSentencesJSDoc } from "../../src/rules/complete-sentences-jsdoc";
+import {
+  completeSentencesJSDoc,
+  Options,
+} from "../../src/rules/complete-sentences-jsdoc";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<
-  TSESLint.InvalidTestCase<CompleteSentenceMessageIds, unknown[]>
+  TSESLint.InvalidTestCase<CompleteSentenceMessageIds, Options>
 > = [];
 
 valid.push({
@@ -489,8 +492,6 @@ valid.push({
 });
 
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  valid: valid as any,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  invalid: invalid as any,
+  valid,
+  invalid,
 });

@@ -1,9 +1,13 @@
 import { TSESLint } from "@typescript-eslint/utils";
-import { MessageIds, preferPlusplus } from "../../src/rules/prefer-plusplus";
+import {
+  MessageIds,
+  Options,
+  preferPlusplus,
+} from "../../src/rules/prefer-plusplus";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Normal plus plus",
@@ -56,8 +60,6 @@ i--;
 });
 
 ruleTester.run("prefer-plusplus", preferPlusplus, {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  valid: valid as any,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  invalid: invalid as any,
+  valid,
+  invalid,
 });

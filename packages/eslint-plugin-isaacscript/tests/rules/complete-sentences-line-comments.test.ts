@@ -2,11 +2,12 @@ import { TSESLint } from "@typescript-eslint/utils";
 import {
   completeSentencesLineComments,
   MessageIds,
+  Options,
 } from "../../src/rules/complete-sentences-line-comments";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 invalid.push({
   name: "Single-line comment without complete sentence",
@@ -284,9 +285,7 @@ ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,
   {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-    valid: valid as any,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-    invalid: invalid as any,
+    valid,
+    invalid,
   },
 );

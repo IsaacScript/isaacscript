@@ -2,11 +2,12 @@ import { TSESLint } from "@typescript-eslint/utils";
 import {
   formatLineComments,
   MessageIds,
+  Options,
 } from "../../src/rules/format-line-comments";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Using a single-line JSDoc comment that is too long",
@@ -605,8 +606,6 @@ invalid.push({
 });
 
 ruleTester.run("format-line-comments", formatLineComments, {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  valid: valid as any,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  invalid: invalid as any,
+  valid,
+  invalid,
 });

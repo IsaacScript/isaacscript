@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
-type Options = [];
+export type Options = [];
 
 export type MessageIds = "noConstAssertion";
 
