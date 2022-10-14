@@ -14,6 +14,9 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getGridEntitiesInRadius` (Thanks NFrost)
   - `getGridEntityCollisionPoints` (Thanks NFrost)
+- Added the following custom callbacks:
+  - `POST_NPC_INIT_FILTER`
+  - `POST_NPC_UPDATE_FILTER`
 
 ## October 10th, 2022
 
