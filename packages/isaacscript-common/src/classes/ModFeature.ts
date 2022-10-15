@@ -20,10 +20,20 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * mod features from this class in order to enable the `@Callback` and `@CustomCallback` decorators
  * that automatically subscribe to callbacks.
  *
+ * If your feature has variables that are managed by the save data manager, put them as a `v` class
+ * member and they will automatically be registered with the save data manager when the class is
+ * instantiated.
+ *
  * For example:
  *
  * ```ts
  * export class MyFeature extends ModFeature {
+ *   v = {
+ *     run: {
+ *       foo: 123,
+ *     }
+ *   }
+ *
  *   @Callback(ModCallback.POST_GAME_STARTED)
  *   postGameStarted(isContinued: boolean): void {
  *     Isaac.DebugString(`Callback fired: POST_GAME_STARTED`);

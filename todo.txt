@@ -1,7 +1,5 @@
 - lint no default export
 
-- add comment to all feature public methods about having to register
-
 - isaacscript-cli in lua
 - "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
