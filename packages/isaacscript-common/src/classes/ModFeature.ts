@@ -1,3 +1,5 @@
+import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import {
   getTSTLClassConstructor,
   getTSTLClassName,
@@ -50,8 +52,8 @@ export class ModFeature {
     }
 
     const modFeatureConstructor = constructor as ModFeatureConstructor;
-    checkAddDecoratedCallbacks(mod, modFeatureConstructor);
-    checkAddDecoratedCallbacksCustom(mod, modFeatureConstructor);
+    checkAddDecoratedCallbacks(mod, modFeatureConstructor, this);
+    checkAddDecoratedCallbacksCustom(mod, modFeatureConstructor, this);
     checkRegisterSaveDataManager(mod, this);
   }
 }
@@ -59,22 +61,50 @@ export class ModFeature {
 function checkAddDecoratedCallbacks(
   mod: ModUpgradedBase,
   modFeatureConstructor: ModFeatureConstructor,
+  modFeature: ModFeature,
 ) {
   const addCallbackArgs = modFeatureConstructor[ADD_CALLBACK_ARGS_KEY];
   if (addCallbackArgs === undefined) {
     return;
   }
 
+  const tstlClassName = getTSTLClassName(modFeatureConstructor) ?? "Unknown";
+
   for (const args of addCallbackArgs) {
+    const parameters = args as unknown[];
+    const modCallback = parameters.shift() as ModCallback | undefined;
+    if (modCallback === undefined) {
+      error(
+        `Failed to get the ModCallback from the parameters for class: ${tstlClassName}`,
+      );
+    }
+
+    const callback = parameters.shift() as
+      | ((this: void, ...callbackArgs: unknown[]) => void)
+      | undefined;
+    if (callback === undefined) {
+      error(
+        `Failed to get the callback from the parameters for class: ${tstlClassName}`,
+      );
+    }
+
+    /**
+     * We need to wrap the callback in a new function so that we can explicitly pass the class as
+     * the first argument. (Otherwise, the method will not be able to properly access `this`.
+     */
+    const newCallback = (...callbackArgs: unknown[]) => {
+      callback(modFeature, ...callbackArgs);
+    };
+
     // @ts-expect-error The compiler does not know that the arguments match the method.
-    // eslint-disable-next-line isaacscript/strict-enums
-    mod.AddCallback(...args);
+    mod.AddCallback(modCallback, newCallback, ...parameters);
   }
 }
 
 function checkAddDecoratedCallbacksCustom(
   mod: ModUpgradedBase,
   modFeatureConstructor: ModFeatureConstructor,
+  modFeature: ModFeature,
 ) {
   const addCallbackCustomArgs =
     modFeatureConstructor[ADD_CALLBACK_CUSTOM_ARGS_KEY];
@@ -82,10 +112,38 @@ function checkAddDecoratedCallbacksCustom(
     return;
   }
 
+  const tstlClassName = getTSTLClassName(modFeatureConstructor) ?? "Unknown";
+
   for (const args of addCallbackCustomArgs) {
+    const parameters = args as unknown[];
+    const modCallbackCustom = parameters.shift() as
+      | ModCallbackCustom
+      | undefined;
+    if (modCallbackCustom === undefined) {
+      error(
+        `Failed to get the ModCallbackCustom from the parameters for class: ${tstlClassName}`,
+      );
+    }
+
+    const callback = parameters.shift() as
+      | ((this: void, ...callbackArgs: unknown[]) => void)
+      | undefined;
+    if (callback === undefined) {
+      error(
+        `Failed to get the callback from the parameters for class: ${tstlClassName}`,
+      );
+    }
+
+    /**
+     * We need to wrap the callback in a new function so that we can explicitly pass the class as
+     * the first argument. (Otherwise, the method will not be able to properly access `this`.
+     */
+    const newCallback = (...callbackArgs: unknown[]) => {
+      callback(modFeature, ...callbackArgs);
+    };
+
     // @ts-expect-error The compiler does not know that the arguments match the method.
-    // eslint-disable-next-line isaacscript/strict-enums
-    mod.AddCallbackCustom(...args);
+    mod.AddCallbackCustom(modCallbackCustom, newCallback, ...parameters);
   }
 }
 
