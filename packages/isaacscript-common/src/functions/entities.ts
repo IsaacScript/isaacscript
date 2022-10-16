@@ -4,6 +4,7 @@ import { VectorZero } from "../core/constants";
 import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
 import { AnyEntity } from "../types/AnyEntity";
+import { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { isRNG, newRNG } from "./rng";
@@ -99,6 +100,37 @@ export function getClosestEntityTo<T extends AnyEntity>(
   }
 
   return closestEntity;
+}
+
+/** Helper function to get the entity type, variant, and sub-type from an `EntityID`. */
+export function getConstituentsFromEntityID(
+  entityID: EntityID,
+): [entityType: EntityType, variant: int, subType: int] {
+  const parts = entityID.split(".");
+  if (parts.length !== 3) {
+    error(`Failed to get the constituents from entity ID: ${entityID}`);
+  }
+
+  const [entityTypeString, variantString, subTypeString] = parts;
+
+  const entityType = tonumber(entityTypeString);
+  if (entityType === undefined) {
+    error(`Failed to convert the entity type to a number: ${entityTypeString}`);
+  }
+
+  const variant = tonumber(variantString);
+  if (variant === undefined) {
+    error(`Failed to convert the entity variant to a number: ${variantString}`);
+  }
+
+  const subType = tonumber(subTypeString);
+  if (subType === undefined) {
+    error(
+      `Failed to convert the entity sub-type to a number: ${subTypeString}`,
+    );
+  }
+
+  return [entityType, variant, subType];
 }
 
 /**
@@ -217,8 +249,8 @@ export function getEntityFromPtrHash(ptrHash: PtrHash): Entity | undefined {
 }
 
 /** Helper function to get a string containing the entity's type, variant, and sub-type. */
-export function getEntityID(entity: Entity): string {
-  return `${entity.Type}.${entity.Variant}.${entity.SubType}`;
+export function getEntityID(entity: Entity): EntityID {
+  return `${entity.Type}.${entity.Variant}.${entity.SubType}` as EntityID;
 }
 
 /**
@@ -228,8 +260,8 @@ export function getEntityIDFromConstituents(
   entityType: EntityType,
   variant: int,
   subType: int,
-): string {
-  return `${entityType}.${variant}.${subType}`;
+): EntityID {
+  return `${entityType}.${variant}.${subType}` as EntityID;
 }
 
 /**
@@ -452,6 +484,16 @@ export function setEntityRandomColor(entity: Entity): void {
  * need to specify the velocity or spawner.
  *
  * Also see the `spawnWithSeed` helper function.
+ *
+ * @param entityType The `EntityType` of the entity to spawn.
+ * @param variant The variant of the entity to spawn.
+ * @param subType The sub-type of the entity to spawn.
+ * @param position The position of the entity to spawn.
+ * @param velocity Optional. The velocity of the entity to spawn. Default is `VectorZero`.
+ * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
+ * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
+ *                  entity. Default is undefined, which will make the entity spawn with a random
+ *                  seed using the `Isaac.Spawn` method.
  */
 export function spawn(
   entityType: EntityType,
@@ -498,6 +540,36 @@ export function spawn(
     spawner,
     subType,
     seed,
+  );
+}
+
+/**
+ * Helper function to spawn the entity corresponding to an `EntityID`.
+ *
+ * @param entityID The `EntityID` of the entity to spawn.
+ * @param position The position of the entity to spawn.
+ * @param velocity Optional. The velocity of the entity to spawn. Default is `VectorZero`.
+ * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
+ * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
+ *                  entity. Default is undefined, which will make the entity spawn with a random
+ *                  seed using the `Isaac.Spawn` method.
+ */
+export function spawnEntityID(
+  entityID: EntityID,
+  position: Vector,
+  velocity: Vector = VectorZero,
+  spawner: Entity | undefined = undefined,
+  seedOrRNG: Seed | RNG | undefined = undefined,
+): Entity {
+  const [entityType, variant, subType] = getConstituentsFromEntityID(entityID);
+  return spawn(
+    entityType,
+    variant,
+    subType,
+    position,
+    velocity,
+    spawner,
+    seedOrRNG,
   );
 }
 

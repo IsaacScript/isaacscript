@@ -16,6 +16,7 @@ import {
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
 import { AnyGridEntity } from "../types/AnyGridEntity";
+import { GridEntityID } from "../types/GridEntityID";
 import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
@@ -119,6 +120,36 @@ export function getCollidingEntitiesWithGridEntity(
         bottomRight,
       ),
   );
+}
+
+/** Helper function to get the grid entity type and variant from a `GridEntityID`. */
+export function getConstituentsFromGridEntityID(
+  gridEntityID: GridEntityID,
+): [gridEntityType: GridEntityType, variant: int] {
+  const parts = gridEntityID.split(".");
+  if (parts.length !== 2) {
+    error(
+      `Failed to get the constituents from grid entity ID: ${gridEntityID}`,
+    );
+  }
+
+  const [gridEntityTypeString, variantString] = parts;
+
+  const gridEntityType = tonumber(gridEntityTypeString);
+  if (gridEntityType === undefined) {
+    error(
+      `Failed to convert the grid entity type to a number: ${gridEntityTypeString}`,
+    );
+  }
+
+  const variant = tonumber(variantString);
+  if (variant === undefined) {
+    error(
+      `Failed to convert the grid entity variant to a number: ${variantString}`,
+    );
+  }
+
+  return [gridEntityType, variant];
 }
 
 /**
@@ -282,10 +313,10 @@ export function getGridEntityCollisionPoints(
 }
 
 /** Helper function to get a string containing the grid entity's type and variant. */
-export function getGridEntityID(gridEntity: GridEntity): string {
+export function getGridEntityID(gridEntity: GridEntity): GridEntityID {
   const gridEntityType = gridEntity.GetType();
   const variant = gridEntity.GetVariant();
-  return `${gridEntityType}.${variant}`;
+  return `${gridEntityType}.${variant}` as GridEntityID;
 }
 
 /**
@@ -295,8 +326,8 @@ export function getGridEntityID(gridEntity: GridEntity): string {
 export function getGridEntityIDFromConstituents(
   gridEntityType: GridEntityType,
   variant: int,
-): string {
-  return `${gridEntityType}.${variant}`;
+): GridEntityID {
+  return `${gridEntityType}.${variant}` as GridEntityID;
 }
 
 /**
