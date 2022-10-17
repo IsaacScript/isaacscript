@@ -296,7 +296,7 @@ export class DebugDisplay extends Feature {
       this.mod.initFeature(feature);
     }
 
-    printEnabled(this.player.initialized, `${featureName} display`);
+    printEnabled(feature.initialized, `${featureName} display`);
   }
 
   /**

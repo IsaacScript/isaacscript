@@ -1,3 +1,5 @@
+- logEntityChanges
+
 - lint no default export
 
 - isaacscript-cli in lua
