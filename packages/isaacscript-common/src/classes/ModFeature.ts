@@ -56,6 +56,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
 
 export class ModFeature {
   private mod: ModUpgradedBase;
+  private initialized = false;
 
   constructor(mod: ModUpgradedBase, init = true) {
     this.mod = mod;
@@ -70,6 +71,11 @@ export class ModFeature {
    * callbacks. Additionally, subscribes the `v` object to the save data manager, if present.
    */
   public init(init = true): void {
+    if (this.initialized === init) {
+      return;
+    }
+    this.initialized = init;
+
     const constructor = getTSTLClassConstructor(this);
     if (constructor === undefined) {
       error("Failed to get the TSTL class constructor for a mod feature.");
