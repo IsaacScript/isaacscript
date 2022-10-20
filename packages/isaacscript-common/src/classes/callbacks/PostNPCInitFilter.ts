@@ -4,12 +4,6 @@ import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNPCInitFilter extends CustomCallback<ModCallbackCustom.POST_NPC_INIT_FILTER> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
-
   constructor() {
     super();
 
