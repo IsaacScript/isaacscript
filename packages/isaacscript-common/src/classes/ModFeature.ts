@@ -6,7 +6,7 @@ import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
-import { isTable } from "../functions/types";
+import { isFunction, isNumber, isTable } from "../functions/types";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { AnyFunction } from "../types/AnyFunction";
 import { ModUpgradedBase } from "./ModUpgradedBase";
@@ -19,8 +19,10 @@ const WRAPPED_CUSTOM_CALLBACK_METHODS_KEY = "__wrappedCustomCallbacksMethods";
 type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
   [ADD_CALLBACK_ARGS_KEY]: unknown | undefined;
   [ADD_CALLBACK_CUSTOM_ARGS_KEY]: unknown | undefined;
-  [WRAPPED_CALLBACK_METHODS_KEY]: Map<ModCallback, AnyFunction>;
-  [WRAPPED_CUSTOM_CALLBACK_METHODS_KEY]: Map<ModCallbackCustom, AnyFunction>;
+  [WRAPPED_CALLBACK_METHODS_KEY]: Map<ModCallback, AnyFunction> | undefined;
+  [WRAPPED_CUSTOM_CALLBACK_METHODS_KEY]:
+    | Map<ModCallbackCustom, AnyFunction>
+    | undefined;
 };
 
 /**
@@ -69,6 +71,8 @@ export class ModFeature {
   /**
    * Runs the `Mod.AddCallback` and `ModUpgraded.AddCallbackCustom` methods for all of the decorated
    * callbacks. Additionally, subscribes the `v` object to the save data manager, if present.
+   *
+   * @param init Optional. Whether to initialize or uninitialize. Default is true.
    */
   public init(init = true): void {
     if (this.initialized === init) {
@@ -81,7 +85,7 @@ export class ModFeature {
       error("Failed to get the TSTL class constructor for a mod feature.");
     }
 
-    const tstlClassName = getTSTLClassName(constructor);
+    const tstlClassName = getTSTLClassName(this);
     if (tstlClassName === undefined) {
       error("Failed to get the TSTL class name for a mod feature.");
     }
@@ -91,6 +95,13 @@ export class ModFeature {
     initSaveDataManager(this, tstlClassName, init);
   }
 
+  /**
+   * Runs the `Mod.RemoveCallback` and `ModUpgraded.RemoveCallbackCustom` methods for all of the
+   * decorated callbacks. Additionally, unsubscribes the `v` object from the save data manager, if
+   * present.
+   *
+   * This is just an alias for `ModFeature.init(false)`.
+   */
   public uninit(): void {
     this.init(false);
   }
@@ -128,16 +139,14 @@ function initDecoratedCallbacks(
     const parameters = deepCopy(args);
 
     const modCallback = parameters.shift();
-    if (modCallback === undefined) {
+    if (!isNumber(modCallback)) {
       error(
         `Failed to get the callback number from the parameters for class: ${tstlClassName}`,
       );
     }
 
-    const callback = parameters.shift() as
-      | ((this: void, ...callbackArgs: unknown[]) => void)
-      | undefined;
-    if (callback === undefined) {
+    const callback = parameters.shift();
+    if (!isFunction(callback)) {
       error(
         `Failed to get the callback function from the parameters for class: ${tstlClassName}`,
       );
@@ -147,51 +156,99 @@ function initDecoratedCallbacks(
     const mod = modFeature["mod"];
 
     if (init) {
-      // We need to wrap the callback in a new function so that we can explicitly pass the class as
-      // the first argument. (Otherwise, the method will not be able to properly access `this`.
-      const wrappedCallback = (...callbackArgs: unknown[]) => {
-        callback(modFeature, ...callbackArgs);
-      };
-
-      // We need to save the wrapped function for later (so we can unregister them).
-      if (vanilla) {
-        const modCallbackVanilla = modCallback as ModCallback;
-        const wrappedMethodsMap =
-          modFeatureConstructor[WRAPPED_CALLBACK_METHODS_KEY];
-        wrappedMethodsMap.set(modCallbackVanilla, wrappedCallback);
-      } else {
-        const modCallbackCustom = modCallback as ModCallbackCustom;
-        const wrappedMethodsMap =
-          modFeatureConstructor[WRAPPED_CUSTOM_CALLBACK_METHODS_KEY];
-        wrappedMethodsMap.set(modCallbackCustom, wrappedCallback);
-      }
-
-      if (vanilla) {
-        (mod.AddCallback as AnyFunction)(
-          modCallback,
-          wrappedCallback,
-          ...parameters,
-        );
-      } else {
-        (mod.AddCallbackCustom as AnyFunction)(
-          modCallback,
-          wrappedCallback,
-          ...parameters,
-        );
-      }
-    } else if (vanilla) {
-      const modCallbackVanilla = modCallback as ModCallback;
-      const wrappedMethodsMap =
-        modFeatureConstructor[WRAPPED_CALLBACK_METHODS_KEY];
-      const wrappedCallback = wrappedMethodsMap.get(modCallbackVanilla);
-      (mod.RemoveCallback as AnyFunction)(modCallback, wrappedCallback);
+      addCallback(
+        modFeature,
+        modFeatureConstructor,
+        mod,
+        modCallback,
+        callback,
+        parameters,
+        vanilla,
+      );
     } else {
-      const modCallbackCustom = modCallback as ModCallbackCustom;
-      const wrappedMethodsMap =
-        modFeatureConstructor[WRAPPED_CUSTOM_CALLBACK_METHODS_KEY];
-      const wrappedCallback = wrappedMethodsMap.get(modCallbackCustom);
-      (mod.RemoveCallbackCustom as AnyFunction)(modCallback, wrappedCallback);
+      removeCallback(modFeatureConstructor, mod, modCallback, vanilla);
     }
+  }
+}
+
+function addCallback(
+  modFeature: ModFeature,
+  modFeatureConstructor: ModFeatureConstructor,
+  mod: ModUpgradedBase,
+  modCallback: unknown,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  callback: Function,
+  parameters: unknown[],
+  vanilla: boolean,
+) {
+  // We need to wrap the callback in a new function so that we can explicitly pass the class as the
+  // first argument. (Otherwise, the method will not be able to properly access `this`.
+  const wrappedCallback = (...callbackArgs: unknown[]) => {
+    callback(modFeature, ...callbackArgs);
+  };
+
+  // We need to save the wrapped function for later (so we can unregister them).
+  if (vanilla) {
+    const modCallbackVanilla = modCallback as ModCallback;
+    let wrappedMethodsMap = modFeatureConstructor[WRAPPED_CALLBACK_METHODS_KEY];
+    if (wrappedMethodsMap === undefined) {
+      wrappedMethodsMap = new Map();
+      modFeatureConstructor[WRAPPED_CALLBACK_METHODS_KEY] = wrappedMethodsMap;
+    }
+    wrappedMethodsMap.set(modCallbackVanilla, wrappedCallback);
+  } else {
+    const modCallbackCustom = modCallback as ModCallbackCustom;
+    let wrappedMethodsMap =
+      modFeatureConstructor[WRAPPED_CUSTOM_CALLBACK_METHODS_KEY];
+    if (wrappedMethodsMap === undefined) {
+      wrappedMethodsMap = new Map();
+      modFeatureConstructor[WRAPPED_CUSTOM_CALLBACK_METHODS_KEY] =
+        wrappedMethodsMap;
+    }
+    wrappedMethodsMap.set(modCallbackCustom, wrappedCallback);
+  }
+
+  if (vanilla) {
+    (mod.AddCallback as AnyFunction)(
+      modCallback,
+      wrappedCallback,
+      ...parameters,
+    );
+  } else {
+    (mod.AddCallbackCustom as AnyFunction)(
+      modCallback,
+      wrappedCallback,
+      ...parameters,
+    );
+  }
+}
+
+function removeCallback(
+  modFeatureConstructor: ModFeatureConstructor,
+  mod: ModUpgradedBase,
+  modCallback: unknown,
+  vanilla: boolean,
+) {
+  if (vanilla) {
+    const modCallbackVanilla = modCallback as ModCallback;
+    const wrappedMethodsMap =
+      modFeatureConstructor[WRAPPED_CALLBACK_METHODS_KEY];
+    if (wrappedMethodsMap === undefined) {
+      return;
+    }
+
+    const wrappedCallback = wrappedMethodsMap.get(modCallbackVanilla);
+    (mod.RemoveCallback as AnyFunction)(modCallback, wrappedCallback);
+  } else {
+    const modCallbackCustom = modCallback as ModCallbackCustom;
+    const wrappedMethodsMap =
+      modFeatureConstructor[WRAPPED_CUSTOM_CALLBACK_METHODS_KEY];
+    if (wrappedMethodsMap === undefined) {
+      return;
+    }
+
+    const wrappedCallback = wrappedMethodsMap.get(modCallbackCustom);
+    (mod.RemoveCallbackCustom as AnyFunction)(modCallback, wrappedCallback);
   }
 }
 

@@ -21,6 +21,6 @@
   "type": "commonjs",
   "main": "dist/index",
   "dependencies": {
-    "isaac-typescript-definitions": "^9.0.3"
+    "isaac-typescript-definitions": "^9.0.4"
   }
 }
