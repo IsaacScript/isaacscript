@@ -26,7 +26,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
 };
 
 /**
- * Helper class for mods that wants to represent their individual features as classes. Extend your
+ * Helper class for mods that want to represent their individual features as classes. Extend your
  * mod features from this class in order to enable the `@Callback` and `@CustomCallback` decorators
  * that automatically subscribe to callbacks.
  *
@@ -50,6 +50,9 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  *   }
  * }
  * ```
+ *
+ * When instantiating a feature class, you must pass your upgraded mod as the first argument to the
+ * constructor.
  *
  * In almost all cases, you will want the callback functions to be immediately subscribed after
  * instantiating the class. However, if this is not the case, you can pass `false` as the optional
