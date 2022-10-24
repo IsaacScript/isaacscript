@@ -210,6 +210,8 @@ export class SaveDataManager extends Feature {
    * manage them for you. (See below for an example.)
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   * (Upgrade your mod before registering any of your own callbacks so that the save data manager
+   * will run before any of your code does.)
    *
    * The save data manager is meant to be called once for each feature of your mod. In other words,
    * you should not put all of the data for your mod on the same object. Instead, scope your
@@ -265,10 +267,6 @@ export class SaveDataManager extends Feature {
    * You can use many different variable types on your variable object, but not everything is
    * supported. For the specific things that are supported, see the documentation for the `deepCopy`
    * helper function.
-   *
-   * Note that before using the save data manager, you must call the `upgradeMod` function. (Upgrade
-   * your mod before registering any of your own callbacks so that the save data manager will run
-   * before any of your code does.)
    *
    * If you want the save data manager to load data before the `POST_PLAYER_INIT` callback (i.e. in
    * the main menu), then you should explicitly call the `saveDataManagerLoad` function. (The save
