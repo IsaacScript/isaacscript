@@ -61,7 +61,15 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
 
 export class ModFeature {
   private mod: ModUpgradedBase;
-  private initialized = false;
+
+  /**
+   * Whether or not the feature has registered its callbacks yet (and submitted its variables to the
+   * save data manager, if any).
+   *
+   * This will almost always be equal to true unless you explicitly passed `false` to the second
+   * argument of the constructor.
+   */
+  public initialized = false;
 
   constructor(mod: ModUpgradedBase, init = true) {
     this.mod = mod;
