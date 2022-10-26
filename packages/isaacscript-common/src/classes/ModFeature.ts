@@ -195,7 +195,11 @@ function addCallback(
   // We need to wrap the callback in a new function so that we can explicitly pass the class as the
   // first argument. (Otherwise, the method will not be able to properly access `this`.
   const wrappedCallback = (...callbackArgs: unknown[]) => {
-    callback(modFeature, ...callbackArgs);
+    const castedCallback = callback as (
+      this: void,
+      ...args: unknown[]
+    ) => unknown;
+    castedCallback(modFeature, ...callbackArgs);
   };
 
   // We need to save the wrapped function for later (so we can unregister them).
