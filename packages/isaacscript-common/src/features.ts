@@ -147,6 +147,7 @@ export function getFeatures(
   const moddedElementSets = new ModdedElementSets(moddedElementDetection);
   const itemPoolDetection = new ItemPoolDetection(moddedElementSets);
   const pause = new Pause(disableInputs);
+  const pickupIndexCreation = new PickupIndexCreation(roomHistory);
   const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
   const spawnCollectible = new SpawnCollectible(preventCollectibleRotation);
 
@@ -227,7 +228,9 @@ export function getFeatures(
     // Extra features
     [ISCFeature.CHARACTER_HEALTH_CONVERSION]: new CharacterHealthConversion(),
     [ISCFeature.CHARACTER_STATS]: new CharacterStats(),
-    [ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE]: new CollectibleItemPoolType(),
+    [ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE]: new CollectibleItemPoolType(
+      pickupIndexCreation,
+    ),
     [ISCFeature.CUSTOM_GRID_ENTITIES]: customGridEntities,
     [ISCFeature.CUSTOM_ITEM_POOLS]: new CustomItemPools(),
     [ISCFeature.CUSTOM_HOTKEYS]: new CustomHotkeys(),
@@ -259,7 +262,7 @@ export function getFeatures(
     [ISCFeature.NO_SIREN_STEAL]: new NoSirenSteal(),
     [ISCFeature.PAUSE]: pause,
     [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),
-    [ISCFeature.PICKUP_INDEX_CREATION]: new PickupIndexCreation(roomHistory),
+    [ISCFeature.PICKUP_INDEX_CREATION]: pickupIndexCreation,
     [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
     [ISCFeature.PONY_DETECTION]: ponyDetection,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
