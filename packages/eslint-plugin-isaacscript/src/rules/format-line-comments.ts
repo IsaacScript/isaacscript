@@ -10,7 +10,7 @@ const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
 const DEBUG = false as boolean;
 
-type Options = [
+export type Options = [
   {
     maxLength: number;
   },

@@ -7,6 +7,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
+import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import {
   removeGridEntity,
@@ -22,6 +23,7 @@ import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "../other/RunInNFrames";
 
 export class CustomGridEntities extends Feature {
+  /** @internal */
   public override v = {
     level: {
       /** Indexed by room list index and grid index. */
@@ -38,6 +40,7 @@ export class CustomGridEntities extends Feature {
 
   private runInNFrames: RunInNFrames;
 
+  /** @internal */
   constructor(runInNFrames: RunInNFrames) {
     super();
 
@@ -141,6 +144,9 @@ export class CustomGridEntities extends Feature {
    * will reappear if the player leaves and re-enters the room. (It will be manually respawned in
    * the `POST_NEW_ROOM` callback.)
    *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CUSTOM_GRID_ENTITIES`.
+   *
    * Custom grid entities are built on top of real grid entities. You can use any existing grid
    * entity type as a base. For example, if you want to create a custom rock that would be breakable
    * like a normal rock, then you should specify `GridEntityType.ROCK` as the base grid entity type.
@@ -158,7 +164,8 @@ export class CustomGridEntities extends Feature {
    * dime when destroyed:
    *
    * ```ts
-   * // This is local to the mod and can safely overlap with the values of `GridEntityType`.
+   * // This is local to the mod and can safely overlap with the values of `GridEntityType` (or
+   * // values chosen by other mods).
    * const GridEntityTypeCustom = {
    *   SILVER_ROCK: 0 as GridEntityType,
    * } as const;
@@ -212,6 +219,7 @@ export class CustomGridEntities extends Feature {
    * @param baseGridEntityVariant Optional. The variant of the grid entity to use as a "base" for
    *                              this custom grid entity. Default is 0.
    */
+  @Exported
   public spawnCustomGridEntity(
     gridEntityTypeCustom: GridEntityType,
     gridIndexOrPosition: int | Vector,
@@ -269,6 +277,9 @@ export class CustomGridEntities extends Feature {
   /**
    * Helper function to remove a custom grid entity created by the `spawnCustomGrid` function.
    *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CUSTOM_GRID_ENTITIES`.
+   *
    * @param gridIndexOrPositionOrGridEntity You can specify the custom grid entity to remove by
    *                                providing the grid index, the room position, or the grid entity
    *                                itself.
@@ -281,6 +292,7 @@ export class CustomGridEntities extends Feature {
    * @returns The grid entity that was removed. Returns undefined if no grid entity was found at the
    *          given location or if the given grid entity was not a custom grid entity.
    */
+  @Exported
   public removeCustomGridEntity(
     gridIndexOrPositionOrGridEntity: int | Vector | GridEntity,
     updateRoom = true,
@@ -326,7 +338,11 @@ export class CustomGridEntities extends Feature {
   /**
    * Helper function to get the custom grid entities in the current room. Returns an array of tuples
    * containing the raw decoration grid entity and the associated entity data.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CUSTOM_GRID_ENTITIES`.
    */
+  @Exported
   public getCustomGridEntities(): Array<
     [gridEntity: GridEntity, data: GridEntityCustomData]
   > {
@@ -353,7 +369,11 @@ export class CustomGridEntities extends Feature {
    * Helper function to get the custom `GridEntityType` from a `GridEntity` or grid index. Returns
    * undefined if the provided `GridEntity` is not a custom grid entity, or if there was not a grid
    * entity on the provided grid index.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CUSTOM_GRID_ENTITIES`.
    */
+  @Exported
   public getCustomGridEntityType(
     gridEntityOrGridIndex: GridEntity | int,
   ): GridEntityType | undefined {
@@ -384,7 +404,11 @@ export class CustomGridEntities extends Feature {
   /**
    * Helper function to check if a `GridEntity` is a custom grid entity or if a grid index has a
    * custom grid entity.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CUSTOM_GRID_ENTITIES`.
    */
+  @Exported
   public isCustomGridEntity(gridEntityOrGridIndex: GridEntity | int): boolean {
     const gridEntityTypeCustom = this.getCustomGridEntityType(
       gridEntityOrGridIndex,

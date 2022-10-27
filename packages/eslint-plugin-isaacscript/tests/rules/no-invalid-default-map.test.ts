@@ -2,12 +2,13 @@ import { TSESLint } from "@typescript-eslint/utils";
 import {
   noInvalidDefaultMap,
   NoInvalidDefaultMapMessageIds,
+  Options,
 } from "../../src/rules/no-invalid-default-map";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<
-  TSESLint.InvalidTestCase<NoInvalidDefaultMapMessageIds, unknown[]>
+  TSESLint.InvalidTestCase<NoInvalidDefaultMapMessageIds, Options>
 > = [];
 
 valid.push({

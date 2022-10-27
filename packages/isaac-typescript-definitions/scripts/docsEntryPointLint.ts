@@ -59,7 +59,7 @@ function getEntryPoints(): string[] {
 function checkEntryPointsBrokenLink(entryPoints: string[]) {
   for (const entryPoint of entryPoints) {
     const entryPointPath = path.join(PACKAGE_ROOT, entryPoint);
-    if (!isFile(entryPointPath, false)) {
+    if (!fileExists(entryPointPath)) {
       error(`The following entry point does not exist: ${entryPoint}`);
     }
   }
@@ -102,30 +102,6 @@ function error(...args: unknown[]): never {
   return process.exit(1);
 }
 
-function getFileStats(filePath: string, verbose: boolean): fs.Stats {
-  if (verbose) {
-    console.log(`Getting file stats from: ${filePath}`);
-  }
-
-  let fileStats: fs.Stats;
-  try {
-    fileStats = fs.statSync(filePath);
-  } catch (err) {
-    error(`Failed to get the file stats for "${filePath}":`, err);
-  }
-
-  if (verbose) {
-    console.log(`Got file stats from: ${filePath}`);
-  }
-
-  return fileStats;
-}
-
-function isFile(filePath: string, verbose: boolean): boolean {
-  const fileStats = getFileStats(filePath, verbose);
-  return fileStats.isFile();
-}
-
 function trimTwoDirectoriesFromPath(filePath: string) {
   const trimmedPath = trimLeftmostDirectoryFromPath(filePath);
   return trimLeftmostDirectoryFromPath(trimmedPath);
@@ -136,4 +112,15 @@ function trimLeftmostDirectoryFromPath(filePath: string) {
   return firstSlashIndex === -1
     ? filePath
     : filePath.substring(firstSlashIndex + 1);
+}
+
+function fileExists(filePath: string): boolean {
+  let pathExists: boolean;
+  try {
+    pathExists = fs.existsSync(filePath);
+  } catch (err) {
+    error(`Failed to check if "${filePath}" exists:`, err);
+  }
+
+  return pathExists;
 }

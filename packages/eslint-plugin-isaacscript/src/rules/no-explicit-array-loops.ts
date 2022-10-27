@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import { createRule } from "../utils";
 
-type Options = [];
+export type Options = [];
 
 export type MessageIds = "noExplicitArray";
 

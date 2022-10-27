@@ -13,6 +13,7 @@ type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
 export class CharacterStats extends Feature {
   private charactersStatMap = new Map<PlayerType, StatMap>();
 
+  /** @internal */
   constructor() {
     super();
 
@@ -55,6 +56,8 @@ export class CharacterStats extends Feature {
    *
    * Note that the format for the `CacheFlag.FIRE_DELAY` value should be in the tears stat format,
    * not the `MaxFireDelay` format.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CHARACTER_STATS`.
    */
   @Exported
   public registerCharacterStats(

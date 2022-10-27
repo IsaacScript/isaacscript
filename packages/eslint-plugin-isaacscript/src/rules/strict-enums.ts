@@ -48,7 +48,7 @@ const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT =
   ts.TypeFlags.Number |
   ts.TypeFlags.String;
 
-type Options = [];
+export type Options = [];
 
 export type MessageIds =
   | "incorrectIncrement"

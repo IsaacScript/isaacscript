@@ -552,8 +552,8 @@ export enum ModCallbackCustom {
   /**
    * Fires when a new grid entity is initialized. Specifically, this is either:
    *
-   * - in the `POST_NEW_ROOM` callback (firing every time a room is entered, even if the entity was
-   *   previously there on a previous room entry)
+   * - in the `POST_NEW_ROOM_REORDERED` callback (firing every time a room is entered, even if the
+   *   entity was previously there on a previous room entry)
    * - in the `POST_UPDATE` callback (if the entity appeared mid-way through the room, like when the
    *   trapdoor appears after defeating It Lives!)
    *
@@ -658,8 +658,8 @@ export enum ModCallbackCustom {
   POST_GRID_ENTITY_UPDATE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when the player loses a Holy Mantle temporary
-   * collectible effect.
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when the player loses a Holy Mantle
+   * temporary collectible effect.
    *
    * This callback is useful because you might want to have code that happens when the player is hit
    * from an enemy. Normally, you would accomplish this via the `ENTITY_TAKE_DMG` callback, but that
@@ -682,8 +682,8 @@ export enum ModCallbackCustom {
   POST_HOLY_MANTLE_REMOVED,
 
   /**
-   * Fires from `POST_PEFFECT_UPDATE` callback when the player loses charge on their active
-   * collectible item, implying that the item was just used.
+   * Fires from `POST_PEFFECT_UPDATE_REORDERED` callback when the player loses charge on their
+   * active collectible item, implying that the item was just used.
    *
    * This callback is useful because the `USE_ITEM` callback does not fire when The Candle, Red
    * Candle, and Bob's Rotten Brain are discharged.
@@ -706,9 +706,9 @@ export enum ModCallbackCustom {
   POST_ITEM_DISCHARGE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when an item is no longer queued (i.e. when the
-   * animation of the player holding the item above their head is finished and the item is actually
-   * added to the player's inventory).
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when an item is no longer queued (i.e.
+   * when the animation of the player holding the item above their head is finished and the item is
+   * actually added to the player's inventory).
    *
    * Note that this callback will only fire once per Forgotten/Soul pair.
    *
@@ -812,6 +812,20 @@ export enum ModCallbackCustom {
   POST_NEW_ROOM_REORDERED,
 
   /**
+   * The exact same thing as the vanilla `POST_NPC_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  POST_NPC_INIT_FILTER,
+
+  /**
    * Fires on the first `NPC_UPDATE` frame for each NPC.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -852,6 +866,20 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_NPC_STATE_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_NPC_UPDATE` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  POST_NPC_UPDATE_FILTER,
 
   /**
    * Similar to the vanilla callback of the same name, but fires after the
@@ -980,8 +1008,9 @@ export enum ModCallbackCustom {
   POST_PIT_UPDATE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player's health (i.e. hearts) is different
-   * than what it was on the previous frame. For more information, see the `PlayerHealth` enum.
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player's health (i.e. hearts) is
+   * different than what it was on the previous frame. For more information, see the `PlayerHealth`
+   * enum.
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -1002,8 +1031,8 @@ export enum ModCallbackCustom {
   POST_PLAYER_CHANGE_HEALTH,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when one of the player's stats change from what
-   * they were on the previous frame.
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when one of the player's stats change
+   * from what they were on the previous frame.
    *
    * The type of `oldValue` and `newValue` will depend on what kind of stat it is. For example,
    * `StatType.FLYING` will be a boolean. (You can use the "Types" helper functions to narrow the
@@ -1033,7 +1062,8 @@ export enum ModCallbackCustom {
   POST_PLAYER_CHANGE_STAT,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player entity changes its player type
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player entity changes its player
+   * type
    * (i.e. character) from what it was on the previous frame. For example, it will fire after using
    * Clicker, after dying with the Judas' Shadow collectible, etc.
    *
@@ -1056,9 +1086,9 @@ export enum ModCallbackCustom {
   POST_PLAYER_CHANGE_TYPE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is higher than
-   * what it was on the previous frame, or when the active items change, or when the build is
-   * rerolled.
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player's collectible count is
+   * higher than what it was on the previous frame, or when the active items change, or when the
+   * build is rerolled.
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if the
@@ -1074,9 +1104,9 @@ export enum ModCallbackCustom {
   POST_PLAYER_COLLECTIBLE_ADDED,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player's collectible count is lower than
-   * what it was on the previous frame, or when the active items change, or when the build is
-   * rerolled.
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player's collectible count is
+   * lower than what it was on the previous frame, or when the active items change, or when the
+   * build is rerolled.
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if the
@@ -1276,8 +1306,9 @@ export enum ModCallbackCustom {
   POST_PROJECTILE_INIT_LATE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player first picks up a new item. The
-   * pickup returned in the callback is assumed to be the first pickup that no longer exists.
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player first picks up a new
+   * item. The pickup returned in the callback is assumed to be the first pickup that no longer
+   * exists.
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -1414,8 +1445,8 @@ export enum ModCallbackCustom {
   /**
    * Fires when a new slot entity is initialized. Specifically, this is either:
    *
-   * - in the `POST_NEW_ROOM` callback (firing every time a room is entered, even if the entity was
-   *   previously there on a previous room entry)
+   * - in the `POST_NEW_ROOM_REORDERED` callback (firing every time a room is entered, even if the
+   *   entity was previously there on a previous room entry)
    * - in the `POST_UPDATE` callback (if the entity appeared mid-way through the room, like when a
    *   Wheel of Fortune card is used)
    *
@@ -1551,7 +1582,7 @@ export enum ModCallbackCustom {
   POST_TNT_UPDATE,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when a player gains or loses a new
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player gains or loses a new
    * transformation.
    *
    * Note that this callback will only fire once per Forgotten/Soul pair.
@@ -1587,9 +1618,9 @@ export enum ModCallbackCustom {
   POST_TRINKET_BREAK,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback on the frame before a Berserk effect ends when
-   * the player is predicted to die (e.g. they currently have no health left or they took damage in
-   * a "Lost" form).
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback on the frame before a Berserk effect
+   * ends when the player is predicted to die (e.g. they currently have no health left or they took
+   * damage in a "Lost" form).
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -1645,8 +1676,8 @@ export enum ModCallbackCustom {
   PRE_GET_PEDESTAL,
 
   /**
-   * Fires from the `POST_PEFFECT_UPDATE` callback when an item becomes queued (i.e. when the player
-   * begins to hold the item above their head).
+   * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when an item becomes queued (i.e. when
+   * the player begins to hold the item above their head).
    *
    * Note that this callback will only fire once per Forgotten/Soul pair.
    *

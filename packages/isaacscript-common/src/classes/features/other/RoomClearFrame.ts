@@ -4,6 +4,7 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { Feature } from "../../private/Feature";
 
 export class RoomClearFrame extends Feature {
+  /** @internal */
   public override v = {
     room: {
       roomClearGameFrame: undefined as int | undefined,
@@ -11,6 +12,7 @@ export class RoomClearFrame extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 
@@ -36,6 +38,8 @@ export class RoomClearFrame extends Feature {
   /**
    * Helper function to get the game frame (i.e. `Game.GetFrameCount`) of the last time that this
    * room was cleared. Returns undefined if the room has never been cleared.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_CLEAR_FRAME`.
    */
   @Exported
   public getRoomClearGameFrame(): int | undefined {
@@ -45,6 +49,8 @@ export class RoomClearFrame extends Feature {
   /**
    * Helper function to get the room frame (i.e. `Room.GetFrameCount`) of the last time that this
    * room was cleared. Returns undefined if the room has never been cleared.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_CLEAR_FRAME`.
    */
   @Exported
   public getRoomClearRoomFrame(): int | undefined {

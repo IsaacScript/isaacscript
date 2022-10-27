@@ -1,4 +1,3 @@
-import { SAVE_DATA_MANAGER_DEBUG } from "../../../../features/saveDataManager/constants";
 import { jsonDecode } from "../../../../functions/jsonHelpers";
 import { log } from "../../../../functions/log";
 import { logError } from "../../../../functions/logMisc";
@@ -7,6 +6,7 @@ import { iterateTableInOrder } from "../../../../functions/table";
 import { isString, isTable } from "../../../../functions/types";
 import { SaveData } from "../../../../interfaces/SaveData";
 import { AnyClass } from "../../../../types/AnyClass";
+import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 const DEFAULT_MOD_DATA = "{}";
 

@@ -122,7 +122,7 @@ export function lerpAngleDegrees(
  * From: http://lua-users.org/wiki/SimpleRound
  *
  * @param num The number to round.
- * @param numDecimalPlaces Default is 0.
+ * @param numDecimalPlaces Optional. Default is 0.
  */
 export function round(num: float, numDecimalPlaces = 0): float {
   const roundedNum = tonumber(string.format(`%.${numDecimalPlaces}f`, num));

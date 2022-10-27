@@ -1,5 +1,3 @@
-/* eslint-disable jsdoc/check-param-names */
-
 import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {

@@ -18,12 +18,14 @@ const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
 ];
 
 export class PonyDetection extends Feature {
+  /** @internal */
   public override v = {
     run: {
       playersIsPonyActive: new Set<PlayerIndex>(),
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 
@@ -60,6 +62,8 @@ export class PonyDetection extends Feature {
   /**
    * Helper function to see if the player is under the effects of A Pony or White Pony charge.
    * Detecting this is difficult, as the temporary effect will disappear upon entering a new room.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PONY_DETECTION`.
    */
   @Exported
   public isPlayerUsingPony(player: EntityPlayer): boolean {
@@ -69,6 +73,8 @@ export class PonyDetection extends Feature {
   /**
    * Helper function to see if any player is under the effects of A Pony or White Pony charge.
    * Detecting this is difficult, as the temporary effect will disappear upon entering a new room.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PONY_DETECTION`.
    */
   @Exported
   public anyPlayerUsingPony(): boolean {

@@ -8,7 +8,6 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { ISCFeature } from "../../../enums/ISCFeature";
 import { addFlag, bitFlags } from "../../../functions/flag";
 import { getMapPartialMatch } from "../../../functions/map";
 import {
@@ -20,20 +19,14 @@ import * as commands from "./extraConsoleCommands/commands";
 import { v } from "./extraConsoleCommands/v";
 
 export class ExtraConsoleCommands extends Feature {
+  /** @internal */
   public override v = v;
-
-  /** The contents of the map are initialized in the "init.ts" file. */
-  private extraConsoleCommandsFunctionMap = new Map<
-    string,
-    (params: string) => void
-  >();
 
   private commandFunctionMap = new Map<string, (params: string) => void>();
 
+  /** @internal */
   constructor() {
     super();
-
-    this.featuresUsed = [ISCFeature.DEBUG_DISPLAY];
 
     this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
@@ -204,7 +197,8 @@ export class ExtraConsoleCommands extends Feature {
    * add commands to the existing command system than to add your own logic manually to the
    * `EXECUTE_CMD` callback.
    *
-   * Before using this function, you must first run the `enableExtraConsoleCommands` function.
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
    */
   @Exported
   public addConsoleCommand(
@@ -217,13 +211,13 @@ export class ExtraConsoleCommands extends Feature {
       );
     }
 
-    if (this.extraConsoleCommandsFunctionMap.has(commandName)) {
+    if (this.commandFunctionMap.has(commandName)) {
       error(
         `Failed to add a new console command of "${commandName}" because there is already an existing custom command by that name. If you want to overwrite a command from the standard library, you can use the "removeExtraConsoleCommand" function.`,
       );
     }
 
-    this.extraConsoleCommandsFunctionMap.set(commandName, commandFunction);
+    this.commandFunctionMap.set(commandName, commandFunction);
   }
 
   /**
@@ -232,16 +226,17 @@ export class ExtraConsoleCommands extends Feature {
    * The standard library comes with many existing console commands that are useful for debugging.
    * If you want to disable one of them, use this function.
    *
-   * Before using this function, you must first run the `enableExtraConsoleCommands` function.
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
    */
   @Exported
   public removeConsoleCommand(commandName: string): void {
-    if (!this.extraConsoleCommandsFunctionMap.has(commandName)) {
+    if (!this.commandFunctionMap.has(commandName)) {
       error(
         `Failed to remove the console command of "${commandName}", since it does not already exist in the map.`,
       );
     }
 
-    this.extraConsoleCommandsFunctionMap.delete(commandName);
+    this.commandFunctionMap.delete(commandName);
   }
 }

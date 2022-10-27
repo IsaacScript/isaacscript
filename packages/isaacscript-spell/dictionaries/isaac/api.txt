@@ -130,6 +130,7 @@ Necronomicon
 NEPTUNUS
 netdelay # Console command
 netstart # Console command
+nexting # RNG verb
 ONANS
 Ouroboros
 Parasitoid

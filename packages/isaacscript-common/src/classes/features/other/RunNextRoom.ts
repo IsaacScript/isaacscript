@@ -7,17 +7,16 @@ import { Feature } from "../../private/Feature";
  * Using the "luamod" console command with a mod that has custom shaders can crash the game. A
  * simple fix for this is automatically applied to any upgraded mods. This method was originally
  * discovered by AgentCucco.
- *
- * This feature is automatically applied to every upgraded mod, so there is no need to explicitly
- * include it when upgrading.
  */
 export class RunNextRoom extends Feature {
+  /** @internal */
   public override v = {
     run: {
       queuedFunctions: [] as Array<() => void>,
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 
@@ -41,6 +40,8 @@ export class RunNextRoom extends Feature {
    * Note that this function will not handle saving and quitting. If a player saving and quitting
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_NEXT_ROOM`.
    */
   @Exported
   public runNextRoom(func: () => void): void {

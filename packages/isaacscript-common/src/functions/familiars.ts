@@ -7,6 +7,14 @@ import { itemConfig } from "../core/cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { getEntities } from "./entities";
 import { getFamiliars } from "./entitiesSpecific";
+import { newRNG } from "./rng";
+
+/**
+ * Instead of generating a new RNG object every time we need to spawn a new familiar, we instead
+ * re-use the same RNG object. This makes it less likely that the `InitSeed` of the familiar will
+ * overlap, since we are "nexting" instead of doing a fresh reroll.
+ */
+const familiarGenerationRNG = newRNG();
 
 /**
  * Helper function to add and remove familiars based on a target amount that you specify.
@@ -44,11 +52,13 @@ export function checkFamiliar(
   familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
+  familiarGenerationRNG.Next();
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   player.CheckFamiliar(
     familiarVariant,
     targetCount,
-    RNG(),
+    familiarGenerationRNG,
     itemConfigItem,
     familiarSubType,
   );
@@ -87,7 +97,8 @@ export function checkFamiliarFromCollectibles(
   familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
-  // We need to include non-real collectibles, like Lilith's Incubus.
+  // We need to include non-real collectibles (like Lilith's Incubus), so we omit the second
+  // argument.
   const numCollectibles = player.GetCollectibleNum(collectibleType);
   const effects = player.GetEffects();
 

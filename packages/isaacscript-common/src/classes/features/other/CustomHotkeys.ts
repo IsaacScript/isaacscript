@@ -1,4 +1,5 @@
 import { Keyboard, ModCallback } from "isaac-typescript-definitions";
+import { Exported } from "../../../decorators";
 import { isKeyboardPressed } from "../../../functions/input";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
@@ -21,6 +22,7 @@ export class CustomHotkeys extends Feature {
 
   private keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
+  /** @internal */
   constructor() {
     super();
 
@@ -69,10 +71,13 @@ export class CustomHotkeys extends Feature {
    * hardcoded and is instead the return value of a provided function. This is useful for situations
    * where the key can change (like if end-users can specify a custom hotkey using Mod Config Menu).
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.
+   *
    * @param getKeyFunc The function that returns the key that will trigger the hotkey.
    * @param triggerFunc A function containing the arbitrary code that you want to execute when the
    *                    hotkey is triggered.
    */
+  @Exported
   public setConditionalHotkey(
     getKeyFunc: () => Keyboard | undefined,
     triggerFunc: () => void,
@@ -92,10 +97,13 @@ export class CustomHotkeys extends Feature {
    * This can be used to easily set up custom hotkeys to facilitate custom game features or to
    * assist in debugging.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.
+   *
    * @param keyboard The key that you want to trigger the hotkey.
    * @param triggerFunc A function containing the arbitrary code that you want to execute when the
    *                    hotkey is triggered.
    */
+  @Exported
   public setHotkey(keyboard: Keyboard, triggerFunc: () => void): void {
     if (this.staticHotkeyFunctionMap.has(keyboard)) {
       error(
@@ -109,9 +117,12 @@ export class CustomHotkeys extends Feature {
   /**
    * Helper function to remove a hotkey created with the `setConditionalHotkey` function.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.
+   *
    * @param getKeyFunc Equal to the `getKeyFunc` that you passed when initially registering the
    *                   hotkey.
    */
+  @Exported
   public unsetConditionalHotkey(getKeyFunc: () => Keyboard | undefined): void {
     if (!this.dynamicHotkeyFunctionMap.has(getKeyFunc)) {
       error(
@@ -125,9 +136,12 @@ export class CustomHotkeys extends Feature {
   /**
    * Helper function to remove a hotkey created with the `setHotkey` function.
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.
+   *
    * @param keyboard Equal to the keyboard value that you passed when initially registering the
    *                 hotkey.
    */
+  @Exported
   public unsetHotkey(keyboard: Keyboard): void {
     if (!this.staticHotkeyFunctionMap.has(keyboard)) {
       error(

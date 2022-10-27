@@ -27,11 +27,11 @@ import { log } from "../../../functions/log";
 import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
-import { spawnCollectible } from "../../../functions/spawnCollectible";
 import { asCollectibleType, asNumber } from "../../../functions/types";
 import { JSONRoom } from "../../../interfaces/JSONRoomsFile";
 import { Feature } from "../../private/Feature";
 import { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
+import { SpawnCollectible } from "./SpawnCollectible";
 
 const gridEntityXMLTypes = getEnumValues(GridEntityXMLType);
 const GRID_ENTITY_XML_TYPE_SET: ReadonlySet<number> = new Set(
@@ -40,16 +40,157 @@ const GRID_ENTITY_XML_TYPE_SET: ReadonlySet<number> = new Set(
 
 export class DeployJSONRoom extends Feature {
   private preventGridEntityRespawn: PreventGridEntityRespawn;
+  private spawnCollectible: SpawnCollectible;
 
-  constructor(preventGridEntityRespawn: PreventGridEntityRespawn) {
+  /** @internal */
+  constructor(
+    preventGridEntityRespawn: PreventGridEntityRespawn,
+    spawnCollectible: SpawnCollectible,
+  ) {
     super();
 
     this.featuresUsed = [
-      ISCFeature.PERSISTENT_ENTITIES,
       ISCFeature.PREVENT_GRID_ENTITY_RESPAWN,
+      ISCFeature.SPAWN_COLLECTIBLE,
     ];
 
     this.preventGridEntityRespawn = preventGridEntityRespawn;
+    this.spawnCollectible = spawnCollectible;
+  }
+
+  private spawnAllEntities(
+    jsonRoom: JSONRoom | Readonly<JSONRoom>,
+    rng: RNG,
+    verbose = false,
+  ) {
+    let shouldUnclearRoom = false;
+
+    for (const jsonSpawn of jsonRoom.spawn) {
+      const xString = jsonSpawn.$.x;
+      const x = tonumber(xString);
+      if (x === undefined) {
+        error(
+          `Failed to convert the following x coordinate to a number (for a spawn): ${xString}`,
+        );
+      }
+
+      const yString = jsonSpawn.$.y;
+      const y = tonumber(yString);
+      if (y === undefined) {
+        error(
+          `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
+        );
+      }
+
+      const jsonEntity = getRandomJSONEntity(jsonSpawn.entity);
+
+      const entityTypeString = jsonEntity.$.type;
+      const entityTypeNumber = tonumber(entityTypeString);
+      if (entityTypeNumber === undefined) {
+        error(
+          `Failed to convert the entity type to a number: ${entityTypeString}`,
+        );
+      }
+
+      const variantString = jsonEntity.$.variant;
+      const variant = tonumber(variantString);
+      if (variant === undefined) {
+        error(`Failed to convert the entity variant to a number: ${variant}`);
+      }
+
+      const subTypeString = jsonEntity.$.subtype;
+      const subType = tonumber(subTypeString);
+      if (subType === undefined) {
+        error(`Failed to convert the entity sub-type to a number: ${subType}`);
+      }
+
+      const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(entityTypeNumber);
+      if (isGridEntity) {
+        const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
+        if (verbose) {
+          log(
+            `Spawning grid entity ${gridEntityXMLType}.${variant} at: (${x}, ${y})`,
+          );
+        }
+        spawnGridEntityForJSONRoom(gridEntityXMLType, variant, x, y);
+      } else {
+        const entityType = entityTypeNumber as EntityType;
+        if (verbose) {
+          const entityID = getEntityIDFromConstituents(
+            entityType,
+            variant,
+            subType,
+          );
+          log(`Spawning normal entity ${entityID} at: (${x}, ${y})`);
+        }
+        const entity = this.spawnNormalEntityForJSONRoom(
+          entityType,
+          variant,
+          subType,
+          x,
+          y,
+          rng,
+        );
+        const npc = entity.ToNPC();
+        if (npc !== undefined && npc.CanShutDoors) {
+          shouldUnclearRoom = true;
+        }
+      }
+    }
+
+    // After emptying the room, we manually cleared the room. However, if the room layout contains
+    // an battle NPC, then we need to reset the clear state and close the doors again.
+    if (shouldUnclearRoom) {
+      if (verbose) {
+        log(
+          "Setting the room to be uncleared since there were one or more battle NPCs spawned.",
+        );
+      }
+      setRoomUncleared();
+    } else if (verbose) {
+      log("Leaving the room cleared since there were no battle NPCs spawned.");
+    }
+  }
+
+  private spawnNormalEntityForJSONRoom(
+    entityType: EntityType,
+    variant: int,
+    subType: int,
+    x: int,
+    y: int,
+    rng: RNG,
+  ) {
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+    const position = gridCoordinatesToWorldPosition(x, y);
+    const seed = rng.Next();
+
+    let entity: Entity;
+    if (
+      entityType === EntityType.PICKUP &&
+      variant === asNumber(PickupVariant.COLLECTIBLE)
+    ) {
+      const options = roomType === RoomType.ANGEL;
+      entity = this.spawnCollectible.spawnCollectible(
+        asCollectibleType(subType),
+        position,
+        seed,
+        options,
+      );
+    } else {
+      entity = spawnWithSeed(entityType, variant, subType, position, seed);
+    }
+
+    // For some reason, Pitfalls do not spawn with the correct collision classes.
+    if (
+      entityType === EntityType.PITFALL &&
+      variant === asNumber(PitfallVariant.PITFALL)
+    ) {
+      entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
+      entity.GridCollisionClass = EntityGridCollisionClass.WALLS;
+    }
+
+    return entity;
   }
 
   /**
@@ -74,6 +215,8 @@ export class DeployJSONRoom extends Feature {
    *   deployJSONRoom(firstJSONRoom);
    * }
    * ```
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEPLOY_JSON_ROOM`.
    *
    * @param jsonRoom The JSON room to deploy.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
@@ -102,7 +245,7 @@ export class DeployJSONRoom extends Feature {
     if (verbose) {
       log("Starting to spawn all of the new entities and grid entities.");
     }
-    spawnAllEntities(jsonRoom, rng, verbose);
+    this.spawnAllEntities(jsonRoom, rng, verbose);
     if (verbose) {
       log("Finished spawning all of the new entities and grid entities.");
     }
@@ -110,141 +253,6 @@ export class DeployJSONRoom extends Feature {
     fixPitGraphics();
     this.preventGridEntityRespawn.preventGridEntityRespawn();
   }
-}
-
-function spawnAllEntities(
-  jsonRoom: JSONRoom | Readonly<JSONRoom>,
-  rng: RNG,
-  verbose = false,
-) {
-  let shouldUnclearRoom = false;
-
-  for (const jsonSpawn of jsonRoom.spawn) {
-    const xString = jsonSpawn.$.x;
-    const x = tonumber(xString);
-    if (x === undefined) {
-      error(
-        `Failed to convert the following x coordinate to a number (for a spawn): ${xString}`,
-      );
-    }
-
-    const yString = jsonSpawn.$.y;
-    const y = tonumber(yString);
-    if (y === undefined) {
-      error(
-        `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
-      );
-    }
-
-    const jsonEntity = getRandomJSONEntity(jsonSpawn.entity);
-
-    const entityTypeString = jsonEntity.$.type;
-    const entityTypeNumber = tonumber(entityTypeString);
-    if (entityTypeNumber === undefined) {
-      error(
-        `Failed to convert the entity type to a number: ${entityTypeString}`,
-      );
-    }
-
-    const variantString = jsonEntity.$.variant;
-    const variant = tonumber(variantString);
-    if (variant === undefined) {
-      error(`Failed to convert the entity variant to a number: ${variant}`);
-    }
-
-    const subTypeString = jsonEntity.$.subtype;
-    const subType = tonumber(subTypeString);
-    if (subType === undefined) {
-      error(`Failed to convert the entity sub-type to a number: ${subType}`);
-    }
-
-    const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(entityTypeNumber);
-    if (isGridEntity) {
-      const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
-      if (verbose) {
-        log(
-          `Spawning grid entity ${gridEntityXMLType}.${variant} at: (${x}, ${y})`,
-        );
-      }
-      spawnGridEntityForJSONRoom(gridEntityXMLType, variant, x, y);
-    } else {
-      const entityType = entityTypeNumber as EntityType;
-      if (verbose) {
-        const entityID = getEntityIDFromConstituents(
-          entityType,
-          variant,
-          subType,
-        );
-        log(`Spawning normal entity ${entityID} at: (${x}, ${y})`);
-      }
-      const entity = spawnNormalEntityForJSONRoom(
-        entityType,
-        variant,
-        subType,
-        x,
-        y,
-        rng,
-      );
-      const npc = entity.ToNPC();
-      if (npc !== undefined && npc.CanShutDoors) {
-        shouldUnclearRoom = true;
-      }
-    }
-  }
-
-  // After emptying the room, we manually cleared the room. However, if the room layout contains an
-  // battle NPC, then we need to reset the clear state and close the doors again.
-  if (shouldUnclearRoom) {
-    if (verbose) {
-      log(
-        "Setting the room to be uncleared since there were one or more battle NPCs spawned.",
-      );
-    }
-    setRoomUncleared();
-  } else if (verbose) {
-    log("Leaving the room cleared since there were no battle NPCs spawned.");
-  }
-}
-
-function spawnNormalEntityForJSONRoom(
-  entityType: EntityType,
-  variant: int,
-  subType: int,
-  x: int,
-  y: int,
-  rng: RNG,
-) {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const position = gridCoordinatesToWorldPosition(x, y);
-  const seed = rng.Next();
-
-  let entity: Entity;
-  if (
-    entityType === EntityType.PICKUP &&
-    variant === asNumber(PickupVariant.COLLECTIBLE)
-  ) {
-    const options = roomType === RoomType.ANGEL;
-    entity = spawnCollectible(
-      asCollectibleType(subType),
-      position,
-      seed,
-      options,
-    );
-  } else {
-    entity = spawnWithSeed(entityType, variant, subType, position, seed);
-  }
-
-  // For some reason, Pitfalls do not spawn with the correct collision classes.
-  if (
-    entityType === EntityType.PITFALL &&
-    variant === asNumber(PitfallVariant.PITFALL)
-  ) {
-    entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
-    entity.GridCollisionClass = EntityGridCollisionClass.WALLS;
-  }
-
-  return entity;
 }
 
 function spawnGridEntityForJSONRoom(

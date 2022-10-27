@@ -8,6 +8,7 @@ import { Feature } from "../../private/Feature";
  * Lazarus.
  */
 export class TaintedLazarusPlayers extends Feature {
+  /** @internal */
   public override v = {
     run: {
       queuedTaintedLazarus: [] as EntityPlayer[],
@@ -33,6 +34,7 @@ export class TaintedLazarusPlayers extends Feature {
   // eslint-disable-next-line class-methods-use-this
   public override vConditionalFunc = (): boolean => false;
 
+  /** @internal */
   constructor() {
     super();
 
@@ -104,6 +106,9 @@ export class TaintedLazarusPlayers extends Feature {
    * If you call the `EntityPlayer.Exists` method on the returned object, it will return false.
    * However, you can still call the other methods like you normally would (e.g.
    * `EntityPlayer.AddCollectible`).
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.CHARACTER_HEALTH_CONVERSION`.
    */
   @Exported
   public getTaintedLazarusSubPlayer(

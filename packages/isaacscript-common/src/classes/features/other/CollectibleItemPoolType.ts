@@ -5,25 +5,29 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { getEntityID } from "../../../functions/entities";
 import { isCollectible } from "../../../functions/pickupVariants";
 import { getRoomItemPoolType } from "../../../functions/rooms";
+import { PickupIndex } from "../../../types/PickupIndex";
 import { Feature } from "../../private/Feature";
+import { PickupIndexCreation } from "./PickupIndexCreation";
 
-/**
- * The item pool type of a collectible is not stored on the collectible. Thus, we scan for incoming
- * item pool types in the `PRE_GET_COLLECTIBLE` callback, and then assume that the next spawned
- * collectible has this item pool type.
- */
 export class CollectibleItemPoolType extends Feature {
+  /** @internal */
   public override v = {
     run: {
-      collectibleItemPoolTypeMap: new Map<PtrHash, ItemPoolType>(),
+      collectibleItemPoolTypeMap: new Map<PickupIndex, ItemPoolType>(),
     },
   };
 
-  constructor() {
+  private pickupIndexCreation: PickupIndexCreation;
+
+  /** @internal */
+  constructor(pickupIndexCreation: PickupIndexCreation) {
     super();
+
+    this.featuresUsed = [ISCFeature.PICKUP_INDEX_CREATION];
 
     this.callbacksUsed = [
       [
@@ -31,22 +35,28 @@ export class CollectibleItemPoolType extends Feature {
         [this.postPickupInitCollectible, PickupVariant.COLLECTIBLE],
       ], // 34
     ];
+
+    this.pickupIndexCreation = pickupIndexCreation;
   }
 
   // ModCallback.POST_PICKUP_INIT (34)
   // PickupVariant.COLLECTIBLE (100)
-  private postPickupInitCollectible = (pickup: EntityPickup) => {
+  private postPickupInitCollectible = (collectible: EntityPickup) => {
     const itemPool = game.GetItemPool();
-    const ptrHash = GetPtrHash(pickup);
+    const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
     const lastItemPoolType = itemPool.GetLastPool();
 
-    this.v.run.collectibleItemPoolTypeMap.set(ptrHash, lastItemPoolType);
+    this.v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
   };
 
   /**
    * Helper function to get the item pool type that a given collectible came from. Since there is no
-   * native method in the API to get this, we listen in the `PRE_GET_COLLECTIBLE` callback for item
-   * pool types, and then assume that the next spawned collectible will match.
+   * native method in the API to get this, we listen in the `POST_PICKUP_INIT` callback for
+   * collectibles, use the `ItemPool.GetLastPool` method, and then assume that the collectible
+   * matches.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE`.
    */
   @Exported
   public getCollectibleItemPoolType(collectible: EntityPickup): ItemPoolType {
@@ -57,8 +67,8 @@ export class CollectibleItemPoolType extends Feature {
       );
     }
 
-    const ptrHash = GetPtrHash(collectible);
-    const itemPoolType = this.v.run.collectibleItemPoolTypeMap.get(ptrHash);
+    const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
+    const itemPoolType = this.v.run.collectibleItemPoolTypeMap.get(pickupIndex);
     return itemPoolType === undefined ? getRoomItemPoolType() : itemPoolType;
   }
 }

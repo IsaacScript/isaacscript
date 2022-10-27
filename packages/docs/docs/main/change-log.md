@@ -9,16 +9,63 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 7th, 2022 (Unreleased)
+## October 17th, 2022 (Unreleased)
 
+- Added the following helper functions:
+  - `getGridEntitiesInRadius` (Thanks NFrost)
+  - `getGridEntityCollisionPoints` (Thanks NFrost)
+  - `getConstituentsFromEntityID`
+  - `getConstituentsFromGridEntityID`
+  - `spawnEntityID`
+- Added the following custom callbacks:
+  - `POST_NPC_INIT_FILTER`
+  - `POST_NPC_UPDATE_FILTER`
+- Added the following types:
+  - `EntityID`
+  - `GridEntityID`
+
+## October 10th, 2022
+
+- `isaacscript-common` has been rewritten to only enable the custom features that you are actually using (rather than all of them). The idea here is to keep the library blazing fast and allow it to scale well into the future as more features are added.
+- Breaking:
+  - All of the extra feature functions in `isaacscript-common` are now attached to the `ModUpgraded` object (instead of being normal functions that you import). The idea here is to eliminate run-time errors from non-upgraded mods. See [the website](https://isaacscript.github.io/isaacscript-common#using-extra-features) for more details.
+- Added the following helper functions:
+  - `removeUrnRewards`
+  - `removeEntitiesSpawnedFromGridEntity`
+  - `spawnRockAltRewardUrn`
+  - `spawnRockAltRewardMushroom`
+  - `spawnRockAltRewardSkull`
+  - `spawnRockAltRewardPolyp`
+  - `spawnRockAltRewardBucketDownpour`
+  - `spawnRockAltRewardBucketDross`
+  - `getPlayerCollectiblesWithTag`
+  - `getPlayerCollectiblesForTransformation`
+  - `getEdenActiveCollectibles`
+  - `getRandomEdenActiveCollectible`
+  - `spawnCollectibleUnsafe`
+  - `isPlayerAbleToAim`
 - Renamed the following helper functions:
   - `hasSirenStolenFamiliar` --> `isFamiliarStolenBySiren`
+  - `getCollectiblesForCacheFlag` --> `getCollectibleTypesWithCacheFlag`
+  - `getTrinketsForCacheFlag` --> `getTrinketsWithCacheFlag`
+  - `getPlayerCollectiblesForCacheFlag` --> `getPlayerCollectiblesWithCacheFlag`
+  - `getPlayerTrinketsForCacheFlag` --> `getPlayerTrinketsWithCacheFlag`
+  - `getCollectibleTypesWithTag` --> `getCollectiblesWithTag`
+  - `getCollectibleTypesForTransformation` --> `getCollectiblesForTransformation`
+  - `getEdenPassives` --> `getEdenPassiveCollectibles`
+  - `getRandomEdenPassive` --> `getRandomEdenPassiveCollectible`
 - Deleted the following helper functions:
   - `isIsaacScriptCommonClass`
   - `isVanillaTSTLClass`
+  - `getPlayerNumCollectiblesWithTag` (use `getPlayerCollectiblesWithTag` instead)
+  - `getPlayerNumCollectiblesForTransformation` (use `getPlayerCollectiblesForTransformation` instead)
+  - `enableDevFeatures`
 - Added the following helper types:
   - `AnyClass`
   - `HasFunction`
+  - `TupleToUnion`
+  - `TupleToIntersection`
+  - `Writable`
 
 ## September 30th, 2022
 
@@ -38,7 +85,6 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper types:
   - `HasAllEnumKeys`
   - `UnionToIntersection`
-  - `Constructor`
   - `AllButFirst`
   - `AllButLast`
   - `LowercaseKeys`

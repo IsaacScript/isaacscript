@@ -113,9 +113,19 @@ declare global {
   /** @noSelf */
   namespace EntityNPC {
     /**
+     * Helper function to spawn an enemy spider. Use this in situations where you want the spider to
+     * "jump" out of something.
+     *
      * This method returns a read-only version of the `EntityNPC` class. If you need to mutate the
      * properties of the spider, then you can spawn it with `Isaac.Spawn` or `Game.Spawn` instead.
      * Alternatively, you can re-acquire the entity after it has already been spawned.
+     *
+     * @param position
+     * @param spawner
+     * @param targetPos
+     * @param big If false, will spawn `EntityType.SPIDER` (85). If true, will spawn
+     *            `EntityType.BIG_SPIDER` (94).
+     * @param yOffset
      */
     function ThrowSpider(
       position: Vector,

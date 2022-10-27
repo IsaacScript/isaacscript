@@ -4,10 +4,10 @@ title: Using IsaacScript in Lua
 
 <!-- markdownlint-disable MD034 -->
 
-The IsaacScript framework contains two of the most advanced _Binding of Isaac: Repentance_ libraries ever written:
+The IsaacScript framework contains two _Binding of Isaac: Repentance_ libraries:
 
 - `isaac-typescript-definitions` - A leveled-up version of the vanilla enums with many bug fixes and community contributed additions for everything that the developers forgot to include. You can learn more about every enum by [reading the documentation](/isaac-typescript-definitions).
-- `isaacscript-common` - Helper functions and features that abstract away much of the complexity in working with the Isaac API. It's the most complete and most advanced Isaac library ever written. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
+- `isaacscript-common` - Helper functions and features that abstract away much of the complexity in working with the Isaac API. It's the biggest and most advanced Isaac library ever written. You can learn more about every function and feature by [reading the documentation](/isaacscript-common).
 
 If you are writing your mod in TypeScript, then using these libraries is effortless - you can just start typing the names of the enums or functions, and the auto-complete will automatically import them (and include them in your final bundled mod).
 
@@ -73,24 +73,29 @@ local isc = require("my-mod.lib.isaacscript-common")
 
 Note that:
 
-- You must replace "my-mod" with the name of your mod, which corresponds to the namespaced directory in the previous step.
+- You must replace "my-mod" with the name of your mod, which corresponds to the namespaced directory from the previous step.
 - The period in the `require` invocation is a directory separator. (It is conventional in Lua to use a period instead of a slash.)
 - You must repeat this import statement in every Lua file where you use the library. (One disadvantage of using Lua over TypeScript is that you don't have automatic imports.)
 
-### Use It
+### Using Pure Functions
 
-Every function in the library is exported from the root. Thus, you can simply call any function you want from the `isc` import. For example:
+Most functions in the library are exported from the root. For example:
 
 ```lua
-local hasSadOnion = isc:anyPlayerHasCollectible(CollectibleType.COLLECTIBLE_SAD_ONION)
-if hasSadOnion then
+local isc = require("my-mod.lib.isaacscript-common")
+
+local function anyPlayerHasSadOnion()
+  return isc:anyPlayerHasCollectible(CollectibleType.COLLECTIBLE_SAD_ONION)
+end
+
+if anyPlayerHasSadOnion() then
   print("One or more players has a Sad Onion.")
 end
 ```
 
 Note that similar to most Lua libraries, you must use a colon (instead of a period) when invoking functions, since the library is an exported module.
 
-## Enum Usage
+## Using Enums
 
 As previously mentioned, the enums from `isaac-typescript-definitions` are also exported from `isaacscript-common` for your use.
 
@@ -114,29 +119,57 @@ As a general safety practice, you should always use the library enums over the v
 
 <br />
 
-## Callback and Extra Feature Usage
+## Using Custom Callbacks
 
-Like any good library, importing `isaacscript-common` will not cause any code to be executed in your mod. Most of its functions are [pure functions](https://en.wikipedia.org/wiki/Pure_function).
+Like any good library, importing anything in `isaacscript-common` will not cause any code to be executed in your mod. Most of its functions are [pure functions](https://en.wikipedia.org/wiki/Pure_function).
 
-However, in order for [the custom callbacks](/isaacscript-common/other/enums/ModCallbackCustom) and the ["Extra Features"](/isaacscript-common/features/characterHealthConversion) to work, some code does need to be executed. This is because these features need to track when certain things happen in-game. In order to enable this functionality, you must upgrade your mod with the `upgradeMod` function. For example:
+However, in order for [the custom callbacks](/isaacscript-common/other/enums/ModCallbackCustom) and the [extra features](#using-extra-features) to work, some code does need to be executed. This is because these features need to track when certain things happen in-game. In order to enable this functionality, you must upgrade your mod with the `upgradeMod` function.
+
+For example:
 
 ```lua
--- Imports
 local isc = require("my-mod.lib.isaacscript-common")
 
 local modVanilla = RegisterMod("Foo", 1)
 local mod = isc:upgradeMod(modVanilla)
 
 -- Register normal callbacks.
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-  Isaac.DebugString("POST_GAME_STARTED fired")
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, function(collectibleType)
+  Isaac.DebugString("MC_USE_ITEM fired - item was: " .. tostring(collectibleType))
 end)
 
 -- Register custom callbacks.
-mod:AddCallbackCustom(isc.ModCallbackCustom.POST_PLAYER_INIT_FIRST, function()
-  Isaac.DebugString("POST_PLAYER_INIT_FIRST fired")
+mod:AddCallbackCustom(isc.ModCallbackCustom.POST_ITEM_PICKUP, function(player, pickingUpItem)
+  Isaac.DebugString("POST_ITEM_PICKUP fired - item was: " .. tostring(pickupUpItem.subType))
 end)
 ```
+
+<br />
+
+## Using Extra Features
+
+Some helper functions rely on stateful tracking (like `isPlayerUsingPony`) or store data about what you want to do for later (like `setHotkey`). These fall under the category of "extra features". Since they are non-pure, you are only able to access them if you upgrade your mod. However, this is slightly different than upgrading your mod for custom callbacks.
+
+Instead of activating every feature when you upgrade your mod, the standard library keeps things blazing fast by only activating the specific features that you need. Thus, when you upgrade your mod, you have to tell the library which features you want by passing them as the second argument to the `upgradeMod` function.
+
+For example:
+
+```lua
+local isc = require("my-mod.lib.isaacscript-common")
+
+local modVanilla = RegisterMod("Foo", 1)
+local features = { -- An array of features.
+  isc.ISCFeature.PONY_DETECTION,
+}
+local mod = isc:upgradeMod(modVanilla, features)
+
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function (player)
+  local usingPony = mod:isPlayerUsingPony(player);
+  Isaac.DebugString("Is this player using a Pony? " .. tostring(usingPony));
+end)
+```
+
+Here, by specifying that we want the "pony detection" feature, extra methods are added on to the mod object. Then, we can proceed to use those methods throughout our mod.
 
 <br />
 
@@ -171,11 +204,11 @@ Furthermore, having the library logic bundled with the mod preserves backwards c
 
 ## The IsaacScript Stage Library
 
-The IsaacScript standard library contains [the most advanced stage library ever created](custom-stages.md), building on [the downsides of StageAPI](custom-stages.md#motivation).
+The IsaacScript standard library contains the ability to create [custom stages](custom-stages.md), which was inspired by StageAPI and aims [to improve upon it](custom-stages.md#motivation).
 
 <!-- cspell:ignore setcustomstage -->
 
-Note that some of the custom stage functions (such as e.g. [`setCustomStage`](/isaacscript-common/features/customStage_exports/#setcustomstage)) cannot be used in Lua, since they require a compiler to generate the custom stage metadata. For advanced users, you could manually prepare the metadata, but at that point you would probably be better off using [StageAPI](https://github.com/Meowlala/BOIStageAPI15), since nothing you write is going to be type safe anyway.
+Note that some of the custom stage functions (such as e.g. `setCustomStage`) cannot be used in Lua, since they require a compiler to generate the custom stage metadata. For advanced users, you could manually prepare the metadata, but at that point you would probably be better off using [StageAPI](https://github.com/Meowlala/BOIStageAPI15), since nothing you write is going to be type safe anyway.
 
 <br />
 
@@ -187,13 +220,13 @@ The file size of the library is around 2 megabytes, so using the library will in
 
 A library's run-time is defined as the time it takes for its code to execute while the player is inside of the game, actively playing. Just because a library has a large file size does not mean that it takes a long time to execute. Obviously, not all lines of code are created equal, and different kinds of code will take varying amounts of time to execute.
 
-As [previously mentioned](#callback-and-extra-feature-usage), `isaacscript-common` will not cause any code to be executed in your mod by default. Thus, it has no run-time cost whatsoever if you are just using enums and pure functions.
+As [previously mentioned](#using-custom-callbacks), `isaacscript-common` will not cause any code to be executed in your mod by default. Thus, it has no run-time cost whatsoever if you are just using enums and pure functions.
 
 On the other hand, if you explicitly upgrade your mod, some extra code is executed using some vanilla callbacks. However, the code is extremely efficient such that callback code is only ever executed if you are actually using the specific callback. Thus, thousands of copies of the standard library can run simultaneously without ever measuring a run-time performance penalty.
 
 ### Loading Time
 
-Loading time is defined as the time it takes for the game to first load the Lua code. Just because a library has a large file size does not mean that it takes a long time for the game to load it.
+Loading time is defined as the time it takes for the game to load the Lua code when the game first boots. Just because a library has a large file size does not mean that it takes a long time for the game to load it.
 
 In general, we care about loading time a lot less than the run-time, because it only happens when the user first launches the game. And it is largely invisible to the end-user playing the mod.
 
@@ -223,6 +256,6 @@ Furthermore, minification is actively harmful since it will obfuscate the line n
 
 ## TypeScript
 
-If you find the IsaacScript standard library useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience that has to be seen to be believed.
+If you find the IsaacScript standard library useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever misusing anything in the library. Taken together, it makes for a dream-like Isaac development experience.
 
 For more information, see the [list of features](features.md). (If you don't know how to program in TypeScript, then you can learn in around [30 minutes](javascript-tutorial.md).)

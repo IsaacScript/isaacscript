@@ -34,9 +34,7 @@ const ISAACSCRIPT_COMMON_PATH = path.join(
 
 const METADATA_LUA_PATH = path.join(
   ISAACSCRIPT_COMMON_PATH,
-  "features",
-  "customStage",
-  "metadata.lua",
+  "customStageMetadata.lua",
 );
 
 const ROOM_VARIANT_MULTIPLIER = 10000;

@@ -1,11 +1,3 @@
-// By default, callbacks fire in the following order:
-// - `POST_NEW_ROOM` --> `POST_NEW_LEVEL` --> `POST_GAME_STARTED`
-
-// It is easier to write mod code if the callbacks run in a more logical order:
-// - `POST_GAME_STARTED` --> `POST_NEW_LEVEL` --> `POST_NEW_ROOM`
-
-// Manually reorganize the callback execution so that this is the case.
-
 import {
   CollectibleType,
   LevelStage,
@@ -20,6 +12,21 @@ import { PostNewLevelReordered } from "../../callbacks/PostNewLevelReordered";
 import { PostNewRoomReordered } from "../../callbacks/PostNewRoomReordered";
 import { Feature } from "../../private/Feature";
 
+/**
+ * By default, callbacks fire in the following order:
+ * - `POST_NEW_ROOM` --> `POST_NEW_LEVEL` --> `POST_GAME_STARTED`
+ *
+ * It is easier to write mod code if the callbacks run in a more logical order:
+ * - `POST_GAME_STARTED` --> `POST_NEW_LEVEL` --> `POST_NEW_ROOM`
+ *
+ * `isaacscript-common` provides three new callbacks that change the order to this:
+ * - `POST_GAME_STARTED_REORDERED`
+ * - `POST_NEW_LEVEL_REORDERED`
+ * - `POST_NEW_ROOM_REORDERED`
+ *
+ * Additionally, there are some helper functions listed below that can deal with some edge cases
+ * that you may run into with these callbacks.
+ */
 export class GameReorderedCallbacks extends Feature {
   private currentStage: int | null = null;
   private currentStageType: int | null = null;
@@ -32,6 +39,7 @@ export class GameReorderedCallbacks extends Feature {
   private postNewRoomReordered: PostNewRoomReordered;
   private postGameStartedReorderedLast: PostGameStartedReorderedLast;
 
+  /** @internal */
   constructor(
     postGameStartedReordered: PostGameStartedReordered,
     postNewLevelReordered: PostNewLevelReordered,
@@ -133,16 +141,52 @@ export class GameReorderedCallbacks extends Feature {
     this.currentStageType = stageType;
   }
 
+  /**
+   * Helper function to tell the `POST_NEW_LEVEL_REORDERED` callback that it should always fire on
+   * the next `POST_NEW_LEVEL`.
+   *
+   * If some specific cases, mods can change the current level during run initialization on the 0th
+   * frame. (For example, if you had a mod that made the player start the run in Caves instead of
+   * Basement.) However, due to how the callback reordering works, the `POST_NEW_LEVEL_REORDERED`
+   * callback will never fire on the 0th frame. To get around this, call this function before
+   * changing levels to temporarily force the callback to fire.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.GAME_REORDERED_CALLBACKS`.
+   */
   @Exported
   public forceNewLevelCallback(): void {
     this.forceNewLevel = true;
   }
 
+  /**
+   * Helper function to tell the `POST_NEW_ROOM_REORDERED` callback that it should always fire on
+   * the next `POST_NEW_ROOM`.
+   *
+   * If some specific cases, mods can change the current room during run initialization on the 0th
+   * frame. (For example, if you had a mod that made the player start the Treasure Room of Basement
+   * 1 instead of the normal starting room.) However, due to how the callback reordering works, the
+   * `POST_NEW_ROOM_REORDERED` callback will never fire on the 0th frame. To get around this, call
+   * this function before changing rooms to temporarily force the callback to fire.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.GAME_REORDERED_CALLBACKS`.
+   */
   @Exported
   public forceNewRoomCallback(): void {
     this.forceNewRoom = true;
   }
 
+  /**
+   * Helper function to manually set the variables that the reordered callback logic uses to track
+   * the current stage and stage type.
+   *
+   * This is useful because if the stage is changed with the `Game.SetStage` method (or the
+   * `setStage` helper function), the reordered callbacks will stop working.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.GAME_REORDERED_CALLBACKS`.
+   */
   @Exported
   public reorderedCallbacksSetStage(
     stage: LevelStage,

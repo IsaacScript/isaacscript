@@ -13,7 +13,6 @@ import { game, itemConfig } from "../core/cachedClasses";
 import { getLastElement, sumArray } from "./array";
 import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import {
   getAllPlayers,
@@ -232,36 +231,11 @@ export function getPlayerCollectibleCount(
 ): int {
   let numCollectibles = 0;
   for (const collectibleType of collectibleTypes) {
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
+    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
     numCollectibles += player.GetCollectibleNum(collectibleType, true);
   }
 
   return numCollectibles;
-}
-
-/**
- * Iterates over every item in the game and returns a map containing the number of each item that
- * the player has.
- *
- * Note that this will filter out non-real collectibles like Lilith's Incubus.
- */
-export function getPlayerCollectibleMap(
-  player: EntityPlayer,
-): Map<CollectibleType, int> {
-  const collectibleArray = getCollectibleArray();
-
-  const collectibleMap = new Map<CollectibleType, int>();
-  for (const collectibleType of collectibleArray) {
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
-    const collectibleNum = player.GetCollectibleNum(collectibleType, true);
-    if (collectibleNum > 0) {
-      collectibleMap.set(collectibleType, collectibleNum);
-    }
-  }
-
-  return collectibleMap;
 }
 
 /**
@@ -435,8 +409,7 @@ export function getTotalPlayerCollectibles(
 ): int {
   const players = getPlayers();
   const numCollectiblesArray = players.map((player) =>
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
+    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
     player.GetCollectibleNum(collectibleType, true),
   );
 
@@ -572,6 +545,16 @@ export function isLost(player: EntityPlayer): boolean {
 
 export function isModdedPlayer(player: EntityPlayer): boolean {
   return !isVanillaPlayer(player);
+}
+
+/**
+ * Helper function for determining if a player is able to turn their head by pressing the shooting
+ * buttons.
+ *
+ * Under the hood, this function uses the `EntityPlayer.IsExtraAnimationFinished` method.
+ */
+export function isPlayerAbleToAim(player: EntityPlayer): boolean {
+  return player.IsExtraAnimationFinished();
 }
 
 /** Helper function for detecting if a player is one of the Tainted characters. */

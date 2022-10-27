@@ -1,35 +1,14 @@
-import { postNewRoomEarlyCallbackInit } from "../callbacks/postNewRoomEarly";
-import { ModUpgraded } from "../classes/ModUpgraded";
-import { Feature } from "../classes/private/Feature";
+import { ModUpgradedBase } from "../classes/ModUpgradedBase";
 import { ISCFeature } from "../enums/ISCFeature";
-import { ISCFeatureToClass } from "../features";
-import {
-  saveDataManagerInit,
-  SAVE_DATA_MANAGER_CALLBACKS,
-  SAVE_DATA_MANAGER_CUSTOM_CALLBACKS,
-} from "../features/saveDataManager/main";
-import {
-  areFeaturesInitialized,
-  setFeaturesInitialized,
-} from "../featuresInitialized";
-import { initCustomCallbacks } from "../initCustomCallbacks";
-import { initFeatures } from "../initFeatures";
 import { patchErrorFunction } from "../patchErrorFunctions";
+import { applyShaderCrashFix } from "../shaderCrashFix";
 import { AnyFunction } from "../types/AnyFunction";
-import { UnionToIntersection } from "../types/UnionToIntersection";
+import { ModUpgraded } from "../types/ModUpgraded";
 
-const MANDATORY_FEATURES: readonly ISCFeature[] = [ISCFeature.SHADER_CRASH_FIX];
-
-/**
- * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
- * has extra methods corresponding to the features.
- *
- * We have to explicitly account for the empty array case, since the `never` will mess up the union.
- */
-type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
-  ? ModUpgraded
-  : ModUpgraded &
-      Omit<UnionToIntersection<ISCFeatureToClass[T]>, keyof Feature>;
+type ISCFeatureTuple<T extends readonly ISCFeature[]> =
+  ISCFeature extends T["length"]
+    ? 'The list of features must be a tuple. Use the "as const" assertion when declaring the array.'
+    : T;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
@@ -58,34 +37,23 @@ type ModUpgradedWithFeatures<T extends ISCFeature> = [T] extends [never]
  *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
  */
-export function upgradeMod<T extends ISCFeature = never>(
+export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   modVanilla: Mod,
-  features: T[] = [],
+  features: ISCFeatureTuple<T> = [] as unknown as ISCFeatureTuple<T>,
   debug = false,
   timeThreshold?: float,
-): ModUpgradedWithFeatures<T> {
-  const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
-
-  // TODO: remove
-  if (areFeaturesInitialized()) {
-    error(
-      "Failed to upgrade the mod since a mod has already been initialized. (You can only upgrade one mod per IsaacScript project.)",
-    );
-  }
-  setFeaturesInitialized();
-
+): ModUpgraded<T> {
   patchErrorFunction();
 
-  legacyInit(mod); // TODO: remove
+  const mod = new ModUpgradedBase(modVanilla, debug, timeThreshold);
+  applyShaderCrashFix(mod);
+  initOptionalFeatures(mod, features as ISCFeature[]);
 
-  // All upgraded mods should use some critical features.
-  for (const mandatoryFeature of MANDATORY_FEATURES) {
-    if (!features.includes(mandatoryFeature as T)) {
-      features.unshift(mandatoryFeature as T);
-    }
-  }
+  return mod as ModUpgraded<T>;
+}
 
-  // Initialize every optional feature that the end-user specified.
+/** Initialize every optional feature that the end-user specified. */
+function initOptionalFeatures(mod: ModUpgradedBase, features: ISCFeature[]) {
   for (const feature of features) {
     // We intentionally access the private method here, so we use the string index escape hatch:
     // https://github.com/microsoft/TypeScript/issues/19335
@@ -99,32 +67,4 @@ export function upgradeMod<T extends ISCFeature = never>(
       modRecord[funcName] = func;
     }
   }
-
-  return mod as ModUpgradedWithFeatures<T>;
-}
-
-/** Initialize features in the old way. */
-function legacyInit(mod: ModUpgraded) {
-  // We initialize the `POST_NEW_ROOM_EARLY` callback first since it is used by the save data
-  // manager.
-  postNewRoomEarlyCallbackInit(mod);
-
-  // We initialized the save data manager second since it is used by the other custom callbacks and
-  // features. We can't pass the instantiated `ModUpgraded` class to the "saveDataManagerInit"
-  // function since it causes a circular dependency. Thus, we emulate the initialization process
-  // that the `ModUpgraded.AddCallbackCustom` method uses.
-  saveDataManagerInit(mod);
-  for (const callbackTuple of SAVE_DATA_MANAGER_CALLBACKS) {
-    const [modCallback, callbackArgs] = callbackTuple;
-    mod.AddCallback(modCallback, ...callbackArgs);
-  }
-  for (const callbackTuple of SAVE_DATA_MANAGER_CUSTOM_CALLBACKS) {
-    const [modCallback, callbackArgs] = callbackTuple;
-    mod.AddCallbackCustom(modCallback, ...callbackArgs);
-  }
-
-  // We initialize custom callbacks next since some features use custom callbacks.
-  initCustomCallbacks(mod);
-
-  initFeatures(mod);
 }

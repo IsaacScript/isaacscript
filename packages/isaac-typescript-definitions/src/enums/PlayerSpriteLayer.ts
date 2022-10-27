@@ -1,4 +1,4 @@
-/** Corresponds to "001.000_player.anm2". */
+/** Corresponds to "resources/gfx/001.000_player.anm2". */
 export enum PlayerSpriteLayer {
   GLOW = 0,
   BODY = 1,

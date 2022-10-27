@@ -2,7 +2,7 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 import { isNumericLiteral } from "typescript";
 import { createRule } from "../utils";
 
-type Options = [];
+export type Options = [];
 
 export type MessageIds = "plusPlus" | "minusMinus";
 

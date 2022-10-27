@@ -12,6 +12,7 @@ import { isCollectible } from "../../../functions/pickupVariants";
 import { Feature } from "../../private/Feature";
 
 export class PreventCollectibleRotation extends Feature {
+  /** @internal */
   public override v = {
     room: {
       /**
@@ -28,6 +29,7 @@ export class PreventCollectibleRotation extends Feature {
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 
@@ -84,6 +86,9 @@ export class PreventCollectibleRotation extends Feature {
    *
    * It is required to pass the intended collectible type to this function since it is possible for
    * collectibles to rotate on the first frame that they are spawned.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.PREVENT_COLLECTIBLE_ROTATION`.
    */
   @Exported
   public preventCollectibleRotation(

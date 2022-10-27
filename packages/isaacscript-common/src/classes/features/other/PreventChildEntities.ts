@@ -3,12 +3,14 @@ import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
 export class PreventChildEntities extends Feature {
+  /** @internal */
   public override v = {
     room: {
       preventingEntities: new Set<PtrHash>(),
     },
   };
 
+  /** @internal */
   constructor() {
     super();
 
@@ -39,6 +41,9 @@ export class PreventChildEntities extends Feature {
    * Under the hood, this function will remove any new NPCs spawned that have a
    * `Entity.SpawnerEntity` or `Entity.Parent` value that matches the provided entity. (They are
    * removed during the `POST_NPC_INIT` callback specifically.)
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.PREVENT_CHILD_ENTITIES`.
    */
   @Exported
   public preventChildEntities(entity: Entity): void {

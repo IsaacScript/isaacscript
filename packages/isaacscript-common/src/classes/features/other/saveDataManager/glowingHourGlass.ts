@@ -3,12 +3,12 @@
 
 import { SaveDataKey } from "../../../../enums/SaveDataKey";
 import { SerializationType } from "../../../../enums/SerializationType";
-import { SAVE_DATA_MANAGER_DEBUG } from "../../../../features/saveDataManager/constants";
 import { deepCopy } from "../../../../functions/deepCopy";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
 import { SaveData } from "../../../../interfaces/SaveData";
 import { AnyClass } from "../../../../types/AnyClass";
+import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**
  * When the Glowing Hour Glass is used, certain save data keys will automatically be restored to a

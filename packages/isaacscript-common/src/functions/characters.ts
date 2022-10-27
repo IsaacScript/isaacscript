@@ -9,6 +9,15 @@ import { CHARACTERS_WITH_NO_RED_HEARTS_SET } from "../sets/charactersWithNoRedHe
 import { CHARACTERS_WITH_NO_SOUL_HEARTS_SET } from "../sets/charactersWithNoSoulHeartsSet";
 import { LOST_STYLE_CHARACTERS_SET } from "../sets/lostStyleCharactersSet";
 
+const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([
+  PlayerType.AZAZEL, // 7
+  PlayerType.LOST, // 10
+  PlayerType.SOUL, // 17
+  PlayerType.LOST_B, // 31
+  PlayerType.JACOB_2_B, // 39
+  PlayerType.SOUL_B, // 40
+]);
+
 /**
  * Helper function to determine if the given character can have red heart containers. Returns true
  * for characters like Isaac, Magdalene, or Cain. Returns true for Keeper and Tainted Keeper, even
@@ -122,6 +131,11 @@ export function getCharacterName(character: PlayerType): string {
   }
 
   return CHARACTER_NAMES[character];
+}
+
+export function isFlyingCharacter(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return FLYING_CHARACTERS.has(character);
 }
 
 export function isModdedCharacter(character: PlayerType): boolean {

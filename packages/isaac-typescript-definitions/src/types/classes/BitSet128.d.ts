@@ -1,5 +1,4 @@
 /* eslint-disable isaacscript/member-ordering */
-/* eslint-disable jsdoc/check-param-names */
 
 import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 

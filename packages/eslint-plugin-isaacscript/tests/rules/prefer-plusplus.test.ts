@@ -1,9 +1,13 @@
 import { TSESLint } from "@typescript-eslint/utils";
-import { MessageIds, preferPlusplus } from "../../src/rules/prefer-plusplus";
+import {
+  MessageIds,
+  Options,
+  preferPlusplus,
+} from "../../src/rules/prefer-plusplus";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Normal plus plus",

@@ -1,4 +1,6 @@
-- add comment to all feature public methods about having to register
+- logEntityChanges
+
+- lint no default export
 
 - isaacscript-cli in lua
 - "jsonRoom" command
@@ -96,3 +98,5 @@ ctrl+s --> // est
 (maybe fix is to just disable other eslint rule)
 
 lint: add no null (only for non isaacscript projects)
+
+lint: no default export

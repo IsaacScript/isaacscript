@@ -44,7 +44,7 @@ declare global {
       mod: Mod,
       modCallback: ModCallback,
       callbackFn: () => void,
-      entityID?: int,
+      tertiaryArg?: int,
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;

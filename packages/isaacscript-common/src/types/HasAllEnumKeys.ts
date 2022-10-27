@@ -1,5 +1,5 @@
 /**
- * A helper type to ensure that an object contains a key for every enum member. Use this with `as
+ * Helper type to ensure that an object contains a key for every enum member. Use this with `as
  * const` and `satisfies` to prevent narrowing the type of the object.
  *
  * For example:

@@ -74,7 +74,6 @@
 /// <reference path="classes/PosVel.d.ts" />
 /// <reference path="classes/ProjectileParams.d.ts" />
 /// <reference path="classes/QueueItemData.d.ts" />
-/// <reference path="classes/MultiShotParams.d.ts" />
 /// <reference path="classes/Options.d.ts" />
 /// <reference path="classes/RNG.d.ts" />
 /// <reference path="classes/Room.d.ts" />

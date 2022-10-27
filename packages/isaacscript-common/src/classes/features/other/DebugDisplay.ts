@@ -44,6 +44,7 @@ export class DebugDisplay extends Feature {
   private door = new DebugDisplayDoor(); // 16
   private pressurePlate = new DebugDisplayPressurePlate(); // 20
 
+  /** @internal */
   constructor(mod: ModUpgradedInterface) {
     super();
 
@@ -58,6 +59,8 @@ export class DebugDisplay extends Feature {
    * If the "togglePlayerDisplay" function is called, text will be drawn on the screen next to each
    * player. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setPlayerDisplay(
@@ -70,6 +73,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleTearDisplay" function is called, text will be drawn on the screen next to each
    * tear. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setTearDisplay(textCallback: (tear: EntityTear) => string): void {
@@ -80,6 +85,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleFamiliarDisplay" function is called, text will be drawn on the screen next to
    * each familiar. Use this function to specify a callback function that returns the string that
    * should be drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setFamiliarDisplay(
@@ -92,6 +99,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleBombDisplay" function is called, text will be drawn on the screen next to each
    * bomb. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setBombDisplay(textCallback: (bomb: EntityBomb) => string): void {
@@ -102,6 +111,8 @@ export class DebugDisplay extends Feature {
    * If the "togglePickupDisplay" function is called, text will be drawn on the screen next to each
    * pickup. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setPickupDisplay(
@@ -114,6 +125,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleSlotDisplay" function is called, text will be drawn on the screen next to each
    * slot. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setSlotDisplay(textCallback: (slot: Entity) => string): void {
@@ -124,6 +137,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleLaserDisplay" function is called, text will be drawn on the screen next to each
    * laser. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setLaserDisplay(textCallback: (laser: EntityLaser) => string): void {
@@ -134,6 +149,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleKnifeDisplay" function is called, text will be drawn on the screen next to each
    * knife. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setKnifeDisplay(textCallback: (knife: EntityKnife) => string): void {
@@ -144,6 +161,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleProjectileDisplay" function is called, text will be drawn on the screen next to
    * each projectile. Use this function to specify a callback function that returns the string that
    * should be drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setProjectileDisplay(
@@ -156,6 +175,8 @@ export class DebugDisplay extends Feature {
    * If the "extra console commands" feature is specified, the "effectDisplay" console command will
    * draw text on the screen next to each effect. Use this function to specify a callback function
    * that returns the string that should be drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setEffectDisplay(
@@ -168,6 +189,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleNPCDisplay" function is called, text will be drawn on the screen next to each
    * NPC. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setNPCDisplay(textCallback: (npc: EntityNPC) => string): void {
@@ -178,6 +201,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleRockDisplay" function is called, text will be drawn on the screen next to each
    * rock. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setRockDisplay(textCallback: (rock: GridEntityRock) => string): void {
@@ -188,6 +213,8 @@ export class DebugDisplay extends Feature {
    * If the "togglePitDisplay" function is called, text will be drawn on the screen next to each
    * pit. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setPitDisplay(textCallback: (pit: GridEntityPit) => string): void {
@@ -198,6 +225,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleSpikesDisplay" function is called, text will be drawn on the screen next to each
    * spikes. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setSpikesDisplay(
@@ -210,6 +239,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleTNTDisplay" function is called, text will be drawn on the screen next to each
    * TNT. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setTNTDisplay(textCallback: (tnt: GridEntityTNT) => string): void {
@@ -220,6 +251,8 @@ export class DebugDisplay extends Feature {
    * If the "togglePoopDisplay" function is called, text will be drawn on the screen next to each
    * poop. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setPoopDisplay(textCallback: (poop: GridEntityPoop) => string): void {
@@ -230,6 +263,8 @@ export class DebugDisplay extends Feature {
    * If the "toggleDoorDisplay" function is called, text will be drawn on the screen next to each
    * door. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setDoorDisplay(textCallback: (door: GridEntityDoor) => string): void {
@@ -240,6 +275,8 @@ export class DebugDisplay extends Feature {
    * If the "togglePressurePlateDisplay" function is called, text will be drawn on the screen next
    * to each pressure plate. Use this function to specify a callback function that returns the
    * string that should be drawn.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public setPressurePlateDisplay(
@@ -259,18 +296,24 @@ export class DebugDisplay extends Feature {
       this.mod.initFeature(feature);
     }
 
-    printEnabled(this.player.initialized, `${featureName} display`);
+    printEnabled(feature.initialized, `${featureName} display`);
   }
 
   /**
    * Toggles the debug display for players, which will draw text on the screen next to each player.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public togglePlayerDisplay(): void {
     this.toggleFeature(this.player, "player");
   }
 
-  /** Toggles the debug display for tears, which will draw text on the screen next to each tear. */
+  /**
+   * Toggles the debug display for tears, which will draw text on the screen next to each tear.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleTearDisplay(): void {
     this.toggleFeature(this.tear, "tear");
@@ -279,13 +322,19 @@ export class DebugDisplay extends Feature {
   /**
    * Toggles the debug display for familiars, which will draw text on the screen next to each
    * familiar.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public toggleFamiliarDisplay(): void {
     this.toggleFeature(this.familiar, "familiar");
   }
 
-  /** Toggles the debug display for bombs, which will draw text on the screen next to each bomb. */
+  /**
+   * Toggles the debug display for bombs, which will draw text on the screen next to each bomb.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleBombDisplay(): void {
     this.toggleFeature(this.bomb, "bomb");
@@ -293,13 +342,19 @@ export class DebugDisplay extends Feature {
 
   /**
    * Toggles the debug display for pickups, which will draw text on the screen next to each pickup.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public togglePickupDisplay(): void {
     this.toggleFeature(this.pickup, "pickup");
   }
 
-  /** Toggles the debug display for slots, which will draw text on the screen next to each slot. */
+  /**
+   * Toggles the debug display for slots, which will draw text on the screen next to each slot.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleSlotDisplay(): void {
     this.toggleFeature(this.slot, "slot");
@@ -307,6 +362,8 @@ export class DebugDisplay extends Feature {
 
   /**
    * Toggles the debug display for lasers, which will draw text on the screen next to each laser.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public toggleLaserDisplay(): void {
@@ -315,6 +372,8 @@ export class DebugDisplay extends Feature {
 
   /**
    * Toggles the debug display for knives, which will draw text on the screen next to each knife.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public toggleKnifeDisplay(): void {
@@ -324,6 +383,8 @@ export class DebugDisplay extends Feature {
   /**
    * Toggles the debug display for projectiles, which will draw text on the screen next to each
    * projectile.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public toggleProjectileDisplay(): void {
@@ -332,25 +393,39 @@ export class DebugDisplay extends Feature {
 
   /**
    * Toggles the debug display for effects, which will draw text on the screen next to each effect.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public toggleEffectDisplay(): void {
     this.toggleFeature(this.effect, "effect");
   }
 
-  /** Toggles the debug display for NPCs, which will draw text on the screen next to each NPC. */
+  /**
+   * Toggles the debug display for NPCs, which will draw text on the screen next to each NPC.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleNPCDisplay(): void {
     this.toggleFeature(this.npc, "NPC");
   }
 
-  /** Toggles the debug display for rocks, which will draw text on the screen next to each rock. */
+  /**
+   * Toggles the debug display for rocks, which will draw text on the screen next to each rock.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleRockDisplay(): void {
     this.toggleFeature(this.rock, "rock");
   }
 
-  /** Toggles the debug display for pits, which will draw text on the screen next to each pit. */
+  /**
+   * Toggles the debug display for pits, which will draw text on the screen next to each pit.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public togglePitDisplay(): void {
     this.toggleFeature(this.pit, "pit");
@@ -358,25 +433,39 @@ export class DebugDisplay extends Feature {
 
   /**
    * Toggles the debug display for spikes, which will draw text on the screen next to each spike.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public toggleSpikesDisplay(): void {
     this.toggleFeature(this.spikes, "spikes");
   }
 
-  /** Toggles the debug display for TNT, which will draw text on the screen next to each TNT. */
+  /**
+   * Toggles the debug display for TNT, which will draw text on the screen next to each TNT.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleTNTDisplay(): void {
     this.toggleFeature(this.tnt, "tnt");
   }
 
-  /** Toggles the debug display for poops, which will draw text on the screen next to each poop. */
+  /**
+   * Toggles the debug display for poops, which will draw text on the screen next to each poop.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public togglePoopDisplay(): void {
     this.toggleFeature(this.poop, "poop");
   }
 
-  /** Toggles the debug display for doors, which will draw text on the screen next to each door. */
+  /**
+   * Toggles the debug display for doors, which will draw text on the screen next to each door.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   */
   @Exported
   public toggleDoorDisplay(): void {
     this.toggleFeature(this.door, "door");
@@ -385,6 +474,8 @@ export class DebugDisplay extends Feature {
   /**
    * Toggles the debug display for pressure plates, which will draw text on the screen next to each
    * pressure plate.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
   public togglePressurePlateDisplay(): void {

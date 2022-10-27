@@ -6,7 +6,7 @@ const RULE_NAME = "format-jsdoc-comments";
 const EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE = 4;
 const DEBUG = false as boolean;
 
-type Options = [
+export type Options = [
   {
     maxLength: number;
   },

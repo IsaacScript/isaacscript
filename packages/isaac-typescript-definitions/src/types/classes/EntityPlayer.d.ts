@@ -718,21 +718,8 @@ declare global {
     GetMovementJoystick(): Vector;
     GetMovementVector(): Readonly<Vector>;
 
-    /**
-     * Note that the only thing that you can do with MultiShotParams is feed it to the
-     * `EntityPlayer.GetMultiShotPositionVelocity` method.
-     *
-     * @param weaponType Default is `WeaponType.WEAPON_TEARS`.
-     */
-    GetMultiShotParams(weaponType?: WeaponType): MultiShotParams;
-
-    GetMultiShotPositionVelocity(
-      loopIndex: int,
-      weaponType: WeaponType,
-      shotDirection: Vector,
-      shotSpeed: float,
-      multiShotParams: MultiShotParams,
-    ): PosVel;
+    // `GetMultiShotParams` used to be used for the `GetMultiShotPositionVelocity` method, but since
+    // that method is now removed, `GetMultiShotParams` has no purpose.
 
     /**
      * Normally, this function returns the player. However, in some cases, NPCs can be redirected to

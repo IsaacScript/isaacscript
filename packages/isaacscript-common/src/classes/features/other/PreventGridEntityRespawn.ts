@@ -24,10 +24,12 @@ import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "./RunInNFrames";
 
 export class PreventGridEntityRespawn extends Feature {
+  /** @internal */
   public override v = {
     level: {
-      /** Indexed by room list index. */
-      roomToDecorationGridIndexes: new DefaultMap<int, int[]>(() => []),
+      roomListIndexToDecorationGridIndexes: new DefaultMap<int, int[]>(
+        () => [],
+      ),
     },
 
     room: {
@@ -37,6 +39,7 @@ export class PreventGridEntityRespawn extends Feature {
 
   private runInNFrames: RunInNFrames;
 
+  /** @internal */
   constructor(runInNFrames: RunInNFrames) {
     super();
 
@@ -71,7 +74,7 @@ export class PreventGridEntityRespawn extends Feature {
     }
 
     const roomListIndex = getRoomListIndex();
-    if (!this.v.level.roomToDecorationGridIndexes.has(roomListIndex)) {
+    if (!this.v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
       return;
     }
 
@@ -102,7 +105,7 @@ export class PreventGridEntityRespawn extends Feature {
       this.v.room.manuallyUsingShovel = false;
 
       const decorationGridIndexes =
-        this.v.level.roomToDecorationGridIndexes.getAndSetDefault(
+        this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
           roomListIndex,
         );
       emptyArray(decorationGridIndexes);
@@ -112,6 +115,37 @@ export class PreventGridEntityRespawn extends Feature {
     // Cancel the original effect.
     return true;
   };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private postNewRoomReordered = () => {
+    this.setDecorationsInvisible();
+  };
+
+  /**
+   * Every time we re-enter the room, the sprites for all of the decorations will come back, so we
+   * have to remove them again.
+   */
+  private setDecorationsInvisible() {
+    const room = game.GetRoom();
+    const roomListIndex = getRoomListIndex();
+    const decorationGridIndexes =
+      this.v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
+    if (decorationGridIndexes === undefined) {
+      return;
+    }
+
+    for (const gridIndex of decorationGridIndexes) {
+      const gridEntity = room.GetGridEntity(gridIndex);
+      if (gridEntity !== undefined) {
+        // Other grid entities may have spawned, like trapdoors or crawl spaces. Thus, only make
+        // decorations invisible.
+        const gridEntityType = gridEntity.GetType();
+        if (gridEntityType === GridEntityType.DECORATION) {
+          setGridEntityInvisible(gridEntity);
+        }
+      }
+    }
+  }
 
   /**
    * Helper function to prevent any removed grid entities from respawning if the player re-enters
@@ -132,6 +166,9 @@ export class PreventGridEntityRespawn extends Feature {
    * room. However, the room data must exactly match the room type, the room shape, and the doors,
    * so this is not possible to do in a robust way without adding empty rooms to the mod's `content`
    * folder to draw the data from.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.PREVENT_GRID_ENTITY_RESPAWN`.
    */
   @Exported
   public preventGridEntityRespawn(): void {
@@ -139,7 +176,9 @@ export class PreventGridEntityRespawn extends Feature {
     const roomListIndex = getRoomListIndex();
 
     const decorationGridIndexes =
-      this.v.level.roomToDecorationGridIndexes.getAndSetDefault(roomListIndex);
+      this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+        roomListIndex,
+      );
 
     for (const gridIndex of getAllGridIndexes()) {
       const existingGridEntity = room.GetGridEntity(gridIndex);
@@ -153,37 +192,6 @@ export class PreventGridEntityRespawn extends Feature {
       }
 
       decorationGridIndexes.push(gridIndex);
-    }
-  }
-
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
-    this.setDecorationsInvisible();
-  };
-
-  /**
-   * Every time we re-enter the room, the sprites for all of the decorations will come back, so we
-   * have to remove them again.
-   */
-  private setDecorationsInvisible() {
-    const room = game.GetRoom();
-    const roomListIndex = getRoomListIndex();
-    const decorationGridIndexes =
-      this.v.level.roomToDecorationGridIndexes.get(roomListIndex);
-    if (decorationGridIndexes === undefined) {
-      return;
-    }
-
-    for (const gridIndex of decorationGridIndexes) {
-      const gridEntity = room.GetGridEntity(gridIndex);
-      if (gridEntity !== undefined) {
-        // Other grid entities may have spawned, like trapdoors or crawl spaces. Thus, only make
-        // decorations invisible.
-        const gridEntityType = gridEntity.GetType();
-        if (gridEntityType === GridEntityType.DECORATION) {
-          setGridEntityInvisible(gridEntity);
-        }
-      }
     }
   }
 }

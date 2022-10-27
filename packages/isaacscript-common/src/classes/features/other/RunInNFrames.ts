@@ -1,7 +1,8 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { arrayRemoveInPlace } from "../../../functions/array";
+import { restart } from "../../../functions/run";
 import { Feature } from "../../private/Feature";
 
 /** Used for `runInNFrames` functions. */
@@ -19,6 +20,7 @@ type IntervalFunctionTuple = [
 ];
 
 export class RunInNFrames extends Feature {
+  /** @internal */
   public override v = {
     run: {
       queuedGameFunctionTuples: [] as QueuedFunctionTuple[],
@@ -29,6 +31,10 @@ export class RunInNFrames extends Feature {
     },
   };
 
+  // eslint-disable-next-line class-methods-use-this
+  public override vConditionalFunc = (): boolean => false;
+
+  /** @internal */
   constructor() {
     super();
 
@@ -67,6 +73,22 @@ export class RunInNFrames extends Feature {
   };
 
   /**
+   * Helper function to restart on the next render frame. Useful because it is impossible to restart
+   * the game inside of the `POST_NEW_ROOM`, `POST_NEW_LEVEL`, or `POST_GAME_STARTED` callbacks when
+   * a run is first starting.
+   *
+   * You can optionally specify a `PlayerType` to restart the game as that character.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
+   */
+  @Exported
+  public restartNextRenderFrame(character?: PlayerType): void {
+    this.runNextRenderFrame(() => {
+      restart(character);
+    });
+  }
+
+  /**
    * Supply a function to run N game frames from now in the `POST_UPDATE` callback.
    *
    * For a usage example, see the documentation for the `runNextGameFrame`, which is used in a
@@ -75,6 +97,8 @@ export class RunInNFrames extends Feature {
    * Note that this function will not handle saving and quitting. If a player saving and quitting
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    */
   @Exported
   public runInNGameFrames(func: () => void, gameFrames: int): void {
@@ -93,6 +117,8 @@ export class RunInNFrames extends Feature {
    * Note that this function will not handle saving and quitting. If a player saving and quitting
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    */
   @Exported
   public runInNRenderFrames(func: () => void, renderFrames: int): void {
@@ -129,6 +155,8 @@ export class RunInNFrames extends Feature {
    * Note that this function will not handle saving and quitting. If a player saving and quitting
    * before the deferred function fires would cause a bug in your mod, then you should handle
    * deferred functions manually using serializable data.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    */
   @Exported
   public runNextGameFrame(func: () => void): void {
@@ -142,6 +170,8 @@ export class RunInNFrames extends Feature {
    * similar way.
    *
    * Note that this function will not handle saving and quitting.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    */
   @Exported
   public runNextRenderFrame(func: () => void): void {
@@ -158,6 +188,8 @@ export class RunInNFrames extends Feature {
    *
    * Note that this function will not handle saving and quitting. You must manually restart any
    * intervals if the player saves and quits in the middle of a run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to repeatedly run on an interval.
    * @param gameFrames The amount of game frames to wait between each run.
@@ -190,6 +222,8 @@ export class RunInNFrames extends Feature {
    *
    * Note that this function will not handle saving and quitting. You must manually restart any
    * intervals if the player saves and quits in the middle of a run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to repeatedly run on an interval.
    * @param renderFrames The amount of game frames to wait between each run.

@@ -1,7 +1,3 @@
-// One of the functions below causes a false positive for ESLint:
-// https://github.com/gajus/eslint-plugin-jsdoc/issues/915
-/* eslint-disable jsdoc/check-param-names */
-
 import {
   EffectVariant,
   EntityType,
@@ -38,6 +34,7 @@ export class CustomPickups extends Feature {
   /** Indexed by entity ID. */
   private customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
 
+  /** @internal */
   constructor() {
     super();
 
@@ -118,6 +115,8 @@ export class CustomPickups extends Feature {
    *
    * Note that when you specify your custom pickup in the "entities2.xml" file, it should have a
    * type of "5" and be associated with an anm2 file that has a "Collect" animation.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_PICKUPS`.
    *
    * @param pickupVariantCustom The variant for the corresponding custom pickup.
    * @param subType The sub-type for the corresponding custom pickup.

@@ -69,14 +69,21 @@ export function logAllEntities(
     })\n`;
   }
 
-  log(msg);
+  // We must log each line because otherwise the message can get truncated.
+  for (const line of msg.trim().split("\n")) {
+    log(line);
+  }
 }
 
 /**
  * Helper function for printing out every grid entity (or filtered grid entity) in the current room.
+ *
+ * @param includeWalls Optional. Whether or not to log the walls. Default is false.
+ * @param gridEntityTypeFilter Optional. If specified, will only log the given `GridEntityType`.
+ *                             Default is undefined.
  */
 export function logAllGridEntities(
-  includeWalls: boolean,
+  includeWalls = false,
   gridEntityTypeFilter?: GridEntityType,
 ): void {
   let msg = "Grid entities in the room";
@@ -122,7 +129,10 @@ export function logAllGridEntities(
     })\n`;
   }
 
-  log(msg);
+  // We must log each line because otherwise the message can get truncated.
+  for (const line of msg.trim().split("\n")) {
+    log(line);
+  }
 }
 
 /** Helper function for logging an array of specific entities. */

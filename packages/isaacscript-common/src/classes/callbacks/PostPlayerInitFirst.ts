@@ -34,7 +34,7 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
   // ModCallbackCustom.POST_PLAYER_INIT_LATE
   private postPlayerInitLate = (player: EntityPlayer) => {
     // We want to exclude non-real players like the Strawman keeper.
-    if (!isChildPlayer(player)) {
+    if (isChildPlayer(player)) {
       return;
     }
 

@@ -1,6 +1,6 @@
+import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManager/constants";
 import { SerializationBrand } from "../enums/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/constants";
 import { AnyClass } from "../types/AnyClass";
 import { isArray } from "./array";
 import { deepCopy } from "./deepCopy";

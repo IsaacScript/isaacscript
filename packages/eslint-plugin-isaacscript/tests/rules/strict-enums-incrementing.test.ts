@@ -1,10 +1,10 @@
 import { TSESLint } from "@typescript-eslint/utils";
-import { MessageIds, strictEnums } from "../../src/rules/strict-enums";
+import { MessageIds, Options, strictEnums } from "../../src/rules/strict-enums";
 import { ruleTester } from "../utils";
 import { fruitEnumDefinition } from "./strict-enums";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Incrementing a number (postfix)",

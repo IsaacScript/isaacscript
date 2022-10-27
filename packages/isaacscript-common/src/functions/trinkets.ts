@@ -1,4 +1,5 @@
 import {
+  CacheFlag,
   PlayerType,
   TrinketSlot,
   TrinketType,
@@ -18,6 +19,7 @@ import {
   TRINKET_TYPE_TO_NAME_MAP,
 } from "../maps/trinketTypeToNameMap";
 import { getEntityID } from "./entities";
+import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
@@ -221,4 +223,17 @@ export function setTrinketSprite(
     sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
     sprite.LoadGraphics();
   }
+}
+
+/** Helper function to check in the item config if a given trinket has a given cache flag. */
+export function trinketHasCacheFlag(
+  trinketType: TrinketType,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }

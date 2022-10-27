@@ -30,6 +30,7 @@ interface InitialDescription {
 }
 
 export class Pause extends Feature {
+  /** @internal */
   public override v = {
     run: {
       isPseudoPaused: false,
@@ -40,6 +41,7 @@ export class Pause extends Feature {
 
   private disableInputs: DisableInputs;
 
+  /** @internal */
   constructor(disableInputs: DisableInputs) {
     super();
 
@@ -119,6 +121,8 @@ export class Pause extends Feature {
    * - uses the Pause collectible on every game frame
    * - disables any player inputs (except for `ButtonAction.MENU_CONFIRM` and
    *   `ButtonAction.CONSOLE`)
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PAUSE`.
    */
   @Exported
   public pause(): void {
@@ -177,7 +181,11 @@ export class Pause extends Feature {
     this.stopTearsAndProjectilesFromMoving();
   }
 
-  /** Helper function to put things back to normal after the `pause` function was used. */
+  /**
+   * Helper function to put things back to normal after the `pause` function was used.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.PAUSE`.
+   */
   @Exported
   public unpause(): void {
     if (!this.v.run.isPseudoPaused) {
