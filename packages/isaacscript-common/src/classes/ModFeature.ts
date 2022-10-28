@@ -199,7 +199,7 @@ function addCallback(
       this: void,
       ...args: unknown[]
     ) => unknown;
-    castedCallback(modFeature, ...callbackArgs);
+    return castedCallback(modFeature, ...callbackArgs);
   };
 
   // We need to save the wrapped function for later (so we can unregister them).
