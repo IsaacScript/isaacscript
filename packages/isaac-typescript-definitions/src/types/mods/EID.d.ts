@@ -81,13 +81,13 @@ declare interface EIDInterface {
    * Tarot Cloth, etc.
    *
    * @param condition A function that returns `true` if `callback` should be called on the given
-   *                  description string.
-   * @param callback A function that returns a modified version of the given description string.
+   *                  EIDDescriptionObject.
+   * @param callback A function that returns a modified version of the given EIDDescriptionObject.
    */
   addDescriptionModifier(
     modifierName: string,
-    condition: (testDescription: string) => boolean,
-    callback: (oldDescription: string) => string,
+    condition: (testDescription: EIDDescriptionObject) => boolean,
+    callback: (oldDescription: EIDDescriptionObject) => EIDDescriptionObject,
   ): void;
 
   /**
