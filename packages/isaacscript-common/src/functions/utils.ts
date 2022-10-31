@@ -3,22 +3,25 @@ import { game } from "../core/cachedClasses";
 import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
 
 /**
- * Helper function to return an array with the elements from start to end. It is inclusive at the
- * start and exclusive at the end. (The "e" stands for exclusive.)
+ * Helper function to return an array of integers with the specified range, inclusive on the lower
+ * end and exclusive on the high end. (The "e" stands for exclusive.)
  *
- * If only one argument is specified, then it will assume that the start is 0.
+ * - For example, `eRange(1, 3)` will return `[1, 2]`.
+ * - For example, `eRange(2)` will return `[0, 1]`.
  *
- * - For example, `erange(1, 3)` will return `[1, 2]`.
- * - For example, `erange(2)` will return `[0, 1]`.
+ * @param start The number to start at.
+ * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ *            first argument will be the end.
+ * @param increment Optional. The increment to use. Default is 1.
  */
-export function erange(start: int, end?: int): int[] {
+export function eRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
     end = start;
     start = 0;
   }
 
   const array: int[] = [];
-  for (let i = start; i < end; i++) {
+  for (let i = start; i < end; i += increment) {
     array.push(i);
   }
 
@@ -43,22 +46,25 @@ export function getTraversalDescription(
 }
 
 /**
- * Helper function to return an array with the elements from start to end, inclusive. (The "i"
- * stands for inclusive.)
+ * Helper function to return an array of integers with the specified range, inclusive on both ends.
+ * (The "i" stands for inclusive.)
  *
- * If only one argument is specified, then it will assume that the start is 0.
+ * - For example, `iRange(1, 3)` will return `[1, 2, 3]`.
+ * - For example, `iRange(2)` will return `[0, 1, 2]`.
  *
- * - For example, `irange(1, 3)` will return `[1, 2, 3]`.
- * - For example, `irange(2)` will return `[0, 1, 2]`.
+ * @param start The number to start at.
+ * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ *            first argument will be the end.
+ * @param increment Optional. The increment to use. Default is 1.
  */
-export function irange(start: int, end?: int): int[] {
+export function iRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
     end = start;
     start = 0;
   }
 
   const array: int[] = [];
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i <= end; i += increment) {
     array.push(i);
   }
 
@@ -66,8 +72,13 @@ export function irange(start: int, end?: int): int[] {
 }
 
 /**
- * Since this is a UI element, we do not want to draw it in water reflections. `renderOffset` will
- * be a non-zero value in reflections.
+ * Helper function to see if the current render callback is rendering a water reflection.
+ *
+ * When the player is in a room with water, things will be rendered twice: once for the normal
+ * rendering, and once for the reflecting rendering. Thus, any mod code in a render callback will
+ * run twice per frame in these situations, which may be unexpected or cause bugs.
+ *
+ * This function is typically used to early return from a render function if it returns true.
  */
 export function isReflectionRender(): boolean {
   const room = game.GetRoom();
@@ -81,6 +92,22 @@ export function isReflectionRender(): boolean {
  */
 export function isVanillaConsoleCommand(commandName: string): boolean {
   return CONSOLE_COMMANDS_SET.has(commandName);
+}
+
+/**
+ * Helper function for creating objects that represent a mapping of an enum value to some other
+ * value in a type-safe way.
+ *
+ * This function will ensure that the provided object has a key for each value in the enum.
+ *
+ * After the `satisfies` operator is released in TypeScript 4.9, this function should be deleted.
+ */
+export function newObjectWithEnumKeys<
+  Enum extends number | string,
+  T extends Record<Enum, unknown>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+>(theEnum: Record<string, Enum>, obj: T): T {
+  return obj;
 }
 
 /**
@@ -175,3 +202,36 @@ export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
 
   return firstElement1 < firstElement2 ? -1 : 1;
 }
+
+/**
+ * Helper function to validate that an interface contains all of the keys of an enum. You must
+ * specify both generic parameters in order for this to work properly (i.e. the interface and then
+ * the enum).
+ *
+ * For example:
+ *
+ * ```ts
+ * enum MyEnum {
+ *   Value1,
+ *   Value2,
+ *   Value3,
+ * }
+ *
+ * interface MyEnumToType {
+ *   [MyEnum.Value1]: boolean;
+ *   [MyEnum.Value2]: number;
+ *   [MyEnum.Value3]: string;
+ * }
+ *
+ * validateInterfaceMatchesEnum<MyEnumToType, MyEnum>();
+ * ```
+ *
+ * This function is only meant to be used with interfaces (i.e. types that will not exist at
+ * run-time). If you are generating an object that will contain all of the keys of an enum, use the
+ * `newObjectWithEnumKeys` helper function instead.
+ */
+export function validateInterfaceMatchesEnum<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  T extends Record<Enum, unknown>,
+  Enum extends string | number,
+>(): void {}

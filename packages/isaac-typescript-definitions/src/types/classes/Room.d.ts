@@ -294,8 +294,12 @@ declare global {
     TrySpawnMegaSatanRoomDoor(force?: boolean): boolean;
 
     /**
-     * Attempts to spawn a door to the Downpour, Mines, or Mausoleum, depending on the current
-     * floor. This usually does nothing outside of boss rooms unless `force` is set to true.
+     * Attempts to spawn a door to the Downpour, Mines, or Mausoleum "secret exit", depending on the
+     * current floor. This usually does nothing outside of boss rooms unless `force` is set to true.
+     *
+     * Note that if "force" is set to true and all of the available doors in the room are taken,
+     * then this method may spawn the door on a slot outside the normal bounds of the room. For this
+     * reason, it is recommended to check for available doors before invoking this method.
      *
      * @param animate Default is false.
      * @param force Default is false.

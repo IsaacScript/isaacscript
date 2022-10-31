@@ -1,6 +1,11 @@
 /* eslint-disable sort-exports/sort-exports */
 
-/** For `GridEntityType.ROCK` (2). */
+/**
+ * For `GridEntityType.ROCK` (2).
+ *
+ * Note that this does not always apply to `GridEntityRock`, since that class can be equal to other
+ * grid entity types.
+ */
 export enum RockVariant {
   NORMAL = 0,
   EVENT = 1,

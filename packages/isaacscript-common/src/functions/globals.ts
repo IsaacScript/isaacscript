@@ -1,5 +1,8 @@
-import { isLuaDebugEnabled } from "./debug";
+import { getTraceback, isLuaDebugEnabled, traceback } from "./debugFunctions";
+import * as logExports from "./log";
 import { log } from "./log";
+import * as logEntitiesExports from "./logEntities";
+import * as logMiscExports from "./logMisc";
 import { addSetsToSet, copySet } from "./set";
 import { twoDimensionalSort } from "./utils";
 
@@ -205,7 +208,7 @@ export function getDefaultGlobals(): ReadonlySet<string> {
 }
 
 function isRacingPlusSandboxEnabled() {
-  return getParentFunctionDescription !== undefined;
+  return SandboxGetParentFunctionDescription !== undefined;
 }
 
 /**
@@ -239,4 +242,27 @@ export function logNewGlobals(): void {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`${i + 1}) ${key} - ${value}`);
   });
+}
+
+/**
+ * Converts every `isaacscript-common` function that begins with "log" to a global function.
+ *
+ * This is useful when printing out variables from the in-game debug console.
+ */
+export function setLogFunctionsGlobal(): void {
+  const globals = _G as Record<string, unknown>;
+
+  for (const exports of [logExports, logMiscExports, logEntitiesExports]) {
+    // eslint-disable-next-line isaacscript/no-object-any
+    for (const [logFuncName, logFunc] of Object.entries(exports)) {
+      globals[logFuncName] = logFunc;
+    }
+  }
+}
+
+export function setTracebackFunctionsGlobal(): void {
+  const globals = _G as Record<string, unknown>;
+
+  globals["getTraceback"] = getTraceback;
+  globals["traceback"] = traceback;
 }

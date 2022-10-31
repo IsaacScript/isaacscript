@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
+import { LUA_LANGUAGE_SERVER_DISABLES } from "./constants";
 
 const cwd = process.cwd();
 const packageJSONPath = path.join(cwd, "package.json");
@@ -47,7 +48,8 @@ const plugin: tstl.Plugin = {
     result: tstl.EmitFile[],
   ) {
     for (const file of result) {
-      file.code = `${INFORMATIONAL_HEADER}${file.code}`;
+      file.code =
+        INFORMATIONAL_HEADER + LUA_LANGUAGE_SERVER_DISABLES + file.code;
     }
   },
 };

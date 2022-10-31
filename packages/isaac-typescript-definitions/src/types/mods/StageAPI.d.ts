@@ -206,6 +206,7 @@ declare global {
       stage: LevelStage,
       stageType: StageType,
     ): void;
+
     /**
      * Stores a function and its params in a table indexed by `ID` and sorted by `priority`, where
      * low priority is at the start.
@@ -326,9 +327,7 @@ declare global {
     FinishedLoadingData(): boolean;
 
     GetBossData(id: string): StageAPIBossData;
-
     GetCurrentLevelMap(): StageAPILevelMap;
-
     GetCurrentRoom(): StageAPILevelRoom | undefined;
 
     /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
@@ -354,15 +353,11 @@ declare global {
     ): void;
 
     GridGfx(): StageAPIGridGfx;
-
     InNewStage(): boolean;
-
     InOverrideStage(): boolean;
-
-    InOverridenStage(): boolean; // cspell:ignore Overriden
-
+    InOverridenStage(): boolean; // cspell:ignore overriden
     InitCustomLevel(levelMap: StageAPILevelMap, levelStartRoom: boolean): void;
-
+    IsCustomGrid(gridIndex: int): boolean;
     IsDoorSlotAllowed(slot: DoorSlot): boolean;
 
     LoadCustomMapRoomDoors(
@@ -382,9 +377,7 @@ declare global {
     ): StageAPIRoomGfx;
 
     RoomsList(name: string, ...layouts: unknown[]): StageAPIRoomsList;
-
     SetCurrentRoom(room: StageAPILevelRoom): void;
-
     SetDoorOpen(open: boolean, door: Entity): void;
 
     SpawnCustomDoor(

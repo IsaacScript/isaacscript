@@ -6,6 +6,7 @@ bitmask
 bootstrapper
 cacheable
 decompilation
+decrementation
 easings
 grimoire
 interactable
@@ -13,6 +14,8 @@ keyof
 leaderboard
 leaderboards
 licence
+mbps
+minifier
 minimalistic
 mkdir
 namespacing
@@ -36,9 +39,11 @@ toggleable
 tracebacks
 transpiles
 transpiling
+uncapitalize
 unexported
 unfade
 unfixable
+uninit
 uninitialize
 unopenable
 unranked

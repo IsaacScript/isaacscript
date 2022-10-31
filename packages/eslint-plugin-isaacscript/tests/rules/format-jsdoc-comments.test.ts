@@ -2,11 +2,12 @@ import { TSESLint } from "@typescript-eslint/utils";
 import {
   formatJSDocComments,
   MessageIds,
+  Options,
 } from "../../src/rules/format-jsdoc-comments";
 import { ruleTester } from "../utils";
 
-const valid: Array<TSESLint.ValidTestCase<unknown[]>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, unknown[]>> = [];
+const valid: Array<TSESLint.ValidTestCase<Options>> = [];
+const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: 'Using a single-line "//" comment that is too long',

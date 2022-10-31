@@ -15,14 +15,14 @@ export const CHARACTER_DAMAGE_MULTIPLIERS: {
   [PlayerType.AZAZEL]: 1.5, // 7
   [PlayerType.LAZARUS]: 1.0, // 8
   [PlayerType.EDEN]: 1.0, // 9
-  [PlayerType.THE_LOST]: 1.0, // 10
+  [PlayerType.LOST]: 1.0, // 10
   [PlayerType.LAZARUS_2]: 1.4, // 11
   [PlayerType.DARK_JUDAS]: 2.0, // 12
   [PlayerType.LILITH]: 1.0, // 13
   [PlayerType.KEEPER]: 1.2, // 14
   [PlayerType.APOLLYON]: 1.0, // 15
-  [PlayerType.THE_FORGOTTEN]: 1.5, // 16
-  [PlayerType.THE_SOUL]: 1.0, // 17
+  [PlayerType.FORGOTTEN]: 1.5, // 16
+  [PlayerType.SOUL]: 1.0, // 17
   [PlayerType.BETHANY]: 1.0, // 18
   [PlayerType.JACOB]: 1.0, // 19
   [PlayerType.ESAU]: 1.0, // 20
@@ -36,14 +36,14 @@ export const CHARACTER_DAMAGE_MULTIPLIERS: {
   [PlayerType.AZAZEL_B]: 1.5, // 28
   [PlayerType.LAZARUS_B]: 1.0, // 29
   [PlayerType.EDEN_B]: 1.0, // 30
-  [PlayerType.THE_LOST_B]: 1.3, // 31
+  [PlayerType.LOST_B]: 1.3, // 31
   [PlayerType.LILITH_B]: 1.0, // 32
   [PlayerType.KEEPER_B]: 1.0, // 33
   [PlayerType.APOLLYON_B]: 1.0, // 34
-  [PlayerType.THE_FORGOTTEN_B]: 1.5, // 35
+  [PlayerType.FORGOTTEN_B]: 1.5, // 35
   [PlayerType.BETHANY_B]: 1.0, // 36
   [PlayerType.JACOB_B]: 1.0, // 37
   [PlayerType.LAZARUS_2_B]: 1.5, // 38
   [PlayerType.JACOB_2_B]: 1.0, // 39
-  [PlayerType.THE_SOUL_B]: 1.0, // 40
+  [PlayerType.SOUL_B]: 1.0, // 40
 } as const;

@@ -43,6 +43,7 @@
 /// <reference path="classes/EntityPtr.d.ts" />
 /// <reference path="classes/EntityRef.d.ts" />
 /// <reference path="classes/EntityTear.d.ts" />
+/// <reference path="classes/EntriesList.d.ts" />
 /// <reference path="classes/Font.d.ts" />
 /// <reference path="classes/Game.d.ts" />
 /// <reference path="classes/GridEntity.d.ts" />
@@ -73,7 +74,6 @@
 /// <reference path="classes/PosVel.d.ts" />
 /// <reference path="classes/ProjectileParams.d.ts" />
 /// <reference path="classes/QueueItemData.d.ts" />
-/// <reference path="classes/MultiShotParams.d.ts" />
 /// <reference path="classes/Options.d.ts" />
 /// <reference path="classes/RNG.d.ts" />
 /// <reference path="classes/Room.d.ts" />
@@ -99,7 +99,7 @@
 
 /// <reference path="unofficial/primitives.d.ts" />
 
-/// <reference path="unofficial/AddCallbackParameter.d.ts" />
+/// <reference path="unofficial/AddCallbackParameters.d.ts" />
 /// <reference path="unofficial/APIVersion.d.ts" />
 /// <reference path="unofficial/BitFlag.d.ts" />
 /// <reference path="unofficial/BitFlag128.d.ts" />
@@ -108,7 +108,8 @@
 /// <reference path="unofficial/IsaacAPIClass.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
 /// <reference path="unofficial/Seed.d.ts" />
-/// <reference path="unofficial/ZodiacCollectibles.d.ts" />
+/// <reference path="unofficial/TemporaryCollectibleType.d.ts" />
+/// <reference path="unofficial/ZodiacCollectibleType.d.ts" />
 
 // ----------------------------
 // Definitions for Popular Mods

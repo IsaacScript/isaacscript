@@ -12,6 +12,7 @@ conventionalcommits # Monorepo word
 corepack # To install Yarn
 dbaeumer # extensions.json
 devkit # Monorepo word
+docsearch # Monorepo word
 eqeqeq # For linting
 erange # Standard library function
 esbenp # extensions.json

@@ -1,7 +1,20 @@
-import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  EntityType,
+  FamiliarVariant,
+} from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
+import { getEntities } from "./entities";
 import { getFamiliars } from "./entitiesSpecific";
+import { newRNG } from "./rng";
+
+/**
+ * Instead of generating a new RNG object every time we need to spawn a new familiar, we instead
+ * re-use the same RNG object. This makes it less likely that the `InitSeed` of the familiar will
+ * overlap, since we are "nexting" instead of doing a fresh reroll.
+ */
+const familiarGenerationRNG = newRNG();
 
 /**
  * Helper function to add and remove familiars based on a target amount that you specify.
@@ -39,11 +52,13 @@ export function checkFamiliar(
   familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
+  familiarGenerationRNG.Next();
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   player.CheckFamiliar(
     familiarVariant,
     targetCount,
-    RNG(),
+    familiarGenerationRNG,
     itemConfigItem,
     familiarSubType,
   );
@@ -82,7 +97,8 @@ export function checkFamiliarFromCollectibles(
   familiarVariant: FamiliarVariant,
   familiarSubType?: int,
 ): void {
-  // We need to include non-real collectibles, like Lilith's Incubus.
+  // We need to include non-real collectibles (like Lilith's Incubus), so we omit the second
+  // argument.
   const numCollectibles = player.GetCollectibleNum(collectibleType);
   const effects = player.GetEffects();
 
@@ -111,6 +127,43 @@ export function getPlayerFamiliars(player: EntityPlayer): EntityFamiliar[] {
   });
 }
 
+/**
+ * Helper function to get the corresponding "Siren Helper" entity for a stolen familiar.
+ *
+ * When The Siren boss "steals" your familiars, a hidden "Siren Helper" entity is spawned to control
+ * each familiar stolen. (Checking for the presence of this entity seems to be the only way to
+ * detect when the Siren steals a familiar.)
+ *
+ * @param familiar The familiar to be checked.
+ * @returns Returns the hidden "Siren Helper" entity corresponding to the given familiar, if it
+ *          exists. Returns undefined otherwise.
+ */
+export function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
+  const familiarPtrHash = GetPtrHash(familiar);
+
+  const sirenHelpers = getEntities(EntityType.SIREN_HELPER);
+  return sirenHelpers.find(
+    (sirenHelper) =>
+      sirenHelper.Target !== undefined &&
+      GetPtrHash(sirenHelper.Target) === familiarPtrHash,
+  );
+}
+
+/**
+ * Helper function to detect if the given familiar is "stolen" by The Siren boss.
+ *
+ * This function is useful because some familiars may need to behave differently when under The
+ * Siren's control (e.g. if they auto-target enemies).
+ */
+export function isFamiliarStolenBySiren(familiar: EntityFamiliar): boolean {
+  const sirenHelper = getSirenHelper(familiar);
+  return sirenHelper !== undefined;
+}
+
+/**
+ * Helper function to check if a familiar is the type that shoots tears that mimic the players
+ * tears, like Incubus, Fate's Reward, Sprinkler, and so on.
+ */
 export function isFamiliarThatShootsPlayerTears(
   familiar: EntityFamiliar,
 ): boolean {

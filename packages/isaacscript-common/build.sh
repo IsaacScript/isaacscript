@@ -24,9 +24,6 @@ rm -rf "$DIR/dist"
 # Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
 npx tstl
 
-# Also bundle the entire library into one file, which makes it easier for Lua users to consume.
-npx tstl --project tsconfig.bundle.json
-
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
 npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
@@ -50,5 +47,14 @@ cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
 cp --recursive "$DIR/src" "$OUT_DIR/"
+
+# Bundle the entire library into one file specifically for Lua consumers. We also include
+# `isaac-typescript-definitions` in the bundled exports so that Lua users do not have to consume two
+# separate libraries.
+LUA_INDEX="$DIR/src/indexLua.ts"
+cp "$DIR/src/index.ts" "$LUA_INDEX"
+echo "export * from \"isaac-typescript-definitions\";" >> "$LUA_INDEX"
+npx tstl --project tsconfig.bundle.json
+rm -f "$LUA_INDEX"
 
 echo "Successfully built in $SECONDS seconds."

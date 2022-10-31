@@ -121,6 +121,12 @@ This contains a list of files that should not be added to a Git repository, if p
 
 <br />
 
+### `.luarc.json`
+
+This contains settings for the Lua language server. Even though IsaacScript mods are programmed in TypeScript, not Lua, you may sometimes want to open the resulting "main.lua" file for the purposes of troubleshooting a run-time error. Or, you might be using a 3rd-party Lua library, and you might want to open the Lua files for the purposes of modifying something.
+
+<br />
+
 ### `.prettierignore`
 
 This contains a list of files that should not be automatically formatted. By default, it includes stuff from [Basement Renovator](https://github.com/Basement-Renovator/basement-renovator/) and the animation editor.

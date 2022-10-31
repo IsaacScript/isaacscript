@@ -8,7 +8,7 @@ export const CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET: ReadonlySet<PlayerTy
     PlayerType.BLUE_BABY, // 4
     PlayerType.EVE, // 5
     PlayerType.EDEN, // 9
-    PlayerType.THE_LOST, // 10
+    PlayerType.LOST, // 10
     PlayerType.LILITH, // 13
     PlayerType.KEEPER, // 14
     PlayerType.APOLLYON, // 15

@@ -718,21 +718,8 @@ declare global {
     GetMovementJoystick(): Vector;
     GetMovementVector(): Readonly<Vector>;
 
-    /**
-     * Note that the only thing that you can do with MultiShotParams is feed it to the
-     * `EntityPlayer.GetMultiShotPositionVelocity` method.
-     *
-     * @param weaponType Default is `WeaponType.WEAPON_TEARS`.
-     */
-    GetMultiShotParams(weaponType?: WeaponType): MultiShotParams;
-
-    GetMultiShotPositionVelocity(
-      loopIndex: int,
-      weaponType: WeaponType,
-      shotDirection: Vector,
-      shotSpeed: float,
-      multiShotParams: MultiShotParams,
-    ): PosVel;
+    // `GetMultiShotParams` used to be used for the `GetMultiShotPositionVelocity` method, but since
+    // that method is now removed, `GetMultiShotParams` has no purpose.
 
     /**
      * Normally, this function returns the player. However, in some cases, NPCs can be redirected to
@@ -855,7 +842,7 @@ declare global {
 
     GetTrinketRNG(trinketType: TrinketType): RNG;
     GetVelocityBeforeUpdate(): Readonly<Vector>;
-    GetZodiacEffect(): ZodiacCollectibles;
+    GetZodiacEffect(): ZodiacCollectibleType;
 
     /**
      * @param collectibleType
@@ -1192,14 +1179,14 @@ declare global {
 
     BabySkin: BabySubType;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.FLYING`. */
     CanFly: boolean;
 
     readonly ControllerIndex: ControllerIndex;
     ControlsCooldown: int;
     ControlsEnabled: boolean;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.DAMAGE`. */
     Damage: float;
 
     FireDelay: int;
@@ -1214,13 +1201,15 @@ declare global {
     ItemHoldCooldown: int;
     LaserColor: Color;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.LUCK`. */
     Luck: float;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /**
+     * Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.FIRE_DELAY`.
+     */
     MaxFireDelay: int;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.SPEED`. */
     MoveSpeed: float;
 
     QueuedItem: QueueItemData;
@@ -1228,34 +1217,36 @@ declare global {
     /** Internally used by Tainted Samson. Increases based on damage dealt. Range is 0-100000. */
     SamsonBerserkCharge: int;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /**
+     * Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.SHOT_SPEED`.
+     */
     ShotSpeed: float;
 
-    SpriteScale: Vector;
-
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /**
+     * Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.TEAR_COLOR`.
+     */
     TearColor: Color;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.RANGE`. */
     TearFallingAcceleration: float;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.RANGE`. */
     TearFallingSpeed: float;
 
-    /** Only change this in the `EVALUATE_CACHE` callback. */
+    /** Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.TEAR_FLAG`. */
     TearFlags: BitFlags<TearFlag>;
 
     /**
      * This is equal to the range stat multiplied by -1.
      *
-     * Only change this in the `EVALUATE_CACHE` callback.
+     * Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.RANGE`.
      */
     TearHeight: float;
 
     /**
      * This is equal to the range stat multiplied by 40.
      *
-     * Only change this in the `EVALUATE_CACHE` callback.
+     * Only change this in the `EVALUATE_CACHE` callback corresponding to `CacheFlag.RANGE`.
      */
     TearRange: float;
 

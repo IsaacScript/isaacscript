@@ -3,7 +3,7 @@ import * as ts from "typescript";
 import { isTypeFlagSet } from "../typeUtils";
 import { createRule, isFunction } from "../utils";
 
-type Options = [];
+export type Options = [];
 
 export type NoInvalidDefaultMapMessageIds = "invalidType";
 

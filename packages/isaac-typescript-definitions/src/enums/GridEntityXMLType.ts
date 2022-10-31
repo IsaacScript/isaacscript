@@ -6,6 +6,9 @@
  * The `gridspawn` console command accepts `GridEntityXMLType` instead of `GridEntityType`.
  */
 export enum GridEntityXMLType {
+  /** Corresponds to `GridEntityType.DECORATION` (1). */
+  DECORATION = 0,
+
   /** Corresponds to `GridEntityType.ROCK` (2). */
   ROCK = 1000,
 

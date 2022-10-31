@@ -1,4 +1,5 @@
 import {
+  Dimension,
   LevelStage,
   RoomType,
   StageID,
@@ -10,6 +11,7 @@ export interface RoomDescription {
   stage: LevelStage;
   stageType: StageType;
   stageID: StageID;
+  dimension: Dimension;
   roomType: RoomType;
   roomVariant: int;
   roomSubType: int;

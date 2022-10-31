@@ -14,10 +14,9 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - @types/update-notifier - Stuck until TypeScript supports ESM.
 # - chalk - Stuck until TypeScript supports ESM.
-# - jest - Stuck until `ts-jest` is updated.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
-# - typedoc - The latest version is bugged.
+# - sort-package-json - Stuck until TypeScript supports ESM.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #   type in "package.json", and Docusaurus does not support this yet.
 # - update-notifier - Stuck until TypeScript supports ESM.

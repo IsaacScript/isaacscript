@@ -1,4 +1,5 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBrand";
 import {
   CopyableIsaacAPIClass,
@@ -8,8 +9,14 @@ import {
   ISAAC_API_CLASS_TYPE_TO_FUNCTIONS,
   SerializedIsaacAPIClass,
 } from "../objects/isaacAPIClassTypeToFunctions";
+import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { isTable, isUserdata } from "./types";
+import { isString, isTable, isUserdata } from "./types";
+
+const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
+const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
+  SERIALIZATION_BRANDS,
+);
 
 /**
  * Helper function to generically copy an Isaac API class without knowing what specific type of
@@ -134,6 +141,23 @@ export function isCopyableIsaacAPIClass(
   const allFunctions = Object.values(ISAAC_API_CLASS_TYPE_TO_FUNCTIONS);
   const isFunctions = allFunctions.map((functions) => functions.is);
   return isFunctions.some((identityFunction) => identityFunction(object));
+}
+
+/**
+ * Helper function to check if a key of a table in the "save#.dat" file is a serialization brand
+ * inserted by the save data manager (i.e. the `deepCopy` function).
+ *
+ * This is marked internal because end-users would not normally be iterating through a serialized
+ * object directly.
+ *
+ * @internal
+ */
+export function isSerializationBrand(key: unknown): boolean {
+  if (!isString(key)) {
+    return false;
+  }
+
+  return SERIALIZATION_BRAND_SET.has(key);
 }
 
 /**

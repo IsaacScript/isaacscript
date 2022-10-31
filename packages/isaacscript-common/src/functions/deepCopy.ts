@@ -1,8 +1,8 @@
 import { DefaultMap } from "../classes/DefaultMap";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManager/constants";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { SAVE_DATA_MANAGER_DEBUG } from "../features/saveDataManager/saveDataManagerConstants";
-import { isSerializationBrand } from "../features/saveDataManager/serializationBrands";
+import { AnyClass } from "../types/AnyClass";
 import { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
@@ -11,6 +11,7 @@ import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
   isCopyableIsaacAPIClass,
+  isSerializationBrand,
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";
@@ -19,7 +20,6 @@ import {
   isDefaultMap,
   isTSTLMap,
   isTSTLSet,
-  isUserDefinedTSTLClass,
   newTSTLClass,
 } from "./tstlClass";
 import { asString, isNumber, isPrimitive } from "./types";
@@ -54,27 +54,37 @@ import { getTraversalDescription, twoDimensionalSort } from "./utils";
  * @param serializationType Optional. Has 3 possible values. Can copy objects as-is, or can
  *                          serialize objects to Lua tables, or can deserialize Lua tables to
  *                          objects. Default is `SerializationType.NONE`.
- * @param traversalDescription Optional. Used to track the current key that we are operating on.
- *                             Default is an empty string.
+ * @param traversalDescription Optional. Used to track the current key that we are operating on for
+ *                             debugging purposes. Default is an empty string.
+ * @param classConstructors Optional. A Lua table that maps the name of a user-defined TSTL class to
+ *                          its corresponding constructor. If the `deepCopy` function finds any
+ *                          user-defined TSTL classes when recursively iterating through the given
+ *                          object, it will use this map to instantiate a new class. Default is an
+ *                          empty Lua table.
  * @param insideMap Optional. Tracks whether or not the deep copy function is in the process of
  *                  recursively copying a TSTL Map. Default is false.
  */
 export function deepCopy<T>(
+  // An overload describing the trivial case of a normal copy. (T --> T)
   value: T,
   serializationType?: SerializationType.NONE,
   traversalDescription?: string,
+  classConstructors?: LuaMap<string, AnyClass>,
   insideMap?: boolean,
 ): T;
 export function deepCopy(
+  // An overload describing the serialization/deserialization case.
   value: unknown,
   serializationType: SerializationType,
   traversalDescription?: string,
+  classConstructors?: LuaMap<string, AnyClass>,
   insideMap?: boolean,
-): unknown; // The return types for serialization/deserialization are non-trivial, so we do not type them.
+): unknown; // The return types for serialization/deserialization are non-trivial, so we do not annotate them.
 export function deepCopy(
   value: unknown,
   serializationType = SerializationType.NONE,
   traversalDescription = "",
+  classConstructors = new LuaMap<string, AnyClass>(),
   insideMap = false,
 ): unknown {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -123,6 +133,7 @@ export function deepCopy(
         luaMap,
         serializationType,
         traversalDescription,
+        classConstructors,
         insideMap,
       );
     }
@@ -137,6 +148,7 @@ function deepCopyTable(
   luaMap: LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ): unknown {
   // First, handle the cases of TSTL classes or serialized TSTL classes.
@@ -145,6 +157,7 @@ function deepCopyTable(
       luaMap,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
   }
@@ -154,6 +167,7 @@ function deepCopyTable(
       luaMap,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
   }
@@ -163,6 +177,7 @@ function deepCopyTable(
       luaMap,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
   }
@@ -181,11 +196,12 @@ function deepCopyTable(
     );
   }
 
-  if (isUserDefinedTSTLClass(luaMap)) {
+  if (className !== undefined || luaMap.has(SerializationBrand.TSTL_CLASS)) {
     return deepCopyTSTLClass(
-      luaMap,
+      luaMap as TSTLClass,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
   }
@@ -207,6 +223,7 @@ function deepCopyTable(
       luaMap,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
   }
@@ -216,6 +233,7 @@ function deepCopyTable(
     luaMap,
     serializationType,
     traversalDescription,
+    classConstructors,
     insideMap,
   );
 }
@@ -224,6 +242,7 @@ function deepCopyDefaultMap(
   defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -258,6 +277,7 @@ function deepCopyDefaultMap(
         defaultMap,
         serializationType,
         traversalDescription,
+        classConstructors,
         insideMap,
       );
     }
@@ -275,6 +295,7 @@ function deepCopyDefaultMap(
     defaultMap,
     serializationType,
     traversalDescription,
+    classConstructors,
     insideMap,
   );
 
@@ -332,7 +353,7 @@ function getNewDefaultMap(
     case SerializationType.DESERIALIZE: {
       if (isDefaultMap(defaultMap)) {
         error(
-          `The deep copy function failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
+          `Failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
         );
       }
 
@@ -341,7 +362,7 @@ function getNewDefaultMap(
       );
       if (defaultMapValue === undefined) {
         error(
-          `The deep copy function failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
+          `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
         );
       }
 
@@ -355,6 +376,7 @@ function deepCopyMap(
   map: Map<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -375,6 +397,7 @@ function deepCopyMap(
     map,
     serializationType,
     traversalDescription,
+    classConstructors,
     insideMap,
   );
 
@@ -407,6 +430,7 @@ function deepCopySet(
   set: Set<AnyNotNil> | LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -427,6 +451,7 @@ function deepCopySet(
     set,
     serializationType,
     traversalDescription,
+    classConstructors,
     insideMap,
   );
 
@@ -460,6 +485,7 @@ function deepCopyTSTLClass(
   tstlClass: TSTLClass,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -467,19 +493,53 @@ function deepCopyTSTLClass(
   }
 
   let newClass: TSTLClass | LuaMap<AnyNotNil, unknown>;
-  if (serializationType === SerializationType.SERIALIZE) {
-    // Since we are serializing, the new object will be a Lua table.
-    newClass = new LuaMap<AnyNotNil, unknown>();
-    // (We do not brand it with the class type because we will not have the associated class
-    // constructor during deserialization, so knowing what type of class it is is pointless.)
-  } else {
-    newClass = newTSTLClass(tstlClass);
+  switch (serializationType) {
+    case SerializationType.NONE: {
+      // We can use the class constructor from the old class.
+      newClass = newTSTLClass(tstlClass);
+      break;
+    }
+
+    case SerializationType.SERIALIZE: {
+      newClass = new LuaMap<AnyNotNil, unknown>();
+
+      // We brand it with the name of the class so that we can run the corresponding constructor
+      // during deserialization.
+      const tstlClassName = getTSTLClassName(tstlClass);
+      if (tstlClassName !== undefined) {
+        newClass.set(SerializationBrand.TSTL_CLASS, tstlClassName);
+      }
+
+      break;
+    }
+
+    case SerializationType.DESERIALIZE: {
+      const tstlClassName = tstlClass.get(SerializationBrand.TSTL_CLASS) as
+        | string
+        | undefined;
+      if (tstlClassName === undefined) {
+        error(
+          "Failed to deserialize a TSTL class since the brand did not contain the class name.",
+        );
+      }
+
+      const classConstructor = classConstructors.get(tstlClassName);
+      if (classConstructor === undefined) {
+        error(
+          `Failed to deserialize a TSTL class since there was no constructor registered for a class name of "${tstlClassName}". If this mod is using the save data manager, it must register the class constructor with the "saveDataManagerRegisterClass" method.`,
+        );
+      }
+
+      // eslint-disable-next-line new-cap
+      newClass = new classConstructor() as TSTLClass;
+    }
   }
 
   const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
     tstlClass,
     serializationType,
     traversalDescription,
+    classConstructors,
     insideMap,
   );
 
@@ -498,6 +558,7 @@ function deepCopyArray(
   array: unknown[],
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -511,6 +572,7 @@ function deepCopyArray(
       value,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
     newArray.push(newValue);
@@ -523,6 +585,7 @@ function deepCopyNormalLuaTable(
   luaMap: LuaMap<AnyNotNil, unknown>,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ) {
   if (SAVE_DATA_MANAGER_DEBUG) {
@@ -534,6 +597,7 @@ function deepCopyNormalLuaTable(
     luaMap,
     serializationType,
     traversalDescription,
+    classConstructors,
     insideMap,
   );
 
@@ -556,6 +620,7 @@ function getCopiedEntries(
   object: unknown,
   serializationType: SerializationType,
   traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
 ): {
   entries: Array<[key: AnyNotNil, value: unknown]>;
@@ -604,6 +669,7 @@ function getCopiedEntries(
       value,
       serializationType,
       traversalDescription,
+      classConstructors,
       insideMap,
     );
 

@@ -60,7 +60,12 @@ export function getRoomShapeCharges(roomShape: RoomShape): int {
   return isRoomShapeDoubleCharge(roomShape) ? 2 : 1;
 }
 
-/** Helper function to get the corners that exist in the given room shape. */
+/**
+ * Helper function to get the corners that exist in the given room shape.
+ *
+ * Note that these corner locations are not accurate for the Mother Boss Room and the Home closet
+ * rooms. (Those rooms have custom shapes.)
+ */
 export function getRoomShapeCorners(roomShape: RoomShape): readonly Corner[] {
   return ROOM_SHAPE_CORNERS[roomShape];
 }

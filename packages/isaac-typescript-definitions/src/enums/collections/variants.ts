@@ -14,9 +14,10 @@ export enum PlayerVariant {
  * explode. `TearVariant.NEEDLE` makes the tear look like a needle, and the exploding effect comes
  * from `TearFlag.NEEDLE`.
  *
- * However, there are some exceptions. For example, Sharp Key makes Isaac shoot key tears that deal
- * extra damage. Both the graphical effect and the extra damage are granted by
- * `TearVariant.KEY_BLOOD`.
+ * However, there are some exceptions:
+ * - `TearVariant.CHAOS_CARD` (9) - The variant grants the instant-kill property of the tear.
+ * - `TearVariant.KEY_BLOOD` (44) - Sharp Key makes Isaac shoot key tears that deal extra damage.
+ *   Both the graphical effect and the extra damage are granted by this variant.
  */
 export enum TearVariant {
   BLUE = 0,
@@ -448,7 +449,7 @@ export enum ClottyVariant {
 
 /** For `EntityType.MULLIGAN` (16). */
 export enum MulliganVariant {
-  MULLIGAN = 16,
+  MULLIGAN = 0,
   MULLIGOON = 1,
   MULLIBOOM = 2,
 }

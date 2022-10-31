@@ -1,7 +1,7 @@
 import { getRandomArrayElement } from "./array";
 import { getRandomSeed } from "./rng";
 import { isString } from "./types";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 /**
  * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
@@ -165,7 +165,6 @@ export function validateEnumContiguous<T>(
   transpiledEnum: T,
 ): void {
   const values = getEnumValues(transpiledEnum);
-  const valuesSet = new Set(values);
   const lastValue = values[values.length - 1];
   if (lastValue === undefined) {
     error(
@@ -177,7 +176,9 @@ export function validateEnumContiguous<T>(
       "Failed to validate that an enum was contiguous, since the last value was not a number.",
     );
   }
-  for (const value of irange(lastValue)) {
+
+  const valuesSet = new Set(values);
+  for (const value of iRange(lastValue)) {
     if (!valuesSet.has(value as unknown as T[keyof T])) {
       error(
         `Failed to find a custom enum value of ${value} for: ${transpiledEnumName}`,

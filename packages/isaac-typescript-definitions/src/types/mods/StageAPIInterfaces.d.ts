@@ -329,7 +329,12 @@ declare global {
 
   interface StageAPIBossData {
     Bossname: string; // cspell:ignore Bossname
+    Entity?: {
+      Type: EntityType;
+      Variant: number;
+    };
     Name: string;
+    Offset?: Vector;
     Portrait: string;
     Rooms: StageAPIRoomsList;
   }

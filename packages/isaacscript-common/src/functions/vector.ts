@@ -2,7 +2,7 @@ import {
   CopyableIsaacAPIClassType,
   Direction,
 } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { angleToDirection } from "./direction";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandomFloat } from "./random";
@@ -82,8 +82,8 @@ export function getRandomVector(
 }
 
 /**
- * Used to determine is the given table is a serialized `Vector` object created by the save data
- * manager and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `Vector` object created by the `deepCopy`
+ * function.
  */
 export function isSerializedVector(
   object: unknown,

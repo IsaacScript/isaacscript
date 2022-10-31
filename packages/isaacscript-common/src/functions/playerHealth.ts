@@ -177,7 +177,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const bloodCharges = player.GetEffectiveBloodCharge();
 
   // The Forgotten and The Soul has special health, so we need to account for this.
-  if (character === PlayerType.THE_FORGOTTEN && subPlayer !== undefined) {
+  if (character === PlayerType.FORGOTTEN && subPlayer !== undefined) {
     // The Forgotten does not have red heart containers.
     maxHearts = boneHearts * 2;
     boneHearts = 0;
@@ -185,7 +185,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     // The Forgotten will always have 0 soul hearts; we need to get the soul heart amount from the
     // sub player.
     soulHearts = subPlayer.GetSoulHearts();
-  } else if (character === PlayerType.THE_SOUL && subPlayer !== undefined) {
+  } else if (character === PlayerType.SOUL && subPlayer !== undefined) {
     // The Soul will always have 0 bone hearts; we need to get the bone heart amount from the sub
     // player. We need to store it as "maxHearts" instead of "boneHearts".
     maxHearts = subPlayer.GetBoneHearts() * 2;
@@ -202,7 +202,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   const soulHeartTypes: SoulHeartType[] = [];
   for (let i = 0; i < extraHearts; i++) {
     let isBoneHeart = player.IsBoneHeart(i);
-    if (character === PlayerType.THE_FORGOTTEN && subPlayer !== undefined) {
+    if (character === PlayerType.FORGOTTEN && subPlayer !== undefined) {
       isBoneHeart = subPlayer.IsBoneHeart(i);
     }
     if (isBoneHeart) {
@@ -210,7 +210,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
     } else {
       // We need to add 1 here because only the second half of a black heart is considered black.
       let isBlackHeart = player.IsBlackHeart(currentSoulHeart + 1);
-      if (character === PlayerType.THE_FORGOTTEN && subPlayer !== undefined) {
+      if (character === PlayerType.FORGOTTEN && subPlayer !== undefined) {
         isBlackHeart = subPlayer.IsBlackHeart(currentSoulHeart + 1);
       }
       if (isBlackHeart) {
@@ -520,7 +520,7 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
 
   // If we are The Soul, the `EntityPlayer.AddBoneHearts` method will not remove Forgotten's bone
   // hearts, so we need to explicitly handle this.
-  if (isCharacter(player, PlayerType.THE_SOUL)) {
+  if (isCharacter(player, PlayerType.SOUL)) {
     const forgotten = player.GetSubPlayer();
     if (forgotten !== undefined) {
       const forgottenBoneHearts = forgotten.GetBoneHearts();
@@ -559,7 +559,7 @@ export function setPlayerHealth(
   }
 
   // Add the red heart containers.
-  if (character === PlayerType.THE_SOUL && subPlayer !== undefined) {
+  if (character === PlayerType.SOUL && subPlayer !== undefined) {
     // Adding health to The Soul is a special case.
     subPlayer.AddMaxHearts(playerHealth.maxHearts, false);
   } else {

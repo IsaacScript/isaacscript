@@ -136,6 +136,17 @@ export function getStringsFromTable(
   return strings;
 }
 
+/** Helper function to check if a Lua table has 0 keys. */
+export function isTableEmpty(luaMap: LuaMap<AnyNotNil, unknown>): boolean {
+  // Using `next` does not seem to work properly, so we use `pairs` instead.
+  // eslint-disable-next-line no-unreachable-loop
+  for (const [_key, _value] of luaMap) {
+    return false;
+  }
+
+  return true;
+}
+
 /**
  * Helper function to iterate over a table deterministically. This is useful because by default, the
  * `pairs` function will return the keys of a Lua table in a random order.

@@ -3,7 +3,7 @@ import {
   DoorSlotFlagZero,
   RoomShape,
 } from "isaac-typescript-definitions";
-import { JSONRoom } from "../interfaces/JSONRoomsFile";
+import { JSONEntity, JSONRoom } from "../interfaces/JSONRoomsFile";
 import { sumArray } from "./array";
 import { doorSlotToDoorSlotFlag, getRoomShapeDoorSlot } from "./doors";
 import { addFlag } from "./flag";
@@ -11,9 +11,16 @@ import { log } from "./log";
 import { getRandomFloat } from "./random";
 import { getRandomSeed } from "./rng";
 
+/** This represents either a `JSONRoom` or a `JSONEntity`. */
+interface JSONObject {
+  $: { weight: string | undefined };
+}
+
 /**
  * Helper function to calculate what the resulting `BitFlags<DoorSlotFlag>` value would be for a
  * given JSON room.
+ *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
  */
 export function getJSONRoomDoorSlotFlags(
   jsonRoom: JSONRoom,
@@ -70,6 +77,8 @@ export function getJSONRoomDoorSlotFlags(
 /**
  * Helper function to find a specific room from an array of JSON rooms.
  *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
+ *
  * @param jsonRooms The array of rooms to search through.
  * @param variant The room variant to select. (The room variant can be thought of as the ID of the
  *                room.)
@@ -102,6 +111,8 @@ export function getJSONRoomOfVariant(
 /**
  * Helper function to find all of the JSON rooms that match the sub-type provided.
  *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
+ *
  * @param jsonRooms The array of rooms to search through.
  * @param subType The sub-type to match.
  */
@@ -117,24 +128,68 @@ export function getJSONRoomsOfSubType(
 }
 
 /**
- * Helper function to get a random JSON room from an array of JSON rooms.
+ * Helper function to get a random JSON entity from an array of JSON entities.
+ *
+ * (A JSON entity is an entity inside of a JSON room. A JSON room is an XML file converted to JSON
+ * so that it can be directly imported into your mod.)
  *
  * Note that this function does not simply choose a random element in the provided array; it will
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
- * @param jsonRooms The array of rooms to random choose between.
+ * @param jsonEntities The array of entities to randomly choose between.
+ * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
+ *                what the function is doing. Default is false.
+ */
+export function getRandomJSONEntity(
+  jsonEntities: JSONEntity[],
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  verbose = false,
+): JSONEntity {
+  const totalWeight = getTotalWeightOfJSONObject(jsonEntities);
+  if (verbose) {
+    log(`Total weight of the JSON entities provided: ${totalWeight}`);
+  }
+
+  const chosenWeight = getRandomFloat(0, totalWeight, seedOrRNG);
+  if (verbose) {
+    log(`Randomly chose weight for JSON entity: ${chosenWeight}`);
+  }
+
+  const randomJSONEntity = getJSONObjectWithChosenWeight(
+    jsonEntities,
+    chosenWeight,
+  );
+  if (randomJSONEntity === undefined) {
+    error(`Failed to get a JSON entity with chosen weight: ${chosenWeight}`);
+  }
+
+  return randomJSONEntity;
+}
+
+/**
+ * Helper function to get a random JSON room from an array of JSON rooms.
+ *
+ * (A JSON room is an XML file converted to JSON so that it can be directly imported into your mod.)
+ *
+ * Note that this function does not simply choose a random element in the provided array; it will
+ * properly account for each room weight using the algorithm from:
+ * https://stackoverflow.com/questions/1761626/weighted-random-numbers
+ *
+ * @param jsonRooms The array of rooms to randomly choose between.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONRoom(
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
+  jsonRooms: JSONRoom[],
   seedOrRNG: Seed | RNG = getRandomSeed(),
   verbose = false,
 ): JSONRoom {
-  const totalWeight = getTotalWeightOfJSONRooms(jsonRooms);
+  const totalWeight = getTotalWeightOfJSONObject(jsonRooms);
   if (verbose) {
     log(`Total weight of the JSON rooms provided: ${totalWeight}`);
   }
@@ -144,41 +199,46 @@ export function getRandomJSONRoom(
     log(`Randomly chose weight for JSON room: ${chosenWeight}`);
   }
 
-  return getJSONRoomWithChosenWeight(jsonRooms, chosenWeight);
+  const randomJSONRoom = getJSONObjectWithChosenWeight(jsonRooms, chosenWeight);
+  if (randomJSONRoom === undefined) {
+    error(`Failed to get a JSON room with chosen weight: ${chosenWeight}`);
+  }
+
+  return randomJSONRoom;
 }
 
-function getTotalWeightOfJSONRooms(
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
-): float {
-  const weights = jsonRooms.map((jsonRoom) => {
-    const roomWeightString = jsonRoom.$.weight;
-    const roomWeight = tonumber(roomWeightString);
-    if (roomWeight === undefined) {
-      error(`Failed to parse the weight of a JSON room: ${roomWeightString}.`);
+function getTotalWeightOfJSONObject(jsonOjectArray: JSONObject[]): float {
+  const weights = jsonOjectArray.map((jsonObject) => {
+    const weightString = jsonObject.$.weight;
+    const weight = tonumber(weightString);
+    if (weight === undefined) {
+      error(`Failed to parse the weight of a JSON object: ${weightString}.`);
     }
-    return roomWeight;
+
+    return weight;
   });
 
   return sumArray(weights);
 }
 
-function getJSONRoomWithChosenWeight(
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
+function getJSONObjectWithChosenWeight<T extends JSONObject>(
+  jsonOjectArray: T[],
   chosenWeight: float,
-): JSONRoom {
-  for (const jsonRoom of jsonRooms) {
-    const roomWeightString = jsonRoom.$.weight;
-    const roomWeight = tonumber(roomWeightString);
-    if (roomWeight === undefined) {
-      error(`Failed to parse the weight of a JSON room: ${roomWeightString}`);
+): T | undefined {
+  let weightAccumulator = 0;
+
+  for (const jsonObject of jsonOjectArray) {
+    const weightString = jsonObject.$.weight;
+    const weight = tonumber(weightString);
+    if (weight === undefined) {
+      error(`Failed to parse the weight of a JSON object: ${weightString}`);
     }
 
-    if (chosenWeight < roomWeight) {
-      return jsonRoom;
+    weightAccumulator += weight;
+    if (weightAccumulator >= chosenWeight) {
+      return jsonObject;
     }
-
-    chosenWeight -= roomWeight;
   }
 
-  error(`Failed to get a JSON room with chosen weight: ${chosenWeight}`);
+  return undefined;
 }

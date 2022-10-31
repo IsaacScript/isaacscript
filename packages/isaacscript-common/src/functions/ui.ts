@@ -4,24 +4,21 @@ import { UI_HEART_WIDTH, VectorZero } from "../core/constants";
 import { copyVector } from "./vector";
 
 /**
- * In the options menu, players have the ability to set a HUD offset. However, mods do not have
- * access to this value. To get around this, Mod Config Menu provides a separate HUD offset setting
- * on the first page of the menu. This is intended to be set by end-users to match their vanilla HUD
- * offset setting so that mods can render UI elements to the screen in the correct position.
+ * In the options menu, players have the ability to set a HUD offset. This uses the current HUD
+ * offset to generate a vector that should be added to the corresponding position that you want to
+ * draw a UI element.
  *
- * @returns If the user does not have Mod Config Menu enabled, or does not have this option set,
- *          then this function will return `Vector.Zero.` Otherwise, it will return a Vector that
- *          represents a HUD offset that should be added to the position of a UI element.
+ * For example:
+ * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
+ * - If the user has a HUD offset of 1.0 configured, this function will return `Vector(20, 12)`.
  */
 export function getHUDOffsetVector(): Vector {
-  const defaultVector = copyVector(VectorZero);
-
   // Convert e.g. 0.4 to 4.
   const hudOffset = math.floor(Options.HUDOffset * 10);
 
   // Expected values are integers between 1 and 10.
   if (hudOffset < 1 || hudOffset > 10) {
-    return defaultVector;
+    return copyVector(VectorZero);
   }
 
   const x = hudOffset * 2;

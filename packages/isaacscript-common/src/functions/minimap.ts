@@ -8,6 +8,8 @@ import { getRoomsInsideGrid } from "./rooms";
  * Helper function to add a `DisplayFlag` to a particular room's minimap display flags (e.g. whether
  * or not it is visible and so on).
  *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
+ *
  * @param roomGridIndex Set to undefined to use the current room index.
  * @param displayFlag The `DisplayFlag` to set. (See the `DisplayFlag` enum.)
  * @param updateVisibility Optional. Whether to call the `Level.UpdateVisibility` method in order to
@@ -96,6 +98,8 @@ export function getRoomDisplayFlags(
  *
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
+ *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
  *
  * @param displayFlagsMap A map of the display flags that is indexed by the room's safe grid index.
  */

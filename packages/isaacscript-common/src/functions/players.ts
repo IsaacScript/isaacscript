@@ -3,7 +3,6 @@ import {
   Challenge,
   CollectibleType,
   ControllerIndex,
-  FamiliarVariant,
   NullItemID,
   PlayerForm,
   PlayerType,
@@ -14,7 +13,6 @@ import { game, itemConfig } from "../core/cachedClasses";
 import { getLastElement, sumArray } from "./array";
 import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getCollectibleArray } from "./collectibleSet";
 import { getEnumValues } from "./enums";
 import {
   getAllPlayers,
@@ -233,8 +231,7 @@ export function getPlayerCollectibleCount(
 ): int {
   let numCollectibles = 0;
   for (const collectibleType of collectibleTypes) {
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
+    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
     numCollectibles += player.GetCollectibleNum(collectibleType, true);
   }
 
@@ -242,31 +239,13 @@ export function getPlayerCollectibleCount(
 }
 
 /**
- * Iterates over every item in the game and returns a map containing the number of each item that
- * the player has.
+ * Helper function to get the player from a tear, laser, bomb, etc. Returns undefined if the entity
+ * does not correspond to any particular player.
  *
- * Note that this will filter out non-real collectibles like Lilith's Incubus.
+ * This function works by looking at the `Parent` and the `SpawnerEntity` fields (in that order). As
+ * a last resort, it will attempt to use the `Entity.ToPlayer` method on the entity itself.
  */
-export function getPlayerCollectibleMap(
-  player: EntityPlayer,
-): Map<CollectibleType, int> {
-  const collectibleArray = getCollectibleArray();
-
-  const collectibleMap = new Map<CollectibleType, int>();
-  for (const collectibleType of collectibleArray) {
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
-    const collectibleNum = player.GetCollectibleNum(collectibleType, true);
-    if (collectibleNum > 0) {
-      collectibleMap.set(collectibleType, collectibleNum);
-    }
-  }
-
-  return collectibleMap;
-}
-
-/** Helper function to get the player from a tear, laser, bomb, etc. */
-export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
+export function getPlayerFromEntity(entity: Entity): EntityPlayer | undefined {
   if (entity.Parent !== undefined) {
     const player = entity.Parent.ToPlayer();
     if (player !== undefined) {
@@ -274,10 +253,7 @@ export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
     }
 
     const familiar = entity.Parent.ToFamiliar();
-    if (
-      familiar !== undefined &&
-      familiar.Variant === FamiliarVariant.INCUBUS
-    ) {
+    if (familiar !== undefined) {
       return familiar.Player;
     }
   }
@@ -289,15 +265,27 @@ export function getPlayerFromTear(entity: Entity): EntityPlayer | undefined {
     }
 
     const familiar = entity.SpawnerEntity.ToFamiliar();
-    if (
-      familiar !== undefined &&
-      familiar.Variant === FamiliarVariant.INCUBUS
-    ) {
+    if (familiar !== undefined) {
       return familiar.Player;
     }
   }
 
-  return undefined;
+  return entity.ToPlayer();
+}
+
+/**
+ * Helper function to get an `EntityPlayer` object from an `EntityPtr`. Returns undefined if the
+ * entity has gone out of scope or if the associated entity is not a player.
+ */
+export function getPlayerFromPtr(
+  entityPtr: EntityPtr,
+): EntityPlayer | undefined {
+  const entity = entityPtr.Ref;
+  if (entity === undefined) {
+    return undefined;
+  }
+
+  return entity.ToPlayer();
 }
 
 /**
@@ -421,8 +409,7 @@ export function getTotalPlayerCollectibles(
 ): int {
   const players = getPlayers();
   const numCollectiblesArray = players.map((player) =>
-    // We need to specify "true" as the second argument here to filter out things like Lilith's
-    // Incubus.
+    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
     player.GetCollectibleNum(collectibleType, true),
   );
 
@@ -443,7 +430,7 @@ export function hasLostCurse(player: EntityPlayer): boolean {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
+  if (isCharacter(player, PlayerType.SOUL_B)) {
     return false;
   }
 
@@ -461,9 +448,15 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
   return activeItemPrimary === CollectibleType.NULL;
 }
 
+/**
+ * Helper function to check if the active slot of a particular player is empty.
+ *
+ * @param player The player to check.
+ * @param activeSlot Optional. The active slot to check. Default is `ActiveSlot.PRIMARY`.
+ */
 export function isActiveSlotEmpty(
   player: EntityPlayer,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
 ): boolean {
   const activeCollectibleType = player.GetActiveItem(activeSlot);
   return activeCollectibleType === CollectibleType.NULL;
@@ -505,7 +498,7 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
     return true;
   }
 
-  const indirectPlayer = getPlayerFromTear(damageSource);
+  const indirectPlayer = getPlayerFromEntity(damageSource);
   return indirectPlayer !== undefined;
 }
 
@@ -547,13 +540,21 @@ export function isKeeper(player: EntityPlayer): boolean {
 export function isLost(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return (
-    character === PlayerType.THE_LOST || character === PlayerType.THE_LOST_B
-  );
+  return character === PlayerType.LOST || character === PlayerType.LOST_B;
 }
 
 export function isModdedPlayer(player: EntityPlayer): boolean {
   return !isVanillaPlayer(player);
+}
+
+/**
+ * Helper function for determining if a player is able to turn their head by pressing the shooting
+ * buttons.
+ *
+ * Under the hood, this function uses the `EntityPlayer.IsExtraAnimationFinished` method.
+ */
+export function isPlayerAbleToAim(player: EntityPlayer): boolean {
+  return player.IsExtraAnimationFinished();
 }
 
 /** Helper function for detecting if a player is one of the Tainted characters. */
@@ -715,7 +716,7 @@ export function removeTrinketCostume(
  *
  * @param player The player to give the item to.
  * @param collectibleType The collectible type of the item to give.
- * @param activeSlot The slot to set.
+ * @param activeSlot Optional. The slot to set. Default is `ActiveSlot.PRIMARY`.
  * @param charge Optional. The argument of charges to set. If not specified, the item will be set
  *               with maximum charges.
  * @param keepInPools Optional. Whether or not to remove the item from pools. Default is false.
@@ -723,7 +724,7 @@ export function removeTrinketCostume(
 export function setActiveItem(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-  activeSlot: ActiveSlot,
+  activeSlot = ActiveSlot.PRIMARY,
   charge?: int,
   keepInPools = false,
 ): void {

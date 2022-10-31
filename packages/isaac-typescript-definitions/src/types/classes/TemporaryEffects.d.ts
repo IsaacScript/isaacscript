@@ -11,7 +11,7 @@ declare global {
      * @param count Default is 1.
      */
     AddCollectibleEffect(
-      collectibleType: CollectibleType,
+      collectibleType: TemporaryCollectibleType,
       addCostume?: boolean,
       count?: int,
     ): void;

@@ -5,6 +5,9 @@ const CHARGE_BAR_ANM2 = "gfx/ui/ui_chargebar.anm2";
 /**
  * Constructor for a `ChargeBarSprites` object. For more information, see the `renderChargeBar`
  * helper function.
+ *
+ * Note that this is for the vertical charge bar that represents the number of charges that an
+ * active item has, not the circular charge bar that shows e.g. the charge rate of Brimstone.
  */
 export function newChargeBarSprites(maxCharges: int): ChargeBarSprites {
   const back = Sprite();
@@ -35,6 +38,9 @@ export function newChargeBarSprites(maxCharges: int): ChargeBarSprites {
 /**
  * Helper function to render a charge bar on the screen. First, call the `newChargeBarSprites`
  * function to initialize the sprites, and then call this function on every render frame.
+ *
+ * Note that this is for the vertical charge bar that represents the number of charges that an
+ * active item has, not the circular charge bar that shows e.g. the charge rate of Brimstone.
  */
 export function renderChargeBar(
   sprites: ChargeBarSprites,

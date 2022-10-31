@@ -61,7 +61,7 @@ export function forEach<T>(
 /**
  * Helper function for non-TypeScript users to check if an element is in an array.
  *
- * Since this takes O(N) time, using this function is usually a mistake, since you can use a `Map`
+ * Since this takes O(N) time, using this function is usually a mistake, since you can use a `Set`
  * data structure to get O(1) lookups.
  *
  * Internally, this just calls `array.includes`.

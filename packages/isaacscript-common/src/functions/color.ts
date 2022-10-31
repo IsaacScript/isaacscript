@@ -1,5 +1,5 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { SerializationBrand } from "../enums/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
@@ -103,8 +103,8 @@ export function isColor(object: unknown): object is Color {
 }
 
 /**
- * Used to determine is the given table is a serialized `Color` object created by the save data
- * manager and/or the `deepCopy` function.
+ * Used to determine is the given table is a serialized `Color` object created by the `deepCopy`
+ * function.
  */
 export function isSerializedColor(object: unknown): object is SerializedColor {
   if (!isTable(object)) {

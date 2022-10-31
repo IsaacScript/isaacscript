@@ -45,20 +45,20 @@ local function getScreenBottomRightPos()
 end
 
 -- ModCallbacks.MC_POST_RENDER (2)
-function mod:PostRender()
+function mod:postRender()
   -- Don't do anything while fading in to a new run to prevent crashes.
   if game:GetFrameCount() < 1 then
     return
   end
 
-  mod:RenderSprite()
-  mod:RenderText()
-  mod:LoadSaveDat()
-  mod:CheckInput()
-  mod:CheckRestart()
+  mod:renderSprite()
+  mod:renderText()
+  mod:loadSaveDat()
+  mod:checkInput()
+  mod:checkRestart()
 end
 
-function mod:RenderSprite()
+function mod:renderSprite()
   -- Determine if IsaacScript is connected or not.
   local frameCount = Isaac.GetFrameCount()
   connected = frameCount - frameOfLastSuccessfulLoad <= FRAMES_BEFORE_DISCONNECTED
@@ -91,7 +91,7 @@ function mod:RenderSprite()
   end
 end
 
-function mod:RenderText()
+function mod:renderText()
   -- Don't draw IsaacScript text when custom consoles are open.
   if AwaitingTextInput then
     return
@@ -165,7 +165,7 @@ function mod:GetColorForMsg(msg, alpha)
   return white
 end
 
-function mod:LoadSaveDat()
+function mod:loadSaveDat()
   -- Local variables
   local isaacFrameCount = Isaac.GetFrameCount()
 
@@ -256,7 +256,7 @@ function mod:Load()
   saveData = json.decode(saveDataJSON)
 end
 
-function mod:CheckInput()
+function mod:checkInput()
   if game:IsPaused() then
     return
   end
@@ -273,7 +273,7 @@ function mod:CheckInput()
   end
 end
 
-function mod:CheckRestart()
+function mod:checkRestart()
   if not RESTART_GAME_ON_RECOMPILATION then
     return
   end
@@ -287,7 +287,7 @@ function mod:CheckRestart()
   Isaac.ExecuteCommand("restart")
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.PostRender)
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.postRender)
 
 local initMessage = "IsaacScript Watcher initialized."
 Isaac.DebugString(initMessage)

@@ -42,6 +42,10 @@
   "javascript.suggest.completeFunctionCalls": true,
   "typescript.suggest.completeFunctionCalls": true,
 
+  // By default, VSCode will prefer non-relative paths for deeply nested files.
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+
   // Python-specific settings.
   "python.formatting.provider": "black",
 

@@ -6,7 +6,7 @@ const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
 
 const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
   PlayerType.ESAU, // 20
-  PlayerType.THE_SOUL_B, // 40
+  PlayerType.SOUL_B, // 40
 ]);
 
 /**
@@ -122,7 +122,7 @@ function getPlayerIndexCollectibleType(
 ) {
   const character = player.GetPlayerType();
 
-  if (character === PlayerType.THE_SOUL) {
+  if (character === PlayerType.SOUL) {
     return differentiateForgottenAndSoul
       ? CollectibleType.INNER_EYE
       : DEFAULT_COLLECTIBLE_TYPE;

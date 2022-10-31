@@ -20,6 +20,7 @@ declare global {
     Height: int;
     InitialWeight: float;
     Name: string;
+    OriginalVariant: int;
     Shape: RoomShape;
     SpawnCount: int;
     Spawns: SpawnList;

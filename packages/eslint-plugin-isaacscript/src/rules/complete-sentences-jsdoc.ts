@@ -5,7 +5,7 @@ import {
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
 import { createRule } from "../utils";
 
-type Options = [];
+export type Options = [];
 
 export const completeSentencesJSDoc = createRule<
   Options,

@@ -97,19 +97,27 @@ When you are first building and testing your custom stage, you can use a `roomVa
 
 Once you have created your custom rooms and defined your custom stage in the `tsconfig.json` file, you need to add some code to your mod to generate a way for the player to get there. Obviously, the specifics of this will depend on how you want your custom stage to work. Maybe you want to add an additional trapdoor next to the Downpour trapdoor, or maybe you want to add an additional trapdoor inside of the Basement 1 shop.
 
-As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the [`spawnCustomTrapdoor`](/isaacscript-common/features/customTrapdoor_exports) helper function.
+As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the `spawnCustomTrapdoor` helper function.
 
 ```ts
 const TOP_LEFT_CORNER_GRID_INDEX = 32;
 
-function postGameStarted() {
-  spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", 1);
+const modVanilla = RegisterMod("MyMod", 1);
+const features = [ISCFeature.CUSTOM_STAGES] as const;
+const mod = upgradeMod(modVanilla, features);
+
+mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted);
+
+function postGameStarted(isContinued: boolean) {
+  if (!isContinued) {
+    mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", 1);
+  }
 }
 ```
 
 Here, "Foo" is the name of our custom stage, and 1 is the floor number. (For example, we could bypass Foo 1 and go directly to Foo 2 by specifying a 2 here.)
 
-Now, by jumping into the trapdoor, you will be taken to the custom stage. That's all we need to do!
+Now, by jumping into the trapdoor, the player will be taken to the custom stage. That's all we need to do!
 
 If you want to code some custom way to travel to the custom stage that does not involve a trapdoor, you can do that too. See the following section.
 
@@ -122,8 +130,8 @@ During development, you might want to set up a custom hotkey to warp to your cus
 For example:
 
 ```ts
-registerHotkey(Keyboard.F1, () => {
-  setCustomStage("Slaughterhouse");
+setHotkey(Keyboard.F1, () => {
+  setCustomStage("Foo");
   reloadRoom();
 });
 ```

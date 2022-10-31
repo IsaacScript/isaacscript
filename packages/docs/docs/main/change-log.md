@@ -9,10 +9,136 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## September 11th, 2022 (Unreleased)
+## October 17th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `getGridEntitiesInRadius` (Thanks NFrost)
+  - `getGridEntityCollisionPoints` (Thanks NFrost)
+  - `getConstituentsFromEntityID`
+  - `getConstituentsFromGridEntityID`
+  - `spawnEntityID`
+- Added the following custom callbacks:
+  - `POST_NPC_INIT_FILTER`
+  - `POST_NPC_UPDATE_FILTER`
+- Added the following types:
+  - `EntityID`
+  - `GridEntityID`
+
+## October 10th, 2022
+
+- `isaacscript-common` has been rewritten to only enable the custom features that you are actually using (rather than all of them). The idea here is to keep the library blazing fast and allow it to scale well into the future as more features are added.
+- Breaking:
+  - All of the extra feature functions in `isaacscript-common` are now attached to the `ModUpgraded` object (instead of being normal functions that you import). The idea here is to eliminate run-time errors from non-upgraded mods. See [the website](https://isaacscript.github.io/isaacscript-common#using-extra-features) for more details.
+- Added the following helper functions:
+  - `removeUrnRewards`
+  - `removeEntitiesSpawnedFromGridEntity`
+  - `spawnRockAltRewardUrn`
+  - `spawnRockAltRewardMushroom`
+  - `spawnRockAltRewardSkull`
+  - `spawnRockAltRewardPolyp`
+  - `spawnRockAltRewardBucketDownpour`
+  - `spawnRockAltRewardBucketDross`
+  - `getPlayerCollectiblesWithTag`
+  - `getPlayerCollectiblesForTransformation`
+  - `getEdenActiveCollectibles`
+  - `getRandomEdenActiveCollectible`
+  - `spawnCollectibleUnsafe`
+  - `isPlayerAbleToAim`
+- Renamed the following helper functions:
+  - `hasSirenStolenFamiliar` --> `isFamiliarStolenBySiren`
+  - `getCollectiblesForCacheFlag` --> `getCollectibleTypesWithCacheFlag`
+  - `getTrinketsForCacheFlag` --> `getTrinketsWithCacheFlag`
+  - `getPlayerCollectiblesForCacheFlag` --> `getPlayerCollectiblesWithCacheFlag`
+  - `getPlayerTrinketsForCacheFlag` --> `getPlayerTrinketsWithCacheFlag`
+  - `getCollectibleTypesWithTag` --> `getCollectiblesWithTag`
+  - `getCollectibleTypesForTransformation` --> `getCollectiblesForTransformation`
+  - `getEdenPassives` --> `getEdenPassiveCollectibles`
+  - `getRandomEdenPassive` --> `getRandomEdenPassiveCollectible`
+- Deleted the following helper functions:
+  - `isIsaacScriptCommonClass`
+  - `isVanillaTSTLClass`
+  - `getPlayerNumCollectiblesWithTag` (use `getPlayerCollectiblesWithTag` instead)
+  - `getPlayerNumCollectiblesForTransformation` (use `getPlayerCollectiblesForTransformation` instead)
+  - `enableDevFeatures`
+- Added the following helper types:
+  - `AnyClass`
+  - `HasFunction`
+  - `TupleToUnion`
+  - `TupleToIntersection`
+  - `Writable`
+
+## September 30th, 2022
+
+- Added the `@Callback` and `@CustomCallback` method decorators, which automatically subscribe the decorated method to the corresponding callback. This unlocks a new style of Isaac mods where you do not have to manage adding callbacks directly. In order for this to work properly, your mod features should be represented by classes that extend from the `ModFeature` class.
+- Added the following helper functions:
+  - `isGreedMode`
+  - `validateInterfaceMatchesEnum`
+  - `newObjectWithEnumKeys`
+  - `getPlayerFromPtr`
+  - `saveDataManagerRemove`
+  - `getTSTLClassConstructor`
+  - `isTableEmpty`
+  - `logTableKeys`
+  - `getRandomIndexFromWeightedArray`
+  - `merge`
+- The helper functions relating to charge now have an `activeSlot` parameter that defaults to `ActiveSlot.PRIMARY`.
+- Added the following helper types:
+  - `HasAllEnumKeys`
+  - `UnionToIntersection`
+  - `AllButFirst`
+  - `AllButLast`
+  - `LowercaseKeys`
+  - `UppercaseKeys`
+  - `StartsWithLowercase`
+  - `StartsWithUppercase`
+  - `AnyFunction`
+
+## September 22th, 2022
+
+- The save data manager will now restore any data on a `run` or `level` object when the Glowing Hour Glass is used to what it was when the room was entered.
+- The custom door feature of the standard library is removed. (It may be reimplemented in the future if needed.)
+- Added the following helper functions:
+  - `isTearFromPlayer`
+  - `isTearFromFamiliar`
+  - `setEntityDamageFlash`
+  - `hasArmor`
+  - `defaultMapGetHash`
+  - `defaultMapSetHash` (just an alias for `mapSetHash`)
+  - `mapSetHash`
+  - `setAdd`
+  - `isVanillaWallGridIndex`
+  - `inHomeCloset`
+  - `getGridIndexesBetween`
+  - `setConditionalHotkey`
+  - `unsetConditionalHotkey`
+  - `preventGridEntityRespawn`
+  - `getTime`
+  - `setTracebackFunctionsGlobal` (for easier debugging)
+  - `getParentFunctionDescription`
+  - `spawnCollectibleFromPool`
+  - `getAmbushType`
+- Renamed the following helper functions:
+  - `getPlayerFromTear` --> `getPlayerFromEntity`
+  - `registerHotkey` --> `setHotkey`
+  - `irange` --> `iRange`
+  - `erange` --> `eRange`
+- Changed the following helper functions:
+  - `iRange` and `eRange` now take an optional `increment` argument.
+- Added the following enums:
+  - `LadderSubTypeCustom`
+- Renamed the following enums:
+  - `LadderSubType` --> `TallLadderSubType`
+- Added the following custom commands:
+  - `transformation`
+  - `playerForm` (alias for `transformation`)
+  - `getCharge`
+- The `damage`, `tears`, and `speed` custom commands now take optional arguments to set the player's stat to the specific amount.
+
+## September 13th, 2022
 
 - Added the following helper functions:
   - `getWeightedRandom` (thanks popjam)
+  - `hasUnusedDoorSlot`
 
 ## September 4th, 2022
 

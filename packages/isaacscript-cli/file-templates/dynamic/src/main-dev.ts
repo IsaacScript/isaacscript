@@ -32,7 +32,7 @@ function postPlayerInit(_player: EntityPlayer) {
 }
 
 // ModCallback.POST_GAME_STARTED (15)
-function postGameStarted() {
+function postGameStarted(_isContinued: boolean) {
   log("ModCallback.POST_GAME_STARTED");
 }
 

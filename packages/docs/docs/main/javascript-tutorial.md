@@ -80,11 +80,11 @@ Isaac.GetPlayer().AddMaxHearts(2);
 
 <br />
 
-### Variables: `local` --> `const` and `let`
+### Variables: `local` ➜ `const` and `let`
 
 In Lua, you type `local` before declaring a variable to stop it from being turned into a global.
 
-In TypeScript, this isn't necessary. There are no globals variables, unless we explicitly decide to create one.
+In TypeScript, this isn't necessary. There are no global variables, unless we explicitly decide to create one.
 
 Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
 (Don't ever use `var`, which is only used in older JavaScript code.)
@@ -227,11 +227,11 @@ In Lua, you don't put parentheses around the conditions of an `if` statement. Bu
 
 Also, the operators are a bit different:
 
-- `and` --> `&&`
-- `or` --> `||`
-- `==` --> `===`
-- `~=` --> `!==`
-- `..` --> `+`
+- `and` ➜ `&&`
+- `or` ➜ `||`
+- `==` ➜ `===`
+- `~=` ➜ `!==`
+- `..` ➜ `+`
 
 For example:
 
@@ -249,7 +249,7 @@ if (x === 1 && y !== 0) {
 }
 ```
 
-If you find typing three equal signs annoying, then don't: if you type `==` instead, ESLint will automatically convert it to `===` when you save the file.
+If you find typing three equal signs annoying, then don't bother: if you type `==` instead, ESLint will automatically convert it to `===` when you save the file.
 
 <br />
 
@@ -341,9 +341,9 @@ In Lua, the typical way to iterate over a key/value table is with `pairs`.
 -- Define a table of collectible prices.
 -- (We must put "[]" around the collectible types since the table keys are numbers.)
 local collectiblePrices = {
-  [3] = 15, -- Spoon Bender
-  [4] = 15, -- Cricket's Head
-  [5] = 7, -- My Reflection
+  [3] = 15, -- Spoon Bender is 15 coins.
+  [4] = 15, -- Cricket's Head is 15 coins.
+  [5] = 7, -- My Reflection is 7 coins.
 }
 
 for collectibleType, price in pairs(collectiblePrices) do
@@ -355,11 +355,11 @@ In TypeScript, you have a few different options.
 
 ```ts
 // TypeScript code
-// Define an anonymous object containing collectible prices.
+// Define an object containing collectible prices.
 const collectiblePrices = {
-  [3]: 15, // Spoon Bender
-  [4]: 15, // Cricket's Head
-  [5]: 7, // My Reflection
+  [3]: 15, // Spoon Bender is 15 coins.
+  [4]: 15, // Cricket's Head is 15 coins.
+  [5]: 7, // My Reflection is 7 coins.
 };
 
 for (const [collectibleType, price] of Object.entries(collectiblePrices)) {
@@ -379,7 +379,7 @@ for (const price of Object.values(collectiblePrices)) {
 
 <br />
 
-### `nil` --> `undefined`
+### `nil` ➜ `undefined`
 
 ```lua
 -- Lua code
@@ -563,8 +563,8 @@ Here, TypeScript will infer that `myNumber` is of type `number`, because it know
 However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain collectible types:
 
 ```ts
-// We will add some collectible types later on, but right now we just need to initialize the array.
-const collectibleTypes = [];
+// We will add some numbers types later on, but right now we just need to initialize the array.
+const numberArray = [];
 ```
 
 Here, TypeScript is able to infer that the type of the variable is an array. But it can't infer what is supposed to go inside of the array, for obvious reasons. So the type defaults to `any[]` (which means "an array containing anything").
@@ -572,7 +572,7 @@ Here, TypeScript is able to infer that the type of the variable is an array. But
 This is bad, because we want our arrays to be type safe. Thus, when we declare arrays (and other container-like objects), we have to tell TypeScript what kinds of things they should contain:
 
 ```ts
-const collectibleTypes: CollectibleType[] = [];
+const numberArray: number[] = [];
 ```
 
 Much better!
@@ -624,7 +624,7 @@ export function addSadOnion(player: EntityPlayer): void {
 
 <br />
 
-### Splitting Your Code Into Multiple Files: `require()` --> `import`
+### Splitting Your Code Into Multiple Files: `require()` ➜ `import`
 
 In Lua, you split your code into multiple files by using `require()`.
 
@@ -753,45 +753,7 @@ Now, your other TypeScript files will "see" it as a global variable without you 
 
 <br />
 
-### Using Complicated Global Variables
-
-First, see the previous section on [using global variables](#using-global-variables).
-
-In the True Co-op Mod, the exported global variable of `InfinityTrueCoopInterface` allows other mods to add new characters with the `AddCharacter` method. Imagine that your mod creates a new character and you want to add that character to the True Co-op Mod. If you try calling `InfinityTrueCoopInterface.AddCharacter()`, TypeScript will throw an error and say that it doesn't exist.
-
-The solution is to add the `AddCharacter()` method to our definition file. We need to flesh out the `src/types/InfinityTrueCoopInterface.d.ts` file a bit:
-
-```ts
-// The global variable exists and it is a Lua table of type TrueCoop,
-// which we will immediately define below.
-declare const InfinityTrueCoopInterface: TrueCoop | undefined;
-
-// We declare a TrueCoop interface that has as many methods or members as we need.
-// (But for now, we will only add one.)
-declare interface TrueCoop() {
-  AddCharacter(playerData: TrueCoopPlayerData)
-}
-
-// We also have to specify what the True Co-op mod expects to be passed for the
-// first argument of the "AddCharacter" method (which is a table with a bunch of
-// things in it. This (partially) matches the documentation near the top of the
-// "main.lua" file for the True Co-op Mod.
-interface TrueCoopPlayerData {
-  Name: string;
-  Type: PlayerType;
-  SelectionGfx: string;
-  GhostCostume: NullCostumeID;
-  MaxHearts: int;
-  Hearts: int;
-  // etc.
-}
-```
-
-After doing this, we will be able to call `InfinityTrueCoopInterface.AddCharacter(playerData)` successfully in our code.
-
-<br />
-
-### Exporting Global Variables
+### Creating Global Variables
 
 In Lua, some mods export functionality by using a global variable:
 
@@ -827,7 +789,7 @@ RevelationsExports = {
 
 ### Enums
 
-In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices. <!-- cspell:ignore keyvalue -->
+In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices.
 
 Imagine that in our mod, collectibles can only be sold for three different prices:
 
@@ -860,7 +822,7 @@ In the previous [enums](#enums) section, we defined `collectiblePrices` as an ob
 
 Objects are good for cases where every possibility is accounted for. But this isn't the case for `collectiblePrices`. Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
 
-In this example, what `collectiblePrices` _really_ represents is a _map_ of a specific collectible type to a price. Unlike Lua, TypeScript has a `Map` data type. So, the example would be better written like this:
+In this example, what `collectiblePrices` _really_ represents is a [_map_](https://en.wikipedia.org/wiki/Associative_array) of a specific collectible type to a price. Unlike Lua, TypeScript has a built-in `Map` data type. So, the example would be better written like this:
 
 ```ts
 const collectiblePrices = new Map<number, CollectiblePrice>([

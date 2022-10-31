@@ -17,17 +17,21 @@ function main() {
 
   checkEntryPointsBrokenLink(entryPoints);
 
-  checkEntryPointsForDirectory("src/classes/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory(
+    "src/classes/*.ts",
+    entryPointsSet,
+    (filePath) => !filePath.endsWith("private"),
+  );
+  checkEntryPointsForDirectory(
+    "src/classes/features/other/*.ts",
+    entryPointsSet,
+    (filePath) => filePath.endsWith(".ts"),
+  );
   checkEntryPointsForDirectory("src/core/*.ts", entryPointsSet);
   checkEntryPointsForDirectory(
     "src/enums/*.ts",
     entryPointsSet,
     (filePath) => !filePath.endsWith("private"),
-  );
-  checkEntryPointsForDirectory(
-    "src/features/*.ts",
-    entryPointsSet,
-    (filePath) => filePath.endsWith(".ts"),
   );
   checkEntryPointsForDirectory("src/functions/*.ts", entryPointsSet);
   checkEntryPointsForDirectory(
@@ -40,7 +44,7 @@ function main() {
   checkEntryPointsForDirectory(
     "src/types/*.ts",
     entryPointsSet,
-    (filePath) => !filePath.endsWith(".d.ts"),
+    (filePath) => !filePath.endsWith(".d.ts") && !filePath.endsWith("private"),
   );
 }
 
@@ -74,7 +78,7 @@ function getEntryPoints(): string[] {
 function checkEntryPointsBrokenLink(entryPoints: string[]) {
   for (const entryPoint of entryPoints) {
     const entryPointPath = path.join(PACKAGE_ROOT, entryPoint);
-    if (!isFile(entryPointPath, false)) {
+    if (!fileExists(entryPointPath)) {
       error(`The following entry point does not exist: ${entryPoint}`);
     }
   }
@@ -107,26 +111,13 @@ function error(...args: unknown[]): never {
   return process.exit(1);
 }
 
-function getFileStats(filePath: string, verbose: boolean): fs.Stats {
-  if (verbose) {
-    console.log(`Getting file stats from: ${filePath}`);
-  }
-
-  let fileStats: fs.Stats;
+function fileExists(filePath: string): boolean {
+  let pathExists: boolean;
   try {
-    fileStats = fs.statSync(filePath);
+    pathExists = fs.existsSync(filePath);
   } catch (err) {
-    error(`Failed to get the file stats for "${filePath}":`, err);
+    error(`Failed to check if "${filePath}" exists:`, err);
   }
 
-  if (verbose) {
-    console.log(`Got file stats from: ${filePath}`);
-  }
-
-  return fileStats;
-}
-
-function isFile(filePath: string, verbose: boolean): boolean {
-  const fileStats = getFileStats(filePath, verbose);
-  return fileStats.isFile();
+  return pathExists;
 }

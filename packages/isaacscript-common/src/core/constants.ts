@@ -44,6 +44,8 @@ export const DEFAULT_ITEM_POOL_TYPE = ItemPoolType.TREASURE;
 /** This is also the distance that a player spawns from the door that they enter a room from. */
 export const DISTANCE_OF_GRID_TILE = 40;
 
+export const DOGMA_ROOM_GRID_INDEX = 109;
+
 export const DOOR_HITBOX_RADIUS = 11;
 
 /**
@@ -171,19 +173,19 @@ export const TELEPORTER_ACTIVATION_DISTANCE = DISTANCE_OF_GRID_TILE / 2;
 export const UI_HEART_WIDTH = 12;
 
 /**
- * This is a safer version of the `Vector.One` constant. (Other mods can mutate `Vector.One`, so it
+ * This is a safe version of the `Vector.One` constant. (Other mods can mutate `Vector.One`, so it
  * is not safe to use.)
  */
 export const VectorOne: Readonly<Vector> = Vector(1, 1);
 
 /**
- * This is a safer version of the `Vector.Zero` constant. (Other mods can mutate `Vector.Zero`, so
- * it is not safe to use.)
+ * This is a safe version of the `Vector.Zero` constant. (Other mods can mutate `Vector.Zero`, so it
+ * is not safe to use.)
  */
 export const VectorZero: Readonly<Vector> = Vector(0, 0);
 
 /**
- * This is a safer version of the `Color.Default` constant. (Other mods can mutate `Color.Default`,
+ * This is a safe version of the `Color.Default` constant. (Other mods can mutate `Color.Default`,
  * so it is not safe to use.)
  *
  * If you need to mutate this, make a copy first with the `copyColor` helper function.

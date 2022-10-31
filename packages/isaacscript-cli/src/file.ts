@@ -9,7 +9,9 @@ export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
   }
 
   try {
-    // `copySync` is a `fs-extra` method for copying directories recursively.
+    // `copySync` is a `fs-extra` method for copying directories recursively. When `fs.cpSync` is no
+    // longer experimental, we can drop the library:
+    // https://nodejs.org/api/fs.html#fscpsyncsrc-dest-options
     fs.copySync(srcPath, dstPath, {
       recursive: true,
     });
@@ -115,6 +117,32 @@ function getFileStats(filePath: string, verbose: boolean): fs.Stats {
   return fileStats;
 }
 
+/**
+ * `fs.lstatSync` is necessary (instead of `fs.statSync`) for the situations where we do not want to
+ * follow symbolic links.
+ */
+function getLinkedFileStats(filePath: string, verbose: boolean): fs.Stats {
+  if (verbose) {
+    console.log(`Getting linked file stats from: ${filePath}`);
+  }
+
+  let fileStats: fs.Stats;
+  try {
+    fileStats = fs.lstatSync(filePath);
+  } catch (err) {
+    error(
+      `Failed to get the linked file stats for "${chalk.green(filePath)}":`,
+      err,
+    );
+  }
+
+  if (verbose) {
+    console.log(`Got linked file stats from: ${filePath}`);
+  }
+
+  return fileStats;
+}
+
 export function isDir(filePath: string, verbose: boolean): boolean {
   const fileStats = getFileStats(filePath, verbose);
   return fileStats.isDirectory();
@@ -123,6 +151,12 @@ export function isDir(filePath: string, verbose: boolean): boolean {
 export function isFile(filePath: string, verbose: boolean): boolean {
   const fileStats = getFileStats(filePath, verbose);
   return fileStats.isFile();
+}
+
+export function isLink(filePath: string, verbose: boolean): boolean {
+  // We must use `getLinkedFileStats` instead of `getFileStats`.
+  const fileStats = getLinkedFileStats(filePath, verbose);
+  return fileStats.isSymbolicLink();
 }
 
 export function isSubDirOf(dir: string, parent: string): boolean {
@@ -147,28 +181,6 @@ export function makeDir(dirPath: string, verbose: boolean): void {
 
   if (verbose) {
     console.log(`Made a directory: ${dirPath}`);
-  }
-}
-
-// ts-prune-ignore-next (used by other code in the monorepo)
-export function move(srcPath: string, dstPath: string, verbose: boolean): void {
-  if (verbose) {
-    console.log(`Moving: ${srcPath} --> ${dstPath}`);
-  }
-
-  try {
-    fs.moveSync(srcPath, dstPath);
-  } catch (err) {
-    error(
-      `Failed to move file "${chalk.green(srcPath)}" to "${chalk.green(
-        dstPath,
-      )}":`,
-      err,
-    );
-  }
-
-  if (verbose) {
-    console.log(`Moved: ${srcPath} --> ${dstPath}`);
   }
 }
 

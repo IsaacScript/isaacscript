@@ -7,5 +7,14 @@ import { CornerType } from "../enums/CornerType";
  */
 export interface Corner {
   readonly type: CornerType;
+
+  /** The grid index of the corresponding wall tile. */
+  readonly gridIndex: int;
+
+  /**
+   * The position is not the same as the center of the corresponding grid index. Rather, it is the
+   * exact position of the corner, which will be offset from the grid index position by half of a
+   * grid tile.
+   */
   readonly position: Readonly<Vector>;
 }

@@ -9,6 +9,7 @@ import {
   GridRoom,
   HomeRoomSubType,
   ItemPoolType,
+  LevelStage,
   MinibossID,
   RoomDescriptorFlag,
   RoomShape,
@@ -47,7 +48,7 @@ import {
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
 import { asNumber } from "./types";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use
@@ -216,7 +217,7 @@ export function getRoomsInsideGrid(
   const roomDescriptorMap = new Map<PtrHash, RoomDescriptor>();
 
   for (const dimension of dimensions) {
-    for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+    for (const roomGridIndex of iRange(MAX_LEVEL_GRID_INDEX)) {
       const roomDescriptor = level.GetRoomByIdx(roomGridIndex, dimension);
       if (roomDescriptor.Data !== undefined) {
         const ptrHash = GetPtrHash(roomDescriptor);
@@ -240,7 +241,7 @@ export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
   /** We use a map instead of an array because room shapes occupy more than one room grid index. */
   const roomsMap = new Map<PtrHash, RoomDescriptor>();
 
-  for (const roomGridIndex of irange(MAX_LEVEL_GRID_INDEX)) {
+  for (const roomGridIndex of iRange(MAX_LEVEL_GRID_INDEX)) {
     const roomDescriptor = level.GetRoomByIdx(roomGridIndex, dimension);
     if (roomDescriptor.Data !== undefined) {
       const ptrHash = GetPtrHash(roomDescriptor);
@@ -375,6 +376,24 @@ export function inGenesisRoom(): boolean {
   return roomGridIndex === asNumber(GridRoom.GENESIS);
 }
 
+/**
+ * Helper function to check if the current room is either the left Home closet (behind the red door)
+ * or the right Home closet (with one random pickup).
+ *
+ * Home closets have a unique shape that is different from any other room in the game.
+ */
+export function inHomeCloset(): boolean {
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const roomSubType = getRoomSubType();
+
+  return (
+    stage === LevelStage.HOME &&
+    (roomSubType === asNumber(HomeRoomSubType.CLOSET_LEFT) ||
+      roomSubType === asNumber(HomeRoomSubType.CLOSET_RIGHT))
+  );
+}
+
 /** Helper function to determine if the current room shape is one of the four L room shapes. */
 export function inLRoom(): boolean {
   const room = game.GetRoom();
@@ -491,17 +510,19 @@ export function inStartingRoom(): boolean {
  *                           checked. Undefined by default.
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
-  const roomTypeWhitelist =
-    onlyCheckRoomTypes === undefined ? null : new Set(onlyCheckRoomTypes);
   const rooms = getRoomsInsideGrid();
-  const matchingRooms =
-    roomTypeWhitelist === null
-      ? rooms
-      : rooms.filter(
-          (roomDescriptor) =>
-            roomDescriptor.Data !== undefined &&
-            roomTypeWhitelist.has(roomDescriptor.Data.Type),
-        );
+
+  let matchingRooms: RoomDescriptor[];
+  if (onlyCheckRoomTypes === undefined) {
+    matchingRooms = rooms;
+  } else {
+    const roomTypeWhitelist = new Set(onlyCheckRoomTypes);
+    matchingRooms = rooms.filter(
+      (roomDescriptor) =>
+        roomDescriptor.Data !== undefined &&
+        roomTypeWhitelist.has(roomDescriptor.Data.Type),
+    );
+  }
 
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
 }
@@ -525,7 +546,7 @@ export function roomUpdateSafe(): void {
   setEntityVelocities(entityVelocities, entities);
 }
 
-/** Helper function to set the backdrop of the current room. */
+/** Helper function to set the backdrop (i.e. background) of the current room. */
 export function setBackdrop(backdropType: BackdropType): void {
   game.ShowHallucination(0, backdropType);
   sfxManager.Stop(SoundEffect.DEATH_CARD);

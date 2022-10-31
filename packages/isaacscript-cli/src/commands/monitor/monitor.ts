@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { fork, spawn } from "child_process";
 import path from "path";
+import * as touch from "touch";
 import { Config } from "../../classes/Config";
 import {
   CWD,
@@ -84,6 +85,8 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   // Perform the steps to link to a development version of "isaacscript-common", if necessary.
   if (config.isaacScriptCommonDev === true) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
+  } else {
+    warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
@@ -93,7 +96,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   spawnModDirectorySyncer(config);
 
   // Subprocess #3 - `tstl --watch` (to automatically convert TypeScript to Lua).
-  spawnTSTLWatcher(config, CWD);
+  spawnTSTLWatcher(config, CWD, verbose);
 
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
   if (config.isaacScriptCommonDev === true) {
@@ -116,7 +119,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
       );
     }
 
-    spawnTSTLWatcher(config, isaacScriptCommonDirectory);
+    spawnTSTLWatcher(config, isaacScriptCommonDirectory, verbose, CWD);
   }
 
   // Also, start constantly pinging the watcher mod.
@@ -199,6 +202,31 @@ function linkDevelopmentIsaacScriptCommon(
   );
 }
 
+function warnIfIsaacScriptCommonLinkExists(
+  projectPath: string,
+  packageManager: PackageManager,
+  verbose: boolean,
+) {
+  const isaacScriptCommonPath = path.join(
+    projectPath,
+    "node_modules",
+    "isaacscript-common",
+  );
+
+  if (!file.exists(isaacScriptCommonPath, verbose)) {
+    return;
+  }
+
+  if (
+    file.isLink(isaacScriptCommonPath, verbose) &&
+    packageManager !== PackageManager.PNPM // pnpm uses links, so it will cause a false positive.
+  ) {
+    error(
+      'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
+    );
+  }
+}
+
 function spawnModDirectorySyncer(config: Config) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
@@ -228,7 +256,12 @@ function spawnModDirectorySyncer(config: Config) {
   });
 }
 
-function spawnTSTLWatcher(config: Config, cwd: string) {
+function spawnTSTLWatcher(
+  config: Config,
+  cwd: string,
+  verbose: boolean,
+  modCWD?: string,
+) {
   const processDescription = "tstl";
   const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
     shell: true,
@@ -260,6 +293,16 @@ function spawnTSTLWatcher(config: Config, cwd: string) {
       const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
       const newMsg = `${COMPILATION_SUCCESSFUL} (in ${elapsedTimeSeconds} seconds)${suffix}`;
       notifyGame.msg(newMsg);
+
+      // Sometimes, there is a bug where successful compilation of "isaacscript-common" will not
+      // trigger a recompilation in the mod. Work around this by always touching the "main.ts" file
+      // from the mod.
+      if (modCWD !== undefined) {
+        const mainTSPath = path.join(modCWD, "src", "main.ts");
+        if (file.exists(mainTSPath, verbose)) {
+          touch.sync(mainTSPath);
+        }
+      }
     } else {
       notifyGame.msg(msg);
     }

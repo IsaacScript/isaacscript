@@ -12,14 +12,14 @@ export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.AZAZEL]: "Azazel", // 7
   [PlayerType.LAZARUS]: "Lazarus", // 8
   [PlayerType.EDEN]: "Eden", // 9
-  [PlayerType.THE_LOST]: "The Lost", // 10
+  [PlayerType.LOST]: "The Lost", // 10
   [PlayerType.LAZARUS_2]: "Lazarus II", // 11
   [PlayerType.DARK_JUDAS]: "Dark Judas", // 12
   [PlayerType.LILITH]: "Lilith", // 13
   [PlayerType.KEEPER]: "Keeper", // 14
   [PlayerType.APOLLYON]: "Apollyon", // 15
-  [PlayerType.THE_FORGOTTEN]: "The Forgotten", // 16
-  [PlayerType.THE_SOUL]: "The Soul", // 17
+  [PlayerType.FORGOTTEN]: "The Forgotten", // 16
+  [PlayerType.SOUL]: "The Soul", // 17
   [PlayerType.BETHANY]: "Bethany", // 18
   [PlayerType.JACOB]: "Jacob", // 19
   [PlayerType.ESAU]: "Esau", // 20
@@ -33,14 +33,14 @@ export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.AZAZEL_B]: "Tainted Azazel", // 28
   [PlayerType.LAZARUS_B]: "Tainted Lazarus", // 29
   [PlayerType.EDEN_B]: "Tainted Eden", // 30
-  [PlayerType.THE_LOST_B]: "Tainted Lost", // 31
+  [PlayerType.LOST_B]: "Tainted Lost", // 31
   [PlayerType.LILITH_B]: "Tainted Lilith", // 32
   [PlayerType.KEEPER_B]: "Tainted Keeper", // 33
   [PlayerType.APOLLYON_B]: "Tainted Apollyon", // 34
-  [PlayerType.THE_FORGOTTEN_B]: "Tainted Forgotten", // 35
+  [PlayerType.FORGOTTEN_B]: "Tainted Forgotten", // 35
   [PlayerType.BETHANY_B]: "Tainted Bethany", // 36
   [PlayerType.JACOB_B]: "Tainted Jacob", // 37
   [PlayerType.LAZARUS_2_B]: "Dead Tainted Lazarus", // 38
   [PlayerType.JACOB_2_B]: "Dead Tainted Jacob", // 39
-  [PlayerType.THE_SOUL_B]: "Tainted Soul", // 40
+  [PlayerType.SOUL_B]: "Tainted Soul", // 40
 } as const;

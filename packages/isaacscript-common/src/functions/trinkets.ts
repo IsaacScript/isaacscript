@@ -1,4 +1,5 @@
 import {
+  CacheFlag,
   PlayerType,
   TrinketSlot,
   TrinketType,
@@ -18,11 +19,12 @@ import {
   TRINKET_TYPE_TO_NAME_MAP,
 } from "../maps/trinketTypeToNameMap";
 import { getEntityID } from "./entities";
+import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
 import { asNumber } from "./types";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.
@@ -83,6 +85,8 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
 /**
  * Helper function to get the in-game description for a trinket. Returns "Unknown" if the provided
  * trinket type was not valid.
+ *
+ * This function works for both vanilla and modded trinkets.
  */
 export function getTrinketDescription(trinketType: TrinketType): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
@@ -122,6 +126,8 @@ export function getTrinketGfxFilename(trinketType: TrinketType): string {
  * not valid.
  *
  * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
+ *
+ * This function works for both vanilla and modded trinkets.
  */
 export function getTrinketName(trinketType: TrinketType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
@@ -141,7 +147,7 @@ export function getTrinketName(trinketType: TrinketType): string {
 
 /** Helper function to get an array that represents every vanilla trinket type. */
 export function getVanillaTrinketTypes(): TrinketType[] {
-  return irange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
+  return iRange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
 }
 
 /**
@@ -152,7 +158,7 @@ export function getVanillaTrinketTypes(): TrinketType[] {
  * items. (Only Tainted Forgotten can pick up items.)
  */
 export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.THE_SOUL_B)) {
+  if (isCharacter(player, PlayerType.SOUL_B)) {
     return false;
   }
 
@@ -217,4 +223,17 @@ export function setTrinketSprite(
     sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
     sprite.LoadGraphics();
   }
+}
+
+/** Helper function to check in the item config if a given trinket has a given cache flag. */
+export function trinketHasCacheFlag(
+  trinketType: TrinketType,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfigItem = itemConfig.GetTrinket(trinketType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }

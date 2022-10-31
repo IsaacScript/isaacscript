@@ -1,6 +1,12 @@
-- export isaac-typescript-definitions from isaacscript-common lua bundle
+- logEntityChanges
+
+- lint no default export
+
+- isaacscript-cli in lua
+- "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 
+- TypeScript 4.9 - delete newObjectWithEnumKeys
 
 - Lint:
   - add:     "no-unused-expressions": "warn",
@@ -44,8 +50,6 @@ lint failure, complete sentences:
 (no trailing period in the middle)
 
 
-lint: make "//  Foo" illegal
-
 lint failure:
 
  * These are helper functions relating to creating custom stages with the built-in standard library.
@@ -86,3 +90,13 @@ export function findFreePosition(
   avoidActiveEntities = false,
   minimumDistance?: float,
 ): Vector {
+
+
+lint:
+//test
+ctrl+s --> // est
+(maybe fix is to just disable other eslint rule)
+
+lint: add no null (only for non isaacscript projects)
+
+lint: no default export

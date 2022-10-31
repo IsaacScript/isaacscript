@@ -1,12 +1,12 @@
 import {
   Challenge,
+  Difficulty,
   PlayerType,
   SlotVariant,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { FIRST_CHARACTER } from "../core/constantsFirstLast";
-import { runNextRenderFrame } from "../features/runInNFrames";
 import { spawnSlot } from "./entitiesSpecific";
 import { log } from "./log";
 
@@ -24,6 +24,17 @@ export function canRunUnlockAchievements(): boolean {
   greedDonationMachine.Remove();
 
   return canUnlockAchievements;
+}
+
+/**
+ * Helper function to check if the difficulty of the current run is equal to `Difficulty.GREED` or
+ * `Difficulty.GREEDIER`.
+ */
+export function isGreedMode(): boolean {
+  return (
+    game.Difficulty === Difficulty.GREED ||
+    game.Difficulty === Difficulty.GREEDIER
+  );
 }
 
 /**
@@ -63,19 +74,6 @@ export function restart(character?: PlayerType): void {
     `Restarting the run as PlayerType.${PlayerType[character]} (${character}) with a console command of: ${command}`,
   );
   Isaac.ExecuteCommand(command);
-}
-
-/**
- * Helper function to restart on the next render frame. Useful because it is impossible to restart
- * the game inside of the `POST_NEW_ROOM`, `POST_NEW_LEVEL`, or `POST_GAME_STARTED` callbacks when a
- * run is first starting.
- *
- * You can optionally specify a `PlayerType` to restart the game as that character.
- */
-export function restartNextRenderFrame(character?: PlayerType): void {
-  runNextRenderFrame(() => {
-    restart(character);
-  });
 }
 
 /**

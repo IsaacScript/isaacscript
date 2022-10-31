@@ -1,16 +1,15 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { SerializationType } from "../enums/SerializationType";
-import { merge } from "../features/saveDataManager/merge";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
+import { merge } from "./merge";
 import { isRNG, newRNG } from "./rng";
 import { isSerializedIsaacAPIClass } from "./serialization";
 import { printConsole } from "./utils";
 import { isVector, serializeVector } from "./vector";
 
 /**
- * Run the suite of tests that prove that the "merge" function works properly. (This function is not
- * exported but is used internally in the save data manager.)
+ * Run the suite of tests that prove that the "merge" function works properly.
  *
  * This function is only useful if you are troubleshooting the save data manager.
  */

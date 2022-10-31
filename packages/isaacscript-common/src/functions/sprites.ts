@@ -1,6 +1,6 @@
 import { EMPTY_PNG_PATH, VectorZero } from "../core/constants";
 import { kColorEquals } from "./kColor";
-import { erange } from "./utils";
+import { eRange } from "./utils";
 
 /**
  * Helper function to clear all layers or specific layers from a sprite.
@@ -17,7 +17,7 @@ import { erange } from "./utils";
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
   if (layerIDs.length === 0) {
     const numLayers = sprite.GetLayerCount();
-    layerIDs = erange(numLayers);
+    layerIDs = eRange(numLayers);
   }
 
   for (const layerID of layerIDs) {

@@ -48,7 +48,7 @@ const plugin: tstl.Plugin = {
     result: tstl.EmitFile[],
   ) {
     for (const file of result) {
-      file.code = `${INFORMATIONAL_HEADER}${file.code}`;
+      file.code = INFORMATIONAL_HEADER + file.code;
     }
   },
 };

@@ -1,4 +1,5 @@
 import {
+  CacheFlag,
   CollectiblePedestalType,
   CollectibleSpriteLayer,
   CollectibleType,
@@ -9,6 +10,7 @@ import {
   ItemType,
   PickupPrice,
   PickupVariant,
+  RenderMode,
   RoomType,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
@@ -28,10 +30,11 @@ import {
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { CollectibleIndex } from "../types/CollectibleIndex";
 import { getEntityID } from "./entities";
+import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprites";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 
@@ -52,6 +55,19 @@ function initQuestionMarkSprite() {
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
   setCollectibleSprite(collectible, undefined);
+}
+
+/** Helper function to check in the item config if a given collectible has a given cache flag. */
+export function collectibleHasCacheFlag(
+  collectibleType: CollectibleType,
+  cacheFlag: CacheFlag,
+): boolean {
+  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === undefined) {
+    return false;
+  }
+
+  return hasFlag(itemConfigItem.CacheFlags, cacheFlag);
 }
 
 /** Helper function to check if two collectible sprites have the same sprite sheet loaded. */
@@ -100,6 +116,8 @@ export function getCollectibleChargeType(
 /**
  * Helper function to get the in-game description for a collectible. Returns "Unknown" if the
  * provided collectible type was not valid.
+ *
+ * This function works for both vanilla and modded collectibles.
  */
 export function getCollectibleDescription(
   collectibleType: CollectibleType,
@@ -319,6 +337,8 @@ export function getCollectibleMaxCharges(
  * type is not valid.
  *
  * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
+ *
+ * This function works for both vanilla and modded collectibles.
  */
 export function getCollectibleName(collectibleType: CollectibleType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
@@ -395,7 +415,7 @@ export function getCollectibleTags(
  * instead.
  */
 export function getVanillaCollectibleTypeRange(): CollectibleType[] {
-  return irange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
+  return iRange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
@@ -404,12 +424,25 @@ export function isActiveCollectible(collectibleType: CollectibleType): boolean {
   return itemType === ItemType.ACTIVE;
 }
 
-/** Returns true if the collectible has a red question mark sprite. */
+/**
+ * Returns true if the collectible has a red question mark sprite.
+ *
+ * Note that this function will not work properly in a render callback with the `RenderMode` set to
+ * `RenderMode.WATER_REFLECT`. If this is detected, this function will throw a run-time error.
+ */
 export function isBlindCollectible(collectible: EntityPickup): boolean {
   if (!isCollectible(collectible)) {
     const entityID = getEntityID(collectible);
     error(
       `The "isBlindCollectible" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  const room = game.GetRoom();
+  const renderMode = room.GetRenderMode();
+  if (renderMode === RenderMode.WATER_REFLECT) {
+    error(
+      'The "isBlindCollectible" function will not work properly in a render callback with the render mode equal to "RenderMode.WATER_REFLECT". Make sure that you properly account for this case if you are calling this function in a render callback.',
     );
   }
 

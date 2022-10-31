@@ -1,14 +1,14 @@
-import { postNewRoomEarlyCallbackInit } from "../callbacks/postNewRoomEarly";
-import { ModUpgraded } from "../classes/ModUpgraded";
-import { saveDataManagerInit } from "../features/saveDataManager/main";
-import {
-  areFeaturesInitialized,
-  setFeaturesInitialized,
-} from "../featuresInitialized";
-import { initCustomCallbacks } from "../initCustomCallbacks";
-import { initFeatures } from "../initFeatures";
+import { ModUpgradedBase } from "../classes/ModUpgradedBase";
+import { ISCFeature } from "../enums/ISCFeature";
 import { patchErrorFunction } from "../patchErrorFunctions";
-import { loadShaderCrashFix } from "../shaderCrashFix";
+import { applyShaderCrashFix } from "../shaderCrashFix";
+import { AnyFunction } from "../types/AnyFunction";
+import { ModUpgraded } from "../types/ModUpgraded";
+
+type ISCFeatureTuple<T extends readonly ISCFeature[]> =
+  ISCFeature extends T["length"]
+    ? 'The list of features must be a tuple. Use the "as const" assertion when declaring the array.'
+    : T;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by
@@ -28,30 +28,43 @@ import { loadShaderCrashFix } from "../shaderCrashFix";
  * ```
  *
  * @param modVanilla The mod object returned by the `RegisterMod` function.
+ * @param features Optional. An array containing the optional standard library features that you
+ *                 want to enable, if any. Default is an empty array.
+ * @param debug Optional. Whether to log additional output when a callback is fired. Default is
+ *              false.
+ * @param timeThreshold Optional. If provided, will only log callbacks that take longer than the
+ *                      specified number of seconds (if the "--luadebug" launch flag is turned on)
+ *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
  */
-export function upgradeMod(modVanilla: Mod): ModUpgraded {
-  const mod = new ModUpgraded(modVanilla);
+export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
+  modVanilla: Mod,
+  features: ISCFeatureTuple<T> = [] as unknown as ISCFeatureTuple<T>,
+  debug = false,
+  timeThreshold?: float,
+): ModUpgraded<T> {
+  patchErrorFunction();
 
-  if (!areFeaturesInitialized()) {
-    setFeaturesInitialized();
+  const mod = new ModUpgradedBase(modVanilla, debug, timeThreshold);
+  applyShaderCrashFix(mod);
+  initOptionalFeatures(mod, features as ISCFeature[]);
 
-    patchErrorFunction();
-    loadShaderCrashFix(modVanilla);
+  return mod as ModUpgraded<T>;
+}
 
-    // We initialize the `POST_NEW_ROOM_EARLY` callback first since it is used by the save data
-    // manager.
-    postNewRoomEarlyCallbackInit(mod);
+/** Initialize every optional feature that the end-user specified. */
+function initOptionalFeatures(mod: ModUpgradedBase, features: ISCFeature[]) {
+  for (const feature of features) {
+    // We intentionally access the private method here, so we use the string index escape hatch:
+    // https://github.com/microsoft/TypeScript/issues/19335
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    const exportedMethodTuples = mod["initOptionalFeature"](feature);
 
-    // We initialized the save data manager second since it is used by the other custom callbacks
-    // and features.
-    saveDataManagerInit(mod);
-
-    // We initialize custom callbacks next since some features use custom callbacks.
-    initCustomCallbacks(mod);
-
-    initFeatures(mod);
+    // If the optional feature provides helper functions, attach them to the base mod object. (This
+    // provides a convenient API for end-users.)
+    const modRecord = mod as unknown as Record<string, AnyFunction>;
+    for (const [funcName, func] of exportedMethodTuples) {
+      modRecord[funcName] = func;
+    }
   }
-
-  return mod;
 }

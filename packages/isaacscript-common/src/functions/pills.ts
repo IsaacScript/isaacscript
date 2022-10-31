@@ -29,7 +29,7 @@ import {
 } from "../objects/pillEffectTypes";
 import { getEnumValues } from "./enums";
 import { asNumber, asPillColor } from "./types";
-import { irange } from "./utils";
+import { iRange } from "./utils";
 
 /**
  * Add this to a `PillColor` to get the corresponding giant pill color.
@@ -71,7 +71,7 @@ export function getHorsePillColor(pillColor: PillColor): PillColor {
 
 /** Helper function to get an array with every non-gold horse pill color. */
 export function getHorsePillColors(): PillColor[] {
-  return irange(FIRST_HORSE_PILL_COLOR, LAST_HORSE_PILL_COLOR);
+  return iRange(FIRST_HORSE_PILL_COLOR, LAST_HORSE_PILL_COLOR);
 }
 
 /**
@@ -91,7 +91,7 @@ export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
 
 /** Helper function to get an array with every non-gold and non-horse pill color. */
 export function getNormalPillColors(): PillColor[] {
-  return irange(FIRST_PILL_COLOR, LAST_NORMAL_PILL_COLOR);
+  return iRange(FIRST_PILL_COLOR, LAST_NORMAL_PILL_COLOR);
 }
 
 /**
@@ -172,7 +172,7 @@ export function getPillEffectType(
 
 /** Helper function to get an array with every vanilla pill effect. */
 export function getVanillaPillEffects(): PillEffect[] {
-  return irange(FIRST_PILL_EFFECT, LAST_VANILLA_PILL_EFFECT);
+  return iRange(FIRST_PILL_EFFECT, LAST_VANILLA_PILL_EFFECT);
 }
 
 export function isHorsePill(pillColor: PillColor): boolean {
