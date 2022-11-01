@@ -1,4 +1,4 @@
-- logEntityChanges
+- https://wofsauge.github.io/Isaac-XML-Validator/webtool/
 
 - lint no default export
 
