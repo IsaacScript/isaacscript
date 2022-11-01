@@ -86,8 +86,11 @@ declare interface EIDInterface {
    */
   addDescriptionModifier(
     modifierName: string,
-    condition: (testDescription: EIDDescriptionObject) => boolean,
-    callback: (oldDescription: EIDDescriptionObject) => EIDDescriptionObject,
+    condition: (this: void, testDescription: EIDDescriptionObject) => boolean,
+    callback: (
+      this: void,
+      oldDescription: EIDDescriptionObject,
+    ) => EIDDescriptionObject,
   ): void;
 
   /**
