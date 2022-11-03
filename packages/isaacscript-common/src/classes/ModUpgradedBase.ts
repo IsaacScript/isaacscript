@@ -399,8 +399,7 @@ function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
 
   return exportedMethodNames.map((name) => {
     const featureClassRecord = featureClass as Record<string, AnyFunction>;
-    const method = featureClassRecord[name];
-    if (method === undefined) {
+    if (featureClassRecord[name] === undefined) {
       error(`Failed to find a decorated exported method: ${name}`);
     }
 

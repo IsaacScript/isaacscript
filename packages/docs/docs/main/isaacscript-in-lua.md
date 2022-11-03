@@ -95,7 +95,7 @@ end
 
 Note that similar to most Lua libraries, you must use a colon (instead of a period) when invoking functions, since the library is an exported module.
 
-## Using Enums
+### Using Enums
 
 As previously mentioned, the enums from `isaac-typescript-definitions` are also exported from `isaacscript-common` for your use.
 
@@ -119,7 +119,7 @@ As a general safety practice, you should always use the library enums over the v
 
 <br />
 
-## Using Custom Callbacks
+### Using Custom Callbacks
 
 Like any good library, importing anything in `isaacscript-common` will not cause any code to be executed in your mod. Most of its functions are [pure functions](https://en.wikipedia.org/wiki/Pure_function).
 
@@ -146,7 +146,7 @@ end)
 
 <br />
 
-## Using Extra Features
+### Using Extra Features
 
 Some helper functions rely on stateful tracking (like `isPlayerUsingPony`) or store data about what you want to do for later (like `setHotkey`). These fall under the category of "extra features". Since they are non-pure, you are only able to access them if you upgrade your mod. However, this is slightly different than upgrading your mod for custom callbacks.
 

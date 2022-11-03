@@ -12,7 +12,7 @@ export class PostGridEntityCustomCollision extends CustomCallback<T> {
   constructor() {
     super();
 
-    this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_COLLISION_DETECTION];
   }
 
   // eslint-disable-next-line class-methods-use-this

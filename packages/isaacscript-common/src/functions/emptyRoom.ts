@@ -63,8 +63,8 @@ function emptyRoomEntities() {
   }
 }
 
-/** We want to remove all grid entities except for walls and doors. */
-function emptyRoomGridEntities() {
+/** Helper function to remove all grid entities from a room except for doors, and walls. */
+export function emptyRoomGridEntities(): void {
   let removedOneOrMoreGridEntities = false;
   for (const gridEntity of getGridEntities()) {
     const gridEntityType = gridEntity.GetType();
