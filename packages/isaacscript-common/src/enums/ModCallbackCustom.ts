@@ -20,6 +20,20 @@ eslint isaacscript/member-ordering: [
  */
 export enum ModCallbackCustom {
   /**
+   * The exact same thing as the vanilla `ENTITY_TAKE_DMG` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  ENTITY_TAKE_DMG_FILTER,
+
+  /**
    * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is started.
    * Specifically, this happens on the first frame that `Room.IsAmbushDone` is true.
    *
@@ -812,6 +826,20 @@ export enum ModCallbackCustom {
   POST_NEW_ROOM_REORDERED,
 
   /**
+   * The exact same thing as the vanilla `POST_NPC_DEATH` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  POST_NPC_DEATH_FILTER,
+
+  /**
    * The exact same thing as the vanilla `POST_NPC_INIT` callback, except this callback allows you
    * to specify extra arguments for additional filtration.
    *
@@ -844,6 +872,20 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_NPC_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_NPC_RENDER` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  POST_NPC_RENDER_FILTER,
 
   /**
    * Fires from the `POST_NPC_UPDATE` callback when an NPC's state has changed from what it was on
@@ -1710,4 +1752,32 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_NEW_LEVEL,
+
+  /**
+   * The exact same thing as the vanilla `PRE_NPC_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  PRE_NPC_COLLISION_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_NPC_UPDATE` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   */
+  PRE_NPC_UPDATE_FILTER,
 }

@@ -124,6 +124,28 @@ export function shouldFireEffect(
   );
 }
 
+export function shouldFireEntity(
+  fireArgs:
+    | [entity: Entity]
+    | [
+        entity: Entity,
+        amount: number,
+        damageFlags: BitFlags<DamageFlag>,
+        source: EntityRef,
+        countdownFrames: number,
+      ],
+  optionalArgs: [entityType?: EntityType, variant?: int, subType?: int],
+): boolean {
+  const [entity] = fireArgs;
+  const [callbackEntityType, callbackVariant, callbackSubType] = optionalArgs;
+
+  return (
+    (callbackEntityType === undefined || callbackEntityType === entity.Type) &&
+    (callbackVariant === undefined || callbackVariant === entity.Variant) &&
+    (callbackSubType === undefined || callbackSubType === entity.SubType)
+  );
+}
+
 export function shouldFireFamiliar(
   fireArgs:
     | [familiar: EntityFamiliar]
@@ -225,7 +247,9 @@ export function shouldFireLaser(
 export function shouldFireNPC(
   fireArgs:
     | [npc: EntityNPC]
-    | [npc: EntityNPC, previousState: int, currentState: int],
+    | [npc: EntityNPC, previousState: int, currentState: int]
+    | [npc: EntityNPC, renderOffset: Vector]
+    | [npc: EntityNPC, collider: Entity, low: boolean],
   optionalArgs: [entityType?: EntityType, variant?: int, subType?: int],
 ): boolean {
   const [npc] = fireArgs;
