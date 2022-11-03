@@ -38,19 +38,6 @@ import {
 import { StatTypeType } from "../StatTypeType";
 
 export interface AddCallbackParametersCustom {
-  [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: [
-    callback: (
-      entity: Entity,
-      amount: float,
-      damageFlags: BitFlags<DamageFlag>,
-      source: EntityRef,
-      countdownFrames: int,
-    ) => boolean | undefined,
-    entityType?: EntityType,
-    variant?: number,
-    subType?: number,
-  ];
-
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: [
     callback: (ambushType: AmbushType) => void,
     ambushType?: AmbushType,
@@ -347,13 +334,6 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: [callback: () => void];
 
-  [ModCallbackCustom.POST_NPC_DEATH_FILTER]: [
-    callback: (npc: EntityNPC) => void,
-    entityType?: EntityType,
-    variant?: int,
-    subType?: int,
-  ];
-
   [ModCallbackCustom.POST_NPC_INIT_FILTER]: [
     callback: (npc: EntityNPC) => void,
     entityType?: EntityType,
@@ -363,13 +343,6 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_NPC_INIT_LATE]: [
     callback: (npc: EntityNPC) => void,
-    entityType?: EntityType,
-    variant?: int,
-    subType?: int,
-  ];
-
-  [ModCallbackCustom.POST_NPC_RENDER_FILTER]: [
-    callback: (npc: EntityNPC, renderOffset: Vector) => void,
     entityType?: EntityType,
     variant?: int,
     subType?: int,
@@ -696,24 +669,6 @@ export interface AddCallbackParametersCustom {
       ];
 
   [ModCallbackCustom.PRE_NEW_LEVEL]: [callback: (player: EntityPlayer) => void];
-
-  [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: [
-    callback: (
-      npc: EntityNPC,
-      collider: Entity,
-      low: boolean,
-    ) => undefined | boolean,
-    entityType?: EntityType,
-    variant?: int,
-    subType?: int,
-  ];
-
-  [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: [
-    callback: (npc: EntityNPC) => undefined | boolean,
-    entityType?: EntityType,
-    variant?: int,
-    subType?: int,
-  ];
 }
 
 validateInterfaceMatchesEnum<AddCallbackParametersCustom, ModCallbackCustom>();

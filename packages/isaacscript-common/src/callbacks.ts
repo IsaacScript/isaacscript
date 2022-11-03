@@ -1,4 +1,3 @@
-import { EntityTakeDmgFilter } from "./classes/callbacks/EntityTakeDmgFilter";
 import { PostAmbushFinished } from "./classes/callbacks/PostAmbushFinished";
 import { PostAmbushStarted } from "./classes/callbacks/PostAmbushStarted";
 import { PostBombExploded } from "./classes/callbacks/PostBombExploded";
@@ -44,10 +43,8 @@ import { PostLaserInitLate } from "./classes/callbacks/PostLaserInitLate";
 import { PostNewLevelReordered } from "./classes/callbacks/PostNewLevelReordered";
 import { PostNewRoomEarly } from "./classes/callbacks/PostNewRoomEarly";
 import { PostNewRoomReordered } from "./classes/callbacks/PostNewRoomReordered";
-import { PostNPCDeathFilter } from "./classes/callbacks/PostNPCDeathFilter";
 import { PostNPCInitFilter } from "./classes/callbacks/PostNPCInitFilter";
 import { PostNPCInitLate } from "./classes/callbacks/PostNPCInitLate";
-import { PostNPCRenderFilter } from "./classes/callbacks/PostNPCRenderFilter";
 import { PostNPCStateChanged } from "./classes/callbacks/PostNPCStateChanged";
 import { PostNPCUpdateFilter } from "./classes/callbacks/PostNPCUpdateFilter";
 import { PostPEffectUpdateReordered } from "./classes/callbacks/PostPEffectUpdateReordered";
@@ -96,14 +93,11 @@ import { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
 import { PreGetPedestal } from "./classes/callbacks/PreGetPedestal";
 import { PreItemPickup } from "./classes/callbacks/PreItemPickup";
 import { PreNewLevel } from "./classes/callbacks/PreNewLevel";
-import { PreNPCCollisionFilter } from "./classes/callbacks/PreNPCCollisionFilter";
-import { PreNPCUpdateFilter } from "./classes/callbacks/PreNPCUpdateFilter";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { getEnumValues } from "./functions/enums";
 import { newObjectWithEnumKeys } from "./functions/utils";
 
 const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
-  [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: EntityTakeDmgFilter,
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: PostAmbushFinished,
   [ModCallbackCustom.POST_AMBUSH_STARTED]: PostAmbushStarted,
   [ModCallbackCustom.POST_BOMB_EXPLODED]: PostBombExploded,
@@ -157,10 +151,8 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
   [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: PostNewLevelReordered,
   [ModCallbackCustom.POST_NEW_ROOM_EARLY]: PostNewRoomEarly,
   [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: PostNewRoomReordered,
-  [ModCallbackCustom.POST_NPC_DEATH_FILTER]: PostNPCDeathFilter,
   [ModCallbackCustom.POST_NPC_INIT_FILTER]: PostNPCInitFilter,
   [ModCallbackCustom.POST_NPC_INIT_LATE]: PostNPCInitLate,
-  [ModCallbackCustom.POST_NPC_RENDER_FILTER]: PostNPCRenderFilter,
   [ModCallbackCustom.POST_NPC_STATE_CHANGED]: PostNPCStateChanged,
   [ModCallbackCustom.POST_NPC_UPDATE_FILTER]: PostNPCUpdateFilter,
   [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]: PostPEffectUpdateReordered,
@@ -210,8 +202,6 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
   [ModCallbackCustom.PRE_GET_PEDESTAL]: PreGetPedestal,
   [ModCallbackCustom.PRE_ITEM_PICKUP]: PreItemPickup,
   [ModCallbackCustom.PRE_NEW_LEVEL]: PreNewLevel,
-  [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: PreNPCCollisionFilter,
-  [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: PreNPCUpdateFilter,
 } as const);
 
 export type ModCallbackCustomToClass = {
