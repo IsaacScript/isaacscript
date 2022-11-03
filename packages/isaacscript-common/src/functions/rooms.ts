@@ -528,6 +528,17 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
 }
 
 /**
+ * Helper function to check if the current room matches one of the given room types.
+ *
+ * This function is variadic, which means you can pass as many room types as you want to match for.
+ */
+export function isRoomType(...roomTypes: RoomType[]): boolean {
+  const room = game.GetRoom();
+  const thisRoomType = room.GetType();
+  return roomTypes.some((roomType) => roomType === thisRoomType);
+}
+
+/**
  * If the `Room.Update` method is called in a `POST_NEW_ROOM` callback, then some entities will
  * slide around (such as the player). Since those entity velocities are already at zero, setting
  * them to zero will have no effect. Thus, a generic solution is to record all of the entity
