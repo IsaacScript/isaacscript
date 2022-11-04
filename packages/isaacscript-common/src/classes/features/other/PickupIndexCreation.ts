@@ -69,6 +69,10 @@ export class PickupIndexCreation extends Feature {
 
   // ModCallback.POST_PICKUP_INIT (34)
   private postPickupInit = (pickup: EntityPickup) => {
+    this.trySetPickupIndex(pickup);
+  };
+
+  private trySetPickupIndex(pickup: EntityPickup): void {
     const ptrHash = GetPtrHash(pickup);
 
     // In certain situations, pickups can be morphed, and this should not incur a new pickup
@@ -88,7 +92,7 @@ export class PickupIndexCreation extends Feature {
 
     this.v.run.pickupCounter++;
     this.v.room.pickupIndexes.set(ptrHash, this.v.run.pickupCounter);
-  };
+  }
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   // EntityType.PICKUP (5)
@@ -239,12 +243,15 @@ export class PickupIndexCreation extends Feature {
   @Exported
   public getPickupIndex(pickup: EntityPickup): PickupIndex {
     const ptrHash = GetPtrHash(pickup);
+    const pickupIndexInitial = this.v.room.pickupIndexes.get(ptrHash);
+    if (pickupIndexInitial === undefined) {
+      this.trySetPickupIndex(pickup);
+    }
+
     const pickupIndex = this.v.room.pickupIndexes.get(ptrHash);
     if (pickupIndex === undefined) {
       const entityID = getEntityID(pickup);
-      error(
-        `Failed to get a pickup index for entity ${entityID} with hash: ${ptrHash}`,
-      );
+      error(`Failed to generate a new pickup index for pickup: ${entityID}`);
     }
 
     return pickupIndex;
