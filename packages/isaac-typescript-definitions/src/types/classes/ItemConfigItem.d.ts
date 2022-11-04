@@ -35,7 +35,7 @@ declare global {
 
     /**
      * The item's quality for the Bag of Crafting algorithm. Possible values are -1, 0, 1, 2, 3, and
-     * 4. Values of -1 are items disabled from being craftable.
+     * 4. A value of -1 indicates that the item is disabled from being craftable.
      */
     CraftingQuality: int;
 
