@@ -32,6 +32,13 @@ declare global {
     ChargeType: ItemConfigChargeType;
     ClearEffectsOnRemove: boolean;
     readonly Costume: Readonly<ItemConfigCostume>;
+
+    /**
+     * The item's quality for the Bag of Crafting algorithm. Possible values are -1, 0, 1, 2, 3, and
+     * 4. Values of -1 are items disabled from being craftable in Bag of Crafting.
+     */
+    CraftingQuality: int;
+
     Description: string;
     DevilPrice: int;
     Discharged: boolean;

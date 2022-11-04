@@ -65,6 +65,8 @@ export const EMPTY_PNG_PATH = "gfx/none.png";
  * The random items that appear when the player has TMTRAINER are generated on the fly as they are
  * encountered by the player. The first TMTRAINER item takes the final possible 32 bit number. The
  * second TMTRAINER item subtracts one from that, and so on.
+ *
+ * This is equal to 4294967295.
  */
 
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = asCollectibleType((1 << 32) - 1);
