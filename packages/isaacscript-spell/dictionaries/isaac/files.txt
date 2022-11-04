@@ -20,6 +20,7 @@ chestroomdoor # door_02b_chestroomdoor.png
 CNDL # BLCK CNDL seed
 combineddoor # door_07_combineddoor.png
 corpsehole # door_11_corpsehole_custom.anm2
+craftquality # From items_metadata.xml
 deathanm # items.xml
 devilprice # items.xml
 devilroomdoor # door_07_devilroomdoor.png
