@@ -607,7 +607,7 @@ const TearFlagInternal = {
 
   /**
    * Used on tears fired on the G-Fuel seed to keep them lingering on a single spot before dropping
-   * to the ground. (Specifically, this is on the weapon for the 4th and 8th floors.)
+   * to the ground. (This is only present on some of the weapon types.)
    *
    * 1 << 82
    */
