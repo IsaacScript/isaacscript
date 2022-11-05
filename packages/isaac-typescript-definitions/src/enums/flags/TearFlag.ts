@@ -606,11 +606,12 @@ const TearFlagInternal = {
   TELEPORT: getTearFlag(81),
 
   /**
-   * Used on tears fired on the G-Fuel seed to push the player backwards as they shoot.
+   * Used on tears fired on the G-Fuel seed to keep them lingering on a single spot before dropping
+   * to the ground. (Specifically, this is on the weapon for the 4th and 8th floors.)
    *
    * 1 << 82
    */
-  SELF_KNOCKBACK: getTearFlag(82),
+  SHORT_RANGE: getTearFlag(82),
 
   /**
    * This is a reserved flag and cannot be randomly picked.
