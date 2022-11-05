@@ -19,6 +19,9 @@ declare global {
 
     Height: int;
     InitialWeight: float;
+
+    // Mode is not implemented since it returns useless userdata.
+
     Name: string;
     OriginalVariant: int;
     Shape: RoomShape;
