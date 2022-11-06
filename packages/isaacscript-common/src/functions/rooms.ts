@@ -464,6 +464,17 @@ export function inMirrorRoom(): boolean {
 }
 
 /**
+ * Helper function to check if the current room matches one of the given room types.
+ *
+ * This function is variadic, which means you can pass as many room types as you want to match for.
+ */
+export function inRoomType(...roomTypes: RoomType[]): boolean {
+  const room = game.GetRoom();
+  const thisRoomType = room.GetType();
+  return roomTypes.some((roomType) => roomType === thisRoomType);
+}
+
+/**
  * Helper function for checking if the current room is a secret exit that leads to a Repentance
  * floor.
  */
@@ -525,17 +536,6 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   }
 
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
-}
-
-/**
- * Helper function to check if the current room matches one of the given room types.
- *
- * This function is variadic, which means you can pass as many room types as you want to match for.
- */
-export function isRoomType(...roomTypes: RoomType[]): boolean {
-  const room = game.GetRoom();
-  const thisRoomType = room.GetType();
-  return roomTypes.some((roomType) => roomType === thisRoomType);
 }
 
 /**
