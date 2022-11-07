@@ -1,3 +1,5 @@
+- lint rule for throw new error in isaac mods
+
 - https://wofsauge.github.io/Isaac-XML-Validator/webtool/
 
 - lint no default export

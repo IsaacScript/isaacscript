@@ -3,10 +3,12 @@ import {
   CollectibleType,
   DamageFlag,
   EntityType,
+  ItemType,
   ModCallback,
   PlayerType,
 } from "isaac-typescript-definitions";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayEquals } from "../../../functions/array";
 import { getEnumValues } from "../../../functions/enums";
 import { hasFlag } from "../../../functions/flag";
@@ -16,6 +18,7 @@ import {
 } from "../../../functions/playerDataStructures";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
+import { PickingUpItem } from "../../../types/PickingUpItem";
 import { PlayerIndex } from "../../../types/PlayerIndex";
 import { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
 import { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
@@ -64,6 +67,10 @@ export class PlayerCollectibleDetection extends Feature {
         ModCallback.ENTITY_TAKE_DMG,
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
       ], // 11
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_ITEM_PICKUP, [this.postItemPickup]],
     ];
 
     this.postPlayerCollectibleAdded = postPlayerCollectibleAdded;
@@ -249,5 +256,29 @@ export class PlayerCollectibleDetection extends Feature {
     });
 
     return undefined;
+  };
+
+  // ModCallbackCustom.POST_ITEM_PICKUP
+  // We need to handle TMTRAINER collectibles, since they do not cause the player's collectible
+  // count to change.
+  private postItemPickup = (
+    player: EntityPlayer,
+    pickingUpItem: PickingUpItem,
+  ) => {
+    if (
+      pickingUpItem.itemType === ItemType.TRINKET ||
+      pickingUpItem.itemType === ItemType.NULL
+    ) {
+      return;
+    }
+
+    const newCollectibleCount = player.GetCollectibleCount();
+    mapSetPlayer(
+      this.v.run.playersCollectibleCount,
+      player,
+      newCollectibleCount,
+    );
+
+    this.updateCollectibleMapAndFire(player, 1);
   };
 }

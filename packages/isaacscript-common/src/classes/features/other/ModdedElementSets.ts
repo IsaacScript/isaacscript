@@ -6,6 +6,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
+import { FIRST_GLITCHED_COLLECTIBLE_TYPE } from "../../../core/constants";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import {
@@ -601,6 +602,27 @@ export class ModdedElementSets extends Feature {
       if (numCollectibles > 0) {
         collectibleMap.set(collectibleType, numCollectibles);
       }
+    }
+
+    // If the player has TMTRAINER, they might also have glitched items.
+    if (player.HasCollectible(CollectibleType.TMTRAINER)) {
+      let collectibleType = FIRST_GLITCHED_COLLECTIBLE_TYPE;
+      let itemConfigItem: Readonly<ItemConfigItem> | undefined;
+      do {
+        itemConfigItem = itemConfig.GetCollectible(collectibleType);
+
+        if (itemConfigItem !== undefined) {
+          // The `EntityPlayer.GetCollectibleNum` method is bugged with TMTrainer items and will
+          // always return 0. To work around this, we simply assume that if the player has the
+          // collectible, then they have one copy of the item.
+          const hasCollectibles = player.HasCollectible(collectibleType, true);
+          if (hasCollectibles) {
+            collectibleMap.set(collectibleType, 1);
+          }
+        }
+
+        collectibleType--; // eslint-disable-line isaacscript/strict-enums
+      } while (itemConfigItem !== undefined);
     }
 
     return collectibleMap;
