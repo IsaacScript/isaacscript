@@ -338,7 +338,7 @@ export function inCrawlSpace(): boolean {
 }
 
 /**
- * Helper function to detect if the current room is one of the room in the Death Certificate area.
+ * Helper function to detect if the current room is one of the rooms in the Death Certificate area.
  */
 export function inDeathCertificateArea(): boolean {
   const roomStageID = getRoomStageID();
