@@ -279,8 +279,8 @@ export class SaveDataManager extends Feature {
    *
    * Note that when the player uses Glowing Hourglass, the save data manager will automatically
    * restore any variables on a "run" or "level" object with a backup that was created when the room
-   * was entered. Thus, you should not have to explicitly program support for Glowing Hourglass
-   * into your mod features that use the save data manager. If this is undesired for your specific
+   * was entered. Thus, you should not have to explicitly program support for Glowing Hourglass into
+   * your mod features that use the save data manager. If this is undesired for your specific
    * use-case, then add a key of `__ignoreGlowingHourGlass: true` to your "run" or "level" object.
    *
    * @param key The name of the file or feature that is submitting data to be managed by the save
