@@ -71,7 +71,7 @@ export enum RoomTransitionAnim {
   WOMB_TELEPORT = 11,
 
   /**
-   * For the Glowing Hour Glass teleport.
+   * For the Glowing Hourglass teleport.
    *
    * Using this animation will ignore the room index and the direction provided.
    */

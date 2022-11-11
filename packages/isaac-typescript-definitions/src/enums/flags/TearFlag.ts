@@ -611,7 +611,115 @@ const TearFlagInternal = {
    *
    * 1 << 82
    */
-  SHORT_RANGE: getTearFlag(82),
+  TEAR_DECELERATE: getTearFlag(82),
+
+  /**
+   * Used on tears fired on the G-Fuel seed to make them accelerate over time. (This is only present
+   * on some of the weapon types.)
+   *
+   * 1 << 83
+   */
+  TEAR_ACCELERATE: getTearFlag(83),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Similar to `TearFlag.BOUNCE` but only bounces off walls, not enemies.
+   *
+   * 1 << 104
+   */
+  BOUNCE_WALLS_ONLY: getTearFlag(104),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Cannot deal damage to grid entities. This is used by Saturnus to prevent unfair damage in some
+   * rooms.
+   *
+   * 1 << 105
+   */
+  NO_GRID_DAMAGE: getTearFlag(105),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Deals extra damage from behind and inflicts bleeding.
+   *
+   * 1 << 106
+   */
+  BACKSTAB: getTearFlag(106),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses whack their target with a sword and perform spin attacks.
+   *
+   * 1 << 107
+   */
+  FETUS_SWORD: getTearFlag(107),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses whack their target with a bone club instead of ramming into them.
+   *
+   * 1 << 108
+   */
+  FETUS_BONE: getTearFlag(108),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses carry a knife.
+   *
+   * 1 << 109
+   */
+  FETUS_KNIFE: getTearFlag(109),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses have a Tech X ring around them.
+   *
+   * 1 << 110
+   */
+  FETUS_TECH_X: getTearFlag(110),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses keep their distance and occasionally shoot tech lasers at their target.
+   *
+   * 1 << 111
+   */
+  FETUS_TECH: getTearFlag(111),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses shoot a brimstone beam at the first enemy they hit.
+   *
+   * 1 << 112
+   */
+  FETUS_BRIMSTONE: getTearFlag(112),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * Fetuses drop a bomb on their first impact with an enemy.
+   *
+   * 1 << 113
+   */
+  FETUS_BOMBER: getTearFlag(113),
+
+  /**
+   * This is a reserved flag and cannot be randomly picked.
+   *
+   * The base flag for C-Section fetuses.
+   *
+   * 1 << 114
+   */
+  FETUS: getTearFlag(114),
 
   /**
    * This is a reserved flag and cannot be randomly picked.

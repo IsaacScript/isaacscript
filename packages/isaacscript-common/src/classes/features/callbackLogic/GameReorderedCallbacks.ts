@@ -67,7 +67,7 @@ export class GameReorderedCallbacks extends Feature {
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
   private useItemGlowingHourGlass = (): boolean | undefined => {
-    // If Glowing Hour Glass is used on the first room of a floor, it will send the player to the
+    // If Glowing Hourglass is used on the first room of a floor, it will send the player to the
     // previous floor without triggering the `POST_NEW_LEVEL` callback. Manually check for this.
     this.usedGlowingHourGlass = true;
 
@@ -109,7 +109,7 @@ export class GameReorderedCallbacks extends Feature {
       this.usedGlowingHourGlass = false;
 
       if (this.currentStage !== stage || this.currentStageType !== stageType) {
-        // The player has used the Glowing Hour Glass to take them to the previous floor (which does
+        // The player has used the Glowing Hourglass to take them to the previous floor (which does
         // not trigger the `POST_NEW_LEVEL` callback). Emulate what happens in the `POST_NEW_LEVEL`
         // callback.
         this.recordCurrentStage();

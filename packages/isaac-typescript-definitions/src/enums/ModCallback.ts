@@ -908,4 +908,11 @@ export enum ModCallback {
    * ```
    */
   PRE_ROOM_ENTITY_SPAWN = 71,
+
+  /**
+   * ```ts
+   * function preEntityDevolve(entity: Entity): boolean | undefined {}
+   * ```
+   */
+  PRE_ENTITY_DEVOLVE = 72,
 }

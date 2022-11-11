@@ -433,7 +433,7 @@ export const COLLECTIBLE_TYPE_TO_NAME_MAP: ReadonlyMap<
   [419, "Teleport 2.0"],
   [420, "Black Powder"],
   [421, "Kidney Bean"],
-  [422, "Glowing Hour Glass"],
+  [422, "Glowing Hourglass"],
   [423, "Circle of Protection"],
   [424, "Sack Head"],
   [425, "Night Light"],

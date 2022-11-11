@@ -28,6 +28,8 @@ declare global {
     InvalidateCraftingItem(player: EntityPlayer): void;
 
     IsVisible(): boolean;
+    PostUpdate(): void;
+    Render(): void;
     SetVisible(visible: boolean): void;
 
     /**
@@ -54,5 +56,7 @@ declare global {
      *              curses. Default is false.
      */
     ShowItemText(name: string, description?: string, paper?: boolean): void;
+
+    Update(): void;
   }
 }

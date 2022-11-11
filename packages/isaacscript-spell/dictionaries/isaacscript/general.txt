@@ -1,6 +1,7 @@
 # These are general-purpose words that should be in the CSpell base dictionary.
 
 autoformat
+backstab
 backticks
 bitmask
 bootstrapper

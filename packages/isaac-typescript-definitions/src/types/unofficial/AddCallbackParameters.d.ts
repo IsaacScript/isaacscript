@@ -531,5 +531,10 @@ declare global {
         seed: Seed,
       ) => [EntityType | GridEntityXMLType, int, int] | undefined,
     ];
+
+    // 72
+    [ModCallback.PRE_ENTITY_DEVOLVE]: [
+      callback: (entity: Entity) => boolean | undefined,
+    ];
   }
 }

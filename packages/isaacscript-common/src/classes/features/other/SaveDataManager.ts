@@ -126,7 +126,7 @@ export class SaveDataManager extends Feature {
     }
     this.loadedDataOnThisRun = true;
 
-    // Handle the race-condition of using the Glowing Hour Glass and then resetting the run.
+    // Handle the race-condition of using the Glowing Hourglass and then resetting the run.
     this.restoreGlowingHourGlassDataOnNextRoom = false;
 
     // We want to unconditionally load save data on every new run since there might be persistent
@@ -182,7 +182,7 @@ export class SaveDataManager extends Feature {
       SaveDataKey.ROOM,
     );
 
-    // Handle the Glowing Hour Glass.
+    // Handle the Glowing Hourglass.
     if (this.restoreGlowingHourGlassDataOnNextRoom) {
       this.restoreGlowingHourGlassDataOnNextRoom = false;
       restoreGlowingHourGlassBackup(
@@ -277,9 +277,9 @@ export class SaveDataManager extends Feature {
    * saved to disk on game exit. (For example, if they contain functions or other non-serializable
    * data.) For these cases, set the second argument to `false`.
    *
-   * Note that when the player uses Glowing Hour Glass, the save data manager will automatically
+   * Note that when the player uses Glowing Hourglass, the save data manager will automatically
    * restore any variables on a "run" or "level" object with a backup that was created when the room
-   * was entered. Thus, you should not have to explicitly program support for Glowing Hour Glass
+   * was entered. Thus, you should not have to explicitly program support for Glowing Hourglass
    * into your mod features that use the save data manager. If this is undesired for your specific
    * use-case, then add a key of `__ignoreGlowingHourGlass: true` to your "run" or "level" object.
    *
