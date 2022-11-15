@@ -46,6 +46,10 @@
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
 
+  // By default, VSCode will use the bundled TypeScript version instead of the one matching this
+  // project.
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+
   // Python-specific settings.
   "python.formatting.provider": "black",
 
