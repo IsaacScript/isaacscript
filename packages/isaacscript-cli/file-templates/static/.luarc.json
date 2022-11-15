@@ -142,10 +142,10 @@
     "MinimapAPI",
     "StageAPI",
     "g",
-    "gd",
-    "getParentFunctionDescription",
-    "sandboxGetTraceback",
-    "sandboxTraceback"
+    "SandboxGetParentFunctionDescription",
+    "SandboxGetTime",
+    "SandboxGetTraceback",
+    "SandboxTraceback"
   ],
   "preloadFileSize": 5000,
   "runtime.version": "Lua 5.3"
