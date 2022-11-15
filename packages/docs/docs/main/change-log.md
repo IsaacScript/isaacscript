@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## November 15th, 2022
+
+- Added the following helper functions:
+  - `pressInput`
+
 ## November 6th, 2022
 
 - Added the following helper functions:

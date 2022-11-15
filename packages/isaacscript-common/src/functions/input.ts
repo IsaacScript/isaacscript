@@ -26,7 +26,7 @@ const MOVEMENT_ACTIONS: readonly ButtonAction[] = [
   ButtonAction.DOWN, // 3
 ];
 
-const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+export const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
   MOVEMENT_ACTIONS,
 );
 
@@ -37,7 +37,7 @@ const SHOOTING_ACTIONS: readonly ButtonAction[] = [
   ButtonAction.SHOOT_DOWN, // 7
 ];
 
-const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+export const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
   SHOOTING_ACTIONS,
 );
 

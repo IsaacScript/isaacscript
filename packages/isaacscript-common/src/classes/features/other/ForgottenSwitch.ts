@@ -1,10 +1,8 @@
-import {
-  ButtonAction,
-  InputHook,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { ButtonAction } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { Feature } from "../../private/Feature";
+import { PressInput } from "./PressInput";
 
 export class ForgottenSwitch extends Feature {
   /** @internal */
@@ -14,32 +12,16 @@ export class ForgottenSwitch extends Feature {
     },
   };
 
+  private pressInput: PressInput;
+
   /** @internal */
-  constructor() {
+  constructor(pressInput: PressInput) {
     super();
 
-    this.callbacksUsed = [
-      [
-        ModCallback.INPUT_ACTION,
-        [this.isActionTriggered, InputHook.IS_ACTION_TRIGGERED],
-      ], // 13
-    ];
+    this.featuresUsed = [ISCFeature.PRESS_INPUT];
+
+    this.pressInput = pressInput;
   }
-
-  // ModCallback.INPUT_ACTION (13)
-  // InputHook.IS_ACTION_TRIGGERED (1)
-  private isActionTriggered = (
-    _entity: Entity | undefined,
-    _inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ) => {
-    if (buttonAction === ButtonAction.DROP && this.v.run.shouldSwitch) {
-      this.v.run.shouldSwitch = false;
-      return true;
-    }
-
-    return undefined;
-  };
 
   /**
    * When used on The Forgotten, switches to The Soul. When used on The Soul, switches to The
@@ -49,6 +31,6 @@ export class ForgottenSwitch extends Feature {
    */
   @Exported
   public forgottenSwitch(): void {
-    this.v.run.shouldSwitch = true;
+    this.pressInput.pressInput(ButtonAction.DROP);
   }
 }

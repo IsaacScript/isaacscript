@@ -38,6 +38,7 @@ import { PersistentEntities } from "./classes/features/other/PersistentEntities"
 import { PickupIndexCreation } from "./classes/features/other/PickupIndexCreation";
 import { PlayerInventory } from "./classes/features/other/PlayerInventory";
 import { PonyDetection } from "./classes/features/other/PonyDetection";
+import { PressInput } from "./classes/features/other/PressInput";
 import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
 import { PreventCollectibleRotation } from "./classes/features/other/PreventCollectibleRotation";
 import { PreventGridEntityRespawn } from "./classes/features/other/PreventGridEntityRespawn";
@@ -102,6 +103,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.PICKUP_INDEX_CREATION]: PickupIndexCreation;
   [ISCFeature.PLAYER_INVENTORY]: PlayerInventory;
   [ISCFeature.PONY_DETECTION]: PonyDetection;
+  [ISCFeature.PRESS_INPUT]: PressInput;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
   [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: PreventCollectibleRotation;
   [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: PreventGridEntityRespawn;
@@ -136,6 +138,7 @@ export function getFeatures(
   const disableInputs = new DisableInputs();
   const moddedElementDetection = new ModdedElementDetection();
   const ponyDetection = new PonyDetection();
+  const pressInput = new PressInput();
   const preventCollectibleRotation = new PreventCollectibleRotation();
   const roomClearFrame = new RoomClearFrame();
   const roomHistory = new RoomHistory();
@@ -254,7 +257,7 @@ export function getFeatures(
     [ISCFeature.FADE_IN_REMOVER]: new FadeInRemover(),
     [ISCFeature.FAST_RESET]: new FastReset(),
     [ISCFeature.FLYING_DETECTION]: new FlyingDetection(moddedElementSets),
-    [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(),
+    [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(pressInput),
     [ISCFeature.EXTRA_CONSOLE_COMMANDS]: new ExtraConsoleCommands(),
     [ISCFeature.ITEM_POOL_DETECTION]: itemPoolDetection,
     [ISCFeature.MODDED_ELEMENT_DETECTION]: moddedElementDetection,
@@ -265,6 +268,7 @@ export function getFeatures(
     [ISCFeature.PICKUP_INDEX_CREATION]: pickupIndexCreation,
     [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
     [ISCFeature.PONY_DETECTION]: ponyDetection,
+    [ISCFeature.PRESS_INPUT]: pressInput,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
     [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: preventCollectibleRotation,
     [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: preventGridEntityRespawn,
