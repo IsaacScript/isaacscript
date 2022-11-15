@@ -69,6 +69,7 @@ FCUK
 FISTULOID
 forceroom # Console command
 fxlayers
+FULLSCREEN # ButtonAction
 GAMEKID
 GELLO
 GIDEONS
