@@ -16,6 +16,7 @@ loadfile # Global
 luarc # Configuration file for the Lua language server
 metatable
 metatables
+modf # Math function
 pcall # Global
 rawequal # Global
 rawget # Global

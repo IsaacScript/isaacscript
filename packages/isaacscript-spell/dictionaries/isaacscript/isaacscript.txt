@@ -13,10 +13,13 @@ corepack # To install Yarn
 dbaeumer # extensions.json
 devkit # Monorepo word
 docsearch # Monorepo word
+Ddefinitions # TSTL compiled word
+Dtypescript # TSTL compiled word
 eqeqeq # For linting
 erange # Standard library function
 esbenp # extensions.json
 IIFE # JavaScript word
+instanceof # JavaScript word
 irange # Standard library function
 isaacscript
 jscutlery # For version control
@@ -24,6 +27,8 @@ jsdoc # Monorepo word
 lualib # TSTL word
 markdownlint # Monorepo word
 markdownlintignore # Monorepo word
+newindex # TSTL word
+nextpromise # TSTL word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
 noout # lint.sh
@@ -47,6 +52,7 @@ rollup # API Extractor word
 sarisia # ci.yml
 ssmacro # Monorepo word
 steamcmd # For publishing
+substr # JavaScript word
 svgr # Monorepo word
 syncer # Monorepo word
 syncpack # Monorepo word
@@ -57,6 +63,8 @@ tstl
 Turnbull # Author of "airbnb-typescript/base"
 typedoc
 typeof # JavaScript word
+unshift # JavaScript word
+varargs # TSTL word
 workshopitem # metadata.vdf
 Zamiel
 Zamiell
