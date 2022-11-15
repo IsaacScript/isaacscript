@@ -30,7 +30,7 @@ export class ForgottenSwitch extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.FORGOTTEN_SWITCH`.
    */
   @Exported
-  public forgottenSwitch(): void {
-    this.pressInput.pressInput(ButtonAction.DROP);
+  public forgottenSwitch(player: EntityPlayer): void {
+    this.pressInput.pressInput(player, ButtonAction.DROP);
   }
 }

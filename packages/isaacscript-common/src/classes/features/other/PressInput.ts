@@ -4,13 +4,15 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
+import { getPlayerIndex } from "../../../functions/playerIndex";
+import { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
 export class PressInput extends Feature {
   /** @internal */
   public override v = {
     run: {
-      pressButtonAction: new Set(),
+      buttonActionTuples: [] as Array<[PlayerIndex, ButtonAction]>,
     },
   };
 
@@ -29,16 +31,35 @@ export class PressInput extends Feature {
   // ModCallback.INPUT_ACTION (13)
   // InputHook.IS_ACTION_TRIGGERED (1)
   private isActionTriggered = (
-    _entity: Entity | undefined,
+    entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => {
-    if (!this.v.run.pressButtonAction.has(buttonAction)) {
+    if (entity === undefined) {
       return undefined;
     }
 
-    this.v.run.pressButtonAction.delete(buttonAction);
-    return true;
+    const player = entity.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    const playerIndex = getPlayerIndex(player);
+
+    for (let i = this.v.run.buttonActionTuples.length - 1; i >= 0; i--) {
+      const tuple = this.v.run.buttonActionTuples[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      const [tuplePlayerIndex, tupleButtonAction] = tuple;
+
+      if (
+        tuplePlayerIndex === playerIndex &&
+        tupleButtonAction === buttonAction
+      ) {
+        this.v.run.buttonActionTuples.splice(i);
+        return true;
+      }
+    }
+
+    return undefined;
   };
 
   /**
@@ -49,7 +70,8 @@ export class PressInput extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.PRESS_INPUT`.
    */
   @Exported
-  public pressInput(buttonAction: ButtonAction): void {
-    this.v.run.pressButtonAction.add(buttonAction);
+  public pressInput(player: EntityPlayer, buttonAction: ButtonAction): void {
+    const playerIndex = getPlayerIndex(player);
+    this.v.run.buttonActionTuples.push([playerIndex, buttonAction]);
   }
 }
