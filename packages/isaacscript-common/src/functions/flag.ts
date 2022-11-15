@@ -66,7 +66,7 @@ export function getFlagName<T extends BitFlag | BitFlag128>(
   flag: BitFlag,
   flagEnum: Record<string, T>,
 ): string | undefined {
-  for (const [key, value] of pairs(flagEnum)) {
+  for (const [key, value] of Object.entries(flagEnum)) {
     if (value === flag) {
       return key;
     }
