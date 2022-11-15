@@ -45,12 +45,8 @@ export const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
  * Helper function to get the enum name for the specified `Controller` value. Note that this will
  * trim off the "BUTTON_" prefix.
  */
-export function controllerToString(controller: Controller): string | undefined {
+export function controllerToString(controller: Controller): string {
   const key = Controller[controller];
-  if (key === undefined) {
-    return undefined;
-  }
-
   return trimPrefix(key, "BUTTON_");
 }
 

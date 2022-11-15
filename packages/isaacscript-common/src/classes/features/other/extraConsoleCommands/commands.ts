@@ -652,6 +652,8 @@ export function getChallenge(): void {
   const challenge = Isaac.GetChallenge();
   const challengeName = Challenge[challenge];
   const challengeDescription =
+    // Handle modded challenges.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     challengeName === undefined
       ? `${challenge} (custom)`
       : `Challenge.${challengeName} (${challenge})`;
