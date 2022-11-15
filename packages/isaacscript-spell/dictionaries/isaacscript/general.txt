@@ -50,4 +50,6 @@ unopenable
 unranked
 unserializable
 untrackable
+vararg
+varargs
 vetos

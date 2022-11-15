@@ -64,7 +64,6 @@ Turnbull # Author of "airbnb-typescript/base"
 typedoc
 typeof # JavaScript word
 unshift # JavaScript word
-varargs # TSTL word
 workshopitem # metadata.vdf
 Zamiel
 Zamiell
