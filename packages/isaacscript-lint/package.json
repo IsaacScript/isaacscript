@@ -22,9 +22,9 @@
   "type": "commonjs",
   "dependencies": {
     "@prettier/plugin-xml": "^2.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
-    "cspell": "^6.14.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "cspell": "^6.14.2",
     "eslint": "^8.27.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -36,7 +36,7 @@
     "eslint-plugin-jsdoc": "^39.6.2",
     "eslint-plugin-no-type-assertion": "^1.3.0",
     "eslint-plugin-only-warn": "^1.0.3",
-    "eslint-plugin-sort-exports": "^0.7.0",
+    "eslint-plugin-sort-exports": "^0.8.0",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.2.0",
     "ts-prune": "^0.10.3"
