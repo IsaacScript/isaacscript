@@ -11,9 +11,9 @@ contentfolder # metadata.vdf
 conventionalcommits # Monorepo word
 corepack # To install Yarn
 dbaeumer # extensions.json
+Ddefinitions # TSTL compiled word
 devkit # Monorepo word
 docsearch # Monorepo word
-Ddefinitions # TSTL compiled word
 Dtypescript # TSTL compiled word
 eqeqeq # For linting
 erange # Standard library function
