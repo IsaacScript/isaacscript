@@ -49,6 +49,7 @@
     "src/classes/features/other/PickupIndexCreation.ts",
     "src/classes/features/other/PlayerInventory.ts",
     "src/classes/features/other/PonyDetection.ts",
+    "src/classes/features/other/PressInput.ts",
     "src/classes/features/other/PreventChildEntities.ts",
     "src/classes/features/other/PreventCollectibleRotation.ts",
     "src/classes/features/other/PreventGridEntityRespawn.ts",
