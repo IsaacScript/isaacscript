@@ -152,9 +152,7 @@ export function getTypeFlagNames(type: ts.Type): string[] {
   for (const flag of getEnumValues(ts.TypeFlags)) {
     if (isTypeFlagSet(type, flag)) {
       const flagName = ts.TypeFlags[flag];
-      if (flagName !== undefined) {
-        flagNames.push(flagName);
-      }
+      flagNames.push(flagName);
     }
   }
 
