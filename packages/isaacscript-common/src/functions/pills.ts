@@ -150,9 +150,9 @@ export function getPillEffectName(pillEffect: PillEffect): string {
 
 /**
  * Helper function to get a pill effect type from a PillEffect enum value. In this context, the type
- * is equal to positive, negative, or neutral. This is derived from the suffix of the the "class"
- * tag in the "pocketitems.xml" file. Use the `getPillEffectClass` helper function to determine the
- * "power" of the pill.
+ * is equal to positive, negative, or neutral. This is derived from the suffix of the "class" tag in
+ * the "pocketitems.xml" file. Use the `getPillEffectClass` helper function to determine the "power"
+ * of the pill.
  *
  * Due to limitations in the API, this function will not work properly for modded pill effects, and
  * will always return `DEFAULT_PILL_EFFECT_TYPE` in those cases.

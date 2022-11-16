@@ -42,7 +42,7 @@ The root of the problem here is that when people try out a new programming langu
 
 In JavaScript and TypeScript land, there isn't a unifying standard like there is in Go, but we can get close.
 
-Historically, the the most popular style guide is the world is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript). ([Google's Style Guide](https://google.github.io/styleguide/jsguide.html) and [StandardJS](https://standardjs.com/) are also notable, but don't seem quite as popular.) Thus, we chose Airbnb as a base for new JavaScript and TypeScript projects.
+Historically, the most popular style guide is the world is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript). ([Google's Style Guide](https://google.github.io/styleguide/jsguide.html) and [StandardJS](https://standardjs.com/) are also notable, but don't seem quite as popular.) Thus, we chose Airbnb as a base for new JavaScript and TypeScript projects.
 
 ESLint is the industry standard tool for linting in JavaScript and TypeScript. Airbnb helpfully provides an ESLint configuration with most of their style recommendations. ESLint can function in a way similar to `gofmt` by configuring your text editor to do `eslint --fix` on save. However, this has a lot of limitations. It can't automatically fix everything and leaves a lot up to the end user to fix.
 

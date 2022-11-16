@@ -238,7 +238,7 @@ function validateMetadataLuaFileExists(
   if (!file.exists(METADATA_LUA_PATH, verbose)) {
     error(
       `${chalk.red(
-        "Failed to find the the custom stage metadata file at:",
+        "Failed to find the custom stage metadata file at:",
       )} ${chalk.green(METADATA_LUA_PATH)}`,
     );
   }
@@ -255,7 +255,7 @@ async function getCustomStagesWithMetadata(
   if (!file.exists(METADATA_LUA_PATH, verbose)) {
     error(
       `${chalk.red(
-        "Failed to find the the custom stage metadata file at:",
+        "Failed to find the custom stage metadata file at:",
       )} ${chalk.green(METADATA_LUA_PATH)}`,
     );
   }
