@@ -14,6 +14,8 @@
 export const LUA_LANGUAGE_SERVER_DISABLES = `
 ---@diagnostic disable: assign-type-mismatch
 ---@diagnostic disable: deprecated
+---@diagnostic disable: lowercase-global
+---@diagnostic disable: need-check-nil
 ---@diagnostic disable: redefined-local
 ---@diagnostic disable: redundant-parameter
 ---@diagnostic disable: unused-function
