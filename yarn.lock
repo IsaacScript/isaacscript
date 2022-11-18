@@ -15544,10 +15544,10 @@ typedoc@^0.23.21:
     minimatch "^5.1.0"
     shiki "^0.11.1"
 
-typescript-to-lua@^1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.10.1.tgz#0046d88237dcc013e69441df1734d881168a32bf"
-  integrity sha512-R6KQc1YzFcejyaZ9tAvVK0MFTlRS1b10vON5sxjtGVSUWl+W4KRLik0LDCgKfI0wnDQH+LNVnKBNUsBfTtEoQQ==
+typescript-to-lua@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.11.0.tgz#5aecd431abb60e66b960fba3d7704937f2dd5892"
+  integrity sha512-BQqN3KkNFi6+T9LAFyvYH3FrtsM8V0sUhx0sPqgTCjJOlWmLwjUP3zcYOPy8bXW6vR4PJ+eaCNhba50wZAADAw==
   dependencies:
     "@typescript-to-lua/language-extensions" "1.0.0"
     enhanced-resolve "^5.8.2"
