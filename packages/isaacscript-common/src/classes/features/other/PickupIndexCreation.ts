@@ -6,9 +6,7 @@ import {
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
-import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { getEntityID } from "../../../functions/entities";
-import { getPickups } from "../../../functions/entitiesSpecific";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { onAscent } from "../../../functions/stage";
 import { vectorEquals } from "../../../functions/vector";
@@ -60,38 +58,59 @@ export class PickupIndexCreation extends Feature {
       ], // 67
     ];
 
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
-    ];
-
     this.roomHistory = roomHistory;
   }
 
   // ModCallback.POST_PICKUP_INIT (34)
   private postPickupInit = (pickup: EntityPickup) => {
-    this.trySetPickupIndex(pickup);
+    this.setPickupIndex(pickup);
   };
 
-  private trySetPickupIndex(pickup: EntityPickup): void {
+  private setPickupIndex(pickup: EntityPickup): void {
     const ptrHash = GetPtrHash(pickup);
 
-    // In certain situations, pickups can be morphed, and this should not incur a new pickup
-    // counter. (For example, the collectible rotation with Tainted Isaac.)
+    // In certain situations, pickups can be morphed, which will trigger the `POST_PICKUP_INIT`
+    // callback but should not incur a new pickup counter. (For example, the collectible rotation
+    // with Tainted Isaac.) For these situations, we will already be tracking an index for this
+    // pointer hash.
     if (this.v.room.pickupIndexes.has(ptrHash)) {
       return;
     }
 
-    // If we are re-entering a room that previously had a pickup, then we don't need to make a new
-    // index, because we will re-use the existing one.
+    // First, handle the special case of re-entering a room with a previously tracked pickup. If we
+    // find a match in the level pickup data, we will use the pickup index from the match.
+    const pickupIndexFromLevelData =
+      this.getPickupIndexFromPreviousData(pickup);
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
     const roomFrameCount = room.GetFrameCount();
-    if (!isFirstVisit && roomFrameCount <= 0) {
+    if (
+      pickupIndexFromLevelData !== undefined &&
+      !isFirstVisit &&
+      roomFrameCount <= 0
+    ) {
+      this.v.room.pickupIndexes.set(ptrHash, pickupIndexFromLevelData);
       return;
     }
 
+    // This is a brand new pickup that we have not previously seen on this run.
     this.v.run.pickupCounter++;
     this.v.room.pickupIndexes.set(ptrHash, this.v.run.pickupCounter);
+  }
+
+  private getPickupIndexFromPreviousData(
+    pickup: EntityPickup,
+  ): PickupIndex | undefined {
+    const roomListIndex = getRoomListIndex();
+    const pickupDescriptions =
+      this.v.level.pickupData.getAndSetDefault(roomListIndex);
+
+    let pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
+    if (pickupIndex === undefined) {
+      pickupIndex = this.getPostAscentPickupIndex(pickup);
+    }
+
+    return pickupIndex;
   }
 
   // ModCallback.POST_ENTITY_REMOVE (67)
@@ -123,7 +142,7 @@ export class PickupIndexCreation extends Feature {
     pickupIndex: PickupIndex,
   ) {
     // The "latest" room description is really the previous room, because the `POST_NEW_ROOM`
-    // callback was not fired yet.
+    // callback has not fired yet.
     const previousRoomDescription = this.roomHistory.getLatestRoomDescription();
     if (previousRoomDescription === undefined) {
       return;
@@ -167,39 +186,9 @@ export class PickupIndexCreation extends Feature {
     }
   }
 
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
-    const room = game.GetRoom();
-    const isFirstVisit = room.IsFirstVisit();
-
-    if (isFirstVisit) {
-      return;
-    }
-
-    const roomListIndex = getRoomListIndex();
-    const pickupDescriptions =
-      this.v.level.pickupData.getAndSetDefault(roomListIndex);
-
-    for (const pickup of getPickups()) {
-      let pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
-      if (pickupIndex === undefined) {
-        pickupIndex = this.getPostAscentPickupIndex(pickup);
-      }
-
-      if (pickupIndex === undefined) {
-        // At this point, if we do not already have an existing pickup index, we need to create a
-        // new one in order to cover the cases where mods spawn items in the `POST_NEW_ROOM`
-        // callback.
-        this.v.run.pickupCounter++;
-        pickupIndex = this.v.run.pickupCounter;
-      }
-
-      const ptrHash = GetPtrHash(pickup);
-      this.v.room.pickupIndexes.set(ptrHash, pickupIndex);
-    }
-  };
-
-  private getPostAscentPickupIndex(pickup: EntityPickup) {
+  private getPostAscentPickupIndex(
+    pickup: EntityPickup,
+  ): PickupIndex | undefined {
     // If we have not found the pickup index yet, we might be re-entering a post-Ascent Treasure
     // Room or Boss Room.
     if (!onAscent()) {
@@ -244,17 +233,18 @@ export class PickupIndexCreation extends Feature {
   public getPickupIndex(pickup: EntityPickup): PickupIndex {
     const ptrHash = GetPtrHash(pickup);
     const pickupIndexInitial = this.v.room.pickupIndexes.get(ptrHash);
-    if (pickupIndexInitial === undefined) {
-      this.trySetPickupIndex(pickup);
+    if (pickupIndexInitial !== undefined) {
+      return pickupIndexInitial;
     }
 
+    this.setPickupIndex(pickup);
     const pickupIndex = this.v.room.pickupIndexes.get(ptrHash);
-    if (pickupIndex === undefined) {
-      const entityID = getEntityID(pickup);
-      error(`Failed to generate a new pickup index for pickup: ${entityID}`);
+    if (pickupIndex !== undefined) {
+      return pickupIndex;
     }
 
-    return pickupIndex;
+    const entityID = getEntityID(pickup);
+    error(`Failed to generate a new pickup index for pickup: ${entityID}`);
   }
 }
 

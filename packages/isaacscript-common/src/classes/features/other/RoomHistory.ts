@@ -120,8 +120,8 @@ export class RoomHistory extends Feature {
   /**
    * Helper function to detect if the game is in the state where the room index has changed to a new
    * room, but the entities from the previous room are currently in the process of despawning. (At
-   * this point, the `POST_NEW_ROOM` callback will not have fired yet, and there will not be an
-   * entry in the room history array for the current room.)
+   * this point, the `POST_NEW_ROOM` callback and the `POST_NEW_ROOM_EARLY` callback will not have
+   * fired yet, and there will not be an entry in the room history array for the current room.)
    *
    * This function is intended to be used in the `POST_ENTITY_REMOVE` callback to detect when an
    * entity is despawning.

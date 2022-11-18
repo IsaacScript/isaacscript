@@ -117,6 +117,12 @@ export function serializeVector(vector: Vector): SerializedVector {
   return vectorTable as SerializedVector;
 }
 
+/**
+ * Helper function to compare two vectors for equality.
+ *
+ * This function is useful because vectors are not directly comparable. In other words, `Vector(1.2)
+ * === Vector(1.2)` will be equal to false.
+ */
 export function vectorEquals(vector1: Vector, vector2: Vector): boolean {
   return isaacAPIClassEquals(vector1, vector2, KEYS);
 }
