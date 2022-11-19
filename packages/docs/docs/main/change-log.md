@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## November 15th, 2022
 
+- The `upgradeMod` function now takes an optional parameter containing the custom callbacks that you will be subscribing to in the future (for the purposes of early initializing them).
 - Added the following helper functions:
   - `pressInput`
 

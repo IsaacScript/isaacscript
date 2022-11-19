@@ -1,5 +1,6 @@
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import {
   getGridEntitiesMap,
   isGridEntityBroken,
@@ -62,7 +63,10 @@ export class GridEntityUpdateDetection extends Feature {
 
     this.callbacksUsed = [
       [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
     ];
 
     this.postGridEntityInit = postGridEntityInit;
@@ -204,8 +208,8 @@ export class GridEntityUpdateDetection extends Feature {
     this.v.room.initializedGridEntities.set(gridIndex, newTuple);
   }
 
-  // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private postNewRoomReordered = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
     for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {

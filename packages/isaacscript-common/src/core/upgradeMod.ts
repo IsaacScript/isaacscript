@@ -1,5 +1,6 @@
 import { ModUpgradedBase } from "../classes/ModUpgradedBase";
 import { ISCFeature } from "../enums/ISCFeature";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { applyShaderCrashFix } from "../shaderCrashFix";
 import { AnyFunction } from "../types/AnyFunction";
@@ -30,6 +31,14 @@ type ISCFeatureTuple<T extends readonly ISCFeature[]> =
  * @param modVanilla The mod object returned by the `RegisterMod` function.
  * @param features Optional. An array containing the optional standard library features that you
  *                 want to enable, if any. Default is an empty array.
+ * @param customCallbacksUsed Optional. An array containing the custom callbacks that you will be
+ *                            subscribing to after you upgrade your mod. Specifying this will
+ *                            immediately initialize the callbacks (as opposed to lazy-initializing
+ *                            them when you first subscribe to the callback). This is only necessary
+ *                            if you the order of callback firing is important for your mod. (For
+ *                            example, you may want the `POST_NEW_ROOM` part of the
+ *                            `POST_GRID_ENTITY_INIT` callback to fire before your own
+ *                            `POST_NEW_ROOM` callbacks.)
  * @param debug Optional. Whether to log additional output when a callback is fired. Default is
  *              false.
  * @param timeThreshold Optional. If provided, will only log callbacks that take longer than the
@@ -40,6 +49,7 @@ type ISCFeatureTuple<T extends readonly ISCFeature[]> =
 export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   modVanilla: Mod,
   features: ISCFeatureTuple<T> = [] as unknown as ISCFeatureTuple<T>,
+  customCallbacksUsed: ModCallbackCustom[] | readonly ModCallbackCustom[] = [],
   debug = false,
   timeThreshold?: float,
 ): ModUpgraded<T> {
@@ -48,6 +58,7 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   const mod = new ModUpgradedBase(modVanilla, debug, timeThreshold);
   applyShaderCrashFix(mod);
   initOptionalFeatures(mod, features as ISCFeature[]);
+  initCallbacksEarly(mod, customCallbacksUsed);
 
   return mod as ModUpgraded<T>;
 }
@@ -66,5 +77,17 @@ function initOptionalFeatures(mod: ModUpgradedBase, features: ISCFeature[]) {
     for (const [funcName, func] of exportedMethodTuples) {
       modRecord[funcName] = func;
     }
+  }
+}
+
+function initCallbacksEarly(
+  mod: ModUpgradedBase,
+  callbacks: ModCallbackCustom[] | readonly ModCallbackCustom[],
+) {
+  for (const modCallbackCustom of callbacks) {
+    // We intentionally access the private method here, so we use the string index escape hatch:
+    // https://github.com/microsoft/TypeScript/issues/19335
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    mod["initCustomCallbackEarly"](modCallbackCustom);
   }
 }

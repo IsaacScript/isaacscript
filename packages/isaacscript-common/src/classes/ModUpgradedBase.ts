@@ -375,6 +375,15 @@ export class ModUpgradedBase implements Mod {
 
     return getExportedMethodsFromFeature(featureClass);
   }
+
+  /**
+   * This is mostly the same as the `AddCustomCallback` method, but we initialize the custom
+   * callback without actually registering a subscription.
+   */
+  private initCustomCallbackEarly(modCallbackCustom: ModCallbackCustom) {
+    const callbackClass = this.callbacks[modCallbackCustom];
+    this.initFeature(callbackClass);
+  }
 }
 
 /**

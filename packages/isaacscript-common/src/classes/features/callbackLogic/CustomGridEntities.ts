@@ -9,6 +9,7 @@ import {
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import {
   removeGridEntity,
   spawnGridEntityWithVariant,
@@ -47,46 +48,18 @@ export class CustomGridEntities extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
       [
         ModCallback.PRE_USE_ITEM,
         [this.preUseItemWeNeedToGoDeeper, CollectibleType.WE_NEED_TO_GO_DEEPER],
       ], // 23
     ];
 
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+    ];
+
     this.runInNFrames = runInNFrames;
   }
-
-  // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
-    // When we re-enter a room, the graphics for any custom entities will be reverted back to that
-    // of a normal decoration. Thus, we must re-apply the anm2.
-    const roomListIndex = getRoomListIndex();
-    const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
-    if (roomCustomGridEntities === undefined) {
-      return;
-    }
-
-    const room = game.GetRoom();
-    for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
-      const decoration = room.GetGridEntity(gridIndex);
-      if (decoration === undefined) {
-        roomCustomGridEntities.delete(gridIndex);
-        continue;
-      }
-
-      if (data.anm2Path !== undefined) {
-        const sprite = decoration.GetSprite();
-        sprite.Load(data.anm2Path, true);
-        const animationToPlay =
-          data.defaultAnimation === undefined
-            ? sprite.GetDefaultAnimation()
-            : data.defaultAnimation;
-        sprite.Play(animationToPlay, true);
-      }
-    }
-  };
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
@@ -137,6 +110,37 @@ export class CustomGridEntities extends Feature {
 
     // Cancel the original effect.
     return true;
+  };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private postNewRoomReordered = (): void => {
+    // When we re-enter a room, the graphics for any custom entities will be reverted back to that
+    // of a normal decoration. Thus, we must re-apply the anm2.
+    const roomListIndex = getRoomListIndex();
+    const roomCustomGridEntities =
+      this.v.level.customGridEntities.get(roomListIndex);
+    if (roomCustomGridEntities === undefined) {
+      return;
+    }
+
+    const room = game.GetRoom();
+    for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
+      const decoration = room.GetGridEntity(gridIndex);
+      if (decoration === undefined) {
+        roomCustomGridEntities.delete(gridIndex);
+        continue;
+      }
+
+      if (data.anm2Path !== undefined) {
+        const sprite = decoration.GetSprite();
+        sprite.Load(data.anm2Path, true);
+        const animationToPlay =
+          data.defaultAnimation === undefined
+            ? sprite.GetDefaultAnimation()
+            : data.defaultAnimation;
+        sprite.Play(animationToPlay, true);
+      }
+    }
   };
 
   /**
