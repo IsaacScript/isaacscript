@@ -27,6 +27,7 @@ import { ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA } from "../objects/roomSha
 import { getRandomArrayElement } from "./array";
 import { doorSlotToDoorSlotFlag } from "./doors";
 import { addFlag, hasFlag, removeFlag } from "./flag";
+import { copyMap } from "./map";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import {
   getRoomAllowedDoors,
@@ -244,7 +245,7 @@ export function getNewRoomCandidatesForLevel(): Array<
  */
 export function getRoomAdjacentGridIndexes(
   roomGridIndex?: int,
-): Map<DoorSlot, int> {
+): ReadonlyMap<DoorSlot, int> {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
 
   if (!isRoomInsideGrid(roomDescriptor.SafeGridIndex)) {
@@ -294,10 +295,9 @@ export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
 export function getRoomShapeAdjacentExistingGridIndexes(
   safeRoomGridIndex: int,
   roomShape: RoomShape,
-): Map<DoorSlot, int> {
-  const roomShapeAdjacentGridIndexes = getRoomShapeAdjacentGridIndexes(
-    safeRoomGridIndex,
-    roomShape,
+): ReadonlyMap<DoorSlot, int> {
+  const roomShapeAdjacentGridIndexes = copyMap(
+    getRoomShapeAdjacentGridIndexes(safeRoomGridIndex, roomShape),
   );
 
   for (const [
@@ -323,7 +323,7 @@ export function getRoomShapeAdjacentExistingGridIndexes(
  */
 export function getRoomShapeAdjacentGridIndexDeltas(
   roomShape: RoomShape,
-): Map<DoorSlot, int> {
+): ReadonlyMap<DoorSlot, int> {
   return ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA[roomShape];
 }
 
@@ -339,7 +339,7 @@ export function getRoomShapeAdjacentGridIndexDeltas(
 export function getRoomShapeAdjacentGridIndexes(
   safeRoomGridIndex: int,
   roomShape: RoomShape,
-): Map<DoorSlot, int> {
+): ReadonlyMap<DoorSlot, int> {
   const roomShapeAdjacentGridIndexDeltas =
     getRoomShapeAdjacentGridIndexDeltas(roomShape);
 
@@ -364,10 +364,9 @@ export function getRoomShapeAdjacentGridIndexes(
 export function getRoomShapeAdjacentNonExistingGridIndexes(
   safeRoomGridIndex: int,
   roomShape: RoomShape,
-): Map<DoorSlot, int> {
-  const roomShapeAdjacentGridIndexes = getRoomShapeAdjacentGridIndexes(
-    safeRoomGridIndex,
-    roomShape,
+): ReadonlyMap<DoorSlot, int> {
+  const roomShapeAdjacentGridIndexes = copyMap(
+    getRoomShapeAdjacentGridIndexes(safeRoomGridIndex, roomShape),
   );
 
   for (const [

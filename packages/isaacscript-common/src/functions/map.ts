@@ -3,7 +3,9 @@ import { sumArray } from "./array";
 import { getPartialMatch } from "./string";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
-export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
+export function copyMap<K, V>(
+  oldMap: Map<K, V> | ReadonlyMap<K, V>,
+): Map<K, V> {
   const newMap = new Map<K, V>();
   for (const [key, value] of oldMap.entries()) {
     newMap.set(key, value);
