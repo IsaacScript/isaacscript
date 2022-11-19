@@ -678,6 +678,25 @@ export function removeCollectibleCostume(
 }
 
 /**
+ * Helper function to remove one or more collectibles from all players. If any player has more than
+ * one copy of the item, then all copies of it will be removed.
+ *
+ * This function is variadic, meaning that you can specify as many collectibles as you want to
+ * remove.
+ */
+export function removeCollectibleFromAllPlayers(
+  ...collectibleTypes: CollectibleType[]
+): void {
+  for (const player of getAllPlayers()) {
+    for (const collectibleType of collectibleTypes) {
+      while (player.HasCollectible(collectibleType, true)) {
+        player.RemoveCollectible(collectibleType);
+      }
+    }
+  }
+}
+
+/**
  * Helper function to remove the Dead Eye multiplier from a player.
  *
  * Note that each time the `EntityPlayer.ClearDeadEyeCharge` method is called, it only has a chance
