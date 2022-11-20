@@ -15,6 +15,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `pressInput`
   - `removeCollectibleFromAllPlayers`
+- Renamed the following helper functions:
+  - `getVanillaTrinketTypes` --> `getVanillaTrinketTypeRange`
 
 ## November 6th, 2022
 

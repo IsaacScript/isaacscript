@@ -27,7 +27,7 @@ import {
   getSortedSetValues,
 } from "../../../functions/set";
 import {
-  getVanillaTrinketTypes,
+  getVanillaTrinketTypeRange,
   trinketHasCacheFlag,
 } from "../../../functions/trinkets";
 import { repeat } from "../../../functions/utils";
@@ -157,8 +157,8 @@ export class ModdedElementSets extends Feature {
       return;
     }
 
-    const vanillaTrinketTypes = getVanillaTrinketTypes();
-    for (const trinketType of vanillaTrinketTypes) {
+    const vanillaTrinketTypeRange = getVanillaTrinketTypeRange();
+    for (const trinketType of vanillaTrinketTypeRange) {
       // Vanilla trinket types are not contiguous, so we must check every value. (The only gap is 47
       // for `POLAROID_OBSOLETE`.)
       const itemConfigItem = itemConfig.GetTrinket(trinketType);

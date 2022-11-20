@@ -412,7 +412,7 @@ export function getCollectibleTags(
  *
  * This function is only useful when building collectible type objects. For most purposes, you
  * should use the `getVanillaCollectibleArray` or `getVanillaCollectibleSet` helper functions
- * instead.
+ * instead (which are part of `ISCFeature.MODDED_ELEMENT_SETS`).
  */
 export function getVanillaCollectibleTypeRange(): CollectibleType[] {
   return iRange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);

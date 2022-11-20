@@ -145,8 +145,15 @@ export function getTrinketName(trinketType: TrinketType): string {
   return DEFAULT_TRINKET_NAME;
 }
 
-/** Helper function to get an array that represents every vanilla trinket type. */
-export function getVanillaTrinketTypes(): TrinketType[] {
+/**
+ * Helper function to get an array that represents the range from the first trinket type to the last
+ * vanilla trinket type. This will include integers that do not represent any valid trinket types.
+ *
+ * This function is only useful when building collectible type objects. For most purposes, you
+ * should use the `getVanillaTrinketArray` or `getVanillaTrinketSet` helper functions instead (which
+ * are part of `ISCFeature.MODDED_ELEMENT_SETS`).
+ */
+export function getVanillaTrinketTypeRange(): TrinketType[] {
   return iRange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
 }
 
