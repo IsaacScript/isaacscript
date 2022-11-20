@@ -75,6 +75,6 @@ declare global {
     function Seed2String(seed: int): string;
 
     /** Converts a seed string into a number. For example, converts "B911 99JA" to 0. */
-    function String2Seed(str: string): int;
+    function String2Seed(str: string): Seed;
   }
 }
