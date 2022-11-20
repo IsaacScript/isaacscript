@@ -115,7 +115,8 @@ export class ModdedElementSets extends Feature {
 
     const vanillaCollectibleTypeRange = getVanillaCollectibleTypeRange();
     for (const collectibleType of vanillaCollectibleTypeRange) {
-      // Vanilla collectible types are not contiguous, so we must check every value.
+      // Vanilla collectible types are not contiguous, so we must check every value. (There are
+      // several gaps, e.g. 666.)
       const itemConfigItem = itemConfig.GetCollectible(collectibleType);
       if (itemConfigItem !== undefined) {
         this.vanillaCollectibleTypesArray.push(collectibleType);
@@ -158,7 +159,8 @@ export class ModdedElementSets extends Feature {
 
     const vanillaTrinketTypes = getVanillaTrinketTypes();
     for (const trinketType of vanillaTrinketTypes) {
-      // Vanilla trinket types are contiguous, but we check every value just in case.
+      // Vanilla trinket types are not contiguous, so we must check every value. (The only gap is 47
+      // for `POLAROID_OBSOLETE`.)
       const itemConfigItem = itemConfig.GetTrinket(trinketType);
       if (itemConfigItem !== undefined) {
         this.vanillaTrinketTypesArray.push(trinketType);
