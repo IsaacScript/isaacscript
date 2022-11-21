@@ -4,6 +4,7 @@ import {
   DoorSlotFlag,
   DoorState,
   DoorVariant,
+  GridEntityType,
   GridRoom,
   RoomShape,
   RoomType,
@@ -191,6 +192,12 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   for (const doorSlot of doorSlots) {
     const door = room.GetDoor(doorSlot);
     if (door === undefined) {
+      continue;
+    }
+
+    // In Repentance, sometimes doors won't be doors for some reason.
+    const gridEntityType = door.GetType();
+    if (gridEntityType !== GridEntityType.DOOR) {
       continue;
     }
 
