@@ -12,14 +12,14 @@ Install the tool:
 pip install --upgrade isaacscript-lua
 ```
 
-Install both the `isaac-typescript-definitions` and `isaacscript-common` libraries:
+Install the isaacscript-common` library:
 
 ```sh
 cd my-mod
 isaacscript-lua install
 ```
 
-Update the installed libraries:
+Update the installed library:
 
 ```sh
 cd my-mod
