@@ -31,7 +31,7 @@ export function areStringsEqualExcludingTrailingSpaces(
 }
 
 const urlCreator = (name: string) =>
-  `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/${name}.md`;
+  `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${name}.md`;
 export const createRule = ESLintUtils.RuleCreator(urlCreator);
 
 /**
