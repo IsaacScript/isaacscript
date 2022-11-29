@@ -14,6 +14,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - @types/update-notifier - Stuck until TypeScript supports ESM.
 # - chalk - Stuck until TypeScript supports ESM.
+# - fs-extra - Stuck until TypeScript supports ESM.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
 # - sort-package-json - Stuck until TypeScript supports ESM.

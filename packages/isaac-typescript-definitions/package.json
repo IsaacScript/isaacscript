@@ -22,6 +22,6 @@
   "main": "dist/src/index",
   "types": "dist/src/index.d.ts",
   "dependencies": {
-    "lua-types": "^2.13.0"
+    "lua-types": "^2.13.1"
   }
 }
