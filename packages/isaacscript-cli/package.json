@@ -31,7 +31,7 @@
     "command-exists": "^1.2.9",
     "dotenv": "^16.0.3",
     "figlet": "^1.5.2",
-    "fs-extra": "^11.0.0",
+    "fs-extra": "10.1.0",
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
     "isaacscript-tsconfig": "^2.2.0",
