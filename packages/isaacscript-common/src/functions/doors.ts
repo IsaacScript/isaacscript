@@ -185,11 +185,11 @@ export function getDoorSlotsForRoomShape(
  */
 export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const room = game.GetRoom();
-  const roomTypesSet = new Set(roomTypes);
+  const roomShape = room.GetRoomShape();
+  const possibleDoorSlots = getDoorSlotsForRoomShape(roomShape);
 
-  const doorSlots = getEnumValues(DoorSlot);
   const doors: GridEntityDoor[] = [];
-  for (const doorSlot of doorSlots) {
+  for (const doorSlot of possibleDoorSlots) {
     const door = room.GetDoor(doorSlot);
     if (door === undefined) {
       continue;
@@ -201,7 +201,7 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
       continue;
     }
 
-    if (roomTypesSet.size === 0 || roomTypesSet.has(door.TargetRoomType)) {
+    if (roomTypes.length === 0 || roomTypes.includes(door.TargetRoomType)) {
       doors.push(door);
     }
   }
