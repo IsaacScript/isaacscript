@@ -186,6 +186,10 @@ export function getDoorSlotsForRoomShape(
 export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
+  const roomTypesSet = new Set(roomTypes);
+
+  // We iterate over the possible door slots for this room shape instead of all door slots in order
+  // to prevent crashes from accessing invalid memory.
   const possibleDoorSlots = getDoorSlotsForRoomShape(roomShape);
 
   const doors: GridEntityDoor[] = [];
@@ -201,7 +205,7 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
       continue;
     }
 
-    if (roomTypes.length === 0 || roomTypes.includes(door.TargetRoomType)) {
+    if (roomTypesSet.size === 0 || roomTypesSet.has(door.TargetRoomType)) {
       doors.push(door);
     }
   }
