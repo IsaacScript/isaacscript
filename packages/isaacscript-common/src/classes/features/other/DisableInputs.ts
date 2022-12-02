@@ -11,6 +11,13 @@ export class DisableInputs extends Feature {
   /** @internal */
   public override v = {
     run: {
+      /**
+       * Glowing Hour Glass support is disabled by default since it can cause bugs with
+       * extra-gameplay features. (For example, whether the player should be able to move or not
+       * should often not be reset by the Glowing Hour Glass.)
+       */
+      __ignoreGlowingHourGlass: true,
+
       /** Indexed by the requesting feature key. */
       disableInputs: new Map<string, ReadonlySet<ButtonAction>>(),
 
