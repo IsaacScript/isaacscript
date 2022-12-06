@@ -102,7 +102,7 @@ However, now that the `mod` object contains useful methods, the various files in
 ```ts
 const modVanilla = RegisterMod("Foo", 1);
 const features = [ISCFeature.PONY_DETECTION] as const;
-export const mod = upgradeMod(modVanilla);
+export const mod = upgradeMod(modVanilla, features);
 ```
 
 #### `callbacks/postUpdate.ts`
