@@ -72,13 +72,7 @@ export function findFreePosition(
       avoidActiveEntities,
     );
 
-    const closePlayer = getPlayerCloserThan(
-      position,
-      // If we use a multiplier of 1.0, certain enemies might spawn directly next to a player, which
-      // is not technically unavoidable damage, but still a little bit unfair. Thus, we use a
-      // multiplier of 1.5.
-      DISTANCE_OF_GRID_TILE * 1.5,
-    );
+    const closePlayer = getPlayerCloserThan(position, DISTANCE_OF_GRID_TILE);
     if (closePlayer !== undefined) {
       continue;
     }
