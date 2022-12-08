@@ -13,6 +13,8 @@ This page lists the changes to the IsaacScript framework.
 
 - The IsaacScript framework now includes all of the features from the latest vanilla patches.
 - Several card functions have been moved to the `ModdedElementSets` feature, since `ItemConfigCardType` no longer has to be hard-coded.
+- Added the following helper functions:
+  - `isPaused` (part of `Pause`)
 - Added the following constants:
   - `ITEM_CONFIG_CARD_TYPES_FOR_CARDS`
 
