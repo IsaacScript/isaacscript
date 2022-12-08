@@ -53,6 +53,16 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   debug = false,
   timeThreshold?: float,
 ): ModUpgraded<T> {
+  // First, validate that all of the features exist (for Lua users who don't have type-safety).
+  for (const feature of features) {
+    const featureType = type(feature);
+    if (featureType !== "number") {
+      error(
+        `Failed to upgrade the mod due to one of the specified features being of type "${featureType}". (All of the features should be numbers represented by the "ISCFeature" enum.)`,
+      );
+    }
+  }
+
   patchErrorFunction();
 
   const mod = new ModUpgradedBase(modVanilla, debug, timeThreshold);
