@@ -35,7 +35,7 @@ declare global {
      * callbacks are added with a priority of 0, so this allows you to add early or late callbacks
      * as necessary. See the `CallbackPriority` enum.
      */
-    AddPriorityCallback<T extends ModCallback>(
+    AddPriorityCallback<T extends ModCallback | string>(
       modCallback: T,
       priority: CallbackPriority | int,
       ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]

@@ -28,10 +28,10 @@ declare global {
     /**
      * @deprecated Use the `Mod.AddCallback` method instead.
      */
-    function AddCallback<T extends ModCallback>(
+    function AddCallback<T extends ModCallback | string>(
       mod: Mod,
       modCallback: T,
-      ...args: AddCallbackParameters[T]
+      ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
@@ -39,11 +39,11 @@ declare global {
     /**
      * @deprecated Use the `Mod.AddPriorityCallback` method instead.
      */
-    function AddPriorityCallback<T extends ModCallback>(
+    function AddPriorityCallback<T extends ModCallback | string>(
       mod: Mod,
       modCallback: T,
       priority: CallbackPriority | int,
-      ...args: AddCallbackParameters[T]
+      ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
     ): void;
 
     /**

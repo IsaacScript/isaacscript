@@ -78,59 +78,7 @@ export class ModUpgradedBase implements Mod {
     modCallback: T,
     ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
   ): void {
-    if (this.debug) {
-      const callback = args[0];
-      const optionalArg = args[1];
-
-      const parentFunctionDescription = getParentFunctionDescription();
-      const customCallback = type(modCallback) === "string";
-      const callbackName = customCallback
-        ? `${modCallback} (custom callback)`
-        : `ModCallback.${ModCallback[modCallback as ModCallback]}`;
-      const signature =
-        parentFunctionDescription === undefined
-          ? callbackName
-          : `${parentFunctionDescription} - ${callbackName}`;
-
-      /**
-       * We don't use the "log" helper function here since it will always show the same "unknown"
-       * prefix.
-       */
-      const callbackWithLogger: typeof callback = (
-        // @ts-expect-error The compiler is not smart enough to know that the callback args should
-        // match the callback.
-        ...callbackArgs: Parameters<typeof callback>
-      ) => {
-        const startTime = getTime();
-        Isaac.DebugString(`${signature} - START`);
-
-        // @ts-expect-error The compiler is not smart enough to know that the callback args should
-        // match the callback.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const returnValue = callback(...callbackArgs);
-
-        const endTime = getTime();
-        const elapsedTime = endTime - startTime;
-        if (
-          this.timeThreshold === undefined ||
-          this.timeThreshold <= elapsedTime
-        ) {
-          Isaac.DebugString(`${signature} - END - time: ${elapsedTime}`);
-        } else {
-          Isaac.DebugString(`${signature} - END`);
-        }
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return returnValue;
-      };
-
-      const newArgs = [callbackWithLogger, optionalArg];
-      // @ts-expect-error The compiler is not smart enough to know that the callback args should
-      // match the callback.
-      this.mod.AddCallback(modCallback, ...newArgs);
-    } else {
-      this.mod.AddCallback(modCallback, ...args);
-    }
+    this.AddPriorityCallback(modCallback, CallbackPriority.DEFAULT, ...args);
   }
 
   public AddPriorityCallback<T extends ModCallback | string>(
@@ -187,9 +135,9 @@ export class ModUpgradedBase implements Mod {
       const newArgs = [callbackWithLogger, optionalArg];
       // @ts-expect-error The compiler is not smart enough to know that the callback args should
       // match the callback.
-      this.mod.AddCallback(modCallback, ...newArgs);
+      this.mod.AddPriorityCallback(modCallback, priority, ...newArgs);
     } else {
-      this.mod.AddCallback(modCallback, ...args);
+      this.mod.AddPriorityCallback(modCallback, priority, ...args);
     }
   }
 
