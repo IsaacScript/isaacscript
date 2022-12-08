@@ -113,6 +113,11 @@ export class Pause extends Feature {
     return 1;
   };
 
+  @Exported
+  public isPaused(): boolean {
+    return this.v.run.isPseudoPaused;
+  }
+
   /**
    * Helper function to emulate what happens when the player pauses the game. Use the `unpause`
    * function to return things back to normal.
