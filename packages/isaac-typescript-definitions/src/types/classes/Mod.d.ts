@@ -24,9 +24,9 @@ declare global {
      * )
      * ```
      */
-    AddCallback<T extends ModCallback>(
+    AddCallback<T extends ModCallback | string>(
       modCallback: T,
-      ...args: AddCallbackParameters[T]
+      ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
     ): void;
 
     /**
@@ -36,7 +36,7 @@ declare global {
      */
     AddPriorityCallback<T extends ModCallback>(
       modCallback: T,
-      ...args: AddCallbackParameters[T]
+      ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
     ): void;
 
     /** Returns whether or not a corresponding "save#.dat" file exists for the current mod. */
