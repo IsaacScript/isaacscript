@@ -115,7 +115,6 @@ declare global {
 
     // GetLRoomTileDesc is not implemented.
 
-    GetNextShockwaveId(): int;
     GetRandomPosition(margin: float): Vector;
     GetRandomTileIndex(seed: Seed): int;
     GetRedHeartDamage(): boolean;
@@ -134,7 +133,13 @@ declare global {
     /** Returns 0 if this is not a Double Trouble boss room. */
     GetSecondBossID(): BossID | 0;
 
-    GetSeededCollectible(seed: Seed): CollectibleType;
+    /**
+     * @param seed
+     * @param noDecrease If true, the collectible will not be removed from the pool that it came
+     *                   from. Default is false.
+     */
+    GetSeededCollectible(seed: Seed, noDecrease?: boolean): CollectibleType;
+
     GetShopLevel(): int;
     GetSpawnSeed(): Seed;
     GetTintedRockIdx(): int;
@@ -214,7 +219,6 @@ declare global {
     SetGridPath(index: int, value: int): boolean;
     SetRedHeartDamage(): void;
     SetSacrificeDone(done: boolean): void;
-    SetShockwaveParam(shockwaveID: int, shockwaveParams: ShockwaveParams): void;
     SetSlowDown(duration: int): void;
     SetWallColor(wallColor: Color): void;
     ShopReshuffle(keepCollectibleIdx: boolean, reselectSaleItem: boolean): void;

@@ -76,6 +76,7 @@ export enum TearVariant {
   SWORD_BEAM = 47,
   SPORE = 48,
   TECH_SWORD_BEAM = 49,
+  FETUS = 50,
 }
 
 /** For `EntityType.FAMILIAR` (3). */

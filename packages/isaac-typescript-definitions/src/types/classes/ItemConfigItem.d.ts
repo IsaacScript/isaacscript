@@ -15,6 +15,7 @@ declare global {
      */
     HasTags(tags: ItemConfigTag): boolean;
 
+    IsAvailable(): boolean;
     IsCollectible(): this is ItemConfigItemCollectible;
     IsNull(): this is ItemConfigItemNull;
     IsTrinket(): this is ItemConfigItemTrinket;

@@ -125,7 +125,6 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "SackSubType",
   "SeedEffect",
   "Seeds",
-  "ShockwaveParams",
   "SkinColor",
   "SortingLayer",
   "SoundEffect",

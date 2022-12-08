@@ -208,6 +208,13 @@ declare global {
     /** Returns true if the game is paused or the console is open. */
     IsPaused(): boolean;
 
+    MakeShockwave(
+      position: Vector,
+      amplitude: float,
+      speed: float,
+      duration: int,
+    ): void;
+
     MoveToRandomRoom(
       includeIAmErrorRoom: boolean,
       seed: Seed,

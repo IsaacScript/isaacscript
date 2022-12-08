@@ -1,3 +1,4 @@
+import { CallbackPriority } from "../../enums/CallbackPriority";
 import { Challenge } from "../../enums/Challenge";
 import {
   CardType,
@@ -48,6 +49,19 @@ declare global {
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
+
+    /**
+     * The same as the `Isaac.AddCallback` method, but allows setting a custom priority. By default,
+     * callbacks are added with a priority of 0, so this allows you to add early or late callbacks
+     * as necessary. See the `CallbackPriority` enum.
+     */
+    function AddPriorityCallback(
+      mod: Mod,
+      modCallback: ModCallback,
+      priority: CallbackPriority,
+      callbackFn: () => void,
+      tertiaryArg?: int,
+    ): void;
 
     /**
      * Puts a string into the debug console. (You can open the debug console with the tilde key.)
@@ -121,6 +135,13 @@ declare global {
       radius: float,
       partitions?: BitFlags<EntityPartition> | EntityPartition,
     ): Entity[];
+
+    function GetBuiltInCallbackState(modCallback: ModCallback): boolean;
+
+    function GetCallbacks<T extends ModCallback>(
+      modCallback: T,
+      createIfMissing: boolean,
+    ): ModDescription<T>;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded cards.
@@ -473,6 +494,13 @@ declare global {
       a: float,
     ): void;
 
+    function RunCallback(modCallback: ModCallback): void;
+
+    function RunCallbackWithParam(
+      modCallback: ModCallback,
+      ...optionalArgs: unknown[]
+    ): void;
+
     /**
      * Stores a string in a "save#.dat" file for persistent storage across game invocations.
      *
@@ -481,6 +509,11 @@ declare global {
      * folder.
      */
     function SaveModData(mod: Mod, data: string): void;
+
+    function SetBuiltInCallbackState(
+      modCallback: ModCallback,
+      state: boolean,
+    ): void;
 
     function ScreenToWorld(position: Vector): Vector;
     function ScreenToWorldDistance(position: Vector): Vector;

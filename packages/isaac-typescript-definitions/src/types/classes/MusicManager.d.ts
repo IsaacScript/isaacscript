@@ -48,7 +48,13 @@ declare global {
 
     Pause(): void;
     PitchSlide(targetPitch: float): void;
-    Play(music: Music, volume: float): void;
+
+    /**
+     * @param music
+     * @param volume Optional. Default is 1.
+     */
+    Play(music: Music, volume?: float): void;
+
     Queue(music: Music): void;
     ResetPitch(): void;
     Resume(): void;

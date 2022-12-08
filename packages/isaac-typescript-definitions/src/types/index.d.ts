@@ -84,7 +84,6 @@
 /// <reference path="classes/RoomList.d.ts" />
 /// <reference path="classes/Seeds.d.ts" />
 /// <reference path="classes/SFXManager.d.ts" />
-/// <reference path="classes/ShockwaveParams.d.ts" />
 /// <reference path="classes/SpawnList.d.ts" />
 /// <reference path="classes/Sprite.d.ts" />
 /// <reference path="classes/TearParams.d.ts" />

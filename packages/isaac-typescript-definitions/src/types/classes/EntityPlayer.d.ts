@@ -1130,11 +1130,13 @@ declare global {
      * @param useFlag Default is 0.
      * @param activeSlot The active slot this item was used from. (Set to -1 if this item was not
      *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
+     * @param customVarData Default is 0.
      */
     UseActiveItem(
       collectibleType: CollectibleType,
       useFlag?: UseFlag | BitFlags<UseFlag>,
       activeSlot?: ActiveSlot | -1,
+      customVarData?: int,
     ): void;
 
     /**
@@ -1145,6 +1147,7 @@ declare global {
      * @param toAddCostume
      * @param activeSlot The active slot this item was used from. (Set to -1 if this item was not
      *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
+     * @param customVarData Default is 0.
      */
     UseActiveItem(
       collectibleType: CollectibleType,
@@ -1153,6 +1156,7 @@ declare global {
       allowNonMainPlayer: boolean,
       toAddCostume: boolean,
       activeSlot?: ActiveSlot | -1,
+      customVarData?: int,
     ): void;
 
     /**

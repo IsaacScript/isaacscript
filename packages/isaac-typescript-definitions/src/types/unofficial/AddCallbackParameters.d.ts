@@ -536,5 +536,8 @@ declare global {
     [ModCallback.PRE_ENTITY_DEVOLVE]: [
       callback: (entity: Entity) => boolean | undefined,
     ];
+
+    // 73
+    [ModCallback.PRE_MOD_UNLOAD]: [callback: (mod: Mod) => void];
   }
 }

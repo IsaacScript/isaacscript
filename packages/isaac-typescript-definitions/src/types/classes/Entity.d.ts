@@ -5,6 +5,7 @@ import { EntityGridCollisionClass } from "../../enums/EntityGridCollisionClass";
 import { EntityType } from "../../enums/EntityType";
 import { DamageFlag } from "../../enums/flags/DamageFlag";
 import { EntityFlag } from "../../enums/flags/EntityFlag";
+import { SortingLayer } from "../../enums/SortingLayer";
 
 declare global {
   interface Entity extends IsaacAPIClass {
@@ -318,6 +319,7 @@ declare global {
     RenderZOffset: int;
     Size: float;
     SizeMulti: Vector;
+    SortingLayer: SortingLayer;
     readonly SpawnGridIndex: int;
     SpawnerEntity?: Entity;
     SpawnerType: EntityType;

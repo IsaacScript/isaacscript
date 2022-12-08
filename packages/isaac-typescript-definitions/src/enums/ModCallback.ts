@@ -915,4 +915,11 @@ export enum ModCallback {
    * ```
    */
   PRE_ENTITY_DEVOLVE = 72,
+
+  /**
+   * ```ts
+   * function preModUnload(mod: Mod): void {}
+   * ```
+   */
+  PRE_MOD_UNLOAD = 73,
 }

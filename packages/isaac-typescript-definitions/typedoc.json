@@ -163,7 +163,6 @@
     "src/types/classes/RoomList.d.ts",
     "src/types/classes/Seeds.d.ts",
     "src/types/classes/SFXManager.d.ts",
-    "src/types/classes/ShockwaveParams.d.ts",
     "src/types/classes/SpawnList.d.ts",
     "src/types/classes/Sprite.d.ts",
     "src/types/classes/TearParams.d.ts",
