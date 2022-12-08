@@ -68,6 +68,7 @@
 /// <reference path="classes/KColor.d.ts" />
 /// <reference path="classes/Level.d.ts" />
 /// <reference path="classes/Mod.d.ts" />
+/// <reference path="classes/ModDescription.d.ts" />
 /// <reference path="classes/MusicManager.d.ts" />
 /// <reference path="classes/PathFinder.d.ts" />
 /// <reference path="classes/PillConfigList.d.ts" />
