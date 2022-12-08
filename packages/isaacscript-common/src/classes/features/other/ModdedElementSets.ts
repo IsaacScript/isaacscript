@@ -1,14 +1,23 @@
 import {
   CacheFlag,
+  CardType,
   CollectibleType,
+  ItemConfigCardType,
   ItemConfigTag,
   PlayerForm,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
-import { FIRST_GLITCHED_COLLECTIBLE_TYPE } from "../../../core/constants";
+import {
+  FIRST_GLITCHED_COLLECTIBLE_TYPE,
+  ITEM_CONFIG_CARD_TYPES_FOR_CARDS,
+} from "../../../core/constants";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import {
+  getItemConfigCardType,
+  getVanillaCardTypes,
+} from "../../../functions/cards";
 import {
   collectibleHasCacheFlag,
   getVanillaCollectibleTypeRange,
@@ -78,6 +87,15 @@ export class ModdedElementSets extends Feature {
   private moddedTrinketTypesArray: TrinketType[] = [];
   private moddedTrinketTypesSet = new Set<TrinketType>();
 
+  private allCardTypesArray: CardType[] = [];
+  private allCardTypesSet = new Set<CardType>();
+
+  private vanillaCardTypesArray: CardType[] = [];
+  private vanillaCardTypesSet = new Set<CardType>();
+
+  private moddedCardTypesArray: CardType[] = [];
+  private moddedCardTypesSet = new Set<CardType>();
+
   private tagToCollectibleTypesMap = new Map<
     ItemConfigTag,
     Set<CollectibleType>
@@ -96,6 +114,19 @@ export class ModdedElementSets extends Feature {
 
   private edenActiveCollectibleTypesSet = new Set<CollectibleType>();
   private edenPassiveCollectibleTypesSet = new Set<CollectibleType>();
+
+  private itemConfigCardTypeToCardTypeMap = new Map<
+    ItemConfigCardType,
+    Set<CardType>
+  >();
+
+  /**
+   * The set of cards that are not:
+   *
+   * - ItemConfigCardType.RUNE
+   * - ItemConfigCardType.SPECIAL_OBJECT
+   */
+  private cardSet = new Set<CardType>();
 
   private moddedElementDetection: ModdedElementDetection;
 
@@ -192,6 +223,49 @@ export class ModdedElementSets extends Feature {
 
         this.allTrinketTypesArray.push(trinketType);
         this.allTrinketTypesSet.add(trinketType);
+      }
+    }
+  }
+
+  private lazyInitVanillaCardTypes() {
+    if (this.vanillaCardTypesArray.length > 0) {
+      return;
+    }
+
+    const vanillaCardTypes = getVanillaCardTypes();
+    for (const cardType of vanillaCardTypes) {
+      // Vanilla card types are contiguous, but we check every value just to be safe (and so that
+      // the code is similar to the collectible and trinket functions above).
+      const itemConfigCard = itemConfig.GetCard(cardType);
+      if (itemConfigCard !== undefined) {
+        this.vanillaCardTypesArray.push(cardType);
+        this.vanillaCardTypesSet.add(cardType);
+      }
+    }
+  }
+
+  private lazyInitModdedCardTypes() {
+    if (this.moddedCardTypesArray.length > 0) {
+      return;
+    }
+
+    this.lazyInitVanillaCardTypes();
+
+    for (const cardType of this.vanillaCardTypesArray) {
+      this.allCardTypesArray.push(cardType);
+      this.allCardTypesSet.add(cardType);
+    }
+
+    const moddedCardTypes = this.moddedElementDetection.getModdedCardTypes();
+    for (const cardType of moddedCardTypes) {
+      // Modded card types are contiguous, but we check every value just in case.
+      const itemConfigCard = itemConfig.GetCard(cardType);
+      if (itemConfigCard !== undefined) {
+        this.moddedCardTypesArray.push(cardType);
+        this.moddedCardTypesSet.add(cardType);
+
+        this.allCardTypesArray.push(cardType);
+        this.allCardTypesSet.add(cardType);
       }
     }
   }
@@ -337,6 +411,114 @@ export class ModdedElementSets extends Feature {
     }
   }
 
+  private lazyInitCardTypes() {
+    if (this.itemConfigCardTypeToCardTypeMap.size > 0) {
+      return;
+    }
+
+    // The card type to cards map should be valid for every card type, so we initialize it with
+    // empty sets.
+    for (const itemConfigCardType of getEnumValues(ItemConfigCardType)) {
+      this.itemConfigCardTypeToCardTypeMap.set(
+        itemConfigCardType,
+        new Set<CardType>(),
+      );
+    }
+
+    for (const cardType of this.getCardArray()) {
+      const itemConfigCardType = getItemConfigCardType(cardType);
+      if (itemConfigCardType !== undefined) {
+        const cardTypeSet =
+          this.itemConfigCardTypeToCardTypeMap.get(itemConfigCardType);
+        if (cardTypeSet === undefined) {
+          error(
+            `Failed to get the card set for item config card type: ${itemConfigCardType}`,
+          );
+        }
+        cardTypeSet.add(cardType);
+
+        if (ITEM_CONFIG_CARD_TYPES_FOR_CARDS.has(itemConfigCardType)) {
+          this.cardSet.add(cardType);
+        }
+      }
+    }
+  }
+
+  // --------------
+  // Public Methods
+  // --------------
+
+  /**
+   * Returns an array containing every valid card type in the game, including modded cards.
+   *
+   * Use this if you need to iterate over the cards in order. If you need to do O(1) lookups, then
+   * use the `getCardSet` helper function instead.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getCardArray(): readonly CardType[] {
+    this.lazyInitModdedCardTypes();
+    return this.allCardTypesArray;
+  }
+
+  /**
+   * Returns a set containing every valid card type in the game, including modded cards.
+   *
+   * Use this if you need to do O(1) lookups. If you need to iterate over the cards in order, then
+   * use the `getCardArray` helper function instead.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getCardSet(): ReadonlySet<CardType> {
+    this.lazyInitModdedCardTypes();
+    return this.allCardTypesSet;
+  }
+
+  /**
+   * Helper function to get a set of card types matching the `ItemConfigCardType`.
+   *
+   * This function is variadic, meaning that you can you can specify N card types to get a set
+   * containing cards that match any of the specified types.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getCardTypesOfType(
+    ...itemConfigCardTypes: ItemConfigCardType[]
+  ): Set<CardType> {
+    if (this.itemConfigCardTypeToCardTypeMap.size === 0) {
+      this.lazyInitCardTypes();
+    }
+
+    const matchingCardTypes = new Set<CardType>();
+    for (const itemConfigCardType of itemConfigCardTypes) {
+      const cardTypeSet =
+        this.itemConfigCardTypeToCardTypeMap.get(itemConfigCardType);
+      if (cardTypeSet === undefined) {
+        error(
+          `Failed to get the card type set for item config type: ${itemConfigCardType}`,
+        );
+      }
+
+      for (const cardType of cardTypeSet.values()) {
+        matchingCardTypes.add(cardType);
+      }
+    }
+
+    return matchingCardTypes;
+  }
+
   /**
    * Returns an array containing every valid collectible type in the game, including modded
    * collectibles.
@@ -385,6 +567,10 @@ export class ModdedElementSets extends Feature {
    * const guppyCollectibleTypes = getCollectiblesForTransformation(PlayerForm.GUPPY);
    * ```
    *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
@@ -404,6 +590,10 @@ export class ModdedElementSets extends Feature {
   /**
    * Returns a set containing every collectible type with the given cache flag, including modded
    * collectibles.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
@@ -435,6 +625,10 @@ export class ModdedElementSets extends Feature {
    * const offensiveCollectibleTypes = getCollectibleTypesWithTag(ItemConfigTag.OFFENSIVE);
    * ```
    *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
@@ -457,6 +651,10 @@ export class ModdedElementSets extends Feature {
    * Returns a set containing every valid passive item that can be randomly granted to Eden as a
    * starting item.
    *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
@@ -468,6 +666,10 @@ export class ModdedElementSets extends Feature {
   /**
    * Returns a set containing every valid passive item that can be randomly granted to Eden as a
    * starting item.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
@@ -483,6 +685,10 @@ export class ModdedElementSets extends Feature {
    *
    * Collectibles that only grant flight conditionally are manually pruned. Collectibles such as
    * Empty Vessel should be checked for via the `hasFlyingTemporaryEffect` function.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
@@ -504,6 +710,9 @@ export class ModdedElementSets extends Feature {
    * Returns a set of all of the trinkets that grant flight. (All trinkets that grant flight do so
    * conditionally, like Bat Wing and Azazel's Stump.)
    *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    */
   @Exported
@@ -511,6 +720,40 @@ export class ModdedElementSets extends Feature {
     this.lazyInitFlyingTrinketTypesSet();
 
     return this.flyingTrinketTypesSet;
+  }
+
+  /**
+   * Returns an array containing every modded card type in the game.
+   *
+   * Use this if you need to iterate over the cards in order. If you need to do O(1) lookups, then
+   * use the `getModdedCardSet` helper function instead.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getModdedCardArray(): readonly CardType[] {
+    this.lazyInitModdedCardTypes();
+    return this.moddedCardTypesArray;
+  }
+
+  /**
+   * Returns a set containing every modded card type in the game.
+   *
+   * Use this if you need to do O(1) lookups. If you need to iterate over the cards in order, then
+   * use the `getModdedCardArray` helper function instead.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all cards will necessarily be present when a mod first loads (due to mod load order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getModdedCardSet(): ReadonlySet<CardType> {
+    this.lazyInitModdedCardTypes();
+    return this.moddedCardTypesSet;
   }
 
   /**
@@ -550,10 +793,10 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
-   * Returns an array containing every valid trinket type in the game, including modded trinkets.
+   * Returns an array containing every modded trinket type in the game.
    *
    * Use this if you need to iterate over the trinkets in order. If you need to do O(1) lookups,
-   * then use the `getTrinketSet` helper function instead.
+   * then use the `getModdedTrinketSet` helper function instead.
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -567,10 +810,10 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
-   * Returns a set containing every valid trinket type in the game, including modded trinkets.
+   * Returns a set containing every modded trinket type in the game.
    *
    * Use this if you need to do O(1) lookups. If you need to iterate over the trinkets in order,
-   * then use the `getTrinketArray` helper function instead.
+   * then use the `getModdedTrinketArray` helper function instead.
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -755,9 +998,71 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
+   * Has an equal chance of returning any card (e.g. Fool, Reverse Fool, Wild Card, etc.).
+   *
+   * This will not return:
+   * - any runes
+   * - any objects like Dice Shard
+   *
+   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
+   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param exceptions Optional. An array of cards to not select.
+   */
+  @Exported
+  public getRandomCard(
+    seedOrRNG: Seed | RNG = getRandomSeed(),
+    exceptions: CardType[] = [],
+  ): CardType {
+    return getRandomSetElement(this.cardSet, seedOrRNG, exceptions);
+  }
+
+  /**
+   * @param itemConfigCardType The item config card type that represents the pool of cards to select
+   *                           from.
+   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
+   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param exceptions Optional. An array of cards to not select.
+   */
+  @Exported
+  public getRandomCardTypeOfType(
+    itemConfigCardType: ItemConfigCardType,
+    seedOrRNG: Seed | RNG = getRandomSeed(),
+    exceptions: CardType[] = [],
+  ): CardType {
+    const cardTypeSet = this.getCardTypesOfType(itemConfigCardType);
+    return getRandomSetElement(cardTypeSet, seedOrRNG, exceptions);
+  }
+
+  /**
+   * Has an equal chance of returning any rune (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Soul
+   * of Isaac, etc.). This will never return a Rune Shard.
+   *
+   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
+   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param exceptions Optional. An array of runes to not select.
+   */
+  @Exported
+  public getRandomRune(
+    seedOrRNG: Seed | RNG = getRandomSeed(),
+    exceptions: CardType[] = [],
+  ): CardType {
+    const runesSet = this.getCardTypesOfType(ItemConfigCardType.RUNE);
+    runesSet.delete(CardType.RUNE_SHARD);
+    return getRandomSetElement(runesSet, seedOrRNG, exceptions);
+  }
+
+  /**
    * Returns a random active collectible type that that is a valid starting item for Eden.
    *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
+   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param exceptions Optional. An array of runes to not select.
    */
   @Exported
   public getRandomEdenActiveCollectible(
@@ -775,7 +1080,15 @@ export class ModdedElementSets extends Feature {
   /**
    * Returns a random passive collectible type that that is a valid starting item for Eden.
    *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectibles will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
+   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param exceptions Optional. An array of runes to not select.
    */
   @Exported
   public getRandomEdenPassiveCollectible(
@@ -845,6 +1158,34 @@ export class ModdedElementSets extends Feature {
     }
 
     return trinketsSet;
+  }
+
+  /**
+   * Returns an array containing every valid vanilla card type in the game.
+   *
+   * Use this if you need to iterate over the cards in order. If you need to do O(1) lookups, then
+   * use the `getVanillaCardSet` helper function instead.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getVanillaCardArray(): readonly CardType[] {
+    this.lazyInitVanillaCardTypes();
+    return this.vanillaCardTypesArray;
+  }
+
+  /**
+   * Returns a set containing every valid vanilla card type in the game.
+   *
+   * Use this if you need to do O(1) lookups. If you need to iterate over the cards in order, then
+   * use the `getVanillaCardArray` helper function instead.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getVanillaCardSet(): ReadonlySet<CardType> {
+    this.lazyInitVanillaCardTypes();
+    return this.vanillaCardTypesSet;
   }
 
   /**

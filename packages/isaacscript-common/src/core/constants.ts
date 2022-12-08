@@ -1,6 +1,7 @@
 import {
   Dimension,
   DisplayFlag,
+  ItemConfigCardType,
   ItemPoolType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
@@ -73,6 +74,14 @@ export const FIRST_GLITCHED_COLLECTIBLE_TYPE = asCollectibleType((1 << 32) - 1);
 
 /** Game frames are what is returned by the `Game.GetFrameCount` method. */
 export const GAME_FRAMES_PER_SECOND = 30;
+
+/** The set of all `ItemConfigCardType` values that are not a rune or special object. */
+export const ITEM_CONFIG_CARD_TYPES_FOR_CARDS = new Set([
+  ItemConfigCardType.TAROT,
+  ItemConfigCardType.SUIT,
+  ItemConfigCardType.SPECIAL,
+  ItemConfigCardType.TAROT_REVERSE,
+]);
 
 /** Render frames are what is returned by the `Isaac.GetFrameCount` method. */
 export const RENDER_FRAMES_PER_SECOND = 60;

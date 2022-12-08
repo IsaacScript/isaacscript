@@ -9,6 +9,13 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## December 8th, 2022
+
+- The IsaacScript framework now includes all of the features from the latest vanilla patches.
+- Several card functions have been moved to the `ModdedElementSets` feature, since `ItemConfigCardType` no longer has to be hard-coded.
+- Added the following constants:
+  - `ITEM_CONFIG_CARD_TYPES_FOR_CARDS`
+
 ## November 15th, 2022
 
 - The `upgradeMod` function now takes an optional parameter containing the custom callbacks that you will be subscribing to in the future (for the purposes of early initializing them).
