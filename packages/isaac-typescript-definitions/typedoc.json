@@ -15,6 +15,7 @@
     "src/enums/BackdropType.ts",
     "src/enums/BrokenWatchState.ts",
     "src/enums/ButtonAction.ts",
+    "src/enums/CallbackPriority.ts",
     "src/enums/Challenge.ts",
     "src/enums/ChampionColor.ts",
     "src/enums/CollectibleAnimation.ts",

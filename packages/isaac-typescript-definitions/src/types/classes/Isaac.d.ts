@@ -26,41 +26,24 @@ declare global {
    */
   namespace Isaac {
     /**
-     * Your mod can't do much of anything unless you attach some callback functions that can run
-     * code when certain things happen. The different types of callbacks are represented in the
-     * `ModCallback` enum.
-     *
-     * Some callbacks take an optional third argument to specify that you only want it the function
-     * to fire on a specific thing. For example:
-     *
-     * ```ts
-     * mod.AddCallback(
-     *   ModCallback.POST_EFFECT_UPDATE,
-     *   postEffectUpdatePoof1,
-     *   EffectVariant.POOF_1,
-     * )
-     * ```
+     * @deprecated Use the `Mod.AddCallback` method instead.
      */
-    function AddCallback(
+    function AddCallback<T extends ModCallback>(
       mod: Mod,
-      modCallback: ModCallback,
-      callbackFn: () => void,
-      tertiaryArg?: int,
+      modCallback: T,
+      ...args: AddCallbackParameters[T]
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
 
     /**
-     * The same as the `Isaac.AddCallback` method, but allows setting a custom priority. By default,
-     * callbacks are added with a priority of 0, so this allows you to add early or late callbacks
-     * as necessary. See the `CallbackPriority` enum.
+     * @deprecated Use the `Mod.AddPriorityCallback` method instead.
      */
-    function AddPriorityCallback(
+    function AddPriorityCallback<T extends ModCallback>(
       mod: Mod,
-      modCallback: ModCallback,
+      modCallback: T,
       priority: CallbackPriority,
-      callbackFn: () => void,
-      tertiaryArg?: int,
+      ...args: AddCallbackParameters[T]
     ): void;
 
     /**
@@ -451,7 +434,7 @@ declare global {
     function LoadModData(mod: Mod): string;
 
     /**
-     * @deprecated Use the global `RegisterMod` function instead.
+     * @deprecated Use the global `RegisterMod` global function instead.
      */
     function RegisterMod(
       mod: Mod,

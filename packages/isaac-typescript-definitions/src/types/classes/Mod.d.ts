@@ -8,10 +8,33 @@ declare global {
   interface Mod {
     /**
      * Registers a function to be executed when an in-game event happens. For example, the
-     * `ModCallback.POST_UPDATE` event corresponds to being executed once at the end of every game
-     * logic frame.
+     * `ModCallback.POST_UPDATE` event corresponds to event of an in-game logic frame being
+     * finished.
+     *
+     * The different types of callbacks are represented in the `ModCallback` enum.
+     *
+     * Some callbacks take an optional third argument to specify that you only want it the function
+     * to fire on a specific thing. For example:
+     *
+     * ```ts
+     * mod.AddCallback(
+     *   ModCallback.POST_EFFECT_UPDATE,
+     *   postEffectUpdatePoof1,
+     *   EffectVariant.POOF_1,
+     * )
+     * ```
      */
     AddCallback<T extends ModCallback>(
+      modCallback: T,
+      ...args: AddCallbackParameters[T]
+    ): void;
+
+    /**
+     * The same as the `Mod.AddCallback` method, but allows setting a custom priority. By default,
+     * callbacks are added with a priority of 0, so this allows you to add early or late callbacks
+     * as necessary. See the `CallbackPriority` enum.
+     */
+    AddPriorityCallback<T extends ModCallback>(
       modCallback: T,
       ...args: AddCallbackParameters[T]
     ): void;
