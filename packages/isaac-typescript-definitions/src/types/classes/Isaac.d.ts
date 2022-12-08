@@ -42,7 +42,7 @@ declare global {
     function AddPriorityCallback<T extends ModCallback>(
       mod: Mod,
       modCallback: T,
-      priority: CallbackPriority,
+      priority: CallbackPriority | int,
       ...args: AddCallbackParameters[T]
     ): void;
 

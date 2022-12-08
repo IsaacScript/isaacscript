@@ -1,3 +1,4 @@
+import { CallbackPriority } from "../../enums/CallbackPriority";
 import { ModCallback } from "../../enums/ModCallback";
 
 declare global {
@@ -10,6 +11,6 @@ declare global {
     Param?: int;
 
     /** The default is 0. */
-    Priority: int;
+    Priority: CallbackPriority | int;
   }
 }

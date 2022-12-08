@@ -1,3 +1,4 @@
+import { CallbackPriority } from "../../enums/CallbackPriority";
 import { ModCallback } from "../../enums/ModCallback";
 
 declare global {
@@ -36,6 +37,7 @@ declare global {
      */
     AddPriorityCallback<T extends ModCallback>(
       modCallback: T,
+      priority: CallbackPriority | int,
       ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
     ): void;
 
