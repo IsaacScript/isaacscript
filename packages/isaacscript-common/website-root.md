@@ -108,7 +108,7 @@ export const mod = upgradeMod(modVanilla, features);
 #### `callbacks/postUpdate.ts`
 
 ```ts
-import { mod } from "./mod";
+import { mod } from "../mod";
 
 export function postUpdateInit(): void {
   mod.AddCallback(ModCallback.POST_UPDATE, main);
