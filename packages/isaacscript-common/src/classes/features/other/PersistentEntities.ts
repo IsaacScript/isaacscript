@@ -67,23 +67,22 @@ export class PersistentEntities extends Feature {
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   private postEntityRemove = (entity: Entity) => {
-    this.checkDespawningFromPlayerLeavingRoom(entity);
-  };
-
-  private checkDespawningFromPlayerLeavingRoom(entity: Entity) {
     const ptrHash = GetPtrHash(entity);
     const tuple = this.v.room.spawnedPersistentEntities.get(ptrHash);
     if (tuple === undefined) {
       return;
     }
+
+    // A persistent entity is being removed, either because it was killed / manually despawned, or
+    // the player left the room.
     const index = tuple[0];
 
-    if (!this.roomHistory.isLeavingRoom()) {
-      return;
+    if (this.roomHistory.isLeavingRoom()) {
+      this.trackDespawningPickupPosition(entity, index);
+    } else {
+      this.removePersistentEntity(index, false);
     }
-
-    this.trackDespawningPickupPosition(entity, index);
-  }
+  };
 
   /**
    * The persistent entity is despawning because the player is in the process of leaving the room.
