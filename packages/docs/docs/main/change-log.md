@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## December 17th, 2022
 
+- Persistent entities will now no longer respawn when they are removed.
 - Added the following custom commands:
   - `secretShop` (to warp to the Secret Shop)
 
