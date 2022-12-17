@@ -1191,6 +1191,11 @@ export function secretRoom(): void {
   warpToRoomType(RoomType.SECRET);
 }
 
+/** Warps to the Secret Shop that you would normally get to with a Member Card. */
+export function secretShop(): void {
+  changeRoom(GridRoom.SECRET_SHOP);
+}
+
 /** Changes to a seeded run, using the seed of the current run. */
 export function seedStick(): void {
   const seedsClass = game.GetSeeds();

@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## December 17th, 2022
+
+- Added the following custom commands:
+  - `secretShop` (to warp to the Secret Shop)
+
 ## December 8th, 2022
 
 - The IsaacScript framework now includes all of the features from the latest vanilla patches.
