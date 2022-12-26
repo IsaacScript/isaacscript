@@ -2,7 +2,7 @@ import { CardType } from "isaac-typescript-definitions";
 
 export const DEFAULT_CARD_NAME = "Unknown";
 
-// This is a temporary map due to missing features in the vanilla API.
+/** This is a temporary map due to missing features in the vanilla API. */
 export const CARD_NAMES: { readonly [key in CardType]: string } = {
   [CardType.NULL]: DEFAULT_CARD_NAME,
   [CardType.FOOL]: "0 - The Fool",
