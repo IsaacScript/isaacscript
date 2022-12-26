@@ -20,6 +20,6 @@
  * const value = MyEnumToString[MyEnum.Value2];
  * ```
  */
-export type HasAllEnumKeys<T extends string | number> = {
-  readonly [key in T]: unknown;
+export type HasAllEnumKeys<Enum extends string | number, T> = {
+  readonly [key in Enum]: T;
 };
