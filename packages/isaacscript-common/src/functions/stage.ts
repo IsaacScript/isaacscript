@@ -5,6 +5,7 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { ENGLISH_LEVEL_NAMES } from "../objects/englishLevelNames";
 import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
@@ -84,6 +85,23 @@ export function getEffectiveStage(): int {
   }
 
   return stage;
+}
+
+// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
+/**
+ * Helper function to get the English name of the level. For example, "Caves 1".
+ *
+ * This is useful because the `Level.GetName` method returns a localized version of the level name,
+ * which will not display correctly on some fonts.
+ *
+ * Note that this returns "Blue Womb" instead of "???" for stage 9.
+ */
+export function getEnglishLevelName(
+  stage: LevelStage,
+  stageType: StageType,
+): string {
+  const stageNames = ENGLISH_LEVEL_NAMES[stage];
+  return stageNames[stageType];
 }
 
 /**
