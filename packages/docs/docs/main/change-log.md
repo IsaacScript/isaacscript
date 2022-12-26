@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## December 26th, 2022
+
+- Added the following helper functions:
+  - `getEnglishLevelName`
+
 ## December 17th, 2022
 
 - Persistent entities will now no longer respawn when they are removed.
