@@ -95,11 +95,24 @@ export function getEffectiveStage(): int {
  * which will not display correctly on some fonts.
  *
  * Note that this returns "Blue Womb" instead of "???" for stage 9.
+ *
+ * @param stage Optional. If not specified, the current stage will be used.
+ * @param stageType Optional. If not specified, the current stage type will be used.
  */
 export function getEnglishLevelName(
-  stage: LevelStage,
-  stageType: StageType,
+  stage?: LevelStage,
+  stageType?: StageType,
 ): string {
+  const level = game.GetLevel();
+
+  if (stage === undefined) {
+    stage = level.GetStage();
+  }
+
+  if (stageType === undefined) {
+    stageType = level.GetStageType();
+  }
+
   const stageNames = ENGLISH_LEVEL_NAMES[stage];
   return stageNames[stageType];
 }
