@@ -67,6 +67,8 @@ export class CustomHotkeys extends Feature {
    * This can be used to easily set up custom hotkeys to facilitate custom game features or to
    * assist in debugging.
    *
+   * Inputs are checked for in the `POST_RENDER` callback.
+   *
    * This is different from the `setHotkey` function in that the keyboard activation key is not
    * hardcoded and is instead the return value of a provided function. This is useful for situations
    * where the key can change (like if end-users can specify a custom hotkey using Mod Config Menu).
@@ -96,6 +98,8 @@ export class CustomHotkeys extends Feature {
    *
    * This can be used to easily set up custom hotkeys to facilitate custom game features or to
    * assist in debugging.
+   *
+   * Inputs are checked for in the `POST_RENDER` callback.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.
    *
