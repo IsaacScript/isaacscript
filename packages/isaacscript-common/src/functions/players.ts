@@ -94,6 +94,8 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
  * Helper function to remove a collectible or trinket that is currently queued to go into a player's
  * inventory (i.e. the item is being held over their head).
  *
+ * If the player does not have an item currently queued, then this function will be a no-op.
+ *
  * Returns whether or not an item was actually dequeued.
  */
 export function dequeueItem(player: EntityPlayer): boolean {
