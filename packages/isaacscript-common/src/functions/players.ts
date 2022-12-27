@@ -91,6 +91,25 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
 }
 
 /**
+ * Helper function to remove a collectible or trinket that is currently queued to go into a player's
+ * inventory (i.e. the item is being held over their head).
+ *
+ * Returns whether or not an item was actually dequeued.
+ */
+export function dequeueItem(player: EntityPlayer): boolean {
+  if (player.QueuedItem.Item === undefined) {
+    return false;
+  }
+
+  // Doing `player.QueuedItem.Item = undefined` does not work for some reason.
+  const queue = player.QueuedItem;
+  queue.Item = undefined;
+  player.QueuedItem = queue;
+
+  return true;
+}
+
+/**
  * Helper function to find the active slot that the player has the corresponding collectible type
  * in. Returns undefined if the player does not have the collectible in any active slot.
  */

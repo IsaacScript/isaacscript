@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## January 2nd, 2022 (Unreleased)
+
+- `spawn` and all of the related helper functions will now accept a grid index in place of a position vector.
+- Added the following helper functions:
+  - `dequeueItem`
+
 ## December 26th, 2022
 
 - Added the following helper functions:
