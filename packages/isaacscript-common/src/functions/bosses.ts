@@ -157,7 +157,7 @@ export function spawnBoss(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -168,7 +168,7 @@ export function spawnBoss(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seed,
@@ -182,7 +182,15 @@ export function spawnBoss(
     );
     const remainingSegmentsToSpawn = numBossSegments - 1;
     repeat(remainingSegmentsToSpawn, () => {
-      spawnNPC(entityType, variant, subType, position, velocity, spawner, seed);
+      spawnNPC(
+        entityType,
+        variant,
+        subType,
+        positionOrGridIndex,
+        velocity,
+        spawner,
+        seed,
+      );
     });
   }
 
@@ -231,7 +239,7 @@ export function spawnBossWithSeed(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -242,7 +250,7 @@ export function spawnBossWithSeed(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seed,

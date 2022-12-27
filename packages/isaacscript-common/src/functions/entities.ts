@@ -488,7 +488,7 @@ export function setEntityRandomColor(entity: Entity): void {
  * @param entityType The `EntityType` of the entity to spawn.
  * @param variant The variant of the entity to spawn.
  * @param subType The sub-type of the entity to spawn.
- * @param position The position of the entity to spawn.
+ * @param positionOrGridIndex The position or grid index of the entity to spawn.
  * @param velocity Optional. The velocity of the entity to spawn. Default is `VectorZero`.
  * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
  * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
@@ -499,13 +499,15 @@ export function spawn(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): Entity {
+  const room = game.GetRoom();
+
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (position === undefined) {
+  if (positionOrGridIndex === undefined) {
     const entityID = getEntityIDFromConstituents(entityType, variant, subType);
     error(
       `Failed to spawn entity ${entityID} since an undefined position was passed to the "spawn" function.`,
@@ -519,6 +521,10 @@ export function spawn(
       `Failed to spawn entity ${entityID} since an undefined velocity was passed to the "spawn" function.`,
     );
   }
+
+  const position = isVector(positionOrGridIndex)
+    ? positionOrGridIndex
+    : room.GetGridPosition(positionOrGridIndex);
 
   if (seedOrRNG === undefined) {
     return Isaac.Spawn(
@@ -547,7 +553,7 @@ export function spawn(
  * Helper function to spawn the entity corresponding to an `EntityID`.
  *
  * @param entityID The `EntityID` of the entity to spawn.
- * @param position The position of the entity to spawn.
+ * @param positionOrGridIndex The position or grid index of the entity to spawn.
  * @param velocity Optional. The velocity of the entity to spawn. Default is `VectorZero`.
  * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
  * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
@@ -556,7 +562,7 @@ export function spawn(
  */
 export function spawnEntityID(
   entityID: EntityID,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -566,7 +572,7 @@ export function spawnEntityID(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -581,7 +587,7 @@ export function spawnWithSeed(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -590,7 +596,7 @@ export function spawnWithSeed(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,

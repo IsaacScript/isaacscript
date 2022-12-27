@@ -21,7 +21,7 @@ import { getRandomSeed, isRNG } from "./rng";
  * (which is provided by `ISCFeature.SPAWN_COLLECTIBLE`).
  *
  * @param collectibleType The collectible type to spawn.
- * @param position The position to spawn the collectible at.
+ * @param positionOrGridIndex The position or grid index to spawn the collectible at.
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param options Optional. Set to true to make the collectible a "There's Options" style
@@ -32,7 +32,7 @@ import { getRandomSeed, isRNG } from "./rng";
  */
 export function spawnCollectibleUnsafe(
   collectibleType: CollectibleType,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG = getRandomSeed(),
   options = false,
   forceFreeItem = false,
@@ -42,7 +42,7 @@ export function spawnCollectibleUnsafe(
   const collectible = spawnPickupWithSeed(
     PickupVariant.COLLECTIBLE,
     collectibleType,
-    position,
+    positionOrGridIndex,
     seed,
     VectorZero,
     spawner,
@@ -80,17 +80,17 @@ export function spawnCollectibleUnsafe(
  * Instead, this function arbitrarily spawns a collectible with `CollectibleType.SAD_ONION`, and
  * then converts it to an empty pedestal afterward.
  *
- * @param position The position to spawn the empty collectible at.
+ * @param positionOrGridIndex The position or grid index to spawn the empty collectible at.
  * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  */
 export function spawnEmptyCollectible(
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG = getRandomSeed(),
 ): EntityPickup {
   const collectible = spawnCollectibleUnsafe(
     CollectibleType.SAD_ONION,
-    position,
+    positionOrGridIndex,
     seedOrRNG,
     false,
     true,

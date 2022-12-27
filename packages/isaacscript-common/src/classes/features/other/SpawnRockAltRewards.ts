@@ -31,7 +31,7 @@ import { getRandom } from "../../../functions/random";
 import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
 import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
 import { repeat } from "../../../functions/utils";
-import { getRandomVector } from "../../../functions/vector";
+import { getRandomVector, isVector } from "../../../functions/vector";
 import { Feature } from "../../private/Feature";
 import { ItemPoolDetection } from "./ItemPoolDetection";
 
@@ -92,7 +92,7 @@ export class SpawnRockAltRewards extends Feature {
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    *
-   * @param position The place to spawn the reward.
+   * @param positionOrGridIndex The position or grid index to spawn the reward.
    * @param rockAltType The type of reward to spawn. For example, `RockAltType.URN` will have a
    *                    chance at spawning coins and spiders.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
@@ -102,10 +102,14 @@ export class SpawnRockAltRewards extends Feature {
    */
   @Exported
   public spawnRockAltReward(
-    position: Vector,
+    positionOrGridIndex: Vector | int,
     rockAltType: RockAltType,
     seedOrRNG: Seed | RNG = getRandomSeed(),
   ): boolean {
+    const room = game.GetRoom();
+    const position = isVector(positionOrGridIndex)
+      ? positionOrGridIndex
+      : room.GetGridPosition(positionOrGridIndex);
     const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
     switch (rockAltType) {

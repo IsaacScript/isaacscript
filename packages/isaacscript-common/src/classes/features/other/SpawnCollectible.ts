@@ -34,7 +34,7 @@ export class SpawnCollectible extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
    *
    * @param collectibleType The collectible type to spawn.
-   * @param position The position to spawn the collectible at.
+   * @param positionOrGridIndex The position or grid index to spawn the collectible at.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
    * @param options Optional. Set to true to make the collectible a "There's Options" style
@@ -46,7 +46,7 @@ export class SpawnCollectible extends Feature {
   @Exported
   public spawnCollectible(
     collectibleType: CollectibleType,
-    position: Vector,
+    positionOrGridIndex: Vector | int,
     seedOrRNG: Seed | RNG = getRandomSeed(),
     options = false,
     forceFreeItem = false,
@@ -54,7 +54,7 @@ export class SpawnCollectible extends Feature {
   ): EntityPickupCollectible {
     const collectible = spawnCollectibleUnsafe(
       collectibleType,
-      position,
+      positionOrGridIndex,
       seedOrRNG,
       options,
       forceFreeItem,
@@ -81,7 +81,7 @@ export class SpawnCollectible extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
    *
    * @param itemPoolType The item pool to draw the collectible type from.
-   * @param position The position to spawn the collectible at.
+   * @param positionOrGridIndex The position or grid index to spawn the collectible at.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
    * @param options Optional. Set to true to make the collectible a "There's Options" style
@@ -93,7 +93,7 @@ export class SpawnCollectible extends Feature {
   @Exported
   public spawnCollectibleFromPool(
     itemPoolType: ItemPoolType,
-    position: Vector,
+    positionOrGridIndex: Vector | int,
     seedOrRNG: Seed | RNG = getRandomSeed(),
     options = false,
     forceFreeItem = false,
@@ -104,7 +104,7 @@ export class SpawnCollectible extends Feature {
 
     return this.spawnCollectible(
       collectibleType,
-      position,
+      positionOrGridIndex,
       seedOrRNG,
       options,
       forceFreeItem,
