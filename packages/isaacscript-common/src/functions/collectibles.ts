@@ -533,6 +533,9 @@ export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
   sprite.ReplaceSpritesheet(CollectibleSpriteLayer.HEAD, gfxFileName);
   sprite.LoadGraphics();
 
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
+
   return sprite;
 }
 

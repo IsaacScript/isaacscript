@@ -197,6 +197,9 @@ export function newTrinketSprite(trinketType: TrinketType): Sprite {
   sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, gfxFileName);
   sprite.LoadGraphics();
 
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
+
   return sprite;
 }
 
