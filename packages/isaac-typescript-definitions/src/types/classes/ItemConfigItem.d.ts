@@ -52,7 +52,13 @@ declare global {
     GfxFileName: string;
 
     Hidden: boolean;
+
+    /**
+     * If it is a collectible, then this is the `CollectibleType`. If it is a trinket, then this is
+     * the `TrinketType`. If it is a null item, then it is the `NullItemID`.
+     */
     ID: CollectibleType | TrinketType | NullItemID;
+
     InitCharge: int;
     MaxCharges: int;
     MaxCooldown: int;
