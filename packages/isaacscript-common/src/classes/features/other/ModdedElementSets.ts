@@ -366,6 +366,9 @@ export class ModdedElementSets extends Feature {
     for (const collectibleType of CONDITIONAL_FLYING_COLLECTIBLE_TYPES) {
       permanentFlyingCollectibleTypes.delete(collectibleType);
     }
+    for (const collectibleType of permanentFlyingCollectibleTypes.values()) {
+      this.permanentFlyingCollectibleTypesSet.add(collectibleType);
+    }
   }
 
   private lazyInitFlyingTrinketTypesSet() {
