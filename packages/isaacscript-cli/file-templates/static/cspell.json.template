@@ -11,6 +11,7 @@
     "*"
   ],
   "enableGlobDot": true,
+  "useGitignore": true,
   "ignorePaths": [
     "*.anm2",
     "*.pyc",

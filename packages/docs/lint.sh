@@ -14,17 +14,16 @@ cd "$DIR"
 npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Step 2 - Use ESLint to lint the JavaScript.
-# Since all ESLint errors are set to warnings, we set max warnings to 0 so that warnings will fail
-# in CI.
+# We use "--max-warnings" so that any warnings will fail in CI.
 npx eslint --max-warnings 0 .
 
 # Step 3 - Use remark to check Markdown files for errors.
-# We set to quiet to output only warnings and errors.
-# We set to frail to exit with 1 on warnings (for CI).
+# We use "--quiet" to output only warnings and errors.
+# We use "--frail" to exit with 1 on warnings (for CI).
 npx remark --quiet --frail docs --ignore-pattern "docs/isaacscript-common" # Cannot use "$DIR" here
 
 # Step 4 - Spell check every file using CSpell.
-# We use no-progress and no-summary because we want to only output errors.
+# We use "--no-progress" and "--no-summary" because we want to only output errors.
 npx cspell --no-progress --no-summary
 
 echo "Successfully linted in $SECONDS seconds."
