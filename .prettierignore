@@ -8,7 +8,7 @@ tmp
 .docusaurus
 .cache-loader
 
-# "prettier-plugin-organize-imports" is bugged with JSX
+# "prettier-plugin-organize-imports" is bugged with JSX.
 packages/docs/src/components/HomepageFeatures.js
 packages/docs/src/pages/index.js
 
