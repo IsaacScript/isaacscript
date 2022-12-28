@@ -1,10 +1,9 @@
 import { BackdropType } from "isaac-typescript-definitions";
 import { RockAltType } from "../enums/RockAltType";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 /** Used by the `getRockAltType` function. */
-export const BACKDROP_TYPE_TO_ROCK_ALT_TYPE: {
-  readonly [key in BackdropType]: RockAltType;
-} = {
+export const BACKDROP_TYPE_TO_ROCK_ALT_TYPE = {
   [BackdropType.BASEMENT]: RockAltType.URN, // 1
   [BackdropType.CELLAR]: RockAltType.URN, // 2
   [BackdropType.BURNT_BASEMENT]: RockAltType.URN, // 3
@@ -65,4 +64,4 @@ export const BACKDROP_TYPE_TO_ROCK_ALT_TYPE: {
   [BackdropType.MINES_SHAFT]: RockAltType.MUSHROOM, // 58
   [BackdropType.ASHPIT_SHAFT]: RockAltType.MUSHROOM, // 59
   [BackdropType.DARK_CLOSET]: RockAltType.SKULL, // 60
-} as const;
+} as const satisfies HasAllEnumKeys<BackdropType, RockAltType>;

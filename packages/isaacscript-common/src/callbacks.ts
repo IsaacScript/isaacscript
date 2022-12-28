@@ -120,8 +120,8 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
 } as const);
 
 export type ModCallbackCustomToClass = {
-  readonly [key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
-    typeof MOD_CALLBACK_CUSTOM_TO_CLASS[key]
+  readonly [Key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
+    typeof MOD_CALLBACK_CUSTOM_TO_CLASS[Key]
   >;
 };
 

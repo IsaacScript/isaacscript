@@ -1,11 +1,13 @@
 import { StageID } from "isaac-typescript-definitions";
 
 /** We arbitrarily specify a default color equal to that of Basement. */
-const DEFAULT_COLOR = Color(26 / 255, 14 / 255, 12 / 255);
+const DEFAULT_COLOR: Readonly<Color> = Color(26 / 255, 14 / 255, 12 / 255);
 
 /** These values are taken from StageAPI. */
+// We need the colors to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const VERSUS_SCREEN_BACKGROUND_COLORS: {
-  readonly [key in StageID]: Color;
+  readonly [Key in StageID]: Readonly<Color>;
 } = {
   [StageID.SPECIAL_ROOMS]: DEFAULT_COLOR, // 0
   [StageID.BASEMENT]: Color(26 / 255, 14 / 255, 12 / 255), // 1

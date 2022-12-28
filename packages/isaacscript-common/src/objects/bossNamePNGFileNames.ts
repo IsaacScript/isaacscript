@@ -1,11 +1,10 @@
 // cspell:disable
 
 import { BossID } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 /** Used when rendering the "versusscreen.anm2" sprite. */
-export const BOSS_NAME_PNG_FILE_NAMES: {
-  readonly [key in BossID]: string;
-} = {
+export const BOSS_NAME_PNG_FILE_NAMES = {
   [BossID.MONSTRO]: "bossname_20.0_monstro.png", // 1
   [BossID.LARRY_JR]: "bossname_19.0_larryjr.png", // 2
   [BossID.CHUB]: "bossname_28.0_chub.png", // 3
@@ -112,4 +111,4 @@ export const BOSS_NAME_PNG_FILE_NAMES: {
   [BossID.BEAST]: "bossname_dogma.png", // 100
   [BossID.HORNY_BOYS]: "bossname_hornyboys.png", // 101
   [BossID.CLUTCH]: "bossname_clutch.png", // 102
-} as const;
+} as const satisfies HasAllEnumKeys<BossID, string>;

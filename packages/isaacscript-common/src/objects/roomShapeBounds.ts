@@ -15,8 +15,10 @@ const TWO_BY_TWO_BOUNDS: [width: int, height: int] = [
  * The size of a room shape's contents. This does not include the tiles that the walls are on. L
  * rooms use the same bounds as a 2x2 room.
  */
+// We need the tuples to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_BOUNDS: {
-  readonly [key in RoomShape]: readonly [width: int, height: int];
+  readonly [Key in RoomShape]: readonly [width: int, height: int];
 } = {
   // 1
   [RoomShape.SHAPE_1x1]: [

@@ -17,6 +17,7 @@
  *   [MyEnum.Value3]: "baz",
  * } as const satisfies HasAllEnumKeys<MyEnum, string>;
  *
+ *
  * const value = MyEnumToString[MyEnum.Value2];
  * ```
  */

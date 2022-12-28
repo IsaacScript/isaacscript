@@ -1,14 +1,19 @@
 import { RoomShape } from "isaac-typescript-definitions";
 
-const TWO_BY_TWO_BOTTOM_RIGHT_POSITION = Vector(25, 13);
-const ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION = Vector(12, 13);
+const TWO_BY_TWO_BOTTOM_RIGHT_POSITION: Readonly<Vector> = Vector(25, 13);
+const ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION: Readonly<Vector> = Vector(
+  12,
+  13,
+);
 
 /**
  * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
  * wall would be at "Vector(-1, -1)".)
  */
+// We need the vectors to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION: {
-  readonly [key in RoomShape]: Readonly<Vector>;
+  readonly [Key in RoomShape]: Readonly<Vector>;
 } = {
   [RoomShape.SHAPE_1x1]: Vector(12, 6), // 1
   [RoomShape.IH]: Vector(12, 4), // 2

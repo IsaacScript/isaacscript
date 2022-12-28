@@ -3,10 +3,9 @@ import {
   DoorSlotFlag,
   DoorSlotFlagZero,
 } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
-export const DOOR_SLOT_TO_DOOR_SLOT_FLAG: {
-  readonly [key in DoorSlot]: DoorSlotFlag;
-} = {
+export const DOOR_SLOT_TO_DOOR_SLOT_FLAG = {
   [DoorSlot.NO_DOOR_SLOT]: DoorSlotFlagZero, // -1
   [DoorSlot.LEFT_0]: DoorSlotFlag.LEFT_0, // 0
   [DoorSlot.UP_0]: DoorSlotFlag.UP_0, // 1
@@ -16,4 +15,4 @@ export const DOOR_SLOT_TO_DOOR_SLOT_FLAG: {
   [DoorSlot.UP_1]: DoorSlotFlag.UP_1, // 5
   [DoorSlot.RIGHT_1]: DoorSlotFlag.RIGHT_1, // 6
   [DoorSlot.DOWN_1]: DoorSlotFlag.DOWN_1, // 7
-} as const;
+} as const satisfies HasAllEnumKeys<DoorSlot, DoorSlotFlag>;

@@ -10,8 +10,10 @@ const DOWN = LEVEL_GRID_ROW_WIDTH;
  * Deltas are considered to be from the safe grid index of the room (i.e. the top left corner, or
  * top right corner in the case of `RoomShape.LTL`).
  */
+// We need the maps to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA: {
-  readonly [key in RoomShape]: Map<DoorSlot, int>;
+  readonly [Key in RoomShape]: ReadonlyMap<DoorSlot, int>;
 } = {
   // 1
   [RoomShape.SHAPE_1x1]: new Map([

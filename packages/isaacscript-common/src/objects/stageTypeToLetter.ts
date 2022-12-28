@@ -1,6 +1,7 @@
 import { StageType } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
-export const STAGE_TYPE_TO_LETTER: { readonly [key in StageType]: string } = {
+export const STAGE_TYPE_TO_LETTER = {
   // For example, to go to Basement 2, the command is simply "stage 2" without a letter suffix.
   [StageType.ORIGINAL]: "", // 0
 
@@ -12,4 +13,4 @@ export const STAGE_TYPE_TO_LETTER: { readonly [key in StageType]: string } = {
 
   [StageType.REPENTANCE]: "c", // 4
   [StageType.REPENTANCE_B]: "d", // 5
-} as const;
+} as const satisfies HasAllEnumKeys<StageType, string>;

@@ -8,8 +8,10 @@ import { Corner } from "../interfaces/Corner";
  * Note that these corner locations are not accurate for the Mother Boss Room and the Home closet
  * rooms. (Those rooms have custom shapes.)
  */
+// We need the arrays to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_CORNERS: {
-  readonly [key in RoomShape]: readonly Corner[];
+  readonly [Key in RoomShape]: readonly Corner[];
 } = {
   // 1
   [RoomShape.SHAPE_1x1]: [

@@ -1,4 +1,5 @@
 import { RoomShape } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const ONE_BY_ONE_CONTENTS_WIDTH = 13;
 export const ONE_BY_ONE_CONTENTS_HEIGHT = 7;
@@ -20,9 +21,7 @@ const L_ROOM_VOLUME = ONE_BY_ONE_VOLUME * 3;
  *
  * (This cannot be directly calculated from the bounds since L rooms are a special case.)
  */
-export const ROOM_SHAPE_VOLUMES: {
-  readonly [key in RoomShape]: int;
-} = {
+export const ROOM_SHAPE_VOLUMES = {
   [RoomShape.SHAPE_1x1]: ONE_BY_ONE_VOLUME, // 1
   [RoomShape.IH]: NARROW_HORIZONTAL_VOLUME, // 2
   [RoomShape.IV]: NARROW_VERTICAL_VOLUME, // 3
@@ -35,4 +34,4 @@ export const ROOM_SHAPE_VOLUMES: {
   [RoomShape.LTR]: L_ROOM_VOLUME, // 10
   [RoomShape.LBL]: L_ROOM_VOLUME, // 11
   [RoomShape.LBR]: L_ROOM_VOLUME, // 12
-} as const;
+} as const satisfies HasAllEnumKeys<RoomShape, int>;

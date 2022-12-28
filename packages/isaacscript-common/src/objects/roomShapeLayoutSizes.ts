@@ -27,8 +27,10 @@ const TWO_BY_TWO_LAYOUT_SIZE: readonly [width: int, height: int] = [
  *
  * For example, a horizontal narrow room has a layout size of equal to that of a 1x1 room.
  */
+// We need the tuples to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_LAYOUT_SIZES: {
-  readonly [key in RoomShape]: readonly [width: int, height: int];
+  readonly [Key in RoomShape]: readonly [width: int, height: int];
 } = {
   [RoomShape.SHAPE_1x1]: ONE_BY_ONE_LAYOUT_SIZE, // 1
   [RoomShape.IH]: ONE_BY_ONE_LAYOUT_SIZE, // 2

@@ -1,8 +1,7 @@
 import { LanguageAbbreviation } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
-export const LANGUAGE_NAMES: {
-  readonly [key in LanguageAbbreviation]: string;
-} = {
+export const LANGUAGE_NAMES = {
   [LanguageAbbreviation.ENGLISH]: "English",
   [LanguageAbbreviation.JAPANESE]: "Japanese",
   [LanguageAbbreviation.KOREAN]: "Korean",
@@ -10,4 +9,4 @@ export const LANGUAGE_NAMES: {
   [LanguageAbbreviation.RUSSIAN]: "Russian",
   [LanguageAbbreviation.GERMAN]: "German",
   [LanguageAbbreviation.SPANISH]: "Spanish",
-} as const;
+} as const satisfies HasAllEnumKeys<LanguageAbbreviation, string>;

@@ -1,8 +1,9 @@
 import { PillEffect } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DEFAULT_PILL_EFFECT_NAME = "Unknown";
 
-export const PILL_EFFECT_NAMES: { readonly [key in PillEffect]: string } = {
+export const PILL_EFFECT_NAMES = {
   [PillEffect.BAD_GAS]: "Bad Gas",
   [PillEffect.BAD_TRIP]: "Bad Trip",
   [PillEffect.BALLS_OF_STEEL]: "Balls of Steel",
@@ -54,4 +55,4 @@ export const PILL_EFFECT_NAMES: { readonly [key in PillEffect]: string } = {
   [PillEffect.SHOT_SPEED_DOWN]: "Shot Speed Down",
   [PillEffect.SHOT_SPEED_UP]: "Shot Speed Up",
   [PillEffect.EXPERIMENTAL]: "Experimental Pill",
-} as const;
+} as const satisfies HasAllEnumKeys<PillEffect, string>;

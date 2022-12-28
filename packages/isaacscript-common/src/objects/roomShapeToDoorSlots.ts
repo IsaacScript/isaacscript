@@ -11,8 +11,10 @@ const ALL_DOOR_SLOTS_SET: ReadonlySet<DoorSlot> = new Set([
   DoorSlot.DOWN_1, // 7
 ]);
 
+// We need the sets to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_TO_DOOR_SLOTS: {
-  readonly [key in RoomShape]: ReadonlySet<DoorSlot>;
+  readonly [Key in RoomShape]: ReadonlySet<DoorSlot>;
 } = {
   // 1
   [RoomShape.SHAPE_1x1]: new Set([

@@ -21,6 +21,7 @@ import {
 } from "../../../../functions/string";
 import { eRange, iRange } from "../../../../functions/utils";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { HasAllEnumKeys } from "../../../../types/HasAllEnumKeys";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 enum BackdropKind {
@@ -42,9 +43,7 @@ const DEFAULT_BACKDROP: NonNullable<CustomStage["backdropPNGPaths"]> = {
   corners: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/corner.png`],
 } as const;
 
-const ROOM_SHAPE_WALL_ANM2_LAYERS: {
-  readonly [key in RoomShape]: int;
-} = {
+const ROOM_SHAPE_WALL_ANM2_LAYERS = {
   [RoomShape.SHAPE_1x1]: 44, // 1
   [RoomShape.IH]: 36, // 2
   [RoomShape.IV]: 28, // 3
@@ -57,11 +56,11 @@ const ROOM_SHAPE_WALL_ANM2_LAYERS: {
   [RoomShape.LTR]: 63, // 10
   [RoomShape.LBL]: 63, // 11
   [RoomShape.LBR]: 63, // 12
-} as const;
+} as const satisfies HasAllEnumKeys<RoomShape, int>;
 
-const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
-  readonly [key in RoomShape]?: int;
-} = {
+const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: Readonly<
+  Partial<Record<RoomShape, int>>
+> = {
   [RoomShape.SHAPE_2x1]: 7, // 6
   [RoomShape.SHAPE_2x2]: 21, // 8
   [RoomShape.LTL]: 19, // 9

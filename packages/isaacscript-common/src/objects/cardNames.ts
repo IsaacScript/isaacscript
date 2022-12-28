@@ -1,9 +1,10 @@
 import { CardType } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DEFAULT_CARD_NAME = "Unknown";
 
 /** This is a temporary map due to missing features in the vanilla API. */
-export const CARD_NAMES: { readonly [key in CardType]: string } = {
+export const CARD_NAMES = {
   [CardType.NULL]: DEFAULT_CARD_NAME,
   [CardType.FOOL]: "0 - The Fool",
   [CardType.MAGICIAN]: "I - The Magician",
@@ -102,4 +103,4 @@ export const CARD_NAMES: { readonly [key in CardType]: string } = {
   [CardType.SOUL_FORGOTTEN]: "Soul of the Forgotten",
   [CardType.SOUL_BETHANY]: "Soul of Bethany",
   [CardType.SOUL_JACOB]: "Soul of Jacob and Esau",
-} as const;
+} as const satisfies HasAllEnumKeys<CardType, string>;

@@ -4,15 +4,14 @@ import { CWD } from "./constants";
 import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
 import { Args } from "./parseArgs";
+import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 import { error, getEnumValues } from "./utils";
 
-const PACKAGE_MANAGER_LOCK_FILE_NAMES: {
-  readonly [key in PackageManager]: string;
-} = {
+const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
   [PackageManager.NPM]: "package-lock.json",
   [PackageManager.YARN]: "yarn.lock",
   [PackageManager.PNPM]: "pnpm-lock.yaml",
-} as const;
+} as const satisfies HasAllEnumKeys<PackageManager, string>;
 
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,

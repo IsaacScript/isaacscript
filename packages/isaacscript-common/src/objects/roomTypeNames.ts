@@ -1,6 +1,7 @@
 import { RoomType } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
-export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
+export const ROOM_TYPE_NAMES = {
   [RoomType.DEFAULT]: "default room", // 1
   [RoomType.SHOP]: "shop", // 2
   [RoomType.ERROR]: "I AM ERROR Room", // 3
@@ -30,4 +31,4 @@ export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.SECRET_EXIT]: "Secret Exit", // 27
   [RoomType.BLUE]: "Blue Room", // 28
   [RoomType.ULTRA_SECRET]: "Ultra Secret Room", // 29
-} as const;
+} as const satisfies HasAllEnumKeys<RoomType, string>;

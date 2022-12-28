@@ -5,7 +5,7 @@ import { DoorSlotFlag } from "./enums/DoorSlotFlag";
 import { RoomShape } from "./enums/RoomShape";
 import { JSONRoom } from "./interfaces/copied/JSONRoomsFile";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag";
-import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorSlotCoordinates";
+import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates";
 import { error, parseIntSafe } from "./utils";
 
 export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {

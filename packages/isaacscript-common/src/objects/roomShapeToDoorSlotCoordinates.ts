@@ -5,8 +5,10 @@ import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
  *
  * e.g. `<door exists="False" x="-1" y="3" />`
  */
+// We need the maps to be read-only, so we specify the type instead of using the `satisfies`
+// operator.
 export const ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES: {
-  readonly [key in RoomShape]: ReadonlyMap<DoorSlot, [x: int, y: int]>;
+  readonly [Key in RoomShape]: ReadonlyMap<DoorSlot, [x: int, y: int]>;
 } = {
   // 1
   [RoomShape.SHAPE_1x1]: new Map([

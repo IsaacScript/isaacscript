@@ -5,6 +5,7 @@ import { getRandomArrayElement } from "../../../../functions/array";
 import { spawnEffectWithSeed } from "../../../../functions/entitiesSpecific";
 import { removeCharactersBefore } from "../../../../functions/string";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { HasAllEnumKeys } from "../../../../types/HasAllEnumKeys";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 type ShadowAnimation = "1x1" | "1x2" | "2x1" | "2x2";
@@ -21,9 +22,7 @@ const SHADOW_EFFECT_VARIANT = EffectVariant.LADDER;
 const SHADOW_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_SHADOW;
 
 /** The animation comes from StageAPI. */
-const ROOM_SHAPE_TO_SHADOW_ANIMATION: {
-  readonly [key in RoomShape]: ShadowAnimation;
-} = {
+const ROOM_SHAPE_TO_SHADOW_ANIMATION = {
   [RoomShape.SHAPE_1x1]: "1x1", // 1
   [RoomShape.IH]: "1x1", // 2
   [RoomShape.IV]: "1x1", // 3
@@ -36,7 +35,7 @@ const ROOM_SHAPE_TO_SHADOW_ANIMATION: {
   [RoomShape.LTR]: "2x2", // 10
   [RoomShape.LBL]: "2x2", // 11
   [RoomShape.LBR]: "2x2", // 12
-} as const;
+} as const satisfies HasAllEnumKeys<RoomShape, ShadowAnimation>;
 
 const FADED_BLACK = Color(0, 0, 0, 0.25);
 
