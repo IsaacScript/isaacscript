@@ -65,24 +65,38 @@ export function getShootActions(): ReadonlySet<ButtonAction> {
   return SHOOTING_ACTIONS_SET;
 }
 
-/** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
-export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
+/**
+ * Iterates over all inputs to determine if a particular button is pressed (i.e. held down).
+ *
+ * This function is variadic, meaning you can pass as many buttons as you want to check for. This
+ * function will return true if any of the buttons are pressed.
+ */
+export function isActionPressedOnAnyInput(
+  ...buttonActions: ButtonAction[]
+): boolean {
   const controllerIndexes = getEnumValues(ControllerIndex);
   return controllerIndexes.some((controllerIndex) =>
-    Input.IsActionPressed(buttonAction, controllerIndex),
+    buttonActions.some((buttonAction) =>
+      Input.IsActionPressed(buttonAction, controllerIndex),
+    ),
   );
 }
 
 /**
  * Iterates over all inputs to determine if a particular button is triggered (i.e. held down and
  * then released).
+ *
+ * This function is variadic, meaning you can pass as many buttons as you want to check for. This
+ * function will return true if any of the buttons are pressed.
  */
 export function isActionTriggeredOnAnyInput(
-  buttonAction: ButtonAction,
+  ...buttonActions: ButtonAction[]
 ): boolean {
   const controllerIndexes = getEnumValues(ControllerIndex);
   return controllerIndexes.some((controllerIndex) =>
-    Input.IsActionTriggered(buttonAction, controllerIndex),
+    buttonActions.some((buttonAction) =>
+      Input.IsActionTriggered(buttonAction, controllerIndex),
+    ),
   );
 }
 
