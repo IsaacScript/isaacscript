@@ -129,6 +129,9 @@ async function startPublish(
   writeVersionToConstantsTS(version, verbose);
   writeVersionToMetadataXML(version, verbose);
   writeVersionToVersionTXT(version, verbose);
+
+  unsetDevelopmentConstant(verbose);
+
   runReleaseScriptPreCopy(verbose);
   await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
   purgeRoomXMLs(modTargetPath, verbose);
@@ -254,6 +257,19 @@ function writeVersionToVersionTXT(version: string, verbose: boolean) {
   file.write(VERSION_TXT_PATH, version, verbose);
 
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
+}
+
+function unsetDevelopmentConstant(verbose: boolean) {
+  if (!file.exists(CONSTANTS_TS_PATH, verbose)) {
+    return;
+  }
+
+  const constantsTS = file.read(CONSTANTS_TS_PATH, verbose);
+  const newConstantsTS = constantsTS.replace(
+    "const IS_DEV = true",
+    "const IS_DEV = false",
+  );
+  file.write(CONSTANTS_TS_PATH, newConstantsTS, verbose);
 }
 
 function runReleaseScriptPreCopy(verbose: boolean) {
