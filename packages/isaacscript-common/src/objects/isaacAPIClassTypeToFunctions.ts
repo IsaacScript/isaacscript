@@ -81,9 +81,9 @@ export interface IsaacAPIClassTypeFunctions<T, SerializedT> {
 }
 
 export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS: {
-  readonly [key in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
-    IsaacAPIClassTypeToType[key],
-    IsaacAPIClassTypeToSerializedType[key]
+  readonly [Key in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
+    IsaacAPIClassTypeToType[Key],
+    IsaacAPIClassTypeToSerializedType[Key]
   >;
 } = {
   [CopyableIsaacAPIClassType.BIT_SET_128]: {

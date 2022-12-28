@@ -58,9 +58,9 @@ const ROOM_SHAPE_WALL_ANM2_LAYERS = {
   [RoomShape.LBR]: 63, // 12
 } as const satisfies HasAllEnumKeys<RoomShape, int>;
 
-const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: Readonly<
-  Partial<Record<RoomShape, int>>
-> = {
+const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
+  readonly [Key in RoomShape]?: int;
+} = {
   [RoomShape.SHAPE_2x1]: 7, // 6
   [RoomShape.SHAPE_2x2]: 21, // 8
   [RoomShape.LTL]: 19, // 9

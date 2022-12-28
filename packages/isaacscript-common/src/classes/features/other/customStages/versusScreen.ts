@@ -38,9 +38,7 @@ interface VersusScreenVars {
   };
 }
 
-const DEFAULT_CHARACTER = PlayerType.ISAAC;
 const DEFAULT_STAGE_ID = StageID.BASEMENT;
-
 const VERSUS_SCREEN_ANIMATION_NAME = "Scene";
 
 /** The layers range from 0 to 13. */
@@ -242,19 +240,13 @@ function getPlayerPNGPaths(): {
 } {
   const player = Isaac.GetPlayer();
   const character = player.GetPlayerType();
-
-  let namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
-  if (namePNGFileName === undefined) {
-    namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[DEFAULT_CHARACTER];
+  if (character === PlayerType.POSSESSOR) {
+    error("Failed to get the player PNG paths since they are a possessor.");
   }
 
+  const namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
   const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
-
-  let portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
-  if (namePNGFileName === undefined) {
-    portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[DEFAULT_CHARACTER];
-  }
-
+  const portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
   const portraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${portraitFileName}`;
 
   return { namePNGPath, portraitPNGPath };
