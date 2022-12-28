@@ -122,7 +122,7 @@
     "ts-jest": "^29.0.3",
     "ts-json-schema-generator": "^1.2.0",
     "ts-node": "^10.9.1",
-    "ts-prune": "^0.10.3",
+    "ts-prune-2": "^0.10.5",
     "tsconfig-paths": "^4.1.1",
     "typedoc": "^0.23.23",
     "typedoc-plugin-markdown": "^3.14.0",
