@@ -3,8 +3,8 @@
  * automatically register callbacks.
  *
  * Currently, there are two decorators:
- * - @Callback
- * - @CallbackCustom
+ * - `@Callback`
+ * - `@CallbackCustom`
  *
  * For example:
  *
@@ -34,8 +34,6 @@ import { getTSTLClassName } from "./tstlClass";
 /**
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `Mod.AddCallback`.
- *
- * @ignore
  */
 export function Callback<T extends ModCallback>(
   modCallback: T,
@@ -81,8 +79,6 @@ export function Callback<T extends ModCallback>(
 /**
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `ModUpgraded.AddCallbackCustom`.
- *
- * @ignore
  */
 export function CallbackCustom<T extends ModCallbackCustom>(
   modCallbackCustom: T,
