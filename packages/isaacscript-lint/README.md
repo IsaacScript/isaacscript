@@ -50,7 +50,7 @@ ESLint is the industry standard tool for linting in JavaScript and TypeScript. A
 
 Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in certain contexts. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js) and [mod.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) repository.
+Finally, some specific Airbnb rules are disabled, since they don't make much sense in certain contexts. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js) and [mod.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) package.
 
 In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
 
@@ -180,13 +180,12 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 
 ```jsonc
 // These are Visual Studio Code extensions that are intended to be used with this particular
-// repository
-// https://go.microsoft.com/fwlink/?LinkId=827846
+// repository: https://go.microsoft.com/fwlink/?LinkId=827846
 {
   "recommendations": [
     "esbenp.prettier-vscode", // The TypeScript formatter
     "dbaeumer.vscode-eslint", // The TypeScript linter
-    "streetsidesoftware.code-spell-checker" // A spell-checker extension based on cspell
+    "streetsidesoftware.code-spell-checker" // A spell-checker extension based on CSpell
   ]
 }
 ```

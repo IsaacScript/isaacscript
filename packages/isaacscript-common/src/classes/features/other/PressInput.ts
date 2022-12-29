@@ -47,7 +47,8 @@ export class PressInput extends Feature {
     const playerIndex = getPlayerIndex(player);
 
     for (let i = this.v.run.buttonActionTuples.length - 1; i >= 0; i--) {
-      const tuple = this.v.run.buttonActionTuples[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const tuple = this.v.run.buttonActionTuples[i]!;
       const [tuplePlayerIndex, tupleButtonAction] = tuple;
 
       if (
