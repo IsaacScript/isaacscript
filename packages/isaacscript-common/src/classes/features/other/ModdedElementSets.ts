@@ -1007,6 +1007,8 @@ export class ModdedElementSets extends Feature {
    * - any runes
    * - any objects like Dice Shard
    *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
    * @param exceptions Optional. An array of cards to not select.
@@ -1020,6 +1022,10 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
+   * Helper function to get a random card type that matches the provided `ItemConfigCardType`.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
    * @param itemConfigCardType The item config card type that represents the pool of cards to select
    *                           from.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
@@ -1039,6 +1045,8 @@ export class ModdedElementSets extends Feature {
   /**
    * Has an equal chance of returning any rune (e.g. Rune of Hagalaz, Blank Rune, Black Rune, Soul
    * of Isaac, etc.). This will never return a Rune Shard.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
