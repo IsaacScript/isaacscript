@@ -63,6 +63,18 @@ export class ModFeature {
   private mod: ModUpgradedBase;
 
   /**
+   * An optional function that allows for conditional callback execution. If specified, any class
+   * method that is annotated with a `@Callback` or `@CallbackCustom` decorator will only be fired
+   * if the executed conditional function returns true.
+   *
+   * This property is used to easily turn entire mod features on and off (rather than repeating
+   * conditional logic and early returning at the beginning of every callback function).
+   *
+   * By default, this is set to null. Override this property in your class if you need to use it.
+   */
+  private callbackConditionalFunc: (() => boolean) | null = null;
+
+  /**
    * Whether or not the feature has registered its callbacks yet (and submitted its variables to the
    * save data manager, if any).
    *
@@ -195,6 +207,15 @@ function addCallback(
   // We need to wrap the callback in a new function so that we can explicitly pass the class as the
   // first argument. (Otherwise, the method will not be able to properly access `this`.
   const wrappedCallback = (...callbackArgs: unknown[]) => {
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    const conditionalFunc = modFeature["callbackConditionalFunc"];
+    if (conditionalFunc !== null) {
+      const shouldRun = conditionalFunc();
+      if (!shouldRun) {
+        return undefined;
+      }
+    }
+
     const castedCallback = callback as (
       this: void,
       ...args: unknown[]
