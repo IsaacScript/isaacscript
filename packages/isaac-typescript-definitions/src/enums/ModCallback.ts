@@ -887,6 +887,8 @@ export enum ModCallback {
   PRE_NPC_UPDATE = 69,
 
   /**
+   * In vanilla, this is `PRE_SPAWN_CLEAN_AWARD`, which is a typo.
+   *
    * ```ts
    * function preSpawnClearAward(
    *   rng: RNG,
@@ -894,7 +896,7 @@ export enum ModCallback {
    * ): boolean | undefined {}
    * ```
    */
-  PRE_SPAWN_CLEAN_AWARD = 70,
+  PRE_SPAWN_CLEAR_AWARD = 70,
 
   /**
    * ```ts

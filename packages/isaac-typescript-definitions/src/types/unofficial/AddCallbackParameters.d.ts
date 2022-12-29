@@ -517,7 +517,7 @@ declare global {
     ];
 
     // 70
-    [ModCallback.PRE_SPAWN_CLEAN_AWARD]: [
+    [ModCallback.PRE_SPAWN_CLEAR_AWARD]: [
       callback: (rng: RNG, spawnPosition: Vector) => boolean | undefined,
     ];
 
