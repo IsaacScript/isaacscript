@@ -60,7 +60,17 @@ declare global {
     IdentifyPill(pillColor: PillColor): void;
     IsPillIdentified(pillColor: PillColor): boolean;
     RemoveCollectible(collectibleType: CollectibleType): boolean;
+
+    /**
+     * Note that if the trinket pool becomes empty, the game will refill it with all trinkets. Thus,
+     * even if you remove a trinket from the trinket pool, it is possible for players to get that
+     * trinket if they break the game and cycle through every other trinket.
+     *
+     * For this reason, if you want to permanently prevent a trinket from appearing, then you must
+     * monitor for it appearing using a callback.
+     */
     RemoveTrinket(trinketType: TrinketType): boolean;
+
     ResetRoomBlacklist(): void;
     ResetTrinkets(): void;
   }
