@@ -35,10 +35,10 @@ hudpickups # hudpickups.png
 Humbleing # items.xml
 itemdungeon # 00.special rooms.xml
 itempools # itempools.xml
+kyuukyuu # 567_baby_kyuukyuu.png
 lazarusshared # items_metadata.xml
 lazarussharedglobal # items_metadata.xml
 lbasementfloor # 01_lbasementfloor.png
-kyuukyuu # 567_baby_kyuukyuu.png
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 monstermanual # items_metadata.xml
