@@ -66,7 +66,23 @@ export function getShootActions(): ReadonlySet<ButtonAction> {
 }
 
 /**
- * Iterates over all inputs to determine if a particular button is pressed (i.e. held down).
+ * Helper function to check if a player is pressing a specific button (i.e. holding it down).
+ *
+ * This is a variadic version of `Input.IsActionPressed`, meaning that you can pass as many buttons
+ * as you want to check for. This function will return true if any of the buttons are pressed.
+ */
+export function isActionPressed(
+  controllerIndex: ControllerIndex,
+  ...buttonActions: ButtonAction[]
+): boolean {
+  return buttonActions.some((buttonAction) =>
+    Input.IsActionPressed(buttonAction, controllerIndex),
+  );
+}
+
+/**
+ * Helper function to iterate over all inputs to determine if a specific button is pressed (i.e.
+ * being held down).
  *
  * This function is variadic, meaning you can pass as many buttons as you want to check for. This
  * function will return true if any of the buttons are pressed.
@@ -76,15 +92,30 @@ export function isActionPressedOnAnyInput(
 ): boolean {
   const controllerIndexes = getEnumValues(ControllerIndex);
   return controllerIndexes.some((controllerIndex) =>
-    buttonActions.some((buttonAction) =>
-      Input.IsActionPressed(buttonAction, controllerIndex),
-    ),
+    isActionPressed(controllerIndex, ...buttonActions),
   );
 }
 
 /**
- * Iterates over all inputs to determine if a particular button is triggered (i.e. held down and
- * then released).
+ * Helper function to check if a player is triggering a specific button (i.e. pressing and releasing
+ * it).
+ *
+ * This is a variadic version of `Input.IsActionTriggered`, meaning that you can pass as many
+ * buttons as you want to check for. This function will return true if any of the buttons are
+ * triggered.
+ */
+export function isActionTriggered(
+  controllerIndex: ControllerIndex,
+  ...buttonActions: ButtonAction[]
+): boolean {
+  return buttonActions.some((buttonAction) =>
+    Input.IsActionTriggered(buttonAction, controllerIndex),
+  );
+}
+
+/**
+ * Iterates over all inputs to determine if a specific button is triggered (i.e. held down and then
+ * released).
  *
  * This function is variadic, meaning you can pass as many buttons as you want to check for. This
  * function will return true if any of the buttons are pressed.
@@ -94,14 +125,12 @@ export function isActionTriggeredOnAnyInput(
 ): boolean {
   const controllerIndexes = getEnumValues(ControllerIndex);
   return controllerIndexes.some((controllerIndex) =>
-    buttonActions.some((buttonAction) =>
-      Input.IsActionTriggered(buttonAction, controllerIndex),
-    ),
+    isActionTriggered(controllerIndex, ...buttonActions),
   );
 }
 
 /**
- * Helper function to see if a particular keyboard key is being pressed down by the player.
+ * Helper function to see if a specific keyboard key is being held down by the player.
  *
  * This function is variadic, meaning you can pass as many keyboard values as you want to check for.
  * This function will return true if any of the values are pressed.

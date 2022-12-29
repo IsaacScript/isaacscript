@@ -14,6 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - `spawn` and all of the related helper functions will now accept a grid index in place of a position vector.
 - Added the following helper functions:
   - `dequeueItem`
+  - `isActionPressed`
+  - `isActionTriggered`
 
 ## December 26th, 2022
 
