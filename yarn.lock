@@ -14488,10 +14488,10 @@ ts-node@^10.8.1, ts-node@^10.9.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-ts-prune-2@^0.10.6:
-  version "0.10.6"
-  resolved "https://registry.yarnpkg.com/ts-prune-2/-/ts-prune-2-0.10.6.tgz#715d944cef4c99c8597d4eae013cf57d6952b17f"
-  integrity sha512-5J7LwZv/2pdZjgbSrbbXEiYUpzJc1R2WFPpwWeyajq5eyY+ifb48X0W/p21Iy1VhyUrUUnma24kg2AUD01/COQ==
+ts-prune-2@^0.10.7:
+  version "0.10.7"
+  resolved "https://registry.yarnpkg.com/ts-prune-2/-/ts-prune-2-0.10.7.tgz#5654db86189221880fbd79af3114ef8c6852f50b"
+  integrity sha512-Kg5yVc3eUWUqNHID0blPBUOmYINxnH+Syer0j5PnKW13AZa8cyL5R/kND9NX/bG/5c5WjLu+8nrh2DbbLCUD2g==
   dependencies:
     chalk "4.1.2"
     commander "^6.2.1"
