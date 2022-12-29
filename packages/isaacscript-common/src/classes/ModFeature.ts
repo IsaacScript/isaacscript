@@ -72,7 +72,7 @@ export class ModFeature {
    *
    * By default, this is set to null. Override this property in your class if you need to use it.
    */
-  private callbackConditionalFunc: (() => boolean) | null = null;
+  protected callbackConditionalFunc: (() => boolean) | null = null;
 
   /**
    * Whether or not the feature has registered its callbacks yet (and submitted its variables to the
