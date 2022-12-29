@@ -34,7 +34,10 @@ import { getTSTLClassName } from "./tstlClass";
 /**
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `Mod.AddCallback`.
+ *
+ * @ignore
  */
+// We tell TypeDoc to ignore this function because it generates a bunch of spam.
 export function Callback<T extends ModCallback>(
   modCallback: T,
   ...optionalArgs: AllButFirst<AddCallbackParameters[T]>
@@ -79,7 +82,10 @@ export function Callback<T extends ModCallback>(
 /**
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `ModUpgraded.AddCallbackCustom`.
+ *
+ * @ignore
  */
+// We tell TypeDoc to ignore this function because it generates a bunch of spam.
 export function CallbackCustom<T extends ModCallbackCustom>(
   modCallbackCustom: T,
   ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
