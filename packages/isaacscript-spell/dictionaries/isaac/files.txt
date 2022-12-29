@@ -38,6 +38,7 @@ itempools # itempools.xml
 lazarusshared # items_metadata.xml
 lazarussharedglobal # items_metadata.xml
 lbasementfloor # 01_lbasementfloor.png
+kyuukyuu # 567_baby_kyuukyuu.png
 maxcharges # items.xml
 mimiccharge # pocketitems.xml
 monstermanual # items_metadata.xml

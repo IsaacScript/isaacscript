@@ -5,6 +5,7 @@ APPDATA # Monorepo word
 autocrlf # gitattributes
 browserslist # Monorepo word
 buildable # Monorepo word
+cloc # Monorepo word
 clsx # Monorepo word
 commitlint # Monorepo word
 contentfolder # metadata.vdf
