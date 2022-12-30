@@ -44,7 +44,7 @@
     "typescript-to-lua": "^1.11.1",
     "update-notifier": "5.1.0",
     "xml2js": "^0.4.23",
-    "yaml": "^2.2.0",
+    "yaml": "^2.2.1",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
