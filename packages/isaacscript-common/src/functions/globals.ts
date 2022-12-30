@@ -145,13 +145,11 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "assert",
   "collectgarbage",
   "coroutine",
-  "dofile",
   "error",
   "getmetatable",
   "include",
   "ipairs",
   "load",
-  "loadfile",
   "math",
   "next",
   "pairs",
@@ -175,6 +173,8 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
 
 const LUA_DEBUG_ADDED_GLOBALS: ReadonlySet<string> = new Set([
   "debug",
+  "dofile",
+  "loadfile",
   "io",
   "os",
   "package",
