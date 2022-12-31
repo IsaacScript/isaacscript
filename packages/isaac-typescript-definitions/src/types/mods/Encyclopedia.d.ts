@@ -116,8 +116,8 @@ declare global {
       gfxRoot: string,
       anmToPlay: string,
       anmFrame: number,
-      newSprite: string,
-      layer: number,
+      newSprite?: string,
+      layer?: number,
     ): Sprite;
     ItemPools: int;
   }
