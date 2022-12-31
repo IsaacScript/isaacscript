@@ -954,6 +954,9 @@ export enum ModCallbackCustom {
    *
    * Use this callback to know when a pickup is added to the player's inventory or health.
    *
+   * Note that this will not fire when the player takes a collectible; use either the
+   * `POST_PLAYER_COLLECTIBLE_ADDED` or the `PRE_ITEM_PICKUP` callback for that.
+   *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
