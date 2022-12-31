@@ -6,19 +6,37 @@ declare global {
   /** @noSelf */
   interface EncyclopediaInterface {
     AddCharacter(args: {
-      CompletionTrackerFuncs: [() => EncyclopediaItemVars[]];
+      Class?: string;
+      CloseFunc?: (vars: EncyclopediaItemVars) => void;
+      CompletionRenderFuncs?: [
+        (vec: Vector, notes: EncyclopediaNotes, type: string) => void,
+      ];
+      CompletionTrackerFuncs?: [() => EncyclopediaItemVars[]];
+      Description?: string;
+      Hide?: boolean;
       ID: PlayerType;
-      ModName: string;
-      Name: string;
+      ModName?: string;
+      Name?: string;
+      Sprite?: Sprite;
+      UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+      WikiDesc?: EncyclopediaWikiDescription;
     }): void;
 
     AddCharacterTainted(args: {
-      CompletionTrackerFuncs: [() => EncyclopediaItemVars[]];
-      Description: string;
+      Class?: string;
+      CloseFunc?: (vars: EncyclopediaItemVars) => void;
+      CompletionRenderFuncs?: [
+        (vec: Vector, notes: EncyclopediaNotes, type: string) => void,
+      ];
+      CompletionTrackerFuncs?: [() => EncyclopediaItemVars[]];
+      Description?: string;
+      Hide?: boolean;
       ID: PlayerType;
-      ModName: string;
-      Name: string;
-      UnlockFunc: (args: EncyclopediaItemVars) => EncyclopediaItemVars;
+      ModName?: string;
+      Name?: string;
+      Sprite?: Sprite;
+      UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+      WikiDesc?: EncyclopediaWikiDescription;
     }): void;
 
     AddItem(itemTab: {
@@ -178,5 +196,26 @@ declare global {
     Title?: string;
     WikiDesc?: EncyclopediaWikiDescription;
     typeString: string;
+  }
+
+  /** A single entry on the unlock Post-It. */
+  interface EncyclopediaPostItUnlock {
+    Hard: boolean;
+    Unlock: boolean;
+  }
+
+  /** Encyclopedia's "Post-It Notes" object. Used for rendering custom Post-Its. */
+  interface EncyclopediaNotes {
+    Beast: EncyclopediaPostItUnlock;
+    BlueBaby: EncyclopediaPostItUnlock;
+    BossRush: EncyclopediaPostItUnlock;
+    Delirium: EncyclopediaPostItUnlock;
+    Hush: EncyclopediaPostItUnlock;
+    Isaac: EncyclopediaPostItUnlock;
+    Lamb: EncyclopediaPostItUnlock;
+    MegaSatan: EncyclopediaPostItUnlock;
+    MomsHeart: EncyclopediaPostItUnlock;
+    Mother: EncyclopediaPostItUnlock;
+    Satan: EncyclopediaPostItUnlock;
   }
 }
