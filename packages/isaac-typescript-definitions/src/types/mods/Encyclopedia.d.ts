@@ -8,34 +8,54 @@ declare global {
     AddCharacter(args: {
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
+<<<<<<< HEAD
       CompletionRenderFuncs?: [
         (vec: Vector, notes: EncyclopediaNotes, type: string) => void,
       ];
       CompletionTrackerFuncs?: [() => EncyclopediaItemVars[]];
+=======
+      CompletionTrackerFuncs?: [() => EncyclopediaItemVars[]];
+      CompletionRenderFuncs?: [(vec: Vector, notes: EncyclopediaNotes, type: String) => void];
+>>>>>>> ffba28820802d180b6c35df23d07b71ec2f59fe7
       Description?: string;
       Hide?: boolean;
       ID: PlayerType;
       ModName?: string;
       Name?: string;
+<<<<<<< HEAD
       Sprite?: Sprite;
       UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+=======
+      UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+      Sprite?: Sprite;
+>>>>>>> ffba28820802d180b6c35df23d07b71ec2f59fe7
       WikiDesc?: EncyclopediaWikiDescription;
     }): void;
 
     AddCharacterTainted(args: {
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
+<<<<<<< HEAD
       CompletionRenderFuncs?: [
         (vec: Vector, notes: EncyclopediaNotes, type: string) => void,
       ];
       CompletionTrackerFuncs?: [() => EncyclopediaItemVars[]];
+=======
+      CompletionTrackerFuncs?: [() => EncyclopediaItemVars[]];
+      CompletionRenderFuncs?: [(vec: Vector, notes: EncyclopediaNotes, type: String) => void];
+>>>>>>> ffba28820802d180b6c35df23d07b71ec2f59fe7
       Description?: string;
       Hide?: boolean;
       ID: PlayerType;
       ModName?: string;
       Name?: string;
+<<<<<<< HEAD
       Sprite?: Sprite;
       UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+=======
+      UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+      Sprite?: Sprite;
+>>>>>>> ffba28820802d180b6c35df23d07b71ec2f59fe7
       WikiDesc?: EncyclopediaWikiDescription;
     }): void;
 
@@ -206,6 +226,7 @@ declare global {
 
   /** Encyclopedia's "Post-It Notes" object. Used for rendering custom Post-Its. */
   interface EncyclopediaNotes {
+<<<<<<< HEAD
     Beast: EncyclopediaPostItUnlock;
     BlueBaby: EncyclopediaPostItUnlock;
     BossRush: EncyclopediaPostItUnlock;
@@ -217,5 +238,18 @@ declare global {
     MomsHeart: EncyclopediaPostItUnlock;
     Mother: EncyclopediaPostItUnlock;
     Satan: EncyclopediaPostItUnlock;
+=======
+    MomsHeart: EncyclopediaPostItUnlock;
+    Isaac: EncyclopediaPostItUnlock;
+    BlueBaby: EncyclopediaPostItUnlock;
+    Satan: EncyclopediaPostItUnlock;
+    Lamb: EncyclopediaPostItUnlock;
+    BossRush: EncyclopediaPostItUnlock;
+    Hush: EncyclopediaPostItUnlock;
+    Delirium: EncyclopediaPostItUnlock;
+    MegaSatan: EncyclopediaPostItUnlock;
+    Mother: EncyclopediaPostItUnlock;
+    Beast: EncyclopediaPostItUnlock;
+>>>>>>> ffba28820802d180b6c35df23d07b71ec2f59fe7
   }
 }
