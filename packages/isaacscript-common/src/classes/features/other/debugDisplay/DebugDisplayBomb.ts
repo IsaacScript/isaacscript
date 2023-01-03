@@ -10,7 +10,8 @@ export class DebugDisplayBomb extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_BOMB_RENDER, [this.postBombRender]], // 59
+      // 59
+      [ModCallback.POST_BOMB_RENDER, [this.postBombRender]],
     ];
   }
 

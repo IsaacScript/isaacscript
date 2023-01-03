@@ -87,13 +87,20 @@ export class SaveDataManager extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 3
       [
         ModCallback.POST_USE_ITEM,
         [this.postUseItemGlowingHourGlass, CollectibleType.GLOWING_HOUR_GLASS],
-      ], // 3
-      [ModCallback.POST_PLAYER_INIT, [this.postPlayerInit]], // 9
-      [ModCallback.PRE_GAME_EXIT, [this.preGameExit]], // 17
-      [ModCallback.POST_NEW_LEVEL, [this.postNewLevel]], // 18
+      ],
+
+      // 9
+      [ModCallback.POST_PLAYER_INIT, [this.postPlayerInit]],
+
+      // 17
+      [ModCallback.PRE_GAME_EXIT, [this.preGameExit]],
+
+      // 18
+      [ModCallback.POST_NEW_LEVEL, [this.postNewLevel]],
     ];
 
     this.customCallbacksUsed = [

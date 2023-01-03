@@ -30,10 +30,11 @@ export class CollectibleItemPoolType extends Feature {
     this.featuresUsed = [ISCFeature.PICKUP_INDEX_CREATION];
 
     this.callbacksUsed = [
+      // 34
       [
         ModCallback.POST_PICKUP_INIT,
         [this.postPickupInitCollectible, PickupVariant.COLLECTIBLE],
-      ], // 34
+      ],
     ];
 
     this.pickupIndexCreation = pickupIndexCreation;

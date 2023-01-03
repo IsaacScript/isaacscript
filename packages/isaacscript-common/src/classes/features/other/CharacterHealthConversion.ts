@@ -21,10 +21,11 @@ export class CharacterHealthConversion extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 38
       [
         ModCallback.PRE_PICKUP_COLLISION,
         [this.prePickupCollisionHeart, PickupVariant.HEART],
-      ], // 38
+      ],
     ];
 
     this.customCallbacksUsed = [

@@ -104,3 +104,5 @@ ctrl+s --> // est
 lint: add no null (only for non isaacscript projects)
 
 lint: no default export
+
+lint: no empty trailing line comment or leading line comment

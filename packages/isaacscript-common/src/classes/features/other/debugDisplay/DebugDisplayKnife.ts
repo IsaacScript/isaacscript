@@ -10,7 +10,8 @@ export class DebugDisplayKnife extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_KNIFE_RENDER, [this.postKnifeRender]], // 52
+      // 52
+      [ModCallback.POST_KNIFE_RENDER, [this.postKnifeRender]],
     ];
   }
 

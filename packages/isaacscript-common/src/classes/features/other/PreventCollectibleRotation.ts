@@ -34,14 +34,17 @@ export class PreventCollectibleRotation extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 5
       [
         ModCallback.POST_USE_CARD,
         [this.useCardSoulOfIsaac, CardType.SOUL_ISAAC],
-      ], // 5
+      ],
+
+      // 35
       [
         ModCallback.POST_PICKUP_UPDATE,
         [this.postPickupUpdateCollectible, PickupVariant.COLLECTIBLE],
-      ], // 35
+      ],
     ];
   }
 

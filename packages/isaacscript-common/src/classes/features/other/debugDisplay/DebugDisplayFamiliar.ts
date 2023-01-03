@@ -10,7 +10,8 @@ export class DebugDisplayFamiliar extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_FAMILIAR_RENDER, [this.postFamiliarRender]], // 25
+      // 25
+      [ModCallback.POST_FAMILIAR_RENDER, [this.postFamiliarRender]],
     ];
   }
 

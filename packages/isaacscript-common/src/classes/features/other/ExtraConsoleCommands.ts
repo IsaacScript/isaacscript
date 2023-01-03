@@ -29,30 +29,47 @@ export class ExtraConsoleCommands extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+      // 1
+      [ModCallback.POST_UPDATE, [this.postUpdate]],
+
+      // 8
       [
         ModCallback.EVALUATE_CACHE,
         [this.evaluateCacheDamage, CacheFlag.DAMAGE], // 1 << 0
-      ], // 8
+      ],
+
+      // 8
       [
         ModCallback.EVALUATE_CACHE,
         [this.evaluateCacheFireDelay, CacheFlag.FIRE_DELAY], // 1 << 1
-      ], // 8
+      ],
+
+      // 8
       [
         ModCallback.EVALUATE_CACHE,
         [this.evaluateCacheSpeed, CacheFlag.SPEED], // 1 << 4
-      ], // 8
+      ],
+
+      // 8
       [
         ModCallback.EVALUATE_CACHE,
         [this.evaluateCacheFlying, CacheFlag.FLYING], // 1 << 7
-      ], // 8
+      ],
+
+      // 11
       [
         ModCallback.ENTITY_TAKE_DMG,
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
-      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]], // 12
-      [ModCallback.EXECUTE_CMD, [this.executeCmd]], // 22
-      [ModCallback.POST_FIRE_TEAR, [this.postFireTear]], // 61
+      ],
+
+      // 12
+      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]],
+
+      // 22
+      [ModCallback.EXECUTE_CMD, [this.executeCmd]],
+
+      // 61
+      [ModCallback.POST_FIRE_TEAR, [this.postFireTear]],
     ];
 
     for (const [funcName, func] of Object.entries(commands)) {

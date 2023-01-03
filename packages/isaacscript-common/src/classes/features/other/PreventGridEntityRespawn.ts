@@ -46,10 +46,11 @@ export class PreventGridEntityRespawn extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
+      // 23
       [
         ModCallback.PRE_USE_ITEM,
         [this.preUseItemWeNeedToGoDeeper, CollectibleType.WE_NEED_TO_GO_DEEPER],
-      ], // 23
+      ],
     ];
 
     this.customCallbacksUsed = [

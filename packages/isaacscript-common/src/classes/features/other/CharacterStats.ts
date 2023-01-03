@@ -18,7 +18,8 @@ export class CharacterStats extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.EVALUATE_CACHE, [this.evaluateCache]], // 8
+      // 8
+      [ModCallback.EVALUATE_CACHE, [this.evaluateCache]],
     ];
   }
 

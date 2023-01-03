@@ -55,7 +55,8 @@ export class PersistentEntities extends Feature {
     this.featuresUsed = [ISCFeature.ROOM_HISTORY];
 
     this.callbacksUsed = [
-      [ModCallback.POST_ENTITY_REMOVE, [this.postEntityRemove]], // 67
+      // 67
+      [ModCallback.POST_ENTITY_REMOVE, [this.postEntityRemove]],
     ];
 
     this.customCallbacksUsed = [

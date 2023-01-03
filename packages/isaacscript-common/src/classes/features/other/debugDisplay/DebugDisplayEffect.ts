@@ -10,7 +10,8 @@ export class DebugDisplayEffect extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_EFFECT_RENDER, [this.postEffectRender]], // 56
+      // 56
+      [ModCallback.POST_EFFECT_RENDER, [this.postEffectRender]],
     ];
   }
 

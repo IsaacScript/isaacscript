@@ -39,8 +39,11 @@ export class RunInNFrames extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 1
+      [ModCallback.POST_UPDATE, [this.postUpdate]],
+
+      // 2
+      [ModCallback.POST_RENDER, [this.postRender]],
     ];
   }
 

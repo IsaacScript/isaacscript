@@ -132,7 +132,8 @@ export class CustomTrapdoors extends Feature {
     ];
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, [this.postRender]],
     ];
 
     this.customCallbacksUsed = [

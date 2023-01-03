@@ -21,10 +21,11 @@ export class NoSirenSteal extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 27
       [
         ModCallback.POST_NPC_INIT,
         [this.postNPCInitSirenHelper, EntityType.SIREN_HELPER],
-      ], // 27
+      ],
     ];
   }
 

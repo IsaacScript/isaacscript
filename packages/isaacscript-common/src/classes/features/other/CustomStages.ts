@@ -136,9 +136,14 @@ export class CustomStages extends Feature {
     ];
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
-      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]], // 12
-      [ModCallback.GET_SHADER_PARAMS, [this.getShaderParams]], // 21
+      // 2
+      [ModCallback.POST_RENDER, [this.postRender]],
+
+      // 12
+      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]],
+
+      // 21
+      [ModCallback.GET_SHADER_PARAMS, [this.getShaderParams]],
     ];
 
     this.customCallbacksUsed = [

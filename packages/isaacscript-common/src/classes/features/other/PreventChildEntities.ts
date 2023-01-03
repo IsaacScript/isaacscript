@@ -15,7 +15,8 @@ export class PreventChildEntities extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_NPC_INIT, [this.postNPCInit]], // 27
+      // 27
+      [ModCallback.POST_NPC_INIT, [this.postNPCInit]],
     ];
   }
 

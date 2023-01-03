@@ -10,7 +10,8 @@ export class DebugDisplayNPC extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_NPC_RENDER, [this.postNPCRender]], // 28
+      // 28
+      [ModCallback.POST_NPC_RENDER, [this.postNPCRender]],
     ];
   }
 

@@ -21,10 +21,11 @@ export class PressInput extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 13
       [
         ModCallback.INPUT_ACTION,
         [this.isActionTriggered, InputHook.IS_ACTION_TRIGGERED],
-      ], // 13
+      ],
     ];
   }
 
