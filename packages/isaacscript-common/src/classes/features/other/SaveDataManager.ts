@@ -159,11 +159,14 @@ export class SaveDataManager extends Feature {
     // persistent variables should be recorded).
     saveToDisk(this.mod, this.saveDataMap, this.saveDataConditionalFuncMap);
 
-    restoreDefaultsForAllFeaturesAndKeys(
-      this.saveDataMap,
-      this.saveDataDefaultsMap,
-    );
+    // Mark that we are going to the menu. (Technically, the `POST_ENTITY_REMOVE` callback may fire
+    // before actually going to the menu, but that must be explicitly handled.)
     this.loadedDataOnThisRun = false;
+
+    // At this point, we could blow away the existing save data or restore defaults, but it is not
+    // necessary since we will have to do it again in the `POST_PLAYER_INIT` callback. Furthermore,
+    // the `POST_ENTITY_REMOVE` callback may fire after the `PRE_GAME_EXIT` callback, so wiping data
+    // now could result in bugs for features that depend on that (e.g. `PickupIndexCreation`).
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
@@ -520,5 +523,23 @@ export class SaveDataManager extends Feature {
       saveData,
       childObjectKey,
     );
+  }
+
+  /**
+   * Helper function to check to see if the game is in the menu, as far as the save data manager is
+   * concerned. This function will return true when the game is first opened until the
+   * `POST_PLAYER_INIT` callback fires. It will also return true in between the `PRE_GAME_EXIT`
+   * callback firing and the `POST_PLAYER_INIT` callback firing.
+   *
+   * This function is useful because the `POST_ENTITY_REMOVE` callback fires after the
+   * `PRE_GAME_EXIT` callback. Thus, if save data needs to be updated from the `POST_ENTITY_REMOVE`
+   * callback and the player is in the process of saving and quitting, the feature will have to
+   * explicitly call the `saveDataManagerSave` function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   */
+  @Exported
+  public saveDataManagerInMenu(): boolean {
+    return !this.loadedDataOnThisRun;
   }
 }

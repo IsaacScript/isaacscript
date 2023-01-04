@@ -144,13 +144,17 @@ export function getFeatures(
   const roomHistory = new RoomHistory();
   const runInNFrames = new RunInNFrames();
   const runNextRoom = new RunNextRoom();
+  const saveDataManager = new SaveDataManager(mod);
   const stageHistory = new StageHistory();
 
   const customGridEntities = new CustomGridEntities(runInNFrames);
   const moddedElementSets = new ModdedElementSets(moddedElementDetection);
   const itemPoolDetection = new ItemPoolDetection(moddedElementSets);
   const pause = new Pause(disableInputs);
-  const pickupIndexCreation = new PickupIndexCreation(roomHistory);
+  const pickupIndexCreation = new PickupIndexCreation(
+    roomHistory,
+    saveDataManager,
+  );
   const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
   const spawnCollectible = new SpawnCollectible(preventCollectibleRotation);
 
@@ -276,7 +280,7 @@ export function getFeatures(
     [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
     [ISCFeature.RUN_NEXT_ROOM]: runNextRoom,
-    [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
+    [ISCFeature.SAVE_DATA_MANAGER]: saveDataManager,
     [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: new SpawnRockAltRewards(
       itemPoolDetection,
     ),

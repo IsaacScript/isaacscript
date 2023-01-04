@@ -14,6 +14,7 @@ import { PickupIndex } from "../../../types/PickupIndex";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { RoomHistory } from "./RoomHistory";
+import { SaveDataManager } from "./SaveDataManager";
 
 interface PickupDescription {
   position: Vector;
@@ -24,6 +25,7 @@ export class PickupIndexCreation extends Feature {
   /** @internal */
   public override v = {
     run: {
+      /** Is incremented before assignment. Thus, the first pickup will have an index of 1. */
       pickupCounter: 0 as PickupIndex,
 
       pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
@@ -43,22 +45,27 @@ export class PickupIndexCreation extends Feature {
   };
 
   private roomHistory: RoomHistory;
+  private saveDataManager: SaveDataManager;
 
   /** @internal */
-  constructor(roomHistory: RoomHistory) {
+  constructor(roomHistory: RoomHistory, saveDataManager: SaveDataManager) {
     super();
 
-    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY, ISCFeature.SAVE_DATA_MANAGER];
 
     this.callbacksUsed = [
-      [ModCallback.POST_PICKUP_INIT, [this.postPickupInit]], // 34
+      // 34
+      [ModCallback.POST_PICKUP_INIT, [this.postPickupInit]],
+
+      // 67
       [
         ModCallback.POST_ENTITY_REMOVE,
         [this.postEntityRemovePickup, EntityType.PICKUP],
-      ], // 67
+      ],
     ];
 
     this.roomHistory = roomHistory;
+    this.saveDataManager = saveDataManager;
   }
 
   // ModCallback.POST_PICKUP_INIT (34)
@@ -159,11 +166,28 @@ export class PickupIndexCreation extends Feature {
     };
     pickupDescriptions.set(pickupIndex, pickupDescription);
 
-    // If the despawning pickup was in a Treasure Room or Boss Room, then it is possible that the
-    // pickup could re-appear during The Ascent. If this is the case, we store the metadata on a
-    // separate map to reference later.
+    const pickupDataMapForCurrentRoom = this.getPickupDataMapForCurrentRoom();
+    if (pickupDataMapForCurrentRoom !== undefined) {
+      pickupDataMapForCurrentRoom.set(pickupIndex, pickupDescription);
+    }
+
+    // Since the `POST_ENTITY_REMOVE` callback fires after the `PRE_GAME_EXIT` callback, we need to
+    // explicitly save data again if the player is in the process of saving and quitting the run.
+    if (this.saveDataManager.saveDataManagerInMenu()) {
+      this.saveDataManager.saveDataManagerSave();
+    }
+  }
+
+  /**
+   * If the despawning pickup was in a Treasure Room or Boss Room, then it is possible that the
+   * pickup could re-appear during The Ascent. If this is the case, we store the metadata on a
+   * separate map to reference later.
+   */
+  private getPickupDataMapForCurrentRoom():
+    | Map<PickupIndex, PickupDescription>
+    | undefined {
     if (onAscent()) {
-      return;
+      return undefined;
     }
 
     const room = game.GetRoom();
@@ -171,17 +195,15 @@ export class PickupIndexCreation extends Feature {
 
     switch (roomType) {
       case RoomType.TREASURE: {
-        this.v.run.pickupDataTreasureRooms.set(pickupIndex, pickupDescription);
-        break;
+        return this.v.run.pickupDataTreasureRooms;
       }
 
       case RoomType.BOSS: {
-        this.v.run.pickupDataBossRooms.set(pickupIndex, pickupDescription);
-        break;
+        return this.v.run.pickupDataBossRooms;
       }
 
       default: {
-        break;
+        return undefined;
       }
     }
   }
