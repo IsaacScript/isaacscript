@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## January 2nd, 2022 (Unreleased)
+## January 6th, 2022
 
 - The `ModFeature` class now has a `callbackConditionalFunc` property that you can override if you want to have all of your callback methods run conditionally.
 - `spawn` and all of the related helper functions will now accept a grid index in place of a position vector.
@@ -17,6 +17,8 @@ This page lists the changes to the IsaacScript framework.
   - `dequeueItem`
   - `isActionPressed`
   - `isActionTriggered`
+  - `inERange`
+  - `inIRange`
 
 ## December 26th, 2022
 

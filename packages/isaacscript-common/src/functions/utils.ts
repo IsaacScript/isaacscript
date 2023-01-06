@@ -72,6 +72,36 @@ export function iRange(start: int, end?: int, increment = 1): int[] {
 }
 
 /**
+ * Helper function to check if a variable is within a certain range, exclusive on both ends. (The
+ * "e" stands for exclusive.)
+ *
+ * - For example, `inERange(1, 1, 3)` will return `false`.
+ * - For example, `inERange(1.01, 1, 3)` will return `true`.
+ *
+ * @param num The number to check.
+ * @param start The start of the range to check.
+ * @param end The end of the range to check.
+ */
+export function inERange(num: int, start: int, end: int): boolean {
+  return num > start && num < end;
+}
+
+/**
+ * Helper function to check if a variable is within a certain range, inclusive on both ends. (The
+ * "i" stands for inclusive.)
+ *
+ * - For example, `inIRange(1, 1, 3)` will return `true`.
+ * - For example, `inIRange(0, 1, 3)` will return `false`.
+ *
+ * @param num The number to check.
+ * @param start The start of the range to check.
+ * @param end The end of the range to check.
+ */
+export function inIRange(num: int, start: int, end: int): boolean {
+  return num >= start && num <= end;
+}
+
+/**
  * Helper function to see if the current render callback is rendering a water reflection.
  *
  * When the player is in a room with water, things will be rendered twice: once for the normal
