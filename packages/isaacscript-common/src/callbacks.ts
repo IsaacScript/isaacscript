@@ -121,7 +121,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
 
 export type ModCallbackCustomToClass = {
   readonly [Key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
-    typeof MOD_CALLBACK_CUSTOM_TO_CLASS[Key]
+    (typeof MOD_CALLBACK_CUSTOM_TO_CLASS)[Key]
   >;
 };
 
