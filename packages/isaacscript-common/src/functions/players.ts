@@ -643,6 +643,19 @@ export function playerHasCollectible(
 }
 
 /**
+ * Helper function to check to see if a player has one or more transformations.
+ *
+ * This function is variadic, meaning that you can supply as many transformations as you want to
+ * check for. Returns true if the player has any of the supplied transformations.
+ */
+export function playerHasForm(
+  player: EntityPlayer,
+  ...playerForms: PlayerForm[]
+): boolean {
+  return playerForms.some((playerForm) => player.HasPlayerForm(playerForm));
+}
+
+/**
  * Helper function to remove all of the active items from a player. This includes the Schoolbag item
  * and any pocket actives.
  */
