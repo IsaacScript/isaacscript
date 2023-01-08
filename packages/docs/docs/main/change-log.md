@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## January 13th, 2022 (Unreleased)
+
+- Added the following helper functions:
+  - `playerHasForm`
+
 ## January 6th, 2022
 
 - The `ModFeature` class now has a `callbackConditionalFunc` property that you can override if you want to have all of your callback methods run conditionally.
