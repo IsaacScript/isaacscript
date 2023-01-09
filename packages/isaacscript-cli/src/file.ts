@@ -12,9 +12,7 @@ export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
     // `copySync` is a `fs-extra` method for copying directories recursively. When `fs.cpSync` is no
     // longer experimental, we can drop the library:
     // https://nodejs.org/api/fs.html#fscpsyncsrc-dest-options
-    fs.copySync(srcPath, dstPath, {
-      recursive: true,
-    });
+    fs.copySync(srcPath, dstPath);
   } catch (err) {
     error(
       `Failed to copy file or directory "${chalk.green(
