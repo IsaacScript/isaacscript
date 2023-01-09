@@ -13,6 +13,9 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `playerHasForm`
+- Added the following constants:
+  - `GAME_FRAMES_PER_MINUTE`
+  - `RENDER_FRAMES_PER_MINUTE`
 
 ## January 6th, 2022
 
