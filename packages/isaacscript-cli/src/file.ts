@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import fs from "fs-extra";
+import fs from "fs";
 import path from "path";
 import { error } from "./utils";
 
@@ -9,10 +9,7 @@ export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
   }
 
   try {
-    // `copySync` is a `fs-extra` method for copying directories recursively. When `fs.cpSync` is no
-    // longer experimental, we can drop the library:
-    // https://nodejs.org/api/fs.html#fscpsyncsrc-dest-options
-    fs.copySync(srcPath, dstPath);
+    fs.cpSync(srcPath, dstPath);
   } catch (err) {
     error(
       `Failed to copy file or directory "${chalk.green(
