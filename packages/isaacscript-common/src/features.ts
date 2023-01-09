@@ -52,13 +52,12 @@ import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltReward
 import { StageHistory } from "./classes/features/other/StageHistory";
 import { StartAmbush } from "./classes/features/other/StartAmbush";
 import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPlayers";
+import { Feature } from "./classes/private/Feature";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
-import {
-  newObjectWithEnumKeys,
-  validateInterfaceMatchesEnum,
-} from "./functions/utils";
+import { validateInterfaceMatchesEnum } from "./functions/utils";
 import { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
+import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 
 export interface ISCFeatureToClass {
   // Callback logic
@@ -168,7 +167,7 @@ export function getFeatures(
     stageHistory,
   );
 
-  return newObjectWithEnumKeys(ISCFeature, {
+  const features = {
     // Callback logic
     [ISCFeature.CUSTOM_REVIVE]: new CustomRevive(
       callbacks[ModCallbackCustom.PRE_CUSTOM_REVIVE],
@@ -288,5 +287,7 @@ export function getFeatures(
     [ISCFeature.STAGE_HISTORY]: stageHistory,
     [ISCFeature.START_AMBUSH]: new StartAmbush(runInNFrames),
     [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),
-  } as const);
+  } as const satisfies HasAllEnumKeys<ISCFeature, Feature>;
+
+  return features;
 }

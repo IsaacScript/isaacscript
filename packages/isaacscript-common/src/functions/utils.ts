@@ -125,22 +125,6 @@ export function isVanillaConsoleCommand(commandName: string): boolean {
 }
 
 /**
- * Helper function for creating objects that represent a mapping of an enum value to some other
- * value in a type-safe way.
- *
- * This function will ensure that the provided object has a key for each value in the enum.
- *
- * After the `satisfies` operator is released in TypeScript 4.9, this function should be deleted.
- */
-export function newObjectWithEnumKeys<
-  Enum extends number | string,
-  T extends Record<Enum, unknown>,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
->(theEnum: Record<string, Enum>, obj: T): T {
-  return obj;
-}
-
-/**
  * Helper function to print something to the in-game console. Use this instead of invoking the
  * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
  * of the message (which `Isaac.ConsoleOutput` does not do by default).

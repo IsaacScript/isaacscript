@@ -1,9 +1,10 @@
 import * as cc from "./callbackClasses";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { getEnumValues } from "./functions/enums";
-import { newObjectWithEnumKeys } from "./functions/utils";
+import { AnyClass } from "./types/AnyClass";
+import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 
-const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
+const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: cc.EntityTakeDmgFilter,
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: cc.PostAmbushFinished,
   [ModCallbackCustom.POST_AMBUSH_STARTED]: cc.PostAmbushStarted,
@@ -117,7 +118,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = newObjectWithEnumKeys(ModCallbackCustom, {
   [ModCallbackCustom.PRE_NEW_LEVEL]: cc.PreNewLevel,
   [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: cc.PreNPCCollisionFilter,
   [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: cc.PreNPCUpdateFilter,
-} as const);
+} as const satisfies HasAllEnumKeys<ModCallbackCustom, AnyClass>;
 
 export type ModCallbackCustomToClass = {
   readonly [Key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<

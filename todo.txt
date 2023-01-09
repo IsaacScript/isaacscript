@@ -10,8 +10,6 @@
 - "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 
-- TypeScript 4.9 - delete newObjectWithEnumKeys
-
 - Lint:
   - add:     "no-unused-expressions": "warn",
   - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
@@ -106,3 +104,8 @@ lint: add no null (only for non isaacscript projects)
 lint: no default export
 
 lint: no empty trailing line comment or leading line comment
+
+lint bug:
+//Fix the bug where an enemy can sometimes spawn next to where the player spawns.
+goes to:
+// ix the bug where an enemy can sometimes spawn next to where the player spawns.
