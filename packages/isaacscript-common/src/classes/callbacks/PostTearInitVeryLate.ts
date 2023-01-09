@@ -14,7 +14,8 @@ export class PostTearInitVeryLate extends CustomCallback<ModCallbackCustom.POST_
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_TEAR_UPDATE, [this.postTearUpdate]], // 40
+      // 40
+      [ModCallback.POST_TEAR_UPDATE, [this.postTearUpdate]],
     ];
   }
 

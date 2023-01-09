@@ -12,10 +12,11 @@ export class PreGetPedestal extends CustomCallback<ModCallbackCustom.PRE_GET_PED
     super();
 
     this.callbacksUsed = [
+      // 38
       [
         ModCallback.PRE_PICKUP_COLLISION,
         [this.prePickupCollision, PickupVariant.COLLECTIBLE],
-      ], // 38
+      ],
     ];
   }
 

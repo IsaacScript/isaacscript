@@ -9,7 +9,8 @@ export class PostBombExploded extends CustomCallback<ModCallbackCustom.POST_BOMB
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_BOMB_UPDATE, [this.postBombUpdate]], // 58
+      // 58
+      [ModCallback.POST_BOMB_UPDATE, [this.postBombUpdate]],
     ];
   }
 

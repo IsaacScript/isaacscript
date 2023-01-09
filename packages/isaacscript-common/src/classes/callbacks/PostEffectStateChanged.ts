@@ -15,8 +15,9 @@ export class PostEffectStateChanged extends CustomCallback<ModCallbackCustom.POS
     super();
 
     this.callbacksUsed = [
+      // 55
       [ModCallback.POST_EFFECT_UPDATE, [this.postEffectUpdate]],
-    ]; // 55
+    ];
   }
 
   protected override shouldFire = shouldFireEffect;

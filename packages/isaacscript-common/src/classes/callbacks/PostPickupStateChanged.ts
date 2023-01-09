@@ -15,7 +15,8 @@ export class PostPickupStateChanged extends CustomCallback<ModCallbackCustom.POS
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PICKUP_UPDATE, [this.postPickupUpdate]], // 35
+      // 35
+      [ModCallback.POST_PICKUP_UPDATE, [this.postPickupUpdate]],
     ];
   }
 

@@ -39,15 +39,18 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     super();
 
     this.callbacksUsed = [
+      // 11
       [
         ModCallback.ENTITY_TAKE_DMG,
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
+      ],
+
+      // 32
       [
         ModCallback.POST_PLAYER_RENDER,
         // Co-op babies cannot perform Cursed Eye teleports.
         [this.postPlayerRenderPlayer, PlayerVariant.PLAYER],
-      ], // 32
+      ],
     ];
   }
 

@@ -52,10 +52,11 @@ export class PostItemDischarge extends CustomCallback<T> {
     super();
 
     this.callbacksUsed = [
+      // 30
       [
         ModCallback.PRE_NPC_COLLISION,
         [this.preNPCCollisionSucker, EntityType.SUCKER],
-      ], // 30
+      ],
     ];
 
     this.customCallbacksUsed = [

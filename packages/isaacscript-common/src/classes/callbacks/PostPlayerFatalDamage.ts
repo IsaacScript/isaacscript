@@ -36,11 +36,14 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
     super();
 
     this.callbacksUsed = [
+      // 11
       [
         ModCallback.ENTITY_TAKE_DMG,
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
-      [ModCallback.PRE_USE_ITEM, [this.preUseItemBible, CollectibleType.BIBLE]], // 23
+      ],
+
+      // 23
+      [ModCallback.PRE_USE_ITEM, [this.preUseItemBible, CollectibleType.BIBLE]],
     ];
   }
 

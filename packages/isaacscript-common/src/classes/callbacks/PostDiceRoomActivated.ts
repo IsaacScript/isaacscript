@@ -25,10 +25,11 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
     super();
 
     this.callbacksUsed = [
+      // 55
       [
         ModCallback.POST_EFFECT_UPDATE,
         [this.postEffectUpdateDiceFloor, EffectVariant.DICE_FLOOR],
-      ], // 55
+      ],
     ];
   }
 

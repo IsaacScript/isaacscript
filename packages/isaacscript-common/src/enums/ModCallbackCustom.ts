@@ -34,6 +34,18 @@ export enum ModCallbackCustom {
   ENTITY_TAKE_DMG_FILTER,
 
   /**
+   * The exact same thing as the vanilla `ENTITY_TAKE_DMG` callback, except this callback
+   * automatically filters for `EntityType.ENTITY_PLAYER` and casts the `Entity` object to a
+   * `EntityPlayer`.
+   *
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   */
+  ENTITY_TAKE_DMG_PLAYER,
+
+  /**
    * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is started.
    * Specifically, this happens on the first frame that `Room.IsAmbushDone` is true.
    *

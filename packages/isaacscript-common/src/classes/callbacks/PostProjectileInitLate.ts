@@ -14,7 +14,8 @@ export class PostProjectileInitLate extends CustomCallback<ModCallbackCustom.POS
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PROJECTILE_UPDATE, [this.postProjectileUpdate]], // 44
+      // 44
+      [ModCallback.POST_PROJECTILE_UPDATE, [this.postProjectileUpdate]],
     ];
   }
 

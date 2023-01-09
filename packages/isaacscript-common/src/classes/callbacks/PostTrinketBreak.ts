@@ -31,10 +31,11 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
     super();
 
     this.callbacksUsed = [
+      // 11
       [
         ModCallback.ENTITY_TAKE_DMG,
         [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
+      ],
     ];
 
     this.customCallbacksUsed = [

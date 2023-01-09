@@ -17,7 +17,8 @@ export class PostNPCStateChanged extends CustomCallback<ModCallbackCustom.POST_N
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_NPC_UPDATE, [this.postNPCUpdate]], // 0
+      // 0
+      [ModCallback.POST_NPC_UPDATE, [this.postNPCUpdate]],
     ];
   }
 

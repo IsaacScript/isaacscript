@@ -16,7 +16,8 @@ export class PostPickupInitFirst extends CustomCallback<ModCallbackCustom.POST_P
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PICKUP_INIT, [this.postPickupInit]], // 34
+      // 34
+      [ModCallback.POST_PICKUP_INIT, [this.postPickupInit]],
     ];
   }
 

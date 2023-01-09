@@ -9,7 +9,8 @@ export class PostRockRender extends CustomCallback<ModCallbackCustom.POST_ROCK_R
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, [this.postRender]],
     ];
   }
 

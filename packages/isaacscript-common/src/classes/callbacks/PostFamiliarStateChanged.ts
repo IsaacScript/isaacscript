@@ -15,8 +15,9 @@ export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.P
     super();
 
     this.callbacksUsed = [
+      // 6
       [ModCallback.POST_FAMILIAR_UPDATE, [this.postFamiliarUpdate]],
-    ]; // 6
+    ];
   }
 
   protected override shouldFire = shouldFireFamiliar;

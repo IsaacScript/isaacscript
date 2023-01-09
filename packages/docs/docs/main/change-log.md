@@ -16,6 +16,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following constants:
   - `GAME_FRAMES_PER_MINUTE`
   - `RENDER_FRAMES_PER_MINUTE`
+- Added the following custom callbacks:
+  - `ENTITY_TAKE_DMG_PLAYER`
 
 ## January 6th, 2022
 

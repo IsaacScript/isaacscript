@@ -14,7 +14,8 @@ export class PostLaserInitLate extends CustomCallback<ModCallbackCustom.POST_LAS
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_LASER_UPDATE, [this.postLaserUpdate]], // 51
+      // 48
+      [ModCallback.POST_LASER_UPDATE, [this.postLaserUpdate]],
     ];
   }
 

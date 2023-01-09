@@ -2,6 +2,7 @@
 // local variables.
 
 export { EntityTakeDmgFilter } from "./classes/callbacks/EntityTakeDmgFilter";
+export { EntityTakeDmgPlayer } from "./classes/callbacks/EntityTakeDmgPlayer";
 export { PostAmbushFinished } from "./classes/callbacks/PostAmbushFinished";
 export { PostAmbushStarted } from "./classes/callbacks/PostAmbushStarted";
 export { PostBombExploded } from "./classes/callbacks/PostBombExploded";

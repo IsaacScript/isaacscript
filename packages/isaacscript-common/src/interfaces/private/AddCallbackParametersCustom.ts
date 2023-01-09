@@ -51,6 +51,18 @@ export interface AddCallbackParametersCustom {
     subType?: number,
   ];
 
+  [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER]: [
+    callback: (
+      player: EntityPlayer,
+      amount: float,
+      damageFlags: BitFlags<DamageFlag>,
+      source: EntityRef,
+      countdownFrames: int,
+    ) => boolean | undefined,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+  ];
+
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: [
     callback: (ambushType: AmbushType) => void,
     ambushType?: AmbushType,

@@ -16,10 +16,11 @@ export class PostCollectibleInitFirst extends CustomCallback<ModCallbackCustom.P
     super();
 
     this.callbacksUsed = [
+      // 34
       [
         ModCallback.POST_PICKUP_INIT,
         [this.postPickupInitCollectible, PickupVariant.COLLECTIBLE],
-      ], // 34
+      ],
     ];
   }
 

@@ -14,8 +14,9 @@ export class PostEffectInitLate extends CustomCallback<ModCallbackCustom.POST_EF
     super();
 
     this.callbacksUsed = [
+      // 55
       [ModCallback.POST_EFFECT_UPDATE, [this.postEffectUpdate]],
-    ]; // 55
+    ];
   }
 
   protected override shouldFire = shouldFireEffect;

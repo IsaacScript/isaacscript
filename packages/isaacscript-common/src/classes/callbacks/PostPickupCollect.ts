@@ -15,7 +15,8 @@ export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PIC
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PICKUP_RENDER, [this.postPickupRender]], // 36
+      // 36
+      [ModCallback.POST_PICKUP_RENDER, [this.postPickupRender]],
     ];
   }
 

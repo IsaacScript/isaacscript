@@ -9,7 +9,8 @@ export class PostSlotCollision extends CustomCallback<ModCallbackCustom.POST_SLO
     super();
 
     this.callbacksUsed = [
-      [ModCallback.PRE_PLAYER_COLLISION, [this.prePlayerCollision]], // 33
+      // 33
+      [ModCallback.PRE_PLAYER_COLLISION, [this.prePlayerCollision]],
     ];
   }
 

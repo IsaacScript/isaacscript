@@ -8,14 +8,15 @@ export class PostNPCDeathFilter extends CustomCallback<ModCallbackCustom.POST_NP
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_NPC_DEATH, [this.postNPCRender]], // 29
+      // 29
+      [ModCallback.POST_NPC_DEATH, [this.postNPCDeath]],
     ];
   }
 
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.POST_NPC_DEATH (29)
-  private postNPCRender = (npc: EntityNPC) => {
+  private postNPCDeath = (npc: EntityNPC) => {
     this.fire(npc);
   };
 }

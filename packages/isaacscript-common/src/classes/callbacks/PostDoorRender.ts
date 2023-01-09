@@ -8,7 +8,10 @@ export class PostDoorRender extends CustomCallback<ModCallbackCustom.POST_DOOR_R
   constructor() {
     super();
 
-    this.callbacksUsed = [[ModCallback.POST_RENDER, [this.postRender]]]; // 2
+    this.callbacksUsed = [
+      // 2
+      [ModCallback.POST_RENDER, [this.postRender]],
+    ];
   }
 
   protected override shouldFire = shouldFireDoor;

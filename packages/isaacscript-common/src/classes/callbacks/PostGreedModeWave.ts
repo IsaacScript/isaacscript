@@ -15,7 +15,8 @@ export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GRE
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+      // 1
+      [ModCallback.POST_UPDATE, [this.postUpdate]],
     ];
   }
 

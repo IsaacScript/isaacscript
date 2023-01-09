@@ -14,7 +14,8 @@ export class PostNPCInitLate extends CustomCallback<ModCallbackCustom.POST_NPC_I
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_NPC_UPDATE, [this.postNPCUpdate]], // 0
+      // 0
+      [ModCallback.POST_NPC_UPDATE, [this.postNPCUpdate]],
     ];
   }
 

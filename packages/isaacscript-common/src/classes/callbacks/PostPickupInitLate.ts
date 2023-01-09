@@ -14,7 +14,8 @@ export class PostPickupInitLate extends CustomCallback<ModCallbackCustom.POST_PI
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PICKUP_UPDATE, [this.postPickupUpdate]], // 35
+      // 35
+      [ModCallback.POST_PICKUP_UPDATE, [this.postPickupUpdate]],
     ];
   }
 

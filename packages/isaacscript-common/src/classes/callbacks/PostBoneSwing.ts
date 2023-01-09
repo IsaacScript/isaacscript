@@ -19,7 +19,8 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SW
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_KNIFE_RENDER, [this.postKnifeRender]], // 52
+      // 52
+      [ModCallback.POST_KNIFE_RENDER, [this.postKnifeRender]],
     ];
   }
 
