@@ -265,6 +265,7 @@ export function shouldFireNPC(
 export function shouldFirePickup(
   fireArgs:
     | [pickup: EntityPickup]
+    | [pickup: EntityPickup, renderOffset: Vector]
     | [pickup: EntityPickup, player: EntityPlayer]
     | [pickup: EntityPickup, previousState: int, currentState: int],
   optionalArgs: [pickupVariant?: PickupVariant, subType?: int],

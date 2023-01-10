@@ -23,6 +23,10 @@ This page lists the changes to the IsaacScript framework.
   - `ENTITY_TAKE_DMG_PLAYER`
   - `INPUT_ACTION_FILTER`
   - `INPUT_ACTION_PLAYER`
+  - `POST_PICKUP_INIT_FILTER`
+  - `POST_PICKUP_UPDATE_FILTER`
+  - `POST_PICKUP_RENDER_FILTER`
+  - `POST_PICKUP_SELECTION_FILTER`
 
 ## January 6th, 2022
 

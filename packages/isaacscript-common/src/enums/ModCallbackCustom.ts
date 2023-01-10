@@ -1062,6 +1062,22 @@ export enum ModCallbackCustom {
   POST_PICKUP_COLLECT,
 
   /**
+   * The exact same thing as the vanilla `POST_PICKUP_INIT` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupInitFilter(pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PICKUP_INIT_FILTER,
+
+  /**
    * Fires from the `POST_PICKUP_INIT` callback on the first time that a player has seen the
    * respective pickup on the run.
    *
@@ -1099,6 +1115,42 @@ export enum ModCallbackCustom {
   POST_PICKUP_INIT_LATE,
 
   /**
+   * The exact same thing as the vanilla `POST_PICKUP_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupRenderFilter(pickup: EntityPickup, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_PICKUP_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_PICKUP_SELECTION` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupSelectionFilter(
+   *   pickup: EntityPickup,
+   *   variant: PickupVariant,
+   *   subType: int,
+   * ): [PickupVariant, int] | undefined {}
+   * ```
+   */
+  POST_PICKUP_SELECTION_FILTER,
+
+  /**
    * Fires from the `POST_PICKUP_UPDATE` callback when a pickup's state has changed from what it was
    * on the previous frame. (In this context, "state" refers to the `EntityPickup.State` field.)
    *
@@ -1117,6 +1169,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_PICKUP_STATE_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_PICKUP_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupUpdateFilter(pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PICKUP_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_RENDER` callback on every frame that a pit exists.

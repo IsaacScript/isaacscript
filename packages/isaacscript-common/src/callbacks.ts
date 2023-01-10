@@ -71,9 +71,14 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]:
     cc.PostPEffectUpdateReordered,
   [ModCallbackCustom.POST_PICKUP_COLLECT]: cc.PostPickupCollect,
+  [ModCallbackCustom.POST_PICKUP_INIT_FILTER]: cc.PostPickupInitFilter,
   [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: cc.PostPickupInitFirst,
   [ModCallbackCustom.POST_PICKUP_INIT_LATE]: cc.PostPickupInitLate,
+  [ModCallbackCustom.POST_PICKUP_RENDER_FILTER]: cc.PostPickupRenderFilter,
+  [ModCallbackCustom.POST_PICKUP_SELECTION_FILTER]:
+    cc.PostPickupSelectionFilter,
   [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: cc.PostPickupStateChanged,
+  [ModCallbackCustom.POST_PICKUP_UPDATE_FILTER]: cc.PostPickupUpdateFilter,
   [ModCallbackCustom.POST_PIT_RENDER]: cc.PostPitRender,
   [ModCallbackCustom.POST_PIT_UPDATE]: cc.PostPitUpdate,
   [ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH]: cc.PostPlayerChangeHealth,

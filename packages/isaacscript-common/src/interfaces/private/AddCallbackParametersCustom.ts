@@ -437,6 +437,12 @@ export interface AddCallbackParametersCustom {
     subType?: int,
   ];
 
+  [ModCallbackCustom.POST_PICKUP_INIT_FILTER]: [
+    callback: (pickup: EntityPickup) => void,
+    pickupVariant?: PickupVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: [
     callback: (pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant,
@@ -449,12 +455,34 @@ export interface AddCallbackParametersCustom {
     subType?: int,
   ];
 
+  [ModCallbackCustom.POST_PICKUP_RENDER_FILTER]: [
+    callback: (pickup: EntityPickup, renderOffset: Vector) => void,
+    pickupVariant?: PickupVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_PICKUP_SELECTION_FILTER]: [
+    callback: (
+      pickup: EntityPickup,
+      variant: PickupVariant,
+      subType: int,
+    ) => [PickupVariant, int] | undefined,
+    pickupVariant?: PickupVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_PICKUP_STATE_CHANGED]: [
     callback: (
       pickup: EntityPickup,
       previousState: int,
       currentState: int,
     ) => void,
+    pickupVariant?: PickupVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_PICKUP_UPDATE_FILTER]: [
+    callback: (pickup: EntityPickup) => void,
     pickupVariant?: PickupVariant,
     subType?: int,
   ];
