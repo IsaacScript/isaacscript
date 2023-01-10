@@ -77,7 +77,7 @@ export function calculateStageTypeRepentance(stage: LevelStage): StageType {
  * the third level of the run, but the game considers it to have a stage of 2. This function will
  * consider Downpour 2 to have a stage of 3.
  */
-export function getEffectiveStage(): int {
+export function getEffectiveStage(): LevelStage {
   const level = game.GetLevel();
   const stage = level.GetStage();
 
@@ -224,7 +224,7 @@ export function onFirstFloor(): boolean {
   const effectiveStage = getEffectiveStage();
   const isOnAscent = onAscent();
 
-  return effectiveStage === 1 && !isOnAscent;
+  return effectiveStage === LevelStage.BASEMENT_1 && !isOnAscent;
 }
 
 /**
@@ -254,7 +254,9 @@ export function onSheol(): boolean {
  */
 export function onStageWithNaturalDevilRoom(): boolean {
   const effectiveStage = getEffectiveStage();
-  return inRange(effectiveStage, 2, 8);
+  return (
+    inRange(effectiveStage, 2, 8) && effectiveStage !== LevelStage.BLUE_WOMB
+  );
 }
 
 /**
