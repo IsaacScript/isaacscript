@@ -30,6 +30,16 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function entityTakeDmgFilter(
+   *   entity: Entity,
+   *   amount: float,
+   *   damageFlags: BitFlags<DamageFlag>,
+   *   source: EntityRef,
+   *   countdownFrames: int,
+   * ): boolean | undefined {}
+   * ```
    */
   ENTITY_TAKE_DMG_FILTER,
 
@@ -42,6 +52,16 @@ export enum ModCallbackCustom {
    *   matches the `PlayerVariant` provided.
    * - You can provide an optional fourth argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function entityTakeDmgPlayer(
+   *   player: EntityPlayer,
+   *   amount: float,
+   *   damageFlags: BitFlags<DamageFlag>,
+   *   source: EntityRef,
+   *   countdownFrames: int,
+   * ): boolean | undefined {}
+   * ```
    */
   ENTITY_TAKE_DMG_PLAYER,
 
@@ -848,6 +868,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCDeathFilter(npc: EntityNPC): void {}
+   * ```
    */
   POST_NPC_DEATH_FILTER,
 
@@ -862,6 +886,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCInitFilter(npc: EntityNPC): void {}
+   * ```
    */
   POST_NPC_INIT_FILTER,
 
@@ -896,6 +924,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCRenderFilter(npc: EntityNPC, renderOffset: Vector): void {}
+   * ```
    */
   POST_NPC_RENDER_FILTER,
 
@@ -932,6 +964,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCUpdateFilter(npc: EntityNPC): void {}
+   * ```
    */
   POST_NPC_UPDATE_FILTER,
 
@@ -1779,6 +1815,14 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preNPCCollisionFilter(
+   *   npc: EntityNPC,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): boolean | undefined {}
+   * ```
    */
   PRE_NPC_COLLISION_FILTER,
 
@@ -1793,6 +1837,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preNPCUpdateFilter(entity: Entity): boolean | undefined {}
+   * ```
    */
   PRE_NPC_UPDATE_FILTER,
 }
