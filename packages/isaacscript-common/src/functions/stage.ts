@@ -255,7 +255,8 @@ export function onSheol(): boolean {
 export function onStageWithNaturalDevilRoom(): boolean {
   const effectiveStage = getEffectiveStage();
   return (
-    inRange(effectiveStage, 2, 8) && effectiveStage !== LevelStage.BLUE_WOMB
+    inRange(effectiveStage, LevelStage.BASEMENT_2, LevelStage.WOMB_2) &&
+    effectiveStage !== LevelStage.BLUE_WOMB
   );
 }
 
