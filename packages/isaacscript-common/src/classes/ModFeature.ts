@@ -82,8 +82,24 @@ export class ModFeature {
    * conditional logic and early returning at the beginning of every callback function).
    *
    * By default, this is set to null. Override this property in your class if you need to use it.
+   *
+   * The function has the following signature:
+   *
+   * ```ts
+   * (
+   *   vanilla: boolean, // Whether or not this is a vanilla or custom callback.
+   *   modCallback: ModCallback | ModCallbackCustom,
+   *   ...callbackArgs: unknown[]
+   * ) => boolean;
+   * ```
    */
-  protected callbackConditionalFunc: (() => boolean) | null = null;
+  protected callbackConditionalFunc:
+    | ((
+        vanilla: boolean,
+        modCallback: ModCallback | ModCallbackCustom,
+        ...callbackArgs: unknown[]
+      ) => boolean)
+    | null = null;
 
   /**
    * Whether or not the feature has registered its callbacks yet (and submitted its variables to the
@@ -205,13 +221,18 @@ function initDecoratedCallbacks(
         modFeature,
         modFeatureConstructor,
         mod,
-        modCallback,
+        modCallback, // eslint-disable-line isaacscript/strict-enums
         callback,
         parameters,
         vanilla,
       );
     } else {
-      removeCallback(modFeatureConstructor, mod, modCallback, vanilla);
+      removeCallback(
+        modFeatureConstructor,
+        mod,
+        modCallback, // eslint-disable-line isaacscript/strict-enums
+        vanilla,
+      );
     }
   }
 }
@@ -220,9 +241,8 @@ function addCallback(
   modFeature: ModFeature,
   modFeatureConstructor: ModFeatureConstructor,
   mod: ModUpgradedBase,
-  modCallback: unknown,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  callback: Function,
+  modCallback: ModCallback | ModCallbackCustom,
+  callback: Function, // eslint-disable-line @typescript-eslint/ban-types
   parameters: unknown[],
   vanilla: boolean,
 ) {
@@ -232,7 +252,7 @@ function addCallback(
     // eslint-disable-next-line @typescript-eslint/dot-notation
     const conditionalFunc = modFeature["callbackConditionalFunc"];
     if (conditionalFunc !== null) {
-      const shouldRun = conditionalFunc();
+      const shouldRun = conditionalFunc(vanilla, modCallback, ...callbackArgs);
       if (!shouldRun) {
         return undefined;
       }
@@ -284,7 +304,7 @@ function addCallback(
 function removeCallback(
   modFeatureConstructor: ModFeatureConstructor,
   mod: ModUpgradedBase,
-  modCallback: unknown,
+  modCallback: ModCallback | ModCallbackCustom,
   vanilla: boolean,
 ) {
   if (vanilla) {
