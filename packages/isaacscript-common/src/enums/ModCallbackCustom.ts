@@ -66,6 +66,50 @@ export enum ModCallbackCustom {
   ENTITY_TAKE_DMG_PLAYER,
 
   /**
+   * The exact same thing as the vanilla `INPUT_ACTION` callback, except this callback allows you to
+   * specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `InputHook` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `ButtonAction` provided.
+   *
+   * ```ts
+   * function inputActionFilter(
+   *   entity: Entity | undefined,
+   *   inputHook: InputHook,
+   *   buttonAction: ButtonAction,
+   * ): boolean | undefined {}
+   * ```
+   */
+  INPUT_ACTION_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `INPUT_ACTION` callback, except this callback automatically
+   * filters for `EntityType.ENTITY_PLAYER` and casts the `Entity` object to a `EntityPlayer`. It
+   * also allows you to specify extra arguments for additional filtration.
+   *
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the `InputHook` provided.
+   * - You can provide an optional sixth argument that will make the callback only fire if it
+   *   matches the `ButtonAction` provided.
+   *
+   * ```ts
+   * function inputActionPlayer(
+   *   player: EntityPlayer,
+   *   inputHook: InputHook,
+   *   buttonAction: ButtonAction,
+   * ): boolean | undefined {}
+   * ```
+   */
+  INPUT_ACTION_PLAYER,
+
+  /**
    * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is started.
    * Specifically, this happens on the first frame that `Room.IsAmbushDone` is true.
    *

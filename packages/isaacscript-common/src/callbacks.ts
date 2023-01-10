@@ -7,6 +7,8 @@ import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: cc.EntityTakeDmgFilter,
   [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER]: cc.EntityTakeDmgPlayer,
+  [ModCallbackCustom.INPUT_ACTION_FILTER]: cc.InputActionFilter,
+  [ModCallbackCustom.INPUT_ACTION_PLAYER]: cc.InputActionPlayer,
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: cc.PostAmbushFinished,
   [ModCallbackCustom.POST_AMBUSH_STARTED]: cc.PostAmbushStarted,
   [ModCallbackCustom.POST_BOMB_EXPLODED]: cc.PostBombExploded,

@@ -18,6 +18,8 @@ This page lists the changes to the IsaacScript framework.
   - `RENDER_FRAMES_PER_MINUTE`
 - Added the following custom callbacks:
   - `ENTITY_TAKE_DMG_PLAYER`
+  - `INPUT_ACTION_FILTER`
+  - `INPUT_ACTION_PLAYER`
 
 ## January 6th, 2022
 

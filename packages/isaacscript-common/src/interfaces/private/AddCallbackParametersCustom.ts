@@ -1,6 +1,7 @@
 import {
   ActiveSlot,
   BombVariant,
+  ButtonAction,
   CollectibleType,
   DamageFlag,
   DiceFloorSubType,
@@ -9,6 +10,7 @@ import {
   EntityType,
   FamiliarVariant,
   GridEntityType,
+  InputHook,
   ItemType,
   KnifeVariant,
   LaserVariant,
@@ -61,6 +63,28 @@ export interface AddCallbackParametersCustom {
     ) => boolean | undefined,
     playerVariant?: PlayerVariant,
     character?: PlayerType,
+  ];
+
+  [ModCallbackCustom.INPUT_ACTION_FILTER]: [
+    callback: (
+      entity: Entity | undefined,
+      inputHook: InputHook,
+      buttonAction: ButtonAction,
+    ) => boolean | float | undefined,
+    inputHook?: InputHook,
+    buttonAction?: ButtonAction,
+  ];
+
+  [ModCallbackCustom.INPUT_ACTION_PLAYER]: [
+    callback: (
+      player: EntityPlayer,
+      inputHook: InputHook,
+      buttonAction: ButtonAction,
+    ) => boolean | float | undefined,
+    playerVariant?: PlayerVariant,
+    character?: PlayerType,
+    inputHook?: InputHook,
+    buttonAction?: ButtonAction,
   ];
 
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: [
