@@ -29,7 +29,7 @@ export class PostTransformation extends CustomCallback<T> {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }

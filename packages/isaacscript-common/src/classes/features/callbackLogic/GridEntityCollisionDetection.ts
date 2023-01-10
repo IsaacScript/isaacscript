@@ -31,7 +31,8 @@ export class GridEntityCollisionDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
 
     this.postGridEntityCollision = postGridEntityCollision;

@@ -1,7 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { isArray } from "../functions/array";
-import { deepCopy } from "../functions/deepCopy";
 import {
   getTSTLClassConstructor,
   getTSTLClassName,
@@ -11,14 +10,26 @@ import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { AnyFunction } from "../types/AnyFunction";
 import { ModUpgradedBase } from "./ModUpgradedBase";
 
-export const ADD_CALLBACK_ARGS_KEY = "__addCallbackArgs";
-export const ADD_CALLBACK_CUSTOM_ARGS_KEY = "__addCallbackCustomArgs";
+export const MOD_FEATURE_CALLBACKS_KEY = "__callbacks";
+export const MOD_FEATURE_CUSTOM_CALLBACKS_KEY = "__customCallbacks";
 const WRAPPED_CALLBACK_METHODS_KEY = "__wrappedCallbackMethods";
 const WRAPPED_CUSTOM_CALLBACK_METHODS_KEY = "__wrappedCustomCallbacksMethods";
 
 type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
-  [ADD_CALLBACK_ARGS_KEY]: unknown | undefined;
-  [ADD_CALLBACK_CUSTOM_ARGS_KEY]: unknown | undefined;
+  [MOD_FEATURE_CALLBACKS_KEY]:
+    | [
+        modCallback: ModCallback,
+        callbackFunc: AnyFunction,
+        parameters: unknown[],
+      ]
+    | undefined;
+  [MOD_FEATURE_CUSTOM_CALLBACKS_KEY]:
+    | [
+        modCallbackCustom: ModCallbackCustom,
+        callbackFunc: AnyFunction,
+        parameters: unknown[],
+      ]
+    | undefined;
   [WRAPPED_CALLBACK_METHODS_KEY]: Map<ModCallback, AnyFunction> | undefined;
   [WRAPPED_CUSTOM_CALLBACK_METHODS_KEY]:
     | Map<ModCallbackCustom, AnyFunction>
@@ -138,40 +149,51 @@ function initDecoratedCallbacks(
   init: boolean,
 ) {
   const modFeatureConstructor = constructor as ModFeatureConstructor;
-  const argsKey = vanilla
-    ? ADD_CALLBACK_ARGS_KEY
-    : ADD_CALLBACK_CUSTOM_ARGS_KEY;
-  const addCallbackArgs = modFeatureConstructor[argsKey];
-  if (addCallbackArgs === undefined) {
+  const callbackTuplesKey = vanilla
+    ? MOD_FEATURE_CALLBACKS_KEY
+    : MOD_FEATURE_CUSTOM_CALLBACKS_KEY;
+  const callbackTuples = modFeatureConstructor[callbackTuplesKey];
+  if (callbackTuples === undefined) {
     return;
   }
 
-  if (!isArray(addCallbackArgs)) {
+  if (!isArray(callbackTuples)) {
     error(
-      `Failed to initialize/uninitialize the decorated callbacks on a mod feature since the callback arguments on the key of "${argsKey}" was not an array.`,
+      `Failed to initialize/uninitialize the decorated callbacks on a mod feature since the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${type(
+        callbackTuples,
+      )}`,
     );
   }
 
-  for (const args of addCallbackArgs) {
-    if (!isArray(args)) {
+  for (const callbackTuple of callbackTuples) {
+    if (!isArray(callbackTuple)) {
       error(
-        "Failed to initialize/uninitialize the decorated callbacks on a mod feature since one of the callback arguments was not an array.",
+        `Failed to initialize/uninitialize the decorated callbacks on a mod feature since one of the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${type(
+          callbackTuple,
+        )}`,
       );
     }
 
-    const parameters = deepCopy(args);
-
-    const modCallback = parameters.shift();
+    const modCallback = callbackTuple[0];
     if (!isNumber(modCallback)) {
       error(
-        `Failed to get the callback number from the parameters for class: ${tstlClassName}`,
+        `Failed to get the callback number from the callback tuple for class: ${tstlClassName}`,
       );
     }
 
-    const callback = parameters.shift();
+    const callback = callbackTuple[1];
     if (!isFunction(callback)) {
       error(
-        `Failed to get the callback function from the parameters for class: ${tstlClassName}`,
+        `Failed to get the callback function from the callback tuple for class: ${tstlClassName}`,
+      );
+    }
+
+    const parameters = callbackTuple[2];
+    // We must pass false as the second argument to `isArray` since the callback parameters may not
+    // necessarily be contiguous. (They might be separated by `undefined` values.)
+    if (!isArray(parameters, false)) {
+      error(
+        `Failed to get the callback parameters from the callback tuple for class: ${tstlClassName}`,
       );
     }
 

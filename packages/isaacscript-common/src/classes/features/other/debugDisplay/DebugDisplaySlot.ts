@@ -10,7 +10,7 @@ export class DebugDisplaySlot extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_SLOT_RENDER, [this.postSlotRender]],
+      [ModCallbackCustom.POST_SLOT_RENDER, this.postSlotRender],
     ];
   }
 

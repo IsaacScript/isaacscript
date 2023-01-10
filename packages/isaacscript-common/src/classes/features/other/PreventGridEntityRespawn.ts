@@ -49,12 +49,13 @@ export class PreventGridEntityRespawn extends Feature {
       // 23
       [
         ModCallback.PRE_USE_ITEM,
-        [this.preUseItemWeNeedToGoDeeper, CollectibleType.WE_NEED_TO_GO_DEEPER],
+        this.preUseItemWeNeedToGoDeeper,
+        [CollectibleType.WE_NEED_TO_GO_DEEPER],
       ],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.runInNFrames = runInNFrames;

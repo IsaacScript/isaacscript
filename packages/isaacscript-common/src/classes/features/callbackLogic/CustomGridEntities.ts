@@ -48,14 +48,16 @@ export class CustomGridEntities extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
+      // 23
       [
         ModCallback.PRE_USE_ITEM,
-        [this.preUseItemWeNeedToGoDeeper, CollectibleType.WE_NEED_TO_GO_DEEPER],
-      ], // 23
+        this.preUseItemWeNeedToGoDeeper,
+        [CollectibleType.WE_NEED_TO_GO_DEEPER],
+      ],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.runInNFrames = runInNFrames;

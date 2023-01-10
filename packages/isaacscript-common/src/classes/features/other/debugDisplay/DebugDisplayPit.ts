@@ -10,7 +10,7 @@ export class DebugDisplayPit extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_PIT_RENDER, [this.postPitRender]],
+      [ModCallbackCustom.POST_PIT_RENDER, this.postPitRender],
     ];
   }
 

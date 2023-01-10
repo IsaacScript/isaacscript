@@ -10,7 +10,7 @@ export class PostRockUpdate extends CustomCallback<ModCallbackCustom.POST_ROCK_U
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 

@@ -15,7 +15,7 @@ export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_
 
     this.callbacksUsed = [
       // 6
-      [ModCallback.POST_FAMILIAR_UPDATE, [this.postFamiliarUpdate]],
+      [ModCallback.POST_FAMILIAR_UPDATE, this.postFamiliarUpdate],
     ];
   }
 

@@ -40,7 +40,7 @@ type DoorSlotFlagValue = BitFlag & {
   readonly __doorSlotFlagBrand: symbol;
 };
 type DoorSlotFlagType = {
-  [K in keyof typeof DoorSlotFlagInternal]: DoorSlotFlagValue;
+  [Key in keyof typeof DoorSlotFlagInternal]: DoorSlotFlagValue;
 };
 
 export const DoorSlotFlag = DoorSlotFlagInternal as DoorSlotFlagType;

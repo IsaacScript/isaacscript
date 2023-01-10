@@ -10,7 +10,7 @@ export class PostTNTRender extends CustomCallback<ModCallbackCustom.POST_TNT_REN
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 

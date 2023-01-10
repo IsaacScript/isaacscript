@@ -320,7 +320,7 @@ type ItemConfigTagValue = BitFlag & {
   readonly __itemConfigTagBrand: symbol;
 };
 type ItemConfigTagType = {
-  [K in keyof typeof ItemConfigTagInternal]: ItemConfigTagValue;
+  [Key in keyof typeof ItemConfigTagInternal]: ItemConfigTagValue;
 };
 
 export const ItemConfigTag = ItemConfigTagInternal as ItemConfigTagType;

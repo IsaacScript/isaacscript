@@ -29,7 +29,7 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectReordered],
+        this.postPEffectReordered,
       ],
     ];
   }

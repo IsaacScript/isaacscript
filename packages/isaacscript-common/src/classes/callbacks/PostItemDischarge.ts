@@ -55,14 +55,15 @@ export class PostItemDischarge extends CustomCallback<T> {
       // 30
       [
         ModCallback.PRE_NPC_COLLISION,
-        [this.preNPCCollisionSucker, EntityType.SUCKER],
+        this.preNPCCollisionSucker,
+        [EntityType.SUCKER],
       ],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }

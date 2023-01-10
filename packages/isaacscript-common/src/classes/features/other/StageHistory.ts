@@ -27,10 +27,7 @@ export class StageHistory extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_NEW_LEVEL_REORDERED,
-        [this.postNewLevelReordered],
-      ],
+      [ModCallbackCustom.POST_NEW_LEVEL_REORDERED, this.postNewLevelReordered],
     ];
   }
 

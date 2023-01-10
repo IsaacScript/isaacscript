@@ -10,7 +10,7 @@ export class PostPoopUpdate extends CustomCallback<ModCallbackCustom.POST_POOP_U
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 

@@ -10,7 +10,7 @@ export class DebugDisplayRock extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_ROCK_RENDER, [this.postRockRender]],
+      [ModCallbackCustom.POST_ROCK_RENDER, this.postRockRender],
     ];
   }
 

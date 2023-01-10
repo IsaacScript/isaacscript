@@ -837,7 +837,7 @@ type TearFlagValue = BitFlag128 & {
   readonly __tearFlagBrand: symbol;
 };
 type TearFlagType = {
-  [K in keyof typeof TearFlagInternal]: TearFlagValue;
+  [Key in keyof typeof TearFlagInternal]: TearFlagValue;
 };
 
 export const TearFlag = TearFlagInternal as TearFlagType;

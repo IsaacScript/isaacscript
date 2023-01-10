@@ -1,6 +1,7 @@
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
-import { AllButFirst } from "../../types/private/AllButFirst";
+import { AllButFirst } from "../../types/AllButFirst";
+import { AnyFunction } from "../../types/AnyFunction";
 import { Feature } from "./Feature";
 
 export type FireArgs<T extends ModCallbackCustom> = Parameters<
@@ -10,6 +11,11 @@ export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
   AddCallbackParametersCustom[T]
 >;
 
+type Subscription<T extends ModCallbackCustom> = [
+  callbackFunc: AddCallbackParametersCustom[T][0],
+  optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>,
+];
+
 /**
  * The base class for a custom callback. Individual custom callbacks (and validation callbacks) will
  * extend from this class.
@@ -17,10 +23,14 @@ export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
 export abstract class CustomCallback<
   T extends ModCallbackCustom,
 > extends Feature {
-  private subscriptions: Array<AddCallbackParametersCustom[T]> = [];
+  private subscriptions: Array<Subscription<T>> = [];
 
-  public addSubscriber(...args: AddCallbackParametersCustom[T]): void {
-    this.subscriptions.push(args);
+  public addSubscriber(
+    callbackFunc: AddCallbackParametersCustom[T][0],
+    ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
+  ): void {
+    const subscription: Subscription<T> = [callbackFunc, optionalArgs];
+    this.subscriptions.push(subscription);
   }
 
   /**
@@ -42,20 +52,14 @@ export abstract class CustomCallback<
   public fire = (
     ...fireArgs: FireArgs<T>
   ): ReturnType<AddCallbackParametersCustom[T][0]> => {
-    for (const [callback, ...optionalArgsArray] of this.subscriptions) {
-      // The TypeScript compiler is bugged with the spread operator here, as it converts the
-      // optional arguments to an array instead of a tuple.
-      const optionalArgs = optionalArgsArray as OptionalArgs<T>;
+    for (const subscription of this.subscriptions) {
+      const [callbackFunc, optionalArgs] = subscription;
 
       if (this.shouldFire(fireArgs, optionalArgs)) {
-        // The TypeScript compiler is not smart enough to know that the fire args match the callback
-        // signature.
-        const callbackCasted = callback as (
-          ...args: FireArgs<T>
-        ) => ReturnType<AddCallbackParametersCustom[T][0]>;
-        const value = callbackCasted(...fireArgs);
+        // TypeScript is not smart enough to know that the arguments match the function.
+        const value = (callbackFunc as AnyFunction)(...fireArgs);
         if (value !== undefined) {
-          return value;
+          return value as ReturnType<AddCallbackParametersCustom[T][0]>;
         }
       }
     }

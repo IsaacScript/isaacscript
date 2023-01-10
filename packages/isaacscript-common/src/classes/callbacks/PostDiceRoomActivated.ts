@@ -28,7 +28,8 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
       // 55
       [
         ModCallback.POST_EFFECT_UPDATE,
-        [this.postEffectUpdateDiceFloor, EffectVariant.DICE_FLOOR],
+        this.postEffectUpdateDiceFloor,
+        [EffectVariant.DICE_FLOOR],
       ],
     ];
   }

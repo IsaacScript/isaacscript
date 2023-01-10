@@ -26,14 +26,15 @@ export class PostSlotDestroyed extends CustomCallback<ModCallbackCustom.POST_SLO
       // 67
       [
         ModCallback.POST_ENTITY_REMOVE,
-        [this.postEntityRemoveSlot, EntityType.SLOT],
+        this.postEntityRemoveSlot,
+        [EntityType.SLOT],
       ],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_SLOT_ANIMATION_CHANGED,
-        [this.postSlotAnimationChanged],
+        this.postSlotAnimationChanged,
       ],
     ];
   }

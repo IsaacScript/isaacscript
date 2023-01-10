@@ -9,7 +9,7 @@ export class PostNPCInitFilter extends CustomCallback<ModCallbackCustom.POST_NPC
 
     this.callbacksUsed = [
       // 27
-      [ModCallback.POST_NPC_INIT, [this.postNPCInit]],
+      [ModCallback.POST_NPC_INIT, this.postNPCInit],
     ];
   }
 

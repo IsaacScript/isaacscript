@@ -11,7 +11,7 @@ export class DebugDisplayTear extends Feature {
 
     this.callbacksUsed = [
       // 41
-      [ModCallback.POST_TEAR_RENDER, [this.postTearRender]],
+      [ModCallback.POST_TEAR_RENDER, this.postTearRender],
     ];
   }
 

@@ -9,7 +9,7 @@ export class EntityTakeDmgFilter extends CustomCallback<ModCallbackCustom.ENTITY
 
     this.callbacksUsed = [
       // 11
-      [ModCallback.ENTITY_TAKE_DMG, [this.entityTakeDmg]],
+      [ModCallback.ENTITY_TAKE_DMG, this.entityTakeDmg],
     ];
   }
 

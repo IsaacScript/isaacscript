@@ -11,7 +11,7 @@ export class DebugDisplayPlayer extends Feature {
 
     this.callbacksUsed = [
       // 32
-      [ModCallback.POST_PLAYER_RENDER, [this.postPlayerRender]],
+      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
     ];
   }
 

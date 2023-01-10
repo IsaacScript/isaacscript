@@ -10,7 +10,7 @@ export class PostPitRender extends CustomCallback<ModCallbackCustom.POST_PIT_REN
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 

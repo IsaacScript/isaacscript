@@ -49,7 +49,7 @@ export class ModdedElementDetection extends Feature {
 
     this.callbacksUsed = [
       // 9
-      [ModCallback.POST_PLAYER_INIT, [this.postPlayerInit]],
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
     ];
   }
 

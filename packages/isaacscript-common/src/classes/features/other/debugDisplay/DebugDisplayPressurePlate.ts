@@ -12,7 +12,7 @@ export class DebugDisplayPressurePlate extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PRESSURE_PLATE_RENDER,
-        [this.postPressurePlateRender],
+        this.postPressurePlateRender,
       ],
     ];
   }

@@ -152,7 +152,7 @@ type RoomDescriptorFlagValue = BitFlag & {
   readonly __roomDescriptorFlagBrand: symbol;
 };
 type RoomDescriptorFlagType = {
-  [K in keyof typeof RoomDescriptorFlagInternal]: RoomDescriptorFlagValue;
+  [Key in keyof typeof RoomDescriptorFlagInternal]: RoomDescriptorFlagValue;
 };
 
 export const RoomDescriptorFlag =

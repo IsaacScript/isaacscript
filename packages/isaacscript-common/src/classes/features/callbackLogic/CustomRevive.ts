@@ -60,17 +60,18 @@ export class CustomRevive extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
       [
-        ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE,
-        [this.postPlayerFatalDamage],
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
       ],
-      [ModCallbackCustom.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
+      [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE, this.postPlayerFatalDamage],
+      [ModCallbackCustom.PRE_BERSERK_DEATH, this.preBerserkDeath],
     ];
 
     this.preCustomRevive = preCustomRevive;
@@ -89,8 +90,18 @@ export class CustomRevive extends Feature {
     sfxManager.Stop(SoundEffect.ONE_UP);
   };
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer): void => {
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private postNewRoomReordered = (): void => {
+    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+      return;
+    }
+
+    this.v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
+    this.logStateChanged();
+  };
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
     this.checkWaitingForItemAnimation(player);
   };
 
@@ -137,16 +148,6 @@ export class CustomRevive extends Feature {
     this.v.run.dyingPlayerIndex = null;
     this.logStateChanged();
   }
-
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = (): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
-      return;
-    }
-
-    this.v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
-    this.logStateChanged();
-  };
 
   // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
   private postPlayerFatalDamage = (

@@ -49,13 +49,21 @@ export class GameReorderedCallbacks extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 3
       [
         ModCallback.POST_USE_ITEM,
-        [this.useItemGlowingHourGlass, CollectibleType.GLOWING_HOUR_GLASS],
-      ], // 3
-      [ModCallback.POST_GAME_STARTED, [this.postGameStarted]], // 15
-      [ModCallback.POST_NEW_LEVEL, [this.postNewLevel]], // 18
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+        this.useItemGlowingHourGlass,
+        [CollectibleType.GLOWING_HOUR_GLASS],
+      ],
+
+      // 15
+      [ModCallback.POST_GAME_STARTED, this.postGameStarted],
+
+      // 18
+      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
+
+      // 19
+      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
     ];
 
     this.postGameStartedReordered = postGameStartedReordered;

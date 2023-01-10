@@ -24,7 +24,8 @@ export class PressInput extends Feature {
       // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.isActionTriggered, InputHook.IS_ACTION_TRIGGERED],
+        this.isActionTriggered,
+        [InputHook.IS_ACTION_TRIGGERED],
       ],
     ];
   }

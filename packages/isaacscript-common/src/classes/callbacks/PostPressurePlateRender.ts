@@ -10,7 +10,7 @@ export class PostPressurePlateRender extends CustomCallback<ModCallbackCustom.PO
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 

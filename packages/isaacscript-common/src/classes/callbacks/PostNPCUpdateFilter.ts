@@ -9,7 +9,7 @@ export class PostNPCUpdateFilter extends CustomCallback<ModCallbackCustom.POST_N
 
     this.callbacksUsed = [
       // 0
-      [ModCallback.POST_NPC_UPDATE, [this.postNPCUpdate]],
+      [ModCallback.POST_NPC_UPDATE, this.postNPCUpdate],
     ];
   }
 

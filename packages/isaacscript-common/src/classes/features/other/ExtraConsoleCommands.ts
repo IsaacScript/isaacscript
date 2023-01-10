@@ -2,12 +2,12 @@ import {
   CacheFlag,
   CollectibleType,
   DamageFlag,
-  EntityType,
   LevelCurse,
   ModCallback,
   TearVariant,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { addFlag, bitFlags } from "../../../functions/flag";
 import { getMapPartialMatch } from "../../../functions/map";
 import {
@@ -30,46 +30,48 @@ export class ExtraConsoleCommands extends Feature {
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
 
       // 8
       [
         ModCallback.EVALUATE_CACHE,
-        [this.evaluateCacheDamage, CacheFlag.DAMAGE], // 1 << 0
+        this.evaluateCacheDamage,
+        [CacheFlag.DAMAGE], // 1 << 0
       ],
 
       // 8
       [
         ModCallback.EVALUATE_CACHE,
-        [this.evaluateCacheFireDelay, CacheFlag.FIRE_DELAY], // 1 << 1
+        this.evaluateCacheFireDelay,
+        [CacheFlag.FIRE_DELAY], // 1 << 1
       ],
 
       // 8
       [
         ModCallback.EVALUATE_CACHE,
-        [this.evaluateCacheSpeed, CacheFlag.SPEED], // 1 << 4
+        this.evaluateCacheSpeed,
+        [CacheFlag.SPEED], // 1 << 4
       ],
 
       // 8
       [
         ModCallback.EVALUATE_CACHE,
-        [this.evaluateCacheFlying, CacheFlag.FLYING], // 1 << 7
-      ],
-
-      // 11
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
+        this.evaluateCacheFlying,
+        [CacheFlag.FLYING], // 1 << 7
       ],
 
       // 12
-      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]],
+      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
 
       // 22
-      [ModCallback.EXECUTE_CMD, [this.executeCmd]],
+      [ModCallback.EXECUTE_CMD, this.executeCmd],
 
       // 61
-      [ModCallback.POST_FIRE_TEAR, [this.postFireTear]],
+      [ModCallback.POST_FIRE_TEAR, this.postFireTear],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
     ];
 
     for (const [funcName, func] of Object.entries(commands)) {
@@ -115,22 +117,6 @@ export class ExtraConsoleCommands extends Feature {
     if (this.v.persistent.flight) {
       player.CanFly = true;
     }
-  };
-
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
-  private entityTakeDmgPlayer = (
-    _entity: Entity,
-    _damageAmount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _damageSource: EntityRef,
-    _damageCountdownFrames: int,
-  ) => {
-    if (this.v.persistent.spamBloodRights) {
-      return false;
-    }
-
-    return undefined;
   };
 
   // ModCallback.POST_CURSE_EVAL (12)
@@ -204,6 +190,21 @@ export class ExtraConsoleCommands extends Feature {
     if (this.v.persistent.chaosCardTears) {
       tear.ChangeVariant(TearVariant.CHAOS_CARD);
     }
+  };
+
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
+  private entityTakeDmgPlayer = (
+    _player: EntityPlayer,
+    _damageAmount: float,
+    _damageFlags: BitFlags<DamageFlag>,
+    _damageSource: EntityRef,
+    _damageCountdownFrames: int,
+  ) => {
+    if (this.v.persistent.spamBloodRights) {
+      return false;
+    }
+
+    return undefined;
   };
 
   /**

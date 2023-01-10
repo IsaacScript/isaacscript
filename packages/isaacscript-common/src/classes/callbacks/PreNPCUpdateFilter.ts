@@ -9,7 +9,7 @@ export class PreNPCUpdateFilter extends CustomCallback<ModCallbackCustom.PRE_NPC
 
     this.callbacksUsed = [
       // 69
-      [ModCallback.PRE_NPC_UPDATE, [this.preNPCUpdate]],
+      [ModCallback.PRE_NPC_UPDATE, this.preNPCUpdate],
     ];
   }
 

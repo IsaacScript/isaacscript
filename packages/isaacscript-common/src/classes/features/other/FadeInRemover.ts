@@ -14,7 +14,7 @@ export class FadeInRemover extends Feature {
 
     this.callbacksUsed = [
       // 15
-      [ModCallback.POST_GAME_STARTED, [this.postGameStarted]],
+      [ModCallback.POST_GAME_STARTED, this.postGameStarted],
     ];
   }
 

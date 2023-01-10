@@ -10,7 +10,7 @@ export class PostDoorUpdate extends CustomCallback<ModCallbackCustom.POST_DOOR_U
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 

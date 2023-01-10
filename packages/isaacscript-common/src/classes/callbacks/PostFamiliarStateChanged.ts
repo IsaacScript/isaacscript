@@ -16,7 +16,7 @@ export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.P
 
     this.callbacksUsed = [
       // 6
-      [ModCallback.POST_FAMILIAR_UPDATE, [this.postFamiliarUpdate]],
+      [ModCallback.POST_FAMILIAR_UPDATE, this.postFamiliarUpdate],
     ];
   }
 

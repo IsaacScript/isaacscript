@@ -55,12 +55,13 @@ export class PickupIndexCreation extends Feature {
 
     this.callbacksUsed = [
       // 34
-      [ModCallback.POST_PICKUP_INIT, [this.postPickupInit]],
+      [ModCallback.POST_PICKUP_INIT, this.postPickupInit],
 
       // 67
       [
         ModCallback.POST_ENTITY_REMOVE,
-        [this.postEntityRemovePickup, EntityType.PICKUP],
+        this.postEntityRemovePickup,
+        [EntityType.PICKUP],
       ],
     ];
 

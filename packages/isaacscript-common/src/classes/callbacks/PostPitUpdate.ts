@@ -10,7 +10,7 @@ export class PostPitUpdate extends CustomCallback<ModCallbackCustom.POST_PIT_UPD
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 

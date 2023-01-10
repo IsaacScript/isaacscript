@@ -10,7 +10,7 @@ export class DebugDisplayDoor extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_DOOR_RENDER, [this.postDoorRender]],
+      [ModCallbackCustom.POST_DOOR_RENDER, this.postDoorRender],
     ];
   }
 

@@ -18,7 +18,7 @@ export class InputActionFilter extends CustomCallback<T> {
 
     this.callbacksUsed = [
       // 13
-      [ModCallback.INPUT_ACTION, [this.inputAction]],
+      [ModCallback.INPUT_ACTION, this.inputAction],
     ];
   }
 

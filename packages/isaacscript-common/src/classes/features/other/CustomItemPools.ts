@@ -28,7 +28,7 @@ export class CustomItemPools extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GAME_STARTED_REORDERED,
-        [this.postGameStartedReordered],
+        this.postGameStartedReordered,
       ],
     ];
   }

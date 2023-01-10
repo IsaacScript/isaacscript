@@ -19,7 +19,7 @@ export class RoomClearFrame extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_ROOM_CLEAR_CHANGED,
-        [this.postRoomClearChangedTrue],
+        this.postRoomClearChangedTrue,
       ],
     ];
   }

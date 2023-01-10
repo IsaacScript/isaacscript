@@ -19,7 +19,7 @@ export class CharacterStats extends Feature {
 
     this.callbacksUsed = [
       // 8
-      [ModCallback.EVALUATE_CACHE, [this.evaluateCache]],
+      [ModCallback.EVALUATE_CACHE, this.evaluateCache],
     ];
   }
 

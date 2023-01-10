@@ -19,13 +19,14 @@ export class SlotUpdateDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
 
     this.customCallbacksUsed = [
       // This has to be the reordered callback because we don't want the `POST_SLOT_INIT` callback
       // firing on the first room of a floor before the `POST_NEW_LEVEL` callback.
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.postSlotInit = postSlotInit;

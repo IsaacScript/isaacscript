@@ -56,11 +56,11 @@ export class PersistentEntities extends Feature {
 
     this.callbacksUsed = [
       // 67
-      [ModCallback.POST_ENTITY_REMOVE, [this.postEntityRemove]],
+      [ModCallback.POST_ENTITY_REMOVE, this.postEntityRemove],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.roomHistory = roomHistory;

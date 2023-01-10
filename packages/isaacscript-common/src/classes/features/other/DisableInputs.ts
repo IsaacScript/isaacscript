@@ -43,19 +43,22 @@ export class DisableInputs extends Feature {
       // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.isActionPressed, InputHook.IS_ACTION_PRESSED], // 0
+        this.isActionPressed,
+        [InputHook.IS_ACTION_PRESSED], // 0
       ],
 
       // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.isActionTriggered, InputHook.IS_ACTION_TRIGGERED], // 1
+        this.isActionTriggered,
+        [InputHook.IS_ACTION_TRIGGERED], // 1
       ],
 
       // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.getActionValue, InputHook.GET_ACTION_VALUE], // 2
+        this.getActionValue,
+        [InputHook.GET_ACTION_VALUE], // 2
       ],
     ];
   }

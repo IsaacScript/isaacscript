@@ -31,11 +31,11 @@ export class PlayerInventory extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
-        [this.postCollectibleAdded],
+        this.postCollectibleAdded,
       ],
       [
         ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED,
-        [this.postCollectibleRemoved],
+        this.postCollectibleRemoved,
       ],
     ];
   }

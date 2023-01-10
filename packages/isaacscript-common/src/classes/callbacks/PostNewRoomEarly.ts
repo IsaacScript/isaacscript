@@ -23,10 +23,10 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
 
     this.callbacksUsed = [
       // 19
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]],
+      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
 
       // 24
-      [ModCallback.PRE_ENTITY_SPAWN, [this.preEntitySpawn]],
+      [ModCallback.PRE_ENTITY_SPAWN, this.preEntitySpawn],
     ];
   }
 

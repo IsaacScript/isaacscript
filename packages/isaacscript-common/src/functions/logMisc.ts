@@ -31,8 +31,11 @@ import { isTable, isUserdata } from "./types";
 import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
 
+/** Helper function to enumerate all of the values in an array. */
 export function logArray<T>(array: T[] | readonly T[]): void {
-  if (!isArray(array)) {
+  // We do not assume the given array has contiguous values in order to be more permissive about the
+  // kinds of arrays that will successfully log without a run-time error.
+  if (!isArray(array, false)) {
     log("Tried to log an array, but the given object was not an array.");
     return;
   }

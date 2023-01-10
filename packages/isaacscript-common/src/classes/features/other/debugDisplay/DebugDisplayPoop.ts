@@ -10,7 +10,7 @@ export class DebugDisplayPoop extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_POOP_RENDER, [this.postPoopRender]],
+      [ModCallbackCustom.POST_POOP_RENDER, this.postPoopRender],
     ];
   }
 

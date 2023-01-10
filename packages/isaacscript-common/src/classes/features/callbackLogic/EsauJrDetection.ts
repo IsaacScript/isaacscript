@@ -26,10 +26,14 @@ export class EsauJrDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+
+      // 3
       [
         ModCallback.POST_USE_ITEM,
-        [this.useItemEsauJr, CollectibleType.ESAU_JR],
+        this.useItemEsauJr,
+        [CollectibleType.ESAU_JR],
       ],
     ];
 

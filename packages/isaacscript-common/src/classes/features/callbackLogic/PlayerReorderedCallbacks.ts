@@ -39,16 +39,21 @@ export class PlayerReorderedCallbacks extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
-      [ModCallback.POST_PLAYER_UPDATE, [this.postPlayerUpdate]], // 31
-      [ModCallback.POST_PLAYER_RENDER, [this.postPlayerRender]], // 32
+      // 4
+      [ModCallback.POST_PEFFECT_UPDATE, this.postPEffectUpdate],
+
+      // 31
+      [ModCallback.POST_PLAYER_UPDATE, this.postPlayerUpdate],
+
+      // 32
+      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST,
-        [this.postGameStartedReorderedLast],
-      ], // 19
+        this.postGameStartedReorderedLast,
+      ],
     ];
 
     this.postPEffectUpdateReordered = postPEffectUpdateReordered;

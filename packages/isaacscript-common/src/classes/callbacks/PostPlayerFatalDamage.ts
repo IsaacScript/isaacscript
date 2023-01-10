@@ -4,7 +4,6 @@ import {
   CollectibleType,
   DamageFlag,
   DamageFlagZero,
-  EntityType,
   ModCallback,
   UseFlag,
 } from "isaac-typescript-definitions";
@@ -36,33 +35,57 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
     super();
 
     this.callbacksUsed = [
-      // 11
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ],
-
       // 23
-      [ModCallback.PRE_USE_ITEM, [this.preUseItemBible, CollectibleType.BIBLE]],
+      [ModCallback.PRE_USE_ITEM, this.preUseItemBible, [CollectibleType.BIBLE]],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
+  // ModCallback.PRE_USE_ITEM (23)
+  // CollectibleType.BIBLE (33)
+  private preUseItemBible = (
+    _collectibleType: CollectibleType,
+    _rng: RNG,
+    player: EntityPlayer,
+    _useFlags: BitFlags<UseFlag>,
+    _activeSlot: ActiveSlot,
+    _customVarData: int,
+  ): boolean | undefined => {
+    // Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
+    // handle this case.
+    if (!inBossRoomOf(BossID.SATAN)) {
+      return undefined;
+    }
+
+    const shouldSustainDeath = this.fire(
+      player,
+      0,
+      DamageFlagZero,
+      EntityRef(player),
+      0,
+    );
+    if (shouldSustainDeath !== undefined) {
+      // End-users will return false to stop the damage from being fatal. We have to return true to
+      // prevent the Bible from firing.
+      return !shouldSustainDeath;
+    }
+
+    return undefined;
+  };
+
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
   private entityTakeDmgPlayer = (
-    entity: Entity,
+    player: EntityPlayer,
     amount: float,
     damageFlags: BitFlags<DamageFlag>,
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined => {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
-    }
-
     // This callback should not trigger for the Strawman Keeper and other players that are "child"
     // players.
     if (isChildPlayer(player)) {
@@ -94,38 +117,6 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
     );
     if (shouldSustainDeath !== undefined) {
       return shouldSustainDeath;
-    }
-
-    return undefined;
-  };
-
-  // ModCallback.PRE_USE_ITEM (23)
-  // CollectibleType.BIBLE (33)
-  private preUseItemBible = (
-    _collectibleType: CollectibleType,
-    _rng: RNG,
-    player: EntityPlayer,
-    _useFlags: BitFlags<UseFlag>,
-    _activeSlot: ActiveSlot,
-    _customVarData: int,
-  ): boolean | undefined => {
-    // Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
-    // handle this case.
-    if (!inBossRoomOf(BossID.SATAN)) {
-      return undefined;
-    }
-
-    const shouldSustainDeath = this.fire(
-      player,
-      0,
-      DamageFlagZero,
-      EntityRef(player),
-      0,
-    );
-    if (shouldSustainDeath !== undefined) {
-      // End-users will return false to stop the damage from being fatal. We have to return true to
-      // prevent the Bible from firing.
-      return !shouldSustainDeath;
     }
 
     return undefined;

@@ -23,7 +23,7 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POS
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectReordered],
+        this.postPEffectReordered,
       ],
     ];
   }

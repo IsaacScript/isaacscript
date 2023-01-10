@@ -9,7 +9,7 @@ export class PostNPCDeathFilter extends CustomCallback<ModCallbackCustom.POST_NP
 
     this.callbacksUsed = [
       // 29
-      [ModCallback.POST_NPC_DEATH, [this.postNPCDeath]],
+      [ModCallback.POST_NPC_DEATH, this.postNPCDeath],
     ];
   }
 

@@ -18,7 +18,8 @@ export class GridEntityRenderDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
 
     this.postGridEntityRender = postGridEntityRender;

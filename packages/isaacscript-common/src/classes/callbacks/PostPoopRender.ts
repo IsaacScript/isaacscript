@@ -10,7 +10,7 @@ export class PostPoopRender extends CustomCallback<ModCallbackCustom.POST_POOP_R
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 

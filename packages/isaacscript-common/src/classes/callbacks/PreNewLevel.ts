@@ -21,7 +21,7 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
 
     this.callbacksUsed = [
       // 32
-      [ModCallback.POST_PLAYER_RENDER, [this.postPlayerRender]],
+      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
     ];
   }
 

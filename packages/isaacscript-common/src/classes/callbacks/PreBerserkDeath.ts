@@ -13,7 +13,7 @@ export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSER
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }

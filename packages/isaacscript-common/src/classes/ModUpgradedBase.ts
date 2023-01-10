@@ -292,15 +292,25 @@ export class ModUpgradedBase implements Mod {
 
     if (feature.callbacksUsed !== undefined) {
       for (const callbackTuple of feature.callbacksUsed) {
-        const [modCallback, callbackArgs] = callbackTuple;
-        this.AddCallback(modCallback, ...callbackArgs);
+        const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
+        // TypeScript is not smart enough to know that the arguments match the function.
+        (this.AddCallback as AnyFunction)(
+          modCallback,
+          callbackFunc,
+          ...(optionalArgs ?? []),
+        );
       }
     }
 
     if (feature.customCallbacksUsed !== undefined) {
       for (const callbackTuple of feature.customCallbacksUsed) {
-        const [modCallback, callbackArgs] = callbackTuple;
-        this.AddCallbackCustom(modCallback, ...callbackArgs);
+        const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
+        // TypeScript is not smart enough to know that the arguments match the function.
+        (this.AddCallbackCustom as AnyFunction)(
+          modCallback,
+          callbackFunc,
+          ...(optionalArgs ?? []),
+        );
       }
     }
 
@@ -355,17 +365,15 @@ export class ModUpgradedBase implements Mod {
 
     if (feature.callbacksUsed !== undefined) {
       for (const callbackTuple of feature.callbacksUsed) {
-        const [modCallback, callbackArgs] = callbackTuple;
-        const callback = callbackArgs[0];
-        this.RemoveCallback(modCallback, callback);
+        const [modCallback, callbackFunc] = callbackTuple;
+        this.RemoveCallback(modCallback, callbackFunc);
       }
     }
 
     if (feature.customCallbacksUsed !== undefined) {
       for (const callbackTuple of feature.customCallbacksUsed) {
-        const [modCallback, callbackArgs] = callbackTuple;
-        const callback = callbackArgs[0];
-        this.RemoveCallbackCustom(modCallback, callback);
+        const [modCallback, callbackFunc] = callbackTuple;
+        this.RemoveCallbackCustom(modCallback, callbackFunc);
       }
     }
 

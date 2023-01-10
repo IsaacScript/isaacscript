@@ -73,7 +73,7 @@ type LevelCurseValue = BitFlag & {
   readonly __levelCurseBrand: symbol;
 };
 type LevelCurseType = {
-  [K in keyof typeof LevelCurseInternal]: LevelCurseValue;
+  [Key in keyof typeof LevelCurseInternal]: LevelCurseValue;
 };
 
 export const LevelCurse = LevelCurseInternal as LevelCurseType;

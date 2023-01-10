@@ -22,9 +22,9 @@
 
 import { ModCallback } from "isaac-typescript-definitions";
 import {
-  ADD_CALLBACK_ARGS_KEY,
-  ADD_CALLBACK_CUSTOM_ARGS_KEY,
   ModFeature,
+  MOD_FEATURE_CALLBACKS_KEY,
+  MOD_FEATURE_CUSTOM_CALLBACKS_KEY,
 } from "../classes/ModFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
@@ -50,11 +50,7 @@ export function Callback<T extends ModCallback>(
     // First, prepare the arguments for the `Mod.AddCallback` method.
     const methodName = propertyKey as keyof Class;
     const method = target[methodName] as AddCallbackParameters[T][0];
-    const addCallbackArgs = [
-      modCallback,
-      method,
-      ...optionalArgs,
-    ] as unknown as AddCallbackParameters[T];
+    const callbackTuple = [modCallback, method, optionalArgs];
 
     // Since the decorator runs prior to instantiation, we only have access to get and set static
     // properties, which are located on the "constructor" table. Thus, we store the callback
@@ -70,12 +66,14 @@ export function Callback<T extends ModCallback>(
       );
     }
 
-    if (!constructor.has(ADD_CALLBACK_ARGS_KEY)) {
-      constructor.set(ADD_CALLBACK_ARGS_KEY, []);
+    if (!constructor.has(MOD_FEATURE_CALLBACKS_KEY)) {
+      constructor.set(MOD_FEATURE_CALLBACKS_KEY, []);
     }
 
-    const callbackTuples = constructor.get(ADD_CALLBACK_ARGS_KEY) as unknown[];
-    callbackTuples.push(addCallbackArgs);
+    const callbackTuples = constructor.get(
+      MOD_FEATURE_CALLBACKS_KEY,
+    ) as unknown[];
+    callbackTuples.push(callbackTuple);
   };
 }
 
@@ -101,11 +99,7 @@ export function CallbackCustom<T extends ModCallbackCustom>(
     // First, prepare the arguments for the `Mod.AddCallbackCustom` method.
     const methodName = propertyKey as keyof Class;
     const method = target[methodName] as AddCallbackParametersCustom[T][0];
-    const addCallbackArgs = [
-      modCallbackCustom,
-      method,
-      ...optionalArgs,
-    ] as unknown as AddCallbackParametersCustom[T];
+    const callbackTuple: unknown[] = [modCallbackCustom, method, optionalArgs];
 
     // Since the decorator runs prior to instantiation, we only have access to get and set static
     // properties, which are located on the "constructor" table. Thus, we store the callback
@@ -121,13 +115,13 @@ export function CallbackCustom<T extends ModCallbackCustom>(
       );
     }
 
-    if (!constructor.has(ADD_CALLBACK_CUSTOM_ARGS_KEY)) {
-      constructor.set(ADD_CALLBACK_CUSTOM_ARGS_KEY, []);
+    if (!constructor.has(MOD_FEATURE_CUSTOM_CALLBACKS_KEY)) {
+      constructor.set(MOD_FEATURE_CUSTOM_CALLBACKS_KEY, []);
     }
 
     const callbackTuples = constructor.get(
-      ADD_CALLBACK_CUSTOM_ARGS_KEY,
+      MOD_FEATURE_CUSTOM_CALLBACKS_KEY,
     ) as unknown[];
-    callbackTuples.push(addCallbackArgs);
+    callbackTuples.push(callbackTuple);
   };
 }

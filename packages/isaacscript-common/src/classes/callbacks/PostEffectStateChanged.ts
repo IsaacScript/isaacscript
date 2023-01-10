@@ -16,7 +16,7 @@ export class PostEffectStateChanged extends CustomCallback<ModCallbackCustom.POS
 
     this.callbacksUsed = [
       // 55
-      [ModCallback.POST_EFFECT_UPDATE, [this.postEffectUpdate]],
+      [ModCallback.POST_EFFECT_UPDATE, this.postEffectUpdate],
     ];
   }
 

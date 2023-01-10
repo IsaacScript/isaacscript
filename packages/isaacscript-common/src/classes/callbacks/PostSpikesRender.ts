@@ -10,7 +10,7 @@ export class PostSpikesRender extends CustomCallback<ModCallbackCustom.POST_SPIK
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 

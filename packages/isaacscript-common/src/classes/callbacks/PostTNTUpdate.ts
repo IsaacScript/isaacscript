@@ -10,7 +10,7 @@ export class PostTNTUpdate extends CustomCallback<ModCallbackCustom.POST_TNT_UPD
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 

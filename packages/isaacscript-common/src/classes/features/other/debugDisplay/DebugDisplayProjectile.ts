@@ -11,7 +11,7 @@ export class DebugDisplayProjectile extends Feature {
 
     this.callbacksUsed = [
       // 45
-      [ModCallback.POST_PROJECTILE_RENDER, [this.postProjectileRender]],
+      [ModCallback.POST_PROJECTILE_RENDER, this.postProjectileRender],
     ];
   }
 

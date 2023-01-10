@@ -26,7 +26,8 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
       // 35
       [
         ModCallback.POST_PICKUP_UPDATE,
-        [this.postPickupUpdateCollectible, PickupVariant.COLLECTIBLE],
+        this.postPickupUpdateCollectible,
+        [PickupVariant.COLLECTIBLE],
       ],
     ];
   }

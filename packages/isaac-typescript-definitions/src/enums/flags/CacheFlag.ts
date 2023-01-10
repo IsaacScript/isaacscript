@@ -60,7 +60,7 @@ type CacheFlagValue = BitFlag & {
   readonly __cacheFlagBrand: symbol;
 };
 type CacheFlagType = {
-  [K in keyof typeof CacheFlagInternal]: CacheFlagValue;
+  [Key in keyof typeof CacheFlagInternal]: CacheFlagValue;
 };
 
 export const CacheFlag = CacheFlagInternal as CacheFlagType;

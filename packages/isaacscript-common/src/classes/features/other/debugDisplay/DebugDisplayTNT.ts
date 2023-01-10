@@ -10,7 +10,7 @@ export class DebugDisplayTNT extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_TNT_RENDER, [this.postTNTRender]],
+      [ModCallbackCustom.POST_TNT_RENDER, this.postTNTRender],
     ];
   }
 

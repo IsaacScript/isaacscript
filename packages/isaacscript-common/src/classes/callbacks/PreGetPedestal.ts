@@ -15,7 +15,8 @@ export class PreGetPedestal extends CustomCallback<ModCallbackCustom.PRE_GET_PED
       // 38
       [
         ModCallback.PRE_PICKUP_COLLISION,
-        [this.prePickupCollision, PickupVariant.COLLECTIBLE],
+        this.prePickupCollision,
+        [PickupVariant.COLLECTIBLE],
       ],
     ];
   }

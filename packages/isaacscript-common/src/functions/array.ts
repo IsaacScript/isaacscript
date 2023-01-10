@@ -405,8 +405,15 @@ export function getRandomArrayIndex<T>(
  *
  * - the table contains all numerical indexes that are contiguous, starting at 1
  * - the table has no keys (i.e. an "empty" table)
+ *
+ * @param object The object to analyze.
+ * @param ensureContiguousValues Optional. Whether or not the Lua table has to have all contiguous
+ *                               keys in order to be considered an array. Default is true.
  */
-export function isArray(object: unknown): object is unknown[] {
+export function isArray(
+  object: unknown,
+  ensureContiguousValues = true,
+): object is unknown[] {
   if (!isTable(object)) {
     return false;
   }
@@ -431,10 +438,12 @@ export function isArray(object: unknown): object is unknown[] {
   }
 
   // Fourth, check for non-contiguous elements. (Lua tables start at an index of 1.)
-  for (let i = 1; i <= keys.length; i++) {
-    const element = object.get(i);
-    if (element === undefined) {
-      return false;
+  if (ensureContiguousValues) {
+    for (let i = 1; i <= keys.length; i++) {
+      const element = object.get(i);
+      if (element === undefined) {
+        return false;
+      }
     }
   }
 

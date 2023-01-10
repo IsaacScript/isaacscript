@@ -24,7 +24,8 @@ export class FlipDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_USE_ITEM, [this.useItemFlip, CollectibleType.FLIP]], // 3
+      // 3
+      [ModCallback.POST_USE_ITEM, this.useItemFlip, [CollectibleType.FLIP]],
     ];
 
     this.postFlip = postFlip;

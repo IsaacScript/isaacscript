@@ -47,12 +47,13 @@ export class Pause extends Feature {
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
 
       // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.inputActionGetActionValue, InputHook.GET_ACTION_VALUE],
+        this.inputActionGetActionValue,
+        [InputHook.GET_ACTION_VALUE],
       ],
     ];
 

@@ -15,7 +15,7 @@ export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB
 
     this.callbacksUsed = [
       // 58
-      [ModCallback.POST_BOMB_UPDATE, [this.postBombUpdate]],
+      [ModCallback.POST_BOMB_UPDATE, this.postBombUpdate],
     ];
   }
 

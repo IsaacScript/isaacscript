@@ -15,7 +15,8 @@ export class EntityTakeDmgPlayer extends CustomCallback<ModCallbackCustom.ENTITY
       // 11
       [
         ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
+        this.entityTakeDmgPlayer,
+        [EntityType.PLAYER],
       ],
     ];
   }

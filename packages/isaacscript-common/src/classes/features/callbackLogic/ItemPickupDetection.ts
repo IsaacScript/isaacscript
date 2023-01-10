@@ -1,9 +1,9 @@
 import {
   CollectibleType,
   ItemType,
-  ModCallback,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
 import { asNumber } from "../../../functions/types";
 import {
@@ -32,16 +32,19 @@ export class ItemPickupDetection extends Feature {
   constructor(postItemPickup: PostItemPickup, preItemPickup: PreItemPickup) {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
     ];
 
     this.postItemPickup = postItemPickup;
     this.preItemPickup = preItemPickup;
   }
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer) => {
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const pickingUpItem = defaultMapGetPlayer(
       this.v.run.playersPickingUpItemMap,
       player,

@@ -24,7 +24,7 @@ type DisplayFlagValue = BitFlag & {
   readonly __displayFlagBrand: symbol;
 };
 type DisplayFlagType = {
-  [K in keyof typeof DisplayFlagInternal]: DisplayFlagValue;
+  [Key in keyof typeof DisplayFlagInternal]: DisplayFlagValue;
 };
 
 export const DisplayFlag = DisplayFlagInternal as DisplayFlagType;

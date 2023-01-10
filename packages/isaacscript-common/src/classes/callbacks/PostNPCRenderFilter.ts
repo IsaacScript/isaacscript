@@ -9,7 +9,7 @@ export class PostNPCRenderFilter extends CustomCallback<ModCallbackCustom.POST_N
 
     this.callbacksUsed = [
       // 28
-      [ModCallback.POST_NPC_RENDER, [this.postNPCRender]],
+      [ModCallback.POST_NPC_RENDER, this.postNPCRender],
     ];
   }
 

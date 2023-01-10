@@ -213,7 +213,7 @@ type EntityFlagValue = BitFlag & {
   readonly __entityFlagBrand: symbol;
 };
 type EntityFlagType = {
-  [K in keyof typeof EntityFlagInternal]: EntityFlagValue;
+  [Key in keyof typeof EntityFlagInternal]: EntityFlagValue;
 };
 
 export const EntityFlag = EntityFlagInternal as EntityFlagType;

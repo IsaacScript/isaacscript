@@ -40,12 +40,13 @@ export class CustomPickups extends Feature {
 
     this.callbacksUsed = [
       // 38
-      [ModCallback.PRE_PICKUP_COLLISION, [this.prePickupCollision]],
+      [ModCallback.PRE_PICKUP_COLLISION, this.prePickupCollision],
 
       // 56
       [
         ModCallback.POST_EFFECT_RENDER,
-        [this.postEffectRenderPickupEffect, PICKUP_EFFECT_VARIANT],
+        this.postEffectRenderPickupEffect,
+        [PICKUP_EFFECT_VARIANT],
       ],
     ];
   }

@@ -1,7 +1,6 @@
 import {
   CollectibleType,
   DamageFlag,
-  EntityType,
   ModCallback,
   PlayerVariant,
   RoomType,
@@ -39,46 +38,81 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     super();
 
     this.callbacksUsed = [
-      // 11
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ],
-
       // 32
       [
         ModCallback.POST_PLAYER_RENDER,
         // Co-op babies cannot perform Cursed Eye teleports.
-        [this.postPlayerRenderPlayer, PlayerVariant.PLAYER],
+        this.postPlayerRenderPlayer,
+        [PlayerVariant.PLAYER],
       ],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
     ];
   }
 
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
+  // ModCallback.POST_PLAYER_RENDER (32)
+  // PlayerVariant.PLAYER (0)
+  private postPlayerRenderPlayer = (
+    player: EntityPlayer,
+    _renderOffset: Vector,
+  ): void => {
+    // Retrieve information about this player.
+    const trackingArray = mapGetPlayer(
+      this.v.run.playersDamageFrameMap,
+      player,
+    );
+    if (trackingArray === undefined) {
+      return;
+    }
+    const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
+
+    if (!playerIsTeleportingFromCursedTeleport(player, lastDamageFrame)) {
+      return;
+    }
+
+    // Do nothing if the callback already fired on this frame.
+    if (callbackActivatedOnThisFrame) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+    const newTrackingArray = [gameFrameCount, true];
+    mapSetPlayer(this.v.run.playersDamageFrameMap, player, newTrackingArray);
+
+    this.fire(player);
+  };
+
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
   private entityTakeDmgPlayer = (
-    entity: Entity,
+    player: EntityPlayer,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
     _source: EntityRef,
     _countdownFrames: int,
   ): boolean | undefined => {
     this.incrementNumSacrifices(damageFlags); // Has to be before setting the damage frame.
-    this.setDamageFrame(entity, damageFlags);
+    this.setDamageFrame(player, damageFlags);
 
     return undefined;
   };
 
+  private incrementNumSacrifices(damageFlags: BitFlags<DamageFlag>): void {
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+    const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
+
+    if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
+      this.v.level.numSacrifices++;
+    }
+  }
+
   private setDamageFrame(
-    entity: Entity,
+    player: EntityPlayer,
     damageFlags: BitFlags<DamageFlag>,
   ): void {
     const gameFrameCount = game.GetFrameCount();
-
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return;
-    }
 
     // Don't do anything if we already activated the callback on this frame.
     const trackingArray = mapGetPlayer(
@@ -116,48 +150,6 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
       (this.v.level.numSacrifices === 6 || this.v.level.numSacrifices >= 12)
     );
   }
-
-  private incrementNumSacrifices(damageFlags: BitFlags<DamageFlag>): void {
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-    const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
-
-    if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
-      this.v.level.numSacrifices++;
-    }
-  }
-
-  // ModCallback.POST_PLAYER_RENDER (32)
-  // PlayerVariant.PLAYER (0)
-  private postPlayerRenderPlayer = (
-    player: EntityPlayer,
-    _renderOffset: Vector,
-  ): void => {
-    // Retrieve information about this player.
-    const trackingArray = mapGetPlayer(
-      this.v.run.playersDamageFrameMap,
-      player,
-    );
-    if (trackingArray === undefined) {
-      return;
-    }
-    const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
-
-    if (!playerIsTeleportingFromCursedTeleport(player, lastDamageFrame)) {
-      return;
-    }
-
-    // Do nothing if the callback already fired on this frame.
-    if (callbackActivatedOnThisFrame) {
-      return;
-    }
-
-    const gameFrameCount = game.GetFrameCount();
-    const newTrackingArray = [gameFrameCount, true];
-    mapSetPlayer(this.v.run.playersDamageFrameMap, player, newTrackingArray);
-
-    this.fire(player);
-  };
 }
 
 function playerIsTeleportingFromCursedTeleport(

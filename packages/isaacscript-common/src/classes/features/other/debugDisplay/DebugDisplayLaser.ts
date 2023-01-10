@@ -11,7 +11,7 @@ export class DebugDisplayLaser extends Feature {
 
     this.callbacksUsed = [
       // 49
-      [ModCallback.POST_LASER_RENDER, [this.postLaserRender]],
+      [ModCallback.POST_LASER_RENDER, this.postLaserRender],
     ];
   }
 

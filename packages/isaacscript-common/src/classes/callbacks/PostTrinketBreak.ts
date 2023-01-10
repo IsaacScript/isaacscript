@@ -1,7 +1,6 @@
 import {
   DamageFlag,
   EntityType,
-  ModCallback,
   PickupVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -30,38 +29,25 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      // 11
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ],
-    ];
-
     this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }
 
   protected override shouldFire = shouldFireTrinketType;
 
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
   private entityTakeDmgPlayer = (
-    entity: Entity,
+    player: EntityPlayer,
     _amount: float,
     _damageFlags: BitFlags<DamageFlag>,
     _source: EntityRef,
     _countdownFrames: int,
   ): boolean | undefined => {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
-    }
-
     const trinketMap = defaultMapGetPlayer(
       this.v.run.playersTrinketMap,
       player,

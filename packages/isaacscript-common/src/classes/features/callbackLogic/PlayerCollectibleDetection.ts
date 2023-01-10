@@ -2,7 +2,6 @@ import {
   ActiveSlot,
   CollectibleType,
   DamageFlag,
-  EntityType,
   ItemType,
   ModCallback,
   PlayerType,
@@ -61,16 +60,17 @@ export class PlayerCollectibleDetection extends Feature {
     ];
 
     this.callbacksUsed = [
-      [ModCallback.POST_USE_ITEM, [this.useItemD4, CollectibleType.D4]], // 3
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
+      // 3
+      [ModCallback.POST_USE_ITEM, this.useItemD4, [CollectibleType.D4]],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_ITEM_PICKUP, [this.postItemPickup]],
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+      [ModCallbackCustom.POST_ITEM_PICKUP, this.postItemPickup],
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
     ];
 
     this.postPlayerCollectibleAdded = postPlayerCollectibleAdded;
@@ -156,8 +156,65 @@ export class PlayerCollectibleDetection extends Feature {
     return undefined;
   };
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer) => {
+  /** We need to handle the case of Tainted Eden taking damage. */
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
+  private entityTakeDmgPlayer = (
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined => {
+    // Tainted Eden's mechanic does not apply if she e.g. uses Dull Razor.
+    if (hasFlag(damageFlags, DamageFlag.FAKE)) {
+      return undefined;
+    }
+
+    const character = player.GetPlayerType();
+    if (character !== PlayerType.EDEN_B) {
+      return undefined;
+    }
+
+    // The items will only be rerolled after the damage is successfully applied.
+    const entityPtr = EntityPtr(player);
+    this.runInNFrames.runNextGameFrame(() => {
+      const futurePlayer = getPlayerFromPtr(entityPtr);
+      if (futurePlayer !== undefined) {
+        this.updateCollectibleMapAndFire(player, undefined);
+      }
+    });
+
+    return undefined;
+  };
+
+  /**
+   * We need to handle TMTRAINER collectibles, since they do not cause the player's collectible
+   * count to change.
+   */
+  // ModCallbackCustom.POST_ITEM_PICKUP
+  private postItemPickup = (
+    player: EntityPlayer,
+    pickingUpItem: PickingUpItem,
+  ) => {
+    if (
+      pickingUpItem.itemType === ItemType.TRINKET ||
+      pickingUpItem.itemType === ItemType.NULL
+    ) {
+      return;
+    }
+
+    const newCollectibleCount = player.GetCollectibleCount();
+    mapSetPlayer(
+      this.v.run.playersCollectibleCount,
+      player,
+      newCollectibleCount,
+    );
+
+    this.updateCollectibleMapAndFire(player, 1);
+  };
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const oldCollectibleCount = defaultMapGetPlayer(
       this.v.run.playersCollectibleCount,
       player,
@@ -220,65 +277,4 @@ export class PlayerCollectibleDetection extends Feature {
       this.updateCollectibleMapAndFire(player, undefined);
     }
   }
-
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
-  // We need to handle the case of Tainted Eden taking damage.
-  private entityTakeDmgPlayer = (
-    entity: Entity,
-    _amount: float,
-    damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined => {
-    // Tainted Eden's mechanic does not apply if she e.g. uses Dull Razor.
-    if (hasFlag(damageFlags, DamageFlag.FAKE)) {
-      return undefined;
-    }
-
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
-    }
-
-    const character = player.GetPlayerType();
-    if (character !== PlayerType.EDEN_B) {
-      return undefined;
-    }
-
-    // The items will only be rerolled after the damage is successfully applied.
-    const entityPtr = EntityPtr(player);
-    this.runInNFrames.runNextGameFrame(() => {
-      const futurePlayer = getPlayerFromPtr(entityPtr);
-      if (futurePlayer !== undefined) {
-        this.updateCollectibleMapAndFire(player, undefined);
-      }
-    });
-
-    return undefined;
-  };
-
-  // ModCallbackCustom.POST_ITEM_PICKUP
-  // We need to handle TMTRAINER collectibles, since they do not cause the player's collectible
-  // count to change.
-  private postItemPickup = (
-    player: EntityPlayer,
-    pickingUpItem: PickingUpItem,
-  ) => {
-    if (
-      pickingUpItem.itemType === ItemType.TRINKET ||
-      pickingUpItem.itemType === ItemType.NULL
-    ) {
-      return;
-    }
-
-    const newCollectibleCount = player.GetCollectibleCount();
-    mapSetPlayer(
-      this.v.run.playersCollectibleCount,
-      player,
-      newCollectibleCount,
-    );
-
-    this.updateCollectibleMapAndFire(player, 1);
-  };
 }

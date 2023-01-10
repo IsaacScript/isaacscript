@@ -33,7 +33,8 @@ export class CollectibleItemPoolType extends Feature {
       // 34
       [
         ModCallback.POST_PICKUP_INIT,
-        [this.postPickupInitCollectible, PickupVariant.COLLECTIBLE],
+        this.postPickupInitCollectible,
+        [PickupVariant.COLLECTIBLE],
       ],
     ];
 

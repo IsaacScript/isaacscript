@@ -24,7 +24,8 @@ export class NoSirenSteal extends Feature {
       // 27
       [
         ModCallback.POST_NPC_INIT,
-        [this.postNPCInitSirenHelper, EntityType.SIREN_HELPER],
+        this.postNPCInitSirenHelper,
+        [EntityType.SIREN_HELPER],
       ],
     ];
   }

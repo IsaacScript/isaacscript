@@ -133,20 +133,18 @@ export class CustomTrapdoors extends Feature {
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE,
-        [
-          this.postGridEntityCustomUpdateTrapdoor,
-          GridEntityTypeCustom.TRAPDOOR_CUSTOM,
-        ],
+        this.postGridEntityCustomUpdateTrapdoor,
+        [GridEntityTypeCustom.TRAPDOOR_CUSTOM],
       ],
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
 

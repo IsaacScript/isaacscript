@@ -10,7 +10,7 @@ export class PostPressurePlateUpdate extends CustomCallback<ModCallbackCustom.PO
 
     this.callbacksUsed = [
       // 1
-      [ModCallback.POST_UPDATE, [this.postUpdate]],
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 

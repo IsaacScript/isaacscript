@@ -24,14 +24,15 @@ export class CharacterHealthConversion extends Feature {
       // 38
       [
         ModCallback.PRE_PICKUP_COLLISION,
-        [this.prePickupCollisionHeart, PickupVariant.HEART],
+        this.prePickupCollisionHeart,
+        [PickupVariant.HEART],
       ],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }

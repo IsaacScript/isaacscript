@@ -28,7 +28,7 @@ export class RoomHistory extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_EARLY, [this.postNewRoomEarly]],
+      [ModCallbackCustom.POST_NEW_ROOM_EARLY, this.postNewRoomEarly],
     ];
   }
 

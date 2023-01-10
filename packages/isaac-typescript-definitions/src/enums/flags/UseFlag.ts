@@ -98,7 +98,7 @@ type UseFlagValue = BitFlag & {
   readonly __useFlagBrand: symbol;
 };
 type UseFlagType = {
-  [K in keyof typeof UseFlagInternal]: UseFlagValue;
+  [Key in keyof typeof UseFlagInternal]: UseFlagValue;
 };
 
 export const UseFlag = UseFlagInternal as UseFlagType;

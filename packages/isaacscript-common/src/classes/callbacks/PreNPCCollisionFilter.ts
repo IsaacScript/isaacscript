@@ -9,7 +9,7 @@ export class PreNPCCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_
 
     this.callbacksUsed = [
       // 30
-      [ModCallback.PRE_NPC_COLLISION, [this.preNPCCollision]],
+      [ModCallback.PRE_NPC_COLLISION, this.preNPCCollision],
     ];
   }
 

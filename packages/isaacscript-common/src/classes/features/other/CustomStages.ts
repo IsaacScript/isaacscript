@@ -137,22 +137,23 @@ export class CustomStages extends Feature {
 
     this.callbacksUsed = [
       // 2
-      [ModCallback.POST_RENDER, [this.postRender]],
+      [ModCallback.POST_RENDER, this.postRender],
 
       // 12
-      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]],
+      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
 
       // 21
-      [ModCallback.GET_SHADER_PARAMS, [this.getShaderParams]],
+      [ModCallback.GET_SHADER_PARAMS, this.getShaderParams],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
-        [this.postGridEntityBrokenRockAlt, GridEntityType.ROCK_ALT],
+        this.postGridEntityBrokenRockAlt,
+        [GridEntityType.ROCK_ALT],
       ],
-      [ModCallbackCustom.POST_GRID_ENTITY_INIT, [this.postGridEntityInit]],
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_GRID_ENTITY_INIT, this.postGridEntityInit],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.customGridEntities = customGridEntities;

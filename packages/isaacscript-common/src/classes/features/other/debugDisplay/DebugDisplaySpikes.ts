@@ -10,7 +10,7 @@ export class DebugDisplaySpikes extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_SPIKES_RENDER, [this.postSpikesRender]],
+      [ModCallbackCustom.POST_SPIKES_RENDER, this.postSpikesRender],
     ];
   }
 

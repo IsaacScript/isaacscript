@@ -33,5 +33,5 @@ type ISCFeaturesToKeys<T extends readonly ISCFeature[]> = Omit<
  * same private fields will cause a `never` type.
  */
 type ISCFeatureTupleToClassTuple<T extends ISCFeature[]> = {
-  [K in keyof T]: PublicInterface<ISCFeatureToClass[T[K]]>;
+  [Key in keyof T]: PublicInterface<ISCFeatureToClass[T[Key]]>;
 };

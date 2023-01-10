@@ -15,7 +15,7 @@ export class PostEffectInitLate extends CustomCallback<ModCallbackCustom.POST_EF
 
     this.callbacksUsed = [
       // 55
-      [ModCallback.POST_EFFECT_UPDATE, [this.postEffectUpdate]],
+      [ModCallback.POST_EFFECT_UPDATE, this.postEffectUpdate],
     ];
   }
 
