@@ -31,8 +31,7 @@ This page lists the changes to the IsaacScript framework.
   - `dequeueItem`
   - `isActionPressed`
   - `isActionTriggered`
-  - `inERange`
-  - `inIRange`
+  - `inRange`
 
 ## December 26th, 2022
 

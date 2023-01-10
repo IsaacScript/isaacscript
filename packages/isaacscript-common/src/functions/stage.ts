@@ -10,6 +10,7 @@ import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
 import { asLevelStage, asNumber } from "./types";
+import { inRange } from "./utils";
 
 /**
  * Helper function that calculates what the stage type should be for the provided stage. This
@@ -245,6 +246,15 @@ export function onSheol(): boolean {
   return (
     stage === LevelStage.SHEOL_CATHEDRAL && stageType === StageType.ORIGINAL
   );
+}
+
+/**
+ * Helper function to check if the current stage is one that has the possibility to grant a natural
+ * Devil Room or Angel Room after killing the boss.
+ */
+export function onStageWithNaturalDevilRoom(): boolean {
+  const effectiveStage = getEffectiveStage();
+  return inRange(effectiveStage, 2, 8);
 }
 
 /**
