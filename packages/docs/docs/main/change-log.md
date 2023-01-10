@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `playerHasForm`
   - `directionToMoveAction`
   - `directionToShootAction`
+  - `onStageWithNaturalDevilRoom`
 - Added the following constants:
   - `GAME_FRAMES_PER_MINUTE`
   - `RENDER_FRAMES_PER_MINUTE`
