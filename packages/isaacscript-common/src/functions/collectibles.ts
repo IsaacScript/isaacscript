@@ -526,7 +526,8 @@ export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
   sprite.Load(COLLECTIBLE_ANM2_PATH, false);
 
   // We want to clear the pedestal layers so that the returned sprite only has the collectible
-  // image.
+  // image. We can't use the `Sprite.Reset` method for this purpose because that would unload the
+  // anm2 file.
   clearSprite(sprite);
 
   const gfxFileName = getCollectibleGfxFilename(collectibleType);

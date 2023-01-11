@@ -3,16 +3,22 @@ import { kColorEquals } from "./kColor";
 import { eRange } from "./utils";
 
 /**
- * Helper function to clear all layers or specific layers from a sprite.
+ * Helper function to clear all layers or specific layers from a sprite without unloading the
+ * attached anm2 file.
  *
- * This function is variadic, so pass as many layer IDs as you want to clear. If no specific layers
- * are passed, it will clear every layer.
+ * This function is variadic, which means you can pass as many layer IDs as you want to clear. If no
+ * specific layers are passed, the function will clear every layer.
  *
- * Since there is no official API method to "clear" a sprite, we can work around it by setting the
- * spritesheet to a non-existent or completely transparent file. If the path to the spritesheet does
- * not exist, then this function might cause spurious errors to appear in the "log.txt file". To
- * silence these errors, create a transparent 1 pixel PNG file in your mod's resources folder at the
- * path corresponding to the "EMPTY_PNG_PATH" constant.
+ * If you want to clear all of the layers of a sprite and don't care about unloading the attached
+ * anm2 file, then use the `Sprite.Reset` method instead.
+ *
+ * Since there is no official API method to clear specific layers from a sprite, we work around it
+ * by setting the spritesheet to a transparent PNG file corresponding to the `EMPTY_PNG_PATH`
+ * constant.
+ *
+ * This function will still work identically if PNG file does not exist, but it will cause a
+ * spurious error to appear in the "log.txt" file. If silencing these errors is desired, you can
+ * create a transparent 1 pixel PNG file in your mod's resources folder at `EMPTY_PNG_PATH`.
  */
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
   if (layerIDs.length === 0) {

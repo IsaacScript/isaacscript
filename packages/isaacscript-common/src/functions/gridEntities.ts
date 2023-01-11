@@ -21,7 +21,6 @@ import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
-import { clearSprite } from "./sprites";
 import { asNumber, isNumber } from "./types";
 import { eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
@@ -630,14 +629,15 @@ export function removeGridEntity(
 }
 
 /**
- * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to an
- * empty/missing PNG file.
+ * Helper function to make a grid entity invisible. This is accomplished by resetting the sprite.
  *
- * For more information, see the documentation for the `clearSprite` helper function.
+ * Note that this function is destructive such that once you make a grid entity invisible, it can no
+ * longer become visible. (This is because the information about the sprite is lost when it is
+ * reset.)
  */
 export function setGridEntityInvisible(gridEntity: GridEntity): void {
   const sprite = gridEntity.GetSprite();
-  clearSprite(sprite);
+  sprite.Reset();
 }
 
 /**

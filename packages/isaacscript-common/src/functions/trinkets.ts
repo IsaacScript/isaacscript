@@ -212,8 +212,8 @@ export function newTrinketSprite(trinketType: TrinketType): Sprite {
  * @param trinket The trinket whose sprite you want to modify.
  * @param pngPath Equal to either the spritesheet path to load (e.g.
  *                "gfx/items/trinkets/trinket_001_swallowedpenny.png") or undefined. If undefined,
- *                the sprite will be removed, making it appear like the collectible has already been
- *                taken by the player.
+ *                the sprite will be removed, making the trinket effectively invisible (except for
+ *                the shadow underneath it).
  */
 export function setTrinketSprite(
   trinket: EntityPickup,
@@ -228,7 +228,9 @@ export function setTrinketSprite(
 
   const sprite = trinket.GetSprite();
   if (pngPath === undefined) {
-    clearSprite(sprite, TRINKET_SPRITE_LAYER);
+    // We use `clearSpriteLayer` instead of `Sprite.Reset` to maintain parity with the
+    // `setCollectibleSprite` function.
+    clearSprite(sprite);
   } else {
     sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
     sprite.LoadGraphics();

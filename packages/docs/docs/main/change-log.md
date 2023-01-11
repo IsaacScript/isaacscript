@@ -16,6 +16,8 @@ This page lists the changes to the IsaacScript framework.
   - `directionToMoveAction`
   - `directionToShootAction`
   - `onStageWithNaturalDevilRoom`
+- Changed the following helper functions:
+  - `getClosestEntityTo` now takes an optional `filterFunc` argument.
 - Added the following constants:
   - `GAME_FRAMES_PER_MINUTE`
   - `RENDER_FRAMES_PER_MINUTE`
