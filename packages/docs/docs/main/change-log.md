@@ -29,6 +29,7 @@ This page lists the changes to the IsaacScript framework.
   - `POST_PICKUP_UPDATE_FILTER`
   - `POST_PICKUP_RENDER_FILTER`
   - `POST_PICKUP_SELECTION_FILTER`
+  - `PRE_ENTITY_SPAWN_FILTER`
 
 ## January 6th, 2022
 

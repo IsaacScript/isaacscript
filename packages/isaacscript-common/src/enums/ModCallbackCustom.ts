@@ -1860,6 +1860,30 @@ export enum ModCallbackCustom {
   PRE_CUSTOM_REVIVE,
 
   /**
+   * The exact same thing as the vanilla `PRE_ENTITY_SPAWN` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preEntitySpawnFilter(
+   *   entity: Entity,
+   *   amount: float,
+   *   damageFlags: BitFlags<DamageFlag>,
+   *   source: EntityRef,
+   *   countdownFrames: int,
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_ENTITY_SPAWN_FILTER,
+
+  /**
    * Fires from the `PRE_PICKUP_COLLISION` callback when a player touches a collectible pedestal and
    * meets all of the conditions to pick it up.
    *

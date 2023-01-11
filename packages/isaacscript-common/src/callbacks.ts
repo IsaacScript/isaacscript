@@ -121,6 +121,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_TRINKET_BREAK]: cc.PostTrinketBreak,
   [ModCallbackCustom.PRE_BERSERK_DEATH]: cc.PreBerserkDeath,
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: cc.PreCustomRevive,
+  [ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER]: cc.PreEntitySpawnFilter,
   [ModCallbackCustom.PRE_GET_PEDESTAL]: cc.PreGetPedestal,
   [ModCallbackCustom.PRE_ITEM_PICKUP]: cc.PreItemPickup,
   [ModCallbackCustom.PRE_NEW_LEVEL]: cc.PreNewLevel,

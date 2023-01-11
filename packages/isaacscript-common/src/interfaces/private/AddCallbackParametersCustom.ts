@@ -731,6 +731,21 @@ export interface AddCallbackParametersCustom {
     character?: PlayerType,
   ];
 
+  [ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER]: [
+    callback: (
+      entityType: EntityType,
+      variant: int,
+      subType: int,
+      position: Vector,
+      velocity: Vector,
+      spawner: Entity | undefined,
+      initSeed: Seed,
+    ) => [EntityType, int, int, int] | undefined,
+    entityType?: EntityType,
+    variant?: int,
+    subtype?: int,
+  ];
+
   [ModCallbackCustom.PRE_GET_PEDESTAL]: [
     callback: (
       player: EntityPlayer,

@@ -103,6 +103,7 @@ export { PostTransformation } from "./classes/callbacks/PostTransformation";
 export { PostTrinketBreak } from "./classes/callbacks/PostTrinketBreak";
 export { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 export { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";
+export { PreEntitySpawnFilter } from "./classes/callbacks/PreEntitySpawnFilter";
 export { PreGetPedestal } from "./classes/callbacks/PreGetPedestal";
 export { PreItemPickup } from "./classes/callbacks/PreItemPickup";
 export { PreNewLevel } from "./classes/callbacks/PreNewLevel";
