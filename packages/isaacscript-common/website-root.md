@@ -71,7 +71,7 @@ For example:
 
 ```ts
 import { ModCallback } from "isaac-typescript-definitions";
-import { ISCFeature, ModCallbackCustom, modVanilla } from "isaacscript-common";
+import { ISCFeature, upgradeMod } from "isaacscript-common";
 
 const modVanilla = RegisterMod("Foo", 1);
 const features = [ISCFeature.PONY_DETECTION] as const;
