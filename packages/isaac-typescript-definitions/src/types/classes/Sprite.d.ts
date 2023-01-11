@@ -169,6 +169,12 @@ declare interface Sprite extends IsaacAPIClass {
    */
   ReplaceSpritesheet(layerID: int, pngPath: string): void;
 
+  /**
+   * Resets the sprite such that it will be equivalent to a new sprite created with the `Sprite`
+   * constructor.
+   *
+   * Doing this will obviously make the sprite disappear since the anm2 file will be unloaded.
+   */
   Reset(): void;
 
   /**
