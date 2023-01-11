@@ -1873,12 +1873,14 @@ export enum ModCallbackCustom {
    *
    * ```ts
    * function preEntitySpawnFilter(
-   *   entity: Entity,
-   *   amount: float,
-   *   damageFlags: BitFlags<DamageFlag>,
-   *   source: EntityRef,
-   *   countdownFrames: int,
-   * ): boolean | undefined {}
+   *   entityType: EntityType,
+   *   variant: int,
+   *   subType: int,
+   *   position: Vector,
+   *   velocity: Vector,
+   *   spawner: Entity | undefined,
+   *   initSeed: Seed,
+   * ): [EntityType, int, int, int] | undefined {}
    * ```
    */
   PRE_ENTITY_SPAWN_FILTER,
