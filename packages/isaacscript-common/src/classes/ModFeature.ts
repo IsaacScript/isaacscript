@@ -74,29 +74,34 @@ export class ModFeature {
   private mod: ModUpgradedBase;
 
   /**
-   * An optional function that allows for conditional callback execution. If specified, any class
+   * An optional method that allows for conditional callback execution. If specified, any class
    * method that is annotated with a `@Callback` or `@CallbackCustom` decorator will only be fired
    * if the executed conditional function returns true.
    *
    * This property is used to easily turn entire mod features on and off (rather than repeating
    * conditional logic and early returning at the beginning of every callback function).
    *
-   * By default, this is set to null. Override this property in your class if you need to use it.
+   * Since the specific information for the firing callback is passed as arguments into the
+   * conditional method, you can also write logic that would only apply to a specific type of
+   * callback.
+   *
+   * By default, this is set to null, which means that all callback methods will fire
+   * unconditionally. Override this property in your class if you need to use it.
    *
    * The function has the following signature:
    *
    * ```ts
-   * (
-   *   vanilla: boolean, // Whether or not this is a vanilla or custom callback.
-   *   modCallback: ModCallback | ModCallbackCustom,
-   *   ...callbackArgs: unknown[]
+   * <T extends boolean>(
+   *   vanilla: T, // Whether or not this is a vanilla or custom callback.
+   *   modCallback: T extends true ? ModCallback : ModCallbackCustom,
+   *   ...callbackArgs: unknown[] // This would be e.g. `pickup: EntityPickup` for the `POST_PICKUP_INIT` callback.
    * ) => boolean;
    * ```
    */
-  protected callbackConditionalFunc:
-    | ((
-        vanilla: boolean,
-        modCallback: ModCallback | ModCallbackCustom,
+  protected shouldCallbackMethodsFire:
+    | (<T extends boolean>(
+        vanilla: T,
+        modCallback: T extends true ? ModCallback : ModCallbackCustom,
         ...callbackArgs: unknown[]
       ) => boolean)
     | null = null;
@@ -250,7 +255,7 @@ function addCallback(
   // first argument. (Otherwise, the method will not be able to properly access `this`.
   const wrappedCallback = (...callbackArgs: unknown[]) => {
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    const conditionalFunc = modFeature["callbackConditionalFunc"];
+    const conditionalFunc = modFeature["shouldCallbackMethodsFire"];
     if (conditionalFunc !== null) {
       const shouldRun = conditionalFunc(vanilla, modCallback, ...callbackArgs);
       if (!shouldRun) {
