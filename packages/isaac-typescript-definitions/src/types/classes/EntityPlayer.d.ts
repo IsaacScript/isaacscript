@@ -1048,7 +1048,7 @@ declare global {
 
     SetTargetTrapDoor(trapDoor: GridEntity): void;
     ShootRedCandle(direction: Vector): void;
-    SpawnMawOfVoid(timeout: int): EntityLaser;
+    SpawnMawOfVoid(durationGameFrames: int): EntityLaser;
     StopExtraAnimation(): void;
 
     /** This will do nothing if the player does not have a Schoolbag. */
