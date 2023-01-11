@@ -83,17 +83,26 @@ export function doesEntityExist(
  * const gapers = getEntities(EntityType.GAPER);
  * const closestGaper = getClosestEntityTo(player, gapers);
  * ```
+ *
+ * @param referenceEntity The entity that is close by.
+ * @param entities The array of entities to look through.
+ * @param filterFunc Optional. A function to filter for a specific type of entity, like e.g. an
+ *                   enemy with a certain amount of HP left.
  */
 export function getClosestEntityTo<T extends AnyEntity>(
   referenceEntity: Entity,
   entities: T[],
+  filterFunc?: (entity: T) => boolean,
 ): T | undefined {
   let closestEntity: T | undefined;
   let closestDistance = math.huge;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
 
-    if (distance < closestDistance) {
+    if (
+      distance < closestDistance &&
+      (filterFunc === undefined || filterFunc(entity))
+    ) {
       closestEntity = entity;
       closestDistance = distance;
     }
