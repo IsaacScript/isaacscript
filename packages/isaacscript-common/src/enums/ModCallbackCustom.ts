@@ -1981,4 +1981,28 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_NPC_UPDATE_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_ROOM_ENTITY_SPAWN` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` or `GridEntityXMLType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preRoomEntitySpawnFilter(
+   *   entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+   *   variant: int,
+   *   subType: int,
+   *   gridIndex: int,
+   *   seed: Seed,
+   * ): [EntityType | GridEntityXMLType, int, int] | undefined {}
+   * ```
+   */
+  PRE_ROOM_ENTITY_SPAWN_FILTER,
 }

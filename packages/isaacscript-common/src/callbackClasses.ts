@@ -109,3 +109,4 @@ export { PreItemPickup } from "./classes/callbacks/PreItemPickup";
 export { PreNewLevel } from "./classes/callbacks/PreNewLevel";
 export { PreNPCCollisionFilter } from "./classes/callbacks/PreNPCCollisionFilter";
 export { PreNPCUpdateFilter } from "./classes/callbacks/PreNPCUpdateFilter";
+export { PreRoomEntitySpawnFilter } from "./classes/callbacks/PreRoomEntitySpawnFilter";

@@ -10,6 +10,7 @@ import {
   EntityType,
   FamiliarVariant,
   GridEntityType,
+  GridEntityXMLType,
   InputHook,
   ItemType,
   KnifeVariant,
@@ -790,6 +791,19 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: [
     callback: (npc: EntityNPC) => undefined | boolean,
     entityType?: EntityType,
+    variant?: int,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER]: [
+    callback: (
+      entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+      variant: int,
+      subType: int,
+      gridIndex: int,
+      seed: Seed,
+    ) => [EntityType | GridEntityXMLType, int, int] | undefined,
+    entityTypeOrGridEntityXMLType?: EntityType | GridEntityXMLType,
     variant?: int,
     subType?: int,
   ];

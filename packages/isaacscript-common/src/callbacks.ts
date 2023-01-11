@@ -127,6 +127,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.PRE_NEW_LEVEL]: cc.PreNewLevel,
   [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: cc.PreNPCCollisionFilter,
   [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: cc.PreNPCUpdateFilter,
+  [ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER]: cc.PreRoomEntitySpawnFilter,
 } as const satisfies HasAllEnumKeys<ModCallbackCustom, AnyClass>;
 
 export type ModCallbackCustomToClass = {
