@@ -27,7 +27,18 @@ if npx git-dirty; then
 fi
 set -e
 
+# Before committing to the docs repo, ensure that the checked out version of the `isaacscript`
+# repository is the latest version. (It is possible that another commit has been pushed in the
+# meantime, in which case we should do nothing and wait for the CI on that commit to finish.)
+# https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
+cd "$REPO_ROOT"
+git fetch
+if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+  exit 0
+fi
+
 echo "Deploying changes to the docs website: $DOCS_REPO_NAME"
+cd "$DOCS_REPO"
 
 git config --global user.email "github-actions@users.noreply.github.com"
 git config --global user.name "github-actions"
