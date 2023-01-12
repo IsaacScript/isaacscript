@@ -3,10 +3,10 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "../../dist/packages/isaacscript-common-ts"
   },
 
   // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
   // "tsconfig.eslint.json" file.
-  "include": ["./src/**/*.ts", ".eslintrc.js"],
+  "include": ["./src/**/*.ts", ".eslintrc.js"]
 }

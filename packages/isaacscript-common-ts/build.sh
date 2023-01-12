@@ -10,7 +10,15 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
 REPO_NAME="$(basename "$DIR")"
 
-REPO_ROOT="$DIR/../.."
-cd "$REPO_ROOT"
+cd "$DIR"
 
-nx build "$REPO_NAME"
+OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
+
+rm -rf "$OUT_DIR"
+
+npx tsc
+
+# Copy the rest of the files needed for npm.
+cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"
+cp "$DIR/README.md" "$OUT_DIR/"

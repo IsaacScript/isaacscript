@@ -220,7 +220,7 @@ export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
  *
  * This function is only meant to be used with interfaces (i.e. types that will not exist at
  * run-time). If you are generating an object that will contain all of the keys of an enum, use the
- * `newObjectWithEnumKeys` helper function instead.
+ * `satisfies` operator with the `HasAllEnumValues` helper type instead.
  */
 export function validateInterfaceMatchesEnum<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,11 +1,9 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/isaacscript-common-ts/src",
-  "projectType": "application",
+  "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "dependsOn": [
         {
           "target": "build",
@@ -13,13 +11,7 @@
         }
       ],
       "options": {
-        "outputPath": "dist/packages/isaacscript-common-ts",
-        "tsConfig": "packages/isaacscript-common-ts/tsconfig.json",
-        "assets": [
-          "packages/isaacscript-common-ts/*.md",
-          "packages/isaacscript-common-ts/LICENSE"
-        ],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "command": "bash packages/isaacscript-common-ts/build.sh"
       }
     },
     "lint": {

@@ -1,4 +1,5 @@
-- delete `newObjectWithEnumKeys`
+- use NX workspace variables in all project.json
+- fix #SCHEMA_PATH="$DIR/schemas/isaacscript-schema.json"
 
 - lint rule for throw new error in isaac mods
 
