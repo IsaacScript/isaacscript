@@ -34,7 +34,7 @@
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
     "isaacscript-common-ts": "^1.2.2",
-    "isaacscript-tsconfig": "^2.2.0",
+    "isaacscript-tsconfig": "^3.0.2",
     "jsonc-parser": "^3.2.0",
     "moment": "^2.29.4",
     "npm-check-updates": "^16.6.2",
