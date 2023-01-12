@@ -1,10 +1,6 @@
-- use NX workspace variables in all project.json
-
 - lint rule for throw new error in isaac mods
 
 - https://wofsauge.github.io/Isaac-XML-Validator/webtool/
-
-- lint no default export
 
 - isaacscript-cli in lua
 - "jsonRoom" command
@@ -105,7 +101,5 @@ lint: no default export
 
 lint: no empty trailing line comment or leading line comment
 
-lint bug:
-//Fix the bug where an enemy can sometimes spawn next to where the player spawns.
-goes to:
-// ix the bug where an enemy can sometimes spawn next to where the player spawns.
+- use NX workspace variables in all project.json
+  - waiting on how to use variables inside of commands from slack
