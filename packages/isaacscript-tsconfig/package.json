@@ -19,5 +19,8 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "@tsconfig/strictest": "^1.0.2"
+  }
 }
