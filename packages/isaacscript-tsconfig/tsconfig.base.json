@@ -6,21 +6,26 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // We prefer the "no-fallthrough" ESLint rule over the "noFallthroughCasesInSwitch" compiler
-    // flag, as this does not have to do with types.
+    // The "strictest" config has the "noFallthroughCasesInSwitch" flag set to true. However, we
+    // prefer the "no-fallthrough" ESLint rule instead, as this does not have to do with types.
     "noFallthroughCasesInSwitch": false,
 
-    // We prefer the "@typescript-eslint/no-unused-vars" ESLint rule over the "noUnusedLocals" and
-    // "noUnusedParameters" compiler flags, since unused local variables can be useful while
-    // debugging. Furthermore, the ESLint rule has the ability to ignore certain specific variable
-    // prefixes, while the TypeScript version does not.
+    // The "strictest" config has the "noUnusedLocals" and the "noUnusedParameters" flags set to
+    // true. However, we prefer the "@typescript-eslint/no-unused-vars" ESLint rule instead, since
+    // unused local variables can be useful while debugging. Furthermore, the ESLint rule has the
+    // ability to ignore certain specific variable prefixes, while the TypeScript version does not.
     "noUnusedLocals": false,
     "noUnusedParameters": false,
 
-    // The "importsNotUsedAsValues" is only useful in very specific transpilation environments, so
-    // the verbosity of having to use the special `import type` syntax everywhere is not needed 99%
-    // of the time.
+    // The "strictest" config has the "importsNotUsedAsValues" flag set to "error". However, this is
+    // only useful in very specific transpilation environments, so the verbosity of having to use
+    // the special `import type` syntax everywhere is not needed 99% of the time.
     "importsNotUsedAsValues": "remove",
+
+    // The "strictest" config has the "checkJs" flag set to true. However, this can cause false
+    // positives with JavaScript config files located in the root of the project directory (like
+    // ".eslintrc.js"). For pure TypeScript projects, having this set to true is unnecessary.
+    "checkJs": false,
 
     // "newLine" specifies the end of line sequence. By default, this is "crlf" on Windows. We want
     // to always use "lf" to be consistent with all platforms and reduce the file size of the
