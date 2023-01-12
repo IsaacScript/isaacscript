@@ -14,7 +14,6 @@
       ],
       "options": {
         "outputPath": "dist/packages/eslint-plugin-isaacscript",
-        "main": "packages/eslint-plugin-isaacscript/src/main.ts",
         "tsConfig": "packages/eslint-plugin-isaacscript/tsconfig.prod.json",
         "assets": [
           "packages/eslint-plugin-isaacscript/*.md",

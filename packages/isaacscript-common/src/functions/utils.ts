@@ -9,8 +9,8 @@ import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
  * - For example, `eRange(1, 3)` will return `[1, 2]`.
  * - For example, `eRange(2)` will return `[0, 1]`.
  *
- * @param start The number to start at.
- * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ * @param start The integer to start at.
+ * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
  *            first argument will be the end.
  * @param increment Optional. The increment to use. Default is 1.
  */
@@ -61,12 +61,8 @@ export function iRange(start: int, end?: int, increment = 1): int[] {
     return iRange(0, start);
   }
 
-  const array: int[] = [];
-  for (let i = start; i <= end; i += increment) {
-    array.push(i);
-  }
-
-  return array;
+  const exclusiveEnd = end + 1;
+  return eRange(start, exclusiveEnd, increment);
 }
 
 /**

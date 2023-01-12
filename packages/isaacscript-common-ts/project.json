@@ -1,0 +1,39 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/isaacscript-common-ts/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
+      "options": {
+        "outputPath": "dist/packages/isaacscript-common-ts",
+        "tsConfig": "packages/isaacscript-common-ts/tsconfig.json",
+        "assets": [
+          "packages/isaacscript-common-ts/*.md",
+          "packages/isaacscript-common-ts/LICENSE"
+        ],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
+      "options": {
+        "command": "bash packages/isaacscript-common-ts/lint.sh"
+      }
+    }
+  },
+  "tags": []
+}
