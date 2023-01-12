@@ -16,8 +16,7 @@ import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
  */
 export function eRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
-    end = start;
-    start = 0;
+    return eRange(0, start);
   }
 
   const array: int[] = [];
@@ -52,15 +51,14 @@ export function getTraversalDescription(
  * - For example, `iRange(1, 3)` will return `[1, 2, 3]`.
  * - For example, `iRange(2)` will return `[0, 1, 2]`.
  *
- * @param start The number to start at.
- * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ * @param start The integer to start at.
+ * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
  *            first argument will be the end.
  * @param increment Optional. The increment to use. Default is 1.
  */
 export function iRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
-    end = start;
-    start = 0;
+    return iRange(0, start);
   }
 
   const array: int[] = [];
