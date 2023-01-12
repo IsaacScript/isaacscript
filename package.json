@@ -58,6 +58,7 @@
     "@nrwl/nx-cloud": "latest",
     "@prettier/plugin-xml": "^2.2.0",
     "@svgr/webpack": "^6.5.1",
+    "@tsconfig/strictest": "^1.0.2",
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.5",
     "@types/glob": "^8.0.0",

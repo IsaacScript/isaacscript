@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { parseIntSafe } from "isaacscript-common-ts";
 import path from "path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
@@ -22,7 +23,7 @@ import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile";
 import { ShadersXML } from "./interfaces/ShadersXML";
 import { getPackageManagerAddCommand } from "./packageManager";
 import { getCustomStagesFromTSConfig } from "./tsconfig";
-import { error, parseIntSafe } from "./utils";
+import { error } from "./utils";
 
 const ISAACSCRIPT_COMMON = "isaacscript-common";
 const ISAACSCRIPT_COMMON_PATH = path.join(

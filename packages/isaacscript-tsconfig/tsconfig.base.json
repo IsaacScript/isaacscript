@@ -1,50 +1,30 @@
 // This is a tsconfig.json intended to be used as a base for all TypeScript projects.
 {
+  // We extend the strictest base config:
+  // https://github.com/tsconfig/bases/blob/main/bases/strictest.json
+  "extends": "@tsconfig/strictest/tsconfig.json",
+
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // We want the compiler to be as strict as possible to catch all the things.
-    // By default, this is false.
-    "strict": true,
-
-    // "allowUnreachableCode" can be set to false to throw a compiler error when it detects
-    // unreachable code.
-    // By default, this is undefined.
-    "allowUnreachableCode": false,
-
-    // "forceConsistentCasingInFileNames" forces import casing to match the file name, which is
-    // useful when developing on Windows.
-    // By default, this is false.
-    "forceConsistentCasingInFileNames": true,
-
     // We prefer the "no-fallthrough" ESLint rule over the "noFallthroughCasesInSwitch" compiler
-    // flags.
-
-    // "noImplicitOverride" forces the "override" modifier when overriding class methods.
-    // By default, this is false.
-    "noImplicitOverride": true,
-
-    // We prefer the "noImplicitReturns" compiler flag over the "consistent-return" ESLint rule,
-    // since it is type-aware:
-    // https://github.com/typescript-eslint/typescript-eslint/issues/5254
-    "noImplicitReturns": true,
-
-    // "noPropertyAccessFromIndexSignature" disallows accessing undefined properties with dot
-    // syntax.
-    // By default, this is false.
-    "noPropertyAccessFromIndexSignature": true,
-
-    // "noUncheckedIndexedAccess" forces type narrowing on types with an index of "string".
-    // By default, this is false.
-    "noUncheckedIndexedAccess": true,
+    // flag, as this does not have to do with types.
+    "noFallthroughCasesInSwitch": false,
 
     // We prefer the "@typescript-eslint/no-unused-vars" ESLint rule over the "noUnusedLocals" and
     // "noUnusedParameters" compiler flags, since unused local variables can be useful while
-    // debugging.
+    // debugging. Furthermore, the ESLint rule has the ability to ignore certain specific variable
+    // prefixes, while the TypeScript version does not.
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
 
-    // "newLine" specifies the end of line sequence.
-    // By default, this is "crlf" on Windows.
-    // We want to always use "lf" to be consistent with all platforms and reduce the file size of
-    // the output.
+    // The "importsNotUsedAsValues" is only useful in very specific transpilation environments, so
+    // the verbosity of having to use the special `import type` syntax everywhere is not needed 99%
+    // of the time.
+    "importsNotUsedAsValues": "remove",
+
+    // "newLine" specifies the end of line sequence. By default, this is "crlf" on Windows. We want
+    // to always use "lf" to be consistent with all platforms and reduce the file size of the
+    // output.
     "newLine": "lf",
   },
 }

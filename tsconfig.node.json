@@ -11,8 +11,9 @@
     "lib": ["ES2021"],
     "module": "commonjs",
     "target": "ES2021",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    // "strict" is part of the "strictest" config.
+    // "esModuleInterop" is part of the "strictest" config.
+    // "skipLibCheck" is part of the "strictest" config.
     "moduleResolution": "node",
 
     // We generically enable the ability to read JSON files, since it is common to import the

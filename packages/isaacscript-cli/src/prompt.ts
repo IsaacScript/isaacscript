@@ -2,8 +2,9 @@
 // Bash terminal. Thus, we revert to using the simpler Prompt library.
 
 import chalk from "chalk";
+import { parseIntSafe } from "isaacscript-common-ts";
 import prompt from "prompt";
-import { error, parseIntSafe } from "./utils";
+import { error } from "./utils";
 
 const VALID_YES_RESPONSES = new Set(["yes", "ye", "y"]);
 const VALID_NO_RESPONSES = new Set(["no", "n"]);
