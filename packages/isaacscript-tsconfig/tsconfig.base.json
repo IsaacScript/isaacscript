@@ -6,6 +6,11 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
+    // The "strictest" config has the "exactOptionalPropertyTypes" flag set to true. However, this
+    // is only needed in rare cases, like when using the `in` operator. Furthermore, it can cause
+    // spurious errors when trying to clear an attribute of an object.
+    "exactOptionalPropertyTypes": false,
+
     // The "strictest" config has the "noFallthroughCasesInSwitch" flag set to true. However, we
     // prefer the "no-fallthrough" ESLint rule instead, as this does not have to do with types.
     "noFallthroughCasesInSwitch": false,

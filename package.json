@@ -28,7 +28,7 @@
     "figlet": "^1.5.2",
     "git-dirty": "^1.0.2",
     "glob": "^8.0.3",
-    "isaac-typescript-definitions": "^10.1.6",
+    "isaac-typescript-definitions": "^10.1.7",
     "jsonc-parser": "^3.2.0",
     "lua-types": "^2.13.1",
     "moment": "^2.29.4",
