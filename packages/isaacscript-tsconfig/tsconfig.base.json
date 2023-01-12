@@ -6,8 +6,9 @@
     // By default, this is false.
     "strict": true,
 
-    // "allowUnreachableCode" throws a compiler error when it detects unreachable code.
-    // By default, this is true.
+    // "allowUnreachableCode" can be set to false to throw a compiler error when it detects
+    // unreachable code.
+    // By default, this is undefined.
     "allowUnreachableCode": false,
 
     // "forceConsistentCasingInFileNames" forces import casing to match the file name, which is
