@@ -32,7 +32,7 @@ export class Config {
    * in the `isaacscript-common` directory. (It assumes that you have `isaacscript-common` linked to
    * a forked development repository.)
    */
-  isaacScriptCommonDev?: boolean;
+  isaacScriptCommonDev = false;
 
   constructor(
     modsDirectory?: string,

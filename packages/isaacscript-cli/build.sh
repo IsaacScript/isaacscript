@@ -38,7 +38,7 @@ npx prettier "$SCHEMA_PATH" --write
 
 # Also, generate the JSON schema for the "isaacscript.json" file.
 # The `npx ts-json-schema-generator` tool is broken with classes:
-# https://github.com/vega/ts-json-schema-generator/issues/1390
+# https://github.com/vega/ts-json-schema-generator/issues/1531
 #SCHEMA_PATH="$DIR/schemas/isaacscript-schema.json"
 #npx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
 #npx prettier "$SCHEMA_PATH" --write
