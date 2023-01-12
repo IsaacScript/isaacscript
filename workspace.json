@@ -7,6 +7,7 @@
     "eslint-plugin-isaacscript": "packages/eslint-plugin-isaacscript",
     "isaacscript-cli": "packages/isaacscript-cli",
     "isaacscript-common": "packages/isaacscript-common",
+    "isaacscript-common-ts": "packages/isaacscript-common-ts",
     "isaacscript-lint": "packages/isaacscript-lint",
     "isaacscript-spell": "packages/isaacscript-spell",
     "isaacscript-tsconfig": "packages/isaacscript-tsconfig",

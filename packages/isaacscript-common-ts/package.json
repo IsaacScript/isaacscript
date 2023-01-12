@@ -15,5 +15,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs"
+  "type": "commonjs",
+  "main": "dist/src/index",
+  "types": "dist/src/index.d.ts"
 }
