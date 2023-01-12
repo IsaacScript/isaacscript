@@ -1,4 +1,23 @@
 /**
+ * Helper function to get the only the values of an enum.
+ *
+ * (By default, TypeScript will put the keys inside of the values of a number-based enum, so those
+ * have to be filtered out.)
+ *
+ * This function will work properly for both number and string enums.
+ */
+export function getEnumValues<T>(
+  transpiledEnum: Record<string, string | T>,
+): T[] {
+  const values = Object.values(transpiledEnum);
+  const numberValues = values.filter((value) => typeof value === "number");
+
+  // If there are no number values, then this must be a string enum, and no filtration is required.
+  const valuesToReturn = numberValues.length > 0 ? numberValues : values;
+  return valuesToReturn as T[];
+}
+
+/**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
  * end and exclusive on the high end. (The "e" stands for exclusive.)
  *
@@ -73,4 +92,29 @@ export function parseIntSafe(input: string): number {
   }
 
   return Number.parseInt(trimmedInput, 10);
+}
+
+/**
+ * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
+ *
+ * For example:
+ *
+ * ```ts
+ * repeat(10, () => {
+ *   foo();
+ * });
+ * ```
+ *
+ * The repeated function is passed the index of the iteration, if needed:
+ *
+ * ```ts
+ * repeat(3, (i) => {
+ *   console.log(i); // Prints "0", "1", "2"
+ * });
+ * ```
+ */
+export function repeat(n: number, func: (i: number) => void): void {
+  for (let i = 0; i < n; i++) {
+    func(i);
+  }
 }
