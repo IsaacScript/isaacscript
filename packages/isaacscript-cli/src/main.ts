@@ -3,6 +3,7 @@
 import chalk from "chalk";
 import * as dotenv from "dotenv";
 import figlet from "figlet";
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import sourceMapSupport from "source-map-support";
 import updateNotifier from "update-notifier";
@@ -23,7 +24,6 @@ import {
 import { Args, parseArgs } from "./parseArgs";
 import { promptInit } from "./prompt";
 import { Command, DEFAULT_COMMAND } from "./types/Command";
-import { error } from "./utils";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject";
 import { validateNodeVersion } from "./validateNodeVersion";
 import { validateOS } from "./validateOS";

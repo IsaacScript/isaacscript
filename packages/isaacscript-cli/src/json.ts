@@ -1,7 +1,8 @@
 import chalk from "chalk";
+import { error } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
 import * as file from "./file";
-import { error, isRecord } from "./utils";
+import { isRecord } from "./utils";
 
 /**
  * Helper function to parse a file as JSONC. This expects the file to contain an object (i.e. `{}`),

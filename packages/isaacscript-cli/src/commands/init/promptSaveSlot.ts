@@ -1,6 +1,6 @@
+import { error } from "isaacscript-common-ts";
 import { Args } from "../../parseArgs";
 import { getInputInt } from "../../prompt";
-import { error } from "../../utils";
 
 export async function promptSaveSlot(
   args: Args,

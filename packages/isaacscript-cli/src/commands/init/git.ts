@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import yaml from "yaml";
 import { version as toolVersion } from "../../../package.json";
@@ -8,7 +9,7 @@ import { execShell } from "../../exec";
 import * as file from "../../file";
 import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML";
 import { getInputString, getInputYesNo } from "../../prompt";
-import { error, parseSemVer } from "../../utils";
+import { parseSemVer } from "../../utils";
 
 const REQUIRED_GIT_MAJOR_VERSION = 2;
 const REQUIRED_GIT_MINOR_VERSION = 30;

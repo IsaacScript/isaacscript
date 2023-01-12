@@ -23,6 +23,11 @@ export function eRange(start: number, end?: number, increment = 1): number[] {
   return array;
 }
 
+/**
+ * Helper function to print out an error message and then exit the program.
+ *
+ * All of the arguments will be directly passed to the `console.error` function.
+ */
 export function error(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);

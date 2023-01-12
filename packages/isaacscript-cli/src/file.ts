@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import fs from "fs";
+import { error } from "isaacscript-common-ts";
 import path from "path";
-import { error } from "./utils";
 
 export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
   if (verbose) {
@@ -256,6 +256,10 @@ export function write(filePath: string, data: string, verbose: boolean): void {
   }
 }
 
+/**
+ * Intended to be used in a try/catch block so that you can catch the error and handle it
+ * accordingly.
+ */
 export function writeTry(
   filePath: string,
   data: string,

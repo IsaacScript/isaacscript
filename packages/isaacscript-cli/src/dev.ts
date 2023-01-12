@@ -1,6 +1,6 @@
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import * as file from "./file";
-import { error } from "./utils";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,

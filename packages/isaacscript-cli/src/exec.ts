@@ -5,8 +5,8 @@ import {
   spawnSync,
   SpawnSyncReturns,
 } from "child_process";
+import { error } from "isaacscript-common-ts";
 import { CWD } from "./constants";
-import { error } from "./utils";
 
 export function execExe(
   path: string,

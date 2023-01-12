@@ -1,8 +1,8 @@
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { getJSONC } from "../../json";
-import { error } from "../../utils";
 
 export function installVSCodeExtensions(
   projectPath: string,

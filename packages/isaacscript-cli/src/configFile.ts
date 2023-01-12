@@ -1,3 +1,4 @@
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import { Config } from "./classes/Config";
 import { getModsDir } from "./commands/init/getModsDir";
@@ -6,7 +7,6 @@ import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
 import * as file from "./file";
 import { getJSONC } from "./json";
 import { Args } from "./parseArgs";
-import { error } from "./utils";
 
 const NUM_INDENT_SPACES = 2;
 

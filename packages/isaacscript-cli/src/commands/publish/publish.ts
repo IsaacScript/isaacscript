@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import { Config } from "../../classes/Config";
 import {
@@ -18,7 +19,7 @@ import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
-import { error, getModTargetDirectoryName, parseSemVer } from "../../utils";
+import { getModTargetDirectoryName, parseSemVer } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
 import { gitCommitIfChanges, isGitDirty } from "../init/git";
 

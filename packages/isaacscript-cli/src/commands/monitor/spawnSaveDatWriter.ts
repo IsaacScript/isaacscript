@@ -1,8 +1,8 @@
 import { ChildProcess, fork } from "child_process";
+import { error } from "isaacscript-common-ts";
 import path from "path";
 import { Config } from "../../classes/Config";
 import { WATCHER_MOD_NAME } from "../../constants";
-import { error } from "../../utils";
 import { SaveDatMessage } from "./saveDatWriter/types";
 
 let saveDatWriter: ChildProcess | null = null;

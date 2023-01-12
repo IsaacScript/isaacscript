@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { repeat } from "isaacscript-common-ts";
 import path from "path";
 import { Config } from "../../classes/Config";
 import { createConfigFile } from "../../configFile";
@@ -26,7 +27,6 @@ import {
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
 } from "../../packageManager";
-import { repeat } from "../../utils";
 import { initGitRepository } from "./git";
 
 export function createMod(

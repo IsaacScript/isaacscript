@@ -1,7 +1,7 @@
 import chalk from "chalk";
+import { error } from "isaacscript-common-ts";
 import { CWD } from "../../constants";
 import * as file from "../../file";
-import { error } from "../../utils";
 
 export function checkModSubdirectory(
   projectPath: string,
