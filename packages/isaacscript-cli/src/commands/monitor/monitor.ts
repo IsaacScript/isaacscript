@@ -83,7 +83,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   }
 
   // Perform the steps to link to a development version of "isaacscript-common", if necessary.
-  if (config.isaacScriptCommonDev === true) {
+  if (config.isaacScriptCommonDev) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
   } else {
     warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
@@ -99,7 +99,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   spawnTSTLWatcher(config, CWD, verbose);
 
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
-  if (config.isaacScriptCommonDev === true) {
+  if (config.isaacScriptCommonDev) {
     const isaacScriptMonorepoDirectory =
       getAndValidateIsaacScriptMonorepoDirectory(CWD, verbose);
     const isaacScriptCommonDirectory = path.join(
@@ -327,7 +327,7 @@ function spawnTSTLWatcher(
 }
 
 function getMonitorMessageSuffix(config: Config, cwd: string): string {
-  if (config.isaacScriptCommonDev !== true) {
+  if (!config.isaacScriptCommonDev) {
     return "";
   }
 
