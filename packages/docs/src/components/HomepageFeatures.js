@@ -56,6 +56,7 @@ function Feature({ title, img, description }) {
   );
 }
 
+// eslint-disable-next-line import/no-default-export
 export default function HomepageFeatures() {
   return (
     <section className={styles.features}>

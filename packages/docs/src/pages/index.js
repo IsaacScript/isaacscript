@@ -62,6 +62,7 @@ for _, entity in ipairs(entities) do
 end
 `.trim();
 
+// eslint-disable-next-line import/no-default-export
 export default function Home() {
   const centerStyle = {
     textAlign: "center",
