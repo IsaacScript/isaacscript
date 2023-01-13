@@ -56,6 +56,14 @@ export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
 }
 
+/**
+ * From:
+ * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
+ */
+export function isFirstLetterCapitalized(string: string): boolean {
+  return /^\p{Lu}/u.test(string);
+}
+
 export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
   // "isFunctionLike" does not seem to work with basic function expressions, so we resort to
   // checking if any signatures exist.

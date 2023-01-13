@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { createRule } from "../utils";
+import { createRule, isFirstLetterCapitalized } from "../utils";
 
 export type Options = [];
 
@@ -10,8 +10,7 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Requires the use of const assertions for named objects with a capital letter",
+      description: "Requires const assertions on objects with a capital letter",
       recommended: "error",
     },
     schema: [],
@@ -35,12 +34,12 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
             continue;
           }
 
-          const { name } = id;
-          if (!isFirstLetterCapitalized(name)) {
+          const variableName = id.name;
+          if (!isFirstLetterCapitalized(variableName)) {
             continue;
           }
 
-          if (!isObjectExpression(declaration)) {
+          if (!isObjectOrArrayExpression(declaration)) {
             continue;
           }
 
@@ -76,21 +75,16 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
   },
 });
 
-/**
- * From:
- * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
- */
-function isFirstLetterCapitalized(string: string) {
-  return /^\p{Lu}/u.test(string);
-}
-
-function isObjectExpression(declaration: TSESTree.VariableDeclarator) {
+function isObjectOrArrayExpression(declaration: TSESTree.VariableDeclarator) {
   const { init } = declaration;
   if (init === null) {
     return false;
   }
 
-  return init.type === AST_NODE_TYPES.ObjectExpression;
+  return (
+    init.type === AST_NODE_TYPES.ObjectExpression ||
+    init.type === AST_NODE_TYPES.ArrayExpression
+  );
 }
 
 function hasConstAssertion(declaration: TSESTree.VariableDeclarator) {

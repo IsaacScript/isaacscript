@@ -12,6 +12,12 @@ This page lists the changes to the IsaacScript framework.
 ## January 20th, 2022 (Unreleased)
 
 - Added `isaacscript-common-ts`, a library that has several helper functions and can be consumed by TypeScript projects. (`isaacscript-common` is compiled to Lua, so it cannot be used for this purpose.)
+- Added the following linting rules:
+  - `require-capital-read-only`
+- Some linting rules have been renamed:
+  - `require-const-assertions` --> `require-capital-const-assertions`
+- Some linting rules have been changed:
+  - `require-capital-const-assertions` - Now applies to arrays.
 
 ## January 13th, 2022
 

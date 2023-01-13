@@ -10,32 +10,69 @@ const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
-  name: "Normal object assignment with const assertion",
+  name: "Object acting as a number enum with const assertion",
   code: `
 const Foo = {
-Value1: 1,
-Value2: 2,
-Value3: 3,
+  Value1: 1,
+  Value2: 2,
+  Value3: 3,
 } as const;
   `,
 });
 
 invalid.push({
-  name: "Normal object assignment without const assertion",
+  name: "Object acting as a number enum without const assertion",
   code: `
 const Foo = {
-Value1: 1,
-Value2: 2,
-Value3: 3,
+  Value1: 1,
+  Value2: 2,
+  Value3: 3,
 };
   `,
   errors: [{ messageId: "noConstAssertion" }],
   output: `
 const Foo = {
-Value1: 1,
-Value2: 2,
-Value3: 3,
+  Value1: 1,
+  Value2: 2,
+  Value3: 3,
 } as const;
+  `,
+});
+
+valid.push({
+  name: "Object acting as a static map with const assertion",
+  code: `
+const FOO = {
+  [MyEnum.Value1]: "something1",
+  [MyEnum.Value2]: "something2",
+  [MyEnum.Value3]: "something3",
+} as const;
+  `,
+});
+
+invalid.push({
+  name: "Object acting as a static map without const assertion",
+  code: `
+const FOO = {
+  [MyEnum.Value1]: "something1",
+  [MyEnum.Value2]: "something2",
+  [MyEnum.Value3]: "something3",
+};
+  `,
+  errors: [{ messageId: "noConstAssertion" }],
+  output: `
+const FOO = {
+  [MyEnum.Value1]: "something1",
+  [MyEnum.Value2]: "something2",
+  [MyEnum.Value3]: "something3",
+} as const;
+  `,
+});
+
+valid.push({
+  name: "Empty object assignment with const assertion",
+  code: `
+const Foo = {} as const;
   `,
 });
 
@@ -47,6 +84,49 @@ const Foo = {};
   errors: [{ messageId: "noConstAssertion" }],
   output: `
 const Foo = {} as const;
+  `,
+});
+
+valid.push({
+  name: "Lowercase object",
+  code: `
+const myObject = {};
+  `,
+});
+
+invalid.push({
+  name: "Array constant declaration without const assertion",
+  code: `
+const MY_CONSTANT = [1, 2, 3];
+  `,
+  errors: [{ messageId: "noConstAssertion" }],
+  output: `
+const MY_CONSTANT = [1, 2, 3] as const;
+  `,
+});
+
+valid.push({
+  name: "Empty array constant declaration with const assertion",
+  code: `
+const MY_CONSTANT = [] as const;
+  `,
+});
+
+invalid.push({
+  name: "Empty array constant declaration without const assertion",
+  code: `
+const MY_CONSTANT = [];
+  `,
+  errors: [{ messageId: "noConstAssertion" }],
+  output: `
+const MY_CONSTANT = [] as const;
+  `,
+});
+
+valid.push({
+  name: "Lowercase array",
+  code: `
+const myArray = [];
   `,
 });
 
@@ -65,9 +145,9 @@ const MY_CONSTANT = "foo";
 });
 
 valid.push({
-  name: "Array constant declaration",
+  name: "Array constant declaration with const assertion",
   code: `
-const MY_CONSTANT = [];
+const MY_CONSTANT = [1, 2, 3] as const;
   `,
 });
 

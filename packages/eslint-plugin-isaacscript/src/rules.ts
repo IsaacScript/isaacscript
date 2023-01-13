@@ -28,6 +28,7 @@ import { noVoidReturnType } from "./rules/no-void-return-type";
 import { preferPlusplus } from "./rules/prefer-plusplus";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus";
 import { requireCapitalConstAssertions } from "./rules/require-capital-const-assertions";
+import { requireCapitalReadOnly } from "./rules/require-capital-read-only";
 import { strictEnums } from "./rules/strict-enums";
 
 export const rules = {
@@ -54,5 +55,6 @@ export const rules = {
   "prefer-plusplus": preferPlusplus,
   "prefer-postfix-plusplus": preferPostfixPlusplus,
   "require-capital-const-assertions": requireCapitalConstAssertions,
+  "require-capital-read-only": requireCapitalReadOnly,
   "strict-enums": strictEnums,
 };

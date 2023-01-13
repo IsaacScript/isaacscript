@@ -277,9 +277,16 @@ invalid.push({
 });
 
 valid.push({
-  name: "Commenting out code",
+  name: "Commenting out code using const",
   code: `
 // const foo = 123;
+  `,
+});
+
+valid.push({
+  name: "Commenting out code using export",
+  code: `
+// export const CLIENT_LOBBY_CHANNEL_ID = "123";
   `,
 });
 

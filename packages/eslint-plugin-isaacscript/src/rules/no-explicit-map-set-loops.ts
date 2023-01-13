@@ -46,8 +46,8 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
           potentialMapOrSetTSNode,
         );
 
-        // The TypeScript definitions are incorrect here; symbol can be undefined.
         const potentialMapOrSetSymbol = potentialMapOrSetType.symbol;
+        // The TypeScript definitions are incorrect here; symbol can be undefined.
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (potentialMapOrSetSymbol === undefined) {
           return;

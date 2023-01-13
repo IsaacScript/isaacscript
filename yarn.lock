@@ -6491,10 +6491,10 @@ eslint-plugin-import@^2.27.4:
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-1.7.1.tgz#01f702d6b25e2ed9e859fb5de7a4d386d33a2c74"
-  integrity sha512-y0SeFL0lIguQhwy7kNn9/BzvKB5EvAazqjs++4fXeAGE4LVuiCbgJzQGIKC4Vzd4HgYH1kBlaBDuh1XK1UZWMw==
+eslint-plugin-isaacscript@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.0.0.tgz#835571f1bbe7751e181d769bd9b7c1647c9d27aa"
+  integrity sha512-h54Kr+vVgMlarTUhNOOcj0gK/pqxObMqx/Qp5sa2v827+YYlvCbnZSTHtKHL9qexXbTkz+P74CPp3XoNcSIZzA==
   dependencies:
     "@typescript-eslint/type-utils" "5.48.1"
     "@typescript-eslint/types" "5.48.1"
@@ -14426,10 +14426,10 @@ trough@^2.0.0:
   resolved "https://registry.yarnpkg.com/true-myth/-/true-myth-4.1.1.tgz#ff4ac9d5130276e34aa338757e2416ec19248ba2"
   integrity sha512-rqy30BSpxPznbbTcAcci90oZ1YR4DqvKcNXNerG5gQBU2v4jk0cygheiul5J6ExIMrgDVuanv/MkGfqZbKrNNg==
 
-ts-jest@^29.0.4:
-  version "29.0.4"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.0.4.tgz#9bc1fd0ec4d863f001af6c5c630e3a807df90f6d"
-  integrity sha512-YdNofkoyzeinwjIqLSYQeAM+GTmFQ7xFNtWcR5OyitY5VLzzNINrNmfhP5H3daA/V+RGQR7O3g1K6ysRgu5xIQ==
+ts-jest@^29.0.5:
+  version "29.0.5"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.0.5.tgz#c5557dcec8fe434fcb8b70c3e21c6b143bfce066"
+  integrity sha512-PL3UciSgIpQ7f6XjVOmbi96vmDHUqAyqDr8YxzopDqX3kfgYtX1cuNeBjP+L9sFXi6nzsGGA6R3fP3DDDJyrxA==
   dependencies:
     bs-logger "0.x"
     fast-json-stable-stringify "2.x"
