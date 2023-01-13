@@ -1,6 +1,7 @@
 import fs from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
+import { error } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import process from "process";
@@ -97,11 +98,6 @@ function checkEntryPointsForDirectory(
   }
 }
 
-function error(...args: unknown[]): never {
-  console.error(...args);
-  return process.exit(1);
-}
-
 function trimTwoDirectoriesFromPath(filePath: string) {
   const trimmedPath = trimLeftmostDirectoryFromPath(filePath);
   return trimLeftmostDirectoryFromPath(trimmedPath);
@@ -112,15 +108,4 @@ function trimLeftmostDirectoryFromPath(filePath: string) {
   return firstSlashIndex === -1
     ? filePath
     : filePath.substring(firstSlashIndex + 1);
-}
-
-function fileExists(filePath: string): boolean {
-  let pathExists: boolean;
-  try {
-    pathExists = fs.existsSync(filePath);
-  } catch (err) {
-    error(`Failed to check if "${filePath}" exists:`, err);
-  }
-
-  return pathExists;
 }

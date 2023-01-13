@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
+import { error } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 
@@ -61,9 +62,4 @@ function getOutDir(): string {
   }
 
   return outDir;
-}
-
-function error(...args: unknown[]): never {
-  console.error(...args);
-  return process.exit(1);
 }

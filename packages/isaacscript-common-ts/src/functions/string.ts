@@ -2,6 +2,25 @@
 const KEBAB_CASE_REGEX =
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
+export function capitalizeFirstLetter(string: string): string {
+  const firstCharacter = string.charAt(0);
+  const capitalizedFirstLetter = firstCharacter.toUpperCase();
+  const restOfString = string.slice(1);
+
+  return `${capitalizedFirstLetter}${restOfString}`;
+}
+
+/** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
 export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
+}
+
+/** Helper function to trim a suffix from a string, if it exists. Returns the trimmed string. */
+export function trimSuffix(string: string, prefix: string): string {
+  if (!string.endsWith(prefix)) {
+    return string;
+  }
+
+  const endCharacter = string.length - prefix.length;
+  return string.slice(0, endCharacter);
 }

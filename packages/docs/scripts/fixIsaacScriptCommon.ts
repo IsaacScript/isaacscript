@@ -40,7 +40,11 @@ custom_edit_url: null
 import { readdirSync } from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
-import { error } from "isaacscript-common-ts";
+import {
+  capitalizeFirstLetter,
+  error,
+  trimSuffix,
+} from "isaacscript-common-ts";
 import path from "path";
 
 const DEBUG = false as boolean;
@@ -514,22 +518,4 @@ function pascalCaseToTitleCase(string: string) {
       // Remove any white space left around the word.
       .trim()
   );
-}
-
-function capitalizeFirstLetter(string: string): string {
-  const firstCharacter = string.charAt(0);
-  const capitalizedFirstLetter = firstCharacter.toUpperCase();
-  const restOfString = string.slice(1);
-
-  return `${capitalizedFirstLetter}${restOfString}`;
-}
-
-/** Helper function to trim a suffix from a string, if it exists. Returns the trimmed string. */
-function trimSuffix(string: string, prefix: string): string {
-  if (!string.endsWith(prefix)) {
-    return string;
-  }
-
-  const endCharacter = string.length - prefix.length;
-  return string.slice(0, endCharacter);
 }

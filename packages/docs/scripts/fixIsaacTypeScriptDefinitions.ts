@@ -2,6 +2,7 @@
 
 import { readdirSync } from "fs";
 import { file } from "isaacscript-cli";
+import { capitalizeFirstLetter } from "isaacscript-common-ts";
 import path from "path";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
@@ -167,27 +168,4 @@ function getMarkdownFileNames(directoryPath: string) {
   return readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
     .map((dirent) => dirent.name);
-}
-
-function capitalizeFirstLetter(string: string): string {
-  const firstCharacter = string.charAt(0);
-  const capitalizedFirstLetter = firstCharacter.toUpperCase();
-  const restOfString = string.slice(1);
-
-  return `${capitalizedFirstLetter}${restOfString}`;
-}
-
-/** Helper function to trim a suffix from a string, if it exists. Returns the trimmed string. */
-function trimSuffix(string: string, prefix: string): string {
-  if (!string.endsWith(prefix)) {
-    return string;
-  }
-
-  const endCharacter = string.length - prefix.length;
-  return string.slice(0, endCharacter);
-}
-
-function error(...args: unknown[]): never {
-  console.error(...args);
-  return process.exit(1);
 }
