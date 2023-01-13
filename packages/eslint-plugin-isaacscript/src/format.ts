@@ -27,6 +27,9 @@ export function formatText(
   maxLength: number,
   parseJSDocTags = true,
 ): string {
+  // First, replace any whitespace that is not a newline or a space with a space (like e.g. tabs).
+  text = text.replaceAll(/[^\S\n ]+/g, " ");
+
   let formattedText = "";
   let formattedLine = "";
   let insideList: List | undefined;
