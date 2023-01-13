@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-yarn create-rule "$@"
+npx ts-node --require "tsconfig-paths/register" "$DIR/tools/scripts/create-rule.ts" "$1" "$2"

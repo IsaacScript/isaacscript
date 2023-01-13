@@ -32,7 +32,6 @@
   "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
-    "create-rule": "ts-node --require \"tsconfig-paths/register\" tools/scripts/create-rule.ts",
     "generate": "ts-node tools/scripts/generate.ts",
     "generate:configs": "ts-node tools/scripts/generate-configs.ts",
     "generate:readme": "ts-node tools/scripts/generate-readme.ts",
