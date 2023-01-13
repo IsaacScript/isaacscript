@@ -1,34 +1,7 @@
-- use stack overflow to remove isaac-typescript-definitions from deps
-
 - Lint:
-  - add:     "no-unused-expressions": "warn",
-  - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
   - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
   - double period for end of JSDoc comment lint
   - lint rule: arrays, maps, and sets that start with Capital letter must be read-only
-
-
-
-
-lint error, missing warning for "verbose" missing:
-
-/**
- * Helper function to warp to a custom stage/level.
- *
- * Custom stages/levels must first be defined in the "tsconfig.json" file. See the documentation for
- * more details: https://isaacscript.github.io/main/custom-stages/
- *
- * @param name The name of the custom stage, corresponding to what is in the "tsconfig.json" file.
- * @param firstFloor Whether to go to the first floor or the second floor. For example, if you have
- *                   a custom stage emulating Caves, then the first floor would be Caves 1, and the
- *                   second floor would be Caves 2.
- */
-export function setCustomStage(
-  name: string,
-  firstFloor = true,
-  verbose = false,
-): void {
-
 
 lint failure, complete sentences:
 
@@ -96,6 +69,9 @@ lint: no default export
 lint: no empty trailing line comment or leading line comment
 
 ------
+
+- use stack overflow to remove isaac-typescript-definitions from deps
+  - difficult, do it when I have the courage
 
 - use NX workspace variables in all project.json
   - waiting on how to use variables inside of commands from slack

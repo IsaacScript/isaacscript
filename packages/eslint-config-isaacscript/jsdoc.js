@@ -176,21 +176,20 @@ module.exports = {
 
     // - jsdoc/require-param-type - Not needed in TypeScript.
 
-    // - jsdoc/require-param - It's overboard for every function to document every parameter.
-    // TODO
-    /*
     "jsdoc/require-param": [
       "warn",
       {
+        // We only activate the rule when there are one or more parameters.
+        // https://github.com/gajus/eslint-plugin-jsdoc/issues/920
         contexts: [
           {
             context: "FunctionDeclaration",
-            comment: 'JsdocBlock > JsdocTag[tag="param"]',
+            comment: 'JsdocBlock:has(JsdocTag[tag="param"])',
           },
         ],
       },
     ],
-    */
+
     // - jsdoc/require-property - Probably not needed in TypeScript.
 
     /**

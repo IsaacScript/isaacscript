@@ -448,12 +448,22 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://eslint.org/docs/latest/rules/no-unused-expressions
+     *
+     * Not defined in parent configs.
+     *
+     * An unused expression which has no effect on the state of the program indicates a logic error.
+     */
+    "no-unused-expressions": "warn",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/prefer-destructuring
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
      *
-     * - Array destructuring can result in non-intuitive code.
+     * Array destructuring can result in non-intuitive code.
      */
     "prefer-destructuring": [
       "warn",
