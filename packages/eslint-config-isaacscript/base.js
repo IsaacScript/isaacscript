@@ -357,7 +357,18 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
+     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md
+     *
+     * Not defined in the parent configs.
+     *
+     * The case against default exports is layed out here:
+     * https://basarat.gitbook.io/typescript/main-1/defaultisbad
+     */
+    "import/no-default-export": "warn",
+
+    /**
+     * Documentation:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/prefer-default-export.md
      *
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
