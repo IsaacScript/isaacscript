@@ -11,6 +11,44 @@ This page lists the changes to the IsaacScript framework.
 
 ## January 20th, 2022 (Unreleased)
 
+- Added the following enums:
+  - `LarryJrSubType`
+  - `HollowSubType`
+  - `MonstroSubType`
+  - `ChubSubType`
+  - `CarrionQueenSubType`
+  - `GurdySubType`
+  - `Monstro2SubType`
+  - `MomSubType`
+  - `PinSubType`
+  - `FrailSubType`
+  - `FamineSubType`
+  - `PestilenceSubType`
+  - `WarSubType`
+  - `DeathSubType`
+  - `DukeOfFliesSubType`
+  - `HuskSubType`
+  - `PeepSubType`
+  - `BloatSubType`
+  - `FistulaSubType`
+  - `GeminiSubType`
+  - `GurdyJrSubType`
+  - `WidowSubType`
+  - `GurglingSubType`
+  - `HauntSubType`
+  - `DingleSubType`
+  - `MegaMawSubType`
+  - `GateSubType`
+  - `MegaFattySubType`
+  - `CageSubType`
+  - `PolycephalusSubType`
+  - `StainSubType`
+  - `BrownieSubType`
+  - `ForsakenSubType`
+  - `LittleHornSubType`
+  - `RagManSubType`
+- Renamed the following enums:
+  - `DukeVariant` --> `DukeOfFliesVariant`
 - Added `isaacscript-common-ts`, a library that has several helper functions and can be consumed by TypeScript projects. (`isaacscript-common` is compiled to Lua, so it cannot be used for this purpose.)
 - Added the following linting rules:
   - `require-capital-read-only`

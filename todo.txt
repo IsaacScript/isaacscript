@@ -33,16 +33,6 @@ https://basarat.gitbook.io/typescript/recap/null-undefined
 
 -----
 
-lint failure:
-
-     * If IsaacScript is running and:
-     *  - the game is not open
-     *  - or the game is open but the IsaacScript Watcher mod is disabled
-
-(space before hyphen)
-
------
-
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
 

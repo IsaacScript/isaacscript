@@ -12,8 +12,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          # The default version is 14. The ESLint config requires Node 16 to work properly.
-          node-version: "16"
+          # The default version is 14. The ESLint config requires at least Node 16 to work properly.
+          # We use 18, which is the official LTS version.
+          node-version: "18"
           cache: "PACKAGE-MANAGER-NAME"
 
       - name: Retrieve the cached "node_modules" directory (if present)
