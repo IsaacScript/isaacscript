@@ -65,7 +65,7 @@ export enum EntityType {
   PESTILENCE = 64,
   WAR = 65,
   DEATH = 66,
-  DUKE = 67,
+  DUKE_OF_FLIES = 67,
   PEEP = 68,
   LOKI = 69,
   FISTULA_BIG = 71,
