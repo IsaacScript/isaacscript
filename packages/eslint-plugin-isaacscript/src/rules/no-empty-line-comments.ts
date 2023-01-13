@@ -11,7 +11,7 @@ export const noEmptyLineComments = createRule({
     },
     schema: [],
     messages: {
-      isEmpty: "Empty JSDoc comments are not allowed.",
+      isEmpty: "Empty line comments comments are not allowed.",
     },
     fixable: "code",
   },
