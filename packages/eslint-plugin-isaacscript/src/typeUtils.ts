@@ -4,7 +4,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
 import * as ts from "typescript";
-import { getEnumValues } from "./utils";
 
 export enum MemberNameType {
   Private = 1,
@@ -139,22 +138,4 @@ export function isTypeFlagSet(
 ): boolean {
   const flags = getTypeFlags(type);
   return isFlagSet(flags, flagsToCheck);
-}
-
-/**
- * Returns an array containing the names of every type flag that matches the given type flags.
- *
- * Useful for debugging and inspecting the AST.
- */
-// ts-prune-ignore-next
-export function getTypeFlagNames(type: ts.Type): string[] {
-  const flagNames: string[] = [];
-  for (const flag of getEnumValues(ts.TypeFlags)) {
-    if (isTypeFlagSet(type, flag)) {
-      const flagName = ts.TypeFlags[flag];
-      flagNames.push(flagName);
-    }
-  }
-
-  return flagNames;
 }
