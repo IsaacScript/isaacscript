@@ -66,6 +66,7 @@ speedrunner
 speedrunners
 speedrunning
 speedruns
+Spitties
 Stonies
 teleporters
 teleporting
