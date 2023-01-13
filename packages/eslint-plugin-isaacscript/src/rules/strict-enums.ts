@@ -292,7 +292,7 @@ export const strictEnums = createRule<Options, MessageIds>({
     }
 
     function setHasAnyElementFromSet<T>(set1: Set<T>, set2: Set<T>): boolean {
-      for (const value of set2.values()) {
+      for (const value of set2) {
         if (set1.has(value)) {
           return true;
         }

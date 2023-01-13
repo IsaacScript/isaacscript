@@ -366,7 +366,7 @@ export class ModdedElementSets extends Feature {
     for (const collectibleType of CONDITIONAL_FLYING_COLLECTIBLE_TYPES) {
       permanentFlyingCollectibleTypes.delete(collectibleType);
     }
-    for (const collectibleType of permanentFlyingCollectibleTypes.values()) {
+    for (const collectibleType of permanentFlyingCollectibleTypes) {
       this.permanentFlyingCollectibleTypesSet.add(collectibleType);
     }
   }
@@ -514,7 +514,7 @@ export class ModdedElementSets extends Feature {
         );
       }
 
-      for (const cardType of cardTypeSet.values()) {
+      for (const cardType of cardTypeSet) {
         matchingCardTypes.add(cardType);
       }
     }

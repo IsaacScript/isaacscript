@@ -77,7 +77,7 @@ export class GridEntityCollisionDetection extends Feature {
         GetPtrHash(entity),
       );
       const collidingEntitiesPtrHashSet = new Set(collidingEntitiesPtrHashes);
-      for (const oldCollidingEntityPtrHash of oldCollidingEntities.values()) {
+      for (const oldCollidingEntityPtrHash of oldCollidingEntities) {
         if (!collidingEntitiesPtrHashSet.has(oldCollidingEntityPtrHash)) {
           oldCollidingEntities.delete(oldCollidingEntityPtrHash);
         }

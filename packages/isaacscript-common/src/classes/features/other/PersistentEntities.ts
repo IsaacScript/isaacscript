@@ -173,7 +173,7 @@ export class PersistentEntities extends Feature {
     for (const [
       ptrHash,
       tuple,
-    ] of this.v.room.spawnedPersistentEntities.entries()) {
+    ] of this.v.room.spawnedPersistentEntities) {
       const [index, entityPtr] = tuple;
       if (index !== persistentEntityIndex) {
         continue;

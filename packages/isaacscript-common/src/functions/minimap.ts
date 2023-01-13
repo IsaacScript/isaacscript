@@ -108,7 +108,7 @@ export function setDisplayFlags(
 ): void {
   const level = game.GetLevel();
 
-  for (const [roomGridIndex, displayFlags] of displayFlagsMap.entries()) {
+  for (const [roomGridIndex, displayFlags] of displayFlagsMap) {
     if (MinimapAPI === undefined) {
       // We pass false to the `updateVisibility` argument as a small optimization.
       setRoomDisplayFlags(roomGridIndex, displayFlags, false);

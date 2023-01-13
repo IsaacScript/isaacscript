@@ -304,7 +304,7 @@ function fixPitGraphics() {
   const gridWidth = room.GetGridWidth();
   const pitMap = getPitMap();
 
-  for (const [gridIndex, gridEntity] of pitMap.entries()) {
+  for (const [gridIndex, gridEntity] of pitMap) {
     const gridIndexLeft = gridIndex - 1;
     const L = pitMap.has(gridIndexLeft);
     const gridIndexRight = gridIndex + 1;

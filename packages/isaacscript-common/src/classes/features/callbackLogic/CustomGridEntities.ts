@@ -126,7 +126,7 @@ export class CustomGridEntities extends Feature {
     }
 
     const room = game.GetRoom();
-    for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
+    for (const [gridIndex, data] of roomCustomGridEntities) {
       const decoration = room.GetGridEntity(gridIndex);
       if (decoration === undefined) {
         roomCustomGridEntities.delete(gridIndex);
@@ -361,7 +361,7 @@ export class CustomGridEntities extends Feature {
 
     const room = game.GetRoom();
     const customGridEntities: Array<[GridEntity, GridEntityCustomData]> = [];
-    for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
+    for (const [gridIndex, data] of roomCustomGridEntities) {
       const gridEntity = room.GetGridEntity(gridIndex);
       if (gridEntity !== undefined) {
         customGridEntities.push([gridEntity, data]);
@@ -398,7 +398,7 @@ export class CustomGridEntities extends Feature {
       return undefined;
     }
 
-    for (const [_gridIndex, data] of roomCustomGridEntities.entries()) {
+    for (const [_gridIndex, data] of roomCustomGridEntities) {
       if (data.gridIndex === gridIndex) {
         return data.gridEntityTypeCustom;
       }

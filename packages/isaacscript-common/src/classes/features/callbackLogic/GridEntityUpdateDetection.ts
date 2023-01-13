@@ -91,7 +91,7 @@ export class GridEntityUpdateDetection extends Feature {
     // being removed and fire the PostGridEntityRemoved callback.
     this.checkGridEntitiesRemoved(gridEntitiesMap);
 
-    for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
+    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
       this.checkGridEntityStateChanged(gridIndex, gridEntity);
       this.checkNewGridEntity(gridIndex, gridEntity);
 
@@ -111,7 +111,7 @@ export class GridEntityUpdateDetection extends Feature {
     for (const [
       gridIndex,
       gridEntityTuple,
-    ] of this.v.room.initializedGridEntities.entries()) {
+    ] of this.v.room.initializedGridEntities) {
       const [storedGridEntityType, storedGridEntityVariant] = gridEntityTuple;
       const gridEntity = gridEntitiesMap.get(gridIndex);
       if (
@@ -213,7 +213,7 @@ export class GridEntityUpdateDetection extends Feature {
   private postNewRoomReordered = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
-    for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
+    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
       this.checkNewGridEntity(gridIndex, gridEntity);
     }
   };

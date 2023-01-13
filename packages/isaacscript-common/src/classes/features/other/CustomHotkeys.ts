@@ -37,14 +37,14 @@ export class CustomHotkeys extends Feature {
     for (const [
       keyboard,
       triggerFunc,
-    ] of this.staticHotkeyFunctionMap.entries()) {
+    ] of this.staticHotkeyFunctionMap) {
       this.checkIfTriggered(keyboard, triggerFunc);
     }
 
     for (const [
       keyboardFunc,
       triggerFunc,
-    ] of this.dynamicHotkeyFunctionMap.entries()) {
+    ] of this.dynamicHotkeyFunctionMap) {
       const keyboard = keyboardFunc();
       if (keyboard !== undefined) {
         this.checkIfTriggered(keyboard, triggerFunc);

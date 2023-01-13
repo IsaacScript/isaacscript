@@ -109,7 +109,7 @@ export class PlayerCollectibleDetection extends Feature {
     ]);
 
     let numFired = 0;
-    for (const collectibleType of collectibleTypesSet.values()) {
+    for (const collectibleType of collectibleTypesSet) {
       const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
       const newNum = newCollectibleMap.get(collectibleType) ?? 0;
       const difference = newNum - oldNum;

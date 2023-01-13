@@ -275,7 +275,7 @@ function getStoredPickupIndex(
   pickup: Entity,
   pickupDescriptions: Map<PickupIndex, PickupDescription>,
 ): PickupIndex | undefined {
-  for (const [pickupIndex, pickupDescription] of pickupDescriptions.entries()) {
+  for (const [pickupIndex, pickupDescription] of pickupDescriptions) {
     if (
       vectorEquals(pickupDescription.position, pickup.Position) &&
       pickupDescription.initSeed === pickup.InitSeed

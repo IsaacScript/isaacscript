@@ -303,7 +303,7 @@ export function getRoomShapeAdjacentExistingGridIndexes(
   for (const [
     doorSlot,
     roomGridIndex,
-  ] of roomShapeAdjacentGridIndexes.entries()) {
+  ] of roomShapeAdjacentGridIndexes) {
     const roomData = getRoomData(roomGridIndex);
     if (roomData === undefined) {
       roomShapeAdjacentGridIndexes.delete(doorSlot);
@@ -372,7 +372,7 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
   for (const [
     doorSlot,
     roomGridIndex,
-  ] of roomShapeAdjacentGridIndexes.entries()) {
+  ] of roomShapeAdjacentGridIndexes) {
     const roomData = getRoomData(roomGridIndex);
     if (roomData !== undefined) {
       roomShapeAdjacentGridIndexes.delete(doorSlot);
