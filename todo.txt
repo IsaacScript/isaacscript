@@ -1,3 +1,5 @@
+-----
+
 lint failure, complete sentences:
 
  * Custom grid entities are built on top of real grid entities. You can use any existing grid entity
@@ -9,12 +11,15 @@ lint failure, complete sentences:
 
 (no trailing period in the middle)
 
+-----
 
 lint failure:
 
  * These are helper functions relating to creating custom stages with the built-in standard library.
  * For more information about custom stages, see the [main
  * documentation page](https://isaacscript.github.io/main/custom-stages).
+
+-----
 
 lint:
 //test
