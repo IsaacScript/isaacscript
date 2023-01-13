@@ -3,7 +3,7 @@ import {
   ChubVariant,
   DaddyLongLegsVariant,
   DingleVariant,
-  DukeVariant,
+  DukeOfFliesVariant,
   EntityType,
   FallenVariant,
   FistulaVariant,
@@ -44,7 +44,7 @@ const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.LARRY_JR}.${LarryJrVariant.LARRY_JR}`, // 19.0
   `${EntityType.MONSTRO}.0`, // 20.0
   `${EntityType.FAMINE}.0`, // 63.0
-  `${EntityType.DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
+  `${EntityType.DUKE_OF_FLIES}.${DukeOfFliesVariant.DUKE_OF_FLIES}`, // 67.0
   `${EntityType.GEMINI}.${GeminiVariant.GEMINI}`, // 79.0
   `${EntityType.GEMINI}.${GeminiVariant.STEVEN}`, // 79.1
   `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
@@ -61,7 +61,7 @@ const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
 const CELLAR_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.PIN}.${PinVariant.PIN}`, // 62.0
   `${EntityType.FAMINE}.0`, // 63.0
-  `${EntityType.DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
+  `${EntityType.DUKE_OF_FLIES}.${DukeOfFliesVariant.DUKE_OF_FLIES}`, // 67.0
   `${EntityType.GEMINI}.${GeminiVariant.BLIGHTED_OVUM}`, // 79.2
   `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
   `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
@@ -77,7 +77,7 @@ const BURNING_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.LARRY_JR}.${LarryJrVariant.LARRY_JR}`, // 19.0
   `${EntityType.MONSTRO}.0`, // 20.0
   `${EntityType.FAMINE}.0`, // 63.0
-  `${EntityType.DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
+  `${EntityType.DUKE_OF_FLIES}.${DukeOfFliesVariant.DUKE_OF_FLIES}`, // 67.0
   `${EntityType.GEMINI}.${GeminiVariant.GEMINI}`, // 79.0
   `${EntityType.GEMINI}.${GeminiVariant.STEVEN}`, // 79.1
   `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
@@ -153,7 +153,7 @@ const CATACOMBS_BOSSES_SET: ReadonlySet<string> = new Set([
   `${EntityType.CHUB}.${ChubVariant.CARRION_QUEEN}`, // 28.2
   `${EntityType.PIN}.${PinVariant.FRAIL}`, // 62.2
   `${EntityType.PESTILENCE}.0`, // 64.0
-  `${EntityType.DUKE}.${DukeVariant.THE_HUSK}`, // 67.1
+  `${EntityType.DUKE_OF_FLIES}.${DukeOfFliesVariant.THE_HUSK}`, // 67.1
   `${EntityType.PEEP}.${PeepVariant.PEEP}`, // 68.0
   `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
   `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
