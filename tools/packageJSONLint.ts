@@ -1,11 +1,10 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import glob from "glob";
-import { file, utils } from "isaacscript-cli";
+import { file } from "isaacscript-cli";
+import { error, isKebabCase } from "isaacscript-common-ts";
 import path from "path";
 import sortPackageJson from "sort-package-json";
-
-const { isKebabCase, error } = utils;
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
@@ -372,6 +371,7 @@ function checkRootDepsUpToDate(
   }
 }
 
+/** Parses a JSON string into record/object. */
 function getPackageJSON(packageJSONString: string): Record<string, unknown> {
   let packageJSON: Record<string, unknown> | undefined | null;
   try {

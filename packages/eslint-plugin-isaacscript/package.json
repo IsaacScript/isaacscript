@@ -39,6 +39,9 @@
     "generate:rules": "ts-node tools/scripts/generate-rules.ts",
     "test": "jest"
   },
+  "devDependencies": {
+    "isaacscript-common-ts": "^1.2.2"
+  },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 5.0.0",
     "eslint": ">= 8.0.0",

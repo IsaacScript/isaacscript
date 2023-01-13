@@ -8,10 +8,6 @@ export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
 const RULE_NAME_PREFIX = `${PLUGIN_NAME}/`;
 const PRETTIER_CONFIG = prettier.resolveConfig.sync(__dirname);
 
-/** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
-const KEBAB_CASE_REGEX =
-  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
-
 function kebabCaseToCamelCase(text: string): string {
   return text.replace(/-./g, (match) => {
     const firstLetterOfWord = match[1];
@@ -53,10 +49,6 @@ export function getCamelCaseRuleName(kebabCaseName: string): string {
 
 export function getFullRuleName(ruleName: string): string {
   return `${RULE_NAME_PREFIX}${ruleName}`;
-}
-
-export function isKebabCase(s: string): boolean {
-  return KEBAB_CASE_REGEX.test(s);
 }
 
 export function isRecommendedRule(rule: RuleDefinition): boolean {

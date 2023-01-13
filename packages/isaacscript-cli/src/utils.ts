@@ -3,10 +3,6 @@ import moment from "moment";
 import { Config } from "./classes/Config";
 import { CURRENT_DIRECTORY_NAME } from "./constants";
 
-/** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
-const KEBAB_CASE_REGEX =
-  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
-
 export function getModTargetDirectoryName(config: Config): string {
   return config.customTargetModDirectoryName === undefined
     ? CURRENT_DIRECTORY_NAME
@@ -20,10 +16,6 @@ export function getTime(): string {
 // From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space
 export function hasWhiteSpace(s: string): boolean {
   return /\s/g.test(s);
-}
-
-export function isKebabCase(s: string): boolean {
-  return KEBAB_CASE_REGEX.test(s);
 }
 
 export function isRecord(object: unknown): object is Record<string, unknown> {

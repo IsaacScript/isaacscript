@@ -40,6 +40,7 @@ custom_edit_url: null
 import { readdirSync } from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
+import { error } from "isaacscript-common-ts";
 import path from "path";
 
 const DEBUG = false as boolean;
@@ -531,9 +532,4 @@ function trimSuffix(string: string, prefix: string): string {
 
   const endCharacter = string.length - prefix.length;
   return string.slice(0, endCharacter);
-}
-
-function error(...args: unknown[]): never {
-  console.error(...args);
-  return process.exit(1);
 }
