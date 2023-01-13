@@ -219,7 +219,7 @@ function mergeSerializedTable(
         if (!isTable(oldValue)) {
           // The child table does not exist on the old table. However, we still need to copy over
           // the new table, because we need to handle data types like "Foo | null". Thus, set up a
-          // blank sub-table on the old table, and continue to recursively merge..
+          // blank sub-table on the old table, and continue to recursively merge.
           oldValue = new LuaMap();
           oldTable.set(key, oldValue);
         }

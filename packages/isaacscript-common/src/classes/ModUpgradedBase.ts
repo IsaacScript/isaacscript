@@ -390,7 +390,7 @@ export class ModUpgradedBase implements Mod {
   /**
    * Returns the names of the exported class methods from the features that were added. This is
    * called from the "upgradeMod" function, but we want to mark it as private so that end-users
-   * don't have access to it..
+   * don't have access to it.
    */
   private initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
     const featureClass = this.features[feature];
