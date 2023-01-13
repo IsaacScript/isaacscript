@@ -1,5 +1,4 @@
 - Lint:
-  - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
   - double period for end of JSDoc comment lint
   - lint rule: arrays, maps, and sets that start with Capital letter must be read-only
 
@@ -20,11 +19,6 @@ lint failure:
  * These are helper functions relating to creating custom stages with the built-in standard library.
  * For more information about custom stages, see the [main
  * documentation page](https://isaacscript.github.io/main/custom-stages).
-
-
-lint TODO:
-"Explicit iteration is disallowed" marks error over whole function instead of just the set
-
 
 lint:
 

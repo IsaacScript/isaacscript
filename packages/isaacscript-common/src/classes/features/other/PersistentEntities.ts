@@ -170,10 +170,7 @@ export class PersistentEntities extends Feature {
   ): void {
     this.v.level.persistentEntities.delete(persistentEntityIndex);
 
-    for (const [
-      ptrHash,
-      tuple,
-    ] of this.v.room.spawnedPersistentEntities) {
+    for (const [ptrHash, tuple] of this.v.room.spawnedPersistentEntities) {
       const [index, entityPtr] = tuple;
       if (index !== persistentEntityIndex) {
         continue;

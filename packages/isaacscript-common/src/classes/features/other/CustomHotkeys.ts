@@ -34,17 +34,11 @@ export class CustomHotkeys extends Feature {
 
   // ModCallback.POST_RENDER (2)
   private postRender = () => {
-    for (const [
-      keyboard,
-      triggerFunc,
-    ] of this.staticHotkeyFunctionMap) {
+    for (const [keyboard, triggerFunc] of this.staticHotkeyFunctionMap) {
       this.checkIfTriggered(keyboard, triggerFunc);
     }
 
-    for (const [
-      keyboardFunc,
-      triggerFunc,
-    ] of this.dynamicHotkeyFunctionMap) {
+    for (const [keyboardFunc, triggerFunc] of this.dynamicHotkeyFunctionMap) {
       const keyboard = keyboardFunc();
       if (keyboard !== undefined) {
         this.checkIfTriggered(keyboard, triggerFunc);
