@@ -23,6 +23,8 @@ npx cspell --no-progress --no-summary
 
 # Step 4 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
+# We ignore exports defined in the index.ts file due to bugs with ts-prune detecting files in
+# different packages.
 npx ts-prune --error --ignore "index.ts"
 
 # Step 5 - Check repository-specific scripts.
