@@ -6,8 +6,8 @@ export const noThrow = createRule({
     type: "problem",
     docs: {
       description: 'Disallows the usage of "throw"',
-      recommended: "error",
-      requiresTypeChecking: true,
+      recommended: false,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {
