@@ -15,7 +15,7 @@ import { jsdocCodeBlockLanguage } from "./rules/jsdoc-code-block-language";
 import { memberOrdering } from "./rules/member-ordering";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
-import { noImplicitMapSetLoops } from "./rules/no-implicit-map-set-loops";
+import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops";
 import { noInvalidDefaultMap } from "./rules/no-invalid-default-map";
 import { noLetAny } from "./rules/no-let-any";
 import { noObjectAny } from "./rules/no-object-any";
@@ -40,7 +40,7 @@ export const rules = {
   "member-ordering": memberOrdering,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-explicit-array-loops": noExplicitArrayLoops,
-  "no-implicit-map-set-loops": noImplicitMapSetLoops,
+  "no-explicit-map-set-loops": noExplicitMapSetLoops,
   "no-invalid-default-map": noInvalidDefaultMap,
   "no-let-any": noLetAny,
   "no-object-any": noObjectAny,

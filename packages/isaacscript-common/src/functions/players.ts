@@ -578,15 +578,6 @@ export function isPlayerAbleToAim(player: EntityPlayer): boolean {
   return player.IsExtraAnimationFinished();
 }
 
-/** Helper function for detecting if a player is one of the Tainted characters. */
-export function isTainted(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-
-  return isVanillaPlayer(player)
-    ? character >= PlayerType.ISAAC_B
-    : isTaintedModded(player);
-}
-
 function isTaintedModded(player: EntityPlayer) {
   // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
   // is bugged.
@@ -596,6 +587,15 @@ function isTaintedModded(player: EntityPlayer) {
   const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
 
   return character === taintedCharacter;
+}
+
+/** Helper function for detecting if a player is one of the Tainted characters. */
+export function isTainted(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+
+  return isVanillaPlayer(player)
+    ? character >= PlayerType.ISAAC_B
+    : isTaintedModded(player);
 }
 
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
