@@ -3,6 +3,7 @@
 Antibirth
 Begottens
 Bethanys
+Bonies
 Chronometrics # Creator of Basement Renovator
 craftable
 Cucco # Job developer
