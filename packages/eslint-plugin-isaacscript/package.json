@@ -32,15 +32,12 @@
   "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
-    "create-rule": "ts-node tools/scripts/create-rule.ts",
+    "create-rule": "ts-node --require \"tsconfig-paths/register\" tools/scripts/create-rule.ts",
     "generate": "ts-node tools/scripts/generate.ts",
     "generate:configs": "ts-node tools/scripts/generate-configs.ts",
     "generate:readme": "ts-node tools/scripts/generate-readme.ts",
     "generate:rules": "ts-node tools/scripts/generate-rules.ts",
     "test": "jest"
-  },
-  "devDependencies": {
-    "isaacscript-common-ts": "^1.6.0"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 5.0.0",

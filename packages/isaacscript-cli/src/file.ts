@@ -9,7 +9,9 @@ export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
   }
 
   try {
-    fs.cpSync(srcPath, dstPath);
+    fs.cpSync(srcPath, dstPath, {
+      recursive: true,
+    });
   } catch (err) {
     error(
       `Failed to copy file or directory "${chalk.green(

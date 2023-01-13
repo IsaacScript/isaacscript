@@ -1,9 +1,5 @@
 - lint rule for throw new error in isaac mods
 
-- https://wofsauge.github.io/Isaac-XML-Validator/webtool/
-
-- isaacscript-cli in lua
-- "jsonRoom" command
 - use stack overflow to remove isaac-typescript-definitions from deps
 
 - Lint:
@@ -101,5 +97,9 @@ lint: no default export
 
 lint: no empty trailing line comment or leading line comment
 
+------
+
 - use NX workspace variables in all project.json
   - waiting on how to use variables inside of commands from slack
+
+- wait for wof to make https://github.com/wofsauge/Isaac-XML-Validator/ into a CLI program
