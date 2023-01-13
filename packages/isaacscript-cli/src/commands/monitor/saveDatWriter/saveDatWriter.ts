@@ -44,7 +44,7 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
     // If IsaacScript is running and:
     // - the game is not open
     // - or the game is open but the IsaacScript Watcher mod is disabled
-    //
+
     // Then this process will continue to write to the "save#.dat" file, which can cause it to grow
     // arbitrarily large (since there is no-one on the other side removing the messages). If there
     // is N messages already in the queue, assume that no-one is listening and stop adding any more

@@ -50,13 +50,13 @@ const plugin: tstl.Plugin = {
       const statements = context.superTransformStatements(node);
 
       // Get the first element, which will be equal to something like:
-      //
+
       // ```lua
       // local Foo = Foo or ({})
       // ```
-      //
+
       // Or, if exported:
-      //
+
       // ```lua
       // local ____exports.Foo = Foo or ({})
       // ```
@@ -67,7 +67,7 @@ const plugin: tstl.Plugin = {
           tstl.isVariableDeclarationStatement(oldDeclaration))
       ) {
         // Replace the right side of the assignment with a blank Lua table, e.g.
-        //
+
         // ```lua
         // local ____exports.Foo = {}
         // ```
