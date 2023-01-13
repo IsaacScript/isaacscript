@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## January 13th, 2022 (Unreleased)
+## January 13th, 2022
 
 - Added the following helper functions:
   - `playerHasForm`
@@ -31,6 +31,15 @@ This page lists the changes to the IsaacScript framework.
   - `POST_PICKUP_SELECTION_FILTER`
   - `PRE_ENTITY_SPAWN_FILTER`
   - `PRE_ROOM_ENTITY_SPAWN_FILTER`
+- Added the following lint rules:
+  - `import/no-default-export`
+  - `isaacscript/no-empty-line-comments`
+  - `isaacscript/no-throw`
+  - `no-unused-expressions`
+  - `jsdoc/require-param` (with specific context)
+- Changed the following lint rules:
+  - `isaacscript/no-implicit-map-set-loops` --> `isaacscript/no-explicit-map-set-loops`
+  - The `complete-sentences-jsdoc` and `complete-sentences-line-comments` lint rules will now catch sentences that end with a double period.
 
 ## January 6th, 2022
 
