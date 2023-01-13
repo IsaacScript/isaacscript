@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-lint",
-  "version": "4.5.1",
+  "version": "4.6.0",
   "description": "A linting dependency meta-package for IsaacScript and TypeScript projects.",
   "keywords": [
     "isaacscript",
