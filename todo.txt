@@ -27,8 +27,6 @@ ctrl+s --> // est
 
 lint: add no null (only for non isaacscript projects)
 
-lint: no empty trailing line comment or leading line comment
-
 ------
 
 - use stack overflow to remove isaac-typescript-definitions from deps

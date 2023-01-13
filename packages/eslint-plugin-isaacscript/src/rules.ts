@@ -14,6 +14,7 @@ import { formatLineComments } from "./rules/format-line-comments";
 import { jsdocCodeBlockLanguage } from "./rules/jsdoc-code-block-language";
 import { memberOrdering } from "./rules/member-ordering";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
+import { noEmptyLineComments } from "./rules/no-empty-line-comments";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
 import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops";
 import { noInvalidDefaultMap } from "./rules/no-invalid-default-map";
@@ -39,6 +40,7 @@ export const rules = {
   "jsdoc-code-block-language": jsdocCodeBlockLanguage,
   "member-ordering": memberOrdering,
   "no-empty-jsdoc": noEmptyJSDoc,
+  "no-empty-line-comments": noEmptyLineComments,
   "no-explicit-array-loops": noExplicitArrayLoops,
   "no-explicit-map-set-loops": noExplicitMapSetLoops,
   "no-invalid-default-map": noInvalidDefaultMap,
