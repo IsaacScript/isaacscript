@@ -1,7 +1,7 @@
 import fs from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
-import { error } from "isaacscript-common-ts";
+import { error, fileExists } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import process from "process";

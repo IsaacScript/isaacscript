@@ -2,7 +2,11 @@
 
 import { readdirSync } from "fs";
 import { file } from "isaacscript-cli";
-import { capitalizeFirstLetter } from "isaacscript-common-ts";
+import {
+  capitalizeFirstLetter,
+  error,
+  trimSuffix,
+} from "isaacscript-common-ts";
 import path from "path";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
