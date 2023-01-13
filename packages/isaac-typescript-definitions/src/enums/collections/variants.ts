@@ -757,8 +757,8 @@ export enum DeathVariant {
   DEATH_WITHOUT_HORSE = 30,
 }
 
-/** For `EntityType.DUKE` (67). */
-export enum DukeVariant {
+/** For `EntityType.DUKE_OF_FLIES` (67). */
+export enum DukeOfFliesVariant {
   DUKE_OF_FLIES = 0,
   THE_HUSK = 1,
 }
