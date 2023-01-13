@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { PROJECT_NAME } from "./constants";
 
-const VALID_PLATFORMS = ["win32", "linux"] as const;
+const VALID_PLATFORMS: readonly string[] = ["win32", "linux"] as const;
 
 export function validateOS(): void {
   if (VALID_PLATFORMS.includes(process.platform)) {
