@@ -49,10 +49,12 @@ const STREAK_TEXT_BOTTOM_Y_OFFSET = -9;
 const NUM_RENDER_FRAMES_MAP_HELD_BEFORE_STREAK_TEXT = 11;
 
 /** Taken from StageAPI. */
-const TEXT_IN_ADJUSTMENTS = [-800, -639, -450, -250, -70, 10, 6, 3];
+const TEXT_IN_ADJUSTMENTS = [-800, -639, -450, -250, -70, 10, 6, 3] as const;
 
 /** Taken from StageAPI. */
-const TEXT_OUT_ADJUSTMENTS = [0, -5, -10, -15, -20, 144, 308, 472, 636, 800];
+const TEXT_OUT_ADJUSTMENTS = [
+  0, -5, -10, -15, -20, 144, 308, 472, 636, 800,
+] as const;
 
 /** Taken from StageAPI. */
 const TEXT_IN_SCALES = [
@@ -64,7 +66,7 @@ const TEXT_IN_SCALES = [
   Vector(0.95, 1.05),
   Vector(0.97, 1.03),
   Vector(0.98, 1.02),
-];
+] as const;
 
 /** Taken from StageAPI. */
 const TEXT_OUT_SCALES = [
@@ -78,7 +80,7 @@ const TEXT_OUT_SCALES = [
   Vector(2.18, 0.56),
   Vector(2.59, 0.38),
   Vector(3, 0.2),
-];
+] as const;
 
 interface StreakTextVars {
   run: {

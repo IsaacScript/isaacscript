@@ -14,7 +14,7 @@ export type SerializedBitSet128 = LuaMap<string, unknown> & {
 };
 
 const OBJECT_NAME = "BitSet128";
-const KEYS = ["l", "h"];
+const KEYS = ["l", "h"] as const;
 
 /** Helper function to copy a `BitSet128` Isaac API class. */
 export function copyBitSet128(bitSet128: BitSet128): BitSet128 {

@@ -16,7 +16,7 @@ export type SerializedColor = LuaMap<string, unknown> & {
 };
 
 const OBJECT_NAME = "Color";
-const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"];
+const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"] as const;
 
 export function colorEquals(color1: Color, color2: Color): boolean {
   return isaacAPIClassEquals(color1, color2, KEYS);

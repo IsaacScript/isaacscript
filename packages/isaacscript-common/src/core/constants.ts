@@ -79,12 +79,13 @@ export const GAME_FRAMES_PER_SECOND = 30;
 export const GAME_FRAMES_PER_MINUTE = GAME_FRAMES_PER_SECOND * 60;
 
 /** The set of all `ItemConfigCardType` values that are not a rune or special object. */
-export const ITEM_CONFIG_CARD_TYPES_FOR_CARDS = new Set([
-  ItemConfigCardType.TAROT,
-  ItemConfigCardType.SUIT,
-  ItemConfigCardType.SPECIAL,
-  ItemConfigCardType.TAROT_REVERSE,
-]);
+export const ITEM_CONFIG_CARD_TYPES_FOR_CARDS: ReadonlySet<ItemConfigCardType> =
+  new Set([
+    ItemConfigCardType.TAROT,
+    ItemConfigCardType.SUIT,
+    ItemConfigCardType.SPECIAL,
+    ItemConfigCardType.TAROT_REVERSE,
+  ]);
 
 /** Render frames are what is returned by the `Isaac.GetFrameCount` method. */
 export const RENDER_FRAMES_PER_SECOND = 60;

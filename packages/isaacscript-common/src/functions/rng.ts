@@ -18,7 +18,7 @@ export type SerializedRNG = LuaMap<string, unknown> & {
 const RECOMMENDED_SHIFT_IDX = 35;
 
 const OBJECT_NAME = "RNG";
-const KEYS = ["seed"];
+const KEYS = ["seed"] as const;
 
 /** Helper function to copy an `RNG` Isaac API class. */
 export function copyRNG(rng: RNG): RNG {

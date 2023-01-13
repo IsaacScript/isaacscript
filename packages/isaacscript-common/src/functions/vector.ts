@@ -20,7 +20,7 @@ export type SerializedVector = LuaMap<string, unknown> & {
 };
 
 const OBJECT_NAME = "Vector";
-const KEYS = ["X", "Y"];
+const KEYS = ["X", "Y"] as const;
 
 /** Helper function to copy a `Vector` Isaac API class. */
 export function copyVector(vector: Vector): Vector {

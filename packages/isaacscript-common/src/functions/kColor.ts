@@ -16,7 +16,7 @@ export type SerializedKColor = LuaMap<string, unknown> & {
 };
 
 const OBJECT_NAME = "KColor";
-const KEYS = ["Red", "Green", "Blue", "Alpha"];
+const KEYS = ["Red", "Green", "Blue", "Alpha"] as const;
 
 /** Helper function to copy a `KColor` Isaac API class. */
 export function copyKColor(kColor: KColor): KColor {
