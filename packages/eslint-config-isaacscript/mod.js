@@ -133,6 +133,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-throw.md
+     *
+     * Not defined in the parent configs.
+     *
+     * The `throw` keyword should never be used in Isaac mods.
+     */
+    "isaacscript/no-throw": "warn",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/no-bitwise
      *
      * Defined at:

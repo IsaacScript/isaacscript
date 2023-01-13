@@ -1,5 +1,3 @@
-- lint rule for throw new error in isaac mods
-
 - use stack overflow to remove isaac-typescript-definitions from deps
 
 - Lint:
