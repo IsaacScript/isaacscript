@@ -120,10 +120,10 @@ export const formatLineComments = createRule<Options, MessageIds>({
             const [_lastCommentStart, lastCommentEnd] = lastComment.range;
             const firstCommentBeginningOfLine =
               firstCommentStart - firstComment.loc.start.column;
-            const range: readonly [number, number] = [
+            const range = [
               firstCommentBeginningOfLine,
               lastCommentEnd,
-            ];
+            ] as const;
 
             return fixer.replaceTextRange(range, formattedText);
           },

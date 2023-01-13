@@ -25,15 +25,13 @@ import { ModdedElementSets } from "./ModdedElementSets";
 
 const COLLECTIBLE_TYPE_THAT_IS_NOT_IN_ANY_POOLS = CollectibleType.KEY_PIECE_1;
 
-const COLLECTIBLES_THAT_AFFECT_ITEM_POOLS: readonly CollectibleType[] = [
+const COLLECTIBLES_THAT_AFFECT_ITEM_POOLS = [
   CollectibleType.CHAOS, // 402
   CollectibleType.SACRED_ORB, // 691
   CollectibleType.TMTRAINER, // 721
-];
+] as const;
 
-const TRINKETS_THAT_AFFECT_ITEM_POOLS: readonly TrinketType[] = [
-  TrinketType.NO,
-];
+const TRINKETS_THAT_AFFECT_ITEM_POOLS = [TrinketType.NO] as const;
 
 export class ItemPoolDetection extends Feature {
   private moddedElementSets: ModdedElementSets;

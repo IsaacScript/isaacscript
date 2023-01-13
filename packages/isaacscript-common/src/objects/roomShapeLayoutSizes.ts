@@ -7,19 +7,19 @@ import {
 const ONE_BY_ONE_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH,
   ONE_BY_ONE_CONTENTS_HEIGHT,
-];
+] as const;
 const TWO_BY_ONE_VERTICAL_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-];
+] as const;
 const TWO_BY_ONE_HORIZONTAL_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT,
-];
+] as const;
 const TWO_BY_TWO_LAYOUT_SIZE: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-];
+] as const;
 
 /**
  * The dimensions of a room shape's layout. This is NOT the size of the room's actual contents! For

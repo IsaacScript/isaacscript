@@ -17,7 +17,7 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
   "|",
   "?",
   "*",
-];
+] as const;
 
 export async function getProjectPath(
   args: Args,

@@ -20,7 +20,7 @@ enum EnumKind {
 }
 
 /** These operators are always considered to be safe. */
-const ALLOWED_ENUM_OPERATORS = new Set([
+const ALLOWED_ENUM_OPERATORS: ReadonlySet<string> = new Set([
   "in",
   "|",
   "&",

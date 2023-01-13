@@ -97,16 +97,16 @@ const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
   ["Other Miscellaneous Exports", 5],
 ]);
 
-const ROOT_DIR_NAMES = ["features", "functions"];
+const ROOT_DIR_NAMES = ["features", "functions"] as const;
 
-const OTHER_DIR_NAMES: readonly string[] = [
+const OTHER_DIR_NAMES = [
   "classes",
   "enums",
   "interfaces",
   "maps",
   "objects",
   "types",
-];
+] as const;
 
 /**
  * `typedoc-plugin-markdown` will not remove the second breadcrumbs line from some files for some
@@ -116,12 +116,12 @@ const DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE: readonly string[] = [
   "classes",
   "enums",
   "interfaces",
-];
+] as const;
 
 const BROKEN_LINK_DIR_NAMES = [
   ...DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE,
   "types",
-];
+] as const;
 
 main();
 

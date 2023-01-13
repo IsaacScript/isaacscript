@@ -6,10 +6,10 @@ import {
   ONE_BY_ONE_CONTENTS_WIDTH,
 } from "./roomShapeVolumes";
 
-const TWO_BY_TWO_BOUNDS: [width: int, height: int] = [
+const TWO_BY_TWO_BOUNDS: readonly [width: int, height: int] = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-];
+] as const;
 
 /**
  * The size of a room shape's contents. This does not include the tiles that the walls are on. L

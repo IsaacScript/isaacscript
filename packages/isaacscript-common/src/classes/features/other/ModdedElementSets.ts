@@ -43,12 +43,12 @@ import { repeat } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
 import { ModdedElementDetection } from "./ModdedElementDetection";
 
-const CONDITIONAL_FLYING_COLLECTIBLE_TYPES: readonly CollectibleType[] = [
+const CONDITIONAL_FLYING_COLLECTIBLE_TYPES = [
   CollectibleType.BIBLE,
   CollectibleType.EMPTY_VESSEL,
   CollectibleType.ASTRAL_PROJECTION,
   CollectibleType.RECALL,
-];
+] as const;
 
 const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
   new Map([

@@ -11,11 +11,11 @@ import { getPlayers } from "../../../functions/playerIndex";
 import { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
-const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
+const FLAGS_WHEN_PONY_IS_ACTIVE = [
   EntityFlag.NO_KNOCKBACK, // 1 << 26
   EntityFlag.NO_PHYSICS_KNOCKBACK, // 1 << 30
   EntityFlag.NO_DAMAGE_BLINK, // 1 << 36
-];
+] as const;
 
 export class PonyDetection extends Feature {
   /** @internal */

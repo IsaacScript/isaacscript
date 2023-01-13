@@ -39,7 +39,7 @@ const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
   // - "isaacscript-spell" is not required.
   "typescript",
   "typescript-to-lua",
-];
+] as const;
 
 let compilationStartTime = new Date();
 

@@ -3,7 +3,7 @@
  *
  * Some words that would not typically start a line are manually removed.
  */
-export const JAVASCRIPT_RESERVED_WORDS_SET = new Set([
+export const JAVASCRIPT_RESERVED_WORDS_SET: ReadonlySet<string> = new Set([
   "await",
   "break",
   "case",

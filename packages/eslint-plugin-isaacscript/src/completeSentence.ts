@@ -246,7 +246,7 @@ function getIncompleteSentenceKind(
   return undefined;
 }
 
-const MONTHS_SET = new Set([
+const MONTHS_SET: ReadonlySet<string> = new Set([
   "January",
   "February",
   "March",
@@ -261,7 +261,7 @@ const MONTHS_SET = new Set([
   "December",
 ]);
 
-const ORDINALS_SET = new Set(["st", "nd", "rd", "th"]);
+const ORDINALS_SET: ReadonlySet<string> = new Set(["st", "nd", "rd", "th"]);
 
 function isDate(text: string) {
   text = text.trim();

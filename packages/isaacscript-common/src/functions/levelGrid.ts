@@ -45,7 +45,7 @@ const UP = -LEVEL_GRID_ROW_WIDTH;
 const RIGHT = 1;
 const DOWN = LEVEL_GRID_ROW_WIDTH;
 
-const ADJACENT_ROOM_GRID_INDEX_DELTAS: readonly int[] = [LEFT, UP, RIGHT, DOWN];
+const ADJACENT_ROOM_GRID_INDEX_DELTAS = [LEFT, UP, RIGHT, DOWN] as const;
 
 /**
  * Helper function to get only the adjacent room grid indexes that exist (i.e. have room data).

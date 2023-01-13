@@ -11,10 +11,10 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-const TRINKETS_THAT_CAN_BREAK: readonly TrinketType[] = [
+const TRINKETS_THAT_CAN_BREAK = [
   TrinketType.WISH_BONE,
   TrinketType.WALNUT,
-];
+] as const;
 
 export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRINKET_BREAK> {
   public override v = {

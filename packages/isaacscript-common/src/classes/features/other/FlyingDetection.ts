@@ -4,11 +4,11 @@ import { ISCFeature } from "../../../enums/ISCFeature";
 import { Feature } from "../../private/Feature";
 import { ModdedElementSets } from "./ModdedElementSets";
 
-const FLYING_NULL_ITEMS: readonly NullItemID[] = [
+const FLYING_NULL_ITEMS = [
   NullItemID.REVERSE_SUN, // 66
   NullItemID.SPIRIT_SHACKLES_SOUL, // 10
   NullItemID.LOST_CURSE, // 112
-];
+] as const;
 
 export class FlyingDetection extends Feature {
   private moddedElementSets: ModdedElementSets;

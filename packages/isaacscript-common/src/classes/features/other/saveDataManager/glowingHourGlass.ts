@@ -14,10 +14,10 @@ import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
  * When the Glowing Hourglass is used, certain save data keys will automatically be restored to a
  * backup.
  */
-const GLOWING_HOUR_GLASS_BACKUP_KEYS: readonly SaveDataKey[] = [
+const GLOWING_HOUR_GLASS_BACKUP_KEYS = [
   SaveDataKey.RUN,
   SaveDataKey.LEVEL,
-];
+] as const;
 
 const IGNORE_GLOWING_HOUR_GLASS_KEY = "__ignoreGlowingHourGlass";
 

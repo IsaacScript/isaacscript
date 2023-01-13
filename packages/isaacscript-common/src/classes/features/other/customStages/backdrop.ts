@@ -72,10 +72,10 @@ const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
 const WALL_OFFSET = Vector(-80, -80);
 
 /** Corresponds to "floor-backdrop.anm2". */
-const L_FLOOR_ANM2_LAYERS: readonly int[] = [16, 17];
+const L_FLOOR_ANM2_LAYERS = [16, 17] as const;
 
 /** Corresponds to "floor-backdrop.anm2". */
-const N_FLOOR_ANM2_LAYERS: readonly int[] = [18, 19];
+const N_FLOOR_ANM2_LAYERS = [18, 19] as const;
 
 /**
  * Normally, we would make a custom entity to represent a backdrop effect, but we don't want to

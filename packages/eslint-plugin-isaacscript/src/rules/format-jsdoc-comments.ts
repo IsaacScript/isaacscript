@@ -103,10 +103,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
             const [commentStart, commentEnd] = comment.range;
             const commentBeginningOfLine =
               commentStart - comment.loc.start.column;
-            const range: readonly [number, number] = [
-              commentBeginningOfLine,
-              commentEnd,
-            ];
+            const range = [commentBeginningOfLine, commentEnd] as const;
 
             return fixer.replaceTextRange(range, formattedComment);
           },

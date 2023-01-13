@@ -5,8 +5,8 @@ import chalk from "chalk";
 import { error, parseIntSafe } from "isaacscript-common-ts";
 import prompt from "prompt";
 
-const VALID_YES_RESPONSES = new Set(["yes", "ye", "y"]);
-const VALID_NO_RESPONSES = new Set(["no", "n"]);
+const VALID_YES_RESPONSES: ReadonlySet<string> = new Set(["yes", "ye", "y"]);
+const VALID_NO_RESPONSES: ReadonlySet<string> = new Set(["no", "n"]);
 
 export function promptInit(): void {
   // Override some of the prompt library's default values:

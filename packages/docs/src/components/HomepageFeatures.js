@@ -3,6 +3,7 @@ import clsx from "clsx";
 import React from "react";
 import styles from "./HomepageFeatures.module.css";
 
+// eslint-disable-next-line isaacscript/require-capital-const-assertions
 const FeatureList = [
   {
     title: "The Entire Isaac API, Strongly Typed",
