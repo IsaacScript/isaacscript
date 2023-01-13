@@ -1,5 +1,8 @@
 import { isSeparatorLine } from "../comments";
-import { getIncompleteSentences } from "../completeSentence";
+import {
+  CompleteSentenceMessageIds,
+  getIncompleteSentences,
+} from "../completeSentence";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";
 import {
   getCommentBlocks,
@@ -9,9 +12,10 @@ import { createRule } from "../utils";
 
 export type Options = [];
 
-export type MessageIds = "missingCapital" | "missingPeriod";
-
-export const completeSentencesLineComments = createRule<Options, MessageIds>({
+export const completeSentencesLineComments = createRule<
+  Options,
+  CompleteSentenceMessageIds
+>({
   name: "complete-sentences-line-comments",
   meta: {
     type: "problem",
@@ -26,6 +30,8 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
         "Leading line comments must contain complete sentences with a capital letter.\n{{ sentence }}",
       missingPeriod:
         "Leading line comments must contain complete sentences with a trailing period.\n{{ sentence }}",
+      doublePeriod:
+        "Leading line comments must not end with a double period. Did you make a typo?\n{{ sentence }}",
     },
   },
   defaultOptions: [],

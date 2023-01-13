@@ -2,7 +2,10 @@ import { isEnumBlockLabel, isSpecialComment } from "./comments";
 import { getAdjustedList, List, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
-export type CompleteSentenceMessageIds = "missingCapital" | "missingPeriod";
+export type CompleteSentenceMessageIds =
+  | "missingCapital"
+  | "missingPeriod"
+  | "doublePeriod";
 
 interface IncompleteSentence {
   sentence: string;
@@ -15,7 +18,6 @@ interface IncompleteSentence {
  */
 const FULL_URL_REGEX = /(?:https?|ftp):\/\/[\n\S]+/g;
 
-// cspell: ignore lonemc
 /**
  * From:
  * https://stackoverflow.com/questions/11761563/javascript-regexp-for-splitting-text-into-sentences-and-keeping-the-delimiter
@@ -196,6 +198,14 @@ function getIncompleteSentenceKind(
     / \(\d+\)$/.test(sentence.trimEnd())
   ) {
     return undefined;
+  }
+
+  // First, check for a double period.
+  if (text.endsWith("..") && text.length >= 3) {
+    const characterBeforePeriods = text.at(-3);
+    if (characterBeforePeriods !== ".") {
+      return "doublePeriod";
+    }
   }
 
   if (

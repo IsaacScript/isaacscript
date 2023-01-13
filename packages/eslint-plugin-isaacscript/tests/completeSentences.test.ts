@@ -236,3 +236,10 @@ Racing+ items
   `;
   testIncompleteSentence(text, undefined);
 });
+
+test("Sentence with a double period", () => {
+  const text = `
+This is a sentence..
+  `;
+  testIncompleteSentence(text, "doublePeriod");
+});

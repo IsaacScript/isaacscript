@@ -1,5 +1,4 @@
 - Lint:
-  - double period for end of JSDoc comment lint
   - lint rule: arrays, maps, and sets that start with Capital letter must be read-only
 
 lint failure, complete sentences:

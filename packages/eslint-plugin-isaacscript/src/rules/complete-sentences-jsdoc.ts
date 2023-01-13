@@ -24,6 +24,8 @@ export const completeSentencesJSDoc = createRule<
         "JSDoc comments must contain complete sentences with a capital letter.\n{{ sentence }}",
       missingPeriod:
         "JSDoc comments must contain complete sentences with a trailing period.\n{{ sentence }}",
+      doublePeriod:
+        "JSDoc comments must not end with a double period. Did you make a typo?.\n{{ sentence }}",
     },
   },
   defaultOptions: [],
