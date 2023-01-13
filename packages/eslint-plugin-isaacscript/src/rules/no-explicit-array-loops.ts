@@ -71,7 +71,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
         const replacementEnd = callExpressionEnd;
 
         context.report({
-          node,
+          loc: methodIdentifier.loc,
           messageId: "noExplicitArray",
           fix: (fixer) =>
             fixer.replaceTextRange([replacementStart, replacementEnd], ""),

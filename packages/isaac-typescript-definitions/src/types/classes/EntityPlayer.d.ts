@@ -1203,7 +1203,7 @@ declare global {
 
     HeadFrameDelay: int;
 
-    /** Internally used by IBS. Increases based on damage dealt. Range is 0-1. */
+    /** Internally used by IBS. Increases based on damage dealt. Range is from 0-1. */
     IBSCharge: float;
 
     ItemHoldCooldown: int;
@@ -1222,7 +1222,9 @@ declare global {
 
     QueuedItem: QueueItemData;
 
-    /** Internally used by Tainted Samson. Increases based on damage dealt. Range is 0-100000. */
+    /**
+     * Internally used by Tainted Samson. Increases based on damage dealt. Range is from 0-100000.
+     */
     SamsonBerserkCharge: int;
 
     /**

@@ -82,7 +82,7 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
         const replacementEnd = callExpressionEnd;
 
         context.report({
-          node,
+          loc: methodIdentifier.loc,
           messageId,
           fix: (fixer) =>
             fixer.replaceTextRange([replacementStart, replacementEnd], ""),
