@@ -21,6 +21,7 @@ export const all = {
     "isaacscript/jsdoc-code-block-language": "error",
     "isaacscript/member-ordering": "error",
     "isaacscript/no-empty-jsdoc": "error",
+    "isaacscript/no-empty-line-comments": "error",
     "isaacscript/no-explicit-array-loops": "error",
     "isaacscript/no-explicit-map-set-loops": "error",
     "isaacscript/no-invalid-default-map": "error",
@@ -33,7 +34,7 @@ export const all = {
     "isaacscript/no-void-return-type": "error",
     "isaacscript/prefer-plusplus": "error",
     "isaacscript/prefer-postfix-plusplus": "error",
-    "isaacscript/require-const-assertions": "error",
+    "isaacscript/require-capital-const-assertions": "error",
     "isaacscript/strict-enums": "error",
   },
 };

@@ -1,4 +1,4 @@
-# `require-const-assertions`
+# `require-capital-const-assertions`
 
 Requires the use of [const assertions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions) for named objects with a capital letter.
 
@@ -33,7 +33,7 @@ const Foo = {
 ```json
 {
   "rules": {
-    "isaacscript/require-const-assertions": "error"
+    "isaacscript/require-capital-const-assertions": "error"
   }
 }
 ```
@@ -42,5 +42,5 @@ This rule is not configurable.
 
 ## Resources
 
-- [Rule source](../../src/rules/require-const-assertions.ts)
-- [Test source](../../tests/rules/require-const-assertions.test.ts)
+- [Rule source](../../src/rules/require-capital-const-assertions.ts)
+- [Test source](../../tests/rules/require-capital-const-assertions.test.ts)

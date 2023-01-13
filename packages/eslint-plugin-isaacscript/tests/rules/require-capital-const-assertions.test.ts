@@ -2,8 +2,8 @@ import { TSESLint } from "@typescript-eslint/utils";
 import {
   MessageIds,
   Options,
-  requireConstAssertions,
-} from "../../src/rules/require-const-assertions";
+  requireCapitalConstAssertions,
+} from "../../src/rules/require-capital-const-assertions";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
@@ -71,7 +71,11 @@ const MY_CONSTANT = [];
   `,
 });
 
-ruleTester.run("require-const-assertions", requireConstAssertions, {
-  valid,
-  invalid,
-});
+ruleTester.run(
+  "require-capital-const-assertions",
+  requireCapitalConstAssertions,
+  {
+    valid,
+    invalid,
+  },
+);

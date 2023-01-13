@@ -5,8 +5,8 @@ export type Options = [];
 
 export type MessageIds = "noConstAssertion";
 
-export const requireConstAssertions = createRule<Options, MessageIds>({
-  name: "require-const-assertions",
+export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
+  name: "require-capital-const-assertions",
   meta: {
     type: "problem",
     docs: {

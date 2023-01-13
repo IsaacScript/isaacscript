@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## January 20th, 2022 (Unreleased)
 
-- Added `isaacscript-common-ts`, a library that has several helper functions and can be consumed by TypeScript projects. (`isaacscript-common` is compiled to Lua, so it cannot be used for that purpose.)
+- Added `isaacscript-common-ts`, a library that has several helper functions and can be consumed by TypeScript projects. (`isaacscript-common` is compiled to Lua, so it cannot be used for this purpose.)
 
 ## January 13th, 2022
 

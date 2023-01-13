@@ -19,6 +19,7 @@ export const recommended = {
     "isaacscript/format-line-comments": "error",
     "isaacscript/jsdoc-code-block-language": "error",
     "isaacscript/no-empty-jsdoc": "error",
+    "isaacscript/no-empty-line-comments": "error",
     "isaacscript/no-explicit-array-loops": "error",
     "isaacscript/no-explicit-map-set-loops": "error",
     "isaacscript/no-let-any": "error",
@@ -29,7 +30,7 @@ export const recommended = {
     "isaacscript/no-void-return-type": "error",
     "isaacscript/prefer-plusplus": "error",
     "isaacscript/prefer-postfix-plusplus": "error",
-    "isaacscript/require-const-assertions": "error",
+    "isaacscript/require-capital-const-assertions": "error",
     "isaacscript/strict-enums": "error",
   },
 };
