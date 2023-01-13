@@ -24,13 +24,3 @@ export function getAmbushType(): AmbushType | undefined {
     }
   }
 }
-
-/**
- * Custom grid entities are built on top of real grid entities. You can use any existing grid entity
- * type as a base. For example, if you want to create a custom rock that would be breakable like a
- * normal rock, then you should specify
- *
- * This is an IsaacScript feature because the vanilla game does not support any custom grid
- * entities.
- */
-export function zzz(): void {}
