@@ -18,10 +18,18 @@ for (const element of myArray) {}
 });
 
 valid.push({
-  name: "Explicit iteration over set",
+  name: "Implicit iteration over map",
+  code: `
+const mySet = new Map();
+for (const element of myMap) {}
+  `,
+});
+
+valid.push({
+  name: "Implicit iteration over set",
   code: `
 const mySet = new Set();
-for (const element of mySet.values()) {}
+for (const element of mySet) {}
   `,
 });
 
@@ -29,7 +37,15 @@ valid.push({
   name: "Explicit iteration over map",
   code: `
 const myMap = new Map();
-for (const element of myMap.values()) {}
+for (const element of myMap.entries()) {}
+  `,
+});
+
+valid.push({
+  name: "Explicit iteration over set",
+  code: `
+const mySet = new Set();
+for (const element of mySet.values()) {}
   `,
 });
 
