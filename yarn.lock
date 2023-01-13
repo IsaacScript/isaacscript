@@ -6491,10 +6491,10 @@ eslint-plugin-import@^2.27.4:
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.1.0.tgz#7ca8b2fcc761f38ad9044988285b56763d9dcf34"
-  integrity sha512-zKo5n/og+f0EVgO/RKBHWpeIaMEHmhGKGNrMmS+c+0CWN/ar+5Co6oAuJvbfV8/cdHks497O+uQ1NbZ+LBSQZg==
+eslint-plugin-isaacscript@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.1.1.tgz#0f7f4f74f03fb9244a5da50718fbdcaa3b4d64c6"
+  integrity sha512-LPNkRsM1dYS+prHsndWu+/p/fWvIHKPWN6A9r3yEmH9aSKn6rE2/ST25nePP+mrOqsgyxRtGBSpEmtlY66AMEg==
   dependencies:
     "@typescript-eslint/type-utils" "5.48.1"
     "@typescript-eslint/types" "5.48.1"
