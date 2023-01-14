@@ -14,7 +14,7 @@
   "author": "Zamiell",
   "type": "commonjs",
   "scripts": {
-    "postinstall": "nx build eslint-plugin-isaacscript",
+    "postinstall": "nx build eslint-plugin-isaacscript && cp -r dist/packages/eslint-plugin-isaacscript node_modules",
     "prepare": "husky install",
     "release": "release-it"
   },
