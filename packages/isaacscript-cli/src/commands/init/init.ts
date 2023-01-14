@@ -72,7 +72,7 @@ async function openVSCode(
   verbose: boolean,
 ) {
   const VSCodeCommand = getVSCodeCommand();
-  if (VSCodeCommand === null) {
+  if (VSCodeCommand === undefined) {
     console.log(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
     );
@@ -83,14 +83,14 @@ async function openVSCode(
   await promptVSCode(projectPath, VSCodeCommand, vscode, yes, verbose);
 }
 
-function getVSCodeCommand() {
+function getVSCodeCommand(): string | undefined {
   for (const VSCodeCommand of ["code", "codium", "code-oss", "code-insiders"]) {
     if (commandExists.sync(VSCodeCommand)) {
       return VSCodeCommand;
     }
   }
 
-  return null;
+  return undefined;
 }
 
 function printFinishMessage(projectPath: string, projectName: string) {

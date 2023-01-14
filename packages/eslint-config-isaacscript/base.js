@@ -57,19 +57,19 @@ module.exports = {
 
   plugins: [
     /**
-     * Use the "eslint-plugin-only-warn" plugin to change all errors to warnings:
+     * Activate the "no-type-assertion" plugin, which allows the "no-type-assertion" rule to be
+     * optionally enabled on a per-project basis.
+     */
+    "no-type-assertion",
+
+    /**
+     * Activate the "eslint-plugin-only-warn" plugin to change all errors to warnings:
      * https://github.com/bfanger/eslint-plugin-only-warn
      *
      * This allows the end-user to more easily distinguish between errors from the TypeScript
      * compiler (which show up in red) and ESLint rule violations (which show up in yellow).
      */
     "only-warn",
-
-    /**
-     * Activate the "no-type-assertion" plugin, which allows the "no-type-assertion" rule to be
-     * optionally enabled on a per-project basis.
-     */
-    "no-type-assertion",
 
     /**
      * Activate the "sort-exports" plugin, which allows the "sort-exports" rule to be optionally

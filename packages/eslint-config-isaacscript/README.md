@@ -4,7 +4,7 @@
 
 This is a sharable configuration for ESLint that is intended to be used in TypeScript and IsaacScript projects.
 
-This package is consumed by the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package.
+This package is consumed by the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package. It is recommended that instead of consuming this package directly, you instead list `isaacscript-lint` as a dependency, as it includes all of the corresponding plugins and so on.
 
 For TypeScript projects, set up your `.eslintrc.js` file to extend from the config like this:
 

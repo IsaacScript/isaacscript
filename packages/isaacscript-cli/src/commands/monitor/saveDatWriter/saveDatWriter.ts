@@ -112,7 +112,7 @@ function writeSaveDatToDisk(
   numRetries: number,
   verbose: boolean,
 ) {
-  const saveDatRaw = JSON.stringify(saveDat, null, 2);
+  const saveDatRaw = JSON.stringify(saveDat, undefined, 2);
   try {
     file.writeTry(saveDatPath, saveDatRaw, verbose);
   } catch (err) {

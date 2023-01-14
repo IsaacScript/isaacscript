@@ -5,7 +5,7 @@ import { Config } from "../../classes/Config";
 import { WATCHER_MOD_NAME } from "../../constants";
 import { SaveDatMessage } from "./saveDatWriter/types";
 
-let saveDatWriter: ChildProcess | null = null;
+let saveDatWriter: ChildProcess | undefined;
 
 export function spawnSaveDatWriter(config: Config): void {
   const processName = "saveDatWriter";
@@ -30,7 +30,7 @@ export function spawnSaveDatWriter(config: Config): void {
 }
 
 export function sendMsgToSaveDatWriter(msg: SaveDatMessage): void {
-  if (saveDatWriter !== null) {
+  if (saveDatWriter !== undefined) {
     saveDatWriter.send(msg);
   }
 }

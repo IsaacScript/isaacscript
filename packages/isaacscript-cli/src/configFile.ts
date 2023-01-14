@@ -74,9 +74,11 @@ export function createConfigFile(
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
 
   // Add a newline at the end to satisfy Prettier.
-  const configContents = JSON.stringify(config, null, NUM_INDENT_SPACES).concat(
-    "\n",
-  );
+  const configContents = JSON.stringify(
+    config,
+    undefined,
+    NUM_INDENT_SPACES,
+  ).concat("\n");
 
   file.write(configFilePath, configContents, verbose);
 }

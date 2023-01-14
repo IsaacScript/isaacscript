@@ -1,5 +1,12 @@
 -----
 
+lint:
+//test
+ctrl+s --> // est
+(maybe fix is to just disable other eslint rule)
+
+-----
+
 lint failure, complete sentences:
 
  * Custom grid entities are built on top of real grid entities. You can use any existing grid entity
@@ -18,18 +25,6 @@ lint failure:
  * These are helper functions relating to creating custom stages with the built-in standard library.
  * For more information about custom stages, see the [main
  * documentation page](https://isaacscript.github.io/main/custom-stages).
-
------
-
-lint:
-//test
-ctrl+s --> // est
-(maybe fix is to just disable other eslint rule)
-
------
-
-lint: add no null (only for non isaacscript projects)
-https://basarat.gitbook.io/typescript/recap/null-undefined
 
 -----
 
