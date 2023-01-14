@@ -214,8 +214,9 @@ export class SaveDataManager extends Feature {
   /**
    * This is the entry point to the save data manager, a system which provides two major features:
    *
-   * 1. automatic resetting of variables on a new run, on a new level, or on a new room (as desired)
-   * 2. automatic saving and loading of all tracked data to the "save#.dat" file
+   * 1. Automatic resetting of variables on a new run, on a new level, or on a new room (as
+   *    desired).
+   * 2. Automatic saving and loading of all tracked data to the "save#.dat" file.
    *
    * You feed this function with an object containing your variables, and then it will automatically
    * manage them for you. (See below for an example.)

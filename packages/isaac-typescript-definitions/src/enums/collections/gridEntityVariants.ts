@@ -12,7 +12,7 @@ export enum RockVariant {
 }
 
 /**
- * For GridEntityType.ROCK_ALT (6), RockAltType.URN
+ * For GridEntityType.ROCK_ALT (6), RockAltType.URN.
  *
  * Note that you are unable to spawn specific urn variants. The game will pick a random variant
  * regardless of which one you select.
@@ -24,7 +24,7 @@ export enum UrnVariant {
 }
 
 /**
- * For GridEntityType.ROCK_ALT (6), RockAltType.MUSHROOM
+ * For GridEntityType.ROCK_ALT (6), RockAltType.MUSHROOM.
  *
  * Note that you are unable to spawn specific mushroom variants. The game will pick a random variant
  * regardless of which one you select.
@@ -36,7 +36,7 @@ export enum MushroomVariant {
 }
 
 /**
- * For GridEntityType.ROCK_ALT (6), RockAltType.SKULL
+ * For GridEntityType.ROCK_ALT (6), RockAltType.SKULL.
  *
  * Note that you are unable to spawn specific skull variants. The game will pick a random variant
  * regardless of which one you select.
@@ -48,7 +48,7 @@ export enum SkullVariant {
 }
 
 /**
- * For GridEntityType.ROCK_ALT (6), RockAltType.POLYP
+ * For GridEntityType.ROCK_ALT (6), RockAltType.POLYP.
  *
  * Note that you are unable to spawn specific polyp variants. The game will pick a random variant
  * regardless of which one you select.
@@ -60,7 +60,7 @@ export enum PolypVariant {
 }
 
 /**
- * For GridEntityType.ROCK_ALT (6), RockAltType.BUCKET
+ * For GridEntityType.ROCK_ALT (6), RockAltType.BUCKET.
  *
  * Note that you are unable to spawn specific bucket variants. The game will pick a random variant
  * regardless of which one you select.
@@ -78,7 +78,7 @@ export enum PitVariant {
 }
 
 /**
- * For `GridEntityType.FIREPLACE`. (13).
+ * For `GridEntityType.FIREPLACE` (13).
  *
  * This only partially corresponds to the `FireplaceVariant` for non-grid entities. (Spawning a grid
  * entity fireplace with a variant higher than 1 will result in a normal fireplace.)
@@ -88,7 +88,7 @@ export enum FireplaceGridEntityVariant {
   RED = 1,
 }
 
-/** For `GridEntityType.POOP`. (14). */
+/** For `GridEntityType.POOP` (14). */
 export enum PoopGridEntityVariant {
   NORMAL = 0,
   RED = 1,
@@ -104,7 +104,7 @@ export enum PoopGridEntityVariant {
   CHARMING = 11,
 }
 
-/** For `GridEntityType.DOOR`. (16). */
+/** For `GridEntityType.DOOR` (16). */
 export enum DoorVariant {
   UNSPECIFIED = 0,
   LOCKED = 1,
@@ -132,7 +132,7 @@ export enum TrapdoorVariant {
   VOID_PORTAL = 1,
 }
 
-/** For `GridEntityType.CRAWL_SPACE`. (18). */
+/** For `GridEntityType.CRAWL_SPACE` (18). */
 export enum CrawlSpaceVariant {
   NORMAL = 0,
 
