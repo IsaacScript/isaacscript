@@ -14,6 +14,7 @@
   "author": "Zamiell",
   "type": "commonjs",
   "scripts": {
+    "postinstall": "nx build eslint-plugin-isaacscript",
     "prepare": "husky install",
     "release": "release-it"
   },
@@ -82,7 +83,6 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.27.4",
-    "eslint-plugin-isaacscript": "^2.1.2",
     "eslint-plugin-jsdoc": "^39.6.4",
     "eslint-plugin-no-type-assertion": "^1.3.0",
     "eslint-plugin-only-warn": "^1.1.0",

@@ -11,7 +11,7 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-tsconfig/build.sh"
+        "command": "bash build-package.sh"
       }
     },
     "lint": {
@@ -23,9 +23,8 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-tsconfig/lint.sh"
+        "command": "bash lint-package.sh"
       }
     }
-  },
-  "tags": []
+  }
 }

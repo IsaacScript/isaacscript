@@ -1,11 +1,9 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/eslint-plugin-isaacscript/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "dependsOn": [
         {
           "target": "build",
@@ -13,15 +11,7 @@
         }
       ],
       "options": {
-        "outputPath": "dist/packages/eslint-plugin-isaacscript",
-        "main": "packages/eslint-plugin-isaacscript/src/index.ts",
-        "tsConfig": "packages/eslint-plugin-isaacscript/tsconfig.prod.json",
-        "assets": [
-          "packages/eslint-plugin-isaacscript/*.md",
-          "packages/eslint-plugin-isaacscript/docs",
-          "packages/eslint-plugin-isaacscript/LICENSE"
-        ],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "command": "bash build-package.sh"
       }
     },
     "test": {
@@ -33,7 +23,7 @@
         }
       ],
       "options": {
-        "command": "bash packages/eslint-plugin-isaacscript/test.sh"
+        "command": "bash test-package.sh"
       }
     },
     "lint": {
@@ -45,9 +35,8 @@
         }
       ],
       "options": {
-        "command": "bash packages/eslint-plugin-isaacscript/lint.sh"
+        "command": "bash lint-package.sh"
       }
     }
-  },
-  "tags": []
+  }
 }

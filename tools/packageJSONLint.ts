@@ -274,6 +274,7 @@ function packageJSONLint(
   return true;
 }
 
+/** Gets the dependencies of the root monorepo "package.json" file. */
 function getDeps(packageJSONPath: string): Record<string, string> {
   const packageJSONString = file.read(packageJSONPath, false);
   const packageJSON = getPackageJSON(packageJSONString);
@@ -289,11 +290,37 @@ function getDeps(packageJSONPath: string): Record<string, string> {
     peerDependencies = {};
   }
 
-  return {
+  const deps = {
     ...(dependencies as Record<string, string>),
     ...(devDependencies as Record<string, string>),
     ...(peerDependencies as Record<string, string>),
   };
+
+  // `eslint-plugin-isaacscript` is not a root dependency of the monorepo, so it has to be
+  // explicitly added to the list of deps.
+  const pluginVersion = getVersionForSpecificPackage(
+    "eslint-plugin-isaacscript",
+  );
+  deps["eslint-plugin-isaacscript"] = `^${pluginVersion}`;
+
+  return deps;
+}
+
+function getVersionForSpecificPackage(packageName: string): string {
+  const packageJSONPath = path.join(
+    REPO_ROOT,
+    "packages",
+    packageName,
+    "package.json",
+  );
+  const packageJSONString = file.read(packageJSONPath, false);
+  const packageJSON = getPackageJSON(packageJSONString);
+  const pluginVersion = packageJSON["version"];
+  if (typeof pluginVersion !== "string") {
+    error(`Failed to parse the version from: ${packageJSONPath}`);
+  }
+
+  return pluginVersion;
 }
 
 function checkDeps(
@@ -363,7 +390,10 @@ function checkRootDepsUpToDate(
     }
 
     const versionString = `^${version}`;
-    if (rootDepVersion !== versionString) {
+    if (
+      rootDepVersion !== versionString &&
+      rootDepName !== "eslint-plugin-isaacscript"
+    ) {
       error(
         `Root dependency "${rootDepName}" is not up to date: ${rootDepVersion} --> ${versionString}`,
       );

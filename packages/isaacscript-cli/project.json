@@ -1,6 +1,5 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/isaacscript-cli/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -12,7 +11,7 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-cli/build.sh"
+        "command": "bash build-package.sh"
       }
     },
     "lint": {
@@ -24,9 +23,8 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-cli/lint.sh"
+        "command": "bash lint-package.sh"
       }
     }
-  },
-  "tags": []
+  }
 }

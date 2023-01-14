@@ -10,7 +10,24 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
 REPO_NAME="$(basename "$DIR")"
 
-REPO_ROOT="$DIR/../.."
-cd "$REPO_ROOT"
+cd "$DIR"
 
-nx build "$REPO_NAME"
+OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
+
+rm -rf "$OUT_DIR"
+
+# We create a separate TypeScript configuration for production so that the "tests" and "tools"
+# directories are not published to npm.
+npx tsc --project "$DIR/tsconfig.prod.json"
+
+# Copy the rest of the files needed for npm.
+cp "$DIR/LICENSE" "$OUT_DIR/"
+cp "$DIR/package.json" "$OUT_DIR/"
+cp "$DIR/README.md" "$OUT_DIR/"
+cp -r "$DIR/docs" "$OUT_DIR/"
+
+# Finally, copy the output to the "node_modules" folder for the root of the monorepo. This obviates
+# the need for the monorepo to consume the actual NPM package. (The ESLint config for the monorepo
+# needs the compiled JavaScript in order to work properly.)
+REPO_ROOT="$DIR/../.."
+cp -r "$OUT_DIR" "$REPO_ROOT/node_modules/"

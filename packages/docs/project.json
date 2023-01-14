@@ -11,7 +11,7 @@
         }
       ],
       "options": {
-        "command": "bash packages/docs/build.sh"
+        "command": "bash build-package.sh"
       }
     },
     "lint": {
@@ -23,10 +23,9 @@
         }
       ],
       "options": {
-        "command": "bash packages/docs/lint.sh"
+        "command": "bash lint-package.sh"
       }
     }
   },
-  "tags": [],
   "implicitDependencies": ["isaac-typescript-definitions", "isaacscript-common"]
 }

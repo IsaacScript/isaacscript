@@ -11,7 +11,7 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-lint/build.sh"
+        "command": "bash build-package.sh"
       }
     },
     "lint": {
@@ -23,9 +23,8 @@
         }
       ],
       "options": {
-        "command": "bash packages/isaacscript-lint/lint.sh"
+        "command": "bash lint-package.sh"
       }
     }
-  },
-  "tags": []
+  }
 }
