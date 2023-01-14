@@ -237,7 +237,6 @@ Racing+ items
   testIncompleteSentence(text, undefined);
 });
 
-/*
 test("Incomplete sentence at the end of a block", () => {
   const text = `
 This is a sentence
@@ -246,7 +245,6 @@ This is another sentence.
   `;
   testIncompleteSentence(text, "missingPeriod");
 });
-*/
 
 test("Sentence with a double period", () => {
   const text = `

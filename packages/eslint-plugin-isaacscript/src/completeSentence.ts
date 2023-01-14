@@ -25,8 +25,7 @@ const FULL_URL_REGEX = /(?:https?|ftp):\/\/[\n\S]+/g;
 const SENTENCE_REGEX =
   /(?=[^])(?:\P{Sentence_Terminal}|\p{Sentence_Terminal}(?!['"`\p{Close_Punctuation}\p{Final_Punctuation}\s]))*(?:\p{Sentence_Terminal}+['"`\p{Close_Punctuation}\p{Final_Punctuation}]*|$)/guy;
 
-const SENTENCE_SEPARATOR_IDENTIFIER =
-  "___isaacscript_sentence_separator_identifier___";
+const SENTENCE_SEPARATOR_IDENTIFIER = "___sentence_separator_identifier___";
 const IN_LINE_CODE_IDENTIFIER = "___in_line_code_identifier___";
 const LIST_ELEMENT_IDENTIFIER = "___list_element_identifier___";
 
@@ -75,6 +74,10 @@ function splitOnSpecialText(text: string): string[] {
 
   // First, remove multi-line code blocks.
   text = text.replace(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
+
+  // Second, handle "blocks" indicated by a double newline. We don't want sentences to be
+  // parsed/combined past blocks, so we manually insert a sentence separator.
+  text = text.replaceAll("\n\n", SENTENCE_SEPARATOR_IDENTIFIER);
 
   const lines = text.split("\n");
   const newLines: string[] = [];
