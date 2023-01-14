@@ -72,7 +72,7 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
   });
 
   // Rename ".eslintrc.template.js" to ".eslintrc.js". (If it is kept as ".eslintrc.js", then local
-  // linting will fail.
+  // linting will fail.)
   const ESLintConfigPath = path.join(projectPath, ".eslintrc.template.js");
   const correctESLintConfigPath = path.join(projectPath, ".eslintrc.js");
   file.rename(ESLintConfigPath, correctESLintConfigPath, verbose);
