@@ -13,7 +13,9 @@
     ".husky/**",
     "dist/**",
     "node_modules/**",
+    "package-lock.json",
     "packages/docs/docs/isaacscript-common/**",
-    "packages/docs/docs/isaac-typescript-definitions/**"
+    "packages/docs/docs/isaac-typescript-definitions/**",
+    "yarn.lock"
   ]
 }

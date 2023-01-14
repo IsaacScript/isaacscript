@@ -14,9 +14,11 @@
     ".git/**",
     "dist/**",
     "node_modules/**",
+    "package-lock.json",
     "mod/main.lua",
     "mod/content/rooms/**",
-    "mod/resources/rooms/**"
+    "mod/resources/rooms/**",
+    "yarn.lock"
   ],
   "words": []
 }
