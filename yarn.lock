@@ -6491,10 +6491,8 @@ eslint-plugin-import@^2.27.4:
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^2.1.2:
+"eslint-plugin-isaacscript@file:./dist/packages/eslint-plugin-isaacscript":
   version "2.1.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.1.2.tgz#88280bd4d9f8c9be4fc522f28a52d3f49b67e373"
-  integrity sha512-ioEieNimqj2f02xnMqjfjHQpLcBVEQfu6h7pDqOXyufif57mF+jSXjXvQ2c63cKe9vCUYtmz0ycidwDe28asRg==
   dependencies:
     "@typescript-eslint/type-utils" "5.48.1"
     "@typescript-eslint/types" "5.48.1"

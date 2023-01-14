@@ -1,4 +1,5 @@
 - get docs working with ModCallbackCustom
+- stop importing RunInNFrames class
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
