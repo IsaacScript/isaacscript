@@ -1,10 +1,11 @@
+- isaac-xml-validator
+  - wait for wof to publish: https://github.com/wofsauge/Isaac-XML-Validator/
+
 - stop importing RunInNFrames class
-- get docs working with ModCallbackCustom - https://github.com/algolia/docsearch/issues/1658
+  - adding @internal tag crashes APIExtractor: https://github.com/microsoft/rushstack/issues/3894
+
+- get docs working with ModCallbackCustom
+  - waiting on issue: https://github.com/algolia/docsearch/issues/1658
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
-
-- use NX workspace variables in all project.json
-  - waiting on how to use variables inside of commands from slack
-
-- wait for wof to make https://github.com/wofsauge/Isaac-XML-Validator/ into a CLI program
