@@ -6491,10 +6491,10 @@ eslint-plugin-import@^2.27.4:
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.1.1.tgz#0f7f4f74f03fb9244a5da50718fbdcaa3b4d64c6"
-  integrity sha512-LPNkRsM1dYS+prHsndWu+/p/fWvIHKPWN6A9r3yEmH9aSKn6rE2/ST25nePP+mrOqsgyxRtGBSpEmtlY66AMEg==
+eslint-plugin-isaacscript@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.1.2.tgz#88280bd4d9f8c9be4fc522f28a52d3f49b67e373"
+  integrity sha512-ioEieNimqj2f02xnMqjfjHQpLcBVEQfu6h7pDqOXyufif57mF+jSXjXvQ2c63cKe9vCUYtmz0ycidwDe28asRg==
   dependencies:
     "@typescript-eslint/type-utils" "5.48.1"
     "@typescript-eslint/types" "5.48.1"
@@ -11539,10 +11539,10 @@ prettier@>=2.4.0:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.0.tgz#c7df58393c9ba77d6fba3921ae01faf994fb9dc9"
   integrity sha512-9Lmg8hTFZKG0Asr/kW9Bp8tJjRVluO8EJQVfY2T7FMw9T5jy4I/Uvx0Rca/XWf50QQ1/SS48+6IJWnrb+2yemA==
 
-prettier@^2.8.2:
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.2.tgz#c4ea1b5b454d7c4b59966db2e06ed7eec5dfd160"
-  integrity sha512-BtRV9BcncDyI2tsuS19zzhzoxD8Dh8LiCx7j7tHzrkz8GFXAexeWFdi22mjE1d16dftH2qNaytVxqiRTGlMfpw==
+prettier@^2.8.3:
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.3.tgz#ab697b1d3dd46fb4626fbe2f543afe0cc98d8632"
+  integrity sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==
 
 pretty-error@^4.0.0:
   version "4.0.0"
