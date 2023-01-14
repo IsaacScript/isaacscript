@@ -1,13 +1,3 @@
------
-
-lint failure:
-
- * These are helper functions relating to creating custom stages with the built-in standard library.
- * For more information about custom stages, see the [main
- * documentation page](https://isaacscript.github.io/main/custom-stages).
-
------
-
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
 

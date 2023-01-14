@@ -85,7 +85,7 @@ invalid.push({
 * between two lines
 */
   `,
-  errors: [{ messageId: "missingPeriod" }],
+  errors: [{ messageId: "missingPeriod" }, { messageId: "missingPeriod" }],
 });
 
 valid.push({

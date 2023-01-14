@@ -77,7 +77,7 @@ function splitOnSpecialText(text: string): string[] {
 
   // Second, handle "blocks" indicated by a double newline. We don't want sentences to be
   // parsed/combined past blocks, so we manually insert a sentence separator.
-  text = text.replaceAll("\n\n", SENTENCE_SEPARATOR_IDENTIFIER);
+  text = text.replaceAll("\n\n", `\n${SENTENCE_SEPARATOR_IDENTIFIER}\n`);
 
   const lines = text.split("\n");
   const newLines: string[] = [];
