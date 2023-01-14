@@ -51,10 +51,14 @@ cp --recursive "$DIR/src" "$OUT_DIR/"
 # Bundle the entire library into one file specifically for Lua consumers. We also include
 # `isaac-typescript-definitions` in the bundled exports so that Lua users do not have to consume two
 # separate libraries.
-LUA_INDEX="$DIR/src/indexLua.ts"
-cp "$DIR/src/index.ts" "$LUA_INDEX"
-echo "export * from \"isaac-typescript-definitions\";" >> "$LUA_INDEX"
-npx tstl --project tsconfig.bundle.json
-rm -f "$LUA_INDEX"
+if [ "$1" == "fast" ]; then
+  echo "Skipping the Lua build due to the \"fast\" option being present."
+else
+  LUA_INDEX="$DIR/src/indexLua.ts"
+  cp "$DIR/src/index.ts" "$LUA_INDEX"
+  echo "export * from \"isaac-typescript-definitions\";" >> "$LUA_INDEX"
+  npx tstl --project tsconfig.bundle.json
+  rm -f "$LUA_INDEX"
+fi
 
 echo "Successfully built in $SECONDS seconds."
