@@ -60,7 +60,10 @@ export function getCommentBlocks(
      *
      * Has a comment value of: " Foo."
      */
-    const text = comment.value.slice(1);
+    const firstCharacter = comment.value[0];
+    const firstCharacterIsSpace =
+      firstCharacter !== undefined && firstCharacter === "";
+    const text = firstCharacterIsSpace ? comment.value.slice(1) : comment.value;
 
     const commentBlock: LeadingLineCommentBlock = {
       mergedText: text,

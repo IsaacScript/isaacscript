@@ -605,6 +605,17 @@ invalid.push({
   `,
 });
 
+invalid.push({
+  name: "No space after double slash",
+  code: `
+//This is a sentence.
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+// This is a sentence.
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,

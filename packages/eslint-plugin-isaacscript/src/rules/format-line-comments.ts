@@ -146,12 +146,12 @@ export const formatLineComments = createRule<Options, MessageIds>({
 function getTextFromComments(
   comments: TSESTree.Comment[],
   leftWhitespace: string,
-) {
+): string {
   const lines = comments.map(
-    /**
-     * It is assumed that `comment.value` will always have a leading space, due to Prettier changing
-     * `//Comment` to `// Comment`.
-     */
+    // `comment.value` will almost always have a leading leading space, due to Prettier changing
+    // `//Comment` to `// Comment`. But it is also possible that the rule is running before Prettier
+    // has had a chance to format the code. Either way, we want this function to represent the text
+    // as it really is in the source code.
     (comment) => `${leftWhitespace}${SLASH_SLASH}${comment.value}`,
   );
   return lines.join("\n");
@@ -161,7 +161,7 @@ function getTextFromComments(
 function convertTextToLeadingLineComments(
   text: string,
   leftWhitespace: string,
-) {
+): string {
   const lines = text.split("\n");
   const linesWithPrefix = lines.map(
     (line) => `${leftWhitespace}${SLASH_SLASH} ${line}`,
