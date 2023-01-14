@@ -72,7 +72,7 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
   });
 
   // Rename ".eslintrc.template.js" to ".eslintrc.js". (If it is kept as ".eslintrc.js", then local
-  // linting will fail.)
+  // linting will fail.
   const ESLintConfigPath = path.join(projectPath, ".eslintrc.template.js");
   const correctESLintConfigPath = path.join(projectPath, ".eslintrc.js");
   file.rename(ESLintConfigPath, correctESLintConfigPath, verbose);
@@ -83,9 +83,9 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
   file.rename(gitAttributesPath, correctGitAttributesPath, verbose);
 
-  // Rename "cspell.json.template" to "cspell.json". (If it is kept as "cspell.json", then local
+  // Rename "cspell.template.json" to "cspell.json". (If it is kept as "cspell.json", then local
   // spell checking will fail.)
-  const cSpellConfigPath = path.join(projectPath, "cspell.json.template");
+  const cSpellConfigPath = path.join(projectPath, "cspell.template.json");
   const correctCSpellConfigPath = path.join(projectPath, "cspell.json");
   file.rename(cSpellConfigPath, correctCSpellConfigPath, verbose);
 }
