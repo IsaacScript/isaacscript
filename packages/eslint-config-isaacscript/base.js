@@ -23,7 +23,6 @@ module.exports = {
      * We extend the Airbnb rules with the "recommended", "recommended-requiring-type-checking", and
      * "strict" rules from the "typescript-eslint" plugin, which is also recommended by Matt
      * Turnbull, the author of "airbnb-typescript/base":
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/README.md#recommended
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
