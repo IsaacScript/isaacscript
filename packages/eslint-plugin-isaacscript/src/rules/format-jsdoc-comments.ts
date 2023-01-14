@@ -80,7 +80,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         ? getJSDocCommentSingleLine(formattedText, leftWhitespace)
         : getJSDocCommentMultiLine(formattedText, leftWhitespace);
 
-      if (DEBUG) {
+      if (DEBUG && originalComment !== formattedComment) {
         console.log("originalComment:");
         console.log(originalComment);
         console.log("formattedComment:");

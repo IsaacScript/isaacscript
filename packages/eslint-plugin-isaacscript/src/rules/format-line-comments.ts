@@ -99,7 +99,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
         leftWhitespace,
       );
 
-      if (DEBUG) {
+      if (DEBUG && originalText !== formattedText) {
         console.log("originalText:");
         console.log(originalText);
         console.log("formattedText:");

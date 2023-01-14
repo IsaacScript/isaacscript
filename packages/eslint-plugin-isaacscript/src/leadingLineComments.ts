@@ -62,7 +62,7 @@ export function getCommentBlocks(
      */
     const firstCharacter = comment.value[0];
     const firstCharacterIsSpace =
-      firstCharacter !== undefined && firstCharacter === "";
+      firstCharacter !== undefined && firstCharacter === " ";
     const text = firstCharacterIsSpace ? comment.value.slice(1) : comment.value;
 
     const commentBlock: LeadingLineCommentBlock = {

@@ -1,12 +1,5 @@
 -----
 
-lint:
-//test
-ctrl+s --> // est
-(maybe fix is to just disable other eslint rule)
-
------
-
 lint failure, complete sentences:
 
  * Custom grid entities are built on top of real grid entities. You can use any existing grid entity
