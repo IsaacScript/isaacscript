@@ -34,6 +34,10 @@ jobs:
       - name: Test every package in the monorepo
         run: bash test.sh
 
+      # Uncomment this for SSH debugging of CI actions.
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Lint every package in the monorepo
         run: bash lint.sh
 

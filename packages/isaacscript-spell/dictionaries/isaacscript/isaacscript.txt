@@ -28,6 +28,7 @@ jsdoc # Monorepo word
 lualib # TSTL word
 markdownlint # Monorepo word
 markdownlintignore # Monorepo word
+mxschmitt # Monorepo word
 newindex # TSTL word
 nextpromise # TSTL word
 nocache # Monorepo word
