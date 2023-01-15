@@ -20,7 +20,6 @@ import {
 import { addPlayerHealthType } from "../../../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../../../functions/roomData";
 import { changeRoom } from "../../../../functions/rooms";
-import { printConsole } from "../../../../functions/utils";
 import { ROOM_TYPE_NAMES } from "../../../../objects/roomTypeNames";
 
 const DEFAULT_MOVE_UNITS = 0.5;
@@ -30,7 +29,7 @@ export function addHeart(params: string, healthType: HealthType): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of hearts to add.");
+      print("That is an invalid amount of hearts to add.");
       return;
     }
 
@@ -72,13 +71,13 @@ export function listEntities(
   if (params !== "") {
     entityTypeFilter = tonumber(params);
     if (entityTypeFilter === undefined) {
-      printConsole("That is an invalid entity type to filter by.");
+      print("That is an invalid entity type to filter by.");
       return;
     }
   }
 
   logAllEntities(includeBackgroundEffects, entityTypeFilter);
-  printConsole('Logged the entities in the room to the "log.txt" file.');
+  print('Logged the entities in the room to the "log.txt" file.');
 }
 
 export function listGridEntities(params: string, includeWalls: boolean): void {
@@ -86,13 +85,13 @@ export function listGridEntities(params: string, includeWalls: boolean): void {
   if (params !== "") {
     gridEntityTypeFilter = tonumber(params);
     if (gridEntityTypeFilter === undefined) {
-      printConsole("That is an invalid grid entity type to filter by.");
+      print("That is an invalid grid entity type to filter by.");
       return;
     }
   }
 
   logAllGridEntities(includeWalls, gridEntityTypeFilter);
-  printConsole('Logged the grid entities in the room to the "log.txt" file.');
+  print('Logged the grid entities in the room to the "log.txt" file.');
 }
 
 export function movePlayer(params: string, direction: Direction): void {
@@ -100,7 +99,7 @@ export function movePlayer(params: string, direction: Direction): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of units to move.");
+      print("That is an invalid amount of units to move.");
       return;
     }
 
@@ -130,12 +129,12 @@ export function warpToRoomType(roomType: RoomType): void {
   const gridIndexes = getRoomGridIndexesForType(roomType);
   const firstGridIndex = gridIndexes[0];
   if (firstGridIndex === undefined) {
-    printConsole(`There are no ${roomTypeName}s on this floor.`);
+    print(`There are no ${roomTypeName}s on this floor.`);
     return;
   }
 
   changeRoom(firstGridIndex);
-  printConsole(`Warped to room type: ${roomTypeName} (${roomType})`);
+  print(`Warped to room type: ${roomTypeName} (${roomType})`);
 }
 
 export function warpNextToRoomType(roomType: RoomType): void {
@@ -143,7 +142,7 @@ export function warpNextToRoomType(roomType: RoomType): void {
   const gridIndexes = getRoomGridIndexesForType(roomType);
   const firstGridIndex = gridIndexes[0];
   if (firstGridIndex === undefined) {
-    printConsole(`There are no ${roomTypeName}s on this floor.`);
+    print(`There are no ${roomTypeName}s on this floor.`);
     return;
   }
 
@@ -153,12 +152,12 @@ export function warpNextToRoomType(roomType: RoomType): void {
     const roomData = getRoomData(roomGridIndex);
     if (roomData !== undefined && roomData.Type === RoomType.DEFAULT) {
       changeRoom(roomGridIndex);
-      printConsole(`Warped next to room type: ${roomTypeName} (${roomType})`);
+      print(`Warped next to room type: ${roomTypeName} (${roomType})`);
       return;
     }
   }
 
-  printConsole(
+  print(
     `Failed to find the room next to room type: ${roomTypeName} (${roomType})`,
   );
 }

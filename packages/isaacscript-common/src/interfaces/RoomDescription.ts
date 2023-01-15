@@ -8,6 +8,7 @@ import {
 
 /** This is used by the room history feature of the standard library. */
 export interface RoomDescription {
+  startSeedString: string;
   stage: LevelStage;
   stageType: StageType;
   stageID: StageID;

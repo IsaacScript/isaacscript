@@ -39,6 +39,8 @@ export class RoomHistory extends Feature {
     const stageType = level.GetStageType();
     const room = game.GetRoom();
     const roomType = room.GetType();
+    const seeds = game.GetSeeds();
+    const startSeedString = seeds.GetStartSeedString();
     const stageID = getRoomStageID();
     const dimension = getDimension();
     const roomVariant = getRoomVariant();
@@ -49,6 +51,7 @@ export class RoomHistory extends Feature {
     const roomVisitedCount = getRoomVisitedCount();
 
     const roomDescription: RoomDescription = {
+      startSeedString,
       stage,
       stageType,
       stageID,
@@ -133,6 +136,8 @@ export class RoomHistory extends Feature {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();
+    const seeds = game.GetSeeds();
+    const startSeedString = seeds.GetStartSeedString();
     const roomListIndex = getRoomListIndex();
     const roomVisitedCount = getRoomVisitedCount();
     const latestRoomDescription = this.getLatestRoomDescription();
@@ -144,6 +149,7 @@ export class RoomHistory extends Feature {
     }
 
     return (
+      startSeedString !== latestRoomDescription.startSeedString ||
       stage !== latestRoomDescription.stage ||
       stageType !== latestRoomDescription.stageType ||
       roomListIndex !== latestRoomDescription.roomListIndex ||

@@ -11,6 +11,11 @@ This page lists the changes to the IsaacScript framework.
 
 ## January 20th, 2022 (Unreleased)
 
+- Added the following helper functions:
+  - `isSlotMachine`
+  - `logAndPrint`
+- Deleted the following helper functions:
+  - `printConsole`
 - Added the following enums:
   - `LarryJrSubType`
   - `HollowSubType`

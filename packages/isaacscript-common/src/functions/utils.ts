@@ -1,6 +1,7 @@
 import { RenderMode } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
+import { log } from "./log";
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
@@ -103,18 +104,18 @@ export function isVanillaConsoleCommand(commandName: string): boolean {
 }
 
 /**
- * Helper function to print something to the in-game console. Use this instead of invoking the
- * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
- * of the message (which `Isaac.ConsoleOutput` does not do by default).
+ * Helper function to log a message to the "log.txt" file and to print it to the screen at the same
+ * time.
  */
-export function printConsole(msg: string): void {
-  Isaac.ConsoleOutput(`${msg}\n`);
+export function logAndPrint(msg: string): void {
+  log(msg);
+  print(msg);
 }
 
 /** Helper function to print whether something was enabled or disabled to the in-game console. */
 export function printEnabled(enabled: boolean, description: string): void {
   const enabledText = enabled ? "Enabled" : "Disabled";
-  printConsole(`${enabledText} ${description}.`);
+  print(`${enabledText} ${description}.`);
 }
 
 /**

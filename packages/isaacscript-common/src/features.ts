@@ -10,6 +10,7 @@ import { GridEntityUpdateDetection } from "./classes/features/callbackLogic/Grid
 import { ItemPickupDetection } from "./classes/features/callbackLogic/ItemPickupDetection";
 import { PlayerCollectibleDetection } from "./classes/features/callbackLogic/PlayerCollectibleDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
+import { SlotDestroyedDetection } from "./classes/features/callbackLogic/SlotDestroyedDetection";
 import { SlotRenderDetection } from "./classes/features/callbackLogic/SlotRenderDetection";
 import { SlotUpdateDetection } from "./classes/features/callbackLogic/SlotUpdateDetection";
 import { CharacterHealthConversion } from "./classes/features/other/CharacterHealthConversion";
@@ -71,6 +72,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.ITEM_PICKUP_DETECTION]: ItemPickupDetection;
   [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: PlayerCollectibleDetection;
   [ISCFeature.PLAYER_REORDERED_CALLBACKS]: PlayerReorderedCallbacks;
+  [ISCFeature.SLOT_DESTROYED_DETECTION]: SlotDestroyedDetection;
   [ISCFeature.SLOT_RENDER_DETECTION]: SlotRenderDetection;
   [ISCFeature.SLOT_UPDATE_DETECTION]: SlotUpdateDetection;
 
@@ -221,6 +223,10 @@ export function getFeatures(
       callbacks[ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED],
       callbacks[ModCallbackCustom.POST_PLAYER_RENDER_REORDERED],
       callbacks[ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED],
+    ),
+    [ISCFeature.SLOT_DESTROYED_DETECTION]: new SlotDestroyedDetection(
+      callbacks[ModCallbackCustom.POST_SLOT_DESTROYED],
+      roomHistory,
     ),
     [ISCFeature.SLOT_RENDER_DETECTION]: new SlotRenderDetection(
       callbacks[ModCallbackCustom.POST_SLOT_RENDER],

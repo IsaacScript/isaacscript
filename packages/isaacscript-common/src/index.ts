@@ -103,6 +103,7 @@ export * from "./functions/run";
 export * from "./functions/seeds";
 export * from "./functions/serialization";
 export * from "./functions/set";
+export * from "./functions/slots";
 export * from "./functions/sound";
 export * from "./functions/spawnCollectible";
 export * from "./functions/sprites";

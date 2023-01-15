@@ -165,6 +165,7 @@
     "src/functions/seeds.ts",
     "src/functions/serialization.ts",
     "src/functions/set.ts",
+    "src/functions/slots.ts",
     "src/functions/sound.ts",
     "src/functions/spawnCollectible.ts",
     "src/functions/sprites.ts",

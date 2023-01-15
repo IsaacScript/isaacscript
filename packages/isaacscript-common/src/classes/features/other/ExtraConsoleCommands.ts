@@ -10,10 +10,7 @@ import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { addFlag, bitFlags } from "../../../functions/flag";
 import { getMapPartialMatch } from "../../../functions/map";
-import {
-  isVanillaConsoleCommand,
-  printConsole,
-} from "../../../functions/utils";
+import { isVanillaConsoleCommand } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
 import * as commands from "./extraConsoleCommands/commands";
 import { v } from "./extraConsoleCommands/v";
@@ -176,12 +173,12 @@ export class ExtraConsoleCommands extends Feature {
   private executeCmd = (command: string, params: string) => {
     const resultTuple = getMapPartialMatch(command, this.commandFunctionMap);
     if (resultTuple === undefined) {
-      printConsole("That is an invalid console command.");
+      print("That is an invalid console command.");
       return;
     }
 
     const [commandName, commandFunction] = resultTuple;
-    printConsole(`Command: ${commandName}`);
+    print(`Command: ${commandName}`);
     commandFunction(params);
   };
 

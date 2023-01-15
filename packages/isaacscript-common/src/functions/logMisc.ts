@@ -28,7 +28,6 @@ import { iterateTableInOrder } from "./table";
 import { getTrinketName } from "./trinkets";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isTable, isUserdata } from "./types";
-import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
 
 /** Helper function to enumerate all of the values in an array. */
@@ -85,7 +84,7 @@ export function logEntityID(entity: Entity): void {
 export function logError(msg: string): void {
   const errorMsg = `Error: ${msg}`;
   log(errorMsg);
-  printConsole(errorMsg);
+  print(errorMsg);
 }
 
 /** Helper function for printing out every flag that is turned on. Useful when debugging. */

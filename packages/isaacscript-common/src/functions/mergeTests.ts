@@ -1,11 +1,10 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { SerializationType } from "../enums/SerializationType";
 import { deepCopy } from "./deepCopy";
-import { log } from "./log";
 import { merge } from "./merge";
 import { isRNG, newRNG } from "./rng";
 import { isSerializedIsaacAPIClass } from "./serialization";
-import { printConsole } from "./utils";
+import { logAndPrint } from "./utils";
 import { isVector, serializeVector } from "./vector";
 
 /**
@@ -29,8 +28,7 @@ export function runMergeTests(): void {
   oldTableHasRNGSerialized();
 
   const successText = "All merge tests passed!";
-  log(successText);
-  printConsole(successText);
+  logAndPrint(successText);
 }
 
 function oldTableHasUpdatedValue() {

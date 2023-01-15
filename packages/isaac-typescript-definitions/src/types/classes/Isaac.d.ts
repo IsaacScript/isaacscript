@@ -48,6 +48,12 @@ declare global {
 
     /**
      * Puts a string into the debug console. (You can open the debug console with the tilde key.)
+     *
+     * The Lua global function of `print` is mapped to this method, so it is recommended to use
+     * `print` instead of invoking this method directly.
+     *
+     * Note that unlike `print`, if you invoke `Isaac.ConsoleOutput` directly, the displayed message
+     * will not contain a newline terminator.
      */
     function ConsoleOutput(text: string): void;
 
