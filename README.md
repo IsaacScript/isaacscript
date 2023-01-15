@@ -70,10 +70,18 @@ For getting started in building your own mods, see the [website](https://isaacsc
 
 If you want to fix a bug or add a new feature to `isaacscript-common`, then you need to set up a testing mod that links to your compiled development version. (This is so that you can test out your changes inside of the game.)
 
-The `isaacscript` command line tool has a `--dev` flag that will set this up for you automatically:
+### Making a New Mod
+
+The `isaacscript` command line tool has a `--dev` flag that will set up a new testing mod for you automatically:
 
 ```sh
 npx isaacscript init test --dev
 ```
 
-This command will initialize a new mod named "test" that automatically links to your locally compiled `isaacscript-common`. Additionally, when you do `npx isaacscript` to initiate the file watcher, it will also spawn an additional watcher process for the files in `isaacscript-common`.
+This command will initialize a new mod named "test" and then automatically link it to your locally compiled `isaacscript-common`. Additionally, when you do `npx isaacscript` to initiate the file watcher, it will also spawn an additional watcher process for the files in `isaacscript-common`.
+
+### Using an Existing Mod
+
+Testing with a brand new mod is recommended, but it is also possible to use an existing mod. Just set `"isaacScriptCommonDev": true` in your `isaacscript.json` file and then start IsaacScript. (Doing this will automatically set up the local yarn link.)
+
+Make sure that your existing mod project uses Yarn as the package manager, or the link won't work properly.
