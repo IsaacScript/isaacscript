@@ -1601,7 +1601,11 @@ export enum ModCallbackCustom {
    *   matches the sub-type provided.
    *
    * ```ts
-   * function postSlotAnimationChanged(slot: Entity): void {}
+   * function postSlotAnimationChanged(
+   *   slot: Entity,
+   *   previousAnimation: string,
+   *   currentAnimation: string,
+   * ): void {}
    * ```
    */
   POST_SLOT_ANIMATION_CHANGED,
