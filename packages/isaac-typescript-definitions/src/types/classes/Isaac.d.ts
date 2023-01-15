@@ -77,7 +77,7 @@ declare global {
      * Prints a string to the "log.txt" file. By default, the file is located at:
      *
      * ```text
-     * C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt
+     * C:\Users\%USERNAME%\Documents\My Games\Binding of Isaac Repentance\log.txt
      * ```
      */
     function DebugString(msg: string): Mod;

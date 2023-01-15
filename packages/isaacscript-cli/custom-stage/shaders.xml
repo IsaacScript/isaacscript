@@ -1,4 +1,5 @@
 <!-- cspell:ignore lowp mediump -->
+<?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/shaders.xsd" ?>
 <shaders>
   <!--
     Empty shader; only used as a workaround for rendering sprites on top of the HUD.

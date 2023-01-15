@@ -108,7 +108,7 @@ Next, open `C:\Repositories\green-candle\src\main.ts` in VSCode, which contains 
 
 The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `POST_GAME_STARTED` callback is fired.
 
-(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the "log.txt" file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
+(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the "log.txt" file, which is located at `C:\Users\%USERNAME%\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
 First, change the `MOD_NAME` constant to "Green Candle".
 

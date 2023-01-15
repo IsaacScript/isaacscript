@@ -28,7 +28,7 @@ If you want more fine-grained control over converting your code, then you can al
 
 I've written [a short macro](https://raw.githubusercontent.com/IsaacScript/isaacscript/main/misc/convert-lua-to-typescript.json) that does some basic conversions. For example, it converts `local` to `let`, `and` to `&&`, and so forth. (Feel free to customize it to your liking.)
 
-Download it to the following directory: `C:\Users\[username]\.vscode\extensions\joekon.ssmacro-0.6.0\macros` <!-- cspell:ignore joekon -->
+Download it to the following directory: `C:\Users\%USERNAME%\.vscode\extensions\joekon.ssmacro-0.6.0\macros` <!-- cspell:ignore joekon -->
 
 <br />
 
