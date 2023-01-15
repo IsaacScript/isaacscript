@@ -17,15 +17,16 @@ npx prettier --check .
 # We use "--max-warnings" so that any warnings will fail in CI.
 npx eslint --max-warnings 0 src
 
-# Step 3 - Spell check every file using CSpell.
+# Step 3 - Use `isaac-xml-validator` to validate XML files.
+# (Skip this step if Python is not currently installed for whatever reason.)
+if command -v python &> /dev/null; then
+  pip install isaac-xml-validator --upgrade
+  isaac-xml-validator
+fi
+
+# Step 4 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
 npx cspell --no-progress --no-summary
-
-# Step 4 - Use xmllint to lint XML files.
-# (Skip this step if xmllint is not currently installed for whatever reason.)
-if command -v xmllint &> /dev/null; then
-  find "$DIR/mod" -name "*.xml" -print0 | xargs -0 xmllint --noout
-fi
 
 # Step 5 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
