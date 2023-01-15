@@ -1636,10 +1636,8 @@ export enum ModCallbackCustom {
   POST_SLOT_COLLISION,
 
   /**
-   * Fires from the `POST_RENDER` callback when a slot machine is destroyed or a beggar is removed.
-   *
-   * Use the `isSlotMachine` helper function and the passed argument of `SlotDestructionType` to
-   * filter for the specific kinds of slot removal that you need.
+   * Fires from the `POST_SLOT_UPDATE` or the `POST_ENTITY_REMOVE` callback when a slot machine is
+   * destroyed or a beggar is removed.
    *
    * This callback will fire in four different kinds of situations:
    *
@@ -1654,6 +1652,18 @@ export enum ModCallbackCustom {
    * 4. When beggars pay out with a collectible item. When this happens, they despawn after playing
    *    the "Teleport" animation. (This is not technically a "destruction" event, but the callback
    *    will fire for this to remain consistent with the other types of slot entities.)
+   *
+   * Depending on the specific types of slot removal that you need to detect, you can filter using:
+   *
+   * 1. The `isSlotMachine` helper function to differentiate between slot machines and beggars.
+   * 2. The passed callback argument of `SlotDestructionType` to differentiate between bombed slots
+   *    and slots that paid out with a collectible item.
+   *
+   * Note that when a Crane Game explodes after paying out three collectibles, the
+   * `SlotDestructionType` will be equal to `SlotDestructionType.NORMAL` instead of
+   * `SlotDestructionType.COLLECTIBLE_PAYOUT` like you might expect. (This is because it only
+   * explodes after a short delay, and when doing so, it produces rewards in the same way that would
+   * happen if you bombed it.)
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it

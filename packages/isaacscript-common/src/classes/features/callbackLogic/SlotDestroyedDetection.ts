@@ -5,9 +5,7 @@
 //    room.
 
 // 2) In the specific case of a machine spawning a collectible, the machine will be immediately
-//    removed. The collectible will not have the `SpawnerEntity` or `Parent` in this case. Thus, we
-//    store all despawning slots in an array and then cross reference the array when a new pickup
-//    spawns.
+//    removed. Thus, we assume that any despawning slot machine is destroyed in this way.
 
 // For beggars, destruction is detected by monitoring for when a beggar despawns mid-room. Beggars
 // that are paying out with a collectible will always be playing the "Teleport" animation.
@@ -17,28 +15,18 @@ import {
   EntityGridCollisionClass,
   EntityType,
   ModCallback,
-  PickupVariant,
 } from "isaac-typescript-definitions";
-import { game } from "../../../core/cachedClasses";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SlotDestructionType } from "../../../enums/SlotDestructionType";
 import { isSlotMachine } from "../../../functions/slots";
-import { vectorEquals } from "../../../functions/vector";
 import { PostSlotDestroyed } from "../../callbacks/PostSlotDestroyed";
 import { Feature } from "../../private/Feature";
 import { RoomHistory } from "../other/RoomHistory";
-
-type DespawnedSlotTuple = [
-  gameFrame: int,
-  position: Vector,
-  entityPtr: EntityPtr,
-];
 
 export class SlotDestroyedDetection extends Feature {
   public override v = {
     room: {
       destroyedSlotSet: new Set<PtrHash>(),
-      despawnedSlots: [] as DespawnedSlotTuple[],
     },
   };
 
@@ -49,13 +37,6 @@ export class SlotDestroyedDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      // 34
-      [
-        ModCallback.POST_PICKUP_INIT,
-        this.postPickupInitCollectible,
-        [PickupVariant.COLLECTIBLE],
-      ],
-
       // 67
       [
         ModCallback.POST_ENTITY_REMOVE,
@@ -71,30 +52,6 @@ export class SlotDestroyedDetection extends Feature {
     this.postSlotDestroyed = postSlotDestroyed;
     this.roomHistory = roomHistory;
   }
-
-  // ModCallback.POST_PICKUP_INIT (34)
-  // PickupVariant.COLLECTIBLE (100)
-  private postPickupInitCollectible = (pickup: EntityPickup) => {
-    const gameFrameCount = game.GetFrameCount();
-
-    // Go through the despawning slots to see if they match this pickup.
-    for (const despawnedSlotTuple of this.v.room.despawnedSlots) {
-      const [gameFrame, position, entityPtr] = despawnedSlotTuple;
-      if (
-        gameFrame === gameFrameCount &&
-        vectorEquals(position, pickup.Position)
-      ) {
-        const entity = entityPtr.Ref;
-        if (entity !== undefined) {
-          const slot = entity as EntitySlot;
-          this.postSlotDestroyed.fire(
-            slot,
-            SlotDestructionType.COLLECTIBLE_PAYOUT,
-          );
-        }
-      }
-    }
-  };
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   // EntityType.SLOT (6)
@@ -115,14 +72,7 @@ export class SlotDestroyedDetection extends Feature {
   };
 
   private postEntityRemoveSlotMachine(slot: EntitySlot) {
-    const gameFrameCount = game.GetFrameCount();
-    const entityPtr = EntityPtr(slot);
-    const despawnedSlotTuple: DespawnedSlotTuple = [
-      gameFrameCount,
-      slot.Position,
-      entityPtr,
-    ];
-    this.v.room.despawnedSlots.push(despawnedSlotTuple);
+    this.postSlotDestroyed.fire(slot, SlotDestructionType.COLLECTIBLE_PAYOUT);
   }
 
   private postEntityRemoveBeggar(slot: EntitySlot) {
