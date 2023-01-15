@@ -32,7 +32,7 @@
     "dotenv": "^16.0.3",
     "figlet": "^1.5.2",
     "git-dirty": "^1.0.2",
-    "glob": "^8.0.3",
+    "glob": "^8.1.0",
     "isaacscript-common-ts": "^1.6.0",
     "isaacscript-tsconfig": "^3.0.2",
     "jsonc-parser": "^3.2.0",
