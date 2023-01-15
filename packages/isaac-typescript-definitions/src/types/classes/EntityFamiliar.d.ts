@@ -55,7 +55,10 @@ declare global {
     MoveDirection: Direction;
     OrbitAngleOffset: float;
     OrbitDistance: Vector;
+
+    /** -1 by default. Has values >= 0 for familiars that are orbitals. */
     OrbitLayer: int;
+
     OrbitSpeed: float;
 
     /**
