@@ -1647,11 +1647,12 @@ export enum ModCallbackCustom {
    *    change in the `GridCollisionClass`.
    * 2. When slot machine entities pay out with a collectible item. When this happens, they
    *    immediately despawn without playing any special animation.
-   * 3. When beggars are destroyed with an explosion. When this happens, they immediately despawn
-   *    without playing any special animation.
-   * 4. When beggars pay out with a collectible item. When this happens, they despawn after playing
-   *    the "Teleport" animation. (This is not technically a "destruction" event, but the callback
-   *    will fire for this to remain consistent with the other types of slot entities.)
+   * 3. When beggar entities (e.g. `SlotVariant.BEGGAR` and `SlotVariant.SHELL_GAME`) are destroyed
+   *    with an explosion. When this happens, they immediately despawn without playing any special
+   *    animation.
+   * 4. When beggar entities pay out with a collectible item. When this happens, they despawn after
+   *    playing the "Teleport" animation. (This is not technically a "destruction" event, but the
+   *    callback will fire for this to remain consistent with the other types of slot entities.)
    *
    * Depending on the specific types of slot removal that you need to detect, you can filter using:
    *
