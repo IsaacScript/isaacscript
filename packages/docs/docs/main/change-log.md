@@ -15,7 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `isSlotMachine`
   - `logAndPrint`
 - Deleted the following helper functions:
-  - `printConsole`
+  - `printConsole` (use `print` instead)
 - Added the following enums:
   - `LarryJrSubType`
   - `HollowSubType`

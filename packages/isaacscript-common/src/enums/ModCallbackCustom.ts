@@ -1636,8 +1636,24 @@ export enum ModCallbackCustom {
   POST_SLOT_COLLISION,
 
   /**
-   * Fires from the `POST_RENDER` callback when a slot plays the animation that indicates that it
-   * has broken.
+   * Fires from the `POST_RENDER` callback when a slot machine is destroyed or a beggar is removed.
+   *
+   * Use the `isSlotMachine` helper function and the passed argument of `SlotDestructionType` to
+   * filter for the specific kinds of slot removal that you need.
+   *
+   * This callback will fire in four different kinds of situations:
+   *
+   * 1. When slot machine entities (e.g. `SlotVariant.SLOT_MACHINE` and
+   *    `SlotVariant.BLOOD_DONATION_MACHINE`) are destroyed with an explosion. When this happens,
+   *    they typically stay in the room and can be pushed around. This state is detected via a
+   *    change in the `GridCollisionClass`.
+   * 2. When slot machine entities pay out with a collectible item. When this happens, they
+   *    immediately despawn without playing any special animation.
+   * 3. When beggars are destroyed with an explosion. When this happens, they immediately despawn
+   *    without playing any special animation.
+   * 4. When beggars pay out with a collectible item. When this happens, they despawn after playing
+   *    the "Teleport" animation. (This is not technically a "destruction" event, but the callback
+   *    will fire for this to remain consistent with the other types of slot entities.)
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
