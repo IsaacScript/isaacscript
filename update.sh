@@ -32,6 +32,7 @@ if [[ $OLD_HASH != $NEW_HASH ]]; then
   npx syncpack fix-mismatches --prod --dev
 
   # syncpack will automatically update most of the dependencies in "isaacscript-lint", but not
-  # "eslint-config-isaacscript", since that does not exist in the root "package.json".
+  # "eslint-config-isaacscript" and "eslint-plugin-isaacscript", since those do not exist in the
+  # root "package.json".
   bash "$DIR/packages/isaacscript-lint/update.sh"
 fi
