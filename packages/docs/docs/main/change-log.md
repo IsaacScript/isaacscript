@@ -16,6 +16,10 @@ This page lists the changes to the IsaacScript framework.
   - `logAndPrint`
   - `setSpriteOpacity`
   - `setEntityOpacity`
+  - `isMoveActionPressed`
+  - `isMoveActionTriggered`
+  - `isShootActionPressed`
+  - `isShootActionTriggered`
 - Deleted the following helper functions:
   - `printConsole` (use `print` instead)
 - Added the following enums:

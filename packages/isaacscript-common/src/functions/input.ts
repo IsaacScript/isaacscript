@@ -154,10 +154,20 @@ export function isMoveAction(buttonAction: ButtonAction): boolean {
   return MOVEMENT_ACTIONS_SET.has(buttonAction);
 }
 
+export function isMoveActionPressed(controllerIndex: ControllerIndex): boolean {
+  return isActionPressed(controllerIndex, ...MOVEMENT_ACTIONS);
+}
+
 export function isMoveActionPressedOnAnyInput(): boolean {
   return MOVEMENT_ACTIONS.some((moveAction) =>
     isActionPressedOnAnyInput(moveAction),
   );
+}
+
+export function isMoveActionTriggered(
+  controllerIndex: ControllerIndex,
+): boolean {
+  return isActionTriggered(controllerIndex, ...MOVEMENT_ACTIONS);
 }
 
 export function isMoveActionTriggeredOnAnyInput(): boolean {
@@ -170,10 +180,22 @@ export function isShootAction(buttonAction: ButtonAction): boolean {
   return SHOOTING_ACTIONS_SET.has(buttonAction);
 }
 
+export function isShootActionPressed(
+  controllerIndex: ControllerIndex,
+): boolean {
+  return isActionPressed(controllerIndex, ...SHOOTING_ACTIONS);
+}
+
 export function isShootActionPressedOnAnyInput(): boolean {
   return SHOOTING_ACTIONS.some((shootAction) =>
     isActionPressedOnAnyInput(shootAction),
   );
+}
+
+export function isShootActionTriggered(
+  controllerIndex: ControllerIndex,
+): boolean {
+  return isActionTriggered(controllerIndex, ...SHOOTING_ACTIONS);
 }
 
 export function isShootActionTriggeredOnAnyInput(): boolean {
