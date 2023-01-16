@@ -65,6 +65,7 @@ secrettrapdoor # door_20_secrettrapdoor_shop.anm2
 selfsacrificeroomdoor # door_04_selfsacrificeroomdoor.png
 shotspeed # items.xml
 shutdoors # entities2.xml
+statuseffects # statuseffects.anm2
 steamapps # The resources directory
 stringtable # stringtable.sta
 summonable # items_metadata.xml
