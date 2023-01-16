@@ -83,7 +83,7 @@ export function isSerializedRNG(object: unknown): object is SerializedRNG {
 }
 
 /**
- * Helper function to initialize an RNG object using Blade's recommended shift index.
+ * Helper function to initialize a new RNG object using Blade's recommended shift index.
  *
  * @param seed The seed to initialize it with. Default is `getRandomSeed()`.
  */
