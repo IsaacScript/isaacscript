@@ -8,6 +8,7 @@ import { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { isRNG, newRNG } from "./rng";
+import { setSpriteOpacity } from "./sprites";
 import { asNumber, isPrimitive } from "./types";
 import { isVector, vectorToString } from "./vector";
 
@@ -475,6 +476,18 @@ export function rerollEnemy(entity: Entity): Entity | undefined {
  */
 export function setEntityDamageFlash(entity: Entity): void {
   entity.SetColor(DAMAGE_FLASH_COLOR, 2, 0);
+}
+
+/**
+ * Helper function to keep an entity's color the same values as it already is but set the opacity to
+ * a specific value.
+ *
+ * @param entity The entity to set.
+ * @param alpha A value between 0 and 1 that represents the fade amount.
+ */
+export function setEntityOpacity(entity: Entity, alpha: float): void {
+  const sprite = entity.GetSprite();
+  setSpriteOpacity(sprite, alpha);
 }
 
 export function setEntityRandomColor(entity: Entity): void {

@@ -1,4 +1,5 @@
 import { EMPTY_PNG_PATH, VectorZero } from "../core/constants";
+import { copyColor } from "./color";
 import { kColorEquals } from "./kColor";
 import { eRange } from "./utils";
 
@@ -66,6 +67,19 @@ export function getLastFrameOfAnimation(
   sprite.SetFrame(currentFrame);
 
   return finalFrame;
+}
+
+/**
+ * Helper function to keep a sprite's color the same values as it already is but set the opacity to
+ * a specific value.
+ *
+ * @param sprite The sprite to set.
+ * @param alpha A value between 0 and 1 that represents the fade amount.
+ */
+export function setSpriteOpacity(sprite: Sprite, alpha: float): void {
+  const fadedColor = copyColor(sprite.Color);
+  fadedColor.A = alpha;
+  sprite.Color = fadedColor;
 }
 
 /**

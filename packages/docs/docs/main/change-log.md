@@ -14,6 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `isSlotMachine`
   - `logAndPrint`
+  - `setSpriteOpacity`
+  - `setEntityOpacity`
 - Deleted the following helper functions:
   - `printConsole` (use `print` instead)
 - Added the following enums:
