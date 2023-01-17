@@ -58,6 +58,7 @@ respawns
 Sanio # Creator of Character Costume Protector library
 satans
 scolexes
+shockwaves
 shroom
 shrooms
 softlock
