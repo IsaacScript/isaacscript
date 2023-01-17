@@ -5,7 +5,7 @@ import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
-import { isFunction, isNumber, isTable } from "../functions/types";
+import { isFunction, isNumber } from "../functions/types";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { AnyFunction } from "../types/AnyFunction";
 import { ModUpgradedBase } from "./ModUpgradedBase";
@@ -41,29 +41,12 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * mod features from this class in order to enable the `@Callback` and `@CustomCallback` decorators
  * that automatically subscribe to callbacks.
  *
- * If your feature has variables that are managed by the save data manager, put them as a `v` class
- * member and they will automatically be registered with the save data manager when the class is
- * instantiated.
+ * When instantiating a mod feature class, you must pass your upgraded mod as the first argument to
+ * the constructor.
  *
- * For example:
- *
- * ```ts
- * export class MyFeature extends ModFeature {
- *   v = {
- *     run: {
- *       foo: 123,
- *     }
- *   }
- *
- *   @Callback(ModCallback.POST_GAME_STARTED)
- *   postGameStarted(isContinued: boolean): void {
- *     Isaac.DebugString(`Callback fired: POST_GAME_STARTED`);
- *   }
- * }
- * ```
- *
- * When instantiating a feature class, you must pass your upgraded mod as the first argument to the
- * constructor.
+ * If your feature has variables that are managed by the save data manager, you need to explicitly
+ * register them with the save data manager yourself in your class constructor. (It can't be
+ * automatically done because parent classes don't have access to child class properties.)
  *
  * In almost all cases, you will want the callback functions to be immediately subscribed after
  * instantiating the class. However, if this is not the case, you can pass `false` as the optional
@@ -147,7 +130,6 @@ export class ModFeature {
 
     initDecoratedCallbacks(this, constructor, tstlClassName, true, init);
     initDecoratedCallbacks(this, constructor, tstlClassName, false, init);
-    initSaveDataManager(this, tstlClassName, init);
   }
 
   /**
@@ -332,48 +314,5 @@ function removeCallback(
 
     const wrappedCallback = wrappedMethodsMap.get(modCallbackCustom);
     (mod.RemoveCallbackCustom as AnyFunction)(modCallback, wrappedCallback);
-  }
-}
-
-function initSaveDataManager(
-  modFeature: ModFeature,
-  tstlClassName: string,
-  init: boolean,
-) {
-  // Do nothing if this class does not have any variables.
-  const { v } = modFeature as unknown as Record<string, unknown>;
-  if (v === undefined) {
-    return;
-  }
-
-  if (!isTable(v)) {
-    error(
-      'Failed to initialize a mod feature class due to having a "v" property that is not an object. (The "v" property is supposed to be an object that holds the variables for the class, managed by the save data manager.)',
-    );
-  }
-
-  // Do nothing if we have not enabled the save data manager.
-  // eslint-disable-next-line @typescript-eslint/dot-notation
-  const mod = modFeature["mod"] as unknown as Record<string, unknown>;
-  const saveDataManagerMethodName = init
-    ? "saveDataManager"
-    : "saveDataManagerRemove";
-  const saveDataManagerMethod = mod[saveDataManagerMethodName];
-  if (saveDataManagerMethod === undefined) {
-    error(
-      'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
-    );
-  }
-
-  if (typeof saveDataManagerMethod !== "function") {
-    error(
-      `The "${saveDataManagerMethodName}" property of the "ModUpgraded" object was not a function.`,
-    );
-  }
-
-  if (init) {
-    saveDataManagerMethod(tstlClassName, v);
-  } else {
-    saveDataManagerMethod(tstlClassName);
   }
 }

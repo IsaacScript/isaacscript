@@ -326,14 +326,18 @@ export function logSounds(): void {
 
 /**
  * Helper function for logging every key and value of a Lua table. This is a deep log; the function
- * will recursively call itself if it counters a table within a table.
+ * will recursively call itself if it encounters a table within a table.
  *
  * This function will only work on tables that have string keys (because it logs the keys in order,
  * instead of randomly). It will throw a run-time error if it encounters a non-string key.
+ *
+ * In order to prevent infinite recursion, this function will not log deeper than 10 nested tables.
  */
 export function logTable(luaTable: unknown, parentTables = 0): void {
   if (parentTables === 0) {
     log("Printing out a Lua table:");
+  } else if (parentTables > 10) {
+    return;
   }
 
   const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
