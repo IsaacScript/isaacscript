@@ -20,8 +20,10 @@ This page lists the changes to the IsaacScript framework.
   - `isMoveActionTriggered`
   - `isShootActionPressed`
   - `isShootActionTriggered`
+  - `isTSTLClass`
 - Deleted the following helper functions:
   - `printConsole` (use `print` instead)
+  - `isUserDefinedTSTLClass`
 - Added the following enums:
   - `LarryJrSubType`
   - `HollowSubType`

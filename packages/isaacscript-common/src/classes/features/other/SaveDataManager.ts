@@ -11,7 +11,7 @@ import { SaveDataKey } from "../../../enums/SaveDataKey";
 import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
 import { onFirstFloor } from "../../../functions/stage";
-import { getTSTLClassName } from "../../../functions/tstlClass";
+import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
 import { isString, isTable } from "../../../functions/types";
 import { SaveData } from "../../../interfaces/SaveData";
 import { AnyClass } from "../../../types/AnyClass";
@@ -297,7 +297,8 @@ export class SaveDataManager extends Feature {
    *
    * @param key The name of the file or feature that is submitting data to be managed by the save
    *            data manager. The save data manager will throw an error if the key is already
-   *            registered.
+   *            registered. Note that you can also pass a TSTL class instead of a string and the
+   *            save data manager will use the name of the class as the key.
    * @param v An object that corresponds to the `SaveData` interface. The object is conventionally
    *          called "v" for brevity. ("v" is short for "local variables").
    * @param conditionalFunc Optional. A function to run to check if this save data should be written
@@ -311,24 +312,35 @@ export class SaveDataManager extends Feature {
    *                        in your save data, such as `EntityPtr`.
    */
   public saveDataManager<Persistent, Run, Level>(
-    key: string, // This is the overload for the standard case with serializable data.
+    key: unknown, // This is the overload for the standard case with serializable data.
     v: SaveData<Persistent, Run, Level>,
     conditionalFunc?: () => boolean,
   ): void;
   public saveDataManager(
-    key: string, // This is the overload for the case when saving data is disabled.
+    key: unknown, // This is the overload for the case when saving data is disabled.
     v: SaveData,
     conditionalFunc: false,
   ): void;
   @Exported
   public saveDataManager<Persistent, Run, Level>(
-    key: string,
+    key: unknown,
     v: SaveData<Persistent, Run, Level>,
     conditionalFunc?: (() => boolean) | false,
   ): void {
+    if (isTSTLClass(key)) {
+      const className = getTSTLClassName(key);
+      if (className === undefined) {
+        error(
+          'Failed to get the class name for the submitted class (as part of the "key" parameter) when registering new data with the save data manager.',
+        );
+      }
+
+      key = className;
+    }
+
     if (!isString(key)) {
       error(
-        `The save data manager requires that keys are strings. You tried to use a key of type: ${typeof key}`,
+        `The save data manager requires that keys are strings or TSTL classes. You tried to use a key of type: ${typeof key}`,
       );
     }
 

@@ -56,6 +56,12 @@ export function isDefaultMap(
   return className === "DefaultMap";
 }
 
+/** Helper function to check if a given table is a class table created by TypeScriptToLua. */
+export function isTSTLClass(object: unknown): object is TSTLClass {
+  const tstlClassName = getTSTLClassName(object);
+  return tstlClassName !== undefined;
+}
+
 /**
  * Helper function to determine if a given object is a TypeScriptToLua `Map`.
  *
@@ -78,12 +84,6 @@ export function isTSTLMap(object: unknown): object is Map<AnyNotNil, unknown> {
 export function isTSTLSet(object: unknown): object is Set<AnyNotNil> {
   const className = getTSTLClassName(object);
   return className === "Set";
-}
-
-/** TypeScriptToLua classes are Lua tables that have a metatable with a certain amount of keys. */
-export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
-  const tstlClassName = getTSTLClassName(object);
-  return tstlClassName !== undefined;
 }
 
 /**
