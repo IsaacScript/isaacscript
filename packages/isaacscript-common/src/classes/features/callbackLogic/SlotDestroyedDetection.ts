@@ -16,6 +16,7 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SlotDestructionType } from "../../../enums/SlotDestructionType";
 import { isSlotMachine } from "../../../functions/slots";
@@ -35,6 +36,8 @@ export class SlotDestroyedDetection extends Feature {
 
   constructor(postSlotDestroyed: PostSlotDestroyed, roomHistory: RoomHistory) {
     super();
+
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
 
     this.callbacksUsed = [
       // 67

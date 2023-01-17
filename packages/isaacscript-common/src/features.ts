@@ -143,10 +143,11 @@ export function getFeatures(
   const preventCollectibleRotation = new PreventCollectibleRotation();
   const roomClearFrame = new RoomClearFrame();
   const roomHistory = new RoomHistory();
-  const runInNFrames = new RunInNFrames();
   const runNextRoom = new RunNextRoom();
   const saveDataManager = new SaveDataManager(mod);
   const stageHistory = new StageHistory();
+
+  const runInNFrames = new RunInNFrames(roomHistory);
 
   const customGridEntities = new CustomGridEntities(runInNFrames);
   const moddedElementSets = new ModdedElementSets(moddedElementDetection);
