@@ -27,7 +27,7 @@ In Lua, you can't just start typing a function and have it magically be imported
 
 ### <img src="/img/items/wooden-spoon.png" className="features-icon" /> Bad In-Editor Tooling
 
-Lua has gotten some nifty improvements in the past few years, like [Sumneko's Lua language server](https://github.com/sumneko/lua-language-server). Using the language server brings us some of the in-editor goodies that we are used to from other languages, like variable renaming. But the experience still pales in comparison to other modern programming languages like TypeScript, Python, and Rust.
+Lua has gotten some nifty improvements in the past few years, like [Sumneko's Lua language server](https://github.com/sumneko/lua-language-server). Using the language server brings us some of the in-editor goodies that we are used to from other languages, like variable renaming. But the experience still pales in comparison to other modern programming languages like TypeScript and Rust.
 
 <br />
 
