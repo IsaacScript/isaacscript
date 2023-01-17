@@ -61,6 +61,24 @@ export function deserializeVector(vector: SerializedVector): Vector {
 }
 
 /**
+ * Helper function to measure a vector to see if it has a non-zero length using a threshold to
+ * ignore extremely small values.
+ *
+ * Use this function instead of explicitly checking if the length is 0 because vectors in the game
+ * are unlikely to ever be exactly set to 0. Instead, they will always have some miniscule length.
+ *
+ * @param vector The vector to measure.
+ * @param threshold Optional. The threshold from 0 to consider to be a non-zero vector. Default is
+ *                  0.01.
+ */
+export function doesVectorHaveAnyLength(
+  vector: Vector,
+  threshold = 0.01,
+): boolean {
+  return vector.Length() >= threshold;
+}
+
+/**
  * Helper function to get a random vector between (-1, -1) and (1, 1).
  *
  * To get random vectors with a bigger length, multiply this with a number.
