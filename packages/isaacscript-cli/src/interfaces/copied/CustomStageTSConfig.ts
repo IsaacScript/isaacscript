@@ -12,7 +12,7 @@
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
 
-import { Immutable } from "../../types/Immutable";
+import { Immutable } from "isaacscript-common-ts";
 
 // ts-prune-ignore-next
 export interface CustomStageTSConfig {

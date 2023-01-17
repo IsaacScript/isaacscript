@@ -1,11 +1,10 @@
 import commandExists from "command-exists";
-import { error, getEnumValues } from "isaacscript-common-ts";
+import { error, getEnumValues, HasAllEnumKeys } from "isaacscript-common-ts";
 import path from "path";
 import { CWD } from "./constants";
 import { PackageManager } from "./enums/PackageManager";
 import * as file from "./file";
 import { Args } from "./parseArgs";
-import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
   [PackageManager.NPM]: "package-lock.json",
