@@ -311,19 +311,21 @@ export class SaveDataManager extends Feature {
    *                        data. (Specifying `false` will allow you to use non-serializable objects
    *                        in your save data, such as `EntityPtr`.
    */
+  // This is the overload for the standard case with serializable data.
   public saveDataManager<Persistent, Run, Level>(
-    key: unknown, // This is the overload for the standard case with serializable data.
+    key: string | object,
     v: SaveData<Persistent, Run, Level>,
     conditionalFunc?: () => boolean,
   ): void;
+  // This is the overload for the case when saving data is disabled.
   public saveDataManager(
-    key: unknown, // This is the overload for the case when saving data is disabled.
+    key: string | object,
     v: SaveData,
     conditionalFunc: false,
   ): void;
   @Exported
   public saveDataManager<Persistent, Run, Level>(
-    key: unknown,
+    key: string | object,
     v: SaveData<Persistent, Run, Level>,
     conditionalFunc?: (() => boolean) | false,
   ): void {
