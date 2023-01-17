@@ -90,8 +90,7 @@ export class ModFeature {
     | null = null;
 
   /**
-   * Whether or not the feature has registered its callbacks yet (and submitted its variables to the
-   * save data manager, if any).
+   * Whether or not the feature has registered its callbacks yet.
    *
    * This will almost always be equal to true unless you explicitly passed `false` to the second
    * argument of the constructor.
@@ -108,7 +107,7 @@ export class ModFeature {
 
   /**
    * Runs the `Mod.AddCallback` and `ModUpgraded.AddCallbackCustom` methods for all of the decorated
-   * callbacks. Additionally, subscribes the `v` object to the save data manager, if present.
+   * callbacks.
    *
    * @param init Optional. Whether to initialize or uninitialize. Default is true.
    */
@@ -134,8 +133,7 @@ export class ModFeature {
 
   /**
    * Runs the `Mod.RemoveCallback` and `ModUpgraded.RemoveCallbackCustom` methods for all of the
-   * decorated callbacks. Additionally, unsubscribes the `v` object from the save data manager, if
-   * present.
+   * decorated callbacks.
    *
    * This is just an alias for `ModFeature.init(false)`.
    */
