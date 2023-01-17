@@ -10,7 +10,7 @@ import { getRandom } from "./random";
 import { isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { asNumber, isPrimitive } from "./types";
-import { doesVectorHaveAnyLength, isVector, vectorToString } from "./vector";
+import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
 const DAMAGE_FLASH_COLOR: Readonly<Color> = Color(
@@ -316,7 +316,7 @@ export function hasArmor(entity: Entity): boolean {
  * @param threshold Optional. The threshold from 0 to consider to be moving. Default is 0.01.
  */
 export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
-  return doesVectorHaveAnyLength(entity.Velocity, threshold);
+  return doesVectorHaveLength(entity.Velocity, threshold);
 }
 
 /**

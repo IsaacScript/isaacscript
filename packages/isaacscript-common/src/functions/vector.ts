@@ -71,7 +71,7 @@ export function deserializeVector(vector: SerializedVector): Vector {
  * @param threshold Optional. The threshold from 0 to consider to be a non-zero vector. Default is
  *                  0.01.
  */
-export function doesVectorHaveAnyLength(
+export function doesVectorHaveLength(
   vector: Vector,
   threshold = 0.01,
 ): boolean {
