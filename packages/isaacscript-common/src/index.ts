@@ -73,6 +73,7 @@ export * from "./functions/math";
 export * from "./functions/merge";
 export * from "./functions/mergeTests";
 export * from "./functions/minimap";
+export * from "./functions/modFeatures";
 export * from "./functions/nextStage";
 export * from "./functions/npcs";
 export * from "./functions/pickups";

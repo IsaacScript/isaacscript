@@ -135,6 +135,7 @@
     "src/functions/merge.ts",
     "src/functions/mergeTests.ts",
     "src/functions/minimap.ts",
+    "src/functions/modFeatures.ts",
     "src/functions/nextStage.ts",
     "src/functions/npcs.ts",
     "src/functions/pickups.ts",
