@@ -331,7 +331,8 @@ export function logSounds(): void {
  * This function will only work on tables that have string keys (because it logs the keys in order,
  * instead of randomly). It will throw a run-time error if it encounters a non-string key.
  *
- * In order to prevent infinite recursion, this function will not log deeper than 10 nested tables.
+ * In order to prevent infinite recursion, this function will not log a sub-table when there are 10
+ * or more parent tables.
  */
 export function logTable(luaTable: unknown, parentTables = 0): void {
   if (parentTables === 0) {
