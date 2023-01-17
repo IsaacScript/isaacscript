@@ -15,13 +15,21 @@ import { ModUpgraded } from "../types/ModUpgraded";
  * ] as const;
  * initModFeatures(mod, modFeatures);
  * ```
+ *
+ * @returns An array of the instantiated features in the same order that the constructors were
+ *          passed in.
  */
 export function initModFeatures(
   mod: ModUpgraded,
   modFeatures: Array<typeof ModFeature>,
-): void {
+): ModFeature[] {
+  const instantiatedModFeatures: ModFeature[] = [];
+
   for (const modFeature of modFeatures) {
-    // eslint-disable-next-line no-new, new-cap
-    new modFeature(mod);
+    // eslint-disable-next-line new-cap
+    const instantiatedModFeature = new modFeature(mod);
+    instantiatedModFeatures.push(instantiatedModFeature);
   }
+
+  return instantiatedModFeatures;
 }
