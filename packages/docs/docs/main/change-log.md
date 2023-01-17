@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## January 20th, 2022 (Unreleased)
 
+- The functions from `ISCFeature.RUN_IN_N_FRAMES` now take an optional parameter to cancel the function if a new room is loaded.
 - Added the following helper functions:
   - `isSlotMachine`
   - `logAndPrint`
