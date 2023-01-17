@@ -68,6 +68,17 @@ export class RoomHistory extends Feature {
   };
 
   /**
+   * Helper function to get the total number of rooms that the player has visited thus far on the
+   * run.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
+   */
+  @Exported
+  public getNumRoomsVisited(): ReadonlyArray<Readonly<RoomDescription>> {
+    return this.v.run.roomHistory;
+  }
+
+  /**
    * Helper function to get information about all of the rooms that a player has visited thus far on
    * this run.
    *

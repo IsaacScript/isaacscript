@@ -21,6 +21,9 @@ This page lists the changes to the IsaacScript framework.
   - `isShootActionPressed`
   - `isShootActionTriggered`
   - `isTSTLClass`
+  - `initModFeatures`
+  - `doesVectorHaveLength`
+  - `getNumRoomsVisited`
 - Deleted the following helper functions:
   - `printConsole` (use `print` instead)
   - `isUserDefinedTSTLClass`
