@@ -42,6 +42,7 @@ import { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTra
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
+import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 import { DisableInputs } from "./DisableInputs";
 import { PonyDetection } from "./PonyDetection";
 import { RoomClearFrame } from "./RoomClearFrame";
@@ -336,6 +337,12 @@ export class CustomTrapdoors extends Feature {
         // We need to restore the original collision classes.
         player.EntityCollisionClass = EntityCollisionClass.ALL;
         player.GridCollisionClass = EntityGridCollisionClass.GROUND;
+      }
+
+      const level = game.GetLevel();
+      const stage = level.GetStage();
+      if (stage !== CUSTOM_FLOOR_STAGE) {
+        level.ShowName(false);
       }
     });
   }
