@@ -75,7 +75,11 @@ export class CustomTrapdoors extends Feature {
   /** Indexed by custom trapdoor ID. */
   private destinationFuncMap = new Map<
     string,
-    (destinationStage: LevelStage, destinationStageType: StageType) => void
+    (
+      destinationName: string | undefined,
+      destinationStage: LevelStage,
+      destinationStageType: StageType,
+    ) => void
   >();
 
   /** @internal */
@@ -268,6 +272,7 @@ export class CustomTrapdoors extends Feature {
       this.v.run.customTrapdoorActivated,
     );
     destinationFunc(
+      this.v.run.customTrapdoorActivated.destinationName,
       this.v.run.customTrapdoorActivated.destinationStage,
       this.v.run.customTrapdoorActivated.destinationStageType,
     );
@@ -275,7 +280,11 @@ export class CustomTrapdoors extends Feature {
 
   private getDestinationFunc(
     customTrapdoorDescription: CustomTrapdoorDescription,
-  ): (destinationStage: LevelStage, destinationStageType: StageType) => void {
+  ): (
+    destinationName: string | undefined,
+    destinationStage: LevelStage,
+    destinationStageType: StageType,
+  ) => void {
     if (customTrapdoorDescription.destinationName === undefined) {
       return goToVanillaStage;
     }
@@ -663,6 +672,7 @@ export class CustomTrapdoors extends Feature {
   public registerCustomTrapdoorDestination(
     destinationName: string,
     destinationFunc: (
+      destinationName: string | undefined,
       destinationStage: LevelStage,
       destinationStageType: StageType,
     ) => void,
@@ -846,6 +856,7 @@ function dropTaintedForgotten(player: EntityPlayer) {
 
 /** The default `destinationFunc` for a custom trapdoor. */
 function goToVanillaStage(
+  _destinationName: string | undefined,
   destinationStage: LevelStage,
   destinationStageType: StageType,
 ) {

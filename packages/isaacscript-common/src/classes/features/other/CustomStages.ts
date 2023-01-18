@@ -199,11 +199,18 @@ export class CustomStages extends Feature {
   }
 
   private goToCustomStage = (
+    destinationName: string | undefined,
     destinationStage: LevelStage,
     _destinationStageType: StageType,
   ) => {
+    if (destinationName === undefined) {
+      error(
+        "Failed to go to a custom stage since the custom trapdoors feature did not pass a destination name to the logic function.",
+      );
+    }
+
     const firstFloor = destinationStage === LevelStage.BASEMENT_1;
-    this.setCustomStage("Slaughterhouse", firstFloor);
+    this.setCustomStage(destinationName, firstFloor);
   };
 
   // ModCallback.POST_RENDER (2)
