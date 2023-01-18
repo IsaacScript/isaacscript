@@ -173,7 +173,7 @@ mod.setHotkey(Keyboard.F1, () => {
 
 ## Reference Implementation
 
-If you want to dive into an actual working example, you can find a [reference mod](https://github.com/IsaacScript/isaacscript-mod-example) on GitHub that creates a new custom stage called "Slaughterhouse". This is a real minimal mod, with only one room per floor shape.
+If you want to dive into an actual working example, you can find a [reference mod](https://github.com/IsaacScript/isaacscript-mod-example) on GitHub that creates a new custom stage called "Slaughterhouse". This is a minimal mod, with only one room per floor shape, using the code snippets that we have already seen above.
 
 <br />
 
