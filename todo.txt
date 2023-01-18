@@ -1,6 +1,3 @@
-- "Failed to find any custom rooms for"
-  - default to all doors enabled
-
 - isaac-xml-validator
   - wait for wof to publish: https://github.com/wofsauge/Isaac-XML-Validator/
 
