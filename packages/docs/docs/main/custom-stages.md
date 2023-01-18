@@ -123,7 +123,7 @@ export const mod = upgradeMod(modVanilla, features);
 
 Once you have created your custom rooms and defined your custom stage in the `tsconfig.json` file, you need to add some code to your mod to generate a way for the player to get there. Obviously, the specifics of this will depend on how you want your custom stage to work. Maybe you want to add an additional trapdoor next to the Downpour trapdoor, or maybe you want to add an additional trapdoor inside of the Basement 1 shop.
 
-As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the `spawnCustomTrapdoor` helper function. This is provided by
+As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the `spawnCustomTrapdoor` helper function (which is provided by `ISCFeature.CUSTOM_TRAPDOORS`).
 
 ```ts
 import { LevelStage, ModCallback } from "isaac-typescript-definitions";
