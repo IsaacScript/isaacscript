@@ -459,6 +459,10 @@ ${allRooms}
 </rooms>
   `.trim();
   const contentRoomsDir = path.join(MOD_SOURCE_PATH, "content", "rooms");
+  if (!file.exists(contentRoomsDir, verbose)) {
+    file.makeDir(contentRoomsDir, verbose);
+  }
+
   const specialRoomsXMLPath = path.join(
     contentRoomsDir,
     "00.special rooms.xml",

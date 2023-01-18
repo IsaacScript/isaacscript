@@ -163,6 +163,7 @@ export function isSubDirOf(dir: string, parent: string): boolean {
   );
 }
 
+/** Will recursively make as many subdirectories as needed. */
 export function makeDir(dirPath: string, verbose: boolean): void {
   if (verbose) {
     console.log(`Making a directory: ${dirPath}`);
