@@ -53,7 +53,6 @@ my-mod/
 |── metadata.xml (the Steam Workshop file)
 └── my-mod/ (a subdirectory with the same name as your mod for the purpose of preventing namespace conflicts)
     └── lib/ (a subdirectory that contains 3rd-party library code)
-        |── isaac-typescript-definitions.lua
         └── isaacscript-common.lua
 ```
 
