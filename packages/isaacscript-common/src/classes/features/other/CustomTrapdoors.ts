@@ -342,6 +342,8 @@ export class CustomTrapdoors extends Feature {
       const level = game.GetLevel();
       const stage = level.GetStage();
       if (stage !== CUSTOM_FLOOR_STAGE) {
+        // The vanilla streak text shows just before the player stands up, which is a few frames
+        // from now. We arbitrarily play it now instead of waiting to avoid the extra complexity.
         level.ShowName(false);
       }
     });
