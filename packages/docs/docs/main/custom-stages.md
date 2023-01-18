@@ -89,7 +89,7 @@ Second, make sure it has an "isaacscript" field at the bottom:
 
 For the most basic stage, only the `name`, `xmlPath`, and `roomVariantPrefix` fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, like `baseStage` to specify what vanilla floor number should be used as a base for the stage. These optional fields are documented in the [`CustomStageTSConfig` interface](/isaacscript-common/other/interfaces/CustomStageTSConfig), so keep that in mind.
 
-When you are first building and testing your custom stage, you can use a `roomVariantPrefix` of 100. However, before you publish your mod to the Steam Workshop, you need to update this will a unique number that won't conflict with any other mods. For more information, see the [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes) section below.
+When you are first building and testing your custom stage, you can use a `roomVariantPrefix` of 100. However, before you publish your mod to the Steam Workshop, you need to update this to a unique number that won't conflict with any other mods. For more information, see the [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes) section below.
 
 <br />
 
