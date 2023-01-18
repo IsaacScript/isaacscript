@@ -138,13 +138,17 @@ function postGameStarted(isContinued: boolean) {
     return;
   }
 
-  mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo");
+  mod.spawnCustomTrapdoor(
+    TOP_LEFT_CORNER_GRID_INDEX,
+    "Foo",
+    LevelStage.BASEMENT_1,
+  );
 }
 ```
 
-Here, "Foo" is the name of our custom stage. Now, by jumping into the trapdoor, the player will be taken to the custom stage of "Foo 1". That's all we need to do!
+Here, "Foo" is the name of our custom stage and `LevelStage.BASEMENT_1` means "the first floor". Now, by jumping into the trapdoor, the player will be taken to the custom stage of "Foo 1". That's all we need to do!
 
-If you specifically wanted to take the player to "Foo 2", then you could specify that the third argument: `mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", LevelStage.BASEMENT_2);`
+If you specifically wanted to take the player to "Foo 2", then we would specify `LevelStage.BASEMENT_2` instead.
 
 Additionally, there are other optional arguments that you can see. See the documentation for the [`spawnCustomTrapdoor`](/isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor) method.
 

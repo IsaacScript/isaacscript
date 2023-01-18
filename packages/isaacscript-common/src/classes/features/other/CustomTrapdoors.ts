@@ -709,7 +709,7 @@ export class CustomTrapdoors extends Feature {
       !this.destinationFuncMap.has(destinationName)
     ) {
       error(
-        `Failed to spawn a custom trapdoor with a destination of "${destinationName}" since a destination with that name has not been registered with the "registerCustomTrapdoor" function.`,
+        `Failed to spawn a custom trapdoor with a destination of "${destinationName}" since a destination with that name has not been registered with the "registerCustomTrapdoorDestination" function. (If you are trying to go to a custom stage, the custom stage library should automatically do this for you when your mod first boots.)`,
       );
     }
 
