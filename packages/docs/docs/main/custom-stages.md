@@ -146,7 +146,7 @@ Here, "Foo" is the name of our custom stage. Now, by jumping into the trapdoor, 
 
 If you specifically wanted to take the player to "Foo 2", then you could specify that the third argument: `mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", LevelStage.BASEMENT_2);`
 
-Additionally, there are other optional arguments that you can see. See the documentation for the [`spawnCustomTrapdoor`](isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor) method.
+Additionally, there are other optional arguments that you can see. See the documentation for the [`spawnCustomTrapdoor`](/isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor) method.
 
 If you want to code some custom way to travel to the custom stage that does not involve a trapdoor, you can do that too. See the following section.
 
