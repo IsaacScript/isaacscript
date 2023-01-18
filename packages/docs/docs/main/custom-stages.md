@@ -179,7 +179,7 @@ If you want to dive into an actual working example, you can find a [reference mo
 
 ## Bosses
 
-If your custom stage does not have any custom bosses, then a vanilla boss will appear in the boss room corresponding to the base stage and stage type that you have specified. For example, if you chose Caves 1 as a base, then you would randomly get a boss of Chub, C.H.A.D., Gurdy, and so on.
+If your custom stage does not have any custom bosses, then a vanilla boss will appear in the boss room corresponding to the base stage and base stage type that you have specified. For example, if you chose Caves 1 as a base, then you would randomly get a boss of Chub, C.H.A.D., Gurdy, and so on.
 
 On the other hand, if you specify the `bossPool` field in the `tsconfig.json` file, then the stage library will replace the vanilla boss room with a randomly selected one from the pool.
 
