@@ -148,9 +148,7 @@ function postGameStarted(isContinued: boolean) {
 
 Here, "Foo" is the name of our custom stage and `LevelStage.BASEMENT_1` means "the first floor". Now, by jumping into the trapdoor, the player will be taken to the custom stage of "Foo 1". That's all we need to do!
 
-If you specifically wanted to take the player to "Foo 2", then you would specify `LevelStage.BASEMENT_2` instead.
-
-Additionally, there are other optional arguments that you can see. See the documentation for the [`spawnCustomTrapdoor`](/isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor) method.
+If you specifically wanted to take the player to "Foo 2", then you would specify `LevelStage.BASEMENT_2` instead. There are also other optional arguments that you can use; see the documentation for the [`spawnCustomTrapdoor`](/isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor) method.
 
 If you want to code some custom way to travel to the custom stage that does not involve a trapdoor, you can do that too. See the following section.
 
