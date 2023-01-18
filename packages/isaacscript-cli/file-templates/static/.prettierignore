@@ -6,6 +6,7 @@ mod/content/rooms/**/*.xml
 mod/content/luarooms/**/*.xml
 mod/resources/rooms/**/*.xml
 mod/resources/luarooms/**/*.xml
+customStages/**/*.xml
 
 # XML files created by the animation editor
 mod/resources/**/*.anm2
