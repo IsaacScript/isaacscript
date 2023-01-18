@@ -3,11 +3,6 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { emptyArray } from "../../../functions/array";
 import { Feature } from "../../private/Feature";
 
-/**
- * Using the "luamod" console command with a mod that has custom shaders can crash the game. A
- * simple fix for this is automatically applied to any upgraded mods. This method was originally
- * discovered by AgentCucco.
- */
 export class RunNextRoom extends Feature {
   /** @internal */
   public override v = {
