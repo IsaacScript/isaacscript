@@ -57,6 +57,7 @@ const TRAPDOOR_BOSS_REACTION_FRAMES = 30;
 const TRAPDOOR_TOUCH_DISTANCE = 16.5;
 
 const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL: ReadonlySet<string> = new Set([
+  "Death",
   "Happy",
   "Sad",
   "Jump",
