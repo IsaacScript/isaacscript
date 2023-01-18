@@ -145,7 +145,7 @@ export function getCustomStagesFromTSConfig(
     }
 
     const { roomVariantPrefix } = customStageTSConfig;
-    if (roomVariantPrefix < 101 || roomVariantPrefix > 999) {
+    if (roomVariantPrefix < 100 || roomVariantPrefix > 999) {
       error(
         chalk.red(
           `The "${name}" custom stage has an invalid value for the "roomVariantPrefix" field: ${roomVariantPrefix}`,

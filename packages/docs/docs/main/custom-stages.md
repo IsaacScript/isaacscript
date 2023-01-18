@@ -89,35 +89,64 @@ Second, make sure it has an "isaacscript" field at the bottom:
 
 For the most basic stage, only the `name`, `xmlPath`, and `roomVariantPrefix` fields are required. But you will likely want to make additional customizations. There are many more optional fields that you can specify, like `baseStage` to specify what vanilla floor number should be used as a base for the stage. These optional fields are documented in the [`CustomStageTSConfig` interface](/isaacscript-common/other/interfaces/CustomStageTSConfig), so keep that in mind.
 
-When you are first building and testing your custom stage, you can use a `roomVariantPrefix` of 100. (The schema will complain that "Value is below the minimum of 101", but you can ignore that while testing.) However, before you publish your mod to the Steam Workshop, you need to update this will a unique number that won't conflict with any other mods. For more information, see the [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes) section below.
+When you are first building and testing your custom stage, you can use a `roomVariantPrefix` of 100. However, before you publish your mod to the Steam Workshop, you need to update this will a unique number that won't conflict with any other mods. For more information, see the [Custom Stage Room Variant Prefixes](#custom-stage-room-variant-prefixes) section below.
 
 <br />
 
-### Step 3 - Add a Trapdoor to Go There
+### Step 3 - Upgrade Your Mod
+
+You must upgrade your mod with `ISCFeature.CUSTOM_STAGES`. (This is similar to how we use the other features of `isaacscript-common`.)
+
+Furthermore, if you intend for the player to travel to your custom stage by using a trapdoor, then you will probably want to also use the "custom trapdoors" feature. If so, then you need to additionally use `ISCFeature.CUSTOM_TRAPDOORS`.
+
+Specifically, upgrading your mod should look something like this:
+
+#### `mod.ts`
+
+```ts
+import { ISCFeature, upgradeMod } from "isaacscript-common";
+
+const MOD_NAME = "isaacscript-mod-example";
+const modVanilla = RegisterMod(MOD_NAME, 1);
+const features = [
+  ISCFeature.CUSTOM_STAGES,
+  ISCFeature.CUSTOM_TRAPDOORS,
+] as const;
+export const mod = upgradeMod(modVanilla, features);
+```
+
+(With a `mod.ts` file like this, you can then import the `mod` object from elsewhere in your codebase and use methods such as `setCustomStage` and `spawnCustomTrapdoor`. More on that in the next step.)
+
+<br />
+
+### Step 4 - Add a Trapdoor to Go There
 
 Once you have created your custom rooms and defined your custom stage in the `tsconfig.json` file, you need to add some code to your mod to generate a way for the player to get there. Obviously, the specifics of this will depend on how you want your custom stage to work. Maybe you want to add an additional trapdoor next to the Downpour trapdoor, or maybe you want to add an additional trapdoor inside of the Basement 1 shop.
 
-As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the `spawnCustomTrapdoor` helper function.
+As an example, let's imagine that we want a trapdoor to appear in the top-left hand corner of the starting room of the run. To create a custom trapdoor, we simply use the `spawnCustomTrapdoor` helper function. This is provided by
 
 ```ts
-const TOP_LEFT_CORNER_GRID_INDEX = 32;
+import { LevelStage, ModCallback } from "isaac-typescript-definitions";
+import { mod } from "./mod";
 
-const modVanilla = RegisterMod("MyMod", 1);
-const features = [ISCFeature.CUSTOM_STAGES] as const;
-const mod = upgradeMod(modVanilla, features);
+const TOP_LEFT_CORNER_GRID_INDEX = 32;
 
 mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted);
 
 function postGameStarted(isContinued: boolean) {
-  if (!isContinued) {
-    mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", 1);
+  if (isContinued) {
+    return;
   }
+
+  mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo");
 }
 ```
 
-Here, "Foo" is the name of our custom stage, and 1 is the floor number. (For example, we could bypass Foo 1 and go directly to Foo 2 by specifying a 2 here.)
+Here, "Foo" is the name of our custom stage. Now, by jumping into the trapdoor, the player will be taken to the custom stage of "Foo 1". That's all we need to do!
 
-Now, by jumping into the trapdoor, the player will be taken to the custom stage. That's all we need to do!
+If you specifically wanted to take the player to "Foo 2", then you could specify that the third argument: `mod.spawnCustomTrapdoor(TOP_LEFT_CORNER_GRID_INDEX, "Foo", LevelStage.BASEMENT_2);`
+
+Additionally, there are other optional arguments that you can see. See the documentation for the [`spawnCustomTrapdoor`](isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor) method.
 
 If you want to code some custom way to travel to the custom stage that does not involve a trapdoor, you can do that too. See the following section.
 
@@ -127,11 +156,13 @@ If you want to code some custom way to travel to the custom stage that does not 
 
 During development, you might want to set up a custom hotkey to warp to your custom stage, which will speed up the testing process. You can do this with the `setCustomStage` helper function. If doing this, you must also call the `reloadRoom` function immediately afterwards to prevent being dragged into the `goto` console command room.
 
+(If you want to use custom hotkeys, make sure that you upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.)
+
 For example:
 
 ```ts
-setHotkey(Keyboard.F1, () => {
-  setCustomStage("Foo");
+mod.setHotkey(Keyboard.F1, () => {
+  mod.setCustomStage("Foo");
   reloadRoom();
 });
 ```

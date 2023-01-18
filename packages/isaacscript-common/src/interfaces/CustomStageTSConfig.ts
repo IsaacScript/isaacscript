@@ -27,11 +27,12 @@ export interface CustomStageTSConfig {
    * Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this
    * stage.
    *
-   * Make sure the chosen prefix does not conflict with any other mods. You can find a list of
-   * registered room variant prefixes on the IsaacScript website:
+   * Use a value of 100 when testing locally. When publishing to the workshop or otherwise
+   * distributing your mod, make sure that you have chosen a prefix that does not conflict with any
+   * other mods. You can find a list of registered room variant prefixes on the IsaacScript website:
    * https://isaacscript.github.io/main/custom-stages
    *
-   * @minimum 101
+   * @minimum 100
    * @maximum 999
    */
   roomVariantPrefix: number;
