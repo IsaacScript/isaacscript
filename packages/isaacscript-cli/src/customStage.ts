@@ -123,7 +123,7 @@ function checkFile(filePath: string | undefined, verbose: boolean) {
 
   if (!filePath.includes("gfx/")) {
     error(
-      `Failed to validate the "${filePath}" file: all PNG file paths must be inside of a "gfx" directory. (e.g. "./mod/resources/gfx/backdrop/slaughterhouse/nfloor.png")`,
+      `Failed to validate the "${filePath}" file: all PNG file paths must be inside of a "gfx" directory. (e.g. "./mod/resources/gfx/backdrop/foo/nfloor.png")`,
     );
   }
 
