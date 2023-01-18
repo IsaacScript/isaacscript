@@ -37,7 +37,7 @@ For example, if you use Caves 1 as a base for your stage (more on that later), t
 
 This is a 2x2 room. When IsaacScript goes to replace this room, it will look through your rooms for a matching room - a 2x2 room with only doors on the left and right sides. If it doesn't find any, then it will revert to just use _any_ 2x2 room. If it can't find any 2x2 rooms, then it will give up, and leave the room as-is, and generate an error message in the console.
 
-Thus, this means that if you want to have 100% custom rooms generated for your custom stage, you must have at least one room for every room shape.
+This means that if you want to have 100% custom rooms generated for your custom stage, you must have at least one room for every room shape.
 
 #### Saving Your Work
 
