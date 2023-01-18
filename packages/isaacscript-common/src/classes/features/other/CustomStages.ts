@@ -1,6 +1,5 @@
 import {
   ControllerIndex,
-  DoorSlot,
   DoorSlotFlag,
   GridEntityType,
   LevelCurse,
@@ -17,7 +16,10 @@ import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { UIStreakAnimation } from "../../../enums/private/UIStreakAnimation";
 import { isArray } from "../../../functions/array";
-import { doorSlotFlagsToDoorSlots } from "../../../functions/doors";
+import {
+  doorSlotsToDoorSlotFlags,
+  getDoorSlotsForRoomShape,
+} from "../../../functions/doors";
 import { hasFlag, removeFlag } from "../../../functions/flag";
 import { logError } from "../../../functions/logMisc";
 import { newRNG } from "../../../functions/rng";
@@ -348,20 +350,20 @@ export class CustomStages extends Feature {
       }
 
       const doorSlotFlags = room.Data.Doors;
-      const roomsMetadata = roomDoorSlotFlagMap.get(doorSlotFlags);
+      let roomsMetadata = roomDoorSlotFlagMap.get(doorSlotFlags);
       if (roomsMetadata === undefined) {
-        logError(
-          `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) + DoorSlotFlags ${doorSlotFlags} for custom stage: ${customStage.name}`,
-        );
-
-        const header = `For reference, a DoorSlotFlags of ${doorSlotFlags} is equal to the following doors being enabled:\n`;
-        const doorSlots = doorSlotFlagsToDoorSlots(doorSlotFlags);
-        const doorSlotLines = doorSlots.map(
-          (doorSlot) => `- DoorSlot.${DoorSlot[doorSlot]} (${doorSlot})`,
-        );
-        const explanation = header + doorSlotLines.join("\n");
-        logError(explanation);
-        continue;
+        // The custom stage does not have any rooms for the specific room type + room shape + door
+        // slot combination. As a fallback, check to see if the custom stage has one or more rooms
+        // for this specific room type + room shape + all doors.
+        const allDoorSlots = getDoorSlotsForRoomShape(roomShape);
+        const allDoorSlotFlags = doorSlotsToDoorSlotFlags(allDoorSlots);
+        roomsMetadata = roomDoorSlotFlagMap.get(allDoorSlotFlags);
+        if (roomsMetadata === undefined) {
+          logError(
+            `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) + all doors enabled for custom stage: ${customStage.name}`,
+          );
+          continue;
+        }
       }
 
       let randomRoom: CustomStageRoomMetadata;
