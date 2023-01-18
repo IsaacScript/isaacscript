@@ -41,11 +41,18 @@ Use right-click + save link as.
 
 (Note that by specifying "latest" as the version in the URL, the website will redirect us to the numbers that correspond to the latest version.)
 
+It will save to a file called "isaacscript-common.lua".
+
 ### Step 2 - Put It In Your Mod
 
-Create a subdirectory called `lib` inside the namespaced directory for your mod and put the library file there.
+- Create a subdirectory in your mod called the same thing as you mod.
+  - For example, if your mod is located at `C:\Repositories\revelations`, create a subdirectory called `C:\Repositories\revelations\revelations`.
+- Create a subdirectory in the new directory called `lib`.
+  - For example, if your mod is located at `C:\Repositories\revelations`, create a subdirectory called `C:\Repositories\revelations\revelations\lib`.
+- Put the "isaacscript-common.lua" file in the `lib` directory.
+  - For example, if your mod is located at `C:\Repositories\revelations`, it would go to `C:\Repositories\revelations\revelations\lib\isaacscript-common.lua`.
 
-If you do not already have a directory structure for your mod (i.e. all you have is a "main.lua" file), then create a directory structure like this:
+In other words, your file structure should look something like this:
 
 ```text
 my-mod/
