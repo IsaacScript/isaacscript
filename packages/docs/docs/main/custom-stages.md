@@ -173,6 +173,12 @@ mod.setHotkey(Keyboard.F1, () => {
 
 <br />
 
+## Reference Implementation
+
+If you want to dive into an actual working example, you can find a [reference mod](https://github.com/IsaacScript/isaacscript-mod-example) on GitHub that creates a new custom stage called "Slaughterhouse". This is a real minimal mod, with only one room per floor shape.
+
+<br />
+
 ### Bosses
 
 If your custom stage does not have any custom bosses, then a vanilla boss will appear in the boss room corresponding to the base stage and stage type that you have specified. For example, if you chose Caves 1 as a base, then you would randomly get a boss of Chub, C.H.A.D., Gurdy, and so on.
