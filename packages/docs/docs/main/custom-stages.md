@@ -220,7 +220,7 @@ Third, we need to specify our bosses in the `bossPool` field of our `tsconfig.js
 
 Here, we map the name of the boss to the arbitrarily chosen sub-type. By specifying a sub-type of 1 for Alice, IsaacScript will automatically choose a random boss room matching that sub-type.
 
-We also specify what the weight should be for each boss. In this case, we specified a weight of 3 for Alice, meaning that it will be three times as likely for Alice to appear than Bob.
+We also specify what the weight should be for each boss. In this case, we specified a weight of 3 for Alice, meaning that it will be three times as likely for Alice to appear than Bob. Use a weight of 1 for all of your bosses if you want them all to be equally likely to appear.
 
 Now, we can test the bosses in-game, and everything should work as expected.
 
