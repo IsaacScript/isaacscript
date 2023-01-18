@@ -177,7 +177,7 @@ If you want to dive into an actual working example, you can find a [reference mo
 
 <br />
 
-### Bosses
+## Bosses
 
 If your custom stage does not have any custom bosses, then a vanilla boss will appear in the boss room corresponding to the base stage and stage type that you have specified. For example, if you chose Caves 1 as a base, then you would randomly get a boss of Chub, C.H.A.D., Gurdy, and so on.
 
