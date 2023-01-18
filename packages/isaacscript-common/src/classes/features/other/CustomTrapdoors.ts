@@ -21,6 +21,7 @@ import { GridEntityTypeCustom } from "../../../enums/private/GridEntityTypeCusto
 import { StageTravelState } from "../../../enums/private/StageTravelState";
 import { TrapdoorAnimation } from "../../../enums/private/TrapdoorAnimation";
 import { easeOutSine } from "../../../functions/easing";
+import { log } from "../../../functions/log";
 import { movePlayersToCenter } from "../../../functions/playerCenter";
 import {
   getAllPlayers,
@@ -48,6 +49,8 @@ import { RunInNFrames } from "./RunInNFrames";
 import { RunNextRoom } from "./RunNextRoom";
 import { StageHistory } from "./StageHistory";
 
+const DEBUG = false as boolean;
+
 /** This also applies to crawl spaces. The value was determined through trial and error. */
 const TRAPDOOR_OPEN_DISTANCE = 60;
 
@@ -63,7 +66,7 @@ const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL: ReadonlySet<string> = new Set([
   "Jump",
 ]);
 
-const PIXELATION_TO_BLACK_FRAMES = 52;
+const PIXELATION_TO_BLACK_FRAMES = 60;
 
 const OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES = 6;
 const OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES = 5;
@@ -181,6 +184,7 @@ export class CustomTrapdoors extends Feature {
 
     this.v.run.state = StageTravelState.PIXELATION_TO_BLACK;
     this.v.run.stateRenderFrame = renderFrameCount;
+    this.logStateChanged();
 
     // In order to display the pixelation effect that should happen when we go to a new floor, we
     // need to start a room transition. We arbitrarily pick the current room for this purpose. (We
@@ -215,6 +219,7 @@ export class CustomTrapdoors extends Feature {
     }
 
     this.v.run.state = StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END;
+    this.logStateChanged();
 
     // Now, we display a black sprite on top of the pixelation effect, to prevent showing the rest
     // of the animation.
@@ -304,11 +309,13 @@ export class CustomTrapdoors extends Feature {
     }
 
     this.v.run.state = StageTravelState.PIXELATION_TO_ROOM;
+    this.logStateChanged();
 
     hud.SetVisible(true);
 
     this.runNextRoom.runNextRoom(() => {
       this.v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
+      this.logStateChanged();
 
       // After the room transition, the players will be placed next to a door, but they should be in
       // the center of the room to emulate what happens on a vanilla stage.
@@ -334,6 +341,7 @@ export class CustomTrapdoors extends Feature {
     }
 
     this.v.run.state = StageTravelState.NONE;
+    this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
     if (tstlClassName === undefined) {
@@ -474,6 +482,7 @@ export class CustomTrapdoors extends Feature {
   ) {
     this.v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
     this.v.run.customTrapdoorActivated = trapdoorDescription;
+    this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
     if (tstlClassName === undefined) {
@@ -619,6 +628,16 @@ export class CustomTrapdoors extends Feature {
     // If we just entered a new room that is already cleared, spawn the trapdoor closed if we are
     // standing close to it, and open otherwise.
     return this.shouldTrapdoorOpen(gridEntity, firstSpawn);
+  }
+
+  private logStateChanged(): void {
+    if (DEBUG) {
+      log(
+        `Custom trapdoors state changed: ${
+          StageTravelState[this.v.run.state]
+        } (${this.v.run.state})`,
+      );
+    }
   }
 
   /**
