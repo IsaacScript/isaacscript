@@ -30,6 +30,7 @@ const ISAACSCRIPT_COMMON_PATH = path.join(
   "node_modules",
   ISAACSCRIPT_COMMON,
   "dist",
+  "src",
 );
 
 const METADATA_LUA_PATH = path.join(
