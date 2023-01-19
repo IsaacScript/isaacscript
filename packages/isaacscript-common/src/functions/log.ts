@@ -37,7 +37,14 @@ export function getParentFunctionDescription(
  * Helper function to avoid typing out `Isaac.DebugString()`.
  *
  * If you have the "--luadebug" launch flag turned on or the Racing+ sandbox enabled, then this
- * function will also prepend the function name and the line number before the string.
+ * function will also prepend the function name and the line number before the string, like this:
+ *
+ * ```text
+ * [INFO] - Lua Debug: saveToDisk:42494 - The save data manager wrote data to the "save#.dat" file.
+ * ```
+ *
+ * Subsequently, it is recommended that you turn on the "--luadebug" launch flag when developing
+ * your mod so that debugging becomes a little bit easier.
  */
 export function log(msg: string): void {
   const parentFunctionDescription = getParentFunctionDescription();
