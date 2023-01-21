@@ -5,6 +5,9 @@ import { ModUpgraded } from "../types/ModUpgraded";
  * Helper function to instantiate an array of mod features all at once. Use this function if your
  * mod uses the pattern of expressing mod features as `ModFeature` classes.
  *
+ * If your feature classes have `v` variables, then this function will successfully register them
+ * with the save data manager.
+ *
  * For example:
  *
  * ```ts
@@ -27,7 +30,9 @@ export function initModFeatures(
 
   for (const modFeature of modFeatures) {
     // eslint-disable-next-line new-cap
-    const instantiatedModFeature = new modFeature(mod);
+    const instantiatedModFeature = new modFeature(mod, false);
+    instantiatedModFeature.init();
+
     instantiatedModFeatures.push(instantiatedModFeature);
   }
 
