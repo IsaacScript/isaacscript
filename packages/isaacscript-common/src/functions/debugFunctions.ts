@@ -45,7 +45,7 @@ export function getTime(useSocketIfAvailable = true): float {
  * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
  * enabled.
  */
-export function getTraceback(): string {
+export function getTraceback(this: void): string {
   if (SandboxGetTraceback !== undefined) {
     return SandboxGetTraceback();
   }
@@ -88,7 +88,7 @@ export function isLuaDebugEnabled(): boolean {
  * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
  * enabled.
  */
-export function traceback(): void {
+export function traceback(this: void): void {
   const tracebackOutput = getTraceback();
   log(tracebackOutput);
 }

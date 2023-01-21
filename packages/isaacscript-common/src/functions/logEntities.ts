@@ -29,6 +29,7 @@ const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
 
 /** Helper function for printing out every entity (or filtered entity) in the current room. */
 export function logAllEntities(
+  this: void,
   includeBackgroundEffects: boolean,
   entityTypeFilter?: EntityType,
 ): void {
@@ -83,6 +84,7 @@ export function logAllEntities(
  *                             Default is undefined.
  */
 export function logAllGridEntities(
+  this: void,
   includeWalls = false,
   gridEntityTypeFilter?: GridEntityType,
 ): void {
@@ -136,19 +138,19 @@ export function logAllGridEntities(
 }
 
 /** Helper function for logging an array of specific entities. */
-export function logEntities(entities: Entity[]): void {
+export function logEntities(this: void, entities: Entity[]): void {
   for (const entity of entities) {
     logEntity(entity);
   }
 }
 
 /** Helper function to log information about a specific entity. */
-export function logEntity(entity: Entity): void {
+export function logEntity(this: void, entity: Entity): void {
   const msg = getEntityLogLine(entity);
   log(msg);
 }
 
-function getEntityLogLine(entity: Entity, num?: int): string {
+function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   let msg = num === undefined ? "" : `${num}) `;
 
   msg += getEntityID(entity);
@@ -230,19 +232,23 @@ function getEntityLogLine(entity: Entity, num?: int): string {
 }
 
 /** Helper function for logging an array of specific grid entities. */
-export function logGridEntities(gridEntities: GridEntity[]): void {
+export function logGridEntities(this: void, gridEntities: GridEntity[]): void {
   for (const gridEntity of gridEntities) {
     logGridEntity(gridEntity);
   }
 }
 
 /** Helper function for log information about a specific grid entity. */
-export function logGridEntity(gridEntity: GridEntity): void {
+export function logGridEntity(this: void, gridEntity: GridEntity): void {
   const msg = getGridEntityLogLine(gridEntity);
   log(msg);
 }
 
-function getGridEntityLogLine(gridEntity: GridEntity, num?: int): string {
+function getGridEntityLogLine(
+  this: void,
+  gridEntity: GridEntity,
+  num?: int,
+): string {
   const gridEntityDesc = gridEntity.GetSaveState();
 
   let msg = num === undefined ? "" : `${num}) `;
@@ -303,7 +309,7 @@ function getGridEntityLogLine(gridEntity: GridEntity, num?: int): string {
  * Helper function to log information about the entity that corresponding to a pointer hash. (Only
  * use this when debugging, since retrieving the corresponding entity is expensive.)
  */
-export function logPtrHash(ptrHash: PtrHash): void {
+export function logPtrHash(this: void, ptrHash: PtrHash): void {
   log(`PtrHash: ${ptrHash}`);
   const entity = getEntityFromPtrHash(ptrHash);
   if (entity === undefined) {
@@ -317,7 +323,7 @@ export function logPtrHash(ptrHash: PtrHash): void {
  * Helper function to log information about the entity that corresponding to one or more pointer
  * hashes. (Only use this when debugging, since retrieving the corresponding entity is expensive.)
  */
-export function logPtrHashes(ptrHashes: PtrHash[]): void {
+export function logPtrHashes(this: void, ptrHashes: PtrHash[]): void {
   for (const ptrHash of ptrHashes) {
     logPtrHash(ptrHash);
   }

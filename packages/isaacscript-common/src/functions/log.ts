@@ -9,6 +9,7 @@
  *               function, and the third level is the parent of the calling function).
  */
 export function getParentFunctionDescription(
+  this: void,
   // We use 3 as a default because:
   // - The first level is this function.
   // - The second level is the calling function.
@@ -46,7 +47,7 @@ export function getParentFunctionDescription(
  * Subsequently, it is recommended that you turn on the "--luadebug" launch flag when developing
  * your mod so that debugging becomes a little bit easier.
  */
-export function log(msg: string): void {
+export function log(this: void, msg: string): void {
   const parentFunctionDescription = getParentFunctionDescription();
   const debugMsg =
     parentFunctionDescription === undefined
