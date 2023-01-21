@@ -1183,6 +1183,20 @@ declare global {
     /** Triggers one of Tainted Blue Baby's poop spells. */
     UsePoopSpell(poopSpellType: PoopSpellType): void;
 
+    /**
+     * This function will return true if the player has one or more extra lives or if a conditional
+     * revival item will work on the next death.
+     *
+     * Right now, there are 3 items that grant conditional extra lives:
+     *
+     * - Guppy's Collar - This function will successfully predict whether or not the next revive
+     *   from Guppy's Collar will work or not (50% chance).
+     * - Broken Ankh - This function will successfully predict whether or not the next revive from
+     *   Broken Ankh will work or not (22.22% chance).
+     * - Mysterious Paper - This function will only successfully predict the revive from Missing
+     *   Poster every 4 frames, because it evaluates only one of its 4 possible item effects each
+     *   frame.
+     */
     WillPlayerRevive(): boolean;
 
     BabySkin: BabySubType;
