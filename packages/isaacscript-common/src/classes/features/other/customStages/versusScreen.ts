@@ -12,6 +12,7 @@ import { arrayRemove } from "../../../../functions/array";
 import { getBosses } from "../../../../functions/bosses";
 import { getRoomSubType } from "../../../../functions/roomData";
 import { removeCharactersBefore } from "../../../../functions/string";
+import { getScreenCenterPos } from "../../../../functions/ui";
 import { eRange } from "../../../../functions/utils";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../../../objects/bossNamePNGFileNames";
@@ -340,9 +341,7 @@ export function versusScreenPostRender(
     return;
   }
 
-  const room = game.GetRoom();
-  const centerPos = room.GetCenterPos();
-  const position = Isaac.WorldToRenderPosition(centerPos);
+  const position = getScreenCenterPos();
 
   // First, we render the background.
   versusScreenBackgroundSprite.RenderLayer(
