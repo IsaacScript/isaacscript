@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## January 20th, 2022 (Unreleased)
+## January 22nd, 2022
 
 - The functions from `ISCFeature.RUN_IN_N_FRAMES` now take an optional parameter to cancel the function if a new room is loaded.
 - The `log` functions no longer take a `self` argument, so they can be used more easily while debugging.
