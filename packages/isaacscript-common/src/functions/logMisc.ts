@@ -354,7 +354,7 @@ export function logTable(
   parentTables = 0,
 ): void {
   if (parentTables === 0) {
-    log("Printing out a Lua table:");
+    log("Printing out a Lua table:", false);
   } else if (parentTables > 10) {
     return;
   }
@@ -363,14 +363,10 @@ export function logTable(
   const indentation = " ".repeat(numSpaces);
 
   if (!isTable(luaTable)) {
-    // Put it in an IIFE so that it will show as "func" instead of "logTable" and align with the
-    // other text. We have to use a non-arrow function to prevent Lua language server errors with
-    // the self argument.
-    (function func() {
-      log(
-        `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
-      );
-    })();
+    log(
+      `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
+      false,
+    );
 
     return;
   }
@@ -378,12 +374,13 @@ export function logTable(
   let numElements = 0;
   iterateTableInOrder(luaTable, (key, value) => {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`${indentation}${key} --> ${value}`);
+    log(`${indentation}${key} --> ${value}`, false);
 
     if (isTable(value)) {
       if (key === "__class") {
         log(
           `${indentation}  (skipping enumerating this key to avoid infinite recursion)`,
+          false,
         );
       } else {
         logTable(value, parentTables + 1);
@@ -393,12 +390,7 @@ export function logTable(
     numElements++;
   });
 
-  // Put it in an IIFE so that it will show as "func" instead of "logTable" and align with the other
-  // text. We have to use a non-arrow function to prevent Lua language server errors with the self
-  // argument.
-  (function func() {
-    log(`${indentation}The size of the table was: ${numElements}`);
-  })();
+  log(`${indentation}The size of the table was: ${numElements}`, false);
 }
 
 /**
