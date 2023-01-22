@@ -547,12 +547,18 @@ declare global {
     /**
      * Converts a game Vector (i.e. `entity.Position`) to a render Vector used for drawing sprites
      * and text to the screen at fixed positions.
+     *
+     * For almost all cases, you will want to use the `Isaac.WorldToScreen` method instead, since
+     * this will result in non-standard values for non-1x1 rooms.
      */
     function WorldToRenderPosition(position: Vector): Vector;
 
     /**
      * Converts a game Vector (i.e. `entity.Position`) to a screen Vector used for drawing sprites
      * and text next to an entity.
+     *
+     * For almost all cases, you will want to use this instead of the `Isaac.WorldToRenderPosition`
+     * method since it works properly in non-1x1 rooms.
      */
     function WorldToScreen(position: Vector): Vector;
 
