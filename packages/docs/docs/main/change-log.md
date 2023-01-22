@@ -12,6 +12,8 @@ This page lists the changes to the IsaacScript framework.
 ## January 20th, 2022 (Unreleased)
 
 - The functions from `ISCFeature.RUN_IN_N_FRAMES` now take an optional parameter to cancel the function if a new room is loaded.
+- The `log` functions no longer take a `self` argument, so they can be used more easily while debugging.
+- The `log` function now takes an optional parameter to disable the function prefix.
 - Added the following helper functions:
   - `isSlotMachine`
   - `logAndPrint`
@@ -25,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
   - `initModFeatures`
   - `doesVectorHaveLength`
   - `getNumRoomsVisited`
+  - `getMysteriousPaperEffectForFrame`
 - Deleted the following helper functions:
   - `printConsole` (use `print` instead)
   - `isUserDefinedTSTLClass`

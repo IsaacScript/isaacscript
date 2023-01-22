@@ -10,6 +10,7 @@ import {
   FIRST_TRINKET_TYPE,
   LAST_VANILLA_TRINKET_TYPE,
 } from "../core/constantsFirstLast";
+import { MysteriousPaperEffect } from "../enums/MysteriousPaperEffect";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
   TRINKET_DESCRIPTION_MAP,
@@ -19,6 +20,7 @@ import {
   TRINKET_TYPE_TO_NAME_MAP,
 } from "../maps/trinketTypeToNameMap";
 import { getEntityID } from "./entities";
+import { getEnumLength } from "./enums";
 import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
@@ -35,6 +37,8 @@ import { iRange } from "./utils";
  */
 const GOLDEN_TRINKET_ADJUSTMENT = 32768;
 
+const NUM_MYSTERIOUS_PAPER_EFFECTS = getEnumLength(MysteriousPaperEffect);
+
 const TRINKET_ANM2_PATH = "gfx/005.350_trinket.anm2";
 const TRINKET_SPRITE_LAYER = 0;
 
@@ -46,6 +50,41 @@ const TRINKET_SPRITE_LAYER = 0;
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
   return asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
+}
+
+/**
+ * Helper function to get the current effect that the Mysterious Paper trinket is providing to the
+ * player. Returns undefined if the player does not have the Mysterious Paper trinket.
+ *
+ * The Mysterious Paper trinket has four different effects:
+ *
+ * - The Polaroid (collectible)
+ * - The Negative (collectible)
+ * - A Missing Page (trinket)
+ * - Missing Poster (trinket)
+ *
+ * It rotates between these four effects on every frame. Note that Mysterious Paper will cause the
+ * `EntityPlayer.HasCollectible` and `EntityPlayer.HasTrinket` methods to return true for the
+ * respective items on the particular frame, with the exception of the Missing Poster. (The player
+ * will never "have" the Missing Poster, even on the correct corresponding frame.)
+ *
+ * @param player The player to look at.
+ * @param frameCount Optional. The frame count that corresponds to time the effect will be active.
+ *                   Default is the current frame.
+ */
+export function getMysteriousPaperEffectForFrame(
+  player: EntityPlayer,
+  frameCount?: int,
+): MysteriousPaperEffect | undefined {
+  if (frameCount === undefined) {
+    frameCount = player.FrameCount;
+  }
+
+  if (!player.HasTrinket(TrinketType.MYSTERIOUS_PAPER)) {
+    return undefined;
+  }
+
+  return frameCount % NUM_MYSTERIOUS_PAPER_EFFECTS;
 }
 
 /**
