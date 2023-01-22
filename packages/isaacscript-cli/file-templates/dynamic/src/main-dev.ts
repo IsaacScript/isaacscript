@@ -1,8 +1,9 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { Keyboard, ModCallback } from "isaac-typescript-definitions";
 import {
-  enableDevFeatures,
+  ISCFeature,
   log,
-  ModUpgraded,
+  setLogFunctionsGlobal,
+  setTracebackFunctionsGlobal,
   upgradeMod,
 } from "isaacscript-common";
 
@@ -12,18 +13,29 @@ main();
 
 function main() {
   const modVanilla = RegisterMod(MOD_NAME, 1);
-  const mod = upgradeMod(modVanilla);
-  enableDevFeatures(mod);
-  addCallbacks(mod);
+  const features = [
+    ISCFeature.FADE_IN_REMOVER,
+    ISCFeature.FAST_RESET,
+    ISCFeature.CUSTOM_HOTKEYS,
+    ISCFeature.SAVE_DATA_MANAGER,
+  ] as const;
+  const mod = upgradeMod(modVanilla, features);
 
-  log(`${MOD_NAME} initialized.`);
-}
+  // Enable dev features.
+  setLogFunctionsGlobal();
+  setTracebackFunctionsGlobal();
+  mod.saveDataManagerSetGlobal();
+  mod.enableFastReset();
+  mod.removeFadeIn();
+  mod.setHotkey(Keyboard.F2, debugHotkey);
 
-function addCallbacks(mod: ModUpgraded) {
+  // Add callbacks.
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, postPlayerInit); // 9
   mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted); // 15
   mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
+
+  log(`${MOD_NAME} initialized.`);
 }
 
 // ModCallback.POST_PLAYER_INIT (9)
@@ -44,4 +56,9 @@ function postNewLevel() {
 // ModCallback.POST_NEW_ROOM (19)
 function postNewRoom() {
   log("ModCallback.POST_NEW_ROOM");
+}
+
+/** Currently, F2 is set to execute this function. */
+function debugHotkey() {
+  // Add code here.
 }

@@ -330,17 +330,11 @@ function initSaveDataManager(
   tstlClassName: string,
   init: boolean,
 ) {
-  if (tstlClassName === "AtePoopBaby") {
-    Isaac.DebugString("GETTING HERE 1");
-  }
-
   // Do nothing if this class does not have any variables.
   const { v } = modFeature as unknown as Record<string, unknown>;
   if (v === undefined) {
     return;
   }
-
-  Isaac.DebugString("GETTING HERE 2");
 
   if (!isTable(v)) {
     error(

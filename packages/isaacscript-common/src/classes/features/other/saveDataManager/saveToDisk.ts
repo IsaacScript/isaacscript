@@ -16,7 +16,7 @@ export function saveToDisk(
     saveDataConditionalFuncMap,
   );
   const jsonString = jsonEncode(allSaveData);
-  mod.SaveData(jsonString); // Write it to the "save#.dat" file
+  mod.SaveData(jsonString);
   log('The save data manager wrote data to the "save#.dat" file.');
 }
 
@@ -52,9 +52,8 @@ function getAllSaveDataToWriteToDisk(
         return;
       }
 
-      // If we encode TypeScriptToLua Maps into JSON, it will result in a lot of extraneous data
-      // that is unnecessary. Make a copy of the data and recursively convert all TypeScriptToLua
-      // Maps into Lua tables.
+      // We need to serialize TypeScriptToLua maps and Isaac API objects such as `Color`.
+      // Recursively convert all such objects to Lua tables.
       const saveDataCopy = deepCopy(
         saveDataWithoutRoom,
         SerializationType.SERIALIZE,

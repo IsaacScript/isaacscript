@@ -1,3 +1,5 @@
+- eslint rule - warn on using maps/sets in Object.entries Object.keys Object.values
+
 - isaac-xml-validator
   - wait for wof to publish: https://github.com/wofsauge/Isaac-XML-Validator/
 

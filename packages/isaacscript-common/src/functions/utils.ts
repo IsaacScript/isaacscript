@@ -174,6 +174,28 @@ export function todo(...args: unknown[]): void {}
  * https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
  */
 export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
+  const type1 = type(array1);
+  const type2 = type(array2);
+  if (type1 !== type2) {
+    error(
+      `Failed to two-dimensional sort since the two elements were disparate types: ${array1} & ${array2} (${type1} & ${type2})`,
+    );
+  }
+
+  if (type1 === "string" || type1 === "number") {
+    if (array1 === array2) {
+      return 0;
+    }
+
+    return array1 < array2 ? -1 : 1;
+  }
+
+  if (type1 !== "table") {
+    error(
+      "Failed to two-dimensional sort since the elements were not a string, number, or table.",
+    );
+  }
+
   const firstElement1 = array1[0];
   const firstElement2 = array2[0];
 
@@ -186,6 +208,14 @@ export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
   if (firstElement2 === undefined || firstElement2 === null) {
     error(
       "Failed to two-dimensional sort since the first element of the second array was undefined.",
+    );
+  }
+
+  const elementType1 = type(firstElement1);
+  const elementType2 = type(firstElement2);
+  if (elementType1 !== elementType2) {
+    error(
+      `Failed to two-dimensional sort since the first element of each array were disparate types: ${firstElement1} & ${firstElement2} (${elementType1} & ${elementType2})`,
     );
   }
 

@@ -615,6 +615,8 @@ function deepCopyNormalLuaTable(
 /**
  * Recursively clones the object's entries, automatically converting number keys to strings, if
  * necessary.
+ *
+ * This should work on objects/tables, maps, sets, default maps, and classes.
  */
 function getCopiedEntries(
   object: unknown,
