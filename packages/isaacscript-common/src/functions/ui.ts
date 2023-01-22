@@ -4,9 +4,10 @@ import { UI_HEART_WIDTH, VectorZero } from "../core/constants";
 import { copyVector } from "./vector";
 
 /**
- * In the options menu, players have the ability to set a HUD offset. This uses the current HUD
- * offset to generate a vector that should be added to the corresponding position that you want to
- * draw a UI element.
+ * In the options menu, players have the ability to set a HUD offset (which gets written to the
+ * `HudOffset` attribute in the "options.ini" file). This function uses the current HUD offset to
+ * generate a vector that should be added to the corresponding position that you want to draw a UI
+ * element at.
  *
  * For example:
  * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
