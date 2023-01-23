@@ -1,7 +1,8 @@
 - publish in CI
 
 - isaac-xml-validator
-  - wait for wof to publish: https://github.com/wofsauge/Isaac-XML-Validator/
+  - wait for wof to fix: https://github.com/wofsauge/isaac-xml-validator/issues/27
+  - uncomment "#isaac-xml-validator"
 
 - stop importing RunInNFrames class
   - adding @internal tag crashes APIExtractor: https://github.com/microsoft/rushstack/issues/3894
