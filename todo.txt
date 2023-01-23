@@ -8,6 +8,7 @@
 
 - get docs working with ModCallbackCustom
   - waiting on issue: https://github.com/algolia/docsearch/issues/1658
+  - https://support.algolia.com/hc/en-us/requests/538679
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
