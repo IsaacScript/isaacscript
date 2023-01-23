@@ -1,5 +1,3 @@
-- eslint rule - warn on using maps/sets in Object.entries Object.keys Object.values
-
 - publish in CI
 
 - isaac-xml-validator
