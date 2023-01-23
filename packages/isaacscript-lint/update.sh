@@ -10,3 +10,5 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON"
+
+# We don't want to install anything in the `isaacscript-lint` package directory.
