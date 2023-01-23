@@ -19,7 +19,7 @@ npx eslint --max-warnings 0 .
 
 # Step 3 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary
+npx cspell --no-progress --no-summary .
 
 # Step 4 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.

@@ -9,7 +9,7 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows explicit iteration for maps and sets`",
+      description: "Disallows explicit iteration for maps and sets",
       recommended: "error",
       requiresTypeChecking: true,
     },

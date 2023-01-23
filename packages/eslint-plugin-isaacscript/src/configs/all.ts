@@ -27,6 +27,7 @@ export const all = {
     "isaacscript/no-invalid-default-map": "error",
     "isaacscript/no-let-any": "error",
     "isaacscript/no-object-any": "error",
+    "isaacscript/no-object-methods-with-map-set": "error",
     "isaacscript/no-template-curly-in-string-fix": "error",
     "isaacscript/no-throw": "error",
     "isaacscript/no-unsafe-plusplus": "error",

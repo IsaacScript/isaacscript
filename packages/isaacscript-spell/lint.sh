@@ -15,7 +15,7 @@ npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Step 2 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary
+npx cspell --no-progress --no-summary .
 
 # Step 3 - Check dictionaries.
 bash "$DIR/check-dictionaries.sh"

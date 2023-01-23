@@ -24,6 +24,7 @@ export const recommended = {
     "isaacscript/no-explicit-map-set-loops": "error",
     "isaacscript/no-let-any": "error",
     "isaacscript/no-object-any": "error",
+    "isaacscript/no-object-methods-with-map-set": "error",
     "isaacscript/no-template-curly-in-string-fix": "error",
     "isaacscript/no-unsafe-plusplus": "error",
     "isaacscript/no-useless-return-no-fix": "error",

@@ -1,9 +1,9 @@
 - eslint rule - warn on using maps/sets in Object.entries Object.keys Object.values
 
+- publish in CI
+
 - isaac-xml-validator
   - wait for wof to publish: https://github.com/wofsauge/Isaac-XML-Validator/
-
-- when cspell is released: https://github.com/streetsidesoftware/cspell/issues/2739#issuecomment-1108744039
 
 - stop importing RunInNFrames class
   - adding @internal tag crashes APIExtractor: https://github.com/microsoft/rushstack/issues/3894

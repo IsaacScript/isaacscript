@@ -19,6 +19,6 @@ npx eslint --max-warnings 0 .
 
 # Step 3 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary
+npx cspell --no-progress --no-summary .
 
 echo "Successfully linted in $SECONDS seconds."

@@ -20,6 +20,7 @@ import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops";
 import { noInvalidDefaultMap } from "./rules/no-invalid-default-map";
 import { noLetAny } from "./rules/no-let-any";
 import { noObjectAny } from "./rules/no-object-any";
+import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-set";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
 import { noThrow } from "./rules/no-throw";
 import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus";
@@ -47,6 +48,7 @@ export const rules = {
   "no-invalid-default-map": noInvalidDefaultMap,
   "no-let-any": noLetAny,
   "no-object-any": noObjectAny,
+  "no-object-methods-with-map-set": noObjectMethodsWithMapSet,
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
   "no-throw": noThrow,
   "no-unsafe-plusplus": noUnsafePlusplus,

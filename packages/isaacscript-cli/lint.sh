@@ -26,7 +26,7 @@ fi
 
 # Step 4 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary
+npx cspell --no-progress --no-summary .
 
 # Step 5 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.

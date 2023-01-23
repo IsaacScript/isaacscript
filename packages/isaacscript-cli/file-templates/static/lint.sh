@@ -15,7 +15,7 @@ npx prettier --check .
 
 # Step 2 - Use ESLint to lint the TypeScript.
 # We use "--max-warnings" so that any warnings will fail in CI.
-npx eslint --max-warnings 0 src
+npx eslint --max-warnings 0 .
 
 # Step 3 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
@@ -31,7 +31,7 @@ fi
 
 # Step 5 - Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
-npx cspell --no-progress --no-summary
+npx cspell --no-progress --no-summary .
 
 # Step 6 - Check for orphaned words.
 bash "$DIR/check-orphaned-words.sh"
