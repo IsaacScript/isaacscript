@@ -1,9 +1,9 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import { capitalizeFirstLetter, createRule } from "../utils";
 
-export type Options = [];
+type Options = [];
 
-export type MessageIds =
+type MessageIds =
   | "noObjectEntriesMap"
   | "noObjectKeysMap"
   | "noObjectValuesMap"
