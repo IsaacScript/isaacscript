@@ -70,6 +70,8 @@ export interface CustomStageTSConfig {
    */
   baseStageType?: number;
 
+  /* music: */
+
   /**
    * Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is
    * the graphics for the walls and floor.) If not specified, the graphics for Basement will be

@@ -12,8 +12,10 @@ PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
+# - @nrwl/eslint-plugin-nx - See nx below.
 # - @types/update-notifier - Stuck until TypeScript supports ESM.
 # - chalk - Stuck until TypeScript supports ESM.
+# - nx - There is a bug in 15.6.1 that makes linting fail in CI.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
 # - sort-package-json - Stuck until TypeScript supports ESM.
