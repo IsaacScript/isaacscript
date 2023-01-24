@@ -503,7 +503,9 @@ export class CustomStages extends Feature {
       customStage.music === undefined
         ? getMusicForStage(baseStage, baseStageType)
         : Isaac.GetMusicIdByName(customStage.music);
-    musicManager.Play(music);
+    this.runInNFrames.runNextGameFrame(() => {
+      musicManager.Play(music);
+    });
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
     // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can
