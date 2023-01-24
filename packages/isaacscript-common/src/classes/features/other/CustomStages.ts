@@ -75,6 +75,12 @@ import { DisableAllSound } from "./DisableAllSound";
 import { Pause } from "./Pause";
 import { RunInNFrames } from "./RunInNFrames";
 
+/**
+ * 60 does not work correctly (the music kicking in from stage -1 will mute it), so we use 70 to be
+ * safe.
+ */
+const MUSIC_DELAY_RENDER_FRAMES = 70;
+
 export class CustomStages extends Feature {
   /** @internal */
   public override v = {
@@ -507,12 +513,13 @@ export class CustomStages extends Feature {
       customStage.music === undefined
         ? getMusicForStage(baseStage, baseStageType)
         : Isaac.GetMusicIdByName(customStage.music);
-    this.runInNFrames.runNextRenderFrame(() => {
+
+    this.runInNFrames.runInNRenderFrames(() => {
       // By default, the `MusicManager.Play` method will play the music at max volume (1.0), which
       // is around twice as loud as the vanilla music plays.
       musicManager.Enable();
       musicManager.Crossfade(music);
-    });
+    }, MUSIC_DELAY_RENDER_FRAMES);
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
     // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can
