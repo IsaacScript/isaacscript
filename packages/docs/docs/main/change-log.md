@@ -12,6 +12,8 @@ This page lists the changes to the IsaacScript framework.
 ## January 29th, 2022 (Unreleased)
 
 - The custom stages feature now accepts `music` as an option in the `tsconfig.json` file.
+- Added the following helper functions:
+  - `getMusicForStage`
 - Added the following custom console commands:
   - `music`
 
