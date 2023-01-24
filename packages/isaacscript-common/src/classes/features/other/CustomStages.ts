@@ -504,7 +504,9 @@ export class CustomStages extends Feature {
         ? getMusicForStage(baseStage, baseStageType)
         : Isaac.GetMusicIdByName(customStage.music);
     this.runInNFrames.runNextGameFrame(() => {
-      musicManager.Play(music);
+      // By default, the `MusicManager.Play` method will play the music at max volume (1.0), which
+      // is around twice as loud as the vanilla music plays.
+      musicManager.Play(music, 0.5);
     });
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
