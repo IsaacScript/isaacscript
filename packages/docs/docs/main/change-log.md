@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## January 29th, 2022 (Unreleased)
+
+- The custom stages feature now accepts `music` as an option in the `tsconfig.json` file.
+- Added the following custom console commands:
+  - `music`
+
 ## January 22nd, 2022
 
 - The functions from `ISCFeature.RUN_IN_N_FRAMES` now take an optional parameter to cancel the function if a new room is loaded.

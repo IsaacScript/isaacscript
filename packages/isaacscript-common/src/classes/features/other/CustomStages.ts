@@ -9,7 +9,7 @@ import {
   RoomType,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../../../core/cachedClasses";
+import { game, musicManager } from "../../../core/cachedClasses";
 import * as metadataJSON from "../../../customStageMetadata.json"; // This will correspond to "customStageMetadata.lua" at run-time.
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
@@ -28,6 +28,7 @@ import {
   getRoomDataForTypeVariant,
   getRoomsInsideGrid,
 } from "../../../functions/rooms";
+import { getMusicForStage } from "../../../functions/sound";
 import { setStage } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
 import {
@@ -457,22 +458,23 @@ export class CustomStages extends Feature {
       level.SetStage(LevelStage.BASEMENT_1, StageType.ORIGINAL);
     }
 
-    let baseStage =
+    let baseStage: LevelStage =
       customStage.baseStage === undefined
         ? DEFAULT_BASE_STAGE
-        : customStage.baseStage;
+        : (customStage.baseStage as LevelStage);
     if (!firstFloor) {
-      baseStage++;
+      baseStage++; // eslint-disable-line isaacscript/strict-enums
     }
 
-    const baseStageType =
+    const baseStageType: StageType =
       customStage.baseStageType === undefined
         ? DEFAULT_BASE_STAGE_TYPE
-        : customStage.baseStageType;
+        : (customStage.baseStageType as StageType);
 
+    // eslint-disable-next-line isaacscript/strict-enums
     const reseed = asNumber(stage) >= baseStage;
 
-    setStage(baseStage as LevelStage, baseStageType as StageType, reseed);
+    setStage(baseStage, baseStageType, reseed);
 
     this.setStageRoomsData(customStage, rng, verbose);
 
@@ -494,6 +496,14 @@ export class CustomStages extends Feature {
         topStreakTextStart(this.v);
       });
     }
+
+    // The bugged stage will not have any music associated with it, so we must manually start to
+    // play a track.
+    const music =
+      customStage.music === undefined
+        ? getMusicForStage(baseStage, baseStageType)
+        : Isaac.GetMusicIdByName(customStage.music);
+    musicManager.Play(music);
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
     // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can

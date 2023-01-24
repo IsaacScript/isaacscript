@@ -6,13 +6,14 @@ import {
   GridRoom,
   HeartSubType,
   LevelStateFlag,
+  Music,
   ProjectileFlag,
   SeedEffect,
   SoundEffect,
   TearFlag,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../core/cachedClasses";
+import { game, musicManager, sfxManager } from "../core/cachedClasses";
 import { arrayToString, isArray } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { getEntityID } from "./entities";
@@ -192,6 +193,13 @@ export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
   }
 
   log(`  The size of the map was: ${map.size}`);
+}
+
+export function logMusic(this: void): void {
+  const currentMusic = musicManager.GetCurrentMusicID();
+  log(
+    `Currently playing music track: ${Music[currentMusic]} (${currentMusic})`,
+  );
 }
 
 export function logPlayerEffects(this: void, player: EntityPlayer): void {

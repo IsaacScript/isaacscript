@@ -70,7 +70,13 @@ export interface CustomStageTSConfig {
    */
   baseStageType?: number;
 
-  /* music: */
+  /**
+   * Optional. A string that represents the name of the music track from the "content/music.xml"
+   * file that corresponds to this custom stage. It will be manually played upon entering the stage.
+   *
+   * If not specified, the same music track as the base stage will be used.
+   */
+  music?: string;
 
   /**
    * Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is

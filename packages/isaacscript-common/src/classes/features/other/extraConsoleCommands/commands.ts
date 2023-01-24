@@ -79,6 +79,7 @@ import { addFlag } from "../../../../functions/flag";
 import { spawnGridEntity } from "../../../../functions/gridEntities";
 import { getRoomGridIndexesForType } from "../../../../functions/levelGrid";
 import {
+  logMusic,
   logPlayerEffects,
   logRoom,
   logSeedEffects,
@@ -959,6 +960,12 @@ export function maze(): void {
 /** Warps to the first Miniboss Room on the floor. */
 export function miniboss(): void {
   warpToRoomType(RoomType.MINI_BOSS);
+}
+
+/** Logs the currently playing music track to the "log.txt" file. */
+export function music(): void {
+  logMusic();
+  print('Logged the currently playing music track to the "log.txt" file.');
 }
 
 /** Alias for the "disableCurses" command. */
