@@ -476,6 +476,10 @@ export class CustomStages extends Feature {
 
     setStage(baseStage, baseStageType, reseed);
 
+    // As soon as we warp to the base stage, the base stage music will begin to play. Thus, we
+    // temporarily mute all music.
+    musicManager.Disable();
+
     this.setStageRoomsData(customStage, rng, verbose);
 
     // Set the stage to an invalid value, which will prevent the walls and floors from loading.
@@ -503,10 +507,11 @@ export class CustomStages extends Feature {
       customStage.music === undefined
         ? getMusicForStage(baseStage, baseStageType)
         : Isaac.GetMusicIdByName(customStage.music);
-    this.runInNFrames.runNextGameFrame(() => {
+    this.runInNFrames.runNextRenderFrame(() => {
       // By default, the `MusicManager.Play` method will play the music at max volume (1.0), which
       // is around twice as loud as the vanilla music plays.
-      musicManager.Play(music, 0.5);
+      musicManager.Enable();
+      musicManager.Crossfade(music);
     });
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
