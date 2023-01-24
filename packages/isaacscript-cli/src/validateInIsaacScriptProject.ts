@@ -3,6 +3,9 @@ import path from "path";
 import { CWD, PACKAGE_JSON, PROJECT_NAME } from "./constants";
 import * as file from "./file";
 
+/** We don't check "node_modules" because we might be cloning a fresh IsaacScript project. */
+const SUBDIRECTORIES_TO_CHECK = ["src", "mod"] as const;
+
 // Validate that we are in a directory that looks like an IsaacScript project.
 export function validateInIsaacScriptProject(verbose: boolean): void {
   const filesToCheck = [PACKAGE_JSON];
@@ -13,8 +16,7 @@ export function validateInIsaacScriptProject(verbose: boolean): void {
     }
   }
 
-  const subdirectoriesToCheck = ["src", "mod", "node_modules"];
-  for (const subdirectoryName of subdirectoriesToCheck) {
+  for (const subdirectoryName of SUBDIRECTORIES_TO_CHECK) {
     const subdirectoryPath = path.join(CWD, subdirectoryName);
     if (
       !file.exists(subdirectoryPath, verbose) ||

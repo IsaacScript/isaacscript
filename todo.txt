@@ -1,8 +1,10 @@
 - publish in CI
 
+- investigate EXECUTE_CMD crashing
+
 - isaac-xml-validator
   - wait for wof to fix: https://github.com/wofsauge/isaac-xml-validator/issues/27
-  - uncomment "#isaac-xml-validator"
+  - uncomment "#isaac-xml-validator" (in R+ too)
 
 - stop importing RunInNFrames class
   - adding @internal tag crashes APIExtractor: https://github.com/microsoft/rushstack/issues/3894
