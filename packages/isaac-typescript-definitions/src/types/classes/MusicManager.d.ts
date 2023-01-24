@@ -50,6 +50,10 @@ declare global {
     PitchSlide(targetPitch: float): void;
 
     /**
+     * You should always call the `MusicManager.UpdateVolume` method after using `MusicManager.Play`
+     * in order to get the music to play at the correct volume. Alternatively, you can use the
+     * `MusicManager.Crossfade` method, which will keep the current volume.
+     *
      * @param music
      * @param volume Optional. Default is 1.
      */

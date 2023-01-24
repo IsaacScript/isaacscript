@@ -201,6 +201,10 @@
           },
           "type": "object"
         },
+        "music": {
+          "description": "Optional. A string that represents the name of the music track from the \"content/music.xml\" file that corresponds to this custom stage. It will be manually played upon entering the stage.\n\nIf not specified, the same music track as the base stage will be used.",
+          "type": "string"
+        },
         "name": {
           "description": "Mandatory. The name of the custom stage.",
           "type": "string"
