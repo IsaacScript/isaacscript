@@ -1,3 +1,5 @@
+import { FamiliarVariant } from "isaac-typescript-definitions";
+
 /**
  * - Converts the specified amount of tears stat into the format of `EntityPlayer.MaxFireDelay` and
  *   adds it to the player.
@@ -55,8 +57,18 @@ export function getTearsStat(fireDelay: float): float {
  *
  * Note that this function does not work properly when the tear is from a Lead Pencil barrage. In
  * this case, it will always appear as if the tear is coming from a player.
+ *
+ * @param tear The tear to inspect.
+ * @param familiarVariant Optional. Specify this to check if the tear came from a specific familiar
+ *                        variant. Default is undefined, which checks for any familiar.
+ * @param subType Optional. Specify this to check if the tear came from a specific familiar
+ *                sub-type. Default is undefined, which checks for any familiar.
  */
-export function isTearFromFamiliar(tear: EntityTear): boolean {
+export function isTearFromFamiliar(
+  tear: EntityTear,
+  familiarVariant?: FamiliarVariant,
+  subType?: int,
+): boolean {
   if (tear.FrameCount === 0) {
     error(
       'Failed to check if the given tear was from a player since the tear\'s frame count was equal to 0. (The "isTearFromFamiliar" function must only be used in the "POST_TEAR_INIT_VERY_LATE" callback or on frame 1 and onwards.)',
@@ -71,7 +83,14 @@ export function isTearFromFamiliar(tear: EntityTear): boolean {
   // We cannot use `tear.SpawnerType` to determine this, since it is baked in to be equal to
   // `EntityType.PLAYER` regardless of whether the tear is from a player or familiar.
   const familiar = tear.SpawnerEntity.ToFamiliar();
-  return familiar !== undefined;
+  if (familiar === undefined) {
+    return false;
+  }
+
+  return (
+    (familiarVariant === undefined || familiarVariant === familiar.Variant) &&
+    (subType === undefined || subType === familiar.SubType)
+  );
 }
 
 /**
