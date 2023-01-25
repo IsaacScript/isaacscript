@@ -42,8 +42,8 @@ export function getTime(useSocketIfAvailable = true): float {
 /**
  * Helper function to get a stack trace.
  *
- * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
- * enabled.
+ * This will only work if the `--luadebug` launch option is enabled. If it isn't, then a error
+ * string will be returned.
  */
 export function getTraceback(this: void): string {
   if (SandboxGetTraceback !== undefined) {
@@ -82,11 +82,11 @@ export function isLuaDebugEnabled(): boolean {
 }
 
 /**
- * Helper function to print a stack trace to the "log.txt" file, similar to JavaScript's
+ * Helper function to log a stack trace to the "log.txt" file, similar to JavaScript's
  * `console.trace` function.
  *
- * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
- * enabled.
+ * This will only work if the `--luadebug` launch option is enabled. If it isn't, then a error
+ * string will be logged.
  */
 export function traceback(this: void): void {
   const tracebackOutput = getTraceback();
