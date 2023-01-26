@@ -736,6 +736,27 @@ export function setCollectibleGlitched(collectible: EntityPickup): void {
 }
 
 /**
+ * Helper function to set the "pedestal type" of a collectible. For example, it might be sitting on
+ * top of a broken Blood Donation Machine and you want to change it to be sitting on top of an
+ * opened Spiked Chest.
+ */
+export function setCollectiblePedestalType(
+  collectible: EntityPickup,
+  collectiblePedestalType: CollectiblePedestalType,
+): void {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "setCollectiblePedestalType" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  const sprite = collectible.GetSprite();
+  const overlayAnimation = sprite.GetOverlayAnimation();
+  sprite.SetOverlayFrame(overlayAnimation, collectiblePedestalType);
+}
+
+/**
  * Helper function to change the sprite of a collectible pedestal entity.
  *
  * For more information about removing the collectible sprite, see the documentation for the
