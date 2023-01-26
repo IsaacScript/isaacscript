@@ -6,7 +6,7 @@
 
 - isaac-xml-validator
   - wait for wof to fix: https://github.com/wofsauge/isaac-xml-validator/issues/27
-  - uncomment "#isaac-xml-validator" (in R+ too)
+  - uncomment "#isaac-xml-validator" (in R+ / babies mod too)
 
 - stop importing RunInNFrames class
   - adding @internal tag crashes APIExtractor: https://github.com/microsoft/rushstack/issues/3894
