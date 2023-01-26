@@ -9,6 +9,7 @@ import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
+import { isTSTLSet } from "./tstlClass";
 import { asNumber, isPrimitive } from "./types";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
@@ -52,6 +53,31 @@ export function countEntities(
   );
 
   return entities.length;
+}
+
+/**
+ * Helper function to check if one or more matching entities exist in the current room. It uses the
+ * `doesEntityExist` helper function to determine this.
+ *
+ * @param entityTypes An array or set of the entity types that you want to check for. Will return
+ *                    true if any of the provided entity types exist.
+ * @param ignoreFriendly Optional. Default is false.
+ */
+export function doesAnyEntityExist(
+  entityTypes:
+    | EntityType[]
+    | readonly EntityType[]
+    | Set<EntityType>
+    | ReadonlySet<EntityType>,
+  ignoreFriendly = false,
+): boolean {
+  const entityTypesArray = isTSTLSet(entityTypes)
+    ? [...entityTypes.values()]
+    : (entityTypes as EntityType[]);
+
+  return entityTypesArray.some((entityType) =>
+    countEntities(entityType, -1, -1, ignoreFriendly),
+  );
 }
 
 /**

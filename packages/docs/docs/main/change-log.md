@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getMusicForStage`
   - `setCollectiblePedestalType`
+  - `doesAnyEntityExist`
 - Added the following custom console commands:
   - `music`
 
