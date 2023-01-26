@@ -36,14 +36,14 @@ export class FlyingDetection extends Feature {
     // - Pinking Shears gives a Transcendence temporary effect.
     const flyingCollectibles =
       this.moddedElementSets.getFlyingCollectibles(false);
-    for (const collectibleType of flyingCollectibles.values()) {
+    for (const collectibleType of flyingCollectibles) {
       if (effects.HasCollectibleEffect(collectibleType)) {
         return true;
       }
     }
 
     const flyingTrinkets = this.moddedElementSets.getFlyingTrinkets();
-    for (const trinketType of flyingTrinkets.values()) {
+    for (const trinketType of flyingTrinkets) {
       if (effects.HasTrinketEffect(trinketType)) {
         return true;
       }

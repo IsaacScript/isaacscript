@@ -87,7 +87,7 @@ export function getTransformationsForCollectibleType(
 }
 
 export function hasFlyingTransformation(player: EntityPlayer): boolean {
-  for (const playerForm of TRANSFORMATIONS_THAT_GRANT_FLYING.values()) {
+  for (const playerForm of TRANSFORMATIONS_THAT_GRANT_FLYING) {
     if (player.HasPlayerForm(playerForm)) {
       return true;
     }

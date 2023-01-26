@@ -990,7 +990,7 @@ export class ModdedElementSets extends Feature {
     const trinketsWithCacheFlag = this.getTrinketsWithCacheFlag(cacheFlag);
 
     const playerTrinkets = new Map<TrinketType, int>();
-    for (const trinketType of trinketsWithCacheFlag.values()) {
+    for (const trinketType of trinketsWithCacheFlag) {
       const trinketMultiplier = player.GetTrinketMultiplier(trinketType);
       if (trinketMultiplier > 0) {
         playerTrinkets.set(trinketType, trinketMultiplier);

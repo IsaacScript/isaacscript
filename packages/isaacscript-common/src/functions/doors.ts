@@ -249,7 +249,7 @@ export function getRoomShapeDoorSlot(
   y: int,
 ): DoorSlot | undefined {
   const coordinatesMap = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[roomShape];
-  for (const [doorSlot, [doorX, doorY]] of coordinatesMap.entries()) {
+  for (const [doorSlot, [doorX, doorY]] of coordinatesMap) {
     if (x === doorX && y === doorY) {
       return doorSlot;
     }

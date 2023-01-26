@@ -170,10 +170,7 @@ export function getNewRoomCandidatesBesideRoom(
 
   const roomCandidates: Array<[DoorSlot, int]> = [];
 
-  for (const [
-    doorSlot,
-    adjacentRoomGridIndex,
-  ] of doorSlotToRoomGridIndexes.entries()) {
+  for (const [doorSlot, adjacentRoomGridIndex] of doorSlotToRoomGridIndexes) {
     // The "getRoomShapeAdjacentNonExistingGridIndexes" returns grid indexes for every possible
     // door, but the real room we are examining will only have a subset of these doors. Thus, we
     // have to exclude adjacent grid indexes where it would not be possible to place a door.
@@ -341,7 +338,7 @@ export function getRoomShapeAdjacentGridIndexes(
     getRoomShapeAdjacentGridIndexDeltas(roomShape);
 
   const adjacentGridIndexes = new Map<DoorSlot, int>();
-  for (const [doorSlot, delta] of roomShapeAdjacentGridIndexDeltas.entries()) {
+  for (const [doorSlot, delta] of roomShapeAdjacentGridIndexDeltas) {
     const roomGridIndex = safeRoomGridIndex + delta;
     if (isRoomInsideGrid(roomGridIndex)) {
       adjacentGridIndexes.set(doorSlot, roomGridIndex);

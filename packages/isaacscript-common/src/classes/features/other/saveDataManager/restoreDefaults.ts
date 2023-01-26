@@ -19,7 +19,7 @@ export function restoreDefaultsForAllFeaturesAndKeys(
   saveDataMap: LuaMap<string, SaveData>,
   saveDataDefaultsMap: LuaMap<string, SaveData>,
 ): void {
-  for (const saveDataKey of RESETTABLE_SAVE_DATA_KEYS.values()) {
+  for (const saveDataKey of RESETTABLE_SAVE_DATA_KEYS) {
     restoreDefaultsForAllFeaturesKey(
       saveDataMap,
       saveDataDefaultsMap,
