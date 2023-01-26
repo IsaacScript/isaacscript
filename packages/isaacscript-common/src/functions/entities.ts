@@ -76,7 +76,7 @@ export function doesAnyEntityExist(
     : (entityTypes as EntityType[]);
 
   return entityTypesArray.some((entityType) =>
-    countEntities(entityType, -1, -1, ignoreFriendly),
+    doesEntityExist(entityType, -1, -1, ignoreFriendly),
   );
 }
 
