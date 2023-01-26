@@ -493,6 +493,15 @@ export function isPassiveCollectible(
   return itemType === ItemType.PASSIVE || itemType === ItemType.FAMILIAR;
 }
 
+/** Helper function to check if a collectible type is a particular quality. */
+export function isQuality(
+  collectibleType: CollectibleType,
+  quality: int,
+): boolean {
+  const actualQuality = getCollectibleQuality(collectibleType);
+  return quality === actualQuality;
+}
+
 /**
  * Helper function to determine if a particular collectible will disappear from the player's
  * inventory upon use. Note that this will not work will modded items, as there is no way to
