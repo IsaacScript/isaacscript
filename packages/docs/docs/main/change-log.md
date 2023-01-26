@@ -12,8 +12,10 @@ This page lists the changes to the IsaacScript framework.
 ## January 29th, 2022 (Unreleased)
 
 - The custom stages feature now accepts `music` as an option in the `tsconfig.json` file.
+- Collectible helper functions that take an argument of `CollectibleType` now also accept the collectible itself.
 - Added the following helper functions:
   - `getMusicForStage`
+  - `setCollectiblePedestalType`
 - Added the following custom console commands:
   - `music`
 
