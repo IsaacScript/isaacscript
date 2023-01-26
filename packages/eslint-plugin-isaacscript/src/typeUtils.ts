@@ -12,35 +12,6 @@ export enum MemberNameType {
   Expression = 4,
 }
 
-function isFlagSet(flags: number, flag: number): boolean {
-  return (flags & flag) !== 0;
-}
-
-/**
- * @param symbol The symbol to check.
- * @param flagsToCheck The composition of one or more `ts.SymbolFlags`.
- */
-export function isSymbolFlagSet(
-  symbol: ts.Symbol,
-  flagsToCheck: number | ts.SymbolFlags,
-): boolean {
-  return isFlagSet(symbol.flags, flagsToCheck);
-}
-
-export function isAny(type: ts.Type): boolean {
-  return isTypeFlagSet(type, ts.TypeFlags.Any);
-}
-
-function isUnion(type: ts.Type): type is ts.UnionType {
-  // We cannot use the `isTypeFlagSet` function here, since that decomposes unions.
-  return isFlagSet(type.flags, ts.TypeFlags.Union);
-}
-
-/** Returns all types of a union type or an array containing `type` itself if it's no union type. */
-export function unionTypeParts(type: ts.Type): ts.Type[] {
-  return isUnion(type) ? type.types : [type];
-}
-
 export function getNameFromMember(
   member:
     | TSESTree.MethodDefinition
@@ -105,6 +76,73 @@ function requiresQuoting(
   return false;
 }
 
+/** Gets all of the type flags in a type, iterating through unions automatically. */
+function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
+  let flags = 0;
+  for (const t of unionTypeParts(type)) {
+    flags |= t.flags;
+  }
+  return flags;
+}
+
+export function getTypeName(type: ts.Type): string | undefined {
+  // The TypeScript definitions are incorrect here; symbol can be undefined.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (type.symbol === undefined) {
+    return;
+  }
+
+  return type.symbol.escapedName as string;
+}
+
+/**
+ * @param symbol The symbol to check.
+ * @param flagsToCheck The composition of one or more `ts.SymbolFlags`.
+ */
+export function isSymbolFlagSet(
+  symbol: ts.Symbol,
+  flagsToCheck: number | ts.SymbolFlags,
+): boolean {
+  return isFlagSet(symbol.flags, flagsToCheck);
+}
+
+/**
+ * Checks if the given type is either an array/tuple type, or a union made up solely of array/tuple
+ * types.
+ *
+ * Based on the `isTypeArrayTypeOrUnionOfArrayTypes` from `typescript-eslint`, but modified to also
+ * match tuples.
+ */
+export function isTypeArrayTupleTypeOrUnionOfArrayTupleTypes(
+  type: ts.Type,
+  checker: ts.TypeChecker,
+): boolean {
+  for (const t of unionTypeParts(type)) {
+    // @ts-expect-error The `isArrayType` and `isTupleType` methods are internal-only.
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/type-utils/typings/typescript.d.ts
+    // eslint-disable-next-line
+    if (!checker.isArrayType(t) && !checker.isTupleType(t)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export function isAny(type: ts.Type): boolean {
+  return isTypeFlagSet(type, ts.TypeFlags.Any);
+}
+
+/** Returns all types of a union type or an array containing `type` itself if it's no union type. */
+export function unionTypeParts(type: ts.Type): ts.Type[] {
+  return isUnion(type) ? type.types : [type];
+}
+
+function isUnion(type: ts.Type): type is ts.UnionType {
+  // We cannot use the `isTypeFlagSet` function here, since that decomposes unions.
+  return isFlagSet(type.flags, ts.TypeFlags.Union);
+}
+
 /** Gets a string representation of the name of the index signature. */
 export function getNameFromIndexSignature(
   node: TSESTree.TSIndexSignature,
@@ -114,15 +152,6 @@ export function getNameFromIndexSignature(
       parameter.type === AST_NODE_TYPES.Identifier,
   );
   return propName !== undefined ? propName.name : "(index signature)";
-}
-
-/** Gets all of the type flags in a type, iterating through unions automatically. */
-function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
-  let flags = 0;
-  for (const t of unionTypeParts(type)) {
-    flags |= t.flags;
-  }
-  return flags;
 }
 
 /**
@@ -138,4 +167,8 @@ export function isTypeFlagSet(
 ): boolean {
   const flags = getTypeFlags(type);
   return isFlagSet(flags, flagsToCheck);
+}
+
+function isFlagSet(flags: number, flag: number): boolean {
+  return (flags & flag) !== 0;
 }

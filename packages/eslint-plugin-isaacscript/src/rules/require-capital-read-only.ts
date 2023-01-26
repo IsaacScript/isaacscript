@@ -1,4 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { getTypeName } from "../typeUtils";
 import { createRule, isFirstLetterCapitalized } from "../utils";
 
 type Options = [];
@@ -47,16 +48,7 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(declaration);
           const type = checker.getTypeAtLocation(tsNode);
 
-          const { symbol } = type;
-          // The TypeScript definitions are incorrect here; symbol can be undefined.
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (symbol === undefined) {
-            return;
-          }
-
-          const typeName = symbol.escapedName;
-          // Checking this is necessary to type narrow the "__String" type.
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          const typeName = getTypeName(type);
           if (typeName === undefined) {
             return;
           }

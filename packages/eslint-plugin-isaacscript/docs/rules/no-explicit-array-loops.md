@@ -22,7 +22,7 @@ for (const element of thing.values()) {
 }
 ```
 
-Nearly all code iterates implicitly. Explicit iteration is rare because it is needlessly verbose and can be confusing to people reading the code. Thus, it is recommended to forbid this pattern in your codebase to ensure consistency.
+Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare because it is needlessly verbose. Thus, it is recommended to forbid this pattern in your codebase to prevent confusion and ensure consistency.
 
 ## Options and Defaults
 

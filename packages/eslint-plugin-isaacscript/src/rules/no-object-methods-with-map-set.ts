@@ -1,5 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { capitalizeFirstLetter, createRule } from "../utils";
+import { getTypeName } from "../typeUtils";
+import { capitalizeFirstLetter, createRule, trimPrefix } from "../utils";
 
 type Options = [];
 
@@ -17,7 +18,12 @@ const PROBLEM_METHODS: ReadonlySet<string> = new Set([
   "values",
 ]);
 
-const PROBLEM_TYPES: ReadonlySet<string> = new Set(["Map", "Set"]);
+const PROBLEM_TYPES: ReadonlySet<string> = new Set([
+  "Map",
+  "Set",
+  "ReadonlyMap",
+  "ReadonlySet",
+]);
 
 export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
   name: "no-object-methods-with-map-set",
@@ -85,21 +91,20 @@ export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
 
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(firstArgument);
         const type = checker.getTypeAtLocation(tsNode);
-        // The TypeScript definitions are incorrect here; symbol can be undefined.
-        const potentialSymbol = type.symbol;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (potentialSymbol === undefined) {
+
+        const typeName = getTypeName(type);
+        if (typeName === undefined) {
           return;
         }
 
-        const typeName = potentialSymbol.escapedName as string;
         if (!PROBLEM_TYPES.has(typeName)) {
           return;
         }
 
         const capitalMethodName = capitalizeFirstLetter(methodName);
+        const trimmedTypeName = trimPrefix(typeName, "Readonly");
         const messageId =
-          `noObject${capitalMethodName}${typeName}` as MessageIds;
+          `noObject${capitalMethodName}${trimmedTypeName}` as MessageIds;
 
         context.report({
           loc: node.loc,

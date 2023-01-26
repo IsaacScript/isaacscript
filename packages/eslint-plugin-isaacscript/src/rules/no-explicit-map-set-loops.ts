@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import { getTypeName } from "../typeUtils";
 import { createRule } from "../utils";
 
 type Options = [];
@@ -46,16 +47,7 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
           potentialMapOrSetTSNode,
         );
 
-        const potentialMapOrSetSymbol = potentialMapOrSetType.symbol;
-        // The TypeScript definitions are incorrect here; symbol can be undefined.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (potentialMapOrSetSymbol === undefined) {
-          return;
-        }
-
-        const potentialMapOrSetName = potentialMapOrSetSymbol.escapedName;
-        // Checking this is necessary to type narrow the "__String" type.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        const potentialMapOrSetName = getTypeName(potentialMapOrSetType);
         if (potentialMapOrSetName === undefined) {
           return;
         }
@@ -95,11 +87,11 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
 function getTypeTuple(
   typeName: string,
 ): [messageId: MessageIds, expectedMethodName: string] | undefined {
-  if (typeName === "Map") {
+  if (typeName === "Map" || typeName === "ReadonlyMap") {
     return ["noExplicitMap", "entries"];
   }
 
-  if (typeName === "Set") {
+  if (typeName === "Set" || typeName === "ReadonlySet") {
     return ["noExplicitSet", "values"];
   }
 

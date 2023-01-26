@@ -13,6 +13,7 @@ import { formatJSDocComments } from "./rules/format-jsdoc-comments";
 import { formatLineComments } from "./rules/format-line-comments";
 import { jsdocCodeBlockLanguage } from "./rules/jsdoc-code-block-language";
 import { memberOrdering } from "./rules/member-ordering";
+import { noConfusingSetMethods } from "./rules/no-confusing-set-methods";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noEmptyLineComments } from "./rules/no-empty-line-comments";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
@@ -41,6 +42,7 @@ export const rules = {
   "format-line-comments": formatLineComments,
   "jsdoc-code-block-language": jsdocCodeBlockLanguage,
   "member-ordering": memberOrdering,
+  "no-confusing-set-methods": noConfusingSetMethods,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-empty-line-comments": noEmptyLineComments,
   "no-explicit-array-loops": noExplicitArrayLoops,

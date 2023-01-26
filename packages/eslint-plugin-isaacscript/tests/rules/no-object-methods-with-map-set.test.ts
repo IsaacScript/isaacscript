@@ -45,6 +45,48 @@ for (const value of mySet.values()) {
 }
       `,
     },
+    {
+      code: `
+declare const MY_MAP: ReadonlyMap<string, string>;
+for (const [key, value] of MY_MAP.entries()) {
+}
+      `,
+    },
+    {
+      code: `
+declare const MY_MAP: ReadonlyMap<string, string>;
+for (const key of MY_MAP.keys()) {
+}
+      `,
+    },
+    {
+      code: `
+declare const MY_MAP: ReadonlyMap<string, string>;
+for (const value of MY_MAP.values()) {
+}
+      `,
+    },
+    {
+      code: `
+declare const MY_SET: ReadonlySet<string>;
+for (const entry of MY_SET.entries()) {
+}
+      `,
+    },
+    {
+      code: `
+declare const MY_SET: ReadonlySet<string>;
+for (const key of MY_SET.keys()) {
+}
+      `,
+    },
+    {
+      code: `
+declare const MY_SET: ReadonlySet<string>;
+for (const value of MY_SET.values()) {
+}
+      `,
+    },
   ],
 
   invalid: [
@@ -92,6 +134,54 @@ for (const key of Object.keys(mySet)) {
       code: `
 declare const mySet: Set<string>;
 for (const value of Object.values(mySet)) {
+}
+      `,
+      errors: [{ messageId: "noObjectValuesSet" }],
+    },
+    {
+      code: `
+declare const MY_MAP: ReadonlyMap<string, string>;
+for (const [key, value] of Object.entries(MY_MAP)) {
+}
+      `,
+      errors: [{ messageId: "noObjectEntriesMap" }],
+    },
+    {
+      code: `
+declare const MY_MAP: ReadonlyMap<string, string>;
+for (const key of Object.keys(MY_MAP)) {
+}
+      `,
+      errors: [{ messageId: "noObjectKeysMap" }],
+    },
+    {
+      code: `
+declare const MY_MAP: ReadonlyMap<string, string>;
+for (const value of Object.values(MY_MAP)) {
+}
+      `,
+      errors: [{ messageId: "noObjectValuesMap" }],
+    },
+    {
+      code: `
+declare const MY_SET: ReadonlySet<string>;
+for (const entry of Object.entries(MY_SET)) {
+}
+      `,
+      errors: [{ messageId: "noObjectEntriesSet" }],
+    },
+    {
+      code: `
+declare const MY_SET: ReadonlySet<string>;
+for (const key of Object.keys(MY_SET)) {
+}
+      `,
+      errors: [{ messageId: "noObjectKeysSet" }],
+    },
+    {
+      code: `
+declare const MY_SET: ReadonlySet<string>;
+for (const value of Object.values(MY_SET)) {
 }
       `,
       errors: [{ messageId: "noObjectValuesSet" }],

@@ -18,34 +18,74 @@ for (const element of myArray) {}
 });
 
 valid.push({
+  name: "Implicit iteration over read-only array",
+  code: `
+const MY_ARRAY = [1, 2, 3] as const;
+for (const element of MY_ARRAY) {}
+  `,
+});
+
+valid.push({
   name: "Implicit iteration over map",
   code: `
-const mySet = new Map();
-for (const element of myMap) {}
+const myMap = new Map<string, string>();
+for (const [key, value] of myMap) {}
+  `,
+});
+
+valid.push({
+  name: "Implicit iteration over read-only map",
+  code: `
+const MY_MAP: ReadonlyMap<string, string> = new Map();
+for (const [key, value] of MY_MAP) {}
   `,
 });
 
 valid.push({
   name: "Implicit iteration over set",
   code: `
-const mySet = new Set();
-for (const element of mySet) {}
+const mySet = new Set<string>();
+for (const value of mySet) {}
+  `,
+});
+
+valid.push({
+  name: "Implicit iteration over read-only set",
+  code: `
+const MY_SET = new ReadonlySet<string>();
+for (const value of MY_SET) {}
   `,
 });
 
 valid.push({
   name: "Explicit iteration over map",
   code: `
-const myMap = new Map();
+const myMap = new Map<string, string>();
 for (const element of myMap.entries()) {}
+  `,
+});
+
+valid.push({
+  name: "Explicit iteration over read-only map",
+  code: `
+const MY_MAP: ReadonlyMap<string, string> = new Map();
+for (const [key, value] of MY_MAP.entries()) {}
   `,
 });
 
 valid.push({
   name: "Explicit iteration over set",
   code: `
-const mySet = new Set();
-for (const element of mySet.values()) {}
+const mySet = new Set<string>();
+for (const value of mySet.values()) {}
+  `,
+});
+
+valid.push({
+  name: "Explicit iteration over read-only set",
+  code: `
+const MY_SET: ReadonlySet<string> = new Set();
+for (const value of MY_SET.values()) {}
   `,
 });
 
@@ -59,6 +99,32 @@ for (const element of myArray.values()) {}
   output: `
 const myArray = [1, 2, 3];
 for (const element of myArray) {}
+  `,
+});
+
+invalid.push({
+  name: "Explicit iteration over read-only array",
+  code: `
+const MY_ARRAY: readonly number[] = [1, 2, 3];
+for (const element of MY_ARRAY.values()) {}
+  `,
+  errors: [{ messageId: "noExplicitArray" }],
+  output: `
+const MY_ARRAY: readonly number[] = [1, 2, 3];
+for (const element of MY_ARRAY) {}
+  `,
+});
+
+invalid.push({
+  name: "Explicit iteration over array as const",
+  code: `
+const MY_ARRAY = [1, 2, 3] as const;
+for (const element of MY_ARRAY.values()) {}
+  `,
+  errors: [{ messageId: "noExplicitArray" }],
+  output: `
+const MY_ARRAY = [1, 2, 3] as const;
+for (const element of MY_ARRAY) {}
   `,
 });
 

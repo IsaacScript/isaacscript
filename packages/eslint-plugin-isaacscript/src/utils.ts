@@ -72,9 +72,20 @@ export function isFirstLetterCapitalized(string: string): boolean {
   return /^\p{Lu}/u.test(string);
 }
 
+/**
+ * `isFunctionLike` does not seem to work with basic function expressions, so this function instead
+ * resorts to checking if any signatures exist.
+ */
 export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
-  // "isFunctionLike" does not seem to work with basic function expressions, so we resort to
-  // checking if any signatures exist.
   const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);
   return signatures.length > 0;
+}
+
+/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
+export function trimPrefix(string: string, prefix: string): string {
+  if (!string.startsWith(prefix)) {
+    return string;
+  }
+
+  return string.slice(prefix.length);
 }

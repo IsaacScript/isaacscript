@@ -1,3 +1,7 @@
+- lint failure:
+  for (const entityType of ENTITIES_THAT_CAUSE_TELEPORT.values()) {
+  READONLY SET
+
 - look into achievement system for isc
 
 - publish in CI

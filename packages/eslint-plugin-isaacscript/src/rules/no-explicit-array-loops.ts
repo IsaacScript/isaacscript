@@ -1,4 +1,6 @@
+import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import { isTypeArrayTupleTypeOrUnionOfArrayTupleTypes } from "../typeUtils";
 import { createRule } from "../utils";
 
 export type Options = [];
@@ -41,18 +43,16 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
         const potentialArray = memberExpression.object;
         const potentialArrayTSNode =
           parserServices.esTreeNodeToTSNodeMap.get(potentialArray);
-        const potentialArrayType =
-          checker.getTypeAtLocation(potentialArrayTSNode);
-
-        // The TypeScript definitions are incorrect here; symbol can be undefined.
-        const potentialArraySymbol = potentialArrayType.symbol;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (potentialArraySymbol === undefined) {
-          return;
-        }
-
-        const potentialArrayName = potentialArraySymbol.escapedName;
-        if (potentialArrayName !== "Array") {
+        const potentialArrayType = getConstrainedTypeAtLocation(
+          checker,
+          potentialArrayTSNode,
+        );
+        if (
+          !isTypeArrayTupleTypeOrUnionOfArrayTupleTypes(
+            potentialArrayType,
+            checker,
+          )
+        ) {
           return;
         }
 
