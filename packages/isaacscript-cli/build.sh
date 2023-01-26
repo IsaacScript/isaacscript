@@ -14,7 +14,8 @@ SECONDS=0
 
 cd "$DIR"
 
-OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
+REPO_ROOT="$DIR/../.."
+OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 # First, copy some interfaces from "isaacscript-common".
 # (Normally, we would reference them directly, but "paths" in the "tsconfig.json" file do not work

@@ -15,7 +15,8 @@ COMMON_DIR="$DIR/docs/isaacscript-common" # Created by TypeDoc
 rm -rf "$COMMON_DIR"
 DEFINITIONS_DIR="$DIR/docs/isaac-typescript-definitions" # Created by TypeDoc
 rm -rf "$DEFINITIONS_DIR"
-OUT_DIR="$DIR/../../dist/packages/docs" # Created by Docusaurus
+REPO_ROOT="$DIR/../.."
+OUT_DIR="$REPO_ROOT/dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
 # First, auto-generate the Markdown files with TypeDoc + the Markdown plugin.
@@ -28,6 +29,6 @@ npx ts-node --require "tsconfig-paths/register" "scripts/fixIsaacScriptCommon.ts
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"
-npx docusaurus build --out-dir "$DIR/../../dist/packages/docs"
+npx docusaurus build --out-dir "$OUT_DIR"
 
 echo "Successfully built all docs in $SECONDS seconds."

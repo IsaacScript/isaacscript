@@ -12,7 +12,8 @@ REPO_NAME="$(basename "$DIR")"
 
 cd "$DIR"
 
-OUT_DIR="$DIR/../../dist/packages/$REPO_NAME"
+REPO_ROOT="$DIR/../.."
+OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
