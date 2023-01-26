@@ -33,8 +33,9 @@ if [[ $OLD_HASH != $NEW_HASH ]]; then
   # peerDependencies.
   npx syncpack fix-mismatches --prod --dev
 
-  # syncpack will automatically update most of the dependencies in "isaacscript-lint", but not
-  # "eslint-config-isaacscript" and "eslint-plugin-isaacscript", since those do not exist in the
-  # root "package.json".
+  # syncpack will automatically update most of the dependencies in the individual project
+  # "package.json" files, but not the ones that do not exist in the root "package.json" (such as
+  # "eslint-config-isaacscript"). Thus, we need to run individual update scripts.
+  bash "$DIR/packages/isaacscript-cli/update.sh"
   bash "$DIR/packages/isaacscript-lint/update.sh"
 fi

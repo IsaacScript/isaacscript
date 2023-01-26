@@ -11,4 +11,4 @@ cd "$DIR"
 PACKAGE_JSON="$DIR/package.json"
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 
-# We don't want to install anything in the `isaacscript-lint` package directory.
+# We don't want to install anything in the `isaacscript-cli` package directory.
