@@ -60,6 +60,8 @@ npm publish --access=public --tag=$NPM_TAG
 
 sleep 1
 bash "$DIR/update.sh"
+npx syncpack fix-mismatches --prod --dev
+bash "$DIR/packages/isaacscript-lint/update.sh"
 
 set +e
 if npx git-dirty; then
