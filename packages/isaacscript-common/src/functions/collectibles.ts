@@ -34,9 +34,12 @@ import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprites";
+import { isNumber } from "./types";
 import { iRange } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
+
+const DEFAULT_COLLECTIBLE_PRICE = 15;
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards.
 const GLITCHED_ITEM_THRESHOLD = 4000000000;
@@ -54,14 +57,26 @@ function initQuestionMarkSprite() {
 }
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "clearCollectibleSprite" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
   setCollectibleSprite(collectible, undefined);
 }
 
 /** Helper function to check in the item config if a given collectible has a given cache flag. */
 export function collectibleHasCacheFlag(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
   cacheFlag: CacheFlag,
 ): boolean {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "collectibleHasCacheFlag",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return false;
@@ -103,8 +118,13 @@ export function collectibleSpriteEquals(
  * `ItemConfigChargeType.NORMAL` if the provided collectible type was not valid.
  */
 export function getCollectibleChargeType(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): ItemConfigChargeType {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleChargeType",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return ItemConfigChargeType.NORMAL;
@@ -120,8 +140,13 @@ export function getCollectibleChargeType(
  * This function works for both vanilla and modded collectibles.
  */
 export function getCollectibleDescription(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): string {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleDescription",
+  );
+
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
   const collectibleDescription =
@@ -143,19 +168,23 @@ export function getCollectibleDescription(
  * a Devil Room deal. Returns 0 if passed `CollectibleType.NULL`.
  */
 export function getCollectibleDevilCoinPrice(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleDescription",
+  );
+
   if (collectibleType === CollectibleType.NULL) {
     return 0;
   }
 
-  const defaultCollectiblePrice = 15;
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
-    return defaultCollectiblePrice;
+    return DEFAULT_COLLECTIBLE_PRICE;
   }
 
-  return itemConfigItem.DevilPrice * defaultCollectiblePrice;
+  return itemConfigItem.DevilPrice * DEFAULT_COLLECTIBLE_PRICE;
 }
 
 /**
@@ -163,9 +192,13 @@ export function getCollectibleDevilCoinPrice(
  * in a Devil Room deal. Returns 0 if passed `CollectibleType.NULL`.
  */
 export function getCollectibleDevilHeartPrice(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
   player: EntityPlayer,
 ): PickupPrice {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleDevilHeartPrice",
+  );
   const maxHearts = player.GetMaxHearts();
 
   if (collectibleType === CollectibleType.NULL) {
@@ -201,8 +234,13 @@ export function getCollectibleDevilHeartPrice(
  * field.
  */
 export function getCollectibleGfxFilename(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): string {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleGfxFilename",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return BLIND_ITEM_PNG_PATH;
@@ -292,8 +330,13 @@ export function getCollectibleIndex(
  * provided collectible type was not valid.
  */
 export function getCollectibleInitCharge(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleInitCharge",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -307,8 +350,13 @@ export function getCollectibleInitCharge(
  * provided collectible type was not valid.
  */
 export function getCollectibleItemType(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): ItemType {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleItemType",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return ItemType.NULL;
@@ -322,8 +370,13 @@ export function getCollectibleItemType(
  * provided collectible type was not valid.
  */
 export function getCollectibleMaxCharges(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleMaxCharges",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -340,7 +393,14 @@ export function getCollectibleMaxCharges(
  *
  * This function works for both vanilla and modded collectibles.
  */
-export function getCollectibleName(collectibleType: CollectibleType): string {
+export function getCollectibleName(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+): string {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleName",
+  );
+
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
   const collectibleName = COLLECTIBLE_TYPE_TO_NAME_MAP.get(collectibleType);
@@ -378,7 +438,14 @@ export function getCollectiblePedestalType(
  * Helper function to get a collectible's quality. For example, Mom's Knife has a quality of 4.
  * Returns 0 if the provided collectible type was not valid.
  */
-export function getCollectibleQuality(collectibleType: CollectibleType): int {
+export function getCollectibleQuality(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleQuality",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -399,8 +466,13 @@ export function getCollectibleQuality(collectibleType: CollectibleType): int {
  * ```
  */
 export function getCollectibleTags(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): BitFlags<ItemConfigTag> {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleTags",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
 }
@@ -459,10 +531,10 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
  * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
  * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
  */
-export function isGlitchedCollectible(pickup: EntityPickup): boolean {
+export function isGlitchedCollectible(collectible: EntityPickup): boolean {
   return (
-    pickup.Variant === PickupVariant.COLLECTIBLE &&
-    pickup.SubType > GLITCHED_ITEM_THRESHOLD
+    collectible.Variant === PickupVariant.COLLECTIBLE &&
+    collectible.SubType > GLITCHED_ITEM_THRESHOLD
   );
 }
 
@@ -471,7 +543,14 @@ export function isGlitchedCollectible(pickup: EntityPickup): boolean {
  *
  * Hidden collectibles will not show up in any pools and Eden will not start with them.
  */
-export function isHiddenCollectible(collectibleType: CollectibleType): boolean {
+export function isHiddenCollectible(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+): boolean {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "isHiddenCollectible",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem !== undefined && itemConfigItem.Hidden;
 }
@@ -487,25 +566,30 @@ export function isModdedCollectibleType(
  * `ItemType.ITEM_FAMILIAR`.
  */
 export function isPassiveCollectible(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): boolean {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "isPassiveCollectible",
+  );
+
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.PASSIVE || itemType === ItemType.FAMILIAR;
 }
 
 /** Helper function to check if a collectible type is a particular quality. */
 export function isQuality(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
   quality: int,
 ): boolean {
-  const actualQuality = getCollectibleQuality(collectibleType);
+  const actualQuality = getCollectibleQuality(collectibleOrCollectibleType);
   return quality === actualQuality;
 }
 
 /**
  * Helper function to determine if a particular collectible will disappear from the player's
- * inventory upon use. Note that this will not work will modded items, as there is no way to
- * dynamically know if a modded item will disappear.
+ * inventory upon use. Note that this will not work will modded collectibles, as there is no way to
+ * dynamically know if a modded collectible will disappear.
  */
 export function isSingleUseCollectible(
   collectibleType: CollectibleType,
@@ -734,4 +818,24 @@ export function setCollectiblesRerolledForItemTracker(): void {
   // recognizing the message. The number here does not matter since the tracker does not check for a
   // specific number.
   Isaac.DebugString("Added 3 Collectibles");
+}
+
+function getCollectibleTypeFromArg(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+  functionName: string,
+): CollectibleType {
+  if (isNumber(collectibleOrCollectibleType)) {
+    const collectibleType = collectibleOrCollectibleType;
+    return collectibleType;
+  }
+
+  const collectible = collectibleOrCollectibleType;
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "${functionName}" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  return collectible.SubType;
 }
