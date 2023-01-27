@@ -1,6 +1,6 @@
 # `require-capital-read-only`
 
-Requires arrays/maps/sets with a capital letter to be read-only.
+Requires maps/sets with a capital letter to be read-only.
 
 ## Rule Details
 
