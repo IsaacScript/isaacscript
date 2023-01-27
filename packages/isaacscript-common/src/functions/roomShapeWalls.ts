@@ -7,12 +7,10 @@ import { getGridIndexesBetween } from "./gridIndex";
 import { inBossRoomOf, inHomeCloset } from "./rooms";
 import { getRoomShapeCorners, isLRoom } from "./roomShape";
 
-const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET = getRoomShapeToWallGridIndexSet();
-
-function getRoomShapeToWallGridIndexSet(): ReadonlyMap<
+const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET: ReadonlyMap<
   RoomShape,
   ReadonlySet<int>
-> {
+> = (() => {
   const roomShapeToWallGridIndexSet = new Map<RoomShape, ReadonlySet<int>>();
 
   for (const roomShape of getEnumValues(RoomShape)) {
@@ -21,7 +19,7 @@ function getRoomShapeToWallGridIndexSet(): ReadonlyMap<
   }
 
   return roomShapeToWallGridIndexSet;
-}
+})();
 
 function getVanillaWallGridIndexSetForRoomShape(
   roomShape: RoomShape,
