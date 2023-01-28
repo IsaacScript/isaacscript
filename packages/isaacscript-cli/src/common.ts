@@ -8,6 +8,7 @@ import { JSONRoom } from "./interfaces/copied/JSONRoomsFile";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates";
 
+/** This is copied from `isaacscript-common`. */
 export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   const roomShapeString = jsonRoom.$.shape;
   const roomShapeNumber = parseIntSafe(roomShapeString);
@@ -62,6 +63,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   return doorSlotFlags;
 }
 
+/** This is copied from `isaacscript-common`. */
 function getRoomShapeDoorSlot(
   roomShape: RoomShape,
   x: number,
@@ -85,10 +87,12 @@ function getRoomShapeDoorSlot(
   return undefined;
 }
 
+/** This is copied from `isaacscript-common`. */
 function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
   return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
 }
 
+/** This is copied from `isaacscript-common`. */
 function addFlag(flags: number, ...flagsToAdd: number[]): number {
   for (const flagToAdd of flagsToAdd) {
     flags |= flagToAdd; // eslint-disable-line no-bitwise,no-param-reassign
