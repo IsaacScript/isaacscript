@@ -8,7 +8,7 @@ const TWO_BY_TWO_BOTTOM_RIGHT: Readonly<Vector> = Vector(25, 13);
  * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
  * wall would be at "Vector(-1, -1)".)
  */
-// We need the tuple to be read-only, so we specify the type instead of using the `satisfies`
+// We need the tuples to be read-only, so we specify the type instead of using the `satisfies`
 // operator.
 export const L_ROOM_SHAPE_TO_RECTANGLES: {
   readonly [Key in RoomShape]?: readonly [

@@ -8,10 +8,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
-import {
-  FIRST_GLITCHED_COLLECTIBLE_TYPE,
-  ITEM_CONFIG_CARD_TYPES_FOR_CARDS,
-} from "../../../core/constants";
+import { FIRST_GLITCHED_COLLECTIBLE_TYPE } from "../../../core/constants";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import {
@@ -40,6 +37,7 @@ import {
   trinketHasCacheFlag,
 } from "../../../functions/trinkets";
 import { repeat } from "../../../functions/utils";
+import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../../../sets/itemConfigCardTypesForCardsSet";
 import { ReadonlyMap } from "../../../types/ReadonlyMap";
 import { Feature } from "../../private/Feature";
 import { ModdedElementDetection } from "./ModdedElementDetection";
@@ -440,7 +438,7 @@ export class ModdedElementSets extends Feature {
         }
         cardTypeSet.add(cardType);
 
-        if (ITEM_CONFIG_CARD_TYPES_FOR_CARDS.has(itemConfigCardType)) {
+        if (ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET.has(itemConfigCardType)) {
           this.cardSet.add(cardType);
         }
       }

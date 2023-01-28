@@ -1,6 +1,5 @@
 import { CardType, ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
-import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS } from "../core/constants";
 import {
   FIRST_CARD_TYPE,
   LAST_VANILLA_CARD_TYPE,
@@ -10,6 +9,7 @@ import {
   DEFAULT_CARD_DESCRIPTION,
 } from "../objects/cardDescriptions";
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
+import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../sets/itemConfigCardTypesForCardsSet";
 import { iRange } from "./utils";
 
 /**
@@ -98,7 +98,7 @@ export function isCard(cardType: CardType): boolean {
     return false;
   }
 
-  return ITEM_CONFIG_CARD_TYPES_FOR_CARDS.has(itemConfigCardType);
+  return ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET.has(itemConfigCardType);
 }
 
 /** Returns whether or not the given card type matches the specified item config card type. */
