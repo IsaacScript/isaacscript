@@ -1,5 +1,6 @@
 // This is a shared configuration file for ESLint:
 // https://eslint.org/docs/latest/user-guide/configuring
+// This config contains only rules from the "jsdoc" ESLint plugin.
 module.exports = {
   plugins: [
     /**

@@ -1,5 +1,8 @@
 - publish in CI
 
+- rename ".prettierrc.js" to ".prettierrc.cjs"
+- rename ".eslintrc.js" to ".eslintrc.cjs"
+
 - investigate EXECUTE_CMD crashing
 
 - isaac-xml-validator
@@ -15,3 +18,5 @@
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
+
+- when typescript 5.0 comes out, remove "newLine"

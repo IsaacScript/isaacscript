@@ -33,6 +33,7 @@ newindex # TSTL word
 nextpromise # TSTL word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
+nonconstructor # ESLint word
 noout # lint.sh
 noreply # Monorepo word
 nrwl # Monorepo word

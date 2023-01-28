@@ -1,5 +1,6 @@
 // This is a shared configuration file for ESLint:
 // https://eslint.org/docs/latest/user-guide/configuring
+// This config is meant to be used as a base for IsaacScript mods.
 module.exports = {
   extends: [
     /**

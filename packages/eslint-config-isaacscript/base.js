@@ -1,5 +1,6 @@
 // This is a shared configuration file for ESLint:
 // https://eslint.org/docs/latest/user-guide/configuring
+// This config is meant to be used as a base for all TypeScript projects.
 module.exports = {
   extends: [
     /**
@@ -43,8 +44,11 @@ module.exports = {
      */
     "plugin:eslint-comments/recommended",
 
+    /** Rule modifications are split out into different files for better organization. */
+    "./base-eslint",
+
     /** Lint JSDoc comments. */
-    "./jsdoc",
+    "./base-jsdoc",
 
     /**
      * Disable any ESLint rules that conflict with Prettier:

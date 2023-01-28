@@ -1,6 +1,10 @@
 # Compiled output
 dist
 
+# OS-specific artifacts
+.DS_Store
+thumbs.db
+
 # XML files created by Basement Renovator
 mod/content/rooms/**/*.xml
 mod/content/luarooms/**/*.xml
