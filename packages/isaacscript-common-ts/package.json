@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common-ts",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Helper functions for TypeScript projects.",
   "keywords": [
     "isaacscript"
