@@ -11,7 +11,7 @@ const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
 export function validateNodeVersion(): void {
   const { version } = process;
 
-  const [majorVersion] = parseSemVer(version);
+  const { majorVersion } = parseSemVer(version);
   if (majorVersion >= REQUIRED_NODE_JS_MAJOR_VERSION) {
     return;
   }

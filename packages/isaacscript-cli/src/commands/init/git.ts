@@ -123,7 +123,7 @@ function validateNewGitVersion(verbose: boolean) {
   }
 
   const gitVersionString = stdout.slice(outputPrefix.length);
-  const [majorVersion, minorVersion] = parseSemVer(gitVersionString);
+  const { majorVersion, minorVersion } = parseSemVer(gitVersionString);
 
   if (
     majorVersion >= REQUIRED_GIT_MAJOR_VERSION &&

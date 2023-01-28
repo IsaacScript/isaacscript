@@ -194,8 +194,7 @@ function getVersionFromPackageJSON(verbose: boolean) {
 }
 
 function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
-  // Get the patch version (i.e. the third number)
-  const [majorVersion, minorVersion, patchVersion] = parseSemVer(version);
+  const { majorVersion, minorVersion, patchVersion } = parseSemVer(version);
 
   const incrementedPatchVersion = patchVersion + 1;
   const incrementedVersion = `${majorVersion}.${minorVersion}.${incrementedPatchVersion}`;

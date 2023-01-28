@@ -19,9 +19,11 @@ export function isRecord(object: unknown): object is Record<string, unknown> {
   );
 }
 
-export function parseSemVer(
-  versionString: string,
-): [majorVersion: number, minorVersion: number, patchVersion: number] {
+export function parseSemVer(versionString: string): {
+  majorVersion: number;
+  minorVersion: number;
+  patchVersion: number;
+} {
   const match = versionString.match(/^v*(\d+)\.(\d+)\.(\d+)/);
   if (match === null) {
     error(`Failed to parse the version string of: ${versionString}`);
@@ -46,5 +48,5 @@ export function parseSemVer(
     error(`Failed to parse the patch version number from: ${versionString}`);
   }
 
-  return [majorVersion, minorVersion, patchVersion];
+  return { majorVersion, minorVersion, patchVersion };
 }
