@@ -1,6 +1,6 @@
 import fs from "fs";
 import glob from "glob";
-import { error, fileExists } from "isaacscript-common-ts";
+import { error } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
 import path from "path";
 import process from "process";
@@ -105,4 +105,15 @@ function checkEntryPointsForDirectory(
       );
     }
   }
+}
+
+function fileExists(filePath: string): boolean {
+  let pathExists: boolean;
+  try {
+    pathExists = fs.existsSync(filePath);
+  } catch (err) {
+    error(`Failed to check if "${filePath}" exists:`, err);
+  }
+
+  return pathExists;
 }

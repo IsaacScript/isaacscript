@@ -28,7 +28,7 @@ npx tstl
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
-npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/rewriteDeclarationMapPaths.ts"
+npx ts-node --require "tsconfig-paths/register" "$REPO_ROOT/tools/rewriteSourceMapDeclarationMapPaths.ts" "isaac-typescript-definitions"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
