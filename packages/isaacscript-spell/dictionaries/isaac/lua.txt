@@ -14,6 +14,7 @@ gsub # String method
 ipairs # Global
 linedefined # Debug library word
 loadfile # Global
+luabundle # Library to bundle Lua files
 luabundler # Tool to bundle Lua files
 luarc # Configuration file for the Lua language server
 metatable
