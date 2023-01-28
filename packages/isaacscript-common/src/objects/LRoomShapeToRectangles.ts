@@ -1,23 +1,15 @@
 import { RoomShape } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { newReadonlyVector } from "../functions/readOnly";
+import { HasSomeEnumKeys } from "../types/HasSomeEnumKeys";
 
-const TWO_BY_TWO_BOTTOM_RIGHT: Readonly<Vector> = Vector(25, 13);
+const TWO_BY_TWO_BOTTOM_RIGHT = newReadonlyVector(25, 13);
 
 /**
  * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
  * wall would be at "Vector(-1, -1)".)
  */
-// We need the tuples to be read-only, so we specify the type instead of using the `satisfies`
-// operator.
-export const L_ROOM_SHAPE_TO_RECTANGLES: {
-  readonly [Key in RoomShape]?: readonly [
-    verticalTopLeft: Readonly<Vector>,
-    verticalBottomRight: Readonly<Vector>,
-    horizontalTopLeft: Readonly<Vector>,
-    horizontalBottomRight: Readonly<Vector>,
-  ];
-} = {
+export const L_ROOM_SHAPE_TO_RECTANGLES = {
   // 9
   [RoomShape.LTL]: [
     newReadonlyVector(13, 0),
@@ -49,4 +41,12 @@ export const L_ROOM_SHAPE_TO_RECTANGLES: {
     VectorZero,
     newReadonlyVector(12, 13),
   ],
-} as const;
+} as const satisfies HasSomeEnumKeys<
+  RoomShape,
+  readonly [
+    Readonly<Vector>,
+    Readonly<Vector>,
+    Readonly<Vector>,
+    Readonly<Vector>,
+  ]
+>;

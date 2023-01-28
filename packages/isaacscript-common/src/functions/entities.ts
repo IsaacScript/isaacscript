@@ -7,6 +7,7 @@ import { AnyEntity } from "../types/AnyEntity";
 import { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
+import { newReadonlyColor } from "./readOnly";
 import { isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { isTSTLSet } from "./tstlClass";
@@ -14,7 +15,7 @@ import { asNumber, isPrimitive } from "./types";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
-const DAMAGE_FLASH_COLOR: Readonly<Color> = Color(
+const DAMAGE_FLASH_COLOR = newReadonlyColor(
   0.5,
   0.5,
   0.5,
