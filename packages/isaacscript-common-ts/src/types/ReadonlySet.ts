@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface ReadonlySetConstructor {
-  new <T = any>(values?: readonly T[] | null): ReadonlySet<T>;
+  new <T = any>(values?: readonly T[] | Iterable<T> | null): ReadonlySet<T>;
   readonly prototype: ReadonlySet<any>;
 }
 
