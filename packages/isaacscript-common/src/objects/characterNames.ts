@@ -1,5 +1,4 @@
 import { PlayerType } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const CHARACTER_NAMES = {
   [PlayerType.POSSESSOR]: "Possessor", // -1
@@ -44,4 +43,4 @@ export const CHARACTER_NAMES = {
   [PlayerType.LAZARUS_2_B]: "Dead Tainted Lazarus", // 38
   [PlayerType.JACOB_2_B]: "Dead Tainted Jacob", // 39
   [PlayerType.SOUL_B]: "Tainted Soul", // 40
-} as const satisfies HasAllEnumKeys<PlayerType, string>;
+} as const satisfies Record<PlayerType, string>;

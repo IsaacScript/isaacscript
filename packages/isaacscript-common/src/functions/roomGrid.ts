@@ -81,12 +81,12 @@ function isValidGridPositionLRoom(gridPosition: Vector, roomShape: RoomShape) {
     return false;
   }
 
-  const [
+  const {
     verticalTopLeft,
     verticalBottomRight,
     horizontalTopLeft,
     horizontalBottomRight,
-  ] = rectangles;
+  } = rectangles;
   return (
     inRectangle(gridPosition, verticalTopLeft, verticalBottomRight) ||
     inRectangle(gridPosition, horizontalTopLeft, horizontalBottomRight)

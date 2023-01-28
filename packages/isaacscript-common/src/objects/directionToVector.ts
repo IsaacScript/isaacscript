@@ -1,7 +1,6 @@
 import { Direction } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { newReadonlyVector } from "../functions/readOnly";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DIRECTION_TO_VECTOR = {
   [Direction.NO_DIRECTION]: VectorZero, // -1
@@ -9,4 +8,4 @@ export const DIRECTION_TO_VECTOR = {
   [Direction.UP]: newReadonlyVector(0, -1), // 1
   [Direction.RIGHT]: newReadonlyVector(1, 0), // 2
   [Direction.DOWN]: newReadonlyVector(0, 1), // 3
-} as const satisfies HasAllEnumKeys<Direction, Readonly<Vector>>;
+} as const satisfies Record<Direction, Readonly<Vector>>;

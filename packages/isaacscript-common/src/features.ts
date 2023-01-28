@@ -58,7 +58,6 @@ import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { validateInterfaceMatchesEnum } from "./functions/utils";
 import { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
-import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 
 export interface ISCFeatureToClass {
   // Callback logic
@@ -294,7 +293,7 @@ export function getFeatures(
     [ISCFeature.STAGE_HISTORY]: stageHistory,
     [ISCFeature.START_AMBUSH]: new StartAmbush(runInNFrames),
     [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),
-  } as const satisfies HasAllEnumKeys<ISCFeature, Feature>;
+  } as const satisfies Record<ISCFeature, Feature>;
 
   return features;
 }

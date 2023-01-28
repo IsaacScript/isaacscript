@@ -1,5 +1,4 @@
 import { DoorSlot } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const OPPOSITE_DOOR_SLOTS = {
   [DoorSlot.NO_DOOR_SLOT]: undefined, // -1
@@ -11,4 +10,4 @@ export const OPPOSITE_DOOR_SLOTS = {
   [DoorSlot.UP_1]: DoorSlot.DOWN_1, // 5
   [DoorSlot.RIGHT_1]: DoorSlot.LEFT_1, // 6
   [DoorSlot.DOWN_1]: DoorSlot.UP_1, // 7
-} as const satisfies HasAllEnumKeys<DoorSlot, DoorSlot | undefined>;
+} as const satisfies Record<DoorSlot, DoorSlot | undefined>;

@@ -1,6 +1,5 @@
 import { RoomShape } from "isaac-typescript-definitions";
 import { newReadonlyVector } from "../functions/readOnly";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 const TWO_BY_TWO_BOTTOM_RIGHT_POSITION = newReadonlyVector(25, 13);
 const ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION = newReadonlyVector(12, 13);
@@ -22,4 +21,4 @@ export const ROOM_SHAPE_TO_BOTTOM_RIGHT_POSITION = {
   [RoomShape.LTR]: TWO_BY_TWO_BOTTOM_RIGHT_POSITION, // 10
   [RoomShape.LBL]: TWO_BY_TWO_BOTTOM_RIGHT_POSITION, // 11
   [RoomShape.LBR]: ONE_BY_TWO_VERTICAL_BOTTOM_RIGHT_POSITION, // 12
-} as const satisfies HasAllEnumKeys<RoomShape, Readonly<Vector>>;
+} as const satisfies Record<RoomShape, Readonly<Vector>>;

@@ -1,5 +1,4 @@
 import { Challenge } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DEFAULT_CHALLENGE_NAME = "Unknown";
 
@@ -50,4 +49,4 @@ export const CHALLENGE_NAMES = {
   [Challenge.CANTRIPPED]: "Cantripped!", // 43
   [Challenge.RED_REDEMPTION]: "Red Redemption", // 44
   [Challenge.DELETE_THIS]: "DELETE THIS", // 45
-} as const satisfies HasAllEnumKeys<Challenge, string>;
+} as const satisfies Record<Challenge, string>;

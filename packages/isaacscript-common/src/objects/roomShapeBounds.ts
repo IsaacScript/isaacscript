@@ -1,5 +1,4 @@
 import { RoomShape } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 import {
   NARROW_CONTENTS_HEIGHT,
   NARROW_CONTENTS_WIDTH,
@@ -61,4 +60,4 @@ export const ROOM_SHAPE_BOUNDS = {
 
   // 12
   [RoomShape.LBR]: TWO_BY_TWO_BOUNDS,
-} as const satisfies HasAllEnumKeys<RoomShape, readonly [int, int]>;
+} as const satisfies Record<RoomShape, readonly [int, int]>;

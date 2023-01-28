@@ -21,7 +21,6 @@ import {
 } from "../../../../functions/string";
 import { eRange, iRange } from "../../../../functions/utils";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
-import { HasAllEnumKeys } from "../../../../types/HasAllEnumKeys";
 import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
@@ -57,7 +56,7 @@ const ROOM_SHAPE_WALL_ANM2_LAYERS = {
   [RoomShape.LTR]: 63, // 10
   [RoomShape.LBL]: 63, // 11
   [RoomShape.LBR]: 63, // 12
-} as const satisfies HasAllEnumKeys<RoomShape, int>;
+} as const satisfies Record<RoomShape, int>;
 
 const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
   readonly [Key in RoomShape]?: int;

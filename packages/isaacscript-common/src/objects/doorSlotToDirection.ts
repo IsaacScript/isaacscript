@@ -1,5 +1,4 @@
 import { Direction, DoorSlot } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DOOR_SLOT_TO_DIRECTION = {
   [DoorSlot.NO_DOOR_SLOT]: Direction.NO_DIRECTION, // -1
@@ -11,4 +10,4 @@ export const DOOR_SLOT_TO_DIRECTION = {
   [DoorSlot.UP_1]: Direction.UP, // 5
   [DoorSlot.RIGHT_1]: Direction.RIGHT, // 6
   [DoorSlot.DOWN_1]: Direction.DOWN, // 7
-} as const satisfies HasAllEnumKeys<DoorSlot, Direction>;
+} as const satisfies Record<DoorSlot, Direction>;

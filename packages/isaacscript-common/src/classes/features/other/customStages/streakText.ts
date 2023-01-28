@@ -8,14 +8,13 @@ import {
   getScreenTopCenterPos,
 } from "../../../../functions/ui";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
-import { HasAllEnumKeys } from "../../../../types/HasAllEnumKeys";
 
 /** Corresponds to "resources/gfx/ui/ui_streak.anm2". */
 const UI_STREAK_ANIMATION_END_FRAMES = {
   [UIStreakAnimation.NONE]: 0,
   [UIStreakAnimation.TEXT]: 69,
   [UIStreakAnimation.TEXT_STAY]: 1,
-} as const satisfies HasAllEnumKeys<UIStreakAnimation, int>;
+} as const satisfies Record<UIStreakAnimation, int>;
 
 /** This must match the name of the shader in "shaders.xml". */
 const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";

@@ -1,7 +1,6 @@
 // cspell:disable
 
 import { PlayerType } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 /** Used when rendering the "versusscreen.anm2" sprite. */
 export const PLAYER_PORTRAIT_PNG_FILE_NAMES = {
@@ -51,4 +50,4 @@ export const PLAYER_PORTRAIT_PNG_FILE_NAMES = {
   [PlayerType.JACOB_2_B]: "playerportrait_jacob_b.png", // 39
   // Tainted The Soul uses the same name as Tainted Forgotten.
   [PlayerType.SOUL_B]: "playerportrait_theforgotten_b.png", // 40
-} as const satisfies HasAllEnumKeys<PlayerType, string | undefined>;
+} as const satisfies Record<PlayerType, string | undefined>;

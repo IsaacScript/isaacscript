@@ -1,7 +1,6 @@
 import { RoomShape } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { newReadonlyVector } from "../functions/readOnly";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 const NARROW_HORIZONTAL_TOP_LEFT_POSITION = newReadonlyVector(0, 2);
 const NARROW_VERTICAL_TOP_LEFT_POSITION = newReadonlyVector(4, 0);
@@ -23,4 +22,4 @@ export const ROOM_SHAPE_TO_TOP_LEFT_POSITION = {
   [RoomShape.LTR]: VectorZero, // 10
   [RoomShape.LBL]: VectorZero, // 11
   [RoomShape.LBR]: VectorZero, // 12
-} as const satisfies HasAllEnumKeys<RoomShape, Readonly<Vector>>;
+} as const satisfies Record<RoomShape, Readonly<Vector>>;

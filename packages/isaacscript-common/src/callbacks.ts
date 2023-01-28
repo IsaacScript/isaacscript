@@ -2,7 +2,6 @@ import * as cc from "./callbackClasses";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { getEnumValues } from "./functions/enums";
 import { AnyClass } from "./types/AnyClass";
-import { HasAllEnumKeys } from "./types/HasAllEnumKeys";
 
 const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: cc.EntityTakeDmgFilter,
@@ -128,7 +127,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: cc.PreNPCCollisionFilter,
   [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: cc.PreNPCUpdateFilter,
   [ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER]: cc.PreRoomEntitySpawnFilter,
-} as const satisfies HasAllEnumKeys<ModCallbackCustom, AnyClass>;
+} as const satisfies Record<ModCallbackCustom, AnyClass>;
 
 export type ModCallbackCustomToClass = {
   readonly [Key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<

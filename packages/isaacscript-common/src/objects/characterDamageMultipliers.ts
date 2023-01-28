@@ -1,5 +1,4 @@
 import { PlayerType } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 /** From: https://bindingofisaacrebirth.fandom.com/wiki/Characters#Regular_Characters */
 export const CHARACTER_DAMAGE_MULTIPLIERS = {
@@ -45,4 +44,4 @@ export const CHARACTER_DAMAGE_MULTIPLIERS = {
   [PlayerType.LAZARUS_2_B]: 1.5, // 38
   [PlayerType.JACOB_2_B]: 1.0, // 39
   [PlayerType.SOUL_B]: 1.0, // 40
-} as const satisfies HasAllEnumKeys<PlayerType, float>;
+} as const satisfies Record<PlayerType, float>;

@@ -1,5 +1,4 @@
 import { PillEffect } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DEFAULT_PILL_EFFECT_NAME = "Unknown";
 
@@ -55,4 +54,4 @@ export const PILL_EFFECT_NAMES = {
   [PillEffect.SHOT_SPEED_DOWN]: "Shot Speed Down",
   [PillEffect.SHOT_SPEED_UP]: "Shot Speed Up",
   [PillEffect.EXPERIMENTAL]: "Experimental Pill",
-} as const satisfies HasAllEnumKeys<PillEffect, string>;
+} as const satisfies Record<PillEffect, string>;

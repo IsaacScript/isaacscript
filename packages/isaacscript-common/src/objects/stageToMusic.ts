@@ -1,5 +1,4 @@
 import { LevelStage, Music, StageType } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 const BASEMENT_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.BASEMENT,
@@ -8,7 +7,7 @@ const BASEMENT_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.BASEMENT,
   [StageType.REPENTANCE]: Music.DOWNPOUR,
   [StageType.REPENTANCE_B]: Music.DROSS,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const CAVES_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.CAVES,
@@ -17,7 +16,7 @@ const CAVES_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.CAVES,
   [StageType.REPENTANCE]: Music.MINES,
   [StageType.REPENTANCE_B]: Music.ASHPIT,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const DEPTHS_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.DEPTHS,
@@ -26,7 +25,7 @@ const DEPTHS_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.DEPTHS,
   [StageType.REPENTANCE]: Music.MAUSOLEUM,
   [StageType.REPENTANCE_B]: Music.GEHENNA,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const WOMB_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.WOMB,
@@ -35,7 +34,7 @@ const WOMB_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.WOMB,
   [StageType.REPENTANCE]: Music.CORPSE,
   [StageType.REPENTANCE_B]: Music.MORTIS,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const BLUE_WOMB_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.BLUE_WOMB,
@@ -44,7 +43,7 @@ const BLUE_WOMB_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.BLUE_WOMB,
   [StageType.REPENTANCE]: Music.BLUE_WOMB,
   [StageType.REPENTANCE_B]: Music.BLUE_WOMB,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const SHEOL_CATHEDRAL_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.SHEOL,
@@ -53,7 +52,7 @@ const SHEOL_CATHEDRAL_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.SHEOL,
   [StageType.REPENTANCE]: Music.SHEOL,
   [StageType.REPENTANCE_B]: Music.SHEOL,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const DARK_ROOM_CHEST_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.DARK_ROOM,
@@ -62,7 +61,7 @@ const DARK_ROOM_CHEST_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.DARK_ROOM,
   [StageType.REPENTANCE]: Music.DARK_ROOM,
   [StageType.REPENTANCE_B]: Music.DARK_ROOM,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const THE_VOID_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.VOID,
@@ -71,7 +70,7 @@ const THE_VOID_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.VOID,
   [StageType.REPENTANCE]: Music.VOID,
   [StageType.REPENTANCE_B]: Music.VOID,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 const HOME_TO_MUSIC = {
   [StageType.ORIGINAL]: Music.ISAACS_HOUSE,
@@ -80,7 +79,7 @@ const HOME_TO_MUSIC = {
   [StageType.GREED_MODE]: Music.ISAACS_HOUSE,
   [StageType.REPENTANCE]: Music.ISAACS_HOUSE,
   [StageType.REPENTANCE_B]: Music.ISAACS_HOUSE,
-} as const satisfies HasAllEnumKeys<StageType, Music>;
+} as const satisfies Record<StageType, Music>;
 
 export const STAGE_TO_MUSIC = {
   [LevelStage.BASEMENT_1]: BASEMENT_TO_MUSIC,
@@ -96,4 +95,4 @@ export const STAGE_TO_MUSIC = {
   [LevelStage.DARK_ROOM_CHEST]: DARK_ROOM_CHEST_TO_MUSIC,
   [LevelStage.THE_VOID]: THE_VOID_TO_MUSIC,
   [LevelStage.HOME]: HOME_TO_MUSIC,
-} as const satisfies HasAllEnumKeys<LevelStage, Record<StageType, Music>>;
+} as const satisfies Record<LevelStage, Record<StageType, Music>>;

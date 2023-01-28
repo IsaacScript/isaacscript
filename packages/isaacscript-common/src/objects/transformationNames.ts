@@ -1,5 +1,4 @@
 import { PlayerForm } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const TRANSFORMATION_NAMES = {
   [PlayerForm.GUPPY]: "Guppy", // 0
@@ -16,4 +15,4 @@ export const TRANSFORMATION_NAMES = {
   [PlayerForm.ADULT]: "Adult", // 11
   [PlayerForm.SPIDER_BABY]: "Spider Baby", // 12
   [PlayerForm.STOMPY]: "Stompy", // 13
-} as const satisfies HasAllEnumKeys<PlayerForm, string>;
+} as const satisfies Record<PlayerForm, string>;

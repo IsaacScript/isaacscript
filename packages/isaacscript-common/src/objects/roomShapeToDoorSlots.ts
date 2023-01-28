@@ -1,5 +1,4 @@
 import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 import { ReadonlySet } from "../types/ReadonlySet";
 
 const ALL_DOOR_SLOTS_SET = new ReadonlySet<DoorSlot>([
@@ -80,4 +79,4 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS = {
 
   // 12
   [RoomShape.LBR]: ALL_DOOR_SLOTS_SET,
-} as const satisfies HasAllEnumKeys<RoomShape, ReadonlySet<DoorSlot>>;
+} as const satisfies Record<RoomShape, ReadonlySet<DoorSlot>>;

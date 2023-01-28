@@ -1,5 +1,4 @@
 import { Direction } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DIRECTION_TO_DEGREES = {
   [Direction.NO_DIRECTION]: 0, // -1
@@ -7,4 +6,4 @@ export const DIRECTION_TO_DEGREES = {
   [Direction.UP]: 270, // 1
   [Direction.RIGHT]: 0, // 2
   [Direction.DOWN]: 90, // 3
-} as const satisfies HasAllEnumKeys<Direction, int>;
+} as const satisfies Record<Direction, int>;

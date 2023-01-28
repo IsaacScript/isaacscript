@@ -1,5 +1,4 @@
 import { CoinSubType } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DEFAULT_COIN_VALUE = 1;
 
@@ -12,4 +11,4 @@ export const COIN_SUB_TYPE_TO_VALUE = {
   [CoinSubType.LUCKY_PENNY]: 1, // 5
   [CoinSubType.STICKY_NICKEL]: 5, // 6
   [CoinSubType.GOLDEN]: 1, // 7
-} as const satisfies HasAllEnumKeys<CoinSubType, int>;
+} as const satisfies Record<CoinSubType, int>;

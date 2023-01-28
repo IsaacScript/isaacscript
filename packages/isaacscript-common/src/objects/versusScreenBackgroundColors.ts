@@ -1,6 +1,5 @@
 import { StageID } from "isaac-typescript-definitions";
 import { newReadonlyColor } from "../functions/readOnly";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 /** We arbitrarily specify a default color equal to that of Basement. */
 const DEFAULT_COLOR = newReadonlyColor(26 / 255, 14 / 255, 12 / 255);
@@ -36,4 +35,4 @@ export const VERSUS_SCREEN_BACKGROUND_COLORS = {
   [StageID.MORTIS]: newReadonlyColor(13 / 255, 14 / 255, 12 / 255), // 34
   [StageID.HOME]: DEFAULT_COLOR, // 35
   [StageID.BACKWARDS]: DEFAULT_COLOR, // 36
-} as const satisfies HasAllEnumKeys<StageID, Readonly<Color>>;
+} as const satisfies Record<StageID, Readonly<Color>>;

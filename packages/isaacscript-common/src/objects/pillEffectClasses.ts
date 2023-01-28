@@ -2,7 +2,6 @@ import {
   ItemConfigPillEffectClass,
   PillEffect,
 } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 export const DEFAULT_PILL_EFFECT_CLASS = ItemConfigPillEffectClass.MODDED;
 
@@ -59,4 +58,4 @@ export const PILL_EFFECT_CLASSES = {
   [PillEffect.SHOT_SPEED_UP]: ItemConfigPillEffectClass.MAJOR,
   [PillEffect.EXPERIMENTAL]: ItemConfigPillEffectClass.MAJOR,
   [PillEffect.EXPERIMENTAL]: ItemConfigPillEffectClass.MAJOR,
-} as const satisfies HasAllEnumKeys<PillEffect, ItemConfigPillEffectClass>;
+} as const satisfies Record<PillEffect, ItemConfigPillEffectClass>;

@@ -2,7 +2,6 @@ import { RoomShape } from "isaac-typescript-definitions";
 import { CornerType } from "../enums/CornerType";
 import { newReadonlyVector } from "../functions/readOnly";
 import { Corner } from "../interfaces/Corner";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 
 /**
  * The locations of the corners for each room shape.
@@ -338,4 +337,4 @@ export const ROOM_SHAPE_CORNERS = {
       position: newReadonlyVector(580, 700), // Right
     },
   ],
-} as const satisfies HasAllEnumKeys<RoomShape, readonly Corner[]>;
+} as const satisfies Record<RoomShape, readonly Corner[]>;
