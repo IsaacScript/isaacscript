@@ -7,7 +7,7 @@ import { RoomShape } from "../enums/RoomShape";
  *
  * e.g. `<door exists="False" x="-1" y="3" />`
  */
-// We need the maps to be read-only, so we specify the type instead of using the `satisfies`
+// We need the tuples to be read-only, so we specify the type instead of using the `satisfies`
 // operator.
 export const ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES: {
   readonly [Key in RoomShape]: ReadonlyMap<

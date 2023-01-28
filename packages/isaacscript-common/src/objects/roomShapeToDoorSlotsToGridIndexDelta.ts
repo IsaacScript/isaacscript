@@ -1,6 +1,5 @@
 import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
 import { LEVEL_GRID_ROW_WIDTH } from "../core/constants";
-import { HasAllEnumKeys } from "../types/HasAllEnumKeys";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
 const LEFT = -1;
@@ -12,7 +11,11 @@ const DOWN = LEVEL_GRID_ROW_WIDTH;
  * Deltas are considered to be from the safe grid index of the room (i.e. the top left corner, or
  * top right corner in the case of `RoomShape.LTL`).
  */
-export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA = {
+// We need the maps to be widened for all `DoorSlot`, so we specify the type instead of using the
+// `satisfies` operator.
+export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA: {
+  readonly [Key in RoomShape]: ReadonlyMap<DoorSlot, int>;
+} = {
   // 1
   [RoomShape.SHAPE_1x1]: new ReadonlyMap([
     [DoorSlot.LEFT_0, LEFT], // 0
@@ -124,4 +127,4 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA = {
     [DoorSlot.RIGHT_1, DOWN + RIGHT], // 6
     [DoorSlot.DOWN_1, RIGHT + DOWN], // 7
   ]),
-} as const satisfies HasAllEnumKeys<RoomShape, ReadonlyMap<DoorSlot, int>>;
+} as const;
