@@ -1,3 +1,4 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getTraceback, isLuaDebugEnabled, traceback } from "./debugFunctions";
 import * as logExports from "./log";
 import { log } from "./log";
@@ -6,7 +7,7 @@ import * as logMiscExports from "./logMisc";
 import { addSetsToSet, copySet } from "./set";
 import { twoDimensionalSort } from "./utils";
 
-const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
+const DEFAULT_GLOBALS = new ReadonlySet<string>([
   "ActionTriggers",
   "ActiveSlot",
   "BabySubType",
@@ -171,7 +172,7 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "xpcall",
 ]);
 
-const LUA_DEBUG_ADDED_GLOBALS: ReadonlySet<string> = new Set([
+const LUA_DEBUG_ADDED_GLOBALS = new ReadonlySet<string>([
   "debug",
   "dofile",
   "loadfile",
@@ -180,7 +181,7 @@ const LUA_DEBUG_ADDED_GLOBALS: ReadonlySet<string> = new Set([
   "package",
 ]);
 
-const RACING_PLUS_SANDBOX_ADDED_GLOBALS: ReadonlySet<string> = new Set([
+const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new ReadonlySet<string>([
   "sandboxTraceback",
   "sandboxGetTraceback",
   "getParentFunctionDescription",

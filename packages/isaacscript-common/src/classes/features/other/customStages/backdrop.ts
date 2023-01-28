@@ -22,6 +22,7 @@ import {
 import { eRange, iRange } from "../../../../functions/utils";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { HasAllEnumKeys } from "../../../../types/HasAllEnumKeys";
+import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 enum BackdropKind {
@@ -88,7 +89,7 @@ const N_FLOOR_ANM2_LAYERS = [18, 19] as const;
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
 const BACKDROP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_BACKDROP;
 
-const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
+const BACKDROP_ROOM_TYPE_SET = new ReadonlySet<RoomType>([
   RoomType.DEFAULT,
   RoomType.BOSS,
   RoomType.MINI_BOSS,

@@ -17,6 +17,7 @@ import {
   VisVariant,
 } from "isaac-typescript-definitions";
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../core/constants";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getNPCs } from "./entitiesSpecific";
 import { asNumber } from "./types";
 
@@ -24,7 +25,7 @@ import { asNumber } from "./types";
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
+const NON_ALIVE_NPCS_TYPE_VARIANT = new ReadonlySet<string>([
   `${EntityType.VIS}.${VisVariant.CHUBBER_PROJECTILE}`, // 39.22
   `${EntityType.DEATH}.${DeathVariant.DEATH_SCYTHE}`, // 66.10
   `${EntityType.PEEP}.${PeepVariant.PEEP_EYE}`, // 68.10
@@ -42,7 +43,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE: ReadonlySet<string> = new Set([
+const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE = new ReadonlySet<string>([
   `${EntityType.CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
   `${EntityType.MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);

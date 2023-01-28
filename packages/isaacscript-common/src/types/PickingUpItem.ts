@@ -9,6 +9,7 @@ import {
   ItemType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { ReadonlySet } from "./ReadonlySet";
 
 export type PickingUpItem =
   | PickingUpItemNull
@@ -57,7 +58,7 @@ export function resetPickingUpItem(pickingUpItem: PickingUpItem): void {
   pickingUpItem.subType = DEFAULT_SUB_TYPE;
 }
 
-const COLLECTIBLE_ITEM_TYPES: ReadonlySet<ItemType> = new Set([
+const COLLECTIBLE_ITEM_TYPES = new ReadonlySet<ItemType>([
   ItemType.PASSIVE, // 1
   ItemType.ACTIVE, // 3
   ItemType.FAMILIAR, // 4

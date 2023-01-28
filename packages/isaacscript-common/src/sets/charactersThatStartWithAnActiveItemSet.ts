@@ -1,7 +1,8 @@
 import { PlayerType } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 
-export const CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET: ReadonlySet<PlayerType> =
-  new Set([
+export const CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET =
+  new ReadonlySet<PlayerType>([
     PlayerType.ISAAC, // 0
     PlayerType.MAGDALENE, // 1
     PlayerType.JUDAS, // 3

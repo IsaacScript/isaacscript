@@ -1,8 +1,10 @@
+import { ReadonlySet } from "../types/ReadonlySet";
+
 /**
  * The set of vanilla console commands, as documented here:
  * https://bindingofisaacrebirth.fandom.com/wiki/Debug_Console
  */
-export const CONSOLE_COMMANDS_SET: ReadonlySet<string> = new Set([
+export const CONSOLE_COMMANDS_SET = new ReadonlySet<string>([
   // Listed commands
   "achievement",
   "challenge",

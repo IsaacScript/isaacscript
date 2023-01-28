@@ -1,10 +1,11 @@
 import { PlayerForm } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 /** Maps transformation names to the values of the `PlayerForm` enum. */
-export const TRANSFORMATION_NAME_TO_PLAYER_FORM_MAP: ReadonlyMap<
+export const TRANSFORMATION_NAME_TO_PLAYER_FORM_MAP = new ReadonlyMap<
   string,
   PlayerForm
-> = new Map([
+>([
   ["guppy", PlayerForm.GUPPY], // 0
   ["cat", PlayerForm.GUPPY], // 0
   ["beelzebub", PlayerForm.BEELZEBUB], // 1

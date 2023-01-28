@@ -5,6 +5,7 @@ import {
   Keyboard,
 } from "isaac-typescript-definitions";
 import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getEnumValues } from "./enums";
 import { trimPrefix } from "./string";
 
@@ -26,7 +27,7 @@ const MOVEMENT_ACTIONS = [
   ButtonAction.DOWN, // 3
 ] as const;
 
-export const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+export const MOVEMENT_ACTIONS_SET = new ReadonlySet<ButtonAction>(
   MOVEMENT_ACTIONS,
 );
 
@@ -37,7 +38,7 @@ const SHOOTING_ACTIONS = [
   ButtonAction.SHOOT_DOWN, // 7
 ] as const;
 
-export const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
+export const SHOOTING_ACTIONS_SET = new ReadonlySet<ButtonAction>(
   SHOOTING_ACTIONS,
 );
 

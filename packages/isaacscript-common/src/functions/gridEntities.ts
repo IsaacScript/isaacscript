@@ -17,6 +17,7 @@ import {
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
 import { AnyGridEntity } from "../types/AnyGridEntity";
 import { GridEntityID } from "../types/GridEntityID";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
@@ -25,8 +26,8 @@ import { asNumber, isNumber } from "./types";
 import { eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
-const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
-  new Set([
+const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
+  new ReadonlySet<GridEntityType>([
     GridEntityType.ROCK, // 2
     GridEntityType.ROCK_TINTED, // 4
     GridEntityType.ROCK_BOMB, // 5
@@ -44,8 +45,8 @@ const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
     GridEntityType.ROCK_GOLD, // 27
   ]);
 
-const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS: ReadonlySet<string> =
-  new Set([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
+const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS =
+  new ReadonlySet<string>([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding

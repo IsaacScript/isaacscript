@@ -1,8 +1,9 @@
 import { CacheFlag } from "isaac-typescript-definitions";
 import { DEFAULT_PLAYER_STAT_MAP } from "../maps/defaultPlayerStatMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { addTearsStat } from "./tears";
 
-const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
+const STAT_CACHE_FLAGS_SET = new ReadonlySet<CacheFlag>([
   CacheFlag.DAMAGE, // 1 << 0
   CacheFlag.FIRE_DELAY, // 1 << 1
   CacheFlag.SHOT_SPEED, // 1 << 2

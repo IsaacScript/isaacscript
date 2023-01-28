@@ -8,6 +8,7 @@ import {
 import { getEnumLength } from "../functions/enums";
 import { addFlag } from "../functions/flag";
 import { asCollectibleType } from "../functions/types";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
@@ -79,8 +80,8 @@ export const GAME_FRAMES_PER_SECOND = 30;
 export const GAME_FRAMES_PER_MINUTE = GAME_FRAMES_PER_SECOND * 60;
 
 /** The set of all `ItemConfigCardType` values that are not a rune or special object. */
-export const ITEM_CONFIG_CARD_TYPES_FOR_CARDS: ReadonlySet<ItemConfigCardType> =
-  new Set([
+export const ITEM_CONFIG_CARD_TYPES_FOR_CARDS =
+  new ReadonlySet<ItemConfigCardType>([
     ItemConfigCardType.TAROT,
     ItemConfigCardType.SUIT,
     ItemConfigCardType.SPECIAL,

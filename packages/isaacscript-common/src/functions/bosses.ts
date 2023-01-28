@@ -11,13 +11,14 @@ import {
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
 } from "../sets/bossSets";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getNPCs, spawnNPC } from "./entitiesSpecific";
 import { getAliveNPCs } from "./npcs";
 import { isRNG } from "./rng";
 import { asNumber } from "./types";
 import { repeat } from "./utils";
 
-const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS: ReadonlySet<EntityType> = new Set([
+const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS = new ReadonlySet<EntityType>([
   EntityType.LARRY_JR, // 19 (and The Hollow / Tuff Twins / The Shell)
   EntityType.CHUB, // 28 (and C.H.A.D. / The Carrion Queen)
   EntityType.LOKI, // 69 (only for Lokii)

@@ -1,7 +1,8 @@
 import { SlotVariant } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { isSlot } from "./entityTypes";
 
-const SLOT_MACHINE_VARIANTS: ReadonlySet<SlotVariant> = new Set([
+const SLOT_MACHINE_VARIANTS = new ReadonlySet<SlotVariant>([
   SlotVariant.SLOT_MACHINE, // 1
   SlotVariant.BLOOD_DONATION_MACHINE, // 2,
   SlotVariant.FORTUNE_TELLING_MACHINE, // 3

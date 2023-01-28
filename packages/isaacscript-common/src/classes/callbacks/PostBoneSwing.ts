@@ -1,8 +1,9 @@
 import { KnifeVariant, ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { ReadonlySet } from "../../types/ReadonlySet";
 import { CustomCallback } from "../private/CustomCallback";
 
-const BONE_SWING_ANIMATIONS: ReadonlySet<string> = new Set([
+const BONE_SWING_ANIMATIONS = new ReadonlySet<string>([
   "Swing",
   "Swing2",
   "Spin",

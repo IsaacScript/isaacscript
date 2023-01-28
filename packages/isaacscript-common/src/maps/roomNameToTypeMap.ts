@@ -1,7 +1,8 @@
 import { RoomType } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 /** Maps room names to the values of the `RoomType` enum. */
-export const ROOM_NAME_TO_TYPE_MAP: ReadonlyMap<string, RoomType> = new Map([
+export const ROOM_NAME_TO_TYPE_MAP = new ReadonlyMap<string, RoomType>([
   ["default", RoomType.DEFAULT], // 1
   ["shop", RoomType.SHOP], // 2
   ["error", RoomType.ERROR], // 3

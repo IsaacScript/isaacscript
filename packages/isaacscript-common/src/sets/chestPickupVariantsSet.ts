@@ -1,6 +1,7 @@
 import { PickupVariant } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 
-export const CHEST_PICKUP_VARIANTS: ReadonlySet<PickupVariant> = new Set([
+export const CHEST_PICKUP_VARIANTS = new ReadonlySet<PickupVariant>([
   PickupVariant.CHEST, // 50
   PickupVariant.BOMB_CHEST, // 51
   PickupVariant.SPIKED_CHEST, // 52

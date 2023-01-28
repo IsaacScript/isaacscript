@@ -1,6 +1,5 @@
-/* eslint-disable isaacscript/strict-enums */
-
 import { CollectibleType } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 export const DEFAULT_COLLECTIBLE_NAME = "Unknown";
 
@@ -12,10 +11,10 @@ export const DEFAULT_COLLECTIBLE_NAME = "Unknown";
  *
  * For a mapping of name to `CollectibleType`, see `COLLECTIBLE_NAME_TO_TYPE_MAP`.
  */
-export const COLLECTIBLE_TYPE_TO_NAME_MAP: ReadonlyMap<
+export const COLLECTIBLE_TYPE_TO_NAME_MAP = new ReadonlyMap<
   CollectibleType,
   string
-> = new Map([
+>([
   [1, "The Sad Onion"],
   [2, "The Inner Eye"],
   [3, "Spoon Bender"],

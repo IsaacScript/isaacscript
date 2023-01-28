@@ -9,14 +9,13 @@ import {
   ISAAC_API_CLASS_TYPE_TO_FUNCTIONS,
   SerializedIsaacAPIClass,
 } from "../objects/isaacAPIClassTypeToFunctions";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isString, isTable, isUserdata } from "./types";
 
 const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
-const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
-  SERIALIZATION_BRANDS,
-);
+const SERIALIZATION_BRAND_SET = new ReadonlySet<string>(SERIALIZATION_BRANDS);
 
 /**
  * Helper function to generically copy an Isaac API class without knowing what specific type of

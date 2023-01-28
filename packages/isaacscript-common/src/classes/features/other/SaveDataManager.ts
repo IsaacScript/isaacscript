@@ -15,6 +15,7 @@ import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
 import { isString, isTable } from "../../../functions/types";
 import { SaveData } from "../../../interfaces/SaveData";
 import { AnyClass } from "../../../types/AnyClass";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import {
   makeGlowingHourGlassBackup,
@@ -31,7 +32,7 @@ import { saveToDisk } from "./saveDataManager/saveToDisk";
 /** "g" stands for "globals". */
 declare let g: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-const NON_USER_DEFINED_CLASS_NAMES: ReadonlySet<string> = new Set([
+const NON_USER_DEFINED_CLASS_NAMES = new ReadonlySet<string>([
   "Map",
   "Set",
   "DefaultMap",

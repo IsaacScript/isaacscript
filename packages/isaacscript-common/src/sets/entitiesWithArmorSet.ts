@@ -21,6 +21,7 @@ import {
   UltraGreedVariant,
   WallCreepVariant,
 } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 
 /**
  * "Armor" refers to the damage scaling mechanic. The following list corresponds to the entities
@@ -33,7 +34,7 @@ import {
  *
  * We use strings instead of a type + variant tuple so that we can have O(1) lookups.
  */
-export const ENTITIES_WITH_ARMOR_SET: ReadonlySet<string> = new Set([
+export const ENTITIES_WITH_ARMOR_SET = new ReadonlySet<string>([
   `${EntityType.POOTER}.${PooterVariant.TAINTED_POOTER}`, // 14.2
   `${EntityType.HIVE}.${HiveVariant.TAINTED_MULLIGAN}`, // 22.3
   `${EntityType.BOOM_FLY}.${BoomFlyVariant.TAINTED_BOOM_FLY}`, // 25.6

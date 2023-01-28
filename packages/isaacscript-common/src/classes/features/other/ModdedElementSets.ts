@@ -40,6 +40,7 @@ import {
   trinketHasCacheFlag,
 } from "../../../functions/trinkets";
 import { repeat } from "../../../functions/utils";
+import { ReadonlyMap } from "../../../types/ReadonlyMap";
 import { Feature } from "../../private/Feature";
 import { ModdedElementDetection } from "./ModdedElementDetection";
 
@@ -50,23 +51,22 @@ const CONDITIONAL_FLYING_COLLECTIBLE_TYPES = [
   CollectibleType.RECALL,
 ] as const;
 
-const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
-  new Map([
-    [PlayerForm.GUPPY, ItemConfigTag.GUPPY], // 0
-    [PlayerForm.BEELZEBUB, ItemConfigTag.FLY], // 1
-    [PlayerForm.FUN_GUY, ItemConfigTag.MUSHROOM], // 2
-    [PlayerForm.SERAPHIM, ItemConfigTag.ANGEL], // 3
-    [PlayerForm.BOB, ItemConfigTag.BOB], // 4
-    [PlayerForm.SPUN, ItemConfigTag.SYRINGE], // 5
-    [PlayerForm.YES_MOTHER, ItemConfigTag.MOM], // 6
-    [PlayerForm.CONJOINED, ItemConfigTag.BABY], // 7
-    [PlayerForm.LEVIATHAN, ItemConfigTag.DEVIL], // 8
-    [PlayerForm.OH_CRAP, ItemConfigTag.POOP], // 9
-    [PlayerForm.BOOKWORM, ItemConfigTag.BOOK], // 10
-    // PlayerForm.ADULTHOOD (11) is based on pill usage.
-    [PlayerForm.SPIDER_BABY, ItemConfigTag.SPIDER], // 12
-    // PlayerForm.STOMPY (13) is based on size.
-  ]);
+const TRANSFORMATION_TO_TAG_MAP = new ReadonlyMap<PlayerForm, ItemConfigTag>([
+  [PlayerForm.GUPPY, ItemConfigTag.GUPPY], // 0
+  [PlayerForm.BEELZEBUB, ItemConfigTag.FLY], // 1
+  [PlayerForm.FUN_GUY, ItemConfigTag.MUSHROOM], // 2
+  [PlayerForm.SERAPHIM, ItemConfigTag.ANGEL], // 3
+  [PlayerForm.BOB, ItemConfigTag.BOB], // 4
+  [PlayerForm.SPUN, ItemConfigTag.SYRINGE], // 5
+  [PlayerForm.YES_MOTHER, ItemConfigTag.MOM], // 6
+  [PlayerForm.CONJOINED, ItemConfigTag.BABY], // 7
+  [PlayerForm.LEVIATHAN, ItemConfigTag.DEVIL], // 8
+  [PlayerForm.OH_CRAP, ItemConfigTag.POOP], // 9
+  [PlayerForm.BOOKWORM, ItemConfigTag.BOOK], // 10
+  // PlayerForm.ADULTHOOD (11) is based on pill usage.
+  [PlayerForm.SPIDER_BABY, ItemConfigTag.SPIDER], // 12
+  // PlayerForm.STOMPY (13) is based on size.
+]);
 
 export class ModdedElementSets extends Feature {
   private allCollectibleTypesArray: CollectibleType[] = [];

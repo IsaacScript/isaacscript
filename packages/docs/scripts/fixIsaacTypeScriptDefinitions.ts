@@ -5,6 +5,7 @@ import { file } from "isaacscript-cli";
 import {
   capitalizeFirstLetter,
   error,
+  ReadonlyMap,
   trimSuffix,
 } from "isaacscript-common-ts";
 import path from "path";
@@ -18,7 +19,7 @@ const CATEGORY_FILE_NAME = "_category_.yml";
 const ENUMS_DIR = path.join(PACKAGE_DOCS_DIR, "enums");
 
 /** We hard-code the title for some specific files. */
-const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
+const FILE_NAME_TO_TITLE = new ReadonlyMap<string, string>([
   ["functions", "Global Functions"],
   ["main", "main.lua"],
   ["json", "json.lua"],
@@ -26,7 +27,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   ["primitives", "Primitives"],
 ]);
 
-const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
+const SIDEBAR_POSITIONS = new ReadonlyMap<string, number>([
   // "Introduction" is hard coded as 0 in "website-root.md".
   ["Classes", 1],
   ["Enums", 2],

@@ -1,6 +1,7 @@
 import { EntityType } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 
-export const SIN_ENTITY_TYPES_SET: ReadonlySet<EntityType> = new Set([
+export const SIN_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
   EntityType.SLOTH, // 46
   EntityType.LUST, // 47
   EntityType.WRATH, // 48

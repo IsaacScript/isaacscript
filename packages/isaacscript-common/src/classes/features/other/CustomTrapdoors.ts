@@ -39,6 +39,7 @@ import { setStage } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
 import { isVector } from "../../../functions/vector";
 import { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
@@ -60,7 +61,7 @@ const TRAPDOOR_BOSS_REACTION_FRAMES = 30;
 
 const TRAPDOOR_TOUCH_DISTANCE = 16.5;
 
-const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL: ReadonlySet<string> = new Set([
+const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL = new ReadonlySet<string>([
   "Death",
   "Happy",
   "Sad",

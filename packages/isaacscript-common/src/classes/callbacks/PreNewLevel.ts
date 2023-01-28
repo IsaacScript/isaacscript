@@ -2,9 +2,10 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getLastFrameOfAnimation } from "../../functions/sprites";
 import { getEffectiveStage } from "../../functions/stage";
+import { ReadonlySet } from "../../types/ReadonlySet";
 import { CustomCallback } from "../private/CustomCallback";
 
-const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS: ReadonlySet<string> = new Set([
+const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
   "Trapdoor",
   "LightTravel",
 ]);

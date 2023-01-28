@@ -7,13 +7,16 @@ import { COLLECTIBLE_TYPE_TO_NAME_MAP } from "./collectibleTypeToNameMap";
  *
  * For a mapping of `CollectibleType` to name, see `COLLECTIBLE_TYPE_TO_NAME_MAP`.
  */
-const collectibleNameToTypeMap = new Map<string, CollectibleType>();
-for (const [collectibleType, name] of COLLECTIBLE_TYPE_TO_NAME_MAP) {
-  const simpleString = removeNonAlphanumericCharacters(name);
-  collectibleNameToTypeMap.set(simpleString, collectibleType);
-}
-
 export const COLLECTIBLE_NAME_TO_TYPE_MAP: ReadonlyMap<
   string,
   CollectibleType
-> = collectibleNameToTypeMap;
+> = (() => {
+  const collectibleNameToTypeMap = new Map<string, CollectibleType>();
+
+  for (const [collectibleType, name] of COLLECTIBLE_TYPE_TO_NAME_MAP) {
+    const simpleString = removeNonAlphanumericCharacters(name);
+    collectibleNameToTypeMap.set(simpleString, collectibleType);
+  }
+
+  return collectibleNameToTypeMap;
+})();

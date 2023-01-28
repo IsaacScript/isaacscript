@@ -7,11 +7,14 @@ import { TRINKET_TYPE_TO_NAME_MAP } from "./trinketTypeToNameMap";
  *
  * For a mapping of `TrinketType` to name, see `TRINKET_TYPE_TO_NAME_MAP`.
  */
-const trinketNameToTypeMap = new Map<string, TrinketType>();
-for (const [trinketType, name] of TRINKET_TYPE_TO_NAME_MAP) {
-  const simpleString = removeNonAlphanumericCharacters(name);
-  trinketNameToTypeMap.set(simpleString, trinketType);
-}
-
 export const TRINKET_NAME_TO_TYPE_MAP: ReadonlyMap<string, TrinketType> =
-  trinketNameToTypeMap;
+  (() => {
+    const trinketNameToTypeMap = new Map<string, TrinketType>();
+
+    for (const [trinketType, name] of TRINKET_TYPE_TO_NAME_MAP) {
+      const simpleString = removeNonAlphanumericCharacters(name);
+      trinketNameToTypeMap.set(simpleString, trinketType);
+    }
+
+    return trinketNameToTypeMap;
+  })();

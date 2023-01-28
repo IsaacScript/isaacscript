@@ -1,10 +1,11 @@
 import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
+import { ReadonlySet } from "../types/ReadonlySet";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
 
-const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
+const EXCLUDED_CHARACTERS = new ReadonlySet<PlayerType>([
   PlayerType.ESAU, // 20
   PlayerType.SOUL_B, // 40
 ]);

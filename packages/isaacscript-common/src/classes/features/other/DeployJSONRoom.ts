@@ -29,12 +29,13 @@ import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
 import { asCollectibleType, asNumber } from "../../../functions/types";
 import { JSONRoom } from "../../../interfaces/JSONRoomsFile";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
 import { SpawnCollectible } from "./SpawnCollectible";
 
 const gridEntityXMLTypes = getEnumValues(GridEntityXMLType);
-const GRID_ENTITY_XML_TYPE_SET: ReadonlySet<number> = new Set(
+const GRID_ENTITY_XML_TYPE_SET = new ReadonlySet<GridEntityXMLType>(
   gridEntityXMLTypes,
 );
 
@@ -104,7 +105,9 @@ export class DeployJSONRoom extends Feature {
         error(`Failed to convert the entity sub-type to a number: ${subType}`);
       }
 
-      const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(entityTypeNumber);
+      const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(
+        entityTypeNumber as GridEntityXMLType,
+      );
       if (isGridEntity) {
         const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
         if (verbose) {

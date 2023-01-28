@@ -11,11 +11,12 @@ import {
   ProjectileVariant,
   TearVariant,
 } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getEntities, getEntityFromPtrHash, getEntityID } from "./entities";
 import { getGridEntities, getGridEntityID } from "./gridEntities";
 import { log } from "./log";
 
-const IGNORE_EFFECT_VARIANTS: ReadonlySet<EffectVariant> = new Set([
+const IGNORE_EFFECT_VARIANTS = new ReadonlySet<EffectVariant>([
   EffectVariant.BLOOD_EXPLOSION, // 2
   EffectVariant.BLOOD_PARTICLE, // 5
   EffectVariant.TINY_BUG, // 21

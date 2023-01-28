@@ -8,8 +8,9 @@ import { CHARACTERS_WITH_FREE_DEVIL_DEALS_SET } from "../sets/charactersWithFree
 import { CHARACTERS_WITH_NO_RED_HEARTS_SET } from "../sets/charactersWithNoRedHeartsSet";
 import { CHARACTERS_WITH_NO_SOUL_HEARTS_SET } from "../sets/charactersWithNoSoulHeartsSet";
 import { LOST_STYLE_CHARACTERS_SET } from "../sets/lostStyleCharactersSet";
+import { ReadonlySet } from "../types/ReadonlySet";
 
-const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([
+const FLYING_CHARACTERS = new ReadonlySet<PlayerType>([
   PlayerType.AZAZEL, // 7
   PlayerType.LOST, // 10
   PlayerType.SOUL, // 17
