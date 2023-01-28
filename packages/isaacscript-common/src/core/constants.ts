@@ -1,14 +1,17 @@
 import {
   Dimension,
   DisplayFlag,
-  ItemConfigCardType,
   ItemPoolType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { getEnumLength } from "../functions/enums";
 import { addFlag } from "../functions/flag";
+import {
+  newReadonlyColor,
+  newReadonlyKColor,
+  newReadonlyVector,
+} from "../functions/readOnly";
 import { asCollectibleType } from "../functions/types";
-import { ReadonlySet } from "../types/ReadonlySet";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
@@ -79,15 +82,6 @@ export const GAME_FRAMES_PER_SECOND = 30;
 /** Game frames are what is returned by the `Game.GetFrameCount` method. */
 export const GAME_FRAMES_PER_MINUTE = GAME_FRAMES_PER_SECOND * 60;
 
-/** The set of all `ItemConfigCardType` values that are not a rune or special object. */
-export const ITEM_CONFIG_CARD_TYPES_FOR_CARDS =
-  new ReadonlySet<ItemConfigCardType>([
-    ItemConfigCardType.TAROT,
-    ItemConfigCardType.SUIT,
-    ItemConfigCardType.SPECIAL,
-    ItemConfigCardType.TAROT_REVERSE,
-  ]);
-
 /** Render frames are what is returned by the `Isaac.GetFrameCount` method. */
 export const RENDER_FRAMES_PER_SECOND = 60;
 
@@ -152,16 +146,22 @@ export const MIN_PLAYER_SPEED_STAT = 0.1;
 export const MAX_SPEED_STAT = 2.0;
 
 /** This is in the center of the room. */
-export const NEW_FLOOR_STARTING_POSITION_NORMAL_MODE = Vector(320, 280);
+export const NEW_FLOOR_STARTING_POSITION_NORMAL_MODE = newReadonlyVector(
+  320,
+  280,
+);
 
 /** This is near the top door. */
-export const NEW_FLOOR_STARTING_POSITION_GREED_MODE = Vector(320, 280);
+export const NEW_FLOOR_STARTING_POSITION_GREED_MODE = newReadonlyVector(
+  320,
+  280,
+);
 
 /**
  * This is next to the bottom door. Presumably, the player does not start in the center of the room
  * (like they do when getting to a new stage) so that the controls graphic is more visible.
  */
-export const NEW_RUN_PLAYER_STARTING_POSITION = Vector(320, 380);
+export const NEW_RUN_PLAYER_STARTING_POSITION = newReadonlyVector(320, 380);
 
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;
@@ -197,7 +197,7 @@ export const UI_HEART_WIDTH = 12;
  * This is a safe version of the `Vector.One` constant. (Other mods can mutate `Vector.One`, so it
  * is not safe to use.)
  */
-export const VectorOne: Readonly<Vector> = Vector(1, 1);
+export const VectorOne = newReadonlyVector(1, 1);
 
 /**
  * Equal to `Vector(0, 0)`.
@@ -205,7 +205,7 @@ export const VectorOne: Readonly<Vector> = Vector(1, 1);
  * This is a safe version of the `Vector.Zero` constant. (Other mods can mutate `Vector.Zero`, so it
  * is not safe to use.)
  */
-export const VectorZero: Readonly<Vector> = Vector(0, 0);
+export const VectorZero = newReadonlyVector(0, 0);
 
 /**
  * Equal to `Color(1, 1, 1)`.
@@ -215,11 +215,11 @@ export const VectorZero: Readonly<Vector> = Vector(0, 0);
  *
  * If you need to mutate this, make a copy first with the `copyColor` helper function.
  */
-export const ColorDefault: Readonly<Color> = Color(1, 1, 1);
+export const ColorDefault = newReadonlyColor(1, 1, 1);
 
 /**
  * Equal to `KColor(1, 1, 1, 1)`.
  *
  * If you need to mutate this, make a copy first with the `copyKColor` helper function.
  */
-export const KColorDefault: Readonly<KColor> = KColor(1, 1, 1, 1);
+export const KColorDefault = newReadonlyKColor(1, 1, 1, 1);

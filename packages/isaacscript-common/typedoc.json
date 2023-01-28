@@ -226,6 +226,8 @@
     "src/types/PlayerIndex.ts",
     "src/types/PossibleStatType.ts",
     "src/types/PublicInterface.ts",
+    "src/types/ReadonlyMap.ts",
+    "src/types/ReadonlySet.ts",
     "src/types/StartsWithLowercase.ts",
     "src/types/StartsWithUppercase.ts",
     "src/types/TSTLClass.ts",

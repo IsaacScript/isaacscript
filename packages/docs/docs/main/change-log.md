@@ -17,6 +17,9 @@ This page lists the changes to the IsaacScript framework.
   - `getMusicForStage`
   - `setCollectiblePedestalType`
   - `doesAnyEntityExist`
+  - `newReadonlyVector`
+  - `newReadonlyColor`
+  - `newReadonlyKColor`
 - Added the following helper constructors:
   - `ReadonlyMap`
   - `ReadonlySet`
