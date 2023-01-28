@@ -52,6 +52,7 @@ export function gridIndexToGridPosition(
 export function gridPositionToWorldPosition(gridPosition: Vector): Vector {
   const x = (gridPosition.X + 2) * 40;
   const y = (gridPosition.Y + 4) * 40;
+
   return Vector(x, y);
 }
 

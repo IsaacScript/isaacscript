@@ -83,6 +83,41 @@ export function getMapPartialMatch<T>(
 }
 
 /**
+ * Helper function to get a copy of a map with the keys and the values reversed.
+ *
+ * For example:
+ *
+ * ```ts
+ * new Map<string, number>([
+ *   ["foo", 1],
+ *   ["bar", 2],
+ * ]);
+ * ```
+ *
+ * Would be reversed to:
+ *
+ * ```ts
+ * new Map<number, string>([
+ *   [1, "foo"],
+ *   [2, "bar"],
+ * ]);
+ * ```
+ */
+export function getReversedMap<K, V>(map: Map<K, V>): Map<V, K>;
+export function getReversedMap<K, V>(map: ReadonlyMap<K, V>): ReadonlyMap<V, K>;
+export function getReversedMap<K, V>(
+  map: Map<K, V> | ReadonlyMap<K, V>,
+): Map<V, K> {
+  const reverseMap = new Map<V, K>();
+
+  for (const [key, value] of map) {
+    reverseMap.set(value, key);
+  }
+
+  return reverseMap;
+}
+
+/**
  * Helper function to set a value for a `DefaultMap` that corresponds to an entity, assuming that
  * the map uses `PtrHash` as an index.
  */

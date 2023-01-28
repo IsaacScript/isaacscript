@@ -20,6 +20,7 @@ This page lists the changes to the IsaacScript framework.
   - `newReadonlyVector`
   - `newReadonlyColor`
   - `newReadonlyKColor`
+  - `getReversedMap`
 - Deleted the following helper types:
   - `HasAllEnumKeys` (use `Record` instead)
 - Added the following helper constructors:
