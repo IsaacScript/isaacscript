@@ -10,6 +10,11 @@ export function capitalizeFirstLetter(string: string): string {
   return `${capitalizedFirstLetter}${restOfString}`;
 }
 
+/** From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space */
+export function hasWhiteSpace(s: string): boolean {
+  return /\s/g.test(s);
+}
+
 /** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
 export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
