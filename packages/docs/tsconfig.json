@@ -7,7 +7,7 @@
   },
 
   "include": [
-    ".eslintrc.js",
+    ".eslintrc.cjs",
     ".remarkrc.mjs",
     "babel.config.js",
     "docusaurus.config.js",

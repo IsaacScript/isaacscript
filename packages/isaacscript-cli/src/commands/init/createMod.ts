@@ -60,7 +60,7 @@ export function createMod(
   console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 }
 
-/** Copy static files, like ".eslintrc.js", "tsconfig.json", etc. */
+/** Copy static files, like ".eslintrc.cjs", "tsconfig.json", etc. */
 function copyStaticFiles(projectPath: string, verbose: boolean) {
   const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR, verbose);
   staticFileList.forEach((fileName: string) => {
@@ -71,10 +71,10 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
     }
   });
 
-  // Rename ".eslintrc.template.js" to ".eslintrc.js". (If it is kept as ".eslintrc.js", then local
-  // linting will fail.)
-  const ESLintConfigPath = path.join(projectPath, ".eslintrc.template.js");
-  const correctESLintConfigPath = path.join(projectPath, ".eslintrc.js");
+  // Rename ".eslintrc.template.js" to ".eslintrc.cjs". (If it is kept as ".eslintrc.cjs", then
+  // local linting will fail.)
+  const ESLintConfigPath = path.join(projectPath, ".eslintrc.template.cjs");
+  const correctESLintConfigPath = path.join(projectPath, ".eslintrc.cjs");
   file.rename(ESLintConfigPath, correctESLintConfigPath, verbose);
 
   // Rename "gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't

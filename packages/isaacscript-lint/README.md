@@ -16,7 +16,7 @@ See the [installation instructions](#installation-instructions-for-typescript-pr
 
 ## For Use in an Isaacscript Mod
 
-Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
+Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.cjs` config file.
 
 <br>
 
@@ -70,9 +70,9 @@ npm install isaacscript-lint --save-dev
 
 (It should be a development dependency because it is only used to lint your code pre-production.)
 
-### Step 2 - `eslintrc.js`
+### Step 2 - `eslintrc.cjs`
 
-Create a `eslintrc.js` file in the root of your repository:
+Create a `eslintrc.cjs` file in the root of your repository:
 
 ```js
 // This is the configuration file for ESLint, the TypeScript linter:
@@ -114,7 +114,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 
     // These are ESLint-only inclusions. Usually, this includes any files that are outside of your
     // "src" directory, such as "webpack.config.js", "jest.config.js", "Gruntfile.js", and so forth.
-    "./.eslintrc.js"
+    "./.eslintrc.cjs"
   ]
 }
 ```
@@ -123,7 +123,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 
 ## Adding or Removing Rules
 
-You can add extra rules (or ignore existing rules) by editing the `rules` section of your `eslintrc.js` file. For example:
+You can add extra rules (or ignore existing rules) by editing the `rules` section of your `eslintrc.cjs` file. For example:
 
 ```js
   // We modify the linting rules from the base for some specific things.

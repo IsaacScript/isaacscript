@@ -101,7 +101,7 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 ## Files
 
-### `.eslintrc.js`
+### `.eslintrc.cjs`
 
 This is the configuration file for [ESLint](https://eslint.org/), the TypeScript linter.
 
@@ -133,7 +133,7 @@ This contains a list of files that should not be automatically formatted. By def
 
 <br />
 
-### `.prettierrc.js`
+### `.prettierrc.cjs`
 
 This is the configuration file for Prettier.
 

@@ -1,5 +1,7 @@
 // This is the configuration file for Prettier, the auto-formatter:
 // https://prettier.io/docs/en/configuration.html
+
+/** @type {import("prettier").Config} */
 module.exports = {
   // Always print trailing commas:
   // https://prettier.io/docs/en/options.html#trailing-commas
@@ -20,7 +22,12 @@ module.exports = {
   // https://github.com/prettier/prettier/issues/5708
   overrides: [
     {
-      files: ["**/.vscode/*.json", "**/tsconfig.json", "**/tsconfig.*.json"],
+      files: [
+        "**/.vscode/*.json",
+        "**/tsconfig.json",
+        "**/tsconfig.*.json",
+        "**/typedoc.json",
+      ],
       options: {
         parser: "json5",
         quoteProps: "preserve",

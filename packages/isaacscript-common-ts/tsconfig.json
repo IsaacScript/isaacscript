@@ -10,7 +10,7 @@
     "declarationMap": true,
   },
 
-  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
+  // Nx will not include ".eslintrc.cjs" in the build output, so there is no need for a
   // "tsconfig.eslint.json" file.
-  "include": ["./src/**/*.ts", ".eslintrc.js"],
+  "include": ["./src/**/*.ts", ".eslintrc.cjs"],
 }

@@ -15,8 +15,8 @@ This project is written in [TypeScript](https://www.typescriptlang.org/).
 ## Install / Usage
 
 - `npm install --save-dev eslint eslint-plugin-isaacscript`
-- Add `"plugin:isaacscript/recommended"` to the `extends` section of your `.eslintrc.js` file. (This will automatically add the plugin and add all of the recommended rules.)
-  - Alternatively, if you want to only enable some specific rules, then add `"isaacscript"` to the `plugins` section of your `.eslintrc.js` file, and then add the specific rules that you want in the `rules` section.
+- Add `"plugin:isaacscript/recommended"` to the `extends` section of your `.eslintrc.cjs` file. (This will automatically add the plugin and add all of the recommended rules.)
+  - Alternatively, if you want to only enable some specific rules, then add `"isaacscript"` to the `plugins` section of your `.eslintrc.cjs` file, and then add the specific rules that you want in the `rules` section.
 
 <br>
 
