@@ -46,4 +46,7 @@ module.exports = {
   // The default is "struct". However, whitespace cannot be reformatted unless this is set to
   // "ignore".
   xmlWhitespaceSensitivity: "ignore",
+
+  // pnpm requires that the plugin is explicitly loaded.
+  plugins: [require.resolve("prettier-plugin-organize-imports")],
 };
