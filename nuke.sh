@@ -42,6 +42,6 @@ elif [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && ! -z "$PNPM_LOCK_EXIS
 elif
   echo "Error: Multiple different kinds of package manager lock files were found. You should manually invoke the package manager that you want to use for this project."
   exit 1
-end
+fi
 
 echo "Successfully reinstalled Node dependencies."
