@@ -15,6 +15,7 @@
     "dist/**",
     "node_modules/**",
     "package-lock.json",
+    "pnpm-lock.yaml",
     "mod/main.lua",
     "mod/content/rooms/**",
     "mod/resources/rooms/**",

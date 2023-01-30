@@ -16,6 +16,7 @@
     "package-lock.json",
     "packages/docs/docs/isaacscript-common/**",
     "packages/docs/docs/isaac-typescript-definitions/**",
+    "pnpm-lock.yaml",
     "yarn.lock"
   ]
 }
