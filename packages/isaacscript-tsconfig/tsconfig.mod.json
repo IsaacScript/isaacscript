@@ -21,4 +21,11 @@
     // the standard library.
     "experimentalDecorators": true,
   },
+
+  // TypeScriptToLua settings
+  "tstl": {
+    // Remove the many duplicated comments of:
+    // "--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]"
+    "noHeader": true,
+  },
 }
