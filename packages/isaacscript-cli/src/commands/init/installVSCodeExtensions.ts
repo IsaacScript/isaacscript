@@ -9,6 +9,13 @@ export function installVSCodeExtensions(
   VSCodeCommand: string,
   verbose: boolean,
 ): void {
+  // Installing extensions from inside WSL on Windows will result in the VSCode process never
+  // exiting for some reason. Thus, skip this step on Linux. (Linux users will probably be smart
+  // enough to install the extensions on their own.)
+  if (process.platform === "linux") {
+    return;
+  }
+
   const extensions = getExtensionsFromJSON(projectPath, verbose);
   for (const extensionName of extensions) {
     execShell(VSCodeCommand, ["--install-extension", extensionName], verbose);
