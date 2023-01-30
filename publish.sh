@@ -9,7 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 # First, validate that we are logged in to npm.
-npm whoami
+npm whoami > /dev/null
 
 if [ -z "$1" ]; then
   echo "Error: The package name is required."
