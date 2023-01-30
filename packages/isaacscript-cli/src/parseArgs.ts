@@ -35,8 +35,8 @@ export interface Args {
 export function parseArgs(): Args {
   const yargsObject = yargs(process.argv.slice(2))
     .strict()
-    .usage("usage: isaacscript <command> [options]")
-    .scriptName("isaacscript")
+    .usage(`usage: ${PROJECT_NAME.toLowerCase()} <command> [options]`)
+    .scriptName(PROJECT_NAME.toLowerCase())
 
     .alias("h", "help") // By default, only "--help" is enabled.
     .alias("V", "version") // By default, only "--version" is enabled.
