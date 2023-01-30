@@ -33,14 +33,17 @@ if test -d "$NODE_MODULES"; then
   echo "Successfully deleted: $NODE_MODULES"
 fi
 
-if [[ ! -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+if [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+  echo "No package manager lock files were found. You should manually invoke the package manager that you want to use for this project. e.g. \"npm install\""
+  exit 1
+elif [[ ! -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
   npm install
 elif [[ -z "$NPM_LOCK_EXISTS" && ! -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
   yarn install
 elif [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && ! -z "$PNPM_LOCK_EXISTS" ]]; then
   pnpm install
-elif
-  echo "Error: Multiple different kinds of package manager lock files were found. You should manually invoke the package manager that you want to use for this project."
+else
+  echo "Error: Multiple different kinds of package manager lock files were found. You should manually invoke the package manager that you want to use for this project. e.g. \"npm install\""
   exit 1
 fi
 
