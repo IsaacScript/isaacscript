@@ -2163,6 +2163,14 @@ export enum BloodExplosionSubType {
   SWIRL = 5,
 }
 
+/** For `EntityType.EFFECT` (1000), `EffectVariant.BLOOD_PARTICLE` (5). */
+export enum GibSubType {
+  BLOOD = 0,
+  BONE = 1,
+  GUT = 2,
+  EYE = 3,
+}
+
 /** For `EntityType.EFFECT` (1000), `EffectVariant.POOF_1` (15). */
 export enum PoofSubType {
   NORMAL = 0,
