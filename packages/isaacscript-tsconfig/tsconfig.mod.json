@@ -22,10 +22,6 @@
     "experimentalDecorators": true,
   },
 
-  // TypeScriptToLua settings
-  "tstl": {
-    // Remove the many duplicated comments of:
-    // "--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]"
-    "noHeader": true,
-  },
+  // We cannot add values to the "tstl" object here (for TypeScriptToLua), since the entire object
+  // will be overridden when it is specified in end-user mods.
 }
