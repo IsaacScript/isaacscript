@@ -11,6 +11,7 @@ import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML";
 import { getInputString, getInputYesNo } from "../../prompt";
 import { parseSemVer } from "../../utils";
 
+// Versions prior to this do not work properly with: `git branch --move --force main`
 const REQUIRED_GIT_MAJOR_VERSION = 2;
 const REQUIRED_GIT_MINOR_VERSION = 30;
 
@@ -207,7 +208,13 @@ export function initGitRepository(
   }
 
   execShell("git", ["init"], verbose, false, projectPath);
-  execShell("git", ["branch", "-M", "main"], verbose, false, projectPath);
+  execShell(
+    "git",
+    ["branch", "--move", "--force", "main"],
+    verbose,
+    false,
+    projectPath,
+  );
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
