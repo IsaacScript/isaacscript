@@ -22,6 +22,11 @@ export async function promptVSCode(
     return;
   }
 
+  // The VSCode command does not work properly inside WSL on Windows.
+  if (process.platform === "linux") {
+    return;
+  }
+
   const shouldOpenVSCode = await getInputYesNo(
     "Do you want to open your new project in VSCode now?",
   );
