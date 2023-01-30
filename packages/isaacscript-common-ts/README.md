@@ -10,6 +10,6 @@ For more information about IsaacScript, see the [official website](https://isaac
 
 ## `tslib` / `importHelpers`
 
-This library uses the [`importHelpers`](https://www.typescriptlang.org/tsconfig#importHelpers) TypeScript compiler flag. Thus, if you use it in your project, you also need to put this flag in your "tsconfig.json" file and include `tslib` as a dependency in your "package.json" file.
+This library uses the [`importHelpers`](https://www.typescriptlang.org/tsconfig#importHelpers) TypeScript compiler flag. Thus, if you use this library in your project, you also need to put this flag in your "tsconfig.json" file and include `tslib` as a dependency in your "package.json" file.
 
 This is an optimization that is [recommended by the authors of TypeScript](https://github.com/Microsoft/tslib).
