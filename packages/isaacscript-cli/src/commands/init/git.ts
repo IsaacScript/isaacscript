@@ -4,7 +4,7 @@ import { error } from "isaacscript-common-ts";
 import path from "path";
 import yaml from "yaml";
 import { version as toolVersion } from "../../../package.json";
-import { PROJECT_NAME } from "../../constants";
+import { HOME_DIR, PROJECT_NAME } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
 import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML";
@@ -150,12 +150,11 @@ function getGitHubUsername(verbose: boolean) {
     return undefined;
   }
 
-  const appData = process.env["APPDATA"];
-  if (appData === undefined || appData === "") {
+  const githubCLIHostsPath = getGithubCLIHostsPath();
+  if (githubCLIHostsPath === undefined) {
     return undefined;
   }
 
-  const githubCLIHostsPath = path.join(appData, "GitHub CLI", "hosts.yml");
   if (!file.exists(githubCLIHostsPath, verbose)) {
     return undefined;
   }
@@ -174,6 +173,20 @@ function getGitHubUsername(verbose: boolean) {
   }
 
   return user;
+}
+
+function getGithubCLIHostsPath(): string | undefined {
+  if (process.platform === "win32") {
+    const appData = process.env["APPDATA"];
+    if (appData === undefined || appData === "") {
+      return undefined;
+    }
+
+    return path.join(appData, "GitHub CLI", "hosts.yml");
+  }
+
+  // The location is the same on both macOS and Linux.
+  return path.join(HOME_DIR, ".config", "gh", "hosts.yml");
 }
 
 function getGitRemoteURL(projectName: string, gitHubUsername: string) {
