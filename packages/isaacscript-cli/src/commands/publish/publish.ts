@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
+import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "path";
 import { Config } from "../../classes/Config";
 import {
@@ -19,7 +19,7 @@ import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
-import { getModTargetDirectoryName, parseSemVer } from "../../utils";
+import { getModTargetDirectoryName } from "../../utils";
 import { compileAndCopy } from "../copy/copy";
 import { gitCommitIfChanges, isGitDirty } from "../init/git";
 
@@ -194,7 +194,12 @@ function getVersionFromPackageJSON(verbose: boolean) {
 }
 
 function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
-  const { majorVersion, minorVersion, patchVersion } = parseSemVer(version);
+  const semanticVersion = parseSemanticVersion(version);
+  if (semanticVersion === undefined) {
+    error(`Failed to parse the version in the "package.json" file: ${version}`);
+  }
+
+  const { majorVersion, minorVersion, patchVersion } = semanticVersion;
 
   const incrementedPatchVersion = patchVersion + 1;
   const incrementedVersion = `${majorVersion}.${minorVersion}.${incrementedPatchVersion}`;

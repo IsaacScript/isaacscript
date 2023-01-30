@@ -1,6 +1,6 @@
 import chalk from "chalk";
+import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import { PROJECT_NAME } from "./constants";
-import { parseSemVer } from "./utils";
 
 const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
 
@@ -11,7 +11,12 @@ const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
 export function validateNodeVersion(): void {
   const { version } = process;
 
-  const { majorVersion } = parseSemVer(version);
+  const semanticVersion = parseSemanticVersion(version);
+  if (semanticVersion === undefined) {
+    error(`Failed to parse the node version: ${version}`);
+  }
+
+  const { majorVersion } = semanticVersion;
   if (majorVersion >= REQUIRED_NODE_JS_MAJOR_VERSION) {
     return;
   }

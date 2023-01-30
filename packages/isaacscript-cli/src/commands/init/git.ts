@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
-import { error } from "isaacscript-common-ts";
+import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "path";
 import yaml from "yaml";
 import { version as toolVersion } from "../../../package.json";
@@ -9,7 +9,6 @@ import { execShell } from "../../exec";
 import * as file from "../../file";
 import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML";
 import { getInputString, getInputYesNo } from "../../prompt";
-import { parseSemVer } from "../../utils";
 
 // Versions prior to this do not work properly with: `git branch --move --force main`
 const REQUIRED_GIT_MAJOR_VERSION = 2;
@@ -123,9 +122,13 @@ function validateNewGitVersion(verbose: boolean) {
     );
   }
 
-  const gitVersionString = stdout.slice(outputPrefix.length);
-  const { majorVersion, minorVersion } = parseSemVer(gitVersionString);
+  const gitVersion = stdout.slice(outputPrefix.length);
+  const semanticVersion = parseSemanticVersion(gitVersion);
+  if (semanticVersion === undefined) {
+    error(`Failed to parse the Git version: ${gitVersion}`);
+  }
 
+  const { majorVersion, minorVersion } = semanticVersion;
   if (
     majorVersion >= REQUIRED_GIT_MAJOR_VERSION &&
     minorVersion >= REQUIRED_GIT_MINOR_VERSION
@@ -133,7 +136,7 @@ function validateNewGitVersion(verbose: boolean) {
     return;
   }
 
-  console.error(`Your Git version is: ${chalk.red(gitVersionString)}`);
+  console.error(`Your Git version is: ${chalk.red(gitVersion)}`);
   console.error(
     `${PROJECT_NAME} requires a Git version of ${chalk.red(
       `${REQUIRED_GIT_MAJOR_VERSION}.${REQUIRED_GIT_MINOR_VERSION}.0`,
