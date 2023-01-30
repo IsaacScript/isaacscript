@@ -1,18 +1,10 @@
 import os from "os";
 import path from "path";
 
-const cwd = process.cwd();
-
-/**
- * From:
- * https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
- */
-const homeDir = os.homedir();
-
 // Miscellaneous
-export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
-export const CWD = cwd;
-export const HOME_DIR = homeDir;
+export const CWD = process.cwd();
+export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
+export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const MOD_UPLOADER_PATH =
   "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
