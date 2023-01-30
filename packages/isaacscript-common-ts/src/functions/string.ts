@@ -22,8 +22,13 @@ export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
 }
 
-/** Helper function to parse a Semantic Versioning string into its individual constituents. */
-export function parseSemVer(versionString: string):
+/**
+ * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
+ * undefined if the submitted string was not a proper Semantic Version string.
+ *
+ * https://semver.org/
+ */
+export function parseSemanticVersion(versionString: string):
   | {
       majorVersion: number;
       minorVersion: number;
