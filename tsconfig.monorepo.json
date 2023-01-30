@@ -1,15 +1,16 @@
 // This is a tsconfig.json intended to be used by packages in this monorepo.
 {
   // We extend the base IsaacScript config:
-  // https://github.com/IsaacScript/isaacscript/blog/main/packages/isaacscript-tsconfig/tsconfig.base.json
+  // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
   "extends": "./packages/isaacscript-tsconfig/tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "rootDir": ".",
-    "importHelpers": true,
-    "skipDefaultLibCheck": true,
     "baseUrl": ".",
+
+    // Performance optimization; see: https://www.npmjs.com/package/tslib
+    "importHelpers": true,
 
     // TypeScript paths do not work properly with TSTL, so we cannot add
     // "isaac-typescript-definitions".
