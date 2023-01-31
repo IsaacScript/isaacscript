@@ -20,6 +20,13 @@
     "**/node_modules/": true,
   },
 
+  // ------------------
+  // Extension settings
+  // ------------------
+
+  // Use Prettier to format "cspell.json".
+  "cSpell.autoFormatConfigFile": true,
+
   // -----------------
   // Language settings
   // -----------------

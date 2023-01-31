@@ -18,6 +18,8 @@
     "gitattributes": "properties",
     "gitignore": "ignore",
     "typedoc.json": "jsonc", // TypeDoc uses the JSONC parser for its configuration files.
+    "settings-typescript.json": "jsonc",
+    "extensions-typescript.json": "jsonc",
   },
 
   // We want to always use "lf" to be consistent with all platforms.
@@ -33,6 +35,13 @@
     "**/dist/": true,
     "**/node_modules/": true,
   },
+
+  // ------------------
+  // Extension settings
+  // ------------------
+
+  // Use Prettier to format "cspell.json".
+  "cSpell.autoFormatConfigFile": true,
 
   // -----------------
   // Language settings
