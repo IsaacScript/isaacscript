@@ -129,9 +129,7 @@ export function round(num: float, numDecimalPlaces = 0): float {
   return roundedNum === undefined ? 0 : roundedNum;
 }
 
-/**
- * @returns 1 if n is positive, -1 if n is negative, or 0 if n is 0.
- */
+/** @returns 1 if n is positive, -1 if n is negative, or 0 if n is 0. */
 export function sign(n: number): int {
   if (n > 0) {
     return 1;

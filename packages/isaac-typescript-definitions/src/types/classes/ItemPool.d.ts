@@ -52,9 +52,7 @@ declare global {
      */
     GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
 
-    /**
-     * @param dontAdvanceRNG Default is false.
-     */
+    /** @param dontAdvanceRNG Default is false. */
     GetTrinket(dontAdvanceRNG?: boolean): TrinketType;
 
     IdentifyPill(pillColor: PillColor): void;

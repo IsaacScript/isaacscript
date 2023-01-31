@@ -316,9 +316,7 @@ declare global {
     AreControlsEnabled(): boolean;
     AreOpposingShootDirectionsPressed(): boolean;
 
-    /**
-     * @param collectibleType Default is `CollectibleType.NULL`.
-     */
+    /** @param collectibleType Default is `CollectibleType.NULL`. */
     CanAddCollectible(collectibleType?: CollectibleType): boolean;
 
     /** Returns true if the player can pick up black hearts, false otherwise. */
@@ -529,9 +527,7 @@ declare global {
      */
     FullCharge(activeSlot?: ActiveSlot, force?: boolean): boolean;
 
-    /**
-     * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
-     */
+    /** @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`. */
     GetActiveCharge(activeSlot?: ActiveSlot): int;
 
     /**
@@ -552,9 +548,7 @@ declare global {
     GetAimDirection(): Readonly<Vector>;
     GetBabySkin(): BabySubType;
 
-    /**
-     * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
-     */
+    /** @param activeSlot Default is ActiveSlot.SLOT_PRIMARY. */
     GetBatteryCharge(activeSlot?: ActiveSlot): int;
 
     /** Returns the bit mask for which soul hearts are black hearts. */
@@ -874,9 +868,7 @@ declare global {
     HasGoldenBomb(): boolean;
     HasGoldenKey(): boolean;
 
-    /**
-     * @param damageFlag Default is 0.
-     */
+    /** @param damageFlag Default is 0. */
     HasInvincibility(damageFlag?: DamageFlag | BitFlags<DamageFlag>): boolean;
 
     HasPlayerForm(playerForm: PlayerForm): boolean;

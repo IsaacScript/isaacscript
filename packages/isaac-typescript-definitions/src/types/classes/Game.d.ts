@@ -174,9 +174,7 @@ declare global {
     GetHUD(): HUD;
     GetItemPool(): ItemPool;
 
-    /**
-     * @deprecated This method is bugged and returns useless `userdata`.
-     */
+    /** @deprecated This method is bugged and returns useless `userdata`. */
     GetLastDevilRoomStage(fakeArg: never): LevelStage;
 
     GetLastLevelWithDamage(): LevelStage;
@@ -186,9 +184,7 @@ declare global {
     GetNumEncounteredBosses(): int;
     GetNumPlayers(): int;
 
-    /**
-     * @deprecated Use the `Isaac.GetPlayer` method instead.
-     */
+    /** @deprecated Use the `Isaac.GetPlayer` method instead. */
     GetPlayer(index: int, fakeArg: never): EntityPlayer | undefined;
 
     GetRandomPlayer(position: Vector, radius: float): EntityPlayer;

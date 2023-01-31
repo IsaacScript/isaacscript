@@ -46,9 +46,7 @@ declare global {
     PlayDropSound(): void;
     PlayPickupSound(): void;
 
-    /**
-     * @param player Default is undefined.
-     */
+    /** @param player Default is undefined. */
     TryOpenChest(player?: EntityPlayer): boolean;
 
     AutoUpdatePrice: boolean;

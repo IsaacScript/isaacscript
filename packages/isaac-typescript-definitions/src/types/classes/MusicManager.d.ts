@@ -12,9 +12,7 @@ declare global {
 
     Disable(): void;
 
-    /**
-     * @param layerID Default is 0.
-     */
+    /** @param layerID Default is 0. */
     DisableLayer(layerID?: int): void;
 
     Enable(): void;
@@ -32,18 +30,14 @@ declare global {
      */
     Fadein(music: Music, volume?: float, fadeRate?: float): void;
 
-    /**
-     * @param fadeRate Default is 0.08.
-     */
+    /** @param fadeRate Default is 0.08. */
     Fadeout(fadeRate?: float): void;
 
     GetCurrentMusicID(): Music;
     GetQueuedMusicID(): Music;
     IsEnabled(): boolean;
 
-    /**
-     * @param layerID Default is 0.
-     */
+    /** @param layerID Default is 0. */
     IsLayerEnabled(layerID?: int): boolean;
 
     Pause(): void;

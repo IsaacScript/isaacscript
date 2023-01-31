@@ -81,9 +81,7 @@ declare global {
      */
     GetEnemyDamageInflicted(): int;
 
-    /**
-     * @deprecated Use the `Isaac.GetRoomEntities` method instead.
-     */
+    /** @deprecated Use the `Isaac.GetRoomEntities` method instead. */
     GetEntities(fakeArg: never): EntityList;
 
     GetFrameCount(): int;

@@ -25,9 +25,7 @@ declare global {
    * @noSelf
    */
   namespace Isaac {
-    /**
-     * @deprecated Use the `Mod.AddCallback` method instead.
-     */
+    /** @deprecated Use the `Mod.AddCallback` method instead. */
     function AddCallback<T extends ModCallback | string>(
       mod: Mod,
       modCallback: T,
@@ -36,9 +34,7 @@ declare global {
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
 
-    /**
-     * @deprecated Use the `Mod.AddPriorityCallback` method instead.
-     */
+    /** @deprecated Use the `Mod.AddPriorityCallback` method instead. */
     function AddPriorityCallback<T extends ModCallback | string>(
       mod: Mod,
       modCallback: T,
@@ -439,9 +435,7 @@ declare global {
      */
     function LoadModData(mod: Mod): string;
 
-    /**
-     * @deprecated Use the global `RegisterMod` global function instead.
-     */
+    /** @deprecated Use the global `RegisterMod` global function instead. */
     function RegisterMod(
       mod: Mod,
       name: string,
@@ -449,6 +443,7 @@ declare global {
       fakeArg: never,
     ): void;
 
+    /** @deprecated Use the `Mod.RemoveCallback` method instead. */
     function RemoveCallback(
       mod: Mod,
       modCallback: ModCallback,
