@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { fork, spawn } from "child_process";
-import { error } from "isaacscript-common-ts";
+import { error, isRecord } from "isaacscript-common-ts";
 import path from "path";
 import * as touch from "touch";
 import { Config } from "../../classes/Config";
@@ -24,7 +24,7 @@ import {
 } from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { getFirstTSConfigIncludePath } from "../../tsconfig";
-import { getModTargetDirectoryName, isRecord } from "../../utils";
+import { getModTargetDirectoryName } from "../../utils";
 import { COMPILATION_SUCCESSFUL } from "./constants";
 import { copyWatcherMod } from "./copyWatcherMod";
 import * as notifyGame from "./notifyGame";

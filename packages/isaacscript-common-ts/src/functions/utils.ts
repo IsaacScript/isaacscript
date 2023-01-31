@@ -54,6 +54,13 @@ export function iRange(start: number, end?: number, increment = 1): number[] {
   return eRange(start, exclusiveEnd, increment);
 }
 
+/** Helper function to narrow `unknown` to `Record`. */
+export function isRecord(object: unknown): object is Record<string, unknown> {
+  return (
+    typeof object === "object" && object !== null && !Array.isArray(object)
+  );
+}
+
 /**
  * This is a more reliable version of `parseInt`. By default, `parseInt('1a')` will return "1",
  * which is unexpected. This returns either an integer or NaN.
