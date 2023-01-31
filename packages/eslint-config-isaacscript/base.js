@@ -493,4 +493,17 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    // Disable some TypeScript-specific rules in JavaScript files.
+    {
+      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+      rules: {
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+  ],
 };

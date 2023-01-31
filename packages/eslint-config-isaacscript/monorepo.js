@@ -16,6 +16,8 @@ module.exports = {
     tsconfigRootDir: REPO_ROOT,
   },
 
+  ignorePatterns: ["!.prettierrc.cjs"],
+
   rules: {
     "@nrwl/nx/enforce-module-boundaries": [
       "warn",
@@ -39,16 +41,4 @@ module.exports = {
       },
     ],
   },
-
-  overrides: [
-    {
-      files: [".eslintrc.cjs"],
-      rules: {
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/no-unsafe-call": "off",
-        "@typescript-eslint/no-unsafe-member-access": "off",
-        "@typescript-eslint/no-var-requires": "off",
-      },
-    },
-  ],
 };
