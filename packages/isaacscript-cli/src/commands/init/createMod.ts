@@ -112,7 +112,8 @@ function copyDynamicFiles(
     const ciYML = template
       .replace(/PACKAGE-MANAGER-NAME/g, packageManager)
       .replace(/PACKAGE-MANAGER-LOCK-FILE-NAME/, lockFileName)
-      .replace(/PACKAGE-MANAGER-INSTALL/, installCommand);
+      .replace(/PACKAGE-MANAGER-INSTALL/, installCommand)
+      .replace(/PROJECT-NAME/, projectName);
 
     const destinationPath = path.join(workflowsPath, fileName);
     file.write(destinationPath, ciYML, verbose);

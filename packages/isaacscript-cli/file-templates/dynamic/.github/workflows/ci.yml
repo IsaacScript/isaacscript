@@ -34,9 +34,21 @@ jobs:
       - name: Perform automated checks
         run: bash lint.sh
 
-  # To enable CI failure notifications over Discord, add a "DISCORD_WEBHOOK" secret to the
-  # repository equal to the URL for the webhook, and then uncomment the lines below.
-
+  # To enable CI failure notifications over Discord:
+  # - Right click on a channel in Discord and select "Edit Channel".
+  # - Click on "Integrations" on the left menu.
+  # - Click on the "Create Webhook" button.
+  # - Click on the box for the new webhook that was created.
+  # - Change the name to "GitHub".
+  # - Change the image to: https://github.com/IsaacScript/isaacscript/raw/main/misc/github.png
+  # - Click on the "Save Changes" button at the bottom.
+  # - Click on the "Copy Webhook URL" button.
+  # - Go to this page: https://github.com/Zamiell/PROJECT-NAME/settings/secrets/actions
+  # - Click on the "New repository secret" button in the top right.
+  # - For the "Name" box, use "DISCORD_WEBHOOK" (without the quotes).
+  # - For the "Secret" box, paste in the URL that was copied in the "Copy Webhook URL" step.
+  # - Click on the "Add secret" button.
+  # - Delete this comment and uncomment the lines below.
   #discord:
   #  name: Discord Failure Notification
   #  needs: [build_and_lint]
