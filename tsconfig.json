@@ -1,5 +1,7 @@
 // This is a copy of "packages/isaacscript-tsconfig/tsconfig.node.json", since configs can only be
-// extended from one place at a time.
+// extended from one place at a time. We name it "tsconfig.json" instead of "tsconfig.node.json" so
+// that monorepo scripts will automatically use the Node environment without having to specify it
+// explicitly.
 {
   "extends": "./tsconfig.monorepo.json",
 
