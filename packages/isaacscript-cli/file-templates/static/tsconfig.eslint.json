@@ -7,5 +7,6 @@
 
     // These are ESLint-only inclusions.
     "./.eslintrc.cjs",
+    "./.prettierrc.cjs",
   ],
 }
