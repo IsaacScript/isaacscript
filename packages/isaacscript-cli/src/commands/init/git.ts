@@ -3,7 +3,7 @@ import commandExists from "command-exists";
 import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "path";
 import yaml from "yaml";
-import { version as toolVersion } from "../../../package.json";
+import pkg from "../../../package.json";
 import { HOME_DIR, PROJECT_NAME } from "../../constants";
 import { execShell } from "../../exec";
 import * as file from "../../file";
@@ -221,7 +221,7 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${toolVersion} template`;
+    const commitMessage = `chore: add files from ${PROJECT_NAME} ${pkg.version} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],
