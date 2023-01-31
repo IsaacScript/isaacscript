@@ -310,12 +310,13 @@ function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
   }
 
   const roomFileList = file.getDirList(roomsPath, verbose);
-  roomFileList.forEach((fileName: string) => {
-    if (path.extname(fileName) === ".xml") {
-      const roomFilePath = path.join(roomsPath, fileName);
-      file.deleteFileOrDirectory(roomFilePath, verbose);
-    }
-  });
+  const xmlFiles = roomFileList.filter(
+    (fileName) => path.extname(fileName) === ".xml",
+  );
+  for (const xmlFile of xmlFiles) {
+    const roomFilePath = path.join(roomsPath, xmlFile);
+    file.deleteFileOrDirectory(roomFilePath, verbose);
+  }
 }
 
 function uploadMod(

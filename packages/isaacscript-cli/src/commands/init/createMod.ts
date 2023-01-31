@@ -63,13 +63,13 @@ export function createMod(
 /** Copy static files, like ".eslintrc.cjs", "tsconfig.json", etc. */
 function copyStaticFiles(projectPath: string, verbose: boolean) {
   const staticFileList = file.getDirList(TEMPLATES_STATIC_DIR, verbose);
-  staticFileList.forEach((fileName: string) => {
+  for (const fileName of staticFileList) {
     const templateFilePath = path.join(TEMPLATES_STATIC_DIR, fileName);
     const destinationFilePath = path.join(projectPath, fileName);
     if (!file.exists(destinationFilePath, verbose)) {
       file.copy(templateFilePath, destinationFilePath, verbose);
     }
-  });
+  }
 
   // Rename ".eslintrc.template.js" to ".eslintrc.cjs". (If it is kept as ".eslintrc.cjs", then
   // local linting will fail.)

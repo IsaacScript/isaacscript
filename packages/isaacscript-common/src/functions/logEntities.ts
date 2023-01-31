@@ -99,7 +99,7 @@ export function logAllGridEntities(
 
   const gridEntities = getGridEntities();
   let numMatchedEntities = 0;
-  gridEntities.forEach((gridEntity) => {
+  for (const gridEntity of gridEntities) {
     const gridEntityIndex = gridEntity.GetGridIndex();
     const gridEntityType = gridEntity.GetType();
 
@@ -108,7 +108,7 @@ export function logAllGridEntities(
       gridEntityTypeFilter !== undefined &&
       gridEntityType !== gridEntityTypeFilter
     ) {
-      return;
+      continue;
     }
 
     if (
@@ -116,13 +116,13 @@ export function logAllGridEntities(
       gridEntityType === GridEntityType.WALL &&
       gridEntityTypeFilter !== GridEntityType.WALL
     ) {
-      return;
+      continue;
     }
 
     msg += getGridEntityLogLine(gridEntity, gridEntityIndex);
 
     numMatchedEntities++;
-  });
+  }
 
   if (numMatchedEntities === 0) {
     msg += "(no grid entities matched)\n";
