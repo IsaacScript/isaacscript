@@ -39,7 +39,6 @@ async function main(): Promise<void> {
   validateOS();
   loadEnvironmentVariables();
 
-  // Get command line arguments.
   const args = parseArgs();
   const verbose = args.verbose === true;
 

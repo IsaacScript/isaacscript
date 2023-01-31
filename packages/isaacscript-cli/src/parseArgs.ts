@@ -32,6 +32,7 @@ export interface Args {
   verbose?: boolean;
 }
 
+/** Parse command-line arguments. */
 export function parseArgs(): Args {
   const yargsObject = yargs(process.argv.slice(2))
     .strict()
