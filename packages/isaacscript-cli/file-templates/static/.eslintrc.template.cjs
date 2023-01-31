@@ -7,6 +7,7 @@ module.exports = {
     "eslint-config-isaacscript/mod",
   ],
 
+  // The ".prettierrc.cjs" file is ignored by default, so we have to un-ignore it.
   ignorePatterns: ["!.prettierrc.cjs"],
 
   parserOptions: {

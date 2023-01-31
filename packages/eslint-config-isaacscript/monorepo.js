@@ -16,6 +16,7 @@ module.exports = {
     tsconfigRootDir: REPO_ROOT,
   },
 
+  // The ".prettierrc.cjs" file is ignored by default, so we have to un-ignore it.
   ignorePatterns: ["!.prettierrc.cjs"],
 
   rules: {
