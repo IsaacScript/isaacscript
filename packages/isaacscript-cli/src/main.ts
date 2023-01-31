@@ -6,7 +6,6 @@ import figlet from "figlet";
 import { error } from "isaacscript-common-ts";
 import path from "path";
 import sourceMapSupport from "source-map-support";
-import updateNotifier from "update-notifier";
 import pkg from "../package.json";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs";
 import { Config } from "./classes/Config";
@@ -43,9 +42,6 @@ async function main(): Promise<void> {
   const verbose = args.verbose === true;
 
   printBanner();
-
-  // Check for a new version.
-  updateNotifier({ pkg }).notify();
 
   // Pre-flight checks
   await checkForWindowsTerminalBugs(verbose);

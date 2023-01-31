@@ -13,7 +13,6 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - @nrwl/eslint-plugin-nx - See nx below.
-# - @types/update-notifier - Stuck until TypeScript supports ESM.
 # - chalk - Stuck until TypeScript supports ESM.
 # - nx - There is a bug in 15.6.1 that makes linting fail in CI.
 # - react - Stuck until Docusaurus upgrades.
@@ -21,7 +20,6 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - sort-package-json - Stuck until TypeScript supports ESM.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #   type in "package.json", and Docusaurus does not support this yet.
-# - update-notifier - Stuck until TypeScript supports ESM.
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
