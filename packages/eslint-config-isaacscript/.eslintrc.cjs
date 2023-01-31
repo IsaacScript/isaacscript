@@ -1,4 +1,4 @@
-const path = require("path"); // eslint-disable-line @typescript-eslint/no-var-requires
+const path = require("path");
 
 const REPO_ROOT = path.join(__dirname, "..", "..");
 const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
