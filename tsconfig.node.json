@@ -1,7 +1,7 @@
 // This is a copy of "packages/isaacscript-tsconfig/tsconfig.node.json", since configs can only be
 // extended from one place at a time.
 {
-  "extends": "./tsconfig.monorepo.json",
+  "extends": "./tsconfig.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
