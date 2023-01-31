@@ -127,16 +127,6 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
  * ```
  */
 function canFitOnSingleJSDocLine(text: string, effectiveMaxLength: number) {
-  // As a special case, JSDoc comments that specify parameter documentation should never be moved to
-  // a single line. (But JSDoc tags with no additional information are okay to be in a single line.)
-  const hasJSDocTag = text.startsWith("@");
-  if (hasJSDocTag) {
-    const tagHasSomethingAfterIt = text.includes(" ");
-    if (tagHasSomethingAfterIt) {
-      return false;
-    }
-  }
-
   const textLines = text.split("\n");
   return (
     textLines.length === 1 &&

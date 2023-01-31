@@ -448,16 +448,14 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with a short JSDoc tag with text",
+  name: "Using a single-line comment with a JSDoc tag with text",
   code: `
-/**
- * @param foo This is foo.
- */
+/** @param foo This is foo. */
   `,
 });
 
 valid.push({
-  name: "Using a multi-line comment with a short JSDoc tag without text",
+  name: "Using a single-line comment with a short JSDoc tag without text",
   code: `
 /** @foo */
   `,
