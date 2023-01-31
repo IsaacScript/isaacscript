@@ -19,6 +19,7 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@tsconfig/recommended": "^1.0.2",
     "@typescript-eslint/type-utils": "^5.49.0",
     "@typescript-eslint/types": "^5.49.0",
     "@typescript-eslint/utils": "^5.49.0",
