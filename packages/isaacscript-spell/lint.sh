@@ -10,14 +10,14 @@ SECONDS=0
 
 cd "$DIR"
 
-# Step 1 - Use Prettier to check formatting.
+# Use Prettier to check formatting.
 npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
-# Step 2 - Spell check every file using CSpell.
+# Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
 npx cspell --no-progress --no-summary .
 
-# Step 3 - Check dictionaries.
+# Check dictionaries.
 bash "$DIR/check-dictionaries.sh"
 
 echo "Successfully linted in $SECONDS seconds."

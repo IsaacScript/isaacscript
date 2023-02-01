@@ -10,14 +10,14 @@ SECONDS=0
 
 cd "$DIR"
 
-# Step 1 - Use Prettier to check formatting.
+# Use Prettier to check formatting.
 npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
 
-# Step 2 - Use ESLint to lint the JavaScript.
+# Use ESLint to lint the JavaScript.
 # We use "--max-warnings" so that any warnings will fail in CI.
 npx eslint --max-warnings 0 .
 
-# Step 3 - Spell check every file using CSpell.
+# Spell check every file using CSpell.
 # We use "--no-progress" and "--no-summary" because we want to only output errors.
 npx cspell --no-progress --no-summary .
 

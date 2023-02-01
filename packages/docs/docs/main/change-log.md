@@ -1505,7 +1505,7 @@ If you decide to upgrade `isaacscript-lint` in your existing projects, you shoul
 4. Add the following to the `lint.sh` file:
 
 ```bash
-# Step 1 - Use Prettier to check formatting
+# Use Prettier to check formatting
 npx prettier --check "src/**/*.ts"
 ```
 
