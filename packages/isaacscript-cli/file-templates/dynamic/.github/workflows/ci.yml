@@ -34,6 +34,15 @@ jobs:
       - name: Perform automated checks
         run: bash lint.sh
 
+      # To enable publishing in CI, follow the instructions here:
+      # https://github.com/IsaacScript/isaac-steam-workshop-upload
+      # Then, uncomment the lines below.
+      #- name: Upload the mod to Steam Workshop (if this is a release commit)
+      #  uses: IsaacScript/isaac-steam-workshop-upload@v1
+      #  if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
+      #  env:
+      #    CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
+
   # To enable CI failure notifications over Discord:
   # - Right click on a channel in Discord and select "Edit Channel".
   # - Click on "Integrations" on the left menu.
