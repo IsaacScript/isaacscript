@@ -6,7 +6,7 @@ Isaac mods are published to the [Steam Workshop](https://steamcommunity.com/app/
 
 However, for large mods, there are often other tasks that need to be performed before pushing the files to the Steam Workshop. `isaacscript` contains a `publish` command that may be useful to you. It will perform the following steps:
 
-- Update all npm dependencies (e.g. in the "package.json" file)
+- Update all npm dependencies (e.g. in the "package.json" file).
 - Bump the version in the "src/constants.ts" file (if it exists).
   - It looks for a line that looks something like: `export const VERSION = "v1.0.0";`
 - Bump the version in the "mod/metadata.xml" file.
@@ -16,7 +16,7 @@ However, for large mods, there are often other tasks that need to be performed b
 - Copy everything from the source mod directory to the destination mod directory (i.e. "project/mod" --> "mods/project").
 - Run the Python script located at "scripts/publish_post_copy.py" (if it exists).
 - Commit all changes in Git and push.
-- Run "steamcmd.exe" to automatically publish the new version of the mod to the Steam Workshop.
-  - The mod must already be published to the Steam Workshop for this to work.
 
-Furthermore, run `npx isaacscript publish --help` to see additional flags that may be passed to the `publish` command.
+Run `npx isaacscript publish --help` to see additional flags that may be passed to the `publish` command.
+
+Additionally, we recommend that you set up [automatic mod uploading in CI](https://github.com/IsaacScript/isaac-steam-workshop-upload).

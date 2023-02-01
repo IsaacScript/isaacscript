@@ -18,9 +18,6 @@ export class Config {
    */
   customTargetModDirectoryName?: string;
 
-  /** The path to "steamcmd.exe". This is optional and only needed for automating publishing. */
-  steamCmdPath?: string;
-
   /**
    * When your code is recompiled, IsaacScript watcher can restart the game to ensure that any
    * run-related variables are properly reset. This is set to true by default.

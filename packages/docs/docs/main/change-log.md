@@ -9,7 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## January 29th, 2022 (Unreleased)
+## February 7th, 2023 (Unreleased)
+
+- Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
+- Removed support for `steamcmd` from the `publish` command.
+
+## January 31st, 2023
 
 - The custom stages feature now accepts `music` as an option in the `tsconfig.json` file.
 - Collectible helper functions that take an argument of `CollectibleType` now also accept the collectible itself.
@@ -29,7 +34,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following custom console commands:
   - `music`
 
-## January 22nd, 2022
+## January 22nd, 2023
 
 - The functions from `ISCFeature.RUN_IN_N_FRAMES` now take an optional parameter to cancel the function if a new room is loaded.
 - The `log` functions no longer take a `self` argument, so they can be used more easily while debugging.
@@ -97,7 +102,7 @@ This page lists the changes to the IsaacScript framework.
 - Some linting rules have been changed:
   - `require-capital-const-assertions` - Now applies to arrays.
 
-## January 13th, 2022
+## January 13th, 2023
 
 - Added the following helper functions:
   - `playerHasForm`
@@ -129,7 +134,7 @@ This page lists the changes to the IsaacScript framework.
   - `isaacscript/no-implicit-map-set-loops` --> `isaacscript/no-explicit-map-set-loops`
   - The `complete-sentences-jsdoc` and `complete-sentences-line-comments` lint rules will now catch sentences that end with a double period.
 
-## January 6th, 2022
+## January 6th, 2023
 
 - The `ModFeature` class now has a `shouldCallbackMethodsFire` property that you can override if you want to have all of your callback methods run conditionally.
 - `spawn` and all of the related helper functions will now accept a grid index in place of a position vector.

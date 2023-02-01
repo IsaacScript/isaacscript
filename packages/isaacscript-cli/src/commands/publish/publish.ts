@@ -3,8 +3,8 @@ import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "path";
 import { Config } from "../../classes/Config";
 import {
-  CONFIG_FILE_NAME,
   CONSTANTS_TS_PATH,
+  CWD,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
@@ -42,7 +42,7 @@ export async function publish(args: Args, config: Config): Promise<void> {
   validateIsaacScriptOtherCopiesNotRunning(verbose);
 
   if (onlyUpload) {
-    uploadMod(modTargetPath, config.steamCmdPath, verbose);
+    uploadMod(modTargetPath, verbose);
     return;
   }
 
@@ -51,7 +51,6 @@ export async function publish(args: Args, config: Config): Promise<void> {
     modTargetPath,
     skipVersionIncrement,
     setVersion,
-    config.steamCmdPath,
     dryRun,
     packageManager,
     verbose,
@@ -109,7 +108,6 @@ async function startPublish(
   modTargetPath: string,
   skipVersionIncrement: boolean,
   setVersion: string | undefined,
-  steamCmdPath: string | undefined,
   dryRun: boolean,
   packageManager: PackageManager,
   verbose: boolean,
@@ -141,7 +139,7 @@ async function startPublish(
 
   if (!dryRun) {
     gitCommitIfChanges(version, verbose);
-    uploadMod(modTargetPath, steamCmdPath, verbose);
+    uploadMod(modTargetPath, verbose);
   }
 
   const dryRunSuffix = dryRun ? " (dry run)" : "";
@@ -307,88 +305,32 @@ function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
   }
 }
 
-function uploadMod(
-  modTargetPath: string,
-  steamCmdPath: string | undefined,
-  verbose: boolean,
-) {
-  if (steamCmdPath === undefined) {
-    console.log(
-      `The "steamCmdPath" field was not found in the "${chalk.green(
-        CONFIG_FILE_NAME,
-      )}" file; assuming that we want to use the ModUploader tool.`,
-    );
-    execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
-  } else {
-    runSteamCmd(modTargetPath, steamCmdPath, verbose);
-  }
-}
-
-function runSteamCmd(
-  modTargetPath: string,
-  steamCmdPath: string,
-  verbose: boolean,
-) {
-  if (!file.exists(steamCmdPath, verbose)) {
-    error(
-      chalk.red(
-        `The path provided for "steamCmdPath" is "${steamCmdPath}", but that does not exist.`,
-      ),
-    );
+function uploadMod(modTargetPath: string, verbose: boolean) {
+  if (hasIsaacSteamWorkshopUploadGitHubAction(verbose)) {
+    // CI will automatically upload the new version to the Steam Workshop, so there is no need to
+    // open the mod uploader program.
+    return;
   }
 
-  const metadataVDFPath = path.join(modTargetPath, "metadata.vdf");
-  if (!file.exists(metadataVDFPath, verbose)) {
-    console.error(
-      chalk.red(
-        `A "metadata.vdf" file was not found in your mod directory. You must create this file in order for "steamcmd.exe" to work. Please see the ${PROJECT_NAME} docs:`,
-      ),
-    );
-    error(getIsaacScriptDocs());
-  }
-
-  const usernameVar = "STEAM_USERNAME";
-  const username = process.env[usernameVar];
-  if (username === undefined || username === "") {
-    console.error(
-      chalk.red(
-        `Failed to read the "${usernameVar}" environment variable from the ".env" file. Please see the ${PROJECT_NAME} docs:`,
-      ),
-    );
-    error(getIsaacScriptDocs());
-  }
-
-  const passwordVar = "STEAM_PASSWORD";
-  const password = process.env[passwordVar];
-  if (password === undefined || password === "") {
-    console.error(
-      chalk.red(
-        `Failed to read the "${passwordVar}" environment variable from the ".env" file. Please see the ${PROJECT_NAME} docs:`,
-      ),
-    );
-    error(getIsaacScriptDocs());
-  }
-
-  console.log("Uploading the mod to the Steam Workshop...");
-
-  execShell(
-    steamCmdPath,
-    [
-      "+login",
-      username,
-      password,
-      "+workshop_build_item",
-      metadataVDFPath,
-      "+quit",
-    ],
-    verbose,
+  console.log(
+    `The "isaac-steam-workshop-upload" action was not found in the "${chalk.green(
+      "ci.yml",
+    )}" file; assuming that we want to use the ModUploader tool.`,
   );
-
-  console.log("Mod uploaded successfully.");
+  execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
 }
 
-function getIsaacScriptDocs() {
-  return chalk.red(
-    "https://isaacscript.github.io/docs/publishing-to-the-workshop/#metadatavdf",
+function hasIsaacSteamWorkshopUploadGitHubAction(verbose: boolean): boolean {
+  const ciYMLPath = path.join(CWD, ".github", "workflows", "ci.yml");
+  if (!file.exists(ciYMLPath, verbose)) {
+    return false;
+  }
+
+  const ciYML = file.read(ciYMLPath, verbose);
+  const lines = ciYML.split("\n");
+
+  return lines.some(
+    (line) =>
+      line.match(/^\s*uses: IsaacScript\/isaac-steam-workshop-upload/) !== null,
   );
 }

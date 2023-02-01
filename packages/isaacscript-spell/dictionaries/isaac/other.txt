@@ -5,6 +5,7 @@ Begottens
 Bethanys
 Bonies
 Chronometrics # Creator of Basement Renovator
+contentfolder # metadata.vdf
 craftable
 Cucco # Job developer
 datagrams
@@ -50,6 +51,7 @@ proc
 procs
 propget # Key of userdata
 propset # Key of userdata
+publishedfileid # metadata.vdf
 Raglings
 respawn
 respawned
@@ -71,6 +73,7 @@ speedrunners
 speedrunning
 speedruns
 Spitties
+steamcmd # For uploading/publishing
 Stonies
 teleporters
 teleporting
@@ -82,3 +85,4 @@ Turdlings
 unseed
 Uriels
 Wofsauge # External Item Descriptions developer
+workshopitem # metadata.vdf
