@@ -403,19 +403,14 @@ function checkRootDepsUpToDate(
 
 /** Parses a JSON string into record/object. */
 function getPackageJSON(packageJSONString: string): Record<string, unknown> {
-  let packageJSON: Record<string, unknown> | undefined | null;
-  try {
-    packageJSON = JSON.parse(packageJSONString) as
-      | Record<string, unknown>
-      | undefined
-      | null;
-  } catch (err) {
-    return error("Failed to parse:", path);
+  const packageJSON = JSON.parse(packageJSONString) as unknown;
+  if (
+    typeof packageJSON !== "object" ||
+    packageJSON === null ||
+    Array.isArray(packageJSON)
+  ) {
+    error('Failed to parse a "package.json" file.');
   }
 
-  if (packageJSON === undefined || packageJSON === null) {
-    return error("Failed to parse:", path);
-  }
-
-  return packageJSON;
+  return packageJSON as Record<string, unknown>;
 }
