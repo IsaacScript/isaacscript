@@ -9,11 +9,9 @@ tmp
 .docusaurus
 .cache-loader
 
-# Windows artifacts
-thumbs.db
-
-# MacOS artifacts
+# OS-specific artifacts
 .DS_Store
+thumbs.db
 
 # Ignore the auto-generated API docs from TypeDoc (since it will just contain duplicate information
 # from what is already in the JSDoc comments of the source code).

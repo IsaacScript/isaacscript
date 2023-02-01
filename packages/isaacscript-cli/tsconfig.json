@@ -8,5 +8,10 @@
 
   // Nx will not include ".eslintrc.cjs" in the build output, so there is no need for a
   // "tsconfig.eslint.json" file.
-  "include": ["./src/**/*.ts", ".eslintrc.cjs"],
+  "include": [
+    "./src/**/*.ts",
+    ".eslintrc.cjs",
+    "./file-templates/static/.eslintrc.template.cjs",
+    "./file-templates/static/.prettierrc.cjs",
+  ],
 }
