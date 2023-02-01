@@ -1,5 +1,3 @@
-- publish in CI
-
 - investigate EXECUTE_CMD crashing
 
 - isaac-xml-validator

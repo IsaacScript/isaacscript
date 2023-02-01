@@ -17,6 +17,7 @@ import {
 import { PackageManager } from "../../enums/PackageManager";
 import { execExe, execPowershell, execShell } from "../../exec";
 import * as file from "../../file";
+import { getJSONC } from "../../json";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager";
 import { Args } from "../../parseArgs";
 import { getModTargetDirectoryName } from "../../utils";
@@ -166,31 +167,18 @@ function getVersionFromPackageJSON(verbose: boolean) {
     );
   }
 
-  const packageJSONString = file.read(PACKAGE_JSON_PATH, verbose);
-  let packageJSON: Record<string, unknown>;
-  try {
-    packageJSON = JSON.parse(packageJSONString) as Record<string, unknown>;
-  } catch (err) {
-    error(`Failed to parse "${chalk.green(PACKAGE_JSON_PATH)}":`, err);
-  }
+  const packageJSON = getJSONC(PACKAGE_JSON_PATH, verbose);
 
-  if (!Object.prototype.hasOwnProperty.call(packageJSON, "version")) {
+  const { version } = packageJSON;
+  if (typeof version !== "string") {
     error(
       `The "${chalk.green(
         PACKAGE_JSON_PATH,
-      )}" file does not have a "version" field.`,
+      )}" file has an invalid "version" field.`,
     );
   }
 
-  if (typeof packageJSON["version"] !== "string") {
-    error(
-      `The "${chalk.green(
-        PACKAGE_JSON_PATH,
-      )}" file has a "version" field that is not a string.`,
-    );
-  }
-
-  return packageJSON["version"];
+  return version;
 }
 
 function bumpVersionInPackageJSON(version: string, verbose: boolean): string {

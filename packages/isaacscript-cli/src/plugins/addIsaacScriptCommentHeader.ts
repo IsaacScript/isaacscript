@@ -2,7 +2,6 @@
 
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
-import { LUA_LANGUAGE_SERVER_DISABLES } from "./constants";
 
 const INFORMATIONAL_HEADER = `--[[
 
@@ -22,6 +21,8 @@ see the official website: https://isaacscript.github.io/
 
 --]]
 
+---@diagnostic disable
+
 `;
 
 const plugin: tstl.Plugin = {
@@ -32,8 +33,7 @@ const plugin: tstl.Plugin = {
     result: tstl.EmitFile[],
   ) {
     for (const file of result) {
-      file.code =
-        INFORMATIONAL_HEADER + LUA_LANGUAGE_SERVER_DISABLES + file.code;
+      file.code = INFORMATIONAL_HEADER + file.code;
     }
   },
 };

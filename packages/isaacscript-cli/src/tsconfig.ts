@@ -7,15 +7,14 @@ import {
   TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
 } from "./constants";
-import * as file from "./file";
 import { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig";
 import { getJSONC } from "./json";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
-const ISAACSCRIPT_SCHEMA_RAW = file.read(ISAACSCRIPT_SCHEMA_PATH, false);
-const ISAACSCRIPT_SCHEMA = JSON.parse(ISAACSCRIPT_SCHEMA_RAW) as Schema;
+
+const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH, false) as Schema;
 const ajv = new Ajv();
-const schemaValidate = ajv.compile(ISAACSCRIPT_SCHEMA);
+const schemaValidate = ajv.compile(isaacScriptSchema);
 
 function getTSConfigJSON(verbose: boolean): Record<string, unknown> {
   return getJSONC(TSCONFIG_JSON_PATH, verbose);

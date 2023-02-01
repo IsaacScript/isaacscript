@@ -4,16 +4,16 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
-import { LUA_LANGUAGE_SERVER_DISABLES } from "./constants";
 
 const cwd = process.cwd();
 const packageJSONPath = path.join(cwd, "package.json");
 const packageJSONContents = fs.readFileSync(packageJSONPath, "utf8");
 const packageJSON = JSON.parse(packageJSONContents) as Record<string, unknown>;
+const { version } = packageJSON;
 
 const INFORMATIONAL_HEADER = `--[[
 
-isaacscript-common ${packageJSON["version"]}
+isaacscript-common ${version}
 
 This is the "isaacscript-common" library, which was created with the IsaacScript tool.
 
@@ -38,6 +38,8 @@ information about using TypeScript, see the website: https://isaacscript.github.
 
 --]]
 
+---@diagnostic disable
+
 `;
 
 const plugin: tstl.Plugin = {
@@ -48,8 +50,7 @@ const plugin: tstl.Plugin = {
     result: tstl.EmitFile[],
   ) {
     for (const file of result) {
-      file.code =
-        INFORMATIONAL_HEADER + LUA_LANGUAGE_SERVER_DISABLES + file.code;
+      file.code = INFORMATIONAL_HEADER + file.code;
     }
   },
 };
