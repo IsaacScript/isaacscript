@@ -13,6 +13,8 @@ This page lists the changes to the IsaacScript framework.
 
 - Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
 - Removed support for `steamcmd` from the `publish` command.
+- Added the following helper functions:
+  - `isFoundSoul`
 
 ## January 31st, 2023
 

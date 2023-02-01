@@ -123,7 +123,7 @@ async function handleCommands(command: Command, args: Args) {
     }
 
     case "check": {
-      check();
+      check(args);
       break;
     }
   }

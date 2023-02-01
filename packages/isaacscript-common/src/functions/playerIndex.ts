@@ -1,4 +1,9 @@
-import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
+import {
+  BabySubType,
+  CollectibleType,
+  PlayerType,
+  PlayerVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { PlayerIndex } from "../types/PlayerIndex";
 import { ReadonlySet } from "../types/ReadonlySet";
@@ -205,4 +210,16 @@ export function getSubPlayerParent(
  */
 export function isChildPlayer(player: EntityPlayer): boolean {
   return player.Parent !== undefined;
+}
+
+/**
+ * Helper function to detect if a particular player is the Found Soul player provided by the
+ * trinket.
+ */
+export function isFoundSoul(player: EntityPlayer): boolean {
+  return (
+    isChildPlayer(player) &&
+    player.Variant === PlayerVariant.COOP_BABY &&
+    player.SubType === (BabySubType.FOUND_SOUL as int)
+  );
 }

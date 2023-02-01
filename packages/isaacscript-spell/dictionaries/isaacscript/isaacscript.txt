@@ -24,6 +24,7 @@ irange # Standard library function
 isaacscript
 jscutlery # For version control
 jsdoc # Monorepo word
+klaw # Monorepo word
 lualib # TSTL word
 markdownlint # Monorepo word
 markdownlintignore # Monorepo word

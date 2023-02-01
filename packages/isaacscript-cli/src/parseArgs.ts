@@ -27,6 +27,9 @@ export interface Args {
   dryRun?: boolean;
   onlyUpload?: boolean;
 
+  // check
+  ignore?: string;
+
   // shared
   dev?: boolean;
   verbose?: boolean;
@@ -182,6 +185,23 @@ export function parseArgs(): Args {
             type: "boolean",
             description:
               "only upload the mod to the Steam Workshop (without doing anything else)",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
+          }),
+    )
+
+    .command(
+      "check",
+      "Check the template files of the current project to see if they are up to date.",
+      (builder) =>
+        builder
+          .option("ignore", {
+            alias: "i",
+            type: "string",
+            description: "Comma separated list of file names to ignore.",
           })
           .option("verbose", {
             alias: "v",
