@@ -13,12 +13,12 @@ module.exports = {
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
   ],
 
-  parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
-  },
-
   ignorePatterns: [
     "file-templates/dynamic/src/main.ts",
     "file-templates/dynamic/src/main-dev.ts",
   ],
+
+  parserOptions: {
+    project: path.join(__dirname, "tsconfig.json"),
+  },
 };

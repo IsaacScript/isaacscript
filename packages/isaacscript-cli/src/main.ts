@@ -9,6 +9,7 @@ import sourceMapSupport from "source-map-support";
 import pkg from "../package.json";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs";
 import { Config } from "./classes/Config";
+import { check } from "./commands/check/check";
 import { copy } from "./commands/copy/copy";
 import { init } from "./commands/init/init";
 import { monitor } from "./commands/monitor/monitor";
@@ -40,13 +41,22 @@ async function main(): Promise<void> {
 
   const args = parseArgs();
   const verbose = args.verbose === true;
+  const command = getCommandFromArgs(args);
 
-  printBanner();
+  printBanner(command);
 
   // Pre-flight checks
   await checkForWindowsTerminalBugs(verbose);
 
-  await handleCommands(args);
+  await handleCommands(command, args);
+}
+
+function getCommandFromArgs(args: Args): Command {
+  const positionalArgs = args._;
+  const firstPositionArg = positionalArgs[0];
+  return firstPositionArg === undefined || firstPositionArg === ""
+    ? DEFAULT_COMMAND
+    : (firstPositionArg as Command);
 }
 
 function loadEnvironmentVariables() {
@@ -54,7 +64,12 @@ function loadEnvironmentVariables() {
   dotenv.config({ path: envFile });
 }
 
-function printBanner() {
+function printBanner(command: Command) {
+  // Skip displaying the banner for specific commands.
+  if (command === "check") {
+    return;
+  }
+
   const banner = figlet.textSync(PROJECT_NAME);
   console.log(chalk.green(banner));
 
@@ -72,16 +87,9 @@ function printBanner() {
   console.log();
 }
 
-async function handleCommands(args: Args) {
+async function handleCommands(command: Command, args: Args) {
   const skipProjectChecks = args.skipProjectChecks === true;
   const verbose = args.verbose === true;
-
-  const positionalArgs = args._;
-  const firstPositionArg = positionalArgs[0];
-  const command: Command =
-    firstPositionArg === undefined || firstPositionArg === ""
-      ? DEFAULT_COMMAND
-      : (firstPositionArg as Command);
 
   let config = new Config();
   if (command !== "init") {
@@ -111,6 +119,11 @@ async function handleCommands(args: Args) {
 
     case "publish": {
       await publish(args, config);
+      break;
+    }
+
+    case "check": {
+      check();
       break;
     }
   }
