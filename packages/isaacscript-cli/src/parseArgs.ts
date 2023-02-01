@@ -158,7 +158,7 @@ export function parseArgs(): Args {
 
     .command(
       "publish",
-      "Bump the version & automatically publish the new files using the steamcmd tool.",
+      "Bump the version & prepare for a new release.",
       (builder) =>
         builder
           .option("skip", {
@@ -175,7 +175,7 @@ export function parseArgs(): Args {
           .option("dry-run", {
             alias: "d",
             type: "boolean",
-            description: "skip invoking steamcmd",
+            description: "skip committing/uploading",
           })
           .option("only-upload", {
             alias: "u",
