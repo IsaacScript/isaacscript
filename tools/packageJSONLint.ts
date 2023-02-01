@@ -401,7 +401,7 @@ function checkRootDepsUpToDate(
   }
 }
 
-/** Parses a JSON string into record/object. */
+/** Parses a JSON string into a record. */
 function getPackageJSON(packageJSONString: string): Record<string, unknown> {
   const packageJSON = JSON.parse(packageJSONString) as unknown;
   if (
