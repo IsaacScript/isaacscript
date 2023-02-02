@@ -26,8 +26,7 @@ npx eslint --max-warnings 0 .
 # (Skip this step if Python is not currently installed for whatever reason.)
 if command -v python &> /dev/null; then
   pip install isaac-xml-validator --upgrade --quiet
-  # (Commented out until Wofsauge fixes the tool.)
-  #isaac-xml-validator
+  isaac-xml-validator # --quiet
 fi
 
 # Spell check every file using CSpell.

@@ -1,4 +1,13 @@
+- try new TypeDoc branch
+- merge zamTS + zamPublish into isaacscript monorepo
+- add variables to uploader github action
+- make isaacscript-cli ESM
 - investigate EXECUTE_CMD crashing
+
+- lint rule audit:
+  git clone --depth 1 --filter=blob:none --sparse https://github.com/cirosantilli/test-git-partial-clone-big-small
+  cd test-git-partial-clone-big-small
+  git sparse-checkout set small
 
 - isaac-xml-validator
   - wait for wof to fix: https://github.com/wofsauge/isaac-xml-validator/issues/27
