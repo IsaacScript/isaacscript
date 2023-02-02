@@ -18,6 +18,10 @@ export function getPackageManagerLockFileName(
   return PACKAGE_MANAGER_LOCK_FILE_NAMES[packageManager];
 }
 
+export function getAllPackageManagerLockFileNames(): string[] {
+  return Object.values(PACKAGE_MANAGER_LOCK_FILE_NAMES);
+}
+
 export function getPackageManagerAddCommand(
   packageManager: PackageManager,
   dependency: string,
