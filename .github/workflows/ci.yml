@@ -12,9 +12,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          # The default version is 14. The ESLint config requires at least Node 16 to work properly.
-          # We use 18, which is the official LTS version.
-          node-version: 18
+          node-version: lts/*
           cache: yarn
 
       - name: Retrieve the cached "node_modules" directory (if present)
@@ -34,14 +32,14 @@ jobs:
       - name: Test every package in the monorepo
         run: bash test.sh
 
+      - name: Lint every package in the monorepo
+        run: bash lint.sh
+
       # Uncomment this for SSH debugging of CI actions.
       #- name: Setup tmate session
       #  uses: mxschmitt/action-tmate@v3
       #  with:
       #    limit-access-to-actor: true
-
-      - name: Lint every package in the monorepo
-        run: bash lint.sh
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
@@ -54,7 +52,7 @@ jobs:
           # /home/runner/work/isaacscript/isaacscript
           # Thus, the following path is equivalent to:
           # /home/runner/work/isaacscript/isaacscript/isaacscript.github.io
-          # (it is not possible to clone the repo in the parent directory for security reasons)
+          # (It is not possible to clone the repo in the parent directory for security reasons.)
           path: isaacscript.github.io
 
       - name: Deploy the documentation website
