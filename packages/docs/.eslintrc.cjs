@@ -24,7 +24,6 @@ module.exports = {
   ignorePatterns: ["**/docusaurus/**", "!.remarkrc.mjs"],
 
   rules: {
-    "import/no-unresolved": "off",
     "no-alert": "off",
   },
 };

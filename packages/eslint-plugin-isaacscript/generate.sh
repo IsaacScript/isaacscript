@@ -20,7 +20,7 @@ if [ "$1" = "check" ]; then
   npx git-dirty
 fi
 
-npx ts-node --require "tsconfig-paths/register" "$DIR/tools/scripts/generate.ts"
+npx ts-node --esm "$DIR/tools/scripts/generate.mts"
 
 if [ "$1" = "check" ]; then
   echo "Checking to see if any files have changed..."

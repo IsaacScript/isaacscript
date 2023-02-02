@@ -1,10 +1,9 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import glob from "glob";
-import { file } from "isaacscript-cli";
-import { error, isKebabCase } from "isaacscript-common-ts";
 import path from "path";
 import sortPackageJson from "sort-package-json";
+import { error, fileExists, isKebabCase, readFile } from "./utils.mjs";
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
@@ -51,7 +50,7 @@ function packageJSONLint(
   const isDocs = packageJSONPath.includes("docs");
   const shouldBePrivate = isRoot || isDocs;
 
-  const packageJSONString = file.read(packageJSONPath, false);
+  const packageJSONString = readFile(packageJSONPath);
   const packageJSON = getPackageJSON(packageJSONString);
 
   const { name } = packageJSON;
@@ -199,12 +198,12 @@ function packageJSONLint(
   if (!isTemplateFile) {
     const packageDirectory = path.dirname(packageJSONPath);
     const licensePath = path.join(packageDirectory, "LICENSE");
-    if (!file.exists(licensePath, false)) {
+    if (!fileExists(licensePath)) {
       console.error(`File does not exist: ${licensePath}`);
       return false;
     }
 
-    const licenseFile = file.read(licensePath, false);
+    const licenseFile = readFile(licensePath);
     if (
       license === "GPL-3.0" &&
       !licenseFile.includes("GNU GENERAL PUBLIC LICENSE")
@@ -276,7 +275,7 @@ function packageJSONLint(
 
 /** Gets the dependencies of the root monorepo "package.json" file. */
 function getDeps(packageJSONPath: string): Record<string, string> {
-  const packageJSONString = file.read(packageJSONPath, false);
+  const packageJSONString = readFile(packageJSONPath);
   const packageJSON = getPackageJSON(packageJSONString);
 
   let { dependencies, devDependencies, peerDependencies } = packageJSON;
@@ -313,7 +312,7 @@ function getVersionForSpecificPackage(packageName: string): string {
     packageName,
     "package.json",
   );
-  const packageJSONString = file.read(packageJSONPath, false);
+  const packageJSONString = readFile(packageJSONPath);
   const packageJSON = getPackageJSON(packageJSONString);
   const pluginVersion = packageJSON["version"];
   if (typeof pluginVersion !== "string") {
@@ -346,7 +345,7 @@ function checkDeps(
         key,
         PACKAGE_JSON,
       );
-      const depPackageJSONString = file.read(depPackageJSONPath, false);
+      const depPackageJSONString = readFile(depPackageJSONPath);
       const depPackageJSON = getPackageJSON(depPackageJSONString);
       const depVersion = depPackageJSON["version"];
       if (typeof depVersion !== "string") {
@@ -379,7 +378,7 @@ function checkRootDepsUpToDate(
       continue;
     }
 
-    const packageJSONString = file.read(matchingPackageJSONPath, false);
+    const packageJSONString = readFile(matchingPackageJSONPath);
     const packageJSON = getPackageJSON(packageJSONString);
 
     const { version } = packageJSON;

@@ -1,4 +1,4 @@
-import { getRandomInt } from "./random";
+import { getRandomInt } from "./random.js";
 
 /**
  * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If

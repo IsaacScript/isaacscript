@@ -1,7 +1,10 @@
 import glob from "glob";
-import { file } from "isaacscript-cli";
-import { error } from "isaacscript-common-ts";
-import path from "path";
+import * as path from "node:path";
+import * as url from "node:url";
+import { error, readFile, writeFile } from "./utils.mjs";
+
+// eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const REPO_ROOT = path.join(__dirname, "..");
 
@@ -33,11 +36,11 @@ function replaceTextInGlob(packageName: string, globPath: string) {
   }
 
   for (const filePath of filePaths) {
-    const fileContents = file.read(filePath, false);
+    const fileContents = readFile(filePath);
     const newFileContents = fileContents.replaceAll(
       `../../../../packages/${packageName}`,
       "..",
     );
-    file.write(filePath, newFileContents, false);
+    writeFile(filePath, newFileContents);
   }
 }

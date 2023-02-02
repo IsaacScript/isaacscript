@@ -37,7 +37,6 @@ custom_edit_url: null
 
 */
 
-import { readdirSync } from "fs";
 import glob from "glob";
 import { file } from "isaacscript-cli";
 import {
@@ -46,7 +45,8 @@ import {
   ReadonlyMap,
   trimSuffix,
 } from "isaacscript-common-ts";
-import path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 const DEBUG = false as boolean;
 const PACKAGE_NAME = "isaacscript-common";
@@ -474,19 +474,21 @@ function fixLinks() {
 // ----------------
 
 function getFileNames(directoryPath: string) {
-  return readdirSync(directoryPath, { withFileTypes: true }).map(
-    (dirent) => dirent.name,
-  );
+  return fs
+    .readdirSync(directoryPath, { withFileTypes: true })
+    .map((dirent) => dirent.name);
 }
 
 function getDirectoryNames(directoryPath: string) {
-  return readdirSync(directoryPath, { withFileTypes: true })
+  return fs
+    .readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 }
 
 function getMarkdownFileNames(directoryPath: string) {
-  return readdirSync(directoryPath, { withFileTypes: true })
+  return fs
+    .readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
     .map((dirent) => dirent.name);
 }

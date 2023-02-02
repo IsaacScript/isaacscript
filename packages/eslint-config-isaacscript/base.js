@@ -61,7 +61,8 @@ module.exports = {
   plugins: [
     /**
      * Activate the "no-type-assertion" plugin, which allows the "no-type-assertion" rule to be
-     * optionally enabled on a per-project basis.
+     * optionally enabled on a per-project basis:
+     * https://github.com/Dremora/eslint-plugin-no-type-assertion
      */
     "no-type-assertion",
 
@@ -76,9 +77,16 @@ module.exports = {
 
     /**
      * Activate the "sort-exports" plugin, which allows the "sort-exports" rule to be optionally
-     * enabled on a per-project basis.
+     * enabled on a per-project basis:
+     * https://github.com/jrdrg/eslint-plugin-sort-exports
      */
     "sort-exports",
+
+    /**
+     * Activate the "unicorn" plugin, which allows for various miscellaneous useful rules:
+     * https://github.com/sindresorhus/eslint-plugin-unicorn
+     */
+    "unicorn",
   ],
 
   rules: {
@@ -360,6 +368,21 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/extensions.md
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+     *
+     * This rule is useful in commonjs codebases that want to ban file extensions on imports.
+     * However, ESM is now the standard and file extensions should be used. Furthermore, in
+     * TypeScript codebases, the compiler will alert us to any errors on a file extension in an
+     * import statement.
+     */
+    "import/extensions": "off",
+
+    /**
+     * Documentation:
      * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md
      *
      * Not defined in the parent configs.
@@ -382,6 +405,18 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-unresolved.md
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
+     *
+     * This rule is not necessary in TypeScript codebases, since the compiler would error if you had
+     * a typo in an import statement.
+     */
+    "import/no-unresolved": "off",
+
+    /**
+     * Documentation:
      * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/prefer-default-export.md
      *
      * Defined at:
@@ -391,6 +426,16 @@ module.exports = {
      * https://basarat.gitbook.io/typescript/main-1/defaultisbad
      */
     "import/prefer-default-export": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md
+     *
+     * Not defined in parent configs.
+     *
+     * Enforce the new "node:" prefix as an extra safety measure.
+     */
+    "unicorn/prefer-node-protocol": "warn",
 
     /**
      * Documentation:

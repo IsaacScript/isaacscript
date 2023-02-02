@@ -29,7 +29,7 @@ npx ts-prune --error --ignore "index.ts"
 npx cspell --no-progress --no-summary .
 
 # Validate that every file is included in the docs.
-npx ts-node --require "tsconfig-paths/register" "$DIR/scripts/docsEntryPointLint.ts"
+npx ts-node --esm "$DIR/scripts/docsEntryPointLint.ts"
 
 # Check the API dictionary.
 # (Commented out because it causes race conditions in CI.)

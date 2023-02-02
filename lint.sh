@@ -11,7 +11,7 @@ SECONDS=0
 cd "$DIR"
 
 # Check "package.json" files.
-npx ts-node --require "tsconfig-paths/register" "$DIR/tools/packageJSONLint.ts"
+npx ts-node --esm "$DIR/tools/packageJSONLint.ts"
 
 if [ "$1" != "json" ]; then
   echo "Linting scripts..."

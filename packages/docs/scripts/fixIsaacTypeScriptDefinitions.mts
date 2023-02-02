@@ -1,6 +1,5 @@
 // See the comment in "fixIsaacScriptCommon.ts".
 
-import { readdirSync } from "fs";
 import { file } from "isaacscript-cli";
 import {
   capitalizeFirstLetter,
@@ -8,7 +7,8 @@ import {
   ReadonlyMap,
   trimSuffix,
 } from "isaacscript-common-ts";
-import path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
 const DOCS_DIR = path.join(__dirname, "..", "docs");
@@ -164,13 +164,15 @@ function renameEnumFiles() {
 // ----------------
 
 function getDirectoryNames(directoryPath: string) {
-  return readdirSync(directoryPath, { withFileTypes: true })
+  return fs
+    .readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 }
 
 function getMarkdownFileNames(directoryPath: string) {
-  return readdirSync(directoryPath, { withFileTypes: true })
+  return fs
+    .readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
     .map((dirent) => dirent.name);
 }

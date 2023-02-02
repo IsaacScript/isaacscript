@@ -12,7 +12,7 @@
     "babel.config.js",
     "docusaurus.config.js",
     "sidebars.js",
-    "scripts/**/*.ts",
+    "scripts/**/*.mts",
     "src/**/*.js",
     "src/**/*.ts",
     "static/**/*.js",
