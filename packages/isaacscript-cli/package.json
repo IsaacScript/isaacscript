@@ -33,7 +33,7 @@
     "figlet": "^1.5.2",
     "git-dirty": "^1.0.2",
     "glob": "^8.1.0",
-    "isaacscript-common-ts": "^3.2.0",
+    "isaacscript-common-ts": "^4.0.0",
     "isaacscript-tsconfig": "^3.0.4",
     "jsonc-parser": "^3.2.0",
     "moment": "^2.29.4",
