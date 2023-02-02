@@ -1,12 +1,12 @@
 import chalk from "chalk";
+import { error } from "isaacscript-common-ts";
 import {
   execFileSync,
   execSync,
   spawnSync,
   SpawnSyncReturns,
-} from "child_process";
-import { error } from "isaacscript-common-ts";
-import { CWD } from "./constants";
+} from "node:child_process";
+import { CWD } from "./constants.js";
 
 export function execExe(
   path: string,

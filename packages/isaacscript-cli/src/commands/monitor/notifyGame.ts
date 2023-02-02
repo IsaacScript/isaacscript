@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import { getTime } from "../../utils";
-import { COMPILATION_SUCCESSFUL } from "./constants";
-import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter";
+import { getTime } from "../../utils.js";
+import { COMPILATION_SUCCESSFUL } from "./constants.js";
+import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter.js";
 
 export function msg(data: string): void {
   const formattedData = data

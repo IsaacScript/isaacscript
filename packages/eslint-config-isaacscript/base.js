@@ -44,6 +44,12 @@ module.exports = {
      */
     "plugin:eslint-comments/recommended",
 
+    /**
+     * Lint Node-specific things:
+     * https://github.com/eslint-community/eslint-plugin-n
+     */
+    "plugin:n/recommended",
+
     /** Rule modifications are split out into different files for better organization. */
     "./base-eslint",
 
@@ -426,6 +432,77 @@ module.exports = {
      * https://basarat.gitbook.io/typescript/main-1/defaultisbad
      */
     "import/prefer-default-export": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-extraneous-import.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * The TypeScript compiler will warn us if an import does not exist, so this rule is
+     * unnecessary.
+     */
+    "n/no-extraneous-import": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-extraneous-require.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * Require statements are not used in TypeScript code.
+     */
+    "n/no-extraneous-require": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-missing-import.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * The TypeScript compiler will warn us if an import does not exist, so this rule is
+     * unnecessary.
+     */
+    "n/no-missing-import": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-process-exit.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * Using "process.exit" allows the ability to exit command-line applications without verbose
+     * output.
+     */
+    "n/no-process-exit": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-unsupported-features/es-syntax.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * This rule requires adding `parserOptions.ecmaVersion` to every ESLint configuration file. The
+     * rule does not provide enough value to make that modification worth it.
+     */
+    "n/no-unsupported-features/es-syntax": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-unsupported-features/node-builtins.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * The TypeScript compiler will prevent us from using Node modules that are not present in the
+     * corresponding specified Node output environment, so this rule is unnecessary.
+     */
+    "n/no-unsupported-features/node-builtins": "off",
 
     /**
      * Documentation:

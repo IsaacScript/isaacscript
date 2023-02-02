@@ -1,5 +1,5 @@
 import { TSESLint } from "@typescript-eslint/utils";
-import * as prettier from "prettier";
+import prettier from "prettier";
 import { rules } from "../src/rules";
 import { PLUGIN_NAME } from "./constants";
 

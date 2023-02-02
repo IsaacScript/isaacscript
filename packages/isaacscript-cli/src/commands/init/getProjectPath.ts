@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import { error, hasWhiteSpace, isKebabCase } from "isaacscript-common-ts";
-import path from "path";
-import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
-import { Args } from "../../parseArgs";
-import { getInputString, getInputYesNo } from "../../prompt";
+import path from "node:path";
+import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants.js";
+import { Args } from "../../parseArgs.js";
+import { getInputString, getInputYesNo } from "../../prompt.js";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [

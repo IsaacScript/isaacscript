@@ -20,7 +20,7 @@
 
     // We use modern ESM modules, which allows using the latest version of libraries across the npm
     // ecosystem.
-    // The default node configuration uses "commonjs" and "node", respectively.
+    // The default node configuration uses "CommonJS" and "node", respectively.
     "module": "Node16", // The default Node configuration uses "commonjs".
     "moduleResolution": "node16", // The default Node configuration uses "node".
 

@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { error, parseSemanticVersion } from "isaacscript-common-ts";
-import { PROJECT_NAME } from "./constants";
+import { PROJECT_NAME } from "./constants.js";
 
 const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
 

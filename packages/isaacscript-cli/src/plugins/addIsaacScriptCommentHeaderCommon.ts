@@ -1,7 +1,7 @@
 /** This plugin adds an explanatory header to the top of the generated Lua code. */
 
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
 

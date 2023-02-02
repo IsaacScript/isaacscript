@@ -1,5 +1,5 @@
-import { DoorSlot } from "../enums/DoorSlot";
-import { RoomShape } from "../enums/RoomShape";
+import { DoorSlot } from "../enums/DoorSlot.js";
+import { RoomShape } from "../enums/RoomShape.js";
 
 /**
  * The coordinates correspond to the x and y values that are present in a room's XML file.

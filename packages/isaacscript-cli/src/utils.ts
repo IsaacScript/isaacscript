@@ -1,6 +1,6 @@
 import moment from "moment";
-import { Config } from "./classes/Config";
-import { CURRENT_DIRECTORY_NAME } from "./constants";
+import { Config } from "./classes/Config.js";
+import { CURRENT_DIRECTORY_NAME } from "./constants.js";
 
 export function getModTargetDirectoryName(config: Config): string {
   return config.customTargetModDirectoryName === undefined

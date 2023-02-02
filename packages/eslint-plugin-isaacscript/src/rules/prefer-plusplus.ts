@@ -1,5 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { isNumericLiteral } from "typescript";
+import ts from "typescript";
 import { createRule } from "../utils";
 
 export type Options = [];
@@ -35,7 +35,7 @@ export const preferPlusplus = createRule<Options, MessageIds>({
         const tsNodeRight = parserServices.esTreeNodeToTSNodeMap.get(
           node.right,
         );
-        if (!isNumericLiteral(tsNodeRight)) {
+        if (!ts.isNumericLiteral(tsNodeRight)) {
           return;
         }
 

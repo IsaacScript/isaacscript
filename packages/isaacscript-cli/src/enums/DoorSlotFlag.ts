@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 
-import { DoorSlot } from "./DoorSlot";
+import { DoorSlot } from "./DoorSlot.js";
 
 declare type BitFlag = number & { readonly __bitFlagBrand: symbol };
 declare type BitFlags<T extends BitFlag> = T & {

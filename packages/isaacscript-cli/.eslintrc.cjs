@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 
 const REPO_ROOT = path.join(__dirname, "..", "..");
 const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
@@ -20,5 +20,17 @@ module.exports = {
 
   parserOptions: {
     project: path.join(__dirname, "tsconfig.json"),
+  },
+
+  rules: {
+    /**
+     * Documentation:
+     * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
+     *
+     * Not defined in parent configs.
+     *
+     * We use this to automatically fix import statements to ESM.
+     */
+    "n/file-extension-in-import": ["error", "always"],
   },
 };

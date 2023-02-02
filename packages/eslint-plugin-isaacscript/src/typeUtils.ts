@@ -3,7 +3,7 @@
 
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
 import { TSESLint } from "@typescript-eslint/utils";
-import * as ts from "typescript";
+import ts from "typescript";
 
 export enum MemberNameType {
   Private = 1,

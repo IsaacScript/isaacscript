@@ -32,10 +32,10 @@
   "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
-    "generate": "ts-node tools/scripts/generate.mts",
-    "generate:configs": "ts-node --esm tools/scripts/generate-configs.mts",
-    "generate:readme": "ts-node --esm tools/scripts/generate-readme.mts",
-    "generate:rules": "ts-node --esm tools/scripts/generate-rules.mts",
+    "generate": "npx ts-node tools/scripts/generate.mts",
+    "generate:configs": "npx ts-node tools/scripts/generate-configs.ts",
+    "generate:readme": "npx ts-node tools/scripts/generate-readme.ts",
+    "generate:rules": "npx ts-node tools/scripts/generate-rules.ts",
     "test": "jest"
   },
   "peerDependencies": {

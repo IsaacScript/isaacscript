@@ -1,19 +1,19 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
-import path from "path";
-import { CWD, PROJECT_NAME } from "../../constants";
-import { getPackageManagerUsedForNewProject } from "../../packageManager";
-import { Args } from "../../parseArgs";
-import { checkIfProjectPathExists } from "./checkIfProjectPathExists";
-import { checkModSubdirectory } from "./checkModSubdirectory";
-import { checkModTargetDirectory } from "./checkModTargetDirectory";
-import { createMod } from "./createMod";
-import { getModsDir } from "./getModsDir";
-import { getProjectPath } from "./getProjectPath";
-import { promptGitHubRepoOrGitRemoteURL } from "./git";
-import { installVSCodeExtensions } from "./installVSCodeExtensions";
-import { promptSaveSlot } from "./promptSaveSlot";
-import { promptVSCode } from "./promptVSCode";
+import path from "node:path";
+import { CWD, PROJECT_NAME } from "../../constants.js";
+import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
+import { Args } from "../../parseArgs.js";
+import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
+import { checkModSubdirectory } from "./checkModSubdirectory.js";
+import { checkModTargetDirectory } from "./checkModTargetDirectory.js";
+import { createMod } from "./createMod.js";
+import { getModsDir } from "./getModsDir.js";
+import { getProjectPath } from "./getProjectPath.js";
+import { promptGitHubRepoOrGitRemoteURL } from "./git.js";
+import { installVSCodeExtensions } from "./installVSCodeExtensions.js";
+import { promptSaveSlot } from "./promptSaveSlot.js";
+import { promptVSCode } from "./promptVSCode.js";
 
 export async function init(args: Args): Promise<void> {
   const packageManager = getPackageManagerUsedForNewProject(args);

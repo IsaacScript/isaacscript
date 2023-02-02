@@ -1,5 +1,5 @@
-import os from "os";
-import path from "path";
+import * as os from "node:os";
+import * as path from "node:path";
 
 // Miscellaneous
 export const CWD = process.cwd();
@@ -11,7 +11,7 @@ export const MOD_UPLOADER_PATH =
 export const PROJECT_NAME = "IsaacScript";
 
 // `isaacscript`
-const REPO_ROOT = path.join(__dirname, "..");
+export const REPO_ROOT = path.join(__dirname, "..");
 
 // `isaacscript/custom-stage`
 const CUSTOM_STAGE_PATH = path.join(REPO_ROOT, "custom-stage");

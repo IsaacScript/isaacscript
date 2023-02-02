@@ -1,18 +1,18 @@
 import chalk from "chalk";
 import { error, getEnumValues } from "isaacscript-common-ts";
 import klawSync from "klaw-sync";
-import path from "path";
+import path from "node:path";
 import {
   CI_YML_TEMPLATE_PATH,
   CWD,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
-} from "../../constants";
-import { PackageManager } from "../../enums/PackageManager";
-import { execShell } from "../../exec";
-import * as file from "../../file";
-import { getAllPackageManagerLockFileNames } from "../../packageManager";
-import { Args } from "../../parseArgs";
+} from "../../constants.js";
+import { PackageManager } from "../../enums/PackageManager.js";
+import { execShell } from "../../exec.js";
+import * as file from "../../file.js";
+import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
+import { Args } from "../../parseArgs.js";
 
 const URL_PREFIX =
   "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates/static";

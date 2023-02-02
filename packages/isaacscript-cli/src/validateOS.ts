@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { ReadonlySet } from "isaacscript-common-ts";
-import { PROJECT_NAME } from "./constants";
+import { PROJECT_NAME } from "./constants.js";
 
 const VALID_PLATFORMS = new ReadonlySet<string>(["win32", "linux"]);
 

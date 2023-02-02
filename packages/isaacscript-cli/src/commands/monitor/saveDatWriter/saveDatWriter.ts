@@ -1,8 +1,8 @@
 import * as JSONC from "jsonc-parser";
-import path from "path";
-import { PROJECT_NAME } from "../../../constants";
-import * as file from "../../../file";
-import { SaveDatMessage, SaveDatMessageType } from "./types";
+import * as path from "node:path";
+import { PROJECT_NAME } from "../../../constants.js";
+import * as file from "../../../file.js";
+import { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
 const MAX_MESSAGES = 100;
@@ -118,9 +118,8 @@ function writeSaveDatToDisk(
   } catch (err) {
     if (numRetries > 4) {
       send(
-        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.`,
+        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.\nThe writing error is as follows: ${err}`,
       );
-      send(`The writing error is as follows: ${err}`);
       process.exit(1);
     }
 

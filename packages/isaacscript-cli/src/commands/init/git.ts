@@ -1,14 +1,14 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
 import { error, parseSemanticVersion } from "isaacscript-common-ts";
-import path from "path";
+import path from "node:path";
 import yaml from "yaml";
-import pkg from "../../../package.json";
-import { HOME_DIR, PROJECT_NAME } from "../../constants";
-import { execShell } from "../../exec";
-import * as file from "../../file";
-import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML";
-import { getInputString, getInputYesNo } from "../../prompt";
+import { HOME_DIR, PROJECT_NAME } from "../../constants.js";
+import { execShell } from "../../exec.js";
+import * as file from "../../file.js";
+import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML.js";
+import { getInputString, getInputYesNo } from "../../prompt.js";
+import { getVersionOfThisPackage } from "../../version.js";
 
 // Versions prior to this do not work properly with: `git branch --move --force main`
 const REQUIRED_GIT_MAJOR_VERSION = 2;
@@ -221,7 +221,8 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShell("git", ["add", "--all"], verbose, false, projectPath);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${pkg.version} template`;
+    const version = getVersionOfThisPackage(verbose);
+    const commitMessage = `chore: add files from ${PROJECT_NAME} ${version} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],

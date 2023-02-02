@@ -1,7 +1,7 @@
-import path from "path";
-import { Config } from "../../classes/Config";
-import { WATCHER_MOD_NAME } from "../../constants";
-import * as file from "../../file";
+import path from "node:path";
+import { Config } from "../../classes/Config.js";
+import { WATCHER_MOD_NAME } from "../../constants.js";
+import * as file from "../../file.js";
 
 export function touchWatcherSaveDatFiles(
   config: Config,

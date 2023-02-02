@@ -3,7 +3,7 @@ import {
   isTypeReferenceType,
 } from "@typescript-eslint/type-utils";
 import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import * as ts from "typescript";
+import ts from "typescript";
 import { isSymbolFlagSet, isTypeFlagSet, unionTypeParts } from "../typeUtils";
 import { createRule } from "../utils";
 

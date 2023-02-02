@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { fork, spawn } from "child_process";
 import { error, isRecord } from "isaacscript-common-ts";
-import path from "path";
+import { fork, spawn } from "node:child_process";
+import path from "node:path";
 import * as touch from "touch";
-import { Config } from "../../classes/Config";
+import { Config } from "../../classes/Config.js";
 import {
   CWD,
   FILE_SYNCED_MESSAGE,
@@ -11,25 +11,25 @@ import {
   MOD_SOURCE_PATH,
   PACKAGE_JSON_PATH,
   PROJECT_NAME,
-} from "../../constants";
-import { prepareCustomStages } from "../../customStage";
-import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev";
-import { PackageManager } from "../../enums/PackageManager";
-import { execShell } from "../../exec";
-import * as file from "../../file";
-import { getJSONC } from "../../json";
+} from "../../constants.js";
+import { prepareCustomStages } from "../../customStage.js";
+import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev.js";
+import { PackageManager } from "../../enums/PackageManager.js";
+import { execShell } from "../../exec.js";
+import * as file from "../../file.js";
+import { getJSONC } from "../../json.js";
 import {
   getPackageManagerAddCommand,
   getPackageManagerUsedForExistingProject,
-} from "../../packageManager";
-import { Args } from "../../parseArgs";
-import { getFirstTSConfigIncludePath } from "../../tsconfig";
-import { getModTargetDirectoryName } from "../../utils";
-import { COMPILATION_SUCCESSFUL } from "./constants";
-import { copyWatcherMod } from "./copyWatcherMod";
-import * as notifyGame from "./notifyGame";
-import { spawnSaveDatWriter } from "./spawnSaveDatWriter";
-import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles";
+} from "../../packageManager.js";
+import { Args } from "../../parseArgs.js";
+import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
+import { getModTargetDirectoryName } from "../../utils.js";
+import { COMPILATION_SUCCESSFUL } from "./constants.js";
+import { copyWatcherMod } from "./copyWatcherMod.js";
+import * as notifyGame from "./notifyGame.js";
+import { spawnSaveDatWriter } from "./spawnSaveDatWriter.js";
+import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles.js";
 
 const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
   "isaac-typescript-definitions",

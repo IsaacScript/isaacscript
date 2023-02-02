@@ -19,7 +19,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "commonjs",
-  "main": "dist/index",
+  "main": "dist/index.js",
   "dependencies": {
     "isaac-typescript-definitions": "^11.1.0"
   }

@@ -1,5 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import * as ts from "typescript";
+import ts from "typescript";
 import { isTypeFlagSet } from "../typeUtils";
 import { createRule, isFunction } from "../utils";
 

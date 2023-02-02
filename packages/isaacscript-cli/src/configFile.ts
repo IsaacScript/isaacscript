@@ -1,12 +1,12 @@
 import { error } from "isaacscript-common-ts";
-import path from "path";
-import { Config } from "./classes/Config";
-import { getModsDir } from "./commands/init/getModsDir";
-import { promptSaveSlot } from "./commands/init/promptSaveSlot";
-import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
-import * as file from "./file";
-import { getJSONC } from "./json";
-import { Args } from "./parseArgs";
+import path from "node:path";
+import { Config } from "./classes/Config.js";
+import { getModsDir } from "./commands/init/getModsDir.js";
+import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
+import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
+import * as file from "./file.js";
+import { getJSONC } from "./json.js";
+import { Args } from "./parseArgs.js";
 
 const NUM_INDENT_SPACES = 2;
 

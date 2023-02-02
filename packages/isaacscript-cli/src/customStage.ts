@@ -1,28 +1,28 @@
 import chalk from "chalk";
 import { error, parseIntSafe } from "isaacscript-common-ts";
-import path from "path";
+import path from "node:path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
-import { getJSONRoomDoorSlotFlags } from "./common";
+import { getJSONRoomDoorSlotFlags } from "./common.js";
 import {
   CUSTOM_STAGE_FILES_DIR,
   CWD,
   MOD_SOURCE_PATH,
   SHADERS_XML_PATH,
   XML_CONVERTER_PATH,
-} from "./constants";
-import { PackageManager } from "./enums/PackageManager";
-import { execExe } from "./exec";
-import * as file from "./file";
+} from "./constants.js";
+import { PackageManager } from "./enums/PackageManager.js";
+import { execExe } from "./exec.js";
+import * as file from "./file.js";
 import {
   CustomStageLua,
   CustomStageRoomMetadata,
   CustomStageTSConfig,
-} from "./interfaces/copied/CustomStageTSConfig";
-import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile";
-import { ShadersXML } from "./interfaces/ShadersXML";
-import { getPackageManagerAddCommand } from "./packageManager";
-import { getCustomStagesFromTSConfig } from "./tsconfig";
+} from "./interfaces/copied/CustomStageTSConfig.js";
+import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
+import { ShadersXML } from "./interfaces/ShadersXML.js";
+import { getPackageManagerAddCommand } from "./packageManager.js";
+import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 
 const ISAACSCRIPT_COMMON = "isaacscript-common";
 const ISAACSCRIPT_COMMON_PATH = path.join(

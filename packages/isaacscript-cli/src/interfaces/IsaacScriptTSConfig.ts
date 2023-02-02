@@ -1,4 +1,4 @@
-import { CustomStageTSConfig } from "./copied/CustomStageTSConfig";
+import { CustomStageTSConfig } from "./copied/CustomStageTSConfig.js";
 
 /**
  * This is the format of the "isaacscript" section of the "tsconfig.json" file.

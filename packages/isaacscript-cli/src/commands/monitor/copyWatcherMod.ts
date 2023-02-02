@@ -1,12 +1,12 @@
-import path from "path";
-import { Config } from "../../classes/Config";
+import path from "node:path";
+import { Config } from "../../classes/Config.js";
 import {
   DISABLE_IT_FILE,
   MAIN_LUA,
   WATCHER_MOD_NAME,
   WATCHER_MOD_SOURCE_PATH,
-} from "../../constants";
-import * as file from "../../file";
+} from "../../constants.js";
+import * as file from "../../file.js";
 
 export function copyWatcherMod(config: Config, verbose: boolean): void {
   // Check to see if this mod was disabled.

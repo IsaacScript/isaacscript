@@ -1,7 +1,7 @@
-import path from "path";
-import { MAIN_TS } from "../../constants";
-import { execShell } from "../../exec";
-import { getInputYesNo } from "../../prompt";
+import path from "node:path";
+import { MAIN_TS } from "../../constants.js";
+import { execShell } from "../../exec.js";
+import { getInputYesNo } from "../../prompt.js";
 
 export async function promptVSCode(
   projectPath: string,

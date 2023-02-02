@@ -1,10 +1,10 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
-import path from "path";
-import { HOME_DIR } from "../../constants";
-import * as file from "../../file";
-import { Args } from "../../parseArgs";
-import { getInputString } from "../../prompt";
+import path from "node:path";
+import { HOME_DIR } from "../../constants.js";
+import * as file from "../../file.js";
+import { Args } from "../../parseArgs.js";
+import { getInputString } from "../../prompt.js";
 
 const MODS = "mods";
 

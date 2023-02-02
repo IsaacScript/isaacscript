@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { repeat } from "isaacscript-common-ts";
-import path from "path";
-import { Config } from "../../classes/Config";
-import { createConfigFile } from "../../configFile";
+import path from "node:path";
+import { Config } from "../../classes/Config.js";
+import { createConfigFile } from "../../configFile.js";
 import {
   CI_YML,
   CI_YML_TEMPLATE_PATH,
@@ -18,16 +18,16 @@ import {
   README_MD,
   README_MD_TEMPLATES_PATH,
   TEMPLATES_STATIC_DIR,
-} from "../../constants";
-import { PackageManager } from "../../enums/PackageManager";
-import { execShell } from "../../exec";
-import * as file from "../../file";
+} from "../../constants.js";
+import { PackageManager } from "../../enums/PackageManager.js";
+import { execShell } from "../../exec.js";
+import * as file from "../../file.js";
 import {
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
-} from "../../packageManager";
-import { initGitRepository } from "./git";
+} from "../../packageManager.js";
+import { initGitRepository } from "./git.js";
 
 export function createMod(
   projectName: string,

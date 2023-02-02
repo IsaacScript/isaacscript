@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
-import path from "path";
-import { PROJECT_NAME } from "../../constants";
-import * as file from "../../file";
-import { getInputYesNo } from "../../prompt";
+import path from "node:path";
+import { PROJECT_NAME } from "../../constants.js";
+import * as file from "../../file.js";
+import { getInputYesNo } from "../../prompt.js";
 
 export async function checkModTargetDirectory(
   modsDirectory: string,

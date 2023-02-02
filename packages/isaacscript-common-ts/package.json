@@ -16,6 +16,6 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "module",
-  "main": "src/index",
+  "main": "src/index.js",
   "types": "src/index.d.ts"
 }

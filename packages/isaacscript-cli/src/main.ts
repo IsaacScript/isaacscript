@@ -1,32 +1,30 @@
-#!/usr/bin/env node
-
 import chalk from "chalk";
 import * as dotenv from "dotenv";
 import figlet from "figlet";
 import { error } from "isaacscript-common-ts";
-import path from "path";
+import path from "node:path";
 import sourceMapSupport from "source-map-support";
-import pkg from "../package.json";
-import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs";
-import { Config } from "./classes/Config";
-import { check } from "./commands/check/check";
-import { copy } from "./commands/copy/copy";
-import { init } from "./commands/init/init";
-import { monitor } from "./commands/monitor/monitor";
-import { publish } from "./commands/publish/publish";
-import { getConfigFromFile } from "./configFile";
-import { CWD, PROJECT_NAME } from "./constants";
-import { execShell } from "./exec";
+import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
+import { Config } from "./classes/Config.js";
+import { check } from "./commands/check/check.js";
+import { copy } from "./commands/copy/copy.js";
+import { init } from "./commands/init/init.js";
+import { monitor } from "./commands/monitor/monitor.js";
+import { publish } from "./commands/publish/publish.js";
+import { getConfigFromFile } from "./configFile.js";
+import { CWD, PROJECT_NAME } from "./constants.js";
+import { execShell } from "./exec.js";
 import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,
-} from "./packageManager";
-import { Args, parseArgs } from "./parseArgs";
-import { promptInit } from "./prompt";
-import { Command, DEFAULT_COMMAND } from "./types/Command";
-import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject";
-import { validateNodeVersion } from "./validateNodeVersion";
-import { validateOS } from "./validateOS";
+} from "./packageManager.js";
+import { Args, parseArgs } from "./parseArgs.js";
+import { promptInit } from "./prompt.js";
+import { Command, DEFAULT_COMMAND } from "./types/Command.js";
+import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
+import { validateNodeVersion } from "./validateNodeVersion.js";
+import { validateOS } from "./validateOS.js";
+import { getVersionOfThisPackage } from "./version.js";
 
 main().catch((err) => {
   error(`${PROJECT_NAME} failed:`, err);
@@ -43,7 +41,7 @@ async function main(): Promise<void> {
   const verbose = args.verbose === true;
   const command = getCommandFromArgs(args);
 
-  printBanner(command);
+  printBanner(command, verbose);
 
   // Pre-flight checks
   await checkForWindowsTerminalBugs(verbose);
@@ -64,7 +62,7 @@ function loadEnvironmentVariables() {
   dotenv.config({ path: envFile });
 }
 
-function printBanner(command: Command) {
+function printBanner(command: Command, verbose: boolean) {
   // Skip displaying the banner for specific commands.
   if (command === "check") {
     return;
@@ -73,18 +71,19 @@ function printBanner(command: Command) {
   const banner = figlet.textSync(PROJECT_NAME);
   console.log(chalk.green(banner));
 
+  const version = getVersionOfThisPackage(verbose);
+  const versionString = `v${version}`;
   const bannerLines = banner.split("\n");
   const firstBannerLine = bannerLines[0];
   if (firstBannerLine === undefined) {
     throw new Error("Failed to get the first line of the banner text.");
   }
   const bannerLineLength = firstBannerLine.length;
-  const version = `v${pkg.version}`;
-  const leftPaddingAmount = Math.floor((bannerLineLength + version.length) / 2);
-  const versionLine = version.padStart(leftPaddingAmount);
-  console.log(versionLine);
-
-  console.log();
+  const leftPaddingAmount = Math.floor(
+    (bannerLineLength + versionString.length) / 2,
+  );
+  const versionLine = versionString.padStart(leftPaddingAmount);
+  console.log(`${versionLine}\n`);
 }
 
 async function handleCommands(command: Command, args: Args) {

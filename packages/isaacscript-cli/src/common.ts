@@ -1,12 +1,12 @@
 // These are functions copied from `isaacscript-common`.
 
 import { error, parseIntSafe } from "isaacscript-common-ts";
-import { DoorSlot } from "./enums/DoorSlot";
-import { DoorSlotFlag } from "./enums/DoorSlotFlag";
-import { RoomShape } from "./enums/RoomShape";
-import { JSONRoom } from "./interfaces/copied/JSONRoomsFile";
-import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag";
-import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates";
+import { DoorSlot } from "./enums/DoorSlot.js";
+import { DoorSlotFlag } from "./enums/DoorSlotFlag.js";
+import { RoomShape } from "./enums/RoomShape.js";
+import { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
+import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag.js";
+import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates.js";
 
 /** This is copied from `isaacscript-common`. */
 export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {

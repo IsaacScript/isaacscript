@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import path from "path";
-import { CWD, PACKAGE_JSON, PROJECT_NAME } from "./constants";
-import * as file from "./file";
+import path from "node:path";
+import { CWD, PACKAGE_JSON, PROJECT_NAME } from "./constants.js";
+import * as file from "./file.js";
 
 /** We don't check "node_modules" because we might be cloning a fresh IsaacScript project. */
 const SUBDIRECTORIES_TO_CHECK = ["src", "mod"] as const;

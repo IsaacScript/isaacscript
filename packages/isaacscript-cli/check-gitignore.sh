@@ -12,7 +12,6 @@ REMOTE_GITIGNORE="/tmp/gitignore-template-remote"
 URL="https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore"
 
 tail -n +$NUM_LINES_TO_TRUNCATE_FROM_TOP "$DIR/file-templates/dynamic/gitignore" > $LOCAL_GITIGNORE
-cat $LOCAL_GITIGNORE
 curl "$URL" --output "$REMOTE_GITIGNORE" --silent
 set +e
 cmp --silent "$LOCAL_GITIGNORE" "$REMOTE_GITIGNORE"

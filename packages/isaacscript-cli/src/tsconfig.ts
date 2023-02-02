@@ -6,9 +6,9 @@ import {
   PROJECT_NAME,
   TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
-} from "./constants";
-import { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig";
-import { getJSONC } from "./json";
+} from "./constants.js";
+import { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
+import { getJSONC } from "./json.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 

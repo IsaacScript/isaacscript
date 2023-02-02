@@ -1,5 +1,5 @@
-import { DoorSlot } from "../enums/DoorSlot";
-import { DoorSlotFlag, DoorSlotFlagZero } from "../enums/DoorSlotFlag";
+import { DoorSlot } from "../enums/DoorSlot.js";
+import { DoorSlotFlag, DoorSlotFlagZero } from "../enums/DoorSlotFlag.js";
 
 export const DOOR_SLOT_TO_DOOR_SLOT_FLAG = {
   [DoorSlot.NO_DOOR_SLOT]: DoorSlotFlagZero, // -1

@@ -10,7 +10,7 @@
  * exact point in the code where the crash happened.
  */
 
-import * as crypto from "crypto";
+import * as crypto from "node:crypto";
 import { SourceNode } from "source-map";
 import * as ts from "typescript";
 import * as tstl from "typescript-to-lua";

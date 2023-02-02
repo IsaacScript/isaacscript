@@ -1,5 +1,5 @@
 import syncDirectory from "sync-directory";
-import { FILE_SYNCED_MESSAGE } from "../../../constants";
+import { FILE_SYNCED_MESSAGE } from "../../../constants.js";
 
 const SUBPROCESS_NAME = "directory syncer";
 

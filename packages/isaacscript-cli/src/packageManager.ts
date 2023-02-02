@@ -1,10 +1,10 @@
 import commandExists from "command-exists";
 import { error, getEnumValues } from "isaacscript-common-ts";
-import path from "path";
-import { CWD } from "./constants";
-import { PackageManager } from "./enums/PackageManager";
-import * as file from "./file";
-import { Args } from "./parseArgs";
+import path from "node:path";
+import { CWD } from "./constants.js";
+import { PackageManager } from "./enums/PackageManager.js";
+import * as file from "./file.js";
+import { Args } from "./parseArgs.js";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
   [PackageManager.NPM]: "package-lock.json",

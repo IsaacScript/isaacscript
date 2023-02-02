@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { error, parseSemanticVersion } from "isaacscript-common-ts";
-import path from "path";
-import { Config } from "../../classes/Config";
+import path from "node:path";
+import { Config } from "../../classes/Config.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
@@ -13,16 +13,16 @@ import {
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
-} from "../../constants";
-import { PackageManager } from "../../enums/PackageManager";
-import { execExe, execPowershell, execShell } from "../../exec";
-import * as file from "../../file";
-import { getJSONC } from "../../json";
-import { getPackageManagerUsedForExistingProject } from "../../packageManager";
-import { Args } from "../../parseArgs";
-import { getModTargetDirectoryName } from "../../utils";
-import { compileAndCopy } from "../copy/copy";
-import { gitCommitIfChanges, isGitDirty } from "../init/git";
+} from "../../constants.js";
+import { PackageManager } from "../../enums/PackageManager.js";
+import { execExe, execPowershell, execShell } from "../../exec.js";
+import * as file from "../../file.js";
+import { getJSONC } from "../../json.js";
+import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
+import { Args } from "../../parseArgs.js";
+import { getModTargetDirectoryName } from "../../utils.js";
+import { compileAndCopy } from "../copy/copy.js";
+import { gitCommitIfChanges, isGitDirty } from "../init/git.js";
 
 const UPDATE_SCRIPT_NAME = "update.sh";
 

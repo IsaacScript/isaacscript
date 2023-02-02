@@ -1,3 +1,5 @@
+- delete no-useless-return-no-fix
+
 - yarn add --dev @docusaurus/eslint-plugin
   - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
 - use --typescript flag to create new docusaurus app
