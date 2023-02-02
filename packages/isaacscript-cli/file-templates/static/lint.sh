@@ -11,26 +11,26 @@ SECONDS=0
 cd "$DIR"
 
 # Use Prettier to check formatting.
-npx prettier --check .
+# "--loglevel warn" makes it only output errors.
+npx prettier --loglevel warn --check .
 
 # Use ESLint to lint the TypeScript.
-# We use "--max-warnings" so that any warnings will fail in CI.
+# "--max-warnings 0" makes warnings fail in CI, since we set all ESLint errors to warnings.
 npx eslint --max-warnings 0 .
 
-# Check for unused imports.
-# The "--error" flag makes it return an error code of 1 if unused exports are found.
-# (This starts out disabled by default, but you can uncomment the following line to find dead code.)
-# npx ts-prune --error
+# Check for unused exports.
+# "--error" makes it return an error code of 1 if unused exports are found.
+npx ts-prune --error
 
 # Use `isaac-xml-validator` to validate XML files.
 # (Skip this step if Python is not currently installed for whatever reason.)
 if command -v python &> /dev/null; then
   pip install isaac-xml-validator --upgrade --quiet
-  isaac-xml-validator # --quiet
+  isaac-xml-validator --quiet
 fi
 
 # Spell check every file using CSpell.
-# We use "--no-progress" and "--no-summary" because we want to only output errors.
+# "--no-progress" and "--no-summary" make it only output errors.
 npx cspell --no-progress --no-summary .
 
 # Check for orphaned words.

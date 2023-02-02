@@ -1,3 +1,8 @@
+- yarn add --dev @docusaurus/eslint-plugin
+  - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
+- use --typescript flag to create new docusaurus app
+- move to pnpm
+
 - try new TypeDoc branch
 - merge zamTS + zamPublish into isaacscript monorepo
 - add variables to uploader github action
@@ -9,8 +14,6 @@
   cd test-git-partial-clone-big-small
   git sparse-checkout set small
 
-- isaac-xml-validator
-  - wait for wof to fix: https://github.com/wofsauge/isaac-xml-validator/issues/27
   - uncomment "#isaac-xml-validator" (in R+ / babies mod too)
 
 - stop importing RunInNFrames class
@@ -25,3 +28,5 @@
 
 - when typescript 5.0 comes out, remove "newLine" in tsconfig
 - when typescript 5.0 comes out, remove all tsconfig duplication with `extends` (e.g. tsconfig.node.json)
+
+- typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments

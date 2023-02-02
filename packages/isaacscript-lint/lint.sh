@@ -11,10 +11,11 @@ SECONDS=0
 cd "$DIR"
 
 # Use Prettier to check formatting.
-npx prettier --ignore-path="$DIR/../../.prettierignore" --check .
+# "--loglevel warn" makes it only output errors.
+npx prettier --loglevel warn --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Spell check every file using CSpell.
-# We use "--no-progress" and "--no-summary" because we want to only output errors.
+# "--no-progress" and "--no-summary" make it only output errors.
 npx cspell --no-progress --no-summary .
 
 echo "Successfully linted in $SECONDS seconds."

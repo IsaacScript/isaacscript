@@ -1,9 +1,12 @@
 import fs from "fs";
-import { isKebabCase } from "isaacscript-common-ts";
 import path from "path";
 import { PLUGIN_NAME } from "./constants";
 import { generateAll } from "./generateAll";
-import { getCamelCaseRuleName, removeFirstAndLastLine } from "./utils";
+import {
+  getCamelCaseRuleName,
+  isKebabCase,
+  removeFirstAndLastLine,
+} from "./utils";
 
 const REPO_ROOT = path.join(__dirname, "..");
 const DOCS_PATH = path.join(REPO_ROOT, "docs");

@@ -8,14 +8,9 @@ export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
 const RULE_NAME_PREFIX = `${PLUGIN_NAME}/`;
 const PRETTIER_CONFIG = prettier.resolveConfig.sync(__dirname);
 
-function kebabCaseToCamelCase(text: string): string {
-  return text.replace(/-./g, (match) => {
-    const firstLetterOfWord = match[1];
-    return firstLetterOfWord === undefined
-      ? ""
-      : firstLetterOfWord.toUpperCase();
-  });
-}
+/** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
+const KEBAB_CASE_REGEX =
+  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
 export function formatWithPrettier(
   text: string,
@@ -51,12 +46,26 @@ export function getFullRuleName(ruleName: string): string {
   return `${RULE_NAME_PREFIX}${ruleName}`;
 }
 
+/** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
+export function isKebabCase(string: string): boolean {
+  return KEBAB_CASE_REGEX.test(string);
+}
+
 export function isRecommendedRule(rule: RuleDefinition): boolean {
   if (rule.meta.docs === undefined) {
     return false;
   }
 
   return rule.meta.docs.recommended !== false;
+}
+
+function kebabCaseToCamelCase(text: string): string {
+  return text.replace(/-./g, (match) => {
+    const firstLetterOfWord = match[1];
+    return firstLetterOfWord === undefined
+      ? ""
+      : firstLetterOfWord.toUpperCase();
+  });
 }
 
 /** Intended to be used on file content that needs to have a trailing newline. */
