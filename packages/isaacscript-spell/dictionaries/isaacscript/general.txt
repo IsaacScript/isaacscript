@@ -6,6 +6,7 @@ backticks
 bitmask
 bootstrapper
 cacheable
+codebases
 decompilation
 decrementation
 easings
