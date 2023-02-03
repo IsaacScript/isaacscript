@@ -16,8 +16,8 @@ if [ "$CURRENT_BRANCH" != "main" ]; then
 fi
 
 # Validate that we can push and pull to the repository.
-git pull --rebase
-git push
+git pull --rebase --quiet
+git push --quiet
 
 # Validate that we are logged in to npm.
 npm whoami > /dev/null
@@ -43,9 +43,10 @@ if [ -z "$2" ]; then
 fi
 VERSION_BUMP="$2"
 
-# Before bumping the version, check to see if this package compiles (so that we can avoid
+# Before bumping the version, check to see if this package compiles and lints (so that we can avoid
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
+bash "$PACKAGE_DIR/lint.sh"
 
 # Normally, the "version" command of the packager manager will automatically make a Git commit for
 # you. However:
