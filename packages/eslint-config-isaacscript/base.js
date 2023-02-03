@@ -284,6 +284,15 @@ module.exports = {
      */
     "n/no-unsupported-features/node-builtins": "off",
 
+    "n/shebang": [
+      "error",
+      {
+        convertPath: {
+          "src/**/*.ts": ["^src/(.+?)\\.ts$", "src/$1.js"],
+        },
+      },
+    ],
+
     /**
      * Documentation:
      * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
