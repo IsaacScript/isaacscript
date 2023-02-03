@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 
 const REPO_ROOT = __dirname;
 const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
