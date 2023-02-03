@@ -61,7 +61,7 @@ else
 fi
 
 # Manually make a Git commit. (See above comment.)
-git add package.json yarn.lock
+git add "$PACKAGE_DIR/package.json"
 # https://gist.github.com/DarrenN/8c6a5b969481725a4413
 NEW_VERSION=$(npm pkg get version | sed 's/"//g')
 COMMIT_MESSAGE="chore(release): $PACKAGE_NAME-$NEW_VERSION"
