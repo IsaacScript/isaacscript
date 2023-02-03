@@ -16,6 +16,7 @@ if [ "$CURRENT_BRANCH" != "main" ]; then
 fi
 
 # Validate that we can push and pull to the repository.
+git branch --set-upstream-to=origin/main main
 git pull --rebase --quiet
 git push --quiet
 
@@ -96,3 +97,6 @@ if ! npx git-dirty; then
   git commit --all --message "chore: updating dependencies"
   git push
 fi
+
+# Reset the origin. (TODO: Is this necessary?)
+git branch --set-upstream-to=origin/main main
