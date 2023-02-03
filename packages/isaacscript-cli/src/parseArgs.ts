@@ -138,7 +138,8 @@ export function parseArgs(): Args {
           .option("ts", {
             alias: "t",
             type: "boolean",
-            description: "Allow project names that are normally illegal",
+            description:
+              "Initialize a TypeScript project instead of an Isaac mod",
           })
           .option("dev", {
             alias: "d",
