@@ -10,7 +10,7 @@ cd "$DIR"
 
 # Validate that we are on the correct branch.
 CURRENT_BRANCH=$(git branch --show-current)
-if [ "$1" != "main" ]; then
+if [ "$CURRENT_BRANCH" != "main" ]; then
   echo "Error: You must be on the main branch before publishing."
   exit 1
 fi
