@@ -25,7 +25,6 @@ import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-se
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
 import { noThrow } from "./rules/no-throw";
 import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus";
-import { noUselessReturnNoFix } from "./rules/no-useless-return-no-fix";
 import { noVoidReturnType } from "./rules/no-void-return-type";
 import { preferPlusplus } from "./rules/prefer-plusplus";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus";
@@ -54,7 +53,6 @@ export const rules = {
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
   "no-throw": noThrow,
   "no-unsafe-plusplus": noUnsafePlusplus,
-  "no-useless-return-no-fix": noUselessReturnNoFix,
   "no-void-return-type": noVoidReturnType,
   "prefer-plusplus": preferPlusplus,
   "prefer-postfix-plusplus": preferPostfixPlusplus,

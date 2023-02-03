@@ -41,10 +41,6 @@ const BASE_CONFIG: LinterConfig = {
     // The ESLint "no-template-curly-in-string" rule will conflict with the
     // "isaacscript/no-template-curly-in-string-fix" rule.
     "no-template-curly-in-string": "off",
-
-    // The ESLint "no-useless-return" rule will conflict with the
-    // "isaacscript/no-useless-return-no-fix" rule.
-    "no-useless-return": "off",
   },
 };
 

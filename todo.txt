@@ -1,9 +1,5 @@
-- PACKAGE_MANAGER_NPX_COMMANDS is bugged with "npx" because it is two words
-- search "NPM_LOCK_EXISTS" and refactor
-- refactor check-orphaned-words for package manager
-
 - use new library: https://github.com/Schniz/cmd-ts
-- delete no-useless-return-no-fix
+- refactor check-orphaned-words for package manager
 
 - yarn add --save-dev @docusaurus/eslint-plugin
   - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
@@ -12,7 +8,6 @@
 - try new TypeDoc branch
 - merge zamTS + zamPublish into isaacscript monorepo
 - add variables to uploader github action
-- make isaacscript-cli ESM
 - typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
 - investigate EXECUTE_CMD crashing
 

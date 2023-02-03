@@ -66,6 +66,18 @@ module.exports = {
 
   plugins: [
     /**
+     * Activate the "no-autofix" plugin, which allows the fixer for specific rules to be turned off:
+     * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/autofix
+     */
+    "autofix",
+
+    /**
+     * Activate the "no-autofix" plugin, which allows the fixer for specific rules to be turned off:
+     * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
+     */
+    "no-autofix",
+
+    /**
      * Activate the "no-type-assertion" plugin, which allows the "no-type-assertion" rule to be
      * optionally enabled on a per-project basis:
      * https://github.com/Dremora/eslint-plugin-no-type-assertion
@@ -515,6 +527,24 @@ module.exports = {
      * corresponding specified Node output environment, so this rule is unnecessary.
      */
     "n/no-unsupported-features/node-builtins": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
+     *
+     * We want to disable the autofix for this rule, since it is almost always unwanted.
+     */
+    "no-useless-return": "off",
+    "no-autofix/no-useless-return": "warn",
+
+    /**
+     * Documentation:
+     * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
+     *
+     * We want to disable the autofix for this rule, since it is almost always unwanted.
+     */
+    "prefer-const": "off",
+    "no-autofix/prefer-const": "warn",
 
     /**
      * Documentation:
