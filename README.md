@@ -57,10 +57,11 @@ For getting started in building your own mods, see the [website](https://isaacsc
       (replace "[username]" with your GitHub username)
 - Enter the cloned repository:
   - `cd isaacscript`
-- Ensure that [Yarn](https://classic.yarnpkg.com/lang/en/) (v1) is installed:
+- Ensure that [pnpm](https://pnpm.io/installation#using-corepack) is installed:
   - `corepack enable`
+  - `corepack prepare pnpm@latest --activate`
 - Install dependencies:
-  - `yarn install`
+  - `pnpm install`
 - Open the monorepo in VSCode:
   - `code .`
 
@@ -82,6 +83,6 @@ This command will initialize a new mod named "test" and then automatically link 
 
 ### Using an Existing Mod
 
-Testing with a brand new mod is recommended, but it is also possible to use an existing mod. Just set `"isaacScriptCommonDev": true` in your `isaacscript.json` file and then start IsaacScript. (Doing this will automatically set up the local yarn link.)
+Testing with a brand new mod is recommended, but it is also possible to use an existing mod. Just set `"isaacScriptCommonDev": true` in your `isaacscript.json` file and then start IsaacScript. (Doing this will automatically set up the local pnpm link.)
 
-Make sure that your existing mod project uses Yarn as the package manager, or the link won't work properly.
+Make sure that your existing mod project uses pnpm as the package manager, or the link won't work properly.

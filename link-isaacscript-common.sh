@@ -10,7 +10,7 @@ cd "$DIR"
 
 # This is a helper script to prepare the local development version of IsaacScript common to be
 # consumed by a development mod.
-yarn install
+pnpm install
 bash "$DIR/packages/isaacscript-common/build.sh"
 cd "$DIR/dist/packages/isaacscript-common"
-yarn link
+pnpm link

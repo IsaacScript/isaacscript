@@ -842,6 +842,9 @@ npm install --save typescript-to-lua
 
 # If you use Yarn:
 yarn add typescript-to-lua
+
+# If you use pnpm:
+pnpm add typescript-to-lua
 ```
 
 ### Other

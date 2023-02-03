@@ -175,9 +175,9 @@ function linkDevelopmentIsaacScriptCommon(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  if (packageManager !== PackageManager.YARN) {
+  if (packageManager !== PackageManager.PNPM) {
     error(
-      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the Yarn package manager instead of: ${packageManager}`,
+      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the pnpm package manager instead of: ${packageManager}`,
     );
   }
 
@@ -195,7 +195,7 @@ function linkDevelopmentIsaacScriptCommon(
     'Linking this repository to the development version of "isaacscript-common"...',
   );
   execShell(
-    "yarn",
+    "pnpm",
     ["link", "isaacscript-common"],
     verbose,
     false,

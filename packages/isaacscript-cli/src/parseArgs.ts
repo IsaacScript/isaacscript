@@ -115,7 +115,7 @@ export function parseArgs(): Args {
           })
           .option("yarn", {
             type: "boolean",
-            description: "Use yarn as the package manager",
+            description: "Use Yarn as the package manager",
           })
           .option("pnpm", {
             alias: "p",

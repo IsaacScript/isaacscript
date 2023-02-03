@@ -19,12 +19,13 @@ if [ "$1" != "json" ]; then
   npx eslint --max-warnings 0 scripts
 
   echo "Linting each package in the monorepo..."
+  LINT_COMMAND="nx run-many --target=lint --all $NO_CACHE"
   if command -v nx &> /dev/null; then
     # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
-    nx run-many --target=lint --all $NO_CACHE
+    "$LINT_COMMAND"
   else
-    # The "nx" command does not work in CI, so we revert to calling Nx through Yarn.
-    yarn nx run-many --target=lint --all $NO_CACHE
+    # The "nx" command does not work in CI, so we revert to calling Nx through the package manager.
+    pnpx "$LINT_COMMAND"
   fi
 
   echo "Checking markdown..."

@@ -9,7 +9,7 @@ cloc # Monorepo word
 clsx # Monorepo word
 commitlint # Monorepo word
 conventionalcommits # Monorepo word
-corepack # To install Yarn
+corepack # To install Yarn/pnpm
 dbaeumer # extensions.json
 Ddefinitions # TSTL compiled word
 devkit # Monorepo word

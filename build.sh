@@ -15,10 +15,11 @@ else
   NO_CACHE=""
 fi
 
+BUILD_COMMAND="nx run-many --target=build --all $NO_CACHE"
 if command -v nx &> /dev/null; then
   # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
-  nx run-many --target=build --all $NO_CACHE
+  "$BUILD_COMMAND"
 else
-  # The "nx" command does not work in CI, so we revert to calling Nx through Yarn.
-  yarn nx run-many --target=build --all $NO_CACHE
+  # The "nx" command does not work in CI, so we revert to calling Nx through the package manager.
+  pnpx "$BUILD_COMMAND"
 fi

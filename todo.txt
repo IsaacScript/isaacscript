@@ -1,7 +1,7 @@
 - use new library: https://github.com/Schniz/cmd-ts
 - delete no-useless-return-no-fix
 
-- yarn add --dev @docusaurus/eslint-plugin
+- pnpm add --save-dev @docusaurus/eslint-plugin
   - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
 - use --typescript flag to create new docusaurus app
 - move to pnpm

@@ -35,15 +35,10 @@ VERSION_BUMP="$2"
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
 
-yarn config set version-tag-prefix "$PACKAGE_NAME-"
-yarn config set version-git-message "chore(release): $PACKAGE_NAME-%s"
-
 if [ "$VERSION_BUMP" == "dev" ]; then
-  yarn version --prerelease --preid=dev
-elif [ "$VERSION_BUMP" == "major" ] || [ "$VERSION_BUMP" == "minor" ] || [ "$VERSION_BUMP" == "patch" ]; then
-  yarn version --new-version $VERSION_BUMP --tag
+  pnpm version --prerelease --preid=dev --message "chore(release): $PACKAGE_NAME-%s"
 else
-  yarn version --set-version $VERSION_BUMP
+  pnpm version --set-version $VERSION_BUMP
 fi
 
 # We have to build again after bumping the version so that the new "package.json" file gets copied
