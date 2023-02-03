@@ -23,11 +23,11 @@ rm -rf "$OUT_DIR"
 rm -rf "$DIR/dist"
 
 # Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
-pnpx tstl
+npx tstl
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
-pnpx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common"
+npx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common"
 
 # Scrub internal exports from the declaration file using the ".d.ts rollup" feature of API
 # Extractor: https://api-extractor.com/
@@ -41,7 +41,7 @@ pnpx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" 
 # for our case. However, a downside of this method is that the declaration maps will not work:
 # https://github.com/microsoft/rushstack/issues/1886
 # https://github.com/timocov/dts-bundle-generator/issues/218
-pnpx api-extractor run
+npx api-extractor run
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
@@ -58,7 +58,7 @@ else
   LUA_INDEX="$DIR/src/indexLua.ts"
   cp "$DIR/src/index.ts" "$LUA_INDEX"
   echo "export * from \"isaac-typescript-definitions\";" >> "$LUA_INDEX"
-  pnpx tstl --project tsconfig.bundle.json
+  npx tstl --project tsconfig.bundle.json
   rm -f "$LUA_INDEX"
 fi
 

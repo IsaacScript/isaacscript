@@ -18,6 +18,6 @@ REPO_ROOT="$DIR/../.."
 OUT_DIR="$REPO_ROOT/packages/docs/docs/$REPO_NAME"
 
 rm -rf "$COMMON_DIR"
-pnpx typedoc # The options are stored in "typedoc.json".
+npx typedoc # The options are stored in "typedoc.json".
 
 echo "Successfully generated docs for $REPO_NAME in $SECONDS seconds."

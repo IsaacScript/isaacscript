@@ -12,11 +12,11 @@ cd "$DIR"
 
 # Use Prettier to check formatting.
 # "--loglevel warn" makes it only output errors.
-pnpx prettier --loglevel warn --ignore-path="$DIR/../../.prettierignore" --check .
+npx prettier --loglevel warn --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Spell check every file using CSpell.
 # "--no-progress" and "--no-summary" make it only output errors.
-pnpx cspell --no-progress --no-summary .
+npx cspell --no-progress --no-summary .
 
 # Lint the dictionary files.
 bash "$DIR/check-dictionaries.sh"
