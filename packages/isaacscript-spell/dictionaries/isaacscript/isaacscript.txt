@@ -65,6 +65,7 @@ tsdoc # Monorepo word
 TSES # For TSESTree
 tstl
 Turnbull # Author of "airbnb-typescript/base"
+typecheck # Monorepo word
 typedoc
 typeof # JavaScript word
 unshift # JavaScript word

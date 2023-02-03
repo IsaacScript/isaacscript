@@ -1639,7 +1639,7 @@
     url-loader "^4.1.1"
     webpack "^5.73.0"
 
-"@docusaurus/module-type-aliases@2.3.0":
+"@docusaurus/module-type-aliases@2.3.0", "@docusaurus/module-type-aliases@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.3.0.tgz#85861b0e56a3468d82cba76964e08287d1939c84"
   integrity sha512-DvJtVejgrgIgxSNZ0pRaVu4EndRVBgbtp1LKvIO4xBgKlrsq8o4qkj1HKwH6yok5NoMqGApu8/E0KPOdZBtDpQ==

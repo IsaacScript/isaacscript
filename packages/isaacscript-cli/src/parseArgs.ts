@@ -20,6 +20,7 @@ export interface Args {
   noGit?: boolean;
   skipInstall?: boolean;
   forceName?: boolean;
+  ts?: boolean;
 
   // publish
   skip?: boolean;
@@ -87,7 +88,6 @@ export function parseArgs(): Args {
               'Answer yes to every dialog option, similar to how "npm init --yes" works.',
           })
           .option("use-current-dir", {
-            alias: "u",
             type: "boolean",
             description:
               "Use the current directory as the root for the project",
@@ -104,7 +104,6 @@ export function parseArgs(): Args {
             description: "The in-game save slot that you use",
           })
           .option("vscode", {
-            alias: "c",
             type: "boolean",
             description: "Open the project in VSCode after initialization",
           })
@@ -123,18 +122,21 @@ export function parseArgs(): Args {
             description: "Use pnpm as the package manager",
           })
           .option("no-git", {
-            alias: "g",
             type: "boolean",
             description: "Do not initialize Git",
           })
           .option("skip-install", {
-            alias: "i",
             type: "boolean",
             description:
               "Don't automatically install the dependencies after initializing the project",
           })
           .option("force-name", {
             alias: "f",
+            type: "boolean",
+            description: "Allow project names that are normally illegal",
+          })
+          .option("ts", {
+            alias: "t",
             type: "boolean",
             description: "Allow project names that are normally illegal",
           })
@@ -164,13 +166,11 @@ export function parseArgs(): Args {
       "Bump the version & prepare for a new release.",
       (builder) =>
         builder
-          .option("skip", {
-            alias: "s",
+          .option("skip-increment", {
             type: "boolean",
             description: "skip incrementing the version number",
           })
           .option("set-version", {
-            alias: "t",
             type: "string",
             description:
               "specify the version number instead of incrementing it",
@@ -180,7 +180,7 @@ export function parseArgs(): Args {
             type: "boolean",
             description: "skip committing/uploading",
           })
-          .option("only-upload", {
+          .option("upload-only", {
             alias: "u",
             type: "boolean",
             description:

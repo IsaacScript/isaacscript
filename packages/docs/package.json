@@ -1,8 +1,7 @@
 {
-  "name": "isaacscript-github-io",
+  "name": "docs",
   "private": true,
   "description": "The website for the IsaacScript monorepo.",
-  "keywords": [],
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
     "url": "https://github.com/IsaacScript/isaacscript/issues"
@@ -13,17 +12,15 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
-    "build": "docusaurus build --out-dir ../../dist/packages/docs",
+    "build": "docusaurus build",
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
-    "serve": "docusaurus serve --dir ../../dist/packages/docs",
+    "serve": "docusaurus serve",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
+    "typecheck": "tsc",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
   },
@@ -38,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=16.14"
   }
 }

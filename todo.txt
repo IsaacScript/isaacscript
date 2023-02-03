@@ -1,6 +1,3 @@
-- use new library: https://github.com/Schniz/cmd-ts
-- refactor check-orphaned-words for package manager
-
 - yarn add --save-dev @docusaurus/eslint-plugin
   - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
 - use --typescript flag to create new docusaurus app

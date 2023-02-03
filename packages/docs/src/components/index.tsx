@@ -1,9 +1,14 @@
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import clsx from "clsx";
 import React from "react";
-import styles from "./HomepageFeatures.module.css";
+import styles from "./styles.module.css";
 
-// eslint-disable-next-line isaacscript/require-capital-const-assertions
+interface FeatureItem {
+  readonly title: string;
+  readonly img: string;
+  readonly description: JSX.Element;
+}
+
 const FeatureList = [
   {
     title: "The Entire Isaac API, Strongly Typed",
@@ -35,15 +40,14 @@ const FeatureList = [
       </>
     ),
   },
-];
+] as const satisfies readonly FeatureItem[];
 
-function Feature({ title, img, description }) {
+function Feature({ title, img, description }: FeatureItem) {
   const imgStyle = {
     height: "7.5em",
     width: "7.5em",
   };
 
-  // cspell:ignore horiz
   return (
     <div className={clsx("col col--6")}>
       <div className="text--center">
@@ -58,9 +62,9 @@ function Feature({ title, img, description }) {
 }
 
 // eslint-disable-next-line import/no-default-export
-export default function HomepageFeatures() {
+export default function HomepageFeatures(): JSX.Element {
   return (
-    <section className={styles.features}>
+    <section className={styles["features"]}>
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (

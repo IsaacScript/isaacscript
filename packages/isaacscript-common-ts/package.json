@@ -2,9 +2,6 @@
   "name": "isaacscript-common-ts",
   "version": "4.0.0",
   "description": "Helper functions for TypeScript projects.",
-  "keywords": [
-    "isaacscript"
-  ],
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
     "url": "https://github.com/IsaacScript/isaacscript/issues"
