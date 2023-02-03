@@ -49,7 +49,8 @@ import {
   renameFile,
   trimSuffix,
   writeFile,
-} from "./utils";
+  __dirname,
+} from "./utils.mjs";
 
 const DEBUG = false as boolean;
 const PACKAGE_NAME = "isaacscript-common";

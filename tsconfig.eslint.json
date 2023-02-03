@@ -1,5 +1,5 @@
 // A special TypeScript configuration file, used by ESLint only.
 {
   "extends": "./tsconfig.json",
-  "include": ["./.eslintrc.cjs", "./.prettierrc.cjs", "./scripts/**/*.ts"],
+  "include": ["./.eslintrc.cjs", "./.prettierrc.cjs", "./scripts/**/*.mts"],
 }

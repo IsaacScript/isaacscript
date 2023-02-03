@@ -24,8 +24,8 @@ bash "$DIR/../isaac-typescript-definitions/docs.sh"
 bash "$DIR/../isaacscript-common/docs.sh"
 
 # Second, apply transformations on top of the TypeDoc output.
-npx ts-node "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.ts"
-npx ts-node "$REPO_ROOT/scripts/fixIsaacScriptCommon.ts"
+npx ts-node --esm "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
+npx ts-node --esm "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"

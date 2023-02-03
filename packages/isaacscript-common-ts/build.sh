@@ -24,7 +24,7 @@ npx tsc
 
 # The source maps and declaration maps will be bugged due to nx's consolidated "dist" directory, so
 # we use a script to manually rewrite them.
-npx ts-node "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.ts" "isaacscript-common-ts"
+npx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common-ts"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

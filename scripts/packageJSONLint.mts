@@ -3,7 +3,13 @@
 import glob from "glob";
 import * as path from "node:path";
 import sortPackageJson from "sort-package-json";
-import { error, fileExists, isKebabCase, readFile } from "./utils";
+import {
+  error,
+  fileExists,
+  isKebabCase,
+  readFile,
+  __dirname,
+} from "./utils.mjs";
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
@@ -237,7 +243,10 @@ function packageJSONLint(
       return false;
     }
 
-    if (type !== "commonjs") {
+    if (
+      type !== "commonjs" &&
+      !packageJSONPath.includes("isaacscript-common-ts")
+    ) {
       console.error(`File has an invalid "type" field: ${packageJSONPath}`);
       return false;
     }

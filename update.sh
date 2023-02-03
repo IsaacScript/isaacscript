@@ -11,7 +11,7 @@ cd "$DIR"
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # Old versions (dependencies):
-# - sort-package-json - Stuck until TypeScript supports ESM.
+# - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM.
 # Old versions (devDependencies):
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - @nrwl/eslint-plugin-nx - See nx below.

@@ -3,7 +3,7 @@ import * as JSONC from "jsonc-parser";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as process from "node:process";
-import { error, readFile } from "./utils";
+import { error, readFile, __dirname } from "./utils.mjs";
 
 const REPO_ROOT = path.join(__dirname, "..");
 const PACKAGE_ROOT = path.join(
