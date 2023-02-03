@@ -17,6 +17,7 @@ fi
 
 # Validate that we can push and pull to the repository.
 git pull --rebase
+git push
 
 # Validate that we are logged in to npm.
 npm whoami > /dev/null
