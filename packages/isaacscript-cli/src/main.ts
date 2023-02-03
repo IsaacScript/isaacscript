@@ -71,26 +71,27 @@ function printBanner(command: Command, verbose: boolean) {
   if (firstBannerLine === undefined) {
     throw new Error("Failed to get the first line of the banner text.");
   }
-  const bannerLineLength = firstBannerLine.length;
+  const bannerHorizontalLength = firstBannerLine.length;
   const leftPaddingAmount = Math.floor(
-    (bannerLineLength + versionString.length) / 2,
+    (bannerHorizontalLength + versionString.length) / 2,
   );
   const versionLine = versionString.padStart(leftPaddingAmount);
   console.log(`${versionLine}\n`);
 }
 
 async function handleCommands(command: Command, args: Args) {
+  const ts = args.ts === true;
   const skipProjectChecks = args.skipProjectChecks === true;
   const verbose = args.verbose === true;
 
   let config = new Config();
-  if (command !== "init") {
+  if (command !== "init" && !ts) {
     if (!skipProjectChecks) {
       validateInIsaacScriptProject(verbose);
     }
-    config = await getConfigFromFile(args);
 
     ensureDepsAreInstalled(args, verbose);
+    config = await getConfigFromFile(args);
   }
 
   switch (command) {

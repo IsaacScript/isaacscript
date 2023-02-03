@@ -5,7 +5,7 @@ import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter.js";
 
 export function msg(data: string): void {
   const formattedData = data
-    .replace(/\r\n/g, "\n") // Replace Windows newlines with Unix newlines
+    .replaceAll("/\r\n", "\n") // Replace Windows newlines with Unix newlines
     .trim(); // Trim whitespace
 
   for (const line of formattedData.split("\n")) {

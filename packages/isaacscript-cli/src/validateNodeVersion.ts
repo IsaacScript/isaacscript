@@ -13,7 +13,7 @@ export function validateNodeVersion(): void {
 
   const semanticVersion = parseSemanticVersion(version);
   if (semanticVersion === undefined) {
-    error(`Failed to parse the node version: ${version}`);
+    error(`Failed to parse the Node version: ${version}`);
   }
 
   const { majorVersion } = semanticVersion;

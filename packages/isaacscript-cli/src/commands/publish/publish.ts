@@ -17,12 +17,12 @@ import {
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execExe, execPowershell, execShell } from "../../exec.js";
 import * as file from "../../file.js";
+import { gitCommitIfChanges, isGitDirty } from "../../git.js";
 import { getJSONC } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import { compileAndCopy } from "../copy/copy.js";
-import { gitCommitIfChanges, isGitDirty } from "../init/git.js";
 
 const UPDATE_SCRIPT_NAME = "update.sh";
 

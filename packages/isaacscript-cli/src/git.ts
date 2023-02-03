@@ -3,14 +3,14 @@ import commandExists from "command-exists";
 import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import yaml from "yaml";
-import { HOME_DIR, PROJECT_NAME } from "../../constants.js";
-import { PackageManager } from "../../enums/PackageManager.js";
-import { execShell } from "../../exec.js";
-import * as file from "../../file.js";
-import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML.js";
-import { getPackageManagerNPXCommand } from "../../packageManager.js";
-import { getInputString, getInputYesNo } from "../../prompt.js";
-import { getVersionOfThisPackage } from "../../version.js";
+import { HOME_DIR, PROJECT_NAME } from "./constants.js";
+import { PackageManager } from "./enums/PackageManager.js";
+import { execShell } from "./exec.js";
+import * as file from "./file.js";
+import { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
+import { getPackageManagerNPXCommand } from "./packageManager.js";
+import { getInputString, getInputYesNo } from "./prompt.js";
+import { getVersionOfThisPackage } from "./version.js";
 
 // Versions prior to this do not work properly with: `git branch --move --force main`
 const REQUIRED_GIT_MAJOR_VERSION = 2;
@@ -150,7 +150,7 @@ function validateNewGitVersion(verbose: boolean) {
   process.exit(1);
 }
 
-function getGitHubUsername(verbose: boolean) {
+export function getGitHubUsername(verbose: boolean): string | undefined {
   // If the GitHub CLI is installed, we can derive the user's GitHub username.
   if (!commandExists.sync("gh")) {
     return undefined;

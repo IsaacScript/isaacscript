@@ -22,16 +22,17 @@ import {
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import * as file from "../../file.js";
+import { initGitRepository } from "../../git.js";
 import {
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
   getPackageManagerNPXCommand,
 } from "../../packageManager.js";
-import { initGitRepository } from "./git.js";
 
-export function createMod(
+export function createProject(
   projectName: string,
+  authorName: string | undefined,
   projectPath: string,
   createNewDir: boolean,
   modsDirectory: string,
@@ -50,7 +51,14 @@ export function createMod(
   createConfigFile(projectPath, config, verbose);
 
   copyStaticFiles(projectPath, verbose);
-  copyDynamicFiles(projectName, projectPath, packageManager, dev, verbose);
+  copyDynamicFiles(
+    projectName,
+    authorName,
+    projectPath,
+    packageManager,
+    dev,
+    verbose,
+  );
   updateNodeModules(projectPath, packageManager, verbose);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
@@ -94,6 +102,7 @@ function copyStaticFiles(projectPath: string, verbose: boolean) {
 /** Copy files that need to have text replaced inside of them. */
 function copyDynamicFiles(
   projectName: string,
+  authorName: string | undefined,
   projectPath: string,
   packageManager: PackageManager,
   dev: boolean,
@@ -111,10 +120,10 @@ function copyDynamicFiles(
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const installCommand = getPackageManagerInstallCICommand(packageManager);
     const ciYML = template
-      .replace(/PACKAGE-MANAGER-NAME/g, packageManager)
-      .replace(/PACKAGE-MANAGER-LOCK-FILE-NAME/, lockFileName)
-      .replace(/PACKAGE-MANAGER-INSTALL/, installCommand)
-      .replace(/PROJECT-NAME/, projectName);
+      .replaceAll("PACKAGE-MANAGER-NAME", packageManager)
+      .replaceAll("PACKAGE-MANAGER-LOCK-FILE-NAME", lockFileName)
+      .replaceAll("PACKAGE-MANAGER-INSTALL", installCommand)
+      .replaceAll("PROJECT-NAME", projectName);
 
     const destinationPath = path.join(workflowsPath, fileName);
     file.write(destinationPath, ciYML, verbose);
@@ -145,7 +154,15 @@ function copyDynamicFiles(
     const fileName = PACKAGE_JSON;
     const templatePath = PACKAGE_JSON_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const packageJSON = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
+
+    let packageJSON = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
+    if (authorName === undefined) {
+      // Remove the "author" line.
+      packageJSON = packageJSON.replace(/^\s"author":.*$*/gm, "");
+    } else {
+      packageJSON = packageJSON.replaceAll("AUTHOR-NAME", authorName);
+    }
+
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, packageJSON, verbose);
   }
@@ -155,7 +172,7 @@ function copyDynamicFiles(
     const fileName = README_MD;
     const templatePath = README_MD_TEMPLATES_PATH;
     const template = file.read(templatePath, verbose);
-    const readmeMD = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
+    const readmeMD = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
     const destinationPath = path.join(projectPath, fileName);
     file.write(destinationPath, readmeMD, verbose);
   }
@@ -168,7 +185,7 @@ function copyDynamicFiles(
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const metadataXML = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
+    const metadataXML = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
   }
@@ -183,7 +200,7 @@ function copyDynamicFiles(
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const mainTS = template.replace(/MOD-NAME-TO-REPLACE/g, projectName);
+    const mainTS = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);
   }

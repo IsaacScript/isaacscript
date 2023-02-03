@@ -3,6 +3,7 @@ import commandExists from "command-exists";
 import path from "node:path";
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
+import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import {
   getPackageManagerNPXCommand,
   getPackageManagerUsedForNewProject,
@@ -11,10 +12,10 @@ import { Args } from "../../parseArgs.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
 import { checkModTargetDirectory } from "./checkModTargetDirectory.js";
-import { createMod } from "./createMod.js";
+import { createProject } from "./createProject.js";
+import { getAuthorName } from "./getAuthorName.js";
 import { getModsDir } from "./getModsDir.js";
 import { getProjectPath } from "./getProjectPath.js";
-import { promptGitHubRepoOrGitRemoteURL } from "./git.js";
 import { installVSCodeExtensions } from "./installVSCodeExtensions.js";
 import { promptSaveSlot } from "./promptSaveSlot.js";
 import { promptVSCode } from "./promptVSCode.js";
@@ -38,11 +39,9 @@ export async function init(args: Args): Promise<void> {
     forceName,
   );
   await checkIfProjectPathExists(projectPath, yes, verbose);
-  const modsDirectory = await getModsDir(args, verbose);
-  checkModSubdirectory(projectPath, modsDirectory);
+
   const projectName = path.basename(projectPath);
-  await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
-  const saveSlot = await promptSaveSlot(args, yes);
+  const authorName = await getAuthorName(args, verbose);
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
     noGit,
@@ -51,9 +50,15 @@ export async function init(args: Args): Promise<void> {
     verbose,
   );
 
+  const modsDirectory = await getModsDir(args, verbose);
+  checkModSubdirectory(projectPath, modsDirectory);
+  await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
+  const saveSlot = await promptSaveSlot(args, yes);
+
   // Now that we have asked the user all of the questions we need, we can create the project.
-  createMod(
+  createProject(
     projectName,
+    authorName,
     projectPath,
     createNewDir,
     modsDirectory,

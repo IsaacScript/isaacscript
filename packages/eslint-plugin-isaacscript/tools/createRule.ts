@@ -91,8 +91,8 @@ function replaceTemplateText(
   const ruleNameCamelCase = getCamelCaseRuleName(ruleName);
 
   return text
-    .replace(/RULE_NAME_CAMEL_CASE/g, ruleNameCamelCase)
-    .replace(/RULE_NAME/g, ruleName)
-    .replace(/RULE_DESCRIPTION/g, ruleDescription)
-    .replace(/PLUGIN_NAME/g, PLUGIN_NAME);
+    .replaceAll("RULE_NAME_CAMEL_CASE", ruleNameCamelCase)
+    .replaceAll("RULE_NAME", ruleName)
+    .replaceAll("RULE_DESCRIPTION", ruleDescription)
+    .replaceAll("PLUGIN_NAME", PLUGIN_NAME);
 }
