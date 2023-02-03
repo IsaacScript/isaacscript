@@ -62,6 +62,55 @@ export function parseSemanticVersion(versionString: string):
   return { majorVersion, minorVersion, patchVersion };
 }
 
+/**
+ * Helper function to remove lines from a multi-line string. This function looks for a "-start" and
+ * a "-end" suffix after the marker. Lines with markets will be completely removed from the output.
+ *
+ * For example, by using a marker of "@foo":
+ *
+ * ```text
+ * line1
+ * // @foo-start
+ * line2
+ * line3
+ * // @foo-end
+ * line4
+ * ```
+ *
+ * Would return:
+ *
+ * ```text
+ * line1
+ * line4
+ * ```
+ */
+export function removeLinesBetweenMarkers(
+  string: string,
+  marker: string,
+): string {
+  const lines = string.split("\n");
+  let skippingLines = false;
+
+  const newLines: string[] = [];
+  for (const line of lines) {
+    if (line.includes(`${marker}-start`)) {
+      skippingLines = true;
+      continue;
+    }
+
+    if (line.includes(`${marker}-end`)) {
+      skippingLines = false;
+      continue;
+    }
+
+    if (!skippingLines) {
+      newLines.push(line);
+    }
+  }
+
+  return newLines.join("\n");
+}
+
 /** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
 export function trimPrefix(string: string, prefix: string): string {
   if (!string.startsWith(prefix)) {
