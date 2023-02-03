@@ -70,10 +70,10 @@ export function parseSemanticVersion(versionString: string):
  *
  * ```text
  * line1
- * // @foo-start
+ * # @foo-start
  * line2
  * line3
- * // @foo-end
+ * # @foo-end
  * line4
  * ```
  *
@@ -89,9 +89,10 @@ export function removeLinesBetweenMarkers(
   marker: string,
 ): string {
   const lines = string.split("\n");
+  const newLines: string[] = [];
+
   let skippingLines = false;
 
-  const newLines: string[] = [];
   for (const line of lines) {
     if (line.includes(`${marker}-start`)) {
       skippingLines = true;
@@ -108,6 +109,13 @@ export function removeLinesBetweenMarkers(
     }
   }
 
+  return newLines.join("\n");
+}
+
+/** Helper function to remove lines from a multi-line string matching a certain other string. */
+export function removeLinesMatching(string: string, match: string): string {
+  const lines = string.split("\n");
+  const newLines = lines.filter((line) => !line.includes(match));
   return newLines.join("\n");
 }
 
