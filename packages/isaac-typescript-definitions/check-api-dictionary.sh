@@ -30,7 +30,6 @@ DICTIONARY_WORDS=$(cat "$TXT_PATH" | grep . | grep -v "^#")
 echo "Checking for every word in: $TXT_PATH"
 
 ONE_OR_MORE_FAILURES=0
-set +e
 for LINE in $DICTIONARY_WORDS; do
   LINE_TRIMMED=$(echo "$LINE" | xargs)
 
@@ -39,7 +38,6 @@ for LINE in $DICTIONARY_WORDS; do
     ONE_OR_MORE_FAILURES=1
   fi
 done
-set -e
 
 rm -f "$MISSPELLED_WORDS_PATH"
 

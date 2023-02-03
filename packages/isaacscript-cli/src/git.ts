@@ -272,6 +272,8 @@ export function isGitDirty(
     verbose,
     true,
   );
+
+  // Unintuitively, the program returns 1 if the current directory is dirty.
   return exitStatus !== 0;
 }
 

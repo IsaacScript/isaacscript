@@ -48,6 +48,7 @@ unfade
 unfixable
 uninit
 uninitialize
+unintuitively
 unopenable
 unranked
 unserializable

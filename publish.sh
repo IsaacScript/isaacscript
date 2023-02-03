@@ -8,9 +8,20 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-# First, validate that we are logged in to npm.
+# Validate that we are on the correct branch.
+CURRENT_BRANCH=$(git branch --show-current)
+if [ "$1" != "main" ]; then
+  echo "Error: You must be on the main branch before publishing."
+  exit 1
+fi
+
+# Validate that we can push and pull to the repository.
+git pull --rebase
+
+# Validate that we are logged in to npm.
 npm whoami > /dev/null
 
+# Validate command-line arguments.
 if [ -z "$1" ]; then
   echo "Error: The package name is required."
   exit 1
@@ -34,15 +45,30 @@ VERSION_BUMP="$2"
 # Before bumping the version, check to see if this package compiles (so that we can avoid
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
-COMMIT_MESSAGE="chore(release): $PACKAGE_NAME-%s"
+
+# Normally, the "version" command of the packager manager will automatically make a Git commit for
+# you. However:
+# - The npm version command is bugged with subdirectories:
+#   https://github.com/npm/cli/issues/2010
+# - The yarn version command is bugged with with spaces inside of the --message" flag.
+# Thus, we manually revert to doing a commit ourselves.
 if [ "$VERSION_BUMP" == "dev" ]; then
-  npm version --prerelease --preid=dev --message "$COMMIT_MESSAGE"
+  npm version --prerelease --preid=dev --commit-hooks=false
 elif [ "$VERSION_BUMP" == "major" ] || [ "$VERSION_BUMP" == "minor" ] || [ "$VERSION_BUMP" == "patch" ]; then
-  echo npm version --new-version $VERSION_BUMP ---message "chore(release): $PACKAGE_NAME-%s"
-  npm version --new-version $VERSION_BUMP ---message "chore(release): $PACKAGE_NAME-%s"
+  npm version --new-version $VERSION_BUMP --commit-hooks=false
 else
-  npm version --set-version $VERSION_BUMP --message "$COMMIT_MESSAGE"
+  npm version --set-version $VERSION_BUMP --commit-hooks=false
 fi
+
+# Manually make a Git commit. (See above comment.)
+git add package.json yarn.lock
+# https://gist.github.com/DarrenN/8c6a5b969481725a4413
+NEW_VERSION=$(npm pkg get version | sed 's/"//g')
+COMMIT_MESSAGE="chore(release): $PACKAGE_NAME-$NEW_VERSION"
+git commit --message "$COMMIT_MESSAGE"
+TAG="$PACKAGE_NAME-$NEW_VERSION"
+git tag "$TAG"
+git push --set-upstream origin main
 
 # We have to build again after bumping the version so that the new "package.json" file gets copied
 # to the "dist" directory.
@@ -65,9 +91,9 @@ npx syncpack fix-mismatches --prod --dev
 bash "$DIR/packages/isaacscript-cli/update.sh"
 bash "$DIR/packages/isaacscript-lint/update.sh"
 
-set +e
-if npx git-dirty; then
-  git commit -a -m "chore: updating dependencies"
+if ! npx git-dirty; then
+  # The current working directory is dirty. (Unintuitively, the "git-dirty" returns 1 if the current
+  # working directory is dirty.)
+  git commit --all --message "chore: updating dependencies"
   git push --set-upstream origin main
 fi
-set -e

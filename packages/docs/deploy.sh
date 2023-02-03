@@ -20,12 +20,12 @@ cp --recursive "$BUILD_PATH" "$DOCS_REPO"
 mv "$DOCS_REPO_GIT_BACKUP" "$DOCS_REPO/.git"
 cd "$DOCS_REPO"
 
-set +e
 if npx git-dirty; then
+  # The current working directory is clean. (Unintuitively, the "git-dirty" program returns 1 if the
+  # current working directory is dirty.)
   echo "There are no docs changes to deploy."
   exit 0
 fi
-set -e
 
 # Before committing to the docs repo, ensure that the checked out version of the `isaacscript`
 # repository is the latest version. (It is possible that another commit has been pushed in the
