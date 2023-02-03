@@ -2,6 +2,7 @@
   "name": "docs",
   "private": true,
   "description": "The website for the IsaacScript monorepo.",
+  "keywords": [],
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
     "url": "https://github.com/IsaacScript/isaacscript/issues"
