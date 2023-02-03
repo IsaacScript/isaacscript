@@ -11,6 +11,8 @@ module.exports = {
   extends: [
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "base.js"),
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
+
+    "plugin:@docusaurus/recommended",
   ],
 
   parserOptions: {

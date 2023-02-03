@@ -1,10 +1,7 @@
-- yarn add --save-dev @docusaurus/eslint-plugin
-  - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
-- use --typescript flag to create new docusaurus app
-
-- try new TypeDoc branch
 - merge zamTS + zamPublish into isaacscript monorepo
 - add variables to uploader github action
+
+- try new TypeDoc branch
 - typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
 - investigate EXECUTE_CMD crashing
 
