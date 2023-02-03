@@ -1,12 +1,19 @@
 import glob from "glob";
-import { error } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as process from "node:process";
+import { error, readFile } from "./utils";
 
-const PACKAGE_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(__dirname, "..");
+const PACKAGE_ROOT = path.join(
+  REPO_ROOT,
+  "packages",
+  "isaac-typescript-definitions",
+);
 const TYPEDOC_CONFIG_PATH = path.join(PACKAGE_ROOT, "typedoc.json");
+const INDEX_PATH = path.join(PACKAGE_ROOT, "src", "types", "index.d.ts");
+const INDEX_CONTENTS = readFile(INDEX_PATH);
 
 main();
 
@@ -18,35 +25,13 @@ function main() {
 
   checkEntryPointsBrokenLink(entryPoints);
 
-  checkEntryPointsForDirectory(
-    "src/classes/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("private"),
-  );
-  checkEntryPointsForDirectory(
-    "src/classes/features/other/*.ts",
-    entryPointsSet,
-    (filePath) => filePath.endsWith(".ts"),
-  );
-  checkEntryPointsForDirectory("src/core/*.ts", entryPointsSet);
-  checkEntryPointsForDirectory(
-    "src/enums/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("private"),
-  );
-  checkEntryPointsForDirectory("src/functions/*.ts", entryPointsSet);
-  checkEntryPointsForDirectory(
-    "src/interfaces/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith("private"),
-  );
-  // - Maps are not linted, since we only want to explicitly export a few of them.
-  // - Objects are not linted, since we only want to explicitly export a few of them.
-  checkEntryPointsForDirectory(
-    "src/types/*.ts",
-    entryPointsSet,
-    (filePath) => !filePath.endsWith(".d.ts") && !filePath.endsWith("private"),
-  );
+  checkEntryPointsForDirectory("src/enums/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/enums/collections/*.ts", entryPointsSet);
+  checkEntryPointsForDirectory("src/enums/flags/*.ts", entryPointsSet);
+  /// checkEntryPointsForDirectory("src/types/classes/*.ts", entryPointsSet);
+  /// checkEntryPointsForDirectory("src/types/mods/*.ts", entryPointsSet);
+  /// checkEntryPointsForDirectory("src/types/unofficial/*.ts", entryPointsSet);
+  // (We skip linting for classes and interfaces, since they generate too many broken links.)
 }
 
 function getEntryPoints(): string[] {
@@ -104,7 +89,29 @@ function checkEntryPointsForDirectory(
         `Failed to find the following file in the entry points: ${filePath}`,
       );
     }
+
+    // Additionally, check that it is exported from the "index.d.ts" file.
+    if (filePath.endsWith(".d.ts")) {
+      const trimmedPath = trimTwoDirectoriesFromPath(filePath);
+      if (!INDEX_CONTENTS.includes(trimmedPath)) {
+        error(
+          `The following declarations file does not seem to be included in a triple slash directive: ${trimmedPath}`,
+        );
+      }
+    }
   }
+}
+
+function trimTwoDirectoriesFromPath(filePath: string) {
+  const trimmedPath = trimLeftmostDirectoryFromPath(filePath);
+  return trimLeftmostDirectoryFromPath(trimmedPath);
+}
+
+function trimLeftmostDirectoryFromPath(filePath: string) {
+  const firstSlashIndex = filePath.indexOf("/");
+  return firstSlashIndex === -1
+    ? filePath
+    : filePath.substring(firstSlashIndex + 1);
 }
 
 function fileExists(filePath: string): boolean {

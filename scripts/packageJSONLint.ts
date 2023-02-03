@@ -1,9 +1,9 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import glob from "glob";
-import path from "path";
+import * as path from "node:path";
 import sortPackageJson from "sort-package-json";
-import { error, fileExists, isKebabCase, readFile } from "./utils.mjs";
+import { error, fileExists, isKebabCase, readFile } from "./utils";
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");

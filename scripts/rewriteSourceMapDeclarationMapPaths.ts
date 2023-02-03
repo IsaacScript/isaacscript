@@ -1,10 +1,6 @@
 import glob from "glob";
 import * as path from "node:path";
-import * as url from "node:url";
-import { error, readFile, writeFile } from "./utils.mjs";
-
-// eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+import { error, readFile, writeFile } from "./utils";
 
 const REPO_ROOT = path.join(__dirname, "..");
 
