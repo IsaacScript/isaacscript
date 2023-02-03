@@ -11,4 +11,4 @@ cd "$DIR"
 RULE_NAME=""
 
 echo "Running all tests for rule: $RULE_NAME"
-pnpx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" # --reporters jest-summarizing-reporter
+npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" # --reporters jest-summarizing-reporter

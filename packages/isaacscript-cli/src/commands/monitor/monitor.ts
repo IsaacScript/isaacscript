@@ -22,6 +22,7 @@ import {
   getPackageManagerAddCommand,
   getPackageManagerNPXCommand,
   getPackageManagerUsedForExistingProject,
+  PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
 } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
@@ -182,9 +183,9 @@ function linkDevelopmentIsaacScriptCommon(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  if (packageManager !== PackageManager.PNPM) {
+  if (packageManager !== PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT) {
     error(
-      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the pnpm package manager instead of: ${packageManager}`,
+      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the Yarn package manager instead of: ${packageManager}`,
     );
   }
 
@@ -202,7 +203,7 @@ function linkDevelopmentIsaacScriptCommon(
     'Linking this repository to the development version of "isaacscript-common"...',
   );
   execShell(
-    "pnpm",
+    PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
     ["link", "isaacscript-common"],
     verbose,
     false,

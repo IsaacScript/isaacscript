@@ -43,7 +43,7 @@ elif [[ -z "$NPM_LOCK_EXISTS" && ! -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXIS
 elif [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && ! -z "$PNPM_LOCK_EXISTS" ]]; then
   pnpm install
 else
-  echo "Error: Multiple different kinds of package manager lock files were found. You should manually invoke the package manager that you want to use for this project. e.g. \"npm install\""
+  echo "Error: Multiple different kinds of package manager lock files were found. You delete the ones that you are not using so that this program can correctly detect your package manager."
   exit 1
 fi
 

@@ -63,6 +63,29 @@ export function execPowershell(
 }
 
 /**
+ * Same as `execShell`, but accepts the command as a string instead of an array of arguments.
+ *
+ * @param commandString The command to run.
+ * @param verbose Default is false.
+ * @param allowFailure Default is false.
+ * @param cwd Default is CWD.
+ */
+export function execShellString(
+  commandString: string,
+  verbose = false,
+  allowFailure = false,
+  cwd = CWD,
+): { exitStatus: number; stdout: string } {
+  const args = commandString.split(" ");
+  const command = args.shift();
+  if (command === undefined) {
+    error(`execShellString failed to parse the command of: ${commandString}`);
+  }
+
+  return execShell(command, args, verbose, allowFailure, cwd);
+}
+
+/**
  * Returns a tuple of exit status and stdout. The stdout is trimmed for convenience.
  *
  * @param command The command to run.
@@ -77,7 +100,7 @@ export function execShell(
   verbose = false,
   allowFailure = false,
   cwd = CWD,
-): [exitStatus: number, stdout: string] {
+): { exitStatus: number; stdout: string } {
   // On Windows, "spawnSync()" will not account for spaces in arguments. Thus, wrap everything in a
   // double quote. This will cause arguments that naturally have double quotes to fail.
   if (command.includes("''") || command.includes('"')) {
@@ -126,7 +149,7 @@ export function execShell(
 
   if (exitStatus !== 0) {
     if (allowFailure) {
-      return [exitStatus, stdout];
+      return { exitStatus, stdout };
     }
 
     console.error(
@@ -139,5 +162,5 @@ export function execShell(
     process.exit(1);
   }
 
-  return [exitStatus, stdout];
+  return { exitStatus, stdout };
 }

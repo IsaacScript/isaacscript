@@ -35,10 +35,13 @@ VERSION_BUMP="$2"
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
 
+COMMIT_MESSAGE="chore(release): $PACKAGE_NAME-%s"
 if [ "$VERSION_BUMP" == "dev" ]; then
-  pnpm version --prerelease --preid=dev --message "chore(release): $PACKAGE_NAME-%s"
+  yarn version --prerelease --preid=dev --message "$COMMIT_MESSAGE"
+elif [ "$VERSION_BUMP" == "major" ] || [ "$VERSION_BUMP" == "minor" ] || [ "$VERSION_BUMP" == "patch" ]; then
+  yarn version --new-version $VERSION_BUMP ---message "$COMMIT_MESSAGE"
 else
-  pnpm version --set-version $VERSION_BUMP
+  yarn version --set-version $VERSION_BUMP --message "$COMMIT_MESSAGE"
 fi
 
 # We have to build again after bumping the version so that the new "package.json" file gets copied
@@ -58,12 +61,12 @@ npm publish --access=public --tag=$NPM_TAG
 
 sleep 1
 bash "$DIR/update.sh"
-pnpx syncpack fix-mismatches --prod --dev
+npx syncpack fix-mismatches --prod --dev
 bash "$DIR/packages/isaacscript-cli/update.sh"
 bash "$DIR/packages/isaacscript-lint/update.sh"
 
 set +e
-if pnpx git-dirty; then
+if npx git-dirty; then
   git commit -a -m "chore: updating dependencies"
   git push --set-upstream origin main
 fi

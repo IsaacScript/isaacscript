@@ -9,6 +9,35 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 REPO_ROOT="$DIR"
 cd "$REPO_ROOT"
 
+NPM_LOCK="$DIR/package-lock.json"
+if test -f "$NPM_LOCK"; then
+  NPM_LOCK_EXISTS=1
+fi
+
+YARN_LOCK="$DIR/yarn.lock"
+if test -f "$YARN_LOCK"; then
+  YARN_LOCK_EXISTS=1
+fi
+
+PNPM_LOCK="$DIR/pnpm-lock.yaml"
+if test -f "$PNPM_LOCK"; then
+  PNPM_LOCK_EXISTS=1
+fi
+
+if [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+  echo "No package manager lock files were found. You should manually invoke the package manager that you want to use for this project. e.g. \"npm install\""
+  exit 1
+elif [[ ! -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+  NPX="npx"
+elif [[ -z "$NPM_LOCK_EXISTS" && ! -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+  NPX="npx"
+elif [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && ! -z "$PNPM_LOCK_EXISTS" ]]; then
+  NPX="pnpx"
+else
+  echo "Error: Multiple different kinds of package manager lock files were found. You delete the ones that you are not using so that this program can correctly detect your package manager."
+  exit 1
+fi
+
 # Do nothing if the configuration file does not exist.
 CSPELL_CONFIG_NAME="cspell.json"
 CSPELL_CONFIG_PATH="$REPO_ROOT/$CSPELL_CONFIG_NAME"
@@ -31,7 +60,7 @@ CSPELL_CONFIG_TEMP_PATH="/tmp/cspell-temp.json"
 mv "$CSPELL_CONFIG_PATH" "$CSPELL_CONFIG_TEMP_PATH"
 echo "$CSPELL_CONFIG_WITHOUT_WORDS" > "$CSPELL_CONFIG_PATH"
 MISSPELLED_WORDS_PATH="/tmp/misspelled-words.txt"
-npx cspell --no-progress --no-summary --unique --words-only . | sort --ignore-case --unique > "$MISSPELLED_WORDS_PATH"
+"$NPX" cspell --no-progress --no-summary --unique --words-only . | sort --ignore-case --unique > "$MISSPELLED_WORDS_PATH"
 mv "$CSPELL_CONFIG_TEMP_PATH" "$CSPELL_CONFIG_PATH"
 
 # Check that each "cspell.json" word is actually being used.

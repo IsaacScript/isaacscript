@@ -20,7 +20,7 @@ import {
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
-import { execShell } from "../../exec.js";
+import { execShell, execShellString } from "../../exec.js";
 import * as file from "../../file.js";
 import {
   getPackageManagerInstallCICommand,
@@ -236,12 +236,11 @@ function installNodeModules(
     return;
   }
 
-  const [command, args] = getPackageManagerInstallCommand(packageManager);
-  const commandString = `${command} ${args.join(" ")}`;
+  const command = getPackageManagerInstallCommand(packageManager);
   console.log(
-    `Installing node modules with "${commandString}"... (This can take a long time.)`,
+    `Installing node modules with "${command}"... (This can take a long time.)`,
   );
-  execShell(command, args, verbose, false, projectPath);
+  execShellString(command, verbose, false, projectPath);
 }
 
 function formatFiles(

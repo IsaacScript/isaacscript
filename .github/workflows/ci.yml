@@ -9,20 +9,22 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
-          cache: pnpm
+          cache: yarn
+
+      - name: Retrieve the cached "node_modules" directory (if present)
+        uses: actions/cache@v3
+        id: node-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
 
       - name: Install dependencies (if the cached directory was not found)
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: pnpm install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Build every package in the monorepo
         run: bash build.sh

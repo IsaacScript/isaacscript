@@ -14,5 +14,5 @@ if command -v nx &> /dev/null; then
   nx run-many --target=test --all $NO_CACHE
 else
   # The "nx" command does not work in CI, so we revert to calling Nx through the package manager.
-  pnpx nx run-many --target=test --all $NO_CACHE
+  npx nx run-many --target=test --all $NO_CACHE
 fi

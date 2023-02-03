@@ -34,21 +34,21 @@ done
 
 # Second, generate the JSON schema for the special "isaacscript" section in "tsconfig.json".
 SCHEMA_PATH="$DIR/schemas/tsconfig-isaacscript-section-schema.json"
-pnpx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
-pnpx prettier "$SCHEMA_PATH" --write
+npx ts-json-schema-generator --path "$DIR/src/interfaces/IsaacScriptTSConfig.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
+npx prettier "$SCHEMA_PATH" --write
 
 # Also, generate the JSON schema for the "isaacscript.json" file.
 # The `ts-json-schema-generator` tool is broken with classes:
 # https://github.com/vega/ts-json-schema-generator/issues/1531
 #SCHEMA_PATH="$DIR/schemas/isaacscript-schema.json"
-#pnpx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
-#pnpx prettier "$SCHEMA_PATH" --write
+#npx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DIR/tsconfig.json" --out "$SCHEMA_PATH"
+#npx prettier "$SCHEMA_PATH" --write
 
 # Third, compile the program.
 # (Normally, we would use the "@nrwl/js:tsc" plugin to do this, but we always want to generate the
 # schema.)
 rm -rf "$OUT_DIR"
-pnpx tsc
+npx tsc
 
 # Copy the rest of the files needed for npm.
 cp --recursive "$DIR/custom-stage" "$OUT_DIR/"

@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-pnpx eslint --print-config ./src/main.ts > debug.txt
+npx eslint --print-config ./src/main.ts > debug.txt

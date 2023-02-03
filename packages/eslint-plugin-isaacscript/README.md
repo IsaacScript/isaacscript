@@ -35,7 +35,7 @@ Each rule has emojis denoting:
 - :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
-<!-- Do not manually modify RULES_TABLE section. Instead, run: pnpm run generate:rules-table -->
+<!-- Do not manually modify RULES_TABLE section. Instead, run: yarn run generate:rules-table -->
 <!-- RULES_TABLE -->
 
 | Name                                                                                             | Description                                                                                           | :white_check_mark: | :wrench: | :thought_balloon: |

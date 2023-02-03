@@ -57,11 +57,10 @@ For getting started in building your own mods, see the [website](https://isaacsc
       (replace "[username]" with your GitHub username)
 - Enter the cloned repository:
   - `cd isaacscript`
-- Ensure that [pnpm](https://pnpm.io/installation#using-corepack) is installed:
+- Ensure that [Yarn](https://classic.yarnpkg.com/lang/en/) (v1) is installed:
   - `corepack enable`
-  - `corepack prepare pnpm@latest --activate`
 - Install dependencies:
-  - `pnpm install`
+  - `yarn install`
 - Open the monorepo in VSCode:
   - `code .`
 
@@ -76,13 +75,13 @@ If you want to fix a bug or add a new feature to `isaacscript-common`, then you 
 The `isaacscript` command line tool has a `--dev` flag that will set up a new testing mod for you automatically:
 
 ```sh
-pnpx isaacscript init test --dev
+npx isaacscript init test --dev
 ```
 
-This command will initialize a new mod named "test" and then automatically link it to your locally compiled `isaacscript-common`. Additionally, when you do `pnpx isaacscript` to initiate the file watcher, it will also spawn an additional watcher process for the files in `isaacscript-common`.
+This command will initialize a new mod named "test" and then automatically link it to your locally compiled `isaacscript-common`. Additionally, when you initiate the IsaacScript file watcher in your mod, it will also spawn an additional watcher process for the files in `isaacscript-common`.
 
 ### Using an Existing Mod
 
-Testing with a brand new mod is recommended, but it is also possible to use an existing mod. Just set `"isaacScriptCommonDev": true` in your `isaacscript.json` file and then start IsaacScript. (Doing this will automatically set up the local pnpm link.)
+Testing with a brand new mod is recommended, but it is also possible to use an existing mod. Just set `"isaacScriptCommonDev": true` in your `isaacscript.json` file and then start IsaacScript. (Doing this will automatically set up the local Yarn link.)
 
-Make sure that your existing mod project uses pnpm as the package manager, or the link won't work properly.
+Make sure that your existing mod project uses Yarn as the package manager, or the link won't work properly.

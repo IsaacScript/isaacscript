@@ -21,14 +21,14 @@ rm -rf "$OUT_DIR"
 
 # Convert the TypeScript to JavaScript. (We want to generate JavaScript files in addition to Lua
 # files so that Jest tests can consume this library.)
-pnpx tsc
+npx tsc
 
 # Convert the TypeScript to Lua. (We provide compiled enums in addition to ambient declarations.)
-pnpx tstl
+npx tstl
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
-pnpx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaac-typescript-definitions"
+npx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaac-typescript-definitions"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

@@ -24,11 +24,11 @@ bash "$DIR/../isaac-typescript-definitions/docs.sh"
 bash "$DIR/../isaacscript-common/docs.sh"
 
 # Second, apply transformations on top of the TypeDoc output.
-pnpx ts-node --esm "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
-pnpx ts-node --esm "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
+npx ts-node --esm "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
+npx ts-node --esm "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"
-pnpx docusaurus build --out-dir "$OUT_DIR"
+npx docusaurus build --out-dir "$OUT_DIR"
 
 echo "Successfully built all docs in $SECONDS seconds."

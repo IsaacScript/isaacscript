@@ -20,16 +20,16 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - react-dom - Stuck until Docusaurus upgrades.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #             type in "package.json", and Docusaurus does not support this yet.
-pnpx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
+npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ $OLD_HASH != $NEW_HASH ]]; then
-  pnpm install
+  yarn install
 
   # Now that the main dependencies have changed, we might need to update the "package.json" files in
   # the individual packages. However, we don't want to blow away peerDependencies, since they are in
   # the form of ">= 5.0.0". Thus, we specify both "--prod" and "--dev" to exclude syncing
   # peerDependencies.
-  pnpx syncpack fix-mismatches --prod --dev
+  npx syncpack fix-mismatches --prod --dev
 
   # syncpack will automatically update most of the dependencies in the individual project
   # "package.json" files, but not the ones that do not exist in the root "package.json" (such as

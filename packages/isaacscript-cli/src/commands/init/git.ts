@@ -44,7 +44,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
 
   const gitHubUsername = getGitHubUsername(verbose);
   if (gitHubUsername !== undefined) {
-    const [exitStatus] = execShell(
+    const { exitStatus } = execShell(
       "gh",
       ["repo", "view", projectName],
       verbose,
@@ -115,7 +115,7 @@ If you don't want to initialize a Git repository for this project, press enter t
 }
 
 function validateNewGitVersion(verbose: boolean) {
-  const [, stdout] = execShell("git", ["--version"], verbose);
+  const { stdout } = execShell("git", ["--version"], verbose);
 
   const outputPrefix = "git version ";
   if (!stdout.startsWith(outputPrefix)) {
@@ -244,19 +244,19 @@ export function initGitRepository(
 }
 
 function isGitNameAndEmailConfigured(verbose: boolean) {
-  const [nameExitStatus] = execShell(
+  const nameExitStatus = execShell(
     "git",
     ["config", "--global", "user.name"],
     verbose,
     true,
-  );
+  ).exitStatus;
 
-  const [emailExitStatus] = execShell(
+  const emailExitStatus = execShell(
     "git",
     ["config", "--global", "user.email"],
     verbose,
     true,
-  );
+  ).exitStatus;
 
   return nameExitStatus === 0 && emailExitStatus === 0;
 }
@@ -266,7 +266,7 @@ export function isGitDirty(
   verbose: boolean,
 ): boolean {
   const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
-  const [exitStatus] = execShell(
+  const { exitStatus } = execShell(
     packageManagerNPXCommand,
     ["git-dirty"],
     verbose,

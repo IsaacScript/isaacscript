@@ -13,7 +13,7 @@ import { monitor } from "./commands/monitor/monitor.js";
 import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
 import { CWD, PROJECT_NAME } from "./constants.js";
-import { execShell } from "./exec.js";
+import { execShellString } from "./exec.js";
 import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,
@@ -137,12 +137,9 @@ async function handleCommands(command: Command, args: Args) {
  */
 function ensureDepsAreInstalled(args: Args, verbose: boolean) {
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
-  const [command, commandArgs] =
-    getPackageManagerInstallCommand(packageManager);
-  const argsString = commandArgs.join(" ");
-  const commandString = `${command} ${argsString}`.trim();
+  const command = getPackageManagerInstallCommand(packageManager);
   console.log(
-    `Running "${commandString}" to ensure that the project's dependencies are installed correctly.`,
+    `Running "${command}" to ensure that the project's dependencies are installed correctly.`,
   );
-  execShell(command, commandArgs, verbose);
+  execShellString(command, verbose);
 }

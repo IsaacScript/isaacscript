@@ -1,28 +1,29 @@
+- PACKAGE_MANAGER_NPX_COMMANDS is bugged with "npx" because it is two words
 - search "NPM_LOCK_EXISTS" and refactor
 - refactor check-orphaned-words for package manager
-- refactor all template sh files
 
-- use library of execA
 - use new library: https://github.com/Schniz/cmd-ts
 - delete no-useless-return-no-fix
 
-- pnpm add --save-dev @docusaurus/eslint-plugin
+- yarn add --save-dev @docusaurus/eslint-plugin
   - https://docusaurus.io/docs/api/misc/@docusaurus/eslint-plugin
 - use --typescript flag to create new docusaurus app
-- move to pnpm
 
 - try new TypeDoc branch
 - merge zamTS + zamPublish into isaacscript monorepo
 - add variables to uploader github action
 - make isaacscript-cli ESM
+- typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
 - investigate EXECUTE_CMD crashing
 
 - lint rule audit:
-  git clone --depth 1 --filter=blob:none --sparse https://github.com/cirosantilli/test-git-partial-clone-big-small
-  cd test-git-partial-clone-big-small
-  git sparse-checkout set small
+  - [...require("eslint/use-at-your-own-risk").builtinRules.keys()]
+  - Object.keys(require("@typescript-eslint/eslint-plugin").configs.all.rules)
 
-  - uncomment "#isaac-xml-validator" (in R+ / babies mod too)
+----------------------------------------------------------------------------------------------------
+
+- when typescript 5.0 comes out, remove "newLine" in tsconfig
+- when typescript 5.0 comes out, remove all tsconfig duplication with `extends` (e.g. tsconfig.node.json)
 
 - stop importing RunInNFrames class
   - adding @internal tag crashes APIExtractor: https://github.com/microsoft/rushstack/issues/3894
@@ -34,7 +35,4 @@
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
 
-- when typescript 5.0 comes out, remove "newLine" in tsconfig
-- when typescript 5.0 comes out, remove all tsconfig duplication with `extends` (e.g. tsconfig.node.json)
-
-- typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
+- move to pnpm: https://github.com/pnpm/pnpm/issues/6030

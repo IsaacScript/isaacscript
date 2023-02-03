@@ -38,7 +38,7 @@ export async function publish(args: Args, config: Config): Promise<void> {
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   validateVersion(setVersion);
-  validateGitNotDirty(verbose);
+  validateGitNotDirty(packageManager, verbose);
   validateIsaacScriptOtherCopiesNotRunning(verbose);
 
   if (onlyUpload) {
@@ -67,8 +67,8 @@ function validateVersion(setVersion: string | undefined) {
   }
 }
 
-function validateGitNotDirty(verbose: boolean) {
-  if (isGitDirty(verbose)) {
+function validateGitNotDirty(packageManager: PackageManager, verbose: boolean) {
+  if (isGitDirty(packageManager, verbose)) {
     error(
       chalk.red(
         "Before publishing, you must push your current changes to git. (Version commits should be not contain any code changes.)",
@@ -138,7 +138,7 @@ async function startPublish(
   runReleaseScriptPostCopy(verbose);
 
   if (!dryRun) {
-    gitCommitIfChanges(version, verbose);
+    gitCommitIfChanges(version, packageManager, verbose);
     uploadMod(modTargetPath, verbose);
   }
 
@@ -269,8 +269,7 @@ function runReleaseScriptPreCopy(verbose: boolean) {
   }
 
   console.log(`Running the "${PUBLISH_PRE_COPY_PY_PATH}" script.`);
-  let [, stdout] = execShell("python", [PUBLISH_PRE_COPY_PY_PATH], verbose);
-  stdout = stdout.trim();
+  const { stdout } = execShell("python", [PUBLISH_PRE_COPY_PY_PATH], verbose);
   if (stdout.length > 0) {
     console.log(stdout);
   }
@@ -282,8 +281,7 @@ function runReleaseScriptPostCopy(verbose: boolean) {
   }
 
   console.log(`Running the "${PUBLISH_POST_COPY_PY_PATH}" script.`);
-  let [, stdout] = execShell("python", [PUBLISH_POST_COPY_PY_PATH], verbose);
-  stdout = stdout.trim();
+  const { stdout } = execShell("python", [PUBLISH_POST_COPY_PY_PATH], verbose);
   if (stdout.length > 0) {
     console.log(stdout);
   }

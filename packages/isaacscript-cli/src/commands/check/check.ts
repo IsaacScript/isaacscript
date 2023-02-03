@@ -147,7 +147,7 @@ function compareTextFiles(
   file.write(tempProjectFilePath, projectFileContents, verbose);
   file.write(tempTemplateFilePath, templateFileContents, verbose);
 
-  const [_exitStatus, stdout] = execShell(
+  const { stdout } = execShell(
     "diff",
     [tempProjectFilePath, tempTemplateFilePath, "--ignore-blank-lines"],
     verbose,

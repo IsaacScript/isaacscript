@@ -15,8 +15,10 @@ const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
 const PACKAGE_MANAGER_NPX_COMMANDS = {
   [PackageManager.NPM]: "npx",
   [PackageManager.YARN]: "npx",
-  [PackageManager.PNPM]: "pnpx",
+  [PackageManager.PNPM]: "pnpm exec",
 } as const satisfies Record<PackageManager, string>;
+
+export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.YARN;
 
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,
@@ -55,18 +57,18 @@ export function getPackageManagerAddCommand(
 
 export function getPackageManagerInstallCommand(
   packageManager: PackageManager,
-): [command: string, args: string[]] {
+): string {
   switch (packageManager) {
     case PackageManager.NPM: {
-      return ["npm", ["install"]];
+      return "npm install";
     }
 
     case PackageManager.YARN: {
-      return ["yarn", ["install"]];
+      return "yarn install";
     }
 
     case PackageManager.PNPM: {
-      return ["pnpm", ["install"]];
+      return "pnpm install";
     }
   }
 }
@@ -124,10 +126,10 @@ export function getPackageManagerUsedForExistingProject(
 function getPackageManagerFromArgs(args: Args) {
   const dev = args.dev === true;
   if (dev) {
-    const pnpmExists = commandExists.sync("pnpm");
+    const pnpmExists = commandExists.sync(PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT);
     if (!pnpmExists) {
       error(
-        'You specified the "dev" flag, but "pnpm" does not seem to be a valid command. The IsaacScript monorepo uses pnpm, so in order to initiate a linked development mod, you must also have pnpm installed. Try running "corepack enable" to install it.',
+        `You specified the "dev" flag, but "${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}" does not seem to be a valid command. The IsaacScript monorepo uses ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}, so in order to initiate a linked development mod, you must also have ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} installed. Try running "corepack enable" to install it.`,
       );
     }
 

@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-pnpx ts-node "$DIR/tools/scripts/create-rule.ts" "$1" "$2"
+npx ts-node "$DIR/tools/scripts/create-rule.ts" "$1" "$2"

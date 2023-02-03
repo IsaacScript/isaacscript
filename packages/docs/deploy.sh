@@ -21,7 +21,7 @@ mv "$DOCS_REPO_GIT_BACKUP" "$DOCS_REPO/.git"
 cd "$DOCS_REPO"
 
 set +e
-if pnpx git-dirty; then
+if npx git-dirty; then
   echo "There are no docs changes to deploy."
   exit 0
 fi

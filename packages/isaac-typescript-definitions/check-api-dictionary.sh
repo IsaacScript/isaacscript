@@ -21,7 +21,7 @@ CSPELL_CONFIG_PATH_TEMP="$REPO_ROOT/cspell-temp.json"
 mv "$CSPELL_CONFIG_PATH" "$CSPELL_CONFIG_PATH_TEMP"
 echo "$CSPELL_CONFIG_WITHOUT_IMPORT" > "$CSPELL_CONFIG_PATH"
 MISSPELLED_WORDS_PATH="/tmp/misspelled-words.txt"
-pnpx cspell --no-progress --no-summary --unique --words-only . | sort --ignore-case --unique > "$MISSPELLED_WORDS_PATH"
+npx cspell --no-progress --no-summary --unique --words-only . | sort --ignore-case --unique > "$MISSPELLED_WORDS_PATH"
 mv "$CSPELL_CONFIG_PATH_TEMP" "$CSPELL_CONFIG_PATH"
 
 DICTIONARY_NAME="api.txt"

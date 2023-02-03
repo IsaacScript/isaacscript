@@ -19,7 +19,7 @@ rm -rf "$OUT_DIR"
 
 # We create a separate TypeScript configuration for production so that the "tests" and "tools"
 # directories are not published to npm.
-pnpx tsc --project "$DIR/tsconfig.prod.json"
+npx tsc --project "$DIR/tsconfig.prod.json"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
