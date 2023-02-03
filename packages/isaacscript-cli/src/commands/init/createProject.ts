@@ -158,7 +158,7 @@ function copyDynamicFiles(
     let packageJSON = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
     if (authorName === undefined) {
       // Remove the "author" line.
-      packageJSON = packageJSON.replace(/^\s"author":.*$*/gm, "");
+      packageJSON = packageJSON.replace(/^\s*"author":.*$/gm, "");
     } else {
       packageJSON = packageJSON.replaceAll("AUTHOR-NAME", authorName);
     }
