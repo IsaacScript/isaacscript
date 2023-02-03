@@ -5,6 +5,15 @@
   "compilerOptions": {
     "outDir": "../../dist",
 
+    // If we compile this project using ESM, then all children projects will also have to use ESM.
+    // "isaacscript-cli" cannot currently be upgraded to ESM, so we keep this project as in CJS
+    // format for now. (See it's "tsconfig.json" file for more information.) We could bundle both
+    // ESM and CJS: https://antfu.me/posts/publish-esm-and-cjs
+    // However, adding the complexity of "tsup" is not desired. Thus, we have to manually revert the
+    // ESM options from the base config.
+    "module": "CommonJS",
+    "moduleResolution": "node",
+
     // Needed since this is a library.
     "declaration": true,
     "declarationMap": true,

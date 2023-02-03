@@ -64,6 +64,7 @@ technote # ci.yml
 tsdoc # Monorepo word
 TSES # For TSESTree
 tstl
+tsup # TypeScript tool
 Turnbull # Author of "airbnb-typescript/base"
 typecheck # Monorepo word
 typedoc

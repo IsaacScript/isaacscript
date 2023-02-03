@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "module",
+  "type": "commonjs",
   "main": "src/index.js",
   "types": "src/index.d.ts"
 }
