@@ -42,6 +42,7 @@ nx # Monorepo word
 pathlib # check-api-dictionary.sh
 peaceiris # Monorepo word
 plusplus # Part of the linting config
+pnpx # pnpm word
 preapproved # API Extractor word
 preid # Monorepo word
 prettierignore # check-file-updates.sh
