@@ -1,10 +1,16 @@
 import chalk from "chalk";
 import { ReadonlySet } from "isaacscript-common-ts";
 import { PROJECT_NAME } from "./constants.js";
+import { Args } from "./parseArgs.js";
 
 const VALID_PLATFORMS = new ReadonlySet<string>(["win32", "linux"]);
 
-export function validateOS(): void {
+export function validateOS(args: Args): void {
+  const ts = args.ts === true;
+  if (ts) {
+    return;
+  }
+
   if (VALID_PLATFORMS.has(process.platform)) {
     return;
   }

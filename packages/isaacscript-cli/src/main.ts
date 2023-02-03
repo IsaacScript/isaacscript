@@ -1,8 +1,6 @@
 import chalk from "chalk";
-import * as dotenv from "dotenv";
 import figlet from "figlet";
 import { error } from "isaacscript-common-ts";
-import path from "node:path";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
@@ -12,7 +10,7 @@ import { init } from "./commands/init/init.js";
 import { monitor } from "./commands/monitor/monitor.js";
 import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
-import { CWD, PROJECT_NAME } from "./constants.js";
+import { PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
 import {
   getPackageManagerInstallCommand,
@@ -33,13 +31,13 @@ main().catch((err) => {
 async function main(): Promise<void> {
   sourceMapSupport.install();
   promptInit();
-  validateNodeVersion();
-  validateOS();
-  loadEnvironmentVariables();
 
   const args = parseArgs();
   const verbose = args.verbose === true;
   const command = getCommandFromArgs(args);
+
+  validateNodeVersion();
+  validateOS(args);
 
   printBanner(command, verbose);
 
@@ -55,11 +53,6 @@ function getCommandFromArgs(args: Args): Command {
   return firstPositionArg === undefined || firstPositionArg === ""
     ? DEFAULT_COMMAND
     : (firstPositionArg as Command);
-}
-
-function loadEnvironmentVariables() {
-  const envFile = path.join(CWD, ".env");
-  dotenv.config({ path: envFile });
 }
 
 function printBanner(command: Command, verbose: boolean) {
