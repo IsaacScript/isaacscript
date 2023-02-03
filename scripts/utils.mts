@@ -1,12 +1,8 @@
 import * as fs from "node:fs";
-import * as path from "node:path";
 import * as url from "node:url";
 
-// eslint-disable-next-line no-underscore-dangle
-const _dirname =
-  typeof __dirname !== "undefined"
-    ? __dirname
-    : path.dirname(url.fileURLToPath(import.meta.url));
+// eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
+export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export function capitalizeFirstLetter(string: string): string {
   const firstCharacter = string.charAt(0);
