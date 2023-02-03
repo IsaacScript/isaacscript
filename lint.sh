@@ -12,24 +12,23 @@ cd "$DIR"
 
 # Check "package.json" files.
 # (The script must use ESM because the "sort-package-json" dependency requires ESM.)
-npx ts-node --esm "$DIR/scripts/packageJSONLint.mts"
+pnpx ts-node --esm "$DIR/scripts/packageJSONLint.mts"
 
 if [ "$1" != "json" ]; then
   echo "Linting scripts..."
-  npx eslint --max-warnings 0 scripts
+  pnpx eslint --max-warnings 0 scripts
 
   echo "Linting each package in the monorepo..."
-  LINT_COMMAND="nx run-many --target=lint --all $NO_CACHE"
   if command -v nx &> /dev/null; then
     # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
-    "$LINT_COMMAND"
+    nx run-many --target=lint --all $NO_CACHE
   else
     # The "nx" command does not work in CI, so we revert to calling Nx through the package manager.
-    pnpx "$LINT_COMMAND"
+    pnpx nx run-many --target=lint --all $NO_CACHE
   fi
 
   echo "Checking markdown..."
-  npx markdownlint .
+  pnpx markdownlint .
 fi
 
 echo "Successfully linted in $SECONDS seconds."

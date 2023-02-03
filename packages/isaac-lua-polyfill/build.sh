@@ -17,7 +17,7 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 
-npx tsc
+pnpx tsc
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

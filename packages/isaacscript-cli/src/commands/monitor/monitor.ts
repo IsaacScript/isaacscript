@@ -20,6 +20,7 @@ import * as file from "../../file.js";
 import { getJSONC } from "../../json.js";
 import {
   getPackageManagerAddCommand,
+  getPackageManagerNPXCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
@@ -97,7 +98,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   spawnModDirectorySyncer(config);
 
   // Subprocess #3 - `tstl --watch` (to automatically convert TypeScript to Lua).
-  spawnTSTLWatcher(config, CWD, verbose);
+  spawnTSTLWatcher(config, CWD, packageManager, verbose);
 
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
   if (config.isaacScriptCommonDev) {
@@ -120,7 +121,13 @@ export async function monitor(args: Args, config: Config): Promise<void> {
       );
     }
 
-    spawnTSTLWatcher(config, isaacScriptCommonDirectory, verbose, CWD);
+    spawnTSTLWatcher(
+      config,
+      isaacScriptCommonDirectory,
+      packageManager,
+      verbose,
+      CWD,
+    );
   }
 
   // Also, start constantly pinging the watcher mod.
@@ -260,14 +267,20 @@ function spawnModDirectorySyncer(config: Config) {
 function spawnTSTLWatcher(
   config: Config,
   cwd: string,
+  packageManager: PackageManager,
   verbose: boolean,
   modCWD?: string,
 ) {
   const processDescription = "tstl";
-  const tstl = spawn("npx", ["tstl", "--watch", "--preserveWatchOutput"], {
-    shell: true,
-    cwd,
-  });
+  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  const tstl = spawn(
+    packageManagerNPXCommand,
+    ["tstl", "--watch", "--preserveWatchOutput"],
+    {
+      shell: true,
+      cwd,
+    },
+  );
 
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();

@@ -76,10 +76,10 @@ If you want to fix a bug or add a new feature to `isaacscript-common`, then you 
 The `isaacscript` command line tool has a `--dev` flag that will set up a new testing mod for you automatically:
 
 ```sh
-npx isaacscript init test --dev
+pnpx isaacscript init test --dev
 ```
 
-This command will initialize a new mod named "test" and then automatically link it to your locally compiled `isaacscript-common`. Additionally, when you do `npx isaacscript` to initiate the file watcher, it will also spawn an additional watcher process for the files in `isaacscript-common`.
+This command will initialize a new mod named "test" and then automatically link it to your locally compiled `isaacscript-common`. Additionally, when you do `pnpx isaacscript` to initiate the file watcher, it will also spawn an additional watcher process for the files in `isaacscript-common`.
 
 ### Using an Existing Mod
 

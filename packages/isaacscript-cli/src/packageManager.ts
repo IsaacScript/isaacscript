@@ -12,6 +12,12 @@ const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
   [PackageManager.PNPM]: "pnpm-lock.yaml",
 } as const satisfies Record<PackageManager, string>;
 
+const PACKAGE_MANAGER_NPX_COMMANDS = {
+  [PackageManager.NPM]: "npx",
+  [PackageManager.YARN]: "npx",
+  [PackageManager.PNPM]: "pnpx",
+} as const satisfies Record<PackageManager, string>;
+
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,
 ): string {
@@ -20,6 +26,12 @@ export function getPackageManagerLockFileName(
 
 export function getAllPackageManagerLockFileNames(): string[] {
   return Object.values(PACKAGE_MANAGER_LOCK_FILE_NAMES);
+}
+
+export function getPackageManagerNPXCommand(
+  packageManager: PackageManager,
+): string {
+  return PACKAGE_MANAGER_NPX_COMMANDS[packageManager];
 }
 
 export function getPackageManagerAddCommand(

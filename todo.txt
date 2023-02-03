@@ -1,3 +1,8 @@
+- search "NPM_LOCK_EXISTS" and refactor
+- refactor check-orphaned-words for package manager
+- refactor all template sh files
+
+- use library of execA
 - use new library: https://github.com/Schniz/cmd-ts
 - delete no-useless-return-no-fix
 

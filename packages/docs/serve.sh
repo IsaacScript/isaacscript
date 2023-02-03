@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-npx docusaurus serve --dir "$DIR/../../dist/packages/docs"
+pnpx docusaurus serve --dir "$DIR/../../dist/packages/docs"

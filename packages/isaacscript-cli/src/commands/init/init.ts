@@ -2,7 +2,11 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "node:path";
 import { CWD, PROJECT_NAME } from "../../constants.js";
-import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
+import { PackageManager } from "../../enums/PackageManager.js";
+import {
+  getPackageManagerNPXCommand,
+  getPackageManagerUsedForNewProject,
+} from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
@@ -62,7 +66,7 @@ export async function init(args: Args): Promise<void> {
   );
 
   await openVSCode(projectPath, vscode, yes, verbose);
-  printFinishMessage(projectPath, projectName);
+  printFinishMessage(projectPath, projectName, packageManager);
 }
 
 async function openVSCode(
@@ -93,11 +97,18 @@ function getVSCodeCommand(): string | undefined {
   return undefined;
 }
 
-function printFinishMessage(projectPath: string, projectName: string) {
+function printFinishMessage(
+  projectPath: string,
+  projectName: string,
+  packageManager: PackageManager,
+) {
   let commandsToType = "";
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
   }
-  commandsToType += `"${chalk.green("npx isaacscript")}"`;
+  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  commandsToType += `"${chalk.green(
+    `${packageManagerNPXCommand} isaacscript`,
+  )}"`;
   console.log(`Now, start ${PROJECT_NAME} by typing ${commandsToType}.`);
 }

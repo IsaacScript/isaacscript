@@ -4,9 +4,11 @@ import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME } from "../../constants.js";
+import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell } from "../../exec.js";
 import * as file from "../../file.js";
 import { GitHubCLIHostsYAML } from "../../interfaces/GitHubCLIHostsYAML.js";
+import { getPackageManagerNPXCommand } from "../../packageManager.js";
 import { getInputString, getInputYesNo } from "../../prompt.js";
 import { getVersionOfThisPackage } from "../../version.js";
 
@@ -259,17 +261,29 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
   return nameExitStatus === 0 && emailExitStatus === 0;
 }
 
-export function isGitDirty(verbose: boolean): boolean {
-  // From: https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
-  const [exitStatus] = execShell("npx", ["git-dirty"], verbose, true);
+export function isGitDirty(
+  packageManager: PackageManager,
+  verbose: boolean,
+): boolean {
+  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  const [exitStatus] = execShell(
+    packageManagerNPXCommand,
+    ["git-dirty"],
+    verbose,
+    true,
+  );
   return exitStatus !== 0;
 }
 
-export function gitCommitIfChanges(version: string, verbose: boolean): void {
+export function gitCommitIfChanges(
+  version: string,
+  packageManager: PackageManager,
+  verbose: boolean,
+): void {
   // Throw an error if this is not a git repository.
   execShell("git", ["status"], verbose);
 
-  if (!isGitDirty(verbose)) {
+  if (!isGitDirty(packageManager, verbose)) {
     console.log("There are no changes to commit.");
     return;
   }

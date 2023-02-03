@@ -5,7 +5,10 @@ import { prepareCustomStages } from "../../customStage.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell } from "../../exec.js";
 import * as file from "../../file.js";
-import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
+import {
+  getPackageManagerNPXCommand,
+  getPackageManagerUsedForExistingProject,
+} from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 
@@ -26,12 +29,13 @@ export async function compileAndCopy(
   verbose: boolean,
 ): Promise<void> {
   await prepareCustomStages(packageManager, verbose);
-  compile(verbose);
+  compile(packageManager, verbose);
   copyMod(modSourcePath, modTargetPath, verbose);
 }
 
-function compile(verbose: boolean) {
-  execShell("npx", ["tstl"], verbose);
+function compile(packageManager: PackageManager, verbose: boolean) {
+  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  execShell(packageManagerNPXCommand, ["tstl"], verbose);
   console.log("Mod compiled successfully.");
 }
 

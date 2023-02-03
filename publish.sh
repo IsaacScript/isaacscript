@@ -58,12 +58,12 @@ npm publish --access=public --tag=$NPM_TAG
 
 sleep 1
 bash "$DIR/update.sh"
-npx syncpack fix-mismatches --prod --dev
+pnpx syncpack fix-mismatches --prod --dev
 bash "$DIR/packages/isaacscript-cli/update.sh"
 bash "$DIR/packages/isaacscript-lint/update.sh"
 
 set +e
-if npx git-dirty; then
+if pnpx git-dirty; then
   git commit -a -m "chore: updating dependencies"
   git push --set-upstream origin main
 fi

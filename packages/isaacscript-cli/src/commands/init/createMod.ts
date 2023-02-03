@@ -26,6 +26,7 @@ import {
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
+  getPackageManagerNPXCommand,
 } from "../../packageManager.js";
 import { initGitRepository } from "./git.js";
 
@@ -50,9 +51,9 @@ export function createMod(
 
   copyStaticFiles(projectPath, verbose);
   copyDynamicFiles(projectName, projectPath, packageManager, dev, verbose);
-  updateNodeModules(projectPath, verbose);
+  updateNodeModules(projectPath, packageManager, verbose);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
-  formatFiles(projectPath, verbose);
+  formatFiles(projectPath, packageManager, verbose);
 
   // Only make the initial commit once all of the files have been copied and formatted.
   initGitRepository(projectPath, gitRemoteURL, verbose);
@@ -200,12 +201,17 @@ function copyDynamicFiles(
 }
 
 /** The "package.json" file has to be copied first before this step. */
-function updateNodeModules(projectPath: string, verbose: boolean) {
+function updateNodeModules(
+  projectPath: string,
+  packageManager: PackageManager,
+  verbose: boolean,
+) {
   console.log(
     'Finding out the latest versions of the packages with "npm-check-updates"...',
   );
+  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
   execShell(
-    "npx",
+    packageManagerNPXCommand,
     [
       "npm-check-updates",
       "--upgrade",
@@ -238,9 +244,14 @@ function installNodeModules(
   execShell(command, args, verbose, false, projectPath);
 }
 
-function formatFiles(projectPath: string, verbose: boolean) {
+function formatFiles(
+  projectPath: string,
+  packageManager: PackageManager,
+  verbose: boolean,
+) {
+  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
   execShell(
-    "npx",
+    packageManagerNPXCommand,
     ["prettier", "--write", projectPath],
     verbose,
     false,

@@ -9,6 +9,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
-npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
+pnpx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 
 # We don't want to install anything in the `isaacscript-cli` package directory.
