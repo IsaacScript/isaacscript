@@ -50,16 +50,13 @@ bash "$PACKAGE_DIR/lint.sh"
 
 # Normally, the "version" command of the packager manager will automatically make a Git commit for
 # you. However:
-# - The npm version command is bugged with subdirectories:
-#   https://github.com/npm/cli/issues/2010
+# - The npm version command is bugged with subdirectories: https://github.com/npm/cli/issues/2010
 # - The yarn version command is bugged with with spaces inside of the --message" flag.
 # Thus, we manually revert to doing a commit ourselves.
 if [ "$VERSION_BUMP" == "dev" ]; then
-  npm version --prerelease --preid=dev --commit-hooks=false
-elif [ "$VERSION_BUMP" == "major" ] || [ "$VERSION_BUMP" == "minor" ] || [ "$VERSION_BUMP" == "patch" ]; then
-  npm version --new-version $VERSION_BUMP --commit-hooks=false
+  npm version prerelease --preid=dev --commit-hooks=false
 else
-  npm version --set-version $VERSION_BUMP --commit-hooks=false
+  npm version $VERSION_BUMP --commit-hooks=false
 fi
 
 # Manually make a Git commit. (See above comment.)
