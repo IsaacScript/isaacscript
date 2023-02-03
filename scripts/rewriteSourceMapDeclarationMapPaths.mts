@@ -1,6 +1,6 @@
 import glob from "glob";
 import * as path from "node:path";
-import { error, readFile, writeFile } from "./utils.mjs";
+import { error, readFile, writeFile, __dirname } from "./utils.mjs";
 
 const REPO_ROOT = path.join(__dirname, "..");
 
