@@ -19,6 +19,7 @@ if [ "$1" != "json" ]; then
   npx eslint --max-warnings 0 scripts
 
   echo "Linting each package in the monorepo..."
+  # (We cannot put the nx arguments inside of a variable.)
   if command -v nx &> /dev/null; then
     # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
     nx run-many --target=lint --all $NO_CACHE

@@ -15,6 +15,7 @@ else
   NO_CACHE=""
 fi
 
+# (We cannot put the nx arguments inside of a variable.)
 if command -v nx &> /dev/null; then
   # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
   nx run-many --target=build --all $NO_CACHE

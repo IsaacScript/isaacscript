@@ -132,6 +132,5 @@
     "@release-it/conventional-changelog": {
       "preset": "conventionalcommits"
     }
-  },
-  "version": "2.0.0"
+  }
 }

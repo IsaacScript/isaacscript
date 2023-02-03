@@ -9,6 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 # Test each package.
+# (We cannot put the nx arguments inside of a variable.)
 if command -v nx &> /dev/null; then
   # We want to invoke nx directly, if available. (Otherwise, the colors will not work properly.)
   nx run-many --target=test --all $NO_CACHE

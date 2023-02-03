@@ -34,14 +34,14 @@ VERSION_BUMP="$2"
 # Before bumping the version, check to see if this package compiles (so that we can avoid
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
-
 COMMIT_MESSAGE="chore(release): $PACKAGE_NAME-%s"
 if [ "$VERSION_BUMP" == "dev" ]; then
-  yarn version --prerelease --preid=dev --message "$COMMIT_MESSAGE"
+  npm version --prerelease --preid=dev --message "$COMMIT_MESSAGE"
 elif [ "$VERSION_BUMP" == "major" ] || [ "$VERSION_BUMP" == "minor" ] || [ "$VERSION_BUMP" == "patch" ]; then
-  yarn version --new-version $VERSION_BUMP ---message "$COMMIT_MESSAGE"
+  echo npm version --new-version $VERSION_BUMP ---message "chore(release): $PACKAGE_NAME-%s"
+  npm version --new-version $VERSION_BUMP ---message "chore(release): $PACKAGE_NAME-%s"
 else
-  yarn version --set-version $VERSION_BUMP --message "$COMMIT_MESSAGE"
+  npm version --set-version $VERSION_BUMP --message "$COMMIT_MESSAGE"
 fi
 
 # We have to build again after bumping the version so that the new "package.json" file gets copied
