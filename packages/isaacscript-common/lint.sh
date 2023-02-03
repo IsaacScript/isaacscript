@@ -30,6 +30,6 @@ npx cspell --no-progress --no-summary .
 
 # Validate that every file is included in the docs.
 REPO_ROOT="$DIR/../../"
-npx ts-node --esm "$REPO_ROOT/scripts/docsEntryPointLint.mts"
+npx ts-node --esm "$REPO_ROOT/scripts/docsEntryPointLintISC.mts"
 
 echo "Successfully linted in $SECONDS seconds."

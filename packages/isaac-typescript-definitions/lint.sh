@@ -30,7 +30,7 @@ npx cspell --no-progress --no-summary .
 
 # Validate that every file is included in the docs.
 REPO_ROOT="$DIR/../../"
-npx ts-node --esm "$REPO_ROOT/scripts/docsEntryPointLint.mts"
+npx ts-node --esm "$REPO_ROOT/scripts/docsEntryPointLintITD.mts"
 
 # Check the API dictionary.
 # (Commented out because it causes race conditions in CI.)
