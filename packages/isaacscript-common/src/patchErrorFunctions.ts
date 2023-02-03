@@ -46,17 +46,9 @@ export function patchErrorFunction(): void {
   error = errorWithTraceback;
 }
 
-function errorWithTraceback(
-  this: void,
-  message: string,
-  level?: number,
-): never {
+function errorWithTraceback(this: void, message: string, level = 1): never {
   if (vanillaError === undefined) {
     error(message, level);
-  }
-
-  if (level === undefined) {
-    level = 1;
   }
 
   const tracebackOutput = getTraceback();

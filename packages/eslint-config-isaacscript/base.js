@@ -494,6 +494,18 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-unsupported-features/es-syntax.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * This rule requires adding `parserOptions.ecmaVersion` to every ESLint configuration file. The
+     * rule does not provide enough value to make that modification worth it.
+     */
+    "n/no-unsupported-features/es-builtins": "off",
+
+    /**
+     * Documentation:
      * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-unsupported-features/node-builtins.md
      *
      * Defined at:
