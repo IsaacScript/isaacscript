@@ -284,6 +284,15 @@ module.exports = {
      */
     "n/no-unsupported-features/node-builtins": "off",
 
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/shebang.md
+     *
+     * Defined at:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js
+     *
+     * We need to configure this rule to be Typescript-aware.
+     */
     "n/shebang": [
       "error",
       {
