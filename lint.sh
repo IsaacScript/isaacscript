@@ -16,7 +16,7 @@ npx ts-node --esm "$DIR/scripts/packageJSONLint.mts"
 
 if [ "$1" != "json" ]; then
   echo "Linting scripts..."
-  npx eslint tools
+  npx eslint --max-warnings 0 scripts
 
   echo "Linting each package in the monorepo..."
   if command -v nx &> /dev/null; then
