@@ -324,7 +324,10 @@ function removeCallback(
   }
 }
 
-/** This will only work for end-users who are calling the `ModFeature.init` method explicitly. */
+/**
+ * This will only work for end-users who are calling the `ModFeature.init` method explicitly. (See
+ * the discussion in the `ModFeature` comment.)
+ */
 function initSaveDataManager(
   modFeature: ModFeature,
   tstlClassName: string,
