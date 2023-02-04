@@ -8,6 +8,7 @@ browserslist # Monorepo word
 buildable # Monorepo word
 cloc # Monorepo word
 clsx # Monorepo word
+cmds # cmd-ts word
 commitlint # Monorepo word
 conventionalcommits # Monorepo word
 corepack # To install Yarn/pnpm

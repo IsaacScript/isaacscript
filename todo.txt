@@ -1,3 +1,4 @@
+- new library
 - merge zamTS + zamPublish into isaacscript monorepo
 
 - check-orphaned-words - convert to TypeScript

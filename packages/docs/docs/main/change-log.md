@@ -30,6 +30,7 @@ pnpm add isaacscript-tsconfig
 
 - Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
 - `isaacscript init` now supports bootstrapping a TypeScript project with the "--ts" flag.
+- !`isaacscript publish` now supports publishing a TypeScript project with the "--ts" flag.
 - Removed support for `steamcmd` from the `publish` command.
 - Added the following helper functions:
   - `isFoundSoul`

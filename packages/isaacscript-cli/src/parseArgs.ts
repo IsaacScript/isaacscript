@@ -23,10 +23,11 @@ export interface Args {
   ts?: boolean;
 
   // publish
-  skip?: boolean;
+  skipIncrement?: boolean;
   setVersion?: string;
   dryRun?: boolean;
-  onlyUpload?: boolean;
+  uploadOnly?: boolean;
+  skipLint?: boolean;
 
   // check
   ignore?: string;
@@ -186,6 +187,10 @@ export function parseArgs(): Args {
             type: "boolean",
             description:
               "only upload the mod to the Steam Workshop (without doing anything else)",
+          })
+          .option("skip-lint", {
+            type: "boolean",
+            description: "skip linting before publishing",
           })
           .option("verbose", {
             alias: "v",

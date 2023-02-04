@@ -27,10 +27,10 @@ import { compileAndCopy } from "../copy/copy.js";
 const UPDATE_SCRIPT_NAME = "update.sh";
 
 export async function publish(args: Args, config: Config): Promise<void> {
-  const skipVersionIncrement = args.skip === true;
+  const skipIncrement = args.skipIncrement === true;
   const { setVersion } = args;
   const dryRun = args.dryRun === true;
-  const onlyUpload = args.onlyUpload === true;
+  const uploadOnly = args.uploadOnly === true;
   const verbose = args.verbose === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
@@ -41,7 +41,7 @@ export async function publish(args: Args, config: Config): Promise<void> {
   validateGitNotDirty(packageManager, verbose);
   validateIsaacScriptOtherCopiesNotRunning(verbose);
 
-  if (onlyUpload) {
+  if (uploadOnly) {
     uploadMod(modTargetPath, verbose);
     return;
   }
@@ -49,7 +49,7 @@ export async function publish(args: Args, config: Config): Promise<void> {
   await startPublish(
     MOD_SOURCE_PATH,
     modTargetPath,
-    skipVersionIncrement,
+    skipIncrement,
     setVersion,
     dryRun,
     packageManager,
@@ -106,7 +106,7 @@ function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
 async function startPublish(
   modSourcePath: string,
   modTargetPath: string,
-  skipVersionIncrement: boolean,
+  skipIncrement: boolean,
   setVersion: string | undefined,
   dryRun: boolean,
   packageManager: PackageManager,
@@ -120,7 +120,7 @@ async function startPublish(
 
   let version =
     setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;
-  if (!skipVersionIncrement && setVersion === undefined) {
+  if (!skipIncrement && setVersion === undefined) {
     version = bumpVersionInPackageJSON(version, verbose);
   } else if (setVersion !== undefined) {
     writeVersionInPackageJSON(version, verbose);
