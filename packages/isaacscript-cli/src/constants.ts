@@ -69,10 +69,6 @@ export const METADATA_XML_TEMPLATE_PATH = path.join(
   METADATA_XML,
 );
 export const README_MD = "README.md";
-export const README_MD_TEMPLATES_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  README_MD,
-);
 
 // `isaacscript/schemas`
 const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
