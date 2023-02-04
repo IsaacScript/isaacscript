@@ -4,7 +4,7 @@ title: Using IsaacScript in Lua
 
 <!-- markdownlint-disable MD034 -->
 
-A [library](https://en.wikipedia.org/wiki/Library_(computing)) is a collection of helper functions and features that are provided to you so that you don't have to pollute your actual program with low-level details. In the Isaac modding scene, libraries are really great because the standard API is quite limited.
+A [library](https://en.wikipedia.org/wiki/Library_(computing)) is a collection of helper functions and features that make writing your program easier. Instead of sticking a ton of low-level code in your pogram, you can instead call a single library function, abstracting away all the complexity and keeping your program nice and clean. In the Isaac modding scene, libraries are really great because the standard API is quite limited.
 
 The IsaacScript framework contains two _Binding of Isaac: Repentance_ libraries:
 
