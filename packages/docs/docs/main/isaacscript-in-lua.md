@@ -4,6 +4,8 @@ title: Using IsaacScript in Lua
 
 <!-- markdownlint-disable MD034 -->
 
+A [library](https://en.wikipedia.org/wiki/Library_(computing)) is a collection of helper functions and features that are provided to you so that you don't have to pollute your actual program with low-level details. In the Isaac modding scene, libraries are really great because the standard API is quite limited.
+
 The IsaacScript framework contains two _Binding of Isaac: Repentance_ libraries:
 
 - `isaac-typescript-definitions` - A leveled-up version of the vanilla enums with many bug fixes and community contributed additions for everything that the developers forgot to include. You can learn more about every enum by [reading the documentation](/isaac-typescript-definitions).
