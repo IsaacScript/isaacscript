@@ -24,6 +24,7 @@ import { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import { compileAndCopy } from "../copy/copy.js";
 
+const LINT_SCRIPT_NAME = "lint.sh";
 const UPDATE_SCRIPT_NAME = "update.sh";
 
 export async function publish(args: Args, config: Config): Promise<void> {
@@ -112,11 +113,12 @@ async function startPublish(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  updateDeps(verbose);
+  runBashScript(UPDATE_SCRIPT_NAME, verbose);
 
-  // Since we updated the dependencies, things may not longer compile, so test to see if compilation
-  // passes before we update the version.
+  // Since we updated the dependencies, things may not longer compile or lint, so test those things
+  // before we update the version.
   await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
+  runBashScript(LINT_SCRIPT_NAME, verbose);
 
   let version =
     setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;
@@ -146,14 +148,14 @@ async function startPublish(
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
 }
 
-function updateDeps(verbose: boolean) {
-  if (!file.exists(UPDATE_SCRIPT_NAME, verbose)) {
+function runBashScript(scriptName: string, verbose: boolean) {
+  if (!file.exists(scriptName, verbose)) {
     error(
-      `The "${UPDATE_SCRIPT_NAME}" script does not exist in the current working directory.`,
+      `The "${scriptName}" script does not exist in the current working directory.`,
     );
   }
 
-  execShell("bash", [UPDATE_SCRIPT_NAME], verbose);
+  execShell("bash", [scriptName], verbose);
 }
 
 function getVersionFromPackageJSON(verbose: boolean) {

@@ -4,6 +4,7 @@
 - check-orphaned-words - convert to TypeScript
 - npx isaacscript publish --ts "$@"
 - add variables to uploader github action
+- make isaac-mod-config-menu use github action
 
 - try new TypeDoc branch
 - typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
