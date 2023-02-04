@@ -47,6 +47,10 @@ async function main(): Promise<void> {
   await checkForWindowsTerminalBugs(verbose);
 
   await handleCommands(command, args);
+
+  if (command !== "monitor") {
+    process.exit(0);
+  }
 }
 
 function getCommandFromArgs(args: Args): Command {
@@ -121,10 +125,6 @@ async function handleCommands(command: Command, args: Args) {
       check(args);
       break;
     }
-  }
-
-  if (command !== "monitor") {
-    process.exit(0);
   }
 }
 

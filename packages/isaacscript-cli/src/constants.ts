@@ -31,7 +31,7 @@ export const WATCHER_MOD_NAME = "isaacscript-watcher";
 export const WATCHER_MOD_SOURCE_PATH = path.join(REPO_ROOT, WATCHER_MOD_NAME);
 
 // `isaacscript/file-templates`
-const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
+export const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 
 // `isaacscript/file-templates/static`
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
@@ -68,11 +68,6 @@ export const METADATA_XML_TEMPLATE_PATH = path.join(
   "mod",
   METADATA_XML,
 );
-export const PACKAGE_JSON = "package.json";
-export const PACKAGE_JSON_TEMPLATE_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  PACKAGE_JSON,
-);
 export const README_MD = "README.md";
 export const README_MD_TEMPLATES_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
@@ -91,7 +86,8 @@ export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
 export const TSCONFIG_JSON = "tsconfig.json";
 export const TSCONFIG_JSON_PATH = path.join(CWD, TSCONFIG_JSON);
-export const PACKAGE_JSON_PATH = path.join(CWD, "package.json");
+export const PACKAGE_JSON = "package.json";
+export const PACKAGE_JSON_PATH = path.join(CWD, PACKAGE_JSON);
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 
 // `project/mod`

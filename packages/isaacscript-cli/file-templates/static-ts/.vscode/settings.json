@@ -8,6 +8,10 @@
   "editor.rulers": [100],
   "editor.tabSize": 2,
 
+  "files.associations": {
+    ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
+  },
+
   // We want to always use "lf" to be consistent with all platforms.
   "files.eol": "\n",
 
@@ -16,6 +20,9 @@
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
   "search.exclude": {
+    "**/*.mp3": true,
+    "**/*.png": true,
+    "**/*.wav": true,
     "**/dist/": true,
     "**/node_modules/": true,
   },
@@ -35,6 +42,10 @@
   "javascript.suggest.completeFunctionCalls": true,
   "typescript.suggest.completeFunctionCalls": true,
 
+  // By default, VSCode will prefer non-relative paths for deeply nested files.
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
@@ -43,6 +54,18 @@
     "editor.tabSize": 2,
   },
   "[typescript]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[typescriptreact]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -65,6 +88,25 @@
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[postcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[prisma]": {
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },

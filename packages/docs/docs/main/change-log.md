@@ -11,7 +11,25 @@ This page lists the changes to the IsaacScript framework.
 
 ## February 7th, 2023 (Unreleased)
 
+### `package.json`
+
+IsaacScript mods now require that `isaacscript-tsconfig` is listed as a dependency in your `package.json` file. In other words, type one of the following commands:
+
+```sh
+# If you use npm:
+npm install --save isaacscript-tsconfig
+
+# If you use Yarn:
+yarn add isaacscript-tsconfig
+
+# If you use pnpm:
+pnpm add isaacscript-tsconfig
+```
+
+### Other
+
 - Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
+- `isaacscript init` now supports bootstrapping a TypeScript project with the "--ts" flag.
 - Removed support for `steamcmd` from the `publish` command.
 - Added the following helper functions:
   - `isFoundSoul`

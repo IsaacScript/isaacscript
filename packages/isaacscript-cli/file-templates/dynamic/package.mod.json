@@ -1,16 +1,10 @@
 {
-  "name": "MOD-NAME-TO-REPLACE",
+  "name": "PROJECT_NAME",
   "version": "0.0.0",
   "description": "A mod for The Binding of Isaac: Repentance.",
-  "keywords": [
-    "isaac",
-    "mod",
-    "rebirth",
-    "afterbirth",
-    "repentance"
-  ],
+  "keywords": ["isaac", "mod", "rebirth", "afterbirth", "repentance"],
   "license": "GPL-3.0",
-  "author": "AUTHOR-NAME",
+  "author": "author-name-placeholder",
   "type": "commonjs",
   "dependencies": {
     "isaac-typescript-definitions": "^0.0.1",
@@ -18,6 +12,7 @@
     "isaacscript-common": "^0.0.1",
     "isaacscript-lint": "^0.0.1",
     "isaacscript-spell": "^0.0.1",
+    "isaacscript-tsconfig": "^0.0.1",
     "typescript": "^0.0.1",
     "typescript-to-lua": "^0.0.1"
   }

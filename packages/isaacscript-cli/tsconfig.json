@@ -17,8 +17,10 @@
   // "tsconfig.eslint.json" file.
   "include": [
     "./src/**/*.ts",
+    "./file-templates/static-mod/.prettierrc.cjs",
+    "./file-templates/static-mod/.eslintrc.template.cjs",
+    "./file-templates/static-ts/.prettierrc.cjs",
+    "./file-templates/static-ts/.eslintrc.template.cjs",
     ".eslintrc.cjs",
-    "./file-templates/static/.eslintrc.template.cjs",
-    "./file-templates/static/.prettierrc.cjs",
   ],
 }

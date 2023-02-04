@@ -29,6 +29,7 @@ export async function init(args: Args): Promise<void> {
   const vscode = args.vscode === true;
   const yes = args.yes === true;
   const forceName = args.forceName === true;
+  const ts = args.ts === true;
   const dev = args.dev === true;
 
   // Prompt the end-user for some information (and validate it as we go).
@@ -50,10 +51,12 @@ export async function init(args: Args): Promise<void> {
     verbose,
   );
 
-  const modsDirectory = await getModsDir(args, verbose);
-  checkModSubdirectory(projectPath, modsDirectory);
-  await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
-  const saveSlot = await promptSaveSlot(args, yes);
+  const modsDirectory = await getModsDir(args, ts, verbose);
+  if (modsDirectory !== undefined) {
+    checkModSubdirectory(projectPath, modsDirectory);
+    await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
+  }
+  const saveSlot = ts ? undefined : await promptSaveSlot(args, yes);
 
   // Now that we have asked the user all of the questions we need, we can create the project.
   createProject(
@@ -66,12 +69,13 @@ export async function init(args: Args): Promise<void> {
     gitRemoteURL,
     skipInstall,
     packageManager,
+    ts,
     dev,
     verbose,
   );
 
   await openVSCode(projectPath, vscode, yes, verbose);
-  printFinishMessage(projectPath, projectName, packageManager);
+  printFinishMessage(projectPath, projectName, packageManager, ts);
 }
 
 async function openVSCode(
@@ -106,7 +110,12 @@ function printFinishMessage(
   projectPath: string,
   projectName: string,
   packageManager: PackageManager,
+  ts: boolean,
 ) {
+  if (ts) {
+    return;
+  }
+
   let commandsToType = "";
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;

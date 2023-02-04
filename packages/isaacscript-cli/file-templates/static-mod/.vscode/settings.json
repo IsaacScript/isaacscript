@@ -22,6 +22,7 @@
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
   "search.exclude": {
+    "**/*.mp3": true,
     "**/*.png": true,
     "**/*.wav": true,
     "**/dist/": true,

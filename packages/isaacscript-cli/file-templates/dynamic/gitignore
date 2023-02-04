@@ -1,9 +1,11 @@
+# @template-mod-start
 # Per-user IsaacScript settings
 isaacscript.json
 
 # The transpiled Lua output
 mod/main.lua
 
+# @template-mod-end
 # OS-specific artifacts
 .DS_Store
 thumbs.db

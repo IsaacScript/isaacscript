@@ -1,4 +1,7 @@
 - merge zamTS + zamPublish into isaacscript monorepo
+
+- check-orphaned-words - convert to TypeScript
+- npx isaacscript publish --ts "$@"
 - add variables to uploader github action
 
 - try new TypeDoc branch

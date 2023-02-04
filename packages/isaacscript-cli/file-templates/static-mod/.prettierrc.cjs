@@ -3,6 +3,7 @@
 
 /** @type {import("prettier").Config} */
 module.exports = {
+  // Always print trailing commas:
   // https://prettier.io/docs/en/options.html#trailing-commas
   // The default is "es5" (only having trailing commas where valid in ES5). However, always having
   // trailing commas is objectively better. The Airbnb style guide agrees:

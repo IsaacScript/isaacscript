@@ -13,18 +13,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
-          cache: PACKAGE-MANAGER-NAME
+          cache: PACKAGE_MANAGER_NAME
 
       - name: Retrieve the cached "node_modules" directory (if present)
         uses: actions/cache@v3
         id: node-cache
         with:
           path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('PACKAGE-MANAGER-LOCK-FILE-NAME') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('PACKAGE_MANAGER_LOCK_FILE_NAME') }}
 
       - name: Install dependencies (if the cached directory was not found)
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: PACKAGE-MANAGER-INSTALL
+        run: PACKAGE_MANAGER_INSTALL_COMMAND
 
       - name: Test to see if the project compiles
         run: bash build.sh
@@ -32,6 +32,7 @@ jobs:
       - name: Perform automated checks
         run: bash lint.sh
 
+      # @template-mod-start
       # To enable publishing in CI, follow the instructions here:
       # https://github.com/IsaacScript/isaac-steam-workshop-upload
       # Then, uncomment the lines below.
@@ -40,6 +41,7 @@ jobs:
       #  if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
       #  env:
       #    CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
+      # @template-mod-end
 
   # To enable CI failure notifications over Discord:
   # - Right click on a channel in Discord and select "Edit Channel".
@@ -50,7 +52,10 @@ jobs:
   # - Change the image to: https://github.com/IsaacScript/isaacscript/raw/main/misc/github.png
   # - Click on the "Save Changes" button at the bottom.
   # - Click on the "Copy Webhook URL" button.
-  # - Go to this page: https://github.com/Zamiell/PROJECT-NAME/settings/secrets/actions
+  # - Go to the main page for your repository on GitHub.
+  # - Click on the "Settings" tab near the top.
+  # - Click on "Secrets and variables" in the left menu.
+  # - Click on "Actions" from the dropdown list.
   # - Click on the "New repository secret" button in the top right.
   # - For the "Name" box, use "DISCORD_WEBHOOK" (without the quotes).
   # - For the "Secret" box, paste in the URL that was copied in the "Copy Webhook URL" step.

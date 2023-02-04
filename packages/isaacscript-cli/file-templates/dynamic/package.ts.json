@@ -1,0 +1,30 @@
+{
+  "name": "PROJECT_NAME",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/AUTHOR_NAME/PROJECT_NAME",
+  "bugs": {
+    "url": "https://github.com/AUTHOR_NAME/PROJECT_NAME/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AUTHOR_NAME/PROJECT_NAME.git"
+  },
+  "license": "GPL-3.0",
+  "type": "commonjs",
+  "author": "AUTHOR_NAME",
+  "files": ["dist", "LICENSE", "package.json", "README.md"],
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "start": "PACKAGE_MANAGER run build && node dist/main.js"
+  },
+  "devDependencies": {
+    "@types/node": "^0.0.1",
+    "isaacscript": "^0.0.1",
+    "isaacscript-lint": "^0.0.1",
+    "isaacscript-tsconfig": "^0.0.1",
+    "rimraf": "^0.0.1",
+    "typescript": "^0.0.1"
+  }
+}

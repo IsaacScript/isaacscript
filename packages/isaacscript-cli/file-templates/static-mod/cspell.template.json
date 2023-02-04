@@ -21,5 +21,14 @@
     "mod/resources/rooms/**",
     "yarn.lock"
   ],
-  "words": []
+  "words": [
+    "autocrlf",
+    "dbaeumer",
+    "esbenp",
+    "isaacscript",
+    "pnpm",
+    "sarisia",
+    "technote",
+    "Zamiell"
+  ]
 }

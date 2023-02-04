@@ -13,6 +13,7 @@ const NUM_INDENT_SPACES = 2;
 export async function getConfigFromFile(args: Args): Promise<Config> {
   const verbose = args.verbose === true;
   const yes = args.yes === true;
+  const ts = args.ts === true;
   const dev = args.dev === true;
 
   const existingConfig = getExistingConfig(verbose);
@@ -21,10 +22,10 @@ export async function getConfigFromFile(args: Args): Promise<Config> {
   }
 
   // No config file exists, so prompt the user for some information and create one.
-  const modsDirectory = await getModsDir(args, verbose);
+  const modsDirectory = await getModsDir(args, ts, verbose);
   const saveSlot = await promptSaveSlot(args, yes);
   const config = new Config(modsDirectory, saveSlot, dev);
-  createConfigFile(CWD, config, verbose);
+  createConfigFile(CWD, config, ts, verbose);
 
   return config;
 }
@@ -69,8 +70,13 @@ function errorMissing(field: string, description: string) {
 export function createConfigFile(
   projectPath: string,
   config: Config,
+  ts: boolean,
   verbose: boolean,
 ): void {
+  if (ts) {
+    return;
+  }
+
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
 
   // Add a newline at the end to satisfy Prettier.

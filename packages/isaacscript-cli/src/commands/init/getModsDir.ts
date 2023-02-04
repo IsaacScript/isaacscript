@@ -32,8 +32,13 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 
 export async function getModsDir(
   args: Args,
+  ts: boolean,
   verbose: boolean,
-): Promise<string> {
+): Promise<string | undefined> {
+  if (ts) {
+    return undefined;
+  }
+
   if (args.modsDirectory !== undefined) {
     // They specified the "--mods-directory" command-line flag, so there is no need to prompt the
     // user for it.
