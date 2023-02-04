@@ -232,7 +232,7 @@ function copyDynamicFiles(
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const metadataXML = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
+    const metadataXML = template.replaceAll("PROJECT_NAME", projectName);
     const destinationPath = path.join(modPath, fileName);
     file.write(destinationPath, metadataXML, verbose);
   }
@@ -247,7 +247,7 @@ function copyDynamicFiles(
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);
-    const mainTS = template.replaceAll("MOD-NAME-TO-REPLACE", projectName);
+    const mainTS = template.replaceAll("PROJECT_NAME", projectName);
     const destinationPath = path.join(srcPath, fileName);
     file.write(destinationPath, mainTS, verbose);
   }

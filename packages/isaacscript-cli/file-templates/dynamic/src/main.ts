@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 
-const MOD_NAME = "MOD-NAME-TO-REPLACE";
+const MOD_NAME = "PROJECT_NAME";
 
 main();
 

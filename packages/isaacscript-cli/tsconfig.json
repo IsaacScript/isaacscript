@@ -21,6 +21,7 @@
     "./file-templates/static-mod/.eslintrc.template.cjs",
     "./file-templates/static-ts/.prettierrc.cjs",
     "./file-templates/static-ts/.eslintrc.template.cjs",
+    "./file-templates/static-ts/src/main.ts",
     ".eslintrc.cjs",
   ],
 }
