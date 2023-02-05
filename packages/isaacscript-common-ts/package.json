@@ -21,7 +21,7 @@
       "types": "./src/index.d.ts"
     }
   },
-  "main": "src/index.js",
-  "module": "src/index.mjs",
+  "main": "src/index.cjs",
+  "module": "src/index.js",
   "types": "src/index.d.ts"
 }
