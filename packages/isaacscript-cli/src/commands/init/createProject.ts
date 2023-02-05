@@ -46,7 +46,7 @@ export function createProject(
   gitRemoteURL: string | undefined,
   skipInstall: boolean,
   packageManager: PackageManager,
-  ts: boolean,
+  typeScript: boolean,
   dev: boolean,
   verbose: boolean,
 ): void {
@@ -55,16 +55,16 @@ export function createProject(
   }
 
   const config = new Config(modsDirectory, saveSlot, dev);
-  createConfigFile(projectPath, config, ts, verbose);
+  createConfigFile(projectPath, config, typeScript, verbose);
 
-  copyStaticFiles(projectPath, ts, verbose);
+  copyStaticFiles(projectPath, typeScript, verbose);
   copyDynamicFiles(
     projectName,
     authorName,
     projectPath,
     packageManager,
     dev,
-    ts,
+    typeScript,
     verbose,
   );
   updateNodeModules(projectPath, packageManager, verbose);
@@ -74,12 +74,16 @@ export function createProject(
   // Only make the initial commit once all of the files have been copied and formatted.
   initGitRepository(projectPath, gitRemoteURL, verbose);
 
-  const noun = ts ? "project" : "mod";
+  const noun = typeScript ? "project" : "mod";
   console.log(`Successfully created ${noun}: ${chalk.green(projectName)}`);
 }
 
 /** Copy static files, like ".eslintrc.cjs", "tsconfig.json", etc. */
-function copyStaticFiles(projectPath: string, ts: boolean, verbose: boolean) {
+function copyStaticFiles(
+  projectPath: string,
+  typeScript: boolean,
+  verbose: boolean,
+) {
   // First, copy the static files that are shared between TypeScript projects and IsaacScript mods.
   copyTemplateDirectoryWithoutOverwriting(
     TEMPLATES_STATIC_DIR,
@@ -88,7 +92,7 @@ function copyStaticFiles(projectPath: string, ts: boolean, verbose: boolean) {
   );
 
   // Second, copy files that are specific to either a TypeScript project or an IsaacScript mod.
-  const staticDirSuffix = ts ? "ts" : "mod";
+  const staticDirSuffix = typeScript ? "ts" : "mod";
   const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
   copyTemplateDirectoryWithoutOverwriting(staticDirPath, projectPath, verbose);
 
@@ -134,7 +138,7 @@ function copyDynamicFiles(
   projectPath: string,
   packageManager: PackageManager,
   dev: boolean,
-  ts: boolean,
+  typeScript: boolean,
   verbose: boolean,
 ) {
   const workflowsPath = path.join(projectPath, ".github", "workflows");
@@ -147,7 +151,7 @@ function copyDynamicFiles(
     const template = file.read(templatePath, verbose);
 
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const modifiedTemplate = ts
+    const modifiedTemplate = typeScript
       ? removeLinesBetweenMarkers(template, TEMPLATE_MOD_MARKER)
       : removeLinesMatching(template, TEMPLATE_MOD_MARKER);
 
@@ -169,7 +173,7 @@ function copyDynamicFiles(
     const template = file.read(templatePath, verbose);
 
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const modifiedTemplate = ts
+    const modifiedTemplate = typeScript
       ? removeLinesBetweenMarkers(template, TEMPLATE_MOD_MARKER)
       : removeLinesMatching(template, TEMPLATE_MOD_MARKER);
 
@@ -189,7 +193,7 @@ function copyDynamicFiles(
   // `package.json`
   {
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const packageJSONTemplateFileName = ts
+    const packageJSONTemplateFileName = typeScript
       ? "package.ts.json"
       : "package.mod.json";
     const templatePath = path.join(
@@ -210,7 +214,9 @@ function copyDynamicFiles(
   // `README.md`
   {
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const readmeMDTemplateFileName = ts ? "README.ts.json" : "README.mod.json";
+    const readmeMDTemplateFileName = typeScript
+      ? "README.ts.json"
+      : "README.mod.json";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       readmeMDTemplateFileName,
@@ -225,7 +231,7 @@ function copyDynamicFiles(
   }
 
   // `mod/metadata.xml`
-  if (!ts) {
+  if (!typeScript) {
     const modPath = path.join(projectPath, "mod");
     file.makeDir(modPath, verbose);
 
@@ -241,7 +247,7 @@ function copyDynamicFiles(
   file.makeDir(srcPath, verbose);
 
   // `src/main.ts` (TypeScript projects use the simple version from the "static-ts" directory.)
-  if (!ts) {
+  if (!typeScript) {
     // Convert snake_case and kebab-case to camelCase. (Kebab-case in particular will make the
     // example TypeScript file fail to compile.)
     const fileName = MAIN_TS;
@@ -254,7 +260,7 @@ function copyDynamicFiles(
 
   // If we are initializing an IsaacScript project intended to be used for development, we can
   // include a better starter file.
-  if (!ts && dev) {
+  if (!typeScript && dev) {
     const fileName = MAIN_TS;
     const templatePath = MAIN_DEV_TS_TEMPLATE_PATH;
     const template = file.read(templatePath, verbose);

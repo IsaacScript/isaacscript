@@ -1,10 +1,9 @@
 import { error } from "isaacscript-common-ts";
 import { getGitHubUsername } from "../../git.js";
-import { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 
 export async function getAuthorName(
-  args: Args,
+  typeScript: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
   const gitHubUsername = getGitHubUsername(verbose);
@@ -12,8 +11,7 @@ export async function getAuthorName(
     return gitHubUsername;
   }
 
-  const ts = args.ts === true;
-  if (!ts) {
+  if (!typeScript) {
     // In IsaacScript mods, putting the author in the "package.json" file is not necessary.
     return undefined;
   }

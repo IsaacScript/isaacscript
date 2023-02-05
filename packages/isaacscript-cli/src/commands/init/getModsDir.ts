@@ -32,10 +32,10 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 
 export async function getModsDir(
   args: Args,
-  ts: boolean,
+  typeScript: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
-  if (ts) {
+  if (typeScript) {
     return undefined;
   }
 

@@ -41,7 +41,7 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
   await checkIfProjectPathExists(projectPath, yes, verbose);
 
   const projectName = path.basename(projectPath);
-  const authorName = await getAuthorName(args, verbose);
+  const authorName = await getAuthorName(typeScript, verbose);
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
     noGit,
@@ -109,9 +109,9 @@ function printFinishMessage(
   projectPath: string,
   projectName: string,
   packageManager: PackageManager,
-  ts: boolean,
+  typeScript: boolean,
 ) {
-  if (ts) {
+  if (typeScript) {
     return;
   }
 

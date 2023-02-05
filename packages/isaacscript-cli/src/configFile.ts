@@ -10,10 +10,12 @@ import { Args } from "./parseArgs.js";
 
 const NUM_INDENT_SPACES = 2;
 
-export async function getConfigFromFile(args: Args): Promise<Config> {
+export async function getConfigFromFile(
+  args: Args,
+  typeScript: boolean,
+): Promise<Config> {
   const verbose = args.verbose === true;
   const yes = args.yes === true;
-  const ts = args.ts === true;
   const dev = args.dev === true;
 
   const existingConfig = getExistingConfig(verbose);
@@ -22,10 +24,10 @@ export async function getConfigFromFile(args: Args): Promise<Config> {
   }
 
   // No config file exists, so prompt the user for some information and create one.
-  const modsDirectory = await getModsDir(args, ts, verbose);
+  const modsDirectory = await getModsDir(args, typeScript, verbose);
   const saveSlot = await promptSaveSlot(args, yes);
   const config = new Config(modsDirectory, saveSlot, dev);
-  createConfigFile(CWD, config, ts, verbose);
+  createConfigFile(CWD, config, typeScript, verbose);
 
   return config;
 }
@@ -70,10 +72,10 @@ function errorMissing(field: string, description: string) {
 export function createConfigFile(
   projectPath: string,
   config: Config,
-  ts: boolean,
+  typeScript: boolean,
   verbose: boolean,
 ): void {
-  if (ts) {
+  if (typeScript) {
     return;
   }
 

@@ -22,8 +22,8 @@ const MARKER_CUSTOMIZATION_END = "@template-customization-end";
 const MARKER_IGNORE_NEXT_LINE = "@template-ignore-next-line";
 
 const PACKAGE_MANAGER_STRINGS = [
-  "PACKAGE-MANAGER-NAME",
-  "PACKAGE-MANAGER-INSTALL",
+  "PACKAGE_MANAGER_NAME",
+  "PACKAGE_MANAGER_INSTALL",
   ...getEnumValues(PackageManager),
   ...getAllPackageManagerLockFileNames(),
 ] as const;

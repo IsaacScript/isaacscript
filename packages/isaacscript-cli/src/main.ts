@@ -27,7 +27,6 @@ import {
 } from "./types/Command.js";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
 import { validateNodeVersion } from "./validateNodeVersion.js";
-import { validateOS } from "./validateOS.js";
 import { getVersionOfThisPackage } from "./version.js";
 
 main().catch((err) => {
@@ -43,7 +42,6 @@ async function main(): Promise<void> {
   const command = getCommandFromArgs(args);
 
   validateNodeVersion();
-  validateOS(args);
 
   printBanner(command, verbose);
 
@@ -100,7 +98,7 @@ async function handleCommands(command: Command, args: Args) {
     }
 
     ensureDepsAreInstalled(args, verbose);
-    config = await getConfigFromFile(args);
+    config = await getConfigFromFile(args, false);
   }
 
   switch (command) {
