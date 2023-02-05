@@ -20,7 +20,11 @@ import {
 } from "./packageManager.js";
 import { Args, parseArgs } from "./parseArgs.js";
 import { promptInit } from "./prompt.js";
-import { Command, DEFAULT_COMMAND } from "./types/Command.js";
+import {
+  Command,
+  DEFAULT_COMMAND,
+  isIsaacScriptModCommand,
+} from "./types/Command.js";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
 import { validateNodeVersion } from "./validateNodeVersion.js";
 import { validateOS } from "./validateOS.js";
@@ -86,12 +90,11 @@ function printBanner(command: Command, verbose: boolean) {
 }
 
 async function handleCommands(command: Command, args: Args) {
-  const ts = args.ts === true;
   const skipProjectChecks = args.skipProjectChecks === true;
   const verbose = args.verbose === true;
 
   let config = new Config();
-  if (command !== "init" && !ts) {
+  if (command !== "init" && isIsaacScriptModCommand(command)) {
     if (!skipProjectChecks) {
       validateInIsaacScriptProject(verbose);
     }
@@ -107,7 +110,12 @@ async function handleCommands(command: Command, args: Args) {
     }
 
     case "init": {
-      await init(args);
+      await init(args, false);
+      break;
+    }
+
+    case "init-ts": {
+      await init(args, true);
       break;
     }
 
@@ -117,12 +125,22 @@ async function handleCommands(command: Command, args: Args) {
     }
 
     case "publish": {
-      await publish(args, config);
+      await publish(args, config, false);
+      break;
+    }
+
+    case "publish-ts": {
+      await publish(args, config, true);
       break;
     }
 
     case "check": {
-      check(args);
+      check(args, false);
+      break;
+    }
+
+    case "check-ts": {
+      check(args, true);
       break;
     }
   }

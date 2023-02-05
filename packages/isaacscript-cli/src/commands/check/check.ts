@@ -28,7 +28,7 @@ const PACKAGE_MANAGER_STRINGS = [
   ...getAllPackageManagerLockFileNames(),
 ] as const;
 
-export function check(args: Args): void {
+export function check(args: Args, _typeScript: boolean): void {
   const ignore = args.ignore ?? "";
   const verbose = args.verbose === true;
 

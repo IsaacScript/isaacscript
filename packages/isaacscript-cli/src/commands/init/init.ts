@@ -20,7 +20,7 @@ import { installVSCodeExtensions } from "./installVSCodeExtensions.js";
 import { promptSaveSlot } from "./promptSaveSlot.js";
 import { promptVSCode } from "./promptVSCode.js";
 
-export async function init(args: Args): Promise<void> {
+export async function init(args: Args, typeScript: boolean): Promise<void> {
   const packageManager = getPackageManagerUsedForNewProject(args);
   const noGit = args.noGit === true;
   const skipInstall = args.skipInstall === true;
@@ -29,7 +29,6 @@ export async function init(args: Args): Promise<void> {
   const vscode = args.vscode === true;
   const yes = args.yes === true;
   const forceName = args.forceName === true;
-  const ts = args.ts === true;
   const dev = args.dev === true;
 
   // Prompt the end-user for some information (and validate it as we go).
@@ -51,12 +50,12 @@ export async function init(args: Args): Promise<void> {
     verbose,
   );
 
-  const modsDirectory = await getModsDir(args, ts, verbose);
+  const modsDirectory = await getModsDir(args, typeScript, verbose);
   if (modsDirectory !== undefined) {
     checkModSubdirectory(projectPath, modsDirectory);
     await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
   }
-  const saveSlot = ts ? undefined : await promptSaveSlot(args, yes);
+  const saveSlot = typeScript ? undefined : await promptSaveSlot(args, yes);
 
   // Now that we have asked the user all of the questions we need, we can create the project.
   createProject(
@@ -69,13 +68,13 @@ export async function init(args: Args): Promise<void> {
     gitRemoteURL,
     skipInstall,
     packageManager,
-    ts,
+    typeScript,
     dev,
     verbose,
   );
 
   await openVSCode(projectPath, vscode, yes, verbose);
-  printFinishMessage(projectPath, projectName, packageManager, ts);
+  printFinishMessage(projectPath, projectName, packageManager, typeScript);
 }
 
 async function openVSCode(

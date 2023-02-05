@@ -27,11 +27,14 @@ import { compileAndCopy } from "../copy/copy.js";
 const LINT_SCRIPT_NAME = "lint.sh";
 const UPDATE_SCRIPT_NAME = "update.sh";
 
-export async function publish(args: Args, config: Config): Promise<void> {
+export async function publish(
+  args: Args,
+  config: Config,
+  _typeScript: boolean,
+): Promise<void> {
   const skipIncrement = args.skipIncrement === true;
   const { setVersion } = args;
   const dryRun = args.dryRun === true;
-  const uploadOnly = args.uploadOnly === true;
   const verbose = args.verbose === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
@@ -41,11 +44,6 @@ export async function publish(args: Args, config: Config): Promise<void> {
   validateVersion(setVersion);
   validateGitNotDirty(packageManager, verbose);
   validateIsaacScriptOtherCopiesNotRunning(verbose);
-
-  if (uploadOnly) {
-    uploadMod(modTargetPath, verbose);
-    return;
-  }
 
   await startPublish(
     MOD_SOURCE_PATH,
