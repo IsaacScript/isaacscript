@@ -5,6 +5,7 @@ import path from "node:path";
 import {
   CI_YML_TEMPLATE_PATH,
   CWD,
+  TEMPLATES_DIR,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
@@ -29,7 +30,7 @@ const PACKAGE_MANAGER_STRINGS = [
   ...getAllPackageManagerLockFileNames(),
 ] as const;
 
-export function check(args: Args, _typeScript: boolean): void {
+export function check(args: Args, typeScript: boolean): void {
   const ignore = args.ignore ?? "";
   const verbose = args.verbose === true;
 
@@ -37,7 +38,37 @@ export function check(args: Args, _typeScript: boolean): void {
   const ignoreFileNames = ignore.split(",");
   const ignoreFileNamesSet = new Set(ignoreFileNames);
 
-  for (const klawItem of klawSync(TEMPLATES_STATIC_DIR)) {
+  // First, check the static files that are shared between TypeScript projects and IsaacScript mods.
+  if (
+    checkTemplateDirectory(TEMPLATES_STATIC_DIR, ignoreFileNamesSet, verbose)
+  ) {
+    oneOrMoreErrors = true;
+  }
+
+  // Second, check the files that are specific to either a TypeScript project or an IsaacScript mod.
+  const staticDirSuffix = typeScript ? "ts" : "mod";
+  const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
+  if (checkTemplateDirectory(staticDirPath, ignoreFileNamesSet, verbose)) {
+    oneOrMoreErrors = true;
+  }
+
+  if (checkIndividualFiles(verbose)) {
+    oneOrMoreErrors = true;
+  }
+
+  if (oneOrMoreErrors) {
+    error("The check command failed.");
+  }
+}
+
+function checkTemplateDirectory(
+  templateDirectory: string,
+  ignoreFileNamesSet: Set<string>,
+  verbose: boolean,
+): boolean {
+  let oneOrMoreErrors = false;
+
+  for (const klawItem of klawSync(templateDirectory)) {
     const templateFilePath = klawItem.path;
 
     if (file.isDir(templateFilePath, verbose)) {
@@ -81,6 +112,12 @@ export function check(args: Args, _typeScript: boolean): void {
     }
   }
 
+  return oneOrMoreErrors;
+}
+
+function checkIndividualFiles(verbose: boolean) {
+  let oneOrMoreErrors = false;
+
   {
     const templateFilePath = CI_YML_TEMPLATE_PATH;
     const relativeTemplateFilePath = path.relative(
@@ -101,9 +138,7 @@ export function check(args: Args, _typeScript: boolean): void {
     }
   }
 
-  if (oneOrMoreErrors) {
-    error("The check command failed.");
-  }
+  return oneOrMoreErrors;
 }
 
 /** @returns Whether or not the project file is valid in reference to the template file. */

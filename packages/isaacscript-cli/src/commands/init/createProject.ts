@@ -91,7 +91,7 @@ function copyStaticFiles(
     verbose,
   );
 
-  // Second, copy files that are specific to either a TypeScript project or an IsaacScript mod.
+  // Second, copy the files that are specific to either a TypeScript project or an IsaacScript mod.
   const staticDirSuffix = typeScript ? "ts" : "mod";
   const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
   copyTemplateDirectoryWithoutOverwriting(staticDirPath, projectPath, verbose);
