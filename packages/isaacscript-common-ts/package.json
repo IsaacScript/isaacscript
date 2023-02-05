@@ -16,8 +16,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./rc/index.js",
-      "import": "./src/index.mjs",
+      "require": "./rc/index.cjs",
+      "import": "./src/index.js",
       "types": "./src/index.d.ts"
     }
   },
