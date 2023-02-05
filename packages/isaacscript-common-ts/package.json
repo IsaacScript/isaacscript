@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs",
+  "type": "module",
   "exports": {
     ".": {
       "require": "./rc/index.js",
