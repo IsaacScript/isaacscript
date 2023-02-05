@@ -1,4 +1,4 @@
-- merge zamTS + zamPublish into isaacscript monorepo
+- merge zamPublish into isaacscript monorepo
 
 - github action - use string after "release" for change log
 
