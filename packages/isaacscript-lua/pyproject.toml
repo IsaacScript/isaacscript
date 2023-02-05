@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "isaacscript-lua"
-version = "1.0.3"
+version = "1.0.4"
 description = "a script to manage IsaacScript libraries in a Lua mod"
 authors = ["Zamiell <5511220+Zamiell@users.noreply.github.com>"]
 license = "GPL-3.0"

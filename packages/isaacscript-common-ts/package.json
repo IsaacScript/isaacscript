@@ -15,5 +15,13 @@
   "author": "Zamiell",
   "type": "commonjs",
   "main": "src/index.js",
-  "types": "src/index.d.ts"
+  "module": "src/index.mjs",
+  "types": "src/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./rc/index.js",
+      "import": "./src/index.mjs",
+      "types": "./src/index.d.ts"
+    }
+  }
 }

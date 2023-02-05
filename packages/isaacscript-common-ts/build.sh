@@ -19,8 +19,11 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 
-# Compile the project.
+# Compile the project for the purpose of type-checking.
 npx tsc
+
+# Compile the project for both CJS and ESM using tsup.
+npx tsup "$DIR/src/index.ts" --out-dir "$OUT_DIR/src" --format "cjs,esm"
 
 # The source maps and declaration maps will be bugged due to nx's consolidated "dist" directory, so
 # we use a script to manually rewrite them.
