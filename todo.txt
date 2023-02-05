@@ -1,5 +1,7 @@
-- new library
+- new args library
 - merge zamTS + zamPublish into isaacscript monorepo
+
+- github action - use string after "release" for change log
 
 - check-orphaned-words - convert to TypeScript
 - npx isaacscript publish --ts "$@"

@@ -19,7 +19,6 @@ import {
   getPackageManagerUsedForExistingProject,
 } from "./packageManager.js";
 import { Args, parseArgs } from "./parseArgs.js";
-import { parseArgsNew } from "./parseArgsNew.js";
 import { promptInit } from "./prompt.js";
 import { Command, DEFAULT_COMMAND } from "./types/Command.js";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
@@ -34,10 +33,6 @@ main().catch((err) => {
 async function main(): Promise<void> {
   sourceMapSupport.install();
   promptInit();
-
-  if (await parseArgsNew()) {
-    return;
-  }
 
   const args = parseArgs();
   const verbose = args.verbose === true;
