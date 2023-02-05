@@ -97,7 +97,8 @@ async function handleCommands(command: Command, args: Args) {
       validateInIsaacScriptProject(verbose);
     }
 
-    ensureDepsAreInstalled(args, verbose);
+    const shouldDisplayOutput = !command.startsWith("check");
+    ensureDepsAreInstalled(args, shouldDisplayOutput, verbose);
     config = await getConfigFromFile(args, false);
   }
 
@@ -144,14 +145,19 @@ async function handleCommands(command: Command, args: Args) {
   }
 }
 
-/**
- * https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
- */
-function ensureDepsAreInstalled(args: Args, verbose: boolean) {
+function ensureDepsAreInstalled(
+  args: Args,
+  shouldDisplayOutput: boolean,
+  verbose: boolean,
+) {
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
   const command = getPackageManagerInstallCommand(packageManager);
-  console.log(
-    `Running "${command}" to ensure that the project's dependencies are installed correctly.`,
-  );
+
+  if (shouldDisplayOutput) {
+    console.log(
+      `Running "${command}" to ensure that the project's dependencies are installed correctly.`,
+    );
+  }
+
   execShellString(command, verbose);
 }

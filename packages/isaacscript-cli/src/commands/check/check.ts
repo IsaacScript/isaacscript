@@ -23,7 +23,8 @@ const MARKER_IGNORE_NEXT_LINE = "@template-ignore-next-line";
 
 const PACKAGE_MANAGER_STRINGS = [
   "PACKAGE_MANAGER_NAME",
-  "PACKAGE_MANAGER_INSTALL",
+  "PACKAGE_MANAGER_INSTALL_COMMAND",
+  "PACKAGE_MANAGER_LOCK_FILE_NAME",
   ...getEnumValues(PackageManager),
   ...getAllPackageManagerLockFileNames(),
 ] as const;
