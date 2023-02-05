@@ -10,7 +10,7 @@ declare global {
     ChallengeDone: boolean;
     Clear: boolean;
     ClearCount: int;
-    Data?: Readonly<RoomConfig>;
+    Data?: RoomConfig;
     DecorationSeed: Seed;
     DeliriumDistance: int;
 
@@ -48,7 +48,7 @@ declare global {
     ListIndex: int;
 
     NoReward: boolean;
-    OverrideData: Readonly<RoomConfig>;
+    OverrideData: RoomConfig;
     PitsCount: int;
     PoopCount: int;
     PressurePlatesTriggered: boolean;
