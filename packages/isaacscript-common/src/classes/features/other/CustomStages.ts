@@ -115,7 +115,7 @@ export class CustomStages extends Feature {
   private customStagesMap = new Map<string, CustomStage>();
 
   /** Indexed by room variant. */
-  private customStageCachedRoomData = new Map<int, Readonly<RoomConfig>>();
+  private customStageCachedRoomData = new Map<int, RoomConfig>();
 
   private customGridEntities: CustomGridEntities;
   private customTrapdoors: CustomTrapdoors;
