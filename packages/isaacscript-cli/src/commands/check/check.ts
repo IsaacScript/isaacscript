@@ -81,7 +81,7 @@ function checkTemplateDirectory(
     }
 
     const relativeTemplateFilePath = path.relative(
-      TEMPLATES_STATIC_DIR,
+      templateDirectory,
       templateFilePath,
     );
     const templateFileName = path.basename(relativeTemplateFilePath);
