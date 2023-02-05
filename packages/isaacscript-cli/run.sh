@@ -8,4 +8,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-npx ts-node --require="tsconfig-paths/register" "$DIR/src/main.ts"
+npx tsx "$DIR/src/main.ts"

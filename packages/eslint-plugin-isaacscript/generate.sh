@@ -20,7 +20,7 @@ if [ "$1" = "check" ]; then
   npx git-dirty
 fi
 
-npx ts-node "$DIR/tools/scripts/generate.ts"
+npx tsx "$DIR/tools/generate.ts"
 
 if [ "$1" = "check" ]; then
   echo "Checking to see if any files have changed..."

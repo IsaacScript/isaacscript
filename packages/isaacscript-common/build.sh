@@ -27,7 +27,7 @@ npx tstl
 
 # The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
 # to manually rewrite them.
-npx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common"
+npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common"
 
 # Scrub internal exports from the declaration file using the ".d.ts rollup" feature of API
 # Extractor: https://api-extractor.com/

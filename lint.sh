@@ -12,7 +12,7 @@ cd "$DIR"
 
 # Check "package.json" files.
 # (The script must use ESM because the "sort-package-json" dependency requires ESM.)
-npx ts-node --esm "$DIR/scripts/packageJSONLint.mts"
+npx tsx "$DIR/scripts/packageJSONLint.mts"
 
 if [ "$1" != "json" ]; then
   echo "Linting scripts..."

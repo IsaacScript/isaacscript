@@ -18,7 +18,9 @@ const TEMPLATE_SRC_PATH = path.join(SRC_PATH, "template.ts");
 const TESTS_PATH = path.join(REPO_ROOT, "tests");
 const TEMPLATE_TEST_PATH = path.join(TESTS_PATH, "template.ts");
 
-export function createRule(): void {
+createRule();
+
+function createRule() {
   const firstArg = process.argv[2];
   if (firstArg === undefined || firstArg === "") {
     throw new Error(

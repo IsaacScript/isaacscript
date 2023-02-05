@@ -31,13 +31,6 @@
   "author": "Zamiell",
   "type": "commonjs",
   "main": "src/index.js",
-  "scripts": {
-    "generate": "ts-node tools/scripts/generate.mts",
-    "generate:configs": "ts-node tools/scripts/generate-configs.ts",
-    "generate:readme": "ts-node tools/scripts/generate-readme.ts",
-    "generate:rules": "ts-node tools/scripts/generate-rules.ts",
-    "test": "jest"
-  },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 5.0.0",
     "eslint": ">= 8.0.0",

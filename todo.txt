@@ -6,6 +6,9 @@
 - add variables to uploader github action
 - make isaac-mod-config-menu use github action
 
+- racing-plus + babies mod + config menu CI ACTIONS
+- convert-xml-to-json - enable check
+
 - try new TypeDoc branch
 - typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
 - investigate EXECUTE_CMD crashing

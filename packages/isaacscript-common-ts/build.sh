@@ -27,7 +27,7 @@ npx tsup "$DIR/src/index.ts" --out-dir "$OUT_DIR/src" --format "cjs,esm"
 
 # The source maps and declaration maps will be bugged due to nx's consolidated "dist" directory, so
 # we use a script to manually rewrite them.
-npx ts-node --esm "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common-ts"
+npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscript-common-ts"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
