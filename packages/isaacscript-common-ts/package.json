@@ -16,7 +16,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./rc/index.cjs",
+      "require": "./src/index.cjs",
       "import": "./src/index.js",
       "types": "./src/index.d.ts"
     }
