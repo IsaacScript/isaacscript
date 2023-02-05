@@ -121,6 +121,7 @@
     "syncpack": "^8.4.11",
     "ts-jest": "^29.0.5",
     "ts-json-schema-generator": "^1.2.0",
+    "ts-node": "^10.9.1",
     "ts-prune-2": "^0.10.7",
     "tsconfig-paths": "^4.1.2",
     "tsx": "^3.12.2",
