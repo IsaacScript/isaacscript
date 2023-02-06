@@ -15,12 +15,15 @@ import {
 } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 
+/**
+ * Before uploading the project, we want to update dependencies, increment the version, and perform
+ * some other steps.
+ */
 export function prePublish(args: Args): void {
   const skipUpdate = args.skipUpdate === true;
   const skipLint = args.skipLint === true;
   const verbose = args.verbose === true;
 
-  // Shared initial steps for both TypeScript projects and IsaacScript mods.
   execShellString("git pull --rebase");
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
   updateDependencies(skipUpdate, packageManager, verbose);
@@ -66,29 +69,34 @@ function incrementVersion(args: Args, packageManager: PackageManager) {
     return;
   }
 
-  const versionFlag = getVersionFlag(args);
+  const versionCommandArgument = getVersionCommandArgument(args);
   // The "--no-git-tag-version" flag will prevent the package manager from both making a commit and
   // adding a tag.
   execShellString(
-    `${packageManager} version --no-git-tag-version --${versionFlag}`,
+    `${packageManager} version --no-git-tag-version ${versionCommandArgument}`,
     verbose,
   );
 }
 
-function getVersionFlag(args: Args): string {
+function getVersionCommandArgument(args: Args): string {
+  const { setVersion } = args;
+  if (setVersion !== undefined) {
+    return setVersion; // They want to use a specific version, which was manually specified.
+  }
+
   const major = args.major === true;
   if (major) {
-    return "major";
+    return "--major";
   }
 
   const minor = args.minor === true;
   if (minor) {
-    return "minor";
+    return "--minor";
   }
 
   const patch = args.patch === true;
   if (patch) {
-    return "patch";
+    return "--patch";
   }
 
   // Default to a patch version.
