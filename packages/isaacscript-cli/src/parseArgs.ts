@@ -22,16 +22,14 @@ export interface Args {
   forceName?: boolean;
 
   // publish
+  major?: boolean;
+  minor?: boolean;
+  patch?: boolean;
   skipIncrement?: boolean;
   setVersion?: string;
   dryRun?: boolean;
   skipUpdate?: boolean;
   skipLint?: boolean;
-
-  // publish-ts
-  major?: boolean;
-  minor?: boolean;
-  patch?: boolean;
 
   // check
   ignore?: string;
@@ -221,6 +219,18 @@ export function parseArgs(): Args {
       "Bump the version & prepare for a new release.",
       (builder) =>
         builder
+          .option("major", {
+            type: "boolean",
+            description: "Perform a major version bump",
+          })
+          .option("minor", {
+            type: "boolean",
+            description: "Perform a minor version bump",
+          })
+          .option("patch", {
+            type: "boolean",
+            description: "Perform a patch version bump",
+          })
           .option("skip-increment", {
             type: "boolean",
             description: "Skip incrementing the version number",
@@ -255,6 +265,18 @@ export function parseArgs(): Args {
       "Bump the version & publish the project to npm.",
       (builder) =>
         builder
+          .option("major", {
+            type: "boolean",
+            description: "Perform a major version bump",
+          })
+          .option("minor", {
+            type: "boolean",
+            description: "Perform a minor version bump",
+          })
+          .option("patch", {
+            type: "boolean",
+            description: "Perform a patch version bump",
+          })
           .option("skip-increment", {
             type: "boolean",
             description: "Skip incrementing the version number",
@@ -272,18 +294,6 @@ export function parseArgs(): Args {
           .option("skip-lint", {
             type: "boolean",
             description: "Skip linting before publishing",
-          })
-          .option("major", {
-            type: "boolean",
-            description: "Perform a major version bump",
-          })
-          .option("minor", {
-            type: "boolean",
-            description: "Perform a minor version bump",
-          })
-          .option("patch", {
-            type: "boolean",
-            description: "Perform a patch version bump",
           })
           .option("verbose", {
             alias: "v",

@@ -16,7 +16,7 @@ if [ "$CURRENT_BRANCH" != "main" ]; then
 fi
 
 # Validate that we can push and pull to the repository.
-git branch --set-upstream-to=origin/main main
+git branch --set-upstream-to=origin/main main --quiet
 git pull --rebase --quiet
 git push --quiet
 

@@ -9,13 +9,12 @@ import {
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
   PACKAGE_JSON_PATH,
-  PROJECT_NAME,
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
   VERSION_TXT_PATH,
 } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
-import { execExe, execPowershell, execShell } from "../../exec.js";
+import { execExe, execShell } from "../../exec.js";
 import {
   deleteFileOrDirectory,
   fileExists,
@@ -44,8 +43,6 @@ export async function publishIsaacScriptMod(
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
-  validateIsaacScriptOtherCopiesNotRunning(verbose);
-
   await startPublish(
     MOD_SOURCE_PATH,
     modTargetPath,
@@ -57,32 +54,6 @@ export async function publishIsaacScriptMod(
   );
 }
 
-function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
-  if (process.platform !== "win32") {
-    return;
-  }
-
-  // From: https://securityboulevard.com/2020/01/get-process-list-with-command-line-arguments/
-  const stdout = execPowershell(
-    "Get-WmiObject Win32_Process -Filter \"name = 'node.exe'\" | Select-Object -ExpandProperty CommandLine",
-    verbose,
-  );
-  const lines = stdout.split("\r\n");
-  const otherCopiesOfRunningIsaacScript = lines.filter(
-    (line) =>
-      line.includes("node.exe") &&
-      line.includes("isaacscript") &&
-      !line.includes("isaacscript publish"),
-  );
-  if (otherCopiesOfRunningIsaacScript.length > 0) {
-    error(
-      chalk.red(
-        `Other copies of ${PROJECT_NAME} appear to be running. You must close those copies before publishing.`,
-      ),
-    );
-  }
-}
-
 async function startPublish(
   modSourcePath: string,
   modTargetPath: string,
@@ -92,10 +63,6 @@ async function startPublish(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  // Since we updated the dependencies, things may not longer compile or lint, so test those things
-  // before we update the version.
-  await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
-
   let version =
     setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;
   if (!skipIncrement && setVersion === undefined) {
