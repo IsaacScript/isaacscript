@@ -1,7 +1,12 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
 import { Config } from "../../classes/Config.js";
-import { PACKAGE_JSON, UPDATE_SCRIPT } from "../../constants.js";
+import {
+  BUILD_SCRIPT,
+  LINT_SCRIPT,
+  PACKAGE_JSON,
+  UPDATE_SCRIPT,
+} from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import { fileExists, getHashOfFile } from "../../file.js";
@@ -21,6 +26,7 @@ export async function publish(
 ): Promise<void> {
   const { setVersion } = args;
   const skipUpdate = args.skipUpdate === true;
+  const skipLint = args.skipLint === true;
   const verbose = args.verbose === true;
 
   // Shared validation for both TypeScript projects and IsaacScript mods.
@@ -30,9 +36,14 @@ export async function publish(
   execShellString("git pull --rebase");
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
   updateDependencies(skipUpdate, packageManager, verbose);
+  incrementVersion(args, packageManager);
+  tryRunBashScript(BUILD_SCRIPT, verbose);
+  if (!skipLint) {
+    tryRunBashScript(LINT_SCRIPT, verbose);
+  }
 
   if (typeScript) {
-    publishTypeScriptProject(args, packageManager);
+    publishTypeScriptProject(args);
   } else {
     await publishIsaacScriptMod(args, config);
   }
@@ -90,5 +101,57 @@ function updateDependencies(
       getPackageManagerInstallCommand(packageManager);
     execShellString(packageManagerInstallCommand, verbose);
     gitCommitAllAndPush("chore: update deps", verbose);
+  }
+}
+
+function incrementVersion(args: Args, packageManager: PackageManager) {
+  const skipIncrement = args.skipIncrement === true;
+  const verbose = args.verbose === true;
+
+  if (skipIncrement) {
+    return;
+  }
+
+  const versionFlag = getVersionFlag(args);
+  // The "--no-git-tag-version" flag will prevent the package manager from both making a commit and
+  // adding a tag.
+  execShellString(
+    `${packageManager} version --no-git-tag-version --${versionFlag}`,
+    verbose,
+  );
+}
+
+function getVersionFlag(args: Args): string {
+  const major = args.major === true;
+  if (major) {
+    return "major";
+  }
+
+  const minor = args.minor === true;
+  if (minor) {
+    return "minor";
+  }
+
+  const patch = args.patch === true;
+  if (patch) {
+    return "patch";
+  }
+
+  // Default to a patch version.
+  return "patch";
+}
+
+function tryRunBashScript(scriptName: string, verbose: boolean) {
+  if (!fileExists(scriptName, verbose)) {
+    error(
+      `Failed to find the script "${scriptName}" in the current working directory.`,
+    );
+  }
+
+  const { exitStatus, stdout } = execShell("bash", [scriptName], verbose, true);
+
+  if (exitStatus !== 0) {
+    execShellString("git reset --hard", verbose); // Revert the version changes.
+    error(`Failed to run "${scriptName}":`, stdout);
   }
 }

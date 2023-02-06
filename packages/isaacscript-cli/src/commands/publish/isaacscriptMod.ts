@@ -5,7 +5,6 @@ import { Config } from "../../classes/Config.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
-  LINT_SCRIPT,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
@@ -96,7 +95,6 @@ async function startPublish(
   // Since we updated the dependencies, things may not longer compile or lint, so test those things
   // before we update the version.
   await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
-  runBashScript(LINT_SCRIPT, verbose);
 
   let version =
     setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;
@@ -124,16 +122,6 @@ async function startPublish(
 
   const dryRunSuffix = dryRun ? " (dry run)" : "";
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
-}
-
-function runBashScript(scriptName: string, verbose: boolean) {
-  if (!fileExists(scriptName, verbose)) {
-    error(
-      `The "${scriptName}" script does not exist in the current working directory.`,
-    );
-  }
-
-  execShell("bash", [scriptName], verbose);
 }
 
 function getVersionFromPackageJSON(verbose: boolean) {
