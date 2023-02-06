@@ -17,11 +17,8 @@
   // "tsconfig.eslint.json" file.
   "include": [
     "./src/**/*.ts",
-    "./file-templates/static-mod/.prettierrc.cjs",
-    "./file-templates/static-mod/.eslintrc.template.cjs",
-    "./file-templates/static-ts/.prettierrc.cjs",
-    "./file-templates/static-ts/.eslintrc.template.cjs",
-    "./file-templates/static-ts/src/main.ts",
     ".eslintrc.cjs",
+    // We cannot include the JavaScript files in the "file-templates" directory here, or else they
+    // will be compiled (e.g. a "file-templates/static-ts/src/main.js" file will be created).
   ],
 }
