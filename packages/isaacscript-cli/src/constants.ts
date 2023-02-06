@@ -6,9 +6,13 @@ export const CWD = process.cwd();
 export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
 export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
+export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
 export const MOD_UPLOADER_PATH =
   "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
 export const PROJECT_NAME = "IsaacScript";
+export const UPDATE_SCRIPT = "update.sh";
+export const BUILD_SCRIPT = "build.sh";
+export const LINT_SCRIPT = "lint.sh";
 
 // `isaacscript`
 export const REPO_ROOT = path.join(__dirname, "..");

@@ -58,19 +58,7 @@ export function getPackageManagerAddCommand(
 export function getPackageManagerInstallCommand(
   packageManager: PackageManager,
 ): string {
-  switch (packageManager) {
-    case PackageManager.NPM: {
-      return "npm install";
-    }
-
-    case PackageManager.YARN: {
-      return "yarn install";
-    }
-
-    case PackageManager.PNPM: {
-      return "pnpm install";
-    }
-  }
+  return `${packageManager} install`;
 }
 
 export function getPackageManagerInstallCICommand(

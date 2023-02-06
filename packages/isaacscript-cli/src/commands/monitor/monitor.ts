@@ -4,6 +4,7 @@ import { fork, spawn } from "node:child_process";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
 import {
+  COMPILATION_SUCCESSFUL_MESSAGE,
   CWD,
   FILE_SYNCED_MESSAGE,
   MAIN_LUA,
@@ -32,7 +33,6 @@ import {
 import { Args } from "../../parseArgs.js";
 import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
 import { getModTargetDirectoryName } from "../../utils.js";
-import { COMPILATION_SUCCESSFUL } from "./constants.js";
 import { copyWatcherMod } from "./copyWatcherMod.js";
 import * as notifyGame from "./notifyGame.js";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter.js";
@@ -310,7 +310,7 @@ function spawnTSTLWatcher(
       const elapsedTimeMilliseconds =
         compilationFinishTime.getTime() - compilationStartTime.getTime();
       const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
-      const newMsg = `${COMPILATION_SUCCESSFUL} (in ${elapsedTimeSeconds} seconds)${suffix}`;
+      const newMsg = `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
       notifyGame.msg(newMsg);
 
       // Sometimes, there is a bug where successful compilation of "isaacscript-common" will not

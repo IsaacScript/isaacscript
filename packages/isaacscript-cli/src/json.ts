@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { error, isRecord } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
+import { PACKAGE_JSON, PACKAGE_JSON_PATH } from "./constants.js";
 import { readFile } from "./file.js";
 
 /**
@@ -31,4 +32,19 @@ export function getJSONC(
   }
 
   return json;
+}
+
+export function getProjectPackageJSONField(
+  fieldName: string,
+  verbose: boolean,
+): string {
+  const packageJSON = getJSONC(PACKAGE_JSON_PATH, verbose);
+  const field = packageJSON[fieldName];
+  if (typeof field !== "string") {
+    error(
+      `Failed to parse the "${fieldName}" field from the "${PACKAGE_JSON}" file.`,
+    );
+  }
+
+  return field;
 }

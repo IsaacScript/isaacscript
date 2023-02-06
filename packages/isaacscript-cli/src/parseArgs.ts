@@ -25,7 +25,13 @@ export interface Args {
   skipIncrement?: boolean;
   setVersion?: string;
   dryRun?: boolean;
+  skipUpdate?: boolean;
   skipLint?: boolean;
+
+  // publish-ts
+  major?: boolean;
+  minor?: boolean;
+  patch?: boolean;
 
   // check
   ignore?: string;
@@ -229,6 +235,10 @@ export function parseArgs(): Args {
             type: "boolean",
             description: "Skip committing & uploading",
           })
+          .option("skip-update", {
+            type: "boolean",
+            description: "Skip updating dependencies",
+          })
           .option("skip-lint", {
             type: "boolean",
             description: "Skip linting before publishing",
@@ -261,7 +271,19 @@ export function parseArgs(): Args {
           })
           .option("skip-lint", {
             type: "boolean",
-            description: "skip linting before publishing",
+            description: "Skip linting before publishing",
+          })
+          .option("major", {
+            type: "boolean",
+            description: "Perform a major version bump",
+          })
+          .option("minor", {
+            type: "boolean",
+            description: "Perform a minor version bump",
+          })
+          .option("patch", {
+            type: "boolean",
+            description: "Perform a patch version bump",
           })
           .option("verbose", {
             alias: "v",

@@ -5,6 +5,7 @@ import { Config } from "../../classes/Config.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
+  LINT_SCRIPT,
   METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
@@ -24,15 +25,12 @@ import {
   readFile,
   writeFile,
 } from "../../file.js";
-import { gitCommitIfChanges, isGitClean } from "../../git.js";
+import { gitCommitIfChanges } from "../../git.js";
 import { getJSONC } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import { compileAndCopy } from "../copy/copy.js";
-
-const LINT_SCRIPT_NAME = "lint.sh";
-const UPDATE_SCRIPT_NAME = "update.sh";
 
 export async function publishIsaacScriptMod(
   args: Args,
@@ -47,8 +45,6 @@ export async function publishIsaacScriptMod(
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
-  validateVersion(setVersion);
-  validateGitNotDirty(verbose);
   validateIsaacScriptOtherCopiesNotRunning(verbose);
 
   await startPublish(
@@ -60,26 +56,6 @@ export async function publishIsaacScriptMod(
     packageManager,
     verbose,
   );
-}
-
-function validateVersion(setVersion: string | undefined) {
-  if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
-    error(
-      chalk.red(
-        `The version of "${setVersion}" does not match the semantic versioning format.`,
-      ),
-    );
-  }
-}
-
-function validateGitNotDirty(verbose: boolean) {
-  if (!isGitClean(verbose)) {
-    error(
-      chalk.red(
-        "Before publishing, you must push your current changes to git. (Version commits should be not contain any code changes.)",
-      ),
-    );
-  }
 }
 
 function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
@@ -117,12 +93,10 @@ async function startPublish(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  runBashScript(UPDATE_SCRIPT_NAME, verbose);
-
   // Since we updated the dependencies, things may not longer compile or lint, so test those things
   // before we update the version.
   await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
-  runBashScript(LINT_SCRIPT_NAME, verbose);
+  runBashScript(LINT_SCRIPT, verbose);
 
   let version =
     setVersion === undefined ? getVersionFromPackageJSON(verbose) : setVersion;

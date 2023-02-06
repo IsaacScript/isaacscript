@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
+import * as crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -116,6 +117,13 @@ function getFileStats(filePath: string, verbose: boolean): fs.Stats {
   }
 
   return fileStats;
+}
+
+export function getHashOfFile(filePath: string): string {
+  const fileBuffer = fs.readFileSync(filePath);
+  const hashSum = crypto.createHash("sha256");
+  hashSum.update(fileBuffer);
+  return hashSum.digest("hex");
 }
 
 /**

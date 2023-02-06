@@ -1,6 +1,6 @@
 import chalk from "chalk";
+import { COMPILATION_SUCCESSFUL_MESSAGE } from "../../constants.js";
 import { getTime } from "../../utils.js";
-import { COMPILATION_SUCCESSFUL } from "./constants.js";
 import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter.js";
 
 export function msg(data: string): void {
@@ -36,7 +36,7 @@ export function msg(data: string): void {
 function printMsgToStandardOut(data: string) {
   let coloredData = data;
 
-  if (data.includes(COMPILATION_SUCCESSFUL)) {
+  if (data.includes(COMPILATION_SUCCESSFUL_MESSAGE)) {
     coloredData = chalk.green(data);
   } else if (data.match(/error/g) !== null) {
     coloredData = chalk.red(data);
