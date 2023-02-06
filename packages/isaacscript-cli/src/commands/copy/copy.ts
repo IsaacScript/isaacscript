@@ -3,8 +3,8 @@ import { Config } from "../../classes/Config.js";
 import { MOD_SOURCE_PATH } from "../../constants.js";
 import { prepareCustomStages } from "../../customStage.js";
 import { PackageManager } from "../../enums/PackageManager.js";
-import { execShell } from "../../exec.js";
-import * as file from "../../file.js";
+import { execShellString } from "../../exec.js";
+import { copyFile, deleteFileOrDirectory, fileExists } from "../../file.js";
 import {
   getPackageManagerNPXCommand,
   getPackageManagerUsedForExistingProject,
@@ -35,7 +35,7 @@ export async function compileAndCopy(
 
 function compile(packageManager: PackageManager, verbose: boolean) {
   const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
-  execShell(packageManagerNPXCommand, ["tstl"], verbose);
+  execShellString(`${packageManagerNPXCommand} tstl`, verbose);
   console.log("Mod compiled successfully.");
 }
 
@@ -44,9 +44,9 @@ function copyMod(
   modTargetPath: string,
   verbose: boolean,
 ) {
-  if (file.exists(modTargetPath, verbose)) {
-    file.deleteFileOrDirectory(modTargetPath, verbose);
+  if (fileExists(modTargetPath, verbose)) {
+    deleteFileOrDirectory(modTargetPath, verbose);
   }
-  file.copy(modSourcePath, modTargetPath, verbose);
+  copyFile(modSourcePath, modTargetPath, verbose);
   console.log("Mod copied successfully.");
 }

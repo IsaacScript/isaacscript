@@ -11,7 +11,13 @@ import {
 } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell } from "../../exec.js";
-import * as file from "../../file.js";
+import {
+  deleteFileOrDirectory,
+  fileExists,
+  isDir,
+  readFile,
+  writeFile,
+} from "../../file.js";
 import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 
@@ -71,7 +77,7 @@ function checkTemplateDirectory(
   for (const klawItem of klawSync(templateDirectory)) {
     const templateFilePath = klawItem.path;
 
-    if (file.isDir(templateFilePath, verbose)) {
+    if (isDir(templateFilePath, verbose)) {
       continue;
     }
 
@@ -148,7 +154,7 @@ function compareTextFiles(
   originalFileName: string,
   verbose: boolean,
 ): boolean {
-  if (!file.exists(projectFilePath, verbose)) {
+  if (!fileExists(projectFilePath, verbose)) {
     console.log(`Failed to find the following file: ${projectFilePath}`);
     printTemplateLocation(originalFileName);
 
@@ -180,8 +186,8 @@ function compareTextFiles(
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
 
-  file.write(tempProjectFilePath, projectFileContents, verbose);
-  file.write(tempTemplateFilePath, templateFileContents, verbose);
+  writeFile(tempProjectFilePath, projectFileContents, verbose);
+  writeFile(tempTemplateFilePath, templateFileContents, verbose);
 
   const { stdout } = execShell(
     "diff",
@@ -192,8 +198,8 @@ function compareTextFiles(
 
   console.log(`${stdout}\n`);
 
-  file.deleteFileOrDirectory(tempProjectFilePath, verbose);
-  file.deleteFileOrDirectory(tempTemplateFilePath, verbose);
+  deleteFileOrDirectory(tempProjectFilePath, verbose);
+  deleteFileOrDirectory(tempTemplateFilePath, verbose);
 
   return false;
 }
@@ -210,7 +216,7 @@ function getTruncatedFileText(
 ): [text: string, ignoredLines: Set<string>] {
   const fileName = path.basename(filePath);
 
-  const projectFileContents = file.read(filePath, verbose);
+  const projectFileContents = readFile(filePath, verbose);
   const lines = projectFileContents.split("\n");
 
   const newLines: string[] = [];

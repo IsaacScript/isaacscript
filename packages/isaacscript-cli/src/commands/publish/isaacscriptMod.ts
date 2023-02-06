@@ -16,8 +16,15 @@ import {
 } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execExe, execPowershell, execShell } from "../../exec.js";
-import * as file from "../../file.js";
-import { gitCommitIfChanges, isGitDirty } from "../../git.js";
+import {
+  deleteFileOrDirectory,
+  fileExists,
+  getDirList,
+  isDir,
+  readFile,
+  writeFile,
+} from "../../file.js";
+import { gitCommitIfChanges, isGitClean } from "../../git.js";
 import { getJSONC } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
@@ -41,7 +48,7 @@ export async function publishIsaacScriptMod(
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   validateVersion(setVersion);
-  validateGitNotDirty(packageManager, verbose);
+  validateGitNotDirty(verbose);
   validateIsaacScriptOtherCopiesNotRunning(verbose);
 
   await startPublish(
@@ -65,8 +72,8 @@ function validateVersion(setVersion: string | undefined) {
   }
 }
 
-function validateGitNotDirty(packageManager: PackageManager, verbose: boolean) {
-  if (isGitDirty(packageManager, verbose)) {
+function validateGitNotDirty(verbose: boolean) {
+  if (!isGitClean(verbose)) {
     error(
       chalk.red(
         "Before publishing, you must push your current changes to git. (Version commits should be not contain any code changes.)",
@@ -137,7 +144,7 @@ async function startPublish(
   runReleaseScriptPostCopy(verbose);
 
   if (!dryRun) {
-    gitCommitIfChanges(version, packageManager, verbose);
+    gitCommitIfChanges(version, verbose);
     uploadMod(modTargetPath, verbose);
   }
 
@@ -146,7 +153,7 @@ async function startPublish(
 }
 
 function runBashScript(scriptName: string, verbose: boolean) {
-  if (!file.exists(scriptName, verbose)) {
+  if (!fileExists(scriptName, verbose)) {
     error(
       `The "${scriptName}" script does not exist in the current working directory.`,
     );
@@ -156,7 +163,7 @@ function runBashScript(scriptName: string, verbose: boolean) {
 }
 
 function getVersionFromPackageJSON(verbose: boolean) {
-  if (!file.exists(PACKAGE_JSON_PATH, verbose)) {
+  if (!fileExists(PACKAGE_JSON_PATH, verbose)) {
     error(
       chalk.red(
         `A "${PACKAGE_JSON_PATH}" was not found in the current directory.`,
@@ -189,12 +196,12 @@ function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
   const incrementedPatchVersion = patchVersion + 1;
   const incrementedVersion = `${majorVersion}.${minorVersion}.${incrementedPatchVersion}`;
 
-  const packageJSON = file.read(PACKAGE_JSON_PATH, verbose);
+  const packageJSON = readFile(PACKAGE_JSON_PATH, verbose);
   const newPackageJSON = packageJSON.replace(
     /"version": ".+",/,
     `"version": "${incrementedVersion}",`,
   );
-  file.write(PACKAGE_JSON_PATH, newPackageJSON, verbose);
+  writeFile(PACKAGE_JSON_PATH, newPackageJSON, verbose);
 
   console.log(
     `The version of ${incrementedVersion} was written to: ${PACKAGE_JSON_PATH}`,
@@ -204,66 +211,66 @@ function bumpVersionInPackageJSON(version: string, verbose: boolean): string {
 }
 
 function writeVersionInPackageJSON(version: string, verbose: boolean) {
-  const packageJSON = file.read(PACKAGE_JSON_PATH, verbose);
+  const packageJSON = readFile(PACKAGE_JSON_PATH, verbose);
   const newPackageJSON = packageJSON.replace(
     /"version": ".+",/,
     `"version": "${version}",`,
   );
-  file.write(PACKAGE_JSON_PATH, newPackageJSON, verbose);
+  writeFile(PACKAGE_JSON_PATH, newPackageJSON, verbose);
 
   console.log(`The version of ${version} was written to: ${PACKAGE_JSON_PATH}`);
 }
 
 function writeVersionToConstantsTS(version: string, verbose: boolean) {
-  if (!file.exists(CONSTANTS_TS_PATH, verbose)) {
+  if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
     console.log(
       'Skipping writing the version to "constants.ts" since it was not found.',
     );
     return;
   }
 
-  const constantsTS = file.read(CONSTANTS_TS_PATH, verbose);
+  const constantsTS = readFile(CONSTANTS_TS_PATH, verbose);
   const newConstantsTS = constantsTS.replace(
     /const VERSION = ".+"/,
     `const VERSION = "${version}"`,
   );
-  file.write(CONSTANTS_TS_PATH, newConstantsTS, verbose);
+  writeFile(CONSTANTS_TS_PATH, newConstantsTS, verbose);
 
   console.log(`The version of ${version} was written to: ${CONSTANTS_TS_PATH}`);
 }
 
 function writeVersionToMetadataXML(version: string, verbose: boolean) {
-  const metadataXML = file.read(METADATA_XML_PATH, verbose);
+  const metadataXML = readFile(METADATA_XML_PATH, verbose);
   const newMetadataXML = metadataXML.replace(
     /<version>.+<\/version>/,
     `<version>${version}</version>`,
   );
-  file.write(METADATA_XML_PATH, newMetadataXML, verbose);
+  writeFile(METADATA_XML_PATH, newMetadataXML, verbose);
 
   console.log(`The version of ${version} was written to: ${METADATA_XML_PATH}`);
 }
 
 function writeVersionToVersionTXT(version: string, verbose: boolean) {
-  file.write(VERSION_TXT_PATH, version, verbose);
+  writeFile(VERSION_TXT_PATH, version, verbose);
 
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
 function unsetDevelopmentConstant(verbose: boolean) {
-  if (!file.exists(CONSTANTS_TS_PATH, verbose)) {
+  if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
     return;
   }
 
-  const constantsTS = file.read(CONSTANTS_TS_PATH, verbose);
+  const constantsTS = readFile(CONSTANTS_TS_PATH, verbose);
   const newConstantsTS = constantsTS.replace(
     "const IS_DEV = true",
     "const IS_DEV = false",
   );
-  file.write(CONSTANTS_TS_PATH, newConstantsTS, verbose);
+  writeFile(CONSTANTS_TS_PATH, newConstantsTS, verbose);
 }
 
 function runReleaseScriptPreCopy(verbose: boolean) {
-  if (!file.exists(PUBLISH_PRE_COPY_PY_PATH, verbose)) {
+  if (!fileExists(PUBLISH_PRE_COPY_PY_PATH, verbose)) {
     return;
   }
 
@@ -275,7 +282,7 @@ function runReleaseScriptPreCopy(verbose: boolean) {
 }
 
 function runReleaseScriptPostCopy(verbose: boolean) {
-  if (!file.exists(PUBLISH_POST_COPY_PY_PATH, verbose)) {
+  if (!fileExists(PUBLISH_POST_COPY_PY_PATH, verbose)) {
     return;
   }
 
@@ -288,17 +295,17 @@ function runReleaseScriptPostCopy(verbose: boolean) {
 
 function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
   const roomsPath = path.join(modTargetPath, "resources", "rooms");
-  if (!file.exists(roomsPath, verbose) || !file.isDir(roomsPath, verbose)) {
+  if (!fileExists(roomsPath, verbose) || !isDir(roomsPath, verbose)) {
     return;
   }
 
-  const roomFileList = file.getDirList(roomsPath, verbose);
+  const roomFileList = getDirList(roomsPath, verbose);
   const xmlFiles = roomFileList.filter(
     (fileName) => path.extname(fileName) === ".xml",
   );
   for (const xmlFile of xmlFiles) {
     const roomFilePath = path.join(roomsPath, xmlFile);
-    file.deleteFileOrDirectory(roomFilePath, verbose);
+    deleteFileOrDirectory(roomFilePath, verbose);
   }
 }
 
@@ -319,11 +326,11 @@ function uploadMod(modTargetPath: string, verbose: boolean) {
 
 function hasIsaacSteamWorkshopUploadGitHubAction(verbose: boolean): boolean {
   const ciYMLPath = path.join(CWD, ".github", "workflows", "ci.yml");
-  if (!file.exists(ciYMLPath, verbose)) {
+  if (!fileExists(ciYMLPath, verbose)) {
     return false;
   }
 
-  const ciYML = file.read(ciYMLPath, verbose);
+  const ciYML = readFile(ciYMLPath, verbose);
   const lines = ciYML.split("\n");
 
   return lines.some(

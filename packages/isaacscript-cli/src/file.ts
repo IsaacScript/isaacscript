@@ -3,7 +3,11 @@ import { error } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
 
-export function copy(srcPath: string, dstPath: string, verbose: boolean): void {
+export function copyFile(
+  srcPath: string,
+  dstPath: string,
+  verbose: boolean,
+): void {
   if (verbose) {
     console.log(`Copying: ${srcPath} --> ${dstPath}`);
   }
@@ -50,7 +54,7 @@ export function deleteFileOrDirectory(
   }
 }
 
-export function exists(filePath: string, verbose: boolean): boolean {
+export function fileExists(filePath: string, verbose: boolean): boolean {
   if (verbose) {
     console.log(`Checking to see if the following path exists: ${filePath}`);
   }
@@ -182,7 +186,7 @@ export function makeDir(dirPath: string, verbose: boolean): void {
   }
 }
 
-export function read(filePath: string, verbose: boolean): string {
+export function readFile(filePath: string, verbose: boolean): string {
   if (verbose) {
     console.log(`Reading a file: ${filePath}`);
   }
@@ -201,7 +205,7 @@ export function read(filePath: string, verbose: boolean): string {
   return fileContents;
 }
 
-export function rename(
+export function renameFile(
   srcPath: string,
   dstPath: string,
   verbose: boolean,
@@ -243,7 +247,11 @@ export function touch(filePath: string, verbose: boolean): void {
   }
 }
 
-export function write(filePath: string, data: string, verbose: boolean): void {
+export function writeFile(
+  filePath: string,
+  data: string,
+  verbose: boolean,
+): void {
   if (verbose) {
     console.log(`Writing data to: ${filePath}`);
   }
@@ -263,7 +271,7 @@ export function write(filePath: string, data: string, verbose: boolean): void {
  * Intended to be used in a try/catch block so that you can catch the error and handle it
  * accordingly.
  */
-export function writeTry(
+export function writeFileTry(
   filePath: string,
   data: string,
   verbose: boolean,

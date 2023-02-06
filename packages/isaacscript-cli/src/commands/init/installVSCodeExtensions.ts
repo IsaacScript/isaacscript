@@ -1,7 +1,7 @@
 import { error } from "isaacscript-common-ts";
 import path from "node:path";
 import { execShell } from "../../exec.js";
-import * as file from "../../file.js";
+import { fileExists } from "../../file.js";
 import { getJSONC } from "../../json.js";
 
 export function installVSCodeExtensions(
@@ -32,7 +32,7 @@ function getExtensionsFromJSON(
     "extensions.json",
   );
 
-  if (!file.exists(extensionsJSONPath, verbose)) {
+  if (!fileExists(extensionsJSONPath, verbose)) {
     return [];
   }
 

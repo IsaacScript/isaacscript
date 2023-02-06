@@ -1,6 +1,6 @@
 import { error } from "isaacscript-common-ts";
 import path from "node:path";
-import * as file from "./file.js";
+import { fileExists, isDir } from "./file.js";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,
@@ -12,8 +12,8 @@ export function getAndValidateIsaacScriptMonorepoDirectory(
     "isaacscript",
   );
   if (
-    !file.exists(isaacScriptMonorepoDirectory, verbose) ||
-    !file.isDir(isaacScriptMonorepoDirectory, verbose)
+    !fileExists(isaacScriptMonorepoDirectory, verbose) ||
+    !isDir(isaacScriptMonorepoDirectory, verbose)
   ) {
     console.error(
       `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,

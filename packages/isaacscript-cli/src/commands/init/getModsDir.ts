@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
 import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
-import * as file from "../../file.js";
+import { fileExists, isDir } from "../../file.js";
 import { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 
@@ -47,10 +47,7 @@ export async function getModsDir(
 
   const defaultModsPath = getDefaultModsPath(process.platform);
 
-  if (
-    file.exists(defaultModsPath, verbose) &&
-    file.isDir(defaultModsPath, verbose)
-  ) {
+  if (fileExists(defaultModsPath, verbose) && isDir(defaultModsPath, verbose)) {
     return defaultModsPath;
   }
 
@@ -65,7 +62,7 @@ export async function getModsDir(
     error("Error: You did not provide a response; exiting.");
   }
 
-  if (!file.exists(modsDir, verbose)) {
+  if (!fileExists(modsDir, verbose)) {
     error(
       `Error: The directory of "${chalk.green(
         modsDir,
@@ -73,7 +70,7 @@ export async function getModsDir(
     );
   }
 
-  if (!file.isDir(modsDir, verbose)) {
+  if (!isDir(modsDir, verbose)) {
     error(
       `Error: The path of "${chalk.green(
         modsDir,

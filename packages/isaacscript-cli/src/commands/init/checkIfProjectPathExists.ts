@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
 import { CWD } from "../../constants.js";
-import * as file from "../../file.js";
+import { deleteFileOrDirectory, fileExists, isDir } from "../../file.js";
 import { getInputYesNo } from "../../prompt.js";
 
 export async function checkIfProjectPathExists(
@@ -9,14 +9,14 @@ export async function checkIfProjectPathExists(
   yes: boolean,
   verbose: boolean,
 ): Promise<void> {
-  if (projectPath === CWD || !file.exists(projectPath, verbose)) {
+  if (projectPath === CWD || !fileExists(projectPath, verbose)) {
     return;
   }
 
-  const fileType = file.isDir(projectPath, verbose) ? "directory" : "file";
+  const fileType = isDir(projectPath, verbose) ? "directory" : "file";
 
   if (yes) {
-    file.deleteFileOrDirectory(projectPath, verbose);
+    deleteFileOrDirectory(projectPath, verbose);
     console.log(`Deleted ${fileType}: ${chalk.green(projectPath)}`);
     return;
   }
@@ -30,5 +30,5 @@ export async function checkIfProjectPathExists(
     error("Ok then. Goodbye.");
   }
 
-  file.deleteFileOrDirectory(projectPath, verbose);
+  deleteFileOrDirectory(projectPath, verbose);
 }

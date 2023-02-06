@@ -3,7 +3,7 @@ import { error, getEnumValues } from "isaacscript-common-ts";
 import path from "node:path";
 import { CWD } from "./constants.js";
 import { PackageManager } from "./enums/PackageManager.js";
-import * as file from "./file.js";
+import { fileExists } from "./file.js";
 import { Args } from "./parseArgs.js";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
@@ -115,7 +115,7 @@ export function getPackageManagerUsedForExistingProject(
   for (const packageManager of getEnumValues(PackageManager)) {
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const lockFilePath = path.join(CWD, lockFileName);
-    if (file.exists(lockFilePath, verbose)) {
+    if (fileExists(lockFilePath, verbose)) {
       return packageManager;
     }
   }

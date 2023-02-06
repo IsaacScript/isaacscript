@@ -6,25 +6,31 @@ import {
   WATCHER_MOD_NAME,
   WATCHER_MOD_SOURCE_PATH,
 } from "../../constants.js";
-import * as file from "../../file.js";
+import {
+  copyFile,
+  deleteFileOrDirectory,
+  fileExists,
+  readFile,
+  writeFile,
+} from "../../file.js";
 
 export function copyWatcherMod(config: Config, verbose: boolean): void {
   // Check to see if this mod was disabled.
   const watcherModPath = path.join(config.modsDirectory, WATCHER_MOD_NAME);
   const disableItPath = path.join(watcherModPath, DISABLE_IT_FILE);
-  const watcherModDisabled = file.exists(disableItPath, verbose);
+  const watcherModDisabled = fileExists(disableItPath, verbose);
 
   // Delete and re-copy the watcher mod every time IsaacScript starts. This ensures that it is
   // always the latest version.
-  if (file.exists(watcherModPath, verbose)) {
-    file.deleteFileOrDirectory(watcherModPath, verbose);
+  if (fileExists(watcherModPath, verbose)) {
+    deleteFileOrDirectory(watcherModPath, verbose);
   }
 
-  file.copy(WATCHER_MOD_SOURCE_PATH, watcherModPath, verbose);
+  copyFile(WATCHER_MOD_SOURCE_PATH, watcherModPath, verbose);
 
   if (watcherModDisabled) {
     // Since we deleted the directory, the "disable.it" file was deleted. Restore it.
-    file.write(disableItPath, "", verbose);
+    writeFile(disableItPath, "", verbose);
   }
 
   // By default, the IsaacScript watcher mod automatically restarts the game, so we only need to
@@ -43,12 +49,12 @@ function disableIsaacScriptWatcherAutomaticRestart(
   verbose: boolean,
 ) {
   const mainLuaPath = path.join(watcherModPath, MAIN_LUA);
-  const mainLua = file.read(mainLuaPath, verbose);
+  const mainLua = readFile(mainLuaPath, verbose);
 
   const modifiedMainLua = mainLua.replace(
     "local RESTART_GAME_ON_RECOMPILATION = true",
     "local RESTART_GAME_ON_RECOMPILATION = false",
   );
 
-  file.write(mainLuaPath, modifiedMainLua, verbose);
+  writeFile(mainLuaPath, modifiedMainLua, verbose);
 }

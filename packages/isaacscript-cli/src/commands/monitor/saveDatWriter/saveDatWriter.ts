@@ -1,7 +1,7 @@
 import * as JSONC from "jsonc-parser";
 import * as path from "node:path";
 import { PROJECT_NAME } from "../../../constants.js";
-import * as file from "../../../file.js";
+import { fileExists, makeDir, readFile, writeFileTry } from "../../../file.js";
 import { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
@@ -28,8 +28,8 @@ function init(verbose: boolean) {
 
   // Check to see if the data directory exists.
   const watcherModDataPath = path.dirname(saveDatPath);
-  if (!file.exists(watcherModDataPath, verbose)) {
-    file.makeDir(watcherModDataPath, verbose);
+  if (!fileExists(watcherModDataPath, verbose)) {
+    makeDir(watcherModDataPath, verbose);
   }
 
   // Listen for messages from the parent process.
@@ -57,8 +57,8 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
 
 function readSaveDatFromDisk(verbose: boolean) {
   let saveDat: SaveDatMessage[];
-  if (file.exists(saveDatPath, verbose)) {
-    const saveDatRaw = file.read(saveDatPath, verbose);
+  if (fileExists(saveDatPath, verbose)) {
+    const saveDatRaw = readFile(saveDatPath, verbose);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (err) {
@@ -114,7 +114,7 @@ function writeSaveDatToDisk(
 ) {
   const saveDatRaw = JSON.stringify(saveDat, undefined, 2);
   try {
-    file.writeTry(saveDatPath, saveDatRaw, verbose);
+    writeFileTry(saveDatPath, saveDatRaw, verbose);
   } catch (err) {
     if (numRetries > 4) {
       send(

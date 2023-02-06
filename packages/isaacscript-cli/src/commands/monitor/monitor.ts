@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { error, isRecord } from "isaacscript-common-ts";
 import { fork, spawn } from "node:child_process";
 import path from "node:path";
-import * as touch from "touch";
 import { Config } from "../../classes/Config.js";
 import {
   CWD,
@@ -15,8 +14,14 @@ import {
 import { prepareCustomStages } from "../../customStage.js";
 import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev.js";
 import { PackageManager } from "../../enums/PackageManager.js";
-import { execShell } from "../../exec.js";
-import * as file from "../../file.js";
+import { execShell, execShellString } from "../../exec.js";
+import {
+  deleteFileOrDirectory,
+  fileExists,
+  isDir,
+  isLink,
+  touch,
+} from "../../file.js";
 import { getJSONC } from "../../json.js";
 import {
   getPackageManagerAddCommand,
@@ -81,8 +86,8 @@ export async function monitor(args: Args, config: Config): Promise<void> {
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.
-  if (file.exists(modTargetPath, verbose)) {
-    file.deleteFileOrDirectory(modTargetPath, verbose);
+  if (fileExists(modTargetPath, verbose)) {
+    deleteFileOrDirectory(modTargetPath, verbose);
   }
 
   // Perform the steps to link to a development version of "isaacscript-common", if necessary.
@@ -111,8 +116,8 @@ export async function monitor(args: Args, config: Config): Promise<void> {
       "isaacscript-common",
     );
     if (
-      !file.exists(isaacScriptCommonDirectory, verbose) ||
-      !file.isDir(isaacScriptCommonDirectory, verbose)
+      !fileExists(isaacScriptCommonDirectory, verbose) ||
+      !isDir(isaacScriptCommonDirectory, verbose)
     ) {
       console.error(
         `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
@@ -202,9 +207,8 @@ function linkDevelopmentIsaacScriptCommon(
   console.log(
     'Linking this repository to the development version of "isaacscript-common"...',
   );
-  execShell(
-    PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
-    ["link", "isaacscript-common"],
+  execShellString(
+    `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} link isaacscript-common`,
     verbose,
     false,
     projectPath,
@@ -222,12 +226,12 @@ function warnIfIsaacScriptCommonLinkExists(
     "isaacscript-common",
   );
 
-  if (!file.exists(isaacScriptCommonPath, verbose)) {
+  if (!fileExists(isaacScriptCommonPath, verbose)) {
     return;
   }
 
   if (
-    file.isLink(isaacScriptCommonPath, verbose) &&
+    isLink(isaacScriptCommonPath, verbose) &&
     packageManager !== PackageManager.PNPM // pnpm uses links, so it will cause a false positive.
   ) {
     error(
@@ -314,8 +318,8 @@ function spawnTSTLWatcher(
       // from the mod.
       if (modCWD !== undefined) {
         const mainTSPath = path.join(modCWD, "src", "main.ts");
-        if (file.exists(mainTSPath, verbose)) {
-          touch.sync(mainTSPath);
+        if (fileExists(mainTSPath, verbose)) {
+          touch(mainTSPath, verbose);
         }
       }
     } else {

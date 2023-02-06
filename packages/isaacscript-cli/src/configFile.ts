@@ -4,7 +4,7 @@ import { Config } from "./classes/Config.js";
 import { getModsDir } from "./commands/init/getModsDir.js";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
-import * as file from "./file.js";
+import { fileExists, writeFile } from "./file.js";
 import { getJSONC } from "./json.js";
 import { Args } from "./parseArgs.js";
 
@@ -33,7 +33,7 @@ export async function getConfigFromFile(
 }
 
 function getExistingConfig(verbose: boolean): Config | undefined {
-  if (!file.exists(CONFIG_FILE_PATH, verbose)) {
+  if (!fileExists(CONFIG_FILE_PATH, verbose)) {
     return undefined;
   }
 
@@ -88,5 +88,5 @@ export function createConfigFile(
     NUM_INDENT_SPACES,
   ).concat("\n");
 
-  file.write(configFilePath, configContents, verbose);
+  writeFile(configFilePath, configContents, verbose);
 }

@@ -1,13 +1,13 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
 import { CWD } from "../../constants.js";
-import * as file from "../../file.js";
+import { isSubDirOf } from "../../file.js";
 
 export function checkModSubdirectory(
   projectPath: string,
   modsDirectory: string,
 ): void {
-  if (file.isSubDirOf(CWD, modsDirectory)) {
+  if (isSubDirOf(CWD, modsDirectory)) {
     console.error(
       `Error: The project directory of "${chalk.green(
         projectPath,

@@ -13,7 +13,15 @@ import {
 } from "./constants.js";
 import { PackageManager } from "./enums/PackageManager.js";
 import { execExe } from "./exec.js";
-import * as file from "./file.js";
+import {
+  copyFile,
+  fileExists,
+  getDirList,
+  isDir,
+  makeDir,
+  readFile,
+  writeFile,
+} from "./file.js";
 import {
   CustomStageLua,
   CustomStageRoomMetadata,
@@ -127,7 +135,7 @@ function checkFile(filePath: string | undefined, verbose: boolean) {
     );
   }
 
-  if (!file.exists(filePath, verbose)) {
+  if (!fileExists(filePath, verbose)) {
     error(
       `Failed to find the "${filePath}" file. Check your "tsconfig.json" file and then restart IsaacScript.`,
     );
@@ -143,12 +151,12 @@ function copyCustomStageFilesToProject(verbose: boolean) {
     "gfx",
     "isaacscript-custom-stage",
   );
-  file.makeDir(dstDirPath, verbose);
+  makeDir(dstDirPath, verbose);
 
-  for (const fileName of file.getDirList(CUSTOM_STAGE_FILES_DIR, verbose)) {
+  for (const fileName of getDirList(CUSTOM_STAGE_FILES_DIR, verbose)) {
     const srcPath = path.join(CUSTOM_STAGE_FILES_DIR, fileName);
     const dstPath = path.join(dstDirPath, fileName);
-    file.copy(srcPath, dstPath, verbose);
+    copyFile(srcPath, dstPath, verbose);
   }
 }
 
@@ -159,14 +167,14 @@ function copyCustomStageFilesToProject(verbose: boolean) {
 async function insertEmptyShader(verbose: boolean) {
   const shadersXMLDstPath = path.join(CWD, "mod", "content", "shaders.xml");
 
-  if (!file.exists(shadersXMLDstPath, verbose)) {
-    file.copy(SHADERS_XML_PATH, shadersXMLDstPath, verbose);
+  if (!fileExists(shadersXMLDstPath, verbose)) {
+    copyFile(SHADERS_XML_PATH, shadersXMLDstPath, verbose);
     return;
   }
 
   // The end-user mod might have their own custom shaders, so we need to merge our empty shader
   // inside the existing "shaders.xml" file.
-  const shadersXMLDstContents = file.read(shadersXMLDstPath, verbose);
+  const shadersXMLDstContents = readFile(shadersXMLDstPath, verbose);
   const shadersXMLDst = (await xml2js.parseStringPromise(
     shadersXMLDstContents,
   )) as ShadersXML;
@@ -179,7 +187,7 @@ async function insertEmptyShader(verbose: boolean) {
     return;
   }
 
-  const shadersXMLSrcContents = file.read(SHADERS_XML_PATH, verbose);
+  const shadersXMLSrcContents = readFile(SHADERS_XML_PATH, verbose);
   const shadersXMLSrc = (await xml2js.parseStringPromise(
     shadersXMLSrcContents,
   )) as ShadersXML;
@@ -196,7 +204,7 @@ async function insertEmptyShader(verbose: boolean) {
   shadersXMLDst.shaders.shader.push(isaacScriptEmptyShader);
   const xmlBuilder = new xml2js.Builder();
   const newXML = xmlBuilder.buildObject(shadersXMLDst);
-  file.write(shadersXMLDstPath, newXML, verbose);
+  writeFile(shadersXMLDstPath, newXML, verbose);
 }
 
 /**
@@ -217,14 +225,14 @@ async function fillCustomStageMetadata(
     verbose,
   );
   const customStagesLua = convertCustomStagesToLua(customStages);
-  file.write(METADATA_LUA_PATH, customStagesLua, verbose);
+  writeFile(METADATA_LUA_PATH, customStagesLua, verbose);
 }
 
 function validateMetadataLuaFileExists(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  if (!file.isDir(ISAACSCRIPT_COMMON_PATH, verbose)) {
+  if (!isDir(ISAACSCRIPT_COMMON_PATH, verbose)) {
     const addCommand = getPackageManagerAddCommand(
       packageManager,
       ISAACSCRIPT_COMMON,
@@ -236,7 +244,7 @@ function validateMetadataLuaFileExists(
     );
   }
 
-  if (!file.exists(METADATA_LUA_PATH, verbose)) {
+  if (!fileExists(METADATA_LUA_PATH, verbose)) {
     error(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
@@ -253,7 +261,7 @@ async function getCustomStagesWithMetadata(
   customStagesTSConfig: CustomStageTSConfig[],
   verbose: boolean,
 ): Promise<CustomStageLua[]> {
-  if (!file.exists(METADATA_LUA_PATH, verbose)) {
+  if (!fileExists(METADATA_LUA_PATH, verbose)) {
     error(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
@@ -270,7 +278,7 @@ async function getCustomStagesWithMetadata(
     const { xmlPath } = customStageTSConfig;
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
-    if (!file.exists(resolvedXMLPath, verbose)) {
+    if (!fileExists(resolvedXMLPath, verbose)) {
       error(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
@@ -278,11 +286,10 @@ async function getCustomStagesWithMetadata(
       );
     }
 
-    const xmlContents = file.read(resolvedXMLPath, verbose);
-    // eslint-disable-next-line no-await-in-loop
-    const jsonRoomsFile = (await xml2js.parseStringPromise(
-      xmlContents,
-    )) as JSONRoomsFile;
+    const xmlContents = readFile(resolvedXMLPath, verbose);
+    // eslint-disable-next-line no-await-in-loop, @typescript-eslint/no-unsafe-assignment
+    const jsonRoomsFileAny = await xml2js.parseStringPromise(xmlContents);
+    const jsonRoomsFile = jsonRoomsFileAny as JSONRoomsFile;
 
     const roomVariantSet = new Set<number>();
     const customStageRoomsMetadata: CustomStageRoomMetadata[] = [];
@@ -388,7 +395,7 @@ function combineCustomStageXMLs(
 
   for (const customStageTSConfig of customStagesTSConfig) {
     const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
-    if (!file.exists(xmlPath, verbose)) {
+    if (!fileExists(xmlPath, verbose)) {
       error(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
@@ -396,7 +403,7 @@ function combineCustomStageXMLs(
       );
     }
 
-    const xmlContents = file.read(xmlPath, verbose);
+    const xmlContents = readFile(xmlPath, verbose);
 
     // It is easier to work with the XML files as text rather than converting it to JSON and then
     // converting it back to XML.
@@ -459,15 +466,15 @@ ${allRooms}
 </rooms>
   `.trim();
   const contentRoomsDir = path.join(MOD_SOURCE_PATH, "content", "rooms");
-  if (!file.exists(contentRoomsDir, verbose)) {
-    file.makeDir(contentRoomsDir, verbose);
+  if (!fileExists(contentRoomsDir, verbose)) {
+    makeDir(contentRoomsDir, verbose);
   }
 
   const specialRoomsXMLPath = path.join(
     contentRoomsDir,
     "00.special rooms.xml",
   );
-  file.write(specialRoomsXMLPath, combinedXMLFile, verbose);
+  writeFile(specialRoomsXMLPath, combinedXMLFile, verbose);
 
   // Convert the XML file to an STB file, which is the format actually read by the game.
   execExe(XML_CONVERTER_PATH, [specialRoomsXMLPath], verbose, contentRoomsDir);

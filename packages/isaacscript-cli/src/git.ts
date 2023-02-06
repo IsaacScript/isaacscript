@@ -4,11 +4,9 @@ import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
-import { PackageManager } from "./enums/PackageManager.js";
-import { execShell } from "./exec.js";
-import * as file from "./file.js";
+import { execShell, execShellString } from "./exec.js";
+import { fileExists, readFile } from "./file.js";
 import { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
-import { getPackageManagerNPXCommand } from "./packageManager.js";
 import { getInputString, getInputYesNo } from "./prompt.js";
 import { getVersionOfThisPackage } from "./version.js";
 
@@ -115,7 +113,7 @@ If you don't want to initialize a Git repository for this project, press enter t
 }
 
 function validateNewGitVersion(verbose: boolean) {
-  const { stdout } = execShell("git", ["--version"], verbose);
+  const { stdout } = execShellString("git --version", verbose);
 
   const outputPrefix = "git version ";
   if (!stdout.startsWith(outputPrefix)) {
@@ -161,11 +159,11 @@ export function getGitHubUsername(verbose: boolean): string | undefined {
     return undefined;
   }
 
-  if (!file.exists(githubCLIHostsPath, verbose)) {
+  if (!fileExists(githubCLIHostsPath, verbose)) {
     return undefined;
   }
 
-  const configYAMLRaw = file.read(githubCLIHostsPath, verbose);
+  const configYAMLRaw = readFile(githubCLIHostsPath, verbose);
   const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
 
   const githubCom = configYAML["github.com"];
@@ -212,17 +210,16 @@ export function initGitRepository(
     return;
   }
 
-  execShell("git", ["init"], verbose, false, projectPath);
-  execShell(
-    "git",
-    ["branch", "--move", "--force", "main"],
+  execShellString("git init", verbose, false, projectPath);
+  execShellString(
+    "git branch --move --force main",
     verbose,
     false,
     projectPath,
   );
 
   if (isGitNameAndEmailConfigured(verbose)) {
-    execShell("git", ["add", "--all"], verbose, false, projectPath);
+    execShellString("git add --all", verbose, false, projectPath);
     const version = getVersionOfThisPackage(verbose);
     const commitMessage = `chore: add files from ${PROJECT_NAME} ${version} template`;
     execShell(
@@ -244,16 +241,14 @@ export function initGitRepository(
 }
 
 function isGitNameAndEmailConfigured(verbose: boolean) {
-  const nameExitStatus = execShell(
-    "git",
-    ["config", "--global", "user.name"],
+  const nameExitStatus = execShellString(
+    "git config --global user.name",
     verbose,
     true,
   ).exitStatus;
 
-  const emailExitStatus = execShell(
-    "git",
-    ["config", "--global", "user.email"],
+  const emailExitStatus = execShellString(
+    "git config --global user.email",
     verbose,
     true,
   ).exitStatus;
@@ -261,41 +256,41 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
   return nameExitStatus === 0 && emailExitStatus === 0;
 }
 
-export function isGitDirty(
-  packageManager: PackageManager,
-  verbose: boolean,
-): boolean {
-  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
-  const { exitStatus } = execShell(
-    packageManagerNPXCommand,
-    ["git-dirty"],
-    verbose,
-    true,
-  );
-
-  // Unintuitively, the program returns 1 if the current directory is dirty.
-  return exitStatus !== 0;
-}
-
-export function gitCommitIfChanges(
-  version: string,
-  packageManager: PackageManager,
-  verbose: boolean,
-): void {
+export function gitCommitIfChanges(version: string, verbose: boolean): void {
   // Throw an error if this is not a git repository.
-  execShell("git", ["status"], verbose);
+  execShellString("git status", verbose);
 
-  if (!isGitDirty(packageManager, verbose)) {
+  if (isGitClean(verbose)) {
     console.log("There are no changes to commit.");
     return;
   }
 
-  execShell("git", ["add", "--all"], verbose);
+  execShellString("git add --all", verbose);
   const commitMessage = `chore: release v${version}`;
   execShell("git", ["commit", "--message", commitMessage], verbose);
-  execShell("git", ["push", "origin", "main", "--set-upstream"], verbose);
+  execShellString("git push origin main --set-upstream", verbose);
 
   console.log(
     `Committed and pushed to the git repository with a message of: ${commitMessage}`,
   );
+}
+
+export function isGitRepository(verbose: boolean): boolean {
+  const { exitStatus } = execShellString(
+    "git rev-parse --is-inside-work-tree",
+    verbose,
+    true,
+  );
+  return exitStatus === 0;
+}
+
+export function isGitClean(verbose: boolean): boolean {
+  const { stdout } = execShellString("git status --short", verbose);
+  return stdout.length === 0;
+}
+
+export function gitCommitAllAndPush(message: string, verbose: boolean): void {
+  execShellString("git add --all", verbose);
+  execShell("git", ["commit", "--message", message], verbose);
+  execShellString("git push", verbose);
 }
