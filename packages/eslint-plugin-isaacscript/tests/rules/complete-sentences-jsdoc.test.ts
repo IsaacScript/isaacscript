@@ -491,6 +491,17 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc example",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello']
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,

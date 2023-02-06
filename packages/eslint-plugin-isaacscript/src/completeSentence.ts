@@ -85,8 +85,13 @@ function splitOnSpecialText(text: string): string[] {
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
-    // Ignore "@type" JSDoc tags, since they will never contain English text.
+    // Ignore "@type" JSDoc tags, since they contain a code type instead of English text.
+    // https://jsdoc.app/tags-type.html
     line = line.replace(/^\s*@type .+$/, SENTENCE_SEPARATOR_IDENTIFIER);
+
+    // Ignore "@example" JSDoc tags, since they will contain example code instead of English text.
+    // https://jsdoc.app/tags-example.html
+    line = line.replace(/^\s*@example .+$/, SENTENCE_SEPARATOR_IDENTIFIER);
 
     // Remove any JSDoc tags. (But leave the descriptions following the tags, if any.) "@param" tags
     // are followed by variable names, which will not be part of the sentence.
