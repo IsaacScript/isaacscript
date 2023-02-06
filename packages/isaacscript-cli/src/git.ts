@@ -256,25 +256,6 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
   return nameExitStatus === 0 && emailExitStatus === 0;
 }
 
-export function gitCommitIfChanges(version: string, verbose: boolean): void {
-  // Throw an error if this is not a git repository.
-  execShellString("git status", verbose);
-
-  if (isGitClean(verbose)) {
-    console.log("There are no changes to commit.");
-    return;
-  }
-
-  execShellString("git add --all", verbose);
-  const commitMessage = `chore: release v${version}`;
-  execShell("git", ["commit", "--message", commitMessage], verbose);
-  execShellString("git push origin main --set-upstream", verbose);
-
-  console.log(
-    `Committed and pushed to the git repository with a message of: ${commitMessage}`,
-  );
-}
-
 export function isGitRepository(verbose: boolean): boolean {
   const { exitStatus } = execShellString(
     "git rev-parse --is-inside-work-tree",
@@ -293,6 +274,9 @@ export function gitCommitAllAndPush(message: string, verbose: boolean): void {
   execShellString("git add --all", verbose);
   execShell("git", ["commit", "--message", message], verbose);
   execShellString("git push", verbose);
+  console.log(
+    `Committed and pushed to the git repository with a message of: ${message}`,
+  );
 }
 
 export function getReleaseGitCommitMessage(version: string): string {
