@@ -88,7 +88,7 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              'Answer yes to every dialog option, similar to how "npm init --yes" works.',
+              'Answer yes to every dialog option, similar to how "npm init --yes" works',
           })
           .option("use-current-dir", {
             type: "boolean",
@@ -160,7 +160,7 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              'Answer yes to every dialog option, similar to how "npm init --yes" works.',
+              'Answer yes to every dialog option, similar to how "npm init --yes" works',
           })
           .option("use-current-dir", {
             type: "boolean",
@@ -312,7 +312,7 @@ export function parseArgs(): Args {
           .option("ignore", {
             alias: "i",
             type: "string",
-            description: "Comma separated list of file names to ignore.",
+            description: "Comma separated list of file names to ignore",
           })
           .option("verbose", {
             alias: "v",
@@ -329,13 +329,24 @@ export function parseArgs(): Args {
           .option("ignore", {
             alias: "i",
             type: "string",
-            description: "Comma separated list of file names to ignore.",
+            description: "Comma separated list of file names to ignore",
           })
           .option("verbose", {
             alias: "v",
             type: "boolean",
             description: "Enable verbose output",
           }),
+    )
+
+    .command(
+      "check-cspell",
+      'Check the "cspell.json" file to see if any unused words exist.',
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
     )
 
     .parseSync();

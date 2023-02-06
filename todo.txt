@@ -1,8 +1,10 @@
+- lint rule for unknown sets
+
+- check-orphaned-words - convert to TypeScript
+
 - github action - release notes equal to commit message
 - github action - use string after "release" for change log
 
-- check-orphaned-words - convert to TypeScript
-- npx isaacscript publish --ts "$@"
 - add variables to uploader github action
 - make isaac-mod-config-menu use github action
 

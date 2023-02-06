@@ -100,12 +100,30 @@ export function getPackageManagerUsedForExistingProject(
   args: Args,
   verbose: boolean,
 ): PackageManager {
+  const packageManagerSet = new Set<PackageManager>();
+
   for (const packageManager of getEnumValues(PackageManager)) {
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const lockFilePath = path.join(CWD, lockFileName);
     if (fileExists(lockFilePath, verbose)) {
-      return packageManager;
+      packageManagerSet.add(packageManager);
     }
+  }
+
+  const packageManagers = [...packageManagerSet.values()];
+  if (packageManagers.length > 1) {
+    const packageManagerLockFileNames = packageManagers
+      .map((packageManager) => getPackageManagerLockFileName(packageManager))
+      .map((packageManagerLockFileName) => `"${packageManagerLockFileName}"`)
+      .join(" & ");
+    error(
+      `Multiple different kinds of package manager lock files were found (${packageManagerLockFileNames}). You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
+    );
+  }
+
+  const packageManager = packageManagers[0];
+  if (packageManager !== undefined) {
+    return packageManager;
   }
 
   return getPackageManagerUsedForNewProject(args);
@@ -114,14 +132,16 @@ export function getPackageManagerUsedForExistingProject(
 function getPackageManagerFromArgs(args: Args) {
   const dev = args.dev === true;
   if (dev) {
-    const pnpmExists = commandExists.sync(PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT);
-    if (!pnpmExists) {
+    const packageManagerCommandExists = commandExists.sync(
+      PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
+    );
+    if (!packageManagerCommandExists) {
       error(
         `You specified the "dev" flag, but "${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}" does not seem to be a valid command. The IsaacScript monorepo uses ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}, so in order to initiate a linked development mod, you must also have ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} installed. Try running "corepack enable" to install it.`,
       );
     }
 
-    return PackageManager.PNPM;
+    return PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT;
   }
 
   const npm = args.npm === true;
