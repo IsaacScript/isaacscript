@@ -223,8 +223,8 @@ function copyDynamicFiles(
   {
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
     const readmeMDTemplateFileName = typeScript
-      ? "README.ts.json"
-      : "README.mod.json";
+      ? "README.ts.md"
+      : "README.mod.md";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       readmeMDTemplateFileName,

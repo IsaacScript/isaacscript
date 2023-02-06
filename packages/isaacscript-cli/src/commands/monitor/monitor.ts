@@ -44,6 +44,7 @@ const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
   // - "isaacscript-common" is not required.
   // - "isaacscript-lint" is not required.
   // - "isaacscript-spell" is not required.
+  // - "isaacscript-tsconfig" is not required.
   "typescript",
   "typescript-to-lua",
 ] as const;
