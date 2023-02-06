@@ -25,27 +25,13 @@ This is the root directory of your project. It won't actually be called `project
 
 <br />
 
-### `project/.github`
+### `project/.github/workflows/ci.yml`
 
 This directory contains the file for GitHub Actions (i.e. [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)).
 
-(If you do not use GitHub, feel free to delete this directory.)
+If you do not use GitHub, feel free to delete this directory.
 
-If you want to be alerted via Discord if a commit fails CI, then perform the following steps:
-
-1. In your Discord server, right click on the intended channel and select "Edit Channel".
-1. Select "Integrations" from the menu on the left-hand-side.
-1. Click on "View Webhooks".
-1. Click on "New Webhook".
-1. Name the bot "GitHub" and give it a profile picture of the GitHub icon.
-1. Click on "Copy Webhook URL".
-1. On the main page of your GitHub repository, select "Settings" from the top menu.
-1. Select "Secrets" from the menu on the left-hand-side.
-1. Click on "New repository secret".
-1. Name the secret `DISCORD_WEBHOOK`.
-1. Paste in the URL from earlier as the "Value".
-1. Click on "Add secret".
-1. Uncomment the Discord-related code in the "project/.github/ci.yml" file.
+If you want to be alerted via Discord if a commit fails CI, then follow the steps in the comment near the bottom of the file.
 
 <br />
 
@@ -53,7 +39,7 @@ If you want to be alerted via Discord if a commit fails CI, then perform the fol
 
 This directory contains some stock settings that are recommended for VSCode to work properly with IsaacScript projects.
 
-If you do not use VSCode, feel free to delete this directory.
+If you do not use VSCode and don't ever plan on collaborating with anyone who would, feel free to delete this directory.
 
 <br />
 
@@ -161,29 +147,21 @@ This is the configuration file for `isaacscript`. It contains only per-user sett
 
 <br />
 
-### `lint.sh`
-
-This is a helper script to lint and spell-check the project. (It is also used in CI.)
-
-<br />
-
-<br />
-
 ### `LICENCE`
 
 This is the licence for your project. By default, `isaacscript init` installs [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html). Since the type definitions are licensed as GPLv3, you must use GPLv3 or another compatible license in your IsaacScript project.
 
 <br />
 
-### `mod/main.lua`
+### `lint.sh`
 
-This is the transpiled Lua output of your TypeScript source code. All TypeScript code is combined into one big Lua file. There is no need to commit this file to a Git repository, so it is included in the ".gitignore" file by default.
+This is a helper script to lint and spell-check the project. (It is also used in CI.)
 
 <br />
 
-### `mod/metadata.xml`
+### `nuke.sh`
 
-This is the file used by the "ModUploader" tool to upload your mod to the Steam Workshop. It contains a description of your mod and other metadata. IsaacScript creates a basic one for you, but when you upload your mod to the Steam Workshop for the first time, more information will be added (like the ID of the mod).
+This is a helper script to re-download all dependencies from scratch.
 
 <br />
 
@@ -243,3 +221,15 @@ Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
 ### `update.sh`
 
 This is a helper script to automatically update the project dependencies.
+
+### `mod/main.lua`
+
+This is the transpiled Lua output of your TypeScript source code. All TypeScript code is combined into one big Lua file. There is no need to commit this file to a Git repository, so it is included in the ".gitignore" file by default.
+
+<br />
+
+### `mod/metadata.xml`
+
+This is the file used by the "ModUploader" tool to upload your mod to the Steam Workshop. It contains a description of your mod and other metadata. IsaacScript creates a basic one for you, but when you upload your mod to the Steam Workshop for the first time, more information will be added (like the ID of the mod).
+
+<br />
