@@ -1,5 +1,4 @@
-- merge zamPublish into isaacscript monorepo
-
+- github action - release notes equal to commit message
 - github action - use string after "release" for change log
 
 - check-orphaned-words - convert to TypeScript

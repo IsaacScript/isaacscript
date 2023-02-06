@@ -294,3 +294,7 @@ export function gitCommitAllAndPush(message: string, verbose: boolean): void {
   execShell("git", ["commit", "--message", message], verbose);
   execShellString("git push", verbose);
 }
+
+export function getReleaseGitCommitMessage(version: string): string {
+  return `chore: release ${version}`;
+}

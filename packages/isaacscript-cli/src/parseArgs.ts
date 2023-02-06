@@ -243,7 +243,8 @@ export function parseArgs(): Args {
           .option("dry-run", {
             alias: "d",
             type: "boolean",
-            description: "Skip committing & uploading",
+            description:
+              "Skip committing/uploading & perform a Git reset afterward",
           })
           .option("skip-update", {
             type: "boolean",
@@ -289,7 +290,8 @@ export function parseArgs(): Args {
           .option("dry-run", {
             alias: "d",
             type: "boolean",
-            description: "Skip committing & uploading",
+            description:
+              "Skip committing/uploading & perform a Git reset afterward",
           })
           .option("skip-lint", {
             type: "boolean",

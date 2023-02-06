@@ -26,11 +26,12 @@ import { Args } from "../../parseArgs.js";
 export function prePublish(args: Args, typeScript: boolean): void {
   const skipUpdate = args.skipUpdate === true;
   const skipLint = args.skipLint === true;
+  const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
+  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   execShellString("git pull --rebase");
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
-  updateDependencies(skipUpdate, packageManager, verbose);
+  updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   incrementVersion(args, typeScript, packageManager);
   tryRunBashScript(BUILD_SCRIPT, verbose);
   if (!skipLint) {
@@ -40,6 +41,7 @@ export function prePublish(args: Args, typeScript: boolean): void {
 
 function updateDependencies(
   skipUpdate: boolean,
+  dryRun: boolean,
   packageManager: PackageManager,
   verbose: boolean,
 ) {
@@ -61,7 +63,9 @@ function updateDependencies(
     const packageManagerInstallCommand =
       getPackageManagerInstallCommand(packageManager);
     execShellString(packageManagerInstallCommand, verbose);
-    gitCommitAllAndPush("chore: update deps", verbose);
+    if (!dryRun) {
+      gitCommitAllAndPush("chore: update deps", verbose);
+    }
   }
 }
 

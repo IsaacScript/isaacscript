@@ -9,8 +9,7 @@ import {
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
 } from "../../constants.js";
-import { PackageManager } from "../../enums/PackageManager.js";
-import { execExe, execShell } from "../../exec.js";
+import { execExe, execShell, execShellString } from "../../exec.js";
 import {
   deleteFileOrDirectory,
   fileExists,
@@ -19,7 +18,7 @@ import {
   readFile,
   writeFile,
 } from "../../file.js";
-import { gitCommitIfChanges } from "../../git.js";
+import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getProjectPackageJSONField } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
@@ -33,37 +32,21 @@ export async function publishIsaacScriptMod(
   const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
-
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
-
-  await startPublish(
-    MOD_SOURCE_PATH,
-    modTargetPath,
-    dryRun,
-    packageManager,
-    verbose,
-  );
-}
-
-async function startPublish(
-  modSourcePath: string,
-  modTargetPath: string,
-  dryRun: boolean,
-  packageManager: PackageManager,
-  verbose: boolean,
-) {
   const version = getProjectPackageJSONField("version", verbose);
 
   unsetDevelopmentConstant(verbose);
-
   runReleaseScriptPreCopy(verbose);
-  await compileAndCopy(modSourcePath, modTargetPath, packageManager, verbose);
+  await compileAndCopy(MOD_SOURCE_PATH, modTargetPath, packageManager, verbose);
   purgeRoomXMLs(modTargetPath, verbose);
   runReleaseScriptPostCopy(verbose);
 
-  if (!dryRun) {
-    gitCommitIfChanges(version, verbose);
+  if (dryRun) {
+    execShellString("git reset --hard", verbose); // Revert the version changes.
+  } else {
+    const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
+    gitCommitAllAndPush(releaseGitCommitMessage, verbose);
     uploadMod(modTargetPath, verbose);
   }
 
@@ -134,7 +117,7 @@ function uploadMod(modTargetPath: string, verbose: boolean) {
   console.log(
     `The "isaac-steam-workshop-upload" action was not found in the "${chalk.green(
       "ci.yml",
-    )}" file; assuming that we want to use the ModUploader tool.`,
+    )}" file; assuming that we want to use the "ModUploader.exe" tool.`,
   );
   execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
 }

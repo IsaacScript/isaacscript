@@ -1,6 +1,6 @@
 import { Config } from "../../classes/Config.js";
 import { execShellString } from "../../exec.js";
-import { gitCommitAllAndPush } from "../../git.js";
+import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getProjectPackageJSONField } from "../../json.js";
 import { Args } from "../../parseArgs.js";
 import { publishIsaacScriptMod } from "./isaacscriptMod.js";
@@ -19,12 +19,28 @@ export async function publish(
   prePublish(args, typeScript);
 
   if (typeScript) {
-    const version = getProjectPackageJSONField("version", verbose);
-    gitCommitAllAndPush(`chore: release ${version}`, verbose);
-    execShellString("npm publish --access public", verbose);
-    const projectName = getProjectPackageJSONField("name", verbose);
-    console.log(`Published ${projectName} version ${version} successfully.`);
+    publishTypeScriptProject(args);
   } else {
     await publishIsaacScriptMod(args, config);
   }
+}
+
+function publishTypeScriptProject(args: Args) {
+  const dryRun = args.dryRun === true;
+  const verbose = args.verbose === true;
+  const projectName = getProjectPackageJSONField("name", verbose);
+  const version = getProjectPackageJSONField("version", verbose);
+
+  if (dryRun) {
+    execShellString("git reset --hard", verbose); // Revert the version changes.
+  } else {
+    const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
+    gitCommitAllAndPush(releaseGitCommitMessage, verbose);
+    execShellString("npm publish --access public", verbose);
+  }
+
+  const dryRunSuffix = dryRun ? " (dry-run)" : "";
+  console.log(
+    `Published ${projectName} version ${version} successfully${dryRunSuffix}.`,
+  );
 }
