@@ -16,7 +16,7 @@ export async function publish(
   const verbose = args.verbose === true;
 
   validate(typeScript, setVersion, verbose);
-  prePublish(args);
+  prePublish(args, typeScript);
 
   if (typeScript) {
     const version = getProjectPackageJSONField("version", verbose);

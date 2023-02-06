@@ -4,12 +4,10 @@ import { Config } from "../../classes/Config.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
-  METADATA_XML_PATH,
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
   PUBLISH_POST_COPY_PY_PATH,
   PUBLISH_PRE_COPY_PY_PATH,
-  VERSION_TXT_PATH,
 } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execExe, execShell } from "../../exec.js";
@@ -57,10 +55,6 @@ async function startPublish(
 ) {
   const version = getProjectPackageJSONField("version", verbose);
 
-  writeVersionToConstantsTS(version, verbose);
-  writeVersionToMetadataXML(version, verbose);
-  writeVersionToVersionTXT(version, verbose);
-
   unsetDevelopmentConstant(verbose);
 
   runReleaseScriptPreCopy(verbose);
@@ -75,41 +69,6 @@ async function startPublish(
 
   const dryRunSuffix = dryRun ? " (dry run)" : "";
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
-}
-
-function writeVersionToConstantsTS(version: string, verbose: boolean) {
-  if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
-    console.log(
-      'Skipping writing the version to "constants.ts" since it was not found.',
-    );
-    return;
-  }
-
-  const constantsTS = readFile(CONSTANTS_TS_PATH, verbose);
-  const newConstantsTS = constantsTS.replace(
-    /const VERSION = ".+"/,
-    `const VERSION = "${version}"`,
-  );
-  writeFile(CONSTANTS_TS_PATH, newConstantsTS, verbose);
-
-  console.log(`The version of ${version} was written to: ${CONSTANTS_TS_PATH}`);
-}
-
-function writeVersionToMetadataXML(version: string, verbose: boolean) {
-  const metadataXML = readFile(METADATA_XML_PATH, verbose);
-  const newMetadataXML = metadataXML.replace(
-    /<version>.+<\/version>/,
-    `<version>${version}</version>`,
-  );
-  writeFile(METADATA_XML_PATH, newMetadataXML, verbose);
-
-  console.log(`The version of ${version} was written to: ${METADATA_XML_PATH}`);
-}
-
-function writeVersionToVersionTXT(version: string, verbose: boolean) {
-  writeFile(VERSION_TXT_PATH, version, verbose);
-
-  console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
 function unsetDevelopmentConstant(verbose: boolean) {
