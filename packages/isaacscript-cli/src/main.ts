@@ -92,7 +92,11 @@ async function handleCommands(command: Command, args: Args) {
   const verbose = args.verbose === true;
 
   let config = new Config();
-  if (command !== "init" && isIsaacScriptModCommand(command)) {
+  if (
+    command !== "init" &&
+    command !== "check" &&
+    isIsaacScriptModCommand(command)
+  ) {
     if (!skipProjectChecks) {
       validateInIsaacScriptProject(verbose);
     }
