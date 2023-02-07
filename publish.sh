@@ -68,7 +68,7 @@ COMMIT_MESSAGE="chore(release): $PACKAGE_NAME-$NEW_VERSION"
 git commit --message "$COMMIT_MESSAGE"
 TAG="$PACKAGE_NAME-$NEW_VERSION"
 git tag "$TAG"
-git push
+# (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
 # We have to build again after bumping the version so that the new "package.json" file gets copied
 # to the "dist" directory.
@@ -95,8 +95,6 @@ if ! npx git-dirty; then
   # The current working directory is dirty. (Unintuitively, the "git-dirty" returns 1 if the current
   # working directory is dirty.)
   git commit --all --message "chore: updating dependencies"
-  git push
 fi
 
-# Reset the origin. (TODO: Is this necessary?)
-git branch --set-upstream-to=origin/main main
+git push
