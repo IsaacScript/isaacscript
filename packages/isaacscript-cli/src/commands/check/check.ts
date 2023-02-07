@@ -269,7 +269,7 @@ function getTruncatedFileText(
 
     // End-users can have different ignored words.
     if (
-      (fileName === "cspell.json" || fileName === "cspell.template.json") &&
+      (fileName === "cspell.json" || fileName === "_cspell.json") &&
       line.includes('"words": [')
     ) {
       currentlySkipping = true;
@@ -277,7 +277,7 @@ function getTruncatedFileText(
     }
 
     if (
-      (fileName === "cspell.json" || fileName === "cspell.template.json") &&
+      (fileName === "cspell.json" || fileName === "_cspell.json") &&
       line.endsWith("]") &&
       currentlySkipping
     ) {

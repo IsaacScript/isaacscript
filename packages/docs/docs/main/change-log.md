@@ -1035,7 +1035,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 
 ### Non-Breaking Changes
 
-- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/cspell.template.json) for more information.
+- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/_cspell.json) for more information.
 - Added the following helper constants since the corollary enum values were purged:
   - `NUM_CARDS` / `MAX_CARD` / `NUM_VANILLA_CARDS` / `MAX_VANILLA_CARD`
   - `NUM_COLLECTIBLE_TYPES` / `MAX_COLLECTIBLE_TYPE` / `NUM_VANILLA_COLLECTIBLE_TYPES` / `MAX_VANILLA_COLLECTIBLE_TYPE`
