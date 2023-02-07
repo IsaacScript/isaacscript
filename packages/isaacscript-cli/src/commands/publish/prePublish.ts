@@ -32,7 +32,7 @@ export function prePublish(args: Args, typeScript: boolean): void {
 
   execShellString("git pull --rebase");
   updateDependencies(skipUpdate, dryRun, packageManager, verbose);
-  incrementVersion(args, typeScript, packageManager);
+  incrementVersion(args, typeScript);
   tryRunBashScript(BUILD_SCRIPT, verbose);
   if (!skipLint) {
     tryRunBashScript(LINT_SCRIPT, verbose);
@@ -53,7 +53,7 @@ function updateDependencies(
     return;
   }
 
-  console.log("Updating npm dependencies...");
+  console.log(`Updating dependencies in the "${PACKAGE_JSON}" file...`);
 
   const beforeHash = getHashOfFile(PACKAGE_JSON);
   execShell("bash", [UPDATE_SCRIPT], verbose);
@@ -69,11 +69,7 @@ function updateDependencies(
   }
 }
 
-function incrementVersion(
-  args: Args,
-  typeScript: boolean,
-  packageManager: PackageManager,
-) {
+function incrementVersion(args: Args, typeScript: boolean) {
   const skipIncrement = args.skipIncrement === true;
   const verbose = args.verbose === true;
 
@@ -82,10 +78,11 @@ function incrementVersion(
   }
 
   const versionCommandArgument = getVersionCommandArgument(args);
-  // The "--no-git-tag-version" flag will prevent the package manager from both making a commit and
-  // adding a tag.
+  // We always use `npm` here to avoid differences with the version command between package
+  // managers. The "--no-git-tag-version" flag will prevent npm from both making a commit and adding
+  // a tag.
   execShellString(
-    `${packageManager} version --no-git-tag-version ${versionCommandArgument}`,
+    `npm version --no-git-tag-version ${versionCommandArgument}`,
     verbose,
   );
 
@@ -100,7 +97,8 @@ function incrementVersion(
 function getVersionCommandArgument(args: Args): string {
   const { setVersion } = args;
   if (setVersion !== undefined) {
-    return setVersion; // They want to use a specific version, which was manually specified.
+    // They want to use a specific version, which was manually specified.
+    return `--new-version ${setVersion}`;
   }
 
   const major = args.major === true;
@@ -164,6 +162,7 @@ function tryRunBashScript(scriptName: string, verbose: boolean) {
     );
   }
 
+  console.log(`Running: ${scriptName}`);
   const { exitStatus, stdout } = execShell("bash", [scriptName], verbose, true);
 
   if (exitStatus !== 0) {
