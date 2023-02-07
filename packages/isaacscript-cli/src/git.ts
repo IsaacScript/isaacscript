@@ -217,6 +217,12 @@ export function initGitRepository(
     false,
     projectPath,
   );
+  execShellString(
+    "git branch --set-upstream-to=origin/main main",
+    verbose,
+    false,
+    projectPath,
+  );
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShellString("git add --all", verbose, false, projectPath);
