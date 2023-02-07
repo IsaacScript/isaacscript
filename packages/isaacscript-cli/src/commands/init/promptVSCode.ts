@@ -1,5 +1,3 @@
-import path from "node:path";
-import { MAIN_TS } from "../../constants.js";
 import { execShell } from "../../exec.js";
 import { getInputYesNo } from "../../prompt.js";
 
@@ -40,6 +38,5 @@ function openVSCode(
   VSCodeCommand: string,
   verbose: boolean,
 ) {
-  const MAIN_TS_PATH = path.join(projectPath, "src", MAIN_TS);
-  execShell(VSCodeCommand, [projectPath, MAIN_TS_PATH], verbose);
+  execShell(VSCodeCommand, [projectPath], verbose);
 }
