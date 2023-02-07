@@ -181,9 +181,14 @@ function copyDynamicFiles(
       separatorLine += "-";
     });
     separatorLine += "\n";
-    const gitignoreHeader = `${separatorLine}# ${projectName}\n${separatorLine}\n`;
+    const gitIgnoreHeader = `${separatorLine}# ${projectName}\n${separatorLine}\n`;
+    const nodeGitIgnorePath = path.join(
+      TEMPLATES_DYNAMIC_DIR,
+      "Node.gitignore",
+    );
+    const nodeGitIgnore = readFile(nodeGitIgnorePath, verbose);
 
-    const gitignore = gitignoreHeader + template;
+    const gitignore = gitIgnoreHeader + template + nodeGitIgnore;
 
     const destinationPath = path.join(projectPath, `.${fileName}`); // We need to prepend a period.
     writeFile(destinationPath, gitignore, verbose);

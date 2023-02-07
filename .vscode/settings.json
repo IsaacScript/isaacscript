@@ -17,7 +17,6 @@
     "api-extractor.json": "jsonc",
     "_gitattributes": "properties",
     "_gitignore": "ignore",
-    "_gitignore.node": "ignore",
     "typedoc.json": "jsonc", // TypeDoc uses the JSONC parser for its configuration files.
     "settings-typescript.json": "jsonc",
     "extensions-typescript.json": "jsonc",
