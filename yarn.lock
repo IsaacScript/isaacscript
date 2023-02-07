@@ -5170,6 +5170,15 @@ crypto-random-string@^4.0.0:
   dependencies:
     type-fest "^1.0.1"
 
+cspell-check-unused-words@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cspell-check-unused-words/-/cspell-check-unused-words-1.0.0.tgz#f2419f47548cf5b1432bd4be69de62f63fc33a74"
+  integrity sha512-Dtk7N8GB575mE5VyKxEEDyJ1Q4xGiVxAQ2dC07UYdzuK/qAqD2G0tVOWUqcUrgXt4NSGNOfvdKVeBg3b/L2raw==
+  dependencies:
+    isaacscript-common-ts "^8.0.2"
+    jsonc-parser "^3.2.0"
+    source-map-support "^0.5.21"
+
 cspell-dictionary@6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/cspell-dictionary/-/cspell-dictionary-6.22.0.tgz#d6b64d5fba0f1644a546b8b78a1a1c4fc74805df"
@@ -8179,6 +8188,11 @@ isaac-typescript-definitions@^11.1.1:
   integrity sha512-9guwvOz0jxI2V3g6Z82ejk0I+OkzWpKrPYdTb1OEVhJAHIEumyFt/7hitpU7i/qt/lhNwlbDPxbt8GwVa0yqcw==
   dependencies:
     lua-types "^2.13.1"
+
+isaacscript-common-ts@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/isaacscript-common-ts/-/isaacscript-common-ts-8.0.2.tgz#9df9c8b1362bee124d83052906f2fc2d0eeefb9a"
+  integrity sha512-mVoooMhTXs6GPGA4eHLgfQuwB95CY0+ppTbwbEdM8Iq78PUhy4ITExjaUfMeIikAcRTJOSbuJSPdesWnW9Exyg==
 
 isarray@0.0.1:
   version "0.0.1"
