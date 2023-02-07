@@ -23,8 +23,8 @@ tsconfig.json linguist-language=JSON-with-Comments
 # Specify the file type for files specific to this monorepo.
 # https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 api-extractor.json linguist-language=JSON-with-Comments
-gitattributes linguist-language=Git-Attributes
-gitignore linguist-language=Ignore-List
+_gitattributes linguist-language=Git-Attributes
+_gitignore linguist-language=Ignore-List
 packages/isaacscript-cli/file-templates/static/.vscode/extensions.json linguist-language=JSON-with-Comments
 packages/isaacscript-cli/file-templates/static/.vscode/settings.json linguist-language=JSON-with-Comments
 packages/isaacscript-cli/file-templates/static-alt/.vscode/settings-typescript.json linguist-language=JSON-with-Comments

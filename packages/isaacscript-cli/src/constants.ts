@@ -50,7 +50,7 @@ export const CI_YML_TEMPLATE_PATH = path.join(
   CI_YML,
 );
 
-export const GITIGNORE = "gitignore"; // Not named ".gitignore" to prevent npm from deleting it.
+export const GITIGNORE = "_gitignore"; // Not named ".gitignore" to prevent npm from deleting it.
 export const GITIGNORE_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   GITIGNORE,

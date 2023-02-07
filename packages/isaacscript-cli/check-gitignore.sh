@@ -6,12 +6,11 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-NUM_LINES_TO_TRUNCATE_FROM_TOP="18"
 LOCAL_GITIGNORE="/tmp/gitignore-template-local"
 REMOTE_GITIGNORE="/tmp/gitignore-template-remote"
 URL="https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore"
 
-tail -n +$NUM_LINES_TO_TRUNCATE_FROM_TOP "$DIR/file-templates/dynamic/gitignore" > $LOCAL_GITIGNORE
+cp "$DIR/file-templates/dynamic/Node.gitignore" > "$LOCAL_GITIGNORE"
 curl "$URL" --output "$REMOTE_GITIGNORE" --silent
 set +e
 cmp --silent "$LOCAL_GITIGNORE" "$REMOTE_GITIGNORE"

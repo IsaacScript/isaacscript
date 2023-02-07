@@ -42,8 +42,6 @@ import {
   getPackageManagerLockFileName,
 } from "../../packageManager.js";
 
-const TEMPLATE_MOD_MARKER = "@template-mod";
-
 export function createProject(
   projectName: string,
   authorName: string | undefined,
@@ -104,21 +102,21 @@ function copyStaticFiles(
   const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
   copyTemplateDirectoryWithoutOverwriting(staticDirPath, projectPath, verbose);
 
-  // Rename ".eslintrc.template.cjs" to ".eslintrc.cjs". (If it is kept as ".eslintrc.cjs", then
-  // local linting will fail.)
-  const ESLintConfigPath = path.join(projectPath, ".eslintrc.template.cjs");
+  // Rename "_eslintrc.cjs" to ".eslintrc.cjs". (If it is kept as ".eslintrc.cjs", then local
+  // linting will fail.)
+  const ESLintConfigPath = path.join(projectPath, "_eslintrc.cjs");
   const correctESLintConfigPath = path.join(projectPath, ".eslintrc.cjs");
   renameFile(ESLintConfigPath, correctESLintConfigPath, verbose);
 
-  // Rename "gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
+  // Rename "_gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
   // be committed to git.)
-  const gitAttributesPath = path.join(projectPath, "gitattributes");
+  const gitAttributesPath = path.join(projectPath, "_gitattributes");
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
   renameFile(gitAttributesPath, correctGitAttributesPath, verbose);
 
-  // Rename "cspell.template.json" to "cspell.json". (If it is kept as "cspell.json", then local
-  // spell checking will fail.)
-  const cSpellConfigPath = path.join(projectPath, "cspell.template.json");
+  // Rename "_cspell.json" to "cspell.json". (If it is kept as "cspell.json", then local spell
+  // checking will fail.)
+  const cSpellConfigPath = path.join(projectPath, "_cspell.json");
   const correctCSpellConfigPath = path.join(projectPath, "cspell.json");
   renameFile(cSpellConfigPath, correctCSpellConfigPath, verbose);
 }
@@ -156,16 +154,12 @@ function copyDynamicFiles(
   {
     const fileName = CI_YML;
     const templatePath = CI_YML_TEMPLATE_PATH;
-    const template = readFile(templatePath, verbose);
-
-    // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const modifiedTemplate = typeScript
-      ? removeLinesBetweenMarkers(template, TEMPLATE_MOD_MARKER)
-      : removeLinesMatching(template, TEMPLATE_MOD_MARKER);
+    const templateRaw = readFile(templatePath, verbose);
+    const template = parseTemplate(templateRaw, typeScript);
 
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const installCommand = getPackageManagerInstallCICommand(packageManager);
-    const ciYML = modifiedTemplate
+    const ciYML = template
       .replaceAll("PACKAGE_MANAGER_NAME", packageManager)
       .replaceAll("PACKAGE_MANAGER_LOCK_FILE_NAME", lockFileName)
       .replaceAll("PACKAGE_MANAGER_INSTALL_COMMAND", installCommand);
@@ -178,12 +172,8 @@ function copyDynamicFiles(
   {
     const fileName = GITIGNORE;
     const templatePath = GITIGNORE_TEMPLATE_PATH;
-    const template = readFile(templatePath, verbose);
-
-    // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const modifiedTemplate = typeScript
-      ? removeLinesBetweenMarkers(template, TEMPLATE_MOD_MARKER)
-      : removeLinesMatching(template, TEMPLATE_MOD_MARKER);
+    const templateRaw = readFile(templatePath, verbose);
+    const template = parseTemplate(templateRaw, typeScript);
 
     // Prepend a header with the project name.
     let separatorLine = "# ";
@@ -192,7 +182,8 @@ function copyDynamicFiles(
     });
     separatorLine += "\n";
     const gitignoreHeader = `${separatorLine}# ${projectName}\n${separatorLine}\n`;
-    const gitignore = gitignoreHeader + modifiedTemplate;
+
+    const gitignore = gitignoreHeader + template;
 
     const destinationPath = path.join(projectPath, `.${fileName}`); // We need to prepend a period.
     writeFile(destinationPath, gitignore, verbose);
@@ -276,6 +267,17 @@ function copyDynamicFiles(
     const destinationPath = path.join(srcPath, fileName);
     writeFile(destinationPath, mainTS, verbose);
   }
+}
+
+function parseTemplate(template: string, typeScript: boolean): string {
+  const templateKind = typeScript ? "ts" : "mod";
+  const templateMarker = `@template-${templateKind}`;
+  const templateWithoutMarkers = removeLinesBetweenMarkers(
+    template,
+    templateMarker,
+  );
+
+  return removeLinesMatching(templateWithoutMarkers, "@template");
 }
 
 /** The "package.json" file has to be copied first before this step. */
