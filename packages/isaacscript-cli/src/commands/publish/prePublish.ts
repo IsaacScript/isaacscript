@@ -53,7 +53,7 @@ function updateDependencies(
     return;
   }
 
-  console.log("Updating NPM dependencies...");
+  console.log("Updating npm dependencies...");
 
   const beforeHash = getHashOfFile(PACKAGE_JSON);
   execShell("bash", [UPDATE_SCRIPT], verbose);
