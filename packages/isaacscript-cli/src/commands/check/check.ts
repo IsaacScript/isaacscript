@@ -93,11 +93,11 @@ function checkTemplateDirectory(
     const templateFileName = path.basename(relativeTemplateFilePath);
 
     let projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    if (templateFileName === ".eslintrc.template.cjs") {
+    if (templateFileName === "_eslintrc.cjs") {
       projectFilePath = path.join(projectFilePath, "..", ".eslintrc.cjs");
-    } else if (templateFileName === "cspell.template.json") {
+    } else if (templateFileName === "_cspell.json") {
       projectFilePath = path.join(projectFilePath, "..", "cspell.json");
-    } else if (templateFileName === "gitattributes") {
+    } else if (templateFileName === "_gitattributes") {
       projectFilePath = path.join(projectFilePath, "..", ".gitattributes");
     }
 
