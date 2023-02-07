@@ -297,7 +297,7 @@ module.exports = {
       "error",
       {
         convertPath: {
-          "src/**/*.ts": ["^src/(.+?)\\.ts$", "src/$1.js"],
+          "src/**/*.ts": ["^src/(.+?)\\.ts$", "dist/$1.js"],
         },
       },
     ],

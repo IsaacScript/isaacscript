@@ -29,5 +29,23 @@ module.exports = {
      * We use this to automatically fix import statements to ESM.
      */
     "n/file-extension-in-import": ["error", "always"],
+
+    /**
+     * Documentation:
+     * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/shebang.md
+     *
+     * Defined at:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
+     *
+     * This package uses a non-standard output folder, so we have to customize this rule.
+     */
+    "n/shebang": [
+      "error",
+      {
+        convertPath: {
+          "src/**/*.ts": ["^src/(.+?)\\.ts$", "src/$1.js"],
+        },
+      },
+    ],
   },
 };
