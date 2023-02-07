@@ -12,7 +12,7 @@
     "url": "git+https://github.com/AUTHOR_NAME/PROJECT_NAME.git"
   },
   "license": "GPL-3.0",
-  "type": "commonjs",
+  "type": "module",
   "author": "AUTHOR_NAME",
   "files": ["dist", "LICENSE", "package.json", "README.md"],
   "scripts": {
