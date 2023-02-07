@@ -1,6 +1,6 @@
-- lint rule for unknown sets
-
 - check-orphaned-words - convert to TypeScript
+
+- lint rule for unknown sets
 
 - github action - release notes equal to commit message
 - github action - use string after "release" for change log

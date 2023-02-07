@@ -152,7 +152,7 @@ declare global {
      * to convert it to a more specific interface that represents your specific data.
      *
      * For more information, see the tutorial on the IsaacScript website:
-     * https://isaacscript.github.io/main/using-get-data
+     * https://isaacscript.github.io/main/using-get-data/
      */
     GetData(): Record<string, unknown>;
 

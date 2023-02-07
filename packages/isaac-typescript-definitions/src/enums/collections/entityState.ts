@@ -37,7 +37,7 @@ export enum DaddyLongLegsState {
   MULTI_STOMP_ATTACK_MAIN = 9,
 }
 
-/** For `EntityType.BIG_HORN` (411). */
+/** For `EntityType.BIG_HORN` (411), `BigHornVariant.BIG_HORN` (0). */
 export enum BigHornState {
   IDLE = 3,
   HEAD_GOING_UP_OR_GOING_DOWN_INTO_HOLE = 4,
