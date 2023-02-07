@@ -21,14 +21,5 @@
     "pnpm-lock.yaml",
     "yarn.lock"
   ],
-  "words": [
-    "autocrlf",
-    "dbaeumer",
-    "esbenp",
-    "isaacscript",
-    "pnpm",
-    "sarisia",
-    "technote",
-    "Zamiell"
-  ]
+  "words": []
 }
