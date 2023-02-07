@@ -36,10 +36,10 @@ import {
 } from "../../file.js";
 import { initGitRepository } from "../../git.js";
 import {
+  getPackageManagerExecCommand,
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
-  getPackageManagerNPXCommand,
 } from "../../packageManager.js";
 
 const TEMPLATE_MOD_MARKER = "@template-mod";
@@ -287,9 +287,10 @@ function updateNodeModules(
   console.log(
     'Finding out the latest versions of the packages with "npm-check-updates"...',
   );
-  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  const packageManagerExecCommand =
+    getPackageManagerExecCommand(packageManager);
   execShell(
-    packageManagerNPXCommand,
+    packageManagerExecCommand,
     [
       "npm-check-updates",
       "--upgrade",
@@ -326,9 +327,10 @@ function formatFiles(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  const packageManagerExecCommand =
+    getPackageManagerExecCommand(packageManager);
   execShell(
-    packageManagerNPXCommand,
+    packageManagerExecCommand,
     ["prettier", "--write", projectPath],
     verbose,
     false,

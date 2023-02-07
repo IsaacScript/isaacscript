@@ -5,7 +5,7 @@ import { CWD, PROJECT_NAME } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import {
-  getPackageManagerNPXCommand,
+  getPackageManagerExecCommand,
   getPackageManagerUsedForNewProject,
 } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
@@ -119,9 +119,10 @@ function printFinishMessage(
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
   }
-  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  const packageManagerExecCommand =
+    getPackageManagerExecCommand(packageManager);
   commandsToType += `"${chalk.green(
-    `${packageManagerNPXCommand} isaacscript`,
+    `${packageManagerExecCommand} isaacscript`,
   )}"`;
   console.log(`Now, start ${PROJECT_NAME} by typing ${commandsToType}.`);
 }

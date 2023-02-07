@@ -26,7 +26,7 @@ import {
 import { getJSONC } from "../../json.js";
 import {
   getPackageManagerAddCommand,
-  getPackageManagerNPXCommand,
+  getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
 } from "../../packageManager.js";
@@ -278,9 +278,10 @@ function spawnTSTLWatcher(
   modCWD?: string,
 ) {
   const processDescription = "tstl";
-  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
+  const packageManagerExecCommand =
+    getPackageManagerExecCommand(packageManager);
   const tstl = spawn(
-    packageManagerNPXCommand,
+    packageManagerExecCommand,
     ["tstl", "--watch", "--preserveWatchOutput"],
     {
       shell: true,

@@ -6,7 +6,7 @@ import { PackageManager } from "../../enums/PackageManager.js";
 import { execShellString } from "../../exec.js";
 import { copyFile, deleteFileOrDirectory, fileExists } from "../../file.js";
 import {
-  getPackageManagerNPXCommand,
+  getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
@@ -34,8 +34,9 @@ export async function compileAndCopy(
 }
 
 function compile(packageManager: PackageManager, verbose: boolean) {
-  const packageManagerNPXCommand = getPackageManagerNPXCommand(packageManager);
-  execShellString(`${packageManagerNPXCommand} tstl`, verbose);
+  const packageManagerExecCommand =
+    getPackageManagerExecCommand(packageManager);
+  execShellString(`${packageManagerExecCommand} tstl`, verbose);
   console.log("Mod compiled successfully.");
 }
 

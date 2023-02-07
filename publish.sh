@@ -97,4 +97,4 @@ if ! npx git-dirty; then
   git commit --all --message "chore: updating dependencies"
 fi
 
-git push
+git push --set-upstream origin main
