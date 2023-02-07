@@ -82,7 +82,7 @@ function incrementVersion(args: Args, typeScript: boolean) {
   // managers. The "--no-git-tag-version" flag will prevent npm from both making a commit and adding
   // a tag.
   execShellString(
-    `npm version --no-git-tag-version ${versionCommandArgument}`,
+    `npm version ${versionCommandArgument} --no-git-tag-version`,
     verbose,
   );
 
@@ -98,26 +98,26 @@ function getVersionCommandArgument(args: Args): string {
   const { setVersion } = args;
   if (setVersion !== undefined) {
     // They want to use a specific version, which was manually specified.
-    return `--new-version ${setVersion}`;
+    return setVersion;
   }
 
   const major = args.major === true;
   if (major) {
-    return "--major";
+    return "major";
   }
 
   const minor = args.minor === true;
   if (minor) {
-    return "--minor";
+    return "minor";
   }
 
   const patch = args.patch === true;
   if (patch) {
-    return "--patch";
+    return "patch";
   }
 
   // Default to a patch version.
-  return "--patch";
+  return "patch";
 }
 
 function writeVersionToConstantsTS(version: string, verbose: boolean) {

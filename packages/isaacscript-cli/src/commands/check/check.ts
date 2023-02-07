@@ -22,7 +22,7 @@ import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 
 const URL_PREFIX =
-  "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates/static";
+  "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates";
 
 const MARKER_CUSTOMIZATION_START = "@template-customization-start";
 const MARKER_CUSTOMIZATION_END = "@template-customization-end";
@@ -156,7 +156,7 @@ function compareTextFiles(
 ): boolean {
   if (!fileExists(projectFilePath, verbose)) {
     console.log(`Failed to find the following file: ${projectFilePath}`);
-    printTemplateLocation(originalFileName);
+    printTemplateLocation(templateFilePath);
 
     return false;
   }
@@ -309,10 +309,11 @@ function getTruncatedFileText(
   return [newText, newLinesBeforeIgnore];
 }
 
-function printTemplateLocation(originalFileName: string) {
+function printTemplateLocation(templateFilePath: string) {
+  const relativePath = path.relative(TEMPLATES_DIR, templateFilePath);
   console.log(
     `You can find the template at: ${chalk.green(
-      `${URL_PREFIX}/${originalFileName}`,
+      `${URL_PREFIX}/${relativePath}`,
     )}\n`,
   );
 }
