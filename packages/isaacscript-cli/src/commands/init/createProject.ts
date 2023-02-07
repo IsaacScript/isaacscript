@@ -10,7 +10,6 @@ import { createConfigFile } from "../../configFile.js";
 import {
   CI_YML,
   CI_YML_TEMPLATE_PATH,
-  GITIGNORE,
   GITIGNORE_TEMPLATE_PATH,
   MAIN_DEV_TS_TEMPLATE_PATH,
   MAIN_TS,
@@ -170,7 +169,6 @@ function copyDynamicFiles(
 
   // `.gitignore`
   {
-    const fileName = GITIGNORE;
     const templatePath = GITIGNORE_TEMPLATE_PATH;
     const templateRaw = readFile(templatePath, verbose);
     const template = parseTemplate(templateRaw, typeScript);
@@ -190,7 +188,8 @@ function copyDynamicFiles(
 
     const gitignore = gitIgnoreHeader + template + nodeGitIgnore;
 
-    const destinationPath = path.join(projectPath, `.${fileName}`); // We need to prepend a period.
+    // We need to replace the underscore with a period.
+    const destinationPath = path.join(projectPath, `.gitignore`);
     writeFile(destinationPath, gitignore, verbose);
   }
 
