@@ -1322,7 +1322,7 @@ function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
 
 - The `Isaac.GetPlayer` method will no longer return undefined. (You can now delete any undefined-related checks.)
 - Added the `EntitySubPlayer` class to prevent bugs with `RNG`. (`EntityPlayer.GetSubPlayer` is defined as returning this.)
-- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/classes/DefaultMap.html) for more information.
+- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/other/classes/DefaultMap/) for more information.
 - Added the following helper functions:
   - `checkFamiliar`
   - `checkFamiliarFromCollectibles`
@@ -2464,7 +2464,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `POST_GRID_ENTITY_REMOVE`
   - `POST_SACRIFICE`
   - `POST_CURSED_TELEPORT`
-- The custom callbacks are documented [here](https://isaacscript.github.io/function-signatures/#custom-callbacks).
+- The custom callbacks are documented [here](https://isaacscript.github.io/isaacscript-common/other/enums/ModCallbackCustom).
 - Added the `GridPath` enums.
 
 ## August 3rd, 2021
