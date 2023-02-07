@@ -7,7 +7,6 @@ import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
 import { check } from "./commands/check/check.js";
-import { checkCSpell } from "./commands/checkCSpell/checkCSpell.js";
 import { copy } from "./commands/copy/copy.js";
 import { init } from "./commands/init/init.js";
 import { monitor } from "./commands/monitor/monitor.js";
@@ -145,11 +144,6 @@ async function handleCommands(command: Command, args: Args) {
 
     case "check-ts": {
       check(args, true);
-      break;
-    }
-
-    case "check-cspell": {
-      checkCSpell(args);
       break;
     }
   }

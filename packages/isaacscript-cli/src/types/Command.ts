@@ -6,11 +6,10 @@ export type Command =
   | "publish"
   | "publish-ts"
   | "check"
-  | "check-ts"
-  | "check-cspell";
+  | "check-ts";
 
 export const DEFAULT_COMMAND = "monitor";
 
 export function isIsaacScriptModCommand(command: Command): boolean {
-  return !command.endsWith("-ts") && command !== "check-cspell";
+  return !command.endsWith("-ts");
 }
