@@ -119,7 +119,7 @@ function getVersionCommandArgument(args: Args): string {
   }
 
   // Default to a patch version.
-  return "patch";
+  return "--patch";
 }
 
 function writeVersionToConstantsTS(version: string, verbose: boolean) {
