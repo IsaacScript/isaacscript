@@ -5691,10 +5691,10 @@ docusaurus-plugin-typedoc@^0.18.0:
   resolved "https://registry.yarnpkg.com/docusaurus-plugin-typedoc/-/docusaurus-plugin-typedoc-0.18.0.tgz#d04966c4ed843a285c72cdd641e2fb3973684f9f"
   integrity sha512-kurIUu8LhVIOPT88HoeBcu0/D2GMDdg0pUYaFlqeuXT9an6Wlgvuy0C22ZMYcJUcp/gA/Mw2XdUHubsLK2M4uA==
 
-docusaurus-theme-search-typesense@^0.9.0-3:
-  version "0.9.0-3"
-  resolved "https://registry.yarnpkg.com/docusaurus-theme-search-typesense/-/docusaurus-theme-search-typesense-0.9.0-3.tgz#639bfe5ae061d3c3ac76271431bfb0810ab019ac"
-  integrity sha512-DtwGgA+4lJ62dZMB+90hHfTIECA81lFyqXY5x+uhjEllbXsjsDRTi52a+wtRBxWLYj18wy28nWZSvtcTut3Ahg==
+docusaurus-theme-search-typesense@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/docusaurus-theme-search-typesense/-/docusaurus-theme-search-typesense-0.9.0.tgz#61b62b576f37d71118a09f6e1e6d29bea690a538"
+  integrity sha512-c9aOShE1sbgREyyWtGjGvjeu78iEJ8LYHsP0tOIeS9xAdId4YxkX+A7AWGH3JjxDBD29EAs32bSVQLB4XqFf8Q==
   dependencies:
     "@docusaurus/logger" "2.3.1"
     "@docusaurus/plugin-content-docs" "2.3.1"
