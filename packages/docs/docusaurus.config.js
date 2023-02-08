@@ -39,6 +39,9 @@ module.exports = {
     ],
   ],
 
+  // TEMP: Trying out TypeSense.
+  themes: ["docusaurus-theme-search-typesense"],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -88,11 +91,34 @@ module.exports = {
         additionalLanguages: ["lua"],
       },
 
+      /*
       algolia: {
         appId: "ZCC397CSMF", // cspell:disable-line
         apiKey: "212a5e2442aa0e579f2f7bba22ee529a",
         indexName: "isaacscript",
         contextualSearch: false, // Enabled by default; only useful for versioned sites.
+      },
+      */
+
+      typesense: {
+        typesenseCollectionName: "isaacscript",
+        typesenseServerConfig: {
+          nodes: [
+            {
+              host: "isaacscript.net",
+              port: 8108,
+              protocol: "http",
+            },
+          ],
+          apiKey: "9AiKF0AGD145wC9fc4NafATcCam89XT7v2NxGf2ymFucN7b6",
+        },
+
+        // Optional: Typesense search parameters:
+        // https://typesense.org/docs/0.21.0/api/search.md#search-parameters
+        typesenseSearchParameters: {},
+
+        // Optional
+        contextualSearch: true,
       },
 
       colorMode: {

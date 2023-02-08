@@ -70,6 +70,7 @@ Turnbull # Author of "airbnb-typescript/base"
 typecheck # Monorepo word
 typedoc
 typeof # JavaScript word
+typesense # Search engine
 unshift # JavaScript word
 Zamiel
 Zamiell
