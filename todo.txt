@@ -1,5 +1,3 @@
-- add git pull at the start of publish
-
 - lint rule for unknown sets
 
 - github action - release notes equal to commit message
