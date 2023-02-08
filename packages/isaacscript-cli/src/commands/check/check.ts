@@ -260,7 +260,7 @@ function getTruncatedFileText(
 
     // End-users can have different ignored words.
     if (fileName === "cspell.json" || fileName === "_cspell.json") {
-      if (line.includes('"words": []"')) {
+      if (line.includes('"words": []')) {
         continue;
       }
 
