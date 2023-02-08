@@ -114,7 +114,9 @@ module.exports = {
         },
 
         // https://typesense.org/docs/0.21.0/api/search.md#search-parameters
-        typesenseSearchParameters: {},
+        typesenseSearchParameters: {
+          split_join_tokens: "always",
+        },
 
         // https://docusaurus.io/docs/search#contextual-search
         contextualSearch: true,
