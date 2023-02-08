@@ -65,7 +65,7 @@ function getCommandFromArgs(args: Args): Command {
 
 function printBanner(command: Command, verbose: boolean) {
   // Skip displaying the banner for specific commands.
-  if (command === "check") {
+  if (command.startsWith("check")) {
     return;
   }
 
