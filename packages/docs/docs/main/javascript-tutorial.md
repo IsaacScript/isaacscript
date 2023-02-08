@@ -888,7 +888,7 @@ const player = entity.ToPlayer();
 player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
 ```
 
-This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing). To solve this error, we can use _type narrowing_:
+This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing"). To solve this error, we can use _type narrowing_:
 
 ```ts
 const player = entity.ToPlayer();
