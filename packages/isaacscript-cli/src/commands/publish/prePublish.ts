@@ -31,6 +31,7 @@ export function prePublish(args: Args, typeScript: boolean): void {
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   execShellString("git pull --rebase");
+  execShellString("git push");
   updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   incrementVersion(args, typeScript);
   tryRunBashScript(BUILD_SCRIPT, verbose);
