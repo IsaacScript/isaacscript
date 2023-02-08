@@ -173,7 +173,8 @@ export class ExtraConsoleCommands extends Feature {
   private executeCmd = (command: string, params: string) => {
     const resultTuple = getMapPartialMatch(command, this.commandFunctionMap);
     if (resultTuple === undefined) {
-      print("That is an invalid console command.");
+      // We cannot print an error message, because if multiple mods have this feature enabled, then
+      // multiple error messages would appear.
       return;
     }
 

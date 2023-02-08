@@ -1,10 +1,8 @@
-- typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
-
-- investigate EXECUTE_CMD crashing
-
 - lint rule audit:
   - [...require("eslint/use-at-your-own-risk").builtinRules.keys()]
   - Object.keys(require("@typescript-eslint/eslint-plugin").configs.all.rules)
+
+- typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
 
 ----------------------------------------------------------------------------------------------------
 
