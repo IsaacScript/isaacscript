@@ -310,10 +310,11 @@ function getTruncatedFileText(
 }
 
 function printTemplateLocation(templateFilePath: string) {
-  const relativePath = path.relative(TEMPLATES_DIR, templateFilePath);
+  const relativePath = path.relative(templateFilePath, TEMPLATES_DIR);
+  const unixRelativePath = relativePath.split(path.sep).join(path.posix.sep);
   console.log(
     `You can find the template at: ${chalk.green(
-      `${URL_PREFIX}/${relativePath}`,
+      `${URL_PREFIX}/${unixRelativePath}`,
     )}\n`,
   );
 }
