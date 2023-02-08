@@ -106,14 +106,7 @@ function checkTemplateDirectory(
       continue;
     }
 
-    if (
-      !compareTextFiles(
-        projectFilePath,
-        templateFilePath,
-        originalFileName,
-        verbose,
-      )
-    ) {
+    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
       oneOrMoreErrors = true;
     }
   }
@@ -131,15 +124,7 @@ function checkIndividualFiles(verbose: boolean) {
       templateFilePath,
     );
     const projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    const originalFileName = path.basename(templateFilePath);
-    if (
-      !compareTextFiles(
-        projectFilePath,
-        templateFilePath,
-        originalFileName,
-        verbose,
-      )
-    ) {
+    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
       oneOrMoreErrors = true;
     }
   }
@@ -151,7 +136,6 @@ function checkIndividualFiles(verbose: boolean) {
 function compareTextFiles(
   projectFilePath: string,
   templateFilePath: string,
-  originalFileName: string,
   verbose: boolean,
 ): boolean {
   if (!fileExists(projectFilePath, verbose)) {
@@ -181,7 +165,7 @@ function compareTextFiles(
       projectFilePath,
     )}`,
   );
-  printTemplateLocation(originalFileName);
+  printTemplateLocation(templateFilePath);
 
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
@@ -310,11 +294,16 @@ function getTruncatedFileText(
 }
 
 function printTemplateLocation(templateFilePath: string) {
-  const relativePath = path.relative(templateFilePath, TEMPLATES_DIR);
-  const unixRelativePath = relativePath.split(path.sep).join(path.posix.sep);
+  const unixPath = templateFilePath.split(path.sep).join(path.posix.sep);
+  const urlSuffixMatch = unixPath.match(/.+\/file-templates\/(.+)/);
+  if (urlSuffixMatch === null) {
+    error(`Failed to parse the template file path: ${templateFilePath}`);
+  }
+  const urlSuffix = urlSuffixMatch[1];
+
   console.log(
     `You can find the template at: ${chalk.green(
-      `${URL_PREFIX}/${unixRelativePath}`,
+      `${URL_PREFIX}/${urlSuffix}`,
     )}\n`,
   );
 }
