@@ -13,15 +13,15 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "module",
+  "type": "commonjs",
   "exports": {
     ".": {
-      "require": "./src/index.cjs",
-      "import": "./src/index.js",
+      "require": "./src/index.js",
+      "import": "./src/index.mjs",
       "types": "./src/index.d.ts"
     }
   },
-  "main": "src/index.cjs",
-  "module": "src/index.js",
-  "types": "src/index.d.ts"
+  "main": "./src/index.js",
+  "module": "./src/index.mjs",
+  "types": "./src/index.d.ts"
 }
