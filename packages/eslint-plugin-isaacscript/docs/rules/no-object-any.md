@@ -16,14 +16,6 @@ const myMap = new Map<string, string>();
 
 ```ts
 // Bad
-const mySet = new Set();
-
-// Good
-const myMap = new Set<string>();
-```
-
-```ts
-// Bad
 const myArray = [];
 
 // Good

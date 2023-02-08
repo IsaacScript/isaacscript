@@ -1,6 +1,6 @@
 import { isTypeReferenceType } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { isAny, isUnknown } from "../typeUtils";
+import { isAny } from "../typeUtils";
 import { createRule, getOrdinalSuffix } from "../utils";
 
 export const noObjectAny = createRule({
@@ -42,7 +42,7 @@ export const noObjectAny = createRule({
 
         const typeArguments = checker.getTypeArguments(type);
         typeArguments.forEach((typeArgument, i) => {
-          if (isAny(typeArgument) || isUnknown(typeArgument)) {
+          if (isAny(typeArgument)) {
             context.report({
               node,
               messageId: "noType",

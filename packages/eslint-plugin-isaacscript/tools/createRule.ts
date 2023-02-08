@@ -22,14 +22,14 @@ createRule();
 
 function createRule() {
   const firstArg = process.argv[2];
-  if (firstArg === undefined || firstArg.trim() === "") {
+  if (firstArg === undefined || firstArg === "") {
     throw new Error(
       'You must provide the rule name as the first argument. e.g. "strict-enums"',
     );
   }
 
   const secondArg = process.argv[3];
-  if (secondArg === undefined || secondArg.trim() === "") {
+  if (secondArg === undefined || firstArg === "") {
     throw new Error(
       'You must provide the rule description as the second argument. e.g. "Disallows the usage of unsafe enum patterns"',
     );
