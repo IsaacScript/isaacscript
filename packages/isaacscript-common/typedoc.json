@@ -265,6 +265,8 @@
     "typedoc-plugin-rename",
   ],
   "githubPages": false,
+
+  // typedoc-plugin-markdown settings
   "hideBreadcrumbs": true,
   "hideInPageTOC": true,
 }

@@ -568,13 +568,7 @@ export interface CustomStageBossPoolEntry {
   };
 }
 
-/**
- * An object that represents a custom stage. The "customStageMetadata.lua" file contains an array of
- * these objects. Besides the room metadata, the data is the same as what is specified inside the
- * "tsconfig.json" file.
- *
- * The `CustomStage` interface extends this, adding more data.
- */
+/** An intermediate type that is never actually used. See `CustomStageLua`. */
 interface CustomStageLuaUnsafe extends CustomStageTSConfig {
   /**
    * This contains metadata about each room in a custom stage, which is used at run-time.
@@ -584,6 +578,13 @@ interface CustomStageLuaUnsafe extends CustomStageTSConfig {
   roomsMetadata: CustomStageRoomMetadata[];
 }
 
+/**
+ * An object that represents a custom stage. The "customStageMetadata.lua" file contains an array of
+ * these objects. Besides the room metadata, the data is the same as what is specified inside the
+ * "tsconfig.json" file.
+ *
+ * The `CustomStage` interface extends this, adding more data.
+ */
 export type CustomStageLua = Immutable<CustomStageLuaUnsafe>;
 
 /**

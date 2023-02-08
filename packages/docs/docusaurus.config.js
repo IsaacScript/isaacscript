@@ -113,7 +113,6 @@ module.exports = {
           apiKey: "9AiKF0AGD145wC9fc4NafATcCam89XT7v2NxGf2ymFucN7b6",
         },
 
-        // Optional: Typesense search parameters:
         // https://typesense.org/docs/0.21.0/api/search.md#search-parameters
         typesenseSearchParameters: {},
 

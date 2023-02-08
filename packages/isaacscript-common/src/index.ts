@@ -134,6 +134,7 @@ export * from "./interfaces/RoomDescription";
 export * from "./interfaces/SaveData";
 export * from "./interfaces/StatTypeType";
 export * from "./interfaces/TrinketSituation";
+export * from "./interfaces/TSTLClassMetatable";
 export * from "./maps/cardNameToTypeMap";
 export * from "./maps/characterNameToTypeMap";
 export * from "./maps/pillNameToEffectMap";

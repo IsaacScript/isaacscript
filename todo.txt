@@ -1,5 +1,5 @@
-- try new TypeDoc branch
 - typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments
+
 - investigate EXECUTE_CMD crashing
 
 - lint rule audit:
@@ -7,6 +7,8 @@
   - Object.keys(require("@typescript-eslint/eslint-plugin").configs.all.rules)
 
 ----------------------------------------------------------------------------------------------------
+
+- try new TypeDoc branch: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
 - when typescript 5.0 comes out, remove "newLine" in tsconfig
 - when typescript 5.0 comes out, remove all tsconfig duplication with `extends` (e.g. tsconfig.node.json)
