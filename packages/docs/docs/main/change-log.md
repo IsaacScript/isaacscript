@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## February 7th, 2023 (Unreleased)
+## February 7th, 2023
 
 ### `package.json`
 
@@ -30,7 +30,10 @@ pnpm add isaacscript-tsconfig
 
 - Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
 - `isaacscript init` now supports bootstrapping a TypeScript project with the "--ts" flag.
-- !`isaacscript publish` now supports publishing a TypeScript project with the "--ts" flag.
+- `isaacscript publish` now supports publishing a TypeScript project with the "--ts" flag.
+- `isaacscript check` can now be used to check your IsaacScript mod template files.
+- `isaacscript check-ts` can now be used to check your TypeScript project template files.
+- The `cspell-check-unused-words` tool can now be used to check for unused words in your "cspell.json" file.
 - Removed support for `steamcmd` from the `publish` command.
 - Added the following helper functions:
   - `isFoundSoul`
