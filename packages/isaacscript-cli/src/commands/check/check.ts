@@ -167,6 +167,13 @@ function compareTextFiles(
   );
   printTemplateLocation(templateFilePath);
 
+  if (verbose) {
+    console.log("--- Template file: ---\n");
+    console.log(templateFileContents);
+    console.log("--- Project file: ---\n");
+    console.log(projectFileContents);
+  }
+
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
 
