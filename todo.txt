@@ -5,8 +5,7 @@
 
 - make isaac-mod-config-menu use github action
 
-- racing-plus + babies mod + config menu CI ACTIONS
-- convert-xml-to-json - enable check
+- racing-plus + babies mod + among-us config menu CI ACTIONS
 
 - try new TypeDoc branch
 - typedoc bug - spawnCustomGridEntity documentation doesn't have question marks on final arguments

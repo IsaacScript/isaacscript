@@ -3,6 +3,7 @@ import { error, getEnumValues } from "isaacscript-common-ts";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {
+  CI_YML,
   CI_YML_TEMPLATE_PATH,
   CWD,
   TEMPLATES_DIR,
@@ -58,7 +59,7 @@ export function check(args: Args, typeScript: boolean): void {
     oneOrMoreErrors = true;
   }
 
-  if (checkIndividualFiles(verbose)) {
+  if (checkIndividualFiles(ignoreFileNamesSet, verbose)) {
     oneOrMoreErrors = true;
   }
 
@@ -114,10 +115,13 @@ function checkTemplateDirectory(
   return oneOrMoreErrors;
 }
 
-function checkIndividualFiles(verbose: boolean) {
+function checkIndividualFiles(
+  ignoreFileNamesSet: Set<string>,
+  verbose: boolean,
+) {
   let oneOrMoreErrors = false;
 
-  {
+  if (!ignoreFileNamesSet.has(CI_YML)) {
     const templateFilePath = CI_YML_TEMPLATE_PATH;
     const relativeTemplateFilePath = path.relative(
       TEMPLATES_DYNAMIC_DIR,
