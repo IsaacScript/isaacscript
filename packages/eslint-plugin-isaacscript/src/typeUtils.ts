@@ -133,6 +133,10 @@ export function isAny(type: ts.Type): boolean {
   return isTypeFlagSet(type, ts.TypeFlags.Any);
 }
 
+export function isUnknown(type: ts.Type): boolean {
+  return isTypeFlagSet(type, ts.TypeFlags.Unknown);
+}
+
 /** Returns all types of a union type or an array containing `type` itself if it's no union type. */
 export function unionTypeParts(type: ts.Type): ts.Type[] {
   return isUnion(type) ? type.types : [type];
