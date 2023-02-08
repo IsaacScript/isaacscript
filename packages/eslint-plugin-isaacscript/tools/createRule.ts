@@ -29,7 +29,7 @@ function createRule() {
   }
 
   const secondArg = process.argv[3];
-  if (secondArg === undefined || firstArg === "") {
+  if (secondArg === undefined || secondArg === "") {
     throw new Error(
       'You must provide the rule description as the second argument. e.g. "Disallows the usage of unsafe enum patterns"',
     );
