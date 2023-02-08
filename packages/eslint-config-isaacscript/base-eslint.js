@@ -1,8 +1,13 @@
 // This is a shared configuration file for ESLint:
 // https://eslint.org/docs/latest/user-guide/configuring
 // This config only contains modifications to the built-in rules from the ESLint tool.
+// https://eslint.org/docs/latest/rules/
 module.exports = {
   rules: {
+    // -----------------
+    // Possible Problems
+    // -----------------
+
     /**
      * Documentation:
      * https://eslint.org/docs/latest/rules/array-callback-return

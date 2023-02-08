@@ -18,7 +18,7 @@ fi
 # Validate that we can push and pull to the repository.
 git branch --set-upstream-to=origin/main main --quiet
 git pull --rebase --quiet
-git push --quiet
+git push --set-upstream origin main --quiet
 
 # Validate that we are logged in to npm.
 npm whoami > /dev/null
