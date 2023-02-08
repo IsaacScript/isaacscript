@@ -457,7 +457,7 @@ const fartString = "Fart";
 const combinedString = poopString + fartString; // combinedString is now equal to "PoopFart".
 ```
 
-(TypeScript uses the same operator for adding numbers and concatenating strings.)
+(Unlike Lua, TypeScript uses the same operator for adding numbers and concatenating strings.)
 
 <br />
 
