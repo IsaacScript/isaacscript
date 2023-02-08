@@ -29,10 +29,11 @@ pnpm add isaacscript-tsconfig
 ### Other
 
 - Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
-- `isaacscript init` now supports bootstrapping a TypeScript project with the "--ts" flag.
-- `isaacscript publish` now supports publishing a TypeScript project with the "--ts" flag.
-- `isaacscript check` can now be used to check your IsaacScript mod template files.
-- `isaacscript check-ts` can now be used to check your TypeScript project template files.
+- `isaacscript` has new commands:
+  - `check` will check your template files (for an IsaacScript mod) to see if they are up to date.
+  - `init-ts` will bootstrap a TypeScript project.
+  - `publish-ts` will publish a TypeScript project.
+  - `check-ts` will check your template files (for an TypeScript project) to see if they are up to date.
 - The `cspell-check-unused-words` tool can now be used to check for unused words in your "cspell.json" file.
 - Removed support for `steamcmd` from the `publish` command.
 - Added the following helper functions:
