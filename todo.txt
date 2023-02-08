@@ -1,9 +1,8 @@
-- lint rule for unknown sets
-
 - github action - release notes equal to commit message
 - github action - use string after "release" for change log
 
 - add variables to uploader github action
+
 - make isaac-mod-config-menu use github action
 
 - racing-plus + babies mod + config menu CI ACTIONS
