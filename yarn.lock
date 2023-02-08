@@ -5170,10 +5170,10 @@ crypto-random-string@^4.0.0:
   dependencies:
     type-fest "^1.0.1"
 
-cspell-check-unused-words@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/cspell-check-unused-words/-/cspell-check-unused-words-1.0.2.tgz#a03fdb09435e5f720edf7d2b7bbb489e1de2cd0f"
-  integrity sha512-pG+RyJls2QHpW+pPSGzg6oePL2CQxJ7s0l23DCv5GFpN8ne3U5h/ZpkeQz0Yka0Gm/gOR2V1VoZiCr24iyL2gA==
+cspell-check-unused-words@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/cspell-check-unused-words/-/cspell-check-unused-words-1.0.3.tgz#1fe4e91f914b1638c2abae0e4fe44e403eb7ece9"
+  integrity sha512-BEWa4Vxc+6TiJkSXgDtXerpCo3QUMsulTq8VWkjSkYVoBPhnQ9Xt492DItu2CejIPLglGEtvZUHcZfr/nf2VoQ==
   dependencies:
     jsonc-parser "^3.2.0"
     source-map-support "^0.5.21"
