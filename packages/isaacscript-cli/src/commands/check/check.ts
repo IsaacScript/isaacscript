@@ -259,31 +259,32 @@ function getTruncatedFileText(
     // --------------------
 
     // End-users can have different ignored words.
-    if (
-      (fileName === "cspell.json" || fileName === "_cspell.json") &&
-      line.includes('"words": [')
-    ) {
-      currentlySkipping = true;
-      continue;
+    if (fileName === "cspell.json" || fileName === "_cspell.json") {
+      if (line.includes('"words": []"')) {
+        continue;
+      }
+
+      if (line.includes('"words": [')) {
+        currentlySkipping = true;
+        continue;
+      }
+
+      if ((line.endsWith("]") || line.endsWith("],")) && currentlySkipping) {
+        currentlySkipping = false;
+        continue;
+      }
     }
 
-    if (
-      (fileName === "cspell.json" || fileName === "_cspell.json") &&
-      line.endsWith("]") &&
-      currentlySkipping
-    ) {
-      currentlySkipping = false;
-      continue;
-    }
+    if (fileName === "ci.yml") {
+      // End-users can have different package managers.
+      if (hasPackageManagerString(line)) {
+        continue;
+      }
 
-    // End-users can have different package managers.
-    if (fileName === "ci.yml" && hasPackageManagerString(line)) {
-      continue;
-    }
-
-    // Ignore comments, since end-users are expected to delete the explanation.
-    if (fileName === "ci.yml" && line.match(/^\s*#/) !== null) {
-      continue;
+      // Ignore comments, since end-users are expected to delete the explanation.
+      if (line.match(/^\s*#/) !== null) {
+        continue;
+      }
     }
 
     // ------------
