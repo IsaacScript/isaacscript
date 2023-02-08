@@ -105,7 +105,7 @@ module.exports = {
         typesenseServerConfig: {
           nodes: [
             {
-              host: "isaacscript.net",
+              host: "isaacracing.net",
               port: 8108,
               protocol: "https",
             },
