@@ -244,4 +244,14 @@ module.exports = {
 
     // - jsdoc/valid-types - Not needed in TypeScript.
   },
+
+  overrides: [
+    // Disable some TypeScript-specific rules in JavaScript files.
+    {
+      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+      rules: {
+        "jsdoc/no-types": "off",
+      },
+    },
+  ],
 };

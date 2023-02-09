@@ -17,7 +17,7 @@ cd "$DIR"
 REPO_ROOT="$DIR/../.."
 OUT_DIR="$REPO_ROOT/packages/docs/docs/$REPO_NAME"
 
-rm -rf "$COMMON_DIR"
+rm -rf "$OUT_DIR"
 npx typedoc # The options are stored in "typedoc.json".
 
 echo "Successfully generated docs for $REPO_NAME in $SECONDS seconds."
