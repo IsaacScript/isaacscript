@@ -2,9 +2,15 @@ import { Keyboard, ModCallback } from "isaac-typescript-definitions";
 import { KEYBOARD_VALUES } from "../../arrays/cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isKeyboardPressed } from "../../functions/input";
-import { CustomCallback } from "../private/CustomCallback";
+import {
+  CustomCallback,
+  FireArgs,
+  OptionalArgs,
+} from "../private/CustomCallback";
 
-export class PostKeyboardPressed extends CustomCallback<ModCallbackCustom.POST_KEYBOARD_PRESSED> {
+type T = ModCallbackCustom.POST_KEYBOARD_CHANGED;
+
+export class PostKeyboardChanged extends CustomCallback<T> {
   public override v = {
     run: {
       pressedKeys: new Set<Keyboard>(),
@@ -22,19 +28,23 @@ export class PostKeyboardPressed extends CustomCallback<ModCallbackCustom.POST_K
 
   // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
-    fireArgs: [keyboard: Keyboard],
-    optionalArgs: [keyboard?: Keyboard],
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
   ): boolean => {
-    const [keyboard] = fireArgs;
-    const [callbackKeyboard] = optionalArgs;
+    const [keyboard, pressed] = fireArgs;
+    const [callbackKeyboard, callbackPressed] = optionalArgs;
 
-    return callbackKeyboard === undefined || callbackKeyboard === keyboard;
+    return (
+      (callbackKeyboard === undefined || callbackKeyboard === keyboard) &&
+      (callbackPressed === undefined || callbackPressed === pressed)
+    );
   };
 
   private postRender = () => {
     for (const keyboard of this.v.run.pressedKeys) {
       if (!isKeyboardPressed(keyboard)) {
         this.v.run.pressedKeys.delete(keyboard);
+        this.fire(keyboard, false);
       }
     }
 
@@ -45,7 +55,7 @@ export class PostKeyboardPressed extends CustomCallback<ModCallbackCustom.POST_K
 
       if (isKeyboardPressed(keyboard)) {
         this.v.run.pressedKeys.add(keyboard);
-        this.fire(keyboard);
+        this.fire(keyboard, true);
       }
     }
   };

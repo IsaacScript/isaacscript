@@ -818,14 +818,21 @@ export enum ModCallbackCustom {
   POST_ITEM_PICKUP,
 
   /**
-   * Fires on the first `POST_RENDER` frame after a keyboard has been pressed (when it was not
-   * pressed on the previous frame).
+   * Fires on the first `POST_RENDER` frame after a key on the keyboard has been pressed or
+   * released. (In other words, the callback only fires when the "pressed" status is different than
+   * what it was on the previous frame.)
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Keyboard` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the pressed state provided. (`true` for pressed, `false` for released.)
+   *
+   * ```ts
+   * function postKeyboardChanged(keyboard: Keyboard, pressed: boolean): void {}
+   * ```
    */
-  POST_KEYBOARD_PRESSED,
+  POST_KEYBOARD_CHANGED,
 
   /**
    * Fires on the first `POST_KNIFE_UPDATE` frame for each knife.

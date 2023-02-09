@@ -367,9 +367,10 @@ export interface AddCallbackParametersCustom {
         trinketType?: TrinketType,
       ];
 
-  [ModCallbackCustom.POST_KEYBOARD_PRESSED]: [
-    callback: (keyboard: Keyboard) => void,
+  [ModCallbackCustom.POST_KEYBOARD_CHANGED]: [
+    callback: (keyboard: Keyboard, pressed: boolean) => void,
     keyboard?: Keyboard,
+    pressed?: boolean,
   ];
 
   [ModCallbackCustom.POST_KNIFE_INIT_LATE]: [

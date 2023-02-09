@@ -1,3 +1,5 @@
+- use tom's idea of preparing entryPoints programmatically
+
 - lint rule fails:
   export const READ_ONLY_ARRAY: number[] = getEnumValues(PillColor);
 
