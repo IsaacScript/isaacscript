@@ -1,6 +1,6 @@
 import { PlayerForm } from "isaac-typescript-definitions";
+import { PLAYER_FORM_VALUES } from "../../arrays/cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { getEnumValues } from "../../functions/enums";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
@@ -54,7 +54,7 @@ export class PostTransformation extends CustomCallback<T> {
       player,
     );
 
-    for (const playerForm of getEnumValues(PlayerForm)) {
+    for (const playerForm of PLAYER_FORM_VALUES) {
       const hasForm = player.HasPlayerForm(playerForm);
       let storedForm = playerTransformationsMap.get(playerForm);
       if (storedForm === undefined) {

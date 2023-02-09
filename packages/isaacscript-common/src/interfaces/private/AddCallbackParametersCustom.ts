@@ -13,6 +13,7 @@ import {
   GridEntityXMLType,
   InputHook,
   ItemType,
+  Keyboard,
   KnifeVariant,
   LaserVariant,
   PickupVariant,
@@ -365,6 +366,11 @@ export interface AddCallbackParametersCustom {
         itemType: ItemType.TRINKET,
         trinketType?: TrinketType,
       ];
+
+  [ModCallbackCustom.POST_KEYBOARD_PRESSED]: [
+    callback: (keyboard: Keyboard) => void,
+    keyboard?: Keyboard,
+  ];
 
   [ModCallbackCustom.POST_KNIFE_INIT_LATE]: [
     callback: (knife: EntityKnife) => void,

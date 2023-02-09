@@ -1,8 +1,8 @@
+import { STAT_TYPE_VALUES } from "../../arrays/cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { StatType } from "../../enums/StatType";
 import { isBitSet128 } from "../../functions/bitSet128";
 import { colorEquals, isColor } from "../../functions/color";
-import { getEnumValues } from "../../functions/enums";
 import { getPlayerIndex } from "../../functions/playerIndex";
 import { getPlayerStat } from "../../functions/playerStats";
 import { isBoolean, isNumber } from "../../functions/types";
@@ -45,7 +45,7 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_
     const playerStatMap =
       this.v.run.playersStatMap.getAndSetDefault(playerIndex);
 
-    for (const statType of getEnumValues(StatType)) {
+    for (const statType of STAT_TYPE_VALUES) {
       const storedStatValue = playerStatMap.get(statType);
       const currentStatValue = getPlayerStat(player, statType);
       playerStatMap.set(statType, currentStatValue);

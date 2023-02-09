@@ -6,14 +6,16 @@ import {
   NullItemID,
   PlayerForm,
   PlayerType,
-  TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
+import {
+  ACTIVE_SLOT_VALUES,
+  TRINKET_SLOT_VALUES,
+} from "../arrays/cachedEnumValues";
 import { game, itemConfig } from "../core/cachedClasses";
 import { getLastElement, sumArray } from "./array";
 import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
-import { getEnumValues } from "./enums";
 import {
   getAllPlayers,
   getPlayerIndexVanilla,
@@ -119,8 +121,7 @@ export function getActiveItemSlot(
   player: EntityPlayer,
   collectibleType: CollectibleType,
 ): ActiveSlot | undefined {
-  const activeSlots = getEnumValues(ActiveSlot);
-  return activeSlots.find((activeSlot) => {
+  return ACTIVE_SLOT_VALUES.find((activeSlot) => {
     const activeItem = player.GetActiveItem(activeSlot);
     return activeItem === collectibleType;
   });
@@ -660,7 +661,7 @@ export function playerHasForm(
  * and any pocket actives.
  */
 export function removeAllActiveItems(player: EntityPlayer): void {
-  for (const activeSlot of getEnumValues(ActiveSlot)) {
+  for (const activeSlot of ACTIVE_SLOT_VALUES) {
     const collectibleType = player.GetActiveItem(activeSlot);
     if (collectibleType === CollectibleType.NULL) {
       continue;
@@ -681,7 +682,7 @@ export function removeAllActiveItems(player: EntityPlayer): void {
  * they also have smelted. (In that case, both the held and the smelted trinket will be removed.)
  */
 export function removeAllPlayerTrinkets(player: EntityPlayer): void {
-  for (const trinketSlot of getEnumValues(TrinketSlot)) {
+  for (const trinketSlot of TRINKET_SLOT_VALUES) {
     const trinketType = player.GetTrinket(trinketSlot);
     if (trinketType === TrinketType.NULL) {
       continue;

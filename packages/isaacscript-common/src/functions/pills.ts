@@ -4,6 +4,7 @@ import {
   PillColor,
   PillEffect,
 } from "isaac-typescript-definitions";
+import { PILL_COLOR_VALUES } from "../arrays/cachedEnumValues";
 import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
@@ -27,7 +28,6 @@ import {
   DEFAULT_PILL_EFFECT_TYPE,
   PILL_EFFECT_TYPES,
 } from "../objects/pillEffectTypes";
-import { getEnumValues } from "./enums";
 import { asNumber, asPillColor } from "./types";
 import { iRange } from "./utils";
 
@@ -45,9 +45,7 @@ const HORSE_PILL_ADJUSTMENT = 2048;
  * all horse colors.
  */
 export function getAllPillColors(): PillColor[] {
-  const pillColors = getEnumValues(PillColor);
-  pillColors.slice(); // Remove `PillColor.NULL`
-  return pillColors;
+  return PILL_COLOR_VALUES.slice(1); // Remove `PillColor.NULL`
 }
 
 /**

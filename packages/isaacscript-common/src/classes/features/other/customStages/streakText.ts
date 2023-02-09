@@ -1,8 +1,8 @@
 import { ButtonAction, ControllerIndex } from "isaac-typescript-definitions";
+import { CONTROLLER_INDEX_VALUES } from "../../../../arrays/cachedEnumValues";
 import { fonts, game } from "../../../../core/cachedClasses";
 import { KColorDefault, VectorOne } from "../../../../core/constants";
 import { UIStreakAnimation } from "../../../../enums/private/UIStreakAnimation";
-import { getEnumValues } from "../../../../functions/enums";
 import {
   getScreenBottomCenterPos,
   getScreenTopCenterPos,
@@ -137,7 +137,7 @@ function checkEndTopStreakText(v: StreakTextVars) {
 }
 
 function trackMapInputPressed(v: StreakTextVars) {
-  for (const controllerIndex of getEnumValues(ControllerIndex)) {
+  for (const controllerIndex of CONTROLLER_INDEX_VALUES) {
     const gameFrameCount = game.GetFrameCount();
     const oldPushedMapFrame =
       v.run.controllerIndexPushingMapRenderFrame.get(controllerIndex);

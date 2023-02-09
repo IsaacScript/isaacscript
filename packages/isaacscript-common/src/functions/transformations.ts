@@ -3,11 +3,11 @@ import {
   ItemConfigTag,
   PlayerForm,
 } from "isaac-typescript-definitions";
+import { PLAYER_FORM_VALUES } from "../arrays/cachedEnumValues";
 import { TRANSFORMATION_NAMES } from "../objects/transformationNames";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getCollectibleTags } from "./collectibles";
-import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
 
 const TRANSFORMATION_TO_TAG_MAP = new ReadonlyMap<PlayerForm, ItemConfigTag>([
@@ -39,7 +39,7 @@ export function getPlayerTransformations(
   player: EntityPlayer,
 ): Set<PlayerForm> {
   const transformations = new Set<PlayerForm>();
-  for (const playerForm of getEnumValues(PlayerForm)) {
+  for (const playerForm of PLAYER_FORM_VALUES) {
     if (player.HasPlayerForm(playerForm)) {
       transformations.add(playerForm);
     }
@@ -71,9 +71,8 @@ export function getTransformationsForCollectibleType(
 ): Set<PlayerForm> {
   const itemConfigTags = getCollectibleTags(collectibleType);
 
-  const playerForms = getEnumValues(PlayerForm);
   const transformationSet = new Set<PlayerForm>();
-  for (const playerForm of playerForms) {
+  for (const playerForm of PLAYER_FORM_VALUES) {
     const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
     if (itemConfigTag === undefined) {
       continue;

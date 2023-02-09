@@ -56,6 +56,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_HOLY_MANTLE_REMOVED]: cc.PostHolyMantleRemoved,
   [ModCallbackCustom.POST_ITEM_DISCHARGE]: cc.PostItemDischarge,
   [ModCallbackCustom.POST_ITEM_PICKUP]: cc.PostItemPickup,
+  [ModCallbackCustom.POST_KEYBOARD_PRESSED]: cc.PostKeyboardPressed,
   [ModCallbackCustom.POST_KNIFE_INIT_LATE]: cc.PostKnifeInitLate,
   [ModCallbackCustom.POST_LASER_INIT_LATE]: cc.PostLaserInitLate,
   [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: cc.PostNewLevelReordered,

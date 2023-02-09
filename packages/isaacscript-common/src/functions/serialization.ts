@@ -1,5 +1,5 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SERIALIZATION_BRAND_VALUES } from "../arrays/cachedEnumValues";
 import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBrand";
 import {
   CopyableIsaacAPIClass,
@@ -10,12 +10,12 @@ import {
   SerializedIsaacAPIClass,
 } from "../objects/isaacAPIClassTypeToFunctions";
 import { ReadonlySet } from "../types/ReadonlySet";
-import { getEnumValues } from "./enums";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isString, isTable, isUserdata } from "./types";
 
-const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
-const SERIALIZATION_BRAND_SET = new ReadonlySet<string>(SERIALIZATION_BRANDS);
+const SERIALIZATION_BRAND_SET = new ReadonlySet<string>(
+  SERIALIZATION_BRAND_VALUES,
+);
 
 /**
  * Helper function to generically copy an Isaac API class without knowing what specific type of

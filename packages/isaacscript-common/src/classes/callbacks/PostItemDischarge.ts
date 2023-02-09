@@ -5,10 +5,10 @@ import {
   ModCallback,
   SuckerVariant,
 } from "isaac-typescript-definitions";
+import { ACTIVE_SLOT_VALUES } from "../../arrays/cachedEnumValues";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getTotalCharge } from "../../functions/charge";
-import { getEnumValues } from "../../functions/enums";
 import {
   defaultMapGetPlayer,
   mapGetPlayer,
@@ -141,7 +141,7 @@ export class PostItemDischarge extends CustomCallback<T> {
       player,
     );
 
-    for (const activeSlot of getEnumValues(ActiveSlot)) {
+    for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const currentActiveItem = player.GetActiveItem();
       let previousActiveItem = activeItemMap.get(activeSlot);
       if (previousActiveItem === undefined) {

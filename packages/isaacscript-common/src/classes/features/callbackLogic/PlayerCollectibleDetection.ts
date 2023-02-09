@@ -6,10 +6,10 @@ import {
   ModCallback,
   PlayerType,
 } from "isaac-typescript-definitions";
+import { ACTIVE_SLOT_VALUES } from "../../../arrays/cachedEnumValues";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayEquals } from "../../../functions/array";
-import { getEnumValues } from "../../../functions/enums";
 import { hasFlag } from "../../../functions/flag";
 import {
   defaultMapGetPlayer,
@@ -255,7 +255,7 @@ export class PlayerCollectibleDetection extends Feature {
     const oldCollectibleTypes: CollectibleType[] = [];
     const newCollectibleTypes: CollectibleType[] = [];
 
-    for (const activeSlot of getEnumValues(ActiveSlot)) {
+    for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const oldCollectibleType =
         activeItemMap.get(activeSlot) ?? CollectibleType.NULL;
       const newCollectibleType = player.GetActiveItem(activeSlot);

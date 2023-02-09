@@ -1,13 +1,12 @@
 import {
   DoorSlot,
-  DoorSlotFlag,
   RoomShape,
   RoomType,
   StageID,
 } from "isaac-typescript-definitions";
+import { DOOR_SLOT_FLAG_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { doorSlotFlagToDoorSlot } from "./doors";
-import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
 
 /**
@@ -22,8 +21,7 @@ export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
     return allowedDoors;
   }
 
-  const doorSlotFlags = getEnumValues(DoorSlotFlag);
-  for (const doorSlotFlag of doorSlotFlags) {
+  for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
     if (hasFlag(roomData.Doors, doorSlotFlag)) {
       const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
       allowedDoors.add(doorSlot);

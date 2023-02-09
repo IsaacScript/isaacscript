@@ -1,6 +1,6 @@
+import { HEALTH_TYPE_VALUES } from "../../arrays/cachedEnumValues";
 import { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { getEnumValues } from "../../functions/enums";
 import { getPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayerIndex } from "../../functions/playerIndex";
 import { shouldFirePlayer } from "../../shouldFire";
@@ -39,7 +39,7 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POS
     const playerHealthMap =
       this.v.run.playersHealthMap.getAndSetDefault(playerIndex);
 
-    for (const healthType of getEnumValues(HealthType)) {
+    for (const healthType of HEALTH_TYPE_VALUES) {
       const storedHealthValue = playerHealthMap.get(healthType);
       const currentHealthValue = getPlayerHealthType(player, healthType);
       playerHealthMap.set(healthType, currentHealthValue);

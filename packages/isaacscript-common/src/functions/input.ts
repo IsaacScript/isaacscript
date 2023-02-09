@@ -4,9 +4,9 @@ import {
   ControllerIndex,
   Keyboard,
 } from "isaac-typescript-definitions";
+import { CONTROLLER_INDEX_VALUES } from "../arrays/cachedEnumValues";
 import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
 import { ReadonlySet } from "../types/ReadonlySet";
-import { getEnumValues } from "./enums";
 import { trimPrefix } from "./string";
 
 const MODIFIER_KEYS = [
@@ -91,8 +91,7 @@ export function isActionPressed(
 export function isActionPressedOnAnyInput(
   ...buttonActions: ButtonAction[]
 ): boolean {
-  const controllerIndexes = getEnumValues(ControllerIndex);
-  return controllerIndexes.some((controllerIndex) =>
+  return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
     isActionPressed(controllerIndex, ...buttonActions),
   );
 }
@@ -124,8 +123,7 @@ export function isActionTriggered(
 export function isActionTriggeredOnAnyInput(
   ...buttonActions: ButtonAction[]
 ): boolean {
-  const controllerIndexes = getEnumValues(ControllerIndex);
-  return controllerIndexes.some((controllerIndex) =>
+  return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
     isActionTriggered(controllerIndex, ...buttonActions),
   );
 }

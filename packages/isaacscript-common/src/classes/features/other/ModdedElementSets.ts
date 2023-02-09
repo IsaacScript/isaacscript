@@ -7,6 +7,11 @@ import {
   PlayerForm,
   TrinketType,
 } from "isaac-typescript-definitions";
+import {
+  CACHE_FLAG_VALUES,
+  ITEM_CONFIG_CARD_TYPE_VALUES,
+  ITEM_CONFIG_TAG_VALUES,
+} from "../../../arrays/cachedEnumValues";
 import { itemConfig } from "../../../core/cachedClasses";
 import { FIRST_GLITCHED_COLLECTIBLE_TYPE } from "../../../core/constants";
 import { Exported } from "../../../decorators";
@@ -23,7 +28,6 @@ import {
   isPassiveCollectible,
 } from "../../../functions/collectibles";
 import { collectibleHasTag } from "../../../functions/collectibleTag";
-import { getEnumValues } from "../../../functions/enums";
 import { getFlagName } from "../../../functions/flag";
 import { getRandomSeed } from "../../../functions/rng";
 import {
@@ -275,12 +279,12 @@ export class ModdedElementSets extends Feature {
 
     // The tag to collectible types map should be valid for every tag, so we initialize it with
     // empty sets.
-    for (const itemConfigTag of getEnumValues(ItemConfigTag)) {
+    for (const itemConfigTag of ITEM_CONFIG_TAG_VALUES) {
       this.tagToCollectibleTypesMap.set(itemConfigTag, new Set());
     }
 
     for (const collectibleType of this.getCollectibleArray()) {
-      for (const itemConfigTag of getEnumValues(ItemConfigTag)) {
+      for (const itemConfigTag of ITEM_CONFIG_TAG_VALUES) {
         if (!collectibleHasTag(collectibleType, itemConfigTag)) {
           continue;
         }
@@ -303,7 +307,7 @@ export class ModdedElementSets extends Feature {
       return;
     }
 
-    for (const cacheFlag of getEnumValues(CacheFlag)) {
+    for (const cacheFlag of CACHE_FLAG_VALUES) {
       const collectiblesSet = new Set<CollectibleType>();
 
       for (const collectibleType of this.getCollectibleArray()) {
@@ -321,7 +325,7 @@ export class ModdedElementSets extends Feature {
       return;
     }
 
-    for (const cacheFlag of getEnumValues(CacheFlag)) {
+    for (const cacheFlag of CACHE_FLAG_VALUES) {
       const trinketsSet = new Set<TrinketType>();
 
       for (const trinketType of this.moddedElementDetection.getTrinketTypes()) {
@@ -419,7 +423,7 @@ export class ModdedElementSets extends Feature {
 
     // The card type to cards map should be valid for every card type, so we initialize it with
     // empty sets.
-    for (const itemConfigCardType of getEnumValues(ItemConfigCardType)) {
+    for (const itemConfigCardType of ITEM_CONFIG_CARD_TYPE_VALUES) {
       this.itemConfigCardTypeToCardTypeMap.set(
         itemConfigCardType,
         new Set<CardType>(),

@@ -6,9 +6,9 @@ import {
   PlayerType,
   PocketItemSlot,
 } from "isaac-typescript-definitions";
+import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { PocketItemType } from "../enums/PocketItemType";
 import { PocketItemDescription } from "../interfaces/PocketItemDescription";
-import { getEnumValues } from "./enums";
 import { isCharacter } from "./players";
 import { asNumber } from "./types";
 
@@ -58,12 +58,11 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   const hasPocketItem2 = pocketItem2 !== CollectibleType.NULL;
 
   const maxPocketItems = player.GetMaxPocketItems();
-  const pocketItemSlots = getEnumValues(PocketItemSlot);
 
   const pocketItems: PocketItemDescription[] = [];
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
-  for (const slot of pocketItemSlots) {
+  for (const slot of POCKET_ITEM_SLOT_VALUES) {
     const cardType = player.GetCard(slot);
     const pillColor = player.GetPill(slot);
 

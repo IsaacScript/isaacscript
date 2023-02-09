@@ -1,8 +1,8 @@
 import { BossID, RoomShape } from "isaac-typescript-definitions";
+import { ROOM_SHAPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { CornerType } from "../enums/CornerType";
 import { Corner } from "../interfaces/Corner";
-import { getEnumValues } from "./enums";
 import { getGridIndexesBetween } from "./gridIndex";
 import { inBossRoomOf, inHomeCloset } from "./rooms";
 import { getRoomShapeCorners, isLRoom } from "./roomShape";
@@ -13,7 +13,7 @@ const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET: ReadonlyMap<
 > = (() => {
   const roomShapeToWallGridIndexSet = new Map<RoomShape, ReadonlySet<int>>();
 
-  for (const roomShape of getEnumValues(RoomShape)) {
+  for (const roomShape of ROOM_SHAPE_VALUES) {
     const gridIndexSet = getVanillaWallGridIndexSetForRoomShape(roomShape);
     roomShapeToWallGridIndexSet.set(roomShape, gridIndexSet);
   }

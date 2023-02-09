@@ -1,6 +1,5 @@
-import { DoorSlot } from "isaac-typescript-definitions";
+import { DOOR_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
-import { getEnumValues } from "./enums";
 import { isDoorSlotValidAtGridIndexForRedRoom } from "./levelGrid";
 import { getNumRooms, getRoomsInsideGrid } from "./rooms";
 
@@ -13,7 +12,7 @@ export function fillLevelWithRedRooms(): void {
     numRoomsInGrid = roomsInGrid.length;
 
     for (const roomDescriptor of roomsInGrid) {
-      for (const doorSlot of getEnumValues(DoorSlot)) {
+      for (const doorSlot of DOOR_SLOT_VALUES) {
         if (
           isDoorSlotValidAtGridIndexForRedRoom(
             doorSlot,

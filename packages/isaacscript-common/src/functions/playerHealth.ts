@@ -5,13 +5,13 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { ACTIVE_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../core/constants";
 import { HealthType } from "../enums/HealthType";
 import { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCharacterMaxHeartContainers } from "./characters";
 import { getTotalCharge } from "./charge";
-import { getEnumValues } from "./enums";
 import { isCharacter, isKeeper, setActiveItem } from "./players";
 import { repeat } from "./utils";
 
@@ -548,7 +548,7 @@ export function setPlayerHealth(
   // Before we add any health, we have to take away Alabaster Box, if present.
   const alabasterBoxes: Array<[slot: ActiveSlot, totalCharge: int]> = [];
   if (player.HasCollectible(CollectibleType.ALABASTER_BOX)) {
-    for (const activeSlot of getEnumValues(ActiveSlot)) {
+    for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const activeItem = player.GetActiveItem();
       if (activeItem === CollectibleType.ALABASTER_BOX) {
         const totalCharge = getTotalCharge(player, activeSlot);

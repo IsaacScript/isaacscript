@@ -38,7 +38,6 @@ import {
   Direction,
   DisplayFlag,
   GameStateFlag,
-  GridEntityType,
   GridRoom,
   LevelStage,
   PillColor,
@@ -49,6 +48,10 @@ import {
   StageType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import {
+  ACTIVE_SLOT_VALUES,
+  GRID_ENTITY_TYPE_VALUES,
+} from "../../../../arrays/cachedEnumValues";
 import { game, sfxManager } from "../../../../core/cachedClasses";
 import {
   DOGMA_ROOM_GRID_INDEX,
@@ -74,7 +77,6 @@ import { addCharge, getTotalCharge } from "../../../../functions/charge";
 import { isValidCollectibleType } from "../../../../functions/collectibles";
 import { runDeepCopyTests } from "../../../../functions/deepCopyTests";
 import { getNPCs } from "../../../../functions/entitiesSpecific";
-import { getEnumValues } from "../../../../functions/enums";
 import { addFlag } from "../../../../functions/flag";
 import { spawnGridEntity } from "../../../../functions/gridEntities";
 import { getRoomGridIndexesForType } from "../../../../functions/levelGrid";
@@ -768,13 +770,11 @@ export function gridCosts(): void {
 
 /** Spawns every grid entity, starting at the top-left-most tile. */
 export function gridEntities(): void {
-  const gridEntityTypes = getEnumValues(GridEntityType);
-
   let gridEntityTypeIndex = -1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
       gridEntityTypeIndex++;
-      const gridEntityType = gridEntityTypes[gridEntityTypeIndex];
+      const gridEntityType = GRID_ENTITY_TYPE_VALUES[gridEntityTypeIndex];
       if (gridEntityType === undefined) {
         return;
       }
@@ -1242,8 +1242,7 @@ export function setCharges(params: string): void {
     return;
   }
 
-  const activeSlots = getEnumValues(ActiveSlot);
-  if (!activeSlots.includes(activeSlot)) {
+  if (!ACTIVE_SLOT_VALUES.includes(activeSlot)) {
     print(`The provided slot number is invalid: ${activeSlot}`);
     return;
   }

@@ -8,6 +8,7 @@ import {
   PitfallVariant,
   RoomType,
 } from "isaac-typescript-definitions";
+import { GRID_ENTITY_XML_TYPE_VALUES } from "../../../arrays/cachedEnumValues";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
@@ -16,7 +17,6 @@ import {
   getEntityIDFromConstituents,
   spawnWithSeed,
 } from "../../../functions/entities";
-import { getEnumValues } from "../../../functions/enums";
 import {
   convertXMLGridEntityType,
   getGridEntities,
@@ -34,9 +34,8 @@ import { Feature } from "../../private/Feature";
 import { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
 import { SpawnCollectible } from "./SpawnCollectible";
 
-const gridEntityXMLTypes = getEnumValues(GridEntityXMLType);
 const GRID_ENTITY_XML_TYPE_SET = new ReadonlySet<GridEntityXMLType>(
-  gridEntityXMLTypes,
+  GRID_ENTITY_XML_TYPE_VALUES,
 );
 
 export class DeployJSONRoom extends Feature {

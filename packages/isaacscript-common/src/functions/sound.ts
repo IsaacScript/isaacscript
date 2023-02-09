@@ -4,6 +4,7 @@ import {
   SoundEffect,
   StageType,
 } from "isaac-typescript-definitions";
+import { SOUND_EFFECT_VALUES } from "../arrays/cachedEnumValues";
 import { game, sfxManager } from "../core/cachedClasses";
 import { STAGE_TO_MUSIC } from "../objects/stageToMusic";
 import { getEnumValues } from "./enums";
@@ -42,7 +43,7 @@ export function getMusicForStage(
  *                          your mod.
  */
 export function stopAllSoundEffects(soundEffectCustom?: unknown): void {
-  for (const soundEffect of getEnumValues(SoundEffect)) {
+  for (const soundEffect of SOUND_EFFECT_VALUES) {
     sfxManager.Stop(soundEffect);
   }
 

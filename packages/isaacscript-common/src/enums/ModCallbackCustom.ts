@@ -818,6 +818,16 @@ export enum ModCallbackCustom {
   POST_ITEM_PICKUP,
 
   /**
+   * Fires on the first `POST_RENDER` frame after a keyboard has been pressed (when it was not
+   * pressed on the previous frame).
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `Keyboard` provided.
+   */
+  POST_KEYBOARD_PRESSED,
+
+  /**
    * Fires on the first `POST_KNIFE_UPDATE` frame for each knife.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the

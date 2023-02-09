@@ -45,6 +45,7 @@ export { PostGridEntityUpdate } from "./classes/callbacks/PostGridEntityUpdate";
 export { PostHolyMantleRemoved } from "./classes/callbacks/PostHolyMantleRemoved";
 export { PostItemDischarge } from "./classes/callbacks/PostItemDischarge";
 export { PostItemPickup } from "./classes/callbacks/PostItemPickup";
+export { PostKeyboardPressed } from "./classes/callbacks/PostKeyboardPressed";
 export { PostKnifeInitLate } from "./classes/callbacks/PostKnifeInitLate";
 export { PostLaserInitLate } from "./classes/callbacks/PostLaserInitLate";
 export { PostNewLevelReordered } from "./classes/callbacks/PostNewLevelReordered";
