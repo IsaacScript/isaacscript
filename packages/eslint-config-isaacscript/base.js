@@ -330,15 +330,4 @@ module.exports = {
      */
     "unicorn/prefer-node-protocol": "warn",
   },
-
-  overrides: [
-    // Disable some TypeScript-specific rules in JavaScript files.
-    {
-      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
-      rules: {
-        "isaacscript/no-object-any": "off",
-        "isaacscript/require-capital-const-assertions": "off",
-      },
-    },
-  ],
 };

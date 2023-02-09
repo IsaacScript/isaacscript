@@ -33,7 +33,7 @@
 
   // Nx will not include ".eslintrc.cjs" in the build output, so there is no need for a
   // "tsconfig.eslint.json" file.
-  "include": ["./src/**/*.ts", ".eslintrc.cjs", "typedoc.js"],
+  "include": ["./src/**/*.ts", ".eslintrc.cjs"],
 
   // TypeScriptToLua settings
   "tstl": {
