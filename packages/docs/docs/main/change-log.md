@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## February 14th, 2023 (Unreleased)
+
+- The "toggleDisplay" helper functions now accept an optional "force" argument.
+- Added the following custom callbacks:
+  - `POST_KEYBOARD_PRESSED`
+
 ## February 7th, 2023
 
 ### `package.json`
