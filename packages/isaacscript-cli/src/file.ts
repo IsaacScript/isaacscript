@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { error } from "isaacscript-common-ts";
 import * as crypto from "node:crypto";
-import fs from "node:fs";
-import path from "node:path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 export function copyFile(
   srcPath: string,
@@ -243,11 +243,16 @@ export function touch(filePath: string, verbose: boolean): void {
     console.log(`Touching: ${filePath}`);
   }
 
-  try {
-    const fileHandle = fs.openSync(filePath, "w");
-    fs.closeSync(fileHandle);
-  } catch (err) {
-    error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
+  if (fileExists(filePath, verbose)) {
+    try {
+      fs.accessSync(filePath);
+      const now = new Date();
+      fs.utimesSync(filePath, now, now);
+    } catch (err) {
+      error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
+    }
+  } else {
+    writeFile(filePath, "", verbose);
   }
 
   if (verbose) {
