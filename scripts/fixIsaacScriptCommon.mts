@@ -21,7 +21,7 @@
 // will break. Thus, we must also manually adjust all of the links.
 
 // In order for this script to work correctly, several options must be used to configure TypeDoc and
-// `typedoc-plugin-markdown`; see "typedoc.json".
+// `typedoc-plugin-markdown`; see "typedoc.js".
 
 /*
 
