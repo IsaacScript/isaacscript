@@ -214,7 +214,6 @@ module.exports = {
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
-        "isaacscript/no-object-any": "off",
       },
     },
   ],
