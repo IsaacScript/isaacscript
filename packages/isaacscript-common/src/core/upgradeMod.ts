@@ -36,56 +36,8 @@ type ISCFeatureTuple<T extends readonly ISCFeature[]> =
  *                      specified number of seconds (if the "--luadebug" launch flag is turned on)
  *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
- * @notExported
- * @rename upgradeMod
+ * @beta A dummy field used to hide this function from `api-extractor`.
  */
-// We duplicate the definition for `upgradeMod` because the original one has to be marked internal.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function upgradeModDocumentation(
-  modVanilla: Mod,
-  features: ISCFeature[] = [],
-  debug = false,
-  timeThreshold?: float,
-): ModUpgraded {
-  print(modVanilla);
-  print(features);
-  print(debug);
-  print(timeThreshold);
-
-  const mod = RegisterMod("", 1);
-  return new ModUpgraded(mod, false);
-}
-
-/**
- * Use this function to enable the custom callbacks and other optional features provided by
- * `isaacscript-common`.
- *
- * For example:
- *
- * ```ts
- * const modVanilla = RegisterMod("My Mod", 1);
- * const mod = upgradeMod(modVanilla);
- *
- * // Subscribe to vanilla callbacks.
- * mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
- *
- * // Subscribe to custom callbacks.
- * mod.AddCallbackCustom(ModCallbackCustom.POST_ITEM_PICKUP, postItemPickup);
- * ```
- *
- * @param modVanilla The mod object returned by the `RegisterMod` function.
- * @param features Optional. An array containing the optional standard library features that you
- *                 want to enable, if any. Default is an empty array.
- * @param debug Optional. Whether to log additional output when a callback is fired. Default is
- *              false.
- * @param timeThreshold Optional. If provided, will only log callbacks that take longer than the
- *                      specified number of seconds (if the "--luadebug" launch flag is turned on)
- *                      or milliseconds (if the "--luadebug" launch flag is turned off).
- * @returns The upgraded mod object.
- * @internal
- */
-// This has to be marked internal or else it will cause all of the feature classes to be included in
-// the output of `api-extractor`.
 export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   modVanilla: Mod,
   features: ISCFeatureTuple<T> = [] as unknown as ISCFeatureTuple<T>,
