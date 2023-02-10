@@ -16,6 +16,11 @@ This page lists the changes to the IsaacScript framework.
   - `sortObjectArrayByKey`
 - Renamed the following helper functions:
   - `twoDimensionalSort` --> `sortTwoDimensionalArray`
+- Added the following method to the `ModUpgraded` class:
+  - `AddPriorityCallbackCustom` - Works in the same way that `AddPriorityCallback` does.
+- Renamed the following types:
+  - `ModUpgradedBase` --> `ModUpgraded`
+  - `ModUpgraded` --> `ModUpgradedWithFeatures`
 - Added the following custom callbacks:
   - `POST_KEYBOARD_PRESSED`
 
