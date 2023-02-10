@@ -1,5 +1,5 @@
 import { Exported } from "../../../decorators";
-import { printEnabled } from "../../../functions/utils";
+import { printEnabled } from "../../../functions/console";
 import { ModUpgradedInterface } from "../../../interfaces/private/ModUpgradedInterface";
 import { Feature } from "../../private/Feature";
 import { DebugDisplayBomb } from "./debugDisplay/DebugDisplayBomb";

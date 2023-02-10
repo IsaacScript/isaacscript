@@ -15,7 +15,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `sortObjectArrayByKey`
 - Renamed the following helper functions:
-  - `twoDimensionalSort` --> `sortTwoDimensional`
+  - `twoDimensionalSort` --> `sortTwoDimensionalArray`
 - Added the following custom callbacks:
   - `POST_KEYBOARD_PRESSED`
 

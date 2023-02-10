@@ -76,7 +76,7 @@ export function sortObjectArrayByKey(key: string) {
  * From:
  * https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
  */
-export function sortTwoDimensional<T>(a: T[], b: T[]): -1 | 0 | 1 {
+export function sortTwoDimensionalArray<T>(a: T[], b: T[]): -1 | 0 | 1 {
   const aType = type(a);
   const bType = type(b);
   if (aType !== bType) {

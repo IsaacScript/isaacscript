@@ -1,10 +1,10 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { SerializationType } from "../enums/SerializationType";
 import { deepCopy } from "./deepCopy";
+import { logAndPrint } from "./log";
 import { merge } from "./merge";
 import { isRNG, newRNG } from "./rng";
 import { isSerializedIsaacAPIClass } from "./serialization";
-import { logAndPrint } from "./utils";
 import { isVector, serializeVector } from "./vector";
 
 /**

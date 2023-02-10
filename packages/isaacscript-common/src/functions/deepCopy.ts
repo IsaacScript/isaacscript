@@ -15,7 +15,7 @@ import {
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";
-import { sortTwoDimensional } from "./sort";
+import { sortTwoDimensionalArray } from "./sort";
 import {
   getTSTLClassName,
   isDefaultMap,
@@ -643,7 +643,7 @@ function getCopiedEntries(
   }
 
   if (SAVE_DATA_MANAGER_DEBUG) {
-    entries.sort(sortTwoDimensional);
+    entries.sort(sortTwoDimensionalArray);
   }
 
   // During serialization, we brand some Lua tables with a special identifier to signify that it has

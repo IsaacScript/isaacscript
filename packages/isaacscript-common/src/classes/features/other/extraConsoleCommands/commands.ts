@@ -75,6 +75,7 @@ import { getCardName } from "../../../../functions/cards";
 import { getCharacterName } from "../../../../functions/characters";
 import { addCharge, getTotalCharge } from "../../../../functions/charge";
 import { isValidCollectibleType } from "../../../../functions/collectibles";
+import { printEnabled } from "../../../../functions/console";
 import { runDeepCopyTests } from "../../../../functions/deepCopyTests";
 import { getNPCs } from "../../../../functions/entitiesSpecific";
 import { addFlag } from "../../../../functions/flag";
@@ -114,7 +115,7 @@ import {
   asCollectibleType,
   asTrinketType,
 } from "../../../../functions/types";
-import { iRange, printEnabled } from "../../../../functions/utils";
+import { iRange } from "../../../../functions/utils";
 import { CARD_NAME_TO_TYPE_MAP } from "../../../../maps/cardNameToTypeMap";
 import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToTypeMap";
 import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../../../maps/collectibleNameToTypeMap";

@@ -8,9 +8,9 @@ import {
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
+import { isVanillaConsoleCommand } from "../../../functions/console";
 import { addFlag, bitFlags } from "../../../functions/flag";
 import { getMapPartialMatch } from "../../../functions/map";
-import { isVanillaConsoleCommand } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
 import * as commands from "./extraConsoleCommands/commands";
 import { v } from "./extraConsoleCommands/v";

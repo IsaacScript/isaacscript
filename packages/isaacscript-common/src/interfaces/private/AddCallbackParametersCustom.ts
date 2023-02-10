@@ -33,7 +33,7 @@ import { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { SlotDestructionType } from "../../enums/SlotDestructionType";
 import { StatType } from "../../enums/StatType";
-import { validateInterfaceMatchesEnum } from "../../functions/utils";
+import { validateInterfaceMatchesEnum } from "../../functions/enums";
 import {
   PickingUpItem,
   PickingUpItemCollectible,

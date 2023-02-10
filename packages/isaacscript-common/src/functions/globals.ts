@@ -5,7 +5,7 @@ import { log } from "./log";
 import * as logEntitiesExports from "./logEntities";
 import * as logMiscExports from "./logMisc";
 import { addSetsToSet, copySet } from "./set";
-import { twoDimensionalSort } from "./utils";
+import { sortTwoDimensionalArray } from "./sort";
 
 const DEFAULT_GLOBALS = new ReadonlySet<string>([
   "ActionTriggers",
@@ -226,7 +226,7 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
     }
   }
 
-  newGlobals.sort(twoDimensionalSort);
+  newGlobals.sort(sortTwoDimensionalArray);
 
   return newGlobals;
 }

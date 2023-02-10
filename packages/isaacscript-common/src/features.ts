@@ -56,7 +56,7 @@ import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPl
 import { Feature } from "./classes/private/Feature";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
-import { validateInterfaceMatchesEnum } from "./functions/utils";
+import { validateInterfaceMatchesEnum } from "./functions/enums";
 import { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
 
 export interface ISCFeatureToClass {
