@@ -8,6 +8,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
+if [ "$1" == "nocache" ]; then
+  NO_CACHE="--skip-nx-cache"
+  echo Skipping caching.
+else
+  NO_CACHE=""
+fi
+
 # Test each package.
 # (We cannot put the nx arguments inside of a variable.)
 if command -v nx &> /dev/null; then

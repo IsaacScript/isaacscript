@@ -10,6 +10,13 @@ SECONDS=0
 
 cd "$DIR"
 
+if [ "$1" == "nocache" ]; then
+  NO_CACHE="--skip-nx-cache"
+  echo Skipping caching.
+else
+  NO_CACHE=""
+fi
+
 # Check "package.json" files.
 # (The script must use ESM because the "sort-package-json" dependency requires ESM.)
 npx tsx "$DIR/scripts/packageJSONLint.mts"
