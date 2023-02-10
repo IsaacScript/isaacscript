@@ -329,6 +329,17 @@ module.exports = {
      * Enforce the new "node:" prefix as an extra safety measure.
      */
     "unicorn/prefer-node-protocol": "warn",
+
+    // TEST
+    // https://github.com/typescript-eslint/typescript-eslint/issues/6446
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector:
+          'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
+        message: "Don't use `as const` with an annotated variable",
+      },
+    ],
   },
 
   overrides: [
