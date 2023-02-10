@@ -33,8 +33,11 @@ function getConfig(packageDirectoryPath) {
   const out = path.join(__dirname, "docs", packageName);
   const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
   const entryPointsRaw = getEntryPoints(indexTSPath);
-  const entryPoints = entryPointsRaw.map((entryPoint) =>
-    entryPoint.replaceAll("./", "src/"),
+  const entryPointsWithSrcPrefix = entryPointsRaw.map((entryPoint) =>
+    entryPoint.replaceAll("./", "./src/"),
+  );
+  const entryPoints = entryPointsWithSrcPrefix.map(
+    (entryPoint) => `${entryPoint}.ts`,
   );
 
   return {
