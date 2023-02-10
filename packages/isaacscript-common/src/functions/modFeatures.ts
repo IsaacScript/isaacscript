@@ -1,5 +1,5 @@
 import { ModFeature } from "../classes/ModFeature";
-import { ModUpgraded } from "../types/ModUpgraded";
+import { ModUpgradedBase } from "../classes/ModUpgradedBase";
 
 /**
  * Helper function to instantiate an array of mod features all at once. Use this function if your
@@ -23,7 +23,7 @@ import { ModUpgraded } from "../types/ModUpgraded";
  *          passed in.
  */
 export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
-  mod: ModUpgraded,
+  mod: ModUpgradedBase,
   modFeatures: T,
 ): { [Key in keyof T]: InstanceType<T[Key]> } {
   const instantiatedModFeatures: ModFeature[] = [];

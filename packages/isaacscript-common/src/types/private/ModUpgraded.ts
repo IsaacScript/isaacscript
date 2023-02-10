@@ -1,10 +1,10 @@
-import { ModUpgradedBase } from "../classes/ModUpgradedBase";
-import { Feature } from "../classes/private/Feature";
-import { ISCFeature } from "../enums/ISCFeature";
-import { ISCFeatureToClass } from "../features";
-import { PublicInterface } from "./PublicInterface";
-import { TupleToIntersection } from "./TupleToIntersection";
-import { Writeable } from "./Writable";
+import { ModUpgradedBase } from "../../classes/ModUpgradedBase";
+import { Feature } from "../../classes/private/Feature";
+import { ISCFeature } from "../../enums/ISCFeature";
+import { ISCFeatureToClass } from "../../features";
+import { PublicInterface } from "../PublicInterface";
+import { TupleToIntersection } from "../TupleToIntersection";
+import { Writeable } from "../Writable";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
@@ -15,10 +15,11 @@ import { Writeable } from "./Writable";
  *
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
  * has extra methods corresponding to the features that were specified.
+ *
+ * This type is marked as internal because otherwise it would cause all of the internal feature
+ * classes to populate the auto-complete of end-user mods (which should never be directly imported
+ * by end-users).
  */
-// This cannot be exported from the root "index.ts" file, because then it would populate the
-// auto-complete of end-user mods with all of the classes from "features.ts" (which should never be
-// directly imported by end-users).
 export type ModUpgraded<T extends readonly ISCFeature[] = []> =
   ModUpgradedBase & ISCFeaturesToKeys<T>;
 
