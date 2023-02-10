@@ -13,12 +13,26 @@
     "moduleResolution": "node",
   },
 
-  // Nx will not include ".eslintrc.cjs" in the build output, so there is no need for a
-  // "tsconfig.eslint.json" file.
   "include": [
-    "./src/**/*.ts",
-    ".eslintrc.cjs",
-    // We cannot include the JavaScript files in the "file-templates" directory here, or else they
-    // will be compiled (e.g. a "file-templates/static-ts/src/main.js" file will be created).
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
   ],
+
+  // We cannot include the JavaScript files in the "file-templates" directory, or else they will be
+  // compiled (e.g. a "file-templates/static-ts/src/main.js" file will be created).
+  "exclude": ["file-templates"],
 }

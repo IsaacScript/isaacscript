@@ -23,6 +23,8 @@ rm -rf "$OUT_DIR"
 # files so that Jest tests can consume this library.)
 npx tsc
 
+exit 0
+
 # Convert the TypeScript to Lua. (We provide compiled enums in addition to ambient declarations.)
 npx tstl
 

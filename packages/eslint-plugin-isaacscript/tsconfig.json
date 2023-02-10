@@ -14,10 +14,21 @@
 
   // We have a separate "tsconfig.prod.json" that is used for production output.
   "include": [
-    "./src/**/*.ts",
-    "./tests/**/*.ts",
-    "./tools/**/*.ts",
-    ".eslintrc.cjs",
-    "jest.config.cjs",
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
   ],
 }
