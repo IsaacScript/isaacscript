@@ -19,13 +19,17 @@ REPO_ROOT="$DIR/../.."
 OUT_DIR="$REPO_ROOT/dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
-# First, auto-generate the Markdown files with TypeDoc + the Markdown plugin.
+# Auto-generate the Markdown files with TypeDoc + the Markdown plugin.
 bash "$DIR/../isaac-typescript-definitions/docs.sh"
 bash "$DIR/../isaacscript-common/docs.sh"
 
-# Second, apply transformations on top of the TypeDoc output.
+# Apply transformations on top of the TypeDoc output.
 npx tsx "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
 npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
+
+# Use Prettier to remove superfluous backslash escape characters, which cause issues with search
+# engine indexing.
+npx prettier "$OUT_DIR" --write
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"

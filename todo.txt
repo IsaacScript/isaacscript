@@ -1,5 +1,3 @@
-- monorepo eslint config should load base
-
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:
@@ -12,6 +10,7 @@
 
 - when typescript 5.0 comes out, remove "newLine" in tsconfig
 - when typescript 5.0 comes out, remove all tsconfig duplication with `extends` (e.g. tsconfig.node.json)
+  - extend "@tsconfig/docusaurus/tsconfig.json"
 
 - get docs working with ModCallbackCustom
   - waiting on issue: https://github.com/algolia/docsearch/issues/1658

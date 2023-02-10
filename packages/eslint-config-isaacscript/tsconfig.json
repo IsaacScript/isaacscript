@@ -5,6 +5,7 @@
   "compilerOptions": {
     "outDir": "../../dist/packages/eslint-config-isaacscript",
     "allowJs": true,
+    "checkJs": true,
   },
 
   "include": [

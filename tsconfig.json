@@ -7,9 +7,9 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // We manually implement the options from the recommended tsconfig for Node 16 (because we can
+    // We manually implement the options from the recommended tsconfig for Node 18 (because we can
     // only extend from one config at a time):
-    // https://github.com/tsconfig/bases/blob/main/bases/node16.json
+    // https://github.com/tsconfig/bases/blob/main/bases/node18.json
     "lib": ["ES2022"],
     // "module" is changed; see below.
     "target": "ES2022",

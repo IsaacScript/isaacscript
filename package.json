@@ -94,6 +94,7 @@
     "jest-summarizing-reporter": "^1.1.4",
     "markdownlint": "^0.27.0",
     "markdownlint-cli": "^0.33.0",
+    "node-fetch": "^3.3.0",
     "nx": "15.5.3",
     "prettier": "^2.8.4",
     "prettier-plugin-organize-imports": "^3.2.2",

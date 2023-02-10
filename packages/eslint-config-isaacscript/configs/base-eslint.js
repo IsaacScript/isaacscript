@@ -8,16 +8,15 @@ module.exports = {
     // Possible Problems
     // -----------------
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/array-callback-return
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
-     *
-     * Airbnb changes the default options for some reason, which makes the rule less strict.
-     */
-    "array-callback-return": ["warn", {}],
+    // https://eslint.org/docs/latest/rules/array-callback-return
+    "array-callback-return": [
+      "warn",
+      {
+        checkForEach: true,
+      },
+    ],
+
+    // asdf
 
     /**
      * Documentation:
