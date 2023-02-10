@@ -34,6 +34,7 @@ module.exports = {
     "AddCallbackParametersCustom",
     "CopyableIsaacAPIClass",
     "CustomStageLuaUnsafe",
+    "ISCFeatureTuple",
     "ImmutablePrimitive",
     "ImmutableArray",
     "ImmutableMap",
