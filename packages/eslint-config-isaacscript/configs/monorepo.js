@@ -1,6 +1,6 @@
 const path = require("node:path");
 
-const REPO_ROOT = path.join(__dirname, "..", "..");
+const REPO_ROOT = path.join(__dirname, "..", "..", "..");
 
 // This is a shared configuration file for ESLint:
 // https://eslint.org/docs/latest/user-guide/configuring
