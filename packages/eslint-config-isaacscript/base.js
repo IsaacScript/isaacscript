@@ -337,7 +337,8 @@ module.exports = {
       {
         selector:
           'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
-        message: "Don't use `as const` with an annotated variable",
+        message:
+          "Don't use `as const` with a type annotated variable, since it widens the type.",
       },
     ],
   },

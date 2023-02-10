@@ -118,11 +118,11 @@ const OTHER_DIR_NAMES = [
  * `typedoc-plugin-markdown` will not remove the second breadcrumbs line from some files for some
  * reason.
  */
-const DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE: readonly string[] = [
+const DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE: ReadonlySet<string> = new Set([
   "classes",
   "enums",
   "interfaces",
-] as const;
+]);
 
 const BROKEN_LINK_DIR_NAMES = [
   ...DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE,
@@ -279,7 +279,7 @@ custom_edit_url: null
   lines.shift(); // This is a blank line.
 
   // Certain types of pages also need to have breadcrumbs removed.
-  if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.includes(directoryName)) {
+  if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.has(directoryName)) {
     // Remove the first line, which is a breadcrumbs link that is not needed in this context.
     // e.g. "[classes/DefaultMap](../modules/classes_DefaultMap.md).DefaultMap"
     lines.shift();
@@ -303,7 +303,7 @@ function getTitle(filePath: string, directoryName: string) {
   }
 
   // Second, handle the special case of a page with a unnecessary suffix, like "classes_".
-  if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.includes(directoryName)) {
+  if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.has(directoryName)) {
     const properNameMatch = fileName.match(/(\w+)\.md/);
     if (properNameMatch === null) {
       error(`Failed to parse the proper name from the file name: ${fileName}`);
