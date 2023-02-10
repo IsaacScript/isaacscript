@@ -1,3 +1,8 @@
+const useAtYourOwnRisk = require("eslint/use-at-your-own-risk");
+
+const ESLINT_RULES = [...useAtYourOwnRisk.builtinRules.keys()];
+console.log(ESLINT_RULES);
+
 // This is a shared configuration file for ESLint:
 // https://eslint.org/docs/latest/user-guide/configuring
 // This config only contains modifications to the built-in rules from the ESLint tool.

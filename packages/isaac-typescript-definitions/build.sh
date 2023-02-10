@@ -34,11 +34,11 @@ npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaac-type
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-cp --recursive "$DIR/src" "$OUT_DIR/"
+cp "$DIR/src" "$OUT_DIR/" --recursive
 
 # Copy the declarations into place. (The TypeScript compiler does not do this automatically for some
-# reason.)
-cp --recursive "$DIR/src/types" "$OUT_DIR/dist/src"
+# reason, probably because of the triple slash directives.)
+cp "$DIR/src/types" "$OUT_DIR/dist/src" --recursive
 
 # TypeScript messes up the path inside of the triple slash directive, so we must manually repair it.
 # e.g.

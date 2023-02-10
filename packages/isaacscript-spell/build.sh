@@ -17,8 +17,8 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
-cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes
-cp "$DIR/cspell-isaacscript.json" "$OUT_DIR/"
-cp --recursive "$DIR/dictionaries" "$OUT_DIR/"
+cp "$DIR/configs/"*.json "$OUT_DIR/" # TODO
+cp "$DIR/dictionaries" "$OUT_DIR/" --recursive
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
+cp "$DIR/README.md" "$OUT_DIR/"

@@ -33,6 +33,6 @@ npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscrip
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-cp --recursive "$DIR/src" "$OUT_DIR/" # This will merge the TypeScript source files into the existing directory.
+cp "$DIR/src" "$OUT_DIR/" --recursive # This will merge the TypeScript source files into the existing directory.
 
 echo "Successfully built in $SECONDS seconds."

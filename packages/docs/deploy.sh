@@ -16,7 +16,7 @@ DOCS_REPO_GIT_BACKUP="/tmp/$DOCS_REPO_NAME.git"
 
 mv "$DOCS_REPO/.git" "$DOCS_REPO_GIT_BACKUP"
 rm -rf "$DOCS_REPO"
-cp --recursive "$BUILD_PATH" "$DOCS_REPO"
+cp "$BUILD_PATH" "$DOCS_REPO" --recursive
 mv "$DOCS_REPO_GIT_BACKUP" "$DOCS_REPO/.git"
 cd "$DOCS_REPO"
 

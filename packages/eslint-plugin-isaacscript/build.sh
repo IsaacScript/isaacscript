@@ -25,9 +25,8 @@ npx tsc --project "$DIR/tsconfig.prod.json"
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-cp -r "$DIR/docs" "$OUT_DIR/"
 
 # Finally, copy the output to the "node_modules" folder for the root of the monorepo. This obviates
 # the need for the monorepo to consume the actual npm package. (The ESLint config for the monorepo
 # needs the compiled JavaScript in order to work properly.)
-cp -r "$OUT_DIR" "$REPO_ROOT/node_modules/"
+cp "$OUT_DIR" "$REPO_ROOT/node_modules/" --recursive

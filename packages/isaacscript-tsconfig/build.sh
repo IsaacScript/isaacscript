@@ -17,7 +17,7 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
-cp $DIR/*.md "$OUT_DIR/" # Globs don't work in quotes
+cp "$DIR/configs/"*.json "$OUT_DIR/"
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
-cp $DIR/tsconfig.*.json "$OUT_DIR/" # Globs don't work in quotes
+cp "$DIR/README.md" "$OUT_DIR/"

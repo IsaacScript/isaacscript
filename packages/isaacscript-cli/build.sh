@@ -51,26 +51,12 @@ rm -rf "$OUT_DIR"
 npx tsc
 
 # Copy the rest of the files needed for npm.
-cp --recursive "$DIR/custom-stage" "$OUT_DIR/"
-cp --recursive "$DIR/file-templates" "$OUT_DIR/"
-cp --recursive "$DIR/isaacscript-watcher" "$OUT_DIR/"
+cp "$DIR/custom-stage" "$OUT_DIR/" --recursive
+cp "$DIR/file-templates" "$OUT_DIR/" --recursive
+cp "$DIR/isaacscript-watcher" "$OUT_DIR/" --recursive
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-cp --recursive "$DIR/schemas" "$OUT_DIR/"
-
-if [ "$1" == "global" ]; then
-  # We make a separate variable because "REPO_NAME" is equal to "isaacscript-cli".
-  BINARY_NAME="isaacscript"
-
-  rm -rf "$DIR/dist" # Remove any previous build artifacts
-  rm -rf "$HOME/AppData/Roaming/npm/$BINARY_NAME" # Previous file from "npm i . -g"
-  rm -rf "$HOME/AppData/Roaming/npm/$BINARY_NAME.cmd" # Previous file from "npm i . -g"
-  rm -rf "$HOME/AppData/Roaming/npm/$BINARY_NAME.ps1" # Previous file from "npm i . -g"
-  rm -rf "$HOME/AppData/Roaming/npm/node_modules/$BINARY_NAME" # Previous link from "npm i . -g"
-
-  cd "$OUT_DIR"
-  npm install . --global
-fi
+cp "$DIR/schemas" "$OUT_DIR/" --recursive
 
 echo "Successfully built in $SECONDS seconds."

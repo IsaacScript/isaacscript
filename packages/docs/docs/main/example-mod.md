@@ -210,7 +210,7 @@ function checkApplyGreenCandleEffect() {
 }
 
 function applyGreenCandleEffect(player: EntityPlayer) {
-  // TODO
+  // TODO - Fill this in.
 }
 ```
 
