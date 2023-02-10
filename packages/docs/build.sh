@@ -27,9 +27,9 @@ bash "$DIR/../isaacscript-common/docs.sh"
 npx tsx "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
 npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
 
-# Use Prettier to remove superfluous backslash escape characters, which cause issues with search
-# engine indexing.
-npx prettier "$OUT_DIR" --write
+# Format the Markdown output from TypeDoc with Prettier, which will remove superfluous backslash
+# escape characters that cause issues with search engine indexing.
+npx prettier "$DIR/docs" --write
 
 # Build the docs website using Docusaurus.
 mkdir -p "$OUT_DIR"
