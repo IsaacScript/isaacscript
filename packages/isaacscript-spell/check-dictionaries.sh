@@ -6,13 +6,15 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+DICTIONARIES_DIR="$DIR/config/dictionaries"
+
 ONE_OR_MORE_FAILURES=0
 
 # Check for alphabetically sorted and unique.
 ALL_WORDS="/tmp/all-words.txt"
 rm -f "$ALL_WORDS"
 touch "$ALL_WORDS"
-for DICTIONARY_DIR in $DIR/dictionaries/*; do
+for DICTIONARY_DIR in "$DICTIONARIES_DIR/"*; do
   if [ -d "$DICTIONARY_DIR" ]; then
     DICTIONARY_NAME=$(basename "$DICTIONARY_DIR")
     echo "Checking alphabetically sorted and unique for dictionary: $DICTIONARY_NAME"

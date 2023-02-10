@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  "import": ["./packages/isaacscript-spell/cspell-isaacscript.json"],
+  "import": ["./packages/isaacscript-spell/configs/cspell-isaacscript.json"],
   "files": ["**"],
   "enableFiletypes": ["*"],
   "enableGlobDot": true,
@@ -16,7 +16,6 @@
     "package-lock.json",
     "packages/docs/docs/isaacscript-common/**",
     "packages/docs/docs/isaac-typescript-definitions/**",
-    "pnpm-lock.yaml",
-    "yarn.lock"
+    "pnpm-lock.yaml"
   ]
 }

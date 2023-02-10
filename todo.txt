@@ -1,3 +1,6 @@
+- monorepo eslint config should load base
+- does cspell ignore path get combined with dep?
+
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:
