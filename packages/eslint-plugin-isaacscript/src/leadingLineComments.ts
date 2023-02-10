@@ -47,7 +47,7 @@ export function getCommentBlocks(
   const commentBlocks: LeadingLineCommentBlock[] = [];
 
   for (let i = 0; i < comments.length; i++) {
-    const comment = comments[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const comment = comments[i]!;
 
     /**
      * Remove the initial space that will always live in front of comment line.

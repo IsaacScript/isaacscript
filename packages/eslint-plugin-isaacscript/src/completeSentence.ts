@@ -88,7 +88,7 @@ function splitOnSpecialText(text: string): string[] {
   const newLines: string[] = [];
   let insideList: List | undefined;
   for (let i = 0; i < lines.length; i++) {
-    let line = lines[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    let line = lines[i]!;
 
     // Ignore "@type" JSDoc tags, since they contain a code type instead of English text.
     // https://jsdoc.app/tags-type.html

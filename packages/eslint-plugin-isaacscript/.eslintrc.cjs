@@ -39,5 +39,16 @@ module.exports = {
      * We commonly trim the incoming text.
      */
     "no-param-reassign": "off",
+
+    /**
+     * Documentation:
+     * https://typescript-eslint.io/rules/no-non-null-assertion/
+     *
+     * Defined at:
+     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
+     *
+     * We commonly get the elements of arrays in a for loop.
+     */
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
 };

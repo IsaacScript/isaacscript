@@ -16,10 +16,7 @@ export function areStringsEqualExcludingTrailingSpaces(
   }
 
   for (let i = 0; i < string1Lines.length; i++) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line1 = string1Lines[i]!;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line2 = string2Lines[i]!;
 
     if (line1.trimEnd() !== line2.trimEnd()) {

@@ -335,7 +335,6 @@ export const strictEnums = createRule<Options, MessageIds>({
        * to the types of the "real" function parameters.
        */
       for (let i = 0; i < node.arguments.length; i++) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const argument = node.arguments[i]!;
         const argumentType = getTypeFromNode(argument);
         let parameterType = signature.getTypeParameterAtPosition(i);

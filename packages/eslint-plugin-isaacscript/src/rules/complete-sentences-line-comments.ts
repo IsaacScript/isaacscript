@@ -46,7 +46,6 @@ export const completeSentencesLineComments = createRule<
     const commentBlocks = getCommentBlocks(leadingLineComments);
 
     for (let i = 0; i < commentBlocks.length; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const commentBlock = commentBlocks[i]!;
 
       const firstComment = commentBlock.originalComments.at(0);

@@ -38,7 +38,7 @@ export function formatText(
 
   const lines = text.split("\n");
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const line = lines[i]!;
 
     // Gather information about this line.
     const lineIsBlank = line.trim() === "";
@@ -207,7 +207,7 @@ export function formatText(
     const words = line.split(" ");
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let j = 0; j < words.length; j++) {
-      const word = words[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      const word = words[j]!;
 
       // Words can be blank strings in certain cases. For example: "dog cat"
       if (word === "") {
