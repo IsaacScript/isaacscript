@@ -1,6 +1,3 @@
-- lint rule fail:
-   * Note that this contains "Blue Womb" instead of "???" for stage 9.
-
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:

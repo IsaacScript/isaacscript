@@ -252,3 +252,17 @@ This is a sentence..
   `;
   testIncompleteSentence(text, "doublePeriod");
 });
+
+test("Sentence with question marks in single quotation marks", () => {
+  const text = `
+Note that this contains 'Blue Womb' instead of '???' for stage 9.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Sentence with question marks in double quotation marks", () => {
+  const text = `
+Note that this contains "Blue Womb" instead of "???" for stage 9.
+  `;
+  testIncompleteSentence(text, undefined);
+});

@@ -72,12 +72,17 @@ function splitOnSpecialText(text: string): string[] {
   // Below, we avoid replacing certain things to an empty string because that can potentially cause
   // subsequent text to be considered to be part of the previous sentence.
 
-  // First, remove multi-line code blocks.
+  // Remove multi-line code blocks.
   text = text.replace(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
 
-  // Second, handle "blocks" indicated by a double newline. We don't want sentences to be
-  // parsed/combined past blocks, so we manually insert a sentence separator.
+  // Handle "blocks" indicated by a double newline. We don't want sentences to be parsed/combined
+  // past blocks, so we manually insert a sentence separator.
   text = text.replaceAll("\n\n", `\n${SENTENCE_SEPARATOR_IDENTIFIER}\n`);
+
+  // Handle quoted question marks.
+  // e.g. This text contains "???" in the middle.
+  text = text.replaceAll(/'\?+'/g, "");
+  text = text.replaceAll(/"\?+"/g, "");
 
   const lines = text.split("\n");
   const newLines: string[] = [];
