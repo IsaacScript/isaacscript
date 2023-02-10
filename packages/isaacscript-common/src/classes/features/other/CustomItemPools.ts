@@ -130,7 +130,7 @@ export class CustomItemPools extends Feature {
     const tuple = customItemPool[randomIndex];
     if (tuple === undefined) {
       error(
-        `Failed to index the custom item pool with the random index of: ${randomIndex}`,
+        `Failed to get an element from a custom item pool using a random index of: ${randomIndex}`,
       );
     }
 
