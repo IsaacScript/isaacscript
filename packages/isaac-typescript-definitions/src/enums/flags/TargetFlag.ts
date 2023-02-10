@@ -52,7 +52,6 @@ type TargetFlagType = Readonly<
 >;
 
 export const TargetFlag = TargetFlagInternal as TargetFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type TargetFlag = TargetFlagType[keyof TargetFlagType];
 
 export const TargetFlagZero = 0 as BitFlags<TargetFlag>;

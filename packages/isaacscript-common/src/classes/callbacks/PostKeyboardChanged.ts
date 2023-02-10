@@ -26,7 +26,6 @@ export class PostKeyboardChanged extends CustomCallback<T> {
     ];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,

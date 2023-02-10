@@ -285,5 +285,13 @@ module.exports = {
 
     // "valid-typeof" is disabled due to conflicting with the TypeScript compiler:
     // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+
+    /**
+     * Documentation: https://eslint.org/docs/latest/rules/class-methods-use-this
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    // class-methods-use-this
   },
 };

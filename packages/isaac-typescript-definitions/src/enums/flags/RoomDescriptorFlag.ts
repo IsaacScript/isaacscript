@@ -157,7 +157,6 @@ type RoomDescriptorFlagType = Readonly<
 
 export const RoomDescriptorFlag =
   RoomDescriptorFlagInternal as RoomDescriptorFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type RoomDescriptorFlag =
   RoomDescriptorFlagType[keyof RoomDescriptorFlagType];
 

@@ -61,7 +61,6 @@ function Feature({ title, img, description }: FeatureItem) {
   );
 }
 
-// eslint-disable-next-line import/no-default-export
 export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles["features"]}>

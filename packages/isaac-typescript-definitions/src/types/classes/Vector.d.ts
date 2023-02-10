@@ -36,7 +36,10 @@ declare global {
     X: float;
     Y: float;
 
-    // The underscore methods like "__add" are not implemented in favor of having `add` and so on.
+    /** An identifier that does not exist at run-time. */
+    __kind: CopyableIsaacAPIClassType.VECTOR;
+
+    // The underscore methods like `__add` are not implemented in favor of having `add` and so on.
     // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
 
     add: LuaAdditionMethod<Vector, Vector>;
@@ -51,10 +54,6 @@ declare global {
     mul: LuaMultiplicationMethod<number | Vector, Vector>;
 
     sub: LuaSubtractionMethod<Vector, Vector>;
-
-    /** An identifier that does not exist at run-time. */
-    // eslint-disable-next-line isaacscript/member-ordering
-    __kind: CopyableIsaacAPIClassType.VECTOR;
   }
 
   /** @noSelf */

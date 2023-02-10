@@ -198,7 +198,6 @@ type ProjectileFlagType = Readonly<
 >;
 
 export const ProjectileFlag = ProjectileFlagInternal as ProjectileFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type ProjectileFlag = ProjectileFlagType[keyof ProjectileFlagType];
 
 export const ProjectileFlagZero = 0 as BitFlags<ProjectileFlag>;

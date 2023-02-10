@@ -27,5 +27,6 @@ module.exports = {
 
   rules: {
     "no-alert": "off",
+    "import/no-default-export": "off", // React uses default exports.
   },
 };

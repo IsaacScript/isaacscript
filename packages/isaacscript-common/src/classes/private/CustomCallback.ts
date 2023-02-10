@@ -81,7 +81,6 @@ export abstract class CustomCallback<
    * This method needs to be overwritten for any callback that has optional filtration arguments.
    * See "shouldFire.ts" for methods tailored to specific kinds of callbacks.
    */
-  // eslint-disable-next-line class-methods-use-this
   protected shouldFire: (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,

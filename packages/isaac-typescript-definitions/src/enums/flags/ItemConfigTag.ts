@@ -324,7 +324,6 @@ type ItemConfigTagType = Readonly<
 >;
 
 export const ItemConfigTag = ItemConfigTagInternal as ItemConfigTagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type ItemConfigTag = ItemConfigTagType[keyof ItemConfigTagType];
 
 export const ItemConfigTagZero = 0 as BitFlags<ItemConfigTag>;

@@ -841,7 +841,6 @@ type TearFlagType = Readonly<
 >;
 
 export const TearFlag = TearFlagInternal as TearFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type TearFlag = TearFlagType[keyof TearFlagType];
 
 export const TearFlagZero = TearFlag.NORMAL;

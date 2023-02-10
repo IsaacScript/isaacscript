@@ -179,8 +179,7 @@ function spawnWallEntity(
   wallEffect.SpriteOffset = modifiedOffset;
 
   sprite.LoadGraphics();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const roomShapeName = RoomShape[roomShape]!;
+  const roomShapeName = RoomShape[roomShape];
   const animation = trimPrefix(roomShapeName, "SHAPE_");
   const modifiedAnimation = isExtraWall ? `${animation}X` : animation;
   sprite.Play(modifiedAnimation, true);
@@ -254,8 +253,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
   floorEffect.SpriteOffset = modifiedOffset;
 
   sprite.LoadGraphics();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const roomShapeName = RoomShape[roomShape]!;
+  const roomShapeName = RoomShape[roomShape];
   const animation = trimPrefix(roomShapeName, "SHAPE_");
   sprite.Play(animation, true);
 }

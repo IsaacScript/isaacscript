@@ -1,4 +1,3 @@
-// eslint-disable-next-line isaacscript/require-capital-read-only
 const FIRST_DOC_PAGE_TITLES = new Set([
   "Features | IsaacScript",
   "isaac-typescript-definitions | IsaacScript",

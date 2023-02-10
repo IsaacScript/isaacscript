@@ -13,8 +13,14 @@ export function getRandomFromWeightedArray<T>(
   seedOrRNG: Seed | RNG = getRandomSeed(),
 ): T {
   const randomIndex = getRandomIndexFromWeightedArray(weightedArray, seedOrRNG);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const randomElement = weightedArray[randomIndex]!;
+
+  const randomElement = weightedArray[randomIndex];
+  if (randomElement === undefined) {
+    error(
+      `Failed to get an element from a weighted array using a random index of: ${randomIndex}`,
+    );
+  }
+
   return randomElement[0];
 }
 

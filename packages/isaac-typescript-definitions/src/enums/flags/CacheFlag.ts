@@ -64,7 +64,6 @@ type CacheFlagType = Readonly<
 >;
 
 export const CacheFlag = CacheFlagInternal as CacheFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type CacheFlag = CacheFlagType[keyof CacheFlagType];
 
 export const CacheFlagZero = 0 as BitFlags<CacheFlag>;

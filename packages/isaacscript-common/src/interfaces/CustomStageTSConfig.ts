@@ -548,7 +548,6 @@ export interface CustomStageBossPoolEntry {
 
   /** Optional. A collection of sprites used for the boss on the "versus" screen. */
   versusScreen?: {
-    // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
     /**
      * Mandatory. The full path to the spritesheet that contains the graphics of the name of the
      * boss that will be displayed on the top of the boss "versus" screen.
@@ -557,7 +556,6 @@ export interface CustomStageBossPoolEntry {
      */
     namePNGPath: string;
 
-    // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
     /**
      * Mandatory. The full path to the spritesheet that contains the portrait of the boss that will
      * be displayed on the right side of the boss "versus" screen.

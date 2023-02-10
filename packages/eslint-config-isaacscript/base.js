@@ -350,6 +350,15 @@ module.exports = {
       rules: {
         "isaacscript/no-object-any": "off",
         "isaacscript/require-capital-const-assertions": "off",
+        "isaacscript/require-capital-read-only": "off",
+      },
+    },
+
+    // Remark configs require a default export.
+    {
+      files: [".remarkrc.mjs"],
+      rules: {
+        "import/no-default-export": "off",
       },
     },
   ],

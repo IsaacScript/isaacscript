@@ -1,5 +1,3 @@
-/* eslint-disable sort-exports/sort-exports */
-
 // Import the Isaac API definitions, which are declared as global variables.
 /// <reference path="types/index.d.ts" />
 

@@ -217,7 +217,6 @@ type EntityFlagType = Readonly<
 >;
 
 export const EntityFlag = EntityFlagInternal as EntityFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type EntityFlag = EntityFlagType[keyof EntityFlagType];
 
 export const EntityFlagZero = 0 as BitFlags<EntityFlag>;

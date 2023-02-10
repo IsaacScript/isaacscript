@@ -66,7 +66,6 @@ for _, entity in ipairs(entities) do
 end
 `.trim();
 
-// eslint-disable-next-line import/no-default-export
 export default function Home(): JSX.Element {
   return (
     <Layout description="A framework for coding mods for The Binding of Isaac: Repentance">

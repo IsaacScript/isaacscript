@@ -15,7 +15,6 @@ export class PostGridEntityCustomCollision extends CustomCallback<T> {
     this.featuresUsed = [ISCFeature.GRID_ENTITY_COLLISION_DETECTION];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,

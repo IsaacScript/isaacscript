@@ -1,6 +1,5 @@
 import { LevelStage, StageType } from "isaac-typescript-definitions";
 
-// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
  * A mapping of stage and stage types to the corresponding English level name.
  *

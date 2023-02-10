@@ -127,8 +127,12 @@ export class CustomItemPools extends Feature {
       customItemPool,
       seedOrRNG,
     );
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const tuple = customItemPool[randomIndex]!;
+    const tuple = customItemPool[randomIndex];
+    if (tuple === undefined) {
+      error(
+        `Failed to index the custom item pool with the random index of: ${randomIndex}`,
+      );
+    }
 
     if (decrease) {
       arrayRemoveIndexInPlace(customItemPool, randomIndex);

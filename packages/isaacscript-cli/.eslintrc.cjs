@@ -48,4 +48,13 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ["./src/plugins/*.ts"],
+      rules: {
+        "import/no-default-export": "off",
+      },
+    },
+  ],
 };

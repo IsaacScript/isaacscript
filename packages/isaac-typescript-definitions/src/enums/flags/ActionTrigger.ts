@@ -37,7 +37,6 @@ type ActionTriggerType = Readonly<
 >;
 
 export const ActionTrigger = ActionTriggerInternal as ActionTriggerType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type ActionTrigger = ActionTriggerType[keyof ActionTriggerType];
 
 export const ActionTriggerZero = 0 as BitFlags<ActionTrigger>;

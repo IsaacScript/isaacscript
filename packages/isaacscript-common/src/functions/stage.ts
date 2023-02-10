@@ -88,7 +88,6 @@ export function getEffectiveStage(): LevelStage {
   return stage;
 }
 
-// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
  * Helper function to get the English name of the level. For example, "Caves 1".
  *

@@ -81,4 +81,19 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ["index.ts"],
+      rules: {
+        "sort-exports/sort-exports": "off",
+      },
+    },
+    {
+      files: ["./src/enums/flags/*.ts"],
+      rules: {
+        "@typescript-eslint/no-redeclare": "off",
+      },
+    },
+  ],
 };
