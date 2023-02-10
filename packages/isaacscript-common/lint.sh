@@ -28,8 +28,4 @@ npx ts-prune --error --ignore "index.ts"
 # "--no-progress" and "--no-summary" make it only output errors.
 npx cspell --no-progress --no-summary .
 
-# Validate that every file is included in the docs.
-REPO_ROOT="$DIR/../../"
-npx tsx "$REPO_ROOT/scripts/docsEntryPointLintISC.mts"
-
 echo "Successfully linted in $SECONDS seconds."

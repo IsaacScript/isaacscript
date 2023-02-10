@@ -16,6 +16,9 @@ import { Writeable } from "./Writable";
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
  * has extra methods corresponding to the features that were specified.
  */
+// This cannot be exported from the root "index.ts" file, because then it would populate the
+// auto-complete of end-user mods with all of the classes from "features.ts" (which should never be
+// directly imported by end-users).
 export type ModUpgraded<T extends readonly ISCFeature[] = []> =
   ModUpgradedBase & ISCFeaturesToKeys<T>;
 

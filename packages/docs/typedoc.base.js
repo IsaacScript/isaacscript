@@ -31,12 +31,15 @@ const baseConfig = {
 function getConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
   const out = path.join(__dirname, "docs", packageName);
+
+  // We want one entry point for each export source file, which will correspond to one Markdown file
+  // for each source file.
   const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
-  const entryPointsRaw = getEntryPoints(indexTSPath);
-  const entryPointsWithSrcPrefix = entryPointsRaw.map((entryPoint) =>
+  const typeScriptFileExports = getTypeScriptFileExports(indexTSPath);
+  const exportsWithSrcPrefix = typeScriptFileExports.map((entryPoint) =>
     entryPoint.replaceAll("./", "./src/"),
   );
-  const entryPoints = entryPointsWithSrcPrefix.map(
+  const entryPoints = exportsWithSrcPrefix.map(
     (entryPoint) => `${entryPoint}.ts`,
   );
 
@@ -48,10 +51,10 @@ function getConfig(packageDirectoryPath) {
 }
 exports.getConfig = getConfig;
 
-/** @param {string} indexTSPath The path to the "index.ts" file. */
-function getEntryPoints(indexTSPath) {
-  const indexTS = fs.readFileSync(indexTSPath, "utf-8");
-  const lines = indexTS.split("\n");
+/** @param {string} typeScriptFilePath The path to the ".ts" file. */
+function getTypeScriptFileExports(typeScriptFilePath) {
+  const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf-8");
+  const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   return exportLines.map((line) => {
     const match = line.match(/"(.+)"/);

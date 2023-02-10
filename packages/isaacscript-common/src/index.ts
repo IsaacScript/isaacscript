@@ -156,7 +156,6 @@ export * from "./types/GridEntityID";
 export * from "./types/HasFunction";
 export * from "./types/Immutable";
 export * from "./types/LowercaseKeys";
-export * from "./types/ModUpgraded";
 export * from "./types/PickingUpItem";
 export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
