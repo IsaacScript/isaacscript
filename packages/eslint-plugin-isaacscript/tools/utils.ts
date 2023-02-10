@@ -22,7 +22,9 @@ export function formatWithPrettier(
   });
 }
 
-export function getAlphabeticalRuleEntries(): Array<[string, RuleDefinition]> {
+export function getAlphabeticalRuleEntries(): ReadonlyArray<
+  [string, RuleDefinition]
+> {
   return Object.entries(rules).sort((a, b) => a[0].localeCompare(b[0]));
 }
 
