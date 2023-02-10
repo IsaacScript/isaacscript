@@ -1,4 +1,4 @@
-import { ModUpgradedBase } from "../../classes/ModUpgradedBase";
+import { ModUpgraded } from "../../classes/ModUpgraded";
 import { Feature } from "../../classes/private/Feature";
 import { ISCFeature } from "../../enums/ISCFeature";
 import { ISCFeatureToClass } from "../../features";
@@ -20,8 +20,8 @@ import { Writeable } from "../Writable";
  * internal feature classes to populate the auto-complete of end-user mods (which should never be
  * directly imported by end-users).
  */
-export type ModUpgraded<T extends readonly ISCFeature[] = []> =
-  ModUpgradedBase & ISCFeaturesToKeys<T>;
+export type ModUpgradedWithFeatures<T extends readonly ISCFeature[] = []> =
+  ModUpgraded & ISCFeaturesToKeys<T>;
 
 /**
  * We want to only extract the class public methods, so we omit the keys of the `Feature` base

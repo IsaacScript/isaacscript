@@ -8,7 +8,7 @@ import {
 import { isFunction, isNumber, isTable } from "../functions/types";
 import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgradedBase } from "./ModUpgradedBase";
+import { ModUpgraded } from "./ModUpgraded";
 
 export const MOD_FEATURE_CALLBACKS_KEY = "__callbacks";
 export const MOD_FEATURE_CUSTOM_CALLBACKS_KEY = "__customCallbacks";
@@ -62,7 +62,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  */
 
 export class ModFeature {
-  private mod: ModUpgradedBase;
+  private mod: ModUpgraded;
 
   /**
    * An optional method that allows for conditional callback execution. If specified, any class
@@ -105,7 +105,7 @@ export class ModFeature {
    */
   public initialized = false;
 
-  constructor(mod: ModUpgradedBase, init = true) {
+  constructor(mod: ModUpgraded, init = true) {
     this.mod = mod;
 
     if (init) {
@@ -234,7 +234,7 @@ function initDecoratedCallbacks(
 function addCallback(
   modFeature: ModFeature,
   modFeatureConstructor: ModFeatureConstructor,
-  mod: ModUpgradedBase,
+  mod: ModUpgraded,
   modCallback: ModCallback | ModCallbackCustom,
   callback: Function, // eslint-disable-line @typescript-eslint/ban-types
   parameters: unknown[],
@@ -297,7 +297,7 @@ function addCallback(
 
 function removeCallback(
   modFeatureConstructor: ModFeatureConstructor,
-  mod: ModUpgradedBase,
+  mod: ModUpgraded,
   modCallback: ModCallback | ModCallbackCustom,
   vanilla: boolean,
 ) {

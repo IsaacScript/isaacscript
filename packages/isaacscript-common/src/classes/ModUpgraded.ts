@@ -24,10 +24,11 @@ import { Feature } from "./private/Feature";
  *
  * To upgrade your mod, use the `upgradeMod` helper function.
  *
- * `ModUpgradedBase` provides the core functionality of the `ModUpgraded` class. (It does not
- * include the methods for the individual ISC features.)
+ * By specifying one or more optional features when upgrading your mod, you will get a version of
+ * `ModUpgraded` that has extra methods corresponding to the features that were specified. (This
+ * corresponds to the internal-type `ModUpgradedWithFeatures` type, which extends `ModUpgraded`.)
  */
-export class ModUpgradedBase implements Mod {
+export class ModUpgraded implements Mod {
   // -----------------
   // Vanilla variables
   // -----------------

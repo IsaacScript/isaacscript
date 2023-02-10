@@ -1,9 +1,9 @@
-import { ModUpgradedBase } from "../classes/ModUpgradedBase";
+import { ModUpgraded } from "../classes/ModUpgraded";
 import { ISCFeature } from "../enums/ISCFeature";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { applyShaderCrashFix } from "../shaderCrashFix";
 import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgraded } from "../types/private/ModUpgraded";
+import { ModUpgradedWithFeatures } from "../types/private/ModUpgradedWithFeatures";
 
 type ISCFeatureTuple<T extends readonly ISCFeature[]> =
   ISCFeature extends T["length"]
@@ -46,14 +46,14 @@ function upgradeModDocumentation(
   features: ISCFeature[],
   debug = false,
   timeThreshold?: float,
-): ModUpgradedBase {
+): ModUpgraded {
   print(modVanilla);
   print(features);
   print(debug);
   print(timeThreshold);
 
   const mod = RegisterMod("", 1);
-  return new ModUpgradedBase(mod, false);
+  return new ModUpgraded(mod, false);
 }
 
 /**
@@ -91,7 +91,7 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   features: ISCFeatureTuple<T> = [] as unknown as ISCFeatureTuple<T>,
   debug = false,
   timeThreshold?: float,
-): ModUpgraded<T> {
+): ModUpgradedWithFeatures<T> {
   // First, validate that all of the features exist (for Lua users who don't have type-safety).
   for (const feature of features) {
     const featureType = type(feature);
@@ -104,15 +104,15 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
 
   patchErrorFunction();
 
-  const mod = new ModUpgradedBase(modVanilla, debug, timeThreshold);
+  const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
   applyShaderCrashFix(mod);
   initOptionalFeatures(mod, features as ISCFeature[]);
 
-  return mod as ModUpgraded<T>;
+  return mod as ModUpgradedWithFeatures<T>;
 }
 
 /** Initialize every optional feature that the end-user specified. */
-function initOptionalFeatures(mod: ModUpgradedBase, features: ISCFeature[]) {
+function initOptionalFeatures(mod: ModUpgraded, features: ISCFeature[]) {
   for (const feature of features) {
     // We intentionally access the private method here, so we use the string index escape hatch:
     // https://github.com/microsoft/TypeScript/issues/19335

@@ -1,6 +1,6 @@
 export * from "./classes/DefaultMap";
 export * from "./classes/ModFeature";
-export * from "./classes/ModUpgradedBase";
+export * from "./classes/ModUpgraded";
 export * from "./core/cachedClasses";
 export * from "./core/constants";
 export * from "./core/constantsFirstLast";
