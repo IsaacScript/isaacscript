@@ -16,9 +16,9 @@ import { Writeable } from "../Writable";
  * By specifying one or more optional features, end-users will get a version of `ModUpgraded` that
  * has extra methods corresponding to the features that were specified.
  *
- * This type is marked as internal because otherwise it would cause all of the internal feature
- * classes to populate the auto-complete of end-user mods (which should never be directly imported
- * by end-users).
+ * This type is in the private directory because if it was exported, it would cause all of the
+ * internal feature classes to populate the auto-complete of end-user mods (which should never be
+ * directly imported by end-users).
  */
 export type ModUpgraded<T extends readonly ISCFeature[] = []> =
   ModUpgradedBase & ISCFeaturesToKeys<T>;

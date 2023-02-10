@@ -41,8 +41,6 @@ module.exports = {
     "ImmutableObject",
     "IsaacAPIClassTypeToSerializedType",
     "IsaacAPIClassTypeToType",
-    "ISCFeatureTuple",
-    "ModUpgraded",
     "ReadonlyMapConstructor",
     "ReadonlySetConstructor",
     "Serializable",
