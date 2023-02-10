@@ -15,10 +15,11 @@ const TWO_BY_TWO_BOTTOM_RIGHT = newReadonlyVector(25, 13);
  * "Vector(0, 0)" corresponds to the top left tile of a room, not including the walls. (The top-left
  * wall would be at "Vector(-1, -1)".)
  */
-// We need to specify the type so that the object will be indexable by room shapes.
-export const L_ROOM_SHAPE_TO_RECTANGLES: {
-  readonly [Key in RoomShape]?: LRoomRectangles;
-} = {
+// We don't use `as const` since we need the object to be indexable by all `RoomShape`.
+// eslint-disable-next-line isaacscript/require-capital-const-assertions
+export const L_ROOM_SHAPE_TO_RECTANGLES: Partial<
+  Record<RoomShape, LRoomRectangles>
+> = {
   // 9
   [RoomShape.LTL]: {
     verticalTopLeft: newReadonlyVector(13, 0),
@@ -50,4 +51,4 @@ export const L_ROOM_SHAPE_TO_RECTANGLES: {
     horizontalTopLeft: VectorZero,
     horizontalBottomRight: newReadonlyVector(12, 13),
   },
-} as const;
+};

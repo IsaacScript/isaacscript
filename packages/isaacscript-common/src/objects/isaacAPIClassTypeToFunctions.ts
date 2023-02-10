@@ -80,12 +80,14 @@ export interface IsaacAPIClassTypeFunctions<T, SerializedT> {
   deserialize: (object: SerializedT) => T;
 }
 
-export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS: {
+type IsaacAPIClassTypeToFunctions = {
   readonly [Key in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
     IsaacAPIClassTypeToType[Key],
     IsaacAPIClassTypeToSerializedType[Key]
   >;
-} = {
+};
+
+export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS = {
   [CopyableIsaacAPIClassType.BIT_SET_128]: {
     is: isBitSet128,
     isSerialized: isSerializedBitSet128,
@@ -121,4 +123,4 @@ export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS: {
     serialize: serializeVector,
     deserialize: deserializeVector,
   },
-} as const;
+} as const satisfies IsaacAPIClassTypeToFunctions;

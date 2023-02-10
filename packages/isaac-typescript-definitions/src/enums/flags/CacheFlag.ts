@@ -59,9 +59,9 @@ const CacheFlagInternal = {
 type CacheFlagValue = BitFlag & {
   readonly __cacheFlagBrand: symbol;
 };
-type CacheFlagType = {
-  [Key in keyof typeof CacheFlagInternal]: CacheFlagValue;
-};
+type CacheFlagType = Readonly<
+  Record<keyof typeof CacheFlagInternal, CacheFlagValue>
+>;
 
 export const CacheFlag = CacheFlagInternal as CacheFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

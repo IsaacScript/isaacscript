@@ -836,9 +836,9 @@ const TearFlagInternal = {
 type TearFlagValue = BitFlag128 & {
   readonly __tearFlagBrand: symbol;
 };
-type TearFlagType = {
-  [Key in keyof typeof TearFlagInternal]: TearFlagValue;
-};
+type TearFlagType = Readonly<
+  Record<keyof typeof TearFlagInternal, TearFlagValue>
+>;
 
 export const TearFlag = TearFlagInternal as TearFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -846,7 +846,6 @@ export type TearFlag = TearFlagType[keyof TearFlagType];
 
 export const TearFlagZero = TearFlag.NORMAL;
 
-// cspell:ignore TEARFLAG
 /** Identical to the `TEARFLAG` function in "enums.lua". */
 function getTearFlag(shift: int): BitSet128 {
   return shift >= 64

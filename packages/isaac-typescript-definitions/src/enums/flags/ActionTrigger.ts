@@ -32,9 +32,9 @@ const ActionTriggerInternal = {
 type ActionTriggerValue = BitFlag & {
   readonly __actionTriggerBrand: symbol;
 };
-type ActionTriggerType = {
-  [Key in keyof typeof ActionTriggerInternal]: ActionTriggerValue;
-};
+type ActionTriggerType = Readonly<
+  Record<keyof typeof ActionTriggerInternal, ActionTriggerValue>
+>;
 
 export const ActionTrigger = ActionTriggerInternal as ActionTriggerType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

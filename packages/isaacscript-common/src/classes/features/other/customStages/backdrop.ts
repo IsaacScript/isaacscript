@@ -36,12 +36,12 @@ enum BackdropKind {
 }
 
 /** This is created by the vanilla Basement files. */
-const DEFAULT_BACKDROP: NonNullable<CustomStage["backdropPNGPaths"]> = {
+const DEFAULT_BACKDROP = {
   nFloors: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/nfloor.png`],
   lFloors: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/lfloor.png`], // cspell:ignore lfloor
   walls: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/wall.png`],
   corners: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/corner.png`],
-} as const;
+} as const satisfies NonNullable<CustomStage["backdropPNGPaths"]>;
 
 const ROOM_SHAPE_WALL_ANM2_LAYERS = {
   [RoomShape.SHAPE_1x1]: 44, // 1
@@ -58,16 +58,18 @@ const ROOM_SHAPE_WALL_ANM2_LAYERS = {
   [RoomShape.LBR]: 63, // 12
 } as const satisfies Record<RoomShape, int>;
 
-const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
-  readonly [Key in RoomShape]?: int;
-} = {
+// We don't use `as const` since we need the object to be indexable by all `RoomShape`.
+// eslint-disable-next-line isaacscript/require-capital-const-assertions
+const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: Readonly<
+  Partial<Record<RoomShape, int>>
+> = {
   [RoomShape.SHAPE_2x1]: 7, // 6
   [RoomShape.SHAPE_2x2]: 21, // 8
   [RoomShape.LTL]: 19, // 9
   [RoomShape.LTR]: 19, // 10
   [RoomShape.LBL]: 19, // 11
   [RoomShape.LBR]: 19, // 12
-} as const;
+};
 
 const WALL_OFFSET = Vector(-80, -80);
 

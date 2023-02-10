@@ -9,11 +9,7 @@ import { LevelStage, StageType } from "isaac-typescript-definitions";
  *
  * Note that this contains "Blue Womb" instead of "???" for stage 9.
  */
-export const ENGLISH_LEVEL_NAMES: {
-  readonly [levelStage in LevelStage]: {
-    readonly [stageType in StageType]: string;
-  };
-} = {
+export const ENGLISH_LEVEL_NAMES = {
   [LevelStage.BASEMENT_1]: {
     [StageType.ORIGINAL]: "Basement 1",
     [StageType.WRATH_OF_THE_LAMB]: "Cellar 1",
@@ -118,4 +114,4 @@ export const ENGLISH_LEVEL_NAMES: {
     [StageType.REPENTANCE]: "Home",
     [StageType.REPENTANCE_B]: "Home",
   },
-} as const;
+} as const satisfies Record<LevelStage, Record<StageType, string>>;
