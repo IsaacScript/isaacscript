@@ -17,6 +17,11 @@ const MY_MAP: ReadonlyMap<number, number> = new Map([
 const MY_SET: ReadonlySet<number> = new Set([1, 2, 3]);
       `,
     },
+    {
+      code: `
+const MY_ARRAY: readonly number[] = [1, 2, 3];
+      `,
+    },
   ],
 
   invalid: [
@@ -35,6 +40,12 @@ const MY_MAP = new Map([
 const MY_SET = new Set([1, 2, 3]);
       `,
       errors: [{ messageId: "readOnlySet" }],
+    },
+    {
+      code: `
+const MY_ARRAY = [1, 2, 3];
+      `,
+      errors: [{ messageId: "readOnlyArray" }],
     },
   ],
 });

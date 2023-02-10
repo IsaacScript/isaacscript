@@ -1,16 +1,18 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
+import ts from "typescript";
 import { getTypeName } from "../typeUtils";
 import { createRule, isFirstLetterCapitalized } from "../utils";
 
 type Options = [];
-type MessageIds = "readOnlyMap" | "readOnlySet";
+type MessageIds = "readOnlyMap" | "readOnlySet" | "readOnlyArray";
 
 export const requireCapitalReadOnly = createRule<Options, MessageIds>({
   name: "require-capital-read-only",
   meta: {
     type: "problem",
     docs: {
-      description: "Requires maps/sets with a capital letter to be read-only",
+      description:
+        "Requires maps/sets/arrays with a capital letter to be read-only",
       recommended: "error",
       requiresTypeChecking: true,
     },
@@ -20,6 +22,8 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
         'Maps with a capital letter must be explicitly annotated as "ReadOnlyMap".',
       readOnlySet:
         'Sets with a capital letter must be explicitly annotated as "ReadOnlySet".',
+      readOnlyArray:
+        'Arrays with a capital letter must be explicitly annotated as "readonly" or "ReadonlyArray".',
     },
   },
   defaultOptions: [],
@@ -47,12 +51,7 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(declaration);
           const type = checker.getTypeAtLocation(tsNode);
 
-          const typeName = getTypeName(type);
-          if (typeName === undefined) {
-            return;
-          }
-
-          const messageId = getErrorMessageId(typeName);
+          const messageId = getErrorMessageId(type);
           if (messageId === undefined) {
             return;
           }
@@ -70,13 +69,25 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
   },
 });
 
-function getErrorMessageId(typeName: string): MessageIds | undefined {
+function getErrorMessageId(type: ts.Type): MessageIds | undefined {
+  const typeName = getTypeName(type);
+  if (typeName === undefined) {
+    return undefined;
+  }
+
+  // This would be "ReadonlyMap" if it was the read-only version.
   if (typeName === "Map") {
     return "readOnlyMap";
   }
 
+  // This would be "ReadonlySet" if it was the read-only version.
   if (typeName === "Set") {
     return "readOnlySet";
+  }
+
+  // This would be "ReadonlyArray" if it was the read-only version.
+  if (typeName === "Array") {
+    return "readOnlyArray";
   }
 
   return undefined;
