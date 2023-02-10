@@ -59,10 +59,6 @@ module.exports = {
           "notExported", // From: typedoc-plugin-not-exported
           "rename", // From: typedoc-plugin-rename
 
-          // Ignore tags used in api-extractor:
-          // https://api-extractor.com/pages/tsdoc/doc_comment_syntax/
-          "beta",
-
           // Ignore tags used in TypeScriptToLua:
           // https://typescripttolua.github.io/docs/advanced/compiler-annotations
           "noResolution",

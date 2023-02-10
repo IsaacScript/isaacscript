@@ -36,7 +36,6 @@ type ISCFeatureTuple<T extends readonly ISCFeature[]> =
  *                      specified number of seconds (if the "--luadebug" launch flag is turned on)
  *                      or milliseconds (if the "--luadebug" launch flag is turned off).
  * @returns The upgraded mod object.
- * @beta A dummy field used to hide this function from `api-extractor`.
  */
 export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   modVanilla: Mod,
