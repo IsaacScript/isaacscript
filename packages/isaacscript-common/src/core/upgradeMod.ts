@@ -43,7 +43,7 @@ type ISCFeatureTuple<T extends readonly ISCFeature[]> =
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function upgradeModDocumentation(
   modVanilla: Mod,
-  features: ISCFeature[],
+  features: ISCFeature[] = [],
   debug = false,
   timeThreshold?: float,
 ): ModUpgraded {

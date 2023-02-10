@@ -70,11 +70,6 @@ export class ModUpgraded implements Mod {
   // Vanilla methods
   // ---------------
 
-  /**
-   * Registers a function to be executed when an in-game event happens. For example, the
-   * `ModCallback.POST_UPDATE` event corresponds to being executed once at the end of every game
-   * logic frame.
-   */
   public AddCallback<T extends ModCallback | string>(
     modCallback: T,
     ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
@@ -142,25 +137,14 @@ export class ModUpgraded implements Mod {
     }
   }
 
-  /** Returns whether or not a corresponding "save#.dat" file exists for the current mod. */
   public HasData(): boolean {
     return this.mod.HasData();
   }
 
-  /**
-   * Returns a string containing all of the data inside of the corresponding "save#.dat" file for
-   * this mod.
-   */
   public LoadData(): string {
     return this.mod.LoadData();
   }
 
-  /**
-   * Unregisters a function that was previously registered with the `AddCallback` method.
-   *
-   * This method does not care about the tertiary argument. In other words, regardless of the
-   * conditions of how you registered the callback, it will be removed.
-   */
   public RemoveCallback<T extends ModCallback>(
     modCallback: T,
     callback: AddCallbackParameters[T][0],
@@ -168,14 +152,10 @@ export class ModUpgraded implements Mod {
     this.mod.RemoveCallback(modCallback, callback);
   }
 
-  /** Deletes the corresponding "save#.dat" file for this mod, if it exists. */
   public RemoveData(): void {
     this.mod.RemoveData();
   }
 
-  /**
-   * Creates or updates the corresponding "save#.dat" file for this mod with the provided string.
-   */
   public SaveData(data: string): void {
     this.mod.SaveData(data);
   }
@@ -185,12 +165,31 @@ export class ModUpgraded implements Mod {
   // ---------------------
 
   /**
-   * Registers a function to be executed when an in-game event happens. This method is specifically
-   * for events that are provided by the IsaacScript standard library. For example, the
-   * `ModCallbackCustom.POST_BOMB_EXPLODE` event corresponds to when a bomb explodes.
+   * Registers a function to be executed when an in-game event happens.
+   *
+   * This method is specifically for events that are provided by the IsaacScript standard library.
+   * For example, the `ModCallbackCustom.POST_BOMB_EXPLODE` event corresponds to when a bomb
+   * explodes.
    */
   public AddCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
+    ...args: AddCallbackParametersCustom[T]
+  ): void {
+    this.AddPriorityCallbackCustom(
+      modCallbackCustom,
+      CallbackPriority.DEFAULT,
+      ...args,
+    );
+  }
+
+  /**
+   * The same as the `ModUpgraded.AddCallbackCustom` method, but allows setting a custom priority.
+   * By default, callbacks are added with a priority of 0, so this allows you to add early or late
+   * callbacks as necessary. See the `CallbackPriority` enum.
+   */
+  public AddPriorityCallbackCustom<T extends ModCallbackCustom>(
+    modCallbackCustom: T,
+    _priority: CallbackPriority | int,
     ...args: AddCallbackParametersCustom[T]
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
@@ -201,6 +200,10 @@ export class ModUpgraded implements Mod {
 
   /**
    * Unregisters a function that was previously registered with the `AddCallbackCustom` method.
+   *
+   * This method is specifically for events that are provided by the IsaacScript standard library.
+   * For example, the `ModCallbackCustom.POST_BOMB_EXPLODE` event corresponds to when a bomb
+   * explodes.
    *
    * This method does not care about the tertiary argument. In other words, regardless of the
    * conditions of how you registered the callback, it will be removed.
@@ -399,15 +402,6 @@ export class ModUpgraded implements Mod {
     this.initFeature(featureClass);
 
     return getExportedMethodsFromFeature(featureClass);
-  }
-
-  /**
-   * This is mostly the same as the `AddCustomCallback` method, but we initialize the custom
-   * callback without actually registering a subscription.
-   */
-  private initCustomCallbackEarly(modCallbackCustom: ModCallbackCustom) {
-    const callbackClass = this.callbacks[modCallbackCustom];
-    this.initFeature(callbackClass);
   }
 }
 
