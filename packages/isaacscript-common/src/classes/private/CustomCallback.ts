@@ -1,3 +1,4 @@
+import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
 import { AllButFirst } from "../../types/AllButFirst";
@@ -7,14 +8,16 @@ import { Feature } from "./Feature";
 export type FireArgs<T extends ModCallbackCustom> = Parameters<
   AddCallbackParametersCustom[T][0]
 >;
+
 export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
   AddCallbackParametersCustom[T]
 >;
 
-type Subscription<T extends ModCallbackCustom> = [
-  callbackFunc: AddCallbackParametersCustom[T][0],
-  optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>,
-];
+interface Subscription<T extends ModCallbackCustom> {
+  priority: CallbackPriority | int;
+  callbackFunc: AddCallbackParametersCustom[T][0];
+  optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>;
+}
 
 /**
  * The base class for a custom callback. Individual custom callbacks (and validation callbacks) will
@@ -26,10 +29,15 @@ export abstract class CustomCallback<
   private subscriptions: Array<Subscription<T>> = [];
 
   public addSubscriber(
+    priority: CallbackPriority | int,
     callbackFunc: AddCallbackParametersCustom[T][0],
     ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
   ): void {
-    const subscription: Subscription<T> = [callbackFunc, optionalArgs];
+    const subscription: Subscription<T> = {
+      priority,
+      callbackFunc,
+      optionalArgs,
+    };
     this.subscriptions.push(subscription);
   }
 
@@ -40,7 +48,7 @@ export abstract class CustomCallback<
   public removeSubscriber(callback: AddCallbackParametersCustom[T][0]): void {
     const subscriptionIndexMatchingCallback = this.subscriptions.findIndex(
       (subscription) => {
-        const subscriptionCallback = subscription[0];
+        const subscriptionCallback = subscription.callbackFunc;
         return callback === subscriptionCallback;
       },
     );
@@ -53,7 +61,7 @@ export abstract class CustomCallback<
     ...fireArgs: FireArgs<T>
   ): ReturnType<AddCallbackParametersCustom[T][0]> => {
     for (const subscription of this.subscriptions) {
-      const [callbackFunc, optionalArgs] = subscription;
+      const { callbackFunc, optionalArgs } = subscription;
 
       if (this.shouldFire(fireArgs, optionalArgs)) {
         // TypeScript is not smart enough to know that the arguments match the function.

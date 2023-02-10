@@ -189,12 +189,12 @@ export class ModUpgraded implements Mod {
    */
   public AddPriorityCallbackCustom<T extends ModCallbackCustom>(
     modCallbackCustom: T,
-    _priority: CallbackPriority | int,
+    priority: CallbackPriority | int,
     ...args: AddCallbackParametersCustom[T]
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
-    callbackClass.addSubscriber(...args);
+    callbackClass.addSubscriber(priority, ...args);
     this.initFeature(callbackClass);
   }
 
