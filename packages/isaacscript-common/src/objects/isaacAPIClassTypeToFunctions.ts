@@ -81,9 +81,9 @@ export interface IsaacAPIClassTypeFunctions<T, SerializedT> {
 }
 
 type IsaacAPIClassTypeToFunctions = {
-  readonly [Key in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
-    IsaacAPIClassTypeToType[Key],
-    IsaacAPIClassTypeToSerializedType[Key]
+  readonly [K in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
+    IsaacAPIClassTypeToType[K],
+    IsaacAPIClassTypeToSerializedType[K]
   >;
 };
 

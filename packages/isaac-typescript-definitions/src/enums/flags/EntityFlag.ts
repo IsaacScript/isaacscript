@@ -212,9 +212,9 @@ const EntityFlagInternal = {
 type EntityFlagValue = BitFlag & {
   readonly __entityFlagBrand: symbol;
 };
-type EntityFlagType = {
-  [Key in keyof typeof EntityFlagInternal]: EntityFlagValue;
-};
+type EntityFlagType = Readonly<
+  Record<keyof typeof EntityFlagInternal, EntityFlagValue>
+>;
 
 export const EntityFlag = EntityFlagInternal as EntityFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

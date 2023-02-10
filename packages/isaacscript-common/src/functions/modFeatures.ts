@@ -25,7 +25,7 @@ import { ModUpgraded } from "../classes/ModUpgraded";
 export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
   mod: ModUpgraded,
   modFeatures: T,
-): { [Key in keyof T]: InstanceType<T[Key]> } {
+): { [K in keyof T]: InstanceType<T[K]> } {
   const instantiatedModFeatures: ModFeature[] = [];
 
   for (const modFeature of modFeatures) {
@@ -36,5 +36,5 @@ export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
     instantiatedModFeatures.push(instantiatedModFeature);
   }
 
-  return instantiatedModFeatures as { [Key in keyof T]: InstanceType<T[Key]> };
+  return instantiatedModFeatures as { [K in keyof T]: InstanceType<T[K]> };
 }

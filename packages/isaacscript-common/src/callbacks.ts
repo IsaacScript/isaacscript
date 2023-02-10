@@ -131,8 +131,8 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
 } as const satisfies Record<ModCallbackCustom, AnyClass>;
 
 export type ModCallbackCustomToClass = {
-  readonly [Key in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
-    (typeof MOD_CALLBACK_CUSTOM_TO_CLASS)[Key]
+  readonly [K in keyof typeof MOD_CALLBACK_CUSTOM_TO_CLASS]: InstanceType<
+    (typeof MOD_CALLBACK_CUSTOM_TO_CLASS)[K]
   >;
 };
 

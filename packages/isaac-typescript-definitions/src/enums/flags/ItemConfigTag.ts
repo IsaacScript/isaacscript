@@ -319,9 +319,9 @@ const ItemConfigTagInternal = {
 type ItemConfigTagValue = BitFlag & {
   readonly __itemConfigTagBrand: symbol;
 };
-type ItemConfigTagType = {
-  [Key in keyof typeof ItemConfigTagInternal]: ItemConfigTagValue;
-};
+type ItemConfigTagType = Readonly<
+  Record<keyof typeof ItemConfigTagInternal, ItemConfigTagValue>
+>;
 
 export const ItemConfigTag = ItemConfigTagInternal as ItemConfigTagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

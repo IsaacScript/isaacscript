@@ -110,9 +110,9 @@ const DamageFlagInternal = {
 type DamageFlagValue = BitFlag & {
   readonly __damageFlagBrand: symbol;
 };
-type DamageFlagType = {
-  [Key in keyof typeof DamageFlagInternal]: DamageFlagValue;
-};
+type DamageFlagType = Readonly<
+  Record<keyof typeof DamageFlagInternal, DamageFlagValue>
+>;
 
 export const DamageFlag = DamageFlagInternal as DamageFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

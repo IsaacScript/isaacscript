@@ -97,9 +97,7 @@ const UseFlagInternal = {
 type UseFlagValue = BitFlag & {
   readonly __useFlagBrand: symbol;
 };
-type UseFlagType = {
-  [Key in keyof typeof UseFlagInternal]: UseFlagValue;
-};
+type UseFlagType = Readonly<Record<keyof typeof UseFlagInternal, UseFlagValue>>;
 
 export const UseFlag = UseFlagInternal as UseFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

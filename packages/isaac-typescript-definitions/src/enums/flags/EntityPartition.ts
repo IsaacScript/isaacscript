@@ -32,9 +32,9 @@ const EntityPartitionInternal = {
 type EntityPartitionValue = BitFlag & {
   readonly __entityPartitionBrand: symbol;
 };
-type EntityPartitionType = {
-  [Key in keyof typeof EntityPartitionInternal]: EntityPartitionValue;
-};
+type EntityPartitionType = Readonly<
+  Record<keyof typeof EntityPartitionInternal, EntityPartitionValue>
+>;
 
 export const EntityPartition = EntityPartitionInternal as EntityPartitionType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

@@ -193,9 +193,9 @@ const ProjectileFlagInternal = {
 type ProjectileFlagValue = BitFlag & {
   readonly __projectileFlagBrand: symbol;
 };
-type ProjectileFlagType = {
-  [Key in keyof typeof ProjectileFlagInternal]: ProjectileFlagValue;
-};
+type ProjectileFlagType = Readonly<
+  Record<keyof typeof ProjectileFlagInternal, ProjectileFlagValue>
+>;
 
 export const ProjectileFlag = ProjectileFlagInternal as ProjectileFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

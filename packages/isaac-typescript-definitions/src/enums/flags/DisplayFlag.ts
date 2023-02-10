@@ -23,9 +23,9 @@ const DisplayFlagInternal = {
 type DisplayFlagValue = BitFlag & {
   readonly __displayFlagBrand: symbol;
 };
-type DisplayFlagType = {
-  [Key in keyof typeof DisplayFlagInternal]: DisplayFlagValue;
-};
+type DisplayFlagType = Readonly<
+  Record<keyof typeof DisplayFlagInternal, DisplayFlagValue>
+>;
 
 export const DisplayFlag = DisplayFlagInternal as DisplayFlagType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

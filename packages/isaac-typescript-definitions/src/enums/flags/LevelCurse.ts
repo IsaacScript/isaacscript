@@ -72,9 +72,9 @@ const LevelCurseInternal = {
 type LevelCurseValue = BitFlag & {
   readonly __levelCurseBrand: symbol;
 };
-type LevelCurseType = {
-  [Key in keyof typeof LevelCurseInternal]: LevelCurseValue;
-};
+type LevelCurseType = Readonly<
+  Record<keyof typeof LevelCurseInternal, LevelCurseValue>
+>;
 
 export const LevelCurse = LevelCurseInternal as LevelCurseType;
 // eslint-disable-next-line @typescript-eslint/no-redeclare

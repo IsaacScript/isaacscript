@@ -9,10 +9,10 @@ import { AllButFirst } from "../AllButFirst";
  * added/removed.
  */
 export type CallbackTuple = {
-  [Key in ModCallback]: [
-    modCallback: Key,
-    callbackFunc: AddCallbackParameters[Key][0],
-    optionalArgs?: AllButFirst<AddCallbackParameters[Key]>,
+  [K in ModCallback]: [
+    modCallback: K,
+    callbackFunc: AddCallbackParameters[K][0],
+    optionalArgs?: AllButFirst<AddCallbackParameters[K]>,
   ];
 }[ModCallback];
 
@@ -22,9 +22,9 @@ export type CallbackTuple = {
  * get added/removed.
  */
 export type CustomCallbackTuple = {
-  [Key in ModCallbackCustom]: [
-    modCallback: Key,
-    callbackFunc: AddCallbackParametersCustom[Key][0],
-    optionalArgs?: AllButFirst<AddCallbackParametersCustom[Key]>,
+  [K in ModCallbackCustom]: [
+    modCallback: K,
+    callbackFunc: AddCallbackParametersCustom[K][0],
+    optionalArgs?: AllButFirst<AddCallbackParametersCustom[K]>,
   ];
 }[ModCallbackCustom];
