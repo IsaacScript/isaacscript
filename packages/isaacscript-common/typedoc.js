@@ -21,6 +21,8 @@ for (const fileEntity of FEATURE_CLASS_FILE_ENTITY) {
     config.entryPoints.push(`./src/classes/features/other/${fileEntity.name}`);
   }
 }
+
+// Additionally, manually add feature classes that are in their own separate directories.
 config.entryPoints.push(
   "./src/classes/features/other/extraConsoleCommands/commands.ts",
 );
@@ -41,6 +43,7 @@ module.exports = {
     "IsaacAPIClassTypeToType",
     "ISCFeaturesToKeys",
     "ISCFeatureTuple",
+    "ModUpgraded",
     "ReadonlyMapConstructor",
     "ReadonlySetConstructor",
     "Serializable",
