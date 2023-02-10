@@ -13,9 +13,13 @@ const FEATURE_CLASS_DIRECTORY = path.join(
   "features",
   "other",
 );
-const FEATURE_CLASS_FILE_NAMES = fs.readdirSync(FEATURE_CLASS_DIRECTORY);
-for (const fileName of FEATURE_CLASS_FILE_NAMES) {
-  config.entryPoints.push(`./src/classes/features/other/${fileName}`);
+const FEATURE_CLASS_FILE_ENTITY = fs.readdirSync(FEATURE_CLASS_DIRECTORY, {
+  withFileTypes: true,
+});
+for (const fileEntity of FEATURE_CLASS_FILE_ENTITY) {
+  if (fileEntity.isFile()) {
+    config.entryPoints.push(`./src/classes/features/other/${fileEntity.name}`);
+  }
 }
 config.entryPoints.push(
   "./src/classes/features/other/extraConsoleCommands/commands.ts",
