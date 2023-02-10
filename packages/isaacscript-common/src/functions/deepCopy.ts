@@ -15,6 +15,7 @@ import {
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";
+import { sortTwoDimensional } from "./sort";
 import {
   getTSTLClassName,
   isDefaultMap,
@@ -23,7 +24,7 @@ import {
   newTSTLClass,
 } from "./tstlClass";
 import { asString, isNumber, isPrimitive } from "./types";
-import { getTraversalDescription, twoDimensionalSort } from "./utils";
+import { getTraversalDescription } from "./utils";
 
 /**
  * `deepCopy` is a semi-generic deep cloner. It will recursively copy all of the values so that none
@@ -642,7 +643,7 @@ function getCopiedEntries(
   }
 
   if (SAVE_DATA_MANAGER_DEBUG) {
-    entries.sort(twoDimensionalSort);
+    entries.sort(sortTwoDimensional);
   }
 
   // During serialization, we brand some Lua tables with a special identifier to signify that it has

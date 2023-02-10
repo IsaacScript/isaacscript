@@ -65,3 +65,12 @@ export function log(
       : `${parentFunctionDescription} - ${msg}`;
   Isaac.DebugString(debugMsg);
 }
+
+/**
+ * Helper function to log a message to the "log.txt" file and to print it to the screen at the same
+ * time.
+ */
+export function logAndPrint(msg: string): void {
+  log(msg);
+  print(msg);
+}

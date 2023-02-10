@@ -1,7 +1,5 @@
 import { RenderMode } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
-import { log } from "./log";
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
@@ -96,29 +94,6 @@ export function isReflectionRender(): boolean {
 }
 
 /**
- * Helper function to see if a particular command is a vanilla console command. This is useful
- * because the `EXECUTE_CMD` callback will not fire for any vanilla commands.
- */
-export function isVanillaConsoleCommand(commandName: string): boolean {
-  return CONSOLE_COMMANDS_SET.has(commandName);
-}
-
-/**
- * Helper function to log a message to the "log.txt" file and to print it to the screen at the same
- * time.
- */
-export function logAndPrint(msg: string): void {
-  log(msg);
-  print(msg);
-}
-
-/** Helper function to print whether something was enabled or disabled to the in-game console. */
-export function printEnabled(enabled: boolean, description: string): void {
-  const enabledText = enabled ? "Enabled" : "Disabled";
-  print(`${enabledText} ${description}.`);
-}
-
-/**
  * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
  *
  * For example:
@@ -159,102 +134,3 @@ export function repeat(n: int, func: (i: int) => void): void {
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function todo(...args: unknown[]): void {}
-
-/**
- * Helper function to sort a two-dimensional array by the first element.
- *
- * For example:
- *
- * ```ts
- * const myArray = [[1, 2], [2, 3], [3, 4]];
- * myArray.sort(twoDimensionalSort);
- * ```
- *
- * From:
- * https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
- */
-export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
-  const type1 = type(array1);
-  const type2 = type(array2);
-  if (type1 !== type2) {
-    error(
-      `Failed to two-dimensional sort since the two elements were disparate types: ${array1} & ${array2} (${type1} & ${type2})`,
-    );
-  }
-
-  if (type1 === "string" || type1 === "number") {
-    if (array1 === array2) {
-      return 0;
-    }
-
-    return array1 < array2 ? -1 : 1;
-  }
-
-  if (type1 !== "table") {
-    error(
-      "Failed to two-dimensional sort since the elements were not a string, number, or table.",
-    );
-  }
-
-  const firstElement1 = array1[0];
-  const firstElement2 = array2[0];
-
-  if (firstElement1 === undefined || firstElement1 === null) {
-    error(
-      "Failed to two-dimensional sort since the first element of the first array was undefined.",
-    );
-  }
-
-  if (firstElement2 === undefined || firstElement2 === null) {
-    error(
-      "Failed to two-dimensional sort since the first element of the second array was undefined.",
-    );
-  }
-
-  const elementType1 = type(firstElement1);
-  const elementType2 = type(firstElement2);
-  if (elementType1 !== elementType2) {
-    error(
-      `Failed to two-dimensional sort since the first element of each array were disparate types: ${firstElement1} & ${firstElement2} (${elementType1} & ${elementType2})`,
-    );
-  }
-
-  if (firstElement1 === firstElement2) {
-    return 0;
-  }
-
-  return firstElement1 < firstElement2 ? -1 : 1;
-}
-
-/**
- * Helper function to validate that an interface contains all of the keys of an enum. You must
- * specify both generic parameters in order for this to work properly (i.e. the interface and then
- * the enum).
- *
- * For example:
- *
- * ```ts
- * enum MyEnum {
- *   Value1,
- *   Value2,
- *   Value3,
- * }
- *
- * interface MyEnumToType {
- *   [MyEnum.Value1]: boolean;
- *   [MyEnum.Value2]: number;
- *   [MyEnum.Value3]: string;
- * }
- *
- * validateInterfaceMatchesEnum<MyEnumToType, MyEnum>();
- * ```
- *
- * This function is only meant to be used with interfaces (i.e. types that will not exist at
- * run-time). If you are generating an object that will contain all of the keys of an enum, use the
- * `satisfies` operator with the `Record` type instead.
- */
-export function validateInterfaceMatchesEnum<
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  T extends Record<Enum, unknown>,
-  Enum extends string | number,
->(): void {}
