@@ -9,6 +9,7 @@ module.exports = {
     // -----------------
 
     // https://eslint.org/docs/latest/rules/array-callback-return
+    // - Using "checkForEach" makes the rule stricter.
     "array-callback-return": [
       "warn",
       {
