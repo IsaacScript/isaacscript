@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
+  // @template-ignore-next-line
   "import": ["./packages/isaacscript-spell/configs/cspell-isaacscript.json"],
   "files": ["**"],
   "enableFiletypes": ["*"],
@@ -8,15 +9,24 @@
   "useGitignore": true,
   "ignorePaths": [
     "*.anm2",
+    "*.pyc",
+    "*.stb",
+    "*.wav",
+    // @template-ignore-next-line
     "**/.docusaurus/**",
     ".git/**",
-    ".husky/**",
     "dist/**",
+    "mod/main.lua",
+    "mod/content/rooms/**",
+    "mod/resources/rooms/**",
     "node_modules/**",
     "package-lock.json",
+    // @template-ignore-next-line
     "packages/docs/docs/isaacscript-common/**",
+    // @template-ignore-next-line
     "packages/docs/docs/isaac-typescript-definitions/**",
     "pnpm-lock.yaml",
     "yarn.lock"
-  ]
+  ],
+  "words": []
 }

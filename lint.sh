@@ -21,6 +21,9 @@ fi
 # (The script must use ESM because the "sort-package-json" dependency requires ESM.)
 npx tsx "$DIR/scripts/packageJSONLint.mts"
 
+# Ensure that the template files are up to date.
+# npx isaacscript@latest check --ignore ".eslintrc.cjs,ci.yml"
+
 if [ "$1" != "json" ]; then
   echo "Linting scripts..."
   npx eslint --max-warnings 0 scripts

@@ -1,3 +1,5 @@
+- make final ci action depend on output of previous
+
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:

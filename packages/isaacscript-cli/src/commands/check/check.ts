@@ -172,10 +172,21 @@ function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    console.log("--- Template file: ---\n");
+    const originalTemplateFile = readFile(projectFilePath, verbose);
+    const originalProjectFile = readFile(templateFilePath, verbose);
+
+    console.log("--- Original template file: ---\n");
+    console.log(originalTemplateFile);
+    console.log();
+    console.log("--- Original project file: ---\n");
+    console.log(originalProjectFile);
+    console.log();
+    console.log("--- Parsed template file: ---\n");
     console.log(templateFileContents);
-    console.log("--- Project file: ---\n");
+    console.log();
+    console.log("--- Parsed project file: ---\n");
     console.log(projectFileContents);
+    console.log();
   }
 
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
