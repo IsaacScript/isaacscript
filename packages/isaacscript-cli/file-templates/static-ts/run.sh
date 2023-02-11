@@ -24,11 +24,11 @@ fi
 if [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
   echo "No package manager lock files were found. You should manually invoke the package manager that you want to use for this project. e.g. \"npm install\""
   exit 1
-elif [[ ! -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+elif [[ -n "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
   PACKAGE_MANAGER="npm"
-elif [[ -z "$NPM_LOCK_EXISTS" && ! -z "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
+elif [[ -z "$NPM_LOCK_EXISTS" && -n "$YARN_LOCK_EXISTS" && -z "$PNPM_LOCK_EXISTS" ]]; then
   PACKAGE_MANAGER="yarn"
-elif [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && ! -z "$PNPM_LOCK_EXISTS" ]]; then
+elif [[ -z "$NPM_LOCK_EXISTS" && -z "$YARN_LOCK_EXISTS" && -n "$PNPM_LOCK_EXISTS" ]]; then
   PACKAGE_MANAGER="pnpm"
 else
   echo "Error: Multiple different kinds of package manager lock files were found. You should delete the ones that you are not using so that this program can correctly detect your package manager."
