@@ -58,7 +58,7 @@ retext # Monorepo word
 rollup # API Extractor word
 sarisia # ci.yml
 ssmacro # Monorepo word
-sublist # Crawler config word
+sublist # DocSearch Crawler config word
 substr # JavaScript word
 svgr # Monorepo word
 syncer # Monorepo word

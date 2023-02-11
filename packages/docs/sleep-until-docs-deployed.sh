@@ -19,7 +19,8 @@ COMMIT_SHA1="$1"
 SHORT_COMMIT_SHA1=$(echo ${FOO:0:7})
 
 while true; do
-  if curl "$GITHUB_PAGES_URL" --silent | grep "$SHORT_COMMIT_SHA1"; then
+  if curl "$GITHUB_PAGES_URL" --silent | grep "$SHORT_COMMIT_SHA1" > /dev/null; then
+    echo "Found a link with short commit: $SHORT_COMMIT_SHA1"
     break
   fi
 
