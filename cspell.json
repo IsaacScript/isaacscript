@@ -12,18 +12,12 @@
     "*.pyc",
     "*.stb",
     "*.wav",
-    // @template-ignore-next-line
     "**/.docusaurus/**",
     ".git/**",
     "dist/**",
-    "mod/main.lua",
-    "mod/content/rooms/**",
-    "mod/resources/rooms/**",
     "node_modules/**",
     "package-lock.json",
-    // @template-ignore-next-line
     "packages/docs/docs/isaacscript-common/**",
-    // @template-ignore-next-line
     "packages/docs/docs/isaac-typescript-definitions/**",
     "pnpm-lock.yaml",
     "yarn.lock"
