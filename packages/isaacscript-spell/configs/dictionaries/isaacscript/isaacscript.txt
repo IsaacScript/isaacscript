@@ -6,6 +6,7 @@ autocrlf # gitattributes
 autofix # Monorepo word
 browserslist # Monorepo word
 buildable # Monorepo word
+celsiusnarhwal # GitHub actions word
 cloc # Monorepo word
 clsx # Monorepo word
 cmds # cmd-ts word
@@ -57,6 +58,7 @@ retext # Monorepo word
 rollup # API Extractor word
 sarisia # ci.yml
 ssmacro # Monorepo word
+sublist # Crawler config word
 substr # JavaScript word
 svgr # Monorepo word
 syncer # Monorepo word

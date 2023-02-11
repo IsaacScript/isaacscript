@@ -59,6 +59,18 @@ jobs:
         run: bash packages/docs/deploy.sh
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
+      - name: Sleep until the new version of the documentation website is live
+        run: bash packages/docs/sleep-until-docs-deployed.sh ${{ github.sha }}
+
+      - name: Run DocSearch Scraper
+        uses: celsiusnarhwal/typesense-scraper@v2
+        with:
+          api-key: ${{ secrets.TYPESENSE_API_KEY }}
+          host: ${{ secrets.TYPESENSE_HOST }}
+          port: ${{ secrets.TYPESENSE_PORT }}
+          protocol: ${{ secrets.TYPESENSE_PROTOCOL }}
+          config: packages/docs/docsearch.config.json
+
   discord:
     name: Discord Failure Notification
     needs: [build_and_lint]

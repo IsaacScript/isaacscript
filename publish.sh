@@ -25,7 +25,7 @@ npm whoami > /dev/null
 
 # Validate command-line arguments.
 if [ -z "$1" ]; then
-  echo "Error: The package name is required."
+  echo "Error: The package name is required as an argument."
   exit 1
 fi
 PACKAGE_NAME="$1"
@@ -39,7 +39,7 @@ fi
 cd "$PACKAGE_DIR"
 
 if [ -z "$2" ]; then
-  echo "Error: The version bump description is required."
+  echo "Error: The version bump description is required as an argument."
   exit 1
 fi
 VERSION_BUMP="$2"
