@@ -56,14 +56,12 @@ jobs:
           path: isaacscript.github.io
 
       - name: Deploy the documentation website
-        run: bash packages/docs/deploy.sh
+        run: bash packages/docs/deploy.sh ${{ github.sha }}
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-
-      - name: Sleep until the new version of the documentation website is live
-        run: bash packages/docs/sleep-until-docs-deployed.sh ${{ github.sha }}
 
       - name: Run DocSearch Scraper
         uses: celsiusnarhwal/typesense-scraper@v2
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           api-key: ${{ secrets.TYPESENSE_API_KEY }}
           host: ${{ secrets.TYPESENSE_HOST }}

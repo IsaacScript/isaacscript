@@ -25,7 +25,6 @@
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "figlet": "^1.5.2",
-    "git-dirty": "^1.0.2",
     "glob": "^8.1.0",
     "isaac-typescript-definitions": "^11.1.2",
     "jsonc-parser": "^3.2.0",

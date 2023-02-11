@@ -7098,11 +7098,6 @@ get-tsconfig@^4.4.0:
   resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.4.0.tgz#64eee64596668a81b8fce18403f94f245ee0d4e5"
   integrity sha512-0Gdjo/9+FzsYhXCEFueo2aY1z1tpXrxWZzP7k8ul9qt1U5o8rYJwTJYmaeHdrVosYIVYkOy2iwCJ9FdpocJhPQ==
 
-git-dirty@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/git-dirty/-/git-dirty-1.0.2.tgz#fbbd2cfd36fb5f87cb36e95c508e2e896724e116"
-  integrity sha512-JZJp/HRbk8kTqfewQiWZ54LsBt6Abd+chLoQ7zQ/MFRcyNK8KeA9ibU/aDwJObfSDXdEDIUf33xkETq84q236A==
-
 git-hooks-list@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/git-hooks-list/-/git-hooks-list-3.0.0.tgz#6d888988bb445b34e7c2e1eb97cb88358153221e"

@@ -6,25 +6,41 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+function is_git_repo_clean() {
+  GIT_STATUS="$(git status --porcelain)"
+  if [ -z "$GIT_STATUS" ]; then
+    return 0
+  fi
+  return 1
+}
+
 cd "$DIR"
 
-# This will commonly fail in CI, since `git-dirty` does not work correctly after a frequent sequence
-# of commits. Since new rules are rarely added, skip this check in CI.
-if [ ! -z "$CI" ]; then
-  exit
+# Ensure that the checked out version of this repository is the latest version. (It is possible that
+# another commit has been pushed in the meantime, in which case we should do nothing and wait for
+# the CI on that commit to finish.)
+# https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
+git fetch
+if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+  echo "Error: A more recent commit was found in the remote repository."
+  exit 0 # Don't "exit 1" because we do not want to cause CI failures.
 fi
 
-# Only do git dirty checks if this script was called with the "check" argument.
+# Only do Git checks if this script was called with the "check" argument.
 if [ "$1" = "check" ]; then
-  echo "Checking to see if git is dirty before generating..."
-  npx git-dirty
+  if ! is_git_repo_clean; then
+    echo "Error: The current Git repository is not clean."
+    exit 1
+  fi
 fi
 
 npx tsx "$DIR/tools/generate.ts"
 
 if [ "$1" = "check" ]; then
-  echo "Checking to see if any files have changed..."
-  npx git-dirty
+  if ! is_git_repo_clean; then
+    echo "Error: The \"$0\" script resulted in changed files."
+    exit 1
+  fi
 fi
 
 echo "All generation scripts were successful."

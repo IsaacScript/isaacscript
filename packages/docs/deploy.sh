@@ -6,11 +6,30 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# The website repository will be already cloned at this point by the parent GitHub action, including
-# switching to the "gh-pages" branch. See "ci.yml" for more information.
+function is_git_repo_clean() {
+  GIT_STATUS="$(git status --porcelain)"
+  if [ -z "$GIT_STATUS" ]; then
+    return 0
+  fi
+  return 1
+}
+
+DOCS_REPO_NAME="isaacscript.github.io"
+GITHUB_PAGES_URL="https://$DOCS_REPO_NAME/isaacscript-common/core/constants/index.html"
+SECONDS_TO_SLEEP="10"
+
+# Validate command-line arguments.
+if [ -z "$1" ]; then
+  echo "Error: The SHA1 of the commit is required as an argument."
+  exit 1
+fi
+COMMIT_SHA1="$1"
+SHORT_COMMIT_SHA1=$(echo ${COMMIT_SHA1:0:7})
+
+# The website repository will be already cloned at this point by the previous GitHub action,
+# including switching to the "gh-pages" branch. See "ci.yml" for more information.
 REPO_ROOT="$DIR/../.."
 BUILD_PATH="$REPO_ROOT/dist/packages/docs"
-DOCS_REPO_NAME="isaacscript.github.io"
 DOCS_REPO="$REPO_ROOT/$DOCS_REPO_NAME"
 DOCS_REPO_GIT_BACKUP="/tmp/$DOCS_REPO_NAME.git"
 
@@ -20,25 +39,24 @@ cp "$BUILD_PATH" "$DOCS_REPO" --recursive
 mv "$DOCS_REPO_GIT_BACKUP" "$DOCS_REPO/.git"
 cd "$DOCS_REPO"
 
-if npx git-dirty; then
-  # The current working directory is clean. (Unintuitively, the "git-dirty" program returns 1 if the
-  # current working directory is dirty.)
-  echo "There are no docs changes to deploy."
+if is_git_repo_clean; then
+  echo "There are no documentation website changes to deploy."
   exit 0
 fi
 
-# Before committing to the docs repo, ensure that the checked out version of the `isaacscript`
-# repository is the latest version. (It is possible that another commit has been pushed in the
-# meantime, in which case we should do nothing and wait for the CI on that commit to finish.)
+# Ensure that the checked out version of this repository is the latest version. (It is possible that
+# another commit has been pushed in the meantime, in which case we should do nothing and wait for
+# the CI on that commit to finish.)
 # https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 cd "$REPO_ROOT"
 git fetch
 if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
-  exit 0
+  echo "Error: A more recent commit was found in the repository."
+  exit 1
 fi
-
-echo "Deploying changes to the docs website: $DOCS_REPO_NAME"
 cd "$DOCS_REPO"
+
+echo "Deploying changes to the documentation website: $DOCS_REPO_NAME"
 
 git config --global user.email "github-actions@users.noreply.github.com"
 git config --global user.name "github-actions"
@@ -49,3 +67,23 @@ git config --global user.name "github-actions"
 git add --all
 git commit --message "deploy" --amend
 git push --force-with-lease
+
+# Wait for the website to be be live (which usually takes around 5 minutes).
+while true; do
+  if curl "$GITHUB_PAGES_URL" --silent | grep "$SHORT_COMMIT_SHA1" > /dev/null; then
+    echo "Found a link on \"$GITHUB_PAGES_URL\" matching the short commit of: $SHORT_COMMIT_SHA1"
+    break
+  fi
+
+  echo "The latest version of the site ($SHORT_COMMIT_SHA1) has not yet been deployed to GitHub Pages. Sleeping for $SECONDS_TO_SLEEP seconds."
+  sleep $SECONDS_TO_SLEEP
+done
+
+# Check again that the repository is the latest version.
+cd "$REPO_ROOT"
+git fetch
+if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+  echo "Error: A more recent commit was found in the repository."
+  exit 1
+fi
+cd "$DOCS_REPO"

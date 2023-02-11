@@ -272,7 +272,7 @@ export function isGitRepository(verbose: boolean): boolean {
 }
 
 export function isGitClean(verbose: boolean): boolean {
-  const { stdout } = execShellString("git status --short", verbose);
+  const { stdout } = execShellString("git status --porcelain", verbose);
   return stdout.length === 0;
 }
 

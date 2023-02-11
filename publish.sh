@@ -6,6 +6,14 @@ set -e # Exit on any errors
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+function is_git_repo_clean() {
+  GIT_STATUS="$(git status --porcelain)"
+  if [ -z "$GIT_STATUS" ]; then
+    return 0
+  fi
+  return 1
+}
+
 cd "$DIR"
 
 # Validate that we are on the correct branch.
@@ -91,9 +99,7 @@ npx syncpack fix-mismatches --prod --dev
 bash "$DIR/packages/isaacscript-cli/update.sh"
 bash "$DIR/packages/isaacscript-lint/update.sh"
 
-if ! npx git-dirty; then
-  # The current working directory is dirty. (Unintuitively, the "git-dirty" returns 1 if the current
-  # working directory is dirty.)
+if ! is_git_repo_clean; then
   git commit --all --message "chore: updating dependencies"
 fi
 
