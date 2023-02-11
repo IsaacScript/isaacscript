@@ -172,8 +172,8 @@ function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    const originalTemplateFile = readFile(projectFilePath, verbose);
-    const originalProjectFile = readFile(templateFilePath, verbose);
+    const originalTemplateFile = readFile(templateFilePath, verbose);
+    const originalProjectFile = readFile(projectFilePath, verbose);
 
     console.log("--- Original template file: ---\n");
     console.log(originalTemplateFile);

@@ -1,7 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  // @template-ignore-next-line
   "import": ["./packages/isaacscript-spell/configs/cspell-isaacscript.json"],
   "files": ["**"],
   "enableFiletypes": ["*"],
@@ -15,6 +14,9 @@
     "**/.docusaurus/**",
     ".git/**",
     "dist/**",
+    "mod/main.lua",
+    "mod/content/rooms/**",
+    "mod/resources/rooms/**",
     "node_modules/**",
     "package-lock.json",
     "packages/docs/docs/isaacscript-common/**",
