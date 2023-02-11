@@ -9,6 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 GITHUB_PAGES_URL="https://isaacscript.github.io/isaacscript-common/core/constants/index.html"
+SECONDS_TO_SLEEP="10"
 
 # Validate command-line arguments.
 if [ -z "$1" ]; then
@@ -24,6 +25,6 @@ while true; do
     break
   fi
 
-  echo "The latest version of the site has not yet been deployed to GitHub Pages. Sleeping for 5 seconds."
-  sleep 5
+  echo "The latest version of the site ($SHORT_COMMIT_SHA1) has not yet been deployed to GitHub Pages. Sleeping for $SECONDS_TO_SLEEP seconds."
+  sleep $SECONDS_TO_SLEEP
 done
