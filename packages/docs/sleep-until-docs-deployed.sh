@@ -16,7 +16,7 @@ if [ -z "$1" ]; then
   exit 1
 fi
 COMMIT_SHA1="$1"
-SHORT_COMMIT_SHA1=$(echo ${FOO:0:7})
+SHORT_COMMIT_SHA1=$(echo ${COMMIT_SHA1:0:7})
 
 while true; do
   if curl "$GITHUB_PAGES_URL" --silent | grep "$SHORT_COMMIT_SHA1" > /dev/null; then
