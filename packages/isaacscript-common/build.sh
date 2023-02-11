@@ -52,7 +52,7 @@ cp "$DIR/src" "$OUT_DIR/" --recursive
 # Bundle the entire library into one file specifically for Lua consumers. We also include
 # `isaac-typescript-definitions` in the bundled exports so that Lua users do not have to consume two
 # separate libraries.
-if [ "$1" == "fast" ]; then
+if [ "${1-}" == "fast" ]; then
   echo "Skipping the Lua build due to the \"fast\" option being present."
 else
   INDEX_LUA="$DIR/src/indexLua.ts"

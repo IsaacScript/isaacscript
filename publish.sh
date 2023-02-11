@@ -32,7 +32,7 @@ git push --set-upstream origin main --quiet
 npm whoami > /dev/null
 
 # Validate command-line arguments.
-if [ -z "$1" ]; then
+if [ -z "${1-}" ]; then
   echo "Error: The package name is required as an argument."
   exit 1
 fi
@@ -65,7 +65,7 @@ bash "$PACKAGE_DIR/lint.sh"
 if [ "$VERSION_BUMP" == "dev" ]; then
   npm version prerelease --preid=dev --commit-hooks=false
 else
-  npm version $VERSION_BUMP --commit-hooks=false
+  npm version "$VERSION_BUMP" --commit-hooks=false
 fi
 
 # Manually make a Git commit. (See above comment.)

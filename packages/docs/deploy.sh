@@ -19,12 +19,12 @@ GITHUB_PAGES_URL="https://$DOCS_REPO_NAME/isaacscript-common/core/constants/inde
 SECONDS_TO_SLEEP="10"
 
 # Validate command-line arguments.
-if [ -z "$1" ]; then
+if [ -z "${1-}" ]; then
   echo "Error: The SHA1 of the commit is required as an argument."
   exit 1
 fi
 COMMIT_SHA1="$1"
-SHORT_COMMIT_SHA1=$(echo ${COMMIT_SHA1:0:7})
+SHORT_COMMIT_SHA1="${COMMIT_SHA1:0:7}"
 
 # The website repository will be already cloned at this point by the previous GitHub action,
 # including switching to the "gh-pages" branch. See "ci.yml" for more information.
@@ -50,7 +50,7 @@ fi
 # https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 cd "$REPO_ROOT"
 git fetch
-if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+if [ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]; then
   echo "Error: A more recent commit was found in the repository."
   exit 1
 fi
@@ -82,7 +82,7 @@ done
 # Check again that the repository is the latest version.
 cd "$REPO_ROOT"
 git fetch
-if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+if [ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]; then
   echo "Error: A more recent commit was found in the repository."
   exit 1
 fi

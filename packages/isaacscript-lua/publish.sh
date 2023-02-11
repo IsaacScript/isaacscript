@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Subroutines
 function pause() {
-   read -p "$*"
+   read -r -p "$*"
 }
 
 # Read the username and password.

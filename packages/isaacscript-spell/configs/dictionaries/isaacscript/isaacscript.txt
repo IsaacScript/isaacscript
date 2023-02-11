@@ -30,6 +30,7 @@ jsdoc # Monorepo word
 klaw # Monorepo word
 loglevel # Prettier word
 lualib # TSTL word
+ludeeus # ci.yml
 markdownlint # Monorepo word
 markdownlintignore # Monorepo word
 mxschmitt # Monorepo word
@@ -57,6 +58,7 @@ remarkrc # Monorepo word
 retext # Monorepo word
 rollup # API Extractor word
 sarisia # ci.yml
+shellcheck # Linter
 ssmacro # Monorepo word
 sublist # DocSearch Crawler config word
 substr # JavaScript word
