@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+// This is forked from:
+// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/rules/member-ordering.ts
+
 import {
   AST_NODE_TYPES,
   JSONSchema,

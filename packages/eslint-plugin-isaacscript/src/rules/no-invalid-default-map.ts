@@ -1,4 +1,4 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
 import { isTypeFlagSet } from "../typeUtils";
 import { createRule, isFunction } from "../utils";
@@ -33,7 +33,7 @@ export const noInvalidDefaultMap = createRule<
     return {
       NewExpression(node) {
         const { callee } = node;
-        if (!("name" in callee)) {
+        if (callee.type !== AST_NODE_TYPES.Identifier) {
           return;
         }
 

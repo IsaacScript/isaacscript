@@ -46,7 +46,6 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
 
         for (const declaration of node.declarations) {
           const { id } = declaration;
-
           if (id.type !== AST_NODE_TYPES.Identifier) {
             continue;
           }

@@ -1,4 +1,4 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
 import { getTypeName } from "../typeUtils";
 import { createRule, isFirstLetterCapitalized } from "../utils";
@@ -39,7 +39,7 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
 
         for (const declaration of node.declarations) {
           const { id } = declaration;
-          if (!("name" in id)) {
+          if (id.type !== AST_NODE_TYPES.Identifier) {
             continue;
           }
 
