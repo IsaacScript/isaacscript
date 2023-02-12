@@ -1,14 +1,3 @@
-lint failure:
-
-const CAVES_TO_STAGE_ID = {
-  [StageType.ORIGINAL]: StageID.CAVES, // 0
-  [StageType.WRATH_OF_THE_LAMB]: StageID.CATACOMBS, // 1
-  [StageType.AFTERBIRTH]: StageID.FLOODED_CAVES, // 2
-  [StageType.GREED_MODE]: StageID.CAVES, // 3
-  [StageType.REPENTANCE]: StageID.MINES, // 4
-  [StageType.REPENTANCE_B]: StageID.ASHPIT, // 5
-} satisfies Record<StageType, StageID>;
-
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:

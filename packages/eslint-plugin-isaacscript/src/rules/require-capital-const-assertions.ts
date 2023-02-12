@@ -46,20 +46,26 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
 
         for (const declaration of node.declarations) {
           const { id } = declaration;
-          if (!("name" in id)) {
+
+          if (id.type !== AST_NODE_TYPES.Identifier) {
             continue;
           }
 
-          const variableName = id.name;
-          if (!isFirstLetterCapitalized(variableName)) {
+          if (!isFirstLetterCapitalized(id.name)) {
             continue;
           }
 
-          if (!isObjectOrArrayExpression(declaration)) {
+          const { init } = declaration;
+          if (init === null) {
             continue;
           }
 
-          if (hasConstAssertion(declaration)) {
+          // Do nothing if this is not an object or array expression.
+          if (!ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type)) {
+            continue;
+          }
+
+          if (hasConstAssertion(init)) {
             continue;
           }
 
@@ -93,39 +99,46 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
   },
 });
 
-function isObjectOrArrayExpression(declaration: TSESTree.VariableDeclarator) {
-  const { init } = declaration;
-  if (init === null) {
-    return false;
-  }
+function hasConstAssertion(init: TSESTree.Expression): boolean {
+  switch (init.type) {
+    case AST_NODE_TYPES.TSAsExpression: {
+      return hasConstAssertionWithoutSatisfies(init);
+    }
 
-  return ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type);
+    case AST_NODE_TYPES.TSSatisfiesExpression: {
+      return hasConstAssertionWithSatisfies(init);
+    }
+
+    default: {
+      return false;
+    }
+  }
 }
 
-function hasConstAssertion(declaration: TSESTree.VariableDeclarator) {
-  const { init } = declaration;
-  if (init === null) {
-    return false;
-  }
-
-  if (!("typeAnnotation" in init)) {
-    return false;
-  }
-
+function hasConstAssertionWithoutSatisfies(
+  init: TSESTree.TSAsExpression,
+): boolean {
   const { typeAnnotation } = init;
-  if (typeAnnotation === undefined) {
-    return false;
-  }
-
-  if (!("typeName" in typeAnnotation)) {
+  if (typeAnnotation.type !== AST_NODE_TYPES.TSTypeReference) {
     return false;
   }
 
   const { typeName } = typeAnnotation;
-  if (!("name" in typeName)) {
+  if (typeName.type !== AST_NODE_TYPES.Identifier) {
     return false;
   }
 
-  const { name } = typeName;
-  return name === "const";
+  return typeName.name === "const";
+}
+
+/** The "as const" part is nested within the `TSSatisfiesExpression` node as another expression. */
+function hasConstAssertionWithSatisfies(
+  init: TSESTree.TSSatisfiesExpression,
+): boolean {
+  const { expression } = init;
+  if (expression.type !== AST_NODE_TYPES.TSAsExpression) {
+    return false;
+  }
+
+  return hasConstAssertionWithoutSatisfies(expression);
 }
