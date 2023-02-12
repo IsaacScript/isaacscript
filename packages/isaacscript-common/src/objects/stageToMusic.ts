@@ -82,17 +82,17 @@ const HOME_TO_MUSIC = {
 } as const satisfies Record<StageType, Music>;
 
 export const STAGE_TO_MUSIC = {
-  [LevelStage.BASEMENT_1]: BASEMENT_TO_MUSIC,
-  [LevelStage.BASEMENT_2]: BASEMENT_TO_MUSIC,
-  [LevelStage.CAVES_1]: CAVES_TO_MUSIC,
-  [LevelStage.CAVES_2]: CAVES_TO_MUSIC,
-  [LevelStage.DEPTHS_1]: DEPTHS_TO_MUSIC,
-  [LevelStage.DEPTHS_2]: DEPTHS_TO_MUSIC,
-  [LevelStage.WOMB_1]: WOMB_TO_MUSIC,
-  [LevelStage.WOMB_2]: WOMB_TO_MUSIC,
-  [LevelStage.BLUE_WOMB]: BLUE_WOMB_TO_MUSIC,
-  [LevelStage.SHEOL_CATHEDRAL]: SHEOL_CATHEDRAL_TO_MUSIC,
-  [LevelStage.DARK_ROOM_CHEST]: DARK_ROOM_CHEST_TO_MUSIC,
-  [LevelStage.THE_VOID]: VOID_TO_MUSIC,
-  [LevelStage.HOME]: HOME_TO_MUSIC,
+  [LevelStage.BASEMENT_1]: BASEMENT_TO_MUSIC, // 1
+  [LevelStage.BASEMENT_2]: BASEMENT_TO_MUSIC, // 2
+  [LevelStage.CAVES_1]: CAVES_TO_MUSIC, // 3
+  [LevelStage.CAVES_2]: CAVES_TO_MUSIC, // 4
+  [LevelStage.DEPTHS_1]: DEPTHS_TO_MUSIC, // 5
+  [LevelStage.DEPTHS_2]: DEPTHS_TO_MUSIC, // 6
+  [LevelStage.WOMB_1]: WOMB_TO_MUSIC, // 7
+  [LevelStage.WOMB_2]: WOMB_TO_MUSIC, // 8
+  [LevelStage.BLUE_WOMB]: BLUE_WOMB_TO_MUSIC, // 9
+  [LevelStage.SHEOL_CATHEDRAL]: SHEOL_CATHEDRAL_TO_MUSIC, // 10
+  [LevelStage.DARK_ROOM_CHEST]: DARK_ROOM_CHEST_TO_MUSIC, // 11
+  [LevelStage.THE_VOID]: VOID_TO_MUSIC, // 12
+  [LevelStage.HOME]: HOME_TO_MUSIC, // 13
 } as const satisfies Record<LevelStage, Record<StageType, Music>>;
