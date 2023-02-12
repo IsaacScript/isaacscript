@@ -69,6 +69,18 @@ const FOO = {
   `,
 });
 
+invalid.push({
+  name: "Object acting as a static map without const assertion and satisfies",
+  code: `
+const FOO = {
+  [MyEnum.Value1]: "something1",
+  [MyEnum.Value2]: "something2",
+  [MyEnum.Value3]: "something3",
+} satisfies Record<MyEnum, string>;
+  `,
+  errors: [{ messageId: "noConstAssertion" }],
+});
+
 valid.push({
   name: "Empty object assignment with const assertion",
   code: `

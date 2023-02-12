@@ -5,6 +5,22 @@ export type Options = [];
 
 export type MessageIds = "noConstAssertion";
 
+const ARRAY_OR_OBJECT_EXPRESSION_TYPES: ReadonlySet<AST_NODE_TYPES> = new Set([
+  AST_NODE_TYPES.ObjectExpression,
+  AST_NODE_TYPES.ArrayExpression,
+  AST_NODE_TYPES.TSSatisfiesExpression,
+]);
+
+const AUTO_FIX_TYPE_BLACKLIST: ReadonlySet<AST_NODE_TYPES> = new Set([
+  // If the variable is already being casted to something with "as", then don't apply any fix to
+  // avoid stomping on the existing code.
+  AST_NODE_TYPES.TSAsExpression,
+
+  // The `satisfies` keyword will mess up the auto-fixer, because "as const" will be placed after
+  // the satisfies part.
+  AST_NODE_TYPES.TSSatisfiesExpression,
+]);
+
 export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
   name: "require-capital-const-assertions",
   meta: {
@@ -60,9 +76,11 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
                 return null;
               }
 
-              // If this variable is already being casted to something with "as", then don't apply
-              // any fix to avoid stomping on the existing code.
               if (declaration.init.type === AST_NODE_TYPES.TSAsExpression) {
+                return null;
+              }
+
+              if (AUTO_FIX_TYPE_BLACKLIST.has(declaration.init.type)) {
                 return null;
               }
 
@@ -81,10 +99,7 @@ function isObjectOrArrayExpression(declaration: TSESTree.VariableDeclarator) {
     return false;
   }
 
-  return (
-    init.type === AST_NODE_TYPES.ObjectExpression ||
-    init.type === AST_NODE_TYPES.ArrayExpression
-  );
+  return ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type);
 }
 
 function hasConstAssertion(declaration: TSESTree.VariableDeclarator) {

@@ -9,8 +9,6 @@ const CAVES_TO_STAGE_ID = {
   [StageType.REPENTANCE_B]: StageID.ASHPIT, // 5
 } satisfies Record<StageType, StageID>;
 
-- make final ci action depend on output of previous
-
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:
