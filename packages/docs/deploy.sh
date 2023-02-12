@@ -51,8 +51,8 @@ fi
 cd "$REPO_ROOT"
 git fetch
 if [[ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]]; then
-  echo "Error: A more recent commit was found in the repository."
-  exit 1
+  echo "A more recent commit was found in the repository; skipping website deployment."
+  exit 0
 fi
 cd "$DOCS_REPO"
 
@@ -83,7 +83,9 @@ done
 cd "$REPO_ROOT"
 git fetch
 if [[ $(git rev-parse HEAD) != $(git rev-parse '@{u}') ]]; then
-  echo "Error: A more recent commit was found in the repository."
-  exit 1
+  echo "A more recent commit was found in the repository; skipping website scraping."
+  exit 0
 fi
 cd "$DOCS_REPO"
+
+echo "SHOULD_SCRAPE=1" >> "$GITHUB_OUTPUT"

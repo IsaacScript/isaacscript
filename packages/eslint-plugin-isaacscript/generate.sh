@@ -22,7 +22,7 @@ cd "$DIR"
 # https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 git fetch
 if [[ $(git rev-parse HEAD) != $(git rev-parse '@{u}') ]]; then
-  echo "Error: A more recent commit was found in the remote repository."
+  echo "A more recent commit was found in the remote repository; skipping rule generation."
   exit 0 # Don't "exit 1" because we do not want to cause CI failures.
 fi
 
