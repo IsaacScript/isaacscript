@@ -1,84 +1,84 @@
 import { LevelStage, Music, StageType } from "isaac-typescript-definitions";
 
 const BASEMENT_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.BASEMENT,
-  [StageType.WRATH_OF_THE_LAMB]: Music.CELLAR,
-  [StageType.AFTERBIRTH]: Music.BURNING_BASEMENT,
-  [StageType.GREED_MODE]: Music.BASEMENT,
-  [StageType.REPENTANCE]: Music.DOWNPOUR,
-  [StageType.REPENTANCE_B]: Music.DROSS,
+  [StageType.ORIGINAL]: Music.BASEMENT, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.CELLAR, // 1
+  [StageType.AFTERBIRTH]: Music.BURNING_BASEMENT, // 2
+  [StageType.GREED_MODE]: Music.BASEMENT, // 3
+  [StageType.REPENTANCE]: Music.DOWNPOUR, // 4
+  [StageType.REPENTANCE_B]: Music.DROSS, // 5
 } as const satisfies Record<StageType, Music>;
 
 const CAVES_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.CAVES,
-  [StageType.WRATH_OF_THE_LAMB]: Music.CATACOMBS,
-  [StageType.AFTERBIRTH]: Music.FLOODED_CAVES,
-  [StageType.GREED_MODE]: Music.CAVES,
-  [StageType.REPENTANCE]: Music.MINES,
-  [StageType.REPENTANCE_B]: Music.ASHPIT,
+  [StageType.ORIGINAL]: Music.CAVES, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.CATACOMBS, // 1
+  [StageType.AFTERBIRTH]: Music.FLOODED_CAVES, // 2
+  [StageType.GREED_MODE]: Music.CAVES, // 3
+  [StageType.REPENTANCE]: Music.MINES, // 4
+  [StageType.REPENTANCE_B]: Music.ASHPIT, // 5
 } as const satisfies Record<StageType, Music>;
 
 const DEPTHS_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.DEPTHS,
-  [StageType.WRATH_OF_THE_LAMB]: Music.NECROPOLIS,
-  [StageType.AFTERBIRTH]: Music.DANK_DEPTHS,
-  [StageType.GREED_MODE]: Music.DEPTHS,
-  [StageType.REPENTANCE]: Music.MAUSOLEUM,
-  [StageType.REPENTANCE_B]: Music.GEHENNA,
+  [StageType.ORIGINAL]: Music.DEPTHS, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.NECROPOLIS, // 1
+  [StageType.AFTERBIRTH]: Music.DANK_DEPTHS, // 2
+  [StageType.GREED_MODE]: Music.DEPTHS, // 3
+  [StageType.REPENTANCE]: Music.MAUSOLEUM, // 4
+  [StageType.REPENTANCE_B]: Music.GEHENNA, // 5
 } as const satisfies Record<StageType, Music>;
 
 const WOMB_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.WOMB,
-  [StageType.WRATH_OF_THE_LAMB]: Music.UTERO,
-  [StageType.AFTERBIRTH]: Music.SCARRED_WOMB,
-  [StageType.GREED_MODE]: Music.WOMB,
-  [StageType.REPENTANCE]: Music.CORPSE,
-  [StageType.REPENTANCE_B]: Music.MORTIS,
+  [StageType.ORIGINAL]: Music.WOMB, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.UTERO, // 1
+  [StageType.AFTERBIRTH]: Music.SCARRED_WOMB, // 2
+  [StageType.GREED_MODE]: Music.WOMB, // 3
+  [StageType.REPENTANCE]: Music.CORPSE, // 4
+  [StageType.REPENTANCE_B]: Music.MORTIS, // 5
 } as const satisfies Record<StageType, Music>;
 
 const BLUE_WOMB_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.BLUE_WOMB,
-  [StageType.WRATH_OF_THE_LAMB]: Music.BLUE_WOMB,
-  [StageType.AFTERBIRTH]: Music.BLUE_WOMB,
-  [StageType.GREED_MODE]: Music.BLUE_WOMB,
-  [StageType.REPENTANCE]: Music.BLUE_WOMB,
-  [StageType.REPENTANCE_B]: Music.BLUE_WOMB,
+  [StageType.ORIGINAL]: Music.BLUE_WOMB, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.BLUE_WOMB, // 1
+  [StageType.AFTERBIRTH]: Music.BLUE_WOMB, // 2
+  [StageType.GREED_MODE]: Music.BLUE_WOMB, // 3
+  [StageType.REPENTANCE]: Music.BLUE_WOMB, // 4
+  [StageType.REPENTANCE_B]: Music.BLUE_WOMB, // 5
 } as const satisfies Record<StageType, Music>;
 
 const SHEOL_CATHEDRAL_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.SHEOL,
-  [StageType.WRATH_OF_THE_LAMB]: Music.CATHEDRAL,
-  [StageType.AFTERBIRTH]: Music.SHEOL,
-  [StageType.GREED_MODE]: Music.SHEOL,
-  [StageType.REPENTANCE]: Music.SHEOL,
-  [StageType.REPENTANCE_B]: Music.SHEOL,
+  [StageType.ORIGINAL]: Music.SHEOL, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.CATHEDRAL, // 1
+  [StageType.AFTERBIRTH]: Music.SHEOL, // 2
+  [StageType.GREED_MODE]: Music.SHEOL, // 3
+  [StageType.REPENTANCE]: Music.SHEOL, // 4
+  [StageType.REPENTANCE_B]: Music.SHEOL, // 5
 } as const satisfies Record<StageType, Music>;
 
 const DARK_ROOM_CHEST_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.DARK_ROOM,
-  [StageType.WRATH_OF_THE_LAMB]: Music.CHEST,
-  [StageType.AFTERBIRTH]: Music.DARK_ROOM,
-  [StageType.GREED_MODE]: Music.DARK_ROOM,
-  [StageType.REPENTANCE]: Music.DARK_ROOM,
-  [StageType.REPENTANCE_B]: Music.DARK_ROOM,
+  [StageType.ORIGINAL]: Music.DARK_ROOM, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.CHEST, // 1
+  [StageType.AFTERBIRTH]: Music.DARK_ROOM, // 2
+  [StageType.GREED_MODE]: Music.DARK_ROOM, // 3
+  [StageType.REPENTANCE]: Music.DARK_ROOM, // 4
+  [StageType.REPENTANCE_B]: Music.DARK_ROOM, // 5
 } as const satisfies Record<StageType, Music>;
 
-const THE_VOID_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.VOID,
-  [StageType.WRATH_OF_THE_LAMB]: Music.VOID,
-  [StageType.AFTERBIRTH]: Music.VOID,
-  [StageType.GREED_MODE]: Music.VOID,
-  [StageType.REPENTANCE]: Music.VOID,
-  [StageType.REPENTANCE_B]: Music.VOID,
+const VOID_TO_MUSIC = {
+  [StageType.ORIGINAL]: Music.VOID, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.VOID, // 1
+  [StageType.AFTERBIRTH]: Music.VOID, // 2
+  [StageType.GREED_MODE]: Music.VOID, // 3
+  [StageType.REPENTANCE]: Music.VOID, // 4
+  [StageType.REPENTANCE_B]: Music.VOID, // 5
 } as const satisfies Record<StageType, Music>;
 
 const HOME_TO_MUSIC = {
-  [StageType.ORIGINAL]: Music.ISAACS_HOUSE,
-  [StageType.WRATH_OF_THE_LAMB]: Music.ISAACS_HOUSE,
-  [StageType.AFTERBIRTH]: Music.ISAACS_HOUSE,
-  [StageType.GREED_MODE]: Music.ISAACS_HOUSE,
-  [StageType.REPENTANCE]: Music.ISAACS_HOUSE,
-  [StageType.REPENTANCE_B]: Music.ISAACS_HOUSE,
+  [StageType.ORIGINAL]: Music.ISAACS_HOUSE, // 0
+  [StageType.WRATH_OF_THE_LAMB]: Music.ISAACS_HOUSE, // 1
+  [StageType.AFTERBIRTH]: Music.ISAACS_HOUSE, // 2
+  [StageType.GREED_MODE]: Music.ISAACS_HOUSE, // 3
+  [StageType.REPENTANCE]: Music.ISAACS_HOUSE, // 4
+  [StageType.REPENTANCE_B]: Music.ISAACS_HOUSE, // 5
 } as const satisfies Record<StageType, Music>;
 
 export const STAGE_TO_MUSIC = {
@@ -93,6 +93,6 @@ export const STAGE_TO_MUSIC = {
   [LevelStage.BLUE_WOMB]: BLUE_WOMB_TO_MUSIC,
   [LevelStage.SHEOL_CATHEDRAL]: SHEOL_CATHEDRAL_TO_MUSIC,
   [LevelStage.DARK_ROOM_CHEST]: DARK_ROOM_CHEST_TO_MUSIC,
-  [LevelStage.THE_VOID]: THE_VOID_TO_MUSIC,
+  [LevelStage.THE_VOID]: VOID_TO_MUSIC,
   [LevelStage.HOME]: HOME_TO_MUSIC,
 } as const satisfies Record<LevelStage, Record<StageType, Music>>;

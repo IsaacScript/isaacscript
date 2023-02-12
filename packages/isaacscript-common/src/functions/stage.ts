@@ -2,11 +2,13 @@ import {
   GameStateFlag,
   LevelStage,
   RoomType,
+  StageID,
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { ENGLISH_LEVEL_NAMES } from "../objects/englishLevelNames";
 import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
+import { STAGE_TO_STAGE_ID } from "../objects/stageToStageID";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
 import { asLevelStage, asNumber } from "./types";
@@ -131,6 +133,31 @@ export function getStage(): LevelStage {
   const level = game.GetLevel();
 
   return level.GetStage();
+}
+
+/**
+ * Helper function to get the stage ID that corresponds to a particular floor. It does this by
+ * manually converting `LevelStage` and `StageType` into `StageID`. This is useful because
+ * `getRoomStageID` will not correctly return the `StageID` if the player is in a special room.
+ *
+ * @param stage Optional. If not specified, the stage corresponding to the current floor will be
+ *              used.
+ * @param stageType Optional. If not specified, the stage type corresponding to the current floor
+ *                  will be used.
+ */
+export function getStageID(stage?: LevelStage, stageType?: StageType): StageID {
+  const level = game.GetLevel();
+
+  if (stage === undefined) {
+    stage = level.GetStage();
+  }
+
+  if (stageType === undefined) {
+    stageType = level.GetStageType();
+  }
+
+  const stageTypeToStageID = STAGE_TO_STAGE_ID[stage];
+  return stageTypeToStageID[stageType];
 }
 
 /** Alias for the `Level.GetStageType` method. */

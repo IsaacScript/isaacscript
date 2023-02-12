@@ -1,3 +1,14 @@
+lint failure:
+
+const CAVES_TO_STAGE_ID = {
+  [StageType.ORIGINAL]: StageID.CAVES, // 0
+  [StageType.WRATH_OF_THE_LAMB]: StageID.CATACOMBS, // 1
+  [StageType.AFTERBIRTH]: StageID.FLOODED_CAVES, // 2
+  [StageType.GREED_MODE]: StageID.CAVES, // 3
+  [StageType.REPENTANCE]: StageID.MINES, // 4
+  [StageType.REPENTANCE_B]: StageID.ASHPIT, // 5
+} satisfies Record<StageType, StageID>;
+
 - make final ci action depend on output of previous
 
 ----------------------------------------------------------------------------------------------------
@@ -8,17 +19,9 @@
 
 - wait for response from TypeDoc dev: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
-- typedoc bug - https://github.com/tgreyuk/typedoc-plugin-markdown/issues/396
-
 - when typescript 5.0 comes out, remove "newLine" in tsconfig
 - when typescript 5.0 comes out, remove all tsconfig duplication with `extends` (e.g. tsconfig.node.json)
   - extend "@tsconfig/docusaurus/tsconfig.json"
 
-- get docs working with ModCallbackCustom
-  - waiting on issue: https://github.com/algolia/docsearch/issues/1658
-  - https://support.algolia.com/hc/en-us/requests/538679
-
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
-
-- move to pnpm: https://github.com/pnpm/pnpm/issues/6030
