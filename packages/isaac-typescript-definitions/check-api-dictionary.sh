@@ -9,7 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 REPO_ROOT="$DIR/../.."
 
 CSPELL_CONFIG_PATH="$REPO_ROOT/cspell.json"
-if ! test -f "$CSPELL_CONFIG_PATH"; then
+if [[ ! -f "$CSPELL_CONFIG_PATH" ]]; then
   echo "CSpell configuration file not found: $CSPELL_CONFIG_PATH"
   exit 1
 fi
@@ -26,6 +26,7 @@ mv "$CSPELL_CONFIG_PATH_TEMP" "$CSPELL_CONFIG_PATH"
 
 DICTIONARY_NAME="api.txt"
 TXT_PATH="$DIR/../isaacscript-spell/dictionaries/isaac/$DICTIONARY_NAME"
+# shellcheck disable=SC2002
 DICTIONARY_WORDS=$(cat "$TXT_PATH" | grep . | grep -v "^#")
 echo "Checking for every word in: $TXT_PATH"
 
@@ -41,7 +42,7 @@ done
 
 rm -f "$MISSPELLED_WORDS_PATH"
 
-if [ $ONE_OR_MORE_FAILURES -ne "0" ]; then
+if [[ $ONE_OR_MORE_FAILURES -ne "0" ]]; then
   echo "Dictionary check failed."
   exit 1
 fi

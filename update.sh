@@ -22,7 +22,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 #             type in "package.json", and Docusaurus does not support this yet.
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
-if [[ $OLD_HASH != $NEW_HASH ]]; then
+if [[ "$OLD_HASH" != "$NEW_HASH" ]]; then
   yarn install
 
   # Now that the main dependencies have changed, we might need to update the "package.json" files in

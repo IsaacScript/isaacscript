@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 function is_git_repo_clean() {
   GIT_STATUS="$(git status --porcelain)"
-  if [ -z "$GIT_STATUS" ]; then
+  if [[ -z "$GIT_STATUS" ]]; then
     return 0
   fi
   return 1
@@ -19,7 +19,7 @@ GITHUB_PAGES_URL="https://$DOCS_REPO_NAME/isaacscript-common/core/constants/inde
 SECONDS_TO_SLEEP="10"
 
 # Validate command-line arguments.
-if [ -z "${1-}" ]; then
+if [[ -z "${1-}" ]]; then
   echo "Error: The SHA1 of the commit is required as an argument."
   exit 1
 fi
@@ -50,7 +50,7 @@ fi
 # https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 cd "$REPO_ROOT"
 git fetch
-if [ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]; then
+if [[ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]]; then
   echo "Error: A more recent commit was found in the repository."
   exit 1
 fi
@@ -82,7 +82,7 @@ done
 # Check again that the repository is the latest version.
 cd "$REPO_ROOT"
 git fetch
-if [ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]; then
+if [[ $(git rev-parse HEAD) != $(git rev-parse '@{u}') ]]; then
   echo "Error: A more recent commit was found in the repository."
   exit 1
 fi

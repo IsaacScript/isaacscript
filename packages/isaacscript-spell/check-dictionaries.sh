@@ -15,15 +15,17 @@ ALL_WORDS="/tmp/all-words.txt"
 rm -f "$ALL_WORDS"
 touch "$ALL_WORDS"
 for DICTIONARY_DIR in "$DICTIONARIES_DIR/"*; do
-  if [ -d "$DICTIONARY_DIR" ]; then
+  if [[ -d "$DICTIONARY_DIR" ]]; then
     DICTIONARY_NAME=$(basename "$DICTIONARY_DIR")
     echo "Checking alphabetically sorted and unique for dictionary: $DICTIONARY_NAME"
 
-    for DICTIONARY_TXT in $DICTIONARY_DIR/*.txt; do
+    for DICTIONARY_TXT in "$DICTIONARY_DIR/"*.txt; do
       TMP_DICTIONARY_TXT="/tmp/$DICTIONARY_NAME.txt"
       TMP_DICTIONARY_TXT_SORTED="/tmp/$DICTIONARY_NAME-sorted.txt"
 
+      # shellcheck disable=SC2002
       cat "$DICTIONARY_TXT" | grep . | grep -v "^#" > "$TMP_DICTIONARY_TXT"
+      # shellcheck disable=SC2002
       cat "$TMP_DICTIONARY_TXT" | sort --ignore-case --unique > "$TMP_DICTIONARY_TXT_SORTED"
 
       set +e
@@ -60,7 +62,7 @@ if ! cmp "$ALL_WORDS_SORTED" "$ALL_WORDS_SORTED_UNIQUE" --silent; then
 fi
 set -e
 
-if [ $ONE_OR_MORE_FAILURES -ne "0" ]; then
+if [[ $ONE_OR_MORE_FAILURES -ne "0" ]]; then
   echo "Dictionary check failed."
   exit 1
 fi

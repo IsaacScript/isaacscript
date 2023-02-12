@@ -10,7 +10,7 @@ SECONDS=0
 
 cd "$DIR"
 
-if [ "${1-}" == "nocache" ]; then
+if [[ "${1-}" == "nocache" ]]; then
   NO_CACHE="--skip-nx-cache"
   echo Skipping caching.
 else
@@ -24,7 +24,7 @@ npx tsx "$DIR/scripts/packageJSONLint.mts"
 # Ensure that the template files are up to date.
 # npx isaacscript@latest check --ignore ".eslintrc.cjs,ci.yml,cspell.json"
 
-if [ "${1-}" != "json" ]; then
+if [[ "${1-}" != "json" ]]; then
   echo "Linting scripts..."
   npx eslint --max-warnings 0 scripts
 

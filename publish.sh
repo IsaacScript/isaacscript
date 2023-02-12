@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 function is_git_repo_clean() {
   GIT_STATUS="$(git status --porcelain)"
-  if [ -z "$GIT_STATUS" ]; then
+  if [[ -z "$GIT_STATUS" ]]; then
     return 0
   fi
   return 1
@@ -18,7 +18,7 @@ cd "$DIR"
 
 # Validate that we are on the correct branch.
 CURRENT_BRANCH=$(git branch --show-current)
-if [ "$CURRENT_BRANCH" != "main" ]; then
+if [[ "$CURRENT_BRANCH" != "main" ]]; then
   echo "Error: You must be on the main branch before publishing."
   exit 1
 fi
@@ -32,21 +32,21 @@ git push --set-upstream origin main --quiet
 npm whoami > /dev/null
 
 # Validate command-line arguments.
-if [ -z "${1-}" ]; then
+if [[ -z "${1-}" ]]; then
   echo "Error: The package name is required as an argument."
   exit 1
 fi
 PACKAGE_NAME="$1"
 
 PACKAGE_DIR="$DIR/packages/$PACKAGE_NAME"
-if ! test -d "$PACKAGE_DIR"; then
+if [[ ! -d "$PACKAGE_DIR" ]]; then
   echo "Error: The directory of \"$PACKAGE_DIR\" does not exist."
   exit 1
 fi
 
 cd "$PACKAGE_DIR"
 
-if [ -z "$2" ]; then
+if [[ -z "${2-}" ]]; then
   echo "Error: The version bump description is required as an argument."
   exit 1
 fi
@@ -62,7 +62,7 @@ bash "$PACKAGE_DIR/lint.sh"
 # - The npm version command is bugged with subdirectories: https://github.com/npm/cli/issues/2010
 # - The yarn version command is bugged with with spaces inside of the --message" flag.
 # Thus, we manually revert to doing a commit ourselves.
-if [ "$VERSION_BUMP" == "dev" ]; then
+if [[ "$VERSION_BUMP" == "dev" ]]; then
   npm version prerelease --preid=dev --commit-hooks=false
 else
   npm version "$VERSION_BUMP" --commit-hooks=false
@@ -86,7 +86,7 @@ bash "$PACKAGE_DIR/build.sh"
 # The "--access=public" flag is only technically needed for the first publish, but it is saved here
 # for posterity.
 cd "$DIR/dist/packages/$PACKAGE_NAME"
-if [ "$VERSION_BUMP" == "dev" ]; then
+if [[ "$VERSION_BUMP" == "dev" ]]; then
   NPM_TAG=next
 else
   NPM_TAG=latest

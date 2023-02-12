@@ -9,17 +9,17 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SECONDS=0
 
 NPM_LOCK="$DIR/package-lock.json"
-if test -f "$NPM_LOCK"; then
+if [[ -f "$NPM_LOCK" ]]; then
   NPM_LOCK_EXISTS=1
 fi
 
 YARN_LOCK="$DIR/yarn.lock"
-if test -f "$YARN_LOCK"; then
+if [[ -f "$YARN_LOCK" ]]; then
   YARN_LOCK_EXISTS=1
 fi
 
 PNPM_LOCK="$DIR/pnpm-lock.yaml"
-if test -f "$PNPM_LOCK"; then
+if [[ -f "$PNPM_LOCK" ]]; then
   PNPM_LOCK_EXISTS=1
 fi
 
