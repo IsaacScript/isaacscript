@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - The "toggleDisplay" helper functions now accept an optional "force" argument.
 - Added the following helper functions:
   - `sortObjectArrayByKey`
+  - `getStageID`
 - Renamed the following helper functions:
   - `twoDimensionalSort` --> `sortTwoDimensionalArray`
 - Added the following method to the `ModUpgraded` class:
