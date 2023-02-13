@@ -27,7 +27,7 @@ npx cspell --no-progress --no-summary .
 npx ts-prune --error
 
 # Check repository-specific scripts.
-if [[ -n "$GITHUB_ACTIONS" ]]; then
+if [[ -n "${GITHUB_ACTIONS-}" ]]; then
   echo "Checking if the generation scripts modify any files..."
   bash "$DIR/generate.sh" check
 fi
