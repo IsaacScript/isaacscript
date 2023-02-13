@@ -77,7 +77,6 @@ const MY_ARRAY = [1, 2, 3];
   errors: [{ messageId: "readOnlyArray" }],
 });
 
-/*
 invalid.push({
   name: "Writable object",
   code: `
@@ -93,7 +92,6 @@ const MY_OBJECT = {
   `,
   errors: [{ messageId: "readOnlyObject" }],
 });
-*/
 
 ruleTester.run("require-capital-read-only", requireCapitalReadOnly, {
   valid,

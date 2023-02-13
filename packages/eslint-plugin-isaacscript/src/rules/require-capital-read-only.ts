@@ -81,6 +81,10 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
     return undefined;
   }
 
+  if (typeName === "__object" && !isReadOnlyObject(type)) {
+    return "readOnlyObject";
+  }
+
   // This would be "ReadonlyMap" if it was the read-only version.
   if (typeName === "Map") {
     return "readOnlyMap";
@@ -98,3 +102,41 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
 
   return undefined;
 }
+
+function isReadOnlyObject(type: ts.Type): boolean {
+  const symbols = type.getProperties();
+  return symbols.every((symbol) => isReadonlySymbol(symbol));
+}
+
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/** This is copied from TypeScript internally; it is not exported or exposed. */
+function isReadonlySymbol(symbol: ts.Symbol): boolean {
+  // The following symbols are considered read-only:
+  // - Properties with a 'readonly' modifier
+  // - Variables declared with 'const'
+  // - Get accessors without matching set accessors
+  // - Enum members
+  // - Object.defineProperty assignments with writable false or no setter
+  // - Unions and intersections of the above (unions and intersections eagerly set isReadonly on
+  //   creation)
+  return !!(
+    // prettier-ignore
+    // @ts-expect-error Using internal functions.
+    ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
+      (symbol.flags & ts.SymbolFlags.Property &&
+        // @ts-expect-error Using internal functions.
+        ts.getDeclarationModifierFlagsFromSymbol(symbol) &
+          ts.ModifierFlags.Readonly) ||
+      (symbol.flags & ts.SymbolFlags.Variable &&
+        // @ts-expect-error Using internal functions.
+        ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const) ||
+      (symbol.flags & ts.SymbolFlags.Accessor &&
+        !(symbol.flags & ts.SymbolFlags.SetAccessor)) ||
+      symbol.flags & ts.SymbolFlags.EnumMember
+  );
+}
+/* eslint-enable @typescript-eslint/no-unsafe-call */
+/* eslint-enable @typescript-eslint/no-unsafe-member-access */
+/* eslint-enable @typescript-eslint/strict-boolean-expressions */
