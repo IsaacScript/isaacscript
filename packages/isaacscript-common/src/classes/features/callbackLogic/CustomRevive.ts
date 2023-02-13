@@ -9,7 +9,6 @@ import { sfxManager } from "../../../core/cachedClasses";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { removeCollectibleFromItemTracker } from "../../../functions/collectibles";
-import { removeAllFamiliars } from "../../../functions/entitiesSpecific";
 import { log } from "../../../functions/log";
 import { logError } from "../../../functions/logMisc";
 import {
@@ -62,6 +61,9 @@ export class CustomRevive extends Feature {
     this.callbacksUsed = [
       // 2
       [ModCallback.POST_RENDER, this.postRender],
+
+      // 7
+      [ModCallback.POST_FAMILIAR_INIT, this.postFamiliarInit],
     ];
 
     this.customCallbacksUsed = [
@@ -88,6 +90,17 @@ export class CustomRevive extends Feature {
     // The 1-up sound will fire before the item holding animation begins, so we mute it on every
     // render frame.
     sfxManager.Stop(SoundEffect.ONE_UP);
+  };
+
+  // ModCallback.POST_FAMILIAR_INIT (7)
+  private postFamiliarInit = (familiar: EntityFamiliar): void => {
+    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+      return;
+    }
+
+    if (familiar.Variant === FamiliarVariant.ONE_UP) {
+      familiar.Remove();
+    }
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
@@ -178,7 +191,6 @@ export class CustomRevive extends Feature {
     this.logStateChanged();
 
     player.AddCollectible(CollectibleType.ONE_UP, 0, false);
-    removeAllFamiliars(FamiliarVariant.ONE_UP);
     removeCollectibleFromItemTracker(CollectibleType.ONE_UP);
 
     // The player should always be dead one frame from now. If they are not, then something has gone
