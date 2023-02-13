@@ -132,9 +132,8 @@ export function getReadOnlyRooms(): Array<Readonly<RoomDescriptor>> {
  *                             at the same time, and then use the `teleport` helper function when
  *                             you are finished.
  * @param useSpecialRoomsForRoomTypeDefault Optional. Whether to use `s.default` as the prefix for
- *                                 the `goto` command (instead of `d`). False by default. Set this
- *                                 to true if you want to go to a special room of `RoomType.DEFAULT`
- *                                 (1).
+ *                                 the `goto` command (instead of `d`) if the room type is
+ *                                 `RoomType.DEFAULT` (1). False by default.
  */
 export function getRoomDataForTypeVariant(
   roomType: RoomType,

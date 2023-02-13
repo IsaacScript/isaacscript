@@ -126,9 +126,8 @@ export function getEnglishLevelName(
  * @param roomType The `RoomType` of the destination room.
  * @param roomVariant The variant of the destination room.
  * @param useSpecialRoomsForRoomTypeDefault Optional. Whether to use `s.default` as the prefix for
- *                                 the `goto` command (instead of `d`). False by default. Set this
- *                                 to true if you want to go to a special room of `RoomType.DEFAULT`
- *                                 (1).
+ *                                 the `goto` command (instead of `d`) if the room type is
+ *                                 `RoomType.DEFAULT` (1). False by default.
  */
 export function getGotoCommand(
   roomType: RoomType,
