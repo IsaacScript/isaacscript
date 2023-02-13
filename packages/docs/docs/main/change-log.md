@@ -24,6 +24,7 @@ This page lists the changes to the IsaacScript framework.
   - `ModUpgraded` --> `ModUpgradedWithFeatures`
 - Added the following custom callbacks:
   - `POST_KEYBOARD_PRESSED`
+- The `require-capital-read-only` lint rule will now work with objects.
 
 ## February 7th, 2023
 

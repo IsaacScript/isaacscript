@@ -7,7 +7,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { ENGLISH_LEVEL_NAMES } from "../objects/englishLevelNames";
-import { ROOM_TYPE_GOTO_PREFIXES } from "../objects/roomTypeGotoPrefixes";
+import { ROOM_TYPE_SPECIAL_GOTO_PREFIXES } from "../objects/roomTypeSpecialGotoPrefixes";
 import { STAGE_TO_STAGE_ID } from "../objects/stageToStageID";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
@@ -135,10 +135,10 @@ export function getGotoCommand(
   roomVariant: int,
   useSpecialRoomsForRoomTypeDefault = false,
 ): string {
-  const prefix =
-    roomType === RoomType.DEFAULT && useSpecialRoomsForRoomTypeDefault
-      ? `s.default`
-      : ROOM_TYPE_GOTO_PREFIXES[roomType];
+  const isNormalRoom =
+    roomType === RoomType.DEFAULT && !useSpecialRoomsForRoomTypeDefault;
+  const roomTypeSpecialGotoPrefix = ROOM_TYPE_SPECIAL_GOTO_PREFIXES[roomType];
+  const prefix = isNormalRoom ? `d` : `s.${roomTypeSpecialGotoPrefix}`;
 
   return `goto ${prefix}.${roomVariant}`;
 }
