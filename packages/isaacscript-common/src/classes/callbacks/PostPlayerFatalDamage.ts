@@ -46,6 +46,10 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
 
   protected override shouldFire = shouldFirePlayer;
 
+  /**
+   * Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
+   * handle this case.
+   */
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.BIBLE (33)
   private preUseItemBible = (
@@ -56,9 +60,11 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
     _activeSlot: ActiveSlot,
     _customVarData: int,
   ): boolean | undefined => {
-    // Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
-    // handle this case.
     if (!inBossRoomOf(BossID.SATAN)) {
+      return undefined;
+    }
+
+    if (willPlayerRevive(player)) {
       return undefined;
     }
 
