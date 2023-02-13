@@ -63,7 +63,11 @@ export class CustomRevive extends Feature {
       [ModCallback.POST_RENDER, this.postRender],
 
       // 7
-      [ModCallback.POST_FAMILIAR_INIT, this.postFamiliarInit],
+      [
+        ModCallback.POST_FAMILIAR_INIT,
+        this.postFamiliarInitOneUp,
+        [FamiliarVariant.ONE_UP],
+      ],
     ];
 
     this.customCallbacksUsed = [
@@ -93,14 +97,13 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallback.POST_FAMILIAR_INIT (7)
-  private postFamiliarInit = (familiar: EntityFamiliar): void => {
+  // FamiliarVariant.ONE_UP (41)
+  private postFamiliarInitOneUp = (familiar: EntityFamiliar): void => {
     if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
       return;
     }
 
-    if (familiar.Variant === FamiliarVariant.ONE_UP) {
-      familiar.Remove();
-    }
+    familiar.Remove();
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
