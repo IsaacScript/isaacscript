@@ -126,21 +126,21 @@ export function getReadOnlyRooms(): Array<Readonly<RoomDescriptor>> {
  * @param roomType The type of room to retrieve.
  * @param roomVariant The room variant to retrieve. (The room variant is the "ID" of the room in
  *                    Basement Renovator.)
- * @param useSpecialRoomsForRoomTypeDefault Optional. Whether to use `s.default` as the prefix for
- *                                 the `goto` command (instead of `d`). False by default. Set this
- *                                 to true if you want to go to a special room of `RoomType.DEFAULT`
- *                                 (1).
  * @param cancelRoomTransition Optional. Whether to cancel the room transition by using the
  *                             `Game.StartRoomTransition` method to travel to the same room. Default
  *                             is true. Set this to false if you are getting the data for many rooms
  *                             at the same time, and then use the `teleport` helper function when
  *                             you are finished.
+ * @param useSpecialRoomsForRoomTypeDefault Optional. Whether to use `s.default` as the prefix for
+ *                                 the `goto` command (instead of `d`). False by default. Set this
+ *                                 to true if you want to go to a special room of `RoomType.DEFAULT`
+ *                                 (1).
  */
 export function getRoomDataForTypeVariant(
   roomType: RoomType,
   roomVariant: int,
-  useSpecialRoomsForRoomTypeDefault = false,
   cancelRoomTransition = true,
+  useSpecialRoomsForRoomTypeDefault = false,
 ): Readonly<RoomConfig> | undefined {
   const command = getGotoCommand(
     roomType,
