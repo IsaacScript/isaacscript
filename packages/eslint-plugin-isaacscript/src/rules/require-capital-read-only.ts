@@ -3,8 +3,12 @@ import ts from "typescript";
 import { getTypeName } from "../typeUtils";
 import { createRule, isFirstLetterCapitalized } from "../utils";
 
-type Options = [];
-type MessageIds = "readOnlyMap" | "readOnlySet" | "readOnlyArray";
+export type Options = [];
+export type MessageIds =
+  | "readOnlyMap"
+  | "readOnlySet"
+  | "readOnlyArray"
+  | "readOnlyObject";
 
 export const requireCapitalReadOnly = createRule<Options, MessageIds>({
   name: "require-capital-read-only",
@@ -24,6 +28,8 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
         'Sets with a capital letter must be explicitly annotated as "ReadOnlySet".',
       readOnlyArray:
         'Arrays with a capital letter must be explicitly annotated as "readonly" or "ReadonlyArray".',
+      readOnlyObject:
+        'Objects with a capital letter must be read-only. Try using a type annotation with the "Readonly" helper type.',
     },
   },
   defaultOptions: [],
