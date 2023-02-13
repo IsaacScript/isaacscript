@@ -122,9 +122,24 @@ export function getEnglishLevelName(
 /**
  * Helper function to get the corresponding "goto" console command that would correspond to the
  * provided room type and room variant.
+ *
+ * @param roomType The `RoomType` of the destination room.
+ * @param roomVariant The variant of the destination room.
+ * @param useSpecialRoomsForRoomTypeDefault Optional. Whether to use `s.default` as the prefix for
+ *                                 the `goto` command (instead of `d`). False by default. Set this
+ *                                 to true if you want to go to a special room of `RoomType.DEFAULT`
+ *                                 (1).
  */
-export function getGotoCommand(roomType: RoomType, roomVariant: int): string {
-  const prefix = ROOM_TYPE_GOTO_PREFIXES[roomType];
+export function getGotoCommand(
+  roomType: RoomType,
+  roomVariant: int,
+  useSpecialRoomsForRoomTypeDefault = false,
+): string {
+  const prefix =
+    roomType === RoomType.DEFAULT && useSpecialRoomsForRoomTypeDefault
+      ? `s.default`
+      : ROOM_TYPE_GOTO_PREFIXES[roomType];
+
   return `goto ${prefix}.${roomVariant}`;
 }
 

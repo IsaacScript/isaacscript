@@ -402,7 +402,8 @@ export class CustomStages extends Feature {
         newRoomData = getRoomDataForTypeVariant(
           roomType,
           randomRoom.variant,
-          false,
+          true, // The custom stage rooms are loaded inside of the "00.special rooms.stb" file.
+          false, // Since we are going to multiple rooms, we cancel the transition.
         );
         if (newRoomData === undefined) {
           logError(
