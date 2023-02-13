@@ -1,7 +1,7 @@
 import { RoomType } from "isaac-typescript-definitions";
 
 export const ROOM_TYPE_GOTO_PREFIXES = {
-  [RoomType.DEFAULT]: "s.default", // 1
+  [RoomType.DEFAULT]: "d", // 1
   [RoomType.SHOP]: "s.shop", // 2
   [RoomType.ERROR]: "s.error", // 3
   [RoomType.TREASURE]: "s.treasure", // 4
