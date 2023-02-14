@@ -61,11 +61,11 @@ export const ENTITIES_WITH_ARMOR_SET = new ReadonlySet<string>([
   `${EntityType.FACELESS}.${FacelessVariant.TAINTED_FACELESS}`, // 827.1
   `${EntityType.MOLE}.${MoleVariant.TAINTED_MOLE}`, // 829.1
   `${EntityType.GUTTED_FATTY}.${GuttyFattyVariant.GUTTED_FATTY}`, // 831.0
-  `${EntityType.GAPER_L2}.${Gaper2Variant.GAPER}`, // 850.0
-  `${EntityType.GAPER_L2}.${Gaper2Variant.HORF}`, // 850.1
-  `${EntityType.GAPER_L2}.${Gaper2Variant.GUSHER}`, // 850.2
-  `${EntityType.CHARGER_L2}.${Charger2Variant.CHARGER}`, // 855.0
-  `${EntityType.CHARGER_L2}.${Charger2Variant.ELLEECH}`, // 855.1
+  `${EntityType.GAPER_LVL_2}.${Gaper2Variant.GAPER}`, // 850.0
+  `${EntityType.GAPER_LVL_2}.${Gaper2Variant.HORF}`, // 850.1
+  `${EntityType.GAPER_LVL_2}.${Gaper2Variant.GUSHER}`, // 850.2
+  `${EntityType.CHARGER_LVL_2}.${Charger2Variant.CHARGER}`, // 855.0
+  `${EntityType.CHARGER_LVL_2}.${Charger2Variant.ELLEECH}`, // 855.1
   `${EntityType.SHADY}.0`, // 888.0
   `${EntityType.MOTHER}.${MotherVariant.MOTHER_1}`, // 912.0
   `${EntityType.MOTHER}.${MotherVariant.MOTHER_2}`, // 912.10

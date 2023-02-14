@@ -1244,14 +1244,14 @@ export enum CanaryVariant {
   FOREIGNER = 1,
 }
 
-/** For `EntityType.GAPER_L2` (850). */
+/** For `EntityType.GAPER_LVL_2` (850). */
 export enum Gaper2Variant {
   GAPER = 0,
   HORF = 1,
   GUSHER = 2,
 }
 
-/** For `EntityType.CHARGER_L2` (855). */
+/** For `EntityType.CHARGER_LVL_2` (855). */
 export enum Charger2Variant {
   CHARGER = 0,
   ELLEECH = 1,
