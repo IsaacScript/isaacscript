@@ -271,6 +271,13 @@ export class RunInNFrames extends Feature {
     runImmediately: boolean,
     cancelIfRoomChanges = false,
   ): void {
+    if (runImmediately) {
+      const returnValue = func();
+      if (!returnValue) {
+        return;
+      }
+    }
+
     const gameFrameCount = game.GetFrameCount();
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
@@ -282,10 +289,6 @@ export class RunInNFrames extends Feature {
       numIntervalFrames: numGameFrames,
     };
     this.v.run.intervalGameFunctions.push(intervalFunction);
-
-    if (runImmediately) {
-      func();
-    }
   }
 
   /**
@@ -315,6 +318,13 @@ export class RunInNFrames extends Feature {
     runImmediately: boolean,
     cancelIfRoomChanges = false,
   ): void {
+    if (runImmediately) {
+      const returnValue = func();
+      if (!returnValue) {
+        return;
+      }
+    }
+
     const renderFrameCount = Isaac.GetFrameCount();
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
@@ -326,10 +336,6 @@ export class RunInNFrames extends Feature {
       numIntervalFrames: numRenderFrames,
     };
     this.v.run.intervalGameFunctions.push(intervalFunction);
-
-    if (runImmediately) {
-      func();
-    }
   }
 }
 
