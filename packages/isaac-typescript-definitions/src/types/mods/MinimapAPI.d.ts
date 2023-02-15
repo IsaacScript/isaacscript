@@ -302,6 +302,7 @@ declare global {
     IsVisible(): boolean;
     IsVisited(): boolean;
     Remove(): void;
+    SetDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void;
     SetPosition(pos: Vector): void;
 
     AdjacentDisplayFlags: BitFlags<DisplayFlag>;
