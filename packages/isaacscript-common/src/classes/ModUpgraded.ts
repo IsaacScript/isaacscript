@@ -311,8 +311,9 @@ export class ModUpgraded implements Mod {
       for (const callbackTuple of feature.customCallbacksUsed) {
         const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
         // TypeScript is not smart enough to know that the arguments match the function.
-        (this.AddCallbackCustom as AnyFunction)(
+        (this.AddPriorityCallbackCustom as AnyFunction)(
           modCallback,
+          CallbackPriority.IMPORTANT,
           callbackFunc,
           ...(optionalArgs ?? []),
         );
