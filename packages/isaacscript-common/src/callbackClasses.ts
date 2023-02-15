@@ -58,6 +58,7 @@ export { PostNPCRenderFilter } from "./classes/callbacks/PostNPCRenderFilter";
 export { PostNPCStateChanged } from "./classes/callbacks/PostNPCStateChanged";
 export { PostNPCUpdateFilter } from "./classes/callbacks/PostNPCUpdateFilter";
 export { PostPEffectUpdateReordered } from "./classes/callbacks/PostPEffectUpdateReordered";
+export { PostPickupChanged } from "./classes/callbacks/PostPickupChanged";
 export { PostPickupCollect } from "./classes/callbacks/PostPickupCollect";
 export { PostPickupInitFilter } from "./classes/callbacks/PostPickupInitFilter";
 export { PostPickupInitFirst } from "./classes/callbacks/PostPickupInitFirst";

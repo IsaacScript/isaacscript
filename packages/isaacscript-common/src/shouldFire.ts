@@ -267,7 +267,14 @@ export function shouldFirePickup(
     | [pickup: EntityPickup]
     | [pickup: EntityPickup, renderOffset: Vector]
     | [pickup: EntityPickup, player: EntityPlayer]
-    | [pickup: EntityPickup, previousState: int, currentState: int],
+    | [pickup: EntityPickup, previousState: int, currentState: int]
+    | [
+        pickup: EntityPickup,
+        oldVariant: PickupVariant,
+        oldSubType: int,
+        newVariant: PickupVariant,
+        newSubType: int,
+      ],
   optionalArgs: [pickupVariant?: PickupVariant, subType?: int],
 ): boolean {
   const [pickup] = fireArgs;

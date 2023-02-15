@@ -70,6 +70,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_NPC_UPDATE_FILTER]: cc.PostNPCUpdateFilter,
   [ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED]:
     cc.PostPEffectUpdateReordered,
+  [ModCallbackCustom.POST_PICKUP_CHANGED]: cc.PostPickupChanged,
   [ModCallbackCustom.POST_PICKUP_COLLECT]: cc.PostPickupCollect,
   [ModCallbackCustom.POST_PICKUP_INIT_FILTER]: cc.PostPickupInitFilter,
   [ModCallbackCustom.POST_PICKUP_INIT_FIRST]: cc.PostPickupInitFirst,

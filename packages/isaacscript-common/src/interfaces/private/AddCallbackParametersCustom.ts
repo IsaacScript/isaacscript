@@ -439,6 +439,18 @@ export interface AddCallbackParametersCustom {
     character?: PlayerType,
   ];
 
+  [ModCallbackCustom.POST_PICKUP_CHANGED]: [
+    callback: (
+      pickup: EntityPickup,
+      oldVariant: PickupVariant,
+      oldSubType: int,
+      newVariant: PickupVariant,
+      newSubType: int,
+    ) => void,
+    pickupVariant?: PickupVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_PICKUP_COLLECT]: [
     callback: (pickup: EntityPickup, player: EntityPlayer) => void,
     pickupVariant?: PickupVariant,

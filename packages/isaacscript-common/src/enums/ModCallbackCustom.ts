@@ -1059,6 +1059,28 @@ export enum ModCallbackCustom {
   POST_PEFFECT_UPDATE_REORDERED,
 
   /**
+   * Fires from the `POST_PICKUP_UPDATE` callback when a pickup has a different variant or sub-type
+   * than what it was on the previous frame.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the new
+   *   pickup matches the `PickupVariant` provided.
+   * - You can provide an optional third argument that will make the callback only fire if the new
+   *   pickup matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupChanged(
+   *   pickup: EntityPickup,
+   *   oldVariant: PickupVariant,
+   *   oldSubType: int,
+   *   newVariant: PickupVariant,
+   *   newSubType: int,
+   * ): void {}
+   * ```
+   */
+  POST_PICKUP_CHANGED,
+
+  /**
    * Fires on the first `POST_RENDER` frame that a pickup plays the "Collect" animation.
    *
    * Use this callback to know when a pickup is added to the player's inventory or health.
