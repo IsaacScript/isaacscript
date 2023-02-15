@@ -20,11 +20,8 @@ interface QueuedFunction {
  *
  * The return value is whether or not to continue the function from firing.
  */
-interface IntervalFunction {
+interface IntervalFunction extends QueuedFunction {
   func: () => boolean;
-  frameCountToFire: int;
-  numRoomsEntered: int;
-  cancelIfRoomChanges: boolean;
   numIntervalFrames: int;
 }
 
@@ -335,16 +332,16 @@ export class RunInNFrames extends Feature {
       cancelIfRoomChanges,
       numIntervalFrames: numRenderFrames,
     };
-    this.v.run.intervalGameFunctions.push(intervalFunction);
+    this.v.run.intervalRenderFunctions.push(intervalFunction);
   }
 }
 
 function checkExecuteQueuedFunctions(
-  functionTuples: QueuedFunction[],
+  queuedFunctions: QueuedFunction[],
   frameCount: int,
   newNumRoomsEntered: int,
 ) {
-  const firingFunctions = functionTuples.filter(
+  const firingFunctions = queuedFunctions.filter(
     ({ frameCountToFire }) => frameCount >= frameCountToFire,
   );
 
@@ -355,16 +352,16 @@ function checkExecuteQueuedFunctions(
       func();
     }
 
-    arrayRemoveInPlace(functionTuples, firingFunction);
+    arrayRemoveInPlace(queuedFunctions, firingFunction);
   }
 }
 
 function checkExecuteIntervalFunctions(
-  functionTuples: IntervalFunction[],
+  intervalFunctions: IntervalFunction[],
   frameCount: int,
   newNumRoomsEntered: int,
 ) {
-  const firingFunctions = functionTuples.filter(
+  const firingFunctions = intervalFunctions.filter(
     ({ frameCountToFire }) => frameCount >= frameCountToFire,
   );
 
@@ -377,7 +374,7 @@ function checkExecuteIntervalFunctions(
       returnValue = func();
     }
 
-    arrayRemoveInPlace(functionTuples, firingFunction);
+    arrayRemoveInPlace(intervalFunctions, firingFunction);
 
     // Queue the next interval (as long as the function did not return false).
     if (returnValue) {
@@ -388,7 +385,7 @@ function checkExecuteIntervalFunctions(
         cancelIfRoomChanges,
         numIntervalFrames,
       };
-      functionTuples.push(newIntervalFunction);
+      intervalFunctions.push(newIntervalFunction);
     }
   }
 }
