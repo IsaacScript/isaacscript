@@ -95,7 +95,7 @@ npm publish --access=public --tag=$NPM_TAG
 
 sleep 1
 bash "$DIR/update.sh"
-npx syncpack fix-mismatches --prod --dev
+npx syncpack fix-mismatches --types prod,dev
 bash "$DIR/packages/isaacscript-cli/update.sh"
 bash "$DIR/packages/isaacscript-lint/update.sh"
 

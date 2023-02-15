@@ -27,9 +27,8 @@ if [[ "$OLD_HASH" != "$NEW_HASH" ]]; then
 
   # Now that the main dependencies have changed, we might need to update the "package.json" files in
   # the individual packages. However, we don't want to blow away peerDependencies, since they are in
-  # the form of ">= 5.0.0". Thus, we specify both "--prod" and "--dev" to exclude syncing
-  # peerDependencies.
-  npx syncpack fix-mismatches --prod --dev
+  # the form of ">= 5.0.0". Thus, we specify "--types prod,dev" to exclude syncing peerDependencies.
+  npx syncpack fix-mismatches --types "prod,dev"
 
   # syncpack will automatically update most of the dependencies in the individual project
   # "package.json" files, but not the ones that do not exist in the root "package.json" (such as
