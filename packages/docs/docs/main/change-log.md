@@ -16,8 +16,10 @@ This page lists the changes to the IsaacScript framework.
   - `sortObjectArrayByKey`
   - `getStageID`
   - `getRandomItemPool`
+  - `setAllDisplayFlags`
 - Renamed the following helper functions:
   - `twoDimensionalSort` --> `sortTwoDimensionalArray`
+  - `setDisplayFlags` --> `setFloorDisplayFlags`
 - Added the following method to the `ModUpgraded` class:
   - `AddPriorityCallbackCustom` - Works in the same way that `AddPriorityCallback` does.
 - Renamed the following types:
