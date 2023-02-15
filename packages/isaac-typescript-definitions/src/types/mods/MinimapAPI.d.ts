@@ -260,8 +260,8 @@ declare global {
   }
 
   interface MinimapAPITeleportHandler {
-    Teleport(room: MinimapAPIRoomDescriptor): void;
     CanTeleport(room: MinimapAPIRoomDescriptor, cheatMode: boolean): boolean;
+    Teleport(room: MinimapAPIRoomDescriptor): void;
   }
 
   interface MinimapAPIIcon {
