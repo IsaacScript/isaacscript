@@ -312,7 +312,9 @@ declare global {
     IsVisible(): boolean;
     IsVisited(): boolean;
     Remove(): void;
-    RemoveAdjacentRoom(roomToRemove: MinimapAPIRoomDescriptor): MinimapAPIRoomDescriptor;
+    RemoveAdjacentRoom(
+      roomToRemove: MinimapAPIRoomDescriptor,
+    ): MinimapAPIRoomDescriptor;
     Reveal(): void;
     SetDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void;
     SetPosition(pos: Vector): void;
