@@ -259,6 +259,11 @@ declare global {
     Version: string | number;
   }
 
+  interface MinimapAPITeleportHandler {
+    Teleport(room: MinimapAPIRoomDescriptor): void;
+    CanTeleport(room: MinimapAPIRoomDescriptor, cheatMode: boolean): boolean;
+  }
+
   interface MinimapAPIIcon {
     Color: Color;
     anim: string;
@@ -307,7 +312,7 @@ declare global {
     IsVisible(): boolean;
     IsVisited(): boolean;
     Remove(): void;
-    RemoveAdjacentRoom(roomToRemove: MinimapAPIRoomDescriptor): MinimapAPIRoomDescriptor[];
+    RemoveAdjacentRoom(roomToRemove: MinimapAPIRoomDescriptor): MinimapAPIRoomDescriptor;
     Reveal(): void;
     SetDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void;
     SetPosition(pos: Vector): void;
@@ -333,7 +338,7 @@ declare global {
     RenderOffset: Vector;
     Shape: RoomShape;
     TargetRenderOffset: Vector;
-    TeleportHandler: function;
+    TeleportHandler: MinimapAPITeleportHandler;
     Type: RoomType;
     Visited: boolean;
     VisitedIcons: string[];
