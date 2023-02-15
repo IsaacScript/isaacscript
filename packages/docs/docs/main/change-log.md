@@ -9,12 +9,13 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## February 14th, 2023 (Unreleased)
+## February 15th, 2023 (Unreleased)
 
 - The "toggleDisplay" helper functions now accept an optional "force" argument.
 - Added the following helper functions:
   - `sortObjectArrayByKey`
   - `getStageID`
+  - `getRandomItemPool`
 - Renamed the following helper functions:
   - `twoDimensionalSort` --> `sortTwoDimensionalArray`
 - Added the following method to the `ModUpgraded` class:

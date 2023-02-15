@@ -10,6 +10,7 @@ import {
   GridEntityXMLType,
   ItemConfigCardType,
   ItemConfigTag,
+  ItemPoolType,
   Keyboard,
   PillColor,
   PlayerForm,
@@ -47,6 +48,9 @@ export const ITEM_CONFIG_TAG_VALUES: readonly ItemConfigTag[] =
 
 export const ITEM_CONFIG_CARD_TYPE_VALUES: readonly ItemConfigCardType[] =
   getEnumValues(ItemConfigCardType);
+
+export const ITEM_POOL_TYPE_VALUES: readonly ItemPoolType[] =
+  getEnumValues(ItemPoolType);
 
 export const KEYBOARD_VALUES: readonly Keyboard[] = getEnumValues(Keyboard);
 

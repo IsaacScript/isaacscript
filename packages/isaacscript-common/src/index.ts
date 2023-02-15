@@ -61,6 +61,7 @@ export * from "./functions/hex";
 export * from "./functions/initArray";
 export * from "./functions/input";
 export * from "./functions/isaacAPIClass";
+export * from "./functions/itemPool";
 export * from "./functions/jsonHelpers";
 export * from "./functions/jsonRoom";
 export * from "./functions/kColor";
