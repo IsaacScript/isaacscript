@@ -124,20 +124,20 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to run.
-   * @param gameFrames The amount of game frames to wait before running the function.
+   * @param numGameFrames The amount of game frames to wait before running the function.
    * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
    *                            room is loaded in the interim. Default is false.
    */
   @Exported
   public runInNGameFrames(
     func: () => void,
-    gameFrames: int,
+    numGameFrames: int,
     cancelIfRoomChanges = false,
   ): void {
     const gameFrameCount = game.GetFrameCount();
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
-    const frameCountToFire = gameFrameCount + gameFrames;
+    const frameCountToFire = gameFrameCount + numGameFrames;
     const queuedFunction: QueuedFunction = {
       func,
       frameCountToFire,
@@ -160,20 +160,20 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to run.
-   * @param renderFrames The amount of render frames to wait before running the function.
+   * @param numRenderFrames The amount of render frames to wait before running the function.
    * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
    *                            room is loaded in the interim. Default is false.
    */
   @Exported
   public runInNRenderFrames(
     func: () => void,
-    renderFrames: int,
+    numRenderFrames: int,
     cancelIfRoomChanges = false,
   ): void {
     const renderFrameCount = Isaac.GetFrameCount();
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
-    const frameCountToFire = renderFrameCount + renderFrames;
+    const frameCountToFire = renderFrameCount + numRenderFrames;
     const queuedFunction: QueuedFunction = {
       func,
       frameCountToFire,
@@ -258,7 +258,7 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to repeatedly run on an interval.
-   * @param gameFrames The amount of game frames to wait between each run.
+   * @param numGameFrames The amount of game frames to wait between each run.
    * @param runImmediately Whether or not to execute the function right now before waiting for the
    *                       interval.
    * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
@@ -267,7 +267,7 @@ export class RunInNFrames extends Feature {
   @Exported
   public setIntervalGameFrames(
     func: () => boolean,
-    gameFrames: int,
+    numGameFrames: int,
     runImmediately: boolean,
     cancelIfRoomChanges = false,
   ): void {
@@ -276,10 +276,10 @@ export class RunInNFrames extends Feature {
 
     const intervalFunction: IntervalFunction = {
       func,
-      frameCountToFire: gameFrameCount + gameFrames,
+      frameCountToFire: gameFrameCount + numGameFrames,
       numRoomsEntered,
       cancelIfRoomChanges,
-      numIntervalFrames: gameFrames,
+      numIntervalFrames: numGameFrames,
     };
     this.v.run.intervalGameFunctions.push(intervalFunction);
 
@@ -302,7 +302,7 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to repeatedly run on an interval.
-   * @param renderFrames The amount of game frames to wait between each run.
+   * @param numRenderFrames The amount of game frames to wait between each run.
    * @param runImmediately Whether or not to execute the function right now before waiting for the
    *                       interval.
    * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
@@ -311,7 +311,7 @@ export class RunInNFrames extends Feature {
   @Exported
   public setIntervalRenderFrames(
     func: () => boolean,
-    renderFrames: int,
+    numRenderFrames: int,
     runImmediately: boolean,
     cancelIfRoomChanges = false,
   ): void {
@@ -320,10 +320,10 @@ export class RunInNFrames extends Feature {
 
     const intervalFunction: IntervalFunction = {
       func,
-      frameCountToFire: renderFrameCount + renderFrames,
+      frameCountToFire: renderFrameCount + numRenderFrames,
       numRoomsEntered,
       cancelIfRoomChanges,
-      numIntervalFrames: renderFrames,
+      numIntervalFrames: numRenderFrames,
     };
     this.v.run.intervalGameFunctions.push(intervalFunction);
 
