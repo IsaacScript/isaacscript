@@ -20,61 +20,36 @@ export function addRoomDisplayFlag(
   displayFlag: DisplayFlag,
   updateVisibility = true,
 ): void {
-  if (MinimapAPI === undefined) {
-    const roomDescriptor = getRoomDescriptor(roomGridIndex);
-    roomDescriptor.DisplayFlags = addFlag(
-      roomDescriptor.DisplayFlags,
-      displayFlag,
-    );
-  } else {
-    if (roomGridIndex === undefined) {
-      roomGridIndex = getRoomGridIndex();
-    }
-    const roomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
-    if (roomDescriptor !== undefined) {
-      roomDescriptor.DisplayFlags = addFlag(
-        roomDescriptor.DisplayFlags,
-        displayFlag,
-      );
-    }
-  }
-
-  if (updateVisibility) {
-    const level = game.GetLevel();
-    level.UpdateVisibility();
-  }
+  const oldDisplayFlags = getRoomDisplayFlags(roomGridIndex);
+  const newDisplayFlags = addFlag(oldDisplayFlags, displayFlag);
+  setRoomDisplayFlags(roomGridIndex, newDisplayFlags, updateVisibility);
 }
 
 /**
  * Helper function to set the value of `DisplayFlag` for every room on the floor to 0.
  *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
+ *
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
  */
 export function clearFloorDisplayFlags(): void {
-  const level = game.GetLevel();
-
-  for (const room of getRoomsInsideGrid()) {
-    room.DisplayFlags = DisplayFlagZero;
-  }
-
-  // We must call the "Level.UpdateVisibility" method for the changes to be visible.
-  level.UpdateVisibility();
+  setAllDisplayFlags(DisplayFlagZero);
 }
 
 /**
  * Helper function to get the minimap `DisplayFlag` value for every room on the floor. Returns a map
  * that is indexed by the room's safe grid index.
+ *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
  */
 export function getFloorDisplayFlags(): Map<int, BitFlags<DisplayFlag>> {
   const displayFlagsMap = new Map<int, BitFlags<DisplayFlag>>();
 
-  const roomsInGrid = getRoomsInsideGrid();
-  for (const roomDescriptor of roomsInGrid) {
-    displayFlagsMap.set(
-      roomDescriptor.SafeGridIndex,
-      roomDescriptor.DisplayFlags,
-    );
+  for (const roomDescriptor of getRoomsInsideGrid()) {
+    const roomGridIndex = roomDescriptor.SafeGridIndex;
+    const displayFlags = getRoomDisplayFlags(roomGridIndex);
+    displayFlagsMap.set(roomGridIndex, displayFlags);
   }
 
   return displayFlagsMap;
@@ -84,13 +59,50 @@ export function getFloorDisplayFlags(): Map<int, BitFlags<DisplayFlag>> {
  * Helper function to get a particular room's minimap display flags (e.g. whether or not it is
  * visible and so on).
  *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
+ *
  * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getRoomDisplayFlags(
   roomGridIndex?: int,
 ): BitFlags<DisplayFlag> {
-  const roomDescriptor = getRoomDescriptor(roomGridIndex);
-  return roomDescriptor.DisplayFlags;
+  if (roomGridIndex === undefined) {
+    roomGridIndex = getRoomGridIndex();
+  }
+
+  if (MinimapAPI === undefined) {
+    const roomDescriptor = getRoomDescriptor(roomGridIndex);
+    return roomDescriptor.DisplayFlags;
+  }
+
+  const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
+  if (minimapAPIRoomDescriptor === undefined) {
+    error(
+      `Failed to get the MinimapAPI room descriptor for the room at index: ${roomGridIndex}`,
+    );
+  }
+  return minimapAPIRoomDescriptor.GetDisplayFlags();
+}
+
+/**
+ * Helper function to set the minimap `DisplayFlag` value for every room on the floor at once.
+ *
+ * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
+ * the changes will be immediately visible.
+ *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
+ */
+export function setAllDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void {
+  for (const room of getRoomsInsideGrid()) {
+    // We pass false to the `updateVisibility` argument as a small optimization.
+    setRoomDisplayFlags(room.SafeGridIndex, displayFlags, false);
+  }
+
+  // In vanilla, we must call the "Level.UpdateVisibility" method for the changes to be visible.
+  if (MinimapAPI === undefined) {
+    const level = game.GetLevel();
+    level.UpdateVisibility();
+  }
 }
 
 /**
@@ -103,39 +115,26 @@ export function getRoomDisplayFlags(
  *
  * @param displayFlagsMap A map of the display flags that is indexed by the room's safe grid index.
  */
-export function setDisplayFlags(
-  displayFlagsMap: Map<int, BitFlags<DisplayFlag>>,
-): void {
-  const level = game.GetLevel();
-
-  for (const [roomGridIndex, displayFlags] of displayFlagsMap) {
-    if (MinimapAPI === undefined) {
-      // We pass false to the `updateVisibility` argument as a small optimization.
-      setRoomDisplayFlags(roomGridIndex, displayFlags, false);
-    } else {
-      const roomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
-      if (roomDescriptor !== undefined) {
-        roomDescriptor.DisplayFlags = displayFlags;
-      }
-    }
-  }
-
-  // We must call the "Level.UpdateVisibility" method for the changes to be visible.
-  level.UpdateVisibility();
-}
-
-/** Alias for the `setDisplayFlags` function. */
 export function setFloorDisplayFlags(
   displayFlagsMap: Map<int, BitFlags<DisplayFlag>>,
 ): void {
-  setDisplayFlags(displayFlagsMap);
+  for (const [roomGridIndex, displayFlags] of displayFlagsMap) {
+    // We pass false to the `updateVisibility` argument as a small optimization.
+    setRoomDisplayFlags(roomGridIndex, displayFlags, false);
+  }
+
+  // In vanilla, we must call the "Level.UpdateVisibility" method for the changes to be visible.
+  if (MinimapAPI === undefined) {
+    const level = game.GetLevel();
+    level.UpdateVisibility();
+  }
 }
 
 /**
  * Helper function to set a particular room's minimap display flags (e.g. whether or not it is
  * visible and so on).
  *
- * This function correctly handles the case of the player having MinimapAPI.
+ * This function automatically accounts for whether or not MinimapAPI is being used.
  *
  * @param roomGridIndex Set to undefined to use the current room index.
  * @param displayFlags The bit flags value to set. (See the `DisplayFlag` enum.)
@@ -163,9 +162,12 @@ export function setRoomDisplayFlags(
     }
   } else {
     const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
-    if (minimapAPIRoomDescriptor !== undefined) {
-      minimapAPIRoomDescriptor.DisplayFlags = displayFlags;
+    if (minimapAPIRoomDescriptor === undefined) {
+      error(
+        `Failed to get the MinimapAPI room descriptor for the room at index: ${roomGridIndex}`,
+      );
     }
+    minimapAPIRoomDescriptor.SetDisplayFlags(displayFlags);
   }
 }
 
