@@ -111,7 +111,10 @@ export enum DoorVariant {
   LOCKED_DOUBLE = 2,
   LOCKED_CRACKED = 3,
   LOCKED_BARRED = 4,
+
+  /** The Mega Satan door, which is unlocked with the Key Piece familiars. */
   LOCKED_KEY_FAMILIAR = 5,
+
   LOCKED_GREED = 6,
   HIDDEN = 7,
   UNLOCKED = 8,
