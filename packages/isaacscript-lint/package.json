@@ -25,7 +25,7 @@
     "@tsconfig/recommended": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
-    "cspell": "^6.26.1",
+    "cspell": "^6.26.3",
     "cspell-check-unused-words": "^1.0.4",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",

@@ -41,7 +41,7 @@
     "source-map-support": "^0.5.21",
     "sync-directory": "^5.1.9",
     "tslib": "^2.5.0",
-    "typescript-to-lua": "^1.13.0",
+    "typescript-to-lua": "^1.13.1",
     "xml2js": "^0.4.23",
     "yaml": "^2.2.1",
     "yargs": "^17.6.2"
