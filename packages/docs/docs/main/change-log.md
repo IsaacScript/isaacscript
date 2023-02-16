@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `getStageID`
   - `getRandomItemPool`
   - `setAllDisplayFlags`
+  - `clearRoomDisplayFlags`
 - Renamed the following helper functions:
   - `twoDimensionalSort` --> `sortTwoDimensionalArray`
   - `setDisplayFlags` --> `setFloorDisplayFlags`

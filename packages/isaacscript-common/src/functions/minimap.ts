@@ -38,6 +38,18 @@ export function clearFloorDisplayFlags(): void {
 }
 
 /**
+ * Helper function to set the value of `DisplayFlag` for a room 0.
+ *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
+ *
+ * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
+ * the changes will be immediately visible.
+ */
+export function clearRoomDisplayFlags(roomGridIndex: int): void {
+  setRoomDisplayFlags(roomGridIndex, DisplayFlagZero);
+}
+
+/**
  * Helper function to get the minimap `DisplayFlag` value for every room on the floor. Returns a map
  * that is indexed by the room's safe grid index.
  *
@@ -163,25 +175,21 @@ export function setRoomDisplayFlags(
   } else {
     const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
     if (minimapAPIRoomDescriptor === undefined) {
+      // The room might have already been removed previously.
+      if (displayFlags === DisplayFlagZero) {
+        return;
+      }
+
       error(
         `Failed to get the MinimapAPI room descriptor for the room at index: ${roomGridIndex}`,
       );
     }
     minimapAPIRoomDescriptor.SetDisplayFlags(displayFlags);
-  }
-}
 
-/**
- * Helper function to make a single room visible in a similar way to how the Compass makes a Boss
- * Room visible (e.g. by adding `DisplayFlag.SHOW_ICON`).
- *
- * @param roomGridIndex Set to undefined to use the current room index.
- * @param updateVisibility Optional. Whether to call the `Level.UpdateVisibility` method in order to
- *                         make the changes immediately visible. Default is true.
- */
-export function setRoomVisible(
-  roomGridIndex: int | undefined,
-  updateVisibility = true,
-): void {
-  addRoomDisplayFlag(roomGridIndex, DisplayFlag.SHOW_ICON, updateVisibility);
+    // MinimapAPI is bugged such that setting the display flags to 0 does not make the room
+    // invisible. We delete the room to work around this.
+    if (displayFlags === DisplayFlagZero) {
+      minimapAPIRoomDescriptor.Remove();
+    }
+  }
 }
