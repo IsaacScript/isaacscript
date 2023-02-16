@@ -1,3 +1,5 @@
+import { isNumber } from "./types";
+
 /**
  * Helper function to get the name and the line number of the current calling function.
  *
@@ -53,9 +55,13 @@ export function getParentFunctionDescription(
  */
 export function log(
   this: void,
-  msg: string,
+  msg: string | number,
   includeParentFunction = true,
 ): void {
+  if (isNumber(msg)) {
+    msg = msg.toString();
+  }
+
   const parentFunctionDescription = includeParentFunction
     ? getParentFunctionDescription()
     : undefined;
