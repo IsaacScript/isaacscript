@@ -286,7 +286,7 @@ function parseTemplate(template: string, typeScript: boolean): string {
     "@template",
   );
   const templateWithoutMultipleLineBreaks =
-    templateWithoutTemplateComments.replace(/\n\s*\n/g, "\n");
+    templateWithoutTemplateComments.replace(/\n\s*\n\s*\n/g, "\n\n");
 
   return templateWithoutMultipleLineBreaks;
 }
