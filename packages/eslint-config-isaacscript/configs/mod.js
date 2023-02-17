@@ -144,6 +144,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
+     *
+     * Defined in "base.js".
+     *
+     * IsaacScript mods to not use ESM, so we must turn this rule off.
+     */
+    "n/file-extension-in-import": "off",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/no-bitwise
      *
      * Defined at:

@@ -203,6 +203,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
+     *
+     * Not defined in parent configs.
+     *
+     * We use this to automatically fix import statements to ESM.
+     */
+    "n/file-extension-in-import": ["error", "always"],
+
+    /**
+     * Documentation:
      * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-extraneous-import.md
      *
      * Defined at:
