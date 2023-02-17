@@ -186,7 +186,8 @@ function copyDynamicFiles(
     );
     const nodeGitIgnore = readFile(nodeGitIgnorePath, verbose);
 
-    const gitignore = gitIgnoreHeader + template + nodeGitIgnore;
+    // eslint-disable-next-line prefer-template
+    const gitignore = gitIgnoreHeader + template + "\n" + nodeGitIgnore;
 
     // We need to replace the underscore with a period.
     const destinationPath = path.join(projectPath, `.gitignore`);
@@ -280,8 +281,14 @@ function parseTemplate(template: string, typeScript: boolean): string {
     template,
     otherTemplateMarker,
   );
+  const templateWithoutTemplateComments = removeLinesMatching(
+    templateWithoutMarkers,
+    "@template",
+  );
+  const templateWithoutMultipleLineBreaks =
+    templateWithoutTemplateComments.replace(/\n\s*\n/g, "\n");
 
-  return removeLinesMatching(templateWithoutMarkers, "@template");
+  return templateWithoutMultipleLineBreaks;
 }
 
 /** The "package.json" file has to be copied first before this step. */

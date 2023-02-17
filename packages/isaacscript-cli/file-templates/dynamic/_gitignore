@@ -8,7 +8,6 @@ isaacscript.json
 
 # The transpiled Lua output
 mod/main.lua
-
 # @template-mod-end
 
 # ------------------------------
