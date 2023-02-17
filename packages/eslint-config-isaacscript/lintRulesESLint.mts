@@ -1,3 +1,4 @@
+// eslint-disable-next-line n/file-extension-in-import
 import useAtYourOwnRisk from "eslint/use-at-your-own-risk";
 
 const ESLINT_RULES = [...useAtYourOwnRisk.builtinRules.keys()] as const;
