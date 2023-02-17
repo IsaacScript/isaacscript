@@ -84,6 +84,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://typescript-eslint.io/rules/no-confusing-void-expression
+     *
+     * Not defined in the parent configs.
+     *
+     * This prevents assigning void to variables, which is almost certainly a bug.
+     */
+    "@typescript-eslint/no-confusing-void-expression": "warn",
+
+    /**
+     * Documentation:
      * https://typescript-eslint.io/rules/no-unnecessary-boolean-literal-compare
      *
      * Not defined in the parent configs.
