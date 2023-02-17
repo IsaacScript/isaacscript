@@ -210,15 +210,8 @@ export function initGitRepository(
     return;
   }
 
-  execShellString("git init", verbose, false, projectPath);
   execShellString(
-    "git branch --move --force main",
-    verbose,
-    false,
-    projectPath,
-  );
-  execShellString(
-    "git branch --set-upstream-to=origin/main main",
+    "git init --initial-branch=main",
     verbose,
     false,
     projectPath,
