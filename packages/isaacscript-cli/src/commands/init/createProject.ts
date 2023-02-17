@@ -274,11 +274,11 @@ function copyDynamicFiles(
 }
 
 function parseTemplate(template: string, typeScript: boolean): string {
-  const templateKind = typeScript ? "ts" : "mod";
-  const templateMarker = `@template-${templateKind}`;
+  const otherTemplateKind = typeScript ? "mod" : "ts";
+  const otherTemplateMarker = `@template-${otherTemplateKind}`;
   const templateWithoutMarkers = removeLinesBetweenMarkers(
     template,
-    templateMarker,
+    otherTemplateMarker,
   );
 
   return removeLinesMatching(templateWithoutMarkers, "@template");
