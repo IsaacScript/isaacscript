@@ -9,8 +9,9 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## February 15th, 2023 (Unreleased)
+## February 17th, 2023
 
+- Functions that return `Vector`, `Color`, and `KColor` will now return read-only versions.
 - The "toggleDisplay" helper functions now accept an optional "force" argument.
 - Added the following helper functions:
   - `sortObjectArrayByKey`
@@ -29,6 +30,9 @@ This page lists the changes to the IsaacScript framework.
 - Added the following custom callbacks:
   - `POST_KEYBOARD_PRESSED`
 - The `require-capital-read-only` lint rule will now work with objects.
+- Added the following lint rules:
+  - `@typescript-eslint/no-confusing-void-expression`
+  - `n/file-extension-in-import` (TypeScript projects only)
 
 ## February 7th, 2023
 
