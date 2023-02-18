@@ -27,7 +27,8 @@ module.exports = {
   ignorePatterns: ["**/docusaurus/**", "!.remarkrc.mjs"],
 
   rules: {
-    "no-alert": "off",
     "import/no-default-export": "off", // React uses default exports.
+    "n/file-extension-in-import": "off", // Docusaurus does not yet use ESM.
+    "no-alert": "off",
   },
 };
