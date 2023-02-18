@@ -76,7 +76,7 @@ export function deserializeKColor(kColor: SerializedKColor): KColor {
 export function getRandomKColor(
   seedOrRNG: Seed | RNG = getRandomSeed(),
   alpha = 1,
-): KColor {
+): Readonly<KColor> {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   const r = getRandom(rng);

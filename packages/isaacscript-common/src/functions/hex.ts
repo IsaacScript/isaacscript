@@ -8,7 +8,7 @@ const HEX_STRING_LENGTH = 6;
  * @param hexString A hex string like "#ffffff" or "ffffff". (The "#" character is optional.)
  * @param alpha Optional. Range is from 0 to 1. Default is 1. (The same as the `Color` constructor.)
  */
-export function hexToColor(hexString: string, alpha = 1.0): Color {
+export function hexToColor(hexString: string, alpha = 1.0): Readonly<Color> {
   const [r, g, b] = hexToRGB(hexString);
 
   // Color values should be between 0 and 1.
@@ -22,7 +22,7 @@ export function hexToColor(hexString: string, alpha = 1.0): Color {
  * @param hexString A hex string like "#ffffff" or "ffffff". (The "#" character is optional.)
  * @param alpha Range is from 0 to 1. Default is 1.
  */
-export function hexToKColor(hexString: string, alpha = 1.0): KColor {
+export function hexToKColor(hexString: string, alpha = 1.0): Readonly<KColor> {
   const [r, g, b] = hexToRGB(hexString);
 
   // KColor values should be between 0 and 1.

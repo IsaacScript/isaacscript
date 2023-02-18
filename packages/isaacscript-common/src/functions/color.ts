@@ -87,7 +87,7 @@ export function deserializeColor(color: SerializedColor): Color {
 export function getRandomColor(
   seedOrRNG: Seed | RNG = getRandomSeed(),
   alpha = 1,
-): Color {
+): Readonly<Color> {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   const r = getRandom(rng);
