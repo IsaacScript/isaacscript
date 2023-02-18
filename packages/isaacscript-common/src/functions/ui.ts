@@ -13,7 +13,7 @@ import { copyVector } from "./vector";
  * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
  * - If the user has a HUD offset of 1.0 configured, this function will return `Vector(20, 12)`.
  */
-export function getHUDOffsetVector(): Vector {
+export function getHUDOffsetVector(): Readonly<Vector> {
   // Convert e.g. 0.4 to 4.
   const hudOffset = math.floor(Options.HUDOffset * 10);
 
@@ -89,38 +89,38 @@ export function getHeartsUIWidth(): int {
   return width;
 }
 
-export function getScreenBottomCenterPos(): Vector {
+export function getScreenBottomCenterPos(): Readonly<Vector> {
   const bottomRight = getScreenBottomRightPos();
   return Vector(bottomRight.X / 2, bottomRight.Y);
 }
 
-export function getScreenBottomLeftPos(): Vector {
+export function getScreenBottomLeftPos(): Readonly<Vector> {
   const bottomRight = getScreenBottomRightPos();
   return Vector(0, bottomRight.Y);
 }
 
-export function getScreenBottomRightPos(): Vector {
+export function getScreenBottomRightPos(): Readonly<Vector> {
   const screenWidth = Isaac.GetScreenWidth();
   const screenHeight = Isaac.GetScreenHeight();
 
   return Vector(screenWidth, screenHeight);
 }
 
-export function getScreenCenterPos(): Vector {
+export function getScreenCenterPos(): Readonly<Vector> {
   const bottomRight = getScreenBottomRightPos();
   return bottomRight.div(2);
 }
 
-export function getScreenTopCenterPos(): Vector {
+export function getScreenTopCenterPos(): Readonly<Vector> {
   const bottomRight = getScreenBottomRightPos();
   return Vector(bottomRight.X / 2, 0);
 }
 
-export function getScreenTopLeftPos(): Vector {
+export function getScreenTopLeftPos(): Readonly<Vector> {
   return copyVector(VectorZero);
 }
 
-export function getScreenTopRightPos(): Vector {
+export function getScreenTopRightPos(): Readonly<Vector> {
   const bottomRight = getScreenBottomRightPos();
   return Vector(bottomRight.X, 0);
 }

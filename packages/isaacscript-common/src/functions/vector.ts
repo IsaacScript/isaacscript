@@ -90,7 +90,7 @@ export function doesVectorHaveLength(
  */
 export function getRandomVector(
   seedOrRNG: Seed | RNG = getRandomSeed(),
-): Vector {
+): Readonly<Vector> {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   const x = getRandomFloat(-1, 1, rng);

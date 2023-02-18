@@ -54,7 +54,7 @@ export function findFreePosition(
   startingPosition: Vector,
   avoidActiveEntities = false,
   minimumDistance?: float,
-): Vector {
+): Readonly<Vector> {
   const room = game.GetRoom();
   const heavenDoors = getEffects(
     EffectVariant.HEAVEN_LIGHT_DOOR,
