@@ -1,7 +1,8 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManager/constants";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
+import { isSerializationBrand } from "../serialization";
 import { AnyClass } from "../types/AnyClass";
 import { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";
@@ -11,7 +12,6 @@ import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
   isCopyableIsaacAPIClass,
-  isSerializationBrand,
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";

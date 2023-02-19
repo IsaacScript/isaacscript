@@ -20,7 +20,7 @@ import {
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { HealthType } from "../enums/HealthType";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { StatType } from "../enums/StatType";
 import { getEnumValues } from "../functions/enums";
 

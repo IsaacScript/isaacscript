@@ -1,5 +1,5 @@
 import { DefaultMap } from "../classes/DefaultMap";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { arrayEquals } from "./array";
 import { deepCopy } from "./deepCopy";

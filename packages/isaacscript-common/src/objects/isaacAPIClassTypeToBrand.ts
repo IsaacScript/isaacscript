@@ -1,5 +1,5 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 
 export const ISAAC_API_CLASS_TYPE_TO_BRAND = {
   [CopyableIsaacAPIClassType.BIT_SET_128]: SerializationBrand.BIT_SET_128,

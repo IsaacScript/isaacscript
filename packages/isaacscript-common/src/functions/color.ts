@@ -1,5 +1,5 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
