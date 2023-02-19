@@ -57,7 +57,7 @@ export function isEntity(variable: unknown): variable is Entity {
   return getIsaacAPIClassName(variable) === "Entity";
 }
 
-/** Helper function to detect if a variable is of type `EntityEffect`. */
+/** Helper function to detect if a variable is of type `EntityFamiliar`. */
 export function isFamiliar(variable: unknown): variable is EntityFamiliar {
   return getIsaacAPIClassName(variable) === "EntityEffect";
 }
