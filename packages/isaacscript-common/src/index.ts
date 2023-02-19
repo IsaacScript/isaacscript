@@ -13,7 +13,6 @@ export * from "./enums/LadderSubTypeCustom";
 export * from "./enums/ModCallbackCustom";
 export * from "./enums/MysteriousPaperEffect";
 export * from "./enums/PocketItemType";
-export * from "./enums/private/SerializationBrand";
 export * from "./enums/RockAltType";
 export * from "./enums/SaveDataKey";
 export * from "./enums/SerializationType";
