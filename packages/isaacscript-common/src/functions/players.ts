@@ -129,14 +129,14 @@ export function dequeueItem(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to find the active slot that the player has the corresponding collectible type
- * in. Returns undefined if the player does not have the collectible in any active slot.
+ * Helper function to find the active slots that the player has the corresponding collectible type
+ * in. Returns an empty array if the player does not have the collectible in any active slot.
  */
-export function getActiveItemSlot(
+export function getActiveItemSlots(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-): ActiveSlot | undefined {
-  return ACTIVE_SLOT_VALUES.find((activeSlot) => {
+): ActiveSlot[] {
+  return ACTIVE_SLOT_VALUES.filter((activeSlot) => {
     const activeItem = player.GetActiveItem(activeSlot);
     return activeItem === collectibleType;
   });
@@ -465,6 +465,26 @@ export function hasCollectible(
 ): boolean {
   return collectibleTypes.some((collectibleType) =>
     player.HasCollectible(collectibleType),
+  );
+}
+
+/**
+ * Helper function to check to see if a player has a specific collectible in one or more active
+ * slots.
+ *
+ * This function is variadic, meaning that you can specify as many active slots as you want to check
+ * for. This function will return true if the collectible type is located in any of the active slots
+ * provided.
+ */
+export function hasCollectibleInActiveSlot(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+  ...activeSlots: ActiveSlot[]
+): boolean {
+  const matchingActiveSlotsSet = new Set(activeSlots);
+  const activeItemSlots = getActiveItemSlots(player, collectibleType);
+  return activeItemSlots.some((activeSlot) =>
+    matchingActiveSlotsSet.has(activeSlot),
   );
 }
 

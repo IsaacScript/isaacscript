@@ -14,10 +14,12 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `removeCollectible`
   - `getCharacterStartingCollectibles`
+  - `hasCollectibleInActiveSlot`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`
   - `playerHasForm` --> `hasForm`
+  - `getActiveItemSlot` --> `getActiveItemSlots`
 
 ## February 17th, 2023
 
