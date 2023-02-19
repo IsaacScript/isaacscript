@@ -19,9 +19,6 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 
-# API Extractor will make a "dist/tsdoc-metadata.json" file, which we don't need.
-rm -rf "$DIR/dist"
-
 # Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
 npx tstl
 
@@ -41,7 +38,11 @@ npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscrip
 # for our case. However, a downside of this method is that the declaration maps will not work:
 # https://github.com/microsoft/rushstack/issues/1886
 # https://github.com/timocov/dts-bundle-generator/issues/218
-npx api-extractor run
+# (Commented out since it might not be needed anymore.)
+#npx api-extractor run
+
+# API Extractor will make a "dist/tsdoc-metadata.json" file, which we don't need.
+#rm -rf "$DIR/dist"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"
