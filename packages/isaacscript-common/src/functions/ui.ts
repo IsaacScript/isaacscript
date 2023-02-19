@@ -90,13 +90,13 @@ export function getHeartsUIWidth(): int {
 }
 
 export function getScreenBottomCenterPos(): Readonly<Vector> {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(bottomRight.X / 2, bottomRight.Y);
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(bottomRightPos.X / 2, bottomRightPos.Y);
 }
 
 export function getScreenBottomLeftPos(): Readonly<Vector> {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(0, bottomRight.Y);
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(0, bottomRightPos.Y);
 }
 
 export function getScreenBottomRightPos(): Readonly<Vector> {
@@ -106,14 +106,24 @@ export function getScreenBottomRightPos(): Readonly<Vector> {
   return Vector(screenWidth, screenHeight);
 }
 
+export function getScreenBottomY(): float {
+  const bottomRightPos = getScreenBottomRightPos();
+  return bottomRightPos.Y;
+}
+
 export function getScreenCenterPos(): Readonly<Vector> {
-  const bottomRight = getScreenBottomRightPos();
-  return bottomRight.div(2);
+  const bottomRightPos = getScreenBottomRightPos();
+  return bottomRightPos.div(2);
+}
+
+export function getScreenRightX(): float {
+  const bottomRightPos = getScreenBottomRightPos();
+  return bottomRightPos.X;
 }
 
 export function getScreenTopCenterPos(): Readonly<Vector> {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(bottomRight.X / 2, 0);
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(bottomRightPos.X / 2, 0);
 }
 
 export function getScreenTopLeftPos(): Readonly<Vector> {
@@ -121,8 +131,8 @@ export function getScreenTopLeftPos(): Readonly<Vector> {
 }
 
 export function getScreenTopRightPos(): Readonly<Vector> {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(bottomRight.X, 0);
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(bottomRightPos.X, 0);
 }
 
 /**
