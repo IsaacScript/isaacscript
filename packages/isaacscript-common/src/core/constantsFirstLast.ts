@@ -11,6 +11,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { getEnumLength, getLastEnumValue } from "../functions/enums";
+import { iRange } from "../functions/utils";
 
 // ------------
 // Collectibles
@@ -67,9 +68,8 @@ export const FIRST_PILL_EFFECT = PillEffect.BAD_GAS;
 export const LAST_VANILLA_PILL_EFFECT = getLastEnumValue(PillEffect);
 
 /**
- * Calculated from the `PillEffect` enum.
- *
- * (There is no `PillEffect.NULL` in the custom enum, so we do not have to subtract one here.)
+ * Calculated from the `PillEffect` enum. (There is no `PillEffect.NULL` in the custom enum, so we
+ * do not have to subtract one here.)
  */
 export const NUM_VANILLA_PILL_EFFECTS = getEnumLength(PillEffect);
 
@@ -99,7 +99,10 @@ export const FIRST_HORSE_PILL_COLOR = PillColor.HORSE_BLUE_BLUE;
  */
 export const LAST_HORSE_PILL_COLOR = PillColor.HORSE_WHITE_YELLOW;
 
-export const NUM_NORMAL_PILL_COLORS = LAST_NORMAL_PILL_COLOR - FIRST_PILL_COLOR;
+export const NUM_NORMAL_PILL_COLORS = iRange(
+  FIRST_PILL_COLOR,
+  LAST_NORMAL_PILL_COLOR,
+).length;
 
 // -------
 // Players
