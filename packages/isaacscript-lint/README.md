@@ -2,21 +2,15 @@
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
 
-This is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project or a typical IsaacScript mod.
+This is a helper/meta package to install all of the dependencies necessary for [Prettier](https://prettier.io/) + [ESLint](https://eslint.org/) to work with a typical TypeScript project.
 
 <br>
 
-## For Use in a TypeScript / TypeScriptToLua Project
+## Why This Package Is Useful
 
 `isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies; just use `isaacscript-lint`.
 
-See the [installation instructions](#installation-instructions-for-typescript-projects) below.
-
-<br>
-
-## For Use in an Isaacscript Mod
-
-Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.cjs` config file.
+If you are ready to start, see the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
 <br>
 
