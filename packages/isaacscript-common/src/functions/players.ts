@@ -24,6 +24,21 @@ import {
 import { isNumber } from "./types";
 import { repeat } from "./utils";
 
+/**
+ * Helper function to add one or more collectibles to a player.
+ *
+ * This function is variadic, meaning that you can supply as many collectible types as you want to
+ * add.
+ */
+export function addCollectible(
+  player: EntityPlayer,
+  ...collectibleTypes: CollectibleType[]
+): void {
+  for (const collectibleType of collectibleTypes) {
+    player.AddCollectible(collectibleType);
+  }
+}
+
 export function addCollectibleCostume(
   player: EntityPlayer,
   collectibleType: CollectibleType,
@@ -438,6 +453,34 @@ export function getTotalPlayerCollectibles(
   return sumArray(numCollectiblesArray);
 }
 
+/**
+ * Helper function to check to see if a player has one or more collectibles.
+ *
+ * This function is variadic, meaning that you can supply as many collectible types as you want to
+ * check for. Returns true if the player has any of the supplied collectible types.
+ */
+export function hasCollectible(
+  player: EntityPlayer,
+  ...collectibleTypes: CollectibleType[]
+): boolean {
+  return collectibleTypes.some((collectibleType) =>
+    player.HasCollectible(collectibleType),
+  );
+}
+
+/**
+ * Helper function to check to see if a player has one or more transformations.
+ *
+ * This function is variadic, meaning that you can supply as many transformations as you want to
+ * check for. Returns true if the player has any of the supplied transformations.
+ */
+export function hasForm(
+  player: EntityPlayer,
+  ...playerForms: PlayerForm[]
+): boolean {
+  return playerForms.some((playerForm) => player.HasPlayerForm(playerForm));
+}
+
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
 export function hasLostCurse(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
@@ -565,6 +608,17 @@ export function isLost(player: EntityPlayer): boolean {
   return character === PlayerType.LOST || character === PlayerType.LOST_B;
 }
 
+function isTaintedModded(player: EntityPlayer) {
+  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
+  // is bugged.
+  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
+  const character = player.GetPlayerType();
+  const name = player.GetName();
+  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
+
+  return character === taintedCharacter;
+}
+
 export function isModdedPlayer(player: EntityPlayer): boolean {
   return !isVanillaPlayer(player);
 }
@@ -588,17 +642,6 @@ export function isTainted(player: EntityPlayer): boolean {
     : isTaintedModded(player);
 }
 
-function isTaintedModded(player: EntityPlayer) {
-  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
-  // is bugged.
-  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
-  const character = player.GetPlayerType();
-  const name = player.GetName();
-  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
-
-  return character === taintedCharacter;
-}
-
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
 export function isTaintedLazarus(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
@@ -614,49 +657,6 @@ export function isVanillaPlayer(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to add one or more collectibles to a player.
- *
- * This function is variadic, meaning that you can supply as many collectible types as you want to
- * add.
- */
-export function playerAddCollectible(
-  player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
-): void {
-  for (const collectibleType of collectibleTypes) {
-    player.AddCollectible(collectibleType);
-  }
-}
-
-/**
- * Helper function to check to see if a player has one or more collectibles.
- *
- * This function is variadic, meaning that you can supply as many collectible types as you want to
- * check for. Returns true if the player has any of the supplied collectible types.
- */
-export function playerHasCollectible(
-  player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
-): boolean {
-  return collectibleTypes.some((collectibleType) =>
-    player.HasCollectible(collectibleType),
-  );
-}
-
-/**
- * Helper function to check to see if a player has one or more transformations.
- *
- * This function is variadic, meaning that you can supply as many transformations as you want to
- * check for. Returns true if the player has any of the supplied transformations.
- */
-export function playerHasForm(
-  player: EntityPlayer,
-  ...playerForms: PlayerForm[]
-): boolean {
-  return playerForms.some((playerForm) => player.HasPlayerForm(playerForm));
-}
-
-/**
  * Helper function to remove all of the active items from a player. This includes the Schoolbag item
  * and any pocket actives.
  */
@@ -667,11 +667,11 @@ export function removeAllActiveItems(player: EntityPlayer): void {
       continue;
     }
 
-    let hasCollectible: boolean;
+    let stillHasCollectible: boolean;
     do {
       player.RemoveCollectible(collectibleType);
-      hasCollectible = player.HasCollectible(collectibleType);
-    } while (hasCollectible);
+      stillHasCollectible = player.HasCollectible(collectibleType);
+    } while (stillHasCollectible);
   }
 }
 
@@ -693,6 +693,21 @@ export function removeAllPlayerTrinkets(player: EntityPlayer): void {
       player.TryRemoveTrinket(trinketType);
       hasTrinket = player.HasTrinket(trinketType);
     } while (hasTrinket);
+  }
+}
+
+/**
+ * Helper function to remove one or more collectibles to a player.
+ *
+ * This function is variadic, meaning that you can supply as many collectible types as you want to
+ * remove.
+ */
+export function removeCollectible(
+  player: EntityPlayer,
+  ...collectibleTypes: CollectibleType[]
+): void {
+  for (const collectibleType of collectibleTypes) {
+    player.RemoveCollectible(collectibleType);
   }
 }
 

@@ -9,6 +9,15 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## February 24th, 2023 (Unreleased)
+
+- Added the following helper functions:
+  - `removeCollectible`
+- Renamed the following helper functions:
+  - `playerAddCollectible` --> `addCollectible`
+  - `playerHasCollectible` --> `hasCollectible`
+  - `playerHasForm` --> `hasForm`
+
 ## February 17th, 2023
 
 - Functions that return `Vector`, `Color`, and `KColor` will now return read-only versions.
