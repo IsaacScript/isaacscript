@@ -65,7 +65,14 @@ It should have a `package.json` file, a `tsconfig.json` file, and so on.
 ### Step 1 - Install the Dependency
 
 ```sh
+# If you use npm:
 npm install isaacscript-lint --save-dev
+
+# If you use yarn:
+yarn install isaacscript-lint --dev
+
+# If you use pnpm:
+pnpm install isaacscript-lint --save-dev
 ```
 
 (It should be a development dependency because it is only used to lint your code pre-production.)
@@ -76,7 +83,7 @@ Create a `eslintrc.cjs` file in the root of your repository:
 
 ```js
 // This is the configuration file for ESLint, the TypeScript linter:
-// https://eslint.org/docs/latest/user-guide/configuring
+// https://eslint.org/docs/latest/use/configure/
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config:
@@ -91,8 +98,9 @@ module.exports = {
     project: "./tsconfig.eslint.json",
   },
 
-  // We modify the linting rules from the base for some specific things.
-  rules: {},
+  rules: {
+    // Insert changed or disabled rules here, if necessary.
+  },
 };
 ```
 
@@ -107,26 +115,43 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 {
   "extends": "./tsconfig.json",
 
-  // A list of the TypeScript files to compile:
+  // We want to lint every file in the repository, regardless of whether it is actually bundled into
+  // the TypeScript output or not. Two entries for each file extension are needed because TypeScript
+  // will exclude files that begin with a period from an asterisk glob by default.
   "include": [
-    // This must match the "include" setting in the main "tsconfig.json" file.
-    "./src/**/*.ts",
-
-    // These are ESLint-only inclusions. Usually, this includes any files that are outside of your
-    // "src" directory, such as "webpack.config.js", "jest.config.js", "Gruntfile.js", and so forth.
-    "./.eslintrc.cjs"
-  ]
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
 }
 ```
+
+### Step 4 - Enabling Auto-Fix on Save
+
+- You will probably want to set up your code editor such that both Prettier and ESLint are automatically run every time the file is saved.
+- If you see VSCode, see [the VSCode section below](#integration-with-vscode).
+- It's also possible to set this up in other editors such as [Webstorm](https://www.jetbrains.com/webstorm/) and [Neovim](https://neovim.io/), but we don't provide detailed instructions for that here.
 
 <br>
 
 ## Adding or Removing Rules
 
-You can add extra rules (or ignore existing rules) by editing the `rules` section of your `eslintrc.cjs` file. For example:
+You can add extra ESLint rules (or ignore existing ESLint rules) by editing the `rules` section of your `eslintrc.cjs` file. For example:
 
 ```js
-  // We modify the linting rules from the base for some specific things.
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
   },
