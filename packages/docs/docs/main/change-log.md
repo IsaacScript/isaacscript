@@ -22,6 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `playerHasCollectible` --> `hasCollectible`
   - `playerHasForm` --> `hasForm`
   - `getActiveItemSlot` --> `getActiveItemSlots`
+  - `getLastEnumValue` --> `getHighestEnumValue`
 
 ## February 17th, 2023
 
