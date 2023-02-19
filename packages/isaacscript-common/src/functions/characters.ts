@@ -1,7 +1,8 @@
-import { PlayerType } from "isaac-typescript-definitions";
+import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
 import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
+import { CHARACTER_STARTING_COLLECTIBLES } from "../objects/characterStartingCollectibles";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";
 import { CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET } from "../sets/charactersWithBlackHeartFromEternalHeartSet";
 import { CHARACTERS_WITH_FREE_DEVIL_DEALS_SET } from "../sets/charactersWithFreeDevilDealsSet";
@@ -132,6 +133,18 @@ export function getCharacterName(character: PlayerType): string {
   }
 
   return CHARACTER_NAMES[character];
+}
+
+/**
+ * Helper function to get the collectibles that are granted to a particular character at the
+ * beginning of a run.
+ *
+ * Note that this will return an empty array for Eden and Tainted Eden.
+ */
+export function getCharacterStartingItems(
+  character: PlayerType,
+): readonly CollectibleType[] {
+  return CHARACTER_STARTING_COLLECTIBLES[character];
 }
 
 export function isFlyingCharacter(player: EntityPlayer): boolean {
