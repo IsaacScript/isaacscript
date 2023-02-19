@@ -10,7 +10,7 @@ import {
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { getEnumLength, getLastEnumValue } from "../functions/enums";
+import { getEnumLength, getHighestEnumValue } from "../functions/enums";
 import { iRange } from "../functions/utils";
 
 // ------------
@@ -26,7 +26,8 @@ export const FIRST_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
  * Note that this cannot be calculated from the length of the enum, because unlike all of the other
  * enums, collectible types are not contiguous.
  */
-export const LAST_VANILLA_COLLECTIBLE_TYPE = getLastEnumValue(CollectibleType);
+export const LAST_VANILLA_COLLECTIBLE_TYPE =
+  getHighestEnumValue(CollectibleType);
 
 /** Calculated from the `CollectibleType` enum. (`CollectibleType.NULL` is not included.) */
 export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;
@@ -39,7 +40,7 @@ export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;
 export const FIRST_TRINKET_TYPE = TrinketType.SWALLOWED_PENNY;
 
 /** Calculated from the `TrinketType` enum. */
-export const LAST_VANILLA_TRINKET_TYPE = getLastEnumValue(TrinketType);
+export const LAST_VANILLA_TRINKET_TYPE = getHighestEnumValue(TrinketType);
 
 /** Calculated from the `TrinketType` enum. (`TrinketType.NULL` is not included.) */
 export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
@@ -52,7 +53,7 @@ export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
 export const FIRST_CARD_TYPE = CardType.FOOL;
 
 /** Calculated from the `Card` enum. */
-export const LAST_VANILLA_CARD_TYPE = getLastEnumValue(CardType);
+export const LAST_VANILLA_CARD_TYPE = getHighestEnumValue(CardType);
 
 /** Calculated from the `Card` enum. `Card.NULL` is not included. */
 export const NUM_VANILLA_CARD_TYPES = getEnumLength(CardType) - 1;
@@ -65,7 +66,7 @@ export const NUM_VANILLA_CARD_TYPES = getEnumLength(CardType) - 1;
 export const FIRST_PILL_EFFECT = PillEffect.BAD_GAS;
 
 /** Calculated from the `PillEffect` enum. */
-export const LAST_VANILLA_PILL_EFFECT = getLastEnumValue(PillEffect);
+export const LAST_VANILLA_PILL_EFFECT = getHighestEnumValue(PillEffect);
 
 /**
  * Calculated from the `PillEffect` enum. (There is no `PillEffect.NULL` in the custom enum, so we
@@ -114,18 +115,18 @@ export const FIRST_CHARACTER = PlayerType.ISAAC;
 // It is not possible to determine "LAST_PLAYER_TYPE", since there is no associated config.
 
 /** Calculated from the `PlayerType` enum. */
-export const LAST_VANILLA_CHARACTER = getLastEnumValue(PlayerType);
+export const LAST_VANILLA_CHARACTER = getHighestEnumValue(PlayerType);
 
 // ----------
 // Room Types
 // ----------
 
 export const FIRST_ROOM_TYPE = RoomType.DEFAULT;
-export const LAST_ROOM_TYPE = getLastEnumValue(RoomType);
+export const LAST_ROOM_TYPE = getHighestEnumValue(RoomType);
 
 // ------
 // Stages
 // ------
 
 export const FIRST_STAGE = LevelStage.BASEMENT_1;
-export const LAST_STAGE = getLastEnumValue(LevelStage);
+export const LAST_STAGE = getHighestEnumValue(LevelStage);

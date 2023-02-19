@@ -97,7 +97,7 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
  * Note that this is not necessarily the enum value that is declared last, since there is no way to
  * infer that at run-time.
  */
-export function getLastEnumValue<T>(transpiledEnum: T): T[keyof T] {
+export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
   const lastElement = enumValues[enumValues.length - 1];
