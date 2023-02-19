@@ -104,7 +104,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 
 <!-- cspell:ignore Gruntfile -->
 
-```jsonc
+```ts
 // A special TypeScript configuration file, used by ESLint only.
 {
   "extends": "./tsconfig.json",
@@ -128,7 +128,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
+    "./**/.*.tsx"
   ],
 }
 ```
@@ -170,22 +170,22 @@ In order for the linter to work inside of VSCode, you will have to install the f
 
 Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a TypeScript file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
 
-```jsonc
+```ts
 // These are Visual Studio Code settings that should apply to this particular repository.
 {
   "[javascript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
   },
 
   "[typescript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
-  }
+    "editor.tabSize": 2,
+  },
 }
 ```
 
@@ -197,15 +197,15 @@ You can also commit this file to your project's repository so that this behavior
 
 Optionally, you can also provide a hint to anyone cloning your repository that they should install the required extensions:
 
-```jsonc
+```ts
 // These are Visual Studio Code extensions that are intended to be used with this particular
 // repository: https://go.microsoft.com/fwlink/?LinkId=827846
 {
   "recommendations": [
     "esbenp.prettier-vscode", // The TypeScript formatter
     "dbaeumer.vscode-eslint", // The TypeScript linter
-    "streetsidesoftware.code-spell-checker" // A spell-checker extension based on CSpell
-  ]
+    "streetsidesoftware.code-spell-checker", // A spell-checker extension based on CSpell
+  ],
 }
 ```
 

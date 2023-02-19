@@ -34,6 +34,7 @@ ludeeus # ci.yml
 markdownlint # Monorepo word
 markdownlintignore # Monorepo word
 mxschmitt # Monorepo word
+Neovim # TypeScript IDE
 newindex # TSTL word
 nextpromise # TSTL word
 nocache # Monorepo word
@@ -76,5 +77,6 @@ typedoc
 typeof # JavaScript word
 typesense # Search engine
 unshift # JavaScript word
+Webstorm # TypeScript IDE
 Zamiel
 Zamiell
