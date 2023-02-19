@@ -20,7 +20,7 @@
   "author": "Zamiell",
   "type": "commonjs",
   "main": "dist/src/index",
-  "types": "dist/index.rollup.d.ts",
+  "types": "dist/src/index.d.ts",
   "dependencies": {
     "isaac-typescript-definitions": "^11.1.5"
   }
