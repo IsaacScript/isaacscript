@@ -33,16 +33,15 @@ npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscrip
 # generated ".d.ts" file. API Extractor automatically knows which functions are public or private by
 # parsing the "index.ts" file, and generates a new ".d.ts" file with private exports removed. Note
 # that end-users can still manually import internal functions with e.g.
-# `import { internalFunction } from "isaacscript-common/dist/internal/functions"`, but by removing
-# them from the ".d.ts" file, they will not appear as part of auto-complete, which is good enough
+# `import { RunInNFrames } from "isaacscript-common/dist/src/classes/features/other/RunInNFrames";
+# but by removing them from the ".d.ts" file, they will not appear as part of auto-complete, which is good enough
 # for our case. However, a downside of this method is that the declaration maps will not work:
 # https://github.com/microsoft/rushstack/issues/1886
 # https://github.com/timocov/dts-bundle-generator/issues/218
-# (Commented out since it might not be needed anymore.)
-#npx api-extractor run
+npx api-extractor run
 
 # API Extractor will make a "dist/tsdoc-metadata.json" file, which we don't need.
-#rm -rf "$DIR/dist"
+rm -rf "$DIR/dist"
 
 # Copy the rest of the files needed for npm.
 cp "$DIR/LICENSE" "$OUT_DIR/"

@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "25.0.2",
+  "version": "25.0.1",
   "description": "Helper functions and features for IsaacScript mods.",
   "keywords": [
     "isaac",
@@ -20,7 +20,7 @@
   "author": "Zamiell",
   "type": "commonjs",
   "main": "dist/src/index",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/index.rollup.d.ts",
   "dependencies": {
     "isaac-typescript-definitions": "^11.1.5"
   }
