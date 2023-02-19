@@ -141,7 +141,7 @@ export function getCharacterName(character: PlayerType): string {
  *
  * Note that this will return an empty array for Eden and Tainted Eden.
  */
-export function getCharacterStartingItems(
+export function getCharacterStartingCollectibles(
   character: PlayerType,
 ): readonly CollectibleType[] {
   return CHARACTER_STARTING_COLLECTIBLES[character];

@@ -13,7 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `removeCollectible`
-  - `getCharacterStartingItems`
+  - `getCharacterStartingCollectibles`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`
