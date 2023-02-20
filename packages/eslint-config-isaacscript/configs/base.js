@@ -175,7 +175,7 @@ module.exports = {
      *
      * It is a useful rule and it is turned off in the parent configs with no explanation.
      */
-    "import/no-deprecated": "error",
+    "import/no-deprecated": "warn",
 
     /**
      * Documentation:
@@ -209,7 +209,7 @@ module.exports = {
      *
      * We use this to automatically fix import statements to ESM.
      */
-    "n/file-extension-in-import": ["error", "always"],
+    "n/file-extension-in-import": ["warn", "always"],
 
     /**
      * Documentation:
@@ -304,7 +304,7 @@ module.exports = {
      * We need to configure this rule to be Typescript-aware.
      */
     "n/shebang": [
-      "error",
+      "warn",
       {
         convertPath: {
           "src/**/*.ts": ["^src/(.+?)\\.ts$", "dist/$1.js"],
@@ -343,7 +343,7 @@ module.exports = {
     // TEST
     // https://github.com/typescript-eslint/typescript-eslint/issues/6446
     "no-restricted-syntax": [
-      "error",
+      "warn",
       {
         selector:
           'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
