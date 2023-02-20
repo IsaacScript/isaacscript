@@ -175,7 +175,7 @@ module.exports = {
      *
      * It is a useful rule and it is turned off in the parent configs with no explanation.
      */
-    "import/no-deprecated": "off",
+    "import/no-deprecated": "error",
 
     /**
      * Documentation:
