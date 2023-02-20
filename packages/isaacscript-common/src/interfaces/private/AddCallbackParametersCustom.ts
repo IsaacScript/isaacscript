@@ -211,12 +211,14 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED]: [
     callback: (isContinued: boolean) => void,
-    isContinued?: boolean,
+    // `isContinued` is mandatory to prevent users from shooting themselves in the foot.
+    isContinued: boolean | undefined,
   ];
 
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST]: [
     callback: (isContinued: boolean) => void,
-    isContinued?: boolean,
+    // `isContinued` is mandatory to prevent users from shooting themselves in the foot.
+    isContinued: boolean | undefined,
   ];
 
   [ModCallbackCustom.POST_GREED_MODE_WAVE]: [
