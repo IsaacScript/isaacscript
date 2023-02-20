@@ -11,7 +11,6 @@ This page lists the changes to the IsaacScript framework.
 
 ## February 24th, 2023 (Unreleased)
 
-- You can now filter `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` by `isContinued`.
 - Added the following helper functions:
   - `removeCollectible`
   - `getCharacterStartingCollectibles`
@@ -29,6 +28,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following constants:
   - `RESOLUTION_FULL_SCREEN`
   - `RESOLUTION_1600_900`
+- Changed the following custom callbacks:
+  - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
 - Disabled the following lint rules for IsaacScript mods:
   - `class-methods-use-this` (since it is idiomatic to have `v` outside of the class)
 
