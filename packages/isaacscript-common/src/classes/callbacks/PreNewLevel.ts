@@ -1,4 +1,3 @@
-import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getLastFrameOfAnimation } from "../../functions/sprites";
 import { getEffectiveStage } from "../../functions/stage";
@@ -22,14 +21,16 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      // 32
-      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
+        this.postPlayerRenderReordered,
+      ],
     ];
   }
 
-  // ModCallback.POST_PLAYER_RENDER (32)
-  private postPlayerRender = (player: EntityPlayer) => {
+  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
+  private postPlayerRenderReordered = (player: EntityPlayer) => {
     const effectiveStage = getEffectiveStage();
     if (effectiveStage === v.run.firedOnStage) {
       return;

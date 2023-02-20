@@ -128,6 +128,11 @@ declare global {
     DonateAngel(donate: int): void;
     DonateGreed(donate: int): void;
     End(ending: Ending): void;
+
+    /**
+     * @param speed A value between 0 and 1. Using a value of 0 will soft-lock the game. Using a
+     *              value of 1 will instantaneously fade in.
+     */
     Fadein(speed: float): void;
 
     /**

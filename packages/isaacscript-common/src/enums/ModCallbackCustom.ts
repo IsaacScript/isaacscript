@@ -1464,7 +1464,7 @@ export enum ModCallbackCustom {
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function postPlayerRenderReordered(player: EntityPlayer): void {}
+   * function postPlayerRenderReordered(player: EntityPlayer, renderOffset: Vector): void {}
    * ```
    */
   POST_PLAYER_RENDER_REORDERED,

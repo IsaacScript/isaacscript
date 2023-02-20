@@ -1,9 +1,9 @@
-import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { Feature } from "../../private/Feature";
 
-const FADE_IN_SPEED = 1;
+const INSTANT_FADE_IN_SPEED = 1;
 
 export class FadeInRemover extends Feature {
   private enabled = false;
@@ -12,16 +12,18 @@ export class FadeInRemover extends Feature {
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      // 15
-      [ModCallback.POST_GAME_STARTED, this.postGameStarted],
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_GAME_STARTED_REORDERED,
+        this.postGameStartedReordered,
+      ],
     ];
   }
 
-  // ModCallback.POST_GAME_STARTED (15)
-  private postGameStarted = (_isContinued: boolean) => {
+  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
+  private postGameStartedReordered = () => {
     if (this.enabled) {
-      game.Fadein(FADE_IN_SPEED);
+      game.Fadein(INSTANT_FADE_IN_SPEED);
     }
   };
 

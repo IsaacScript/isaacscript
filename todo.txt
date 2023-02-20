@@ -1,4 +1,4 @@
-- deprecate non-reordered callbacks
+- look for all POST_GAME_STARTED_REORDERED features to use third arg
 - socket abstraction in isaacscript-common
 
 ----------------------------------------------------------------------------------------------------

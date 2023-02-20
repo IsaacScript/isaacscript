@@ -57,12 +57,15 @@ export class GameReorderedCallbacks extends Feature {
       ],
 
       // 15
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_GAME_STARTED, this.postGameStarted],
 
       // 18
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
 
       // 19
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_NEW_ROOM, this.postNewRoom],
     ];
 

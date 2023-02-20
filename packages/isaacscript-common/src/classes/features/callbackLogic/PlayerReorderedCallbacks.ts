@@ -4,6 +4,7 @@
 // - POST_PLAYER_UPDATE_REORDERED
 
 import { ModCallback } from "isaac-typescript-definitions";
+import { VectorZero } from "../../../core/constants";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { emptyArray } from "../../../functions/array";
 import {
@@ -16,13 +17,18 @@ import { PostPlayerRenderReordered } from "../../callbacks/PostPlayerRenderReord
 import { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdateReordered";
 import { Feature } from "../../private/Feature";
 
+interface QueueElement {
+  playerIndex: PlayerIndex;
+  renderOffset: Vector;
+}
+
 const v = {
   run: {
     postGameStartedFiredOnThisRun: false,
 
-    postPEffectUpdateQueue: [] as PlayerIndex[],
-    postPlayerUpdateQueue: [] as PlayerIndex[],
-    postPlayerRenderQueue: [] as PlayerIndex[],
+    postPEffectUpdateQueue: [] as QueueElement[],
+    postPlayerUpdateQueue: [] as QueueElement[],
+    postPlayerRenderQueue: [] as QueueElement[],
   },
 };
 
@@ -42,12 +48,15 @@ export class PlayerReorderedCallbacks extends Feature {
 
     this.callbacksUsed = [
       // 4
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_PEFFECT_UPDATE, this.postPEffectUpdate],
 
       // 31
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_PLAYER_UPDATE, this.postPlayerUpdate],
 
       // 32
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
     ];
 
@@ -70,7 +79,10 @@ export class PlayerReorderedCallbacks extends Feature {
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      v.run.postPEffectUpdateQueue.push(playerIndex);
+      v.run.postPEffectUpdateQueue.push({
+        playerIndex,
+        renderOffset: VectorZero,
+      });
     }
   };
 
@@ -81,21 +93,24 @@ export class PlayerReorderedCallbacks extends Feature {
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      v.run.postPlayerUpdateQueue.push(playerIndex);
+      v.run.postPlayerUpdateQueue.push({
+        playerIndex,
+        renderOffset: VectorZero,
+      });
     }
   };
 
   // ModCallback.POST_PLAYER_RENDER (32)
   private postPlayerRender = (
     player: EntityPlayer,
-    _renderOffset: Vector,
+    renderOffset: Vector,
   ): void => {
     if (v.run.postGameStartedFiredOnThisRun) {
-      this.postPlayerRenderReordered.fire(player);
+      this.postPlayerRenderReordered.fire(player, renderOffset);
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      v.run.postPlayerRenderQueue.push(playerIndex);
+      v.run.postPlayerRenderQueue.push({ playerIndex, renderOffset });
     }
   };
 
@@ -110,15 +125,16 @@ export class PlayerReorderedCallbacks extends Feature {
 }
 
 function dequeue(
-  playerIndexes: PlayerIndex[],
-  fireFunc: (player: EntityPlayer) => void,
+  queue: QueueElement[],
+  fireFunc: (player: EntityPlayer, renderOffset: Vector) => void,
 ) {
-  for (const playerIndex of playerIndexes) {
+  for (const element of queue) {
+    const { playerIndex, renderOffset } = element;
     const player = getPlayerFromIndex(playerIndex);
     if (player !== undefined) {
-      fireFunc(player);
+      fireFunc(player, renderOffset);
     }
   }
 
-  emptyArray(playerIndexes);
+  emptyArray(queue);
 }

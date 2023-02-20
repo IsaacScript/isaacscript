@@ -1,7 +1,6 @@
 import {
   CollectibleType,
   DamageFlag,
-  ModCallback,
   PlayerVariant,
   RoomType,
   TrinketType,
@@ -39,49 +38,15 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      // 32
-      [
-        ModCallback.POST_PLAYER_RENDER,
-        // Co-op babies cannot perform Cursed Eye teleports.
-        this.postPlayerRenderPlayer,
-        [PlayerVariant.PLAYER],
-      ],
-    ];
-
     this.customCallbacksUsed = [
       [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+      [
+        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
+        this.postPlayerRenderReorderedPlayer,
+        [PlayerVariant.PLAYER], // Co-op babies cannot perform Cursed Eye teleports.
+      ],
     ];
   }
-
-  // ModCallback.POST_PLAYER_RENDER (32)
-  // PlayerVariant.PLAYER (0)
-  private postPlayerRenderPlayer = (
-    player: EntityPlayer,
-    _renderOffset: Vector,
-  ): void => {
-    // Retrieve information about this player.
-    const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
-    if (trackingArray === undefined) {
-      return;
-    }
-    const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
-
-    if (!playerIsTeleportingFromCursedTeleport(player, lastDamageFrame)) {
-      return;
-    }
-
-    // Do nothing if the callback already fired on this frame.
-    if (callbackActivatedOnThisFrame) {
-      return;
-    }
-
-    const gameFrameCount = game.GetFrameCount();
-    const newTrackingArray = [gameFrameCount, true];
-    mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
-
-    this.fire(player);
-  };
 
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
   private entityTakeDmgPlayer = (
@@ -146,35 +111,64 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
       (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
     );
   }
-}
 
-function playerIsTeleportingFromCursedTeleport(
-  player: EntityPlayer,
-  lastDamageFrame: int,
-) {
-  // Check to see if this is the frame that we last took damage.
-  const gameFrameCount = game.GetFrameCount();
-  if (gameFrameCount !== lastDamageFrame) {
-    return false;
-  }
+  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
+  // PlayerVariant.PLAYER (0)
+  private postPlayerRenderReorderedPlayer = (
+    player: EntityPlayer,
+    _renderOffset: Vector,
+  ): void => {
+    // Retrieve information about this player.
+    const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
+    if (trackingArray === undefined) {
+      return;
+    }
+    const [lastDamageFrame, callbackActivatedOnThisFrame] = trackingArray;
 
-  // Check to see if this is the 1st frame that we are teleporting.
-  const sprite = player.GetSprite();
-  if (
-    !sprite.IsPlaying("TeleportUp") ||
-    sprite.GetFrame() !== 1 // The 0th frame never fires
+    if (!this.playerIsTeleportingFromCursedTeleport(player, lastDamageFrame)) {
+      return;
+    }
+
+    // Do nothing if the callback already fired on this frame.
+    if (callbackActivatedOnThisFrame) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+    const newTrackingArray = [gameFrameCount, true];
+    mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
+
+    this.fire(player);
+  };
+
+  private playerIsTeleportingFromCursedTeleport(
+    player: EntityPlayer,
+    lastDamageFrame: int,
   ) {
+    // Check to see if this is the frame that we last took damage.
+    const gameFrameCount = game.GetFrameCount();
+    if (gameFrameCount !== lastDamageFrame) {
+      return false;
+    }
+
+    // Check to see if this is the 1st frame that we are teleporting.
+    const sprite = player.GetSprite();
+    if (
+      !sprite.IsPlaying("TeleportUp") ||
+      sprite.GetFrame() !== 1 // The 0th frame never fires
+    ) {
+      return false;
+    }
+
+    if (player.HasCollectible(CollectibleType.CURSED_EYE)) {
+      return true;
+    }
+
+    const numHitsRemaining = getPlayerNumHitsRemaining(player);
+    if (player.HasTrinket(TrinketType.CURSED_SKULL) && numHitsRemaining === 1) {
+      return true;
+    }
+
     return false;
   }
-
-  if (player.HasCollectible(CollectibleType.CURSED_EYE)) {
-    return true;
-  }
-
-  const numHitsRemaining = getPlayerNumHitsRemaining(player);
-  if (player.HasTrinket(TrinketType.CURSED_SKULL) && numHitsRemaining === 1) {
-    return true;
-  }
-
-  return false;
 }

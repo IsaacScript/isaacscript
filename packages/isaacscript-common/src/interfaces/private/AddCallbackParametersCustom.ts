@@ -589,7 +589,7 @@ export interface AddCallbackParametersCustom {
   ];
 
   [ModCallbackCustom.POST_PLAYER_RENDER_REORDERED]: [
-    callback: (player: EntityPlayer) => void,
+    callback: (player: EntityPlayer, renderOffset: Vector) => void,
     playerVariant?: PlayerVariant,
     character?: PlayerType,
   ];

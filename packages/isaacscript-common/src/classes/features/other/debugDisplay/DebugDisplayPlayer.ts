@@ -1,4 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "../../../../enums/ModCallbackCustom";
 import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
 
@@ -9,14 +9,16 @@ export class DebugDisplayPlayer extends Feature {
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      // 32
-      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
+        this.postPlayerRenderReordered,
+      ],
     ];
   }
 
-  // ModCallback.POST_PLAYER_RENDER (32)
-  private postPlayerRender = (player: EntityPlayer) => {
+  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
+  private postPlayerRenderReordered = (player: EntityPlayer) => {
     const text = this.textCallback(player);
     renderTextOnEntity(player, text);
   };

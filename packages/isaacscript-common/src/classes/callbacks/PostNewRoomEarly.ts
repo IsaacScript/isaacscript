@@ -23,6 +23,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
 
     this.callbacksUsed = [
       // 19
+      // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_NEW_ROOM, this.postNewRoom],
 
       // 24
