@@ -83,7 +83,7 @@ export function inRange(num: int, start: int, end: int): boolean {
 /**
  * Helper function to detect if there is two or more players currently playing.
  *
- * Specifically, this function looks for unique `ControllerIndex` across all players.
+ * Specifically, this function looks for unique `ControllerIndex` values across all players.
  */
 export function isMultiplayer(): boolean {
   const players = getAllPlayers();
