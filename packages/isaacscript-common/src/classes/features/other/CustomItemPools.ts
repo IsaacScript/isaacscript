@@ -14,14 +14,14 @@ const v = {
   },
 };
 
+const customItemPoolMap = new Map<
+  ItemPoolType,
+  WeightedArray<CollectibleType>
+>();
+
 export class CustomItemPools extends Feature {
   /** @internal */
   public override v = v;
-
-  private customItemPoolMap = new Map<
-    ItemPoolType,
-    WeightedArray<CollectibleType>
-  >();
 
   /** @internal */
   constructor() {
@@ -30,18 +30,16 @@ export class CustomItemPools extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GAME_STARTED_REORDERED,
-        this.postGameStartedReordered,
+        this.postGameStartedReorderedFalse,
+        [false],
       ],
     ];
   }
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  private postGameStartedReordered = (isContinued: boolean) => {
-    if (isContinued) {
-      return;
-    }
-
-    v.run.customItemPools = copyMap(this.customItemPoolMap);
+  // false
+  private postGameStartedReorderedFalse = () => {
+    v.run.customItemPools = copyMap(customItemPoolMap);
   };
 
   /**
@@ -82,13 +80,13 @@ export class CustomItemPools extends Feature {
     itemPoolTypeCustom: ItemPoolType,
     collectibles: WeightedArray<CollectibleType>,
   ): void {
-    if (this.customItemPoolMap.has(itemPoolTypeCustom)) {
+    if (customItemPoolMap.has(itemPoolTypeCustom)) {
       error(
         `Failed to register a custom item pool since the provided type of ${itemPoolTypeCustom} was already registered.`,
       );
     }
 
-    this.customItemPoolMap.set(itemPoolTypeCustom, collectibles);
+    customItemPoolMap.set(itemPoolTypeCustom, collectibles);
   }
 
   /**

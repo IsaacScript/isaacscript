@@ -16,6 +16,7 @@ export class FadeInRemover extends Feature {
       [
         ModCallbackCustom.POST_GAME_STARTED_REORDERED,
         this.postGameStartedReordered,
+        [undefined],
       ],
     ];
   }
