@@ -181,17 +181,6 @@ module.exports = {
 
     /**
      * Documentation:
-     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-deprecated.md
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
-     *
-     * It is a useful rule and it is turned off in the parent configs with no explanation.
-     */
-    "import/no-deprecated": "warn",
-
-    /**
-     * Documentation:
      * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-unresolved.md
      *
      * Defined at:
