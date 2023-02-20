@@ -64,6 +64,9 @@ module.exports = {
   ],
 
   plugins: [
+    /** Activate the "deprecation" plugin, which helps to find deprecated code. */
+    "deprecation",
+
     /**
      * Activate the "no-autofix" plugin, which allows the fixer for specific rules to be turned off:
      * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
@@ -101,6 +104,16 @@ module.exports = {
   ],
 
   rules: {
+    /**
+     * Documentation:
+     * https://github.com/gund/eslint-plugin-deprecation
+     *
+     * Not defined in parent configs.
+     *
+     * Warn on deprecated code.
+     */
+    "deprecation/deprecation": "warn",
+
     /**
      * Documentation:
      * https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/disable-enable-pair.md

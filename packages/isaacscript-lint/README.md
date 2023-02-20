@@ -223,9 +223,10 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) - Enhances the Airbnb rules with TypeScript support.
 - [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) - Contains the master ESLint configuration.
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
-- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - A plugin that provides a collection of miscellaneous rules that help keep code safe.
+- [`eslint-plugin-deprecation`](https://github.com/gund/eslint-plugin-deprecation) - Finds deprecated code.
 - [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
 - [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
+- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - A plugin that provides a collection of miscellaneous rules that help keep code safe.
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
 - [`eslint-plugin-no-type-assertion`](https://github.com/Dremora/eslint-plugin-no-type-assertion) - A plugin that detects type assertions. (In the standard config, these rules are not turned on automatically, but they are extremely useful in certain specific contexts.)
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
