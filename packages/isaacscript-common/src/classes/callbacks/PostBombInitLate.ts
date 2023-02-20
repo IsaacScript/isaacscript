@@ -3,12 +3,14 @@ import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    firedSet: new Set<PtrHash>(),
+  },
+};
+
 export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB_INIT_LATE> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -24,8 +26,8 @@ export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB
   // ModCallback.POST_BOMB_UPDATE (58)
   private postBombUpdate = (bomb: EntityBomb): void => {
     const ptrHash = GetPtrHash(bomb);
-    if (!this.v.room.firedSet.has(ptrHash)) {
-      this.v.room.firedSet.add(ptrHash);
+    if (!v.room.firedSet.has(ptrHash)) {
+      v.room.firedSet.add(ptrHash);
       this.fire(bomb);
     }
   };

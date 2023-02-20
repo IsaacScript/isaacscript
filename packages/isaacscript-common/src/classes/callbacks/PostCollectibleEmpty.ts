@@ -12,12 +12,14 @@ import {
 
 type T = ModCallbackCustom.POST_COLLECTIBLE_EMPTY;
 
+const v = {
+  room: {
+    collectibleTypeMap: new Map<PtrHash, CollectibleType>(),
+  },
+};
+
 export class PostCollectibleEmpty extends CustomCallback<T> {
-  public override v = {
-    room: {
-      collectibleTypeMap: new Map<PtrHash, CollectibleType>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -51,11 +53,11 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
     const collectible = pickup as EntityPickupCollectible;
 
     const ptrHash = GetPtrHash(collectible);
-    let oldCollectibleType = this.v.room.collectibleTypeMap.get(ptrHash);
+    let oldCollectibleType = v.room.collectibleTypeMap.get(ptrHash);
     if (oldCollectibleType === undefined) {
       oldCollectibleType = collectible.SubType;
     }
-    this.v.room.collectibleTypeMap.set(ptrHash, collectible.SubType);
+    v.room.collectibleTypeMap.set(ptrHash, collectible.SubType);
 
     if (oldCollectibleType !== collectible.SubType) {
       this.collectibleTypeChanged(collectible, oldCollectibleType);

@@ -9,12 +9,14 @@ const BONE_SWING_ANIMATIONS = new ReadonlySet<string>([
   "Spin",
 ]);
 
+const v = {
+  room: {
+    boneClubAnimations: new Map<PtrHash, string>(),
+  },
+};
+
 export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SWING> {
-  public override v = {
-    room: {
-      boneClubAnimations: new Map<PtrHash, string>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -41,8 +43,8 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SW
     const animation = sprite.GetAnimation();
     const ptrHash = GetPtrHash(knife);
 
-    const animationOnLastFrame = this.v.room.boneClubAnimations.get(ptrHash);
-    this.v.room.boneClubAnimations.set(ptrHash, animation);
+    const animationOnLastFrame = v.room.boneClubAnimations.get(ptrHash);
+    v.room.boneClubAnimations.set(ptrHash, animation);
 
     if (
       animationOnLastFrame !== undefined &&

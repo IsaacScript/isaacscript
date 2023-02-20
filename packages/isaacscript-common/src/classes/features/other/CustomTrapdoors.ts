@@ -73,6 +73,24 @@ const PIXELATION_TO_BLACK_FRAMES = 60;
 const OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES = 6;
 const OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES = 5;
 
+const v = {
+  run: {
+    state: StageTravelState.NONE,
+
+    /** The render frame that this state was reached. */
+    stateRenderFrame: null as int | null,
+
+    customTrapdoorActivated: null as CustomTrapdoorDescription | null,
+  },
+
+  level: {
+    /** Indexed by room list index and grid index. */
+    trapdoors: new DefaultMap<int, Map<int, CustomTrapdoorDescription>>(
+      () => new Map(),
+    ),
+  },
+};
+
 export class CustomTrapdoors extends Feature {
   /** Indexed by custom trapdoor ID. */
   private destinationFuncMap = new Map<
@@ -85,23 +103,7 @@ export class CustomTrapdoors extends Feature {
   >();
 
   /** @internal */
-  public override v = {
-    run: {
-      state: StageTravelState.NONE,
-
-      /** The render frame that this state was reached. */
-      stateRenderFrame: null as int | null,
-
-      customTrapdoorActivated: null as CustomTrapdoorDescription | null,
-    },
-
-    level: {
-      /** Indexed by room list index and grid index. */
-      trapdoors: new DefaultMap<int, Map<int, CustomTrapdoorDescription>>(
-        () => new Map(),
-      ),
-    },
-  };
+  public override v = v;
 
   /**
    * In order to represent a black sprite, we just use the first frame of the boss versus screen
@@ -177,7 +179,7 @@ export class CustomTrapdoors extends Feature {
   };
 
   private checkAllPlayersJumpComplete() {
-    if (this.v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
       return;
     }
 
@@ -188,8 +190,8 @@ export class CustomTrapdoors extends Feature {
     const renderFrameCount = Isaac.GetFrameCount();
     const roomGridIndex = getRoomGridIndex();
 
-    this.v.run.state = StageTravelState.PIXELATION_TO_BLACK;
-    this.v.run.stateRenderFrame = renderFrameCount;
+    v.run.state = StageTravelState.PIXELATION_TO_BLACK;
+    v.run.stateRenderFrame = renderFrameCount;
     this.logStateChanged();
 
     // In order to display the pixelation effect that should happen when we go to a new floor, we
@@ -209,8 +211,8 @@ export class CustomTrapdoors extends Feature {
 
   private checkPixelationToBlackComplete() {
     if (
-      this.v.run.state !== StageTravelState.PIXELATION_TO_BLACK ||
-      this.v.run.stateRenderFrame === null
+      v.run.state !== StageTravelState.PIXELATION_TO_BLACK ||
+      v.run.stateRenderFrame === null
     ) {
       return;
     }
@@ -219,12 +221,12 @@ export class CustomTrapdoors extends Feature {
     const renderFrameCount = Isaac.GetFrameCount();
 
     const renderFrameScreenBlack =
-      this.v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
+      v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
     if (renderFrameCount < renderFrameScreenBlack) {
       return;
     }
 
-    this.v.run.state = StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END;
+    v.run.state = StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END;
     this.logStateChanged();
 
     // Now, we display a black sprite on top of the pixelation effect, to prevent showing the rest
@@ -242,9 +244,9 @@ export class CustomTrapdoors extends Feature {
       const startingRoomIndex = level.GetStartingRoomIndex();
       const futureRenderFrameCount = Isaac.GetFrameCount();
 
-      this.v.run.state =
+      v.run.state =
         StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY;
-      this.v.run.stateRenderFrame = futureRenderFrameCount;
+      v.run.stateRenderFrame = futureRenderFrameCount;
 
       this.goToCustomTrapdoorDestination();
 
@@ -259,9 +261,9 @@ export class CustomTrapdoors extends Feature {
   }
 
   private goToCustomTrapdoorDestination() {
-    if (this.v.run.customTrapdoorActivated === null) {
+    if (v.run.customTrapdoorActivated === null) {
       // This should never happen; provide some sane default values.
-      this.v.run.customTrapdoorActivated = {
+      v.run.customTrapdoorActivated = {
         destinationName: undefined,
         destinationStage: LevelStage.BASEMENT_1,
         destinationStageType: StageType.ORIGINAL,
@@ -271,12 +273,12 @@ export class CustomTrapdoors extends Feature {
     }
 
     const destinationFunc = this.getDestinationFunc(
-      this.v.run.customTrapdoorActivated,
+      v.run.customTrapdoorActivated,
     );
     destinationFunc(
-      this.v.run.customTrapdoorActivated.destinationName,
-      this.v.run.customTrapdoorActivated.destinationStage,
-      this.v.run.customTrapdoorActivated.destinationStageType,
+      v.run.customTrapdoorActivated.destinationName,
+      v.run.customTrapdoorActivated.destinationStage,
+      v.run.customTrapdoorActivated.destinationStageType,
     );
   }
 
@@ -303,9 +305,9 @@ export class CustomTrapdoors extends Feature {
 
   private checkSecondPixelationHalfWay() {
     if (
-      this.v.run.state !==
+      v.run.state !==
         StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY ||
-      this.v.run.stateRenderFrame === null
+      v.run.stateRenderFrame === null
     ) {
       return;
     }
@@ -314,18 +316,18 @@ export class CustomTrapdoors extends Feature {
     const renderFrameCount = Isaac.GetFrameCount();
 
     const renderFrameScreenBlack =
-      this.v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
+      v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
     if (renderFrameCount < renderFrameScreenBlack) {
       return;
     }
 
-    this.v.run.state = StageTravelState.PIXELATION_TO_ROOM;
+    v.run.state = StageTravelState.PIXELATION_TO_ROOM;
     this.logStateChanged();
 
     hud.SetVisible(true);
 
     this.runNextRoom.runNextRoom(() => {
-      this.v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
+      v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
       this.logStateChanged();
 
       // After the room transition, the players will be placed next to a door, but they should be in
@@ -351,7 +353,7 @@ export class CustomTrapdoors extends Feature {
   }
 
   private checkAllPlayersLayingDownComplete() {
-    if (this.v.run.state !== StageTravelState.PLAYERS_LAYING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_LAYING_DOWN) {
       return;
     }
 
@@ -359,7 +361,7 @@ export class CustomTrapdoors extends Feature {
       return;
     }
 
-    this.v.run.state = StageTravelState.NONE;
+    v.run.state = StageTravelState.NONE;
     this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
@@ -374,9 +376,8 @@ export class CustomTrapdoors extends Feature {
 
   private drawBlackSprite(): void {
     if (
-      this.v.run.state !==
-        StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END &&
-      this.v.run.state !==
+      v.run.state !== StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END &&
+      v.run.state !==
         StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY
     ) {
       return;
@@ -397,8 +398,7 @@ export class CustomTrapdoors extends Feature {
     const roomListIndex = getRoomListIndex();
     const gridIndex = gridEntity.GetGridIndex();
 
-    const roomTrapdoorMap =
-      this.v.level.trapdoors.getAndSetDefault(roomListIndex);
+    const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
     const trapdoorDescription = roomTrapdoorMap.get(gridIndex);
     if (trapdoorDescription === undefined) {
       return;
@@ -459,7 +459,7 @@ export class CustomTrapdoors extends Feature {
     gridEntity: GridEntity,
     trapdoorDescription: CustomTrapdoorDescription,
   ): void {
-    if (this.v.run.state !== StageTravelState.NONE) {
+    if (v.run.state !== StageTravelState.NONE) {
       return;
     }
 
@@ -499,8 +499,8 @@ export class CustomTrapdoors extends Feature {
     trapdoorDescription: CustomTrapdoorDescription,
     player: EntityPlayer,
   ) {
-    this.v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
-    this.v.run.customTrapdoorActivated = trapdoorDescription;
+    v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
+    v.run.customTrapdoorActivated = trapdoorDescription;
     this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
@@ -556,7 +556,7 @@ export class CustomTrapdoors extends Feature {
     startPos: Vector,
     endPos: Vector,
   ) {
-    if (this.v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
       return;
     }
 
@@ -607,7 +607,7 @@ export class CustomTrapdoors extends Feature {
   };
 
   private checkJumpComplete(player: EntityPlayer) {
-    if (this.v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
       return;
     }
 
@@ -652,9 +652,9 @@ export class CustomTrapdoors extends Feature {
   private logStateChanged(): void {
     if (DEBUG) {
       log(
-        `Custom trapdoors state changed: ${
-          StageTravelState[this.v.run.state]
-        } (${this.v.run.state})`,
+        `Custom trapdoors state changed: ${StageTravelState[v.run.state]} (${
+          v.run.state
+        })`,
       );
     }
   }
@@ -781,8 +781,7 @@ export class CustomTrapdoors extends Feature {
         ? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn)
         : spawnOpen;
 
-    const roomTrapdoorMap =
-      this.v.level.trapdoors.getAndSetDefault(roomListIndex);
+    const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
     const customTrapdoorDescription: CustomTrapdoorDescription = {
       destinationName,
       destinationStage,

@@ -5,18 +5,20 @@ import { PostSlotRender } from "../../callbacks/PostSlotRender";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  room: {
+    slotAnimations: new DefaultMap<PtrHash, string, [slot: Entity]>(
+      (slot: Entity) => {
+        const sprite = slot.GetSprite();
+        return sprite.GetAnimation();
+      },
+    ),
+    brokenSlots: new Set<PtrHash>(),
+  },
+};
+
 export class SlotRenderDetection extends Feature {
-  public override v = {
-    room: {
-      slotAnimations: new DefaultMap<PtrHash, string, [slot: Entity]>(
-        (slot: Entity) => {
-          const sprite = slot.GetSprite();
-          return sprite.GetAnimation();
-        },
-      ),
-      brokenSlots: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   private postSlotRender: PostSlotRender;
   private postSlotAnimationChanged: PostSlotAnimationChanged;
@@ -48,11 +50,11 @@ export class SlotRenderDetection extends Feature {
     const sprite = slot.GetSprite();
     const currentAnimation = sprite.GetAnimation();
     const ptrHash = GetPtrHash(slot);
-    const previousAnimation = this.v.room.slotAnimations.getAndSetDefault(
+    const previousAnimation = v.room.slotAnimations.getAndSetDefault(
       ptrHash,
       slot,
     );
-    this.v.room.slotAnimations.set(ptrHash, currentAnimation);
+    v.room.slotAnimations.set(ptrHash, currentAnimation);
 
     if (currentAnimation !== previousAnimation) {
       this.postSlotAnimationChanged.fire(

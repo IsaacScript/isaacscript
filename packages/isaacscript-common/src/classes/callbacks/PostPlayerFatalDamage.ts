@@ -23,13 +23,15 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  run: {
+    /** Needed to detect if Glass Cannon will kill the player or not. */
+    playersLastDamageGameFrame: new Map<PlayerIndex, int>(),
+  },
+};
+
 export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE> {
-  public override v = {
-    run: {
-      /** Needed to detect if Glass Cannon will kill the player or not. */
-      playersLastDamageGameFrame: new Map<PlayerIndex, int>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -100,10 +102,10 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
 
     const gameFrameCount = game.GetFrameCount();
     const lastDamageGameFrame = mapGetPlayer(
-      this.v.run.playersLastDamageGameFrame,
+      v.run.playersLastDamageGameFrame,
       player,
     );
-    mapSetPlayer(this.v.run.playersLastDamageGameFrame, player, gameFrameCount);
+    mapSetPlayer(v.run.playersLastDamageGameFrame, player, gameFrameCount);
 
     // If the player has a revival item such as Dead Cat, this will not be fatal damage.
     if (willPlayerRevive(player)) {

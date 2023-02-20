@@ -24,13 +24,15 @@ type GridEntityTuple = [
   state: int,
 ];
 
+const v = {
+  room: {
+    /** Indexed by grid index. */
+    initializedGridEntities: new Map<int, GridEntityTuple>(),
+  },
+};
+
 export class GridEntityUpdateDetection extends Feature {
-  public override v = {
-    room: {
-      /** Indexed by grid index. */
-      initializedGridEntities: new Map<int, GridEntityTuple>(),
-    },
-  };
+  public override v = v;
 
   private postGridEntityInit: PostGridEntityInit;
   private postGridEntityCustomInit: PostGridEntityCustomInit;
@@ -108,15 +110,14 @@ export class GridEntityUpdateDetection extends Feature {
   private checkGridEntitiesRemoved(
     gridEntitiesMap: Map<int, GridEntity>,
   ): void {
-    for (const [gridIndex, gridEntityTuple] of this.v.room
-      .initializedGridEntities) {
+    for (const [gridIndex, gridEntityTuple] of v.room.initializedGridEntities) {
       const [storedGridEntityType, storedGridEntityVariant] = gridEntityTuple;
       const gridEntity = gridEntitiesMap.get(gridIndex);
       if (
         gridEntity === undefined ||
         gridEntity.GetType() !== storedGridEntityType
       ) {
-        this.v.room.initializedGridEntities.delete(gridIndex);
+        v.room.initializedGridEntities.delete(gridIndex);
 
         const gridEntityTypeCustom =
           this.customGridEntities.getCustomGridEntityType(gridIndex);
@@ -137,7 +138,7 @@ export class GridEntityUpdateDetection extends Feature {
     gridIndex: int,
     gridEntity: GridEntity,
   ): void {
-    const gridEntityTuple = this.v.room.initializedGridEntities.get(gridIndex);
+    const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
     if (gridEntityTuple === undefined) {
       // This grid entity did not exist a frame ago; we don't want to fire the state changed
       // callback on the first frame that it exists.
@@ -177,7 +178,7 @@ export class GridEntityUpdateDetection extends Feature {
 
   private checkNewGridEntity(gridIndex: int, gridEntity: GridEntity): void {
     const gridEntityType = gridEntity.GetType();
-    const gridEntityTuple = this.v.room.initializedGridEntities.get(gridIndex);
+    const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
 
     if (
       gridEntityTuple === undefined ||
@@ -204,7 +205,7 @@ export class GridEntityUpdateDetection extends Feature {
       variant,
       gridEntity.State,
     ];
-    this.v.room.initializedGridEntities.set(gridIndex, newTuple);
+    v.room.initializedGridEntities.set(gridIndex, newTuple);
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED

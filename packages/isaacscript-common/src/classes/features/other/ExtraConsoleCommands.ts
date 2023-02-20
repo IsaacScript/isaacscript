@@ -78,7 +78,7 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.POST_UPDATE (1)
   private postUpdate = () => {
-    if (this.v.persistent.spamBloodRights) {
+    if (v.persistent.spamBloodRights) {
       const player = Isaac.GetPlayer();
       player.UseActiveItem(CollectibleType.BLOOD_RIGHTS);
     }
@@ -87,31 +87,31 @@ export class ExtraConsoleCommands extends Feature {
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.DAMAGE (1 << 0)
   private evaluateCacheDamage = (player: EntityPlayer) => {
-    if (this.v.persistent.damage) {
-      player.Damage = this.v.persistent.damageAmount;
+    if (v.persistent.damage) {
+      player.Damage = v.persistent.damageAmount;
     }
   };
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.FIRE_DELAY (1 << 1)
   private evaluateCacheFireDelay = (player: EntityPlayer) => {
-    if (this.v.persistent.tears) {
-      player.FireDelay = this.v.persistent.tearsAmount;
+    if (v.persistent.tears) {
+      player.FireDelay = v.persistent.tearsAmount;
     }
   };
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.SPEED (1 << 4)
   private evaluateCacheSpeed = (player: EntityPlayer) => {
-    if (this.v.persistent.speed) {
-      player.MoveSpeed = this.v.persistent.speedAmount;
+    if (v.persistent.speed) {
+      player.MoveSpeed = v.persistent.speedAmount;
     }
   };
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.FLYING (1 << 7)
   private evaluateCacheFlying = (player: EntityPlayer) => {
-    if (this.v.persistent.flight) {
+    if (v.persistent.flight) {
       player.CanFly = true;
     }
   };
@@ -120,49 +120,49 @@ export class ExtraConsoleCommands extends Feature {
   private postCurseEval = (
     curses: BitFlags<LevelCurse>,
   ): BitFlags<LevelCurse> | undefined => {
-    if (this.v.persistent.disableCurses) {
+    if (v.persistent.disableCurses) {
       return bitFlags(LevelCurse.NONE);
     }
 
     let newCurses = curses;
 
     // 1
-    if (this.v.persistent.darkness) {
+    if (v.persistent.darkness) {
       newCurses = addFlag(newCurses, LevelCurse.DARKNESS);
     }
 
     // 2
-    if (this.v.persistent.labyrinth) {
+    if (v.persistent.labyrinth) {
       newCurses = addFlag(newCurses, LevelCurse.LABYRINTH);
     }
 
     // 3
-    if (this.v.persistent.lost) {
+    if (v.persistent.lost) {
       newCurses = addFlag(newCurses, LevelCurse.LOST);
     }
 
     // 4
-    if (this.v.persistent.unknown) {
+    if (v.persistent.unknown) {
       newCurses = addFlag(newCurses, LevelCurse.UNKNOWN);
     }
 
     // 5
-    if (this.v.persistent.cursed) {
+    if (v.persistent.cursed) {
       newCurses = addFlag(newCurses, LevelCurse.CURSED);
     }
 
     // 6
-    if (this.v.persistent.maze) {
+    if (v.persistent.maze) {
       newCurses = addFlag(newCurses, LevelCurse.MAZE);
     }
 
     // 7
-    if (this.v.persistent.blind) {
+    if (v.persistent.blind) {
       newCurses = addFlag(newCurses, LevelCurse.BLIND);
     }
 
     // 8
-    if (this.v.persistent.giant) {
+    if (v.persistent.giant) {
       newCurses = addFlag(newCurses, LevelCurse.GIANT);
     }
 
@@ -185,7 +185,7 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.POST_FIRE_TEAR (61)
   private postFireTear = (tear: EntityTear) => {
-    if (this.v.persistent.chaosCardTears) {
+    if (v.persistent.chaosCardTears) {
       tear.ChangeVariant(TearVariant.CHAOS_CARD);
     }
   };
@@ -198,7 +198,7 @@ export class ExtraConsoleCommands extends Feature {
     _damageSource: EntityRef,
     _damageCountdownFrames: int,
   ) => {
-    if (this.v.persistent.spamBloodRights) {
+    if (v.persistent.spamBloodRights) {
       return false;
     }
 

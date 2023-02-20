@@ -13,13 +13,15 @@ import { PickupIndex } from "../../../types/PickupIndex";
 import { Feature } from "../../private/Feature";
 import { PickupIndexCreation } from "./PickupIndexCreation";
 
+const v = {
+  run: {
+    collectibleItemPoolTypeMap: new Map<PickupIndex, ItemPoolType>(),
+  },
+};
+
 export class CollectibleItemPoolType extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      collectibleItemPoolTypeMap: new Map<PickupIndex, ItemPoolType>(),
-    },
-  };
+  public override v = v;
 
   private pickupIndexCreation: PickupIndexCreation;
 
@@ -48,7 +50,7 @@ export class CollectibleItemPoolType extends Feature {
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
     const lastItemPoolType = itemPool.GetLastPool();
 
-    this.v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
+    v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
   };
 
   /**
@@ -70,7 +72,7 @@ export class CollectibleItemPoolType extends Feature {
     }
 
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
-    const itemPoolType = this.v.run.collectibleItemPoolTypeMap.get(pickupIndex);
+    const itemPoolType = v.run.collectibleItemPoolTypeMap.get(pickupIndex);
     return itemPoolType === undefined ? getRoomItemPoolType() : itemPoolType;
   }
 }

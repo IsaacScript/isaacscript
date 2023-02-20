@@ -36,14 +36,16 @@ enum CustomReviveState {
   WAITING_FOR_ITEM_ANIMATION,
 }
 
+const v = {
+  run: {
+    state: CustomReviveState.DISABLED,
+    revivalType: null as int | null,
+    dyingPlayerIndex: null as PlayerIndex | null,
+  },
+};
+
 export class CustomRevive extends Feature {
-  public override v = {
-    run: {
-      state: CustomReviveState.DISABLED,
-      revivalType: null as int | null,
-      dyingPlayerIndex: null as PlayerIndex | null,
-    },
-  };
+  public override v = v;
 
   private preCustomRevive: PreCustomRevive;
   private postCustomRevive: PostCustomRevive;
@@ -87,7 +89,7 @@ export class CustomRevive extends Feature {
 
   // ModCallback.POST_RENDER (2)
   private postRender = (): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
 
@@ -99,7 +101,7 @@ export class CustomRevive extends Feature {
   // ModCallback.POST_FAMILIAR_INIT (7)
   // FamiliarVariant.ONE_UP (41)
   private postFamiliarInitOneUp = (familiar: EntityFamiliar): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
       return;
     }
 
@@ -108,11 +110,11 @@ export class CustomRevive extends Feature {
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoomReordered = (): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
       return;
     }
 
-    this.v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
+    v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
     this.logStateChanged();
   };
 
@@ -122,16 +124,16 @@ export class CustomRevive extends Feature {
   };
 
   private checkWaitingForItemAnimation(player: EntityPlayer): void {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
 
-    if (this.v.run.dyingPlayerIndex === null) {
+    if (v.run.dyingPlayerIndex === null) {
       return;
     }
 
     const playerIndex = getPlayerIndex(player);
-    if (playerIndex !== this.v.run.dyingPlayerIndex) {
+    if (playerIndex !== v.run.dyingPlayerIndex) {
       return;
     }
 
@@ -152,16 +154,13 @@ export class CustomRevive extends Feature {
     // expected to play a new animation in the PostCustomRevive callback, which will overwrite the
     // 1-Up animation.
 
-    if (this.v.run.revivalType !== null) {
-      this.postCustomRevive.fire(
-        playerToCheckHoldingItem,
-        this.v.run.revivalType,
-      );
+    if (v.run.revivalType !== null) {
+      this.postCustomRevive.fire(playerToCheckHoldingItem, v.run.revivalType);
     }
 
-    this.v.run.state = CustomReviveState.DISABLED;
-    this.v.run.revivalType = null;
-    this.v.run.dyingPlayerIndex = null;
+    v.run.state = CustomReviveState.DISABLED;
+    v.run.revivalType = null;
+    v.run.dyingPlayerIndex = null;
     this.logStateChanged();
   }
 
@@ -188,9 +187,9 @@ export class CustomRevive extends Feature {
       return;
     }
 
-    this.v.run.state = CustomReviveState.WAITING_FOR_ROOM_TRANSITION;
-    this.v.run.revivalType = revivalType;
-    this.v.run.dyingPlayerIndex = getPlayerIndex(player);
+    v.run.state = CustomReviveState.WAITING_FOR_ROOM_TRANSITION;
+    v.run.revivalType = revivalType;
+    v.run.dyingPlayerIndex = getPlayerIndex(player);
     this.logStateChanged();
 
     player.AddCollectible(CollectibleType.ONE_UP, 0, false);
@@ -220,8 +219,8 @@ export class CustomRevive extends Feature {
   private logStateChanged(): void {
     if (DEBUG) {
       log(
-        `Custom revive state changed: ${CustomReviveState[this.v.run.state]} (${
-          this.v.run.state
+        `Custom revive state changed: ${CustomReviveState[v.run.state]} (${
+          v.run.state
         })`,
       );
     }

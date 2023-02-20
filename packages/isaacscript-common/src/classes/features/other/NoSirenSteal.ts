@@ -6,15 +6,17 @@ import {
 import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    familiarBlacklist: [] as Array<
+      [variant: FamiliarVariant, subType: int | undefined]
+    >,
+  },
+};
+
 export class NoSirenSteal extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      familiarBlacklist: [] as Array<
-        [variant: FamiliarVariant, subType: int | undefined]
-      >,
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -56,7 +58,7 @@ export class NoSirenSteal extends Feature {
     incomingFamiliarVariant: FamiliarVariant,
     incomingFamiliarSubType: int | undefined,
   ): boolean {
-    for (const familiarTuple of this.v.run.familiarBlacklist) {
+    for (const familiarTuple of v.run.familiarBlacklist) {
       const [familiarVariant, familiarSubType] = familiarTuple;
 
       if (
@@ -98,6 +100,6 @@ export class NoSirenSteal extends Feature {
       return;
     }
 
-    this.v.run.familiarBlacklist.push([familiarVariant, familiarSubType]);
+    v.run.familiarBlacklist.push([familiarVariant, familiarSubType]);
   }
 }

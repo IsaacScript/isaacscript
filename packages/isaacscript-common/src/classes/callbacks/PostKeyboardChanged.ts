@@ -10,12 +10,14 @@ import {
 
 type T = ModCallbackCustom.POST_KEYBOARD_CHANGED;
 
+const v = {
+  run: {
+    pressedKeys: new Set<Keyboard>(),
+  },
+};
+
 export class PostKeyboardChanged extends CustomCallback<T> {
-  public override v = {
-    run: {
-      pressedKeys: new Set<Keyboard>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -40,20 +42,20 @@ export class PostKeyboardChanged extends CustomCallback<T> {
   };
 
   private postRender = () => {
-    for (const keyboard of this.v.run.pressedKeys) {
+    for (const keyboard of v.run.pressedKeys) {
       if (!isKeyboardPressed(keyboard)) {
-        this.v.run.pressedKeys.delete(keyboard);
+        v.run.pressedKeys.delete(keyboard);
         this.fire(keyboard, false);
       }
     }
 
     for (const keyboard of KEYBOARD_VALUES) {
-      if (this.v.run.pressedKeys.has(keyboard)) {
+      if (v.run.pressedKeys.has(keyboard)) {
         continue;
       }
 
       if (isKeyboardPressed(keyboard)) {
-        this.v.run.pressedKeys.add(keyboard);
+        v.run.pressedKeys.add(keyboard);
         this.fire(keyboard, true);
       }
     }

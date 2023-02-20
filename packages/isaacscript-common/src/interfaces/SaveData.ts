@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-/* eslint-disable class-methods-use-this */
 /* eslint-disable max-classes-per-file */
 
 import { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";

@@ -3,12 +3,14 @@ import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    firedSet: new Set<PtrHash>(),
+  },
+};
+
 export class PostTearInitVeryLate extends CustomCallback<ModCallbackCustom.POST_TEAR_INIT_VERY_LATE> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -29,8 +31,8 @@ export class PostTearInitVeryLate extends CustomCallback<ModCallbackCustom.POST_
     }
 
     const index = GetPtrHash(tear);
-    if (!this.v.room.firedSet.has(index)) {
-      this.v.room.firedSet.add(index);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
       this.fire(tear);
     }
   };

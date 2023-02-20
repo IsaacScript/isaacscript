@@ -7,33 +7,35 @@ import { Exported } from "../../../decorators";
 import { getMoveActions, getShootActions } from "../../../functions/input";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    /**
+     * Glowing Hour Glass support is disabled by default since it can cause bugs with extra-gameplay
+     * features. (For example, whether the player should be able to move or not should often not be
+     * reset by the Glowing Hour Glass.)
+     */
+    __ignoreGlowingHourGlass: true,
+
+    /** Indexed by the requesting feature key. */
+    disableInputs: new Map<string, ReadonlySet<ButtonAction>>(),
+
+    /** Indexed by the requesting feature key. */
+    enableAllInputsWithBlacklistMap: new Map<
+      string,
+      ReadonlySet<ButtonAction>
+    >(),
+
+    /** Indexed by the requesting feature key. */
+    disableAllInputsWithWhitelistMap: new Map<
+      string,
+      ReadonlySet<ButtonAction>
+    >(),
+  },
+};
+
 export class DisableInputs extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      /**
-       * Glowing Hour Glass support is disabled by default since it can cause bugs with
-       * extra-gameplay features. (For example, whether the player should be able to move or not
-       * should often not be reset by the Glowing Hour Glass.)
-       */
-      __ignoreGlowingHourGlass: true,
-
-      /** Indexed by the requesting feature key. */
-      disableInputs: new Map<string, ReadonlySet<ButtonAction>>(),
-
-      /** Indexed by the requesting feature key. */
-      enableAllInputsWithBlacklistMap: new Map<
-        string,
-        ReadonlySet<ButtonAction>
-      >(),
-
-      /** Indexed by the requesting feature key. */
-      disableAllInputsWithWhitelistMap: new Map<
-        string,
-        ReadonlySet<ButtonAction>
-      >(),
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -87,19 +89,19 @@ export class DisableInputs extends Feature {
   private getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
     const disableValue = booleanCallback ? false : 0;
 
-    for (const blacklist of this.v.run.disableInputs.values()) {
+    for (const blacklist of v.run.disableInputs.values()) {
       if (blacklist.has(buttonAction)) {
         return disableValue;
       }
     }
 
-    for (const whitelist of this.v.run.disableAllInputsWithWhitelistMap.values()) {
+    for (const whitelist of v.run.disableAllInputsWithWhitelistMap.values()) {
       if (!whitelist.has(buttonAction)) {
         return disableValue;
       }
     }
 
-    for (const blacklist of this.v.run.enableAllInputsWithBlacklistMap.values()) {
+    for (const blacklist of v.run.enableAllInputsWithBlacklistMap.values()) {
       if (blacklist.has(buttonAction)) {
         return disableValue;
       }
@@ -119,8 +121,8 @@ export class DisableInputs extends Feature {
    */
   @Exported
   public enableAllInputs(key: string): void {
-    this.v.run.disableAllInputsWithWhitelistMap.delete(key);
-    this.v.run.enableAllInputsWithBlacklistMap.delete(key);
+    v.run.disableAllInputsWithWhitelistMap.delete(key);
+    v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
   /**
@@ -140,7 +142,7 @@ export class DisableInputs extends Feature {
   @Exported
   public disableInputs(key: string, ...buttonActions: ButtonAction[]): void {
     const buttonActionsSet = new Set(buttonActions);
-    this.v.run.disableInputs.set(key, buttonActionsSet);
+    v.run.disableInputs.set(key, buttonActionsSet);
   }
 
   /**
@@ -156,8 +158,8 @@ export class DisableInputs extends Feature {
    */
   @Exported
   public disableAllInputs(key: string): void {
-    this.v.run.disableAllInputsWithWhitelistMap.set(key, new Set());
-    this.v.run.enableAllInputsWithBlacklistMap.delete(key);
+    v.run.disableAllInputsWithWhitelistMap.set(key, new Set());
+    v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
   /**
@@ -177,8 +179,8 @@ export class DisableInputs extends Feature {
     key: string,
     blacklist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
   ): void {
-    this.v.run.disableAllInputsWithWhitelistMap.delete(key);
-    this.v.run.enableAllInputsWithBlacklistMap.set(key, blacklist);
+    v.run.disableAllInputsWithWhitelistMap.delete(key);
+    v.run.enableAllInputsWithBlacklistMap.set(key, blacklist);
   }
 
   /**
@@ -198,8 +200,8 @@ export class DisableInputs extends Feature {
     key: string,
     whitelist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
   ): void {
-    this.v.run.disableAllInputsWithWhitelistMap.set(key, whitelist);
-    this.v.run.enableAllInputsWithBlacklistMap.delete(key);
+    v.run.disableAllInputsWithWhitelistMap.set(key, whitelist);
+    v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
   /**

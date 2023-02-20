@@ -8,13 +8,15 @@ import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
 import { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),
+  },
+};
+
 export class CustomItemPools extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),
-    },
-  };
+  public override v = v;
 
   private customItemPoolMap = new Map<
     ItemPoolType,
@@ -39,7 +41,7 @@ export class CustomItemPools extends Feature {
       return;
     }
 
-    this.v.run.customItemPools = copyMap(this.customItemPoolMap);
+    v.run.customItemPools = copyMap(this.customItemPoolMap);
   };
 
   /**
@@ -114,7 +116,7 @@ export class CustomItemPools extends Feature {
     seedOrRNG: Seed | RNG = getRandomSeed(),
     defaultItem = CollectibleType.NULL,
   ): CollectibleType {
-    const customItemPool = this.v.run.customItemPools.get(itemPoolTypeCustom);
+    const customItemPool = v.run.customItemPools.get(itemPoolTypeCustom);
     if (customItemPool === undefined) {
       error(`Failed to find the custom item pool of: ${itemPoolTypeCustom}`);
     }

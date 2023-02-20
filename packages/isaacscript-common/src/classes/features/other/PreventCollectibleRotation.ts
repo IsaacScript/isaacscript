@@ -11,23 +11,25 @@ import { getEntityID } from "../../../functions/entities";
 import { isCollectible } from "../../../functions/pickupVariants";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  room: {
+    /**
+     * Index is a string containing the grid index and the InitSeed of the collectible.
+     * (e.g. "12,1123579202")
+     *
+     * (We cannot simply use the InitSeed of the collectible because Diplopia can cause multiple
+     * collectibles in the room to have the same InitSeed. However, no two collectibles should ever
+     * be on the same grid index.)
+     *
+     * (We cannot use PtrHash as an index because that stays the same when the item is rolled.)
+     */
+    trackedCollectibles: new Map<string, CollectibleType>(),
+  },
+};
+
 export class PreventCollectibleRotation extends Feature {
   /** @internal */
-  public override v = {
-    room: {
-      /**
-       * Index is a string containing the grid index and the InitSeed of the collectible.
-       * (e.g. "12,1123579202")
-       *
-       * (We cannot simply use the InitSeed of the collectible because Diplopia can cause multiple
-       * collectibles in the room to have the same InitSeed. However, no two collectibles should
-       * ever be on the same grid index.)
-       *
-       * (We cannot use PtrHash as an index because that stays the same when the item is rolled.)
-       */
-      trackedCollectibles: new Map<string, CollectibleType>(),
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -55,7 +57,7 @@ export class PreventCollectibleRotation extends Feature {
   private useCardSoulOfIsaac = () => {
     // Soul of Isaac causes items to flip. Delete all tracked items (assuming that the player
     // deliberately wants to roll a quest item).
-    this.v.room.trackedCollectibles.clear();
+    v.room.trackedCollectibles.clear();
   };
 
   // ModCallback.POST_PICKUP_UPDATE (35)
@@ -73,7 +75,7 @@ export class PreventCollectibleRotation extends Feature {
     }
 
     const index = getMapIndex(collectible);
-    const trackedCollectibleType = this.v.room.trackedCollectibles.get(index);
+    const trackedCollectibleType = v.room.trackedCollectibles.get(index);
     if (
       trackedCollectibleType !== undefined &&
       collectible.SubType !== trackedCollectibleType
@@ -108,7 +110,7 @@ export class PreventCollectibleRotation extends Feature {
     }
 
     const index = getMapIndex(collectible);
-    this.v.room.trackedCollectibles.set(index, collectibleType);
+    v.room.trackedCollectibles.set(index, collectibleType);
 
     // The item might have already shifted on the first frame that it spawns, so change it back if
     // necessary.

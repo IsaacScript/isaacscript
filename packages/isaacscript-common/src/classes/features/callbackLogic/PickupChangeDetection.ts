@@ -5,13 +5,15 @@ import { PostPickupChanged } from "../../callbacks/PostPickupChanged";
 import { Feature } from "../../private/Feature";
 import { PickupIndexCreation } from "../other/PickupIndexCreation";
 
+const v = {
+  room: {
+    pickupVariants: new Map<PickupIndex, PickupVariant>(),
+    pickupSubTypes: new Map<PickupIndex, int>(),
+  },
+};
+
 export class PickupChangeDetection extends Feature {
-  public override v = {
-    room: {
-      pickupVariants: new Map<PickupIndex, PickupVariant>(),
-      pickupSubTypes: new Map<PickupIndex, int>(),
-    },
-  };
+  public override v = v;
 
   private postPickupChanged: PostPickupChanged;
   private pickupIndexCreation: PickupIndexCreation;
@@ -37,11 +39,11 @@ export class PickupChangeDetection extends Feature {
   private postPickupUpdate = (pickup: EntityPickup) => {
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(pickup);
 
-    const oldVariant = this.v.room.pickupVariants.get(pickupIndex);
-    this.v.room.pickupVariants.set(pickupIndex, pickup.Variant);
+    const oldVariant = v.room.pickupVariants.get(pickupIndex);
+    v.room.pickupVariants.set(pickupIndex, pickup.Variant);
 
-    const oldSubType = this.v.room.pickupSubTypes.get(pickupIndex);
-    this.v.room.pickupSubTypes.set(pickupIndex, pickup.SubType);
+    const oldSubType = v.room.pickupSubTypes.get(pickupIndex);
+    v.room.pickupSubTypes.set(pickupIndex, pickup.SubType);
 
     // If this is the first update frame for the pickup, it cannot have changed.
     if (oldVariant === undefined || oldSubType === undefined) {

@@ -23,21 +23,23 @@ import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "../other/RunInNFrames";
 
+const v = {
+  level: {
+    /** Indexed by room list index and grid index. */
+    customGridEntities: new DefaultMap<int, Map<int, GridEntityCustomData>>(
+      () => new Map(),
+    ),
+  },
+
+  room: {
+    genericPropPtrHashes: new Set<PtrHash>(),
+    manuallyUsingShovel: false,
+  },
+};
+
 export class CustomGridEntities extends Feature {
   /** @internal */
-  public override v = {
-    level: {
-      /** Indexed by room list index and grid index. */
-      customGridEntities: new DefaultMap<int, Map<int, GridEntityCustomData>>(
-        () => new Map(),
-      ),
-    },
-
-    room: {
-      genericPropPtrHashes: new Set<PtrHash>(),
-      manuallyUsingShovel: false,
-    },
-  };
+  public override v = v;
 
   private runInNFrames: RunInNFrames;
 
@@ -79,7 +81,7 @@ export class CustomGridEntities extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return undefined;
     }
@@ -105,9 +107,9 @@ export class CustomGridEntities extends Feature {
         return;
       }
 
-      this.v.room.manuallyUsingShovel = true;
+      v.room.manuallyUsingShovel = true;
       futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
-      this.v.room.manuallyUsingShovel = false;
+      v.room.manuallyUsingShovel = false;
     });
 
     // Cancel the original effect.
@@ -120,7 +122,7 @@ export class CustomGridEntities extends Feature {
     // of a normal decoration. Thus, we must re-apply the anm2.
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return;
     }
@@ -274,7 +276,7 @@ export class CustomGridEntities extends Feature {
     };
 
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.getAndSetDefault(roomListIndex);
+      v.level.customGridEntities.getAndSetDefault(roomListIndex);
     roomCustomGridEntities.set(gridIndex, customGridEntityData);
 
     return customGridEntity;
@@ -329,7 +331,7 @@ export class CustomGridEntities extends Feature {
 
     const gridIndex = decoration.GetGridIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.getAndSetDefault(roomListIndex);
+      v.level.customGridEntities.getAndSetDefault(roomListIndex);
     const exists = roomCustomGridEntities.has(gridIndex);
     if (!exists) {
       return undefined;
@@ -354,7 +356,7 @@ export class CustomGridEntities extends Feature {
   > {
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return [];
     }
@@ -393,7 +395,7 @@ export class CustomGridEntities extends Feature {
 
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return undefined;
     }

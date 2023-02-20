@@ -23,28 +23,30 @@ interface PersistentEntityDescription {
 
 type PersistentEntityTuple = [index: int, entityPtr: EntityPtr];
 
+const v = {
+  run: {
+    /** Iterates upward as new persistent entities are created. */
+    persistentEntityIndexCounter: 0,
+  },
+
+  level: {
+    /**
+     * Indexed by persistent entity index.
+     *
+     * When the entity is spawned in the currently room, its corresponding entry in this map will be
+     * temporarily deleted (until the entity itself is despawned).
+     */
+    persistentEntities: new Map<int, PersistentEntityDescription>(),
+  },
+
+  room: {
+    spawnedPersistentEntities: new Map<PtrHash, PersistentEntityTuple>(),
+  },
+};
+
 export class PersistentEntities extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      /** Iterates upward as new persistent entities are created. */
-      persistentEntityIndexCounter: 0,
-    },
-
-    level: {
-      /**
-       * Indexed by persistent entity index.
-       *
-       * When the entity is spawned in the currently room, its corresponding entry in this map will
-       * be temporarily deleted (until the entity itself is despawned).
-       */
-      persistentEntities: new Map<int, PersistentEntityDescription>(),
-    },
-
-    room: {
-      spawnedPersistentEntities: new Map<PtrHash, PersistentEntityTuple>(),
-    },
-  };
+  public override v = v;
 
   private roomHistory: RoomHistory;
 
@@ -69,7 +71,7 @@ export class PersistentEntities extends Feature {
   // ModCallback.POST_ENTITY_REMOVE (67)
   private postEntityRemove = (entity: Entity) => {
     const ptrHash = GetPtrHash(entity);
-    const tuple = this.v.room.spawnedPersistentEntities.get(ptrHash);
+    const tuple = v.room.spawnedPersistentEntities.get(ptrHash);
     if (tuple === undefined) {
       return;
     }
@@ -105,19 +107,19 @@ export class PersistentEntities extends Feature {
       roomListIndex: previousRoomDescription.roomListIndex,
       position: entity.Position,
     };
-    this.v.level.persistentEntities.set(index, persistentEntityDescription);
+    v.level.persistentEntities.set(index, persistentEntityDescription);
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoomReordered = () => {
     const roomListIndex = getRoomListIndex();
-    const persistentEntities = [...this.v.level.persistentEntities.entries()];
+    const persistentEntities = [...v.level.persistentEntities.entries()];
     const persistentEntitiesInThisRoom = persistentEntities.filter(
       ([_index, description]) => roomListIndex === description.roomListIndex,
     );
 
     for (const [index, description] of persistentEntitiesInThisRoom) {
-      this.v.level.persistentEntities.delete(index);
+      v.level.persistentEntities.delete(index);
       this.spawnAndTrack(
         description.entityType,
         description.variant,
@@ -146,7 +148,7 @@ export class PersistentEntities extends Feature {
 
     // Keep track that we spawned it so that we can respawn it if the player re-enters the room.
     const tuple: [int, EntityPtr] = [index, EntityPtr(entity)];
-    this.v.room.spawnedPersistentEntities.set(ptrHash, tuple);
+    v.room.spawnedPersistentEntities.set(ptrHash, tuple);
 
     return entity;
   }
@@ -168,15 +170,15 @@ export class PersistentEntities extends Feature {
     persistentEntityIndex: int,
     removeEntity = true,
   ): void {
-    this.v.level.persistentEntities.delete(persistentEntityIndex);
+    v.level.persistentEntities.delete(persistentEntityIndex);
 
-    for (const [ptrHash, tuple] of this.v.room.spawnedPersistentEntities) {
+    for (const [ptrHash, tuple] of v.room.spawnedPersistentEntities) {
       const [index, entityPtr] = tuple;
       if (index !== persistentEntityIndex) {
         continue;
       }
 
-      this.v.room.spawnedPersistentEntities.delete(ptrHash);
+      v.room.spawnedPersistentEntities.delete(ptrHash);
 
       if (removeEntity && entityPtr.Ref !== undefined) {
         entityPtr.Ref.Remove();
@@ -209,16 +211,16 @@ export class PersistentEntities extends Feature {
     subType: int,
     position: Vector,
   ): [Entity, int] {
-    this.v.run.persistentEntityIndexCounter++;
+    v.run.persistentEntityIndexCounter++;
 
     const entity = this.spawnAndTrack(
       entityType,
       variant,
       subType,
       position,
-      this.v.run.persistentEntityIndexCounter,
+      v.run.persistentEntityIndexCounter,
     );
 
-    return [entity, this.v.run.persistentEntityIndexCounter];
+    return [entity, v.run.persistentEntityIndexCounter];
   }
 }

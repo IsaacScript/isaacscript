@@ -8,14 +8,16 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  run: {
+    playersHealthMap: new DefaultMap<PlayerIndex, Map<HealthType, int>>(
+      () => new Map(),
+    ),
+  },
+};
+
 export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH> {
-  public override v = {
-    run: {
-      playersHealthMap: new DefaultMap<PlayerIndex, Map<HealthType, int>>(
-        () => new Map(),
-      ),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -37,7 +39,7 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POS
     // the player switches between the two.
     const playerIndex = getPlayerIndex(player, true);
     const playerHealthMap =
-      this.v.run.playersHealthMap.getAndSetDefault(playerIndex);
+      v.run.playersHealthMap.getAndSetDefault(playerIndex);
 
     for (const healthType of HEALTH_TYPE_VALUES) {
       const storedHealthValue = playerHealthMap.get(healthType);

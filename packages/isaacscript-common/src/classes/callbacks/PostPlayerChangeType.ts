@@ -9,16 +9,18 @@ import { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  run: {
+    playersCharacterMap: new DefaultMap<
+      PlayerIndex,
+      PlayerType,
+      [character: PlayerType]
+    >((character: PlayerType) => character), // eslint-disable-line isaacscript/strict-enums
+  },
+};
+
 export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_TYPE> {
-  public override v = {
-    run: {
-      playersCharacterMap: new DefaultMap<
-        PlayerIndex,
-        PlayerType,
-        [character: PlayerType]
-      >((character: PlayerType) => character), // eslint-disable-line isaacscript/strict-enums
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -37,12 +39,12 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_
   private postPEffectReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
     const storedCharacter = defaultMapGetPlayer(
-      this.v.run.playersCharacterMap,
+      v.run.playersCharacterMap,
       player,
       character,
     );
     if (character !== storedCharacter) {
-      mapSetPlayer(this.v.run.playersCharacterMap, player, character);
+      mapSetPlayer(v.run.playersCharacterMap, player, character);
       this.fire(player, storedCharacter, character);
     }
   };

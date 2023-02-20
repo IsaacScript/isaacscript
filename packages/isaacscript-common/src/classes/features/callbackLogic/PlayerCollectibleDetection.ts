@@ -26,20 +26,22 @@ import { Feature } from "../../private/Feature";
 import { ModdedElementSets } from "../other/ModdedElementSets";
 import { RunInNFrames } from "../other/RunInNFrames";
 
+const v = {
+  run: {
+    playersCollectibleCount: new DefaultMap<PlayerIndex, int>(0),
+    playersCollectibleMap: new DefaultMap<
+      PlayerIndex,
+      Map<CollectibleType, int>
+    >(() => new Map()),
+    playersActiveItemMap: new DefaultMap<
+      PlayerIndex,
+      Map<ActiveSlot, CollectibleType>
+    >(() => new Map()),
+  },
+};
+
 export class PlayerCollectibleDetection extends Feature {
-  public override v = {
-    run: {
-      playersCollectibleCount: new DefaultMap<PlayerIndex, int>(0),
-      playersCollectibleMap: new DefaultMap<
-        PlayerIndex,
-        Map<CollectibleType, int>
-      >(() => new Map()),
-      playersActiveItemMap: new DefaultMap<
-        PlayerIndex,
-        Map<ActiveSlot, CollectibleType>
-      >(() => new Map()),
-    },
-  };
+  public override v = v;
 
   private postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
   private postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
@@ -96,12 +98,12 @@ export class PlayerCollectibleDetection extends Feature {
     numCollectiblesChanged: int | undefined,
   ) {
     const oldCollectibleMap = defaultMapGetPlayer(
-      this.v.run.playersCollectibleMap,
+      v.run.playersCollectibleMap,
       player,
     );
     const newCollectibleMap =
       this.moddedElementSets.getPlayerCollectibleMap(player);
-    mapSetPlayer(this.v.run.playersCollectibleMap, player, newCollectibleMap);
+    mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
 
     const collectibleTypesSet = new Set<CollectibleType>([
       ...oldCollectibleMap.keys(),
@@ -204,11 +206,7 @@ export class PlayerCollectibleDetection extends Feature {
     }
 
     const newCollectibleCount = player.GetCollectibleCount();
-    mapSetPlayer(
-      this.v.run.playersCollectibleCount,
-      player,
-      newCollectibleCount,
-    );
+    mapSetPlayer(v.run.playersCollectibleCount, player, newCollectibleCount);
 
     this.updateCollectibleMapAndFire(player, 1);
   };
@@ -216,15 +214,11 @@ export class PlayerCollectibleDetection extends Feature {
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const oldCollectibleCount = defaultMapGetPlayer(
-      this.v.run.playersCollectibleCount,
+      v.run.playersCollectibleCount,
       player,
     );
     const newCollectibleCount = player.GetCollectibleCount();
-    mapSetPlayer(
-      this.v.run.playersCollectibleCount,
-      player,
-      newCollectibleCount,
-    );
+    mapSetPlayer(v.run.playersCollectibleCount, player, newCollectibleCount);
 
     const difference = newCollectibleCount - oldCollectibleCount;
 
@@ -248,7 +242,7 @@ export class PlayerCollectibleDetection extends Feature {
    */
   private checkActiveItemsChanged(player: EntityPlayer) {
     const activeItemMap = defaultMapGetPlayer(
-      this.v.run.playersActiveItemMap,
+      v.run.playersActiveItemMap,
       player,
     );
 

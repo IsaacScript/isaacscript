@@ -16,15 +16,17 @@ const TRINKETS_THAT_CAN_BREAK = [
   TrinketType.WALNUT,
 ] as const;
 
+const v = {
+  run: {
+    // We cannot use a nested `DefaultMap` here.
+    playersTrinketMap: new DefaultMap<PlayerIndex, Map<TrinketType, int>>(
+      () => new Map(),
+    ),
+  },
+};
+
 export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRINKET_BREAK> {
-  public override v = {
-    run: {
-      // We cannot use a nested `DefaultMap` here.
-      playersTrinketMap: new DefaultMap<PlayerIndex, Map<TrinketType, int>>(
-        () => new Map(),
-      ),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -48,10 +50,7 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
     _source: EntityRef,
     _countdownFrames: int,
   ): boolean | undefined => {
-    const trinketMap = defaultMapGetPlayer(
-      this.v.run.playersTrinketMap,
-      player,
-    );
+    const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
     for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
       const numTrinketsHeld = player.GetTrinketMultiplier(trinketType);
@@ -86,10 +85,7 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     // On every frame, keep track of how many trinkets we have.
-    const trinketMap = defaultMapGetPlayer(
-      this.v.run.playersTrinketMap,
-      player,
-    );
+    const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
     for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
       const numTrinkets = player.GetTrinketMultiplier(trinketType);

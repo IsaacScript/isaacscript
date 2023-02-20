@@ -5,12 +5,14 @@ import { hasFlag } from "../../functions/flag";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  level: {
+    numSacrifices: 0,
+  },
+};
+
 export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFICE> {
-  public override v = {
-    level: {
-      numSacrifices: 0,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -35,8 +37,8 @@ export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFI
     const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
     if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
-      this.v.level.numSacrifices++;
-      this.fire(player, this.v.level.numSacrifices);
+      v.level.numSacrifices++;
+      this.fire(player, v.level.numSacrifices);
     }
 
     return undefined;

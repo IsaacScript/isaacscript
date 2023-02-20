@@ -9,15 +9,17 @@ import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "./CustomGridEntities";
 
+const v = {
+  room: {
+    /** Indexed by grid entity pointer hash. */
+    collidingEntitiesMap: new DefaultMap<PtrHash, Set<PtrHash>>(
+      () => new Set(),
+    ),
+  },
+};
+
 export class GridEntityCollisionDetection extends Feature {
-  public override v = {
-    room: {
-      /** Indexed by grid entity pointer hash. */
-      collidingEntitiesMap: new DefaultMap<PtrHash, Set<PtrHash>>(
-        () => new Set(),
-      ),
-    },
-  };
+  public override v = v;
 
   private postGridEntityCollision: PostGridEntityCollision;
   private postGridEntityCustomCollision: PostGridEntityCustomCollision;
@@ -49,7 +51,7 @@ export class GridEntityCollisionDetection extends Feature {
     for (const gridEntity of gridEntitiesWithCollision) {
       const gridEntityPtrHash = GetPtrHash(gridEntity);
       const oldCollidingEntities =
-        this.v.room.collidingEntitiesMap.getAndSetDefault(gridEntityPtrHash);
+        v.room.collidingEntitiesMap.getAndSetDefault(gridEntityPtrHash);
 
       // Check for new colliding entities.
       const collidingEntities = getCollidingEntitiesWithGridEntity(gridEntity);

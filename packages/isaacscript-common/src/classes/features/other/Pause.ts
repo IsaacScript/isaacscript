@@ -29,15 +29,17 @@ interface InitialDescription {
   fallingAcceleration: float;
 }
 
+const v = {
+  run: {
+    isPseudoPaused: false,
+    shouldUnpause: false,
+    initialDescriptions: new Map<PtrHash, InitialDescription>(),
+  },
+};
+
 export class Pause extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      isPseudoPaused: false,
-      shouldUnpause: false,
-      initialDescriptions: new Map<PtrHash, InitialDescription>(),
-    },
-  };
+  public override v = v;
 
   private disableInputs: DisableInputs;
 
@@ -62,7 +64,7 @@ export class Pause extends Feature {
 
   // ModCallback.POST_UPDATE (1)
   private postUpdate = () => {
-    if (!this.v.run.isPseudoPaused) {
+    if (!v.run.isPseudoPaused) {
       return;
     }
 
@@ -77,7 +79,7 @@ export class Pause extends Feature {
 
     for (const tearOrProjectile of tearsAndProjectiles) {
       const ptrHash = GetPtrHash(tearOrProjectile);
-      const initialDescription = this.v.run.initialDescriptions.get(ptrHash);
+      const initialDescription = v.run.initialDescriptions.get(ptrHash);
       if (initialDescription === undefined) {
         continue;
       }
@@ -107,10 +109,10 @@ export class Pause extends Feature {
       return;
     }
 
-    if (!this.v.run.shouldUnpause) {
+    if (!v.run.shouldUnpause) {
       return;
     }
-    this.v.run.shouldUnpause = false;
+    v.run.shouldUnpause = false;
 
     // Returning a value of 1 for a single sub-frame will be enough for the game to register an
     // unpause but not enough for a tear to actually be fired.
@@ -119,7 +121,7 @@ export class Pause extends Feature {
 
   @Exported
   public isPaused(): boolean {
-    return this.v.run.isPseudoPaused;
+    return v.run.isPseudoPaused;
   }
 
   /**
@@ -135,18 +137,18 @@ export class Pause extends Feature {
    */
   @Exported
   public pause(): void {
-    if (this.v.run.isPseudoPaused) {
+    if (v.run.isPseudoPaused) {
       logError(
         "Failed to pseudo-pause the game, since it was already pseudo-paused.",
       );
       return;
     }
-    this.v.run.isPseudoPaused = true;
+    v.run.isPseudoPaused = true;
 
     // Tears/projectiles in the room will move slightly on every frame, even when the Pause
     // collectible is active. Thus, we manually reset the initial positions and heights on every
     // frame.
-    this.v.run.initialDescriptions.clear();
+    v.run.initialDescriptions.clear();
     const tearsAndProjectiles = [...getTears(), ...getProjectiles()];
     for (const tearOrProjectile of tearsAndProjectiles) {
       const ptrHash = GetPtrHash(tearOrProjectile);
@@ -160,7 +162,7 @@ export class Pause extends Feature {
           ? tearOrProjectile.FallingAcceleration
           : tearOrProjectile.FallingAccel,
       };
-      this.v.run.initialDescriptions.set(ptrHash, initialDescription);
+      v.run.initialDescriptions.set(ptrHash, initialDescription);
     }
 
     const firstPlayer = Isaac.GetPlayer();
@@ -197,14 +199,14 @@ export class Pause extends Feature {
    */
   @Exported
   public unpause(): void {
-    if (!this.v.run.isPseudoPaused) {
+    if (!v.run.isPseudoPaused) {
       logError(
         "Failed to pseudo-unpause the game, since it was not already pseudo-paused.",
       );
       return;
     }
-    this.v.run.isPseudoPaused = false;
-    this.v.run.shouldUnpause = true;
+    v.run.isPseudoPaused = false;
+    v.run.shouldUnpause = true;
 
     const tstlClassName = getTSTLClassName(this);
     if (tstlClassName === undefined) {

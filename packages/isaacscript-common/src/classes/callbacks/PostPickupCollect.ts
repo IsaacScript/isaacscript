@@ -4,12 +4,14 @@ import { getClosestPlayer } from "../../functions/players";
 import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    firedSet: new Set<PtrHash>(),
+  },
+};
+
 export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PICKUP_COLLECT> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -31,8 +33,8 @@ export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PIC
     }
 
     const index = GetPtrHash(pickup);
-    if (!this.v.room.firedSet.has(index)) {
-      this.v.room.firedSet.add(index);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
 
       const player = getClosestPlayer(pickup.Position);
       this.fire(pickup, player);

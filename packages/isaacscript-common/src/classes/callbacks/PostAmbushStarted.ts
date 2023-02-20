@@ -5,12 +5,14 @@ import { getAmbushType } from "../../functions/ambush";
 import { shouldFireAmbush } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    ambushActive: false,
+  },
+};
+
 export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMBUSH_STARTED> {
-  public override v = {
-    room: {
-      ambushActive: false,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -24,7 +26,7 @@ export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMB
   protected override shouldFire = shouldFireAmbush;
 
   private postUpdate = (): void => {
-    if (this.v.room.ambushActive) {
+    if (v.room.ambushActive) {
       return;
     }
 
@@ -33,7 +35,7 @@ export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMB
     if (!ambushActive) {
       return;
     }
-    this.v.room.ambushActive = true;
+    v.room.ambushActive = true;
 
     const ambushType = getAmbushType();
     if (ambushType !== undefined) {

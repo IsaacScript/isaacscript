@@ -14,14 +14,16 @@ import {
 
 type T = ModCallbackCustom.POST_PURCHASE;
 
+const v = {
+  room: {
+    playersHoldingItemOnLastFrameMap: new DefaultMap<PlayerIndex, boolean>(
+      false,
+    ),
+  },
+};
+
 export class PostPurchase extends CustomCallback<T> {
-  public override v = {
-    room: {
-      playersHoldingItemOnLastFrameMap: new DefaultMap<PlayerIndex, boolean>(
-        false,
-      ),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -53,11 +55,11 @@ export class PostPurchase extends CustomCallback<T> {
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const isHoldingItem = player.IsHoldingItem();
     const wasHoldingItemOnLastFrame = defaultMapGetPlayer(
-      this.v.room.playersHoldingItemOnLastFrameMap,
+      v.room.playersHoldingItemOnLastFrameMap,
       player,
     );
     mapSetPlayer(
-      this.v.room.playersHoldingItemOnLastFrameMap,
+      v.room.playersHoldingItemOnLastFrameMap,
       player,
       isHoldingItem,
     );

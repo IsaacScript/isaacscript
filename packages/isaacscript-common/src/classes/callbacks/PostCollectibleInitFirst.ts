@@ -5,12 +5,14 @@ import { shouldFireCollectible } from "../../shouldFire";
 import { CollectibleIndex } from "../../types/CollectibleIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  run: {
+    seenCollectibles: new Set<CollectibleIndex>(),
+  },
+};
+
 export class PostCollectibleInitFirst extends CustomCallback<ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST> {
-  public override v = {
-    run: {
-      seenCollectibles: new Set<CollectibleIndex>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -32,11 +34,11 @@ export class PostCollectibleInitFirst extends CustomCallback<ModCallbackCustom.P
   private postPickupInitCollectible = (pickup: EntityPickup): void => {
     const collectible = pickup as EntityPickupCollectible;
     const collectibleIndex = getCollectibleIndex(collectible);
-    if (this.v.run.seenCollectibles.has(collectibleIndex)) {
+    if (v.run.seenCollectibles.has(collectibleIndex)) {
       return;
     }
 
-    this.v.run.seenCollectibles.add(collectibleIndex);
+    v.run.seenCollectibles.add(collectibleIndex);
     this.fire(collectible);
   };
 }

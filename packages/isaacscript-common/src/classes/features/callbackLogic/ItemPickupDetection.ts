@@ -17,14 +17,16 @@ import { PreItemPickup } from "../../callbacks/PreItemPickup";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    playersPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
+      newPickingUpItem(),
+    ),
+  },
+};
+
 export class ItemPickupDetection extends Feature {
-  public override v = {
-    run: {
-      playersPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
-        newPickingUpItem(),
-      ),
-    },
-  };
+  public override v = v;
 
   private postItemPickup: PostItemPickup;
   private preItemPickup: PreItemPickup;
@@ -46,7 +48,7 @@ export class ItemPickupDetection extends Feature {
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const pickingUpItem = defaultMapGetPlayer(
-      this.v.run.playersPickingUpItemMap,
+      v.run.playersPickingUpItemMap,
       player,
     );
 

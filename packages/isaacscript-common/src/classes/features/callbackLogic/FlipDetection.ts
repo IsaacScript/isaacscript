@@ -9,13 +9,15 @@ import { PostFirstFlip } from "../../callbacks/PostFirstFlip";
 import { PostFlip } from "../../callbacks/PostFlip";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    /** We don't consider the case of a multiplayer game with more than one Tainted Lazarus. */
+    usedFlipAtLeastOnce: false,
+  },
+};
+
 export class FlipDetection extends Feature {
-  public override v = {
-    run: {
-      /** We don't consider the case of a multiplayer game with more than one Tainted Lazarus. */
-      usedFlipAtLeastOnce: false,
-    },
-  };
+  public override v = v;
 
   private postFlip: PostFlip;
   private postFirstFlip: PostFirstFlip;
@@ -53,8 +55,8 @@ export class FlipDetection extends Feature {
       return undefined;
     }
 
-    if (!this.v.run.usedFlipAtLeastOnce) {
-      this.v.run.usedFlipAtLeastOnce = true;
+    if (!v.run.usedFlipAtLeastOnce) {
+      v.run.usedFlipAtLeastOnce = true;
       this.postFirstFlip.fire(newLazarus, player);
     }
 

@@ -4,12 +4,14 @@ import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isGreedMode } from "../../functions/run";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  run: {
+    currentGreedWave: 0,
+  },
+};
+
 export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GREED_MODE_WAVE> {
-  public override v = {
-    run: {
-      currentGreedWave: 0,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -28,8 +30,8 @@ export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GRE
 
     const level = game.GetLevel();
     const newWave = level.GreedModeWave;
-    const oldWave = this.v.run.currentGreedWave;
-    this.v.run.currentGreedWave = newWave;
+    const oldWave = v.run.currentGreedWave;
+    v.run.currentGreedWave = newWave;
 
     if (newWave > oldWave) {
       this.fire(oldWave, newWave);

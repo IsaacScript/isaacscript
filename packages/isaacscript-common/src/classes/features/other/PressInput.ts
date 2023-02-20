@@ -8,13 +8,15 @@ import { getPlayerIndex } from "../../../functions/playerIndex";
 import { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    buttonActionTuples: [] as Array<[PlayerIndex, ButtonAction]>,
+  },
+};
+
 export class PressInput extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      buttonActionTuples: [] as Array<[PlayerIndex, ButtonAction]>,
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -48,16 +50,16 @@ export class PressInput extends Feature {
 
     const playerIndex = getPlayerIndex(player);
 
-    for (let i = this.v.run.buttonActionTuples.length - 1; i >= 0; i--) {
+    for (let i = v.run.buttonActionTuples.length - 1; i >= 0; i--) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const tuple = this.v.run.buttonActionTuples[i]!;
+      const tuple = v.run.buttonActionTuples[i]!;
       const [tuplePlayerIndex, tupleButtonAction] = tuple;
 
       if (
         tuplePlayerIndex === playerIndex &&
         tupleButtonAction === buttonAction
       ) {
-        this.v.run.buttonActionTuples.splice(i);
+        v.run.buttonActionTuples.splice(i);
         return true;
       }
     }
@@ -75,6 +77,6 @@ export class PressInput extends Feature {
   @Exported
   public pressInput(player: EntityPlayer, buttonAction: ButtonAction): void {
     const playerIndex = getPlayerIndex(player);
-    this.v.run.buttonActionTuples.push([playerIndex, buttonAction]);
+    v.run.buttonActionTuples.push([playerIndex, buttonAction]);
   }
 }

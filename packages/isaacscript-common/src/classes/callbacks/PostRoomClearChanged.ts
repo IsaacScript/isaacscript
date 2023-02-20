@@ -9,12 +9,14 @@ import {
 
 type T = ModCallbackCustom.POST_ROOM_CLEAR_CHANGED;
 
+const v = {
+  room: {
+    cleared: false,
+  },
+};
+
 export class PostRoomClearChanged extends CustomCallback<T> {
-  public override v = {
-    room: {
-      cleared: false,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -44,8 +46,8 @@ export class PostRoomClearChanged extends CustomCallback<T> {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 
-    if (roomClear !== this.v.room.cleared) {
-      this.v.room.cleared = roomClear;
+    if (roomClear !== v.room.cleared) {
+      v.room.cleared = roomClear;
       this.fire(roomClear);
     }
   };
@@ -55,6 +57,6 @@ export class PostRoomClearChanged extends CustomCallback<T> {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 
-    this.v.room.cleared = roomClear;
+    v.room.cleared = roomClear;
   };
 }

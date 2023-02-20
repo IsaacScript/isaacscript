@@ -24,12 +24,14 @@ import { PostSlotDestroyed } from "../../callbacks/PostSlotDestroyed";
 import { Feature } from "../../private/Feature";
 import { RoomHistory } from "../other/RoomHistory";
 
+const v = {
+  room: {
+    destroyedSlotSet: new Set<PtrHash>(),
+  },
+};
+
 export class SlotDestroyedDetection extends Feature {
-  public override v = {
-    room: {
-      destroyedSlotSet: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   private postSlotDestroyed: PostSlotDestroyed;
   private roomHistory: RoomHistory;
@@ -92,7 +94,7 @@ export class SlotDestroyedDetection extends Feature {
   private postSlotUpdate = (slot: EntitySlot) => {
     const ptrHash = GetPtrHash(slot);
 
-    const alreadyDestroyed = this.v.room.destroyedSlotSet.has(ptrHash);
+    const alreadyDestroyed = v.room.destroyedSlotSet.has(ptrHash);
     if (alreadyDestroyed) {
       return;
     }
@@ -109,7 +111,7 @@ export class SlotDestroyedDetection extends Feature {
   private checkDestroyedFromCollisionClass(slot: EntitySlot) {
     if (slot.GridCollisionClass === EntityGridCollisionClass.GROUND) {
       const ptrHash = GetPtrHash(slot);
-      this.v.room.destroyedSlotSet.add(ptrHash);
+      v.room.destroyedSlotSet.add(ptrHash);
       this.postSlotDestroyed.fire(slot, SlotDestructionType.NORMAL);
     }
   }

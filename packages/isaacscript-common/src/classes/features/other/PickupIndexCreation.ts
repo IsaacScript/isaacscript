@@ -21,28 +21,30 @@ interface PickupDescription {
   initSeed: Seed;
 }
 
+const v = {
+  run: {
+    /** Is incremented before assignment. Thus, the first pickup will have an index of 1. */
+    pickupCounter: 0 as PickupIndex,
+
+    pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
+    pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
+  },
+
+  level: {
+    /** Indexed by room list index. */
+    pickupData: new DefaultMap<int, Map<PickupIndex, PickupDescription>>(
+      () => new Map(),
+    ),
+  },
+
+  room: {
+    pickupIndexes: new Map<PtrHash, PickupIndex>(),
+  },
+};
+
 export class PickupIndexCreation extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      /** Is incremented before assignment. Thus, the first pickup will have an index of 1. */
-      pickupCounter: 0 as PickupIndex,
-
-      pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
-      pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
-    },
-
-    level: {
-      /** Indexed by room list index. */
-      pickupData: new DefaultMap<int, Map<PickupIndex, PickupDescription>>(
-        () => new Map(),
-      ),
-    },
-
-    room: {
-      pickupIndexes: new Map<PtrHash, PickupIndex>(),
-    },
-  };
+  public override v = v;
 
   private roomHistory: RoomHistory;
   private saveDataManager: SaveDataManager;
@@ -81,7 +83,7 @@ export class PickupIndexCreation extends Feature {
     // callback but should not incur a new pickup counter. (For example, the collectible rotation
     // with Tainted Isaac.) For these situations, we will already be tracking an index for this
     // pointer hash.
-    if (this.v.room.pickupIndexes.has(ptrHash)) {
+    if (v.room.pickupIndexes.has(ptrHash)) {
       return;
     }
 
@@ -97,13 +99,13 @@ export class PickupIndexCreation extends Feature {
       !isFirstVisit &&
       roomFrameCount <= 0
     ) {
-      this.v.room.pickupIndexes.set(ptrHash, pickupIndexFromLevelData);
+      v.room.pickupIndexes.set(ptrHash, pickupIndexFromLevelData);
       return;
     }
 
     // This is a brand new pickup that we have not previously seen on this run.
-    this.v.run.pickupCounter++;
-    this.v.room.pickupIndexes.set(ptrHash, this.v.run.pickupCounter);
+    v.run.pickupCounter++;
+    v.room.pickupIndexes.set(ptrHash, v.run.pickupCounter);
   }
 
   private getPickupIndexFromPreviousData(
@@ -111,7 +113,7 @@ export class PickupIndexCreation extends Feature {
   ): PickupIndex | undefined {
     const roomListIndex = getRoomListIndex();
     const pickupDescriptions =
-      this.v.level.pickupData.getAndSetDefault(roomListIndex);
+      v.level.pickupData.getAndSetDefault(roomListIndex);
 
     let pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
     if (pickupIndex === undefined) {
@@ -129,7 +131,7 @@ export class PickupIndexCreation extends Feature {
 
   private checkDespawningFromPlayerLeavingRoom(entity: Entity) {
     const ptrHash = GetPtrHash(entity);
-    const pickupIndex = this.v.room.pickupIndexes.get(ptrHash);
+    const pickupIndex = v.room.pickupIndexes.get(ptrHash);
     if (pickupIndex === undefined) {
       return;
     }
@@ -157,7 +159,7 @@ export class PickupIndexCreation extends Feature {
     }
 
     const previousRoomListIndex = previousRoomDescription.roomListIndex;
-    const pickupDescriptions = this.v.level.pickupData.getAndSetDefault(
+    const pickupDescriptions = v.level.pickupData.getAndSetDefault(
       previousRoomListIndex,
     );
 
@@ -196,11 +198,11 @@ export class PickupIndexCreation extends Feature {
 
     switch (roomType) {
       case RoomType.TREASURE: {
-        return this.v.run.pickupDataTreasureRooms;
+        return v.run.pickupDataTreasureRooms;
       }
 
       case RoomType.BOSS: {
-        return this.v.run.pickupDataBossRooms;
+        return v.run.pickupDataBossRooms;
       }
 
       default: {
@@ -223,11 +225,11 @@ export class PickupIndexCreation extends Feature {
 
     switch (roomType) {
       case RoomType.TREASURE: {
-        return getStoredPickupIndex(pickup, this.v.run.pickupDataTreasureRooms);
+        return getStoredPickupIndex(pickup, v.run.pickupDataTreasureRooms);
       }
 
       case RoomType.BOSS: {
-        return getStoredPickupIndex(pickup, this.v.run.pickupDataBossRooms);
+        return getStoredPickupIndex(pickup, v.run.pickupDataBossRooms);
       }
 
       default: {
@@ -255,13 +257,13 @@ export class PickupIndexCreation extends Feature {
   @Exported
   public getPickupIndex(pickup: EntityPickup): PickupIndex {
     const ptrHash = GetPtrHash(pickup);
-    const pickupIndexInitial = this.v.room.pickupIndexes.get(ptrHash);
+    const pickupIndexInitial = v.room.pickupIndexes.get(ptrHash);
     if (pickupIndexInitial !== undefined) {
       return pickupIndexInitial;
     }
 
     this.setPickupIndex(pickup);
-    const pickupIndex = this.v.room.pickupIndexes.get(ptrHash);
+    const pickupIndex = v.room.pickupIndexes.get(ptrHash);
     if (pickupIndex !== undefined) {
       return pickupIndex;
     }

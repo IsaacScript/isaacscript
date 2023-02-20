@@ -10,12 +10,14 @@ const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
   "LightTravel",
 ]);
 
+const v = {
+  run: {
+    firedOnStage: null as int | null,
+  },
+};
+
 export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL> {
-  public override v = {
-    run: {
-      firedOnStage: null as int | null,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -29,7 +31,7 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
   // ModCallback.POST_PLAYER_RENDER (32)
   private postPlayerRender = (player: EntityPlayer) => {
     const effectiveStage = getEffectiveStage();
-    if (effectiveStage === this.v.run.firedOnStage) {
+    if (effectiveStage === v.run.firedOnStage) {
       return;
     }
 
@@ -45,7 +47,7 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
     const frame = sprite.GetFrame();
     const finalFrame = getLastFrameOfAnimation(sprite);
     if (frame === finalFrame) {
-      this.v.run.firedOnStage = effectiveStage;
+      v.run.firedOnStage = effectiveStage;
       this.fire(player);
     }
   };

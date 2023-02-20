@@ -15,13 +15,15 @@ import {
 import { RoomDescription } from "../../../interfaces/RoomDescription";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    roomHistory: [] as Array<Readonly<RoomDescription>>,
+  },
+};
+
 export class RoomHistory extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      roomHistory: [] as Array<Readonly<RoomDescription>>,
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -64,7 +66,7 @@ export class RoomHistory extends Feature {
       roomListIndex,
       roomVisitedCount,
     };
-    this.v.run.roomHistory.push(roomDescription);
+    v.run.roomHistory.push(roomDescription);
   };
 
   /**
@@ -75,7 +77,7 @@ export class RoomHistory extends Feature {
    */
   @Exported
   public getNumRoomsEntered(): int {
-    return this.v.run.roomHistory.length;
+    return v.run.roomHistory.length;
   }
 
   /**
@@ -86,7 +88,7 @@ export class RoomHistory extends Feature {
    */
   @Exported
   public getRoomHistory(): ReadonlyArray<Readonly<RoomDescription>> {
-    return this.v.run.roomHistory;
+    return v.run.roomHistory;
   }
 
   /**
@@ -100,12 +102,12 @@ export class RoomHistory extends Feature {
   @Exported
   public getPreviousRoomDescription(): Readonly<RoomDescription> {
     const previousRoomDescription =
-      this.v.run.roomHistory[this.v.run.roomHistory.length - 2];
+      v.run.roomHistory[v.run.roomHistory.length - 2];
     if (previousRoomDescription !== undefined) {
       return previousRoomDescription;
     }
 
-    const startingRoomDescription = this.v.run.roomHistory[0];
+    const startingRoomDescription = v.run.roomHistory[0];
     if (startingRoomDescription !== undefined) {
       return startingRoomDescription;
     }
@@ -128,7 +130,7 @@ export class RoomHistory extends Feature {
    */
   @Exported
   public getLatestRoomDescription(): Readonly<RoomDescription> | undefined {
-    return getLastElement(this.v.run.roomHistory);
+    return getLastElement(v.run.roomHistory);
   }
 
   /**

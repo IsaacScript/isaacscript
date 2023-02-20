@@ -16,16 +16,18 @@ import { PostPlayerRenderReordered } from "../../callbacks/PostPlayerRenderReord
 import { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdateReordered";
 import { Feature } from "../../private/Feature";
 
-export class PlayerReorderedCallbacks extends Feature {
-  public override v = {
-    run: {
-      postGameStartedFiredOnThisRun: false,
+const v = {
+  run: {
+    postGameStartedFiredOnThisRun: false,
 
-      postPEffectUpdateQueue: [] as PlayerIndex[],
-      postPlayerUpdateQueue: [] as PlayerIndex[],
-      postPlayerRenderQueue: [] as PlayerIndex[],
-    },
-  };
+    postPEffectUpdateQueue: [] as PlayerIndex[],
+    postPlayerUpdateQueue: [] as PlayerIndex[],
+    postPlayerRenderQueue: [] as PlayerIndex[],
+  },
+};
+
+export class PlayerReorderedCallbacks extends Feature {
+  public override v = v;
 
   private postPEffectUpdateReordered: PostPEffectUpdateReordered;
   private postPlayerRenderReordered: PostPlayerRenderReordered;
@@ -63,23 +65,23 @@ export class PlayerReorderedCallbacks extends Feature {
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private postPEffectUpdate = (player: EntityPlayer): void => {
-    if (this.v.run.postGameStartedFiredOnThisRun) {
+    if (v.run.postGameStartedFiredOnThisRun) {
       this.postPEffectUpdateReordered.fire(player);
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      this.v.run.postPEffectUpdateQueue.push(playerIndex);
+      v.run.postPEffectUpdateQueue.push(playerIndex);
     }
   };
 
   // ModCallback.POST_PLAYER_UPDATE (31)
   private postPlayerUpdate = (player: EntityPlayer): void => {
-    if (this.v.run.postGameStartedFiredOnThisRun) {
+    if (v.run.postGameStartedFiredOnThisRun) {
       this.postPlayerUpdateReordered.fire(player);
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      this.v.run.postPlayerUpdateQueue.push(playerIndex);
+      v.run.postPlayerUpdateQueue.push(playerIndex);
     }
   };
 
@@ -88,31 +90,22 @@ export class PlayerReorderedCallbacks extends Feature {
     player: EntityPlayer,
     _renderOffset: Vector,
   ): void => {
-    if (this.v.run.postGameStartedFiredOnThisRun) {
+    if (v.run.postGameStartedFiredOnThisRun) {
       this.postPlayerRenderReordered.fire(player);
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      this.v.run.postPlayerRenderQueue.push(playerIndex);
+      v.run.postPlayerRenderQueue.push(playerIndex);
     }
   };
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST
   private postGameStartedReorderedLast = (): void => {
-    this.v.run.postGameStartedFiredOnThisRun = true;
+    v.run.postGameStartedFiredOnThisRun = true;
 
-    dequeue(
-      this.v.run.postPEffectUpdateQueue,
-      this.postPEffectUpdateReordered.fire,
-    );
-    dequeue(
-      this.v.run.postPlayerUpdateQueue,
-      this.postPlayerUpdateReordered.fire,
-    );
-    dequeue(
-      this.v.run.postPlayerRenderQueue,
-      this.postPlayerRenderReordered.fire,
-    );
+    dequeue(v.run.postPEffectUpdateQueue, this.postPEffectUpdateReordered.fire);
+    dequeue(v.run.postPlayerUpdateQueue, this.postPlayerUpdateReordered.fire);
+    dequeue(v.run.postPlayerRenderQueue, this.postPlayerRenderReordered.fire);
   };
 }
 

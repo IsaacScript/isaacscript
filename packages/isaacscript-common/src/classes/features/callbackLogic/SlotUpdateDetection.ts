@@ -5,12 +5,14 @@ import { PostSlotInit } from "../../callbacks/PostSlotInit";
 import { PostSlotUpdate } from "../../callbacks/PostSlotUpdate";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  room: {
+    initializedSlots: new Set<PtrHash>(),
+  },
+};
+
 export class SlotUpdateDetection extends Feature {
-  public override v = {
-    room: {
-      initializedSlots: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   private postSlotInit: PostSlotInit;
   private postSlotUpdate: PostSlotUpdate;
@@ -50,8 +52,8 @@ export class SlotUpdateDetection extends Feature {
 
   private checkNewEntity(slot: EntitySlot) {
     const ptrHash = GetPtrHash(slot);
-    if (!this.v.room.initializedSlots.has(ptrHash)) {
-      this.v.room.initializedSlots.add(ptrHash);
+    if (!v.room.initializedSlots.has(ptrHash)) {
+      v.room.initializedSlots.add(ptrHash);
       this.postSlotInit.fire(slot);
     }
   }

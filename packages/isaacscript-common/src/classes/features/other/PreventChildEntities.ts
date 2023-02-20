@@ -2,13 +2,15 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  room: {
+    preventingEntities: new Set<PtrHash>(),
+  },
+};
+
 export class PreventChildEntities extends Feature {
   /** @internal */
-  public override v = {
-    room: {
-      preventingEntities: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -24,11 +26,11 @@ export class PreventChildEntities extends Feature {
   private postNPCInit = (npc: EntityNPC) => {
     const spawnerEntityMatch =
       npc.SpawnerEntity !== undefined &&
-      this.v.room.preventingEntities.has(GetPtrHash(npc.SpawnerEntity));
+      v.room.preventingEntities.has(GetPtrHash(npc.SpawnerEntity));
 
     const parentMatch =
       npc.Parent !== undefined &&
-      this.v.room.preventingEntities.has(GetPtrHash(npc.Parent));
+      v.room.preventingEntities.has(GetPtrHash(npc.Parent));
 
     if (spawnerEntityMatch || parentMatch) {
       npc.Remove();
@@ -49,6 +51,6 @@ export class PreventChildEntities extends Feature {
   @Exported
   public preventChildEntities(entity: Entity): void {
     const ptrHash = GetPtrHash(entity);
-    this.v.room.preventingEntities.add(ptrHash);
+    v.room.preventingEntities.add(ptrHash);
   }
 }

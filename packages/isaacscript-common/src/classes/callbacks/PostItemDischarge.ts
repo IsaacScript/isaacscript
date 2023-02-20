@@ -30,23 +30,24 @@ type T = ModCallbackCustom.POST_ITEM_DISCHARGE;
 type ActiveSlotToCollectibleTypeMap = Map<ActiveSlot, CollectibleType>;
 type ActiveSlotToChargeMap = Map<ActiveSlot, int>;
 
-export class PostItemDischarge extends CustomCallback<T> {
-  public override v = {
-    run: {
-      playersActiveItemMap: new DefaultMap<
-        PlayerIndex,
-        ActiveSlotToCollectibleTypeMap
-      >(() => new Map()),
-      playersActiveChargeMap: new DefaultMap<
-        PlayerIndex,
-        ActiveSlotToChargeMap
-      >(() => new Map()),
-    },
+const v = {
+  run: {
+    playersActiveItemMap: new DefaultMap<
+      PlayerIndex,
+      ActiveSlotToCollectibleTypeMap
+    >(() => new Map()),
+    playersActiveChargeMap: new DefaultMap<PlayerIndex, ActiveSlotToChargeMap>(
+      () => new Map(),
+    ),
+  },
 
-    room: {
-      playersBulbLastCollisionFrame: new Map<PlayerIndex, int>(),
-    },
-  };
+  room: {
+    playersBulbLastCollisionFrame: new Map<PlayerIndex, int>(),
+  },
+};
+
+export class PostItemDischarge extends CustomCallback<T> {
+  public override v = v;
 
   constructor() {
     super();
@@ -122,23 +123,16 @@ export class PostItemDischarge extends CustomCallback<T> {
     }
 
     const gameFrameCount = game.GetFrameCount();
-    mapSetPlayer(
-      this.v.room.playersBulbLastCollisionFrame,
-      player,
-      gameFrameCount,
-    );
+    mapSetPlayer(v.room.playersBulbLastCollisionFrame, player, gameFrameCount);
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const activeItemMap = defaultMapGetPlayer(
-      this.v.run.playersActiveItemMap,
+      v.run.playersActiveItemMap,
       player,
     );
-    const chargeMap = defaultMapGetPlayer(
-      this.v.run.playersActiveChargeMap,
-      player,
-    );
+    const chargeMap = defaultMapGetPlayer(v.run.playersActiveChargeMap, player);
 
     for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const currentActiveItem = player.GetActiveItem();
@@ -179,7 +173,7 @@ export class PostItemDischarge extends CustomCallback<T> {
   private playerRecentlyCollidedWithBulb(player: EntityPlayer) {
     const gameFrameCount = game.GetFrameCount();
     const bulbLastCollisionFrame = mapGetPlayer(
-      this.v.room.playersBulbLastCollisionFrame,
+      v.room.playersBulbLastCollisionFrame,
       player,
     );
     const collidedOnThisFrame = gameFrameCount === bulbLastCollisionFrame;

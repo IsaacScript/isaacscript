@@ -154,6 +154,18 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://eslint.org/docs/latest/rules/class-methods-use-this
+     *
+     * Defined at:
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     *
+     * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
+     * makes it likely that some methods will not use any internal class variables.
+     */
+    "class-methods-use-this": "off",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/no-bitwise
      *
      * Defined at:

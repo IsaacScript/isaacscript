@@ -4,13 +4,15 @@ import { Exported } from "../../../decorators";
 import { stopAllSoundEffects } from "../../../functions/sound";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    disableSoundSet: new Set<string>(),
+  },
+};
+
 export class DisableAllSound extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      disableSoundSet: new Set<string>(),
-    },
-  };
+  public override v = v;
 
   private musicWasEnabled = false;
 
@@ -26,7 +28,7 @@ export class DisableAllSound extends Feature {
 
   // ModCallback.POST_RENDER (2)
   private postRender = () => {
-    if (this.v.run.disableSoundSet.size === 0) {
+    if (v.run.disableSoundSet.size === 0) {
       return;
     }
 
@@ -45,12 +47,12 @@ export class DisableAllSound extends Feature {
    */
   @Exported
   public enableAllSound(key: string): void {
-    if (!this.v.run.disableSoundSet.has(key)) {
+    if (!v.run.disableSoundSet.has(key)) {
       return;
     }
-    this.v.run.disableSoundSet.delete(key);
+    v.run.disableSoundSet.delete(key);
 
-    if (this.v.run.disableSoundSet.size === 0 && this.musicWasEnabled) {
+    if (v.run.disableSoundSet.size === 0 && this.musicWasEnabled) {
       musicManager.Enable();
     }
 
@@ -71,11 +73,11 @@ export class DisableAllSound extends Feature {
    */
   @Exported
   public disableAllSound(key: string): void {
-    if (this.v.run.disableSoundSet.size === 0) {
+    if (v.run.disableSoundSet.size === 0) {
       this.musicWasEnabled = musicManager.IsEnabled();
     }
 
-    this.v.run.disableSoundSet.add(key);
+    v.run.disableSoundSet.add(key);
 
     // Stop all sound effects that were initialized prior to disabling sounds.
     stopAllSoundEffects();

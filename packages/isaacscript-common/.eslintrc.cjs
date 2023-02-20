@@ -33,13 +33,6 @@ module.exports = {
         },
       },
     ],
-
-    "class-methods-use-this": [
-      "error",
-      {
-        exceptMethods: ["shouldFire", "vConditionalFunc"],
-      },
-    ],
   },
 
   overrides: [

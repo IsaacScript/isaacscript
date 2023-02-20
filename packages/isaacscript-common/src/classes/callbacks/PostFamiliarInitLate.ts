@@ -3,12 +3,14 @@ import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireFamiliar } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    firedSet: new Set<PtrHash>(),
+  },
+};
+
 export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_INIT_LATE> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -24,8 +26,8 @@ export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_
   // ModCallback.POST_FAMILIAR_UPDATE (6)
   private postFamiliarUpdate = (familiar: EntityFamiliar): void => {
     const index = GetPtrHash(familiar);
-    if (!this.v.room.firedSet.has(index)) {
-      this.v.room.firedSet.add(index);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
       this.fire(familiar);
     }
   };

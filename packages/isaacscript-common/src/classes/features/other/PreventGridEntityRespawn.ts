@@ -23,19 +23,19 @@ import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { RunInNFrames } from "./RunInNFrames";
 
+const v = {
+  level: {
+    roomListIndexToDecorationGridIndexes: new DefaultMap<int, int[]>(() => []),
+  },
+
+  room: {
+    manuallyUsingShovel: false,
+  },
+};
+
 export class PreventGridEntityRespawn extends Feature {
   /** @internal */
-  public override v = {
-    level: {
-      roomListIndexToDecorationGridIndexes: new DefaultMap<int, int[]>(
-        () => [],
-      ),
-    },
-
-    room: {
-      manuallyUsingShovel: false,
-    },
-  };
+  public override v = v;
 
   private runInNFrames: RunInNFrames;
 
@@ -71,12 +71,12 @@ export class PreventGridEntityRespawn extends Feature {
     _activeSlot: ActiveSlot,
     _customVarData: int,
   ): boolean | undefined => {
-    if (this.v.room.manuallyUsingShovel) {
+    if (v.room.manuallyUsingShovel) {
       return undefined;
     }
 
     const roomListIndex = getRoomListIndex();
-    if (!this.v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
+    if (!v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
       return;
     }
 
@@ -102,12 +102,12 @@ export class PreventGridEntityRespawn extends Feature {
         return;
       }
 
-      this.v.room.manuallyUsingShovel = true;
+      v.room.manuallyUsingShovel = true;
       futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
-      this.v.room.manuallyUsingShovel = false;
+      v.room.manuallyUsingShovel = false;
 
       const decorationGridIndexes =
-        this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+        v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
           roomListIndex,
         );
       emptyArray(decorationGridIndexes);
@@ -131,7 +131,7 @@ export class PreventGridEntityRespawn extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
     const decorationGridIndexes =
-      this.v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
+      v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
     if (decorationGridIndexes === undefined) {
       return;
     }
@@ -178,7 +178,7 @@ export class PreventGridEntityRespawn extends Feature {
     const roomListIndex = getRoomListIndex();
 
     const decorationGridIndexes =
-      this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+      v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
         roomListIndex,
       );
 

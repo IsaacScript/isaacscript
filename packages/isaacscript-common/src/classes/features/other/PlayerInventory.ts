@@ -12,17 +12,19 @@ import { PlayerIndex } from "../../../types/PlayerIndex";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    playersInventory: new DefaultMap<
+      PlayerIndex,
+      CollectibleType[],
+      [player: EntityPlayer]
+    >(() => []),
+  },
+};
+
 export class PlayerInventory extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      playersInventory: new DefaultMap<
-        PlayerIndex,
-        CollectibleType[],
-        [player: EntityPlayer]
-      >(() => []),
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -46,7 +48,7 @@ export class PlayerInventory extends Feature {
     collectibleType: CollectibleType,
   ) => {
     const inventory = defaultMapGetPlayer(
-      this.v.run.playersInventory,
+      v.run.playersInventory,
       player,
       player,
     );
@@ -59,7 +61,7 @@ export class PlayerInventory extends Feature {
     collectibleType: CollectibleType,
   ) => {
     const inventory = defaultMapGetPlayer(
-      this.v.run.playersInventory,
+      v.run.playersInventory,
       player,
       player,
     );
@@ -94,7 +96,7 @@ export class PlayerInventory extends Feature {
     includeActiveCollectibles = true,
   ): CollectibleType[] {
     const inventory = defaultMapGetPlayer(
-      this.v.run.playersInventory,
+      v.run.playersInventory,
       player,
       player,
     );

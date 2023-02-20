@@ -14,12 +14,14 @@ import {
 
 type T = ModCallbackCustom.POST_DICE_ROOM_ACTIVATED;
 
+const v = {
+  room: {
+    diceRoomActivated: false,
+  },
+};
+
 export class PostDiceRoomActivated extends CustomCallback<T> {
-  public override v = {
-    room: {
-      diceRoomActivated: false,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -50,7 +52,7 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
   // ModCallback.POST_EFFECT_UPDATE (55)
   // EffectVariant.DICE_FLOOR (76)
   private postEffectUpdateDiceFloor = (effect: EntityEffect): void => {
-    if (this.v.room.diceRoomActivated) {
+    if (v.room.diceRoomActivated) {
       return;
     }
 
@@ -62,7 +64,7 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
 
     const closestPlayer = getClosestPlayer(effect.Position);
     if (isCloseEnoughToTriggerDiceFloor(closestPlayer, effect)) {
-      this.v.room.diceRoomActivated = true;
+      v.room.diceRoomActivated = true;
       this.fire(closestPlayer, effect.SubType as DiceFloorSubType);
     }
   };

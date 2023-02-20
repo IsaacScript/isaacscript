@@ -81,35 +81,37 @@ import { RunInNFrames } from "./RunInNFrames";
  */
 const MUSIC_DELAY_RENDER_FRAMES = 70;
 
+const v = {
+  run: {
+    currentCustomStage: null as CustomStage | null,
+
+    /** Whether we are on e.g. Caves 1 or Caves 2. */
+    firstFloor: true,
+
+    showingBossVersusScreen: false,
+
+    /** Values are the render frame that the controller first pressed the map button. */
+    controllerIndexPushingMapRenderFrame: new Map<ControllerIndex, int>(),
+
+    topStreakTextStartedRenderFrame: null as int | null,
+
+    topStreakText: {
+      animation: UIStreakAnimation.NONE,
+      frame: 0,
+      pauseFrame: false,
+    },
+
+    bottomStreakText: {
+      animation: UIStreakAnimation.NONE,
+      frame: 0,
+      pauseFrame: false,
+    },
+  },
+};
+
 export class CustomStages extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      currentCustomStage: null as CustomStage | null,
-
-      /** Whether we are on e.g. Caves 1 or Caves 2. */
-      firstFloor: true,
-
-      showingBossVersusScreen: false,
-
-      /** Values are the render frame that the controller first pressed the map button. */
-      controllerIndexPushingMapRenderFrame: new Map<ControllerIndex, int>(),
-
-      topStreakTextStartedRenderFrame: null as int | null,
-
-      topStreakText: {
-        animation: UIStreakAnimation.NONE,
-        frame: 0,
-        pauseFrame: false,
-      },
-
-      bottomStreakText: {
-        animation: UIStreakAnimation.NONE,
-        frame: 0,
-        pauseFrame: false,
-      },
-    },
-  };
+  public override v = v;
 
   /** Indexed by custom stage name. */
   private customStagesMap = new Map<string, CustomStage>();
@@ -222,7 +224,7 @@ export class CustomStages extends Feature {
 
   // ModCallback.POST_RENDER (2)
   private postRender = () => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -235,7 +237,7 @@ export class CustomStages extends Feature {
   private postCurseEval = (
     curses: BitFlags<LevelCurse>,
   ): BitFlags<LevelCurse> | undefined => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return undefined;
     }
@@ -252,7 +254,7 @@ export class CustomStages extends Feature {
   private getShaderParams = (
     shaderName: string,
   ): Record<string, unknown> | undefined => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -264,7 +266,7 @@ export class CustomStages extends Feature {
   // ModCallbackCustom.POST_GRID_ENTITY_BROKEN
   // GridEntityType.ROCK_ALT
   private postGridEntityBrokenRockAlt = (gridEntity: GridEntity) => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -282,7 +284,7 @@ export class CustomStages extends Feature {
 
   // ModCallbackCustom.POST_GRID_ENTITY_INIT
   private postGridEntityInit = (gridEntity: GridEntity) => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -299,14 +301,14 @@ export class CustomStages extends Feature {
     convertVanillaTrapdoors(
       customStage,
       gridEntity,
-      this.v.run.firstFloor,
+      v.run.firstFloor,
       this.customTrapdoors,
     );
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private postNewRoomReordered = () => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -456,8 +458,8 @@ export class CustomStages extends Feature {
     const startSeed = seeds.GetStartSeed();
     const rng = newRNG(startSeed);
 
-    this.v.run.currentCustomStage = customStage;
-    this.v.run.firstFloor = firstFloor;
+    v.run.currentCustomStage = customStage;
+    v.run.firstFloor = firstFloor;
 
     // Before changing the stage, we have to revert the bugged stage, if necessary. This prevents
     // the bug where the backdrop will not spawn.
@@ -537,7 +539,7 @@ export class CustomStages extends Feature {
    */
   @Exported
   public disableCustomStage(): void {
-    this.v.run.currentCustomStage = null;
+    v.run.currentCustomStage = null;
   }
 }
 

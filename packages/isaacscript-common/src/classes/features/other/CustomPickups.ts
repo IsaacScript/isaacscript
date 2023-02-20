@@ -93,7 +93,6 @@ export class CustomPickups extends Feature {
 
   // ModCallback.POST_EFFECT_RENDER (56)
   // PICKUP_EFFECT_VARIANT
-  // eslint-disable-next-line class-methods-use-this
   private postEffectRenderPickupEffect = (effect: EntityEffect) => {
     if (effect.SubType !== asNumber(PICKUP_EFFECT_SUB_TYPE)) {
       return;

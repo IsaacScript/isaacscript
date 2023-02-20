@@ -12,16 +12,18 @@ import {
 
 type T = ModCallbackCustom.POST_TRANSFORMATION;
 
+const v = {
+  run: {
+    // We cannot use a nested `DefaultMap` here.
+    playersTransformationsMap: new DefaultMap<
+      PlayerIndex,
+      Map<PlayerForm, boolean>
+    >(() => new Map()),
+  },
+};
+
 export class PostTransformation extends CustomCallback<T> {
-  public override v = {
-    run: {
-      // We cannot use a nested `DefaultMap` here.
-      playersTransformationsMap: new DefaultMap<
-        PlayerIndex,
-        Map<PlayerForm, boolean>
-      >(() => new Map()),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -49,7 +51,7 @@ export class PostTransformation extends CustomCallback<T> {
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private postPEffectUpdateReordered = (player: EntityPlayer) => {
     const playerTransformationsMap = defaultMapGetPlayer(
-      this.v.run.playersTransformationsMap,
+      v.run.playersTransformationsMap,
       player,
     );
 

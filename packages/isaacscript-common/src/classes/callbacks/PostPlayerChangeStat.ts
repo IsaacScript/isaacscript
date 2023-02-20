@@ -13,15 +13,17 @@ import { PossibleStatType } from "../../types/PossibleStatType";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  run: {
+    playersStatMap: new DefaultMap<
+      PlayerIndex,
+      Map<StatType, PossibleStatType>
+    >(() => new Map()),
+  },
+};
+
 export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_STAT> {
-  public override v = {
-    run: {
-      playersStatMap: new DefaultMap<
-        PlayerIndex,
-        Map<StatType, PossibleStatType>
-      >(() => new Map()),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -42,8 +44,7 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_
     // we don't differentiate between The Forgotten and The Soul, the callback will fire every time
     // the player switches between the two.
     const playerIndex = getPlayerIndex(player, true);
-    const playerStatMap =
-      this.v.run.playersStatMap.getAndSetDefault(playerIndex);
+    const playerStatMap = v.run.playersStatMap.getAndSetDefault(playerIndex);
 
     for (const statType of STAT_TYPE_VALUES) {
       const storedStatValue = playerStatMap.get(statType);

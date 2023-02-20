@@ -25,17 +25,19 @@ interface IntervalFunction extends QueuedFunction {
   numIntervalFrames: int;
 }
 
+const v = {
+  run: {
+    queuedGameFunctions: [] as QueuedFunction[],
+    queuedRenderFunctions: [] as QueuedFunction[],
+
+    intervalGameFunctions: [] as IntervalFunction[],
+    intervalRenderFunctions: [] as IntervalFunction[],
+  },
+};
+
 export class RunInNFrames extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      queuedGameFunctions: [] as QueuedFunction[],
-      queuedRenderFunctions: [] as QueuedFunction[],
-
-      intervalGameFunctions: [] as IntervalFunction[],
-      intervalRenderFunctions: [] as IntervalFunction[],
-    },
-  };
+  public override v = v;
 
   public override vConditionalFunc = (): boolean => false;
 
@@ -64,12 +66,12 @@ export class RunInNFrames extends Feature {
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
     checkExecuteQueuedFunctions(
-      this.v.run.queuedGameFunctions,
+      v.run.queuedGameFunctions,
       gameFrameCount,
       numRoomsEntered,
     );
     checkExecuteIntervalFunctions(
-      this.v.run.intervalGameFunctions,
+      v.run.intervalGameFunctions,
       gameFrameCount,
       numRoomsEntered,
     );
@@ -81,12 +83,12 @@ export class RunInNFrames extends Feature {
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
     checkExecuteQueuedFunctions(
-      this.v.run.queuedRenderFunctions,
+      v.run.queuedRenderFunctions,
       renderFrameCount,
       numRoomsEntered,
     );
     checkExecuteIntervalFunctions(
-      this.v.run.intervalRenderFunctions,
+      v.run.intervalRenderFunctions,
       renderFrameCount,
       numRoomsEntered,
     );
@@ -141,7 +143,7 @@ export class RunInNFrames extends Feature {
       numRoomsEntered,
       cancelIfRoomChanges,
     };
-    this.v.run.queuedGameFunctions.push(queuedFunction);
+    v.run.queuedGameFunctions.push(queuedFunction);
   }
 
   /**
@@ -177,7 +179,7 @@ export class RunInNFrames extends Feature {
       numRoomsEntered,
       cancelIfRoomChanges,
     };
-    this.v.run.queuedRenderFunctions.push(queuedFunction);
+    v.run.queuedRenderFunctions.push(queuedFunction);
   }
 
   /**
@@ -285,7 +287,7 @@ export class RunInNFrames extends Feature {
       cancelIfRoomChanges,
       numIntervalFrames: numGameFrames,
     };
-    this.v.run.intervalGameFunctions.push(intervalFunction);
+    v.run.intervalGameFunctions.push(intervalFunction);
   }
 
   /**
@@ -332,7 +334,7 @@ export class RunInNFrames extends Feature {
       cancelIfRoomChanges,
       numIntervalFrames: numRenderFrames,
     };
-    this.v.run.intervalRenderFunctions.push(intervalFunction);
+    v.run.intervalRenderFunctions.push(intervalFunction);
   }
 }
 

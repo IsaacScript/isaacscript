@@ -18,19 +18,21 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CURSED_TELEPORT> {
-  public override v = {
-    run: {
-      playersDamageFrameMap: new Map<
-        PlayerIndex,
-        [lastDamageFrame: int, callbackFiredOnThisFrame: boolean]
-      >(),
-    },
+const v = {
+  run: {
+    playersDamageFrameMap: new Map<
+      PlayerIndex,
+      [lastDamageFrame: int, callbackFiredOnThisFrame: boolean]
+    >(),
+  },
 
-    level: {
-      numSacrifices: 0,
-    },
-  };
+  level: {
+    numSacrifices: 0,
+  },
+};
+
+export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CURSED_TELEPORT> {
+  public override v = v;
 
   protected override shouldFire = shouldFirePlayer;
 
@@ -59,10 +61,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     _renderOffset: Vector,
   ): void => {
     // Retrieve information about this player.
-    const trackingArray = mapGetPlayer(
-      this.v.run.playersDamageFrameMap,
-      player,
-    );
+    const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
     if (trackingArray === undefined) {
       return;
     }
@@ -79,7 +78,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
 
     const gameFrameCount = game.GetFrameCount();
     const newTrackingArray = [gameFrameCount, true];
-    mapSetPlayer(this.v.run.playersDamageFrameMap, player, newTrackingArray);
+    mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
 
     this.fire(player);
   };
@@ -104,7 +103,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
     if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
-      this.v.level.numSacrifices++;
+      v.level.numSacrifices++;
     }
   }
 
@@ -115,10 +114,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     const gameFrameCount = game.GetFrameCount();
 
     // Don't do anything if we already activated the callback on this frame.
-    const trackingArray = mapGetPlayer(
-      this.v.run.playersDamageFrameMap,
-      player,
-    );
+    const trackingArray = mapGetPlayer(v.run.playersDamageFrameMap, player);
     if (trackingArray !== undefined) {
       const [lastDamageFrame, callbackFiredOnThisFrame] = trackingArray;
       if (lastDamageFrame === gameFrameCount && callbackFiredOnThisFrame) {
@@ -132,7 +128,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     }
 
     const newTrackingArray = [gameFrameCount, false];
-    mapSetPlayer(this.v.run.playersDamageFrameMap, player, newTrackingArray);
+    mapSetPlayer(v.run.playersDamageFrameMap, player, newTrackingArray);
   }
 
   private isPotentialNaturalTeleportFromSacrificeRoom(
@@ -147,7 +143,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     return (
       roomType === RoomType.SACRIFICE &&
       isSpikeDamage &&
-      (this.v.level.numSacrifices === 6 || this.v.level.numSacrifices >= 12)
+      (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
     );
   }
 }
