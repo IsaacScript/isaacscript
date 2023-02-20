@@ -32,12 +32,7 @@ import {
   DEFAULT_BASE_STAGE_TYPE,
   ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
 } from "./constants";
-
-interface VersusScreenVars {
-  run: {
-    showingBossVersusScreen: boolean;
-  };
-}
+import { v } from "./v";
 
 const DEFAULT_STAGE_ID = StageID.BASEMENT;
 const VERSUS_SCREEN_ANIMATION_NAME = "Scene";
@@ -116,7 +111,6 @@ const versusScreenBackgroundSprite = Sprite();
 const versusScreenDirtSpotSprite = Sprite();
 
 export function playVersusScreenAnimation(
-  v: VersusScreenVars,
   customStage: CustomStage,
   disableAllSound: DisableAllSound,
   pause: Pause,
@@ -307,7 +301,6 @@ function getBossPNGPathsCustom(
 }
 
 function finishVersusScreenAnimation(
-  v: VersusScreenVars,
   pause: Pause,
   disableAllSound: DisableAllSound,
 ) {
@@ -325,7 +318,6 @@ function finishVersusScreenAnimation(
 
 // ModCallback.POST_RENDER (2)
 export function versusScreenPostRender(
-  v: VersusScreenVars,
   pause: Pause,
   disableAllSound: DisableAllSound,
 ): void {
@@ -337,7 +329,7 @@ export function versusScreenPostRender(
   // black screen as soon as the slide animation starts.
 
   if (versusScreenSprite.IsFinished(VERSUS_SCREEN_ANIMATION_NAME)) {
-    finishVersusScreenAnimation(v, pause, disableAllSound);
+    finishVersusScreenAnimation(pause, disableAllSound);
     return;
   }
 

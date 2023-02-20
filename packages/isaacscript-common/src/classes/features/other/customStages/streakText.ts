@@ -1,4 +1,4 @@
-import { ButtonAction, ControllerIndex } from "isaac-typescript-definitions";
+import { ButtonAction } from "isaac-typescript-definitions";
 import { CONTROLLER_INDEX_VALUES } from "../../../../arrays/cachedEnumValues";
 import { fonts, game } from "../../../../core/cachedClasses";
 import { KColorDefault, VectorOne } from "../../../../core/constants";
@@ -8,6 +8,7 @@ import {
   getScreenTopCenterPos,
 } from "../../../../functions/ui";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { v } from "./v";
 
 /** Corresponds to "resources/gfx/ui/ui_streak.anm2". */
 const UI_STREAK_ANIMATION_END_FRAMES = {
@@ -81,43 +82,19 @@ const TEXT_OUT_SCALES = [
   Vector(3, 0.2),
 ] as const;
 
-interface StreakTextVars {
-  run: {
-    /** Whether we are on e.g. Caves 1 or Caves 2. */
-    firstFloor: boolean;
-
-    /** Values are the render frame that the controller first pressed the map button. */
-    controllerIndexPushingMapRenderFrame: Map<ControllerIndex, int>;
-
-    topStreakTextStartedRenderFrame: int | null;
-
-    topStreakText: {
-      animation: UIStreakAnimation;
-      frame: int;
-      pauseFrame: boolean;
-    };
-
-    bottomStreakText: {
-      animation: UIStreakAnimation;
-      frame: int;
-      pauseFrame: boolean;
-    };
-  };
-}
-
 // ModCallback.POST_RENDER (2)
-export function streakTextPostRender(v: StreakTextVars): void {
+export function streakTextPostRender(): void {
   // The top streak only plays when the player arrives on the floor (or continues a game from the
   // main menu.)
-  checkEndTopStreakText(v);
+  checkEndTopStreakText();
 
   // The bottom streak only plays when the player holds down the map button.
-  trackMapInputPressed(v);
-  checkStartBottomStreakText(v);
-  checkEndBottomStreakText(v);
+  trackMapInputPressed();
+  checkStartBottomStreakText();
+  checkEndBottomStreakText();
 }
 
-function checkEndTopStreakText(v: StreakTextVars) {
+function checkEndTopStreakText() {
   if (
     v.run.topStreakTextStartedRenderFrame === null ||
     v.run.topStreakText.animation !== UIStreakAnimation.TEXT_STAY
@@ -136,7 +113,7 @@ function checkEndTopStreakText(v: StreakTextVars) {
   }
 }
 
-function trackMapInputPressed(v: StreakTextVars) {
+function trackMapInputPressed() {
   for (const controllerIndex of CONTROLLER_INDEX_VALUES) {
     const gameFrameCount = game.GetFrameCount();
     const oldPushedMapFrame =
@@ -163,7 +140,7 @@ function trackMapInputPressed(v: StreakTextVars) {
  * If the map input has been pressed down for long enough, play the animation where the level streak
  * slides in from the left.
  */
-function checkStartBottomStreakText(v: StreakTextVars) {
+function checkStartBottomStreakText() {
   if (v.run.bottomStreakText.animation !== UIStreakAnimation.NONE) {
     return;
   }
@@ -188,7 +165,7 @@ function checkStartBottomStreakText(v: StreakTextVars) {
  * If the map input has been released, play the animation where the level streak slides out to the
  * right.
  */
-function checkEndBottomStreakText(v: StreakTextVars) {
+function checkEndBottomStreakText() {
   if (v.run.bottomStreakText.animation !== UIStreakAnimation.TEXT_STAY) {
     return;
   }
@@ -206,7 +183,6 @@ function checkEndBottomStreakText(v: StreakTextVars) {
 
 // ModCallback.GET_SHADER_PARAMS (22)
 export function streakTextGetShaderParams(
-  v: StreakTextVars,
   customStage: CustomStage,
   shaderName: string,
 ): void {
@@ -216,20 +192,14 @@ export function streakTextGetShaderParams(
 
   const topCenterPos = getScreenTopCenterPos();
   const topStreakPosition = topCenterPos.add(STREAK_SPRITE_TOP_OFFSET);
-  renderStreakText(v, customStage, v.run.topStreakText, topStreakPosition);
+  renderStreakText(customStage, v.run.topStreakText, topStreakPosition);
 
   const bottomCenterPos = getScreenBottomCenterPos();
   const bottomStreakPosition = bottomCenterPos.add(STREAK_SPRITE_BOTTOM_OFFSET);
-  renderStreakText(
-    v,
-    customStage,
-    v.run.bottomStreakText,
-    bottomStreakPosition,
-  );
+  renderStreakText(customStage, v.run.bottomStreakText, bottomStreakPosition);
 }
 
 function renderStreakText(
-  v: StreakTextVars,
   customStage: CustomStage,
   streakText: { animation: UIStreakAnimation; frame: int; pauseFrame: boolean },
   position: Vector,
@@ -301,7 +271,7 @@ function renderStreakText(
   );
 }
 
-export function topStreakTextStart(v: StreakTextVars): void {
+export function topStreakTextStart(): void {
   const level = game.GetLevel();
   const renderFrameCount = Isaac.GetFrameCount();
 

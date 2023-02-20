@@ -1,5 +1,4 @@
 import {
-  ControllerIndex,
   DoorSlotFlag,
   GridEntityType,
   LevelCurse,
@@ -14,7 +13,6 @@ import * as metadataJSON from "../../../customStageMetadata.json"; // This will 
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { UIStreakAnimation } from "../../../enums/private/UIStreakAnimation";
 import { isArray } from "../../../functions/array";
 import {
   doorSlotsToDoorSlotFlags,
@@ -66,6 +64,7 @@ import {
   getRandomBossRoomFromPool,
   getRandomCustomStageRoom,
 } from "./customStages/utils";
+import { v } from "./customStages/v";
 import {
   playVersusScreenAnimation,
   versusScreenPostRender,
@@ -80,34 +79,6 @@ import { RunInNFrames } from "./RunInNFrames";
  * safe.
  */
 const MUSIC_DELAY_RENDER_FRAMES = 70;
-
-const v = {
-  run: {
-    currentCustomStage: null as CustomStage | null,
-
-    /** Whether we are on e.g. Caves 1 or Caves 2. */
-    firstFloor: true,
-
-    showingBossVersusScreen: false,
-
-    /** Values are the render frame that the controller first pressed the map button. */
-    controllerIndexPushingMapRenderFrame: new Map<ControllerIndex, int>(),
-
-    topStreakTextStartedRenderFrame: null as int | null,
-
-    topStreakText: {
-      animation: UIStreakAnimation.NONE,
-      frame: 0,
-      pauseFrame: false,
-    },
-
-    bottomStreakText: {
-      animation: UIStreakAnimation.NONE,
-      frame: 0,
-      pauseFrame: false,
-    },
-  },
-};
 
 export class CustomStages extends Feature {
   /** @internal */
@@ -229,8 +200,8 @@ export class CustomStages extends Feature {
       return;
     }
 
-    streakTextPostRender(this.v);
-    versusScreenPostRender(this.v, this.pause, this.disableAllSound);
+    streakTextPostRender();
+    versusScreenPostRender(this.pause, this.disableAllSound);
   };
 
   // ModCallback.POST_CURSE_EVAL (12)
@@ -259,7 +230,7 @@ export class CustomStages extends Feature {
       return;
     }
 
-    streakTextGetShaderParams(this.v, customStage, shaderName);
+    streakTextGetShaderParams(customStage, shaderName);
     return undefined;
   };
 
@@ -316,7 +287,6 @@ export class CustomStages extends Feature {
     setCustomStageBackdrop(customStage);
     setShadows(customStage);
     playVersusScreenAnimation(
-      this.v,
       customStage,
       this.disableAllSound,
       this.pause,
@@ -506,7 +476,7 @@ export class CustomStages extends Feature {
     // `POST_RENDER` callback. Thus, we run it on the next game frame as a workaround.
     if (streakText) {
       this.runInNFrames.runNextGameFrame(() => {
-        topStreakTextStart(this.v);
+        topStreakTextStart();
       });
     }
 
