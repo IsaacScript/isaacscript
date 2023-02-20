@@ -175,7 +175,7 @@ declare global {
     GetItemPool(): ItemPool;
 
     /** @deprecated This method is bugged and returns useless `userdata`. */
-    GetLastDevilRoomStage(fakeArg: never): LevelStage;
+    GetLastDevilRoomStage(): LuaUserdata;
 
     GetLastLevelWithDamage(): LevelStage;
     GetLastLevelWithoutHalfHp(): LevelStage;
@@ -185,7 +185,7 @@ declare global {
     GetNumPlayers(): int;
 
     /** @deprecated Use the `Isaac.GetPlayer` method instead. */
-    GetPlayer(index: int, fakeArg: never): EntityPlayer | undefined;
+    GetPlayer(index: int): EntityPlayer | undefined;
 
     GetRandomPlayer(position: Vector, radius: float): EntityPlayer;
     GetRoom(): Room;

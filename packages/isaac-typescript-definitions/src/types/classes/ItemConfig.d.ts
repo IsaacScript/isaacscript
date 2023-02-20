@@ -63,10 +63,7 @@ declare global {
      * @deprecated This method does not work properly for modded items, so it should never be used.
      *             Use the `isValidCollectibleType` helper function instead.
      */
-    function IsValidCollectible(
-      collectibleType: CollectibleType,
-      fakeArg: never,
-    ): boolean;
+    function IsValidCollectible(collectibleType: CollectibleType): boolean;
 
     function ShouldAddCostumeOnPickup(): boolean;
   }

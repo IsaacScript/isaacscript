@@ -436,12 +436,7 @@ declare global {
     function LoadModData(mod: Mod): string;
 
     /** @deprecated Use the global `RegisterMod` global function instead. */
-    function RegisterMod(
-      mod: Mod,
-      name: string,
-      APIVersion: int,
-      fakeArg: never,
-    ): void;
+    function RegisterMod(mod: Mod, name: string, APIVersion: int): void;
 
     /** @deprecated Use the `Mod.RemoveCallback` method instead. */
     function RemoveCallback(

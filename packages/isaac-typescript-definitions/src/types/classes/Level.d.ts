@@ -39,11 +39,7 @@ declare global {
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    ChangeRoom(
-      fakeArg: never,
-      roomGridIndex: int | GridRoom,
-      dimension?: Dimension,
-    ): void;
+    ChangeRoom(roomGridIndex: int | GridRoom, dimension?: Dimension): void;
 
     DisableDevilRoom(): void;
     ForceHorsemanBoss(seed: Seed): boolean;
