@@ -1,6 +1,7 @@
 // eslint-disable-next-line n/file-extension-in-import
 import useAtYourOwnRisk from "eslint/use-at-your-own-risk";
 
+// eslint-disable-next-line deprecation/deprecation
 const ESLINT_RULES = [...useAtYourOwnRisk.builtinRules.keys()] as const;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
