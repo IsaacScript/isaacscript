@@ -10,6 +10,7 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../../enums/SaveDataKey";
 import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
+import { log } from "../../../functions/log";
 import { onFirstFloor } from "../../../functions/stage";
 import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
 import { isString, isTable } from "../../../functions/types";
@@ -558,5 +559,15 @@ export class SaveDataManager extends Feature {
   @Exported
   public saveDataManagerInMenu(): boolean {
     return !this.loadedDataOnThisRun;
+  }
+
+  @Exported
+  public saveDataManagerLogSubscribers(): void {
+    log("List of save data manager subscribers:");
+    const keys = Object.keys(this.saveDataMap);
+    keys.sort();
+    for (const key of keys) {
+      log(`- ${key}`);
+    }
   }
 }
