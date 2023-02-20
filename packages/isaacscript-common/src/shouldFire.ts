@@ -313,6 +313,7 @@ export function shouldFirePit(
 export function shouldFirePlayer(
   fireArgs:
     | [player: EntityPlayer]
+    | [player: EntityPlayer, renderOffset: Vector]
     | [player: EntityPlayer, numSacrifices: int]
     | [player: EntityPlayer, collectible: EntityPickupCollectible]
     | [player: EntityPlayer, oldCharacter: PlayerType, newCharacter: PlayerType]
