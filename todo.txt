@@ -1,3 +1,4 @@
+- deprecate non-reordered callbacks
 - socket abstraction in isaacscript-common
 
 ----------------------------------------------------------------------------------------------------

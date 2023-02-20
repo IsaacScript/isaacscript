@@ -1,5 +1,6 @@
 import { RenderMode } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { isFunction } from "./types";
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
@@ -91,6 +92,28 @@ export function isReflectionRender(): boolean {
   const room = game.GetRoom();
   const renderMode = room.GetRenderMode();
   return renderMode === RenderMode.WATER_REFLECT;
+}
+
+/**
+ * Helper function to check if the player is using Afterbirth+ or Repentance.
+ *
+ * This function should always be used over the `REPENTANCE` constant, since it is not safe.
+ */
+export function isRepentance(): boolean {
+  const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
+  if (metatable === undefined) {
+    error("Failed to get the metatable of the Sprite global table.");
+  }
+
+  const classTable = metatable.get("__class") as
+    | LuaMap<string, unknown>
+    | undefined;
+  if (classTable === undefined) {
+    error('Failed to get the "__class" key of the Sprite metatable.');
+  }
+
+  const getAnimation = classTable.get("GetAnimation");
+  return isFunction(getAnimation);
 }
 
 /**
