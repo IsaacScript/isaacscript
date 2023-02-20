@@ -60,7 +60,7 @@ export function deserializeRNG(rng: SerializedRNG): RNG {
  * the game.
  */
 export function getRandomSeed(): Seed {
-  const randomNumber = Random();
+  const randomNumber = Random(); // eslint-disable-line deprecation/deprecation
   const safeRandomNumber = randomNumber === 0 ? 1 : randomNumber;
   return safeRandomNumber as Seed;
 }
