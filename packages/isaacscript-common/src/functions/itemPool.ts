@@ -1,5 +1,10 @@
-import { ItemPoolType } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  ItemPoolType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
+import { game } from "../core/cachedClasses";
 import { arrayRemove, getRandomArrayElement } from "./array";
 import { isGreedMode } from "./run";
 
@@ -47,4 +52,32 @@ export function getRandomItemPool(): ItemPoolType {
     ? GREED_MODE_ITEM_POOL_TYPES
     : NORMAL_MODE_ITEM_POOL_TYPES;
   return getRandomArrayElement(itemPoolTypes);
+}
+
+/**
+ * Helper function to remove one or more collectibles from all item pools.
+ *
+ * This function is variadic, meaning you can pass as many collectible types as you want to remove.
+ */
+export function removeCollectibleFromPools(
+  ...collectibleTypes: CollectibleType[]
+): void {
+  const itemPool = game.GetItemPool();
+
+  for (const collectibleType of collectibleTypes) {
+    itemPool.RemoveCollectible(collectibleType);
+  }
+}
+
+/**
+ * Helper function to remove one or more trinkets from all item pools.
+ *
+ * This function is variadic, meaning you can pass as many trinket types as you want to remove.
+ */
+export function removeTrinketFromPools(...trinketTypes: TrinketType[]): void {
+  const itemPool = game.GetItemPool();
+
+  for (const trinketType of trinketTypes) {
+    itemPool.RemoveTrinket(trinketType);
+  }
 }
