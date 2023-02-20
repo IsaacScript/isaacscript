@@ -23,6 +23,9 @@ This page lists the changes to the IsaacScript framework.
   - `playerHasForm` --> `hasForm`
   - `getActiveItemSlot` --> `getActiveItemSlots`
   - `getLastEnumValue` --> `getHighestEnumValue`
+- Added the following constants:
+  - `RESOLUTION_FULL_SCREEN`
+  - `RESOLUTION_1600_900`
 
 ## February 17th, 2023
 

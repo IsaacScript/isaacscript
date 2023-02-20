@@ -174,10 +174,19 @@ export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dime
  */
 export const NUM_PILLS_IN_POOL = NUM_NORMAL_PILL_COLORS;
 
+export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
+
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 
-export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
+/** This is equivalent to the bottom-right screen position when the game is in full screen mode. */
+export const RESOLUTION_FULL_SCREEN = Vector(480, 270);
+
+/**
+ * This is equivalent to the bottom-right screen position when the game is in windowed mode in a
+ * 1600x900 resolution.
+ */
+export const RESOLUTION_1600_900 = Vector(533, 300);
 
 /** After taking damage, `EntityPlayer.SamsonBerserkCharge` is incremented by this amount. */
 export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
