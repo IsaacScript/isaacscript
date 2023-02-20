@@ -21,6 +21,7 @@
  */
 
 import { ModCallback } from "isaac-typescript-definitions";
+import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
 import {
   ModFeature,
   MOD_FEATURE_CALLBACKS_KEY,
@@ -38,8 +39,47 @@ import { getTSTLClassName } from "./tstlClass";
  * @ignore
  */
 // We tell TypeDoc to ignore this function because it generates a bunch of spam.
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function Callback<T extends ModCallback>(
   modCallback: T,
+  ...optionalArgs: AllButFirst<AddCallbackParameters[T]>
+) {
+  return PriorityCallback(
+    modCallback,
+    CallbackPriority.DEFAULT,
+    ...optionalArgs,
+  );
+}
+
+/**
+ * A decorator function that signifies that the decorated class method should be automatically
+ * registered with `ModUpgraded.AddCallbackCustom`.
+ *
+ * @ignore
+ */
+// We tell TypeDoc to ignore this function because it generates a bunch of spam.
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function CallbackCustom<T extends ModCallbackCustom>(
+  modCallbackCustom: T,
+  ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
+) {
+  return PriorityCallbackCustom(
+    modCallbackCustom,
+    CallbackPriority.DEFAULT,
+    ...optionalArgs,
+  );
+}
+
+/**
+ * A decorator function that signifies that the decorated class method should be automatically
+ * registered with `Mod.AddPriorityCallback`.
+ *
+ * @ignore
+ */
+// We tell TypeDoc to ignore this function because it generates a bunch of spam.
+export function PriorityCallback<T extends ModCallback>(
+  modCallback: T,
+  priority: CallbackPriority | int,
   ...optionalArgs: AllButFirst<AddCallbackParameters[T]>
 ) {
   return <Class extends ModFeature, Fn extends AddCallbackParameters[T][0]>(
@@ -47,10 +87,10 @@ export function Callback<T extends ModCallback>(
     propertyKey: string,
     _descriptor: TypedPropertyDescriptor<Fn>,
   ): void => {
-    // First, prepare the arguments for the `Mod.AddCallback` method.
+    // First, prepare the arguments for the `Mod.AddPriorityCallback` method.
     const methodName = propertyKey as keyof Class;
     const method = target[methodName] as AddCallbackParameters[T][0];
-    const callbackTuple = [modCallback, method, optionalArgs];
+    const callbackTuple = [modCallback, priority, method, optionalArgs];
 
     // Since the decorator runs prior to instantiation, we only have access to get and set static
     // properties, which are located on the "constructor" table. Thus, we store the callback
@@ -84,8 +124,9 @@ export function Callback<T extends ModCallback>(
  * @ignore
  */
 // We tell TypeDoc to ignore this function because it generates a bunch of spam.
-export function CallbackCustom<T extends ModCallbackCustom>(
+export function PriorityCallbackCustom<T extends ModCallbackCustom>(
   modCallbackCustom: T,
+  priority: CallbackPriority | int,
   ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
 ) {
   return <
@@ -99,7 +140,7 @@ export function CallbackCustom<T extends ModCallbackCustom>(
     // First, prepare the arguments for the `Mod.AddCallbackCustom` method.
     const methodName = propertyKey as keyof Class;
     const method = target[methodName] as AddCallbackParametersCustom[T][0];
-    const callbackTuple: unknown[] = [modCallbackCustom, method, optionalArgs];
+    const callbackTuple = [modCallbackCustom, priority, method, optionalArgs];
 
     // Since the decorator runs prior to instantiation, we only have access to get and set static
     // properties, which are located on the "constructor" table. Thus, we store the callback

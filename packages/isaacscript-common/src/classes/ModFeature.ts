@@ -1,4 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { isArray } from "../functions/array";
 import {
@@ -191,14 +192,21 @@ function initDecoratedCallbacks(
       );
     }
 
-    const callback = callbackTuple[1];
+    const priority = callbackTuple[1];
+    if (!isNumber(priority)) {
+      error(
+        `Failed to get the callback priority from the callback tuple for class: ${tstlClassName}`,
+      );
+    }
+
+    const callback = callbackTuple[2];
     if (!isFunction(callback)) {
       error(
         `Failed to get the callback function from the callback tuple for class: ${tstlClassName}`,
       );
     }
 
-    const parameters = callbackTuple[2];
+    const parameters = callbackTuple[3];
     // We must pass false as the second argument to `isArray` since the callback parameters may not
     // necessarily be contiguous. (They might be separated by `undefined` values.)
     if (!isArray(parameters, false)) {
@@ -216,6 +224,7 @@ function initDecoratedCallbacks(
         modFeatureConstructor,
         mod,
         modCallback, // eslint-disable-line isaacscript/strict-enums
+        priority,
         callback,
         parameters,
         vanilla,
@@ -236,6 +245,7 @@ function addCallback(
   modFeatureConstructor: ModFeatureConstructor,
   mod: ModUpgraded,
   modCallback: ModCallback | ModCallbackCustom,
+  priority: CallbackPriority | int,
   callback: Function, // eslint-disable-line @typescript-eslint/ban-types
   parameters: unknown[],
   vanilla: boolean,
@@ -281,14 +291,16 @@ function addCallback(
   }
 
   if (vanilla) {
-    (mod.AddCallback as AnyFunction)(
+    (mod.AddPriorityCallback as AnyFunction)(
       modCallback,
+      priority,
       wrappedCallback,
       ...parameters,
     );
   } else {
-    (mod.AddCallbackCustom as AnyFunction)(
+    (mod.AddPriorityCallbackCustom as AnyFunction)(
       modCallback,
+      priority,
       wrappedCallback,
       ...parameters,
     );
