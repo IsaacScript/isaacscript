@@ -1,3 +1,4 @@
+/* eslint-disable deprecation/deprecation */
 /* eslint-disable isaacscript/member-ordering */
 
 import { ActiveSlot } from "../../enums/ActiveSlot";
