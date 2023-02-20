@@ -98,6 +98,9 @@ export function isReflectionRender(): boolean {
  * Helper function to check if the player is using Afterbirth+ or Repentance.
  *
  * This function should always be used over the `REPENTANCE` constant, since it is not safe.
+ *
+ * Specifically, this function checks for the `Sprite.GetAnimation` method:
+ * https://bindingofisaacrebirth.fandom.com/wiki/V1.06.J818#Lua_Changes
  */
 export function isRepentance(): boolean {
   const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
