@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## February 24th, 2023 (Unreleased)
 
+- You can now filter `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` by `isContinued`.
 - Added the following helper functions:
   - `removeCollectible`
   - `getCharacterStartingCollectibles`

@@ -68,6 +68,16 @@ export function shouldFireBomb(
   );
 }
 
+export function shouldFireBoolean(
+  fireArgs: [fireArg: boolean],
+  optionalArgs: [optionalArg?: boolean],
+): boolean {
+  const [fireArg] = fireArgs;
+  const [optionalArg] = optionalArgs;
+
+  return optionalArg === undefined || optionalArg === fireArg;
+}
+
 export function shouldFireCollectible(
   fireArgs: [collectible: EntityPickupCollectible],
   optionalArgs: [collectibleType?: CollectibleType],
