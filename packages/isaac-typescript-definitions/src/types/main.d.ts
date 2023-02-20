@@ -26,8 +26,9 @@ declare function RegisterMod(name: string, apiVersion: APIVersion): Mod;
 declare function StartDebug(): void;
 
 /**
- * This will be set to true if the end-user has the Repentance DLC installed. You can use this
- * constant to create conditional logic for your mod so that it is cross-compatible with both
- * Afterbirth+ and Repentance.
+ * This can be overwritten by other mods, so it is not safe to use. Use the `isRepentance` helper
+ * function instead.
+ *
+ * @deprecated
  */
-declare const REPENTANCE: boolean | undefined;
+declare const REPENTANCE: never;
