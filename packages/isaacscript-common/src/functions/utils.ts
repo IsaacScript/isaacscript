@@ -1,5 +1,6 @@
 import { RenderMode } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { getAllPlayers } from "./playerIndex";
 import { isFunction } from "./types";
 
 /**
@@ -77,6 +78,19 @@ export function iRange(start: int, end?: int, increment = 1): int[] {
  */
 export function inRange(num: int, start: int, end: int): boolean {
   return num >= start && num <= end;
+}
+
+/**
+ * Helper function to detect if there is two or more players currently playing.
+ *
+ * Specifically, this function looks for unique `ControllerIndex` across all players.
+ */
+export function isMultiplayer(): boolean {
+  const players = getAllPlayers();
+  const controllerIndexes = players.map((player) => player.ControllerIndex);
+  const controllerIndexesSet = new Set(controllerIndexes);
+
+  return controllerIndexesSet.size > 1;
 }
 
 /**

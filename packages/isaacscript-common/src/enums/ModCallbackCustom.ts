@@ -428,8 +428,7 @@ export enum ModCallbackCustom {
    *
    * `POST_GAME_STARTED_REORDERED` --> `POST_NEW_LEVEL_REORDERED` --> `POST_NEW_ROOM_REORDERED`
    *
-   * - You must provide a third argument to specify if you want the callback to fire if the game is
-   *   continued:
+   * - You must provide a third argument:
    *   - Pass true if you want the callback to only fire if the run is continued.
    *   - Pass false if you want the callback to only fire when the run is not continued.
    *   - Pass undefined if you want the callback to fire in both situations.
@@ -449,8 +448,7 @@ export enum ModCallbackCustom {
    * new run has started (or continued), but you can be sure that all new-run-related initialization
    * has been completed.
    *
-   * - You must provide a third argument to specify if you want the callback to fire if the game is
-   *   continued:
+   * - You must provide a third argument:
    *   - Pass true if you want the callback to only fire if the run is continued.
    *   - Pass false if you want the callback to only fire when the run is not continued.
    *   - Pass undefined if you want the callback to fire in both situations.

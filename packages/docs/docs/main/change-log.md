@@ -19,6 +19,7 @@ This page lists the changes to the IsaacScript framework.
   - `getScreenRightX`
   - `removeCollectibleFromPools`
   - `removeTrinketFromPools`
+  - `isMultiplayer`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`
