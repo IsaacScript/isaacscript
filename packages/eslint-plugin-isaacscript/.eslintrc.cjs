@@ -51,5 +51,16 @@ module.exports = {
      * We commonly get the elements of arrays in a for loop.
      */
     "@typescript-eslint/no-non-null-assertion": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
+     *
+     * Defined in "base.js".
+     *
+     * ESLint plugins do not support ESM until version 9 is released:
+     * https://github.com/eslint/eslint/issues/15453#issuecomment-1002015088
+     */
+    "n/file-extension-in-import": "off",
   },
 };
