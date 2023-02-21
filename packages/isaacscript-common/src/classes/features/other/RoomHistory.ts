@@ -70,6 +70,16 @@ export class RoomHistory extends Feature {
   };
 
   /**
+   * Helper function to manually delete the last room description from the internal array. This is
+   * useful if a mod needs to send the player to a room temporarily and the room should not count as
+   * the player having traveled to that room.
+   */
+  @Exported
+  public deleteLastRoomDescription(): void {
+    v.run.roomHistory.pop();
+  }
+
+  /**
    * Helper function to get the total number of rooms that the player has entered thus far on the
    * run. (Re-entering the same room will increment the number returned.)
    *
