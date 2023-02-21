@@ -22,6 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `isMultiplayer`
   - `getRoomDescriptorsForType`
   - `levelHasRoomType`
+  - `inFirstRoom`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`

@@ -135,7 +135,7 @@ export class RoomHistory extends Feature {
 
   /** Helper function to detect if the player is on the first room of the room. */
   @Exported
-  public isFirstRoom(): boolean {
+  public inFirstRoom(): boolean {
     return v.run.roomHistory.length === 1;
   }
 
