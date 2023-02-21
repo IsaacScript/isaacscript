@@ -93,6 +93,7 @@ export * from "./functions/positionVelocity";
 export * from "./functions/pressurePlate";
 export * from "./functions/projectiles";
 export * from "./functions/random";
+export * from "./functions/readOnly";
 export * from "./functions/revive";
 export * from "./functions/rng";
 export * from "./functions/rockAlt";
