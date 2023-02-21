@@ -164,6 +164,7 @@ export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
 export * from "./types/PossibleStatType";
 export * from "./types/PublicInterface";
+export * from "./types/Range";
 export * from "./types/ReadonlyMap";
 export * from "./types/ReadonlySet";
 export * from "./types/StartsWithLowercase";
