@@ -32,6 +32,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following constants:
   - `RESOLUTION_FULL_SCREEN`
   - `RESOLUTION_1600_900`
+- Added the following custom callbacks:
+  - `POST_ENTITY_KILL_FILTER`
 - Changed the following custom callbacks:
   - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
 - Disabled the following lint rules for IsaacScript mods:
