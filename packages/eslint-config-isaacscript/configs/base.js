@@ -50,17 +50,17 @@ module.exports = {
      */
     "plugin:n/recommended",
 
-    /** Rule modifications are split out into different files for better organization. */
-    "./base-eslint",
-    "./base-typescript-eslint",
-    "./base-jsdoc",
-
     /**
      * Disable any ESLint rules that conflict with Prettier:
      * https://github.com/prettier/eslint-config-prettier
      * (Otherwise, we will have unfixable ESLint errors.)
      */
     "prettier",
+
+    /** Rule modifications are split out into different files for better organization. */
+    "./base-eslint",
+    "./base-typescript-eslint",
+    "./base-jsdoc",
   ],
 
   plugins: [
