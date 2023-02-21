@@ -2,11 +2,11 @@ import { isNumber, isString, isTable } from "./types";
 
 function sortNormal(a: unknown, b: unknown): -1 | 0 | 1 {
   if (!isNumber(a) && !isString(a)) {
-    error(`Failed to sort since the first value was not a number or string.`);
+    error("Failed to sort since the first value was not a number or string.");
   }
 
   if (!isNumber(b) && !isString(b)) {
-    error(`Failed to sort since the second value was not a number or string.`);
+    error("Failed to sort since the second value was not a number or string.");
   }
 
   if (a < b) {

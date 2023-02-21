@@ -137,7 +137,7 @@ export function getGotoCommand(
   const isNormalRoom =
     roomType === RoomType.DEFAULT && !useSpecialRoomsForRoomTypeDefault;
   const roomTypeSpecialGotoPrefix = ROOM_TYPE_SPECIAL_GOTO_PREFIXES[roomType];
-  const prefix = isNormalRoom ? `d` : `s.${roomTypeSpecialGotoPrefix}`;
+  const prefix = isNormalRoom ? "d" : `s.${roomTypeSpecialGotoPrefix}`;
 
   return `goto ${prefix}.${roomVariant}`;
 }
