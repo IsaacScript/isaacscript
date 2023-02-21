@@ -151,9 +151,9 @@ const RoomDescriptorFlagInternal = {
 type RoomDescriptorFlagValue = BitFlag & {
   readonly __roomDescriptorFlagBrand: symbol;
 };
-type RoomDescriptorFlagType = Readonly<
-  Record<keyof typeof RoomDescriptorFlagInternal, RoomDescriptorFlagValue>
->;
+type RoomDescriptorFlagType = {
+  readonly [K in keyof typeof RoomDescriptorFlagInternal]: RoomDescriptorFlagValue;
+};
 
 export const RoomDescriptorFlag =
   RoomDescriptorFlagInternal as RoomDescriptorFlagType;

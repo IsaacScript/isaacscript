@@ -59,9 +59,9 @@ const CacheFlagInternal = {
 type CacheFlagValue = BitFlag & {
   readonly __cacheFlagBrand: symbol;
 };
-type CacheFlagType = Readonly<
-  Record<keyof typeof CacheFlagInternal, CacheFlagValue>
->;
+type CacheFlagType = {
+  readonly [K in keyof typeof CacheFlagInternal]: CacheFlagValue;
+};
 
 export const CacheFlag = CacheFlagInternal as CacheFlagType;
 export type CacheFlag = CacheFlagType[keyof CacheFlagType];

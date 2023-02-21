@@ -23,9 +23,9 @@ const DisplayFlagInternal = {
 type DisplayFlagValue = BitFlag & {
   readonly __displayFlagBrand: symbol;
 };
-type DisplayFlagType = Readonly<
-  Record<keyof typeof DisplayFlagInternal, DisplayFlagValue>
->;
+type DisplayFlagType = {
+  readonly [K in keyof typeof DisplayFlagInternal]: DisplayFlagValue;
+};
 
 export const DisplayFlag = DisplayFlagInternal as DisplayFlagType;
 export type DisplayFlag = DisplayFlagType[keyof DisplayFlagType];

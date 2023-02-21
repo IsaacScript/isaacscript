@@ -47,9 +47,9 @@ const TargetFlagInternal = {
 type TargetFlagValue = BitFlag & {
   readonly __targetFlagBrand: symbol;
 };
-type TargetFlagType = Readonly<
-  Record<keyof typeof TargetFlagInternal, TargetFlagValue>
->;
+type TargetFlagType = {
+  readonly [K in keyof typeof TargetFlagInternal]: TargetFlagValue;
+};
 
 export const TargetFlag = TargetFlagInternal as TargetFlagType;
 export type TargetFlag = TargetFlagType[keyof TargetFlagType];

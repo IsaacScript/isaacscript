@@ -319,9 +319,9 @@ const ItemConfigTagInternal = {
 type ItemConfigTagValue = BitFlag & {
   readonly __itemConfigTagBrand: symbol;
 };
-type ItemConfigTagType = Readonly<
-  Record<keyof typeof ItemConfigTagInternal, ItemConfigTagValue>
->;
+type ItemConfigTagType = {
+  readonly [K in keyof typeof ItemConfigTagInternal]: ItemConfigTagValue;
+};
 
 export const ItemConfigTag = ItemConfigTagInternal as ItemConfigTagType;
 export type ItemConfigTag = ItemConfigTagType[keyof ItemConfigTagType];

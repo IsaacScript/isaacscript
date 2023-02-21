@@ -97,7 +97,9 @@ const UseFlagInternal = {
 type UseFlagValue = BitFlag & {
   readonly __useFlagBrand: symbol;
 };
-type UseFlagType = Readonly<Record<keyof typeof UseFlagInternal, UseFlagValue>>;
+type UseFlagType = {
+  readonly [K in keyof typeof UseFlagInternal]: UseFlagValue;
+};
 
 export const UseFlag = UseFlagInternal as UseFlagType;
 export type UseFlag = UseFlagType[keyof UseFlagType];

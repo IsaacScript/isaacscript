@@ -72,9 +72,9 @@ const LevelCurseInternal = {
 type LevelCurseValue = BitFlag & {
   readonly __levelCurseBrand: symbol;
 };
-type LevelCurseType = Readonly<
-  Record<keyof typeof LevelCurseInternal, LevelCurseValue>
->;
+type LevelCurseType = {
+  readonly [K in keyof typeof LevelCurseInternal]: LevelCurseValue;
+};
 
 export const LevelCurse = LevelCurseInternal as LevelCurseType;
 export type LevelCurse = LevelCurseType[keyof LevelCurseType];

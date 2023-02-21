@@ -32,9 +32,9 @@ const EntityPartitionInternal = {
 type EntityPartitionValue = BitFlag & {
   readonly __entityPartitionBrand: symbol;
 };
-type EntityPartitionType = Readonly<
-  Record<keyof typeof EntityPartitionInternal, EntityPartitionValue>
->;
+type EntityPartitionType = {
+  readonly [K in keyof typeof EntityPartitionInternal]: EntityPartitionValue;
+};
 
 export const EntityPartition = EntityPartitionInternal as EntityPartitionType;
 export type EntityPartition = EntityPartitionType[keyof EntityPartitionType];
