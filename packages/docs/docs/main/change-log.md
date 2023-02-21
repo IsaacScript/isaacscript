@@ -23,6 +23,7 @@ This page lists the changes to the IsaacScript framework.
   - `getRoomDescriptorsForType`
   - `levelHasRoomType`
   - `inFirstRoom`
+  - `deleteLastRoomDescription`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`
