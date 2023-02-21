@@ -43,6 +43,7 @@ import {
 import { repeat } from "../../../functions/utils";
 import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../../../sets/itemConfigCardTypesForCardsSet";
 import { ReadonlyMap } from "../../../types/ReadonlyMap";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import { ModdedElementDetection } from "./ModdedElementDetection";
 
@@ -1167,7 +1168,7 @@ export class ModdedElementSets extends Feature {
 
     const trinketsSet = this.cacheFlagToTrinketTypesMap.get(cacheFlag);
     if (trinketsSet === undefined) {
-      return new Set();
+      return new ReadonlySet();
     }
 
     return trinketsSet;

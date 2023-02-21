@@ -513,7 +513,7 @@ export class CustomTrapdoors extends Feature {
     // We don't want to allow pausing, since that will allow render frames to pass without advancing
     // the stage traveling logic. (We track how many render frames have passed to know when to move
     // to the next step.)
-    const whitelist = new Set([ButtonAction.CONSOLE]);
+    const whitelist = new ReadonlySet([ButtonAction.CONSOLE]);
     this.disableInputs.disableAllInputsExceptFor(tstlClassName, whitelist);
     setPlayerAttributes(player, gridEntity.Position);
     dropTaintedForgotten(player);

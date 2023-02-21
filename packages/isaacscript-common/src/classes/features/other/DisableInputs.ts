@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { getMoveActions, getShootActions } from "../../../functions/input";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -141,7 +142,7 @@ export class DisableInputs extends Feature {
    */
   @Exported
   public disableInputs(key: string, ...buttonActions: ButtonAction[]): void {
-    const buttonActionsSet = new Set(buttonActions);
+    const buttonActionsSet = new ReadonlySet(buttonActions);
     v.run.disableInputs.set(key, buttonActionsSet);
   }
 
@@ -158,7 +159,7 @@ export class DisableInputs extends Feature {
    */
   @Exported
   public disableAllInputs(key: string): void {
-    v.run.disableAllInputsWithWhitelistMap.set(key, new Set());
+    v.run.disableAllInputsWithWhitelistMap.set(key, new ReadonlySet());
     v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
