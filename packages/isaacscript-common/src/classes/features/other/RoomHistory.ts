@@ -133,6 +133,12 @@ export class RoomHistory extends Feature {
     return getLastElement(v.run.roomHistory);
   }
 
+  /** Helper function to detect if the player is on the first room of the room. */
+  @Exported
+  public isFirstRoom(): boolean {
+    return v.run.roomHistory.length === 1;
+  }
+
   /**
    * Helper function to detect if the game is in the state where the room index has changed to a new
    * room, but the entities from the previous room are currently in the process of despawning. (At
