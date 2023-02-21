@@ -261,6 +261,28 @@ export function getRoomAdjacentGridIndexes(
 }
 
 /**
+ * Helper function to get an array of all of the room descriptors for rooms that match the specified
+ * room type.
+ *
+ * This function only searches through rooms in the current dimension.
+ *
+ * This function is variadic, meaning that you can specify N arguments to get the combined room
+ * descriptors for N room types.
+ */
+export function getRoomDescriptorsForType(
+  ...roomTypes: RoomType[]
+): RoomDescriptor[] {
+  const roomTypesSet = new Set<RoomType>([...roomTypes]);
+
+  const rooms = getRoomsInsideGrid();
+  return rooms.filter(
+    (roomDescriptor) =>
+      roomDescriptor.Data !== undefined &&
+      roomTypesSet.has(roomDescriptor.Data.Type),
+  );
+}
+
+/**
  * Helper function to get an array of all of the safe grid indexes for rooms that match the
  * specified room type.
  *
@@ -270,16 +292,8 @@ export function getRoomAdjacentGridIndexes(
  * indexes for N room types.
  */
 export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
-  const roomTypesSet = new Set<RoomType>([...roomTypes]);
-
-  const rooms = getRoomsInsideGrid();
-  const matchingRooms = rooms.filter(
-    (roomDescriptor) =>
-      roomDescriptor.Data !== undefined &&
-      roomTypesSet.has(roomDescriptor.Data.Type),
-  );
-
-  return matchingRooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
+  const roomDescriptors = getRoomDescriptorsForType(...roomTypes);
+  return roomDescriptors.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
 
 /**

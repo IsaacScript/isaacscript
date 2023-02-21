@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { error, getEnumValues } from "isaacscript-common-ts";
+import { error, getEnumValues, ReadonlySet } from "isaacscript-common-ts";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {
@@ -43,7 +43,7 @@ export function check(args: Args, typeScript: boolean): void {
 
   let oneOrMoreErrors = false;
   const ignoreFileNames = ignore.split(",");
-  const ignoreFileNamesSet = new Set(ignoreFileNames);
+  const ignoreFileNamesSet = new ReadonlySet(ignoreFileNames);
 
   // First, check the static files that are shared between TypeScript projects and IsaacScript mods.
   if (
@@ -70,7 +70,7 @@ export function check(args: Args, typeScript: boolean): void {
 
 function checkTemplateDirectory(
   templateDirectory: string,
-  ignoreFileNamesSet: Set<string>,
+  ignoreFileNamesSet: ReadonlySet<string>,
   verbose: boolean,
 ): boolean {
   let oneOrMoreErrors = false;
@@ -116,7 +116,7 @@ function checkTemplateDirectory(
 }
 
 function checkIndividualFiles(
-  ignoreFileNamesSet: Set<string>,
+  ignoreFileNamesSet: ReadonlySet<string>,
   verbose: boolean,
 ) {
   let oneOrMoreErrors = false;
@@ -151,7 +151,7 @@ function compareTextFiles(
 
   const [projectFileContents, ignoreLines] = getTruncatedFileText(
     projectFilePath,
-    new Set(),
+    new ReadonlySet(),
     verbose,
   );
   const [templateFileContents] = getTruncatedFileText(
@@ -217,9 +217,9 @@ function compareTextFiles(
  */
 function getTruncatedFileText(
   filePath: string,
-  linesBeforeIgnore: Set<string>,
+  linesBeforeIgnore: ReadonlySet<string>,
   verbose: boolean,
-): [text: string, ignoredLines: Set<string>] {
+): [text: string, ignoredLines: ReadonlySet<string>] {
   const fileName = path.basename(filePath);
 
   const projectFileContents = readFile(filePath, verbose);

@@ -20,6 +20,8 @@ This page lists the changes to the IsaacScript framework.
   - `removeCollectibleFromPools`
   - `removeTrinketFromPools`
   - `isMultiplayer`
+  - `getRoomDescriptorsForType`
+  - `levelHasRoomType`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`

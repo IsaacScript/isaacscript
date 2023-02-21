@@ -149,7 +149,7 @@ export const strictEnums = createRule<Options, MessageIds>({
      * Returns a set containing the single `EnumKind` (if it is not a union), or a set containing N
      * `EnumKind` (if it is a union).
      */
-    function getEnumKinds(type: ts.Type): Set<EnumKind> {
+    function getEnumKinds(type: ts.Type): ReadonlySet<EnumKind> {
       if (type.isUnion()) {
         const subTypes = unionTypeParts(type);
         const enumKinds = subTypes.map((subType) => getEnumKind(subType));
@@ -204,7 +204,7 @@ export const strictEnums = createRule<Options, MessageIds>({
     }
 
     /** Given a set A and set B, return a set that contains only elements that are in both sets. */
-    function getIntersectingSet<T>(a: Set<T>, b: Set<T>): Set<T> {
+    function getIntersectingSet<T>(a: Set<T>, b: Set<T>): ReadonlySet<T> {
       const intersectingValues = [...a.values()].filter((value) =>
         b.has(value),
       );
