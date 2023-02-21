@@ -21,7 +21,7 @@ import { getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { log } from "./log";
+import { log, logAndPrint } from "./log";
 import { getPlayerHealth } from "./playerHealth";
 import { getEffectsList, getPlayerName } from "./players";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
@@ -32,8 +32,17 @@ import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isTable, isUserdata } from "./types";
 import { vectorToString } from "./vector";
 
-/** Helper function to enumerate all of the values in an array. */
-export function logArray<T>(this: void, array: T[] | readonly T[]): void {
+/**
+ * Helper function to log all of the values in an array.
+ *
+ * @param array The array to log.
+ * @param name Optional. The name of the array, which will be logged before the elements.
+ */
+export function logArray<T>(
+  this: void,
+  array: T[] | readonly T[],
+  name?: string,
+): void {
   // We do not assume the given array has contiguous values in order to be more permissive about the
   // kinds of arrays that will successfully log without a run-time error.
   if (!isArray(array, false)) {
@@ -42,14 +51,28 @@ export function logArray<T>(this: void, array: T[] | readonly T[]): void {
   }
 
   const arrayString = arrayToString(array);
-  log(`Array: ${arrayString}`);
+  if (name === undefined) {
+    name = "array";
+  }
+  log(`Logging ${name}: ${arrayString}`);
 }
 
+/**
+ * Helper function to log the names of a collectible type array.
+ *
+ * @param collectibleTypes The collectible types to log.
+ * @param name Optional. The name of the array, which will be logged before the elements.
+ */
 export function logCollectibleTypes(
   this: void,
   collectibleTypes: CollectibleType[],
+  name?: string,
 ): void {
-  log("Collectibles:");
+  if (name === undefined) {
+    name = "collectibles";
+  }
+
+  log(`Logging ${name}:`);
 
   let i = 1;
   for (const collectibleType of collectibleTypes) {
@@ -59,9 +82,19 @@ export function logCollectibleTypes(
   }
 }
 
-export function logColor(this: void, color: Color): void {
+/**
+ * Helper function to log a `Color` object.
+ *
+ * @param color The `Color` object to log.
+ * @param name Optional. The name of the object, which will be logged before the properties.
+ */
+export function logColor(this: void, color: Color, name?: string): void {
+  if (name === undefined) {
+    name = "color";
+  }
+
   log(
-    `Color: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
+    `Logging ${name}: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
   );
 }
 
@@ -83,7 +116,7 @@ export function logEntityFlags(
 
 export function logEntityID(this: void, entity: Entity): void {
   const entityID = getEntityID(entity);
-  log(`Entity: ${entityID}`);
+  log(`Logging entity: ${entityID}`);
 }
 
 /**
@@ -94,8 +127,7 @@ export function logEntityID(this: void, entity: Entity): void {
  */
 export function logError(this: void, msg: string): void {
   const errorMsg = `Error: ${msg}`;
-  log(errorMsg);
-  print(errorMsg);
+  logAndPrint(errorMsg);
 }
 
 /** Helper function for printing out every flag that is turned on. Useful when debugging. */
@@ -147,9 +179,19 @@ export function logGameStateFlags(this: void): void {
   }
 }
 
-export function logKColor(this: void, kColor: KColor): void {
+/**
+ * Helper function to log a `KColor` object.
+ *
+ * @param kColor The `KColor` object to log.
+ * @param name Optional. The name of the object, which will be logged before the properties.
+ */
+export function logKColor(this: void, kColor: KColor, name?: string): void {
+  if (name === undefined) {
+    name = "KColor";
+  }
+
   log(
-    `Color: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
+    `Logging ${name}: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
   );
 }
 
@@ -176,13 +218,24 @@ export function logLevelStateFlags(this: void): void {
   }
 }
 
-export function logMap(this: void, map: Map<AnyNotNil, unknown>): void {
+/**
+ * Helper function to log a TSTL `Map`.
+ *
+ * @param map The TSTL `Map` to log.
+ * @param name Optional. The name of the map, which will be logged before the elements.
+ */
+export function logMap(
+  this: void,
+  map: Map<AnyNotNil, unknown>,
+  name?: string,
+): void {
   if (!isTSTLMap(map) && !isDefaultMap(map)) {
     log("Tried to log a TSTL map, but the given object was not a TSTL map.");
     return;
   }
 
-  log("Printing out a TSTL map:");
+  const suffix = name === undefined ? ` "${name}"` : "";
+  log(`Printing out a TSTL map${suffix}:`);
 
   const mapKeys = [...map.keys()];
   mapKeys.sort();
@@ -271,7 +324,7 @@ export function logRoom(this: void): void {
   const roomListIndex = getRoomListIndex();
   const roomData = getRoomData();
 
-  log("Current room information:");
+  log("Logging room information:");
   if (roomData === undefined) {
     log("- Room data is undefined.");
   } else {
@@ -316,16 +369,24 @@ export function logSeedEffects(this: void): void {
   }
 }
 
+/**
+ * Helper function to log a TSTL `Set`.
+ *
+ * @param set The TSTL `Set` to log.
+ * @param name Optional. The name of the set, which will be logged before the elements.
+ */
 export function logSet(
   this: void,
   set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>,
+  name?: string,
 ): void {
   if (!isTSTLSet(set)) {
     log("Tried to log a TSTL set, but the given object was not a TSTL set.");
     return;
   }
 
-  log("Printing out a TSTL set:");
+  const suffix = name === undefined ? ` "${name}"` : "";
+  log(`Printing out a TSTL set${suffix}:`);
 
   const setValues = getSortedSetValues(set);
   for (const value of setValues) {
@@ -510,7 +571,24 @@ export function logUserdata(this: void, userdata: unknown): void {
   logTable(metatable);
 }
 
-export function logVector(this: void, vector: Vector, round = false): void {
+/**
+ * Helper function to log a `Vector` object.
+ *
+ * @param vector The `Vector` object to log.
+ * @param name Optional. The name of the object, which will be logged before the properties.
+ * @param round Optional. If true, will round the vector values to the nearest integer. Default is
+ *              false.
+ */
+export function logVector(
+  this: void,
+  vector: Vector,
+  name?: string,
+  round = false,
+): void {
+  if (name === undefined) {
+    name = "vector";
+  }
+
   const vectorString = vectorToString(vector, round);
-  log(`Vector: ${vectorString}`);
+  log(`Logging ${name}: ${vectorString}`);
 }

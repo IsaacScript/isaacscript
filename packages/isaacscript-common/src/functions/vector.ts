@@ -151,6 +151,13 @@ export function vectorToDirection(vector: Vector): Direction {
   return angleToDirection(angleDegrees);
 }
 
+/**
+ * Helper function to convert a vector to a string.
+ *
+ * @param vector The vector to convert.
+ * @param round Optional. If true, will round the vector values to the nearest integer. Default is
+ *              false.
+ */
 export function vectorToString(vector: Vector, round = false): string {
   const x = round ? Math.round(vector.X) : vector.X;
   const y = round ? Math.round(vector.Y) : vector.Y;

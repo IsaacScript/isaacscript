@@ -28,6 +28,7 @@ This page lists the changes to the IsaacScript framework.
   - `playerHasForm` --> `hasForm`
   - `getActiveItemSlot` --> `getActiveItemSlots`
   - `getLastEnumValue` --> `getHighestEnumValue`
+- Many logging helper functions now take an optional `name` argument.
 - Added the following constants:
   - `RESOLUTION_FULL_SCREEN`
   - `RESOLUTION_1600_900`
