@@ -22,6 +22,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_DOOR_UPDATE]: cc.PostDoorUpdate,
   [ModCallbackCustom.POST_EFFECT_INIT_LATE]: cc.PostEffectInitLate,
   [ModCallbackCustom.POST_EFFECT_STATE_CHANGED]: cc.PostEffectStateChanged,
+  [ModCallbackCustom.POST_ENTITY_KILL_FILTER]: cc.PostEntityKillFilter,
   [ModCallbackCustom.POST_ESAU_JR]: cc.PostEsauJr,
   [ModCallbackCustom.POST_FAMILIAR_INIT_LATE]: cc.PostFamiliarInitLate,
   [ModCallbackCustom.POST_FAMILIAR_STATE_CHANGED]: cc.PostFamiliarStateChanged,

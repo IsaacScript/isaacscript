@@ -19,6 +19,7 @@ export { PostDoorRender } from "./classes/callbacks/PostDoorRender";
 export { PostDoorUpdate } from "./classes/callbacks/PostDoorUpdate";
 export { PostEffectInitLate } from "./classes/callbacks/PostEffectInitLate";
 export { PostEffectStateChanged } from "./classes/callbacks/PostEffectStateChanged";
+export { PostEntityKillFilter } from "./classes/callbacks/PostEntityKillFilter";
 export { PostEsauJr } from "./classes/callbacks/PostEsauJr";
 export { PostFamiliarInitLate } from "./classes/callbacks/PostFamiliarInitLate";
 export { PostFamiliarStateChanged } from "./classes/callbacks/PostFamiliarStateChanged";
