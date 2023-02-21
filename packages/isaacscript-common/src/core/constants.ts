@@ -194,6 +194,9 @@ export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
 /** For `GridEntityType.TELEPORTER` (23). */
 export const TELEPORTER_ACTIVATION_DISTANCE = DISTANCE_OF_GRID_TILE / 2;
 
+/** In milliseconds, as reported by the `Isaac.GetTime` method. */
+export const TIME_GAME_OPENED = Isaac.GetTime();
+
 /**
  * This is the number of draw coordinates that each heart spans on the UI in the upper left hand
  * corner.

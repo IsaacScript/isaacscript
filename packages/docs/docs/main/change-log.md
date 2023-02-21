@@ -36,6 +36,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following constants:
   - `RESOLUTION_FULL_SCREEN`
   - `RESOLUTION_1600_900`
+  - `TIME_GAME_OPENED`
 - Added the following custom callbacks:
   - `POST_ENTITY_KILL_FILTER`
 - Changed the following custom callbacks:
