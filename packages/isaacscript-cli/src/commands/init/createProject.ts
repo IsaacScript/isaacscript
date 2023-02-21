@@ -190,7 +190,7 @@ function copyDynamicFiles(
     const gitignore = gitIgnoreHeader + template + "\n" + nodeGitIgnore;
 
     // We need to replace the underscore with a period.
-    const destinationPath = path.join(projectPath, `.gitignore`);
+    const destinationPath = path.join(projectPath, ".gitignore");
     writeFile(destinationPath, gitignore, verbose);
   }
 
