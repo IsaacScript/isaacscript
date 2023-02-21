@@ -13780,10 +13780,10 @@ sync-directory@^5.1.9:
     is-absolute "^1.0.0"
     readdir-enhanced "^1.5.2"
 
-syncpack@^9.7.4:
-  version "9.7.4"
-  resolved "https://registry.yarnpkg.com/syncpack/-/syncpack-9.7.4.tgz#f0dc36dd054b0fdf8db2a8fe7815e579943787d2"
-  integrity sha512-/pJrSXxV11396AbVSuZk60BTy/RWUdg3k2InnzbBXQggszkDKv5ahIkiRmhLadARyiENhKxRYxIpZRbZlo/TCQ==
+syncpack@^9.8.4:
+  version "9.8.4"
+  resolved "https://registry.yarnpkg.com/syncpack/-/syncpack-9.8.4.tgz#e581e942d28ccf71821e2f6da80fee1c48369c58"
+  integrity sha512-i81rO+dHuJ2dO8YQq6SCExcyN0x9ZVTY7cVPn8pWjS5Dml0A8uM0cOaneOludFesdrLXMZUA/uEWa74ddBgkPQ==
   dependencies:
     "@mobily/ts-belt" "3.13.1"
     chalk "4.1.2"
