@@ -1,3 +1,4 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getArrayCombinations, getRandomArrayElement, sumArray } from "./array";
 import { getRandomSeed } from "./rng";
 import { isPrimitive } from "./types";
@@ -107,7 +108,7 @@ export function getSetCombinations<T>(
   const values = getSortedSetValues(set);
   const combinations = getArrayCombinations(values, includeEmptyArray);
 
-  return combinations.map((array) => new Set(array));
+  return combinations.map((array) => new ReadonlySet(array));
 }
 
 /**

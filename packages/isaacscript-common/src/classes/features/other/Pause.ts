@@ -17,6 +17,7 @@ import { logError } from "../../../functions/logMisc";
 import { getAllPlayers } from "../../../functions/playerIndex";
 import { useActiveItemTemp } from "../../../functions/players";
 import { getTSTLClassName } from "../../../functions/tstlClass";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import { DisableInputs } from "./DisableInputs";
 
@@ -173,7 +174,7 @@ export class Pause extends Feature {
       error("Failed to get the class name for the pause feature.");
     }
 
-    const whitelist = new Set([
+    const whitelist = new ReadonlySet([
       ButtonAction.MENU_CONFIRM,
       ButtonAction.CONSOLE,
     ]);

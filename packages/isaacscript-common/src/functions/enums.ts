@@ -1,3 +1,4 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomArrayElement } from "./array";
 import { getRandomSeed } from "./rng";
 import { isString } from "./types";
@@ -177,7 +178,7 @@ export function validateEnumContiguous<T>(
     );
   }
 
-  const valuesSet = new Set(values);
+  const valuesSet = new ReadonlySet(values);
   for (const value of iRange(lastValue)) {
     if (!valuesSet.has(value as unknown as T[keyof T])) {
       error(

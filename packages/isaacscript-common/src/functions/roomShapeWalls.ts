@@ -3,6 +3,7 @@ import { ROOM_SHAPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { CornerType } from "../enums/CornerType";
 import { Corner } from "../interfaces/Corner";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getGridIndexesBetween } from "./gridIndex";
 import { inBossRoomOf, inHomeCloset } from "./rooms";
 import { getRoomShapeCorners, isLRoom } from "./roomShape";
@@ -38,7 +39,7 @@ function getVanillaWallGridIndexSetForRoomShape(
     case RoomShape.LTL: {
       const [topMiddle, topRight, middleLeft, middle, bottomLeft, bottomRight] =
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
-      return new Set([
+      return new ReadonlySet([
         // Horizontal
         ...getGridIndexesBetween(
           topMiddle.gridIndex,
@@ -79,7 +80,7 @@ function getVanillaWallGridIndexSetForRoomShape(
     case RoomShape.LTR: {
       const [topLeft, topMiddle, middle, middleRight, bottomLeft, bottomRight] =
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
-      return new Set([
+      return new ReadonlySet([
         // Horizontal
         ...getGridIndexesBetween(
           topLeft.gridIndex,
@@ -120,7 +121,7 @@ function getVanillaWallGridIndexSetForRoomShape(
     case RoomShape.LBL: {
       const [topLeft, topRight, middleLeft, middle, bottomMiddle, bottomRight] =
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
-      return new Set([
+      return new ReadonlySet([
         // Horizontal
         ...getGridIndexesBetween(
           topLeft.gridIndex,
@@ -161,7 +162,7 @@ function getVanillaWallGridIndexSetForRoomShape(
     case RoomShape.LBR: {
       const [topLeft, topRight, middle, middleRight, bottomLeft, bottomMiddle] =
         corners as [Corner, Corner, Corner, Corner, Corner, Corner];
-      return new Set([
+      return new ReadonlySet([
         // Horizontal
         ...getGridIndexesBetween(
           topLeft.gridIndex,
@@ -225,7 +226,7 @@ function getWallGridIndexSetForRectangleRoomShape(
     Corner,
   ];
 
-  return new Set([
+  return new ReadonlySet([
     // Horizontal
     ...getGridIndexesBetween(topLeft.gridIndex, topRight.gridIndex, roomShape),
     ...getGridIndexesBetween(

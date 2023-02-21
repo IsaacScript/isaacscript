@@ -1,3 +1,4 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 
 /**
@@ -81,7 +82,7 @@ export function getRandomInt(
     max = oldMin;
   }
 
-  const exceptionsSet = new Set(exceptions);
+  const exceptionsSet = new ReadonlySet(exceptions);
 
   let randomInt: int;
   do {

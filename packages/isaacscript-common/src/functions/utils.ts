@@ -1,5 +1,6 @@
 import { RenderMode } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getAllPlayers } from "./playerIndex";
 import { isFunction } from "./types";
 
@@ -88,7 +89,7 @@ export function inRange(num: int, start: int, end: int): boolean {
 export function isMultiplayer(): boolean {
   const players = getAllPlayers();
   const controllerIndexes = players.map((player) => player.ControllerIndex);
-  const controllerIndexesSet = new Set(controllerIndexes);
+  const controllerIndexesSet = new ReadonlySet(controllerIndexes);
 
   return controllerIndexesSet.size > 1;
 }

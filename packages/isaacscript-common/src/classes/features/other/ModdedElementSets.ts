@@ -615,7 +615,7 @@ export class ModdedElementSets extends Feature {
 
     const collectiblesSet = this.cacheFlagToCollectibleTypesMap.get(cacheFlag);
     if (collectiblesSet === undefined) {
-      return new Set();
+      return new ReadonlySet();
     }
 
     return collectiblesSet;

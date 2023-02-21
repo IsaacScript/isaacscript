@@ -21,6 +21,7 @@ import { game, sfxManager } from "../core/cachedClasses";
 import { MAX_LEVEL_GRID_INDEX } from "../core/constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getAllDimensions, inDimension } from "./dimensions";
 import {
   closeAllDoors,
@@ -535,7 +536,7 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   if (onlyCheckRoomTypes === undefined) {
     matchingRooms = rooms;
   } else {
-    const roomTypeWhitelist = new Set(onlyCheckRoomTypes);
+    const roomTypeWhitelist = new ReadonlySet(onlyCheckRoomTypes);
     matchingRooms = rooms.filter(
       (roomDescriptor) =>
         roomDescriptor.Data !== undefined &&

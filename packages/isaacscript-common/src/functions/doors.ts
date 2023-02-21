@@ -24,6 +24,7 @@ import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "../objects/doorSlotToDoorSlotFlag";
 import { OPPOSITE_DOOR_SLOTS } from "../objects/oppositeDoorSlots";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "../objects/roomShapeToDoorSlotCoordinates";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
 import { hasFlag } from "./flag";
@@ -189,7 +190,7 @@ export function getDoorSlotsForRoomShape(
 export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
-  const roomTypesSet = new Set(roomTypes);
+  const roomTypesSet = new ReadonlySet(roomTypes);
 
   // We iterate over the possible door slots for this room shape instead of all door slots in order
   // to prevent crashes from accessing invalid memory.
@@ -223,7 +224,7 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
  * that match any of the N room grid indexes.
  */
 export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
-  const roomGridIndexesSet = new Set(roomGridIndex);
+  const roomGridIndexesSet = new ReadonlySet(roomGridIndex);
   const doors = getDoors();
   return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
 }

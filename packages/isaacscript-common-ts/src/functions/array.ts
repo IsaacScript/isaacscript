@@ -1,3 +1,4 @@
+import { ReadonlySet } from "../index.js";
 import { getRandomInt } from "./random.js";
 
 /**
@@ -11,7 +12,7 @@ function arrayRemove<T>(
   originalArray: T[] | readonly T[],
   ...elementsToRemove: T[]
 ): T[] {
-  const elementsToRemoveSet = new Set(elementsToRemove);
+  const elementsToRemoveSet = new ReadonlySet(elementsToRemove);
 
   const array: T[] = [];
   for (const element of originalArray) {

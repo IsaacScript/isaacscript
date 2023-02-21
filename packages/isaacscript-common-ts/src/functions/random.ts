@@ -1,3 +1,5 @@
+import { ReadonlySet } from "../types/ReadonlySet.js";
+
 /**
  * This returns a random integer between min and max. It is inclusive on both ends.
  *
@@ -30,7 +32,7 @@ export function getRandomInt(
     max = oldMin; // eslint-disable-line no-param-reassign
   }
 
-  const exceptionsSet = new Set(exceptions);
+  const exceptionsSet = new ReadonlySet(exceptions);
 
   let randomInt: number;
   do {

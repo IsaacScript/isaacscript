@@ -185,7 +185,7 @@ export function getGridEntities(
     return gridEntities;
   }
 
-  const gridEntityTypesSet = new Set(gridEntityTypes);
+  const gridEntityTypesSet = new ReadonlySet(gridEntityTypes);
   return gridEntities.filter((gridEntity) => {
     const gridEntityType = gridEntity.GetType();
     return gridEntityTypesSet.has(gridEntityType);
@@ -221,7 +221,7 @@ export function getGridEntitiesExcept(
     return gridEntities;
   }
 
-  const gridEntityTypesSet = new Set(gridEntityTypes);
+  const gridEntityTypesSet = new ReadonlySet(gridEntityTypes);
   return gridEntities.filter((gridEntity) => {
     const gridEntityType = gridEntity.GetType();
     return !gridEntityTypesSet.has(gridEntityType);
@@ -463,7 +463,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
 export function removeAllGridEntitiesExcept(
   ...gridEntityTypes: GridEntityType[]
 ): GridEntity[] {
-  const gridEntityTypeExceptions = new Set(gridEntityTypes);
+  const gridEntityTypeExceptions = new ReadonlySet(gridEntityTypes);
   const gridEntities = getGridEntities();
   const removedGridEntities: GridEntity[] = [];
   for (const gridEntity of gridEntities) {

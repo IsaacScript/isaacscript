@@ -13,6 +13,7 @@ import {
   TRINKET_SLOT_VALUES,
 } from "../arrays/cachedEnumValues";
 import { game, itemConfig } from "../core/cachedClasses";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getLastElement, sumArray } from "./array";
 import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
@@ -82,7 +83,7 @@ export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
  * for. Returns true if any of the characters supplied are present.
  */
 export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
-  const matchingCharacterSet = new Set(matchingCharacters);
+  const matchingCharacterSet = new ReadonlySet(matchingCharacters);
   const characters = getCharacters();
   return characters.some((character) => matchingCharacterSet.has(character));
 }
@@ -365,7 +366,7 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  * for. Returns true if any of the characters supplied are present.
  */
 export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
-  const charactersSet = new Set(characters);
+  const charactersSet = new ReadonlySet(characters);
   const players = getPlayers();
   return players.filter((player) => {
     const character = player.GetPlayerType();
@@ -481,7 +482,7 @@ export function hasCollectibleInActiveSlot(
   collectibleType: CollectibleType,
   ...activeSlots: ActiveSlot[]
 ): boolean {
-  const matchingActiveSlotsSet = new Set(activeSlots);
+  const matchingActiveSlotsSet = new ReadonlySet(activeSlots);
   const activeItemSlots = getActiveItemSlots(player, collectibleType);
   return activeItemSlots.some((activeSlot) =>
     matchingActiveSlotsSet.has(activeSlot),
@@ -568,7 +569,7 @@ export function isCharacter(
   player: EntityPlayer,
   ...characters: PlayerType[]
 ): boolean {
-  const characterSet = new Set(characters);
+  const characterSet = new ReadonlySet(characters);
   const character = player.GetPlayerType();
   return characterSet.has(character);
 }

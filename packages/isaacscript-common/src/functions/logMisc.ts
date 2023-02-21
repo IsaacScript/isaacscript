@@ -14,6 +14,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game, musicManager, sfxManager } from "../core/cachedClasses";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToString, isArray } from "./array";
 import { getCollectibleName } from "./collectibles";
 import { getEntityID } from "./entities";
@@ -413,10 +414,10 @@ export function logTableDifferences<K extends AnyNotNil, V>(
   log("Comparing two Lua tables:");
 
   const table1Keys = Object.keys(table1);
-  const table1KeysSet = new Set(table1Keys);
+  const table1KeysSet = new ReadonlySet(table1Keys);
 
   const table2Keys = Object.keys(table2);
-  const table2KeysSet = new Set(table2Keys);
+  const table2KeysSet = new ReadonlySet(table2Keys);
 
   const keysSet = combineSets(table1KeysSet, table2KeysSet);
   const keys = [...keysSet.values()];

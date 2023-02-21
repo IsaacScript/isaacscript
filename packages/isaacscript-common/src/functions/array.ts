@@ -1,3 +1,4 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { isNumber, isTable } from "./types";
@@ -131,7 +132,7 @@ export function arrayRemoveIndex<T>(
   originalArray: T[] | readonly T[],
   ...indexesToRemove: int[]
 ): T[] {
-  const indexesToRemoveSet = new Set(indexesToRemove);
+  const indexesToRemoveSet = new ReadonlySet(indexesToRemove);
 
   const array: T[] = [];
   originalArray.forEach((element, i) => {
