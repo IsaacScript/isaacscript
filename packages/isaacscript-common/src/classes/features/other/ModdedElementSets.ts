@@ -698,18 +698,18 @@ export class ModdedElementSets extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
-   * @param pruneConditionalItems Whether or not collectibles that only grant flight conditionally
-   *                              should be included in the set (like Empty Vessel).
+   * @param includeConditionalItems Whether or not collectibles that only grant flight conditionally
+   *                                should be included in the set (like Empty Vessel).
    */
   @Exported
   public getFlyingCollectibles(
-    pruneConditionalItems: boolean,
+    includeConditionalItems: boolean,
   ): ReadonlySet<CollectibleType> {
     this.lazyInitFlyingCollectibleTypesSet();
 
-    return pruneConditionalItems
-      ? this.permanentFlyingCollectibleTypesSet
-      : this.flyingCollectibleTypesSet;
+    return includeConditionalItems
+      ? this.flyingCollectibleTypesSet
+      : this.permanentFlyingCollectibleTypesSet;
   }
 
   /**
