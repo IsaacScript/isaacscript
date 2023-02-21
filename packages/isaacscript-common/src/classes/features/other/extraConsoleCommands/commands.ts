@@ -639,7 +639,7 @@ export function flight(params: string): void {
     removeCollectibleCostume(player, collectibleUsedToShowFlight);
   }
 
-  printEnabled(v.persistent.speed, "set speed");
+  printEnabled(v.persistent.flight, "flight");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1479,7 +1479,7 @@ export function speed(params: string): void {
   const value = tostring(v.persistent.speed);
   flight(value);
 
-  printEnabled(v.persistent.speed, "set speed and flight");
+  printEnabled(v.persistent.speed, "set speed");
 }
 
 /** Alias for the "startingRoom" command. */
