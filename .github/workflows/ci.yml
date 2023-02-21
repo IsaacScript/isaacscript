@@ -65,15 +65,15 @@ jobs:
         run: bash packages/docs/deploy.sh ${{ github.sha }}
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
-      #- name: Run DocSearch Scraper
-      #  uses: celsiusnarhwal/typesense-scraper@v2
-      #  if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
-      #  with:
-      #    api-key: ${{ secrets.TYPESENSE_API_KEY }}
-      #    host: ${{ secrets.TYPESENSE_HOST }}
-      #    port: ${{ secrets.TYPESENSE_PORT }}
-      #    protocol: ${{ secrets.TYPESENSE_PROTOCOL }}
-      #    config: packages/docs/docsearch.config.json
+      - name: Run DocSearch Scraper
+        uses: celsiusnarhwal/typesense-scraper@v2
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
+        with:
+          api-key: ${{ secrets.TYPESENSE_API_KEY }}
+          host: ${{ secrets.TYPESENSE_HOST }}
+          port: ${{ secrets.TYPESENSE_PORT }}
+          protocol: ${{ secrets.TYPESENSE_PROTOCOL }}
+          config: packages/docs/docsearch.config.json
 
   discord:
     name: Discord Failure Notification
