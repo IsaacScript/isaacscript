@@ -85,6 +85,10 @@ export function inRange(num: int, start: int, end: int): boolean {
  * Helper function to detect if there is two or more players currently playing.
  *
  * Specifically, this function looks for unique `ControllerIndex` values across all players.
+ *
+ * This function is not safe to use in the `POST_PLAYER_INIT` callback, because the
+ * `ControllerIndex` will not be set properly. As a workaround, you can use it in the
+ * `POST_PLAYER_INIT_FIRST` callback (or some other callback like `POST_UPDATE`).
  */
 export function isMultiplayer(): boolean {
   const players = getAllPlayers();
