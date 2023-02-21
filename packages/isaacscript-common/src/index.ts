@@ -171,6 +171,7 @@ export * from "./types/ReadonlySet";
 export * from "./types/StartsWithLowercase";
 export * from "./types/StartsWithUppercase";
 export * from "./types/TSTLClass";
+export * from "./types/TupleMaxLength";
 export * from "./types/TupleToIntersection";
 export * from "./types/TupleToUnion";
 export * from "./types/UnionToIntersection";
