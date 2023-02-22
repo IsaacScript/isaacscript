@@ -5,4 +5,5 @@ import { Tuple } from "./Tuple";
  *
  * From: https://stackoverflow.com/questions/54243431/typescript-increment-number-type
  */
-export type Increment<N extends number> = [...Tuple<N>, unknown]["length"];
+export type Increment<N extends number> = [...Tuple<N>, unknown]["length"] &
+  number;
