@@ -6,7 +6,10 @@
     "isaac",
     "rebirth",
     "afterbirth",
-    "repentance"
+    "repentance",
+    "typescript-to-lua",
+    "lua",
+    "tstl"
   ],
   "homepage": "https://isaacscript.github.io/",
   "bugs": {

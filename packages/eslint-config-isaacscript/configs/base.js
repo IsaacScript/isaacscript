@@ -342,7 +342,14 @@ module.exports = {
      */
     "unicorn/prefer-node-protocol": "warn",
 
-    // TEST
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-restricted-syntax
+     *
+     * Not defined in parent configs.
+     *
+     * Prevent superfluous type annotations, which can cause bugs with widened types.
+     */
     // https://github.com/typescript-eslint/typescript-eslint/issues/6446
     "no-restricted-syntax": [
       "warn",
