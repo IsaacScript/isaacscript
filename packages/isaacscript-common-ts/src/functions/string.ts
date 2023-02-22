@@ -123,6 +123,11 @@ export function removeLinesMatching(string: string, match: string): string {
   return newLines.join("\n");
 }
 
+/** Helper function to remove all whitespace characters from a string. */
+export function removeWhitespace(string: string): string {
+  return string.replace(/\s/g, "");
+}
+
 /** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
 export function trimPrefix(string: string, prefix: string): string {
   if (!string.startsWith(prefix)) {
