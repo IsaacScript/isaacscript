@@ -143,6 +143,8 @@ export function sortTwoDimensionalArray<T>(a: T[], b: T[]): -1 | 0 | 1 {
  * Helper function to sort an array in a stable way.
  *
  * This is useful because by default, the transpiled `Array.sort` method from TSTL is not stable.
+ *
+ * Under the hood, this uses the merge sort algorithm.
  */
 export function stableSort<T>(
   array: T[],
