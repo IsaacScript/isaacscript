@@ -41,6 +41,14 @@ This page lists the changes to the IsaacScript framework.
   - `POST_ENTITY_KILL_FILTER`
 - Changed the following custom callbacks:
   - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
+- Added the following helper types:
+  - `Range`
+  - `NaturalNumbersLessThan`
+  - `NaturalNumbersEqualToOrLessThan`
+  - `Tuple`
+  - `TupleWithMaxLength`
+  - `Increment`
+  - `Decrement`
 - Disabled the following lint rules for IsaacScript mods:
   - `class-methods-use-this` (since it is idiomatic to have `v` outside of the class)
 
