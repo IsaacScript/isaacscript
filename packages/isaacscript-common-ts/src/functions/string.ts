@@ -5,6 +5,10 @@ const KEBAB_CASE_REGEX =
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
 export function capitalizeFirstLetter(string: string): string {
+  if (string === "") {
+    return string;
+  }
+
   const firstCharacter = string.charAt(0);
   const capitalizedFirstLetter = firstCharacter.toUpperCase();
   const restOfString = string.slice(1);

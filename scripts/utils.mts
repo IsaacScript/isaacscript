@@ -5,6 +5,10 @@ import * as url from "node:url";
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export function capitalizeFirstLetter(string: string): string {
+  if (string === "") {
+    return string;
+  }
+
   const firstCharacter = string.charAt(0);
   const capitalizedFirstLetter = firstCharacter.toUpperCase();
   const restOfString = string.slice(1);

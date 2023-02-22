@@ -28,6 +28,10 @@ export function areStringsEqualExcludingTrailingSpaces(
 }
 
 export function capitalizeFirstLetter(string: string): string {
+  if (string === "") {
+    return string;
+  }
+
   const firstCharacter = string.charAt(0);
   const capitalizedFirstLetter = firstCharacter.toUpperCase();
   const restOfString = string.slice(1);
