@@ -1,5 +1,5 @@
-import { NaturalNumbersEqualToOrLessThan } from "./NaturalNumbersEqualToOrLessThan";
 import { NaturalNumbersLessThan } from "./NaturalNumbersLessThan";
+import { NaturalNumbersLessThanOrEqualTo } from "./NaturalNumbersLessThanOrEqualTo";
 
 /**
  * Helper type to get a range of integers. It is inclusive on both ends.
@@ -10,6 +10,6 @@ import { NaturalNumbersLessThan } from "./NaturalNumbersLessThan";
  * https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
  */
 export type Range<Low extends number, High extends number> = Exclude<
-  NaturalNumbersEqualToOrLessThan<High>,
+  NaturalNumbersLessThanOrEqualTo<High>,
   NaturalNumbersLessThan<Low>
 >;

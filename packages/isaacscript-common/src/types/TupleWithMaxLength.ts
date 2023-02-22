@@ -1,4 +1,4 @@
-import { NaturalNumbersEqualToOrLessThan } from "./NaturalNumbersEqualToOrLessThan";
+import { NaturalNumbersLessThanOrEqualTo } from "./NaturalNumbersLessThanOrEqualTo";
 
 /**
  * Helper type that validates that a tuple does not have a length greater than N.
@@ -9,5 +9,5 @@ export type TupleWithMaxLength<T, MaxLength extends number> = (
   | T[]
   | readonly T[]
 ) & {
-  length: NaturalNumbersEqualToOrLessThan<MaxLength>;
+  length: NaturalNumbersLessThanOrEqualTo<MaxLength>;
 };
