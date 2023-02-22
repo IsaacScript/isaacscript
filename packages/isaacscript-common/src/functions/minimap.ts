@@ -90,7 +90,7 @@ export function getRoomDisplayFlags(
   const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
   if (minimapAPIRoomDescriptor === undefined) {
     error(
-      `Failed to get the MinimapAPI room descriptor for the room at index: ${roomGridIndex}`,
+      `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
     );
   }
   return minimapAPIRoomDescriptor.GetDisplayFlags();
@@ -181,15 +181,9 @@ export function setRoomDisplayFlags(
       }
 
       error(
-        `Failed to get the MinimapAPI room descriptor for the room at index: ${roomGridIndex}`,
+        `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
       );
     }
     minimapAPIRoomDescriptor.SetDisplayFlags(displayFlags);
-
-    // MinimapAPI is bugged such that setting the display flags to 0 does not make the room
-    // invisible. We delete the room to work around this.
-    if (displayFlags === DisplayFlagZero) {
-      minimapAPIRoomDescriptor.Remove();
-    }
   }
 }
