@@ -1,7 +1,7 @@
 import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { log } from "../../functions/log";
-import { sortObjectArrayByKey } from "../../functions/sort";
+import { sortObjectArrayByKey, stableSort } from "../../functions/sort";
 import { getTSTLClassName } from "../../functions/tstlClass";
 import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
 import { AllButFirst } from "../../types/AllButFirst";
@@ -42,7 +42,10 @@ export abstract class CustomCallback<
       optionalArgs,
     };
     this.subscriptions.push(subscription);
-    this.subscriptions.sort(sortObjectArrayByKey("priority"));
+    this.subscriptions = stableSort(
+      this.subscriptions,
+      sortObjectArrayByKey("priority"),
+    );
   }
 
   /**

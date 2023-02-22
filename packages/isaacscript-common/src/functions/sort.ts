@@ -2,11 +2,19 @@ import { isNumber, isString, isTable } from "./types";
 
 function sortNormal(a: unknown, b: unknown): -1 | 0 | 1 {
   if (!isNumber(a) && !isString(a)) {
-    error("Failed to sort since the first value was not a number or string.");
+    error(
+      `Failed to normal sort since the first value was not a number or string and was instead: ${type(
+        a,
+      )}`,
+    );
   }
 
   if (!isNumber(b) && !isString(b)) {
-    error("Failed to sort since the second value was not a number or string.");
+    error(
+      `Failed to normal sort since the second value was not a number or string and was instead: ${type(
+        b,
+      )}`,
+    );
   }
 
   if (a < b) {
@@ -43,13 +51,17 @@ export function sortObjectArrayByKey(key: string) {
   return (a: unknown, b: unknown): -1 | 0 | 1 => {
     if (!isTable(a)) {
       error(
-        `Failed to sort an object by the key of "${key}" since the first element was not a table.`,
+        `Failed to sort an object array by the key of "${key}" since the first element was not a table and was instead: ${type(
+          a,
+        )}`,
       );
     }
 
     if (!isTable(b)) {
       error(
-        `Failed to sort an object by the key of "${key}" since the second element was not a table.`,
+        `Failed to sort an object array by the key of "${key}" since the second element was not a table and was instead: ${type(
+          b,
+        )}.`,
       );
     }
 
@@ -125,4 +137,69 @@ export function sortTwoDimensionalArray<T>(a: T[], b: T[]): -1 | 0 | 1 {
   }
 
   return sortNormal(firstElement1, firstElement2);
+}
+
+/**
+ * Helper function to sort an array in a stable way.
+ *
+ * This is useful because by default, the transpiled `Array.sort` method from TSTL is not stable.
+ */
+export function stableSort<T>(
+  array: T[],
+  sortFunc: (a: T, b: T) => -1 | 0 | 1 = sortNormal,
+): T[] {
+  // Base case: an array of zero or one elements is already sorted
+  if (array.length <= 1) {
+    return array;
+  }
+
+  // Split the array into two halves.
+  const middleIndex = Math.floor(array.length / 2);
+  const leftArray = array.slice(0, middleIndex);
+  const rightArray = array.slice(middleIndex);
+
+  // Recursively sort each half.
+  const sortedLeftArray = stableSort(leftArray, sortFunc);
+  const sortedRightArray = stableSort(rightArray, sortFunc);
+
+  // Merge the two sorted halves.
+  const mergedArray: T[] = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+  while (
+    leftIndex < sortedLeftArray.length &&
+    rightIndex < sortedRightArray.length
+  ) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const left = sortedLeftArray[leftIndex]!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const right = sortedRightArray[rightIndex]!;
+
+    const sortResult = sortFunc(left, right);
+    if (sortResult === -1 || sortResult === 0) {
+      mergedArray.push(left);
+      leftIndex++;
+    } else {
+      mergedArray.push(right);
+      rightIndex++;
+    }
+  }
+
+  // Add any remaining elements from the left array.
+  while (leftIndex < sortedLeftArray.length) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const left = sortedLeftArray[leftIndex]!;
+    mergedArray.push(left);
+    leftIndex++;
+  }
+
+  // Add any remaining elements from the right array.
+  while (rightIndex < sortedRightArray.length) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const right = sortedRightArray[rightIndex]!;
+    mergedArray.push(right);
+    rightIndex++;
+  }
+
+  return mergedArray;
 }

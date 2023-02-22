@@ -173,7 +173,7 @@ export function arrayRemoveIndexInPlace<T>(
   return true;
 }
 
-export function arrayToString<T>(array: T[] | readonly T[]): string {
+export function arrayToString(array: unknown[]): string {
   if (array.length === 0) {
     return "[]";
   }
