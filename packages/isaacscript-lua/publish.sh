@@ -14,11 +14,11 @@ function pause() {
 # Read the username and password.
 # shellcheck disable=SC1091
 source .env
-if [[ -z $PYPI_USERNAME ]]; then
+if [[ -z ${PYPI_USERNAME-} ]]; then
   echo "Error: PYPI_USERNAME is not set. Copy \".env_template\" to \".env\" and fill in the values."
   exit 1
 fi
-if [[ -z $PYPI_PASSWORD ]]; then
+if [[ -z ${PYPI_PASSWORD-} ]]; then
   echo "Error: PYPI_PASSWORD is not set. Copy \".env_template\" to \".env\" and fill in the values."
   exit 1
 fi
