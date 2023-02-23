@@ -33,8 +33,6 @@ export const requireVRegistration = createRule({
           return;
         }
 
-        console.log(sourceCode.text);
-
         if (!hasRegistrationLines(sourceCode.text)) {
           context.report({
             node,
