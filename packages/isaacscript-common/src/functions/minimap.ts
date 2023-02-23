@@ -44,6 +44,10 @@ export function clearFloorDisplayFlags(): void {
  *
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
+ *
+ * Note that if you clear the display flags of a room but then the player travels to the room (or an
+ * adjacent room), the room will appear on the minimap again. If you want to permanently hide the
+ * room even in this circumstance, use the `hideRoomOnMinimap` helper function instead.
  */
 export function clearRoomDisplayFlags(roomGridIndex: int): void {
   setRoomDisplayFlags(roomGridIndex, DisplayFlagZero);
@@ -94,6 +98,32 @@ export function getRoomDisplayFlags(
     );
   }
   return minimapAPIRoomDescriptor.GetDisplayFlags();
+}
+
+/**
+ * Helper function to hide a specific room on the minimap.
+ *
+ * If you want the room to be permanently hidden, you must to call this function on every new room.
+ * This is because if the player enters into the room or walks into an adjacent room, the room will
+ * reappear on the minimap.
+ *
+ * This function automatically accounts for whether or not MinimapAPI is being used.
+ */
+export function hideRoomOnMinimap(roomGridIndex: int): void {
+  clearRoomDisplayFlags(roomGridIndex);
+
+  // In vanilla, the map only updates at the beginning of every room. In MinimapAPI, it constant
+  // updates, so we must specifically tell MinimapAPI that the room should be hidden using the
+  // `Hidden` property.
+  if (MinimapAPI !== undefined) {
+    const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
+    if (minimapAPIRoomDescriptor === undefined) {
+      error(
+        `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
+      );
+    }
+    minimapAPIRoomDescriptor.Hidden = true;
+  }
 }
 
 /**
@@ -175,16 +205,10 @@ export function setRoomDisplayFlags(
   } else {
     const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
     if (minimapAPIRoomDescriptor === undefined) {
-      // The room might have already been removed previously.
-      if (displayFlags === DisplayFlagZero) {
-        return;
-      }
-
       error(
         `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
       );
     }
     minimapAPIRoomDescriptor.SetDisplayFlags(displayFlags);
-    minimapAPIRoomDescriptor.Hidden = displayFlags === DisplayFlagZero;
   }
 }
