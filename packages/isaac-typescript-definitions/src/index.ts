@@ -65,7 +65,7 @@ export * from "./enums/LineCheckMode";
 export * from "./enums/ModCallback";
 export * from "./enums/Mouse";
 export * from "./enums/Music";
-export * from "./enums/NpcState";
+export * from "./enums/NPCState";
 export * from "./enums/NullItemID";
 export * from "./enums/PickupPrice";
 export * from "./enums/PillEffect";

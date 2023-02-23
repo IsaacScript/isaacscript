@@ -1,6 +1,6 @@
 import { ChampionColor } from "../../enums/ChampionColor";
 import { EntityType } from "../../enums/EntityType";
-import { NpcState } from "../../enums/NpcState";
+import { NpcState } from "../../enums/NPCState";
 import { ProjectilesMode } from "../../enums/ProjectilesMode";
 import { SoundEffect } from "../../enums/SoundEffect";
 

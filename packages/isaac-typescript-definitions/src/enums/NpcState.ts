@@ -1,4 +1,4 @@
-export enum NpcState {
+export enum NPCState {
   INIT = 0,
   APPEAR = 1,
   APPEAR_CUSTOM = 2,
