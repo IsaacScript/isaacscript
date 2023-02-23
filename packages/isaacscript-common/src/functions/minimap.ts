@@ -185,5 +185,6 @@ export function setRoomDisplayFlags(
       );
     }
     minimapAPIRoomDescriptor.SetDisplayFlags(displayFlags);
+    minimapAPIRoomDescriptor.Hidden = displayFlags === DisplayFlagZero;
   }
 }
