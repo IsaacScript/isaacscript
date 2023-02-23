@@ -33,9 +33,12 @@ This page lists the changes to the IsaacScript framework.
   - `playerHasForm` --> `hasForm`
   - `getActiveItemSlot` --> `getActiveItemSlots`
   - `getLastEnumValue` --> `getHighestEnumValue`
+  - `asNpcState` --> `asNPCState`
 - Changed the following helper functions:
   - `getFlyingCollectibles` - The argument is changed from `pruneConditionalItems` to `includeConditionalItems`.
 - Many logging helper functions now take an optional `name` argument.
+- Renamed the following enums:
+  - `NpcState` --> `NPCState`
 - Added the following constants:
   - `RESOLUTION_FULL_SCREEN`
   - `RESOLUTION_1600_900`
