@@ -983,6 +983,22 @@ export enum ModCallbackCustom {
   POST_KNIFE_INIT_LATE,
 
   /**
+   * The exact same thing as the vanilla `POST_LASER_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postLaserInitFilter(laser: EntityLaser): void {}
+   * ```
+   */
+  POST_LASER_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_LASER_UPDATE` frame for each laser.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -999,6 +1015,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_LASER_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_LASER_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postLaserRenderFilter(laser: EntityLaser, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_LASER_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_LASER_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postLaserUpdateFilter(laser: EntityLaser): void {}
+   * ```
+   */
+  POST_LASER_UPDATE_FILTER,
 
   /**
    * The same as the vanilla callback of the same name, but fires in the correct order with respect

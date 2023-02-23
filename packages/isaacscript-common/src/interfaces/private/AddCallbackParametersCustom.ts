@@ -429,7 +429,25 @@ export interface AddCallbackParametersCustom {
     subType?: int,
   ];
 
+  [ModCallbackCustom.POST_LASER_INIT_FILTER]: [
+    callback: (laser: EntityLaser) => void,
+    laserVariant?: LaserVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_LASER_INIT_LATE]: [
+    callback: (laser: EntityLaser) => void,
+    laserVariant?: LaserVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_LASER_RENDER_FILTER]: [
+    callback: (laser: EntityLaser, renderOffset: Vector) => void,
+    laserVariant?: LaserVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_LASER_UPDATE_FILTER]: [
     callback: (laser: EntityLaser) => void,
     laserVariant?: LaserVariant,
     subType?: int,

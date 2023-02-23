@@ -245,7 +245,7 @@ export function shouldFireKnife(
 }
 
 export function shouldFireLaser(
-  fireArgs: [laser: EntityLaser],
+  fireArgs: [laser: EntityLaser] | [laser: EntityLaser, renderOffset: Vector],
   optionalArgs: [laserVariant?: LaserVariant, subType?: int],
 ): boolean {
   const [laser] = fireArgs;
