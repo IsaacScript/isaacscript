@@ -24,6 +24,7 @@ import {
   PoopGridEntityVariant,
   PressurePlateVariant,
   ProjectileVariant,
+  RoomType,
   SlotVariant,
   TearVariant,
   TrinketType,
@@ -398,9 +399,13 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
 
-  [ModCallbackCustom.POST_NEW_ROOM_EARLY]: [callback: () => void];
+  [ModCallbackCustom.POST_NEW_ROOM_EARLY]: [
+    callback: (roomType: RoomType) => void,
+  ];
 
-  [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: [callback: () => void];
+  [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: [
+    callback: (roomType: RoomType) => void,
+  ];
 
   [ModCallbackCustom.POST_NPC_DEATH_FILTER]: [
     callback: (npc: EntityNPC) => void,

@@ -10,6 +10,7 @@ import {
   spawnGridEntity,
 } from "../../functions/gridEntities";
 import { logError } from "../../functions/logMisc";
+import { shouldFireRoom } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_ROOM_EARLY> {
@@ -31,6 +32,8 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
     ];
   }
 
+  protected override shouldFire = shouldFireRoom;
+
   // ModCallback.POST_NEW_ROOM (19)
   private postNewRoom = (): void => {
     this.checkRoomChanged();
@@ -44,7 +47,10 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
 
   private checkRoomChanged(): void {
     if (this.isNewRoom()) {
-      this.fire();
+      const room = game.GetRoom();
+      const roomType = room.GetType();
+
+      this.fire(roomType);
     }
   }
 

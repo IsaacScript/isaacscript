@@ -928,8 +928,14 @@ export enum ModCallbackCustom {
    * in the room have been initialized and updated once, which means that it is possible for
    * entity-related code to run before room-related-initialization has been performed.
    *
+   * Additionally, this callback will pass the `RoomType` as the first callback argument.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `RoomType` provided.
+   *
    * ```ts
-   * function postNewRoomEarly(): void {}
+   * function postNewRoomEarly(roomType: RoomType): void {}
    * ```
    */
   POST_NEW_ROOM_EARLY,
@@ -940,14 +946,20 @@ export enum ModCallbackCustom {
    *
    * `POST_GAME_STARTED_REORDERED` --> `POST_NEW_LEVEL_REORDERED` --> `POST_NEW_ROOM_REORDERED`
    *
+   * Additionally, this callback will pass the `RoomType` as the first callback argument.
+   *
    * If some specific cases, mods can change the current room during run initialization (on the 0th
    * frame). However, due to how the callback reordering works, the custom `POST_NEW_ROOM_REORDERED`
    * callback will never fire on the 0th frame. To get around this, call the
    * `forceNewRoomCallback()` function before changing levels to temporarily force the callback to
    * fire.
    *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `RoomType` provided.
+   *
    * ```ts
-   * function postNewRoomReordered(): void {}
+   * function postNewRoomReordered(roomType: RoomType): void {}
    * ```
    */
   POST_NEW_ROOM_REORDERED,

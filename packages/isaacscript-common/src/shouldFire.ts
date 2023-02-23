@@ -33,6 +33,7 @@ import {
   PoopGridEntityVariant,
   PressurePlateVariant,
   ProjectileVariant,
+  RoomType,
   SlotVariant,
   TearVariant,
   TrinketType,
@@ -411,6 +412,16 @@ export function shouldFireRock(
       callbackGridEntity === gridEntityType) &&
     (callbackVariant === undefined || callbackVariant === variant)
   );
+}
+
+export function shouldFireRoom(
+  fireArgs: [roomType: RoomType],
+  optionalArgs: [roomType?: RoomType],
+): boolean {
+  const [roomType] = fireArgs;
+  const [callbackRoomType] = optionalArgs;
+
+  return callbackRoomType === undefined || callbackRoomType === roomType;
 }
 
 export function shouldFireSlot(

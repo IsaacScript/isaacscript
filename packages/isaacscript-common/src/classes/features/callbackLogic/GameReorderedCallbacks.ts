@@ -87,16 +87,21 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_GAME_STARTED (15)
   private postGameStarted = (isContinued: boolean): void => {
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+
     this.recordCurrentStage();
     this.postGameStartedReordered.fire(isContinued);
     this.postNewLevelReordered.fire();
-    this.postNewRoomReordered.fire();
+    this.postNewRoomReordered.fire(roomType);
     this.postGameStartedReorderedLast.fire(isContinued);
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
   private postNewLevel = (): void => {
     const gameFrameCount = game.GetFrameCount();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     if (gameFrameCount === 0 && !this.forceNewLevel) {
       // Wait for the `POST_GAME_STARTED` callback to fire.
@@ -106,7 +111,7 @@ export class GameReorderedCallbacks extends Feature {
 
     this.recordCurrentStage();
     this.postNewLevelReordered.fire();
-    this.postNewRoomReordered.fire();
+    this.postNewRoomReordered.fire(roomType);
   };
 
   // ModCallback.POST_NEW_ROOM (19)
@@ -115,6 +120,8 @@ export class GameReorderedCallbacks extends Feature {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     if (this.usedGlowingHourGlass) {
       this.usedGlowingHourGlass = false;
@@ -125,7 +132,7 @@ export class GameReorderedCallbacks extends Feature {
         // callback.
         this.recordCurrentStage();
         this.postNewLevelReordered.fire();
-        this.postNewRoomReordered.fire();
+        this.postNewRoomReordered.fire(roomType);
         return;
       }
     }
@@ -140,7 +147,7 @@ export class GameReorderedCallbacks extends Feature {
     }
     this.forceNewRoom = false;
 
-    this.postNewRoomReordered.fire();
+    this.postNewRoomReordered.fire(roomType);
   };
 
   private recordCurrentStage(): void {
