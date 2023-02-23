@@ -3,7 +3,6 @@
   - projectile
   - bomb
   - knife
-  - laser
 - socket abstraction in isaacscript-common
 
 ----------------------------------------------------------------------------------------------------
