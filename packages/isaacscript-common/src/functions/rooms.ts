@@ -51,6 +51,12 @@ import { getGotoCommand } from "./stage";
 import { asNumber } from "./types";
 import { iRange } from "./utils";
 
+const SECRET_ROOM_TYPES = new ReadonlySet([
+  RoomType.SECRET,
+  RoomType.SUPER_SECRET,
+  RoomType.ULTRA_SECRET,
+]);
+
 /**
  * Helper function for quickly switching to a new room without playing a particular animation. Use
  * this helper function over invoking the `Game.ChangeRoom` method directly to ensure that you do
@@ -545,6 +551,14 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   }
 
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
+}
+
+/**
+ * Helper function to detect if a room type is a Secret Room, a Super Secret Room, or an Ultra
+ * Secret Room.
+ */
+export function isSecretRoomType(roomType: RoomType): boolean {
+  return SECRET_ROOM_TYPES.has(roomType);
 }
 
 /**

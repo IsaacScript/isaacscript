@@ -26,6 +26,7 @@ This page lists the changes to the IsaacScript framework.
   - `deleteLastRoomDescription`
   - `stableSort`
   - `hideRoomOnMinimap`
+  - `isSecretRoomType`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`

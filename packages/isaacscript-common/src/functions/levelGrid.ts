@@ -36,7 +36,7 @@ import {
   getRoomGridIndex,
   getRoomShape,
 } from "./roomData";
-import { getRooms, getRoomsInsideGrid } from "./rooms";
+import { getRooms, getRoomsInsideGrid, isSecretRoomType } from "./rooms";
 import { getGridIndexDelta } from "./roomShape";
 import { asNumber } from "./types";
 
@@ -512,8 +512,7 @@ export function newRoom(seedOrRNG?: Seed | RNG): int | undefined {
     const hasCompass = level.GetStateFlag(LevelStateFlag.COMPASS_EFFECT);
     const hasBlueMap = level.GetStateFlag(LevelStateFlag.BLUE_MAP_EFFECT);
     const roomType = roomData.Type;
-    const isSecretRoom =
-      roomType === RoomType.SECRET || roomType === RoomType.SUPER_SECRET;
+    const isSecretRoom = isSecretRoomType(roomType);
 
     if (hasFullMap) {
       roomDescriptor.DisplayFlags = ALL_DISPLAY_FLAGS;

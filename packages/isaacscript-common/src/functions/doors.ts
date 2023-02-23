@@ -430,6 +430,9 @@ export function isRepentanceDoor(door: GridEntityDoor): boolean {
  * This refers to the hole in the wall that appears after bombing the entrance to a secret room.
  * Note that the door still exists before it has been bombed open. It has a sprite filename of
  * "gfx/grid/door_08_holeinwall.anm2".
+ *
+ * Note that since Ultra Secret Rooms do not use holes, this function will not detect an Ultra
+ * Secret Room door.
  */
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
