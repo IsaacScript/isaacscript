@@ -14,14 +14,21 @@ function is_git_repo_clean() {
   return 1
 }
 
+function is_git_repo_latest_commit() {
+  git fetch
+  if [[ "$(git rev-parse HEAD)" == "$(git rev-parse '@{u}')" ]]; then
+    return 0
+  fi
+  return 1
+}
+
 cd "$DIR"
 
 # Ensure that the checked out version of this repository is the latest version. (It is possible that
 # another commit has been pushed in the meantime, in which case we should do nothing and wait for
 # the CI on that commit to finish.)
 # https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
-git fetch
-if [[ $(git rev-parse HEAD) != $(git rev-parse '@{u}') ]]; then
+if ! is_git_repo_latest_commit; then
   echo "A more recent commit was found in the remote repository; skipping rule generation."
   exit 0 # Don't "exit 1" because we do not want to cause CI failures.
 fi
