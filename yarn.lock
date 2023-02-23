@@ -8364,10 +8364,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.1.tgz#b312d902b313f81e4eaf98b6361ba2b45cd694bb"
   integrity sha512-/kppl+R+LO5VmhYSEWARUFjodS25D68gvj8W7z0I7OWhUla5xWu8KL6CtB2V0R6yqhnRgbcaREMr4EEM6htLPQ==
 
-isaac-typescript-definitions@^12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-12.0.2.tgz#565bcbe42038810b715c1046374f01e4ba6ac5ad"
-  integrity sha512-PK3q4VZON4BzCmLkduuSuiwQlT86oshihjLPV6V8j3lOb8NPIeitosj7sd9aNmhw0wCL+yh3YzJVXFOcRs3oSw==
+isaac-typescript-definitions@^12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-12.0.3.tgz#79bd83db81b1ad5b8d7ff65f1d2f5905afeba182"
+  integrity sha512-8oPHp5D9BXVE49EOxfzm/DaC4pFqQE87isueOMjJgE08RPcPZoISz7dtcwAIfMl9pRaofeYmZGh5rH7u2IY0tQ==
   dependencies:
     lua-types "^2.13.1"
 
@@ -13769,10 +13769,10 @@ svgo@^2.7.0, svgo@^2.8.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-sync-directory@^5.1.9:
-  version "5.1.9"
-  resolved "https://registry.yarnpkg.com/sync-directory/-/sync-directory-5.1.9.tgz#f307dc277034a872a223752abf0f22caf132a6eb"
-  integrity sha512-0942RssO+NrIjDcaNiXUH/NQoAamURT1zpzN/uB8fgyetDM8NtPPOQNax3+BuNUfw/2JcaEXrAz567DokNq0lw==
+sync-directory@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/sync-directory/-/sync-directory-6.0.0.tgz#ce7ffb09751824b2344e5e0ff32572d4aab3f91c"
+  integrity sha512-mHn8sIoehO6/zB+CnOmMcq1JKwImYghO+6GNZLSn813cLNSjvG4lXmEl+1n4pNeWz0QTFBYXAdToUUSFPtYVwA==
   dependencies:
     chokidar "^3.3.1"
     commander "^6.2.0"
