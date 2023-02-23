@@ -1,3 +1,5 @@
+// This is registered in "ExtraConsoleCommands.ts".
+// eslint-disable-next-line isaacscript/require-v-registration
 export const v = {
   persistent: {
     // Curses

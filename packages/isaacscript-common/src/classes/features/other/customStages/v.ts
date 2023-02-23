@@ -2,6 +2,8 @@ import { ControllerIndex } from "isaac-typescript-definitions";
 import { UIStreakAnimation } from "../../../../enums/private/UIStreakAnimation";
 import { CustomStage } from "../../../../interfaces/private/CustomStage";
 
+// This is registered in "CustomStages.ts".
+// eslint-disable-next-line isaacscript/require-v-registration
 export const v = {
   run: {
     currentCustomStage: null as CustomStage | null,

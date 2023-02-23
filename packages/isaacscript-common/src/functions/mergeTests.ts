@@ -130,7 +130,7 @@ function oldTableHasFilledChildTable() {
 }
 
 function oldTableHasFilledMap() {
-  const v = {
+  const fakeV = {
     run: {
       myMap: new Map<string, string>(),
     },
@@ -148,15 +148,15 @@ function oldTableHasFilledMap() {
   const serializedSaveData = deepCopy(saveData, SerializationType.SERIALIZE);
 
   merge(
-    v as unknown as LuaMap,
+    fakeV as unknown as LuaMap,
     serializedSaveData as LuaMap,
     "oldTableHasFilledMap",
   );
 
   const expectedSize = 3;
-  if (v.run.myMap.size !== expectedSize) {
+  if (fakeV.run.myMap.size !== expectedSize) {
     error(
-      `The size of the merged map was equal to ${v.run.myMap.size}, but it should be equal to: ${expectedSize}`,
+      `The size of the merged map was equal to ${fakeV.run.myMap.size}, but it should be equal to: ${expectedSize}`,
     );
   }
 
@@ -164,7 +164,7 @@ function oldTableHasFilledMap() {
     const key = "foo1";
     const expectedValue = "bar1";
 
-    const value = v.run.myMap.get(key);
+    const value = fakeV.run.myMap.get(key);
     if (value !== expectedValue) {
       error(
         `The old table's map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
@@ -176,7 +176,7 @@ function oldTableHasFilledMap() {
     const key = "foo2";
     const expectedValue = "bar2";
 
-    const value = v.run.myMap.get(key);
+    const value = fakeV.run.myMap.get(key);
     if (value !== expectedValue) {
       error(
         `The old table's map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
@@ -188,7 +188,7 @@ function oldTableHasFilledMap() {
     const key = "foo3";
     const expectedValue = "bar3";
 
-    const value = v.run.myMap.get(key);
+    const value = fakeV.run.myMap.get(key);
     if (value !== expectedValue) {
       error(
         `The old table's map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
@@ -198,7 +198,7 @@ function oldTableHasFilledMap() {
 }
 
 function oldTableHasFilledDefaultMap() {
-  const v = {
+  const fakeV = {
     run: {
       myDefaultMap: new DefaultMap<string, string>("default"),
     },
@@ -216,15 +216,15 @@ function oldTableHasFilledDefaultMap() {
   const serializedSaveData = deepCopy(saveData, SerializationType.SERIALIZE);
 
   merge(
-    v as unknown as LuaMap,
+    fakeV as unknown as LuaMap,
     serializedSaveData as LuaMap,
     "oldTableHasFilledDefaultMap",
   );
 
   const expectedSize = 3;
-  if (v.run.myDefaultMap.size !== expectedSize) {
+  if (fakeV.run.myDefaultMap.size !== expectedSize) {
     error(
-      `The size of the merged default map was equal to ${v.run.myDefaultMap.size}, but it should be equal to: ${expectedSize}`,
+      `The size of the merged default map was equal to ${fakeV.run.myDefaultMap.size}, but it should be equal to: ${expectedSize}`,
     );
   }
 
@@ -232,7 +232,7 @@ function oldTableHasFilledDefaultMap() {
     const key = "foo1";
     const expectedValue = "bar1";
 
-    const value = v.run.myDefaultMap.get(key);
+    const value = fakeV.run.myDefaultMap.get(key);
     if (value !== expectedValue) {
       error(
         `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
@@ -244,7 +244,7 @@ function oldTableHasFilledDefaultMap() {
     const key = "foo2";
     const expectedValue = "bar2";
 
-    const value = v.run.myDefaultMap.get(key);
+    const value = fakeV.run.myDefaultMap.get(key);
     if (value !== expectedValue) {
       error(
         `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
@@ -256,7 +256,7 @@ function oldTableHasFilledDefaultMap() {
     const key = "foo3";
     const expectedValue = "bar3";
 
-    const value = v.run.myDefaultMap.get(key);
+    const value = fakeV.run.myDefaultMap.get(key);
     if (value !== expectedValue) {
       error(
         `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
