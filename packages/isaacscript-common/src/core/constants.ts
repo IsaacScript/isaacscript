@@ -54,7 +54,7 @@ export const DOGMA_ROOM_GRID_INDEX = 109;
 export const DOOR_HITBOX_RADIUS = 11;
 
 /**
- * When Eggies take fatal damage, they go into NpcState.STATE_SUICIDE and spawn 14 Swarm Spiders
+ * When Eggies take fatal damage, they go into NPCState.STATE_SUICIDE and spawn 14 Swarm Spiders
  * while their StateFrame ticks upwards. The 14th spider appears when the StateFrame is at this
  * value.
  */

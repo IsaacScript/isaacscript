@@ -1,4 +1,4 @@
-import { ModCallback, NpcState } from "isaac-typescript-definitions";
+import { ModCallback, NPCState } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
@@ -6,7 +6,7 @@ import { CustomCallback } from "../private/CustomCallback";
 
 const v = {
   run: {
-    stateMap: new DefaultMap<PtrHash, NpcState, [NpcState]>(
+    stateMap: new DefaultMap<PtrHash, NPCState, [NPCState]>(
       (state) => state, // eslint-disable-line isaacscript/strict-enums
     ),
   },
