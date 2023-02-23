@@ -52,6 +52,8 @@ This page lists the changes to the IsaacScript framework.
   - `TupleWithMaxLength`
   - `Increment`
   - `Decrement`
+- Added the following custom commands:
+  - `flies` (to get max blue flies)
 - Disabled the following lint rules for IsaacScript mods:
   - `class-methods-use-this` (since it is idiomatic to have `v` outside of the class)
 

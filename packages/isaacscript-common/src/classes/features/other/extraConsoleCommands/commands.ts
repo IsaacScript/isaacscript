@@ -56,6 +56,7 @@ import { game, sfxManager } from "../../../../core/cachedClasses";
 import {
   DOGMA_ROOM_GRID_INDEX,
   MAX_LEVEL_GRID_INDEX,
+  MAX_NUM_FAMILIARS,
 } from "../../../../core/constants";
 import {
   FIRST_CARD_TYPE,
@@ -614,6 +615,12 @@ export function errorRoom(): void {
  */
 export function eternalHearts(params: string): void {
   addHeart(params, HealthType.ETERNAL);
+}
+
+/** Grants the maximum amount of blue flies to the player. */
+export function flies(): void {
+  const player = Isaac.GetPlayer();
+  player.AddBlueFlies(MAX_NUM_FAMILIARS, player.Position, undefined);
 }
 
 /** Toggles flight for the player. */
