@@ -95,10 +95,7 @@ declare global {
       /** The display flags for the room. Matches the format of `RoomDescriptor.DisplayFlags`. */
       DisplayFlags?: DisplayFlag | BitFlags<DisplayFlag>;
 
-      /**
-       * This room is secret. It will not be revealed by the compass or the treasure map, and it
-       * WILL be revealed by the blue map.
-       */
+      /** See the `Hidden` property of `MinimapAPIRoomDescriptor`. */
       Hidden?: boolean;
 
       /** Any value. This is used to identify your room later. */
@@ -329,7 +326,15 @@ declare global {
     Dimension: int;
     DisplayFlags: BitFlags<DisplayFlag>;
     DisplayPosition: Vector;
+
+    /**
+     * External mods can set this to unconditionally hide a specific room (regardless of whether or
+     * not the player is in or next to the room).
+     *
+     * MinimapAPI does not ever set this internally.
+     */
     Hidden: boolean;
+
     ID: int;
     IgnoreDescriptorFlags: boolean;
     ItemIcons: string[];
