@@ -187,8 +187,20 @@ export interface AddCallbackParametersCustom {
   //   by character.
   [ModCallbackCustom.POST_ESAU_JR]: [callback: (player: EntityPlayer) => void];
 
+  [ModCallbackCustom.POST_FAMILIAR_INIT_FILTER]: [
+    callback: (familiar: EntityFamiliar) => void,
+    familiarVariant?: FamiliarVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_FAMILIAR_INIT_LATE]: [
     callback: (familiar: EntityFamiliar) => void,
+    familiarVariant?: FamiliarVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_FAMILIAR_RENDER_FILTER]: [
+    callback: (familiar: EntityFamiliar, renderOffset: Vector) => void,
     familiarVariant?: FamiliarVariant,
     subType?: int,
   ];
@@ -199,6 +211,12 @@ export interface AddCallbackParametersCustom {
       previousState: int,
       currentState: int,
     ) => void,
+    familiarVariant?: FamiliarVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_FAMILIAR_UPDATE_FILTER]: [
+    callback: (familiar: EntityFamiliar) => void,
     familiarVariant?: FamiliarVariant,
     subType?: int,
   ];
@@ -787,6 +805,16 @@ export interface AddCallbackParametersCustom {
     ) => [EntityType, int, int, int] | undefined,
     entityType?: EntityType,
     variant?: int,
+    subtype?: int,
+  ];
+
+  [ModCallbackCustom.PRE_FAMILIAR_COLLISION_FILTER]: [
+    callback: (
+      familiar: EntityFamiliar,
+      collider: Entity,
+      low: boolean,
+    ) => boolean | undefined,
+    familiarVariant?: FamiliarVariant,
     subtype?: int,
   ];
 

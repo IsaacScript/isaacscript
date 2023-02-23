@@ -160,6 +160,8 @@ export function shouldFireEntity(
 export function shouldFireFamiliar(
   fireArgs:
     | [familiar: EntityFamiliar]
+    | [familiar: EntityFamiliar, renderOffset: Vector]
+    | [familiar: EntityFamiliar, collider: Entity, low: boolean]
     | [familiar: EntityFamiliar, previousState: int, currentState: int],
   optionalArgs: [familiarVariant?: FamiliarVariant, subType?: int],
 ): boolean {

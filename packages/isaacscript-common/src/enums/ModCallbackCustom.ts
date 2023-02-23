@@ -361,6 +361,22 @@ export enum ModCallbackCustom {
   POST_ESAU_JR,
 
   /**
+   * The exact same thing as the vanilla `POST_FAMILIAR_INIT` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postFamiliarInitFilter(familiar: EntityFamiliar): void {}
+   * ```
+   */
+  POST_FAMILIAR_INIT_FILTER,
+
+  /**
    * Fires on the first `FAMILIAR_UPDATE` frame for each familiar.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -377,6 +393,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_FAMILIAR_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_FAMILIAR_RENDER` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postFamiliarRenderFilter(familiar: EntityFamiliar, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_FAMILIAR_RENDER_FILTER,
 
   /**
    * Fires from the `POST_FAMILIAR_UPDATE` callback when a familiar's state has changed from what it
@@ -398,6 +430,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_FAMILIAR_STATE_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_FAMILIAR_UPDATE` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postFamiliarUpdateFilter(familiar: EntityFamiliar): void {}
+   * ```
+   */
+  POST_FAMILIAR_UPDATE_FILTER,
 
   /**
    * Fires one `POST_UPDATE` frame after the player has first used the Esau Jr. item. (The player is
@@ -2009,6 +2057,26 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_ENTITY_SPAWN_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_FAMILIAR_COLLISION` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preFamiliarCollisionFilter(
+   *   familiar: EntityFamiliar,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_FAMILIAR_COLLISION_FILTER,
 
   /**
    * Fires from the `PRE_PICKUP_COLLISION` callback when a player touches a collectible pedestal and
