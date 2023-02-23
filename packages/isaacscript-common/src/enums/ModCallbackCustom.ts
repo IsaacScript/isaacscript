@@ -1779,6 +1779,22 @@ export enum ModCallbackCustom {
   POST_PRESSURE_PLATE_UPDATE,
 
   /**
+   * The exact same thing as the vanilla `POST_PROJECTILE_INIT` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileInitFilter(tear: EntityTear): void {}
+   * ```
+   */
+  POST_PROJECTILE_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_PROJECTILE_UPDATE` frame for each projectile.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -1795,6 +1811,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_PROJECTILE_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_PROJECTILE_RENDER` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileRenderFilter(tear: EntityTear, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_PROJECTILE_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_PROJECTILE_INIT` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileUpdateFilter(tear: EntityTear): void {}
+   * ```
+   */
+  POST_PROJECTILE_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player first picks up a new
@@ -2386,6 +2434,26 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_NPC_UPDATE_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_PROJECTILE_COLLISION` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preProjectileCollisionFilter(
+   *   tear: EntityTear,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_PROJECTILE_COLLISION_FILTER,
 
   /**
    * The exact same thing as the vanilla `PRE_ROOM_ENTITY_SPAWN` callback, except this callback

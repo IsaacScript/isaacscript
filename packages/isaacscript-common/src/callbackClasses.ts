@@ -96,7 +96,10 @@ export { PostPoopRender } from "./classes/callbacks/PostPoopRender";
 export { PostPoopUpdate } from "./classes/callbacks/PostPoopUpdate";
 export { PostPressurePlateRender } from "./classes/callbacks/PostPressurePlateRender";
 export { PostPressurePlateUpdate } from "./classes/callbacks/PostPressurePlateUpdate";
+export { PostProjectileInitFilter } from "./classes/callbacks/PostProjectileInitFilter";
 export { PostProjectileInitLate } from "./classes/callbacks/PostProjectileInitLate";
+export { PostProjectileRenderFilter } from "./classes/callbacks/PostProjectileRenderFilter";
+export { PostProjectileUpdateFilter } from "./classes/callbacks/PostProjectileUpdateFilter";
 export { PostPurchase } from "./classes/callbacks/PostPurchase";
 export { PostRockRender } from "./classes/callbacks/PostRockRender";
 export { PostRockUpdate } from "./classes/callbacks/PostRockUpdate";
@@ -129,5 +132,6 @@ export { PreKnifeCollisionFilter } from "./classes/callbacks/PreKnifeCollisionFi
 export { PreNewLevel } from "./classes/callbacks/PreNewLevel";
 export { PreNPCCollisionFilter } from "./classes/callbacks/PreNPCCollisionFilter";
 export { PreNPCUpdateFilter } from "./classes/callbacks/PreNPCUpdateFilter";
+export { PreProjectileCollisionFilter } from "./classes/callbacks/PreProjectileCollisionFilter";
 export { PreRoomEntitySpawnFilter } from "./classes/callbacks/PreRoomEntitySpawnFilter";
 export { PreTearCollisionFilter } from "./classes/callbacks/PreTearCollisionFilter";

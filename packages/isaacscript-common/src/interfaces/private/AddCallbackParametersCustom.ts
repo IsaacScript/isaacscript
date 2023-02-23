@@ -712,9 +712,27 @@ export interface AddCallbackParametersCustom {
     pressurePlateVariant?: PressurePlateVariant,
   ];
 
+  [ModCallbackCustom.POST_PROJECTILE_INIT_FILTER]: [
+    callback: (projectile: EntityProjectile) => void,
+    projectileVariant?: ProjectileVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: [
     callback: (projectile: EntityProjectile) => void,
     projectileVariant?: ProjectileVariant,
+  ];
+
+  [ModCallbackCustom.POST_PROJECTILE_UPDATE_FILTER]: [
+    callback: (projectile: EntityProjectile) => void,
+    projectileVariant?: ProjectileVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_PROJECTILE_RENDER_FILTER]: [
+    callback: (projectile: EntityProjectile, renderOffset: Vector) => void,
+    projectileVariant?: ProjectileVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom.POST_PURCHASE]: [
@@ -946,6 +964,16 @@ export interface AddCallbackParametersCustom {
     entityType?: EntityType,
     variant?: int,
     subType?: int,
+  ];
+
+  [ModCallbackCustom.PRE_PROJECTILE_COLLISION_FILTER]: [
+    callback: (
+      projectile: EntityProjectile,
+      collider: Entity,
+      low: boolean,
+    ) => boolean | undefined,
+    projectileVariant?: ProjectileVariant,
+    subtype?: int,
   ];
 
   [ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER]: [

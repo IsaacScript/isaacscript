@@ -1,5 +1,4 @@
 - filter callbacks:
-  - projectile
   - bomb
 - socket abstraction in isaacscript-common
 

@@ -113,7 +113,12 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_POOP_UPDATE]: cc.PostPoopUpdate,
   [ModCallbackCustom.POST_PRESSURE_PLATE_RENDER]: cc.PostPressurePlateRender,
   [ModCallbackCustom.POST_PRESSURE_PLATE_UPDATE]: cc.PostPressurePlateUpdate,
+  [ModCallbackCustom.POST_PROJECTILE_INIT_FILTER]: cc.PostProjectileInitFilter,
   [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: cc.PostProjectileInitLate,
+  [ModCallbackCustom.POST_PROJECTILE_RENDER_FILTER]:
+    cc.PostProjectileRenderFilter,
+  [ModCallbackCustom.POST_PROJECTILE_UPDATE_FILTER]:
+    cc.PostProjectileUpdateFilter,
   [ModCallbackCustom.POST_PURCHASE]: cc.PostPurchase,
   [ModCallbackCustom.POST_ROCK_RENDER]: cc.PostRockRender,
   [ModCallbackCustom.POST_ROCK_UPDATE]: cc.PostRockUpdate,
@@ -147,6 +152,8 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.PRE_NEW_LEVEL]: cc.PreNewLevel,
   [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: cc.PreNPCCollisionFilter,
   [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: cc.PreNPCUpdateFilter,
+  [ModCallbackCustom.PRE_PROJECTILE_COLLISION_FILTER]:
+    cc.PreProjectileCollisionFilter,
   [ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER]: cc.PreRoomEntitySpawnFilter,
   [ModCallbackCustom.PRE_TEAR_COLLISION_FILTER]: cc.PreTearCollisionFilter,
 } as const satisfies Record<ModCallbackCustom, AnyClass>;
