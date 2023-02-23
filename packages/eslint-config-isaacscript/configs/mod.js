@@ -144,6 +144,16 @@ module.exports = {
 
     /**
      * Documentation:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/require-v-registration.md
+     *
+     * Not defined in the parent configs.
+     *
+     * We must explicitly enable this rule, since it should only apply to IsaacScript mods.
+     */
+    "isaacscript/require-v-registration": "warn",
+
+    /**
+     * Documentation:
      * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
      *
      * Defined in "base.js".
