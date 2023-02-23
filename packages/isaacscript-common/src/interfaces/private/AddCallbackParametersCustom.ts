@@ -407,10 +407,12 @@ export interface AddCallbackParametersCustom {
 
   [ModCallbackCustom.POST_NEW_ROOM_EARLY]: [
     callback: (roomType: RoomType) => void,
+    roomType?: RoomType,
   ];
 
   [ModCallbackCustom.POST_NEW_ROOM_REORDERED]: [
     callback: (roomType: RoomType) => void,
+    roomType?: RoomType,
   ];
 
   [ModCallbackCustom.POST_NPC_DEATH_FILTER]: [
