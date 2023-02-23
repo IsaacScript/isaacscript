@@ -1,6 +1,6 @@
 import { ChampionColor } from "../../enums/ChampionColor";
 import { EntityType } from "../../enums/EntityType";
-import { NpcState } from "../../enums/NPCState";
+import { NPCState } from "../../enums/NPCState";
 import { ProjectilesMode } from "../../enums/ProjectilesMode";
 import { SoundEffect } from "../../enums/SoundEffect";
 
@@ -103,7 +103,7 @@ declare global {
     ProjectileCooldown: int;
     ProjectileDelay: int;
     Scale: float;
-    State: NpcState;
+    State: NPCState;
 
     StateFrame: int;
     V1: Vector;
