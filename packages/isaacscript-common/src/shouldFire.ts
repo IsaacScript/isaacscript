@@ -122,6 +122,7 @@ export function shouldFireDoor(
 export function shouldFireEffect(
   fireArgs:
     | [effect: EntityEffect]
+    | [effect: EntityEffect, renderOffset: Vector]
     | [effect: EntityEffect, previousState: int, currentState: int],
   optionalArgs: [effectVariant?: EffectVariant, subType?: int],
 ): boolean {

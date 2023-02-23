@@ -42,6 +42,13 @@ This page lists the changes to the IsaacScript framework.
   - `TIME_GAME_OPENED`
 - Added the following custom callbacks:
   - `POST_ENTITY_KILL_FILTER`
+  - `POST_FAMILIAR_INIT_FILTER`
+  - `POST_FAMILIAR_UPDATE_FILTER`
+  - `POST_FAMILIAR_RENDER_FILTER`
+  - `PRE_FAMILIAR_COLLISION_FILTER`
+  - `POST_EFFECT_INIT_FILTER`
+  - `POST_EFFECT_UPDATE_FILTER`
+  - `POST_EFFECT_RENDER_FILTER`
 - Changed the following custom callbacks:
   - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
   - `POST_NEW_ROOM_EARLY` - Provides `roomType` as the first argument. Can now filter by `RoomType`.

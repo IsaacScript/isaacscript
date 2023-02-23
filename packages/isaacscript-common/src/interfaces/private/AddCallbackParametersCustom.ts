@@ -158,8 +158,20 @@ export interface AddCallbackParametersCustom {
     doorVariant?: DoorVariant,
   ];
 
+  [ModCallbackCustom.POST_EFFECT_INIT_FILTER]: [
+    callback: (effect: EntityEffect) => void,
+    effectVariant?: EffectVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_EFFECT_INIT_LATE]: [
     callback: (effect: EntityEffect) => void,
+    effectVariant?: EffectVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_EFFECT_RENDER_FILTER]: [
+    callback: (effect: EntityEffect, renderOffset: Vector) => void,
     effectVariant?: EffectVariant,
     subType?: int,
   ];
@@ -170,6 +182,12 @@ export interface AddCallbackParametersCustom {
       previousState: int,
       currentState: int,
     ) => void,
+    effectVariant?: EffectVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_EFFECT_UPDATE_FILTER]: [
+    callback: (effect: EntityEffect) => void,
     effectVariant?: EffectVariant,
     subType?: int,
   ];
