@@ -965,6 +965,22 @@ export enum ModCallbackCustom {
   POST_KEYBOARD_CHANGED,
 
   /**
+   * The exact same thing as the vanilla `POST_KNIFE_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postKnifeInitFilter(knife: EntityKnife): void {}
+   * ```
+   */
+  POST_KNIFE_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_KNIFE_UPDATE` frame for each knife.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -981,6 +997,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_KNIFE_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_KNIFE_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postKnifeRenderFilter(knife: EntityKnife, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_KNIFE_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_KNIFE_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postKnifeUpdateFilter(knife: EntityKnife): void {}
+   * ```
+   */
+  POST_KNIFE_UPDATE_FILTER,
 
   /**
    * The exact same thing as the vanilla `POST_LASER_INIT` callback, except this callback allows you
@@ -2215,6 +2263,26 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_ITEM_PICKUP,
+
+  /**
+   * The exact same thing as the vanilla `PRE_KNIFE_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preKnifeCollisionFilter(
+   *   knife: EntityKnife,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_KNIFE_COLLISION_FILTER,
 
   /**
    * Fires on the `POST_RENDER` frame before the player is taken to a new floor. Only fires when a

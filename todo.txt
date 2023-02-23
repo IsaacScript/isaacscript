@@ -2,7 +2,6 @@
   - tear
   - projectile
   - bomb
-  - knife
 - socket abstraction in isaacscript-common
 
 ----------------------------------------------------------------------------------------------------

@@ -231,7 +231,10 @@ export function shouldFireItemPickup(
 }
 
 export function shouldFireKnife(
-  fireArgs: [knife: EntityKnife],
+  fireArgs:
+    | [knife: EntityKnife]
+    | [knife: EntityKnife, renderOffset: Vector]
+    | [knife: EntityKnife, collider: Entity, low: boolean],
   optionalArgs: [knifeVariant?: KnifeVariant, subType?: int],
 ): boolean {
   const [knife] = fireArgs;

@@ -53,7 +53,10 @@ export { PostHolyMantleRemoved } from "./classes/callbacks/PostHolyMantleRemoved
 export { PostItemDischarge } from "./classes/callbacks/PostItemDischarge";
 export { PostItemPickup } from "./classes/callbacks/PostItemPickup";
 export { PostKeyboardChanged as PostKeyboardPressed } from "./classes/callbacks/PostKeyboardChanged";
+export { PostKnifeInitFilter } from "./classes/callbacks/PostKnifeInitFilter";
 export { PostKnifeInitLate } from "./classes/callbacks/PostKnifeInitLate";
+export { PostKnifeRenderFilter } from "./classes/callbacks/PostKnifeRenderFilter";
+export { PostKnifeUpdateFilter } from "./classes/callbacks/PostKnifeUpdateFilter";
 export { PostLaserInitFilter } from "./classes/callbacks/PostLaserInitFilter";
 export { PostLaserInitLate } from "./classes/callbacks/PostLaserInitLate";
 export { PostLaserRenderFilter } from "./classes/callbacks/PostLaserRenderFilter";
@@ -119,6 +122,7 @@ export { PreEntitySpawnFilter } from "./classes/callbacks/PreEntitySpawnFilter";
 export { PreFamiliarCollisionFilter } from "./classes/callbacks/PreFamiliarCollisionFilter";
 export { PreGetPedestal } from "./classes/callbacks/PreGetPedestal";
 export { PreItemPickup } from "./classes/callbacks/PreItemPickup";
+export { PreKnifeCollisionFilter } from "./classes/callbacks/PreKnifeCollisionFilter";
 export { PreNewLevel } from "./classes/callbacks/PreNewLevel";
 export { PreNPCCollisionFilter } from "./classes/callbacks/PreNPCCollisionFilter";
 export { PreNPCUpdateFilter } from "./classes/callbacks/PreNPCUpdateFilter";

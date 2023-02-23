@@ -423,7 +423,25 @@ export interface AddCallbackParametersCustom {
     pressed?: boolean,
   ];
 
+  [ModCallbackCustom.POST_KNIFE_INIT_FILTER]: [
+    callback: (knife: EntityKnife) => void,
+    knifeVariant?: KnifeVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_KNIFE_INIT_LATE]: [
+    callback: (knife: EntityKnife) => void,
+    knifeVariant?: KnifeVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_KNIFE_RENDER_FILTER]: [
+    callback: (knife: EntityKnife, renderOffset: Vector) => void,
+    knifeVariant?: KnifeVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_KNIFE_UPDATE_FILTER]: [
     callback: (knife: EntityKnife) => void,
     knifeVariant?: KnifeVariant,
     subType?: int,
@@ -881,6 +899,16 @@ export interface AddCallbackParametersCustom {
         itemType: ItemType.TRINKET,
         trinketType?: TrinketType,
       ];
+
+  [ModCallbackCustom.PRE_KNIFE_COLLISION_FILTER]: [
+    callback: (
+      knife: EntityKnife,
+      collider: Entity,
+      low: boolean,
+    ) => boolean | undefined,
+    knifeVariant?: KnifeVariant,
+    subtype?: int,
+  ];
 
   [ModCallbackCustom.PRE_NEW_LEVEL]: [callback: (player: EntityPlayer) => void];
 
