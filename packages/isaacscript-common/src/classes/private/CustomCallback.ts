@@ -42,6 +42,10 @@ export abstract class CustomCallback<
       optionalArgs,
     };
     this.subscriptions.push(subscription);
+
+    // Sort the subscriptions by priority so that the callbacks with the lowest priority are first.
+    // By default, the `Array.sort` method is transpiled to using Lua's sort, which is not stable.
+    // We need to do a stable sort so that we preserve the subscription order.
     this.subscriptions = stableSort(
       this.subscriptions,
       sortObjectArrayByKey("priority"),
