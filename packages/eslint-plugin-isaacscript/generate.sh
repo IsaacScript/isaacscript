@@ -27,7 +27,7 @@ if [[ $(git rev-parse HEAD) != $(git rev-parse '@{u}') ]]; then
 fi
 
 # Only do Git checks if this script was called with the "check" argument.
-if [[ "${1=}" = "check" ]]; then
+if [[ "${1-}" = "check" ]]; then
   if ! is_git_repo_clean; then
     echo "Error: The current Git repository is not clean."
     exit 1

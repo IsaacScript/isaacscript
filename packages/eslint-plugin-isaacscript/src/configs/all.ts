@@ -36,6 +36,7 @@ export const all = {
     "isaacscript/prefer-postfix-plusplus": "error",
     "isaacscript/require-capital-const-assertions": "error",
     "isaacscript/require-capital-read-only": "error",
+    "isaacscript/require-v-registration": "error",
     "isaacscript/strict-enums": "error",
   },
 };

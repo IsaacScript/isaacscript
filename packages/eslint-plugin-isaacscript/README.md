@@ -65,6 +65,7 @@ Each rule has emojis denoting:
 | [`isaacscript/prefer-postfix-plusplus`](docs/rules/prefer-postfix-plusplus.md)                   | Require "i++" instead of "++i"                                                                        | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/require-capital-const-assertions`](docs/rules/require-capital-const-assertions.md) | Requires const assertions on objects with a capital letter                                            | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/require-capital-read-only`](docs/rules/require-capital-read-only.md)               | Requires maps/sets/arrays with a capital letter to be read-only                                       | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/require-v-registration`](docs/rules/require-v-registration.md)                     | Require variables named "v" to be registered with the save data manager                               |                    |          | :thought_balloon: |
 | [`isaacscript/strict-enums`](docs/rules/strict-enums.md)                                         | Disallows the usage of unsafe enum patterns                                                           | :white_check_mark: |          | :thought_balloon: |
 
 <!-- /RULES_TABLE -->
