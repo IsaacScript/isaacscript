@@ -87,12 +87,15 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_GAME_STARTED (15)
   private postGameStarted = (isContinued: boolean): void => {
+    const level = game.GetLevel();
+    const stage = level.GetStage();
+    const stageType = level.GetStageType();
     const room = game.GetRoom();
     const roomType = room.GetType();
 
     this.recordCurrentStage();
     this.postGameStartedReordered.fire(isContinued);
-    this.postNewLevelReordered.fire();
+    this.postNewLevelReordered.fire(stage, stageType);
     this.postNewRoomReordered.fire(roomType);
     this.postGameStartedReorderedLast.fire(isContinued);
   };
@@ -100,6 +103,9 @@ export class GameReorderedCallbacks extends Feature {
   // ModCallback.POST_NEW_LEVEL (18)
   private postNewLevel = (): void => {
     const gameFrameCount = game.GetFrameCount();
+    const level = game.GetLevel();
+    const stage = level.GetStage();
+    const stageType = level.GetStageType();
     const room = game.GetRoom();
     const roomType = room.GetType();
 
@@ -110,7 +116,7 @@ export class GameReorderedCallbacks extends Feature {
     this.forceNewLevel = false;
 
     this.recordCurrentStage();
-    this.postNewLevelReordered.fire();
+    this.postNewLevelReordered.fire(stage, stageType);
     this.postNewRoomReordered.fire(roomType);
   };
 
@@ -131,7 +137,7 @@ export class GameReorderedCallbacks extends Feature {
         // not trigger the `POST_NEW_LEVEL` callback). Emulate what happens in the `POST_NEW_LEVEL`
         // callback.
         this.recordCurrentStage();
-        this.postNewLevelReordered.fire();
+        this.postNewLevelReordered.fire(stage, stageType);
         this.postNewRoomReordered.fire(roomType);
         return;
       }

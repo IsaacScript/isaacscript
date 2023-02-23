@@ -16,6 +16,7 @@ import {
   Keyboard,
   KnifeVariant,
   LaserVariant,
+  LevelStage,
   PickupVariant,
   PitVariant,
   PlayerForm,
@@ -26,6 +27,7 @@ import {
   ProjectileVariant,
   RoomType,
   SlotVariant,
+  StageType,
   TearVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -397,7 +399,11 @@ export interface AddCallbackParametersCustom {
     subType?: int,
   ];
 
-  [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: [callback: () => void];
+  [ModCallbackCustom.POST_NEW_LEVEL_REORDERED]: [
+    callback: (stage: LevelStage, stageType: StageType) => void,
+    stage?: LevelStage,
+    stageType?: StageType,
+  ];
 
   [ModCallbackCustom.POST_NEW_ROOM_EARLY]: [
     callback: (roomType: RoomType) => void,

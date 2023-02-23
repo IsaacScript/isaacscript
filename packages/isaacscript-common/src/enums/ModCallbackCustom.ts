@@ -910,14 +910,23 @@ export enum ModCallbackCustom {
    *
    * `POST_GAME_STARTED_REORDERED` --> `POST_NEW_LEVEL_REORDERED` --> `POST_NEW_ROOM_REORDERED`
    *
+   * Additionally, this callback will pass the `LevelStage` as the first callback argument and the
+   * `StageType` as the second callback argument.
+   *
    * If some specific cases, mods can change the current level during run initialization (on the 0th
    * frame). However, due to how the callback reordering works, the custom
    * `POST_NEW_LEVEL_REORDERED` callback will never fire on the 0th frame. To get around this, call
    * the `forceNewLevelCallback()` function before changing levels to temporarily force the callback
    * to fire.
    *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LevelStage` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `StageType` provided.
+   *
    * ```ts
-   * function postNewLevelReordered(): void {}
+   * function postNewLevelReordered(stage: LevelStage, stageType: StageType): void {}
    * ```
    */
   POST_NEW_LEVEL_REORDERED,

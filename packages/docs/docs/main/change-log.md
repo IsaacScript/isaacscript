@@ -44,6 +44,9 @@ This page lists the changes to the IsaacScript framework.
   - `POST_ENTITY_KILL_FILTER`
 - Changed the following custom callbacks:
   - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
+  - `POST_NEW_ROOM_EARLY` - Provides `roomType` as the first argument. Can now filter by `RoomType`.
+  - `POST_NEW_ROOM_REORDERED` - Provides `roomType` as the first argument. Can now filter by `RoomType`.
+  - `POST_NEW_LEVEL_REORDERED` - Provides `stage` as the first argument and `stageType` as the second argument. Can filter by `LevelStage` and `StageType`.
 - Added the following helper types:
   - `Range`
   - `NaturalNumbersLessThan`
