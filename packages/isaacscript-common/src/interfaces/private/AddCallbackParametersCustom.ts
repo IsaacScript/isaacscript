@@ -799,6 +799,12 @@ export interface AddCallbackParametersCustom {
     variant?: int,
   ];
 
+  [ModCallbackCustom.POST_TEAR_INIT_FILTER]: [
+    callback: (tear: EntityTear) => void,
+    tearVariant?: TearVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_TEAR_INIT_LATE]: [
     callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant,
@@ -806,6 +812,18 @@ export interface AddCallbackParametersCustom {
   ];
 
   [ModCallbackCustom.POST_TEAR_INIT_VERY_LATE]: [
+    callback: (tear: EntityTear) => void,
+    tearVariant?: TearVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_TEAR_RENDER_FILTER]: [
+    callback: (tear: EntityTear, renderOffset: Vector) => void,
+    tearVariant?: TearVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_TEAR_UPDATE_FILTER]: [
     callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant,
     subType?: int,
@@ -941,6 +959,16 @@ export interface AddCallbackParametersCustom {
     entityTypeOrGridEntityXMLType?: EntityType | GridEntityXMLType,
     variant?: int,
     subType?: int,
+  ];
+
+  [ModCallbackCustom.PRE_TEAR_COLLISION_FILTER]: [
+    callback: (
+      tear: EntityTear,
+      collider: Entity,
+      low: boolean,
+    ) => boolean | undefined,
+    tearVariant?: TearVariant,
+    subtype?: int,
   ];
 }
 

@@ -127,8 +127,11 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_SLOT_UPDATE]: cc.PostSlotUpdate,
   [ModCallbackCustom.POST_SPIKES_RENDER]: cc.PostSpikesRender,
   [ModCallbackCustom.POST_SPIKES_UPDATE]: cc.PostSpikesUpdate,
+  [ModCallbackCustom.POST_TEAR_INIT_FILTER]: cc.PostTearInitFilter,
   [ModCallbackCustom.POST_TEAR_INIT_LATE]: cc.PostTearInitLate,
   [ModCallbackCustom.POST_TEAR_INIT_VERY_LATE]: cc.PostTearInitVeryLate,
+  [ModCallbackCustom.POST_TEAR_RENDER_FILTER]: cc.PostTearRenderFilter,
+  [ModCallbackCustom.POST_TEAR_UPDATE_FILTER]: cc.PostTearUpdateFilter,
   [ModCallbackCustom.POST_TNT_RENDER]: cc.PostTNTRender,
   [ModCallbackCustom.POST_TNT_UPDATE]: cc.PostTNTUpdate,
   [ModCallbackCustom.POST_TRANSFORMATION]: cc.PostTransformation,
@@ -145,6 +148,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.PRE_NPC_COLLISION_FILTER]: cc.PreNPCCollisionFilter,
   [ModCallbackCustom.PRE_NPC_UPDATE_FILTER]: cc.PreNPCUpdateFilter,
   [ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER]: cc.PreRoomEntitySpawnFilter,
+  [ModCallbackCustom.PRE_TEAR_COLLISION_FILTER]: cc.PreTearCollisionFilter,
 } as const satisfies Record<ModCallbackCustom, AnyClass>;
 
 export type ModCallbackCustomToClass = {

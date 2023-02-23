@@ -390,7 +390,10 @@ export function shouldFirePressurePlate(
 }
 
 export function shouldFireProjectile(
-  fireArgs: [projectile: EntityProjectile],
+  fireArgs:
+    | [projectile: EntityProjectile]
+    | [projectile: EntityProjectile, renderOffset: Vector]
+    | [projectile: EntityProjectile, collider: Entity, low: boolean],
   optionalArgs: [projectileVariant?: ProjectileVariant, subType?: int],
 ): boolean {
   const [projectile] = fireArgs;
@@ -473,7 +476,10 @@ export function shouldFireTNT(
 }
 
 export function shouldFireTear(
-  fireArgs: [tear: EntityTear],
+  fireArgs:
+    | [tear: EntityTear]
+    | [tear: EntityTear, renderOffset: Vector]
+    | [tear: EntityTear, collider: Entity, low: boolean],
   optionalArgs: [tearVariant?: TearVariant, subType?: int],
 ): boolean {
   const [tear] = fireArgs;

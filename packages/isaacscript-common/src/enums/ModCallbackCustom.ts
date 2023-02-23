@@ -2041,6 +2041,22 @@ export enum ModCallbackCustom {
   POST_SPIKES_UPDATE,
 
   /**
+   * The exact same thing as the vanilla `POST_TEAR_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearInitFilter(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_TEAR_UPDATE` frame for each tear (which is when
    * `EntityTear.FrameCount` is equal to 0).
    *
@@ -2076,6 +2092,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_TEAR_INIT_VERY_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_TEAR_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearRenderFilter(tear: EntityTear, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_TEAR_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_TEAR_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearUpdateFilter(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_RENDER` callback on every frame that a TNT exists.
@@ -2362,4 +2410,24 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_ROOM_ENTITY_SPAWN_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_TEAR_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preTearCollisionFilter(
+   *   tear: EntityTear,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_TEAR_COLLISION_FILTER,
 }
