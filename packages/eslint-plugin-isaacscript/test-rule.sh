@@ -8,7 +8,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-RULE_NAME="require-capital-read-only"
+# Hard code a rule name temporarily.
+RULE_NAME=""
+
+if [[ -n ${1-} ]]; then
+  RULE_NAME="$1"
+fi
 
 echo "Running all tests for rule: $RULE_NAME"
 npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" # --reporters jest-summarizing-reporter
