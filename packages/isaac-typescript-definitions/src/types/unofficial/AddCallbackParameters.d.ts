@@ -388,19 +388,19 @@ declare global {
     // 50
     [ModCallback.POST_KNIFE_INIT]: [
       callback: (knife: EntityKnife) => void,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 51
     [ModCallback.POST_KNIFE_UPDATE]: [
       callback: (knife: EntityKnife) => void,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 52
     [ModCallback.POST_KNIFE_RENDER]: [
       callback: (knife: EntityKnife, renderOffset: Vector) => void,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 53
@@ -410,7 +410,7 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | undefined,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 54

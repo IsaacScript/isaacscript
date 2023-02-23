@@ -678,7 +678,8 @@ export enum ModCallback {
    *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function postKnifeInit(knife: EntityKnife): void {}
@@ -689,7 +690,8 @@ export enum ModCallback {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function postKnifeUpdate(knife: EntityKnife): void {}
@@ -700,7 +702,8 @@ export enum ModCallback {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function postKnifeRender(knife: EntityKnife, renderOffset: Vector): void {}
@@ -711,7 +714,8 @@ export enum ModCallback {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function preKnifeCollision(
