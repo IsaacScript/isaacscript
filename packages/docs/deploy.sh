@@ -14,6 +14,14 @@ function is_git_repo_clean() {
   return 1
 }
 
+function is_git_repo_latest_commit() {
+  git fetch
+  if [[ "$(git rev-parse HEAD)" == "$(git rev-parse '@{u}')" ]]; then
+    return 0
+  fi
+  return 1
+}
+
 DOCS_REPO_NAME="isaacscript.github.io"
 GITHUB_PAGES_URL="https://$DOCS_REPO_NAME/isaacscript-common/core/constants/index.html"
 SECONDS_TO_SLEEP="10"
@@ -49,8 +57,7 @@ fi
 # the CI on that commit to finish.)
 # https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 cd "$REPO_ROOT"
-git fetch
-if [[ "$(git rev-parse HEAD)" != "$(git rev-parse '@{u}')" ]]; then
+if ! is_git_repo_latest_commit; then
   echo "A more recent commit was found in the repository; skipping website deployment."
   exit 0
 fi
@@ -68,8 +75,15 @@ git add --all
 git commit --message "deploy" --amend
 git push --force-with-lease
 
+cd "$REPO_ROOT"
+
 # Wait for the website to be be live (which usually takes around 5 minutes).
 while true; do
+  if ! is_git_repo_latest_commit; then
+    echo "A more recent commit was found in the repository; skipping website scraping."
+    exit 0
+  fi
+
   if curl "$GITHUB_PAGES_URL" --silent | grep "$SHORT_COMMIT_SHA1" > /dev/null; then
     echo "Found a link on \"$GITHUB_PAGES_URL\" matching the short commit of: $SHORT_COMMIT_SHA1"
     break
@@ -78,14 +92,5 @@ while true; do
   echo "The latest version of the site ($SHORT_COMMIT_SHA1) has not yet been deployed to GitHub Pages. Sleeping for $SECONDS_TO_SLEEP seconds."
   sleep $SECONDS_TO_SLEEP
 done
-
-# Check again that the repository is the latest version.
-cd "$REPO_ROOT"
-git fetch
-if [[ $(git rev-parse HEAD) != $(git rev-parse '@{u}') ]]; then
-  echo "A more recent commit was found in the repository; skipping website scraping."
-  exit 0
-fi
-cd "$DOCS_REPO"
 
 echo "SHOULD_SCRAPE=1" >> "$GITHUB_OUTPUT"
