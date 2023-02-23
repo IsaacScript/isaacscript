@@ -75,6 +75,8 @@ This page lists the changes to the IsaacScript framework.
   - `Decrement`
 - Added the following custom commands:
   - `flies` (to get max blue flies)
+- Added the following lint rules for IsaacScript mods:
+  - `require-v-registration` - Checks for `v` constants that are not registered with the save data manager.
 - Disabled the following lint rules for IsaacScript mods:
   - `class-methods-use-this` (since it is idiomatic to have `v` outside of the class)
 
