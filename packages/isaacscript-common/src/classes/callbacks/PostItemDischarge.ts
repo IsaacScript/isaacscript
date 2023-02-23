@@ -110,7 +110,7 @@ export class PostItemDischarge extends CustomCallback<T> {
    * charge on the previous frame. Thus, when a Bulb zaps a player and drains their charge, this
    * will be a false position, so Bulbs have to be handled.
    *
-   * When Bulbs zap a player, they go to `NpcState.STATE_JUMP` for a frame. However, this only
+   * When Bulbs zap a player, they go to `NPCState.STATE_JUMP` for a frame. However, this only
    * happens on the frame after the player is discharged, which is too late to be of any use.
    *
    * Instead, we track the frames that Bulbs collide with players and assume that a collision means
