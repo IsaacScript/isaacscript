@@ -340,6 +340,17 @@ export function onStageWithNaturalDevilRoom(): boolean {
 }
 
 /**
+ * After defeating the boss on most stages, a random collectible will spawn from the Boss Room pool.
+ * However, this does not happen on Depths 2, Womb 2, and beyond.
+ */
+export function onStageWithRandomBossCollectible(): boolean {
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+
+  return stage !== LevelStage.DEPTHS_2 && stage < LevelStage.WOMB_2;
+}
+
+/**
  * Helper function to check if the current stage will spawn a locked door to Downpour/Dross after
  * defeating the boss.
  */
@@ -378,6 +389,25 @@ export function onStageWithSecretExitToMines(): boolean {
     (stage === LevelStage.CAVES_1 && !repentanceStage) ||
     (stage === LevelStage.BASEMENT_2 && repentanceStage)
   );
+}
+
+/**
+ * Helper function to check if the current stage is one that would create a trapdoor if We Need to
+ * Go Deeper was used.
+ */
+export function onStageWithShovelWorking(): boolean {
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+
+  if (stage < LevelStage.WOMB_2) {
+    return true;
+  }
+
+  if (stage === LevelStage.WOMB_2) {
+    return !onRepentanceStage();
+  }
+
+  return false;
 }
 
 /**

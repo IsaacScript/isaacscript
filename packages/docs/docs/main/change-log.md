@@ -33,6 +33,8 @@ This page lists the changes to the IsaacScript framework.
   - `onStageWithSecretExitToDownpour`
   - `onStageWithSecretExitToMines`
   - `onStageWithSecretExitToMausoleum`
+  - `onStageWithShovelWorking`
+  - `onStageWithRandomBossCollectible`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`
