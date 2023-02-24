@@ -289,6 +289,17 @@ export function onSheol(): boolean {
 }
 
 /**
+ * Helper function to check if the current room matches one of the given room types.
+ *
+ * This function is variadic, which means you can pass as many room types as you want to match for.
+ */
+export function onStage(...stages: LevelStage[]): boolean {
+  const level = game.GetLevel();
+  const thisStage = level.GetStage();
+  return stages.some((stage) => stage === thisStage);
+}
+
+/**
  * Helper function to check if the current stage is one that has the possibility to grant a natural
  * Devil Room or Angel Room after killing the boss.
  */
