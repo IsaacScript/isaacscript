@@ -11,7 +11,10 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_AMBUSH_FINISHED]: cc.PostAmbushFinished,
   [ModCallbackCustom.POST_AMBUSH_STARTED]: cc.PostAmbushStarted,
   [ModCallbackCustom.POST_BOMB_EXPLODED]: cc.PostBombExploded,
+  [ModCallbackCustom.POST_BOMB_INIT_FILTER]: cc.PostBombInitFilter,
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: cc.PostBombInitLate,
+  [ModCallbackCustom.POST_BOMB_RENDER_FILTER]: cc.PostBombRenderFilter,
+  [ModCallbackCustom.POST_BOMB_UPDATE_FILTER]: cc.PostBombUpdateFilter,
   [ModCallbackCustom.POST_BONE_SWING]: cc.PostBoneSwing,
   [ModCallbackCustom.POST_COLLECTIBLE_EMPTY]: cc.PostCollectibleEmpty,
   [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: cc.PostCollectibleInitFirst,
@@ -142,6 +145,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_TRANSFORMATION]: cc.PostTransformation,
   [ModCallbackCustom.POST_TRINKET_BREAK]: cc.PostTrinketBreak,
   [ModCallbackCustom.PRE_BERSERK_DEATH]: cc.PreBerserkDeath,
+  [ModCallbackCustom.PRE_BOMB_COLLISION_FILTER]: cc.PreBombCollisionFilter,
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: cc.PreCustomRevive,
   [ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER]: cc.PreEntitySpawnFilter,
   [ModCallbackCustom.PRE_FAMILIAR_COLLISION_FILTER]:

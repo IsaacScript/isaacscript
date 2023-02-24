@@ -108,7 +108,25 @@ export interface AddCallbackParametersCustom {
     subType?: int,
   ];
 
+  [ModCallbackCustom.POST_BOMB_INIT_FILTER]: [
+    callback: (bomb: EntityBomb) => void,
+    bombVariant?: BombVariant,
+    subType?: int,
+  ];
+
   [ModCallbackCustom.POST_BOMB_INIT_LATE]: [
+    callback: (bomb: EntityBomb) => void,
+    bombVariant?: BombVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_BOMB_RENDER_FILTER]: [
+    callback: (bomb: EntityBomb, renderOffset: Vector) => void,
+    bombVariant?: BombVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_BOMB_UPDATE_FILTER]: [
     callback: (bomb: EntityBomb) => void,
     bombVariant?: BombVariant,
     subType?: int,
@@ -875,6 +893,16 @@ export interface AddCallbackParametersCustom {
     callback: (player: EntityPlayer) => void,
     playerVariant?: PlayerVariant,
     character?: PlayerType,
+  ];
+
+  [ModCallbackCustom.PRE_BOMB_COLLISION_FILTER]: [
+    callback: (
+      bomb: EntityBomb,
+      collider: Entity,
+      low: boolean,
+    ) => boolean | undefined,
+    bombVariant?: BombVariant,
+    subtype?: int,
   ];
 
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: [

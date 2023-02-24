@@ -153,6 +153,22 @@ export enum ModCallbackCustom {
   POST_BOMB_EXPLODED,
 
   /**
+   * The exact same thing as the vanilla `POST_BOMB_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postBombInitFilter(bomb: EntityBomb): void {}
+   * ```
+   */
+  POST_BOMB_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_BOMB_UPDATE` frame for each bomb.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -169,6 +185,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_BOMB_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_BOMB_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postBombRenderFilter(bomb: EntityBomb, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_BOMB_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_BOMB_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postBombUpdateFilter(bomb: EntityBomb): void {}
+   * ```
+   */
+  POST_BOMB_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_RENDER` callback when one of Forgotten's bone clubs is swung or thrown.
@@ -2251,6 +2299,26 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_BERSERK_DEATH,
+
+  /**
+   * The exact same thing as the vanilla `PRE_BOMB_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preBombCollisionFilter(
+   *   bomb: EntityBomb,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_BOMB_COLLISION_FILTER,
 
   /**
    * Fires from the `POST_PLAYER_FATAL_DAMAGE` callback when a player is about to die. If you want

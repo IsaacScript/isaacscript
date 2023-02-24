@@ -58,7 +58,10 @@ export function shouldFireAmbush(
 }
 
 export function shouldFireBomb(
-  fireArgs: [bomb: EntityBomb],
+  fireArgs:
+    | [bomb: EntityBomb]
+    | [bomb: EntityBomb, renderOffset: Vector]
+    | [bomb: EntityBomb, collider: Entity, low: boolean],
   optionalArgs: [bombVariant?: BombVariant, subType?: int],
 ): boolean {
   const [bomb] = fireArgs;

@@ -77,6 +77,10 @@ This page lists the changes to the IsaacScript framework.
   - `POST_PROJECTILE_UPDATE_FILTER`
   - `POST_PROJECTILE_RENDER_FILTER`
   - `PRE_PROJECTILE_COLLISION_FILTER`
+  - `POST_BOMB_INIT_FILTER`
+  - `POST_BOMB_UPDATE_FILTER`
+  - `POST_BOMB_RENDER_FILTER`
+  - `PRE_BOMB_COLLISION_FILTER`
 - Changed the following custom callbacks:
   - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
   - `POST_NEW_ROOM_EARLY` - Provides `roomType` as the first argument. Can now filter by `RoomType`.
