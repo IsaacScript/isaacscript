@@ -201,7 +201,7 @@ export class PersistentEntities extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.PERSISTENT_ENTITIES`.
    *
-   * @returns A tuple containing the entity and the persistent entity index. You can use the index
+   * @returns An object containing the entity and the persistent entity index. You can use the index
    *          with the `removePersistentEntity` function.
    */
   @Exported
@@ -210,7 +210,7 @@ export class PersistentEntities extends Feature {
     variant: int,
     subType: int,
     position: Vector,
-  ): [Entity, int] {
+  ): { entity: Entity; persistentIndex: int } {
     v.run.persistentEntityIndexCounter++;
 
     const entity = this.spawnAndTrack(
@@ -221,6 +221,6 @@ export class PersistentEntities extends Feature {
       v.run.persistentEntityIndexCounter,
     );
 
-    return [entity, v.run.persistentEntityIndexCounter];
+    return { entity, persistentIndex: v.run.persistentEntityIndexCounter };
   }
 }

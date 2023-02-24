@@ -9,7 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## February 24th, 2023 (Unreleased)
+## March 3rd, 2023
+
+- Changed the following helper functions:
+  - `spawnPersistentEntity` - Now returns an object instead of a tuple.
+
+## February 24th, 2023
 
 - Added the following helper functions:
   - `removeCollectible`
