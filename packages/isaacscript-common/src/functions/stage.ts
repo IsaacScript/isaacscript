@@ -399,15 +399,10 @@ export function onStageWithShovelWorking(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
 
-  if (stage < LevelStage.WOMB_2) {
-    return true;
-  }
-
-  if (stage === LevelStage.WOMB_2) {
-    return !onRepentanceStage();
-  }
-
-  return false;
+  return (
+    stage < LevelStage.WOMB_2 ||
+    (stage === LevelStage.WOMB_2 && !onRepentanceStage())
+  );
 }
 
 /**
