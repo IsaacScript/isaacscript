@@ -149,6 +149,20 @@ export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
   }
 }
 
+/**
+ * Helper function to check for one or more elements in a set at once without having to repeatedly
+ * call the `Set.has` method.
+ *
+ * This function is variadic, meaning that you can pass as many things as you want to check for. It
+ * will return true if one or more elements are found.
+ */
+export function setHas<T>(
+  set: Set<T> | ReadonlySet<T>,
+  ...elements: T[]
+): boolean {
+  return elements.some((element) => set.has(element));
+}
+
 /** Helper function to sum every value in a set together. */
 export function sumSet(set: Set<number> | ReadonlySet<number>): number {
   const values = [...set.values()];
