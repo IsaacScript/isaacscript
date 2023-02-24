@@ -1,4 +1,5 @@
 import {
+  CollectibleType,
   Dimension,
   DisplayFlag,
   ItemPoolType,
@@ -102,6 +103,30 @@ export const LEVEL_GRID_COLUMN_HEIGHT = 13;
  * on.
  */
 export const LEVEL_GRID_ROW_WIDTH = 13;
+
+/**
+ * All of the collectibles that grant vision on the map.
+ *
+ * Note that:
+ * - Book of Shadows is included, which is an "active mapping" instead of passive.
+ * - Spelunker Hat is included. Historically, Spelunker Hat was not considered to be mapping, but it
+ *   was buffed in Repentance to show rooms two or more away.
+ * - Luna is included, even though it is not a very powerful mapping item.
+ * - Cracked Orb is included, even though it requires the player to be damaged in order for it to be
+ *   activated.
+ */
+export const MAPPING_COLLECTIBLES = [
+  CollectibleType.COMPASS, // 21
+  CollectibleType.TREASURE_MAP, // 54
+  CollectibleType.BOOK_OF_SHADOWS, // 58
+  CollectibleType.SPELUNKER_HAT, // 91
+  CollectibleType.CRYSTAL_BALL, // 158
+  CollectibleType.BLUE_MAP, // 246
+  CollectibleType.MIND, // 333
+  CollectibleType.SOL, // 588
+  CollectibleType.LUNA, // 589
+  CollectibleType.CRACKED_ORB, // 675
+] as const;
 
 /**
  * The floor is represented by a 13x13 grid. Room indexes start at 0. The first row is represented

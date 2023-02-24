@@ -52,6 +52,7 @@ This page lists the changes to the IsaacScript framework.
   - `RESOLUTION_FULL_SCREEN`
   - `RESOLUTION_1600_900`
   - `TIME_GAME_OPENED`
+  - `MAPPING_COLLECTIBLES`
 - Added the following custom callbacks:
   - `POST_ENTITY_KILL_FILTER`
   - `POST_FAMILIAR_INIT_FILTER`
