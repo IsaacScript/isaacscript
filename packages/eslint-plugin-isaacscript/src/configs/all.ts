@@ -37,6 +37,7 @@ export const all = {
     "isaacscript/require-capital-const-assertions": "error",
     "isaacscript/require-capital-read-only": "error",
     "isaacscript/require-v-registration": "error",
+    "isaacscript/require-variadic-function-argument": "error",
     "isaacscript/strict-enums": "error",
   },
 };
