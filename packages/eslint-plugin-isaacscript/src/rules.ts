@@ -31,6 +31,7 @@ import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus";
 import { requireCapitalConstAssertions } from "./rules/require-capital-const-assertions";
 import { requireCapitalReadOnly } from "./rules/require-capital-read-only";
 import { requireVRegistration } from "./rules/require-v-registration";
+import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument";
 import { strictEnums } from "./rules/strict-enums";
 
 export const rules = {
@@ -60,5 +61,6 @@ export const rules = {
   "require-capital-const-assertions": requireCapitalConstAssertions,
   "require-capital-read-only": requireCapitalReadOnly,
   "require-v-registration": requireVRegistration,
+  "require-variadic-function-argument": requireVariadicFunctionArgument,
   "strict-enums": strictEnums,
 };

@@ -9,6 +9,14 @@ const v = 123;
 saveDataManager("foo", v);
       `,
     },
+    {
+      code: `
+const v = 123;
+class Foo {
+  v = v;
+}
+      `,
+    },
   ],
 
   invalid: [

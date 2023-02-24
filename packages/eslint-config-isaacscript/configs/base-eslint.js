@@ -112,8 +112,7 @@ module.exports = {
      * Defined at:
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
      *
-     * - We move the selector for "for..of" loops, since they are commonly used.
-     * - We add a selector for "empty" invocations of the "array.push()" method.
+     * - We remove the `ForOfStatement` selector, since they are commonly used.
      */
     "no-restricted-syntax": [
       "warn",
@@ -131,11 +130,6 @@ module.exports = {
         selector: "WithStatement",
         message:
           "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
-      },
-      {
-        selector:
-          "CallExpression[callee.property.name='push'][arguments.length=0]",
-        message: "push must always be called with at least one argument.",
       },
     ],
 
