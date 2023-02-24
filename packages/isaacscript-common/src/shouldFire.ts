@@ -26,6 +26,7 @@ import {
   ItemType,
   KnifeVariant,
   LaserVariant,
+  LevelStage,
   PickupVariant,
   PitVariant,
   PlayerType,
@@ -35,6 +36,7 @@ import {
   ProjectileVariant,
   RoomType,
   SlotVariant,
+  StageType,
   TearVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -258,6 +260,19 @@ export function shouldFireLaser(
     (callbackLaserVariant === undefined ||
       callbackLaserVariant === laser.Variant) &&
     (callbackSubType === undefined || callbackSubType === laser.SubType)
+  );
+}
+
+export function shouldFireLevel(
+  fireArgs: [stage: LevelStage, stageType: StageType],
+  optionalArgs: [stage?: LevelStage, stageType?: StageType],
+): boolean {
+  const [stage, stageType] = fireArgs;
+  const [callbackStage, callbackStageType] = optionalArgs;
+
+  return (
+    (callbackStage === undefined || callbackStage === stage) &&
+    (callbackStageType === undefined || callbackStageType === stageType)
   );
 }
 
