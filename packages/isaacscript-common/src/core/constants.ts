@@ -108,9 +108,9 @@ export const LEVEL_GRID_ROW_WIDTH = 13;
  * All of the collectibles that grant vision on the map.
  *
  * Note that:
- * - Book of Shadows is included, which is an "active mapping" instead of passive.
  * - Spelunker Hat is included. Historically, Spelunker Hat was not considered to be mapping, but it
  *   was buffed in Repentance to show rooms two or more away.
+ * - Book of Secrets is included, which is an "active mapping" instead of passive.
  * - Luna is included, even though it is not a very powerful mapping item.
  * - Cracked Orb is included, even though it requires the player to be damaged in order for it to be
  *   activated.
@@ -118,10 +118,10 @@ export const LEVEL_GRID_ROW_WIDTH = 13;
 export const MAPPING_COLLECTIBLES = [
   CollectibleType.COMPASS, // 21
   CollectibleType.TREASURE_MAP, // 54
-  CollectibleType.BOOK_OF_SHADOWS, // 58
   CollectibleType.SPELUNKER_HAT, // 91
   CollectibleType.CRYSTAL_BALL, // 158
   CollectibleType.BLUE_MAP, // 246
+  CollectibleType.BOOK_OF_SECRETS, // 287
   CollectibleType.MIND, // 333
   CollectibleType.SOL, // 588
   CollectibleType.LUNA, // 589
