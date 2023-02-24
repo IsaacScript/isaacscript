@@ -27,6 +27,12 @@ This page lists the changes to the IsaacScript framework.
   - `stableSort`
   - `hideRoomOnMinimap`
   - `isSecretRoomType`
+  - `onStage`
+  - `onStageType`
+  - `onEffectiveStage`
+  - `onStageWithSecretExitToDownpour`
+  - `onStageWithSecretExitToMines`
+  - `onStageWithSecretExitToMausoleum`
 - Renamed the following helper functions:
   - `playerAddCollectible` --> `addCollectible`
   - `playerHasCollectible` --> `hasCollectible`
@@ -63,6 +69,10 @@ This page lists the changes to the IsaacScript framework.
   - `POST_TEAR_UPDATE_FILTER`
   - `POST_TEAR_RENDER_FILTER`
   - `PRE_TEAR_COLLISION_FILTER`
+  - `POST_PROJECTILE_INIT_FILTER`
+  - `POST_PROJECTILE_UPDATE_FILTER`
+  - `POST_PROJECTILE_RENDER_FILTER`
+  - `PRE_PROJECTILE_COLLISION_FILTER`
 - Changed the following custom callbacks:
   - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
   - `POST_NEW_ROOM_EARLY` - Provides `roomType` as the first argument. Can now filter by `RoomType`.

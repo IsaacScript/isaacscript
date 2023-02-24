@@ -198,6 +198,10 @@ export function isRepentanceStage(stageType: StageType): boolean {
   );
 }
 
+/**
+ * Helper function to check if the player has taken Dad's Note. This sets the game state flag of
+ * `GameStateFlag.BACKWARDS_PATH` and causes floor generation to change.
+ */
 export function onAscent(): boolean {
   return game.GetStateFlag(GameStateFlag.BACKWARDS_PATH);
 }
@@ -231,6 +235,19 @@ export function onDarkRoom(): boolean {
 
   return (
     stage === LevelStage.DARK_ROOM_CHEST && stageType === StageType.ORIGINAL
+  );
+}
+
+/**
+ * Helper function to check if the current room matches one of the given stages. This uses the
+ * `getEffectiveStage` helper function so that the Repentance floors are correctly adjusted.
+ *
+ * This function is variadic, which means you can pass as many stages as you want to match for.
+ */
+export function onEffectiveStage(...effectiveStages: LevelStage[]): boolean {
+  const thisEffectiveStage = getEffectiveStage();
+  return effectiveStages.some(
+    (effectiveStage) => effectiveStage === thisEffectiveStage,
   );
 }
 
@@ -289,14 +306,25 @@ export function onSheol(): boolean {
 }
 
 /**
- * Helper function to check if the current room matches one of the given room types.
+ * Helper function to check if the current room matches one of the given stages.
  *
- * This function is variadic, which means you can pass as many room types as you want to match for.
+ * This function is variadic, which means you can pass as many stages as you want to match for.
  */
 export function onStage(...stages: LevelStage[]): boolean {
   const level = game.GetLevel();
   const thisStage = level.GetStage();
   return stages.some((stage) => stage === thisStage);
+}
+
+/**
+ * Helper function to check if the current room matches one of the given stage types.
+ *
+ * This function is variadic, which means you can pass as many room types as you want to match for.
+ */
+export function onStageType(...stageTypes: StageType[]): boolean {
+  const level = game.GetLevel();
+  const thisStageType = level.GetStageType();
+  return stageTypes.some((stageType) => stageType === thisStageType);
 }
 
 /**
@@ -308,6 +336,47 @@ export function onStageWithNaturalDevilRoom(): boolean {
   return (
     inRange(effectiveStage, LevelStage.BASEMENT_2, LevelStage.WOMB_2) &&
     effectiveStage !== LevelStage.BLUE_WOMB
+  );
+}
+
+/**
+ * Helper function to check if the current stage will spawn a locked door to Downpour/Dross after
+ * defeating the boss.
+ */
+export function onStageWithSecretExitToDownpour(): boolean {
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+
+  return stage === LevelStage.BASEMENT_1 || stage === LevelStage.BASEMENT_2;
+}
+
+/**
+ * Helper function to check if the current stage will spawn a spiked door to Mausoleum/Gehenna after
+ * defeating the boss.
+ */
+export function onStageWithSecretExitToMausoleum(): boolean {
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const repentanceStage = onRepentanceStage();
+
+  return (
+    (stage === LevelStage.DEPTHS_1 && !repentanceStage) ||
+    (stage === LevelStage.CAVES_2 && repentanceStage)
+  );
+}
+
+/**
+ * Helper function to check if the current stage will spawn a wooden door to Mines/Ashpit after
+ * defeating the boss.
+ */
+export function onStageWithSecretExitToMines(): boolean {
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const repentanceStage = onRepentanceStage();
+
+  return (
+    (stage === LevelStage.CAVES_1 && !repentanceStage) ||
+    (stage === LevelStage.BASEMENT_2 && repentanceStage)
   );
 }
 
