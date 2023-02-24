@@ -1,4 +1,9 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  TSESTree,
+} from "@typescript-eslint/utils";
+import ts from "typescript";
 import { createRule } from "../utils";
 
 export type Options = [];
@@ -36,21 +41,12 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
           return;
         }
 
-        const parameters = signature.getParameters();
-
-        if (parameters.length !== 1) {
+        const declaration = signature.getDeclaration();
+        if (!ts.hasRestParameter(declaration)) {
           return;
         }
 
-        const parameter = parameters[0];
-        if (
-          parameter === undefined ||
-          parameter.valueDeclaration === undefined
-        ) {
-          return;
-        }
-
-        if (!("dotDotDotToken" in parameter.valueDeclaration)) {
+        if (isHardCodedException(node)) {
           return;
         }
 
@@ -62,3 +58,20 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
     };
   },
 });
+
+function isHardCodedException(node: TSESTree.CallExpression): boolean {
+  const { callee } = node;
+  if (callee.type !== AST_NODE_TYPES.MemberExpression) {
+    return false;
+  }
+
+  const { object, property } = callee;
+  if (
+    object.type !== AST_NODE_TYPES.Identifier ||
+    property.type !== AST_NODE_TYPES.Identifier
+  ) {
+    return false;
+  }
+
+  return object.name === "console" && property.name === "log";
+}

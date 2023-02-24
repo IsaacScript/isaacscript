@@ -43,6 +43,13 @@ foo();
   errors: [{ messageId: "noArgument" }],
 });
 
+valid.push({
+  name: "Using console.log to print a newline",
+  code: `
+console.log();
+  `,
+});
+
 ruleTester.run(
   "require-variadic-function-argument",
   requireVariadicFunctionArgument,

@@ -13,7 +13,7 @@ array.push(); // Oops!
 
 Here, the author of the code made a typo and forgot to supply the thing to be inserted into the array.
 
-This rule requires that you always pass at least one argument to a variadic function (as long as that function does not have any other arguments).
+This rule requires that you always pass at least one argument to a variadic function.
 
 Note that this function is hard-coded to not throw an error with `console.log`, since it is relatively common to use it with no arguments in order to print a newline.
 
