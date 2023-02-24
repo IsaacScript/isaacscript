@@ -42,6 +42,13 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
         }
 
         const declaration = signature.getDeclaration();
+        // The `getDeclaration` method actually returns `ts.SignatureDeclaration | undefined`, not
+        // `ts.SignatureDeclaration`.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (declaration === undefined) {
+          return;
+        }
+
         if (!ts.hasRestParameter(declaration)) {
           return;
         }
