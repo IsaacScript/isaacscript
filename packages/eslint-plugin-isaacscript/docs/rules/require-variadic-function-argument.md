@@ -13,7 +13,7 @@ myArray.push(); // Oops!
 
 Here, the author of the code made a typo and forgot to supply the thing to be inserted into the array. Thus, the `myArray.push` line is a no-op.
 
-To protect against this class of error, this rule requires that you always pass at least one argument to a variadic function.
+To protect against these kinds of errors, this rule requires that you always pass at least one argument to a variadic function.
 
 ## Hard-Coded Exceptions
 

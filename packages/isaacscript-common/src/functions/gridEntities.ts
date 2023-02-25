@@ -175,6 +175,8 @@ export function getConstituentsFromGridEntityID(
  *   GridEntityType.ROCK_TINTED,
  * );
  * ```
+ *
+ * @allowEmptyVariadic
  */
 export function getGridEntities(
   ...gridEntityTypes: GridEntityType[]
@@ -281,6 +283,8 @@ export function getGridEntitiesInRadius(
  *
  * Use this function with no arguments to get every grid entity, or specify a variadic amount of
  * arguments to match specific grid entity types.
+ *
+ * @allowEmptyVariadic
  */
 export function getGridEntitiesMap(
   ...gridEntityTypes: GridEntityType[]
