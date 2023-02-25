@@ -239,7 +239,8 @@ export function formatText(
       }
     }
 
-    const words = line.split(" ");
+    const words = getWordsFromLine(line);
+
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let j = 0; j < words.length; j++) {
       const word = words[j]!;
@@ -352,4 +353,15 @@ function startsWithExample(text: string): boolean {
 
 function stringContainsOnlyWhitespace(string: string) {
   return string.trim() === "";
+}
+
+/**
+ * For most cases, we can get the words on a line by splitting on a space.
+ *
+ * However, we don't want to split up a fragment like "{@link foo}" between lines, because it breaks
+ * the parsing inside VSCode. Thus, anything matching this pattern should be considered its own
+ * word, even if it has spaces inside of it.
+ */
+function getWordsFromLine(line: string): string[] {
+  return line.match(/(?:\{@link .+?\}|\S)+/g) ?? [];
 }

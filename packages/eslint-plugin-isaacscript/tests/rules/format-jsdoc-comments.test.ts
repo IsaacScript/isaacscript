@@ -655,6 +655,22 @@ valid.push({
   `,
 });
 
+invalid.push({
+  name: "Comment with multiple JSDoc link tag that spills over on a new line",
+  code: `
+/**
+ * Asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd {@link colors}.
+ */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * Asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd
+ * {@link colors}.
+ */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,
