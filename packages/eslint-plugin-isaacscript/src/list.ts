@@ -152,7 +152,7 @@ function getList(line: string): List | undefined {
  * For "@param" tags, the returned tag string will include the variable name, if any. For example,
  * "@param foo Foo" would return "@param foo".
  */
-function getJSDocTagName(text: string) {
+function getJSDocTagName(text: string): string | undefined {
   text = text.trimStart();
 
   if (!text.startsWith("@")) {

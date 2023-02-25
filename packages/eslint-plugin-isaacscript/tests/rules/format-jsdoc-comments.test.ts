@@ -558,6 +558,56 @@ valid.push({
     `,
 });
 
+valid.push({
+  name: "Using a comment with only JSDoc param tags",
+  code: `
+ /**
+  * @param nullItemID
+  * @param addCostume
+  * @param count Default is 1.
+  */
+    `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on one line",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello']
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example
+ * type Foo = 123;
+ * type Bar = 456;
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines and another tag afterwards",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example
+ * type Foo = 123;
+ * type Bar = 456;
+ *
+ * @param Baz This is baz.
+ */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,

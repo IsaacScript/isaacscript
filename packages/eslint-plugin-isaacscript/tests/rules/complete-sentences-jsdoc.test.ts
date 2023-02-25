@@ -492,7 +492,7 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc example",
+  name: "Comment with JSDoc example on one line",
   code: `
 /**
  * Inference helper for inputs.

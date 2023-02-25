@@ -18,14 +18,14 @@ import { hasURL } from "./utils";
  *
  * @param text One or more lines of text, separated by newlines.
  * @param maxLength The ruler cutoff for the formatted text.
- * @param parseJSDocTags Whether or not to make formatting decisions based on the presence of JSDoc
- *                       tags. True by default. Pass false if working with leading line comments or
- *                       other non-JSDoc text.
+ * @param shouldParseJSDocTags Whether or not to make formatting decisions based on the presence of
+ *                             JSDoc tags. True by default. Pass false if working with leading line
+ *                             comments or other non-JSDoc text.
  */
 export function formatText(
   text: string,
   maxLength: number,
-  parseJSDocTags = true,
+  shouldParseJSDocTags = true,
 ): string {
   // First, replace any whitespace that is not a newline or a space with a space (like e.g. tabs).
   text = text.replaceAll(/[^\S\n ]+/g, " ");
@@ -34,6 +34,7 @@ export function formatText(
   let formattedLine = "";
   let insideList: List | undefined;
   let insideCodeBlock = false;
+  let insideExampleTagBlock = false;
   let encounteredJSDocTags = false;
 
   const lines = text.split("\n");
@@ -47,6 +48,17 @@ export function formatText(
     if (hasCodeBlock) {
       insideCodeBlock = !insideCodeBlock;
     }
+
+    let hasExampleTag = false;
+    if (shouldParseJSDocTags) {
+      hasExampleTag = line.includes("@example");
+      if (hasExampleTag) {
+        insideExampleTagBlock = true;
+      } else if (insideExampleTagBlock && line.startsWith("@")) {
+        insideExampleTagBlock = false;
+      }
+    }
+
     const lineHasURL = hasURL(line);
     const hasExample = startsWithExample(line);
     const separatorLine = isSeparatorLine(line);
@@ -91,7 +103,12 @@ export function formatText(
     }
 
     // Handle code blocks. This case is simple because we need to exactly preserve the text.
-    if (hasCodeBlock || previousLineHasCodeBlock || insideCodeBlock) {
+    if (
+      hasCodeBlock ||
+      previousLineHasCodeBlock ||
+      insideCodeBlock ||
+      insideExampleTagBlock
+    ) {
       // Append the partial line that we were building, if any.
       [formattedLine, formattedText] = appendLineToText(
         formattedLine,
@@ -181,7 +198,7 @@ export function formatText(
     // an "description" or "introductory" section at the top, and then a list of JSDoc tags at the
     // bottom.)
     if (
-      parseJSDocTags &&
+      shouldParseJSDocTags &&
       !encounteredJSDocTags &&
       list !== undefined &&
       list.kind === ListKind.JSDocTag
