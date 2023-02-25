@@ -8,7 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
-# Hard code a rule name temporarily.
+# - If you want to hard code a rule name here, you can do that temporarily.
+# - Otherwise, the first argument passed to this script will be used as the rule name.
 RULE_NAME=""
 
 if [[ -n ${1-} ]]; then

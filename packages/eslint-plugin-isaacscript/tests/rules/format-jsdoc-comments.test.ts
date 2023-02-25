@@ -581,7 +581,7 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc example on multiple lines",
+  name: "Comment with JSDoc example on multiple lines and header",
   code: `
 /**
  * Inference helper for inputs.
@@ -589,6 +589,17 @@ valid.push({
  * @example
  * type Foo = 123;
  * type Bar = 456;
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines and no header",
+  code: `
+/**
+ * @example
+ *     // Open the modem on the top of this computer.
+ *     peripheral.call("top", "open", 1);
  */
   `,
 });
@@ -605,6 +616,23 @@ valid.push({
  *
  * @param Baz This is baz.
  */
+  `,
+});
+
+valid.push({
+  name: "Comment with multiple JSDoc example tags",
+  code: `
+/**
+ * Determines if a peripheral is present with the given name.
+ *
+ * @example
+ *     peripheral.isPresent("top");
+ * @example
+ *     peripheral.isPresent("monitor_0");
+ * @param name The side or network name that you want to check.
+ * @returns If a peripheral is present with the given name.
+ */
+declare function isPresent(name: string): boolean;
   `,
 });
 
