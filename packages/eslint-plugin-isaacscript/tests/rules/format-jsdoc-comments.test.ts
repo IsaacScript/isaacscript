@@ -575,7 +575,7 @@ valid.push({
 /**
  * Inference helper for inputs.
  *
- * @example type HelloInput = RouterInputs['example']['hello']
+ * @example type HelloInput = RouterInputs['example']['hello'];
  */
   `,
 });

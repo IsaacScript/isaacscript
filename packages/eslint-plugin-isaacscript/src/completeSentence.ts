@@ -75,6 +75,15 @@ function splitOnSpecialText(text: string): string[] {
   // Remove multi-line code blocks.
   text = text.replace(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
 
+  // Remove example tag blocks. An example tag might be followed by another tag, so first look for
+  // that situation. Then, handle the situation where the example tag is the final tag.
+  text = text.replace(
+    // We use `[\s\S]` instead of `.` because the latter does not match a new line.
+    /@example[\s\S]*?@/gm,
+    `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
+  );
+  text = text.replace(/@example[\s\S]*/gm, "");
+
   // Handle "blocks" indicated by a double newline. We don't want sentences to be parsed/combined
   // past blocks, so we manually insert a sentence separator.
   text = text.replaceAll("\n\n", `\n${SENTENCE_SEPARATOR_IDENTIFIER}\n`);
@@ -93,10 +102,6 @@ function splitOnSpecialText(text: string): string[] {
     // Ignore "@type" JSDoc tags, since they contain a code type instead of English text.
     // https://jsdoc.app/tags-type.html
     line = line.replace(/^\s*@type .+$/, SENTENCE_SEPARATOR_IDENTIFIER);
-
-    // Ignore "@example" JSDoc tags, since they will contain example code instead of English text.
-    // https://jsdoc.app/tags-example.html
-    line = line.replace(/^\s*@example .+$/, SENTENCE_SEPARATOR_IDENTIFIER);
 
     // Remove any JSDoc tags. (But leave the descriptions following the tags, if any.) "@param" tags
     // are followed by variable names, which will not be part of the sentence.

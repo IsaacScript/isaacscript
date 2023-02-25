@@ -168,6 +168,16 @@ In order for the linter to work inside of VSCode, you will have to install the f
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
+Additionally, you might also want to install the CSpell extension, which is extremely useful to spell check an entire code base:
+
+- [CSpell](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+
+Once installed, these extensions provide the a nice dichotomy:
+
+- Red squiggly underlines are type-errors from the TypeScript compiler.
+- Yellow squiggly underlines are warnings from ESLint. (Because this config uses a plugin to convert all ESLint errors to warnings.)
+- Blue squiggly underlines are misspelled words. (You can right click --> `Spelling` --> `Add Words to CSpell Configuration` to ignore a specific word.)
+
 #### `.vscode/settings.json`
 
 Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a TypeScript file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:

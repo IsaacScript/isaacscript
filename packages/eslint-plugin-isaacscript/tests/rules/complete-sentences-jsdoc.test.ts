@@ -497,7 +497,20 @@ valid.push({
 /**
  * Inference helper for inputs.
  *
- * @example type HelloInput = RouterInputs['example']['hello']
+ * @example type HelloInput = RouterInputs['example']['hello'];
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example
+ * no capital letters here.
+ * just some example text.
  */
   `,
 });
