@@ -541,6 +541,21 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with capitalized JSDoc link tag",
+  code: `
+/**
+ * {@link NamepathOrURL} it doesn't allow this.
+ *
+ * [Link text]{@link namepathOrURL} hey, it actually starts with a capital letter.
+ *
+ * {@link namepathOrURL|Link text} what do you mean it doesn't start with a capital letter?
+ *
+ * {@link namepathOrURL Link text (after the first space)} this does indeed start with a capital letter.
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
