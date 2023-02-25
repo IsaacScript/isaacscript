@@ -556,6 +556,16 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc see tag",
+  code: `
+/**
+ * @see peripheral This event is fired whenever a
+ * new peripheral is attached.
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
