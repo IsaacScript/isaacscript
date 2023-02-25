@@ -104,6 +104,9 @@ function splitOnSpecialText(text: string): string[] {
     "$1$2$3",
   );
 
+  // Remove Markdown headers.
+  text = text.replaceAll(/^\s*#.*\n\n/gm, SENTENCE_SEPARATOR_IDENTIFIER);
+
   // Remove pipes (which indicate a Markdown table).
   text = text.replaceAll("|", SENTENCE_SEPARATOR_IDENTIFIER);
 

@@ -566,6 +566,19 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc Markdown header",
+  code: `
+/**
+ * This is a comment.
+ *
+ * # This is a header
+ *
+ * This is another comment.
+ */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
