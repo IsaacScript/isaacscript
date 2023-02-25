@@ -608,6 +608,25 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc markdown table",
+  code: `
+/**
+ * | API                                                  | Description                                                                  |
+ * | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+ * | {@link getNames getNames()}                          | Provides a list of all peripherals available.                                |
+ * | {@link isPresent isPresent(name)}                    | Determines if a peripheral is present with the given name.                   |
+ * | {@link getType getType(peripheral)}                  | Get the types of a named or wrapped peripheral.                              |
+ * | {@link hasType hasType(peripheral, peripheral_type)} | Check if a peripheral is of a particular type.                               |
+ * | {@link getMethods getMethods(name)}                  | Get all available methods for the peripheral with the given name.            |
+ * | {@link getName getName(peripheral)}                  | Get the name of a peripheral wrapped with \`peripheral.wrap\`.                 |
+ * | {@link call call(name, method, ...)}                 | Call a method on the peripheral with the given name.                         |
+ * | {@link wrap wrap(name)}                              | Get a table containing all functions available on a peripheral.              |
+ * | {@link find find(ty [, filter])}                     | Find all peripherals of a specific type, and return the wrapped peripherals. |
+ */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,

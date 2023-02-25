@@ -54,7 +54,7 @@ export function formatText(
       hasExampleTag = line.includes("@example");
       if (hasExampleTag) {
         insideExampleTagBlock = true;
-      } else if (insideExampleTagBlock && line.startsWith("@")) {
+      } else if (insideExampleTagBlock && line.trimStart().startsWith("@")) {
         insideExampleTagBlock = false;
       }
     }
@@ -64,6 +64,7 @@ export function formatText(
     const separatorLine = isSeparatorLine(line);
     const specialComment = isSpecialComment(line);
     const enumBlockLabel = isEnumBlockLabel(line);
+    const beginsWithPipe = line.trimStart().startsWith("|");
 
     // Gather information about the previous line.
     const previousLine = lines[i - 1];
@@ -141,6 +142,21 @@ export function formatText(
       }
 
       insideList = undefined;
+      continue;
+    }
+
+    // Handle lines that begin with a pipe, which indicate a Markdown table. This case is simple
+    // because we need to exactly preserve the text.
+    if (beginsWithPipe) {
+      // Append the partial line that we were building, if any.
+      [formattedLine, formattedText] = appendLineToText(
+        formattedLine,
+        formattedText,
+      );
+
+      // Copy the line exactly.
+      formattedLine += line;
+
       continue;
     }
 
