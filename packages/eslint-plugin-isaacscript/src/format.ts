@@ -319,9 +319,22 @@ function shouldSplitToNewLine(
   effectiveLength: number,
 ) {
   const atBeginningOfLine = formattedLine === "";
+
+  let linkTagStarted = false;
+  for (let i = formattedLine.length; i >= 6; i--) {
+    if (formattedLine[i] === "}") {
+      break;
+    } else if (formattedLine.slice(i - 6, i) === "{@link") {
+      linkTagStarted = true;
+      break;
+    }
+  }
+
   const textToAdd = atBeginningOfLine ? word : ` ${word}`;
   const lineLengthIfAdded = formattedLine.length + textToAdd.length;
-  return lineLengthIfAdded > effectiveLength && !atBeginningOfLine;
+  return (
+    lineLengthIfAdded > effectiveLength && !atBeginningOfLine && !linkTagStarted
+  );
 }
 
 function appendLineToText(

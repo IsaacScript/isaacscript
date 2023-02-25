@@ -655,6 +655,15 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with overflowing JSDoc link tag",
+  code: `
+/**
+ * Asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd {@link colors}.
+ */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,
