@@ -84,8 +84,9 @@ function splitOnSpecialText(text: string): string[] {
   );
   text = text.replaceAll(/@example[\s\S]*/gm, "");
 
-  // Remove link tags. (If we replace them with a sentence separator instead, then the following
-  // sentence would fail: Get the name of a peripheral wrapped with {@link peripheral.wrap}.
+  // Remove link tags. Note that if we replace them with a sentence separator instead, then the
+  // following sentence would fail: Get the name of a peripheral wrapped with {@link
+  // peripheral.wrap}.
   text = text.replaceAll(/{@link.*}/g, "");
 
   // Remove pipes (which indicate a Markdown table).

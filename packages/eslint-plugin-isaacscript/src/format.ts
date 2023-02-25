@@ -50,6 +50,7 @@ export function formatText(
     }
 
     let hasExampleTag = false;
+    const previousLineInsideExampleTagBlock = insideExampleTagBlock;
     if (shouldParseJSDocTags) {
       hasExampleTag = line.includes("@example");
       if (hasExampleTag) {
@@ -225,7 +226,8 @@ export function formatText(
       // tag.
       if (
         !stringContainsOnlyWhitespace(formattedText) &&
-        !previousLineWasBlank
+        !previousLineWasBlank &&
+        !previousLineInsideExampleTagBlock
       ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(
