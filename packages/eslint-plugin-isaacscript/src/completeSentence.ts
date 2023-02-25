@@ -73,16 +73,22 @@ function splitOnSpecialText(text: string): string[] {
   // subsequent text to be considered to be part of the previous sentence.
 
   // Remove multi-line code blocks.
-  text = text.replace(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
+  text = text.replaceAll(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
 
   // Remove example tag blocks. An example tag might be followed by another tag, so first look for
   // that situation. Then, handle the situation where the example tag is the final tag.
-  text = text.replace(
+  text = text.replaceAll(
     // We use `[\s\S]` instead of `.` because the latter does not match a new line.
     /@example[\s\S]*?@/gm,
     `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
   );
-  text = text.replace(/@example[\s\S]*/gm, "");
+  text = text.replaceAll(/@example[\s\S]*/gm, "");
+
+  // Remove link tags.
+  text = text.replaceAll(/{@link.*}/g, SENTENCE_SEPARATOR_IDENTIFIER);
+
+  // Remove pipes (which indicate a Markdown table).
+  text = text.replaceAll("|", SENTENCE_SEPARATOR_IDENTIFIER);
 
   // Handle "blocks" indicated by a double newline. We don't want sentences to be parsed/combined
   // past blocks, so we manually insert a sentence separator.
