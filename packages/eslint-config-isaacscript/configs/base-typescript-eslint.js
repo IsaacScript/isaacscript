@@ -140,7 +140,7 @@ module.exports = {
      * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
      *
-     * This can modify the type of boolean declarations to "boolean | undefined", which is undesired
+     * This can modify the type of boolean declarations to `boolean | undefined`, which is undesired
      * in some circumstances:
      * https://github.com/typescript-eslint/typescript-eslint/issues/5269
      */
