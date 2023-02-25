@@ -308,7 +308,8 @@ export function formatText(
 /**
  * We split to a new line if:
  * 1. adding the word would make it overflow past the maximum length
- * 2. and there is at least one word on the current line
+ * 2. there is at least one word on the current line
+ * 3. we are not currently inside a link tag
  *
  * For example, there could be a very long URL that exceeds the maximum length, but since there are
  * no spaces in the URL, it can't be split up and has to exceed the maximum length.
