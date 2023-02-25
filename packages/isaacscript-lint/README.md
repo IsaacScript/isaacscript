@@ -71,9 +71,9 @@ pnpm install isaacscript-lint --save-dev
 
 (It should be a development dependency because it is only used to lint your code pre-production.)
 
-### Step 2 - `eslintrc.cjs`
+### Step 2 - `.eslintrc.cjs`
 
-Create a `eslintrc.cjs` file in the root of your repository:
+Create a `.eslintrc.cjs` file in the root of your repository:
 
 ```js
 // This is the configuration file for ESLint, the TypeScript linter:
@@ -97,6 +97,8 @@ module.exports = {
   },
 };
 ```
+
+Note that this file must have a period at the beginning!
 
 ### Step 3 - `tsconfig.eslint.json`
 
