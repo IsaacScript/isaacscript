@@ -9,7 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR"
 
 # Hard code a rule name temporarily.
-RULE_NAME=""
+RULE_NAME="require-variadic-function-argument"
 
 if [[ -n ${1-} ]]; then
   RULE_NAME="$1"

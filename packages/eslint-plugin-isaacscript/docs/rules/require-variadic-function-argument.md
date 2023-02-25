@@ -4,18 +4,38 @@ Requires that variadic functions must be supplied with at least one argument.
 
 ## Rule Details
 
-[Variadic functions](https://en.wikipedia.org/wiki/Variadic_function) are functions that take a variable amount of arguments. However, as far as the TypeScript compiler is concerned, passing no arguments at all to a variadic function is legal. But doing this is almost always a bug. For example:
+[Variadic functions](https://en.wikipedia.org/wiki/Variadic_function) are functions that take a variable amount of arguments. However, as far as the TypeScript compiler is concerned, passing no arguments at all to a variadic function is legal. But doing this is usually a bug. For example:
 
 ```ts
 const myArray = [1, 2, 3];
-array.push(); // Oops!
+myArray.push(); // Oops!
 ```
 
-Here, the author of the code made a typo and forgot to supply the thing to be inserted into the array.
+Here, the author of the code made a typo and forgot to supply the thing to be inserted into the array. Thus, the `myArray.push` line is a no-op.
 
-This rule requires that you always pass at least one argument to a variadic function.
+To protect against this class of error, this rule requires that you always pass at least one argument to a variadic function.
 
-Note that this function is hard-coded to not throw an error with `console.log`, since it is relatively common to use it with no arguments in order to print a newline.
+## Hard-Coded Exceptions
+
+This rule is hard-coded to not throw an error with `console.log`, since it is relatively common to use it with no arguments in order to print a newline.
+
+## JSDoc Exceptions
+
+Sometimes, a variadic function can be written to intentionally allow for zero arguments. If this is the case, you can use a `@allowEmptyVariadic` JSDoc tag inside of the JSDoc comment for the function. Then, this rule will ignore any calls of that function.
+
+For example, something like the following:
+
+```ts
+/**
+ * Helper function to get all of the cars in the database. By default, it will return every car.
+ *
+ * You can optionally specify one or more car types to return only the cars that match the specified
+ * car types.
+ *
+ * @allowEmptyVariadic
+ */
+function getCars(...carTypes: CarType[]) {}
+```
 
 ## Options and Defaults
 

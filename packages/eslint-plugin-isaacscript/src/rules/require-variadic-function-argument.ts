@@ -9,6 +9,8 @@ import { createRule } from "../utils";
 export type Options = [];
 export type MessageIds = "noArgument";
 
+const JSDOC_EXCEPTION_TAG = "allowEmptyVariadic";
+
 export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
   name: "require-variadic-function-argument",
   meta: {
@@ -53,7 +55,10 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
           return;
         }
 
-        if (isHardCodedException(node)) {
+        if (
+          isHardCodedException(node) ||
+          hasJSDocExceptionTag(checker, declaration)
+        ) {
           return;
         }
 
@@ -81,4 +86,19 @@ function isHardCodedException(node: TSESTree.CallExpression): boolean {
   }
 
   return object.name === "console" && property.name === "log";
+}
+
+function hasJSDocExceptionTag(
+  checker: ts.TypeChecker,
+  declaration: ts.SignatureDeclaration,
+): boolean {
+  const type = checker.getTypeAtLocation(declaration);
+  const symbol = type.getSymbol();
+  if (symbol === undefined) {
+    return false;
+  }
+  const jsDocTagInfoArray = symbol.getJsDocTags(checker);
+  return jsDocTagInfoArray.some(
+    (tagInfo) => tagInfo.name === JSDOC_EXCEPTION_TAG,
+  );
 }

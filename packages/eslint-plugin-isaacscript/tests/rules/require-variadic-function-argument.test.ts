@@ -50,6 +50,46 @@ console.log();
   `,
 });
 
+invalid.push({
+  name: "Empty variadic function call with JSDoc comment without tag",
+  code: `
+/**
+ * Helper function to get all of the cars in the database. By default, it will return every car.
+ *
+ * You can optionally specify one or more car types to return only the cars that match the specified
+ * car types.
+ */
+function foo(...things: string[]) {}
+foo();
+  `,
+  errors: [{ messageId: "noArgument" }],
+});
+
+valid.push({
+  name: "Empty variadic function call with JSDoc comment with tag",
+  code: `
+/**
+ * Helper function to get all of the cars in the database. By default, it will return every car.
+ *
+ * You can optionally specify one or more car types to return only the cars that match the specified
+ * car types.
+ *
+ * @allowEmptyVariadic
+ */
+function foo(...things: string[]) {}
+foo();
+  `,
+});
+
+valid.push({
+  name: "Empty variadic function call with bare tag",
+  code: `
+/** @allowEmptyVariadic */
+function foo(...things: string[]) {}
+foo();
+  `,
+});
+
 ruleTester.run(
   "require-variadic-function-argument",
   requireVariadicFunctionArgument,

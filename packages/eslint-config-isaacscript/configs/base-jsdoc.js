@@ -65,10 +65,14 @@ module.exports = {
           "noSelf",
           "noSelfInFile",
 
-          // Ignore tags used in ts-json-schema-generator:
+          // Ignore tags used in `ts-json-schema-generator`:
           // https://github.com/vega/ts-json-schema-generator
           "minimum",
           "maximum",
+
+          // Ignore tags used in `eslint-plugin-isaacscript`:
+          // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/require-variadic-function-argument.md
+          "allowEmptyVariadic",
         ],
       },
     ],

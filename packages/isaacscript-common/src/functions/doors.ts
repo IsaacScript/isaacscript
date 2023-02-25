@@ -183,9 +183,12 @@ export function getDoorSlotsForRoomShape(
 }
 
 /**
- * Helper function to get all of the doors in the room. By default, it will return every door. You
- * can optionally specify one or more room types to return only the doors that match the specified
- * room types.
+ * Helper function to get all of the doors in the room. By default, it will return every door.
+ *
+ * You can optionally specify one or more room types to return only the doors that match the
+ * specified room types.
+ *
+ * @allowEmptyVariadic
  */
 export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const room = game.GetRoom();
