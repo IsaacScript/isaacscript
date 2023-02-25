@@ -534,6 +534,13 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with JSDoc link tag",
+  code: `
+/** Get the name of a peripheral wrapped with {@link peripheral.wrap}. */
+  `,
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,
