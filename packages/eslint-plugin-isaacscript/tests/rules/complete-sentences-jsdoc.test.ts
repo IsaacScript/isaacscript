@@ -567,7 +567,18 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc Markdown header",
+  name: "Comment with JSDoc Markdown header at the beginning",
+  code: `
+/**
+ * # This is a header
+ *
+ * This is another comment.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc Markdown header in the middle",
   code: `
 /**
  * This is a comment.
@@ -577,6 +588,17 @@ valid.push({
  * This is another comment.
  */
   `,
+});
+
+valid.push({
+  name: "Comment with JSDoc something that looks like a Markdown header",
+  code: `
+/**
+ * Grey. Written as \`7\` in paint files and {@link term.blit}, has a default terminal color of
+ * #4C4C4C.
+ *
+ * @see {@link colors.gray}
+ */  `,
 });
 
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
