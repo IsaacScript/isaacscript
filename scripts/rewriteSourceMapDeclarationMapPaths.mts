@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import * as path from "node:path";
 import { error, readFile, writeFile, __dirname } from "./utils.mjs";
 
@@ -24,8 +24,8 @@ function main() {
 
 function replaceTextInGlob(packageName: string, globPath: string) {
   const outDir = path.join(REPO_ROOT, "dist", "packages", packageName);
-  const filePaths = glob.sync(globPath, {
-    root: outDir,
+  const filePaths = globSync(globPath, {
+    cwd: outDir,
   });
   if (filePaths.length === 0) {
     error(`Failed to find any files in the following glob: ${globPath}`);

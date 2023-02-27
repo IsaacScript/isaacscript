@@ -1,6 +1,6 @@
 // Performs various checks on every "package.json" file in the repository.
 
-import glob from "glob";
+import { globSync } from "glob";
 import * as path from "node:path";
 import sortPackageJson from "sort-package-json";
 import {
@@ -27,7 +27,7 @@ function main() {
   }
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
-  const packageJSONPaths = glob.sync(`./packages/**/${PACKAGE_JSON}`, {
+  const packageJSONPaths = globSync(`./packages/**/${PACKAGE_JSON}`, {
     ignore: ["node_modules/**", "dist/**"],
   });
 
