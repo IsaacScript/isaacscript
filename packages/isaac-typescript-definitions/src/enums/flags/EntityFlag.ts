@@ -88,7 +88,12 @@ const EntityFlagInternal = {
    */
   ITEM_SHOULD_DUPLICATE: 1 << 19,
 
-  /** 1 << 20 (1048576) */
+  /**
+   * Some bosses (like Lamb or Mother) can die but they will still appear to be active in the room
+   * (`IsActiveEnemy`). You can check this flag in those cases.
+   *
+   * 1 << 20 (1048576)
+   */
   BOSS_DEATH_TRIGGERED: 1 << 20,
 
   /** 1 << 21 (2097152) */

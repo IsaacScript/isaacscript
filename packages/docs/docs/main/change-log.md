@@ -9,8 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## March 3rd, 2023
+## March 3rd, 2023 (Unreleased)
 
+- Added the following helper functions:
+  - `onStageOrHigher`
+  - `onStageOrLower`
 - Changed the following helper functions:
   - `spawnPersistentEntity` - Now returns an object instead of a tuple.
 

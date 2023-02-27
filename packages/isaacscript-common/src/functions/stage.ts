@@ -239,7 +239,7 @@ export function onDarkRoom(): boolean {
 }
 
 /**
- * Helper function to check if the current room matches one of the given stages. This uses the
+ * Helper function to check if the current stage matches one of the given stages. This uses the
  * `getEffectiveStage` helper function so that the Repentance floors are correctly adjusted.
  *
  * This function is variadic, which means you can pass as many stages as you want to match for.
@@ -306,7 +306,7 @@ export function onSheol(): boolean {
 }
 
 /**
- * Helper function to check if the current room matches one of the given stages.
+ * Helper function to check if the current stage matches one of the given stages.
  *
  * This function is variadic, which means you can pass as many stages as you want to match for.
  */
@@ -316,8 +316,22 @@ export function onStage(...stages: LevelStage[]): boolean {
   return stages.some((stage) => stage === thisStage);
 }
 
+/** Helper function to check if the current stage is equal to or higher than the given stage. */
+export function onStageOrHigher(stage: LevelStage): boolean {
+  const level = game.GetLevel();
+  const thisStage = level.GetStage();
+  return thisStage >= stage;
+}
+
+/** Helper function to check if the current stage is equal to or higher than the given stage. */
+export function onStageOrLower(stage: LevelStage): boolean {
+  const level = game.GetLevel();
+  const thisStage = level.GetStage();
+  return thisStage <= stage;
+}
+
 /**
- * Helper function to check if the current room matches one of the given stage types.
+ * Helper function to check if the current stage matches one of the given stage types.
  *
  * This function is variadic, which means you can pass as many room types as you want to match for.
  */
