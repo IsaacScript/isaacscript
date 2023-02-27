@@ -45,6 +45,18 @@ export function defaultMapSetPlayer<V>(
 }
 
 /**
+ * Helper function to make using maps with an type of `PlayerIndex` easier. Use this instead of the
+ * `Map.delete` method if you have a set of this type.
+ */
+export function mapDeletePlayer(
+  map: Map<PlayerIndex, unknown>,
+  player: EntityPlayer,
+): boolean {
+  const playerIndex = getPlayerIndex(player);
+  return map.delete(playerIndex);
+}
+
+/**
  * Helper function to make using maps with an index of `PlayerIndex` easier. Use this instead of the
  * `Map.get` method if you have a map of this type.
  *

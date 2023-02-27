@@ -14,8 +14,13 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `onStageOrHigher`
   - `onStageOrLower`
+  - `getFirstCard`
+  - `getFirstPill`
+  - `mapDeletePlayer`
 - Changed the following helper functions:
   - `spawnPersistentEntity` - Now returns an object instead of a tuple.
+- Added the following custom callbacks:
+  - `POST_USE_PILL_FILTER`
 
 ## February 24th, 2023
 

@@ -2284,6 +2284,30 @@ export enum ModCallbackCustom {
   POST_TRINKET_BREAK,
 
   /**
+   * The same thing as the vanilla `POST_USE_PILL` callback, except this callback passes the
+   * `PillColor` of the used pill as the final argument. It allows you to filter by the `PillColor`.
+   *
+   * In order to accomplish this, this callback tracks the held pills of the player on every frame.
+   * If a matching `PillColor` could not be found, this callback passes `PillColor.NULL` (0).
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillEffect` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function postUsePillFilter(
+   *   pillEffect: PillEffect,
+   *   pillColor: PillColor,
+   *   player: EntityPlayer,
+   *   useFlags: BitFlags<UseFlag>,
+   * ): void {}
+   * ```
+   */
+  POST_USE_PILL_FILTER,
+
+  /**
    * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback on the frame before a Berserk effect
    * ends when the player is predicted to die (e.g. they currently have no health left or they took
    * damage in a "Lost" form).

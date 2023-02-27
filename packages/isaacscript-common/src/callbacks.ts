@@ -144,6 +144,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_TNT_UPDATE]: cc.PostTNTUpdate,
   [ModCallbackCustom.POST_TRANSFORMATION]: cc.PostTransformation,
   [ModCallbackCustom.POST_TRINKET_BREAK]: cc.PostTrinketBreak,
+  [ModCallbackCustom.POST_USE_PILL_FILTER]: cc.PostUsePillFilter,
   [ModCallbackCustom.PRE_BERSERK_DEATH]: cc.PreBerserkDeath,
   [ModCallbackCustom.PRE_BOMB_COLLISION_FILTER]: cc.PreBombCollisionFilter,
   [ModCallbackCustom.PRE_CUSTOM_REVIVE]: cc.PreCustomRevive,

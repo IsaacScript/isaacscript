@@ -18,6 +18,8 @@ import {
   LaserVariant,
   LevelStage,
   PickupVariant,
+  PillColor,
+  PillEffect,
   PitVariant,
   PlayerForm,
   PlayerType,
@@ -30,6 +32,7 @@ import {
   StageType,
   TearVariant,
   TrinketType,
+  UseFlag,
 } from "isaac-typescript-definitions";
 import { AmbushType } from "../../enums/AmbushType";
 import { HealthType } from "../../enums/HealthType";
@@ -887,6 +890,17 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_TRINKET_BREAK]: [
     callback: (player: EntityPlayer, trinketType: TrinketType) => void,
     trinketType?: TrinketType,
+  ];
+
+  [ModCallbackCustom.POST_USE_PILL_FILTER]: [
+    callback: (
+      pillEffect: PillEffect,
+      pillColor: PillColor,
+      player: EntityPlayer,
+      useFlags: BitFlags<UseFlag>,
+    ) => void,
+    pillEffect?: PillEffect,
+    pillColor?: PillColor,
   ];
 
   [ModCallbackCustom.PRE_BERSERK_DEATH]: [

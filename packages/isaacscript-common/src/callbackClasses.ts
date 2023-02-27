@@ -125,6 +125,7 @@ export { PostTNTRender } from "./classes/callbacks/PostTNTRender";
 export { PostTNTUpdate } from "./classes/callbacks/PostTNTUpdate";
 export { PostTransformation } from "./classes/callbacks/PostTransformation";
 export { PostTrinketBreak } from "./classes/callbacks/PostTrinketBreak";
+export { PostUsePillFilter } from "./classes/callbacks/PostUsePillFilter";
 export { PreBerserkDeath } from "./classes/callbacks/PreBerserkDeath";
 export { PreBombCollisionFilter } from "./classes/callbacks/PreBombCollisionFilter";
 export { PreCustomRevive } from "./classes/callbacks/PreCustomRevive";

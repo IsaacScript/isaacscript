@@ -29,6 +29,19 @@ export function getActivePocketItemSlot(
   return undefined;
 }
 
+/** Helper item to get the first card that a player is holding in their pocket item slots. */
+export function getFirstCard(
+  player: EntityPlayer,
+): PocketItemDescription | undefined {
+  const pocketItems = getPocketItems(player);
+  return pocketItems.find(
+    (pocketItem) => pocketItem.type === PocketItemType.CARD,
+  );
+}
+
+/**
+ * Helper item to get the first card or pill that a player is holding in their pocket item slots.
+ */
 export function getFirstCardOrPill(
   player: EntityPlayer,
 ): PocketItemDescription | undefined {
@@ -37,6 +50,16 @@ export function getFirstCardOrPill(
     (pocketItem) =>
       pocketItem.type === PocketItemType.CARD ||
       pocketItem.type === PocketItemType.PILL,
+  );
+}
+
+/** Helper item to get the first pill that a player is holding in their pocket item slots. */
+export function getFirstPill(
+  player: EntityPlayer,
+): PocketItemDescription | undefined {
+  const pocketItems = getPocketItems(player);
+  return pocketItems.find(
+    (pocketItem) => pocketItem.type === PocketItemType.PILL,
   );
 }
 
