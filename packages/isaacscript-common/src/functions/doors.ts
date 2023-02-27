@@ -494,6 +494,7 @@ export function openDoorFast(door: GridEntityDoor): void {
  * specified room types.
  *
  * @returns The number of doors removed.
+ * @allowEmptyVariadic
  */
 export function removeAllDoors(...roomTypes: RoomType[]): int {
   const doors = getDoors(...roomTypes);
