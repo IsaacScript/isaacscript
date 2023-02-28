@@ -1,3 +1,10 @@
+/**
+ * Most rooms have a grid index corresponding to their position on the level layout grid. Valid grid
+ * indexes range from 0 through 168 (because the grid is 13x13). However, some rooms are not part of
+ * the level layout grid. For off-grid rooms, they are assigned special negative integers that
+ * correspond to what kind of room they are. This enum contains all of the special negative values
+ * that exist.
+ */
 export enum GridRoom {
   /** The Devil or Angel room for the floor. */
   DEVIL = -1,
