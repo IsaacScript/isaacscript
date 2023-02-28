@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `getFirstCard`
   - `getFirstPill`
   - `mapDeletePlayer`
+  - `hasDoorType`
 - Changed the following helper functions:
   - `spawnPersistentEntity` - Now returns an object instead of a tuple.
 - Added the following custom callbacks:
