@@ -16,9 +16,9 @@ function main() {
   }
   const packageName = firstCommandLineArgument;
 
-  replaceTextInGlob(packageName, "/**/*.d.ts.map");
+  replaceTextInGlob(packageName, "./**/*.d.ts.map");
   if (packageName === "isaacscript-common-ts") {
-    replaceTextInGlob(packageName, "/**/*.js.map");
+    replaceTextInGlob(packageName, "./**/*.js.map");
   }
 }
 
@@ -31,7 +31,8 @@ function replaceTextInGlob(packageName: string, globPath: string) {
     error(`Failed to find any files in the following glob: ${globPath}`);
   }
 
-  for (const filePath of filePaths) {
+  for (const partialFilePath of filePaths) {
+    const filePath = path.join(outDir, partialFilePath);
     const fileContents = readFile(filePath);
     const newFileContents = fileContents.replaceAll(
       `../../../../packages/${packageName}`,
