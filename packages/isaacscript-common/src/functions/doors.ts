@@ -306,7 +306,7 @@ export function getUnusedDoorSlots(): DoorSlot[] {
 
 /**
  * Helper function to check if the current room has one or more doors that lead to the given room
- * types.
+ * type.
  *
  * This function is variadic, meaning that you can supply as many door types as you want to check
  * for. This function will return true if one or more room types match.
