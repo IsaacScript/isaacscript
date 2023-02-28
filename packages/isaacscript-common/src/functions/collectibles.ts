@@ -229,12 +229,14 @@ export function getCollectibleDevilHeartPrice(
  * Helper function to get the path to a collectible PNG file. Returns the path to the question mark
  * sprite (i.e. from Curse of the Blind) if the provided collectible type was not valid.
  *
+ * If you intentionally want the path to the question mark sprite, pass -1 as the collectible type.
+ *
  * Note that this does not return the file name, but the full path to the collectible's PNG file.
  * The function is named "GfxFilename" to correspond to the associated `ItemConfigItem.GfxFileName`
  * field.
  */
 export function getCollectibleGfxFilename(
-  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType | -1,
 ): string {
   const collectibleType = getCollectibleTypeFromArg(
     collectibleOrCollectibleType,
@@ -613,8 +615,12 @@ export function isVanillaCollectibleType(
 /**
  * Helper function to generate a new sprite based on a collectible. If the provided collectible type
  * is invalid, a sprite with a Curse of the Blind question mark will be returned.
+ *
+ * If you intentionally want a question mark sprite, pass -1 as the collectible type.
  */
-export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
+export function newCollectibleSprite(
+  collectibleType: CollectibleType | -1,
+): Sprite {
   const sprite = Sprite();
   sprite.Load(COLLECTIBLE_ANM2_PATH, false);
 
@@ -842,7 +848,7 @@ export function setCollectiblesRerolledForItemTracker(): void {
 }
 
 function getCollectibleTypeFromArg(
-  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType | -1,
   functionName: string,
 ): CollectibleType {
   if (isNumber(collectibleOrCollectibleType)) {
