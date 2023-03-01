@@ -141,7 +141,6 @@ export function getFeatures(
   const moddedElementDetection = new ModdedElementDetection();
   const ponyDetection = new PonyDetection();
   const pressInput = new PressInput();
-  const preventCollectibleRotation = new PreventCollectibleRotation();
   const roomClearFrame = new RoomClearFrame();
   const roomHistory = new RoomHistory();
   const runNextRoom = new RunNextRoom();
@@ -149,15 +148,18 @@ export function getFeatures(
   const stageHistory = new StageHistory();
 
   const runInNFrames = new RunInNFrames(roomHistory);
+  const pickupIndexCreation = new PickupIndexCreation(
+    roomHistory,
+    saveDataManager,
+  );
+  const preventCollectibleRotation = new PreventCollectibleRotation(
+    pickupIndexCreation,
+  );
 
   const customGridEntities = new CustomGridEntities(runInNFrames);
   const moddedElementSets = new ModdedElementSets(moddedElementDetection);
   const itemPoolDetection = new ItemPoolDetection(moddedElementSets);
   const pause = new Pause(disableInputs);
-  const pickupIndexCreation = new PickupIndexCreation(
-    roomHistory,
-    saveDataManager,
-  );
   const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
   const spawnCollectible = new SpawnCollectible(preventCollectibleRotation);
 
