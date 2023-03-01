@@ -14,7 +14,6 @@ export { PostBombRenderFilter } from "./classes/callbacks/PostBombRenderFilter";
 export { PostBombUpdateFilter } from "./classes/callbacks/PostBombUpdateFilter";
 export { PostBoneSwing } from "./classes/callbacks/PostBoneSwing";
 export { PostCollectibleEmpty } from "./classes/callbacks/PostCollectibleEmpty";
-export { PostCollectibleInitFirst } from "./classes/callbacks/PostCollectibleInitFirst";
 export { PostCursedTeleport } from "./classes/callbacks/PostCursedTeleport";
 export { PostCustomRevive } from "./classes/callbacks/PostCustomRevive";
 export { PostDiceRoomActivated } from "./classes/callbacks/PostDiceRoomActivated";

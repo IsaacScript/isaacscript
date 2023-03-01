@@ -145,11 +145,6 @@ export interface AddCallbackParametersCustom {
     collectibleType?: CollectibleType,
   ];
 
-  [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: [
-    callback: (collectible: EntityPickupCollectible) => void,
-    collectibleType?: CollectibleType,
-  ];
-
   [ModCallbackCustom.POST_CURSED_TELEPORT]: [
     callback: (player: EntityPlayer) => void,
     playerVariant?: PlayerVariant,

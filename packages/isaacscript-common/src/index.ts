@@ -151,7 +151,6 @@ export * from "./types/AnyClass";
 export * from "./types/AnyEntity";
 export * from "./types/AnyFunction";
 export * from "./types/AnyGridEntity";
-export * from "./types/CollectibleIndex";
 export * from "./types/ConversionHeartSubType";
 export * from "./types/Decrement";
 export * from "./types/EntityID";

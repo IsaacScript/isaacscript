@@ -176,7 +176,7 @@ const v = {
 };
 ```
 
-For collectibles, use `getCollectibleIndex`. (The corresponding type is `CollectibleIndex`.)
+For pickups, use `getPickupIndex`. (The corresponding type is `PickupIndex`.)
 
 For familiars (and Dark Esau), use the `Entity.InitSeed`. (The corresponding type is `Seed`.)
 

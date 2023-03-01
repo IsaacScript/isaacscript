@@ -17,7 +17,6 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_BOMB_UPDATE_FILTER]: cc.PostBombUpdateFilter,
   [ModCallbackCustom.POST_BONE_SWING]: cc.PostBoneSwing,
   [ModCallbackCustom.POST_COLLECTIBLE_EMPTY]: cc.PostCollectibleEmpty,
-  [ModCallbackCustom.POST_COLLECTIBLE_INIT_FIRST]: cc.PostCollectibleInitFirst,
   [ModCallbackCustom.POST_CURSED_TELEPORT]: cc.PostCursedTeleport,
   [ModCallbackCustom.POST_CUSTOM_REVIVE]: cc.PostCustomRevive,
   [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED]: cc.PostDiceRoomActivated,

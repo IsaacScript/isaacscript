@@ -20,9 +20,13 @@ This page lists the changes to the IsaacScript framework.
   - `hasDoorType`
 - Changed the following helper functions:
   - `spawnPersistentEntity` - Now returns an object instead of a tuple.
+- Deleted the following helper functions:
+  - `getCollectibleIndex` (use `getPickupIndex` instead)
 - Added the following custom callbacks:
   - `POST_USE_PILL_FILTER` (which also passes the pill color)
   - `POST_GAME_END_FILTER`
+- Deleted the following custom callbacks:
+  - `POST_COLLECTIBLE_INIT_FIRST` (use `POST_PICKUP_INIT_FIRST` instead)
 
 ## February 24th, 2023
 

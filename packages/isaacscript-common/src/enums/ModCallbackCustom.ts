@@ -245,25 +245,6 @@ export enum ModCallbackCustom {
   POST_COLLECTIBLE_EMPTY,
 
   /**
-   * Fires from the `POST_PICKUP_INIT` callback on the first time that a player has seen the
-   * respective collectible on the run. For more details on how this is calculated, see the
-   * documentation for the `getCollectibleIndex` helper function.
-   *
-   * This callback is useful because collectibles will despawn upon leaving the room and respawn
-   * upon re-entering the room. Additionally, when playing as Tainted Isaac, the `POST_PICKUP_INIT`
-   * callback will fire every time the item shifts.
-   *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `CollectibleType` provided.
-   *
-   * ```ts
-   * function postCollectibleInitLate(collectible: EntityPickupCollectible): void {}
-   * ```
-   */
-  POST_COLLECTIBLE_INIT_FIRST,
-
-  /**
    * Fires from the `POST_PLAYER_RENDER` callback on the first frame that the "TeleportUp" animation
    * begins playing after a player triggers a Cursed Eye teleport or a Cursed Skull teleport. (Both
    * of these have the same effect in causing Isaac to be teleported to a random room.)

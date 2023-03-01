@@ -79,9 +79,9 @@ export function getPlayerFromIndex(
  * (1). This works even if the player does not have any Sad Onions.
  *
  * Note that by default, this returns the same index for both The Forgotten and The Soul. (Even
- * though they are technically different characters, they share the same inventory and InitSeed.) If
- * this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG of
- * Spoon Bender (3) will be used for The Soul.
+ * though they are technically different characters, they share the same inventory and `InitSeed`.)
+ * If this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG
+ * of Spoon Bender (3) will be used for The Soul.
  *
  * Also note that this index does not work in the `POST_PLAYER_INIT` function for players 2 through
  * 4. With that said, in almost all cases, you should be lazy-initializing your data structures in

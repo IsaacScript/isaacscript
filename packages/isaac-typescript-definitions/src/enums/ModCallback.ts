@@ -134,7 +134,7 @@ export enum ModCallback {
    *
    * The `isChildPlayer` helper function does not work in this callback (because
    * `EntityPlayer.Parent` is not initialized yet at this point). If you want to exclude non-real
-   * players, use the `POST_PLAYER_INIT_FIRST or the `POST_PLAYER_INIT_LATE` custom callbacks
+   * players, use the `POST_PLAYER_INIT_FIRST` or the `POST_PLAYER_INIT_LATE` custom callbacks
    * instead.
    *
    * When registering this callback with the `Mod.AddCallback` method:
