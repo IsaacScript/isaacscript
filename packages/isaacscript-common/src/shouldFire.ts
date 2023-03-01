@@ -84,19 +84,6 @@ export function shouldFireBoolean(
   return optionalArg === undefined || optionalArg === fireArg;
 }
 
-export function shouldFireCollectible(
-  fireArgs: [collectible: EntityPickupCollectible],
-  optionalArgs: [collectibleType?: CollectibleType],
-): boolean {
-  const [collectible] = fireArgs;
-  const [callbackCollectibleType] = optionalArgs;
-
-  return (
-    callbackCollectibleType === undefined ||
-    callbackCollectibleType === collectible.SubType
-  );
-}
-
 export function shouldFireCollectibleType(
   fireArgs: [player: EntityPlayer, collectibleType: CollectibleType],
   optionalArgs: [collectibleType?: CollectibleType],

@@ -18,9 +18,10 @@ const v = {
      * (e.g. "12,1123579202")
      *
      * - We cannot simply use the `InitSeed` of the collectible because Diplopia can cause multiple
-     *   collectibles in the room to have the same `InitSeed`. However, no two collectibles should
-     *   ever be on the same grid index (except for the case of Mega Chests, which we ignore).
-     * - We cannot use `PtrHash` as an index because that stays the same when the item is rolled.
+     *   collectibles in the room to have the same `InitSeed`. However, two or more collectibles are
+     *   not usually on the same grid index (except for the case of Mega Chests, which we ignore).
+     * - We cannot use `PtrHash` or `PickupIndex` as an index because that stays the same when the
+     *   item is rolled.
      */
     trackedCollectibles: new Map<string, CollectibleType>(),
   },

@@ -251,6 +251,10 @@ export class PickupIndexCreation extends Feature {
    *
    * Tracking pickups requires stateful tracking, so using pickup indexes requires an upgraded mod.
    *
+   * Note that the pickup index will not change:
+   * - When a pickup is rolled with e.g. D6 or D20.
+   * - When an item is "rotated" via e.g. Tainted Isaac's mechanic.
+   *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.PICKUP_INDEX_CREATION`.
    */
