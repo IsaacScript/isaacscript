@@ -4,26 +4,21 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
+import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { setCollectibleSubType } from "../../../functions/collectibles";
 import { getEntityID } from "../../../functions/entities";
+import { getCollectibles } from "../../../functions/pickupsSpecific";
 import { isCollectible } from "../../../functions/pickupVariants";
+import { asCollectibleType } from "../../../functions/types";
+import { PickupIndex } from "../../../types/PickupIndex";
 import { Feature } from "../../private/Feature";
+import { PickupIndexCreation } from "./PickupIndexCreation";
 
 const v = {
-  room: {
-    /**
-     * Index is a string containing the grid index and the `InitSeed` of the collectible.
-     * (e.g. "12,1123579202")
-     *
-     * - We cannot simply use the `InitSeed` of the collectible because Diplopia can cause multiple
-     *   collectibles in the room to have the same `InitSeed`. However, two or more collectibles are
-     *   not usually on the same grid index (except for the case of Mega Chests, which we ignore).
-     * - We cannot use `PtrHash` or `PickupIndex` as an index because that stays the same when the
-     *   item is rolled.
-     */
-    trackedCollectibles: new Map<string, CollectibleType>(),
+  run: {
+    trackedCollectibles: new Map<PickupIndex, CollectibleType>(),
   },
 };
 
@@ -31,9 +26,13 @@ export class PreventCollectibleRotation extends Feature {
   /** @internal */
   public override v = v;
 
+  private pickupIndexCreation: PickupIndexCreation;
+
   /** @internal */
-  constructor() {
+  constructor(pickupIndexCreation: PickupIndexCreation) {
     super();
+
+    this.featuresUsed = [ISCFeature.PICKUP_INDEX_CREATION];
 
     this.callbacksUsed = [
       // 5
@@ -42,48 +41,61 @@ export class PreventCollectibleRotation extends Feature {
         this.useCardSoulOfIsaac,
         [CardType.SOUL_ISAAC],
       ],
-
-      // 35
-      [
-        ModCallback.POST_PICKUP_UPDATE,
-        this.postPickupUpdateCollectible,
-        [PickupVariant.COLLECTIBLE],
-      ],
     ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_PICKUP_CHANGED, this.postPickupChanged],
+    ];
+
+    this.pickupIndexCreation = pickupIndexCreation;
   }
 
+  /**
+   * Soul of Isaac causes items to flip. We assume that the player deliberately wants to roll a
+   * quest item, so we delete all tracked items in the current room.
+   */
   // ModCallback.POST_USE_CARD (5)
   // Card.SOUL_ISAAC (81)
   private useCardSoulOfIsaac = () => {
-    // Soul of Isaac causes items to flip. Delete all tracked items (assuming that the player
-    // deliberately wants to roll a quest item).
-    v.room.trackedCollectibles.clear();
+    const collectibles = getCollectibles();
+    for (const collectible of collectibles) {
+      const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
+      v.run.trackedCollectibles.delete(pickupIndex);
+    }
   };
 
-  // ModCallback.POST_PICKUP_UPDATE (35)
-  // PickupVariant.COLLECTIBLE (100)
-  private postPickupUpdateCollectible = (pickup: EntityPickup) => {
-    const collectible = pickup as EntityPickupCollectible;
-
-    this.checkCollectibleRotated(collectible);
-  };
-
-  private checkCollectibleRotated(collectible: EntityPickupCollectible) {
-    // Ignore empty pedestals (i.e. items that have already been taken by the player).
-    if (collectible.SubType === CollectibleType.NULL) {
+  // ModCallbackCustom.POST_PICKUP_CHANGED
+  private postPickupChanged = (
+    pickup: EntityPickup,
+    oldVariant: PickupVariant,
+    _oldSubType: int,
+    newVariant: PickupVariant,
+    newSubType: int,
+  ) => {
+    // We only care about collectibles rotating.
+    if (
+      oldVariant !== PickupVariant.COLLECTIBLE ||
+      newVariant !== PickupVariant.COLLECTIBLE
+    ) {
       return;
     }
 
-    const index = getMapIndex(collectible);
-    const trackedCollectibleType = v.room.trackedCollectibles.get(index);
-    if (
-      trackedCollectibleType !== undefined &&
-      collectible.SubType !== trackedCollectibleType
-    ) {
-      // This item has switched, so restore it back to the way it was.
-      setCollectibleSubType(collectible, trackedCollectibleType);
+    // Ignore empty pedestals (i.e. collectibles that have already been taken by the player).
+    if (asCollectibleType(newSubType) === CollectibleType.NULL) {
+      return;
     }
-  }
+
+    const pickupIndex = this.pickupIndexCreation.getPickupIndex(pickup);
+    const trackedCollectibleType = v.run.trackedCollectibles.get(pickupIndex);
+    if (trackedCollectibleType === undefined) {
+      return;
+    }
+
+    if (trackedCollectibleType !== asCollectibleType(newSubType)) {
+      // This collectible has rotated, so restore it back to the way it was.
+      setCollectibleSubType(pickup, trackedCollectibleType);
+    }
+  };
 
   /**
    * Helper function to prevent a collectible from being affected by Tainted Isaac's rotation
@@ -109,17 +121,13 @@ export class PreventCollectibleRotation extends Feature {
       );
     }
 
-    const index = getMapIndex(collectible);
-    v.room.trackedCollectibles.set(index, collectibleType);
+    const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
+    v.run.trackedCollectibles.set(pickupIndex, collectibleType);
 
     // The item might have already shifted on the first frame that it spawns, so change it back if
     // necessary.
-    this.checkCollectibleRotated(collectible);
+    if (collectible.SubType !== collectibleType) {
+      setCollectibleSubType(collectible, collectibleType);
+    }
   }
-}
-
-function getMapIndex(collectible: EntityPickup) {
-  const room = game.GetRoom();
-  const gridIndex = room.GetGridIndex(collectible.Position);
-  return `${gridIndex},${collectible.InitSeed}`;
 }
