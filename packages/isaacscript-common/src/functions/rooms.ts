@@ -377,6 +377,13 @@ export function inDevilsCrownTreasureRoom(): boolean {
   return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
 }
 
+/**
+ * Helper function to detect if the current room is a Double Trouble Boss Room.
+ *
+ * This is performed by checking for the string "Double Trouble" inside of the room name. The
+ * vanilla game uses this convention for every Double Trouble Boss Room. Note that this method might
+ * fail for mods that add extra Double Trouble rooms but do not follow the convention.
+ */
 export function inDoubleTrouble(): boolean {
   const room = game.GetRoom();
   const roomType = room.GetType();
