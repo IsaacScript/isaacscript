@@ -35,6 +35,7 @@ export { PostFamiliarUpdateFilter } from "./classes/callbacks/PostFamiliarUpdate
 export { PostFirstEsauJr } from "./classes/callbacks/PostFirstEsauJr";
 export { PostFirstFlip } from "./classes/callbacks/PostFirstFlip";
 export { PostFlip } from "./classes/callbacks/PostFlip";
+export { PostGameEndFilter } from "./classes/callbacks/PostGameEndFilter";
 export { PostGameStartedReordered } from "./classes/callbacks/PostGameStartedReordered";
 export { PostGameStartedReorderedLast } from "./classes/callbacks/PostGameStartedReorderedLast";
 export { PostGreedModeWave } from "./classes/callbacks/PostGreedModeWave";

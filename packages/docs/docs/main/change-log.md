@@ -21,7 +21,8 @@ This page lists the changes to the IsaacScript framework.
 - Changed the following helper functions:
   - `spawnPersistentEntity` - Now returns an object instead of a tuple.
 - Added the following custom callbacks:
-  - `POST_USE_PILL_FILTER`
+  - `POST_USE_PILL_FILTER` (which also passes the pill color)
+  - `POST_GAME_END_FILTER`
 
 ## February 24th, 2023
 

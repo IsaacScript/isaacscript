@@ -276,6 +276,11 @@ export interface AddCallbackParametersCustom {
     callback: (newLazarus: EntityPlayer, oldLazarus: EntityPlayer) => void,
   ];
 
+  [ModCallbackCustom.POST_GAME_END_FILTER]: [
+    callback: (isGameOver: boolean) => void,
+    isGameOver?: boolean,
+  ];
+
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED]: [
     callback: (isContinued: boolean) => void,
     // `isContinued` is mandatory to prevent users from shooting themselves in the foot.

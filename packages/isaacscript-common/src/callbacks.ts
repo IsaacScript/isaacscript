@@ -38,6 +38,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_FIRST_FLIP]: cc.PostFirstFlip,
   [ModCallbackCustom.POST_FIRST_ESAU_JR]: cc.PostFirstEsauJr,
   [ModCallbackCustom.POST_FLIP]: cc.PostFlip,
+  [ModCallbackCustom.POST_GAME_END_FILTER]: cc.PostGameEndFilter,
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED]: cc.PostGameStartedReordered,
   [ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST]:
     cc.PostGameStartedReorderedLast,

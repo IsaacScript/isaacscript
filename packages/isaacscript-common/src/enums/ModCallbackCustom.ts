@@ -585,6 +585,20 @@ export enum ModCallbackCustom {
   POST_FLIP,
 
   /**
+   * The exact same thing as the vanilla `POST_GAME_END` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `isGameOver` value provided.
+   *
+   * ```ts
+   * function postGameEndFilter(isGameOver: boolean): void {}
+   * ```
+   */
+  POST_GAME_END_FILTER,
+
+  /**
    * Similar to the vanilla callback of the same name, but fires in the correct order with respect
    * to the `POST_NEW_LEVEL` and the `POST_NEW_ROOM` callbacks:
    *
