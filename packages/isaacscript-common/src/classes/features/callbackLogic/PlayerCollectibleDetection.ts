@@ -63,7 +63,7 @@ export class PlayerCollectibleDetection extends Feature {
 
     this.callbacksUsed = [
       // 3
-      [ModCallback.POST_USE_ITEM, this.useItemD4, [CollectibleType.D4]],
+      [ModCallback.POST_USE_ITEM, this.postUseItemD4, [CollectibleType.D4]],
     ];
 
     this.customCallbacksUsed = [
@@ -135,7 +135,7 @@ export class PlayerCollectibleDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.D4 (284)
-  private useItemD4 = (
+  private postUseItemD4 = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

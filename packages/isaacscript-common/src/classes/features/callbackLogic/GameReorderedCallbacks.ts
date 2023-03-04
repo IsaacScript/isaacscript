@@ -52,7 +52,7 @@ export class GameReorderedCallbacks extends Feature {
       // 3
       [
         ModCallback.POST_USE_ITEM,
-        this.useItemGlowingHourGlass,
+        this.postUseItemGlowingHourGlass,
         [CollectibleType.GLOWING_HOUR_GLASS],
       ],
 
@@ -77,7 +77,7 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
-  private useItemGlowingHourGlass = (): boolean | undefined => {
+  private postUseItemGlowingHourGlass = (): boolean | undefined => {
     // If Glowing Hourglass is used on the first room of a floor, it will send the player to the
     // previous floor without triggering the `POST_NEW_LEVEL` callback. Manually check for this.
     this.usedGlowingHourGlass = true;

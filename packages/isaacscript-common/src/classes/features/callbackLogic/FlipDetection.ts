@@ -27,7 +27,7 @@ export class FlipDetection extends Feature {
 
     this.callbacksUsed = [
       // 3
-      [ModCallback.POST_USE_ITEM, this.useItemFlip, [CollectibleType.FLIP]],
+      [ModCallback.POST_USE_ITEM, this.postUseItemFlip, [CollectibleType.FLIP]],
     ];
 
     this.postFlip = postFlip;
@@ -36,7 +36,7 @@ export class FlipDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.FLIP (711)
-  private useItemFlip = (
+  private postUseItemFlip = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

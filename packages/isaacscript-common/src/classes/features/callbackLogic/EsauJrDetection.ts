@@ -34,7 +34,7 @@ export class EsauJrDetection extends Feature {
       // 3
       [
         ModCallback.POST_USE_ITEM,
-        this.useItemEsauJr,
+        this.postUseItemEsauJr,
         [CollectibleType.ESAU_JR],
       ],
     ];
@@ -81,7 +81,7 @@ export class EsauJrDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.ESAU_JR (703)
-  private useItemEsauJr = (
+  private postUseItemEsauJr = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
