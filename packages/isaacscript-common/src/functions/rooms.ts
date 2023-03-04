@@ -541,6 +541,7 @@ export function inStartingRoom(): boolean {
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  *                           the array will be ignored. If not specified, then all rooms will be
  *                           checked. Undefined by default.
+ * @allowEmptyVariadic
  */
 export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
   const rooms = getRoomsInsideGrid();

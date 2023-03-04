@@ -563,14 +563,6 @@ export function spawn(
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (velocity === undefined) {
-    const entityID = getEntityIDFromConstituents(entityType, variant, subType);
-    error(
-      `Failed to spawn entity ${entityID} since an undefined velocity was passed to the "spawn" function.`,
-    );
-  }
-
   const position = isVector(positionOrGridIndex)
     ? positionOrGridIndex
     : room.GetGridPosition(positionOrGridIndex);
