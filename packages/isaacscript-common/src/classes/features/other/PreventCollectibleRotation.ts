@@ -75,7 +75,7 @@ export class PreventCollectibleRotation extends Feature {
     collectibleType: CollectibleType,
   ): boolean | undefined => {
     if (ROLL_COLLECTIBLE_TYPES.has(collectibleType)) {
-      markRollFrame();
+      v.run.rollGameFrame = game.GetFrameCount();
     }
 
     return undefined;
@@ -132,8 +132,13 @@ export class PreventCollectibleRotation extends Feature {
       return;
     }
 
+    // It can take a frame after the activation of the D6 for the sub-type to change.
     const gameFrameCount = game.GetFrameCount();
-    if (gameFrameCount === v.run.rollGameFrame) {
+    if (
+      v.run.rollGameFrame !== null &&
+      (gameFrameCount === v.run.rollGameFrame ||
+        gameFrameCount === v.run.rollGameFrame + 1)
+    ) {
       v.run.trackedCollectibles.delete(pickupIndex);
       return;
     }
@@ -177,8 +182,4 @@ export class PreventCollectibleRotation extends Feature {
       setCollectibleSubType(collectible, collectibleType);
     }
   }
-}
-
-function markRollFrame() {
-  v.run.rollGameFrame = game.GetFrameCount();
 }
