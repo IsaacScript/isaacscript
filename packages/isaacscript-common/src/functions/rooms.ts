@@ -541,9 +541,17 @@ export function inStartingRoom(): boolean {
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  *                           the array will be ignored. If not specified, then all rooms will be
  *                           checked. Undefined by default.
+ * @param includeSecretAndSuperSecretRoom Optional. Whether or not to include the Secret Room and
+ *                                 the Super Secret Room. Default is false.
+ * @param includeUltraSecretRoom Optional. Whether or not to include the Ultra Secret Room. Default
+ *                               is false.
  * @allowEmptyVariadic
  */
-export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
+export function isAllRoomsClear(
+  onlyCheckRoomTypes?: RoomType[],
+  includeSecretAndSuperSecretRoom = false,
+  includeUltraSecretRoom = false,
+): boolean {
   const rooms = getRoomsInsideGrid();
 
   let matchingRooms: RoomDescriptor[];
@@ -555,6 +563,23 @@ export function isAllRoomsClear(onlyCheckRoomTypes?: RoomType[]): boolean {
       (roomDescriptor) =>
         roomDescriptor.Data !== undefined &&
         roomTypeWhitelist.has(roomDescriptor.Data.Type),
+    );
+  }
+
+  if (!includeSecretAndSuperSecretRoom) {
+    matchingRooms = matchingRooms.filter(
+      (roomDescriptor) =>
+        roomDescriptor.Data !== undefined &&
+        roomDescriptor.Data.Type !== RoomType.SECRET &&
+        roomDescriptor.Data.Type !== RoomType.SUPER_SECRET,
+    );
+  }
+
+  if (!includeUltraSecretRoom) {
+    matchingRooms = matchingRooms.filter(
+      (roomDescriptor) =>
+        roomDescriptor.Data !== undefined &&
+        roomDescriptor.Data.Type !== RoomType.ULTRA_SECRET,
     );
   }
 
