@@ -1,9 +1,11 @@
 import {
   CardType,
   CollectibleType,
+  DiceFloorSubType,
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
+import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
@@ -13,12 +15,27 @@ import { getCollectibles } from "../../../functions/pickupsSpecific";
 import { isCollectible } from "../../../functions/pickupVariants";
 import { asCollectibleType } from "../../../functions/types";
 import { PickupIndex } from "../../../types/PickupIndex";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import { PickupIndexCreation } from "./PickupIndexCreation";
+
+const ROLL_COLLECTIBLE_TYPES = new ReadonlySet([
+  // The `PRE_USE_ITEM` D6 callback is fired for D6, D100, Dice Shard, 4-pip Dice Room, and 6-pip
+  // Dice Room.
+  CollectibleType.D6, // 105
+  CollectibleType.ETERNAL_D6, // 609
+  CollectibleType.SPINDOWN_DICE, // 723
+]);
+
+const ROLL_FLOOR_DICE_FLOOR_SUB_TYPES = new ReadonlySet([
+  DiceFloorSubType.FOUR_PIP,
+  DiceFloorSubType.SIX_PIP,
+]);
 
 const v = {
   run: {
     trackedCollectibles: new Map<PickupIndex, CollectibleType>(),
+    rollGameFrame: null as int | null,
   },
 };
 
@@ -38,17 +55,31 @@ export class PreventCollectibleRotation extends Feature {
       // 5
       [
         ModCallback.POST_USE_CARD,
-        this.useCardSoulOfIsaac,
+        this.postUseCardSoulOfIsaac,
         [CardType.SOUL_ISAAC],
       ],
+
+      // 23, 105
+      [ModCallback.PRE_USE_ITEM, this.preUseItem],
     ];
 
     this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_DICE_ROOM_ACTIVATED, this.postDiceRoomActivated],
       [ModCallbackCustom.POST_PICKUP_CHANGED, this.postPickupChanged],
     ];
 
     this.pickupIndexCreation = pickupIndexCreation;
   }
+
+  private preUseItem = (
+    collectibleType: CollectibleType,
+  ): boolean | undefined => {
+    if (ROLL_COLLECTIBLE_TYPES.has(collectibleType)) {
+      markRollFrame();
+    }
+
+    return undefined;
+  };
 
   /**
    * Soul of Isaac causes items to flip. We assume that the player deliberately wants to roll a
@@ -56,11 +87,21 @@ export class PreventCollectibleRotation extends Feature {
    */
   // ModCallback.POST_USE_CARD (5)
   // Card.SOUL_ISAAC (81)
-  private useCardSoulOfIsaac = () => {
+  private postUseCardSoulOfIsaac = () => {
     const collectibles = getCollectibles();
     for (const collectible of collectibles) {
       const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
       v.run.trackedCollectibles.delete(pickupIndex);
+    }
+  };
+
+  // ModCallbackCustom.POST_DICE_ROOM_ACTIVATED
+  private postDiceRoomActivated = (
+    _player: EntityPlayer,
+    diceFloorSubType: DiceFloorSubType,
+  ) => {
+    if (ROLL_FLOOR_DICE_FLOOR_SUB_TYPES.has(diceFloorSubType)) {
+      v.run.trackedCollectibles.clear();
     }
   };
 
@@ -88,6 +129,12 @@ export class PreventCollectibleRotation extends Feature {
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(pickup);
     const trackedCollectibleType = v.run.trackedCollectibles.get(pickupIndex);
     if (trackedCollectibleType === undefined) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+    if (gameFrameCount === v.run.rollGameFrame) {
+      v.run.trackedCollectibles.delete(pickupIndex);
       return;
     }
 
@@ -130,4 +177,8 @@ export class PreventCollectibleRotation extends Feature {
       setCollectibleSubType(collectible, collectibleType);
     }
   }
+}
+
+function markRollFrame() {
+  v.run.rollGameFrame = game.GetFrameCount();
 }

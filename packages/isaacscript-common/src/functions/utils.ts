@@ -176,6 +176,8 @@ export function repeat(n: int, func: (i: int) => void): void {
  * useful as a means to prevent unused variables.)
  *
  * This function does not actually do anything. (It is an "empty" function.)
+ *
+ * @allowEmptyVariadic
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function todo(...args: unknown[]): void {}
