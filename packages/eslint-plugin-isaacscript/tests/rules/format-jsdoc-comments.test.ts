@@ -671,6 +671,36 @@ invalid.push({
   `,
 });
 
+valid.push({
+  name: "Comment with example JSDoc and code block inside",
+  code: `
+function foo() {
+  function bar() {
+    /**
+     * Get detailed information about the items in the given slot.
+     *
+     * @since 1.64.0
+     * @example
+     *     // Print the current slot, assuming it contains 13 dirt.
+     *     print(text_utils.serialize(turtle.getItemDetail()));
+     *     // \`\`\`lua {
+     *     //  name = "minecraft:dirt",
+     *     //  count = 13,
+     *     // \`\`\`
+     * @param slot The slot to get information about. Defaults to the {@link select selected slot}.
+     * @param detailed Whether to include "detailed" information. When \`true\` the method will
+     *                 contain much more information about the item at the cost of taking longer to
+     *                 run.
+     * @returns Information about the given slot, or \`undefined\` if it is empty.
+     * @throws If the slot is out of range.
+     * @see {@link InventoryPeripheral.getItemDetail} Describes the information returned by a
+     *      detailed query.
+     */
+  }
+}
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,

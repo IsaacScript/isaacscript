@@ -117,11 +117,13 @@ export function formatText(
         formattedText,
       );
 
-      // Enforce newlines before the beginning of code blocks.
+      // Enforce newlines before the beginning of code blocks. (But not inside of an example code
+      // block, because there should not be newlines between tags.)
       if (
         hasCodeBlock &&
         !previousLineInsideCodeBlock &&
-        !previousLineWasBlank
+        !previousLineWasBlank &&
+        !insideExampleTagBlock
       ) {
         formattedText += "\n";
       }
@@ -129,10 +131,16 @@ export function formatText(
       // Copy the line exactly.
       formattedLine += line;
 
-      // Enforce newlines after the end of code blocks.
+      // Enforce newlines after the end of code blocks. (But not inside of an example code block,
+      // because there should not be newlines between tags.)
       const nextLine = lines[i + 1];
       const nextLineIsBlank = nextLine === undefined || nextLine.trim() === "";
-      if (hasCodeBlock && previousLineInsideCodeBlock && !nextLineIsBlank) {
+      if (
+        hasCodeBlock &&
+        previousLineInsideCodeBlock &&
+        !nextLineIsBlank &&
+        !insideExampleTagBlock
+      ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(
           formattedLine,
