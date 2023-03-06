@@ -61,6 +61,7 @@ import {
 import {
   FIRST_CARD_TYPE,
   FIRST_CHARACTER,
+  FIRST_HORSE_PILL_COLOR,
   FIRST_PILL_COLOR,
   FIRST_PILL_EFFECT,
   FIRST_ROOM_TYPE,
@@ -1031,18 +1032,38 @@ export function pill(params: string): void {
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */
 export function pills(): void {
-  let pillColor = FIRST_PILL_COLOR;
-  for (let y = 0; y <= 6; y++) {
-    for (let x = 0; x <= 12; x++) {
-      if (pillColor > PillColor.GOLD) {
-        return;
-      }
+  let y: int;
+  let pillColor: PillColor;
 
-      const worldPosition = gridCoordinatesToWorldPosition(x, y);
-      spawnPill(pillColor, worldPosition);
-      pillColor++; // eslint-disable-line isaacscript/strict-enums
+  y = 1;
+  pillColor = FIRST_PILL_COLOR;
+  for (let x = 0; x <= 12; x++) {
+    if (pillColor >= PillColor.GOLD) {
+      break;
     }
+
+    const worldPosition = gridCoordinatesToWorldPosition(x, y);
+    spawnPill(pillColor, worldPosition);
+    pillColor++; // eslint-disable-line isaacscript/strict-enums
   }
+
+  y = 2;
+  pillColor = FIRST_HORSE_PILL_COLOR;
+  for (let x = 0; x <= 12; x++) {
+    if (pillColor >= PillColor.HORSE_GOLD) {
+      break;
+    }
+
+    const worldPosition = gridCoordinatesToWorldPosition(x, y);
+    spawnPill(pillColor, worldPosition);
+    pillColor++; // eslint-disable-line isaacscript/strict-enums
+  }
+
+  y = 3;
+  const worldPosition1 = gridCoordinatesToWorldPosition(0, y);
+  spawnPill(PillColor.GOLD, worldPosition1);
+  const worldPosition2 = gridCoordinatesToWorldPosition(1, y);
+  spawnPill(PillColor.HORSE_GOLD, worldPosition2);
 }
 
 /** Warps to the first Planetarium on the floor. */
