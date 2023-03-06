@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## March 3rd, 2023 (Unreleased)
+## March 6th, 2023
 
 - Added the following helper functions:
   - `onStageOrHigher`
@@ -27,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
   - `POST_GAME_END_FILTER`
 - Deleted the following custom callbacks:
   - `POST_COLLECTIBLE_INIT_FIRST` (use `POST_PICKUP_INIT_FIRST` instead)
+- The `pills` command will now spawn horse pills in addition to normal pills.
 
 ## February 24th, 2023
 
