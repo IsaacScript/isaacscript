@@ -1,5 +1,7 @@
 // This is the configuration file for ESLint, the TypeScript linter:
 // https://eslint.org/docs/latest/use/configure/
+
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config:

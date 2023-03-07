@@ -8,6 +8,7 @@ const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
   "configs",
 );
 
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: [
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "base.js"),
