@@ -67,7 +67,7 @@ export enum ModCallback {
    *
    * ```ts
    * function postUseCard(
-   *   card: CardType,
+   *   cardType: CardType,
    *   player: EntityPlayer,
    *   useFlags: BitFlags<UseFlag>,
    * ): void {}
@@ -254,7 +254,7 @@ export enum ModCallback {
    * ```ts
    * function getCard(
    *   rng: RNG,
-   *   card: CardType,
+   *   cardType: CardType,
    *   includePlayingCards: boolean,
    *   includeRunes: boolean,
    *   onlyRunes: boolean,

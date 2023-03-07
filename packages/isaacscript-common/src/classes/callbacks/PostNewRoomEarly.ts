@@ -62,7 +62,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
     let topLeftWall = room.GetGridEntity(topLeftWallGridIndex);
     let topLeftWall2 = room.GetGridEntity(rightOfTopWallGridIndex);
 
-    // Sometimes, the PreEntitySpawn callback can fire before any grid entities in the room have
+    // Sometimes, the `PRE_ENTITY_SPAWN` callback can fire before any grid entities in the room have
     // spawned, which means that the top-left wall will not exist. If ths is the case, then simply
     // spawn the top-left wall early.
     if (topLeftWall === undefined) {

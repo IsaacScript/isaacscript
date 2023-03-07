@@ -587,7 +587,7 @@ declare global {
     /** Returns 0 if there is no card. */
     GetCard(pocketItemSlot: PocketItemSlot): CardType;
 
-    GetCardRNG(card: CardType): RNG;
+    GetCardRNG(cardType: CardType): RNG;
 
     /**
      * Returns the total amount of collectibles that the player has. For example, if the player has
