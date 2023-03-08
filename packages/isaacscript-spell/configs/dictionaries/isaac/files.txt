@@ -55,6 +55,7 @@ noeden # items_metadata.xml
 nogreed # items_metadata.xml
 nokeeper # items_metadata.xml
 nolostbr # items_metadata.xml
+nopits # entities2.xml
 normaldoor # door_01_normaldoor.png
 Onan # challenges.xml
 pftempestasevencondensed # font
