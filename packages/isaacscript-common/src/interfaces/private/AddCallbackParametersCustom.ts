@@ -742,11 +742,13 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: [
     callback: (projectile: EntityProjectile) => void,
     projectileVariant?: ProjectileVariant,
+    subType?: int,
   ];
 
   [ModCallbackCustom.POST_PROJECTILE_KILL]: [
     callback: (projectile: EntityProjectile) => void,
     projectileVariant?: ProjectileVariant,
+    subType?: number,
   ];
 
   [ModCallbackCustom.POST_PROJECTILE_UPDATE_FILTER]: [
@@ -856,6 +858,12 @@ export interface AddCallbackParametersCustom {
   ];
 
   [ModCallbackCustom.POST_TEAR_INIT_VERY_LATE]: [
+    callback: (tear: EntityTear) => void,
+    tearVariant?: TearVariant,
+    subType?: int,
+  ];
+
+  [ModCallbackCustom.POST_TEAR_KILL]: [
     callback: (tear: EntityTear) => void,
     tearVariant?: TearVariant,
     subType?: int,

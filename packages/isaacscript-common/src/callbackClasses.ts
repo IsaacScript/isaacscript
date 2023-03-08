@@ -120,6 +120,7 @@ export { PostSpikesUpdate } from "./classes/callbacks/PostSpikesUpdate";
 export { PostTearInitFilter } from "./classes/callbacks/PostTearInitFilter";
 export { PostTearInitLate } from "./classes/callbacks/PostTearInitLate";
 export { PostTearInitVeryLate } from "./classes/callbacks/PostTearInitVeryLate";
+export { PostTearKill } from "./classes/callbacks/PostTearKill";
 export { PostTearRenderFilter } from "./classes/callbacks/PostTearRenderFilter";
 export { PostTearUpdateFilter } from "./classes/callbacks/PostTearUpdateFilter";
 export { PostTNTRender } from "./classes/callbacks/PostTNTRender";
