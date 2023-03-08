@@ -101,6 +101,7 @@ export { PostPressurePlateRender } from "./classes/callbacks/PostPressurePlateRe
 export { PostPressurePlateUpdate } from "./classes/callbacks/PostPressurePlateUpdate";
 export { PostProjectileInitFilter } from "./classes/callbacks/PostProjectileInitFilter";
 export { PostProjectileInitLate } from "./classes/callbacks/PostProjectileInitLate";
+export { PostProjectileKill } from "./classes/callbacks/PostProjectileKill";
 export { PostProjectileRenderFilter } from "./classes/callbacks/PostProjectileRenderFilter";
 export { PostProjectileUpdateFilter } from "./classes/callbacks/PostProjectileUpdateFilter";
 export { PostPurchase } from "./classes/callbacks/PostPurchase";
@@ -119,6 +120,7 @@ export { PostSpikesUpdate } from "./classes/callbacks/PostSpikesUpdate";
 export { PostTearInitFilter } from "./classes/callbacks/PostTearInitFilter";
 export { PostTearInitLate } from "./classes/callbacks/PostTearInitLate";
 export { PostTearInitVeryLate } from "./classes/callbacks/PostTearInitVeryLate";
+export { PostTearKill } from "./classes/callbacks/PostTearKill";
 export { PostTearRenderFilter } from "./classes/callbacks/PostTearRenderFilter";
 export { PostTearUpdateFilter } from "./classes/callbacks/PostTearUpdateFilter";
 export { PostTNTRender } from "./classes/callbacks/PostTNTRender";

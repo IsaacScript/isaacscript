@@ -118,6 +118,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_PRESSURE_PLATE_UPDATE]: cc.PostPressurePlateUpdate,
   [ModCallbackCustom.POST_PROJECTILE_INIT_FILTER]: cc.PostProjectileInitFilter,
   [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: cc.PostProjectileInitLate,
+  [ModCallbackCustom.POST_PROJECTILE_KILL]: cc.PostProjectileKill,
   [ModCallbackCustom.POST_PROJECTILE_RENDER_FILTER]:
     cc.PostProjectileRenderFilter,
   [ModCallbackCustom.POST_PROJECTILE_UPDATE_FILTER]:
@@ -138,6 +139,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_TEAR_INIT_FILTER]: cc.PostTearInitFilter,
   [ModCallbackCustom.POST_TEAR_INIT_LATE]: cc.PostTearInitLate,
   [ModCallbackCustom.POST_TEAR_INIT_VERY_LATE]: cc.PostTearInitVeryLate,
+  [ModCallbackCustom.POST_TEAR_KILL]: cc.PostTearKill,
   [ModCallbackCustom.POST_TEAR_RENDER_FILTER]: cc.PostTearRenderFilter,
   [ModCallbackCustom.POST_TEAR_UPDATE_FILTER]: cc.PostTearUpdateFilter,
   [ModCallbackCustom.POST_TNT_RENDER]: cc.PostTNTRender,
