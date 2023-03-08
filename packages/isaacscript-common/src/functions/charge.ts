@@ -11,6 +11,7 @@ import {
   getCollectibleMaxCharges,
 } from "./collectibles";
 import { getPlayers } from "./playerIndex";
+import { getActiveItemSlots } from "./players";
 import { getRoomShapeCharges } from "./roomShape";
 
 /**
@@ -236,6 +237,23 @@ export function getTotalCharge(
   const batteryCharge = player.GetBatteryCharge(activeSlot);
 
   return activeCharge + batteryCharge;
+}
+
+/**
+ * Helper function to find the active slots that the player has the corresponding collectible type
+ * in and have enough charge to be used. Returns an empty array if the player does not have the
+ * collectible in any active slot or does not have enough charges.
+ */
+export function getUsableActiveItemSlots(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+): ActiveSlot[] {
+  const maxCharges = getCollectibleMaxCharges(collectibleType);
+  const activeSlots = getActiveItemSlots(player, collectibleType);
+  return activeSlots.filter((activeSlot) => {
+    const totalCharge = getTotalCharge(player, activeSlot);
+    return totalCharge >= maxCharges;
+  });
 }
 
 /**
