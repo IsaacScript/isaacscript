@@ -8,6 +8,7 @@
   "useGitignore": true,
   "ignorePaths": [
     "*.anm2",
+    "*.ogg",
     "*.pyc",
     "*.stb",
     "*.wav",
