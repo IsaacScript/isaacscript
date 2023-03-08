@@ -1856,6 +1856,21 @@ export enum ModCallbackCustom {
   POST_PROJECTILE_INIT_LATE,
 
   /**
+   * Fires when the provided projectile is removed after colliding with an entity or grid entity.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileKill(projectile: EntityProjectile): void {}
+   * ```
+   */
+  POST_PROJECTILE_KILL,
+
+  /**
    * The exact same thing as the vanilla `POST_PROJECTILE_RENDER` callback, except this callback
    * allows you to specify extra arguments for additional filtration.
    *

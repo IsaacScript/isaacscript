@@ -118,6 +118,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_PRESSURE_PLATE_UPDATE]: cc.PostPressurePlateUpdate,
   [ModCallbackCustom.POST_PROJECTILE_INIT_FILTER]: cc.PostProjectileInitFilter,
   [ModCallbackCustom.POST_PROJECTILE_INIT_LATE]: cc.PostProjectileInitLate,
+  [ModCallbackCustom.POST_PROJECTILE_KILL]: cc.PostProjectileKill,
   [ModCallbackCustom.POST_PROJECTILE_RENDER_FILTER]:
     cc.PostProjectileRenderFilter,
   [ModCallbackCustom.POST_PROJECTILE_UPDATE_FILTER]:

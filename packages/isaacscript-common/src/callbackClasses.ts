@@ -101,6 +101,7 @@ export { PostPressurePlateRender } from "./classes/callbacks/PostPressurePlateRe
 export { PostPressurePlateUpdate } from "./classes/callbacks/PostPressurePlateUpdate";
 export { PostProjectileInitFilter } from "./classes/callbacks/PostProjectileInitFilter";
 export { PostProjectileInitLate } from "./classes/callbacks/PostProjectileInitLate";
+export { PostProjectileKill } from "./classes/callbacks/PostProjectileKill";
 export { PostProjectileRenderFilter } from "./classes/callbacks/PostProjectileRenderFilter";
 export { PostProjectileUpdateFilter } from "./classes/callbacks/PostProjectileUpdateFilter";
 export { PostPurchase } from "./classes/callbacks/PostPurchase";

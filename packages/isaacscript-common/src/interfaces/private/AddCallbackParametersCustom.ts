@@ -744,6 +744,11 @@ export interface AddCallbackParametersCustom {
     projectileVariant?: ProjectileVariant,
   ];
 
+  [ModCallbackCustom.POST_PROJECTILE_KILL]: [
+    callback: (projectile: EntityProjectile) => void,
+    projectileVariant?: ProjectileVariant,
+  ];
+
   [ModCallbackCustom.POST_PROJECTILE_UPDATE_FILTER]: [
     callback: (projectile: EntityProjectile) => void,
     projectileVariant?: ProjectileVariant,
