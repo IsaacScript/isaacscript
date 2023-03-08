@@ -16,10 +16,10 @@ export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KIL
     super();
 
     this.callbacksUsed = [
-      // 44
+      // 40
       [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
 
-      // 46
+      // 42
       [ModCallback.PRE_TEAR_COLLISION, this.preTearCollision],
 
       // 67
