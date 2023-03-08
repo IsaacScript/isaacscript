@@ -1832,7 +1832,7 @@ export enum ModCallbackCustom {
    *   matches the sub-type provided.
    *
    * ```ts
-   * function postProjectileInitFilter(tear: EntityTear): void {}
+   * function postProjectileInitFilter(projectile: EntityProjectile): void {}
    * ```
    */
   POST_PROJECTILE_INIT_FILTER,
@@ -1866,7 +1866,7 @@ export enum ModCallbackCustom {
    *   matches the sub-type provided.
    *
    * ```ts
-   * function postProjectileRenderFilter(tear: EntityTear, renderOffset: Vector): void {}
+   * function postProjectileRenderFilter(projectile: EntityProjectile, renderOffset: Vector): void {}
    * ```
    */
   POST_PROJECTILE_RENDER_FILTER,
@@ -1882,7 +1882,7 @@ export enum ModCallbackCustom {
    *   matches the sub-type provided.
    *
    * ```ts
-   * function postProjectileUpdateFilter(tear: EntityTear): void {}
+   * function postProjectileUpdateFilter(projectile: EntityProjectile): void {}
    * ```
    */
   POST_PROJECTILE_UPDATE_FILTER,
