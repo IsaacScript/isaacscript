@@ -134,9 +134,15 @@ export function hideRoomOnMinimap(roomGridIndex: int): void {
   }
 }
 
-/** Helper function to check if a given room is visible on the minimap. */
-export function isRoomVisible(roomGridIndex: int): boolean {
-  const roomDisplayFlags = getRoomDisplayFlags(roomGridIndex);
+/**
+ * Helper function to check if a given room is visible on the minimap.
+ *
+ * @param roomGridIndex The room to check.
+ * @param minimapAPI Optional. Whether or not MinimapAPI should be used, if present. Default is
+ *                   true.
+ */
+export function isRoomVisible(roomGridIndex: int, minimapAPI = true): boolean {
+  const roomDisplayFlags = getRoomDisplayFlags(roomGridIndex, minimapAPI);
   return roomDisplayFlags !== DisplayFlagZero;
 }
 
