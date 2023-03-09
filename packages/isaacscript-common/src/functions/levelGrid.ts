@@ -558,3 +558,12 @@ export function roomGridIndexToVector(roomGridIndex: int): Vector {
 
   return Vector(x, y);
 }
+
+/**
+ * Helper function to convert a room grid index expressed as a vector back into an integer.
+ *
+ * Also see the `roomGridIndexToVector` helper function.
+ */
+export function vectorToRoomGridIndex(roomVector: Vector): int {
+  return roomVector.Y * LEVEL_GRID_ROW_WIDTH + roomVector.X;
+}
