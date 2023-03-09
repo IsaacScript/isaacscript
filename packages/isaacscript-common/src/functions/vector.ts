@@ -79,6 +79,31 @@ export function doesVectorHaveLength(
 }
 
 /**
+ * Given an array of vectors, this helper function returns the closest one to a provided reference
+ * vector.
+ *
+ * @param referenceVector The vector to compare against.
+ * @param vectors The array of vectors to look through.
+ */
+export function getClosestVectorTo(
+  referenceVector: Vector,
+  vectors: Vector[],
+): Vector | undefined {
+  let closestVector: Vector | undefined;
+  let closestDistance = math.huge;
+  for (const vector of vectors) {
+    const distance = referenceVector.Distance(vector);
+
+    if (distance < closestDistance) {
+      closestVector = vector;
+      closestDistance = distance;
+    }
+  }
+
+  return closestVector;
+}
+
+/**
  * Helper function to get a random vector between (-1, -1) and (1, 1).
  *
  * To get random vectors with a bigger length, multiply this with a number.
