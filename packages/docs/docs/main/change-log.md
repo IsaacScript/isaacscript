@@ -14,6 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getUsableActiveItemSlots`
   - `logDisplayFlags`
+- Renamed the following helper functions:
+  - `roomGridIndexToXY` --> `roomGridIndexToVector`
 - Added the following custom callbacks:
   - `POST_TEAR_KILL` (Thanks 4Grabs)
   - `POST_PROJECTILE_KILL` (Thanks 4Grabs)

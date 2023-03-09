@@ -542,8 +542,8 @@ export function roomExists(roomGridIndex: int): boolean {
 }
 
 /**
- * Helper function to get the coordinates of a given grid index. The floor is represented by a 13x13
- * grid.
+ * Helper function to get the coordinates of a given room grid index. The floor is represented by a
+ * 13x13 grid.
  *
  * - Since the starting room is in the center, the starting room grid index of 84 is equal to
  *   coordinates of (6, 6).
@@ -552,9 +552,9 @@ export function roomExists(roomGridIndex: int): boolean {
  * - The bottom-left grid index of 156 is equal to coordinates of: (0, 12)
  * - The bottom-right grid index of 168 is equal to coordinates of: (12, 12)
  */
-export function roomGridIndexToXY(roomGridIndex: int): [x: int, y: int] {
+export function roomGridIndexToVector(roomGridIndex: int): Vector {
   const x = roomGridIndex % LEVEL_GRID_ROW_WIDTH;
   const y = Math.floor(roomGridIndex / LEVEL_GRID_ROW_WIDTH);
 
-  return [x, y];
+  return Vector(x, y);
 }
