@@ -1,5 +1,6 @@
 # These are general-purpose words that should be in the CSpell base dictionary.
 
+astar
 autoformat
 backstab
 backticks
