@@ -1,6 +1,7 @@
 import {
   CollectibleType,
   DamageFlag,
+  DisplayFlag,
   EntityFlag,
   GameStateFlag,
   GridRoom,
@@ -104,6 +105,14 @@ export function logDamageFlags(
   flags: DamageFlag | BitFlags<DamageFlag>,
 ): void {
   logFlags(flags, DamageFlag, "damage");
+}
+
+/** Helper function for printing out every display flag that is turned on. Useful when debugging. */
+export function logDisplayFlags(
+  this: void,
+  flags: DisplayFlag | BitFlags<DisplayFlag>,
+): void {
+  logFlags(flags, DisplayFlag, "display");
 }
 
 /** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
