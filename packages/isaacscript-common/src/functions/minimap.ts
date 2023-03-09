@@ -58,13 +58,18 @@ export function clearRoomDisplayFlags(roomGridIndex: int): void {
  * that is indexed by the room's safe grid index.
  *
  * This function automatically accounts for whether or not MinimapAPI is being used.
+ *
+ * @param minimapAPI Optional. Whether or not MinimapAPI should be used, if present. Default is
+ *                   true.
  */
-export function getFloorDisplayFlags(): Map<int, BitFlags<DisplayFlag>> {
+export function getFloorDisplayFlags(
+  minimapAPI = true,
+): Map<int, BitFlags<DisplayFlag>> {
   const displayFlagsMap = new Map<int, BitFlags<DisplayFlag>>();
 
   for (const roomDescriptor of getRoomsInsideGrid()) {
     const roomGridIndex = roomDescriptor.SafeGridIndex;
-    const displayFlags = getRoomDisplayFlags(roomGridIndex);
+    const displayFlags = getRoomDisplayFlags(roomGridIndex, minimapAPI);
     displayFlagsMap.set(roomGridIndex, displayFlags);
   }
 
@@ -78,15 +83,18 @@ export function getFloorDisplayFlags(): Map<int, BitFlags<DisplayFlag>> {
  * This function automatically accounts for whether or not MinimapAPI is being used.
  *
  * @param roomGridIndex Optional. Default is the current room index.
+ * @param minimapAPI Optional. Whether or not MinimapAPI should be used, if present. Default is
+ *                   true.
  */
 export function getRoomDisplayFlags(
   roomGridIndex?: int,
+  minimapAPI = true,
 ): BitFlags<DisplayFlag> {
   if (roomGridIndex === undefined) {
     roomGridIndex = getRoomGridIndex();
   }
 
-  if (MinimapAPI === undefined) {
+  if (MinimapAPI === undefined || !minimapAPI) {
     const roomDescriptor = getRoomDescriptor(roomGridIndex);
     return roomDescriptor.DisplayFlags;
   }
