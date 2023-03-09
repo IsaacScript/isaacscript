@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `getUsableActiveItemSlots`
   - `logDisplayFlags`
   - `getClosestVectorTo`
+  - `vectorToRoomGridIndex`
 - Renamed the following helper functions:
   - `roomGridIndexToXY` --> `roomGridIndexToVector`
 - Added the following custom callbacks:
