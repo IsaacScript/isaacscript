@@ -13,9 +13,12 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `getUsableActiveItemSlots`
+  - `logDisplayFlags`
 - Added the following custom callbacks:
   - `POST_TEAR_KILL` (Thanks 4Grabs)
   - `POST_PROJECTILE_KILL` (Thanks 4Grabs)
+- Added the following constants:
+  - `STARTING_ROOM_GRID_INDEX`
 
 ## March 6th, 2023
 

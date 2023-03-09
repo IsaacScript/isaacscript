@@ -213,6 +213,12 @@ export const RESOLUTION_FULL_SCREEN = Vector(480, 270);
  */
 export const RESOLUTION_1600_900 = Vector(533, 300);
 
+/**
+ * The starting room of the floor is always at the same grid index, which is in the middle of the
+ * 13x13 grid.
+ */
+export const STARTING_ROOM_GRID_INDEX = 84;
+
 /** After taking damage, `EntityPlayer.SamsonBerserkCharge` is incremented by this amount. */
 export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
 

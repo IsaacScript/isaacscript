@@ -94,7 +94,7 @@ In contrast to _trailing line comments_, _leading line comments_ are usually lon
 
 ```ts
 // this matches the USS design document, section D
-const foo = 84;
+const foo = 100;
 ```
 
 This is a good start. But the problem with annotating this information with a line comment is that it doesn't get "attached" to the variable. For example, in VSCode, if we hover over the `foo` variable (either at the declaration or elsewhere in the code), we would see that it has a value of 84, but we wouldn't see what the comment is.
@@ -103,7 +103,7 @@ To fix this problem, we can annotate the information as a JSDoc comment instead:
 
 ```ts
 /** this matches the USS design document, section D */
-const foo = 84;
+const foo = 100;
 ```
 
 Now, wherever we happen to be in the code, we can always mouse over `foo` to see the comment. Nice! (And if we use a documentation generator like [TypeDoc](https://github.com/TypeStrong/typedoc), it would automatically go in the generated documentation.)
@@ -112,7 +112,7 @@ However, one problem remains. You are [supposed to use complete sentences in JSD
 
 ```ts
 /** This matches the USS design document, section D. */
-const foo = 84;
+const foo = 100;
 ```
 
 Subsequently, it makes sense to have a linting rule to ensure that all JSDoc comments have complete sentences in them. This is the point of the [`isaacscript/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md) rule. (It is much smarter than the similar [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md) rule.)
