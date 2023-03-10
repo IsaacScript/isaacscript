@@ -546,14 +546,15 @@ export function setPlayerHealth(
   removeAllPlayerHealth(player);
 
   // Before we add any health, we have to take away Alabaster Box, if present.
-  const alabasterBoxes: Array<[slot: ActiveSlot, totalCharge: int]> = [];
+  const alabasterBoxes: Array<{ activeSlot: ActiveSlot; totalCharge: int }> =
+    [];
   if (player.HasCollectible(CollectibleType.ALABASTER_BOX)) {
     for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const activeItem = player.GetActiveItem();
       if (activeItem === CollectibleType.ALABASTER_BOX) {
         const totalCharge = getTotalCharge(player, activeSlot);
         setActiveItem(player, CollectibleType.NULL, activeSlot);
-        alabasterBoxes.push([activeSlot, totalCharge]);
+        alabasterBoxes.push({ activeSlot, totalCharge });
       }
     }
   }
@@ -649,7 +650,7 @@ export function setPlayerHealth(
   }
 
   // Re-add the Alabaster Box, if present.
-  for (const [activeSlot, totalCharge] of alabasterBoxes) {
+  for (const { activeSlot, totalCharge } of alabasterBoxes) {
     setActiveItem(
       player,
       CollectibleType.ALABASTER_BOX,

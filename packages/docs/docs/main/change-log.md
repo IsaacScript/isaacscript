@@ -18,6 +18,12 @@ This page lists the changes to the IsaacScript framework.
   - `vectorToRoomGridIndex`
 - Renamed the following helper functions:
   - `roomGridIndexToXY` --> `roomGridIndexToVector`
+- Changed the following helper functions:
+  - `getCustomGridEntities` (returns an array of objects instead of tuples)
+  - `getStageHistory` (returns an array of objects instead of tuples)
+  - `getNewRoomCandidatesBesideRoom` (returns an array of objects instead of tuples)
+  - `getNewRoomCandidatesForLevel` (returns an array of objects instead of tuples)
+  - `getNewRoomCandidate` (returns an array of objects instead of tuples)
 - Added the following custom callbacks:
   - `POST_TEAR_KILL` (Thanks 4Grabs)
   - `POST_PROJECTILE_KILL` (Thanks 4Grabs)

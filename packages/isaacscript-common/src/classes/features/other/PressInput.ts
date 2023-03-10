@@ -10,7 +10,10 @@ import { Feature } from "../../private/Feature";
 
 const v = {
   run: {
-    buttonActionTuples: [] as Array<[PlayerIndex, ButtonAction]>,
+    buttonActionPairs: [] as Array<{
+      playerIndex: PlayerIndex;
+      buttonAction: ButtonAction;
+    }>,
   },
 };
 
@@ -50,16 +53,15 @@ export class PressInput extends Feature {
 
     const playerIndex = getPlayerIndex(player);
 
-    for (let i = v.run.buttonActionTuples.length - 1; i >= 0; i--) {
+    for (let i = v.run.buttonActionPairs.length - 1; i >= 0; i--) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const tuple = v.run.buttonActionTuples[i]!;
-      const [tuplePlayerIndex, tupleButtonAction] = tuple;
+      const pair = v.run.buttonActionPairs[i]!;
 
       if (
-        tuplePlayerIndex === playerIndex &&
-        tupleButtonAction === buttonAction
+        pair.playerIndex === playerIndex &&
+        pair.buttonAction === buttonAction
       ) {
-        v.run.buttonActionTuples.splice(i);
+        v.run.buttonActionPairs.splice(i);
         return true;
       }
     }
@@ -77,6 +79,6 @@ export class PressInput extends Feature {
   @Exported
   public pressInput(player: EntityPlayer, buttonAction: ButtonAction): void {
     const playerIndex = getPlayerIndex(player);
-    v.run.buttonActionTuples.push([playerIndex, buttonAction]);
+    v.run.buttonActionPairs.push({ playerIndex, buttonAction });
   }
 }

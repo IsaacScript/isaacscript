@@ -351,9 +351,10 @@ export class CustomGridEntities extends Feature {
    * `ISCFeature.CUSTOM_GRID_ENTITIES`.
    */
   @Exported
-  public getCustomGridEntities(): Array<
-    [gridEntity: GridEntity, data: GridEntityCustomData]
-  > {
+  public getCustomGridEntities(): Array<{
+    gridEntity: GridEntity;
+    data: GridEntityCustomData;
+  }> {
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
       v.level.customGridEntities.get(roomListIndex);
@@ -362,11 +363,14 @@ export class CustomGridEntities extends Feature {
     }
 
     const room = game.GetRoom();
-    const customGridEntities: Array<[GridEntity, GridEntityCustomData]> = [];
+    const customGridEntities: Array<{
+      gridEntity: GridEntity;
+      data: GridEntityCustomData;
+    }> = [];
     for (const [gridIndex, data] of roomCustomGridEntities) {
       const gridEntity = room.GetGridEntity(gridIndex);
       if (gridEntity !== undefined) {
-        customGridEntities.push([gridEntity, data]);
+        customGridEntities.push({ gridEntity, data });
       }
     }
 

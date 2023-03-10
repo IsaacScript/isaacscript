@@ -53,7 +53,9 @@ const ADJACENT_ROOM_GRID_INDEX_DELTAS = [LEFT, UP, RIGHT, DOWN] as const;
  * This is just a filtering of the results of the `getAdjacentExistingRoomGridIndexes` function. See
  * that function for more information.
  */
-export function getAdjacentExistingRoomGridIndexes(roomGridIndex?: int): int[] {
+export function getAdjacentExistingRoomGridIndexes(
+  roomGridIndex?: int,
+): readonly int[] {
   const adjacentRoomGridIndexes = getAdjacentRoomGridIndexes(roomGridIndex);
   return adjacentRoomGridIndexes.filter(
     (adjacentRoomGridIndex) => getRoomData(adjacentRoomGridIndex) !== undefined,
@@ -69,7 +71,7 @@ export function getAdjacentExistingRoomGridIndexes(roomGridIndex?: int): int[] {
  */
 export function getAdjacentNonExistingRoomGridIndexes(
   roomGridIndex?: int,
-): int[] {
+): readonly int[] {
   const adjacentRoomGridIndexes = getAdjacentRoomGridIndexes(roomGridIndex);
   return adjacentRoomGridIndexes.filter(
     (adjacentRoomGridIndex) => getRoomData(adjacentRoomGridIndex) === undefined,
@@ -91,7 +93,9 @@ export function getAdjacentNonExistingRoomGridIndexes(
  *
  * @param roomGridIndex Optional. Default is the current room index.
  */
-export function getAdjacentRoomGridIndexes(roomGridIndex?: int): int[] {
+export function getAdjacentRoomGridIndexes(
+  roomGridIndex?: int,
+): readonly int[] {
   const roomGridIndexToUse =
     roomGridIndex === undefined ? getRoomGridIndex() : roomGridIndex;
 
@@ -109,7 +113,7 @@ export function getAdjacentRoomGridIndexes(roomGridIndex?: int): int[] {
 }
 
 /** Helper function to get the room safe grid index for every room on the entire floor. */
-export function getAllRoomGridIndexes(): int[] {
+export function getAllRoomGridIndexes(): readonly int[] {
   const rooms = getRooms();
   return rooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
@@ -124,10 +128,12 @@ export function getAllRoomGridIndexes(): int[] {
  * @returns Either a tuple of adjacent room grid index, `DoorSlot`, and new room grid index, or
  *          undefined.
  */
-export function getNewRoomCandidate(
-  seedOrRNG: Seed | RNG = getRandomSeed(),
-):
-  | [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
+export function getNewRoomCandidate(seedOrRNG: Seed | RNG = getRandomSeed()):
+  | {
+      readonly adjacentRoomGridIndex: int;
+      readonly doorSlot: DoorSlot;
+      readonly newRoomGridIndex: int;
+    }
   | undefined {
   const newRoomCandidatesForLevel = getNewRoomCandidatesForLevel();
   if (newRoomCandidatesForLevel.length === 0) {
@@ -147,7 +153,7 @@ export function getNewRoomCandidate(
  */
 export function getNewRoomCandidatesBesideRoom(
   roomGridIndex?: int,
-): Array<[doorSlot: DoorSlot, roomGridIndex: int]> {
+): ReadonlyArray<{ readonly doorSlot: DoorSlot; readonly roomGridIndex: int }> {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
 
   // First, handle the case of rooms outside of the grid, which obviously cannot have any possible
@@ -168,7 +174,10 @@ export function getNewRoomCandidatesBesideRoom(
     roomData.Shape,
   );
 
-  const roomCandidates: Array<[DoorSlot, int]> = [];
+  const roomCandidates: Array<{
+    readonly doorSlot: DoorSlot;
+    readonly roomGridIndex: int;
+  }> = [];
 
   for (const [doorSlot, adjacentRoomGridIndex] of doorSlotToRoomGridIndexes) {
     // The "getRoomShapeAdjacentNonExistingGridIndexes" returns grid indexes for every possible
@@ -186,7 +195,10 @@ export function getNewRoomCandidatesBesideRoom(
       continue;
     }
 
-    roomCandidates.push([doorSlot, adjacentRoomGridIndex]);
+    roomCandidates.push({
+      doorSlot,
+      roomGridIndex: adjacentRoomGridIndex,
+    });
   }
 
   return roomCandidates;
@@ -199,9 +211,11 @@ export function getNewRoomCandidatesBesideRoom(
  * @returns A array of tuples containing the adjacent room grid index, the `DoorSlot`, and the new
  *          room grid index.
  */
-export function getNewRoomCandidatesForLevel(): Array<
-  [adjacentRoomGridIndex: int, doorSlot: DoorSlot, newRoomGridIndex: int]
-> {
+export function getNewRoomCandidatesForLevel(): ReadonlyArray<{
+  readonly adjacentRoomGridIndex: int;
+  readonly doorSlot: DoorSlot;
+  readonly newRoomGridIndex: int;
+}> {
   // We want to iterate over every room on the floor and search for potential new room spots.
   const rooms = getRoomsInsideGrid();
 
@@ -216,14 +230,22 @@ export function getNewRoomCandidatesForLevel(): Array<
       room.Data.Subtype !== asNumber(MinesRoomSubType.MINESHAFT_ENTRANCE),
   );
 
-  const newRoomCandidates: Array<[int, DoorSlot, int]> = [];
+  const newRoomCandidates: Array<{
+    readonly adjacentRoomGridIndex: int;
+    readonly doorSlot: DoorSlot;
+    readonly newRoomGridIndex: int;
+  }> = [];
 
   for (const room of normalRooms) {
     const newRoomCandidatesBesideRoom = getNewRoomCandidatesBesideRoom(
       room.SafeGridIndex,
     );
-    for (const [doorSlot, newRoomGridIndex] of newRoomCandidatesBesideRoom) {
-      newRoomCandidates.push([room.SafeGridIndex, doorSlot, newRoomGridIndex]);
+    for (const { doorSlot, roomGridIndex } of newRoomCandidatesBesideRoom) {
+      newRoomCandidates.push({
+        adjacentRoomGridIndex: room.SafeGridIndex,
+        doorSlot,
+        newRoomGridIndex: roomGridIndex,
+      });
     }
   }
 
@@ -291,7 +313,9 @@ export function getRoomDescriptorsForType(
  * This function is variadic, meaning that you can specify N arguments to get the combined grid
  * indexes for N room types.
  */
-export function getRoomGridIndexesForType(...roomTypes: RoomType[]): int[] {
+export function getRoomGridIndexesForType(
+  ...roomTypes: RoomType[]
+): readonly int[] {
   const roomDescriptors = getRoomDescriptorsForType(...roomTypes);
   return roomDescriptors.map((roomDescriptor) => roomDescriptor.SafeGridIndex);
 }
@@ -492,7 +516,8 @@ export function newRoom(seedOrRNG?: Seed | RNG): int | undefined {
   if (newRoomCandidate === undefined) {
     return undefined;
   }
-  const [adjacentRoomGridIndex, doorSlot, newRoomGridIndex] = newRoomCandidate;
+  const { adjacentRoomGridIndex, doorSlot, newRoomGridIndex } =
+    newRoomCandidate;
 
   level.MakeRedRoomDoor(adjacentRoomGridIndex, doorSlot);
 
@@ -552,7 +577,7 @@ export function roomExists(roomGridIndex: int): boolean {
  * - The bottom-left grid index of 156 is equal to coordinates of: (0, 12)
  * - The bottom-right grid index of 168 is equal to coordinates of: (12, 12)
  */
-export function roomGridIndexToVector(roomGridIndex: int): Vector {
+export function roomGridIndexToVector(roomGridIndex: int): Readonly<Vector> {
   const x = roomGridIndex % LEVEL_GRID_ROW_WIDTH;
   const y = Math.floor(roomGridIndex / LEVEL_GRID_ROW_WIDTH);
 

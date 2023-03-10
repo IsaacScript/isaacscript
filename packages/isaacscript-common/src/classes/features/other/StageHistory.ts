@@ -14,9 +14,14 @@ import {
 import { asNumber } from "../../../functions/types";
 import { Feature } from "../../private/Feature";
 
+export interface StageHistoryEntry {
+  readonly stage: LevelStage;
+  readonly stageType: StageType;
+}
+
 const v = {
   run: {
-    stageHistory: [] as Array<[stage: LevelStage, stageType: StageType]>,
+    stageHistory: [] as StageHistoryEntry[],
   },
 };
 
@@ -39,7 +44,7 @@ export class StageHistory extends Feature {
     const stage = level.GetStage();
     const stageType = level.GetStageType();
 
-    v.run.stageHistory.push([stage, stageType]);
+    v.run.stageHistory.push({ stage, stageType });
   };
 
   /**
@@ -296,9 +301,7 @@ export class StageHistory extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
    */
   @Exported
-  public getStageHistory(): ReadonlyArray<
-    [stage: LevelStage, stageType: StageType]
-  > {
+  public getStageHistory(): readonly StageHistoryEntry[] {
     return v.run.stageHistory;
   }
 
@@ -316,13 +319,14 @@ export class StageHistory extends Feature {
   public hasVisitedStage(stage: LevelStage, stageType?: StageType): boolean {
     if (stageType === undefined) {
       return v.run.stageHistory.some(
-        ([previousStage]) => previousStage === stage,
+        (stageHistoryEntry) => stageHistoryEntry.stage === stage,
       );
     }
 
     return v.run.stageHistory.some(
-      ([previousStage, previousStageType]) =>
-        previousStage === stage && previousStageType === stageType,
+      (stageHistoryEntry) =>
+        stageHistoryEntry.stage === stage &&
+        stageHistoryEntry.stageType === stageType,
     );
   }
 }
