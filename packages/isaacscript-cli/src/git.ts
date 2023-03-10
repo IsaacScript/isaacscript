@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
-import { error, parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
@@ -9,10 +8,6 @@ import { fileExists, readFile } from "./file.js";
 import { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
 import { getInputString, getInputYesNo } from "./prompt.js";
 import { getVersionOfThisPackage } from "./version.js";
-
-// Versions prior to this do not work properly with: `git branch --move --force main`
-const REQUIRED_GIT_MAJOR_VERSION = 2;
-const REQUIRED_GIT_MINOR_VERSION = 30;
 
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
@@ -37,8 +32,6 @@ export async function promptGitHubRepoOrGitRemoteURL(
     );
     return undefined;
   }
-
-  validateNewGitVersion(verbose);
 
   const gitHubUsername = getGitHubUsername(verbose);
   if (gitHubUsername !== undefined) {
@@ -110,42 +103,6 @@ If you don't want to initialize a Git repository for this project, press enter t
 `);
 
   return gitRemoteURL === "" ? undefined : gitRemoteURL;
-}
-
-function validateNewGitVersion(verbose: boolean) {
-  const { stdout } = execShellString("git --version", verbose);
-
-  const outputPrefix = "git version ";
-  if (!stdout.startsWith(outputPrefix)) {
-    error(
-      `Failed to parse the output from the "git --version" command: ${stdout}`,
-    );
-  }
-
-  const gitVersion = stdout.slice(outputPrefix.length);
-  const semanticVersion = parseSemanticVersion(gitVersion);
-  if (semanticVersion === undefined) {
-    error(`Failed to parse the Git version: ${gitVersion}`);
-  }
-
-  const { majorVersion, minorVersion } = semanticVersion;
-  if (
-    majorVersion >= REQUIRED_GIT_MAJOR_VERSION &&
-    minorVersion >= REQUIRED_GIT_MINOR_VERSION
-  ) {
-    return;
-  }
-
-  console.error(`Your Git version is: ${chalk.red(gitVersion)}`);
-  console.error(
-    `${PROJECT_NAME} requires a Git version of ${chalk.red(
-      `${REQUIRED_GIT_MAJOR_VERSION}.${REQUIRED_GIT_MINOR_VERSION}.0`,
-    )} or greater.`,
-  );
-  console.error(
-    `Please upgrade your version of Git before using ${PROJECT_NAME}.`,
-  );
-  process.exit(1);
 }
 
 export function getGitHubUsername(verbose: boolean): string | undefined {
