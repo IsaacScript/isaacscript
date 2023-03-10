@@ -5,14 +5,18 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { ACTIVE_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../core/constants";
 import { HealthType } from "../enums/HealthType";
 import { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCharacterMaxHeartContainers } from "./characters";
 import { getTotalCharge } from "./charge";
-import { isCharacter, isKeeper, setActiveItem } from "./players";
+import {
+  getActiveItemSlots,
+  isCharacter,
+  isKeeper,
+  setActiveItem,
+} from "./players";
 import { repeat } from "./utils";
 
 export function addPlayerHealthType(
@@ -543,21 +547,23 @@ export function setPlayerHealth(
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
 
-  removeAllPlayerHealth(player);
-
-  // Before we add any health, we have to take away Alabaster Box, if present.
-  const alabasterBoxes: Array<{ activeSlot: ActiveSlot; totalCharge: int }> =
-    [];
-  if (player.HasCollectible(CollectibleType.ALABASTER_BOX)) {
-    for (const activeSlot of ACTIVE_SLOT_VALUES) {
-      const activeItem = player.GetActiveItem();
-      if (activeItem === CollectibleType.ALABASTER_BOX) {
-        const totalCharge = getTotalCharge(player, activeSlot);
-        setActiveItem(player, CollectibleType.NULL, activeSlot);
-        alabasterBoxes.push({ activeSlot, totalCharge });
-      }
-    }
+  // Before we add or remove any health, we have to take away Alabaster Box, if present. (Removing
+  // soul hearts from the player will remove Alabaster Box charges.)
+  const alabasterBoxDescriptions: Array<{
+    activeSlot: ActiveSlot;
+    totalCharge: int;
+  }> = [];
+  const alabasterBoxActiveSlots = getActiveItemSlots(
+    player,
+    CollectibleType.ALABASTER_BOX,
+  );
+  for (const activeSlot of alabasterBoxActiveSlots) {
+    const totalCharge = getTotalCharge(player, activeSlot);
+    setActiveItem(player, CollectibleType.NULL, activeSlot);
+    alabasterBoxDescriptions.push({ activeSlot, totalCharge });
   }
+
+  removeAllPlayerHealth(player);
 
   // Add the red heart containers.
   if (character === PlayerType.SOUL && subPlayer !== undefined) {
@@ -650,7 +656,7 @@ export function setPlayerHealth(
   }
 
   // Re-add the Alabaster Box, if present.
-  for (const { activeSlot, totalCharge } of alabasterBoxes) {
+  for (const { activeSlot, totalCharge } of alabasterBoxDescriptions) {
     setActiveItem(
       player,
       CollectibleType.ALABASTER_BOX,

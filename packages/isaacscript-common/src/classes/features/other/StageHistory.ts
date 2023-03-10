@@ -12,12 +12,8 @@ import {
   onRepentanceStage,
 } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
+import { StageHistoryEntry } from "../../../interfaces/StageHistoryEntry";
 import { Feature } from "../../private/Feature";
-
-export interface StageHistoryEntry {
-  readonly stage: LevelStage;
-  readonly stageType: StageType;
-}
 
 const v = {
   run: {
