@@ -608,14 +608,14 @@ export function setPlayerHealth(
   /**
    * Fill in the red heart containers.
    *
-   * (Rotten Hearts must be filled in first in order for this to work properly, since they conflict
-   * with half red hearts.)
+   * Rotten Hearts must be filled in first in order for this to work properly, since they conflict
+   * with half red hearts.
    *
-   * The `EntityPlayer.AddRottenHearts` method is not like actually picking up a rotten heart, since
-   * it will only grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart
-   * would grant two).
+   * We multiply by two because the `EntityPlayer.GetRottenHearts` function returns the actual
+   * number of rotten hearts, but the `EntityPlayer.AddRottenHearts` works like the other heart
+   * functions in that a value of 1 is equivalent to a half-heart.
    */
-  player.AddRottenHearts(playerHealth.rottenHearts);
+  player.AddRottenHearts(playerHealth.rottenHearts * 2);
 
   if (character === PlayerType.MAGDALENE_B) {
     // Adding 1 heart to Tainted Magdalene will actually add two hearts.
