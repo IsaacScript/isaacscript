@@ -3348,10 +3348,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
   integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
-"@types/node@^18.14.6":
-  version "18.14.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.6.tgz#ae1973dd2b1eeb1825695bb11ebfb746d27e3e93"
-  integrity sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==
+"@types/node@^18.15.0":
+  version "18.15.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.0.tgz#286a65e3fdffd691e170541e6ecb0410b16a38be"
+  integrity sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -10406,10 +10406,10 @@ npm-bundled@^3.0.0:
   dependencies:
     npm-normalize-package-bin "^3.0.0"
 
-npm-check-updates@^16.7.10:
-  version "16.7.10"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.7.10.tgz#e63a63a4238b70b72c0c11bdd559f5014f99afb9"
-  integrity sha512-sLDgYD8ebkH9Jd6mPIq7UDGLr3DAxkHl6ZuJrEF4rauLv6DqHBxtnF16MHUPN+/eBt5QbH4GL/+nxfSAFm3TfQ==
+npm-check-updates@^16.7.12:
+  version "16.7.12"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.7.12.tgz#228342fe666e0df5296f70feaf0963376a4c6d01"
+  integrity sha512-ejYl/BiWhkUxDs1ISQd/6blgTIfHabSdsfR5JWoA7PK+cGn8hCqVKO5p+nNI2PqX+0F21ExGqkt8b7cg2yxuYg==
   dependencies:
     chalk "^5.2.0"
     cli-table "^0.3.11"
@@ -14405,10 +14405,10 @@ typedoc@^0.23.26:
     minimatch "^7.1.3"
     shiki "^0.14.1"
 
-typescript-to-lua@^1.13.2:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.13.2.tgz#a91f92be4e8077bd8d696814b5015f40d24ea92d"
-  integrity sha512-Ubq/DHyG3uAfDdCdg4QcGdrhiY0IcCf6FoAVuYO3dIuYZCJm1U9YohfiR/+Sff+1m4C2xGAF6go3Pwv2W5YVqg==
+typescript-to-lua@^1.13.3:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.13.3.tgz#3a1507d4d4cd96fd5367302c0c14f4ef60c82f55"
+  integrity sha512-/qOg6MGdwliH5m92yTqDs3pKToO4DDVIRPtyr4DsAbFk1YbsDxcmVhC9qNR9+rcHGun/XxTX+Ed1kYBMkgDW1Q==
   dependencies:
     "@typescript-to-lua/language-extensions" "1.0.0"
     enhanced-resolve "^5.8.2"
