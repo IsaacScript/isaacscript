@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "30.4.3",
+  "version": "30.4.4-dev.0",
   "description": "Helper functions and features for IsaacScript mods.",
   "keywords": [
     "isaac",
