@@ -4,6 +4,7 @@ import {
   LevelCurse,
   LevelStage,
   ModCallback,
+  Music,
   RoomShape,
   RoomType,
   StageType,
@@ -481,11 +482,25 @@ export class CustomStages extends Feature {
     }
 
     // The bugged stage will not have any music associated with it, so we must manually start to
-    // play a track.
+    // play a track. First, prefer the music that is explicitly assigned to this custom floor.
+    let customStageMusic: Music | -1 | undefined;
+    if (customStage.music !== undefined) {
+      customStageMusic = Isaac.GetMusicIdByName(customStage.music) as
+        | Music
+        | -1;
+      if (customStageMusic === -1) {
+        logError(
+          `Failed to get the music ID associated with the name of: ${customStage.music}`,
+        );
+      }
+    }
+
     const music =
-      customStage.music === undefined
+      customStageMusic === undefined || customStageMusic === -1
         ? getMusicForStage(baseStage, baseStageType)
-        : Isaac.GetMusicIdByName(customStage.music);
+        : customStageMusic;
+
+    Isaac.DebugString(`GETTING HERE - music: ${music}`);
 
     this.runInNFrames.runInNRenderFrames(() => {
       // By default, the `MusicManager.Play` method will play the music at max volume (1.0), which

@@ -42,8 +42,10 @@ export class DisableAllSound extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_ALL_SOUND`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public enableAllSound(key: string): void {
@@ -68,8 +70,10 @@ export class DisableAllSound extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_ALL_SOUND`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableAllSound(key: string): void {

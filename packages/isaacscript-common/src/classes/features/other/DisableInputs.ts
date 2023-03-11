@@ -117,8 +117,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public enableAllInputs(key: string): void {
@@ -136,8 +138,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    * @param buttonActions An array of the actions to action.
    */
   @Exported
@@ -154,8 +158,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableAllInputs(key: string): void {
@@ -171,8 +177,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    * @param blacklist A set of ButtonActions to disallow.
    */
   @Exported
@@ -192,8 +200,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    * @param whitelist A set of ButtonActions to allow.
    */
   @Exported
@@ -214,8 +224,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableMovementInputs(key: string): void {
@@ -231,8 +243,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableShootingInputs(key: string): void {
