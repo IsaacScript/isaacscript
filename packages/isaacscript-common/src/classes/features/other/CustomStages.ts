@@ -26,6 +26,7 @@ import { removeUrnRewards } from "../../../functions/rockAlt";
 import {
   getRoomDataForTypeVariant,
   getRoomsInsideGrid,
+  inRoomType,
 } from "../../../functions/rooms";
 import { getMusicForStage } from "../../../functions/sound";
 import { setStage } from "../../../functions/stage";
@@ -203,6 +204,17 @@ export class CustomStages extends Feature {
 
     streakTextPostRender();
     versusScreenPostRender(this.pause, this.disableAllSound);
+
+    // Fix the bug where the music will stop after loading a new room. (This does not work if placed
+    // in the `POST_NEW_ROOM_REORDERED` callback or the `POST_UPDATE` callback.)
+    if (customStage.music !== undefined) {
+      const currentMusic = musicManager.GetCurrentMusicID();
+      const music = Isaac.GetMusicIdByName(customStage.music);
+      if (currentMusic === music) {
+        musicManager.Resume();
+        musicManager.UpdateVolume();
+      }
+    }
   };
 
   // ModCallback.POST_CURSE_EVAL (12)
@@ -293,6 +305,16 @@ export class CustomStages extends Feature {
       this.pause,
       this.runInNFrames,
     );
+
+    // Fix the bug where music from special rooms (like the "Boss Over" music) will persist for the
+    // rest of the floor.
+    if (customStage.music !== undefined && inRoomType(RoomType.DEFAULT)) {
+      const music = Isaac.GetMusicIdByName(customStage.music);
+      const currentMusic = musicManager.GetCurrentMusicID();
+      if (currentMusic !== music) {
+        musicManager.Fadein(music);
+      }
+    }
   };
 
   /** Pick a custom room for each vanilla room. */
@@ -501,10 +523,9 @@ export class CustomStages extends Feature {
         : customStageMusic;
 
     this.runInNFrames.runInNRenderFrames(() => {
-      // By default, the `MusicManager.Play` method will play the music at max volume (1.0), which
-      // is around twice as loud as the vanilla music plays.
       musicManager.Enable();
-      musicManager.Crossfade(music);
+      musicManager.Play(music);
+      musicManager.UpdateVolume();
     }, MUSIC_DELAY_RENDER_FRAMES);
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
