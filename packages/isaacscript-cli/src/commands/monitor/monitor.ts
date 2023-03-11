@@ -82,6 +82,14 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   copyWatcherMod(config, verbose);
   touchWatcherSaveDatFiles(config, verbose);
 
+  // Perform the steps to link to a development version of "isaacscript-common", if necessary. (This
+  // has to be before preparing custom stages.)
+  if (config.isaacScriptCommonDev) {
+    linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
+  } else {
+    warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
+  }
+
   // Prepare the custom stages feature, if necessary.
   await prepareCustomStages(packageManager, verbose);
 
@@ -89,13 +97,6 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   // latest version.
   if (fileExists(modTargetPath, verbose)) {
     deleteFileOrDirectory(modTargetPath, verbose);
-  }
-
-  // Perform the steps to link to a development version of "isaacscript-common", if necessary.
-  if (config.isaacScriptCommonDev) {
-    linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
-  } else {
-    warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
   }
 
   // Subprocess #1 - The "save#.dat" file writer.
