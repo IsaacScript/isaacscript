@@ -77,8 +77,10 @@ export function spawnCollectibleUnsafe(
  * with `CollectibleType.NULL` will result in spawning a collectible with a random type from the
  * current room's item pool.
  *
- * Instead, this function arbitrarily spawns a collectible with `CollectibleType.SAD_ONION`, and
- * then converts it to an empty pedestal afterward.
+ * Instead, this function arbitrarily spawns a collectible with `CollectibleType.BROKEN_SHOVEL_1`,
+ * and then converts it to an empty pedestal afterward. (Broken Shovel is used instead of e.g. Sad
+ * Onion because it is a quest collectible and quest collectibles will prevent Damocles from
+ * duplicating the pedestal.)
  *
  * @param positionOrGridIndex The position or grid index to spawn the empty collectible at.
  * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
@@ -89,7 +91,7 @@ export function spawnEmptyCollectible(
   seedOrRNG: Seed | RNG = getRandomSeed(),
 ): EntityPickup {
   const collectible = spawnCollectibleUnsafe(
-    CollectibleType.SAD_ONION,
+    CollectibleType.BROKEN_SHOVEL_1,
     positionOrGridIndex,
     seedOrRNG,
     false,
