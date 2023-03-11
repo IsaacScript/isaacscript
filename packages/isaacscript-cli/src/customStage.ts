@@ -226,6 +226,7 @@ async function fillCustomStageMetadata(
   );
   const customStagesLua = convertCustomStagesToLua(customStages);
   writeFile(METADATA_LUA_PATH, customStagesLua, verbose);
+  console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH}`);
 }
 
 function validateMetadataLuaFileExists(

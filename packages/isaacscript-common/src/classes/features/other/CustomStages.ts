@@ -500,8 +500,6 @@ export class CustomStages extends Feature {
         ? getMusicForStage(baseStage, baseStageType)
         : customStageMusic;
 
-    Isaac.DebugString(`GETTING HERE - music: ${music}`);
-
     this.runInNFrames.runInNRenderFrames(() => {
       // By default, the `MusicManager.Play` method will play the music at max volume (1.0), which
       // is around twice as loud as the vanilla music plays.
