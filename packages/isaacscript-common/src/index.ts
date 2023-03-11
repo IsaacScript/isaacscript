@@ -135,6 +135,7 @@ export * from "./interfaces/PlayerHealth";
 export * from "./interfaces/PocketItemDescription";
 export * from "./interfaces/RoomDescription";
 export * from "./interfaces/SaveData";
+export * from "./interfaces/StageHistoryEntry";
 export * from "./interfaces/StatTypeType";
 export * from "./interfaces/TrinketSituation";
 export * from "./interfaces/TSTLClassMetatable";
