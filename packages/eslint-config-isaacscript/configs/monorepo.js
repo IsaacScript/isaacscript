@@ -2,9 +2,12 @@ const path = require("node:path");
 
 const REPO_ROOT = path.join(__dirname, "..", "..", "..");
 
-// This is a shared configuration file for ESLint:
-// https://eslint.org/docs/latest/user-guide/configuring
-module.exports = {
+/**
+ * This config is meant to be used in the IsaacScript monorepo.
+ *
+ * @type {import("eslint").Linter.Config}
+ */
+const config = {
   plugins: ["@nrwl/nx"],
 
   // From:
@@ -43,3 +46,5 @@ module.exports = {
     ],
   },
 };
+
+module.exports = config;

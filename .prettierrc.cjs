@@ -2,7 +2,7 @@
 // https://prettier.io/docs/en/configuration.html
 
 /** @type {import("prettier").Config} */
-module.exports = {
+const config = {
   // https://prettier.io/docs/en/options.html#trailing-commas
   // The default is "es5" (only having trailing commas where valid in ES5). However, always having
   // trailing commas is objectively better. The Airbnb style guide agrees:
@@ -44,3 +44,5 @@ module.exports = {
   // `pnpm` requires that the plugin is explicitly loaded.
   plugins: [require.resolve("prettier-plugin-organize-imports")],
 };
+
+module.exports = config;

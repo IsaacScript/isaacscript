@@ -1,7 +1,9 @@
-// This is a shared configuration file for ESLint:
-// https://eslint.org/docs/latest/user-guide/configuring
-// This config is meant to be used as a base for all TypeScript projects.
-module.exports = {
+/**
+ * This ESLint config is meant to be used as a base for all TypeScript projects.
+ *
+ *  @type {import("eslint").Linter.Config}
+ */
+const config = {
   extends: [
     /**
      * The linter base is the Airbnb style guide, which is the most popular JavaScript style guide
@@ -19,18 +21,6 @@ module.exports = {
      * (This includes the "parser" declaration of "@typescript-eslint/parser".)
      */
     "airbnb-typescript/base",
-
-    /**
-     * We extend the Airbnb rules with the "recommended", "recommended-requiring-type-checking", and
-     * "strict" rules from the "typescript-eslint" plugin, which is also recommended by Matt
-     * Turnbull, the author of "airbnb-typescript/base":
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
-     */
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@typescript-eslint/strict",
 
     /**
      * This provides extra miscellaneous rules to keep code safe:
@@ -382,3 +372,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = config;

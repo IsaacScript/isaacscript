@@ -9,7 +9,7 @@ const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
 );
 
 /** @type {import("eslint").Linter.Config} */
-module.exports = {
+const config = {
   root: true,
 
   extends: [
@@ -21,3 +21,5 @@ module.exports = {
     project: path.join(__dirname, "tsconfig.json"),
   },
 };
+
+module.exports = config;

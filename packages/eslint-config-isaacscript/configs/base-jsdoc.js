@@ -1,14 +1,11 @@
-// This is a shared configuration file for ESLint:
-// https://eslint.org/docs/latest/user-guide/configuring
-// This config contains only rules from the "jsdoc" ESLint plugin.
-module.exports = {
-  plugins: [
-    /**
-     * Lint JSDoc style comments:
-     * https://github.com/gajus/eslint-plugin-jsdoc
-     */
-    "jsdoc",
-  ],
+/**
+ * This ESLint config only contains rules from `eslint-plugin-jsdoc`:
+ * https://github.com/gajus/eslint-plugin-jsdoc
+ *
+ * @type {import("eslint").Linter.Config}
+ */
+const config = {
+  plugins: ["jsdoc"],
 
   /**
    * Instead of using the recommended config, we specifically turn on every rule that is useful.
@@ -259,3 +256,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = config;

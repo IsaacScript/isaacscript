@@ -1,8 +1,21 @@
-// This is a shared configuration file for ESLint:
-// https://eslint.org/docs/latest/user-guide/configuring
-// This config only contains modifications to the built-in rules from the "@typescript-eslint"
-// plugin.
-module.exports = {
+/**
+ * This config only contains rules from `@typescript-eslint` plugin.
+ *
+ * @type {import("eslint").Linter.Config}
+ */
+const config = {
+  /** This plugin has three separate configs that are recommended to extend from. */
+  extends: [
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
+    "plugin:@typescript-eslint/recommended",
+
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+    "plugin:@typescript-eslint/strict",
+  ],
+
   rules: {
     /**
      * Documentation:
@@ -228,3 +241,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = config;

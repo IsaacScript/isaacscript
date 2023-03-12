@@ -1,8 +1,10 @@
-// This is a shared configuration file for ESLint:
-// https://eslint.org/docs/latest/user-guide/configuring
-// This config only contains modifications to the built-in rules from the ESLint tool.
-// https://eslint.org/docs/latest/rules/
-module.exports = {
+/**
+ * This ESLint config only contains built-in rules from ESLint itself:
+ * https://eslint.org/docs/latest/rules/
+ *
+ * @type {import("eslint").Linter.Config}
+ */
+const config = {
   rules: {
     // -----------------
     // Possible Problems
@@ -289,3 +291,5 @@ module.exports = {
     // class-methods-use-this
   },
 };
+
+module.exports = config;

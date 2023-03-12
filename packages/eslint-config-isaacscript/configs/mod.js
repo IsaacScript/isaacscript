@@ -1,7 +1,9 @@
-// This is a shared configuration file for ESLint:
-// https://eslint.org/docs/latest/user-guide/configuring
-// This config is meant to be used as a base for IsaacScript mods.
-module.exports = {
+/**
+ * This config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua projects).
+ *
+ * @type {import("eslint").Linter.Config}
+ */
+const config = {
   extends: [
     /**
      * The IsaacScript mod config extends the base configuration:
@@ -228,3 +230,5 @@ module.exports = {
     ],
   },
 };
+
+module.exports = config;
