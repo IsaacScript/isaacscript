@@ -64,16 +64,39 @@ export function addTrinketCostume(
   player.AddCostume(itemConfigTrinket, false);
 }
 
+/**
+ * Helper function to check to see if any player has a particular collectible.
+ *
+ * @param collectibleType The collectible type to check for.
+ * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
+ *                        ignores effects granted by items like Zodiac, 3 Dollar Bill and Lemegeton.
+ *                        Default is false.
+ */
 export function anyPlayerHasCollectible(
   collectibleType: CollectibleType,
+  ignoreModifiers?: boolean,
 ): boolean {
   const players = getAllPlayers();
-  return players.some((player) => player.HasCollectible(collectibleType));
+  return players.some((player) =>
+    player.HasCollectible(collectibleType, ignoreModifiers),
+  );
 }
 
-export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
+/**
+ * Helper function to check to see if any player has a particular trinket.
+ *
+ * @param trinketType The trinket type to check for.
+ * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and ignores
+ *                        effects granted by other items. Default is false.
+ */
+export function anyPlayerHasTrinket(
+  trinketType: TrinketType,
+  ignoreModifiers?: boolean,
+): boolean {
   const players = getAllPlayers();
-  return players.some((player) => player.HasTrinket(trinketType));
+  return players.some((player) =>
+    player.HasTrinket(trinketType, ignoreModifiers),
+  );
 }
 
 /**
