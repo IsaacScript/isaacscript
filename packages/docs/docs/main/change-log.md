@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## March 13th, 2023 (Unreleased)
+## March 13th, 2023
 
 - Added the following helper functions:
   - `getUsableActiveItemSlots`
