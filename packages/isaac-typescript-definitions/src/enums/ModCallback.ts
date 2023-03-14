@@ -300,6 +300,12 @@ export enum ModCallback {
   PRE_USE_ITEM = 23,
 
   /**
+   * If you want to prevent an entity from spawning, you cannot return an `EntityType` of 0, since
+   * that will cause the game to crash.
+   *
+   * Sometimes, if you return a type other than the original type (e.g. replacing a pickup with an
+   * effect), the game will crash. Thus, you should replace a pickup with a new pickup, and so on.
+   *
    * ```ts
    * function preEntitySpawn(
    *   entityType: EntityType,

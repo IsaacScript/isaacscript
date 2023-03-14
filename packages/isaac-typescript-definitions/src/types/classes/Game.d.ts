@@ -206,7 +206,10 @@ declare global {
     HasHallucination(): int;
     IsGreedMode(): boolean;
 
-    /** Returns true if the game is paused or the console is open. */
+    /**
+     * Returns true if the game is paused or the console is open or a room transition animation is
+     * occurring.
+     */
     IsPaused(): boolean;
 
     MakeShockwave(
