@@ -213,15 +213,13 @@ export function copyArray<T>(
   numElements?: int,
 ): T[] {
   if (numElements === undefined) {
-    numElements = oldArray.length;
+    return [...oldArray];
   }
 
   const newArray: T[] = [];
   for (let i = 0; i < numElements; i++) {
-    const oldElement = oldArray[i];
-    if (oldElement !== undefined) {
-      newArray.push(oldElement);
-    }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    newArray.push(oldArray[i]!);
   }
 
   return newArray;
