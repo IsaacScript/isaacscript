@@ -212,6 +212,8 @@ export function copyArray<T>(
   oldArray: T[] | readonly T[],
   numElements?: int,
 ): T[] {
+  // Using the spread operator was benchmarked to be faster than manually creating an array using
+  // the below algorithm.
   if (numElements === undefined) {
     return [...oldArray];
   }
