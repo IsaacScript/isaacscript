@@ -342,9 +342,11 @@ export function getRandomArrayElement<T>(
     );
   }
 
-  const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
-  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seedOrRNG);
-  const randomElement = arrayWithoutExceptions[randomIndex];
+  if (exceptions.length > 0) {
+    array = arrayRemove(array, ...exceptions);
+  }
+  const randomIndex = getRandomArrayIndex(array, seedOrRNG);
+  const randomElement = array[randomIndex];
   if (randomElement === undefined) {
     error(
       `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
