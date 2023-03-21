@@ -1148,6 +1148,10 @@ export enum ModCallbackCustom {
    * Additionally, this callback will pass the `LevelStage` as the first callback argument and the
    * `StageType` as the second callback argument.
    *
+   * Note that similar to the vanilla `POST_NEW_LEVEL` callback, this callback will not fire when a
+   * player resumes a saved run. (In that case, only the `POST_GAME_STARTED_REORDERED` and the
+   * `POST_NEW_ROOM_REORDERED` callbacks will fire, in that order).
+   *
    * If some specific cases, mods can change the current level during run initialization (on the 0th
    * frame). However, due to how the callback reordering works, the custom
    * `POST_NEW_LEVEL_REORDERED` callback will never fire on the 0th frame. To get around this, call

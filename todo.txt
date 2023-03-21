@@ -1,5 +1,7 @@
 - socket abstraction in isaacscript-common
 
+- remove `experimentalDecorators`
+
 ----------------------------------------------------------------------------------------------------
 
 - lint rule audit:

@@ -28,6 +28,9 @@ import { Feature } from "../../private/Feature";
  * that you may run into with these callbacks.
  */
 export class GameReorderedCallbacks extends Feature {
+  /** Used to detect a player resuming a saved run. */
+  private renderFrameRunStarted: int | null = null;
+
   private currentStage: int | null = null;
   private currentStageType: int | null = null;
   private usedGlowingHourGlass = false;
@@ -56,9 +59,15 @@ export class GameReorderedCallbacks extends Feature {
         [CollectibleType.GLOWING_HOUR_GLASS],
       ],
 
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+
       // 15
       // eslint-disable-next-line deprecation/deprecation
       [ModCallback.POST_GAME_STARTED, this.postGameStarted],
+
+      // 17
+      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
 
       // 18
       // eslint-disable-next-line deprecation/deprecation
@@ -85,6 +94,13 @@ export class GameReorderedCallbacks extends Feature {
     return undefined;
   };
 
+  // ModCallback.POST_PLAYER_INIT (9)
+  private postPlayerInit = (_player: EntityPlayer): void => {
+    if (this.renderFrameRunStarted === null) {
+      this.renderFrameRunStarted = Isaac.GetFrameCount();
+    }
+  };
+
   // ModCallback.POST_GAME_STARTED (15)
   private postGameStarted = (isContinued: boolean): void => {
     const level = game.GetLevel();
@@ -95,9 +111,18 @@ export class GameReorderedCallbacks extends Feature {
 
     this.recordCurrentStage();
     this.postGameStartedReordered.fire(isContinued);
-    this.postNewLevelReordered.fire(stage, stageType);
-    this.postNewRoomReordered.fire(roomType);
     this.postGameStartedReorderedLast.fire(isContinued);
+    if (!isContinued) {
+      // The vanilla `POST_NEW_LEVEL` callback only fires on non-continued runs, which makes sense,
+      // because we do not want to blow away level variables in this case.
+      this.postNewLevelReordered.fire(stage, stageType);
+    }
+    this.postNewRoomReordered.fire(roomType);
+  };
+
+  // ModCallback.PRE_GAME_EXIT (17)
+  private preGameExit = (): void => {
+    this.renderFrameRunStarted = null;
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
@@ -128,6 +153,7 @@ export class GameReorderedCallbacks extends Feature {
     const stageType = level.GetStageType();
     const room = game.GetRoom();
     const roomType = room.GetType();
+    const renderFrameCount = Isaac.GetFrameCount();
 
     if (this.usedGlowingHourGlass) {
       this.usedGlowingHourGlass = false;
@@ -145,6 +171,7 @@ export class GameReorderedCallbacks extends Feature {
 
     if (
       (gameFrameCount === 0 ||
+        renderFrameCount === this.renderFrameRunStarted ||
         this.currentStage !== stage ||
         this.currentStageType !== stageType) &&
       !this.forceNewRoom

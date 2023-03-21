@@ -81,7 +81,7 @@ export class SaveDataManager extends Feature {
   private classConstructors = new LuaMap<string, AnyClass>();
 
   // Other variables
-  private loadedDataOnThisRun = false;
+  private inARun = false;
   private restoreGlowingHourGlassDataOnNextRoom = false;
 
   /** @internal */
@@ -133,10 +133,10 @@ export class SaveDataManager extends Feature {
   private postPlayerInit = (_player: EntityPlayer): void => {
     // We want to only load data once per run to handle the case of a player using Genesis, a second
     // player joining the run, and so on.
-    if (this.loadedDataOnThisRun) {
+    if (this.inARun) {
       return;
     }
-    this.loadedDataOnThisRun = true;
+    this.inARun = true;
 
     // Handle the race-condition of using the Glowing Hourglass and then resetting the run.
     this.restoreGlowingHourGlassDataOnNextRoom = false;
@@ -166,7 +166,7 @@ export class SaveDataManager extends Feature {
 
     // Mark that we are going to the menu. (Technically, the `POST_ENTITY_REMOVE` callback may fire
     // before actually going to the menu, but that must be explicitly handled.)
-    this.loadedDataOnThisRun = false;
+    this.inARun = false;
 
     // At this point, we could blow away the existing save data or restore defaults, but it is not
     // necessary since we will have to do it again in the `POST_PLAYER_INIT` callback. Furthermore,
@@ -560,7 +560,7 @@ export class SaveDataManager extends Feature {
    */
   @Exported
   public saveDataManagerInMenu(): boolean {
-    return !this.loadedDataOnThisRun;
+    return !this.inARun;
   }
 
   @Exported
