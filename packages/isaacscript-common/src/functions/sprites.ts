@@ -70,6 +70,30 @@ export function getLastFrameOfAnimation(
 }
 
 /**
+ * Helper function to load a new sprite and play its default animation.
+ *
+ * @param anm2Path The path to the "anm2" file that should be loaded.
+ * @param pngPath Optional. The path to a custom PNG file that should be loaded on layer 0 of the
+ *                sprite.
+ */
+export function newSprite(anm2Path: string, pngPath?: string): Sprite {
+  const sprite = Sprite();
+
+  if (pngPath === undefined) {
+    sprite.Load(anm2Path, true);
+  } else {
+    sprite.Load(anm2Path, false);
+    sprite.ReplaceSpritesheet(0, pngPath);
+    sprite.LoadGraphics();
+  }
+
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
+
+  return sprite;
+}
+
+/**
  * Helper function to keep a sprite's color the same values as it already is but set the opacity to
  * a specific value.
  *

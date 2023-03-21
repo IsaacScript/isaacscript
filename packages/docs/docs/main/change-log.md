@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## March 21st, 2023
+
+- Added the following helper functions:
+  - `newSprite`
+
 ## March 13th, 2023
 
 - Added the following helper functions:
