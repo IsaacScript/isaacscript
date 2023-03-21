@@ -1,4 +1,4 @@
-import { EntityType } from "isaac-typescript-definitions";
+import { EntityFlag, EntityType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
@@ -42,6 +42,20 @@ export function countEntities(
   subType = -1,
   ignoreFriendly = false,
 ): int {
+  if (entityType === -1) {
+    // The `Isaac.CountEntities` method requires an argument of `EntityType`, so we must revert to
+    // using the `Isaac.GetRoomEntities` method, which is slower.
+    const entities = Isaac.GetRoomEntities();
+    if (!ignoreFriendly) {
+      return entities.length;
+    }
+
+    const nonFriendlyEntities = entities.filter(
+      (entity) => !entity.HasEntityFlags(EntityFlag.FRIENDLY),
+    );
+    return nonFriendlyEntities.length;
+  }
+
   if (!ignoreFriendly) {
     return Isaac.CountEntities(undefined, entityType, variant, subType);
   }
