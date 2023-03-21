@@ -1,5 +1,5 @@
 import { isEnumBlockLabel, isSpecialComment } from "./comments";
-import { getAdjustedList, List, reachedNewList } from "./list";
+import { List, getAdjustedList, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 export type CompleteSentenceMessageIds =

@@ -10,9 +10,9 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 import {
+  MemberNameType,
   getNameFromIndexSignature,
   getNameFromMember,
-  MemberNameType,
 } from "../typeUtils";
 import { createRule } from "../utils";
 
