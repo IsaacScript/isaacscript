@@ -11,7 +11,7 @@ import { newReadonlyColor } from "./readOnly";
 import { isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { isTSTLSet } from "./tstlClass";
-import { asNumber, isPrimitive } from "./types";
+import { isPrimitive } from "./types";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
@@ -33,10 +33,11 @@ const DAMAGE_FLASH_COLOR = newReadonlyColor(
  * @param entityType Optional. Default is -1, which matches every entity type.
  * @param variant Optional. Default is -1, which matches every variant.
  * @param subType Optional. Default is -1, which matches every sub-type.
- * @param ignoreFriendly Optional. Default is false.
+ * @param ignoreFriendly Optional. Default is false. Will throw a runtime error if set to true and
+ *                       the `entityType` is equal to -1.
  */
 export function countEntities(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
@@ -198,12 +199,12 @@ export function getConstituentsFromEntityID(
  *                       `entityType` is specified.
  */
 export function getEntities(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
 ): Entity[] {
-  if (asNumber(entityType) === -1) {
+  if (entityType === -1) {
     return Isaac.GetRoomEntities();
   }
 

@@ -63,7 +63,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE = new ReadonlySet<string>([
  * @param ignoreFriendly Optional. Default is false.
  */
 export function getAliveNPCs(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,

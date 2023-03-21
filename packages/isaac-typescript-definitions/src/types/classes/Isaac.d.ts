@@ -57,14 +57,16 @@ declare global {
     function CountEnemies(): int;
 
     /**
-     * @param spawner
-     * @param entityType Default is `EntityType.NULL`.
+     * @param spawner Pass undefined if you want to match entities that were not spawned by anything
+     *                in particular.
+     * @param entityType Required. (Specifying 0 or -1 for this parameter will always return a
+     *                   result of 0.)
      * @param variant Specifying -1 will return all variants. Default is -1.
      * @param subType Specifying -1 will return all subtypes. Default is -1.
      */
     function CountEntities(
-      spawner?: Entity,
-      entityType?: EntityType,
+      spawner: Entity | undefined,
+      entityType: EntityType,
       variant?: int,
       subType?: int,
     ): int;

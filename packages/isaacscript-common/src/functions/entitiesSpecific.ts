@@ -198,7 +198,7 @@ export function getLasers(
  *                       `entityType` is specified.
  */
 export function getNPCs(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
