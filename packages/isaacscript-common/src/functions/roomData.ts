@@ -115,7 +115,7 @@ export function getRoomListIndex(roomGridIndex?: int): int {
  * Helper function to get the name of the room as it appears in the STB/XML data.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room name. Returns "Unknown" if the type was not found.
+ * @returns The room name. Returns "Unknown" if the room data was not found.
  */
 export function getRoomName(roomGridIndex?: int): string {
   const roomData = getRoomData(roomGridIndex);
@@ -126,7 +126,7 @@ export function getRoomName(roomGridIndex?: int): string {
  * Helper function to get the name of the room as it appears in the STB/XML data.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room name. Returns "Unknown" if the type was not found.
+ * @returns The room name. Returns "Unknown"if the room data was not found.
  */
 export function getRoomShape(roomGridIndex?: int): RoomShape | undefined {
   const roomData = getRoomData(roomGridIndex);
@@ -139,9 +139,9 @@ export function getRoomShape(roomGridIndex?: int): RoomShape | undefined {
  * would have a stage ID of 7.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room stage ID. Returns -1 if the stage ID was not found.
+ * @returns The room stage ID. Returns -1 if the room data was not found.
  */
-export function getRoomStageID(roomGridIndex?: int): StageID {
+export function getRoomStageID(roomGridIndex?: int): StageID | -1 {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? -1 : roomData.StageID;
 }
@@ -153,7 +153,7 @@ export function getRoomStageID(roomGridIndex?: int): StageID {
  * Room and a sub-type of 1 will correspond to an Angel Room shop for The Stairway.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room sub-type. Returns -1 if the sub-type was not found.
+ * @returns The room sub-type. Returns -1 if the room data was not found.
  */
 export function getRoomSubType(roomGridIndex?: int): int {
   const roomData = getRoomData(roomGridIndex);
@@ -164,9 +164,9 @@ export function getRoomSubType(roomGridIndex?: int): int {
  * Helper function for getting the type of the room with the given grid index.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room data type. Returns -1 if the type was not found.
+ * @returns The room data type. Returns -1 if the room data was not found.
  */
-export function getRoomType(roomGridIndex?: int): RoomType {
+export function getRoomType(roomGridIndex?: int): RoomType | -1 {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? -1 : roomData.Type;
 }
@@ -177,7 +177,7 @@ export function getRoomType(roomGridIndex?: int): RoomType {
  * command of `goto d.123` while on the Basement.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room variant. Returns -1 if the variant was not found.
+ * @returns The room variant. Returns -1 if the room data was not found.
  */
 export function getRoomVariant(roomGridIndex?: int): int {
   const roomData = getRoomData(roomGridIndex);

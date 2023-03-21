@@ -11,7 +11,7 @@ export interface RoomDescription {
   startSeedString: string;
   stage: LevelStage;
   stageType: StageType;
-  stageID: StageID;
+  stageID: StageID | -1;
   dimension: Dimension;
   roomType: RoomType;
   roomVariant: int;

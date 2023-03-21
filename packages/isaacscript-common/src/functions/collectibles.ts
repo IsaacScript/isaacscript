@@ -235,6 +235,10 @@ export function getCollectibleDevilHeartPrice(
 export function getCollectibleGfxFilename(
   collectibleOrCollectibleType: EntityPickup | CollectibleType | -1,
 ): string {
+  if (collectibleOrCollectibleType === -1) {
+    return BLIND_ITEM_PNG_PATH;
+  }
+
   const collectibleType = getCollectibleTypeFromArg(
     collectibleOrCollectibleType,
     "getCollectibleGfxFilename",
@@ -769,7 +773,7 @@ export function setCollectiblesRerolledForItemTracker(): void {
 }
 
 function getCollectibleTypeFromArg(
-  collectibleOrCollectibleType: EntityPickup | CollectibleType | -1,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
   functionName: string,
 ): CollectibleType {
   if (isNumber(collectibleOrCollectibleType)) {

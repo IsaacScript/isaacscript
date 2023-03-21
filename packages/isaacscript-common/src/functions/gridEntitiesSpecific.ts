@@ -24,7 +24,7 @@ import { asNumber } from "./types";
  *                          variant. Default is -1, which matches every variant.
  */
 export function getCrawlSpaces(
-  crawlSpaceVariant: CrawlSpaceVariant = -1,
+  crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
 ): GridEntity[] {
   if (asNumber(crawlSpaceVariant) === -1) {
     return getGridEntities(GridEntityType.CRAWL_SPACE);
@@ -42,7 +42,7 @@ export function getCrawlSpaces(
  * @param pitVariant Optional. If specified, will only get the pits that match the variant. Default
  *                   is -1, which matches every variant.
  */
-export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
+export function getPits(pitVariant: PitVariant | -1 = -1): GridEntityPit[] {
   const pits: GridEntityPit[] = [];
   for (const gridEntity of getGridEntities()) {
     const pit = gridEntity.ToPit();
@@ -64,7 +64,7 @@ export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
  *                    Default is -1, which matches every variant.
  */
 export function getPoops(
-  poopVariant: PoopGridEntityVariant = -1,
+  poopVariant: PoopGridEntityVariant | -1 = -1,
 ): GridEntityPoop[] {
   const poops: GridEntityPoop[] = [];
   for (const gridEntity of getGridEntities()) {
@@ -87,7 +87,7 @@ export function getPoops(
  *                             the variant. Default is -1, which matches every variant.
  */
 export function getPressurePlates(
-  pressurePlateVariant: PressurePlateVariant = -1,
+  pressurePlateVariant: PressurePlateVariant | -1 = -1,
 ): GridEntityPressurePlate[] {
   const pressurePlates: GridEntityPressurePlate[] = [];
   for (const gridEntity of getGridEntities()) {
@@ -184,7 +184,7 @@ export function getTeleporters(variant = -1): GridEntity[] {
  *                        variant. Default is -1, which matches every variant.
  */
 export function getTrapdoors(
-  trapdoorVariant: TrapdoorVariant = -1,
+  trapdoorVariant: TrapdoorVariant | -1 = -1,
 ): GridEntity[] {
   if (asNumber(trapdoorVariant) === -1) {
     return getGridEntities(GridEntityType.TRAPDOOR);
@@ -205,7 +205,7 @@ export function getTrapdoors(
  * @returns The crawl spaces that were removed.
  */
 export function removeAllCrawlSpaces(
-  crawlSpaceVariant: CrawlSpaceVariant = -1,
+  crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntity[] {
@@ -228,7 +228,7 @@ export function removeAllCrawlSpaces(
  * @returns The pits that were removed.
  */
 export function removeAllPits(
-  pitVariant: PitVariant = -1,
+  pitVariant: PitVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntityPit[] {
@@ -251,7 +251,7 @@ export function removeAllPits(
  * @returns The poops that were removed.
  */
 export function removeAllPoops(
-  poopVariant: PoopGridEntityVariant = -1,
+  poopVariant: PoopGridEntityVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntityPoop[] {
@@ -271,7 +271,7 @@ export function removeAllPoops(
  * @returns The pressure plates that were removed.
  */
 export function removeAllPressurePlates(
-  pressurePlateVariant: PressurePlateVariant = -1,
+  pressurePlateVariant: PressurePlateVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntityPressurePlate[] {
@@ -373,7 +373,7 @@ export function removeAllTeleporters(
  * @returns The trapdoors that were removed.
  */
 export function removeAllTrapdoors(
-  trapdoorVariant: TrapdoorVariant = -1,
+  trapdoorVariant: TrapdoorVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntity[] {

@@ -32,7 +32,7 @@ import { getEntities, removeEntities, spawn } from "./entities";
  *                is -1, which matches every sub-type.
  */
 export function getBombs(
-  bombVariant: BombVariant = -1,
+  bombVariant: BombVariant | -1 = -1,
   subType = -1,
 ): EntityBomb[] {
   const entities = getEntities(EntityType.BOMB, bombVariant, subType);
@@ -66,7 +66,7 @@ export function getBombs(
  *                is -1, which matches every sub-type.
  */
 export function getEffects(
-  effectVariant: EffectVariant = -1,
+  effectVariant: EffectVariant | -1 = -1,
   subType = -1,
 ): EntityEffect[] {
   const entities = getEntities(EntityType.EFFECT, effectVariant, subType);
@@ -100,7 +100,7 @@ export function getEffects(
  *                Default is -1, which matches every sub-type.
  */
 export function getFamiliars(
-  familiarVariant: FamiliarVariant = -1,
+  familiarVariant: FamiliarVariant | -1 = -1,
   subType = -1,
 ): EntityFamiliar[] {
   const entities = getEntities(EntityType.FAMILIAR, familiarVariant, subType);
@@ -134,7 +134,7 @@ export function getFamiliars(
  *                is -1, which matches every sub-type.
  */
 export function getKnives(
-  knifeVariant: KnifeVariant = -1,
+  knifeVariant: KnifeVariant | -1 = -1,
   subType = -1,
 ): EntityKnife[] {
   const entities = getEntities(EntityType.KNIFE, knifeVariant, subType);
@@ -168,7 +168,7 @@ export function getKnives(
  *                is -1, which matches every sub-type.
  */
 export function getLasers(
-  laserVariant: LaserVariant = -1,
+  laserVariant: LaserVariant | -1 = -1,
   subType = -1,
 ): EntityLaser[] {
   const entities = getEntities(EntityType.LASER, laserVariant, subType);
@@ -234,7 +234,7 @@ export function getNPCs(
  *                is -1, which matches every sub-type.
  */
 export function getPickups(
-  pickupVariant: PickupVariant = -1,
+  pickupVariant: PickupVariant | -1 = -1,
   subType = -1,
 ): EntityPickup[] {
   const entities = getEntities(EntityType.PICKUP, pickupVariant, subType);
@@ -268,7 +268,7 @@ export function getPickups(
  *                Default is -1, which matches every sub-type.
  */
 export function getProjectiles(
-  projectileVariant: ProjectileVariant = -1,
+  projectileVariant: ProjectileVariant | -1 = -1,
   subType = -1,
 ): EntityProjectile[] {
   const entities = getEntities(
@@ -306,7 +306,7 @@ export function getProjectiles(
  *                is -1, which matches every sub-type.
  */
 export function getSlots(
-  slotVariant: SlotVariant = -1,
+  slotVariant: SlotVariant | -1 = -1,
   subType = -1,
 ): EntitySlot[] {
   const slots = getEntities(EntityType.SLOT, slotVariant, subType);
@@ -332,7 +332,7 @@ export function getSlots(
  *                is -1, which matches every sub-type.
  */
 export function getTears(
-  tearVariant: TearVariant = -1,
+  tearVariant: TearVariant | -1 = -1,
   subType = -1,
 ): EntityTear[] {
   const entities = getEntities(EntityType.TEAR, tearVariant, subType);
@@ -360,7 +360,7 @@ export function getTears(
  * @returns An array of the bombs that were removed.
  */
 export function removeAllBombs(
-  bombVariant: BombVariant = -1,
+  bombVariant: BombVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityBomb[] {
@@ -379,7 +379,7 @@ export function removeAllBombs(
  * @returns An array of the effects that were removed.
  */
 export function removeAllEffects(
-  effectVariant: EffectVariant = -1,
+  effectVariant: EffectVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityEffect[] {
@@ -398,7 +398,7 @@ export function removeAllEffects(
  * @returns An array of the familiars that were removed.
  */
 export function removeAllFamiliars(
-  familiarVariant: FamiliarVariant = -1,
+  familiarVariant: FamiliarVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityFamiliar[] {
@@ -417,7 +417,7 @@ export function removeAllFamiliars(
  * @returns An array of the knives that were removed.
  */
 export function removeAllKnives(
-  knifeVariant: KnifeVariant = -1,
+  knifeVariant: KnifeVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityKnife[] {
@@ -436,7 +436,7 @@ export function removeAllKnives(
  * @returns An array of the lasers that were removed.
  */
 export function removeAllLasers(
-  laserVariant: LaserVariant = -1,
+  laserVariant: LaserVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityLaser[] {
@@ -457,7 +457,7 @@ export function removeAllLasers(
  * @returns An array of the NPCs that were removed.
  */
 export function removeAllNPCs(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   cap?: int,
@@ -477,7 +477,7 @@ export function removeAllNPCs(
  * @returns An array of the pickups that were removed.
  */
 export function removeAllPickups(
-  pickupVariant: PickupVariant = -1,
+  pickupVariant: PickupVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityPickup[] {
@@ -496,7 +496,7 @@ export function removeAllPickups(
  * @returns An array of the projectiles that were removed.
  */
 export function removeAllProjectiles(
-  projectileVariant: ProjectileVariant = -1,
+  projectileVariant: ProjectileVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityProjectile[] {
@@ -515,7 +515,7 @@ export function removeAllProjectiles(
  * @returns An array of the slots that were removed.
  */
 export function removeAllSlots(
-  slotVariant: SlotVariant = -1,
+  slotVariant: SlotVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): Entity[] {
@@ -534,7 +534,7 @@ export function removeAllSlots(
  * @returns An array of the tears that were removed.
  */
 export function removeAllTears(
-  tearVariant: TearVariant = -1,
+  tearVariant: TearVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityTear[] {
