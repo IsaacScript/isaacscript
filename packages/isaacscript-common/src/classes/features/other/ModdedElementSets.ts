@@ -20,6 +20,7 @@ import {
   getItemConfigCardType,
   getVanillaCardTypes,
 } from "../../../functions/cards";
+import { collectibleHasTag } from "../../../functions/collectibleTag";
 import {
   collectibleHasCacheFlag,
   getVanillaCollectibleTypeRange,
@@ -27,7 +28,6 @@ import {
   isHiddenCollectible,
   isPassiveCollectible,
 } from "../../../functions/collectibles";
-import { collectibleHasTag } from "../../../functions/collectibleTag";
 import { getFlagName } from "../../../functions/flag";
 import { getRandomSeed } from "../../../functions/rng";
 import {

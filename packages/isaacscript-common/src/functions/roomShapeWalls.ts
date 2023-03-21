@@ -5,8 +5,8 @@ import { CornerType } from "../enums/CornerType";
 import { Corner } from "../interfaces/Corner";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getGridIndexesBetween } from "./gridIndex";
-import { inBossRoomOf, inHomeCloset } from "./rooms";
 import { getRoomShapeCorners, isLRoom } from "./roomShape";
+import { inBossRoomOf, inHomeCloset } from "./rooms";
 
 const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET: ReadonlyMap<
   RoomShape,

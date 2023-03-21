@@ -7,8 +7,8 @@ import { game } from "../core/cachedClasses";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getEntities } from "./entities";
 import { getGridEntities, removeGridEntity } from "./gridEntities";
-import { roomUpdateSafe } from "./rooms";
 import { isVanillaWallGridIndex } from "./roomShapeWalls";
+import { roomUpdateSafe } from "./rooms";
 
 const EMPTY_ROOM_BLACKLIST_ENTITY_SET = new ReadonlySet<EntityType>([
   EntityType.PLAYER, // 1

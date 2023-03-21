@@ -3,9 +3,9 @@ import {
   getCollidingEntitiesWithGridEntity,
   getGridEntities,
 } from "../../../functions/gridEntities";
+import { DefaultMap } from "../../DefaultMap";
 import { PostGridEntityCollision } from "../../callbacks/PostGridEntityCollision";
 import { PostGridEntityCustomCollision } from "../../callbacks/PostGridEntityCustomCollision";
-import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "./CustomGridEntities";
 

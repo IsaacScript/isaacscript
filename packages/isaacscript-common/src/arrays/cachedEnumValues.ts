@@ -20,8 +20,8 @@ import {
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { HealthType } from "../enums/HealthType";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { StatType } from "../enums/StatType";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { getEnumValues } from "../functions/enums";
 
 export const ACTIVE_SLOT_VALUES: readonly ActiveSlot[] =

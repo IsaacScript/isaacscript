@@ -106,8 +106,8 @@ import {
   useActiveItemTemp,
 } from "../../../../functions/players";
 import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
-import { changeRoom } from "../../../../functions/rooms";
 import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
+import { changeRoom } from "../../../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
 import { spawnCollectibleUnsafe } from "../../../../functions/spawnCollectible";
 import { setStage } from "../../../../functions/stage";

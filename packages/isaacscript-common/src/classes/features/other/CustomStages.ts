@@ -42,6 +42,10 @@ import {
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
 import { GameReorderedCallbacks } from "../callbackLogic/GameReorderedCallbacks";
+import { CustomTrapdoors } from "./CustomTrapdoors";
+import { DisableAllSound } from "./DisableAllSound";
+import { Pause } from "./Pause";
+import { RunInNFrames } from "./RunInNFrames";
 import { setCustomStageBackdrop } from "./customStages/backdrop";
 import {
   CUSTOM_FLOOR_STAGE,
@@ -71,10 +75,6 @@ import {
   playVersusScreenAnimation,
   versusScreenPostRender,
 } from "./customStages/versusScreen";
-import { CustomTrapdoors } from "./CustomTrapdoors";
-import { DisableAllSound } from "./DisableAllSound";
-import { Pause } from "./Pause";
-import { RunInNFrames } from "./RunInNFrames";
 
 /**
  * 60 does not work correctly (the music kicking in from stage -1 will mute it), so we use 70 to be

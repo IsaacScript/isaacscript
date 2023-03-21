@@ -4,7 +4,7 @@ import {
 } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { angleToDirection } from "./direction";
-import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
+import { isIsaacAPIClassOfType, isaacAPIClassEquals } from "./isaacAPIClass";
 import { getRandomFloat } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import {

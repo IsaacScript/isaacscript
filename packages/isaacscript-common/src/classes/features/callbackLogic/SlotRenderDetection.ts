@@ -1,8 +1,8 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { getSlots } from "../../../functions/entitiesSpecific";
+import { DefaultMap } from "../../DefaultMap";
 import { PostSlotAnimationChanged } from "../../callbacks/PostSlotAnimationChanged";
 import { PostSlotRender } from "../../callbacks/PostSlotRender";
-import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
 const v = {

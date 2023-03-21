@@ -43,13 +43,13 @@ import { ReadonlySet } from "../../../types/ReadonlySet";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
-import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 import { DisableInputs } from "./DisableInputs";
 import { PonyDetection } from "./PonyDetection";
 import { RoomClearFrame } from "./RoomClearFrame";
 import { RunInNFrames } from "./RunInNFrames";
 import { RunNextRoom } from "./RunNextRoom";
 import { StageHistory } from "./StageHistory";
+import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 
 const DEBUG = false as boolean;
 

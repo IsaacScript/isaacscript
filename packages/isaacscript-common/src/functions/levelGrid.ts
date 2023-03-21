@@ -36,8 +36,8 @@ import {
   getRoomGridIndex,
   getRoomShape,
 } from "./roomData";
-import { getRooms, getRoomsInsideGrid, isSecretRoomType } from "./rooms";
 import { getGridIndexDelta } from "./roomShape";
+import { getRooms, getRoomsInsideGrid, isSecretRoomType } from "./rooms";
 import { asNumber } from "./types";
 
 const LEFT = -1;
