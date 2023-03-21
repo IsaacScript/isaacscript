@@ -118,9 +118,6 @@ export function isTypeArrayTupleTypeOrUnionOfArrayTupleTypes(
   checker: ts.TypeChecker,
 ): boolean {
   for (const t of unionTypeParts(type)) {
-    // @ts-expect-error The `isArrayType` and `isTupleType` methods are internal-only.
-    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/type-utils/typings/typescript.d.ts
-    // eslint-disable-next-line
     if (!checker.isArrayType(t) && !checker.isTupleType(t)) {
       return false;
     }
