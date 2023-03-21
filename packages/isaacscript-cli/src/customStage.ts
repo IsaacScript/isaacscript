@@ -22,13 +22,13 @@ import {
   readFile,
   writeFile,
 } from "./file.js";
+import { ShadersXML } from "./interfaces/ShadersXML.js";
 import {
   CustomStageLua,
   CustomStageRoomMetadata,
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageTSConfig.js";
 import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
-import { ShadersXML } from "./interfaces/ShadersXML.js";
 import { getPackageManagerAddCommand } from "./packageManager.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 

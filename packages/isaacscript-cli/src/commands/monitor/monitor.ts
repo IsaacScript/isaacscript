@@ -25,10 +25,10 @@ import {
 } from "../../file.js";
 import { getJSONC } from "../../json.js";
 import {
+  PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
   getPackageManagerAddCommand,
   getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
-  PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
 } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
