@@ -9,6 +9,9 @@ export enum GridEntityXMLType {
   /** Corresponds to `GridEntityType.DECORATION` (1). */
   DECORATION = 0,
 
+  /** Corresponds to `EntityType.EFFECT` (1000). */
+  EFFECT = 999,
+
   /** Corresponds to `GridEntityType.ROCK` (2). */
   ROCK = 1000,
 
