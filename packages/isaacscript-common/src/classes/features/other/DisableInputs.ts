@@ -112,6 +112,21 @@ export class DisableInputs extends Feature {
   }
 
   /**
+   * Helper function to check if the `ISCFeature.DISABLE_INPUTS` feature is turned on in some
+   * capacity.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   */
+  @Exported
+  public areInputsEnabled(): boolean {
+    return (
+      v.run.disableInputs.size === 0 &&
+      v.run.enableAllInputsWithBlacklistMap.size === 0 &&
+      v.run.disableAllInputsWithWhitelistMap.size === 0
+    );
+  }
+
+  /**
    * Helper function to enable all inputs. Use this function to set things back to normal after
    * having used one of the other helper functions to disable inputs.
    *

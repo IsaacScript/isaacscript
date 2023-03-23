@@ -137,16 +137,6 @@ const config = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/latest/rules/no-unused-expressions
-     *
-     * Not defined in parent configs.
-     *
-     * An unused expression which has no effect on the state of the program indicates a logic error.
-     */
-    "no-unused-expressions": "warn",
-
-    /**
-     * Documentation:
      * https://eslint.org/docs/latest/rules/prefer-destructuring
      *
      * Defined at:

@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## March 28th, 2023 (Unreleased)
+
+- Added the following helper functions:
+  - `areInputsEnabled`
+
 ## March 21st, 2023
 
 - Added the following helper functions:
@@ -318,7 +323,6 @@ pnpm add isaacscript-tsconfig
   - `import/no-default-export`
   - `isaacscript/no-empty-line-comments`
   - `isaacscript/no-throw`
-  - `no-unused-expressions`
   - `jsdoc/require-param` (with specific context)
 - Changed the following lint rules:
   - `isaacscript/no-implicit-map-set-loops` --> `isaacscript/no-explicit-map-set-loops`
