@@ -100,6 +100,15 @@ export function anyPlayerHasTrinket(
 }
 
 /**
+ * Helper function to check to see if any player is holding up an item (from e.g. an active item
+ * activation, a poop from IBS, etc.).
+ */
+export function anyPlayerHoldingItem(): boolean {
+  const players = getAllPlayers();
+  return players.some((player) => player.IsHoldingItem());
+}
+
+/**
  * Helper function to determine if the given character is present.
  *
  * This function is variadic, meaning that you can supply as many characters as you want to check
