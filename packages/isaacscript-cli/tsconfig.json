@@ -11,6 +11,9 @@
     // Thus, we have to manually revert the ESM options from the base config.
     "module": "CommonJS",
     "moduleResolution": "node",
+
+    // The "strictest" TSConfig template turns this to true, but it causes errors with ESM syntax.
+    "verbatimModuleSyntax": false,
   },
 
   "include": [

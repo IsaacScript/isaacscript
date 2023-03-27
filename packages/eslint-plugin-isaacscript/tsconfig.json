@@ -12,7 +12,7 @@
     "moduleResolution": "node",
 
     // The "strictest" config enables this, which causes compilation to fail. (This change can be
-    // deleted once the plugin uses ESM.)
+    // deleted once this package uses ESM.)
     "verbatimModuleSyntax": false,
   },
 

@@ -22,7 +22,7 @@ npx eslint --max-warnings 0 .
 # "--error" makes it return an error code of 1 if unused exports are found.
 # We ignore exports defined in the "index.ts" file since those are intended to be consumed by
 # end-users.
-npx ts-prune --error --ignore "index.ts"
+npx ts-prune --error --ignore "index.mts"
 
 # Spell check every file using CSpell.
 # "--no-progress" and "--no-summary" make it only output errors.
