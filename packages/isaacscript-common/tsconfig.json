@@ -29,9 +29,6 @@
 
     // Decorators are used to reduce some verbosity relating to using a lot of classes.
     "experimentalDecorators": true,
-
-    // The "strictest" TSConfig template turns this to true, but it causes errors with ESM syntax.
-    "verbatimModuleSyntax": false,
   },
 
   "include": [

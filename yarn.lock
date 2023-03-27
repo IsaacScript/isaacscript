@@ -3329,10 +3329,10 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/recommended/-/recommended-1.0.2.tgz#1e198237225933e319718f082e78366e9f159d71"
   integrity sha512-dbHBtbWBOjq0/otpopAE02NT2Cm05Qe2JsEKeCf/wjSYbI2hz8nCqnpnOJWHATgjDz4fd3dchs3Wy1gQGjfN6w==
 
-"@tsconfig/strictest@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@tsconfig/strictest/-/strictest-2.0.0.tgz#9528a6298aa28ecc93b0c4c4e9ea6aac813779b5"
-  integrity sha512-E0dpiZNdwO20c8d3seh7OmjAvDpwoRkTcU6M8cvggzB45Bd45tyTU2XJeA5Wfq+8NzVGhunvqOJ30AjSkywMXA==
+"@tsconfig/strictest@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@tsconfig/strictest/-/strictest-1.0.2.tgz#aff98cd714dbd1722c9229eed2dcf3fc6fd30fd9"
+  integrity sha512-IRKlC8cnP7zMz1SDBjyIVyPapkEGWLZ6wkF6Z8T+xU80P9sO5uGXlIUvtzjx+7ehPJRWxkB6CeIDwUfyqNtYkQ==
 
 "@types/argparse@1.0.38":
   version "1.0.38"
