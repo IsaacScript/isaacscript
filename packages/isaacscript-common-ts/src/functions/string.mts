@@ -1,4 +1,4 @@
-import { parseIntSafe } from "./utils.js";
+import { parseIntSafe } from "./utils.mjs";
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =

@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import * as path from "node:path";
-import { error, readFile, writeFile, __dirname } from "./utils.mjs";
+import { __dirname, error, readFile, writeFile } from "./utils.mjs";
 
 const REPO_ROOT = path.join(__dirname, "..");
 
@@ -16,9 +16,11 @@ function main() {
   }
   const packageName = firstCommandLineArgument;
 
-  replaceTextInGlob(packageName, "./**/*.d.ts.map");
   if (packageName === "isaacscript-common-ts") {
-    replaceTextInGlob(packageName, "./**/*.js.map");
+    replaceTextInGlob(packageName, "./**/*.mjs.map");
+    replaceTextInGlob(packageName, "./**/*.d.mts.map");
+  } else {
+    replaceTextInGlob(packageName, "./**/*.d.ts.map");
   }
 }
 

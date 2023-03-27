@@ -1,4 +1,4 @@
-import { ReadonlySet } from "../types/ReadonlySet.js";
+import { ReadonlySet } from "../types/ReadonlySet.mjs";
 
 /**
  * This returns a random integer between min and max. It is inclusive on both ends.

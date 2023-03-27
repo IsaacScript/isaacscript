@@ -23,7 +23,7 @@ rm -rf "$OUT_DIR"
 npx tsc
 
 # Compile the project for both CJS and ESM using tsup.
-npx tsup "$DIR/src/index.ts" --out-dir "$OUT_DIR/src" --format "cjs,esm"
+npx tsup "$DIR/src/index.mts" --out-dir "$OUT_DIR/src" --format "cjs,esm"
 
 # The source maps and declaration maps will be bugged due to nx's consolidated "dist" directory, so
 # we use a script to manually rewrite them.
