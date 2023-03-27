@@ -20,10 +20,12 @@ npx eslint --max-warnings 0 .
 
 # Check for unused exports.
 # "--error" makes it return an error code of 1 if unused exports are found.
-# We ignore exports defined in the "index.ts" file since those are intended to be consumed by
-# end-users.
-# We ignore exports in the "JSONRoomsFile.ts" file since it is copied from "isaacscript-common".
-npx ts-prune --error --ignore "index.ts|JSONRoomsFile.ts"
+# - We ignore exports defined in the "index.ts" file since those are intended to be consumed by
+#   end-users.
+# - We ignore exports defined in the "index.mts" file since those are part of
+#   `isaacscript-common-ts`.
+# - We ignore exports in the "JSONRoomsFile.ts" file since it is copied from "isaacscript-common".
+npx ts-prune --error --ignore "index.ts|index.mts|JSONRoomsFile.ts"
 
 # Use `isaac-xml-validator` to validate XML files.
 # (Skip this step if Python is not currently installed for whatever reason.)
