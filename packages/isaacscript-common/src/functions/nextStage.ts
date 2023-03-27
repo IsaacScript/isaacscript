@@ -33,7 +33,8 @@ export function getNextStage(): LevelStage {
 
   // First, handle the special case of being on the backwards path.
   if (backwardsPath) {
-    return asNumber(stage) - 1;
+    const nextStage = asNumber(stage) - 1;
+    return nextStage === 0 ? LevelStage.HOME : nextStage;
   }
 
   // Second, handle the special case of being in a specific off-grid room.
