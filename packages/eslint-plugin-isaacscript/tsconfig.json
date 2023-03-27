@@ -10,6 +10,10 @@
     // Thus, we have to manually revert the ESM options from the base config.
     "module": "CommonJS",
     "moduleResolution": "node",
+
+    // The "strictest" config enables this, which causes compilation to fail. (This change can be
+    // deleted once the plugin uses ESM.)
+    "verbatimModuleSyntax": false,
   },
 
   // We have a separate "tsconfig.prod.json" that is used for production output.
