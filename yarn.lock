@@ -3610,10 +3610,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
   integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
-"@types/node@^18.15.10":
-  version "18.15.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.10.tgz#4ee2171c3306a185d1208dad5f44dae3dee4cfe3"
-  integrity sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==
+"@types/node@^18.15.11":
+  version "18.15.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.11.tgz#b3b790f09cb1696cffcec605de025b088fa4225f"
+  integrity sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -10753,10 +10753,10 @@ npm-bundled@^3.0.0:
   dependencies:
     npm-normalize-package-bin "^3.0.0"
 
-npm-check-updates@^16.8.0:
-  version "16.8.0"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.8.0.tgz#43884cc479f03d274c9ca9e3150e6fb64412377e"
-  integrity sha512-2xpFtUPa2OyswC8kpIpxRqQcP/D0uqaBgfiOQAtvGlnDhmHr3QwR2gWjjWtS6xnNvgyyVly/4edY0Uu24c46ew==
+npm-check-updates@^16.8.1:
+  version "16.8.1"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.8.1.tgz#dc3e524b9a38252cb42d91326ecdf38e4aca7906"
+  integrity sha512-fJbLJtjupS6IuuRW8DeinleFPFEKQPgs+eMM56/5vQ3JYYNvPP5hdKPi2UnFAbIEqq5a33Y91VP5+w4aRa7/uA==
   dependencies:
     chalk "^5.2.0"
     cli-table3 "^0.6.3"
