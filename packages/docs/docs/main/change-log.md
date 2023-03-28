@@ -9,10 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## March 28th, 2023 (Unreleased)
+## March 28th, 2023
 
 - Added the following helper functions:
   - `areInputsEnabled`
+- Added the following custom console commands:
+  - `poop` (spawns a poop next to the player)
 
 ## March 21st, 2023
 

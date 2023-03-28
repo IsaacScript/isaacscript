@@ -8,7 +8,7 @@ import {
 import { game } from "../../../../core/cachedClasses";
 import { HealthType } from "../../../../enums/HealthType";
 import { directionToVector } from "../../../../functions/direction";
-import { spawnGridEntityWithVariant } from "../../../../functions/gridEntities";
+import { spawnGridEntity } from "../../../../functions/gridEntities";
 import {
   getRoomAdjacentGridIndexes,
   getRoomGridIndexesForType,
@@ -116,12 +116,11 @@ export function spawnTrapdoorOrCrawlSpace(trapdoor: boolean): void {
   const room = game.GetRoom();
   const player = Isaac.GetPlayer();
   const position = room.FindFreeTilePosition(player.Position, 0);
-  const gridIndex = room.GetGridIndex(position);
   const gridEntityType = trapdoor
     ? GridEntityType.TRAPDOOR
     : GridEntityType.CRAWL_SPACE;
 
-  spawnGridEntityWithVariant(gridEntityType, 0, gridIndex);
+  spawnGridEntity(gridEntityType, position);
 }
 
 export function warpToRoomType(roomType: RoomType): void {

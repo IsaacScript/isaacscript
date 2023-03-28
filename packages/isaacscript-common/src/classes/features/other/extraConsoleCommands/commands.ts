@@ -38,6 +38,7 @@ import {
   Direction,
   DisplayFlag,
   GameStateFlag,
+  GridEntityType,
   GridRoom,
   LevelStage,
   PillColor,
@@ -1096,6 +1097,15 @@ export function pocket(params: string): void {
 
   const player = Isaac.GetPlayer();
   player.SetPocketActiveItem(collectibleType, ActiveSlot.POCKET);
+}
+
+/** Creates a poop grid entity next to the player. */
+export function poop(): void {
+  const roomClass = game.GetRoom();
+  const player = Isaac.GetPlayer();
+  const tilePosition = roomClass.FindFreeTilePosition(player.Position, 0);
+
+  spawnGridEntity(GridEntityType.POOP, tilePosition);
 }
 
 /**
