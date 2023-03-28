@@ -80,6 +80,35 @@ export function convertXMLGridEntityType(
 }
 
 /**
+ * Helper function to check if one or more of a specific kind of grid entity is present in the
+ * current room. It uses the `countEntities` helper function to determine this.
+ *
+ * @param gridEntityType The grid entity type to match.
+ * @param variant Optional. Default is -1, which matches every variant.
+ */
+export function doesGridEntityExist(
+  gridEntityType: GridEntityType,
+  variant = -1,
+): boolean {
+  const room = game.GetRoom();
+  const gridIndexes = getAllGridIndexes();
+
+  return gridIndexes.some((gridIndex) => {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity === undefined) {
+      return false;
+    }
+
+    const thisGridEntityType = gridEntity.GetType();
+    const thisVariant = gridEntity.GetVariant();
+    return (
+      gridEntityType === thisGridEntityType &&
+      (variant === -1 || variant === thisVariant)
+    );
+  });
+}
+
+/**
  * Helper function to get every legal grid index for the current room.
  *
  * Under the hood, this uses the `Room.GetGridSize` method.

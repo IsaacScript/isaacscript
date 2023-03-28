@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## April 4th, 2023 (Unreleased)
+
+- Added the following helper functions:
+  - `doesGridEntityExist`
+
 ## March 28th, 2023
 
 - Added the following helper functions:
