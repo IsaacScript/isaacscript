@@ -197,6 +197,11 @@ export function getCharacters(): PlayerType[] {
   return players.map((player) => player.GetPlayerType());
 }
 
+/**
+ * Helper function to get the closest player to a certain position. Note that this will never
+ * include players with a non-undefined parent, since they are not real players (e.g. the Strawman
+ * Keeper).
+ */
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | undefined;
   let closestDistance = math.huge;
