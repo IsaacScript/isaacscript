@@ -29,17 +29,23 @@ declare global {
     function AddCallback<T extends keyof AddCallbackParameters | string>(
       mod: Mod,
       modCallback: T,
-      ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] : unknown[]
+      ...args: T extends keyof AddCallbackParameters
+        ? AddCallbackParameters[T]
+        : unknown[]
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
 
     /** @deprecated Use the `Mod.AddPriorityCallback` method instead. */
-    function AddPriorityCallback<T extends keyof AddCallbackParameters | string>(
+    function AddPriorityCallback<
+      T extends keyof AddCallbackParameters | string,
+    >(
       mod: Mod,
       modCallback: T,
       priority: CallbackPriority | int,
-      ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] : unknown[]
+      ...args: T extends keyof AddCallbackParameters
+        ? AddCallbackParameters[T]
+        : unknown[]
     ): void;
 
     /**
