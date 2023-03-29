@@ -26,10 +26,10 @@ declare global {
    */
   namespace Isaac {
     /** @deprecated Use the `Mod.AddCallback` method instead. */
-    function AddCallback<T extends ModCallback | string>(
+    function AddCallback<T extends keyof AddCallbackParameters | string>(
       mod: Mod,
       modCallback: T,
-      ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
+      ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] : unknown[]
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
