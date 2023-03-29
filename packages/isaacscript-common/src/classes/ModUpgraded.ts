@@ -70,17 +70,17 @@ export class ModUpgraded implements Mod {
   // Vanilla methods
   // ---------------
 
-  public AddCallback<T extends ModCallback | string>(
+  public AddCallback<T extends keyof AddCallbackParameters | string>(
     modCallback: T,
-    ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
+    ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] : unknown[]
   ): void {
     this.AddPriorityCallback(modCallback, CallbackPriority.DEFAULT, ...args);
   }
 
-  public AddPriorityCallback<T extends ModCallback | string>(
+  public AddPriorityCallback<T extends keyof AddCallbackParameters | string>(
     modCallback: T,
     priority: CallbackPriority | int,
-    ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
+    ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] : unknown[]
   ): void {
     if (this.debug) {
       const callback = args[0];
