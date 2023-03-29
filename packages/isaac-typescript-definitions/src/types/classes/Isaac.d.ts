@@ -35,11 +35,11 @@ declare global {
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
 
     /** @deprecated Use the `Mod.AddPriorityCallback` method instead. */
-    function AddPriorityCallback<T extends ModCallback | string>(
+    function AddPriorityCallback<T extends keyof AddCallbackParameters | string>(
       mod: Mod,
       modCallback: T,
       priority: CallbackPriority | int,
-      ...args: T extends ModCallback ? AddCallbackParameters[T] : unknown[]
+      ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] : unknown[]
     ): void;
 
     /**
