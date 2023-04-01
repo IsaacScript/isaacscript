@@ -1,5 +1,5 @@
 /** This represents the kinds of stats that a player can have. */
-export enum StatType {
+export enum PlayerStat {
   /** Corresponds to `CacheFlag.DAMAGE` (1 << 0) and `EntityPlayer.Damage`. */
   DAMAGE,
 

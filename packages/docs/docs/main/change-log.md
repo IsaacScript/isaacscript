@@ -13,6 +13,9 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `doesGridEntityExist`
+  - `getPlayerStats`
+  - `getEdenStartingStat`
+  - `getEdenStartingStats`
 
 ## March 28th, 2023
 

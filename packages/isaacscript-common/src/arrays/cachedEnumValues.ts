@@ -20,7 +20,7 @@ import {
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { HealthType } from "../enums/HealthType";
-import { StatType } from "../enums/StatType";
+import { PlayerStat } from "../enums/PlayerStat";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { getEnumValues } from "../functions/enums";
 
@@ -73,7 +73,8 @@ export const SERIALIZATION_BRAND_VALUES: readonly SerializationBrand[] =
 export const SOUND_EFFECT_VALUES: readonly SoundEffect[] =
   getEnumValues(SoundEffect);
 
-export const STAT_TYPE_VALUES: readonly StatType[] = getEnumValues(StatType);
+export const PLAYER_STAT_VALUES: readonly PlayerStat[] =
+  getEnumValues(PlayerStat);
 
 export const TRINKET_SLOT_VALUES: readonly TrinketSlot[] =
   getEnumValues(TrinketSlot);

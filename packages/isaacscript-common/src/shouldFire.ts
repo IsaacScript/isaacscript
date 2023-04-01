@@ -42,8 +42,8 @@ import {
 } from "isaac-typescript-definitions";
 import { AmbushType } from "./enums/AmbushType";
 import { HealthType } from "./enums/HealthType";
+import { PlayerStat } from "./enums/PlayerStat";
 import { SlotDestructionType } from "./enums/SlotDestructionType";
-import { StatType } from "./enums/StatType";
 import { PickingUpItem } from "./types/PickingUpItem";
 import { PossibleStatType } from "./types/PossibleStatType";
 
@@ -345,7 +345,7 @@ export function shouldFirePlayer(
       ]
     | [
         player: EntityPlayer,
-        statType: StatType,
+        playerStat: PlayerStat,
         difference: int,
         oldValue: PossibleStatType,
         newValue: PossibleStatType,

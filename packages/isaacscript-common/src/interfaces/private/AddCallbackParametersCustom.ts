@@ -37,15 +37,15 @@ import {
 import { AmbushType } from "../../enums/AmbushType";
 import { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { PlayerStat } from "../../enums/PlayerStat";
 import { SlotDestructionType } from "../../enums/SlotDestructionType";
-import { StatType } from "../../enums/StatType";
 import { validateInterfaceMatchesEnum } from "../../functions/enums";
 import {
   PickingUpItem,
   PickingUpItemCollectible,
   PickingUpItemTrinket,
 } from "../../types/PickingUpItem";
-import { StatTypeType } from "../StatTypeType";
+import { PlayerStats } from "../PlayerStats";
 
 export interface AddCallbackParametersCustom {
   [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: [
@@ -647,12 +647,12 @@ export interface AddCallbackParametersCustom {
   ];
 
   [ModCallbackCustom.POST_PLAYER_CHANGE_STAT]: [
-    callback: <T extends StatType>(
+    callback: <T extends PlayerStat>(
       player: EntityPlayer,
-      statType: StatType,
+      playerStat: PlayerStat,
       difference: int,
-      oldValue: StatTypeType[T],
-      newValue: StatTypeType[T],
+      oldValue: PlayerStats[T],
+      newValue: PlayerStats[T],
     ) => void,
     playerVariant?: PlayerVariant,
     character?: PlayerType,
