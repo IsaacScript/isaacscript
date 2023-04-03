@@ -16,13 +16,15 @@ This page lists the changes to the IsaacScript framework.
   - `getPlayerStats`
   - `getEdenStartingStat`
   - `getEdenStartingStats`
+- Added the following custom console commands:
+  - `spikes` (spawns a spikes grid entity next to the player)
 
 ## March 28th, 2023
 
 - Added the following helper functions:
   - `areInputsEnabled`
 - Added the following custom console commands:
-  - `poop` (spawns a poop next to the player)
+  - `poop` (spawns a poop grid entity next to the player)
 
 ## March 21st, 2023
 

@@ -1520,6 +1520,15 @@ export function speed(params: string): void {
   printEnabled(v.persistent.speed, "set speed");
 }
 
+/** Creates a spikes grid entity next to the player. */
+export function spikes(): void {
+  const roomClass = game.GetRoom();
+  const player = Isaac.GetPlayer();
+  const tilePosition = roomClass.FindFreeTilePosition(player.Position, 0);
+
+  spawnGridEntity(GridEntityType.SPIKES, tilePosition);
+}
+
 /** Alias for the "startingRoom" command. */
 export function startRoom(): void {
   startingRoom();
