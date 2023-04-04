@@ -95,11 +95,11 @@ export function isTearFromFamiliar(
 
 /**
  * Helper function to check if a given tear is from a player (as opposed to e.g. a familiar). This
- * is determined by looking at the parent.
+ * is determined by looking at the `SpawnerEntity`.
  *
- * For the special case of Incubus and Blood Babies, the parent of the tear is always the player,
- * but the spawner entity of the tear changes. On frame 0, the spawner entity is equal to the
- * player, and on frame 1, the spawner entity is equal to the familiar. For this reason, you can
+ * For the special case of Incubus and Blood Babies, the `SpawnerEntity` of the tear is always the
+ * player, but the spawner entity of the tear changes. On frame 0, the spawner entity is equal to
+ * the player, and on frame 1, the spawner entity is equal to the familiar. For this reason, you can
  * only use this function in the `POST_TEAR_INIT_VERY_LATE` callback or on frame 1+.
  *
  * If this function is called on frame 0, it will throw a run-time error.
