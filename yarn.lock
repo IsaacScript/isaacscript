@@ -8761,10 +8761,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.1.tgz#b312d902b313f81e4eaf98b6361ba2b45cd694bb"
   integrity sha512-/kppl+R+LO5VmhYSEWARUFjodS25D68gvj8W7z0I7OWhUla5xWu8KL6CtB2V0R6yqhnRgbcaREMr4EEM6htLPQ==
 
-isaac-typescript-definitions@^13.0.10:
-  version "13.0.10"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-13.0.10.tgz#3db0b6687b77eb9ff454b3469dddf81b76ec09c3"
-  integrity sha512-PdIx57LcdAf+RIs3poM0IfFypKoqLoizu474hzPiyKF3uyZdcriwtAA8bcW1wIQ8yeMT0ydWtomrmGot2rsj/w==
+isaac-typescript-definitions@^13.0.11:
+  version "13.0.11"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-13.0.11.tgz#a0e7a3fe95a09c57cad4c49af65864a83c2dd2c2"
+  integrity sha512-UZ/AYQUuYnV2KzGPVSpEFe9qF7Gu+Tz04k+VKa+lais5qpl3AmzsjgZbxsBD5/YuwHm0UZXz4VGhtIOhBkCZFA==
   dependencies:
     lua-types "^2.13.1"
 
@@ -10717,10 +10717,10 @@ npm-bundled@^3.0.0:
   dependencies:
     npm-normalize-package-bin "^3.0.0"
 
-npm-check-updates@^16.10.0:
-  version "16.10.0"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.10.0.tgz#6bd5c76eedd231248a4d8cf5c1b20cd6f19d5164"
-  integrity sha512-xtTm38/94u9BhFbIuq1yxjKs+lmXQK+RnzxgfMVzRhz9vRXgcuC9ZsSw8hormmrmVtIZ8yG0At80d1R5vRf6rQ==
+npm-check-updates@^16.10.1:
+  version "16.10.1"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.10.1.tgz#e69c20fdf4d1262273312a7eb3a33503ac28e355"
+  integrity sha512-s5CNxtaCjiFR8ns4DkZJuukMaiXodeYyoHQ4XYp0WfRuqU+NfSODbW9jQDTtwZFIhrzX0d4/YJXL32BteX+ujw==
   dependencies:
     chalk "^5.2.0"
     cli-table3 "^0.6.3"
