@@ -128,7 +128,9 @@ declare global {
       partitions?: BitFlags<EntityPartition> | EntityPartition,
     ): Entity[];
 
-    function GetBuiltInCallbackState(modCallback: keyof AddCallbackParameters): boolean;
+    function GetBuiltInCallbackState(
+      modCallback: keyof AddCallbackParameters,
+    ): boolean;
 
     function GetCallbacks<T extends keyof AddCallbackParameters>(
       modCallback: T,
