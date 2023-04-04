@@ -10,7 +10,6 @@ import {
 import { EntityType } from "../../enums/EntityType";
 import { EntityPartition } from "../../enums/flags/EntityPartition";
 import { GridEntityType } from "../../enums/GridEntityType";
-import { ModCallback } from "../../enums/ModCallback";
 import { Music } from "../../enums/Music";
 import { NullItemID } from "../../enums/NullItemID";
 import { PillEffect } from "../../enums/PillEffect";
@@ -129,12 +128,12 @@ declare global {
       partitions?: BitFlags<EntityPartition> | EntityPartition,
     ): Entity[];
 
-    function GetBuiltInCallbackState(modCallback: ModCallback): boolean;
+    function GetBuiltInCallbackState(modCallback: keyof AddCallbackParameters): boolean;
 
-    function GetCallbacks<T extends ModCallback>(
+    function GetCallbacks<T extends keyof AddCallbackParameters>(
       modCallback: T,
       createIfMissing: boolean,
-    ): ModDescription<T>;
+    ): Array<ModDescription<T>>;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded cards.
@@ -449,7 +448,7 @@ declare global {
     /** @deprecated Use the `Mod.RemoveCallback` method instead. */
     function RemoveCallback(
       mod: Mod,
-      modCallback: ModCallback,
+      modCallback: keyof AddCallbackParameters,
       callbackFn: () => void,
     ): void;
 
@@ -481,10 +480,10 @@ declare global {
       a: float,
     ): void;
 
-    function RunCallback(modCallback: ModCallback): void;
+    function RunCallback(modCallback: keyof AddCallbackParameters): void;
 
     function RunCallbackWithParam(
-      modCallback: ModCallback,
+      modCallback: keyof AddCallbackParameters,
       ...optionalArgs: unknown[]
     ): void;
 
@@ -498,7 +497,7 @@ declare global {
     function SaveModData(mod: Mod, data: string): void;
 
     function SetBuiltInCallbackState(
-      modCallback: ModCallback,
+      modCallback: keyof AddCallbackParameters,
       state: boolean,
     ): void;
 

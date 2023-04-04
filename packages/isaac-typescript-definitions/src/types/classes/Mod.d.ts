@@ -1,5 +1,4 @@
 import { CallbackPriority } from "../../enums/CallbackPriority";
-import { ModCallback } from "../../enums/ModCallback";
 
 declare global {
   /**
@@ -60,7 +59,7 @@ declare global {
      * This method does not care about the tertiary argument. In other words, regardless of the
      * conditions of how you registered the callback, it will be removed.
      */
-    RemoveCallback<T extends ModCallback>(
+    RemoveCallback<T extends keyof AddCallbackParameters>(
       modCallback: T,
       callback: AddCallbackParameters[T][0],
     ): void;

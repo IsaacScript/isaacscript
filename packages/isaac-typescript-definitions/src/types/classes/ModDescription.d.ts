@@ -1,8 +1,7 @@
 import { CallbackPriority } from "../../enums/CallbackPriority";
-import { ModCallback } from "../../enums/ModCallback";
 
 declare global {
-  interface ModDescription<T extends ModCallback> {
+  interface ModDescription<T extends keyof AddCallbackParameters> {
     Function: AddCallbackParameters[T][0];
 
     Mod: Mod;
