@@ -21,7 +21,7 @@ import { iRange } from "./utils";
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumEntries<T>(
+export function getEnumEntries<T extends Record<string, string | number>>(
   transpiledEnum: T,
 ): Array<[key: string, value: T[keyof T]]> {
   // The values cannot simply be type `T` due to the special construction of bit flag enums.
@@ -60,13 +60,17 @@ export function getEnumEntries<T>(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumKeys<T>(transpiledEnum: T): string[] {
+export function getEnumKeys<T extends Record<string, string | number>>(
+  transpiledEnum: T,
+): string[] {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([key, _value]) => key);
 }
 
 /** Helper function to get the amount of entries inside of an enum. */
-export function getEnumLength<T>(transpiledEnum: T): int {
+export function getEnumLength<T extends Record<string, string | number>>(
+  transpiledEnum: T,
+): int {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.length;
 }
@@ -87,7 +91,9 @@ export function getEnumLength<T>(transpiledEnum: T): int {
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
+export function getEnumValues<T extends Record<string, string | number>>(
+  transpiledEnum: T,
+): Array<T[keyof T]> {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([_key, value]) => value);
 }
@@ -98,7 +104,9 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
  * Note that this is not necessarily the enum value that is declared last, since there is no way to
  * infer that at run-time.
  */
-export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
+export function getHighestEnumValue<T extends Record<string, string | number>>(
+  transpiledEnum: T,
+): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
   const lastElement = enumValues[enumValues.length - 1];
@@ -119,7 +127,7 @@ export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
-export function getRandomEnumValue<T>(
+export function getRandomEnumValue<T extends Record<string, string | number>>(
   transpiledEnum: T,
   seedOrRNG: Seed | RNG = getRandomSeed(),
   exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
@@ -145,7 +153,7 @@ export function getRandomEnumValue<T>(
  */
 export function validateCustomEnum(
   transpiledEnumName: string,
-  transpiledEnum: unknown,
+  transpiledEnum: Record<string, string | number>,
 ): void {
   for (const [key, value] of getEnumEntries(transpiledEnum)) {
     if (value === -1) {
@@ -161,10 +169,9 @@ export function validateCustomEnum(
  *
  * This is useful to automate checking large enums for typos.
  */
-export function validateEnumContiguous<T>(
-  transpiledEnumName: string,
-  transpiledEnum: T,
-): void {
+export function validateEnumContiguous<
+  T extends Record<string, string | number>,
+>(transpiledEnumName: string, transpiledEnum: T): void {
   const values = getEnumValues(transpiledEnum);
   const lastValue = values[values.length - 1];
   if (lastValue === undefined) {
