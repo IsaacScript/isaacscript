@@ -6,7 +6,7 @@
  *
  * This function will work properly for both number and string enums.
  */
-export function getEnumValues<T extends Record<string, string | number>>(
+export function getEnumValues<T>(
   transpiledEnum: Record<string, string | T>,
 ): T[] {
   const values = Object.values(transpiledEnum);
