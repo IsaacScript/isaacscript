@@ -26,7 +26,7 @@ export function getPackageManagerLockFileName(
   return PACKAGE_MANAGER_LOCK_FILE_NAMES[packageManager];
 }
 
-export function getAllPackageManagerLockFileNames(): string[] {
+export function getAllPackageManagerLockFileNames(): readonly string[] {
   return Object.values(PACKAGE_MANAGER_LOCK_FILE_NAMES);
 }
 
