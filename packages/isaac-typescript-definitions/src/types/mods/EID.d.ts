@@ -411,8 +411,8 @@ declare interface EIDInterface {
    * Example: `"1,2,3"`, removing `2` will return `"1,3"`.
    */
   removeEntryFromString(
-    sourceTable: LuaMap<number | string, string> | string[],
-    entryKey: number | string,
+    sourceTable: LuaMap<string | number, string> | string[],
+    entryKey: string | number,
     entryValue: string,
   ): void;
 

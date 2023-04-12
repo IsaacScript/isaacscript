@@ -21,11 +21,11 @@ import { iRange } from "./utils";
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumEntries<T extends number | string>(
-  transpiledEnum: Record<string, T>,
-): Array<[key: string, value: T]> {
+export function getEnumEntries<T>(
+  transpiledEnum: T,
+): Array<[key: string, value: T[keyof T]]> {
   // The values cannot simply be type `T` due to the special construction of bit flag enums.
-  const enumEntries: Array<[key: string, value: T]> = [];
+  const enumEntries: Array<[key: string, value: T[keyof T]]> = [];
   for (const [key, value] of pairs(transpiledEnum)) {
     // Ignore the reverse mappings created by TypeScriptToLua. Note that reverse mappings are not
     // created for string enums.
@@ -60,17 +60,13 @@ export function getEnumEntries<T extends number | string>(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumKeys(
-  transpiledEnum: Record<string, number | string>,
-): string[] {
+export function getEnumKeys<T>(transpiledEnum: T): string[] {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([key, _value]) => key);
 }
 
 /** Helper function to get the amount of entries inside of an enum. */
-export function getEnumLength(
-  transpiledEnum: Record<string, number | string>,
-): int {
+export function getEnumLength<T>(transpiledEnum: T): int {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.length;
 }
@@ -91,9 +87,7 @@ export function getEnumLength(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumValues<T extends number | string>(
-  transpiledEnum: Record<string, T>,
-): T[] {
+export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([_key, value]) => value);
 }
@@ -104,9 +98,7 @@ export function getEnumValues<T extends number | string>(
  * Note that this is not necessarily the enum value that is declared last, since there is no way to
  * infer that at run-time.
  */
-export function getHighestEnumValue<T extends number | string>(
-  transpiledEnum: Record<string, T>,
-): T {
+export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
   const lastElement = enumValues[enumValues.length - 1];
@@ -127,11 +119,11 @@ export function getHighestEnumValue<T extends number | string>(
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
-export function getRandomEnumValue<T extends number | string>(
-  transpiledEnum: Record<string, T>,
+export function getRandomEnumValue<T>(
+  transpiledEnum: T,
   seedOrRNG: Seed | RNG = getRandomSeed(),
-  exceptions: T[] | readonly T[] = [],
-): T {
+  exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
+): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
   return getRandomArrayElement(enumValues, seedOrRNG, exceptions);
 }
@@ -153,7 +145,7 @@ export function getRandomEnumValue<T extends number | string>(
  */
 export function validateCustomEnum(
   transpiledEnumName: string,
-  transpiledEnum: Record<string, string | number>,
+  transpiledEnum: unknown,
 ): void {
   for (const [key, value] of getEnumEntries(transpiledEnum)) {
     if (value === -1) {
@@ -169,9 +161,9 @@ export function validateCustomEnum(
  *
  * This is useful to automate checking large enums for typos.
  */
-export function validateEnumContiguous(
+export function validateEnumContiguous<T>(
   transpiledEnumName: string,
-  transpiledEnum: Record<string, number>,
+  transpiledEnum: T,
 ): void {
   const values = getEnumValues(transpiledEnum);
   const lastValue = values[values.length - 1];
@@ -180,10 +172,15 @@ export function validateEnumContiguous(
       "Failed to validate that an enum was contiguous, since the last value was undefined.",
     );
   }
+  if (typeof lastValue !== "number") {
+    error(
+      "Failed to validate that an enum was contiguous, since the last value was not a number.",
+    );
+  }
 
   const valuesSet = new ReadonlySet(values);
   for (const value of iRange(lastValue)) {
-    if (!valuesSet.has(value)) {
+    if (!valuesSet.has(value as unknown as T[keyof T])) {
       error(
         `Failed to find a custom enum value of ${value} for: ${transpiledEnumName}`,
       );
@@ -221,5 +218,5 @@ export function validateEnumContiguous(
 export function validateInterfaceMatchesEnum<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   T extends Record<Enum, unknown>,
-  Enum extends number | string,
+  Enum extends string | number,
 >(): void {}

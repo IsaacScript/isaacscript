@@ -108,7 +108,7 @@ type SerializableInsideArrayOrMap<T> =
     : // Allow any other object, as long as the values are themselves serializable.
       SerializableObject<T>;
 
-type SerializablePrimitive = boolean | number | string | undefined | null;
+type SerializablePrimitive = boolean | string | number | undefined | null;
 type SerializableArray<T> = Array<SerializableInsideArrayOrMap<T>>;
 type SerializableReadonlyArray<T> = ReadonlyArray<
   SerializableInsideArrayOrMap<T>
