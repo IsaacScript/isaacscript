@@ -55,7 +55,7 @@ export function getParentFunctionDescription(
  */
 export function log(
   this: void,
-  msg: string | number,
+  msg: number | string,
   includeParentFunction = true,
 ): void {
   if (isNumber(msg)) {

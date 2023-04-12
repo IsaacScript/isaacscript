@@ -54,7 +54,7 @@ declare global {
       variant: number,
       subtype: number,
       func: (pickup: EntityPickup) => boolean | undefined,
-      icongroup: string | number, // cspell:ignore icongroup
+      icongroup: number | string, // cspell:ignore icongroup
       priority: number,
     ): MinimapAPIRoomDescriptor;
 
@@ -193,7 +193,7 @@ declare global {
 
     PlayerInRoom(room: MinimapAPIRoomDescriptor): boolean;
 
-    RemoveIcon(id: string | number): void;
+    RemoveIcon(id: number | string): void;
 
     RemoveRoom(position: Vector): void;
 
@@ -253,7 +253,7 @@ declare global {
     PickupSlotMachineNotBroken: (slot: Entity) => boolean | undefined;
 
     ReleaseVersion?: number;
-    Version: string | number;
+    Version: number | string;
   }
 
   interface MinimapAPITeleportHandler {

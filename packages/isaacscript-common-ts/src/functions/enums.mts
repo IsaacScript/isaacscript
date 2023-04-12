@@ -6,13 +6,12 @@
  *
  * This function will work properly for both number and string enums.
  */
-export function getEnumValues<T>(
-  transpiledEnum: Record<string, string | T>,
+export function getEnumValues<T extends number | string>(
+  transpiledEnum: Record<string, T>,
 ): T[] {
   const values = Object.values(transpiledEnum);
   const numberValues = values.filter((value) => typeof value === "number");
 
   // If there are no number values, then this must be a string enum, and no filtration is required.
-  const valuesToReturn = numberValues.length > 0 ? numberValues : values;
-  return valuesToReturn as T[];
+  return numberValues.length > 0 ? numberValues : values;
 }

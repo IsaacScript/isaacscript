@@ -88,7 +88,7 @@ declare global {
     GetCategoryIDByName(categoryName: string): int | undefined;
 
     GetSubcategoryIDByName(
-      category: string | number,
+      category: number | string,
       subcategoryName: string,
     ): int;
 
