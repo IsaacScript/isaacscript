@@ -258,7 +258,7 @@ export enum ModCallback {
    *   includePlayingCards: boolean,
    *   includeRunes: boolean,
    *   onlyRunes: boolean,
-   * ): Card | undefined {}
+   * ): CardType | undefined {}
    * ```
    */
   GET_CARD = 20,
