@@ -5,6 +5,7 @@ export * from "./enums/ActiveSlot";
 export * from "./enums/BackdropType";
 export * from "./enums/BrokenWatchState";
 export * from "./enums/ButtonAction";
+export * from "./enums/CallbackPriority";
 export * from "./enums/Challenge";
 export * from "./enums/ChampionColor";
 export * from "./enums/CollectibleAnimation";
