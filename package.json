@@ -55,7 +55,7 @@
     "@nrwl/eslint-plugin-nx": "15.5.3",
     "@nrwl/nx-cloud": "latest",
     "@prettier/plugin-xml": "^2.2.0",
-    "@svgr/webpack": "^8.0.1",
+    "@svgr/webpack": "7.0.0",
     "@tsconfig/strictest": "1.0.2",
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.6",
