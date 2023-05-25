@@ -37,7 +37,7 @@
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21",
     "sync-directory": "^6.0.4",
-    "tslib": "^2.5.0",
+    "tslib": "^2.5.2",
     "tsup": "^6.7.0",
     "typescript-to-lua": "^1.14.0",
     "xml2js": "^0.4.23",
