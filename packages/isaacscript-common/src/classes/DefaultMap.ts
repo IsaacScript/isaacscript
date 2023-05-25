@@ -74,8 +74,6 @@ import { isFunction, isPrimitive } from "../functions/types";
  *   However, if a factory function was provided during instantiation, and the factory function has
  *   one or more arguments, then you must call this method instead (and provide the corresponding
  *   arguments).
- * - `getWithoutDefault` - Calls the original `Map.get` function (without setting the default
- *   value).
  * - `getDefaultValue` - Returns the default value to be used for a new key. (If a factory function
  *   was provided during instantiation, this will execute the factory function.)
  * - `getConstructorArg` - Helper method for cloning the map. Returns either the default value or
