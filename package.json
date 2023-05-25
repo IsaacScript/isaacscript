@@ -126,8 +126,8 @@
     "ts-prune-2": "^0.10.7",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^3.12.6",
-    "typedoc": "^0.23.28",
-    "typedoc-plugin-markdown": "^3.14.0",
+    "typedoc": "^0.24.7",
+    "typedoc-plugin-markdown": "^3.15.3",
     "typedoc-plugin-rename": "^1.0.1",
     "typescript": "^5.0.3",
     "unified": "9.2.2"
