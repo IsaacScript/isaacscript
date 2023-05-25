@@ -198,7 +198,8 @@ export class DeployJSONRoom extends Feature {
   /**
    * Helper function to deconstruct a vanilla room and set up a custom room in its place.
    * Specifically, this will clear the current room of all entities and grid entities, and then
-   * spawn all of the entries and grid entities in the provided JSON room.
+   * spawn all of the entries and grid entities in the provided JSON room. For this reason, you must
+   * be in the actual room in order to use this function.
    *
    * A JSON room is simply an XML file converted to JSON. You can create JSON rooms by using the
    * Basement Renovator room editor to create an XML file, and then convert it to JSON using the
