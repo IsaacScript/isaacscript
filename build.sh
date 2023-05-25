@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 set -euo pipefail # Exit on errors and undefined variables.
 
 # Get the directory of this script:
