@@ -179,6 +179,10 @@ const config = {
       },
     ],
 
+    // This is part of the recommended config, but we turn it off because of this issue:
+    // https://github.com/typescript-eslint/typescript-eslint/issues/7067
+    "@typescript-eslint/no-unsafe-enum-comparison": "off",
+
     /**
      * Documentation:
      * https://typescript-eslint.io/rules/restrict-template-expressions

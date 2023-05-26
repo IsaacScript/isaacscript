@@ -234,15 +234,7 @@ const config = {
     // - jsdoc/require-yields-check - It's overboard to document every yield.
     // - jsdoc/sort-tags - Not very useful since there are typically only `@param` and `@return`
     //   tags.
-
-    /**
-     * Documentation:
-     * https://github.com/gajus/eslint-plugin-jsdoc#tag-lines
-     *
-     * Enforces no lines between tags.
-     */
-    "jsdoc/tag-lines": "warn",
-
+    // - jsdoc/tag-lines - Not needed with `isaacscript/format-jsdoc-comments`.
     // - jsdoc/valid-types - Not needed in TypeScript.
   },
 
