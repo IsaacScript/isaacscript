@@ -18,6 +18,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - @tsconfig/strictest - API Extractor does not support `verbatimModuleSyntax`:
 #   https://github.com/microsoft/rushstack/issues/4003
 # - nx - There is a bug in 15.6.1 that makes linting fail in CI.
+# - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
