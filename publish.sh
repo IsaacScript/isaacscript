@@ -52,12 +52,6 @@ if [[ -z "${2-}" ]]; then
 fi
 VERSION_BUMP="$2"
 
-if [[ -z "${3-}" ]]; then
-  echo "Error: The OTP code is required as an argument."
-  exit 1
-fi
-OTP_CODE="$3"
-
 # Before bumping the version, check to see if this package compiles and lints (so that we can avoid
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
@@ -88,6 +82,13 @@ git tag "$TAG"
 # to the "dist" directory.
 bash "$PACKAGE_DIR/build.sh"
 
+# Prompt for the OTP code.
+read -r OTP_CODE
+if [[ -z "${OTP_CODE-}" ]]; then
+  echo "Error: The OTP code provided was blank."
+  exit 1
+fi
+
 # Upload the package to npm.
 # The "--access=public" flag is only technically needed for the first publish, but it is saved here
 # for posterity.
@@ -99,12 +100,11 @@ else
 fi
 npm publish --access=public --tag="$NPM_TAG" --otp="$OTP_CODE"
 
-# TODO: Don't update any deps for now, since something is broken with ESM.
-#sleep 1
-#bash "$DIR/update.sh"
-#npx syncpack fix-mismatches --types prod,dev
-#bash "$DIR/packages/isaacscript-cli/update.sh"
-#bash "$DIR/packages/isaacscript-lint/update.sh"
+sleep 1
+bash "$DIR/update.sh"
+npx syncpack fix-mismatches --types prod,dev
+bash "$DIR/packages/isaacscript-cli/update.sh"
+bash "$DIR/packages/isaacscript-lint/update.sh"
 
 if ! is_git_repo_clean; then
   git commit --all --message "chore: updating dependencies"
