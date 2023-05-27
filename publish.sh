@@ -83,6 +83,7 @@ git tag "$TAG"
 bash "$PACKAGE_DIR/build.sh"
 
 # Prompt for the OTP code.
+echo "Type in the two-factor OTP code tied to the npm account."
 read -r OTP_CODE
 if [[ -z "${OTP_CODE-}" ]]; then
   echo "Error: The OTP code provided was blank."
