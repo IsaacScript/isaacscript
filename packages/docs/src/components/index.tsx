@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 interface FeatureItem {
   readonly title: string;
   readonly img: string;
-  readonly description: JSX.Element;
+  readonly description: React.JSX.Element;
 }
 
 const FeatureList = [
@@ -61,7 +61,7 @@ function Feature({ title, img, description }: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function HomepageFeatures(): React.JSX.Element {
   return (
     <section className={styles["features"]}>
       <div className="container">

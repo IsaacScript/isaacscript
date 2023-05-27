@@ -12,7 +12,7 @@ const CENTER_STYLE = {
   textAlign: "center",
 } as const;
 
-function HomepageHeader(): JSX.Element {
+function HomepageHeader(): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx("hero hero--primary", styles["heroBanner"])}>
@@ -66,7 +66,7 @@ for _, entity in ipairs(entities) do
 end
 `.trim();
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
   return (
     <Layout description="A framework for coding mods for The Binding of Isaac: Repentance">
       <HomepageHeader />
