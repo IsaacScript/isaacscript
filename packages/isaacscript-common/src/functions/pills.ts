@@ -5,7 +5,7 @@ import {
   PillEffect,
 } from "isaac-typescript-definitions";
 import { PILL_COLOR_VALUES } from "../arrays/cachedEnumValues";
-import { itemConfig } from "../core/cachedClasses";
+import { game, itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
   FIRST_PILL_COLOR,
@@ -102,6 +102,33 @@ export function getPHDPillEffect(pillEffect: PillEffect): PillEffect {
 }
 
 /**
+ * Helper function to get the corresponding pill color from an effect by repeatedly using the
+ * `ItemPool.GetPillEffect` method.
+ *
+ * Note that this will return the corresponding effect even if the passed pill color is not yet
+ * identified by the player.
+ *
+ * Returns `PillColor.NULL` if there is the corresponding pill color cannot be found.
+ *
+ * This function is especially useful in the `POST_USE_PILL` callback, since at that point, the used
+ * pill is already consumed, and the callback only passes the effect. In this specific circumstance,
+ * consider using the `POST_USE_PILL_FILTER` callback instead of the `POST_USE_PILL` callback, since
+ * it correctly passes the color and handles the case of horse pills.
+ */
+export function getPillColorFromEffect(pillEffect: PillEffect): PillColor {
+  const itemPool = game.GetItemPool();
+  const normalPillColors = getNormalPillColors();
+  for (const normalPillColor of normalPillColors) {
+    const normalPillEffect = itemPool.GetPillEffect(normalPillColor);
+    if (normalPillEffect === pillEffect) {
+      return normalPillColor;
+    }
+  }
+
+  return PillColor.NULL;
+}
+
+/**
  * Helper function to get a pill effect class from a PillEffect enum value. In this context, the
  * class is equal to the numerical prefix in the "class" tag in the "pocketitems.xml" file. Use the
  * `getPillEffectType` helper function to determine whether or not the pill effect is positive,
@@ -147,10 +174,10 @@ export function getPillEffectName(pillEffect: PillEffect): string {
 }
 
 /**
- * Helper function to get a pill effect type from a PillEffect enum value. In this context, the type
- * is equal to positive, negative, or neutral. This is derived from the suffix of the "class" tag in
- * the "pocketitems.xml" file. Use the `getPillEffectClass` helper function to determine the "power"
- * of the pill.
+ * Helper function to get a pill effect type from a `PillEffect` enum value. In this context, the
+ * type is equal to positive, negative, or neutral. This is derived from the suffix of the "class"
+ * tag in the "pocketitems.xml" file. Use the `getPillEffectClass` helper function to determine the
+ * "power" of the pill.
  *
  * Due to limitations in the API, this function will not work properly for modded pill effects, and
  * will always return `DEFAULT_PILL_EFFECT_TYPE` in those cases.

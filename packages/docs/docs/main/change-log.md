@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## May 29th, 2023
+
+- Added the following helper functions:
+  - `pocketItemsEquals`
+  - `getPillColorFromEffect`
+
 ## April 24th, 2023
 
 - Added the following helper functions:

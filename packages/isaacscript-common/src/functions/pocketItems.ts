@@ -169,3 +169,29 @@ export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
 
   return firstPocketItem.type === PocketItemType.ACTIVE_ITEM;
 }
+
+/** Helper function to see if two sets of pocket item descriptions are identical. */
+export function pocketItemsEquals(
+  pocketItems1: PocketItemDescription[],
+  pocketItems2: PocketItemDescription[],
+): boolean {
+  if (pocketItems1.length !== pocketItems2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < pocketItems1.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const pocketItem1 = pocketItems1[i]!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const pocketItem2 = pocketItems2[i]!;
+
+    const keys = Object.keys(pocketItem1) as Array<keyof PocketItemDescription>;
+    for (const key of keys) {
+      if (pocketItem1[key] !== pocketItem2[key]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
