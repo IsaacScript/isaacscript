@@ -13,6 +13,7 @@
     "*.stb",
     "*.wav",
     ".git/**",
+    ".yarn/**",
     "dist/**",
     "mod/main.lua",
     "mod/content/rooms/**",
