@@ -199,18 +199,26 @@ function linkDevelopmentIsaacScriptCommon(
   const isaacScriptMonorepoDirectory =
     getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
 
-  console.log('Building "isaacscript-common" and setting up the link...');
-  const linkScript = path.join(
+  console.log('Building "isaacscript-common"...');
+  const iscBuildScript = path.join(
     isaacScriptMonorepoDirectory,
-    "link-isaacscript-common.sh",
+    "packages",
+    "isaacscript-common",
+    "build.sh",
   );
-  execShell("bash", [linkScript], verbose);
+  execShell("bash", [iscBuildScript], verbose);
 
   console.log(
     'Linking this repository to the development version of "isaacscript-common"...',
   );
+  const iscDistDirectory = path.join(
+    isaacScriptMonorepoDirectory,
+    "dist",
+    "packages",
+    "isaacscript-common",
+  );
   execShellString(
-    `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} link isaacscript-common`,
+    `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} link ${iscDistDirectory}`,
     verbose,
     false,
     projectPath,
