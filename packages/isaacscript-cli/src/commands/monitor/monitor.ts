@@ -217,6 +217,8 @@ function linkDevelopmentIsaacScriptCommon(
     "packages",
     "isaacscript-common",
   );
+  const yarnLockPath = path.join(iscDistDirectory, "yarn.lock");
+  touch(yarnLockPath, verbose);
   execShellString(
     `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} link ${iscDistDirectory}`,
     verbose,
