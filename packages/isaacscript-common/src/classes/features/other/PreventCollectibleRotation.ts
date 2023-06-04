@@ -169,7 +169,7 @@ export class PreventCollectibleRotation extends Feature {
     if (!isCollectible(collectible)) {
       const entityID = getEntityID(collectible);
       error(
-        `The "preventCollectibleRotate" function was given a non-collectible: ${entityID}`,
+        `The "preventCollectibleRotation" function was given a non-collectible: ${entityID}`,
       );
     }
 
