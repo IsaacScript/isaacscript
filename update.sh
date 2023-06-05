@@ -21,7 +21,6 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
-# - typescript-to-lua - Has a bug in the latest version with decorators.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #             type in "package.json", and Docusaurus does not support this yet.
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
