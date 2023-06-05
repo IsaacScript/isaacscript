@@ -18,6 +18,7 @@ import { PickupIndex } from "../../../types/PickupIndex";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import { PickupIndexCreation } from "./PickupIndexCreation";
+import { RunInNFrames } from "./RunInNFrames";
 
 const ROLL_COLLECTIBLE_TYPES = new ReadonlySet([
   // The `PRE_USE_ITEM` D6 callback is fired for D6, D100, Dice Shard, 4-pip Dice Room, and 6-pip
@@ -44,12 +45,19 @@ export class PreventCollectibleRotation extends Feature {
   public override v = v;
 
   private pickupIndexCreation: PickupIndexCreation;
+  private runInNFrames: RunInNFrames;
 
   /** @internal */
-  constructor(pickupIndexCreation: PickupIndexCreation) {
+  constructor(
+    pickupIndexCreation: PickupIndexCreation,
+    runInNFrames: RunInNFrames,
+  ) {
     super();
 
-    this.featuresUsed = [ISCFeature.PICKUP_INDEX_CREATION];
+    this.featuresUsed = [
+      ISCFeature.PICKUP_INDEX_CREATION,
+      ISCFeature.RUN_IN_N_FRAMES,
+    ];
 
     this.callbacksUsed = [
       // 5
@@ -69,6 +77,7 @@ export class PreventCollectibleRotation extends Feature {
     ];
 
     this.pickupIndexCreation = pickupIndexCreation;
+    this.runInNFrames = runInNFrames;
   }
 
   private preUseItem = (
@@ -181,5 +190,17 @@ export class PreventCollectibleRotation extends Feature {
     if (collectible.SubType !== collectibleType) {
       setCollectibleSubType(collectible, collectibleType);
     }
+
+    // It takes a frame for the `setCollectibleSubType` function to apply. There is a race condition
+    // whereby if the next frame is a collectible rotation (which occurs on frame 30, 60, 90, and so
+    // on), the collectible rotation will overwrite the `setCollectibleSubType` function. Thus, we
+    // must check again on the next frame. However, we cannot use an `EntityPtr`, because the
+    // reference is destroyed when the rotation occurs. Thus, we resort to using the `Exists` method
+    // and hope that no crashes occur.
+    this.runInNFrames.runNextGameFrame(() => {
+      if (collectible.Exists() && collectible.SubType !== collectibleType) {
+        setCollectibleSubType(collectible, collectibleType);
+      }
+    });
   }
 }

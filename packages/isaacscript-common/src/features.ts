@@ -156,6 +156,7 @@ export function getFeatures(
   );
   const preventCollectibleRotation = new PreventCollectibleRotation(
     pickupIndexCreation,
+    runInNFrames,
   );
 
   const customGridEntities = new CustomGridEntities(runInNFrames);
