@@ -48,7 +48,7 @@ function getAllSaveDataToWriteToDisk(
       };
 
       // If there is no data, then we can move on to the next feature.
-      if (isTableEmpty(saveDataWithoutRoom as LuaTable<AnyNotNil, unknown>)) {
+      if (isTableEmpty(saveDataWithoutRoom as LuaMap<AnyNotNil, unknown>)) {
         return;
       }
 

@@ -99,7 +99,7 @@ export function logColor(this: void, color: Color, name?: string): void {
   );
 }
 
-/** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
+/** Helper function to log every damage flag that is turned on. Useful when debugging. */
 export function logDamageFlags(
   this: void,
   flags: DamageFlag | BitFlags<DamageFlag>,
@@ -107,7 +107,7 @@ export function logDamageFlags(
   logFlags(flags, DamageFlag, "damage");
 }
 
-/** Helper function for printing out every display flag that is turned on. Useful when debugging. */
+/** Helper function to log every display flag that is turned on. Useful when debugging. */
 export function logDisplayFlags(
   this: void,
   flags: DisplayFlag | BitFlags<DisplayFlag>,
@@ -115,7 +115,7 @@ export function logDisplayFlags(
   logFlags(flags, DisplayFlag, "display");
 }
 
-/** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
+/** Helper function to log every entity flag that is turned on. Useful when debugging. */
 export function logEntityFlags(
   this: void,
   flags: EntityFlag | BitFlags<EntityFlag>,
@@ -139,7 +139,7 @@ export function logError(this: void, msg: string): void {
   logAndPrint(errorMsg);
 }
 
-/** Helper function for printing out every flag that is turned on. Useful when debugging. */
+/** Helper function for logging every flag that is turned on. Useful when debugging. */
 export function logFlags<T extends BitFlag | BitFlag128>(
   this: void,
   flags: T | BitFlags<T>,
@@ -166,9 +166,7 @@ export function logFlags<T extends BitFlag | BitFlag128>(
   }
 }
 
-/**
- * Helper function for printing out every game state flag that is turned on. Useful when debugging.
- */
+/** Helper function for logging every game state flag that is turned on. Useful when debugging. */
 export function logGameStateFlags(this: void): void {
   log("Logging game state flags:");
 
@@ -204,9 +202,7 @@ export function logKColor(this: void, kColor: KColor, name?: string): void {
   );
 }
 
-/**
- * Helper function for printing out every level state flag that is turned on. Useful when debugging.
- */
+/** Helper function for logging every level state flag that is turned on. Useful when debugging. */
 export function logLevelStateFlags(this: void): void {
   const level = game.GetLevel();
 
@@ -244,7 +240,7 @@ export function logMap(
   }
 
   const suffix = name === undefined ? ` "${name}"` : "";
-  log(`Printing out a TSTL map${suffix}:`);
+  log(`Logging a TSTL map${suffix}:`);
 
   const mapKeys = [...map.keys()];
   mapKeys.sort();
@@ -315,9 +311,7 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
   log("  ]");
 }
 
-/**
- * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
- */
+/** Helper function for logging every projectile flag that is turned on. Useful when debugging. */
 export function logProjectileFlags(
   this: void,
   flags: ProjectileFlag | BitFlags<ProjectileFlag>,
@@ -356,7 +350,7 @@ export function logRoom(this: void): void {
 }
 
 /**
- * Helper function for printing out every seed effect (i.e. Easter Egg) that is turned on for the
+ * Helper function for logging every seed effect (i.e. Easter Egg) that is turned on for the
  * particular run.
  */
 export function logSeedEffects(this: void): void {
@@ -395,7 +389,7 @@ export function logSet(
   }
 
   const suffix = name === undefined ? ` "${name}"` : "";
-  log(`Printing out a TSTL set${suffix}:`);
+  log(`Logging a TSTL set${suffix}:`);
 
   const setValues = getSortedSetValues(set);
   for (const value of setValues) {
@@ -433,7 +427,7 @@ export function logTable(
   parentTables = 0,
 ): void {
   if (parentTables === 0) {
-    log("Printing out a Lua table:", false);
+    log("Logging a Lua table:", false);
   } else if (parentTables > 10) {
     return;
   }
@@ -473,8 +467,8 @@ export function logTable(
 }
 
 /**
- * Helper function to print out the differences between the entries of two tables. Note that this
- * will only do a shallow comparison.
+ * Helper function to log the differences between the entries of two tables. Note that this will
+ * only do a shallow comparison.
  */
 export function logTableDifferences<K extends AnyNotNil, V>(
   this: void,
@@ -519,7 +513,7 @@ export function logTableDifferences<K extends AnyNotNil, V>(
  * This function is useful for tables that have recursive references.
  */
 export function logTableKeys(this: void, luaTable: unknown): void {
-  log("Printing out the keys of a Lua table:");
+  log("Logging the keys of a Lua table:");
 
   if (!isTable(luaTable)) {
     log(
@@ -538,7 +532,40 @@ export function logTableKeys(this: void, luaTable: unknown): void {
   log(`  The size of the table was: ${numElements}`);
 }
 
-/** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
+/**
+ * Helper function to log every table key and value. This is a shallow log; the function will not
+ * recursively traverse sub-tables.
+ *
+ * This function will only work on tables that have string keys (because it logs the keys in order,
+ * instead of randomly). It will throw a run-time error if it encounters a non-string key.
+ */
+export function logTableShallow<K extends AnyNotNil, V>(
+  this: void,
+  luaTable: LuaMap<K, V>,
+): void {
+  log("Logging a Lua table (shallow):", false);
+
+  if (!isTable(luaTable)) {
+    log(
+      `n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
+      false,
+    );
+
+    return;
+  }
+
+  let numElements = 0;
+  const indentation = "  ";
+  iterateTableInOrder(luaTable, (key, value) => {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    log(`${indentation}${key} --> ${value}`, false);
+    numElements++;
+  });
+
+  log(`${indentation}The size of the table was: ${numElements}`, false);
+}
+
+/** Helper function for log every tear flag that is turned on. Useful when debugging. */
 export function logTearFlags(
   this: void,
   flags: TearFlag | BitFlags<TearFlag>,

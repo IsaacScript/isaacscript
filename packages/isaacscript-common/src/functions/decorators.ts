@@ -96,7 +96,7 @@ export function PriorityCallback<T extends ModCallback>(
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
     const constructor = target.constructor as unknown as
-      | LuaTable<AnyNotNil, unknown>
+      | LuaMap<AnyNotNil, unknown>
       | undefined;
 
     if (constructor === undefined) {
@@ -146,7 +146,7 @@ export function PriorityCallbackCustom<T extends ModCallbackCustom>(
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
     const constructor = target.constructor as unknown as
-      | LuaTable<AnyNotNil, unknown>
+      | LuaMap<AnyNotNil, unknown>
       | undefined;
 
     if (constructor === undefined) {
