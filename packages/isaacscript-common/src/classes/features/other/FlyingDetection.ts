@@ -32,10 +32,12 @@ export class FlyingDetection extends Feature {
   public hasFlyingTemporaryEffect(player: EntityPlayer): boolean {
     const effects = player.GetEffects();
 
-    // - Hanged Man card gives a Transcendence temporary effect.
+    // - We specify true to the `getFlyingCollectibles` function since conditional flying
+    //   collectibles will only grant a temporary effect if their condition is activated.
+    // - The Hanged Man card gives a Transcendence temporary effect.
     // - Pinking Shears gives a Transcendence temporary effect.
     const flyingCollectibles =
-      this.moddedElementSets.getFlyingCollectibles(false);
+      this.moddedElementSets.getFlyingCollectibles(true);
     for (const collectibleType of flyingCollectibles) {
       if (effects.HasCollectibleEffect(collectibleType)) {
         return true;
