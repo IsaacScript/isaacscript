@@ -2,8 +2,8 @@ import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 
 /**
- * This returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on the
- * high end. (This is because the `RNG.RandomFloat` method will never return a value of exactly 1.)
+ * Returns a random float between 0 and 1. It is inclusive on the low end, but exclusive on the high
+ * end. (This is because the `RNG.RandomFloat` method will never return a value of exactly 1.)
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
@@ -14,7 +14,7 @@ export function getRandom(seedOrRNG: Seed | RNG = getRandomSeed()): float {
 }
 
 /**
- * This returns a random float between min and max.
+ * Returns a random float between min and max.
  *
  * For example:
  *
@@ -44,7 +44,7 @@ export function getRandomFloat(
 }
 
 /**
- * This returns a random integer between min and max. It is inclusive on both ends.
+ * Returns a random integer between min and max. It is inclusive on both ends.
  *
  * Note that this function will run the `Next` method on the `RNG` object before returning the
  * random number.
