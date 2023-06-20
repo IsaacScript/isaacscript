@@ -496,6 +496,8 @@ export function getTotalPlayerCollectibles(
  *
  * This function is variadic, meaning that you can supply as many collectible types as you want to
  * check for. Returns true if the player has any of the supplied collectible types.
+ *
+ * This function always passes `false` to the `ignoreModifiers` argument.
  */
 export function hasCollectible(
   player: EntityPlayer,
