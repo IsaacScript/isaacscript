@@ -60,6 +60,14 @@ export class DebugDisplay extends Feature {
    * player. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * For example, this would draw the number of the player's collectibles next to their head:
+   *
+   * ```ts
+   * setPlayerDisplay((player) => {
+   *   return `collectible count: ${player.GetCollectibleCount()}`;
+   * });
+   * ```
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
