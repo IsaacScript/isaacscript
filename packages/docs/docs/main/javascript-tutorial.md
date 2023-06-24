@@ -507,6 +507,8 @@ const numFarts = 4;
 Isaac.DebugString(`numPoops: ${numPoops}, numFarts: ${numFarts}`);
 ```
 
+You will probably want to get in the habit of using string templates, since they end up making your code more concise and easier to read.
+
 <br />
 
 ### TypeScript Type Annotations
