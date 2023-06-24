@@ -42,7 +42,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
-- Don't waste time looking up API methods in the docs. Instead, mouseover them to see what they do and what parameters they expect.
+- Don't waste time looking up API methods in the docs. Instead, hover over the classes and functions in your actual code editor to see what they do and what parameters they expect.
 - Many methods have extensive documentation written inside of the mouseover tooltip.
 
 ### <img src="/img/items/clockwork-assembly.png" className="features-icon" /> Automatic Mod Reloading
