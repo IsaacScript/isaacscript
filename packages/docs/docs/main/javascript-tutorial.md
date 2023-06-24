@@ -423,7 +423,7 @@ numFarts += 1; // numFarts is now equal to 2.
 
 ### Increment and Decrement Operators
 
-Lua does not have increment or decrement operators, because it is a terrible language.
+Lua does not have increment or decrement operators. Handily, TypeScript does.
 
 ```lua
 -- Lua code
