@@ -287,7 +287,7 @@ In TypeScript, that would be:
 ```ts
 // TypeScript code
 for (let i = 10; i >= 1; i--) {
-  // "i" will iterate downwards from 1 to 10.
+  // "i" will iterate downwards from 10 to 1.
 }
 ```
 
