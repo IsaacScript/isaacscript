@@ -302,8 +302,8 @@ In Lua, the typical way to iterate over an array is with `ipairs`.
 local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER)
 
 for i, gaper in ipairs(gapers) do
-  print(i)
   gaper:Remove()
+  print("Removed gaper number:", i);
 end
 ```
 
