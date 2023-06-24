@@ -60,6 +60,9 @@ export class DebugDisplay extends Feature {
    * player. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * For example, this would draw the number of the player's collectibles next to their head:
    *
    * ```ts
@@ -82,6 +85,9 @@ export class DebugDisplay extends Feature {
    * tear. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -93,6 +99,9 @@ export class DebugDisplay extends Feature {
    * If the "toggleFamiliarDisplay" function is called, text will be drawn on the screen next to
    * each familiar. Use this function to specify a callback function that returns the string that
    * should be drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -108,6 +117,9 @@ export class DebugDisplay extends Feature {
    * bomb. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -119,6 +131,9 @@ export class DebugDisplay extends Feature {
    * If the "togglePickupDisplay" function is called, text will be drawn on the screen next to each
    * pickup. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -134,6 +149,9 @@ export class DebugDisplay extends Feature {
    * slot. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -145,6 +163,9 @@ export class DebugDisplay extends Feature {
    * If the "toggleLaserDisplay" function is called, text will be drawn on the screen next to each
    * laser. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -158,6 +179,9 @@ export class DebugDisplay extends Feature {
    * knife. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -169,6 +193,9 @@ export class DebugDisplay extends Feature {
    * If the "toggleProjectileDisplay" function is called, text will be drawn on the screen next to
    * each projectile. Use this function to specify a callback function that returns the string that
    * should be drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -184,6 +211,9 @@ export class DebugDisplay extends Feature {
    * draw text on the screen next to each effect. Use this function to specify a callback function
    * that returns the string that should be drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -198,6 +228,9 @@ export class DebugDisplay extends Feature {
    * NPC. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -209,6 +242,9 @@ export class DebugDisplay extends Feature {
    * If the "toggleRockDisplay" function is called, text will be drawn on the screen next to each
    * rock. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -222,6 +258,9 @@ export class DebugDisplay extends Feature {
    * pit. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -233,6 +272,9 @@ export class DebugDisplay extends Feature {
    * If the "toggleSpikesDisplay" function is called, text will be drawn on the screen next to each
    * spikes. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -248,6 +290,9 @@ export class DebugDisplay extends Feature {
    * TNT. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -259,6 +304,9 @@ export class DebugDisplay extends Feature {
    * If the "togglePoopDisplay" function is called, text will be drawn on the screen next to each
    * poop. Use this function to specify a callback function that returns the string that should be
    * drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
@@ -272,6 +320,9 @@ export class DebugDisplay extends Feature {
    * door. Use this function to specify a callback function that returns the string that should be
    * drawn.
    *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
   @Exported
@@ -283,6 +334,9 @@ export class DebugDisplay extends Feature {
    * If the "togglePressurePlateDisplay" function is called, text will be drawn on the screen next
    * to each pressure plate. Use this function to specify a callback function that returns the
    * string that should be drawn.
+   *
+   * Once the function is set, the library will call it automatically on every frame. For this
+   * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
    */
