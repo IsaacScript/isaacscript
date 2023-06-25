@@ -362,9 +362,9 @@ export class DebugDisplay extends Feature {
     }
 
     if (shouldInit) {
-      this.mod.uninitFeature(feature);
-    } else {
       this.mod.initFeature(feature);
+    } else {
+      this.mod.uninitFeature(feature);
     }
 
     printEnabled(feature.initialized, `${featureName} display`);
