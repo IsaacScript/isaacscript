@@ -77,6 +77,7 @@ export * from "./functions/mergeTests";
 export * from "./functions/minimap";
 export * from "./functions/modFeatures";
 export * from "./functions/nextStage";
+export * from "./functions/npcDataStructures";
 export * from "./functions/npcs";
 export * from "./functions/pickupVariants";
 export * from "./functions/pickups";
