@@ -20,10 +20,10 @@ import { getPlayerIndex } from "./playerIndex";
  * }
  * ```
  */
-export function defaultMapGetPlayer<V, A extends unknown[]>(
-  map: DefaultMap<PlayerIndex, V, A>,
+export function defaultMapGetPlayer<V, Args extends unknown[]>(
+  map: DefaultMap<PlayerIndex, V, Args>,
   player: EntityPlayer,
-  ...extraArgs: A
+  ...extraArgs: Args
 ): V {
   const playerIndex = getPlayerIndex(player);
   return map.getAndSetDefault(playerIndex, ...extraArgs);

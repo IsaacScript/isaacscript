@@ -9,6 +9,19 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## June 30th, 2023
+
+- Added the following helper functions:
+  - `defaultMapGetNPC`
+  - `defaultMapSetNPC`
+  - `mapDeleteNPC`
+  - `mapGetNPC`
+  - `mapHasNPC`
+  - `mapSetNPC`
+  - `setAddNPC`
+  - `setDeleteNPC`
+  - `setHasNPC`
+
 ## June 5th, 2023
 
 - Added the following helper functions:
