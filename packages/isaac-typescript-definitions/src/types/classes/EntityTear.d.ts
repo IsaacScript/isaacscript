@@ -34,7 +34,7 @@ declare global {
     Rotation: float;
     Scale: float;
     StickDiff: Vector;
-    StickTarget: Entity | undefined;
+    StickTarget?: Entity;
     StickTimer: int;
     TearFlags: BitFlags<TearFlag>;
 
