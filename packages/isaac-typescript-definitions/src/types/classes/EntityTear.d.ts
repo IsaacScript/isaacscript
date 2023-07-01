@@ -42,8 +42,8 @@ declare global {
      * - In each run, the game keeps track of how many tears have been fired by the player in total.
      * - TearIndex represents this tear counter.
      * - It is 0-indexed, meaning that the first tear fired by the player on a run will have a
-     *   TearIndex of 0, the second tear fired by the player on a run will have a TearIndex of 1,
-     *   and so on.
+     *   `TearIndex` of 0, the second tear fired by the player on a run will have a `TearIndex` of
+     *   1, and so on.
      */
     readonly TearIndex: int;
 
