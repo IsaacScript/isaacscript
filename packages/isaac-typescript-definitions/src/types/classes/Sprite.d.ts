@@ -54,10 +54,29 @@ declare interface Sprite extends IsaacAPIClass {
   ): KColor;
 
   IsEventTriggered(eventName: string): boolean;
-  IsFinished(animation: string): boolean;
+
+  /**
+   * Returns whether the current animation is finished.
+   *
+   * @param animation Default is the name of the last played animation.
+   */
+  IsFinished(animation?: string): boolean;
+
   IsLoaded(): boolean;
-  IsOverlayFinished(animation: string): boolean;
-  IsOverlayPlaying(animation: string): boolean;
+
+  /**
+   * Returns whether the current overlay animation is finished.
+   *
+   * @param animation Default is the name of the last played animation.
+   */
+  IsOverlayFinished(animation?: string): boolean;
+
+  /**
+   * Returns whether the current overlay animation is played or stopped.
+   *
+   * @param animation Default is the name of the last played animation.
+   */
+  IsOverlayPlaying(animation?: string): boolean;
 
   /**
    * Returns whether the current animation is played or stopped.
