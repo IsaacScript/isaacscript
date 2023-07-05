@@ -422,6 +422,9 @@ export function onStageWithShovelWorking(): boolean {
 /**
  * Helper function to warp to a new stage/level.
  *
+ * Note that this is different from the `Level.SetStage` method, which will change the stage and/or
+ * stage type of the current floor without moving the player to a new floor.
+ *
  * @param stage The stage number to warp to.
  * @param stageType The stage type to warp to.
  * @param reseed Optional. Whether or not to reseed the floor upon arrival. Default is false. Set
