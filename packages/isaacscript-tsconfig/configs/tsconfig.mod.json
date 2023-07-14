@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
 
     // We generically enable the ability to use decorators, since some specific ones are offered in
-    // the standard library.
+    // the standard library. (The standard library does not use ECMAScript decorators due to
+    // limitations in TSTL.)
     "experimentalDecorators": true,
   },
 

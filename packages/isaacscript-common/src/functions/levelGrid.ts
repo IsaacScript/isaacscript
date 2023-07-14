@@ -501,6 +501,9 @@ export function isRoomInsideGrid(roomGridIndex?: int): boolean {
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `Level.GetDungeonPlacementSeed`.
+ *                  Note that the RNG is only used to select the random location to put the room on
+ *                  the floor; it does not influence the randomly chosen room contents. (That is
+ *                  performed by the game and can not be manipulated prior to its generation.)
  * @returns The room grid index of the new room or undefined if the floor had no valid dead ends to
  *          place a room.
  */

@@ -27,7 +27,8 @@
     // We use the Isaac definitions, which also include definitions for the Lua standard library.
     "types": ["isaac-typescript-definitions"],
 
-    // Decorators are used to reduce some verbosity relating to using a lot of classes.
+    // Decorators are used to reduce some verbosity relating to using a lot of classes. (We can't
+    // use ECMAScript decorators because the TSTL implementation does not provide `context.access`.)
     "experimentalDecorators": true,
   },
 

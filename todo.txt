@@ -1,6 +1,5 @@
 - socket abstraction in isaacscript-common
 
-- remove `experimentalDecorators`
 - check `unusedExpression` options in the typescript version of the rule
 
 ----------------------------------------------------------------------------------------------------
