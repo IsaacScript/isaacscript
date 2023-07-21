@@ -61,7 +61,7 @@
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
       {
-        "name": "../isaacscript-cli/src/plugins/noExtendedEnums.ts",
+        "name": "../../dist/packages/isaacscript-cli/src/plugins/noExtendedEnums.js",
       },
     ],
     "noHeader": true,

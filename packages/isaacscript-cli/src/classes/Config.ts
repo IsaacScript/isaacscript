@@ -1,16 +1,20 @@
-// Note that all mandatory properties must be explicitly validated in `configFile.ts`.
+/** This is the format for the "isaacscript.json" file.
+ *
+ *  - All mandatory properties must be explicitly validated in `configFile.ts`.
+ - The types are explicitly annotated to work around a bug in `ts-json-schema-generator`:
+   https://github.com/vega/ts-json-schema-generator/issues/1531
 
-/** This is the format for the "isaacscript.json" file. */
+*/
 export class Config {
-  $schema =
+  $schema: string =
     "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/isaacscript-schema.json";
 
   /** The "mods" directory that lives next to the "isaac-ng.exe" program. */
-  modsDirectory =
+  modsDirectory: string =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\mods";
 
   /** The save slot that you test your mod on. */
-  saveSlot = 1;
+  saveSlot: number = 1;
 
   /**
    * By default, the target mod directory name will be the same as the project directory name. This
@@ -29,7 +33,7 @@ export class Config {
    * in the `isaacscript-common` directory. (It assumes that you have `isaacscript-common` linked to
    * a forked development repository.)
    */
-  isaacScriptCommonDev = false;
+  isaacScriptCommonDev: boolean = false;
 
   constructor(
     modsDirectory?: string,
