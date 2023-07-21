@@ -10,7 +10,6 @@
     // https://github.com/hoperyy/sync-directory/issues/54
     // Thus, we have to manually revert the ESM options from the base config.
     "module": "CommonJS",
-    "moduleResolution": "node",
   },
 
   "include": [
