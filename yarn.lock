@@ -4837,7 +4837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.4.2":
+"@types/node@npm:*":
   version: 20.4.2
   resolution: "@types/node@npm:20.4.2"
   checksum: 99e544ea7560d51f01f95627fc40394c24a13da8f041121a0da13e4ef0a2aa332932eaf9a5e8d0e30d1c07106e96a183be392cbba62e8cf0bf6a085d5c0f4149
@@ -4855,6 +4855,13 @@ __metadata:
   version: 18.16.19
   resolution: "@types/node@npm:18.16.19"
   checksum: 63c31f09616508aa7135380a4c79470a897b75f9ff3a70eb069e534dfabdec3f32fb0f9df5939127f1086614d980ddea0fa5e8cc29a49103c4f74cd687618aaf
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.4.3":
+  version: 20.4.3
+  resolution: "@types/node@npm:20.4.3"
+  checksum: 4df3664821af2328c25e3d78486ec94f45f5f4a35222678954b5c7dd5d4c4e5a0cdc9f51e09a7f7f078559639293f6cee79d37e751295552be824af1f3d8ad12
   languageName: node
   linkType: hard
 
@@ -5173,6 +5180,22 @@ __metadata:
     typescript:
       optional: true
   checksum: dc59cda4396ca09e3aa2bd5b99d8ef9526df56567d4a9b953668102116db975dfb2426c3369560a2b02e083d49e43b4cebb252144d175e900096eb0b17f7ae3c
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/rule-tester@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@typescript-eslint/rule-tester@npm:6.1.0"
+  dependencies:
+    "@typescript-eslint/typescript-estree": 6.1.0
+    "@typescript-eslint/utils": 6.1.0
+    ajv: ^6.10.0
+    lodash.merge: 4.6.2
+    semver: ^7.5.4
+  peerDependencies:
+    "@eslint/eslintrc": ">=2"
+    eslint: ">=8"
+  checksum: 7ab0cf10bd1aec9a4e8d7e0666b54cbb46fdbcb4b799dcb14ac0eda17f2d9aa19e5822d8813b8c0f2f1f342da070804c6124c9bbaac2ee607e585b2e469817a7
   languageName: node
   linkType: hard
 
@@ -11606,7 +11629,7 @@ __metadata:
     "@types/glob": ^8.1.0
     "@types/jest": ^29.5.3
     "@types/klaw-sync": ^6.0.1
-    "@types/node": ^20.4.2
+    "@types/node": ^20.4.3
     "@types/prompt": ^1.1.5
     "@types/source-map-support": ^0.5.6
     "@types/touch": ^3.1.2
@@ -11614,6 +11637,7 @@ __metadata:
     "@types/yargs": ^17.0.24
     "@typescript-eslint/eslint-plugin": ^6.1.0
     "@typescript-eslint/parser": ^6.1.0
+    "@typescript-eslint/rule-tester": ^6.1.0
     "@typescript-eslint/type-utils": ^6.1.0
     "@typescript-eslint/types": ^6.1.0
     "@typescript-eslint/utils": ^6.1.0
@@ -12749,7 +12773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.merge@npm:^4.6.2":
+"lodash.merge@npm:4.6.2, lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
