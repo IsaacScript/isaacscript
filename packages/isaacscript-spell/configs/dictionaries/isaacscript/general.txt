@@ -15,6 +15,7 @@ grimoire
 incrementation
 interactable
 keyof
+keypresses
 leaderboard
 leaderboards
 licence
