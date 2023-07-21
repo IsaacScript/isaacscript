@@ -8,7 +8,7 @@ export const noUnsafePlusplus = createRule({
     docs: {
       description:
         'Disallow unsafe and confusing uses of the "++" and "--" operators',
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

@@ -7,7 +7,7 @@ export const noVoidReturnType = createRule({
     type: "problem",
     docs: {
       description: "Disallows void return types on non-exported functions",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {

@@ -7,7 +7,7 @@ export const noEmptyLineComments = createRule({
     type: "problem",
     docs: {
       description: "Disallows empty line comments",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {

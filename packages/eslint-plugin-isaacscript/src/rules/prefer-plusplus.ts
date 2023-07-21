@@ -13,7 +13,7 @@ export const preferPlusplus = createRule<Options, MessageIds>({
     docs: {
       description:
         'Require "++" or "--" operators instead of assignment operators where applicable',
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {

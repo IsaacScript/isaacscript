@@ -18,7 +18,7 @@ export const eqeqeqFix = createRule({
     docs: {
       description:
         "Requires the use of `===` and `!==` (and automatically fixes)",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {

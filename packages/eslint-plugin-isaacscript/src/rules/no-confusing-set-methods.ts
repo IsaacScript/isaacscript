@@ -17,7 +17,7 @@ export const noConfusingSetMethods = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description: "Disallows confusing methods for sets",
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

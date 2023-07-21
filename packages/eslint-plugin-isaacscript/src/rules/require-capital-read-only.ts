@@ -17,7 +17,7 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires maps/sets/arrays with a capital letter to be read-only",
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],
@@ -124,7 +124,7 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
   return !!(
     // prettier-ignore
     // @ts-expect-error Using internal functions.
-    ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
+    (ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
       (symbol.flags & ts.SymbolFlags.Property &&
         // @ts-expect-error Using internal functions.
         ts.getDeclarationModifierFlagsFromSymbol(symbol) &
@@ -134,7 +134,7 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
         ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const) ||
       (symbol.flags & ts.SymbolFlags.Accessor &&
         !(symbol.flags & ts.SymbolFlags.SetAccessor)) ||
-      symbol.flags & ts.SymbolFlags.EnumMember
+      symbol.flags & ts.SymbolFlags.EnumMember)
   );
 }
 /* eslint-enable @typescript-eslint/no-unsafe-call */

@@ -22,7 +22,7 @@ export const completeSentencesLineComments = createRule<
     docs: {
       description:
         "Enforces complete sentences for multi-line leading line comments",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {

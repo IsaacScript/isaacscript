@@ -13,7 +13,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description: "Disallows explicit iteration for arrays",
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

@@ -18,7 +18,7 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires that variadic functions must be supplied with at least one argument",
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],
