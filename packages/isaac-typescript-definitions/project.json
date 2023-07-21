@@ -26,5 +26,6 @@
         "command": "bash lint-package.sh"
       }
     }
-  }
+  },
+  "implicitDependencies": ["isaacscript-cli"]
 }
