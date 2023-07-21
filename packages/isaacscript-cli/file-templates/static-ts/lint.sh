@@ -11,8 +11,8 @@ SECONDS=0
 cd "$DIR"
 
 # Use Prettier to check formatting.
-# "--loglevel warn" makes it only output errors.
-npx prettier --loglevel warn --check .
+# "--log-level=warn" makes it only output errors.
+npx prettier --log-level=warn --check .
 
 # Use ESLint to lint the TypeScript.
 # "--max-warnings 0" makes warnings fail in CI, since we set all ESLint errors to warnings.

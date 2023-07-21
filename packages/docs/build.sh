@@ -32,7 +32,7 @@ npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
 # Format the Markdown output from TypeDoc with Prettier, which will remove superfluous backslash
 # escape characters that cause issues with search engine indexing.
 cd "$REPO_ROOT" # We must change directories to avoid creating a spurious "node_modules" folder.
-npx prettier "$DIR/docs" --write --loglevel silent
+npx prettier "$DIR/docs" --write --log-level=silent
 cd "$DIR"
 
 # Build the docs website using Docusaurus.

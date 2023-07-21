@@ -11,8 +11,8 @@ SECONDS=0
 cd "$DIR"
 
 # Use Prettier to check formatting.
-# "--loglevel warn" makes it only output errors.
-npx prettier --loglevel warn --ignore-path="$DIR/../../.prettierignore" --check .
+# "--log-level=warn" makes it only output errors.
+npx prettier --log-level=warn --ignore-path="$DIR/../../.prettierignore" --check .
 
 # Spell check every file using CSpell.
 # "--no-progress" and "--no-summary" make it only output errors.

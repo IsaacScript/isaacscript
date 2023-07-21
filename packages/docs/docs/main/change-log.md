@@ -1735,7 +1735,7 @@ If you decide to upgrade `isaacscript-lint` in your existing projects, you shoul
 
 ```bash
 # Use Prettier to check formatting
-npx prettier --loglevel warn --check .
+npx prettier --log-level=warn --check .
 ```
 
 <!-- markdownlint-enable MD029 -->
