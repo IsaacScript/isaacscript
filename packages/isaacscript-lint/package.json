@@ -22,7 +22,6 @@
   "type": "commonjs",
   "dependencies": {
     "@prettier/plugin-xml": "^2.2.0",
-    "@tsconfig/recommended": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "cspell": "^6.31.1",

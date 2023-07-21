@@ -4436,6 +4436,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tsconfig/docusaurus@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@tsconfig/docusaurus@npm:2.0.0"
+  checksum: 39adca336d9d8d6838c982212e6661c3d211d02244be17861cae4e16b9b5ee9aa0f2d48099649417794b0c2b7661e53905615f94ffb4b5608a326f5b55194e2f
+  languageName: node
+  linkType: hard
+
 "@tsconfig/node-lts@npm:^18.12.3":
   version: 18.12.3
   resolution: "@tsconfig/node-lts@npm:18.12.3"
@@ -11598,6 +11605,7 @@ __metadata:
     "@nrwl/nx-cloud": latest
     "@prettier/plugin-xml": ^3.1.1
     "@svgr/webpack": ^8.0.1
+    "@tsconfig/docusaurus": ^2.0.0
     "@tsconfig/node-lts": ^18.12.3
     "@tsconfig/recommended": ^1.0.2
     "@tsconfig/strictest": ^2.0.1
