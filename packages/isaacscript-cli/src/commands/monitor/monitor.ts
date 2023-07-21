@@ -2,6 +2,7 @@ import chalk from "chalk";
 import { fork, spawn } from "node:child_process";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
+import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
   COMPILATION_SUCCESSFUL_MESSAGE,
   CWD,
@@ -51,7 +52,10 @@ const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
 
 let compilationStartTime = new Date();
 
-export async function monitor(args: Args, config: Config): Promise<void> {
+export async function monitor(
+  args: Args,
+  config: ValidatedConfig,
+): Promise<void> {
   const verbose = args.verbose === true;
   const skipProjectChecks = args.skipProjectChecks === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
@@ -84,7 +88,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
 
   // Perform the steps to link to a development version of "isaacscript-common", if necessary. (This
   // has to be before preparing custom stages.)
-  if (config.isaacScriptCommonDev) {
+  if (config.isaacScriptCommonDev === true) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
   } else {
     warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
@@ -109,7 +113,7 @@ export async function monitor(args: Args, config: Config): Promise<void> {
   spawnTSTLWatcher(config, CWD, packageManager, verbose);
 
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
-  if (config.isaacScriptCommonDev) {
+  if (config.isaacScriptCommonDev === true) {
     const isaacScriptMonorepoDirectory =
       getAndValidateIsaacScriptMonorepoDirectory(CWD, verbose);
     const isaacScriptCommonDirectory = path.join(
@@ -252,7 +256,7 @@ function warnIfIsaacScriptCommonLinkExists(
   }
 }
 
-function spawnModDirectorySyncer(config: Config) {
+function spawnModDirectorySyncer(config: ValidatedConfig) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
   const processPath = path.join(__dirname, processName, processName);
@@ -359,7 +363,10 @@ function spawnTSTLWatcher(
 }
 
 function getMonitorMessageSuffix(config: Config, cwd: string): string {
-  if (!config.isaacScriptCommonDev) {
+  if (
+    config.isaacScriptCommonDev === false ||
+    config.isaacScriptCommonDev === undefined
+  ) {
     return "";
   }
 

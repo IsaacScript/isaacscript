@@ -1,5 +1,6 @@
 import path from "node:path";
 import { Config } from "./classes/Config.js";
+import { ValidatedConfig } from "./classes/ValidatedConfig.js";
 import { getModsDir } from "./commands/init/getModsDir.js";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
@@ -13,7 +14,7 @@ const NUM_INDENT_SPACES = 2;
 export async function getConfigFromFile(
   args: Args,
   typeScript: boolean,
-): Promise<Config> {
+): Promise<ValidatedConfig> {
   const verbose = args.verbose === true;
   const yes = args.yes === true;
   const dev = args.dev === true;
@@ -26,13 +27,13 @@ export async function getConfigFromFile(
   // No config file exists, so prompt the user for some information and create one.
   const modsDirectory = await getModsDir(args, typeScript, verbose);
   const saveSlot = await promptSaveSlot(args, yes);
-  const config = new Config(modsDirectory, saveSlot, dev);
+  const config = new Config(modsDirectory, saveSlot, dev) as ValidatedConfig;
   createConfigFile(CWD, config, typeScript, verbose);
 
   return config;
 }
 
-function getExistingConfig(verbose: boolean): Config | undefined {
+function getExistingConfig(verbose: boolean): ValidatedConfig | undefined {
   if (!fileExists(CONFIG_FILE_PATH, verbose)) {
     return undefined;
   }
@@ -40,7 +41,7 @@ function getExistingConfig(verbose: boolean): Config | undefined {
   const config = getJSONC(CONFIG_FILE_PATH, verbose);
   validateMandatoryConfigFields(config);
 
-  return config as unknown as Config;
+  return config as unknown as ValidatedConfig;
 }
 
 /**
@@ -63,7 +64,7 @@ function validateMandatoryConfigFields(config: Record<string, unknown>) {
   }
 }
 
-function errorMissing(field: string, description: string) {
+export function errorMissing(field: string, description: string): never {
   error(
     `The "${CONFIG_FILE_NAME}" file is missing a "${field}" value. ${description} Please add it.`,
   );

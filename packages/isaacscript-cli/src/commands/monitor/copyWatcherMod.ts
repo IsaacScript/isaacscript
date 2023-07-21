@@ -1,5 +1,5 @@
 import path from "node:path";
-import { Config } from "../../classes/Config.js";
+import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
   DISABLE_IT_FILE,
   MAIN_LUA,
@@ -14,7 +14,10 @@ import {
   writeFile,
 } from "../../file.js";
 
-export function copyWatcherMod(config: Config, verbose: boolean): void {
+export function copyWatcherMod(
+  config: ValidatedConfig,
+  verbose: boolean,
+): void {
   // Check to see if this mod was disabled.
   const watcherModPath = path.join(config.modsDirectory, WATCHER_MOD_NAME);
   const disableItPath = path.join(watcherModPath, DISABLE_IT_FILE);

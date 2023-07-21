@@ -1,4 +1,4 @@
-import { Config } from "../../classes/Config.js";
+import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { execShellString } from "../../exec.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getProjectPackageJSONField } from "../../json.js";
@@ -9,7 +9,7 @@ import { validate } from "./validate.js";
 
 export async function publish(
   args: Args,
-  config: Config,
+  config: ValidatedConfig,
   typeScript: boolean,
 ): Promise<void> {
   const { setVersion } = args;

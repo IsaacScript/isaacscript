@@ -5,6 +5,7 @@ import figlet from "figlet";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
+import { ValidatedConfig } from "./classes/ValidatedConfig.js";
 import { check } from "./commands/check/check.js";
 import { copy } from "./commands/copy/copy.js";
 import { init } from "./commands/init/init.js";
@@ -91,7 +92,7 @@ async function handleCommands(command: Command, args: Args) {
   const skipProjectChecks = args.skipProjectChecks === true;
   const verbose = args.verbose === true;
 
-  let config = new Config();
+  let config = new Config() as ValidatedConfig;
   if (
     command !== "init" &&
     command !== "check" &&

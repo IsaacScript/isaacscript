@@ -30,12 +30,6 @@
           "type": "number"
         }
       },
-      "required": [
-        "$schema",
-        "modsDirectory",
-        "saveSlot",
-        "isaacScriptCommonDev"
-      ],
       "type": "object"
     }
   }

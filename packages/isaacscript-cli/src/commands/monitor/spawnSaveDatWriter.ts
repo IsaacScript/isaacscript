@@ -1,13 +1,13 @@
 import { ChildProcess, fork } from "node:child_process";
 import path from "node:path";
-import { Config } from "../../classes/Config.js";
+import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
 import { error } from "../../isaacScriptCommonTS.js";
 import { SaveDatMessage } from "./saveDatWriter/types.js";
 
 let saveDatWriter: ChildProcess | undefined;
 
-export function spawnSaveDatWriter(config: Config): void {
+export function spawnSaveDatWriter(config: ValidatedConfig): void {
   const processName = "saveDatWriter";
   const processDescription = "save#.dat writer";
   const processPath = path.join(__dirname, processName, processName);

@@ -1,5 +1,5 @@
 import path from "node:path";
-import { Config } from "../../classes/Config.js";
+import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { MOD_SOURCE_PATH } from "../../constants.js";
 import { prepareCustomStages } from "../../customStage.js";
 import { PackageManager } from "../../enums/PackageManager.js";
@@ -12,7 +12,7 @@ import {
 import { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 
-export async function copy(args: Args, config: Config): Promise<void> {
+export async function copy(args: Args, config: ValidatedConfig): Promise<void> {
   const verbose = args.verbose === true;
   const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 

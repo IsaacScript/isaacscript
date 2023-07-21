@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import path from "node:path";
-import { Config } from "../../classes/Config.js";
+import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
@@ -27,7 +27,7 @@ import { compileAndCopy } from "../copy/copy.js";
 
 export async function publishIsaacScriptMod(
   args: Args,
-  config: Config,
+  config: ValidatedConfig,
 ): Promise<void> {
   const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
