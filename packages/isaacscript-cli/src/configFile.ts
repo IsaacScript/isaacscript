@@ -64,7 +64,7 @@ function validateMandatoryConfigFields(config: Record<string, unknown>) {
   }
 }
 
-export function errorMissing(field: string, description: string): never {
+function errorMissing(field: string, description: string): never {
   error(
     `The "${CONFIG_FILE_NAME}" file is missing a "${field}" value. ${description} Please add it.`,
   );
