@@ -21,6 +21,7 @@
   "author": "Zamiell",
   "type": "commonjs",
   "dependencies": {
-    "@tsconfig/strictest": "1.0.2"
+    "@tsconfig/node-lts": "^18.12.3",
+    "@tsconfig/strictest": "^2.0.1"
   }
 }

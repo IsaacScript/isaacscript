@@ -30,7 +30,6 @@
     "@svgr/webpack": "^8.0.1",
     "@tsconfig/docusaurus": "^2.0.0",
     "@tsconfig/node-lts": "^18.12.3",
-    "@tsconfig/recommended": "^1.0.2",
     "@tsconfig/strictest": "^2.0.1",
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.6",

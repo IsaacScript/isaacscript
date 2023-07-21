@@ -4450,13 +4450,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/recommended@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@tsconfig/recommended@npm:1.0.2"
-  checksum: 8dab26157fc9748ff2d090b95f4dbe2aeb592dbdcf90f373f712da5ac54ff24f66193e7ee68fdc45880e7f767cfeb339ef3e9970ca59608ef93225db047f0d16
-  languageName: node
-  linkType: hard
-
 "@tsconfig/strictest@npm:^2.0.1":
   version: 2.0.1
   resolution: "@tsconfig/strictest@npm:2.0.1"
@@ -11607,7 +11600,6 @@ __metadata:
     "@svgr/webpack": ^8.0.1
     "@tsconfig/docusaurus": ^2.0.0
     "@tsconfig/node-lts": ^18.12.3
-    "@tsconfig/recommended": ^1.0.2
     "@tsconfig/strictest": ^2.0.1
     "@types/command-exists": ^1.2.0
     "@types/figlet": ^1.5.6
