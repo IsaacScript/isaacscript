@@ -1,4 +1,3 @@
-import { error } from "isaacscript-common-ts";
 import {
   BUILD_SCRIPT,
   CONSTANTS_TS_PATH,
@@ -12,6 +11,7 @@ import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import { fileExists, getHashOfFile, readFile, writeFile } from "../../file.js";
 import { gitCommitAllAndPush } from "../../git.js";
+import { error } from "../../isaacScriptCommonTS.js";
 import { getProjectPackageJSONField } from "../../json.js";
 import {
   getPackageManagerInstallCommand,

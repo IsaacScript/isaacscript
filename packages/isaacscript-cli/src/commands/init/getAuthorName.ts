@@ -1,5 +1,5 @@
-import { error } from "isaacscript-common-ts";
 import { getGitHubUsername } from "../../git.js";
+import { error } from "../../isaacScriptCommonTS.js";
 import { getInputString } from "../../prompt.js";
 
 export async function getAuthorName(

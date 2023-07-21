@@ -10,11 +10,10 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
-# Old versions (dependencies):
-# - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM; see it's "tsconfig.json".
-# Old versions (devDependencies):
+# Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - @nrwl/eslint-plugin-nx - See nx below.
+# - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM; see it's "tsconfig.json".
 # - nx - There is a bug in 15.6.1 that makes linting fail in CI.
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.

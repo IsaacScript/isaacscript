@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
 import { CWD } from "../../constants.js";
 import { deleteFileOrDirectory, fileExists, isDir } from "../../file.js";
+import { error } from "../../isaacScriptCommonTS.js";
 import { getInputYesNo } from "../../prompt.js";
 
 export async function checkIfProjectPathExists(

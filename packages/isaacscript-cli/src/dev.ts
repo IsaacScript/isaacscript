@@ -1,6 +1,6 @@
-import { error } from "isaacscript-common-ts";
 import path from "node:path";
 import { fileExists, isDir } from "./file.js";
+import { error } from "./isaacScriptCommonTS.js";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,

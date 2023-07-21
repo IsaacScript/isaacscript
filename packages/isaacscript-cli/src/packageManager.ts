@@ -1,9 +1,9 @@
 import commandExists from "command-exists";
-import { error, getEnumValues } from "isaacscript-common-ts";
 import path from "node:path";
 import { CWD } from "./constants.js";
 import { PackageManager } from "./enums/PackageManager.js";
 import { fileExists } from "./file.js";
+import { error, getEnumValues } from "./isaacScriptCommonTS.js";
 import { Args } from "./parseArgs.js";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {

@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import { error, getEnumValues, ReadonlySet } from "isaacscript-common-ts";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {
@@ -19,6 +18,11 @@ import {
   readFile,
   writeFile,
 } from "../../file.js";
+import {
+  ReadonlySet,
+  error,
+  getEnumValues,
+} from "../../isaacScriptCommonTS.js";
 import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
 import { Args } from "../../parseArgs.js";
 

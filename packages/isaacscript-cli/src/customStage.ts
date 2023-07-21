@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import { error, parseIntSafe } from "isaacscript-common-ts";
 import path from "node:path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
@@ -29,6 +28,7 @@ import {
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageTSConfig.js";
 import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
+import { error, parseIntSafe } from "./isaacScriptCommonTS.js";
 import { getPackageManagerAddCommand } from "./packageManager.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 

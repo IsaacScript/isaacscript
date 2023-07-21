@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
 import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
 import { fileExists, isDir } from "../../file.js";
+import { error } from "../../isaacScriptCommonTS.js";
 import { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 

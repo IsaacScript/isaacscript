@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
 import { PACKAGE_JSON, PROJECT_NAME } from "../../constants.js";
 import { execPowershell, execShellString } from "../../exec.js";
 import { fileExists } from "../../file.js";
 import { isGitClean, isGitRepository } from "../../git.js";
+import { error } from "../../isaacScriptCommonTS.js";
 
 export function validate(
   typeScript: boolean,

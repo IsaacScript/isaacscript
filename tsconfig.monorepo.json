@@ -8,13 +8,6 @@
 
     // Performance optimization; see: https://www.npmjs.com/package/tslib
     "importHelpers": true,
-
-    // TypeScript paths do not work properly with TSTL, so we cannot add
-    // "isaac-typescript-definitions".
-    "paths": {
-      "isaacscript-common-ts": ["packages/isaacscript-common-ts/src/index.mts"],
-      "isaacscript-cli": ["packages/isaacscript-cli/src/index.ts"],
-    },
   },
 
   "exclude": ["node_modules", "tmp"],

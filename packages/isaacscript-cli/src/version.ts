@@ -1,6 +1,6 @@
-import { error } from "isaacscript-common-ts";
 import * as path from "node:path";
 import { PACKAGE_JSON, REPO_ROOT } from "./constants.js";
+import { error } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
 
 /** Returns the version from the "package.json" file. (There is no "v" prefix.) */

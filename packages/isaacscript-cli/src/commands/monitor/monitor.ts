@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import { error, isRecord } from "isaacscript-common-ts";
 import { fork, spawn } from "node:child_process";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
@@ -23,6 +22,7 @@ import {
   isLink,
   touch,
 } from "../../file.js";
+import { error, isRecord } from "../../isaacScriptCommonTS.js";
 import { getJSONC } from "../../json.js";
 import {
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,

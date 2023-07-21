@@ -1,8 +1,8 @@
-import { error } from "isaacscript-common-ts";
 import { ChildProcess, fork } from "node:child_process";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
+import { error } from "../../isaacScriptCommonTS.js";
 import { SaveDatMessage } from "./saveDatWriter/types.js";
 
 let saveDatWriter: ChildProcess | undefined;

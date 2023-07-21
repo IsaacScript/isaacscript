@@ -2,8 +2,8 @@
 // Bash terminal. Thus, we revert to using the simpler Prompt library.
 
 import chalk from "chalk";
-import { error, parseIntSafe, ReadonlySet } from "isaacscript-common-ts";
 import prompt from "prompt";
+import { ReadonlySet, error, parseIntSafe } from "./isaacScriptCommonTS";
 
 const VALID_YES_RESPONSES = new ReadonlySet<string>(["yes", "ye", "y"]);
 const VALID_NO_RESPONSES = new ReadonlySet<string>(["no", "n"]);

@@ -1,6 +1,5 @@
 import Ajv, { Schema } from "ajv";
 import chalk from "chalk";
-import { error, isRecord } from "isaacscript-common-ts";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
@@ -8,6 +7,7 @@ import {
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
 import { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
+import { error, isRecord } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;

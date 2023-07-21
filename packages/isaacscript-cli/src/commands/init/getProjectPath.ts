@@ -1,7 +1,11 @@
 import chalk from "chalk";
-import { error, hasWhiteSpace, isKebabCase } from "isaacscript-common-ts";
 import path from "node:path";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants.js";
+import {
+  error,
+  hasWhiteSpace,
+  isKebabCase,
+} from "../../isaacScriptCommonTS.js";
 import { Args } from "../../parseArgs.js";
 import { getInputString, getInputYesNo } from "../../prompt.js";
 

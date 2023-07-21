@@ -1,6 +1,10 @@
-- socket abstraction in isaacscript-common
+- try upgrading nx dep
 
-- check `unusedExpression` options in the typescript version of the rule
+- check `no-unused-expressions` options in the typescript version of the rule
+
+- investigate @typescript-eslint/no-inferrable-type
+  - why isn't it enabled by default?
+  - it should be generating errors in "Config.ts"
 
 ----------------------------------------------------------------------------------------------------
 

@@ -1,9 +1,4 @@
 import chalk from "chalk";
-import {
-  removeLinesBetweenMarkers,
-  removeLinesMatching,
-  repeat,
-} from "isaacscript-common-ts";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
 import { createConfigFile } from "../../configFile.js";
@@ -34,6 +29,11 @@ import {
   writeFile,
 } from "../../file.js";
 import { initGitRepository } from "../../git.js";
+import {
+  removeLinesBetweenMarkers,
+  removeLinesMatching,
+  repeat,
+} from "../../isaacScriptCommonTS.js";
 import {
   getPackageManagerExecCommand,
   getPackageManagerInstallCICommand,

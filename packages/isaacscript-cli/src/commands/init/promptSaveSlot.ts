@@ -1,4 +1,4 @@
-import { error } from "isaacscript-common-ts";
+import { error } from "../../isaacScriptCommonTS.js";
 import { Args } from "../../parseArgs.js";
 import { getInputInt } from "../../prompt.js";
 

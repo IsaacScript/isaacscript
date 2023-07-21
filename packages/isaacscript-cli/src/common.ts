@@ -1,10 +1,10 @@
 // These are functions copied from `isaacscript-common`.
 
-import { error, parseIntSafe } from "isaacscript-common-ts";
 import { DoorSlot } from "./enums/DoorSlot.js";
 import { DoorSlotFlag } from "./enums/DoorSlotFlag.js";
 import { RoomShape } from "./enums/RoomShape.js";
 import { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
+import { error, parseIntSafe } from "./isaacScriptCommonTS.js";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag.js";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates.js";
 

@@ -2,7 +2,6 @@
 
 import chalk from "chalk";
 import figlet from "figlet";
-import { error } from "isaacscript-common-ts";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
@@ -14,6 +13,7 @@ import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
 import { PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
+import { error } from "./isaacScriptCommonTS.js";
 import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,

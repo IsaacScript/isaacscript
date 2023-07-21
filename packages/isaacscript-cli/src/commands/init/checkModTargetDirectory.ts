@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
 import path from "node:path";
 import { PROJECT_NAME } from "../../constants.js";
 import { deleteFileOrDirectory, fileExists, isDir } from "../../file.js";
+import { error } from "../../isaacScriptCommonTS.js";
 import { getInputYesNo } from "../../prompt.js";
 
 export async function checkModTargetDirectory(

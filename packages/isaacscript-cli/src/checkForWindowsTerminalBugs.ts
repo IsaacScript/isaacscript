@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
 import { fileExists, readFile } from "./file.js";
+import { error } from "./isaacScriptCommonTS.js";
 import { getInputYesNo } from "./prompt.js";
 
 const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");

@@ -1,10 +1,8 @@
-/** This is the format for the "isaacscript.json" file.
- *
- *  - All mandatory properties must be explicitly validated in `configFile.ts`.
- - The types are explicitly annotated to work around a bug in `ts-json-schema-generator`:
-   https://github.com/vega/ts-json-schema-generator/issues/1531
+// - Note that all mandatory properties must be explicitly validated in `configFile.ts`.
+// - The types are explicitly annotated to work around a bug in `ts-json-schema-generator`:
+// https://github.com/vega/ts-json-schema-generator/issues/1531
 
-*/
+/** This is the format for the "isaacscript.json" file. */
 export class Config {
   $schema: string =
     "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/isaacscript-schema.json";

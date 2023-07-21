@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import { error } from "isaacscript-common-ts";
 import * as crypto from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { error } from "./isaacScriptCommonTS";
 
 export function copyFile(
   srcPath: string,
