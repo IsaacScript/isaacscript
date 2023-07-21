@@ -40,12 +40,9 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
           return;
         }
 
-        const potentialArray = memberExpression.object;
-        const potentialArrayTSNode =
-          parserServices.esTreeNodeToTSNodeMap.get(potentialArray);
         const potentialArrayType = getConstrainedTypeAtLocation(
-          checker,
-          potentialArrayTSNode,
+          parserServices,
+          memberExpression.object,
         );
         if (
           !isTypeArrayTupleTypeOrUnionOfArrayTupleTypes(
