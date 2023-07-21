@@ -38,10 +38,5 @@
     // positives with JavaScript config files located in the root of the project directory (like
     // ".eslintrc.cjs"). For pure TypeScript projects, having this set to true is unnecessary.
     "checkJs": false,
-
-    // "newLine" specifies the end of line sequence. By default, this is "crlf" on Windows. We want
-    // to always use "lf" to be consistent with all platforms and reduce the file size of the
-    // output.
-    "newLine": "lf",
   },
 }

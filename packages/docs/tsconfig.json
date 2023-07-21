@@ -1,27 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": ["../../tsconfig.json", "@tsconfig/docusaurus/tsconfig.json"],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "../../dist/packages/docs",
-
-    // The following settings are copied from "@tsconfig/docusaurus/tsconfig.json" since we cannot
-    // extend from two configs at once.
-    "allowJs": true,
-    "esModuleInterop": true,
-    "jsx": "react",
-    "lib": ["DOM"],
-    "noEmit": true,
-    "types": [
-      "node",
-      "@docusaurus/module-type-aliases",
-      "@docusaurus/theme-classic",
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@site/*": ["./*"],
-    },
-    "skipLibCheck": true,
   },
 
   "include": [
