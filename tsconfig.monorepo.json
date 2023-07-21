@@ -1,11 +1,6 @@
-// This is a tsconfig.json intended to be used by packages in this monorepo. It is separate from the
-// root "tsconfig.json" file so that individual packages can extend the root settings without
-// inheriting the Node environment.
+// This is a tsconfig.json intended to be used by packages in this monorepo. It is designed to be
+// extended from in addition to the appropriate environment tsconfig (e.g. Node, browser, etc.).
 {
-  // We extend the base IsaacScript config:
-  // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/configs/tsconfig.base.json
-  "extends": "./packages/isaacscript-tsconfig/configs/tsconfig.base.json",
-
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "rootDir": ".",

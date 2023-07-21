@@ -150,14 +150,12 @@ declare global {
     // cspell:ignore modconfig
 
     PopupGfx: {
-      /* eslint-disable isaacscript/member-ordering */
       THIN_SMALL: "gfx/ui/modconfig/popup_thin_small.png";
       THIN_MEDIUM: "gfx/ui/modconfig/popup_thin_medium.png";
       THIN_LARGE: "gfx/ui/modconfig/popup_thin_large.png";
       WIDE_SMALL: "gfx/ui/modconfig/popup_wide_small.png";
       WIDE_MEDIUM: "gfx/ui/modconfig/popup_wide_medium.png";
       WIDE_LARGE: "gfx/ui/modconfig/popup_wide_large.png";
-      /* eslint-enable isaacscript/member-ordering */
     };
 
     Version: int;

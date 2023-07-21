@@ -8,7 +8,6 @@
 export const all = {
   plugins: ["isaacscript"],
   rules: {
-    "@typescript-eslint/member-ordering": "off",
     eqeqeq: "off",
     "no-template-curly-in-string": "off",
     "isaacscript/complete-sentences-jsdoc": "error",
@@ -18,7 +17,6 @@ export const all = {
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",
     "isaacscript/jsdoc-code-block-language": "error",
-    "isaacscript/member-ordering": "error",
     "isaacscript/no-confusing-set-methods": "error",
     "isaacscript/no-empty-jsdoc": "error",
     "isaacscript/no-empty-line-comments": "error",

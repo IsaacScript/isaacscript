@@ -1,5 +1,8 @@
 {
-  "extends": "../../tsconfig.monorepo.json",
+  "extends": [
+    "../../packages/isaacscript-tsconfig/configs/tsconfig.base.json",
+    "../../tsconfig.monorepo.json",
+  ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {

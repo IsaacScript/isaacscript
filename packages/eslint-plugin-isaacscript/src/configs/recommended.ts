@@ -8,7 +8,6 @@
 export const recommended = {
   plugins: ["isaacscript"],
   rules: {
-    "@typescript-eslint/member-ordering": "off",
     eqeqeq: "off",
     "no-template-curly-in-string": "off",
     "isaacscript/complete-sentences-jsdoc": "error",

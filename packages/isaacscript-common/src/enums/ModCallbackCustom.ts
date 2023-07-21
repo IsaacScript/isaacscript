@@ -1,15 +1,3 @@
-/*
-eslint isaacscript/member-ordering: [
-  "warn",
-  {
-    enums: {
-      memberTypes: ["method", "field"],
-      order: "alphabetically",
-    },
-  },
-]
-*/
-
 /**
  * - The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific
  *   thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that

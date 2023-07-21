@@ -4462,6 +4462,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tsconfig/node-lts@npm:^18.12.3":
+  version: 18.12.3
+  resolution: "@tsconfig/node-lts@npm:18.12.3"
+  checksum: acc2dbfc859a4d37cd665a301dee3d325490eaeaeaac1b1a9dc8e48f227dad25be2f2743c36997ff56fd12018f26a5afdfc149534475768449afaab4c29e76b0
+  languageName: node
+  linkType: hard
+
 "@tsconfig/node10@npm:^1.0.7":
   version: 1.0.9
   resolution: "@tsconfig/node10@npm:1.0.9"
@@ -4497,10 +4504,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/strictest@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@tsconfig/strictest@npm:1.0.2"
-  checksum: 2ebf63d6507d3642f360798ef5c3247bf61d338a4d89cee703e6d75ce6007fa4ac0ccad5066a4e8840bec1503bef01454d4b75c0cc6678f31fa554d7175122ac
+"@tsconfig/strictest@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@tsconfig/strictest@npm:2.0.1"
+  checksum: 3a9b913e06c20fee0a002fc22a925370525dd917853dee2e0082de763b10a61a69d72d60d02e243629da94b3e0b98843469a3b063c0ab2a5d6716183867dd114
   languageName: node
   linkType: hard
 
@@ -11666,8 +11673,9 @@ __metadata:
     "@nrwl/nx-cloud": latest
     "@prettier/plugin-xml": ^3.1.1
     "@svgr/webpack": ^8.0.1
+    "@tsconfig/node-lts": ^18.12.3
     "@tsconfig/recommended": ^1.0.2
-    "@tsconfig/strictest": 1.0.2
+    "@tsconfig/strictest": ^2.0.1
     "@types/command-exists": ^1.2.0
     "@types/figlet": ^1.5.6
     "@types/glob": ^8.1.0

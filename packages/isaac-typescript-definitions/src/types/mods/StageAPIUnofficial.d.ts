@@ -91,13 +91,11 @@ declare global {
 
   interface StageAPILuaRoomEntity extends StageAPILuaRoomGenericEntity {
     1: {
-      /* eslint-disable isaacscript/member-ordering */
       TYPE: int;
       VARIANT: int;
       SUBTYPE: int;
       WEIGHT: float;
       METADATA?: unknown;
-      /* eslint-enable isaacscript/member-ordering */
     };
   }
 

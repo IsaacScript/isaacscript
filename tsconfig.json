@@ -3,33 +3,10 @@
 // that monorepo scripts will automatically use the Node environment without having to specify it
 // explicitly.
 {
-  "extends": "./tsconfig.monorepo.json",
-
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    // We manually implement the options from the recommended tsconfig for Node 18 (because we can
-    // only extend from one config at a time):
-    // https://github.com/tsconfig/bases/blob/main/bases/node18.json
-    "lib": ["ES2022"],
-    // "module" is changed; see below.
-    "target": "ES2022",
-    // "strict" is part of the "strictest" config.
-    // "esModuleInterop" is part of the "strictest" config.
-    // "skipLibCheck" is part of the "strictest" config.
-    // "forceConsistentCasingInFileNames" is part of the "strictest" config.
-    // "moduleResolution" is changed; see below.
-
-    // We use modern ESM modules, which allows using the latest version of libraries across the npm
-    // ecosystem.
-    // The default node configuration uses "commonjs" and "node", respectively.
-    "module": "Node16", // The default Node configuration uses "commonjs".
-    "moduleResolution": "node16", // The default Node configuration uses "node".
-
-    // "sourceMap" creates source map files for emitted JavaScript files. By default, it is false.
-    // We want to be able to see the TypeScript line numbers in error messages to help with
-    // debugging.
-    "sourceMap": true,
-  },
+  "extends": [
+    "./packages/isaacscript-tsconfig/configs/tsconfig.node.json",
+    "./tsconfig.monorepo.json",
+  ],
 
   // We want to type-check every file in the repository, regardless of whether it is actually
   // bundled into the TypeScript output or not. Two entries for each file extension are needed

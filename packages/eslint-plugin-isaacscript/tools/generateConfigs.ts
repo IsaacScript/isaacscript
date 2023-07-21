@@ -1,4 +1,4 @@
-// Generates the files in the "src/configs" directory.
+// This generates the files in the "src/configs" directory.
 
 import { TSESLint } from "@typescript-eslint/utils";
 import * as fs from "node:fs";
@@ -31,10 +31,6 @@ const CONFIGS_DIRECTORY_PATH = path.join(__dirname, "..", "src", "configs");
 const BASE_CONFIG: LinterConfig = {
   plugins: [PLUGIN_NAME],
   rules: {
-    // The "@typescript-eslint/member-ordering" rule will conflict with the
-    // "isaacscript/member-ordering" rule.
-    "@typescript-eslint/member-ordering": "off",
-
     // The ESLint "eqeqeq" rule will conflict with the "isaacscript/eqeqeq-fix" rule.
     eqeqeq: "off",
 
@@ -97,7 +93,7 @@ function reducer(
   const [ruleName, rule] = entry;
   const fullRuleName = getFullRuleName(ruleName);
   const ruleLevelRaw =
-    rule.meta.docs === undefined || rule.meta.docs.recommended === false
+    rule.meta.docs === undefined
       ? DEFAULT_RULE_LEVEL
       : rule.meta.docs.recommended;
   const ruleLevel = ruleLevelRaw as "error" | "warn";

@@ -22,22 +22,17 @@ const config = {
   rules: {
     /**
      * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/member-ordering.md
+     * https://typescript-eslint.io/rules/member-ordering/
      *
      * Not defined in the parent configs.
      *
      * We want class and interface definitions to be alphabetically ordered so that they match the
      * Isaac documentation.
      */
-    "isaacscript/member-ordering": [
+    "@typescript-eslint/member-ordering": [
       "warn",
       {
         default: {
-          order: "alphabetically",
-        },
-
-        enums: {
-          memberTypes: ["method", "field"],
           order: "alphabetically",
         },
 
