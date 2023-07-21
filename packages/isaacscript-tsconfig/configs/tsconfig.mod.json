@@ -6,11 +6,13 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // Recommended as per TypeScriptToLua:
+    // These options are recommended in the TypeScriptToLua docs:
     // https://typescripttolua.github.io/docs/getting-started/
     "target": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
+
+    // We import the Isaac definitions, which also include the Lua definitions.
     "types": ["isaac-typescript-definitions"],
 
     // We generically enable the ability to read JSON files, since it is used in the "JSON rooms"
