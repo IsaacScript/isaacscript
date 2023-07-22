@@ -1,3 +1,7 @@
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=line-too-long
+
 #!/usr/bin/env python
 
 import argparse
@@ -106,12 +110,12 @@ def check_namespace_directory():
 def command_update():
     library_file_name = LIBRARY_NAME + ".lua"
 
-    foundAtLeastOne = False
+    found_at_least_one = False
     for file_path in pathlib.Path(DIR).rglob(library_file_name):
-        foundAtLeastOne = True
+        found_at_least_one = True
         check_if_library_needs_update(file_path)
 
-    if not foundAtLeastOne:
+    if not found_at_least_one:
         printf(f'Did not find any files called "{library_file_name}". Skipping.')
 
 
@@ -131,7 +135,7 @@ def check_if_library_needs_update(old_file_path: pathlib.Path):
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
             shutil.copyfileobj(response, tmp_file)
 
-    with open(tmp_file.name) as file_handle:
+    with open(tmp_file.name, encoding="utf8") as file_handle:
         new_file_contents = file_handle.read()
 
     latest_version = get_version_from_lua_contents(library_name, new_file_contents, url)

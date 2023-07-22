@@ -54,9 +54,6 @@
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
 
-  // Python-specific settings.
-  "python.formatting.provider": "black",
-
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
@@ -113,7 +110,7 @@
     "editor.tabSize": 2,
   },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python",
+    "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
     "editor.tabSize": 4,
   },
