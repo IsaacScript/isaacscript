@@ -46,11 +46,14 @@ export class CollectibleItemPoolType extends Feature {
   // ModCallback.POST_PICKUP_INIT (34)
   // PickupVariant.COLLECTIBLE (100)
   private postPickupInitCollectible = (collectible: EntityPickup) => {
-    const itemPool = game.GetItemPool();
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
-    const lastItemPoolType = itemPool.GetLastPool();
 
-    v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
+    if (!v.run.collectibleItemPoolTypeMap.has(pickupIndex)) {
+      const itemPool = game.GetItemPool();
+      const lastItemPoolType = itemPool.GetLastPool();
+
+      v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
+    }
   };
 
   /**
