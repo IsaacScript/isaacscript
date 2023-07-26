@@ -1,3 +1,5 @@
+- gut strict-enums comparison
+
 - try upgrading nx dep
 
 - remove node-fetch

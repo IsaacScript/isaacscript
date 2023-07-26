@@ -1,8 +1,9 @@
 // Some of the functions are copy-pasted here from the `typescript-eslint` repository and slightly
 // modified.
 
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
-import { TSESLint } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import type { TSESLint } from "@typescript-eslint/utils";
 import ts from "typescript";
 
 export enum MemberNameType {

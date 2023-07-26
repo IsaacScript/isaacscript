@@ -32,9 +32,8 @@
   "type": "commonjs",
   "main": "src/index.js",
   "peerDependencies": {
-    "@typescript-eslint/parser": ">= 6.0.0",
-    "@typescript-eslint/utils": ">= 6.0.0",
+    "@typescript-eslint/plugin": ">= 6.0.0",
     "eslint": ">= 8.0.0",
-    "typescript": ">= 4.0.0"
+    "typescript": ">= 5.0.0"
   }
 }

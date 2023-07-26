@@ -6,33 +6,22 @@
 const config = {
   extends: [
     /**
-     * The linter base is the Airbnb style guide, which is the most popular JavaScript style guide
-     * in the world:
-     * https://github.com/airbnb/javascript
-     *
-     * The actual ESLint config is located here:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules
+     * Find unused "eslint-disable" comments:
+     * https://github.com/mysticatea/eslint-plugin-eslint-comments
      */
-    "airbnb-base",
+    "plugin:eslint-comments/recommended",
 
     /**
-     * The TypeScript config extends it:
-     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
-     * (This includes the "parser" declaration of "@typescript-eslint/parser".)
+     * Lint ES6-style imports:
+     * https://github.com/import-js/eslint-plugin-import
      */
-    "airbnb-typescript/base",
+    "plugin:import/recommended",
 
     /**
      * This provides extra miscellaneous rules to keep code safe:
      * https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
      */
     "plugin:isaacscript/recommended",
-
-    /**
-     * Find unused "eslint-disable" comments:
-     * https://github.com/mysticatea/eslint-plugin-eslint-comments
-     */
-    "plugin:eslint-comments/recommended",
 
     /**
      * Lint Node-specific things:

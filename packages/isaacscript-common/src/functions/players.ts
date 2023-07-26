@@ -77,6 +77,7 @@ export function anyPlayerHasCollectible(
   ignoreModifiers?: boolean,
 ): boolean {
   const players = getAllPlayers();
+
   return players.some((player) =>
     player.HasCollectible(collectibleType, ignoreModifiers),
   );
@@ -94,6 +95,7 @@ export function anyPlayerHasTrinket(
   ignoreModifiers?: boolean,
 ): boolean {
   const players = getAllPlayers();
+
   return players.some((player) =>
     player.HasTrinket(trinketType, ignoreModifiers),
   );
@@ -105,6 +107,7 @@ export function anyPlayerHasTrinket(
  */
 export function anyPlayerHoldingItem(): boolean {
   const players = getAllPlayers();
+
   return players.some((player) => player.IsHoldingItem());
 }
 
@@ -117,6 +120,7 @@ export function anyPlayerHoldingItem(): boolean {
 export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
   const matchingCharacterSet = new ReadonlySet(matchingCharacters);
   const characters = getCharacters();
+
   return characters.some((character) => matchingCharacterSet.has(character));
 }
 
@@ -171,6 +175,7 @@ export function getActiveItemSlots(
 ): ActiveSlot[] {
   return ACTIVE_SLOT_VALUES.filter((activeSlot) => {
     const activeItem = player.GetActiveItem(activeSlot);
+
     return activeItem === collectibleType;
   });
 }
@@ -194,6 +199,7 @@ export function getAzazelBrimstoneDistance(
 /** Helper function to get an array containing the characters of all of the current players. */
 export function getCharacters(): PlayerType[] {
   const players = getPlayers();
+
   return players.map((player) => player.GetPlayerType());
 }
 
@@ -287,6 +293,7 @@ export function getPlayerCloserThan(
   distance: float,
 ): EntityPlayer | undefined {
   const players = getPlayers();
+
   return players.find(
     (player) => player.Position.Distance(position) <= distance,
   );
@@ -405,8 +412,10 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
 export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
   const charactersSet = new ReadonlySet(characters);
   const players = getPlayers();
+
   return players.filter((player) => {
     const character = player.GetPlayerType();
+
     return charactersSet.has(character);
   });
 }
@@ -421,6 +430,7 @@ export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
  */
 export function getPlayersOnKeyboard(): EntityPlayer[] {
   const players = getAllPlayers();
+
   return players.filter(
     (player) => player.ControllerIndex === ControllerIndex.KEYBOARD,
   );
@@ -436,6 +446,7 @@ export function getPlayersWithCollectible(
   ...collectibleTypes: CollectibleType[]
 ): EntityPlayer[] {
   const players = getPlayers();
+
   return players.filter((player) =>
     collectibleTypes.every((collectibleType) =>
       player.HasCollectible(collectibleType),
@@ -455,6 +466,7 @@ export function getPlayersWithControllerIndex(
   controllerIndex: ControllerIndex,
 ): EntityPlayer[] {
   const players = getAllPlayers();
+
   return players.filter((player) => player.ControllerIndex === controllerIndex);
 }
 
@@ -468,6 +480,7 @@ export function getPlayersWithTrinket(
   ...trinketTypes: TrinketType[]
 ): EntityPlayer[] {
   const players = getPlayers();
+
   return players.filter((player) =>
     trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
   );
@@ -523,6 +536,7 @@ export function hasCollectibleInActiveSlot(
 ): boolean {
   const matchingActiveSlotsSet = new ReadonlySet(activeSlots);
   const activeItemSlots = getActiveItemSlots(player, collectibleType);
+
   return activeItemSlots.some((activeSlot) =>
     matchingActiveSlotsSet.has(activeSlot),
   );
@@ -544,6 +558,7 @@ export function hasForm(
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
 export function hasLostCurse(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
+
   return effects.HasNullEffect(NullItemID.LOST_CURSE);
 }
 
@@ -584,6 +599,7 @@ export function isActiveSlotEmpty(
   activeSlot = ActiveSlot.PRIMARY,
 ): boolean {
   const activeCollectibleType = player.GetActiveItem(activeSlot);
+
   return activeCollectibleType === CollectibleType.NULL;
 }
 
@@ -610,6 +626,7 @@ export function isCharacter(
 ): boolean {
   const characterSet = new ReadonlySet(characters);
   const character = player.GetPlayerType();
+
   return characterSet.has(character);
 }
 
@@ -624,6 +641,7 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
   }
 
   const indirectPlayer = getPlayerFromEntity(damageSource);
+
   return indirectPlayer !== undefined;
 }
 
@@ -713,6 +731,7 @@ export function isTaintedLazarus(player: EntityPlayer): boolean {
 
 export function isVanillaPlayer(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
+
   return isVanillaCharacter(character);
 }
 

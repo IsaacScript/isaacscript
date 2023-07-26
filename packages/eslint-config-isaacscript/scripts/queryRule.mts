@@ -26,9 +26,12 @@ const CONFIG_URLS = [
   // @typescript-eslint
   // https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin/src/configs
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/eslint-recommended.ts",
-  "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts",
+  "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/recommended-type-checked.ts.ts",
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/recommended.ts",
+  "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/strict-type-checked.ts",
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/strict.ts",
+  "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts",
+  "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/stylistic.ts",
 ] as const;
 
 const args = process.argv.slice(2);
@@ -40,9 +43,9 @@ if (ruleName === undefined || ruleName === "") {
   process.exit(1);
 }
 
-const fetchPromises = CONFIG_URLS.map((configURL) => fetch(configURL));
+const fetchPromises = CONFIG_URLS.map(async (configURL) => fetch(configURL));
 const responses = await Promise.all(fetchPromises);
-const configPromises = responses.map((response) => response.text());
+const configPromises = responses.map(async (response) => response.text());
 const configs = await Promise.all(configPromises);
 
 configs.forEach((config, i) => {

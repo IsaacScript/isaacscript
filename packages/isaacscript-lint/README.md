@@ -237,7 +237,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
 - [`eslint-plugin-deprecation`](https://github.com/gund/eslint-plugin-deprecation) - A plugin that finds deprecated code.
 - [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
-- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
+- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`. (Note that this uses the [`eslint-plugin-i`](https://github.com/un-es/eslint-plugin-i) fork under the hood.)
 - [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - A plugin that provides a collection of miscellaneous rules that help keep code safe.
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
 - [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n) - A plugin that provides rules for Node.js.

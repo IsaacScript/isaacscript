@@ -5,6 +5,18 @@
  * @type {import("eslint").Linter.Config}
  */
 const config = {
+  // This plugin has separate configs that are recommended to extend from.
+  extends: [
+    // Contains recommended rules by the official ESLint team.
+    // https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js
+    "eslint:recommended",
+  ],
+
+  // https://eslint.org/docs/latest/rules/
+  // - Rules are separated into three categories:
+  //  - "Possible Problems"
+  //  - "Suggestions"
+  //  - "Layout & Formatting"
   rules: {
     // -----------------
     // Possible Problems
@@ -279,6 +291,14 @@ const config = {
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
      */
     // class-methods-use-this
+
+    // -----------
+    // Suggestions
+    // -----------
+
+    // -------------------
+    // Layout & Formatting
+    // -------------------
   },
 };
 
