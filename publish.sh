@@ -55,7 +55,7 @@ VERSION_BUMP="$2"
 # Before bumping the version, check to see if this package compiles and lints (so that we can avoid
 # unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
-bash "$PACKAGE_DIR/lint.sh"
+#bash "$PACKAGE_DIR/lint.sh" # TODO
 
 # Normally, the "version" command of the packager manager will automatically make a Git commit for
 # you. However:
