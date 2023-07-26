@@ -2,6 +2,11 @@
 
 - try upgrading nx dep
 
+- remove node-fetch
+- write logic in queryRule.mts to check for 404
+
+- remove consolidated dist directory
+
 - check `no-unused-expressions` options in the typescript version of the rule
 
 - investigate @typescript-eslint/no-inferrable-type
