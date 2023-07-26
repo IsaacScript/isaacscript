@@ -5,7 +5,7 @@ import figlet from "figlet";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
-import { ValidatedConfig } from "./classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "./classes/ValidatedConfig.js";
 import { check } from "./commands/check/check.js";
 import { copy } from "./commands/copy/copy.js";
 import { init } from "./commands/init/init.js";
@@ -19,13 +19,11 @@ import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,
 } from "./packageManager.js";
-import { Args, parseArgs } from "./parseArgs.js";
+import type { Args } from "./parseArgs.js";
+import { parseArgs } from "./parseArgs.js";
 import { promptInit } from "./prompt.js";
-import {
-  Command,
-  DEFAULT_COMMAND,
-  isIsaacScriptModCommand,
-} from "./types/Command.js";
+import type { Command } from "./types/Command.js";
+import { DEFAULT_COMMAND, isIsaacScriptModCommand } from "./types/Command.js";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
 import { validateNodeVersion } from "./validateNodeVersion.js";
 import { getVersionOfThisPackage } from "./version.js";

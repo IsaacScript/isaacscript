@@ -1,3 +1,5 @@
+- gut strict-enums comparison
+
 - try upgrading nx dep
 
 - check `no-unused-expressions` options in the typescript version of the rule

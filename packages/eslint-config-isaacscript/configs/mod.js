@@ -116,6 +116,18 @@ const config = {
 
     /**
      * Documentation:
+     * https://typescript-eslint.io/rules/require-array-sort-compare
+     *
+     * Defined at:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-typescript-eslint.js
+     *
+     * The `Number.sort` method transpiles to use `table.sort`, which does not have the
+     * coercion-based bugs of the JavaScript implementation. Thus, this lint rule is unnecessary.
+     */
+    "@typescript-eslint/require-array-sort-compare": "off",
+
+    /**
+     * Documentation:
      * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
      *
      * Not defined in the parent configs.

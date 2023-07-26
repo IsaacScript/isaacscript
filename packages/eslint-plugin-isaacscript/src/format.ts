@@ -3,7 +3,8 @@ import {
   isSeparatorLine,
   isSpecialComment,
 } from "./comments";
-import { List, ListKind, getAdjustedList, reachedNewList } from "./list";
+import type { List } from "./list";
+import { ListKind, getAdjustedList, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 /**
