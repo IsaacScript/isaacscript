@@ -1,4 +1,4 @@
-import { WeightedArray } from "../types/WeightedArray";
+import type { WeightedArray } from "../types/WeightedArray";
 import { sumArray } from "./array";
 import { getRandomFloat } from "./random";
 import { getRandomSeed } from "./rng";

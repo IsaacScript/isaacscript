@@ -8,6 +8,7 @@ browserslist # Monorepo word
 buildable # Monorepo word
 camelcase # ESLint word
 celsiusnarhwal # GitHub actions word
+chunkname # ESLint word
 cloc # Monorepo word
 clsx # Monorepo word
 cmds # cmd-ts word
@@ -22,6 +23,8 @@ Dtypescript # TSTL compiled word
 eqeqeq # For linting
 erange # Standard library function
 esbenp # extensions.json
+Gruntfile # ESLint word
+gulpfile # ESLint word
 IIFE # JavaScript word
 instanceof # JavaScript word
 irange # Standard library function

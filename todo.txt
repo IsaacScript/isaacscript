@@ -1,3 +1,5 @@
+- DELETE "import/exports-last": "error",
+
 - SEARCH FOR ALL TYPESCRIPT-ESLINT EXTENSION RULES AND MAKE SURE THAT THEY ARE DOCUMENTED IN base-eslint.js
 
 - ESLINT import plugin rule audit

@@ -652,7 +652,7 @@ const config = {
 
     // [X] "@typescript-eslint/padding-line-between-statements" is not enabled since it is for
     // inserting extra newlines between specific kinds of statements, which would be
-    // project-dependant.
+    // project-dependant. (This kind of formatting is not handled by Prettier.)
 
     /**
      * Documentation:
