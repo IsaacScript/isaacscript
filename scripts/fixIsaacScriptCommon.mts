@@ -41,6 +41,7 @@ import { globSync } from "glob";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import {
+  __dirname,
   capitalizeFirstLetter,
   deleteFileOrDirectory,
   error,
@@ -49,7 +50,6 @@ import {
   renameFile,
   trimSuffix,
   writeFile,
-  __dirname,
 } from "./utils.mjs";
 
 const DEBUG = false as boolean;
@@ -249,8 +249,7 @@ function addCategoryFile(directoryPath: string) {
 
   const customLabel = DIRECTORY_NAME_TO_LABEL.get(directoryName);
   const capitalizedDirectoryName = capitalizeFirstLetter(directoryName);
-  const label =
-    customLabel === undefined ? capitalizedDirectoryName : customLabel;
+  const label = customLabel ?? capitalizedDirectoryName;
   let fileContents = `label: ${label}\n`;
   const position = SIDEBAR_POSITIONS.get(label);
   if (position !== undefined) {

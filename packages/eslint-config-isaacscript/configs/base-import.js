@@ -278,8 +278,6 @@ const config = {
     // environments that use webpack.
 
     // [X] "import/exports-last" is not enabled because this style is not generally used.
-    // TODO: DELETE
-    "import/exports-last": "error",
 
     // [X] "import/extensions" is not enabled because because in TypeScript codebases, the compiler
     // will alert us to any errors on a file extension in an import statement.

@@ -1,6 +1,6 @@
-import { DefaultMap } from "../classes/DefaultMap";
-import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
-import { TSTLClass } from "../types/TSTLClass";
+import type { DefaultMap } from "../classes/DefaultMap";
+import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
+import type { TSTLClass } from "../types/TSTLClass";
 import { isTable } from "./types";
 
 /**
@@ -106,7 +106,7 @@ export function newTSTLClass(oldClass: TSTLClass): TSTLClass {
     newClass,
     constructor.prototype,
   ) as unknown as TSTLClassMetatable;
-  newClassMetatable.____constructor(); // eslint-disable-line no-underscore-dangle
+  newClassMetatable.____constructor();
 
   return newClass as unknown as TSTLClass;
 }

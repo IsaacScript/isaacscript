@@ -543,7 +543,8 @@ const config = {
 
     // "no-undefined"
 
-    // "no-underscore-dangle"
+    // [X] "no-underscore-dangle" is not enabled since it is a common pattern to use underscores to
+    // temporarily allow unused variables during development.
 
     // "no-unneeded-ternary"
 

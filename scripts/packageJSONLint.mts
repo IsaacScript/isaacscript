@@ -2,13 +2,13 @@
 
 import { globSync } from "glob";
 import * as path from "node:path";
-import sortPackageJson from "sort-package-json";
+import sortPackageJsonDefault from "sort-package-json";
 import {
+  __dirname,
   error,
   fileExists,
   isKebabCase,
   readFile,
-  __dirname,
 } from "./utils.mjs";
 
 const PACKAGE_JSON = "package.json";
@@ -273,7 +273,7 @@ function packageJSONLint(
     // e.g. "typescript": ">= 4.0.0"
   }
 
-  const sortedPackageJSONString = sortPackageJson(packageJSONString);
+  const sortedPackageJSONString = sortPackageJsonDefault(packageJSONString);
   if (packageJSONString !== sortedPackageJSONString) {
     console.error(`File is not sorted: ${packageJSONPath}`);
     return false;
