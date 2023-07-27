@@ -62,13 +62,13 @@ export async function monitor(
 
   // If they specified some command-line flags, override the values found in the config file.
   if (args.modsDirectory !== undefined) {
-    config.modsDirectory = args.modsDirectory;  
+    config.modsDirectory = args.modsDirectory; // eslint-disable-line no-param-reassign
   }
   if (args.saveSlot !== undefined) {
-    config.saveSlot = args.saveSlot;  
+    config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
   }
   if (args.dev !== undefined) {
-    config.isaacScriptCommonDev = args.dev;  
+    config.isaacScriptCommonDev = args.dev; // eslint-disable-line no-param-reassign
   }
 
   // Pre-flight checks

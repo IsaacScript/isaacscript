@@ -1,4 +1,4 @@
- 
+/* eslint-disable no-bitwise */
 
 import { DoorSlot } from "./DoorSlot.js";
 
@@ -52,7 +52,6 @@ type DoorSlotFlagType = {
 };
 
 export const DoorSlotFlag = DoorSlotFlagInternal as DoorSlotFlagType;
- 
 export type DoorSlotFlag = DoorSlotFlagType[keyof DoorSlotFlagType];
 
 export const DoorSlotFlagZero = 0 as BitFlags<DoorSlotFlag>;

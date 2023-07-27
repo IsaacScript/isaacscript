@@ -508,8 +508,15 @@ const config = {
     "@typescript-eslint/lines-around-comment": [
       "error",
       {
-        allowObjectStart: true, // This defaults to false.
-        allowArrayStart: true, // This defaults to false.
+        // All of these properties default to false.
+        allowBlockStart: true,
+        allowObjectStart: true,
+        allowArrayStart: true,
+        allowClassStart: true,
+        allowEnumStart: true,
+        allowInterfaceStart: true,
+        allowModuleStart: true,
+        allowTypeStart: true,
       },
     ],
 

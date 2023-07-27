@@ -366,7 +366,17 @@ const config = {
 
     // "no-array-constructor"
 
-    // "no-bitwise"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-bitwise
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb does not specify any
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "no-bitwise": "error",
 
     // "no-caller"
 
@@ -477,7 +487,34 @@ const config = {
 
     // "no-octal-escape"
 
-    // "no-param-reassign"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-param-reassign
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-param-reassign": [
+      "error",
+      {
+        props: true,
+        ignorePropertyModificationsFor: [
+          "acc", // for reduce accumulators
+          "accumulator", // for reduce accumulators
+          "e", // for e.returnvalue
+          "ctx", // for Koa routing
+          "context", // for Koa routing
+          "req", // for Express requests
+          "request", // for Express requests
+          "res", // for Express responses
+          "response", // for Express responses
+          "$scope", // for Angular 1 scopes
+          "staticContext", // for ReactRouter context
+        ],
+      },
+    ],
 
     // [X] "no-plusplus" is not enabled. Unary operators can lead to errors with minified code.
     // However, when using Prettier, it adds semi-colons everywhere, so we don't have to worry about
@@ -658,7 +695,16 @@ const config = {
 
     // [I] "prefer-spread" is included in `@typescript-eslint/eslint-recommended`.
 
-    // "prefer-template"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-template
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "prefer-template": "error",
 
     // "quote-props"
 

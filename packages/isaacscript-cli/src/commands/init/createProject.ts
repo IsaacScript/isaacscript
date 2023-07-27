@@ -186,7 +186,7 @@ function copyDynamicFiles(
     );
     const nodeGitIgnore = readFile(nodeGitIgnorePath, verbose);
 
-     
+    // eslint-disable-next-line prefer-template
     const gitignore = gitIgnoreHeader + template + "\n" + nodeGitIgnore;
 
     // We need to replace the underscore with a period.

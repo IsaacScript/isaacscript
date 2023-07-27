@@ -95,7 +95,7 @@ function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
 /** This is copied from `isaacscript-common`. */
 function addFlag(flags: number, ...flagsToAdd: number[]): number {
   for (const flagToAdd of flagsToAdd) {
-    flags |= flagToAdd;  
+    flags |= flagToAdd; // eslint-disable-line no-bitwise,no-param-reassign
   }
 
   return flags;
