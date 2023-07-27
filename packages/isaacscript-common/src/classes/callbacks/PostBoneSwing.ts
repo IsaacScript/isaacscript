@@ -1,5 +1,5 @@
 import { KnifeVariant, ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { ReadonlySet } from "../../types/ReadonlySet";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -28,7 +28,7 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SW
   }
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  private postKnifeRender = (knife: EntityKnife): void => {
+  private readonly postKnifeRender = (knife: EntityKnife): void => {
     // The tertiary argument of the `POST_KNIFE_RENDER` callback takes sub-types instead of knife
     // variants.
     if (knife.Variant === KnifeVariant.BONE_CLUB) {

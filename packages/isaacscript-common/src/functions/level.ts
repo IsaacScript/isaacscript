@@ -1,4 +1,4 @@
-import { RoomType } from "isaac-typescript-definitions";
+import type { RoomType } from "isaac-typescript-definitions";
 import { DOOR_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import {

@@ -28,7 +28,7 @@ export class RoomClearFrame extends Feature {
 
   // ModCallbackCustom.POST_ROOM_CLEAR_CHANGED
   // true
-  private postRoomClearChangedTrue = () => {
+  private readonly postRoomClearChangedTrue = () => {
     const gameFrameCount = game.GetFrameCount();
     const room = game.GetRoom();
     const roomFrameCount = room.GetFrameCount();

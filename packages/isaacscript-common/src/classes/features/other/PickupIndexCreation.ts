@@ -10,11 +10,11 @@ import { getEntityID } from "../../../functions/entities";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { onAscent } from "../../../functions/stage";
 import { vectorEquals } from "../../../functions/vector";
-import { PickupIndex } from "../../../types/PickupIndex";
+import type { PickupIndex } from "../../../types/PickupIndex";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { RoomHistory } from "./RoomHistory";
-import { SaveDataManager } from "./SaveDataManager";
+import type { RoomHistory } from "./RoomHistory";
+import type { SaveDataManager } from "./SaveDataManager";
 
 interface PickupDescription {
   position: Vector;
@@ -46,8 +46,8 @@ export class PickupIndexCreation extends Feature {
   /** @internal */
   public override v = v;
 
-  private roomHistory: RoomHistory;
-  private saveDataManager: SaveDataManager;
+  private readonly roomHistory: RoomHistory;
+  private readonly saveDataManager: SaveDataManager;
 
   /** @internal */
   constructor(roomHistory: RoomHistory, saveDataManager: SaveDataManager) {
@@ -72,7 +72,7 @@ export class PickupIndexCreation extends Feature {
   }
 
   // ModCallback.POST_PICKUP_INIT (34)
-  private postPickupInit = (pickup: EntityPickup) => {
+  private readonly postPickupInit = (pickup: EntityPickup) => {
     this.setPickupIndex(pickup);
   };
 
@@ -125,7 +125,7 @@ export class PickupIndexCreation extends Feature {
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   // EntityType.PICKUP (5)
-  private postEntityRemovePickup = (entity: Entity) => {
+  private readonly postEntityRemovePickup = (entity: Entity) => {
     this.checkDespawningFromPlayerLeavingRoom(entity);
   };
 

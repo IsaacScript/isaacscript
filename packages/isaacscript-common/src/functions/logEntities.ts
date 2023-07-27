@@ -1,7 +1,8 @@
+import type {
+  EntityType} from "isaac-typescript-definitions";
 import {
   BombVariant,
   EffectVariant,
-  EntityType,
   FamiliarVariant,
   GridEntityType,
   KnifeVariant,

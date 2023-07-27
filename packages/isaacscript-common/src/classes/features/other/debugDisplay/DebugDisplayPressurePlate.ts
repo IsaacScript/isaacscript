@@ -18,7 +18,7 @@ export class DebugDisplayPressurePlate extends Feature {
   }
 
   // ModCallbackCustom.POST_PRESSURE_PLATE_RENDER
-  private postPressurePlateRender = (
+  private readonly postPressurePlateRender = (
     pressurePlate: GridEntityPressurePlate,
   ) => {
     const text = this.textCallback(pressurePlate);

@@ -1,14 +1,15 @@
-import {
+import type {
   BombVariant,
   EffectVariant,
-  EntityType,
   FamiliarVariant,
   KnifeVariant,
   LaserVariant,
   PickupVariant,
   ProjectileVariant,
   SlotVariant,
-  TearVariant,
+  TearVariant} from "isaac-typescript-definitions";
+import {
+  EntityType
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { getEntities, removeEntities, spawn } from "./entities";

@@ -1,4 +1,4 @@
-import { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
+import type { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
@@ -6,10 +6,10 @@ import { isQuestCollectible } from "../../../functions/collectibleTag";
 import { getRandomSeed } from "../../../functions/rng";
 import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
 import { Feature } from "../../private/Feature";
-import { PreventCollectibleRotation } from "./PreventCollectibleRotation";
+import type { PreventCollectibleRotation } from "./PreventCollectibleRotation";
 
 export class SpawnCollectible extends Feature {
-  private preventCollectibleRotation: PreventCollectibleRotation;
+  private readonly preventCollectibleRotation: PreventCollectibleRotation;
 
   /** @internal */
   constructor(preventCollectibleRotation: PreventCollectibleRotation) {

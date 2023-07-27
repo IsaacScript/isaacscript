@@ -5,7 +5,7 @@ import {
   PlayerVariant,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { PlayerIndex } from "../types/PlayerIndex";
+import type { PlayerIndex } from "../types/PlayerIndex";
 import { ReadonlySet } from "../types/ReadonlySet";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;

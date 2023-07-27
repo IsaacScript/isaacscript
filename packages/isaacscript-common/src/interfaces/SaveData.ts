@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-/* eslint-disable max-classes-per-file */
+ 
 
-import { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";
+import type { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";
 
 /**
  * This is the format of the object that you give to the save data manager. It will contains all of

@@ -15,7 +15,7 @@ export class DebugDisplaySlot extends Feature {
   }
 
   // ModCallbackCustom.POST_SLOT_RENDER
-  private postSlotRender = (slot: EntitySlot) => {
+  private readonly postSlotRender = (slot: EntitySlot) => {
     const text = this.textCallback(slot);
     renderTextOnEntity(slot, text);
   };

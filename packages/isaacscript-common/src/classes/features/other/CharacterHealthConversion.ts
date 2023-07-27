@@ -1,17 +1,18 @@
+import type {
+  PlayerType} from "isaac-typescript-definitions";
 import {
   HeartSubType,
   ModCallback,
-  PickupVariant,
-  PlayerType,
+  PickupVariant
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { isRedHeart } from "../../../functions/pickups";
-import { ConversionHeartSubType } from "../../../types/ConversionHeartSubType";
+import type { ConversionHeartSubType } from "../../../types/ConversionHeartSubType";
 import { Feature } from "../../private/Feature";
 
 export class CharacterHealthConversion extends Feature {
-  private characterHealthReplacementMap = new Map<
+  private readonly characterHealthReplacementMap = new Map<
     PlayerType,
     ConversionHeartSubType
   >();
@@ -39,7 +40,7 @@ export class CharacterHealthConversion extends Feature {
 
   // ModCallback.PRE_PICKUP_COLLISION (38)
   // PickupVariant.HEART (10)
-  private prePickupCollisionHeart = (
+  private readonly prePickupCollisionHeart = (
     pickup: EntityPickup,
     collider: Entity,
   ) => {
@@ -65,7 +66,7 @@ export class CharacterHealthConversion extends Feature {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
     const conversionHeartSubType =
       this.characterHealthReplacementMap.get(character);

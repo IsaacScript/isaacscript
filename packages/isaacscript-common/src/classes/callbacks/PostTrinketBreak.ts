@@ -1,5 +1,6 @@
+import type {
+  DamageFlag} from "isaac-typescript-definitions";
 import {
-  DamageFlag,
   EntityType,
   PickupVariant,
   TrinketType,
@@ -7,7 +8,7 @@ import {
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
 import { shouldFireTrinketType } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -43,7 +44,7 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
   protected override shouldFire = shouldFireTrinketType;
 
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
     _amount: float,
     _damageFlags: BitFlags<DamageFlag>,
@@ -83,7 +84,7 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     // On every frame, keep track of how many trinkets we have.
     const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 

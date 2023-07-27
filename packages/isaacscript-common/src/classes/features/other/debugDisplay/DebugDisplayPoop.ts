@@ -15,7 +15,7 @@ export class DebugDisplayPoop extends Feature {
   }
 
   // ModCallbackCustom.POST_POOP_RENDER
-  private postPoopRender = (poop: GridEntityPoop) => {
+  private readonly postPoopRender = (poop: GridEntityPoop) => {
     const text = this.textCallback(poop);
     renderTextOnEntity(poop, text);
   };

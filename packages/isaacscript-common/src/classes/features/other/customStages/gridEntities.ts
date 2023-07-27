@@ -2,8 +2,8 @@ import { GridEntityType, LevelStage } from "isaac-typescript-definitions";
 import { removeGridEntity } from "../../../../functions/gridEntities";
 import { calculateStageType } from "../../../../functions/stage";
 import { removeCharactersBefore } from "../../../../functions/string";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
-import { CustomTrapdoors } from "../CustomTrapdoors";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
+import type { CustomTrapdoors } from "../CustomTrapdoors";
 import { DEFAULT_BASE_STAGE } from "./constants";
 
 /** For `GridEntityType.DECORATION` (1). */

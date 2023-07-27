@@ -22,7 +22,7 @@ export class FadeInRemover extends Feature {
   }
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  private postGameStartedReordered = () => {
+  private readonly postGameStartedReordered = () => {
     if (this.enabled) {
       game.Fadein(INSTANT_FADE_IN_SPEED);
     }

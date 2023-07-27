@@ -1,4 +1,5 @@
-import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
+import type { CollectibleType} from "isaac-typescript-definitions";
+import { PlayerType } from "isaac-typescript-definitions";
 import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";

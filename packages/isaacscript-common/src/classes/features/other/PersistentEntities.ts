@@ -1,7 +1,8 @@
-import {
+import type {
   Dimension,
+  EntityType} from "isaac-typescript-definitions";
+import {
   EntityFlag,
-  EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
@@ -10,7 +11,7 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { spawn } from "../../../functions/entities";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { Feature } from "../../private/Feature";
-import { RoomHistory } from "./RoomHistory";
+import type { RoomHistory } from "./RoomHistory";
 
 interface PersistentEntityDescription {
   entityType: EntityType;
@@ -48,7 +49,7 @@ export class PersistentEntities extends Feature {
   /** @internal */
   public override v = v;
 
-  private roomHistory: RoomHistory;
+  private readonly roomHistory: RoomHistory;
 
   /** @internal */
   constructor(roomHistory: RoomHistory) {
@@ -69,7 +70,7 @@ export class PersistentEntities extends Feature {
   }
 
   // ModCallback.POST_ENTITY_REMOVE (67)
-  private postEntityRemove = (entity: Entity) => {
+  private readonly postEntityRemove = (entity: Entity) => {
     const ptrHash = GetPtrHash(entity);
     const tuple = v.room.spawnedPersistentEntities.get(ptrHash);
     if (tuple === undefined) {
@@ -111,7 +112,7 @@ export class PersistentEntities extends Feature {
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     const roomListIndex = getRoomListIndex();
     const persistentEntities = [...v.level.persistentEntities.entries()];
     const persistentEntitiesInThisRoom = persistentEntities.filter(

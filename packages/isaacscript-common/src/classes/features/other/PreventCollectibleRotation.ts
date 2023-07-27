@@ -14,11 +14,11 @@ import { getEntityID } from "../../../functions/entities";
 import { isCollectible } from "../../../functions/pickupVariants";
 import { getCollectibles } from "../../../functions/pickupsSpecific";
 import { asCollectibleType } from "../../../functions/types";
-import { PickupIndex } from "../../../types/PickupIndex";
+import type { PickupIndex } from "../../../types/PickupIndex";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
-import { PickupIndexCreation } from "./PickupIndexCreation";
-import { RunInNFrames } from "./RunInNFrames";
+import type { PickupIndexCreation } from "./PickupIndexCreation";
+import type { RunInNFrames } from "./RunInNFrames";
 
 const ROLL_COLLECTIBLE_TYPES = new ReadonlySet([
   // The `PRE_USE_ITEM` D6 callback is fired for D6, D100, Dice Shard, 4-pip Dice Room, and 6-pip
@@ -44,8 +44,8 @@ export class PreventCollectibleRotation extends Feature {
   /** @internal */
   public override v = v;
 
-  private pickupIndexCreation: PickupIndexCreation;
-  private runInNFrames: RunInNFrames;
+  private readonly pickupIndexCreation: PickupIndexCreation;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(
@@ -80,7 +80,7 @@ export class PreventCollectibleRotation extends Feature {
     this.runInNFrames = runInNFrames;
   }
 
-  private preUseItem = (
+  private readonly preUseItem = (
     collectibleType: CollectibleType,
   ): boolean | undefined => {
     if (ROLL_COLLECTIBLE_TYPES.has(collectibleType)) {
@@ -96,7 +96,7 @@ export class PreventCollectibleRotation extends Feature {
    */
   // ModCallback.POST_USE_CARD (5)
   // Card.SOUL_ISAAC (81)
-  private postUseCardSoulOfIsaac = () => {
+  private readonly postUseCardSoulOfIsaac = () => {
     const collectibles = getCollectibles();
     for (const collectible of collectibles) {
       const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
@@ -105,7 +105,7 @@ export class PreventCollectibleRotation extends Feature {
   };
 
   // ModCallbackCustom.POST_DICE_ROOM_ACTIVATED
-  private postDiceRoomActivated = (
+  private readonly postDiceRoomActivated = (
     _player: EntityPlayer,
     diceFloorSubType: DiceFloorSubType,
   ) => {
@@ -115,7 +115,7 @@ export class PreventCollectibleRotation extends Feature {
   };
 
   // ModCallbackCustom.POST_PICKUP_CHANGED
-  private postPickupChanged = (
+  private readonly postPickupChanged = (
     pickup: EntityPickup,
     oldVariant: PickupVariant,
     _oldSubType: int,

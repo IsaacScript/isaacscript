@@ -4,10 +4,10 @@ import {
   getGridEntities,
 } from "../../../functions/gridEntities";
 import { DefaultMap } from "../../DefaultMap";
-import { PostGridEntityCollision } from "../../callbacks/PostGridEntityCollision";
-import { PostGridEntityCustomCollision } from "../../callbacks/PostGridEntityCustomCollision";
+import type { PostGridEntityCollision } from "../../callbacks/PostGridEntityCollision";
+import type { PostGridEntityCustomCollision } from "../../callbacks/PostGridEntityCustomCollision";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "./CustomGridEntities";
+import type { CustomGridEntities } from "./CustomGridEntities";
 
 const v = {
   room: {
@@ -21,9 +21,9 @@ const v = {
 export class GridEntityCollisionDetection extends Feature {
   public override v = v;
 
-  private postGridEntityCollision: PostGridEntityCollision;
-  private postGridEntityCustomCollision: PostGridEntityCustomCollision;
-  private customGridEntities: CustomGridEntities;
+  private readonly postGridEntityCollision: PostGridEntityCollision;
+  private readonly postGridEntityCustomCollision: PostGridEntityCustomCollision;
+  private readonly customGridEntities: CustomGridEntities;
 
   constructor(
     postGridEntityCollision: PostGridEntityCollision,
@@ -43,7 +43,7 @@ export class GridEntityCollisionDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     const gridEntities = getGridEntities();
     const gridEntitiesWithCollision = gridEntities.filter(
       (gridEntity) => gridEntity.CollisionClass !== GridCollisionClass.NONE,

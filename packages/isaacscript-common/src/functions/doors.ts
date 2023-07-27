@@ -1,12 +1,13 @@
-import {
+import type {
   Direction,
-  DoorSlot,
   DoorSlotFlag,
+  RoomShape} from "isaac-typescript-definitions";
+import {
+  DoorSlot,
   DoorState,
   DoorVariant,
   GridEntityType,
   GridRoom,
-  RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
 import {

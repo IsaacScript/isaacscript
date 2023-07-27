@@ -16,7 +16,7 @@ export class DebugDisplayTear extends Feature {
   }
 
   // ModCallback.POST_TEAR_RENDER (41)
-  private postTearRender = (tear: EntityTear) => {
+  private readonly postTearRender = (tear: EntityTear) => {
     const text = this.textCallback(tear);
     renderTextOnEntity(tear, text);
   };

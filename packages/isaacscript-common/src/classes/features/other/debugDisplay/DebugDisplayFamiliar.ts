@@ -16,7 +16,7 @@ export class DebugDisplayFamiliar extends Feature {
   }
 
   // ModCallback.POST_FAMILIAR_RENDER (25)
-  private postFamiliarRender = (familiar: EntityFamiliar) => {
+  private readonly postFamiliarRender = (familiar: EntityFamiliar) => {
     const text = this.textCallback(familiar);
     renderTextOnEntity(familiar, text);
   };

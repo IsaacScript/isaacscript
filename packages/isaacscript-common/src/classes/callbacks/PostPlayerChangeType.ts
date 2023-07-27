@@ -1,11 +1,11 @@
-import { PlayerType } from "isaac-typescript-definitions";
+import type { PlayerType } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   defaultMapGetPlayer,
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
 import { shouldFirePlayer } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -36,7 +36,7 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectReordered = (player: EntityPlayer) => {
+  private readonly postPEffectReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
     const storedCharacter = defaultMapGetPlayer(
       v.run.playersCharacterMap,

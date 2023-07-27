@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireEffect } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
@@ -25,7 +25,7 @@ export class PostEffectStateChanged extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFireEffect;
 
   // ModCallback.POST_EFFECT_UPDATE (55)
-  private postEffectUpdate = (effect: EntityEffect): void => {
+  private readonly postEffectUpdate = (effect: EntityEffect): void => {
     const ptrHash = GetPtrHash(effect);
     const previousState = v.run.stateMap.getAndSetDefault(
       ptrHash,

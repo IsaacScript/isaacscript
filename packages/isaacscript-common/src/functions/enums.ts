@@ -38,7 +38,7 @@ export function getEnumEntries<T>(
   // https://stackoverflow.com/questions/5199901/how-to-sort-an-associative-array-by-its-values-in-javascript
   enumEntries.sort(
     ([_key1, value1], [_key2, value2]) =>
-      value1 < value2 ? -1 : value1 > value2 ? 1 : 0, // eslint-disable-line no-nested-ternary
+      value1 < value2 ? -1 : value1 > value2 ? 1 : 0,  
   );
 
   return enumEntries;

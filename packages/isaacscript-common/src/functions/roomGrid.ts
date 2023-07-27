@@ -7,7 +7,7 @@
  * @module
  */
 
-import { RoomShape } from "isaac-typescript-definitions";
+import type { RoomShape } from "isaac-typescript-definitions";
 import { L_ROOM_SHAPE_TO_RECTANGLES } from "../objects/LRoomShapeToRectangles";
 import { inRectangle } from "./math";
 import {

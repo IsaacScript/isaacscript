@@ -2,7 +2,7 @@ import { ButtonAction } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { Feature } from "../../private/Feature";
-import { PressInput } from "./PressInput";
+import type { PressInput } from "./PressInput";
 
 export class ForgottenSwitch extends Feature {
   /** @internal */
@@ -12,7 +12,7 @@ export class ForgottenSwitch extends Feature {
     },
   };
 
-  private pressInput: PressInput;
+  private readonly pressInput: PressInput;
 
   /** @internal */
   constructor(pressInput: PressInput) {

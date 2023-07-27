@@ -1,4 +1,4 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
 import { removeNonAlphanumericCharacters } from "../functions/string";
 import { COLLECTIBLE_TYPE_TO_NAME_MAP } from "./collectibleTypeToNameMap";
 

@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireFamiliar } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostFamiliarInitFilter extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFireFamiliar;
 
   // ModCallback.POST_FAMILIAR_INIT (7)
-  private postFamiliarInit = (familiar: EntityFamiliar) => {
+  private readonly postFamiliarInit = (familiar: EntityFamiliar) => {
     this.fire(familiar);
   };
 }

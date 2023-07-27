@@ -16,7 +16,7 @@ export class DebugDisplayProjectile extends Feature {
   }
 
   // ModCallback.POST_PROJECTILE_RENDER (45)
-  private postProjectileRender = (projectile: EntityProjectile) => {
+  private readonly postProjectileRender = (projectile: EntityProjectile) => {
     const text = this.textCallback(projectile);
     renderTextOnEntity(projectile, text);
   };

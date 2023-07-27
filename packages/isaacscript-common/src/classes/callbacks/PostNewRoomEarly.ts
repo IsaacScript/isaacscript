@@ -1,10 +1,11 @@
+import type {
+  EntityType} from "isaac-typescript-definitions";
 import {
-  EntityType,
   GridEntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
@@ -35,12 +36,12 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
   protected override shouldFire = shouldFireRoom;
 
   // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
+  private readonly postNewRoom = (): void => {
     this.checkRoomChanged();
   };
 
   // ModCallback.PRE_ENTITY_SPAWN (24)
-  private preEntitySpawn = (): [EntityType, int, int, int] | undefined => {
+  private readonly preEntitySpawn = (): [EntityType, int, int, int] | undefined => {
     this.checkRoomChanged();
     return undefined;
   };

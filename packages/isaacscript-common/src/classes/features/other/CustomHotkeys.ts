@@ -9,18 +9,18 @@ export class CustomHotkeys extends Feature {
    * The keys are the keyboard keys that trigger the hotkey. The values are the functions that
    * contain the arbitrary code to run.
    */
-  private staticHotkeyFunctionMap = new Map<Keyboard, () => void>();
+  private readonly staticHotkeyFunctionMap = new Map<Keyboard, () => void>();
 
   /**
    * The keys are the functions that determine what the hotkey key is. The values are the functions
    * that contain the arbitrary code to run.
    */
-  private dynamicHotkeyFunctionMap = new Map<
+  private readonly dynamicHotkeyFunctionMap = new Map<
     () => Keyboard | undefined,
     () => void
   >();
 
-  private keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
+  private readonly keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
   /** @internal */
   constructor() {
@@ -33,7 +33,7 @@ export class CustomHotkeys extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     for (const [keyboard, triggerFunc] of this.staticHotkeyFunctionMap) {
       this.checkIfTriggered(keyboard, triggerFunc);
     }

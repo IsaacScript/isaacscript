@@ -1,12 +1,13 @@
-import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBrand";
-import {
+import type {
   CopyableIsaacAPIClass,
-  ISAAC_API_CLASS_TYPE_TO_FUNCTIONS,
   IsaacAPIClassTypeFunctions,
   IsaacAPIClassTypeToSerializedType,
   IsaacAPIClassTypeToType,
-  SerializedIsaacAPIClass,
+  SerializedIsaacAPIClass} from "../objects/isaacAPIClassTypeToFunctions";
+import {
+  ISAAC_API_CLASS_TYPE_TO_FUNCTIONS
 } from "../objects/isaacAPIClassTypeToFunctions";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isTable, isUserdata } from "./types";

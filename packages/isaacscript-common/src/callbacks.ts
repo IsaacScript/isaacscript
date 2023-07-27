@@ -1,7 +1,7 @@
 import * as cc from "./callbackClasses";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { getEnumValues } from "./functions/enums";
-import { AnyClass } from "./types/AnyClass";
+import type { AnyClass } from "./types/AnyClass";
 
 const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: cc.EntityTakeDmgFilter,

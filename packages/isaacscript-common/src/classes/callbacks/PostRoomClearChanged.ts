@@ -1,10 +1,11 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_ROOM_CLEAR_CHANGED;
@@ -42,7 +43,7 @@ export class PostRoomClearChanged extends CustomCallback<T> {
   };
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 
@@ -53,7 +54,7 @@ export class PostRoomClearChanged extends CustomCallback<T> {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = (): void => {
+  private readonly postNewRoomReordered = (): void => {
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 

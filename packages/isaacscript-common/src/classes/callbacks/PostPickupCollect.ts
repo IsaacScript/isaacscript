@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getClosestPlayer } from "../../functions/players";
 import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
@@ -25,7 +25,7 @@ export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PIC
   protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_RENDER (36)
-  private postPickupRender = (pickup: EntityPickup) => {
+  private readonly postPickupRender = (pickup: EntityPickup) => {
     const sprite = pickup.GetSprite();
     const animation = sprite.GetAnimation();
     if (animation !== "Collect") {

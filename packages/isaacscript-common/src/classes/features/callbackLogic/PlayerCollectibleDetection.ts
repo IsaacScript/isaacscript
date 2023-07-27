@@ -1,5 +1,6 @@
+import type {
+  ActiveSlot} from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   CollectibleType,
   DamageFlag,
   ItemType,
@@ -17,14 +18,14 @@ import {
 } from "../../../functions/playerDataStructures";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
-import { PickingUpItem } from "../../../types/PickingUpItem";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PickingUpItem } from "../../../types/PickingUpItem";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { DefaultMap } from "../../DefaultMap";
-import { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
-import { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
+import type { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
+import type { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
 import { Feature } from "../../private/Feature";
-import { ModdedElementSets } from "../other/ModdedElementSets";
-import { RunInNFrames } from "../other/RunInNFrames";
+import type { ModdedElementSets } from "../other/ModdedElementSets";
+import type { RunInNFrames } from "../other/RunInNFrames";
 
 const v = {
   run: {
@@ -43,10 +44,10 @@ const v = {
 export class PlayerCollectibleDetection extends Feature {
   public override v = v;
 
-  private postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
-  private postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
-  private moddedElementSets: ModdedElementSets;
-  private runInNFrames: RunInNFrames;
+  private readonly postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
+  private readonly postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
+  private readonly moddedElementSets: ModdedElementSets;
+  private readonly runInNFrames: RunInNFrames;
 
   constructor(
     postPlayerCollectibleAdded: PostPlayerCollectibleAdded,
@@ -135,7 +136,7 @@ export class PlayerCollectibleDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.D4 (284)
-  private postUseItemD4 = (
+  private readonly postUseItemD4 = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -160,7 +161,7 @@ export class PlayerCollectibleDetection extends Feature {
 
   /** We need to handle the case of Tainted Eden taking damage. */
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
@@ -194,7 +195,7 @@ export class PlayerCollectibleDetection extends Feature {
    * count to change.
    */
   // ModCallbackCustom.POST_ITEM_PICKUP
-  private postItemPickup = (
+  private readonly postItemPickup = (
     player: EntityPlayer,
     pickingUpItem: PickingUpItem,
   ) => {
@@ -212,7 +213,7 @@ export class PlayerCollectibleDetection extends Feature {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const oldCollectibleCount = defaultMapGetPlayer(
       v.run.playersCollectibleCount,
       player,

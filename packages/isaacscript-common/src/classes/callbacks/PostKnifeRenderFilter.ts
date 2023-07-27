@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostKnifeRenderFilter extends CustomCallback<ModCallbackCustom.POST
   protected override shouldFire = shouldFireKnife;
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  private postKnifeRender = (knife: EntityKnife, renderOffset: Vector) => {
+  private readonly postKnifeRender = (knife: EntityKnife, renderOffset: Vector) => {
     this.fire(knife, renderOffset);
   };
 }

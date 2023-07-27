@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,5 +16,5 @@ export class PreNPCUpdateFilter extends CustomCallback<ModCallbackCustom.PRE_NPC
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.PRE_NPC_UPDATE (69)
-  private preNPCUpdate = (npc: EntityNPC) => this.fire(npc);
+  private readonly preNPCUpdate = (npc: EntityNPC) => this.fire(npc);
 }

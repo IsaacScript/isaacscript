@@ -1,6 +1,6 @@
 import { PLAYER_STAT_VALUES } from "../../arrays/cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { PlayerStat } from "../../enums/PlayerStat";
+import type { PlayerStat } from "../../enums/PlayerStat";
 import { isBitSet128 } from "../../functions/bitSet128";
 import { colorEquals, isColor } from "../../functions/color";
 import { getPlayerIndex } from "../../functions/playerIndex";
@@ -8,8 +8,8 @@ import { getPlayerStat } from "../../functions/playerStats";
 import { isBoolean, isNumber } from "../../functions/types";
 import { isVector, vectorEquals } from "../../functions/vector";
 import { shouldFirePlayer } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
-import { PossibleStatType } from "../../types/PossibleStatType";
+import type { PlayerIndex } from "../../types/PlayerIndex";
+import type { PossibleStatType } from "../../types/PossibleStatType";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -39,7 +39,7 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectReordered = (player: EntityPlayer) => {
+  private readonly postPEffectReordered = (player: EntityPlayer) => {
     // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument. If
     // we don't differentiate between The Forgotten and The Soul, the callback will fire every time
     // the player switches between the two.

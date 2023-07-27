@@ -14,16 +14,16 @@ import { getRoomSubType } from "../../../../functions/roomData";
 import { removeCharactersBefore } from "../../../../functions/string";
 import { getScreenCenterPos } from "../../../../functions/ui";
 import { eRange } from "../../../../functions/utils";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { BOSS_NAME_PNG_FILE_NAMES } from "../../../../objects/bossNamePNGFileNames";
 import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/bossPortraitPNGFileNames";
 import { PLAYER_NAME_PNG_FILE_NAMES } from "../../../../objects/playerNamePNGFileNames";
 import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/playerPortraitPNGFileNames";
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../../../objects/versusScreenBackgroundColors";
 import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../../../objects/versusScreenDirtSpotColors";
-import { DisableAllSound } from "../DisableAllSound";
-import { Pause } from "../Pause";
-import { RunInNFrames } from "../RunInNFrames";
+import type { DisableAllSound } from "../DisableAllSound";
+import type { Pause } from "../Pause";
+import type { RunInNFrames } from "../RunInNFrames";
 import {
   CUSTOM_FLOOR_STAGE,
   CUSTOM_FLOOR_STAGE_TYPE,

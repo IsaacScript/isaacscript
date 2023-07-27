@@ -1,4 +1,4 @@
-import { CoinSubType } from "isaac-typescript-definitions";
+import type { CoinSubType } from "isaac-typescript-definitions";
 import {
   COIN_SUB_TYPE_TO_VALUE,
   DEFAULT_COIN_VALUE,

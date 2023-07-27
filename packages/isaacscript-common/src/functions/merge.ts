@@ -2,7 +2,7 @@ import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManag
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { isSerializationBrand } from "../serialization";
-import { AnyClass } from "../types/AnyClass";
+import type { AnyClass } from "../types/AnyClass";
 import { isArray } from "./array";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";

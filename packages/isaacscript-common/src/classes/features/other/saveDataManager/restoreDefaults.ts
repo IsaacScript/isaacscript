@@ -6,7 +6,7 @@ import { SerializationType } from "../../../../enums/SerializationType";
 import { deepCopy } from "../../../../functions/deepCopy";
 import { logError } from "../../../../functions/logMisc";
 import { clearTable, iterateTableInOrder } from "../../../../functions/table";
-import { SaveData } from "../../../../interfaces/SaveData";
+import type { SaveData } from "../../../../interfaces/SaveData";
 import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 

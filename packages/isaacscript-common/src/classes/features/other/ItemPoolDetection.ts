@@ -1,7 +1,8 @@
+import type {
+  ItemPoolType} from "isaac-typescript-definitions";
 import {
   CollectibleType,
   ItemConfigTag,
-  ItemPoolType,
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -19,9 +20,9 @@ import {
   getPlayersOfType,
 } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
-import { ModdedElementSets } from "./ModdedElementSets";
+import type { ModdedElementSets } from "./ModdedElementSets";
 
 const COLLECTIBLE_TYPE_THAT_IS_NOT_IN_ANY_POOLS = CollectibleType.KEY_PIECE_1;
 
@@ -34,7 +35,7 @@ const COLLECTIBLES_THAT_AFFECT_ITEM_POOLS = [
 const TRINKETS_THAT_AFFECT_ITEM_POOLS = [TrinketType.NO] as const;
 
 export class ItemPoolDetection extends Feature {
-  private moddedElementSets: ModdedElementSets;
+  private readonly moddedElementSets: ModdedElementSets;
 
   /** @internal */
   constructor(moddedElementSets: ModdedElementSets) {

@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -30,7 +30,7 @@ export class PostProjectileKill extends CustomCallback<ModCallbackCustom.POST_PR
   protected override shouldFire = shouldFireProjectile;
 
   // ModCallback.POST_PROJECTILE_UPDATE (44)
-  private postProjectileUpdate = (projectile: EntityProjectile) => {
+  private readonly postProjectileUpdate = (projectile: EntityProjectile) => {
     const ptrHash = GetPtrHash(projectile);
 
     if (projectile.CollidesWithGrid() || projectile.IsDead()) {
@@ -39,7 +39,7 @@ export class PostProjectileKill extends CustomCallback<ModCallbackCustom.POST_PR
   };
 
   // ModCallback.PRE_PROJECTILE_COLLISION (46)
-  private preProjectileCollision = (
+  private readonly preProjectileCollision = (
     projectile: EntityProjectile,
   ): boolean | undefined => {
     const ptrHash = GetPtrHash(projectile);
@@ -49,7 +49,7 @@ export class PostProjectileKill extends CustomCallback<ModCallbackCustom.POST_PR
   };
 
   // ModCallback.POST_ENTITY_REMOVE (67)
-  private postEntityRemove = (entity: Entity): void => {
+  private readonly postEntityRemove = (entity: Entity): void => {
     const projectile = entity.ToProjectile();
 
     if (projectile === undefined) {

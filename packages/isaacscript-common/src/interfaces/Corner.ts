@@ -1,4 +1,4 @@
-import { CornerType } from "../enums/CornerType";
+import type { CornerType } from "../enums/CornerType";
 
 /**
  * An interface representing a corner in the room.

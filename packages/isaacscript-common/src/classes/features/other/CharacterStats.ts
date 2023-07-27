@@ -1,7 +1,8 @@
-import {
+import type {
   CacheFlag,
-  ModCallback,
-  PlayerType,
+  PlayerType} from "isaac-typescript-definitions";
+import {
+  ModCallback
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { addStat, getDefaultPlayerStat } from "../../../functions/stats";
@@ -11,7 +12,7 @@ type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
 
 /** Easily create custom characters that have base stats different from that of Isaac. */
 export class CharacterStats extends Feature {
-  private charactersStatMap = new Map<PlayerType, StatMap>();
+  private readonly charactersStatMap = new Map<PlayerType, StatMap>();
 
   /** @internal */
   constructor() {
@@ -24,7 +25,7 @@ export class CharacterStats extends Feature {
   }
 
   // ModCallback.EVALUATE_CACHE (8)
-  private evaluateCache = (player: EntityPlayer, cacheFlag: CacheFlag) => {
+  private readonly evaluateCache = (player: EntityPlayer, cacheFlag: CacheFlag) => {
     const character = player.GetPlayerType();
     const statMap = this.charactersStatMap.get(character);
     if (statMap === undefined) {

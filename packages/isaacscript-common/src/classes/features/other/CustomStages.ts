@@ -1,10 +1,11 @@
-import {
+import type {
   DoorSlotFlag,
+  Music} from "isaac-typescript-definitions";
+import {
   GridEntityType,
   LevelCurse,
   LevelStage,
   ModCallback,
-  Music,
   RoomShape,
   RoomType,
   StageType,
@@ -31,21 +32,21 @@ import {
 import { getMusicForStage } from "../../../functions/sound";
 import { setStage } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
-import {
+import type {
   CustomStageLua,
   CustomStageRoomMetadata,
 } from "../../../interfaces/CustomStageTSConfig";
-import {
+import type {
   CustomStage,
   RoomTypeMap,
 } from "../../../interfaces/private/CustomStage";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
-import { GameReorderedCallbacks } from "../callbackLogic/GameReorderedCallbacks";
-import { CustomTrapdoors } from "./CustomTrapdoors";
-import { DisableAllSound } from "./DisableAllSound";
-import { Pause } from "./Pause";
-import { RunInNFrames } from "./RunInNFrames";
+import type { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
+import type { GameReorderedCallbacks } from "../callbackLogic/GameReorderedCallbacks";
+import type { CustomTrapdoors } from "./CustomTrapdoors";
+import type { DisableAllSound } from "./DisableAllSound";
+import type { Pause } from "./Pause";
+import type { RunInNFrames } from "./RunInNFrames";
 import { setCustomStageBackdrop } from "./customStages/backdrop";
 import {
   CUSTOM_FLOOR_STAGE,
@@ -87,17 +88,17 @@ export class CustomStages extends Feature {
   public override v = v;
 
   /** Indexed by custom stage name. */
-  private customStagesMap = new Map<string, CustomStage>();
+  private readonly customStagesMap = new Map<string, CustomStage>();
 
   /** Indexed by room variant. */
-  private customStageCachedRoomData = new Map<int, RoomConfig>();
+  private readonly customStageCachedRoomData = new Map<int, RoomConfig>();
 
-  private customGridEntities: CustomGridEntities;
-  private customTrapdoors: CustomTrapdoors;
-  private disableAllSound: DisableAllSound;
-  private gameReorderedCallbacks: GameReorderedCallbacks;
-  private pause: Pause;
-  private runInNFrames: RunInNFrames;
+  private readonly customGridEntities: CustomGridEntities;
+  private readonly customTrapdoors: CustomTrapdoors;
+  private readonly disableAllSound: DisableAllSound;
+  private readonly gameReorderedCallbacks: GameReorderedCallbacks;
+  private readonly pause: Pause;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(
@@ -180,7 +181,7 @@ export class CustomStages extends Feature {
     );
   }
 
-  private goToCustomStage = (
+  private readonly goToCustomStage = (
     destinationName: string | undefined,
     destinationStage: LevelStage,
     _destinationStageType: StageType,
@@ -196,7 +197,7 @@ export class CustomStages extends Feature {
   };
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
@@ -218,7 +219,7 @@ export class CustomStages extends Feature {
   };
 
   // ModCallback.POST_CURSE_EVAL (12)
-  private postCurseEval = (
+  private readonly postCurseEval = (
     curses: BitFlags<LevelCurse>,
   ): BitFlags<LevelCurse> | undefined => {
     const customStage = v.run.currentCustomStage;
@@ -235,7 +236,7 @@ export class CustomStages extends Feature {
   };
 
   // ModCallback.GET_SHADER_PARAMS (22)
-  private getShaderParams = (
+  private readonly getShaderParams = (
     shaderName: string,
   ): Record<string, unknown> | undefined => {
     const customStage = v.run.currentCustomStage;
@@ -249,7 +250,7 @@ export class CustomStages extends Feature {
 
   // ModCallbackCustom.POST_GRID_ENTITY_BROKEN
   // GridEntityType.ROCK_ALT
-  private postGridEntityBrokenRockAlt = (gridEntity: GridEntity) => {
+  private readonly postGridEntityBrokenRockAlt = (gridEntity: GridEntity) => {
     const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
@@ -267,7 +268,7 @@ export class CustomStages extends Feature {
   };
 
   // ModCallbackCustom.POST_GRID_ENTITY_INIT
-  private postGridEntityInit = (gridEntity: GridEntity) => {
+  private readonly postGridEntityInit = (gridEntity: GridEntity) => {
     const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
@@ -291,7 +292,7 @@ export class CustomStages extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;

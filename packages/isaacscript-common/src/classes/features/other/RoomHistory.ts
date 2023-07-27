@@ -12,7 +12,7 @@ import {
   getRoomVariant,
   getRoomVisitedCount,
 } from "../../../functions/roomData";
-import { RoomDescription } from "../../../interfaces/RoomDescription";
+import type { RoomDescription } from "../../../interfaces/RoomDescription";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -35,7 +35,7 @@ export class RoomHistory extends Feature {
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_EARLY
-  private postNewRoomEarly = () => {
+  private readonly postNewRoomEarly = () => {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();

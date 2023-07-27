@@ -2,7 +2,7 @@ import { NullItemID } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { Feature } from "../../private/Feature";
-import { ModdedElementSets } from "./ModdedElementSets";
+import type { ModdedElementSets } from "./ModdedElementSets";
 
 const FLYING_NULL_ITEMS = [
   NullItemID.REVERSE_SUN, // 66
@@ -11,7 +11,7 @@ const FLYING_NULL_ITEMS = [
 ] as const;
 
 export class FlyingDetection extends Feature {
-  private moddedElementSets: ModdedElementSets;
+  private readonly moddedElementSets: ModdedElementSets;
 
   /** @internal */
   constructor(moddedElementSets: ModdedElementSets) {

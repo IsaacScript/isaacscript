@@ -16,7 +16,7 @@ export class DebugDisplayEffect extends Feature {
   }
 
   // ModCallback.POST_EFFECT_RENDER (56)
-  private postEffectRender = (effect: EntityEffect) => {
+  private readonly postEffectRender = (effect: EntityEffect) => {
     const text = this.textCallback(effect);
     renderTextOnEntity(effect, text);
   };

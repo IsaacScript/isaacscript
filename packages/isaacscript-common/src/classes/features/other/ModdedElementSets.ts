@@ -45,7 +45,7 @@ import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../../../sets/itemConfigCa
 import { ReadonlyMap } from "../../../types/ReadonlyMap";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
-import { ModdedElementDetection } from "./ModdedElementDetection";
+import type { ModdedElementDetection } from "./ModdedElementDetection";
 
 const CONDITIONAL_FLYING_COLLECTIBLE_TYPES = [
   CollectibleType.BIBLE,
@@ -72,53 +72,53 @@ const TRANSFORMATION_TO_TAG_MAP = new ReadonlyMap<PlayerForm, ItemConfigTag>([
 ]);
 
 export class ModdedElementSets extends Feature {
-  private allCollectibleTypesArray: CollectibleType[] = [];
-  private allCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly allCollectibleTypesArray: CollectibleType[] = [];
+  private readonly allCollectibleTypesSet = new Set<CollectibleType>();
 
-  private vanillaCollectibleTypesArray: CollectibleType[] = [];
-  private vanillaCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly vanillaCollectibleTypesArray: CollectibleType[] = [];
+  private readonly vanillaCollectibleTypesSet = new Set<CollectibleType>();
 
-  private moddedCollectibleTypesArray: CollectibleType[] = [];
-  private moddedCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly moddedCollectibleTypesArray: CollectibleType[] = [];
+  private readonly moddedCollectibleTypesSet = new Set<CollectibleType>();
 
-  private allTrinketTypesArray: TrinketType[] = [];
-  private allTrinketTypesSet = new Set<TrinketType>();
+  private readonly allTrinketTypesArray: TrinketType[] = [];
+  private readonly allTrinketTypesSet = new Set<TrinketType>();
 
-  private vanillaTrinketTypesArray: TrinketType[] = [];
-  private vanillaTrinketTypesSet = new Set<TrinketType>();
+  private readonly vanillaTrinketTypesArray: TrinketType[] = [];
+  private readonly vanillaTrinketTypesSet = new Set<TrinketType>();
 
-  private moddedTrinketTypesArray: TrinketType[] = [];
-  private moddedTrinketTypesSet = new Set<TrinketType>();
+  private readonly moddedTrinketTypesArray: TrinketType[] = [];
+  private readonly moddedTrinketTypesSet = new Set<TrinketType>();
 
-  private allCardTypesArray: CardType[] = [];
-  private allCardTypesSet = new Set<CardType>();
+  private readonly allCardTypesArray: CardType[] = [];
+  private readonly allCardTypesSet = new Set<CardType>();
 
-  private vanillaCardTypesArray: CardType[] = [];
-  private vanillaCardTypesSet = new Set<CardType>();
+  private readonly vanillaCardTypesArray: CardType[] = [];
+  private readonly vanillaCardTypesSet = new Set<CardType>();
 
-  private moddedCardTypesArray: CardType[] = [];
-  private moddedCardTypesSet = new Set<CardType>();
+  private readonly moddedCardTypesArray: CardType[] = [];
+  private readonly moddedCardTypesSet = new Set<CardType>();
 
-  private tagToCollectibleTypesMap = new Map<
+  private readonly tagToCollectibleTypesMap = new Map<
     ItemConfigTag,
     Set<CollectibleType>
   >();
 
-  private cacheFlagToCollectibleTypesMap = new Map<
+  private readonly cacheFlagToCollectibleTypesMap = new Map<
     CacheFlag,
     Set<CollectibleType>
   >();
 
-  private cacheFlagToTrinketTypesMap = new Map<CacheFlag, Set<TrinketType>>();
+  private readonly cacheFlagToTrinketTypesMap = new Map<CacheFlag, Set<TrinketType>>();
 
   private flyingCollectibleTypesSet = new Set<CollectibleType>();
-  private permanentFlyingCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly permanentFlyingCollectibleTypesSet = new Set<CollectibleType>();
   private flyingTrinketTypesSet = new Set<TrinketType>();
 
-  private edenActiveCollectibleTypesSet = new Set<CollectibleType>();
-  private edenPassiveCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly edenActiveCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly edenPassiveCollectibleTypesSet = new Set<CollectibleType>();
 
-  private itemConfigCardTypeToCardTypeMap = new Map<
+  private readonly itemConfigCardTypeToCardTypeMap = new Map<
     ItemConfigCardType,
     Set<CardType>
   >();
@@ -129,9 +129,9 @@ export class ModdedElementSets extends Feature {
    * - ItemConfigCardType.RUNE
    * - ItemConfigCardType.SPECIAL_OBJECT
    */
-  private cardSet = new Set<CardType>();
+  private readonly cardSet = new Set<CardType>();
 
-  private moddedElementDetection: ModdedElementDetection;
+  private readonly moddedElementDetection: ModdedElementDetection;
 
   /** @internal */
   constructor(moddedElementDetection: ModdedElementDetection) {

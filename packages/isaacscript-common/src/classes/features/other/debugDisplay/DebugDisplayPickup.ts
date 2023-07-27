@@ -16,7 +16,7 @@ export class DebugDisplayPickup extends Feature {
   }
 
   // ModCallback.POST_PICKUP_RENDER (36)
-  private postPickupRender = (pickup: EntityPickup) => {
+  private readonly postPickupRender = (pickup: EntityPickup) => {
     const text = this.textCallback(pickup);
     renderTextOnEntity(pickup, text);
   };

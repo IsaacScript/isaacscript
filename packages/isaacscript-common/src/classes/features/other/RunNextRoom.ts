@@ -25,7 +25,7 @@ export class RunNextRoom extends Feature {
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     for (const func of v.run.queuedFunctions) {
       func();
     }

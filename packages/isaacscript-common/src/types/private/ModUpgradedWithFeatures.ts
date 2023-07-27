@@ -1,10 +1,10 @@
-import { ModUpgraded } from "../../classes/ModUpgraded";
-import { Feature } from "../../classes/private/Feature";
-import { ISCFeature } from "../../enums/ISCFeature";
-import { ISCFeatureToClass } from "../../features";
-import { PublicInterface } from "../PublicInterface";
-import { TupleToIntersection } from "../TupleToIntersection";
-import { Writeable } from "../Writable";
+import type { ModUpgraded } from "../../classes/ModUpgraded";
+import type { Feature } from "../../classes/private/Feature";
+import type { ISCFeature } from "../../enums/ISCFeature";
+import type { ISCFeatureToClass } from "../../features";
+import type { PublicInterface } from "../PublicInterface";
+import type { TupleToIntersection } from "../TupleToIntersection";
+import type { Writeable } from "../Writable";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of

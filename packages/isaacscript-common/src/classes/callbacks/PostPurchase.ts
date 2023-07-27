@@ -1,8 +1,9 @@
-import {
+import type {
   CardType,
   CollectibleType,
-  ModCallback,
-  PillEffect,
+  PillEffect} from "isaac-typescript-definitions";
+import {
+  ModCallback
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
@@ -11,12 +12,13 @@ import {
   defaultMapGetPlayer,
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import {
-  CustomCallback,
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_PURCHASE;
@@ -71,7 +73,7 @@ export class PostPurchase extends CustomCallback<T> {
   };
 
   // ModCallback.POST_USE_ITEM (3)
-  private postUseItem = (
+  private readonly postUseItem = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -81,19 +83,19 @@ export class PostPurchase extends CustomCallback<T> {
   };
 
   // ModCallback.POST_USE_CARD (5)
-  private postUseCard = (_cardType: CardType, player: EntityPlayer) => {
+  private readonly postUseCard = (_cardType: CardType, player: EntityPlayer) => {
     markUsedItemOnThisFrame(player);
     return undefined;
   };
 
   // ModCallback.POST_USE_PILL (10)
-  private postUsePill = (_pillEffect: PillEffect, player: EntityPlayer) => {
+  private readonly postUsePill = (_pillEffect: PillEffect, player: EntityPlayer) => {
     markUsedItemOnThisFrame(player);
     return undefined;
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const isHoldingItem = player.IsHoldingItem();
     const wasHoldingItemOnLastFrame = defaultMapGetPlayer(
       v.room.playersHoldingItemOnLastFrameMap,

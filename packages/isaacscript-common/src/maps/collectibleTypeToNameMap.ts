@@ -1,4 +1,4 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
 export const DEFAULT_COLLECTIBLE_NAME = "Unknown";

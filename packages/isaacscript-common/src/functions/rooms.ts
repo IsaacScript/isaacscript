@@ -1,16 +1,17 @@
-import {
-  AngelRoomSubType,
+import type {
   BackdropType,
   BossID,
+  ItemPoolType,
+  MinibossID} from "isaac-typescript-definitions";
+import {
+  AngelRoomSubType,
   Dimension,
   DoorSlot,
   DownpourRoomSubType,
   DungeonSubType,
   GridRoom,
   HomeRoomSubType,
-  ItemPoolType,
   LevelStage,
-  MinibossID,
   RoomDescriptorFlag,
   RoomShape,
   RoomType,

@@ -1,12 +1,13 @@
+import type {
+  UseFlag} from "isaac-typescript-definitions";
 import {
   CollectibleType,
   ModCallback,
-  PlayerType,
-  UseFlag,
+  PlayerType
 } from "isaac-typescript-definitions";
 import { getPlayersOfType, isTaintedLazarus } from "../../../functions/players";
-import { PostFirstFlip } from "../../callbacks/PostFirstFlip";
-import { PostFlip } from "../../callbacks/PostFlip";
+import type { PostFirstFlip } from "../../callbacks/PostFirstFlip";
+import type { PostFlip } from "../../callbacks/PostFlip";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -19,8 +20,8 @@ const v = {
 export class FlipDetection extends Feature {
   public override v = v;
 
-  private postFlip: PostFlip;
-  private postFirstFlip: PostFirstFlip;
+  private readonly postFlip: PostFlip;
+  private readonly postFirstFlip: PostFirstFlip;
 
   constructor(postFlip: PostFlip, postFirstFlip: PostFirstFlip) {
     super();
@@ -36,7 +37,7 @@ export class FlipDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.FLIP (711)
-  private postUseItemFlip = (
+  private readonly postUseItemFlip = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

@@ -1,20 +1,22 @@
-import {
+import type {
   CollectibleType,
-  ItemType,
-  TrinketType,
+  TrinketType} from "isaac-typescript-definitions";
+import {
+  ItemType
 } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
 import { asNumber } from "../../../functions/types";
+import type {
+  PickingUpItem} from "../../../types/PickingUpItem";
 import {
-  PickingUpItem,
   newPickingUpItem,
   resetPickingUpItem,
 } from "../../../types/PickingUpItem";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { DefaultMap } from "../../DefaultMap";
-import { PostItemPickup } from "../../callbacks/PostItemPickup";
-import { PreItemPickup } from "../../callbacks/PreItemPickup";
+import type { PostItemPickup } from "../../callbacks/PostItemPickup";
+import type { PreItemPickup } from "../../callbacks/PreItemPickup";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -28,8 +30,8 @@ const v = {
 export class ItemPickupDetection extends Feature {
   public override v = v;
 
-  private postItemPickup: PostItemPickup;
-  private preItemPickup: PreItemPickup;
+  private readonly postItemPickup: PostItemPickup;
+  private readonly preItemPickup: PreItemPickup;
 
   constructor(postItemPickup: PostItemPickup, preItemPickup: PreItemPickup) {
     super();
@@ -46,7 +48,7 @@ export class ItemPickupDetection extends Feature {
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const pickingUpItem = defaultMapGetPlayer(
       v.run.playersPickingUpItemMap,
       player,

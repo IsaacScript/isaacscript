@@ -1,7 +1,8 @@
+import type {
+  DamageFlag} from "isaac-typescript-definitions";
 import {
   CacheFlag,
   CollectibleType,
-  DamageFlag,
   LevelCurse,
   ModCallback,
   TearVariant,
@@ -19,7 +20,7 @@ export class ExtraConsoleCommands extends Feature {
   /** @internal */
   public override v = v;
 
-  private commandFunctionMap = new Map<string, (params: string) => void>();
+  private readonly commandFunctionMap = new Map<string, (params: string) => void>();
 
   /** @internal */
   constructor() {
@@ -77,7 +78,7 @@ export class ExtraConsoleCommands extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = () => {
+  private readonly postUpdate = () => {
     if (v.persistent.spamBloodRights) {
       const player = Isaac.GetPlayer();
       player.UseActiveItem(CollectibleType.BLOOD_RIGHTS);
@@ -86,7 +87,7 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.DAMAGE (1 << 0)
-  private evaluateCacheDamage = (player: EntityPlayer) => {
+  private readonly evaluateCacheDamage = (player: EntityPlayer) => {
     if (v.persistent.damage) {
       player.Damage = v.persistent.damageAmount;
     }
@@ -94,7 +95,7 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.FIRE_DELAY (1 << 1)
-  private evaluateCacheFireDelay = (player: EntityPlayer) => {
+  private readonly evaluateCacheFireDelay = (player: EntityPlayer) => {
     if (v.persistent.tears) {
       player.FireDelay = v.persistent.tearsAmount;
     }
@@ -102,7 +103,7 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.SPEED (1 << 4)
-  private evaluateCacheSpeed = (player: EntityPlayer) => {
+  private readonly evaluateCacheSpeed = (player: EntityPlayer) => {
     if (v.persistent.speed) {
       player.MoveSpeed = v.persistent.speedAmount;
     }
@@ -110,14 +111,14 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.EVALUATE_CACHE (8)
   // CacheFlag.FLYING (1 << 7)
-  private evaluateCacheFlying = (player: EntityPlayer) => {
+  private readonly evaluateCacheFlying = (player: EntityPlayer) => {
     if (v.persistent.flight) {
       player.CanFly = true;
     }
   };
 
   // ModCallback.POST_CURSE_EVAL (12)
-  private postCurseEval = (
+  private readonly postCurseEval = (
     curses: BitFlags<LevelCurse>,
   ): BitFlags<LevelCurse> | undefined => {
     if (v.persistent.disableCurses) {
@@ -170,7 +171,7 @@ export class ExtraConsoleCommands extends Feature {
   };
 
   // ModCallback.EXECUTE_CMD (22)
-  private executeCmd = (command: string, params: string) => {
+  private readonly executeCmd = (command: string, params: string) => {
     const resultTuple = getMapPartialMatch(command, this.commandFunctionMap);
     if (resultTuple === undefined) {
       // We cannot print an error message, because if multiple mods have this feature enabled, then
@@ -184,14 +185,14 @@ export class ExtraConsoleCommands extends Feature {
   };
 
   // ModCallback.POST_FIRE_TEAR (61)
-  private postFireTear = (tear: EntityTear) => {
+  private readonly postFireTear = (tear: EntityTear) => {
     if (v.persistent.chaosCardTears) {
       tear.ChangeVariant(TearVariant.CHAOS_CARD);
     }
   };
 
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     _player: EntityPlayer,
     _damageAmount: float,
     _damageFlags: BitFlags<DamageFlag>,

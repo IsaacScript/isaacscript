@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PreKnifeCollisionFilter extends CustomCallback<ModCallbackCustom.PR
   protected override shouldFire = shouldFireKnife;
 
   // ModCallback.PRE_KNIFE_COLLISION (53)
-  private preKnifeCollision = (
+  private readonly preKnifeCollision = (
     knife: EntityKnife,
     collider: Entity,
     low: boolean,

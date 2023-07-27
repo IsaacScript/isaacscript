@@ -1,8 +1,9 @@
-import {
+import type {
   ActiveSlot,
+  UseFlag} from "isaac-typescript-definitions";
+import {
   CollectibleType,
-  ModCallback,
-  UseFlag,
+  ModCallback
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
@@ -14,8 +15,8 @@ import { log } from "../../../functions/log";
 import { onFirstFloor } from "../../../functions/stage";
 import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
 import { isString, isTable } from "../../../functions/types";
-import { SaveData } from "../../../interfaces/SaveData";
-import { AnyClass } from "../../../types/AnyClass";
+import type { SaveData } from "../../../interfaces/SaveData";
+import type { AnyClass } from "../../../types/AnyClass";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import {
@@ -44,26 +45,26 @@ export class SaveDataManager extends Feature {
    * We store a local reference to the mod object so that we can access the corresponding methods
    * that read and write to the "save#.dat" file.
    */
-  private mod: Mod;
+  private readonly mod: Mod;
 
   /**
    * The save data map is indexed by subscriber name. We use Lua tables instead of TypeScriptToLua
    * Maps for the master map so that we can access the variables via the in-game console when
    * debugging. (TSTL Maps don't expose the map keys as normal keys.)
    */
-  private saveDataMap = new LuaMap<string, SaveData>();
+  private readonly saveDataMap = new LuaMap<string, SaveData>();
 
   /**
    * When mod feature data is initialized, we copy the initial values into a separate map so that we
    * can restore them later on.
    */
-  private saveDataDefaultsMap = new LuaMap<string, SaveData>();
+  private readonly saveDataDefaultsMap = new LuaMap<string, SaveData>();
 
   /**
    * Each mod feature can optionally provide a function that can control whether or not the save
    * data is written to disk.
    */
-  private saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
+  private readonly saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
 
   /**
    * We backup some save data keys on every new room for the purposes of restoring it when Glowing
@@ -72,13 +73,13 @@ export class SaveDataManager extends Feature {
    * Note that the save data is backed up in serialized form so that we can use the `merge` function
    * to restore it.
    */
-  private saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
+  private readonly saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
 
   /**
    * End-users can register their classes with the save data manager for proper serialization when
    * contained in nested maps, sets, and arrays.
    */
-  private classConstructors = new LuaMap<string, AnyClass>();
+  private readonly classConstructors = new LuaMap<string, AnyClass>();
 
   // Other variables
   private inARun = false;
@@ -117,7 +118,7 @@ export class SaveDataManager extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
-  private postUseItemGlowingHourGlass = (
+  private readonly postUseItemGlowingHourGlass = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     _player: EntityPlayer,
@@ -130,7 +131,7 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallback.POST_PLAYER_INIT (9)
-  private postPlayerInit = (_player: EntityPlayer): void => {
+  private readonly postPlayerInit = (_player: EntityPlayer): void => {
     // We want to only load data once per run to handle the case of a player using Genesis, a second
     // player joining the run, and so on.
     if (this.inARun) {
@@ -159,7 +160,7 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallback.PRE_GAME_EXIT (17)
-  private preGameExit = (): void => {
+  private readonly preGameExit = (): void => {
     // We unconditionally save variables to disk (because regardless of a save & quit or a death,
     // persistent variables should be recorded).
     saveToDisk(this.mod, this.saveDataMap, this.saveDataConditionalFuncMap);
@@ -175,7 +176,7 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
-  private postNewLevel = (): void => {
+  private readonly postNewLevel = (): void => {
     restoreDefaultsForAllFeaturesKey(
       this.saveDataMap,
       this.saveDataDefaultsMap,
@@ -190,7 +191,7 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_EARLY
-  private postNewRoomEarly = (): void => {
+  private readonly postNewRoomEarly = (): void => {
     restoreDefaultsForAllFeaturesKey(
       this.saveDataMap,
       this.saveDataDefaultsMap,

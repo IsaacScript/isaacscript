@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBoolean } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostGameEndFilter extends CustomCallback<ModCallbackCustom.POST_GAM
   protected override shouldFire = shouldFireBoolean;
 
   // ModCallback.POST_GAME_END (16)
-  private postGameEnd = (isGameOver: boolean) => {
+  private readonly postGameEnd = (isGameOver: boolean) => {
     this.fire(isGameOver);
   };
 }

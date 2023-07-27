@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -24,7 +24,7 @@ export class PostKnifeInitLate extends CustomCallback<ModCallbackCustom.POST_KNI
   protected override shouldFire = shouldFireKnife;
 
   // ModCallback.POST_KNIFE_UPDATE (51)
-  private postKnifeUpdate = (knife: EntityKnife): void => {
+  private readonly postKnifeUpdate = (knife: EntityKnife): void => {
     const ptrHash = GetPtrHash(knife);
     if (!v.room.firedSet.has(ptrHash)) {
       v.room.firedSet.add(ptrHash);

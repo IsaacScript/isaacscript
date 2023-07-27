@@ -1,5 +1,6 @@
-import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
-import { Corner } from "../interfaces/Corner";
+import type { DoorSlot} from "isaac-typescript-definitions";
+import { RoomShape } from "isaac-typescript-definitions";
+import type { Corner } from "../interfaces/Corner";
 import { ROOM_SHAPE_BOUNDS } from "../objects/roomShapeBounds";
 import { ROOM_SHAPE_CORNERS } from "../objects/roomShapeCorners";
 import { ROOM_SHAPE_LAYOUT_SIZES } from "../objects/roomShapeLayoutSizes";

@@ -33,7 +33,7 @@ import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
 import { repeat } from "../../../functions/utils";
 import { getRandomVector, isVector } from "../../../functions/vector";
 import { Feature } from "../../private/Feature";
-import { ItemPoolDetection } from "./ItemPoolDetection";
+import type { ItemPoolDetection } from "./ItemPoolDetection";
 
 const ROCK_ALT_CHANCES = {
   NOTHING: 0.68,
@@ -57,7 +57,7 @@ const POLYP_PROJECTILE_SPEED = 10;
 const POLYP_NUM_PROJECTILES = 6;
 
 export class SpawnRockAltRewards extends Feature {
-  private itemPoolDetection: ItemPoolDetection;
+  private readonly itemPoolDetection: ItemPoolDetection;
 
   /** @internal */
   constructor(itemPoolDetection: ItemPoolDetection) {

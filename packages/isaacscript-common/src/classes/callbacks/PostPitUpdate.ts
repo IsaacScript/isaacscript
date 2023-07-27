@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPits } from "../../functions/gridEntitiesSpecific";
 import { shouldFirePit } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
@@ -17,7 +17,7 @@ export class PostPitUpdate extends CustomCallback<ModCallbackCustom.POST_PIT_UPD
   protected override shouldFire = shouldFirePit;
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     for (const pit of getPits()) {
       this.fire(pit);
     }

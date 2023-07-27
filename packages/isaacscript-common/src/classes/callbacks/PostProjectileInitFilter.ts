@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostProjectileInitFilter extends CustomCallback<ModCallbackCustom.P
   protected override shouldFire = shouldFireProjectile;
 
   // ModCallback.POST_PROJECTILE_INIT (43)
-  private postProjectileInit = (projectile: EntityProjectile) => {
+  private readonly postProjectileInit = (projectile: EntityProjectile) => {
     this.fire(projectile);
   };
 }

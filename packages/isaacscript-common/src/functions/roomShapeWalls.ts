@@ -2,7 +2,7 @@ import { BossID, RoomShape } from "isaac-typescript-definitions";
 import { ROOM_SHAPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { CornerType } from "../enums/CornerType";
-import { Corner } from "../interfaces/Corner";
+import type { Corner } from "../interfaces/Corner";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getGridIndexesBetween } from "./gridIndex";
 import { getRoomShapeCorners, isLRoom } from "./roomShape";

@@ -23,7 +23,7 @@ export class PreventChildEntities extends Feature {
   }
 
   // ModCallback.POST_NPC_INIT (27)
-  private postNPCInit = (npc: EntityNPC) => {
+  private readonly postNPCInit = (npc: EntityNPC) => {
     const spawnerEntityMatch =
       npc.SpawnerEntity !== undefined &&
       v.room.preventingEntities.has(GetPtrHash(npc.SpawnerEntity));

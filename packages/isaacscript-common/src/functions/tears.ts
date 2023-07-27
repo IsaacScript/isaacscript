@@ -1,4 +1,4 @@
-import { FamiliarVariant } from "isaac-typescript-definitions";
+import type { FamiliarVariant } from "isaac-typescript-definitions";
 
 /**
  * - Converts the specified amount of tears stat into the format of `EntityPlayer.MaxFireDelay` and

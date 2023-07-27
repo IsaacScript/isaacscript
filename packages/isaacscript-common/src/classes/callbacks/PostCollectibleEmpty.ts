@@ -3,11 +3,12 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_COLLECTIBLE_EMPTY;
@@ -49,7 +50,7 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   // PickupVariant.COLLECTIBLE (100)
-  private postPickupUpdateCollectible = (pickup: EntityPickup): void => {
+  private readonly postPickupUpdateCollectible = (pickup: EntityPickup): void => {
     const collectible = pickup as EntityPickupCollectible;
 
     const ptrHash = GetPtrHash(collectible);

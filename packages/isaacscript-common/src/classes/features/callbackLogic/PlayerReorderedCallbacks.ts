@@ -11,10 +11,10 @@ import {
   getPlayerFromIndex,
   getPlayerIndex,
 } from "../../../functions/playerIndex";
-import { PlayerIndex } from "../../../types/PlayerIndex";
-import { PostPEffectUpdateReordered } from "../../callbacks/PostPEffectUpdateReordered";
-import { PostPlayerRenderReordered } from "../../callbacks/PostPlayerRenderReordered";
-import { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdateReordered";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PostPEffectUpdateReordered } from "../../callbacks/PostPEffectUpdateReordered";
+import type { PostPlayerRenderReordered } from "../../callbacks/PostPlayerRenderReordered";
+import type { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdateReordered";
 import { Feature } from "../../private/Feature";
 
 interface QueueElement {
@@ -35,9 +35,9 @@ const v = {
 export class PlayerReorderedCallbacks extends Feature {
   public override v = v;
 
-  private postPEffectUpdateReordered: PostPEffectUpdateReordered;
-  private postPlayerRenderReordered: PostPlayerRenderReordered;
-  private postPlayerUpdateReordered: PostPlayerUpdateReordered;
+  private readonly postPEffectUpdateReordered: PostPEffectUpdateReordered;
+  private readonly postPlayerRenderReordered: PostPlayerRenderReordered;
+  private readonly postPlayerUpdateReordered: PostPlayerUpdateReordered;
 
   constructor(
     postPEffectUpdateReordered: PostPEffectUpdateReordered,
@@ -73,7 +73,7 @@ export class PlayerReorderedCallbacks extends Feature {
   }
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer): void => {
+  private readonly postPEffectUpdate = (player: EntityPlayer): void => {
     if (v.run.postGameStartedFiredOnThisRun) {
       this.postPEffectUpdateReordered.fire(player);
     } else {
@@ -87,7 +87,7 @@ export class PlayerReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_PLAYER_UPDATE (31)
-  private postPlayerUpdate = (player: EntityPlayer): void => {
+  private readonly postPlayerUpdate = (player: EntityPlayer): void => {
     if (v.run.postGameStartedFiredOnThisRun) {
       this.postPlayerUpdateReordered.fire(player);
     } else {
@@ -101,7 +101,7 @@ export class PlayerReorderedCallbacks extends Feature {
   };
 
   // ModCallback.POST_PLAYER_RENDER (32)
-  private postPlayerRender = (
+  private readonly postPlayerRender = (
     player: EntityPlayer,
     renderOffset: Vector,
   ): void => {
@@ -115,7 +115,7 @@ export class PlayerReorderedCallbacks extends Feature {
   };
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST
-  private postGameStartedReorderedLast = (): void => {
+  private readonly postGameStartedReorderedLast = (): void => {
     v.run.postGameStartedFiredOnThisRun = true;
 
     dequeue(v.run.postPEffectUpdateQueue, this.postPEffectUpdateReordered.fire);

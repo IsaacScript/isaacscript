@@ -1,4 +1,5 @@
-import { CollectibleType, ItemConfigTag } from "isaac-typescript-definitions";
+import type { CollectibleType} from "isaac-typescript-definitions";
+import { ItemConfigTag } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 
 export function collectibleHasTag(

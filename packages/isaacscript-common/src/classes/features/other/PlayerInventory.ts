@@ -1,4 +1,4 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import {
@@ -8,7 +8,7 @@ import {
 } from "../../../functions/array";
 import { isActiveCollectible } from "../../../functions/collectibles";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
@@ -43,7 +43,7 @@ export class PlayerInventory extends Feature {
   }
 
   // ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED
-  private postCollectibleAdded = (
+  private readonly postCollectibleAdded = (
     player: EntityPlayer,
     collectibleType: CollectibleType,
   ) => {
@@ -56,7 +56,7 @@ export class PlayerInventory extends Feature {
   };
 
   // ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED
-  private postCollectibleRemoved = (
+  private readonly postCollectibleRemoved = (
     player: EntityPlayer,
     collectibleType: CollectibleType,
   ) => {

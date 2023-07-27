@@ -25,7 +25,7 @@ export class FastReset extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     if (!this.enabled) {
       return;
     }

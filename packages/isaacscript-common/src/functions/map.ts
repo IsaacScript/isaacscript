@@ -1,4 +1,4 @@
-import { DefaultMap } from "../classes/DefaultMap";
+import type { DefaultMap } from "../classes/DefaultMap";
 import { sumArray } from "./array";
 import { getPartialMatch } from "./string";
 

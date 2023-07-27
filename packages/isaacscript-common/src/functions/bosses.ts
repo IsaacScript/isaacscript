@@ -1,7 +1,8 @@
+import type {
+  StageType} from "isaac-typescript-definitions";
 import {
   EntityType,
-  LokiVariant,
-  StageType,
+  LokiVariant
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import {

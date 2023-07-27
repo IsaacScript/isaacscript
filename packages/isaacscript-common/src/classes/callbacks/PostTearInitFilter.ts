@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostTearInitFilter extends CustomCallback<ModCallbackCustom.POST_TE
   protected override shouldFire = shouldFireTear;
 
   // ModCallback.POST_TEAR_INIT (39)
-  private postTearInit = (tear: EntityTear) => {
+  private readonly postTearInit = (tear: EntityTear) => {
     this.fire(tear);
   };
 }

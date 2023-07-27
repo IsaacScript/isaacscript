@@ -15,7 +15,7 @@ export class DebugDisplaySpikes extends Feature {
   }
 
   // ModCallbackCustom.POST_SPIKES_RENDER
-  private postSpikesRender = (spikes: GridEntitySpikes) => {
+  private readonly postSpikesRender = (spikes: GridEntitySpikes) => {
     const text = this.textCallback(spikes);
     renderTextOnEntity(spikes, text);
   };

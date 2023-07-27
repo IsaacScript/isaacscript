@@ -1,5 +1,5 @@
-import { ModFeature } from "../classes/ModFeature";
-import { ModUpgraded } from "../classes/ModUpgraded";
+import type { ModFeature } from "../classes/ModFeature";
+import type { ModUpgraded } from "../classes/ModUpgraded";
 
 /**
  * Helper function to instantiate an array of mod features all at once. Use this function if your
@@ -29,7 +29,7 @@ export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
   const instantiatedModFeatures: ModFeature[] = [];
 
   for (const modFeature of modFeatures) {
-    // eslint-disable-next-line new-cap
+     
     const instantiatedModFeature = new modFeature(mod, false);
     instantiatedModFeature.init();
 

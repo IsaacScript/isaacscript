@@ -1,9 +1,10 @@
-import {
-  ModCallback,
+import type {
   PillColor,
   PillEffect,
-  PocketItemSlot,
-  UseFlag,
+  UseFlag} from "isaac-typescript-definitions";
+import {
+  ModCallback,
+  PocketItemSlot
 } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { PocketItemType } from "../../enums/PocketItemType";
@@ -13,8 +14,8 @@ import {
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
 import { getPocketItems, pocketItemsEquals } from "../../functions/pocketItems";
-import { PocketItemDescription } from "../../interfaces/PocketItemDescription";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PocketItemDescription } from "../../interfaces/PocketItemDescription";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
 const v = {
@@ -54,7 +55,7 @@ export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE
   }
 
   // ModCallback.POST_USE_PILL (10)
-  private postUsePill = (
+  private readonly postUsePill = (
     pillEffect: PillEffect,
     player: EntityPlayer,
     useFlags: BitFlags<UseFlag>,
@@ -93,7 +94,7 @@ export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     this.updateCurrentPocketItems(player);
   };
 

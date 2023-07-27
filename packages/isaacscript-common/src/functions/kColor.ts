@@ -1,4 +1,4 @@
-import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";

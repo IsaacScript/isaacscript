@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostNPCRenderFilter extends CustomCallback<ModCallbackCustom.POST_N
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.POST_NPC_RENDER (28)
-  private postNPCRender = (npc: EntityNPC, renderOffset: Vector) => {
+  private readonly postNPCRender = (npc: EntityNPC, renderOffset: Vector) => {
     this.fire(npc, renderOffset);
   };
 }

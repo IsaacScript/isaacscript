@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -24,7 +24,7 @@ export class PostProjectileInitLate extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFireProjectile;
 
   // ModCallback.POST_PROJECTILE_UPDATE (44)
-  private postProjectileUpdate = (projectile: EntityProjectile): void => {
+  private readonly postProjectileUpdate = (projectile: EntityProjectile): void => {
     const ptrHash = GetPtrHash(projectile);
     if (!v.room.firedSet.has(ptrHash)) {
       v.room.firedSet.add(ptrHash);

@@ -1,5 +1,6 @@
+import type {
+  ButtonAction} from "isaac-typescript-definitions";
 import {
-  ButtonAction,
   InputHook,
   ModCallback,
 } from "isaac-typescript-definitions";
@@ -67,21 +68,21 @@ export class DisableInputs extends Feature {
   }
 
   // InputHook.IS_ACTION_PRESSED (0)
-  private isActionPressed = (
+  private readonly isActionPressed = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => this.getReturnValue(buttonAction, true);
 
   // InputHook.IS_ACTION_TRIGGERED (1)
-  private isActionTriggered = (
+  private readonly isActionTriggered = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => this.getReturnValue(buttonAction, true);
 
   // InputHook.GET_ACTION_VALUE (2)
-  private getActionValue = (
+  private readonly getActionValue = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,

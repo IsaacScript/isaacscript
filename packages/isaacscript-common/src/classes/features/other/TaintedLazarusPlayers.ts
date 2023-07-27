@@ -45,7 +45,7 @@ export class TaintedLazarusPlayers extends Feature {
   }
 
   // ModCallback.POST_PLAYER_INIT (9)
-  private postPlayerInit = (player: EntityPlayer) => {
+  private readonly postPlayerInit = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
 
     if (character === PlayerType.LAZARUS_B) {

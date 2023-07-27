@@ -1,11 +1,12 @@
-import {
+import type {
   ActiveSlot,
+  DamageFlag,
+  UseFlag} from "isaac-typescript-definitions";
+import {
   BossID,
   CollectibleType,
-  DamageFlag,
   DamageFlagZero,
-  ModCallback,
-  UseFlag,
+  ModCallback
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
@@ -20,7 +21,7 @@ import {
 } from "../../functions/revive";
 import { inBossRoomOf } from "../../functions/rooms";
 import { shouldFirePlayer } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
 const v = {
@@ -54,7 +55,7 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
    */
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.BIBLE (33)
-  private preUseItemBible = (
+  private readonly preUseItemBible = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -87,7 +88,7 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
   };
 
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
     amount: float,
     damageFlags: BitFlags<DamageFlag>,

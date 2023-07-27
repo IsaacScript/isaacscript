@@ -14,7 +14,7 @@ import {
 } from "../../functions/playerDataStructures";
 import { getPlayerNumHitsRemaining } from "../../functions/players";
 import { shouldFirePlayer } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { CustomCallback } from "../private/CustomCallback";
 
 const v = {
@@ -49,7 +49,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
   }
 
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
@@ -114,7 +114,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
 
   // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
   // PlayerVariant.PLAYER (0)
-  private postPlayerRenderReorderedPlayer = (
+  private readonly postPlayerRenderReorderedPlayer = (
     player: EntityPlayer,
     _renderOffset: Vector,
   ): void => {

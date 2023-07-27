@@ -38,17 +38,17 @@ import { teleport } from "../../../functions/roomTransition";
 import { setStage } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
 import { isVector } from "../../../functions/vector";
-import { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
+import type { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
-import { DisableInputs } from "./DisableInputs";
-import { PonyDetection } from "./PonyDetection";
-import { RoomClearFrame } from "./RoomClearFrame";
-import { RunInNFrames } from "./RunInNFrames";
-import { RunNextRoom } from "./RunNextRoom";
-import { StageHistory } from "./StageHistory";
+import type { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
+import type { DisableInputs } from "./DisableInputs";
+import type { PonyDetection } from "./PonyDetection";
+import type { RoomClearFrame } from "./RoomClearFrame";
+import type { RunInNFrames } from "./RunInNFrames";
+import type { RunNextRoom } from "./RunNextRoom";
+import type { StageHistory } from "./StageHistory";
 import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 
 const DEBUG = false as boolean;
@@ -93,7 +93,7 @@ const v = {
 
 export class CustomTrapdoors extends Feature {
   /** Indexed by custom trapdoor ID. */
-  private destinationFuncMap = new Map<
+  private readonly destinationFuncMap = new Map<
     string,
     (
       destinationName: string | undefined,
@@ -111,15 +111,15 @@ export class CustomTrapdoors extends Feature {
    * replace the vanilla files. (For some reason, loading the sprites will cause the overwrite to no
    * longer apply on the second and subsequent runs.)
    */
-  private blackSprite = Sprite();
+  private readonly blackSprite = Sprite();
 
-  private customGridEntities: CustomGridEntities;
-  private disableInputs: DisableInputs;
-  private ponyDetection: PonyDetection;
-  private roomClearFrame: RoomClearFrame;
-  private runInNFrames: RunInNFrames;
-  private runNextRoom: RunNextRoom;
-  private stageHistory: StageHistory;
+  private readonly customGridEntities: CustomGridEntities;
+  private readonly disableInputs: DisableInputs;
+  private readonly ponyDetection: PonyDetection;
+  private readonly roomClearFrame: RoomClearFrame;
+  private readonly runInNFrames: RunInNFrames;
+  private readonly runNextRoom: RunNextRoom;
+  private readonly stageHistory: StageHistory;
 
   /** @internal */
   constructor(
@@ -170,7 +170,7 @@ export class CustomTrapdoors extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     this.checkAllPlayersJumpComplete();
     this.checkPixelationToBlackComplete();
     this.checkSecondPixelationHalfWay();
@@ -394,7 +394,7 @@ export class CustomTrapdoors extends Feature {
 
   // ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE
   // GridEntityTypeCustom.TRAPDOOR_CUSTOM
-  private postGridEntityCustomUpdateTrapdoor = (gridEntity: GridEntity) => {
+  private readonly postGridEntityCustomUpdateTrapdoor = (gridEntity: GridEntity) => {
     const roomListIndex = getRoomListIndex();
     const gridIndex = gridEntity.GetGridIndex();
 
@@ -602,7 +602,7 @@ export class CustomTrapdoors extends Feature {
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     this.checkJumpComplete(player);
   };
 

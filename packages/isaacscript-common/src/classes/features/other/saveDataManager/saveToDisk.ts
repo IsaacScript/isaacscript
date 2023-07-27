@@ -3,7 +3,7 @@ import { deepCopy } from "../../../../functions/deepCopy";
 import { jsonEncode } from "../../../../functions/jsonHelpers";
 import { log } from "../../../../functions/log";
 import { isTableEmpty, iterateTableInOrder } from "../../../../functions/table";
-import { SaveData } from "../../../../interfaces/SaveData";
+import type { SaveData } from "../../../../interfaces/SaveData";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 export function saveToDisk(

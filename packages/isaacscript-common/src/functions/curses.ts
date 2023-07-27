@@ -1,4 +1,4 @@
-import { LevelCurse } from "isaac-typescript-definitions";
+import type { LevelCurse } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { hasFlag } from "./flag";
 

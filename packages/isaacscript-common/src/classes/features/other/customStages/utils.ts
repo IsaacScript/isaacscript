@@ -2,7 +2,7 @@ import { sumArray } from "../../../../functions/array";
 import { log } from "../../../../functions/log";
 import { getRandomFloat } from "../../../../functions/random";
 import { getRandomSeed } from "../../../../functions/rng";
-import {
+import type {
   CustomStageBossPoolEntry,
   CustomStageRoomMetadata,
 } from "../../../../interfaces/CustomStageTSConfig";

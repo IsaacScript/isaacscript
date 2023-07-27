@@ -1,11 +1,12 @@
-import { ModCallback, PlayerType } from "isaac-typescript-definitions";
+import type { PlayerType } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { arrayRemoveInPlace } from "../../../functions/array";
 import { restart } from "../../../functions/run";
 import { Feature } from "../../private/Feature";
-import { RoomHistory } from "./RoomHistory";
+import type { RoomHistory } from "./RoomHistory";
 
 /** Used for `runInNFrames` functions. */
 interface QueuedFunction {
@@ -41,7 +42,7 @@ export class RunInNFrames extends Feature {
 
   public override vConditionalFunc = (): boolean => false;
 
-  private roomHistory: RoomHistory;
+  private readonly roomHistory: RoomHistory;
 
   /** @internal */
   constructor(roomHistory: RoomHistory) {
@@ -61,7 +62,7 @@ export class RunInNFrames extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     const gameFrameCount = game.GetFrameCount();
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
@@ -78,7 +79,7 @@ export class RunInNFrames extends Feature {
   };
 
   // ModCallback.POST_RENDER (2)
-  private postRender = (): void => {
+  private readonly postRender = (): void => {
     const renderFrameCount = Isaac.GetFrameCount();
     const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 

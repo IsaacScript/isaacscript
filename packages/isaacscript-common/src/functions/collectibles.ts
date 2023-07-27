@@ -1,11 +1,12 @@
-import {
+import type {
   CacheFlag,
   CollectiblePedestalType,
+  ItemConfigTag} from "isaac-typescript-definitions";
+import {
   CollectibleSpriteLayer,
   CollectibleType,
   EntityType,
   ItemConfigChargeType,
-  ItemConfigTag,
   ItemConfigTagZero,
   ItemType,
   PickupPrice,

@@ -16,7 +16,7 @@ export class DebugDisplayLaser extends Feature {
   }
 
   // ModCallback.POST_LASER_RENDER (49)
-  private postLaserRender = (laser: EntityLaser) => {
+  private readonly postLaserRender = (laser: EntityLaser) => {
     const text = this.textCallback(laser);
     renderTextOnEntity(laser, text);
   };

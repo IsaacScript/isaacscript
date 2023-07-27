@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PreTearCollisionFilter extends CustomCallback<ModCallbackCustom.PRE
   protected override shouldFire = shouldFireTear;
 
   // ModCallback.PRE_TEAR_COLLISION (42)
-  private preTearCollision = (
+  private readonly preTearCollision = (
     tear: EntityTear,
     collider: Entity,
     low: boolean,

@@ -1,6 +1,7 @@
-import {
+import type {
   ActiveSlot,
-  CollectibleType,
+  CollectibleType} from "isaac-typescript-definitions";
+import {
   EntityType,
   ModCallback,
   SuckerVariant,
@@ -15,12 +16,13 @@ import {
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
 import { asNumber } from "../../functions/types";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import {
-  CustomCallback,
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_ITEM_DISCHARGE;
@@ -84,7 +86,7 @@ export class PostItemDischarge extends CustomCallback<T> {
 
   // ModCallback.PRE_NPC_COLLISION (30)
   // EntityType.SUCKER (61)
-  private preNPCCollisionSucker = (
+  private readonly preNPCCollisionSucker = (
     npc: EntityNPC,
     collider: Entity,
   ): boolean | undefined => {
@@ -127,7 +129,7 @@ export class PostItemDischarge extends CustomCallback<T> {
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const activeItemMap = defaultMapGetPlayer(
       v.run.playersActiveItemMap,
       player,

@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireFamiliar } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -24,7 +24,7 @@ export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_
   protected override shouldFire = shouldFireFamiliar;
 
   // ModCallback.POST_FAMILIAR_UPDATE (6)
-  private postFamiliarUpdate = (familiar: EntityFamiliar): void => {
+  private readonly postFamiliarUpdate = (familiar: EntityFamiliar): void => {
     const index = GetPtrHash(familiar);
     if (!v.room.firedSet.has(index)) {
       v.room.firedSet.add(index);

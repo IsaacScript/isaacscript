@@ -1,7 +1,7 @@
 import { RoomShape } from "isaac-typescript-definitions";
 import { CornerType } from "../enums/CornerType";
 import { newReadonlyVector } from "../functions/readOnly";
-import { Corner } from "../interfaces/Corner";
+import type { Corner } from "../interfaces/Corner";
 
 /**
  * The locations of the corners for each room shape.

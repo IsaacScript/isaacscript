@@ -1,9 +1,10 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_GRID_ENTITY_REMOVE;

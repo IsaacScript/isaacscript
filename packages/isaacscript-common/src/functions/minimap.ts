@@ -1,4 +1,5 @@
-import { DisplayFlag, DisplayFlagZero } from "isaac-typescript-definitions";
+import type { DisplayFlag} from "isaac-typescript-definitions";
+import { DisplayFlagZero } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { addFlag } from "./flag";
 import { getRoomDescriptor, getRoomGridIndex } from "./roomData";

@@ -1,4 +1,4 @@
-import { TearFlag } from "isaac-typescript-definitions";
+import type { TearFlag } from "isaac-typescript-definitions";
 
 /**
  * These are the possible types that player stats can be. For example, `EntityPlayer.Damage` is of

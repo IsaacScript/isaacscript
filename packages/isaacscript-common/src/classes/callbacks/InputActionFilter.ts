@@ -1,13 +1,15 @@
-import {
+import type {
   ButtonAction,
-  InputHook,
+  InputHook} from "isaac-typescript-definitions";
+import {
   ModCallback,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.INPUT_ACTION_FILTER;
@@ -37,7 +39,7 @@ export class InputActionFilter extends CustomCallback<T> {
   };
 
   // ModCallback.INPUT_ACTION (13)
-  private inputAction = (
+  private readonly inputAction = (
     entity: Entity | undefined,
     inputHook: InputHook,
     buttonAction: ButtonAction,

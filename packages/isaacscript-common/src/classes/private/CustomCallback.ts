@@ -1,11 +1,11 @@
-import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { log } from "../../functions/log";
 import { sortObjectArrayByKey, stableSort } from "../../functions/sort";
 import { getTSTLClassName } from "../../functions/tstlClass";
-import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
-import { AllButFirst } from "../../types/AllButFirst";
-import { AnyFunction } from "../../types/AnyFunction";
+import type { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
+import type { AllButFirst } from "../../types/AllButFirst";
+import type { AnyFunction } from "../../types/AnyFunction";
 import { Feature } from "./Feature";
 
 export type FireArgs<T extends ModCallbackCustom> = Parameters<

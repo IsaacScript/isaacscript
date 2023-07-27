@@ -8,7 +8,7 @@ import {
   setHasPlayer,
 } from "../../../functions/playerDataStructures";
 import { getPlayers } from "../../../functions/playerIndex";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
 const FLAGS_WHEN_PONY_IS_ACTIVE = [
@@ -40,7 +40,7 @@ export class PonyDetection extends Feature {
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const effects = player.GetEffects();
     const entityFlags = player.GetEntityFlags();
     const hasPonyCollectibleEffect =

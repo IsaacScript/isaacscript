@@ -7,7 +7,7 @@ import {
   getScreenBottomCenterPos,
   getScreenTopCenterPos,
 } from "../../../../functions/ui";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { v } from "./v";
 
 /** Corresponds to "resources/gfx/ui/ui_streak.anm2". */

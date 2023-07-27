@@ -1,4 +1,4 @@
-import { DefaultMap } from "../classes/DefaultMap";
+import type { DefaultMap } from "../classes/DefaultMap";
 
 /**
  * Helper function to make using default maps with an index of `PtrHash` easier. Use this instead of

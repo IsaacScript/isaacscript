@@ -1,5 +1,6 @@
+import type {
+  ActiveSlot} from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   CollectibleType,
   HeartSubType,
   PlayerType,
@@ -7,7 +8,7 @@ import {
 } from "isaac-typescript-definitions";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../core/constants";
 import { HealthType } from "../enums/HealthType";
-import { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
+import type { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCharacterMaxHeartContainers } from "./characters";
 import { getTotalCharge } from "./charge";

@@ -4,7 +4,7 @@ import { LadderSubTypeCustom } from "../../../../enums/LadderSubTypeCustom";
 import { getRandomArrayElement } from "../../../../functions/array";
 import { spawnEffectWithSeed } from "../../../../functions/entitiesSpecific";
 import { removeCharactersBefore } from "../../../../functions/string";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 type ShadowAnimation = "1x1" | "1x2" | "2x1" | "2x2";

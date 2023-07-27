@@ -16,7 +16,7 @@ export class DebugDisplayKnife extends Feature {
   }
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  private postKnifeRender = (knife: EntityKnife) => {
+  private readonly postKnifeRender = (knife: EntityKnife) => {
     const text = this.textCallback(knife);
     renderTextOnEntity(knife, text);
   };

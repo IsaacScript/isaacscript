@@ -1,5 +1,5 @@
-import { TearFlag } from "isaac-typescript-definitions";
-import { PlayerStat } from "../enums/PlayerStat";
+import type { TearFlag } from "isaac-typescript-definitions";
+import type { PlayerStat } from "../enums/PlayerStat";
 
 /**
  * Contains every player stat along with its corresponding data type. For example, `StatType.DAMAGE`

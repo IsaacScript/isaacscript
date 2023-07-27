@@ -1,7 +1,7 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
-import { AllButFirst } from "../AllButFirst";
+import type { ModCallback } from "isaac-typescript-definitions";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
+import type { AllButFirst } from "../AllButFirst";
 
 /**
  * A mapping of the callback enum to the associated callback function and optional arguments. This

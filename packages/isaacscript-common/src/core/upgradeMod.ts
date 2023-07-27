@@ -1,9 +1,9 @@
 import { ModUpgraded } from "../classes/ModUpgraded";
-import { ISCFeature } from "../enums/ISCFeature";
+import type { ISCFeature } from "../enums/ISCFeature";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { applyShaderCrashFix } from "../shaderCrashFix";
-import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgradedWithFeatures } from "../types/private/ModUpgradedWithFeatures";
+import type { AnyFunction } from "../types/AnyFunction";
+import type { ModUpgradedWithFeatures } from "../types/private/ModUpgradedWithFeatures";
 
 type ISCFeatureTuple<T extends readonly ISCFeature[]> =
   ISCFeature extends T["length"]

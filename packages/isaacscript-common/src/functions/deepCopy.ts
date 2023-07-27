@@ -3,8 +3,8 @@ import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManag
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { isSerializationBrand } from "../serialization";
-import { AnyClass } from "../types/AnyClass";
-import { TSTLClass } from "../types/TSTLClass";
+import type { AnyClass } from "../types/AnyClass";
+import type { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { log } from "./log";
@@ -531,7 +531,7 @@ function deepCopyTSTLClass(
         );
       }
 
-      // eslint-disable-next-line new-cap
+       
       newClass = new classConstructor() as TSTLClass;
     }
   }

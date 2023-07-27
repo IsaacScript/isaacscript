@@ -1,6 +1,6 @@
-import { ISCFeature } from "../../enums/ISCFeature";
-import { SaveData } from "../../interfaces/SaveData";
-import {
+import type { ISCFeature } from "../../enums/ISCFeature";
+import type { SaveData } from "../../interfaces/SaveData";
+import type {
   CallbackTuple,
   CustomCallbackTuple,
 } from "../../types/private/CallbackTuple";
@@ -18,7 +18,7 @@ export abstract class Feature {
    * dependency injection. We provide a run-time check in order to prevent the bug of any feature
    * accidentally being instantiated twice.
    */
-  private static constructedClassNames = new Set<string>();
+  private static readonly constructedClassNames = new Set<string>();
 
   /** @internal */
   public initialized = false;

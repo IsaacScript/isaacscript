@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostKnifeInitFilter extends CustomCallback<ModCallbackCustom.POST_K
   protected override shouldFire = shouldFireKnife;
 
   // ModCallback.POST_KNIFE_INIT (50)
-  private postKnifeInit = (knife: EntityKnife) => {
+  private readonly postKnifeInit = (knife: EntityKnife) => {
     this.fire(knife);
   };
 }

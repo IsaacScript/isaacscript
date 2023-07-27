@@ -1,4 +1,4 @@
-import {
+import type {
   BatterySubType,
   BombSubType,
   CardType,
@@ -6,10 +6,11 @@ import {
   CollectibleType,
   HeartSubType,
   KeySubType,
-  PickupVariant,
   PillColor,
   SackSubType,
-  TrinketType,
+  TrinketType} from "isaac-typescript-definitions";
+import {
+  PickupVariant
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitiesSpecific";

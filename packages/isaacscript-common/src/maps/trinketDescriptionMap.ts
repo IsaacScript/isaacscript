@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { TrinketType } from "isaac-typescript-definitions";
+import type { TrinketType } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
 export const DEFAULT_TRINKET_DESCRIPTION = "Unknown";

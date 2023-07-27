@@ -1,8 +1,9 @@
+import type {
+  GridEntityXMLType} from "isaac-typescript-definitions";
 import {
   EffectVariant,
   GridCollisionClass,
   GridEntityType,
-  GridEntityXMLType,
   PoopGridEntityVariant,
   StatueVariant,
   TrapdoorVariant,
@@ -15,8 +16,8 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
-import { AnyGridEntity } from "../types/AnyGridEntity";
-import { GridEntityID } from "../types/GridEntityID";
+import type { AnyGridEntity } from "../types/AnyGridEntity";
+import type { GridEntityID } from "../types/GridEntityID";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";

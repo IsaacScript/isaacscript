@@ -1,6 +1,7 @@
+import type {
+  FamiliarVariant} from "isaac-typescript-definitions";
 import {
   EntityType,
-  FamiliarVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
@@ -34,7 +35,7 @@ export class NoSirenSteal extends Feature {
 
   // ModCallback.POST_NPC_INIT (27)
   // EntityType.SIREN_HELPER (966)
-  private postNPCInitSirenHelper = (npc: EntityNPC) => {
+  private readonly postNPCInitSirenHelper = (npc: EntityNPC) => {
     this.checkReturnFamiliarToPlayer(npc);
   };
 

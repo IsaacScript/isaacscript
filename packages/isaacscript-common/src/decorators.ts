@@ -1,4 +1,4 @@
-import { Feature } from "./classes/private/Feature";
+import type { Feature } from "./classes/private/Feature";
 
 export const EXPORTED_METHOD_NAMES_KEY = "__exportedMethodNames";
 

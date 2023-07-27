@@ -27,7 +27,7 @@ export class DisableAllSound extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     if (v.run.disableSoundSet.size === 0) {
       return;
     }

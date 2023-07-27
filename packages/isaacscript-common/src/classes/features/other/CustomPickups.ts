@@ -1,8 +1,9 @@
+import type {
+  PickupVariant} from "isaac-typescript-definitions";
 import {
   EffectVariant,
   EntityType,
-  ModCallback,
-  PickupVariant,
+  ModCallback
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { LadderSubTypeCustom } from "../../../enums/LadderSubTypeCustom";
@@ -32,7 +33,7 @@ const PICKUP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_PICKUP;
 
 export class CustomPickups extends Feature {
   /** Indexed by entity ID. */
-  private customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
+  private readonly customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
 
   /** @internal */
   constructor() {
@@ -52,7 +53,7 @@ export class CustomPickups extends Feature {
   }
 
   // ModCallback.PRE_PICKUP_COLLISION (38)
-  private prePickupCollision = (
+  private readonly prePickupCollision = (
     pickup: EntityPickup,
     collider: Entity,
   ): boolean | undefined => {
@@ -93,7 +94,7 @@ export class CustomPickups extends Feature {
 
   // ModCallback.POST_EFFECT_RENDER (56)
   // PICKUP_EFFECT_VARIANT
-  private postEffectRenderPickupEffect = (effect: EntityEffect) => {
+  private readonly postEffectRenderPickupEffect = (effect: EntityEffect) => {
     if (effect.SubType !== asNumber(PICKUP_EFFECT_SUB_TYPE)) {
       return;
     }

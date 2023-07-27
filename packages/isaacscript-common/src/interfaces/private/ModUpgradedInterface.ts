@@ -1,4 +1,4 @@
-import { Feature } from "../../classes/private/Feature";
+import type { Feature } from "../../classes/private/Feature";
 
 /**
  * An interface that represents the `ModUpgraded` class.
@@ -9,6 +9,6 @@ import { Feature } from "../../classes/private/Feature";
  * unsafely type-asserted.
  */
 export interface ModUpgradedInterface extends Mod {
-  initFeature(feature: Feature): void;
-  uninitFeature(feature: Feature): void;
+  initFeature: (feature: Feature) => void;
+  uninitFeature: (feature: Feature) => void;
 }

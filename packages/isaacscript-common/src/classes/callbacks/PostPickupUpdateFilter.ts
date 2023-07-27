@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostPickupUpdateFilter extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_UPDATE (35)
-  private postPickupUpdate = (pickup: EntityPickup) => {
+  private readonly postPickupUpdate = (pickup: EntityPickup) => {
     this.fire(pickup);
   };
 }

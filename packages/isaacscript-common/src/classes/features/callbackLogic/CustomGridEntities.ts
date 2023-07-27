@@ -1,10 +1,11 @@
-import {
+import type {
   ActiveSlot,
+  UseFlag} from "isaac-typescript-definitions";
+import {
   CollectibleType,
   GridCollisionClass,
   GridEntityType,
-  ModCallback,
-  UseFlag,
+  ModCallback
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
@@ -18,10 +19,10 @@ import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { isNumber } from "../../../functions/types";
 import { isVector } from "../../../functions/vector";
-import { GridEntityCustomData } from "../../../interfaces/GridEntityCustomData";
+import type { GridEntityCustomData } from "../../../interfaces/GridEntityCustomData";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "../other/RunInNFrames";
+import type { RunInNFrames } from "../other/RunInNFrames";
 
 const v = {
   level: {
@@ -41,7 +42,7 @@ export class CustomGridEntities extends Feature {
   /** @internal */
   public override v = v;
 
-  private runInNFrames: RunInNFrames;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(runInNFrames: RunInNFrames) {
@@ -67,7 +68,7 @@ export class CustomGridEntities extends Feature {
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
-  private preUseItemWeNeedToGoDeeper = (
+  private readonly preUseItemWeNeedToGoDeeper = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -117,7 +118,7 @@ export class CustomGridEntities extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = (): void => {
+  private readonly postNewRoomReordered = (): void => {
     // When we re-enter a room, the graphics for any custom entities will be reverted back to that
     // of a normal decoration. Thus, we must re-apply the anm2.
     const roomListIndex = getRoomListIndex();

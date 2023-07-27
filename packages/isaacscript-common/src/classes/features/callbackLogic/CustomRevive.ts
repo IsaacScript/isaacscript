@@ -16,11 +16,11 @@ import {
   getPlayerIndex,
 } from "../../../functions/playerIndex";
 import { isCharacter } from "../../../functions/players";
-import { PlayerIndex } from "../../../types/PlayerIndex";
-import { PostCustomRevive } from "../../callbacks/PostCustomRevive";
-import { PreCustomRevive } from "../../callbacks/PreCustomRevive";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PostCustomRevive } from "../../callbacks/PostCustomRevive";
+import type { PreCustomRevive } from "../../callbacks/PreCustomRevive";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "../other/RunInNFrames";
+import type { RunInNFrames } from "../other/RunInNFrames";
 
 const DEBUG = false as boolean;
 
@@ -47,9 +47,9 @@ const v = {
 export class CustomRevive extends Feature {
   public override v = v;
 
-  private preCustomRevive: PreCustomRevive;
-  private postCustomRevive: PostCustomRevive;
-  private runInNFrames: RunInNFrames;
+  private readonly preCustomRevive: PreCustomRevive;
+  private readonly postCustomRevive: PostCustomRevive;
+  private readonly runInNFrames: RunInNFrames;
 
   constructor(
     preCustomRevive: PreCustomRevive,
@@ -88,7 +88,7 @@ export class CustomRevive extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = (): void => {
+  private readonly postRender = (): void => {
     if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
@@ -100,7 +100,7 @@ export class CustomRevive extends Feature {
 
   // ModCallback.POST_FAMILIAR_INIT (7)
   // FamiliarVariant.ONE_UP (41)
-  private postFamiliarInitOneUp = (familiar: EntityFamiliar): void => {
+  private readonly postFamiliarInitOneUp = (familiar: EntityFamiliar): void => {
     if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
       return;
     }
@@ -109,7 +109,7 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = (): void => {
+  private readonly postNewRoomReordered = (): void => {
     if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
       return;
     }
@@ -119,7 +119,7 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer): void => {
     this.checkWaitingForItemAnimation(player);
   };
 
@@ -165,7 +165,7 @@ export class CustomRevive extends Feature {
   }
 
   // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
-  private postPlayerFatalDamage = (
+  private readonly postPlayerFatalDamage = (
     player: EntityPlayer,
   ): boolean | undefined => {
     this.playerIsAboutToDie(player);
@@ -173,7 +173,7 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.PRE_BERSERK_DEATH
-  private preBerserkDeath = (player: EntityPlayer): void => {
+  private readonly preBerserkDeath = (player: EntityPlayer): void => {
     this.playerIsAboutToDie(player);
   };
 

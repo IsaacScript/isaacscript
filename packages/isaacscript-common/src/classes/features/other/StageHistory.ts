@@ -12,7 +12,7 @@ import {
   onRepentanceStage,
 } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
-import { StageHistoryEntry } from "../../../interfaces/StageHistoryEntry";
+import type { StageHistoryEntry } from "../../../interfaces/StageHistoryEntry";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -35,7 +35,7 @@ export class StageHistory extends Feature {
   }
 
   // ModCallbackCustom.POST_NEW_LEVEL_REORDERED
-  private postNewLevelReordered = () => {
+  private readonly postNewLevelReordered = () => {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();

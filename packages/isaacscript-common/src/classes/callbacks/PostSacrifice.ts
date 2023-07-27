@@ -25,7 +25,7 @@ export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFI
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.ENTITY_TAKE_DMG
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,

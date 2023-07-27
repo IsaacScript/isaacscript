@@ -20,9 +20,9 @@ import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SlotDestructionType } from "../../../enums/SlotDestructionType";
 import { isSlotMachine } from "../../../functions/slots";
-import { PostSlotDestroyed } from "../../callbacks/PostSlotDestroyed";
+import type { PostSlotDestroyed } from "../../callbacks/PostSlotDestroyed";
 import { Feature } from "../../private/Feature";
-import { RoomHistory } from "../other/RoomHistory";
+import type { RoomHistory } from "../other/RoomHistory";
 
 const v = {
   room: {
@@ -33,8 +33,8 @@ const v = {
 export class SlotDestroyedDetection extends Feature {
   public override v = v;
 
-  private postSlotDestroyed: PostSlotDestroyed;
-  private roomHistory: RoomHistory;
+  private readonly postSlotDestroyed: PostSlotDestroyed;
+  private readonly roomHistory: RoomHistory;
 
   constructor(postSlotDestroyed: PostSlotDestroyed, roomHistory: RoomHistory) {
     super();
@@ -60,7 +60,7 @@ export class SlotDestroyedDetection extends Feature {
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   // EntityType.SLOT (6)
-  private postEntityRemoveSlot = (entity: Entity) => {
+  private readonly postEntityRemoveSlot = (entity: Entity) => {
     const slot = entity as EntitySlot;
 
     // The `POST_ENTITY_REMOVE` callback will fire for slots that are naturally despawning as a
@@ -91,7 +91,7 @@ export class SlotDestroyedDetection extends Feature {
   }
 
   // ModCallbackCustom.POST_SLOT_UPDATE
-  private postSlotUpdate = (slot: EntitySlot) => {
+  private readonly postSlotUpdate = (slot: EntitySlot) => {
     const ptrHash = GetPtrHash(slot);
 
     const alreadyDestroyed = v.room.destroyedSlotSet.has(ptrHash);

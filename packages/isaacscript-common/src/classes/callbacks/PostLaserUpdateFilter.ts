@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireLaser } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostLaserUpdateFilter extends CustomCallback<ModCallbackCustom.POST
   protected override shouldFire = shouldFireLaser;
 
   // ModCallback.POST_LASER_UPDATE (48)
-  private postLaserUpdate = (laser: EntityLaser) => {
+  private readonly postLaserUpdate = (laser: EntityLaser) => {
     this.fire(laser);
   };
 }

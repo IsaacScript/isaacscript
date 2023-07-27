@@ -1,11 +1,12 @@
+import type {
+  ButtonAction} from "isaac-typescript-definitions";
 import {
-  ButtonAction,
   InputHook,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { getPlayerIndex } from "../../../functions/playerIndex";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -37,7 +38,7 @@ export class PressInput extends Feature {
 
   // ModCallback.INPUT_ACTION (13)
   // InputHook.IS_ACTION_TRIGGERED (1)
-  private isActionTriggered = (
+  private readonly isActionTriggered = (
     entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,

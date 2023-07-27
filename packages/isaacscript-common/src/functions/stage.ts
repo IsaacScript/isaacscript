@@ -1,8 +1,9 @@
+import type {
+  StageID} from "isaac-typescript-definitions";
 import {
   GameStateFlag,
   LevelStage,
   RoomType,
-  StageID,
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";

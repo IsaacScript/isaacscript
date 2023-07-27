@@ -1,4 +1,4 @@
-import { Tuple } from "./Tuple";
+import type { Tuple } from "./Tuple";
 
 /**
  * Helper type to subtract one from a number type.

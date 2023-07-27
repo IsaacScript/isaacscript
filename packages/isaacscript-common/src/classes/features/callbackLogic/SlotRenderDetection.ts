@@ -1,8 +1,8 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { getSlots } from "../../../functions/entitiesSpecific";
 import { DefaultMap } from "../../DefaultMap";
-import { PostSlotAnimationChanged } from "../../callbacks/PostSlotAnimationChanged";
-import { PostSlotRender } from "../../callbacks/PostSlotRender";
+import type { PostSlotAnimationChanged } from "../../callbacks/PostSlotAnimationChanged";
+import type { PostSlotRender } from "../../callbacks/PostSlotRender";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -20,8 +20,8 @@ const v = {
 export class SlotRenderDetection extends Feature {
   public override v = v;
 
-  private postSlotRender: PostSlotRender;
-  private postSlotAnimationChanged: PostSlotAnimationChanged;
+  private readonly postSlotRender: PostSlotRender;
+  private readonly postSlotAnimationChanged: PostSlotAnimationChanged;
 
   constructor(
     postSlotRender: PostSlotRender,
@@ -39,7 +39,7 @@ export class SlotRenderDetection extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     for (const slot of getSlots()) {
       this.postSlotRender.fire(slot);
       this.checkSlotAnimationChanged(slot);

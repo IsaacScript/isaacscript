@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getRoomVisitedCount } from "../../functions/roomData";
 import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
@@ -24,7 +24,7 @@ export class PostPickupInitFirst extends CustomCallback<ModCallbackCustom.POST_P
   protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_INIT (34)
-  private postPickupInit = (pickup: EntityPickup) => {
+  private readonly postPickupInit = (pickup: EntityPickup) => {
     const room = game.GetRoom();
     const roomFrameCount = room.GetFrameCount();
     const roomVisitedCount = getRoomVisitedCount();

@@ -11,11 +11,11 @@ import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
-import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
-import { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
-import { AnyFunction } from "../types/AnyFunction";
-import { FunctionTuple } from "../types/FunctionTuple";
-import { Feature } from "./private/Feature";
+import type { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import type { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
+import type { AnyFunction } from "../types/AnyFunction";
+import type { FunctionTuple } from "../types/FunctionTuple";
+import type { Feature } from "./private/Feature";
 
 /**
  * `isaacscript-common` has many custom callbacks that you can use in your mods. Instead of
@@ -40,15 +40,15 @@ export class ModUpgraded implements Mod {
   // ----------------
 
   /** We store a copy of the original mod object so that we can re-implement its functions. */
-  private mod: Mod;
+  private readonly mod: Mod;
 
-  private debug: boolean;
-  private timeThreshold: float | undefined;
+  private readonly debug: boolean;
+  private readonly timeThreshold: float | undefined;
 
-  private callbacks;
+  private readonly callbacks;
 
   // Features must be marked as internal to prevent TypeDoc from complaining.
-  private features;
+  private readonly features;
 
   // -----------
   // Constructor

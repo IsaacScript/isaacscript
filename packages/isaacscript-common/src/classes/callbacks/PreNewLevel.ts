@@ -30,7 +30,7 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
   }
 
   // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
-  private postPlayerRenderReordered = (player: EntityPlayer) => {
+  private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
     const effectiveStage = getEffectiveStage();
     if (effectiveStage === v.run.firedOnStage) {
       return;

@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getDoors } from "../../functions/doors";
 import { shouldFireDoor } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
@@ -17,7 +17,7 @@ export class PostDoorUpdate extends CustomCallback<ModCallbackCustom.POST_DOOR_U
   protected override shouldFire = shouldFireDoor;
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     for (const door of getDoors()) {
       this.fire(door);
     }

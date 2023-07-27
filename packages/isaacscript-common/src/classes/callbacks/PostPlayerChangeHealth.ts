@@ -1,10 +1,10 @@
 import { HEALTH_TYPE_VALUES } from "../../arrays/cachedEnumValues";
-import { HealthType } from "../../enums/HealthType";
+import type { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPlayerHealthType } from "../../functions/playerHealth";
 import { getPlayerIndex } from "../../functions/playerIndex";
 import { shouldFirePlayer } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -33,7 +33,7 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectReordered = (player: EntityPlayer) => {
+  private readonly postPEffectReordered = (player: EntityPlayer) => {
     // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument. If
     // we don't differentiate between The Forgotten and The Soul, the callback will fire every time
     // the player switches between the two.

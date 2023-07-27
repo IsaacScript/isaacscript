@@ -1,5 +1,6 @@
-import { ModCallback, NPCState } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { NPCState } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
@@ -27,7 +28,7 @@ export class PostNPCStateChanged extends CustomCallback<ModCallbackCustom.POST_N
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.POST_NPC_UPDATE (0)
-  private postNPCUpdate = (npc: EntityNPC) => {
+  private readonly postNPCUpdate = (npc: EntityNPC) => {
     const ptrHash = GetPtrHash(npc);
     const previousState = v.run.stateMap.getAndSetDefault(ptrHash, npc.State);
     const currentState = npc.State;

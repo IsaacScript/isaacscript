@@ -1,4 +1,4 @@
-import { TrinketType } from "isaac-typescript-definitions";
+import type { TrinketType } from "isaac-typescript-definitions";
 import { removeNonAlphanumericCharacters } from "../functions/string";
 import { TRINKET_TYPE_TO_NAME_MAP } from "./trinketTypeToNameMap";
 

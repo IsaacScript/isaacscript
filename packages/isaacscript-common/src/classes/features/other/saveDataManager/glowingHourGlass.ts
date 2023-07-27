@@ -6,8 +6,8 @@ import { SerializationType } from "../../../../enums/SerializationType";
 import { deepCopy } from "../../../../functions/deepCopy";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
-import { SaveData } from "../../../../interfaces/SaveData";
-import { AnyClass } from "../../../../types/AnyClass";
+import type { SaveData } from "../../../../interfaces/SaveData";
+import type { AnyClass } from "../../../../types/AnyClass";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**

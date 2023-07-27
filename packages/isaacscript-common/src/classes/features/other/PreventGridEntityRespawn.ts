@@ -1,9 +1,10 @@
-import {
+import type {
   ActiveSlot,
+  UseFlag} from "isaac-typescript-definitions";
+import {
   CollectibleType,
   GridEntityType,
-  ModCallback,
-  UseFlag,
+  ModCallback
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
@@ -21,7 +22,7 @@ import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "./RunInNFrames";
+import type { RunInNFrames } from "./RunInNFrames";
 
 const v = {
   level: {
@@ -37,7 +38,7 @@ export class PreventGridEntityRespawn extends Feature {
   /** @internal */
   public override v = v;
 
-  private runInNFrames: RunInNFrames;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(runInNFrames: RunInNFrames) {
@@ -63,7 +64,7 @@ export class PreventGridEntityRespawn extends Feature {
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
-  private preUseItemWeNeedToGoDeeper = (
+  private readonly preUseItemWeNeedToGoDeeper = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -119,7 +120,7 @@ export class PreventGridEntityRespawn extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     this.setDecorationsInvisible();
   };
 

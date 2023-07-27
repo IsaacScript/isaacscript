@@ -1,4 +1,4 @@
-import { NaturalNumbersLessThanOrEqualTo } from "./NaturalNumbersLessThanOrEqualTo";
+import type { NaturalNumbersLessThanOrEqualTo } from "./NaturalNumbersLessThanOrEqualTo";
 
 /**
  * Helper type that validates that a tuple does not have a length greater than N.

@@ -1,5 +1,6 @@
+import type {
+  CollectibleType} from "isaac-typescript-definitions";
 import {
-  CollectibleType,
   ItemConfigTag,
   PlayerForm,
 } from "isaac-typescript-definitions";

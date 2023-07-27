@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireEntity } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostEntityKillFilter extends CustomCallback<ModCallbackCustom.POST_
   protected override shouldFire = shouldFireEntity;
 
   // ModCallback.POST_ENTITY_KILL (68)
-  private postEntityKill = (entity: Entity) => {
+  private readonly postEntityKill = (entity: Entity) => {
     this.fire(entity);
   };
 }

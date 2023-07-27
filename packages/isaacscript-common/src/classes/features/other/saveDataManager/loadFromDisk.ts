@@ -4,8 +4,8 @@ import { logError } from "../../../../functions/logMisc";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
 import { isString, isTable } from "../../../../functions/types";
-import { SaveData } from "../../../../interfaces/SaveData";
-import { AnyClass } from "../../../../types/AnyClass";
+import type { SaveData } from "../../../../interfaces/SaveData";
+import type { AnyClass } from "../../../../types/AnyClass";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 const DEFAULT_MOD_DATA = "{}";

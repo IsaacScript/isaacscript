@@ -1,4 +1,4 @@
-import { ChargeBarSprites } from "../interfaces/ChargeBarSprites";
+import type { ChargeBarSprites } from "../interfaces/ChargeBarSprites";
 
 const CHARGE_BAR_ANM2 = "gfx/ui/ui_chargebar.anm2";
 

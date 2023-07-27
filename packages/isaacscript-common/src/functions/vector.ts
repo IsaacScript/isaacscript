@@ -1,4 +1,4 @@
-import {
+import type {
   CopyableIsaacAPIClassType,
   Direction,
 } from "isaac-typescript-definitions";

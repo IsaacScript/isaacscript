@@ -1,4 +1,4 @@
-import { ModCallbackCustomToClass } from "./callbacks";
+import type { ModCallbackCustomToClass } from "./callbacks";
 import { CustomGridEntities } from "./classes/features/callbackLogic/CustomGridEntities";
 import { CustomRevive } from "./classes/features/callbackLogic/CustomRevive";
 import { EsauJrDetection } from "./classes/features/callbackLogic/EsauJrDetection";
@@ -55,11 +55,11 @@ import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltReward
 import { StageHistory } from "./classes/features/other/StageHistory";
 import { StartAmbush } from "./classes/features/other/StartAmbush";
 import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPlayers";
-import { Feature } from "./classes/private/Feature";
+import type { Feature } from "./classes/private/Feature";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { validateInterfaceMatchesEnum } from "./functions/enums";
-import { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
+import type { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
 
 export interface ISCFeatureToClass {
   // Callback logic

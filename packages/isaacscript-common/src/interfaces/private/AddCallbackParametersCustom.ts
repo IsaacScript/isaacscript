@@ -1,4 +1,4 @@
-import {
+import type {
   ActiveSlot,
   BombVariant,
   ButtonAction,
@@ -34,18 +34,18 @@ import {
   TrinketType,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { AmbushType } from "../../enums/AmbushType";
-import { HealthType } from "../../enums/HealthType";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { PlayerStat } from "../../enums/PlayerStat";
-import { SlotDestructionType } from "../../enums/SlotDestructionType";
+import type { AmbushType } from "../../enums/AmbushType";
+import type { HealthType } from "../../enums/HealthType";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { PlayerStat } from "../../enums/PlayerStat";
+import type { SlotDestructionType } from "../../enums/SlotDestructionType";
 import { validateInterfaceMatchesEnum } from "../../functions/enums";
-import {
+import type {
   PickingUpItem,
   PickingUpItemCollectible,
   PickingUpItemTrinket,
 } from "../../types/PickingUpItem";
-import { PlayerStats } from "../PlayerStats";
+import type { PlayerStats } from "../PlayerStats";
 
 export interface AddCallbackParametersCustom {
   [ModCallbackCustom.ENTITY_TAKE_DMG_FILTER]: [

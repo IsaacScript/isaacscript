@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -30,7 +30,7 @@ export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KIL
   protected override shouldFire = shouldFireTear;
 
   // ModCallback.POST_PROJECTILE_UPDATE (40)
-  private postTearUpdate = (tear: EntityTear) => {
+  private readonly postTearUpdate = (tear: EntityTear) => {
     const ptrHash = GetPtrHash(tear);
 
     if (tear.CollidesWithGrid() || tear.IsDead()) {
@@ -39,7 +39,7 @@ export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KIL
   };
 
   // ModCallback.PRE_TEAR_COLLISION (42)
-  private preTearCollision = (tear: EntityTear): boolean | undefined => {
+  private readonly preTearCollision = (tear: EntityTear): boolean | undefined => {
     const ptrHash = GetPtrHash(tear);
     v.room.firedSet.add(ptrHash);
 
@@ -47,7 +47,7 @@ export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KIL
   };
 
   // ModCallback.POST_ENTITY_REMOVE (67)
-  private postEntityRemove = (entity: Entity): void => {
+  private readonly postEntityRemove = (entity: Entity): void => {
     const tear = entity.ToTear();
 
     if (tear === undefined) {

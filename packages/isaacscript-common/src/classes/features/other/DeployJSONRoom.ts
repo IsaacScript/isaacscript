@@ -1,9 +1,10 @@
+import type {
+  GridEntityXMLType} from "isaac-typescript-definitions";
 import {
   EntityCollisionClass,
   EntityGridCollisionClass,
   EntityType,
   GridEntityType,
-  GridEntityXMLType,
   PickupVariant,
   PitfallVariant,
   RoomType,
@@ -28,19 +29,19 @@ import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
 import { asCollectibleType, asNumber } from "../../../functions/types";
-import { JSONRoom } from "../../../interfaces/JSONRoomsFile";
+import type { JSONRoom } from "../../../interfaces/JSONRoomsFile";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
-import { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
-import { SpawnCollectible } from "./SpawnCollectible";
+import type { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
+import type { SpawnCollectible } from "./SpawnCollectible";
 
 const GRID_ENTITY_XML_TYPE_SET = new ReadonlySet<GridEntityXMLType>(
   GRID_ENTITY_XML_TYPE_VALUES,
 );
 
 export class DeployJSONRoom extends Feature {
-  private preventGridEntityRespawn: PreventGridEntityRespawn;
-  private spawnCollectible: SpawnCollectible;
+  private readonly preventGridEntityRespawn: PreventGridEntityRespawn;
+  private readonly spawnCollectible: SpawnCollectible;
 
   /** @internal */
   constructor(

@@ -18,7 +18,7 @@ export class DebugDisplayPlayer extends Feature {
   }
 
   // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
-  private postPlayerRenderReordered = (player: EntityPlayer) => {
+  private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
     const text = this.textCallback(player);
     renderTextOnEntity(player, text);
   };

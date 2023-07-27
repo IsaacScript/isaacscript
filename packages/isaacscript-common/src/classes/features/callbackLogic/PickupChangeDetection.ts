@@ -1,9 +1,10 @@
-import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
+import type { PickupVariant } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { ISCFeature } from "../../../enums/ISCFeature";
-import { PickupIndex } from "../../../types/PickupIndex";
-import { PostPickupChanged } from "../../callbacks/PostPickupChanged";
+import type { PickupIndex } from "../../../types/PickupIndex";
+import type { PostPickupChanged } from "../../callbacks/PostPickupChanged";
 import { Feature } from "../../private/Feature";
-import { PickupIndexCreation } from "../other/PickupIndexCreation";
+import type { PickupIndexCreation } from "../other/PickupIndexCreation";
 
 const v = {
   room: {
@@ -15,8 +16,8 @@ const v = {
 export class PickupChangeDetection extends Feature {
   public override v = v;
 
-  private postPickupChanged: PostPickupChanged;
-  private pickupIndexCreation: PickupIndexCreation;
+  private readonly postPickupChanged: PostPickupChanged;
+  private readonly pickupIndexCreation: PickupIndexCreation;
 
   constructor(
     postPickupChanged: PostPickupChanged,
@@ -36,7 +37,7 @@ export class PickupChangeDetection extends Feature {
   }
 
   // ModCallback.POST_PICKUP_UPDATE (35)
-  private postPickupUpdate = (pickup: EntityPickup) => {
+  private readonly postPickupUpdate = (pickup: EntityPickup) => {
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(pickup);
 
     const oldVariant = v.room.pickupVariants.get(pickupIndex);

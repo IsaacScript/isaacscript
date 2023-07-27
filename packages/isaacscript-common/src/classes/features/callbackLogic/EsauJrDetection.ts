@@ -1,13 +1,14 @@
+import type {
+  ControllerIndex,
+  UseFlag} from "isaac-typescript-definitions";
 import {
   CollectibleType,
-  ControllerIndex,
-  ModCallback,
-  UseFlag,
+  ModCallback
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { getPlayersWithControllerIndex } from "../../../functions/players";
-import { PostEsauJr } from "../../callbacks/PostEsauJr";
-import { PostFirstEsauJr } from "../../callbacks/PostFirstEsauJr";
+import type { PostEsauJr } from "../../callbacks/PostEsauJr";
+import type { PostFirstEsauJr } from "../../callbacks/PostFirstEsauJr";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -21,8 +22,8 @@ const v = {
 export class EsauJrDetection extends Feature {
   public override v = v;
 
-  private postEsauJr: PostEsauJr;
-  private postFirstEsauJr: PostFirstEsauJr;
+  private readonly postEsauJr: PostEsauJr;
+  private readonly postFirstEsauJr: PostFirstEsauJr;
 
   constructor(postEsauJr: PostEsauJr, postFirstEsauJr: PostFirstEsauJr) {
     super();
@@ -44,7 +45,7 @@ export class EsauJrDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     const gameFrameCount = game.GetFrameCount();
 
     // Check to see if it is the frame after the player has used Esau Jr.
@@ -81,7 +82,7 @@ export class EsauJrDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.ESAU_JR (703)
-  private postUseItemEsauJr = (
+  private readonly postUseItemEsauJr = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

@@ -1,9 +1,10 @@
-import {
+import type {
   DoorSlotFlag,
-  DoorSlotFlagZero,
-  RoomShape,
+  RoomShape} from "isaac-typescript-definitions";
+import {
+  DoorSlotFlagZero
 } from "isaac-typescript-definitions";
-import { JSONEntity, JSONRoom } from "../interfaces/JSONRoomsFile";
+import type { JSONEntity, JSONRoom } from "../interfaces/JSONRoomsFile";
 import { sumArray } from "./array";
 import { doorSlotToDoorSlotFlag, getRoomShapeDoorSlot } from "./doors";
 import { addFlag } from "./flag";

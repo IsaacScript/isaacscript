@@ -1,11 +1,13 @@
-import { Keyboard, ModCallback } from "isaac-typescript-definitions";
+import type { Keyboard} from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { KEYBOARD_VALUES } from "../../arrays/cachedEnumValues";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isKeyboardPressed } from "../../functions/input";
-import {
-  CustomCallback,
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_KEYBOARD_CHANGED;
@@ -41,7 +43,7 @@ export class PostKeyboardChanged extends CustomCallback<T> {
     );
   };
 
-  private postRender = () => {
+  private readonly postRender = () => {
     for (const keyboard of v.run.pressedKeys) {
       if (!isKeyboardPressed(keyboard)) {
         v.run.pressedKeys.delete(keyboard);

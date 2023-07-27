@@ -1,8 +1,8 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { getSlots } from "../../../functions/entitiesSpecific";
-import { PostSlotInit } from "../../callbacks/PostSlotInit";
-import { PostSlotUpdate } from "../../callbacks/PostSlotUpdate";
+import type { PostSlotInit } from "../../callbacks/PostSlotInit";
+import type { PostSlotUpdate } from "../../callbacks/PostSlotUpdate";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -14,8 +14,8 @@ const v = {
 export class SlotUpdateDetection extends Feature {
   public override v = v;
 
-  private postSlotInit: PostSlotInit;
-  private postSlotUpdate: PostSlotUpdate;
+  private readonly postSlotInit: PostSlotInit;
+  private readonly postSlotUpdate: PostSlotUpdate;
 
   constructor(postSlotInit: PostSlotInit, postSlotUpdate: PostSlotUpdate) {
     super();
@@ -36,7 +36,7 @@ export class SlotUpdateDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = () => {
+  private readonly postUpdate = () => {
     for (const slot of getSlots()) {
       this.checkNewEntity(slot);
       this.postSlotUpdate.fire(slot);
@@ -44,7 +44,7 @@ export class SlotUpdateDetection extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     for (const slot of getSlots()) {
       this.checkNewEntity(slot);
     }

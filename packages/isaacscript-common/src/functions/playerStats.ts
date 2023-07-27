@@ -1,5 +1,5 @@
 import { PlayerStat } from "../enums/PlayerStat";
-import { PlayerStats } from "../interfaces/PlayerStats";
+import type { PlayerStats } from "../interfaces/PlayerStats";
 
 /** Helper function to get the stat for a player corresponding to the `StatType`. */
 export function getPlayerStat<T extends PlayerStat>(

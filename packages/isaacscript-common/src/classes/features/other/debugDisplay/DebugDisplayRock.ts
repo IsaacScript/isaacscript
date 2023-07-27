@@ -15,7 +15,7 @@ export class DebugDisplayRock extends Feature {
   }
 
   // ModCallbackCustom.POST_ROCK_RENDER
-  private postRockRender = (rock: GridEntityRock) => {
+  private readonly postRockRender = (rock: GridEntityRock) => {
     const text = this.textCallback(rock);
     renderTextOnEntity(rock, text);
   };

@@ -7,14 +7,15 @@
  * @module
  */
 
+import type {
+  DoorSlot,
+  RoomShape} from "isaac-typescript-definitions";
 import {
   DisplayFlag,
-  DoorSlot,
   DownpourRoomSubType,
   LevelStateFlag,
   MinesRoomSubType,
   RoomDescriptorFlag,
-  RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";

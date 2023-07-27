@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireFamiliar } from "../../shouldFire";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
@@ -25,7 +25,7 @@ export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.P
   protected override shouldFire = shouldFireFamiliar;
 
   // ModCallback.POST_FAMILIAR_UPDATE (6)
-  private postFamiliarUpdate = (familiar: EntityFamiliar): void => {
+  private readonly postFamiliarUpdate = (familiar: EntityFamiliar): void => {
     const ptrHash = GetPtrHash(familiar);
     const previousState = v.run.stateMap.getAndSetDefault(
       ptrHash,

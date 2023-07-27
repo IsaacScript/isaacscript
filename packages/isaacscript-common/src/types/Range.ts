@@ -1,5 +1,5 @@
-import { NaturalNumbersLessThan } from "./NaturalNumbersLessThan";
-import { NaturalNumbersLessThanOrEqualTo } from "./NaturalNumbersLessThanOrEqualTo";
+import type { NaturalNumbersLessThan } from "./NaturalNumbersLessThan";
+import type { NaturalNumbersLessThanOrEqualTo } from "./NaturalNumbersLessThanOrEqualTo";
 
 /**
  * Helper type to get a range of integers. It is inclusive on both ends.

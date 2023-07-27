@@ -1,5 +1,6 @@
+import type {
+  ItemPoolType} from "isaac-typescript-definitions";
 import {
-  ItemPoolType,
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
@@ -9,9 +10,9 @@ import { ISCFeature } from "../../../enums/ISCFeature";
 import { getEntityID } from "../../../functions/entities";
 import { isCollectible } from "../../../functions/pickupVariants";
 import { getRoomItemPoolType } from "../../../functions/rooms";
-import { PickupIndex } from "../../../types/PickupIndex";
+import type { PickupIndex } from "../../../types/PickupIndex";
 import { Feature } from "../../private/Feature";
-import { PickupIndexCreation } from "./PickupIndexCreation";
+import type { PickupIndexCreation } from "./PickupIndexCreation";
 
 const v = {
   run: {
@@ -23,7 +24,7 @@ export class CollectibleItemPoolType extends Feature {
   /** @internal */
   public override v = v;
 
-  private pickupIndexCreation: PickupIndexCreation;
+  private readonly pickupIndexCreation: PickupIndexCreation;
 
   /** @internal */
   constructor(pickupIndexCreation: PickupIndexCreation) {
@@ -45,7 +46,7 @@ export class CollectibleItemPoolType extends Feature {
 
   // ModCallback.POST_PICKUP_INIT (34)
   // PickupVariant.COLLECTIBLE (100)
-  private postPickupInitCollectible = (collectible: EntityPickup) => {
+  private readonly postPickupInitCollectible = (collectible: EntityPickup) => {
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
 
     if (!v.run.collectibleItemPoolTypeMap.has(pickupIndex)) {

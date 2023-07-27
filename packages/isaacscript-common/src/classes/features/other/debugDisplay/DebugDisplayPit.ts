@@ -15,7 +15,7 @@ export class DebugDisplayPit extends Feature {
   }
 
   // ModCallbackCustom.POST_PIT_RENDER
-  private postPitRender = (pit: GridEntityPit) => {
+  private readonly postPitRender = (pit: GridEntityPit) => {
     const text = this.textCallback(pit);
     renderTextOnEntity(pit, text);
   };

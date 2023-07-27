@@ -1,9 +1,10 @@
-import {
+import type {
   CardType,
   CollectibleType,
-  ModCallback,
   PillEffect,
-  TrinketType,
+  TrinketType} from "isaac-typescript-definitions";
+import {
+  ModCallback
 } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
 import {
@@ -54,7 +55,7 @@ export class ModdedElementDetection extends Feature {
   }
 
   // ModCallback.POST_PLAYER_INIT (9)
-  private postPlayerInit = (_player: EntityPlayer) => {
+  private readonly postPlayerInit = (_player: EntityPlayer) => {
     this.atLeastOneCallbackFired = true;
   };
 

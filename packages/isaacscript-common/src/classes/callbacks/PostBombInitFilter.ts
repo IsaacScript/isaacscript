@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostBombInitFilter extends CustomCallback<ModCallbackCustom.POST_BO
   protected override shouldFire = shouldFireBomb;
 
   // ModCallback.POST_BOMB_INIT (57)
-  private postBombInit = (bomb: EntityBomb) => {
+  private readonly postBombInit = (bomb: EntityBomb) => {
     this.fire(bomb);
   };
 }

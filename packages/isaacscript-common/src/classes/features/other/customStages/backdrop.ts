@@ -20,7 +20,7 @@ import {
   trimPrefix,
 } from "../../../../functions/string";
 import { eRange, iRange } from "../../../../functions/utils";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 

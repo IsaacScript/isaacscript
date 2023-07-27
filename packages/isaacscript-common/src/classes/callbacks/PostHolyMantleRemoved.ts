@@ -5,7 +5,7 @@ import {
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
 import { shouldFirePlayer } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -32,7 +32,7 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom.POST
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer): void => {
     const effects = player.GetEffects();
     const newNumHolyMantles = effects.GetCollectibleEffectNum(
       CollectibleType.HOLY_MANTLE,

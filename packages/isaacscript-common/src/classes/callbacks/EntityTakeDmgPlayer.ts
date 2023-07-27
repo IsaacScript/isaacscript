@@ -1,9 +1,10 @@
+import type {
+  DamageFlag} from "isaac-typescript-definitions";
 import {
-  DamageFlag,
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -24,7 +25,7 @@ export class EntityTakeDmgPlayer extends CustomCallback<ModCallbackCustom.ENTITY
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.ENTITY_TAKE_DMG (11)
-  private entityTakeDmgPlayer = (
+  private readonly entityTakeDmgPlayer = (
     entity: Entity,
     amount: number,
     damageFlags: BitFlags<DamageFlag>,

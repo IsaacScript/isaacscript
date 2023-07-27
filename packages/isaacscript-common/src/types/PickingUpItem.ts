@@ -4,10 +4,11 @@
  * @module
  */
 
+import type {
+  TrinketType} from "isaac-typescript-definitions";
 import {
   CollectibleType,
-  ItemType,
-  TrinketType,
+  ItemType
 } from "isaac-typescript-definitions";
 import { ReadonlySet } from "./ReadonlySet";
 

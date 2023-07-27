@@ -1,11 +1,12 @@
-import { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
+import type { ItemPoolType } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayRemoveIndexInPlace } from "../../../functions/array";
 import { copyMap } from "../../../functions/map";
 import { getRandomSeed } from "../../../functions/rng";
 import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
-import { WeightedArray } from "../../../types/WeightedArray";
+import type { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -38,7 +39,7 @@ export class CustomItemPools extends Feature {
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
   // false
-  private postGameStartedReorderedFalse = () => {
+  private readonly postGameStartedReorderedFalse = () => {
     v.run.customItemPools = copyMap(customItemPoolMap);
   };
 

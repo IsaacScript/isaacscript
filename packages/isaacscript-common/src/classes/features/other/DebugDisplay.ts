@@ -1,6 +1,6 @@
 import { Exported } from "../../../decorators";
 import { printEnabled } from "../../../functions/console";
-import { ModUpgradedInterface } from "../../../interfaces/private/ModUpgradedInterface";
+import type { ModUpgradedInterface } from "../../../interfaces/private/ModUpgradedInterface";
 import { Feature } from "../../private/Feature";
 import { DebugDisplayBomb } from "./debugDisplay/DebugDisplayBomb";
 import { DebugDisplayDoor } from "./debugDisplay/DebugDisplayDoor";
@@ -22,27 +22,27 @@ import { DebugDisplayTear } from "./debugDisplay/DebugDisplayTear";
 import { DebugDisplayTNT } from "./debugDisplay/DebugDisplayTNT";
 
 export class DebugDisplay extends Feature {
-  private mod: ModUpgradedInterface;
+  private readonly mod: ModUpgradedInterface;
 
-  private player = new DebugDisplayPlayer(); // 1
-  private tear = new DebugDisplayTear(); // 2
-  private familiar = new DebugDisplayFamiliar(); // 3
-  private bomb = new DebugDisplayBomb(); // 4
-  private pickup = new DebugDisplayPickup(); // 5
-  private slot = new DebugDisplaySlot(); // 6
-  private laser = new DebugDisplayLaser(); // 7
-  private knife = new DebugDisplayKnife(); // 8
-  private projectile = new DebugDisplayProjectile(); // 9
-  private effect = new DebugDisplayEffect(); // 1000
-  private npc = new DebugDisplayNPC();
+  private readonly player = new DebugDisplayPlayer(); // 1
+  private readonly tear = new DebugDisplayTear(); // 2
+  private readonly familiar = new DebugDisplayFamiliar(); // 3
+  private readonly bomb = new DebugDisplayBomb(); // 4
+  private readonly pickup = new DebugDisplayPickup(); // 5
+  private readonly slot = new DebugDisplaySlot(); // 6
+  private readonly laser = new DebugDisplayLaser(); // 7
+  private readonly knife = new DebugDisplayKnife(); // 8
+  private readonly projectile = new DebugDisplayProjectile(); // 9
+  private readonly effect = new DebugDisplayEffect(); // 1000
+  private readonly npc = new DebugDisplayNPC();
 
-  private rock = new DebugDisplayRock(); // 2, 3, 4, 5, 6, 22, 24, 25, 26, 27
-  private pit = new DebugDisplayPit(); // 7
-  private spikes = new DebugDisplaySpikes(); // 8, 9
-  private tnt = new DebugDisplayTNT(); // 12
-  private poop = new DebugDisplayPoop(); // 14
-  private door = new DebugDisplayDoor(); // 16
-  private pressurePlate = new DebugDisplayPressurePlate(); // 20
+  private readonly rock = new DebugDisplayRock(); // 2, 3, 4, 5, 6, 22, 24, 25, 26, 27
+  private readonly pit = new DebugDisplayPit(); // 7
+  private readonly spikes = new DebugDisplaySpikes(); // 8, 9
+  private readonly tnt = new DebugDisplayTNT(); // 12
+  private readonly poop = new DebugDisplayPoop(); // 14
+  private readonly door = new DebugDisplayDoor(); // 16
+  private readonly pressurePlate = new DebugDisplayPressurePlate(); // 20
 
   /** @internal */
   constructor(mod: ModUpgradedInterface) {

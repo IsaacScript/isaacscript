@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,6 +16,6 @@ export class PreNPCCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.PRE_NPC_COLLISION (30)
-  private preNPCCollision = (npc: EntityNPC, collider: Entity, low: boolean) =>
+  private readonly preNPCCollision = (npc: EntityNPC, collider: Entity, low: boolean) =>
     this.fire(npc, collider, low);
 }

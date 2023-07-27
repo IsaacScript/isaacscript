@@ -15,7 +15,7 @@ export class DebugDisplayTNT extends Feature {
   }
 
   // ModCallbackCustom.POST_TNT_RENDER
-  private postTNTRender = (tnt: GridEntityTNT) => {
+  private readonly postTNTRender = (tnt: GridEntityTNT) => {
     const text = this.textCallback(tnt);
     renderTextOnEntity(tnt, text);
   };

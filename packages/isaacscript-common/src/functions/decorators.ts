@@ -20,16 +20,17 @@
  * @module
  */
 
-import { ModCallback } from "isaac-typescript-definitions";
+import type { ModCallback } from "isaac-typescript-definitions";
 import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import type {
+  ModFeature} from "../classes/ModFeature";
 import {
   MOD_FEATURE_CALLBACKS_KEY,
-  MOD_FEATURE_CUSTOM_CALLBACKS_KEY,
-  ModFeature,
+  MOD_FEATURE_CUSTOM_CALLBACKS_KEY
 } from "../classes/ModFeature";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
-import { AllButFirst } from "../types/AllButFirst";
+import type { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import type { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
+import type { AllButFirst } from "../types/AllButFirst";
 import { getTSTLClassName } from "./tstlClass";
 
 /**

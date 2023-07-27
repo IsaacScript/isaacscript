@@ -19,7 +19,7 @@ import { useActiveItemTemp } from "../../../functions/players";
 import { getTSTLClassName } from "../../../functions/tstlClass";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
-import { DisableInputs } from "./DisableInputs";
+import type { DisableInputs } from "./DisableInputs";
 
 interface InitialDescription {
   position: Vector;
@@ -42,7 +42,7 @@ export class Pause extends Feature {
   /** @internal */
   public override v = v;
 
-  private disableInputs: DisableInputs;
+  private readonly disableInputs: DisableInputs;
 
   /** @internal */
   constructor(disableInputs: DisableInputs) {
@@ -64,7 +64,7 @@ export class Pause extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = () => {
+  private readonly postUpdate = () => {
     if (!v.run.isPseudoPaused) {
       return;
     }
@@ -101,7 +101,7 @@ export class Pause extends Feature {
 
   // ModCallback.INPUT_ACTION (13)
   // InputHook.GET_ACTION_VALUE (2)
-  private inputActionGetActionValue = (
+  private readonly inputActionGetActionValue = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,

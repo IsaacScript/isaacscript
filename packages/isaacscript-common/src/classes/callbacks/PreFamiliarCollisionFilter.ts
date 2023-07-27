@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireFamiliar } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PreFamiliarCollisionFilter extends CustomCallback<ModCallbackCustom
   protected override shouldFire = shouldFireFamiliar;
 
   // ModCallback.PRE_FAMILIAR_COLLISION (26)
-  private preFamiliarCollision = (
+  private readonly preFamiliarCollision = (
     familiar: EntityFamiliar,
     collider: Entity,
     low: boolean,

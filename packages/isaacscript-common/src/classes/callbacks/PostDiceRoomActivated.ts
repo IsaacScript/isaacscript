@@ -1,15 +1,17 @@
+import type {
+  DiceFloorSubType} from "isaac-typescript-definitions";
 import {
-  DiceFloorSubType,
   EffectVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isCloseEnoughToTriggerDiceFloor } from "../../functions/effects";
 import { getClosestPlayer } from "../../functions/players";
-import {
-  CustomCallback,
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_DICE_ROOM_ACTIVATED;
@@ -51,7 +53,7 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
 
   // ModCallback.POST_EFFECT_UPDATE (55)
   // EffectVariant.DICE_FLOOR (76)
-  private postEffectUpdateDiceFloor = (effect: EntityEffect): void => {
+  private readonly postEffectUpdateDiceFloor = (effect: EntityEffect): void => {
     if (v.room.diceRoomActivated) {
       return;
     }

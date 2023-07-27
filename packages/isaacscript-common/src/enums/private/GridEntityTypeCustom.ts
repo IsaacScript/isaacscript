@@ -1,4 +1,4 @@
-import { GridEntityType } from "isaac-typescript-definitions";
+import type { GridEntityType } from "isaac-typescript-definitions";
 
 export const GridEntityTypeCustom = {
   /**

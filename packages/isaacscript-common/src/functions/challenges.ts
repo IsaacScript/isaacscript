@@ -1,4 +1,4 @@
-import { Challenge } from "isaac-typescript-definitions";
+import type { Challenge } from "isaac-typescript-definitions";
 import {
   CHALLENGE_NAMES,
   DEFAULT_CHALLENGE_NAME,

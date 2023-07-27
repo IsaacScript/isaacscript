@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PreBombCollisionFilter extends CustomCallback<ModCallbackCustom.PRE
   protected override shouldFire = shouldFireBomb;
 
   // ModCallback.PRE_BOMB_COLLISION (60)
-  private preBombCollision = (
+  private readonly preBombCollision = (
     bomb: EntityBomb,
     collider: Entity,
     low: boolean,

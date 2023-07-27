@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -24,7 +24,7 @@ export class PostNPCInitLate extends CustomCallback<ModCallbackCustom.POST_NPC_I
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.POST_NPC_UPDATE (0)
-  private postNPCUpdate = (npc: EntityNPC) => {
+  private readonly postNPCUpdate = (npc: EntityNPC) => {
     const index = GetPtrHash(npc);
     if (!v.room.firedSet.has(index)) {
       v.room.firedSet.add(index);

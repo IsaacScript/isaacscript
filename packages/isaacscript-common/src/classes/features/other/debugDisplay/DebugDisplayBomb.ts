@@ -16,7 +16,7 @@ export class DebugDisplayBomb extends Feature {
   }
 
   // ModCallback.POST_BOMB_RENDER (59)
-  private postBombRender = (bomb: EntityBomb) => {
+  private readonly postBombRender = (bomb: EntityBomb) => {
     const text = this.textCallback(bomb);
     renderTextOnEntity(bomb, text);
   };

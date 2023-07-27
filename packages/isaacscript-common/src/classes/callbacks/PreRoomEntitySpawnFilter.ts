@@ -1,13 +1,15 @@
-import {
+import type {
   EntityType,
-  GridEntityXMLType,
+  GridEntityXMLType} from "isaac-typescript-definitions";
+import {
   ModCallback,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER;
@@ -43,7 +45,7 @@ export class PreRoomEntitySpawnFilter extends CustomCallback<T> {
   };
 
   // ModCallback.PRE_ROOM_ENTITY_SPAWN (71)
-  private preRoomEntitySpawn = (
+  private readonly preRoomEntitySpawn = (
     entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
     variant: int,
     subType: int,

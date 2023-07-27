@@ -1,13 +1,14 @@
-import { PlayerForm } from "isaac-typescript-definitions";
+import type { PlayerForm } from "isaac-typescript-definitions";
 import { PLAYER_FORM_VALUES } from "../../arrays/cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import {
-  CustomCallback,
+import type {
   FireArgs,
-  OptionalArgs,
+  OptionalArgs} from "../private/CustomCallback";
+import {
+  CustomCallback
 } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_TRANSFORMATION;
@@ -49,7 +50,7 @@ export class PostTransformation extends CustomCallback<T> {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const playerTransformationsMap = defaultMapGetPlayer(
       v.run.playersTransformationsMap,
       player,

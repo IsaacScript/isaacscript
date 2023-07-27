@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireEffect } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -16,7 +16,7 @@ export class PostEffectRenderFilter extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFireEffect;
 
   // ModCallback.POST_EFFECT_RENDER (56)
-  private postEffectRender = (effect: EntityEffect, renderOffset: Vector) => {
+  private readonly postEffectRender = (effect: EntityEffect, renderOffset: Vector) => {
     this.fire(effect, renderOffset);
   };
 }

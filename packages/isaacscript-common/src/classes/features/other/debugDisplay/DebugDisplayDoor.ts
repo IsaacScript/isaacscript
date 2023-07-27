@@ -15,7 +15,7 @@ export class DebugDisplayDoor extends Feature {
   }
 
   // ModCallbackCustom.POST_DOOR_RENDER
-  private postDoorRender = (door: GridEntityDoor) => {
+  private readonly postDoorRender = (door: GridEntityDoor) => {
     const text = this.textCallback(door);
     renderTextOnEntity(door, text);
   };

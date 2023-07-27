@@ -1,10 +1,11 @@
-import { EntityFlag, EntityType } from "isaac-typescript-definitions";
+import type { EntityType } from "isaac-typescript-definitions";
+import { EntityFlag } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
 import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
-import { AnyEntity } from "../types/AnyEntity";
-import { EntityID } from "../types/EntityID";
+import type { AnyEntity } from "../types/AnyEntity";
+import type { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { newReadonlyColor } from "./readOnly";

@@ -1,14 +1,14 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { PlayerStat } from "../../../enums/PlayerStat";
+import type { PlayerStat } from "../../../enums/PlayerStat";
 import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
 import { getPlayerStats } from "../../../functions/playerStats";
 import { isEden } from "../../../functions/players";
-import { PlayerStats } from "../../../interfaces/PlayerStats";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerStats } from "../../../interfaces/PlayerStats";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
 const v = {
@@ -35,7 +35,7 @@ export class EdenStartingStats extends Feature {
    * We must use the `POST_PLAYER_INIT` callback since the two random collectibles have not been
    * granted yet.
    */
-  private postPlayerInit = (player: EntityPlayer) => {
+  private readonly postPlayerInit = (player: EntityPlayer) => {
     if (!isEden(player)) {
       return;
     }

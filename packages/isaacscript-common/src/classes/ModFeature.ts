@@ -1,15 +1,15 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import type { ModCallback } from "isaac-typescript-definitions";
+import type { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import type { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { isArray } from "../functions/array";
 import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
 import { isFunction, isNumber, isTable } from "../functions/types";
-import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
-import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgraded } from "./ModUpgraded";
+import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
+import type { AnyFunction } from "../types/AnyFunction";
+import type { ModUpgraded } from "./ModUpgraded";
 
 export const MOD_FEATURE_CALLBACKS_KEY = "__callbacks";
 export const MOD_FEATURE_CUSTOM_CALLBACKS_KEY = "__customCallbacks";
@@ -63,7 +63,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  */
 
 export class ModFeature {
-  private mod: ModUpgraded;
+  private readonly mod: ModUpgraded;
 
   /**
    * An optional method that allows for conditional callback execution. If specified, any class
