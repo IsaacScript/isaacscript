@@ -200,8 +200,8 @@ declare global {
       hasExtraFrames?: boolean,
     ) => void) &
       ((
-        filenames: Array<{ File: string; HasExtraFrames?: boolean }>,
-        altPitsFilenames: Array<{ File: string; HasExtraFrames?: boolean }>,
+        filenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
+        altPitsFilenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
       ) => void);
 
     /** Sets the path to the rock gfx sprite sheet. */
