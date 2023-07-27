@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import path from "node:path";
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
@@ -21,7 +21,7 @@ import {
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getProjectPackageJSONField } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import { compileAndCopy } from "../copy/copy.js";
 

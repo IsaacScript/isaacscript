@@ -3,7 +3,7 @@ import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
 import { fileExists, isDir } from "../../file.js";
 import { error } from "../../isaacScriptCommonTS.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 
 const MODS = "mods";

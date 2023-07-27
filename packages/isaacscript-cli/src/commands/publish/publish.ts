@@ -1,8 +1,8 @@
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { execShellString } from "../../exec.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getProjectPackageJSONField } from "../../json.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { publishIsaacScriptMod } from "./isaacscriptMod.js";
 import { prePublish } from "./prePublish.js";
 import { validate } from "./validate.js";

@@ -7,7 +7,7 @@ import {
   UPDATE_SCRIPT,
   VERSION_TXT_PATH,
 } from "../../constants.js";
-import { PackageManager } from "../../enums/PackageManager.js";
+import type { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import { fileExists, getHashOfFile, readFile, writeFile } from "../../file.js";
 import { gitCommitAllAndPush } from "../../git.js";
@@ -17,7 +17,7 @@ import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 
 /**
  * Before uploading the project, we want to update dependencies, increment the version, and perform

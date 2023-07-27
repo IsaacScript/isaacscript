@@ -1,15 +1,15 @@
 import path from "node:path";
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { MOD_SOURCE_PATH } from "../../constants.js";
 import { prepareCustomStages } from "../../customStage.js";
-import { PackageManager } from "../../enums/PackageManager.js";
+import type { PackageManager } from "../../enums/PackageManager.js";
 import { execShellString } from "../../exec.js";
 import { copyFile, deleteFileOrDirectory, fileExists } from "../../file.js";
 import {
   getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 
 export async function copy(args: Args, config: ValidatedConfig): Promise<void> {

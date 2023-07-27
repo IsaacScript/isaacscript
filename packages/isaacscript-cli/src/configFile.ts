@@ -1,13 +1,13 @@
 import path from "node:path";
 import { Config } from "./classes/Config.js";
-import { ValidatedConfig } from "./classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "./classes/ValidatedConfig.js";
 import { getModsDir } from "./commands/init/getModsDir.js";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
 import { fileExists, writeFile } from "./file.js";
 import { error } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
-import { Args } from "./parseArgs.js";
+import type { Args } from "./parseArgs.js";
 
 const NUM_INDENT_SPACES = 2;
 

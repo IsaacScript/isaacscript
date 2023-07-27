@@ -17,7 +17,7 @@ import {
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
-import { PackageManager } from "../../enums/PackageManager.js";
+import type { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import {
   copyFile,
@@ -186,7 +186,7 @@ function copyDynamicFiles(
     );
     const nodeGitIgnore = readFile(nodeGitIgnorePath, verbose);
 
-    // eslint-disable-next-line prefer-template
+     
     const gitignore = gitIgnoreHeader + template + "\n" + nodeGitIgnore;
 
     // We need to replace the underscore with a period.

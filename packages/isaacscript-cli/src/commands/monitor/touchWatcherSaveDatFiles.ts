@@ -1,5 +1,5 @@
 import path from "node:path";
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
 import { fileExists, makeDir, touch } from "../../file.js";
 

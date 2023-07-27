@@ -3,7 +3,7 @@
 
 import chalk from "chalk";
 import prompt from "prompt";
-import { ReadonlySet, error, parseIntSafe } from "./isaacScriptCommonTS";
+import { ReadonlySet, error, parseIntSafe } from "./isaacScriptCommonTS.js";
 
 const VALID_YES_RESPONSES = new ReadonlySet<string>(["yes", "ye", "y"]);
 const VALID_NO_RESPONSES = new ReadonlySet<string>(["no", "n"]);

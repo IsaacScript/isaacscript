@@ -1,4 +1,5 @@
 export enum RoomShape {
+
   /**
    * A "normal" room.
    *

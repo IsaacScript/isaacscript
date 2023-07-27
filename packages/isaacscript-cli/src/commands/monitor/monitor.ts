@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { fork, spawn } from "node:child_process";
 import path from "node:path";
-import { Config } from "../../classes/Config.js";
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { Config } from "../../classes/Config.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
   COMPILATION_SUCCESSFUL_MESSAGE,
   CWD,
@@ -31,7 +31,7 @@ import {
   getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import { copyWatcherMod } from "./copyWatcherMod.js";
@@ -62,13 +62,13 @@ export async function monitor(
 
   // If they specified some command-line flags, override the values found in the config file.
   if (args.modsDirectory !== undefined) {
-    config.modsDirectory = args.modsDirectory; // eslint-disable-line no-param-reassign
+    config.modsDirectory = args.modsDirectory;  
   }
   if (args.saveSlot !== undefined) {
-    config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
+    config.saveSlot = args.saveSlot;  
   }
   if (args.dev !== undefined) {
-    config.isaacScriptCommonDev = args.dev; // eslint-disable-line no-param-reassign
+    config.isaacScriptCommonDev = args.dev;  
   }
 
   // Pre-flight checks

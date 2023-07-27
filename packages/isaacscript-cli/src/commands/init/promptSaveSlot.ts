@@ -1,5 +1,5 @@
 import { error } from "../../isaacScriptCommonTS.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { getInputInt } from "../../prompt.js";
 
 export async function promptSaveSlot(

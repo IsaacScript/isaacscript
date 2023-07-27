@@ -4,7 +4,7 @@ import { CWD } from "./constants.js";
 import { PackageManager } from "./enums/PackageManager.js";
 import { fileExists } from "./file.js";
 import { error, getEnumValues } from "./isaacScriptCommonTS.js";
-import { Args } from "./parseArgs.js";
+import type { Args } from "./parseArgs.js";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
   [PackageManager.NPM]: "package-lock.json",

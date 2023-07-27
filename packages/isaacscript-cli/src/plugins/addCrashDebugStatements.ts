@@ -11,8 +11,8 @@
  */
 
 import * as crypto from "node:crypto";
-import { SourceNode } from "source-map";
-import * as ts from "typescript";
+import type { SourceNode } from "source-map";
+import type * as ts from "typescript";
 import * as tstl from "typescript-to-lua";
 
 class CustomPrinter extends tstl.LuaPrinter {

@@ -2,7 +2,7 @@ import * as JSONC from "jsonc-parser";
 import * as path from "node:path";
 import { PROJECT_NAME } from "../../../constants.js";
 import { fileExists, makeDir, readFile, writeFileTry } from "../../../file.js";
-import { SaveDatMessage, SaveDatMessageType } from "./types.js";
+import type { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
 const MAX_MESSAGES = 100;

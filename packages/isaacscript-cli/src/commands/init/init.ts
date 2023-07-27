@@ -2,13 +2,13 @@ import chalk from "chalk";
 import commandExists from "command-exists";
 import path from "node:path";
 import { CWD, PROJECT_NAME } from "../../constants.js";
-import { PackageManager } from "../../enums/PackageManager.js";
+import type { PackageManager } from "../../enums/PackageManager.js";
 import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import {
   getPackageManagerExecCommand,
   getPackageManagerUsedForNewProject,
 } from "../../packageManager.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
 import { checkModTargetDirectory } from "./checkModTargetDirectory.js";

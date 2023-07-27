@@ -10,7 +10,7 @@ import {
   SHADERS_XML_PATH,
   XML_CONVERTER_PATH,
 } from "./constants.js";
-import { PackageManager } from "./enums/PackageManager.js";
+import type { PackageManager } from "./enums/PackageManager.js";
 import { execExe } from "./exec.js";
 import {
   copyFile,
@@ -21,13 +21,13 @@ import {
   readFile,
   writeFile,
 } from "./file.js";
-import { ShadersXML } from "./interfaces/ShadersXML.js";
-import {
+import type { ShadersXML } from "./interfaces/ShadersXML.js";
+import type {
   CustomStageLua,
   CustomStageRoomMetadata,
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageTSConfig.js";
-import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
+import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
 import { error, parseIntSafe } from "./isaacScriptCommonTS.js";
 import { getPackageManagerAddCommand } from "./packageManager.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";

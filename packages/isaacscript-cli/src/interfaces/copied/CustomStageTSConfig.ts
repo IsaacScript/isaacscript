@@ -12,10 +12,11 @@
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
 
-import { Immutable } from "../../isaacScriptCommonTS.js";
+import type { Immutable } from "../../isaacScriptCommonTS.js";
 
 // ts-prune-ignore-next
 export interface CustomStageTSConfig {
+
   /** Mandatory. The name of the custom stage. */
   name: string;
 
@@ -86,6 +87,7 @@ export interface CustomStageTSConfig {
    * used.
    */
   backdropPNGPaths?: {
+
     /**
      * An array that contains the full paths to the graphic files that are used for the floor in
      * narrow rooms. (The "n" stands for "narrow").
@@ -224,6 +226,7 @@ export interface CustomStageTSConfig {
    * specified, the doors for Basement will be used.
    */
   doorPNGPaths?: {
+
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the normal doors for
      * the floor.
@@ -340,6 +343,7 @@ export interface CustomStageTSConfig {
    * will be drawn.
    */
   shadows?: {
+
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
      * `RoomShape.SHAPE_1x1` (1), `RoomShape.IH` (2), and `RoomShape.IV` (3).
@@ -395,6 +399,7 @@ export interface CustomStageTSConfig {
    * `bossPool` field.
    */
   versusScreen?: {
+
     /**
      * Optional. An object representing the color to use for the background of the boss "versus"
      * screen. If not specified, the color for Basement 1 will be used.
@@ -403,6 +408,7 @@ export interface CustomStageTSConfig {
      * `versusScreenBackgroundColors.ts`.
      */
     backgroundColor?: {
+
       /**
        * @minimum 0
        * @maximum 1
@@ -437,6 +443,7 @@ export interface CustomStageTSConfig {
      * `versusScreenDirtSpotColors.ts`.
      */
     dirtSpotColor?: {
+
       /**
        * @minimum 0
        * @maximum 1
@@ -470,6 +477,7 @@ export interface CustomStageTSConfig {
  */
 // ts-prune-ignore-next
 export interface CustomStageShadow {
+
   /**
    * The full path to the shadow overlay PNG file.
    *
@@ -485,6 +493,7 @@ export interface CustomStageShadow {
    * to 75% faded black).
    */
   color?: {
+
     /**
      * @minimum 0
      * @maximum 1
@@ -517,6 +526,7 @@ export interface CustomStageShadow {
  */
 // ts-prune-ignore-next
 export interface CustomStageBossPoolEntry {
+
   /**
    * The name of the boss. This should correspond to the entry for the boss in the "entities2.xml"
    * file.
@@ -550,6 +560,7 @@ export interface CustomStageBossPoolEntry {
 
   /** Optional. A collection of sprites used for the boss on the "versus" screen. */
   versusScreen?: {
+
     /**
      * Mandatory. The full path to the spritesheet that contains the graphics of the name of the
      * boss that will be displayed on the top of the boss "versus" screen.
@@ -570,6 +581,7 @@ export interface CustomStageBossPoolEntry {
 
 /** An intermediate type that is never actually used. See `CustomStageLua`. */
 interface CustomStageLuaUnsafe extends CustomStageTSConfig {
+
   /**
    * This contains metadata about each room in a custom stage, which is used at run-time.
    * (Internally, the IsaacScript standard library uses this as a basis for determining which rooms

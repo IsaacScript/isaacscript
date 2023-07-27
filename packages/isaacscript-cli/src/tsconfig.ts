@@ -1,4 +1,5 @@
-import Ajv, { Schema } from "ajv";
+import type { Schema } from "ajv";
+import Ajv from "ajv";
 import chalk from "chalk";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
@@ -6,7 +7,7 @@ import {
   TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
-import { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
+import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
 import { error, isRecord } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
 
@@ -64,7 +65,7 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
     );
   }
 
-  const firstInclude = include[0] as unknown | undefined;
+  const firstInclude = include[0] as unknown;
   if (firstInclude === undefined) {
     error(
       `Your "${chalk.green(

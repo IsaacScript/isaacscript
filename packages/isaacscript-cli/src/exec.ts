@@ -1,9 +1,10 @@
 import chalk from "chalk";
+import type {
+  SpawnSyncReturns} from "node:child_process";
 import {
   execFileSync,
   execSync,
-  spawnSync,
-  SpawnSyncReturns,
+  spawnSync
 } from "node:child_process";
 import { CWD } from "./constants.js";
 import { error } from "./isaacScriptCommonTS.js";

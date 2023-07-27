@@ -1,9 +1,10 @@
-import { ChildProcess, fork } from "node:child_process";
+import type { ChildProcess} from "node:child_process";
+import { fork } from "node:child_process";
 import path from "node:path";
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
 import { error } from "../../isaacScriptCommonTS.js";
-import { SaveDatMessage } from "./saveDatWriter/types.js";
+import type { SaveDatMessage } from "./saveDatWriter/types.js";
 
 let saveDatWriter: ChildProcess | undefined;
 

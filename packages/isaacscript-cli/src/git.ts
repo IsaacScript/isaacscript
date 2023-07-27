@@ -5,7 +5,7 @@ import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
 import { execShell, execShellString } from "./exec.js";
 import { fileExists, readFile } from "./file.js";
-import { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
+import type { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
 import { getInputString, getInputYesNo } from "./prompt.js";
 import { getVersionOfThisPackage } from "./version.js";
 

@@ -1,5 +1,5 @@
 import path from "node:path";
-import { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
   DISABLE_IT_FILE,
   MAIN_LUA,

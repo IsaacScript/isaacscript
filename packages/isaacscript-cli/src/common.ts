@@ -1,9 +1,9 @@
 // These are functions copied from `isaacscript-common`.
 
-import { DoorSlot } from "./enums/DoorSlot.js";
-import { DoorSlotFlag } from "./enums/DoorSlotFlag.js";
-import { RoomShape } from "./enums/RoomShape.js";
-import { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
+import type { DoorSlot } from "./enums/DoorSlot.js";
+import type { DoorSlotFlag } from "./enums/DoorSlotFlag.js";
+import type { RoomShape } from "./enums/RoomShape.js";
+import type { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
 import { error, parseIntSafe } from "./isaacScriptCommonTS.js";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag.js";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates.js";
@@ -95,7 +95,7 @@ function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
 /** This is copied from `isaacscript-common`. */
 function addFlag(flags: number, ...flagsToAdd: number[]): number {
   for (const flagToAdd of flagsToAdd) {
-    flags |= flagToAdd; // eslint-disable-line no-bitwise,no-param-reassign
+    flags |= flagToAdd;  
   }
 
   return flags;

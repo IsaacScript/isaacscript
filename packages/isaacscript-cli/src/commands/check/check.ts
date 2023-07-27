@@ -24,7 +24,7 @@ import {
   getEnumValues,
 } from "../../isaacScriptCommonTS.js";
 import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
-import { Args } from "../../parseArgs.js";
+import type { Args } from "../../parseArgs.js";
 
 const URL_PREFIX =
   "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates";

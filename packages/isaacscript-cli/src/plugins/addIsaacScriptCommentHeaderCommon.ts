@@ -2,8 +2,8 @@
 
 import * as fs from "node:fs";
 import * as path from "node:path";
-import * as ts from "typescript";
-import * as tstl from "typescript-to-lua";
+import type * as ts from "typescript";
+import type * as tstl from "typescript-to-lua";
 
 const cwd = process.cwd();
 const packageJSONPath = path.join(cwd, "package.json");
