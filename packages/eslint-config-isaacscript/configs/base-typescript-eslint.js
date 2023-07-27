@@ -650,21 +650,9 @@ const config = {
     // handled by Prettier:
     // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/padding-line-between-statements/
-     *
-     * Not defined in the parent configs.
-     *
-     * This enforce newlines before return statements for better readability. Note that even though
-     * the `typescript-eslint` team does not recommend using formatting rules, this rule is not
-     * handled by Prettier, so we must use ESLint to enforce it.
-     */
-    "padding-line-between-statements": "off",
-    "@typescript-eslint/padding-line-between-statements": [
-      "error",
-      { blankLine: "always", prev: "*", next: "return" },
-    ],
+    // [X] "@typescript-eslint/padding-line-between-statements" is not enabled since it is for
+    // inserting extra newlines between specific kinds of statements, which would be
+    // project-dependant.
 
     /**
      * Documentation:

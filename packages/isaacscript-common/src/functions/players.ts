@@ -107,7 +107,6 @@ export function anyPlayerHasTrinket(
  */
 export function anyPlayerHoldingItem(): boolean {
   const players = getAllPlayers();
-
   return players.some((player) => player.IsHoldingItem());
 }
 
@@ -175,7 +174,6 @@ export function getActiveItemSlots(
 ): ActiveSlot[] {
   return ACTIVE_SLOT_VALUES.filter((activeSlot) => {
     const activeItem = player.GetActiveItem(activeSlot);
-
     return activeItem === collectibleType;
   });
 }
@@ -199,7 +197,6 @@ export function getAzazelBrimstoneDistance(
 /** Helper function to get an array containing the characters of all of the current players. */
 export function getCharacters(): PlayerType[] {
   const players = getPlayers();
-
   return players.map((player) => player.GetPlayerType());
 }
 
@@ -415,7 +412,6 @@ export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
 
   return players.filter((player) => {
     const character = player.GetPlayerType();
-
     return charactersSet.has(character);
   });
 }
@@ -466,7 +462,6 @@ export function getPlayersWithControllerIndex(
   controllerIndex: ControllerIndex,
 ): EntityPlayer[] {
   const players = getAllPlayers();
-
   return players.filter((player) => player.ControllerIndex === controllerIndex);
 }
 
@@ -558,7 +553,6 @@ export function hasForm(
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
 export function hasLostCurse(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
-
   return effects.HasNullEffect(NullItemID.LOST_CURSE);
 }
 
@@ -599,7 +593,6 @@ export function isActiveSlotEmpty(
   activeSlot = ActiveSlot.PRIMARY,
 ): boolean {
   const activeCollectibleType = player.GetActiveItem(activeSlot);
-
   return activeCollectibleType === CollectibleType.NULL;
 }
 
@@ -610,7 +603,6 @@ export function isActiveSlotEmpty(
  */
 export function isBethany(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.BETHANY || character === PlayerType.BETHANY_B;
 }
 
@@ -641,7 +633,6 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
   }
 
   const indirectPlayer = getPlayerFromEntity(damageSource);
-
   return indirectPlayer !== undefined;
 }
 
@@ -651,7 +642,6 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
  */
 export function isEden(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
 }
 
@@ -665,7 +655,6 @@ export function isFirstPlayer(player: EntityPlayer): boolean {
  */
 export function isJacobOrEsau(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.JACOB || character === PlayerType.ESAU;
 }
 
@@ -675,14 +664,12 @@ export function isJacobOrEsau(player: EntityPlayer): boolean {
  */
 export function isKeeper(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.KEEPER || character === PlayerType.KEEPER_B;
 }
 
 /** Helper function for detecting when a player is The Lost or Tainted Lost. */
 export function isLost(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.LOST || character === PlayerType.LOST_B;
 }
 
@@ -731,7 +718,6 @@ export function isTaintedLazarus(player: EntityPlayer): boolean {
 
 export function isVanillaPlayer(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return isVanillaCharacter(character);
 }
 

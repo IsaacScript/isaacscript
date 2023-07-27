@@ -633,7 +633,9 @@ const config = {
         },
       },
       {
-        enforceForRenamedProperties: true,
+        // We disable this for renamed properties, this this is a valid use-case.
+        // e.g. `const collectibleUsedToShowFlight = CollectibleType.FATE;`
+        enforceForRenamedProperties: false,
       },
     ],
 
