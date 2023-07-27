@@ -30,7 +30,7 @@ declare interface Socket {
    * Returns the epoch timestamp in seconds, with four decimal places of precision (e.g.
    * `1640320492.5779`).
    */
-  gettime(): float;
+  gettime: () => float;
 
   /**
    * Creates and returns a TCP master object. A master object can be transformed into a server
@@ -40,7 +40,7 @@ declare interface Socket {
    * In case of success, a new master object is returned. In case of error, nil is returned,
    * followed by an error message.
    */
-  tcp(): SocketClient;
+  tcp: () => SocketClient;
 
   /**
    * Creates and returns an unconnected UDP object. Unconnected objects support the sendto, receive,
@@ -50,7 +50,7 @@ declare interface Socket {
    * In case of success, a new unconnected UDP object returned. In case of error, nil is returned,
    * followed by an error message.
    */
-  udp(): SocketClient;
+  udp: () => SocketClient;
 }
 
 declare interface SocketClient {
@@ -59,7 +59,7 @@ declare interface SocketClient {
    * which the object was bound is made available to other applications. No further operations
    * (except for further calls to the close method) are allowed on a closed socket.
    */
-  close(): void;
+  close: () => void;
 
   /**
    * Attempts to connect a master object to a remote host, transforming it into a client object.
@@ -71,10 +71,10 @@ declare interface SocketClient {
    * In case of error, the method returns undefined followed by a string describing the error. In
    * case of success, the method returns 1.
    */
-  connect(
+  connect: (
     host: string,
     port: int,
-  ): LuaMultiReturn<[returnCode: int, errMsg: string]>;
+  ) => LuaMultiReturn<[returnCode: int, errMsg: string]>;
 
   /**
    * Reads data from a client object, according to the specified read pattern. Patterns follow the
@@ -99,7 +99,7 @@ declare interface SocketClient {
    * timeout during the operation. Also, after the error message, the function returns the partial
    * result of the transmission.
    */
-  receive(): LuaMultiReturn<[data: string | undefined, errMsg: string]>;
+  receive: () => LuaMultiReturn<[data: string | undefined, errMsg: string]>;
 
   /**
    * Sends data through client object.
@@ -115,9 +115,9 @@ declare interface SocketClient {
    * transmission was completed or the string 'timeout' in case there was a timeout during the
    * operation.
    */
-  send(
+  send: (
     msg: string,
-  ): LuaMultiReturn<[sentBytes: int | undefined, errMsg: string]>;
+  ) => LuaMultiReturn<[sentBytes: int | undefined, errMsg: string]>;
 
   /**
    * Changes the peer of a UDP object. This method turns an unconnected UDP object into a connected
@@ -134,10 +134,10 @@ declare interface SocketClient {
    * In case of error the method returns undefined followed by an error message. In case of success,
    * the method returns 1.
    */
-  setpeername(
+  setpeername: (
     host: string,
     port: int,
-  ): LuaMultiReturn<[returnCode: int, errMsg: string]>;
+  ) => LuaMultiReturn<[returnCode: int, errMsg: string]>;
 
   /**
    * Changes the timeout values for the object. By default, all I/O operations are blocking. That
@@ -158,5 +158,5 @@ declare interface SocketClient {
    * The nil timeout value allows operations to block indefinitely. Negative timeout values have the
    * same effect.
    */
-  settimeout(timeout: int): void;
+  settimeout: (timeout: int) => void;
 }

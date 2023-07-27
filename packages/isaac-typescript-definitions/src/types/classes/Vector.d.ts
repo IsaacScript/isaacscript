@@ -1,4 +1,4 @@
-import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
+import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
   function Vector(this: void, x: float, y: float): Vector;

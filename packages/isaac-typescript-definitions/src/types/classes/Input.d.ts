@@ -1,7 +1,7 @@
-import { ButtonAction } from "../../enums/ButtonAction";
-import { ControllerIndex } from "../../enums/ControllerIndex";
-import { Keyboard } from "../../enums/Keyboard";
-import { Mouse } from "../../enums/Mouse";
+import type { ButtonAction } from "../../enums/ButtonAction";
+import type { ControllerIndex } from "../../enums/ControllerIndex";
+import type { Keyboard } from "../../enums/Keyboard";
+import type { Mouse } from "../../enums/Mouse";
 
 declare global {
   /**

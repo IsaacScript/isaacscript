@@ -1,10 +1,10 @@
-import {
+import type {
   CardType,
   CollectibleType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import { NullItemID } from "../../enums/NullItemID";
-import { PillEffect } from "../../enums/PillEffect";
+import type { NullItemID } from "../../enums/NullItemID";
+import type { PillEffect } from "../../enums/PillEffect";
 
 declare global {
   interface ItemConfig extends IsaacAPIClass {

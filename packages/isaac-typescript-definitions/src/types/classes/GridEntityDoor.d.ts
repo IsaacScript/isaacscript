@@ -1,8 +1,8 @@
-import { DoorState } from "../../enums/collections/gridEntityState";
-import { DoorVariant } from "../../enums/collections/gridEntityVariants";
-import { Direction } from "../../enums/Direction";
-import { DoorSlot } from "../../enums/DoorSlot";
-import { RoomType } from "../../enums/RoomType";
+import type { DoorState } from "../../enums/collections/gridEntityState";
+import type { DoorVariant } from "../../enums/collections/gridEntityVariants";
+import type { Direction } from "../../enums/Direction";
+import type { DoorSlot } from "../../enums/DoorSlot";
+import type { RoomType } from "../../enums/RoomType";
 
 declare global {
   /**

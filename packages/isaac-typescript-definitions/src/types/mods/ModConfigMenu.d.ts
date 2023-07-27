@@ -1,5 +1,5 @@
-import { Controller } from "../../enums/Controller";
-import { Keyboard } from "../../enums/Keyboard";
+import type { Controller } from "../../enums/Controller";
+import type { Keyboard } from "../../enums/Keyboard";
 
 declare global {
   const ModConfigMenu: ModConfigMenuInterface | undefined;

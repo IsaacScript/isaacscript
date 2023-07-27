@@ -182,18 +182,8 @@ const config = {
      */
     "import/no-dynamic-require": "error",
 
-    /**
-     * Documentation:
-     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-internal-modules.md
-     *
-     * Not defined in the parent configs.
-     *
-     * We want to disallow "Barrel Files":
-     * https://basarat.gitbook.io/typescript/main-1/barrel
-     * Barrels make refactoring more difficult; no-one should ever be manually typing an import
-     * statement.
-     */
-    "import/no-internal-modules": "error",
+    // [X] "import/no-internal-modules" is not enabled since a prescribed import pattern is not
+    // generalizable enough across projects.
 
     /**
      * Documentation:

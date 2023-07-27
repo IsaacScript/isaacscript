@@ -1,4 +1,4 @@
-import { CallbackPriority } from "../../enums/CallbackPriority";
+import type { CallbackPriority } from "../../enums/CallbackPriority";
 
 declare global {
   interface ModDescription<T extends keyof AddCallbackParameters> {

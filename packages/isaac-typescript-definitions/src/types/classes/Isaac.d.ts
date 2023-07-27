@@ -1,19 +1,19 @@
-import { CallbackPriority } from "../../enums/CallbackPriority";
-import { Challenge } from "../../enums/Challenge";
-import {
+import type { CallbackPriority } from "../../enums/CallbackPriority";
+import type { Challenge } from "../../enums/Challenge";
+import type {
   CardType,
   CollectibleType,
   PillColor,
   PlayerType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import { EntityType } from "../../enums/EntityType";
-import { EntityPartition } from "../../enums/flags/EntityPartition";
-import { GridEntityType } from "../../enums/GridEntityType";
-import { Music } from "../../enums/Music";
-import { NullItemID } from "../../enums/NullItemID";
-import { PillEffect } from "../../enums/PillEffect";
-import { SoundEffect } from "../../enums/SoundEffect";
+import type { EntityType } from "../../enums/EntityType";
+import type { EntityPartition } from "../../enums/flags/EntityPartition";
+import type { GridEntityType } from "../../enums/GridEntityType";
+import type { Music } from "../../enums/Music";
+import type { NullItemID } from "../../enums/NullItemID";
+import type { PillEffect } from "../../enums/PillEffect";
+import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   /**

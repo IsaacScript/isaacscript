@@ -1,6 +1,6 @@
-import { DisplayFlag } from "../../enums/flags/DisplayFlag";
-import { RoomDescriptorFlag } from "../../enums/flags/RoomDescriptorFlag";
-import { GridRoom } from "../../enums/GridRoom";
+import type { DisplayFlag } from "../../enums/flags/DisplayFlag";
+import type { RoomDescriptorFlag } from "../../enums/flags/RoomDescriptorFlag";
+import type { GridRoom } from "../../enums/GridRoom";
 
 declare global {
   interface RoomDescriptor extends IsaacAPIClass {

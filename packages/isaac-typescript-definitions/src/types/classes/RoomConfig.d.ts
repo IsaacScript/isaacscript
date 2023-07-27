@@ -1,8 +1,8 @@
-import { DoorSlotFlag } from "../../enums/flags/DoorSlotFlag";
-import { RoomDifficulty } from "../../enums/RoomDifficulty";
-import { RoomShape } from "../../enums/RoomShape";
-import { RoomType } from "../../enums/RoomType";
-import { StageID } from "../../enums/StageID";
+import type { DoorSlotFlag } from "../../enums/flags/DoorSlotFlag";
+import type { RoomDifficulty } from "../../enums/RoomDifficulty";
+import type { RoomShape } from "../../enums/RoomShape";
+import type { RoomType } from "../../enums/RoomType";
+import type { StageID } from "../../enums/StageID";
 
 declare global {
   /**

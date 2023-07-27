@@ -1,6 +1,6 @@
-import { ActiveSlot } from "../../enums/ActiveSlot";
-import { CollectibleAnimation } from "../../enums/CollectibleAnimation";
-import {
+import type { ActiveSlot } from "../../enums/ActiveSlot";
+import type { CollectibleAnimation } from "../../enums/CollectibleAnimation";
+import type {
   BabySubType,
   CardType,
   CollectibleType,
@@ -9,27 +9,27 @@ import {
   PlayerType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import {
+import type {
   BombVariant,
   FamiliarVariant,
   PlayerVariant,
 } from "../../enums/collections/variants";
-import { ControllerIndex } from "../../enums/ControllerIndex";
-import { Direction } from "../../enums/Direction";
-import { CacheFlag } from "../../enums/flags/CacheFlag";
-import { DamageFlag } from "../../enums/flags/DamageFlag";
-import { TearFlag } from "../../enums/flags/TearFlag";
-import { UseFlag } from "../../enums/flags/UseFlag";
-import { LaserOffset } from "../../enums/LaserOffset";
-import { NullItemID } from "../../enums/NullItemID";
-import { PillEffect } from "../../enums/PillEffect";
-import { PlayerForm } from "../../enums/PlayerForm";
-import { PlayerItemAnimation } from "../../enums/PlayerItemAnimation";
-import { PocketItemSlot } from "../../enums/PocketItemSlot";
-import { PoopSpellType } from "../../enums/PoopSpellType";
-import { SkinColor } from "../../enums/SkinColor";
-import { TrinketSlot } from "../../enums/TrinketSlot";
-import { WeaponType } from "../../enums/WeaponType";
+import type { ControllerIndex } from "../../enums/ControllerIndex";
+import type { Direction } from "../../enums/Direction";
+import type { CacheFlag } from "../../enums/flags/CacheFlag";
+import type { DamageFlag } from "../../enums/flags/DamageFlag";
+import type { TearFlag } from "../../enums/flags/TearFlag";
+import type { UseFlag } from "../../enums/flags/UseFlag";
+import type { LaserOffset } from "../../enums/LaserOffset";
+import type { NullItemID } from "../../enums/NullItemID";
+import type { PillEffect } from "../../enums/PillEffect";
+import type { PlayerForm } from "../../enums/PlayerForm";
+import type { PlayerItemAnimation } from "../../enums/PlayerItemAnimation";
+import type { PocketItemSlot } from "../../enums/PocketItemSlot";
+import type { PoopSpellType } from "../../enums/PoopSpellType";
+import type { SkinColor } from "../../enums/SkinColor";
+import type { TrinketSlot } from "../../enums/TrinketSlot";
+import type { WeaponType } from "../../enums/WeaponType";
 
 declare global {
   interface EntityPlayer extends Entity {

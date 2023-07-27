@@ -1,4 +1,4 @@
-import { Music } from "../../enums/Music";
+import type { Music } from "../../enums/Music";
 
 declare global {
   const MMC: MusicModCallback | undefined;

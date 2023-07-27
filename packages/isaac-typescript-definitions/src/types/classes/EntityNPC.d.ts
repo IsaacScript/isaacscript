@@ -1,8 +1,8 @@
-import { ChampionColor } from "../../enums/ChampionColor";
-import { EntityType } from "../../enums/EntityType";
-import { NPCState } from "../../enums/NPCState";
-import { ProjectilesMode } from "../../enums/ProjectilesMode";
-import { SoundEffect } from "../../enums/SoundEffect";
+import type { ChampionColor } from "../../enums/ChampionColor";
+import type { EntityType } from "../../enums/EntityType";
+import type { NPCState } from "../../enums/NPCState";
+import type { ProjectilesMode } from "../../enums/ProjectilesMode";
+import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   interface EntityNPC extends Entity {

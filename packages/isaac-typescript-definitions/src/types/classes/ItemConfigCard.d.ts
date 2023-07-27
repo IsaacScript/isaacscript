@@ -1,4 +1,4 @@
-import { ItemConfigCardType } from "../../enums/ItemConfigCardType";
+import type { ItemConfigCardType } from "../../enums/ItemConfigCardType";
 
 declare global {
   interface ItemConfigCard extends IsaacAPIClass {

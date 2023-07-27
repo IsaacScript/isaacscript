@@ -1,4 +1,4 @@
-import { Keyboard } from "../../enums/Keyboard";
+import type { Keyboard } from "../../enums/Keyboard";
 
 declare global {
   /** This is a global variable exposed as part of ModConfigMenu. */

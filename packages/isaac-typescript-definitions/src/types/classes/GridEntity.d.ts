@@ -1,5 +1,5 @@
-import { GridCollisionClass } from "../../enums/GridCollisionClass";
-import { GridEntityType } from "../../enums/GridEntityType";
+import type { GridCollisionClass } from "../../enums/GridCollisionClass";
+import type { GridEntityType } from "../../enums/GridEntityType";
 
 declare global {
   interface GridEntity extends IsaacAPIClass {

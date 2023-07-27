@@ -1,11 +1,11 @@
-import { BossID } from "../../enums/collections/roomSubTypes";
-import { SlotVariant } from "../../enums/collections/variants";
-import { EntityCollisionClass } from "../../enums/EntityCollisionClass";
-import { EntityGridCollisionClass } from "../../enums/EntityGridCollisionClass";
-import { EntityType } from "../../enums/EntityType";
-import { DamageFlag } from "../../enums/flags/DamageFlag";
-import { EntityFlag } from "../../enums/flags/EntityFlag";
-import { SortingLayer } from "../../enums/SortingLayer";
+import type { BossID } from "../../enums/collections/roomSubTypes";
+import type { SlotVariant } from "../../enums/collections/variants";
+import type { EntityCollisionClass } from "../../enums/EntityCollisionClass";
+import type { EntityGridCollisionClass } from "../../enums/EntityGridCollisionClass";
+import type { EntityType } from "../../enums/EntityType";
+import type { DamageFlag } from "../../enums/flags/DamageFlag";
+import type { EntityFlag } from "../../enums/flags/EntityFlag";
+import type { SortingLayer } from "../../enums/SortingLayer";
 
 declare global {
   interface Entity extends IsaacAPIClass {

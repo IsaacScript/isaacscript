@@ -1,4 +1,4 @@
-import { ActiveSlot } from "../../enums/ActiveSlot";
+import type { ActiveSlot } from "../../enums/ActiveSlot";
 
 declare global {
   interface HUD extends IsaacAPIClass {
@@ -47,6 +47,7 @@ declare global {
      */
 
     ShowItemText(player: EntityPlayer, item: ItemConfigItem): void;
+
     /**
      * Shows a custom pickup text.
      *

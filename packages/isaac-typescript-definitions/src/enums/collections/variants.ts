@@ -854,6 +854,7 @@ export enum DaddyLongLegsVariant {
   DADDY_LONG_LEGS = 0,
   TRIACHNID = 1,
 }
+
 /** For `EntityType.ISAAC` (102). */
 export enum IsaacVariant {
   ISAAC = 0,
@@ -890,6 +891,7 @@ export enum FattyVariant {
 /** For `EntityType.DEATHS_HEAD` (212). */
 export enum DeathsHeadVariant {
   DEATHS_HEAD = 0,
+
   /**
    * This is the only Death's Head variant that does not rely on other enemies in the room being
    * alive.

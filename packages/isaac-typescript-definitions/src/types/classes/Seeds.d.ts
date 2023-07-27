@@ -1,6 +1,6 @@
-import { Challenge } from "../../enums/Challenge";
-import { LevelStage } from "../../enums/LevelStage";
-import { SeedEffect } from "../../enums/SeedEffect";
+import type { Challenge } from "../../enums/Challenge";
+import type { LevelStage } from "../../enums/LevelStage";
+import type { SeedEffect } from "../../enums/SeedEffect";
 
 declare global {
   interface Seeds extends IsaacAPIClass {

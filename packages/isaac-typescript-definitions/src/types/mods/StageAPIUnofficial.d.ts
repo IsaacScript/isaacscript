@@ -1,6 +1,7 @@
-// cspell:ignore STAGEAPI GRIDENTITY
+/* eslint-disable @typescript-eslint/member-ordering */
+/* cspell:ignore STAGEAPI GRIDENTITY */
 
-import { DoorSlot } from "../../enums/DoorSlot";
+import type { DoorSlot } from "../../enums/DoorSlot";
 
 declare global {
   type StageAPICustomRoomConfig = LuaMap<

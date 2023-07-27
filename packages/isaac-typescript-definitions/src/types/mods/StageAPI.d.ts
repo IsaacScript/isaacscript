@@ -1,13 +1,13 @@
 // cspell:ignore STAGEAPI
 
-import { Direction } from "../../enums/Direction";
-import { DoorSlot } from "../../enums/DoorSlot";
-import { GridEntityType } from "../../enums/GridEntityType";
-import { LevelStage } from "../../enums/LevelStage";
-import { RoomShape } from "../../enums/RoomShape";
-import { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
-import { RoomType } from "../../enums/RoomType";
-import { StageType } from "../../enums/StageType";
+import type { Direction } from "../../enums/Direction";
+import type { DoorSlot } from "../../enums/DoorSlot";
+import type { GridEntityType } from "../../enums/GridEntityType";
+import type { LevelStage } from "../../enums/LevelStage";
+import type { RoomShape } from "../../enums/RoomShape";
+import type { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
+import type { RoomType } from "../../enums/RoomType";
+import type { StageType } from "../../enums/StageType";
 
 declare global {
   const StageAPI: StageAPIInterface | undefined;

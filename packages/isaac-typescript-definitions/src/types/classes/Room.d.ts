@@ -1,15 +1,15 @@
-import { BackdropType } from "../../enums/BackdropType";
-import { BrokenWatchState } from "../../enums/BrokenWatchState";
-import { BossID } from "../../enums/collections/roomSubTypes";
-import { CollectibleType } from "../../enums/collections/subTypes";
-import { DoorSlot } from "../../enums/DoorSlot";
-import { GridCollisionClass } from "../../enums/GridCollisionClass";
-import { GridEntityType } from "../../enums/GridEntityType";
-import { GridPath } from "../../enums/GridPath";
-import { LineCheckMode } from "../../enums/LineCheckMode";
-import { RenderMode } from "../../enums/RenderMode";
-import { RoomShape } from "../../enums/RoomShape";
-import { RoomType } from "../../enums/RoomType";
+import type { BackdropType } from "../../enums/BackdropType";
+import type { BrokenWatchState } from "../../enums/BrokenWatchState";
+import type { BossID } from "../../enums/collections/roomSubTypes";
+import type { CollectibleType } from "../../enums/collections/subTypes";
+import type { DoorSlot } from "../../enums/DoorSlot";
+import type { GridCollisionClass } from "../../enums/GridCollisionClass";
+import type { GridEntityType } from "../../enums/GridEntityType";
+import type { GridPath } from "../../enums/GridPath";
+import type { LineCheckMode } from "../../enums/LineCheckMode";
+import type { RenderMode } from "../../enums/RenderMode";
+import type { RoomShape } from "../../enums/RoomShape";
+import type { RoomType } from "../../enums/RoomType";
 
 declare global {
   interface Room extends IsaacAPIClass {

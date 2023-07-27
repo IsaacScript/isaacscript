@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable deprecation/deprecation */
 
-import { ActiveSlot } from "../../enums/ActiveSlot";
-import { ButtonAction } from "../../enums/ButtonAction";
-import {
+import type { ActiveSlot } from "../../enums/ActiveSlot";
+import type { ButtonAction } from "../../enums/ButtonAction";
+import type {
   CardType,
   CollectibleType,
   PillColor,
   PlayerType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import {
+import type {
   BombVariant,
   EffectVariant,
   FamiliarVariant,
@@ -19,16 +20,16 @@ import {
   ProjectileVariant,
   TearVariant,
 } from "../../enums/collections/variants";
-import { EntityType } from "../../enums/EntityType";
-import { CacheFlag } from "../../enums/flags/CacheFlag";
-import { DamageFlag } from "../../enums/flags/DamageFlag";
-import { LevelCurse } from "../../enums/flags/LevelCurse";
-import { UseFlag } from "../../enums/flags/UseFlag";
-import { GridEntityXMLType } from "../../enums/GridEntityXMLType";
-import { InputHook } from "../../enums/InputHook";
-import { ItemPoolType } from "../../enums/ItemPoolType";
-import { ModCallback } from "../../enums/ModCallback";
-import { PillEffect } from "../../enums/PillEffect";
+import type { EntityType } from "../../enums/EntityType";
+import type { CacheFlag } from "../../enums/flags/CacheFlag";
+import type { DamageFlag } from "../../enums/flags/DamageFlag";
+import type { LevelCurse } from "../../enums/flags/LevelCurse";
+import type { UseFlag } from "../../enums/flags/UseFlag";
+import type { GridEntityXMLType } from "../../enums/GridEntityXMLType";
+import type { InputHook } from "../../enums/InputHook";
+import type { ItemPoolType } from "../../enums/ItemPoolType";
+import type { ModCallback } from "../../enums/ModCallback";
+import type { PillEffect } from "../../enums/PillEffect";
 
 declare global {
   interface AddCallbackParameters {

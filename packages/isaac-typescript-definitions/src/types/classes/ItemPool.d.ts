@@ -1,12 +1,12 @@
-import {
+import type {
   CardType,
   CollectibleType,
   PillColor,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import { ItemPoolType } from "../../enums/ItemPoolType";
-import { PillEffect } from "../../enums/PillEffect";
-import { RoomType } from "../../enums/RoomType";
+import type { ItemPoolType } from "../../enums/ItemPoolType";
+import type { PillEffect } from "../../enums/PillEffect";
+import type { RoomType } from "../../enums/RoomType";
 
 declare global {
   interface ItemPool extends IsaacAPIClass {

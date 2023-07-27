@@ -1,4 +1,4 @@
-import { PlayerType } from "../../enums/collections/subTypes";
+import type { PlayerType } from "../../enums/collections/subTypes";
 
 declare global {
   const Encyclopedia: EncyclopediaInterface | undefined;

@@ -1,4 +1,4 @@
-import { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
+import type { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
 
 declare global {
   /**

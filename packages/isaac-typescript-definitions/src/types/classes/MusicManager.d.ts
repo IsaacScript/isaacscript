@@ -1,4 +1,4 @@
-import { Music } from "../../enums/Music";
+import type { Music } from "../../enums/Music";
 
 declare global {
   function MusicManager(this: void): MusicManager;

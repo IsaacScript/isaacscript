@@ -1,19 +1,19 @@
-import { BackdropType } from "../../enums/BackdropType";
-import { Challenge } from "../../enums/Challenge";
-import { EffectVariant } from "../../enums/collections/variants";
-import { Difficulty } from "../../enums/Difficulty";
-import { Dimension } from "../../enums/Dimension";
-import { Direction } from "../../enums/Direction";
-import { Ending } from "../../enums/Ending";
-import { EntityType } from "../../enums/EntityType";
-import { FadeoutTarget } from "../../enums/FadeoutTarget";
-import { DamageFlag } from "../../enums/flags/DamageFlag";
-import { TearFlag } from "../../enums/flags/TearFlag";
-import { GameStateFlag } from "../../enums/GameStateFlag";
-import { GridRoom } from "../../enums/GridRoom";
-import { LevelStage } from "../../enums/LevelStage";
-import { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
-import { StageTransition } from "../../enums/StageTransition";
+import type { BackdropType } from "../../enums/BackdropType";
+import type { Challenge } from "../../enums/Challenge";
+import type { EffectVariant } from "../../enums/collections/variants";
+import type { Difficulty } from "../../enums/Difficulty";
+import type { Dimension } from "../../enums/Dimension";
+import type { Direction } from "../../enums/Direction";
+import type { Ending } from "../../enums/Ending";
+import type { EntityType } from "../../enums/EntityType";
+import type { FadeoutTarget } from "../../enums/FadeoutTarget";
+import type { DamageFlag } from "../../enums/flags/DamageFlag";
+import type { TearFlag } from "../../enums/flags/TearFlag";
+import type { GameStateFlag } from "../../enums/GameStateFlag";
+import type { GridRoom } from "../../enums/GridRoom";
+import type { LevelStage } from "../../enums/LevelStage";
+import type { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
+import type { StageTransition } from "../../enums/StageTransition";
 
 declare global {
   function Game(this: void): Game;

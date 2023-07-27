@@ -1,5 +1,5 @@
-import { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
-import { NullItemID } from "../../enums/NullItemID";
+import type { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
+import type { NullItemID } from "../../enums/NullItemID";
 
 declare global {
   interface TemporaryEffects extends IsaacAPIClass {

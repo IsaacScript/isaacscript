@@ -1,4 +1,4 @@
-import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
+import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
   function KColor(this: void, r: float, g: float, b: float, a: float): KColor;

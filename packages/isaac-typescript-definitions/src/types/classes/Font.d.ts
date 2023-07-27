@@ -9,14 +9,14 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth Default is 0.
    * @param center Default is false.
    */
-  DrawString(
+  DrawString: (
     str: string,
     positionX: float,
     positionY: float,
     renderColor: KColor,
     boxWidth?: int,
     center?: boolean,
-  ): void;
+  ) => void;
 
   /**
    * @param str
@@ -28,7 +28,7 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth Default is 0.
    * @param center Default is false.
    */
-  DrawStringScaled(
+  DrawStringScaled: (
     str: string,
     positionX: float,
     positionY: float,
@@ -37,9 +37,9 @@ declare interface Font extends IsaacAPIClass {
     renderColor: KColor,
     boxWidth?: int,
     center?: boolean,
-  ): void;
+  ) => void;
 
-  DrawStringScaledUTF8(
+  DrawStringScaledUTF8: (
     str: string,
     positionX: float,
     positionY: float,
@@ -48,7 +48,7 @@ declare interface Font extends IsaacAPIClass {
     renderColor: KColor,
     boxWidth: int,
     center: boolean,
-  ): void;
+  ) => void;
 
   /**
    * @param str
@@ -58,22 +58,22 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth Default is 0.
    * @param center Default is false.
    */
-  DrawStringUTF8(
+  DrawStringUTF8: (
     str: string,
     positionX: float,
     positionY: float,
     renderColor: KColor,
     boxWidth?: int,
     center?: boolean,
-  ): void;
+  ) => void;
 
-  GetBaselineHeight(): int;
-  GetCharacterWidth(character: string): int;
-  GetLineHeight(): int;
-  GetStringWidth(str: string): int;
-  GetStringWidthUTF8(str: string): int;
-  IsLoaded(): boolean;
-  Load(filePath: string): boolean;
-  SetMissingCharacter(missingCharacter: int): void;
-  Unload(): void;
+  GetBaselineHeight: () => int;
+  GetCharacterWidth: (character: string) => int;
+  GetLineHeight: () => int;
+  GetStringWidth: (str: string) => int;
+  GetStringWidthUTF8: (str: string) => int;
+  IsLoaded: () => boolean;
+  Load: (filePath: string) => boolean;
+  SetMissingCharacter: (missingCharacter: int) => void;
+  Unload: () => void;
 }

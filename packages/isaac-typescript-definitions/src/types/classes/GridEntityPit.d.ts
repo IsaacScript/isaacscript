@@ -1,5 +1,5 @@
-import { PitState } from "../../enums/collections/gridEntityState";
-import { PitVariant } from "../../enums/collections/gridEntityVariants";
+import type { PitState } from "../../enums/collections/gridEntityState";
+import type { PitVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
   /**

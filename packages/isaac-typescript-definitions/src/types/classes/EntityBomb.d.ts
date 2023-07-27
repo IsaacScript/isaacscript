@@ -1,5 +1,5 @@
-import { BombVariant } from "../../enums/collections/variants";
-import { TearFlag } from "../../enums/flags/TearFlag";
+import type { BombVariant } from "../../enums/collections/variants";
+import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityBomb extends Entity {
