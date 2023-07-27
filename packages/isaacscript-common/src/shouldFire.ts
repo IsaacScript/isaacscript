@@ -1,6 +1,6 @@
 /*
 eslint sort-exports/sort-exports: [
-  "warn",
+  "error",
   {
     sortDir: "asc",
   },
@@ -14,7 +14,7 @@ eslint sort-exports/sort-exports: [
 // Since multiple callbacks can have the same kinds of filtration, we prevent repetition by
 // abstracting the validation logic into separate functions here.
 
-import {
+import type {
   BombVariant,
   CollectibleType,
   DamageFlag,
@@ -40,12 +40,12 @@ import {
   TearVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { AmbushType } from "./enums/AmbushType";
-import { HealthType } from "./enums/HealthType";
-import { PlayerStat } from "./enums/PlayerStat";
-import { SlotDestructionType } from "./enums/SlotDestructionType";
-import { PickingUpItem } from "./types/PickingUpItem";
-import { PossibleStatType } from "./types/PossibleStatType";
+import type { AmbushType } from "./enums/AmbushType";
+import type { HealthType } from "./enums/HealthType";
+import type { PlayerStat } from "./enums/PlayerStat";
+import type { SlotDestructionType } from "./enums/SlotDestructionType";
+import type { PickingUpItem } from "./types/PickingUpItem";
+import type { PossibleStatType } from "./types/PossibleStatType";
 
 export function shouldFireAmbush(
   fireArgs: [ambushType: AmbushType],
@@ -217,7 +217,7 @@ export function shouldFireItemPickup(
   return (
     (callbackItemType === undefined ||
       callbackItemType === pickingUpItem.itemType) &&
-    // eslint-disable-next-line isaacscript/strict-enums
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     (callbackSubtype === undefined || callbackSubtype === pickingUpItem.subType)
   );
 }

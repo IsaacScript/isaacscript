@@ -6,6 +6,7 @@ autocrlf # gitattributes
 autofix # Monorepo word
 browserslist # Monorepo word
 buildable # Monorepo word
+camelcase # ESLint word
 celsiusnarhwal # GitHub actions word
 cloc # Monorepo word
 clsx # Monorepo word
@@ -40,6 +41,7 @@ nextpromise # TSTL word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
 nonconstructor # ESLint word
+nonoctal # ESLint word
 noout # lint.sh
 noreply # Monorepo word
 nrwl # Monorepo word

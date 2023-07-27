@@ -2,7 +2,7 @@
 
 /*
 eslint "sort-exports/sort-exports": [
-  "warn",
+  "error",
   {
     sortDir: "asc",
   },
@@ -29,10 +29,16 @@ eslint "sort-exports/sort-exports": [
  * @module
  */
 
+import type {
+  CardType,
+  PillEffect,
+  PlayerType,
+  SoundEffect,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import {
   ActiveSlot,
   CacheFlag,
-  CardType,
   Challenge,
   CollectibleType,
   Direction,
@@ -42,12 +48,8 @@ import {
   GridRoom,
   LevelStage,
   PillColor,
-  PillEffect,
-  PlayerType,
   RoomType,
-  SoundEffect,
   StageType,
-  TrinketType,
 } from "isaac-typescript-definitions";
 import {
   ACTIVE_SLOT_VALUES,
@@ -147,6 +149,7 @@ export function addCharges(params: string): void {
     print(
       "You must specify a slot number. (Use 0 for the primary slot, 1 for the Schoolbag slot, 2 for the pocket item slot, and 3 for the Dice Bag slot.)",
     );
+
     return;
   }
 
@@ -154,6 +157,7 @@ export function addCharges(params: string): void {
 
   if (args.length !== 1 && args.length !== 2) {
     print("That is an invalid amount of arguments.");
+
     return;
   }
 
@@ -162,6 +166,7 @@ export function addCharges(params: string): void {
   const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
     print(`The provided slot number is invalid: ${activeSlotString}`);
+
     return;
   }
 
@@ -170,6 +175,7 @@ export function addCharges(params: string): void {
     activeSlot > ActiveSlot.POCKET_SINGLE_USE
   ) {
     print(`The provided slot number is invalid: ${activeSlot}`);
+
     return;
   }
 
@@ -178,6 +184,7 @@ export function addCharges(params: string): void {
     const numChargesAttempt = tonumber(numChargeString);
     if (numChargesAttempt === undefined) {
       print(`The provided charge amount is invalid: ${numChargeString}`);
+
       return;
     }
     numCharges = numChargesAttempt;
@@ -210,6 +217,7 @@ export function bedroom(): void {
   );
   if (cleanBedroomGridIndexes.length > 0) {
     warpToRoomType(RoomType.CLEAN_BEDROOM);
+
     return;
   }
 
@@ -218,6 +226,7 @@ export function bedroom(): void {
   );
   if (dirtyBedroomGridIndexes.length > 0) {
     warpToRoomType(RoomType.DIRTY_BEDROOM);
+
     return;
   }
 
@@ -253,6 +262,7 @@ export function bloodCharges(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of charges to add.");
+
       return;
     }
 
@@ -278,6 +288,7 @@ export function bomb(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of bombs to add.");
+
       return;
     }
 
@@ -298,6 +309,7 @@ export function bombs(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of bombs to add.");
+
       return;
     }
 
@@ -354,6 +366,7 @@ export function brokenHearts(params: string): void {
 export function card(params: string): void {
   if (params === "") {
     print("You must specify a card name or number.");
+
     return;
   }
 
@@ -363,6 +376,7 @@ export function card(params: string): void {
     const match = getMapPartialMatch(params, CARD_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown card: ${params}`);
+
       return;
     }
 
@@ -370,6 +384,7 @@ export function card(params: string): void {
   } else {
     if (num < FIRST_CARD_TYPE || num > LAST_VANILLA_CARD_TYPE) {
       print(`Invalid card sub-type: ${num}`);
+
       return;
     }
 
@@ -422,6 +437,7 @@ export function chaosCardTears(): void {
 export function character(params: string): void {
   if (params === "") {
     print("You must specify a character name or number.");
+
     return;
   }
 
@@ -431,6 +447,7 @@ export function character(params: string): void {
     const match = getMapPartialMatch(params, CHARACTER_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown character: ${params}`);
+
       return;
     }
 
@@ -438,6 +455,7 @@ export function character(params: string): void {
   } else {
     if (num < FIRST_CHARACTER || num > LAST_VANILLA_CHARACTER) {
       print(`Invalid player sub-type: ${num}`);
+
       return;
     }
 
@@ -469,6 +487,7 @@ export function coin(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of coins to add.");
+
       return;
     }
 
@@ -489,6 +508,7 @@ export function coins(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of coins to add.");
+
       return;
     }
 
@@ -538,6 +558,7 @@ export function damage(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print(`The provided damage amount is invalid: ${params}`);
+
       return;
     }
 
@@ -676,6 +697,7 @@ export function getCharge(params: string): void {
     const num = tonumber(params) as ActiveSlot | undefined;
     if (num === undefined) {
       print(`The provided slot number is invalid: ${params}`);
+
       return;
     }
 
@@ -715,6 +737,7 @@ export function gigaBomb(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of Giga Bombs to add.");
+
       return;
     }
 
@@ -829,6 +852,7 @@ export function key(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of keys to add.");
+
       return;
     }
 
@@ -849,6 +873,7 @@ export function keys(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of keys to add.");
+
       return;
     }
 
@@ -1004,6 +1029,7 @@ export function oneHP(): void {
 export function pill(params: string): void {
   if (params === "") {
     print("You must specify a pill name or number.");
+
     return;
   }
 
@@ -1013,6 +1039,7 @@ export function pill(params: string): void {
     const match = getMapPartialMatch(params, PILL_NAME_TO_EFFECT_MAP);
     if (match === undefined) {
       print(`Unknown pill effect: ${params}`);
+
       return;
     }
 
@@ -1020,6 +1047,7 @@ export function pill(params: string): void {
   } else {
     if (num < FIRST_PILL_EFFECT || num > LAST_VANILLA_PILL_EFFECT) {
       print(`Invalid pill effect ID: ${num}`);
+
       return;
     }
 
@@ -1081,17 +1109,20 @@ export function playSound(params: string): void {
 export function pocket(params: string): void {
   if (params === "") {
     print("You must supply a collectible type to put as the pocket item.");
+
     return;
   }
 
   const collectibleType = tonumber(params) as CollectibleType | undefined;
   if (collectibleType === undefined) {
     print("That is an invalid collectible type.");
+
     return;
   }
 
   if (!isValidCollectibleType(collectibleType)) {
     print("That is an invalid collectible type.");
+
     return;
   }
 
@@ -1118,6 +1149,7 @@ export function poopMana(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of mana to add.");
+
       return;
     }
 
@@ -1184,6 +1216,7 @@ export function runTests(): void {
 export function s(params: string): void {
   if (params === "") {
     print("You must specify a stage number.");
+
     return;
   }
 
@@ -1208,6 +1241,7 @@ export function s(params: string): void {
   const stage = tonumber(stageString) as LevelStage | undefined;
   if (stage === undefined) {
     print(`That is an invalid stage number: ${stage}`);
+
     return;
   }
 
@@ -1215,6 +1249,7 @@ export function s(params: string): void {
     print(
       `Invalid stage number; must be between ${FIRST_STAGE} and ${LAST_STAGE}.`,
     );
+
     return;
   }
 
@@ -1258,6 +1293,7 @@ export function setCharges(params: string): void {
     print(
       "You must specify a slot number and a charge amount. (Use 0 for the primary slot, 1 for the Schoolbag slot, 2 for the pocket item slot, and 3 for the Dice Bag slot.)",
     );
+
     return;
   }
 
@@ -1265,11 +1301,13 @@ export function setCharges(params: string): void {
 
   if (args.length === 1) {
     print("You must specify the amount of charge to set.");
+
     return;
   }
 
   if (args.length !== 2) {
     print("That is an invalid amount of arguments.");
+
     return;
   }
 
@@ -1278,22 +1316,26 @@ export function setCharges(params: string): void {
   const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
     print(`The provided slot number is invalid: ${activeSlotString}`);
+
     return;
   }
 
   if (!ACTIVE_SLOT_VALUES.includes(activeSlot)) {
     print(`The provided slot number is invalid: ${activeSlot}`);
+
     return;
   }
 
   const chargeNum = tonumber(chargeString);
   if (chargeNum === undefined) {
     print(`The provided charge amount is invalid: ${chargeString}`);
+
     return;
   }
 
   if (chargeNum < 0) {
     print(`The provided charge amount is invalid: ${chargeNum}`);
+
     return;
   }
 
@@ -1310,12 +1352,14 @@ export function setCharges(params: string): void {
 export function setPosition(params: string): void {
   if (params === "") {
     print('You must specify a position. (e.g. "setPosition 100 50")');
+
     return;
   }
 
   const args = params.split(" ");
   if (args.length !== 2) {
     print('You must specify a position. (e.g. "setPosition 100 50")');
+
     return;
   }
 
@@ -1324,12 +1368,14 @@ export function setPosition(params: string): void {
   const x = tonumber(xString);
   if (x === undefined) {
     print(`That is an invalid x value: ${xString}`);
+
     return;
   }
 
   const y = tonumber(yString);
   if (y === undefined) {
     print(`That is an invalid y value: ${yString}`);
+
     return;
   }
 
@@ -1359,6 +1405,7 @@ export function soulCharges(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print("That is an invalid amount of charges to add.");
+
       return;
     }
 
@@ -1387,6 +1434,7 @@ export function sound(params: string): void {
   const soundEffect = tonumber(params) as SoundEffect | undefined;
   if (soundEffect === undefined) {
     print("That is an invalid sound effect ID.");
+
     return;
   }
 
@@ -1413,6 +1461,7 @@ export function spawnCollectible(params: string): void {
     print(
       "You must specify the name or number corresponding to the collectible type.",
     );
+
     return;
   }
 
@@ -1422,6 +1471,7 @@ export function spawnCollectible(params: string): void {
     const match = getMapPartialMatch(params, COLLECTIBLE_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown collectible: ${params}`);
+
       return;
     }
 
@@ -1441,6 +1491,7 @@ export function spawnGoldenTrinket(params: string): void {
     print(
       "You must specify the name or number corresponding to the trinket type.",
     );
+
     return;
   }
 
@@ -1450,6 +1501,7 @@ export function spawnGoldenTrinket(params: string): void {
     const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown trinket: ${params}`);
+
       return;
     }
 
@@ -1469,6 +1521,7 @@ export function spawnTrinket(params: string): void {
     print(
       "You must specify the name or number corresponding to the trinket type.",
     );
+
     return;
   }
 
@@ -1478,6 +1531,7 @@ export function spawnTrinket(params: string): void {
     const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown trinket: ${params}`);
+
       return;
     }
 
@@ -1503,6 +1557,7 @@ export function speed(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print(`The provided speed amount is invalid: ${params}`);
+
       return;
     }
 
@@ -1556,6 +1611,7 @@ export function tears(params: string): void {
     const num = tonumber(params);
     if (num === undefined) {
       print(`The provided tear delay amount is invalid: ${params}`);
+
       return;
     }
 
@@ -1601,6 +1657,7 @@ export function unknown(): void {
 export function unseed(): void {
   if (!onSetSeed()) {
     print("You are not on a set seed, so you cannot unseed the run.");
+
     return;
   }
 
@@ -1624,6 +1681,7 @@ export function up(params: string): void {
 export function warp(params: string): void {
   if (params === "") {
     print("You must specify a room type name or number.");
+
     return;
   }
 
@@ -1633,6 +1691,7 @@ export function warp(params: string): void {
     const match = getMapPartialMatch(params, ROOM_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown room type: ${params}`);
+
       return;
     }
 
@@ -1640,6 +1699,7 @@ export function warp(params: string): void {
   } else {
     if (num < FIRST_ROOM_TYPE || num > LAST_ROOM_TYPE) {
       print(`Invalid room type: ${num}`);
+
       return;
     }
 

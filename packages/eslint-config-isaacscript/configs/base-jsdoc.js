@@ -5,24 +5,27 @@
  * @type {import("eslint").Linter.Config}
  */
 const config = {
+  // Instead of using the recommended config, we specifically turn on every rule that is useful.
   plugins: ["jsdoc"],
 
-  /**
-   * Instead of using the recommended config, we specifically turn on every rule that is useful.
-   *
-   * We must specify `contexts: ["any"]` for some rules because by default, only a subset of AST
-   * node types will be affected.
-   */
+  // https://github.com/gajus/eslint-plugin-jsdoc#rules
+  // - We must specify `contexts: ["any"]` for some rules because by default, only a subset of AST
+  //   node types will be affected.
+  // - An `[X]` indicates that the rule is not explicitly not enabled for a particular reason.
   rules: {
-    // - jsdoc/check-access - Not needed in TypeScript.
-    // - jsdoc/check-alignment - Overlaps with `isaacscript/limit-jsdoc-comments`.
+    // [X] "jsdoc/check-access" is not enabled because it is not needed in TypeScript.
 
-    // - jsdoc/check-examples - Does not work with ESLint 8; see:
+    // [X] "jsdoc/check-alignment" is not enabled because it overlaps with
+    // `isaacscript/limit-jsdoc-comments`.
+
+    // [X] "jsdoc/check-examples" is not enabled since it does not work with ESLint 8:
     // https://github.com/eslint/eslint/issues/14745
 
-    // - jsdoc/check-indentation - Overlaps with `isaacscript/limit-jsdoc-comments`.
-    // - jsdoc/check-line-alignment - This is not a common formatting scheme in the wild. It's also
-    //   not recommended by the plugin.
+    // [X] "jsdoc/check-indentation" is not enabled since it overlaps with
+    // `isaacscript/limit-jsdoc-comments`.
+
+    // [X] "jsdoc/check-line-alignment" is not enabled because this is not a common formatting
+    // scheme in the wild. It is also not recommended by the plugin.
 
     /**
      * Documentation:
@@ -30,10 +33,11 @@ const config = {
      *
      * Ensures that parameter names in JSDoc match those in the function declaration.
      */
-    "jsdoc/check-param-names": "warn",
+    "jsdoc/check-param-names": "error",
 
-    // - jsdoc/check-property-names - Not needed in TypeScript.
-    // - jsdoc/check-syntax - Not needed in TypeScript.
+    // [X] "jsdoc/check-property-names" is not enabled because it is not needed in TypeScript.
+
+    // [X] "jsdoc/check-syntax" is not enabled because it is not needed in TypeScript.
 
     /**
      * Documentation:
@@ -42,7 +46,7 @@ const config = {
      * Reports invalid block tag names.
      */
     "jsdoc/check-tag-names": [
-      "warn",
+      "error",
       {
         definedTags: [
           // Ignore tags used by the TypeScript compiler:
@@ -74,7 +78,7 @@ const config = {
       },
     ],
 
-    // - jsdoc/check-types - Not needed in TypeScript.
+    // [X] "jsdoc/check-types" is not enabled because it is not needed in TypeScript.
 
     /**
      * Documentation:
@@ -82,7 +86,7 @@ const config = {
      *
      * Validates the content of some uncommon JSDoc tags.
      */
-    "jsdoc/check-values": "warn",
+    "jsdoc/check-values": "error",
 
     /**
      * Documentation:
@@ -90,7 +94,7 @@ const config = {
      *
      * Validates that specific tags are never empty.
      */
-    "jsdoc/empty-tags": "warn",
+    "jsdoc/empty-tags": "error",
 
     /**
      * Documentation:
@@ -98,18 +102,32 @@ const config = {
      *
      * Reports issues with incorrect usage of `@implements`.
      */
-    "jsdoc/implements-on-classes": "warn",
+    "jsdoc/implements-on-classes": "error",
 
-    // - jsdoc/match-description - Overlaps with `isaacscript/jsdoc-full-sentences`.
-    // - jsdoc/match-name - Only needed for projects with specific JSDoc requirements.
-    // - jsdoc/multiline-blocks - Overlaps with `isaacscript/limit-jsdoc-comments`.
-    // - jsdoc/newline-after-description - Overlaps with `isaacscript/limit-jsdoc-comments`.
-    // - jsdoc/no-bad-blocks - Provides little value, since it only detects JSDoc comments with tags
-    //   in them.
-    // - jsdoc/no-defaults - Provides little value, since the @default tag is rare.
-    // - jsdoc/no-missing-syntax - Not generally relevant.
-    // - jsdoc/no-multi-asterisks - Overlaps with `isaacscript/limit-jsdoc-comments`.
-    // - jsdoc/no-restricted-syntax - Not generally relevant.
+    // [X] "jsdoc/match-description" is not enabled because it overlaps with
+    // `isaacscript/jsdoc-full-sentences`.
+
+    // [X] "jsdoc/match-name" is not enabled because it is only needed for projects with specific
+    // JSDoc requirements.
+
+    // [X] "jsdoc/multiline-blocks" is not enabled because it overlaps with
+    // `isaacscript/limit-jsdoc-comments`.
+
+    // [X] "jsdoc/newline-after-description" is not enabled because it overlaps with
+    // `isaacscript/limit-jsdoc-comments`.
+
+    // [X] "jsdoc/no-bad-blocks" is not enabled because it provides little value, since it only
+    // detects JSDoc comments with tags in them.
+
+    // [X] "jsdoc/no-defaults" is not enabled because it provides little value. (The `@default` tag
+    // is rare.)
+
+    // [X] "jsdoc/no-missing-syntax" is not enabled because it is not generally relevant.
+
+    // [X] "jsdoc/no-multi-asterisks" is not enabled because it overlaps with
+    // `isaacscript/limit-jsdoc-comments`.
+
+    // [X] "jsdoc/no-restricted-syntax" is not enabled because it is not generally relevant.
 
     /**
      * Documentation:
@@ -118,13 +136,13 @@ const config = {
      * Disallows types being used on `@param` or `@returns`.
      */
     "jsdoc/no-types": [
-      "warn",
+      "error",
       {
         contexts: ["any"],
       },
     ],
 
-    // - jsdoc/no-undefined-types - Not needed in TypeScript.
+    // [X] "jsdoc/no-undefined-types" is not enabled because it is not needed in TypeScript.
 
     /**
      * Documentation:
@@ -132,13 +150,19 @@ const config = {
      *
      * Requires that each JSDoc line starts with an `*`.
      */
-    "jsdoc/require-asterisk-prefix": "warn",
+    "jsdoc/require-asterisk-prefix": "error",
 
-    // - jsdoc/require-description-complete-sentence - Overlaps with
-    //   `isaacscript/jsdoc-complete-sentences`.
-    // - jsdoc/require-description - It's overboard for every function to have a description.
-    // - jsdoc/require-example - It's overboard for every function to require an example.
-    // - jsdoc/require-file-overview - It's overboard for every file to require an overview.
+    // [X] "jsdoc/require-description-complete-sentence" is not enabled because it overlaps with
+    // `isaacscript/jsdoc-complete-sentences`.
+
+    // [X] "jsdoc/require-description" is not enabled because it is overboard for every function to
+    // have a description.
+
+    // [X] "jsdoc/require-example" is not enabled because it is overboard for every function to
+    // require an example.
+
+    // [X] "jsdoc/require-file-overview" is not enabled because it is overboard for every file to
+    // require an overview.
 
     /**
      * Documentation:
@@ -146,9 +170,10 @@ const config = {
      *
      * Disallow hyphens before parameter descriptions, as it is non-standard syntax.
      */
-    "jsdoc/require-hyphen-before-param-description": ["warn", "never"],
+    "jsdoc/require-hyphen-before-param-description": ["error", "never"],
 
-    // - jsdoc/require-jsdoc - It's overboard for every function to have a JSDoc comment.
+    // [X] "jsdoc/require-jsdoc" is not enabled since it is overboard for every function to have a
+    // JSDoc comment.
 
     /**
      * Documentation:
@@ -157,7 +182,7 @@ const config = {
      * Requires that each `@param` tag has a description.
      */
     "jsdoc/require-param-description": [
-      "warn",
+      "error",
       {
         contexts: ["any"],
       },
@@ -170,16 +195,16 @@ const config = {
      * Requires that each `@param` tag has a name.
      */
     "jsdoc/require-param-name": [
-      "warn",
+      "error",
       {
         contexts: ["any"],
       },
     ],
 
-    // - jsdoc/require-param-type - Not needed in TypeScript.
+    // [X] "jsdoc/require-param-type" is not enabled because it is not needed in TypeScript.
 
     "jsdoc/require-param": [
-      "warn",
+      "error",
       {
         // We only activate the rule when there are one or more parameters.
         // https://github.com/gajus/eslint-plugin-jsdoc/issues/920
@@ -192,7 +217,7 @@ const config = {
       },
     ],
 
-    // - jsdoc/require-property - Probably not needed in TypeScript.
+    // [X] "jsdoc/require-property" is not enabled because it is not needed in TypeScript.
 
     /**
      * Documentation:
@@ -200,7 +225,7 @@ const config = {
      *
      * Requires that each `@property` tag has a description.
      */
-    "jsdoc/require-property-description": "warn",
+    "jsdoc/require-property-description": "error",
 
     /**
      * Documentation:
@@ -208,11 +233,12 @@ const config = {
      *
      * Requires that each `@property` tag has a name.
      */
-    "jsdoc/require-property-name": "warn",
+    "jsdoc/require-property-name": "error",
 
-    // - jsdoc/require-property-type - Not needed in TypeScript.
-    // - jsdoc/require-returns-check - It's overboard for every function to document every return
-    //   value.
+    // [X] "jsdoc/require-property-type" is not enabled because it is not needed in TypeScript.
+
+    // [X] "jsdoc/require-returns-check" is not enabled because it is overboard for every function
+    // to document every return value.
 
     /**
      * Documentation:
@@ -221,21 +247,32 @@ const config = {
      * Requires that each `@returns` tag has a description.
      */
     "jsdoc/require-returns-description": [
-      "warn",
+      "error",
       {
         contexts: ["any"],
       },
     ],
 
-    // - jsdoc/require-returns-type - Not needed in TypeScript.
-    // - jsdoc/require-returns - It's overboard for every function to document every return value.
-    // - jsdoc/require-throws - It's overboard to document every throw statement.
-    // - jsdoc/require-yields - It's overboard to document every yield.
-    // - jsdoc/require-yields-check - It's overboard to document every yield.
-    // - jsdoc/sort-tags - Not very useful since there are typically only `@param` and `@return`
-    //   tags.
-    // - jsdoc/tag-lines - Not needed with `isaacscript/format-jsdoc-comments`.
-    // - jsdoc/valid-types - Not needed in TypeScript.
+    // [X] "jsdoc/require-returns-type" is not enabled because it is not needed in TypeScript.
+
+    // [X] "jsdoc/require-returns" is not enabled because it is overboard for every function to
+    // document every return value.
+
+    // [X] "jsdoc/require-throws" is not enabled because it is overboard to document every throw
+    // statement.
+
+    // [X] "jsdoc/require-yields" is not enabled because it is overboard to document every yield.
+
+    // [X] "jsdoc/require-yields-check" is not enabled because it is overboard to document every
+    // yield.
+
+    // [X] "jsdoc/sort-tags" is not enabled because it is not very useful. (In most cases, a
+    // function will only have `@param` and `@return` tags, making sorting unnecessary.)
+
+    // [X] "jsdoc/tag-lines" is not enabled because it overlaps with
+    // `isaacscript/format-jsdoc-comments`.
+
+    // [X] "jsdoc/valid-types" is not enabled because it is not needed in TypeScript.
   },
 
   overrides: [

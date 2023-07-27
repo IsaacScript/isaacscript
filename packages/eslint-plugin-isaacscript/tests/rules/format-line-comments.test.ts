@@ -1,9 +1,6 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
-  formatLineComments,
-  MessageIds,
-  Options,
-} from "../../src/rules/format-line-comments";
+import type { TSESLint } from "@typescript-eslint/utils";
+import type { MessageIds, Options } from "../../src/rules/format-line-comments";
+import { formatLineComments } from "../../src/rules/format-line-comments";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
@@ -437,8 +434,8 @@ invalid.push({
 valid.push({
   name: "Using a multi-line comment with a URL",
   code: `
-// Documentation: https://github.com/jrdrg/eslint-plugin-sort-exports
-// Not defined in parent configs.
+// Documentation: https://github.com/jrdrg/eslint-plugin-something
+// Not defined in the parent configs.
   `,
 });
 

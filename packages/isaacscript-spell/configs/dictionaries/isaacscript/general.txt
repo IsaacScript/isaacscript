@@ -2,6 +2,7 @@
 
 astar
 autoformat
+backreference
 backstab
 backticks
 bitmask

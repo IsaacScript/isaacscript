@@ -38,7 +38,7 @@ jobs:
       # Then, uncomment the lines below.
       #- name: Upload the mod to Steam Workshop (if this is a release commit)
       #  uses: IsaacScript/isaac-steam-workshop-upload@v2
-      #  if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
+      #  if: "contains(github.event.head_commit.message, 'chore: release') && needs.pr-check.outputs.number != 'null'
       #  with:
       #    mod_path: mod
       #  env:

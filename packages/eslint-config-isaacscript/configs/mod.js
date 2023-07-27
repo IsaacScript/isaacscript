@@ -27,7 +27,7 @@ const config = {
      * Additionally, ensure that all enums match the Isaac convention of using UPPER_CASE.
      */
     "@typescript-eslint/naming-convention": [
-      "warn",
+      "error",
       // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
       // (23.10).
       {
@@ -67,7 +67,7 @@ const config = {
      * explicitly specifying the X and Y values.
      */
     "@typescript-eslint/no-base-to-string": [
-      "warn",
+      "error",
       {
         ignoredTypeNames: ["Vector"],
       },
@@ -84,7 +84,7 @@ const config = {
      * allow the "this" parameter.
      */
     "@typescript-eslint/no-invalid-void-type": [
-      "warn",
+      "error",
       {
         allowAsThisParameter: true,
       },
@@ -134,7 +134,7 @@ const config = {
      *
      * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.
      */
-    "isaacscript/enum-member-number-separation": "warn",
+    "isaacscript/enum-member-number-separation": "error",
 
     /**
      * Documentation:
@@ -144,7 +144,7 @@ const config = {
      *
      * Prevents misuse of the custom `DefaultMap` class in the standard library.
      */
-    "isaacscript/no-invalid-default-map": "warn",
+    "isaacscript/no-invalid-default-map": "error",
 
     /**
      * Documentation:
@@ -154,7 +154,7 @@ const config = {
      *
      * The `throw` keyword should never be used in Isaac mods.
      */
-    "isaacscript/no-throw": "warn",
+    "isaacscript/no-throw": "error",
 
     /**
      * Documentation:
@@ -164,7 +164,7 @@ const config = {
      *
      * We must explicitly enable this rule, since it should only apply to IsaacScript mods.
      */
-    "isaacscript/require-v-registration": "warn",
+    "isaacscript/require-v-registration": "error",
 
     /**
      * Documentation:
@@ -232,7 +232,7 @@ const config = {
      * https://moddingofisaac.com/docs/class_vector.html
      */
     "no-underscore-dangle": [
-      "warn",
+      "error",
       {
         allow: ["__add", "__sub", "__mul", "__div", "__unm", "__len"],
         allowAfterThis: false,

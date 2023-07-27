@@ -242,9 +242,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
 - [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n) - A plugin that provides rules for Node.js.
 - [`eslint-plugin-no-autofix`](https://github.com/aladdin-add/eslint-plugin/tree/master) - A plugin that turns off the auto-fixer for some ESLint rules.
-- [`eslint-plugin-no-type-assertion`](https://github.com/Dremora/eslint-plugin-no-type-assertion) - A plugin that detects type assertions. (In the standard config, these rules are not turned on automatically, but they are useful in certain specific contexts.)
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`eslint-plugin-sort-exports`](https://github.com/jrdrg/eslint-plugin-sort-exports) - A plugin that allows exports to be sorted alphabetically. (In the standard config, these rules are not turned on automatically, but they are useful in certain specific contexts.)
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn) - A plugin that provides some useful rules.
 - [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)

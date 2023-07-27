@@ -19,15 +19,20 @@ const config = {
     project: path.join(__dirname, "tsconfig.json"),
   },
 
+  plugins: [
+    /** The `sort-exports` rule is used in some specific files. */
+    "sort-exports",
+  ],
+
   rules: {
     /**
      * Documentation:
      * https://typescript-eslint.io/rules/explicit-member-accessibility/
      *
-     * Not defined in parent configs.
+     * Not defined in the parent configs.
      */
     "@typescript-eslint/explicit-member-accessibility": [
-      "warn",
+      "error",
       {
         overrides: {
           constructors: "off",
@@ -44,10 +49,10 @@ const config = {
          * Documentation:
          * https://github.com/jrdrg/eslint-plugin-sort-exports
          *
-         * Not defined in parent configs.
+         * Not defined in the parent configs.
          */
         "sort-exports/sort-exports": [
-          "warn",
+          "error",
           {
             sortDir: "asc",
           },

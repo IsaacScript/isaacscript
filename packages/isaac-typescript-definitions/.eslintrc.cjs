@@ -19,6 +19,11 @@ const config = {
     project: path.join(__dirname, "tsconfig.json"),
   },
 
+  plugins: [
+    /** See the `sort-exports` rule below. */
+    "sort-exports",
+  ],
+
   rules: {
     /**
      * Documentation:
@@ -30,7 +35,7 @@ const config = {
      * Isaac documentation.
      */
     "@typescript-eslint/member-ordering": [
-      "warn",
+      "error",
       {
         default: {
           order: "alphabetically",
@@ -69,7 +74,7 @@ const config = {
     /**
      * Documentation: https://github.com/jrdrg/eslint-plugin-sort-exports
      *
-     * Not defined in parent configs.
+     * Not defined in the parent configs.
      */
     "sort-exports/sort-exports": [
       "error",

@@ -24,7 +24,7 @@ const config = {
 
   rules: {
     "@nrwl/nx/enforce-module-boundaries": [
-      "warn",
+      "error",
       {
         enforceBuildableLibDependency: true,
         allow: [],
@@ -39,7 +39,7 @@ const config = {
 
     // This rule has to be told which "package.json" file that the dependencies are located in.
     "import/no-extraneous-dependencies": [
-      "warn",
+      "error",
       {
         packageDir: REPO_ROOT,
       },
