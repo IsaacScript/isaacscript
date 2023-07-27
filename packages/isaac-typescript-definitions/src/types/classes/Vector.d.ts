@@ -4,12 +4,12 @@ declare global {
   function Vector(this: void, x: float, y: float): Vector;
 
   interface Vector extends IsaacAPIClass {
-    Clamp(minX: float, minY: float, maxX: float, maxY: float): void;
-    Clamped(minX: float, minY: float, maxX: float, maxY: float): Vector;
-    Cross(secondVector: Vector): float;
-    Distance(secondVector: Vector): float;
-    DistanceSquared(secondVector: Vector): float;
-    Dot(secondVector: Vector): float;
+    Clamp: (minX: float, minY: float, maxX: float, maxY: float) => void;
+    Clamped: (minX: float, minY: float, maxX: float, maxY: float) => Vector;
+    Cross: (secondVector: Vector) => float;
+    Distance: (secondVector: Vector) => float;
+    DistanceSquared: (secondVector: Vector) => float;
+    Dot: (secondVector: Vector) => float;
 
     /**
      * This method returns a value from -180 to 180.
@@ -22,16 +22,16 @@ declare global {
      * - Left: 180
      * - Down: 90
      */
-    GetAngleDegrees(): float;
+    GetAngleDegrees: () => float;
 
-    Length(): float;
-    LengthSquared(): float;
-    Lerp(secondVector: Vector, t: float): Vector;
-    Normalize(): void;
-    Normalized(): Vector;
-    Resize(newLength: float): void;
-    Resized(newLength: float): Vector;
-    Rotated(angleDegrees: float): Vector;
+    Length: () => float;
+    LengthSquared: () => float;
+    Lerp: (secondVector: Vector, t: float) => Vector;
+    Normalize: () => void;
+    Normalized: () => Vector;
+    Resize: (newLength: float) => void;
+    Resized: (newLength: float) => Vector;
+    Rotated: (angleDegrees: float) => Vector;
 
     X: float;
     Y: float;

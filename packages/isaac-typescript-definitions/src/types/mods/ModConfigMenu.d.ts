@@ -6,7 +6,7 @@ declare global {
 
   /** @noSelf */
   interface ModConfigMenuInterface {
-    AddBooleanSetting(
+    AddBooleanSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -15,9 +15,9 @@ declare global {
       displayValueProxies: LuaMap<boolean, string>,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddControllerSetting(
+    AddControllerSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -26,9 +26,9 @@ declare global {
       displayDevice: boolean,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddKeyboardSetting(
+    AddKeyboardSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -37,9 +37,9 @@ declare global {
       displayDevice: boolean,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddNumberSetting(
+    AddNumberSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -51,9 +51,9 @@ declare global {
       displayValueProxies: LuaMap<number, string>,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddScrollSetting(
+    AddScrollSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -61,50 +61,50 @@ declare global {
       displayText: string,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddSetting(
+    AddSetting: (
       categoryName: string,
       subcategoryName?: string,
       setting?: ModConfigMenuSetting,
-    ): void;
+    ) => void;
 
-    AddSpace(categoryName: string, subcategoryName: string): void;
+    AddSpace: (categoryName: string, subcategoryName: string) => void;
 
-    AddText(
+    AddText: (
       categoryName: string,
       subcategoryName: string,
       text: string | (() => string),
       color?: string,
-    ): void;
+    ) => void;
 
-    AddTitle(
+    AddTitle: (
       categoryName: string,
       subcategoryName: string,
       text: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    GetCategoryIDByName(categoryName: string): int | undefined;
+    GetCategoryIDByName: (categoryName: string) => int | undefined;
 
-    GetSubcategoryIDByName(
+    GetSubcategoryIDByName: (
       category: string | number,
       subcategoryName: string,
-    ): int;
+    ) => int;
 
-    RemoveCategory(categoryName: string): void;
+    RemoveCategory: (categoryName: string) => void;
 
-    RemoveSetting(
+    RemoveSetting: (
       categoryName: string,
       subcategoryString: string,
       settingAttribute: string,
-    ): void;
+    ) => void;
 
-    RemoveSubcategory(categoryName: string, subcategoryName: string): void;
+    RemoveSubcategory: (categoryName: string, subcategoryName: string) => void;
 
-    SetCategoryInfo(categoryName: string, info: string): void;
+    SetCategoryInfo: (categoryName: string, info: string) => void;
 
-    SimpleAddSetting(
+    SimpleAddSetting: (
       settingType: ModConfigMenuOptionType,
       categoryName: string,
       subcategoryName: string,
@@ -119,18 +119,18 @@ declare global {
       info: string,
       color?: string,
       functionName?: string,
-    ): void;
+    ) => void;
 
-    UpdateCategory(
+    UpdateCategory: (
       categoryName: string,
       categoryData: ModConfigMenuCategoryData,
-    ): void;
+    ) => void;
 
-    UpdateSubcategory(
+    UpdateSubcategory: (
       categoryName: string,
       subcategoryName: string,
       subcategoryData: ModConfigMenuSubcategoryData,
-    ): void;
+    ) => void;
 
     Config: {
       General: {

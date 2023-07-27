@@ -10,16 +10,16 @@ import type { RoomType } from "../../enums/RoomType";
 
 declare global {
   interface ItemPool extends IsaacAPIClass {
-    AddBibleUpgrade(add: int, itemPoolType: ItemPoolType): void;
-    AddRoomBlacklist(collectibleType: CollectibleType): void;
-    ForceAddPillEffect(pillEffect: PillEffect): PillColor;
+    AddBibleUpgrade: (add: int, itemPoolType: ItemPoolType) => void;
+    AddRoomBlacklist: (collectibleType: CollectibleType) => void;
+    ForceAddPillEffect: (pillEffect: PillEffect) => PillColor;
 
-    GetCard(
+    GetCard: (
       seed: Seed,
       playing: boolean,
       rune: boolean,
       onlyRunes: boolean,
-    ): CardType;
+    ) => CardType;
 
     /**
      * @param itemPoolType
@@ -27,15 +27,15 @@ declare global {
      * @param seed Default is `Random()`.
      * @param defaultItem Default is `CollectibleType.NULL`.
      */
-    GetCollectible(
+    GetCollectible: (
       itemPoolType: ItemPoolType,
       decrease?: boolean,
       seed?: Seed,
       defaultItem?: CollectibleType,
-    ): CollectibleType;
+    ) => CollectibleType;
 
-    GetLastPool(): ItemPoolType;
-    GetPill(seed: Seed): PillColor;
+    GetLastPool: () => ItemPoolType;
+    GetPill: (seed: Seed) => PillColor;
 
     /**
      * Will return the pill effect that corresponds to the passed pill color. This will work
@@ -50,7 +50,10 @@ declare global {
      * @param pillColor
      * @param player Default is undefined.
      */
-    GetPillEffect(pillColor: PillColor, player?: EntityPlayer): PillEffect | -1;
+    GetPillEffect: (
+      pillColor: PillColor,
+      player?: EntityPlayer,
+    ) => PillEffect | -1;
 
     /**
      * Note that this function will return `ItemPoolType.NULL` for `RoomType.DEFAULT`, which may be
@@ -59,12 +62,12 @@ declare global {
      * @param roomType
      * @param seed
      */
-    GetPoolForRoom(roomType: RoomType, seed: Seed): ItemPoolType;
+    GetPoolForRoom: (roomType: RoomType, seed: Seed) => ItemPoolType;
 
     /** @param dontAdvanceRNG Default is false. */
-    GetTrinket(dontAdvanceRNG?: boolean): TrinketType;
+    GetTrinket: (dontAdvanceRNG?: boolean) => TrinketType;
 
-    IdentifyPill(pillColor: PillColor): void;
+    IdentifyPill: (pillColor: PillColor) => void;
 
     /**
      * Once the player takes PHD, Virgo, or False PHD, this method will always return true, even if
@@ -72,9 +75,9 @@ declare global {
      * method dictates when the "???" text should be shown as the pill description, and these
      * collectibles will always show the "revealed" text.)
      */
-    IsPillIdentified(pillColor: PillColor): boolean;
+    IsPillIdentified: (pillColor: PillColor) => boolean;
 
-    RemoveCollectible(collectibleType: CollectibleType): boolean;
+    RemoveCollectible: (collectibleType: CollectibleType) => boolean;
 
     /**
      * Note that if the trinket pool becomes empty, the game will refill it with all trinkets. Thus,
@@ -84,9 +87,9 @@ declare global {
      * For this reason, if you want to permanently prevent a trinket from appearing, then you must
      * monitor for it appearing using a callback.
      */
-    RemoveTrinket(trinketType: TrinketType): boolean;
+    RemoveTrinket: (trinketType: TrinketType) => boolean;
 
-    ResetRoomBlacklist(): void;
-    ResetTrinkets(): void;
+    ResetRoomBlacklist: () => void;
+    ResetTrinkets: () => void;
   }
 }

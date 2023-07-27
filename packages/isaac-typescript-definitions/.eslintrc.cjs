@@ -27,29 +27,6 @@ const config = {
   rules: {
     /**
      * Documentation:
-     * https://typescript-eslint.io/rules/member-ordering/
-     *
-     * Not defined in the parent configs.
-     *
-     * We want class and interface definitions to be alphabetically ordered so that they match the
-     * Isaac documentation.
-     */
-    "@typescript-eslint/member-ordering": [
-      "error",
-      {
-        default: {
-          order: "alphabetically",
-        },
-
-        interfaces: {
-          memberTypes: ["method", "field"],
-          order: "alphabetically",
-        },
-      },
-    ],
-
-    /**
-     * Documentation:
      * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/triple-slash-reference.md.
      *
      * Defined at:

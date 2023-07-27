@@ -22,15 +22,19 @@ declare global {
   ): Color;
 
   interface Color extends IsaacAPIClass {
-    Reset(): void;
-    SetColorize(red: float, green: float, blue: float, amount: float): void;
-    SetOffset(redOffset: float, greenOffset: float, blueOffset: float): void;
-    SetTint(
+    Reset: () => void;
+    SetColorize: (red: float, green: float, blue: float, amount: float) => void;
+    SetOffset: (
+      redOffset: float,
+      greenOffset: float,
+      blueOffset: float,
+    ) => void;
+    SetTint: (
       redTint: float,
       greenTint: float,
       blueTint: float,
       alphaTint: float,
-    ): void;
+    ) => void;
 
     /** Range is from 0-1. */
     A: float;

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-/* cspell:ignore STAGEAPI GRIDENTITY */
+// cspell:ignore STAGEAPI GRIDENTITY
 
 import type { DoorSlot } from "../../enums/DoorSlot";
 

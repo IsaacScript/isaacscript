@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable deprecation/deprecation */
 
 import type { ActiveSlot } from "../../enums/ActiveSlot";

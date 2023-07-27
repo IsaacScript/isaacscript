@@ -3,33 +3,33 @@ import type { GridEntityType } from "../../enums/GridEntityType";
 
 declare global {
   interface GridEntity extends IsaacAPIClass {
-    Destroy(immediate: boolean): boolean;
-    GetGridIndex(): int;
+    Destroy: (immediate: boolean) => boolean;
+    GetGridIndex: () => int;
 
     /** The RNG returned is a reference (i.e. not a copy). */
-    GetRNG(): RNG;
+    GetRNG: () => RNG;
 
-    GetSaveState(): GridEntityDesc;
+    GetSaveState: () => GridEntityDesc;
 
     /** The Sprite returned is a reference (i.e. not a copy). */
-    GetSprite(): Sprite;
+    GetSprite: () => Sprite;
 
-    GetType(): GridEntityType;
-    GetVariant(): int;
-    Hurt(damage: int): boolean;
-    Init(seed: Seed): void;
-    PostInit(): void;
-    Render(offset: Vector): void;
-    SetType(gridEntityType: GridEntityType): void;
-    SetVariant(variant: int): void;
-    ToDoor(): GridEntityDoor | undefined;
-    ToPit(): GridEntityPit | undefined;
-    ToPoop(): GridEntityPoop | undefined;
-    ToPressurePlate(): GridEntityPressurePlate | undefined;
-    ToRock(): GridEntityRock | undefined;
-    ToSpikes(): GridEntitySpikes | undefined;
-    ToTNT(): GridEntityTNT | undefined;
-    Update(): void;
+    GetType: () => GridEntityType;
+    GetVariant: () => int;
+    Hurt: (damage: int) => boolean;
+    Init: (seed: Seed) => void;
+    PostInit: () => void;
+    Render: (offset: Vector) => void;
+    SetType: (gridEntityType: GridEntityType) => void;
+    SetVariant: (variant: int) => void;
+    ToDoor: () => GridEntityDoor | undefined;
+    ToPit: () => GridEntityPit | undefined;
+    ToPoop: () => GridEntityPoop | undefined;
+    ToPressurePlate: () => GridEntityPressurePlate | undefined;
+    ToRock: () => GridEntityRock | undefined;
+    ToSpikes: () => GridEntitySpikes | undefined;
+    ToTNT: () => GridEntityTNT | undefined;
+    Update: () => void;
 
     CollisionClass: GridCollisionClass;
 

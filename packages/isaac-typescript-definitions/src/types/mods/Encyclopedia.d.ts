@@ -5,7 +5,7 @@ declare global {
 
   /** @noSelf */
   interface EncyclopediaInterface {
-    AddCharacter(args: {
+    AddCharacter: (args: {
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
       CompletionRenderFuncs?: [
@@ -20,9 +20,9 @@ declare global {
       Sprite?: Sprite;
       UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
       WikiDesc?: EncyclopediaWikiDescription;
-    }): void;
+    }) => void;
 
-    AddCharacterTainted(args: {
+    AddCharacterTainted: (args: {
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
       CompletionRenderFuncs?: [
@@ -37,9 +37,9 @@ declare global {
       Sprite?: Sprite;
       UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
       WikiDesc?: EncyclopediaWikiDescription;
-    }): void;
+    }) => void;
 
-    AddItem(itemTab: {
+    AddItem: (itemTab: {
       ActiveCharge?: number;
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
@@ -53,11 +53,11 @@ declare global {
       StatusFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
       UnlockFunc?: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
       WikiDesc?: EncyclopediaWikiDescription;
-    }): void;
+    }) => void;
 
-    AddItemPoolSprite(id: number, sprite: Sprite): void;
+    AddItemPoolSprite: (id: number, sprite: Sprite) => void;
 
-    AddPocketItem(
+    AddPocketItem: (
       itemTab: {
         Class?: string;
         Desc?: string;
@@ -74,9 +74,9 @@ declare global {
         WikiDesc?: EncyclopediaWikiDescription;
       },
       eType: string,
-    ): void;
+    ) => void;
 
-    AddRune(itemTab: {
+    AddRune: (itemTab: {
       Class?: string;
       Desc?: string;
       ID: number;
@@ -90,9 +90,9 @@ declare global {
         vars: EncyclopediaItemVars,
       ) => EncyclopediaItemVars | undefined;
       WikiDesc?: EncyclopediaWikiDescription;
-    }): void;
+    }) => void;
 
-    AddTrinket(itemTab: {
+    AddTrinket: (itemTab: {
       Class?: string;
       Desc?: string;
       Hide?: boolean;
@@ -106,19 +106,19 @@ declare global {
         vars: EncyclopediaItemVars,
       ) => EncyclopediaItemVars | undefined;
       WikiDesc?: EncyclopediaWikiDescription;
-    }): void;
+    }) => void;
 
-    EIDtoWiki(desc: string, title?: string): void;
+    EIDtoWiki: (desc: string, title?: string) => void;
 
-    GetItemPoolIdByName(name: string): number;
+    GetItemPoolIdByName: (name: string) => number;
 
-    RegisterSprite(
+    RegisterSprite: (
       gfxRoot: string,
       anmToPlay: string,
       anmFrame: number,
       newSprite?: string,
       layer?: number,
-    ): Sprite;
+    ) => Sprite;
     ItemPools: int;
   }
 
@@ -181,8 +181,8 @@ declare global {
 
   /** Encyclopedia's "General Item Variables" object. Used to store data about an item. */
   interface EncyclopediaItemVars {
-    CloseFunc(vars: EncyclopediaItemVars): void;
-    StatusFunc(vars: EncyclopediaItemVars): EncyclopediaItemVars;
+    CloseFunc: (vars: EncyclopediaItemVars) => void;
+    StatusFunc: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
 
     AllIndex?: number;
     AllIntIndex: number;

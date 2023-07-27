@@ -4,20 +4,20 @@ import type { TargetFlag } from "../../enums/flags/TargetFlag";
 
 declare global {
   interface EntityFamiliar extends Entity {
-    AddCoins(value: int): void;
-    AddHearts(hearts: int): void;
-    AddKeys(keys: int): void;
-    AddToDelayed(): void;
-    AddToFollowers(): void;
-    AddToOrbit(layer: int): void;
-    FireProjectile(direction: Vector): EntityTear;
-    FollowParent(): void;
-    FollowPosition(position: Vector): void;
-    GetOrbitPosition(position: Vector): Vector;
-    IsDelayed(): boolean;
-    IsFollower(): boolean;
-    MoveDelayed(numFrames: int): void;
-    MoveDiagonally(speed: float): void;
+    AddCoins: (value: int) => void;
+    AddHearts: (hearts: int) => void;
+    AddKeys: (keys: int) => void;
+    AddToDelayed: () => void;
+    AddToFollowers: () => void;
+    AddToOrbit: (layer: int) => void;
+    FireProjectile: (direction: Vector) => EntityTear;
+    FollowParent: () => void;
+    FollowPosition: (position: Vector) => void;
+    GetOrbitPosition: (position: Vector) => Vector;
+    IsDelayed: () => boolean;
+    IsFollower: () => boolean;
+    MoveDelayed: (numFrames: int) => void;
+    MoveDiagonally: (speed: float) => void;
 
     /**
      * @param maxDistance
@@ -29,22 +29,22 @@ declare global {
      *                  half angle of the search cone in degrees. (For example, 45 results in a
      *                  search angle of 90 degrees.)
      */
-    PickEnemyTarget(
+    PickEnemyTarget: (
       maxDistance: float,
       frameInterval?: int,
       flags?: TargetFlag | BitFlags<TargetFlag>,
       coneDir?: Vector,
       coneAngle?: float,
-    ): void;
+    ) => void;
 
-    PlayChargeAnim(direction: Direction): void;
-    PlayFloatAnim(direction: Direction): void;
-    PlayShootAnim(direction: Direction): void;
-    RecalculateOrbitOffset(layer: int, add: boolean): int;
-    RemoveFromDelayed(): void;
-    RemoveFromFollowers(): void;
-    RemoveFromOrbit(): void;
-    Shoot(): void;
+    PlayChargeAnim: (direction: Direction) => void;
+    PlayFloatAnim: (direction: Direction) => void;
+    PlayShootAnim: (direction: Direction) => void;
+    RecalculateOrbitOffset: (layer: int, add: boolean) => int;
+    RemoveFromDelayed: () => void;
+    RemoveFromFollowers: () => void;
+    RemoveFromOrbit: () => void;
+    Shoot: () => void;
 
     Coins: int;
     FireCooldown: int;

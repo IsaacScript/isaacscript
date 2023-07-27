@@ -260,7 +260,10 @@ declare interface EIDInterface {
    * @returns The `KColor` object and a `boolean` value indicating if the given string was a color
    *          markup or not.
    */
-  getColor: (str: string, baseKColor: KColor) => LuaMultiReturn<[KColor, boolean]>;
+  getColor: (
+    str: string,
+    baseKColor: KColor,
+  ) => LuaMultiReturn<[KColor, boolean]>;
 
   /**
    * Returns the description data table in the current language related to a given id, variant and
@@ -279,7 +282,10 @@ declare interface EIDInterface {
    *
    * Falls back to English if it doesn't exist.
    */
-  getDescriptionEntry: (objTable: string, objID?: string) => EIDDescriptionObject;
+  getDescriptionEntry: (
+    objTable: string,
+    objID?: string,
+  ) => EIDDescriptionObject;
 
   /**
    * Returns the description object of the specified entity.
@@ -367,13 +373,9 @@ declare interface EIDInterface {
   /**
    * Tries to get the in-game description of an object, based on their description in the XML files.
    *
-   * @returns `"(No Description available)"` if it cannot find the given object's description.
+   * @returns `"(no description available)"` if it cannot find the given object's description.
    */
-  getXMLDescription: (
-    Type: int,
-    Variant: int,
-    SubType: int,
-  ) => string | "(no description available)";
+  getXMLDescription: (Type: int, Variant: int, SubType: int) => string;
 
   /**
    * Returns the icon used for the bullet-point. It will look at the first word in the given string.
@@ -390,7 +392,11 @@ declare interface EIDInterface {
   hidePermanentText: () => void;
 
   /** Interpolates between 2 KColors with a given fraction. */
-  interpolateColors: (kColor1: KColor, kColor2: KColor, fraction: number) => KColor;
+  interpolateColors: (
+    kColor1: KColor,
+    kColor2: KColor,
+    fraction: number,
+  ) => KColor;
 
   /** Returns if EID is displaying text right now. */
   isDisplayingText: () => boolean;

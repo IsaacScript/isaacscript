@@ -2,9 +2,9 @@ import type { ItemConfigCardType } from "../../enums/ItemConfigCardType";
 
 declare global {
   interface ItemConfigCard extends IsaacAPIClass {
-    IsAvailable(): boolean;
-    IsCard(): boolean;
-    IsRune(): boolean;
+    IsAvailable: () => boolean;
+    IsCard: () => boolean;
+    IsRune: () => boolean;
 
     AchievementID: int;
     AnnouncerDelay: int;

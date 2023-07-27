@@ -3,15 +3,15 @@ import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityTear extends Entity {
-    AddTearFlags(flags: TearFlag | BitFlags<TearFlag>): void;
-    ChangeVariant(tearVariant: TearVariant): void;
-    ClearTearFlags(flags: TearFlag | BitFlags<TearFlag>): void;
-    HasTearFlags(flags: TearFlag | BitFlags<TearFlag>): boolean;
-    ResetSpriteScale(): void;
-    SetDeadEyeIntensity(intensity: float): void;
-    SetKnockbackMultiplier(multiplier: float): void;
-    SetParentOffset(offset: Vector): void;
-    SetWaitFrames(value: int): void;
+    AddTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
+    ChangeVariant: (tearVariant: TearVariant) => void;
+    ClearTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
+    HasTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => boolean;
+    ResetSpriteScale: () => void;
+    SetDeadEyeIntensity: (intensity: float) => void;
+    SetKnockbackMultiplier: (multiplier: float) => void;
+    SetParentOffset: (offset: Vector) => void;
+    SetWaitFrames: (value: int) => void;
 
     readonly BaseDamage: float;
     readonly BaseScale: float;

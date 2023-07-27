@@ -4,13 +4,13 @@ declare global {
   function RNG(this: void): RNG;
 
   interface RNG extends IsaacAPIClass {
-    GetSeed(): Seed;
+    GetSeed: () => Seed;
 
     /**
      * "Iterates" the RNG object and returns the iterated seed, which will be a new random number
      * between 1 and 4294967295 (2^32 - 1).
      */
-    Next(): Seed;
+    Next: () => Seed;
 
     /**
      * Returns a random float between 0 and 1. It is inclusive on the lower end and exclusive on the
@@ -19,7 +19,7 @@ declare global {
      * Note that this will automatically call the `RNG.Next` method before retrieving the random
      * number. Since this mutates the RNG object, you should use this method with care.
      */
-    RandomFloat(): float;
+    RandomFloat: () => float;
 
     /**
      * Returns a random integer between 0 and max. It is inclusive on the lower end and exclusive on
@@ -30,9 +30,9 @@ declare global {
      * Note that this will automatically call the `RNG.Next` method before retrieving the random
      * number. Since this mutates the RNG object, you should use this method with care.
      */
-    RandomInt(max: int): int;
+    RandomInt: (max: int) => int;
 
-    SetSeed(seed: Seed, shiftIdx: int): void;
+    SetSeed: (seed: Seed, shiftIdx: int) => void;
 
     /** An identifier that does not exist at run-time. */
     __kind: CopyableIsaacAPIClassType.RNG;

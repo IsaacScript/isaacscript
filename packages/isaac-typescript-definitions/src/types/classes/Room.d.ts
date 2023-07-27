@@ -26,18 +26,18 @@ declare global {
      * - collidePos - The first hit position from `position1` to `position2`. Returns `position2` if
      *   the line didn't hit anything.
      */
-    CheckLine(
+    CheckLine: (
       position1: Vector,
       position2: Vector,
       lineCheckMode: LineCheckMode,
       gridPathThreshold?: int | GridPath,
       ignoreWalls?: boolean,
       ignoreCrushable?: boolean,
-    ): LuaMultiReturn<[clear: boolean, collidePos: Vector]>;
+    ) => LuaMultiReturn<[clear: boolean, collidePos: Vector]>;
 
-    DamageGrid(index: int, damage: int): boolean;
-    DestroyGrid(index: int, immediate: boolean): boolean;
-    EmitBloodFromWalls(duration: int, count: int): void;
+    DamageGrid: (index: int, damage: int) => boolean;
+    DestroyGrid: (index: int, immediate: boolean) => boolean;
+    EmitBloodFromWalls: (duration: int, count: int) => void;
 
     /**
      * @param position
@@ -45,33 +45,36 @@ declare global {
      * @param avoidActiveEntities Default is false.
      * @param allowPits Default is false.
      */
-    FindFreePickupSpawnPosition(
+    FindFreePickupSpawnPosition: (
       position: Vector,
       initialStep?: float,
       avoidActiveEntities?: boolean,
       allowPits?: boolean,
-    ): Vector;
+    ) => Vector;
 
-    FindFreeTilePosition(position: Vector, distanceThreshold: float): Vector;
-    GetAliveBossesCount(): int;
-    GetAliveEnemiesCount(): int;
-    GetAwardSeed(): Seed;
-    GetBackdropType(): BackdropType;
+    FindFreeTilePosition: (
+      position: Vector,
+      distanceThreshold: float,
+    ) => Vector;
+    GetAliveBossesCount: () => int;
+    GetAliveEnemiesCount: () => int;
+    GetAwardSeed: () => Seed;
+    GetBackdropType: () => BackdropType;
 
     /** Returns 0 if this is not a boss room. */
-    GetBossID(): BossID | 0;
+    GetBossID: () => BossID | 0;
 
-    GetBottomRightPos(): Vector;
-    GetBrokenWatchState(): int;
-    GetCenterPos(): Vector;
-    GetClampedGridIndex(position: Vector): int;
-    GetClampedPosition(position: Vector, margin: float): Vector;
-    GetDecorationSeed(): Seed;
-    GetDeliriumDistance(): int;
-    GetDevilRoomChance(): float;
-    GetDoor(doorSlot: DoorSlot): GridEntityDoor | undefined;
-    GetDoorSlotPosition(doorSlot: DoorSlot): Vector;
-    GetDungeonRockIdx(): int;
+    GetBottomRightPos: () => Vector;
+    GetBrokenWatchState: () => int;
+    GetCenterPos: () => Vector;
+    GetClampedGridIndex: (position: Vector) => int;
+    GetClampedPosition: (position: Vector, margin: float) => Vector;
+    GetDecorationSeed: () => Seed;
+    GetDeliriumDistance: () => int;
+    GetDevilRoomChance: () => float;
+    GetDoor: (doorSlot: DoorSlot) => GridEntityDoor | undefined;
+    GetDoorSlotPosition: (doorSlot: DoorSlot) => Vector;
+    GetDungeonRockIdx: () => int;
 
     /**
      * Returns the total amount of HP lost by all enemies in the room between the last game frame
@@ -79,92 +82,92 @@ declare global {
      *
      * This is used by items that charge on damage inflicted (e.g. Berserk!).
      */
-    GetEnemyDamageInflicted(): int;
+    GetEnemyDamageInflicted: () => int;
 
     /** @deprecated Use the `Isaac.GetRoomEntities` method instead. */
-    GetEntities(): EntityList;
+    GetEntities: () => EntityList;
 
-    GetFrameCount(): int;
-    GetGridCollision(gridIndex: int): GridCollisionClass;
-    GetGridCollisionAtPos(position: Vector): GridCollisionClass;
-    GetGridEntity(gridIndex: int): GridEntity | undefined;
-    GetGridEntityFromPos(position: Vector): GridEntity | undefined;
-    GetGridHeight(): int;
-    GetGridIndex(position: Vector): int;
-    GetGridPath(index: int): int;
-    GetGridPathFromPos(position: Vector): int;
-    GetGridPosition(gridIndex: int): Vector;
-    GetGridSize(): int;
+    GetFrameCount: () => int;
+    GetGridCollision: (gridIndex: int) => GridCollisionClass;
+    GetGridCollisionAtPos: (position: Vector) => GridCollisionClass;
+    GetGridEntity: (gridIndex: int) => GridEntity | undefined;
+    GetGridEntityFromPos: (position: Vector) => GridEntity | undefined;
+    GetGridHeight: () => int;
+    GetGridIndex: (position: Vector) => int;
+    GetGridPath: (index: int) => int;
+    GetGridPathFromPos: (position: Vector) => int;
+    GetGridPosition: (gridIndex: int) => Vector;
+    GetGridSize: () => int;
 
     /** Note that if you call this in the main menu, the game will sometimes crash. */
-    GetGridWidth(): int;
+    GetGridWidth: () => int;
 
-    GetLaserTarget(position: Vector, direction: Vector): Vector;
+    GetLaserTarget: (position: Vector, direction: Vector) => Vector;
 
     /**
      * Usually returns 1, unless the lava is in the process of being cooled down by Flush or other
      * room flooding effects, in which case this will gradually decrease down to 0.
      */
-    GetLavaIntensity(): float;
+    GetLavaIntensity: () => float;
 
-    GetLightingAlpha(): float;
+    GetLightingAlpha: () => float;
 
     // GetLRoomAreaDesc is not implemented.
 
     // GetLRoomTileDesc is not implemented.
 
-    GetRandomPosition(margin: float): Vector;
-    GetRandomTileIndex(seed: Seed): int;
-    GetRedHeartDamage(): boolean;
+    GetRandomPosition: (margin: float) => Vector;
+    GetRandomTileIndex: (seed: Seed) => int;
+    GetRedHeartDamage: () => boolean;
 
     /**
      * Returns the current render mode, which can be used to render entities differently depending
      * on the context (i.e. custom water reflections).
      */
-    GetRenderMode(): RenderMode;
+    GetRenderMode: () => RenderMode;
 
-    GetRenderScrollOffset(): Readonly<Vector>;
-    GetRenderSurfaceTopLeft(): Readonly<Vector>;
-    GetRoomConfigStage(): int;
-    GetRoomShape(): RoomShape;
+    GetRenderScrollOffset: () => Readonly<Vector>;
+    GetRenderSurfaceTopLeft: () => Readonly<Vector>;
+    GetRoomConfigStage: () => int;
+    GetRoomShape: () => RoomShape;
 
     /** Returns 0 if this is not a Double Trouble boss room. */
-    GetSecondBossID(): BossID | 0;
+    GetSecondBossID: () => BossID | 0;
 
     /**
      * @param seed
      * @param noDecrease If true, the collectible will not be removed from the pool that it came
      *                   from. Default is false.
      */
-    GetSeededCollectible(seed: Seed, noDecrease?: boolean): CollectibleType;
+    GetSeededCollectible: (seed: Seed, noDecrease?: boolean) => CollectibleType;
 
-    GetShopLevel(): int;
-    GetSpawnSeed(): Seed;
-    GetTintedRockIdx(): int;
-    GetTopLeftPos(): Vector;
-    GetType(): RoomType;
+    GetShopLevel: () => int;
+    GetSpawnSeed: () => Seed;
+    GetTintedRockIdx: () => int;
+    GetTopLeftPos: () => Vector;
+    GetType: () => RoomType;
 
     /** Returns a vector corresponding to any water current in the room. */
-    GetWaterCurrent(): Vector;
+    GetWaterCurrent: () => Vector;
 
     /** Returns true if the player is inside the abandoned mineshaft. */
-    HasCurseMist(): boolean;
+    HasCurseMist: () => boolean;
 
     /** Returns true if the room contains lava pits. */
-    HasLava(): boolean;
+    HasLava: () => boolean;
 
-    HasSlowDown(): boolean;
-    HasTriggerPressurePlates(): boolean;
-    HasWater(): boolean;
-    HasWaterPits(): boolean;
+    HasSlowDown: () => boolean;
+    HasTriggerPressurePlates: () => boolean;
+    HasWater: () => boolean;
+    HasWaterPits: () => boolean;
 
     /** Causes chest previews from Guppy's Eye to be updated on the next frame. */
-    InvalidatePickupVision(): void;
+    InvalidatePickupVision: () => void;
 
-    IsAmbushActive(): boolean;
-    IsAmbushDone(): boolean;
-    IsClear(): boolean;
-    IsCurrentRoomLastBoss(): boolean;
+    IsAmbushActive: () => boolean;
+    IsAmbushDone: () => boolean;
+    IsClear: () => boolean;
+    IsCurrentRoomLastBoss: () => boolean;
 
     /**
      * Returns whether or not the supplied door slot is valid for the current room. This is
@@ -182,61 +185,64 @@ declare global {
      * `DoorSlot.UP0` and `DoorSlot.DOWN0`, and false for all other values (regardless of what doors
      * happen to exist or not).
      */
-    IsDoorSlotAllowed(doorSlot: DoorSlot): boolean;
+    IsDoorSlotAllowed: (doorSlot: DoorSlot) => boolean;
 
-    IsFirstEnemyDead(): boolean;
-    IsFirstVisit(): boolean;
-    IsInitialized(): boolean;
-    IsLShapedRoom(): boolean;
+    IsFirstEnemyDead: () => boolean;
+    IsFirstVisit: () => boolean;
+    IsInitialized: () => boolean;
+    IsLShapedRoom: () => boolean;
 
     /** Returns true if the player is inside the mirror dimension. */
-    IsMirrorWorld(): boolean;
+    IsMirrorWorld: () => boolean;
 
-    IsPositionInRoom(position: Vector, margin: float): boolean;
-    IsSacrificeDone(): boolean;
-    KeepDoorsClosed(): void;
+    IsPositionInRoom: (position: Vector, margin: float) => boolean;
+    IsSacrificeDone: () => boolean;
+    KeepDoorsClosed: () => void;
 
     /** Note that "Explosion" is misspelled as "Explossion". */
-    MamaMegaExplossion(): void;
+    MamaMegaExplossion: () => void;
 
-    PlayMusic(): void;
-    RemoveDoor(doorSlot: DoorSlot): void;
+    PlayMusic: () => void;
+    RemoveDoor: (doorSlot: DoorSlot) => void;
 
-    RemoveGridEntity(
+    RemoveGridEntity: (
       gridIndex: int,
       pathTrail: int,
       keepDecoration: boolean,
-    ): void;
+    ) => void;
 
-    Render(): void;
-    RespawnEnemies(): void;
-    ScreenWrapPosition(position: Vector, margin: float): Vector;
-    SetAmbushDone(value: boolean): void;
-    SetBrokenWatchState(brokenWatchState: BrokenWatchState): void;
-    SetCardAgainstHumanity(): void;
-    SetClear(clear: boolean): void;
-    SetFirstEnemyDead(value: boolean): void;
-    SetFloorColor(floorColor: Color): void;
-    SetGridPath(index: int, value: int): boolean;
-    SetRedHeartDamage(): void;
-    SetSacrificeDone(done: boolean): void;
-    SetSlowDown(duration: int): void;
-    SetWallColor(wallColor: Color): void;
-    ShopReshuffle(keepCollectibleIdx: boolean, reselectSaleItem: boolean): void;
-    ShopRestockFull(): void;
-    ShopRestockPartial(): void;
-    SpawnClearAward(): void;
+    Render: () => void;
+    RespawnEnemies: () => void;
+    ScreenWrapPosition: (position: Vector, margin: float) => Vector;
+    SetAmbushDone: (value: boolean) => void;
+    SetBrokenWatchState: (brokenWatchState: BrokenWatchState) => void;
+    SetCardAgainstHumanity: () => void;
+    SetClear: (clear: boolean) => void;
+    SetFirstEnemyDead: (value: boolean) => void;
+    SetFloorColor: (floorColor: Color) => void;
+    SetGridPath: (index: int, value: int) => boolean;
+    SetRedHeartDamage: () => void;
+    SetSacrificeDone: (done: boolean) => void;
+    SetSlowDown: (duration: int) => void;
+    SetWallColor: (wallColor: Color) => void;
+    ShopReshuffle: (
+      keepCollectibleIdx: boolean,
+      reselectSaleItem: boolean,
+    ) => void;
+    ShopRestockFull: () => void;
+    ShopRestockPartial: () => void;
+    SpawnClearAward: () => void;
 
-    SpawnGridEntity(
+    SpawnGridEntity: (
       gridIndex: int,
       gridEntityType: GridEntityType,
       variant: int,
       seed: Seed,
       varData: int,
-    ): boolean;
+    ) => boolean;
 
     /** Stops any rain effects in the room. */
-    StopRain(): void;
+    StopRain: () => void;
 
     /**
      * Triggers all room clear effects (e.g. Sack of Pennies dropping coins). Does not actually
@@ -244,19 +250,19 @@ declare global {
      *
      * @param silent Default is false. Set to true to mute the door opening sounds.
      */
-    TriggerClear(silent?: boolean): void;
+    TriggerClear: (silent?: boolean) => void;
 
     /**
      * This function was updated to take two arguments in Repentance. The reason for this is that
      * bridges can be spike bridges, so the specifying the type of rock is necessary.
      */
-    TryMakeBridge(pit: GridEntity, rock: GridEntity): boolean;
+    TryMakeBridge: (pit: GridEntity, rock: GridEntity) => boolean;
 
-    TryPlaceLadder(
+    TryPlaceLadder: (
       playerPos: Vector,
       playerVelocity: Vector,
       ladder: Entity,
-    ): void;
+    ) => void;
 
     /**
      * Attempts to spawn a door to the Blue Womb. This usually does nothing outside of the Mom's
@@ -266,11 +272,11 @@ declare global {
      * @param ignoreTime Default is false.
      * @param force Default is false.
      */
-    TrySpawnBlueWombDoor(
+    TrySpawnBlueWombDoor: (
       firstTime?: boolean,
       ignoreTime?: boolean,
       force?: boolean,
-    ): boolean;
+    ) => boolean;
 
     /**
      * Attempts to spawn a door to the Boss Rush. This usually does nothing outside of the Mom Boss
@@ -279,7 +285,7 @@ declare global {
      * @param ignoreTime Default is false.
      * @param force Default is false.
      */
-    TrySpawnBossRushDoor(ignoreTime?: boolean, force?: boolean): boolean;
+    TrySpawnBossRushDoor: (ignoreTime?: boolean, force?: boolean) => boolean;
 
     /**
      * Attempts to spawn a door to the devil or angel room. This usually does nothing inside of
@@ -288,7 +294,7 @@ declare global {
      * @param animate Default is false.
      * @param force Default is false.
      */
-    TrySpawnDevilRoomDoor(animate?: boolean, force?: boolean): boolean;
+    TrySpawnDevilRoomDoor: (animate?: boolean, force?: boolean) => boolean;
 
     /**
      * Attempts to spawn a door to Mega Satan. This usually does nothing outside of the starting
@@ -296,7 +302,7 @@ declare global {
      *
      * @param force Default is false.
      */
-    TrySpawnMegaSatanRoomDoor(force?: boolean): boolean;
+    TrySpawnMegaSatanRoomDoor: (force?: boolean) => boolean;
 
     /**
      * Attempts to spawn a door to the Downpour, Mines, or Mausoleum "secret exit", depending on the
@@ -309,7 +315,7 @@ declare global {
      * @param animate Default is false.
      * @param force Default is false.
      */
-    TrySpawnSecretExit(animate?: boolean, force?: boolean): void;
+    TrySpawnSecretExit: (animate?: boolean, force?: boolean) => void;
 
     /**
      * Attempts to spawn a trapdoor to the Member Card shop within the current room. This usually
@@ -318,13 +324,13 @@ declare global {
      *
      * @param force Default is false.
      */
-    TrySpawnSecretShop(force?: boolean): void;
+    TrySpawnSecretShop: (force?: boolean) => void;
 
     /**
      * Attempts to spawn a door to the Mirror Dimension in Downpour or the abandoned mineshaft in
      * the Mines.
      */
-    TrySpawnSpecialQuestDoor(): void;
+    TrySpawnSpecialQuestDoor: () => void;
 
     /**
      * Attempts to spawn a door to a room containing a Void portal. This usually does nothing
@@ -332,10 +338,10 @@ declare global {
      *
      * @param force Default is false.
      */
-    TrySpawnTheVoidDoor(force?: boolean): boolean;
+    TrySpawnTheVoidDoor: (force?: boolean) => boolean;
 
-    TurnGold(): void;
-    Update(): void;
-    WorldToScreenPosition(worldPos: Vector): Vector;
+    TurnGold: () => void;
+    Update: () => void;
+    WorldToScreenPosition: (worldPos: Vector) => Vector;
   }
 }

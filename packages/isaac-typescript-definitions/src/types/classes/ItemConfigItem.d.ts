@@ -1,4 +1,7 @@
-import type { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
+import type {
+  CollectibleType,
+  TrinketType,
+} from "../../enums/collections/subTypes";
 import type { CacheFlag } from "../../enums/flags/CacheFlag";
 import type { ItemConfigTag } from "../../enums/flags/ItemConfigTag";
 import type { ItemConfigChargeType } from "../../enums/ItemConfigChargeType";
@@ -13,12 +16,12 @@ declare global {
      *
      * @param tags The composition of one or more `ItemConfigTag`.
      */
-    HasTags(tags: ItemConfigTag): boolean;
+    HasTags: (tags: ItemConfigTag) => boolean;
 
-    IsAvailable(): boolean;
-    IsCollectible(): this is ItemConfigItemCollectible;
-    IsNull(): this is ItemConfigItemNull;
-    IsTrinket(): this is ItemConfigItemTrinket;
+    IsAvailable: () => boolean;
+    IsCollectible: () => this is ItemConfigItemCollectible;
+    IsNull: () => this is ItemConfigItemNull;
+    IsTrinket: () => this is ItemConfigItemTrinket;
 
     AchievementID: int;
     AddBlackHearts: int;

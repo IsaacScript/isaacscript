@@ -3,10 +3,10 @@ import type { EntityType } from "../../enums/EntityType";
 
 declare global {
   interface EntityEffect extends Entity {
-    FollowParent(parent: Entity): void;
-    SetDamageSource(entityType: EntityType): void;
-    SetRadii(min: float, max: float): void;
-    SetTimeout(timeout: int): void;
+    FollowParent: (parent: Entity) => void;
+    SetDamageSource: (entityType: EntityType) => void;
+    SetRadii: (min: float, max: float) => void;
+    SetTimeout: (timeout: int) => void;
 
     DamageSource: EntityType;
     FallingAcceleration: float;

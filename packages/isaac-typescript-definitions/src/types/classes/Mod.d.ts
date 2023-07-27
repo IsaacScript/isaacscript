@@ -24,34 +24,34 @@ declare global {
      * )
      * ```
      */
-    AddCallback<T extends keyof AddCallbackParameters | string>(
+    AddCallback: <T extends keyof AddCallbackParameters | string>(
       modCallback: T,
       ...args: T extends keyof AddCallbackParameters
         ? AddCallbackParameters[T]
         : unknown[]
-    ): void;
+    ) => void;
 
     /**
      * The same as the `Mod.AddCallback` method, but allows setting a custom priority. By default,
      * callbacks are added with a priority of 0, so this allows you to add early or late callbacks
      * as necessary. See the `CallbackPriority` enum.
      */
-    AddPriorityCallback<T extends keyof AddCallbackParameters | string>(
+    AddPriorityCallback: <T extends keyof AddCallbackParameters | string>(
       modCallback: T,
       priority: CallbackPriority | int,
       ...args: T extends keyof AddCallbackParameters
         ? AddCallbackParameters[T]
         : unknown[]
-    ): void;
+    ) => void;
 
     /** Returns whether or not a corresponding "save#.dat" file exists for the current mod. */
-    HasData(): boolean;
+    HasData: () => boolean;
 
     /**
      * Returns a string containing all of the data inside of the corresponding "save#.dat" file for
      * this mod.
      */
-    LoadData(): string;
+    LoadData: () => string;
 
     /**
      * Unregisters a function that was previously registered with the `AddCallback` method.
@@ -59,18 +59,18 @@ declare global {
      * This method does not care about the tertiary argument. In other words, regardless of the
      * conditions of how you registered the callback, it will be removed.
      */
-    RemoveCallback<T extends keyof AddCallbackParameters>(
+    RemoveCallback: <T extends keyof AddCallbackParameters>(
       modCallback: T,
       callback: AddCallbackParameters[T][0],
-    ): void;
+    ) => void;
 
     /** Deletes the corresponding "save#.dat" file for this mod, if it exists. */
-    RemoveData(): void;
+    RemoveData: () => void;
 
     /**
      * Creates or updates the corresponding "save#.dat" file for this mod with the provided string.
      */
-    SaveData(data: string): void;
+    SaveData: (data: string) => void;
 
     /**
      * The `RegisterMod` function stores the name of the mod on the mod object for some reason. (It
