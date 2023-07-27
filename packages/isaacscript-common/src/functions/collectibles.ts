@@ -1,7 +1,8 @@
 import type {
   CacheFlag,
   CollectiblePedestalType,
-  ItemConfigTag} from "isaac-typescript-definitions";
+  ItemConfigTag,
+} from "isaac-typescript-definitions";
 import {
   CollectibleSpriteLayer,
   CollectibleType,

@@ -1,4 +1,4 @@
-import type { DamageFlag} from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
 import { ModCallback } from "isaac-typescript-definitions";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireEntity } from "../../shouldFire";

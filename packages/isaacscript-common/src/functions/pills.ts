@@ -1,10 +1,9 @@
 import type {
   ItemConfigPillEffectClass,
   ItemConfigPillEffectType,
-  PillEffect} from "isaac-typescript-definitions";
-import {
-  PillColor
+  PillEffect,
 } from "isaac-typescript-definitions";
+import { PillColor } from "isaac-typescript-definitions";
 import { PILL_COLOR_VALUES } from "../arrays/cachedEnumValues";
 import { game, itemConfig } from "../core/cachedClasses";
 import {

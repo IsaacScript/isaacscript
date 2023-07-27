@@ -7,10 +7,9 @@ import type {
   PickupVariant,
   ProjectileVariant,
   SlotVariant,
-  TearVariant} from "isaac-typescript-definitions";
-import {
-  EntityType
+  TearVariant,
 } from "isaac-typescript-definitions";
+import { EntityType } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { getEntities, removeEntities, spawn } from "./entities";
 

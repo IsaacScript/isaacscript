@@ -1,6 +1,4 @@
-import type {
-  DoorSlotFlag,
-  Music} from "isaac-typescript-definitions";
+import type { DoorSlotFlag, Music } from "isaac-typescript-definitions";
 import {
   GridEntityType,
   LevelCurse,

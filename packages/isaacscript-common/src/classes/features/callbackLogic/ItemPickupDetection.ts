@@ -1,14 +1,12 @@
 import type {
   CollectibleType,
-  TrinketType} from "isaac-typescript-definitions";
-import {
-  ItemType
+  TrinketType,
 } from "isaac-typescript-definitions";
+import { ItemType } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
 import { asNumber } from "../../../functions/types";
-import type {
-  PickingUpItem} from "../../../types/PickingUpItem";
+import type { PickingUpItem } from "../../../types/PickingUpItem";
 import {
   newPickingUpItem,
   resetPickingUpItem,

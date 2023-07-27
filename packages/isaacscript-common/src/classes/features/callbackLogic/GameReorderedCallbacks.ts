@@ -1,10 +1,5 @@
-import type {
-  LevelStage,
-  StageType} from "isaac-typescript-definitions";
-import {
-  CollectibleType,
-  ModCallback
-} from "isaac-typescript-definitions";
+import type { LevelStage, StageType } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import type { PostGameStartedReordered } from "../../callbacks/PostGameStartedReordered";

@@ -7,9 +7,7 @@
  * @module
  */
 
-import type {
-  DoorSlot,
-  RoomShape} from "isaac-typescript-definitions";
+import type { DoorSlot, RoomShape } from "isaac-typescript-definitions";
 import {
   DisplayFlag,
   DownpourRoomSubType,

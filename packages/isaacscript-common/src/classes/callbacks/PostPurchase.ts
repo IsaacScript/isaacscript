@@ -1,10 +1,9 @@
 import type {
   CardType,
   CollectibleType,
-  PillEffect} from "isaac-typescript-definitions";
-import {
-  ModCallback
+  PillEffect,
 } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPickups } from "../../functions/entitiesSpecific";
@@ -14,12 +13,8 @@ import {
 } from "../../functions/playerDataStructures";
 import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_PURCHASE;
 
@@ -83,13 +78,19 @@ export class PostPurchase extends CustomCallback<T> {
   };
 
   // ModCallback.POST_USE_CARD (5)
-  private readonly postUseCard = (_cardType: CardType, player: EntityPlayer) => {
+  private readonly postUseCard = (
+    _cardType: CardType,
+    player: EntityPlayer,
+  ) => {
     markUsedItemOnThisFrame(player);
     return undefined;
   };
 
   // ModCallback.POST_USE_PILL (10)
-  private readonly postUsePill = (_pillEffect: PillEffect, player: EntityPlayer) => {
+  private readonly postUsePill = (
+    _pillEffect: PillEffect,
+    player: EntityPlayer,
+  ) => {
     markUsedItemOnThisFrame(player);
     return undefined;
   };

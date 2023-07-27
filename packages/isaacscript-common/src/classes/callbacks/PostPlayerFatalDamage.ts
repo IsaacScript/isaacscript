@@ -1,12 +1,13 @@
 import type {
   ActiveSlot,
   DamageFlag,
-  UseFlag} from "isaac-typescript-definitions";
+  UseFlag,
+} from "isaac-typescript-definitions";
 import {
   BossID,
   CollectibleType,
   DamageFlagZero,
-  ModCallback
+  ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";

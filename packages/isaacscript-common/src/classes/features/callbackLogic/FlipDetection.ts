@@ -1,9 +1,8 @@
-import type {
-  UseFlag} from "isaac-typescript-definitions";
+import type { UseFlag } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   ModCallback,
-  PlayerType
+  PlayerType,
 } from "isaac-typescript-definitions";
 import { getPlayersOfType, isTaintedLazarus } from "../../../functions/players";
 import type { PostFirstFlip } from "../../callbacks/PostFirstFlip";

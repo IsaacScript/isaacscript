@@ -46,8 +46,6 @@ export class ModUpgraded implements Mod {
   private readonly timeThreshold: float | undefined;
 
   private readonly callbacks;
-
-  // Features must be marked as internal to prevent TypeDoc from complaining.
   private readonly features;
 
   // -----------
@@ -114,7 +112,7 @@ export class ModUpgraded implements Mod {
 
         // @ts-expect-error The compiler is not smart enough to know that the callback args should
         // match the callback.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, n/no-callback-literal
         const returnValue = callback(...callbackArgs);
 
         const endTime = getTime();

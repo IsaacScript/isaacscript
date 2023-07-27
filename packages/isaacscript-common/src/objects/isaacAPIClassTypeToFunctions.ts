@@ -1,24 +1,21 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import type {
-  SerializedBitSet128} from "../functions/bitSet128";
+import type { SerializedBitSet128 } from "../functions/bitSet128";
 import {
   copyBitSet128,
   deserializeBitSet128,
   isBitSet128,
   isSerializedBitSet128,
-  serializeBitSet128
+  serializeBitSet128,
 } from "../functions/bitSet128";
-import type {
-  SerializedColor} from "../functions/color";
+import type { SerializedColor } from "../functions/color";
 import {
   copyColor,
   deserializeColor,
   isColor,
   isSerializedColor,
-  serializeColor
+  serializeColor,
 } from "../functions/color";
-import type {
-  SerializedKColor} from "../functions/kColor";
+import type { SerializedKColor } from "../functions/kColor";
 import {
   copyKColor,
   deserializeKColor,
@@ -26,8 +23,7 @@ import {
   isSerializedKColor,
   serializeKColor,
 } from "../functions/kColor";
-import type {
-  SerializedRNG} from "../functions/rng";
+import type { SerializedRNG } from "../functions/rng";
 import {
   copyRNG,
   deserializeRNG,
@@ -35,8 +31,7 @@ import {
   isSerializedRNG,
   serializeRNG,
 } from "../functions/rng";
-import type {
-  SerializedVector} from "../functions/vector";
+import type { SerializedVector } from "../functions/vector";
 import {
   copyVector,
   deserializeVector,

@@ -531,7 +531,7 @@ function deepCopyTSTLClass(
         );
       }
 
-       
+      // eslint-disable-next-line new-cap
       newClass = new classConstructor() as TSTLClass;
     }
   }

@@ -1,4 +1,4 @@
-import type { GridEntityType} from "isaac-typescript-definitions";
+import type { GridEntityType } from "isaac-typescript-definitions";
 import { ModCallback } from "isaac-typescript-definitions";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";

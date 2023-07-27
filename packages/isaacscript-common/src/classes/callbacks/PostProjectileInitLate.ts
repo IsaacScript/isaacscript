@@ -24,7 +24,9 @@ export class PostProjectileInitLate extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFireProjectile;
 
   // ModCallback.POST_PROJECTILE_UPDATE (44)
-  private readonly postProjectileUpdate = (projectile: EntityProjectile): void => {
+  private readonly postProjectileUpdate = (
+    projectile: EntityProjectile,
+  ): void => {
     const ptrHash = GetPtrHash(projectile);
     if (!v.room.firedSet.has(ptrHash)) {
       v.room.firedSet.add(ptrHash);

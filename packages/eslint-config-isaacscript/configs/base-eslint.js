@@ -64,7 +64,7 @@ const config = {
 
     /**
      * Documentation:
-     * https://eslint.org/docs/latest/rules/array-callback-return
+     * https://eslint.org/docs/latest/rules/no-await-in-loop
      *
      * Not enabled in the parent configs.
      *
@@ -344,7 +344,17 @@ const config = {
 
     // "logical-assignment-operators"
 
-    // "max-classes-per-file"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/max-classes-per-file
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "max-classes-per-file": "error",
 
     // "max-depth"
 
@@ -360,7 +370,17 @@ const config = {
 
     // "multiline-comment-style"
 
-    // "new-cap"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/new-cap
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We use the default options,
+     * which are safer than the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "new-cap": "error",
 
     // "no-alert"
 
@@ -471,7 +491,16 @@ const config = {
 
     // "no-negated-condition"
 
-    // "no-nested-ternary"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-nested-ternary
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "no-nested-ternary": "error",
 
     // "no-new"
 
@@ -560,7 +589,16 @@ const config = {
       },
     ],
 
-    // "no-return-assign"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-return-assign
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-return-assign": ["error", "always"],
 
     // "no-return-await"
 

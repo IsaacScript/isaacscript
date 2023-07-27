@@ -394,7 +394,9 @@ export class CustomTrapdoors extends Feature {
 
   // ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE
   // GridEntityTypeCustom.TRAPDOOR_CUSTOM
-  private readonly postGridEntityCustomUpdateTrapdoor = (gridEntity: GridEntity) => {
+  private readonly postGridEntityCustomUpdateTrapdoor = (
+    gridEntity: GridEntity,
+  ) => {
     const roomListIndex = getRoomListIndex();
     const gridIndex = gridEntity.GetGridIndex();
 

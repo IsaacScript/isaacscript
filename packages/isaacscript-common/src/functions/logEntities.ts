@@ -1,5 +1,4 @@
-import type {
-  EntityType} from "isaac-typescript-definitions";
+import type { EntityType } from "isaac-typescript-definitions";
 import {
   BombVariant,
   EffectVariant,

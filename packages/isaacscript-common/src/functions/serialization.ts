@@ -5,10 +5,9 @@ import type {
   IsaacAPIClassTypeFunctions,
   IsaacAPIClassTypeToSerializedType,
   IsaacAPIClassTypeToType,
-  SerializedIsaacAPIClass} from "../objects/isaacAPIClassTypeToFunctions";
-import {
-  ISAAC_API_CLASS_TYPE_TO_FUNCTIONS
+  SerializedIsaacAPIClass,
 } from "../objects/isaacAPIClassTypeToFunctions";
+import { ISAAC_API_CLASS_TYPE_TO_FUNCTIONS } from "../objects/isaacAPIClassTypeToFunctions";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isTable, isUserdata } from "./types";
 

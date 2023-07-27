@@ -190,6 +190,16 @@ const config = {
 
     /**
      * Documentation:
+     * https://eslint.org/docs/latest/rules/new-cap
+     *
+     * Defined at: base-eslint.js
+     *
+     * Isaac API methods use capital letters.
+     */
+    "new-cap": "off",
+
+    /**
+     * Documentation:
      * https://eslint.org/docs/latest/rules/no-bitwise
      *
      * Defined at:

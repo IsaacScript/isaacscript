@@ -1,6 +1,4 @@
-import type {
-  Direction,
-  EntityType} from "isaac-typescript-definitions";
+import type { Direction, EntityType } from "isaac-typescript-definitions";
 import {
   GridEntityType,
   GridRoom,

@@ -1,10 +1,5 @@
-import type {
-  ControllerIndex,
-  UseFlag} from "isaac-typescript-definitions";
-import {
-  CollectibleType,
-  ModCallback
-} from "isaac-typescript-definitions";
+import type { ControllerIndex, UseFlag } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { getPlayersWithControllerIndex } from "../../../functions/players";
 import type { PostEsauJr } from "../../callbacks/PostEsauJr";

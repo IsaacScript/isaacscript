@@ -1,18 +1,10 @@
-import type {
-  DiceFloorSubType} from "isaac-typescript-definitions";
-import {
-  EffectVariant,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { DiceFloorSubType } from "isaac-typescript-definitions";
+import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isCloseEnoughToTriggerDiceFloor } from "../../functions/effects";
 import { getClosestPlayer } from "../../functions/players";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_DICE_ROOM_ACTIVATED;
 

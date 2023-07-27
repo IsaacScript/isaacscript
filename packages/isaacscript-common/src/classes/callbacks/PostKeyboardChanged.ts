@@ -1,14 +1,10 @@
-import type { Keyboard} from "isaac-typescript-definitions";
+import type { Keyboard } from "isaac-typescript-definitions";
 import { ModCallback } from "isaac-typescript-definitions";
 import { KEYBOARD_VALUES } from "../../arrays/cachedEnumValues";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isKeyboardPressed } from "../../functions/input";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_KEYBOARD_CHANGED;
 

@@ -1,10 +1,8 @@
-import type {
-  ActiveSlot,
-  UseFlag} from "isaac-typescript-definitions";
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   GridEntityType,
-  ModCallback
+  ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";

@@ -1,5 +1,4 @@
-import type {
-  StageID} from "isaac-typescript-definitions";
+import type { StageID } from "isaac-typescript-definitions";
 import {
   GameStateFlag,
   LevelStage,

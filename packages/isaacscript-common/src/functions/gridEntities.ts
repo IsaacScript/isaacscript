@@ -1,5 +1,4 @@
-import type {
-  GridEntityXMLType} from "isaac-typescript-definitions";
+import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
   EffectVariant,
   GridCollisionClass,

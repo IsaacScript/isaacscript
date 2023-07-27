@@ -1,9 +1,8 @@
 import type {
   CollectibleType,
-  TrinketType} from "isaac-typescript-definitions";
-import {
-  ItemPoolType
+  TrinketType,
 } from "isaac-typescript-definitions";
+import { ItemPoolType } from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { arrayRemove, getRandomArrayElement } from "./array";

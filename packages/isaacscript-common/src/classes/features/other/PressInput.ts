@@ -1,9 +1,5 @@
-import type {
-  ButtonAction} from "isaac-typescript-definitions";
-import {
-  InputHook,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { ButtonAction } from "isaac-typescript-definitions";
+import { InputHook, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { getPlayerIndex } from "../../../functions/playerIndex";
 import type { PlayerIndex } from "../../../types/PlayerIndex";

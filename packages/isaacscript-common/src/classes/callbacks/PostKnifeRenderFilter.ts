@@ -16,7 +16,10 @@ export class PostKnifeRenderFilter extends CustomCallback<ModCallbackCustom.POST
   protected override shouldFire = shouldFireKnife;
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  private readonly postKnifeRender = (knife: EntityKnife, renderOffset: Vector) => {
+  private readonly postKnifeRender = (
+    knife: EntityKnife,
+    renderOffset: Vector,
+  ) => {
     this.fire(knife, renderOffset);
   };
 }

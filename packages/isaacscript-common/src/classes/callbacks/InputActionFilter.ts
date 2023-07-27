@@ -1,16 +1,8 @@
-import type {
-  ButtonAction,
-  InputHook} from "isaac-typescript-definitions";
-import {
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { ButtonAction, InputHook } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.INPUT_ACTION_FILTER;
 

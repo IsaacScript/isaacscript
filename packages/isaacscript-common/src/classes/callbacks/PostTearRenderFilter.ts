@@ -16,7 +16,10 @@ export class PostTearRenderFilter extends CustomCallback<ModCallbackCustom.POST_
   protected override shouldFire = shouldFireTear;
 
   // ModCallback.POST_TEAR_RENDER (41)
-  private readonly postTearRender = (tear: EntityTear, renderOffset: Vector) => {
+  private readonly postTearRender = (
+    tear: EntityTear,
+    renderOffset: Vector,
+  ) => {
     this.fire(tear, renderOffset);
   };
 }

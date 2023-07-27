@@ -22,11 +22,10 @@
 
 import type { ModCallback } from "isaac-typescript-definitions";
 import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
-import type {
-  ModFeature} from "../classes/ModFeature";
+import type { ModFeature } from "../classes/ModFeature";
 import {
   MOD_FEATURE_CALLBACKS_KEY,
-  MOD_FEATURE_CUSTOM_CALLBACKS_KEY
+  MOD_FEATURE_CUSTOM_CALLBACKS_KEY,
 } from "../classes/ModFeature";
 import type { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import type { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";

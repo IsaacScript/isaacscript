@@ -1,12 +1,8 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_ROOM_CLEAR_CHANGED;
 

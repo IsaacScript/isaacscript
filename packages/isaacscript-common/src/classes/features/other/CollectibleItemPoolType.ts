@@ -1,9 +1,5 @@
-import type {
-  ItemPoolType} from "isaac-typescript-definitions";
-import {
-  ModCallback,
-  PickupVariant,
-} from "isaac-typescript-definitions";
+import type { ItemPoolType } from "isaac-typescript-definitions";
+import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";

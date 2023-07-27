@@ -1,5 +1,4 @@
-import type {
-  ItemPoolType} from "isaac-typescript-definitions";
+import type { ItemPoolType } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   ItemConfigTag,

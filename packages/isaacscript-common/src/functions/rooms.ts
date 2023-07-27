@@ -2,7 +2,8 @@ import type {
   BackdropType,
   BossID,
   ItemPoolType,
-  MinibossID} from "isaac-typescript-definitions";
+  MinibossID,
+} from "isaac-typescript-definitions";
 import {
   AngelRoomSubType,
   Dimension,

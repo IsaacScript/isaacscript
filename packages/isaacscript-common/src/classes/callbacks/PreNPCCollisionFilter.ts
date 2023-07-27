@@ -16,6 +16,9 @@ export class PreNPCCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_
   protected override shouldFire = shouldFireNPC;
 
   // ModCallback.PRE_NPC_COLLISION (30)
-  private readonly preNPCCollision = (npc: EntityNPC, collider: Entity, low: boolean) =>
-    this.fire(npc, collider, low);
+  private readonly preNPCCollision = (
+    npc: EntityNPC,
+    collider: Entity,
+    low: boolean,
+  ) => this.fire(npc, collider, low);
 }

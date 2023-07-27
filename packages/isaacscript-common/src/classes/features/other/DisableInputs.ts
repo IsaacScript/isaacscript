@@ -1,9 +1,5 @@
-import type {
-  ButtonAction} from "isaac-typescript-definitions";
-import {
-  InputHook,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { ButtonAction } from "isaac-typescript-definitions";
+import { InputHook, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { getMoveActions, getShootActions } from "../../../functions/input";
 import { ReadonlySet } from "../../../types/ReadonlySet";

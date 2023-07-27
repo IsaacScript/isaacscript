@@ -1,9 +1,8 @@
-import type {
-  PickupVariant} from "isaac-typescript-definitions";
+import type { PickupVariant } from "isaac-typescript-definitions";
 import {
   EffectVariant,
   EntityType,
-  ModCallback
+  ModCallback,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { LadderSubTypeCustom } from "../../../enums/LadderSubTypeCustom";
@@ -33,7 +32,10 @@ const PICKUP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_PICKUP;
 
 export class CustomPickups extends Feature {
   /** Indexed by entity ID. */
-  private readonly customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
+  private readonly customPickupFunctionsMap = new Map<
+    string,
+    CustomPickupFunctions
+  >();
 
   /** @internal */
   constructor() {

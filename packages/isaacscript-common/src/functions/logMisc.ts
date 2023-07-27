@@ -1,5 +1,4 @@
-import type {
-  CollectibleType} from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
 import {
   DamageFlag,
   DisplayFlag,

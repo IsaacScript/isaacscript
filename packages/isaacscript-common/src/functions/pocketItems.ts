@@ -1,11 +1,10 @@
-import type {
-  PocketItemSlot} from "isaac-typescript-definitions";
+import type { PocketItemSlot } from "isaac-typescript-definitions";
 import {
   ActiveSlot,
   CardType,
   CollectibleType,
   PillColor,
-  PlayerType
+  PlayerType,
 } from "isaac-typescript-definitions";
 import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { PocketItemType } from "../enums/PocketItemType";

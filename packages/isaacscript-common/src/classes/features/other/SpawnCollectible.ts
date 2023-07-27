@@ -1,4 +1,7 @@
-import type { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
+import type {
+  CollectibleType,
+  ItemPoolType,
+} from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";

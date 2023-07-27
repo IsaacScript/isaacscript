@@ -1,6 +1,4 @@
-import type {
-  ActiveSlot,
-  CollectibleType} from "isaac-typescript-definitions";
+import type { ActiveSlot, CollectibleType } from "isaac-typescript-definitions";
 import {
   EntityType,
   ModCallback,
@@ -18,12 +16,8 @@ import {
 import { asNumber } from "../../functions/types";
 import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_ITEM_DISCHARGE;
 

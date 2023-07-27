@@ -117,11 +117,7 @@ function getBackdropPNGPath(
   backdropKind: BackdropKind,
   rng: RNG,
 ) {
-  const backdrop =
-    customStage.backdropPNGPaths === undefined
-      ? DEFAULT_BACKDROP
-      : customStage.backdropPNGPaths;
-
+  const backdrop = customStage.backdropPNGPaths ?? DEFAULT_BACKDROP;
   const pathArray = backdrop[backdropKind];
   const randomPath = getRandomArrayElement(pathArray, rng);
   return removeCharactersBefore(randomPath, "gfx/");

@@ -1,4 +1,4 @@
-import type { CardType} from "isaac-typescript-definitions";
+import type { CardType } from "isaac-typescript-definitions";
 import { ItemConfigCardType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import {

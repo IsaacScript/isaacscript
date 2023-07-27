@@ -2,10 +2,9 @@ import type {
   CardType,
   CollectibleType,
   PillEffect,
-  TrinketType} from "isaac-typescript-definitions";
-import {
-  ModCallback
+  TrinketType,
 } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
 import {
   FIRST_CARD_TYPE,

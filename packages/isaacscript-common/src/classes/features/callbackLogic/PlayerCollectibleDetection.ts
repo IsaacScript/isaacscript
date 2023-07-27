@@ -1,5 +1,4 @@
-import type {
-  ActiveSlot} from "isaac-typescript-definitions";
+import type { ActiveSlot } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   DamageFlag,

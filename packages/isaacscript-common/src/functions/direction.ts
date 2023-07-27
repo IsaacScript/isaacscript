@@ -1,4 +1,4 @@
-import type { ButtonAction} from "isaac-typescript-definitions";
+import type { ButtonAction } from "isaac-typescript-definitions";
 import { Direction } from "isaac-typescript-definitions";
 import { DIRECTION_NAMES } from "../objects/directionNames";
 import { DIRECTION_TO_DEGREES } from "../objects/directionToDegrees";

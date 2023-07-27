@@ -1,9 +1,5 @@
-import type {
-  CacheFlag,
-  PlayerType} from "isaac-typescript-definitions";
-import {
-  ModCallback
-} from "isaac-typescript-definitions";
+import type { CacheFlag, PlayerType } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { addStat, getDefaultPlayerStat } from "../../../functions/stats";
 import { Feature } from "../../private/Feature";
@@ -25,7 +21,10 @@ export class CharacterStats extends Feature {
   }
 
   // ModCallback.EVALUATE_CACHE (8)
-  private readonly evaluateCache = (player: EntityPlayer, cacheFlag: CacheFlag) => {
+  private readonly evaluateCache = (
+    player: EntityPlayer,
+    cacheFlag: CacheFlag,
+  ) => {
     const character = player.GetPlayerType();
     const statMap = this.charactersStatMap.get(character);
     if (statMap === undefined) {

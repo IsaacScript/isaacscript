@@ -1,9 +1,5 @@
-import type {
-  FamiliarVariant} from "isaac-typescript-definitions";
-import {
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { FamiliarVariant } from "isaac-typescript-definitions";
+import { EntityType, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 

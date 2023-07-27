@@ -4,12 +4,8 @@ import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
 import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_TRANSFORMATION;
 

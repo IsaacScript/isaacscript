@@ -1,5 +1,4 @@
-import type {
-  TrapdoorVariant} from "isaac-typescript-definitions";
+import type { TrapdoorVariant } from "isaac-typescript-definitions";
 import {
   CrawlSpaceVariant,
   DoorVariant,
@@ -7,7 +6,7 @@ import {
   PitVariant,
   PoopGridEntityVariant,
   PressurePlateVariant,
-  RockVariant
+  RockVariant,
 } from "isaac-typescript-definitions";
 import {
   getGridEntities,

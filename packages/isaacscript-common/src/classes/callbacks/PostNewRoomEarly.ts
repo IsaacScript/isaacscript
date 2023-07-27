@@ -1,9 +1,5 @@
-import type {
-  EntityType} from "isaac-typescript-definitions";
-import {
-  GridEntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { EntityType } from "isaac-typescript-definitions";
+import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
@@ -41,7 +37,9 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
   };
 
   // ModCallback.PRE_ENTITY_SPAWN (24)
-  private readonly preEntitySpawn = (): [EntityType, int, int, int] | undefined => {
+  private readonly preEntitySpawn = ():
+    | [EntityType, int, int, int]
+    | undefined => {
     this.checkRoomChanged();
     return undefined;
   };

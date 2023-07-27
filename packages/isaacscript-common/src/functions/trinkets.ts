@@ -1,5 +1,4 @@
-import type {
-  CacheFlag} from "isaac-typescript-definitions";
+import type { CacheFlag } from "isaac-typescript-definitions";
 import {
   PlayerType,
   TrinketSlot,

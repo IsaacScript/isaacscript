@@ -1,7 +1,8 @@
 import type {
   Direction,
   DoorSlotFlag,
-  RoomShape} from "isaac-typescript-definitions";
+  RoomShape,
+} from "isaac-typescript-definitions";
 import {
   DoorSlot,
   DoorState,

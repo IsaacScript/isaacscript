@@ -8,10 +8,9 @@ import type {
   KeySubType,
   PillColor,
   SackSubType,
-  TrinketType} from "isaac-typescript-definitions";
-import {
-  PickupVariant
+  TrinketType,
 } from "isaac-typescript-definitions";
+import { PickupVariant } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitiesSpecific";
 

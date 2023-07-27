@@ -1,5 +1,4 @@
-import type {
-  DamageFlag} from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
   CacheFlag,
   CollectibleType,
@@ -20,7 +19,10 @@ export class ExtraConsoleCommands extends Feature {
   /** @internal */
   public override v = v;
 
-  private readonly commandFunctionMap = new Map<string, (params: string) => void>();
+  private readonly commandFunctionMap = new Map<
+    string,
+    (params: string) => void
+  >();
 
   /** @internal */
   constructor() {

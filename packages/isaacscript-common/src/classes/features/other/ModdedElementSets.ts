@@ -109,10 +109,14 @@ export class ModdedElementSets extends Feature {
     Set<CollectibleType>
   >();
 
-  private readonly cacheFlagToTrinketTypesMap = new Map<CacheFlag, Set<TrinketType>>();
+  private readonly cacheFlagToTrinketTypesMap = new Map<
+    CacheFlag,
+    Set<TrinketType>
+  >();
 
   private flyingCollectibleTypesSet = new Set<CollectibleType>();
-  private readonly permanentFlyingCollectibleTypesSet = new Set<CollectibleType>();
+  private readonly permanentFlyingCollectibleTypesSet =
+    new Set<CollectibleType>();
   private flyingTrinketTypesSet = new Set<TrinketType>();
 
   private readonly edenActiveCollectibleTypesSet = new Set<CollectibleType>();

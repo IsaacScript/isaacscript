@@ -39,7 +39,9 @@ export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KIL
   };
 
   // ModCallback.PRE_TEAR_COLLISION (42)
-  private readonly preTearCollision = (tear: EntityTear): boolean | undefined => {
+  private readonly preTearCollision = (
+    tear: EntityTear,
+  ): boolean | undefined => {
     const ptrHash = GetPtrHash(tear);
     v.room.firedSet.add(ptrHash);
 

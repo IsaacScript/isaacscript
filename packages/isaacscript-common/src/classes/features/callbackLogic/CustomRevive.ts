@@ -119,7 +119,9 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private readonly postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private readonly postPEffectUpdateReordered = (
+    player: EntityPlayer,
+  ): void => {
     this.checkWaitingForItemAnimation(player);
   };
 

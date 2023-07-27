@@ -16,7 +16,10 @@ export class PostPickupRenderFilter extends CustomCallback<ModCallbackCustom.POS
   protected override shouldFire = shouldFirePickup;
 
   // ModCallback.POST_PICKUP_RENDER (36)
-  private readonly postPickupRender = (pickup: EntityPickup, renderOffset: Vector) => {
+  private readonly postPickupRender = (
+    pickup: EntityPickup,
+    renderOffset: Vector,
+  ) => {
     this.fire(pickup, renderOffset);
   };
 }

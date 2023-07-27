@@ -16,7 +16,10 @@ export class PostLaserRenderFilter extends CustomCallback<ModCallbackCustom.POST
   protected override shouldFire = shouldFireLaser;
 
   // ModCallback.POST_LASER_RENDER (49)
-  private readonly postLaserRender = (laser: EntityLaser, renderOffset: Vector) => {
+  private readonly postLaserRender = (
+    laser: EntityLaser,
+    renderOffset: Vector,
+  ) => {
     this.fire(laser, renderOffset);
   };
 }

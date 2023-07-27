@@ -1,9 +1,5 @@
-import type {
-  StageType} from "isaac-typescript-definitions";
-import {
-  EntityType,
-  LokiVariant
-} from "isaac-typescript-definitions";
+import type { StageType } from "isaac-typescript-definitions";
+import { EntityType, LokiVariant } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import {
   ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,

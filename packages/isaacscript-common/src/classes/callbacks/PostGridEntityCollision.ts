@@ -1,11 +1,7 @@
 import { ISCFeature } from "../../enums/ISCFeature";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import type {
-  FireArgs,
-  OptionalArgs} from "../private/CustomCallback";
-import {
-  CustomCallback
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_GRID_ENTITY_COLLISION;
 

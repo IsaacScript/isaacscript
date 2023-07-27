@@ -1,10 +1,5 @@
-import type {
-  ActiveSlot,
-  UseFlag} from "isaac-typescript-definitions";
-import {
-  CollectibleType,
-  ModCallback
-} from "isaac-typescript-definitions";
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
@@ -64,7 +59,10 @@ export class SaveDataManager extends Feature {
    * Each mod feature can optionally provide a function that can control whether or not the save
    * data is written to disk.
    */
-  private readonly saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
+  private readonly saveDataConditionalFuncMap = new LuaMap<
+    string,
+    () => boolean
+  >();
 
   /**
    * We backup some save data keys on every new room for the purposes of restoring it when Glowing

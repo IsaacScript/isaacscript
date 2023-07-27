@@ -29,7 +29,7 @@ export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
   const instantiatedModFeatures: ModFeature[] = [];
 
   for (const modFeature of modFeatures) {
-     
+    // eslint-disable-next-line new-cap
     const instantiatedModFeature = new modFeature(mod, false);
     instantiatedModFeature.init();
 

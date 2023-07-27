@@ -4,12 +4,8 @@
  * @module
  */
 
-import type {
-  TrinketType} from "isaac-typescript-definitions";
-import {
-  CollectibleType,
-  ItemType
-} from "isaac-typescript-definitions";
+import type { TrinketType } from "isaac-typescript-definitions";
+import { CollectibleType, ItemType } from "isaac-typescript-definitions";
 import { ReadonlySet } from "./ReadonlySet";
 
 export type PickingUpItem =

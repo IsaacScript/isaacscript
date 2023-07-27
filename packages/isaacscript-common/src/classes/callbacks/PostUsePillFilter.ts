@@ -1,11 +1,9 @@
 import type {
   PillColor,
   PillEffect,
-  UseFlag} from "isaac-typescript-definitions";
-import {
-  ModCallback,
-  PocketItemSlot
+  UseFlag,
 } from "isaac-typescript-definitions";
+import { ModCallback, PocketItemSlot } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { PocketItemType } from "../../enums/PocketItemType";
 import { getPillColorFromEffect } from "../../functions/pills";

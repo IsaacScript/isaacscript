@@ -1,10 +1,5 @@
-import type {
-  Dimension,
-  EntityType} from "isaac-typescript-definitions";
-import {
-  EntityFlag,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { Dimension, EntityType } from "isaac-typescript-definitions";
+import { EntityFlag, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";

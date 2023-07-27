@@ -1,9 +1,8 @@
-import type {
-  PlayerType} from "isaac-typescript-definitions";
+import type { PlayerType } from "isaac-typescript-definitions";
 import {
   HeartSubType,
   ModCallback,
-  PickupVariant
+  PickupVariant,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
