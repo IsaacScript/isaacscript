@@ -1,4 +1,4 @@
-import type { ChildProcess} from "node:child_process";
+import type { ChildProcess } from "node:child_process";
 import { fork } from "node:child_process";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
