@@ -587,6 +587,14 @@ const config = {
         message:
           "Don't use `as const` with a type annotated variable, since it widens the type.",
       },
+      // Prevent number enums:
+      // https://github.com/typescript-eslint/typescript-eslint/issues/7149
+      {
+        selector:
+          "TSEnumMember > :matches(Literal[raw>=0].initializer, UnaryExpression.initializer)",
+        message:
+          "Number enums are disallowed; use a string enum instead because they are safer.",
+      },
     ],
 
     /**

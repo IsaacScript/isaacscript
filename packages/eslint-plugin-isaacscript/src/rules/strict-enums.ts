@@ -2,45 +2,11 @@ import {
   getTypeName,
   isTypeReferenceType,
 } from "@typescript-eslint/type-utils";
-import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
 import { isSymbolFlagSet, isTypeFlagSet, unionTypeParts } from "../typeUtils";
 import { createRule } from "../utils";
-
-/**
- * TypeScript only allows number enums, string enums, or mixed enums with both numbers and strings.
- *
- * Mixed enums are a union of a number enum and a string enum, so there is no separate kind for
- * them.
- */
-enum EnumKind {
-  NON_ENUM,
-  HAS_NUMBER_VALUES,
-  HAS_STRING_VALUES,
-}
-
-/** These operators are always considered to be safe. */
-const ALLOWED_ENUM_OPERATORS: ReadonlySet<string> = new Set([
-  "in",
-  "|",
-  "&",
-  "|=",
-  "&=",
-  ">>",
-  "<<",
-  ">>>",
-]);
-
-/**
- * See the comment for `EnumKind`.
- *
- * This rule can safely ignore specific kinds of types (and leave the validation in question to the
- * TypeScript compiler).
- */
-const IMPOSSIBLE_ENUM_TYPES =
-  ts.TypeFlags.BooleanLike |
-  ts.TypeFlags.NonPrimitive |
-  ts.TypeFlags.ESSymbolLike;
 
 const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT =
   ts.TypeFlags.Any |
@@ -53,7 +19,6 @@ export type Options = [];
 export type MessageIds =
   | "incorrectIncrement"
   | "mismatchedAssignment"
-  | "mismatchedComparison"
   | "mismatchedFunctionArgument";
 
 export const strictEnums = createRule<Options, MessageIds>({
@@ -70,8 +35,6 @@ export const strictEnums = createRule<Options, MessageIds>({
       incorrectIncrement: "You cannot increment or decrement an enum type.",
       mismatchedAssignment:
         "The type of the enum assignment does not match the declared enum type of the variable.",
-      mismatchedComparison:
-        "The two things in the comparison do not have a shared enum type.",
       mismatchedFunctionArgument:
         "The {{ ordinal }} argument in the function call does not match the declared enum type of the function signature.\nArgument: {{ type1 }}\nParameter: {{ type2 }}",
     },
@@ -111,61 +74,6 @@ export const strictEnums = createRule<Options, MessageIds>({
       return parentType;
     }
 
-    /** See the comment for the `EnumKind` enum. */
-    function getEnumKind(type: ts.Type): EnumKind {
-      if (type.isUnion()) {
-        throw new Error(
-          'The "getEnumKind" function is not meant to be used on unions. Use the "getEnumKinds" function instead.',
-        );
-      }
-
-      if (type.isIntersection()) {
-        throw new Error(
-          'The "getEnumKind" function is not meant to be used on intersections.',
-        );
-      }
-
-      if (!isEnum(type)) {
-        return EnumKind.NON_ENUM;
-      }
-
-      const isStringLiteral = isTypeFlagSet(type, ts.TypeFlags.StringLiteral);
-      const isNumberLiteral = isTypeFlagSet(type, ts.TypeFlags.NumberLiteral);
-
-      if (isStringLiteral && !isNumberLiteral) {
-        return EnumKind.HAS_STRING_VALUES;
-      }
-
-      if (isNumberLiteral && !isStringLiteral) {
-        return EnumKind.HAS_NUMBER_VALUES;
-      }
-
-      throw new Error(
-        "Failed to derive the type of enum, since it did not have string values or number values.",
-      );
-    }
-
-    /**
-     * Returns a set containing the single `EnumKind` (if it is not a union), or a set containing N
-     * `EnumKind` (if it is a union).
-     */
-    function getEnumKinds(type: ts.Type): ReadonlySet<EnumKind> {
-      if (type.isUnion()) {
-        const subTypes = unionTypeParts(type);
-        const enumKinds = subTypes.map((subType) => getEnumKind(subType));
-        return new Set(enumKinds);
-      }
-
-      if (type.isIntersection()) {
-        throw new Error(
-          "The getEnumKinds function is not meant to be used on intersections.",
-        );
-      }
-
-      const enumKind = getEnumKind(type);
-      return new Set([enumKind]);
-    }
-
     /**
      * A thing can have 0 or more enum types. For example:
      * - 123 --> []
@@ -191,7 +99,7 @@ export const strictEnums = createRule<Options, MessageIds>({
        */
       const subTypesConstraints = subTypes.map((subType) => {
         const constraint = subType.getConstraint();
-        return constraint === undefined ? subType : constraint;
+        return constraint ?? subType;
       });
 
       const enumSubTypes = subTypesConstraints.filter((subType) =>
@@ -244,23 +152,6 @@ export const strictEnums = createRule<Options, MessageIds>({
       return enumTypes.size > 0;
     }
 
-    function hasIntersection(type: ts.Type): boolean {
-      if (type.isIntersection()) {
-        return true;
-      }
-
-      if (type.isUnion()) {
-        const subTypes = unionTypeParts(type);
-        for (const subType of subTypes) {
-          if (subType.isIntersection()) {
-            return true;
-          }
-        }
-      }
-
-      return false;
-    }
-
     function isEnum(type: ts.Type): boolean {
       /** The "EnumLiteral" flag will be set on both enum base types and enum members/values. */
       return isTypeFlagSet(type, ts.TypeFlags.EnumLiteral);
@@ -279,16 +170,6 @@ export const strictEnums = createRule<Options, MessageIds>({
             ts.TypeFlags.Never,
         ),
       );
-    }
-
-    function isNumber(type: ts.Type): boolean {
-      /** The "NumberLike" flag will be set on both number literals and number variables. */
-      return isTypeFlagSet(type, ts.TypeFlags.NumberLike);
-    }
-
-    function isString(type: ts.Type): boolean {
-      /** The "StrikeLike" flag will be set on both string literals and string variables. */
-      return isTypeFlagSet(type, ts.TypeFlags.StringLike);
     }
 
     function setHasAnyElementFromSet<T>(set1: Set<T>, set2: Set<T>): boolean {
@@ -450,115 +331,6 @@ export const strictEnums = createRule<Options, MessageIds>({
       return intersectingTypes.size === 0;
     }
 
-    /** Returns whether or not the two provided types have a shared enum. */
-    function typesHaveLooseEnumUsage(
-      leftType: ts.Type,
-      rightType: ts.Type,
-    ): boolean {
-      /** Allow comparisons that don't have anything to do with enums. */
-      const leftEnumTypes = getEnumTypes(leftType);
-      const rightEnumTypes = getEnumTypes(rightType);
-      if (leftEnumTypes.size === 0 && rightEnumTypes.size === 0) {
-        return false;
-      }
-
-      /**
-       * Allow comparisons to any intersection. Enum intersections would be rare in real-life code,
-       * so they are out of scope for this rule.
-       */
-      if (hasIntersection(leftType) || hasIntersection(rightType)) {
-        return false;
-      }
-
-      /**
-       * Allow comparisons to things with a type that can never be an enum (like a function).
-       *
-       * (The TypeScript compiler should properly type-check these cases, so the lint rule is
-       * unneeded.)
-       */
-      if (
-        isTypeFlagSet(leftType, IMPOSSIBLE_ENUM_TYPES) ||
-        isTypeFlagSet(rightType, IMPOSSIBLE_ENUM_TYPES)
-      ) {
-        return false;
-      }
-
-      /**
-       * Allow exact comparisons to some standard types, like null and undefined.
-       *
-       * (The TypeScript compiler should properly type-check these cases, so the lint rule is
-       * unneeded.)
-       */
-      if (isNullOrUndefinedOrAnyOrUnknownOrNever(leftType, rightType)) {
-        return false;
-      }
-
-      /**
-       * Allow number enums to be compared with strings and string enums to be compared with
-       * numbers.
-       *
-       * (The TypeScript compiler should properly type-check these cases, so the lint rule is
-       * unneeded.)
-       */
-      const leftEnumKinds = getEnumKinds(leftType);
-      const rightEnumKinds = getEnumKinds(rightType);
-      if (
-        leftEnumKinds.has(EnumKind.HAS_STRING_VALUES) &&
-        leftEnumKinds.size === 1 &&
-        isNumber(rightType)
-      ) {
-        return false;
-      }
-      if (
-        leftEnumKinds.has(EnumKind.HAS_NUMBER_VALUES) &&
-        leftEnumKinds.size === 1 &&
-        isString(rightType)
-      ) {
-        return false;
-      }
-      if (
-        rightEnumKinds.has(EnumKind.HAS_STRING_VALUES) &&
-        rightEnumKinds.size === 1 &&
-        isNumber(leftType)
-      ) {
-        return false;
-      }
-      if (
-        rightEnumKinds.has(EnumKind.HAS_NUMBER_VALUES) &&
-        rightEnumKinds.size === 1 &&
-        isString(leftType)
-      ) {
-        return false;
-      }
-
-      // Allow passing number literals if there are number literals in the actual function type.
-      if (isNumber(leftType)) {
-        const rightTypeSubTypes = unionTypeParts(rightType);
-        if (rightTypeSubTypes.some((subType) => subType === leftType)) {
-          return false;
-        }
-      }
-      if (isNumber(rightType)) {
-        const leftTypeSubTypes = unionTypeParts(leftType);
-        if (leftTypeSubTypes.some((subType) => subType === rightType)) {
-          return false;
-        }
-      }
-
-      /**
-       * Disallow mismatched comparisons, like the following:
-       *
-       * ```ts
-       * if (fruit === 0) {}
-       * ```
-       */
-      const intersectingTypes = getIntersectingSet(
-        leftEnumTypes,
-        rightEnumTypes,
-      );
-      return intersectingTypes.size === 0;
-    }
-
     function isMismatchedEnumFunctionArgument(
       argumentType: ts.Type, // From the function call
       parameterType: ts.Type, // From the function itself
@@ -706,24 +478,6 @@ export const strictEnums = createRule<Options, MessageIds>({
           context.report({
             node,
             messageId: "mismatchedAssignment",
-          });
-        }
-      },
-
-      /** When a comparison between two things happen. */
-      BinaryExpression(node): void {
-        /** Allow comparisons with whitelisted operators. */
-        if (ALLOWED_ENUM_OPERATORS.has(node.operator)) {
-          return;
-        }
-
-        const leftType = getTypeFromNode(node.left);
-        const rightType = getTypeFromNode(node.right);
-
-        if (typesHaveLooseEnumUsage(leftType, rightType)) {
-          context.report({
-            node,
-            messageId: "mismatchedComparison",
           });
         }
       },
