@@ -41,7 +41,7 @@ export function capitalizeFirstLetter(string: string): string {
 
 const urlCreator = (name: string) =>
   `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${name}.md`;
-export const createRule = ESLintUtils.RuleCreator(urlCreator);
+export const createRule = ESLintUtils.RuleCreator(urlCreator); // eslint-disable-line new-cap
 
 /**
  * From: https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number

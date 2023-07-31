@@ -24,7 +24,9 @@ npx cspell --no-progress --no-summary .
 
 # Check for unused exports.
 # "--error" makes it return an error code of 1 if unused exports are found.
-npx ts-prune --error
+# We ignore exports defined in the "index.ts" file since those are intended to be consumed by
+# end-users.
+npx ts-prune --error --ignore "index.ts"
 
 # Check repository-specific scripts.
 if [[ -n "${GITHUB_ACTIONS-}" ]]; then

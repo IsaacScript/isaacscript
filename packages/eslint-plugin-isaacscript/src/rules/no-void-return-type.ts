@@ -22,6 +22,7 @@ export const noVoidReturnType = createRule({
         // Exported functions are exempt from this rule.
         const { parent } = node;
         if (
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           parent !== undefined &&
           (parent.type === AST_NODE_TYPES.ExportNamedDeclaration ||
             parent.type === AST_NODE_TYPES.ExportDefaultDeclaration)

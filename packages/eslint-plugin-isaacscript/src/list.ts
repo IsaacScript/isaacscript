@@ -32,10 +32,10 @@ export interface List {
 }
 
 export enum ListKind {
-  Hyphen,
-  NumberParenthesis,
-  NumberPeriod,
-  JSDocTag,
+  Hyphen = "Hyphen",
+  NumberParenthesis = "NumberParenthesis",
+  NumberPeriod = "NumberPeriod",
+  JSDocTag = "JSDocTag",
 }
 
 /**
