@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/lines-around-comment */
+
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
 
@@ -24,6 +26,7 @@ module.exports = {
   presets: [
     [
       "classic",
+
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
@@ -39,7 +42,6 @@ module.exports = {
     ],
   ],
 
-  // TEMP: Trying out TypeSense.
   themes: ["docusaurus-theme-search-typesense"],
 
   themeConfig:
@@ -90,15 +92,6 @@ module.exports = {
         darkTheme: darkCodeTheme,
         additionalLanguages: ["lua"],
       },
-
-      /*
-      algolia: {
-        appId: "ZCC397CSMF", // cspell:disable-line
-        apiKey: "212a5e2442aa0e579f2f7bba22ee529a",
-        indexName: "isaacscript",
-        contextualSearch: false, // Enabled by default; only useful for versioned sites.
-      },
-      */
 
       typesense: {
         typesenseCollectionName: "isaacscript",

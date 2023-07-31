@@ -7,18 +7,18 @@ import { error, getEnumValues } from "./isaacScriptCommonTS.js";
 import type { Args } from "./parseArgs.js";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
-  [PackageManager.NPM]: "package-lock.json",
-  [PackageManager.YARN]: "yarn.lock",
-  [PackageManager.PNPM]: "pnpm-lock.yaml",
+  [PackageManager.npm]: "package-lock.json",
+  [PackageManager.yarn]: "yarn.lock",
+  [PackageManager.pnpm]: "pnpm-lock.yaml",
 } as const satisfies Record<PackageManager, string>;
 
 const PACKAGE_MANAGER_EXEC_COMMANDS = {
-  [PackageManager.NPM]: "npx",
-  [PackageManager.YARN]: "npx",
-  [PackageManager.PNPM]: "pnpm exec",
+  [PackageManager.npm]: "npx",
+  [PackageManager.yarn]: "npx",
+  [PackageManager.pnpm]: "pnpm exec",
 } as const satisfies Record<PackageManager, string>;
 
-export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.YARN;
+export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.yarn;
 
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,
@@ -41,15 +41,15 @@ export function getPackageManagerAddCommand(
   dependency: string,
 ): string {
   switch (packageManager) {
-    case PackageManager.NPM: {
+    case PackageManager.npm: {
       return `npm install ${dependency} --save`;
     }
 
-    case PackageManager.YARN: {
+    case PackageManager.yarn: {
       return `yarn add ${dependency}`;
     }
 
-    case PackageManager.PNPM: {
+    case PackageManager.pnpm: {
       return `pnpm add ${dependency}`;
     }
   }
@@ -65,15 +65,15 @@ export function getPackageManagerInstallCICommand(
   packageManager: PackageManager,
 ): string {
   switch (packageManager) {
-    case PackageManager.NPM: {
+    case PackageManager.npm: {
       return "npm ci";
     }
 
-    case PackageManager.YARN: {
+    case PackageManager.yarn: {
       return "yarn install --frozen-lockfile";
     }
 
-    case PackageManager.PNPM: {
+    case PackageManager.pnpm: {
       return "pnpm install --frozen-lockfile";
     }
   }
@@ -86,14 +86,14 @@ export function getPackageManagerUsedForNewProject(args: Args): PackageManager {
   }
 
   if (commandExists.sync("yarn")) {
-    return PackageManager.YARN;
+    return PackageManager.yarn;
   }
 
   if (commandExists.sync("pnpm")) {
-    return PackageManager.PNPM;
+    return PackageManager.pnpm;
   }
 
-  return PackageManager.NPM;
+  return PackageManager.npm;
 }
 
 export function getPackageManagerUsedForExistingProject(
@@ -153,7 +153,7 @@ function getPackageManagerFromArgs(args: Args) {
       );
     }
 
-    return PackageManager.NPM;
+    return PackageManager.npm;
   }
 
   const yarn = args.yarn === true;
@@ -165,7 +165,7 @@ function getPackageManagerFromArgs(args: Args) {
       );
     }
 
-    return PackageManager.YARN;
+    return PackageManager.yarn;
   }
 
   const pnpm = args.pnpm === true;
@@ -177,7 +177,7 @@ function getPackageManagerFromArgs(args: Args) {
       );
     }
 
-    return PackageManager.PNPM;
+    return PackageManager.pnpm;
   }
 
   return undefined;

@@ -24,6 +24,18 @@ const config = {
   rules: {
     /**
      * Documentation:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-invalid-default-map.md
+     *
+     * Defined at:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/src/configs/recommended.ts
+     *
+     * Enums that are used with the API must be numbers since that is what the API expects. We also
+     * prefer that unofficial enums are also number enums for consistency.
+     */
+    "isaacscript/no-number-enums": "off",
+
+    /**
+     * Documentation:
      * https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/shebang.md
      *
      * Defined at:

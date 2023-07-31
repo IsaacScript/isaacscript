@@ -248,7 +248,7 @@ function warnIfIsaacScriptCommonLinkExists(
 
   if (
     isLink(isaacScriptCommonPath, verbose) &&
-    packageManager !== PackageManager.PNPM // pnpm uses links, so it will cause a false positive.
+    packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     error(
       'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
