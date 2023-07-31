@@ -147,7 +147,7 @@ const config = {
      * Enums that are used with the API use upper case letters. We also prefer that unofficial enums
      * are also use upper case letters for consistency.
      */
-    "isaacscript/consistent-enum-members": "off",
+    "isaacscript/consistent-enum-values": "off",
 
     /**
      * Documentation:
