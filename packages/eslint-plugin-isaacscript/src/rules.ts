@@ -32,6 +32,7 @@ import { preferPlusplus } from "./rules/prefer-plusplus";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus";
 import { requireCapitalConstAssertions } from "./rules/require-capital-const-assertions";
 import { requireCapitalReadOnly } from "./rules/require-capital-read-only";
+import { requireUnannotatedConstAssertions } from "./rules/require-unannotated-const-assertions";
 import { requireVRegistration } from "./rules/require-v-registration";
 import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument";
 import { strictEnums } from "./rules/strict-enums";
@@ -64,6 +65,7 @@ export const rules = {
   "prefer-postfix-plusplus": preferPostfixPlusplus,
   "require-capital-const-assertions": requireCapitalConstAssertions,
   "require-capital-read-only": requireCapitalReadOnly,
+  "require-unannotated-const-assertions": requireUnannotatedConstAssertions,
   "require-v-registration": requireVRegistration,
   "require-variadic-function-argument": requireVariadicFunctionArgument,
   "strict-enums": strictEnums,

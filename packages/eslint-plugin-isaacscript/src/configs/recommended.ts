@@ -12,6 +12,7 @@ export const recommended = {
     "no-template-curly-in-string": "off",
     "isaacscript/complete-sentences-jsdoc": "error",
     "isaacscript/complete-sentences-line-comments": "error",
+    "isaacscript/consistent-enum-values": "error",
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",

@@ -1,6 +1,6 @@
 # `require-capital-const-assertions`
 
-Requires the use of [const assertions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions) for named objects and arrays with a capital letter.
+Requires a capital letter for named objects and arrays that have a [const assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions).
 
 ## Rule Details
 

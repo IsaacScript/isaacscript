@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { createRule, isFirstLetterCapitalized } from "../utils";
 
 export type Options = [];
@@ -26,7 +27,8 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
   meta: {
     type: "problem",
     docs: {
-      description: "Requires const assertions on objects with a capital letter",
+      description:
+        "Requires a capital letter for named objects and arrays that have a const assertion",
       recommended: "recommended",
     },
     schema: [],
