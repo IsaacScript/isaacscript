@@ -13,7 +13,7 @@ OLD_HASH=$(md5sum "$PACKAGE_JSON")
 # Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM; see it's "tsconfig.json".
-# - nx - There is a bug in 15.6.1 that makes linting fail in CI.
+# - nx - There is a bug in the latest version: https://github.com/nrwl/nx/issues/18409
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
