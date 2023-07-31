@@ -426,9 +426,7 @@ export function getTopLeftWallGridIndex(): int {
 
   const topLeftWallGridIndex =
     ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(roomShape);
-  return topLeftWallGridIndex === undefined
-    ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
-    : topLeftWallGridIndex;
+  return topLeftWallGridIndex ?? DEFAULT_TOP_LEFT_WALL_GRID_INDEX;
 }
 
 /**

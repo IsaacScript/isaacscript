@@ -194,9 +194,16 @@ const config = {
      *
      * Defined at: base-eslint.js
      *
-     * Isaac API methods use capital letters.
+     * Isaac API methods use capital letters, so we must make the options for the rule less strict.
      */
-    "new-cap": "off",
+    "new-cap": [
+      "error",
+      {
+        newIsCap: true,
+        capIsNew: false,
+        properties: true,
+      },
+    ],
 
     /**
      * Documentation:
@@ -230,6 +237,33 @@ const config = {
      * "print" is used with Lua mods.
      */
     "no-restricted-globals": "off",
+
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-restricted-syntax
+     *
+     * Defined in "base-eslint.js".
+     *
+     * We allow number enums since the Isaac API must use numbers.
+     */
+    "no-restricted-syntax": [
+      "error",
+      // Prevent for-in statements. This is copied from the Airbnb config:
+      // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+      {
+        selector: "ForInStatement",
+        message:
+          "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.",
+      },
+      // Prevent superfluous type annotations, which can cause bugs with widened types:
+      // https://github.com/typescript-eslint/typescript-eslint/issues/6446
+      {
+        selector:
+          'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
+        message:
+          "Don't use `as const` with a type annotated variable, since it widens the type.",
+      },
+    ],
   },
 };
 

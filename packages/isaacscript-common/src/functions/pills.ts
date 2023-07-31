@@ -54,7 +54,7 @@ export function getAllPillColors(): PillColor[] {
  */
 export function getFalsePHDPillEffect(pillEffect: PillEffect): PillEffect {
   const convertedPillEffect = FALSE_PHD_PILL_CONVERSIONS.get(pillEffect);
-  return convertedPillEffect === undefined ? pillEffect : convertedPillEffect;
+  return convertedPillEffect ?? pillEffect;
 }
 
 /**
@@ -98,7 +98,7 @@ export function getNormalPillColors(): PillColor[] {
  */
 export function getPHDPillEffect(pillEffect: PillEffect): PillEffect {
   const convertedPillEffect = PHD_PILL_CONVERSIONS.get(pillEffect);
-  return convertedPillEffect === undefined ? pillEffect : convertedPillEffect;
+  return convertedPillEffect ?? pillEffect;
 }
 
 /**
@@ -143,11 +143,10 @@ export function getPillEffectClass(
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
   const pillEffectClass = PILL_EFFECT_CLASSES[pillEffect];
+
   // Handle modded pill effects.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return pillEffectClass === undefined
-    ? DEFAULT_PILL_EFFECT_CLASS
-    : pillEffectClass;
+  return pillEffectClass ?? DEFAULT_PILL_EFFECT_CLASS;
 }
 
 /**
@@ -188,11 +187,10 @@ export function getPillEffectType(
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
   const pillEffectClass = PILL_EFFECT_TYPES[pillEffect];
+
   // Handle modded pill effects.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return pillEffectClass === undefined
-    ? DEFAULT_PILL_EFFECT_TYPE
-    : pillEffectClass;
+  return pillEffectClass ?? DEFAULT_PILL_EFFECT_TYPE;
 }
 
 /** Helper function to get an array with every vanilla pill effect. */

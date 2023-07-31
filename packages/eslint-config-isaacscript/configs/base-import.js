@@ -91,7 +91,17 @@ const config = {
 
     // [I] "import/no-named-as-default" is included in `recommended`.
 
-    // [I] "import/no-named-as-default-member" is included in `recommended`.
+    /**
+     * Documentation:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-named-as-default-member.md
+     *
+     * Defined in:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
+     *
+     * This is already handled by the TypeScript compiler:
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+     */
+    "import/no-named-as-default-member": "off",
 
     // [X] "import/no-unused-modules" is not enabled since this check is mostly covered by the
     // `ts-prune` tool.
@@ -143,7 +153,17 @@ const config = {
 
     // [I] "import/default" is included in `recommended`.
 
-    // [I] "import/named" is included in `recommended`.
+    /**
+     * Documentation:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/named.md
+     *
+     * Defined in:
+     * https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
+     *
+     * This is already handled by the TypeScript compiler:
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+     */
+    "import/named": "off",
 
     // [I] "import/namespace" is included in `recommended`.
 
@@ -220,8 +240,11 @@ const config = {
      * Defined at:
      * https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
      *
-     * This rule is not necessary in TypeScript codebases, since the compiler would error if you had
-     * a typo in an import statement.
+     * This is already handled by the TypeScript compiler:
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
+     *
+     * Additionally, see:
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/tree/master#why-is-importno-unresolved-disabled
      */
     "import/no-unresolved": "off",
 

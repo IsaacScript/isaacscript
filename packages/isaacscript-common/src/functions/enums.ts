@@ -219,4 +219,4 @@ export function validateInterfaceMatchesEnum<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   T extends Record<Enum, unknown>,
   Enum extends string | number,
->(): void {}
+>(): void {} // eslint-disable-line @typescript-eslint/no-empty-function

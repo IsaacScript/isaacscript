@@ -8,14 +8,13 @@ const REPO_ROOT = path.join(__dirname, "..", "..", "..");
  * @type {import("eslint").Linter.Config}
  */
 const config = {
-  plugins: ["@nrwl/nx"],
-
   // From:
   // https://github.com/nrwl/nx/blob/master/packages/eslint-plugin-nx/src/configs/typescript.ts
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: "module",
-    // This cannot be simplified to `./../..` because of relative path shenanigans.
+
+    /** This cannot be simplified to `./../..` because of relative path shenanigans. */
     tsconfigRootDir: REPO_ROOT,
   },
 
@@ -23,20 +22,6 @@ const config = {
   ignorePatterns: ["!.prettierrc.cjs"],
 
   rules: {
-    "@nrwl/nx/enforce-module-boundaries": [
-      "error",
-      {
-        enforceBuildableLibDependency: true,
-        allow: [],
-        depConstraints: [
-          {
-            sourceTag: "*",
-            onlyDependOnLibsWithTags: ["*"],
-          },
-        ],
-      },
-    ],
-
     // This rule has to be told which "package.json" file that the dependencies are located in.
     "import/no-extraneous-dependencies": [
       "error",

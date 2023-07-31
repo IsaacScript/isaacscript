@@ -95,8 +95,7 @@ export function getAdjacentNonExistingRoomGridIndexes(
 export function getAdjacentRoomGridIndexes(
   roomGridIndex?: int,
 ): readonly int[] {
-  const roomGridIndexToUse =
-    roomGridIndex === undefined ? getRoomGridIndex() : roomGridIndex;
+  const roomGridIndexToUse = roomGridIndex ?? getRoomGridIndex();
 
   if (!isRoomInsideGrid(roomGridIndexToUse)) {
     return [];

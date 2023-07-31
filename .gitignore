@@ -6,7 +6,6 @@
 tmp
 
 # Docusaurus artifacts
-.docusaurus
 .cache-loader
 
 # OS-specific artifacts
