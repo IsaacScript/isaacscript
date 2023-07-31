@@ -617,9 +617,26 @@ const config = {
      */
     "no-empty-static-block": "error",
 
-    // "no-eq-null"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-eq-null
+     *
+     * Not enabled in the parent configs.
+     *
+     * Prevent confusing comparisons to `null`.
+     */
+    "no-eq-null": "error",
 
-    // "no-eval"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-eval
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-eval": "error",
 
     // "no-extend-native"
 
