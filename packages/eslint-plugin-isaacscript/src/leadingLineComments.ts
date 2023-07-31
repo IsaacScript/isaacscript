@@ -1,5 +1,5 @@
 import { TSESTree } from "@typescript-eslint/types";
-import { TSESLint } from "@typescript-eslint/utils";
+import type { TSESLint } from "@typescript-eslint/utils";
 import { isCommentOnOwnLine, isSeparatorLine } from "./comments";
 
 export function getLeadingLineComments(

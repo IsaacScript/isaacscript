@@ -1,4 +1,4 @@
-import { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 /**
  * Returns false for trailing comments like:

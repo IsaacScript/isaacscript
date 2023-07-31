@@ -1,4 +1,4 @@
-import { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { formatText } from "../format";
 import {
   getCommentBlocks,

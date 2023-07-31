@@ -1,8 +1,9 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   MessageIds,
-  noExplicitArrayLoops,
-  Options,
+  Options} from "../../src/rules/no-explicit-array-loops";
+import {
+  noExplicitArrayLoops
 } from "../../src/rules/no-explicit-array-loops";
 import { ruleTester } from "../utils";
 

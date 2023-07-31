@@ -1,7 +1,8 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   MessageIds,
-  Options,
+  Options} from "../../src/rules/require-capital-const-assertions";
+import {
   requireCapitalConstAssertions,
 } from "../../src/rules/require-capital-const-assertions";
 import { ruleTester } from "../utils";

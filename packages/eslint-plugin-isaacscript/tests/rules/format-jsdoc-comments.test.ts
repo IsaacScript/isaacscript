@@ -1,8 +1,9 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
-  formatJSDocComments,
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   MessageIds,
-  Options,
+  Options} from "../../src/rules/format-jsdoc-comments";
+import {
+  formatJSDocComments
 } from "../../src/rules/format-jsdoc-comments";
 import { ruleTester } from "../utils";
 

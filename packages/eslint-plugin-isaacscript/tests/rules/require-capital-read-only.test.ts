@@ -1,7 +1,8 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   MessageIds,
-  Options,
+  Options} from "../../src/rules/require-capital-read-only";
+import {
   requireCapitalReadOnly,
 } from "../../src/rules/require-capital-read-only";
 import { ruleTester } from "../utils";

@@ -1,5 +1,6 @@
+import type {
+  CompleteSentenceMessageIds} from "../completeSentence";
 import {
-  CompleteSentenceMessageIds,
   getIncompleteSentences,
 } from "../completeSentence";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";

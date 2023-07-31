@@ -1,8 +1,9 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
-  noInvalidDefaultMap,
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   NoInvalidDefaultMapMessageIds,
-  Options,
+  Options} from "../../src/rules/no-invalid-default-map";
+import {
+  noInvalidDefaultMap
 } from "../../src/rules/no-invalid-default-map";
 import { ruleTester } from "../utils";
 

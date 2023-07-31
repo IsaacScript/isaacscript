@@ -1,6 +1,7 @@
 import { isSeparatorLine } from "../comments";
+import type {
+  CompleteSentenceMessageIds} from "../completeSentence";
 import {
-  CompleteSentenceMessageIds,
   getIncompleteSentences,
 } from "../completeSentence";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";

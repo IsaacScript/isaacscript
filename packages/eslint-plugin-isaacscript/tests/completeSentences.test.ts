@@ -1,5 +1,6 @@
+import type {
+  CompleteSentenceMessageIds} from "../src/completeSentence";
 import {
-  CompleteSentenceMessageIds,
   getIncompleteSentences,
   getSentences,
 } from "../src/completeSentence";

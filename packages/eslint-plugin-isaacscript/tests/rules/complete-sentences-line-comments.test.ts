@@ -1,8 +1,9 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import { CompleteSentenceMessageIds } from "../../src/completeSentence";
+import type { TSESLint } from "@typescript-eslint/utils";
+import type { CompleteSentenceMessageIds } from "../../src/completeSentence";
+import type {
+  Options} from "../../src/rules/complete-sentences-line-comments";
 import {
-  completeSentencesLineComments,
-  Options,
+  completeSentencesLineComments
 } from "../../src/rules/complete-sentences-line-comments";
 import { ruleTester } from "../utils";
 
