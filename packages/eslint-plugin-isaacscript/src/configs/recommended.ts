@@ -34,6 +34,7 @@ export const recommended = {
     "isaacscript/prefer-postfix-plusplus": "error",
     "isaacscript/require-capital-const-assertions": "error",
     "isaacscript/require-capital-read-only": "error",
+    "isaacscript/require-unannotated-const-assertions": "error",
     "isaacscript/require-variadic-function-argument": "error",
     "isaacscript/strict-enums": "error",
   },
