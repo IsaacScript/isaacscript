@@ -138,9 +138,7 @@ export class CustomGridEntities extends Feature {
         const sprite = decoration.GetSprite();
         sprite.Load(data.anm2Path, true);
         const animationToPlay =
-          data.defaultAnimation === undefined
-            ? sprite.GetDefaultAnimation()
-            : data.defaultAnimation;
+          data.defaultAnimation ?? sprite.GetDefaultAnimation();
         sprite.Play(animationToPlay, true);
       }
     }
@@ -258,10 +256,7 @@ export class CustomGridEntities extends Feature {
     if (anm2Path !== undefined) {
       const sprite = customGridEntity.GetSprite();
       sprite.Load(anm2Path, true);
-      const animationToPlay =
-        defaultAnimation === undefined
-          ? sprite.GetDefaultAnimation()
-          : defaultAnimation;
+      const animationToPlay = defaultAnimation ?? sprite.GetDefaultAnimation();
       sprite.Play(animationToPlay, true);
     }
 

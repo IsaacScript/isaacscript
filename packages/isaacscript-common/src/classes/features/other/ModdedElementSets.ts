@@ -117,8 +117,8 @@ export class ModdedElementSets extends Feature {
   private flyingCollectibleTypesSet = new Set<CollectibleType>();
   private readonly permanentFlyingCollectibleTypesSet =
     new Set<CollectibleType>();
-  private flyingTrinketTypesSet = new Set<TrinketType>();
 
+  private flyingTrinketTypesSet = new Set<TrinketType>();
   private readonly edenActiveCollectibleTypesSet = new Set<CollectibleType>();
   private readonly edenPassiveCollectibleTypesSet = new Set<CollectibleType>();
 

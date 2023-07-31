@@ -301,7 +301,7 @@ const config = {
      * Not defined in the parent configs.
      *
      * We disallow enum initializers since we want to prefer string enums over number enums. (Number
-     * enums in TypeScript are not very safe.)
+     * enums in TypeScript are not as safe as string enums.)
      */
     "@typescript-eslint/prefer-enum-initializers": "error",
 

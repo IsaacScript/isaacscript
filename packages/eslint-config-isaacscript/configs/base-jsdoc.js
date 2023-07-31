@@ -127,7 +127,8 @@ const config = {
     // [X] "jsdoc/no-multi-asterisks" is not enabled because it overlaps with
     // `isaacscript/limit-jsdoc-comments`.
 
-    // [X] "jsdoc/no-restricted-syntax" is not enabled because it is not generally relevant.
+    // [X] "jsdoc/no-restricted-syntax" is not enabled because it is intended for disabling of
+    // specific language features per-project.
 
     /**
      * Documentation:

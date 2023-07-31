@@ -472,7 +472,7 @@ export class CustomStages extends Feature {
         ? DEFAULT_BASE_STAGE_TYPE
         : (customStage.baseStageType as StageType);
 
-    // eslint-disable-next-line isaacscript/strict-enums
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     const reseed = asNumber(stage) >= baseStage;
 
     setStage(baseStage, baseStageType, reseed);

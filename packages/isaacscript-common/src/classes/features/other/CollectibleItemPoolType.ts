@@ -73,6 +73,6 @@ export class CollectibleItemPoolType extends Feature {
 
     const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
     const itemPoolType = v.run.collectibleItemPoolTypeMap.get(pickupIndex);
-    return itemPoolType === undefined ? getRoomItemPoolType() : itemPoolType;
+    return itemPoolType ?? getRoomItemPoolType();
   }
 }

@@ -564,23 +564,8 @@ const config = {
 
     // "no-restricted-properties"
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-restricted-syntax
-     *
-     * Not defined in the parent configs.
-     */
-    "no-restricted-syntax": [
-      "error",
-      // Prevent superfluous type annotations, which can cause bugs with widened types:
-      // https://github.com/typescript-eslint/typescript-eslint/issues/6446
-      {
-        selector:
-          'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
-        message:
-          "Don't use `as const` with a type annotated variable, since it widens the type.",
-      },
-    ],
+    // [X] "no-restricted-syntax" is not enabled because it is intended for disabling of specific
+    // language features per-project.
 
     /**
      * Documentation:

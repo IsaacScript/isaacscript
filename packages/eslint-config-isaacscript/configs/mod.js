@@ -16,7 +16,7 @@ const config = {
   rules: {
     /**
      * Documentation:
-     * https://typescript-eslint.io/rules/naming-convention
+     * https://typescript-eslint.io/rules/naming-convention/
      *
      * Defined at:
      * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
@@ -75,7 +75,7 @@ const config = {
 
     /**
      * Documentation:
-     * https://typescript-eslint.io/rules/no-invalid-void-type
+     * https://typescript-eslint.io/rules/no-invalid-void-type/
      *
      * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
@@ -92,7 +92,7 @@ const config = {
 
     /**
      * Documentation:
-     * https://typescript-eslint.io/rules/no-loop-func
+     * https://typescript-eslint.io/rules/no-loop-func/
      *
      * Defined at:
      * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
@@ -105,7 +105,18 @@ const config = {
 
     /**
      * Documentation:
-     * https://typescript-eslint.io/rules/prefer-literal-enum-member
+     * https://typescript-eslint.io/rules/prefer-enum-initializers/
+     *
+     * Defined in "base-typescript-eslint.js".
+     *
+     * Enums that are used with the API must be numbers since that is what the API expects. We also
+     * prefer that unofficial enums are also number enums for consistency.
+     */
+    "@typescript-eslint/prefer-enum-initializers": "off",
+
+    /**
+     * Documentation:
+     * https://typescript-eslint.io/rules/prefer-literal-enum-member/
      *
      * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
@@ -116,7 +127,7 @@ const config = {
 
     /**
      * Documentation:
-     * https://typescript-eslint.io/rules/require-array-sort-compare
+     * https://typescript-eslint.io/rules/require-array-sort-compare/
      *
      * Defined at:
      * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-typescript-eslint.js
@@ -135,6 +146,18 @@ const config = {
      * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.
      */
     "isaacscript/enum-member-number-separation": "error",
+
+    /**
+     * Documentation:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-invalid-default-map.md
+     *
+     * Defined at:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/src/configs/recommended.ts
+     *
+     * Enums that are used with the API must be numbers since that is what the API expects. We also
+     * prefer that unofficial enums are also number enums for consistency.
+     */
+    "isaacscript/no-number-enums": "off",
 
     /**
      * Documentation:
@@ -237,33 +260,6 @@ const config = {
      * "print" is used with Lua mods.
      */
     "no-restricted-globals": "off",
-
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-restricted-syntax
-     *
-     * Defined in "base-eslint.js".
-     *
-     * We allow number enums since the Isaac API must use numbers.
-     */
-    "no-restricted-syntax": [
-      "error",
-      // Prevent for-in statements. This is copied from the Airbnb config:
-      // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-      {
-        selector: "ForInStatement",
-        message:
-          "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.",
-      },
-      // Prevent superfluous type annotations, which can cause bugs with widened types:
-      // https://github.com/typescript-eslint/typescript-eslint/issues/6446
-      {
-        selector:
-          'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
-        message:
-          "Don't use `as const` with a type annotated variable, since it widens the type.",
-      },
-    ],
   },
 };
 

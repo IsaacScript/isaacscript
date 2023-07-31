@@ -1,6 +1,8 @@
 // This file handles drawing the walls and floors for custom stages.
 
-// cspell:ignore LTRX,LTLX,LBRX,LBLX
+// We want the enum names to match the Isaac format of having upper case letters.
+/* eslint-disable isaacscript/consistent-enum-values */
+/* cspell:ignore LTRX,LTLX,LBRX,LBLX */
 
 import {
   EffectVariant,

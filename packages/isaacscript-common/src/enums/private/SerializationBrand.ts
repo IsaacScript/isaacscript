@@ -1,3 +1,7 @@
+// We want to use leading underscores for brands to ensure that the values do not overlap with any
+// legitimate fields that end-users may create in their data structures.
+/* eslint-disable isaacscript/consistent-enum-values */
+
 /**
  * During serialization, we write an arbitrary string key to the object with a value of an empty
  * string. This is used during deserialization to instantiate the correct type of object.

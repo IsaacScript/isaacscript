@@ -779,9 +779,7 @@ export class CustomTrapdoors extends Feature {
 
     const firstSpawn = roomFrameCount !== 0;
     const open =
-      spawnOpen === undefined
-        ? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn)
-        : spawnOpen;
+      spawnOpen ?? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn);
 
     const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
     const customTrapdoorDescription: CustomTrapdoorDescription = {

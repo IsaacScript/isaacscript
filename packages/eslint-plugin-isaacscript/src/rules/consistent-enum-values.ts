@@ -10,7 +10,8 @@ export const consistentEnumValues = createRule({
     },
     schema: [],
     messages: {
-      inconsistentValue: "Foo must be bar.",
+      inconsistentValue:
+        "The value of an enum member must be a string that exactly matches the enum name.",
     },
   },
   defaultOptions: [],

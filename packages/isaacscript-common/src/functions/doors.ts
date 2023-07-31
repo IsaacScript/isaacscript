@@ -52,7 +52,7 @@ export function closeDoorFast(door: GridEntityDoor): void {
 
 export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
   const doorSlot = DOOR_SLOT_FLAG_TO_DOOR_SLOT[doorSlotFlag];
-  return doorSlot === undefined ? DEFAULT_DOOR_SLOT : doorSlot;
+  return doorSlot ?? DEFAULT_DOOR_SLOT;
 }
 
 export function doorSlotFlagsToDoorSlots(
