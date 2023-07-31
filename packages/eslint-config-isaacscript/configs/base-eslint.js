@@ -633,8 +633,7 @@ const config = {
      *
      * Not enabled in the parent configs.
      *
-     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
-     * options.)
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default options.)
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
      */
     "no-eval": "error",
