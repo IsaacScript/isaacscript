@@ -1,7 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "extends": "nx/presets/core.json",
-  "npmScope": "isaacscript",
   "affected": {
     "defaultBase": "main"
   },
