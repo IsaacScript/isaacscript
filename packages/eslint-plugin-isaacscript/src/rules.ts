@@ -17,6 +17,7 @@ import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noEmptyLineComments } from "./rules/no-empty-line-comments";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops";
 import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops";
+import { noForIn } from "./rules/no-for-in";
 import { noInvalidDefaultMap } from "./rules/no-invalid-default-map";
 import { noLetAny } from "./rules/no-let-any";
 import { noObjectAny } from "./rules/no-object-any";
@@ -46,6 +47,7 @@ export const rules = {
   "no-empty-line-comments": noEmptyLineComments,
   "no-explicit-array-loops": noExplicitArrayLoops,
   "no-explicit-map-set-loops": noExplicitMapSetLoops,
+  "no-for-in": noForIn,
   "no-invalid-default-map": noInvalidDefaultMap,
   "no-let-any": noLetAny,
   "no-object-any": noObjectAny,

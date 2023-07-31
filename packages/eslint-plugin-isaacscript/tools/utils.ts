@@ -1,24 +1,25 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import prettier from "prettier";
+import type { TSESLint } from "@typescript-eslint/utils";
+import * as prettier from "prettier";
 import { rules } from "../src/rules";
 import { PLUGIN_NAME } from "./constants";
 
 export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
 
 const RULE_NAME_PREFIX = `${PLUGIN_NAME}/`;
-const PRETTIER_CONFIG = prettier.resolveConfig.sync(__dirname);
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
-export function formatWithPrettier(
+export async function formatWithPrettier(
   text: string,
   language: "typescript" | "markdown",
-): string {
+): Promise<string> {
+  const prettierConfig = await prettier.resolveConfig(__dirname);
+
   return prettier.format(text, {
     parser: language,
-    ...PRETTIER_CONFIG,
+    ...prettierConfig,
   });
 }
 
@@ -54,11 +55,7 @@ export function isKebabCase(string: string): boolean {
 }
 
 export function isRecommendedRule(rule: RuleDefinition): boolean {
-  if (rule.meta.docs === undefined) {
-    return false;
-  }
-
-  return rule.meta.docs.recommended !== false;
+  return rule.meta.docs?.recommended !== undefined;
 }
 
 function kebabCaseToCamelCase(text: string): string {

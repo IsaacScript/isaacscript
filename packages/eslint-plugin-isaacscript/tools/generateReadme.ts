@@ -2,12 +2,12 @@
 
 import * as fs from "node:fs";
 import * as path from "node:path";
+import type { RuleDefinition } from "./utils";
 import {
   formatWithPrettier,
   getAlphabeticalRuleEntries,
   getFullRuleName,
   isRecommendedRule,
-  RuleDefinition,
 } from "./utils";
 
 interface Marker {
@@ -33,9 +33,13 @@ function newHTMLComment(comment: string) {
   return `<!-- ${comment} -->`;
 }
 
-export function generateReadme(): void {
+export async function generateReadme(): Promise<void> {
   const rulesTable = getRulesTable();
-  updateFileContentInsideMark(README_MD_PATH, rulesTable, RULES_TABLE_MARKER);
+  await updateFileContentInsideMark(
+    README_MD_PATH,
+    rulesTable,
+    RULES_TABLE_MARKER,
+  );
 }
 
 function getRulesTable() {
@@ -88,7 +92,7 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   return `| ${ruleCells.join(" | ")} |`;
 }
 
-function updateFileContentInsideMark(
+async function updateFileContentInsideMark(
   filePath: string,
   text: string,
   marker: Marker,
@@ -100,7 +104,7 @@ function updateFileContentInsideMark(
     marker,
   );
 
-  const formattedModifiedFileText = formatWithPrettier(
+  const formattedModifiedFileText = await formatWithPrettier(
     modifiedFileText,
     "markdown",
   );

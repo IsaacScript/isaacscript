@@ -2,14 +2,14 @@ import { generateConfigs } from "./generateConfigs";
 import { generateReadme } from "./generateReadme";
 import { generateRules } from "./generateRules";
 
-export function generateAll(): void {
+export async function generateAll(): Promise<void> {
   // The rules must be generated before the configs/readme.
   console.log("Generating rules...");
-  generateRules();
+  await generateRules();
 
   console.log("Generating configs...");
-  generateConfigs();
+  await generateConfigs();
 
   console.log("Generating readme...");
-  generateReadme();
+  await generateReadme();
 }

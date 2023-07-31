@@ -18,9 +18,11 @@ const TEMPLATE_SRC_PATH = path.join(SRC_PATH, "template.ts");
 const TESTS_PATH = path.join(REPO_ROOT, "tests");
 const TEMPLATE_TEST_PATH = path.join(TESTS_PATH, "template.ts");
 
-createRule();
+createRule().catch((err) => {
+  throw new Error(`Failed to create a rule: ${err}`);
+});
 
-function createRule() {
+async function createRule() {
   const firstArg = process.argv[2];
   if (firstArg === undefined || firstArg === "") {
     throw new Error(
@@ -49,7 +51,7 @@ function createRule() {
   createDocFile(ruleName, description);
   createSourceFile(ruleName, description);
   createTestFile(ruleName, description);
-  generateAll();
+  await generateAll();
 
   console.log(`Successfully created rule: ${ruleName}`);
 }
