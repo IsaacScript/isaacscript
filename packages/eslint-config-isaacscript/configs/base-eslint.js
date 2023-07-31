@@ -656,7 +656,7 @@ const config = {
      * Documentation:
      * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
      *
-     * Defined in:
+     * Defined at:
      * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts
      *
      * We want to disable the autofix for this rule, since it is almost always unwanted.

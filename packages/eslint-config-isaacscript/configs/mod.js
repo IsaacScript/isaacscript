@@ -141,6 +141,18 @@ const config = {
      * Documentation:
      * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
      *
+     * Defined at:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/src/configs/recommended.ts
+     *
+     * Enums that are used with the API use upper case letters. We also prefer that unofficial enums
+     * are also use upper case letters for consistency.
+     */
+    "isaacscript/consistent-enum-members": "off",
+
+    /**
+     * Documentation:
+     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
+     *
      * Not defined in the parent configs.
      *
      * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.

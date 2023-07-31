@@ -95,7 +95,7 @@ const config = {
      * Documentation:
      * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-named-as-default-member.md
      *
-     * Defined in:
+     * Defined at:
      * https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
      *
      * This is already handled by the TypeScript compiler:
@@ -157,7 +157,7 @@ const config = {
      * Documentation:
      * https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/named.md
      *
-     * Defined in:
+     * Defined at:
      * https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
      *
      * This is already handled by the TypeScript compiler:
