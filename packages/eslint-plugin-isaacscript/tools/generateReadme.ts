@@ -6,7 +6,7 @@ import type { RuleDefinition } from "./utils";
 import {
   formatWithPrettier,
   getAlphabeticalRuleEntries,
-  getFullRuleName,
+  getRuleNameWithPluginNamePrefix,
   isRecommendedRule,
 } from "./utils";
 
@@ -64,9 +64,8 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
     throw new Error(`Rule ${ruleName} does not have a "docs" entry.`);
   }
 
-  const fullRuleName = getFullRuleName(ruleName);
-
-  const name = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;
+  const fullRuleName = getRuleNameWithPluginNamePrefix(ruleName);
+  const nameWithLink = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;
   const { description } = rule.meta.docs;
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
   const isFixable = rule.meta.fixable === undefined ? "" : EMOJI_FIXABLE;
@@ -82,7 +81,7 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   }
 
   const ruleCells = [
-    name,
+    nameWithLink,
     description,
     isRecommended,
     isFixable,

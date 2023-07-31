@@ -45,7 +45,7 @@ export function getCamelCaseRuleName(kebabCaseName: string): string {
   return ruleNameCamelCase.replace("Jsdoc", "JSDoc");
 }
 
-export function getFullRuleName(ruleName: string): string {
+export function getRuleNameWithPluginNamePrefix(ruleName: string): string {
   return `${RULE_NAME_PREFIX}${ruleName}`;
 }
 
