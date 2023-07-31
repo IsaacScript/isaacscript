@@ -113,8 +113,8 @@ const config = {
     // [X] "no-dupe-args" is not enabled since it is disabled by
     // `@typescript-eslint/eslint-recommended`.
 
-    // [X] "no-dupe-class-members" is not enabled since it is disabled by
-    // `@typescript-eslint/eslint-recommended`.
+    // [X] "no-dupe-class-members" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-dupe-class-members` rule.
 
     // [I] "no-dupe-else-if" is included in `recommended`.
 
@@ -146,7 +146,8 @@ const config = {
 
     // [I] "no-irregular-whitespace" is included in `recommended`.
 
-    // [I] "no-loss-of-precision" is included in `recommended`.
+    // [X] "no-loss-of-precision" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-loss-of-precision` rule.
 
     // [I] "no-misleading-character-class" is included in `recommended`.
 
@@ -217,7 +218,15 @@ const config = {
 
     // [I] "no-unexpected-multiline" is included in `recommended`.
 
-    // "no-unmodified-loop-condition"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-unmodified-loop-condition
+     *
+     * Not enabled in the parent configs.
+     *
+     * This prevents bugs in loops.
+     */
+    "no-unmodified-loop-condition": "error",
 
     // [X] "no-unreachable" is not enabled since it is disabled by
     // `@typescript-eslint/eslint-recommended`.
@@ -277,24 +286,57 @@ const config = {
     // Suggestions
     // -----------
 
-    // "accessor-pairs"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/accessor-pairs
+     *
+     * Not enabled in the parent configs.
+     *
+     * This rule can find unused code.
+     */
+    "accessor-pairs": "off",
 
-    // "arrow-body-style"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/arrow-body-style
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb specifies the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "arrow-body-style": "error",
 
-    // "block-scoped-var"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/block-scoped-var
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "block-scoped-var": "error",
 
-    // "camelcase"
+    // [X] "camelcase" is not enabled since it is superseded by the
+    // `@typescript-eslint/naming-convention` rule.
 
-    // "capitalized-comments"
+    // [X] "capitalized-comments" is not enabled since it is superseded by the
+    // `isaacscript/complete-sentences-jsdoc` and `isaacscript/complete-sentences-line-comments`
+    // rules.
 
-    // "class-methods-use-this"
+    // [X] "class-methods-use-this" is not enabled since it is superseded by the
+    // `@typescript-eslint/class-methods-use-this` rule.
 
-    // "complexity"
+    // [X] "complexity" is not enabled since cyclomatic complexity is not a good general indicator
+    // of code complexity.
 
     // [X] "consistent-return" is not enabled because this is handled by the `noImplicitReturns`
     // TypeScript compiler flag.
 
-    // "consistent-this"
+    // [X] "consistent-this" is not enabled since capturing `this` is largely obviated by using
+    // modern arrow functions.
 
     /**
      * Documentation:
@@ -316,33 +358,102 @@ const config = {
     // projects:
     // https://github.com/typescript-eslint/typescript-eslint/issues/5254#issuecomment-1168992749
 
-    // "default-case-last"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/default-case-last
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "default-case-last": "error",
 
-    // "default-param-last"
+    // [X] "default-param-last" is not enabled since it is superseded by the
+    // `@typescript-eslint/default-param-last` rule.
 
-    // "dot-notation"
+    // [X] "dot-notation" is not enabled since it is superseded by the
+    // `@typescript-eslint/dot-notation` rule.
 
-    // "eqeqeq"
+    // [X] "eqeqeq" is not enabled since it is superseded by the `isaacscript/eqeqeq-fix` rule.
 
-    // "func-name-matching"
+    // [X] "func-name-matching"
 
-    // "func-names"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/func-names
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "func-names": "error",
 
-    // "func-style"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/func-style
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "func-style": "error",
 
-    // "grouped-accessor-pairs"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/grouped-accessor-pairs
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "grouped-accessor-pairs": "error",
 
-    // "guard-for-in"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/guard-for-in
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "guard-for-in": "error",
 
-    // "id-denylist"
+    // [X] "id-denylist" is not enabled since it is expected to be configured with project-specific
+    // keywords.
 
-    // "id-length"
+    // [X] "id-length" is not enabled because short variable names are understandable in certain
+    // contexts.
 
-    // "id-match"
+    // [X] "id-match" is not enabled since it is superseded by the
+    // `@typescript-eslint/naming-convention` rule.
 
-    // "init-declarations"
+    // [X] "init-declarations" is not enabled since it is superseded by the
+    // `@typescript-eslint/init-declarations` rule.
 
-    // "logical-assignment-operators"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/logical-assignment-operators
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "logical-assignment-operators": [
+      "error",
+      "always",
+      {
+        enforceForIfStatements: true,
+      },
+    ],
 
     /**
      * Documentation:
@@ -356,19 +467,41 @@ const config = {
      */
     "max-classes-per-file": "error",
 
-    // "max-depth"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/max-depth
+     *
+     * Not enabled in the parent configs.
+     *
+     * Many nested blocks makes code difficult to read.
+     */
+    "max-depth": "error",
 
-    // "max-lines"
+    // [X] "max-lines" is not enabled because enforcing an arbitrary line threshold for every file
+    // in a project does not provide much value.
 
-    // "max-lines-per-function"
+    // [X] "max-lines-per-function" is not enabled because enforcing an arbitrary line threshold for
+    // every function in a project does not provide much value.
 
-    // "max-nested-callbacks"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/max-nested-callbacks
+     *
+     * Not enabled in the parent configs.
+     *
+     * Many nested callbacks makes code difficult to read.
+     */
+    "max-nested-callbacks": "error",
 
-    // "max-params"
+    // [X] "max-params" is not enabled because enforcing an arbitrary parameter number threshold for
+    // every function in a project does not provide much value. (Additionally, using TypeScript
+    // reduces the value of such a check.)
 
-    // "max-statements"
+    // [X] "max-statements" is not enabled because enforcing an arbitrary statement threshold for
+    // every function in a project does not provide much value.
 
-    // "multiline-comment-style"
+    // [X] "multiline-comment-style" is not enabled because it is conventional to use both kinds of
+    // comments in a TypeScript project.
 
     /**
      * Documentation:
@@ -382,9 +515,19 @@ const config = {
      */
     "new-cap": "error",
 
-    // "no-alert"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-alert
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-alert": "error",
 
-    // "no-array-constructor"
+    // [X] "no-array-constructor" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-array-constructor` rule.
 
     /**
      * Documentation:
@@ -398,11 +541,34 @@ const config = {
      */
     "no-bitwise": "error",
 
-    // "no-caller"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-bitwise
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-caller": "error",
 
     // [I] "no-case-declarations" is included in `recommended`.
 
-    // "no-confusing-arrow"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-confusing-arrow
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "no-confusing-arrow": [
+      "error",
+      {
+        allowParens: true,
+      },
+    ],
 
     // [X] "no-console" is not enabled because command-line programs commonly write to standard out
     // and standard error.
@@ -412,15 +578,45 @@ const config = {
 
     // [I] "no-delete-var" is included in `recommended`.
 
-    // "no-div-regex"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-div-regex
+     *
+     * Not enabled in the parent configs.
+     */
+    "no-div-regex": "error",
 
-    // "no-else-return"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-else-return
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-else-return": [
+      "error",
+      {
+        allowElseIf: false,
+      },
+    ],
 
     // [I] "no-empty" is included in `recommended`.
 
-    // "no-empty-function"
+    // [X] "no-empty-function" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-empty-function` rule.
 
-    // "no-empty-static-block"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-else-return
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-empty-static-block": "error",
 
     // "no-eq-null"
 
@@ -434,7 +630,8 @@ const config = {
 
     // "no-extra-label"
 
-    // [I] "no-extra-semi" is included in `recommended`.
+    // [X] "no-extra-semi" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-extra-semi` rule.
 
     // "no-floating-decimal"
 
@@ -444,11 +641,13 @@ const config = {
 
     // "no-implicit-globals"
 
-    // "no-implied-eval"
+    // [X] "no-implied-eval" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-implied-eval` rule.
 
     // "no-inline-comments"
 
-    // "no-invalid-this"
+    // [X] "no-invalid-this" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-invalid-this` rule.
 
     // "no-iterator"
 
@@ -479,9 +678,11 @@ const config = {
 
     // "no-lonely-if"
 
-    // "no-loop-func"
+    // [X] "no-loop-func" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-loop-func` rule.
 
-    // "no-magic-numbers"
+    // [X] "no-magic-numbers" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-magic-numbers` rule.
 
     // "no-mixed-operators"
 
@@ -551,8 +752,8 @@ const config = {
 
     // "no-proto"
 
-    // [X] "no-redeclare" is not enabled since it is disabled by
-    // `@typescript-eslint/eslint-recommended`.
+    // [X] "no-redeclare" is not enabled since it is superseded by the
+    // `@typescript-eslint/block-spacing` rule.
 
     // [I] "no-regex-spaces" is included in `recommended`.
 
@@ -560,7 +761,8 @@ const config = {
 
     // "no-restricted-globals"
 
-    // "no-restricted-imports"
+    // [X] "no-restricted-imports" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-restricted-imports` rule.
 
     // "no-restricted-properties"
 
@@ -578,19 +780,19 @@ const config = {
      */
     "no-return-assign": ["error", "always"],
 
-    // "no-return-await"
-
     // "no-script-url"
 
     // "no-sequences"
 
-    // "no-shadow"
+    // [X] "no-shadow" is not enabled since it is superseded by the `@typescript-eslint/no-shadow`
+    // rule.
 
     // [I] "no-shadow-restricted-names" is included in `recommended`.
 
     // "no-ternary"
 
-    // "no-throw-literal"
+    // [X] "no-throw-literal" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-throw-literal` rule.
 
     // "no-undef-init"
 
@@ -601,7 +803,8 @@ const config = {
 
     // "no-unneeded-ternary"
 
-    // "no-unused-expressions"
+    // [X] "no-unused-expressions" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-unused-expressions` rule.
 
     // [I] "no-unused-labels" is included in `recommended`.
 
@@ -613,7 +816,8 @@ const config = {
 
     // "no-useless-concat"
 
-    // "no-useless-constructor"
+    // [X] "no-useless-constructor" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-useless-constructor` rule.
 
     // [I] "no-useless-escape" is included in `recommended`.
 
@@ -726,7 +930,8 @@ const config = {
 
     // "radix"
 
-    // "require-await"
+    // [X] "require-await" is not enabled since it is superseded by the
+    // `@typescript-eslint/require-await` rule.
 
     // "require-unicode-regexp"
 
@@ -752,7 +957,144 @@ const config = {
     // Layout & Formatting
     // -------------------
 
-    // TODO
+    // "array-bracket-newline"
+
+    // "array-bracket-spacing"
+
+    // "array-element-newline"
+
+    // "arrow-parens"
+
+    // "arrow-spacing"
+
+    // [X] "block-spacing" is not enabled since it is superseded by the
+    // `@typescript-eslint/block-spacing` rule.
+
+    // [X] "brace-style" is not enabled since it is superseded by the
+    // `@typescript-eslint/brace-style` rule.
+
+    // [X] "comma-dangle" is not enabled since it is superseded by the
+    // `@typescript-eslint/comma-dangle` rule.
+
+    // [X] "comma-spacing" is not enabled since it is superseded by the
+    // `@typescript-eslint/comma-spacing` rule.
+
+    // "comma-style"
+
+    // "computed-property-spacing"
+
+    // "dot-location"
+
+    // "eol-last"
+
+    // [X] "func-call-spacing" is not enabled since it is superseded by the
+    // `@typescript-eslint/func-call-spacing` rule.
+
+    // "function-call-argument-newline"
+
+    // "function-paren-newline"
+
+    // "generator-star-spacing"
+
+    // "implicit-arrow-linebreak"
+
+    // [X] "indent" is not enabled since it is superseded by the `@typescript-eslint/indent` rule.
+
+    // "jsx-quotes"
+
+    // [X] "key-spacing" is not enabled since it is superseded by the
+    // `@typescript-eslint/key-spacing` rule.
+
+    // [X] "keyword-spacing" is not enabled since it is superseded by the
+    // `@typescript-eslint/keyword-spacing` rule.
+
+    // "line-comment-position"
+
+    // "linebreak-style"
+
+    // [X] "lines-around-comment" is not enabled since it is superseded by the
+    // `@typescript-eslint/lines-around-comment` rule.
+
+    // [X] "lines-between-class-members" is not enabled since it is superseded by the
+    // `@typescript-eslint/lines-between-class-members` rule.
+
+    // "max-len"
+
+    // "max-statements-per-line"
+
+    // "multiline-ternary"
+
+    // "new-parens"
+
+    // "newline-per-chained-call"
+
+    // [X] "no-extra-parens" is not enabled since it is superseded by the
+    // `@typescript-eslint/no-extra-parens` rule.
+
+    // "no-mixed-spaces-and-tabs"
+
+    // "no-multi-spaces"
+
+    // "no-multiple-empty-lines"
+
+    // "no-tabs"
+
+    // "no-trailing-spaces"
+
+    // "no-whitespace-before-property"
+
+    // "nonblock-statement-body-position"
+
+    // "object-curly-newline"
+
+    // [X] "object-curly-spacing" is not enabled since it is superseded by the
+    // `@typescript-eslint/object-curly-spacing` rule.
+
+    // "object-property-newline"
+
+    // "operator-linebreak"
+
+    // "padded-blocks"
+
+    // [X] "padding-line-between-statements" is not enabled since it is superseded by the
+    // `@typescript-eslint/padding-line-between-statements` rule.
+
+    // [X] "quotes" is not enabled since it is superseded by the `@typescript-eslint/quotes` rule.
+
+    // "rest-spread-spacing"
+
+    // [X] "semi" is not enabled since it is superseded by the `@typescript-eslint/semi` rule.
+
+    // "semi-spacing"
+
+    // "semi-style"
+
+    // [X] "space-before-blocks" is not enabled since it is superseded by the
+    // `@typescript-eslint/space-before-blocks` rule.
+
+    // [X] "space-before-function-paren" is not enabled since it is superseded by the
+    // `@typescript-eslint/space-before-function-paren` rule.
+
+    // "space-in-parens"
+
+    // [X] "space-infix-ops" is not enabled since it is superseded by the
+    // `@typescript-eslint/space-infix-ops` rule.
+
+    // "space-unary-ops"
+
+    // "switch-colon-spacing"
+
+    // "template-curly-spacing"
+
+    // "template-tag-spacing"
+
+    // "unicode-bom"
+
+    // "wrap-iife"
+
+    // "wrap-regex"
+
+    // "yield-star-spacing"
   },
 };
 

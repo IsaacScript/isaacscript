@@ -9,6 +9,7 @@ bitmask
 bootstrapper
 cacheable
 codebases
+cyclomatic
 decompilation
 decrementation
 easings

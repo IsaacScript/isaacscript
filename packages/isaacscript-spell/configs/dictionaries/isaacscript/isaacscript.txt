@@ -32,6 +32,7 @@ isaacscript
 jscutlery # For version control
 jsdoc # Monorepo word
 klaw # Monorepo word
+linebreak # ESLint word
 loglevel # Prettier word
 lualib # TSTL word
 ludeeus # ci.yml
@@ -43,6 +44,7 @@ newindex # TSTL word
 nextpromise # TSTL word
 nocache # Monorepo word
 nocheck # For @ts-nocheck
+nonblock # ESLint word
 nonconstructor # ESLint word
 nonoctal # ESLint word
 noout # lint.sh

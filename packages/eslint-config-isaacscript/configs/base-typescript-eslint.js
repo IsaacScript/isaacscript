@@ -452,6 +452,19 @@ const config = {
     // Prettier:
     // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/class-methods-use-this
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "class-methods-use-this": "off",
+    "@typescript-eslint/class-methods-use-this": "error",
+
     // [X] "@typescript-eslint/comma-dangle" is not enabled since it is automatically handled by
     // Prettier:
     // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
@@ -695,7 +708,7 @@ const config = {
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
      * https://raw.githubusercontent.com/iamturns/eslint-config-airbnb-typescript/master/lib/shared.js
      */
-    "return-await": "off",
+    "no-return-await": "off", // The base rule has a different name for some reason.
     "@typescript-eslint/return-await": "error",
 
     // [X] "@typescript-eslint/semi" is not enabled since it is automatically handled by Prettier:
