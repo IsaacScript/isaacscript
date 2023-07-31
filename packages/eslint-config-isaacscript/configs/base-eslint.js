@@ -572,13 +572,6 @@ const config = {
      */
     "no-restricted-syntax": [
       "error",
-      // Prevent for-in statements. This is copied from the Airbnb config:
-      // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-      {
-        selector: "ForInStatement",
-        message:
-          "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.",
-      },
       // Prevent superfluous type annotations, which can cause bugs with widened types:
       // https://github.com/typescript-eslint/typescript-eslint/issues/6446
       {
@@ -586,14 +579,6 @@ const config = {
           'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]',
         message:
           "Don't use `as const` with a type annotated variable, since it widens the type.",
-      },
-      // Prevent number enums:
-      // https://github.com/typescript-eslint/typescript-eslint/issues/7149
-      {
-        selector:
-          "TSEnumMember > :matches(Literal[raw>=0].initializer, UnaryExpression.initializer)",
-        message:
-          "Number enums are disallowed; use a string enum instead because they are safer.",
       },
     ],
 

@@ -4,7 +4,7 @@ Disallows "for x in y" statements.
 
 ## Rule Details
 
-"for in" loops iterate over the entire prototype chain, which is virtually never what you want. Use a "for of" loop or `Object.keys` or `Object.values` or `Object.entries` instead.
+"for in" loops iterate over the entire prototype chain, which is virtually never what you want. Use a "for of" loop or instead.
 
 ```ts
 // Bad

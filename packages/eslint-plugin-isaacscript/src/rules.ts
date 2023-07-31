@@ -7,6 +7,7 @@
 
 import { completeSentencesJSDoc } from "./rules/complete-sentences-jsdoc";
 import { completeSentencesLineComments } from "./rules/complete-sentences-line-comments";
+import { consistentEnumValues } from "./rules/consistent-enum-values";
 import { enumMemberNumberSeparation } from "./rules/enum-member-number-separation";
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
@@ -20,6 +21,7 @@ import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops";
 import { noForIn } from "./rules/no-for-in";
 import { noInvalidDefaultMap } from "./rules/no-invalid-default-map";
 import { noLetAny } from "./rules/no-let-any";
+import { noNumberEnums } from "./rules/no-number-enums";
 import { noObjectAny } from "./rules/no-object-any";
 import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-set";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
@@ -37,6 +39,7 @@ import { strictEnums } from "./rules/strict-enums";
 export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
   "complete-sentences-line-comments": completeSentencesLineComments,
+  "consistent-enum-values": consistentEnumValues,
   "enum-member-number-separation": enumMemberNumberSeparation,
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,
@@ -50,6 +53,7 @@ export const rules = {
   "no-for-in": noForIn,
   "no-invalid-default-map": noInvalidDefaultMap,
   "no-let-any": noLetAny,
+  "no-number-enums": noNumberEnums,
   "no-object-any": noObjectAny,
   "no-object-methods-with-map-set": noObjectMethodsWithMapSet,
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
