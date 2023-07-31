@@ -1,5 +1,5 @@
 import { isEnumBlockLabel, isSpecialComment } from "./comments";
-import type { List} from "./list";
+import type { List } from "./list";
 import { getAdjustedList, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 

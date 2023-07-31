@@ -1,9 +1,5 @@
-import type {
-  CompleteSentenceMessageIds} from "../src/completeSentence";
-import {
-  getIncompleteSentences,
-  getSentences,
-} from "../src/completeSentence";
+import type { CompleteSentenceMessageIds } from "../src/completeSentence";
+import { getIncompleteSentences, getSentences } from "../src/completeSentence";
 
 function testSentences(text: string, numSentences: number) {
   const sentences = getSentences(text);

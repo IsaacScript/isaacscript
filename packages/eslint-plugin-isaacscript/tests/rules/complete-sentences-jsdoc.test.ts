@@ -1,10 +1,7 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import type { CompleteSentenceMessageIds } from "../../src/completeSentence";
-import type {
-  Options} from "../../src/rules/complete-sentences-jsdoc";
-import {
-  completeSentencesJSDoc
-} from "../../src/rules/complete-sentences-jsdoc";
+import type { Options } from "../../src/rules/complete-sentences-jsdoc";
+import { completeSentencesJSDoc } from "../../src/rules/complete-sentences-jsdoc";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];

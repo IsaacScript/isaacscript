@@ -1,10 +1,9 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import type {
   MessageIds,
-  Options} from "../../src/rules/format-jsdoc-comments";
-import {
-  formatJSDocComments
+  Options,
 } from "../../src/rules/format-jsdoc-comments";
+import { formatJSDocComments } from "../../src/rules/format-jsdoc-comments";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];

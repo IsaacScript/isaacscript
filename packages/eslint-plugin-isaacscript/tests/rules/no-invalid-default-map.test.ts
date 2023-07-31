@@ -1,10 +1,9 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import type {
   NoInvalidDefaultMapMessageIds,
-  Options} from "../../src/rules/no-invalid-default-map";
-import {
-  noInvalidDefaultMap
+  Options,
 } from "../../src/rules/no-invalid-default-map";
+import { noInvalidDefaultMap } from "../../src/rules/no-invalid-default-map";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];

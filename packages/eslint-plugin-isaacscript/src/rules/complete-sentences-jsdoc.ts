@@ -1,8 +1,5 @@
-import type {
-  CompleteSentenceMessageIds} from "../completeSentence";
-import {
-  getIncompleteSentences,
-} from "../completeSentence";
+import type { CompleteSentenceMessageIds } from "../completeSentence";
+import { getIncompleteSentences } from "../completeSentence";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
 import { createRule } from "../utils";
 

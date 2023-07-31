@@ -1,10 +1,9 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import type {
   MessageIds,
-  Options} from "../../src/rules/require-capital-const-assertions";
-import {
-  requireCapitalConstAssertions,
+  Options,
 } from "../../src/rules/require-capital-const-assertions";
+import { requireCapitalConstAssertions } from "../../src/rules/require-capital-const-assertions";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];

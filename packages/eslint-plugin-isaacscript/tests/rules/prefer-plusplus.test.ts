@@ -1,10 +1,6 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import type {
-  MessageIds,
-  Options} from "../../src/rules/prefer-plusplus";
-import {
-  preferPlusplus,
-} from "../../src/rules/prefer-plusplus";
+import type { MessageIds, Options } from "../../src/rules/prefer-plusplus";
+import { preferPlusplus } from "../../src/rules/prefer-plusplus";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
