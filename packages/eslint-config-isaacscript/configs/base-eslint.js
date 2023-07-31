@@ -397,11 +397,10 @@ const config = {
      *
      * Not enabled in the parent configs.
      *
-     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
-     * options.)
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     * We prefer normal functions over function expressions, since they make code slightly easier to
+     * read.
      */
-    "func-style": "error",
+    "func-style": ["error", "declaration"],
 
     /**
      * Documentation:
