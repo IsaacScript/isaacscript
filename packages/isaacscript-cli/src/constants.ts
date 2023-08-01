@@ -1,4 +1,4 @@
-import * as os from "node:os";
+import os from "node:os";
 import path from "node:path";
 
 // Miscellaneous
