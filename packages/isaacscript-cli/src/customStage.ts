@@ -47,8 +47,8 @@ const METADATA_LUA_PATH = path.join(
 );
 
 const ROOM_VARIANT_MULTIPLIER = 10000;
-const VARIANT_REGEX = / variant="(\d+)"/;
-const WEIGHT_REGEX = / weight="(.+?)"/;
+const VARIANT_REGEX = / variant="(?<variant>\d+)"/;
+const WEIGHT_REGEX = / weight=".+?"/;
 
 const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
 
@@ -431,11 +431,11 @@ function combineCustomStageXMLs(
       }
 
       const match = line.match(VARIANT_REGEX);
-      if (match === null) {
+      if (match === null || match.groups === undefined) {
         continue;
       }
 
-      const baseVariantString = match[1];
+      const baseVariantString = match.groups["variant"];
       if (baseVariantString === undefined) {
         continue;
       }

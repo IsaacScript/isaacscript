@@ -57,6 +57,7 @@ function getTypeScriptFileExports(typeScriptFilePath) {
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   return exportLines.map((line) => {
+    // eslint-disable-next-line prefer-named-capture-group
     const match = line.match(/"(.+)"/);
     if (match === null) {
       throw new Error(`Failed to parse line: ${line}`);

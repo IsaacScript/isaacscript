@@ -322,11 +322,11 @@ function getTruncatedFileText(
 
 function printTemplateLocation(templateFilePath: string) {
   const unixPath = templateFilePath.split(path.sep).join(path.posix.sep);
-  const urlSuffixMatch = unixPath.match(/.+\/file-templates\/(.+)/);
-  if (urlSuffixMatch === null) {
+  const match = unixPath.match(/.+\/file-templates\/(?<urlSuffix>.+)/);
+  if (match === null || match.groups === undefined) {
     error(`Failed to parse the template file path: ${templateFilePath}`);
   }
-  const urlSuffix = urlSuffixMatch[1];
+  const { urlSuffix } = match.groups;
 
   console.log(
     `You can find the template at: ${chalk.green(

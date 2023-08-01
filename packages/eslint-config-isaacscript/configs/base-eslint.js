@@ -1307,15 +1307,70 @@ const config = {
      */
     "prefer-named-capture-group": "error",
 
-    // "prefer-numeric-literals"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-numeric-literals
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "prefer-numeric-literals": "error",
 
-    // "prefer-object-has-own"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-object-has-own
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "prefer-object-has-own": "error",
 
-    // "prefer-object-spread"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-object-spread
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "prefer-object-spread": "error",
 
-    // "prefer-promise-reject-errors"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-promise-reject-errors
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "prefer-promise-reject-errors": [
+      "error",
+      {
+        allowEmptyReject: true,
+      },
+    ],
 
-    // "prefer-regex-literals"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-regex-literals
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "prefer-regex-literals": [
+      "error",
+      {
+        disallowRedundantWrapping: true,
+      },
+    ],
 
     // [I] "prefer-rest-params" is included in `@typescript-eslint/eslint-recommended`.
 
@@ -1335,7 +1390,17 @@ const config = {
     // [X] "quote-props" is not enabled since it is automatically handled by Prettier:
     // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "radix"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/radix
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    radix: "error",
 
     // [X] "require-await" is not enabled since it is superseded by the
     // `@typescript-eslint/require-await` rule.

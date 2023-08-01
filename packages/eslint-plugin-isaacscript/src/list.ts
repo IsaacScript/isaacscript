@@ -105,6 +105,7 @@ function getList(line: string): List | undefined {
   }
 
   // e.g. "1. A bullet point can start with a number and a period."
+  // eslint-disable-next-line prefer-named-capture-group
   const numberPeriodMatch = line.match(/^(\d+)\. /);
   if (
     numberPeriodMatch !== null &&
@@ -119,6 +120,7 @@ function getList(line: string): List | undefined {
   }
 
   // e.g. "1) A bullet point can start with a number and a parenthesis."
+  // eslint-disable-next-line prefer-named-capture-group
   const numberParenthesisMatch = line.match(/^(\d+)\) /);
   if (
     numberParenthesisMatch !== null &&
@@ -159,12 +161,12 @@ function getJSDocTagName(text: string): string | undefined {
     return undefined;
   }
 
-  const tagMatch = text.match(/^@(\w+)/);
-  if (tagMatch === null) {
+  const tagMatch = text.match(/^@(?<tagName>\w+)/);
+  if (tagMatch === null || tagMatch.groups === undefined) {
     return undefined;
   }
 
-  const tagName = tagMatch[1];
+  const { tagName } = tagMatch.groups;
   if (tagName === undefined) {
     return undefined;
   }
@@ -172,12 +174,12 @@ function getJSDocTagName(text: string): string | undefined {
   // Specific JSDoc tags have words after them that should be part of the tag for indenting
   // purposes.
   if (tagName === "param") {
-    const paramMatch = text.match(/^(@\w+ \w+)/);
-    if (paramMatch === null) {
+    const paramMatch = text.match(/^(?<tagWithVariableName>@\w+ \w+)/);
+    if (paramMatch === null || paramMatch.groups === undefined) {
       return "@param";
     }
 
-    const tagWithVariableName = paramMatch[1];
+    const { tagWithVariableName } = paramMatch.groups;
     if (tagWithVariableName === undefined) {
       return "@param";
     }

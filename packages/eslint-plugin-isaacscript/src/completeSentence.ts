@@ -101,6 +101,7 @@ function splitOnSpecialText(text: string): string[] {
   // https://regex101.com/r/0u8hQG/1
   // https://jsdoc.app/tags-inline-link.html
   text = text.replaceAll(
+    // eslint-disable-next-line prefer-named-capture-group
     /\[([^\]]*)\]\{@link [^} |]+\}|\{@link ([^} |]+)[ |]?\}|\{@link [^} |]+[ |]([^}]+)\}/gm,
     "$1$2$3",
   );
@@ -315,10 +316,9 @@ const ORDINALS_SET: ReadonlySet<string> = new Set(["st", "nd", "rd", "th"]);
 function isDate(text: string) {
   text = text.trim();
 
-  const match1 = text.match(/^(\w+) \d+(\w+)$/);
-  if (match1 !== null) {
-    const month = match1[1];
-    const ordinal = match1[2];
+  const match1 = text.match(/^(?<month>\w+) \d+(?<ordinal>\w+)$/);
+  if (match1 !== null && match1.groups !== undefined) {
+    const { month, ordinal } = match1.groups;
     if (
       month !== undefined &&
       MONTHS_SET.has(month) &&
@@ -329,10 +329,9 @@ function isDate(text: string) {
     }
   }
 
-  const match2 = text.match(/^(\w+) \d+(\w+), \d+$/);
-  if (match2 !== null) {
-    const month = match2[1];
-    const ordinal = match2[2];
+  const match2 = text.match(/^(?<month>\w+) \d+(?<ordinal>\w+), \d+$/);
+  if (match2 !== null && match2.groups !== undefined) {
+    const { month, ordinal } = match2.groups;
     if (
       month !== undefined &&
       MONTHS_SET.has(month) &&
