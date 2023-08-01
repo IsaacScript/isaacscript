@@ -1,8 +1,4 @@
 - Unicorn rule audit
-
-- remove node-fetch
-- write logic in queryRule.mts to check for 404
-
 - remove consolidated dist directory
 
 - lint rule audit:
@@ -18,6 +14,9 @@
   - ESLint does not support "eslint.config.mjs" file format, so it requires either:
     1. changing package.json type
     2. specifying config file location when running, e.g. "--config eslint.config.mjs"
+
+- remove node-fetch
+  - waiting on: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/60924
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
