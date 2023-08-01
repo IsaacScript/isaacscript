@@ -108,10 +108,11 @@ function isReadOnlyObject(type: ts.Type): boolean {
   return symbols.every((symbol) => isReadonlySymbol(symbol));
 }
 
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/** This is copied from TypeScript internally; it is not exported or exposed. */
+/* eslint-disable */
+/**
+ * This is copied from TypeScript internally; it is not exported or exposed:
+ * https://github.com/microsoft/TypeScript/issues/31296
+ */
 function isReadonlySymbol(symbol: ts.Symbol): boolean {
   // The following symbols are considered read-only:
   // - Properties with a 'readonly' modifier
@@ -137,6 +138,4 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
       symbol.flags & ts.SymbolFlags.EnumMember)
   );
 }
-/* eslint-enable @typescript-eslint/no-unsafe-call */
-/* eslint-enable @typescript-eslint/no-unsafe-member-access */
-/* eslint-enable @typescript-eslint/strict-boolean-expressions */
+/* eslint-enable */

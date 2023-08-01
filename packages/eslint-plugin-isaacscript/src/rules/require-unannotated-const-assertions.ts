@@ -18,14 +18,13 @@ export const requireUnannotatedConstAssertions = createRule({
   defaultOptions: [],
   create(context) {
     return {
-      'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]'(
-        node,
-      ) {
-        context.report({
-          node,
-          messageId: "annotatedConstAssertion",
-        });
-      },
+      'VariableDeclarator[id.typeAnnotation] > :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]':
+        (node) => {
+          context.report({
+            node,
+            messageId: "annotatedConstAssertion",
+          });
+        },
     };
   },
 });
