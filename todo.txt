@@ -1,8 +1,8 @@
-- update blog about isaacscript-lint
+- https://github.com/webpro/knip
 
-- ESLint core rule audit
 - Unicorn rule audit
 
+- update eslint to new config
 - remove node-fetch
 - write logic in queryRule.mts to check for 404
 

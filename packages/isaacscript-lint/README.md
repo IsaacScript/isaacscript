@@ -2,13 +2,13 @@
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
 
-This is a helper/meta package to install all of the dependencies necessary for [Prettier](https://prettier.io/) + [ESLint](https://eslint.org/) to work with a typical TypeScript project.
+This is a helper/meta package to install all of the dependencies necessary for [Prettier](https://prettier.io/) & [ESLint](https://eslint.org/) to work with a typical TypeScript project. (Prettier is the best code formatter and ESLint is the best code problem checker.)
 
 <br>
 
 ## Why This Package Is Useful
 
-`isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies; just use `isaacscript-lint`.
+It's a pain to get Prettier & ESLint working with TypeScript. So, `isaacscript-lint` is designed to make it as easy as possible to use them in your TypeScript project. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies; just use `isaacscript-lint`.
 
 If you are ready to start, see the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
@@ -32,19 +32,27 @@ The root of the problem here is that when people try out a new programming langu
 
 <br>
 
-## TypeScript Code Formatting - ESLint & Prettier
+## Why We Use Prettier & ESLint
 
-In JavaScript and TypeScript land, there isn't a unifying standard like there is in Go, but we can get close.
+### Prettier
 
-Historically, the most popular style guide is the world is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript). ([Google's Style Guide](https://google.github.io/styleguide/jsguide.html) and [StandardJS](https://standardjs.com/) are also notable, but don't seem quite as popular.) Thus, we chose Airbnb as a base for new JavaScript and TypeScript projects.
+In JavaScript and TypeScript land, there isn't an official code formatting standard like there is in Go, but we can get close.
 
-ESLint is the industry standard tool for linting in JavaScript and TypeScript. Airbnb helpfully provides an ESLint configuration with most of their style recommendations. ESLint can function in a way similar to `gofmt` by configuring your text editor to do `eslint --fix` on save. However, this has a lot of limitations. It can't automatically fix everything and leaves a lot up to the end user to fix.
+[Prettier](https://prettier.io/) is an auto-formatter for JavaScript/TypeScript. First released in 2017, it has become widespread and is probably considered to be the industry standard in 2023. Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make better transformations than other tools.
 
-[Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could _probably_ also be considered to be industry standard in 2022.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
+In `isaacscript-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+Prettier handles almost everything, but the `isaacscript-lint` linting config also has a few formatting-related rules turned on, like [`isaacscript/format-jsdoc-comments`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/format-jsdoc-comments.md) (since Prettier does not format comments).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in certain contexts. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base.js) file of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) package.
+### ESLint
+
+ESLint is the best tool to lint JavaScript and TypeScript, as it has a massive ecosystem of rules and plugins that can help find errors in your codebase.
+
+In `isaacscript-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. False positives can be taken care of by adding a `// eslint-disable-next-line insert-rule-name-here` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to `Ctrl + .` by default.)
+
+In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional custom rules that catch even more bugs. You can find a full list of the rules in the [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) package.
+
+### Using Them Together
 
 In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
 
@@ -145,7 +153,7 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 
 ## Adding or Removing Rules
 
-You can add extra ESLint rules (or ignore existing ESLint rules) by editing the `rules` section of your `eslintrc.cjs` file. For example:
+You can add extra ESLint rules (or ignore existing ESLint rules) by editing the `rules` section of your `.eslintrc.cjs` file. For example:
 
 ```js
   rules: {
@@ -176,7 +184,7 @@ Once installed, these extensions provide the a nice dichotomy:
 
 - Red squiggly underlines are type-errors from the TypeScript compiler.
 - Yellow squiggly underlines are warnings from ESLint. (Our config uses `eslint-plugin-only-warn` to convert all ESLint errors to warnings.)
-- Blue squiggly underlines are misspelled words. (You can right click --> `Spelling` --> `Add Words to CSpell Configuration` to ignore a specific word.)
+- Blue squiggly underlines are misspelled words. (You can use "Quick Fix" to find suggestions for the proper spelling. Or, you can right click --> `Spelling` --> `Add Words to CSpell Configuration` to ignore a specific word.)
 
 #### `.vscode/settings.json`
 
