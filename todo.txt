@@ -1,18 +1,23 @@
 - Unicorn rule audit
 
-- update eslint to new config
 - remove node-fetch
 - write logic in queryRule.mts to check for 404
 
 - remove consolidated dist directory
 
-----------------------------------------------------------------------------------------------------
-
 - lint rule audit:
   - [...require("eslint/use-at-your-own-risk").builtinRules.keys()]
   - Object.keys(require("@typescript-eslint/eslint-plugin").configs.all.rules)
 
-- wait for response from TypeDoc dev: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
+----------------------------------------------------------------------------------------------------
+
+- wait for TypeDoc to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
+
+- update eslint to new config
+  - wait until ESLint 9 is released so that environment flag is not necessary
+  - ESLint does not support "eslint.config.mjs" file format, so it requires either:
+    1. changing package.json type
+    2. specifying config file location when running, e.g. "--config eslint.config.mjs"
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
