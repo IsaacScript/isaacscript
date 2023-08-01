@@ -124,12 +124,12 @@ function getTitle(filePath: string) {
     return customTitle;
   }
 
-  const properNameMatch = fileName.match(/(\w+)\.md/);
-  if (properNameMatch === null) {
+  const match = fileName.match(/(?<properName>\w+)\.md/);
+  if (match === null || match.groups === undefined) {
     error(`Failed to parse the proper name from the file name: ${fileName}`);
   }
 
-  const properName = properNameMatch[1];
+  const { properName } = match.groups;
   if (properName === undefined) {
     error(`Failed to parse the proper name from the match: ${fileName}`);
   }
@@ -146,12 +146,12 @@ function renameEnumFiles() {
   const markdownFileNames = getMarkdownFileNames(ENUMS_DIR);
   for (const markdownFileName of markdownFileNames) {
     const markdownFilePath = path.join(ENUMS_DIR, markdownFileName);
-    const match = markdownFileName.match(/\.(\w+\.md)/);
-    if (match === null) {
+    const match = markdownFileName.match(/\.(?<simplifiedFileName>\w+\.md)/);
+    if (match === null || match.groups === undefined) {
       error(`Failed to parse the Markdown file name of: ${markdownFileName}`);
     }
 
-    const simplifiedFileName = match[1];
+    const { simplifiedFileName } = match.groups;
     if (simplifiedFileName === undefined) {
       error(
         `Failed to parse the simplified file name from the Markdown file name of: ${markdownFileName}`,

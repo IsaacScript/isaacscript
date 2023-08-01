@@ -173,20 +173,22 @@ function moveModulesFiles() {
   for (const markdownFileName of markdownFileNames) {
     const markdownFilePath = path.join(MODULES_DIR, markdownFileName);
 
-    const match = markdownFileName.match(/^(.+?)_(.+.md)$/);
-    if (match === null) {
+    const match = markdownFileName.match(
+      /^(?<directoryName>.+?)_(?<newFileName>.+.md)$/,
+    );
+    if (match === null || match.groups === undefined) {
       error(
         `The file of "${markdownFileName}" has no underscore, which is probably because it is a renamed module via the "@module" JSDoc tag. Currently, we do not rename any modules in this package, so this is likely an error.`,
       );
     } else {
-      const directoryName = match[1];
+      const { directoryName } = match.groups;
       if (directoryName === undefined) {
         error(
           `Failed to parse the directory from the file name: ${markdownFileName}`,
         );
       }
 
-      const newFileName = match[2];
+      const { newFileName } = match.groups;
       if (newFileName === undefined) {
         error(
           `Failed to parse the suffix from the file name: ${markdownFileName}`,
@@ -303,12 +305,12 @@ function getTitle(filePath: string, directoryName: string) {
 
   // Second, handle the special case of a page with a unnecessary suffix, like "classes_".
   if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.has(directoryName)) {
-    const properNameMatch = fileName.match(/(\w+)\.md/);
-    if (properNameMatch === null) {
+    const match = fileName.match(/(?<properName>\w+)\.md/);
+    if (match === null || match.groups === undefined) {
       error(`Failed to parse the proper name from the file name: ${fileName}`);
     }
 
-    const properName = properNameMatch[1];
+    const { properName } = match.groups;
     if (properName === undefined) {
       error(`Failed to parse the proper name from the match: ${fileName}`);
     }
@@ -363,12 +365,12 @@ function renameDuplicatedPages() {
         continue;
       }
 
-      const properNameMatch = fileName.match(/\.(\w+\.md)/);
-      if (properNameMatch === null) {
+      const match = fileName.match(/\.(?<properName>\w+\.md)/);
+      if (match === null || match.groups === undefined) {
         error(`Failed to parse the file name: ${fileName}`);
       }
 
-      const properName = properNameMatch[1];
+      const { properName } = match.groups;
       if (properName === undefined) {
         error(`Failed to parse the file name match: ${fileName}`);
       }
@@ -516,10 +518,13 @@ function pascalCaseToTitleCase(string: string) {
   return (
     string
       // Look for long acronyms and filter out the last letter.
+      // eslint-disable-next-line prefer-named-capture-group
       .replace(/([A-Z]+)([A-Z][a-z])/g, " $1 $2")
       // Look for lower-case letters followed by upper-case letters.
+      // eslint-disable-next-line prefer-named-capture-group
       .replace(/([a-z\d])([A-Z])/g, "$1 $2")
       // Look for lower-case letters followed by numbers.
+      // eslint-disable-next-line prefer-named-capture-group
       .replace(/([a-zA-Z])(\d)/g, "$1 $2")
       .replace(/^./, (s) => s.toUpperCase())
       // Remove any white space left around the word.

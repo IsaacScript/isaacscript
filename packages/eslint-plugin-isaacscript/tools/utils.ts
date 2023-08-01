@@ -9,6 +9,7 @@ const RULE_NAME_PREFIX = `${PLUGIN_NAME}/`;
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
+  // eslint-disable-next-line prefer-named-capture-group
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
 export async function formatWithPrettier(

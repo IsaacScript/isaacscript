@@ -2,6 +2,7 @@ import { parseIntSafe } from "./utils.mjs";
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
+  // eslint-disable-next-line prefer-named-capture-group
   /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
 export function capitalizeFirstLetter(string: string): string {
@@ -39,26 +40,26 @@ export function parseSemanticVersion(versionString: string):
       patchVersion: number;
     }
   | undefined {
-  const match = versionString.match(/^v*(\d+)\.(\d+)\.(\d+)/);
-  if (match === null) {
+  const match = versionString.match(
+    /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/,
+  );
+  if (match === null || match.groups === undefined) {
     return undefined;
   }
 
-  const majorVersionString = match[1] ?? "";
-  const minorVersionString = match[2] ?? "";
-  const patchVersionString = match[3] ?? "";
+  const { major, minor, patch } = match.groups;
 
-  const majorVersion = parseIntSafe(majorVersionString);
+  const majorVersion = parseIntSafe(major ?? "");
   if (Number.isNaN(majorVersion)) {
     return undefined;
   }
 
-  const minorVersion = parseIntSafe(minorVersionString);
+  const minorVersion = parseIntSafe(minor ?? "");
   if (Number.isNaN(minorVersion)) {
     return undefined;
   }
 
-  const patchVersion = parseIntSafe(patchVersionString);
+  const patchVersion = parseIntSafe(patch ?? "");
   if (Number.isNaN(patchVersion)) {
     return undefined;
   }

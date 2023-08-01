@@ -708,6 +708,9 @@ const config = {
      * options.)
      * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
      * https://raw.githubusercontent.com/iamturns/eslint-config-airbnb-typescript/master/lib/shared.js
+     *
+     * Even though the core rule was deprecated, the extended rule uses type information so it is
+     * much better.
      */
     "no-return-await": "off", // The base rule has a different name for some reason.
     "@typescript-eslint/return-await": "error",
