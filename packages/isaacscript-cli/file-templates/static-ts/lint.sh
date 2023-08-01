@@ -18,9 +18,8 @@ npx prettier --log-level=warn --check .
 # "--max-warnings 0" makes warnings fail in CI, since we set all ESLint errors to warnings.
 npx eslint --max-warnings 0 .
 
-# Check for unused exports.
-# "--error" makes it return an error code of 1 if unused exports are found.
-npx ts-prune --error
+# Check for unused files, dependencies, and exports.
+npx knip
 
 # Spell check every file using CSpell.
 # "--no-progress" and "--no-summary" make it only output errors.

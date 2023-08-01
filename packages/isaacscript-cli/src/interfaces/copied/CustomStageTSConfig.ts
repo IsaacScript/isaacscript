@@ -14,7 +14,6 @@
 
 import type { Immutable } from "../../isaacScriptCommonTS.js";
 
-// ts-prune-ignore-next
 export interface CustomStageTSConfig {
   /** Mandatory. The name of the custom stage. */
   name: string;
@@ -468,7 +467,6 @@ export interface CustomStageTSConfig {
  * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
  * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
  */
-// ts-prune-ignore-next
 export interface CustomStageShadow {
   /**
    * The full path to the shadow overlay PNG file.
@@ -515,7 +513,6 @@ export interface CustomStageShadow {
  * An object that represents a possible boss for a custom stage. This can be for a vanilla boss or a
  * custom boss.
  */
-// ts-prune-ignore-next
 export interface CustomStageBossPoolEntry {
   /**
    * The name of the boss. This should correspond to the entry for the boss in the "entities2.xml"

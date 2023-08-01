@@ -36,5 +36,4 @@ const plugin: tstl.Plugin = {
   ) => new CustomPrinter(emitHost, program, fileName).print(file),
 };
 
-// ts-prune-ignore-next
 export default plugin;

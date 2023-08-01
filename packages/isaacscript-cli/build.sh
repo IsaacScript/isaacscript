@@ -45,8 +45,6 @@ npx ts-json-schema-generator --path "$DIR/src/classes/Config.ts" --tsconfig "$DI
 npx prettier "$SCHEMA_PATH" --write
 
 # Third, compile the program.
-# (Normally, we would use the "@nrwl/js:tsc" plugin to do this, but we always want to generate the
-# schema.)
 rm -rf "$OUT_DIR"
 npx tsc
 

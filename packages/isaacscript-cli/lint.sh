@@ -18,17 +18,8 @@ npx prettier --log-level=warn --ignore-path="$DIR/../../.prettierignore" --check
 # "--max-warnings 0" makes warnings fail in CI, since we set all ESLint errors to warnings.
 npx eslint --max-warnings 0 .
 
-# Check for unused exports.
-# "--error" makes it return an error code of 1 if unused exports are found.
-# - We ignore exports defined in the "index.ts" file since those are intended to be consumed by
-#   end-users.
-# - We ignore exports defined in the "index.mts" file since those are part of
-#   `isaacscript-common-ts`.
-# - We ignore exports in the "JSONRoomsFile.ts" file since it is copied from "isaacscript-common".
-npx ts-prune --error --ignore "index.ts|index.mts|JSONRoomsFile.ts"
-
 # Check for unused files, dependencies, and exports.
-# npx knip # TODO
+npx knip
 
 # Use `isaac-xml-validator` to validate XML files.
 # (Skip this step if Python is not currently installed for whatever reason.)

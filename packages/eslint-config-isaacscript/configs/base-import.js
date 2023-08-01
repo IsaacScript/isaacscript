@@ -103,8 +103,7 @@ const config = {
      */
     "import/no-named-as-default-member": "off",
 
-    // [X] "import/no-unused-modules" is not enabled since this check is mostly covered by the
-    // `ts-prune` tool.
+    // [X] "import/no-unused-modules" is not enabled since this check is covered by the `knip` tool.
 
     // --------------
     // Module systems

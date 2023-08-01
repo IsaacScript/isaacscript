@@ -1,5 +1,3 @@
-- remove all "ts-prune-ignore"
-
 - Unicorn rule audit
 
 - update eslint to new config

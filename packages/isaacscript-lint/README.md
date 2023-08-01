@@ -252,8 +252,8 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`eslint-plugin-no-autofix`](https://github.com/aladdin-add/eslint-plugin/tree/master) - A plugin that turns off the auto-fixer for some ESLint rules.
 - [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn) - A plugin that provides some useful rules.
+- [`knip`](https://github.com/webpro/knip) - A tool to look for unused files, dependencies, and exports.
 - [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
-- [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catches bugs that the `import/no-unused-modules` rule cannot find.
 
 <br>

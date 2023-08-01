@@ -1,4 +1,18 @@
 {
   "$schema": "https://unpkg.com/knip/schema.json",
-  "ignore": [".eslintrc.cjs", "file-templates/**", "IsaacScriptTSConfig.ts"]
+  "entry": [
+    "src/main.ts",
+    "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
+    "src/commands/monitor/saveDatWriter/saveDatWriter.ts"
+  ],
+  "ignore": [
+    ".eslintrc.cjs",
+    "file-templates/**",
+    "src/classes/Config.ts",
+    "src/interfaces/IsaacScriptTSConfig.ts",
+    "src/interfaces/copied/CustomStageTSConfig.ts",
+    "src/interfaces/copied/JSONRoomsFile.ts",
+    "src/plugins/*.ts"
+  ],
+  "ignoreDependencies": ["glob", "npm-check-updates", "tslib"]
 }

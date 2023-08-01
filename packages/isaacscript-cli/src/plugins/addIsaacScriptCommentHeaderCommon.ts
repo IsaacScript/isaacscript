@@ -55,5 +55,4 @@ const plugin: tstl.Plugin = {
   },
 };
 
-// ts-prune-ignore-next
 export default plugin;
