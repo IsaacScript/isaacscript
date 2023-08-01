@@ -1405,7 +1405,8 @@ const config = {
     // [X] "require-await" is not enabled since it is superseded by the
     // `@typescript-eslint/require-await` rule.
 
-    // "require-unicode-regexp"
+    // [X] "require-unicode-regexp" is not enabled since requiring the `v` flag for ASCII text is
+    // verbose and cumbersome.
 
     // [I] "require-yield" is included in `recommended`.
 
