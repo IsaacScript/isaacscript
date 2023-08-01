@@ -31,6 +31,11 @@
   "author": "Zamiell",
   "type": "commonjs",
   "main": "src/index.js",
+  "dependencies": {
+    "@typescript-eslint/type-utils": "^6.2.1",
+    "@typescript-eslint/types": "^6.2.1",
+    "@typescript-eslint/utils": "^6.2.1"
+  },
   "peerDependencies": {
     "@typescript-eslint/plugin": ">= 6.0.0",
     "eslint": ">= 8.0.0",

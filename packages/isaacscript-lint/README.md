@@ -8,7 +8,7 @@ This is a helper/meta package to install all of the dependencies necessary for [
 
 ## Why This Package Is Useful
 
-It's a pain to get Prettier & ESLint working with TypeScript. So, `isaacscript-lint` is designed to make it as easy as possible to use them in your TypeScript project. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies; just use `isaacscript-lint`.
+It's a pain to get Prettier & ESLint working with TypeScript. So, `isaacscript-lint` is designed to make it as easy as possible. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies; just use `isaacscript-lint`.
 
 If you are ready to start, see the [installation instructions](#installation-instructions-for-typescript-projects) below.
 

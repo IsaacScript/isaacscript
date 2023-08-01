@@ -32,6 +32,7 @@ isaacscript
 jscutlery # For version control
 jsdoc # Monorepo word
 klaw # Monorepo word
+knip # Monorepo word
 linebreak # ESLint word
 loglevel # Prettier word
 lualib # TSTL word
