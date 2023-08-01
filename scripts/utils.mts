@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import * as url from "node:url";
+import url from "node:url";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
