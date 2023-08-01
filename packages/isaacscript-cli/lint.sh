@@ -27,6 +27,9 @@ npx eslint --max-warnings 0 .
 # - We ignore exports in the "JSONRoomsFile.ts" file since it is copied from "isaacscript-common".
 npx ts-prune --error --ignore "index.ts|index.mts|JSONRoomsFile.ts"
 
+# Check for unused files, dependencies, and exports.
+# npx knip # TODO
+
 # Use `isaac-xml-validator` to validate XML files.
 # (Skip this step if Python is not currently installed for whatever reason.)
 if command -v python &> /dev/null; then

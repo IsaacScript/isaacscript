@@ -6,7 +6,6 @@ import type { CustomStageTSConfig } from "./copied/CustomStageTSConfig.js";
  * We use this interface to automatically generate the schema using the "ts-json-schema-generator"
  * library.
  */
-// ts-prune-ignore-next
 export interface IsaacScriptTSConfig {
   customStages?: CustomStageTSConfig[];
 }
