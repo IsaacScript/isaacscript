@@ -139,6 +139,17 @@ const config = {
 
     /**
      * Documentation:
+     * https://typescript-eslint.io/rules/class-methods-use-this/
+     *
+     * Defined in "base-typescript-eslint.js".
+     *
+     * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
+     * makes it likely that some methods will not use any internal class variables.
+     */
+    "@typescript-eslint/class-methods-use-this": "off",
+
+    /**
+     * Documentation:
      * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
      *
      * Defined at:
@@ -210,18 +221,6 @@ const config = {
      * IsaacScript mods to not use ESM, so we must turn this rule off.
      */
     "n/file-extension-in-import": "off",
-
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/class-methods-use-this
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
-     *
-     * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
-     * makes it likely that some methods will not use any internal class variables.
-     */
-    "class-methods-use-this": "off",
 
     /**
      * Documentation:

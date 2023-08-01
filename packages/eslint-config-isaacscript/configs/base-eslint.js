@@ -392,16 +392,8 @@ const config = {
      */
     "func-names": "error",
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/func-style
-     *
-     * Not enabled in the parent configs.
-     *
-     * We prefer normal functions over function expressions, since they make code slightly easier to
-     * read.
-     */
-    "func-style": ["error", "declaration"],
+    // [X] "func-style" is not enabled since it is common to use both function forms, depending on
+    // the situation.
 
     /**
      * Documentation:
@@ -820,9 +812,24 @@ const config = {
      */
     "no-multi-assign": "error",
 
-    // "no-multi-str"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-multi-str
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-multi-str": "error",
 
-    // "no-negated-condition"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-negated-condition
+     *
+     * Not enabled in the parent configs.
+     */
+    "no-negated-condition": "error",
 
     /**
      * Documentation:
@@ -1227,11 +1234,48 @@ const config = {
 
     // [I] "no-with" is included in `recommended`.
 
-    // "object-shorthand"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/object-shorthand
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
+     * Airbnb.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "object-shorthand": [
+      "error",
+      "always",
+      {
+        ignoreConstructors: false,
+        avoidQuotes: true,
+      },
+    ],
 
-    // "one-var"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/one-var
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
+     * Airbnb.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "one-var": ["error", "never"],
 
-    // "one-var-declaration-per-line"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/one-var-declaration-per-line
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
+     * Airbnb.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "one-var-declaration-per-line": ["error", "always"],
 
     // "operator-assignment"
 
