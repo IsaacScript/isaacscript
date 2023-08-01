@@ -1,5 +1,5 @@
 import * as os from "node:os";
-import * as path from "node:path";
+import path from "node:path";
 
 // Miscellaneous
 export const CWD = process.cwd();

@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 import { PACKAGE_JSON, REPO_ROOT } from "./constants.js";
 import { error } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";

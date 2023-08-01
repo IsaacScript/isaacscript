@@ -218,7 +218,17 @@ const config = {
     // [X] "no-undef" is not enabled since it is disabled by
     // `@typescript-eslint/eslint-recommended`.
 
-    // [I] "no-unexpected-multiline" is included in `recommended`.
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-unexpected-multiline
+     *
+     * Defined at:
+     * https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js
+     *
+     * This is disabled since it is automatically handled by Prettier:
+     * https://github.com/prettier/eslint-config-prettier/blob/main/index.js
+     */
+    "no-unexpected-multiline": "off",
 
     /**
      * Documentation:
@@ -546,21 +556,8 @@ const config = {
 
     // [I] "no-case-declarations" is included in `recommended`.
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-confusing-arrow
-     *
-     * Not enabled in the parent configs.
-     *
-     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
-     */
-    "no-confusing-arrow": [
-      "error",
-      {
-        allowParens: true,
-      },
-    ],
+    // [X] "no-confusing-arrow" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "no-console" is not enabled because command-line programs commonly write to standard out
     // and standard error.
@@ -671,16 +668,8 @@ const config = {
     // [X] "no-extra-semi" is not enabled since it is superseded by the
     // `@typescript-eslint/no-extra-semi` rule.
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-floating-decimal
-     *
-     * Not enabled in the parent configs.
-     *
-     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
-     */
-    "no-floating-decimal": "error",
+    // [X] "no-floating-decimal" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [I] "no-global-assign" is included in `recommended`.
 
@@ -771,34 +760,8 @@ const config = {
     // [X] "no-magic-numbers" is not enabled since it is superseded by the
     // `@typescript-eslint/no-magic-numbers` rule.
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-lonely-if
-     *
-     * Not enabled in the parent configs.
-     *
-     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-     */
-    "no-mixed-operators": [
-      "error",
-      {
-        // The list of arithmetic groups disallows mixing `%` and `**` with other arithmetic
-        // operators.
-        groups: [
-          ["%", "**"],
-          ["%", "+"],
-          ["%", "-"],
-          ["%", "*"],
-          ["%", "/"],
-          ["/", "*"],
-          ["&", "|", "<<", ">>", ">>>"],
-          ["==", "!=", "===", "!=="],
-          ["&&", "||"],
-        ],
-        allowSamePrecedence: false,
-      },
-    ],
+    // [X] "no-mixed-operators" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     /**
      * Documentation:
@@ -1085,17 +1048,8 @@ const config = {
      */
     "no-script-url": "error",
 
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-sequences
-     *
-     * Not enabled in the parent configs.
-     *
-     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
-     * options.)
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
-     */
-    "no-sequences": "error",
+    // [X] "no-sequences" is not enabled because it can conflict with Prettier:
+    // https://github.com/prettier/eslint-config-prettier/tree/main#no-sequences
 
     // [X] "no-shadow" is not enabled since it is superseded by the `@typescript-eslint/no-shadow`
     // rule.
@@ -1265,21 +1219,33 @@ const config = {
      */
     "one-var": ["error", "never"],
 
+    // [X] "one-var-declaration-per-line" is not enabled since it is automatically handled by
+    // Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
+
     /**
      * Documentation:
-     * https://eslint.org/docs/latest/rules/one-var-declaration-per-line
+     * https://eslint.org/docs/latest/rules/operator-assignment
      *
      * Not enabled in the parent configs.
      *
-     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
-     * Airbnb.)
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
      * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/style.js
      */
-    "one-var-declaration-per-line": ["error", "always"],
+    "operator-assignment": "error",
 
-    // "operator-assignment"
-
-    // "prefer-arrow-callback"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-arrow-callback
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "prefer-arrow-callback": "error",
 
     /**
      * Documentation:
@@ -1322,7 +1288,16 @@ const config = {
       },
     ],
 
-    // "prefer-exponentiation-operator"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-exponentiation-operator
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "prefer-exponentiation-operator": "error",
 
     // "prefer-named-capture-group"
 
@@ -1351,7 +1326,8 @@ const config = {
      */
     "prefer-template": "error",
 
-    // "quote-props"
+    // [X] "quote-props" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // "radix"
 
@@ -1382,15 +1358,20 @@ const config = {
     // Layout & Formatting
     // -------------------
 
-    // "array-bracket-newline"
+    // [X] "array-bracket-newline" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "array-bracket-spacing"
+    // [X] "array-bracket-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "array-element-newline"
+    // [X] "array-element-newline" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "arrow-parens"
+    // [X] "arrow-parens" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "arrow-spacing"
+    // [X] "arrow-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "block-spacing" is not enabled since it is superseded by the
     // `@typescript-eslint/block-spacing` rule.
@@ -1404,28 +1385,38 @@ const config = {
     // [X] "comma-spacing" is not enabled since it is superseded by the
     // `@typescript-eslint/comma-spacing` rule.
 
-    // "comma-style"
+    // [X] "comma-style" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "computed-property-spacing"
+    // [X] "computed-property-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "dot-location"
+    // [X] "dot-location" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "eol-last"
+    // [X] "eol-last" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "func-call-spacing" is not enabled since it is superseded by the
     // `@typescript-eslint/func-call-spacing` rule.
 
-    // "function-call-argument-newline"
+    // [X] "function-call-argument-newline" is not enabled since it is automatically handled by
+    // Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "function-paren-newline"
+    // [X] "function-paren-newline" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "generator-star-spacing"
+    // [X]"generator-star-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "implicit-arrow-linebreak"
+    // [X] "implicit-arrow-linebreak" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "indent" is not enabled since it is superseded by the `@typescript-eslint/indent` rule.
 
-    // "jsx-quotes"
+    // [X] "jsx-quotes" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "key-spacing" is not enabled since it is superseded by the
     // `@typescript-eslint/key-spacing` rule.
@@ -1433,9 +1424,11 @@ const config = {
     // [X] "keyword-spacing" is not enabled since it is superseded by the
     // `@typescript-eslint/keyword-spacing` rule.
 
-    // "line-comment-position"
+    // [X] "line-comment-position" is not enabled since it is common in the TypeScript ecosystem to
+    // use both types of comments.
 
-    // "linebreak-style"
+    // [X] "linebreak-style" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "lines-around-comment" is not enabled since it is superseded by the
     // `@typescript-eslint/lines-around-comment` rule.
@@ -1443,56 +1436,79 @@ const config = {
     // [X] "lines-between-class-members" is not enabled since it is superseded by the
     // `@typescript-eslint/lines-between-class-members` rule.
 
-    // "max-len"
+    // [X] "max-len" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "max-statements-per-line"
+    // [X] "max-statements-per-line" is not enabled since it seems to be automatically handled by
+    // Prettier. The rule is not explicitly listed in `eslint-config-prettier`, but Prettier seems
+    // to put each statement on a new line automatically:
+    // https://github.com/prettier/eslint-config-prettier/issues/262
 
-    // "multiline-ternary"
+    // [X] "multiline-ternary" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "new-parens"
+    // [X] "new-parens" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "newline-per-chained-call"
+    // [X] "newline-per-chained-call" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "no-extra-parens" is not enabled since it is superseded by the
     // `@typescript-eslint/no-extra-parens` rule.
 
-    // "no-mixed-spaces-and-tabs"
+    // [X] "no-mixed-spaces-and-tabs" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "no-multi-spaces"
+    // [X] "no-multi-spaces" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "no-multiple-empty-lines"
+    // [X] "no-multiple-empty-lines" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "no-tabs"
+    // [X] "no-tabs" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/tree/main#lines-around-comment
 
-    // "no-trailing-spaces"
+    // [X] "no-trailing-spaces" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "no-whitespace-before-property"
+    // [X] "no-whitespace-before-property" is not enabled since it is automatically handled by
+    // Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "nonblock-statement-body-position"
+    // [X] "nonblock-statement-body-position" is not enabled since it is automatically handled by
+    // Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "object-curly-newline"
+    // [X] "object-curly-newline" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "object-curly-spacing" is not enabled since it is superseded by the
     // `@typescript-eslint/object-curly-spacing` rule.
 
-    // "object-property-newline"
+    // [X] "object-property-newline" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "operator-linebreak"
+    // [X] "operator-linebreak" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "padded-blocks"
+    // [X] "padded-blocks" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "padding-line-between-statements" is not enabled since it is superseded by the
     // `@typescript-eslint/padding-line-between-statements` rule.
 
     // [X] "quotes" is not enabled since it is superseded by the `@typescript-eslint/quotes` rule.
 
-    // "rest-spread-spacing"
+    // [X} "rest-spread-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "semi" is not enabled since it is superseded by the `@typescript-eslint/semi` rule.
 
-    // "semi-spacing"
+    // [X] "semi-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "semi-style"
+    // [X] "semi-style" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "space-before-blocks" is not enabled since it is superseded by the
     // `@typescript-eslint/space-before-blocks` rule.
@@ -1500,26 +1516,35 @@ const config = {
     // [X] "space-before-function-paren" is not enabled since it is superseded by the
     // `@typescript-eslint/space-before-function-paren` rule.
 
-    // "space-in-parens"
+    // [X] "space-in-parens" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
     // [X] "space-infix-ops" is not enabled since it is superseded by the
     // `@typescript-eslint/space-infix-ops` rule.
 
-    // "space-unary-ops"
+    // [X] "space-unary-ops" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "switch-colon-spacing"
+    // [X] "switch-colon-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "template-curly-spacing"
+    // [X] "template-curly-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "template-tag-spacing"
+    // [X] "template-tag-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "unicode-bom"
+    // [X] "unicode-bom" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "wrap-iife"
+    // [X] "wrap-iife" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "wrap-regex"
+    // [X] "wrap-regex" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
 
-    // "yield-star-spacing"
+    // [X] "yield-star-spacing" is not enabled since it is automatically handled by Prettier:
+    // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
   },
 };
 

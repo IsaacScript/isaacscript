@@ -1,5 +1,5 @@
 import * as JSONC from "jsonc-parser";
-import * as path from "node:path";
+import path from "node:path";
 import { PROJECT_NAME } from "../../../constants.js";
 import { fileExists, makeDir, readFile, writeFileTry } from "../../../file.js";
 import type { SaveDatMessage, SaveDatMessageType } from "./types.js";

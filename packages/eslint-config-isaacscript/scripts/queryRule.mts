@@ -1,15 +1,13 @@
-// A script used to check to see if a rule is being used in one of the parent linting configs.
+// A script used to check to see if a rule is being used in a linting config.
 
 import fetch from "node-fetch";
-import * as path from "node:path";
+import path from "node:path";
 
 const CONFIG_URLS = [
   // eslint:recommended
-  // https://github.com/eslint/eslint/blob/main/conf/eslint-recommended.js
   "https://raw.githubusercontent.com/eslint/eslint/main/conf/eslint-recommended.js",
 
   // airbnb-base
-  // https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules
   "https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/best-practices.js",
   "https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/errors.js",
   "https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/es6.js",
@@ -20,11 +18,9 @@ const CONFIG_URLS = [
   "https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/variables.js",
 
   // airbnb-typescript/base
-  // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
   "https://raw.githubusercontent.com/iamturns/eslint-config-airbnb-typescript/master/lib/shared.js",
 
   // @typescript-eslint
-  // https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin/src/configs
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/eslint-recommended.ts",
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/recommended-type-checked.ts.ts",
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/recommended.ts",
@@ -32,6 +28,9 @@ const CONFIG_URLS = [
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/strict.ts",
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts",
   "https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/main/packages/eslint-plugin/src/configs/stylistic.ts",
+
+  // eslint-config-prettier
+  "https://raw.githubusercontent.com/prettier/eslint-config-prettier/main/index.js",
 ] as const;
 
 const args = process.argv.slice(2);

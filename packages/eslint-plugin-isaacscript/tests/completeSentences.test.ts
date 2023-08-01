@@ -83,14 +83,14 @@ test("Trailing word", () => {
 
 test("Plain URL", () => {
   testIncompleteSentence(
-    "https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js",
+    "https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js",
     undefined,
   );
 });
 
 test("Trailing URL", () => {
   testIncompleteSentence(
-    "Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js",
+    "Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js",
     undefined,
   );
 });

@@ -61,7 +61,7 @@ valid.push({
   name: "Comment with a URL and without trailing text",
   code: `
 // Taken from ESLint:
-// https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+// https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js
   `,
 });
 

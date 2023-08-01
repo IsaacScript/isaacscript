@@ -138,7 +138,7 @@ valid.push({
 valid.push({
   name: "Single-line comment with a URL (simple)",
   code: `
-/** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
+/** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js */
   `,
 });
 
@@ -146,7 +146,7 @@ valid.push({
   name: "Multi-line comment with a URL (combined)",
   code: `
 /**
- * Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+ * Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js
  */
   `,
 });
@@ -156,7 +156,7 @@ valid.push({
   code: `
 /**
  * Taken from ESLint:
- * https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+ * https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js
  */
   `,
 });

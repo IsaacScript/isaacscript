@@ -1,8 +1,9 @@
 // See the comment in "fixIsaacScriptCommon.ts".
 
-import * as fs from "node:fs";
-import * as path from "node:path";
+import fs from "node:fs";
+import path from "node:path";
 import {
+  __dirname,
   capitalizeFirstLetter,
   deleteFileOrDirectory,
   error,
@@ -10,7 +11,6 @@ import {
   renameFile,
   trimSuffix,
   writeFile,
-  __dirname,
 } from "./utils.mjs";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";

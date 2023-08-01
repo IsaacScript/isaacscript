@@ -1,8 +1,8 @@
 // This generates the files in the "src/configs" directory.
 
 import type { TSESLint } from "@typescript-eslint/utils";
-import * as fs from "node:fs";
-import * as path from "node:path";
+import fs from "node:fs";
+import path from "node:path";
 import { PLUGIN_NAME } from "./constants";
 import type { RuleDefinition } from "./utils";
 import {

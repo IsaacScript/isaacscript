@@ -1,7 +1,7 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import { globSync } from "glob";
-import * as path from "node:path";
+import path from "node:path";
 import sortPackageJsonDefault from "sort-package-json";
 import {
   __dirname,

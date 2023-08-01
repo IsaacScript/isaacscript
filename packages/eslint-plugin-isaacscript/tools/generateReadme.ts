@@ -1,7 +1,7 @@
 // Generates the rules table in "README.md".
 
-import * as fs from "node:fs";
-import * as path from "node:path";
+import fs from "node:fs";
+import path from "node:path";
 import type { RuleDefinition } from "./utils";
 import {
   formatWithPrettier,

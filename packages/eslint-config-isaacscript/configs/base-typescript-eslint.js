@@ -516,6 +516,8 @@ const config = {
      * This enforce newlines around comments for better readability. Note that even though the
      * `typescript-eslint` team does not recommend using formatting rules, this rule is not handled
      * by Prettier, so we must use ESLint to enforce it.
+     *
+     * Also see: https://github.com/prettier/eslint-config-prettier/tree/main#lines-around-comment
      */
     "lines-around-comment": "off",
     "@typescript-eslint/lines-around-comment": [
@@ -678,11 +680,10 @@ const config = {
      * Documentation:
      * https://typescript-eslint.io/rules/quotes/
      *
-     * Defined at:
-     * https://github.com/prettier/eslint-config-prettier/blob/main/%40typescript-eslint.js
+     * Not defined in parent configs.
      *
-     * In order to forbid unnecessary backticks, we must re-enable the "@typescript-eslint/quotes"
-     * rule as specified in the `eslint-config-prettier` documentation:
+     * In order to forbid unnecessary backticks, we must enable the "@typescript-eslint/quotes" rule
+     * as specified in the `eslint-config-prettier` documentation:
      * https://github.com/prettier/eslint-config-prettier#enforce-backticks
      */
     quotes: "off",

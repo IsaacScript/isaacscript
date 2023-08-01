@@ -38,8 +38,8 @@ custom_edit_url: null
 */
 
 import { globSync } from "glob";
-import * as fs from "node:fs";
-import * as path from "node:path";
+import fs from "node:fs";
+import path from "node:path";
 import {
   __dirname,
   capitalizeFirstLetter,
