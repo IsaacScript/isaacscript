@@ -19,7 +19,7 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
-cp "$DIR/configs/"*.js "$OUT_DIR/"
+cp "$DIR/configs/"*.js "$OUT_DIR/" # The config directory only exists in the source folder.
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
