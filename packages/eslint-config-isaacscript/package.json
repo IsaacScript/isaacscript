@@ -21,5 +21,8 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "confusing-browser-globals": "^1.0.11"
+  }
 }

@@ -1,3 +1,5 @@
+const confusingBrowserGlobals = require("confusing-browser-globals");
+
 /**
  * This ESLint config only contains built-in rules from ESLint itself:
  * https://eslint.org/docs/latest/rules/
@@ -342,8 +344,7 @@ const config = {
      * Documentation:
      * https://eslint.org/docs/latest/rules/curly
      *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     * Not defined in the parent configs.
      *
      * Always requiring curly braces can partially ward against Apple-style if statement bugs:
      * https://www.imperialviolet.org/2014/02/22/applebug.html
@@ -639,34 +640,93 @@ const config = {
      */
     "no-eval": "error",
 
-    // "no-extend-native"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-extend-native
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-extend-native": "error",
 
-    // "no-extra-bind"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-extra-bind
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-extra-bind": "error",
 
     // [I] "no-extra-boolean-cast" is included in `recommended`.
 
-    // "no-extra-label"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-extra-label
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-extra-label": "error",
 
     // [X] "no-extra-semi" is not enabled since it is superseded by the
     // `@typescript-eslint/no-extra-semi` rule.
 
-    // "no-floating-decimal"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-floating-decimal
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-floating-decimal": "error",
 
     // [I] "no-global-assign" is included in `recommended`.
 
-    // "no-implicit-coercion"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-implicit-coercion
+     *
+     * Not enabled in the parent configs.
+     */
+    "no-implicit-coercion": "error",
 
-    // "no-implicit-globals"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-implicit-globals
+     *
+     * Not enabled in the parent configs.
+     */
+    "no-implicit-globals": "error",
 
     // [X] "no-implied-eval" is not enabled since it is superseded by the
     // `@typescript-eslint/no-implied-eval` rule.
 
-    // "no-inline-comments"
+    // [X] "no-inline-comments" is not enabled since inline comments are common in the TypeScript
+    // ecosystem.
 
     // [X] "no-invalid-this" is not enabled since it is superseded by the
     // `@typescript-eslint/no-invalid-this` rule.
 
-    // "no-iterator"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-iterator
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-iterator": "error",
 
     /**
      * Documentation:
@@ -691,9 +751,27 @@ const config = {
      */
     "no-labels": "error",
 
-    // "no-lone-blocks"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-lone-blocks
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-lone-blocks": "error",
 
-    // "no-lonely-if"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-lonely-if
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-lonely-if": "error",
 
     // [X] "no-loop-func" is not enabled since it is superseded by the
     // `@typescript-eslint/no-loop-func` rule.
@@ -701,9 +779,46 @@ const config = {
     // [X] "no-magic-numbers" is not enabled since it is superseded by the
     // `@typescript-eslint/no-magic-numbers` rule.
 
-    // "no-mixed-operators"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-lonely-if
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "no-mixed-operators": [
+      "error",
+      {
+        // The list of arithmetic groups disallows mixing `%` and `**` with other arithmetic
+        // operators.
+        groups: [
+          ["%", "**"],
+          ["%", "+"],
+          ["%", "-"],
+          ["%", "*"],
+          ["%", "/"],
+          ["/", "*"],
+          ["&", "|", "<<", ">>", ">>>"],
+          ["==", "!=", "===", "!=="],
+          ["&&", "||"],
+        ],
+        allowSamePrecedence: false,
+      },
+    ],
 
-    // "no-multi-assign"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-multi-assign
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "no-multi-assign": "error",
 
     // "no-multi-str"
 
@@ -720,19 +835,64 @@ const config = {
      */
     "no-nested-ternary": "error",
 
-    // "no-new"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-new
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-new": "error",
 
-    // "no-new-func"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-new-func
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-new-func": "error",
 
-    // "no-new-object"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-new-object
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "no-new-object": "error",
 
-    // "no-new-wrappers"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-new-wrappers
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-new-wrappers": "error",
 
     // [I] "no-nonoctal-decimal-escape" is included in `recommended`.
 
     // [I] "no-octal" is included in `recommended`.
 
-    // "no-octal-escape"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-octal-escape
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-octal-escape": "error",
 
     /**
      * Documentation:
@@ -767,24 +927,134 @@ const config = {
     // However, when using Prettier, it adds semi-colons everywhere, so we don't have to worry about
     // this.
 
-    // "no-proto"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-proto
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-proto": "error",
 
     // [X] "no-redeclare" is not enabled since it is superseded by the
     // `@typescript-eslint/block-spacing` rule.
 
     // [I] "no-regex-spaces" is included in `recommended`.
 
-    // "no-restricted-exports"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-restricted-exports
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
+     * Airbnb.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "no-restricted-exports": [
+      "error",
+      {
+        restrictedNamedExports: [
+          "default", // use `export default` to provide a default export
+          "then", // this will cause tons of confusion when your module is dynamically `import()`ed, and will break in most node ESM versions
+        ],
+      },
+    ],
 
-    // "no-restricted-globals"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-restricted-globals
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
+     * Airbnb.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/variables.js
+     */
+    "no-restricted-globals": [
+      "error",
+      {
+        name: "isFinite",
+        message:
+          "Use Number.isFinite instead: https://github.com/airbnb/javascript#standard-library--isfinite",
+      },
+      {
+        name: "isNaN",
+        message:
+          "Use Number.isNaN instead: https://github.com/airbnb/javascript#standard-library--isnan",
+      },
+      ...confusingBrowserGlobals,
+    ],
 
     // [X] "no-restricted-imports" is not enabled since it is superseded by the
     // `@typescript-eslint/no-restricted-imports` rule.
 
-    // "no-restricted-properties"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-restricted-properties
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the options from
+     * Airbnb.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-restricted-properties": [
+      "error",
+      {
+        object: "arguments",
+        property: "callee",
+        message: "arguments.callee is deprecated",
+      },
+      {
+        object: "global",
+        property: "isFinite",
+        message: "Please use Number.isFinite instead",
+      },
+      {
+        object: "self",
+        property: "isFinite",
+        message: "Please use Number.isFinite instead",
+      },
+      {
+        object: "window",
+        property: "isFinite",
+        message: "Please use Number.isFinite instead",
+      },
+      {
+        object: "global",
+        property: "isNaN",
+        message: "Please use Number.isNaN instead",
+      },
+      {
+        object: "self",
+        property: "isNaN",
+        message: "Please use Number.isNaN instead",
+      },
+      {
+        object: "window",
+        property: "isNaN",
+        message: "Please use Number.isNaN instead",
+      },
+      {
+        property: "__defineGetter__",
+        message: "Please use Object.defineProperty instead.",
+      },
+      {
+        property: "__defineSetter__",
+        message: "Please use Object.defineProperty instead.",
+      },
+      {
+        object: "Math",
+        property: "pow",
+        message: "Use the exponentiation operator (**) instead.",
+      },
+    ],
 
     // [X] "no-restricted-syntax" is not enabled because it is intended for disabling of specific
-    // language features per-project.
+    // language features per-project. (The Airbnb checks are covered in separate rules.)
 
     /**
      * Documentation:
@@ -797,48 +1067,132 @@ const config = {
      */
     "no-return-assign": ["error", "always"],
 
-    // "no-script-url"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-script-url
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-script-url": "error",
 
-    // "no-sequences"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-sequences
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-sequences": "error",
 
     // [X] "no-shadow" is not enabled since it is superseded by the `@typescript-eslint/no-shadow`
     // rule.
 
     // [I] "no-shadow-restricted-names" is included in `recommended`.
 
-    // "no-ternary"
+    // [X] "no-ternary" is not enabled since ternaries are common in the TypeScript ecosystem and
+    // can often lead to concise code that is easy to read.
 
     // [X] "no-throw-literal" is not enabled since it is superseded by the
     // `@typescript-eslint/no-throw-literal` rule.
 
-    // "no-undef-init"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-undef-init
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
+     */
+    "no-undef-init": "error",
 
-    // "no-undefined"
+    // [X] "no-undefined" is not enabled because in TypeScript, it is common to explicitly check for
+    // undefined in order to type narrow.
 
     // [X] "no-underscore-dangle" is not enabled since it is a common pattern to use underscores to
     // temporarily allow unused variables during development.
 
-    // "no-unneeded-ternary"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-unneeded-ternary
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     */
+    "no-unneeded-ternary": [
+      "error",
+      {
+        defaultAssignment: false,
+      },
+    ],
 
     // [X] "no-unused-expressions" is not enabled since it is superseded by the
     // `@typescript-eslint/no-unused-expressions` rule.
 
     // [I] "no-unused-labels" is included in `recommended`.
 
-    // "no-useless-call"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-useless-call
+     *
+     * Not enabled in the parent configs.
+     */
+    "no-useless-call": "error",
 
     // [I] "no-useless-catch" is included in `recommended`.
 
-    // "no-useless-computed-key"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-useless-computed-key
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. We provide stricter options than
+     * Airbnb.
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
+     */
+    "no-useless-computed-key": [
+      "error",
+      {
+        enforceForClassMembers: true,
+      },
+    ],
 
-    // "no-useless-concat"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-useless-concat
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-useless-concat": "error",
 
     // [X] "no-useless-constructor" is not enabled since it is superseded by the
     // `@typescript-eslint/no-useless-constructor` rule.
 
     // [I] "no-useless-escape" is included in `recommended`.
 
-    // "no-useless-rename"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-useless-concat
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "no-useless-rename": "error",
 
     /**
      * Documentation:
@@ -857,9 +1211,19 @@ const config = {
 
     // [I] "no-var" is included in `@typescript-eslint/eslint-recommended`.
 
-    // "no-void"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/no-void
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "no-void": "error",
 
-    // "no-warning-comments"
+    // [X] "no-warning-comments" is not enabled since the predefined terms are project-specific.
 
     // [I] "no-with" is included in `recommended`.
 

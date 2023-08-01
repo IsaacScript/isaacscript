@@ -3,16 +3,10 @@
 - ESLint core rule audit
 - Unicorn rule audit
 
-- try upgrading nx dep
-
 - remove node-fetch
 - write logic in queryRule.mts to check for 404
 
 - remove consolidated dist directory
-
-- investigate @typescript-eslint/no-inferrable-type
-  - why isn't it enabled by default?
-  - it should be generating errors in "Config.ts"
 
 ----------------------------------------------------------------------------------------------------
 
