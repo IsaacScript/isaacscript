@@ -1405,26 +1405,68 @@ const config = {
     // [X] "require-await" is not enabled since it is superseded by the
     // `@typescript-eslint/require-await` rule.
 
-    // [X] "require-unicode-regexp" is not enabled since requiring the `v` flag for ASCII text is
-    // verbose and cumbersome.
+    // [X] "require-unicode-regexp" is not enabled since requiring the `u` or the `v` flag for ASCII
+    // text is verbose and cumbersome. (Even though these would also enable regex strict mode, the
+    // marginal benefit is not worth the verbosity.)
 
     // [I] "require-yield" is included in `recommended`.
 
-    // "sort-imports"
+    // [X] "sort-imports" is not enabled because it is automatically handled by
+    // `prettier-plugin-organize-imports`.
 
-    // "sort-keys"
+    // [X] "sort-keys" is not enabled because object keys are often not meant to be sorted in
+    // alphabetical order.
 
-    // "sort-vars"
+    // [X] "sort-vars" is not enabled because variable declarations are often not meant to be sorted
+    // in alphabetical order.
 
-    // "spaced-comment"
+    // [X] "spaced-comment" is not enabled because it is superseded by
+    // `isaacscript/format-jsdoc-comments` and `isaacscript/format-line-comments`.
 
-    // "strict"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/strict
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (We copy the Airbnb options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/strict.js
+     */
+    strict: ["error", "never"],
 
-    // "symbol-description"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/symbol-description
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js
+     */
+    "symbol-description": "error",
 
-    // "vars-on-top"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/vars-on-top
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (There are no options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    "vars-on-top": "error",
 
-    // "yoda"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/yoda
+     *
+     * Not enabled in the parent configs.
+     *
+     * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default
+     * options.)
+     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     */
+    yoda: "error",
 
     // -------------------
     // Layout & Formatting

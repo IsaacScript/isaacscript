@@ -370,7 +370,7 @@ const config = {
      */
     "import/no-unassigned-import": "error",
 
-    // [X] "import/order" is not enabled because this is handled by
+    // [X] "import/order" is not enabled because it is automatically handled by
     // `prettier-plugin-organize-imports`.
 
     // [X] "import/prefer-default-export" is not enabled because we enable
