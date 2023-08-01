@@ -1299,7 +1299,13 @@ const config = {
      */
     "prefer-exponentiation-operator": "error",
 
-    // "prefer-named-capture-group"
+    /**
+     * Documentation:
+     * https://eslint.org/docs/latest/rules/prefer-named-capture-group
+     *
+     * Not enabled in the parent configs.
+     */
+    "prefer-named-capture-group": "error",
 
     // "prefer-numeric-literals"
 
