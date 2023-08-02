@@ -340,11 +340,11 @@ const EXTENSION_RULES = {
  * @type {import("eslint").Linter.Config}
  */
 const config = {
-  // We extend the recommended config to enable the plugin and configure the parser:
+  // From:
   // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/base.ts
-  // Doing this enables automatic linting of `.ts` file extensions. (Copying pasting the base config
-  // here does not enable this functionality for some reason.)
-  extends: ["plugin:@typescript-eslint/recommended"],
+  parser: "@typescript-eslint/parser",
+  parserOptions: { sourceType: "module" },
+  plugins: ["@typescript-eslint"],
 
   rules: {
     ...SUPPORTED_RULES,
@@ -352,6 +352,12 @@ const config = {
   },
 
   overrides: [
+    // We list a "blank" override for the purposes of enabling new file extensions. (ESLint adds any
+    // new extensions included in `overrides` to the list of linted extensions.)
+    {
+      files: ["*.ts", "*.tsx", "*.mts", "*.cts"],
+    },
+
     // Disable some TypeScript-specific rules in JavaScript files.
     {
       files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],

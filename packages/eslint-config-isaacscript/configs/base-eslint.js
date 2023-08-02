@@ -130,9 +130,9 @@ const SUGGESTIONS = {
   "consistent-this": "off",
 
   /**
-   * - Always requiring curly braces can partially ward against [Apple-style if statement
-   * bugs](https://www.imperialviolet.org/2014/02/22/applebug.html).
-   * - Additionally, this rule needs to be set to "all" to [work properly with
+   * Always requiring curly braces can partially ward against [Apple-style if statement
+   * bugs](https://www.imperialviolet.org/2014/02/22/applebug.html). Additionally, this rule needs
+   * to be set to "all" to [work properly with
    * `eslint-prettier-config`](https://github.com/prettier/eslint-config-prettier#curly).
    */
   curly: ["error", "all"],
@@ -521,59 +521,23 @@ const SUGGESTIONS = {
 
   "no-with": "error",
 
-  /**
-   * Documentation:
-   * https://eslint.org/docs/latest/rules/object-shorthand
-   *
-   * Not enabled in the parent configs.
-   *
-   * We follow Airbnb's lead and enable this as a best practice. (We copy the options from Airbnb.)
-   * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/es6.js
-   */
+  /** The `ignoreConstructors` option is disabled to make the rule stricter. */
   "object-shorthand": [
     "error",
     "always",
     {
       ignoreConstructors: false,
-      avoidQuotes: true,
     },
   ],
 
   /**
-   * Documentation:
-   * https://eslint.org/docs/latest/rules/one-var
-   *
-   * Not enabled in the parent configs.
-   *
-   * We follow Airbnb's lead and enable this as a best practice. (We copy the options from Airbnb.)
-   * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/style.js
+   * The `never` option is provided to disallow multi-variable declarations (since they can be
+   * confusing).
    */
   "one-var": ["error", "never"],
 
-  // [X] "one-var-declaration-per-line" is not enabled since it is automatically handled by
-  // Prettier:
-  // https://github.com/prettier/eslint-config-prettier/blob/main/index.js
-
-  /**
-   * Documentation:
-   * https://eslint.org/docs/latest/rules/operator-assignment
-   *
-   * Not enabled in the parent configs.
-   *
-   * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default options.)
-   * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/style.js
-   */
+  "one-var-declaration-per-line": "off", // eslint-config-prettier
   "operator-assignment": "error",
-
-  /**
-   * Documentation:
-   * https://eslint.org/docs/latest/rules/prefer-arrow-callback
-   *
-   * Not enabled in the parent configs.
-   *
-   * We follow Airbnb's lead and enable this as a best practice. (Airbnb uses the default options.)
-   * https://raw.githubusercontent.com/airbnb/javascript/master/packages/eslint-config-airbnb-base/rules/es6.js
-   */
   "prefer-arrow-callback": "error",
 
   /** Superseded by the `no-autofix/prefer-const` rule (since the autofix is usually unwanted). */

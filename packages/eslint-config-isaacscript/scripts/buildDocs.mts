@@ -1,6 +1,8 @@
 import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
 import type { Linter } from "eslint";
+import ESLintConfigPrettier from "eslint-config-prettier";
+import extractComments from "extract-comments";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
@@ -8,11 +10,40 @@ import baseESLintConfig from "../configs/base-eslint.js";
 
 type ParentConfig =
   | "eslint/recommended"
-  | "@typescript-eslint/eslint-recommended";
+  | "@typescript-eslint/eslint-recommended"
+  | "eslint-config-prettier";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
 const REPO_ROOT = path.join(__dirname, "..", "..", "..");
+
+const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
+
+## Introduction
+
+This is a sharable configuration for [ESLint](https://eslint.org/) that is intended to be used in TypeScript projects.
+
+This package is consumed by the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package. It is recommended that instead of consuming this package directly, you instead list \`isaacscript-lint\` as a dependency, as that will includes all of the plugins that this config depends on.
+
+<br />
+
+## Installation
+
+See the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#installation-instructions-for-typescript-projects) page.
+
+<br />
+
+## Philosophy
+
+We want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. False positives can be taken care of by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.)
+
+In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional custom rules that catch even more bugs. The full rule list is below.
+
+<br />
+
+## Rule List
+
+`;
+
 const ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH = path.join(
   REPO_ROOT,
   "packages",
@@ -25,6 +56,13 @@ const README_PATH = path.join(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH, "README.md");
 const ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintJS.configs.recommended.rules),
 );
+const BASE_ESLINT_RULES_JS_PATH = path.join(
+  __dirname,
+  "..",
+  "configs",
+  "base-eslint.js",
+);
+const BASE_ESLINT_RULES_JS = fs.readFileSync(BASE_ESLINT_RULES_JS_PATH, "utf8");
 
 const TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES = (() => {
   const TypeScriptESLintESLintRecommended =
@@ -58,46 +96,27 @@ const TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES = (() => {
 
   return rules;
 })();
+
 const TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> =
   new Set(Object.keys(TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES));
+
+const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintConfigPrettier.rules),
+);
 
 const PARENT_CONFIG_LINKS = {
   "eslint/recommended":
     "[`eslint/recommended`](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js)",
   "@typescript-eslint/eslint-recommended":
     "[`@typescript-eslint/eslint-recommended`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts)",
+  "eslint-config-prettier":
+    "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
 
 main();
 
 function main() {
-  let markdownOutput = `# \`eslint-config-isaacscript\`
-
-## Introduction
-
-This is a sharable configuration for [ESLint](https://eslint.org/) that is intended to be used in TypeScript projects.
-
-This package is consumed by the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package. It is recommended that instead of consuming this package directly, you instead list \`isaacscript-lint\` as a dependency, as that will includes all of the plugins that this config depends on.
-
-<br />
-
-## Installation
-
-See the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#installation-instructions-for-typescript-projects) page.
-
-<br />
-
-## Philosophy
-
-We want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. False positives can be taken care of by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.)
-
-In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional custom rules that catch even more bugs. The full rule list is below.
-
-<br />
-
-## Rule List
-
-`;
+  let markdownOutput = MARKDOWN_HEADER;
 
   markdownOutput += getESLintMarkdownSection();
 
@@ -105,6 +124,8 @@ In line with this philosophy, our linting config enables nearly all of the recom
     fs.mkdirSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH);
   }
   fs.writeFileSync(README_PATH, markdownOutput);
+
+  console.log(`Successfully created: ${README_PATH}`);
 }
 
 function getESLintMarkdownSection(): string {
@@ -120,11 +141,9 @@ function getESLintMarkdownSection(): string {
   for (const ruleName of allESLintRuleNames) {
     const baseRuleEntry = baseESLintRules[ruleName];
     if (baseRuleEntry === undefined) {
-      /*
       throw new Error(
         `Failed to find an entry for core ESLint rule: ${ruleName}`,
       );
-      */
     }
   }
 
@@ -139,10 +158,10 @@ function getESLintMarkdownSection(): string {
     const enabled = getRuleEnabled(ruleName, rule);
     const enabledEmoji = enabled ? "✅" : "❌";
     const parentConfigsLinks = getParentConfigsLinks(ruleName);
-    const notesHTML = getNotesHTML(ruleName);
+    const notes = getNotes(ruleName, rule);
     const sourceFileLink = getSourceFileLink();
 
-    markdownOutput += `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notesHTML} | ${sourceFileLink}\n`;
+    markdownOutput += `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
   }
 
   return markdownOutput;
@@ -210,29 +229,55 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
     parentConfigs.push("@typescript-eslint/eslint-recommended");
   }
 
+  if (ESLINT_CONFIG_PRETTIER_RULES_SET.has(ruleName)) {
+    parentConfigs.push("eslint-config-prettier");
+  }
+
   return parentConfigs;
 }
 
-function getNotesHTML(ruleName: string): string {
-  const notes = getNotes(ruleName);
-
-  if (notes.length === 0) {
-    return "";
+function getNotes(ruleName: string, rule: Linter.RuleEntry): string {
+  if (isRuleHandledByTypeScriptCompiler(ruleName) && rule === "off") {
+    return "Disabled because this is [handled by the TypeScript compiler](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts).";
   }
 
-  return `<ul><li>${notes.join("</li><li>")}</li></ul>`;
-}
-
-function getNotes(ruleName: string): string[] {
-  if (isRuleHandledByTypeScriptCompiler(ruleName)) {
-    return ["Disabled because this is handled by the TypeScript compiler."];
+  if (isRuleHandledByPrettier(ruleName) && rule === "off") {
+    return "Disabled because this is [handled by Prettier](https://github.com/prettier/eslint-config-prettier/blob/main/index.js).";
   }
 
-  // TODO
-  return [];
+  const comments = extractComments(BASE_ESLINT_RULES_JS);
+
+  for (const comment of comments) {
+    // Ignore comments that are not "attached" to code.
+    if (comment.codeStart === undefined) {
+      continue;
+    }
+
+    const line = getLineOfCodeStartingAtPos(
+      comment.codeStart,
+      BASE_ESLINT_RULES_JS,
+    );
+
+    // Ignore comments that are not "attached" to rule definitions.
+    if (line.startsWith("const ") || !line.includes(":")) {
+      continue;
+    }
+
+    const lineWithNoQuotes = line.replaceAll('"', "");
+    const colonIndex = lineWithNoQuotes.indexOf(":");
+    const lineRuleName = lineWithNoQuotes.substring(0, colonIndex);
+
+    if (lineRuleName !== ruleName) {
+      continue;
+    }
+
+    return comment.value.replaceAll("\n", " ");
+  }
+
+  return "";
 }
 
-function isRuleHandledByTypeScriptCompiler(ruleName: string) {
+function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
   const rule = TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES[ruleName];
   if (rule === undefined) {
     return false;
@@ -245,6 +290,21 @@ function isRuleHandledByTypeScriptCompiler(ruleName: string) {
   }
 
   return rule === "off";
+}
+
+function isRuleHandledByPrettier(ruleName: string): boolean {
+  return ESLINT_CONFIG_PRETTIER_RULES_SET.has(ruleName);
+}
+
+function getLineOfCodeStartingAtPos(pos: number, code: string) {
+  const codeStartingAtPos = code.slice(pos);
+  const newlineIndex = codeStartingAtPos.indexOf("\n");
+
+  if (newlineIndex !== -1) {
+    return codeStartingAtPos.substring(0, newlineIndex);
+  }
+
+  return codeStartingAtPos;
 }
 
 function getSourceFileLink(): string {

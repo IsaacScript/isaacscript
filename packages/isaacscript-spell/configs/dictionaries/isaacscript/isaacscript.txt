@@ -26,6 +26,7 @@ Dtypescript # TSTL compiled word
 eqeqeq # For linting
 erange # Standard library function
 esbenp # extensions.json
+espree # ESLint word
 Gruntfile # ESLint word
 gulpfile # ESLint word
 IIFE # JavaScript word

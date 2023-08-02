@@ -4555,6 +4555,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/eslint-config-prettier@npm:^6.11.0":
+  version: 6.11.0
+  resolution: "@types/eslint-config-prettier@npm:6.11.0"
+  checksum: b1e7a0e4fc260f48464676676e36c9e7e261ab580f69625c592d32c772348b77b613df79f66d39ebfd4ada86ff3cebb829f5f18d9d1405d3acecc7bc6fc35c86
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.4
   resolution: "@types/eslint-scope@npm:3.7.4"
@@ -9120,6 +9127,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esprima-extract-comments@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "esprima-extract-comments@npm:1.1.0"
+  dependencies:
+    esprima: ^4.0.0
+  checksum: 8d64b08b951a901bf0206b7a66ddd9498f9d00f8341aece5ca5e73efb65549e2ecb6c2d2b35c5432e77c743dd8c243ae43baf8d33128b8055d3ef5efbc18d5f3
+  languageName: node
+  linkType: hard
+
 "esprima@npm:^4.0.0, esprima@npm:^4.0.1":
   version: 4.0.1
   resolution: "esprima@npm:4.0.1"
@@ -9318,6 +9334,16 @@ __metadata:
   version: 3.0.2
   resolution: "extend@npm:3.0.2"
   checksum: a50a8309ca65ea5d426382ff09f33586527882cf532931cb08ca786ea3146c0553310bda688710ff61d7668eba9f96b923fe1420cdf56a2c3eaf30fcab87b515
+  languageName: node
+  linkType: hard
+
+"extract-comments@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "extract-comments@npm:1.1.0"
+  dependencies:
+    esprima-extract-comments: ^1.1.0
+    parse-code-context: ^1.0.0
+  checksum: 2ea4faf33260ba43e7c73e7752f06fc781ec972b8cd9da06a19282a602a395f58ef43368eb77cc2bbdcc8187ecb46f0a62eee6a0482cb449726f251668c9a986
   languageName: node
   linkType: hard
 
@@ -11628,6 +11654,7 @@ __metadata:
     "@tsconfig/strictest": ^2.0.1
     "@types/command-exists": ^1.2.0
     "@types/confusing-browser-globals": ^1.0.0
+    "@types/eslint-config-prettier": ^6.11.0
     "@types/eslint__js": ^8.42.0
     "@types/figlet": ^1.5.6
     "@types/glob": ^8.1.0
@@ -11668,6 +11695,7 @@ __metadata:
     eslint-plugin-only-warn: ^1.1.0
     eslint-plugin-sort-exports: ^0.8.0
     eslint-plugin-unicorn: ^48.0.1
+    extract-comments: ^1.1.0
     figlet: ^1.6.0
     glob: ^10.3.3
     isaac-typescript-definitions: ^13.0.17
@@ -14842,6 +14870,13 @@ __metadata:
   dependencies:
     callsites: ^3.1.0
   checksum: f131f13d687a938556a01033561fb1b274b39921eb4425c7a691f0d91dcfbe9b19759c2b8d425a3ee7c8a46874e57fa418a690643880c3c7c56827aba12f78dd
+  languageName: node
+  linkType: hard
+
+"parse-code-context@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "parse-code-context@npm:1.0.0"
+  checksum: d49785bd70d60ab4bd4ca432c9b77b42fa607921c6aee577643d5458234cf47abc5771cac2b1f21f8a18a498140b3d039bd1a24e612bc4e485d761d2e85b6088
   languageName: node
   linkType: hard
 
