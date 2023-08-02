@@ -13,11 +13,11 @@ SECONDS=0
 cd "$DIR"
 
 # Remove old output.
-# ISAACSCRIPT_COMMON_DIR="$DIR/docs/isaacscript-common" # Created by TypeDoc
-# rm -rf "$ISAACSCRIPT_COMMON_DIR"
+ISAACSCRIPT_COMMON_DIR="$DIR/docs/isaacscript-common" # Created by TypeDoc
+rm -rf "$ISAACSCRIPT_COMMON_DIR"
 
-# ISAAC_TYPESCRIPT_DEFINITIONS_DIR="$DIR/docs/isaac-typescript-definitions" # Created by TypeDoc
-# rm -rf "$ISAAC_TYPESCRIPT_DEFINITIONS_DIR"
+ISAAC_TYPESCRIPT_DEFINITIONS_DIR="$DIR/docs/isaac-typescript-definitions" # Created by TypeDoc
+rm -rf "$ISAAC_TYPESCRIPT_DEFINITIONS_DIR"
 
 ESLINT_CONFIG_ISAACSCRIPT_DIR="$DIR/docs/eslint-config-isaacscript"
 rm -rf "$ESLINT_CONFIG_ISAACSCRIPT_DIR"
@@ -27,16 +27,15 @@ OUT_DIR="$REPO_ROOT/dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
 # Auto-generate the Markdown files with TypeDoc + the Markdown plugin.
-# bash "$REPO_ROOT/packages/isaac-typescript-definitions/docs.sh"
-# bash "$REPO_ROOT/packages/isaacscript-common/docs.sh"
-
-# Auto-generate the "eslint-config-isaacscript" docs with a hand-written script.
-npx tsx "$REPO_ROOT/packages/eslint-config-isaacscript/scripts/buildDocs.mts"
-npx prettier --write "$ESLINT_CONFIG_ISAACSCRIPT_DIR/README.md"
+bash "$REPO_ROOT/packages/isaac-typescript-definitions/docs.sh"
+bash "$REPO_ROOT/packages/isaacscript-common/docs.sh"
 
 # Apply transformations on top of the TypeDoc output.
 npx tsx "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
 npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
+
+# Auto-generate the "eslint-config-isaacscript" docs with a hand-written script.
+npx tsx "$REPO_ROOT/packages/eslint-config-isaacscript/scripts/buildDocs.mts"
 
 # Format the Markdown output from TypeDoc with Prettier, which will remove superfluous backslash
 # escape characters that cause issues with search engine indexing.

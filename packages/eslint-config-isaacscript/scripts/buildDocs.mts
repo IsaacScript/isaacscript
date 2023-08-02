@@ -140,7 +140,7 @@ function getESLintMarkdownSection(): string {
     const enabled = getRuleEnabled(ruleName, rule);
     const enabledEmoji = enabled ? "✅" : "❌";
     const parentConfigsLinks = getParentConfigsLinks(ruleName);
-    const notesHTML = getNotesHTML(ruleName, rule);
+    const notesHTML = getNotesHTML(ruleName);
     const sourceFileLink = getSourceFileLink();
 
     markdownOutput += `${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notesHTML} | ${sourceFileLink}\n`;
@@ -214,8 +214,8 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
   return parentConfigs;
 }
 
-function getNotesHTML(ruleName: string, rule: Linter.RuleEntry): string {
-  const notes = getNotes(ruleName, rule);
+function getNotesHTML(ruleName: string): string {
+  const notes = getNotes(ruleName);
 
   if (notes.length === 0) {
     return "";
@@ -224,25 +224,13 @@ function getNotesHTML(ruleName: string, rule: Linter.RuleEntry): string {
   return `<ul><li>${notes.join("</li><li>")}</li></ul>`;
 }
 
-function getNotes(ruleName: string, rule: Linter.RuleEntry): string[] {
+function getNotes(ruleName: string): string[] {
   if (isRuleHandledByTypeScriptCompiler(ruleName)) {
     return ["Disabled because this is handled by the TypeScript compiler."];
   }
 
-  if (!Array.isArray(rule)) {
-    return [];
-  }
-
-  const lastElement = rule.at(-1) as unknown;
-  if (ruleName === "array-callback-return") {
-    console.log("GETTING HERE:", lastElement);
-  }
-
-  if (!Array.isArray(lastElement)) {
-    return [];
-  }
-
-  return lastElement as string[];
+  // TODO
+  return [];
 }
 
 function isRuleHandledByTypeScriptCompiler(ruleName: string) {
