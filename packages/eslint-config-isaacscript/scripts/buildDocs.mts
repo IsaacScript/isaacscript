@@ -10,7 +10,6 @@ type ParentConfig =
   | "eslint/recommended"
   | "@typescript-eslint/eslint-recommended";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const REPO_ROOT = path.join(__dirname, "..", "..", "..");

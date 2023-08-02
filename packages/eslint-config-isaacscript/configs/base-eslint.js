@@ -1,7 +1,7 @@
-const confusingBrowserGlobals = require("confusing-browser-globals");
-
-// The core ESLint rules are located at:
+// This ESLint config only contains built-in rules from ESLint itself:
 // https://eslint.org/docs/latest/rules/
+
+const confusingBrowserGlobals = require("confusing-browser-globals");
 
 // Rules are separated into categories:
 // 1) Possible Problems
@@ -739,21 +739,8 @@ const LAYOUT_AND_FORMATTING = {
   "yield-star-spacing": "off", // eslint-config-prettier
 };
 
-/**
- * This ESLint config only contains built-in rules from ESLint itself:
- * https://eslint.org/docs/latest/rules/
- *
- * @type {import("eslint").Linter.Config}
- */
+/** @type {import("eslint").Linter.Config} */
 const config = {
-  extends: [
-    // Turns off the ESLint recommended rules that are handled by TypeScript:
-    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts
-    // Additionally, this turns on some specific ESLint rules that are not contained within the
-    // recommended config (since they work well with TypeScript).
-    "plugin:@typescript-eslint/eslint-recommended",
-  ],
-
   rules: {
     ...POSSIBLE_PROBLEMS,
     ...SUGGESTIONS,
