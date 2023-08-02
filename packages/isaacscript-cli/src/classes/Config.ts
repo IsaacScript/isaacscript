@@ -4,11 +4,8 @@
 
 /** This is the format for the "isaacscript.json" file. */
 export class Config {
-  /**
-   * We tell `knip` to ignore this field.
-   *
-   * @public
-   */
+  // Marked as public to disable `knip` warnings.
+  /** @public */
   $schema?: string =
     "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/isaacscript-schema.json";
 

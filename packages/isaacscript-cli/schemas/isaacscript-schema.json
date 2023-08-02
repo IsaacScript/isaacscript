@@ -7,7 +7,6 @@
       "description": "This is the format for the \"isaacscript.json\" file.",
       "properties": {
         "$schema": {
-          "description": "We tell `knip` to ignore this field.",
           "type": "string"
         },
         "customTargetModDirectoryName": {
