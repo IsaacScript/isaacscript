@@ -377,11 +377,19 @@ const config = {
   },
 
   overrides: [
+    // Disable some TypeScript-specific rules in JavaScript files.
     {
-      // Disable some TypeScript-specific rules in JavaScript files.
       files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
       rules: {
         "import/no-commonjs": "off",
+      },
+    },
+
+    // Disable some specific rules in config files.
+    {
+      files: [".remarkrc.mjs", "prettier.config.mjs"],
+      rules: {
+        "import/no-default-export": "off",
       },
     },
   ],

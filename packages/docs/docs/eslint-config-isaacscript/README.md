@@ -6,13 +6,13 @@ This is a sharable configuration for [ESLint](https://eslint.org/) that is inten
 
 This package is consumed by the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package. It is recommended that instead of consuming this package directly, you instead list `isaacscript-lint` as a dependency, as that will includes all of the plugins that this config depends on.
 
-<br>
+<br />
 
 ## Installation
 
 See the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#installation-instructions-for-typescript-projects) page.
 
-<br>
+<br />
 
 ## Philosophy
 
@@ -20,7 +20,7 @@ We want to enable as many lint rules as possible, so that we can catch as many b
 
 In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional custom rules that catch even more bugs. The full rule list is below.
 
-<br>
+<br />
 
 ## Rule List
 
