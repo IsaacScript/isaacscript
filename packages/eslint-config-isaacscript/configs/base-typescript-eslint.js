@@ -32,7 +32,11 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/consistent-type-exports": "error",
   "@typescript-eslint/consistent-type-imports": "error",
 
-  /** Disabled since it would be to require it for non-exported functions. */
+  /**
+   * Disabled since it would be to cumbersome to require return types for non-exported functions.
+   * (It is more reasonable to require it for exported functions only, since it speeds up the
+   * type-checker in large codebases.)
+   */
   "@typescript-eslint/explicit-function-return-type": "off",
 
   /**
@@ -142,8 +146,7 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/prefer-nullish-coalescing": "error",
 
   /**
-   * Disabled because it can modify the type of `boolean` declarations to `boolean | undefined`,
-   * which is [undesired in some
+   * Disabled because it can modify the type of `boolean` declarations, which is [undesired in some
    * circumstances](https://github.com/typescript-eslint/typescript-eslint/issues/5269).
    */
   "@typescript-eslint/prefer-optional-chain": "off",

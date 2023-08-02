@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import baseESLintConfig from "../configs/base-eslint.js";
+import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
 
 type ParentConfig =
   | "eslint/recommended"
@@ -41,8 +42,9 @@ In line with this philosophy, our linting config enables nearly all of the recom
 <br />
 
 ## Rule List
-
 `;
+
+// -------------------------------------------------------------------------------------------------
 
 const ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH = path.join(
   REPO_ROOT,
@@ -53,16 +55,46 @@ const ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH = path.join(
 );
 const README_PATH = path.join(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH, "README.md");
 
-const ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintJS.configs.recommended.rules),
-);
+// -------------------------------------------------------------------------------------------------
+
+const BASE_CONFIGS_PATH = path.join(__dirname, "..", "configs");
+
 const BASE_ESLINT_RULES_JS_PATH = path.join(
-  __dirname,
-  "..",
-  "configs",
+  BASE_CONFIGS_PATH,
   "base-eslint.js",
 );
 const BASE_ESLINT_RULES_JS = fs.readFileSync(BASE_ESLINT_RULES_JS_PATH, "utf8");
+
+const BASE_TYPESCRIPT_ESLINT_RULES_JS_PATH = path.join(
+  BASE_CONFIGS_PATH,
+  "base-typescript-eslint.js",
+);
+const BASE_TYPESCRIPT_ESLINT_RULES_JS = fs.readFileSync(
+  BASE_TYPESCRIPT_ESLINT_RULES_JS_PATH,
+  "utf8",
+);
+
+// -------------------------------------------------------------------------------------------------
+
+const ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintJS.configs.recommended.rules),
+);
+
+const TYPESCRIPT_ESLINT_ALL_RULES = (() => {
+  const TypeScriptESLintAll = TypeScriptESLintPlugin.configs["all"];
+  if (TypeScriptESLintAll === undefined) {
+    throw new Error('Failed to parse the "@typescript-eslint/all" config.');
+  }
+
+  const { rules } = TypeScriptESLintAll;
+  if (rules === undefined) {
+    throw new Error(
+      'Failed to parse the "@typescript-eslint/eslint-recommended" config rules.',
+    );
+  }
+
+  return rules;
+})();
 
 const TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES = (() => {
   const TypeScriptESLintESLintRecommended =
@@ -104,6 +136,8 @@ const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintConfigPrettier.rules),
 );
 
+// -------------------------------------------------------------------------------------------------
+
 const PARENT_CONFIG_LINKS = {
   "eslint/recommended":
     "[`eslint/recommended`](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js)",
@@ -119,6 +153,7 @@ function main() {
   let markdownOutput = MARKDOWN_HEADER;
 
   markdownOutput += getESLintMarkdownSection();
+  markdownOutput += getTypeScriptESLintMarkdownSection();
 
   if (!fs.existsSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
     fs.mkdirSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH);
@@ -129,7 +164,10 @@ function main() {
 }
 
 function getESLintMarkdownSection(): string {
-  let markdownOutput = getMarkdownHeader("Core ESLint Rules");
+  let markdownOutput = getMarkdownHeader(
+    "Core ESLint Rules",
+    "https://eslint.org/docs/latest/rules/",
+  );
 
   const baseESLintRules = baseESLintConfig.rules;
   if (baseESLintRules === undefined) {
@@ -158,8 +196,10 @@ function getESLintMarkdownSection(): string {
     const enabled = getRuleEnabled(ruleName, rule);
     const enabledEmoji = enabled ? "✅" : "❌";
     const parentConfigsLinks = getParentConfigsLinks(ruleName);
-    const notes = getNotes(ruleName, rule);
-    const sourceFileLink = getSourceFileLink();
+    const notes = getNotes(ruleName, rule, BASE_ESLINT_RULES_JS);
+    const sourceFileLink = getSourceFileLink(
+      "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-eslint.js",
+    );
 
     markdownOutput += `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
   }
@@ -167,8 +207,58 @@ function getESLintMarkdownSection(): string {
   return markdownOutput;
 }
 
-function getMarkdownHeader(headerTitle: string): string {
-  return `### ${headerTitle}
+function getTypeScriptESLintMarkdownSection(): string {
+  let markdownOutput = getMarkdownHeader(
+    "`@typescript-eslint` Rules",
+    "https://typescript-eslint.io/rules/",
+  );
+
+  const baseTypeScriptESLintRules = baseTypeScriptESLintConfig.rules;
+  if (baseTypeScriptESLintRules === undefined) {
+    throw new Error("Failed to parse the base TypeScript ESLint rules.");
+  }
+
+  // First, audit the config to ensure that we have an entry for each rule.
+  const allTypeScriptESLintRuleNames = Object.keys(TYPESCRIPT_ESLINT_ALL_RULES);
+  for (const ruleName of allTypeScriptESLintRuleNames) {
+    const baseRuleEntry = baseTypeScriptESLintRules[ruleName];
+    if (
+      baseRuleEntry === undefined &&
+      // We must check for a "@typescript-eslint" prefix because this config turns off some core
+      // ESLint rules.
+      ruleName.startsWith("@typescript-eslint")
+    ) {
+      throw new Error(
+        `Failed to find an entry for TypeScript ESLint rule: ${ruleName}`,
+      );
+    }
+  }
+
+  const alphabeticalRuleNames = Object.keys(baseTypeScriptESLintRules).sort();
+  for (const ruleName of alphabeticalRuleNames) {
+    const rule = baseTypeScriptESLintRules[ruleName];
+    if (rule === undefined) {
+      throw new Error(`Failed to find rule: ${ruleName}`);
+    }
+
+    const ruleNameWithLink = `[\`${ruleName}\`](https://typescript-eslint.io/rules/${ruleName}/)`;
+    const enabled = getRuleEnabled(ruleName, rule);
+    const enabledEmoji = enabled ? "✅" : "❌";
+    const parentConfigsLinks = getParentConfigsLinks(ruleName);
+    const notes = getNotes(ruleName, rule, BASE_TYPESCRIPT_ESLINT_RULES_JS);
+    const sourceFileLink = getSourceFileLink(
+      "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-typescript-eslint.js",
+    );
+
+    markdownOutput += `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
+  }
+
+  return markdownOutput;
+}
+
+function getMarkdownHeader(headerTitle: string, headerLink: string): string {
+  return `
+### [${headerTitle}](${headerLink})
 
 | Rule Name | Enabled | Parent Configs | Notes | Source File
 | --------- | ------- | -------------- | ----- | -----------
@@ -236,7 +326,11 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
   return parentConfigs;
 }
 
-function getNotes(ruleName: string, rule: Linter.RuleEntry): string {
+function getNotes(
+  ruleName: string,
+  rule: Linter.RuleEntry,
+  baseJSText: string,
+): string {
   if (isRuleHandledByTypeScriptCompiler(ruleName) && rule === "off") {
     return "Disabled because this is [handled by the TypeScript compiler](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts).";
   }
@@ -245,7 +339,7 @@ function getNotes(ruleName: string, rule: Linter.RuleEntry): string {
     return "Disabled because this is [handled by Prettier](https://github.com/prettier/eslint-config-prettier/blob/main/index.js).";
   }
 
-  const comments = extractComments(BASE_ESLINT_RULES_JS);
+  const comments = extractComments(baseJSText);
 
   for (const comment of comments) {
     // Ignore comments that are not "attached" to code.
@@ -253,10 +347,7 @@ function getNotes(ruleName: string, rule: Linter.RuleEntry): string {
       continue;
     }
 
-    const line = getLineOfCodeStartingAtPos(
-      comment.codeStart,
-      BASE_ESLINT_RULES_JS,
-    );
+    const line = getLineOfCodeStartingAtPos(comment.codeStart, baseJSText);
 
     // Ignore comments that are not "attached" to rule definitions.
     if (line.startsWith("const ") || !line.includes(":")) {
@@ -307,6 +398,11 @@ function getLineOfCodeStartingAtPos(pos: number, code: string) {
   return codeStartingAtPos;
 }
 
-function getSourceFileLink(): string {
-  return "[`base-eslint.js`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-eslint.js)";
+function getSourceFileLink(link: string): string {
+  const match = link.match(/.+\/(?<fileName>.+?)$/);
+  if (match === null || match.groups === undefined) {
+    throw new Error(`Failed to parse the source file link: ${link}`);
+  }
+  const { fileName } = match.groups;
+  return `[\`${fileName}\`](${link})`;
 }
