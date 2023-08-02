@@ -340,6 +340,12 @@ const EXTENSION_RULES = {
  * @type {import("eslint").Linter.Config}
  */
 const config = {
+  // We extend the recommended config to automatically get the parser options:
+  // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/base.ts
+  // This enables automatic linting of `.ts` file extensions. (Copying pasting the base config here
+  // does not enable this functionality for some reason.)
+  extends: ["plugin:@typescript-eslint/recommended"],
+
   rules: {
     ...SUPPORTED_RULES,
     ...EXTENSION_RULES,
