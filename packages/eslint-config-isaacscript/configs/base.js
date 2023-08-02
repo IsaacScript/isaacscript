@@ -27,10 +27,11 @@ const config = {
     "prettier",
 
     /**
-     * Rule modifications are split out into different files (based on the originating plugin) for
-     * better organization.
+     * Rule modifications are split out into different files for better organization (based on the
+     * originating plugin) .
      */
     "./base-eslint",
+    "./base-no-autofix",
     "./base-typescript-eslint",
     "./base-comments",
     "./base-import",

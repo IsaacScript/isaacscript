@@ -2,7 +2,7 @@ const typeDocBase = require("../docs/typedoc.base"); // eslint-disable-line n/no
 
 /** @type {import('typedoc').TypeDocOptions} */
 module.exports = {
-  ...typeDocBase.getConfig(__dirname),
+  ...typeDocBase.getTypeDocConfig(__dirname),
   intentionallyNotExported: [
     // From: "./src/enum/flags"
     "ActionTriggerType",

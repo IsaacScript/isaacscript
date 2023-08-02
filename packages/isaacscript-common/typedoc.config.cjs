@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const typeDocBase = require("../docs/typedoc.base"); // eslint-disable-line n/no-unpublished-require
 
-const config = typeDocBase.getConfig(__dirname);
+const config = typeDocBase.getTypeDocConfig(__dirname);
 
 // Feature classes are not exported directly, but we want to include them in the documentation.
 // Thus, we must manually add them.

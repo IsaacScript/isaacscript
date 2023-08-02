@@ -13,17 +13,26 @@ SECONDS=0
 cd "$DIR"
 
 # Remove old output.
-COMMON_DIR="$DIR/docs/isaacscript-common" # Created by TypeDoc
-rm -rf "$COMMON_DIR"
-DEFINITIONS_DIR="$DIR/docs/isaac-typescript-definitions" # Created by TypeDoc
-rm -rf "$DEFINITIONS_DIR"
+# ISAACSCRIPT_COMMON_DIR="$DIR/docs/isaacscript-common" # Created by TypeDoc
+# rm -rf "$ISAACSCRIPT_COMMON_DIR"
+
+# ISAAC_TYPESCRIPT_DEFINITIONS_DIR="$DIR/docs/isaac-typescript-definitions" # Created by TypeDoc
+# rm -rf "$ISAAC_TYPESCRIPT_DEFINITIONS_DIR"
+
+ESLINT_CONFIG_ISAACSCRIPT_DIR="$DIR/docs/eslint-config-isaacscript"
+rm -rf "$ESLINT_CONFIG_ISAACSCRIPT_DIR"
+
 REPO_ROOT="$DIR/../.."
 OUT_DIR="$REPO_ROOT/dist/packages/docs" # Created by Docusaurus
 rm -rf "$OUT_DIR"
 
 # Auto-generate the Markdown files with TypeDoc + the Markdown plugin.
-bash "$DIR/../isaac-typescript-definitions/docs.sh"
-bash "$DIR/../isaacscript-common/docs.sh"
+# bash "$REPO_ROOT/packages/isaac-typescript-definitions/docs.sh"
+# bash "$REPO_ROOT/packages/isaacscript-common/docs.sh"
+
+# Auto-generate the "eslint-config-isaacscript" docs with a hand-written script.
+npx tsx "$REPO_ROOT/packages/eslint-config-isaacscript/scripts/buildDocs.mts"
+npx prettier --write "$ESLINT_CONFIG_ISAACSCRIPT_DIR/README.md"
 
 # Apply transformations on top of the TypeDoc output.
 npx tsx "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"

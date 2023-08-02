@@ -4575,6 +4575,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/eslint__js@npm:^8.42.0":
+  version: 8.42.0
+  resolution: "@types/eslint__js@npm:8.42.0"
+  dependencies:
+    "@types/eslint": "*"
+  checksum: 9a2b373964dfb0a42b1f95966a8c8b080c5ea892a75ce65271c4f60ff8799e0e411a743897a044558daa70249e3c7c888192bc4a37590dceec8ecf3e080b36ae
+  languageName: node
+  linkType: hard
+
 "@types/estree-jsx@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/estree-jsx@npm:1.0.0"
@@ -11608,6 +11617,7 @@ __metadata:
     "@docusaurus/eslint-plugin": ^2.4.1
     "@docusaurus/module-type-aliases": ^2.4.1
     "@docusaurus/preset-classic": ^2.4.1
+    "@eslint/js": ^8.46.0
     "@mdx-js/react": 1.6.22
     "@microsoft/api-extractor": ^7.36.3
     "@nrwl/nx-cloud": latest
@@ -11618,6 +11628,7 @@ __metadata:
     "@tsconfig/strictest": ^2.0.1
     "@types/command-exists": ^1.2.0
     "@types/confusing-browser-globals": ^1.0.0
+    "@types/eslint__js": ^8.42.0
     "@types/figlet": ^1.5.6
     "@types/glob": ^8.1.0
     "@types/jest": ^29.5.3

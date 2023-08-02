@@ -68,6 +68,11 @@ module.exports = {
             position: "left",
           },
           {
+            to: "eslint-config-isaacscript",
+            label: "eslint-config-isaacscript",
+            position: "left",
+          },
+          {
             href: "https://github.com/IsaacScript/isaacscript",
             className: "header-github-link",
             position: "right",

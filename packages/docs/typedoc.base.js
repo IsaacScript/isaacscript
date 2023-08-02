@@ -28,7 +28,7 @@ const baseConfig = {
  * @param {string} packageDirectoryPath The path to the package directory.
  * @returns {import('typedoc').TypeDocOptions} A TypeDoc configuration object.
  */
-function getConfig(packageDirectoryPath) {
+function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
   const out = path.join(__dirname, "docs", packageName);
 
@@ -49,7 +49,7 @@ function getConfig(packageDirectoryPath) {
     entryPoints,
   };
 }
-exports.getConfig = getConfig;
+exports.getTypeDocConfig = getTypeDocConfig;
 
 /** @param {string} typeScriptFilePath The path to the ".ts" file. */
 function getTypeScriptFileExports(typeScriptFilePath) {

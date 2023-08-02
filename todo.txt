@@ -20,3 +20,4 @@
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
+  - make sure that isaacscript-common still works through link in dev

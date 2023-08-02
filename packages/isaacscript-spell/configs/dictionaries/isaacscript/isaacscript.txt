@@ -6,6 +6,7 @@ autocrlf # gitattributes
 autofix # Monorepo word
 browserslist # Monorepo word
 buildable # Monorepo word
+builtins # ESLint word
 camelcase # ESLint word
 celsiusnarhwal # GitHub actions word
 chunkname # ESLint word
@@ -13,6 +14,8 @@ cloc # Monorepo word
 clsx # Monorepo word
 cmds # cmd-ts word
 commitlint # Monorepo word
+concat # ESLint word
+cond # ESLint word
 conventionalcommits # Monorepo word
 corepack # To install Yarn/pnpm
 dbaeumer # extensions.json
@@ -29,6 +32,7 @@ IIFE # JavaScript word
 instanceof # JavaScript word
 irange # Standard library function
 isaacscript
+isnan # ESLint word
 jscutlery # For version control
 jsdoc # Monorepo word
 klaw # Monorepo word
@@ -60,6 +64,7 @@ preapproved # API Extractor word
 preid # Monorepo word
 prettierignore # check-file-updates.sh
 prettierrc # check-file-updates.sh
+proto # ESLint word
 pypi # The Python package repository
 pyproject # Python package word
 remarkignore # Monorepo word
