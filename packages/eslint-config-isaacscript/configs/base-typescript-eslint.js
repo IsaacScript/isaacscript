@@ -339,7 +339,8 @@ const EXTENSION_RULES = {
 
 /** @type {import("eslint").Linter.Config} */
 const config = {
-  // From:
+  // We need to provide some special configuration to ESLint in order for it to parse TypeScript
+  // files. From:
   // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/base.ts
   parser: "@typescript-eslint/parser",
   parserOptions: {

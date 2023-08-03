@@ -191,11 +191,9 @@ const STYLE_GUIDE = {
  * @type {import("eslint").Linter.Config}
  */
 const config = {
+  // If the "eslint-import-resolver-typescript" package is installed, then no additional
+  // configuration is necessary to make the plugin work properly with TypeScript.
   plugins: ["import"],
-
-  // Load TypeScript-specific configuration:
-  // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
-  extends: ["plugin:import/typescript"],
 
   rules: {
     ...HELPFUL_WARNINGS,
