@@ -37,8 +37,8 @@ npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
 # Auto-generate the "eslint-config-isaacscript" docs with a hand-written script.
 npx tsx "$REPO_ROOT/packages/eslint-config-isaacscript/scripts/buildDocs.mts"
 
-# Format the Markdown output from TypeDoc with Prettier, which will remove superfluous backslash
-# escape characters that cause issues with search engine indexing.
+# Format the Markdown output with Prettier, which will remove superfluous backslash escape
+# characters that cause issues with search engine indexing.
 cd "$REPO_ROOT" # We must change directories to avoid creating a spurious "node_modules" folder.
 npx prettier "$DIR/docs" --write --log-level=silent
 cd "$DIR"

@@ -2,10 +2,12 @@ import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
+import ESLintPluginESLintComments from "eslint-plugin-eslint-comments";
 import extractComments from "extract-comments";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
+import baseCommentsConfig from "../configs/base-comments.js";
 import baseESLintConfig from "../configs/base-eslint.js";
 import baseNoAutoFixConfig from "../configs/base-no-autofix.js";
 import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
@@ -66,27 +68,30 @@ const README_PATH = path.join(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH, "README.md");
 
 const BASE_CONFIGS_PATH = path.join(__dirname, "..", "configs");
 
-const BASE_ESLINT_RULES_JS_PATH = path.join(
-  BASE_CONFIGS_PATH,
-  "base-eslint.js",
-);
-const BASE_ESLINT_RULES_JS = fs.readFileSync(BASE_ESLINT_RULES_JS_PATH, "utf8");
+const BASE_ESLINT_JS_PATH = path.join(BASE_CONFIGS_PATH, "base-eslint.js");
+const BASE_ESLINT_JS = fs.readFileSync(BASE_ESLINT_JS_PATH, "utf8");
 
-const BASE_NO_AUTOFIX_RULES_JS_PATH = path.join(
+const BASE_NO_AUTOFIX_JS_PATH = path.join(
   BASE_CONFIGS_PATH,
   "base-no-autofix.js",
 );
-const BASE_NO_AUTOFIX_RULES_JS = fs.readFileSync(
-  BASE_NO_AUTOFIX_RULES_JS_PATH,
-  "utf8",
-);
+const BASE_NO_AUTOFIX_JS = fs.readFileSync(BASE_NO_AUTOFIX_JS_PATH, "utf8");
 
-const BASE_TYPESCRIPT_ESLINT_RULES_JS_PATH = path.join(
+const BASE_TYPESCRIPT_ESLINT_JS_PATH = path.join(
   BASE_CONFIGS_PATH,
   "base-typescript-eslint.js",
 );
-const BASE_TYPESCRIPT_ESLINT_RULES_JS = fs.readFileSync(
-  BASE_TYPESCRIPT_ESLINT_RULES_JS_PATH,
+const BASE_TYPESCRIPT_ESLINT_JS = fs.readFileSync(
+  BASE_TYPESCRIPT_ESLINT_JS_PATH,
+  "utf8",
+);
+
+const BASE_COMMENTS_RULES_JS_PATH = path.join(
+  BASE_CONFIGS_PATH,
+  "base-comments.js",
+);
+const BASE_COMMENTS_RULES_JS = fs.readFileSync(
+  BASE_COMMENTS_RULES_JS_PATH,
   "utf8",
 );
 
@@ -215,6 +220,7 @@ function main() {
   markdownOutput += getESLintMarkdownSection();
   markdownOutput += getNoAutoFixMarkdownSection();
   markdownOutput += getTypeScriptESLintMarkdownSection();
+  markdownOutput += getCommentsMarkdownSection();
 
   if (!fs.existsSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
     fs.mkdirSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH);
@@ -254,7 +260,7 @@ function getESLintMarkdownSection(): string {
     }
 
     const ruleURL = "https://eslint.org/docs/latest/rules/__RULE_NAME__";
-    const baseJSText = BASE_ESLINT_RULES_JS;
+    const baseJSText = BASE_ESLINT_JS;
     const sourceFileName = "base-eslint.js";
 
     markdownOutput += getMarkdownTableRow(
@@ -290,7 +296,7 @@ function getNoAutoFixMarkdownSection(): string {
     // This plugin does not have individual pages for each rule.
     const ruleURL =
       "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix";
-    const baseJSText = BASE_NO_AUTOFIX_RULES_JS;
+    const baseJSText = BASE_NO_AUTOFIX_JS;
     const sourceFileName = "base-no-autofix.js";
 
     markdownOutput += getMarkdownTableRow(
@@ -340,8 +346,56 @@ function getTypeScriptESLintMarkdownSection(): string {
     }
 
     const ruleURL = "https://typescript-eslint.io/rules/__RULE_NAME__/";
-    const baseJSText = BASE_TYPESCRIPT_ESLINT_RULES_JS;
+    const baseJSText = BASE_TYPESCRIPT_ESLINT_JS;
     const sourceFileName = "base-typescript-eslint.js";
+
+    markdownOutput += getMarkdownTableRow(
+      ruleName,
+      rule,
+      ruleURL,
+      baseJSText,
+      sourceFileName,
+    );
+  }
+
+  return markdownOutput;
+}
+
+function getCommentsMarkdownSection(): string {
+  let markdownOutput = getMarkdownHeader(
+    "`eslint-plugin-eslint-comments` Rules",
+    "https://github.com/mysticatea/eslint-plugin-eslint-comments",
+  );
+
+  const baseCommentsRules = baseCommentsConfig.rules;
+  if (baseCommentsRules === undefined) {
+    throw new Error(
+      "Failed to parse the `eslint-config-eslint-comments` rules.",
+    );
+  }
+
+  // First, audit the config to ensure that we have an entry for each rule.
+  const allESLintRuleNames = Object.keys(ESLintPluginESLintComments.rules);
+  for (const ruleName of allESLintRuleNames) {
+    const baseRuleEntry = baseCommentsRules[`eslint-comments/${ruleName}`];
+    if (baseRuleEntry === undefined) {
+      throw new Error(
+        `Failed to find an entry for "eslint-plugin-eslint-comments" rule: ${ruleName}`,
+      );
+    }
+  }
+
+  const alphabeticalRuleNames = Object.keys(baseCommentsRules).sort();
+  for (const ruleName of alphabeticalRuleNames) {
+    const rule = baseCommentsRules[ruleName];
+    if (rule === undefined) {
+      throw new Error(`Failed to find rule: ${ruleName}`);
+    }
+
+    const ruleURL =
+      "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md";
+    const baseJSText = BASE_COMMENTS_RULES_JS;
+    const sourceFileName = "base-comments.js";
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
@@ -466,7 +520,7 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
   return parentConfigs;
 }
 
-function getNotes(
+function getRuleComments(
   ruleName: string,
   rule: Linter.RuleEntry,
   baseJSText: string,
@@ -554,10 +608,10 @@ function getMarkdownTableRow(
   const enabled = getRuleEnabled(ruleName, rule);
   const enabledEmoji = enabled ? "✅" : "❌";
   const parentConfigsLinks = getParentConfigsLinks(ruleName);
-  const notes = getNotes(ruleName, rule, baseJSText);
+  const ruleComments = getRuleComments(ruleName, rule, baseJSText);
   const sourceFileLink = `[\`${sourceFileName}\`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/${sourceFileName})`;
 
-  return `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
+  return `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${ruleComments} | ${sourceFileLink}\n`;
 }
 
 function trimCharactersUntilLastCharacter(

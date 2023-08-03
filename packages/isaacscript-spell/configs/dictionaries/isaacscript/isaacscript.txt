@@ -4,6 +4,7 @@ airbnb # Part of the linting config
 APPDATA # Monorepo word
 autocrlf # gitattributes
 autofix # Monorepo word
+Basarat # TypeScript word
 browserslist # Monorepo word
 buildable # Monorepo word
 builtins # ESLint word
@@ -80,6 +81,7 @@ ssmacro # Monorepo word
 sublist # DocSearch Crawler config word
 substr # JavaScript word
 svgr # Monorepo word
+Syed # TypeScript word
 syncer # Monorepo word
 syncpack # Monorepo word
 technote # ci.yml

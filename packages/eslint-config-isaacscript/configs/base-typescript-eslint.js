@@ -337,16 +337,18 @@ const EXTENSION_RULES = {
   "@typescript-eslint/space-infix-ops": "off", // eslint-config-prettier
 };
 
-/**
- * This config only contains rules from `@typescript-eslint` plugin.
- *
- * @type {import("eslint").Linter.Config}
- */
+/** @type {import("eslint").Linter.Config} */
 const config = {
   // From:
   // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/base.ts
   parser: "@typescript-eslint/parser",
-  parserOptions: { sourceType: "module" },
+  parserOptions: {
+    sourceType: "module",
+
+    // Needed for `eslint-plugin-import` to work properly:
+    // https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
+    ecmaVersion: "latest",
+  },
   plugins: ["@typescript-eslint"],
 
   rules: {
