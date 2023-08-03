@@ -326,7 +326,7 @@ async function getMarkdownRuleSection(
   headerTitle: string,
   pluginURL: string,
   ruleURL: string,
-  pluginImport: unknown,
+  upstreamImport: unknown,
 ): Promise<string> {
   let markdownOutput = getMarkdownHeader(headerTitle, pluginURL);
 
@@ -361,7 +361,7 @@ async function getMarkdownRuleSection(
   }
 
   const baseRules = rules as Record<string, unknown>;
-  auditBaseConfigRules(configName, pluginImport, baseRules);
+  auditBaseConfigRules(configName, upstreamImport, baseRules);
 
   const alphabeticalRuleNames = Object.keys(baseRules).sort();
   for (const ruleName of alphabeticalRuleNames) {
@@ -390,14 +390,14 @@ async function getMarkdownRuleSection(
  */
 function auditBaseConfigRules(
   configName: string,
-  pluginImport: unknown,
+  upstreamImport: unknown,
   baseRules: Record<string, unknown>,
 ) {
-  if (pluginImport === undefined) {
+  if (upstreamImport === undefined) {
     return;
   }
 
-  const allRules = getAllRulesForConfig(configName, pluginImport);
+  const allRules = getAllRulesFromImport(configName, upstreamImport);
   const allRuleNames = Object.keys(allRules);
 
   for (const ruleName of allRuleNames) {
@@ -412,26 +412,26 @@ function auditBaseConfigRules(
   }
 }
 
-function getAllRulesForConfig(
+function getAllRulesFromImport(
   configName: string,
-  pluginImport: unknown,
+  upstreamImport: unknown,
 ): Record<string, unknown> {
   // The core ESLint rules are a special case.
   if (configName === "eslint") {
-    return getAllRulesForCoreESLintConfig(configName, pluginImport);
+    return getAllRulesForCoreESLintConfig(configName, upstreamImport);
   }
 
-  if (typeof pluginImport !== "object" || pluginImport === null) {
+  if (typeof upstreamImport !== "object" || upstreamImport === null) {
     throw new Error(`Failed to parse the import for: ${configName}`);
   }
 
-  if (!("rules" in pluginImport)) {
+  if (!("rules" in upstreamImport)) {
     throw new Error(
       `Failed to find the rules in the import for: ${configName}`,
     );
   }
 
-  const { rules } = pluginImport;
+  const { rules } = upstreamImport;
   if (typeof rules !== "object" || rules === null) {
     throw new Error(`Failed to parse the import rules for: ${configName}`);
   }
@@ -441,17 +441,17 @@ function getAllRulesForConfig(
 
 function getAllRulesForCoreESLintConfig(
   configName: string,
-  pluginImport: unknown,
+  upstreamImport: unknown,
 ): Record<string, unknown> {
-  if (typeof pluginImport !== "object" || pluginImport === null) {
+  if (typeof upstreamImport !== "object" || upstreamImport === null) {
     throw new Error(`Failed to parse the import for: ${configName}`);
   }
 
-  if (!("configs" in pluginImport)) {
+  if (!("configs" in upstreamImport)) {
     throw new Error(`Failed to find the configs for: ${configName}`);
   }
 
-  const { configs } = pluginImport;
+  const { configs } = upstreamImport;
   if (typeof configs !== "object" || configs === null) {
     throw new Error(`Failed to parse the configs for: ${configName}`);
   }
