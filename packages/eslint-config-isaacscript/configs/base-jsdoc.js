@@ -5,27 +5,25 @@
  * @type {import("eslint").Linter.Config}
  */
 const config = {
-  // Instead of using the recommended config, we specifically turn on every rule that is useful.
   plugins: ["jsdoc"],
 
-  // https://github.com/gajus/eslint-plugin-jsdoc#rules
   // - We must specify `contexts: ["any"]` for some rules because by default, only a subset of AST
   //   node types will be affected.
-  // - An `[X]` indicates that the rule is not explicitly not enabled for a particular reason.
   rules: {
-    // [X] "jsdoc/check-access" is not enabled because it is not needed in TypeScript.
+    /** Disabled because it is not needed in TypeScript. */
+    "jsdoc/check-access": "off",
 
-    // [X] "jsdoc/check-alignment" is not enabled because it overlaps with
-    // `isaacscript/limit-jsdoc-comments`.
+    /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+    "jsdoc/check-alignment": "off",
 
-    // [X] "jsdoc/check-examples" is not enabled since it does not work with ESLint 8:
-    // https://github.com/eslint/eslint/issues/14745
+    /** Disabled since it [does not work with ESLint 8](https://github.com/eslint/eslint/issues/14745). */
+    "jsdoc/check-examples": "off",
 
-    // [X] "jsdoc/check-indentation" is not enabled since it overlaps with
-    // `isaacscript/limit-jsdoc-comments`.
+    /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+    "jsdoc/check-indentation": "off",
 
-    // [X] "jsdoc/check-line-alignment" is not enabled because this is not a common formatting
-    // scheme in the wild. It is also not recommended by the plugin.
+    /** Disabled since this is not a common formatting scheme. It is also not recommended by the plugin authors. */
+    "jsdoc/check-line-alignment": "off",
 
     /**
      * Documentation:
@@ -35,9 +33,11 @@ const config = {
      */
     "jsdoc/check-param-names": "error",
 
-    // [X] "jsdoc/check-property-names" is not enabled because it is not needed in TypeScript.
+    /** Disabled because it is not needed in TypeScript. */
+    "jsdoc/check-property-names": "off",
 
-    // [X] "jsdoc/check-syntax" is not enabled because it is not needed in TypeScript.
+    /** Disabled because it is not needed in TypeScript. */
+    "jsdoc/check-syntax": "off",
 
     /**
      * Documentation:
@@ -78,7 +78,8 @@ const config = {
       },
     ],
 
-    // [X] "jsdoc/check-types" is not enabled because it is not needed in TypeScript.
+    /** Disabled because it is not needed in TypeScript. */
+    "jsdoc/check-types": "off",
 
     /**
      * Documentation:
@@ -104,8 +105,8 @@ const config = {
      */
     "jsdoc/implements-on-classes": "error",
 
-    // [X] "jsdoc/match-description" is not enabled because it overlaps with
-    // `isaacscript/jsdoc-full-sentences`.
+    /** Superseded by the `isaacscript/jsdoc-full-sentences` rule. */
+    "jsdoc/match-description": "off",
 
     // [X] "jsdoc/match-name" is not enabled because it is only needed for projects with specific
     // JSDoc requirements.

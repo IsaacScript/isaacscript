@@ -89,7 +89,7 @@ const STATIC_ANALYSIS = {
 
   /**
    * Disabled because this is [already handled by the TypeScript
-   * compiler](https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js).
+   * compiler](https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js).
    */
   "import/named": "off",
 
@@ -192,6 +192,10 @@ const STYLE_GUIDE = {
  */
 const config = {
   plugins: ["import"],
+
+  // Load TypeScript-specific configuration:
+  // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
+  extends: ["plugin:import/typescript"],
 
   rules: {
     ...HELPFUL_WARNINGS,
