@@ -363,7 +363,7 @@ export function getRoomShapeAdjacentGridIndexDeltas(
  *
  * @param safeRoomGridIndex This must be the room safe grid index (i.e. the top-left room grid index
  *                          for the respective room).
- * @param roomShape The shape of the room.
+ * @param roomShape The shape of the hypothetical room.
  * @returns A map of `DoorSlot` to the corresponding room grid index.
  */
 export function getRoomShapeAdjacentGridIndexes(

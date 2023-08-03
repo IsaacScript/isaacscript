@@ -9,8 +9,6 @@ import extractComments from "extract-comments";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import baseESLintConfig from "../configs/base-eslint.js";
-import baseNoAutoFixConfig from "../configs/base-no-autofix.js";
 import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
 
 type ParentConfig =
@@ -71,15 +69,6 @@ const README_PATH = path.join(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH, "README.md");
 // -------------------------------------------------------------------------------------------------
 
 const BASE_CONFIGS_PATH = path.join(__dirname, "..", "configs");
-
-const BASE_ESLINT_JS_PATH = path.join(BASE_CONFIGS_PATH, "base-eslint.js");
-const BASE_ESLINT_JS = fs.readFileSync(BASE_ESLINT_JS_PATH, "utf8");
-
-const BASE_NO_AUTOFIX_JS_PATH = path.join(
-  BASE_CONFIGS_PATH,
-  "base-no-autofix.js",
-);
-const BASE_NO_AUTOFIX_JS = fs.readFileSync(BASE_NO_AUTOFIX_JS_PATH, "utf8");
 
 const BASE_TYPESCRIPT_ESLINT_JS_PATH = path.join(
   BASE_CONFIGS_PATH,
@@ -232,23 +221,39 @@ main().catch((err) => {
 async function main() {
   let markdownOutput = MARKDOWN_HEADER;
 
-  markdownOutput += getESLintMarkdownSection();
-  markdownOutput += getNoAutoFixMarkdownSection();
+  markdownOutput += await getMarkdownRuleSection(
+    "eslint",
+    "Core ESLint Rules",
+    "https://eslint.org/docs/latest/rules/",
+    "https://eslint.org/docs/latest/rules/__RULE_NAME__",
+    ESLintJS,
+  );
+  markdownOutput += await getMarkdownRuleSection(
+    "no-autofix",
+    getPluginHeaderTitle("no-autofix"),
+    "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
+    // This plugin does not have individual documentation pages for each rule.
+    "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
+    undefined,
+  );
   markdownOutput += getTypeScriptESLintMarkdownSection();
-  markdownOutput += await getPluginMarkdownSection(
+  markdownOutput += await getMarkdownRuleSection(
     "eslint-comments",
+    getPluginHeaderTitle("eslint-comments"),
     "https://github.com/mysticatea/eslint-plugin-eslint-comments",
     "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md",
     ESLintPluginESLintComments,
   );
-  markdownOutput += await getPluginMarkdownSection(
+  markdownOutput += await getMarkdownRuleSection(
     "import",
+    getPluginHeaderTitle("import"),
     "https://github.com/import-js/eslint-plugin-import",
     "https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/__RULE_NAME__.md",
     ESLintPluginImport,
   );
-  markdownOutput += await getPluginMarkdownSection(
+  markdownOutput += await getMarkdownRuleSection(
     "jsdoc",
+    getPluginHeaderTitle("jsdoc"),
     "https://github.com/gajus/eslint-plugin-jsdoc",
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/__RULE_NAME__.md",
     ESLintPluginJSDoc,
@@ -262,87 +267,8 @@ async function main() {
   console.log(`Successfully created: ${README_PATH}`);
 }
 
-function getESLintMarkdownSection(): string {
-  let markdownOutput = getMarkdownHeader(
-    "Core ESLint Rules",
-    "https://eslint.org/docs/latest/rules/",
-  );
-
-  const baseRules = baseESLintConfig.rules;
-  if (baseRules === undefined) {
-    throw new Error("Failed to parse the base rules.");
-  }
-
-  // First, audit the config to ensure that we have an entry for each rule.
-  const allRuleNames = Object.keys(ESLintJS.configs.all.rules);
-  for (const ruleName of allRuleNames) {
-    const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(
-        `Failed to find an entry for core ESLint rule: ${ruleName}`,
-      );
-    }
-  }
-
-  const alphabeticalRuleNames = Object.keys(baseRules).sort();
-  for (const ruleName of alphabeticalRuleNames) {
-    const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(`Failed to find rule: ${ruleName}`);
-    }
-
-    const ruleURL = "https://eslint.org/docs/latest/rules/__RULE_NAME__";
-    const baseJSText = BASE_ESLINT_JS;
-    const sourceFileName = "base-eslint.js";
-
-    markdownOutput += getMarkdownTableRow(
-      ruleName,
-      rule,
-      ruleURL,
-      baseJSText,
-      sourceFileName,
-    );
-  }
-
-  return markdownOutput;
-}
-
-function getNoAutoFixMarkdownSection(): string {
-  let markdownOutput = getMarkdownHeader(
-    "`eslint-plugin-no-autofix` Rules",
-    "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
-  );
-
-  const baseRules = baseNoAutoFixConfig.rules;
-  if (baseRules === undefined) {
-    throw new Error("Failed to parse the base rules.");
-  }
-
-  // There is no audit for this plugin.
-
-  const alphabeticalRuleNames = Object.keys(baseRules).sort();
-  for (const ruleName of alphabeticalRuleNames) {
-    const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(`Failed to find rule: ${ruleName}`);
-    }
-
-    // This plugin does not have individual pages for each rule.
-    const ruleURL =
-      "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix";
-    const baseJSText = BASE_NO_AUTOFIX_JS;
-    const sourceFileName = "base-no-autofix.js";
-
-    markdownOutput += getMarkdownTableRow(
-      ruleName,
-      rule,
-      ruleURL,
-      baseJSText,
-      sourceFileName,
-    );
-  }
-
-  return markdownOutput;
+function getPluginHeaderTitle(pluginName: string) {
+  return `\`eslint-plugin-${pluginName}\` Rules`;
 }
 
 function getTypeScriptESLintMarkdownSection(): string {
@@ -395,52 +321,47 @@ function getTypeScriptESLintMarkdownSection(): string {
   return markdownOutput;
 }
 
-async function getPluginMarkdownSection(
-  pluginName: string,
+async function getMarkdownRuleSection(
+  configName: string,
+  headerTitle: string,
   pluginURL: string,
   ruleURL: string,
-  pluginImport?: unknown,
+  pluginImport: unknown,
 ): Promise<string> {
-  let markdownOutput = getMarkdownHeader(
-    `\`eslint-plugin-${pluginName}\` Rules`,
-    pluginURL,
-  );
+  let markdownOutput = getMarkdownHeader(headerTitle, pluginURL);
 
-  const basePluginConfigPath = `../configs/base-${pluginName}.js`;
-  const basePluginConfig = (await import(basePluginConfigPath)) as unknown;
+  const baseConfigFileName = `base-${configName}.js`;
+  const baseConfigPath = `../configs/${baseConfigFileName}`;
+  const baseConfig = (await import(baseConfigPath)) as unknown;
 
-  if (typeof basePluginConfig !== "object" || basePluginConfig === null) {
-    throw new Error(`Failed to parse the base config: ${basePluginConfigPath}`);
+  if (typeof baseConfig !== "object" || baseConfig === null) {
+    throw new Error(`Failed to parse the base config: ${baseConfigPath}`);
   }
 
-  if (!("default" in basePluginConfig)) {
+  if (!("default" in baseConfig)) {
     throw new Error(
-      `Failed to find the base config default export: ${basePluginConfigPath}`,
+      `Failed to find the base config default export: ${baseConfigPath}`,
     );
   }
 
-  const defaultExport = basePluginConfig.default;
+  const defaultExport = baseConfig.default;
   if (typeof defaultExport !== "object" || defaultExport === null) {
     throw new Error(
-      `Failed to parse the base config default export: ${basePluginConfigPath}`,
+      `Failed to parse the base config default export: ${baseConfigPath}`,
     );
   }
 
   if (!("rules" in defaultExport)) {
-    throw new Error(
-      `Failed to find the base config rules: ${basePluginConfigPath}`,
-    );
+    throw new Error(`Failed to find the base config rules: ${baseConfigPath}`);
   }
 
   const { rules } = defaultExport;
   if (typeof rules !== "object" || rules === null) {
-    throw new Error(
-      `Failed to parse the base rules in: ${basePluginConfigPath}`,
-    );
+    throw new Error(`Failed to parse the base rules in: ${baseConfigPath}`);
   }
 
   const baseRules = rules as Record<string, unknown>;
-  auditRules(pluginName, pluginImport, baseRules);
+  auditBaseConfigRules(configName, pluginImport, baseRules);
 
   const alphabeticalRuleNames = Object.keys(baseRules).sort();
   for (const ruleName of alphabeticalRuleNames) {
@@ -449,25 +370,26 @@ async function getPluginMarkdownSection(
       throw new Error(`Failed to find base rule: ${ruleName}`);
     }
 
-    const sourceFileName = `base-${pluginName}.js`;
-    const baseJSPath = path.join(BASE_CONFIGS_PATH, sourceFileName);
-    const baseJS = fs.readFileSync(baseJSPath, "utf8");
+    const baseConfigText = fs.readFileSync(baseConfigPath, "utf8");
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
       rule as Linter.RuleEntry,
       ruleURL,
-      baseJS,
-      sourceFileName,
+      baseConfigText,
+      baseConfigFileName,
     );
   }
 
   return markdownOutput;
 }
 
-/** Audit the base config to ensure that we have an entry for each rule in the upstream plugin. */
-function auditRules(
-  pluginName: string,
+/**
+ * Audit the base config to ensure that we have an entry for each rule corresponding to the upstream
+ * code.
+ */
+function auditBaseConfigRules(
+  configName: string,
   pluginImport: unknown,
   baseRules: Record<string, unknown>,
 ) {
@@ -475,26 +397,12 @@ function auditRules(
     return;
   }
 
-  if (typeof pluginImport !== "object" || pluginImport === null) {
-    throw new Error(`Failed to parse the plugin import for: ${pluginName}`);
-  }
-
-  if (!("rules" in pluginImport)) {
-    throw new Error(
-      `Failed to find the rules in the plugin import for: ${pluginName}`,
-    );
-  }
-
-  const allRules = pluginImport.rules;
-  if (typeof allRules !== "object" || allRules === null) {
-    throw new Error(
-      `Failed to parse the plugin import rules for: ${pluginName}`,
-    );
-  }
-
+  const allRules = getAllRulesForConfig(configName, pluginImport);
   const allRuleNames = Object.keys(allRules);
+
   for (const ruleName of allRuleNames) {
-    const fullRuleName = `${pluginName}/${ruleName}`;
+    const fullRuleName =
+      configName === "eslint" ? ruleName : `${configName}/${ruleName}`;
     const rule = baseRules[fullRuleName];
     if (rule === undefined) {
       throw new Error(
@@ -502,6 +410,75 @@ function auditRules(
       );
     }
   }
+}
+
+function getAllRulesForConfig(
+  configName: string,
+  pluginImport: unknown,
+): Record<string, unknown> {
+  // The core ESLint rules are a special case.
+  if (configName === "eslint") {
+    return getAllRulesForCoreESLintConfig(configName, pluginImport);
+  }
+
+  if (typeof pluginImport !== "object" || pluginImport === null) {
+    throw new Error(`Failed to parse the import for: ${configName}`);
+  }
+
+  if (!("rules" in pluginImport)) {
+    throw new Error(
+      `Failed to find the rules in the import for: ${configName}`,
+    );
+  }
+
+  const { rules } = pluginImport;
+  if (typeof rules !== "object" || rules === null) {
+    throw new Error(`Failed to parse the import rules for: ${configName}`);
+  }
+
+  return rules as Record<string, unknown>;
+}
+
+function getAllRulesForCoreESLintConfig(
+  configName: string,
+  pluginImport: unknown,
+): Record<string, unknown> {
+  if (typeof pluginImport !== "object" || pluginImport === null) {
+    throw new Error(`Failed to parse the import for: ${configName}`);
+  }
+
+  if (!("configs" in pluginImport)) {
+    throw new Error(`Failed to find the configs for: ${configName}`);
+  }
+
+  const { configs } = pluginImport;
+  if (typeof configs !== "object" || configs === null) {
+    throw new Error(`Failed to parse the configs for: ${configName}`);
+  }
+
+  if (!("all" in configs)) {
+    throw new Error(`Failed to find the "all" config for: ${configName}`);
+  }
+
+  const { all } = configs;
+  if (typeof all !== "object" || all === null) {
+    throw new Error(`Failed to parse the "all" configs for: ${configName}`);
+  }
+
+  if (!("rules" in all)) {
+    throw new Error(
+      `Failed to find the rules in the "all" config for: ${configName}`,
+    );
+  }
+
+  const { rules } = all;
+  if (typeof rules !== "object" || rules === null) {
+    throw new Error(
+      `Failed to parse the "all" config rules for: ${configName}`,
+    );
+  }
+
+  return rules as Record<string, unknown>;
 }
 
 function getMarkdownHeader(headerTitle: string, headerLink: string): string {
@@ -712,8 +689,8 @@ function getMarkdownTableRow(
   ruleName: string,
   rule: Linter.RuleEntry,
   ruleURL: string,
-  baseJS: string,
-  sourceFileName: string,
+  baseConfigText: string,
+  baseConfigFileName: string,
 ): string {
   const baseRuleName = trimCharactersUntilLastCharacter(ruleName, "/");
   const filledRuleURL = ruleURL.replace("__RULE_NAME__", baseRuleName);
@@ -721,8 +698,8 @@ function getMarkdownTableRow(
   const enabled = getRuleEnabled(ruleName, rule);
   const enabledEmoji = enabled ? "✅" : "❌";
   const parentConfigsLinks = getParentConfigsLinks(ruleName);
-  const ruleComments = getRuleComments(ruleName, rule, baseJS);
-  const sourceFileLink = `[\`${sourceFileName}\`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/${sourceFileName})`;
+  const ruleComments = getRuleComments(ruleName, rule, baseConfigText);
+  const sourceFileLink = `[\`${baseConfigFileName}\`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/${baseConfigFileName})`;
 
   return `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${ruleComments} | ${sourceFileLink}\n`;
 }
