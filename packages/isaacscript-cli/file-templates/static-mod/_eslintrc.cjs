@@ -9,9 +9,6 @@ const config = {
     "eslint-config-isaacscript/mod",
   ],
 
-  // The ".prettierrc.cjs" file is ignored by default, so we have to un-ignore it.
-  ignorePatterns: ["!.prettierrc.cjs"],
-
   parserOptions: {
     // ESLint needs to know about the project's TypeScript settings in order for TypeScript-specific
     // things to lint correctly. We do not point this at "./tsconfig.json" because certain files

@@ -2726,7 +2726,7 @@ You can still use `null` in your own variables, but make sure that it is for var
 - The linter meta-package now includes `cspell` so that you can spell check from command-line and/or CI.
 - `isaacscript init` will now create the following additional files:
   - `ci.yml` - for GitHub Actions
-  - `.prettierrc.cjs` - to ensure trailing commas and LF line endings
+  - `prettier.config.mjs` - to ensure trailing commas and LF line endings
   - `build.sh` - helper script to compile the project (used in CI)
   - `lint.sh` - helper script to lint and spell check the project (used in CI)
   - `publish.sh` - helper script to run `npx isaacscript publish`

@@ -119,14 +119,6 @@ This contains a list of files that should not be automatically formatted. By def
 
 <br />
 
-### `.prettierrc.cjs`
-
-This is the configuration file for Prettier.
-
-If you need to modify a specific option of Prettier, you can edit this file.
-
-<br />
-
 ### `build.sh`
 
 This is a helper script to compile the project. (It is also used in CI.)
@@ -189,6 +181,14 @@ IsaacScript projects start with some dependencies by default: <!-- This correspo
 This is a lock file for [npm](https://www.npmjs.com/), the Node package manager.
 
 You are not supposed to edit this file; just leave it in place so that `npm` can function correctly.
+
+<br />
+
+### `prettier.config.mjs`
+
+This is the configuration file for Prettier.
+
+If you need to modify a specific option of Prettier, you can edit this file.
 
 <br />
 
