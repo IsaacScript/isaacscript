@@ -238,7 +238,8 @@ export function logNewGlobals(): void {
   if (newGlobals.length === 0) {
     log("- n/a (no extra global variables found)");
   } else {
-    for (const [i, [key, value]] of newGlobals.entries()) {
+    for (const [i, tuple] of newGlobals.entries()) {
+      const [key, value] = tuple;
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`${i + 1}) ${key} - ${value}`);
     }

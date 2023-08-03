@@ -179,6 +179,7 @@ export function pocketItemsEquals(
     return false;
   }
 
+  // eslint-disable-next-line unicorn/no-for-loop
   for (let i = 0; i < pocketItems1.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const pocketItem1 = pocketItems1[i]!;

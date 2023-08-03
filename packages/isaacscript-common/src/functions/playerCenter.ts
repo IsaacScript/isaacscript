@@ -48,11 +48,9 @@ export function movePlayersToCenter(radius: float = 10): void {
     Direction.LEFT,
   );
 
-  for (let i = 0; i < players.length; i++) {
-    const player = players[i];
+  for (const [i, player] of players.entries()) {
     const circlePosition = circlePoints[i];
-
-    if (player !== undefined && circlePosition !== undefined) {
+    if (circlePosition !== undefined) {
       player.Position = circlePosition;
     }
   }

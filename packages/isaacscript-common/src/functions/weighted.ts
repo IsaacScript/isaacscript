@@ -44,9 +44,7 @@ export function getRandomIndexFromWeightedArray<T>(
   const randomWeight = getRandomFloat(0, totalWeight, seedOrRNG);
 
   let weightAccumulator = 0;
-  for (let i = 0; i < weightedArray.length; i++) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const tuple = weightedArray[i]!;
+  for (const [i, tuple] of weightedArray.entries()) {
     const [_element, weight] = tuple;
 
     weightAccumulator += weight;
