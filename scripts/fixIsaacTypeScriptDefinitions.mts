@@ -92,9 +92,8 @@ custom_edit_url: null
 ---
 
 # ${title}
-  `
-    .trim()
-    .concat("\n\n");
+
+`.trimStart();
 
   let fileContents = readFile(filePath);
 
