@@ -8,14 +8,55 @@ const config = {
   plugins: ["unicorn"],
 
   rules: {
-    /**
-     * Documentation:
-     * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md
-     *
-     * Not defined in the parent configs.
-     *
-     * Enforce the new "node:" prefix as an extra safety measure.
-     */
+    "unicorn/better-regex": "error",
+    "unicorn/catch-error-name": "error",
+    "unicorn/consistent-destructuring": "error",
+    "unicorn/consistent-function-scoping": "error",
+    "unicorn/custom-error-definition": "error",
+    "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
+    "unicorn/error-message": "error",
+    "unicorn/escape-case": "error",
+    "unicorn/expiring-todo-comments": "error",
+    "unicorn/explicit-length-check": "error",
+    "unicorn/filename-case": "error",
+    "unicorn/import-style": "error",
+
+    /*
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
+    "unicorn/no-nested-ternary": "error", // eslint-config-prettier
+
+    /*
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
+    "unicorn/number-literal-case": "off", // eslint-config-prettier
+
+    /*
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
     "unicorn/prefer-node-protocol": "error",
   },
 };

@@ -516,7 +516,7 @@ const SUGGESTIONS = {
   "no-var": "error",
   "no-void": "error",
 
-  /** Disabled enabled since the predefined terms are project-specific. */
+  /** Superseded by the `unicorn/expiring-todo-comments` rule. */
   "no-warning-comments": "off",
 
   "no-with": "error",
