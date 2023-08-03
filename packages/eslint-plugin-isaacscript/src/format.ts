@@ -372,5 +372,5 @@ function stringContainsOnlyWhitespace(string: string) {
  * word, even if it has spaces inside of it.
  */
 function getWordsFromLine(line: string): string[] {
-  return line.match(/(?:\{@link .+?\}|\S)+/g) ?? [];
+  return line.match(/(?:{@link .+?}|\S)+/g) ?? [];
 }

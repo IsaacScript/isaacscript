@@ -17,7 +17,7 @@ interface IncompleteSentence {
  * From:
  * https://stackoverflow.com/questions/23571013/how-to-remove-url-from-a-string-completely-in-javascript
  */
-const FULL_URL_REGEX = /(?:https?|ftp):\/\/[\n\S]+/g;
+const FULL_URL_REGEX = /(?:https?|ftp):\/\/[\S\n]+/g;
 
 /**
  * From:
@@ -74,26 +74,26 @@ function splitOnSpecialText(text: string): string[] {
   // subsequent text to be considered to be part of the previous sentence.
 
   // Remove multi-line code blocks.
-  text = text.replaceAll(/```[\s\S]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
+  text = text.replaceAll(/```[\S\s]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
 
   // Remove example tag blocks. An example tag might be followed by another tag, so first look for
   // that situation. Then, handle the situation where the example tag is the final tag.
   text = text.replaceAll(
     // We use `[\s\S]` instead of `.` because the latter does not match a new line.
-    /@example[\s\S]*?@/gm,
+    /@example[\S\s]*?@/gm,
     `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
   );
-  text = text.replaceAll(/@example[\s\S]*/gm, "");
+  text = text.replaceAll(/@example[\S\s]*/gm, "");
 
   // Remove see tag blocks. A see tag might be followed by another tag, so first look for that
   // situation. Then, handle the situation where the see tag is the final tag. (This is copy-pasted
   // from the code that handles example tags above.)
   text = text.replaceAll(
     // We use `[\s\S]` instead of `.` because the latter does not match a new line.
-    /@see[\s\S]*?@/gm,
+    /@see[\S\s]*?@/gm,
     `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
   );
-  text = text.replaceAll(/@see[\s\S]*/gm, "");
+  text = text.replaceAll(/@see[\S\s]*/gm, "");
 
   // Replace the link tags with the link text. Note that if we replace them with a sentence
   // separator instead, then the following sentence would fail: Get the name of a peripheral wrapped
@@ -102,7 +102,7 @@ function splitOnSpecialText(text: string): string[] {
   // https://jsdoc.app/tags-inline-link.html
   text = text.replaceAll(
     // eslint-disable-next-line prefer-named-capture-group
-    /\[([^\]]*)\]\{@link [^} |]+\}|\{@link ([^} |]+)[ |]?\}|\{@link [^} |]+[ |]([^}]+)\}/gm,
+    /\[([^\]]*)]{@link [^ |}]+}|{@link ([^ |}]+)[ |]?}|{@link [^ |}]+[ |]([^}]+)}/gm,
     "$1$2$3",
   );
 
@@ -226,7 +226,7 @@ function getIncompleteSentenceKind(
     // Blank text.
     text === "" ||
     // Sentences that do not contain any letters.
-    !/[a-zA-Z]/.test(text) ||
+    !/[A-Za-z]/.test(text) ||
     // Sentences with an arrow, like: "Alice --> Bob"
     text.includes("-->") ||
     // Placeholder text.

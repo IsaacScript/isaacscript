@@ -10,7 +10,10 @@ const config = {
   rules: {
     "unicorn/better-regex": "error",
     "unicorn/catch-error-name": "error",
-    "unicorn/consistent-destructuring": "error",
+
+    /** Disabled because it has too many false positives. */
+    "unicorn/consistent-destructuring": "off",
+
     "unicorn/consistent-function-scoping": "error",
     "unicorn/custom-error-definition": "error",
     "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
@@ -26,6 +29,14 @@ const config = {
 
     /*
     "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
+    /** Disabled because it is common to prefix variables with "new". */
+    "unicorn/no-keyword-prefix": "off",
+
+    /*
     "unicorn/": "error",
     "unicorn/": "error",
     "unicorn/": "error",
@@ -52,7 +63,15 @@ const config = {
     "unicorn/": "error",
     */
 
-    "unicorn/no-nested-ternary": "error", // eslint-config-prettier
+    "unicorn/no-nested-ternary": "off", // eslint-config-prettier
+
+    /*
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
+    "unicorn/no-unused-properties": "error",
 
     /*
     "unicorn/": "error",

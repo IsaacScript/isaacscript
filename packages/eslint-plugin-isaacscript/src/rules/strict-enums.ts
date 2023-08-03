@@ -111,33 +111,6 @@ export const strictEnums = createRule<Options, MessageIds>({
       return new Set(baseEnumSubTypes);
     }
 
-    /** Given a set A and set B, return a set that contains only elements that are in both sets. */
-    function getIntersectingSet<T>(a: Set<T>, b: Set<T>): ReadonlySet<T> {
-      const intersectingValues = [...a.values()].filter((value) =>
-        b.has(value),
-      );
-      return new Set(intersectingValues);
-    }
-
-    /**
-     * From:
-     * https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
-     */
-    function getOrdinalSuffix(i: number): string {
-      const j = i % 10;
-      const k = i % 100;
-      if (j === 1 && k !== 11) {
-        return `${i}st`;
-      }
-      if (j === 2 && k !== 12) {
-        return `${i}nd`;
-      }
-      if (j === 3 && k !== 13) {
-        return `${i}rd`;
-      }
-      return `${i}th`;
-    }
-
     function getTypeFromNode(node: TSESTree.Node): ts.Type {
       const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
       return getTypeFromTSNode(tsNode);
@@ -150,36 +123,6 @@ export const strictEnums = createRule<Options, MessageIds>({
     function hasEnumTypes(type: ts.Type): boolean {
       const enumTypes = getEnumTypes(type);
       return enumTypes.size > 0;
-    }
-
-    function isEnum(type: ts.Type): boolean {
-      /** The "EnumLiteral" flag will be set on both enum base types and enum members/values. */
-      return isTypeFlagSet(type, ts.TypeFlags.EnumLiteral);
-    }
-
-    function isNullOrUndefinedOrAnyOrUnknownOrNever(
-      ...types: ts.Type[]
-    ): boolean {
-      return types.some((type) =>
-        isTypeFlagSet(
-          type,
-          ts.TypeFlags.Null |
-            ts.TypeFlags.Undefined |
-            ts.TypeFlags.Any |
-            ts.TypeFlags.Unknown |
-            ts.TypeFlags.Never,
-        ),
-      );
-    }
-
-    function setHasAnyElementFromSet<T>(set1: Set<T>, set2: Set<T>): boolean {
-      for (const value of set2) {
-        if (set1.has(value)) {
-          return true;
-        }
-      }
-
-      return false;
     }
 
     // --------------
@@ -556,3 +499,56 @@ export const strictEnums = createRule<Options, MessageIds>({
     };
   },
 });
+
+/** Given a set A and set B, return a set that contains only elements that are in both sets. */
+function getIntersectingSet<T>(a: Set<T>, b: Set<T>): ReadonlySet<T> {
+  const intersectingValues = [...a.values()].filter((value) => b.has(value));
+  return new Set(intersectingValues);
+}
+
+/**
+ * From:
+ * https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
+ */
+function getOrdinalSuffix(i: number): string {
+  const j = i % 10;
+  const k = i % 100;
+  if (j === 1 && k !== 11) {
+    return `${i}st`;
+  }
+  if (j === 2 && k !== 12) {
+    return `${i}nd`;
+  }
+  if (j === 3 && k !== 13) {
+    return `${i}rd`;
+  }
+  return `${i}th`;
+}
+
+function isEnum(type: ts.Type): boolean {
+  /** The "EnumLiteral" flag will be set on both enum base types and enum members/values. */
+  return isTypeFlagSet(type, ts.TypeFlags.EnumLiteral);
+}
+
+function isNullOrUndefinedOrAnyOrUnknownOrNever(...types: ts.Type[]): boolean {
+  return types.some((type) =>
+    isTypeFlagSet(
+      type,
+      ts.TypeFlags.Null |
+        ts.TypeFlags.Undefined |
+        ts.TypeFlags.Any |
+        ts.TypeFlags.Unknown |
+        ts.TypeFlags.Never,
+    ),
+  );
+}
+
+function setHasAnyElementFromSet<T>(set1: Set<T>, set2: Set<T>): boolean {
+  for (const value of set2) {
+    if (set1.has(value)) {
+      return true;
+    }
+  }
+
+  return false;
+}

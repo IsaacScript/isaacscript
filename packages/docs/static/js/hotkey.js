@@ -83,7 +83,7 @@ function isOnFirstDocPage() {
 
 function isOnLandingPage() {
   const titles = document.getElementsByClassName("hero__title");
-  return titles.length >= 1;
+  return titles.length > 0;
 }
 
 function clickOnNavBarTitle() {

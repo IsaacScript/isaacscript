@@ -300,7 +300,11 @@ const SUGGESTIONS = {
   /** Superseded by the `unicorn/no-negated-condition` rule. */
   "no-negated-condition": "off",
 
+  /**
+   * `unicorn/no-nested-ternary` is a modified version of this rule but that version is less strict.
+   */
   "no-nested-ternary": "error",
+
   "no-new": "error",
   "no-new-func": "error",
   "no-new-object": "error",

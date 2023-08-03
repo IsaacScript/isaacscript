@@ -3,7 +3,7 @@ import { parseIntSafe } from "./utils.mjs";
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
   // eslint-disable-next-line prefer-named-capture-group
-  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
+  /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
 
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {
