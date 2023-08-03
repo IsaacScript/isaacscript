@@ -488,20 +488,22 @@ export function logTableDifferences<K extends AnyNotNil, V>(
   keys.sort();
 
   for (const key of keys) {
-    if (!table1KeysSet.has(key)) {
+    const value1 = table1.get(key);
+    const value2 = table2.get(key);
+
+    if (value1 === undefined) {
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Table 1 is missing key: ${key}`);
-    } else if (table2KeysSet.has(key)) {
-      const value1 = table1.get(key);
+    }
 
-      const value2 = table2.get(key);
-      if (value1 !== value2) {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        log(`  ${key} --> "${value1}" versus "${value2}"`);
-      }
-    } else {
+    if (value2 === undefined) {
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Table 2 is missing key: ${key}`);
+    }
+
+    if (value1 !== value2) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      log(`  ${key} --> "${value1}" versus "${value2}"`);
     }
   }
 }
