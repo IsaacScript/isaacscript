@@ -34,24 +34,24 @@ export function getIncompleteSentences(text: string): IncompleteSentence[] {
   const incompleteSentences: IncompleteSentence[] = [];
 
   const textBlocks = splitOnSpecialText(text);
-  textBlocks.forEach((textBlock) => {
+  for (const textBlock of textBlocks) {
     // Handle text that "spills over" to the next line by simply converting all newlines to spaces.
     const squishedText = textBlock.split("\n").join(" ").trim();
 
     // Handling all edge cases for "e.g." or "i.e." is very difficult, since sometimes it is correct
     // to put a period after them, and sometimes not. Thus, ignore all text that contains them.
     if (squishedText.includes("e.g.") || squishedText.includes("i.e.")) {
-      return;
+      continue;
     }
 
     // Whitelist markdown links.
     if (squishedText.endsWith("](")) {
-      return;
+      continue;
     }
 
     const sentences = getSentences(squishedText);
     const loneSentence = sentences.length === 1;
-    sentences.forEach((sentence) => {
+    for (const sentence of sentences) {
       const messageId = getIncompleteSentenceKind(sentence, loneSentence);
       if (messageId !== undefined) {
         incompleteSentences.push({
@@ -59,8 +59,8 @@ export function getIncompleteSentences(text: string): IncompleteSentence[] {
           messageId,
         });
       }
-    });
-  });
+    }
+  }
 
   return incompleteSentences;
 }

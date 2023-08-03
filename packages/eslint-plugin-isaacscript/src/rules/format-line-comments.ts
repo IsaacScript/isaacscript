@@ -68,7 +68,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
     // Sort the comments by blocks.
     const commentBlocks = getCommentBlocks(leadingLineComments);
 
-    commentBlocks.forEach((commentBlock) => {
+    for (const commentBlock of commentBlocks) {
       const firstComment = commentBlock.originalComments.at(0);
       if (firstComment === undefined) {
         throw new Error("Failed to get the first comment.");
@@ -129,7 +129,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
           },
         });
       }
-    });
+    }
 
     return {};
   },

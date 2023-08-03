@@ -40,10 +40,11 @@ export const completeSentencesJSDoc = createRule<
     // We only look at `/**` style comments.
     const jsDocComments = getJSDocComments(comments);
 
-    jsDocComments.forEach((comment) => {
+    for (const comment of jsDocComments) {
       const text = getTextFromJSDocComment(comment.value);
       const incompleteSentences = getIncompleteSentences(text);
-      incompleteSentences.forEach((incompleteSentence) => {
+
+      for (const incompleteSentence of incompleteSentences) {
         context.report({
           loc: {
             start: comment.loc.start,
@@ -54,8 +55,8 @@ export const completeSentencesJSDoc = createRule<
             sentence: incompleteSentence.sentence,
           },
         });
-      });
-    });
+      }
+    }
 
     return {};
   },

@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-array-push-push */
+
 import type { TSESLint } from "@typescript-eslint/utils";
 import type { MessageIds, Options } from "../../src/rules/strict-enums";
 import { strictEnums } from "../../src/rules/strict-enums";

@@ -523,14 +523,14 @@ export class CustomTrapdoors extends Feature {
     player.PlayExtraAnimation("Trapdoor");
 
     const otherPlayers = getOtherPlayers(player);
-    otherPlayers.forEach((otherPlayer, i) => {
+    for (const [i, otherPlayer] of otherPlayers.entries()) {
       const gameFramesToWaitBeforeJumping =
         OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES * (i + 1);
       const otherPlayerPtr = EntityPtr(otherPlayer);
       this.runInNFrames.runInNGameFrames(() => {
         this.startDelayedJump(otherPlayerPtr, gridEntity.Position);
       }, gameFramesToWaitBeforeJumping);
-    });
+    }
   }
 
   private startDelayedJump(entityPtr: EntityPtr, trapdoorPosition: Vector) {

@@ -33,18 +33,18 @@ function getRuleNames(): string[] {
 function getRulesCode(ruleNames: string[]) {
   let text = "";
 
-  ruleNames.forEach((ruleName) => {
+  for (const ruleName of ruleNames) {
     const camelCaseRuleName = getCamelCaseRuleName(ruleName);
     text += `import { ${camelCaseRuleName} } from "./rules/${ruleName}";\n`;
-  });
+  }
 
   text += "\n";
   text += "export const rules = {\n";
 
-  ruleNames.forEach((ruleName) => {
+  for (const ruleName of ruleNames) {
     const camelCaseRuleName = getCamelCaseRuleName(ruleName);
     text += `  "${ruleName}": ${camelCaseRuleName},\n`;
-  });
+  }
 
   text += "};\n";
 

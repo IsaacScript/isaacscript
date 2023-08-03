@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-array-callback-reference */
+
 /**
  * These are a collection of functions for non-TypeScript users so that they can access some of
  * useful methods offered on the `Array` class in the JavaScript standard library.
@@ -55,7 +57,7 @@ export function forEach<T>(
   array: T[],
   func: (value: T, index: number, array: T[]) => void,
 ): void {
-  array.forEach(func);
+  array.forEach(func); // eslint-disable-line unicorn/no-array-for-each
 }
 
 /**

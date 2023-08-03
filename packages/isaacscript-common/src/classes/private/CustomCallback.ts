@@ -102,9 +102,9 @@ export abstract class CustomCallback<
     if (this.subscriptions.length === 0) {
       log("- n/a (no subscriptions)");
     } else {
-      this.subscriptions.forEach((subscription, i) => {
+      for (const [i, subscription] of this.subscriptions.entries()) {
         log(`- ${i + 1} - priority: ${subscription.priority}`);
-      });
+      }
     }
   }
 }

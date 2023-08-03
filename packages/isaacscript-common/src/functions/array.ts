@@ -135,11 +135,11 @@ export function arrayRemoveIndex<T>(
   const indexesToRemoveSet = new ReadonlySet(indexesToRemove);
 
   const array: T[] = [];
-  originalArray.forEach((element, i) => {
+  for (const [i, element] of originalArray.entries()) {
     if (!indexesToRemoveSet.has(i)) {
       array.push(element);
     }
-  });
+  }
 
   return array;
 }

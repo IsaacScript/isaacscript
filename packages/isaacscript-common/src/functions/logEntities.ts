@@ -44,10 +44,11 @@ export function logAllEntities(
 
   const entities = getEntities();
   let numMatchedEntities = 0;
-  entities.forEach((entity, i) => {
+
+  for (const [i, entity] of entities.entries()) {
     // If a filter was specified, exclude all entities outside of the filter.
     if (entityTypeFilter !== undefined && entity.Type !== entityTypeFilter) {
-      return;
+      continue;
     }
 
     const effect = entity.ToEffect();
@@ -56,12 +57,12 @@ export function logAllEntities(
       effect !== undefined &&
       IGNORE_EFFECT_VARIANTS.has(effect.Variant)
     ) {
-      return;
+      continue;
     }
 
     msg += getEntityLogLine(entity, i + 1);
     numMatchedEntities++;
-  });
+  }
 
   if (numMatchedEntities === 0) {
     msg += "(no entities matched)\n";

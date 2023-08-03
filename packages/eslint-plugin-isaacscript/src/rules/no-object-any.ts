@@ -41,7 +41,7 @@ export const noObjectAny = createRule({
         }
 
         const typeArguments = checker.getTypeArguments(type);
-        typeArguments.forEach((typeArgument, i) => {
+        for (const [i, typeArgument] of typeArguments.entries()) {
           if (isAny(typeArgument)) {
             context.report({
               node,
@@ -51,7 +51,7 @@ export const noObjectAny = createRule({
               },
             });
           }
-        });
+        }
       },
     };
   },

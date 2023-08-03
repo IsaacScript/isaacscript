@@ -28,7 +28,7 @@ export const noLetAny = createRule({
           return;
         }
 
-        node.declarations.forEach((declaration) => {
+        for (const declaration of node.declarations) {
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(declaration);
 
           /**
@@ -44,7 +44,7 @@ export const noLetAny = createRule({
               messageId: "noType",
             });
           }
-        });
+        }
       },
     };
   },

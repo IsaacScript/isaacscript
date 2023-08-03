@@ -318,16 +318,11 @@ for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// Or, you can use the "forEach" method.
-gaper.forEach((gaper) => {
-  gaper.Remove();
-});
-
-// If you need the array index, it is passed as the second argument.
-gaper.forEach((gaper, i) => {
+// If you need the array index, use the `entries` method.
+for (const [i, gaper] of gapers.entries()) {
   gaper.Remove();
   print("Removed gaper number:", i);
-});
+}
 ```
 
 <br />

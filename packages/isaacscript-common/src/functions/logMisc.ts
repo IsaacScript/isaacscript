@@ -271,7 +271,7 @@ export function logPlayerEffects(this: void, player: EntityPlayer): void {
     return;
   }
 
-  effects.forEach((effect, i) => {
+  for (const [i, effect] of effects.entries()) {
     let effectDescription: string;
     if (effect.Item.IsCollectible()) {
       const collectibleName = getCollectibleName(effect.Item.ID);
@@ -286,7 +286,7 @@ export function logPlayerEffects(this: void, player: EntityPlayer): void {
     }
 
     log(`  ${i + 1}) ${effectDescription} (x${effect.Count})`);
-  });
+  }
 }
 
 export function logPlayerHealth(this: void, player: EntityPlayer): void {

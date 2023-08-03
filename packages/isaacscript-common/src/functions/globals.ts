@@ -237,11 +237,12 @@ export function logNewGlobals(): void {
   log("List of added global variables in the Isaac environment:");
   if (newGlobals.length === 0) {
     log("- n/a (no extra global variables found)");
+  } else {
+    for (const [i, [key, value]] of newGlobals.entries()) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      log(`${i + 1}) ${key} - ${value}`);
+    }
   }
-  newGlobals.forEach(([key, value], i) => {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`${i + 1}) ${key} - ${value}`);
-  });
 }
 
 /**

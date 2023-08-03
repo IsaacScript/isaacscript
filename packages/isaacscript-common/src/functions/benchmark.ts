@@ -20,7 +20,7 @@ export function benchmark(
   log(`Benchmarking ${functions.length} function(s) with ${numTrials} trials.`);
 
   const averages: int[] = [];
-  functions.forEach((func, i) => {
+  for (const [i, func] of functions.entries()) {
     let totalTimeMilliseconds = 0;
     for (let j = 0; j < numTrials; j++) {
       const startTimeMilliseconds = Isaac.GetTime();
@@ -35,7 +35,7 @@ export function benchmark(
       `The average time of the function at index ${i} is: ${averageTimeMilliseconds} milliseconds`,
     );
     averages.push(averageTimeMilliseconds);
-  });
+  }
 
   return averages;
 }

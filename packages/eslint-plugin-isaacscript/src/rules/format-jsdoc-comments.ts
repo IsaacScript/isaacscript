@@ -61,7 +61,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
     // We only look at `/**` style comments on their own line.
     const jsDocComments = getJSDocComments(comments);
 
-    jsDocComments.forEach((comment) => {
+    for (const comment of jsDocComments) {
       const leftWhitespaceLength = comment.loc.start.column;
       const leftWhitespace = " ".repeat(leftWhitespaceLength);
       const originalComment = `${leftWhitespace}/*${comment.value}*/`;
@@ -109,7 +109,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
           },
         });
       }
-    });
+    }
 
     return {};
   },

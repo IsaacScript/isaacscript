@@ -81,7 +81,7 @@ export const completeSentencesLineComments = createRule<
       }
 
       const incompleteSentences = getIncompleteSentences(text);
-      incompleteSentences.forEach((incompleteSentence) => {
+      for (const incompleteSentence of incompleteSentences) {
         context.report({
           loc: {
             start: firstComment.loc.start,
@@ -92,7 +92,7 @@ export const completeSentencesLineComments = createRule<
             sentence: incompleteSentence.sentence,
           },
         });
-      });
+      }
     }
 
     return {};
