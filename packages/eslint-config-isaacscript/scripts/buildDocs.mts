@@ -21,6 +21,7 @@ type ParentConfig =
   | "@typescript-eslint/strict"
   | "@typescript-eslint/stylistic"
   | "@typescript-eslint/stylistic-type-checked"
+  | "eslint-comments/recommended"
   | "eslint-config-prettier";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -189,6 +190,10 @@ function getTypeScriptESLintConfigRules(configName: string) {
   return rules;
 }
 
+const COMMENTS_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintPluginESLintComments.configs.recommended.rules),
+);
+
 // -------------------------------------------------------------------------------------------------
 
 const PARENT_CONFIG_LINKS = {
@@ -208,6 +213,8 @@ const PARENT_CONFIG_LINKS = {
     "[`@typescript-eslint/stylistic-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts)",
   "@typescript-eslint/stylistic":
     "[`@typescript-eslint/stylistic`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts)",
+  "eslint-comments/recommended":
+    "[`eslint-comments/recommended`](https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js)",
   "eslint-config-prettier":
     "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
@@ -509,6 +516,12 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
 
   if (TYPESCRIPT_ESLINT_RULES_SET.stylistic.has(ruleName)) {
     parentConfigs.push("@typescript-eslint/stylistic");
+  }
+
+  // -----------------------------------------------------------------------------------------------
+
+  if (COMMENTS_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("eslint-comments/recommended");
   }
 
   // -----------------------------------------------------------------------------------------------

@@ -1,5 +1,8 @@
 declare module "eslint-plugin-eslint-comments" {
   const ESLintPluginESLintComments: {
+    readonly configs: {
+      readonly recommended: { readonly rules: Record<string, unknown> };
+    };
     readonly rules: Record<string, unknown>;
   };
 

@@ -20,3 +20,4 @@ packages/docs/src/pages/index.js
 # API docs are automatically created by TypeDoc.
 packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions
+packages/docs/docs/eslint-config-isaacscript
