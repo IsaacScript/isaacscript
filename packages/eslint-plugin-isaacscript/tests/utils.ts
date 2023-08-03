@@ -4,6 +4,7 @@ import path from "node:path";
 export const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: path.join(__dirname, "fixtures", "tsconfig.json"),
+    project: "./tsconfig.json",
+    tsconfigRootDir: path.join(__dirname, "fixtures"),
   },
 });
