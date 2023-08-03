@@ -1,4 +1,5 @@
 - Unicorn rule audit
+- add note about ES lint fix and config documentation
 
 ----------------------------------------------------------------------------------------------------
 
