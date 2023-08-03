@@ -35,7 +35,7 @@ import { iRange } from "./utils";
  *
  * 1 << 15
  */
-const GOLDEN_TRINKET_ADJUSTMENT = 32768;
+const GOLDEN_TRINKET_ADJUSTMENT = 32_768;
 
 const NUM_MYSTERIOUS_PAPER_EFFECTS = getEnumLength(MysteriousPaperEffect);
 

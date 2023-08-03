@@ -36,6 +36,20 @@ const config = {
     "n/file-extension-in-import": "off",
 
     /**
+     * Defined at: base-unicorn.js
+     *
+     * This is a common pattern in the testing files.
+     */
+    "unicorn/no-array-push-push": "off",
+
+    /**
+     * Defined at: base-unicorn.js
+     *
+     * The ESLint API uses `null`.
+     */
+    "unicorn/no-null": "off",
+
+    /**
      * Defined at: base-eslint.js
      *
      * Some rules use bitwise operators to deal with TypeScript bit flags.

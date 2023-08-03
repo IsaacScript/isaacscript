@@ -1,0 +1,354 @@
+{
+  "$ref": "#/definitions/IsaacScriptTSConfig",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "CustomStageBossPoolEntry": {
+      "additionalProperties": false,
+      "description": "An object that represents a possible boss for a custom stage. This can be for a vanilla boss or a custom boss.",
+      "properties": {
+        "name": {
+          "description": "The name of the boss. This should correspond to the entry for the boss in the \"entities2.xml\" file.",
+          "type": "string"
+        },
+        "subType": {
+          "description": "The arbitrary sub-type chosen for this boss, ranging between 1 and 999. You must set the boss rooms for this boss to this sub-type in Basement Renovator by right-clicking on the room on the right-hand-side.\n\nIt does not matter if the arbitrary sub-type overlaps with any of the vanilla `BossID` values (e.g. vanilla Boss Room sub-types in \"00.special_rooms.stb\"). It also does not matter if this value overlaps with the values from other mods.\n\nIf you are creating an entry for a vanilla boss, it is recommended that you match the sub-type with the corresponding vanilla `BossID` value. This will make things a bit easier to understand for people working on your mod, but is not a hard requirement.",
+          "maximum": 999,
+          "minimum": 1,
+          "type": "number"
+        },
+        "versusScreen": {
+          "additionalProperties": false,
+          "description": "Optional. A collection of sprites used for the boss on the \"versus\" screen.",
+          "properties": {
+            "namePNGPath": {
+              "description": "Mandatory. The full path to the spritesheet that contains the graphics of the name of the boss that will be displayed on the top of the boss \"versus\" screen.\n\nIf not specified, a sprite showing \"???\" will be used.",
+              "type": "string"
+            },
+            "portraitPNGPath": {
+              "description": "Mandatory. The full path to the spritesheet that contains the portrait of the boss that will be displayed on the right side of the boss \"versus\" screen.\n\nIf not specified, a sprite showing \"???\" will be used.",
+              "type": "string"
+            }
+          },
+          "required": ["namePNGPath", "portraitPNGPath"],
+          "type": "object"
+        },
+        "weight": {
+          "description": "The weight of the boss. This is used when randomly selecting which boss to use for the floor. For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5 if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.",
+          "type": "number"
+        }
+      },
+      "required": ["name", "subType", "weight"],
+      "type": "object"
+    },
+    "CustomStageShadow": {
+      "additionalProperties": false,
+      "description": "A description of a custom stage shadow. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)",
+      "properties": {
+        "color": {
+          "additionalProperties": false,
+          "description": "Optional. An object representing the color used for the shadow.\n\nIf not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds to 75% faded black).",
+          "properties": {
+            "a": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "b": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "g": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            "r": {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "required": ["r", "g", "b", "a"],
+          "type": "object"
+        },
+        "pngPath": {
+          "description": "The full path to the shadow overlay PNG file.\n\nFor an example of a vanilla shadow overlay, see: `resources/gfx/overlays/basement/1x1_overlay_1.png`",
+          "type": "string"
+        }
+      },
+      "required": ["pngPath"],
+      "type": "object"
+    },
+    "CustomStageTSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "backdropPNGPaths": {
+          "additionalProperties": false,
+          "description": "Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is the graphics for the walls and floor.) If not specified, the graphics for Basement will be used.",
+          "properties": {
+            "corners": {
+              "description": "An array that contains the full paths to the graphic files for the stage's corners.\n\nYou must have at least one path in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement.png\". (In the vanilla file, they concatenate both variations together into one PNG file and put it in the top right hand corner. The corners are shown in the top right hand corner of the file, with two different variations concatenated together. However, for the custom stages feature, you must separate each corner variation into a separate file (and put it in a different file from the walls).",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "lFloors": {
+              "description": "An array that contains the full paths to the graphic files that are used for the floor in L rooms.\n\nYou must have at least one path in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_lbasementfloor.png\".",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "nFloors": {
+              "description": "An array that contains the full paths to the graphic files that are used for the floor in narrow rooms. (The \"n\" stands for \"narrow\").\n\nYou must have at least one path in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement_nfloor.png\".",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "walls": {
+              "description": "An array that contains the full paths to the graphic files that are used for the walls of the floor.\n\nYou must have at least one path in this array, but you can specify more than one to randomly add extra variety (like the vanilla stages do).\n\nFor an example of this, see the vanilla file \"resources/gfx/backdrop/01_basement.png\". (In the vanilla file, they concatenate all four variations together into one PNG file. However, for the custom stages feature, you must separate each wall variation into a separate file.)",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": ["nFloors", "lFloors", "walls", "corners"],
+          "type": "object"
+        },
+        "baseStage": {
+          "description": "Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the number of the stage that will be warped to and used as a basis for the stage by the level generation algorithm.\n\nFor example, if you wanted to have a custom stage with a small amount of rooms per floor, then you should choose 2 as a base. (This would copy the number of rooms that would appear in Basement 2.) And if you wanted to have a custom stage with the maximum amount of rooms, then you should choose 13 as a base. (This would copy the number of rooms that would appear on The Void.)\n\nIt is not possible to use Basement 1 as a base stage due to conflicts with the `Game.SetStage` method.\n\nIf not specified, `LevelStage.BASEMENT_2` (2) will be used.",
+          "maximum": 13,
+          "minimum": 2,
+          "type": "number"
+        },
+        "baseStageType": {
+          "description": "Optional. An integer between 0 and 5, corresponding to the `StageType` enum. This is the number of the stage type that will be warped to and used as a basis for the stage by the level generation algorithm.\n\nIf not specified, `StageType.ORIGINAL` (0) will be used.",
+          "maximum": 5,
+          "minimum": 0,
+          "type": "number"
+        },
+        "bossPool": {
+          "description": "Optional. An array containing the bosses that should be used for the stage. This can include both vanilla bosses and modded bosses.",
+          "items": {
+            "$ref": "#/definitions/CustomStageBossPoolEntry"
+          },
+          "type": "array"
+        },
+        "decorationsANM2Path": {
+          "description": "Optional. The full path to the anm2 file that contains the custom animations for the decorations of the floor.\n\nIf not specified, the vanilla Basement decorations spritesheet will be used. For reference, this is located at: `resources/gfx/grid/props_01_basement.png`\n\nIf you do not want to have custom animations for your decorations, then do not use this field and use `decorationsPNGPath` instead.",
+          "type": "string"
+        },
+        "decorationsPNGPath": {
+          "description": "Optional. The full path to the spritesheet that contains the graphics of the decorations for the floor.\n\nIf not specified, the vanilla Basement decorations spritesheet will be used. For reference, this is located at: `resources/gfx/grid/props_01_basement.png`\n\nIf you want to have custom animations for your decorations, then do not use this field and use `decorationsANM2Path` instead.",
+          "type": "string"
+        },
+        "doorPNGPaths": {
+          "additionalProperties": false,
+          "description": "Optional. A collection of paths that contain graphics for the doors of the floor. If not specified, the doors for Basement will be used.",
+          "properties": {
+            "angelRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Angel Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_07_holyroomdoor.png`",
+              "type": "string"
+            },
+            "arcade": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the arcade doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_05_arcaderoomdoor.png`",
+              "type": "string"
+            },
+            "bossChallengeRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Boss Challenge Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_09_bossambushroomdoor.png`",
+              "type": "string"
+            },
+            "bossRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Boss Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_10_bossroomdoor.png`",
+              "type": "string"
+            },
+            "bossRush": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Boss Rush doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_15_bossrushdoor.png`",
+              "type": "string"
+            },
+            "chestRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Chest Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_02b_chestroomdoor.png`",
+              "type": "string"
+            },
+            "curseRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Curse Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_04_selfsacrificeroomdoor.png`",
+              "type": "string"
+            },
+            "devilRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Devil Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_07_devilroomdoor.png`",
+              "type": "string"
+            },
+            "normal": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the normal doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_01_normaldoor.png`",
+              "type": "string"
+            },
+            "normalChallengeRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the normal Challenge Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_03_ambushroomdoor.png`",
+              "type": "string"
+            },
+            "secretRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Secret Room and Super Secret Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_08_holeinwall.png`",
+              "type": "string"
+            },
+            "treasureRoom": {
+              "description": "Optional. The full path to the spritesheet that contains the graphics of the Treasure Room doors for the floor.\n\nIf not specified, the vanilla Basement door spritesheet will be used. For reference, this is located at: `resources/gfx/grid/door_02_treasureroomdoor.png`",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "music": {
+          "description": "Optional. A string that represents the name of the music track from the \"content/music.xml\" file that corresponds to this custom stage. It will be manually played upon entering the stage.\n\nIf not specified, the same music track as the base stage will be used.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Mandatory. The name of the custom stage.",
+          "type": "string"
+        },
+        "pitsANM2Path": {
+          "description": "Optional. The full path to the anm2 file that contains the custom animations for the pits of the floor.\n\nIf not specified, the vanilla Basement pits spritesheet will be used. For reference, this is located at: `resources/gfx/grid/grid_pit.png`\n\nIf you do not want to have custom animations for your pits, then do not use this field and use `pitsPNGPath` instead.",
+          "type": "string"
+        },
+        "pitsPNGPath": {
+          "description": "Optional. The full path to the spritesheet that contains the graphics of the pits for the floor.\n\nIf not specified, the vanilla Basement pits spritesheet will be used. For reference, this is located at: `resources/gfx/grid/grid_pit.png`\n\nIf you do not want to have custom animations for your pits, then do not use this field and use `pitsANM2Path` instead.",
+          "type": "string"
+        },
+        "rocksANM2Path": {
+          "description": "Optional. The full path to the anm2 file that contains the custom animations for the rocks/blocks/urns of the floor.\n\nIf specified, it is assumed that you have your own custom rock alt type, and all vanilla rewards/enemies that spawn from urns will be automatically removed. Use the `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.\n\nIf not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is located at: `resources-dlc3/gfx/grid/rocks_basement.png`\n\nIf you do not want to have custom animations for your rocks, then do not use this field and use `rocksPNGPath` instead.",
+          "type": "string"
+        },
+        "rocksPNGPath": {
+          "description": "Optional. The full path to the spritesheet that contains the graphics of the rocks/blocks/urns for the floor.\n\nIf specified, it is assumed that you have your own custom rock alt type, and all vanilla rewards/enemies that spawn from urns will be automatically removed. Use the `POST_GRID_ENTITY_BROKEN` callback to make your own custom rewards. Or, if you want to emulate a vanilla urn/mushroom/skull/polyp/bucket, use the `spawnRockAltReward` helper function.\n\nIf not specified, the vanilla Basement rocks spritesheet will be used. For reference, this is located at: `resources-dlc3/gfx/grid/rocks_basement.png`\n\nIf you want to have custom animations for your rocks, then do not use this field and use `rocksANM2Path` instead.",
+          "type": "string"
+        },
+        "roomVariantPrefix": {
+          "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nUse a value of 100 when testing locally. When publishing to the workshop or otherwise distributing your mod, make sure that you have chosen a prefix that does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website: https://isaacscript.github.io/main/custom-stages",
+          "maximum": 999,
+          "minimum": 100,
+          "type": "number"
+        },
+        "shadows": {
+          "additionalProperties": false,
+          "description": "Optional. An array of shadow objects that describe the graphics for the custom shadows of the floor. (In this context, \"shadows\" are the outlines from things on the roof. For example, in Basement, a shadow of a sideways V is used, among others.) If not specified, no extra shadows will be drawn.",
+          "properties": {
+            "1x1": {
+              "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_1x1` (1), `RoomShape.IH` (2), and `RoomShape.IV` (3).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
+              "items": {
+                "$ref": "#/definitions/CustomStageShadow"
+              },
+              "type": "array"
+            },
+            "1x2": {
+              "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_1x2` (4) and `RoomShape.IIV` (5).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
+              "items": {
+                "$ref": "#/definitions/CustomStageShadow"
+              },
+              "type": "array"
+            },
+            "2x1": {
+              "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_2x1` (6) and `RoomShape.IIH` (7).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
+              "items": {
+                "$ref": "#/definitions/CustomStageShadow"
+              },
+              "type": "array"
+            },
+            "2x2": {
+              "description": "Optional. An array containing the shadows that will be used in rooms of shape `RoomShape.SHAPE_2x2` (8), `RoomShape.LTL` (9), `RoomShape.LTR` (10), `RoomShape.LBL` (11), and `RoomShape.LBR` (12).\n\nIf more than one shadow is specified, one will be randomly chosen for each room.\n\nIf not specified, no extra shadows will be drawn in these room shapes.",
+              "items": {
+                "$ref": "#/definitions/CustomStageShadow"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "versusScreen": {
+          "additionalProperties": false,
+          "description": "Optional. A collection of colors used for in the boss \"versus\" screen for all of the bosses.\n\nNote that these graphics will only be applied if one or more bosses are specified in the `bossPool` field.",
+          "properties": {
+            "backgroundColor": {
+              "additionalProperties": false,
+              "description": "Optional. An object representing the color to use for the background of the boss \"versus\" screen. If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenBackgroundColors.ts`.",
+              "properties": {
+                "a": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "b": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "g": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "r": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                }
+              },
+              "required": ["r", "g", "b", "a"],
+              "type": "object"
+            },
+            "dirtSpotColor": {
+              "additionalProperties": false,
+              "description": "Optional. An object representing the color to use for the dirt spots in the boss \"versus\" screen. (There are two dirt spots; one for the player and one for the boss.) If not specified, the color for Basement 1 will be used.\n\nFor a list of the colors that correspond to the vanilla stages, see `versusScreenDirtSpotColors.ts`.",
+              "properties": {
+                "a": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "b": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "g": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "r": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                }
+              },
+              "required": ["r", "g", "b", "a"],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "xmlPath": {
+          "description": "Mandatory. The path to the XML file that contains the rooms for the custom stage (created with Basement Renovator).",
+          "type": "string"
+        }
+      },
+      "required": ["name", "xmlPath", "roomVariantPrefix"],
+      "type": "object"
+    },
+    "IsaacScriptTSConfig": {
+      "additionalProperties": false,
+      "description": "This is the format of the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nWe use this interface to automatically generate the schema using the \"ts-json-schema-generator\" library.",
+      "properties": {
+        "customStages": {
+          "items": {
+            "$ref": "#/definitions/CustomStageTSConfig"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

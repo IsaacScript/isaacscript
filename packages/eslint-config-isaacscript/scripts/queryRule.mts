@@ -56,8 +56,7 @@ const configPromises = responses.map(async (response) => response.text());
 const configs = await Promise.all(configPromises);
 
 let found = false;
-for (let i = 0; i < configs.length; i++) {
-  const config = configs[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+for (const [i, config] of configs.entries()) {
   if (config.includes(ruleName)) {
     found = true;
     const url = CONFIG_URLS[i] ?? "unknown";
