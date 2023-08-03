@@ -33,7 +33,7 @@ const config = {
     "./base-eslint",
     "./base-no-autofix",
     "./base-typescript-eslint",
-    "./base-comments",
+    "./base-eslint-comments",
     "./base-import",
     "./base-jsdoc",
     "./base-node",

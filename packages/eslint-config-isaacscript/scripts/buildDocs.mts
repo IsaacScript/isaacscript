@@ -9,9 +9,7 @@ import extractComments from "extract-comments";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import baseCommentsConfig from "../configs/base-comments.js";
 import baseESLintConfig from "../configs/base-eslint.js";
-import baseImportConfig from "../configs/base-import.js";
 import baseNoAutoFixConfig from "../configs/base-no-autofix.js";
 import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
 
@@ -91,21 +89,6 @@ const BASE_TYPESCRIPT_ESLINT_JS = fs.readFileSync(
   BASE_TYPESCRIPT_ESLINT_JS_PATH,
   "utf8",
 );
-
-const BASE_COMMENTS_RULES_JS_PATH = path.join(
-  BASE_CONFIGS_PATH,
-  "base-comments.js",
-);
-const BASE_COMMENTS_RULES_JS = fs.readFileSync(
-  BASE_COMMENTS_RULES_JS_PATH,
-  "utf8",
-);
-
-const BASE_IMPORT_RULES_JS_PATH = path.join(
-  BASE_CONFIGS_PATH,
-  "base-import.js",
-);
-const BASE_IMPORT_RULES_JS = fs.readFileSync(BASE_IMPORT_RULES_JS_PATH, "utf8");
 
 // -------------------------------------------------------------------------------------------------
 
@@ -252,8 +235,18 @@ async function main() {
   markdownOutput += getESLintMarkdownSection();
   markdownOutput += getNoAutoFixMarkdownSection();
   markdownOutput += getTypeScriptESLintMarkdownSection();
-  markdownOutput += getCommentsMarkdownSection();
-  markdownOutput += getImportMarkdownSection();
+  markdownOutput += await getPluginMarkdownSection(
+    "eslint-comments",
+    "https://github.com/mysticatea/eslint-plugin-eslint-comments",
+    "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md",
+    ESLintPluginESLintComments,
+  );
+  markdownOutput += await getPluginMarkdownSection(
+    "import",
+    "https://github.com/import-js/eslint-plugin-import",
+    "https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/__RULE_NAME__.md",
+    ESLintPluginImport,
+  );
   markdownOutput += await getPluginMarkdownSection(
     "jsdoc",
     "https://github.com/gajus/eslint-plugin-jsdoc",
@@ -389,98 +382,6 @@ function getTypeScriptESLintMarkdownSection(): string {
     const ruleURL = "https://typescript-eslint.io/rules/__RULE_NAME__/";
     const baseJSText = BASE_TYPESCRIPT_ESLINT_JS;
     const sourceFileName = "base-typescript-eslint.js";
-
-    markdownOutput += getMarkdownTableRow(
-      ruleName,
-      rule,
-      ruleURL,
-      baseJSText,
-      sourceFileName,
-    );
-  }
-
-  return markdownOutput;
-}
-
-function getCommentsMarkdownSection(): string {
-  let markdownOutput = getMarkdownHeader(
-    "`eslint-plugin-eslint-comments` Rules",
-    "https://github.com/mysticatea/eslint-plugin-eslint-comments",
-  );
-
-  const baseRules = baseCommentsConfig.rules;
-  if (baseRules === undefined) {
-    throw new Error("Failed to parse the base rules.");
-  }
-
-  // First, audit the config to ensure that we have an entry for each rule.
-  const allRuleNames = Object.keys(ESLintPluginESLintComments.rules);
-  for (const ruleName of allRuleNames) {
-    const rule = baseRules[`eslint-comments/${ruleName}`];
-    if (rule === undefined) {
-      throw new Error(
-        `Failed to find an entry for "eslint-plugin-eslint-comments" rule: ${ruleName}`,
-      );
-    }
-  }
-
-  const alphabeticalRuleNames = Object.keys(baseRules).sort();
-  for (const ruleName of alphabeticalRuleNames) {
-    const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(`Failed to find rule: ${ruleName}`);
-    }
-
-    const ruleURL =
-      "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md";
-    const baseJSText = BASE_COMMENTS_RULES_JS;
-    const sourceFileName = "base-comments.js";
-
-    markdownOutput += getMarkdownTableRow(
-      ruleName,
-      rule,
-      ruleURL,
-      baseJSText,
-      sourceFileName,
-    );
-  }
-
-  return markdownOutput;
-}
-
-function getImportMarkdownSection(): string {
-  let markdownOutput = getMarkdownHeader(
-    "`eslint-plugin-import` Rules",
-    "https://github.com/import-js/eslint-plugin-import",
-  );
-
-  const baseRules = baseImportConfig.rules;
-  if (baseRules === undefined) {
-    throw new Error("Failed to parse the base rules.");
-  }
-
-  // First, audit the config to ensure that we have an entry for each rule.
-  const allRuleNames = Object.keys(ESLintPluginImport.rules);
-  for (const ruleName of allRuleNames) {
-    const rule = baseRules[`import/${ruleName}`];
-    if (rule === undefined) {
-      throw new Error(
-        `Failed to find an entry for "eslint-plugin-import" rule: ${ruleName}`,
-      );
-    }
-  }
-
-  const alphabeticalRuleNames = Object.keys(baseRules).sort();
-  for (const ruleName of alphabeticalRuleNames) {
-    const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(`Failed to find rule: ${ruleName}`);
-    }
-
-    const ruleURL =
-      "https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/__RULE_NAME__.md";
-    const baseJSText = BASE_IMPORT_RULES_JS;
-    const sourceFileName = "base-import.js";
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
