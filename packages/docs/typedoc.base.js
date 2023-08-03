@@ -53,7 +53,7 @@ exports.getTypeDocConfig = getTypeDocConfig;
 
 /** @param {string} typeScriptFilePath The path to the ".ts" file. */
 function getTypeScriptFileExports(typeScriptFilePath) {
-  const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf-8");
+  const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf8");
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   return exportLines.map((line) => {
