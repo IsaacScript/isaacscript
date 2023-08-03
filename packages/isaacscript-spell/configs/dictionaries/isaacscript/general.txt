@@ -7,6 +7,7 @@ backstab
 backticks
 bitmask
 bootstrapper
+brainer
 cacheable
 codebases
 cyclomatic
