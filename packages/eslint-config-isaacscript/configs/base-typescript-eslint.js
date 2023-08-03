@@ -116,7 +116,7 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-require-imports": "error",
   "@typescript-eslint/no-this-alias": "error",
 
-  /** Disabled since it is deprecated. */
+  /** Disabled because this rule is deprecated. */
   "@typescript-eslint/no-type-alias": "off",
 
   "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",

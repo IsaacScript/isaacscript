@@ -5,11 +5,11 @@ import ESLintConfigPrettier from "eslint-config-prettier";
 import ESLintPluginESLintComments from "eslint-plugin-eslint-comments";
 import ESLintPluginImport from "eslint-plugin-import";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
+import ESLintPluginN from "eslint-plugin-n";
 import extractComments from "extract-comments";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
 
 type ParentConfig =
   | "eslint/recommended"
@@ -23,6 +23,7 @@ type ParentConfig =
   | "eslint-comments/recommended"
   | "import/recommended"
   | "jsdoc/recommended"
+  | "n/recommended"
   | "eslint-config-prettier";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -82,7 +83,6 @@ This config also assumes that you are using [Prettier](https://prettier.io/) to 
 ## Rule List
 
 Below, we provide documentation for every rule that is disabled. (We take a blacklist approach rather than a whitelist approach.)
-
 `;
 
 // -------------------------------------------------------------------------------------------------
@@ -96,19 +96,6 @@ const ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH = path.join(
   "eslint-config-isaacscript",
 );
 const README_PATH = path.join(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH, "README.md");
-
-// -------------------------------------------------------------------------------------------------
-
-const BASE_CONFIGS_PATH = path.join(__dirname, "..", "configs");
-
-const BASE_TYPESCRIPT_ESLINT_JS_PATH = path.join(
-  BASE_CONFIGS_PATH,
-  "base-typescript-eslint.js",
-);
-const BASE_TYPESCRIPT_ESLINT_JS = fs.readFileSync(
-  BASE_TYPESCRIPT_ESLINT_JS_PATH,
-  "utf8",
-);
 
 // -------------------------------------------------------------------------------------------------
 
@@ -216,6 +203,10 @@ const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginJSDoc.configs.recommended.rules),
 );
 
+const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintPluginN.configs.recommended.rules),
+);
+
 // -------------------------------------------------------------------------------------------------
 
 const PARENT_CONFIG_LINKS = {
@@ -241,6 +232,8 @@ const PARENT_CONFIG_LINKS = {
     "[`import/recommended`](https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js)",
   "jsdoc/recommended":
     "[`jsdoc/recommended`](https://github.com/gajus/eslint-plugin-jsdoc/blob/main/src/index.js)",
+  "n/recommended":
+    "[`n/recommended`](https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js)",
   "eslint-config-prettier":
     "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
@@ -267,7 +260,14 @@ async function main() {
     "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
     undefined,
   );
-  markdownOutput += getTypeScriptESLintMarkdownSection();
+  // markdownOutput += getTypeScriptESLintMarkdownSection();
+  markdownOutput += await getMarkdownRuleSection(
+    "typescript-eslint",
+    "`@typescript-eslint` Rules",
+    "https://typescript-eslint.io/rules/",
+    "https://typescript-eslint.io/rules/__RULE_NAME__/",
+    TypeScriptESLintPlugin,
+  );
   markdownOutput += await getMarkdownRuleSection(
     "eslint-comments",
     getPluginHeaderTitle("eslint-comments"),
@@ -289,6 +289,13 @@ async function main() {
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/__RULE_NAME__.md",
     ESLintPluginJSDoc,
   );
+  markdownOutput += await getMarkdownRuleSection(
+    "n",
+    getPluginHeaderTitle("n"),
+    "https://github.com/eslint-community/eslint-plugin-n",
+    "https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/__RULE_NAME__.md",
+    ESLintPluginN,
+  );
 
   if (!fs.existsSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
     fs.mkdirSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH);
@@ -300,56 +307,6 @@ async function main() {
 
 function getPluginHeaderTitle(pluginName: string) {
   return `\`eslint-plugin-${pluginName}\` Rules`;
-}
-
-function getTypeScriptESLintMarkdownSection(): string {
-  let markdownOutput = getMarkdownHeader(
-    "`@typescript-eslint` Rules",
-    "https://typescript-eslint.io/rules/",
-  );
-
-  const baseRules = baseTypeScriptESLintConfig.rules;
-  if (baseRules === undefined) {
-    throw new Error("Failed to parse the base rules.");
-  }
-
-  // First, audit the config to ensure that we have an entry for each rule.
-  const allRuleNames = Object.keys(TYPESCRIPT_ESLINT_RULES.all);
-  for (const ruleName of allRuleNames) {
-    const rule = baseRules[ruleName];
-    if (
-      rule === undefined &&
-      // We must check for a "@typescript-eslint" prefix because this config turns off some core
-      // ESLint rules.
-      ruleName.startsWith("@typescript-eslint")
-    ) {
-      throw new Error(
-        `Failed to find an entry for TypeScript ESLint rule: ${ruleName}`,
-      );
-    }
-  }
-
-  const alphabeticalRuleNames = Object.keys(baseRules).sort();
-  for (const ruleName of alphabeticalRuleNames) {
-    const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(`Failed to find rule: ${ruleName}`);
-    }
-
-    const ruleURL = "https://typescript-eslint.io/rules/__RULE_NAME__/";
-    const baseJSText = BASE_TYPESCRIPT_ESLINT_JS;
-    const sourceFileName = "base-typescript-eslint.js";
-
-    markdownOutput += getMarkdownTableRow(
-      ruleName,
-      rule,
-      ruleURL,
-      baseJSText,
-      sourceFileName,
-    );
-  }
-
-  return markdownOutput;
 }
 
 async function getMarkdownRuleSection(
@@ -432,8 +389,15 @@ function auditBaseConfigRules(
   const allRuleNames = Object.keys(allRules);
 
   for (const ruleName of allRuleNames) {
-    const fullRuleName =
-      configName === "eslint" ? ruleName : `${configName}/${ruleName}`;
+    let fullRuleName: string;
+    if (configName === "eslint") {
+      fullRuleName = ruleName;
+    } else if (configName === "typescript-eslint") {
+      fullRuleName = `@${configName}/${ruleName}`;
+    } else {
+      fullRuleName = `${configName}/${ruleName}`;
+    }
+
     const rule = baseRules[fullRuleName];
     if (rule === undefined) {
       throw new Error(
@@ -449,7 +413,7 @@ function getAllRulesFromImport(
 ): Record<string, unknown> {
   // The core ESLint rules are a special case.
   if (configName === "eslint") {
-    return getAllRulesForCoreESLintConfig(configName, upstreamImport);
+    return getAllRulesFromImportCoreESLint(configName, upstreamImport);
   }
 
   if (typeof upstreamImport !== "object" || upstreamImport === null) {
@@ -470,7 +434,7 @@ function getAllRulesFromImport(
   return rules as Record<string, unknown>;
 }
 
-function getAllRulesForCoreESLintConfig(
+function getAllRulesFromImportCoreESLint(
   configName: string,
   upstreamImport: unknown,
 ): Record<string, unknown> {
@@ -620,16 +584,16 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
     parentConfigs.push("eslint-comments/recommended");
   }
 
-  // -----------------------------------------------------------------------------------------------
-
   if (IMPORT_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("import/recommended");
   }
 
-  // -----------------------------------------------------------------------------------------------
-
   if (JSDOC_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("jsdoc/recommended");
+  }
+
+  if (N_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("n/recommended");
   }
 
   // -----------------------------------------------------------------------------------------------
