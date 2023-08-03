@@ -65,21 +65,15 @@ function packageJSONLint(
     return false;
   }
 
-  if (!isTemplateFile) {
-    if (!isKebabCase(name)) {
-      console.error(
-        `File has a non-kebab-case "name" field: ${packageJSONPath}`,
-      );
-      return false;
-    }
+  if (!isTemplateFile && !isKebabCase(name)) {
+    console.error(`File has a non-kebab-case "name" field: ${packageJSONPath}`);
+    return false;
   }
 
   const { version } = packageJSON;
-  if (!shouldBePrivate) {
-    if (typeof version !== "string" || version === "") {
-      console.error(`File is missing a "version" field: ${packageJSONPath}`);
-      return false;
-    }
+  if (!shouldBePrivate && (typeof version !== "string" || version === "")) {
+    console.error(`File is missing a "version" field: ${packageJSONPath}`);
+    return false;
   }
 
   const privateField = packageJSON["private"];

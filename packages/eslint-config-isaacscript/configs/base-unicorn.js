@@ -75,7 +75,10 @@ const config = {
     "unicorn/no-useless-promise-resolve-reject": "error",
     "unicorn/no-useless-spread": "error",
     "unicorn/no-useless-switch-case": "error",
-    "unicorn/no-useless-undefined": "error",
+
+    /** Disabled since it does not work properly with TypeScript. */
+    "unicorn/no-useless-undefined": "off",
+
     "unicorn/no-zero-fractions": "error",
     "unicorn/number-literal-case": "off", // eslint-config-prettier
     "unicorn/numeric-separators-style": "error",
