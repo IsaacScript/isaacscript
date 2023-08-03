@@ -3,7 +3,7 @@ import path from "node:path";
 import { CWD } from "./constants.js";
 import { PackageManager } from "./enums/PackageManager.js";
 import { fileExists } from "./file.js";
-import { error, getEnumValues } from "./isaacScriptCommonTS.js";
+import { fatalError, getEnumValues } from "./isaacScriptCommonTS.js";
 import type { Args } from "./parseArgs.js";
 
 const PACKAGE_MANAGER_LOCK_FILE_NAMES = {
@@ -116,7 +116,7 @@ export function getPackageManagerUsedForExistingProject(
       .map((packageManager) => getPackageManagerLockFileName(packageManager))
       .map((packageManagerLockFileName) => `"${packageManagerLockFileName}"`)
       .join(" & ");
-    error(
+    fatalError(
       `Multiple different kinds of package manager lock files were found (${packageManagerLockFileNames}). You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
     );
   }
@@ -136,7 +136,7 @@ function getPackageManagerFromArgs(args: Args) {
       PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
     );
     if (!packageManagerCommandExists) {
-      error(
+      fatalError(
         `You specified the "dev" flag, but "${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}" does not seem to be a valid command. The IsaacScript monorepo uses ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}, so in order to initiate a linked development mod, you must also have ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} installed. Try running "corepack enable" to install it.`,
       );
     }
@@ -148,7 +148,7 @@ function getPackageManagerFromArgs(args: Args) {
   if (npm) {
     const npmExists = commandExists.sync("npm");
     if (!npmExists) {
-      error(
+      fatalError(
         'You specified the "npm" flag, but "npm" does not seem to be a valid command.',
       );
     }
@@ -160,7 +160,7 @@ function getPackageManagerFromArgs(args: Args) {
   if (yarn) {
     const yarnExists = commandExists.sync("yarn");
     if (!yarnExists) {
-      error(
+      fatalError(
         'You specified the "yarn" flag, but "yarn" does not seem to be a valid command.',
       );
     }
@@ -172,7 +172,7 @@ function getPackageManagerFromArgs(args: Args) {
   if (pnpm) {
     const pnpmExists = commandExists.sync("pnpm");
     if (!pnpmExists) {
-      error(
+      fatalError(
         'You specified the "pnpm" flag, but "pnpm" does not seem to be a valid command.',
       );
     }

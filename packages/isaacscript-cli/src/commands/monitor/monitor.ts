@@ -23,7 +23,7 @@ import {
   isLink,
   touch,
 } from "../../file.js";
-import { error, isRecord } from "../../isaacScriptCommonTS.js";
+import { fatalError, isRecord } from "../../isaacScriptCommonTS.js";
 import { getJSONC } from "../../json.js";
 import {
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
@@ -128,7 +128,7 @@ export async function monitor(
       console.error(
         `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
       );
-      error(
+      fatalError(
         'Please make sure that the IsaacScript repository is placed next to this one. If you do not want to test a local version of "isaacscript-common", then set the "isaacScriptCommonDev" field to false in your "isaacscript.json" file.',
       );
     }
@@ -163,7 +163,7 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
 
   const { dependencies } = packageJSON;
   if (!isRecord(dependencies)) {
-    error(
+    fatalError(
       `Failed to parse the dependencies of: ${chalk.green(PACKAGE_JSON_PATH)}`,
     );
   }
@@ -180,7 +180,7 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
         packageManager,
         dependency,
       );
-      error(
+      fatalError(
         `${chalk.red(
           `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command:`,
         )} ${chalk.green(addCommand)}`,
@@ -195,7 +195,7 @@ function linkDevelopmentIsaacScriptCommon(
   verbose: boolean,
 ) {
   if (packageManager !== PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT) {
-    error(
+    fatalError(
       `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the Yarn package manager instead of: ${packageManager}`,
     );
   }
@@ -250,7 +250,7 @@ function warnIfIsaacScriptCommonLinkExists(
     isLink(isaacScriptCommonPath, verbose) &&
     packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
-    error(
+    fatalError(
       'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
     );
   }
@@ -277,11 +277,15 @@ function spawnModDirectorySyncer(config: ValidatedConfig) {
   });
 
   directorySyncer.on("close", (code: number | null) => {
-    error(`Error: ${processDescription} subprocess closed with code: ${code}`);
+    fatalError(
+      `Error: ${processDescription} subprocess closed with code: ${code}`,
+    );
   });
 
   directorySyncer.on("exit", (code: number | null) => {
-    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
+    fatalError(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
   });
 }
 
@@ -354,11 +358,15 @@ function spawnTSTLWatcher(
   });
 
   tstl.on("close", (code) => {
-    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
+    fatalError(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
   });
 
   tstl.on("exit", (code) => {
-    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
+    fatalError(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
   });
 }
 

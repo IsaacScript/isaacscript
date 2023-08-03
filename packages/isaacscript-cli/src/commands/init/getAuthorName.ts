@@ -1,5 +1,5 @@
 import { getGitHubUsername } from "../../git.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getInputString } from "../../prompt.js";
 
 export async function getAuthorName(
@@ -25,7 +25,7 @@ async function getNewAuthorName(): Promise<string> {
   );
   const authorName = await getInputString("Enter the author of the project:");
   if (authorName.length === 0) {
-    error("You must enter an author name.");
+    fatalError("You must enter an author name.");
   }
 
   return authorName;

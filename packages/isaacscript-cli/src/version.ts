@@ -1,6 +1,6 @@
 import path from "node:path";
 import { PACKAGE_JSON, REPO_ROOT } from "./constants.js";
-import { error } from "./isaacScriptCommonTS.js";
+import { fatalError } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
 
 /** Returns the version from the "package.json" file. (There is no "v" prefix.) */
@@ -10,7 +10,7 @@ export function getVersionOfThisPackage(verbose: boolean): string {
 
   const { version } = packageJSON;
   if (typeof version !== "string") {
-    error(
+    fatalError(
       'Failed to parse the version from this package\'s "package.json" file.',
     );
   }

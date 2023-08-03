@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
 import { fileExists, readFile } from "./file.js";
-import { error } from "./isaacScriptCommonTS.js";
+import { fatalError } from "./isaacScriptCommonTS.js";
 import { getInputYesNo } from "./prompt.js";
 
 const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
@@ -65,8 +65,8 @@ function applyFixesToBashProfile(verbose: boolean) {
 
   try {
     fs.appendFileSync(BASH_PROFILE_PATH, appendText);
-  } catch (err) {
-    error(`Failed to append text to "${BASH_PROFILE_PATH}":`, err);
+  } catch (error) {
+    fatalError(`Failed to append text to "${BASH_PROFILE_PATH}":`, error);
   }
 
   console.log(

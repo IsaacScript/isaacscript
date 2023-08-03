@@ -6,7 +6,7 @@ import {
   __dirname,
   capitalizeFirstLetter,
   deleteFileOrDirectory,
-  error,
+  fatalError,
   readFile,
   renameFile,
   trimSuffix,
@@ -126,12 +126,14 @@ function getTitle(filePath: string) {
 
   const match = fileName.match(/(?<properName>\w+)\.md/);
   if (match === null || match.groups === undefined) {
-    error(`Failed to parse the proper name from the file name: ${fileName}`);
+    fatalError(
+      `Failed to parse the proper name from the file name: ${fileName}`,
+    );
   }
 
   const { properName } = match.groups;
   if (properName === undefined) {
-    error(`Failed to parse the proper name from the match: ${fileName}`);
+    fatalError(`Failed to parse the proper name from the match: ${fileName}`);
   }
 
   return properName;
@@ -148,12 +150,14 @@ function renameEnumFiles() {
     const markdownFilePath = path.join(ENUMS_DIR, markdownFileName);
     const match = markdownFileName.match(/\.(?<simplifiedFileName>\w+\.md)/);
     if (match === null || match.groups === undefined) {
-      error(`Failed to parse the Markdown file name of: ${markdownFileName}`);
+      fatalError(
+        `Failed to parse the Markdown file name of: ${markdownFileName}`,
+      );
     }
 
     const { simplifiedFileName } = match.groups;
     if (simplifiedFileName === undefined) {
-      error(
+      fatalError(
         `Failed to parse the simplified file name from the Markdown file name of: ${markdownFileName}`,
       );
     }

@@ -5,7 +5,7 @@ import { getModsDir } from "./commands/init/getModsDir.js";
 import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
 import { fileExists, writeFile } from "./file.js";
-import { error } from "./isaacScriptCommonTS.js";
+import { fatalError } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
 import type { Args } from "./parseArgs.js";
 
@@ -65,7 +65,7 @@ function validateMandatoryConfigFields(config: Record<string, unknown>) {
 }
 
 function errorMissing(field: string, description: string): never {
-  error(
+  fatalError(
     `The "${CONFIG_FILE_NAME}" file is missing a "${field}" value. ${description} Please add it.`,
   );
 }

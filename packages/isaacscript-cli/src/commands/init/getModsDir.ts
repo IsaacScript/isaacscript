@@ -2,7 +2,7 @@ import chalk from "chalk";
 import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
 import { fileExists, isDir } from "../../file.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import type { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 
@@ -59,11 +59,11 @@ export async function getModsDir(
   );
 
   if (modsDir === "") {
-    error("Error: You did not provide a response; exiting.");
+    fatalError("Error: You did not provide a response; exiting.");
   }
 
   if (!fileExists(modsDir, verbose)) {
-    error(
+    fatalError(
       `Error: The directory of "${chalk.green(
         modsDir,
       )}" does not exist. Exiting.`,
@@ -71,7 +71,7 @@ export async function getModsDir(
   }
 
   if (!isDir(modsDir, verbose)) {
-    error(
+    fatalError(
       `Error: The path of "${chalk.green(
         modsDir,
       )}" is not a directory. Exiting.`,
@@ -79,7 +79,7 @@ export async function getModsDir(
   }
 
   if (path.basename(modsDir) !== MODS) {
-    error(
+    fatalError(
       `Error: You entered a path of "${chalk.green(
         modsDir,
       )}", but you need to input a directory with a name of "${MODS}" at the end. Exiting.`,
@@ -100,7 +100,7 @@ function getDefaultModsPath(platform: string): string {
     }
 
     default: {
-      error(
+      fatalError(
         `There does not exist a default mod path for the platform of: ${chalk.green(
           platform,
         )}`,

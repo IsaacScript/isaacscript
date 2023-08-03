@@ -14,7 +14,7 @@ import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
 import { PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
-import { error } from "./isaacScriptCommonTS.js";
+import { fatalError } from "./isaacScriptCommonTS.js";
 import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,
@@ -28,8 +28,8 @@ import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js"
 import { validateNodeVersion } from "./validateNodeVersion.js";
 import { getVersionOfThisPackage } from "./version.js";
 
-main().catch((err) => {
-  error(`${PROJECT_NAME} failed:`, err);
+main().catch((error) => {
+  fatalError(`${PROJECT_NAME} failed:`, error);
 });
 
 async function main(): Promise<void> {

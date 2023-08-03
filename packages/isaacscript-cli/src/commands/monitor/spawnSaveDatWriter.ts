@@ -3,7 +3,7 @@ import { fork } from "node:child_process";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import type { SaveDatMessage } from "./saveDatWriter/types.js";
 
 let saveDatWriter: ChildProcess | undefined;
@@ -22,11 +22,15 @@ export function spawnSaveDatWriter(config: ValidatedConfig): void {
   });
 
   saveDatWriter.on("close", (code: number | null) => {
-    error(`Error: ${processDescription} subprocess closed with code: ${code}`);
+    fatalError(
+      `Error: ${processDescription} subprocess closed with code: ${code}`,
+    );
   });
 
   saveDatWriter.on("exit", (code: number | null) => {
-    error(`Error: ${processDescription} subprocess exited with code: ${code}`);
+    fatalError(
+      `Error: ${processDescription} subprocess exited with code: ${code}`,
+    );
   });
 }
 

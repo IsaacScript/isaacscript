@@ -20,7 +20,7 @@ import {
 } from "../../file.js";
 import {
   ReadonlySet,
-  error,
+  fatalError,
   getEnumValues,
 } from "../../isaacScriptCommonTS.js";
 import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
@@ -68,7 +68,7 @@ export function check(args: Args, typeScript: boolean): void {
   }
 
   if (oneOrMoreErrors) {
-    error("The check command failed.");
+    fatalError("The check command failed.");
   }
 }
 
@@ -279,7 +279,7 @@ function getTruncatedFileText(
 
     // End-users can have different ignored words.
     if (fileName === "cspell.json" || fileName === "_cspell.json") {
-      if (line.match(/"words": \[.*\]/) !== null) {
+      if (line.match(/"words": \[.*]/) !== null) {
         continue;
       }
 
@@ -324,7 +324,7 @@ function printTemplateLocation(templateFilePath: string) {
   const unixPath = templateFilePath.split(path.sep).join(path.posix.sep);
   const match = unixPath.match(/.+\/file-templates\/(?<urlSuffix>.+)/);
   if (match === null || match.groups === undefined) {
-    error(`Failed to parse the template file path: ${templateFilePath}`);
+    fatalError(`Failed to parse the template file path: ${templateFilePath}`);
   }
   const { urlSuffix } = match.groups;
 

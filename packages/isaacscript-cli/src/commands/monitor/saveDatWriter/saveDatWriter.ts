@@ -61,8 +61,8 @@ function readSaveDatFromDisk(verbose: boolean) {
     const saveDatRaw = readFile(saveDatPath, verbose);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
-    } catch (err) {
-      send(`Failed to parse "${saveDatPath}": ${err}`);
+    } catch (error) {
+      send(`Failed to parse "${saveDatPath}": ${error}`);
       process.exit(1);
     }
   } else {
@@ -115,10 +115,10 @@ function writeSaveDatToDisk(
   const saveDatRaw = JSON.stringify(saveDat, undefined, 2);
   try {
     writeFileTry(saveDatPath, saveDatRaw, verbose);
-  } catch (err) {
+  } catch (error) {
     if (numRetries > 4) {
       send(
-        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.\nThe writing error is as follows: ${err}`,
+        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.\nThe writing error is as follows: ${error}`,
       );
       process.exit(1);
     }

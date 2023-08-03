@@ -18,7 +18,10 @@ const config = {
     "unicorn/escape-case": "error",
     "unicorn/expiring-todo-comments": "error",
     "unicorn/explicit-length-check": "error",
-    "unicorn/filename-case": "error",
+
+    /** Disabled since projects may use different file naming conventions. */
+    "unicorn/filename-case": "off",
+
     "unicorn/import-style": "error",
 
     /*
@@ -36,6 +39,14 @@ const config = {
     "unicorn/": "error",
     "unicorn/": "error",
     "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
+    "unicorn/no-negated-condition": "error",
+
+    /*
     "unicorn/": "error",
     "unicorn/": "error",
     "unicorn/": "error",

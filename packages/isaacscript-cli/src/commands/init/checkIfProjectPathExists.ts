@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { CWD } from "../../constants.js";
 import { deleteFileOrDirectory, fileExists, isDir } from "../../file.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getInputYesNo } from "../../prompt.js";
 
 export async function checkIfProjectPathExists(
@@ -27,7 +27,7 @@ export async function checkIfProjectPathExists(
   const shouldDelete = await getInputYesNo("Do you want me to delete it?");
 
   if (!shouldDelete) {
-    error("Ok then. Goodbye.");
+    fatalError("Ok then. Goodbye.");
   }
 
   deleteFileOrDirectory(projectPath, verbose);

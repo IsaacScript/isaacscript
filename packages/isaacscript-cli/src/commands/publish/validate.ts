@@ -3,7 +3,7 @@ import { PACKAGE_JSON, PROJECT_NAME } from "../../constants.js";
 import { execPowershell, execShellString } from "../../exec.js";
 import { fileExists } from "../../file.js";
 import { isGitClean, isGitRepository } from "../../git.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 
 export function validate(
   typeScript: boolean,
@@ -11,25 +11,25 @@ export function validate(
   verbose: boolean,
 ): void {
   if (!isGitRepository(verbose)) {
-    error(
+    fatalError(
       "Failed to publish since the current working directory is not inside of a git repository.",
     );
   }
 
   if (!isGitClean(verbose)) {
-    error(
+    fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
     );
   }
 
   if (!fileExists(PACKAGE_JSON, verbose)) {
-    error(
+    fatalError(
       `Failed to find the "${PACKAGE_JSON}" file in the current working directory.`,
     );
   }
 
   if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
-    error(
+    fatalError(
       chalk.red(
         `The version of "${setVersion}" does not match the semantic versioning format.`,
       ),
@@ -45,7 +45,7 @@ export function validate(
 
 function validateTypeScriptProject(verbose: boolean) {
   if (!isLoggedInToNPM(verbose)) {
-    error(
+    fatalError(
       'Failed to publish since you are not logged in to npm. Try doing "npm login".',
     );
   }
@@ -78,7 +78,7 @@ function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
       !line.includes("isaacscript publish"),
   );
   if (otherCopiesOfRunningIsaacScript.length > 0) {
-    error(
+    fatalError(
       chalk.red(
         `Other copies of ${PROJECT_NAME} appear to be running. You must close those copies before publishing.`,
       ),

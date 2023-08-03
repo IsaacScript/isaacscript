@@ -296,7 +296,10 @@ const SUGGESTIONS = {
   "no-mixed-operators": "off", // eslint-config-prettier
   "no-multi-assign": "error",
   "no-multi-str": "error",
-  "no-negated-condition": "error",
+
+  /** Superseded by the `unicorn/no-negated-condition` rule. */
+  "no-negated-condition": "off",
+
   "no-nested-ternary": "error",
   "no-new": "error",
   "no-new-func": "error",

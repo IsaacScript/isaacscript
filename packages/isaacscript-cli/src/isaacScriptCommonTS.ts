@@ -46,14 +46,14 @@ export const ReadonlySet = Set as ReadonlySetConstructor;
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
   // eslint-disable-next-line prefer-named-capture-group
-  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
+  /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
 
 /**
  * Helper function to print out an error message and then exit the program.
  *
  * All of the arguments will be directly passed to the `console.error` function.
  */
-export function error(...args: unknown[]): never {
+export function fatalError(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);
 }

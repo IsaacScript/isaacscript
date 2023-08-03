@@ -20,8 +20,8 @@ export function deleteFileOrDirectory(filePath: string): void {
     fs.rmSync(filePath, {
       recursive: true,
     });
-  } catch (err) {
-    error(`Failed to delete file or directory "${filePath}":`, err);
+  } catch (error) {
+    fatalError(`Failed to delete file or directory "${filePath}":`, error);
   }
 }
 
@@ -30,7 +30,7 @@ export function deleteFileOrDirectory(filePath: string): void {
  *
  * All of the arguments will be directly passed to the `console.error` function.
  */
-export function error(...args: unknown[]): never {
+export function fatalError(...args: unknown[]): never {
   console.error(...args);
   return process.exit(1);
 }
@@ -39,8 +39,8 @@ export function fileExists(filePath: string): boolean {
   let pathExists: boolean;
   try {
     pathExists = fs.existsSync(filePath);
-  } catch (err) {
-    error(`Failed to check if "${filePath}" exists:`, err);
+  } catch (error) {
+    fatalError(`Failed to check if "${filePath}" exists:`, error);
   }
 
   return pathExists;
@@ -49,7 +49,7 @@ export function fileExists(filePath: string): boolean {
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
   // eslint-disable-next-line prefer-named-capture-group
-  /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
+  /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
 
 /** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
 export function isKebabCase(string: string): boolean {
@@ -62,8 +62,8 @@ export function makeDir(dirPath: string): void {
     fs.mkdirSync(dirPath, {
       recursive: true,
     });
-  } catch (err) {
-    error(`Failed to create the "${dirPath}" directory:`, err);
+  } catch (error) {
+    fatalError(`Failed to create the "${dirPath}" directory:`, error);
   }
 }
 
@@ -71,8 +71,8 @@ export function readFile(filePath: string): string {
   let fileContents: string;
   try {
     fileContents = fs.readFileSync(filePath, "utf8");
-  } catch (err) {
-    error(`Failed to read the "${filePath}" file:`, err);
+  } catch (error) {
+    fatalError(`Failed to read the "${filePath}" file:`, error);
   }
 
   return fileContents;
@@ -81,8 +81,8 @@ export function readFile(filePath: string): string {
 export function renameFile(srcPath: string, dstPath: string): void {
   try {
     fs.renameSync(srcPath, dstPath);
-  } catch (err) {
-    error(`Failed to rename "${srcPath}" to "${dstPath}":`, err);
+  } catch (error) {
+    fatalError(`Failed to rename "${srcPath}" to "${dstPath}":`, error);
   }
 }
 
@@ -99,7 +99,7 @@ export function trimSuffix(string: string, prefix: string): string {
 export function writeFile(filePath: string, data: string): void {
   try {
     fs.writeFileSync(filePath, data);
-  } catch (err) {
-    error(`Failed to write to the "${filePath}" file:`, err);
+  } catch (error) {
+    fatalError(`Failed to write to the "${filePath}" file:`, error);
   }
 }

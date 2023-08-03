@@ -5,7 +5,7 @@ import path from "node:path";
 import sortPackageJsonDefault from "sort-package-json";
 import {
   __dirname,
-  error,
+  fatalError,
   fileExists,
   isKebabCase,
   readFile,
@@ -325,7 +325,7 @@ function getVersionForSpecificPackage(packageName: string): string {
   const packageJSON = getPackageJSON(packageJSONString);
   const pluginVersion = packageJSON["version"];
   if (typeof pluginVersion !== "string") {
-    error(`Failed to parse the version from: ${packageJSONPath}`);
+    fatalError(`Failed to parse the version from: ${packageJSONPath}`);
   }
 
   return pluginVersion;
@@ -358,7 +358,7 @@ function checkDeps(
       const depPackageJSON = getPackageJSON(depPackageJSONString);
       const depVersion = depPackageJSON["version"];
       if (typeof depVersion !== "string") {
-        error(`Failed to get the version from: ${depPackageJSONPath}`);
+        fatalError(`Failed to get the version from: ${depPackageJSONPath}`);
       }
 
       rootDepValue = `^${depVersion}`;
@@ -402,7 +402,7 @@ function checkRootDepsUpToDate(
       rootDepVersion !== versionString &&
       rootDepName !== "eslint-plugin-isaacscript"
     ) {
-      error(
+      fatalError(
         `Root dependency "${rootDepName}" is not up to date: ${rootDepVersion} --> ${versionString}`,
       );
     }
@@ -417,7 +417,7 @@ function getPackageJSON(packageJSONString: string): Record<string, unknown> {
     packageJSON === null ||
     Array.isArray(packageJSON)
   ) {
-    error('Failed to parse a "package.json" file.');
+    fatalError('Failed to parse a "package.json" file.');
   }
 
   return packageJSON as Record<string, unknown>;

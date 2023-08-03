@@ -11,7 +11,7 @@ import type { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import { fileExists, getHashOfFile, readFile, writeFile } from "../../file.js";
 import { gitCommitAllAndPush } from "../../git.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getProjectPackageJSONField } from "../../json.js";
 import {
   getPackageManagerInstallCommand,
@@ -158,7 +158,7 @@ function writeVersionToVersionTXT(version: string, verbose: boolean) {
 
 function tryRunBashScript(scriptName: string, verbose: boolean) {
   if (!fileExists(scriptName, verbose)) {
-    error(
+    fatalError(
       `Failed to find the script "${scriptName}" in the current working directory.`,
     );
   }
@@ -168,6 +168,6 @@ function tryRunBashScript(scriptName: string, verbose: boolean) {
 
   if (exitStatus !== 0) {
     execShellString("git reset --hard", verbose); // Revert the version changes.
-    error(`Failed to run "${scriptName}":`, stdout);
+    fatalError(`Failed to run "${scriptName}":`, stdout);
   }
 }

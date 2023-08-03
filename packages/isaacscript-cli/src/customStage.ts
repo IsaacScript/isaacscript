@@ -28,7 +28,7 @@ import type {
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageTSConfig.js";
 import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
-import { error, parseIntSafe } from "./isaacScriptCommonTS.js";
+import { fatalError, parseIntSafe } from "./isaacScriptCommonTS.js";
 import { getPackageManagerAddCommand } from "./packageManager.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 
@@ -130,13 +130,13 @@ function checkFile(filePath: string | undefined, verbose: boolean) {
   }
 
   if (!filePath.includes("gfx/")) {
-    error(
+    fatalError(
       `Failed to validate the "${filePath}" file: all PNG file paths must be inside of a "gfx" directory. (e.g. "./mod/resources/gfx/backdrop/foo/nfloor.png")`,
     );
   }
 
   if (!fileExists(filePath, verbose)) {
-    error(
+    fatalError(
       `Failed to find the "${filePath}" file. Check your "tsconfig.json" file and then restart IsaacScript.`,
     );
   }
@@ -195,7 +195,7 @@ async function insertEmptyShader(verbose: boolean) {
     (shader) => shader.$.name === EMPTY_SHADER_NAME,
   );
   if (isaacScriptEmptyShader === undefined) {
-    error(
+    fatalError(
       `Failed to find the empty shader named "${EMPTY_SHADER_NAME}" in the following file: ${SHADERS_XML_PATH}`,
     );
   }
@@ -238,7 +238,7 @@ function validateMetadataLuaFileExists(
       packageManager,
       ISAACSCRIPT_COMMON,
     );
-    error(
+    fatalError(
       `${chalk.red(
         `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:`,
       )} ${chalk.green(addCommand)}`,
@@ -246,7 +246,7 @@ function validateMetadataLuaFileExists(
   }
 
   if (!fileExists(METADATA_LUA_PATH, verbose)) {
-    error(
+    fatalError(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
       )} ${chalk.green(METADATA_LUA_PATH)}`,
@@ -263,7 +263,7 @@ async function getCustomStagesWithMetadata(
   verbose: boolean,
 ): Promise<CustomStageLua[]> {
   if (!fileExists(METADATA_LUA_PATH, verbose)) {
-    error(
+    fatalError(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
       )} ${chalk.green(METADATA_LUA_PATH)}`,
@@ -280,7 +280,7 @@ async function getCustomStagesWithMetadata(
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
     if (!fileExists(resolvedXMLPath, verbose)) {
-      error(
+      fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
         )} ${chalk.green(resolvedXMLPath)}`,
@@ -299,7 +299,7 @@ async function getCustomStagesWithMetadata(
       const typeString = room.$.type;
       const type = parseIntSafe(typeString);
       if (Number.isNaN(type)) {
-        error(
+        fatalError(
           `Failed to parse the type of one of the "${name}" custom stage rooms: ${typeString}`,
         );
       }
@@ -307,13 +307,13 @@ async function getCustomStagesWithMetadata(
       const variantString = room.$.variant;
       const baseVariant = parseIntSafe(variantString);
       if (Number.isNaN(baseVariant)) {
-        error(
+        fatalError(
           `Failed to parse the variant of one of the "${name}" custom stage rooms: ${variantString}`,
         );
       }
 
       if (roomVariantSet.has(baseVariant)) {
-        error(
+        fatalError(
           chalk.red(
             `There is more than one room with a variant of "${baseVariant}" in the "${resolvedXMLPath}" file. Make sure that each room has a unique variant. (The room variant is also called the "ID" in Basement Renovator.)`,
           ),
@@ -328,7 +328,7 @@ async function getCustomStagesWithMetadata(
       const subTypeString = room.$.subtype;
       const subType = parseIntSafe(subTypeString);
       if (Number.isNaN(subType)) {
-        error(
+        fatalError(
           `Failed to parse the sub-type of one of the "${name}" custom stage rooms: ${subTypeString}`,
         );
       }
@@ -336,7 +336,7 @@ async function getCustomStagesWithMetadata(
       const shapeString = room.$.shape;
       const shape = parseIntSafe(shapeString);
       if (Number.isNaN(baseVariant)) {
-        error(
+        fatalError(
           `Failed to parse the shape of one of the "${name}" custom stage rooms: ${shapeString}`,
         );
       }
@@ -346,7 +346,7 @@ async function getCustomStagesWithMetadata(
       const weightString = room.$.weight;
       const weight = parseFloat(weightString);
       if (Number.isNaN(baseVariant)) {
-        error(
+        fatalError(
           `Failed to parse the weight of one of the "${name}" custom stage rooms: ${weightString}`,
         );
       }
@@ -379,7 +379,7 @@ function convertCustomStagesToLua(customStages: CustomStageLua[]): string {
     noHeader: true,
   });
   if (result.file === undefined || result.file.lua === undefined) {
-    error(
+    fatalError(
       "Failed to convert the JSON metadata for the custom stages to a Lua file.",
     );
   }
@@ -397,7 +397,7 @@ function combineCustomStageXMLs(
   for (const customStageTSConfig of customStagesTSConfig) {
     const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
     if (!fileExists(xmlPath, verbose)) {
-      error(
+      fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
         )} ${chalk.green(xmlPath)}`,
@@ -441,7 +441,7 @@ function combineCustomStageXMLs(
       }
       const baseVariant = parseIntSafe(baseVariantString);
       if (Number.isNaN(baseVariant)) {
-        error(
+        fatalError(
           `Failed to parse the variant of one of the custom stage rooms: ${baseVariantString}`,
         );
       }

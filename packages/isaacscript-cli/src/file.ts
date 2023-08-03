@@ -2,7 +2,7 @@ import chalk from "chalk";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { error } from "./isaacScriptCommonTS.js";
+import { fatalError } from "./isaacScriptCommonTS.js";
 
 export function copyFile(
   srcPath: string,
@@ -17,12 +17,12 @@ export function copyFile(
     fs.cpSync(srcPath, dstPath, {
       recursive: true,
     });
-  } catch (err) {
-    error(
+  } catch (error) {
+    fatalError(
       `Failed to copy file or directory "${chalk.green(
         srcPath,
       )}" to "${chalk.green(dstPath)}":`,
-      err,
+      error,
     );
   }
 
@@ -43,10 +43,10 @@ export function deleteFileOrDirectory(
     fs.rmSync(filePath, {
       recursive: true,
     });
-  } catch (err) {
-    error(
+  } catch (error) {
+    fatalError(
       `Failed to delete file or directory "${chalk.green(filePath)}":`,
-      err,
+      error,
     );
   }
 
@@ -63,8 +63,8 @@ export function fileExists(filePath: string, verbose: boolean): boolean {
   let pathExists: boolean;
   try {
     pathExists = fs.existsSync(filePath);
-  } catch (err) {
-    error(`Failed to check if "${chalk.green(filePath)}" exists:`, err);
+  } catch (error) {
+    fatalError(`Failed to check if "${chalk.green(filePath)}" exists:`, error);
   }
 
   if (verbose) {
@@ -86,10 +86,10 @@ export function getDirList(dirPath: string, verbose: boolean): string[] {
   let fileList: string[];
   try {
     fileList = fs.readdirSync(dirPath);
-  } catch (err) {
-    error(
+  } catch (error) {
+    fatalError(
       `Failed to get the files in the "${chalk.green(dirPath)}" directory:`,
-      err,
+      error,
     );
   }
 
@@ -108,8 +108,11 @@ function getFileStats(filePath: string, verbose: boolean): fs.Stats {
   let fileStats: fs.Stats;
   try {
     fileStats = fs.statSync(filePath);
-  } catch (err) {
-    error(`Failed to get the file stats for "${chalk.green(filePath)}":`, err);
+  } catch (error) {
+    fatalError(
+      `Failed to get the file stats for "${chalk.green(filePath)}":`,
+      error,
+    );
   }
 
   if (verbose) {
@@ -138,10 +141,10 @@ function getLinkedFileStats(filePath: string, verbose: boolean): fs.Stats {
   let fileStats: fs.Stats;
   try {
     fileStats = fs.lstatSync(filePath);
-  } catch (err) {
-    error(
+  } catch (error) {
+    fatalError(
       `Failed to get the linked file stats for "${chalk.green(filePath)}":`,
-      err,
+      error,
     );
   }
 
@@ -185,8 +188,11 @@ export function makeDir(dirPath: string, verbose: boolean): void {
     fs.mkdirSync(dirPath, {
       recursive: true,
     });
-  } catch (err) {
-    error(`Failed to create the "${chalk.green(dirPath)}" directory:`, err);
+  } catch (error) {
+    fatalError(
+      `Failed to create the "${chalk.green(dirPath)}" directory:`,
+      error,
+    );
   }
 
   if (verbose) {
@@ -202,8 +208,8 @@ export function readFile(filePath: string, verbose: boolean): string {
   let fileContents: string;
   try {
     fileContents = fs.readFileSync(filePath, "utf8");
-  } catch (err) {
-    error(`Failed to read the "${chalk.green(filePath)}" file:`, err);
+  } catch (error) {
+    fatalError(`Failed to read the "${chalk.green(filePath)}" file:`, error);
   }
 
   if (verbose) {
@@ -224,12 +230,12 @@ export function renameFile(
 
   try {
     fs.renameSync(srcPath, dstPath);
-  } catch (err) {
-    error(
+  } catch (error) {
+    fatalError(
       `Failed to rename "${chalk.green(srcPath)}" to "${chalk.green(
         dstPath,
       )}":`,
-      err,
+      error,
     );
   }
 
@@ -248,8 +254,8 @@ export function touch(filePath: string, verbose: boolean): void {
       fs.accessSync(filePath);
       const now = new Date();
       fs.utimesSync(filePath, now, now);
-    } catch (err) {
-      error(`Failed to touch the "${chalk.green(filePath)}" file:`, err);
+    } catch (error) {
+      fatalError(`Failed to touch the "${chalk.green(filePath)}" file:`, error);
     }
   } else {
     writeFile(filePath, "", verbose);
@@ -271,8 +277,11 @@ export function writeFile(
 
   try {
     fs.writeFileSync(filePath, data);
-  } catch (err) {
-    error(`Failed to write to the "${chalk.green(filePath)}" file:`, err);
+  } catch (error) {
+    fatalError(
+      `Failed to write to the "${chalk.green(filePath)}" file:`,
+      error,
+    );
   }
 
   if (verbose) {

@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import path from "node:path";
-import { __dirname, error, readFile, writeFile } from "./utils.mjs";
+import { __dirname, fatalError, readFile, writeFile } from "./utils.mjs";
 
 const REPO_ROOT = path.join(__dirname, "..");
 
@@ -12,7 +12,7 @@ function main() {
     firstCommandLineArgument === undefined ||
     firstCommandLineArgument === ""
   ) {
-    error("This script requires the name of the package to operate on.");
+    fatalError("This script requires the name of the package to operate on.");
   }
   const packageName = firstCommandLineArgument;
 
@@ -30,7 +30,7 @@ function replaceTextInGlob(packageName: string, globPath: string) {
     cwd: outDir,
   });
   if (filePaths.length === 0) {
-    error(`Failed to find any files in the following glob: ${globPath}`);
+    fatalError(`Failed to find any files in the following glob: ${globPath}`);
   }
 
   for (const partialFilePath of filePaths) {

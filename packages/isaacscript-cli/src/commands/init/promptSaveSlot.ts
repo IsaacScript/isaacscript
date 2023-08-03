@@ -1,4 +1,4 @@
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import type { Args } from "../../parseArgs.js";
 import { getInputInt } from "../../prompt.js";
 
@@ -21,7 +21,7 @@ export async function promptSaveSlot(
   );
 
   if (saveSlot !== 1 && saveSlot !== 2 && saveSlot !== 3) {
-    error("Error: You must choose a number between 1 and 3.");
+    fatalError("Error: You must choose a number between 1 and 3.");
   }
 
   return saveSlot;

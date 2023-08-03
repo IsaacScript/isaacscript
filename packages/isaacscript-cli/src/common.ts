@@ -4,7 +4,7 @@ import type { DoorSlot } from "./enums/DoorSlot.js";
 import type { DoorSlotFlag } from "./enums/DoorSlotFlag.js";
 import type { RoomShape } from "./enums/RoomShape.js";
 import type { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
-import { error, parseIntSafe } from "./isaacScriptCommonTS.js";
+import { fatalError, parseIntSafe } from "./isaacScriptCommonTS.js";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag.js";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates.js";
 
@@ -13,7 +13,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   const roomShapeString = jsonRoom.$.shape;
   const roomShapeNumber = parseIntSafe(roomShapeString);
   if (Number.isNaN(roomShapeNumber)) {
-    error(
+    fatalError(
       `Failed to parse the "shape" field of a custom stage room: ${roomShapeString}`,
     );
   }
@@ -24,7 +24,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   for (const door of jsonRoom.door) {
     const existsString = door.$.exists;
     if (existsString !== "True" && existsString !== "False") {
-      error(
+      fatalError(
         `Failed to parse the "exists" field of a custom stage room door: ${existsString}`,
       );
     }
@@ -36,7 +36,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
     const xString = door.$.x;
     const x = parseIntSafe(xString);
     if (Number.isNaN(x)) {
-      error(
+      fatalError(
         `Failed to parse the "x" field of a custom stage room door: ${xString}`,
       );
     }
@@ -44,14 +44,14 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
     const yString = door.$.y;
     const y = parseIntSafe(yString);
     if (Number.isNaN(y)) {
-      error(
+      fatalError(
         `Failed to parse the "y" field of a custom stage room door: ${yString}`,
       );
     }
 
     const doorSlot = getRoomShapeDoorSlot(roomShape, x, y);
     if (doorSlot === undefined) {
-      error(
+      fatalError(
         `Failed to retrieve the door slot for a custom stage room door at coordinates: [${x}, ${y}]`,
       );
     }

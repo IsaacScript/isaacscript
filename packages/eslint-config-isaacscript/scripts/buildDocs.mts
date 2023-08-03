@@ -238,8 +238,8 @@ const PARENT_CONFIG_LINKS = {
     "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
 
-main().catch((err) => {
-  throw new Error(`${err}`);
+main().catch((error) => {
+  throw new Error(`${error}`);
 });
 
 async function main() {

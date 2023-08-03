@@ -18,8 +18,8 @@ const TEMPLATE_SRC_PATH = path.join(SRC_PATH, "template.ts");
 const TESTS_PATH = path.join(REPO_ROOT, "tests");
 const TEMPLATE_TEST_PATH = path.join(TESTS_PATH, "template.ts");
 
-createRule().catch((err) => {
-  throw new Error(`Failed to create a rule: ${err}`);
+createRule().catch((error) => {
+  throw new Error(`Failed to create a rule: ${error}`);
 });
 
 async function createRule() {

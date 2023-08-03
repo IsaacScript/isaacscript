@@ -2,7 +2,7 @@ import chalk from "chalk";
 import path from "node:path";
 import { PROJECT_NAME } from "../../constants.js";
 import { deleteFileOrDirectory, fileExists, isDir } from "../../file.js";
-import { error } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getInputYesNo } from "../../prompt.js";
 
 export async function checkModTargetDirectory(
@@ -35,7 +35,7 @@ export async function checkModTargetDirectory(
   const shouldDelete = await getInputYesNo("Do you want me to delete it?");
 
   if (!shouldDelete) {
-    error("Ok then. Goodbye.");
+    fatalError("Ok then. Goodbye.");
   }
 
   deleteFileOrDirectory(modTargetPath, verbose);

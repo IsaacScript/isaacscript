@@ -3,7 +3,11 @@
 
 import chalk from "chalk";
 import prompt from "prompt";
-import { ReadonlySet, error, parseIntSafe } from "./isaacScriptCommonTS.js";
+import {
+  ReadonlySet,
+  fatalError,
+  parseIntSafe,
+} from "./isaacScriptCommonTS.js";
 
 const VALID_YES_RESPONSES = new ReadonlySet<string>(["yes", "ye", "y"]);
 const VALID_NO_RESPONSES = new ReadonlySet<string>(["no", "n"]);
@@ -40,7 +44,7 @@ export async function getInputYesNo(
 
   if (typeof response !== "string") {
     console.log(typeof response);
-    error("Failed to get a proper response from the prompt library.");
+    fatalError("Failed to get a proper response from the prompt library.");
   }
 
   const cleanedResponse = response.toLowerCase().trim();
@@ -58,7 +62,7 @@ export async function getInputYesNo(
     return false;
   }
 
-  error('Invalid response; must answer "yes" or "no".');
+  fatalError('Invalid response; must answer "yes" or "no".');
 }
 
 /** Returns trimmed input. */
@@ -83,7 +87,7 @@ export async function getInputString(
   });
 
   if (typeof response !== "string") {
-    error("Failed to get a proper response from the prompt library.");
+    fatalError("Failed to get a proper response from the prompt library.");
   }
 
   if (response === "" && defaultValue !== undefined) {
@@ -102,7 +106,7 @@ export async function getInputInt(
   const int = parseIntSafe(string);
 
   if (Number.isNaN(int)) {
-    error("Error: You must enter an integer.");
+    fatalError("Error: You must enter an integer.");
   }
 
   return int;
