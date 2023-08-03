@@ -8,7 +8,7 @@ This is a helper/meta package to install all of the dependencies necessary for [
 
 ## Why This Package Is Useful
 
-It's a pain to get Prettier & ESLint working with TypeScript. So, `isaacscript-lint` is designed to make it as easy as possible. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies; just use `isaacscript-lint`.
+It's a pain to get Prettier & ESLint working with TypeScript. So, `isaacscript-lint` is designed to make it as easy as possible. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies. Don't bother researching which of the hundreds of existing ESLint rules to turn on and turn off. Just use `isaacscript-lint`.
 
 If you are ready to start, see the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
@@ -48,11 +48,9 @@ Prettier handles almost everything, but the `isaacscript-lint` linting config al
 
 ESLint is the best tool to lint JavaScript and TypeScript, as it has a massive ecosystem of rules and plugins that can help find errors in your codebase.
 
-In `isaacscript-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. False positives can be taken care of by adding a `// eslint-disable-next-line insert-rule-name-here` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to `Ctrl + .` by default.)
+With `isaacscript-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-isaacscript`](https://isaacscript.github.io/eslint-config-isaacscript).
 
-In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional custom rules that catch even more bugs. You can find a full list of the rules in the [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) package.
-
-### Using Them Together
+### Using Prettier & ESLint Together
 
 In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
 
@@ -106,7 +104,9 @@ module.exports = {
 };
 ```
 
-Note that this file must have a period at the beginning!
+This file must have a period at the beginning!
+
+Note that [the new config format for ESLint that was released in 2023](https://eslint.org/docs/latest/use/configure/configuration-files-new) is not yet recommended for production use.
 
 ### Step 3 - `tsconfig.eslint.json`
 

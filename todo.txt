@@ -2,9 +2,6 @@
 
 ----------------------------------------------------------------------------------------------------
 
-- remove consolidated dist directory
-  - waiting on Nx Slack discussion
-
 - wait for TypeDoc to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
 - update eslint to new config

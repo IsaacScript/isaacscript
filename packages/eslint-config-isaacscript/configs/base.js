@@ -36,7 +36,7 @@ const config = {
     "./base-eslint-comments",
     "./base-import",
     "./base-jsdoc",
-    "./base-n", // Node
+    "./base-n", // "n" stands for Node.
     "./base-unicorn",
   ],
 
