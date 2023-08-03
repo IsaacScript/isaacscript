@@ -21,13 +21,6 @@ const config = {
 
   rules: {
     /**
-     * Defined at: base-typescript-eslint.js
-     *
-     * We commonly get the elements of arrays in a for loop.
-     */
-    "@typescript-eslint/no-non-null-assertion": "off",
-
-    /**
      * Defined at: base-n.js
      *
      * ESLint plugins do not support ESM until version 9 is released:
@@ -50,6 +43,20 @@ const config = {
     "unicorn/no-null": "off",
 
     /**
+     * Defined at: base-unicorn.js
+     *
+     * See this package's "tsconfig.json" file. This can be removed when the plugin migrates to ESM.
+     */
+    "unicorn/prefer-module": "off",
+
+    /**
+     * Defined at: base-unicorn.js
+     *
+     * See this package's "tsconfig.json" file. This can be removed when the plugin migrates to ESM.
+     */
+    "unicorn/prefer-top-level-await": "off",
+
+    /**
      * Defined at: base-eslint.js
      *
      * Some rules use bitwise operators to deal with TypeScript bit flags.
@@ -63,6 +70,15 @@ const config = {
      */
     "no-param-reassign": "off",
   },
+
+  overrides: [
+    {
+      files: ["src/template.ts", "tests/template.ts", "tests/fixtures/file.ts"],
+      rules: {
+        "unicorn/no-empty-file": "off",
+      },
+    },
+  ],
 };
 
 module.exports = config;

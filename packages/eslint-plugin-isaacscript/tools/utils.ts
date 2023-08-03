@@ -60,7 +60,7 @@ export function isRecommendedRule(rule: RuleDefinition): boolean {
 }
 
 function kebabCaseToCamelCase(text: string): string {
-  return text.replace(/-./g, (match) => {
+  return text.replaceAll(/-./g, (match) => {
     const firstLetterOfWord = match[1];
     return firstLetterOfWord === undefined
       ? ""

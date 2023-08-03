@@ -1,5 +1,7 @@
 // This generates the files in the "src/configs" directory.
 
+/* eslint-disable unicorn/no-array-reduce */
+
 import type { TSESLint } from "@typescript-eslint/utils";
 import fs from "node:fs";
 import path from "node:path";

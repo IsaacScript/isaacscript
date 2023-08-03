@@ -158,8 +158,7 @@ export const strictEnums = createRule<Options, MessageIds>({
        * Iterate through the arguments provided to the call function and cross reference their types
        * to the types of the "real" function parameters.
        */
-      for (let i = 0; i < node.arguments.length; i++) {
-        const argument = node.arguments[i]!;
+      for (const [i, argument] of node.arguments.entries()) {
         const argumentType = getTypeFromNode(argument);
         let parameterType = signature.getTypeParameterAtPosition(i);
 
@@ -229,6 +228,7 @@ export const strictEnums = createRule<Options, MessageIds>({
         const leftTypeArguments = checker.getTypeArguments(leftType);
         const rightTypeArguments = checker.getTypeArguments(rightType);
 
+        // eslint-disable-next-line unicorn/no-for-loop
         for (let i = 0; i < leftTypeArguments.length; i++) {
           const leftTypeArgument = leftTypeArguments[i];
           const rightTypeArgument = rightTypeArguments[i];
@@ -297,6 +297,7 @@ export const strictEnums = createRule<Options, MessageIds>({
           const parameterTypeArguments =
             checker.getTypeArguments(parameterSubType);
 
+          // eslint-disable-next-line unicorn/no-for-loop
           for (let i = 0; i < argumentTypeArguments.length; i++) {
             const argumentTypeArgument = argumentTypeArguments[i];
             const parameterTypeArgument = parameterTypeArguments[i];
@@ -369,9 +370,7 @@ export const strictEnums = createRule<Options, MessageIds>({
           argumentSubType.isLiteral() &&
           !isEnum(argumentSubType) &&
           // Allow passing number literals if there are number literals in the actual function type.
-          !parameterSubTypes.some(
-            (parameterSubType) => parameterSubType === argumentSubType,
-          )
+          !parameterSubTypes.includes(argumentSubType)
         ) {
           return true;
         }

@@ -39,9 +39,7 @@ export function formatText(
   let encounteredJSDocTags = false;
 
   const lines = text.split("\n");
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]!;
-
+  for (const [i, line] of lines.entries()) {
     // Gather information about this line.
     const lineIsBlank = line.trim() === "";
     const hasCodeBlock = line.includes("```");
@@ -250,10 +248,7 @@ export function formatText(
 
     const words = getWordsFromLine(line);
 
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let j = 0; j < words.length; j++) {
-      const word = words[j]!;
-
+    for (const word of words) {
       // Words can be blank strings in certain cases. For example: "dog cat"
       if (word === "") {
         continue;

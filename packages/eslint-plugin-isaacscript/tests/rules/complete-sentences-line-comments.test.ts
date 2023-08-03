@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-array-push-push */
-
 import type { TSESLint } from "@typescript-eslint/utils";
 import type { CompleteSentenceMessageIds } from "../../src/completeSentence";
 import type { Options } from "../../src/rules/complete-sentences-line-comments";

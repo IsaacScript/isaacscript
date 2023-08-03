@@ -128,8 +128,9 @@ function splitOnSpecialText(text: string): string[] {
   const lines = text.split("\n");
   const newLines: string[] = [];
   let insideList: List | undefined;
-  for (let i = 0; i < lines.length; i++) {
-    let line = lines[i]!;
+
+  for (const [i, originalLine] of lines.entries()) {
+    let line = originalLine;
 
     // Ignore "@type" JSDoc tags, since they contain a code type instead of English text.
     // https://jsdoc.app/tags-type.html

@@ -43,9 +43,7 @@ export const completeSentencesLineComments = createRule<
     // Sort the comments by blocks.
     const commentBlocks = getCommentBlocks(leadingLineComments);
 
-    for (let i = 0; i < commentBlocks.length; i++) {
-      const commentBlock = commentBlocks[i]!;
-
+    for (const [i, commentBlock] of commentBlocks.entries()) {
       const firstComment = commentBlock.originalComments.at(0);
       if (firstComment === undefined) {
         throw new Error("Failed to get the first comment.");
