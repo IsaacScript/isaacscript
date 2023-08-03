@@ -22,8 +22,8 @@ const BEST_PRACTICES = {
   "eslint-comments/no-duplicate-disable": "error",
 
   /**
-   * Disabled because if a line breaks two or more ESLint rules, then it is useful to use a single
-   * "eslint-disable" comment.
+   * Disabled because if a line breaks three or more ESLint rules, then it is useful to use a single
+   * "eslint-disable" comment to make things more concise.
    */
   "eslint-comments/no-unlimited-disable": "off",
 

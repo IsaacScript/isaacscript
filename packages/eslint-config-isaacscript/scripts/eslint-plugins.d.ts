@@ -28,3 +28,8 @@ declare module "eslint-plugin-n" {
   const ESLintPlugin: ESLintPlugin;
   export default ESLintPlugin;
 }
+
+declare module "eslint-plugin-unicorn" {
+  const ESLintPlugin: ESLintPlugin;
+  export default ESLintPlugin;
+}

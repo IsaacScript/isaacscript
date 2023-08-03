@@ -26,12 +26,24 @@ const config = {
     "unicorn/filename-case": "off",
 
     "unicorn/import-style": "error",
+    "new-for-builtins": "error",
 
-    /*
-    "unicorn/": "error",
-    "unicorn/": "error",
-    "unicorn/": "error",
-    */
+    /** Superseded by the `eslint-comments/no-unlimited-disable` rule. */
+    "no-abusive-eslint-disable": "off",
+
+    "no-array-callback-reference": "error",
+    "no-array-for-each": "error",
+    "no-array-method-this-argument": "error",
+    "no-array-push-push": "error",
+    "no-array-reduce": "error",
+    "no-await-expression-member": "error",
+    "no-console-spaces": "error",
+    "no-document-cookie": "error",
+    "no-empty-file": "error",
+    "no-for-loop": "error",
+    "no-hex-escape": "error",
+    "no-instanceof-array": "error",
+    "no-invalid-remove-event-listener": "error",
 
     /** Disabled because it is common to prefix variables with "new". */
     "unicorn/no-keyword-prefix": "off",

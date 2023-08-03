@@ -6,6 +6,7 @@ import ESLintPluginESLintComments from "eslint-plugin-eslint-comments";
 import ESLintPluginImport from "eslint-plugin-import";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
+import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import fs from "node:fs";
 import path from "node:path";
@@ -24,6 +25,7 @@ type ParentConfig =
   | "import/recommended"
   | "jsdoc/recommended"
   | "n/recommended"
+  | "unicorn/recommended"
   | "eslint-config-prettier";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -211,29 +213,31 @@ const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 const PARENT_CONFIG_LINKS = {
   "eslint/recommended":
-    "[`eslint/recommended`](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js)",
+    "https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js",
   "@typescript-eslint/eslint-recommended":
-    "[`@typescript-eslint/eslint-recommended`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts",
   "@typescript-eslint/recommended-type-checked":
-    "[`@typescript-eslint/recommended-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-type-checked.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-type-checked.ts",
   "@typescript-eslint/recommended":
-    "[`@typescript-eslint/recommended`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts",
   "@typescript-eslint/strict-type-checked":
-    "[`@typescript-eslint/strict-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict-type-checked.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict-type-checked.ts",
   "@typescript-eslint/strict":
-    "[`@typescript-eslint/strict`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts",
   "@typescript-eslint/stylistic-type-checked":
-    "[`@typescript-eslint/stylistic-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts",
   "@typescript-eslint/stylistic":
-    "[`@typescript-eslint/stylistic`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts)",
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts",
   "eslint-comments/recommended":
-    "[`eslint-comments/recommended`](https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js)",
+    "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js",
   "import/recommended":
-    "[`import/recommended`](https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js)",
+    "https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js",
   "jsdoc/recommended":
-    "[`jsdoc/recommended`](https://github.com/gajus/eslint-plugin-jsdoc/blob/main/src/index.js)",
+    "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/src/index.js",
   "n/recommended":
-    "[`n/recommended`](https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js)",
+    "https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js",
+  "unicorn/recommended":
+    "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js",
   "eslint-config-prettier":
     "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
@@ -252,6 +256,7 @@ async function main() {
     "https://eslint.org/docs/latest/rules/__RULE_NAME__",
     ESLintJS,
   );
+
   markdownOutput += await getMarkdownRuleSection(
     "no-autofix",
     getPluginHeaderTitle("no-autofix"),
@@ -260,7 +265,7 @@ async function main() {
     "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
     undefined,
   );
-  // markdownOutput += getTypeScriptESLintMarkdownSection();
+
   markdownOutput += await getMarkdownRuleSection(
     "typescript-eslint",
     "`@typescript-eslint` Rules",
@@ -268,6 +273,7 @@ async function main() {
     "https://typescript-eslint.io/rules/__RULE_NAME__/",
     TypeScriptESLintPlugin,
   );
+
   markdownOutput += await getMarkdownRuleSection(
     "eslint-comments",
     getPluginHeaderTitle("eslint-comments"),
@@ -275,6 +281,7 @@ async function main() {
     "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md",
     ESLintPluginESLintComments,
   );
+
   markdownOutput += await getMarkdownRuleSection(
     "import",
     getPluginHeaderTitle("import"),
@@ -282,6 +289,7 @@ async function main() {
     "https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/__RULE_NAME__.md",
     ESLintPluginImport,
   );
+
   markdownOutput += await getMarkdownRuleSection(
     "jsdoc",
     getPluginHeaderTitle("jsdoc"),
@@ -289,12 +297,21 @@ async function main() {
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/__RULE_NAME__.md",
     ESLintPluginJSDoc,
   );
+
   markdownOutput += await getMarkdownRuleSection(
     "n",
     getPluginHeaderTitle("n"),
     "https://github.com/eslint-community/eslint-plugin-n",
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/__RULE_NAME__.md",
     ESLintPluginN,
+  );
+
+  markdownOutput += await getMarkdownRuleSection(
+    "unicorn",
+    getPluginHeaderTitle("unicorn"),
+    "https://github.com/sindresorhus/eslint-plugin-unicorn",
+    "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/__RULE_NAME__.md",
+    ESLintPluginUnicorn,
   );
 
   if (!fs.existsSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
@@ -522,7 +539,8 @@ function getParentConfigsLinks(ruleName: string): string {
   }
 
   const parentConfigLinks = parentConfigs.map(
-    (parentConfig) => PARENT_CONFIG_LINKS[parentConfig],
+    (parentConfig) =>
+      `[\`${parentConfig}\`](${PARENT_CONFIG_LINKS[parentConfig]})`,
   );
 
   return `<ul><li>${parentConfigLinks.join("</li><li>")}</li></ul>`;
