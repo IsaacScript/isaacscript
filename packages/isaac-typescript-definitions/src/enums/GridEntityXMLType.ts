@@ -150,5 +150,5 @@ export enum GridEntityXMLType {
   CRAWL_SPACE = 9100,
 
   /** Corresponds to `GridEntityType.GRAVITY` (19). */
-  GRAVITY = 10000,
+  GRAVITY = 10_000,
 }

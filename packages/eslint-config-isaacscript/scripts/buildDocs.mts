@@ -242,9 +242,7 @@ const PARENT_CONFIG_LINKS = {
     "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
 
-main().catch((error) => {
-  throw new Error(`${error}`);
-});
+await main();
 
 async function main() {
   let markdownOutput = MARKDOWN_HEADER;
@@ -522,7 +520,9 @@ function getRuleSeverity(ruleName: string, rule: Linter.RuleEntry): string {
   if (Array.isArray(rule)) {
     const firstElement = rule[0];
     if (typeof firstElement !== "string") {
-      throw new Error(`Failed to parse the first element of rule: ${ruleName}`);
+      throw new TypeError(
+        `Failed to parse the first element of rule: ${ruleName}`,
+      );
     }
 
     return firstElement;
@@ -653,7 +653,7 @@ function getRuleComments(
 
     const lineWithNoQuotes = line.replaceAll('"', "");
     const colonIndex = lineWithNoQuotes.indexOf(":");
-    const lineRuleName = lineWithNoQuotes.substring(0, colonIndex);
+    const lineRuleName = lineWithNoQuotes.slice(0, Math.max(0, colonIndex));
 
     if (lineRuleName !== ruleName) {
       continue;
@@ -672,7 +672,7 @@ function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
   }
 
   if (typeof rule !== "string") {
-    throw new Error(
+    throw new TypeError(
       `Failed to parse rule in "@typescript-eslint/eslint-recommended": ${ruleName}`,
     );
   }
@@ -692,7 +692,7 @@ function getLineOfCodeStartingAtPos(pos: number, code: string) {
   const newlineIndex = codeStartingAtPos.indexOf("\n");
 
   if (newlineIndex !== -1) {
-    return codeStartingAtPos.substring(0, newlineIndex);
+    return codeStartingAtPos.slice(0, Math.max(0, newlineIndex));
   }
 
   return codeStartingAtPos;
