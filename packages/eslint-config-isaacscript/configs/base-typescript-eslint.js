@@ -54,9 +54,9 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/method-signature-style": "error",
 
   /**
-   * - The options are [copied from
+   * The options are [copied from
    * Airbnb](https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js).
-   * - We also allow a leading underscore, which signifies that it is temporarily not being used.
+   * We also allow a leading underscore, which signifies that it is temporarily not being used.
    */
   "@typescript-eslint/naming-convention": [
     "error",

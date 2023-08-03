@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import baseESLintConfig from "../configs/base-eslint.js";
+import baseNoAutoFixConfig from "../configs/base-no-autofix.js";
 import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
 
 type ParentConfig =
@@ -71,6 +72,15 @@ const BASE_ESLINT_RULES_JS_PATH = path.join(
 );
 const BASE_ESLINT_RULES_JS = fs.readFileSync(BASE_ESLINT_RULES_JS_PATH, "utf8");
 
+const BASE_NO_AUTOFIX_RULES_JS_PATH = path.join(
+  BASE_CONFIGS_PATH,
+  "base-no-autofix.js",
+);
+const BASE_NO_AUTOFIX_RULES_JS = fs.readFileSync(
+  BASE_NO_AUTOFIX_RULES_JS_PATH,
+  "utf8",
+);
+
 const BASE_TYPESCRIPT_ESLINT_RULES_JS_PATH = path.join(
   BASE_CONFIGS_PATH,
   "base-typescript-eslint.js",
@@ -113,9 +123,7 @@ const TYPESCRIPT_ESLINT_RULES_SET = {
   "recommended-type-checked": new Set(
     Object.keys(TYPESCRIPT_ESLINT_RULES["recommended-type-checked"]),
   ),
-  recommended: new Set(
-    Object.keys(TYPESCRIPT_ESLINT_RULES["recommended-type-checked"]),
-  ),
+  recommended: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.recommended)),
   "strict-type-checked": new Set(
     Object.keys(TYPESCRIPT_ESLINT_RULES["strict-type-checked"]),
   ),
@@ -205,6 +213,7 @@ function main() {
   let markdownOutput = MARKDOWN_HEADER;
 
   markdownOutput += getESLintMarkdownSection();
+  markdownOutput += getNoAutoFixMarkdownSection();
   markdownOutput += getTypeScriptESLintMarkdownSection();
 
   if (!fs.existsSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
@@ -244,16 +253,53 @@ function getESLintMarkdownSection(): string {
       throw new Error(`Failed to find rule: ${ruleName}`);
     }
 
-    const ruleNameWithLink = `[\`${ruleName}\`](https://eslint.org/docs/latest/rules/${ruleName})`;
-    const enabled = getRuleEnabled(ruleName, rule);
-    const enabledEmoji = enabled ? "✅" : "❌";
-    const parentConfigsLinks = getParentConfigsLinks(ruleName);
-    const notes = getNotes(ruleName, rule, BASE_ESLINT_RULES_JS);
-    const sourceFileLink = getSourceFileLink(
-      "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-eslint.js",
-    );
+    const ruleURL = "https://eslint.org/docs/latest/rules/__RULE_NAME__";
+    const baseJSText = BASE_ESLINT_RULES_JS;
+    const sourceFileName = "base-eslint.js";
 
-    markdownOutput += `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
+    markdownOutput += getMarkdownTableRow(
+      ruleName,
+      rule,
+      ruleURL,
+      baseJSText,
+      sourceFileName,
+    );
+  }
+
+  return markdownOutput;
+}
+
+function getNoAutoFixMarkdownSection(): string {
+  let markdownOutput = getMarkdownHeader(
+    "`eslint-plugin-no-autofix` Rules",
+    "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
+  );
+
+  const baseNoAutoFixRules = baseNoAutoFixConfig.rules;
+  if (baseNoAutoFixRules === undefined) {
+    throw new Error("Failed to parse the `eslint-plugin-no-autofix` rules.");
+  }
+
+  const alphabeticalRuleNames = Object.keys(baseNoAutoFixRules).sort();
+  for (const ruleName of alphabeticalRuleNames) {
+    const rule = baseNoAutoFixRules[ruleName];
+    if (rule === undefined) {
+      throw new Error(`Failed to find rule: ${ruleName}`);
+    }
+
+    // This plugin does not have individual pages for each rule.
+    const ruleURL =
+      "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix";
+    const baseJSText = BASE_NO_AUTOFIX_RULES_JS;
+    const sourceFileName = "base-no-autofix.js";
+
+    markdownOutput += getMarkdownTableRow(
+      ruleName,
+      rule,
+      ruleURL,
+      baseJSText,
+      sourceFileName,
+    );
   }
 
   return markdownOutput;
@@ -293,17 +339,17 @@ function getTypeScriptESLintMarkdownSection(): string {
       throw new Error(`Failed to find rule: ${ruleName}`);
     }
 
-    const ruleNameWithoutPrefix = trimPrefix(ruleName, "@typescript-eslint/");
-    const ruleNameWithLink = `[\`${ruleName}\`](https://typescript-eslint.io/rules/${ruleNameWithoutPrefix}/)`;
-    const enabled = getRuleEnabled(ruleName, rule);
-    const enabledEmoji = enabled ? "✅" : "❌";
-    const parentConfigsLinks = getParentConfigsLinks(ruleName);
-    const notes = getNotes(ruleName, rule, BASE_TYPESCRIPT_ESLINT_RULES_JS);
-    const sourceFileLink = getSourceFileLink(
-      "https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-typescript-eslint.js",
-    );
+    const ruleURL = "https://typescript-eslint.io/rules/__RULE_NAME__/";
+    const baseJSText = BASE_TYPESCRIPT_ESLINT_RULES_JS;
+    const sourceFileName = "base-typescript-eslint.js";
 
-    markdownOutput += `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
+    markdownOutput += getMarkdownTableRow(
+      ruleName,
+      rule,
+      ruleURL,
+      baseJSText,
+      sourceFileName,
+    );
   }
 
   return markdownOutput;
@@ -368,8 +414,7 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
     parentConfigs.push("eslint/recommended");
   }
 
-  // Since the `typescript-eslint` configs are supersets, they have to be checked in a certain
-  // order.
+  // -----------------------------------------------------------------------------------------------
 
   if (TYPESCRIPT_ESLINT_RULES_SET["eslint-recommended"].has(ruleName)) {
     parentConfigs.push("@typescript-eslint/eslint-recommended");
@@ -388,12 +433,16 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
 
   if (
     TYPESCRIPT_ESLINT_RULES_SET["strict-type-checked"].has(ruleName) &&
-    !TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName)
+    !TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName) &&
+    !TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName)
   ) {
     parentConfigs.push("@typescript-eslint/strict-type-checked");
   }
 
-  if (TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName)) {
+  if (
+    TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName) &&
+    !TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)
+  ) {
     parentConfigs.push("@typescript-eslint/strict");
   }
 
@@ -407,6 +456,8 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
   if (TYPESCRIPT_ESLINT_RULES_SET.stylistic.has(ruleName)) {
     parentConfigs.push("@typescript-eslint/stylistic");
   }
+
+  // -----------------------------------------------------------------------------------------------
 
   if (ESLINT_CONFIG_PRETTIER_RULES_SET.has(ruleName)) {
     parentConfigs.push("eslint-config-prettier");
@@ -490,20 +541,29 @@ function getLineOfCodeStartingAtPos(pos: number, code: string) {
   return codeStartingAtPos;
 }
 
-function getSourceFileLink(link: string): string {
-  const match = link.match(/.+\/(?<fileName>.+?)$/);
-  if (match === null || match.groups === undefined) {
-    throw new Error(`Failed to parse the source file link: ${link}`);
-  }
-  const { fileName } = match.groups;
-  return `[\`${fileName}\`](${link})`;
+function getMarkdownTableRow(
+  ruleName: string,
+  rule: Linter.RuleEntry,
+  ruleURL: string,
+  baseJSText: string,
+  sourceFileName: string,
+): string {
+  const baseRuleName = trimCharactersUntilLastCharacter(ruleName, "/");
+  const filledRuleURL = ruleURL.replace("__RULE_NAME__", baseRuleName);
+  const ruleNameWithLink = `[\`${ruleName}\`](${filledRuleURL})`;
+  const enabled = getRuleEnabled(ruleName, rule);
+  const enabledEmoji = enabled ? "✅" : "❌";
+  const parentConfigsLinks = getParentConfigsLinks(ruleName);
+  const notes = getNotes(ruleName, rule, baseJSText);
+  const sourceFileLink = `[\`${sourceFileName}\`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/${sourceFileName})`;
+
+  return `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${notes} | ${sourceFileLink}\n`;
 }
 
-/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
-export function trimPrefix(string: string, prefix: string): string {
-  if (!string.startsWith(prefix)) {
-    return string;
-  }
-
-  return string.slice(prefix.length);
+function trimCharactersUntilLastCharacter(
+  string: string,
+  character: string,
+): string {
+  const index = string.lastIndexOf(character);
+  return index === -1 ? string : string.slice(index + 1);
 }

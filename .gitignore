@@ -16,6 +16,7 @@ thumbs.db
 # from what is already in the JSDoc comments of the source code).
 packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions
+packages/docs/docs/eslint-config-isaacscript
 
 # ------------------------------
 # GitHub Node.gitignore template
