@@ -12,6 +12,12 @@ import baseTypeScriptESLintConfig from "../configs/base-typescript-eslint.js";
 type ParentConfig =
   | "eslint/recommended"
   | "@typescript-eslint/eslint-recommended"
+  | "@typescript-eslint/recommended-type-checked"
+  | "@typescript-eslint/recommended"
+  | "@typescript-eslint/strict-type-checked"
+  | "@typescript-eslint/strict"
+  | "@typescript-eslint/stylistic"
+  | "@typescript-eslint/stylistic-type-checked"
   | "eslint-config-prettier";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -76,65 +82,99 @@ const BASE_TYPESCRIPT_ESLINT_RULES_JS = fs.readFileSync(
 
 // -------------------------------------------------------------------------------------------------
 
+/** https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js */
 const ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintJS.configs.recommended.rules),
 );
 
-const TYPESCRIPT_ESLINT_ALL_RULES = (() => {
-  const TypeScriptESLintAll = TypeScriptESLintPlugin.configs["all"];
-  if (TypeScriptESLintAll === undefined) {
-    throw new Error('Failed to parse the "@typescript-eslint/all" config.');
-  }
+/**
+ * https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin/src/configs
+ */
+const TYPESCRIPT_ESLINT_RULES = {
+  all: getTypeScriptESLintConfigRules("all"),
+  "eslint-recommended": getTypeScriptESLintConfigRules("eslint-recommended"),
+  "recommended-type-checked": getTypeScriptESLintConfigRules(
+    "recommended-type-checked",
+  ),
+  recommended: getTypeScriptESLintConfigRules("recommended"),
+  "strict-type-checked": getTypeScriptESLintConfigRules("strict-type-checked"),
+  strict: getTypeScriptESLintConfigRules("strict"),
+  "stylistic-type-checked": getTypeScriptESLintConfigRules(
+    "stylistic-type-checked",
+  ),
+  stylistic: getTypeScriptESLintConfigRules("stylistic"),
+} as const;
 
-  const { rules } = TypeScriptESLintAll;
-  if (rules === undefined) {
-    throw new Error(
-      'Failed to parse the "@typescript-eslint/eslint-recommended" config rules.',
-    );
-  }
+const TYPESCRIPT_ESLINT_RULES_SET = {
+  all: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.all)),
+  "eslint-recommended": new Set(
+    Object.keys(TYPESCRIPT_ESLINT_RULES["eslint-recommended"]),
+  ),
+  "recommended-type-checked": new Set(
+    Object.keys(TYPESCRIPT_ESLINT_RULES["recommended-type-checked"]),
+  ),
+  recommended: new Set(
+    Object.keys(TYPESCRIPT_ESLINT_RULES["recommended-type-checked"]),
+  ),
+  "strict-type-checked": new Set(
+    Object.keys(TYPESCRIPT_ESLINT_RULES["strict-type-checked"]),
+  ),
+  strict: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.strict)),
+  "stylistic-type-checked": new Set(
+    Object.keys(TYPESCRIPT_ESLINT_RULES["stylistic-type-checked"]),
+  ),
+  stylistic: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.stylistic)),
+} as const;
 
-  return rules;
-})();
-
-const TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES = (() => {
-  const TypeScriptESLintESLintRecommended =
-    TypeScriptESLintPlugin.configs["eslint-recommended"];
-  if (TypeScriptESLintESLintRecommended === undefined) {
-    throw new Error(
-      'Failed to parse the "@typescript-eslint/eslint-recommended" config.',
-    );
-  }
-
-  const { overrides } = TypeScriptESLintESLintRecommended;
-  if (overrides === undefined) {
-    throw new Error(
-      'Failed to parse the "@typescript-eslint/eslint-recommended" config overrides.',
-    );
-  }
-
-  const firstElement = overrides[0];
-  if (firstElement === undefined) {
-    throw new Error(
-      'Failed to parse the "@typescript-eslint/eslint-recommended" config overrides first element.',
-    );
-  }
-
-  const { rules } = firstElement;
-  if (rules === undefined) {
-    throw new Error(
-      'Failed to parse the "@typescript-eslint/eslint-recommended" config rules.',
-    );
-  }
-
-  return rules;
-})();
-
-const TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> =
-  new Set(Object.keys(TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES));
-
+/** https://github.com/prettier/eslint-config-prettier/blob/main/index.js */
 const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintConfigPrettier.rules),
 );
+
+function getTypeScriptESLintConfigRules(configName: string) {
+  const config = TypeScriptESLintPlugin.configs[configName];
+  if (config === undefined) {
+    throw new Error(
+      `Failed to parse the "@typescript-eslint/${configName}" config.`,
+    );
+  }
+
+  // Unlike the other configs, the "eslint-recommended" rules are contained within an "overrides"
+  // directive.
+  if (configName === "eslint-recommended") {
+    const { overrides } = config;
+    if (overrides === undefined) {
+      throw new Error(
+        `Failed to parse the "@typescript-eslint/${configName}" config overrides.`,
+      );
+    }
+
+    const firstElement = overrides[0];
+    if (firstElement === undefined) {
+      throw new Error(
+        `Failed to parse the "@typescript-eslint/${configName}" config overrides first element.`,
+      );
+    }
+
+    const { rules } = firstElement;
+    if (rules === undefined) {
+      throw new Error(
+        `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
+      );
+    }
+
+    return rules;
+  }
+
+  const { rules } = config;
+  if (rules === undefined) {
+    throw new Error(
+      `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
+    );
+  }
+
+  return rules;
+}
 
 // -------------------------------------------------------------------------------------------------
 
@@ -143,6 +183,18 @@ const PARENT_CONFIG_LINKS = {
     "[`eslint/recommended`](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js)",
   "@typescript-eslint/eslint-recommended":
     "[`@typescript-eslint/eslint-recommended`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts)",
+  "@typescript-eslint/recommended-type-checked":
+    "[`@typescript-eslint/recommended-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-type-checked.ts)",
+  "@typescript-eslint/recommended":
+    "[`@typescript-eslint/recommended`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts)",
+  "@typescript-eslint/strict-type-checked":
+    "[`@typescript-eslint/strict-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict-type-checked.ts)",
+  "@typescript-eslint/strict":
+    "[`@typescript-eslint/strict`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts)",
+  "@typescript-eslint/stylistic-type-checked":
+    "[`@typescript-eslint/stylistic-type-checked`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts)",
+  "@typescript-eslint/stylistic":
+    "[`@typescript-eslint/stylistic`](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts)",
   "eslint-config-prettier":
     "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
 } as const satisfies Record<ParentConfig, string>;
@@ -219,7 +271,7 @@ function getTypeScriptESLintMarkdownSection(): string {
   }
 
   // First, audit the config to ensure that we have an entry for each rule.
-  const allTypeScriptESLintRuleNames = Object.keys(TYPESCRIPT_ESLINT_ALL_RULES);
+  const allTypeScriptESLintRuleNames = Object.keys(TYPESCRIPT_ESLINT_RULES.all);
   for (const ruleName of allTypeScriptESLintRuleNames) {
     const baseRuleEntry = baseTypeScriptESLintRules[ruleName];
     if (
@@ -241,7 +293,8 @@ function getTypeScriptESLintMarkdownSection(): string {
       throw new Error(`Failed to find rule: ${ruleName}`);
     }
 
-    const ruleNameWithLink = `[\`${ruleName}\`](https://typescript-eslint.io/rules/${ruleName}/)`;
+    const ruleNameWithoutPrefix = trimPrefix(ruleName, "@typescript-eslint/");
+    const ruleNameWithLink = `[\`${ruleName}\`](https://typescript-eslint.io/rules/${ruleNameWithoutPrefix}/)`;
     const enabled = getRuleEnabled(ruleName, rule);
     const enabledEmoji = enabled ? "✅" : "❌";
     const parentConfigsLinks = getParentConfigsLinks(ruleName);
@@ -315,8 +368,44 @@ function getParentConfigs(ruleName: string): ParentConfig[] {
     parentConfigs.push("eslint/recommended");
   }
 
-  if (TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES_SET.has(ruleName)) {
+  // Since the `typescript-eslint` configs are supersets, they have to be checked in a certain
+  // order.
+
+  if (TYPESCRIPT_ESLINT_RULES_SET["eslint-recommended"].has(ruleName)) {
     parentConfigs.push("@typescript-eslint/eslint-recommended");
+  }
+
+  if (
+    TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName) &&
+    !TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)
+  ) {
+    parentConfigs.push("@typescript-eslint/recommended-type-checked");
+  }
+
+  if (TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)) {
+    parentConfigs.push("@typescript-eslint/recommended");
+  }
+
+  if (
+    TYPESCRIPT_ESLINT_RULES_SET["strict-type-checked"].has(ruleName) &&
+    !TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName)
+  ) {
+    parentConfigs.push("@typescript-eslint/strict-type-checked");
+  }
+
+  if (TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName)) {
+    parentConfigs.push("@typescript-eslint/strict");
+  }
+
+  if (
+    TYPESCRIPT_ESLINT_RULES_SET["stylistic-type-checked"].has(ruleName) &&
+    !TYPESCRIPT_ESLINT_RULES_SET.stylistic.has(ruleName)
+  ) {
+    parentConfigs.push("@typescript-eslint/stylistic-type-checked");
+  }
+
+  if (TYPESCRIPT_ESLINT_RULES_SET.stylistic.has(ruleName)) {
+    parentConfigs.push("@typescript-eslint/stylistic");
   }
 
   if (ESLINT_CONFIG_PRETTIER_RULES_SET.has(ruleName)) {
@@ -369,7 +458,7 @@ function getNotes(
 }
 
 function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
-  const rule = TYPESCRIPT_ESLINT_ESLINT_RECOMMENDED_RULES[ruleName];
+  const rule = TYPESCRIPT_ESLINT_RULES["eslint-recommended"][ruleName];
   if (rule === undefined) {
     return false;
   }
@@ -384,7 +473,10 @@ function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
 }
 
 function isRuleHandledByPrettier(ruleName: string): boolean {
-  return ESLINT_CONFIG_PRETTIER_RULES_SET.has(ruleName);
+  const rule = ESLintConfigPrettier.rules[ruleName];
+
+  // In the config, some rules are disabled with 0 and some are disabled with "off".
+  return rule === 0 || rule === "off";
 }
 
 function getLineOfCodeStartingAtPos(pos: number, code: string) {
@@ -405,4 +497,13 @@ function getSourceFileLink(link: string): string {
   }
   const { fileName } = match.groups;
   return `[\`${fileName}\`](${link})`;
+}
+
+/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
+export function trimPrefix(string: string, prefix: string): string {
+  if (!string.startsWith(prefix)) {
+    return string;
+  }
+
+  return string.slice(prefix.length);
 }

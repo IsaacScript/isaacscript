@@ -42,6 +42,7 @@ rulesets
 sandboxing
 situationally
 subprocesses
+supersets
 synergize
 toggleable
 tracebacks

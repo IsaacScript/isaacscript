@@ -36,7 +36,8 @@ fi
 # Only do Git checks if this script was called with the "check" argument.
 if [[ "${1-}" = "check" ]]; then
   if ! is_git_repo_clean; then
-    echo "Error: The current Git repository is not clean."
+    echo "Error: The current Git repository is not clean:"
+    git status --porcelain
     exit 1
   fi
 fi
