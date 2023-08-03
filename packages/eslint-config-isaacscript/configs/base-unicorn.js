@@ -87,7 +87,32 @@ const config = {
     "unicorn/": "error",
     */
 
+    "unicorn/prefer-json-parse-buffer": "error",
+
+    /*
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
     "unicorn/prefer-node-protocol": "error",
+
+    /*
+    "unicorn/": "error",
+    "unicorn/": "error",
+    "unicorn/": "error",
+    */
+
+    /** Disabled since it is not recommended by the plugin authors. */
+    "unicorn/require-post-message-target-origin": "off",
+
+    /** Disabled since string content enforcement is too project-specific. */
+    "unicorn/string-content": "off",
+
+    "unicorn/switch-case-braces": "error",
+    "unicorn/template-indent": "error",
+    "unicorn/text-encoding-identifier-case": "error",
+    "unicorn/throw-new-error": "error",
   },
 };
 
