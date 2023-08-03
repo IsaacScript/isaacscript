@@ -27,5 +27,9 @@
       }
     }
   },
-  "implicitDependencies": ["isaac-typescript-definitions", "isaacscript-common"]
+  "implicitDependencies": [
+    "isaac-typescript-definitions",
+    "isaacscript-common",
+    "eslint-config-isaacscript"
+  ]
 }
