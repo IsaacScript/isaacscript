@@ -26,7 +26,10 @@ type ParentConfig =
   | "eslint-config-prettier";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const REPO_ROOT = path.join(__dirname, "..", "..", "..");
+
+// The dynamic importing later on in this script will fail if we are running this script from a
+// different directory.
+process.chdir(__dirname);
 
 const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
@@ -57,6 +60,7 @@ In line with this philosophy, our linting config enables nearly all of the recom
 
 // -------------------------------------------------------------------------------------------------
 
+const REPO_ROOT = path.join(__dirname, "..", "..", "..");
 const ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH = path.join(
   REPO_ROOT,
   "packages",
