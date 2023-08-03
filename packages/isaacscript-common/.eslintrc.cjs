@@ -25,12 +25,7 @@ const config = {
   ],
 
   rules: {
-    /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/explicit-member-accessibility/
-     *
-     * Not defined in the parent configs.
-     */
+    /** Not defined in the parent configs. */
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
@@ -45,12 +40,7 @@ const config = {
     {
       files: ["./src/functions/**"],
       rules: {
-        /**
-         * Documentation:
-         * https://github.com/jrdrg/eslint-plugin-sort-exports
-         *
-         * Not defined in the parent configs.
-         */
+        /** Not defined in the parent configs. */
         "sort-exports/sort-exports": [
           "error",
           {

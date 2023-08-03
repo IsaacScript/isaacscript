@@ -21,48 +21,33 @@ const config = {
 
   rules: {
     /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-bitwise
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
-     *
-     * Some rules use bitwise operators to deal with TypeScript bit flags.
-     */
-    "no-bitwise": "off",
-
-    /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-param-reassign
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
-     *
-     * We commonly trim the incoming text.
-     */
-    "no-param-reassign": "off",
-
-    /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/no-non-null-assertion/
-     *
-     * Defined at:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
+     * Defined at: base-typescript-eslint.js
      *
      * We commonly get the elements of arrays in a for loop.
      */
     "@typescript-eslint/no-non-null-assertion": "off",
 
     /**
-     * Documentation:
-     * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
-     *
-     * Defined in "base.js".
+     * Defined at: base-n.js
      *
      * ESLint plugins do not support ESM until version 9 is released:
      * https://github.com/eslint/eslint/issues/15453#issuecomment-1002015088
      */
     "n/file-extension-in-import": "off",
+
+    /**
+     * Defined at: base-eslint.js
+     *
+     * Some rules use bitwise operators to deal with TypeScript bit flags.
+     */
+    "no-bitwise": "off",
+
+    /**
+     * Defined at: base-eslint.js
+     *
+     * We commonly trim the incoming text.
+     */
+    "no-param-reassign": "off",
   },
 };
 

@@ -15,16 +15,10 @@ const config = {
 
   rules: {
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/naming-convention/
+     * Defined at: base-typescript-eslint.js
      *
-     * Defined at:
-     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
-     *
-     * Modify the Airbnb config to allow for a leading underscore, which signifies that it is
-     * temporarily not being used.
-     *
-     * Additionally, ensure that all enums match the Isaac convention of using UPPER_CASE.
+     * We expand the original definition to ensure that all enums match the Isaac convention of
+     * using UPPER_CASE.
      */
     "@typescript-eslint/naming-convention": [
       "error",
@@ -34,6 +28,12 @@ const config = {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         leadingUnderscore: "allow",
+
+        // Polyfilling "__dirname" in ESM files is a common pattern.
+        filter: {
+          regex: "^__dirname$",
+          match: false,
+        },
       },
       // Allow camelCase functions (23.2), and PascalCase functions (23.8).
       {
@@ -47,6 +47,7 @@ const config = {
       {
         selector: "typeLike",
         format: ["PascalCase"],
+        leadingUnderscore: "allow",
       },
       // The vanilla Isaac enums all use UPPER_CASE:
       // https://wofsauge.github.io/IsaacDocs/rep/enums/CollectibleType.html
@@ -57,11 +58,7 @@ const config = {
     ],
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/no-base-to-string/
-     *
-     * Defined at:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+     * Defined at: base-typescript-eslint.js
      *
      * The `Vector` object has a `tostring` meta-method, so it can be properly printed without
      * explicitly specifying the X and Y values.
@@ -74,14 +71,10 @@ const config = {
     ],
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/no-invalid-void-type/
+     * Defined at: base-typescript-eslint.js
      *
-     * Defined at:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
-     *
-     * TSTL has special behavior with respect to "this: void", so we need to configure this rule to
-     * allow the "this" parameter.
+     * TSTL has special behavior with respect to `this: void`, so we need to configure this rule to
+     * allow the `this` parameter.
      */
     "@typescript-eslint/no-invalid-void-type": [
       "error",
@@ -91,23 +84,16 @@ const config = {
     ],
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/no-loop-func/
+     * Defined at: base-typescript-eslint.js
      *
-     * Defined at:
-     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
-     *
-     * This rule throws false positives with API functions. It can be worked around by supplying
-     * lists of globals to ESLint, but this is ugly. See:
+     * This rule throws false positives with Isaac API functions. It can be worked around by
+     * supplying lists of globals to ESLint, but this is ugly. See:
      * https://github.com/typescript-eslint/typescript-eslint/issues/2780
      */
     "@typescript-eslint/no-loop-func": "off",
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/prefer-enum-initializers/
-     *
-     * Defined in "base-typescript-eslint.js".
+     * Defined at: base-typescript-eslint.js
      *
      * Enums that are used with the API must be numbers since that is what the API expects. We also
      * prefer that unofficial enums are also number enums for consistency.
@@ -115,22 +101,14 @@ const config = {
     "@typescript-eslint/prefer-enum-initializers": "off",
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/prefer-literal-enum-member/
-     *
-     * Defined at:
-     * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
+     * Defined at: base-typescript-eslint.js
      *
      * It is common to initialize enums with the `Isaac.GetEntityVariantByName` method.
      */
     "@typescript-eslint/prefer-literal-enum-member": "off",
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/require-array-sort-compare/
-     *
-     * Defined at:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base-typescript-eslint.js
+     * Defined at: base-typescript-eslint.js
      *
      * The `Number.sort` method transpiles to use `table.sort`, which does not have the
      * coercion-based bugs of the JavaScript implementation. Thus, this lint rule is unnecessary.
@@ -138,10 +116,7 @@ const config = {
     "@typescript-eslint/require-array-sort-compare": "off",
 
     /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/class-methods-use-this/
-     *
-     * Defined in "base-typescript-eslint.js".
+     * Defined at: base-typescript-eslint.js
      *
      * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
      * makes it likely that some methods will not use any internal class variables.
@@ -149,11 +124,7 @@ const config = {
     "@typescript-eslint/class-methods-use-this": "off",
 
     /**
-     * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
-     *
-     * Defined at:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/src/configs/recommended.ts
+     * Defined in "isaacscript/recommended".
      *
      * Enums that are used with the API use upper case letters. We also prefer that unofficial enums
      * are also use upper case letters for consistency.
@@ -161,9 +132,6 @@ const config = {
     "isaacscript/consistent-enum-values": "off",
 
     /**
-     * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/enum-member-number-separation.md
-     *
      * Not defined in the parent configs.
      *
      * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.
@@ -171,11 +139,7 @@ const config = {
     "isaacscript/enum-member-number-separation": "error",
 
     /**
-     * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-invalid-default-map.md
-     *
-     * Defined at:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/src/configs/recommended.ts
+     * Defined in "isaacscript/recommended".
      *
      * Enums that are used with the API must be numbers since that is what the API expects. We also
      * prefer that unofficial enums are also number enums for consistency.
@@ -183,9 +147,6 @@ const config = {
     "isaacscript/no-number-enums": "off",
 
     /**
-     * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-invalid-default-map.md
-     *
      * Not defined in the parent configs.
      *
      * Prevents misuse of the custom `DefaultMap` class in the standard library.
@@ -193,9 +154,6 @@ const config = {
     "isaacscript/no-invalid-default-map": "error",
 
     /**
-     * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/no-throw.md
-     *
      * Not defined in the parent configs.
      *
      * The `throw` keyword should never be used in Isaac mods.
@@ -203,9 +161,6 @@ const config = {
     "isaacscript/no-throw": "error",
 
     /**
-     * Documentation:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/require-v-registration.md
-     *
      * Not defined in the parent configs.
      *
      * We must explicitly enable this rule, since it should only apply to IsaacScript mods.
@@ -213,19 +168,13 @@ const config = {
     "isaacscript/require-v-registration": "error",
 
     /**
-     * Documentation:
-     * https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
-     *
-     * Defined in "base.js".
+     * Defined at: base-n.js
      *
      * IsaacScript mods to not use ESM, so we must turn this rule off.
      */
     "n/file-extension-in-import": "off",
 
     /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/new-cap
-     *
      * Defined at: base-eslint.js
      *
      * Isaac API methods use capital letters, so we must make the options for the rule less strict.
@@ -240,33 +189,21 @@ const config = {
     ],
 
     /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-bitwise
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js
+     * Defined at: base-eslint.js
      *
      * Isaac enums use bitwise operators (e.g. "EntityFlag").
      */
     "no-bitwise": "off",
 
     /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-param-reassign
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js
+     * Defined at: base-eslint.js
      *
      * The Isaac API callback functions expect you to modify the provided object.
      */
     "no-param-reassign": "off",
 
     /**
-     * Documentation:
-     * https://eslint.org/docs/latest/rules/no-restricted-globals
-     *
-     * Defined at:
-     * https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js
+     * Defined at: base-eslint.js
      *
      * "print" is used with Lua mods.
      */
