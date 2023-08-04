@@ -255,5 +255,6 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`knip`](https://github.com/webpro/knip) - A tool to look for unused files, dependencies, and exports.
 - [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
+- [`ts-prune-2`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports.
 
 <br>

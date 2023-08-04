@@ -18,8 +18,9 @@ npx prettier --log-level=warn --check .
 # "--max-warnings 0" makes warnings fail in CI, since we set all ESLint errors to warnings.
 npx eslint --max-warnings 0 .
 
-# Check for unused files, dependencies, and exports.
-npx knip
+# Check for unused exports.
+# "--error" makes it return an error code of 1 if unused exports are found.
+npx ts-prune --error
 
 # Use `isaac-xml-validator` to validate XML files.
 # (Skip this step if Python is not currently installed for whatever reason.)
