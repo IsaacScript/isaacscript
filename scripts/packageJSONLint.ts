@@ -236,14 +236,6 @@ function packageJSONLint(
       console.error(`File is missing a "type" field: ${packageJSONPath}`);
       return false;
     }
-
-    if (
-      type !== "commonjs" &&
-      !packageJSONPath.includes("isaacscript-common-ts")
-    ) {
-      console.error(`File has an invalid "type" field: ${packageJSONPath}`);
-      return false;
-    }
   }
 
   const { files } = packageJSON;

@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@tsconfig/node-lts": "^18.12.3",
     "@tsconfig/strictest": "^2.0.1"
