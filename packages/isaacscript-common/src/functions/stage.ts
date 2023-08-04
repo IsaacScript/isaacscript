@@ -246,9 +246,7 @@ export function onDarkRoom(): boolean {
  */
 export function onEffectiveStage(...effectiveStages: LevelStage[]): boolean {
   const thisEffectiveStage = getEffectiveStage();
-  return effectiveStages.some(
-    (effectiveStage) => effectiveStage === thisEffectiveStage,
-  );
+  return effectiveStages.includes(thisEffectiveStage);
 }
 
 /**
@@ -313,7 +311,7 @@ export function onSheol(): boolean {
 export function onStage(...stages: LevelStage[]): boolean {
   const level = game.GetLevel();
   const thisStage = level.GetStage();
-  return stages.some((stage) => stage === thisStage);
+  return stages.includes(thisStage);
 }
 
 /** Helper function to check if the current stage is equal to or higher than the given stage. */
@@ -338,7 +336,7 @@ export function onStageOrLower(stage: LevelStage): boolean {
 export function onStageType(...stageTypes: StageType[]): boolean {
   const level = game.GetLevel();
   const thisStageType = level.GetStageType();
-  return stageTypes.some((stageType) => stageType === thisStageType);
+  return stageTypes.includes(thisStageType);
 }
 
 /**

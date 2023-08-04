@@ -41,7 +41,7 @@ const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 const DEFAULT_COLLECTIBLE_PRICE = 15;
 
 // Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards.
-const GLITCHED_ITEM_THRESHOLD = 4000000000;
+const GLITCHED_ITEM_THRESHOLD = 4_000_000_000;
 
 // The `isBlindCollectible` function needs a reference sprite to work properly.
 const questionMarkSprite = initQuestionMarkSprite();

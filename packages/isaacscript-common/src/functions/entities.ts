@@ -20,7 +20,7 @@ const DAMAGE_FLASH_COLOR = newReadonlyColor(
   0.5,
   0.5,
   0.5,
-  1.0,
+  1,
   200 / 255,
   0 / 255,
   0 / 255,
@@ -541,7 +541,7 @@ export function setEntityRandomColor(entity: Entity): void {
   const b = getRandom(rng);
 
   const color = Color(r, g, b);
-  entity.SetColor(color, 100000, 100000, false, false);
+  entity.SetColor(color, 100_000, 100_000, false, false);
 }
 
 /**

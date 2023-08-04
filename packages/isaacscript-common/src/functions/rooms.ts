@@ -495,7 +495,7 @@ export function inMirrorRoom(): boolean {
 export function inRoomType(...roomTypes: RoomType[]): boolean {
   const room = game.GetRoom();
   const thisRoomType = room.GetType();
-  return roomTypes.some((roomType) => roomType === thisRoomType);
+  return roomTypes.includes(thisRoomType);
 }
 
 /**

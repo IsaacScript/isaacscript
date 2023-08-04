@@ -64,13 +64,12 @@ export function logAllEntities(
     numMatchedEntities++;
   }
 
-  if (numMatchedEntities === 0) {
-    msg += "(no entities matched)\n";
-  } else {
-    msg += `(${numMatchedEntities} total ${
-      numMatchedEntities === 1 ? "entity" : "entities"
-    })\n`;
-  }
+  msg +=
+    numMatchedEntities === 0
+      ? "(no entities matched)\n"
+      : `(${numMatchedEntities} total ${
+          numMatchedEntities === 1 ? "entity" : "entities"
+        })\n`;
 
   // We must log each line because otherwise the message can get truncated.
   for (const line of msg.trim().split("\n")) {
@@ -125,13 +124,12 @@ export function logAllGridEntities(
     numMatchedEntities++;
   }
 
-  if (numMatchedEntities === 0) {
-    msg += "(no grid entities matched)\n";
-  } else {
-    msg += `(${numMatchedEntities} total grid ${
-      numMatchedEntities === 1 ? "entity" : "entities"
-    })\n`;
-  }
+  msg +=
+    numMatchedEntities === 0
+      ? "(no grid entities matched)\n"
+      : `(${numMatchedEntities} total grid ${
+          numMatchedEntities === 1 ? "entity" : "entities"
+        })\n`;
 
   // We must log each line because otherwise the message can get truncated.
   for (const line of msg.trim().split("\n")) {

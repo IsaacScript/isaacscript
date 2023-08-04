@@ -25,6 +25,7 @@ export function getTime(useSocketIfAvailable = true): float {
     }
 
     if (isLuaDebugEnabled()) {
+      // eslint-disable-next-line unicorn/prefer-module
       const [ok, requiredSocket] = pcall(require, "socket");
       if (ok) {
         const socket = requiredSocket as Socket;

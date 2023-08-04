@@ -1199,7 +1199,7 @@ export function s(params: string): void {
     finalCharacter === "d"
   ) {
     // e.g. "s 11a" for going to The Chest
-    stageString = params.slice(0, params.length - 1);
+    stageString = params.slice(0, -1);
     stageTypeLetter = finalCharacter;
   } else {
     // e.g. "s 11" for going to the Dark Room

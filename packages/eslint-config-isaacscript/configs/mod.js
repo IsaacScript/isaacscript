@@ -177,9 +177,32 @@ const config = {
     /**
      * Defined at: base-unicorn.js
      *
+     * `null` values are conventionally used with the `isaacscript-common` save data manager (even
+     * though they are transpiled to `nil`).
+     */
+    "unicorn/no-null": "off",
+
+    /**
+     * Defined at: base-unicorn.js
+     *
+     * TypeScriptToLua does not support the `Array.at` method.
+     */
+    "unicorn/prefer-at": "off",
+
+    /**
+     * Defined at: base-unicorn.js
+     *
      * IsaacScript mods use Lua bitwise operators, which are safe.
      */
     "unicorn/prefer-math-trunc": "off",
+
+    /**
+     * Defined at: base-unicorn.js
+     *
+     * TypeScriptToLua supports `parseInt`, but not `Number.parseInt`:
+     * https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1471
+     */
+    "unicorn/prefer-number-properties": "off",
 
     /**
      * Defined at: base-eslint.js

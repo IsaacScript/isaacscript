@@ -292,7 +292,7 @@ export function getRoomAdjacentGridIndexes(
 export function getRoomDescriptorsForType(
   ...roomTypes: RoomType[]
 ): RoomDescriptor[] {
-  const roomTypesSet = new Set<RoomType>([...roomTypes]);
+  const roomTypesSet = new Set<RoomType>(roomTypes);
 
   const rooms = getRoomsInsideGrid();
   return rooms.filter(

@@ -285,7 +285,7 @@ export function getArrayCombinations<T>(
 
     for (let j = 0; j < src.length; j++) {
       const value = src[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      addCombinations(n - 1, src.slice(j + 1), got.concat([value]), all);
+      addCombinations(n - 1, src.slice(j + 1), [...got, value], all);
     }
   };
 

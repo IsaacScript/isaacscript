@@ -8,7 +8,7 @@ const HEX_STRING_LENGTH = 6;
  * @param hexString A hex string like "#ffffff" or "ffffff". (The "#" character is optional.)
  * @param alpha Optional. Range is from 0 to 1. Default is 1. (The same as the `Color` constructor.)
  */
-export function hexToColor(hexString: string, alpha = 1.0): Readonly<Color> {
+export function hexToColor(hexString: string, alpha = 1): Readonly<Color> {
   const [r, g, b] = hexToRGB(hexString);
 
   // Color values should be between 0 and 1.
@@ -22,7 +22,7 @@ export function hexToColor(hexString: string, alpha = 1.0): Readonly<Color> {
  * @param hexString A hex string like "#ffffff" or "ffffff". (The "#" character is optional.)
  * @param alpha Range is from 0 to 1. Default is 1.
  */
-export function hexToKColor(hexString: string, alpha = 1.0): Readonly<KColor> {
+export function hexToKColor(hexString: string, alpha = 1): Readonly<KColor> {
   const [r, g, b] = hexToRGB(hexString);
 
   // KColor values should be between 0 and 1.
@@ -37,21 +37,21 @@ function hexToRGB(hexString: string): [r: float, g: float, b: float] {
     return [0, 0, 0];
   }
 
-  const rString = hexString.substring(0, 2);
+  const rString = hexString.slice(0, 2);
   const r = tonumber(`0x${rString}`);
   if (r === undefined) {
     logError(`Failed to convert \`0x${rString}\` to a number.`);
     return [0, 0, 0];
   }
 
-  const gString = hexString.substring(2, 4);
+  const gString = hexString.slice(2, 4);
   const g = tonumber(`0x${gString}`);
   if (g === undefined) {
     logError(`Failed to convert \`0x${gString}\` to a number.`);
     return [0, 0, 0];
   }
 
-  const bString = hexString.substring(4, 6);
+  const bString = hexString.slice(4, 6);
   const b = tonumber(`0x${bString}`);
   if (b === undefined) {
     logError(`Failed to convert \`0x${bString}\` to a number.`);

@@ -264,7 +264,7 @@ export function getFinalPlayer(): EntityPlayer {
  * will be spawned on the same frame.
  */
 export function getNewestPlayer(): EntityPlayer {
-  let newestPlayer: EntityPlayer | null = null;
+  let newestPlayer: EntityPlayer | undefined;
   let lowestFrame = math.huge;
   for (const player of getPlayers()) {
     if (player.FrameCount < lowestFrame) {
@@ -273,7 +273,7 @@ export function getNewestPlayer(): EntityPlayer {
     }
   }
 
-  if (newestPlayer === null) {
+  if (newestPlayer === undefined) {
     error("Failed to find the newest player.");
   }
 

@@ -17,7 +17,7 @@ export const v = {
     damage: false,
     damageAmount: 500,
     speed: false,
-    speedAmount: 2.0,
+    speedAmount: 2,
     tears: false,
     tearsAmount: 1, // In tear delay, not tears stat
     flight: false,

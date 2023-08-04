@@ -13,7 +13,6 @@ import {
   newReadonlyVector,
 } from "../functions/readOnly";
 import { asCollectibleType } from "../functions/types";
-import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
  * The combination of the following flags:
@@ -168,7 +167,7 @@ export const MIN_PLAYER_SPEED_STAT = 0.1;
  * The maximum speed stat that a player can have. Any additional speed beyond this will not take
  * effect.
  */
-export const MAX_SPEED_STAT = 2.0;
+export const MAX_SPEED_STAT = 2;
 
 /** This is in the center of the room. */
 export const NEW_FLOOR_STARTING_POSITION_NORMAL_MODE = newReadonlyVector(
@@ -189,7 +188,7 @@ export const NEW_FLOOR_STARTING_POSITION_GREED_MODE = newReadonlyVector(
 export const NEW_RUN_PLAYER_STARTING_POSITION = newReadonlyVector(320, 380);
 
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
-export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100000;
+export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100_000;
 
 export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dimension.CURRENT"
 
@@ -197,7 +196,7 @@ export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dime
  * The pill pool for each run is comprised of one effect for each unique pill color (minus gold and
  * horse pills.)
  */
-export const NUM_PILLS_IN_POOL = NUM_NORMAL_PILL_COLORS;
+export { NUM_NORMAL_PILL_COLORS as NUM_PILLS_IN_POOL } from "./constantsFirstLast";
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
@@ -220,7 +219,7 @@ export const RESOLUTION_1600_900 = Vector(533, 300);
 export const STARTING_ROOM_GRID_INDEX = 84;
 
 /** After taking damage, `EntityPlayer.SamsonBerserkCharge` is incremented by this amount. */
-export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10000;
+export const TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE = 10_000;
 
 /** For `GridEntityType.TELEPORTER` (23). */
 export const TELEPORTER_ACTIVATION_DISTANCE = DISTANCE_OF_GRID_TILE / 2;
