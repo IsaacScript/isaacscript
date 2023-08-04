@@ -1,8 +1,5 @@
-// The functions here are copied from `isaacscript-common-ts` because they are natively written as
-// MTS files and we have issues importing from them inside the monorepo. (The `tsup` tool makes it
-// so that the library can be consumed from both CommonJS and ESM projects, but `tsconfig-paths`
-// makes it always seem to consume the ESM version.) Furthermore, using `tsconfig-paths` makes live
-// debugging more difficult.
+// The functions here are copied from `isaacscript-common-ts` because this package uses CommonJS
+// instead of ESM. Furthermore, using `tsconfig-paths` makes live debugging more difficult.
 
 /**
  * Immutable is a utility type that will make the given array/map/set/object recursively read-only.

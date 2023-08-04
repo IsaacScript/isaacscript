@@ -1,5 +1,5 @@
-import { ReadonlySet } from "../types/ReadonlySet.mjs";
-import { getRandomInt } from "./random.mjs";
+import { ReadonlySet } from "../types/ReadonlySet.js";
+import { getRandomInt } from "./random.js";
 
 /**
  * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If

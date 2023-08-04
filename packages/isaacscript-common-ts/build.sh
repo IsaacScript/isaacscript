@@ -21,11 +21,9 @@ OUT_DIR="$REPO_ROOT/dist/packages/$REPO_NAME"
 
 rm -rf "$OUT_DIR"
 
-# Compile the project for the purpose of type-checking.
+# Compile the project.
 npx tsc
-
-# Compile the project for both CJS and ESM using tsup.
-npx tsup "$DIR/src/index.mts" --out-dir "$OUT_DIR/src" --format "cjs,esm"
+mv "$OUT_DIR/src" "$OUT_DIR/dist"
 
 # The source maps and declaration maps will be bugged due to nx's consolidated "dist" directory, so
 # we use a script to manually rewrite them.
@@ -35,6 +33,6 @@ npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.mts" "isaacscrip
 cp "$DIR/LICENSE" "$OUT_DIR/"
 cp "$DIR/package.json" "$OUT_DIR/"
 cp "$DIR/README.md" "$OUT_DIR/"
-cp "$DIR/src" "$OUT_DIR/" --recursive # This will merge the TypeScript source files into the existing directory.
+cp "$DIR/src" "$OUT_DIR/" --recursive
 
 echo "Successfully built in $SECONDS seconds."

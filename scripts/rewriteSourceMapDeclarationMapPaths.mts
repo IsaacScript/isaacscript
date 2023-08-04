@@ -16,12 +16,8 @@ function main() {
   }
   const packageName = firstCommandLineArgument;
 
-  if (packageName === "isaacscript-common-ts") {
-    replaceTextInGlob(packageName, "./**/*.mjs.map");
-    replaceTextInGlob(packageName, "./**/*.d.mts.map");
-  } else {
-    replaceTextInGlob(packageName, "./**/*.d.ts.map");
-  }
+  replaceTextInGlob(packageName, "./**/*.js.map");
+  replaceTextInGlob(packageName, "./**/*.d.ts.map");
 }
 
 function replaceTextInGlob(packageName: string, globPath: string) {

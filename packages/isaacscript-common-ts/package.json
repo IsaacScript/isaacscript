@@ -14,14 +14,6 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "module",
-  "exports": {
-    "default": "./src/index.cjs",
-    "require": "./src/index.cjs",
-    "import": "./src/index.js",
-    "node": "./src/index.cjs",
-    "types": "./src/index.d.mts"
-  },
-  "main": "./src/index.js",
-  "module": "./src/index.js",
-  "types": "./src/index.d.mts"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }
