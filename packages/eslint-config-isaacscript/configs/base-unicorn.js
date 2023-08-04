@@ -30,7 +30,9 @@ const NORMAL_RULES = {
   /** Superseded by the `eslint-comments/no-unlimited-disable` rule. */
   "unicorn/no-abusive-eslint-disable": "off",
 
-  "unicorn/no-array-callback-reference": "error",
+  /** Disabled since it is not helpful when using TypeScript. */
+  "unicorn/no-array-callback-reference": "off",
+
   "unicorn/no-array-for-each": "error",
   "unicorn/no-array-method-this-argument": "error",
   "unicorn/no-array-push-push": "error",
