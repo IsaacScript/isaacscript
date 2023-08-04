@@ -9,7 +9,7 @@ import {
   fileExists,
   isKebabCase,
   readFile,
-} from "./utils.mjs";
+} from "./utils.js";
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");

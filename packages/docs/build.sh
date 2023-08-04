@@ -31,8 +31,8 @@ bash "$REPO_ROOT/packages/isaac-typescript-definitions/docs.sh"
 bash "$REPO_ROOT/packages/isaacscript-common/docs.sh"
 
 # Apply transformations on top of the TypeDoc output.
-npx tsx "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.mts"
-npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.mts"
+npx tsx "$REPO_ROOT/scripts/fixIsaacTypeScriptDefinitions.ts"
+npx tsx "$REPO_ROOT/scripts/fixIsaacScriptCommon.ts"
 
 # Auto-generate the "eslint-config-isaacscript" docs with a hand-written script.
 npx tsx "$REPO_ROOT/packages/eslint-config-isaacscript/scripts/buildDocs.mts"

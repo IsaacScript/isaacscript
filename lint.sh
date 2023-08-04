@@ -19,7 +19,7 @@ fi
 
 # Check "package.json" files.
 # (The script must use ESM because the "sort-package-json" dependency requires ESM.)
-npx tsx "$DIR/scripts/packageJSONLint.mts"
+npx tsx "$DIR/scripts/packageJSONLint.ts"
 
 # Ensure that the template files are up to date.
 # npx isaacscript@latest check --ignore ".eslintrc.cjs,ci.yml,cspell.json"

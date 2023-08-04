@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import path from "node:path";
-import { __dirname, fatalError, readFile, writeFile } from "./utils.mjs";
+import { __dirname, fatalError, readFile, writeFile } from "./utils.js";
 
 const REPO_ROOT = path.join(__dirname, "..");
 

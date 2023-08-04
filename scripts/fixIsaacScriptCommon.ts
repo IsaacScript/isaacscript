@@ -50,7 +50,7 @@ import {
   renameFile,
   trimSuffix,
   writeFile,
-} from "./utils.mjs";
+} from "./utils.js";
 
 const DEBUG = false as boolean;
 const PACKAGE_NAME = "isaacscript-common";

@@ -11,7 +11,7 @@ import {
   renameFile,
   trimSuffix,
   writeFile,
-} from "./utils.mjs";
+} from "./utils.js";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
 const REPO_ROOT = path.join(__dirname, "..");
