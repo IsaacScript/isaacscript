@@ -8,7 +8,7 @@ import { getRandomInt } from "./random.js";
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-function arrayRemove<T>(
+export function arrayRemove<T>(
   originalArray: T[] | readonly T[],
   ...elementsToRemove: T[]
 ): T[] {
