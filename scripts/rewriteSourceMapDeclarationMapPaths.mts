@@ -16,7 +16,9 @@ function main() {
   }
   const packageName = firstCommandLineArgument;
 
-  replaceTextInGlob(packageName, "./**/*.js.map");
+  if (firstCommandLineArgument === "isaacscript-common-ts") {
+    replaceTextInGlob(packageName, "./**/*.js.map");
+  }
   replaceTextInGlob(packageName, "./**/*.d.ts.map");
 }
 
