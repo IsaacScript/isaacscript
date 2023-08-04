@@ -52,7 +52,7 @@ const KEBAB_CASE_REGEX =
  */
 export function fatalError(...args: unknown[]): never {
   console.error(...args);
-  return process.exit(1);
+  process.exit(1);
 }
 
 /**

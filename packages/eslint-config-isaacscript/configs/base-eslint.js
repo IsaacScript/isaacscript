@@ -188,7 +188,9 @@ const SUGGESTIONS = {
   ],
 
   "max-classes-per-file": "error",
-  "max-depth": "error",
+
+  /** Disabled since this rule is too prescriptive for general-purpose use. */
+  "max-depth": "off",
 
   /**
    * Disabled because enforcing an arbitrary line threshold for every file in a project does not

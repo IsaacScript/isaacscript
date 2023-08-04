@@ -30,7 +30,7 @@ export function eRange(start: number, end?: number, increment = 1): number[] {
  */
 export function fatalError(...args: unknown[]): never {
   console.error(...args);
-  return process.exit(1);
+  process.exit(1);
 }
 
 /**
