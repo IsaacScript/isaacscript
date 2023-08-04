@@ -234,27 +234,25 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 ## Package Documentation
 
 - [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in some kinds of projects.
-- [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
-- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
+- [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) - Provides ESLint rules relating to TypeScript.
+- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser) - Provides the ability for ESLint to work with TypeScript.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker).
 - [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.
 - [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
-- [`eslint-config-airbnb-base`](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base) - ESLint rules that conform to the Airbnb style guide.
-- [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) - Enhances the Airbnb rules with TypeScript support.
 - [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) - Contains the master ESLint configuration.
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
-- [`eslint-plugin-deprecation`](https://github.com/gund/eslint-plugin-deprecation) - A plugin that finds deprecated code.
-- [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
-- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`. (Note that this uses the [`eslint-plugin-i`](https://github.com/un-es/eslint-plugin-i) fork under the hood.)
-- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - A plugin that provides a collection of miscellaneous rules that help keep code safe.
-- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
-- [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n) - A plugin that provides rules for Node.js.
-- [`eslint-plugin-no-autofix`](https://github.com/aladdin-add/eslint-plugin/tree/master) - A plugin that turns off the auto-fixer for some ESLint rules.
-- [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn) - A plugin that provides some useful rules.
+- [`eslint-plugin-deprecation`](https://github.com/gund/eslint-plugin-deprecation) - Provides an ESLint rule that finds deprecated code.
+- [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - Provides ESLint rules relating to ESLint comments.
+- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Provides ESLint rules relating to importing and exporting. (Note that this uses the [`eslint-plugin-i`](https://github.com/un-es/eslint-plugin-i) fork under the hood.)
+- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - Provides ESLint rules that format comments and other miscellaneous things.
+- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - Provides ESLint rules relating to [JSDoc comments](https://en.wikipedia.org/wiki/JSDoc)
+- [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n) - Provides ESLint rules relating to [Node.js](https://nodejs.org/en). (`eslint-plugin-n` is a fork of [`eslint-plugin-node`](https://github.com/mysticatea/eslint-plugin-node).)
+- [`eslint-plugin-no-autofix`](https://github.com/aladdin-add/eslint-plugin/tree/master) - Provides modified ESLint rules that have the auto-fixer disabled.
+- [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - Turns all ESLint errors to warnings.
+- [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn) - Provides various miscellaneous ESLint rules.
 - [`knip`](https://github.com/webpro/knip) - A tool to look for unused files, dependencies, and exports.
-- [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
-- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
-- [`ts-prune-2`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports.
+- [`prettier`](https://github.com/prettier/prettier) - The main code formatter, as explained above.
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically.
+- [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports. (This is not needed if you use `knip`.)
 
 <br>
