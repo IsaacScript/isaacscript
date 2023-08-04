@@ -239,7 +239,7 @@ const PARENT_CONFIG_LINKS = {
   "unicorn/recommended":
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js",
   "eslint-config-prettier":
-    "[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier/blob/main/index.js)",
+    "https://github.com/prettier/eslint-config-prettier/blob/main/index.js",
 } as const satisfies Record<ParentConfig, string>;
 
 await main();
