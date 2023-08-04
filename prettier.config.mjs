@@ -27,7 +27,7 @@ const config = {
 
         // Prettier's default value is 80, but this causes XML files in particular to become
         // difficult to work with.
-        printWidth: 1000000,
+        printWidth: 1_000_000,
       },
     },
   ],
