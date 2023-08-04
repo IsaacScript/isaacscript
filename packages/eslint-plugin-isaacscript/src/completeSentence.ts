@@ -101,7 +101,6 @@ function splitOnSpecialText(text: string): string[] {
   // https://regex101.com/r/0u8hQG/1
   // https://jsdoc.app/tags-inline-link.html
   text = text.replaceAll(
-    // eslint-disable-next-line prefer-named-capture-group
     /\[([^\]]*)]{@link [^ |}]+}|{@link ([^ |}]+)[ |]?}|{@link [^ |}]+[ |]([^}]+)}/gm,
     "$1$2$3",
   );

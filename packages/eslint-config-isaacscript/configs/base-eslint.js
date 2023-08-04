@@ -578,7 +578,13 @@ const SUGGESTIONS = {
   ],
 
   "prefer-exponentiation-operator": "error",
-  "prefer-named-capture-group": "error",
+
+  /**
+   * Disabled because it is common to have a regex with only a single match, in which case a named
+   * capture group can be needlessly verbose (and cause extra type narrowing).
+   */
+  "prefer-named-capture-group": "off",
+
   "prefer-numeric-literals": "error",
   "prefer-object-has-own": "error",
   "prefer-object-spread": "error",

@@ -104,8 +104,7 @@ function getList(line: string): List | undefined {
     };
   }
 
-  // e.g. "1. A bullet point can start with a number and a period."
-  // eslint-disable-next-line prefer-named-capture-group
+  /** e.g. "1. A bullet point can start with a number and a period." */
   const numberPeriodMatch = line.match(/^(\d+)\. /);
   if (
     numberPeriodMatch !== null &&
@@ -119,8 +118,7 @@ function getList(line: string): List | undefined {
     };
   }
 
-  // e.g. "1) A bullet point can start with a number and a parenthesis."
-  // eslint-disable-next-line prefer-named-capture-group
+  /** e.g. "1) A bullet point can start with a number and a parenthesis." */
   const numberParenthesisMatch = line.match(/^(\d+)\) /);
   if (
     numberParenthesisMatch !== null &&

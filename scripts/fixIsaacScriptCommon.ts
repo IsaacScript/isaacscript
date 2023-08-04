@@ -519,13 +519,10 @@ function pascalCaseToTitleCase(string: string) {
   return (
     string
       // Look for long acronyms and filter out the last letter.
-      // eslint-disable-next-line prefer-named-capture-group
       .replaceAll(/([A-Z]+)([A-Z][a-z])/g, " $1 $2")
       // Look for lower-case letters followed by upper-case letters.
-      // eslint-disable-next-line prefer-named-capture-group
       .replaceAll(/([\da-z])([A-Z])/g, "$1 $2")
       // Look for lower-case letters followed by numbers.
-      // eslint-disable-next-line prefer-named-capture-group
       .replaceAll(/([A-Za-z])(\d)/g, "$1 $2")
       .replace(/^./, (s) => s.toUpperCase())
       // Remove any white space left around the word.
