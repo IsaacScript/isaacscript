@@ -54,12 +54,9 @@ async function checkForWindowsBugColor(verbose: boolean) {
 
 function applyFixesToBashProfile(verbose: boolean) {
   // Check to see if the Bash profile has data.
-  let bashProfileContents: string;
-  if (fileExists(BASH_PROFILE_PATH, verbose)) {
-    bashProfileContents = readFile(BASH_PROFILE_PATH, verbose);
-  } else {
-    bashProfileContents = "";
-  }
+  const bashProfileContents = fileExists(BASH_PROFILE_PATH, verbose)
+    ? readFile(BASH_PROFILE_PATH, verbose)
+    : "";
 
   const appendText = getBashProfileAppendText(bashProfileContents);
 

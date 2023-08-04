@@ -43,6 +43,20 @@ const config = {
         },
       },
     ],
+
+    /**
+     * Defined at: base-unicorn.js
+     *
+     * See this package's "tsconfig.json" file. This can be removed when the plugin migrates to ESM.
+     */
+    "unicorn/prefer-module": "off",
+
+    /**
+     * Defined at: base-unicorn.js
+     *
+     * See this package's "tsconfig.json" file. This can be removed when the plugin migrates to ESM.
+     */
+    "unicorn/prefer-top-level-await": "off",
   },
 
   overrides: [

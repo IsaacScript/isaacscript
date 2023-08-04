@@ -100,7 +100,7 @@ export function isRecord(object: unknown): object is Record<string, unknown> {
  */
 export function parseIntSafe(input: string): number {
   if (typeof input !== "string") {
-    return NaN;
+    return Number.NaN;
   }
 
   // Remove all leading and trailing whitespace.
@@ -109,12 +109,12 @@ export function parseIntSafe(input: string): number {
   const isNegativeNumber = trimmedInput.startsWith("-");
   if (isNegativeNumber) {
     // Remove the leading minus sign before we match the regular expression.
-    trimmedInput = trimmedInput.substring(1);
+    trimmedInput = trimmedInput.slice(1);
   }
 
   if (/^\d+$/.exec(trimmedInput) === null) {
     // "\d" matches any digit (same as "[0-9]").
-    return NaN;
+    return Number.NaN;
   }
 
   if (isNegativeNumber) {

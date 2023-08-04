@@ -46,7 +46,7 @@ const METADATA_LUA_PATH = path.join(
   "customStageMetadata.lua",
 );
 
-const ROOM_VARIANT_MULTIPLIER = 10000;
+const ROOM_VARIANT_MULTIPLIER = 10_000;
 const VARIANT_REGEX = / variant="(?<variant>\d+)"/;
 const WEIGHT_REGEX = / weight=".+?"/;
 
@@ -344,7 +344,7 @@ async function getCustomStagesWithMetadata(
       const doorSlotFlags = getJSONRoomDoorSlotFlags(room);
 
       const weightString = room.$.weight;
-      const weight = parseFloat(weightString);
+      const weight = Number.parseFloat(weightString);
       if (Number.isNaN(baseVariant)) {
         fatalError(
           `Failed to parse the weight of one of the "${name}" custom stage rooms: ${weightString}`,

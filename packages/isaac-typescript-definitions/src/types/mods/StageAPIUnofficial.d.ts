@@ -47,7 +47,7 @@ declare global {
     POOP_BLACK = 1497,
     POOP_HOLY = 1498,
     POOP_CHARMING = 1501,
-    GRAVITY = 10000,
+    GRAVITY = 10_000,
     PITFALL = 291,
     PROP_A = 10,
     PROP_B = 20,
