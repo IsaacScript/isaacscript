@@ -10,7 +10,7 @@ initHotkeys();
 
 function initHotkeys() {
   initKeyMap();
-  document.onkeydown = onKeyDown;
+  document.addEventListener("keydown", onKeyDown);
 }
 
 function initKeyMap() {
@@ -39,8 +39,7 @@ function onKeyDown(event) {
 }
 
 function isSearchBarFocused() {
-  const searchInputElements =
-    document.getElementsByClassName("DocSearch-Input");
+  const searchInputElements = document.querySelectorAll(".DocSearch-Input");
   for (const searchInputElement of searchInputElements) {
     if (document.activeElement === searchInputElement) {
       return true;
@@ -82,12 +81,12 @@ function isOnFirstDocPage() {
 }
 
 function isOnLandingPage() {
-  const titles = document.getElementsByClassName("hero__title");
+  const titles = document.querySelectorAll(".hero__title");
   return titles.length > 0;
 }
 
 function clickOnNavBarTitle() {
-  const navBarTitle = document.getElementsByClassName("navbar__title");
+  const navBarTitle = document.querySelectorAll(".navbar__title");
   const navBarTitleElement = navBarTitle[0];
   if (navBarTitleElement !== undefined) {
     navBarTitleElement.click();
@@ -95,7 +94,7 @@ function clickOnNavBarTitle() {
 }
 
 function clickOnFirstLandingPageButton() {
-  const buttons = document.getElementsByClassName("button--lg");
+  const buttons = document.querySelectorAll(".button--lg");
   const firstButton = buttons[0];
   if (firstButton === undefined) {
     return;
@@ -113,8 +112,7 @@ function clickSecondNavButton() {
 }
 
 function clickNavButton(i) {
-  const navButtonsCollection =
-    document.getElementsByClassName("pagination-nav");
+  const navButtonsCollection = document.querySelectorAll(".pagination-nav");
   const navButtons = navButtonsCollection[0];
   if (navButtons === undefined) {
     return;
