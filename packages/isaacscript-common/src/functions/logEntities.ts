@@ -64,12 +64,13 @@ export function logAllEntities(
     numMatchedEntities++;
   }
 
-  msg +=
-    numMatchedEntities === 0
-      ? "(no entities matched)\n"
-      : `(${numMatchedEntities} total ${
-          numMatchedEntities === 1 ? "entity" : "entities"
-        })\n`;
+  const zeroText = "(no entities matched)";
+  const oneOrMoreText = `(${numMatchedEntities} total ${
+    numMatchedEntities === 1 ? "entity" : "entities"
+  })`;
+  const text = numMatchedEntities === 0 ? zeroText : oneOrMoreText;
+
+  msg += `${text}\n`;
 
   // We must log each line because otherwise the message can get truncated.
   for (const line of msg.trim().split("\n")) {
