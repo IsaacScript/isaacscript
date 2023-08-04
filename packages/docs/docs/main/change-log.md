@@ -9,6 +9,10 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 3rd, 2023
+
+- `eslint-config-isaacscript` is rewritten from scratch. It no longer relies on any upstream configs and is now [documented officially on the website](https://isaacscript.github.io/eslint-config-isaacscript).
+
 ## June 30th, 2023
 
 - Added the following helper functions:

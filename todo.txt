@@ -1,6 +1,3 @@
-- Unicorn rule audit
-- add note about ES lint fix and config documentation
-
 ----------------------------------------------------------------------------------------------------
 
 - wait for TypeDoc to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372

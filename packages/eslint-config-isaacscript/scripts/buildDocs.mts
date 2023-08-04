@@ -42,6 +42,14 @@ This is a sharable configuration for [ESLint](https://eslint.org/) that is inten
 
 <br />
 
+## Installation
+
+This package is part of the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package. It is recommended that instead of consuming this package directly, you instead list \`isaacscript-lint\` as a dependency, as that will install both this config and all of the rule plugins that it depends on.
+
+For installation instructions, see [the \`isaacscript-lint\` page](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#installation-instructions-for-typescript-projects).
+
+<br />
+
 ## Why Do I Need To Use ESLint?
 
 Presumably, you are a TypeScript user who has used the language for a while. At this point, you have already realized that TypeScript saves you an enormous amount of time. The hours spent troubleshooting run-time errors from typos have become a thing of the past. Good riddance!
@@ -58,27 +66,40 @@ Your codebase deserves to be safe as possible and \`eslint-config-isaacscript\` 
 
 Building an ESLint config from scratch takes many, many hours. ESLint has [over 250 rules](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-all.js). \`typescript-eslint\` has [over 125 rules](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/all.ts). And that's just the beginning.
 
-Don't bother creating and maintaining a huge ESLint config yourself. We've done the work to enable every ESLint rule that we can find that provides value and disable the ones that are noise. Use this config as a base in your TypeScript projects, and if needed, manually turn off the few specific rules that you find annoying.
+Don't bother creating and maintaining a huge ESLint config yourself. We've done the work to:
+
+- Enable every ESLint rule that we can find from trusted sources that provides value.
+- Weed out the rules that don't apply to TypeScript codebases.
+- Weed out the rules covered by Prettier.
+- Weed out the rules that are just noise.
 
 <br />
 
-## Installation
+## Our Config Philosophy
 
-This package is consumed by the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-linting package. It is recommended that instead of consuming this package directly, you instead list \`isaacscript-lint\` as a dependency, as that will includes all of the plugins that this config depends on.
-
-For installation instructions, see the [\`isaacscript-lint\`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#installation-instructions-for-typescript-projects) page.
-
-<br />
-
-## Philosophy
-
-We want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs.
-
-False positives can be taken care of by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.) And if you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your \`.eslintrc.cjs\` file.
+We want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. (More on false positives [later](#dealing-with-false-positives).)
 
 In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional rules that catch even more bugs.
 
-This config also assumes that you are using [Prettier](https://prettier.io/) to format your TypeScript code, which is considered to be best-practice in the ecosystem. Subsequently, all formatting-related rules that conflict with Prettier are disabled. (There are a few formatting-related rules that are enabled that are not handled by Prettier.)
+This config also assumes that you are using [Prettier](https://prettier.io/) to format your TypeScript code, which is considered to be best-practice in the ecosystem. Subsequently, all formatting-related rules that conflict with Prettier are disabled. (However, we use a few formatting-related rules that are not handled by Prettier.)
+
+<br />
+
+## Auto-Fixing
+
+Deploying this ESLint config on an existing codebase can generate a ton of warnings. Fixing them all might seem overwhelming. While some warnings need to be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the code will fix itself if you run ESLint with the \`--fix\` flag. So, by running \`npx eslint --fix .\` in the root of your project, you can take care of a lot of the warnings automatically.
+
+Additionally, we recommend that you [configure your IDE to automatically run \`--fix\` whenever you save a file](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#integration-with-vscode).
+
+<br />
+
+## Dealing with False Positives
+
+Your first reaction to having a bunch of yellow squiggly lines might be to disable any rule that gets in your way. However, before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#why-code-formatting-is-important)!
+
+With that said, with so many rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.)
+
+If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your \`.eslintrc.cjs\` file. Some rules won't make sense for every project!
 
 <br />
 
