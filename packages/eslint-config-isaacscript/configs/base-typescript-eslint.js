@@ -56,7 +56,8 @@ const SUPPORTED_RULES = {
   /**
    * The options are [copied from
    * Airbnb](https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js).
-   * We also allow a leading underscore, which signifies that it is temporarily not being used.
+   * We also allow a leading underscore, which signifies that the element is temporarily not being
+   * used.
    */
   "@typescript-eslint/naming-convention": [
     "error",
