@@ -13,6 +13,7 @@ import {
   newReadonlyVector,
 } from "../functions/readOnly";
 import { asCollectibleType } from "../functions/types";
+import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
  * The combination of the following flags:
@@ -196,7 +197,9 @@ export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dime
  * The pill pool for each run is comprised of one effect for each unique pill color (minus gold and
  * horse pills.)
  */
-export { NUM_NORMAL_PILL_COLORS as NUM_PILLS_IN_POOL } from "./constantsFirstLast";
+// TypeDoc will not work properly with the preferred export form.
+// eslint-disable-next-line unicorn/prefer-export-from
+export const NUM_PILLS_IN_POOL = NUM_NORMAL_PILL_COLORS;
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
