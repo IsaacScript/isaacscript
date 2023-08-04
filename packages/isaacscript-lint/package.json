@@ -22,8 +22,8 @@
   "type": "commonjs",
   "dependencies": {
     "@prettier/plugin-xml": "^3.1.1",
-    "@typescript-eslint/parser": "^6.2.1",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
     "cspell": "^6.31.2",
     "cspell-check-unused-words": "^1.0.4",
     "eslint": "^8.46.0",
