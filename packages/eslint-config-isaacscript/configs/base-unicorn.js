@@ -65,7 +65,10 @@ const NORMAL_RULES = {
 
   "unicorn/no-static-only-class": "error",
   "unicorn/no-thenable": "error",
-  "unicorn/no-this-assignment": "error",
+
+  /** Superseded by the `@typescript-eslint/no-this-alias` rule. */
+  "unicorn/no-this-assignment": "off",
+
   "unicorn/no-typeof-undefined": "error",
   "unicorn/no-unnecessary-await": "error",
   "unicorn/no-unreadable-array-destructuring": "error",
