@@ -23,6 +23,7 @@
     "**/*.mp3": true,
     "**/*.png": true,
     "**/*.wav": true,
+    "**/.yarn/": true,
     "**/dist/": true,
     "**/node_modules/": true,
   },
