@@ -714,7 +714,7 @@ const LAYOUT_AND_FORMATTING = {
   "switch-colon-spacing": "off", // eslint-config-prettier
   "template-curly-spacing": "off", // eslint-config-prettier
   "template-tag-spacing": "off", // eslint-config-prettier
-  "unicode-bom": "off", // eslint-config-prettier
+  "unicode-bom": "error",
   "wrap-iife": "off", // eslint-config-prettier
   "wrap-regex": "off", // eslint-config-prettier
   "yield-star-spacing": "off", // eslint-config-prettier
