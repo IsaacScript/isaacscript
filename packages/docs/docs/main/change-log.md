@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 10th, 2023
+
+- Renamed the following helper functions:
+  - `initArray` --> `newArray`
+
 ## August 3rd, 2023
 
 - `eslint-config-isaacscript` is rewritten from scratch. It no longer relies on any upstream configs and is now [documented officially on the website](https://isaacscript.github.io/eslint-config-isaacscript).

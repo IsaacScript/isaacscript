@@ -493,8 +493,8 @@ export function isArrayInArray<T>(
  * For example:
  *
  * ```ts
- * const arrayWithZeroes = initArray(0, 10); // Has 10 elements of 0.
- * const arrayWithArrays = initArray([0], 20); // Has 20 elements of an array with a 0 in it.
+ * const arrayWithZeroes = newArray(0, 10); // Has 10 elements of 0.
+ * const arrayWithArrays = newArray([0], 20); // Has 20 elements of an array with a 0 in it.
  * ```
  */
 export function newArray<T>(defaultValue: T, size: int): T[] {

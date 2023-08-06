@@ -304,7 +304,7 @@ export function removeAllSacks(
   cap?: int,
 ): EntityPickupSack[] {
   return removeAllPickups(
-    PickupVariant.TRINKET,
+    PickupVariant.SACK,
     sackSubType,
     cap,
   ) as EntityPickupSack[];
