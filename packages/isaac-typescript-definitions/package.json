@@ -19,7 +19,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "module",
-  "main": "dist/src/index",
+  "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "dependencies": {
     "lua-types": "^2.13.1"
