@@ -191,8 +191,12 @@ const STYLE_GUIDE = {
  * @type {import("eslint").Linter.Config}
  */
 const config = {
-  // No additional configuration is necessary to make the plugin work properly with TypeScript.
-  // (This was tested with the `import/no-default-export` rule.)
+  // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
+  // work properly with TypeScript. We extend the upstream TypeScript config to accomplish this:
+  // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
+  // (The necessity of this extra configuration was tested with the `import/no-cycle` rule.)
+  extends: ["plugin:import/typescript"],
+
   plugins: ["import"],
 
   rules: {
