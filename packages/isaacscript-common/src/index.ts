@@ -75,6 +75,7 @@ export * from "./functions/merge";
 export * from "./functions/mergeTests";
 export * from "./functions/minimap";
 export * from "./functions/modFeatures";
+export * from "./functions/newArray";
 export * from "./functions/nextStage";
 export * from "./functions/npcDataStructures";
 export * from "./functions/npcs";
