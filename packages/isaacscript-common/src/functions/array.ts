@@ -269,26 +269,6 @@ export function getArrayCombinations<T>(
     max = array.length;
   }
 
-  const addCombinations = (
-    n: number,
-    src: T[] | readonly T[],
-    got: T[],
-    all: Array<T[] | readonly T[]>,
-  ) => {
-    if (n === 0) {
-      if (got.length > 0) {
-        all[all.length] = got;
-      }
-
-      return;
-    }
-
-    for (let j = 0; j < src.length; j++) {
-      const value = src[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      addCombinations(n - 1, src.slice(j + 1), [...got, value], all);
-    }
-  };
-
   const all: Array<T[] | readonly T[]> = [];
   for (let i = min; i < array.length; i++) {
     addCombinations(i, array, [], all);
@@ -303,6 +283,25 @@ export function getArrayCombinations<T>(
   }
 
   return all;
+}
+
+function addCombinations<T>(
+  n: number,
+  src: T[] | readonly T[],
+  got: T[],
+  all: Array<T[] | readonly T[]>,
+) {
+  if (n === 0) {
+    if (got.length > 0) {
+      all[all.length] = got;
+    }
+
+    return;
+  }
+
+  for (const [i, element] of src.entries()) {
+    addCombinations(n - 1, src.slice(i + 1), [...got, element], all);
+  }
 }
 
 /**

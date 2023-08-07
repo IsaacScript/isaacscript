@@ -46,6 +46,7 @@ export function getCommentBlocks(
 ): LeadingLineCommentBlock[] {
   const commentBlocks: LeadingLineCommentBlock[] = [];
 
+  // We cannot use the `comments.entries` method because we mutate `i`.
   for (let i = 0; i < comments.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const comment = comments[i]!;

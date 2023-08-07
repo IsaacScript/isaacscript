@@ -42,9 +42,11 @@ export function capitalizeFirstLetter(string: string): string {
   return `${capitalizedFirstLetter}${restOfString}`;
 }
 
-const urlCreator = (name: string) =>
-  `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${name}.md`;
-export const createRule = ESLintUtils.RuleCreator(urlCreator); // eslint-disable-line new-cap
+// eslint-disable-next-line new-cap
+export const createRule = ESLintUtils.RuleCreator(
+  (ruleName) =>
+    `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${ruleName}.md`,
+);
 
 /**
  * From: https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
