@@ -697,7 +697,7 @@ declare global {
      * hold.
      *
      * - Usually, this will return 1.
-     * - If the player has Belly Button, Starter Deck, or Little Baggy, it will increment the number
+     * - If the player has Polydactyly, Starter Deck, or Little Baggy, it will increment the number
      *   by 1.
      * - If the player has a pocket active item, it will increment the number by 1.
      * - If the player has a dice from the Dice Bag trinket, it will increment the number by 1.
