@@ -222,6 +222,8 @@ Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
 
 This is a helper script to automatically update the project dependencies.
 
+<br />
+
 ### `mod/main.lua`
 
 This is the transpiled Lua output of your TypeScript source code. All TypeScript code is combined into one big Lua file. There is no need to commit this file to a Git repository, so it is included in the ".gitignore" file by default.
