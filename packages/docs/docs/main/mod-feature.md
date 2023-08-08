@@ -110,13 +110,13 @@ That's about all there is to it!
 
 <br />
 
-### Other `ModFeature` Features
+## Other `ModFeature` Features
 
-#### Decorators
+### Decorators
 
 You can also use `@CallbackCustom` to register to custom callbacks from the standard library. You can also use `@PriorityCallback` and `@PriorityCallbackCustom` to make a certain method run before or after other callbacks.
 
-#### Using `shouldCallbackMethodsFire` For Conditional Firing
+### Using `shouldCallbackMethodsFire` For Conditional Firing
 
 If you want a class' decorated methods to conditionally fire, specify a function for the `shouldCallbackMethodsFire` property, like this:
 
@@ -131,7 +131,7 @@ export class GreenCandle extends ModFeature {
 }
 ```
 
-#### Manual Instantiation
+### Manual Instantiation
 
 We recommend that you use the `initModFeatures` helper function to instantiate your mod features. That way, the `v` variables will be properly registered with the save data manger. Additionally, it will immediately subscribe all of the decorated methods.
 
