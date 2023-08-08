@@ -39,11 +39,10 @@ First off, we create a mod and upgrade it so that we can use features with the s
 // mod.ts
 
 import { ISCFeature, upgradeMod } from "isaacscript-common";
-import { MOD_NAME } from "./constants";
 
 const ISC_FEATURES_FOR_THIS_MOD = [ISCFeature.SAVE_DATA_MANAGER] as const;
 
-const modVanilla = RegisterMod(MOD_NAME, 1);
+const modVanilla = RegisterMod("Green Candle", 1);
 export const mod = upgradeMod(modVanilla, ISC_FEATURES_FOR_THIS_MOD);
 ```
 
