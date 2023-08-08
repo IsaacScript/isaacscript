@@ -221,21 +221,20 @@ export class SaveDataManager extends Feature {
    *    desired).
    * 2. Automatic saving and loading of all tracked data to the "save#.dat" file.
    *
-   * You feed this function with an object containing your variables, and then it will automatically
-   * manage them for you. (See below for an example.)
+   * You provide this function with an object containing your variables, and then it will
+   * automatically manage them for you. (See below for an example.)
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    * (Upgrade your mod before registering any of your own callbacks so that the save data manager
    * will run before any of your code does.)
    *
    * The save data manager is meant to be called once for each feature of your mod. In other words,
-   * you should not put all of the data for your mod on the same object. Instead, scope your
+   * you should not put all of the variables for your mod on the same object. Instead, scope your
    * variables locally to a single file that contains a mod feature, and then call this function to
    * register them. For example:
    *
    * ```ts
    * // In file: feature1.ts
-   * import { saveDataManager } from "isaacscript-common";
    *
    * // Declare local variables for this file or feature.
    * const v = {
@@ -259,13 +258,12 @@ export class SaveDataManager extends Feature {
    *     foo4: 0,
    *   },
    * };
-   * // Every child object is optional; only create the ones that you need.
+   * // The child objects of "persistent", "run", "level", and "room are optional; only create the
+   * // ones that you need.
    *
-   * // Register the variables with the save data manager. (We need to provide a string key that
-   * // matches the name of this file.)
-   * function feature1Init() {
-   *   saveDataManager("feature1", v);
-   * }
+   * // Now, give `v` to the save data manager, and it will automatically manage the variables for
+   * // you.
+   * mod.saveDataManager("feature1", v);
    *
    * // Elsewhere in the file, use your variables.
    * function feature1Function() {
