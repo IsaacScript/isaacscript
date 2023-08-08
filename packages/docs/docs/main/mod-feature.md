@@ -1,5 +1,5 @@
 ---
-title: Using `ModFeature` - The Modern Way to Structure Mods
+title: Using Feature Classes - The Modern Way to Write Isaac Mods
 ---
 
 ## The Problem
@@ -14,24 +14,24 @@ But beyond the basics of "split code up into separate files", things get more tr
 
 ## The Benefits of Feature Classes
 
-Historically, Isaac mods have subscribed feature functions to callbacks directly in the same file, and then imported the feature files from the main file. However, importing files for side effects like this can lead to spaghetti code. So, other mods unify callback logic into a single file per callback, and then have the callback files calls the individual feature functions. Both of these mod organization strategies have pros and cons.
+Historically, Isaac mods have subscribed feature functions to callbacks directly in the same file, and then imported the feature files from the main file. However, importing files for side effects like this can lead to spaghetti code. So, other mods unify callback logic into a single file per callback, and then have the callback files call the individual feature functions. Both of these mod organization strategies have pros and cons.
 
 In 2022, the IsaacScript community discovered a powerful new pattern for writing Isaac mods: using TypeScript classes to represent individual mod features. This pattern is extremely powerful for a few reasons:
 
 1. It allows you to use method decorators to subscribe individual class methods to callbacks. This allows you to get rid of callback files that "glue" together your "main.ts" file and your individual feature files.
-2. Method decorators allow you to colocate the originating callback declaration alongside the actual code that is being executed. This makes the execution path much easier to read and understand.
-3. Classes allow you do provide conditional logic for decorated methods such that any callback will only fire if your logic passes. This allows you to very easily turn off individual mod features via e.g. Mod Config Menu or Dead Sea Scrolls.
-4. Classes can be extended from parent classes, allowing you to unify initialization logic by writing it in the parent class constructor (e.g. `MyFeature1` extends `NPCFeatures` extends `ModFeature`).
-5. Classes can subscribe and unsubscribe from callbacks when arbitrary conditions are met, which can be useful if your callback functions are expensive.
-6. Classes automatically subscribe to the [save data manager](/isaacscript-common/features/SaveDataManager/).
+1. Method decorators allow you to colocate the originating callback declaration alongside the actual code that is being executed. This makes the execution path much easier to read and understand.
+1. Classes allow you do provide conditional logic for decorated methods such that any callback will only fire if your logic passes. This allows you to very easily turn off individual mod features via e.g. Mod Config Menu or Dead Sea Scrolls.
+1. Classes can be extended from parent classes, allowing you to unify initialization logic by writing it in the parent class constructor (e.g. `MyNPC1` extends `MyNPCFeatures` extends `ModFeature`).
+1. Classes can subscribe and unsubscribe from callbacks when arbitrary conditions are met. This can be useful if your callback functions are expensive.
+1. Classes automatically subscribe to the [save data manager](/isaacscript-common/features/SaveDataManager/), which reduce boilerplate.
 
-In other words, classes are a powerful abstraction that allows you a great deal of flexibility and control.
+In short, feature classes are a powerful abstraction that allows you to write concise, easy-to-read code. They also provide a great deal of flexibility and control.
 
 <br />
 
 ## Example
 
-Let's start with a quick example to showcase the power of the mod feature class pattern. We will be creating an item called the Green Candle. We won't fully implement the item; we just want you to get the idea of how the pattern works.
+Let's start with a quick example to showcase the power of the feature class pattern. We will be creating an item called the Green Candle. We won't fully implement the item; we just want you to get the idea of how the pattern works.
 
 First off, we create a mod and upgrade it so that we can use features with the standard library:
 
@@ -94,7 +94,7 @@ export class GreenCandle extends ModFeature {
 }
 ```
 
-Now, we can instantiate our mod feature classes in our "main.ts" file:
+Now, we can instantiate our mod feature classes in our "main.ts" file by using the `initModFeatures` helper function:
 
 ```ts
 // main.ts
@@ -108,4 +108,50 @@ initModFeatures(mod, MOD_FEATURES);
 
 That's about all there is to it!
 
-Note that you can also use `@CallbackCustom` to register to custom callbacks from the standard library. You can also use `@PriorityCallback` and `@PriorityCallbackCustom` to make a certain method run before or after other callbacks.
+<br />
+
+### Other `ModFeature` Features
+
+#### Decorators
+
+You can also use `@CallbackCustom` to register to custom callbacks from the standard library. You can also use `@PriorityCallback` and `@PriorityCallbackCustom` to make a certain method run before or after other callbacks.
+
+#### Using `shouldCallbackMethodsFire` For Conditional Firing
+
+If you want a class' decorated methods to conditionally fire, specify a function for the `shouldCallbackMethodsFire` property, like this:
+
+```ts
+export class GreenCandle extends ModFeature {
+  protected override shouldCallbackMethodsFire = (): boolean => {
+    // We don't need to track anything if no players have the collectible.
+    return anyPlayerHasCollectible(CollectibleTypeCustom.GREEN_CANDLE);
+  };
+
+  // [The rest of the class logic goes here.]
+}
+```
+
+#### Manual Instantiation
+
+We recommend that you use the `initModFeatures` helper function to instantiate your mod features. That way, the `v` variables will be properly registered with the save data manger. Additionally, it will immediately subscribe all of the decorated methods.
+
+If you want to defer the callback subscription for some reason, then you can manually instantiate your mod classes like this:
+
+```ts
+const MOD_FEATURES = [GreenCandle] as const;
+
+// At the beginning of your mod, instantiate your features.
+function initModFeatures() {
+  for (const constructor of FEATURE_CLASSES) {
+    // - The first argument to the constructor is the upgraded mod object.
+    // - The second argument to the constructor is whether to register the callbacks.
+    const featureClass = new constructor(mod, false);
+    // Next, store the `featureClass` for later, e.g. in a map.
+  }
+}
+
+function registerCallbacksOnModFeatures() {
+  // Later on, you can register the callbacks by calling the `init` method:
+  featureClass.init();
+}
+```
