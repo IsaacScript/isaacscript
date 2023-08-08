@@ -45,10 +45,6 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * When instantiating a mod feature class, you must pass your upgraded mod as the first argument to
  * the constructor.
  *
- * If your feature has variables that are managed by the save data manager, you need to explicitly
- * register them with the save data manager yourself in your class constructor. (It can't be
- * automatically done because parent classes don't have access to child class properties.)
- *
  * In almost all cases, you will want the callback functions to be immediately subscribed after
  * instantiating the class. However, if this is not the case, you can pass `false` as the optional
  * second argument to the constructor.
@@ -61,7 +57,6 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * class is constructed. (This is because the parent class does not have access to the child's
  * properties upon first construction.)
  */
-
 export class ModFeature {
   private readonly mod: ModUpgraded;
 
