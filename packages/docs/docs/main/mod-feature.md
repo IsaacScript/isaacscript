@@ -100,13 +100,16 @@ Now, we can instantiate our mod feature classes in our "main.ts" file by using t
 // main.ts
 
 import { GreenCandle } from "./features/GreenCandle";
+import { mod } from "./mod";
 
 const MOD_FEATURES = [GreenCandle] as const;
 
 initModFeatures(mod, MOD_FEATURES);
 ```
 
-That's about all there is to it!
+That's it! The code in our Green Candle class will now automatically run whenever an NPC is present.
+
+As our mod gets bigger, we can add more classes to the `MOD_FEATURES` array. We could also create an intermediary class if two or more mod features will have shared logic (e.g. `GreenCandle extends CollectibleModFeature` + `CollectibleModFeature extends ModFeature`).
 
 <br />
 
