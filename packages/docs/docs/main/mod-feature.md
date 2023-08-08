@@ -23,7 +23,7 @@ In 2022, the IsaacScript community discovered a powerful new pattern for writing
 1. Classes allow you do provide conditional logic for decorated methods such that any callback will only fire if your logic passes. This allows you to very easily turn off individual mod features via e.g. Mod Config Menu or Dead Sea Scrolls.
 1. Classes can be extended from parent classes, allowing you to unify initialization logic by writing it in the parent class constructor (e.g. `MyNPC1` extends `MyNPCFeatures` extends `ModFeature`).
 1. Classes can subscribe and unsubscribe from callbacks when arbitrary conditions are met. This can be useful if your callback functions are expensive.
-1. Classes automatically subscribe to the [save data manager](/isaacscript-common/features/SaveDataManager/), which reduce boilerplate.
+1. Classes automatically subscribe to the [save data manager](/isaacscript-common/features/SaveDataManager/), which reduces boilerplate.
 
 In short, feature classes are a powerful abstraction that allows you to write concise, easy-to-read code. They also provide a great deal of flexibility and control.
 
