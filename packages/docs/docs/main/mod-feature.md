@@ -52,7 +52,7 @@ This part is pretty standard practice for all IsaacScript mods.
 Next, we define a class that will contain the logic for the Green Candle feature:
 
 ```ts
-// GreenCandle.ts
+// features/GreenCandle.ts
 
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback, DefaultMap, ModFeature } from "isaacscript-common";
