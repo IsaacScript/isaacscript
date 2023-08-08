@@ -83,7 +83,7 @@ export class GreenCandle extends ModFeature {
   postNPCUpdate(npc: EntityNPC): void {
     // The following code is just to show off getting a counter from our `v` object; it does not
     // have to do with the class pattern specifically. Most of your mod features will probably use
-    // the save data manger in a way similar to this, but they don't necessarily have to.
+    // the save data manager in a way similar to this, but they don't necessarily have to.
     const ptrHash = GetPtrHash(npc);
     const counters = v.room.countersMap.getAndSetDefault(ptrHash);
     const newCounters = counters + 1;
@@ -112,13 +112,15 @@ That's about all there is to it!
 
 ## Other `ModFeature` Features
 
+More advanced features of the `ModFeature` class are listed below.
+
 ### Decorators
 
-You can also use `@CallbackCustom` to register to custom callbacks from the standard library. You can also use `@PriorityCallback` and `@PriorityCallbackCustom` to make a certain method run before or after other callbacks.
+In addition to `@Callback`, you can also use `@CallbackCustom` to register class methods with custom callbacks from the standard library. You can also use `@PriorityCallback` and `@PriorityCallbackCustom` to make a certain method run before or after other registered callbacks.
 
 ### Using `shouldCallbackMethodsFire` For Conditional Firing
 
-If you want a class' decorated methods to conditionally fire, specify a function for the `shouldCallbackMethodsFire` property, like this:
+If you want the decorated methods of a class to conditionally fire, then specify a function for the `shouldCallbackMethodsFire` property. For example:
 
 ```ts
 export class GreenCandle extends ModFeature {
@@ -133,9 +135,9 @@ export class GreenCandle extends ModFeature {
 
 ### Manual Instantiation
 
-We recommend that you use the `initModFeatures` helper function to instantiate your mod features. That way, the `v` variables will be properly registered with the save data manger. Additionally, it will immediately subscribe all of the decorated methods.
+We recommend that you use the `initModFeatures` helper function to instantiate your mod features. That way, the `v` variables will be properly registered with the save data manager.
 
-If you want to defer the callback subscription for some reason, then you can manually instantiate your mod classes like this:
+By default, when a `ModFeature` is instantiated, it will immediately subscribe all of the decorated methods. If you want to defer the callback subscription for some reason, then you can manually instantiate your mod features by passing `false` to the second argument of the constructor like this:
 
 ```ts
 const MOD_FEATURES = [GreenCandle] as const;
