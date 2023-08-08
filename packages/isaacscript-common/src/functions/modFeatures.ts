@@ -11,16 +11,16 @@ import type { ModUpgraded } from "../classes/ModUpgraded";
  * For example:
  *
  * ```ts
- * const features = [
+ * const MOD_FEATURES = [
  *   MyFeature1,
  *   MyFeature2,
  *   MyFeature3,
  * ] as const;
- * initModFeatures(mod, modFeatures);
+ * initModFeatures(mod, MOD_FEATURES);
  * ```
  *
  * @returns An array of the instantiated features in the same order that the constructors were
- *          passed in.
+ *          passed in. (In most cases, you probably won't need the returned array.)
  */
 export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
   mod: ModUpgraded,

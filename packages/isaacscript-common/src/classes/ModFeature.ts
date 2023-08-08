@@ -42,20 +42,22 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * mod features from this class in order to enable the `@Callback` and `@CustomCallback` decorators
  * that automatically subscribe to callbacks.
  *
- * When instantiating a mod feature class, you must pass your upgraded mod as the first argument to
- * the constructor.
+ * It is recommended that you use the `initModFeatures` helper function to instantiate all of your
+ * mod classes (instead of instantiating them yourself). This is so that any attached `v` objects
+ * are properly registered with the save data manager; see below.
  *
- * In almost all cases, you will want the callback functions to be immediately subscribed after
- * instantiating the class. However, if this is not the case, you can pass `false` as the optional
- * second argument to the constructor.
+ * If you are manually instantiating a mod feature yourself, then:
+ *
+ * - You must pass your upgraded mod as the first argument to the constructor.
+ * - In almost all cases, you will want the callback functions to be immediately subscribed after
+ *   instantiating the class. However, if this is not the case, you can pass `false` as the optional
+ *   second argument to the constructor.
  *
  * If your mod feature has a property called `v`, it will be assumed that these are variables that
- * should be managed by the save data manager. Subsequently, they will automatically be registered
- * with the save data manager upon initialization. Unfortunately, due to technical limitations with
- * classes, this registration will only occur if you initialize the class with the `init` boolean
- * argument set to false, and then explicitly call the `ModFeature.init` method yourself after the
- * class is constructed. (This is because the parent class does not have access to the child's
- * properties upon first construction.)
+ * should be managed by the save data manager. Unfortunately, due to technical limitations with
+ * classes, this registration will only occur if you initialize the class with the `initModFeatures`
+ * helper function. (This is because the parent class does not have access to the child's properties
+ * upon first construction.)
  */
 export class ModFeature {
   private readonly mod: ModUpgraded;

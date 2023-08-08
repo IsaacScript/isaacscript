@@ -25,6 +25,7 @@ const sidebars = {
         "main/refactoring-mod",
         "main/using-get-data",
         "main/enums-and-objects",
+        "main/mod-feature",
       ],
     },
     {
