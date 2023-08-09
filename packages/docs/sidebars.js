@@ -22,7 +22,6 @@ const sidebars = {
         "main/javascript-tutorial",
         "main/example-mod",
         "main/next-steps",
-        "main/refactoring-mod",
         "main/using-get-data",
         "main/enums-and-objects",
         "main/mod-feature",
