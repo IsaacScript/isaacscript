@@ -24,7 +24,7 @@ async function getNewAuthorName(): Promise<string> {
     "The author name was not found from the GitHub CLI configuration file.",
   );
   const authorName = await getInputString("Enter the author of the project:");
-  if (authorName.length === 0) {
+  if (authorName === "") {
     fatalError("You must enter an author name.");
   }
 

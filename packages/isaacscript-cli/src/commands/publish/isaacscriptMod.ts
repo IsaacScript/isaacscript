@@ -74,7 +74,7 @@ function runReleaseScriptPreCopy(verbose: boolean) {
 
   console.log(`Running the "${PUBLISH_PRE_COPY_PY_PATH}" script.`);
   const { stdout } = execShell("python", [PUBLISH_PRE_COPY_PY_PATH], verbose);
-  if (stdout.length > 0) {
+  if (stdout !== "") {
     console.log(stdout);
   }
 }
@@ -86,7 +86,7 @@ function runReleaseScriptPostCopy(verbose: boolean) {
 
   console.log(`Running the "${PUBLISH_POST_COPY_PY_PATH}" script.`);
   const { stdout } = execShell("python", [PUBLISH_POST_COPY_PY_PATH], verbose);
-  if (stdout.length > 0) {
+  if (stdout !== "") {
     console.log(stdout);
   }
 }
