@@ -21,10 +21,10 @@
   "author": "Zamiell",
   "type": "module",
   "dependencies": {
-    "@prettier/plugin-xml": "^3.1.1",
+    "@prettier/plugin-xml": "^3.2.0",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
-    "cspell": "^6.31.2",
+    "cspell": "^6.31.3",
     "cspell-check-unused-words": "^1.0.4",
     "eslint": "^8.46.0",
     "eslint-config-isaacscript": "^4.0.7",
@@ -38,7 +38,7 @@
     "eslint-plugin-no-autofix": "^1.2.3",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-unicorn": "^48.0.1",
-    "knip": "^2.19.0",
+    "knip": "^2.19.1",
     "prettier": "^3.0.1",
     "prettier-plugin-organize-imports": "^3.2.3",
     "ts-prune-2": "^0.10.7"
