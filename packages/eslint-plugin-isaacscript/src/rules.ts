@@ -24,6 +24,7 @@ import { noLetAny } from "./rules/no-let-any";
 import { noNumberEnums } from "./rules/no-number-enums";
 import { noObjectAny } from "./rules/no-object-any";
 import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-set";
+import { noStringLength0 } from "./rules/no-string-length-0";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
 import { noThrow } from "./rules/no-throw";
 import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus";
@@ -57,6 +58,7 @@ export const rules = {
   "no-number-enums": noNumberEnums,
   "no-object-any": noObjectAny,
   "no-object-methods-with-map-set": noObjectMethodsWithMapSet,
+  "no-string-length-0": noStringLength0,
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
   "no-throw": noThrow,
   "no-unsafe-plusplus": noUnsafePlusplus,

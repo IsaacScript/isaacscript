@@ -82,6 +82,6 @@ export function isTypeFlagSet(
   return isFlagSet(flags, flagsToCheck);
 }
 
-function isFlagSet(flags: number, flag: number): boolean {
+export function isFlagSet(flags: number, flag: number): boolean {
   return (flags & flag) !== 0;
 }
