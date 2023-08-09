@@ -42,4 +42,4 @@ if [[ "${1-}" != "json" ]]; then
   npx markdownlint .
 fi
 
-echo "Successfully linted in $SECONDS seconds."
+echo "Successfully linted the monorepo in $SECONDS seconds."

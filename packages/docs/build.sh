@@ -6,7 +6,11 @@ set -euo pipefail # Exit on errors and undefined variables.
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-echo "Building: $DIR"
+# Get the name of the package:
+# https://stackoverflow.com/questions/23162299/how-to-get-the-last-part-of-dirname-in-bash/23162553
+PACKAGE_NAME="$(basename "$DIR")"
+
+echo "Building: $PACKAGE_NAME"
 
 SECONDS=0
 
@@ -47,4 +51,4 @@ cd "$DIR"
 mkdir -p "$OUT_DIR"
 npx docusaurus build --out-dir "$OUT_DIR"
 
-echo "Successfully built all docs in $SECONDS seconds."
+echo "Successfully built $PACKAGE_NAME in $SECONDS seconds."
