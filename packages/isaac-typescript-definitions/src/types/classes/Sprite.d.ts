@@ -53,6 +53,7 @@ declare interface Sprite extends IsaacAPIClass {
     layerID?: int,
   ) => KColor;
 
+  /** Returns true if the specified event in the animation is currently being triggered. */
   IsEventTriggered: (eventName: string) => boolean;
 
   /**
@@ -178,7 +179,8 @@ declare interface Sprite extends IsaacAPIClass {
   ) => void;
 
   /**
-   * Changes the ".png" file associated with a specific layer of a sprite.
+   * Changes the ".png" file associated with a specific layer of a sprite. (This does not change any
+   * layers other than the one that is explicitly specified.)
    *
    * After replacing a spritesheet, you must call the `Sprite.LoadGraphics` method afterwards.
    *
@@ -236,6 +238,10 @@ declare interface Sprite extends IsaacAPIClass {
    */
   Update: () => void;
 
+  /**
+   * Returns true if the specified event in the animation was triggered at some point. (It remains
+   * true until the animation stops playing.)
+   */
   WasEventTriggered: (eventName: string) => boolean;
 
   /**
