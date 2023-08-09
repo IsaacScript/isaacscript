@@ -328,7 +328,15 @@ declare global {
     Size: float;
     SizeMulti: Vector;
     SortingLayer: SortingLayer;
+
+    /**
+     * The room grid index where the entity spawned upon first entering the room.
+     *
+     * Entities that are spawned after the initial room generation will have a `SpawnGridIndex` of
+     * -1.
+     */
     readonly SpawnGridIndex: int;
+
     SpawnerEntity?: Entity;
     SpawnerType: EntityType;
     SpawnerVariant: int;
