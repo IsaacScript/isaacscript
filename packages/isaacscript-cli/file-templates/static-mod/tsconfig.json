@@ -14,7 +14,7 @@
   "tstl": {
     "luaTarget": "5.3",
     "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file.
-    "luaBundleEntry": "./src/main.ts",
+    "luaBundleEntry": "./src/bundleEntry.ts",
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file.
       { "name": "isaacscript/src/plugins/addIsaacScriptCommentHeader.js" },
