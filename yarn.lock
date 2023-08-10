@@ -11133,7 +11133,7 @@ __metadata:
     klaw-sync: ^6.0.0
     knip: ^2.19.1
     lua-types: ^2.13.1
-    markdownlint: ^0.29.0
+    markdownlint: ^0.30.0
     markdownlint-cli: ^0.35.0
     moment: ^2.29.4
     node-fetch: ^3.3.2
@@ -12540,7 +12540,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:^0.29.0, markdownlint@npm:~0.29.0":
+"markdownlint-micromark@npm:0.1.7":
+  version: 0.1.7
+  resolution: "markdownlint-micromark@npm:0.1.7"
+  checksum: 1f40938fcbd9aab1eed1a6b5907b3a9ca731568622ea7b74f722a276216997a674a92cb7c54ee13ae6d64e81e300b26f2d5edad03d98ee9b0950871e74f21254
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:^0.30.0":
+  version: 0.30.0
+  resolution: "markdownlint@npm:0.30.0"
+  dependencies:
+    markdown-it: 13.0.1
+    markdownlint-micromark: 0.1.7
+  checksum: cc99517c61fe8df9af918fafad314e685a8888162c476d6f7ef51555008c4f2581231e3930ea3d29b46a29307d2e4fce1c78db8dcd6962bf7069983e72cd3bba
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:~0.29.0":
   version: 0.29.0
   resolution: "markdownlint@npm:0.29.0"
   dependencies:
