@@ -11,6 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## August 10th, 2023
 
+- Added the following helper functions:
+  - `filterMap`
 - Renamed the following helper functions:
   - `initArray` --> `newArray`
 
