@@ -152,14 +152,17 @@ export function getNewRoomCandidate(
 
 /**
  * Helper function to iterate through the possible doors for a room and see if any of them would be
- * a valid spot to insert a brand new room on the floor. (Any potential new rooms cannot be
- * connected to any other existing rooms on the floor.)
+ * a valid spot to insert a brand new room on the floor.
  *
  * @param roomGridIndex Optional. Default is the current room index.
+ * @param ensureDeadEnd Optional. Whether to only include doors that lead to a valid dead end
+ *                      attached to a normal room. If false, the function will include all doors
+ *                      that would have a red door.
  * @returns A array of tuples of `DoorSlot` and room grid index.
  */
 export function getNewRoomCandidatesBesideRoom(
   roomGridIndex?: int,
+  ensureDeadEnd = true,
 ): ReadonlyArray<{ readonly doorSlot: DoorSlot; readonly roomGridIndex: int }> {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
 
@@ -198,7 +201,7 @@ export function getNewRoomCandidatesBesideRoom(
     // Check to see if hypothetically creating a room at the given room grid index would be a dead
     // end. In other words, if we created the room, we would only want it to connect to one other
     // room (this one).
-    if (!isDeadEnd(adjacentRoomGridIndex)) {
+    if (ensureDeadEnd && !isDeadEnd(adjacentRoomGridIndex)) {
       continue;
     }
 
@@ -235,9 +238,11 @@ export function getNewRoomCandidatesForLevel(
     (room) =>
       room.Data !== undefined &&
       room.Data.Type === RoomType.DEFAULT &&
-      !isMirrorRoom(room.Data) &&
-      !isMineShaft(room.Data),
+      !isMirrorRoom(room.Data) && // Mirror rooms do not count as special rooms.
+      !isMineShaft(room.Data), // Mineshaft rooms do not count as special rooms.
   );
+
+  const roomsToLookThrough = ensureDeadEnd ? normalRooms : rooms;
 
   const newRoomCandidates: Array<{
     readonly adjacentRoomGridIndex: int;
@@ -245,9 +250,10 @@ export function getNewRoomCandidatesForLevel(
     readonly newRoomGridIndex: int;
   }> = [];
 
-  for (const room of normalRooms) {
+  for (const room of roomsToLookThrough) {
     const newRoomCandidatesBesideRoom = getNewRoomCandidatesBesideRoom(
       room.SafeGridIndex,
+      ensureDeadEnd,
     );
     for (const { doorSlot, roomGridIndex } of newRoomCandidatesBesideRoom) {
       newRoomCandidates.push({
