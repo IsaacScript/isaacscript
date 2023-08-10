@@ -1,5 +1,6 @@
 import type { DoorSlotFlag, Music } from "isaac-typescript-definitions";
 import {
+  CollectibleType,
   GridEntityType,
   LevelCurse,
   LevelStage,
@@ -91,6 +92,8 @@ export class CustomStages extends Feature {
   /** Indexed by room variant. */
   private readonly customStageCachedRoomData = new Map<int, RoomConfig>();
 
+  private usingRedKey = false;
+
   private readonly customGridEntities: CustomGridEntities;
   private readonly customTrapdoors: CustomTrapdoors;
   private readonly disableAllSound: DisableAllSound;
@@ -122,11 +125,25 @@ export class CustomStages extends Feature {
       // 2
       [ModCallback.POST_RENDER, this.postRender],
 
+      // 3
+      [
+        ModCallback.POST_USE_ITEM,
+        this.postUseItemRedKey,
+        [CollectibleType.RED_KEY],
+      ],
+
       // 12
       [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
 
       // 21
       [ModCallback.GET_SHADER_PARAMS, this.getShaderParams],
+
+      // 23
+      [
+        ModCallback.PRE_USE_ITEM,
+        this.preUseItemRedKey,
+        [CollectibleType.RED_KEY],
+      ],
     ];
 
     this.customCallbacksUsed = [
@@ -216,6 +233,28 @@ export class CustomStages extends Feature {
     }
   };
 
+  /**
+   * Fix the bug where Red Key will not work on custom floors (due to the stage being a bugged
+   * value).
+   */
+  // ModCallback.POST_USE_ITEM (3)
+  private readonly postUseItemRedKey = (): boolean | undefined => {
+    const customStage = v.run.currentCustomStage;
+    if (customStage === null) {
+      return undefined;
+    }
+
+    if (!this.usingRedKey) {
+      return;
+    }
+    this.usingRedKey = false;
+
+    const level = game.GetLevel();
+    level.SetStage(CUSTOM_FLOOR_STAGE, CUSTOM_FLOOR_STAGE_TYPE);
+
+    return undefined;
+  };
+
   // ModCallback.POST_CURSE_EVAL (12)
   private readonly postCurseEval = (
     curses: BitFlags<LevelCurse>,
@@ -243,6 +282,27 @@ export class CustomStages extends Feature {
     }
 
     streakTextGetShaderParams(customStage, shaderName);
+    return undefined;
+  };
+
+  /**
+   * Fix the bug where Red Key will not work on custom floors (due to the stage being a bugged
+   * value).
+   */
+  // ModCallback.PRE_USE_ITEM (23)
+  private readonly preUseItemRedKey = (): boolean | undefined => {
+    const customStage = v.run.currentCustomStage;
+    if (customStage === null) {
+      return undefined;
+    }
+
+    this.usingRedKey = true;
+
+    const level = game.GetLevel();
+    const stage = customStage.baseStage ?? DEFAULT_BASE_STAGE;
+    const stageType = customStage.baseStageType ?? DEFAULT_BASE_STAGE_TYPE;
+    level.SetStage(stage, stageType); // eslint-disable-line isaacscript/strict-enums
+
     return undefined;
   };
 
