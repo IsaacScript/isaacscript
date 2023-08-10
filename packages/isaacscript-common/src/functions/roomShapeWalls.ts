@@ -5,7 +5,7 @@ import { CornerType } from "../enums/CornerType";
 import type { Corner } from "../interfaces/Corner";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getGridIndexesBetween } from "./gridIndex";
-import { getRoomShapeCorners, isLRoom } from "./roomShape";
+import { getRoomShapeCorners, isLRoomShape } from "./roomShape";
 import { inBossRoomOf, inHomeCloset } from "./rooms";
 
 const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET: ReadonlyMap<
@@ -26,7 +26,7 @@ function getVanillaWallGridIndexSetForRoomShape(
   roomShape: RoomShape,
 ): ReadonlySet<int> {
   const corners = getRoomShapeCorners(roomShape);
-  const lRoom = isLRoom(roomShape);
+  const lRoom = isLRoomShape(roomShape);
 
   if (lRoom && corners.length !== 6) {
     error(

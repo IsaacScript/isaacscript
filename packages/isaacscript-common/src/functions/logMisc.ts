@@ -328,15 +328,11 @@ export function logRoom(this: void): void {
   const roomData = getRoomData();
 
   log("Logging room information:");
-  if (roomData === undefined) {
-    log("- Room data is undefined.");
-  } else {
-    log(`- Room stage ID: ${roomData.StageID}`);
-    log(
-      `- Type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
-    );
-    log(`- Name: ${roomData.Name}`);
-  }
+  log(`- Room stage ID: ${roomData.StageID}`);
+  log(
+    `- Type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
+  );
+  log(`- Name: ${roomData.Name}`);
 
   const roomGridIndexName = GridRoom[roomGridIndex];
   if (roomGridIndexName === undefined) {

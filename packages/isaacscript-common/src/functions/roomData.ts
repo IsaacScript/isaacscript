@@ -31,6 +31,10 @@ export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
   return allowedDoors;
 }
 
+// We provide an overload because the current room is guaranteed to have data.
+export function getRoomData(): RoomConfig;
+export function getRoomData(roomGridIndex?: int): RoomConfig | undefined;
+
 /**
  * Helper function to get the room data for the provided room.
  *

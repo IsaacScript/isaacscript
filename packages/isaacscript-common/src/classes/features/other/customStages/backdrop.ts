@@ -14,7 +14,7 @@ import { LadderSubTypeCustom } from "../../../../enums/LadderSubTypeCustom";
 import { getRandomArrayElement } from "../../../../functions/array";
 import { spawnEffectWithSeed } from "../../../../functions/entitiesSpecific";
 import { newRNG } from "../../../../functions/rng";
-import { isLRoom, isNarrowRoom } from "../../../../functions/roomShape";
+import { isLRoomShape, isNarrowRoom } from "../../../../functions/roomShape";
 import {
   removeCharactersBefore,
   trimPrefix,
@@ -155,7 +155,7 @@ function spawnWallEntity(
     );
   }
 
-  if (isLRoom(roomShape)) {
+  if (isLRoomShape(roomShape)) {
     const cornerPNGPath = getBackdropPNGPath(
       customStage,
       BackdropKind.CORNER,
@@ -223,7 +223,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
       );
       sprite.ReplaceSpritesheet(layerID, wallPNGPath);
     }
-  } else if (isLRoom(roomShape)) {
+  } else if (isLRoomShape(roomShape)) {
     for (const layerID of L_FLOOR_ANM2_LAYERS) {
       const LFloorPNGPath = getBackdropPNGPath(
         customStage,

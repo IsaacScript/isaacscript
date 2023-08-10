@@ -10,9 +10,7 @@
 import type { DoorSlot, RoomShape } from "isaac-typescript-definitions";
 import {
   DisplayFlag,
-  DownpourRoomSubType,
   LevelStateFlag,
-  MinesRoomSubType,
   RoomDescriptorFlag,
   RoomType,
 } from "isaac-typescript-definitions";
@@ -36,8 +34,13 @@ import {
   getRoomShape,
 } from "./roomData";
 import { getGridIndexDelta } from "./roomShape";
-import { getRooms, getRoomsInsideGrid, isSecretRoomType } from "./rooms";
-import { asNumber } from "./types";
+import {
+  getRooms,
+  getRoomsInsideGrid,
+  isMineShaft,
+  isMirrorRoom,
+  isSecretRoomType,
+} from "./rooms";
 
 const LEFT = -1;
 const UP = -LEVEL_GRID_ROW_WIDTH;
@@ -123,17 +126,23 @@ export function getAllRoomGridIndexes(): readonly int[] {
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param ensureDeadEnd Optional. Whether to pick a valid dead end attached to a normal room. If
+ *                      false, the function will randomly pick from any valid location that would
+ *                      have a red door.
  * @returns Either a tuple of adjacent room grid index, `DoorSlot`, and new room grid index, or
  *          undefined.
  */
-export function getNewRoomCandidate(seedOrRNG: Seed | RNG = getRandomSeed()):
+export function getNewRoomCandidate(
+  seedOrRNG: Seed | RNG = getRandomSeed(),
+  ensureDeadEnd = true,
+):
   | {
       readonly adjacentRoomGridIndex: int;
       readonly doorSlot: DoorSlot;
       readonly newRoomGridIndex: int;
     }
   | undefined {
-  const newRoomCandidatesForLevel = getNewRoomCandidatesForLevel();
+  const newRoomCandidatesForLevel = getNewRoomCandidatesForLevel(ensureDeadEnd);
   if (newRoomCandidatesForLevel.length === 0) {
     return undefined;
   }
@@ -203,13 +212,17 @@ export function getNewRoomCandidatesBesideRoom(
 }
 
 /**
- * Helper function to search through all of the rooms on the floor for a spot to insert a brand new
- * room.
+ * Helper function to get all of the spots on the floor to insert a brand new room.
  *
+ * @param ensureDeadEnd Optional. Whether to only include spots that are a valid dead end attached
+ *                      to a normal room. If false, the function will include all valid spots that
+ *                      have a red door.
  * @returns A array of tuples containing the adjacent room grid index, the `DoorSlot`, and the new
  *          room grid index.
  */
-export function getNewRoomCandidatesForLevel(): ReadonlyArray<{
+export function getNewRoomCandidatesForLevel(
+  ensureDeadEnd = true,
+): ReadonlyArray<{
   readonly adjacentRoomGridIndex: int;
   readonly doorSlot: DoorSlot;
   readonly newRoomGridIndex: int;
@@ -222,10 +235,8 @@ export function getNewRoomCandidatesForLevel(): ReadonlyArray<{
     (room) =>
       room.Data !== undefined &&
       room.Data.Type === RoomType.DEFAULT &&
-      // The mirror room and the mineshaft entrance count as normal rooms, but those are supposed to
-      // be dead ends as well.
-      room.Data.Subtype !== asNumber(DownpourRoomSubType.MIRROR) &&
-      room.Data.Subtype !== asNumber(MinesRoomSubType.MINESHAFT_ENTRANCE),
+      !isMirrorRoom(room.Data) &&
+      !isMineShaft(room.Data),
   );
 
   const newRoomCandidates: Array<{
@@ -489,23 +500,29 @@ export function isRoomInsideGrid(roomGridIndex?: int): boolean {
 }
 
 /**
- * Helper function to generate a new room on the floor at a valid dead end attached to a normal
- * room.
+ * Helper function to generate a new room on the floor.
  *
  * Under the hood, this function uses the `Level.MakeRedRoomDoor` method to create the room.
- *
- * The newly created room will have data corresponding to the game's randomly generated red room. If
- * you want to modify this, use the `setRoomData` helper function.
  *
  * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `Level.GetDungeonPlacementSeed`.
  *                  Note that the RNG is only used to select the random location to put the room on
  *                  the floor; it does not influence the randomly chosen room contents. (That is
  *                  performed by the game and can not be manipulated prior to its generation.)
+ * @param ensureDeadEnd Optional. Whether to place the room at a valid dead end attached to a normal
+ *                      room. If false, it will randomly appear at any valid location that would
+ *                      have a red door.
+ * @param customRoomData Optional. By default, the newly created room will have data corresponding
+ *                       to the game's randomly generated red room. If you provide this function
+ *                       with room data, it will be used to override the vanilla data.
  * @returns The room grid index of the new room or undefined if the floor had no valid dead ends to
  *          place a room.
  */
-export function newRoom(seedOrRNG?: Seed | RNG): int | undefined {
+export function newRoom(
+  seedOrRNG?: Seed | RNG,
+  ensureDeadEnd = true,
+  customRoomData?: RoomConfig,
+): int | undefined {
   const level = game.GetLevel();
 
   if (seedOrRNG === undefined) {
@@ -513,7 +530,7 @@ export function newRoom(seedOrRNG?: Seed | RNG): int | undefined {
   }
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
-  const newRoomCandidate = getNewRoomCandidate(rng);
+  const newRoomCandidate = getNewRoomCandidate(rng, ensureDeadEnd);
   if (newRoomCandidate === undefined) {
     return undefined;
   }
@@ -529,6 +546,10 @@ export function newRoom(seedOrRNG?: Seed | RNG): int | undefined {
     roomDescriptor.Flags,
     RoomDescriptorFlag.RED_ROOM,
   );
+
+  if (customRoomData !== undefined) {
+    roomDescriptor.Data = customRoomData;
+  }
 
   // By default, the new room will not appear on the map, even if the player has The Mind. Thus, we
   // must manually alter the `DisplayFlags` of the room descriptor.

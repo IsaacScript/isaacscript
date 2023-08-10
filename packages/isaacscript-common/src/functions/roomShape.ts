@@ -109,7 +109,7 @@ export function getRoomShapeWidth(roomShape: RoomShape): int {
   return ROOM_SHAPE_TO_GRID_WIDTH[roomShape];
 }
 
-export function isLRoom(roomShape: RoomShape): boolean {
+export function isLRoomShape(roomShape: RoomShape): boolean {
   return L_ROOM_SHAPES_SET.has(roomShape);
 }
 

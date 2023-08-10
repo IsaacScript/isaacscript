@@ -12,7 +12,6 @@ import {
   DungeonSubType,
   GridRoom,
   HomeRoomSubType,
-  LevelStage,
   RoomDescriptorFlag,
   RoomShape,
   RoomType,
@@ -44,10 +43,8 @@ import {
   getRoomDescriptor,
   getRoomDescriptorReadOnly,
   getRoomGridIndex,
-  getRoomName,
-  getRoomStageID,
-  getRoomSubType,
 } from "./roomData";
+import { isLRoomShape } from "./roomShape";
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
 import { asNumber } from "./types";
@@ -293,32 +290,18 @@ export function getRoomsOutsideGrid(): RoomDescriptor[] {
  * `RoomShape.2x1`.
  */
 export function in2x1Room(): boolean {
-  const room = game.GetRoom();
-  const roomShape = room.GetRoomShape();
-
-  return roomShape === RoomShape.SHAPE_1x2 || roomShape === RoomShape.SHAPE_2x1;
+  const roomData = getRoomData();
+  return is2x1Room(roomData);
 }
 
 export function inAngelShop(): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.ANGEL &&
-    roomSubType === asNumber(AngelRoomSubType.SHOP)
-  );
+  const roomData = getRoomData();
+  return isAngelShop(roomData);
 }
 
 export function inBeastRoom(): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.DUNGEON &&
-    roomSubType === asNumber(DungeonSubType.BEAST_ROOM)
-  );
+  const roomData = getRoomData();
+  return isBeastRoom(roomData);
 }
 
 /**
@@ -326,46 +309,26 @@ export function inBeastRoom(): boolean {
  * work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function inBossRoomOf(bossID: BossID): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.BOSS &&
-    roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === asNumber(bossID)
-  );
+  const roomData = getRoomData();
+  return isBossRoomOf(roomData, bossID);
 }
 
 /**
  * Helper function for determining whether the current room is a crawl space. Use this function over
  * comparing to `RoomType.DUNGEON` or `GridRoom.DUNGEON_IDX` since there is a special case of the
- * player being in a boss fight that take place in a dungeon.
+ * player being in a boss fight that takes place in a dungeon.
  */
 export function inCrawlSpace(): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.DUNGEON &&
-    roomSubType === asNumber(DungeonSubType.NORMAL)
-  );
+  const roomData = getRoomData();
+  return isCrawlSpace(roomData);
 }
 
 /**
  * Helper function to detect if the current room is one of the rooms in the Death Certificate area.
  */
 export function inDeathCertificateArea(): boolean {
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomStageID === StageID.HOME &&
-    (roomSubType === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE) ||
-      roomSubType === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ITEMS))
-  );
+  const roomData = getRoomData();
+  return isDeathCertificateArea(roomData);
 }
 
 /**
@@ -376,7 +339,7 @@ export function inDeathCertificateArea(): boolean {
  */
 export function inDevilsCrownTreasureRoom(): boolean {
   const roomDescriptor = getRoomDescriptorReadOnly();
-  return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
+  return isDevilsCrownTreasureRoom(roomDescriptor);
 }
 
 /**
@@ -385,19 +348,20 @@ export function inDevilsCrownTreasureRoom(): boolean {
  * This is performed by checking for the string "Double Trouble" inside of the room name. The
  * vanilla game uses this convention for every Double Trouble Boss Room. Note that this method might
  * fail for mods that add extra Double Trouble rooms but do not follow the convention.
+ *
+ * Internally, the game is coded to detect Double Trouble Boss Rooms by checking for the variant
+ * range of 3700 through 3850. We intentionally do not use this method since it may not work as well
+ * with modded rooms.
  */
 export function inDoubleTrouble(): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomName = getRoomName();
-
-  return roomType === RoomType.BOSS && roomName.includes("Double Trouble");
+  const roomData = getRoomData();
+  return isDoubleTrouble(roomData);
 }
 
+/** Helper function to determine if the current room index is equal to `GridRoom.GENESIS`. */
 export function inGenesisRoom(): boolean {
-  const roomGridIndex = getRoomGridIndex();
-
-  return roomGridIndex === asNumber(GridRoom.GENESIS);
+  const roomDescriptor = getRoomDescriptorReadOnly();
+  return isGenesisRoom(roomDescriptor);
 }
 
 /**
@@ -407,35 +371,20 @@ export function inGenesisRoom(): boolean {
  * Home closets have a unique shape that is different from any other room in the game.
  */
 export function inHomeCloset(): boolean {
-  const level = game.GetLevel();
-  const stage = level.GetStage();
-  const roomSubType = getRoomSubType();
-
-  return (
-    stage === LevelStage.HOME &&
-    (roomSubType === asNumber(HomeRoomSubType.CLOSET_LEFT) ||
-      roomSubType === asNumber(HomeRoomSubType.CLOSET_RIGHT))
-  );
+  const roomData = getRoomData();
+  return isHomeCloset(roomData);
 }
 
 /** Helper function to determine if the current room shape is one of the four L room shapes. */
 export function inLRoom(): boolean {
-  const room = game.GetRoom();
-  const roomShape = room.GetRoomShape();
-
-  return (
-    roomShape === RoomShape.LTL ||
-    roomShape === RoomShape.LTR ||
-    roomShape === RoomShape.LBL ||
-    roomShape === RoomShape.LBR
-  );
+  const roomData = getRoomData();
+  return isLRoom(roomData);
 }
 
 /** Helper function to determine if the current room index is equal to `GridRoom.MEGA_SATAN`. */
 export function inMegaSatanRoom(): boolean {
-  const roomGridIndex = getRoomGridIndex();
-
-  return roomGridIndex === asNumber(GridRoom.MEGA_SATAN);
+  const roomDescriptor = getRoomDescriptorReadOnly();
+  return isMegaSatanRoom(roomDescriptor);
 }
 
 /**
@@ -443,14 +392,8 @@ export function inMegaSatanRoom(): boolean {
  * the Mines/Ashpit.
  */
 export function inMineShaft(): boolean {
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    (roomStageID === StageID.MINES || roomStageID === StageID.ASHPIT) &&
-    // eslint-disable-next-line isaacscript/strict-enums
-    MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomSubType)
-  );
+  const roomData = getRoomData();
+  return isMineShaft(roomData);
 }
 
 /**
@@ -458,16 +401,8 @@ export function inMineShaft(): boolean {
  * will only work for mini-bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function inMinibossRoomOf(minibossID: MinibossID): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.MINI_BOSS &&
-    roomStageID === StageID.SPECIAL_ROOMS &&
-    roomSubType === asNumber(minibossID)
-  );
+  const roomData = getRoomData();
+  return isMinibossRoomOf(roomData, minibossID);
 }
 
 /**
@@ -475,16 +410,8 @@ export function inMinibossRoomOf(minibossID: MinibossID): boolean {
  * rooms are marked with a specific sub-type.)
  */
 export function inMirrorRoom(): boolean {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const roomStageID = getRoomStageID();
-  const roomSubType = getRoomSubType();
-
-  return (
-    roomType === RoomType.DEFAULT &&
-    (roomStageID === StageID.DOWNPOUR || roomStageID === StageID.DROSS) &&
-    roomSubType === asNumber(DownpourRoomSubType.MIRROR)
-  );
+  const roomData = getRoomData();
+  return isMirrorRoom(roomData);
 }
 
 /**
@@ -493,9 +420,8 @@ export function inMirrorRoom(): boolean {
  * This function is variadic, which means you can pass as many room types as you want to match for.
  */
 export function inRoomType(...roomTypes: RoomType[]): boolean {
-  const room = game.GetRoom();
-  const thisRoomType = room.GetType();
-  return roomTypes.includes(thisRoomType);
+  const roomData = getRoomData();
+  return isRoomType(roomData, ...roomTypes);
 }
 
 /**
@@ -503,9 +429,8 @@ export function inRoomType(...roomTypes: RoomType[]): boolean {
  * floor.
  */
 export function inSecretExit(): boolean {
-  const roomGridIndex = getRoomGridIndex();
-
-  return roomGridIndex === asNumber(GridRoom.SECRET_EXIT);
+  const roomDescriptor = getRoomDescriptorReadOnly();
+  return isSecretExit(roomDescriptor);
 }
 
 /**
@@ -517,9 +442,8 @@ export function inSecretExit(): boolean {
  * the only way to detect them is by using the grid index.
  */
 export function inSecretShop(): boolean {
-  const roomGridIndex = getRoomGridIndex();
-
-  return roomGridIndex === asNumber(GridRoom.SECRET_SHOP);
+  const roomDescriptor = getRoomDescriptorReadOnly();
+  return isSecretShop(roomDescriptor);
 }
 
 /**
@@ -533,6 +457,16 @@ export function inStartingRoom(): boolean {
   const roomGridIndex = getRoomGridIndex();
 
   return roomGridIndex === startingRoomGridIndex && inDimension(Dimension.MAIN);
+}
+
+/**
+ * Helper function to determine if the provided room is equal to `RoomShape.1x2` or `RoomShape.2x1`.
+ */
+export function is2x1Room(roomData: RoomConfig): boolean {
+  return (
+    roomData.Shape === RoomShape.SHAPE_1x2 ||
+    roomData.Shape === RoomShape.SHAPE_2x1
+  );
 }
 
 /**
@@ -588,12 +522,197 @@ export function isAllRoomsClear(
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
 }
 
+export function isAngelShop(roomData: RoomConfig): boolean {
+  return (
+    roomData.Type === RoomType.ANGEL &&
+    roomData.Subtype === asNumber(AngelRoomSubType.SHOP)
+  );
+}
+
+export function isBeastRoom(roomData: RoomConfig): boolean {
+  return (
+    roomData.Type === RoomType.DUNGEON &&
+    roomData.Subtype === asNumber(DungeonSubType.BEAST_ROOM)
+  );
+}
+
+/**
+ * Helper function to check if the provided room is a boss room for a particular boss. This will
+ * only work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
+ */
+export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
+  return (
+    roomData.Type === RoomType.BOSS &&
+    roomData.StageID === StageID.SPECIAL_ROOMS &&
+    roomData.Subtype === asNumber(bossID)
+  );
+}
+
+/**
+ * Helper function for determining whether the provided room is a crawl space. Use this function
+ * over comparing to `RoomType.DUNGEON` or `GridRoom.DUNGEON_IDX` since there is a special case of
+ * the player being in a boss fight that takes place in a dungeon.
+ */
+export function isCrawlSpace(roomData: RoomConfig): boolean {
+  return (
+    roomData.Type === RoomType.DUNGEON &&
+    roomData.Subtype === asNumber(DungeonSubType.NORMAL)
+  );
+}
+
+/**
+ * Helper function to detect if the provided room is one of the rooms in the Death Certificate area.
+ */
+export function isDeathCertificateArea(roomData: RoomConfig): boolean {
+  return (
+    roomData.StageID === StageID.HOME &&
+    (roomData.Subtype ===
+      asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE) ||
+      roomData.Subtype === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ITEMS))
+  );
+}
+
+/**
+ * Helper function to detect if the provided room is a Treasure Room created when entering with a
+ * Devil's Crown trinket.
+ *
+ * Under the hood, this checks for `RoomDescriptorFlag.DEVIL_TREASURE`.
+ */
+export function isDevilsCrownTreasureRoom(
+  roomDescriptor: RoomDescriptor,
+): boolean {
+  return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
+}
+
+/**
+ * Helper function to detect if the provided room is a Double Trouble Boss Room.
+ *
+ * This is performed by checking for the string "Double Trouble" inside of the room name. The
+ * vanilla game uses this convention for every Double Trouble Boss Room. Note that this method might
+ * fail for mods that add extra Double Trouble rooms but do not follow the convention.
+ *
+ * Internally, the game is coded to detect Double Trouble Boss Rooms by checking for the variant
+ * range of 3700 through 3850. We intentionally do not use this method since it may not work as well
+ * with modded rooms.
+ */
+export function isDoubleTrouble(roomData: RoomConfig): boolean {
+  return (
+    roomData.Type === RoomType.BOSS && roomData.Name.includes("Double Trouble")
+  );
+}
+
+/**
+ * Helper function to determine if the index of the provided room is equal to `GridRoom.GENESIS`.
+ */
+export function isGenesisRoom(roomDescriptor: RoomDescriptor): boolean {
+  return roomDescriptor.GridIndex === asNumber(GridRoom.GENESIS);
+}
+
+/**
+ * Helper function to check if the provided room is either the left Home closet (behind the red
+ * door) or the right Home closet (with one random pickup).
+ *
+ * Home closets have a unique shape that is different from any other room in the game.
+ */
+export function isHomeCloset(roomData: RoomConfig): boolean {
+  return (
+    roomData.StageID === StageID.HOME &&
+    (roomData.Subtype === asNumber(HomeRoomSubType.CLOSET_LEFT) ||
+      roomData.Subtype === asNumber(HomeRoomSubType.CLOSET_RIGHT))
+  );
+}
+
+/** Helper function to determine if the provided room is one of the four L room shapes. */
+export function isLRoom(roomData: RoomConfig): boolean {
+  return isLRoomShape(roomData.Shape);
+}
+
+/**
+ * Helper function to determine if the index of the provided room is equal to `GridRoom.MEGA_SATAN`.
+ */
+export function isMegaSatanRoom(roomDescriptor: RoomDescriptor): boolean {
+  return roomDescriptor.GridIndex === asNumber(GridRoom.MEGA_SATAN);
+}
+
+/**
+ * Helper function to determine if the provided room is part of the Repentance "escape sequence" in
+ * the Mines/Ashpit.
+ */
+export function isMineShaft(roomData: RoomConfig): boolean {
+  return (
+    (roomData.StageID === StageID.MINES ||
+      roomData.StageID === StageID.ASHPIT) &&
+    // eslint-disable-next-line isaacscript/strict-enums
+    MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomData.Subtype)
+  );
+}
+
+/**
+ * Helper function to check if the provided room is a miniboss room for a particular miniboss. This
+ * will only work for mini-bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
+ */
+export function isMinibossRoomOf(
+  roomData: RoomConfig,
+  minibossID: MinibossID,
+): boolean {
+  return (
+    roomData.Type === RoomType.MINI_BOSS &&
+    roomData.StageID === StageID.SPECIAL_ROOMS &&
+    roomData.Subtype === asNumber(minibossID)
+  );
+}
+
+/**
+ * Helper function to check if the provided room is a "mirror room" in Downpour or Dross. (These
+ * rooms are marked with a specific sub-type.)
+ */
+export function isMirrorRoom(roomData: RoomConfig): boolean {
+  return (
+    roomData.Type === RoomType.DEFAULT &&
+    (roomData.StageID === StageID.DOWNPOUR ||
+      roomData.StageID === StageID.DROSS) &&
+    roomData.Subtype === asNumber(DownpourRoomSubType.MIRROR)
+  );
+}
+
+/**
+ * Helper function to check if the provided room matches one of the given room types.
+ *
+ * This function is variadic, which means you can pass as many room types as you want to match for.
+ */
+export function isRoomType(
+  roomData: RoomConfig,
+  ...roomTypes: RoomType[]
+): boolean {
+  return roomTypes.includes(roomData.Type);
+}
+
+/**
+ * Helper function for checking if the provided room is a secret exit that leads to a Repentance
+ * floor.
+ */
+export function isSecretExit(roomDescriptor: RoomDescriptor): boolean {
+  return roomDescriptor.GridIndex === asNumber(GridRoom.SECRET_EXIT);
+}
+
 /**
  * Helper function to detect if a room type is a Secret Room, a Super Secret Room, or an Ultra
  * Secret Room.
  */
 export function isSecretRoomType(roomType: RoomType): boolean {
   return SECRET_ROOM_TYPES.has(roomType);
+}
+
+/**
+ * Helper function for checking if the provided room is a secret shop (from the Member Card
+ * collectible).
+ *
+ * Secret shops are simply copies of normal shops, but with the backdrop of a secret room. In other
+ * words, they will have the same room type, room variant, and room sub-type of a normal shop. Thus,
+ * the only way to detect them is by using the grid index.
+ */
+export function isSecretShop(roomDescriptor: RoomDescriptor): boolean {
+  return roomDescriptor.GridIndex === asNumber(GridRoom.SECRET_SHOP);
 }
 
 /**

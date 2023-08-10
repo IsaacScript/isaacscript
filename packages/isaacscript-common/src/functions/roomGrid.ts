@@ -14,7 +14,7 @@ import {
   getRoomShapeBottomRightPosition,
   getRoomShapeTopLeftPosition,
   getRoomShapeWidth,
-  isLRoom,
+  isLRoomShape,
 } from "./roomShape";
 
 /**
@@ -70,7 +70,7 @@ export function isValidGridPosition(
   gridPosition: Vector,
   roomShape: RoomShape,
 ): boolean {
-  return isLRoom(roomShape)
+  return isLRoomShape(roomShape)
     ? isValidGridPositionLRoom(gridPosition, roomShape)
     : isValidGridPositionNormal(gridPosition, roomShape);
 }

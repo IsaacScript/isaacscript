@@ -13,8 +13,29 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `filterMap`
+  - `is2x1Room`
+  - `isBeastRoom`
+  - `isBossRoomOf`
+  - `isCrawlSpace`
+  - `isDeathCertificateArea`
+  - `isDevilsCrownTreasureRoom`
+  - `isDoubleTrouble`
+  - `isGenesisRoom`
+  - `isHomeCloset`
+  - `isLRoom`
+  - `isMegaSatanRoom`
+  - `isMinibossRoomOf`
+  - `isMirrorRoom`
+  - `isRoomType`
+  - `isSecretExit`
+  - `isSecretShop`
 - Renamed the following helper functions:
   - `initArray` --> `newArray`
+  - `isLRoom` --> `isLRoomShape`
+- Changed the following helper functions:
+  - `newRoom` - Added `ensureDeadEnd` and `customRoomData` optional arguments.
+  - `getNewRoomCandidate` - Added `ensureDeadEnd` optional argument.
+  - `getNewRoomCandidatesForLevel` - Added `ensureDeadEnd` optional argument.
 
 ## August 3rd, 2023
 
