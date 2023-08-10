@@ -175,7 +175,22 @@ const SUPPORTED_RULES = {
   /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
   "@typescript-eslint/sort-type-constituents": "off",
 
-  "@typescript-eslint/strict-boolean-expressions": "error",
+  /** The `allowString` and `allowNumber` options are disabled to make the rule stricter. */
+  "@typescript-eslint/strict-boolean-expressions": [
+    "error",
+    {
+      allowString: false,
+      allowNumber: false,
+      allowNullableObject: true,
+      allowNullableBoolean: false,
+      allowNullableString: false,
+      allowNullableNumber: false,
+      allowNullableEnum: false,
+      allowAny: false,
+      allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+    },
+  ],
+
   "@typescript-eslint/switch-exhaustiveness-check": "error",
   "@typescript-eslint/triple-slash-reference": "error",
   "@typescript-eslint/type-annotation-spacing": "off", // eslint-config-prettier
