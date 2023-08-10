@@ -36,6 +36,7 @@ This page lists the changes to the IsaacScript framework.
   - `newRoom` - Added `ensureDeadEnd` and `customRoomData` optional arguments.
   - `getNewRoomCandidate` - Added `ensureDeadEnd` optional argument.
   - `getNewRoomCandidatesForLevel` - Added `ensureDeadEnd` optional argument.
+  - `getNewRoomCandidatesBesideRoom` - Added `ensureDeadEnd` optional argument.
 
 ## August 3rd, 2023
 
