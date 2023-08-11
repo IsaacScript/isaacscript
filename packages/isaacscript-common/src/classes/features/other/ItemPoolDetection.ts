@@ -99,7 +99,7 @@ export class ItemPoolDetection extends Feature {
       }
     }
 
-    const [removedItemsMap, removedTrinketsMap] =
+    const { removedItemsMap, removedTrinketsMap } =
       removeItemsAndTrinketsThatAffectItemPools();
 
     // Blacklist every collectible in the game except for the provided collectible.
@@ -173,10 +173,10 @@ export class ItemPoolDetection extends Feature {
  * Before checking the item pools, remove any collectibles or trinkets that would affect the
  * retrieved collectible types.
  */
-function removeItemsAndTrinketsThatAffectItemPools(): [
-  removedItemsMap: Map<PlayerIndex, CollectibleType[]>,
-  removedTrinketsMap: Map<PlayerIndex, TrinketType[]>,
-] {
+function removeItemsAndTrinketsThatAffectItemPools(): {
+  removedItemsMap: Map<PlayerIndex, CollectibleType[]>;
+  removedTrinketsMap: Map<PlayerIndex, TrinketType[]>;
+} {
   const removedItemsMap = new Map<PlayerIndex, CollectibleType[]>();
   const removedTrinketsMap = new Map<PlayerIndex, TrinketType[]>();
   for (const player of getAllPlayers()) {
