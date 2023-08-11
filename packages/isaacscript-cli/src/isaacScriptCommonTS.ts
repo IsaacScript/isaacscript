@@ -91,8 +91,8 @@ export function isRecord(object: unknown): object is Record<string, unknown> {
 }
 
 /**
- * This is a more reliable version of `parseInt`. By default, `parseInt('1a')` will return "1",
- * which is unexpected. This returns either an integer or NaN.
+ * This is a more reliable version of `Number.parseInt`. By default, `Number.parseInt('1a')` will
+ * return "1", which is unexpected. This returns either an integer or `Number.NaN`.
  */
 export function parseIntSafe(input: string): number {
   if (typeof input !== "string") {
