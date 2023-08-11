@@ -1,7 +1,5 @@
 // This generates the files in the "src/configs" directory.
 
-/* eslint-disable unicorn/no-array-reduce */
-
 import type { TSESLint } from "@typescript-eslint/utils";
 import fs from "node:fs";
 import path from "node:path";
@@ -46,8 +44,9 @@ export async function generateConfigs(): Promise<void> {
 }
 
 async function recommended() {
-  const recommendedRules = RULE_ENTRIES.filter((entry) =>
-    isRecommendedRule(entry[1]),
+  const recommendedRules = RULE_ENTRIES.filter(
+    (entry) => isRecommendedRule(entry[1]),
+    // eslint-disable-next-line unicorn/no-array-reduce
   ).reduce<LinterConfigRules>((config, entry) => reducer(config, entry), {});
   const recommendedConfig: LinterConfig = {
     ...BASE_CONFIG,
