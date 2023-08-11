@@ -9,6 +9,5 @@
     "redhat.vscode-xml", // The XML language server
     "sumneko.lua", // The Lua language server
     "ms-python.python", // The Python language server
-    "nrwl.angular-console", // Monorepo management
   ],
 }
