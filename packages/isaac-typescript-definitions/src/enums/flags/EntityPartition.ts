@@ -25,7 +25,14 @@ const EntityPartitionInternal = {
   /** 1 << 5 (32) */
   PLAYER: 1 << 5,
 
-  /** 1 << 6 (64) */
+  /**
+   * 1 << 6 (64)
+   *
+   * @deprecated The `Isaac.FindInRadius` method will only work with entities that have collision.
+   *             Since effects do not have collision, they will never be returned. Thus, this enum
+   *             is useless.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   EFFECT: 1 << 6,
 } as const;
 
