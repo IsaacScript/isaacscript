@@ -1512,7 +1512,7 @@ export enum TrinketType {
 /** For `EntityType.PICKUP` (5), `PickupVariant.BED` (380). */
 export enum BedSubType {
   ISAAC = 0,
-  MOM = 1,
+  MOM = 10,
 }
 
 /** For `EntityType.LASER` (7). */
