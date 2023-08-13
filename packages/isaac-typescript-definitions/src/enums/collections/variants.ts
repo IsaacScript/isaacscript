@@ -240,7 +240,10 @@ export enum FamiliarVariant {
   ITEM_WISP = 237,
   BLOOD_BABY = 238,
   CUBE_BABY = 239,
+
+  /** Produced from the Gello collectible. */
   UMBILICAL_BABY = 240,
+
   BLOOD_PUPPY = 241,
   VANISHING_TWIN = 242,
   DECAP_ATTACK = 243,
