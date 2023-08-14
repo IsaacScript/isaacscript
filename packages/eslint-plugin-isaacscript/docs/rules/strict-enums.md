@@ -88,18 +88,18 @@ Surprisingly, the TypeScript compiler deals with string enums in a safer way tha
 
 ```ts
 enum Vegetable {
-  Lettuce = "lettuce",
-  Carrot = "carrot",
+  Lettuce = "Lettuce",
+  Carrot = "Carrot",
 }
 
 let vegetable = Vegetable.Lettuce;
 vegetable = "definitelyNotAVegetable"; // Type '"definitelyNotAVegetable"' is not assignable to type 'Vegetable'.
 
 // Even "valid" strings will not work, which is good!
-vegetable = "carrot"; // Type '"carrot"' is not assignable to type 'Vegetable'.
+vegetable = "Carrot"; // Type '"Carrot"' is not assignable to type 'Vegetable'.
 ```
 
-Thus, the `strict-enums` rule is mostly concerned with throwing errors for misused number enums. Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule.
+Thus, the `strict-enums` rule is mostly concerned with throwing errors for misused number enums. (Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule, since string enums are still bugged when using comparison operators.)
 
 ## Options and Defaults
 
