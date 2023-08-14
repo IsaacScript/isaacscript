@@ -4,7 +4,7 @@ Disallows the usage of unsafe enum patterns. Designed to be used in addition to 
 
 ## Rule Details
 
-Horrifyingly, the TypeScript compiler will allow you to set any number to a variable containing a number enum, like this:
+Horrifyingly, the TypeScript compiler will allow you to use number literals interchangeably with number enums. For example:
 
 ```ts
 enum Fruit {
@@ -13,12 +13,14 @@ enum Fruit {
 }
 
 let fruit = Fruit.Apple;
-fruit = 999; // No error
+fruit = 1; // No error!
 ```
 
-This has resulted in many TypeScript programmers avoiding the use of enums altogether. Instead, they should use this rule, which bans working with enums in potentially unsafe ways.
+The above code snippet should instead be written as `fruit = Fruit.Banana`. Allowing raw numeric literals subverts the whole point of using enums in the first place.
 
-See the examples below for the types of patterns that are prevented.
+This type-checking looseness has resulted in many TypeScript programmers avoiding the use of enums altogether in favor of arrays and/or string unions. Other TypeScript programmers avoid number enums in favor of string enums (which have better safety guarantees from the TypeScript compiler). However, [numeric enums have some advantages over string enums](#number-enums-vs-string-enums).
+
+In the cases where you need to use number enums, you should use this lint rule to make number enums just as safe as string enums are. See the examples below for the types of patterns that are prevented.
 
 ## Goals
 
@@ -93,13 +95,19 @@ enum Vegetable {
 }
 
 let vegetable = Vegetable.Lettuce;
-vegetable = "definitelyNotAVegetable"; // Type '"definitelyNotAVegetable"' is not assignable to type 'Vegetable'.
-
-// Even "valid" strings will not work, which is good!
 vegetable = "Carrot"; // Type '"Carrot"' is not assignable to type 'Vegetable'.
 ```
 
-Thus, the `strict-enums` rule is mostly concerned with throwing errors for misused number enums. (Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule, since string enums are still bugged when using comparison operators.)
+Thus, the `isaacscript/strict-enums` rule is mostly concerned with throwing errors for misused number enums. (Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule, since string enums are still bugged when using comparison operators.)
+
+But why would you want to use numeric enums over string enums at all? Note that they have some advantages:
+
+- Numeric enums can use computed members, which allow for extremely concise and easy to read code. Additionally, when all of the enum members are computed, they can easily be reorganized without having to change N other lines, which causes lot of noise in Git.
+- Numeric enums can save memory in the cases where the codebase has a huge amount of them (such as [the `@typescript-eslint` repository](https://github.com/typescript-eslint/typescript-eslint/)).
+- Numeric enums can save bandwidth in the cases where they are serialized over the wire. This can matter in applications that do a lot of back and forth communication (with e.g. WebSockets) or in cases where you have millions of users any bandwidth saving adds up fast.
+- Numeric enums often have to be used when modelling upstream APIs that you don't have control over.
+
+For this reason, we recommend that use you the [`isaacscript/no-number-enums`](no-number-enums.md) rule by default in your TypeScript projects. But in the specific projects where you need number enums, you can disable that rule and rely on the `isaacscript/strict-enums` rule to keep you safe.
 
 ## Options and Defaults
 
