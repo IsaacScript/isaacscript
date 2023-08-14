@@ -99,7 +99,7 @@ vegetable = "definitelyNotAVegetable"; // Type '"definitelyNotAVegetable"' is no
 vegetable = "carrot"; // Type '"carrot"' is not assignable to type 'Vegetable'.
 ```
 
-Thus, the `strict-enums` rule is mostly concerned with throwing errors for misused number enums.
+Thus, the `strict-enums` rule is mostly concerned with throwing errors for misused number enums. Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule.
 
 ## Options and Defaults
 
