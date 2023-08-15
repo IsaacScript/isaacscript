@@ -116,3 +116,21 @@ export function repeat(n: number, func: (i: number) => void): void {
     func(i);
   }
 }
+
+/**
+ * Helper function to signify that the enclosing code block is not yet complete. Using this function
+ * is similar to writing a "TODO" comment, but it has the benefit of preventing ESLint errors due to
+ * unused variables or early returns.
+ *
+ * When you see this function, it simply means that the programmer intends to add in more code to
+ * this spot later.
+ *
+ * This function is variadic, meaning that you can pass as many arguments as you want. (This is
+ * useful as a means to prevent unused variables.)
+ *
+ * This function does not actually do anything. (It is an "empty" function.)
+ *
+ * @allowEmptyVariadic
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+export function todo(...args: unknown[]): void {}
