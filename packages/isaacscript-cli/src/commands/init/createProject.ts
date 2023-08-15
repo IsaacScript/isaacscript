@@ -17,7 +17,7 @@ import {
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
-import type { PackageManager } from "../../enums/PackageManager.js";
+import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import {
   copyFile,
@@ -72,6 +72,7 @@ export function createProject(
     typeScript,
     verbose,
   );
+  upgradeYarn(projectPath, packageManager, verbose);
   updateNodeModules(projectPath, packageManager, verbose);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
@@ -289,6 +290,29 @@ function parseTemplate(template: string, typeScript: boolean): string {
     templateWithoutTemplateComments.replaceAll(/\n\s*\n\s*\n/g, "\n\n");
 
   return templateWithoutMultipleLineBreaks;
+}
+
+/**
+ * If we are using yarn, assume that we want to use the latest version, which requires some
+ * additional commands to be performed.
+ */
+function upgradeYarn(
+  projectPath: string,
+  packageManager: PackageManager,
+  verbose: boolean,
+) {
+  if (packageManager !== PackageManager.yarn) {
+    return;
+  }
+
+  execShell("yarn", ["set", "version", "berry"], verbose, false, projectPath);
+  execShell(
+    "yarn",
+    ["config", "set", "nodeLinker", "node-modules"],
+    verbose,
+    false,
+    projectPath,
+  );
 }
 
 /** The "package.json" file has to be copied first before this step. */
