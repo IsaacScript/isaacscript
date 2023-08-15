@@ -10,6 +10,7 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
+yarn set version latest
 # Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM; see it's "tsconfig.json".
