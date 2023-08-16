@@ -28,7 +28,11 @@ import type {
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageTSConfig.js";
 import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
-import { fatalError, parseIntSafe } from "./isaacScriptCommonTS.js";
+import {
+  fatalError,
+  parseFloatSafe,
+  parseIntSafe,
+} from "./isaacScriptCommonTS.js";
 import { getPackageManagerAddCommand } from "./packageManager.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 
@@ -344,8 +348,8 @@ async function getCustomStagesWithMetadata(
       const doorSlotFlags = getJSONRoomDoorSlotFlags(room);
 
       const weightString = room.$.weight;
-      const weight = Number.parseFloat(weightString);
-      if (Number.isNaN(baseVariant)) {
+      const weight = parseFloatSafe(weightString);
+      if (weight === undefined) {
         fatalError(
           `Failed to parse the weight of one of the "${name}" custom stage rooms: ${weightString}`,
         );

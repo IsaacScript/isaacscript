@@ -44,8 +44,8 @@ export const ReadonlySet = Set as ReadonlySetConstructor;
 const KEBAB_CASE_REGEX =
   /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
 
-/** "\d" matches any digit (same as "[0-9]"). */
-const INTEGER_REGEX = /^\d+$/;
+const INTEGER_REGEX = /^-?\d+$/;
+const FLOAT_REGEX = /^-?\d*\.?\d+$/;
 
 /**
  * Helper function to print out an error message and then exit the program.
@@ -112,7 +112,7 @@ export function parseFloatSafe(string: string): number | undefined {
   const trimmedString = string.trim();
 
   // If the string does not entirely consist of numbers, return undefined.
-  if (INTEGER_REGEX.exec(trimmedString) === null) {
+  if (FLOAT_REGEX.exec(trimmedString) === null) {
     return undefined;
   }
 
