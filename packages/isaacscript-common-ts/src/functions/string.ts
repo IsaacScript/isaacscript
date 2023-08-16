@@ -49,17 +49,17 @@ export function parseSemanticVersion(versionString: string):
   const { major, minor, patch } = match.groups;
 
   const majorVersion = parseIntSafe(major ?? "");
-  if (Number.isNaN(majorVersion)) {
+  if (majorVersion === undefined) {
     return undefined;
   }
 
   const minorVersion = parseIntSafe(minor ?? "");
-  if (Number.isNaN(minorVersion)) {
+  if (minorVersion === undefined) {
     return undefined;
   }
 
   const patchVersion = parseIntSafe(patch ?? "");
-  if (Number.isNaN(patchVersion)) {
+  if (patchVersion === undefined) {
     return undefined;
   }
 

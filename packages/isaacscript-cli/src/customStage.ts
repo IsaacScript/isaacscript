@@ -298,7 +298,7 @@ async function getCustomStagesWithMetadata(
     for (const room of jsonRoomsFile.rooms.room) {
       const typeString = room.$.type;
       const type = parseIntSafe(typeString);
-      if (Number.isNaN(type)) {
+      if (type === undefined) {
         fatalError(
           `Failed to parse the type of one of the "${name}" custom stage rooms: ${typeString}`,
         );
@@ -306,7 +306,7 @@ async function getCustomStagesWithMetadata(
 
       const variantString = room.$.variant;
       const baseVariant = parseIntSafe(variantString);
-      if (Number.isNaN(baseVariant)) {
+      if (baseVariant === undefined) {
         fatalError(
           `Failed to parse the variant of one of the "${name}" custom stage rooms: ${variantString}`,
         );
@@ -327,7 +327,7 @@ async function getCustomStagesWithMetadata(
 
       const subTypeString = room.$.subtype;
       const subType = parseIntSafe(subTypeString);
-      if (Number.isNaN(subType)) {
+      if (subType === undefined) {
         fatalError(
           `Failed to parse the sub-type of one of the "${name}" custom stage rooms: ${subTypeString}`,
         );
@@ -335,7 +335,7 @@ async function getCustomStagesWithMetadata(
 
       const shapeString = room.$.shape;
       const shape = parseIntSafe(shapeString);
-      if (Number.isNaN(baseVariant)) {
+      if (shape === undefined) {
         fatalError(
           `Failed to parse the shape of one of the "${name}" custom stage rooms: ${shapeString}`,
         );
@@ -440,7 +440,7 @@ function combineCustomStageXMLs(
         continue;
       }
       const baseVariant = parseIntSafe(baseVariantString);
-      if (Number.isNaN(baseVariant)) {
+      if (baseVariant === undefined) {
         fatalError(
           `Failed to parse the variant of one of the custom stage rooms: ${baseVariantString}`,
         );

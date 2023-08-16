@@ -12,7 +12,7 @@ import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSl
 export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   const roomShapeString = jsonRoom.$.shape;
   const roomShapeNumber = parseIntSafe(roomShapeString);
-  if (Number.isNaN(roomShapeNumber)) {
+  if (roomShapeNumber === undefined) {
     fatalError(
       `Failed to parse the "shape" field of a custom stage room: ${roomShapeString}`,
     );
@@ -35,7 +35,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
 
     const xString = door.$.x;
     const x = parseIntSafe(xString);
-    if (Number.isNaN(x)) {
+    if (x === undefined) {
       fatalError(
         `Failed to parse the "x" field of a custom stage room door: ${xString}`,
       );
@@ -43,7 +43,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
 
     const yString = door.$.y;
     const y = parseIntSafe(yString);
-    if (Number.isNaN(y)) {
+    if (y === undefined) {
       fatalError(
         `Failed to parse the "y" field of a custom stage room door: ${yString}`,
       );

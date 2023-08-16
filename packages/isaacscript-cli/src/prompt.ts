@@ -105,7 +105,7 @@ export async function getInputInt(
   const string = await getInputString(msg, defaultValueString);
   const int = parseIntSafe(string);
 
-  if (Number.isNaN(int)) {
+  if (int === undefined) {
     fatalError("Error: You must enter an integer.");
   }
 
