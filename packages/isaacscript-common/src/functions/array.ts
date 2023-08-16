@@ -507,6 +507,13 @@ export function isArrayInArray<T>(
   return parentArray.some((element) => arrayEquals(element, arrayToMatch));
 }
 
+/** Helper function to set every element in an array to a specific value. */
+export function setAllArrayElements<T>(array: T[], value: T): void {
+  for (let i = 0; i < array.length; i++) {
+    array[i] = value;
+  }
+}
+
 /**
  * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
  *
