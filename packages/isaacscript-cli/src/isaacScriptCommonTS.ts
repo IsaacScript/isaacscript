@@ -45,7 +45,7 @@ const KEBAB_CASE_REGEX =
   /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
 
 /** "\d" matches any digit (same as "[0-9]"). */
-const WHOLE_NUMBER_REGEX = /^\d+$/;
+const INTEGER_REGEX = /^\d+$/;
 
 /**
  * Helper function to print out an error message and then exit the program.
@@ -94,6 +94,33 @@ export function isRecord(object: unknown): object is Record<string, unknown> {
 }
 
 /**
+ * This is a more reliable version of `Number.parseFloat`:
+ *
+ * - `undefined` is returned instead of `Number.NaN`, which is helpful in conjunction with
+ *   TypeScript type narrowing patterns.
+ * - Strings that are a mixture of numbers and letters will result in undefined instead of the part
+ *   of the string that is the number. (e.g. "1a" --> undefined instead of "1a" --> 1)
+ * - Non-strings will result in undefined instead of being coerced to a number.
+ *
+ * @param string A string to convert to an integer.
+ */
+export function parseFloatSafe(string: string): number | undefined {
+  if (typeof string !== "string") {
+    return undefined;
+  }
+
+  const trimmedString = string.trim();
+
+  // If the string does not entirely consist of numbers, return undefined.
+  if (INTEGER_REGEX.exec(trimmedString) === null) {
+    return undefined;
+  }
+
+  const number = Number.parseFloat(trimmedString);
+  return Number.isNaN(number) ? undefined : number;
+}
+
+/**
  * This is a more reliable version of `Number.parseInt`:
  *
  * - `undefined` is returned instead of `Number.NaN`, which is helpful in conjunction with
@@ -114,7 +141,7 @@ export function parseIntSafe(string: string, radix = 10): number | undefined {
   const trimmedString = string.trim();
 
   // If the string does not entirely consist of numbers, return undefined.
-  if (WHOLE_NUMBER_REGEX.exec(trimmedString) === null) {
+  if (INTEGER_REGEX.exec(trimmedString) === null) {
     return undefined;
   }
 

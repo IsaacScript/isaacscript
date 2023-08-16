@@ -1,5 +1,5 @@
 /** "\d" matches any digit (same as "[0-9]"). */
-const WHOLE_NUMBER_REGEX = /^\d+$/;
+const INTEGER_REGEX = /^\d+$/;
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
@@ -85,7 +85,7 @@ export function parseIntSafe(string: string, radix = 10): number | undefined {
   const trimmedString = string.trim();
 
   // If the string does not entirely consist of numbers, return undefined.
-  if (WHOLE_NUMBER_REGEX.exec(trimmedString) === null) {
+  if (INTEGER_REGEX.exec(trimmedString) === null) {
     return undefined;
   }
 
