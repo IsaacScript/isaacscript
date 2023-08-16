@@ -166,7 +166,7 @@ If you decide to add a new dependency (e.g. `npm install lodash --save`), then `
 IsaacScript projects start with some dependencies by default: <!-- This corresponds to "package.mod.json". -->
 
 1. `isaac-typescript-definitions` - Provides the types for all the Isaac API classes, like `EntityPlayer` and so forth.
-1. `isaacscript` - Provides the command-line program that monitors your project. This also includes some dependencies, like `typescript` itself.
+1. `isaacscript` - Provides the command-line program that monitors your project.
 1. `isaacscript-common` - Provides optional code that you can use in your mod. See the [`isaacscript-common`](/isaacscript-common) page for more info.
 1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set.
 1. `isaacscript-spell` - Provides spell checking dictionaries for The Binding of Isaac words and IsaacScript words.
