@@ -263,3 +263,10 @@ Note that this contains "Blue Womb" instead of "???" for stage 9.
   `;
   testIncompleteSentence(text, undefined);
 });
+
+test("Sentence with hard-coded allow words", () => {
+  const text = `
+iPad on iOS 13 detection.
+  `;
+  testIncompleteSentence(text, undefined);
+});

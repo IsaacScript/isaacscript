@@ -266,7 +266,7 @@ function getIncompleteSentenceKind(
     return undefined;
   }
 
-  if (/^[a-z]/.test(text)) {
+  if (!isCapitalizedWordException(text) && /^[a-z]/.test(text)) {
     return "missingCapital";
   }
 
@@ -294,6 +294,12 @@ function getIncompleteSentenceKind(
   }
 
   return undefined;
+}
+
+const CAPITALIZED_WORD_EXCEPTIONS = ["iPad", "iPhone", "iPod"] as const;
+
+function isCapitalizedWordException(text: string): boolean {
+  return CAPITALIZED_WORD_EXCEPTIONS.some((word) => text.startsWith(word));
 }
 
 const MONTHS_SET: ReadonlySet<string> = new Set([
