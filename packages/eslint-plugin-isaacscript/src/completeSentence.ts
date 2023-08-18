@@ -266,7 +266,7 @@ function getIncompleteSentenceKind(
     return undefined;
   }
 
-  if (!isCapitalizedWordException(text) && /^[a-z]/.test(text)) {
+  if (/^[a-z]/.test(text) && !isCapitalizedWordException(text)) {
     return "missingCapital";
   }
 
