@@ -136,6 +136,19 @@ for (const line of data.split("a")) {}
   `,
 });
 
+invalid.push({
+  name: "Using Object.values",
+  code: `
+const myArray = [1, 2, 3];
+for (const element of Object.values(myArray)) {}
+  `,
+  errors: [{ messageId: "noExplicitArray" }],
+  output: `
+const myArray = [1, 2, 3];
+for (const element of myArray) {}
+  `,
+});
+
 ruleTester.run("no-explicit-array-loops", noExplicitArrayLoops, {
   valid,
   invalid,
