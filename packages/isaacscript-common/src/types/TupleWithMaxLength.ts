@@ -1,4 +1,4 @@
-import type { TupleWithLengthBetween } from "./TupleWithLengthBetween";
+import type { Range } from "./Range";
 
 /**
  * Helper type that validates that a tuple does not have a length greater than N.
@@ -9,5 +9,5 @@ export type TupleWithMaxLength<T, MaxLength extends number> = (
   | T[]
   | readonly T[]
 ) & {
-  length: TupleWithLengthBetween<T, 0, MaxLength>;
+  length: Range<0, MaxLength>;
 };
