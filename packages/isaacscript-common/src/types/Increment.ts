@@ -1,7 +1,3 @@
-type Arr<N extends number, T extends unknown[] = []> = T["length"] extends N
-  ? T
-  : Arr<N, [...T, unknown]>;
-
 /**
  * Helper type to add one to a number type.
  *
@@ -9,3 +5,7 @@ type Arr<N extends number, T extends unknown[] = []> = T["length"] extends N
  */
 export type Increment<N extends number> = [...Arr<N>, unknown]["length"] &
   number;
+
+type Arr<N extends number, T extends unknown[] = []> = T["length"] extends N
+  ? T
+  : Arr<N, [...T, unknown]>;

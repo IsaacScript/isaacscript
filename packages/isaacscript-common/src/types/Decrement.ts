@@ -1,7 +1,3 @@
-type Arr<N extends number, T extends unknown[] = []> = T["length"] extends N
-  ? T
-  : Arr<N, [...T, unknown]>;
-
 /**
  * Helper type to subtract one from a number type.
  *
@@ -10,3 +6,7 @@ type Arr<N extends number, T extends unknown[] = []> = T["length"] extends N
 export type Decrement<N extends number> = Arr<N> extends [unknown, ...infer U]
   ? U["length"]
   : never;
+
+type Arr<N extends number, T extends unknown[] = []> = T["length"] extends N
+  ? T
+  : Arr<N, [...T, unknown]>;
