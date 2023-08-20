@@ -31,7 +31,9 @@ config.entryPoints.push(
 module.exports = {
   ...config,
   intentionallyNotExported: [
+    "_TupleOf",
     "AddCallbackParametersCustom",
+    "Arr",
     "CopyableIsaacAPIClass",
     "CustomStageLuaUnsafe",
     "ISCFeatureTuple",
