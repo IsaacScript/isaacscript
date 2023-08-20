@@ -1,11 +1,14 @@
 /**
  * Helper type to represent a tuple of length N.
  *
- * This is used by the `Increment` and `Decrement` helper types.
- *
- * From: https://stackoverflow.com/questions/54243431/typescript-increment-number-type
+ * From:
+ * https://stackoverflow.com/questions/52489261/typescript-can-i-define-an-n-length-tuple-type/52490977#52490977
  */
-export type Tuple<
-  N extends number,
-  T extends unknown[] = [],
-> = T["length"] extends N ? T : Tuple<N, [...T, unknown]>;
+export type Tuple<T, N extends number> = N extends N
+  ? number extends N
+    ? T[]
+    : _TupleOf<T, N, []>
+  : never;
+type _TupleOf<T, N extends number, R extends unknown[]> = R["length"] extends N
+  ? R
+  : _TupleOf<T, N, [T, ...R]>;
