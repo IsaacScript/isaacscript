@@ -3,7 +3,7 @@ const FLOAT_REGEX = /^-?\d*\.?\d+$/;
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
- * end and exclusive on the high end. (The "e" stands for exclusive.)
+ * end and exclusive on the high end. (The "e" in the function name stands for exclusive.)
  *
  * - For example, `eRange(1, 3)` will return `[1, 2]`.
  * - For example, `eRange(2)` will return `[0, 1]`.
@@ -38,7 +38,7 @@ export function fatalError(...args: unknown[]): never {
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
- * (The "i" stands for inclusive.)
+ * (The "i" in the function name stands for inclusive.)
  *
  * - For example, `iRange(1, 3)` will return `[1, 2, 3]`.
  * - For example, `iRange(2)` will return `[0, 1, 2]`.
