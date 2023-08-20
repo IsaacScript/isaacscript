@@ -178,6 +178,7 @@ export * from "./types/TSTLClass";
 export * from "./types/Tuple";
 export * from "./types/TupleToIntersection";
 export * from "./types/TupleToUnion";
+export * from "./types/TupleWithLengthBetween";
 export * from "./types/TupleWithMaxLength";
 export * from "./types/UnionToIntersection";
 export * from "./types/UppercaseKeys";

@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 20th, 2023
+
+- Added the following helper types:
+  - `TupleWithLengthBetween`
+
 ## August 10th, 2023
 
 - Added the following helper functions:
