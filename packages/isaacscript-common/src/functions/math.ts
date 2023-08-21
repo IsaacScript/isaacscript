@@ -2,13 +2,13 @@ import { Direction } from "isaac-typescript-definitions";
 import { directionToVector } from "./direction";
 
 /**
- * Helper function to normalize an integer.
+ * Helper function to normalize a number, ensuring that it is within a certain range.
  *
- * - If `x` is less than `min`, then it will be clamped to `min`.
- * - If `x` is greater than `max`, then it will be clamped to `max`.
+ * - If `num` is less than `min`, then it will be clamped to `min`.
+ * - If `num` is greater than `max`, then it will be clamped to `max`.
  */
-export function clamp(x: int, min: int, max: int): int {
-  return Math.max(min, Math.min(x, max));
+export function clamp(num: int, min: int, max: int): int {
+  return Math.max(min, Math.min(num, max));
 }
 
 export function getAngleDifference(angle1: float, angle2: float): float {
