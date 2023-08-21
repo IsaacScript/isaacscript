@@ -560,7 +560,7 @@ export function shuffleArrayInPlace<T>(
 
 /** Helper function to sum every value in an array together. */
 export function sumArray(array: number[] | readonly number[]): number {
-  return array.reduce((accumulator, element) => accumulator + element);
+  return array.reduce((accumulator, element) => accumulator + element, 0);
 }
 
 /**
