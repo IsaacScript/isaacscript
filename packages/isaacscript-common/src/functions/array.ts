@@ -237,8 +237,8 @@ export function emptyArray<T>(array: T[]): void {
  * function that transforms a value, but return `undefined` if the value should be skipped. (Thus,
  * this function cannot be used in situations where `undefined` can be a valid array element.)
  *
- * This function is useful because a map will always produce an array with the same amount of
- * elements as the original array.
+ * This function is useful because the `Array.map` method will always produce an array with the same
+ * amount of elements as the original array.
  *
  * This is named `filterMap` after the Rust function:
  * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
