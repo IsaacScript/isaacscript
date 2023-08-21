@@ -244,7 +244,7 @@ export function emptyArray<T>(array: T[]): void {
  * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
  */
 export function filterMap<OldT, NewT>(
-  array: OldT[],
+  array: OldT[] | readonly OldT[],
   func: (element: OldT) => NewT | undefined,
 ): NewT[] {
   const newArray: NewT[] = [];
