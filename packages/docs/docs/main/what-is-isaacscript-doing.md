@@ -47,6 +47,8 @@ For example:
 - Next, you put a new file in that directory: `C:\Repositories\revelations\mod\resources\gfx\items\collectibles\collectibles_new_item.png`
 - Now, `isaacscript` automatically copies the `collectibles_new_item.png` file to: `C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\mods\revelations\resources\gfx\items\collectibles\collectibles_new_item.png`
 
-For now, just put something in your mod folder and confirm that `isaacscript` copies it over for you. (Remember that you have to fully restart the game in order for it to pick up any new assets on the file system.)
+For now, just put something in your mod folder and confirm that `isaacscript` copies it over for you.
+
+Remember that if you add non-code assets to your mod, you have to fully restart the game in order for the game to start using them.
 
 <br />
