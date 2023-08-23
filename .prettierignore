@@ -6,6 +6,10 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
+# Minified files
+*.min.js
+*.min.css
+
 # NX temporary directory
 tmp
 

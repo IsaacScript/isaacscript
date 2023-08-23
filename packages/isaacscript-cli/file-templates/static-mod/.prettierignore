@@ -6,6 +6,10 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
+# Minified files
+*.min.js
+*.min.css
+
 # XML files created by Basement Renovator
 mod/content/rooms/**/*.xml
 mod/content/luarooms/**/*.xml
