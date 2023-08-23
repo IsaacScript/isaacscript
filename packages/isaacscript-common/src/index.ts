@@ -147,6 +147,7 @@ export * from "./maps/roomNameToTypeMap";
 export * from "./maps/transformationNameToPlayerFormMap";
 export * from "./objects/colors";
 export * from "./objects/kColors";
+export * from "./types/AddSubtract";
 export * from "./types/AllButFirst";
 export * from "./types/AllButLast";
 export * from "./types/AnyClass";
