@@ -6,10 +6,19 @@ import { isFunction } from "./types";
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
- * end and exclusive on the high end. (The "e" in the function name stands for exclusive.)
+ * end and exclusive on the high end. (The "e" in the function name stands for exclusive.) Thus,
+ * this function works in a similar way as the built-in `range` function from Python.
  *
- * - For example, `eRange(1, 3)` will return `[1, 2]`.
- * - For example, `eRange(2)` will return `[0, 1]`.
+ * If the end is lower than the start, then the range will be reversed.
+ *
+ * For example:
+ *
+ * - `eRange(2)` returns `[0, 1]`.
+ * - `eRange(3)` returns `[0, 1, 2]`.
+ * - `eRange(-3)` returns `[0, -1, -2]`.
+ * - `eRange(1, 3)` returns `[1, 2]`.
+ * - `eRange(2, 5)` returns `[2, 3, 4]`.
+ * - `eRange(5, 2)` returns `[5, 4, 3]`.
  *
  * @param start The integer to start at.
  * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
@@ -22,8 +31,15 @@ export function eRange(start: int, end?: int, increment = 1): int[] {
   }
 
   const array: int[] = [];
-  for (let i = start; i < end; i += increment) {
-    array.push(i);
+
+  if (start < end) {
+    for (let i = start; i < end; i += increment) {
+      array.push(i);
+    }
+  } else {
+    for (let i = start; i > end; i -= increment) {
+      array.push(i);
+    }
   }
 
   return array;
@@ -50,8 +66,16 @@ export function getTraversalDescription(
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
  * (The "i" in the function name stands for inclusive.)
  *
- * - For example, `iRange(1, 3)` will return `[1, 2, 3]`.
- * - For example, `iRange(2)` will return `[0, 1, 2]`.
+ * If the end is lower than the start, then the range will be reversed.
+ *
+ * For example:
+ *
+ * - `iRange(2)` returns `[0, 1, 2]`.
+ * - `iRange(3)` returns `[0, 1, 2, 3]`.
+ * - `iRange(-3)` returns `[0, -1, -2, -3]`.
+ * - `iRange(1, 3)` returns `[1, 2, 3]`.
+ * - `iRange(2, 5)` returns `[2, 3, 4, 5]`.
+ * - `iRange(5, 2)` returns `[5, 4, 3, 2]`.
  *
  * @param start The integer to start at.
  * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
@@ -63,7 +87,8 @@ export function iRange(start: int, end?: int, increment = 1): int[] {
     return iRange(0, start, increment);
   }
 
-  const exclusiveEnd = end + 1;
+  const rangeIncreasing = start <= end;
+  const exclusiveEnd = rangeIncreasing ? end + 1 : end - 1;
   return eRange(start, exclusiveEnd, increment);
 }
 
