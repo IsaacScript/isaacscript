@@ -87,7 +87,7 @@ Create a `.eslintrc.cjs` file in the root of your repository:
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config:
-    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base.js
     "eslint-config-isaacscript/base",
   ],
 

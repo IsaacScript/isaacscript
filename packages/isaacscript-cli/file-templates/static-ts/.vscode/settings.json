@@ -22,6 +22,7 @@
   "search.exclude": {
     "**/*.mp3": true,
     "**/*.png": true,
+    "**/*.svg": true,
     "**/*.wav": true,
     "**/.yarn/": true,
     "**/dist/": true,
