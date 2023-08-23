@@ -52,10 +52,13 @@ if [[ -z "${2-}" ]]; then
 fi
 VERSION_BUMP="$2"
 
-# Before bumping the version, check to see if this package compiles and lints (so that we can avoid
-# unnecessary version bumps).
+# Before bumping the version, check to see if this package compiles and lints and tests (so that we
+# can avoid unnecessary version bumps).
 bash "$PACKAGE_DIR/build.sh"
 bash "$PACKAGE_DIR/lint.sh"
+if [[ -f "$PACKAGE_DIR/test.sh" ]]; then
+  bash "$PACKAGE_DIR/test.sh"
+fi
 
 # Normally, the "version" command of the packager manager will automatically make a Git commit for
 # you. However:
