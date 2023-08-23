@@ -38,7 +38,7 @@
     "eslint-plugin-no-autofix": "^1.2.3",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-unicorn": "^48.0.1",
-    "knip": "^2.19.9",
+    "knip": "^2.19.10",
     "prettier": "^3.0.2",
     "prettier-plugin-organize-imports": "^3.2.3",
     "ts-prune-2": "^0.10.7"

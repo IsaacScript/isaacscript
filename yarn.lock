@@ -11166,13 +11166,13 @@ __metadata:
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
-    knip: ^2.19.9
+    knip: ^2.19.10
     lua-types: ^2.13.1
     markdownlint: ^0.30.0
     markdownlint-cli: ^0.35.0
     moment: ^2.29.4
     node-fetch: ^3.3.2
-    npm-check-updates: ^16.13.0
+    npm-check-updates: ^16.13.1
     nx: 15.5.3
     prettier: ^3.0.2
     prettier-plugin-organize-imports: ^3.2.3
@@ -12130,9 +12130,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.19.9":
-  version: 2.19.9
-  resolution: "knip@npm:2.19.9"
+"knip@npm:^2.19.10":
+  version: 2.19.10
+  resolution: "knip@npm:2.19.10"
   dependencies:
     "@npmcli/map-workspaces": ^3.0.4
     "@snyk/github-codeowners": ^1.1.0
@@ -12154,7 +12154,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: 1c6ef1663b62d3915d57418beb511b1a9974ffc4a42888ef19db0c72dc2c2fa956b6a4e0e3a23178ab458db1095c699ed1f2b4a258c008706e03b16e00e39d16
+  checksum: d14a8aa5550a3cb639d4df332bbdc2d121155609fa6335ce13c379f8f468d623c1cbc9c37f192d78ebb7a89f936fdf4432c927fba84c9ba0bd4d96c0ab66a5a9
   languageName: node
   linkType: hard
 
@@ -13791,9 +13791,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.13.0":
-  version: 16.13.0
-  resolution: "npm-check-updates@npm:16.13.0"
+"npm-check-updates@npm:^16.13.1":
+  version: 16.13.1
+  resolution: "npm-check-updates@npm:16.13.1"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
@@ -13829,7 +13829,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: be96cbe8693a1ab19aec0378b23fd7f107791d9e84f8296d01344d745234d47fad9ce6379c41f2033fd9868f924d08284f8fa579315e70764798071166cec13e
+  checksum: cc5c123c59ca7edf97bb070ac565f3fad694fa8f47193f9805234444ed2aa4efc1eca5e6911c24ffd3639e7d48490b71d7120dbd484f6900cdfe0baf418f5b9e
   languageName: node
   linkType: hard
 
