@@ -214,7 +214,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
 
   const numFloorLayers = getNumFloorLayers(roomShape);
   if (numFloorLayers !== undefined) {
-    for (const layerID of eRange(0, numFloorLayers)) {
+    for (const layerID of eRange(numFloorLayers)) {
       // The wall spritesheet is used for the "normal" floors.
       const wallPNGPath = getBackdropPNGPath(
         customStage,
