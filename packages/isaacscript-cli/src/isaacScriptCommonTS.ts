@@ -271,3 +271,12 @@ export function repeat(n: number, func: (i: number) => void): void {
     func(i);
   }
 }
+
+/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
+export function trimPrefix(string: string, prefix: string): string {
+  if (!string.startsWith(prefix)) {
+    return string;
+  }
+
+  return string.slice(prefix.length);
+}

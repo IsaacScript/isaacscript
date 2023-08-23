@@ -22,6 +22,7 @@ import {
   ReadonlySet,
   fatalError,
   getEnumValues,
+  trimPrefix,
 } from "../../isaacScriptCommonTS.js";
 import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
@@ -31,6 +32,8 @@ const URL_PREFIX =
 
 const MARKER_CUSTOMIZATION_START = "@template-customization-start";
 const MARKER_CUSTOMIZATION_END = "@template-customization-end";
+const MARKER_IGNORE_BLOCK_START = "@template-ignore-block-start";
+const MARKER_IGNORE_BLOCK_END = "@template-ignore-block-end";
 const MARKER_IGNORE_NEXT_LINE = "@template-ignore-next-line";
 
 const PACKAGE_MANAGER_STRINGS = [
@@ -160,18 +163,21 @@ function compareTextFiles(
     return false;
   }
 
-  const [projectFileContents, ignoreLines] = getTruncatedFileText(
+  const projectFileObject = getTruncatedFileText(
     projectFilePath,
-    new ReadonlySet(),
-    verbose,
-  );
-  const [templateFileContents] = getTruncatedFileText(
-    templateFilePath,
-    ignoreLines,
+    new Set(),
+    new Set(),
     verbose,
   );
 
-  if (templateFileContents === projectFileContents) {
+  const templateFileObject = getTruncatedFileText(
+    templateFilePath,
+    projectFileObject.ignoreLines,
+    projectFileObject.linesBeforeIgnore,
+    verbose,
+  );
+
+  if (projectFileObject.text === templateFileObject.text) {
     return true;
   }
 
@@ -193,18 +199,18 @@ function compareTextFiles(
     console.log(originalProjectFile);
     console.log();
     console.log("--- Parsed template file: ---\n");
-    console.log(templateFileContents);
+    console.log(templateFileObject.text);
     console.log();
     console.log("--- Parsed project file: ---\n");
-    console.log(projectFileContents);
+    console.log(projectFileObject.text);
     console.log();
   }
 
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
 
-  writeFile(tempProjectFilePath, projectFileContents, verbose);
-  writeFile(tempTemplateFilePath, templateFileContents, verbose);
+  writeFile(tempProjectFilePath, projectFileObject.text, verbose);
+  writeFile(tempTemplateFilePath, templateFileObject.text, verbose);
 
   const { stdout } = execShell(
     "diff",
@@ -221,40 +227,68 @@ function compareTextFiles(
   return false;
 }
 
-/**
- * @returns The a tuple containing the text of the file with all text removed between any flagged
- *          markers (and other specific hard-coded exclusions), as well as an array of lines that
- *          had a ignore-next-line marker below them.
- */
 function getTruncatedFileText(
   filePath: string,
+  ignoreLines: ReadonlySet<string>,
   linesBeforeIgnore: ReadonlySet<string>,
   verbose: boolean,
-): [text: string, ignoredLines: ReadonlySet<string>] {
+) {
   const fileName = path.basename(filePath);
+  const fileContents = readFile(filePath, verbose);
+  return getTruncatedText(
+    fileName,
+    fileContents,
+    ignoreLines,
+    linesBeforeIgnore,
+  );
+}
 
-  const projectFileContents = readFile(filePath, verbose);
-  const lines = projectFileContents.split("\n");
+/**
+ * @param fileName Used to perform some specific rules based on the template file name.
+ * @param text The text to parse.
+ * @param ignoreLines A set of lines to remove from the text.
+ * @param linesBeforeIgnore A set of lines that will trigger the subsequent line to be ignored.
+ * @returns The tuple containing the text of the file with all text removed between any flagged
+ *          markers (and other specific hard-coded exclusions), as well as an array of lines that
+ *          had a "ignore-next-line" marker below them.
+ */
+export function getTruncatedText(
+  fileName: string,
+  text: string,
+  ignoreLines: ReadonlySet<string>,
+  linesBeforeIgnore: ReadonlySet<string>,
+): {
+  text: string;
+  ignoreLines: ReadonlySet<string>;
+  linesBeforeIgnore: ReadonlySet<string>;
+} {
+  const lines = text.split("\n");
 
   const newLines: string[] = [];
+  const newIgnoreLines = new Set<string>();
   const newLinesBeforeIgnore = new Set<string>();
 
-  let currentlySkipping = false;
-  let markToIgnoreNextLine = false;
+  let isSkipping = false;
+  let isIgnoring = false;
+  let shouldIgnoreNextLine = false;
   let previousLine = "";
 
   for (const line of lines) {
-    if (line === "") {
+    if (line.trim() === "") {
       continue;
     }
 
-    if (markToIgnoreNextLine) {
-      markToIgnoreNextLine = false;
+    if (ignoreLines.has(line.trim())) {
+      continue;
+    }
+
+    if (shouldIgnoreNextLine) {
+      shouldIgnoreNextLine = false;
       continue;
     }
 
     if (linesBeforeIgnore.has(line)) {
-      markToIgnoreNextLine = true;
+      shouldIgnoreNextLine = true;
     }
 
     // -------------
@@ -262,21 +296,37 @@ function getTruncatedFileText(
     // -------------
 
     if (line.includes(MARKER_CUSTOMIZATION_START)) {
-      currentlySkipping = true;
+      isSkipping = true;
       continue;
     }
 
     if (line.includes(MARKER_CUSTOMIZATION_END)) {
-      currentlySkipping = false;
+      isSkipping = false;
+      continue;
+    }
+
+    if (line.includes(MARKER_IGNORE_BLOCK_START)) {
+      isIgnoring = true;
+      continue;
+    }
+
+    if (line.includes(MARKER_IGNORE_BLOCK_END)) {
+      isIgnoring = false;
       continue;
     }
 
     if (line.includes(MARKER_IGNORE_NEXT_LINE)) {
-      markToIgnoreNextLine = true;
+      shouldIgnoreNextLine = true;
 
       // We mark the previous line so that we know the next line to skip in the template.
       newLinesBeforeIgnore.add(previousLine);
 
+      continue;
+    }
+
+    if (isIgnoring) {
+      const baseLine = trimPrefix(line.trim(), "// ");
+      newIgnoreLines.add(baseLine);
       continue;
     }
 
@@ -291,12 +341,12 @@ function getTruncatedFileText(
       }
 
       if (line.includes('"words": [')) {
-        currentlySkipping = true;
+        isSkipping = true;
         continue;
       }
 
-      if ((line.endsWith("]") || line.endsWith("],")) && currentlySkipping) {
-        currentlySkipping = false;
+      if ((line.endsWith("]") || line.endsWith("],")) && isSkipping) {
+        isSkipping = false;
         continue;
       }
     }
@@ -317,14 +367,18 @@ function getTruncatedFileText(
     // Final checks
     // ------------
 
-    if (!currentlySkipping) {
+    if (!isSkipping) {
       newLines.push(line);
       previousLine = line;
     }
   }
 
   const newText = newLines.join("\n");
-  return [newText, newLinesBeforeIgnore];
+  return {
+    text: newText,
+    ignoreLines: newIgnoreLines,
+    linesBeforeIgnore: newLinesBeforeIgnore,
+  };
 }
 
 function printTemplateLocation(templateFilePath: string) {
