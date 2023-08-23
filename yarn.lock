@@ -4269,10 +4269,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node-lts@npm:^18.12.3":
-  version: 18.12.3
-  resolution: "@tsconfig/node-lts@npm:18.12.3"
-  checksum: acc2dbfc859a4d37cd665a301dee3d325490eaeaeaac1b1a9dc8e48f227dad25be2f2743c36997ff56fd12018f26a5afdfc149534475768449afaab4c29e76b0
+"@tsconfig/node-lts@npm:^18.12.4":
+  version: 18.12.4
+  resolution: "@tsconfig/node-lts@npm:18.12.4"
+  checksum: 5b57188c641b3e5aa08130acc86fecd4f2e582c3fcb6cae220ce6016ee983d4bb31ccc9fb1f1fa434b70405c57b2a51aeabd2f33f93a003b9645b613b51f0a5b
   languageName: node
   linkType: hard
 
@@ -4598,13 +4598,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.5.3":
-  version: 29.5.3
-  resolution: "@types/jest@npm:29.5.3"
+"@types/jest@npm:^29.5.4":
+  version: 29.5.4
+  resolution: "@types/jest@npm:29.5.4"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: e36bb92e0b9e5ea7d6f8832baa42f087fc1697f6cd30ec309a07ea4c268e06ec460f1f0cfd2581daf5eff5763475190ec1ad8ac6520c49ccfe4f5c0a48bfa676
+  checksum: 38ed5942f44336452efd0f071eab60aaa57cd8d46530348d0a3aa5a691dcbf1366c4ca8f6ee8364efb45b4413bfefae443e5d4f469246a472a03b21ac11cd4ed
   languageName: node
   linkType: hard
 
@@ -4700,10 +4700,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.5.1":
-  version: 20.5.1
-  resolution: "@types/node@npm:20.5.1"
-  checksum: 3dbe611cd67afa987102c8558ee70f848949c5dcfee5f60abc073e55c0d7b048e391bf06bb1e0dc052cb7210ca97136ac496cbaf6e89123c989de6bd125fde82
+"@types/node@npm:^20.5.3":
+  version: 20.5.3
+  resolution: "@types/node@npm:20.5.3"
+  checksum: fe67a0fd7402218bdf91523a2b1c2e41d619f7294b1a471e0a778b8bc7bb3fcf291aed12041bcbe9622d50a3d1295a9adea0e7e19bb9386a246bf66071404721
   languageName: node
   linkType: hard
 
@@ -4894,12 +4894,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:^0.5.6":
-  version: 0.5.6
-  resolution: "@types/source-map-support@npm:0.5.6"
+"@types/source-map-support@npm:^0.5.7":
+  version: 0.5.7
+  resolution: "@types/source-map-support@npm:0.5.7"
   dependencies:
     source-map: ^0.6.0
-  checksum: b2b52b3e4901e52df30ebd23056885a352462c0d6fd73418e793684665a7602168e7c337241f0391562e8c1051ff37cbcb9b7d775990ee1f2a0d8a6ffa2cb22a
+  checksum: 6da844f0b8333a1789dd27ad7bb33b9bcb41159939a94451738a8f7a1e1fd69169aa6e2dda51ba8f61753c57ead159331330c996b1d672abc2e33d6991b38bf1
   languageName: node
   linkType: hard
 
@@ -8632,9 +8632,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:^16.0.1":
-  version: 16.0.1
-  resolution: "eslint-plugin-n@npm:16.0.1"
+"eslint-plugin-n@npm:^16.0.2":
+  version: 16.0.2
+  resolution: "eslint-plugin-n@npm:16.0.2"
   dependencies:
     "@eslint-community/eslint-utils": ^4.4.0
     builtins: ^5.0.1
@@ -8646,7 +8646,7 @@ __metadata:
     semver: ^7.5.3
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 407002bb06c2e4cefd5b1fb582a5e000ed190a47144edc7d7910afc32b4b0e76e4a72773207837ab73b0797f4a84f9ea83f8979d0bcab0225bfe672cd7e0e295
+  checksum: 44cffe32a3a3cd2a706e82f45fedf79e0af7cae20e7c5f3185707233d941de1058373a27b90e86a8f0e5f9830b02c90116deaa05f139a67556954de72bc4935d
   languageName: node
   linkType: hard
 
@@ -11115,7 +11115,7 @@ __metadata:
     "@prettier/plugin-xml": ^3.2.0
     "@svgr/webpack": ^8.1.0
     "@tsconfig/docusaurus": ^2.0.0
-    "@tsconfig/node-lts": ^18.12.3
+    "@tsconfig/node-lts": ^18.12.4
     "@tsconfig/strictest": ^2.0.1
     "@types/command-exists": ^1.2.0
     "@types/confusing-browser-globals": ^1.0.0
@@ -11123,11 +11123,11 @@ __metadata:
     "@types/eslint__js": ^8.42.0
     "@types/figlet": ^1.5.6
     "@types/glob": ^8.1.0
-    "@types/jest": ^29.5.3
+    "@types/jest": ^29.5.4
     "@types/klaw-sync": ^6.0.1
-    "@types/node": ^20.5.1
+    "@types/node": ^20.5.3
     "@types/prompt": ^1.1.5
-    "@types/source-map-support": ^0.5.6
+    "@types/source-map-support": ^0.5.7
     "@types/touch": ^3.1.2
     "@types/xml2js": ^0.4.11
     "@types/yargs": ^17.0.24
@@ -11153,7 +11153,7 @@ __metadata:
     eslint-plugin-eslint-comments: ^3.2.0
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
     eslint-plugin-jsdoc: ^46.5.0
-    eslint-plugin-n: ^16.0.1
+    eslint-plugin-n: ^16.0.2
     eslint-plugin-no-autofix: ^1.2.3
     eslint-plugin-only-warn: ^1.1.0
     eslint-plugin-sort-exports: ^0.8.0
@@ -11166,13 +11166,13 @@ __metadata:
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
-    knip: ^2.19.8
+    knip: ^2.19.9
     lua-types: ^2.13.1
     markdownlint: ^0.30.0
     markdownlint-cli: ^0.35.0
     moment: ^2.29.4
     node-fetch: ^3.3.2
-    npm-check-updates: ^16.12.2
+    npm-check-updates: ^16.13.0
     nx: 15.5.3
     prettier: ^3.0.2
     prettier-plugin-organize-imports: ^3.2.3
@@ -12130,9 +12130,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.19.8":
-  version: 2.19.8
-  resolution: "knip@npm:2.19.8"
+"knip@npm:^2.19.9":
+  version: 2.19.9
+  resolution: "knip@npm:2.19.9"
   dependencies:
     "@npmcli/map-workspaces": ^3.0.4
     "@snyk/github-codeowners": ^1.1.0
@@ -12154,7 +12154,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: 1d9eb4d6e145c6cb9d9a4a6a583c09a319a060cde7ee9b4791cfae50ffc62e2d173c419618f58518180ada0d68eccbf8d8577622ebd3e61ebda5015da02232ed
+  checksum: 1c6ef1663b62d3915d57418beb511b1a9974ffc4a42888ef19db0c72dc2c2fa956b6a4e0e3a23178ab458db1095c699ed1f2b4a258c008706e03b16e00e39d16
   languageName: node
   linkType: hard
 
@@ -13791,9 +13791,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.12.2":
-  version: 16.12.2
-  resolution: "npm-check-updates@npm:16.12.2"
+"npm-check-updates@npm:^16.13.0":
+  version: 16.13.0
+  resolution: "npm-check-updates@npm:16.13.0"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
@@ -13829,7 +13829,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: db8856fd91f36284baf668c42d997bf1dfeeb3f5db57fb25df3dcc0e6619990b85b75dd060898e090ca617bb8786d44b89f0b70aaf8076afdaaa89c64c3258d6
+  checksum: be96cbe8693a1ab19aec0378b23fd7f107791d9e84f8296d01344d745234d47fad9ce6379c41f2033fd9868f924d08284f8fa579315e70764798071166cec13e
   languageName: node
   linkType: hard
 
