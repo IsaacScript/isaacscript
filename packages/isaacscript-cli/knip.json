@@ -8,6 +8,7 @@
   "ignore": [
     ".eslintrc.cjs",
     "file-templates/**",
+    "jest.config.cjs",
     "src/interfaces/IsaacScriptTSConfig.ts",
     "src/interfaces/copied/CustomStageTSConfig.ts",
     "src/interfaces/copied/JSONRoomsFile.ts",
