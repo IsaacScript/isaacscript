@@ -18,7 +18,7 @@ import { isFunction } from "./types";
  */
 export function eRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
-    return eRange(0, start);
+    return eRange(0, start, increment);
   }
 
   const array: int[] = [];
@@ -60,7 +60,7 @@ export function getTraversalDescription(
  */
 export function iRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
-    return iRange(0, start);
+    return iRange(0, start, increment);
   }
 
   const exclusiveEnd = end + 1;
