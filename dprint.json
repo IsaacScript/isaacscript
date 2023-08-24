@@ -1,5 +1,6 @@
 {
   "typescript": {
+    "lineWidth": 80,
     "constructorType.spaceAfterNewKeyword": true,
     "constructSignature.spaceAfterNewKeyword": true
   },
