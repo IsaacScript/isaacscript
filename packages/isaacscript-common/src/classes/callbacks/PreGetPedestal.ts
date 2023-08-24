@@ -7,7 +7,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PreGetPedestal extends CustomCallback<ModCallbackCustom.PRE_GET_PEDESTAL> {
+export class PreGetPedestal
+  extends CustomCallback<ModCallbackCustom.PRE_GET_PEDESTAL>
+{
   constructor() {
     super();
 

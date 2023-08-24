@@ -71,8 +71,7 @@ export function setShadows(customStage: CustomStage): void {
   sprite.ReplaceSpritesheet(0, pngPath);
   sprite.LoadGraphics();
   sprite.SetFrame(animation, 0);
-  sprite.Color =
-    shadow.color === undefined
-      ? FADED_BLACK
-      : Color(shadow.color.r, shadow.color.g, shadow.color.b, shadow.color.a);
+  sprite.Color = shadow.color === undefined ?
+    FADED_BLACK :
+    Color(shadow.color.r, shadow.color.g, shadow.color.b, shadow.color.a);
 }

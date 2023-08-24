@@ -194,12 +194,13 @@ declare global {
      * @param hasExtraFrames Controls for situations where the base game would not normally tile
      *                       pits specially.
      */
-    SetPits: ((
-      filename: string,
-      altPitsFilename?: string,
-      hasExtraFrames?: boolean,
-    ) => void) &
-      ((
+    SetPits:
+      & ((
+        filename: string,
+        altPitsFilename?: string,
+        hasExtraFrames?: boolean,
+      ) => void)
+      & ((
         filenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
         altPitsFilenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
       ) => void);

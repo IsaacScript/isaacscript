@@ -847,7 +847,7 @@ export const TearFlagZero = TearFlag.NORMAL;
 
 /** Identical to the `TEARFLAG` function in "enums.lua". */
 function getTearFlag(shift: int): BitSet128 {
-  return shift >= 64
-    ? BitSet128(0, 1 << (shift - 64))
-    : BitSet128(1 << shift, 0);
+  return shift >= 64 ?
+    BitSet128(0, 1 << (shift - 64)) :
+    BitSet128(1 << shift, 0);
 }

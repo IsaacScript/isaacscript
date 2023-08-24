@@ -26,27 +26,29 @@ import { asNumber, isNumber } from "./types";
 import { eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
-const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
-  new ReadonlySet<GridEntityType>([
-    GridEntityType.ROCK, // 2
-    GridEntityType.ROCK_TINTED, // 4
-    GridEntityType.ROCK_BOMB, // 5
-    GridEntityType.ROCK_ALT, // 6
-    GridEntityType.SPIDER_WEB, // 10
-    GridEntityType.TNT, // 12
+const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS = new ReadonlySet<
+  GridEntityType
+>([
+  GridEntityType.ROCK, // 2
+  GridEntityType.ROCK_TINTED, // 4
+  GridEntityType.ROCK_BOMB, // 5
+  GridEntityType.ROCK_ALT, // 6
+  GridEntityType.SPIDER_WEB, // 10
+  GridEntityType.TNT, // 12
 
-    // GridEntityType.FIREPLACE (13) does not count since it is turned into a non-grid entity upon
-    // spawning.
+  // GridEntityType.FIREPLACE (13) does not count since it is turned into a non-grid entity upon
+  // spawning.
 
-    GridEntityType.POOP, // 14
-    GridEntityType.ROCK_SUPER_SPECIAL, // 22
-    GridEntityType.ROCK_SPIKED, // 25
-    GridEntityType.ROCK_ALT_2, // 26
-    GridEntityType.ROCK_GOLD, // 27
-  ]);
+  GridEntityType.POOP, // 14
+  GridEntityType.ROCK_SUPER_SPECIAL, // 22
+  GridEntityType.ROCK_SPIKED, // 25
+  GridEntityType.ROCK_ALT_2, // 26
+  GridEntityType.ROCK_GOLD, // 27
+]);
 
-const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS =
-  new ReadonlySet<string>([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
+const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS = new ReadonlySet<
+  string
+>([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
@@ -424,8 +426,9 @@ export function getTopLeftWallGridIndex(): int {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
 
-  const topLeftWallGridIndex =
-    ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(roomShape);
+  const topLeftWallGridIndex = ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(
+    roomShape,
+  );
   return topLeftWallGridIndex ?? DEFAULT_TOP_LEFT_WALL_GRID_INDEX;
 }
 
@@ -624,9 +627,9 @@ export function removeGridEntity(
 ): void {
   const room = game.GetRoom();
 
-  const gridEntity = isNumber(gridEntityOrGridIndex)
-    ? room.GetGridEntity(gridEntityOrGridIndex)
-    : gridEntityOrGridIndex;
+  const gridEntity = isNumber(gridEntityOrGridIndex) ?
+    room.GetGridEntity(gridEntityOrGridIndex) :
+    gridEntityOrGridIndex;
   if (gridEntity === undefined) {
     // There is no grid entity to remove.
     return;
@@ -636,9 +639,9 @@ export function removeGridEntity(
   const variant = gridEntity.GetVariant();
   const position = gridEntity.Position;
 
-  const gridIndex = isNumber(gridEntityOrGridIndex)
-    ? gridEntityOrGridIndex
-    : gridEntityOrGridIndex.GetGridIndex();
+  const gridIndex = isNumber(gridEntityOrGridIndex) ?
+    gridEntityOrGridIndex :
+    gridEntityOrGridIndex.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
 
   if (updateRoom) {
@@ -648,13 +651,12 @@ export function removeGridEntity(
   // In the special case of removing a Devil Statue or Angel Statue, we also need to delete the
   // corresponding effect.
   if (gridEntityType === GridEntityType.STATUE) {
-    const effectVariant =
-      variant === asNumber(StatueVariant.DEVIL)
-        ? EffectVariant.DEVIL
-        : EffectVariant.ANGEL;
+    const effectVariant = variant === asNumber(StatueVariant.DEVIL) ?
+      EffectVariant.DEVIL :
+      EffectVariant.ANGEL;
     const effects = getEffects(effectVariant);
     const effectsOnTile = effects.filter((effect) =>
-      vectorEquals(effect.Position, position),
+      vectorEquals(effect.Position, position)
     );
     removeEntities(effectsOnTile);
   }
@@ -739,16 +741,16 @@ export function spawnGridEntityWithVariant(
 ): GridEntity | undefined {
   const room = game.GetRoom();
 
-  const existingGridEntity = isVector(gridIndexOrPosition)
-    ? room.GetGridEntityFromPos(gridIndexOrPosition)
-    : room.GetGridEntity(gridIndexOrPosition);
+  const existingGridEntity = isVector(gridIndexOrPosition) ?
+    room.GetGridEntityFromPos(gridIndexOrPosition) :
+    room.GetGridEntity(gridIndexOrPosition);
   if (existingGridEntity !== undefined) {
     removeGridEntity(existingGridEntity, true);
   }
 
-  const position = isVector(gridIndexOrPosition)
-    ? gridIndexOrPosition
-    : room.GetGridPosition(gridIndexOrPosition);
+  const position = isVector(gridIndexOrPosition) ?
+    gridIndexOrPosition :
+    room.GetGridPosition(gridIndexOrPosition);
   const gridEntity = Isaac.GridSpawn(gridEntityType, variant, position);
   if (gridEntity === undefined) {
     return gridEntity;

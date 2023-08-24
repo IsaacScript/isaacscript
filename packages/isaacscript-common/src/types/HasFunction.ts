@@ -2,6 +2,5 @@
 export type HasFunction<T> = Record<string, unknown> extends {
   // eslint-disable-next-line @typescript-eslint/ban-types
   [K in keyof T as T[K] extends Function ? K : never]-?: 1;
-}
-  ? never
-  : T;
+} ? never :
+  T;

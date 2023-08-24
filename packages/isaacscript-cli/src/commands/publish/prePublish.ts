@@ -61,8 +61,9 @@ function updateDependencies(
   const afterHash = getHashOfFile(PACKAGE_JSON);
 
   if (beforeHash !== afterHash) {
-    const packageManagerInstallCommand =
-      getPackageManagerInstallCommand(packageManager);
+    const packageManagerInstallCommand = getPackageManagerInstallCommand(
+      packageManager,
+    );
     execShellString(packageManagerInstallCommand, verbose);
     if (!dryRun) {
       gitCommitAllAndPush("chore: update deps", verbose);
@@ -124,7 +125,7 @@ function getVersionCommandArgument(args: Args): string {
 function writeVersionToConstantsTS(version: string, verbose: boolean) {
   if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
     console.log(
-      'Skipping writing the version to "constants.ts" since it was not found.',
+      "Skipping writing the version to \"constants.ts\" since it was not found.",
     );
     return;
   }

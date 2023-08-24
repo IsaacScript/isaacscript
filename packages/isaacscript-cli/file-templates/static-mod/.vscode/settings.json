@@ -11,7 +11,7 @@
   "files.associations": {
     "*.anm2": "xml", // anm2 files are just XML files.
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
-    ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
+    ".env*": "shellscript" // e.g. ".env.example" is the same as ".env".
   },
 
   // We want to always use "lf" to be consistent with all platforms.
@@ -28,7 +28,7 @@
     "**/*.wav": true,
     "**/.yarn/": true,
     "**/dist/": true,
-    "**/node_modules/": true,
+    "**/node_modules/": true
   },
 
   // ------------------
@@ -59,37 +59,37 @@
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[typescript]": {
     "editor.codeActionsOnSave": ["source.fixAll.eslint"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[xml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-  },
+    "editor.tabSize": 2
+  }
 }

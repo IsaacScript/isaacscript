@@ -106,7 +106,9 @@ export class CustomHotkeys extends Feature {
   public setHotkey(keyboard: Keyboard, triggerFunc: () => void): void {
     if (this.staticHotkeyFunctionMap.has(keyboard)) {
       error(
-        `Failed to register a hotkey due to a hotkey already being defined for: Keyboard.${Keyboard[keyboard]} (${keyboard})`,
+        `Failed to register a hotkey due to a hotkey already being defined for: Keyboard.${
+          Keyboard[keyboard]
+        } (${keyboard})`,
       );
     }
 
@@ -144,7 +146,9 @@ export class CustomHotkeys extends Feature {
   public unsetHotkey(keyboard: Keyboard): void {
     if (!this.staticHotkeyFunctionMap.has(keyboard)) {
       error(
-        `Failed to unregister a hotkey since there is no existing hotkey defined for: Keyboard.${Keyboard[keyboard]} (${keyboard})`,
+        `Failed to unregister a hotkey since there is no existing hotkey defined for: Keyboard.${
+          Keyboard[keyboard]
+        } (${keyboard})`,
       );
     }
 

@@ -15,7 +15,9 @@ const v = {
   },
 };
 
-export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom.POST_HOLY_MANTLE_REMOVED> {
+export class PostHolyMantleRemoved
+  extends CustomCallback<ModCallbackCustom.POST_HOLY_MANTLE_REMOVED>
+{
   public override v = v;
 
   constructor() {

@@ -5,10 +5,10 @@ import { applyShaderCrashFix } from "../shaderCrashFix";
 import type { AnyFunction } from "../types/AnyFunction";
 import type { ModUpgradedWithFeatures } from "../types/private/ModUpgradedWithFeatures";
 
-type ISCFeatureTuple<T extends readonly ISCFeature[]> =
-  ISCFeature extends T["length"]
-    ? 'The list of features must be a tuple. Use the "as const" assertion when declaring the array.'
-    : T;
+type ISCFeatureTuple<T extends readonly ISCFeature[]> = ISCFeature extends
+  T["length"] ?
+  "The list of features must be a tuple. Use the \"as const\" assertion when declaring the array." :
+  T;
 
 /**
  * Use this function to enable the custom callbacks and other optional features provided by

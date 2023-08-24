@@ -43,13 +43,13 @@ import { ReadonlySet } from "../../../types/ReadonlySet";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import type { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
+import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 import type { DisableInputs } from "./DisableInputs";
 import type { PonyDetection } from "./PonyDetection";
 import type { RoomClearFrame } from "./RoomClearFrame";
 import type { RunInNFrames } from "./RunInNFrames";
 import type { RunNextRoom } from "./RunNextRoom";
 import type { StageHistory } from "./StageHistory";
-import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 
 const DEBUG = false as boolean;
 
@@ -220,8 +220,8 @@ export class CustomTrapdoors extends Feature {
     const hud = game.GetHUD();
     const renderFrameCount = Isaac.GetFrameCount();
 
-    const renderFrameScreenBlack =
-      v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
+    const renderFrameScreenBlack = v.run.stateRenderFrame +
+      PIXELATION_TO_BLACK_FRAMES;
     if (renderFrameCount < renderFrameScreenBlack) {
       return;
     }
@@ -315,8 +315,8 @@ export class CustomTrapdoors extends Feature {
     const hud = game.GetHUD();
     const renderFrameCount = Isaac.GetFrameCount();
 
-    const renderFrameScreenBlack =
-      v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
+    const renderFrameScreenBlack = v.run.stateRenderFrame +
+      PIXELATION_TO_BLACK_FRAMES;
     if (renderFrameCount < renderFrameScreenBlack) {
       return;
     }
@@ -654,9 +654,9 @@ export class CustomTrapdoors extends Feature {
   private logStateChanged(): void {
     if (DEBUG) {
       log(
-        `Custom trapdoors state changed: ${StageTravelState[v.run.state]} (${
-          v.run.state
-        })`,
+        `Custom trapdoors state changed: ${
+          StageTravelState[v.run.state]
+        } (${v.run.state})`,
       );
     }
   }
@@ -765,9 +765,9 @@ export class CustomTrapdoors extends Feature {
     const room = game.GetRoom();
     const roomFrameCount = room.GetFrameCount();
     const roomListIndex = getRoomListIndex();
-    const gridIndex = isVector(gridIndexOrPosition)
-      ? room.GetGridIndex(gridIndexOrPosition)
-      : gridIndexOrPosition;
+    const gridIndex = isVector(gridIndexOrPosition) ?
+      room.GetGridIndex(gridIndexOrPosition) :
+      gridIndexOrPosition;
 
     const gridEntity = this.customGridEntities.spawnCustomGridEntity(
       GridEntityTypeCustom.TRAPDOOR_CUSTOM,
@@ -778,8 +778,8 @@ export class CustomTrapdoors extends Feature {
     );
 
     const firstSpawn = roomFrameCount !== 0;
-    const open =
-      spawnOpen ?? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn);
+    const open = spawnOpen ??
+      this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn);
 
     const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
     const customTrapdoorDescription: CustomTrapdoorDescription = {
@@ -792,9 +792,9 @@ export class CustomTrapdoors extends Feature {
     roomTrapdoorMap.set(gridIndex, customTrapdoorDescription);
 
     const sprite = gridEntity.GetSprite();
-    const animation = open
-      ? TrapdoorAnimation.OPENED
-      : TrapdoorAnimation.CLOSED;
+    const animation = open ?
+      TrapdoorAnimation.OPENED :
+      TrapdoorAnimation.CLOSED;
     sprite.Play(animation, true);
 
     return gridEntity;

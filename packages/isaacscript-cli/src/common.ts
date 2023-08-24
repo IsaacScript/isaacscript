@@ -74,9 +74,11 @@ function getRoomShapeDoorSlot(
     roomShape
   ] as Record<DoorSlot, readonly [x: number, y: number]>;
 
-  for (const [doorSlotString, coordinates] of Object.entries(
-    doorSlotCoordinates,
-  )) {
+  for (
+    const [doorSlotString, coordinates] of Object.entries(
+      doorSlotCoordinates,
+    )
+  ) {
     const doorSlot = parseIntSafe(doorSlotString) as DoorSlot;
     const [doorX, doorY] = coordinates;
     if (x === doorX && y === doorY) {

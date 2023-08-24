@@ -20,7 +20,6 @@ import {
   getItemConfigCardType,
   getVanillaCardTypes,
 } from "../../../functions/cards";
-import { collectibleHasTag } from "../../../functions/collectibleTag";
 import {
   collectibleHasCacheFlag,
   getVanillaCollectibleTypeRange,
@@ -28,6 +27,7 @@ import {
   isHiddenCollectible,
   isPassiveCollectible,
 } from "../../../functions/collectibles";
+import { collectibleHasTag } from "../../../functions/collectibleTag";
 import { getFlagName } from "../../../functions/flag";
 import { getRandomSeed } from "../../../functions/rng";
 import {
@@ -115,8 +115,9 @@ export class ModdedElementSets extends Feature {
   >();
 
   private flyingCollectibleTypesSet = new Set<CollectibleType>();
-  private readonly permanentFlyingCollectibleTypesSet =
-    new Set<CollectibleType>();
+  private readonly permanentFlyingCollectibleTypesSet = new Set<
+    CollectibleType
+  >();
 
   private flyingTrinketTypesSet = new Set<TrinketType>();
   private readonly edenActiveCollectibleTypesSet = new Set<CollectibleType>();
@@ -175,8 +176,8 @@ export class ModdedElementSets extends Feature {
       this.allCollectibleTypesSet.add(collectibleType);
     }
 
-    const moddedCollectibleTypes =
-      this.moddedElementDetection.getModdedCollectibleTypes();
+    const moddedCollectibleTypes = this.moddedElementDetection
+      .getModdedCollectibleTypes();
     for (const collectibleType of moddedCollectibleTypes) {
       // Modded collectible types are contiguous, but we check every value just in case.
       const itemConfigItem = itemConfig.GetCollectible(collectibleType);
@@ -219,8 +220,8 @@ export class ModdedElementSets extends Feature {
       this.allTrinketTypesSet.add(trinketType);
     }
 
-    const moddedTrinketTypes =
-      this.moddedElementDetection.getModdedTrinketTypes();
+    const moddedTrinketTypes = this.moddedElementDetection
+      .getModdedTrinketTypes();
     for (const trinketType of moddedTrinketTypes) {
       // Modded trinket types are contiguous, but we check every value just in case.
       const itemConfigItem = itemConfig.GetTrinket(trinketType);
@@ -294,8 +295,9 @@ export class ModdedElementSets extends Feature {
           continue;
         }
 
-        const collectibleTypesSet =
-          this.tagToCollectibleTypesMap.get(itemConfigTag);
+        const collectibleTypesSet = this.tagToCollectibleTypesMap.get(
+          itemConfigTag,
+        );
         if (collectibleTypesSet === undefined) {
           const flagName = getFlagName(itemConfigTag, ItemConfigTag);
           error(
@@ -438,8 +440,9 @@ export class ModdedElementSets extends Feature {
     for (const cardType of this.getCardArray()) {
       const itemConfigCardType = getItemConfigCardType(cardType);
       if (itemConfigCardType !== undefined) {
-        const cardTypeSet =
-          this.itemConfigCardTypeToCardTypeMap.get(itemConfigCardType);
+        const cardTypeSet = this.itemConfigCardTypeToCardTypeMap.get(
+          itemConfigCardType,
+        );
         if (cardTypeSet === undefined) {
           error(
             `Failed to get the card set for item config card type: ${itemConfigCardType}`,
@@ -513,8 +516,9 @@ export class ModdedElementSets extends Feature {
 
     const matchingCardTypes = new Set<CardType>();
     for (const itemConfigCardType of itemConfigCardTypes) {
-      const cardTypeSet =
-        this.itemConfigCardTypeToCardTypeMap.get(itemConfigCardType);
+      const cardTypeSet = this.itemConfigCardTypeToCardTypeMap.get(
+        itemConfigCardType,
+      );
       if (cardTypeSet === undefined) {
         error(
           `Failed to get the card type set for item config type: ${itemConfigCardType}`,
@@ -711,9 +715,9 @@ export class ModdedElementSets extends Feature {
   ): ReadonlySet<CollectibleType> {
     this.lazyInitFlyingCollectibleTypesSet();
 
-    return includeConditionalItems
-      ? this.flyingCollectibleTypesSet
-      : this.permanentFlyingCollectibleTypesSet;
+    return includeConditionalItems ?
+      this.flyingCollectibleTypesSet :
+      this.permanentFlyingCollectibleTypesSet;
   }
 
   /**
@@ -912,13 +916,16 @@ export class ModdedElementSets extends Feature {
     player: EntityPlayer,
     cacheFlag: CacheFlag,
   ): CollectibleType[] {
-    const collectiblesWithCacheFlag =
-      this.getCollectiblesWithCacheFlag(cacheFlag);
+    const collectiblesWithCacheFlag = this.getCollectiblesWithCacheFlag(
+      cacheFlag,
+    );
 
     const playerCollectibles: CollectibleType[] = [];
-    for (const collectibleType of getSortedSetValues(
-      collectiblesWithCacheFlag,
-    )) {
+    for (
+      const collectibleType of getSortedSetValues(
+        collectiblesWithCacheFlag,
+      )
+    ) {
       // We specify "true" as the second argument to filter out things like Lilith's Incubus.
       const numCollectibles = player.GetCollectibleNum(collectibleType, true);
       repeat(numCollectibles, () => {
@@ -963,13 +970,16 @@ export class ModdedElementSets extends Feature {
     player: EntityPlayer,
     playerForm: PlayerForm,
   ): CollectibleType[] {
-    const collectibleForTransformation =
-      this.getCollectiblesForTransformation(playerForm);
+    const collectibleForTransformation = this.getCollectiblesForTransformation(
+      playerForm,
+    );
 
     const playerCollectibles: CollectibleType[] = [];
-    for (const collectibleType of getSortedSetValues(
-      collectibleForTransformation,
-    )) {
+    for (
+      const collectibleType of getSortedSetValues(
+        collectibleForTransformation,
+      )
+    ) {
       // We specify "true" as the second argument to filter out things like Lilith's Incubus.
       const numCollectibles = player.GetCollectibleNum(collectibleType, true);
       repeat(numCollectibles, () => {

@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostPickupInitLate extends CustomCallback<ModCallbackCustom.POST_PICKUP_INIT_LATE> {
+export class PostPickupInitLate
+  extends CustomCallback<ModCallbackCustom.POST_PICKUP_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

@@ -316,9 +316,9 @@ function getTitle(filePath: string, directoryName: string) {
       fatalError(`Failed to parse the proper name from the match: ${fileName}`);
     }
 
-    return fileName.includes("_features_")
-      ? pascalCaseToTitleCase(properName)
-      : properName;
+    return fileName.includes("_features_") ?
+      pascalCaseToTitleCase(properName) :
+      properName;
   }
 
   // Third, file names should be title-cased in certain directories.
@@ -426,10 +426,12 @@ function fixLinks() {
         );
 
         // Also handle the case of some specific interfaces being put into the same file.
-        for (const specialCombinedFileName of [
-          "JSONRoomsFile",
-          "CustomStageTSConfig",
-        ]) {
+        for (
+          const specialCombinedFileName of [
+            "JSONRoomsFile",
+            "CustomStageTSConfig",
+          ]
+        ) {
           newFileContents = newFileContents.replaceAll(
             `${specialCombinedFileName}.${fileNameWithoutExtension}.md`,
             `${fileNameWithoutExtension}.md`,

@@ -11,7 +11,9 @@ const v = {
   },
 };
 
-export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFICE> {
+export class PostSacrifice
+  extends CustomCallback<ModCallbackCustom.POST_SACRIFICE>
+{
   public override v = v;
 
   constructor() {

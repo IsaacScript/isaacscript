@@ -5,7 +5,7 @@
 {
   "extends": [
     "./packages/isaacscript-tsconfig/configs/tsconfig.node.json",
-    "./tsconfig.monorepo.json",
+    "./tsconfig.monorepo.json"
   ],
 
   // We want to type-check every file in the repository, regardless of whether it is actually
@@ -29,6 +29,6 @@
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+    "./**/.*.tsx"
+  ]
 }

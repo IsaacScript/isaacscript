@@ -32,11 +32,9 @@ const config = {
       remarkRetext,
       unified()
         .use(retextEnglish)
-
         // Parse common kinds of syntax.
         .use(retextSyntaxMentions)
         .use(retextSyntaxURLs)
-
         // Load linters.
         .use(retextDiacritics)
         .use(retextIndefiniteArticle)

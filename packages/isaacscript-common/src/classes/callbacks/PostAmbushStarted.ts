@@ -11,7 +11,9 @@ const v = {
   },
 };
 
-export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMBUSH_STARTED> {
+export class PostAmbushStarted
+  extends CustomCallback<ModCallbackCustom.POST_AMBUSH_STARTED>
+{
   public override v = v;
 
   constructor() {

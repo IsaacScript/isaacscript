@@ -54,8 +54,9 @@ export function makeGlowingHourGlassBackup(
           continue;
         }
 
-        let saveDataGlowingHourGlass =
-          saveDataGlowingHourGlassMap.get(subscriberName);
+        let saveDataGlowingHourGlass = saveDataGlowingHourGlassMap.get(
+          subscriberName,
+        );
         if (saveDataGlowingHourGlass === undefined) {
           saveDataGlowingHourGlass = new LuaMap<string, unknown>() as SaveData;
           saveDataGlowingHourGlassMap.set(
@@ -111,8 +112,9 @@ export function restoreGlowingHourGlassBackup(
           continue;
         }
 
-        const saveDataGlowingHourGlass =
-          saveDataGlowingHourGlassMap.get(subscriberName);
+        const saveDataGlowingHourGlass = saveDataGlowingHourGlassMap.get(
+          subscriberName,
+        );
         if (saveDataGlowingHourGlass === undefined) {
           // This should never happen.
           continue;

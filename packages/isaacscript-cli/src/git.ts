@@ -28,7 +28,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
   // We do not need to prompt the user if they do not have Git installed.
   if (!commandExists.sync("git")) {
     console.log(
-      'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
+      "Git does not seem to be installed. (The \"git\" command is not in the path.) Skipping Git-related things.",
     );
     return undefined;
   }
@@ -58,9 +58,11 @@ export async function promptGitHubRepoOrGitRemoteURL(
       }
 
       const shouldUseGuessedURL = await getInputYesNo(
-        `Do you want to use a Git remote URL of: ${chalk.green(
-          guessedRemoteURL,
-        )}`,
+        `Do you want to use a Git remote URL of: ${
+          chalk.green(
+            guessedRemoteURL,
+          )
+        }`,
       );
       if (shouldUseGuessedURL) {
         return guessedRemoteURL;
@@ -78,9 +80,11 @@ export async function promptGitHubRepoOrGitRemoteURL(
     }
 
     const createNewGitHubRepo = await getInputYesNo(
-      `Would you like to create a new GitHub repository at: ${chalk.green(
-        url,
-      )}`,
+      `Would you like to create a new GitHub repository at: ${
+        chalk.green(
+          url,
+        )
+      }`,
     );
     if (createNewGitHubRepo) {
       execShell("gh", ["repo", "create", projectName, "--public"]);
@@ -93,14 +97,15 @@ export async function promptGitHubRepoOrGitRemoteURL(
     return undefined;
   }
 
-  const gitRemoteURL =
-    await getInputString(`Paste in the remote Git URL for your project.
+  const gitRemoteURL = await getInputString(
+    `Paste in the remote Git URL for your project.
 For example, if you have an SSH key, it would be something like:
 ${chalk.green("git@github.com:Alice/green-candle.git")}
 If you don't have an SSH key, it would be something like:
 ${chalk.green("https://github.com/Alice/green-candle.git")}
 If you don't want to initialize a Git repository for this project, press enter to skip.
-`);
+`,
+  );
 
   return gitRemoteURL === "" ? undefined : gitRemoteURL;
 }
@@ -177,7 +182,8 @@ export function initGitRepository(
   if (isGitNameAndEmailConfigured(verbose)) {
     execShellString("git add --all", verbose, false, projectPath);
     const version = getVersionOfThisPackage(verbose);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${version} template`;
+    const commitMessage =
+      `chore: add files from ${PROJECT_NAME} ${version} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],

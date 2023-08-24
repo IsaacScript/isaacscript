@@ -11,7 +11,8 @@ import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfi
 import { fatalError, isRecord } from "./isaacScriptCommonTS.js";
 import { getJSONC } from "./json.js";
 
-const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
+const ADVICE =
+  `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
 const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH, false) as Schema;
 const ajv = new Ajv();
@@ -32,9 +33,11 @@ function getIsaacScriptSection(
     if (field !== undefined) {
       if (!isRecord(field)) {
         fatalError(
-          `Your "${chalk.green(
-            TSCONFIG_JSON_PATH,
-          )}" file has a non-object value for the "${fieldName}" field, which is surely a mistake. ${ADVICE}`,
+          `Your "${
+            chalk.green(
+              TSCONFIG_JSON_PATH,
+            )
+          }" file has a non-object value for the "${fieldName}" field, which is surely a mistake. ${ADVICE}`,
         );
       }
 
@@ -51,34 +54,42 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
   const { include } = tsConfig;
   if (include === undefined) {
     fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file does not have an "include" field, which is surely a mistake. ${ADVICE}`,
+      `Your "${
+        chalk.green(
+          TSCONFIG_JSON_PATH,
+        )
+      }" file does not have an "include" field, which is surely a mistake. ${ADVICE}`,
     );
   }
 
   if (!Array.isArray(include)) {
     fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has an "include" field that is not an array, which is surely a mistake. ${ADVICE}`,
+      `Your "${
+        chalk.green(
+          TSCONFIG_JSON_PATH,
+        )
+      }" file has an "include" field that is not an array, which is surely a mistake. ${ADVICE}`,
     );
   }
 
   const firstInclude = include[0] as unknown;
   if (firstInclude === undefined) {
     fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has an empty "include" field, which is surely a mistake. ${ADVICE}`,
+      `Your "${
+        chalk.green(
+          TSCONFIG_JSON_PATH,
+        )
+      }" file has an empty "include" field, which is surely a mistake. ${ADVICE}`,
     );
   }
 
   if (typeof firstInclude !== "string") {
     fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has a non-string "include" value, which is surely a mistake. ${ADVICE}`,
+      `Your "${
+        chalk.green(
+          TSCONFIG_JSON_PATH,
+        )
+      }" file has a non-string "include" value, which is surely a mistake. ${ADVICE}`,
     );
   }
 
@@ -102,7 +113,7 @@ export function getCustomStagesFromTSConfig(
   const valid = schemaValidate(isaacScriptSection);
   if (!valid) {
     console.error(
-      'Your "isaacscript" section in the "tsconfig.json" file has the following errors:',
+      "Your \"isaacscript\" section in the \"tsconfig.json\" file has the following errors:",
     );
     console.error(schemaValidate.errors);
     fatalError(

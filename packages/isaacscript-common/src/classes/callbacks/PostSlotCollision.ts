@@ -4,7 +4,9 @@ import { isSlot } from "../../functions/entityTypes";
 import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSlotCollision extends CustomCallback<ModCallbackCustom.POST_SLOT_COLLISION> {
+export class PostSlotCollision
+  extends CustomCallback<ModCallbackCustom.POST_SLOT_COLLISION>
+{
   constructor() {
     super();
 

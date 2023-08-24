@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KILL> {
+export class PostTearKill
+  extends CustomCallback<ModCallbackCustom.POST_TEAR_KILL>
+{
   public override v = v;
 
   constructor() {

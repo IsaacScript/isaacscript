@@ -19,17 +19,17 @@ const WRAPPED_CUSTOM_CALLBACK_METHODS_KEY = "__wrappedCustomCallbacksMethods";
 type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
   [MOD_FEATURE_CALLBACKS_KEY]:
     | [
-        modCallback: ModCallback,
-        callbackFunc: AnyFunction,
-        parameters: unknown[],
-      ]
+      modCallback: ModCallback,
+      callbackFunc: AnyFunction,
+      parameters: unknown[],
+    ]
     | undefined;
   [MOD_FEATURE_CUSTOM_CALLBACKS_KEY]:
     | [
-        modCallbackCustom: ModCallbackCustom,
-        callbackFunc: AnyFunction,
-        parameters: unknown[],
-      ]
+      modCallbackCustom: ModCallbackCustom,
+      callbackFunc: AnyFunction,
+      parameters: unknown[],
+    ]
     | undefined;
   [WRAPPED_CALLBACK_METHODS_KEY]: Map<ModCallback, AnyFunction> | undefined;
   [WRAPPED_CUSTOM_CALLBACK_METHODS_KEY]:
@@ -89,10 +89,10 @@ export class ModFeature {
    */
   protected shouldCallbackMethodsFire:
     | (<T extends boolean>(
-        vanilla: T,
-        modCallback: T extends true ? ModCallback : ModCallbackCustom,
-        ...callbackArgs: unknown[]
-      ) => boolean)
+      vanilla: T,
+      modCallback: T extends true ? ModCallback : ModCallbackCustom,
+      ...callbackArgs: unknown[]
+    ) => boolean)
     | null = null;
 
   /**
@@ -157,9 +157,9 @@ function initDecoratedCallbacks(
   init: boolean,
 ) {
   const modFeatureConstructor = constructor as ModFeatureConstructor;
-  const callbackTuplesKey = vanilla
-    ? MOD_FEATURE_CALLBACKS_KEY
-    : MOD_FEATURE_CUSTOM_CALLBACKS_KEY;
+  const callbackTuplesKey = vanilla ?
+    MOD_FEATURE_CALLBACKS_KEY :
+    MOD_FEATURE_CUSTOM_CALLBACKS_KEY;
   const callbackTuples = modFeatureConstructor[callbackTuplesKey];
   if (callbackTuples === undefined) {
     return;
@@ -167,18 +167,22 @@ function initDecoratedCallbacks(
 
   if (!isArray(callbackTuples)) {
     error(
-      `Failed to initialize/uninitialize the decorated callbacks on a mod feature since the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${type(
-        callbackTuples,
-      )}`,
+      `Failed to initialize/uninitialize the decorated callbacks on a mod feature since the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${
+        type(
+          callbackTuples,
+        )
+      }`,
     );
   }
 
   for (const callbackTuple of callbackTuples) {
     if (!isArray(callbackTuple)) {
       error(
-        `Failed to initialize/uninitialize the decorated callbacks on a mod feature since one of the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${type(
-          callbackTuple,
-        )}`,
+        `Failed to initialize/uninitialize the decorated callbacks on a mod feature since one of the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${
+          type(
+            callbackTuple,
+          )
+        }`,
       );
     }
 
@@ -350,20 +354,20 @@ function initSaveDataManager(
 
   if (!isTable(v)) {
     error(
-      'Failed to initialize a mod feature class due to having a "v" property that is not an object. (The "v" property is supposed to be an object that holds the variables for the class, managed by the save data manager.)',
+      "Failed to initialize a mod feature class due to having a \"v\" property that is not an object. (The \"v\" property is supposed to be an object that holds the variables for the class, managed by the save data manager.)",
     );
   }
 
   // Do nothing if we have not enabled the save data manager.
   // eslint-disable-next-line @typescript-eslint/dot-notation
   const mod = modFeature["mod"] as unknown as Record<string, unknown>;
-  const saveDataManagerMethodName = init
-    ? "saveDataManager"
-    : "saveDataManagerRemove";
+  const saveDataManagerMethodName = init ?
+    "saveDataManager" :
+    "saveDataManagerRemove";
   const saveDataManagerMethod = mod[saveDataManagerMethodName];
   if (saveDataManagerMethod === undefined) {
     error(
-      'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
+      "Failed to initialize a mod feature class due to having a \"v\" object and not having the save data manager initialized. You must pass \"ISCFeature.SAVE_DATA_MANAGER\" to the \"upgradeMod\" function.",
     );
   }
 

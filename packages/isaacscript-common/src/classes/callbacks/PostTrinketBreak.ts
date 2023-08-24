@@ -25,7 +25,9 @@ const v = {
   },
 };
 
-export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRINKET_BREAK> {
+export class PostTrinketBreak
+  extends CustomCallback<ModCallbackCustom.POST_TRINKET_BREAK>
+{
   public override v = v;
 
   constructor() {

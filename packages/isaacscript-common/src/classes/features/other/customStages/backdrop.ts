@@ -145,9 +145,9 @@ function spawnWallEntity(
   const sprite = wallEffect.GetSprite();
   sprite.Load(`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/wall-backdrop.anm2`, false);
 
-  const wallLayersArray = isExtraWall
-    ? ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS
-    : ROOM_SHAPE_WALL_ANM2_LAYERS;
+  const wallLayersArray = isExtraWall ?
+    ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS :
+    ROOM_SHAPE_WALL_ANM2_LAYERS;
   const numWallLayers = wallLayersArray[roomShape];
   if (numWallLayers === undefined) {
     error(

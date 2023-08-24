@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostKnifeInitLate extends CustomCallback<ModCallbackCustom.POST_KNIFE_INIT_LATE> {
+export class PostKnifeInitLate
+  extends CustomCallback<ModCallbackCustom.POST_KNIFE_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

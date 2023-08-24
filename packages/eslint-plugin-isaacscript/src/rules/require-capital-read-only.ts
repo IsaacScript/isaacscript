@@ -125,17 +125,17 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
   return !!(
     // prettier-ignore
     // @ts-expect-error Using internal functions.
-    ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly
-    || (symbol.flags & ts.SymbolFlags.Property
+    ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
+    (symbol.flags & ts.SymbolFlags.Property &&
       // @ts-expect-error Using internal functions.
-      && ts.getDeclarationModifierFlagsFromSymbol(symbol)
-        & ts.ModifierFlags.Readonly)
-    || (symbol.flags & ts.SymbolFlags.Variable
+      ts.getDeclarationModifierFlagsFromSymbol(symbol) &
+        ts.ModifierFlags.Readonly) ||
+    (symbol.flags & ts.SymbolFlags.Variable &&
       // @ts-expect-error Using internal functions.
-      && ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const)
-    || (symbol.flags & ts.SymbolFlags.Accessor
-      && !(symbol.flags & ts.SymbolFlags.SetAccessor))
-    || symbol.flags & ts.SymbolFlags.EnumMember
+      ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const) ||
+    (symbol.flags & ts.SymbolFlags.Accessor &&
+      !(symbol.flags & ts.SymbolFlags.SetAccessor)) ||
+    symbol.flags & ts.SymbolFlags.EnumMember
   );
 }
 /* eslint-enable */

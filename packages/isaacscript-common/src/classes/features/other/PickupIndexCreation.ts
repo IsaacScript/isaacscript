@@ -89,8 +89,9 @@ export class PickupIndexCreation extends Feature {
 
     // First, handle the special case of re-entering a room with a previously tracked pickup. If we
     // find a match in the level pickup data, we will use the pickup index from the match.
-    const pickupIndexFromLevelData =
-      this.getPickupIndexFromPreviousData(pickup);
+    const pickupIndexFromLevelData = this.getPickupIndexFromPreviousData(
+      pickup,
+    );
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
     const roomFrameCount = room.GetFrameCount();
@@ -112,8 +113,9 @@ export class PickupIndexCreation extends Feature {
     pickup: EntityPickup,
   ): PickupIndex | undefined {
     const roomListIndex = getRoomListIndex();
-    const pickupDescriptions =
-      v.level.pickupData.getAndSetDefault(roomListIndex);
+    const pickupDescriptions = v.level.pickupData.getAndSetDefault(
+      roomListIndex,
+    );
 
     let pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
     if (pickupIndex === undefined) {
@@ -188,7 +190,8 @@ export class PickupIndexCreation extends Feature {
    */
   private getPickupDataMapForCurrentRoom():
     | Map<PickupIndex, PickupDescription>
-    | undefined {
+    | undefined
+  {
     if (onAscent()) {
       return undefined;
     }

@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPEffectUpdateReordered extends CustomCallback<ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED> {
+export class PostPEffectUpdateReordered
+  extends CustomCallback<ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED>
+{
   constructor() {
     super();
 

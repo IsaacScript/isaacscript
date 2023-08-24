@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostBombRenderFilter extends CustomCallback<ModCallbackCustom.POST_BOMB_RENDER_FILTER> {
+export class PostBombRenderFilter
+  extends CustomCallback<ModCallbackCustom.POST_BOMB_RENDER_FILTER>
+{
   constructor() {
     super();
 

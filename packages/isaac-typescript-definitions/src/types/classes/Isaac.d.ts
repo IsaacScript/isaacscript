@@ -28,9 +28,9 @@ declare global {
     function AddCallback<T extends keyof AddCallbackParameters | string>(
       mod: Mod,
       modCallback: T,
-      ...args: T extends keyof AddCallbackParameters
-        ? AddCallbackParameters[T]
-        : unknown[]
+      ...args: T extends keyof AddCallbackParameters ?
+        AddCallbackParameters[T] :
+        unknown[]
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
@@ -42,9 +42,9 @@ declare global {
       mod: Mod,
       modCallback: T,
       priority: CallbackPriority | int,
-      ...args: T extends keyof AddCallbackParameters
-        ? AddCallbackParameters[T]
-        : unknown[]
+      ...args: T extends keyof AddCallbackParameters ?
+        AddCallbackParameters[T] :
+        unknown[]
     ): void;
 
     /**

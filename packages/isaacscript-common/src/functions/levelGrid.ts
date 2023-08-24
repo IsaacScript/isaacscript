@@ -33,7 +33,6 @@ import {
   getRoomGridIndex,
   getRoomShape,
 } from "./roomData";
-import { getGridIndexDelta } from "./roomShape";
 import {
   getRooms,
   getRoomsInsideGrid,
@@ -41,6 +40,7 @@ import {
   isMirrorRoom,
   isSecretRoomType,
 } from "./rooms";
+import { getGridIndexDelta } from "./roomShape";
 
 const LEFT = -1;
 const UP = -LEVEL_GRID_ROW_WIDTH;
@@ -109,7 +109,7 @@ export function getAdjacentRoomGridIndexes(
   );
 
   return adjacentRoomGridIndexes.filter((adjacentRoomGridIndex) =>
-    isRoomInsideGrid(adjacentRoomGridIndex),
+    isRoomInsideGrid(adjacentRoomGridIndex)
   );
 }
 
@@ -137,11 +137,12 @@ export function getNewRoomCandidate(
   ensureDeadEnd = true,
 ):
   | {
-      readonly adjacentRoomGridIndex: int;
-      readonly doorSlot: DoorSlot;
-      readonly newRoomGridIndex: int;
-    }
-  | undefined {
+    readonly adjacentRoomGridIndex: int;
+    readonly doorSlot: DoorSlot;
+    readonly newRoomGridIndex: int;
+  }
+  | undefined
+{
   const newRoomCandidatesForLevel = getNewRoomCandidatesForLevel(ensureDeadEnd);
   if (newRoomCandidatesForLevel.length === 0) {
     return undefined;
@@ -387,8 +388,9 @@ export function getRoomShapeAdjacentGridIndexes(
   safeRoomGridIndex: int,
   roomShape: RoomShape,
 ): ReadonlyMap<DoorSlot, int> {
-  const roomShapeAdjacentGridIndexDeltas =
-    getRoomShapeAdjacentGridIndexDeltas(roomShape);
+  const roomShapeAdjacentGridIndexDeltas = getRoomShapeAdjacentGridIndexDeltas(
+    roomShape,
+  );
 
   const adjacentGridIndexes = new Map<DoorSlot, int>();
   for (const [doorSlot, delta] of roomShapeAdjacentGridIndexDeltas) {
@@ -439,8 +441,9 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
  * @param roomGridIndex Optional. Default is the current room index.
  */
 export function isDeadEnd(roomGridIndex?: int): boolean {
-  const adjacentExistingRoomGridIndexes =
-    getAdjacentExistingRoomGridIndexes(roomGridIndex);
+  const adjacentExistingRoomGridIndexes = getAdjacentExistingRoomGridIndexes(
+    roomGridIndex,
+  );
 
   return adjacentExistingRoomGridIndexes.length === 1;
 }

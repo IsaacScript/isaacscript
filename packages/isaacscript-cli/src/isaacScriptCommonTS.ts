@@ -8,15 +8,11 @@
  *
  * From: https://stackoverflow.com/questions/41879327/deepreadonly-object-typescript
  */
-export type Immutable<T> = T extends ImmutablePrimitive
-  ? T
-  : T extends Array<infer U>
-  ? ImmutableArray<U>
-  : T extends Map<infer K, infer V>
-  ? ImmutableMap<K, V>
-  : T extends Set<infer M>
-  ? ImmutableSet<M>
-  : ImmutableObject<T>;
+export type Immutable<T> = T extends ImmutablePrimitive ? T :
+  T extends Array<infer U> ? ImmutableArray<U> :
+  T extends Map<infer K, infer V> ? ImmutableMap<K, V> :
+  T extends Set<infer M> ? ImmutableSet<M> :
+  ImmutableObject<T>;
 
 type ImmutablePrimitive =
   | undefined
@@ -158,11 +154,12 @@ export function parseIntSafe(string: string): number | undefined {
  */
 export function parseSemanticVersion(versionString: string):
   | {
-      majorVersion: number;
-      minorVersion: number;
-      patchVersion: number;
-    }
-  | undefined {
+    majorVersion: number;
+    minorVersion: number;
+    patchVersion: number;
+  }
+  | undefined
+{
   const match = versionString.match(
     /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/,
   );

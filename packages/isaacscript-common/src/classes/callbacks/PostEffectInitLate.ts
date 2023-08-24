@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostEffectInitLate extends CustomCallback<ModCallbackCustom.POST_EFFECT_INIT_LATE> {
+export class PostEffectInitLate
+  extends CustomCallback<ModCallbackCustom.POST_EFFECT_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

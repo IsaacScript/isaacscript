@@ -1146,13 +1146,14 @@ declare global {
      *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
      * @param customVarData Default is 0.
      */
-    UseActiveItem: ((
-      collectibleType: CollectibleType,
-      useFlag?: UseFlag | BitFlags<UseFlag>,
-      activeSlot?: ActiveSlot | -1,
-      customVarData?: int,
-    ) => void) &
-      ((
+    UseActiveItem:
+      & ((
+        collectibleType: CollectibleType,
+        useFlag?: UseFlag | BitFlags<UseFlag>,
+        activeSlot?: ActiveSlot | -1,
+        customVarData?: int,
+      ) => void)
+      & ((
         collectibleType: CollectibleType,
         showAnim: boolean,
         keepActiveItem: boolean,

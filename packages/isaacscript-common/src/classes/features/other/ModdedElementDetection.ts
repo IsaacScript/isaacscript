@@ -90,9 +90,9 @@ export class ModdedElementDetection extends Feature {
     const itemConfigItem = itemConfig.GetCollectible(
       firstModdedCollectibleType,
     );
-    return itemConfigItem === undefined
-      ? undefined
-      : firstModdedCollectibleType;
+    return itemConfigItem === undefined ?
+      undefined :
+      firstModdedCollectibleType;
   }
 
   /**
@@ -466,9 +466,9 @@ export class ModdedElementDetection extends Feature {
     const itemConfigPillEffect = itemConfig.GetPillEffect(
       firstModdedPillEffect,
     );
-    return itemConfigPillEffect === undefined
-      ? undefined
-      : firstModdedPillEffect;
+    return itemConfigPillEffect === undefined ?
+      undefined :
+      firstModdedPillEffect;
   }
 
   /**

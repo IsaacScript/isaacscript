@@ -132,12 +132,12 @@ export function shouldFireEntity(
   fireArgs:
     | [entity: Entity]
     | [
-        entity: Entity,
-        amount: number,
-        damageFlags: BitFlags<DamageFlag>,
-        source: EntityRef,
-        countdownFrames: number,
-      ],
+      entity: Entity,
+      amount: number,
+      damageFlags: BitFlags<DamageFlag>,
+      source: EntityRef,
+      countdownFrames: number,
+    ],
   optionalArgs: [entityType?: EntityType, variant?: int, subType?: int],
 ): boolean {
   const [entity] = fireArgs;
@@ -191,11 +191,11 @@ export function shouldFireGridEntityCustom(
   fireArgs:
     | [gridEntity: GridEntity, gridEntityTypeCustom: GridEntityType]
     | [
-        gridEntity: GridEntity,
-        gridEntityTypeCustom: GridEntityType,
-        oldState: int,
-        newState: int,
-      ],
+      gridEntity: GridEntity,
+      gridEntityTypeCustom: GridEntityType,
+      oldState: int,
+      newState: int,
+    ],
   optionalArgs: [gridEntityTypeCustom?: GridEntityType],
 ): boolean {
   const [_gridEntity, gridEntityTypeCustom] = fireArgs;
@@ -291,12 +291,12 @@ export function shouldFirePickup(
     | [pickup: EntityPickup, player: EntityPlayer]
     | [pickup: EntityPickup, previousState: int, currentState: int]
     | [
-        pickup: EntityPickup,
-        oldVariant: PickupVariant,
-        oldSubType: int,
-        newVariant: PickupVariant,
-        newSubType: int,
-      ],
+      pickup: EntityPickup,
+      oldVariant: PickupVariant,
+      oldSubType: int,
+      newVariant: PickupVariant,
+      newSubType: int,
+    ],
   optionalArgs: [pickupVariant?: PickupVariant, subType?: int],
 ): boolean {
   const [pickup] = fireArgs;
@@ -330,26 +330,26 @@ export function shouldFirePlayer(
     | [player: EntityPlayer, collectible: EntityPickupCollectible]
     | [player: EntityPlayer, oldCharacter: PlayerType, newCharacter: PlayerType]
     | [
-        player: EntityPlayer,
-        healthType: HealthType,
-        difference: int,
-        oldValue: int,
-        newValue: int,
-      ]
+      player: EntityPlayer,
+      healthType: HealthType,
+      difference: int,
+      oldValue: int,
+      newValue: int,
+    ]
     | [
-        player: EntityPlayer,
-        amount: float,
-        damageFlags: BitFlags<DamageFlag>,
-        source: EntityRef,
-        countdownFrames: int,
-      ]
+      player: EntityPlayer,
+      amount: float,
+      damageFlags: BitFlags<DamageFlag>,
+      source: EntityRef,
+      countdownFrames: int,
+    ]
     | [
-        player: EntityPlayer,
-        playerStat: PlayerStat,
-        difference: int,
-        oldValue: PossibleStatType,
-        newValue: PossibleStatType,
-      ],
+      player: EntityPlayer,
+      playerStat: PlayerStat,
+      difference: int,
+      oldValue: PossibleStatType,
+      newValue: PossibleStatType,
+    ],
   optionalArgs: [playerVariant?: PlayerVariant, character?: PlayerType],
 ): boolean {
   const [player] = fireArgs;

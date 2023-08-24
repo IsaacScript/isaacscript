@@ -33,9 +33,11 @@ async function checkForWindowsBugColor(verbose: boolean) {
 
   console.error(
     chalk.red(
-      `Error: It looks like you are using Git Bash for Windows (MINGW64) without the "${chalk.green(
-        "FORCE_COLOR",
-      )}" environment variable.`,
+      `Error: It looks like you are using Git Bash for Windows (MINGW64) without the "${
+        chalk.green(
+          "FORCE_COLOR",
+        )
+      }" environment variable.`,
     ),
   );
   console.error(
@@ -54,9 +56,9 @@ async function checkForWindowsBugColor(verbose: boolean) {
 
 function applyFixesToBashProfile(verbose: boolean) {
   // Check to see if the Bash profile has data.
-  const bashProfileContents = fileExists(BASH_PROFILE_PATH, verbose)
-    ? readFile(BASH_PROFILE_PATH, verbose)
-    : "";
+  const bashProfileContents = fileExists(BASH_PROFILE_PATH, verbose) ?
+    readFile(BASH_PROFILE_PATH, verbose) :
+    "";
 
   const appendText = getBashProfileAppendText(bashProfileContents);
 

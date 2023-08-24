@@ -22,7 +22,9 @@ const v = {
   },
 };
 
-export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_STAT> {
+export class PostPlayerChangeStat
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_STAT>
+{
   public override v = v;
 
   constructor() {
@@ -56,11 +58,11 @@ export class PostPlayerChangeStat extends CustomCallback<ModCallbackCustom.POST_
       }
 
       if (!statEquals(storedStatValue, currentStatValue)) {
-        const isNumberStat =
-          isNumber(storedStatValue) && isNumber(currentStatValue);
-        const difference = isNumberStat
-          ? currentStatValue - storedStatValue
-          : 0;
+        const isNumberStat = isNumber(storedStatValue) &&
+          isNumber(currentStatValue);
+        const difference = isNumberStat ?
+          currentStatValue - storedStatValue :
+          0;
         this.fire(
           player,
           statType,
@@ -103,6 +105,6 @@ function statEquals(
   }
 
   error(
-    'Failed to determine the type of a stat in the "POST_PLAYER_CHANGE_STAT" callback.',
+    "Failed to determine the type of a stat in the \"POST_PLAYER_CHANGE_STAT\" callback.",
   );
 }

@@ -137,8 +137,8 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
   const normalAndBoneHeartContainers = effectiveMaxHearts / 2;
   const soulHearts = player.GetSoulHearts();
   const soulHeartContainers = math.ceil(soulHearts / 2);
-  const totalHeartContainers =
-    normalAndBoneHeartContainers + soulHeartContainers;
+  const totalHeartContainers = normalAndBoneHeartContainers +
+    soulHeartContainers;
   const brokenHearts = player.GetBrokenHearts();
   const totalOccupiedHeartSlots = totalHeartContainers + brokenHearts;
 
@@ -403,9 +403,9 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
       CollectibleType.GREEDS_GULLET,
     );
     const coins = player.GetNumCoins();
-    const greedsGulletCoinContainers = hasGreedsGullet
-      ? Math.floor(coins / 25)
-      : 0;
+    const greedsGulletCoinContainers = hasGreedsGullet ?
+      Math.floor(coins / 25) :
+      0;
 
     return (
       characterMaxHeartContainers +
@@ -697,11 +697,12 @@ export function wouldDamageTaintedMagdaleneNonTemporaryHeartContainers(
   // Account for rotten hearts eating away at more red hearts than usual.
   const hearts = player.GetHearts();
   const rottenHearts = player.GetRottenHearts();
-  const effectiveDamageAmount =
-    damageAmount + Math.min(rottenHearts, damageAmount);
+  const effectiveDamageAmount = damageAmount +
+    Math.min(rottenHearts, damageAmount);
 
   const heartsAfterDamage = hearts - effectiveDamageAmount;
-  const nonTemporaryMaxHearts =
-    getTaintedMagdaleneNonTemporaryMaxHearts(player);
+  const nonTemporaryMaxHearts = getTaintedMagdaleneNonTemporaryMaxHearts(
+    player,
+  );
   return heartsAfterDamage < nonTemporaryMaxHearts;
 }

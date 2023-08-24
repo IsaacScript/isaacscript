@@ -5,7 +5,7 @@
   "compilerOptions": {
     "outDir": "../../dist/packages/eslint-config-isaacscript",
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": true
   },
 
   "include": [
@@ -24,6 +24,6 @@
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+    "./**/.*.tsx"
+  ]
 }

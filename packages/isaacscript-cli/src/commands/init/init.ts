@@ -86,7 +86,7 @@ async function openVSCode(
   const VSCodeCommand = getVSCodeCommand();
   if (VSCodeCommand === undefined) {
     console.log(
-      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
+      "VSCode does not seem to be installed. (The \"code\" command is not in the path.) Skipping VSCode-related things.",
     );
     return;
   }
@@ -119,10 +119,13 @@ function printFinishMessage(
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
   }
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
-  commandsToType += `"${chalk.green(
-    `${packageManagerExecCommand} isaacscript`,
-  )}"`;
+  const packageManagerExecCommand = getPackageManagerExecCommand(
+    packageManager,
+  );
+  commandsToType += `"${
+    chalk.green(
+      `${packageManagerExecCommand} isaacscript`,
+    )
+  }"`;
   console.log(`Now, start ${PROJECT_NAME} by typing ${commandsToType}.`);
 }

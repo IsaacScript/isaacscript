@@ -36,7 +36,7 @@ export function getPartialMatch(
   searchText = searchText.replaceAll(" ", "");
 
   const matchingElements = array.filter((element) =>
-    element.toLowerCase().startsWith(searchText),
+    element.toLowerCase().startsWith(searchText)
   );
   matchingElements.sort();
 

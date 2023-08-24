@@ -15,7 +15,9 @@ const v = {
   },
 };
 
-export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL> {
+export class PreNewLevel
+  extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
+{
   public override v = v;
 
   constructor() {

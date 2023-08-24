@@ -32,7 +32,9 @@ const v = {
   },
 };
 
-export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE> {
+export class PostPlayerFatalDamage
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE>
+{
   public override v = v;
 
   constructor() {

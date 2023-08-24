@@ -213,11 +213,13 @@ export function playVersusScreenAnimation(
   }
   versusScreenDirtSpotSprite.Color = dirtSpotColor;
 
-  for (const sprite of [
-    versusScreenBackgroundSprite,
-    versusScreenDirtSpotSprite,
-    versusScreenSprite,
-  ]) {
+  for (
+    const sprite of [
+      versusScreenBackgroundSprite,
+      versusScreenDirtSpotSprite,
+      versusScreenSprite,
+    ]
+  ) {
     sprite.Play(VERSUS_SCREEN_ANIMATION_NAME, true);
     sprite.PlaybackSpeed = VANILLA_VERSUS_PLAYBACK_SPEED;
   }
@@ -242,7 +244,8 @@ function getPlayerPNGPaths(): {
   const namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
   const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
   const portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
-  const portraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${portraitFileName}`;
+  const portraitPNGPath =
+    `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${portraitFileName}`;
 
   return { namePNGPath, portraitPNGPath };
 }

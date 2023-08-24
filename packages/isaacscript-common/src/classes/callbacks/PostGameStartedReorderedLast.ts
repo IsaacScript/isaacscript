@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBoolean } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostGameStartedReorderedLast extends CustomCallback<ModCallbackCustom.POST_GAME_STARTED_REORDERED> {
+export class PostGameStartedReorderedLast
+  extends CustomCallback<ModCallbackCustom.POST_GAME_STARTED_REORDERED>
+{
   constructor() {
     super();
 

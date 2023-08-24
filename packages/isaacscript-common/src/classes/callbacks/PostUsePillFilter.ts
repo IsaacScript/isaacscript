@@ -33,7 +33,9 @@ const v = {
  * the reverse Temperance card. In this case, we fall back to looking up the color using the
  * `ItemPool.GetPillEffect` method.
  */
-export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE_PILL_FILTER> {
+export class PostUsePillFilter
+  extends CustomCallback<ModCallbackCustom.POST_USE_PILL_FILTER>
+{
   public override v = v;
 
   constructor() {

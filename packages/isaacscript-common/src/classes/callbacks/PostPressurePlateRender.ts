@@ -4,7 +4,9 @@ import { getPressurePlates } from "../../functions/gridEntitiesSpecific";
 import { shouldFirePressurePlate } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPressurePlateRender extends CustomCallback<ModCallbackCustom.POST_PRESSURE_PLATE_RENDER> {
+export class PostPressurePlateRender
+  extends CustomCallback<ModCallbackCustom.POST_PRESSURE_PLATE_RENDER>
+{
   constructor() {
     super();
 

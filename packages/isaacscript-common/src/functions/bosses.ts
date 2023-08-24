@@ -65,9 +65,9 @@ export function getAliveBosses(
 export function getAllBossesSet(
   includeStoryBosses = true,
 ): ReadonlySet<string> {
-  return includeStoryBosses
-    ? ALL_BOSSES_SET
-    : ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET;
+  return includeStoryBosses ?
+    ALL_BOSSES_SET :
+    ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET;
 }
 
 /**

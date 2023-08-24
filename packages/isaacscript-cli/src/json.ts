@@ -25,9 +25,11 @@ export function getJSONC(
 
   if (!isRecord(json)) {
     fatalError(
-      `Failed to parse "${chalk.green(
-        filePath,
-      )}", since the contents were not an object.`,
+      `Failed to parse "${
+        chalk.green(
+          filePath,
+        )
+      }", since the contents were not an object.`,
     );
   }
 

@@ -89,11 +89,11 @@ export function doorSlotsToDoorSlotFlags(
     | Set<DoorSlot>
     | ReadonlySet<DoorSlot>,
 ): BitFlags<DoorSlotFlag> {
-  const doorSlotArray = isTSTLSet(doorSlots)
-    ? [...doorSlots.values()]
-    : (doorSlots as DoorSlot[]);
+  const doorSlotArray = isTSTLSet(doorSlots) ?
+    [...doorSlots.values()] :
+    (doorSlots as DoorSlot[]);
   const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
-    doorSlotToDoorSlotFlag(doorSlot),
+    doorSlotToDoorSlotFlag(doorSlot)
   );
 
   return arrayToBitFlags(doorSlotFlagArray);
@@ -126,9 +126,9 @@ export function getDevilRoomDoor(): GridEntityDoor | undefined {
  */
 export function getDevilRoomOrAngelRoomDoor(): GridEntityDoor | undefined {
   const devilRoomOrAngelRoomDoors = getDoors(RoomType.DEVIL, RoomType.ANGEL);
-  return devilRoomOrAngelRoomDoors.length === 0
-    ? undefined
-    : devilRoomOrAngelRoomDoors[0];
+  return devilRoomOrAngelRoomDoors.length === 0 ?
+    undefined :
+    devilRoomOrAngelRoomDoors[0];
 }
 
 /**
@@ -262,9 +262,11 @@ export function getRoomShapeDoorSlot(
     roomShape
   ] as Record<DoorSlot, readonly [x: int, y: int]>;
 
-  for (const [doorSlotString, coordinates] of Object.entries(
-    doorSlotCoordinates,
-  )) {
+  for (
+    const [doorSlotString, coordinates] of Object.entries(
+      doorSlotCoordinates,
+    )
+  ) {
     const doorSlot = tonumber(doorSlotString) as DoorSlot;
     const [doorX, doorY] = coordinates;
     if (x === doorX && y === doorY) {
@@ -316,7 +318,7 @@ export function getUnusedDoorSlots(): DoorSlot[] {
 export function hasDoorType(...roomTypes: RoomType[]): boolean {
   const doors = getDoors();
   const doorsOfThisRoomType = doors.filter((door) =>
-    roomTypes.some((roomType) => door.IsRoomType(roomType)),
+    roomTypes.some((roomType) => door.IsRoomType(roomType))
   );
   return doorsOfThisRoomType.length > 0;
 }

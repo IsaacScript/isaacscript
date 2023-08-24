@@ -19,9 +19,9 @@ import { getPlayerFromPtr } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
 import type { PickingUpItem } from "../../../types/PickingUpItem";
 import type { PlayerIndex } from "../../../types/PlayerIndex";
-import { DefaultMap } from "../../DefaultMap";
 import type { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
 import type { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
+import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import type { ModdedElementSets } from "../other/ModdedElementSets";
 import type { RunInNFrames } from "../other/RunInNFrames";
@@ -101,8 +101,9 @@ export class PlayerCollectibleDetection extends Feature {
       v.run.playersCollectibleMap,
       player,
     );
-    const newCollectibleMap =
-      this.moddedElementSets.getPlayerCollectibleMap(player);
+    const newCollectibleMap = this.moddedElementSets.getPlayerCollectibleMap(
+      player,
+    );
     mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
 
     const collectibleTypesSet = new Set<CollectibleType>([
@@ -250,8 +251,8 @@ export class PlayerCollectibleDetection extends Feature {
     const newCollectibleTypes: CollectibleType[] = [];
 
     for (const activeSlot of ACTIVE_SLOT_VALUES) {
-      const oldCollectibleType =
-        activeItemMap.get(activeSlot) ?? CollectibleType.NULL;
+      const oldCollectibleType = activeItemMap.get(activeSlot) ??
+        CollectibleType.NULL;
       const newCollectibleType = player.GetActiveItem(activeSlot);
       activeItemMap.set(activeSlot, newCollectibleType);
 

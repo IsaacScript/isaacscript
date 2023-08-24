@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PreCustomRevive extends CustomCallback<ModCallbackCustom.PRE_CUSTOM_REVIVE> {
+export class PreCustomRevive
+  extends CustomCallback<ModCallbackCustom.PRE_CUSTOM_REVIVE>
+{
   constructor() {
     super();
 

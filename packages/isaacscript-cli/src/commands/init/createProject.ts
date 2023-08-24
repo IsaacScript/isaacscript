@@ -180,7 +180,8 @@ function copyDynamicFiles(
       separatorLine += "-";
     });
     separatorLine += "\n";
-    const gitIgnoreHeader = `${separatorLine}# ${projectName}\n${separatorLine}\n`;
+    const gitIgnoreHeader =
+      `${separatorLine}# ${projectName}\n${separatorLine}\n`;
     const nodeGitIgnorePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       "Node.gitignore",
@@ -198,9 +199,9 @@ function copyDynamicFiles(
   // `package.json`
   {
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const packageJSONTemplateFileName = typeScript
-      ? "package.ts.json"
-      : "package.mod.json";
+    const packageJSONTemplateFileName = typeScript ?
+      "package.ts.json" :
+      "package.mod.json";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       packageJSONTemplateFileName,
@@ -219,9 +220,9 @@ function copyDynamicFiles(
   // `README.md`
   {
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const readmeMDTemplateFileName = typeScript
-      ? "README.ts.md"
-      : "README.mod.md";
+    const readmeMDTemplateFileName = typeScript ?
+      "README.ts.md" :
+      "README.mod.md";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       readmeMDTemplateFileName,
@@ -286,8 +287,8 @@ function parseTemplate(template: string, typeScript: boolean): string {
     templateWithoutMarkers,
     "@template",
   );
-  const templateWithoutMultipleLineBreaks =
-    templateWithoutTemplateComments.replaceAll(/\n\s*\n\s*\n/g, "\n\n");
+  const templateWithoutMultipleLineBreaks = templateWithoutTemplateComments
+    .replaceAll(/\n\s*\n\s*\n/g, "\n\n");
 
   return templateWithoutMultipleLineBreaks;
 }
@@ -322,10 +323,11 @@ function updateNodeModules(
   verbose: boolean,
 ) {
   console.log(
-    'Finding out the latest versions of the packages with "npm-check-updates"...',
+    "Finding out the latest versions of the packages with \"npm-check-updates\"...",
   );
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
+  const packageManagerExecCommand = getPackageManagerExecCommand(
+    packageManager,
+  );
   execShell(
     packageManagerExecCommand,
     [
@@ -364,8 +366,9 @@ function formatFiles(
   packageManager: PackageManager,
   verbose: boolean,
 ) {
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
+  const packageManagerExecCommand = getPackageManagerExecCommand(
+    packageManager,
+  );
   execShell(
     packageManagerExecCommand,
     ["prettier", "--write", projectPath],

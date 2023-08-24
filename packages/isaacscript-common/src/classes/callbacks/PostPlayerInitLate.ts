@@ -13,7 +13,9 @@ const v = {
   },
 };
 
-export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_LATE> {
+export class PostPlayerInitLate
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

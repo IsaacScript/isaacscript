@@ -5,7 +5,9 @@ import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_CUSTOM_REVIVE;
 
-export class PostCustomRevive extends CustomCallback<ModCallbackCustom.POST_CUSTOM_REVIVE> {
+export class PostCustomRevive
+  extends CustomCallback<ModCallbackCustom.POST_CUSTOM_REVIVE>
+{
   constructor() {
     super();
 

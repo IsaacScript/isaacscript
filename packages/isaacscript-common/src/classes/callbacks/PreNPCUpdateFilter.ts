@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PreNPCUpdateFilter extends CustomCallback<ModCallbackCustom.PRE_NPC_UPDATE_FILTER> {
+export class PreNPCUpdateFilter
+  extends CustomCallback<ModCallbackCustom.PRE_NPC_UPDATE_FILTER>
+{
   constructor() {
     super();
 

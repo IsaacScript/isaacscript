@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostProjectileRenderFilter extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_RENDER_FILTER> {
+export class PostProjectileRenderFilter
+  extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_RENDER_FILTER>
+{
   constructor() {
     super();
 

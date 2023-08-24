@@ -4,7 +4,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class EntityTakeDmgPlayer extends CustomCallback<ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER> {
+export class EntityTakeDmgPlayer
+  extends CustomCallback<ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER>
+{
   constructor() {
     super();
 

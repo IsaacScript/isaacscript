@@ -12,7 +12,7 @@ For most purposes, it is not important to know the low-level details - you can u
 
 "Enum" is short for "enumeration". In programming, the term is used to describe an object that contains a finite set of values.
 
-TypeScript has first-class support for enums. This means that you can type the word `enum` to create one, and this is part of the language itself, which is really handy. In good code, enums are used a lot: they get rid of [magic numbers](<https://en.wikipedia.org/wiki/Magic_number_(programming)>) and constrain possible values to a finite set.
+TypeScript has first-class support for enums. This means that you can type the word `enum` to create one, and this is part of the language itself, which is really handy. In good code, enums are used a lot: they get rid of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)) and constrain possible values to a finite set.
 
 For example, this is the enum that describes the four different kinds of slots that active items can go into:
 

@@ -4,7 +4,9 @@ import { getPoops } from "../../functions/gridEntitiesSpecific";
 import { shouldFirePoop } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPoopUpdate extends CustomCallback<ModCallbackCustom.POST_POOP_UPDATE> {
+export class PostPoopUpdate
+  extends CustomCallback<ModCallbackCustom.POST_POOP_UPDATE>
+{
   constructor() {
     super();
 

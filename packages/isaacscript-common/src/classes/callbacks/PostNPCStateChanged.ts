@@ -13,7 +13,9 @@ const v = {
   },
 };
 
-export class PostNPCStateChanged extends CustomCallback<ModCallbackCustom.POST_NPC_STATE_CHANGED> {
+export class PostNPCStateChanged
+  extends CustomCallback<ModCallbackCustom.POST_NPC_STATE_CHANGED>
+{
   public override v = v;
 
   constructor() {

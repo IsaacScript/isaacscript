@@ -167,10 +167,10 @@ function splitOnSpecialText(text: string): string[] {
     // - apple
     // - banana
     const previousLine = lines[i - 1];
-    const previousLineWasBlank = previousLine === undefined
-      || previousLine.trim() === "";
-    const previousLineEndedInColon = previousLine !== undefined
-      && previousLine.trimEnd().endsWith(":");
+    const previousLineWasBlank = previousLine === undefined ||
+      previousLine.trim() === "";
+    const previousLineEndedInColon = previousLine !== undefined &&
+      previousLine.trimEnd().endsWith(":");
     const list = getAdjustedList(
       line,
       previousLineWasBlank,
@@ -224,28 +224,28 @@ function getIncompleteSentenceKind(
   // Ignore / whitelist some specific things.
   if (
     // Blank text.
-    text === ""
+    text === "" ||
     // Sentences that do not contain any letters.
-    || !/[A-Za-z]/.test(text)
+    !/[A-Za-z]/.test(text) ||
     // Sentences with an arrow, like: "Alice --> Bob"
-    || text.includes("-->")
+    text.includes("-->") ||
     // Placeholder text.
-    || text === "n/a"
+    text === "n/a" ||
     // Special comments.
-    || isSpecialComment(text)
+    isSpecialComment(text) ||
     // Dates.
-    || isDate(text)
+    isDate(text) ||
     // URLS.
-    || hasURL(text)
+    hasURL(text) ||
     // Single JSDoc tags.
-    || /^@\w+$/.test(text)
+    /^@\w+$/.test(text) ||
     // Lists.
-    || text.startsWith(LIST_ELEMENT_IDENTIFIER)
+    text.startsWith(LIST_ELEMENT_IDENTIFIER) ||
     // Code blocks.
-    || text.includes("```")
+    text.includes("```") ||
     // Sentences that end with a number in parenthesis (which indicates some kind of expression).
     // This must check the original text.
-    || / \(\d+\)$/.test(sentence.trimEnd())
+    / \(\d+\)$/.test(sentence.trimEnd())
   ) {
     return undefined;
   }
@@ -259,10 +259,10 @@ function getIncompleteSentenceKind(
   }
 
   if (
-    loneSentence
+    loneSentence &&
     // Single words, double words, and triple words.
-    && (/^\S+$/.test(text) || /^\S+ \S+$/.test(text)
-      || /^\S+ \S+ \S+$/.test(text))
+    (/^\S+$/.test(text) || /^\S+ \S+$/.test(text) ||
+      /^\S+ \S+ \S+$/.test(text))
   ) {
     return undefined;
   }
@@ -273,23 +273,23 @@ function getIncompleteSentenceKind(
 
   if (
     // Allow normal end-of-line punctuation.
-    !text.endsWith(".")
-    && !text.endsWith("!")
-    && !text.endsWith("?")
+    !text.endsWith(".") &&
+    !text.endsWith("!") &&
+    !text.endsWith("?") &&
     // Allow ending with a period inside of a single quote or double quote, since it is implied that
     // this is a fully quoted sentence.
-    && !text.endsWith(".\"")
-    && !text.endsWith("!\"")
-    && !text.endsWith("?\"")
-    && !text.endsWith(".'")
-    && !text.endsWith("!'")
-    && !text.endsWith("?'")
+    !text.endsWith(".\"") &&
+    !text.endsWith("!\"") &&
+    !text.endsWith("?\"") &&
+    !text.endsWith(".'") &&
+    !text.endsWith("!'") &&
+    !text.endsWith("?'") &&
     // Allow ending with a colon, since it is implied that there is an example of something on the
     // subsequent block.
-    && !text.endsWith(":")
+    !text.endsWith(":") &&
     // Allow ending with anything if there is a colon in the middle of the sentence, since it is
     // implied that this is an example of something.
-    && !text.includes(": ")
+    !text.includes(": ")
   ) {
     return "missingPeriod";
   }
@@ -327,10 +327,10 @@ function isDate(text: string) {
   if (match1 !== null && match1.groups !== undefined) {
     const { month, ordinal } = match1.groups;
     if (
-      month !== undefined
-      && MONTHS_SET.has(month)
-      && ordinal !== undefined
-      && ORDINALS_SET.has(ordinal)
+      month !== undefined &&
+      MONTHS_SET.has(month) &&
+      ordinal !== undefined &&
+      ORDINALS_SET.has(ordinal)
     ) {
       return true;
     }
@@ -340,10 +340,10 @@ function isDate(text: string) {
   if (match2 !== null && match2.groups !== undefined) {
     const { month, ordinal } = match2.groups;
     if (
-      month !== undefined
-      && MONTHS_SET.has(month)
-      && ordinal !== undefined
-      && ORDINALS_SET.has(ordinal)
+      month !== undefined &&
+      MONTHS_SET.has(month) &&
+      ordinal !== undefined &&
+      ORDINALS_SET.has(ordinal)
     ) {
       return true;
     }

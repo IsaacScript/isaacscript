@@ -35,6 +35,8 @@ export function getGridIndexesBetween(
   }
 
   error(
-    `Failed to get the grid indexes between ${gridIndex1} and ${gridIndex2} for RoomShape.${RoomShape[roomShape]} (${roomShape}) since they are not on the same horizontal or vertical line.`,
+    `Failed to get the grid indexes between ${gridIndex1} and ${gridIndex2} for RoomShape.${
+      RoomShape[roomShape]
+    } (${roomShape}) since they are not on the same horizontal or vertical line.`,
   );
 }

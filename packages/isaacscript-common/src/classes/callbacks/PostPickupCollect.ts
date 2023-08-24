@@ -10,7 +10,9 @@ const v = {
   },
 };
 
-export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PICKUP_COLLECT> {
+export class PostPickupCollect
+  extends CustomCallback<ModCallbackCustom.POST_PICKUP_COLLECT>
+{
   public override v = v;
 
   constructor() {

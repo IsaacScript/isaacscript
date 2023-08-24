@@ -48,9 +48,9 @@ const GREED_MODE_ITEM_POOL_TYPES: readonly ItemPoolType[] = arrayRemove(
  * Greed Mode item pools should be excluded if not playing in Greed Mode.
  */
 export function getRandomItemPool(): ItemPoolType {
-  const itemPoolTypes = isGreedMode()
-    ? GREED_MODE_ITEM_POOL_TYPES
-    : NORMAL_MODE_ITEM_POOL_TYPES;
+  const itemPoolTypes = isGreedMode() ?
+    GREED_MODE_ITEM_POOL_TYPES :
+    NORMAL_MODE_ITEM_POOL_TYPES;
   return getRandomArrayElement(itemPoolTypes);
 }
 

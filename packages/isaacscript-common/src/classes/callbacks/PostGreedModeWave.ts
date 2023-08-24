@@ -10,7 +10,9 @@ const v = {
   },
 };
 
-export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GREED_MODE_WAVE> {
+export class PostGreedModeWave
+  extends CustomCallback<ModCallbackCustom.POST_GREED_MODE_WAVE>
+{
   public override v = v;
 
   constructor() {

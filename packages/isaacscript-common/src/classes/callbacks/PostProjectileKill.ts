@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostProjectileKill extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_KILL> {
+export class PostProjectileKill
+  extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_KILL>
+{
   public override v = v;
 
   constructor() {

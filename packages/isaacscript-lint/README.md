@@ -156,9 +156,9 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
 You can add extra ESLint rules (or ignore existing ESLint rules) by editing the `rules` section of your `.eslintrc.cjs` file. For example:
 
 ```js
-  rules: {
-    "@typescript-eslint/no-unused-vars": "off",
-  },
+rules: {
+  "@typescript-eslint/no-unused-vars": "off",
+},
 ```
 
 <br>

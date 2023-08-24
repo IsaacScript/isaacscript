@@ -1,7 +1,8 @@
 import { parseIntSafe } from "./utils.js";
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
-const KEBAB_CASE_REGEX = /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
+const KEBAB_CASE_REGEX =
+  /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
 
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {

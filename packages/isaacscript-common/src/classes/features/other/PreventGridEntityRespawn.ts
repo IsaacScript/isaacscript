@@ -105,8 +105,8 @@ export class PreventGridEntityRespawn extends Feature {
       futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
       v.room.manuallyUsingShovel = false;
 
-      const decorationGridIndexes =
-        v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+      const decorationGridIndexes = v.level.roomListIndexToDecorationGridIndexes
+        .getAndSetDefault(
           roomListIndex,
         );
       emptyArray(decorationGridIndexes);
@@ -129,8 +129,8 @@ export class PreventGridEntityRespawn extends Feature {
   private setDecorationsInvisible() {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
-    const decorationGridIndexes =
-      v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
+    const decorationGridIndexes = v.level.roomListIndexToDecorationGridIndexes
+      .get(roomListIndex);
     if (decorationGridIndexes === undefined) {
       return;
     }
@@ -176,8 +176,8 @@ export class PreventGridEntityRespawn extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
 
-    const decorationGridIndexes =
-      v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+    const decorationGridIndexes = v.level.roomListIndexToDecorationGridIndexes
+      .getAndSetDefault(
         roomListIndex,
       );
 

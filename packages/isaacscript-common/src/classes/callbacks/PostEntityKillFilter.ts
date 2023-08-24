@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireEntity } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostEntityKillFilter extends CustomCallback<ModCallbackCustom.POST_ENTITY_KILL_FILTER> {
+export class PostEntityKillFilter
+  extends CustomCallback<ModCallbackCustom.POST_ENTITY_KILL_FILTER>
+{
   constructor() {
     super();
 

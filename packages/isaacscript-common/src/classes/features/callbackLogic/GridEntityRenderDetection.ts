@@ -31,8 +31,8 @@ export class GridEntityRenderDetection extends Feature {
   private readonly postRender = () => {
     for (const gridEntity of getGridEntities()) {
       const gridIndex = gridEntity.GetGridIndex();
-      const gridEntityTypeCustom =
-        this.customGridEntities.getCustomGridEntityType(gridIndex);
+      const gridEntityTypeCustom = this.customGridEntities
+        .getCustomGridEntityType(gridIndex);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityRender.fire(gridEntity);
       } else {

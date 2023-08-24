@@ -5,8 +5,8 @@ import { CornerType } from "../enums/CornerType";
 import type { Corner } from "../interfaces/Corner";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getGridIndexesBetween } from "./gridIndex";
-import { getRoomShapeCorners, isLRoomShape } from "./roomShape";
 import { inBossRoomOf, inHomeCloset } from "./rooms";
+import { getRoomShapeCorners, isLRoomShape } from "./roomShape";
 
 const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET: ReadonlyMap<
   RoomShape,
@@ -30,7 +30,9 @@ function getVanillaWallGridIndexSetForRoomShape(
 
   if (lRoom && corners.length !== 6) {
     error(
-      `Failed to get the correct amount of corners for: RoomShape.${RoomShape[roomShape]} (${roomShape})`,
+      `Failed to get the correct amount of corners for: RoomShape.${
+        RoomShape[roomShape]
+      } (${roomShape})`,
     );
   }
 
@@ -333,7 +335,9 @@ export function isVanillaWallGridIndex(gridIndex: int): boolean {
 
   if (wallGridIndexSet === undefined) {
     error(
-      `Failed to find the wall grid index set for: RoomShape.${RoomShape[roomShape]} (${roomShape})`,
+      `Failed to find the wall grid index set for: RoomShape.${
+        RoomShape[roomShape]
+      } (${roomShape})`,
     );
   }
 

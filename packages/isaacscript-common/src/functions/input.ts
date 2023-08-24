@@ -77,7 +77,7 @@ export function isActionPressed(
   ...buttonActions: ButtonAction[]
 ): boolean {
   return buttonActions.some((buttonAction) =>
-    Input.IsActionPressed(buttonAction, controllerIndex),
+    Input.IsActionPressed(buttonAction, controllerIndex)
   );
 }
 
@@ -92,7 +92,7 @@ export function isActionPressedOnAnyInput(
   ...buttonActions: ButtonAction[]
 ): boolean {
   return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
-    isActionPressed(controllerIndex, ...buttonActions),
+    isActionPressed(controllerIndex, ...buttonActions)
   );
 }
 
@@ -109,7 +109,7 @@ export function isActionTriggered(
   ...buttonActions: ButtonAction[]
 ): boolean {
   return buttonActions.some((buttonAction) =>
-    Input.IsActionTriggered(buttonAction, controllerIndex),
+    Input.IsActionTriggered(buttonAction, controllerIndex)
   );
 }
 
@@ -124,7 +124,7 @@ export function isActionTriggeredOnAnyInput(
   ...buttonActions: ButtonAction[]
 ): boolean {
   return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
-    isActionTriggered(controllerIndex, ...buttonActions),
+    isActionTriggered(controllerIndex, ...buttonActions)
   );
 }
 
@@ -136,7 +136,7 @@ export function isActionTriggeredOnAnyInput(
  */
 export function isKeyboardPressed(...keys: Keyboard[]): boolean {
   return keys.some((key) =>
-    Input.IsButtonPressed(key, ControllerIndex.KEYBOARD),
+    Input.IsButtonPressed(key, ControllerIndex.KEYBOARD)
   );
 }
 
@@ -159,7 +159,7 @@ export function isMoveActionPressed(controllerIndex: ControllerIndex): boolean {
 
 export function isMoveActionPressedOnAnyInput(): boolean {
   return MOVEMENT_ACTIONS.some((moveAction) =>
-    isActionPressedOnAnyInput(moveAction),
+    isActionPressedOnAnyInput(moveAction)
   );
 }
 
@@ -171,7 +171,7 @@ export function isMoveActionTriggered(
 
 export function isMoveActionTriggeredOnAnyInput(): boolean {
   return MOVEMENT_ACTIONS.some((moveAction) =>
-    isActionTriggeredOnAnyInput(moveAction),
+    isActionTriggeredOnAnyInput(moveAction)
   );
 }
 
@@ -187,7 +187,7 @@ export function isShootActionPressed(
 
 export function isShootActionPressedOnAnyInput(): boolean {
   return SHOOTING_ACTIONS.some((shootAction) =>
-    isActionPressedOnAnyInput(shootAction),
+    isActionPressedOnAnyInput(shootAction)
   );
 }
 
@@ -199,7 +199,7 @@ export function isShootActionTriggered(
 
 export function isShootActionTriggeredOnAnyInput(): boolean {
   return SHOOTING_ACTIONS.some((shootAction) =>
-    isActionTriggeredOnAnyInput(shootAction),
+    isActionTriggeredOnAnyInput(shootAction)
   );
 }
 

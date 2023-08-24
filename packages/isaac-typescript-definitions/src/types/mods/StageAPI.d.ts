@@ -231,12 +231,13 @@ declare global {
       suffix: string,
     ) => StageAPIBackdrop[];
 
-    ChangeBackdrop: ((
-      backdrop: StageAPIBackdrop,
-      justWalls?: boolean,
-      storeBackdropEntities?: false,
-    ) => void) &
-      ((
+    ChangeBackdrop:
+      & ((
+        backdrop: StageAPIBackdrop,
+        justWalls?: boolean,
+        storeBackdropEntities?: false,
+      ) => void)
+      & ((
         backdrop: StageAPIBackdrop,
         justWalls: boolean,
         storeBackdropEntities: true,

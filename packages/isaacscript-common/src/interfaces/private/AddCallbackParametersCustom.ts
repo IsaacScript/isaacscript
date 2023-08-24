@@ -422,21 +422,21 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.POST_ITEM_PICKUP]:
     | [callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void]
     | [
-        callback: (
-          player: EntityPlayer,
-          pickingUpItem: PickingUpItemCollectible,
-        ) => void,
-        itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
-        collectibleType?: CollectibleType,
-      ]
+      callback: (
+        player: EntityPlayer,
+        pickingUpItem: PickingUpItemCollectible,
+      ) => void,
+      itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
+      collectibleType?: CollectibleType,
+    ]
     | [
-        callback: (
-          player: EntityPlayer,
-          pickingUpItem: PickingUpItemTrinket,
-        ) => void,
-        itemType: ItemType.TRINKET,
-        trinketType?: TrinketType,
-      ];
+      callback: (
+        player: EntityPlayer,
+        pickingUpItem: PickingUpItemTrinket,
+      ) => void,
+      itemType: ItemType.TRINKET,
+      trinketType?: TrinketType,
+    ];
 
   [ModCallbackCustom.POST_KEYBOARD_CHANGED]: [
     callback: (keyboard: Keyboard, pressed: boolean) => void,
@@ -975,21 +975,21 @@ export interface AddCallbackParametersCustom {
   [ModCallbackCustom.PRE_ITEM_PICKUP]:
     | [callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void]
     | [
-        callback: (
-          player: EntityPlayer,
-          pickingUpItem: PickingUpItemCollectible,
-        ) => void,
-        itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
-        collectibleType?: CollectibleType,
-      ]
+      callback: (
+        player: EntityPlayer,
+        pickingUpItem: PickingUpItemCollectible,
+      ) => void,
+      itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
+      collectibleType?: CollectibleType,
+    ]
     | [
-        callback: (
-          player: EntityPlayer,
-          pickingUpItem: PickingUpItemTrinket,
-        ) => void,
-        itemType: ItemType.TRINKET,
-        trinketType?: TrinketType,
-      ];
+      callback: (
+        player: EntityPlayer,
+        pickingUpItem: PickingUpItemTrinket,
+      ) => void,
+      itemType: ItemType.TRINKET,
+      trinketType?: TrinketType,
+    ];
 
   [ModCallbackCustom.PRE_KNIFE_COLLISION_FILTER]: [
     callback: (

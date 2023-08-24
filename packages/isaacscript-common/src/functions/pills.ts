@@ -14,8 +14,8 @@ import {
   LAST_NORMAL_PILL_COLOR,
   LAST_VANILLA_PILL_EFFECT,
 } from "../core/constantsFirstLast";
-import { PHD_PILL_CONVERSIONS } from "../maps/PHDPillConversions";
 import { FALSE_PHD_PILL_CONVERSIONS } from "../maps/falsePHDPillConversions";
+import { PHD_PILL_CONVERSIONS } from "../maps/PHDPillConversions";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,

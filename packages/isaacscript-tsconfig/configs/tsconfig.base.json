@@ -30,6 +30,6 @@
     // The "strictest" config has the "checkJs" flag set to true. However, this can cause false
     // positives with JavaScript config files located in the root of the project directory (like the
     // ESLint config file). For pure TypeScript projects, having this set to true is unnecessary.
-    "checkJs": false,
-  },
+    "checkJs": false
+  }
 }

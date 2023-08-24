@@ -83,10 +83,9 @@ export class SlotDestroyedDetection extends Feature {
   private postEntityRemoveBeggar(slot: EntitySlot) {
     const sprite = slot.GetSprite();
     const animation = sprite.GetAnimation();
-    const slotDestructionType =
-      animation === "Teleport"
-        ? SlotDestructionType.COLLECTIBLE_PAYOUT
-        : SlotDestructionType.NORMAL;
+    const slotDestructionType = animation === "Teleport" ?
+      SlotDestructionType.COLLECTIBLE_PAYOUT :
+      SlotDestructionType.NORMAL;
     this.postSlotDestroyed.fire(slot, slotDestructionType);
   }
 

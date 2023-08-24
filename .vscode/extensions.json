@@ -8,6 +8,6 @@
     "typescript-to-lua.vscode-typescript-to-lua", // The TypeScriptToLua extension
     "redhat.vscode-xml", // The XML language server
     "sumneko.lua", // The Lua language server
-    "ms-python.python", // The Python language server
-  ],
+    "ms-python.python" // The Python language server
+  ]
 }

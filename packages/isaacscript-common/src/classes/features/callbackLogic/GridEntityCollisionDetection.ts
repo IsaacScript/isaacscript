@@ -3,9 +3,9 @@ import {
   getCollidingEntitiesWithGridEntity,
   getGridEntities,
 } from "../../../functions/gridEntities";
-import { DefaultMap } from "../../DefaultMap";
 import type { PostGridEntityCollision } from "../../callbacks/PostGridEntityCollision";
 import type { PostGridEntityCustomCollision } from "../../callbacks/PostGridEntityCustomCollision";
+import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 import type { CustomGridEntities } from "./CustomGridEntities";
 
@@ -50,8 +50,9 @@ export class GridEntityCollisionDetection extends Feature {
     );
     for (const gridEntity of gridEntitiesWithCollision) {
       const gridEntityPtrHash = GetPtrHash(gridEntity);
-      const oldCollidingEntities =
-        v.room.collidingEntitiesMap.getAndSetDefault(gridEntityPtrHash);
+      const oldCollidingEntities = v.room.collidingEntitiesMap.getAndSetDefault(
+        gridEntityPtrHash,
+      );
 
       // Check for new colliding entities.
       const collidingEntities = getCollidingEntitiesWithGridEntity(gridEntity);
@@ -60,8 +61,8 @@ export class GridEntityCollisionDetection extends Feature {
         if (!oldCollidingEntities.has(entityPtrHash)) {
           oldCollidingEntities.add(entityPtrHash);
 
-          const gridEntityTypeCustom =
-            this.customGridEntities.getCustomGridEntityType(gridEntity);
+          const gridEntityTypeCustom = this.customGridEntities
+            .getCustomGridEntityType(gridEntity);
           if (gridEntityTypeCustom === undefined) {
             this.postGridEntityCollision.fire(gridEntity, entity);
           } else {
@@ -76,7 +77,7 @@ export class GridEntityCollisionDetection extends Feature {
 
       // Remove old colliding entities.
       const collidingEntitiesPtrHashes = collidingEntities.map((entity) =>
-        GetPtrHash(entity),
+        GetPtrHash(entity)
       );
       const collidingEntitiesPtrHashSet = new Set(collidingEntitiesPtrHashes);
       for (const oldCollidingEntityPtrHash of oldCollidingEntities) {

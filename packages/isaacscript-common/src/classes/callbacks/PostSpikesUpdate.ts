@@ -4,7 +4,9 @@ import { getSpikes } from "../../functions/gridEntitiesSpecific";
 import { shouldFireSpikes } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSpikesUpdate extends CustomCallback<ModCallbackCustom.POST_SPIKES_RENDER> {
+export class PostSpikesUpdate
+  extends CustomCallback<ModCallbackCustom.POST_SPIKES_RENDER>
+{
   constructor() {
     super();
 

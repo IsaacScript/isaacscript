@@ -57,7 +57,7 @@ export class ItemPoolDetection extends Feature {
   ): CollectibleType[] {
     const collectibleArray = this.moddedElementSets.getCollectibleArray();
     return collectibleArray.filter((collectibleType) =>
-      this.isCollectibleInItemPool(collectibleType, itemPoolType),
+      this.isCollectibleInItemPool(collectibleType, itemPoolType)
     );
   }
 
@@ -105,7 +105,9 @@ export class ItemPoolDetection extends Feature {
     // Blacklist every collectible in the game except for the provided collectible.
     const itemPool = game.GetItemPool();
     itemPool.ResetRoomBlacklist();
-    for (const collectibleTypeInSet of this.moddedElementSets.getCollectibleArray()) {
+    for (
+      const collectibleTypeInSet of this.moddedElementSets.getCollectibleArray()
+    ) {
       if (collectibleTypeInSet !== collectibleType) {
         itemPool.AddRoomBlacklist(collectibleTypeInSet);
       }

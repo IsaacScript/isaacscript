@@ -1,7 +1,7 @@
 {
   "extends": [
     "../../packages/isaacscript-tsconfig/configs/tsconfig.base.json",
-    "../../tsconfig.monorepo.json",
+    "../../tsconfig.monorepo.json"
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
@@ -32,7 +32,7 @@
 
     // Decorators are used to reduce some verbosity relating to using a lot of classes. (We can't
     // use ECMAScript decorators because the TSTL implementation does not provide `context.access`.)
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
 
   "include": [
@@ -51,7 +51,7 @@
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
+    "./**/.*.tsx"
   ],
 
   // TypeScriptToLua settings
@@ -61,10 +61,10 @@
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
       {
-        "name": "../../dist/packages/isaacscript-cli/src/plugins/noExtendedEnums.js",
-      },
+        "name": "../../dist/packages/isaacscript-cli/src/plugins/noExtendedEnums.js"
+      }
     ],
     "noHeader": true,
-    "noImplicitGlobalVariables": true,
-  },
+    "noImplicitGlobalVariables": true
+  }
 }

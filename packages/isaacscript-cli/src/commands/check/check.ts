@@ -19,9 +19,9 @@ import {
   writeFile,
 } from "../../file.js";
 import {
-  ReadonlySet,
   fatalError,
   getEnumValues,
+  ReadonlySet,
   trimPrefix,
 } from "../../isaacScriptCommonTS.js";
 import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
@@ -182,9 +182,11 @@ function compareTextFiles(
   }
 
   console.log(
-    `The contents of the following file do not match: ${chalk.red(
-      projectFilePath,
-    )}`,
+    `The contents of the following file do not match: ${
+      chalk.red(
+        projectFilePath,
+      )
+    }`,
   );
   printTemplateLocation(templateFilePath);
 
@@ -340,7 +342,7 @@ export function getTruncatedText(
         continue;
       }
 
-      if (line.includes('"words": [')) {
+      if (line.includes("\"words\": [")) {
         isSkipping = true;
         continue;
       }
@@ -390,9 +392,11 @@ function printTemplateLocation(templateFilePath: string) {
   const { urlSuffix } = match.groups;
 
   console.log(
-    `You can find the template at: ${chalk.green(
-      `${URL_PREFIX}/${urlSuffix}`,
-    )}\n`,
+    `You can find the template at: ${
+      chalk.green(
+        `${URL_PREFIX}/${urlSuffix}`,
+      )
+    }\n`,
   );
 }
 

@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB_INIT_LATE> {
+export class PostBombInitLate
+  extends CustomCallback<ModCallbackCustom.POST_BOMB_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

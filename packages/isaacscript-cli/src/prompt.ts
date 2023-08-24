@@ -4,9 +4,9 @@
 import chalk from "chalk";
 import prompt from "prompt";
 import {
-  ReadonlySet,
   fatalError,
   parseIntSafe,
+  ReadonlySet,
 } from "./isaacScriptCommonTS.js";
 
 const VALID_YES_RESPONSES = new ReadonlySet<string>(["yes", "ye", "y"]);
@@ -62,7 +62,7 @@ export async function getInputYesNo(
     return false;
   }
 
-  fatalError('Invalid response; must answer "yes" or "no".');
+  fatalError("Invalid response; must answer \"yes\" or \"no\".");
 }
 
 /** Returns trimmed input. */

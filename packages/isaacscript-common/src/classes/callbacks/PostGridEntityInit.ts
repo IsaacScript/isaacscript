@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireGridEntity } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostGridEntityInit extends CustomCallback<ModCallbackCustom.POST_GRID_ENTITY_INIT> {
+export class PostGridEntityInit
+  extends CustomCallback<ModCallbackCustom.POST_GRID_ENTITY_INIT>
+{
   constructor() {
     super();
 

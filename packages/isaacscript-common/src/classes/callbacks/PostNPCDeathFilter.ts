@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostNPCDeathFilter extends CustomCallback<ModCallbackCustom.POST_NPC_DEATH_FILTER> {
+export class PostNPCDeathFilter
+  extends CustomCallback<ModCallbackCustom.POST_NPC_DEATH_FILTER>
+{
   constructor() {
     super();
 

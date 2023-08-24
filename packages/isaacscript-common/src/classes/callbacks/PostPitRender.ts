@@ -4,7 +4,9 @@ import { getPits } from "../../functions/gridEntitiesSpecific";
 import { shouldFirePit } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPitRender extends CustomCallback<ModCallbackCustom.POST_PIT_RENDER> {
+export class PostPitRender
+  extends CustomCallback<ModCallbackCustom.POST_PIT_RENDER>
+{
   constructor() {
     super();
 

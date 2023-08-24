@@ -62,13 +62,12 @@ export function log(
     msg = msg.toString();
   }
 
-  const parentFunctionDescription = includeParentFunction
-    ? getParentFunctionDescription()
-    : undefined;
-  const debugMsg =
-    parentFunctionDescription === undefined
-      ? msg
-      : `${parentFunctionDescription} - ${msg}`;
+  const parentFunctionDescription = includeParentFunction ?
+    getParentFunctionDescription() :
+    undefined;
+  const debugMsg = parentFunctionDescription === undefined ?
+    msg :
+    `${parentFunctionDescription} - ${msg}`;
   Isaac.DebugString(debugMsg);
 }
 

@@ -70,9 +70,9 @@ export function isValidGridPosition(
   gridPosition: Vector,
   roomShape: RoomShape,
 ): boolean {
-  return isLRoomShape(roomShape)
-    ? isValidGridPositionLRoom(gridPosition, roomShape)
-    : isValidGridPositionNormal(gridPosition, roomShape);
+  return isLRoomShape(roomShape) ?
+    isValidGridPositionLRoom(gridPosition, roomShape) :
+    isValidGridPositionNormal(gridPosition, roomShape);
 }
 
 function isValidGridPositionNormal(gridPosition: Vector, roomShape: RoomShape) {

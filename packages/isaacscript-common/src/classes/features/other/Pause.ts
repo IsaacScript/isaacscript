@@ -159,9 +159,9 @@ export class Pause extends Feature {
         velocity: tearOrProjectile.Velocity,
         height: tearOrProjectile.Height,
         fallingSpeed: tearOrProjectile.FallingSpeed,
-        fallingAcceleration: isTear(tearOrProjectile)
-          ? tearOrProjectile.FallingAcceleration
-          : tearOrProjectile.FallingAccel,
+        fallingAcceleration: isTear(tearOrProjectile) ?
+          tearOrProjectile.FallingAcceleration :
+          tearOrProjectile.FallingAccel,
       };
       v.run.initialDescriptions.set(ptrHash, initialDescription);
     }

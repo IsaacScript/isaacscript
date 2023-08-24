@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireLevel } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostNewLevelReordered extends CustomCallback<ModCallbackCustom.POST_NEW_LEVEL_REORDERED> {
+export class PostNewLevelReordered
+  extends CustomCallback<ModCallbackCustom.POST_NEW_LEVEL_REORDERED>
+{
   constructor() {
     super();
 

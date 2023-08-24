@@ -10,7 +10,9 @@ const v = {
   },
 };
 
-export class PostEffectStateChanged extends CustomCallback<ModCallbackCustom.POST_EFFECT_STATE_CHANGED> {
+export class PostEffectStateChanged
+  extends CustomCallback<ModCallbackCustom.POST_EFFECT_STATE_CHANGED>
+{
   public override v = v;
 
   constructor() {

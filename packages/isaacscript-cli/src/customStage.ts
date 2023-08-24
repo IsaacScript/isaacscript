@@ -21,13 +21,13 @@ import {
   readFile,
   writeFile,
 } from "./file.js";
-import type { ShadersXML } from "./interfaces/ShadersXML.js";
 import type {
   CustomStageLua,
   CustomStageRoomMetadata,
   CustomStageTSConfig,
 } from "./interfaces/copied/CustomStageTSConfig.js";
 import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
+import type { ShadersXML } from "./interfaces/ShadersXML.js";
 import {
   fatalError,
   parseFloatSafe,
@@ -83,23 +83,27 @@ function validateCustomStagePaths(
 ) {
   for (const customStageTSConfig of customStagesTSConfig) {
     if (customStageTSConfig.backdropPNGPaths !== undefined) {
-      for (const filePaths of Object.values(
-        customStageTSConfig.backdropPNGPaths,
-      )) {
+      for (
+        const filePaths of Object.values(
+          customStageTSConfig.backdropPNGPaths,
+        )
+      ) {
         for (const filePath of filePaths) {
           checkFile(filePath, verbose);
         }
       }
     }
 
-    for (const filePath of [
-      customStageTSConfig.decorationsPNGPath,
-      customStageTSConfig.decorationsANM2Path,
-      customStageTSConfig.rocksPNGPath,
-      customStageTSConfig.rocksANM2Path,
-      customStageTSConfig.pitsPNGPath,
-      customStageTSConfig.pitsANM2Path,
-    ]) {
+    for (
+      const filePath of [
+        customStageTSConfig.decorationsPNGPath,
+        customStageTSConfig.decorationsANM2Path,
+        customStageTSConfig.rocksPNGPath,
+        customStageTSConfig.rocksANM2Path,
+        customStageTSConfig.pitsPNGPath,
+        customStageTSConfig.pitsANM2Path,
+      ]
+    ) {
       checkFile(filePath, verbose);
     }
 
@@ -243,17 +247,21 @@ function validateMetadataLuaFileExists(
       ISAACSCRIPT_COMMON,
     );
     fatalError(
-      `${chalk.red(
-        `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:`,
-      )} ${chalk.green(addCommand)}`,
+      `${
+        chalk.red(
+          `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:`,
+        )
+      } ${chalk.green(addCommand)}`,
     );
   }
 
   if (!fileExists(METADATA_LUA_PATH, verbose)) {
     fatalError(
-      `${chalk.red(
-        "Failed to find the custom stage metadata file at:",
-      )} ${chalk.green(METADATA_LUA_PATH)}`,
+      `${
+        chalk.red(
+          "Failed to find the custom stage metadata file at:",
+        )
+      } ${chalk.green(METADATA_LUA_PATH)}`,
     );
   }
 }
@@ -268,9 +276,11 @@ async function getCustomStagesWithMetadata(
 ): Promise<CustomStageLua[]> {
   if (!fileExists(METADATA_LUA_PATH, verbose)) {
     fatalError(
-      `${chalk.red(
-        "Failed to find the custom stage metadata file at:",
-      )} ${chalk.green(METADATA_LUA_PATH)}`,
+      `${
+        chalk.red(
+          "Failed to find the custom stage metadata file at:",
+        )
+      } ${chalk.green(METADATA_LUA_PATH)}`,
     );
   }
 
@@ -285,9 +295,11 @@ async function getCustomStagesWithMetadata(
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
     if (!fileExists(resolvedXMLPath, verbose)) {
       fatalError(
-        `${chalk.red(
-          "Failed to find the custom stage XML file at:",
-        )} ${chalk.green(resolvedXMLPath)}`,
+        `${
+          chalk.red(
+            "Failed to find the custom stage XML file at:",
+          )
+        } ${chalk.green(resolvedXMLPath)}`,
       );
     }
 
@@ -325,8 +337,8 @@ async function getCustomStagesWithMetadata(
       }
       roomVariantSet.add(baseVariant);
 
-      const roomVariantPrefix =
-        customStageTSConfig.roomVariantPrefix * ROOM_VARIANT_MULTIPLIER;
+      const roomVariantPrefix = customStageTSConfig.roomVariantPrefix *
+        ROOM_VARIANT_MULTIPLIER;
       const variant = roomVariantPrefix + baseVariant;
 
       const subTypeString = room.$.subtype;
@@ -402,9 +414,11 @@ function combineCustomStageXMLs(
     const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
     if (!fileExists(xmlPath, verbose)) {
       fatalError(
-        `${chalk.red(
-          "Failed to find the custom stage XML file at:",
-        )} ${chalk.green(xmlPath)}`,
+        `${
+          chalk.red(
+            "Failed to find the custom stage XML file at:",
+          )
+        } ${chalk.green(xmlPath)}`,
       );
     }
 
@@ -450,13 +464,13 @@ function combineCustomStageXMLs(
         );
       }
 
-      const roomVariantPrefix =
-        customStageTSConfig.roomVariantPrefix * ROOM_VARIANT_MULTIPLIER;
+      const roomVariantPrefix = customStageTSConfig.roomVariantPrefix *
+        ROOM_VARIANT_MULTIPLIER;
       const variant = roomVariantPrefix + baseVariant;
 
       const newLine = line
         .replace(VARIANT_REGEX, ` variant="${variant}"`)
-        .replace(WEIGHT_REGEX, ' weight="0.0"');
+        .replace(WEIGHT_REGEX, " weight=\"0.0\"");
       lines[i] = newLine;
     }
 

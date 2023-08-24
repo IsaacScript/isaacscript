@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireCollectibleType } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerCollectibleRemoved extends CustomCallback<ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED> {
+export class PostPlayerCollectibleRemoved
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED>
+{
   constructor() {
     super();
 

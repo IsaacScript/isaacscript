@@ -87,8 +87,8 @@ export const formatLineComments = createRule<Options, MessageIds>({
         leftWhitespace,
       );
 
-      const effectiveMaxLength = maxLength - leftWhitespaceLength
-        - "// ".length;
+      const effectiveMaxLength = maxLength - leftWhitespaceLength -
+        "// ".length;
       const formattedTextRaw = formatText(
         commentBlock.mergedText,
         effectiveMaxLength,
@@ -118,8 +118,8 @@ export const formatLineComments = createRule<Options, MessageIds>({
           fix: (fixer) => {
             const [firstCommentStart, _firstCommentEnd] = firstComment.range;
             const [_lastCommentStart, lastCommentEnd] = lastComment.range;
-            const firstCommentBeginningOfLine = firstCommentStart
-              - firstComment.loc.start.column;
+            const firstCommentBeginningOfLine = firstCommentStart -
+              firstComment.loc.start.column;
             const range = [
               firstCommentBeginningOfLine,
               lastCommentEnd,

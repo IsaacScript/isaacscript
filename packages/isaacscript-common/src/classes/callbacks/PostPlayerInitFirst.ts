@@ -4,7 +4,9 @@ import { inGenesisRoom } from "../../functions/rooms";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_FIRST> {
+export class PostPlayerInitFirst
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_FIRST>
+{
   constructor() {
     super();
 

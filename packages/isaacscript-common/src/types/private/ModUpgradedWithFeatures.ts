@@ -21,7 +21,8 @@ import type { Writeable } from "../Writable";
  * directly imported by end-users).
  */
 export type ModUpgradedWithFeatures<T extends readonly ISCFeature[] = []> =
-  ModUpgraded & ISCFeaturesToKeys<T>;
+  & ModUpgraded
+  & ISCFeaturesToKeys<T>;
 
 /**
  * We want to only extract the class public methods, so we omit the keys of the `Feature` base

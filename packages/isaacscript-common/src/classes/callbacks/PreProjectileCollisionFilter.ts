@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PreProjectileCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_PROJECTILE_COLLISION_FILTER> {
+export class PreProjectileCollisionFilter
+  extends CustomCallback<ModCallbackCustom.PRE_PROJECTILE_COLLISION_FILTER>
+{
   constructor() {
     super();
 

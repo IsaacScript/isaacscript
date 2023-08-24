@@ -19,9 +19,11 @@ export function copyFile(
     });
   } catch (error) {
     fatalError(
-      `Failed to copy file or directory "${chalk.green(
-        srcPath,
-      )}" to "${chalk.green(dstPath)}":`,
+      `Failed to copy file or directory "${
+        chalk.green(
+          srcPath,
+        )
+      }" to "${chalk.green(dstPath)}":`,
       error,
     );
   }
@@ -232,9 +234,11 @@ export function renameFile(
     fs.renameSync(srcPath, dstPath);
   } catch (error) {
     fatalError(
-      `Failed to rename "${chalk.green(srcPath)}" to "${chalk.green(
-        dstPath,
-      )}":`,
+      `Failed to rename "${chalk.green(srcPath)}" to "${
+        chalk.green(
+          dstPath,
+        )
+      }":`,
       error,
     );
   }

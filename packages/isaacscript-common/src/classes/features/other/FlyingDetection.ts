@@ -36,8 +36,9 @@ export class FlyingDetection extends Feature {
     //   collectibles will only grant a temporary effect if their condition is activated.
     // - The Hanged Man card gives a Transcendence temporary effect.
     // - Pinking Shears gives a Transcendence temporary effect.
-    const flyingCollectibles =
-      this.moddedElementSets.getFlyingCollectibles(true);
+    const flyingCollectibles = this.moddedElementSets.getFlyingCollectibles(
+      true,
+    );
     for (const collectibleType of flyingCollectibles) {
       if (effects.HasCollectibleEffect(collectibleType)) {
         return true;

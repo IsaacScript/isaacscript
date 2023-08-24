@@ -95,7 +95,7 @@ function oldTableHasSerializedIsaacAPIClass() {
   const vectorSerialized = serializeVector(vector);
   if (!isSerializedIsaacAPIClass(vectorSerialized)) {
     error(
-      'The "isSerializedIsaacAPIClass" function says that a serialized vector is not serialized.',
+      "The \"isSerializedIsaacAPIClass\" function says that a serialized vector is not serialized.",
     );
   }
 }
@@ -125,7 +125,7 @@ function oldTableHasFilledChildTable() {
   }
 
   if (oldTableValue.bar !== newValue) {
-    error('The old table\'s key of "bar" was not filled.');
+    error("The old table's key of \"bar\" was not filled.");
   }
 }
 

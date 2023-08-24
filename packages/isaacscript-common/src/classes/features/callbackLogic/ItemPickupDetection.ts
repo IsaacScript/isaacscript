@@ -12,15 +12,15 @@ import {
   resetPickingUpItem,
 } from "../../../types/PickingUpItem";
 import type { PlayerIndex } from "../../../types/PlayerIndex";
-import { DefaultMap } from "../../DefaultMap";
 import type { PostItemPickup } from "../../callbacks/PostItemPickup";
 import type { PreItemPickup } from "../../callbacks/PreItemPickup";
+import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
 
 const v = {
   run: {
     playersPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
-      newPickingUpItem(),
+      newPickingUpItem()
     ),
   },
 };

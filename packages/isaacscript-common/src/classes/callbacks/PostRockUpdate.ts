@@ -4,7 +4,9 @@ import { getRocks } from "../../functions/gridEntitiesSpecific";
 import { shouldFireRock } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostRockUpdate extends CustomCallback<ModCallbackCustom.POST_ROCK_UPDATE> {
+export class PostRockUpdate
+  extends CustomCallback<ModCallbackCustom.POST_ROCK_UPDATE>
+{
   constructor() {
     super();
 

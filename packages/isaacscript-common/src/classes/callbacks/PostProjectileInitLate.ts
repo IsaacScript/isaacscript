@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostProjectileInitLate extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_INIT_LATE> {
+export class PostProjectileInitLate
+  extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

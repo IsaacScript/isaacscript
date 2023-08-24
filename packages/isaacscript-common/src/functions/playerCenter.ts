@@ -21,9 +21,9 @@ import { getAllPlayers } from "./playerIndex";
  */
 export function movePlayersToCenter(radius: float = 10): void {
   const isGreedMode = game.IsGreedMode();
-  const startingPosition = isGreedMode
-    ? NEW_FLOOR_STARTING_POSITION_GREED_MODE
-    : NEW_FLOOR_STARTING_POSITION_NORMAL_MODE;
+  const startingPosition = isGreedMode ?
+    NEW_FLOOR_STARTING_POSITION_GREED_MODE :
+    NEW_FLOOR_STARTING_POSITION_NORMAL_MODE;
 
   const players = getAllPlayers();
   const firstPlayer = players[0];

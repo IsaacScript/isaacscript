@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPlayerRenderReordered extends CustomCallback<ModCallbackCustom.POST_PLAYER_RENDER_REORDERED> {
+export class PostPlayerRenderReordered
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_RENDER_REORDERED>
+{
   constructor() {
     super();
 

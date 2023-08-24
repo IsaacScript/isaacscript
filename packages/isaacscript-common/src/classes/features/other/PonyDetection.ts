@@ -52,8 +52,8 @@ export class PonyDetection extends Feature {
     );
     const hasPonyFlags = hasFlag(entityFlags, ...FLAGS_WHEN_PONY_IS_ACTIVE);
 
-    const isPonyActiveNow =
-      hasPonyCollectibleEffect || (isPonyActiveOnPreviousFrame && hasPonyFlags);
+    const isPonyActiveNow = hasPonyCollectibleEffect ||
+      (isPonyActiveOnPreviousFrame && hasPonyFlags);
     if (isPonyActiveNow) {
       setAddPlayer(v.run.playersIsPonyActive, player);
     } else {

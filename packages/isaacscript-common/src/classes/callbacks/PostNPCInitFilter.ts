@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostNPCInitFilter extends CustomCallback<ModCallbackCustom.POST_NPC_INIT_FILTER> {
+export class PostNPCInitFilter
+  extends CustomCallback<ModCallbackCustom.POST_NPC_INIT_FILTER>
+{
   constructor() {
     super();
 

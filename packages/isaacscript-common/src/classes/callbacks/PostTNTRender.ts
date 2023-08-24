@@ -4,7 +4,9 @@ import { getTNT } from "../../functions/gridEntitiesSpecific";
 import { shouldFireTNT } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostTNTRender extends CustomCallback<ModCallbackCustom.POST_TNT_RENDER> {
+export class PostTNTRender
+  extends CustomCallback<ModCallbackCustom.POST_TNT_RENDER>
+{
   constructor() {
     super();
 

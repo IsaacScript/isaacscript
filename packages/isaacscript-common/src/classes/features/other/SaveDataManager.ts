@@ -334,7 +334,7 @@ export class SaveDataManager extends Feature {
       const className = getTSTLClassName(key);
       if (className === undefined) {
         error(
-          'Failed to get the class name for the submitted class (as part of the "key" parameter) when registering new data with the save data manager.',
+          "Failed to get the class name for the submitted class (as part of the \"key\" parameter) when registering new data with the save data manager.",
         );
       }
 

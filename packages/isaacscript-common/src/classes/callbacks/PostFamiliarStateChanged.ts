@@ -10,7 +10,9 @@ const v = {
   },
 };
 
-export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_STATE_CHANGED> {
+export class PostFamiliarStateChanged
+  extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_STATE_CHANGED>
+{
   public override v = v;
 
   constructor() {

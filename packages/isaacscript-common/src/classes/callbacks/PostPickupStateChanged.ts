@@ -10,7 +10,9 @@ const v = {
   },
 };
 
-export class PostPickupStateChanged extends CustomCallback<ModCallbackCustom.POST_PICKUP_STATE_CHANGED> {
+export class PostPickupStateChanged
+  extends CustomCallback<ModCallbackCustom.POST_PICKUP_STATE_CHANGED>
+{
   public override v = v;
 
   constructor() {

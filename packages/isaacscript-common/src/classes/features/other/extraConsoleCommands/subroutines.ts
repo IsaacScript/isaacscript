@@ -76,7 +76,7 @@ export function listEntities(
   }
 
   logAllEntities(includeBackgroundEffects, entityTypeFilter);
-  print('Logged the entities in the room to the "log.txt" file.');
+  print("Logged the entities in the room to the \"log.txt\" file.");
 }
 
 export function listGridEntities(params: string, includeWalls: boolean): void {
@@ -90,7 +90,7 @@ export function listGridEntities(params: string, includeWalls: boolean): void {
   }
 
   logAllGridEntities(includeWalls, gridEntityTypeFilter);
-  print('Logged the grid entities in the room to the "log.txt" file.');
+  print("Logged the grid entities in the room to the \"log.txt\" file.");
 }
 
 export function movePlayer(params: string, direction: Direction): void {
@@ -115,9 +115,9 @@ export function spawnTrapdoorOrCrawlSpace(trapdoor: boolean): void {
   const room = game.GetRoom();
   const player = Isaac.GetPlayer();
   const position = room.FindFreeTilePosition(player.Position, 0);
-  const gridEntityType = trapdoor
-    ? GridEntityType.TRAPDOOR
-    : GridEntityType.CRAWL_SPACE;
+  const gridEntityType = trapdoor ?
+    GridEntityType.TRAPDOOR :
+    GridEntityType.CRAWL_SPACE;
 
   spawnGridEntity(gridEntityType, position);
 }

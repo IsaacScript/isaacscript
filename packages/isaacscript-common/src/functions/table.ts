@@ -18,9 +18,11 @@ export function copyUserdataValuesToTable(
 ): void {
   if (!isUserdata(object)) {
     error(
-      `Failed to copy an object values to a table, since the object was of type: ${type(
-        object,
-      )}`,
+      `Failed to copy an object values to a table, since the object was of type: ${
+        type(
+          object,
+        )
+      }`,
     );
   }
 

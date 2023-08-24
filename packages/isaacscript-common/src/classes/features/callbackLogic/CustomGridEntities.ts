@@ -79,8 +79,9 @@ export class CustomGridEntities extends Feature {
     // custom grid entity to prevent this from happening if needed.
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
-    const roomCustomGridEntities =
-      v.level.customGridEntities.get(roomListIndex);
+    const roomCustomGridEntities = v.level.customGridEntities.get(
+      roomListIndex,
+    );
     if (roomCustomGridEntities === undefined) {
       return undefined;
     }
@@ -120,8 +121,9 @@ export class CustomGridEntities extends Feature {
     // When we re-enter a room, the graphics for any custom entities will be reverted back to that
     // of a normal decoration. Thus, we must re-apply the anm2.
     const roomListIndex = getRoomListIndex();
-    const roomCustomGridEntities =
-      v.level.customGridEntities.get(roomListIndex);
+    const roomCustomGridEntities = v.level.customGridEntities.get(
+      roomListIndex,
+    );
     if (roomCustomGridEntities === undefined) {
       return;
     }
@@ -137,8 +139,8 @@ export class CustomGridEntities extends Feature {
       if (data.anm2Path !== undefined) {
         const sprite = decoration.GetSprite();
         sprite.Load(data.anm2Path, true);
-        const animationToPlay =
-          data.defaultAnimation ?? sprite.GetDefaultAnimation();
+        const animationToPlay = data.defaultAnimation ??
+          sprite.GetDefaultAnimation();
         sprite.Play(animationToPlay, true);
       }
     }
@@ -236,9 +238,9 @@ export class CustomGridEntities extends Feature {
   ): GridEntity {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
-    const gridIndex = isVector(gridIndexOrPosition)
-      ? room.GetGridIndex(gridIndexOrPosition)
-      : gridIndexOrPosition;
+    const gridIndex = isVector(gridIndexOrPosition) ?
+      room.GetGridIndex(gridIndexOrPosition) :
+      gridIndexOrPosition;
 
     const customGridEntity = spawnGridEntityWithVariant(
       baseGridEntityType,
@@ -269,8 +271,9 @@ export class CustomGridEntities extends Feature {
       gridCollisionClass,
     };
 
-    const roomCustomGridEntities =
-      v.level.customGridEntities.getAndSetDefault(roomListIndex);
+    const roomCustomGridEntities = v.level.customGridEntities.getAndSetDefault(
+      roomListIndex,
+    );
     roomCustomGridEntities.set(gridIndex, customGridEntityData);
 
     return customGridEntity;
@@ -324,8 +327,9 @@ export class CustomGridEntities extends Feature {
     }
 
     const gridIndex = decoration.GetGridIndex();
-    const roomCustomGridEntities =
-      v.level.customGridEntities.getAndSetDefault(roomListIndex);
+    const roomCustomGridEntities = v.level.customGridEntities.getAndSetDefault(
+      roomListIndex,
+    );
     const exists = roomCustomGridEntities.has(gridIndex);
     if (!exists) {
       return undefined;
@@ -350,8 +354,9 @@ export class CustomGridEntities extends Feature {
     data: GridEntityCustomData;
   }> {
     const roomListIndex = getRoomListIndex();
-    const roomCustomGridEntities =
-      v.level.customGridEntities.get(roomListIndex);
+    const roomCustomGridEntities = v.level.customGridEntities.get(
+      roomListIndex,
+    );
     if (roomCustomGridEntities === undefined) {
       return [];
     }
@@ -387,13 +392,14 @@ export class CustomGridEntities extends Feature {
       return undefined;
     }
 
-    const gridIndex = isNumber(gridEntityOrGridIndex)
-      ? gridEntityOrGridIndex
-      : gridEntityOrGridIndex.GetGridIndex();
+    const gridIndex = isNumber(gridEntityOrGridIndex) ?
+      gridEntityOrGridIndex :
+      gridEntityOrGridIndex.GetGridIndex();
 
     const roomListIndex = getRoomListIndex();
-    const roomCustomGridEntities =
-      v.level.customGridEntities.get(roomListIndex);
+    const roomCustomGridEntities = v.level.customGridEntities.get(
+      roomListIndex,
+    );
     if (roomCustomGridEntities === undefined) {
       return undefined;
     }

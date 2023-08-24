@@ -89,8 +89,9 @@ export function isCircleIntersectingRectangle(
   );
 
   const nearestPointToCircleOnRectangle = Vector(nearestX, nearestY);
-  const distanceToCenterOfCircle =
-    nearestPointToCircleOnRectangle.Distance(circleCenter);
+  const distanceToCenterOfCircle = nearestPointToCircleOnRectangle.Distance(
+    circleCenter,
+  );
 
   return distanceToCenterOfCircle <= circleRadius;
 }

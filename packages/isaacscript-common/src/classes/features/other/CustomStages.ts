@@ -42,10 +42,6 @@ import type {
 import { Feature } from "../../private/Feature";
 import type { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
 import type { GameReorderedCallbacks } from "../callbackLogic/GameReorderedCallbacks";
-import type { CustomTrapdoors } from "./CustomTrapdoors";
-import type { DisableAllSound } from "./DisableAllSound";
-import type { Pause } from "./Pause";
-import type { RunInNFrames } from "./RunInNFrames";
 import { setCustomStageBackdrop } from "./customStages/backdrop";
 import {
   CUSTOM_FLOOR_STAGE,
@@ -75,6 +71,10 @@ import {
   playVersusScreenAnimation,
   versusScreenPostRender,
 } from "./customStages/versusScreen";
+import type { CustomTrapdoors } from "./CustomTrapdoors";
+import type { DisableAllSound } from "./DisableAllSound";
+import type { Pause } from "./Pause";
+import type { RunInNFrames } from "./RunInNFrames";
 
 /**
  * 60 does not work correctly (the music kicking in from stage -1 will mute it), so we use 70 to be
@@ -169,7 +169,7 @@ export class CustomStages extends Feature {
   private initCustomStageMetadata() {
     if (!isArray(metadataJSON)) {
       error(
-        'The IsaacScript standard library attempted to read the custom stage metadata from the "customStageMetadata.lua" file, but it was not an array.',
+        "The IsaacScript standard library attempted to read the custom stage metadata from the \"customStageMetadata.lua\" file, but it was not an array.",
       );
     }
     const customStagesLua = metadataJSON as CustomStageLua[];
@@ -402,7 +402,9 @@ export class CustomStages extends Feature {
         // custom rooms for shops and other special rooms inside of their XML file.)
         if (roomType === RoomType.DEFAULT) {
           logError(
-            `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) for custom stage: ${customStage.name}`,
+            `Failed to find any custom rooms for RoomType.${
+              RoomType[roomType]
+            } (${roomType}) for custom stage: ${customStage.name}`,
           );
         }
         continue;
@@ -412,7 +414,11 @@ export class CustomStages extends Feature {
       const roomDoorSlotFlagMap = roomShapeMap.get(roomShape);
       if (roomDoorSlotFlagMap === undefined) {
         logError(
-          `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) for custom stage: ${customStage.name}`,
+          `Failed to find any custom rooms for RoomType.${
+            RoomType[roomType]
+          } (${roomType}) + RoomShape.${
+            RoomShape[roomShape]
+          } (${roomShape}) for custom stage: ${customStage.name}`,
         );
         continue;
       }
@@ -428,7 +434,11 @@ export class CustomStages extends Feature {
         roomsMetadata = roomDoorSlotFlagMap.get(allDoorSlotFlags);
         if (roomsMetadata === undefined) {
           logError(
-            `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) + all doors enabled for custom stage: ${customStage.name}`,
+            `Failed to find any custom rooms for RoomType.${
+              RoomType[roomType]
+            } (${roomType}) + RoomShape.${
+              RoomShape[roomShape]
+            } (${roomShape}) + all doors enabled for custom stage: ${customStage.name}`,
           );
           continue;
         }
@@ -519,18 +529,16 @@ export class CustomStages extends Feature {
       level.SetStage(LevelStage.BASEMENT_1, StageType.ORIGINAL);
     }
 
-    let baseStage: LevelStage =
-      customStage.baseStage === undefined
-        ? DEFAULT_BASE_STAGE
-        : (customStage.baseStage as LevelStage);
+    let baseStage: LevelStage = customStage.baseStage === undefined ?
+      DEFAULT_BASE_STAGE :
+      (customStage.baseStage as LevelStage);
     if (!firstFloor) {
       baseStage++; // eslint-disable-line isaacscript/strict-enums
     }
 
-    const baseStageType: StageType =
-      customStage.baseStageType === undefined
-        ? DEFAULT_BASE_STAGE_TYPE
-        : (customStage.baseStageType as StageType);
+    const baseStageType: StageType = customStage.baseStageType === undefined ?
+      DEFAULT_BASE_STAGE_TYPE :
+      (customStage.baseStageType as StageType);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     const reseed = asNumber(stage) >= baseStage;
@@ -576,10 +584,9 @@ export class CustomStages extends Feature {
       }
     }
 
-    const music =
-      customStageMusic === undefined || customStageMusic === -1
-        ? getMusicForStage(baseStage, baseStageType)
-        : customStageMusic;
+    const music = customStageMusic === undefined || customStageMusic === -1 ?
+      getMusicForStage(baseStage, baseStageType) :
+      customStageMusic;
 
     this.runInNFrames.runInNRenderFrames(() => {
       musicManager.Enable();

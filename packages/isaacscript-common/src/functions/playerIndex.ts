@@ -129,9 +129,9 @@ function getPlayerIndexCollectibleType(
   const character = player.GetPlayerType();
 
   if (character === PlayerType.SOUL) {
-    return differentiateForgottenAndSoul
-      ? CollectibleType.INNER_EYE
-      : DEFAULT_COLLECTIBLE_TYPE;
+    return differentiateForgottenAndSoul ?
+      CollectibleType.INNER_EYE :
+      DEFAULT_COLLECTIBLE_TYPE;
   }
 
   return DEFAULT_COLLECTIBLE_TYPE;

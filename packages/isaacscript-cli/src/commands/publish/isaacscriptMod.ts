@@ -115,9 +115,11 @@ function uploadMod(modTargetPath: string, verbose: boolean) {
   }
 
   console.log(
-    `The "isaac-steam-workshop-upload" action was not found in the "${chalk.green(
-      "ci.yml",
-    )}" file; assuming that we want to use the "ModUploader.exe" tool.`,
+    `The "isaac-steam-workshop-upload" action was not found in the "${
+      chalk.green(
+        "ci.yml",
+      )
+    }" file; assuming that we want to use the "ModUploader.exe" tool.`,
   );
   execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
 }

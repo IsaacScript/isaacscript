@@ -26,8 +26,9 @@ export const FIRST_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
  * Note that this cannot be calculated from the length of the enum, because unlike all of the other
  * enums, collectible types are not contiguous.
  */
-export const LAST_VANILLA_COLLECTIBLE_TYPE =
-  getHighestEnumValue(CollectibleType);
+export const LAST_VANILLA_COLLECTIBLE_TYPE = getHighestEnumValue(
+  CollectibleType,
+);
 
 /** Calculated from the `CollectibleType` enum. (`CollectibleType.NULL` is not included.) */
 export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;

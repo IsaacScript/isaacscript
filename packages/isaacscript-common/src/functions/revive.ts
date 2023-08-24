@@ -50,8 +50,7 @@ export function isDamageToPlayerFatal(
 
   // If we are playing Tainted Samson and the incoming hit will cause us to become Berserk, then
   // this will not be fatal damage.
-  const berserkChargeAfterHit =
-    player.SamsonBerserkCharge +
+  const berserkChargeAfterHit = player.SamsonBerserkCharge +
     TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE;
   if (
     character === PlayerType.SAMSON_B &&
@@ -155,8 +154,7 @@ export function willPlayerRevive(player: EntityPlayer): boolean {
     TrinketType.MYSTERIOUS_PAPER,
   );
 
-  const willRevive =
-    player.WillPlayerRevive() ||
+  const willRevive = player.WillPlayerRevive() ||
     (trinketSituation !== undefined && willMysteriousPaperRevive(player));
 
   giveTrinketsBack(player, trinketSituation);
@@ -177,8 +175,8 @@ export function willReviveFromHeartbreak(player: EntityPlayer): boolean {
   const maxHeartContainers = getPlayerMaxHeartContainers(player);
   const numBrokenHeartsThatWillBeAdded = isKeeper(player) ? 1 : 2;
   const brokenHearts = player.GetBrokenHearts();
-  const numBrokenHeartsAfterRevival =
-    numBrokenHeartsThatWillBeAdded + brokenHearts;
+  const numBrokenHeartsAfterRevival = numBrokenHeartsThatWillBeAdded +
+    brokenHearts;
 
   return maxHeartContainers > numBrokenHeartsAfterRevival;
 }

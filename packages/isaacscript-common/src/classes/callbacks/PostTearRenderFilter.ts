@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostTearRenderFilter extends CustomCallback<ModCallbackCustom.POST_TEAR_RENDER_FILTER> {
+export class PostTearRenderFilter
+  extends CustomCallback<ModCallbackCustom.POST_TEAR_RENDER_FILTER>
+{
   constructor() {
     super();
 

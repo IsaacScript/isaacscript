@@ -10,7 +10,9 @@ import { logError } from "../../functions/logMisc";
 import { shouldFireRoom } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_ROOM_EARLY> {
+export class PostNewRoomEarly
+  extends CustomCallback<ModCallbackCustom.POST_NEW_ROOM_EARLY>
+{
   private currentRoomTopLeftWallPtrHash: PtrHash | null = null;
 
   /** The wall entity directly to the right of the top-left wall. */
@@ -39,7 +41,8 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
   // ModCallback.PRE_ENTITY_SPAWN (24)
   private readonly preEntitySpawn = ():
     | [EntityType, int, int, int]
-    | undefined => {
+    | undefined =>
+  {
     this.checkRoomChanged();
     return undefined;
   };

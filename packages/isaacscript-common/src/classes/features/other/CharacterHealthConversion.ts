@@ -53,8 +53,9 @@ export class CharacterHealthConversion extends Feature {
     }
 
     const character = player.GetPlayerType();
-    const conversionHeartSubType =
-      this.characterHealthReplacementMap.get(character);
+    const conversionHeartSubType = this.characterHealthReplacementMap.get(
+      character,
+    );
     if (conversionHeartSubType === undefined) {
       return undefined;
     }
@@ -67,8 +68,9 @@ export class CharacterHealthConversion extends Feature {
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
-    const conversionHeartSubType =
-      this.characterHealthReplacementMap.get(character);
+    const conversionHeartSubType = this.characterHealthReplacementMap.get(
+      character,
+    );
     if (conversionHeartSubType === undefined) {
       return;
     }

@@ -42,7 +42,8 @@ export class GridEntityUpdateDetection extends Feature {
   private readonly postGridEntityRemove: PostGridEntityRemove;
   private readonly postGridEntityCustomRemove: PostGridEntityCustomRemove;
   private readonly postGridEntityStateChanged: PostGridEntityStateChanged;
-  private readonly postGridEntityCustomStateChanged: PostGridEntityCustomStateChanged;
+  private readonly postGridEntityCustomStateChanged:
+    PostGridEntityCustomStateChanged;
   private readonly postGridEntityBroken: PostGridEntityBroken;
   private readonly postGridEntityCustomBroken: PostGridEntityCustomBroken;
   private readonly customGridEntities: CustomGridEntities;
@@ -98,8 +99,8 @@ export class GridEntityUpdateDetection extends Feature {
       this.checkGridEntityStateChanged(gridIndex, gridEntity);
       this.checkNewGridEntity(gridIndex, gridEntity);
 
-      const gridEntityTypeCustom =
-        this.customGridEntities.getCustomGridEntityType(gridIndex);
+      const gridEntityTypeCustom = this.customGridEntities
+        .getCustomGridEntityType(gridIndex);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityUpdate.fire(gridEntity);
       } else {
@@ -120,8 +121,8 @@ export class GridEntityUpdateDetection extends Feature {
       ) {
         v.room.initializedGridEntities.delete(gridIndex);
 
-        const gridEntityTypeCustom =
-          this.customGridEntities.getCustomGridEntityType(gridIndex);
+        const gridEntityTypeCustom = this.customGridEntities
+          .getCustomGridEntityType(gridIndex);
         if (gridEntityTypeCustom === undefined) {
           this.postGridEntityRemove.fire(
             gridIndex,
@@ -151,8 +152,8 @@ export class GridEntityUpdateDetection extends Feature {
     if (oldState !== newState) {
       this.updateTupleInMap(gridEntity);
 
-      const gridEntityTypeCustom =
-        this.customGridEntities.getCustomGridEntityType(gridEntity);
+      const gridEntityTypeCustom = this.customGridEntities
+        .getCustomGridEntityType(gridEntity);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityStateChanged.fire(gridEntity, oldState, newState);
       } else {
@@ -187,8 +188,8 @@ export class GridEntityUpdateDetection extends Feature {
     ) {
       this.updateTupleInMap(gridEntity);
 
-      const gridEntityTypeCustom =
-        this.customGridEntities.getCustomGridEntityType(gridEntity);
+      const gridEntityTypeCustom = this.customGridEntities
+        .getCustomGridEntityType(gridEntity);
       if (gridEntityTypeCustom === undefined) {
         this.postGridEntityInit.fire(gridEntity);
       } else {

@@ -64,25 +64,31 @@ export async function getModsDir(
 
   if (!fileExists(modsDir, verbose)) {
     fatalError(
-      `Error: The directory of "${chalk.green(
-        modsDir,
-      )}" does not exist. Exiting.`,
+      `Error: The directory of "${
+        chalk.green(
+          modsDir,
+        )
+      }" does not exist. Exiting.`,
     );
   }
 
   if (!isDir(modsDir, verbose)) {
     fatalError(
-      `Error: The path of "${chalk.green(
-        modsDir,
-      )}" is not a directory. Exiting.`,
+      `Error: The path of "${
+        chalk.green(
+          modsDir,
+        )
+      }" is not a directory. Exiting.`,
     );
   }
 
   if (path.basename(modsDir) !== MODS) {
     fatalError(
-      `Error: You entered a path of "${chalk.green(
-        modsDir,
-      )}", but you need to input a directory with a name of "${MODS}" at the end. Exiting.`,
+      `Error: You entered a path of "${
+        chalk.green(
+          modsDir,
+        )
+      }", but you need to input a directory with a name of "${MODS}" at the end. Exiting.`,
     );
   }
 
@@ -101,9 +107,11 @@ function getDefaultModsPath(platform: string): string {
 
     default: {
       fatalError(
-        `There does not exist a default mod path for the platform of: ${chalk.green(
-          platform,
-        )}`,
+        `There does not exist a default mod path for the platform of: ${
+          chalk.green(
+            platform,
+          )
+        }`,
       );
     }
   }

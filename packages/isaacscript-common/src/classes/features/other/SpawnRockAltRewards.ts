@@ -107,9 +107,9 @@ export class SpawnRockAltRewards extends Feature {
     seedOrRNG: Seed | RNG = getRandomSeed(),
   ): boolean {
     const room = game.GetRoom();
-    const position = isVector(positionOrGridIndex)
-      ? positionOrGridIndex
-      : room.GetGridPosition(positionOrGridIndex);
+    const position = isVector(positionOrGridIndex) ?
+      positionOrGridIndex :
+      room.GetGridPosition(positionOrGridIndex);
     const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
     switch (rockAltType) {
@@ -255,22 +255,22 @@ export class SpawnRockAltRewards extends Feature {
         }
       }
 
-      const magicMushroomStillInPools =
-        this.itemPoolDetection.isCollectibleInItemPool(
+      const magicMushroomStillInPools = this.itemPoolDetection
+        .isCollectibleInItemPool(
           CollectibleType.MAGIC_MUSHROOM,
           ItemPoolType.TREASURE,
         );
-      const miniMushStillInPools =
-        this.itemPoolDetection.isCollectibleInItemPool(
+      const miniMushStillInPools = this.itemPoolDetection
+        .isCollectibleInItemPool(
           CollectibleType.MINI_MUSH,
           ItemPoolType.TREASURE,
         );
       if (magicMushroomStillInPools && miniMushStillInPools) {
         const collectibleChance = getRandom(rng);
-        const collectibleType =
-          collectibleChance < 0.5
-            ? CollectibleType.MAGIC_MUSHROOM // 12
-            : CollectibleType.MINI_MUSH; // 71
+        const collectibleType = collectibleChance < 0.5 ?
+          CollectibleType.MAGIC_MUSHROOM // 12
+           :
+          CollectibleType.MINI_MUSH; // 71
         spawnCollectibleUnsafe(collectibleType, position, rng);
         return true;
       }
@@ -327,22 +327,22 @@ export class SpawnRockAltRewards extends Feature {
 
     totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
     if (chance < totalChance) {
-      const ghostBabyStillInPools =
-        this.itemPoolDetection.isCollectibleInItemPool(
+      const ghostBabyStillInPools = this.itemPoolDetection
+        .isCollectibleInItemPool(
           CollectibleType.GHOST_BABY,
           ItemPoolType.TREASURE,
         );
-      const dryBabyStillInPools =
-        this.itemPoolDetection.isCollectibleInItemPool(
+      const dryBabyStillInPools = this.itemPoolDetection
+        .isCollectibleInItemPool(
           CollectibleType.DRY_BABY,
           ItemPoolType.TREASURE,
         );
       if (ghostBabyStillInPools && dryBabyStillInPools) {
         const collectibleChance = getRandom(rng);
-        const collectibleType =
-          collectibleChance < 0.5
-            ? CollectibleType.GHOST_BABY // 163
-            : CollectibleType.DRY_BABY; // 265
+        const collectibleType = collectibleChance < 0.5 ?
+          CollectibleType.GHOST_BABY // 163
+           :
+          CollectibleType.DRY_BABY; // 265
         spawnCollectibleUnsafe(collectibleType, position, rng);
         return true;
       }
@@ -398,22 +398,22 @@ export class SpawnRockAltRewards extends Feature {
 
     totalChance += ROCK_ALT_CHANCES.COLLECTIBLE;
     if (chance < totalChance) {
-      const placentaStillInPools =
-        this.itemPoolDetection.isCollectibleInItemPool(
+      const placentaStillInPools = this.itemPoolDetection
+        .isCollectibleInItemPool(
           CollectibleType.PLACENTA,
           ItemPoolType.BOSS,
         );
-      const bloodClotStillInPools =
-        this.itemPoolDetection.isCollectibleInItemPool(
+      const bloodClotStillInPools = this.itemPoolDetection
+        .isCollectibleInItemPool(
           CollectibleType.BLOOD_CLOT,
           ItemPoolType.BOSS,
         );
       if (placentaStillInPools && bloodClotStillInPools) {
         const collectibleChance = getRandom(rng);
-        const collectibleType =
-          collectibleChance < 0.5
-            ? CollectibleType.PLACENTA // 218
-            : CollectibleType.BLOOD_CLOT; // 254
+        const collectibleType = collectibleChance < 0.5 ?
+          CollectibleType.PLACENTA // 218
+           :
+          CollectibleType.BLOOD_CLOT; // 254
         spawnCollectibleUnsafe(collectibleType, position, rng);
         return true;
       }
@@ -498,8 +498,9 @@ export class SpawnRockAltRewards extends Feature {
 
     // Since the detrimental effect is the final option, we don't need to check the chance.
     const enemiesChance = getRandom(rng);
-    const entityType =
-      enemiesChance < 0.5 ? EntityType.SPIDER : EntityType.SMALL_LEECH;
+    const entityType = enemiesChance < 0.5 ?
+      EntityType.SPIDER :
+      EntityType.SMALL_LEECH;
 
     const numEnemiesChance = getRandom(rng);
     const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;
@@ -583,8 +584,9 @@ export class SpawnRockAltRewards extends Feature {
 
     // Since the detrimental effect is the final option, we don't need to check the chance.
     const enemiesChance = getRandom(rng);
-    const entityType =
-      enemiesChance < 0.5 ? EntityType.DRIP : EntityType.SMALL_LEECH;
+    const entityType = enemiesChance < 0.5 ?
+      EntityType.DRIP :
+      EntityType.SMALL_LEECH;
 
     const numEnemiesChance = getRandom(rng);
     const numEnemies = numEnemiesChance < 0.5 ? 1 : 2;

@@ -20,8 +20,7 @@
       { "name": "isaacscript/src/plugins/addIsaacScriptCommentHeader.js" },
 
       // A plugin to make enums safe from global variables.
-      { "name": "isaacscript/src/plugins/noExtendedEnums.js" },
-
+      { "name": "isaacscript/src/plugins/noExtendedEnums.js" }
       // Uncomment this and recompile the mod to enable crash debugging, which will tell you the
       // exact line of the mod that is causing the crash. For more information, read the comment at
       // the top of the file:
@@ -29,13 +28,13 @@
       // { "name": "isaacscript/src/plugins/addCrashDebugStatements.js" },
     ],
     "noHeader": true,
-    "noImplicitGlobalVariables": true,
+    "noImplicitGlobalVariables": true
   },
 
   // IsaacScript settings
   "isaacscript": {
     // A list of objects that represent the custom stages that are in your mod, if any. See:
     // https://isaacscript.github.io/main/custom-stages
-    "customStages": [],
-  },
+    "customStages": []
+  }
 }

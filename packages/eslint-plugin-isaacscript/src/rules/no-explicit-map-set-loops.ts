@@ -69,8 +69,8 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
         }
 
         const callExpressionEnd = callExpression.range[1];
-        const replacementStart = callExpressionEnd
-          - `.${expectedMethodName}()`.length;
+        const replacementStart = callExpressionEnd -
+          `.${expectedMethodName}()`.length;
         const replacementEnd = callExpressionEnd;
 
         context.report({

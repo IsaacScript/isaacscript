@@ -45,40 +45,41 @@ export function parseArgs(): Args {
     .strict()
     .usage(`usage: ${PROJECT_NAME.toLowerCase()} <command> [options]`)
     .scriptName(PROJECT_NAME.toLowerCase())
-
     .alias("h", "help") // By default, only "--help" is enabled.
     .alias("V", "version") // By default, only "--version" is enabled.
-
-    .command("monitor", "Monitor a project for changes. (default)", (builder) =>
-      builder
-        .option("mods-directory", {
-          alias: "m",
-          type: "string",
-          description: "The directory where Isaac mods live on your system",
-        })
-        .option("save-slot", {
-          alias: "s",
-          type: "number",
-          choices: [1, 2, 3],
-          description: "The save slot in-game that you use",
-        })
-        .option("skip-project-checks", {
-          type: "boolean",
-          description: 'Skip checking for "package.json" and "node_modules"',
-        })
-        .option("dev", {
-          alias: "d",
-          type: "boolean",
-          description:
-            "Link the mod to the local development version of isaacscript-common",
-        })
-        .option("verbose", {
-          alias: "v",
-          type: "boolean",
-          description: "Enable verbose output",
-        }),
+    .command(
+      "monitor",
+      "Monitor a project for changes. (default)",
+      (builder) =>
+        builder
+          .option("mods-directory", {
+            alias: "m",
+            type: "string",
+            description: "The directory where Isaac mods live on your system",
+          })
+          .option("save-slot", {
+            alias: "s",
+            type: "number",
+            choices: [1, 2, 3],
+            description: "The save slot in-game that you use",
+          })
+          .option("skip-project-checks", {
+            type: "boolean",
+            description:
+              "Skip checking for \"package.json\" and \"node_modules\"",
+          })
+          .option("dev", {
+            alias: "d",
+            type: "boolean",
+            description:
+              "Link the mod to the local development version of isaacscript-common",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
+          }),
     )
-
     .command(
       "init [name]",
       `Initialize a new ${PROJECT_NAME} mod.`,
@@ -88,7 +89,7 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              'Answer yes to every dialog option, similar to how "npm init --yes" works',
+              "Answer yes to every dialog option, similar to how \"npm init --yes\" works",
           })
           .option("use-current-dir", {
             type: "boolean",
@@ -150,7 +151,6 @@ export function parseArgs(): Args {
             description: "Enable verbose output",
           }),
     )
-
     .command(
       "init-ts [name]",
       `Initialize a new ${PROJECT_NAME} TypeScript project.`,
@@ -160,7 +160,7 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              'Answer yes to every dialog option, similar to how "npm init --yes" works',
+              "Answer yes to every dialog option, similar to how \"npm init --yes\" works",
           })
           .option("use-current-dir", {
             type: "boolean",
@@ -205,15 +205,16 @@ export function parseArgs(): Args {
             description: "Enable verbose output",
           }),
     )
-
-    .command("copy", "Only compile & copy the mod.", (builder) =>
-      builder.option("verbose", {
-        alias: "v",
-        type: "boolean",
-        description: "Enable verbose output",
-      }),
+    .command(
+      "copy",
+      "Only compile & copy the mod.",
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
     )
-
     .command(
       "publish",
       "Bump the version & prepare for a new release.",
@@ -260,7 +261,6 @@ export function parseArgs(): Args {
             description: "Enable verbose output",
           }),
     )
-
     .command(
       "publish-ts",
       "Bump the version & publish the project to npm.",
@@ -303,7 +303,6 @@ export function parseArgs(): Args {
             description: "Enable verbose output",
           }),
     )
-
     .command(
       "check",
       "Check the template files of the current IsaacScript mod to see if they are up to date.",
@@ -320,7 +319,6 @@ export function parseArgs(): Args {
             description: "Enable verbose output",
           }),
     )
-
     .command(
       "check-ts",
       "Check the template files of the current TypeScript project to see if they are up to date.",
@@ -337,10 +335,9 @@ export function parseArgs(): Args {
             description: "Enable verbose output",
           }),
     )
-
     .command(
       "check-cspell",
-      'Check the "cspell.json" file to see if any unused words exist.',
+      "Check the \"cspell.json\" file to see if any unused words exist.",
       (builder) =>
         builder.option("verbose", {
           alias: "v",
@@ -348,7 +345,6 @@ export function parseArgs(): Args {
           description: "Enable verbose output",
         }),
     )
-
     .parseSync();
 
   return yargsObject as Args;

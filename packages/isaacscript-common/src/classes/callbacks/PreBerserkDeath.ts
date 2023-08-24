@@ -6,7 +6,9 @@ import { willPlayerRevive } from "../../functions/revive";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSERK_DEATH> {
+export class PreBerserkDeath
+  extends CustomCallback<ModCallbackCustom.PRE_BERSERK_DEATH>
+{
   constructor() {
     super();
 

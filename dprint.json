@@ -1,12 +1,12 @@
 {
   "typescript": {
+    "constructSignature.spaceAfterNewKeyword": true,
     "lineWidth": 80,
-    "constructorType.spaceAfterNewKeyword": true,
-    "constructSignature.spaceAfterNewKeyword": true
+    "operatorPosition": "sameLine"
   },
   "json": {},
   "markdown": {},
-  "excludes": ["**/node_modules", "**/*-lock.json"],
+  "excludes": ["**/dist", "**/node_modules", "**/.yarn"],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.86.2.wasm",
     "https://plugins.dprint.dev/json-0.17.4.wasm",

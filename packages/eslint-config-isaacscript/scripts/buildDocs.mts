@@ -672,7 +672,7 @@ function getRuleComments(
       continue;
     }
 
-    const lineWithNoQuotes = line.replaceAll('"', "");
+    const lineWithNoQuotes = line.replaceAll("\"", "");
     const colonIndex = lineWithNoQuotes.indexOf(":");
     const lineRuleName = lineWithNoQuotes.slice(0, Math.max(0, colonIndex));
 
@@ -733,7 +733,8 @@ function getMarkdownTableRow(
   const enabledEmoji = enabled ? "✅" : "❌";
   const parentConfigsLinks = getParentConfigsLinks(ruleName);
   const ruleComments = getRuleComments(ruleName, rule, baseConfigText);
-  const sourceFileLink = `[\`${baseConfigFileName}\`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/${baseConfigFileName})`;
+  const sourceFileLink =
+    `[\`${baseConfigFileName}\`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/${baseConfigFileName})`;
 
   return `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${ruleComments} | ${sourceFileLink}\n`;
 }

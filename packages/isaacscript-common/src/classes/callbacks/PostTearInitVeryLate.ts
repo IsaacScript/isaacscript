@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostTearInitVeryLate extends CustomCallback<ModCallbackCustom.POST_TEAR_INIT_VERY_LATE> {
+export class PostTearInitVeryLate
+  extends CustomCallback<ModCallbackCustom.POST_TEAR_INIT_VERY_LATE>
+{
   public override v = v;
 
   constructor() {

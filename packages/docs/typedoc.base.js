@@ -37,7 +37,7 @@ function getTypeDocConfig(packageDirectoryPath) {
   const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
   const typeScriptFileExports = getTypeScriptFileExports(indexTSPath);
   const exportsWithSrcPrefix = typeScriptFileExports.map((entryPoint) =>
-    entryPoint.replaceAll("./", "./src/"),
+    entryPoint.replaceAll("./", "./src/")
   );
   const entryPoints = exportsWithSrcPrefix.map(
     (entryPoint) => `${entryPoint}.ts`,

@@ -250,9 +250,9 @@ function deepCopyDefaultMap(
     log("deepCopy is copying a DefaultMap.");
   }
 
-  const constructorArg = isDefaultMap(defaultMap)
-    ? defaultMap.getConstructorArg()
-    : undefined; // The undefined case is handled explicitly in the "getNewDefaultMap" function.
+  const constructorArg = isDefaultMap(defaultMap) ?
+    defaultMap.getConstructorArg() :
+    undefined; // The undefined case is handled explicitly in the "getNewDefaultMap" function.
 
   // First, handle the special case of serializing a DefaultMap instantiated with a factory
   // function. If this is the case, then we cannot serialize it (because there is no way to
@@ -709,10 +709,9 @@ function checkMetatable(
     return;
   }
 
-  const tableDescription =
-    traversalDescription === ""
-      ? "the table to copy"
-      : `"${traversalDescription}"`;
+  const tableDescription = traversalDescription === "" ?
+    "the table to copy" :
+    `"${traversalDescription}"`;
 
   error(
     `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. TypeScriptToLua Maps, TypeScriptToLua Sets, etc.)`,

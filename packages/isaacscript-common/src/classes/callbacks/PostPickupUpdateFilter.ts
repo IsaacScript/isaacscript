@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostPickupUpdateFilter extends CustomCallback<ModCallbackCustom.POST_PICKUP_UPDATE_FILTER> {
+export class PostPickupUpdateFilter
+  extends CustomCallback<ModCallbackCustom.POST_PICKUP_UPDATE_FILTER>
+{
   constructor() {
     super();
 

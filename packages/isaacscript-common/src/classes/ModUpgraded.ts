@@ -70,9 +70,8 @@ export class ModUpgraded implements Mod {
 
   public AddCallback<T extends keyof AddCallbackParameters | string>(
     modCallback: T,
-    ...args: T extends keyof AddCallbackParameters
-      ? AddCallbackParameters[T]
-      : unknown[]
+    ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] :
+      unknown[]
   ): void {
     this.AddPriorityCallback(modCallback, CallbackPriority.DEFAULT, ...args);
   }
@@ -80,9 +79,8 @@ export class ModUpgraded implements Mod {
   public AddPriorityCallback<T extends keyof AddCallbackParameters | string>(
     modCallback: T,
     priority: CallbackPriority | int,
-    ...args: T extends keyof AddCallbackParameters
-      ? AddCallbackParameters[T]
-      : unknown[]
+    ...args: T extends keyof AddCallbackParameters ? AddCallbackParameters[T] :
+      unknown[]
   ): void {
     if (this.debug) {
       const callback = args[0];
@@ -90,13 +88,12 @@ export class ModUpgraded implements Mod {
 
       const parentFunctionDescription = getParentFunctionDescription();
       const customCallback = type(modCallback) === "string";
-      const callbackName = customCallback
-        ? `${modCallback} (custom callback)`
-        : `ModCallback.${ModCallback[modCallback as ModCallback]}`;
-      const signature =
-        parentFunctionDescription === undefined
-          ? callbackName
-          : `${parentFunctionDescription} - ${callbackName}`;
+      const callbackName = customCallback ?
+        `${modCallback} (custom callback)` :
+        `ModCallback.${ModCallback[modCallback as ModCallback]}`;
+      const signature = parentFunctionDescription === undefined ?
+        callbackName :
+        `${parentFunctionDescription} - ${callbackName}`;
 
       /**
        * We don't use the "log" helper function here since it will always show the same "unknown"
@@ -226,9 +223,11 @@ export class ModUpgraded implements Mod {
    */
   public logUsedFeatures(): void {
     // Custom callbacks
-    for (const [modCallbackCustomString, callbackClass] of Object.entries(
-      this.callbacks,
-    )) {
+    for (
+      const [modCallbackCustomString, callbackClass] of Object.entries(
+        this.callbacks,
+      )
+    ) {
       if (callbackClass.numConsumers === 0) {
         continue;
       }
@@ -241,14 +240,18 @@ export class ModUpgraded implements Mod {
       }
 
       log(
-        `- ModCallbackCustom.${ModCallbackCustom[modCallbackCustom]} (${modCallbackCustom})`,
+        `- ModCallbackCustom.${
+          ModCallbackCustom[modCallbackCustom]
+        } (${modCallbackCustom})`,
       );
     }
 
     // Extra features
-    for (const [iscFeatureString, featureClass] of Object.entries(
-      this.features,
-    )) {
+    for (
+      const [iscFeatureString, featureClass] of Object.entries(
+        this.features,
+      )
+    ) {
       if (featureClass.numConsumers === 0) {
         continue;
       }

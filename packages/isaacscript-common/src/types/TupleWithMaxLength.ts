@@ -5,12 +5,14 @@ import type { Range } from "./Range";
  *
  * For example, `TupleWithMaxLength<string, 3>` will allow string tuples of size 0, 1, 2, or 3.
  */
-export type TupleWithMaxLength<T, MaxLength extends number> = (
-  | T[]
-  | readonly T[]
-) & {
-  length: Range<0, MaxLength>;
-};
+export type TupleWithMaxLength<T, MaxLength extends number> =
+  & (
+    | T[]
+    | readonly T[]
+  )
+  & {
+    length: Range<0, MaxLength>;
+  };
 
 // -----
 // Tests

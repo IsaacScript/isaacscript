@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireEffect } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostEffectRenderFilter extends CustomCallback<ModCallbackCustom.POST_EFFECT_RENDER_FILTER> {
+export class PostEffectRenderFilter
+  extends CustomCallback<ModCallbackCustom.POST_EFFECT_RENDER_FILTER>
+{
   constructor() {
     super();
 

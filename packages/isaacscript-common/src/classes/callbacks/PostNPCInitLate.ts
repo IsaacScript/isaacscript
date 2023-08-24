@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostNPCInitLate extends CustomCallback<ModCallbackCustom.POST_NPC_INIT_LATE> {
+export class PostNPCInitLate
+  extends CustomCallback<ModCallbackCustom.POST_NPC_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

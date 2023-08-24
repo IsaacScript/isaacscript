@@ -15,7 +15,9 @@ const v = {
   },
 };
 
-export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SWING> {
+export class PostBoneSwing
+  extends CustomCallback<ModCallbackCustom.POST_BONE_SWING>
+{
   public override v = v;
 
   constructor() {

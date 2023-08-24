@@ -41,7 +41,6 @@ export enum PlayerStat {
 
   /** Corresponds to `CacheFlag.SIZE` (1 << 11) and `EntityPlayer.SpriteScale`. */
   SIZE,
-
   // - `CacheFlag.COLOR` (1 << 12) does not have a corresponding `EntityPlayer` field.
   // - `CacheFlag.PICKUP_VISION` (1 << 13) does not have a corresponding `EntityPlayer` field.
 }

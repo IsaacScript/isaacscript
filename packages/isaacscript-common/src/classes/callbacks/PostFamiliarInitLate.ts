@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_INIT_LATE> {
+export class PostFamiliarInitLate
+  extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

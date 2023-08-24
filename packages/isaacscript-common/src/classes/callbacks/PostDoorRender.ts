@@ -4,7 +4,9 @@ import { getDoors } from "../../functions/doors";
 import { shouldFireDoor } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostDoorRender extends CustomCallback<ModCallbackCustom.POST_DOOR_RENDER> {
+export class PostDoorRender
+  extends CustomCallback<ModCallbackCustom.POST_DOOR_RENDER>
+{
   constructor() {
     super();
 

@@ -9,7 +9,9 @@ const v = {
   },
 };
 
-export class PostLaserInitLate extends CustomCallback<ModCallbackCustom.POST_LASER_INIT_LATE> {
+export class PostLaserInitLate
+  extends CustomCallback<ModCallbackCustom.POST_LASER_INIT_LATE>
+{
   public override v = v;
 
   constructor() {

@@ -13,6 +13,6 @@
 
     // "lib" specifies a set of bundled library declaration files that describe the target run-time
     // environment.
-    "lib": ["DOM", "ES2017"],
-  },
+    "lib": ["DOM", "ES2017"]
+  }
 }

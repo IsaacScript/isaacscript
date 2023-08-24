@@ -148,8 +148,9 @@ export function getCollectibleDescription(
 
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
-  const collectibleDescription =
-    COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
+  const collectibleDescription = COLLECTIBLE_DESCRIPTION_MAP.get(
+    collectibleType,
+  );
   if (collectibleDescription !== undefined) {
     return collectibleDescription;
   }
@@ -214,14 +215,13 @@ export function getCollectibleDevilHeartPrice(
     return defaultCollectiblePrice;
   }
 
-  const twoHeartPrice =
-    maxHearts === 2
-      ? PickupPrice.ONE_HEART_AND_TWO_SOUL_HEARTS
-      : PickupPrice.TWO_HEARTS;
+  const twoHeartPrice = maxHearts === 2 ?
+    PickupPrice.ONE_HEART_AND_TWO_SOUL_HEARTS :
+    PickupPrice.TWO_HEARTS;
 
-  return itemConfigItem.DevilPrice === 2
-    ? twoHeartPrice
-    : PickupPrice.ONE_HEART;
+  return itemConfigItem.DevilPrice === 2 ?
+    twoHeartPrice :
+    PickupPrice.ONE_HEART;
 }
 
 /**
@@ -443,7 +443,7 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
   const renderMode = room.GetRenderMode();
   if (renderMode === RenderMode.WATER_REFLECT) {
     error(
-      'The "isBlindCollectible" function will not work properly in a render callback with the render mode equal to "RenderMode.WATER_REFLECT". Make sure that you properly account for this case if you are calling this function in a render callback.',
+      "The \"isBlindCollectible\" function will not work properly in a render callback with the render mode equal to \"RenderMode.WATER_REFLECT\". Make sure that you properly account for this case if you are calling this function in a render callback.",
     );
   }
 

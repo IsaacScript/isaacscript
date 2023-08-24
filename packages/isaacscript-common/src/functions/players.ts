@@ -79,7 +79,7 @@ export function anyPlayerHasCollectible(
   const players = getAllPlayers();
 
   return players.some((player) =>
-    player.HasCollectible(collectibleType, ignoreModifiers),
+    player.HasCollectible(collectibleType, ignoreModifiers)
   );
 }
 
@@ -97,7 +97,7 @@ export function anyPlayerHasTrinket(
   const players = getAllPlayers();
 
   return players.some((player) =>
-    player.HasTrinket(trinketType, ignoreModifiers),
+    player.HasTrinket(trinketType, ignoreModifiers)
   );
 }
 
@@ -187,9 +187,9 @@ export function getActiveItemSlots(
 export function getAzazelBrimstoneDistance(
   playerOrTearHeight: EntityPlayer | float,
 ): float {
-  const tearHeight = isNumber(playerOrTearHeight)
-    ? playerOrTearHeight
-    : playerOrTearHeight.TearHeight;
+  const tearHeight = isNumber(playerOrTearHeight) ?
+    playerOrTearHeight :
+    playerOrTearHeight.TearHeight;
 
   return 32 - 2.5 * tearHeight;
 }
@@ -376,9 +376,9 @@ export function getPlayerName(player: EntityPlayer): string {
   const character = player.GetPlayerType();
 
   // Account for modded characters.
-  return isModdedPlayer(player)
-    ? player.GetName()
-    : getCharacterName(character);
+  return isModdedPlayer(player) ?
+    player.GetName() :
+    getCharacterName(character);
 }
 
 /**
@@ -445,8 +445,8 @@ export function getPlayersWithCollectible(
 
   return players.filter((player) =>
     collectibleTypes.every((collectibleType) =>
-      player.HasCollectible(collectibleType),
-    ),
+      player.HasCollectible(collectibleType)
+    )
   );
 }
 
@@ -477,7 +477,7 @@ export function getPlayersWithTrinket(
   const players = getPlayers();
 
   return players.filter((player) =>
-    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
+    trinketTypes.every((trinketType) => player.HasTrinket(trinketType))
   );
 }
 
@@ -493,7 +493,7 @@ export function getTotalPlayerCollectibles(
   const players = getPlayers();
   const numCollectiblesArray = players.map((player) =>
     // We specify "true" as the second argument to filter out things like Lilith's Incubus.
-    player.GetCollectibleNum(collectibleType, true),
+    player.GetCollectibleNum(collectibleType, true)
   );
 
   return sumArray(numCollectiblesArray);
@@ -512,7 +512,7 @@ export function hasCollectible(
   ...collectibleTypes: CollectibleType[]
 ): boolean {
   return collectibleTypes.some((collectibleType) =>
-    player.HasCollectible(collectibleType),
+    player.HasCollectible(collectibleType)
   );
 }
 
@@ -533,7 +533,7 @@ export function hasCollectibleInActiveSlot(
   const activeItemSlots = getActiveItemSlots(player, collectibleType);
 
   return activeItemSlots.some((activeSlot) =>
-    matchingActiveSlotsSet.has(activeSlot),
+    matchingActiveSlotsSet.has(activeSlot)
   );
 }
 
@@ -702,9 +702,9 @@ export function isPlayerAbleToAim(player: EntityPlayer): boolean {
 export function isTainted(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
 
-  return isVanillaPlayer(player)
-    ? character >= PlayerType.ISAAC_B
-    : isTaintedModded(player);
+  return isVanillaPlayer(player) ?
+    character >= PlayerType.ISAAC_B :
+    isTaintedModded(player);
 }
 
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */

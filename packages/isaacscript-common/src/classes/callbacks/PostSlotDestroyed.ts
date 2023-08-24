@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostSlotDestroyed extends CustomCallback<ModCallbackCustom.POST_SLOT_DESTROYED> {
+export class PostSlotDestroyed
+  extends CustomCallback<ModCallbackCustom.POST_SLOT_DESTROYED>
+{
   constructor() {
     super();
 

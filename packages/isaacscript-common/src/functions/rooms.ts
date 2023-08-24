@@ -223,9 +223,9 @@ export function getRoomsInsideGrid(
 ): RoomDescriptor[] {
   const level = game.GetLevel();
 
-  const dimensions = includeExtraDimensionalRooms
-    ? getAllDimensions()
-    : [Dimension.CURRENT];
+  const dimensions = includeExtraDimensionalRooms ?
+    getAllDimensions() :
+    [Dimension.CURRENT];
 
   /** We use a map instead of an array because room shapes occupy more than one room grid index. */
   const roomDescriptorMap = new Map<PtrHash, RoomDescriptor>();
@@ -281,7 +281,7 @@ export function getRoomsOutsideGrid(): RoomDescriptor[] {
   );
 
   return readOnlyRoomsOffGrid.map((readOnlyRoomDescriptor) =>
-    getRoomDescriptor(readOnlyRoomDescriptor.SafeGridIndex),
+    getRoomDescriptor(readOnlyRoomDescriptor.SafeGridIndex)
   );
 }
 
@@ -567,7 +567,7 @@ export function isDeathCertificateArea(roomData: RoomConfig): boolean {
   return (
     roomData.StageID === StageID.HOME &&
     (roomData.Subtype ===
-      asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE) ||
+        asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE) ||
       roomData.Subtype === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ITEMS))
   );
 }

@@ -57,9 +57,9 @@ async function main(): Promise<void> {
 function getCommandFromArgs(args: Args): Command {
   const positionalArgs = args._;
   const firstPositionArg = positionalArgs[0];
-  return firstPositionArg === undefined || firstPositionArg === ""
-    ? DEFAULT_COMMAND
-    : (firstPositionArg as Command);
+  return firstPositionArg === undefined || firstPositionArg === "" ?
+    DEFAULT_COMMAND :
+    (firstPositionArg as Command);
 }
 
 function printBanner(command: Command, verbose: boolean) {

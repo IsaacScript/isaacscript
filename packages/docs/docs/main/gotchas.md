@@ -307,9 +307,9 @@ const Revelations = RegisterMod("Revelations", 1);
 
 // Define default values for the save data.
 const RevelationsSaveData = {
-  currentHP = 3,
-  currentNumFamiliars = 4,
-  currentCharge = 10,
+  currentHP: 3,
+  currentNumFamiliars: 4,
+  currentCharge: 10,
 };
 
 function saveModData() {

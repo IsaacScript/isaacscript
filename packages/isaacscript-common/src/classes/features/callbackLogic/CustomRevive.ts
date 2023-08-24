@@ -221,9 +221,9 @@ export class CustomRevive extends Feature {
   private logStateChanged(): void {
     if (DEBUG) {
       log(
-        `Custom revive state changed: ${CustomReviveState[v.run.state]} (${
-          v.run.state
-        })`,
+        `Custom revive state changed: ${
+          CustomReviveState[v.run.state]
+        } (${v.run.state})`,
       );
     }
   }

@@ -26,8 +26,8 @@ export function benchmark(
       const startTimeMilliseconds = Isaac.GetTime();
       func();
       const endTimeMilliseconds = Isaac.GetTime();
-      const elapsedTimeMilliseconds =
-        endTimeMilliseconds - startTimeMilliseconds;
+      const elapsedTimeMilliseconds = endTimeMilliseconds -
+        startTimeMilliseconds;
       totalTimeMilliseconds += elapsedTimeMilliseconds;
     }
     const averageTimeMilliseconds = totalTimeMilliseconds / numTrials;

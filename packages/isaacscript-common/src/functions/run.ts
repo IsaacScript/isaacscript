@@ -71,7 +71,9 @@ export function restart(character?: PlayerType): void {
 
   const command = `restart ${character}`;
   log(
-    `Restarting the run as PlayerType.${PlayerType[character]} (${character}) with a console command of: ${command}`,
+    `Restarting the run as PlayerType.${
+      PlayerType[character]
+    } (${character}) with a console command of: ${command}`,
   );
   Isaac.ExecuteCommand(command);
 }

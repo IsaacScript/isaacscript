@@ -8,10 +8,10 @@ import ts from "typescript";
 import { isSymbolFlagSet, isTypeFlagSet, unionTypeParts } from "../typeUtils";
 import { createRule } from "../utils";
 
-const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT = ts.TypeFlags.Any
-  | ts.TypeFlags.Unknown
-  | ts.TypeFlags.Number
-  | ts.TypeFlags.String;
+const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT = ts.TypeFlags.Any |
+  ts.TypeFlags.Unknown |
+  ts.TypeFlags.Number |
+  ts.TypeFlags.String;
 
 export type Options = [];
 
@@ -232,8 +232,8 @@ export const strictEnums = createRule<Options, MessageIds>({
           const leftTypeArgument = leftTypeArguments[i];
           const rightTypeArgument = rightTypeArguments[i];
           if (
-            leftTypeArgument === undefined
-            || rightTypeArgument === undefined
+            leftTypeArgument === undefined ||
+            rightTypeArgument === undefined
           ) {
             continue;
           }
@@ -302,8 +302,8 @@ export const strictEnums = createRule<Options, MessageIds>({
             const argumentTypeArgument = argumentTypeArguments[i];
             const parameterTypeArgument = parameterTypeArguments[i];
             if (
-              argumentTypeArgument === undefined
-              || parameterTypeArgument === undefined
+              argumentTypeArgument === undefined ||
+              parameterTypeArgument === undefined
             ) {
               continue;
             }
@@ -367,10 +367,10 @@ export const strictEnums = createRule<Options, MessageIds>({
       const argumentSubTypes = unionTypeParts(argumentType);
       for (const argumentSubType of argumentSubTypes) {
         if (
-          argumentSubType.isLiteral()
-          && !isEnum(argumentSubType)
+          argumentSubType.isLiteral() &&
+          !isEnum(argumentSubType) &&
           // Allow passing number literals if there are number literals in the actual function type.
-          && !parameterSubTypes.includes(argumentSubType)
+          !parameterSubTypes.includes(argumentSubType)
         ) {
           return true;
         }
@@ -533,11 +533,11 @@ function isNullOrUndefinedOrAnyOrUnknownOrNever(...types: ts.Type[]): boolean {
   return types.some((type) =>
     isTypeFlagSet(
       type,
-      ts.TypeFlags.Null
-        | ts.TypeFlags.Undefined
-        | ts.TypeFlags.Any
-        | ts.TypeFlags.Unknown
-        | ts.TypeFlags.Never,
+      ts.TypeFlags.Null |
+        ts.TypeFlags.Undefined |
+        ts.TypeFlags.Any |
+        ts.TypeFlags.Unknown |
+        ts.TypeFlags.Never,
     )
   );
 }

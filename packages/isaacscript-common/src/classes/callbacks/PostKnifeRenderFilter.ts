@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostKnifeRenderFilter extends CustomCallback<ModCallbackCustom.POST_KNIFE_RENDER_FILTER> {
+export class PostKnifeRenderFilter
+  extends CustomCallback<ModCallbackCustom.POST_KNIFE_RENDER_FILTER>
+{
   constructor() {
     super();
 

@@ -30,7 +30,9 @@ const v = {
   },
 };
 
-export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CURSED_TELEPORT> {
+export class PostCursedTeleport
+  extends CustomCallback<ModCallbackCustom.POST_CURSED_TELEPORT>
+{
   public override v = v;
 
   protected override shouldFire = shouldFirePlayer;

@@ -3,7 +3,9 @@ import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireLaser } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
-export class PostLaserInitFilter extends CustomCallback<ModCallbackCustom.POST_LASER_INIT_FILTER> {
+export class PostLaserInitFilter
+  extends CustomCallback<ModCallbackCustom.POST_LASER_INIT_FILTER>
+{
   constructor() {
     super();
 

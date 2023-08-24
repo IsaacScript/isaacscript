@@ -125,12 +125,11 @@ export function logAllGridEntities(
     numMatchedEntities++;
   }
 
-  msg +=
-    numMatchedEntities === 0
-      ? "(no grid entities matched)\n"
-      : `(${numMatchedEntities} total grid ${
-          numMatchedEntities === 1 ? "entity" : "entities"
-        })\n`;
+  msg += numMatchedEntities === 0 ?
+    "(no grid entities matched)\n" :
+    `(${numMatchedEntities} total grid ${
+      numMatchedEntities === 1 ? "entity" : "entities"
+    })\n`;
 
   // We must log each line because otherwise the message can get truncated.
   for (const line of msg.trim().split("\n")) {
@@ -224,7 +223,8 @@ function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   msg += `  - Parent: ${entity.Parent}\n`;
   msg += `  - Child: ${entity.Child}\n`;
   msg += `  - SpawnerEntity: ${entity.SpawnerEntity}\n`;
-  msg += `  - SpawnerType / SpawnerVariant: ${entity.SpawnerType}.${entity.SpawnerVariant}\n`;
+  msg +=
+    `  - SpawnerType / SpawnerVariant: ${entity.SpawnerType}.${entity.SpawnerVariant}\n`;
   if (npc !== undefined) {
     msg += `  - CanShutDoors: ${npc.CanShutDoors}\n`;
   }

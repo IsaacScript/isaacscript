@@ -4,8 +4,8 @@ import {
   PlayerType,
 } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
-import { isQuestCollectible } from "./collectibleTag";
 import { setCollectibleEmpty } from "./collectibles";
+import { isQuestCollectible } from "./collectibleTag";
 import { spawnPickupWithSeed } from "./entitiesSpecific";
 import { anyPlayerIs } from "./players";
 import { getRandomSeed, isRNG } from "./rng";

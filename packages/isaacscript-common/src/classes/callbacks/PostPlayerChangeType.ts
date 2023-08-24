@@ -19,7 +19,9 @@ const v = {
   },
 };
 
-export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_TYPE> {
+export class PostPlayerChangeType
+  extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_TYPE>
+{
   public override v = v;
 
   constructor() {

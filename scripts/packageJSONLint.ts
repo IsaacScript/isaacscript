@@ -18,7 +18,7 @@ const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
 main();
 
 function main() {
-  console.log('Checking "package.json" files...');
+  console.log("Checking \"package.json\" files...");
 
   process.chdir(REPO_ROOT);
 
@@ -44,7 +44,7 @@ function main() {
     process.exit(1);
   }
 
-  console.log('All "package.json" files are valid.');
+  console.log("All \"package.json\" files are valid.");
 }
 
 function packageJSONLint(
@@ -367,7 +367,7 @@ function checkRootDepsUpToDate(
 ) {
   for (const [rootDepName, rootDepVersion] of Object.entries(rootDeps)) {
     const matchingPackageJSONPath = packageJSONPaths.find((packageJSONPath) =>
-      packageJSONPath.includes(`/${rootDepName}/`),
+      packageJSONPath.includes(`/${rootDepName}/`)
     );
     if (matchingPackageJSONPath === undefined) {
       continue;
@@ -403,7 +403,7 @@ function getPackageJSON(packageJSONString: string): Record<string, unknown> {
     packageJSON === null ||
     Array.isArray(packageJSON)
   ) {
-    fatalError('Failed to parse a "package.json" file.');
+    fatalError("Failed to parse a \"package.json\" file.");
   }
 
   return packageJSON as Record<string, unknown>;

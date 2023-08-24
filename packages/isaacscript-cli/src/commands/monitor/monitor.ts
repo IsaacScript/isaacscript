@@ -26,10 +26,10 @@ import {
 import { fatalError, isRecord } from "../../isaacScriptCommonTS.js";
 import { getJSONC } from "../../json.js";
 import {
-  PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
   getPackageManagerAddCommand,
   getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
+  PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
 } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
@@ -129,7 +129,7 @@ export async function monitor(
         `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
       );
       fatalError(
-        'Please make sure that the IsaacScript repository is placed next to this one. If you do not want to test a local version of "isaacscript-common", then set the "isaacScriptCommonDev" field to false in your "isaacscript.json" file.',
+        "Please make sure that the IsaacScript repository is placed next to this one. If you do not want to test a local version of \"isaacscript-common\", then set the \"isaacScriptCommonDev\" field to false in your \"isaacscript.json\" file.",
       );
     }
 
@@ -181,9 +181,11 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
         dependency,
       );
       fatalError(
-        `${chalk.red(
-          `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command:`,
-        )} ${chalk.green(addCommand)}`,
+        `${
+          chalk.red(
+            `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command:`,
+          )
+        } ${chalk.green(addCommand)}`,
       );
     }
   }
@@ -203,7 +205,7 @@ function linkDevelopmentIsaacScriptCommon(
   const isaacScriptMonorepoDirectory =
     getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
 
-  console.log('Building "isaacscript-common"...');
+  console.log("Building \"isaacscript-common\"...");
   const iscBuildScript = path.join(
     isaacScriptMonorepoDirectory,
     "packages",
@@ -213,7 +215,7 @@ function linkDevelopmentIsaacScriptCommon(
   execShell("bash", [iscBuildScript], verbose);
 
   console.log(
-    'Linking this repository to the development version of "isaacscript-common"...',
+    "Linking this repository to the development version of \"isaacscript-common\"...",
   );
   const iscDistDirectory = path.join(
     isaacScriptMonorepoDirectory,
@@ -251,7 +253,7 @@ function warnIfIsaacScriptCommonLinkExists(
     packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     fatalError(
-      'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
+      "Your \"node_modules/isaacscript-common\" directory is linked, but you do not have \"isaacScriptCommonDev\" set to true in your \"isaacscript.json\" file. You must either set it to true or remove the link.",
     );
   }
 }
@@ -297,8 +299,9 @@ function spawnTSTLWatcher(
   modCWD?: string,
 ) {
   const processDescription = "tstl";
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
+  const packageManagerExecCommand = getPackageManagerExecCommand(
+    packageManager,
+  );
   const tstl = spawn(
     packageManagerExecCommand,
     ["tstl", "--watch", "--preserveWatchOutput"],
@@ -313,11 +316,12 @@ function spawnTSTLWatcher(
     const suffix = getMonitorMessageSuffix(config, cwd);
 
     if (msg.includes("Starting compilation in watch mode...")) {
-      const newMsg1 = `${PROJECT_NAME} is now watching for future changes${suffix}.`;
+      const newMsg1 =
+        `${PROJECT_NAME} is now watching for future changes${suffix}.`;
       notifyGame.msg(newMsg1);
-      const target = suffix.includes("isaacscript-common")
-        ? '"isaacscript-common"'
-        : "the mod";
+      const target = suffix.includes("isaacscript-common") ?
+        "\"isaacscript-common\"" :
+        "the mod";
       const newMsg2 = `Compiling ${target} for the first time...`;
       notifyGame.msg(newMsg2);
     } else if (
@@ -328,10 +332,11 @@ function spawnTSTLWatcher(
       notifyGame.msg(newMsg);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
       const compilationFinishTime = new Date();
-      const elapsedTimeMilliseconds =
-        compilationFinishTime.getTime() - compilationStartTime.getTime();
+      const elapsedTimeMilliseconds = compilationFinishTime.getTime() -
+        compilationStartTime.getTime();
       const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
-      const newMsg = `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
+      const newMsg =
+        `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
       notifyGame.msg(newMsg);
 
       // Sometimes, there is a bug where successful compilation of "isaacscript-common" will not
@@ -379,7 +384,7 @@ function getMonitorMessageSuffix(config: Config, cwd: string): string {
   }
 
   const baseName = path.basename(cwd);
-  return baseName === "isaacscript-common"
-    ? ' (in "isaacscript-common")'
-    : " (in this mod)";
+  return baseName === "isaacscript-common" ?
+    " (in \"isaacscript-common\")" :
+    " (in this mod)";
 }

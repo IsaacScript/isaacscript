@@ -25,9 +25,11 @@ export async function checkModTargetDirectory(
   }
 
   console.log(
-    `A ${fileType} already exists at at the mod path of: ${chalk.green(
-      modTargetPath,
-    )}`,
+    `A ${fileType} already exists at at the mod path of: ${
+      chalk.green(
+        modTargetPath,
+      )
+    }`,
   );
   console.log(
     `${PROJECT_NAME} will need to sync your project folder with this directory.`,

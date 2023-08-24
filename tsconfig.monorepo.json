@@ -7,8 +7,8 @@
     "baseUrl": ".",
 
     // Performance optimization; see: https://www.npmjs.com/package/tslib
-    "importHelpers": true,
+    "importHelpers": true
   },
 
-  "exclude": ["node_modules", "tmp"],
+  "exclude": ["node_modules", "tmp"]
 }

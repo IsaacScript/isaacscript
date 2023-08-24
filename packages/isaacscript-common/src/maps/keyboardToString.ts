@@ -7,7 +7,7 @@ export const KEYBOARD_TO_STRING = new ReadonlyMap<
   readonly [lowercaseCharacter: string, uppercaseCharacter: string]
 >([
   [Keyboard.SPACE, [" ", " "]], // 32
-  [Keyboard.APOSTROPHE, ["'", '"']], // 39
+  [Keyboard.APOSTROPHE, ["'", "\""]], // 39
   [Keyboard.COMMA, [",", "<"]], // 44
   [Keyboard.MINUS, ["-", "_"]], // 45
   [Keyboard.PERIOD, [".", ">"]], // 46

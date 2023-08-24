@@ -23,9 +23,11 @@ export function validateNodeVersion(): void {
 
   console.error(`Your Node.js version is: ${chalk.red(version)}`);
   console.error(
-    `${PROJECT_NAME} requires a Node.js version of ${chalk.red(
-      `${REQUIRED_NODE_JS_MAJOR_VERSION}.0.0`,
-    )} or greater.`,
+    `${PROJECT_NAME} requires a Node.js version of ${
+      chalk.red(
+        `${REQUIRED_NODE_JS_MAJOR_VERSION}.0.0`,
+      )
+    } or greater.`,
   );
   console.error(
     `Please upgrade your version of Node.js before using ${PROJECT_NAME}.`,

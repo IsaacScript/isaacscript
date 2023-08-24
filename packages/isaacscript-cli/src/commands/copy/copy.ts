@@ -34,8 +34,9 @@ export async function compileAndCopy(
 }
 
 function compile(packageManager: PackageManager, verbose: boolean) {
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
+  const packageManagerExecCommand = getPackageManagerExecCommand(
+    packageManager,
+  );
   execShellString(`${packageManagerExecCommand} tstl`, verbose);
   console.log("Mod compiled successfully.");
 }

@@ -22,9 +22,8 @@
     // We generically enable the ability to use decorators, since some specific ones are offered in
     // the standard library. (The standard library does not use ECMAScript decorators due to
     // limitations in TSTL.)
-    "experimentalDecorators": true,
-  },
-
+    "experimentalDecorators": true
+  }
   // We cannot add values to the "tstl" object here (for TypeScriptToLua), since the entire object
   // will be overridden when it is specified in end-user mods.
 }

@@ -3,17 +3,21 @@ import { isNumber, isString, isTable } from "./types";
 function sortNormal(a: unknown, b: unknown): -1 | 0 | 1 {
   if (!isNumber(a) && !isString(a)) {
     error(
-      `Failed to normal sort since the first value was not a number or string and was instead: ${type(
-        a,
-      )}`,
+      `Failed to normal sort since the first value was not a number or string and was instead: ${
+        type(
+          a,
+        )
+      }`,
     );
   }
 
   if (!isNumber(b) && !isString(b)) {
     error(
-      `Failed to normal sort since the second value was not a number or string and was instead: ${type(
-        b,
-      )}`,
+      `Failed to normal sort since the second value was not a number or string and was instead: ${
+        type(
+          b,
+        )
+      }`,
     );
   }
 
@@ -51,17 +55,21 @@ export function sortObjectArrayByKey(key: string) {
   return (a: unknown, b: unknown): -1 | 0 | 1 => {
     if (!isTable(a)) {
       error(
-        `Failed to sort an object array by the key of "${key}" since the first element was not a table and was instead: ${type(
-          a,
-        )}`,
+        `Failed to sort an object array by the key of "${key}" since the first element was not a table and was instead: ${
+          type(
+            a,
+          )
+        }`,
       );
     }
 
     if (!isTable(b)) {
       error(
-        `Failed to sort an object array by the key of "${key}" since the second element was not a table and was instead: ${type(
-          b,
-        )}.`,
+        `Failed to sort an object array by the key of "${key}" since the second element was not a table and was instead: ${
+          type(
+            b,
+          )
+        }.`,
       );
     }
 

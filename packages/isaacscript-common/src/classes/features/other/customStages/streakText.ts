@@ -53,7 +53,16 @@ const TEXT_IN_ADJUSTMENTS = [-800, -639, -450, -250, -70, 10, 6, 3] as const;
 
 /** Taken from StageAPI. */
 const TEXT_OUT_ADJUSTMENTS = [
-  0, -5, -10, -15, -20, 144, 308, 472, 636, 800,
+  0,
+  -5,
+  -10,
+  -15,
+  -20,
+  144,
+  308,
+  472,
+  636,
+  800,
 ] as const;
 
 /** Taken from StageAPI. */
@@ -103,8 +112,8 @@ function checkEndTopStreakText() {
   }
 
   const renderFrameCount = Isaac.GetFrameCount();
-  const elapsedFrames =
-    renderFrameCount - v.run.topStreakTextStartedRenderFrame;
+  const elapsedFrames = renderFrameCount -
+    v.run.topStreakTextStartedRenderFrame;
   if (elapsedFrames >= 115) {
     v.run.topStreakText.animation = UIStreakAnimation.TEXT;
     // We adjust by the frame backwards by an arbitrary amount to roughly align with the speed of
@@ -116,8 +125,9 @@ function checkEndTopStreakText() {
 function trackMapInputPressed() {
   for (const controllerIndex of CONTROLLER_INDEX_VALUES) {
     const gameFrameCount = game.GetFrameCount();
-    const oldPushedMapFrame =
-      v.run.controllerIndexPushingMapRenderFrame.get(controllerIndex);
+    const oldPushedMapFrame = v.run.controllerIndexPushingMapRenderFrame.get(
+      controllerIndex,
+    );
     const isPushingMap = Input.IsActionPressed(
       ButtonAction.MAP,
       controllerIndex,

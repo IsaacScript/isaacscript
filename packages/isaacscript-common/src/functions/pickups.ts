@@ -6,8 +6,8 @@ import {
 import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { removeEntities } from "./entities";
-import { isHeart } from "./pickupVariants";
 import { getHearts } from "./pickupsSpecific";
+import { isHeart } from "./pickupVariants";
 
 /**
  * Helper function to get the corresponding coin amount from a `CoinSubType`. Returns 1 for modded

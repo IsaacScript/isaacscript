@@ -53,8 +53,8 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
         }
 
         if (
-          isHardCodedException(node)
-          || hasJSDocExceptionTag(checker, declaration)
+          isHardCodedException(node) ||
+          hasJSDocExceptionTag(checker, declaration)
         ) {
           return;
         }
@@ -76,8 +76,8 @@ function isHardCodedException(node: TSESTree.CallExpression): boolean {
 
   const { object, property } = callee;
   if (
-    object.type !== AST_NODE_TYPES.Identifier
-    || property.type !== AST_NODE_TYPES.Identifier
+    object.type !== AST_NODE_TYPES.Identifier ||
+    property.type !== AST_NODE_TYPES.Identifier
   ) {
     return false;
   }

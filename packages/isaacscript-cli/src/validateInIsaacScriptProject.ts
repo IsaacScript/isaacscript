@@ -35,9 +35,11 @@ function errorNotExists(dirName: string, file: boolean) {
     ),
   );
   console.error(
-    `Did you mean to create a new ${PROJECT_NAME} project with "${chalk.green(
-      "npx isaacscript init",
-    )}"?`,
+    `Did you mean to create a new ${PROJECT_NAME} project with "${
+      chalk.green(
+        "npx isaacscript init",
+      )
+    }"?`,
   );
   console.error(
     `If not, then change the current working directory to an ${PROJECT_NAME} project.`,

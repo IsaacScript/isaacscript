@@ -67,9 +67,9 @@ export function getRandomArrayElement<T>(
     );
   }
 
-  const arrayToUse = exceptions.length > 0
-    ? arrayRemove(array, ...exceptions)
-    : array;
+  const arrayToUse = exceptions.length > 0 ?
+    arrayRemove(array, ...exceptions) :
+    array;
   const randomIndex = getRandomArrayIndex(arrayToUse);
   const randomElement = arrayToUse[randomIndex];
   if (randomElement === undefined) {

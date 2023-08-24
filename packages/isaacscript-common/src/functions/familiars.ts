@@ -104,8 +104,9 @@ export function checkFamiliarFromCollectibles(
 
   // Whenever Box of Friends or Monster Manual is used, it will automatically increment the number
   // of collectible effects for this familiar.
-  const numCollectibleEffects =
-    effects.GetCollectibleEffectNum(collectibleType);
+  const numCollectibleEffects = effects.GetCollectibleEffectNum(
+    collectibleType,
+  );
   const targetCount = numCollectibles + numCollectibleEffects;
 
   checkFamiliar(

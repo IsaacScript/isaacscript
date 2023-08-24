@@ -44,9 +44,9 @@ export function copyIsaacAPIClass<T extends CopyableIsaacAPIClass>(
     copyableIsaacAPIClassType
   ] as unknown as
     | IsaacAPIClassTypeFunctions<
-        ThisIsaacAPIClassType,
-        ThisSerializedIsaacAPIClassType
-      >
+      ThisIsaacAPIClassType,
+      ThisSerializedIsaacAPIClassType
+    >
     | undefined;
   if (functions === undefined) {
     error(
@@ -91,9 +91,9 @@ export function deserializeIsaacAPIClass<
     copyableIsaacAPIClassType
   ] as unknown as
     | IsaacAPIClassTypeFunctions<
-        ThisIsaacAPIClassType,
-        ThisSerializedIsaacAPIClassType
-      >
+      ThisIsaacAPIClassType,
+      ThisSerializedIsaacAPIClassType
+    >
     | undefined;
   if (functions === undefined) {
     error(
@@ -111,9 +111,11 @@ export function deserializeIsaacAPIClass<
 function getSerializedTableType(
   serializedIsaacAPIClass: SerializedIsaacAPIClass,
 ): CopyableIsaacAPIClassType | undefined {
-  for (const [copyableIsaacAPIClassType, serializationBrand] of Object.entries(
-    ISAAC_API_CLASS_TYPE_TO_BRAND,
-  )) {
+  for (
+    const [copyableIsaacAPIClassType, serializationBrand] of Object.entries(
+      ISAAC_API_CLASS_TYPE_TO_BRAND,
+    )
+  ) {
     if (serializedIsaacAPIClass.has(serializationBrand)) {
       return copyableIsaacAPIClassType as CopyableIsaacAPIClassType;
     }
@@ -150,7 +152,7 @@ export function isSerializedIsaacAPIClass(
     (functions) => functions.isSerialized,
   );
   return isSerializedFunctions.some((identityFunction) =>
-    identityFunction(object),
+    identityFunction(object)
   );
 }
 
@@ -187,9 +189,9 @@ export function serializeIsaacAPIClass<T extends CopyableIsaacAPIClass>(
     copyableIsaacAPIClassType
   ] as unknown as
     | IsaacAPIClassTypeFunctions<
-        ThisIsaacAPIClassType,
-        ThisSerializedIsaacAPIClassType
-      >
+      ThisIsaacAPIClassType,
+      ThisSerializedIsaacAPIClassType
+    >
     | undefined;
   if (functions === undefined) {
     error(

@@ -45,8 +45,9 @@ export function addCharge(
   // add too many charges, it will grant orange "battery" charges, even if the player does not have
   // The Battery.)
   const chargesAwayFromMax = getChargesAwayFromMax(player, activeSlot);
-  const chargesToAdd =
-    numCharges > chargesAwayFromMax ? chargesAwayFromMax : numCharges;
+  const chargesToAdd = numCharges > chargesAwayFromMax ?
+    chargesAwayFromMax :
+    numCharges;
 
   // The AAA Battery trinket might grant an additional charge.
   const modifiedChargesToAdd = getChargesToAddWithAAAModifier(
@@ -92,11 +93,13 @@ export function addRoomClearCharge(
   bigRoomDoubleCharge = true,
   playSoundEffect = true,
 ): void {
-  for (const activeSlot of [
-    ActiveSlot.PRIMARY,
-    ActiveSlot.SECONDARY,
-    ActiveSlot.POCKET,
-  ]) {
+  for (
+    const activeSlot of [
+      ActiveSlot.PRIMARY,
+      ActiveSlot.SECONDARY,
+      ActiveSlot.POCKET,
+    ]
+  ) {
     addRoomClearChargeToSlot(
       player,
       activeSlot,
@@ -286,16 +289,18 @@ export function playChargeSoundEffect(
   player: EntityPlayer,
   activeSlot = ActiveSlot.PRIMARY,
 ): void {
-  for (const soundEffect of [
-    SoundEffect.BATTERY_CHARGE, // 170
-    SoundEffect.BEEP, // 171
-  ]) {
+  for (
+    const soundEffect of [
+      SoundEffect.BATTERY_CHARGE, // 170
+      SoundEffect.BEEP, // 171
+    ]
+  ) {
     sfxManager.Stop(soundEffect);
   }
 
-  const chargeSoundEffect = shouldPlayFullRechargeSound(player, activeSlot)
-    ? SoundEffect.BATTERY_CHARGE
-    : SoundEffect.BEEP;
+  const chargeSoundEffect = shouldPlayFullRechargeSound(player, activeSlot) ?
+    SoundEffect.BATTERY_CHARGE :
+    SoundEffect.BEEP;
   sfxManager.Play(chargeSoundEffect);
 }
 

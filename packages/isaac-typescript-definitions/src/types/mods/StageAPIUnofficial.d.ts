@@ -129,7 +129,8 @@ declare global {
      * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
      * supplied or matches current grid.
      */
-    POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE = "POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE",
+    POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE =
+      "POST_CUSTOM_GRID_PROJECTILE_HELPER_UPDATE",
 
     /**
      * Takes CustomGridTypeName as first callback parameter, and will only run if parameter not
