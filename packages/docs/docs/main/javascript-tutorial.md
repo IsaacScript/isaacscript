@@ -345,8 +345,9 @@ for (const [i, gaper] of gapers.entries()) {
 }
 
 // If you just need the array index, use the `keys` method.
+// The keys start at 0, unlike Lua. (In Lua, array keys start at 1.)
 for (const i of gapers.keys()) {
-  print("On gaper number:", i);
+  print("On gaper index:", i);
 }
 ```
 
