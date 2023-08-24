@@ -273,6 +273,15 @@ for (let i = 1; i <= 10; i++) {
 }
 ```
 
+Alternatively, you can use the `iRange` helper function provided by the `isaacscript-common` standard library. This allows the code to be a bit more safe & understandable:
+
+```ts
+// TypeScript code
+for (const i of iRange(1, 10)) {
+  // "i" will iterate upwards from 1 to 10.
+}
+```
+
 In Lua, you count downwards like this:
 
 ```lua
@@ -290,6 +299,17 @@ for (let i = 10; i >= 1; i--) {
   // "i" will iterate downwards from 10 to 1.
 }
 ```
+
+Or, with the `iRange` helper function:
+
+```ts
+// TypeScript code
+for (const i of iRange(10, 1)) {
+  // "i" will iterate downwards from 10 to 1.
+}
+```
+
+Note that you can also use the `eRange` helper function for an exclusive range (instead of an inclusive range).
 
 <br />
 
@@ -313,15 +333,20 @@ In TypeScript, you have a few different options.
 // Typescript code
 const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER);
 
-// A "for of" loop is the simplest way to iterate over an array.
+// A "for of" loop is the simplest way to iterate over an array. It provides the array element.
 for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// If you need the array index, use the `entries` method.
+// If you need the array index and the array element, use the `entries` method.
 for (const [i, gaper] of gapers.entries()) {
   gaper.Remove();
   print("Removed gaper number:", i);
+}
+
+// If you just need the array index, use the `keys` method.
+for (const i of gapers.keys()) {
+  print("On gaper number:", i);
 }
 ```
 
