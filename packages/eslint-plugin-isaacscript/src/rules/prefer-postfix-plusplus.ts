@@ -5,14 +5,14 @@ export const preferPostfixPlusplus = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: 'Require "i++" instead of "++i"',
+      description: "Require \"i++\" instead of \"++i\"",
       recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],
     messages: {
-      plusPlus: 'You must use postfix "++" instead of prefix "++".',
-      minusMinus: 'You must use postfix "--" instead of prefix "--".',
+      plusPlus: "You must use postfix \"++\" instead of prefix \"++\".",
+      minusMinus: "You must use postfix \"--\" instead of prefix \"--\".",
     },
   },
   defaultOptions: [],

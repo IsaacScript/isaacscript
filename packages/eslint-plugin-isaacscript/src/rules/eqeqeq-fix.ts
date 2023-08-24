@@ -33,8 +33,9 @@ export const eqeqeqFix = createRule({
     const options = context.options[1] || {};
     const sourceCode = context.getSourceCode();
 
-    const nullOption =
-      config === "always" ? options.null || "always" : "ignore";
+    const nullOption = config === "always"
+      ? options.null || "always"
+      : "ignore";
     const enforceRuleForNull = nullOption === "always";
     const enforceInverseRuleForNull = nullOption === "never";
 
@@ -52,10 +53,10 @@ export const eqeqeqFix = createRule({
        * `node.regex` instead. Also see: https://github.com/eslint/eslint/issues/8020
        */
       return (
-        node.type === "Literal" &&
-        node.value === null &&
-        !node.regex &&
-        !node.bigint
+        node.type === "Literal"
+        && node.value === null
+        && !node.regex
+        && !node.bigint
       );
     }
 
@@ -86,9 +87,9 @@ export const eqeqeqFix = createRule({
      */
     function areLiteralsAndSameType(node) {
       return (
-        node.left.type === "Literal" &&
-        node.right.type === "Literal" &&
-        typeof node.left.value === typeof node.right.value
+        node.left.type === "Literal"
+        && node.right.type === "Literal"
+        && typeof node.left.value === typeof node.right.value
       );
     }
 
@@ -148,8 +149,8 @@ export const eqeqeqFix = createRule({
         }
 
         if (
-          config === "smart" &&
-          (isTypeOfBinary(node) || areLiteralsAndSameType(node) || isNull)
+          config === "smart"
+          && (isTypeOfBinary(node) || areLiteralsAndSameType(node) || isNull)
         ) {
           return;
         }

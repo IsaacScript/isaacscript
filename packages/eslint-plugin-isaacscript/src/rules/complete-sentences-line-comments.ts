@@ -57,15 +57,15 @@ export const completeSentencesLineComments = createRule<
       // Comments in-between "separator lines" are whitelisted.
       const previousCommentBlock = commentBlocks[i - 1];
       if (
-        previousCommentBlock !== undefined &&
-        isSeparatorLine(previousCommentBlock.mergedText)
+        previousCommentBlock !== undefined
+        && isSeparatorLine(previousCommentBlock.mergedText)
       ) {
         continue;
       }
       const nextCommentBlock = commentBlocks[i + 1];
       if (
-        nextCommentBlock !== undefined &&
-        isSeparatorLine(nextCommentBlock.mergedText)
+        nextCommentBlock !== undefined
+        && isSeparatorLine(nextCommentBlock.mergedText)
       ) {
         continue;
       }

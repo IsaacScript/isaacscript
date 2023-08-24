@@ -10,7 +10,7 @@ const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
-  name: 'Using a single-line "//" comment that is too long',
+  name: "Using a single-line \"//\" comment that is too long",
   code: `
 // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will
   `,
@@ -24,14 +24,16 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a single-line comment with exactly 100 characters without any indent",
+  name:
+    "Using a single-line comment with exactly 100 characters without any indent",
   code: `
 /** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain */
   `,
 });
 
 invalid.push({
-  name: "Using a single-line comment with exactly 101 characters without any indent",
+  name:
+    "Using a single-line comment with exactly 101 characters without any indent",
   code: `
 /** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pains */
   `,
@@ -45,7 +47,8 @@ invalid.push({
 
 invalid.push({
   name: "Using a single-line comment with no preceding or trailing whitespace",
-  code: "/** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pains */",
+  code:
+    "/** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pains */",
   errors: [{ messageId: "incorrectlyFormatted" }],
   output: `/**
  * But I must explain to you how all this mistaken idea of denouncing pleasure and praising pains
@@ -53,7 +56,8 @@ invalid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with exactly 100 characters without any indent",
+  name:
+    "Using a multi-line comment with exactly 100 characters without any indent",
   code: `
 /**
  * But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
@@ -62,7 +66,8 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with exactly 100 characters and potential spillover",
+  name:
+    "Using a multi-line comment with exactly 100 characters and potential spillover",
   code: `
 /**
  * But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
@@ -128,7 +133,8 @@ invalid.push({
 });
 
 valid.push({
-  name: "Using a single-line comment with exactly 100 characters inside a function",
+  name:
+    "Using a single-line comment with exactly 100 characters inside a function",
   code: `
 function foo() {
   /** But I must explain to you how all this mistaken idea of denouncing pleasure and praising to */
@@ -137,7 +143,8 @@ function foo() {
 });
 
 invalid.push({
-  name: "Using a single-line comment with exactly 101 characters inside a function",
+  name:
+    "Using a single-line comment with exactly 101 characters inside a function",
   code: `
 function foo() {
   /** But I must explain to you how all this mistaken idea of denouncing pleasure and praising two */
@@ -154,7 +161,8 @@ function foo() {
 });
 
 valid.push({
-  name: "Using a multi-line comment with exactly 100 characters inside a function",
+  name:
+    "Using a multi-line comment with exactly 100 characters inside a function",
   code: `
 function foo() {
   /**
@@ -166,7 +174,8 @@ function foo() {
 });
 
 invalid.push({
-  name: "Using a multi-line comment with exactly 101 characters inside a function",
+  name:
+    "Using a multi-line comment with exactly 101 characters inside a function",
   code: `
 function foo() {
   /**
@@ -267,7 +276,8 @@ invalid.push({
 });
 
 invalid.push({
-  name: "Using a multi-line comment that has many blocks and block separation inside a function",
+  name:
+    "Using a multi-line comment that has many blocks and block separation inside a function",
   code: `
 function foo() {
   /**
@@ -339,7 +349,8 @@ valid.push({
 });
 
 invalid.push({
-  name: "Using a single-line comment with an unbreakable line and other overflowing text",
+  name:
+    "Using a single-line comment with an unbreakable line and other overflowing text",
   code: `
 /** But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA I will give you a complete account of the system */
   `,
@@ -605,7 +616,8 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc example on multiple lines and another tag afterwards",
+  name:
+    "Comment with JSDoc example on multiple lines and another tag afterwards",
   code: `
 /**
  * Inference helper for inputs.

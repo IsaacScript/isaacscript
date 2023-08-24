@@ -8,10 +8,10 @@ export function getLeadingLineComments(
 ): TSESTree.Comment[] {
   return comments.filter(
     (comment) =>
-      comment.type === TSESTree.AST_TOKEN_TYPES.Line && // i.e. a "//" comment
-      comment.value.trim() !== "" &&
-      !comment.value.startsWith("/") && // Filter out triple slash directives
-      isCommentOnOwnLine(sourceCode, comment),
+      comment.type === TSESTree.AST_TOKEN_TYPES.Line // i.e. a "//" comment
+      && comment.value.trim() !== ""
+      && !comment.value.startsWith("/") // Filter out triple slash directives
+      && isCommentOnOwnLine(sourceCode, comment),
   );
 }
 
@@ -63,8 +63,8 @@ export function getCommentBlocks(
      * Has a comment value of: " Foo."
      */
     const firstCharacter = comment.value[0];
-    const firstCharacterIsSpace =
-      firstCharacter !== undefined && firstCharacter === " ";
+    const firstCharacterIsSpace = firstCharacter !== undefined
+      && firstCharacter === " ";
     const text = firstCharacterIsSpace ? comment.value.slice(1) : comment.value;
 
     const commentBlock: LeadingLineCommentBlock = {

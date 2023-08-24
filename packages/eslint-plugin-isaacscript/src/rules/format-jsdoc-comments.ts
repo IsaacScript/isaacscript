@@ -67,8 +67,8 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
       const originalComment = `${leftWhitespace}/*${comment.value}*/`;
 
       const text = getTextFromJSDocComment(comment.value);
-      const effectiveMaxLength =
-        maxLength - leftWhitespaceLength - " * ".length;
+      const effectiveMaxLength = maxLength - leftWhitespaceLength
+        - " * ".length;
       const formattedText = formatText(text, effectiveMaxLength);
 
       const canFitOnSingleLine = canFitOnSingleJSDocLine(
@@ -101,8 +101,8 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
           messageId: "incorrectlyFormatted",
           fix: (fixer) => {
             const [commentStart, commentEnd] = comment.range;
-            const commentBeginningOfLine =
-              commentStart - comment.loc.start.column;
+            const commentBeginningOfLine = commentStart
+              - comment.loc.start.column;
             const range = [commentBeginningOfLine, commentEnd] as const;
 
             return fixer.replaceTextRange(range, formattedComment);
@@ -129,9 +129,9 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
 function canFitOnSingleJSDocLine(text: string, effectiveMaxLength: number) {
   const textLines = text.split("\n");
   return (
-    textLines.length === 1 &&
-    text.length + EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE <=
-      effectiveMaxLength
+    textLines.length === 1
+    && text.length + EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE
+      <= effectiveMaxLength
   );
 }
 
@@ -148,7 +148,7 @@ function getJSDocCommentMultiLine(text: string, leftWhitespace: string) {
 
   const lines = text.split("\n");
   const commentLines = lines.map((line) =>
-    line.trim() === "" ? emptyLine : `${linePrefix}${line}`,
+    line.trim() === "" ? emptyLine : `${linePrefix}${line}`
   );
   const comments = commentLines.join("\n");
 

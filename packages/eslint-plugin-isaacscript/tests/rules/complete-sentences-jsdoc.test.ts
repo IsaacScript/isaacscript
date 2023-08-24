@@ -216,7 +216,8 @@ valid.push({
 });
 
 valid.push({
-  name: "Multi-line comment with a colon and bullet points of non-complete items",
+  name:
+    "Multi-line comment with a colon and bullet points of non-complete items",
   code: `
 /**
  * This is my list of things:

@@ -4,7 +4,7 @@ import {
   isSpecialComment,
 } from "./comments";
 import type { List } from "./list";
-import { ListKind, getAdjustedList, reachedNewList } from "./list";
+import { getAdjustedList, ListKind, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 /**
@@ -68,18 +68,18 @@ export function formatText(
 
     // Gather information about the previous line.
     const previousLine = lines[i - 1];
-    const previousLineWasBlank =
-      previousLine === undefined || previousLine.trim() === "";
-    const previousLineHasCodeBlock =
-      previousLine !== undefined && previousLine.includes("```");
-    const previousLineHadURL =
-      previousLine !== undefined && hasURL(previousLine);
-    const previousLineEndedInColon =
-      previousLine !== undefined && previousLine.trimEnd().endsWith(":");
-    const previousLineWasSeparatorLine =
-      previousLine !== undefined && isSeparatorLine(previousLine);
-    const previousLineWasEnumBlockLabel =
-      previousLine !== undefined && isEnumBlockLabel(previousLine);
+    const previousLineWasBlank = previousLine === undefined
+      || previousLine.trim() === "";
+    const previousLineHasCodeBlock = previousLine !== undefined
+      && previousLine.includes("```");
+    const previousLineHadURL = previousLine !== undefined
+      && hasURL(previousLine);
+    const previousLineEndedInColon = previousLine !== undefined
+      && previousLine.trimEnd().endsWith(":");
+    const previousLineWasSeparatorLine = previousLine !== undefined
+      && isSeparatorLine(previousLine);
+    const previousLineWasEnumBlockLabel = previousLine !== undefined
+      && isEnumBlockLabel(previousLine);
 
     // Handle blank lines.
     if (lineIsBlank) {
@@ -93,8 +93,8 @@ export function formatText(
       // code block).
       const lastCharacter = formattedText.at(-1);
       if (
-        (lastCharacter !== undefined && lastCharacter !== "\n") ||
-        insideCodeBlock
+        (lastCharacter !== undefined && lastCharacter !== "\n")
+        || insideCodeBlock
       ) {
         formattedText += "\n";
       }
@@ -105,10 +105,10 @@ export function formatText(
 
     // Handle code blocks. This case is simple because we need to exactly preserve the text.
     if (
-      hasCodeBlock ||
-      previousLineHasCodeBlock ||
-      insideCodeBlock ||
-      insideExampleTagBlock
+      hasCodeBlock
+      || previousLineHasCodeBlock
+      || insideCodeBlock
+      || insideExampleTagBlock
     ) {
       // Append the partial line that we were building, if any.
       [formattedLine, formattedText] = appendLineToText(
@@ -119,10 +119,10 @@ export function formatText(
       // Enforce newlines before the beginning of code blocks. (But not inside of an example code
       // block, because there should not be newlines between tags.)
       if (
-        hasCodeBlock &&
-        !previousLineInsideCodeBlock &&
-        !previousLineWasBlank &&
-        !insideExampleTagBlock
+        hasCodeBlock
+        && !previousLineInsideCodeBlock
+        && !previousLineWasBlank
+        && !insideExampleTagBlock
       ) {
         formattedText += "\n";
       }
@@ -135,10 +135,10 @@ export function formatText(
       const nextLine = lines[i + 1];
       const nextLineIsBlank = nextLine === undefined || nextLine.trim() === "";
       if (
-        hasCodeBlock &&
-        previousLineInsideCodeBlock &&
-        !nextLineIsBlank &&
-        !insideExampleTagBlock
+        hasCodeBlock
+        && previousLineInsideCodeBlock
+        && !nextLineIsBlank
+        && !insideExampleTagBlock
       ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(
@@ -202,14 +202,14 @@ export function formatText(
     // Lists and some other specific text elements indicate that we should always insert a new line,
     // even if the text has no wrapped to the end of the ruler yet.
     if (
-      list !== undefined ||
-      lineHasURL ||
-      previousLineHadURL ||
-      hasExample ||
-      separatorLine ||
-      previousLineWasSeparatorLine ||
-      enumBlockLabel ||
-      previousLineWasEnumBlockLabel
+      list !== undefined
+      || lineHasURL
+      || previousLineHadURL
+      || hasExample
+      || separatorLine
+      || previousLineWasSeparatorLine
+      || enumBlockLabel
+      || previousLineWasEnumBlockLabel
     ) {
       // Append the partial line that we were building, if any.
       [formattedLine, formattedText] = appendLineToText(
@@ -222,19 +222,19 @@ export function formatText(
     // an "description" or "introductory" section at the top, and then a list of JSDoc tags at the
     // bottom.)
     if (
-      shouldParseJSDocTags &&
-      !encounteredJSDocTags &&
-      list !== undefined &&
-      list.kind === ListKind.JSDocTag
+      shouldParseJSDocTags
+      && !encounteredJSDocTags
+      && list !== undefined
+      && list.kind === ListKind.JSDocTag
     ) {
       encounteredJSDocTags = true;
 
       // Enforce a newline between a JSDoc description (i.e. introductory text) and the first JSDoc
       // tag.
       if (
-        !stringContainsOnlyWhitespace(formattedText) &&
-        !previousLineWasBlank &&
-        !previousLineInsideExampleTagBlock
+        !stringContainsOnlyWhitespace(formattedText)
+        && !previousLineWasBlank
+        && !previousLineInsideExampleTagBlock
       ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(
@@ -273,8 +273,8 @@ export function formatText(
           // It is possible for JSDoc comments to have really long variable names, which would make
           // the indent be really big. Thus, we arbitrarily hard-cap the effective marker size at a
           // third of the width of the remaining space.
-          const amountOfSpacesToWorkWith =
-            maxLength - insideList.numLeadingSpaces;
+          const amountOfSpacesToWorkWith = maxLength
+            - insideList.numLeadingSpaces;
           const thirdOfRemainingSpace = Math.floor(
             amountOfSpacesToWorkWith / 3,
           );
@@ -284,8 +284,8 @@ export function formatText(
           );
 
           // We subtract one since we will add an extra space below when adding the first word.
-          const numSpacesToAdd =
-            insideList.numLeadingSpaces + effectiveMarkerSize - 1;
+          const numSpacesToAdd = insideList.numLeadingSpaces
+            + effectiveMarkerSize - 1;
           formattedLine += " ".repeat(numSpacesToAdd);
         }
       }
@@ -348,10 +348,10 @@ function startsWithExample(text: string): boolean {
   const trimmedText = text.trimStart();
 
   return (
-    trimmedText.startsWith("e.g. ") ||
-    trimmedText.startsWith("(e.g. ") ||
-    trimmedText.startsWith("i.e. ") ||
-    trimmedText.startsWith("(i.e. ")
+    trimmedText.startsWith("e.g. ")
+    || trimmedText.startsWith("(e.g. ")
+    || trimmedText.startsWith("i.e. ")
+    || trimmedText.startsWith("(i.e. ")
   );
 }
 

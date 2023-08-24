@@ -11,8 +11,8 @@ This rule is meant to be used in conjunction with this [`prefer-plusplus`](./pre
 ```ts
 // Bad
 foo++, foo++, foo++;
-for (foo++; ; ) {}
-for (; foo++; ) {}
+for (foo++;;) {}
+for (; foo++;) {}
 foo++ + foo++;
 array[foo++];
 
@@ -20,7 +20,7 @@ array[foo++];
 foo++;
 void foo++;
 foo++, foo++, 0;
-for (; ; foo++) {}
+for (;; foo++) {}
 ```
 
 ## Options and Defaults

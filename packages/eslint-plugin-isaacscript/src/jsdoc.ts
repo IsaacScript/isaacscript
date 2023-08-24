@@ -5,8 +5,8 @@ export function getJSDocComments(
 ): TSESTree.Comment[] {
   return comments.filter(
     (comment) =>
-      comment.type === TSESTree.AST_TOKEN_TYPES.Block && // i.e. a "/*" comment
-      comment.value.startsWith("*"), // i.e. a "/**" comment
+      comment.type === TSESTree.AST_TOKEN_TYPES.Block // i.e. a "/*" comment
+      && comment.value.startsWith("*"), // i.e. a "/**" comment
   );
 }
 

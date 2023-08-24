@@ -33,8 +33,8 @@ export const noStringLength0 = createRule({
       }
 
       if (
-        node.property.type !== AST_NODE_TYPES.Identifier ||
-        node.property.name !== "length"
+        node.property.type !== AST_NODE_TYPES.Identifier
+        || node.property.name !== "length"
       ) {
         return false;
       }
@@ -50,8 +50,8 @@ export const noStringLength0 = createRule({
     return {
       BinaryExpression(node) {
         if (
-          (is0(node.left) && isStringLength(node.right)) ||
-          (is0(node.right) && isStringLength(node.left))
+          (is0(node.left) && isStringLength(node.right))
+          || (is0(node.right) && isStringLength(node.left))
         ) {
           context.report({
             node,

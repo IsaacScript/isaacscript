@@ -43,7 +43,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a matching number enum literal on a function that takes an enum literal",
+  name:
+    "Using a matching number enum literal on a function that takes an enum literal",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple) {}
 useFruit(Fruit.Apple);
@@ -54,7 +55,8 @@ useFruit(Fruit.Apple);
  * The TypeScript compiler will correctly handle this case, so the lint rule does not need to care.
  */
 valid.push({
-  name: "Using a non-matching number enum literal on a function that takes an enum literal",
+  name:
+    "Using a non-matching number enum literal on a function that takes an enum literal",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple) {}
 useFruit(Fruit.Banana);
@@ -62,7 +64,8 @@ useFruit(Fruit.Banana);
 });
 
 valid.push({
-  name: "Using a matching number enum value on a function that takes an enum literal",
+  name:
+    "Using a matching number enum value on a function that takes an enum literal",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple) {}
 declare const fruit: Fruit.Apple;
@@ -74,7 +77,8 @@ useFruit(fruit);
  * The TypeScript compiler will correctly handle this case, so the lint rule does not need to care.
  */
 valid.push({
-  name: "Using a non-matching number enum value on a function that takes an enum literal",
+  name:
+    "Using a non-matching number enum value on a function that takes an enum literal",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple) {}
 declare const fruit: Fruit.Banana;
@@ -92,7 +96,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum with a default argument",
+  name:
+    "Using a number enum literal on a function that takes a number enum with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit = Fruit.Apple) {}
 useFruit(Fruit.Apple);
@@ -100,7 +105,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum with a default argument",
+  name:
+    "Using a number enum value on a function that takes a number enum with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit = Fruit.Apple) {}
 const fruit = Fruit.Apple;
@@ -109,7 +115,8 @@ useFruit(fruit);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes a number enum with a default argument",
+  name:
+    "Using a number literal on a function that takes a number enum with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit = Fruit.Apple) {}
 useFruit(0);
@@ -118,7 +125,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum literal with a default argument",
+  name:
+    "Using a number enum literal on a function that takes a number enum literal with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple = Fruit.Apple) {}
 useFruit(Fruit.Apple);
@@ -126,7 +134,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum literal with a default argument",
+  name:
+    "Using a number enum value on a function that takes a number enum literal with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple = Fruit.Apple) {}
 const fruit = Fruit.Apple;
@@ -135,7 +144,8 @@ useFruit(fruit);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes a number enum literal with a default argument",
+  name:
+    "Using a number literal on a function that takes a number enum literal with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple = Fruit.Apple) {}
 useFruit(0);
@@ -144,7 +154,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum | null",
+  name:
+    "Using a number enum literal on a function that takes a number enum | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null) {}
 useFruit(Fruit.Apple);
@@ -152,7 +163,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum | null",
+  name:
+    "Using a number enum value on a function that takes a number enum | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null) {}
 const fruit = Fruit.Apple;
@@ -187,7 +199,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum | null with a default argument",
+  name:
+    "Using a number enum literal on a function that takes a number enum | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null = Fruit.Apple) {}
 useFruit(Fruit.Apple);
@@ -195,7 +208,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum | null with a default argument",
+  name:
+    "Using a number enum value on a function that takes a number enum | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null = Fruit.Apple) {}
 const fruit = Fruit.Apple;
@@ -204,7 +218,8 @@ useFruit(fruit);
 });
 
 valid.push({
-  name: "Using a null literal on a function that takes a number enum | null with a default argument",
+  name:
+    "Using a null literal on a function that takes a number enum | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null = Fruit.Apple) {}
 useFruit(null);
@@ -212,7 +227,8 @@ useFruit(null);
 });
 
 valid.push({
-  name: "Using a null value on a function that takes a number enum | null with a default argument",
+  name:
+    "Using a null value on a function that takes a number enum | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null = Fruit.Apple) {}
 const fruit = null;
@@ -221,7 +237,8 @@ useFruit(fruit);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes a number enum | null with a default argument",
+  name:
+    "Using a number literal on a function that takes a number enum | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit | null = Fruit.Apple) {}
 useFruit(0);
@@ -230,7 +247,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum literal | null",
+  name:
+    "Using a number enum literal on a function that takes a number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null) {}
 useFruit(Fruit.Apple);
@@ -238,7 +256,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum literal | null",
+  name:
+    "Using a number enum value on a function that takes a number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null) {}
 const fruit = Fruit.Apple;
@@ -247,7 +266,8 @@ useFruit(fruit);
 });
 
 valid.push({
-  name: "Using a null literal on a function that takes a number enum literal | null",
+  name:
+    "Using a null literal on a function that takes a number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null) {}
 useFruit(null);
@@ -255,7 +275,8 @@ useFruit(null);
 });
 
 valid.push({
-  name: "Using a null value on a function that takes a number enum literal | null",
+  name:
+    "Using a null value on a function that takes a number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null) {}
 const fruit = null;
@@ -264,7 +285,8 @@ useFruit(fruit);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes a number enum literal | null",
+  name:
+    "Using a number literal on a function that takes a number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null) {}
 useFruit(0);
@@ -273,7 +295,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum literal | null with a default argument",
+  name:
+    "Using a number enum literal on a function that takes a number enum literal | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null = Fruit.Apple) {}
 useFruit(Fruit.Apple);
@@ -281,7 +304,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum literal | null with a default argument",
+  name:
+    "Using a number enum value on a function that takes a number enum literal | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null = Fruit.Apple) {}
 const fruit = Fruit.Apple;
@@ -290,7 +314,8 @@ useFruit(fruit);
 });
 
 valid.push({
-  name: "Using a null literal on a function that takes a number enum literal | null with a default argument",
+  name:
+    "Using a null literal on a function that takes a number enum literal | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null = Fruit.Apple) {}
 useFruit(null);
@@ -298,7 +323,8 @@ useFruit(null);
 });
 
 valid.push({
-  name: "Using a null value on a function that takes a number enum literal | null with a default argument",
+  name:
+    "Using a null value on a function that takes a number enum literal | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null = Fruit.Apple) {}
 const fruit = null;
@@ -307,7 +333,8 @@ useFruit(fruit);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes a number enum literal | null with a default argument",
+  name:
+    "Using a number literal on a function that takes a number enum literal | null with a default argument",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | null = Fruit.Apple) {}
 useFruit(0);
@@ -316,7 +343,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes a number enum literal | number enum literal | null",
+  name:
+    "Using a number enum literal on a function that takes a number enum literal | number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | Fruit.Banana | null) {}
 useFruit(Fruit.Apple);
@@ -324,7 +352,8 @@ useFruit(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum value on a function that takes a number enum literal | number enum literal | null",
+  name:
+    "Using a number enum value on a function that takes a number enum literal | number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | Fruit.Banana | null) {}
 const fruit = Fruit.Apple;
@@ -333,7 +362,8 @@ useFruit(fruit);
 });
 
 valid.push({
-  name: "Using a null literal on a function that takes a number enum literal | number enum literal | null",
+  name:
+    "Using a null literal on a function that takes a number enum literal | number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | Fruit.Banana | null) {}
 useFruit(null);
@@ -341,7 +371,8 @@ useFruit(null);
 });
 
 valid.push({
-  name: "Using a null value on a function that takes a number enum literal | number enum literal | null",
+  name:
+    "Using a null value on a function that takes a number enum literal | number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | Fruit.Banana | null) {}
 const fruit = null;
@@ -350,7 +381,8 @@ useFruit(fruit);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes a number enum literal | number enum literal | null",
+  name:
+    "Using a number literal on a function that takes a number enum literal | number enum literal | null",
   code: `${fruitEnumDefinition}
 function useFruit(fruit: Fruit.Apple | Fruit.Banana | null) {}
 useFruit(0);
@@ -359,7 +391,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using an enum from a composition type on a function that takes a number enum",
+  name:
+    "Using an enum from a composition type on a function that takes a number enum",
   code: `${fruitEnumDefinition}
 interface BaseNode {
   type: Fruit;
@@ -469,7 +502,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a partial enum union on a function that takes a number enum (from a type narrowing switch statement)",
+  name:
+    "Using a partial enum union on a function that takes a number enum (from a type narrowing switch statement)",
   code: `${fruitFunctionDefinition}
 declare const fruit: Fruit;
 switch (fruit) {
@@ -506,7 +540,8 @@ useFruit(Fruit.Apple);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes an enum extension type",
+  name:
+    "Using a number literal on a function that takes an enum extension type",
   code: `${fruitEnumDefinition}
 function useFruit<FruitType extends Fruit>(fruitType: FruitType) {}
 useFruit(0);
@@ -527,7 +562,8 @@ fruitClass.useFruit(Fruit.Apple);
 });
 
 invalid.push({
-  name: "Using a number literal on a function that takes an enum extension type",
+  name:
+    "Using a number literal on a function that takes an enum extension type",
   code: `${fruitEnumDefinition}
 class FruitClass<FruitType extends Fruit> {
   constructor(type: FruitType) {}
@@ -551,7 +587,8 @@ useNumbers([0, 1]);
 });
 
 valid.push({
-  name: "Using a number enum array on a function that takes a number enum array",
+  name:
+    "Using a number enum array on a function that takes a number enum array",
   code: `${fruitEnumDefinition}
 function useFruit(fruitArray: Fruit[]) {}
 useFruit([Fruit.Apple, Fruit.Banana]);
@@ -650,7 +687,8 @@ useFruit(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a function that takes enum | enum array",
+  name:
+    "Using a number enum literal on a function that takes enum | enum array",
   code: `${fruitEnumDefinition}
 function useFruit(fruitOrFruitArray: Fruit | Fruit[]) {}
 useFruit(Fruit.Apple);
@@ -666,7 +704,8 @@ useFruit([Fruit.Apple, Fruit.Banana]);
 });
 
 valid.push({
-  name: "Using a enum | enum array union on a function that takes enum | enum array",
+  name:
+    "Using a enum | enum array union on a function that takes enum | enum array",
   code: `${fruitEnumDefinition}
 function useFruit(fruitOrFruitArray: Fruit | Fruit[]) {}
 declare const fruit: Fruit | Fruit[];
@@ -727,7 +766,8 @@ useFruit(Fruit.Apple, Fruit.Banana);
 });
 
 invalid.push({
-  name: "Using a number enum literal and a number literal on a variadic function",
+  name:
+    "Using a number enum literal and a number literal on a variadic function",
   code: `${fruitEnumDefinition}
 function useFruit(...fruits: Fruit[]) {}
 useFruit(Fruit.Apple, 0);
@@ -736,7 +776,8 @@ useFruit(Fruit.Apple, 0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is unspecified as any",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is unspecified as any",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(expected: E): void {}
 toEqual(Fruit.Apple);
@@ -744,7 +785,8 @@ toEqual(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is unspecified as a number enum",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is unspecified as a number enum",
   code: `${fruitEnumDefinition}
 function toEqual<E = Fruit>(expected: E): void {}
 toEqual(Fruit.Apple);
@@ -752,7 +794,8 @@ toEqual(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is specified as any",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is specified as any",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(expected: E): void {}
 toEqual<any>(Fruit.Apple);
@@ -760,7 +803,8 @@ toEqual<any>(Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is specified as a number enum",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is specified as a number enum",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(expected: E): void {}
 toEqual<Fruit>(Fruit.Apple);
@@ -768,7 +812,8 @@ toEqual<Fruit>(Fruit.Apple);
 });
 
 invalid.push({
-  name: "Using a number literal on a generic function with a default generic type that is specified as a number enum",
+  name:
+    "Using a number literal on a generic function with a default generic type that is specified as a number enum",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(expected: E): void {}
 toEqual<Fruit>(0);
@@ -777,7 +822,8 @@ toEqual<Fruit>(0);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is unspecified as any + extra arg",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is unspecified as any + extra arg",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(arg1: number, expected: E): void {}
 toEqual(0, Fruit.Apple);
@@ -785,7 +831,8 @@ toEqual(0, Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is unspecified as a number enum + extra arg",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is unspecified as a number enum + extra arg",
   code: `${fruitEnumDefinition}
 function toEqual<E = Fruit>(arg1: number, expected: E): void {}
 toEqual(0, Fruit.Apple);
@@ -793,7 +840,8 @@ toEqual(0, Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is specified as any + extra arg",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is specified as any + extra arg",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(arg1: number, expected: E): void {}
 toEqual<any>(0, Fruit.Apple);
@@ -801,7 +849,8 @@ toEqual<any>(0, Fruit.Apple);
 });
 
 valid.push({
-  name: "Using a number enum literal on a generic function with a default generic type that is specified as a number enum + extra arg",
+  name:
+    "Using a number enum literal on a generic function with a default generic type that is specified as a number enum + extra arg",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(arg1: number, expected: E): void {}
 toEqual<Fruit>(0, Fruit.Apple);
@@ -809,7 +858,8 @@ toEqual<Fruit>(0, Fruit.Apple);
 });
 
 invalid.push({
-  name: "Using a number literal on a generic function with a default generic type that is specified as a number enum + extra arg",
+  name:
+    "Using a number literal on a generic function with a default generic type that is specified as a number enum + extra arg",
   code: `${fruitEnumDefinition}
 function toEqual<E = any>(arg1: number, expected: E): void {}
 toEqual<Fruit>(0, 0);

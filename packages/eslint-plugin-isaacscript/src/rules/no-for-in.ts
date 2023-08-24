@@ -5,13 +5,13 @@ export const noForIn = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: 'Disallows "for x in y" statements',
+      description: "Disallows \"for x in y\" statements",
       recommended: "recommended",
     },
     schema: [],
     messages: {
       noForIn:
-        'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use a "for of" loop instead.',
+        "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use a \"for of\" loop instead.",
     },
   },
   defaultOptions: [],

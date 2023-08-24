@@ -23,13 +23,13 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       readOnlyMap:
-        'Maps with a capital letter must be explicitly annotated as "ReadOnlyMap".',
+        "Maps with a capital letter must be explicitly annotated as \"ReadOnlyMap\".",
       readOnlySet:
-        'Sets with a capital letter must be explicitly annotated as "ReadOnlySet".',
+        "Sets with a capital letter must be explicitly annotated as \"ReadOnlySet\".",
       readOnlyArray:
-        'Arrays with a capital letter must be explicitly annotated as "readonly" or "ReadonlyArray".',
+        "Arrays with a capital letter must be explicitly annotated as \"readonly\" or \"ReadonlyArray\".",
       readOnlyObject:
-        'Objects with a capital letter must be read-only. Try using a type annotation with the "Readonly" helper type.',
+        "Objects with a capital letter must be read-only. Try using a type annotation with the \"Readonly\" helper type.",
     },
   },
   defaultOptions: [],
@@ -125,17 +125,17 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
   return !!(
     // prettier-ignore
     // @ts-expect-error Using internal functions.
-    (ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
-      (symbol.flags & ts.SymbolFlags.Property &&
-        // @ts-expect-error Using internal functions.
-        ts.getDeclarationModifierFlagsFromSymbol(symbol) &
-          ts.ModifierFlags.Readonly) ||
-      (symbol.flags & ts.SymbolFlags.Variable &&
-        // @ts-expect-error Using internal functions.
-        ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const) ||
-      (symbol.flags & ts.SymbolFlags.Accessor &&
-        !(symbol.flags & ts.SymbolFlags.SetAccessor)) ||
-      symbol.flags & ts.SymbolFlags.EnumMember)
+    ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly
+    || (symbol.flags & ts.SymbolFlags.Property
+      // @ts-expect-error Using internal functions.
+      && ts.getDeclarationModifierFlagsFromSymbol(symbol)
+        & ts.ModifierFlags.Readonly)
+    || (symbol.flags & ts.SymbolFlags.Variable
+      // @ts-expect-error Using internal functions.
+      && ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const)
+    || (symbol.flags & ts.SymbolFlags.Accessor
+      && !(symbol.flags & ts.SymbolFlags.SetAccessor))
+    || symbol.flags & ts.SymbolFlags.EnumMember
   );
 }
 /* eslint-enable */

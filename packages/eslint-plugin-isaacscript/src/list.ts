@@ -107,9 +107,9 @@ function getList(line: string): List | undefined {
   /** e.g. "1. A bullet point can start with a number and a period." */
   const numberPeriodMatch = line.match(/^(\d+)\. /);
   if (
-    numberPeriodMatch !== null &&
-    numberPeriodMatch[1] !== undefined &&
-    numberPeriodMatch[1] !== "0"
+    numberPeriodMatch !== null
+    && numberPeriodMatch[1] !== undefined
+    && numberPeriodMatch[1] !== "0"
   ) {
     return {
       kind: ListKind.NumberPeriod,
@@ -121,9 +121,9 @@ function getList(line: string): List | undefined {
   /** e.g. "1) A bullet point can start with a number and a parenthesis." */
   const numberParenthesisMatch = line.match(/^(\d+)\) /);
   if (
-    numberParenthesisMatch !== null &&
-    numberParenthesisMatch[1] !== undefined &&
-    numberParenthesisMatch[1] !== "0"
+    numberParenthesisMatch !== null
+    && numberParenthesisMatch[1] !== undefined
+    && numberParenthesisMatch[1] !== "0"
   ) {
     return {
       kind: ListKind.NumberParenthesis,
@@ -200,8 +200,8 @@ export function reachedNewList(
   }
 
   return (
-    insideList === undefined || // Going from a non-list to list
-    insideList.numLeadingSpaces !== list.numLeadingSpaces || // Going from a list to a sub-list
-    insideList.jsDocTagName !== list.jsDocTagName // Going from a JSDoc to a different JSDoc tag
+    insideList === undefined // Going from a non-list to list
+    || insideList.numLeadingSpaces !== list.numLeadingSpaces // Going from a list to a sub-list
+    || insideList.jsDocTagName !== list.jsDocTagName // Going from a JSDoc to a different JSDoc tag
   );
 }

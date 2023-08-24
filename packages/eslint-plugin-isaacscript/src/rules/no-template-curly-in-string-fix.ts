@@ -27,8 +27,8 @@ export const noTemplateCurlyInStringFix = createRule({
     return {
       Literal(node) {
         if (
-          typeof node.value === "string" &&
-          ERRONEOUS_TEMPLATE_STRING_REGEX.test(node.value)
+          typeof node.value === "string"
+          && ERRONEOUS_TEMPLATE_STRING_REGEX.test(node.value)
         ) {
           context.report({
             node,

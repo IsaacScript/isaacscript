@@ -2,5 +2,5 @@
 // that the "tests" and "tools" directories are not published to npm.
 {
   "extends": "./tsconfig.json",
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts"]
 }

@@ -5,13 +5,13 @@ export const noThrow = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: 'Disallows the usage of "throw"',
+      description: "Disallows the usage of \"throw\"",
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
       noThrow:
-        'The "throw" keyword is forbidden. Use the "error" function instead.',
+        "The \"throw\" keyword is forbidden. Use the \"error\" function instead.",
     },
   },
   defaultOptions: [],

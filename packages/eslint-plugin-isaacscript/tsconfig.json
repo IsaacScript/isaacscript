@@ -8,7 +8,7 @@
     // ESLint plugins do not support ESM until version 9 is released:
     // https://github.com/eslint/eslint/issues/15453#issuecomment-1002015088
     // Thus, we have to manually revert the ESM options from the base config.
-    "module": "CommonJS",
+    "module": "CommonJS"
   },
 
   // We have a separate "tsconfig.prod.json" that is used for production output.
@@ -28,6 +28,6 @@
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+    "./**/.*.tsx"
+  ]
 }

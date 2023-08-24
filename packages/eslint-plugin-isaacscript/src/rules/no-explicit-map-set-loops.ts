@@ -17,9 +17,9 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       noExplicitMap:
-        'Explicit iteration over maps is disallowed. (Get rid of the ".values()".)',
+        "Explicit iteration over maps is disallowed. (Get rid of the \".values()\".)",
       noExplicitSet:
-        'Explicit iteration over sets is disallowed. (Get rid of the ".values()".)',
+        "Explicit iteration over sets is disallowed. (Get rid of the \".values()\".)",
     },
     fixable: "code",
   },
@@ -41,8 +41,8 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
         }
 
         const potentialMapOrSet = memberExpression.object;
-        const potentialMapOrSetTSNode =
-          parserServices.esTreeNodeToTSNodeMap.get(potentialMapOrSet);
+        const potentialMapOrSetTSNode = parserServices.esTreeNodeToTSNodeMap
+          .get(potentialMapOrSet);
         const potentialMapOrSetType = checker.getTypeAtLocation(
           potentialMapOrSetTSNode,
         );
@@ -69,8 +69,8 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
         }
 
         const callExpressionEnd = callExpression.range[1];
-        const replacementStart =
-          callExpressionEnd - `.${expectedMethodName}()`.length;
+        const replacementStart = callExpressionEnd
+          - `.${expectedMethodName}()`.length;
         const replacementEnd = callExpressionEnd;
 
         context.report({

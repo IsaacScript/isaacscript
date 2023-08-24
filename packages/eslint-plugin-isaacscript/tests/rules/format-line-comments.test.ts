@@ -34,14 +34,17 @@ invalid.push({
 
 invalid.push({
   name: "Using a single-line comment with no preceding or trailing whitespace",
-  code: "// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will",
+  code:
+    "// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will",
   errors: [{ messageId: "incorrectlyFormatted" }],
-  output: `// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
+  output:
+    `// But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
 // born and I will`,
 });
 
 valid.push({
-  name: "Using a multi-line comment with exactly 100 characters and potential spillover",
+  name:
+    "Using a multi-line comment with exactly 100 characters and potential spillover",
   code: `
 // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
 // born and I will give you a complete account of the system
@@ -80,7 +83,8 @@ invalid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with with exactly 100 characters inside a function",
+  name:
+    "Using a multi-line comment with with exactly 100 characters inside a function",
   code: `
 function foo() {
   // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain a
@@ -89,7 +93,8 @@ function foo() {
 });
 
 invalid.push({
-  name: "Using a multi-line comment with with exactly 101 characters inside a function",
+  name:
+    "Using a multi-line comment with with exactly 101 characters inside a function",
   code: `
 function foo() {
   // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain as
@@ -148,7 +153,8 @@ function foo() {
 // Prettier will automatically remove extra trailing newlines between comments like this, so we do
 // not have to make a rule to handle that in this plugin.
 invalid.push({
-  name: "Using a multi-line comment that has many code blocks and block separation",
+  name:
+    "Using a multi-line comment that has many code blocks and block separation",
   code: `
 // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born
 
@@ -182,7 +188,8 @@ invalid.push({
 });
 
 invalid.push({
-  name: "Using a multi-line comment that has many code blocks and block separation inside a function",
+  name:
+    "Using a multi-line comment that has many code blocks and block separation inside a function",
   code: `
 function foo() {
   // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born
@@ -220,7 +227,8 @@ function foo() {
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points with a newline before the bullets",
+  name:
+    "Using a multi-line comment with bullet points with a newline before the bullets",
   code: `
 // Here is my list of things:
 //
@@ -244,7 +252,8 @@ invalid.push({
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points with no newline before the bullets",
+  name:
+    "Using a multi-line comment with bullet points with no newline before the bullets",
   code: `
 // Here is my list of things:
 // - But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
@@ -292,7 +301,8 @@ invalid.push({
 });
 
 invalid.push({
-  name: "Using a multi-line comment with bullet points with newlines in-between",
+  name:
+    "Using a multi-line comment with bullet points with newlines in-between",
   code: `
 // Here is my list of things:
 //
@@ -418,7 +428,8 @@ valid.push({
 });
 
 invalid.push({
-  name: "Using a single-line comment with an unbreakable line and other overflowing text",
+  name:
+    "Using a single-line comment with an unbreakable line and other overflowing text",
   code: `
 // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA I will give you a complete account of the system
   `,

@@ -16,18 +16,12 @@ Disallows empty JSDoc comments (and automatically removes them).
 
 ```ts
 // Bad
-/**
- *
- */
+/** */
 ```
 
 ```ts
 // Bad
-/**
- *
- *
- *
- */
+/** */
 ```
 
 ## Options and Defaults
