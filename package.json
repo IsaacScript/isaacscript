@@ -61,6 +61,7 @@
     "cspell-check-unused-words": "^1.0.4",
     "docusaurus-plugin-typedoc": "^0.19.2",
     "docusaurus-theme-search-typesense": "^0.12.0",
+    "dprint": "^0.40.2",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-deprecation": "^1.5.0",

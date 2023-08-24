@@ -7,7 +7,7 @@
 
     // Needed since this is a library.
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": true
   },
 
   "include": [
@@ -26,6 +26,6 @@
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+    "./**/.*.tsx"
+  ]
 }

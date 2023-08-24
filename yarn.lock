@@ -2773,6 +2773,48 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dprint/darwin-arm64@npm:0.40.2":
+  version: 0.40.2
+  resolution: "@dprint/darwin-arm64@npm:0.40.2"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@dprint/darwin-x64@npm:0.40.2":
+  version: 0.40.2
+  resolution: "@dprint/darwin-x64@npm:0.40.2"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@dprint/linux-arm64-glibc@npm:0.40.2":
+  version: 0.40.2
+  resolution: "@dprint/linux-arm64-glibc@npm:0.40.2"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@dprint/linux-x64-glibc@npm:0.40.2":
+  version: 0.40.2
+  resolution: "@dprint/linux-x64-glibc@npm:0.40.2"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@dprint/linux-x64-musl@npm:0.40.2":
+  version: 0.40.2
+  resolution: "@dprint/linux-x64-musl@npm:0.40.2"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@dprint/win32-x64@npm:0.40.2":
+  version: 0.40.2
+  resolution: "@dprint/win32-x64@npm:0.40.2"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@effect/data@npm:0.17.1":
   version: 0.17.1
   resolution: "@effect/data@npm:0.17.1"
@@ -8206,6 +8248,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dprint@npm:^0.40.2":
+  version: 0.40.2
+  resolution: "dprint@npm:0.40.2"
+  dependencies:
+    "@dprint/darwin-arm64": 0.40.2
+    "@dprint/darwin-x64": 0.40.2
+    "@dprint/linux-arm64-glibc": 0.40.2
+    "@dprint/linux-x64-glibc": 0.40.2
+    "@dprint/linux-x64-musl": 0.40.2
+    "@dprint/win32-x64": 0.40.2
+  dependenciesMeta:
+    "@dprint/darwin-arm64":
+      optional: true
+    "@dprint/darwin-x64":
+      optional: true
+    "@dprint/linux-arm64-glibc":
+      optional: true
+    "@dprint/linux-x64-glibc":
+      optional: true
+    "@dprint/linux-x64-musl":
+      optional: true
+    "@dprint/win32-x64":
+      optional: true
+  bin:
+    dprint: bin.js
+  checksum: 60f4ec7830fa7281cc43571b237d3b4f5263c780ccb6607fde0062dde619828b45f8d9d506616be82aeb904a311ff58d5fae594bea23da2d00758f8e96307cfb
+  languageName: node
+  linkType: hard
+
 "duplexer3@npm:^0.1.4":
   version: 0.1.5
   resolution: "duplexer3@npm:0.1.5"
@@ -11155,6 +11226,7 @@ __metadata:
     cspell-check-unused-words: ^1.0.4
     docusaurus-plugin-typedoc: ^0.19.2
     docusaurus-theme-search-typesense: ^0.12.0
+    dprint: ^0.40.2
     eslint: ^8.47.0
     eslint-config-prettier: ^9.0.0
     eslint-plugin-deprecation: ^1.5.0

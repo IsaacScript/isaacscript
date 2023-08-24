@@ -7,8 +7,6 @@
 export type NaturalNumbersLessThanOrEqualTo<
   N extends number,
   T extends number[] = [],
-> = T extends [unknown, ...infer Tail]
-  ? Tail["length"] extends N
-    ? T[number]
-    : NaturalNumbersLessThanOrEqualTo<N, [...T, T["length"]]>
+> = T extends [unknown, ...infer Tail] ? Tail["length"] extends N ? T[number]
+  : NaturalNumbersLessThanOrEqualTo<N, [...T, T["length"]]>
   : NaturalNumbersLessThanOrEqualTo<N, [...T, T["length"]]>;

@@ -5,14 +5,10 @@
  *
  * From: https://stackoverflow.com/questions/41879327/deepreadonly-object-typescript
  */
-export type Immutable<T> = T extends ImmutablePrimitive
-  ? T
-  : T extends Array<infer U>
-  ? ImmutableArray<U>
-  : T extends Map<infer K, infer V>
-  ? ImmutableMap<K, V>
-  : T extends Set<infer M>
-  ? ImmutableSet<M>
+export type Immutable<T> = T extends ImmutablePrimitive ? T
+  : T extends Array<infer U> ? ImmutableArray<U>
+  : T extends Map<infer K, infer V> ? ImmutableMap<K, V>
+  : T extends Set<infer M> ? ImmutableSet<M>
   : ImmutableObject<T>;
 
 type ImmutablePrimitive =
