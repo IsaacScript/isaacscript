@@ -1,5 +1,7 @@
 {
-  "typescript": {},
+  "typescript": {
+    "constructorType.spaceAfterNewKeyword": true
+  },
   "json": {},
   "markdown": {},
   "excludes": ["**/node_modules", "**/*-lock.json"],
