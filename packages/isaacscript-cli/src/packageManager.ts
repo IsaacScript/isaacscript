@@ -149,7 +149,7 @@ function getPackageManagerFromArgs(args: Args) {
     const npmExists = commandExists.sync("npm");
     if (!npmExists) {
       fatalError(
-        "You specified the \"npm\" flag, but \"npm\" does not seem to be a valid command.",
+        'You specified the "npm" flag, but "npm" does not seem to be a valid command.',
       );
     }
 
@@ -161,7 +161,7 @@ function getPackageManagerFromArgs(args: Args) {
     const yarnExists = commandExists.sync("yarn");
     if (!yarnExists) {
       fatalError(
-        "You specified the \"yarn\" flag, but \"yarn\" does not seem to be a valid command.",
+        'You specified the "yarn" flag, but "yarn" does not seem to be a valid command.',
       );
     }
 
@@ -173,7 +173,7 @@ function getPackageManagerFromArgs(args: Args) {
     const pnpmExists = commandExists.sync("pnpm");
     if (!pnpmExists) {
       fatalError(
-        "You specified the \"pnpm\" flag, but \"pnpm\" does not seem to be a valid command.",
+        'You specified the "pnpm" flag, but "pnpm" does not seem to be a valid command.',
       );
     }
 

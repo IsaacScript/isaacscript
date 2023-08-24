@@ -354,7 +354,7 @@ function initSaveDataManager(
 
   if (!isTable(v)) {
     error(
-      "Failed to initialize a mod feature class due to having a \"v\" property that is not an object. (The \"v\" property is supposed to be an object that holds the variables for the class, managed by the save data manager.)",
+      'Failed to initialize a mod feature class due to having a "v" property that is not an object. (The "v" property is supposed to be an object that holds the variables for the class, managed by the save data manager.)',
     );
   }
 
@@ -367,7 +367,7 @@ function initSaveDataManager(
   const saveDataManagerMethod = mod[saveDataManagerMethodName];
   if (saveDataManagerMethod === undefined) {
     error(
-      "Failed to initialize a mod feature class due to having a \"v\" object and not having the save data manager initialized. You must pass \"ISCFeature.SAVE_DATA_MANAGER\" to the \"upgradeMod\" function.",
+      'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
     );
   }
 

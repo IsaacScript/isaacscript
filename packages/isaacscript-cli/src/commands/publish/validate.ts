@@ -46,7 +46,7 @@ export function validate(
 function validateTypeScriptProject(verbose: boolean) {
   if (!isLoggedInToNPM(verbose)) {
     fatalError(
-      "Failed to publish since you are not logged in to npm. Try doing \"npm login\".",
+      'Failed to publish since you are not logged in to npm. Try doing "npm login".',
     );
   }
 }

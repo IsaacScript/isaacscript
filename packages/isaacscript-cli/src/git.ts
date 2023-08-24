@@ -28,7 +28,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
   // We do not need to prompt the user if they do not have Git installed.
   if (!commandExists.sync("git")) {
     console.log(
-      "Git does not seem to be installed. (The \"git\" command is not in the path.) Skipping Git-related things.",
+      'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
     );
     return undefined;
   }

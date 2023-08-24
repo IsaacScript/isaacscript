@@ -129,7 +129,7 @@ export async function monitor(
         `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
       );
       fatalError(
-        "Please make sure that the IsaacScript repository is placed next to this one. If you do not want to test a local version of \"isaacscript-common\", then set the \"isaacScriptCommonDev\" field to false in your \"isaacscript.json\" file.",
+        'Please make sure that the IsaacScript repository is placed next to this one. If you do not want to test a local version of "isaacscript-common", then set the "isaacScriptCommonDev" field to false in your "isaacscript.json" file.',
       );
     }
 
@@ -205,7 +205,7 @@ function linkDevelopmentIsaacScriptCommon(
   const isaacScriptMonorepoDirectory =
     getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
 
-  console.log("Building \"isaacscript-common\"...");
+  console.log('Building "isaacscript-common"...');
   const iscBuildScript = path.join(
     isaacScriptMonorepoDirectory,
     "packages",
@@ -215,7 +215,7 @@ function linkDevelopmentIsaacScriptCommon(
   execShell("bash", [iscBuildScript], verbose);
 
   console.log(
-    "Linking this repository to the development version of \"isaacscript-common\"...",
+    'Linking this repository to the development version of "isaacscript-common"...',
   );
   const iscDistDirectory = path.join(
     isaacScriptMonorepoDirectory,
@@ -253,7 +253,7 @@ function warnIfIsaacScriptCommonLinkExists(
     packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     fatalError(
-      "Your \"node_modules/isaacscript-common\" directory is linked, but you do not have \"isaacScriptCommonDev\" set to true in your \"isaacscript.json\" file. You must either set it to true or remove the link.",
+      'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
     );
   }
 }
@@ -320,7 +320,7 @@ function spawnTSTLWatcher(
         `${PROJECT_NAME} is now watching for future changes${suffix}.`;
       notifyGame.msg(newMsg1);
       const target = suffix.includes("isaacscript-common") ?
-        "\"isaacscript-common\"" :
+        '"isaacscript-common"' :
         "the mod";
       const newMsg2 = `Compiling ${target} for the first time...`;
       notifyGame.msg(newMsg2);
@@ -385,6 +385,6 @@ function getMonitorMessageSuffix(config: Config, cwd: string): string {
 
   const baseName = path.basename(cwd);
   return baseName === "isaacscript-common" ?
-    " (in \"isaacscript-common\")" :
+    ' (in "isaacscript-common")' :
     " (in this mod)";
 }

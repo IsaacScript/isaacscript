@@ -58,7 +58,7 @@ export function getTraceback(this: void): string {
     return debug.traceback();
   }
 
-  return "stack traceback:\n(the \"--luadebug\" flag is not enabled)";
+  return 'stack traceback:\n(the "--luadebug" flag is not enabled)';
 }
 
 /**

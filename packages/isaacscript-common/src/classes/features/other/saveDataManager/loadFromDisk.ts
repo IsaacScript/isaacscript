@@ -25,7 +25,7 @@ export function loadFromDisk(
   const newSaveData = jsonDecode(jsonString);
 
   if (SAVE_DATA_MANAGER_DEBUG) {
-    log("Converted data from the \"save#.dat\" to a Lua table.");
+    log('Converted data from the "save#.dat" to a Lua table.');
   }
 
   // Second, iterate over all the fields of the new table.)
@@ -67,7 +67,7 @@ export function loadFromDisk(
     SAVE_DATA_MANAGER_DEBUG,
   );
 
-  log("The save data manager loaded data from the \"save#.dat\" file.");
+  log('The save data manager loaded data from the "save#.dat" file.');
 }
 
 function readSaveDatFile(mod: Mod) {

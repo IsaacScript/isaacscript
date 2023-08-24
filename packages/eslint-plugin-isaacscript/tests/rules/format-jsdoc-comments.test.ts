@@ -10,7 +10,7 @@ const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
-  name: "Using a single-line \"//\" comment that is too long",
+  name: 'Using a single-line "//" comment that is too long',
   code: `
 // But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will
   `,

@@ -105,6 +105,6 @@ function statEquals(
   }
 
   error(
-    "Failed to determine the type of a stat in the \"POST_PLAYER_CHANGE_STAT\" callback.",
+    'Failed to determine the type of a stat in the "POST_PLAYER_CHANGE_STAT" callback.',
   );
 }

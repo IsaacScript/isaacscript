@@ -125,7 +125,7 @@ function getVersionCommandArgument(args: Args): string {
 function writeVersionToConstantsTS(version: string, verbose: boolean) {
   if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
     console.log(
-      "Skipping writing the version to \"constants.ts\" since it was not found.",
+      'Skipping writing the version to "constants.ts" since it was not found.',
     );
     return;
   }

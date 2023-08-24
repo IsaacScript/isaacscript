@@ -156,7 +156,7 @@ export function isRepentance(): boolean {
     | LuaMap<string, unknown>
     | undefined;
   if (classTable === undefined) {
-    error("Failed to get the \"__class\" key of the Sprite metatable.");
+    error('Failed to get the "__class" key of the Sprite metatable.');
   }
 
   const getAnimation = classTable.get("GetAnimation");

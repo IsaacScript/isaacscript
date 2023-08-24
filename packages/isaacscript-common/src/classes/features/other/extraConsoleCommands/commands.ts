@@ -605,7 +605,7 @@ export function dungeon(): void {
 export function effects(): void {
   const player = Isaac.GetPlayer();
   logPlayerEffects(player);
-  print("Logged the player's effects to the \"log.txt\" file.");
+  print('Logged the player\'s effects to the "log.txt" file.');
 }
 
 /** Alias for the "iAmError" command. */
@@ -979,7 +979,7 @@ export function miniboss(): void {
 /** Logs the currently playing music track to the "log.txt" file. */
 export function music(): void {
   logMusic();
-  print("Logged the currently playing music track to the \"log.txt\" file.");
+  print('Logged the currently playing music track to the "log.txt" file.');
 }
 
 /** Alias for the "disableCurses" command. */
@@ -1155,7 +1155,7 @@ export function right(params: string): void {
 /** Logs information about the room to the "log.txt" file. */
 export function room(): void {
   logRoom();
-  print("Logged room information to the \"log.txt\" file.");
+  print('Logged room information to the "log.txt" file.');
 }
 
 /**
@@ -1250,7 +1250,7 @@ export function seedStick(): void {
 /** Logs all of the current run's seed effects to the "log.txt" file. */
 export function seeds(): void {
   logSeedEffects();
-  print("Logged the seed effects to the \"log.txt\" file.");
+  print('Logged the seed effects to the "log.txt" file.');
 }
 
 /**
@@ -1313,13 +1313,13 @@ export function setCharges(params: string): void {
  */
 export function setPosition(params: string): void {
   if (params === "") {
-    print("You must specify a position. (e.g. \"setPosition 100 50\")");
+    print('You must specify a position. (e.g. "setPosition 100 50")');
     return;
   }
 
   const args = params.split(" ");
   if (args.length !== 2) {
-    print("You must specify a position. (e.g. \"setPosition 100 50\")");
+    print('You must specify a position. (e.g. "setPosition 100 50")');
     return;
   }
 
@@ -1400,7 +1400,7 @@ export function sound(params: string): void {
 /** Logs all of the currently playing sound effects to the "log.txt" file. */
 export function sounds(): void {
   logSounds();
-  print("Logged the currently playing sound effects to the \"log.txt\" file.");
+  print('Logged the currently playing sound effects to the "log.txt" file.');
 }
 
 /**

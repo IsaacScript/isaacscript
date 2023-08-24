@@ -2,7 +2,8 @@
   "typescript": {
     "constructSignature.spaceAfterNewKeyword": true,
     "lineWidth": 80,
-    "operatorPosition": "sameLine"
+    "operatorPosition": "sameLine",
+    "quoteStyle": "preferDouble"
   },
   "json": {},
   "markdown": {},

@@ -278,9 +278,9 @@ function getIncompleteSentenceKind(
     !text.endsWith("?") &&
     // Allow ending with a period inside of a single quote or double quote, since it is implied that
     // this is a fully quoted sentence.
-    !text.endsWith(".\"") &&
-    !text.endsWith("!\"") &&
-    !text.endsWith("?\"") &&
+    !text.endsWith('."') &&
+    !text.endsWith('!"') &&
+    !text.endsWith('?"') &&
     !text.endsWith(".'") &&
     !text.endsWith("!'") &&
     !text.endsWith("?'") &&

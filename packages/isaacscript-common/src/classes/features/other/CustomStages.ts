@@ -169,7 +169,7 @@ export class CustomStages extends Feature {
   private initCustomStageMetadata() {
     if (!isArray(metadataJSON)) {
       error(
-        "The IsaacScript standard library attempted to read the custom stage metadata from the \"customStageMetadata.lua\" file, but it was not an array.",
+        'The IsaacScript standard library attempted to read the custom stage metadata from the "customStageMetadata.lua" file, but it was not an array.',
       );
     }
     const customStagesLua = metadataJSON as CustomStageLua[];

@@ -86,7 +86,7 @@ async function openVSCode(
   const VSCodeCommand = getVSCodeCommand();
   if (VSCodeCommand === undefined) {
     console.log(
-      "VSCode does not seem to be installed. (The \"code\" command is not in the path.) Skipping VSCode-related things.",
+      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
     );
     return;
   }

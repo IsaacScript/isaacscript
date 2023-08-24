@@ -71,7 +71,7 @@ export function isTearFromFamiliar(
 ): boolean {
   if (tear.FrameCount === 0) {
     error(
-      "Failed to check if the given tear was from a player since the tear's frame count was equal to 0. (The \"isTearFromFamiliar\" function must only be used in the \"POST_TEAR_INIT_VERY_LATE\" callback or on frame 1 and onwards.)",
+      'Failed to check if the given tear was from a player since the tear\'s frame count was equal to 0. (The "isTearFromFamiliar" function must only be used in the "POST_TEAR_INIT_VERY_LATE" callback or on frame 1 and onwards.)',
     );
   }
 
@@ -110,7 +110,7 @@ export function isTearFromFamiliar(
 export function isTearFromPlayer(tear: EntityTear): boolean {
   if (tear.FrameCount === 0) {
     error(
-      "Failed to check if the given tear was from a player since the tear's frame count was equal to 0. (The \"isTearFromPlayer\" function must only be used in the \"POST_TEAR_INIT_VERY_LATE\" callback or on frame 1 and onwards.)",
+      'Failed to check if the given tear was from a player since the tear\'s frame count was equal to 0. (The "isTearFromPlayer" function must only be used in the "POST_TEAR_INIT_VERY_LATE" callback or on frame 1 and onwards.)',
     );
   }
 

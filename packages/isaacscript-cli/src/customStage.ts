@@ -470,7 +470,7 @@ function combineCustomStageXMLs(
 
       const newLine = line
         .replace(VARIANT_REGEX, ` variant="${variant}"`)
-        .replace(WEIGHT_REGEX, " weight=\"0.0\"");
+        .replace(WEIGHT_REGEX, ' weight="0.0"');
       lines[i] = newLine;
     }
 

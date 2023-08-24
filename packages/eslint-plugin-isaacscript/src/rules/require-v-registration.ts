@@ -9,13 +9,13 @@ export const requireVRegistration = createRule({
     type: "problem",
     docs: {
       description:
-        "Require variables named \"v\" to be registered with the save data manager",
+        'Require variables named "v" to be registered with the save data manager',
       requiresTypeChecking: false,
     },
     schema: [],
     messages: {
       noRegistration:
-        "Variables named \"v\" must be registered with the save data manager from \"isaacscript-common\".",
+        'Variables named "v" must be registered with the save data manager from "isaacscript-common".',
     },
   },
   defaultOptions: [],

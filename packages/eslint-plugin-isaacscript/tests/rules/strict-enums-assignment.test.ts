@@ -24,7 +24,7 @@ valid.push({
  * method being buggy and not having a proper function signature.
  */
 valid.push({
-  name: "Declaring an \"empty\" variable with array destructuring",
+  name: 'Declaring an "empty" variable with array destructuring',
   code: `
   const myArray = [1];
   const [firstElement] = myArray;
@@ -99,7 +99,7 @@ const fruit: Fruit = Fruit2.Apple2;
 
 valid.push({
   name:
-    "Assigning a number enum literal to a variable with a union type of \"number enum | null\" with const",
+    'Assigning a number enum literal to a variable with a union type of "number enum | null" with const',
   code: `${fruitEnumDefinition}
 const fruit: Fruit | null = Fruit.Apple;
   `,
@@ -107,7 +107,7 @@ const fruit: Fruit | null = Fruit.Apple;
 
 valid.push({
   name:
-    "Assigning a null value to a variable with a union type of \"number enum | null\" with const",
+    'Assigning a null value to a variable with a union type of "number enum | null" with const',
   code: `${fruitEnumDefinition}
 const fruit: Fruit | null = null;
   `,
@@ -115,7 +115,7 @@ const fruit: Fruit | null = null;
 
 invalid.push({
   name:
-    "Assigning a number literal to a variable with a union type of \"number enum | null\" with const",
+    'Assigning a number literal to a variable with a union type of "number enum | null" with const',
   code: `${fruitEnumDefinition}
 const fruit: Fruit | null = 0;
   `,
@@ -124,7 +124,7 @@ const fruit: Fruit | null = 0;
 
 valid.push({
   name:
-    "Assigning a number enum literal to a variable with a union type of \"number enum | null\" with let",
+    'Assigning a number enum literal to a variable with a union type of "number enum | null" with let',
   code: `${fruitEnumDefinition}
 let fruit: Fruit | null = null;
 fruit = Fruit.Apple;
@@ -133,7 +133,7 @@ fruit = Fruit.Apple;
 
 valid.push({
   name:
-    "Assigning a null value to a variable with a union type of \"number enum | null\" with let",
+    'Assigning a null value to a variable with a union type of "number enum | null" with let',
   code: `${fruitEnumDefinition}
 let fruit: Fruit | null = Fruit.Apple;
 fruit = null;
@@ -142,7 +142,7 @@ fruit = null;
 
 invalid.push({
   name:
-    "Assigning a number literal to a variable with a union type of \"number enum | null\" with let",
+    'Assigning a number literal to a variable with a union type of "number enum | null" with let',
   code: `${fruitEnumDefinition}
 let fruit: Fruit | null = null;
 fruit = 0;
@@ -152,7 +152,7 @@ fruit = 0;
 
 invalid.push({
   name:
-    "Assigning a enum literal to a variable with a union type of \"number enum | number\"",
+    'Assigning a enum literal to a variable with a union type of "number enum | number"',
   code: `${fruitEnumDefinition}
 declare const fruit: Fruit | number;
 const fruitCopy: Fruit = fruit;

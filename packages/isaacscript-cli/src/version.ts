@@ -11,7 +11,7 @@ export function getVersionOfThisPackage(verbose: boolean): string {
   const { version } = packageJSON;
   if (typeof version !== "string") {
     fatalError(
-      "Failed to parse the version from this package's \"package.json\" file.",
+      'Failed to parse the version from this package\'s "package.json" file.',
     );
   }
 

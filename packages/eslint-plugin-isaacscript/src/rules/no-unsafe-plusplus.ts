@@ -7,16 +7,16 @@ export const noUnsafePlusplus = createRule({
     type: "problem",
     docs: {
       description:
-        "Disallow unsafe and confusing uses of the \"++\" and \"--\" operators",
+        'Disallow unsafe and confusing uses of the "++" and "--" operators',
       recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],
     messages: {
       plusPlus:
-        "Complex usages of the \"++\" operator can be confusing. You should only use it in contexts where it could be swapped with \"+= 1\".",
+        'Complex usages of the "++" operator can be confusing. You should only use it in contexts where it could be swapped with "+= 1".',
       minusMinus:
-        "Complex usages of the \"--\" operator can be confusing. You should only use it in contexts where it could be swapped with \"-= 1\".",
+        'Complex usages of the "--" operator can be confusing. You should only use it in contexts where it could be swapped with "-= 1".',
     },
   },
   defaultOptions: [],

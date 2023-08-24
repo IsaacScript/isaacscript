@@ -65,8 +65,7 @@ export function parseArgs(): Args {
           })
           .option("skip-project-checks", {
             type: "boolean",
-            description:
-              "Skip checking for \"package.json\" and \"node_modules\"",
+            description: 'Skip checking for "package.json" and "node_modules"',
           })
           .option("dev", {
             alias: "d",
@@ -89,7 +88,7 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              "Answer yes to every dialog option, similar to how \"npm init --yes\" works",
+              'Answer yes to every dialog option, similar to how "npm init --yes" works',
           })
           .option("use-current-dir", {
             type: "boolean",
@@ -160,7 +159,7 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              "Answer yes to every dialog option, similar to how \"npm init --yes\" works",
+              'Answer yes to every dialog option, similar to how "npm init --yes" works',
           })
           .option("use-current-dir", {
             type: "boolean",
@@ -337,7 +336,7 @@ export function parseArgs(): Args {
     )
     .command(
       "check-cspell",
-      "Check the \"cspell.json\" file to see if any unused words exist.",
+      'Check the "cspell.json" file to see if any unused words exist.',
       (builder) =>
         builder.option("verbose", {
           alias: "v",

@@ -323,7 +323,7 @@ function updateNodeModules(
   verbose: boolean,
 ) {
   console.log(
-    "Finding out the latest versions of the packages with \"npm-check-updates\"...",
+    'Finding out the latest versions of the packages with "npm-check-updates"...',
   );
   const packageManagerExecCommand = getPackageManagerExecCommand(
     packageManager,

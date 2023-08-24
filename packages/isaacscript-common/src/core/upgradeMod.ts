@@ -7,7 +7,7 @@ import type { ModUpgradedWithFeatures } from "../types/private/ModUpgradedWithFe
 
 type ISCFeatureTuple<T extends readonly ISCFeature[]> = ISCFeature extends
   T["length"] ?
-  "The list of features must be a tuple. Use the \"as const\" assertion when declaring the array." :
+  'The list of features must be a tuple. Use the "as const" assertion when declaring the array.' :
   T;
 
 /**

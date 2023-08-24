@@ -23,13 +23,13 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       readOnlyMap:
-        "Maps with a capital letter must be explicitly annotated as \"ReadOnlyMap\".",
+        'Maps with a capital letter must be explicitly annotated as "ReadOnlyMap".',
       readOnlySet:
-        "Sets with a capital letter must be explicitly annotated as \"ReadOnlySet\".",
+        'Sets with a capital letter must be explicitly annotated as "ReadOnlySet".',
       readOnlyArray:
-        "Arrays with a capital letter must be explicitly annotated as \"readonly\" or \"ReadonlyArray\".",
+        'Arrays with a capital letter must be explicitly annotated as "readonly" or "ReadonlyArray".',
       readOnlyObject:
-        "Objects with a capital letter must be read-only. Try using a type annotation with the \"Readonly\" helper type.",
+        'Objects with a capital letter must be read-only. Try using a type annotation with the "Readonly" helper type.',
     },
   },
   defaultOptions: [],

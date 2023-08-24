@@ -342,7 +342,7 @@ export function getTruncatedText(
         continue;
       }
 
-      if (line.includes("\"words\": [")) {
+      if (line.includes('"words": [')) {
         isSkipping = true;
         continue;
       }

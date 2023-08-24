@@ -14,7 +14,7 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
   "<",
   ">",
   ":",
-  "\"",
+  '"',
   "/",
   "\\",
   "|",
@@ -104,13 +104,13 @@ function validateProjectName(projectName: string, forceName: boolean) {
 
   if (hasWhiteSpace(projectName)) {
     fatalError(
-      "Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. \"green-candle\")",
+      'Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
     );
   }
 
   if (!isKebabCase(projectName)) {
     fatalError(
-      "Error: The project name is not in kebab-case. (Kebab-case is the style of using all lowercase letters, with words separated by hyphens.) Project names must use kebab-case to match GitHub repository standards. If necessary, you can override this check with the \"--force-name\" flag.",
+      'Error: The project name is not in kebab-case. (Kebab-case is the style of using all lowercase letters, with words separated by hyphens.) Project names must use kebab-case to match GitHub repository standards. If necessary, you can override this check with the "--force-name" flag.',
     );
   }
 }

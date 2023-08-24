@@ -113,7 +113,7 @@ export function getCustomStagesFromTSConfig(
   const valid = schemaValidate(isaacScriptSection);
   if (!valid) {
     console.error(
-      "Your \"isaacscript\" section in the \"tsconfig.json\" file has the following errors:",
+      'Your "isaacscript" section in the "tsconfig.json" file has the following errors:',
     );
     console.error(schemaValidate.errors);
     fatalError(

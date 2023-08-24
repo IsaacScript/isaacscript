@@ -177,7 +177,7 @@ const config = {
         contexts: [
           {
             context: "FunctionDeclaration",
-            comment: "JsdocBlock:has(JsdocTag[tag=\"param\"])",
+            comment: 'JsdocBlock:has(JsdocTag[tag="param"])',
           },
         ],
       },

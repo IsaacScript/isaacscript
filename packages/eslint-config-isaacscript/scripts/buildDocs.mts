@@ -672,7 +672,7 @@ function getRuleComments(
       continue;
     }
 
-    const lineWithNoQuotes = line.replaceAll("\"", "");
+    const lineWithNoQuotes = line.replaceAll('"', "");
     const colonIndex = lineWithNoQuotes.indexOf(":");
     const lineRuleName = lineWithNoQuotes.slice(0, Math.max(0, colonIndex));
 

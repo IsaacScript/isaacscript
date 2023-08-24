@@ -41,7 +41,7 @@ function getExtensionsFromJSON(
   const { recommendations } = extensionsJSON;
   if (!Array.isArray(recommendations)) {
     fatalError(
-      "The \"recommendations\" field in the \"extensions.json\" file is not an array.",
+      'The "recommendations" field in the "extensions.json" file is not an array.',
     );
   }
 
