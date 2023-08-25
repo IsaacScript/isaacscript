@@ -47,7 +47,7 @@ const responses = await Promise.all(fetchPromises);
 
 for (const response of responses) {
   if (!response.ok) {
-    console.error(`failed to get URL: ${response.url}`);
+    console.error(`Failed to get URL: ${response.url}`);
     process.exit(1);
   }
 }
@@ -65,5 +65,5 @@ for (const [i, config] of configs.entries()) {
 }
 
 if (!found) {
-  console.log(`no results for: ${ruleName}`);
+  console.log(`No results for: ${ruleName}`);
 }

@@ -3,6 +3,21 @@ import { getAllPlayers } from "./playerIndex";
 import { isFunction } from "./types";
 
 /**
+ * Helper function to throw an error (using the Lua `error` function) if the provided value is equal
+ * to `undefined`.
+ *
+ * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
+ */
+export function assertDefined<T>(
+  value: T | undefined,
+  msg: string,
+): asserts value is T {
+  if (value === undefined) {
+    error(msg);
+  }
+}
+
+/**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
  * end and exclusive on the high end. (The "e" in the function name stands for exclusive.) Thus,
  * this function works in a similar way as the built-in `range` function from Python.
