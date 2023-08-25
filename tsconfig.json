@@ -1,18 +1,13 @@
-// This is a copy of "packages/isaacscript-tsconfig/tsconfig.node.json", since configs can only be
-// extended from one place at a time. We name it "tsconfig.json" instead of "tsconfig.node.json" so
-// that monorepo scripts will automatically use the Node environment without having to specify it
-// explicitly.
+// This is a tsconfig.json intended to be used by Node packages in this monorepo.
 {
   "extends": [
     "./packages/isaacscript-tsconfig/configs/tsconfig.node.json",
     "./tsconfig.monorepo.json",
   ],
 
-  // We want to type-check every file in the repository, regardless of whether it is actually
-  // bundled into the TypeScript output or not. Two entries for each file extension are needed
-  // because TypeScript will exclude files that begin with a period from an asterisk glob by
-  // default. (Additionally, tsc/tstl will not output linting-related files into the compiled
-  // output.)
+  // We want to lint every file in the repository, regardless of whether it is actually bundled into
+  // the TypeScript output or not. Two entries for each file extension are needed because TypeScript
+  // will exclude files that begin with a period from an asterisk glob by default.
   "include": [
     "./**/*.js",
     "./**/.*.js",
