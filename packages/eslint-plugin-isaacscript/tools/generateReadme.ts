@@ -2,6 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { assertDefined } from "../src/utils";
 import type { RuleDefinition } from "./utils";
 import {
   formatWithPrettier,
@@ -60,9 +61,10 @@ function getRulesTable() {
 function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   const [ruleName, rule] = ruleEntry;
 
-  if (rule.meta.docs === undefined) {
-    throw new Error(`Rule ${ruleName} does not have a "docs" entry.`);
-  }
+  assertDefined(
+    rule.meta.docs,
+    `Rule ${ruleName} does not have a "docs" entry.`,
+  );
 
   const fullRuleName = getRuleNameWithPluginNamePrefix(ruleName);
   const nameWithLink = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;

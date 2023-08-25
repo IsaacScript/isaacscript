@@ -1,5 +1,6 @@
 import type { CompleteSentenceMessageIds } from "../src/completeSentence";
 import { getIncompleteSentences, getSentences } from "../src/completeSentence";
+import { assertDefined } from "../src/utils";
 
 function testSentences(text: string, numSentences: number) {
   const sentences = getSentences(text);
@@ -46,11 +47,12 @@ function testIncompleteSentence(
     return;
   }
 
-  const incompleteSentence = incompleteSentences[0];
-  if (incompleteSentence === undefined) {
-    throw new Error("Failed to get the incomplete sentence.");
-  }
-  expect(incompleteSentence.messageId).toBe(messageId);
+  const firstIncompleteSentence = incompleteSentences[0];
+  assertDefined(
+    firstIncompleteSentence,
+    "Failed to get the first incomplete sentence.",
+  );
+  expect(firstIncompleteSentence.messageId).toBe(messageId);
 }
 
 test("Standard sentences", () => {

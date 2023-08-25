@@ -171,45 +171,40 @@ const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
 
 function getTypeScriptESLintConfigRules(configName: string) {
   const config = TypeScriptESLintPlugin.configs[configName];
-  if (config === undefined) {
-    throw new Error(
-      `Failed to parse the "@typescript-eslint/${configName}" config.`,
-    );
-  }
+  assertDefined(
+    config,
+    `Failed to parse the "@typescript-eslint/${configName}" config.`,
+  );
 
   // Unlike the other configs, the "eslint-recommended" rules are contained within an "overrides"
   // directive.
   if (configName === "eslint-recommended") {
     const { overrides } = config;
-    if (overrides === undefined) {
-      throw new Error(
-        `Failed to parse the "@typescript-eslint/${configName}" config overrides.`,
-      );
-    }
+    assertDefined(
+      overrides,
+      `Failed to parse the "@typescript-eslint/${configName}" config overrides.`,
+    );
 
     const firstElement = overrides[0];
-    if (firstElement === undefined) {
-      throw new Error(
-        `Failed to parse the "@typescript-eslint/${configName}" config overrides first element.`,
-      );
-    }
+    assertDefined(
+      firstElement,
+      `Failed to parse the "@typescript-eslint/${configName}" config overrides first element.`,
+    );
 
     const { rules } = firstElement;
-    if (rules === undefined) {
-      throw new Error(
-        `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
-      );
-    }
+    assertDefined(
+      rules,
+      `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
+    );
 
     return rules;
   }
 
   const { rules } = config;
-  if (rules === undefined) {
-    throw new Error(
-      `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
-    );
-  }
+  assertDefined(
+    rules,
+    `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
+  );
 
   return rules;
 }
@@ -384,21 +379,19 @@ async function getMarkdownRuleSection(
     throw new Error(`Failed to parse the base rules in: ${baseConfigPath}`);
   }
 
-  const baseRules = rules as Record<string, unknown>;
+  const baseRules = rules as Record<string, Linter.RuleEntry>;
   auditBaseConfigRules(configName, upstreamImport, baseRules);
 
   const alphabeticalRuleNames = Object.keys(baseRules).sort();
   for (const ruleName of alphabeticalRuleNames) {
     const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      throw new Error(`Failed to find base rule: ${ruleName}`);
-    }
+    assertDefined(rule, `Failed to find base rule: ${ruleName}`);
 
     const baseConfigText = fs.readFileSync(baseConfigPath, "utf8");
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
-      rule as Linter.RuleEntry,
+      rule,
       ruleURL,
       baseConfigText,
       baseConfigFileName,
@@ -415,7 +408,7 @@ async function getMarkdownRuleSection(
 function auditBaseConfigRules(
   configName: string,
   upstreamImport: unknown,
-  baseRules: Record<string, unknown>,
+  baseRules: Record<string, Linter.RuleEntry>,
 ) {
   if (upstreamImport === undefined) {
     return;
@@ -435,11 +428,10 @@ function auditBaseConfigRules(
     }
 
     const rule = baseRules[fullRuleName];
-    if (rule === undefined) {
-      throw new Error(
-        `Failed to find a rule in the base config: ${fullRuleName}`,
-      );
-    }
+    assertDefined(
+      rule,
+      `Failed to find a rule in the base config: ${fullRuleName}`,
+    );
   }
 }
 
@@ -744,4 +736,18 @@ function trimCharactersUntilLastCharacter(
 ): string {
   const index = string.lastIndexOf(character);
   return index === -1 ? string : string.slice(index + 1);
+}
+
+/**
+ * Helper function to throw an error if the provided value is equal to `undefined`.
+ *
+ * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
+ */
+export function assertDefined<T>(
+  value: T | undefined,
+  msg: string,
+): asserts value is T {
+  if (value === undefined) {
+    throw new TypeError(msg);
+  }
 }

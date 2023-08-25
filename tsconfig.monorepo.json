@@ -10,5 +10,7 @@
     "importHelpers": true,
   },
 
-  "exclude": ["node_modules", "tmp"],
+  // We need to exclude certain directories in order to prevent spurious errors from appearing in
+  // the VSCode "Problems" pane.
+  "exclude": ["dist", "node_modules", "tmp"],
 }

@@ -1,5 +1,6 @@
 import { ReadonlySet } from "../types/ReadonlySet.js";
 import { getRandomInt } from "./random.js";
+import { assertDefined } from "./utils.js";
 
 /**
  * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
@@ -54,6 +55,9 @@ export function emptyArray<T>(array: T[]): void {
 /**
  * Helper function to get a random element from the provided array.
  *
+ * Note that this will only work with arrays that do not contain values of `undefined`, since the
+ * function uses `undefined` as an indication that the corresponding element does not exist.
+ *
  * @param array The array to get an element from.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
@@ -71,11 +75,10 @@ export function getRandomArrayElement<T>(
     exceptions.length > 0 ? arrayRemove(array, ...exceptions) : array;
   const randomIndex = getRandomArrayIndex(arrayToUse);
   const randomElement = arrayToUse[randomIndex];
-  if (randomElement === undefined) {
-    throw new Error(
-      `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
-    );
-  }
+  assertDefined(
+    randomElement,
+    `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
+  );
 
   return randomElement;
 }

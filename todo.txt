@@ -3,6 +3,7 @@
   - pass CI
   - release new version of `eslint-plugin-isaacscript` to see if ESM build is backwards-compatible
   - test on racing+
+  - add dep of isaacscript-common-ts to eslint-plugin-isaacscript
 
 ----------------------------------------------------------------------------------------------------
 

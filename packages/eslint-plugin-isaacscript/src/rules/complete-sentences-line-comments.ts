@@ -6,7 +6,7 @@ import {
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
-import { createRule } from "../utils";
+import { assertDefined, createRule } from "../utils";
 
 export type Options = [];
 
@@ -45,14 +45,10 @@ export const completeSentencesLineComments = createRule<
 
     for (const [i, commentBlock] of commentBlocks.entries()) {
       const firstComment = commentBlock.originalComments.at(0);
-      if (firstComment === undefined) {
-        throw new Error("Failed to get the first comment.");
-      }
+      assertDefined(firstComment, "Failed to get the first comment.");
 
       const lastComment = commentBlock.originalComments.at(-1);
-      if (lastComment === undefined) {
-        throw new Error("Failed to get the last comment");
-      }
+      assertDefined(lastComment, "Failed to get the last comment.");
 
       // Comments in-between "separator lines" are whitelisted.
       const previousCommentBlock = commentBlocks[i - 1];

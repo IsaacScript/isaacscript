@@ -30,6 +30,20 @@ export function areStringsEqualExcludingTrailingSpaces(
   return true;
 }
 
+/**
+ * Helper function to throw an error if the provided value is equal to `undefined`.
+ *
+ * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
+ */
+export function assertDefined<T>(
+  value: T | undefined,
+  msg: string,
+): asserts value is T {
+  if (value === undefined) {
+    throw new TypeError(msg);
+  }
+}
+
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {
     return string;

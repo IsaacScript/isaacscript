@@ -2,6 +2,7 @@ import * as JSONC from "jsonc-parser";
 import path from "node:path";
 import { PROJECT_NAME } from "../../../constants.js";
 import { fileExists, makeDir, readFile, writeFileTry } from "../../../file.js";
+import { assertDefined } from "../../../isaacScriptCommonTS.js";
 import type { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
@@ -17,11 +18,10 @@ function init(verbose: boolean) {
   const args = process.argv.slice(2);
 
   const firstArg = args[0];
-  if (firstArg === undefined) {
-    throw new Error(
-      `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
-    );
-  }
+  assertDefined(
+    firstArg,
+    `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
+  );
 
   saveDatPath = firstArg;
   saveDatFileName = path.basename(saveDatPath);

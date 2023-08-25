@@ -1,5 +1,6 @@
 import syncDirectory from "sync-directory";
 import { FILE_SYNCED_MESSAGE } from "../../../constants.js";
+import { assertDefined } from "../../../isaacScriptCommonTS.js";
 
 const SUBPROCESS_NAME = "directory syncer";
 
@@ -12,18 +13,16 @@ function init() {
   const args = process.argv.slice(2);
 
   const firstArg = args[0];
-  if (firstArg === undefined) {
-    throw new Error(
-      `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
-    );
-  }
+  assertDefined(
+    firstArg,
+    `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
+  );
 
   const secondArg = args[1];
-  if (secondArg === undefined) {
-    throw new Error(
-      `The ${SUBPROCESS_NAME} process did not get the right amount of arguments.`,
-    );
-  }
+  assertDefined(
+    secondArg,
+    `The ${SUBPROCESS_NAME} process did not get a valid second argument.`,
+  );
 
   modSourcePath = firstArg;
   modTargetPath = secondArg;

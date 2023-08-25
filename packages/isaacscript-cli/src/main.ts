@@ -14,7 +14,7 @@ import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
 import { PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
+import { assertDefined, fatalError } from "./isaacScriptCommonTS.js";
 import {
   getPackageManagerInstallCommand,
   getPackageManagerUsedForExistingProject,
@@ -75,9 +75,10 @@ function printBanner(command: Command, verbose: boolean) {
   const versionString = `v${version}`;
   const bannerLines = banner.split("\n");
   const firstBannerLine = bannerLines[0];
-  if (firstBannerLine === undefined) {
-    throw new Error("Failed to get the first line of the banner text.");
-  }
+  assertDefined(
+    firstBannerLine,
+    "Failed to get the first line of the banner text.",
+  );
   const bannerHorizontalLength = firstBannerLine.length;
   const leftPaddingAmount = Math.floor(
     (bannerHorizontalLength + versionString.length) / 2,

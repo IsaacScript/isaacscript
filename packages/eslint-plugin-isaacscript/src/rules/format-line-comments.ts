@@ -4,7 +4,11 @@ import {
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
-import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
+import {
+  areStringsEqualExcludingTrailingSpaces,
+  assertDefined,
+  createRule,
+} from "../utils";
 
 const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
@@ -70,14 +74,10 @@ export const formatLineComments = createRule<Options, MessageIds>({
 
     for (const commentBlock of commentBlocks) {
       const firstComment = commentBlock.originalComments.at(0);
-      if (firstComment === undefined) {
-        throw new Error("Failed to get the first comment.");
-      }
+      assertDefined(firstComment, "Failed to get the first comment.");
 
       const lastComment = commentBlock.originalComments.at(-1);
-      if (lastComment === undefined) {
-        throw new Error("Failed to get the last comment");
-      }
+      assertDefined(lastComment, "Failed to get the last comment.");
 
       const leftWhitespaceLength = firstComment.loc.start.column;
       const leftWhitespace = " ".repeat(leftWhitespaceLength);

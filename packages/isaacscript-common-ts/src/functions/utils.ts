@@ -2,6 +2,34 @@ const INTEGER_REGEX = /^-?\d+$/;
 const FLOAT_REGEX = /^-?\d*\.?\d+$/;
 
 /**
+ * Helper function to throw an error if the provided value is equal to `undefined`.
+ *
+ * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
+ */
+export function assertDefined<T>(
+  value: T | undefined,
+  msg: string,
+): asserts value is T {
+  if (value === undefined) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error if the provided value is equal to `null`.
+ *
+ * This is useful to have TypeScript narrow a `T | null` value to `T` in a concise way.
+ */
+export function assertNotNull<T>(
+  value: T | null,
+  msg: string,
+): asserts value is T {
+  if (value === null) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
  * Helper function to return an iterator of integers with the specified range, inclusive on the
  * lower end and exclusive on the high end. (The "e" in the function name stands for exclusive.)
  * Thus, this function works in the same way as the built-in `range` function from Python.
