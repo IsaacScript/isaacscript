@@ -18,6 +18,7 @@ yarn set version latest
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
+# - typescript - Stuck until TypeDoc is patched for the latest version.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #             type in "package.json", and Docusaurus does not support this yet.
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
