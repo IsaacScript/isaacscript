@@ -1,9 +1,15 @@
+- once new version of TypeDoc is released:
+  - update typescript
+  - pass CI
+  - release new version of `eslint-plugin-isaacscript` to see if ESM build is backwards-compatible
+
 ----------------------------------------------------------------------------------------------------
 
-- wait for TypeDoc to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
+- wait for typedoc-plugin-markdown to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
 - update eslint to new config
   - wait until ESLint 9 is released so that environment flag is not necessary
+  - wait until @typescript-eslint/plugin is using flat config and has good docs
   - ESLint does not support "eslint.config.mjs" file format, so it requires either:
     1. changing package.json type
     2. specifying config file location when running, e.g. "--config eslint.config.mjs"
