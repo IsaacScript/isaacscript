@@ -38,6 +38,11 @@ describe("assertsDefined", () => {
   assertDefined(value as number | undefined | null, "");
   assertDefined(value as string | undefined | null, "");
   assertDefined(value as Function | undefined | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  function _genericFunction<T>(_arg: T) {
+    let t: T | undefined;
+    assertDefined(t, "");
+  }
 });
 
 describe("assertsNull", () => {
@@ -70,6 +75,11 @@ describe("assertsNull", () => {
   assertNotNull(value as number | null | undefined, "");
   assertNotNull(value as string | null | undefined, "");
   assertNotNull(value as Function | null | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  function _genericFunction<T>(_arg: T) {
+    const t: T | null = null; // eslint-disable-line unicorn/no-null
+    assertNotNull(t, "");
+  }
 });
 
 describe("eRange", () => {
