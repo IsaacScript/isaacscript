@@ -12,6 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## August 27th, 2023 (Unreleased)
 
 - Added the following helper function:
+  - `renderTextOnEntity`
   - `renderScaledTextOnEntity`
 
 ## August 20th, 2023

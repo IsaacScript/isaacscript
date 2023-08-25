@@ -1,6 +1,7 @@
 import { ModCallbackCustom } from "../../../../enums/ModCallbackCustom";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPlayer extends Feature {
   public textCallback: (player: EntityPlayer) => string =

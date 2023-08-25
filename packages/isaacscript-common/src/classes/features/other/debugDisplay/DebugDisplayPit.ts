@@ -1,6 +1,7 @@
 import { ModCallbackCustom } from "../../../../enums/ModCallbackCustom";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultGridEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultGridEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPit extends Feature {
   public textCallback: (pit: GridEntityPit) => string =
