@@ -12,6 +12,7 @@ import type {
 import { EntityType } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { getEntities, removeEntities, spawn } from "./entities";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to get all of the bombs in the room. (Specifically, this refers to the
@@ -562,9 +563,7 @@ export function spawnBomb(
   );
 
   const bomb = entity.ToBomb();
-  if (bomb === undefined) {
-    error("Failed to spawn a bomb.");
-  }
+  assertDefined(bomb, "Failed to spawn a bomb.");
 
   return bomb;
 }
@@ -608,9 +607,7 @@ export function spawnEffect(
   );
 
   const effect = entity.ToEffect();
-  if (effect === undefined) {
-    error("Failed to spawn an effect.");
-  }
+  assertDefined(effect, "Failed to spawn an effect.");
 
   return effect;
 }
@@ -659,9 +656,7 @@ export function spawnFamiliar(
   );
 
   const familiar = entity.ToFamiliar();
-  if (familiar === undefined) {
-    error("Failed to spawn a familiar.");
-  }
+  assertDefined(familiar, "Failed to spawn a familiar.");
 
   return familiar;
 }
@@ -705,9 +700,7 @@ export function spawnKnife(
   );
 
   const knife = entity.ToKnife();
-  if (knife === undefined) {
-    error("Failed to spawn a knife.");
-  }
+  assertDefined(knife, "Failed to spawn a knife.");
 
   return knife;
 }
@@ -751,9 +744,7 @@ export function spawnLaser(
   );
 
   const laser = entity.ToLaser();
-  if (laser === undefined) {
-    error("Failed to spawn a laser.");
-  }
+  assertDefined(laser, "Failed to spawn a laser.");
 
   return laser;
 }
@@ -803,9 +794,7 @@ export function spawnNPC(
   );
 
   const npc = entity.ToNPC();
-  if (npc === undefined) {
-    error("Failed to spawn an NPC.");
-  }
+  assertDefined(npc, "Failed to spawn an NPC.");
 
   return npc;
 }
@@ -856,9 +845,7 @@ export function spawnPickup(
   );
 
   const pickup = entity.ToPickup();
-  if (pickup === undefined) {
-    error("Failed to spawn a pickup.");
-  }
+  assertDefined(pickup, "Failed to spawn a pickup.");
 
   return pickup;
 }
@@ -902,9 +889,7 @@ export function spawnProjectile(
   );
 
   const projectile = entity.ToProjectile();
-  if (projectile === undefined) {
-    error("Failed to spawn a projectile.");
-  }
+  assertDefined(projectile, "Failed to spawn a projectile.");
 
   return projectile;
 }
@@ -987,9 +972,7 @@ export function spawnTear(
   );
 
   const tear = entity.ToTear();
-  if (tear === undefined) {
-    error("Failed to spawn a tear.");
-  }
+  assertDefined(tear, "Failed to spawn a tear.");
 
   return tear;
 }

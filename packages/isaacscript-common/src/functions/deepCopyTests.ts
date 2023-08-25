@@ -69,8 +69,7 @@ function copiedObjectHasKeyAndValueString() {
     "copiedObjectHasKeyAndValueString",
   );
 
-  const value = newObject[keyToLookFor];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const value = newObject[keyToLookFor] as string | undefined;
   if (value === undefined) {
     error(`The copied object did not have a key of: ${keyToLookFor}`);
   }
@@ -236,8 +235,9 @@ function copiedObjectHasChildObject() {
     "copiedObjectHasChildObject",
   );
 
-  const childObject = newObject[childObjectIndex];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const childObject = newObject[childObjectIndex] as
+    | (typeof oldObject)["abc"]
+    | undefined;
   if (childObject === undefined) {
     error(`Failed to find the child object at index: ${childObjectIndex}`);
   }
@@ -246,8 +246,7 @@ function copiedObjectHasChildObject() {
     error(`The copied child object had a type of: ${typeof childObject}`);
   }
 
-  const value = childObject[keyToLookFor];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const value = childObject[keyToLookFor] as string | undefined;
   if (value === undefined) {
     error(`The child object did not have a key of: ${keyToLookFor}`);
   }

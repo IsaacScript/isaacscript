@@ -1,8 +1,8 @@
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomArrayElement } from "./array";
 import { getRandomSeed } from "./rng";
-import { isString } from "./types";
-import { iRange } from "./utils";
+import { isNumber, isString } from "./types";
+import { assertDefined, iRange } from "./utils";
 
 /**
  * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
@@ -60,13 +60,17 @@ export function getEnumEntries<T>(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumKeys<T>(transpiledEnum: T): string[] {
+export function getEnumKeys(
+  transpiledEnum: Record<string | number, string | number>,
+): string[] {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([key, _value]) => key);
 }
 
 /** Helper function to get the amount of entries inside of an enum. */
-export function getEnumLength<T>(transpiledEnum: T): int {
+export function getEnumLength(
+  transpiledEnum: Record<string | number, string | number>,
+): int {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.length;
 }
@@ -95,18 +99,17 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
 /**
  * Helper function to get the enum value with the highest value.
  *
- * Note that this is not necessarily the enum value that is declared last, since there is no way to
- * infer that at run-time.
+ * Note that this is not necessarily the enum value that is declared last in the code, since there
+ * is no way to infer that at run-time.
  */
 export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
   const lastElement = enumValues[enumValues.length - 1];
-  if (lastElement === undefined) {
-    error(
-      "Failed to get the last value from an enum since the enum was empty.",
-    );
-  }
+  assertDefined(
+    lastElement,
+    "Failed to get the last value from an enum since the enum was empty.",
+  );
 
   return lastElement;
 }
@@ -126,6 +129,14 @@ export function getRandomEnumValue<T>(
 ): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
   return getRandomArrayElement(enumValues, seedOrRNG, exceptions);
+}
+
+export function isEnumValue(
+  value: number | string,
+  transpiledEnum: Record<string | number, string | number>,
+): boolean {
+  const enumValues = getEnumValues(transpiledEnum);
+  return enumValues.includes(value);
 }
 
 /**
@@ -167,12 +178,12 @@ export function validateEnumContiguous<T>(
 ): void {
   const values = getEnumValues(transpiledEnum);
   const lastValue = values[values.length - 1];
-  if (lastValue === undefined) {
-    error(
-      "Failed to validate that an enum was contiguous, since the last value was undefined.",
-    );
-  }
-  if (typeof lastValue !== "number") {
+  assertDefined(
+    lastValue,
+    "Failed to validate that an enum was contiguous, since the last value was undefined.",
+  );
+
+  if (!isNumber(lastValue)) {
     error(
       "Failed to validate that an enum was contiguous, since the last value was not a number.",
     );

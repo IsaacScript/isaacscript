@@ -10,6 +10,7 @@ import type {
 import { ISAAC_API_CLASS_TYPE_TO_FUNCTIONS } from "../objects/isaacAPIClassTypeToFunctions";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { isTable, isUserdata } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to generically copy an Isaac API class without knowing what specific type of
@@ -27,11 +28,10 @@ export function copyIsaacAPIClass<T extends CopyableIsaacAPIClass>(
   }
 
   const isaacAPIClassType = getIsaacAPIClassName(isaacAPIClass);
-  if (isaacAPIClassType === undefined) {
-    error(
-      "Failed to copy an Isaac API class since it does not have a class type.",
-    );
-  }
+  assertDefined(
+    isaacAPIClassType,
+    "Failed to copy an Isaac API class since it does not have a class type.",
+  );
 
   const copyableIsaacAPIClassType =
     isaacAPIClassType as CopyableIsaacAPIClassType;
@@ -48,11 +48,10 @@ export function copyIsaacAPIClass<T extends CopyableIsaacAPIClass>(
         ThisSerializedIsaacAPIClassType
       >
     | undefined;
-  if (functions === undefined) {
-    error(
-      `Failed to copy an Isaac API class since the associated functions were not found for Isaac API class type: ${copyableIsaacAPIClassType}`,
-    );
-  }
+  assertDefined(
+    functions,
+    `Failed to copy an Isaac API class since the associated functions were not found for Isaac API class type: ${copyableIsaacAPIClassType}`,
+  );
 
   return functions.copy(isaacAPIClass);
 }
@@ -78,11 +77,10 @@ export function deserializeIsaacAPIClass<
   const copyableIsaacAPIClassType = getSerializedTableType(
     serializedIsaacAPIClass,
   );
-  if (copyableIsaacAPIClassType === undefined) {
-    error(
-      "Failed to deserialize an Isaac API class since a valid class type brand was not found.",
-    );
-  }
+  assertDefined(
+    copyableIsaacAPIClassType,
+    "Failed to deserialize an Isaac API class since a valid class type brand was not found.",
+  );
 
   type ThisIsaacAPIClassType = IsaacAPIClassTypeToType[SerializedT["__kind"]];
   type ThisSerializedIsaacAPIClassType = SerializedT;
@@ -95,11 +93,10 @@ export function deserializeIsaacAPIClass<
         ThisSerializedIsaacAPIClassType
       >
     | undefined;
-  if (functions === undefined) {
-    error(
-      `Failed to deserialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
-    );
-  }
+  assertDefined(
+    functions,
+    `Failed to deserialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
+  );
 
   return functions.deserialize(serializedIsaacAPIClass);
 }
@@ -170,11 +167,10 @@ export function serializeIsaacAPIClass<T extends CopyableIsaacAPIClass>(
   }
 
   const isaacAPIClassType = getIsaacAPIClassName(isaacAPIClass);
-  if (isaacAPIClassType === undefined) {
-    error(
-      "Failed to serialize an Isaac API class since it does not have a class type.",
-    );
-  }
+  assertDefined(
+    isaacAPIClassType,
+    "Failed to serialize an Isaac API class since it does not have a class name.",
+  );
 
   const copyableIsaacAPIClassType =
     isaacAPIClassType as CopyableIsaacAPIClassType;
@@ -191,11 +187,10 @@ export function serializeIsaacAPIClass<T extends CopyableIsaacAPIClass>(
         ThisSerializedIsaacAPIClassType
       >
     | undefined;
-  if (functions === undefined) {
-    error(
-      `Failed to serialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
-    );
-  }
+  assertDefined(
+    functions,
+    `Failed to serialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
+  );
 
   return functions.serialize(isaacAPIClass);
 }

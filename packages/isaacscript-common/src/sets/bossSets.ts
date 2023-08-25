@@ -31,6 +31,7 @@ import {
 } from "isaac-typescript-definitions";
 import { parseEntityTypeVariantString } from "../functions/entities";
 import { copySet } from "../functions/set";
+import { assertDefined } from "../functions/utils";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { STORY_BOSSES_SET } from "./storyBossesSet";
@@ -489,11 +490,10 @@ function getAllBossesExcludingStoryBossesSet(): ReadonlySet<string> {
   const allBosses = [...ALL_BOSSES_SET.values()];
   for (const entityTypeVariantString of allBosses) {
     const tuple = parseEntityTypeVariantString(entityTypeVariantString);
-    if (tuple === undefined) {
-      error(
-        "Failed to parse a boss tuple when constructing the story boss set.",
-      );
-    }
+    assertDefined(
+      tuple,
+      "Failed to parse a boss tuple when constructing the story boss set.",
+    );
 
     const [entityType, _variant] = tuple;
     if (STORY_BOSSES_SET.has(entityType)) {

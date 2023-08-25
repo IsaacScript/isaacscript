@@ -23,7 +23,7 @@ import {
   getPlayers,
 } from "./playerIndex";
 import { isNumber } from "./types";
-import { repeat } from "./utils";
+import { assertDefined, repeat } from "./utils";
 
 /**
  * Helper function to add one or more collectibles to a player.
@@ -217,9 +217,7 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
     }
   }
 
-  if (closestPlayer === undefined) {
-    error("Failed to find the closest player.");
-  }
+  assertDefined(closestPlayer, "Failed to find the closest player.");
 
   return closestPlayer;
 }
@@ -251,9 +249,10 @@ export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
 
   const lastPlayer = getLastElement(players);
-  if (lastPlayer === undefined) {
-    error("Failed to get the final player since there were 0 players.");
-  }
+  assertDefined(
+    lastPlayer,
+    "Failed to get the final player since there were 0 players.",
+  );
 
   return lastPlayer;
 }
@@ -273,9 +272,7 @@ export function getNewestPlayer(): EntityPlayer {
     }
   }
 
-  if (newestPlayer === undefined) {
-    error("Failed to find the newest player.");
-  }
+  assertDefined(newestPlayer, "Failed to find the newest player.");
 
   return newestPlayer;
 }

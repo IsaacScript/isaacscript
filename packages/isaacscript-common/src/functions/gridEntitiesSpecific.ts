@@ -15,6 +15,7 @@ import {
   spawnGridEntityWithVariant,
 } from "./gridEntities";
 import { asNumber } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to get all of the grid entities of type `GridEntityType.CRAWL_SPACE` (18) in the
@@ -421,13 +422,11 @@ export function spawnDoorWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const door = gridEntity.ToDoor();
-  if (door === undefined) {
-    error("Failed to spawn a door.");
-  }
+  assertDefined(door, "Failed to spawn a door.");
 
   return door;
 }
@@ -450,13 +449,11 @@ export function spawnPitWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const pit = gridEntity.ToPit();
-  if (pit === undefined) {
-    error("Failed to spawn a pit.");
-  }
+  assertDefined(pit, "Failed to spawn a pit.");
 
   return pit;
 }
@@ -482,13 +479,11 @@ export function spawnPoopWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const poop = gridEntity.ToPoop();
-  if (poop === undefined) {
-    error("Failed to spawn a poop.");
-  }
+  assertDefined(poop, "Failed to spawn a poop.");
 
   return poop;
 }
@@ -514,13 +509,11 @@ export function spawnPressurePlateWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const pressurePlate = gridEntity.ToPressurePlate();
-  if (pressurePlate === undefined) {
-    error("Failed to spawn a pressure plate.");
-  }
+  assertDefined(pressurePlate, "Failed to spawn a pressure plate.");
 
   return pressurePlate;
 }
@@ -543,13 +536,11 @@ export function spawnRockWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const rock = gridEntity.ToRock();
-  if (rock === undefined) {
-    error("Failed to spawn a rock.");
-  }
+  assertDefined(rock, "Failed to spawn a rock.");
 
   return rock;
 }
@@ -572,13 +563,11 @@ export function spawnSpikesWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const spikes = gridEntity.ToSpikes();
-  if (spikes === undefined) {
-    error("Failed to spawn spikes.");
-  }
+  assertDefined(spikes, "Failed to spawn spikes.");
 
   return spikes;
 }
@@ -601,13 +590,11 @@ export function spawnTNTWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const tnt = gridEntity.ToTNT();
-  if (tnt === undefined) {
-    error("Failed to spawn TNT.");
-  }
+  assertDefined(tnt, "Failed to spawn TNT.");
 
   return tnt;
 }

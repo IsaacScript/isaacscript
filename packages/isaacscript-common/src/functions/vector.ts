@@ -13,6 +13,7 @@ import {
   tableHasKeys,
 } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedVector = LuaMap<string, unknown> & {
   readonly __serializedVectorBrand: symbol;
@@ -46,16 +47,14 @@ export function deserializeVector(vector: SerializedVector): Vector {
 
   const [x, y] = getNumbersFromTable(vector, OBJECT_NAME, ...KEYS);
 
-  if (x === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: X`,
-    );
-  }
-  if (y === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Y`,
-    );
-  }
+  assertDefined(
+    x,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: X`,
+  );
+  assertDefined(
+    y,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Y`,
+  );
 
   return Vector(x, y);
 }

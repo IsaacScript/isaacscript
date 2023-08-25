@@ -31,6 +31,7 @@ import {
 import { getMusicForStage } from "../../../functions/sound";
 import { setStage } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
+import { assertDefined } from "../../../functions/utils";
 import type {
   CustomStageLua,
   CustomStageRoomMetadata,
@@ -201,11 +202,10 @@ export class CustomStages extends Feature {
     destinationStage: LevelStage,
     _destinationStageType: StageType,
   ) => {
-    if (destinationName === undefined) {
-      error(
-        "Failed to go to a custom stage since the custom trapdoors feature did not pass a destination name to the logic function.",
-      );
-    }
+    assertDefined(
+      destinationName,
+      "Failed to go to a custom stage since the custom trapdoors feature did not pass a destination name to the logic function.",
+    );
 
     const firstFloor = destinationStage === LevelStage.BASEMENT_1;
     this.setCustomStage(destinationName, firstFloor);
@@ -498,11 +498,10 @@ export class CustomStages extends Feature {
     verbose = false,
   ): void {
     const customStage = this.customStagesMap.get(name);
-    if (customStage === undefined) {
-      error(
-        `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
-      );
-    }
+    assertDefined(
+      customStage,
+      `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
+    );
 
     const level = game.GetLevel();
     const stage = level.GetStage();

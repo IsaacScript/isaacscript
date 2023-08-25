@@ -28,6 +28,7 @@ import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
 import { asCollectibleType, asNumber } from "../../../functions/types";
+import { assertDefined } from "../../../functions/utils";
 import type { JSONRoom } from "../../../interfaces/JSONRoomsFile";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
@@ -68,41 +69,40 @@ export class DeployJSONRoom extends Feature {
     for (const jsonSpawn of jsonRoom.spawn) {
       const xString = jsonSpawn.$.x;
       const x = tonumber(xString);
-      if (x === undefined) {
-        error(
-          `Failed to convert the following x coordinate to a number (for a spawn): ${xString}`,
-        );
-      }
+      assertDefined(
+        x,
+        `Failed to convert the following x coordinate to a number (for a spawn): ${xString}`,
+      );
 
       const yString = jsonSpawn.$.y;
       const y = tonumber(yString);
-      if (y === undefined) {
-        error(
-          `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
-        );
-      }
+      assertDefined(
+        y,
+        `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
+      );
 
       const jsonEntity = getRandomJSONEntity(jsonSpawn.entity);
 
       const entityTypeString = jsonEntity.$.type;
       const entityTypeNumber = tonumber(entityTypeString);
-      if (entityTypeNumber === undefined) {
-        error(
-          `Failed to convert the entity type to a number: ${entityTypeString}`,
-        );
-      }
+      assertDefined(
+        entityTypeNumber,
+        `Failed to convert the entity type to a number: ${entityTypeString}`,
+      );
 
       const variantString = jsonEntity.$.variant;
       const variant = tonumber(variantString);
-      if (variant === undefined) {
-        error(`Failed to convert the entity variant to a number: ${variant}`);
-      }
+      assertDefined(
+        variant,
+        `Failed to convert the entity variant to a number: ${variant}`,
+      );
 
       const subTypeString = jsonEntity.$.subtype;
       const subType = tonumber(subTypeString);
-      if (subType === undefined) {
-        error(`Failed to convert the entity sub-type to a number: ${subType}`);
-      }
+      assertDefined(
+        subType,
+        `Failed to convert the entity sub-type to a number: ${subType}`,
+      );
 
       const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(
         entityTypeNumber as GridEntityXMLType,

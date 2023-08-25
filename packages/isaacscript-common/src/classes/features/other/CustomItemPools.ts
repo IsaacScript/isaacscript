@@ -5,6 +5,7 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayRemoveIndexInPlace } from "../../../functions/array";
 import { copyMap } from "../../../functions/map";
 import { getRandomSeed } from "../../../functions/rng";
+import { assertDefined } from "../../../functions/utils";
 import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
 import type { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
@@ -116,9 +117,10 @@ export class CustomItemPools extends Feature {
     defaultItem = CollectibleType.NULL,
   ): CollectibleType {
     const customItemPool = v.run.customItemPools.get(itemPoolTypeCustom);
-    if (customItemPool === undefined) {
-      error(`Failed to find the custom item pool of: ${itemPoolTypeCustom}`);
-    }
+    assertDefined(
+      customItemPool,
+      `Failed to find the custom item pool of: ${itemPoolTypeCustom}`,
+    );
 
     if (customItemPool.length === 0) {
       return defaultItem;
@@ -129,11 +131,10 @@ export class CustomItemPools extends Feature {
       seedOrRNG,
     );
     const tuple = customItemPool[randomIndex];
-    if (tuple === undefined) {
-      error(
-        `Failed to get an element from a custom item pool using a random index of: ${randomIndex}`,
-      );
-    }
+    assertDefined(
+      tuple,
+      `Failed to get an element from a custom item pool using a random index of: ${randomIndex}`,
+    );
 
     if (decrease) {
       arrayRemoveIndexInPlace(customItemPool, randomIndex);

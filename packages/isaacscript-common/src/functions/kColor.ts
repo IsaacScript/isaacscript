@@ -9,6 +9,7 @@ import {
   tableHasKeys,
 } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedKColor = LuaMap<string, unknown> & {
   readonly __serializedKColorBrand: symbol;
@@ -42,26 +43,22 @@ export function deserializeKColor(kColor: SerializedKColor): KColor {
 
   const [r, g, b, a] = getNumbersFromTable(kColor, OBJECT_NAME, ...KEYS);
 
-  if (r === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Red`,
-    );
-  }
-  if (g === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Green`,
-    );
-  }
-  if (b === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Blue`,
-    );
-  }
-  if (a === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Alpha`,
-    );
-  }
+  assertDefined(
+    r,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Red`,
+  );
+  assertDefined(
+    g,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Green`,
+  );
+  assertDefined(
+    b,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Blue`,
+  );
+  assertDefined(
+    a,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: Alpha`,
+  );
 
   return KColor(r, g, b, a);
 }

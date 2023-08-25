@@ -1,6 +1,7 @@
 import type { DefaultMap } from "../classes/DefaultMap";
 import { sumArray } from "./array";
 import { getPartialMatch } from "./string";
+import { assertDefined } from "./utils";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
 export function copyMap<K, V>(
@@ -73,11 +74,10 @@ export function getMapPartialMatch<T>(
   }
 
   const value = map.get(matchingKey);
-  if (value === undefined) {
-    error(
-      `Failed to get the map value corresponding to the partial match of: ${matchingKey}`,
-    );
-  }
+  assertDefined(
+    value,
+    `Failed to get the map value corresponding to the partial match of: ${matchingKey}`,
+  );
 
   return [matchingKey, value];
 }

@@ -12,6 +12,8 @@ This page lists the changes to the IsaacScript framework.
 ## August 27th, 2023 (Unreleased)
 
 - Added the following helper function:
+  - `assertDefined` (for more concise type-narrowing)
+  - `isEnumValue`
   - `renderTextOnEntity`
   - `renderScaledTextOnEntity`
 

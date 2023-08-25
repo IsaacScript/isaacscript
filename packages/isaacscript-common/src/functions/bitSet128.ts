@@ -7,6 +7,7 @@ import {
   tableHasKeys,
 } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedBitSet128 = LuaMap<string, unknown> & {
   readonly __serializedBitSet128Brand: symbol;
@@ -45,16 +46,14 @@ export function deserializeBitSet128(
 
   const [l, h] = getNumbersFromTable(bitSet128, OBJECT_NAME, ...KEYS);
 
-  if (l === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: l`,
-    );
-  }
-  if (h === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: h`,
-    );
-  }
+  assertDefined(
+    l,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: l`,
+  );
+  assertDefined(
+    h,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: h`,
+  );
 
   return BitSet128(l, h);
 }

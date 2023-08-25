@@ -3,6 +3,24 @@ import url from "node:url";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
+/**
+ * Helper function to throw an error if the provided value is equal to `undefined`.
+ *
+ * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
+ */
+export function assertDefined<T>(
+  value: T,
+  ...[msg]: [undefined] extends [T]
+    ? [string]
+    : [
+        "The assertion is useless because the provided value does not contain undefined.",
+      ]
+): asserts value is Exclude<T, undefined> {
+  if (value === undefined) {
+    throw new TypeError(msg);
+  }
+}
+
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {
     return string;
@@ -16,34 +34,9 @@ export function capitalizeFirstLetter(string: string): string {
 }
 
 export function deleteFileOrDirectory(filePath: string): void {
-  try {
-    fs.rmSync(filePath, {
-      recursive: true,
-    });
-  } catch (error) {
-    fatalError(`Failed to delete file or directory "${filePath}":`, error);
-  }
-}
-
-/**
- * Helper function to print out an error message and then exit the program.
- *
- * All of the arguments will be directly passed to the `console.error` function.
- */
-export function fatalError(...args: unknown[]): never {
-  console.error(...args);
-  process.exit(1);
-}
-
-export function fileExists(filePath: string): boolean {
-  let pathExists: boolean;
-  try {
-    pathExists = fs.existsSync(filePath);
-  } catch (error) {
-    fatalError(`Failed to check if "${filePath}" exists:`, error);
-  }
-
-  return pathExists;
+  fs.rmSync(filePath, {
+    recursive: true,
+  });
 }
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
@@ -57,32 +50,13 @@ export function isKebabCase(string: string): boolean {
 
 /** Will recursively make as many subdirectories as needed. */
 export function makeDir(dirPath: string): void {
-  try {
-    fs.mkdirSync(dirPath, {
-      recursive: true,
-    });
-  } catch (error) {
-    fatalError(`Failed to create the "${dirPath}" directory:`, error);
-  }
+  fs.mkdirSync(dirPath, {
+    recursive: true,
+  });
 }
 
 export function readFile(filePath: string): string {
-  let fileContents: string;
-  try {
-    fileContents = fs.readFileSync(filePath, "utf8");
-  } catch (error) {
-    fatalError(`Failed to read the "${filePath}" file:`, error);
-  }
-
-  return fileContents;
-}
-
-export function renameFile(srcPath: string, dstPath: string): void {
-  try {
-    fs.renameSync(srcPath, dstPath);
-  } catch (error) {
-    fatalError(`Failed to rename "${srcPath}" to "${dstPath}":`, error);
-  }
+  return fs.readFileSync(filePath, "utf8");
 }
 
 /** Helper function to trim a suffix from a string, if it exists. Returns the trimmed string. */
@@ -93,12 +67,4 @@ export function trimSuffix(string: string, prefix: string): string {
 
   const endCharacter = string.length - prefix.length;
   return string.slice(0, endCharacter);
-}
-
-export function writeFile(filePath: string, data: string): void {
-  try {
-    fs.writeFileSync(filePath, data);
-  } catch (error) {
-    fatalError(`Failed to write to the "${filePath}" file:`, error);
-  }
 }

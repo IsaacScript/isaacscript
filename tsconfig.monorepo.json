@@ -9,8 +9,4 @@
     // Performance optimization; see: https://www.npmjs.com/package/tslib
     "importHelpers": true,
   },
-
-  // We need to exclude certain directories in order to prevent spurious errors from appearing in
-  // the VSCode "Problems" pane.
-  "exclude": ["dist", "node_modules", "tmp"],
 }

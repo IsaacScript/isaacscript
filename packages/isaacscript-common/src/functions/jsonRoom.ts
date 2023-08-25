@@ -1,12 +1,14 @@
-import type { DoorSlotFlag, RoomShape } from "isaac-typescript-definitions";
-import { DoorSlotFlagZero } from "isaac-typescript-definitions";
+import type { DoorSlotFlag } from "isaac-typescript-definitions";
+import { DoorSlotFlagZero, RoomShape } from "isaac-typescript-definitions";
 import type { JSONEntity, JSONRoom } from "../interfaces/JSONRoomsFile";
 import { sumArray } from "./array";
 import { doorSlotToDoorSlotFlag, getRoomShapeDoorSlot } from "./doors";
+import { isEnumValue } from "./enums";
 import { addFlag } from "./flag";
 import { log } from "./log";
 import { getRandomFloat } from "./random";
 import { getRandomSeed } from "./rng";
+import { assertDefined } from "./utils";
 
 /** This represents either a `JSONRoom` or a `JSONEntity`. */
 interface JSONObject {
@@ -24,9 +26,14 @@ export function getJSONRoomDoorSlotFlags(
 ): BitFlags<DoorSlotFlag> {
   const roomShapeString = jsonRoom.$.shape;
   const roomShapeNumber = tonumber(roomShapeString);
-  if (roomShapeNumber === undefined) {
+  assertDefined(
+    roomShapeNumber,
+    `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
+  );
+
+  if (!isEnumValue(roomShapeNumber, RoomShape)) {
     error(
-      `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
+      `Failed to parse the "shape" field of a JSON room since it was an invalid number: ${roomShapeNumber}`,
     );
   }
   const roomShape = roomShapeNumber as RoomShape;
@@ -47,22 +54,23 @@ export function getJSONRoomDoorSlotFlags(
 
     const xString = door.$.x;
     const x = tonumber(xString);
-    if (x === undefined) {
-      error(`Failed to parse the "x" field of a JSON room door: ${xString}`);
-    }
+    assertDefined(
+      x,
+      `Failed to parse the "x" field of a JSON room door: ${xString}`,
+    );
 
     const yString = door.$.y;
     const y = tonumber(yString);
-    if (y === undefined) {
-      error(`Failed to parse the "y" field of a JSON room door: ${yString}`);
-    }
+    assertDefined(
+      y,
+      `Failed to parse the "y" field of a JSON room door: ${yString}`,
+    );
 
     const doorSlot = getRoomShapeDoorSlot(roomShape, x, y);
-    if (doorSlot === undefined) {
-      error(
-        `Failed to retrieve the door slot for a JSON room door at coordinates: [${x}, ${y}]`,
-      );
-    }
+    assertDefined(
+      doorSlot,
+      `Failed to retrieve the door slot for a JSON room door at coordinates: [${x}, ${y}]`,
+    );
 
     const doorSlotFlag = doorSlotToDoorSlotFlag(doorSlot);
     doorSlotFlags = addFlag(doorSlotFlags, doorSlotFlag);
@@ -159,9 +167,10 @@ export function getRandomJSONEntity(
     jsonEntities,
     chosenWeight,
   );
-  if (randomJSONEntity === undefined) {
-    error(`Failed to get a JSON entity with chosen weight: ${chosenWeight}`);
-  }
+  assertDefined(
+    randomJSONEntity,
+    `Failed to get a JSON entity with chosen weight: ${chosenWeight}`,
+  );
 
   return randomJSONEntity;
 }
@@ -197,9 +206,10 @@ export function getRandomJSONRoom(
   }
 
   const randomJSONRoom = getJSONObjectWithChosenWeight(jsonRooms, chosenWeight);
-  if (randomJSONRoom === undefined) {
-    error(`Failed to get a JSON room with chosen weight: ${chosenWeight}`);
-  }
+  assertDefined(
+    randomJSONRoom,
+    `Failed to get a JSON room with chosen weight: ${chosenWeight}`,
+  );
 
   return randomJSONRoom;
 }
@@ -208,9 +218,10 @@ function getTotalWeightOfJSONObject(jsonOjectArray: JSONObject[]): float {
   const weights = jsonOjectArray.map((jsonObject) => {
     const weightString = jsonObject.$.weight;
     const weight = tonumber(weightString);
-    if (weight === undefined) {
-      error(`Failed to parse the weight of a JSON object: ${weightString}.`);
-    }
+    assertDefined(
+      weight,
+      `Failed to parse the weight of a JSON object: ${weightString}.`,
+    );
 
     return weight;
   });
@@ -227,9 +238,10 @@ function getJSONObjectWithChosenWeight<T extends JSONObject>(
   for (const jsonObject of jsonOjectArray) {
     const weightString = jsonObject.$.weight;
     const weight = tonumber(weightString);
-    if (weight === undefined) {
-      error(`Failed to parse the weight of a JSON object: ${weightString}`);
-    }
+    assertDefined(
+      weight,
+      `Failed to parse the weight of a JSON object: ${weightString}`,
+    );
 
     weightAccumulator += weight;
     if (weightAccumulator >= chosenWeight) {

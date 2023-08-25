@@ -4,6 +4,7 @@ import { game } from "../core/cachedClasses";
 import { addFlag } from "./flag";
 import { getRoomDescriptor, getRoomGridIndex } from "./roomData";
 import { getRoomsInsideGrid } from "./rooms";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to add a `DisplayFlag` to a particular room's minimap display flags (e.g. whether
@@ -101,11 +102,11 @@ export function getRoomDisplayFlags(
   }
 
   const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
-  if (minimapAPIRoomDescriptor === undefined) {
-    error(
-      `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
-    );
-  }
+  assertDefined(
+    minimapAPIRoomDescriptor,
+    `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
+  );
+
   return minimapAPIRoomDescriptor.GetDisplayFlags();
 }
 
@@ -126,11 +127,11 @@ export function hideRoomOnMinimap(roomGridIndex: int): void {
   // `Hidden` property.
   if (MinimapAPI !== undefined) {
     const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
-    if (minimapAPIRoomDescriptor === undefined) {
-      error(
-        `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
-      );
-    }
+    assertDefined(
+      minimapAPIRoomDescriptor,
+      `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
+    );
+
     minimapAPIRoomDescriptor.Hidden = true;
   }
 }
@@ -225,11 +226,11 @@ export function setRoomDisplayFlags(
     }
   } else {
     const minimapAPIRoomDescriptor = MinimapAPI.GetRoomByIdx(roomGridIndex);
-    if (minimapAPIRoomDescriptor === undefined) {
-      error(
-        `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
-      );
-    }
+    assertDefined(
+      minimapAPIRoomDescriptor,
+      `Failed to get the MinimapAPI room descriptor for the room at grid index: ${roomGridIndex}`,
+    );
+
     minimapAPIRoomDescriptor.SetDisplayFlags(displayFlags);
   }
 }

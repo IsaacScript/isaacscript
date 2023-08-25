@@ -2,6 +2,7 @@ import type { WeightedArray } from "../types/WeightedArray";
 import { sumArray } from "./array";
 import { getRandomFloat } from "./random";
 import { getRandomSeed } from "./rng";
+import { assertDefined } from "./utils";
 
 /**
  * Get a random value from a `WeightedArray`. (A `WeightedArray` is an array of tuples, where the
@@ -15,11 +16,10 @@ export function getRandomFromWeightedArray<T>(
   const randomIndex = getRandomIndexFromWeightedArray(weightedArray, seedOrRNG);
 
   const randomElement = weightedArray[randomIndex];
-  if (randomElement === undefined) {
-    error(
-      `Failed to get an element from a weighted array using a random index of: ${randomIndex}`,
-    );
-  }
+  assertDefined(
+    randomElement,
+    `Failed to get an element from a weighted array using a random index of: ${randomIndex}`,
+  );
 
   return randomElement[0];
 }

@@ -42,14 +42,12 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   __dirname,
+  assertDefined,
   capitalizeFirstLetter,
   deleteFileOrDirectory,
-  fatalError,
   makeDir,
   readFile,
-  renameFile,
   trimSuffix,
-  writeFile,
 } from "./utils.js";
 
 const DEBUG = false as boolean;
@@ -164,7 +162,7 @@ See the [ModCallbackCustom](other/enums/ModCallbackCustom) enum.
   `
     .trim()
     .concat("\n");
-  writeFile(filePath, fileContent);
+  fs.writeFileSync(filePath, fileContent);
 }
 
 /** Move the files in the "modules" directory to proper directories. */
@@ -177,28 +175,26 @@ function moveModulesFiles() {
       /^(?<directoryName>.+?)_(?<newFileName>.+.md)$/,
     );
     if (match === null || match.groups === undefined) {
-      fatalError(
+      throw new Error(
         `The file of "${markdownFileName}" has no underscore, which is probably because it is a renamed module via the "@module" JSDoc tag. Currently, we do not rename any modules in this package, so this is likely an error.`,
       );
     } else {
       const { directoryName } = match.groups;
-      if (directoryName === undefined) {
-        fatalError(
-          `Failed to parse the directory from the file name: ${markdownFileName}`,
-        );
-      }
+      assertDefined(
+        directoryName,
+        `Failed to parse the directory from the file name: ${markdownFileName}`,
+      );
 
       const { newFileName } = match.groups;
-      if (newFileName === undefined) {
-        fatalError(
-          `Failed to parse the suffix from the file name: ${markdownFileName}`,
-        );
-      }
+      assertDefined(
+        newFileName,
+        `Failed to parse the suffix from the file name: ${markdownFileName}`,
+      );
 
       const dstDirectory = path.join(PACKAGE_DOCS_DIR, directoryName);
       makeDir(dstDirectory);
       const dstPath = path.join(dstDirectory, newFileName);
-      renameFile(markdownFilePath, dstPath);
+      fs.renameSync(markdownFilePath, dstPath);
 
       if (DEBUG) {
         console.log(`Moved:\n  ${markdownFilePath}\n  -->\n  ${dstPath}`);
@@ -208,7 +204,7 @@ function moveModulesFiles() {
 
   const remainingFiles = getFileNames(MODULES_DIR);
   if (remainingFiles.length > 0) {
-    fatalError(
+    throw new Error(
       `Failed to move one or more files in the "modules" directory: ${MODULES_DIR}`,
     );
   }
@@ -241,7 +237,7 @@ function moveDirsToOther() {
   for (const dirName of OTHER_DIR_NAMES) {
     const srcPath = path.join(PACKAGE_DOCS_DIR, dirName);
     const dstPath = path.join(OTHER_DIR, dirName);
-    renameFile(srcPath, dstPath);
+    fs.renameSync(srcPath, dstPath);
   }
 }
 
@@ -257,7 +253,7 @@ function addCategoryFile(directoryPath: string) {
   if (position !== undefined) {
     fileContents += `position: ${position}\n`;
   }
-  writeFile(categoryFilePath, fileContents);
+  fs.writeFileSync(categoryFilePath, fileContents);
 }
 
 function addMarkdownHeader(filePath: string, directoryName: string) {
@@ -289,7 +285,7 @@ custom_edit_url: null
   fileContents = lines.join("\n");
 
   const newFileContents = header + fileContents;
-  writeFile(filePath, newFileContents);
+  fs.writeFileSync(filePath, newFileContents);
 }
 
 function getTitle(filePath: string, directoryName: string) {
@@ -306,15 +302,16 @@ function getTitle(filePath: string, directoryName: string) {
   if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.has(directoryName)) {
     const match = fileName.match(/(?<properName>\w+)\.md/);
     if (match === null || match.groups === undefined) {
-      fatalError(
+      throw new Error(
         `Failed to parse the proper name from the file name: ${fileName}`,
       );
     }
 
     const { properName } = match.groups;
-    if (properName === undefined) {
-      fatalError(`Failed to parse the proper name from the match: ${fileName}`);
-    }
+    assertDefined(
+      properName,
+      `Failed to parse the proper name from the match: ${fileName}`,
+    );
 
     return fileName.includes("_features_")
       ? pascalCaseToTitleCase(properName)
@@ -368,13 +365,14 @@ function renameDuplicatedPages() {
 
       const match = fileName.match(/\.(?<properName>\w+\.md)/);
       if (match === null || match.groups === undefined) {
-        fatalError(`Failed to parse the file name: ${fileName}`);
+        throw new Error(`Failed to parse the file name: ${fileName}`);
       }
 
       const { properName } = match.groups;
-      if (properName === undefined) {
-        fatalError(`Failed to parse the file name match: ${fileName}`);
-      }
+      assertDefined(
+        properName,
+        `Failed to parse the file name match: ${fileName}`,
+      );
 
       const filePath = path.join(directoryPath, fileName);
       let properPath = path.join(directoryPath, properName);
@@ -386,7 +384,7 @@ function renameDuplicatedPages() {
         properPath = path.join(FEATURES_DIR, properName);
       }
 
-      renameFile(filePath, properPath);
+      fs.renameSync(filePath, properPath);
 
       if (DEBUG) {
         console.log(`Renamed:\n  ${filePath}\n  -->\n  ${properPath}`);
@@ -471,7 +469,7 @@ function fixLinks() {
     newFileContents = newFileContents.replaceAll(/types_\w+\./gm, "");
 
     if (fileContents !== newFileContents) {
-      writeFile(filePath, newFileContents);
+      fs.writeFileSync(filePath, newFileContents);
     }
   }
 }

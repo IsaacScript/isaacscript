@@ -1,6 +1,6 @@
 {
   "extends": [
-    "../../packages/isaacscript-tsconfig/configs/tsconfig.base.json",
+    "../isaacscript-tsconfig/configs/tsconfig.base.json",
     "../../tsconfig.monorepo.json",
   ],
 

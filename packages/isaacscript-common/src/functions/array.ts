@@ -2,7 +2,7 @@ import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { isNumber, isTable } from "./types";
-import { eRange } from "./utils";
+import { assertDefined, eRange } from "./utils";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements. Note that this
@@ -372,11 +372,10 @@ export function getRandomArrayElement<T>(
     exceptions.length > 0 ? arrayRemove(array, ...exceptions) : array;
   const randomIndex = getRandomArrayIndex(arrayToUse, seedOrRNG);
   const randomElement = arrayToUse[randomIndex];
-  if (randomElement === undefined) {
-    error(
-      `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
-    );
-  }
+  assertDefined(
+    randomElement,
+    `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
+  );
 
   return randomElement;
 }

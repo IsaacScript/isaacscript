@@ -2,6 +2,7 @@ import type { DefaultMap } from "../classes/DefaultMap";
 import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import type { TSTLClass } from "../types/TSTLClass";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to get the constructor from an instantiated TypeScriptToLua class, which is
@@ -94,11 +95,10 @@ export function isTSTLSet(object: unknown): object is Set<AnyNotNil> {
  */
 export function newTSTLClass(oldClass: TSTLClass): TSTLClass {
   const constructor = getTSTLClassConstructor(oldClass);
-  if (constructor === undefined) {
-    error(
-      "Failed to instantiate a new TypeScriptToLua class since the provided old class does not have a metatable/constructor.",
-    );
-  }
+  assertDefined(
+    constructor,
+    "Failed to instantiate a new TypeScriptToLua class since the provided old class does not have a metatable/constructor.",
+  );
 
   // We re-implement some of the logic from the transpiled "__TS__New" function.
   const newClass = new LuaMap<AnyNotNil, unknown>();

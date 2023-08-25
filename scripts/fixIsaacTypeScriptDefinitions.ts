@@ -4,13 +4,11 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   __dirname,
+  assertDefined,
   capitalizeFirstLetter,
   deleteFileOrDirectory,
-  fatalError,
   readFile,
-  renameFile,
   trimSuffix,
-  writeFile,
 } from "./utils.js";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
@@ -81,7 +79,7 @@ function addCategoryFile(directoryPath: string) {
   if (position !== undefined) {
     fileContents += `position: ${position}\n`;
   }
-  writeFile(categoryFilePath, fileContents);
+  fs.writeFileSync(categoryFilePath, fileContents);
 }
 
 function addMarkdownHeader(filePath: string) {
@@ -110,7 +108,7 @@ custom_edit_url: null
   fileContents = lines.join("\n");
 
   const newFileContents = header + fileContents;
-  writeFile(filePath, newFileContents);
+  fs.writeFileSync(filePath, newFileContents);
 }
 
 function getTitle(filePath: string) {
@@ -125,15 +123,16 @@ function getTitle(filePath: string) {
 
   const match = fileName.match(/(?<properName>\w+)\.md/);
   if (match === null || match.groups === undefined) {
-    fatalError(
+    throw new Error(
       `Failed to parse the proper name from the file name: ${fileName}`,
     );
   }
 
   const { properName } = match.groups;
-  if (properName === undefined) {
-    fatalError(`Failed to parse the proper name from the match: ${fileName}`);
-  }
+  assertDefined(
+    properName,
+    `Failed to parse the proper name from the match: ${fileName}`,
+  );
 
   return properName;
 }
@@ -149,20 +148,19 @@ function renameEnumFiles() {
     const markdownFilePath = path.join(ENUMS_DIR, markdownFileName);
     const match = markdownFileName.match(/\.(?<simplifiedFileName>\w+\.md)/);
     if (match === null || match.groups === undefined) {
-      fatalError(
+      throw new Error(
         `Failed to parse the Markdown file name of: ${markdownFileName}`,
       );
     }
 
     const { simplifiedFileName } = match.groups;
-    if (simplifiedFileName === undefined) {
-      fatalError(
-        `Failed to parse the simplified file name from the Markdown file name of: ${markdownFileName}`,
-      );
-    }
+    assertDefined(
+      simplifiedFileName,
+      `Failed to parse the simplified file name from the Markdown file name of: ${markdownFileName}`,
+    );
 
     const dstPath = path.join(ENUMS_DIR, simplifiedFileName);
-    renameFile(markdownFilePath, dstPath);
+    fs.renameSync(markdownFilePath, dstPath);
   }
 }
 

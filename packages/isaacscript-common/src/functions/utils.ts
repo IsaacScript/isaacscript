@@ -3,15 +3,19 @@ import { getAllPlayers } from "./playerIndex";
 import { isFunction } from "./types";
 
 /**
- * Helper function to throw an error (using the Lua `error` function) if the provided value is equal
+ * Helper function to throw an error (using the `error` Lua function) if the provided value is equal
  * to `undefined`.
  *
  * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
  */
 export function assertDefined<T>(
-  value: T | undefined,
-  msg: string,
-): asserts value is T {
+  value: T,
+  ...[msg]: [undefined] extends [T]
+    ? [string]
+    : [
+        "The assertion is useless because the provided value does not contain undefined.",
+      ]
+): asserts value is Exclude<T, undefined> {
   if (value === undefined) {
     error(msg);
   }
@@ -146,16 +150,18 @@ export function isMultiplayer(): boolean {
  */
 export function isRepentance(): boolean {
   const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
-  if (metatable === undefined) {
-    error("Failed to get the metatable of the Sprite global table.");
-  }
+  assertDefined(
+    metatable,
+    "Failed to get the metatable of the Sprite global table.",
+  );
 
   const classTable = metatable.get("__class") as
     | LuaMap<string, unknown>
     | undefined;
-  if (classTable === undefined) {
-    error('Failed to get the "__class" key of the Sprite metatable.');
-  }
+  assertDefined(
+    classTable,
+    'Failed to get the "__class" key of the Sprite metatable.',
+  );
 
   const getAnimation = classTable.get("GetAnimation");
   return isFunction(getAnimation);

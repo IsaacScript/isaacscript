@@ -68,7 +68,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
       topLeftWall = spawnGridEntity(GridEntityType.WALL, topLeftWallGridIndex);
       if (topLeftWall === undefined) {
         logError(
-          "Failed to spawn a new wall (1) for the POST_NEW_ROOM_EARLY callback.",
+          "Failed to spawn a new wall for the POST_NEW_ROOM_EARLY callback (on the first try).",
         );
         return false;
       }
@@ -83,7 +83,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
       );
       if (topLeftWall2 === undefined) {
         logError(
-          "Failed to spawn a new wall (2) for the POST_NEW_ROOM_EARLY callback.",
+          "Failed to spawn a new wall for the POST_NEW_ROOM_EARLY callback (on the second try).",
         );
         return false;
       }

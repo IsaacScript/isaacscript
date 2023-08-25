@@ -17,6 +17,7 @@ import { logError } from "../../../functions/logMisc";
 import { getAllPlayers } from "../../../functions/playerIndex";
 import { useActiveItemTemp } from "../../../functions/players";
 import { getTSTLClassName } from "../../../functions/tstlClass";
+import { assertDefined } from "../../../functions/utils";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import type { DisableInputs } from "./DisableInputs";
@@ -170,9 +171,10 @@ export class Pause extends Feature {
     useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error("Failed to get the class name for the pause feature.");
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to get the class name for the pause feature.",
+    );
 
     const whitelist = new ReadonlySet([
       ButtonAction.MENU_CONFIRM,
@@ -210,9 +212,10 @@ export class Pause extends Feature {
     v.run.shouldUnpause = true;
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error("Failed to find get the class name for the pause feature.");
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to find get the class name for the pause feature.",
+    );
 
     this.disableInputs.enableAllInputs(tstlClassName);
     for (const player of getAllPlayers()) {

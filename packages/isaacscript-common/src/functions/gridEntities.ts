@@ -23,7 +23,7 @@ import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
 import { asNumber, isNumber } from "./types";
-import { eRange, iRange } from "./utils";
+import { assertDefined, eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
@@ -58,11 +58,11 @@ export function convertXMLGridEntityType(
   gridEntityXMLVariant: int,
 ): [GridEntityType, int] | undefined {
   const gridEntityArray = GRID_ENTITY_XML_MAP.get(gridEntityXMLType);
-  if (gridEntityArray === undefined) {
-    error(
-      `Failed to find an entry in the grid entity map for XML entity type: ${gridEntityXMLType}`,
-    );
-  }
+  assertDefined(
+    gridEntityArray,
+    `Failed to find an entry in the grid entity map for XML entity type: ${gridEntityXMLType}`,
+  );
+
   const gridEntityType = gridEntityArray[0];
   let variant = gridEntityArray[1];
 
@@ -165,18 +165,16 @@ export function getConstituentsFromGridEntityID(
   const [gridEntityTypeString, variantString] = parts;
 
   const gridEntityType = tonumber(gridEntityTypeString);
-  if (gridEntityType === undefined) {
-    error(
-      `Failed to convert the grid entity type to a number: ${gridEntityTypeString}`,
-    );
-  }
+  assertDefined(
+    gridEntityType,
+    `Failed to convert the grid entity type to a number: ${gridEntityTypeString}`,
+  );
 
   const variant = tonumber(variantString);
-  if (variant === undefined) {
-    error(
-      `Failed to convert the grid entity variant to a number: ${variantString}`,
-    );
-  }
+  assertDefined(
+    variant,
+    `Failed to convert the grid entity variant to a number: ${variantString}`,
+  );
 
   return [gridEntityType, variant];
 }

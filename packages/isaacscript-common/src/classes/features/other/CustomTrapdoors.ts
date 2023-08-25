@@ -37,6 +37,7 @@ import {
 import { teleport } from "../../../functions/roomTransition";
 import { setStage } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
+import { assertDefined } from "../../../functions/utils";
 import { isVector } from "../../../functions/vector";
 import type { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
 import { ReadonlySet } from "../../../types/ReadonlySet";
@@ -365,11 +366,10 @@ export class CustomTrapdoors extends Feature {
     this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error(
-        "Failed to find get the class name for the custom trapdoor feature.",
-      );
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to find get the class name for the custom trapdoor feature.",
+    );
 
     this.disableInputs.enableAllInputs(tstlClassName);
   }
@@ -506,11 +506,10 @@ export class CustomTrapdoors extends Feature {
     this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error(
-        "Failed to find get the class name for the custom trapdoor feature.",
-      );
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to find get the class name for the custom trapdoor feature.",
+    );
 
     // We don't want to allow pausing, since that will allow render frames to pass without advancing
     // the stage traveling logic. (We track how many render frames have passed to know when to move

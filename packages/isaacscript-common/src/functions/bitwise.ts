@@ -1,4 +1,5 @@
 import { addFlag } from "./flag";
+import { assertDefined } from "./utils";
 
 /** Helper function to convert a set of flags to a single `BitFlags` object. */
 export function arrayToBitFlags<T extends BitFlag | BitFlag128>(
@@ -33,9 +34,11 @@ export function convertDecimalToBinary(number: number, minLength?: int): int[] {
   const bitsString = number.toString(2);
   for (const bitString of bitsString) {
     const bit = tonumber(bitString);
-    if (bit === undefined) {
-      error(`Failed to convert the following number to binary: ${number}`);
-    }
+    assertDefined(
+      bit,
+      `Failed to convert the following number to binary: ${number}`,
+    );
+
     bits.push(bit);
   }
 

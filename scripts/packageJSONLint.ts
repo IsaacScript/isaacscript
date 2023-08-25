@@ -1,15 +1,10 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import { globSync } from "glob";
+import fs from "node:fs";
 import path from "node:path";
 import sortPackageJsonDefault from "sort-package-json";
-import {
-  __dirname,
-  fatalError,
-  fileExists,
-  isKebabCase,
-  readFile,
-} from "./utils.js";
+import { __dirname, isKebabCase, readFile } from "./utils.js";
 
 const PACKAGE_JSON = "package.json";
 const REPO_ROOT = path.join(__dirname, "..");
@@ -198,7 +193,7 @@ function packageJSONLint(
   if (!isTemplateFile) {
     const packageDirectory = path.dirname(packageJSONPath);
     const licensePath = path.join(packageDirectory, "LICENSE");
-    if (!fileExists(licensePath)) {
+    if (!fs.existsSync(licensePath)) {
       console.error(`File does not exist: ${licensePath}`);
       return false;
     }
@@ -311,7 +306,7 @@ function getVersionForSpecificPackage(packageName: string): string {
   const packageJSON = getPackageJSON(packageJSONString);
   const pluginVersion = packageJSON["version"];
   if (typeof pluginVersion !== "string") {
-    fatalError(`Failed to parse the version from: ${packageJSONPath}`);
+    throw new TypeError(`Failed to parse the version from: ${packageJSONPath}`);
   }
 
   return pluginVersion;
@@ -344,7 +339,9 @@ function checkDeps(
       const depPackageJSON = getPackageJSON(depPackageJSONString);
       const depVersion = depPackageJSON["version"];
       if (typeof depVersion !== "string") {
-        fatalError(`Failed to get the version from: ${depPackageJSONPath}`);
+        throw new TypeError(
+          `Failed to get the version from: ${depPackageJSONPath}`,
+        );
       }
 
       rootDepValue = `^${depVersion}`;
@@ -388,7 +385,7 @@ function checkRootDepsUpToDate(
       rootDepVersion !== versionString &&
       rootDepName !== "eslint-plugin-isaacscript"
     ) {
-      fatalError(
+      throw new Error(
         `Root dependency "${rootDepName}" is not up to date: ${rootDepVersion} --> ${versionString}`,
       );
     }
@@ -403,7 +400,7 @@ function getPackageJSON(packageJSONString: string): Record<string, unknown> {
     packageJSON === null ||
     Array.isArray(packageJSON)
   ) {
-    fatalError('Failed to parse a "package.json" file.');
+    throw new Error('Failed to parse a "package.json" file.');
   }
 
   return packageJSON as Record<string, unknown>;

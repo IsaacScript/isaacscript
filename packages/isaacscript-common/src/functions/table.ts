@@ -1,4 +1,5 @@
 import { isBoolean, isNumber, isString, isUserdata } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * In a `Map`, you can use the `clear` method to delete every element. However, in a `LuaMap`, the
@@ -47,11 +48,10 @@ export function getBooleansFromTable(
   const booleans: boolean[] = [];
   for (const key of keys) {
     const value = luaMap.get(key);
-    if (value === undefined) {
-      error(
-        `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
-      );
-    }
+    assertDefined(
+      value,
+      `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
+    );
 
     if (isBoolean(value)) {
       booleans.push(value);
@@ -79,21 +79,20 @@ export function getNumbersFromTable(
   const numbers: number[] = [];
   for (const key of keys) {
     const value = luaMap.get(key);
-    if (value === undefined) {
-      error(
-        `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
-      );
-    }
+    assertDefined(
+      value,
+      `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
+    );
 
     if (isNumber(value)) {
       numbers.push(value);
     } else if (isString(value)) {
       const number = tonumber(value);
-      if (number === undefined) {
-        error(
-          `Failed to convert the "${key}" value of a table representing a "${objectName}" object to a number: ${value}`,
-        );
-      }
+      assertDefined(
+        number,
+        `Failed to convert the "${key}" value of a table representing a "${objectName}" object to a number: ${value}`,
+      );
+
       numbers.push(number);
     } else {
       error(
@@ -119,11 +118,10 @@ export function getStringsFromTable(
   const strings: string[] = [];
   for (const key of keys) {
     const value = luaMap.get(key);
-    if (value === undefined) {
-      error(
-        `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
-      );
-    }
+    assertDefined(
+      value,
+      `Failed to find a value for "${key}" in a table representing a "${objectName}" object.`,
+    );
 
     if (isString(value)) {
       strings.push(value);

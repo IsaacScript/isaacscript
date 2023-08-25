@@ -10,6 +10,7 @@ import { log } from "../../../functions/log";
 import { onFirstFloor } from "../../../functions/stage";
 import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
 import { isString, isTable } from "../../../functions/types";
+import { assertDefined } from "../../../functions/utils";
 import type { SaveData } from "../../../interfaces/SaveData";
 import type { AnyClass } from "../../../types/AnyClass";
 import { ReadonlySet } from "../../../types/ReadonlySet";
@@ -332,11 +333,10 @@ export class SaveDataManager extends Feature {
   ): void {
     if (isTSTLClass(key)) {
       const className = getTSTLClassName(key);
-      if (className === undefined) {
-        error(
-          'Failed to get the class name for the submitted class (as part of the "key" parameter) when registering new data with the save data manager.',
-        );
-      }
+      assertDefined(
+        className,
+        'Failed to get the class name for the submitted class (as part of the "key" parameter) when registering new data with the save data manager.',
+      );
 
       key = className;
     }
@@ -459,12 +459,11 @@ export class SaveDataManager extends Feature {
   public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
     for (const tstlClass of tstlClasses) {
       const { name } = tstlClass;
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (name === undefined) {
-        error(
-          "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
-        );
-      }
+      assertDefined(
+        // Since we are accepting untrusted user input, this might nto be a real TSTL class.
+        name as string | undefined,
+        "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
+      );
 
       this.classConstructors.set(name, tstlClass);
     }
@@ -528,11 +527,10 @@ export class SaveDataManager extends Feature {
     }
 
     const saveData = this.saveDataMap.get(key);
-    if (saveData === undefined) {
-      error(
-        `The save data manager is not managing save data for a key of: ${key}`,
-      );
-    }
+    assertDefined(
+      saveData,
+      `The save data manager is not managing save data for a key of: ${key}`,
+    );
 
     restoreDefaultForFeatureKey(
       this.saveDataDefaultsMap,

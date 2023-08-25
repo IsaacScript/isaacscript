@@ -19,7 +19,7 @@ import {
   removeCharactersBefore,
   trimPrefix,
 } from "../../../../functions/string";
-import { eRange, iRange } from "../../../../functions/utils";
+import { assertDefined, eRange, iRange } from "../../../../functions/utils";
 import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
@@ -149,11 +149,10 @@ function spawnWallEntity(
     ? ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS
     : ROOM_SHAPE_WALL_ANM2_LAYERS;
   const numWallLayers = wallLayersArray[roomShape];
-  if (numWallLayers === undefined) {
-    error(
-      `Failed to get the layers when creating the backdrop for custom stage: ${customStage.name}`,
-    );
-  }
+  assertDefined(
+    numWallLayers,
+    `Failed to get the layers when creating the backdrop for custom stage: ${customStage.name}`,
+  );
 
   if (isLRoomShape(roomShape)) {
     const cornerPNGPath = getBackdropPNGPath(

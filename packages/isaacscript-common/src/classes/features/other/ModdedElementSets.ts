@@ -40,7 +40,7 @@ import {
   getVanillaTrinketTypeRange,
   trinketHasCacheFlag,
 } from "../../../functions/trinkets";
-import { repeat } from "../../../functions/utils";
+import { assertDefined, repeat } from "../../../functions/utils";
 import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../../../sets/itemConfigCardTypesForCardsSet";
 import { ReadonlyMap } from "../../../types/ReadonlyMap";
 import { ReadonlySet } from "../../../types/ReadonlySet";
@@ -440,11 +440,11 @@ export class ModdedElementSets extends Feature {
       if (itemConfigCardType !== undefined) {
         const cardTypeSet =
           this.itemConfigCardTypeToCardTypeMap.get(itemConfigCardType);
-        if (cardTypeSet === undefined) {
-          error(
-            `Failed to get the card set for item config card type: ${itemConfigCardType}`,
-          );
-        }
+        assertDefined(
+          cardTypeSet,
+          `Failed to get the card set for item config card type: ${itemConfigCardType}`,
+        );
+
         cardTypeSet.add(cardType);
 
         if (ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET.has(itemConfigCardType)) {
@@ -515,11 +515,10 @@ export class ModdedElementSets extends Feature {
     for (const itemConfigCardType of itemConfigCardTypes) {
       const cardTypeSet =
         this.itemConfigCardTypeToCardTypeMap.get(itemConfigCardType);
-      if (cardTypeSet === undefined) {
-        error(
-          `Failed to get the card type set for item config type: ${itemConfigCardType}`,
-        );
-      }
+      assertDefined(
+        cardTypeSet,
+        `Failed to get the card type set for item config type: ${itemConfigCardType}`,
+      );
 
       for (const cardType of cardTypeSet) {
         matchingCardTypes.add(cardType);
@@ -588,11 +587,10 @@ export class ModdedElementSets extends Feature {
     playerForm: PlayerForm,
   ): ReadonlySet<CollectibleType> {
     const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
-    if (itemConfigTag === undefined) {
-      error(
-        `Failed to get the collectible types for the transformation of ${playerForm} because that transformation is not based on collectibles.`,
-      );
-    }
+    assertDefined(
+      itemConfigTag,
+      `Failed to get the collectible types for the transformation of ${playerForm} because that transformation is not based on collectibles.`,
+    );
 
     return this.getCollectiblesWithTag(itemConfigTag);
   }
@@ -648,11 +646,10 @@ export class ModdedElementSets extends Feature {
     this.lazyInitTagToCollectibleTypesMap();
 
     const collectibleTypes = this.tagToCollectibleTypesMap.get(itemConfigTag);
-    if (collectibleTypes === undefined) {
-      error(
-        `The item config tag of ${itemConfigTag} is not a valid value of the "ItemConfigTag" enum.`,
-      );
-    }
+    assertDefined(
+      collectibleTypes,
+      `The item config tag of ${itemConfigTag} is not a valid value of the "ItemConfigTag" enum.`,
+    );
 
     return collectibleTypes;
   }

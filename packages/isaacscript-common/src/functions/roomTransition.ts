@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { getRoomData, getRoomGridIndex } from "./roomData";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to reload the current room using `Game.StartRoomTransition`.
@@ -40,11 +41,10 @@ export function teleport(
   const level = game.GetLevel();
 
   const roomData = getRoomData(roomGridIndex);
-  if (roomData === undefined) {
-    error(
-      `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
-    );
-  }
+  assertDefined(
+    roomData,
+    `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
+  );
 
   // This must be set before every `Game.StartRoomTransition` method invocation or else the function
   // can send you to the wrong room.

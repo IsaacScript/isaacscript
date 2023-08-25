@@ -16,6 +16,7 @@ import {
 import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { isNumber } from "../../../functions/types";
+import { assertDefined } from "../../../functions/utils";
 import { isVector } from "../../../functions/vector";
 import type { GridEntityCustomData } from "../../../interfaces/GridEntityCustomData";
 import { DefaultMap } from "../../DefaultMap";
@@ -245,9 +246,7 @@ export class CustomGridEntities extends Feature {
       baseGridEntityVariant,
       gridIndexOrPosition,
     );
-    if (customGridEntity === undefined) {
-      error("Failed to spawn a custom grid entity.");
-    }
+    assertDefined(customGridEntity, "Failed to spawn a custom grid entity.");
 
     if (gridCollisionClass !== undefined) {
       customGridEntity.CollisionClass = gridCollisionClass;

@@ -4,6 +4,7 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedRNG = LuaMap<string, unknown> & {
   readonly __serializedRNGBrand: symbol;
@@ -45,11 +46,10 @@ export function deserializeRNG(rng: SerializedRNG): RNG {
 
   const [seed] = getNumbersFromTable(rng, OBJECT_NAME, ...KEYS);
 
-  if (seed === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: seed`,
-    );
-  }
+  assertDefined(
+    seed,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: seed`,
+  );
 
   return newRNG(seed as Seed);
 }

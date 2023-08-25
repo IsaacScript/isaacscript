@@ -7,6 +7,7 @@ import { ReadonlySet } from "../types/ReadonlySet";
 import { getGridIndexesBetween } from "./gridIndex";
 import { getRoomShapeCorners, isLRoomShape } from "./roomShape";
 import { inBossRoomOf, inHomeCloset } from "./rooms";
+import { assertDefined } from "./utils";
 
 const ROOM_SHAPE_TO_WALL_GRID_INDEX_SET: ReadonlyMap<
   RoomShape,
@@ -329,10 +330,8 @@ export function isVanillaWallGridIndex(gridIndex: int): boolean {
     wallGridIndexSet = MOTHER_ROOM_CORNERS_SET;
   } else {
     wallGridIndexSet = ROOM_SHAPE_TO_WALL_GRID_INDEX_SET.get(roomShape);
-  }
-
-  if (wallGridIndexSet === undefined) {
-    error(
+    assertDefined(
+      wallGridIndexSet,
       `Failed to find the wall grid index set for: RoomShape.${RoomShape[roomShape]} (${roomShape})`,
     );
   }

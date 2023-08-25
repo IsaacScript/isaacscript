@@ -70,7 +70,7 @@ export class CharacterHealthConversion extends Feature {
     const conversionHeartSubType =
       this.characterHealthReplacementMap.get(character);
     if (conversionHeartSubType === undefined) {
-      return;
+      return undefined;
     }
 
     convertRedHeartContainers(player, conversionHeartSubType);

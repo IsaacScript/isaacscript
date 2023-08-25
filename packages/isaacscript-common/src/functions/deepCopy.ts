@@ -24,7 +24,7 @@ import {
   newTSTLClass,
 } from "./tstlClass";
 import { asString, isNumber, isPrimitive } from "./types";
-import { getTraversalDescription } from "./utils";
+import { assertDefined, getTraversalDescription } from "./utils";
 
 /**
  * `deepCopy` is a semi-generic deep cloner. It will recursively copy all of the values so that none
@@ -361,11 +361,10 @@ function getNewDefaultMap(
       const defaultMapValue = defaultMap.get(
         SerializationBrand.DEFAULT_MAP_VALUE,
       );
-      if (defaultMapValue === undefined) {
-        error(
-          `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
-        );
-      }
+      assertDefined(
+        defaultMapValue,
+        `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
+      );
 
       // eslint-disable-next-line isaacscript/no-invalid-default-map
       return new DefaultMap(defaultMapValue);
@@ -518,18 +517,16 @@ function deepCopyTSTLClass(
       const tstlClassName = tstlClass.get(SerializationBrand.TSTL_CLASS) as
         | string
         | undefined;
-      if (tstlClassName === undefined) {
-        error(
-          "Failed to deserialize a TSTL class since the brand did not contain the class name.",
-        );
-      }
+      assertDefined(
+        tstlClassName,
+        "Failed to deserialize a TSTL class since the brand did not contain the class name.",
+      );
 
       const classConstructor = classConstructors.get(tstlClassName);
-      if (classConstructor === undefined) {
-        error(
-          `Failed to deserialize a TSTL class since there was no constructor registered for a class name of "${tstlClassName}". If this mod is using the save data manager, it must register the class constructor with the "saveDataManagerRegisterClass" method.`,
-        );
-      }
+      assertDefined(
+        classConstructor,
+        `Failed to deserialize a TSTL class since there was no constructor registered for a class name of "${tstlClassName}". If this mod is using the save data manager, it must register the class constructor with the "saveDataManagerRegisterClass" method.`,
+      );
 
       // eslint-disable-next-line new-cap
       newClass = new classConstructor() as TSTLClass;
@@ -725,16 +722,10 @@ function deepCopyUserdata(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  const classType = getIsaacAPIClassName(value);
-  if (classType === undefined) {
-    error(
-      `The deep copy function was not able to derive the Isaac API class type for: ${traversalDescription}`,
-    );
-  }
-
   if (!isCopyableIsaacAPIClass(value)) {
+    const className = getIsaacAPIClassName(value) ?? "Unknown";
     error(
-      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
+      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${className}`,
     );
   }
 

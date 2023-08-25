@@ -48,7 +48,7 @@ import { isLRoomShape } from "./roomShape";
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
 import { asNumber } from "./types";
-import { iRange } from "./utils";
+import { assertDefined, iRange } from "./utils";
 
 const SECRET_ROOM_TYPES = new ReadonlySet([
   RoomType.SECRET,
@@ -65,11 +65,10 @@ export function changeRoom(roomGridIndex: int): void {
   const level = game.GetLevel();
 
   const roomData = getRoomData(roomGridIndex);
-  if (roomData === undefined) {
-    error(
-      `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
-    );
-  }
+  assertDefined(
+    roomData,
+    `Failed to change the room to grid index ${roomGridIndex} because that room does not exist.`,
+  );
 
   // LeaveDoor must be set before every `Game.ChangeRoom` invocation or else the function can send
   // you to the wrong room.

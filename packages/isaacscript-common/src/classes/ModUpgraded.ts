@@ -11,6 +11,7 @@ import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
+import { assertDefined } from "../functions/utils";
 import type { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import type { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
 import type { AnyFunction } from "../types/AnyFunction";
@@ -234,11 +235,10 @@ export class ModUpgraded implements Mod {
       }
 
       const modCallbackCustom = tonumber(modCallbackCustomString);
-      if (modCallbackCustom === undefined) {
-        error(
-          "Failed to convert an index on the callbacks object to a number.",
-        );
-      }
+      assertDefined(
+        modCallbackCustom,
+        "Failed to convert an index on the callbacks object to a number.",
+      );
 
       log(
         `- ModCallbackCustom.${ModCallbackCustom[modCallbackCustom]} (${modCallbackCustom})`,
@@ -254,9 +254,10 @@ export class ModUpgraded implements Mod {
       }
 
       const iscFeature = tonumber(iscFeatureString);
-      if (iscFeature === undefined) {
-        error("Failed to convert an index on the features object to a number.");
-      }
+      assertDefined(
+        iscFeature,
+        "Failed to convert an index on the features object to a number.",
+      );
 
       log(`- ISCFeature.${ISCFeature[iscFeature]} (${iscFeature})`);
     }
@@ -324,9 +325,8 @@ export class ModUpgraded implements Mod {
 
     if (feature.v !== undefined) {
       const className = getTSTLClassName(feature);
-      if (className === undefined) {
-        error("Failed to get the name of a feature.");
-      }
+      assertDefined(className, "Failed to get the name of a feature.");
+
       const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
       saveDataManagerClass.saveDataManager(
         className,
@@ -387,9 +387,8 @@ export class ModUpgraded implements Mod {
 
     if (feature.v !== undefined) {
       const className = getTSTLClassName(feature);
-      if (className === undefined) {
-        error("Failed to get the name of a feature.");
-      }
+      assertDefined(className, "Failed to get the name of a feature.");
+
       const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
       saveDataManagerClass.saveDataManagerRemove(className);
     }
@@ -430,6 +429,9 @@ function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
 
   return exportedMethodNames.map((name) => {
     const featureClassRecord = featureClass as Record<string, AnyFunction>;
+
+    // We cannot split out the method to a separate variable or else the "self" parameter will not
+    // be properly passed to the method.
     if (featureClassRecord[name] === undefined) {
       error(`Failed to find a decorated exported method: ${name}`);
     }
@@ -437,8 +439,8 @@ function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
     // In order for "this" to work properly in the method, we have to wrap the method invocation in
     // an arrow function.
     const wrappedMethod = (...args: unknown[]) =>
-      // We cannot split out the method to a separate variable or else the "self" parameter will not
-      // be properly passed to the method.
+      // We use a non-null assertion since we have already validated that the function exists. (See
+      // the above comment.)
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       featureClassRecord[name]!(...args);
 

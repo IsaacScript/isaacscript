@@ -7,6 +7,7 @@ import {
   getTSTLClassName,
 } from "../functions/tstlClass";
 import { isFunction, isNumber, isTable } from "../functions/types";
+import { assertDefined } from "../functions/utils";
 import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import type { AnyFunction } from "../types/AnyFunction";
 import type { ModUpgraded } from "./ModUpgraded";
@@ -124,14 +125,16 @@ export class ModFeature {
     this.initialized = init;
 
     const constructor = getTSTLClassConstructor(this);
-    if (constructor === undefined) {
-      error("Failed to get the TSTL class constructor for a mod feature.");
-    }
+    assertDefined(
+      constructor,
+      "Failed to get the TSTL class constructor for a mod feature.",
+    );
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error("Failed to get the TSTL class name for a mod feature.");
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to get the TSTL class name for a mod feature.",
+    );
 
     initDecoratedCallbacks(this, constructor, tstlClassName, true, init);
     initDecoratedCallbacks(this, constructor, tstlClassName, false, init);
@@ -360,12 +363,13 @@ function initSaveDataManager(
   const saveDataManagerMethodName = init
     ? "saveDataManager"
     : "saveDataManagerRemove";
-  const saveDataManagerMethod = mod[saveDataManagerMethodName];
-  if (saveDataManagerMethod === undefined) {
-    error(
-      'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
-    );
-  }
+  const saveDataManagerMethod = mod[saveDataManagerMethodName] as
+    | AnyFunction
+    | undefined;
+  assertDefined(
+    saveDataManagerMethod,
+    'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
+  );
 
   if (typeof saveDataManagerMethod !== "function") {
     error(

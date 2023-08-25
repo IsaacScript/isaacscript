@@ -9,6 +9,7 @@ import {
   tableHasKeys,
 } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedColor = LuaMap<string, unknown> & {
   readonly __serializedColorBrand: symbol;
@@ -58,21 +59,18 @@ export function deserializeColor(color: SerializedColor): Color {
     ...KEYS,
   );
 
-  if (r === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: R`,
-    );
-  }
-  if (g === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: G`,
-    );
-  }
-  if (b === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: B`,
-    );
-  }
+  assertDefined(
+    r,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: R`,
+  );
+  assertDefined(
+    g,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: G`,
+  );
+  assertDefined(
+    b,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: B`,
+  );
 
   return Color(r, g, b, a, ro, go, bo);
 }

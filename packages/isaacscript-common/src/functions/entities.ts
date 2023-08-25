@@ -13,6 +13,7 @@ import { isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { isTSTLSet } from "./tstlClass";
 import { isPrimitive } from "./types";
+import { assertDefined } from "./utils";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
@@ -167,21 +168,22 @@ export function getConstituentsFromEntityID(
   const [entityTypeString, variantString, subTypeString] = parts;
 
   const entityType = tonumber(entityTypeString);
-  if (entityType === undefined) {
-    error(`Failed to convert the entity type to a number: ${entityTypeString}`);
-  }
+  assertDefined(
+    entityType,
+    `Failed to convert the entity type to a number: ${entityTypeString}`,
+  );
 
   const variant = tonumber(variantString);
-  if (variant === undefined) {
-    error(`Failed to convert the entity variant to a number: ${variantString}`);
-  }
+  assertDefined(
+    variant,
+    `Failed to convert the entity variant to a number: ${variantString}`,
+  );
 
   const subType = tonumber(subTypeString);
-  if (subType === undefined) {
-    error(
-      `Failed to convert the entity sub-type to a number: ${subTypeString}`,
-    );
-  }
+  assertDefined(
+    subType,
+    `Failed to convert the entity sub-type to a number: ${subTypeString}`,
+  );
 
   return [entityType, variant, subType];
 }
@@ -241,9 +243,7 @@ export function getEntityFields(
   const metatable = getmetatable(entity) as
     | LuaMap<AnyNotNil, unknown>
     | undefined;
-  if (metatable === undefined) {
-    error("Failed to get the metatable for an entity.");
-  }
+  assertDefined(metatable, "Failed to get the metatable for an entity.");
 
   setPrimitiveEntityFields(entity, metatable, entityFields);
 
@@ -258,9 +258,10 @@ export function getEntityFields(
   const parentTable = metatable.get("__parent") as
     | LuaMap<AnyNotNil, unknown>
     | undefined;
-  if (parentTable === undefined) {
-    error('Failed to get the "__parent" table for an entity.');
-  }
+  assertDefined(
+    parentTable,
+    'Failed to get the "__parent" table for an entity.',
+  );
 
   setPrimitiveEntityFields(entity, parentTable, entityFields);
 
@@ -275,9 +276,10 @@ function setPrimitiveEntityFields(
   const propGetTable = metatable.get("__propget") as
     | LuaMap<AnyNotNil, unknown>
     | undefined;
-  if (propGetTable === undefined) {
-    error('Failed to get the "__propget" table for an entity.');
-  }
+  assertDefined(
+    propGetTable,
+    'Failed to get the "__propget" table for an entity.',
+  );
 
   for (const [key] of propGetTable) {
     // The values of this table are functions. Thus, we use the key to index the original entity.
