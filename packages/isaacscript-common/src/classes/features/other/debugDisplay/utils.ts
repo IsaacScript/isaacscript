@@ -12,6 +12,30 @@ export function defaultGridEntityDisplayCallback(
   return getGridEntityID(gridEntity);
 }
 
+export function renderScaledTextOnEntity(
+  entity: Entity | GridEntity,
+  text: string,
+  scaleX: float,
+  scaleY: float,
+): void {
+  if (isReflectionRender()) {
+    return;
+  }
+
+  const position = Isaac.WorldToScreen(entity.Position);
+  Isaac.RenderScaledText(
+    text,
+    position.X,
+    position.Y,
+    scaleX,
+    scaleY,
+    1,
+    1,
+    1,
+    1,
+  );
+}
+
 export function renderTextOnEntity(
   entity: Entity | GridEntity,
   text: string,
