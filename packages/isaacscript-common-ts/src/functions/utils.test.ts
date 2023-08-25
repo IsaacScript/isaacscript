@@ -1,4 +1,76 @@
-import { eRange, iRange, parseFloatSafe, parseIntSafe } from "./utils.js";
+import {
+  assertDefined,
+  assertNotNull,
+  eRange,
+  iRange,
+  parseFloatSafe,
+  parseIntSafe,
+} from "./utils.js";
+
+describe("assertsDefined", () => {
+  /** We intentionally use a value of null since it is the least arbitrary non-undefined value. */
+  const value: unknown = null; // eslint-disable-line unicorn/no-null
+
+  // @ts-expect-error Should fail since we are not in a union with undefined.
+  assertDefined(value as boolean, "");
+  // @ts-expect-error Should fail since we are not in a union with undefined.
+  assertDefined(value as number, "");
+  // @ts-expect-error Should fail since we are not in a union with undefined.
+  assertDefined(value as string, "");
+  // @ts-expect-error Should fail since we are not in a union with undefined.
+  assertDefined(value as Function, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  assertDefined(value as boolean | undefined, "");
+  assertDefined(value as number | undefined, "");
+  assertDefined(value as string | undefined, "");
+  assertDefined(value as Function | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  // @ts-expect-error Should fail because we are in a union with null instead of undefined.
+  assertDefined(value as boolean | null, "");
+  // @ts-expect-error Should fail because we are in a union with null instead of undefined.
+  assertDefined(value as number | null, "");
+  // @ts-expect-error Should fail because we are in a union with null instead of undefined.
+  assertDefined(value as string | null, "");
+  // @ts-expect-error Should fail because we are in a union with null instead of undefined.
+  assertDefined(value as Function | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  assertDefined(value as boolean | undefined | null, "");
+  assertDefined(value as number | undefined | null, "");
+  assertDefined(value as string | undefined | null, "");
+  assertDefined(value as Function | undefined | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+});
+
+describe("assertsNull", () => {
+  const value: unknown = undefined;
+
+  // @ts-expect-error Should fail since we are not in a union with null.
+  assertNotNull(value as boolean, "");
+  // @ts-expect-error Should fail since we are not in a union with null.
+  assertNotNull(value as number, "");
+  // @ts-expect-error Should fail since we are not in a union with null.
+  assertNotNull(value as string, "");
+  // @ts-expect-error Should fail since we are not in a union with null.
+  assertNotNull(value as Function, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  assertNotNull(value as boolean | null, "");
+  assertNotNull(value as number | null, "");
+  assertNotNull(value as string | null, "");
+  assertNotNull(value as Function | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  // @ts-expect-error Should fail because we are in a union with undefined instead of null.
+  assertNotNull(value as boolean | undefined, "");
+  // @ts-expect-error Should fail because we are in a union with undefined instead of null.
+  assertNotNull(value as number | undefined, "");
+  // @ts-expect-error Should fail because we are in a union with undefined instead of null.
+  assertNotNull(value as string | undefined, "");
+  // @ts-expect-error Should fail because we are in a union with undefined instead of null.
+  assertNotNull(value as Function | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+
+  assertNotNull(value as boolean | null | undefined, "");
+  assertNotNull(value as number | null | undefined, "");
+  assertNotNull(value as string | null | undefined, "");
+  assertNotNull(value as Function | null | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+});
 
 describe("eRange", () => {
   describe("1 arg 0", () => {
