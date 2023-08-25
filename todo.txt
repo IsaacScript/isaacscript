@@ -2,6 +2,7 @@
   - update typescript
   - pass CI
   - release new version of `eslint-plugin-isaacscript` to see if ESM build is backwards-compatible
+  - test on racing+
 
 ----------------------------------------------------------------------------------------------------
 
