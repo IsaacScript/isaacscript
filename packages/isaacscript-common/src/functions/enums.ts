@@ -131,6 +131,7 @@ export function getRandomEnumValue<T>(
   return getRandomArrayElement(enumValues, seedOrRNG, exceptions);
 }
 
+/** Helper function to validate that a particular value exists inside of an enum. */
 export function isEnumValue(
   value: number | string,
   transpiledEnum: Record<string | number, string | number>,
