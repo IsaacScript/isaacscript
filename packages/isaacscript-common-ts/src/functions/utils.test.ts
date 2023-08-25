@@ -8,8 +8,8 @@ import {
 } from "./utils.js";
 
 describe("assertsDefined", () => {
-  /** We intentionally use a value of null since it is the least arbitrary non-undefined value. */
-  const value: unknown = null; // eslint-disable-line unicorn/no-null
+  /** We use a value of null since it is the least arbitrary non-undefined value. */
+  const value = null as unknown; // eslint-disable-line unicorn/no-null
 
   // @ts-expect-error Should fail since we are not in a union with undefined.
   assertDefined(value as boolean, "");
@@ -40,13 +40,13 @@ describe("assertsDefined", () => {
   assertDefined(value as Function | undefined | null, ""); // eslint-disable-line @typescript-eslint/ban-types
 
   function _genericFunction<T>(_arg: T) {
-    let t: T | undefined;
+    const t = undefined as T | undefined;
     assertDefined(t, "");
   }
 });
 
 describe("assertsNull", () => {
-  const value: unknown = undefined;
+  const value = undefined as unknown;
 
   // @ts-expect-error Should fail since we are not in a union with null.
   assertNotNull(value as boolean, "");
@@ -77,7 +77,7 @@ describe("assertsNull", () => {
   assertNotNull(value as Function | null | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
 
   function _genericFunction<T>(_arg: T) {
-    const t: T | null = null; // eslint-disable-line unicorn/no-null
+    const t = null as T | null; // eslint-disable-line unicorn/no-null
     assertNotNull(t, "");
   }
 });
