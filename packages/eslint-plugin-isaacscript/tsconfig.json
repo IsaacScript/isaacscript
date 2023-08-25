@@ -9,6 +9,7 @@
     // https://github.com/eslint/eslint/issues/15453#issuecomment-1002015088
     // Thus, we have to manually revert the ESM options from the base config.
     "module": "CommonJS",
+    "moduleResolution": "Node",
   },
 
   // We have a separate "tsconfig.prod.json" that is used for production output.

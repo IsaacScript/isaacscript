@@ -4,7 +4,7 @@
   "compilerOptions": {
     "jsx": "preserve",
     "target": "es5",
-    "module": "commonjs",
+    "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
     "lib": ["es2015", "es2017", "esnext"],
