@@ -98,7 +98,7 @@ let vegetable = Vegetable.Lettuce;
 vegetable = "Carrot"; // Type '"Carrot"' is not assignable to type 'Vegetable'.
 ```
 
-Thus, the `isaacscript/strict-enums` rule is mostly concerned with throwing errors for misused number enums. (Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule, since string enums are still bugged when using comparison operators.)
+Thus, the `isaacscript/strict-enums` rule is mostly concerned with throwing errors for misused number enums. (Note that even if you use string enums, you should still be using the [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) rule, since string enums are still bugged when using comparison operators or switch statements.)
 
 But why would you want to use numeric enums over string enums at all? Note that they have some advantages:
 
