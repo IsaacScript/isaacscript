@@ -104,7 +104,7 @@ But why would you want to use numeric enums over string enums at all? Note that 
 
 - Numeric enums can use computed members, which allow for extremely concise and easy to read code. Additionally, when all of the enum members are computed, they can easily be reorganized without having to change N other lines, which causes lot of noise in Git.
 - Numeric enums can save memory in the cases where the codebase has a huge amount of them (such as [the `@typescript-eslint` repository](https://github.com/typescript-eslint/typescript-eslint/)).
-- Numeric enums can save bandwidth in the cases where they are serialized over the wire. This can matter in applications that do a lot of back and forth communication (with e.g. WebSockets) or in cases where you have millions of users any bandwidth saving adds up fast.
+- Numeric enums can save bandwidth in the cases where they are serialized over the wire. This can matter in applications that do a lot of back and forth communication (with e.g. WebSockets) or in cases where you have millions of users and the tiny amount of bandwidth saved scales to big numbers.
 - Numeric enums often have to be used when modelling upstream APIs that you don't have control over.
 
 For this reason, we recommend that use you the [`isaacscript/no-number-enums`](no-number-enums.md) rule by default in your TypeScript projects. But in the specific projects where you need number enums, you can disable that rule and rely on the `isaacscript/strict-enums` rule to keep you safe.
