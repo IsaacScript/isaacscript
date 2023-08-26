@@ -7,13 +7,6 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "../../dist",
-
-    // Both the "Ajv" and "sync-directory" libraries do not support ESM yet.
-    // https://github.com/ajv-validator/ajv/pull/2166
-    // https://github.com/hoperyy/sync-directory/issues/54
-    // Thus, we have to manually revert the ESM options from the base config.
-    "module": "CommonJS",
-    "moduleResolution": "Node",
   },
 
   "include": [
