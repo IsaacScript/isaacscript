@@ -106,10 +106,12 @@ function checkTemplateDirectory(
         projectFilePath = path.join(projectFilePath, "..", ".eslintrc.cjs");
         break;
       }
+
       case "_cspell.json": {
         projectFilePath = path.join(projectFilePath, "..", "cspell.json");
         break;
       }
+
       case "_gitattributes": {
         projectFilePath = path.join(projectFilePath, "..", ".gitattributes");
         break;
