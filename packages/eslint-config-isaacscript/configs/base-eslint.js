@@ -138,8 +138,8 @@ const SUGGESTIONS = {
   curly: ["error", "all"],
 
   /**
-   * Disabled since it is [generally bad in TypeScript
-   * projects](https://github.com/typescript-eslint/typescript-eslint/issues/5254#issuecomment-1168992749).
+   * Disabled since it would cause the `@typescript-eslint/switch-exhaustiveness-check` rule to not
+   * work properly.
    */
   "default-case": "off",
 

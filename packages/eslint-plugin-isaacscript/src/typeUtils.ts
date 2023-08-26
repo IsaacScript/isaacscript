@@ -16,7 +16,7 @@ export function getTypeName(type: ts.Type): string | undefined {
   // The TypeScript definitions are incorrect here; symbol can be undefined.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (type.symbol === undefined) {
-    return;
+    return undefined;
   }
 
   return type.symbol.escapedName as string;
