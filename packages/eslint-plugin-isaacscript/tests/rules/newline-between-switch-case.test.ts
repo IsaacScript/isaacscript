@@ -6,12 +6,14 @@ ruleTester.run("newline-between-switch-case", newlineBetweenSwitchCase, {
     {
       code: `
 switch (foo) {
-  case 1: {
+  case 1:
+  case 2:
+  case 3: {
     doSomething();
     break;
   }
 
-  case 2: {
+  case 4: {
     doSomething();
     break;
   }
@@ -24,11 +26,13 @@ switch (foo) {
     {
       code: `
 switch (foo) {
-  case 1: {
+  case 1:
+  case 2:
+  case 3: {
     doSomething();
     break;
   }
-  case 2: {
+  case 4: {
     doSomething();
     break;
   }
@@ -37,12 +41,14 @@ switch (foo) {
       errors: [{ messageId: "noNewline" }],
       output: `
 switch (foo) {
-  case 1: {
+  case 1:
+  case 2:
+  case 3: {
     doSomething();
     break;
   }
 
-  case 2: {
+  case 4: {
     doSomething();
     break;
   }
