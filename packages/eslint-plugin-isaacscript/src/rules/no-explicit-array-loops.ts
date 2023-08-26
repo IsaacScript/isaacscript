@@ -135,7 +135,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
       const [callExpressionStart, callExpressionEnd] = callExpression.range;
       const firstReplacementStart = callExpressionStart;
       const firstReplacementEnd = callExpressionStart + "Object.values(".length;
-      const secondReplacementStart = callExpressionEnd - 1;
+      const secondReplacementStart = callExpressionEnd - ")".length;
       const secondReplacementEnd = callExpressionEnd;
 
       context.report({
