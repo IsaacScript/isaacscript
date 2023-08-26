@@ -1,6 +1,6 @@
 # `consistent-enum-values`
 
-Enforces that all enum values exactly match the enum name, like this:
+Requires that all enum values exactly match the enum name, like this:
 
 ```ts
 enum Foo {

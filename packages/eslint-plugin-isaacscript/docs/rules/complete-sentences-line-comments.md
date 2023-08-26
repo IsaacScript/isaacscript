@@ -1,6 +1,6 @@
 # `complete-sentences-line-comments`
 
-Enforces complete sentences for multi-line leading line comments.
+Requires complete sentences for multi-line leading line comments.
 
 ## Rule Details
 

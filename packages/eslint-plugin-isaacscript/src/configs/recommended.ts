@@ -17,6 +17,7 @@ export const recommended = {
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",
     "isaacscript/jsdoc-code-block-language": "error",
+    "isaacscript/newline-between-switch-case": "error",
     "isaacscript/no-confusing-set-methods": "error",
     "isaacscript/no-empty-jsdoc": "error",
     "isaacscript/no-empty-line-comments": "error",

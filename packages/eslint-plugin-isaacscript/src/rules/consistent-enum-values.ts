@@ -5,7 +5,7 @@ export const consistentEnumValues = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces consistent enum values",
+      description: "Requires consistent enum values",
       recommended: "recommended",
     },
     schema: [],

@@ -13,6 +13,7 @@ import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
 import { formatLineComments } from "./rules/format-line-comments";
 import { jsdocCodeBlockLanguage } from "./rules/jsdoc-code-block-language";
+import { newlineBetweenSwitchCase } from "./rules/newline-between-switch-case";
 import { noConfusingSetMethods } from "./rules/no-confusing-set-methods";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc";
 import { noEmptyLineComments } from "./rules/no-empty-line-comments";
@@ -47,6 +48,7 @@ export const rules = {
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,
   "jsdoc-code-block-language": jsdocCodeBlockLanguage,
+  "newline-between-switch-case": newlineBetweenSwitchCase,
   "no-confusing-set-methods": noConfusingSetMethods,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-empty-line-comments": noEmptyLineComments,

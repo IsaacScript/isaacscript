@@ -13,7 +13,7 @@ export const completeSentencesJSDoc = createRule<
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces complete sentences for JSDoc comments",
+      description: "Requires complete sentences for JSDoc comments",
       recommended: "recommended",
     },
     schema: [],
