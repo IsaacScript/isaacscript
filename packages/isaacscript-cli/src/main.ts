@@ -13,6 +13,7 @@ import { monitor } from "./commands/monitor/monitor.js";
 import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
 import { PROJECT_NAME } from "./constants.js";
+import { PackageManager } from "./enums/PackageManager.js";
 import { execShellString } from "./exec.js";
 import { fatalError } from "./isaacScriptCommonTS.js";
 import {
@@ -166,4 +167,14 @@ function ensureDepsAreInstalled(
   }
 
   execShellString(command, verbose);
+}
+
+declare const foo: PackageManager;
+switch (foo) {
+  case PackageManager.npm: {
+    console.log("");
+    break;
+  }
+
+  default:
 }

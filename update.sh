@@ -10,7 +10,10 @@ cd "$DIR"
 
 PACKAGE_JSON="$DIR/package.json"
 OLD_HASH=$(md5sum "$PACKAGE_JSON")
-yarn set version latest
+if [[ -f "$DIR/yarn.lock" ]]; then
+  yarn set version latest
+fi
+# @template-customization-start
 # Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM; see it's "tsconfig.json".
@@ -18,13 +21,21 @@ yarn set version latest
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
-# - typescript - Stuck until TypeDoc is patched for the latest version.
 # - unified - Does not work with the current Markdown linting setup because it requires a "module"
 #             type in "package.json", and Docusaurus does not support this yet.
+# @template-customization-end
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
 if [[ "$OLD_HASH" != "$NEW_HASH" ]]; then
-  yarn install
+  if [[ -f "$DIR/yarn.lock" ]]; then
+    yarn install
+  elif [[ -f "$DIR/pnpm-lock.yaml" ]]; then
+    pnpm install
+  else
+    npm install
+  fi
+
+  # @template-customization-start
 
   # Now that the main dependencies have changed, we might need to update the "package.json" files in
   # the individual packages. However, we don't want to blow away peerDependencies, since they are in
@@ -36,4 +47,6 @@ if [[ "$OLD_HASH" != "$NEW_HASH" ]]; then
   # "eslint-config-isaacscript"). Thus, we need to run individual update scripts.
   bash "$DIR/packages/isaacscript-cli/update.sh"
   bash "$DIR/packages/isaacscript-lint/update.sh"
+
+  # @template-customization-end
 fi

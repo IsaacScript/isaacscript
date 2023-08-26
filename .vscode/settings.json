@@ -13,12 +13,12 @@
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
     ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
 
+    // @template-customization-start
     // API Extractor uses the JSONC parser for its configuration files.
     "api-extractor.json": "jsonc",
     "_gitattributes": "properties",
     "_gitignore": "ignore",
-    "settings-typescript.json": "jsonc",
-    "extensions-typescript.json": "jsonc",
+    // @template-customization-end
   },
 
   // We want to always use "lf" to be consistent with all platforms.
@@ -74,18 +74,6 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
-  "[javascriptreact]": {
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-  },
-  "[typescriptreact]": {
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-  },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -106,12 +94,25 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
-  "[css]": {
+  "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
-  "[markdown]": {
+  // @template-customization-start
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
@@ -121,4 +122,5 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 4,
   },
+  // @template-customization-end
 }

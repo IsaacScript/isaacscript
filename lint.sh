@@ -18,11 +18,10 @@ else
 fi
 
 # Check "package.json" files.
-# (The script must use ESM because the "sort-package-json" dependency requires ESM.)
 npx tsx "$DIR/scripts/packageJSONLint.ts"
 
 # Ensure that the template files are up to date.
-# npx isaacscript@latest check --ignore ".eslintrc.cjs,ci.yml,cspell.json"
+npx tsx "$DIR/packages/isaacscript-cli/src/main.ts" check --ignore ".eslintrc.cjs,bundleEntry.ts,build.sh,ci.yml,lint.sh,publish.sh,run.sh,tsconfig.eslint.json,tsconfig.json"
 
 if [[ "${1-}" != "json" ]]; then
   echo "Linting scripts..."

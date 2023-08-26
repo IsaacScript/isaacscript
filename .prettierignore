@@ -10,6 +10,18 @@ pnpm-lock.yaml
 *.min.js
 *.min.css
 
+# XML files created by Basement Renovator
+mod/content/rooms/**/*.xml
+mod/content/luarooms/**/*.xml
+mod/resources/rooms/**/*.xml
+mod/resources/luarooms/**/*.xml
+customStages/**/*.xml
+
+# XML files created by the animation editor
+mod/resources/**/*.anm2
+
+# @template-customization-start
+
 # NX temporary directory
 tmp
 
@@ -25,3 +37,5 @@ packages/docs/src/pages/index.js
 packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions
 packages/docs/docs/eslint-config-isaacscript
+
+# @template-customization-end
