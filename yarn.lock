@@ -7335,15 +7335,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell-check-unused-words@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "cspell-check-unused-words@npm:1.0.4"
+"cspell-check-unused-words@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "cspell-check-unused-words@npm:1.0.6"
   dependencies:
+    isaacscript-common-ts: ^11.2.0
     jsonc-parser: ^3.2.0
     source-map-support: ^0.5.21
+    tsx: ^3.12.7
   bin:
     cspell-check-unused-words: dist/main.js
-  checksum: 421089effd2c273bed46218f813072e224e86310c7e911038c3ee0dab12896b4c7a82061b83da42f8e687bc235ab9f15327257ebd0e62ca6da03bae3c9287eb2
+  checksum: f9be5c01f8dbae02a1bf5c0e11b88879f7a4adf640039037251782caf0e7f24c4dcf1430fe75df9fe00751bc9642cbf0c3bed425d96d4b20cb6cca7ea4b7a674
   languageName: node
   linkType: hard
 
@@ -11137,6 +11139,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"isaacscript-common-ts@npm:^11.2.0":
+  version: 11.2.0
+  resolution: "isaacscript-common-ts@npm:11.2.0"
+  checksum: 19a2069423814e622b4b5087f44b87a339e4b7ece59a4116f0a133dd95b19a930a6d1996d4a68068c276677f8e2ce183d0387758e6b66e71ca823ca5eef07980
+  languageName: node
+  linkType: hard
+
 "isaacscript@workspace:.":
   version: 0.0.0-use.local
   resolution: "isaacscript@workspace:."
@@ -11182,7 +11191,7 @@ __metadata:
     command-exists: ^1.2.9
     confusing-browser-globals: ^1.0.11
     cspell: ^7.0.1
-    cspell-check-unused-words: ^1.0.4
+    cspell-check-unused-words: ^1.0.6
     docusaurus-plugin-typedoc: ^0.20.0
     docusaurus-theme-search-typesense: ^0.12.0
     eslint: ^8.48.0
