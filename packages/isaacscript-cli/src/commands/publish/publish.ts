@@ -3,6 +3,7 @@ import { execShellString } from "../../exec.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getProjectPackageJSONField } from "../../json.js";
 import type { Args } from "../../parseArgs.js";
+import { getInputString } from "../../prompt.js";
 import { publishIsaacScriptMod } from "./isaacscriptMod.js";
 import { prePublish } from "./prePublish.js";
 import { validate } from "./validate.js";
@@ -18,14 +19,12 @@ export async function publish(
   validate(typeScript, setVersion, verbose);
   prePublish(args, typeScript);
 
-  if (typeScript) {
-    publishTypeScriptProject(args);
-  } else {
-    await publishIsaacScriptMod(args, config);
-  }
+  await (typeScript
+    ? publishTypeScriptProject(args)
+    : publishIsaacScriptMod(args, config));
 }
 
-function publishTypeScriptProject(args: Args) {
+async function publishTypeScriptProject(args: Args) {
   const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
   const projectName = getProjectPackageJSONField("name", verbose);
@@ -36,7 +35,14 @@ function publishTypeScriptProject(args: Args) {
   } else {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
     gitCommitAllAndPush(releaseGitCommitMessage, verbose);
-    execShellString("npm publish --access public", verbose);
+    const otpCode = await getInputString(
+      "Type in the two-factor OTP code tied to the npm account. (Just press enter if you do not have 2FA enabled on your npm account.)",
+    );
+    let command = "npm publish --access=public";
+    if (otpCode !== "") {
+      command += ` --otp=${otpCode}`;
+    }
+    execShellString(command, verbose);
   }
 
   const dryRunSuffix = dryRun ? " (dry-run)" : "";
