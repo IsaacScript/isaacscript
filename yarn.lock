@@ -8599,6 +8599,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-eslint-plugin@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "eslint-plugin-eslint-plugin@npm:5.1.1"
+  dependencies:
+    eslint-utils: ^3.0.0
+    estraverse: ^5.3.0
+  peerDependencies:
+    eslint: ">=7.0.0"
+  checksum: a76e66708d8b79f4703a0722d7ed5e53af978c588fb60fe47936a32b377c08e3b2cf92f51180414d70be02d66f7fef0a3dad65d2e7b27873f24292e6923b7aee
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-import@npm:eslint-plugin-i@latest":
   version: 2.28.0-2
   resolution: "eslint-plugin-i@npm:2.28.0-2"
@@ -8735,6 +8747,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-utils@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "eslint-utils@npm:3.0.0"
+  dependencies:
+    eslint-visitor-keys: ^2.0.0
+  peerDependencies:
+    eslint: ">=5"
+  checksum: 0668fe02f5adab2e5a367eee5089f4c39033af20499df88fe4e6aba2015c20720404d8c3d6349b6f716b08fdf91b9da4e5d5481f265049278099c4c836ccb619
+  languageName: node
+  linkType: hard
+
+"eslint-visitor-keys@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "eslint-visitor-keys@npm:2.1.0"
+  checksum: e3081d7dd2611a35f0388bbdc2f5da60b3a3c5b8b6e928daffff7391146b434d691577aa95064c8b7faad0b8a680266bcda0a42439c18c717b80e6718d7e267d
+  languageName: node
+  linkType: hard
+
 "eslint-visitor-keys@npm:^3.3.0, eslint-visitor-keys@npm:^3.4.1, eslint-visitor-keys@npm:^3.4.3":
   version: 3.4.3
   resolution: "eslint-visitor-keys@npm:3.4.3"
@@ -8844,7 +8874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0":
+"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0, estraverse@npm:^5.3.0":
   version: 5.3.0
   resolution: "estraverse@npm:5.3.0"
   checksum: 072780882dc8416ad144f8fe199628d2b3e7bbc9989d9ed43795d2c90309a2047e6bc5979d7e2322a341163d22cfad9e21f4110597fe487519697389497e4e2b
@@ -11159,6 +11189,7 @@ __metadata:
     eslint-config-prettier: ^9.0.0
     eslint-plugin-deprecation: ^1.5.0
     eslint-plugin-eslint-comments: ^3.2.0
+    eslint-plugin-eslint-plugin: ^5.1.1
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
     eslint-plugin-jsdoc: ^46.5.0
     eslint-plugin-n: ^16.0.2
