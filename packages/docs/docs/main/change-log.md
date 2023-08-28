@@ -16,6 +16,10 @@ This page lists the changes to the IsaacScript framework.
   - `isEnumValue`
   - `renderTextOnEntity`
   - `renderScaledTextOnEntity`
+- Added the following constants:
+  - `MODIFIER_KEYS`
+  - `MOVEMENT_ACTIONS`
+  - `SHOOTING_ACTIONS`
 
 ## August 20th, 2023
 
@@ -2021,8 +2025,8 @@ npx prettier --log-level=warn --check .
   - `BOMB_EXPLODE_FRAME`
   - `UI_HEART_WIDTH`
   - `MAX_NUM_FAMILIARS`
-  - `MOVEMENT_ACTIONS`
-  - `SHOOTING_ACTIONS`
+  - `MOVEMENT_ACTIONS_SET`
+  - `SHOOTING_ACTIONS_SET`
   - `AZAZEL_DEFAULT_BRIMSTONE_DISTANCE`
   - `EGGY_STATE_FRAME_OF_FINAL_SPIDER`
 - Added the following enums:

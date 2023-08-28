@@ -344,6 +344,9 @@ export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
  * Helper function to return the last element of an array.
  *
  * If the array is empty, this will return undefined.
+ *
+ * (Note that TSTL does not support `Array.at(-1)`, which would make this helper function largely
+ * unnecessary.)
  */
 export function getLastElement<T>(array: T[]): T | undefined {
   return array[array.length - 1];

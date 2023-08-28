@@ -9,7 +9,7 @@ import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { trimPrefix } from "./string";
 
-const MODIFIER_KEYS = [
+export const MODIFIER_KEYS = [
   Keyboard.LEFT_SHIFT, // 340
   Keyboard.LEFT_CONTROL, // 341
   Keyboard.LEFT_ALT, // 342
@@ -20,7 +20,7 @@ const MODIFIER_KEYS = [
   Keyboard.RIGHT_SUPER, // 347
 ] as const;
 
-const MOVEMENT_ACTIONS = [
+export const MOVEMENT_ACTIONS = [
   ButtonAction.LEFT, // 0
   ButtonAction.RIGHT, // 1
   ButtonAction.UP, // 2
@@ -31,7 +31,7 @@ export const MOVEMENT_ACTIONS_SET = new ReadonlySet<ButtonAction>(
   MOVEMENT_ACTIONS,
 );
 
-const SHOOTING_ACTIONS = [
+export const SHOOTING_ACTIONS = [
   ButtonAction.SHOOT_LEFT, // 4
   ButtonAction.SHOOT_RIGHT, // 5
   ButtonAction.SHOOT_UP, // 6
