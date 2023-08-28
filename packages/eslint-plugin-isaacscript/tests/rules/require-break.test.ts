@@ -5,7 +5,7 @@ ruleTester.run("require-break", requireBreak, {
   valid: [
     {
       code: `
-switch(foo) {
+switch (foo) {
   case 0: {
     break;
   }
@@ -18,7 +18,7 @@ switch(foo) {
     },
     {
       code: `
-switch(foo) {
+switch (foo) {
   case 0: {
     break;
   }
@@ -38,7 +38,7 @@ switch(foo) {
   invalid: [
     {
       code: `
-switch(foo) {
+switch (foo) {
   case 0: {
     break;
   }
@@ -52,7 +52,7 @@ switch(foo) {
     },
     {
       code: `
-switch(foo) {
+switch (foo) {
   case 0: {
     break;
   }
