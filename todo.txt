@@ -1,8 +1,6 @@
+- use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
+
 - once new version of TypeDoc is released:
-  - update typescript
-  - pass CI
-  - release new version of `eslint-plugin-isaacscript` to see if ESM build is backwards-compatible
-  - test on racing+
   - add dep of isaacscript-common-ts to eslint-plugin-isaacscript
 
 ----------------------------------------------------------------------------------------------------
