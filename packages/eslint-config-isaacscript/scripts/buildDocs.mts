@@ -73,7 +73,7 @@ Don't bother creating and maintaining a huge ESLint config yourself. We've done 
 - Enable every ESLint rule that we can find from trusted sources that provides value.
 - Weed out the rules that don't apply to TypeScript codebases.
 - Weed out the rules covered by [Prettier](https://prettier.io/).
-- Weed out the rules that are noisy.
+- Weed out the rules that are noisy (and document them below).
 
 <br />
 
