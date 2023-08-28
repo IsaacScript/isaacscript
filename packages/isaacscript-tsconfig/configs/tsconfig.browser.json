@@ -8,7 +8,8 @@
   "compilerOptions": {
     // "sourceMap" creates source map files for emitted JavaScript files. By default, it is false.
     // We want to be able to see the TypeScript line numbers in error messages to help with
-    // debugging.
+    // debugging. This flag is required for the "source-map-support" library to work properly:
+    // https://github.com/evanw/node-source-map-support
     "sourceMap": true,
 
     // "lib" specifies a set of bundled library declaration files that describe the target run-time
