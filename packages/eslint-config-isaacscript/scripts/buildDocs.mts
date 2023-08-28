@@ -40,6 +40,8 @@ const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
 This is a sharable configuration for [ESLint](https://eslint.org/) that is intended to be used in TypeScript projects.
 
+The config is environment-agnostic, meaning that it will work in React (i.e. client-side) projects, Node (i.e. server-side) projects, and so on.
+
 <br />
 
 ## Installation
