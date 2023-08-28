@@ -119,15 +119,15 @@ const SUGGESTIONS = {
   "class-methods-use-this": "off",
 
   /**
-   * Disabled since cyclomatic complexity is not a good enough general indicator of code complexity.
+   * Disabled since cyclomatic complexity is not a good enough general indicator of code complexity
+   * and leads to too many false positives.
    */
   complexity: "off",
 
   /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
   "consistent-return": "off",
 
-  /** Disabled since capturing `this` is largely obviated by using modern arrow functions. */
-  "consistent-this": "off",
+  "consistent-this": "error",
 
   /**
    * Always requiring curly braces can partially ward against [Apple-style if statement
@@ -157,7 +157,10 @@ const SUGGESTIONS = {
   "func-name-matching": "error",
   "func-names": "error",
 
-  /** Disabled since it is common to use both function forms, depending on the situation. */
+  /**
+   * Disabled since it is common in the TypeScript ecosystem to use both function forms, depending
+   * on the situation.
+   */
   "func-style": "off",
 
   "grouped-accessor-pairs": "error",
@@ -239,7 +242,11 @@ const SUGGESTIONS = {
    */
   "no-console": "off",
 
-  /** Disabled because proper use of continues can reduce indentation for long blocks of code. */
+  /**
+   * Disabled because proper use of continues can reduce indentation for long blocks of code in the
+   * same way as the [early return
+   * pattern](https://medium.com/swlh/return-early-pattern-3d18a41bba8).
+   */
   "no-continue": "off",
 
   "no-delete-var": "error",
