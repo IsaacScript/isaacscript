@@ -4,16 +4,8 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
-import { createRule } from "../utils";
-
-interface CodePath {
-  currentSegments: CodePathSegment[];
-  upper: CodePath;
-}
-
-interface CodePathSegment {
-  reachable: boolean;
-}
+import type { CodePath } from "../interfaces/CodePath";
+import { createRule, isReachable } from "../utils";
 
 export const newlineBetweenSwitchCase = createRule({
   name: "newline-between-switch-case",
@@ -121,14 +113,4 @@ function getTokensWithNewlineBetween(
   } while (next.loc.start.line < endLine);
 
   return null;
-}
-
-/**
- * Checks whether or not a given code path segment is reachable.
- *
- * @param segment A CodePathSegment to check.
- * @returns `true` if the segment is reachable.
- */
-function isReachable(segment: CodePathSegment): boolean {
-  return segment.reachable;
 }

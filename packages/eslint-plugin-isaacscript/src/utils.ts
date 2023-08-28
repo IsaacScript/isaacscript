@@ -1,5 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
+import type { CodePathSegment } from "./interfaces/CodePath";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
@@ -103,6 +104,16 @@ export function isFirstLetterCapitalized(string: string): boolean {
 export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
   const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);
   return signatures.length > 0;
+}
+
+/**
+ * Checks whether or not a given code path segment is reachable.
+ *
+ * @param segment A CodePathSegment to check.
+ * @returns `true` if the segment is reachable.
+ */
+export function isReachable(segment: CodePathSegment): boolean {
+  return segment.reachable;
 }
 
 /** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
