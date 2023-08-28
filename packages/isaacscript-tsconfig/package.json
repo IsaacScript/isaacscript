@@ -21,7 +21,7 @@
   "author": "Zamiell",
   "type": "module",
   "dependencies": {
-    "@tsconfig/node-lts": "^18.12.4",
+    "@tsconfig/node-lts": "^18.12.5",
     "@tsconfig/strictest": "^2.0.1"
   }
 }
