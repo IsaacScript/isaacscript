@@ -97,11 +97,13 @@ Additionally, we recommend that you [configure your IDE (i.e. VSCode) to automat
 
 ## Dealing with False Positives
 
-Your first reaction to having a bunch of yellow squiggly lines might be to disable any rule that gets in your way. However, before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#why-code-formatting-is-important)!
+Your first reaction to having a bunch of yellow squiggly lines might be to disable any rule that gets in your way. However, even if you think an ESLint warning is superfluous, it is often a sign that your codebase is structured in a bug-prone or non-idiomatic way. Before simply disabling a rule, sometimes it is good to do some research and think carefully if your code can be refactored in some way to be cleaner.
 
-With that said, with so many rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. (You can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.)
+Additionally, some ESLint rules are not about catching bugs, but are about code style and code consistency. If you find the new style to be foreign and weird, it can be tempting to ignore or disable the rule. But before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#why-code-formatting-is-important)!
 
-If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your \`.eslintrc.cjs\` file. Some rules won't make sense for every project!
+With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. And you can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.
+
+If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your \`.eslintrc.cjs\` file. Some rules won't make sense for every project and that's okay!
 
 <br />
 
