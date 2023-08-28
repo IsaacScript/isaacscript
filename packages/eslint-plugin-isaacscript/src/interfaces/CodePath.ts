@@ -1,3 +1,4 @@
+/** From: https://github.com/typescript-eslint/typescript-eslint/pull/6679/files */
 export interface CodePath {
   id: string;
   initialSegment: CodePathSegment;
@@ -9,6 +10,7 @@ export interface CodePath {
   childCodePaths: CodePath[];
 }
 
+/** From: https://github.com/typescript-eslint/typescript-eslint/pull/6679/files */
 export interface CodePathSegment {
   id: string;
   nextSegments: CodePathSegment[];
