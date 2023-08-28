@@ -530,6 +530,8 @@ function deepCopyTSTLClass(
 
       // eslint-disable-next-line new-cap
       newClass = new classConstructor() as TSTLClass;
+
+      break;
     }
   }
 
@@ -738,6 +740,7 @@ function deepCopyUserdata(
       return serializeIsaacAPIClass(value);
     }
 
+    // eslint-disable-next-line isaacscript/require-break
     case SerializationType.DESERIALIZE: {
       error(
         `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
