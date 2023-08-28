@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "module",
+  "type": "commonjs",
   "main": "src/index.js",
   "dependencies": {
     "@typescript-eslint/type-utils": "^6.5.0",
