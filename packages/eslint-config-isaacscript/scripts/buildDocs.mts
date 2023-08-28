@@ -91,7 +91,7 @@ This config also assumes that you are using [Prettier](https://prettier.io/) to 
 
 Deploying this ESLint config on an existing codebase can generate a ton of warnings. Fixing them all might seem overwhelming. While some warnings need to be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the code will fix itself if you run ESLint with the \`--fix\` flag. So, by running \`npx eslint --fix .\` in the root of your project, you can take care of a lot of the warnings automatically.
 
-Additionally, we recommend that you [configure your IDE to automatically run \`--fix\` whenever you save a file](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#integration-with-vscode).
+Additionally, we recommend that you [configure your IDE (i.e. VSCode) to automatically run \`--fix\` whenever you save a file](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint#integration-with-vscode).
 
 <br />
 
