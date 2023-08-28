@@ -8,14 +8,14 @@ import {
   removeFirstAndLastLine,
 } from "./utils";
 
-const REPO_ROOT = path.join(__dirname, "..");
-const DOCS_PATH = path.join(REPO_ROOT, "docs");
+const PACKAGE_ROOT = path.join(__dirname, "..");
+const DOCS_PATH = path.join(PACKAGE_ROOT, "docs");
 const TEMPLATE_MD_PATH = path.join(DOCS_PATH, "template.md");
 
-const SRC_PATH = path.join(REPO_ROOT, "src");
+const SRC_PATH = path.join(PACKAGE_ROOT, "src");
 const TEMPLATE_SRC_PATH = path.join(SRC_PATH, "template.ts");
 
-const TESTS_PATH = path.join(REPO_ROOT, "tests");
+const TESTS_PATH = path.join(PACKAGE_ROOT, "tests");
 const TEMPLATE_TEST_PATH = path.join(TESTS_PATH, "template.ts");
 
 createRule().catch((error) => {

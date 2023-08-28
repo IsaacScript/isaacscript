@@ -8,4 +8,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd "$DIR"
 
+# Arguments are validated within the TypeScript code.
 npx tsx "$DIR/tools/createRule.ts" "${1-}" "${2-}"
