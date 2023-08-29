@@ -6,7 +6,7 @@ import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
-import { isFunction, isNumber, isTable } from "../functions/types";
+import { isFunction, isInteger, isTable } from "../functions/types";
 import { assertDefined } from "../functions/utils";
 import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
 import type { AnyFunction } from "../types/AnyFunction";
@@ -186,14 +186,14 @@ function initDecoratedCallbacks(
     }
 
     const modCallback = callbackTuple[0];
-    if (!isNumber(modCallback)) {
+    if (!isInteger(modCallback)) {
       error(
         `Failed to get the callback number from the callback tuple for class: ${tstlClassName}`,
       );
     }
 
     const priority = callbackTuple[1];
-    if (!isNumber(priority)) {
+    if (!isInteger(priority)) {
       error(
         `Failed to get the callback priority from the callback tuple for class: ${tstlClassName}`,
       );

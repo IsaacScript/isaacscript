@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getMoveActions`
   - `getShootActions`
+  - `isInteger`
 - Added the following constants:
   - `MOVEMENT_ACTIONS_SET`
   - `SHOOTING_ACTIONS_SET`

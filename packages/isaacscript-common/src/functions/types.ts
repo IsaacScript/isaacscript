@@ -118,6 +118,14 @@ export function isFunction(variable: unknown): variable is Function {
   return type(variable) === "function";
 }
 
+export function isInteger(variable: unknown): variable is int {
+  if (!isNumber(variable)) {
+    return false;
+  }
+
+  return variable === Math.floor(variable);
+}
+
 export function isNumber(variable: unknown): variable is number {
   return type(variable) === "number";
 }

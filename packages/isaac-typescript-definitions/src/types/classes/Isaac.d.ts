@@ -129,10 +129,10 @@ declare global {
     ): Entity[];
 
     function GetBuiltInCallbackState(
-      modCallback: keyof AddCallbackParameters,
+      modCallback: keyof AddCallbackParameters | string,
     ): boolean;
 
-    function GetCallbacks<T extends keyof AddCallbackParameters>(
+    function GetCallbacks<T extends keyof AddCallbackParameters | string>(
       modCallback: T,
       createIfMissing: boolean,
     ): Array<ModDescription<T>>;
@@ -450,7 +450,7 @@ declare global {
     /** @deprecated Use the `Mod.RemoveCallback` method instead. */
     function RemoveCallback(
       mod: Mod,
-      modCallback: keyof AddCallbackParameters,
+      modCallback: keyof AddCallbackParameters | string,
       callbackFn: () => void,
     ): void;
 
@@ -482,10 +482,12 @@ declare global {
       a: float,
     ): void;
 
-    function RunCallback(modCallback: keyof AddCallbackParameters): void;
+    function RunCallback(
+      modCallback: keyof AddCallbackParameters | string,
+    ): void;
 
     function RunCallbackWithParam(
-      modCallback: keyof AddCallbackParameters,
+      modCallback: keyof AddCallbackParameters | string,
       ...optionalArgs: unknown[]
     ): void;
 
@@ -499,7 +501,7 @@ declare global {
     function SaveModData(mod: Mod, data: string): void;
 
     function SetBuiltInCallbackState(
-      modCallback: keyof AddCallbackParameters,
+      modCallback: keyof AddCallbackParameters | string,
       state: boolean,
     ): void;
 

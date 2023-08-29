@@ -68,6 +68,6 @@ export const enumMemberNumberSeparation = createRule({
   },
 });
 
-function isNumber(character: string) {
+function isNumber(character: string): boolean {
   return /^\d$/.test(character);
 }

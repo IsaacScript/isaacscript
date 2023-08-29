@@ -14,7 +14,6 @@ import type {
 } from "../../enums/collections/subTypes";
 import type { PickupVariant } from "../../enums/collections/variants";
 import type { EntityType } from "../../enums/EntityType";
-import type { PickupPrice } from "../../enums/PickupPrice";
 
 declare global {
   interface EntityPickup extends Entity {
@@ -64,10 +63,10 @@ declare global {
     OptionsPickupIndex: int;
 
     /**
-     * The price can be from 0 to 99. Special kinds of prices (like Devil Deal prices) are
-     * represented by the `PickupPrice` enum.
+     * The price can be from 0 to 99 or a special negative value. Special kinds of prices (like
+     * Devil Deal prices) are represented by the `PickupPrice` enum (which contain negative values).
      */
-    Price: int | PickupPrice;
+    Price: int;
 
     ShopItemId: int;
     State: int;
