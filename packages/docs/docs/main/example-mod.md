@@ -148,7 +148,9 @@ mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
 
 As you type the `ModCallback` enum, it should automatically create an import statement for the enum at the top of the file, which will look like this:
 
-```ts
+<!-- We use "js" instead of "ts" to prevent the fixer from deleting the import statement. -->
+
+```js
 import { ModCallback } from "isaac-typescript-definitions";
 ```
 
@@ -194,7 +196,9 @@ function checkApplyGreenCandleEffect() {
 
 By simply typing in `getPlayers`, VSCode should automatically import it, which means that it will add the following line to the top of the file:
 
-```ts
+<!-- We use "js" instead of "ts" to prevent the fixer from deleting the import statement. -->
+
+```js
 import { getPlayers } from "isaacscript-common";
 ```
 
