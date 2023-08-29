@@ -107,7 +107,6 @@ npm publish --access=public --tag="$NPM_TAG" --otp="$OTP_CODE"
 sleep 1
 bash "$DIR/update.sh"
 npx syncpack fix-mismatches --types prod,dev
-bash "$DIR/packages/isaacscript-cli/update.sh"
 bash "$DIR/packages/isaacscript-lint/update.sh"
 
 if ! is_git_repo_clean; then
