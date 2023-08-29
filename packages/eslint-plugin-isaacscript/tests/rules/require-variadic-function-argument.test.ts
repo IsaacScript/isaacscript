@@ -67,6 +67,27 @@ console.log();
   `,
 });
 
+valid.push({
+  name: "Using console.log normally",
+  code: `
+console.log("foo");
+  `,
+});
+
+valid.push({
+  name: "Using console.error to print a newline",
+  code: `
+console.error();
+  `,
+});
+
+valid.push({
+  name: "Using console.error normally",
+  code: `
+console.error("foo");
+  `,
+});
+
 invalid.push({
   name: "Empty variadic function call with JSDoc comment without tag",
   code: `

@@ -17,7 +17,10 @@ To protect against these kinds of errors, this rule requires that you always pas
 
 ## Hard-Coded Exceptions
 
-This rule is hard-coded to not throw an error with `console.log`, since it is relatively common to use it with no arguments in order to print a newline.
+This rule is hard-coded to not throw an error with `console` methods (such as `console.log` or `console.error`), since:
+
+1. It is relatively common to use those with no arguments in order to print a newline.
+2. The TypeScript signatures for those functions are weird in that they have a rest parameter as the second parameter instead of the first one.
 
 ## JSDoc Exceptions
 

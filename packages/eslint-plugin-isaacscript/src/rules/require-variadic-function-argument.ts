@@ -78,15 +78,12 @@ function isHardCodedException(node: TSESTree.CallExpression): boolean {
     return false;
   }
 
-  const { object, property } = callee;
-  if (
-    object.type !== AST_NODE_TYPES.Identifier ||
-    property.type !== AST_NODE_TYPES.Identifier
-  ) {
+  const { object } = callee;
+  if (object.type !== AST_NODE_TYPES.Identifier) {
     return false;
   }
 
-  return object.name === "console" && property.name === "log";
+  return object.name === "console";
 }
 
 function hasJSDocExceptionTag(
