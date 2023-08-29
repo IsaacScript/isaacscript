@@ -58,6 +58,11 @@ export function controllerToString(controller: Controller): string | undefined {
   return trimPrefix(key, "BUTTON_");
 }
 
+/**
+ * Helper function to get the movement actions that the specified `ControllerIndex` is currently
+ * pressing down. This returns an array because a player can technically be holding down more than
+ * one movement key at a time.
+ */
 export function getMoveActions(
   controllerIndex: ControllerIndex,
 ): ButtonAction[] {
@@ -66,6 +71,11 @@ export function getMoveActions(
   );
 }
 
+/**
+ * Helper function to get the shooting actions that the specified `ControllerIndex` is currently
+ * pressing down. This returns an array because a player can technically be holding down more than
+ * one shooting key at a time.
+ */
 export function getShootActions(
   controllerIndex: ControllerIndex,
 ): ButtonAction[] {
