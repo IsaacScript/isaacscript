@@ -1,3 +1,5 @@
+/* eslint-disable isaacscript/require-variadic-function-argument */
+
 import remarkRetext from "remark-retext";
 import retextDiacritics from "retext-diacritics";
 import retextEnglish from "retext-english";

@@ -22,6 +22,8 @@ This rule is hard-coded to not throw an error with `console` methods (such as `c
 1. It is relatively common to use these functions with no arguments in order to print a newline.
 2. The TypeScript signatures for those functions are weird in that they have a rest parameter as the second parameter instead of the first one.
 
+Additionally, this rule will not be flagged for `setTimeout` or `setInterval`, since those rest parameters are optional.
+
 ## JSDoc Exceptions
 
 Sometimes, a variadic function can be written to intentionally allow for zero arguments. If this is the case, you can use a `@allowEmptyVariadic` JSDoc tag inside of the JSDoc comment for the function. Then, this rule will ignore any calls of that function.

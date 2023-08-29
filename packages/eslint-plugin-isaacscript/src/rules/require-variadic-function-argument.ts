@@ -74,6 +74,10 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
 
 function isHardCodedException(node: TSESTree.CallExpression): boolean {
   const { callee } = node;
+  return isConsoleFunction(callee) || isTimeoutFunction(callee);
+}
+
+function isConsoleFunction(callee: TSESTree.LeftHandSideExpression): boolean {
   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
     return false;
   }
@@ -84,6 +88,14 @@ function isHardCodedException(node: TSESTree.CallExpression): boolean {
   }
 
   return object.name === "console";
+}
+
+function isTimeoutFunction(callee: TSESTree.LeftHandSideExpression): boolean {
+  if (callee.type !== AST_NODE_TYPES.Identifier) {
+    return false;
+  }
+
+  return callee.name === "setTimeout" || callee.name === "setInterval";
 }
 
 function hasJSDocExceptionTag(

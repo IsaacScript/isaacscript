@@ -1,8 +1,5 @@
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
 
-- once new version of TypeDoc is released:
-  - add dep of isaacscript-common-ts to eslint-plugin-isaacscript
-
 ----------------------------------------------------------------------------------------------------
 
 - wait for typedoc-plugin-markdown to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372

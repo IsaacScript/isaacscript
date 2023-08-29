@@ -88,6 +88,42 @@ console.error("foo");
   `,
 });
 
+valid.push({
+  name: "Using setTimeout normally",
+  code: `
+setTimeout(() => {
+  console.error("foo");
+}, 1000);
+  `,
+});
+
+valid.push({
+  name: "Using setTimeout with arguments",
+  code: `
+setTimeout((arg) => {
+  console.error("foo");
+}, 1000, "foo");
+  `,
+});
+
+valid.push({
+  name: "Using setInterval normally",
+  code: `
+  setInterval(() => {
+  console.error("foo");
+}, 1000);
+  `,
+});
+
+valid.push({
+  name: "Using setInterval with arguments",
+  code: `
+  setInterval((arg) => {
+  console.error("foo");
+}, 1000, "foo");
+  `,
+});
+
 invalid.push({
   name: "Empty variadic function call with JSDoc comment without tag",
   code: `
