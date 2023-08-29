@@ -19,6 +19,8 @@ import { getPlayerIndex } from "./playerIndex";
  *   player.MoveSpeed = defaultMapGetPlayer(v.run.playersSpeedBoost, player);
  * }
  * ```
+ *
+ * @allowEmptyVariadic
  */
 export function defaultMapGetPlayer<V, Args extends unknown[]>(
   map: DefaultMap<PlayerIndex, V, Args>,
