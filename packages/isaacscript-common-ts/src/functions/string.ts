@@ -21,6 +21,14 @@ export function hasWhiteSpace(s: string): boolean {
   return /\s/g.test(s);
 }
 
+/**
+ * From:
+ * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
+ */
+export function isFirstLetterCapitalized(string: string): boolean {
+  return /^\p{Lu}/u.test(string);
+}
+
 /** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
 export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);

@@ -2,11 +2,12 @@ import { isSeparatorLine } from "../comments";
 import type { CompleteSentenceMessageIds } from "../completeSentence";
 import { getIncompleteSentences } from "../completeSentence";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";
+import { assertDefined } from "../isaacScriptCommonTS";
 import {
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
-import { assertDefined, createRule } from "../utils";
+import { createRule } from "../utils";
 
 export type Options = [];
 

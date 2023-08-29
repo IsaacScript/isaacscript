@@ -1,14 +1,11 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { formatText } from "../format";
+import { assertDefined } from "../isaacScriptCommonTS";
 import {
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
-import {
-  areStringsEqualExcludingTrailingSpaces,
-  assertDefined,
-  createRule,
-} from "../utils";
+import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
 const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";

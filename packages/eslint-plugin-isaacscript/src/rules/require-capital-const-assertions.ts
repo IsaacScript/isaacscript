@@ -1,6 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { createRule, isFirstLetterCapitalized } from "../utils";
+import { isFirstLetterCapitalized } from "../isaacScriptCommonTS";
+import { createRule } from "../utils";
 
 export type Options = [];
 

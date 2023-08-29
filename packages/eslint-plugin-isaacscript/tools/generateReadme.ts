@@ -2,7 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { assertDefined } from "../src/utils";
+import { assertDefined } from "../src/isaacScriptCommonTS";
 import type { RuleDefinition } from "./utils";
 import {
   formatWithPrettier,

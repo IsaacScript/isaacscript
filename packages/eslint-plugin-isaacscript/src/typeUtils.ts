@@ -15,11 +15,16 @@ function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
 export function getTypeName(type: ts.Type): string | undefined {
   // The TypeScript definitions are incorrect here; symbol can be undefined.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (type.symbol === undefined) {
-    return undefined;
-  }
+  return type.symbol?.escapedName ?? type.aliasSymbol?.getName();
+}
 
-  return type.symbol.escapedName as string;
+/**
+ * `isFunctionLike` does not seem to work with basic function expressions, so this function instead
+ * resorts to checking if any signatures exist.
+ */
+export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
+  const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);
+  return signatures.length > 0;
 }
 
 /**

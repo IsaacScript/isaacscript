@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
-import { isTypeFlagSet } from "../typeUtils";
-import { createRule, isFunction } from "../utils";
+import { getTypeName, isFunction, isTypeFlagSet } from "../typeUtils";
+import { createRule } from "../utils";
 
 export type Options = [];
 
@@ -71,7 +71,7 @@ export const noInvalidDefaultMap = createRule<
 
         // Handle the special case of `int` and `float`, which do not have the `NumberLike` flag
         // set.
-        const typeName = type.aliasSymbol?.getName();
+        const typeName = getTypeName(type);
         if (typeName === "int" || typeName === "float") {
           return;
         }

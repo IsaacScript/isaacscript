@@ -1,7 +1,8 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
+import { isFirstLetterCapitalized } from "../isaacScriptCommonTS";
 import { getTypeName } from "../typeUtils";
-import { createRule, isFirstLetterCapitalized } from "../utils";
+import { createRule } from "../utils";
 
 export type Options = [];
 export type MessageIds =
