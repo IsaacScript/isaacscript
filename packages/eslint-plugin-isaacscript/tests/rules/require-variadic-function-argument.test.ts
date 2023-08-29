@@ -109,7 +109,7 @@ setTimeout((arg) => {
 valid.push({
   name: "Using setInterval normally",
   code: `
-  setInterval(() => {
+setInterval(() => {
   console.error("foo");
 }, 1000);
   `,
@@ -118,7 +118,7 @@ valid.push({
 valid.push({
   name: "Using setInterval with arguments",
   code: `
-  setInterval((arg) => {
+setInterval((arg) => {
   console.error("foo");
 }, 1000, "foo");
   `,
