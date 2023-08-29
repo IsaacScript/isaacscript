@@ -9,6 +9,15 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 3rd, 2023 (Unreleased)
+
+- Added the following helper functions:
+  - `getMoveActions`
+  - `getShootActions`
+- Added the following constants:
+  - `MOVEMENT_ACTIONS_SET`
+  - `SHOOTING_ACTIONS_SET`
+
 ## August 27th, 2023
 
 - Added the following helper function:
@@ -1583,8 +1592,6 @@ function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
   - `checkFamiliarFromCollectibles`
   - `isShootAction`
   - `isMoveAction`
-  - `getMoveActions`
-  - `getShootActions`
   - `removeDoor`
   - `removeDoors`
   - `removeAllDoors`
@@ -2025,8 +2032,6 @@ npx prettier --log-level=warn --check .
   - `BOMB_EXPLODE_FRAME`
   - `UI_HEART_WIDTH`
   - `MAX_NUM_FAMILIARS`
-  - `MOVEMENT_ACTIONS_SET`
-  - `SHOOTING_ACTIONS_SET`
   - `AZAZEL_DEFAULT_BRIMSTONE_DISTANCE`
   - `EGGY_STATE_FRAME_OF_FINAL_SPIDER`
 - Added the following enums:

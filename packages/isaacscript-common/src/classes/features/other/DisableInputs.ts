@@ -1,7 +1,10 @@
 import type { ButtonAction } from "isaac-typescript-definitions";
 import { InputHook, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { getMoveActions, getShootActions } from "../../../functions/input";
+import {
+  MOVEMENT_ACTIONS_SET,
+  SHOOTING_ACTIONS_SET,
+} from "../../../functions/input";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 
@@ -243,8 +246,7 @@ export class DisableInputs extends Feature {
    */
   @Exported
   public disableMovementInputs(key: string): void {
-    const moveActions = getMoveActions();
-    this.enableAllInputsExceptFor(key, moveActions);
+    this.enableAllInputsExceptFor(key, MOVEMENT_ACTIONS_SET);
   }
 
   /**
@@ -262,7 +264,6 @@ export class DisableInputs extends Feature {
    */
   @Exported
   public disableShootingInputs(key: string): void {
-    const shootActions = getShootActions();
-    this.enableAllInputsExceptFor(key, shootActions);
+    this.enableAllInputsExceptFor(key, SHOOTING_ACTIONS_SET);
   }
 }

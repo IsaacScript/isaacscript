@@ -58,12 +58,20 @@ export function controllerToString(controller: Controller): string | undefined {
   return trimPrefix(key, "BUTTON_");
 }
 
-export function getMoveActions(): ReadonlySet<ButtonAction> {
-  return MOVEMENT_ACTIONS_SET;
+export function getMoveActions(
+  controllerIndex: ControllerIndex,
+): ButtonAction[] {
+  return MOVEMENT_ACTIONS.filter((buttonAction) =>
+    Input.IsActionPressed(buttonAction, controllerIndex),
+  );
 }
 
-export function getShootActions(): ReadonlySet<ButtonAction> {
-  return SHOOTING_ACTIONS_SET;
+export function getShootActions(
+  controllerIndex: ControllerIndex,
+): ButtonAction[] {
+  return SHOOTING_ACTIONS.filter((buttonAction) =>
+    Input.IsActionPressed(buttonAction, controllerIndex),
+  );
 }
 
 /**
