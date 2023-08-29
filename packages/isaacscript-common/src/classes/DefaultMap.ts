@@ -118,6 +118,8 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
   /**
    * If the key exists, this will return the same thing as the normal `Map.get` method. Otherwise,
    * it will set a default value for the provided key, and then return the default value.
+   *
+   * @allowEmptyVariadic
    */
   public getAndSetDefault(key: Key, ...args: Args): Value {
     const value = super.get(key);
