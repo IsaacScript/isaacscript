@@ -45,7 +45,6 @@ if [[ "$OLD_HASH" != "$NEW_HASH" ]]; then
   # syncpack will automatically update most of the dependencies in the individual project
   # "package.json" files, but not the ones that do not exist in the root "package.json" (such as
   # "eslint-config-isaacscript"). Thus, we need to run individual update scripts.
-  bash "$DIR/packages/isaacscript-cli/update.sh"
   bash "$DIR/packages/isaacscript-lint/update.sh"
 
   # @template-customization-end
