@@ -2,15 +2,25 @@
 // define those types here
 
 /**
- * TypeScript (and Lua) do not support integers:
- * https://spin.atomicobject.com/2018/11/05/using-an-int-type-in-typescript/
+ * In TypeScript (and Lua), `number` is the same thing as `int`. We make an alias here so that the
+ * API definitions better correspond to the official API documentation.
  *
- * To avoid verbose casting everywhere, we make `int` an alias for `number`.
+ * To avoid verbose casting everywhere, we make `int` an alias for `number` (instead of branding
+ * it).
  */
-declare type int = number; // eslint-disable-line @typescript-eslint/naming-convention
+// We intersect with an empty object to prevent VSCode from replacing `int` with `number` on
+// mouseover.
+// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/ban-types
+declare type int = number & {};
 
 /**
  * In TypeScript (and Lua), `number` is the same thing as `float`. We make an alias here so that the
  * API definitions better correspond to the official API documentation.
+ *
+ * To avoid verbose casting everywhere, we make `float` an alias for `number` (instead of branding
+ * it).
  */
-declare type float = number; // eslint-disable-line @typescript-eslint/naming-convention
+// We intersect with an empty object to prevent VSCode from replacing `float` with `number` on
+// mouseover.
+// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/ban-types
+declare type float = number & {};
