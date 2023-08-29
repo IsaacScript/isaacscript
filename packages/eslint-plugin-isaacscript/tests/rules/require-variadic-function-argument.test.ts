@@ -35,6 +35,23 @@ foo("thing");
 });
 
 invalid.push({
+  name: "Empty variadic function call with mandatory argument",
+  code: `
+function foo(mandatoryArg: string, ...things: string[]) {}
+foo("mandatory");
+  `,
+  errors: [{ messageId: "noArgument" }],
+});
+
+valid.push({
+  name: "Normal variadic function call with mandatory argument",
+  code: `
+function foo(mandatoryArg: string, ...things: string[]) {}
+foo("mandatory", "thing");
+  `,
+});
+
+invalid.push({
   name: "Empty variadic function call",
   code: `
 function foo(...things: string[]) {}

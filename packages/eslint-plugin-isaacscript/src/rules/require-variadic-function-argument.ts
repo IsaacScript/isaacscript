@@ -30,10 +30,6 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
 
     return {
       CallExpression(node) {
-        if (node.arguments.length > 0) {
-          return;
-        }
-
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
         const signature = checker.getResolvedSignature(tsNode);
         if (signature === undefined) {
@@ -48,10 +44,6 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
           return;
         }
 
-        if (!ts.hasRestParameter(declaration)) {
-          return;
-        }
-
         if (
           isHardCodedException(node) ||
           hasJSDocExceptionTag(checker, declaration)
@@ -59,10 +51,22 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
           return;
         }
 
-        context.report({
-          loc: node.loc,
-          messageId: "noArgument",
-        });
+        for (let i = 0; i < declaration.parameters.length; i++) {
+          const parameter = declaration.parameters[i];
+          if (parameter === undefined) {
+            continue;
+          }
+
+          if (
+            ts.isRestParameter(parameter) &&
+            node.arguments[i] === undefined
+          ) {
+            context.report({
+              loc: node.loc,
+              messageId: "noArgument",
+            });
+          }
+        }
       },
     };
   },
