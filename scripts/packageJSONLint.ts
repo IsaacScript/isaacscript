@@ -251,7 +251,7 @@ function packageJSONLint(
     }
 
     // We skip checking for peer dependencies, since they are all based on the major version.
-    // e.g. "typescript": ">= 4.0.0"
+    // e.g. "typescript": ">= 5.0.0"
   }
 
   const sortedPackageJSONString = sortPackageJsonDefault(packageJSONString);
