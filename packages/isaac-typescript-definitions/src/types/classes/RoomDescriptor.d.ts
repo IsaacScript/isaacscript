@@ -1,6 +1,5 @@
 import type { DisplayFlag } from "../../enums/flags/DisplayFlag";
 import type { RoomDescriptorFlag } from "../../enums/flags/RoomDescriptorFlag";
-import type { GridRoom } from "../../enums/GridRoom";
 
 declare global {
   interface RoomDescriptor extends IsaacAPIClass {
@@ -61,6 +60,8 @@ declare global {
      * - For a room bigger than a 1x1 room, this is equal to the top left 1x1 quadrant.
      * - For `RoomType.LTL` rooms (i.e. rooms that look like a "J"), this is equal to the top right
      *   1x1 quadrant.
+     * - This can also be a special negative value represented by the `GridRoom` enum (for rooms
+     *   that are outside of the grid).
      * - Note that this value **is different** than the value returned by the
      *   `Level.GetCurrentRoomIndex` method. (That method returns the 1x1 quadrant that the room was
      *   entered in.)
@@ -69,7 +70,7 @@ declare global {
      * - Historically, `SafeGridIndex` was bugged for rooms outside of the grid, but it now works
      *   properly for these cases.
      */
-    SafeGridIndex: int | GridRoom;
+    SafeGridIndex: int;
 
     ShopItemDiscountIdx: int;
     ShopItemIdx: int;
