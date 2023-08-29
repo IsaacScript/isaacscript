@@ -37,5 +37,6 @@ module.exports = {
     // Other
     "BitFlags",
     "__global.BitSet128",
+    "int",
   ],
 };

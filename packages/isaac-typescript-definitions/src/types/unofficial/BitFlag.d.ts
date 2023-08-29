@@ -1,1 +1,1 @@
-declare type BitFlag = number & { readonly __bitFlagBrand: symbol };
+declare type BitFlag = int & { readonly __bitFlagBrand: symbol };
