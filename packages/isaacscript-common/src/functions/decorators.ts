@@ -36,6 +36,7 @@ import { getTSTLClassName } from "./tstlClass";
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `Mod.AddCallback`.
  *
+ * @allowEmptyVariadic
  * @ignore
  */
 // We tell TypeDoc to ignore this function because it generates a bunch of spam.
@@ -55,6 +56,7 @@ export function Callback<T extends ModCallback>(
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `ModUpgraded.AddCallbackCustom`.
  *
+ * @allowEmptyVariadic
  * @ignore
  */
 // We tell TypeDoc to ignore this function because it generates a bunch of spam.
@@ -74,6 +76,7 @@ export function CallbackCustom<T extends ModCallbackCustom>(
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `Mod.AddPriorityCallback`.
  *
+ * @allowEmptyVariadic
  * @ignore
  */
 // We tell TypeDoc to ignore this function because it generates a bunch of spam.
@@ -121,6 +124,7 @@ export function PriorityCallback<T extends ModCallback>(
  * A decorator function that signifies that the decorated class method should be automatically
  * registered with `ModUpgraded.AddCallbackCustom`.
  *
+ * @allowEmptyVariadic
  * @ignore
  */
 // We tell TypeDoc to ignore this function because it generates a bunch of spam.
