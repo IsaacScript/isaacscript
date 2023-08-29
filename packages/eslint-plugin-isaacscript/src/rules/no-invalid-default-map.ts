@@ -21,7 +21,7 @@ export const noInvalidDefaultMap = createRule<
     schema: [],
     messages: {
       invalidType:
-        "The only valid types for a default value are `boolean`, `number`, `string`, and `function`.\nIf you want to have a default value of an array, a map, or some other complex data structure, you must return it as part of a factory function. See the `DefaultMap` documentation for more details.",
+        "The only valid types for a default value are `boolean`, `number`/`int`/float`, `string`, and `function`.\nIf you want to have a default value of an array, a map, or some other complex data structure, you must return it as part of a factory function. See the `DefaultMap` documentation for more details.",
     },
   },
   defaultOptions: [],
@@ -66,6 +66,13 @@ export const noInvalidDefaultMap = createRule<
 
         const isFunctionLike = isFunction(type, checker);
         if (isFunctionLike) {
+          return;
+        }
+
+        // Handle the special case of `int` and `float`, which do not have the `NumberLike` flag
+        // set.
+        const typeName = type.aliasSymbol?.getName();
+        if (typeName === "int" || typeName === "float") {
           return;
         }
 
