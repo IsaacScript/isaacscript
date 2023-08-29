@@ -20,6 +20,8 @@ import { eRange } from "./utils";
  * This function will still work identically if PNG file does not exist, but it will cause a
  * spurious error to appear in the "log.txt" file. If silencing these errors is desired, you can
  * create a transparent 1 pixel PNG file in your mod's resources folder at `EMPTY_PNG_PATH`.
+ *
+ * @allowEmptyVariadic
  */
 export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
   if (layerIDs.length === 0) {
