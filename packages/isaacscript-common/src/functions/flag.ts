@@ -35,7 +35,7 @@ export function addFlag<T extends BitFlag | BitFlag128>(
     flagsAsInt |= flagToAdd as int;
   }
 
-  return flagsAsInt as BitFlags<T>;
+  return flagsAsInt as unknown as BitFlags<T>;
 }
 
 /**
@@ -161,5 +161,5 @@ export function removeFlag<T extends BitFlag | BitFlag128>(
     flagsAsInt &= ~flagToRemove;
   }
 
-  return flagsAsInt as BitFlags<T>;
+  return flagsAsInt as unknown as BitFlags<T>;
 }
