@@ -170,7 +170,21 @@ declare global {
     GetDonationModAngel: () => int;
     GetDonationModGreed: () => int;
     GetFont: () => Font;
+
+    /**
+     * Returns the amount of game frames that have passed since the run was started.
+     *
+     * - Game frames do not increase when the game is paused or when in the main menu.
+     * - The in-game timer is based on game frames. (Subsequently, game frames are used to calculate
+     *   the Boss Rush door opening and the Hush door opening.)
+     * - 30 game frames equals 1 second.
+     * - The game frame count is different from the count returned from the `Isaac.GetFrameCount`
+     *   method; that returns the render frame count.
+     * - Game frames and render frames are synchronized such two render frames will always
+     *   correspond to one game frame, and the first render frame in the pair will always be odd.
+     */
     GetFrameCount: () => int;
+
     GetGreedBossWaveNum: () => int;
     GetGreedWavesNum: () => int;
 

@@ -245,9 +245,12 @@ declare global {
     /**
      * Returns the amount of render frames that have passed since the game was open.
      *
-     * The counter for this increases even when the game is paused or when you are in the main menu.
-     * Since Isaac frames are equal to render frames, 60 frames equals 1 second. Note that these
-     * frames are different from the frames returned from `Game.GetFrameCount` method.
+     * - Render frames will continue to increase when the game is paused and when in the main menu.
+     * - 60 render frames equals 1 second.
+     * - The render frame count is different from the count returned from the `Game.GetFrameCount`
+     *   method; that returns the run frame count.
+     * - Game frames and render frames are synchronized such two render frames will always
+     *   correspond to one game frame, and the first render frame in the pair will always be odd.
      */
     function GetFrameCount(): int;
 
