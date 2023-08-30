@@ -7,7 +7,8 @@ declare global {
   /**
    * The `Input` class contains a collection of methods having to do with detecting player input.
    *
-   * `Input` is technically not an Isaac API class; it has a type of `table`.
+   * `Input` is technically not an Isaac API class; it has a type of `table` (instead of
+   * `userdata`).
    *
    * @noSelf
    */

@@ -19,7 +19,8 @@ declare global {
   /**
    * The `Isaac` class contains a collection of miscellaneous general-purpose methods.
    *
-   * `Isaac` is technically not an Isaac API class; it has a type of `table`.
+   * `Isaac` is technically not an Isaac API class; it has a type of `table` (instead of
+   * `userdata`).
    *
    * @noSelf
    */

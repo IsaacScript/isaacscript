@@ -7,7 +7,8 @@ declare global {
    * The fields are listed in order of how they appear in the in-game options menu (rather than
    * alphabetically).
    *
-   * `Options` is technically not an Isaac API class; it has a type of `table`.
+   * `Options` is technically not an Isaac API class; it has a type of `table` (instead of
+   * `userdata`).
    */
   namespace Options {
     /**
