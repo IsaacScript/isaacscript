@@ -61,6 +61,7 @@ function getTypeScriptFileExports(typeScriptFilePath) {
     if (match === null) {
       throw new Error(`Failed to parse line: ${line}`);
     }
+
     return match[1];
   });
 }
