@@ -22,6 +22,6 @@
   "type": "module",
   "dependencies": {
     "@tsconfig/node-lts": "^18.12.5",
-    "@tsconfig/strictest": "^2.0.1"
+    "@tsconfig/strictest": "^2.0.2"
   }
 }
