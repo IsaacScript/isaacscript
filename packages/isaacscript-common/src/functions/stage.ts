@@ -233,11 +233,18 @@ export function isStageWithNaturalDevilRoom(
 }
 
 /**
- * After defeating the boss on most stages, a random collectible will spawn from the Boss Room pool.
- * However, this does not happen on Depths 2, Womb 2, and beyond.
+ * Helper function to check if the provided stage is one that will have a random collectible drop
+ * upon defeating the boss of the floor.
+ *
+ * This happens on most stages but will not happen on Depths 2, Womb 2, Sheol, Cathedral, Dark Room,
+ * The Chest, and Home (due to the presence of a story boss).
+ *
+ * Note that even though Delirium does not drop a random boss collectible, The Void is still
+ * considered to be a stage that has a random boss collectible since all of the non-Delirium Boss
+ * Rooms will drop random boss collectibles.
  */
 export function isStageWithRandomBossCollectible(stage: LevelStage): boolean {
-  return stage !== LevelStage.DEPTHS_2 && stage < LevelStage.WOMB_2;
+  return !isStageWithStoryBoss(stage) || stage === LevelStage.THE_VOID;
 }
 
 /**
@@ -453,8 +460,15 @@ export function onStageWithNaturalDevilRoom(): boolean {
 }
 
 /**
- * After defeating the boss on most stages, a random collectible will spawn from the Boss Room pool.
- * However, this does not happen on Depths 2, Womb 2, and beyond.
+ * Helper function to check if the current stage is one that will have a random collectible drop
+ * upon defeating the boss of the floor.
+ *
+ * This happens on most stages but will not happen on Depths 2, Womb 2, Sheol, Cathedral, Dark Room,
+ * The Chest, and Home (due to the presence of a story boss).
+ *
+ * Note that even though Delirium does not drop a random boss collectible, The Void is still
+ * considered to be a stage that has a random boss collectible since all of the non-Delirium Boss
+ * Rooms will drop random boss collectibles.
  */
 export function onStageWithRandomBossCollectible(): boolean {
   const level = game.GetLevel();
