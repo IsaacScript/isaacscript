@@ -14,10 +14,21 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getMoveActions`
   - `getShootActions`
+  - `isFinalFloor`
   - `isInteger`
+  - `isStageWithNaturalDevilRoom`
+  - `isStageWithRandomBossCollectible`
+  - `isStageWithSecretExitToDownpour`
+  - `isStageWithSecretExitToMausoleum`
+  - `isStageWithSecretExitToMines`
+  - `isStageWithShovelTrapdoors`
+  - `isStageWithStoryBoss`
+  - `onStageWithStoryBoss`
 - Added the following constants:
   - `MOVEMENT_ACTIONS_SET`
   - `SHOOTING_ACTIONS_SET`
+- Renamed the following helper functions:
+  - `onStageWithShovelWorking` --> `onStageWithShovelTrapdoors`
 
 ## August 27th, 2023
 

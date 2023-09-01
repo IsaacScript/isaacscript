@@ -189,6 +189,23 @@ export function goToStage(stage: LevelStage, stageType: StageType): void {
 }
 
 /**
+ * Returns whether the provided stage and stage type represent a "final floor". This is defined as a
+ * floor that prevents the player from entering the I AM ERROR room on.
+ *
+ * For example, when using Undefined on The Chest, it has a 50% chance of teleporting the player to
+ * the Secret Room and a 50% chance of teleporting the player to the Super Secret Room, because the
+ * I AM ERROR room is never entered into the list of possibilities.
+ */
+export function isFinalFloor(stage: LevelStage, stageType: StageType): boolean {
+  return (
+    stage === LevelStage.DARK_ROOM_CHEST ||
+    stage === LevelStage.THE_VOID ||
+    stage === LevelStage.HOME ||
+    (stage === LevelStage.WOMB_2 && isRepentanceStage(stageType)) // Corpse 2
+  );
+}
+
+/**
  * Helper function to check if the provided stage type is equal to `StageType.REPENTANCE` or
  * `StageType.REPENTANCE_B`.
  */
@@ -196,6 +213,97 @@ export function isRepentanceStage(stageType: StageType): boolean {
   return (
     stageType === StageType.REPENTANCE || stageType === StageType.REPENTANCE_B
   );
+}
+
+/**
+ * Helper function to check if the provided effective stage is one that has the possibility to grant
+ * a natural Devil Room or Angel Room after killing the boss.
+ *
+ * Note that in order for this function to work properly, you must provide it with the effective
+ * stage (e.g. from the `getEffectiveStage` helper function) and not the absolute stage (e.g. from
+ * the `Level.GetStage` method).
+ */
+export function isStageWithNaturalDevilRoom(
+  effectiveStage: LevelStage,
+): boolean {
+  return (
+    inRange(effectiveStage, LevelStage.BASEMENT_2, LevelStage.WOMB_2) &&
+    effectiveStage !== LevelStage.BLUE_WOMB
+  );
+}
+
+/**
+ * After defeating the boss on most stages, a random collectible will spawn from the Boss Room pool.
+ * However, this does not happen on Depths 2, Womb 2, and beyond.
+ */
+export function isStageWithRandomBossCollectible(stage: LevelStage): boolean {
+  return stage !== LevelStage.DEPTHS_2 && stage < LevelStage.WOMB_2;
+}
+
+/**
+ * Helper function to check if the provided stage will spawn a locked door to Downpour/Dross after
+ * defeating the boss.
+ */
+export function isStageWithSecretExitToDownpour(stage: LevelStage): boolean {
+  return stage === LevelStage.BASEMENT_1 || stage === LevelStage.BASEMENT_2;
+}
+
+/**
+ * Helper function to check if the provided stage and stage type will spawn a spiked door to
+ * Mausoleum/Gehenna after defeating the boss.
+ */
+export function isStageWithSecretExitToMausoleum(
+  stage: LevelStage,
+  stageType: StageType,
+): boolean {
+  const repentanceStage = isRepentanceStage(stageType);
+
+  return (
+    (stage === LevelStage.DEPTHS_1 && !repentanceStage) ||
+    (stage === LevelStage.CAVES_2 && repentanceStage)
+  );
+}
+
+/**
+ * Helper function to check if the provided stage and stage type will spawn a wooden door to
+ * Mines/Ashpit after defeating the boss.
+ */
+export function isStageWithSecretExitToMines(
+  stage: LevelStage,
+  stageType: StageType,
+): boolean {
+  const repentanceStage = isRepentanceStage(stageType);
+
+  return (
+    (stage === LevelStage.CAVES_1 && !repentanceStage) ||
+    (stage === LevelStage.BASEMENT_2 && repentanceStage)
+  );
+}
+
+/**
+ * Helper function to check if the current stage is one that would create a trapdoor if We Need to
+ * Go Deeper was used.
+ */
+export function isStageWithShovelTrapdoors(
+  stage: LevelStage,
+  stageType: StageType,
+): boolean {
+  const repentanceStage = isRepentanceStage(stageType);
+
+  return (
+    stage < LevelStage.WOMB_2 ||
+    (stage === LevelStage.WOMB_2 && !repentanceStage)
+  );
+}
+
+/**
+ * Helper function to check if the provided stage is one with a story boss. Specifically, this is
+ * Depths 2 (Mom), Womb 2 (Mom's Heart / It Lives), Blue Womb (Hush), Sheol (Satan), Cathedral
+ * (Isaac), Dark Room (Lamb), The Chest (Blue Baby), The Void (Delirium), and Home (Dogma / The
+ * Beast).
+ */
+export function isStageWithStoryBoss(stage: LevelStage): boolean {
+  return stage === LevelStage.DEPTHS_2 || stage >= LevelStage.WOMB_2;
 }
 
 /**
@@ -250,8 +358,8 @@ export function onEffectiveStage(...effectiveStages: LevelStage[]): boolean {
 }
 
 /**
- * Returns whether or not the player is on the "final floor" of the particular run. The final floor
- * is defined as one that prevents the player from entering the I AM ERROR room on.
+ * Returns whether the player is on the "final floor" of the particular run. The final floor is
+ * defined as one that prevents the player from entering the I AM ERROR room on.
  *
  * For example, when using Undefined on The Chest, it has a 50% chance of teleporting the player to
  * the Secret Room and a 50% chance of teleporting the player to the Super Secret Room, because the
@@ -260,13 +368,9 @@ export function onEffectiveStage(...effectiveStages: LevelStage[]): boolean {
 export function onFinalFloor(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
+  const stageType = level.GetStageType();
 
-  return (
-    stage === LevelStage.DARK_ROOM_CHEST ||
-    stage === LevelStage.THE_VOID ||
-    stage === LevelStage.HOME ||
-    (stage === LevelStage.WOMB_2 && onRepentanceStage()) // Corpse 2
-  );
+  return isFinalFloor(stage, stageType);
 }
 
 /**
@@ -345,10 +449,7 @@ export function onStageType(...stageTypes: StageType[]): boolean {
  */
 export function onStageWithNaturalDevilRoom(): boolean {
   const effectiveStage = getEffectiveStage();
-  return (
-    inRange(effectiveStage, LevelStage.BASEMENT_2, LevelStage.WOMB_2) &&
-    effectiveStage !== LevelStage.BLUE_WOMB
-  );
+  return isStageWithNaturalDevilRoom(effectiveStage);
 }
 
 /**
@@ -359,7 +460,7 @@ export function onStageWithRandomBossCollectible(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
 
-  return stage !== LevelStage.DEPTHS_2 && stage < LevelStage.WOMB_2;
+  return isStageWithRandomBossCollectible(stage);
 }
 
 /**
@@ -370,7 +471,7 @@ export function onStageWithSecretExitToDownpour(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
 
-  return stage === LevelStage.BASEMENT_1 || stage === LevelStage.BASEMENT_2;
+  return isStageWithSecretExitToDownpour(stage);
 }
 
 /**
@@ -380,12 +481,9 @@ export function onStageWithSecretExitToDownpour(): boolean {
 export function onStageWithSecretExitToMausoleum(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
-  const repentanceStage = onRepentanceStage();
+  const stageType = level.GetStageType();
 
-  return (
-    (stage === LevelStage.DEPTHS_1 && !repentanceStage) ||
-    (stage === LevelStage.CAVES_2 && repentanceStage)
-  );
+  return isStageWithSecretExitToMausoleum(stage, stageType);
 }
 
 /**
@@ -395,26 +493,21 @@ export function onStageWithSecretExitToMausoleum(): boolean {
 export function onStageWithSecretExitToMines(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
-  const repentanceStage = onRepentanceStage();
+  const stageType = level.GetStageType();
 
-  return (
-    (stage === LevelStage.CAVES_1 && !repentanceStage) ||
-    (stage === LevelStage.BASEMENT_2 && repentanceStage)
-  );
+  return isStageWithSecretExitToMines(stage, stageType);
 }
 
 /**
  * Helper function to check if the current stage is one that would create a trapdoor if We Need to
  * Go Deeper was used.
  */
-export function onStageWithShovelWorking(): boolean {
+export function onStageWithShovelTrapdoors(): boolean {
   const level = game.GetLevel();
   const stage = level.GetStage();
+  const stageType = level.GetStageType();
 
-  return (
-    stage < LevelStage.WOMB_2 ||
-    (stage === LevelStage.WOMB_2 && !onRepentanceStage())
-  );
+  return isStageWithShovelTrapdoors(stage, stageType);
 }
 
 /**
@@ -424,7 +517,10 @@ export function onStageWithShovelWorking(): boolean {
  * Beast).
  */
 export function onStageWithStoryBoss(): boolean {
-  return onStage(LevelStage.DEPTHS_2) || onStageOrHigher(LevelStage.WOMB_2);
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+
+  return isStageWithStoryBoss(stage);
 }
 
 /**
