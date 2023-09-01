@@ -224,7 +224,16 @@ declare interface Sprite extends IsaacAPIClass {
 
   SetLastFrame: () => void;
   SetLayerFrame: (layerID: int, frameNum: int) => void;
+
+  /**
+   * Similar to the `Sprite.PlayOverlay` method, but does not start the animation.
+   *
+   * @param animation
+   * @param reset Default is true. Passing false will continue the animation from the current frame.
+   *              This can be useful for seamlessly switching between two similar animations.
+   */
   SetOverlayAnimation: (animation: string) => boolean;
+
   SetOverlayFrame: (animation: string, frameNum: int) => void;
   SetOverlayRenderPriority: (renderFirst: boolean) => void;
   Stop: () => void;
