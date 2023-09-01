@@ -57,8 +57,8 @@ export class SaveDataManager extends Feature {
   private readonly saveDataDefaultsMap = new LuaMap<string, SaveData>();
 
   /**
-   * Each mod feature can optionally provide a function that can control whether or not the save
-   * data is written to disk.
+   * Each mod feature can optionally provide a function that can control whether the save data is
+   * written to disk.
    */
   private readonly saveDataConditionalFuncMap = new LuaMap<
     string,

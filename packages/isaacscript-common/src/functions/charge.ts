@@ -277,7 +277,7 @@ export function isActiveSlotDoubleCharged(
 /**
  * Helper function to play the appropriate sound effect for a player after getting one or more
  * charges on their active item. (There is a different sound depending on whether the item is fully
- * charged or not.)
+ * charged.)
  *
  * @param player The player to play the sound effect for.
  * @param activeSlot Optional. The slot that was just charged. Default is `ActiveSlot.PRIMARY`.

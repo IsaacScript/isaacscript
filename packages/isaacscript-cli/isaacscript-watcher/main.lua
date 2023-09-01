@@ -59,7 +59,7 @@ function mod:postRender()
 end
 
 function mod:renderSprite()
-  -- Determine if IsaacScript is connected or not.
+  -- Determine if IsaacScript is connected.
   local frameCount = Isaac.GetFrameCount()
   connected = frameCount - frameOfLastSuccessfulLoad <= FRAMES_BEFORE_DISCONNECTED
 

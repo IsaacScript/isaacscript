@@ -53,8 +53,8 @@ export class StageHistory extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
    *
-   * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
-   *                2. Default is false.
+   * @param upwards Whether the player should go up to Cathedral in the case of being on Womb 2.
+   *                Default is false.
    */
   @Exported
   public getNextStageTypeWithHistory(upwards = false): StageType {

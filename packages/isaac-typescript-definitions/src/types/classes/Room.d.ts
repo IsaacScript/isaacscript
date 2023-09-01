@@ -170,20 +170,20 @@ declare global {
     IsCurrentRoomLastBoss: () => boolean;
 
     /**
-     * Returns whether or not the supplied door slot is valid for the current room. This is
-     * contingent on the room definition in the STB/XML file. (Basement Renovator displays valid
-     * doors as brown and invalid doors as white.) The value returned by this method is independent
-     * of whether or not a door currently exists at the given slot.
+     * Returns whether the supplied door slot is valid for the current room. This is contingent on
+     * the room definition in the STB/XML file. (Basement Renovator displays valid doors as brown
+     * and invalid doors as white.) The value returned by this method is independent of whether a
+     * door currently exists at the given slot.
      *
      * For example, in the starting room of a floor (i.e. a 1x1 room), this method would return true
      * for `DoorSlot.LEFT_0`, `DoorSlot.UP_0`, `DoorSlot.RIGHT_0`, and `DoorSlot.DOWN_0`, and false
-     * for all other values (regardless of what doors happen to exist or not).
+     * for all other values (regardless of what doors happen to exist).
      *
      * For example, there is a relatively common 1x1 room in the Caves with 4 Boom Flies and a
      * narrow bridge from the top door to the bottom door. In this room, the doors on the left side
      * and the right side are disabled. In this room, this method would return true for
      * `DoorSlot.UP0` and `DoorSlot.DOWN0`, and false for all other values (regardless of what doors
-     * happen to exist or not).
+     * happen to exist).
      */
     IsDoorSlotAllowed: (doorSlot: DoorSlot) => boolean;
 

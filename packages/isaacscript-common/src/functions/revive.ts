@@ -117,9 +117,9 @@ export function isDamageToPlayerFatal(
 }
 
 /**
- * Assuming that we are on the frame of fatal damage, this function returns whether or not
- * Mysterious Paper would rotate to Missing Poster on the frame that the "Game Over" screen would
- * appear (which would subsequently save the player from fatal damage).
+ * Assuming that we are on the frame of fatal damage, this function returns whether Mysterious Paper
+ * would rotate to Missing Poster on the frame that the "Game Over" screen would appear (which would
+ * subsequently save the player from fatal damage).
  *
  * Mysterious Paper rotates between the 4 items on every frame, in order. The formula for whether
  * Mysterious Paper be Missing Power is: `gameFrameCount % 4 === 3`

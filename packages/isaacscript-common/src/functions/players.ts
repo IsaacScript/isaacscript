@@ -149,7 +149,7 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
  *
  * If the player does not have an item currently queued, then this function will be a no-op.
  *
- * Returns whether or not an item was actually dequeued.
+ * Returns whether an item was actually dequeued.
  */
 export function dequeueItem(player: EntityPlayer): boolean {
   if (player.QueuedItem.Item === undefined) {
@@ -554,8 +554,8 @@ export function hasLostCurse(player: EntityPlayer): boolean {
 }
 
 /**
- * Returns whether or not the player can hold an additional active item, beyond what they are
- * currently carrying. This takes the Schoolbag into account.
+ * Returns whether the player can hold an additional active item, beyond what they are currently
+ * carrying. This takes the Schoolbag into account.
  *
  * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
  * items. (Only Tainted Forgotten can pick up items.)
@@ -850,7 +850,7 @@ export function removeTrinketCostume(
  * @param activeSlot Optional. The slot to set. Default is `ActiveSlot.PRIMARY`.
  * @param charge Optional. The argument of charges to set. If not specified, the item will be set
  *               with maximum charges.
- * @param keepInPools Optional. Whether or not to remove the item from pools. Default is false.
+ * @param keepInPools Optional. Whether to remove the item from pools. Default is false.
  */
 export function setActiveItem(
   player: EntityPlayer,
@@ -927,7 +927,7 @@ export function setActiveItem(
  * The method used in this function was discovered by im_tem.
  *
  * @param player The player to apply or remove the blindfold state from.
- * @param enabled Whether or not to apply or remove the blindfold.
+ * @param enabled Whether to apply or remove the blindfold.
  * @param modifyCostume Optional. Whether to add or remove the blindfold costume. Default is true.
  */
 export function setBlindfold(

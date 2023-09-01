@@ -120,8 +120,8 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
   "extends": "./tsconfig.json",
 
   // We want to lint every file in the repository, regardless of whether it is actually bundled into
-  // the TypeScript output or not. Two entries for each file extension are needed because TypeScript
-  // will exclude files that begin with a period from an asterisk glob by default.
+  // the TypeScript output. Two entries for each file extension are needed because TypeScript will
+  // exclude files that begin with a period from an asterisk glob by default.
   "include": [
     "./**/*.js",
     "./**/.*.js",

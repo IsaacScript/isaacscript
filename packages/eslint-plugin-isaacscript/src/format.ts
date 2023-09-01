@@ -19,8 +19,8 @@ import { hasURL } from "./utils";
  *
  * @param text One or more lines of text, separated by newlines.
  * @param maxLength The ruler cutoff for the formatted text.
- * @param shouldParseJSDocTags Whether or not to make formatting decisions based on the presence of
- *                             JSDoc tags. True by default. Pass false if working with leading line
+ * @param shouldParseJSDocTags Whether to make formatting decisions based on the presence of JSDoc
+ *                             tags. True by default. Pass false if working with leading line
  *                             comments or other non-JSDoc text.
  */
 export function formatText(

@@ -191,7 +191,7 @@ const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new ReadonlySet<string>([
  * Helper function to get a set containing all of the global variable names that are contained
  * within the Isaac environment by default.
  *
- * Returns a slightly different set depending on whether the "--luadebug" flag is enabled or not.
+ * Returns a slightly different set depending on whether the "--luadebug" flag is enabled.
  */
 export function getDefaultGlobals(): ReadonlySet<string> {
   const defaultGlobals = copySet(DEFAULT_GLOBALS);

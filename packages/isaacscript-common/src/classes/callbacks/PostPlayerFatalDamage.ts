@@ -27,7 +27,7 @@ import { CustomCallback } from "../private/CustomCallback";
 
 const v = {
   run: {
-    /** Needed to detect if Glass Cannon will kill the player or not. */
+    /** Needed to detect if Glass Cannon will kill the player. */
     playersLastDamageGameFrame: new Map<PlayerIndex, int>(),
   },
 };

@@ -98,7 +98,7 @@ export class SpawnRockAltRewards extends Feature {
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`. Normally,
    *                  you should pass the `InitSeed` of the grid entity that was broken.
-   * @returns Whether or not this function spawned something.
+   * @returns Whether this function spawned something.
    */
   @Exported
   public spawnRockAltReward(

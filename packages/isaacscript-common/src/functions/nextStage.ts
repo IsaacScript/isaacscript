@@ -120,8 +120,8 @@ export function getNextStage(): LevelStage {
  * `getNextStageTypeUsingHistory` helper function instead (from the stage history feature). Handling
  * this requires stateful tracking as the player progresses through the run.
  *
- * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
- *                2. Default is false.
+ * @param upwards Whether the player should go up to Cathedral in the case of being on Womb 2.
+ *                Default is false.
  */
 export function getNextStageType(upwards = false): StageType {
   const backwardsPath = game.GetStateFlag(GameStateFlag.BACKWARDS_PATH);

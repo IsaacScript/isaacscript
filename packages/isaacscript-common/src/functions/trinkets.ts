@@ -197,7 +197,7 @@ export function getVanillaTrinketTypeRange(): TrinketType[] {
 }
 
 /**
- * Returns whether or not the player can hold an additional trinket, beyond what they are currently
+ * Returns whether the player can hold an additional trinket, beyond what they are currently
  * carrying. This takes into account items that modify the max number of trinkets, like Mom's Purse.
  *
  * If the player is the Tainted Soul, this always returns false, since that character cannot pick up

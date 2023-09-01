@@ -136,8 +136,8 @@ declare global {
       Type?: RoomType;
 
       /**
-       * Whether the room has been visited or not. This will be set to true as soon as the player's
-       * map position is in line with this room.
+       * Whether the room has been visited. This will be set to true as soon as the player's map
+       * position is in line with this room.
        */
       Visited?: boolean;
     }) => MinimapAPIRoomDescriptor;
@@ -333,8 +333,8 @@ declare global {
     DisplayPosition: Vector;
 
     /**
-     * External mods can set this to unconditionally hide a specific room (regardless of whether or
-     * not the player is in or next to the room).
+     * External mods can set this to unconditionally hide a specific room (regardless of whether the
+     * player is in or next to the room).
      *
      * MinimapAPI does not ever set this internally.
      */

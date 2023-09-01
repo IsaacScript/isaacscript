@@ -699,8 +699,8 @@ export class ModdedElementSets extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
-   * @param includeConditionalItems Whether or not collectibles that only grant flight conditionally
-   *                                should be included in the set (like Empty Vessel).
+   * @param includeConditionalItems Whether collectibles that only grant flight conditionally should
+   *                                be included in the set (like Empty Vessel).
    */
   @Exported
   public getFlyingCollectibles(

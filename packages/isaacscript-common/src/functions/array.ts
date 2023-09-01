@@ -151,7 +151,7 @@ export function arrayRemoveIndex<T>(
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  *
- * @returns Whether or not any array elements were removed.
+ * @returns Whether any array elements were removed.
  */
 export function arrayRemoveIndexInPlace<T>(
   array: T[],
@@ -278,7 +278,7 @@ export function filterMap<OldT, NewT>(
  * From: https://github.com/firstandthird/combinations/blob/master/index.js
  *
  * @param array The array to get the combinations of.
- * @param includeEmptyArray Whether or not to include an empty array in the combinations.
+ * @param includeEmptyArray Whether to include an empty array in the combinations.
  * @param min Optional. The minimum number of elements to include in each combination. Default is 1.
  * @param max Optional. The maximum number of elements to include in each combination. Default is
  *            the length of the array.
@@ -437,8 +437,8 @@ export function getRandomArrayIndex<T>(
  * - the table has no keys (i.e. an "empty" table)
  *
  * @param object The object to analyze.
- * @param ensureContiguousValues Optional. Whether or not the Lua table has to have all contiguous
- *                               keys in order to be considered an array. Default is true.
+ * @param ensureContiguousValues Optional. Whether the Lua table has to have all contiguous keys in
+ *                               order to be considered an array. Default is true.
  */
 export function isArray(
   object: unknown,

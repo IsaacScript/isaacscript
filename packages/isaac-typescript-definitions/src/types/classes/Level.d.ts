@@ -23,10 +23,10 @@ declare global {
     ApplyMapEffect: () => void;
 
     /**
-     * Returns whether or not a Challenge Room door will be open. You must pass this method a valid
-     * grid index on the floor. It does not matter if the grid index is actually attached to the
-     * Challenge Room or not. This method will always return false if an invalid or a negative grid
-     * index is passed.
+     * Returns whether a Challenge Room door will be open. You must pass this method a valid grid
+     * index on the floor. It does not matter if the grid index is actually attached to the
+     * Challenge Room. This method will always return false if an invalid or a negative grid index
+     * is passed.
      */
     CanOpenChallengeRoom: (roomGridIndex: int | GridRoom) => boolean;
 

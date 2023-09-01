@@ -82,7 +82,7 @@ export class ModFeature {
    *
    * ```ts
    * <T extends boolean>(
-   *   vanilla: T, // Whether or not this is a vanilla or custom callback.
+   *   vanilla: T, // Whether this is a vanilla or custom callback.
    *   modCallback: T extends true ? ModCallback : ModCallbackCustom,
    *   ...callbackArgs: unknown[] // This would be e.g. `pickup: EntityPickup` for the `POST_PICKUP_INIT` callback.
    * ) => boolean;
@@ -97,7 +97,7 @@ export class ModFeature {
     | null = null;
 
   /**
-   * Whether or not the feature has registered its callbacks yet.
+   * Whether the feature has registered its callbacks yet.
    *
    * This will almost always be equal to true unless you explicitly passed `false` to the second
    * argument of the constructor.

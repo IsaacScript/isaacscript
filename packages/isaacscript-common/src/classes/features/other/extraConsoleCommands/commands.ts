@@ -579,7 +579,7 @@ export function dirtyBedroom(): void {
   warpToRoomType(RoomType.DIRTY_BEDROOM);
 }
 
-/** Toggles whether or not curses can appear. */
+/** Toggles whether curses can appear. */
 export function disableCurses(): void {
   v.persistent.disableCurses = !v.persistent.disableCurses;
   printEnabled(!v.persistent.disableCurses, "curses");

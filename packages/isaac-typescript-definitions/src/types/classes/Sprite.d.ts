@@ -92,9 +92,9 @@ declare interface Sprite extends IsaacAPIClass {
    *
    * @param anm2Path The path to the anm2 file that contains all of the animations for this sprite.
    *                 This should be relative to the "resources" folder.
-   * @param loadGraphics Whether or not to immediately load the spritesheet PNG files. If false is
-   *                     passed, then you must call the `Sprite.LoadGraphics` method at some point
-   *                     in the future. Typically, you would pass false for this argument if you are
+   * @param loadGraphics Whether to immediately load the spritesheet PNG files. If false is passed,
+   *                     then you must call the `Sprite.LoadGraphics` method at some point in the
+   *                     future. Typically, you would pass false for this argument if you are
    *                     intending to use the `Sprite.ReplaceSpritesheet` method after loading the
    *                     anm2.
    */

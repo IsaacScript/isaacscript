@@ -99,7 +99,7 @@ export function getRandomSetElement<T>(
  * - [1, 2, 3]
  *
  * @param set The set to get the combinations of.
- * @param includeEmptyArray Whether or not to include an empty array in the combinations.
+ * @param includeEmptyArray Whether to include an empty array in the combinations.
  */
 export function getSetCombinations<T>(
   set: Set<T> | ReadonlySet<T>,

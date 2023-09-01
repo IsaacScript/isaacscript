@@ -130,7 +130,7 @@ export const eqeqeqFix = createRule({
           return null;
           */
 
-          // Fix everything regardless of whether or not it is safe to fix
+          // Fix everything regardless of whether it is safe to fix.
           return fixer.replaceText(operatorToken, expectedOperator);
         },
       });

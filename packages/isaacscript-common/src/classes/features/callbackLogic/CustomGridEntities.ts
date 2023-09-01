@@ -284,7 +284,7 @@ export class CustomGridEntities extends Feature {
    * @param gridIndexOrPositionOrGridEntity You can specify the custom grid entity to remove by
    *                                providing the grid index, the room position, or the grid entity
    *                                itself.
-   * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
+   * @param updateRoom Optional. Whether to update the room after the grid entity is removed.
    *                   Default is true. This is generally a good idea because if the room is not
    *                   updated, you will be unable to spawn another grid entity on the same tile
    *                   until a frame has passed. However, doing this is expensive, since it involves

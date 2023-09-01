@@ -44,7 +44,7 @@ declare global {
         : unknown[]
     ) => void;
 
-    /** Returns whether or not a corresponding "save#.dat" file exists for the current mod. */
+    /** Returns whether a corresponding "save#.dat" file exists for the current mod. */
     HasData: () => boolean;
 
     /**

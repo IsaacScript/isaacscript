@@ -152,7 +152,7 @@ function checkIndividualFiles(
   return oneOrMoreErrors;
 }
 
-/** @returns Whether or not the project file is valid in reference to the template file. */
+/** @returns Whether the project file is valid in reference to the template file. */
 function compareTextFiles(
   projectFilePath: string,
   templateFilePath: string,

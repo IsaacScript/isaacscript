@@ -1710,10 +1710,10 @@ export enum FamineSubType {
 
   /**
    * The blue champion version. Charges more often and veers towards Isaac (similar to the Dark
-   * One). He can do this attack regardless of whether Isaac is to his sides or not. He will shoot
-   * six bullets in all directions instead of summoning Pooters. In phase 2, he will spit out a
-   * cluster of bullets instead of a triple shot, similar to Monstro's attack, with a lower shot
-   * speed than his non-champion version. Will always drop a Soul Heart upon death.
+   * One). He can do this attack regardless of whether Isaac is to his sides. He will shoot six
+   * bullets in all directions instead of summoning Pooters. In phase 2, he will spit out a cluster
+   * of bullets instead of a triple shot, similar to Monstro's attack, with a lower shot speed than
+   * his non-champion version. Will always drop a Soul Heart upon death.
    */
   BLUE = 1,
 }

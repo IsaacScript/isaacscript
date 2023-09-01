@@ -58,12 +58,6 @@ export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
 }
 
-/**
- * Checks whether or not a given code path segment is reachable.
- *
- * @param segment A CodePathSegment to check.
- * @returns `true` if the segment is reachable.
- */
 export function isReachable(segment: CodePathSegment): boolean {
   return segment.reachable;
 }

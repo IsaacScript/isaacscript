@@ -131,8 +131,8 @@ export function getPillColorFromEffect(pillEffect: PillEffect): PillColor {
 /**
  * Helper function to get a pill effect class from a PillEffect enum value. In this context, the
  * class is equal to the numerical prefix in the "class" tag in the "pocketitems.xml" file. Use the
- * `getPillEffectType` helper function to determine whether or not the pill effect is positive,
- * negative, or neutral.
+ * `getPillEffectType` helper function to determine whether the pill effect is positive, negative,
+ * or neutral.
  *
  * Due to limitations in the API, this function will not work properly for modded pill effects, and
  * will always return `DEFAULT_PILL_EFFECT_CLASS` in those cases.

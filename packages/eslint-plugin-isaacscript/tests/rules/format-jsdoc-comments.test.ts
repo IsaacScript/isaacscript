@@ -532,7 +532,7 @@ invalid.push({
   code: `
 /**
  * This is the description for \`foo\`.
- * @param arg1 Whether or not to bar.
+ * @param arg1 Whether to bar.
  */
 function foo(arg1: boolean) {}
     `,
@@ -541,7 +541,7 @@ function foo(arg1: boolean) {}
 /**
  * This is the description for \`foo\`.
  *
- * @param arg1 Whether or not to bar.
+ * @param arg1 Whether to bar.
  */
 function foo(arg1: boolean) {}
     `,

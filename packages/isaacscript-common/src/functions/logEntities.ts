@@ -81,7 +81,7 @@ export function logAllEntities(
 /**
  * Helper function for printing out every grid entity (or filtered grid entity) in the current room.
  *
- * @param includeWalls Optional. Whether or not to log the walls. Default is false.
+ * @param includeWalls Optional. Whether oto log the walls. Default is false.
  * @param gridEntityTypeFilter Optional. If specified, will only log the given `GridEntityType`.
  *                             Default is undefined.
  */

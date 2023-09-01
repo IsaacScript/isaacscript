@@ -199,7 +199,7 @@ export function getTrapdoors(
  *
  * @param crawlSpaceVariant Optional. If specified, will only remove the crawl spaces that match
  *                          this variant. Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the crawl spaces are removed.
+ * @param updateRoom Optional. Whether to update the room after the crawl spaces are removed.
  *                   Default is false. For more information, see the description of the
  *                   `removeGridEntities` helper function.
  * @param cap Optional. If specified, will only remove the given amount of crawl spaces.
@@ -222,8 +222,8 @@ export function removeAllCrawlSpaces(
  *
  * @param pitVariant Optional. If specified, will only remove the pits that match this variant.
  *                   Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the pits are removed. Default
- *                   is false. For more information, see the description of the `removeGridEntities`
+ * @param updateRoom Optional. Whether to update the room after the pits are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
  *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of pits.
  * @returns The pits that were removed.
@@ -245,9 +245,9 @@ export function removeAllPits(
  *
  * @param poopVariant Optional. If specified, will only remove the poops that match this variant.
  *                    Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the poops are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the poops are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of poops.
  * @returns The poops that were removed.
  */
@@ -265,8 +265,8 @@ export function removeAllPoops(
  *
  * @param pressurePlateVariant Optional. If specified, will only remove the pressure plates that
  *                             match this variant. Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the pressure plates are
- *                   removed. Default is false. For more information, see the description of the
+ * @param updateRoom Optional. Whether to update the room after the pressure plates are removed.
+ *                   Default is false. For more information, see the description of the
  *                   `removeGridEntities` helper function.
  * @param cap Optional. If specified, will only remove the given amount of pressure plates.
  * @returns The pressure plates that were removed.
@@ -287,9 +287,9 @@ export function removeAllPressurePlates(
  *                Default is -1, which matches every variant. Note that this is not the same thing
  *                as the `RockVariant` enum, since that only applies to `GridEntityType.ROCK`, and
  *                other types of grid entities can be the `GridEntityRock` class.
- * @param updateRoom Optional. Whether or not to update the room after the rocks are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the rocks are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of rocks.
  * @returns The rocks that were removed.
  */
@@ -307,9 +307,9 @@ export function removeAllRocks(
  *
  * @param variant Optional. If specified, will only remove the spikes that match this variant.
  *                Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the spikes are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the spikes are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of spikes.
  * @returns The spikes that were removed.
  */
@@ -327,8 +327,8 @@ export function removeAllSpikes(
  *
  * @param variant Optional. If specified, will only remove the TNTs that match this variant. Default
  *                is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the TNTs are removed. Default
- *                   is false. For more information, see the description of the `removeGridEntities`
+ * @param updateRoom Optional. Whether to update the room after the TNTs are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
  *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of TNTs.
  * @returns The TNTs that were removed.
@@ -347,9 +347,9 @@ export function removeAllTNT(
  *
  * @param variant Optional. If specified, will only remove the teleporters that match this variant.
  *                Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the teleporters are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the teleporters are removed. Default
+ *                   is false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of teleporters.
  * @returns The teleporters that were removed.
  */
@@ -367,9 +367,9 @@ export function removeAllTeleporters(
  *
  * @param trapdoorVariant Optional. If specified, will only remove the trapdoors that match this
  *                        variant. Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the trapdoors are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the trapdoors are removed. Default
+ *                   is false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of trapdoors.
  * @returns The trapdoors that were removed.
  */

@@ -377,7 +377,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public togglePlayerDisplay(force?: boolean): void {
@@ -391,7 +391,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleTearDisplay(force?: boolean): void {
@@ -406,7 +406,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleFamiliarDisplay(force?: boolean): void {
@@ -420,7 +420,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleBombDisplay(force?: boolean): void {
@@ -434,7 +434,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public togglePickupDisplay(force?: boolean): void {
@@ -448,7 +448,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleSlotDisplay(force?: boolean): void {
@@ -462,7 +462,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleLaserDisplay(force?: boolean): void {
@@ -476,7 +476,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleKnifeDisplay(force?: boolean): void {
@@ -491,7 +491,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleProjectileDisplay(force?: boolean): void {
@@ -505,7 +505,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleEffectDisplay(force?: boolean): void {
@@ -519,7 +519,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleNPCDisplay(force?: boolean): void {
@@ -533,7 +533,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleRockDisplay(force?: boolean): void {
@@ -547,7 +547,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public togglePitDisplay(force?: boolean): void {
@@ -561,7 +561,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleSpikesDisplay(force?: boolean): void {
@@ -575,7 +575,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleTNTDisplay(force?: boolean): void {
@@ -589,7 +589,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public togglePoopDisplay(force?: boolean): void {
@@ -603,7 +603,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public toggleDoorDisplay(force?: boolean): void {
@@ -618,7 +618,7 @@ export class DebugDisplay extends Feature {
    *
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
-   *              whether or not it is already on.
+   *              whether it is already on.
    */
   @Exported
   public togglePressurePlateDisplay(force?: boolean): void {

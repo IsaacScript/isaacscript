@@ -102,7 +102,7 @@ export function isCard(cardType: CardType): boolean {
   return ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET.has(itemConfigCardType);
 }
 
-/** Returns whether or not the given card type matches the specified item config card type. */
+/** Returns whether the given card type matches the specified item config card type. */
 export function isCardType(
   cardType: CardType,
   itemConfigCardType: ItemConfigCardType,

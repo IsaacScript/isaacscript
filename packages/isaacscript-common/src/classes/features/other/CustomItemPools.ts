@@ -102,7 +102,7 @@ export class CustomItemPools extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_ITEM_POOLS`.
    *
    * @param itemPoolTypeCustom An integer representing the custom item pool to use.
-   * @param decrease Optional. Whether or not to remove the selected collectible from the item pool.
+   * @param decrease Optional. Whether to remove the selected collectible from the item pool.
    *                 Default is true.
    * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
    *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.

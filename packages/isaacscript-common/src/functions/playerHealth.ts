@@ -88,7 +88,7 @@ export function canPickEternalHearts(player: EntityPlayer): boolean {
 }
 
 /**
- * Returns whether or not all of the player's soul-heart-type hearts are black hearts.
+ * Returns whether all of the player's soul-heart-type hearts are black hearts.
  *
  * Note that this function does not consider red heart containers.
  *
@@ -108,7 +108,7 @@ export function doesPlayerHaveAllBlackHearts(player: EntityPlayer): boolean {
 }
 
 /**
- * Returns whether or not all of the player's soul-heart-type hearts are soul hearts.
+ * Returns whether all of the player's soul-heart-type hearts are soul hearts.
  *
  * Note that this function does not consider red heart containers.
  *
@@ -439,8 +439,8 @@ export function getPlayerSoulHearts(player: EntityPlayer): int {
  *
  * If Tainted Magdalene has Birthright, she will gained an additional non-temporary heart container.
  *
- * This function does not validate whether or not the provided player is Tainted Magdalene; that
- * should be accomplished before invoking this function.
+ * This function does not validate whether the provided player is Tainted Magdalene; that should be
+ * accomplished before invoking this function.
  */
 export function getTaintedMagdaleneNonTemporaryMaxHearts(
   player: EntityPlayer,

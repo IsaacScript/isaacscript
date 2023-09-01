@@ -27,7 +27,7 @@ export function arrayRemove<T>(
 
 /**
  * Removes the specified element(s) from the array. If the specified element(s) are not found in the
- * array, this function will do nothing. Returns whether or not one or more elements were removed.
+ * array, this function will do nothing. Returns whether one or more elements were removed.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */

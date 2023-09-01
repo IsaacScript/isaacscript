@@ -19,7 +19,7 @@ interface QueuedFunction {
 /**
  * Used for `setInterval` functions.
  *
- * The return value is whether or not to continue the function from firing.
+ * The return value is whether to continue the function from firing.
  */
 interface IntervalFunction extends QueuedFunction {
   func: () => boolean;
@@ -125,8 +125,8 @@ export class RunInNFrames extends Feature {
    *
    * @param func The function to run.
    * @param numGameFrames The amount of game frames to wait before running the function.
-   * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
-   *                            room is loaded in the interim. Default is false.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public runInNGameFrames(
@@ -161,8 +161,8 @@ export class RunInNFrames extends Feature {
    *
    * @param func The function to run.
    * @param numRenderFrames The amount of render frames to wait before running the function.
-   * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
-   *                            room is loaded in the interim. Default is false.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public runInNRenderFrames(
@@ -214,8 +214,8 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to run.
-   * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
-   *                            room is loaded in the interim. Default is false.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public runNextGameFrame(func: () => void, cancelIfRoomChanges = false): void {
@@ -233,8 +233,8 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to run.
-   * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
-   *                            room is loaded in the interim. Default is false.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public runNextRenderFrame(
@@ -259,10 +259,10 @@ export class RunInNFrames extends Feature {
    *
    * @param func The function to repeatedly run on an interval.
    * @param numGameFrames The amount of game frames to wait between each run.
-   * @param runImmediately Whether or not to execute the function right now before waiting for the
+   * @param runImmediately Whether to execute the function right now before waiting for the
    *                       interval.
-   * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
-   *                            room is loaded in the interim. Default is false.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public setIntervalGameFrames(
@@ -306,10 +306,10 @@ export class RunInNFrames extends Feature {
    *
    * @param func The function to repeatedly run on an interval.
    * @param numRenderFrames The amount of game frames to wait between each run.
-   * @param runImmediately Whether or not to execute the function right now before waiting for the
+   * @param runImmediately Whether to execute the function right now before waiting for the
    *                       interval.
-   * @param cancelIfRoomChanges Optional. Whether or not to cancel running the function if a new
-   *                            room is loaded in the interim. Default is false.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public setIntervalRenderFrames(

@@ -62,8 +62,8 @@ import { assertDefined, getTraversalDescription } from "./utils";
  *                          user-defined TSTL classes when recursively iterating through the given
  *                          object, it will use this map to instantiate a new class. Default is an
  *                          empty Lua table.
- * @param insideMap Optional. Tracks whether or not the deep copy function is in the process of
- *                  recursively copying a TSTL Map. Default is false.
+ * @param insideMap Optional. Tracks whether the deep copy function is in the process of recursively
+ *                  copying a TSTL Map. Default is false.
  */
 export function deepCopy<T>(
   // An overload describing the trivial case of a normal copy. (T --> T)
@@ -327,7 +327,7 @@ function deepCopyDefaultMap(
 
 /**
  * The new copied default map with either be a TSTL `DefaultMap` class or a Lua table, depending on
- * whether we are serializing or not.
+ * whether we are serializing.
  */
 function getNewDefaultMap(
   defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,

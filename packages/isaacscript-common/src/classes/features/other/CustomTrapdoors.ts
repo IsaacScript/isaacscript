@@ -732,8 +732,8 @@ export class CustomTrapdoors extends Feature {
    * @param anm2Path Optional. The path to the anm2 file to use. By default, the vanilla trapdoor
    *                 anm2 of "gfx/grid/door_11_trapdoor.anm2" will be used. The specified anm2 file
    *                 must have animations called "Opened", "Closed", and "Open Animation".
-   * @param spawnOpen Optional. Whether or not to spawn the trapdoor in an open state. By default,
-   *                  behavior will be used that emulates a vanilla trapdoor.
+   * @param spawnOpen Optional. Whether to spawn the trapdoor in an open state. By default, behavior
+   *                  will be used that emulates a vanilla trapdoor.
    */
   @Exported
   public spawnCustomTrapdoor(

@@ -446,9 +446,9 @@ export function inSecretShop(): boolean {
 }
 
 /**
- * Helper function to determine whether or not the current room is the starting room of a floor. It
- * only returns true for the starting room of the primary dimension (meaning that being in the
- * starting room of the mirror world does not count).
+ * Helper function to determine whether the current room is the starting room of a floor. It only
+ * returns true for the starting room of the primary dimension (meaning that being in the starting
+ * room of the mirror world does not count).
  */
 export function inStartingRoom(): boolean {
   const level = game.GetLevel();
@@ -476,10 +476,10 @@ export function is2x1Room(roomData: RoomConfig): boolean {
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  *                           the array will be ignored. If not specified, then all rooms will be
  *                           checked. Undefined by default.
- * @param includeSecretAndSuperSecretRoom Optional. Whether or not to include the Secret Room and
- *                                 the Super Secret Room. Default is false.
- * @param includeUltraSecretRoom Optional. Whether or not to include the Ultra Secret Room. Default
- *                               is false.
+ * @param includeSecretAndSuperSecretRoom Optional. Whether to include the Secret Room and the Super
+ *                                 Secret Room. Default is false.
+ * @param includeUltraSecretRoom Optional. Whether to include the Ultra Secret Room. Default is
+ *                               false.
  * @allowEmptyVariadic
  */
 export function isAllRoomsClear(

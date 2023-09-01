@@ -8,9 +8,9 @@ import { assertDefined } from "./utils";
 
 /**
  * Helper function to add a `DisplayFlag` to a particular room's minimap display flags (e.g. whether
- * or not it is visible and so on).
+ * it is visible and so on).
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
  * @param roomGridIndex Set to undefined to use the current room index.
  * @param displayFlag The `DisplayFlag` to set. (See the `DisplayFlag` enum.)
@@ -30,7 +30,7 @@ export function addRoomDisplayFlag(
 /**
  * Helper function to set the value of `DisplayFlag` for every room on the floor to 0.
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
@@ -42,7 +42,7 @@ export function clearFloorDisplayFlags(): void {
 /**
  * Helper function to set the value of `DisplayFlag` for a room 0.
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
@@ -59,10 +59,9 @@ export function clearRoomDisplayFlags(roomGridIndex: int): void {
  * Helper function to get the minimap `DisplayFlag` value for every room on the floor. Returns a map
  * that is indexed by the room's safe grid index.
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
- * @param minimapAPI Optional. Whether or not MinimapAPI should be used, if present. Default is
- *                   true.
+ * @param minimapAPI Optional. If MinimapAPI should be used, if present. Default is true.
  */
 export function getFloorDisplayFlags(
   minimapAPI = true,
@@ -79,14 +78,13 @@ export function getFloorDisplayFlags(
 }
 
 /**
- * Helper function to get a particular room's minimap display flags (e.g. whether or not it is
- * visible and so on).
+ * Helper function to get a particular room's minimap display flags (e.g. whether it is visible and
+ * so on).
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @param minimapAPI Optional. Whether or not MinimapAPI should be used, if present. Default is
- *                   true.
+ * @param minimapAPI Optional. If MinimapAPI should be used, if present. Default is true.
  */
 export function getRoomDisplayFlags(
   roomGridIndex?: int,
@@ -117,7 +115,7 @@ export function getRoomDisplayFlags(
  * This is because if the player enters into the room or walks into an adjacent room, the room will
  * reappear on the minimap.
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  */
 export function hideRoomOnMinimap(roomGridIndex: int): void {
   clearRoomDisplayFlags(roomGridIndex);
@@ -140,8 +138,7 @@ export function hideRoomOnMinimap(roomGridIndex: int): void {
  * Helper function to check if a given room is visible on the minimap.
  *
  * @param roomGridIndex The room to check.
- * @param minimapAPI Optional. Whether or not MinimapAPI should be used, if present. Default is
- *                   true.
+ * @param minimapAPI Optional. Whether MinimapAPI should be used, if present. Default is true.
  */
 export function isRoomVisible(roomGridIndex: int, minimapAPI = true): boolean {
   const roomDisplayFlags = getRoomDisplayFlags(roomGridIndex, minimapAPI);
@@ -154,7 +151,7 @@ export function isRoomVisible(roomGridIndex: int, minimapAPI = true): boolean {
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  */
 export function setAllDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void {
   for (const room of getRoomsInsideGrid()) {
@@ -175,7 +172,7 @@ export function setAllDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void {
  * This function automatically calls the `Level.UpdateVisibility` after setting the flags so that
  * the changes will be immediately visible.
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
  * @param displayFlagsMap A map of the display flags that is indexed by the room's safe grid index.
  */
@@ -195,10 +192,10 @@ export function setFloorDisplayFlags(
 }
 
 /**
- * Helper function to set a particular room's minimap display flags (e.g. whether or not it is
- * visible and so on).
+ * Helper function to set a particular room's minimap display flags (e.g. whether it is visible and
+ * so on).
  *
- * This function automatically accounts for whether or not MinimapAPI is being used.
+ * This function automatically accounts for if MinimapAPI is being used.
  *
  * @param roomGridIndex Set to undefined to use the current room index.
  * @param displayFlags The bit flags value to set. (See the `DisplayFlag` enum.)

@@ -4,7 +4,7 @@ import { log } from "./log";
  * Helper function to get the current time for benchmarking / profiling purposes.
  *
  * The return value will either be in seconds or milliseconds, depending on if the "--luadebug" flag
- * is turned on or not.
+ * is turned on.
  *
  * If the "--luadebug" flag is present, then this function will use the `socket.gettime` method,
  * which returns the epoch timestamp in seconds (e.g. "1640320492.5779"). This is preferable over
@@ -70,7 +70,7 @@ export function getTraceback(this: void): string {
  * documented here: https://wofsauge.github.io/IsaacDocs/rep/Globals.html
  *
  * This function uses the `package` global variable as a proxy to determine if the "--luadebug" flag
- * is enabled or not.
+ * is enabled.
  *
  * Note that this function will return false if the Racing+ sandbox is enabled, even if the
  * "--luadebug" flag is really turned on. If checking for this case is needed, check for the

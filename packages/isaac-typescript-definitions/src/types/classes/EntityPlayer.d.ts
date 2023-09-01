@@ -1126,7 +1126,7 @@ declare global {
      *
      * @param trinketType If you provide an argument of 0 or an otherwise invalid trinket ID, the
      *                    game will crash.
-     * @returns Whether or not the specified trinket was removed successfully.
+     * @returns Whether the specified trinket was removed successfully.
      */
     TryRemoveTrinket: (trinketType: TrinketType) => boolean;
 
@@ -1191,10 +1191,10 @@ declare global {
      *
      * Right now, there are 3 items that grant conditional extra lives:
      *
-     * - Guppy's Collar - This function will successfully predict whether or not the next revive
-     *   from Guppy's Collar will work or not (50% chance).
-     * - Broken Ankh - This function will successfully predict whether or not the next revive from
-     *   Broken Ankh will work or not (22.22% chance).
+     * - Guppy's Collar - This function will successfully predict whether the next revive from
+     *   Guppy's Collar will work (50% chance).
+     * - Broken Ankh - This function will successfully predict whether the next revive from Broken
+     *   Ankh will work (22.22% chance).
      * - Mysterious Paper - This function will only successfully predict the revive from Missing
      *   Poster every 4 frames, because it evaluates only one of its 4 possible item effects each
      *   frame.

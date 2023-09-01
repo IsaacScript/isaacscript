@@ -138,9 +138,9 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
 }
 
 /**
- * Returns whether or not the player can hold an additional pocket item, beyond what they are
- * currently carrying. This takes into account items that modify the max number of pocket items,
- * like Starter Deck.
+ * Returns whether the player can hold an additional pocket item, beyond what they are currently
+ * carrying. This takes into account items that modify the max number of pocket items, like Starter
+ * Deck.
  *
  * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
  * items. (Only Tainted Forgotten can pick up items.)
@@ -157,8 +157,8 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to determine whether or not the player's "active" pocket item slot is set to
- * their pocket active item.
+ * Helper function to determine whether the player's "active" pocket item slot is set to their
+ * pocket active item.
  */
 export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
   const pocketItems = getPocketItems(player);

@@ -258,7 +258,7 @@ declare interface EIDInterface {
    * Gets a `KColor` from a Markup-string (example Input: `"{{ColorText}}"`).
    *
    * @returns The `KColor` object and a `boolean` value indicating if the given string was a color
-   *          markup or not.
+   *          markup.
    */
   getColor: (
     str: string,

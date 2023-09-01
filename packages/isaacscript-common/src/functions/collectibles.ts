@@ -456,9 +456,9 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
 }
 
 /**
- * Returns whether or not the given collectible is a "glitched" item. All items are replaced by
- * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
- * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
+ * Returns whether the given collectible is a "glitched" item. All items are replaced by glitched
+ * items once a player has TMTRAINER. However, glitched items can also "naturally" appear in secret
+ * rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
  */
 export function isGlitchedCollectible(collectible: EntityPickup): boolean {
   return (

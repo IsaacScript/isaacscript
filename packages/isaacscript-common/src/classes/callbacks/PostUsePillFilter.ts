@@ -26,8 +26,8 @@ const v = {
 /**
  * The vanilla `POST_USE_PILL` callback does not pass the `PillColor` of the used pill. We can
  * resolve pill effect to pill color by using the `ItemPool.GetPillEffect` method. However, this
- * does not tell us whether or not the pill used was a horse pill. Thus, we must keep track of the
- * pills that the player is holding on every frame to account for this.
+ * does not tell us whether the pill used was a horse pill. Thus, we must keep track of the pills
+ * that the player is holding on every frame to account for this.
  *
  * In some cases, pills can be used without a corresponding pocket item slot, like in the case of
  * the reverse Temperance card. In this case, we fall back to looking up the color using the
