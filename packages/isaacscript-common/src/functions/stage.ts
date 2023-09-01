@@ -418,6 +418,16 @@ export function onStageWithShovelWorking(): boolean {
 }
 
 /**
+ * Helper function to check if the current stage is one with a story boss. Specifically, this is
+ * Depths 2 (Mom), Womb 2 (Mom's Heart / It Lives), Blue Womb (Hush), Sheol (Satan), Cathedral
+ * (Isaac), Dark Room (Lamb), The Chest (Blue Baby), The Void (Delirium), and Home (Dogma / The
+ * Beast).
+ */
+export function onStageWithStoryBoss(): boolean {
+  return onStage(LevelStage.DEPTHS_2) || onStageOrHigher(LevelStage.WOMB_2);
+}
+
+/**
  * Helper function to warp to a new stage/level.
  *
  * Note that this is different from the `Level.SetStage` method, which will change the stage and/or
