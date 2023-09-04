@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `useCardTemp`
+  - `isPoopGridEntityType`
 - Renamed the following helper functions:
   - `addStat` --> `addPlayerStat`
 

@@ -15,6 +15,7 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
+import { POOP_GRID_ENTITY_XML_TYPES_SET } from "../sets/poopGridEntityXMLTypesSet";
 import type { AnyGridEntity } from "../types/AnyGridEntity";
 import type { GridEntityID } from "../types/GridEntityID";
 import { ReadonlySet } from "../types/ReadonlySet";
@@ -458,6 +459,13 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
   const gridEntityType = gridEntity.GetType();
   const brokenState = GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP.get(gridEntityType);
   return gridEntity.State === brokenState;
+}
+
+/** Helper function to see if a `GridEntityXMLType` is some kind of poop. */
+export function isPoopGridEntityType(
+  gridEntityXMLType: GridEntityXMLType,
+): boolean {
+  return POOP_GRID_ENTITY_XML_TYPES_SET.has(gridEntityXMLType);
 }
 
 /**
