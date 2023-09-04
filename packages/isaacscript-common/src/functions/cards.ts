@@ -11,6 +11,7 @@ import {
 } from "../objects/cardDescriptions";
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../sets/itemConfigCardTypesForCardsSet";
+import { addFlag } from "./flag";
 import { iRange } from "./utils";
 
 /**
@@ -150,7 +151,11 @@ export function isVanillaCardType(cardType: CardType): boolean {
   return cardType <= LAST_VANILLA_CARD_TYPE;
 }
 
-/** Helper function to use a card without showing an animation. */
+/**
+ * Helper function to use a card without showing an animation and without the announcer voice
+ * playing.
+ */
 export function useCardTemp(player: EntityPlayer, cardType: CardType): void {
-  player.UseCard(cardType, UseFlag.NO_ANIMATION);
+  const useFlags = addFlag(UseFlag.NO_ANIMATION, UseFlag.NO_ANNOUNCER_VOICE);
+  player.UseCard(cardType, useFlags);
 }
