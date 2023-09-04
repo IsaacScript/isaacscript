@@ -29,7 +29,7 @@ const STAT_CACHE_FLAGS_SET = new ReadonlySet<CacheFlag>([
  * - CacheFlag.SPEED (1 << 4)
  * - CacheFlag.LUCK (1 << 10)
  */
-export function addStat(
+export function addPlayerStat(
   player: EntityPlayer,
   cacheFlag: CacheFlag,
   amount: number,

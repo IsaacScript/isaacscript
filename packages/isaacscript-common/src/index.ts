@@ -87,7 +87,6 @@ export * from "./functions/playerCenter";
 export * from "./functions/playerDataStructures";
 export * from "./functions/playerHealth";
 export * from "./functions/playerIndex";
-export * from "./functions/playerStats";
 export * from "./functions/players";
 export * from "./functions/pocketItems";
 export * from "./functions/positionVelocity";

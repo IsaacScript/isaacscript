@@ -5,8 +5,8 @@ import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
-import { getPlayerStats } from "../../../functions/playerStats";
 import { isEden } from "../../../functions/players";
+import { getPlayerStats } from "../../../functions/stats";
 import type { PlayerStats } from "../../../interfaces/PlayerStats";
 import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";

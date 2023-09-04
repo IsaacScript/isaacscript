@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 11th, 2023 (Unreleased)
+
+- Renamed the following helper functions:
+  - `addStat` --> `addPlayerStat`
+
 ## September 4th, 2023
 
 - Added the following helper functions:

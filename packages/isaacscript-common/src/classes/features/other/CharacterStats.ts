@@ -1,7 +1,7 @@
 import type { CacheFlag, PlayerType } from "isaac-typescript-definitions";
 import { ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { addStat, getDefaultPlayerStat } from "../../../functions/stats";
+import { addPlayerStat, getDefaultPlayerStat } from "../../../functions/stats";
 import { Feature } from "../../private/Feature";
 
 type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
@@ -38,7 +38,7 @@ export class CharacterStats extends Feature {
     }
     const delta = stat - defaultStat;
 
-    addStat(player, cacheFlag, delta);
+    addPlayerStat(player, cacheFlag, delta);
   };
 
   /**
