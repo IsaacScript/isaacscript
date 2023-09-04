@@ -4558,10 +4558,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/command-exists@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@types/command-exists@npm:1.2.0"
-  checksum: 7c5a626c38898d0267375dbf24ea374e6fcc8a85837f38eeb4485a5699a905eda89941059ea4f82ffc92b2207b29bdd7f7ab8dcbae95ed661b65cafe958e3fb1
+"@types/command-exists@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@types/command-exists@npm:1.2.1"
+  checksum: 51e5d13cb06b9a5780e85e0612b924eda01d00919a75b6645fbdc7344c610ac19e8e122e2da9db5e91473cf88a3d71cfd93a294f1c31f2beabb835b6ab7e85d1
   languageName: node
   linkType: hard
 
@@ -4574,10 +4574,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/confusing-browser-globals@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@types/confusing-browser-globals@npm:1.0.0"
-  checksum: ffe4292de02ca2f012d0402b2b66fc69b7973e53c3f7552abeb756f47ba175faa79043ba90fe44c402e93210ad2187d5e20dc84b47b5c810f1d64ecef15b2837
+"@types/confusing-browser-globals@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@types/confusing-browser-globals@npm:1.0.1"
+  checksum: 721f215baebc302e5531e9924e3ad73ad6ef9b821ad22cfcd3424b665d8c9dcec3757ea3cc7c84c4bb603c9c12b211d7dcda0be6ff54b718bd9c978a35152686
   languageName: node
   linkType: hard
 
@@ -11399,8 +11399,8 @@ __metadata:
     "@tsconfig/docusaurus": ^2.0.0
     "@tsconfig/node-lts": ^18.12.5
     "@tsconfig/strictest": ^2.0.2
-    "@types/command-exists": ^1.2.0
-    "@types/confusing-browser-globals": ^1.0.0
+    "@types/command-exists": ^1.2.1
+    "@types/confusing-browser-globals": ^1.0.1
     "@types/eslint-config-prettier": ^6.11.0
     "@types/eslint__js": ^8.42.0
     "@types/figlet": ^1.5.6
