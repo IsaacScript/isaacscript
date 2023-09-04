@@ -4,7 +4,7 @@ import type { PlayerStat } from "../../enums/PlayerStat";
 import { isBitSet128 } from "../../functions/bitSet128";
 import { colorEquals, isColor } from "../../functions/color";
 import { getPlayerIndex } from "../../functions/playerIndex";
-import { getPlayerStat } from "../../functions/playerStats";
+import { getPlayerStat } from "../../functions/stats";
 import { isBoolean, isNumber } from "../../functions/types";
 import { isVector, vectorEquals } from "../../functions/vector";
 import { shouldFirePlayer } from "../../shouldFire";
