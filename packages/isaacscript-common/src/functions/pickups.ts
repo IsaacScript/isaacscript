@@ -1,4 +1,8 @@
-import type { CoinSubType, PickupVariant } from "isaac-typescript-definitions";
+import type {
+  CoinSubType,
+  HeartSubType,
+  PickupVariant,
+} from "isaac-typescript-definitions";
 import {
   COIN_SUB_TYPE_TO_VALUE,
   DEFAULT_COIN_VALUE,
@@ -8,7 +12,6 @@ import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { removeEntities } from "./entities";
 import { isHeart } from "./pickupVariants";
 import { getHearts } from "./pickupsSpecific";
-import { isNumber } from "./types";
 
 /**
  * Helper function to get the corresponding coin amount from a `CoinSubType`. Returns 1 for modded
@@ -27,25 +30,31 @@ export function getRedHearts(): EntityPickupHeart[] {
   return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
 }
 
-/**
- * Helper function to test if the provided pickup or pickup variant matches one of the various chest
- * variants.
- */
-export function isChest(
-  pickupOrPickupVariant: EntityPickup | PickupVariant,
-): boolean {
-  const pickupVariant = isNumber(pickupOrPickupVariant)
-    ? pickupOrPickupVariant
-    : pickupOrPickupVariant.Variant;
+/** Helper function to test if the provided pickup matches one of the various chest variants. */
+export function isChest(pickup: EntityPickup): boolean {
+  return isChestVariant(pickup.Variant);
+}
 
+/**
+ * Helper function to test if the provided pickup variant matches one of the various chest variants.
+ */
+export function isChestVariant(pickupVariant: PickupVariant): boolean {
   return CHEST_PICKUP_VARIANTS.has(pickupVariant);
 }
 
 /**
- * Helper function to test if the provided pickup matches one of the various red heart sub types.
+ * Helper function to test if the provided pickup matches one of the various red heart sub-types.
  */
 export function isRedHeart(pickup: EntityPickup): boolean {
   return isHeart(pickup) && RED_HEART_SUB_TYPES_SET.has(pickup.SubType);
+}
+
+/**
+ * Helper function to test if the provided heart sub-type matches one of the various red heart
+ * sub-types.
+ */
+export function isRedHeartSubType(heartSubType: HeartSubType): boolean {
+  return RED_HEART_SUB_TYPES_SET.has(heartSubType);
 }
 
 /**

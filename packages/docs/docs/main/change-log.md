@@ -9,13 +9,15 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## September 3rd, 2023 (Unreleased)
+## September 4th, 2023
 
 - Added the following helper functions:
   - `getMoveActions`
   - `getShootActions`
+  - `isChestVariant`
   - `isFinalFloor`
   - `isInteger`
+  - `isRedHeartSubType`
   - `isStageWithNaturalDevilRoom`
   - `isStageWithRandomBossCollectible`
   - `isStageWithSecretExitToDownpour`
