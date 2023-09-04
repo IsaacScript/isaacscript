@@ -1,5 +1,5 @@
 import type { CardType } from "isaac-typescript-definitions";
-import { ItemConfigCardType } from "isaac-typescript-definitions";
+import { ItemConfigCardType, UseFlag } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import {
   FIRST_CARD_TYPE,
@@ -148,4 +148,9 @@ export function isTarotCard(cardType: CardType): boolean {
 /** Returns true for any vanilla card or rune. */
 export function isVanillaCardType(cardType: CardType): boolean {
   return cardType <= LAST_VANILLA_CARD_TYPE;
+}
+
+/** Helper function to use a card without showing an animation. */
+export function useCardTemp(player: EntityPlayer, cardType: CardType): void {
+  player.UseCard(cardType, UseFlag.NO_ANIMATION);
 }
