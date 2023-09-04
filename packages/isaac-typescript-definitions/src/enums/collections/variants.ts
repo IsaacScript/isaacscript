@@ -317,7 +317,10 @@ export enum PickupVariant {
   WOODEN_CHEST = 56,
   MEGA_CHEST = 57,
   HAUNTED_CHEST = 58,
+
+  /** The gold chest that requires a key to open. */
   LOCKED_CHEST = 60,
+
   SACK = 69,
   PILL = 70,
   LIL_BATTERY = 90,
