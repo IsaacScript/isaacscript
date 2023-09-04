@@ -1,6 +1,16 @@
 import { CacheFlag } from "isaac-typescript-definitions";
-import { DEFAULT_PLAYER_STATS } from "../objects/defaultPlayerStats";
+import { DEFAULT_PLAYER_STAT_MAP } from "../maps/defaultPlayerStatMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { addTearsStat } from "./tears";
+
+const STAT_CACHE_FLAGS_SET = new ReadonlySet<CacheFlag>([
+  CacheFlag.DAMAGE, // 1 << 0
+  CacheFlag.FIRE_DELAY, // 1 << 1
+  CacheFlag.SHOT_SPEED, // 1 << 2
+  CacheFlag.RANGE, // 1 << 3
+  CacheFlag.SPEED, // 1 << 4
+  CacheFlag.LUCK, // 1 << 10
+]);
 
 /**
  * Helper function to add a stat to a player based on the `CacheFlag` provided. Call this function
@@ -22,6 +32,12 @@ export function addStat(
   cacheFlag: CacheFlag,
   amount: number,
 ): void {
+  if (!STAT_CACHE_FLAGS_SET.has(cacheFlag)) {
+    error(
+      `You cannot add a stat to a player with the cache flag of: ${cacheFlag}`,
+    );
+  }
+
   switch (cacheFlag) {
     // 1 << 0
     case CacheFlag.DAMAGE: {
@@ -58,24 +74,15 @@ export function addStat(
       player.Luck += amount;
       break;
     }
-
-    // eslint-disable-next-line isaacscript/require-break
-    default: {
-      error(
-        `You cannot add a stat to a player with the cache flag of: ${cacheFlag}`,
-      );
-    }
   }
 }
 
 /**
  * Returns the starting stat that Isaac (the default character) starts with. For example, if you
- * pass this function `PlayerStat.DAMAGE`, it will return 3.5.
+ * pass this function `CacheFlag.DAMAGE`, it will return 3.5.
  *
  * Note that the default fire delay is represented in the tear stat, not the `MaxFireDelay` value.
  */
-export function getDefaultPlayerStat(
-  playerStat: keyof typeof DEFAULT_PLAYER_STATS,
-): int | float {
-  return DEFAULT_PLAYER_STATS[playerStat];
+export function getDefaultPlayerStat(cacheFlag: CacheFlag): number | undefined {
+  return DEFAULT_PLAYER_STAT_MAP.get(cacheFlag);
 }
