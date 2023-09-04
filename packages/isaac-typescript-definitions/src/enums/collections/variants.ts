@@ -1005,7 +1005,7 @@ export enum PoopEntityVariant {
   BURNING = 13,
   STINKY = 14,
   BLACK = 15,
-  HOLY = 16,
+  WHITE = 16,
 }
 
 /** For `EntityType.RAGLING` (246). */

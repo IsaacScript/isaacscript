@@ -11,7 +11,7 @@ declare global {
 
     GetSaveState: () => GridEntityDesc;
 
-    /** The Sprite returned is a reference (i.e. not a copy). */
+    /** The `Sprite` returned is a reference (i.e. not a copy). */
     GetSprite: () => Sprite;
 
     GetType: () => GridEntityType;
