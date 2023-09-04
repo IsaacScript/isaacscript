@@ -22,8 +22,8 @@
   "type": "module",
   "dependencies": {
     "@prettier/plugin-xml": "^3.2.0",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
     "cspell": "^7.3.2",
     "cspell-check-unused-words": "^1.0.6",
     "eslint": "^8.48.0",
