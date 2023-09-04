@@ -1,4 +1,4 @@
-import type { CoinSubType } from "isaac-typescript-definitions";
+import type { CoinSubType, PickupVariant } from "isaac-typescript-definitions";
 import {
   COIN_SUB_TYPE_TO_VALUE,
   DEFAULT_COIN_VALUE,
@@ -8,6 +8,7 @@ import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { removeEntities } from "./entities";
 import { isHeart } from "./pickupVariants";
 import { getHearts } from "./pickupsSpecific";
+import { isNumber } from "./types";
 
 /**
  * Helper function to get the corresponding coin amount from a `CoinSubType`. Returns 1 for modded
@@ -26,9 +27,18 @@ export function getRedHearts(): EntityPickupHeart[] {
   return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
 }
 
-/** Helper function to test if the provided pickup matches one of the various chest variants. */
-export function isChest(pickup: EntityPickup): boolean {
-  return CHEST_PICKUP_VARIANTS.has(pickup.Variant);
+/**
+ * Helper function to test if the provided pickup or pickup variant matches one of the various chest
+ * variants.
+ */
+export function isChest(
+  pickupOrPickupVariant: EntityPickup | PickupVariant,
+): boolean {
+  const pickupVariant = isNumber(pickupOrPickupVariant)
+    ? pickupOrPickupVariant
+    : pickupOrPickupVariant.Variant;
+
+  return CHEST_PICKUP_VARIANTS.has(pickupVariant);
 }
 
 /**

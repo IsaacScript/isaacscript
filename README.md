@@ -39,9 +39,9 @@ Each project in the monorepo is contained within the "packages" directory.
 
 For getting started in building your own mods, see the [website](https://isaacscript.github.io/main/getting-started). For contributing to the IsaacScript project itself, read on.
 
-- Download and install [Node.js](https://nodejs.org/en/download/), if you don't have it already.
-- Download and install [Git](https://git-scm.com/), if you don't have it already.
-- Download and install [VSCode](https://https://code.visualstudio.com/), if you don't have it already.
+- Download and install [Node.js](https://nodejs.org/en/download/), if you do not have it already.
+- Download and install [Git](https://git-scm.com/), if you do not have it already.
+- Download and install [VSCode](https://https://code.visualstudio.com/), if you do not have it already.
 - Open a new [command prompt window](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/) or shell of your choice.
 - Configure Git, if you have not done so already:
   - `git config --global user.name "Your_Username"`
