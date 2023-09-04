@@ -225,6 +225,7 @@ function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   msg += `  - Child: ${entity.Child}\n`;
   msg += `  - SpawnerEntity: ${entity.SpawnerEntity}\n`;
   msg += `  - SpawnerType / SpawnerVariant: ${entity.SpawnerType}.${entity.SpawnerVariant}\n`;
+  msg += `  - FrameCount: ${entity.FrameCount}\n`;
   if (npc !== undefined) {
     msg += `  - CanShutDoors: ${npc.CanShutDoors}\n`;
   }
