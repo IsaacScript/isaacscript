@@ -5,7 +5,7 @@ export const POOP_GRID_ENTITY_XML_TYPES_SET =
   new ReadonlySet<GridEntityXMLType>([
     GridEntityXMLType.POOP_RED, // 1490
     GridEntityXMLType.POOP_RAINBOW, // 1494
-    GridEntityXMLType.POOP_CORN, // 1495
+    GridEntityXMLType.POOP_CORNY, // 1495
     GridEntityXMLType.POOP_GOLDEN, // 1496
     GridEntityXMLType.POOP_BLACK, // 1497
     GridEntityXMLType.POOP_WHITE, // 1498
