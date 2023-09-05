@@ -70,8 +70,8 @@ export const GRID_ENTITY_XML_MAP = new ReadonlyMap<
 
   // 1495
   [
-    GridEntityXMLType.POOP_CORN,
-    [GridEntityType.POOP, PoopGridEntityVariant.CORN],
+    GridEntityXMLType.POOP_CORNY,
+    [GridEntityType.POOP, PoopGridEntityVariant.CORNY],
   ],
 
   // 1496

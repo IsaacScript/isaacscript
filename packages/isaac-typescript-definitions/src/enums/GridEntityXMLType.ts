@@ -70,8 +70,8 @@ export enum GridEntityXMLType {
   /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.RAINBOW` (4). */
   POOP_RAINBOW = 1494,
 
-  /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.CORN` (2). */
-  POOP_CORN = 1495,
+  /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.CORNY` (2). */
+  POOP_CORNY = 1495,
 
   /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.GOLDEN` (3). */
   POOP_GOLDEN = 1496,

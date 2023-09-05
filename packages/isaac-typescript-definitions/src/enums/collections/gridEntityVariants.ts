@@ -92,7 +92,7 @@ export enum FireplaceGridEntityVariant {
 export enum PoopGridEntityVariant {
   NORMAL = 0,
   RED = 1,
-  CORN = 2,
+  CORNY = 2,
   GOLDEN = 3,
   RAINBOW = 4,
   BLACK = 5,
