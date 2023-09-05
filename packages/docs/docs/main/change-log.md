@@ -16,6 +16,8 @@ This page lists the changes to the IsaacScript framework.
   - `isPoopGridEntityType`
 - Renamed the following helper functions:
   - `addStat` --> `addPlayerStat`
+- Added the following enums:
+  - `PortalTeleportSubType`
 
 ## September 4th, 2023
 

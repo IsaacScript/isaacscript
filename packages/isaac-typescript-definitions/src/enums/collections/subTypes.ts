@@ -2217,6 +2217,29 @@ export enum TallLadderSubType {
   STAIRWAY = 1,
 }
 
+/** For `EntityType.EFFECT` (1000), `EffectVariant.PORTAL_TELEPORT` (161). */
+export enum PortalTeleportSubType {
+  /** Is yellow in color. */
+  TREASURE_ROOM,
+
+  /** Is red in color. */
+  BOSS_ROOM,
+
+  /** Is blue in color. */
+  SECRET_ROOM,
+
+  /**
+   * Is purple in color.
+   *
+   * Portals of this type are non-persistent in that they will not respawn if the player leaves the
+   * room, which makes them unlike the portals spawned by the Lil Portal familiar. In order to
+   * generate Lil-Portal-style portals, you add 1000 to the destination room grid index. For
+   * example, you would use a sub-type of 1058 for a persistent portal that always goes to the room
+   * at grid index 58.
+   */
+  RANDOM_ROOM,
+}
+
 /** For `EntityType.EFFECT` (1000), `EffectVariant.PURGATORY` (189). */
 export enum PurgatorySubType {
   RIFT = 0,
