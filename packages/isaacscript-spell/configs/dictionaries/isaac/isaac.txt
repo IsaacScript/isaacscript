@@ -30,6 +30,8 @@ giveitem # Console command
 halign # Encyclopedia parameter
 hitbox
 hitboxes
+hitsphere
+hitspheres
 isaacracing # Website for Racing+
 Kilburn # Repentance developer
 Kinetis
@@ -44,6 +46,7 @@ nerfed
 nerfs
 Nicalis
 npcs
+pathing
 piber # Creator of Mod Config Menu
 polties
 Polycephaluses

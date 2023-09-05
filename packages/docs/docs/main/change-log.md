@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
 - Renamed the following helper functions:
   - `addStat` --> `addPlayerStat`
 - Added the following enums:
+  - `DebugCommand`
   - `PortalTeleportSubType`
 
 ## September 4th, 2023

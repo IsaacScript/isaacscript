@@ -15,6 +15,7 @@ export * from "./enums/Controller";
 export * from "./enums/ControllerIndex";
 export * from "./enums/CopyableIsaacAPIClassType";
 export * from "./enums/CurseID";
+export * from "./enums/DebugCommand";
 export * from "./enums/Difficulty";
 export * from "./enums/Dimension";
 export * from "./enums/Direction";
