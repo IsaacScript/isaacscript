@@ -125,7 +125,10 @@ export function getAllGridIndexes(): int[] {
  * Gets the entities that have a hitbox that overlaps with any part of the square that the grid
  * entity is on.
  *
- * Note that this function will not work properly in the `POST_NEW_ROOM` callback, since entities do
+ * This function is useful because the vanilla collision callbacks do not work with grid entities.
+ * This is used by `POST_GRID_ENTITY_COLLISION` custom callback.
+ *
+ * Note that this function will not work properly in the `POST_NEW_ROOM` callback since entities do
  * not have collision yet in that callback.
  */
 export function getCollidingEntitiesWithGridEntity(
