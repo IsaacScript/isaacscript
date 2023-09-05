@@ -694,38 +694,38 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
 
   const topLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_TOP_LEFT,
+    PoopGridEntityVariant.GIANT_TOP_LEFT,
     topLeftGridIndex,
   );
   const topRight = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_TOP_RIGHT,
+    PoopGridEntityVariant.GIANT_TOP_RIGHT,
     topRightGridIndex,
   );
   const bottomLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_BOTTOM_LEFT,
+    PoopGridEntityVariant.GIANT_BOTTOM_LEFT,
     bottomLeftGridIndex,
   );
   const bottomRight = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_BOTTOM_RIGHT,
+    PoopGridEntityVariant.GIANT_BOTTOM_RIGHT,
     bottomRightGridIndex,
   );
 
   return (
     topLeft !== undefined &&
     topLeft.GetType() === GridEntityType.POOP &&
-    topLeft.GetVariant() === PoopGridEntityVariant.GIGA_TOP_LEFT &&
+    topLeft.GetVariant() === PoopGridEntityVariant.GIANT_TOP_LEFT &&
     topRight !== undefined &&
     topRight.GetType() === GridEntityType.POOP &&
-    topRight.GetVariant() === PoopGridEntityVariant.GIGA_TOP_RIGHT &&
+    topRight.GetVariant() === PoopGridEntityVariant.GIANT_TOP_RIGHT &&
     bottomLeft !== undefined &&
     bottomLeft.GetType() === GridEntityType.POOP &&
-    bottomLeft.GetVariant() === PoopGridEntityVariant.GIGA_BOTTOM_LEFT &&
+    bottomLeft.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_LEFT &&
     bottomRight !== undefined &&
     bottomRight.GetType() === GridEntityType.POOP &&
-    bottomRight.GetVariant() === PoopGridEntityVariant.GIGA_BOTTOM_RIGHT
+    bottomRight.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_RIGHT
   );
 }
 
@@ -778,14 +778,14 @@ export function spawnGridEntityWithVariant(
   }
 
   if (gridEntityType === GridEntityType.PIT) {
-    // For some reason, spawned pits start with a collision class of NONE, so we have to manually
+    // For some reason, spawned pits start with a collision class of `NONE`, so we have to manually
     // set it.
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       pit.UpdateCollision();
     }
   } else if (gridEntityType === GridEntityType.WALL) {
-    // For some reason, spawned walls start with a collision class of NONE, so we have to manually
+    // For some reason, spawned walls start with a collision class of `NONE`, so we have to manually
     // set it.
     gridEntity.CollisionClass = GridCollisionClass.WALL;
   }
