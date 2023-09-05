@@ -189,7 +189,7 @@ export function getRoomTypeName(roomType: RoomType): string {
  *
  * Room descriptors without any data are assumed to be non-existent and are not included.
  *
- * - If you want just the rooms inside of the grid, use the `getRoomsInGrid` helper function.
+ * - If you want just the rooms inside of the grid, use the `getRoomsInsideGrid` helper function.
  * - If you want just the rooms outside of the grid, use the `getRoomsOutsideGrid` helper function.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
