@@ -94,14 +94,14 @@ if [[ -z "${OTP_CODE-}" ]]; then
 fi
 
 # Upload the package to npm.
-# The "--access=public" flag is only technically needed for the first publish, but it is saved here
-# for posterity.
 cd "$DIR/dist/packages/$PACKAGE_NAME"
 if [[ "$VERSION_BUMP" == "dev" ]]; then
   NPM_TAG=next
 else
   NPM_TAG=latest
 fi
+# The "--access=public" flag is only technically needed for the first publish, but it is saved here
+# for posterity.
 npm publish --access=public --tag="$NPM_TAG" --otp="$OTP_CODE"
 
 sleep 1
