@@ -695,6 +695,19 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
   const bottomLeftGridIndex = topLeftGridIndex + gridWidth;
   const bottomRightGridIndex = bottomLeftGridIndex + 1;
 
+  // First, check to see if all of the tiles are open.
+  for (const gridIndex of [
+    topLeftGridIndex,
+    topRightGridIndex,
+    bottomLeftGridIndex,
+    bottomRightGridIndex,
+  ]) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity !== undefined) {
+      return false;
+    }
+  }
+
   const topLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
     PoopGridEntityVariant.GIANT_TOP_LEFT,
