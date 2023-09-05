@@ -681,8 +681,10 @@ export function setGridEntityInvisible(gridEntity: GridEntity): void {
 /**
  * Helper function to spawn a giant poop. This is performed by spawning each of the four quadrant
  * grid entities in the appropriate positions.
+ *
+ * @returns Whether spawning the four quadrants was successful.
  */
-export function spawnGiantPoop(topLeftGridIndex: int): void {
+export function spawnGiantPoop(topLeftGridIndex: int): boolean {
   const room = game.GetRoom();
   const gridWidth = room.GetGridWidth();
 
@@ -690,25 +692,40 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
   const bottomLeftGridIndex = topLeftGridIndex + gridWidth;
   const bottomRightGridIndex = bottomLeftGridIndex + 1;
 
-  spawnGridEntityWithVariant(
+  const topLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_TOP_LEFT,
     topLeftGridIndex,
   );
-  spawnGridEntityWithVariant(
+  const topRight = spawnGridEntityWithVariant(
     GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_TOP_RIGHT,
     topRightGridIndex,
   );
-  spawnGridEntityWithVariant(
+  const bottomLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_BOTTOM_LEFT,
     bottomLeftGridIndex,
   );
-  spawnGridEntityWithVariant(
+  const bottomRight = spawnGridEntityWithVariant(
     GridEntityType.POOP,
     PoopGridEntityVariant.GIGA_BOTTOM_RIGHT,
     bottomRightGridIndex,
+  );
+
+  return (
+    topLeft !== undefined &&
+    topLeft.GetType() === GridEntityType.POOP &&
+    topLeft.GetVariant() === PoopGridEntityVariant.GIGA_TOP_LEFT &&
+    topRight !== undefined &&
+    topRight.GetType() === GridEntityType.POOP &&
+    topRight.GetVariant() === PoopGridEntityVariant.GIGA_TOP_RIGHT &&
+    bottomLeft !== undefined &&
+    bottomLeft.GetType() === GridEntityType.POOP &&
+    bottomLeft.GetVariant() === PoopGridEntityVariant.GIGA_BOTTOM_LEFT &&
+    bottomRight !== undefined &&
+    bottomRight.GetType() === GridEntityType.POOP &&
+    bottomRight.GetVariant() === PoopGridEntityVariant.GIGA_BOTTOM_RIGHT
   );
 }
 
