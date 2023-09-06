@@ -136,7 +136,7 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
   const effectiveMaxHearts = player.GetEffectiveMaxHearts();
   const normalAndBoneHeartContainers = effectiveMaxHearts / 2;
   const soulHearts = player.GetSoulHearts();
-  const soulHeartContainers = math.ceil(soulHearts / 2);
+  const soulHeartContainers = Math.ceil(soulHearts / 2);
   const totalHeartContainers =
     normalAndBoneHeartContainers + soulHeartContainers;
   const brokenHearts = player.GetBrokenHearts();
@@ -197,7 +197,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   }
 
   // This is the number of individual hearts shown in the HUD, minus heart containers.
-  const extraHearts = math.ceil(soulHearts / 2) + boneHearts;
+  const extraHearts = Math.ceil(soulHearts / 2) + boneHearts;
 
   // Since bone hearts can be inserted anywhere between soul hearts, we need a separate counter to
   // track which soul heart we're currently at.

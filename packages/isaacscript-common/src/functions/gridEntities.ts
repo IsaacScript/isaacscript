@@ -266,13 +266,13 @@ export function getGridEntitiesInRadius(
   targetPosition: Vector,
   radius: number,
 ): GridEntity[] {
-  radius = math.abs(radius);
+  radius = Math.abs(radius);
   const topLeftOffset = VectorOne.mul(-radius);
   const mostTopLeftPosition = targetPosition.add(topLeftOffset);
   const room = game.GetRoom();
 
   const diameter = radius * 2;
-  const iterations = math.ceil(diameter / DISTANCE_OF_GRID_TILE);
+  const iterations = Math.ceil(diameter / DISTANCE_OF_GRID_TILE);
   const separation = diameter / iterations;
 
   const gridEntities: GridEntity[] = [];

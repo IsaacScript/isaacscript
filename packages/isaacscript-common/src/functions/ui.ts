@@ -15,7 +15,7 @@ import { copyVector } from "./vector";
  */
 export function getHUDOffsetVector(): Readonly<Vector> {
   // Convert e.g. 0.4 to 4.
-  const hudOffset = math.floor(Options.HUDOffset * 10);
+  const hudOffset = Math.floor(Options.HUDOffset * 10);
 
   // Expected values are integers between 1 and 10.
   if (hudOffset < 1 || hudOffset > 10) {
@@ -145,9 +145,9 @@ export function getVisibleHearts(player: EntityPlayer): int {
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
 
-  const maxHearts = math.max(effectiveMaxHearts, boneHearts * 2);
+  const maxHearts = Math.max(effectiveMaxHearts, boneHearts * 2);
 
-  let visibleHearts = math.ceil((maxHearts + soulHearts) / 2);
+  let visibleHearts = Math.ceil((maxHearts + soulHearts) / 2);
   if (visibleHearts < 1) {
     visibleHearts = 1;
   }

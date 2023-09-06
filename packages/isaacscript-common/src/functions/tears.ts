@@ -31,7 +31,7 @@ export function addTearsStat(player: EntityPlayer, tearsStat: float): void {
  * - In this context, the "tears stat" represents what is shown on the in-game stat UI.
  */
 export function getFireDelay(tearsStat: float): float {
-  return math.max(30 / tearsStat - 1, -0.9999);
+  return Math.max(30 / tearsStat - 1, -0.9999);
 }
 
 /**
