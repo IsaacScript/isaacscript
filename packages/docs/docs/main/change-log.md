@@ -13,6 +13,8 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `hasAnyTrinket`
+  - `hasPiercing`
+  - `hasSpectral`
   - `isPoopGridEntityType`
   - `useCardTemp`
 - Renamed the following helper functions:

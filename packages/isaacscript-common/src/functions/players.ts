@@ -6,6 +6,7 @@ import {
   NullItemID,
   PlayerForm,
   PlayerType,
+  TearFlag,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
@@ -17,6 +18,7 @@ import { ReadonlySet } from "../types/ReadonlySet";
 import { getLastElement, sumArray } from "./array";
 import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
+import { hasFlag } from "./flag";
 import {
   getAllPlayers,
   getPlayerIndexVanilla,
@@ -577,6 +579,24 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
   }
 
   return activeItemPrimary === CollectibleType.NULL;
+}
+
+/**
+ * Helper function to check if a player has piercing tears.
+ *
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable.
+ */
+export function hasPiercing(player: EntityPlayer): boolean {
+  return hasFlag(player.TearFlags, TearFlag.PIERCING);
+}
+
+/**
+ * Helper function to check if a player has spectral tears.
+ *
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable.
+ */
+export function hasSpectral(player: EntityPlayer): boolean {
+  return hasFlag(player.TearFlags, TearFlag.SPECTRAL);
 }
 
 /**

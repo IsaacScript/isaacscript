@@ -469,6 +469,10 @@ export function newPlayerHealth(): PlayerHealth {
   };
 }
 
+/**
+ * Helper function to remove all of a player's black hearts and add the corresponding amount of soul
+ * hearts.
+ */
 export function playerConvertBlackHeartsToSoulHearts(
   player: EntityPlayer,
 ): void {
@@ -481,6 +485,10 @@ export function playerConvertBlackHeartsToSoulHearts(
   setPlayerHealth(player, playerHealth);
 }
 
+/**
+ * Helper function to remove all of a player's soul hearts and add the corresponding amount of black
+ * hearts.
+ */
 export function playerConvertSoulHeartsToBlackHearts(
   player: EntityPlayer,
 ): void {
