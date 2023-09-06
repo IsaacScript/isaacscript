@@ -12,8 +12,9 @@ This page lists the changes to the IsaacScript framework.
 ## September 11th, 2023 (Unreleased)
 
 - Added the following helper functions:
-  - `useCardTemp`
+  - `hasAnyTrinket`
   - `isPoopGridEntityType`
+  - `useCardTemp`
 - Renamed the following helper functions:
   - `addStat` --> `addPlayerStat`
 - Added the following enums:

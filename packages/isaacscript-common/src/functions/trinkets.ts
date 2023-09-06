@@ -4,6 +4,7 @@ import {
   TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { TRINKET_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { itemConfig } from "../core/cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../core/constants";
 import {
@@ -194,6 +195,16 @@ export function getTrinketName(trinketType: TrinketType): string {
  */
 export function getVanillaTrinketTypeRange(): TrinketType[] {
   return iRange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
+}
+
+/** Helper function to check to see if the player is holding one or more trinkets. */
+export function hasAnyTrinket(player: EntityPlayer): boolean {
+  const playerTrinketTypes = TRINKET_SLOT_VALUES.map((trinketSlot) =>
+    player.GetTrinket(trinketSlot),
+  );
+  return playerTrinketTypes.every(
+    (trinketType) => trinketType === TrinketType.NULL,
+  );
 }
 
 /**
