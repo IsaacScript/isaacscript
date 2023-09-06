@@ -15,7 +15,9 @@ This page lists the changes to the IsaacScript framework.
   - `hasAnyTrinket`
   - `hasPiercing`
   - `hasSpectral`
+  - `inRoomShape`
   - `isPoopGridEntityType`
+  - `isRoomShape`
   - `useCardTemp`
 - Renamed the following helper functions:
   - `addStat` --> `addPlayerStat`

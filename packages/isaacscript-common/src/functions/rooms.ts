@@ -414,6 +414,16 @@ export function inMirrorRoom(): boolean {
 }
 
 /**
+ * Helper function to check if the current room shape matches one of the given room shapes.
+ *
+ * This function is variadic, which means you can pass as many room shapes as you want to match for.
+ */
+export function inRoomShape(...roomShapes: RoomShape[]): boolean {
+  const roomData = getRoomData();
+  return isRoomShape(roomData, ...roomShapes);
+}
+
+/**
  * Helper function to check if the current room matches one of the given room types.
  *
  * This function is variadic, which means you can pass as many room types as you want to match for.
@@ -672,6 +682,18 @@ export function isMirrorRoom(roomData: RoomConfig): boolean {
       roomData.StageID === StageID.DROSS) &&
     roomData.Subtype === asNumber(DownpourRoomSubType.MIRROR)
   );
+}
+
+/**
+ * Helper function to check if the provided room matches one of the given room shapes.
+ *
+ * This function is variadic, which means you can pass as many room shapes as you want to match for.
+ */
+export function isRoomShape(
+  roomData: RoomConfig,
+  ...roomShapes: RoomShape[]
+): boolean {
+  return roomShapes.includes(roomData.Shape);
 }
 
 /**
