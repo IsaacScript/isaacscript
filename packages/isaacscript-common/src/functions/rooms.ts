@@ -483,7 +483,7 @@ export function is2x1Room(roomData: RoomConfig): boolean {
  * @allowEmptyVariadic
  */
 export function isAllRoomsClear(
-  onlyCheckRoomTypes?: RoomType[],
+  onlyCheckRoomTypes?: RoomType[] | readonly RoomType[],
   includeSecretAndSuperSecretRoom = false,
   includeUltraSecretRoom = false,
 ): boolean {
