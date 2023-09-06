@@ -106,7 +106,7 @@
     "remark-retext": "^5.0.1",
     "remark-validate-links": "^12.1.1",
     "retext-diacritics": "^4.2.0",
-    "retext-english": "^5.0.0",
+    "retext-english": "4.1.0",
     "retext-indefinite-article": "^4.3.0",
     "retext-redundant-acronyms": "^4.3.0",
     "retext-repeated-words": "^4.2.0",

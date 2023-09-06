@@ -21,8 +21,8 @@ fi
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.
 # - react-dom - Stuck until Docusaurus upgrades.
-# - unified - Does not work with the current Markdown linting setup because it requires a "module"
-#             type in "package.json", and Docusaurus does not support this yet.
+# - retext-english - Stuck until Docusaurus is on ESM.
+# - unified - Stuck until Docusaurus is on ESM.
 # @template-customization-end
 npx npm-check-updates --upgrade --packageFile "$PACKAGE_JSON" --filterVersion "^*"
 NEW_HASH=$(md5sum "$PACKAGE_JSON")
