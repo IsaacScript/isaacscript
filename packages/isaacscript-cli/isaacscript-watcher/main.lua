@@ -133,7 +133,7 @@ function mod:renderText()
 
   -- Go through each message.
   for i, msg in ipairs(messageArray) do
-    local color = mod:GetColorForMsg(msg, alpha)
+    local color = mod:getColorForMsg(msg, alpha)
     font:DrawStringScaledUTF8(
       msg,
       x,
@@ -147,7 +147,7 @@ function mod:renderText()
   end
 end
 
-function mod:GetColorForMsg(msg, alpha)
+function mod:getColorForMsg(msg, alpha)
   local white = KColor(1, 1, 1, alpha)
   local red = KColor(1, 0, 0, alpha)
   local green = KColor(0, 1, 0, alpha)
@@ -176,12 +176,12 @@ function mod:loadSaveDat()
 
   -- Check to see if there a "save.dat" file for this save slot.
   if not Isaac.HasModData(mod) then
-    mod:ClearSaveDat()
+    mod:clearSaveDat()
     return
   end
 
   -- The server will write JSON data for us to the "save#.dat" file in the mod subdirectory.
-  if not pcall(mod.Load) then
+  if not pcall(mod.load) then
     -- Sometimes loading can fail if the file is currently being being written to, so give up for
     -- now and try again on the next interval.
     Isaac.DebugString(
@@ -194,12 +194,12 @@ function mod:loadSaveDat()
 
   if #saveData > 0 then
     local saveDatContents = saveData
-    mod:ClearSaveDat()
-    mod:LoadSuccessful(saveDatContents)
+    mod:clearSaveDat()
+    mod:loadSuccessful(saveDatContents)
   end
 end
 
-function mod:LoadSuccessful(saveDatContents)
+function mod:loadSuccessful(saveDatContents)
   frameOfLastSuccessfulLoad = Isaac.GetFrameCount()
 
   for _, entry in ipairs(saveDatContents) do
@@ -233,17 +233,17 @@ function mod:LoadSuccessful(saveDatContents)
   end
 end
 
-function mod:ClearSaveDat()
+function mod:clearSaveDat()
   saveData = {}
-  mod:Save()
+  mod:save()
 end
 
-function mod:Save()
+function mod:save()
   local saveDataJSON = json.encode(saveData)
   mod:SaveData(saveDataJSON)
 end
 
-function mod:Load()
+function mod:load()
   -- Read the "save#.dat" file into a string.
   local saveDataJSON = Isaac.LoadModData(mod)
 
