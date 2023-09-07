@@ -144,8 +144,7 @@
     "SandboxGetParentFunctionDescription",
     "SandboxGetTime",
     "SandboxGetTraceback",
-    "SandboxTraceback",
-        "__ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE"
+    "SandboxTraceback"
   ],
   "preloadFileSize": 5000,
   "runtime.version": "Lua 5.3"
