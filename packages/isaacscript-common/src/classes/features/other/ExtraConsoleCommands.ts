@@ -27,10 +27,10 @@ declare let __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE:
  *
  * Note that in order to avoid conflicts, if two or more mods enable this feature, then the first
  * loaded one will control all of the command logic. When this occurs, a global variable of
- * `__ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE` will be created and automatically used by
- * the non-main instances. For this reason, if you use multiple mods with `isaacscript-common` and a
- * custom command from the standard library is not working properly, then you might need to get
- * another mod author to update their version of `isaacscript-common`.
+ * `__ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE` will be created and will automatically be
+ * used by the non-main instances. For this reason, if you use multiple mods with
+ * `isaacscript-common` and a custom command from the standard library is not working properly, then
+ * you might need to get another mod author to update their version of `isaacscript-common`.
  */
 export class ExtraConsoleCommands extends Feature {
   /** @internal */
