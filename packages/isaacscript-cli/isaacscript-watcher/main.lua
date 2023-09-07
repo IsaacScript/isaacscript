@@ -44,6 +44,11 @@ local function getScreenBottomRightPos()
   return Vector(screenWidth, screenHeight)
 end
 
+-- From: https://programming-idioms.org/idiom/96/check-string-prefix/1882/lua
+local function startsWith(string, prefix)
+  return string:find(prefix, 1, true) == 1
+end
+
 -- ModCallbacks.MC_POST_RENDER (2)
 function mod:postRender()
   -- Don't do anything while fading in to a new run to prevent crashes.
@@ -209,6 +214,17 @@ function mod:loadSuccessful(saveDatContents)
         -- If we restart on the first frame that a run is loading, then the game can crash.
         restartFrame = Isaac.GetFrameCount() + 1
       else
+        -- Reloading a mod with the extra console commands feature will fail to initialize the
+        -- commands because the global variable already exists. Thus, we must manually clean up the
+        -- global variable.
+        if (
+          startsWith(entry.data, "luamod ")
+          and __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE ~= nil
+        ) then
+          __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE:removeAllConsoleCommands()
+          __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE = nil
+        end
+
         Isaac.DebugString(MOD_NAME .. " - Executing command: " .. entry.data)
         Isaac.ExecuteCommand(entry.data)
       end
