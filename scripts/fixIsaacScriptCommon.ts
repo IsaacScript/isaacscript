@@ -137,6 +137,7 @@ function main() {
   makeDir(FEATURES_DIR);
   addCategoryFilesAndMarkdownHeaders();
   moveDirsToOther();
+  renameSpecialPages();
   deleteDuplicatedPages();
   renameDuplicatedPages();
   fixLinks();
@@ -325,6 +326,20 @@ function getTitle(filePath: string, directoryName: string) {
 
   // Base case: use the file name without the ".md" suffix.
   return pageName;
+}
+
+/**
+ * Some pages are erroneously deleted by the `deleteDuplicatedPages`, so we must handle them
+ * manually.
+ */
+function renameSpecialPages() {
+  const oldPath = path.join(
+    OTHER_DIR,
+    "classes",
+    "features_other_extraConsoleCommands_commands.md",
+  );
+  const newPath = path.join(FEATURES_DIR, "Commands.md");
+  fs.renameSync(oldPath, newPath);
 }
 
 function deleteDuplicatedPages() {
