@@ -314,4 +314,19 @@ export class ExtraConsoleCommands extends Feature {
 
     this.commandFunctionMap.delete(commandName);
   }
+
+  /**
+   * Helper function to remove all custom console commands.
+   *
+   * The standard library comes with [many existing console commands](ExtraConsoleCommandsList) that
+   * are useful for debugging. If you want to disable all of them after this feature has already
+   * been initialized, use this function.
+   *
+   * In order to use this function, you must upgrade your mod with
+   * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
+   */
+  @Exported
+  public removeAllConsoleCommands(): void {
+    this.commandFunctionMap.clear();
+  }
 }
