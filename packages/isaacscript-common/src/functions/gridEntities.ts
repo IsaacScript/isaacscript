@@ -35,10 +35,8 @@ const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
     GridEntityType.ROCK_ALT, // 6
     GridEntityType.SPIDER_WEB, // 10
     GridEntityType.TNT, // 12
-
     // GridEntityType.FIREPLACE (13) does not count since it is turned into a non-grid entity upon
     // spawning.
-
     GridEntityType.POOP, // 14
     GridEntityType.ROCK_SUPER_SPECIAL, // 22
     GridEntityType.ROCK_SPIKED, // 25
@@ -51,8 +49,8 @@ const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS =
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
- * grid entity type and variant normally used by the game. For example, a rock is represented as
- * 1000.0 in a room XML file, but `GridEntityType.ROCK` is equal to 2.
+ * grid entity type and variant normally used by the game. For example, `GridEntityXMLType.ROCK` is
+ * 1000 (in a room XML file), but `GridEntityType.ROCK` is equal to 2 (in-game).
  */
 export function convertXMLGridEntityType(
   gridEntityXMLType: GridEntityXMLType,
@@ -82,7 +80,7 @@ export function convertXMLGridEntityType(
 
 /**
  * Helper function to check if one or more of a specific kind of grid entity is present in the
- * current room. It uses the `countEntities` helper function to determine this.
+ * current room.
  *
  * @param gridEntityType The grid entity type to match.
  * @param variant Optional. Default is -1, which matches every variant.
@@ -134,7 +132,7 @@ export function getAllGridIndexes(): int[] {
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
-  const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
+  const { topLeft, bottomRight } = getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
     gridEntity.Position,
@@ -290,7 +288,7 @@ export function getGridEntitiesInRadius(
       }
 
       registeredGridIndexes.add(gridIndex);
-      const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
+      const { topLeft, bottomRight } = getGridEntityCollisionPoints(gridEntity);
 
       if (
         isCircleIntersectingRectangle(
@@ -332,9 +330,10 @@ export function getGridEntitiesMap(
 }
 
 /** Helper function to get the top left and bottom right corners of a given grid entity. */
-export function getGridEntityCollisionPoints(
-  gridEntity: GridEntity,
-): [topLeft: Vector, bottomRight: Vector] {
+export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
+  topLeft: Vector;
+  bottomRight: Vector;
+} {
   const topLeft = Vector(
     gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
     gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
@@ -344,7 +343,7 @@ export function getGridEntityCollisionPoints(
     gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
   );
 
-  return [topLeft, bottomRight];
+  return { topLeft, bottomRight };
 }
 
 /** Helper function to get a string containing the grid entity's type and variant. */
@@ -381,6 +380,12 @@ export function getMatchingGridEntities(
   );
 }
 
+/**
+ * Helper function to get the grid entities on the surrounding tiles from the provided grid entity.
+ *
+ * For example, if a rock was surrounded by rocks on all sides, this would return an array of 8
+ * rocks (e.g. top-left + top + top-right + left + right + bottom-left + bottom + right).
+ */
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {
@@ -412,6 +417,11 @@ export function getSurroundingGridEntities(
   return surroundingGridEntities;
 }
 
+/**
+ * Helper function to get the top left wall in the current room.
+ *
+ * This function can be useful in certain situations to determine if the room is currently loaded.
+ */
 export function getTopLeftWall(): GridEntity | undefined {
   const room = game.GetRoom();
   const topLeftWallGridIndex = getTopLeftWallGridIndex();
@@ -421,6 +431,8 @@ export function getTopLeftWall(): GridEntity | undefined {
 /**
  * Helper function to get the grid index of the top left wall. (This will depend on what the current
  * room shape is.)
+ *
+ * This function can be useful in certain situations to determine if the room is currently loaded.
  */
 export function getTopLeftWallGridIndex(): int {
   const room = game.GetRoom();
@@ -432,11 +444,10 @@ export function getTopLeftWallGridIndex(): int {
 }
 
 /**
- * Helper function to see if the provided gridEntity is in its respective broken state. See the
- * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
+ * Helper function to detect if a particular grid entity would "break" if it was touched by an
+ * explosion.
  *
- * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
- * the actual collision for the entity is removed.
+ * For example, rocks and pots are breakable by explosions, but blocks are not.
  */
 export function isGridEntityBreakableByExplosion(
   gridEntity: GridEntity,
@@ -454,9 +465,11 @@ export function isGridEntityBreakableByExplosion(
 }
 
 /**
- * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
- * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
- * at the VarData of the entity.)
+ * Helper function to see if the provided grid entity is in its respective broken state. See the
+ * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
+ *
+ * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
+ * the actual collision for the entity is removed.
  */
 export function isGridEntityBroken(gridEntity: GridEntity): boolean {
   const gridEntityType = gridEntity.GetType();
@@ -472,8 +485,9 @@ export function isPoopGridEntityType(
 }
 
 /**
- * Helper function to determine if all of the pressure plates in the current room are pushed.
- * Returns true if there are no pressure plates in the room.
+ * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
+ * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
+ * at the `VarData` of the entity.)
  */
 export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
   // - The VarData of Void Portals that are spawned after bosses will be equal to 1.

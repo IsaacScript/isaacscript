@@ -8,7 +8,7 @@ import {
 } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
-// Not every grid entity can be broken, thus we can use a map to represent this.
+/** Not every grid entity can be broken. Thus use a map to represent this. */
 export const GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP = new ReadonlyMap<
   GridEntityType,
   int
