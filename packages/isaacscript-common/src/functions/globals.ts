@@ -231,6 +231,7 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
   return newGlobals;
 }
 
+/** Helper function to log any added global variables in the Isaac Lua environment. */
 export function logNewGlobals(): void {
   const newGlobals = getNewGlobals();
 

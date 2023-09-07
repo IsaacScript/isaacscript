@@ -55,7 +55,7 @@ declare global {
      * `print` instead of invoking this method directly.
      *
      * Note that unlike `print`, if you invoke `Isaac.ConsoleOutput` directly, the displayed message
-     * will not contain a newline terminator.
+     * will not contain a trailing newline.
      */
     function ConsoleOutput(text: string): void;
 

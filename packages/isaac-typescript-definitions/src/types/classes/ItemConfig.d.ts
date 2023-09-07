@@ -54,7 +54,7 @@ declare global {
   }
 
   /**
-   * The static methods in this class can only be called by a global variable.
+   * The static methods in this class can only be called by the global variable.
    *
    * e.g. `ItemConfig.Config.IsValidCollectible(1)`
    */
