@@ -81,6 +81,9 @@ export function restart(character?: PlayerType): void {
  *
  * This is useful to revert the behavior where playing on a set and restarting the game will not
  * take you to a new seed.
+ *
+ * Under the hood, this function calls the `Seeds.Reset` method and the
+ * `Seeds.Restart(Challenge.NULL)` method.
  */
 export function setUnseeded(): void {
   const seeds = game.GetSeeds();

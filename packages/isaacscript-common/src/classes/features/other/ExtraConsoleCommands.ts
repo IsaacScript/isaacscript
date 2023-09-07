@@ -11,17 +11,32 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { isVanillaConsoleCommand } from "../../../functions/console";
 import { addFlag, bitFlags } from "../../../functions/flag";
 import { getMapPartialMatch } from "../../../functions/map";
+import { assertDefined } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
 import * as commands from "./extraConsoleCommands/commands";
 import { v } from "./extraConsoleCommands/v";
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+declare let __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE:
+  | ExtraConsoleCommands
+  | undefined;
+
 /**
  * When you enable this feature, many custom commands will be added to the in-game console. See the
  * [dedicated command list](ExtraConsoleCommandsList) for more information about them.
+ *
+ * Note that in order to avoid conflicts, if two or more mods enable this feature, then the first
+ * loaded one will control all of the command logic. When this occurs, a global variable of
+ * `__ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE` will be created and automatically used by
+ * the non-main instances. For this reason, if you use multiple mods with `isaacscript-common` and a
+ * custom command from the standard library is not working properly, then you might need to get
+ * another mod author to update their version of `isaacscript-common`.
  */
 export class ExtraConsoleCommands extends Feature {
   /** @internal */
   public override v = v;
+
+  private readonly isMainFeature: boolean;
 
   private readonly commandFunctionMap = new Map<
     string,
@@ -31,6 +46,16 @@ export class ExtraConsoleCommands extends Feature {
   /** @internal */
   constructor() {
     super();
+
+    // Only one instance of this feature can be instantiated across all mods.
+    this.isMainFeature =
+      __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE === undefined;
+    if (!this.isMainFeature) {
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
+    __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE = this;
 
     this.callbacksUsed = [
       // 1
@@ -230,6 +255,18 @@ export class ExtraConsoleCommands extends Feature {
     commandName: string,
     commandFunction: (params: string) => void,
   ): void {
+    if (!this.isMainFeature) {
+      assertDefined(
+        __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE,
+        "Failed to find the non-main isaacscript-common extra console commands feature in the global variable.",
+      );
+      __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE.addConsoleCommand(
+        commandName,
+        commandFunction,
+      );
+      return;
+    }
+
     if (isVanillaConsoleCommand(commandName)) {
       error(
         `Failed to add a new console command of "${commandName}" because that name already belongs to a vanilla command. You must pick a non-colliding name.`,
@@ -258,9 +295,20 @@ export class ExtraConsoleCommands extends Feature {
    */
   @Exported
   public removeConsoleCommand(commandName: string): void {
+    if (!this.isMainFeature) {
+      assertDefined(
+        __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE,
+        "Failed to find the non-main isaacscript-common extra console commands feature in the global variable.",
+      );
+      __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE.removeConsoleCommand(
+        commandName,
+      );
+      return;
+    }
+
     if (!this.commandFunctionMap.has(commandName)) {
       error(
-        `Failed to remove the console command of "${commandName}", since it does not already exist in the map.`,
+        `Failed to remove the console command of "${commandName}", since it does not already exist in the command map.`,
       );
     }
 
