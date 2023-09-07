@@ -15,6 +15,10 @@ import { Feature } from "../../private/Feature";
 import * as commands from "./extraConsoleCommands/commands";
 import { v } from "./extraConsoleCommands/v";
 
+/**
+ * When you enable this feature, many custom commands will be added to the in-game console. See the
+ * [dedicated command list](ExtraConsoleCommandsList) for more information about them.
+ */
 export class ExtraConsoleCommands extends Feature {
   /** @internal */
   public override v = v;
@@ -211,10 +215,12 @@ export class ExtraConsoleCommands extends Feature {
   /**
    * Helper function to add a custom console command.
    *
-   * The standard library comes with many existing console commands that are useful for debugging,
-   * but you can also add your own commands that are useful for your particular mod. It's easier to
-   * add commands to the existing command system than to add your own logic manually to the
-   * `EXECUTE_CMD` callback.
+   * The standard library comes with [many existing console commands](ExtraConsoleCommandsList) that
+   * are useful for debugging, but you can also add your own commands that are useful for your
+   * particular mod. It's easier to add commands to the existing command system than to add your own
+   * logic manually to the `EXECUTE_CMD` callback.
+   *
+   * This function is intended to be called when your mod is first loading.
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
@@ -242,8 +248,10 @@ export class ExtraConsoleCommands extends Feature {
   /**
    * Helper function to remove a custom console command.
    *
-   * The standard library comes with many existing console commands that are useful for debugging.
-   * If you want to disable one of them, use this function.
+   * The standard library comes with [many existing console commands](ExtraConsoleCommandsList) that
+   * are useful for debugging. If you want to disable one of them, use this function.
+   *
+   * This function is intended to be called when your mod is first loading.
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.

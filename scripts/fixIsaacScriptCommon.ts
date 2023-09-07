@@ -338,8 +338,15 @@ function renameSpecialPages() {
     "classes",
     "features_other_extraConsoleCommands_commands.md",
   );
-  const newPath = path.join(FEATURES_DIR, "Commands.md");
+  const newPath = path.join(FEATURES_DIR, "ExtraConsoleCommandsList.md");
   fs.renameSync(oldPath, newPath);
+
+  const contents = readFile(newPath);
+  const newContents = contents.replace(
+    "# features_other_extraConsoleCommands_commands",
+    "# Extra Console Commands (List)",
+  );
+  fs.writeFileSync(newPath, newContents);
 }
 
 function deleteDuplicatedPages() {
