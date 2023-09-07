@@ -205,8 +205,8 @@ export class ExtraConsoleCommands extends Feature {
   private readonly executeCmd = (command: string, params: string) => {
     const resultTuple = getMapPartialMatch(command, this.commandFunctionMap);
     if (resultTuple === undefined) {
-      // We cannot print an error message, because if multiple mods have this feature enabled, then
-      // multiple error messages would appear.
+      // We opt to not print an error message because a non-IsaacScript mod may have configured a
+      // custom console command.
       return;
     }
 

@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## September 11th, 2023 (Unreleased)
 
+- The "Extra Console Commands" feature will now work properly if two or more mods have it enabled.
 - Added the following helper functions:
   - `hasAnyTrinket`
   - `hasPiercing`
