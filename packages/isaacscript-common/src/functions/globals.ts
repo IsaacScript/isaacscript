@@ -262,6 +262,11 @@ export function setLogFunctionsGlobal(): void {
   }
 }
 
+/**
+ * Sets the `traceback` and `getTraceback` functions to be global functions.
+ *
+ * This is useful when editing Lua files when troubleshooting.
+ */
 export function setTracebackFunctionsGlobal(): void {
   const globals = _G as Record<string, unknown>;
 
