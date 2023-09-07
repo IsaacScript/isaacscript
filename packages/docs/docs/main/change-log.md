@@ -19,6 +19,7 @@ This page lists the changes to the IsaacScript framework.
   - `inRoomShape`
   - `isPoopGridEntityType`
   - `isRoomShape`
+  - `removeAllConsoleCommands`
   - `useCardTemp`
 - Renamed the following helper functions:
   - `addStat` --> `addPlayerStat`
