@@ -1,12 +1,13 @@
+import type { PlayerType } from "isaac-typescript-definitions";
 import {
   Challenge,
   Difficulty,
-  PlayerType,
   SlotVariant,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { FIRST_CHARACTER } from "../core/constantsFirstLast";
+import { getCharacterName } from "./characters";
 import { spawnSlot } from "./entitiesSpecific";
 import { log } from "./log";
 
@@ -70,8 +71,9 @@ export function restart(character?: PlayerType): void {
   }
 
   const command = `restart ${character}`;
+  const characterName = getCharacterName(character);
   log(
-    `Restarting the run as PlayerType.${PlayerType[character]} (${character}) with a console command of: ${command}`,
+    `Restarting the run as ${characterName} (${character}) with a console command of: ${command}`,
   );
   Isaac.ExecuteCommand(command);
 }
