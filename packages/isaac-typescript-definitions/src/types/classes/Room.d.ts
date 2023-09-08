@@ -198,10 +198,7 @@ declare global {
     IsPositionInRoom: (position: Vector, margin: float) => boolean;
     IsSacrificeDone: () => boolean;
     KeepDoorsClosed: () => void;
-
-    /** Note that "Explosion" is misspelled as "Explossion". */
-    MamaMegaExplossion: () => void;
-
+    MamaMegaExplosion: (position: Vector) => void;
     PlayMusic: () => void;
     RemoveDoor: (doorSlot: DoorSlot) => void;
 
