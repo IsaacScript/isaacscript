@@ -11390,12 +11390,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "isaac-typescript-definitions@npm:16.0.0"
+"isaac-typescript-definitions@npm:^16.1.0":
+  version: 16.1.0
+  resolution: "isaac-typescript-definitions@npm:16.1.0"
   dependencies:
     lua-types: ^2.13.1
-  checksum: 345344252a60a278e1f7c835bbfab40fa6223bc2a704a4ab6af8ec97991fc458429cbd1eba98f5999ba0d72ba9c9bc8d0df8acc456f2ca2b0e27d0e11a2f0166
+  checksum: ac57da4f6daa63d789c7f1ae79bd9b5e32616f421a9cf3b16bcc77907f68e18601aa8a4d6b21a06b937556993af7c99fd8640ae8d5d069ccbcbf6b30e503c380
   languageName: node
   linkType: hard
 
@@ -11469,7 +11469,7 @@ __metadata:
     extract-comments: ^1.1.0
     figlet: ^1.6.0
     glob: ^10.3.4
-    isaac-typescript-definitions: ^16.0.0
+    isaac-typescript-definitions: ^16.1.0
     jest: ^29.6.4
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
