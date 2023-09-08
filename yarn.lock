@@ -11476,7 +11476,7 @@ __metadata:
     klaw-sync: ^6.0.0
     knip: ^2.22.0
     lua-types: ^2.13.1
-    markdownlint: ^0.30.0
+    markdownlint: ^0.31.0
     markdownlint-cli: ^0.36.0
     moment: ^2.29.4
     node-fetch: ^3.3.2
@@ -11498,7 +11498,7 @@ __metadata:
     remark-preset-lint-recommended: ^6.1.3
     remark-retext: ^5.0.1
     remark-validate-links: ^12.1.1
-    retext-diacritics: ^4.2.0
+    retext-diacritics: ^5.0.0
     retext-english: 4.1.0
     retext-indefinite-article: ^4.3.0
     retext-redundant-acronyms: ^4.3.0
@@ -12984,7 +12984,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:^0.30.0, markdownlint@npm:~0.30.0":
+"markdownlint@npm:^0.31.0":
+  version: 0.31.0
+  resolution: "markdownlint@npm:0.31.0"
+  dependencies:
+    markdown-it: 13.0.1
+    markdownlint-micromark: 0.1.7
+  checksum: 7c4b165d3b4247b8d0a7bf2a50c56d27cc7e0b7ce675d591dc83118dec743f94cadb5ce14d5df5c40a46f3b604de27bfc3b001481f3cd46bf1968634a03d30fc
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:~0.30.0":
   version: 0.30.0
   resolution: "markdownlint@npm:0.30.0"
   dependencies:
@@ -13831,6 +13841,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nlcst-is-literal@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "nlcst-is-literal@npm:3.0.0"
+  dependencies:
+    "@types/nlcst": ^2.0.0
+    "@types/unist": ^3.0.0
+    nlcst-to-string: ^4.0.0
+  checksum: bda4a8818a70033ee2f7b2d47fc99a37cd56ca40cf6c154a6a4243267afa5a5fb7a453c06aee766a1725a5da1da707044534ddaecec2721e432a274f576c1a0d
+  languageName: node
+  linkType: hard
+
 "nlcst-normalize@npm:^3.0.0":
   version: 3.1.1
   resolution: "nlcst-normalize@npm:3.1.1"
@@ -13838,6 +13859,16 @@ __metadata:
     "@types/nlcst": ^1.0.0
     nlcst-to-string: ^3.0.0
   checksum: 643c98fc815f23437fc36ff424ee3fef1b2983369fa9deec71224fe3ac881ace4ee7a04eda4cec9d94b9e0544b401be52c7c7f21e73af09241fcd233b634decf
+  languageName: node
+  linkType: hard
+
+"nlcst-normalize@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nlcst-normalize@npm:4.0.0"
+  dependencies:
+    "@types/nlcst": ^2.0.0
+    nlcst-to-string: ^4.0.0
+  checksum: 68607dc37678193e51d431df87a0565a3ac4005e1e3cb6e9446e9881c7470fecc3bb29a5afdcc25b8eb70310e4fc236de028101af3f80affe545d9ecea66d509
   languageName: node
   linkType: hard
 
@@ -13851,6 +13882,18 @@ __metadata:
     nlcst-normalize: ^3.0.0
     unist-util-visit: ^4.0.0
   checksum: d4f1edcb5ba607b939815f49cff3082b76e268788beef247fd1ff2db3cad350b7d98a27de5949c7f896c7c00170d4dcaa4627452ce32ef27f02d9e0b43b092f9
+  languageName: node
+  linkType: hard
+
+"nlcst-search@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nlcst-search@npm:4.0.0"
+  dependencies:
+    "@types/nlcst": ^2.0.0
+    nlcst-is-literal: ^3.0.0
+    nlcst-normalize: ^4.0.0
+    unist-util-visit: ^5.0.0
+  checksum: fc67430891b8611b43331edd1df5020da0a03d0bc2b3006c14e7f095be064d37e193eee5f8d25599f9b31642587cc2483a63b8683ffb747606349ee6c86ca94a
   languageName: node
   linkType: hard
 
@@ -17486,18 +17529,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"retext-diacritics@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "retext-diacritics@npm:4.2.0"
+"retext-diacritics@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "retext-diacritics@npm:5.0.0"
   dependencies:
-    "@types/nlcst": ^1.0.0
+    "@types/nlcst": ^2.0.0
     match-casing: ^2.0.0
-    nlcst-search: ^3.0.0
-    nlcst-to-string: ^3.0.0
+    nlcst-search: ^4.0.0
+    nlcst-to-string: ^4.0.0
     quotation: ^2.0.0
-    unified: ^10.0.0
-    unist-util-position: ^4.0.0
-  checksum: be12e15573c525e83e30be7dfcdca018e21a6b4e0c9f613d82f5eb66b8f8ee749c6d80f2e22845846dcdf624b6e50941e38b87382bae805ec2bd469d33b4fbac
+    unist-util-position: ^5.0.0
+    vfile: ^6.0.0
+  checksum: 5b6082a969bcf04ba57cbf0c0cc397d17460ba84fce8cce9ff3d0c5784341e1ed14005243c24ef60234696eac3c4c9ae33af0f2b6d66b926575684520a552644
   languageName: node
   linkType: hard
 
