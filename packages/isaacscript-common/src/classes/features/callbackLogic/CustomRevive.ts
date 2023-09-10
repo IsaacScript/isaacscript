@@ -8,7 +8,7 @@ import {
 import { sfxManager } from "../../../core/cachedClasses";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { removeCollectibleFromItemTracker } from "../../../functions/collectibles";
+import { removeCollectibleFromItemTracker } from "../../../functions/external";
 import { log } from "../../../functions/log";
 import { logError } from "../../../functions/logMisc";
 import {
