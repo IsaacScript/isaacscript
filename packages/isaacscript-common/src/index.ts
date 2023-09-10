@@ -50,6 +50,7 @@ export * from "./functions/entities";
 export * from "./functions/entitiesSpecific";
 export * from "./functions/entityTypes";
 export * from "./functions/enums";
+export * from "./functions/external";
 export * from "./functions/familiars";
 export * from "./functions/flag";
 export * from "./functions/globals";
