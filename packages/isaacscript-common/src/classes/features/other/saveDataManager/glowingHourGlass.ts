@@ -20,6 +20,7 @@ const GLOWING_HOUR_GLASS_BACKUP_KEYS = [
 ] as const;
 
 const IGNORE_GLOWING_HOUR_GLASS_KEY = "__ignoreGlowingHourGlass";
+const REWIND_WITH_GLOWING_HOUR_GLASS_KEY = "__rewindWithGlowingHourGlass";
 
 export function makeGlowingHourGlassBackup(
   saveDataMap: LuaMap<string, SaveData>,
@@ -41,7 +42,7 @@ export function makeGlowingHourGlassBackup(
         }
       }
 
-      for (const saveDataKey of GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+      for (const saveDataKey of getKeysToBackup(saveData)) {
         const childTable = saveData[saveDataKey];
         if (childTable === undefined) {
           // This feature does not happen to store any variables on this particular child table.
@@ -98,7 +99,7 @@ export function restoreGlowingHourGlassBackup(
         }
       }
 
-      for (const saveDataKey of GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+      for (const saveDataKey of getKeysToBackup(saveData)) {
         const childTable = saveData[saveDataKey];
         if (childTable === undefined) {
           // This feature does not happen to store any variables on this particular child table.
@@ -135,4 +136,14 @@ export function restoreGlowingHourGlassBackup(
     },
     SAVE_DATA_MANAGER_DEBUG,
   );
+}
+
+function getKeysToBackup(saveData: SaveData) {
+  const shouldBackupPersistentObject =
+    saveData.persistent !== undefined &&
+    (saveData.persistent as LuaTable).has(REWIND_WITH_GLOWING_HOUR_GLASS_KEY);
+
+  return shouldBackupPersistentObject
+    ? ([...GLOWING_HOUR_GLASS_BACKUP_KEYS, SaveDataKey.PERSISTENT] as const)
+    : GLOWING_HOUR_GLASS_BACKUP_KEYS;
 }

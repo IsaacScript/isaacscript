@@ -297,6 +297,9 @@ export class SaveDataManager extends Feature {
    * your mod features that use the save data manager. If this is undesired for your specific
    * use-case, then add a key of `__ignoreGlowingHourGlass: true` to your "run" or "level" object.
    *
+   * If you want the automatic variable restoring with Glowing Hour Glass functionality to apply to
+   * a "persistent" object, you can add a key of `rewindWithGlowingHourGlass: true` to the object.
+   *
    * @param key The name of the file or feature that is submitting data to be managed by the save
    *            data manager. The save data manager will throw an error if the key is already
    *            registered. Note that you can also pass a TSTL class instead of a string and the
