@@ -239,7 +239,7 @@ export function logMap(
     return;
   }
 
-  const suffix = name === undefined ? ` "${name}"` : "";
+  const suffix = name === undefined ? "" : ` "${name}"`;
   log(`Logging a TSTL map${suffix}:`);
 
   const mapKeys = [...map.keys()];
@@ -384,7 +384,7 @@ export function logSet(
     return;
   }
 
-  const suffix = name === undefined ? ` "${name}"` : "";
+  const suffix = name === undefined ? "" : ` "${name}"`;
   log(`Logging a TSTL set${suffix}:`);
 
   const setValues = getSortedSetValues(set);
