@@ -67,7 +67,9 @@ export function loadFromDisk(
     SAVE_DATA_MANAGER_DEBUG,
   );
 
-  log('The save data manager loaded data from the "save#.dat" file.');
+  log(
+    `The save data manager loaded data from the "save#.dat" file for mod: ${mod.Name}`,
+  );
 }
 
 function readSaveDatFile(mod: Mod) {

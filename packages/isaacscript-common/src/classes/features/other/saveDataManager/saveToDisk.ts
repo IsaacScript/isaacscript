@@ -17,7 +17,9 @@ export function saveToDisk(
   );
   const jsonString = jsonEncode(allSaveData);
   mod.SaveData(jsonString);
-  log('The save data manager wrote data to the "save#.dat" file.');
+  log(
+    `The save data manager wrote data to the "save#.dat" file for mod: ${mod.Name}`,
+  );
 }
 
 function getAllSaveDataToWriteToDisk(

@@ -463,7 +463,7 @@ export class SaveDataManager extends Feature {
     for (const tstlClass of tstlClasses) {
       const { name } = tstlClass;
       assertDefined(
-        // Since we are accepting untrusted user input, this might nto be a real TSTL class.
+        // Since we are accepting untrusted user input, this might not be a real TSTL class.
         name as string | undefined,
         "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
       );
