@@ -45,6 +45,17 @@ export function getTearsStat(fireDelay: float): float {
 }
 
 /**
+ * Helper function to check if a tear hit an enemy. A tear is considered to be missed if it hit the
+ * ground, a wall, or a grid entity.
+ *
+ * Under the hood, this function uses the `Entity.IsDead` method to determine this. (Tears will not
+ * die if they hit an enemy, but they will die if they hit a wall or object.)
+ */
+export function isMissedTear(tear: EntityTear): boolean {
+  return tear.IsDead();
+}
+
+/**
  * Helper function to check if a given tear is from a familiar (as opposed to e.g. a player). This
  * is determined by looking at the parent.
  *

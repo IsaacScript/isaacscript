@@ -20,6 +20,7 @@ This page lists the changes to the IsaacScript framework.
   - `hasPiercing`
   - `hasSpectral`
   - `inRoomShape`
+  - `isMissedTear`
   - `isPoopGridEntityType`
   - `isRoomShape`
   - `rebirthItemTrackerWriteToFile`
