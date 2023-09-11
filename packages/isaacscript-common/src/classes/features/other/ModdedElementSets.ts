@@ -1022,6 +1022,7 @@ export class ModdedElementSets extends Feature {
     seedOrRNG: Seed | RNG = getRandomSeed(),
     exceptions: CardType[] = [],
   ): CardType {
+    this.lazyInitCardTypes();
     return getRandomSetElement(this.cardSet, seedOrRNG, exceptions);
   }
 
