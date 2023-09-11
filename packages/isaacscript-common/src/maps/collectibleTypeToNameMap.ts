@@ -661,7 +661,7 @@ export const COLLECTIBLE_TYPE_TO_NAME_MAP = new ReadonlyMap<
   [653, "Vade Retro"],
   [654, "False PHD"],
   [655, "Spin to Win"],
-  [656, "Damocles"],
+  [656, "Damocles (Passive)"],
   [657, "Vasculitis"],
   [658, "Giant Cell"],
   [659, "Tropicamide"],
