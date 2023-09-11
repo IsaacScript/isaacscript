@@ -11501,7 +11501,7 @@ __metadata:
     remark-validate-links: ^12.1.1
     retext-diacritics: ^5.0.0
     retext-english: 4.1.0
-    retext-indefinite-article: ^4.3.0
+    retext-indefinite-article: ^5.0.0
     retext-redundant-acronyms: ^5.0.0
     retext-repeated-words: ^5.0.0
     retext-sentence-spacing: ^6.0.0
@@ -17523,17 +17523,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"retext-indefinite-article@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "retext-indefinite-article@npm:4.3.0"
+"retext-indefinite-article@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "retext-indefinite-article@npm:5.0.0"
   dependencies:
-    "@types/nlcst": ^1.0.0
-    format: ^0.2.0
-    nlcst-to-string: ^3.0.0
+    "@types/nlcst": ^2.0.0
+    nlcst-to-string: ^4.0.0
     number-to-words: ^1.0.0
-    unified: ^10.0.0
-    unist-util-visit: ^4.0.0
-  checksum: 0578101e30a36590916e8bd807667985ffde2eaa7d20a5a6d3b976dd381f0d24f8bdd83bf611c6e4be3decc0d6650493529cd21ff7fde3c64781c8b4410645f9
+    unist-util-visit: ^5.0.0
+    vfile: ^6.0.0
+  checksum: 8e58ff5eeff5e76fd77d5c293567dcd21c58730843f398c2411617ed3df44f33374726cd49b435b1e5857f2113e153a60ddb17f7ea4de346f3f669cac6bdccb1
   languageName: node
   linkType: hard
 

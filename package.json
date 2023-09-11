@@ -107,7 +107,7 @@
     "remark-validate-links": "^12.1.1",
     "retext-diacritics": "^5.0.0",
     "retext-english": "4.1.0",
-    "retext-indefinite-article": "^4.3.0",
+    "retext-indefinite-article": "^5.0.0",
     "retext-redundant-acronyms": "^5.0.0",
     "retext-repeated-words": "^5.0.0",
     "retext-sentence-spacing": "^6.0.0",
