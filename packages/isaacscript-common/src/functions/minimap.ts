@@ -4,6 +4,7 @@ import { game } from "../core/cachedClasses";
 import { addFlag } from "./flag";
 import { getRoomDescriptor, getRoomGridIndex } from "./roomData";
 import { getRoomsInsideGrid } from "./rooms";
+import { isNumber } from "./types";
 import { assertDefined } from "./utils";
 
 /**
@@ -137,11 +138,18 @@ export function hideRoomOnMinimap(roomGridIndex: int): void {
 /**
  * Helper function to check if a given room is visible on the minimap.
  *
- * @param roomGridIndex The room to check.
+ * @param roomGridIndexOrRoomDescriptor The room to check.
  * @param minimapAPI Optional. Whether MinimapAPI should be used, if present. Default is true.
  */
-export function isRoomVisible(roomGridIndex: int, minimapAPI = true): boolean {
+export function isRoomVisible(
+  roomGridIndexOrRoomDescriptor: int | RoomDescriptor,
+  minimapAPI = true,
+): boolean {
+  const roomGridIndex = isNumber(roomGridIndexOrRoomDescriptor)
+    ? roomGridIndexOrRoomDescriptor
+    : roomGridIndexOrRoomDescriptor.SafeGridIndex;
   const roomDisplayFlags = getRoomDisplayFlags(roomGridIndex, minimapAPI);
+
   return roomDisplayFlags !== DisplayFlagZero;
 }
 
