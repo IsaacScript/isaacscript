@@ -341,6 +341,26 @@ export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
 }
 
 /**
+ * Helper function to get the highest value in an array. Returns undefined if there were no elements
+ * in the array.
+ */
+export function getHighestArrayElement(array: number[]): number | undefined {
+  if (array.length === 0) {
+    return undefined;
+  }
+
+  let highestValue: number | undefined;
+
+  for (const element of array) {
+    if (highestValue === undefined || element > highestValue) {
+      highestValue = element;
+    }
+  }
+
+  return highestValue;
+}
+
+/**
  * Helper function to return the last element of an array.
  *
  * If the array is empty, this will return undefined.
@@ -350,6 +370,26 @@ export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
  */
 export function getLastElement<T>(array: T[]): T | undefined {
   return array[array.length - 1];
+}
+
+/**
+ * Helper function to get the lowest value in an array. Returns undefined if there were no elements
+ * in the array.
+ */
+export function getLowestArrayElement(array: number[]): number | undefined {
+  if (array.length === 0) {
+    return undefined;
+  }
+
+  let lowestValue: number | undefined;
+
+  for (const element of array) {
+    if (lowestValue === undefined || element < lowestValue) {
+      lowestValue = element;
+    }
+  }
+
+  return lowestValue;
 }
 
 /**
