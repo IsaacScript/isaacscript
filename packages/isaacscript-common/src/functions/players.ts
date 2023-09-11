@@ -600,6 +600,21 @@ export function hasSpectral(player: EntityPlayer): boolean {
 }
 
 /**
+ * Helper function to check to see if a player has one or more trinkets.
+ *
+ * This function is variadic, meaning that you can supply as many trinket types as you want to check
+ * for. Returns true if the player has any of the supplied trinket types.
+ *
+ * This function always passes `false` to the `ignoreModifiers` argument.
+ */
+export function hasTrinket(
+  player: EntityPlayer,
+  ...trinketTypes: TrinketType[]
+): boolean {
+  return trinketTypes.some((trinketType) => player.HasTrinket(trinketType));
+}
+
+/**
  * Helper function to check if the active slot of a particular player is empty.
  *
  * @param player The player to check.
@@ -760,8 +775,8 @@ export function removeAllActiveItems(player: EntityPlayer): void {
 /**
  * Helper function to remove all of the held trinkets from a player.
  *
- * This will not remove any smelted trinkets, unless the player happens to be holding a trinket that
- * they also have smelted. (In that case, both the held and the smelted trinket will be removed.)
+ * This will not remove any smelted trinkets, unless the player happens to also be holding a trinket
+ * that they have smelted. (In that case, both the held and the smelted trinket will be removed.)
  */
 export function removeAllPlayerTrinkets(player: EntityPlayer): void {
   for (const trinketSlot of TRINKET_SLOT_VALUES) {
@@ -770,11 +785,11 @@ export function removeAllPlayerTrinkets(player: EntityPlayer): void {
       continue;
     }
 
-    let hasTrinket: boolean;
+    let alreadyHasTrinket: boolean;
     do {
       player.TryRemoveTrinket(trinketType);
-      hasTrinket = player.HasTrinket(trinketType);
-    } while (hasTrinket);
+      alreadyHasTrinket = player.HasTrinket(trinketType);
+    } while (alreadyHasTrinket);
   }
 }
 
