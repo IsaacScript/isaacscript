@@ -202,8 +202,8 @@ export function hasAnyTrinket(player: EntityPlayer): boolean {
   const playerTrinketTypes = TRINKET_SLOT_VALUES.map((trinketSlot) =>
     player.GetTrinket(trinketSlot),
   );
-  return playerTrinketTypes.every(
-    (trinketType) => trinketType === TrinketType.NULL,
+  return playerTrinketTypes.some(
+    (trinketType) => trinketType !== TrinketType.NULL,
   );
 }
 
