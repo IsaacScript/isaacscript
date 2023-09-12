@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 18th, 2023 (Unreleased)
+
+- Added the following helper functions:
+  - `asFloat`
+  - `asInt`
+
 ## September 11th, 2023
 
 - The save data manager now supports rewinding a `persistent` object if `__rewindWithGlowingHourGlass` is specified.
