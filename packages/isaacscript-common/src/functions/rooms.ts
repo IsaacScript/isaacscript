@@ -82,8 +82,8 @@ export function changeRoom(roomGridIndex: int): void {
  * include off-grid rooms, like the Devil Room.
  */
 export function getNumRooms(): int {
-  const rooms = getRoomsInsideGrid();
-  return rooms.length;
+  const roomsInsideGrid = getRoomsInsideGrid();
+  return roomsInsideGrid.length;
 }
 
 /**
@@ -199,7 +199,7 @@ export function getRoomTypeName(roomType: RoomType): string {
 export function getRooms(
   includeExtraDimensionalRooms = false,
 ): RoomDescriptor[] {
-  // The obvious way to get all of the rooms would be to iterate over the `RoomList` from the
+  // The naive way to get all of the rooms would be to iterate over the `RoomList` from the
   // `Level.GetRooms` method. However, this results in read-only data, and we want to return a
   // writable object. Instead, we let the heavy lifting be handled by other functions.
   const roomsInGrid = getRoomsInsideGrid(includeExtraDimensionalRooms);
@@ -497,14 +497,14 @@ export function isAllRoomsClear(
   includeSecretAndSuperSecretRoom = false,
   includeUltraSecretRoom = false,
 ): boolean {
-  const rooms = getRoomsInsideGrid();
+  const roomsInsideGrid = getRoomsInsideGrid();
 
   let matchingRooms: RoomDescriptor[];
   if (onlyCheckRoomTypes === undefined) {
-    matchingRooms = rooms;
+    matchingRooms = roomsInsideGrid;
   } else {
     const roomTypeWhitelist = new ReadonlySet(onlyCheckRoomTypes);
-    matchingRooms = rooms.filter(
+    matchingRooms = roomsInsideGrid.filter(
       (roomDescriptor) =>
         roomDescriptor.Data !== undefined &&
         roomTypeWhitelist.has(roomDescriptor.Data.Type),

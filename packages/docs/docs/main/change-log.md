@@ -9,12 +9,13 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## September 11th, 2023 (Unreleased)
+## September 11th, 2023
 
 - The save data manager now supports rewinding a `persistent` object if `__rewindWithGlowingHourGlass` is specified.
 - The "Extra Console Commands" feature will now work properly if two or more mods have it enabled.
 - Added the following helper functions:
   - `getHighestArrayElement`
+  - `getLevelBossIDs`
   - `getLowestArrayElement`
   - `hasAnyTrinket`
   - `hasPiercing`
@@ -24,6 +25,7 @@ This page lists the changes to the IsaacScript framework.
   - `isMissedTear`
   - `isPoopGridEntityType`
   - `isRoomShape`
+  - `levelHasBossID`
   - `rebirthItemTrackerWriteToFile`
   - `removeAllConsoleCommands`
   - `useCardTemp`

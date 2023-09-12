@@ -231,10 +231,10 @@ export function getNewRoomCandidatesForLevel(
   readonly newRoomGridIndex: int;
 }> {
   // We want to iterate over every room on the floor and search for potential new room spots.
-  const rooms = getRoomsInsideGrid();
+  const roomsInsideGrid = getRoomsInsideGrid();
 
   // However, we want to filter out special rooms because they are supposed to be dead ends.
-  const normalRooms = rooms.filter(
+  const normalRooms = roomsInsideGrid.filter(
     (room) =>
       room.Data !== undefined &&
       room.Data.Type === RoomType.DEFAULT &&
@@ -242,7 +242,7 @@ export function getNewRoomCandidatesForLevel(
       !isMineShaft(room.Data), // Mineshaft rooms do not count as special rooms.
   );
 
-  const roomsToLookThrough = ensureDeadEnd ? normalRooms : rooms;
+  const roomsToLookThrough = ensureDeadEnd ? normalRooms : roomsInsideGrid;
 
   const newRoomCandidates: Array<{
     readonly adjacentRoomGridIndex: int;
@@ -301,7 +301,7 @@ export function getRoomAdjacentGridIndexes(
  * Helper function to get an array of all of the room descriptors for rooms that match the specified
  * room type.
  *
- * This function only searches through rooms in the current dimension.
+ * This function only searches through rooms in the current dimension and rooms inside the grid.
  *
  * This function is variadic, meaning that you can specify N arguments to get the combined room
  * descriptors for N room types.
@@ -311,8 +311,8 @@ export function getRoomDescriptorsForType(
 ): RoomDescriptor[] {
   const roomTypesSet = new Set<RoomType>(roomTypes);
 
-  const rooms = getRoomsInsideGrid();
-  return rooms.filter(
+  const roomsInsideGrid = getRoomsInsideGrid();
+  return roomsInsideGrid.filter(
     (roomDescriptor) =>
       roomDescriptor.Data !== undefined &&
       roomTypesSet.has(roomDescriptor.Data.Type),
