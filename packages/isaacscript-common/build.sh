@@ -36,8 +36,9 @@ npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.ts" "isaacscript
 # parsing the "index.ts" file, and generates a new ".d.ts" file with private exports removed. Note
 # that end-users can still manually import internal functions with e.g.
 # `import { RunInNFrames } from "isaacscript-common/dist/src/classes/features/other/RunInNFrames";
-# but by removing them from the ".d.ts" file, they will not appear as part of auto-complete, which is good enough
-# for our case. However, a downside of this method is that the declaration maps will not work:
+# but by removing them from the ".d.ts" file, they will not appear as part of auto-complete, which
+# is good enough for our case. However, a downside of this method is that the declaration maps will
+# not work:
 # https://github.com/microsoft/rushstack/issues/1886
 # https://github.com/timocov/dts-bundle-generator/issues/218
 npx api-extractor run
