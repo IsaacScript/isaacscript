@@ -58,6 +58,7 @@ noout # lint.sh
 noreply # Monorepo word
 nrwl # Monorepo word
 nx # Monorepo word
+packagejson # Prettier plugin
 paren # ESLint word
 parens # ESLint word
 pathlib # check-api-dictionary.sh
