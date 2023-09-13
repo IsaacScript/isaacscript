@@ -15,7 +15,7 @@ import {
 } from "../arrays/cachedEnumValues";
 import { game, itemConfig } from "../core/cachedClasses";
 import { ReadonlySet } from "../types/ReadonlySet";
-import { getLastElement, sumArray } from "./array";
+import { sumArray } from "./array";
 import { getCharacterName, isVanillaCharacter } from "./characters";
 import { getCollectibleMaxCharges } from "./collectibles";
 import { hasFlag } from "./flag";
@@ -250,7 +250,7 @@ export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
 
-  const lastPlayer = getLastElement(players);
+  const lastPlayer = players.at(-1);
   assertDefined(
     lastPlayer,
     "Failed to get the final player since there were 0 players.",

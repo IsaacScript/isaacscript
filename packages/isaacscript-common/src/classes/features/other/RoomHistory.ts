@@ -1,7 +1,6 @@
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { getLastElement } from "../../../functions/array";
 import { getDimension } from "../../../functions/dimensions";
 import {
   getRoomGridIndex,
@@ -140,7 +139,7 @@ export class RoomHistory extends Feature {
    */
   @Exported
   public getLatestRoomDescription(): Readonly<RoomDescription> | undefined {
-    return getLastElement(v.run.roomHistory);
+    return v.run.roomHistory.at(-1);
   }
 
   /** Helper function to detect if the player is on the first room of the room. */

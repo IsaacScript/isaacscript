@@ -14,6 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `asFloat`
   - `asInt`
+- Removed the following helper functions:
+  - `getLastElement` (TSTL supports the `Array.at` method now)
 - Added the following custom commands:
   - `collectible` (alias for the `spawnCollectible` command)
   - `goldTrinket` (alias for the `spawnGoldenTrinket` command)

@@ -1,11 +1,7 @@
 import type { CollectibleType } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import {
-  arrayRemoveInPlace,
-  copyArray,
-  getLastElement,
-} from "../../../functions/array";
+import { arrayRemoveInPlace, copyArray } from "../../../functions/array";
 import { isActiveCollectible } from "../../../functions/collectibles";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
 import type { PlayerIndex } from "../../../types/PlayerIndex";
@@ -123,6 +119,6 @@ export class PlayerInventory extends Feature {
     player: EntityPlayer,
   ): CollectibleType | undefined {
     const inventory = this.getPlayerInventory(player, false);
-    return getLastElement(inventory);
+    return inventory.at(-1);
   }
 }
