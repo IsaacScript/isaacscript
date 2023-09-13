@@ -767,6 +767,11 @@ export function goldenKey(): void {
   player.AddGoldenKey();
 }
 
+/** Alias for the "spawnGoldenTrinket" command. */
+export function goldenTrinket(params: string): void {
+  spawnGoldenTrinket(params);
+}
+
 /**
  * Alias for the "debug 11" command. Useful for seeing the coordinates and grid index of each tile
  * in the room.
