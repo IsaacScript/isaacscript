@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `asFloat`
   - `asInt`
+  - `getLowestEnumValue`
 - Removed the following helper functions:
   - `getLastElement` (TSTL supports the `Array.at` method now)
 - Added the following custom commands:

@@ -101,6 +101,8 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
  *
  * Note that this is not necessarily the enum value that is declared last in the code, since there
  * is no way to infer that at run-time.
+ *
+ * Throws an error if the provided enum is empty.
  */
 export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
@@ -112,6 +114,26 @@ export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
   );
 
   return lastElement;
+}
+
+/**
+ * Helper function to get the enum value with the lowest value.
+ *
+ * Note that this is not necessarily the enum value that is declared first in the code, since there
+ * is no way to infer that at run-time.
+ *
+ * Throws an error if the provided enum is empty.
+ */
+export function getLowestEnumValue<T>(transpiledEnum: T): T[keyof T] {
+  const enumValues = getEnumValues(transpiledEnum);
+
+  const firstElement = enumValues[0];
+  assertDefined(
+    firstElement,
+    "Failed to get the first value from an enum since the enum was empty.",
+  );
+
+  return firstElement;
 }
 
 /**
