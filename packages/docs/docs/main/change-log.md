@@ -14,6 +14,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `asFloat`
   - `asInt`
+- Added the following custom commands:
+  - `goldenTrinket` (alias for the `spawnGoldenTrinket` command)
 
 ## September 11th, 2023
 
