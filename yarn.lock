@@ -11727,7 +11727,6 @@ __metadata:
     retext-sentence-spacing: ^6.0.0
     retext-syntax-mentions: ^4.0.0
     retext-syntax-urls: ^4.0.0
-    sort-package-json: ^2.5.1
     source-map: ^0.7.4
     source-map-support: ^0.5.21
     sync-directory: ^6.0.4
@@ -18560,7 +18559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sort-package-json@npm:2.5.1, sort-package-json@npm:^2.5.1":
+"sort-package-json@npm:2.5.1":
   version: 2.5.1
   resolution: "sort-package-json@npm:2.5.1"
   dependencies:

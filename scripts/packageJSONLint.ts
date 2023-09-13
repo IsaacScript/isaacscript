@@ -3,7 +3,6 @@
 import { globSync } from "glob";
 import fs from "node:fs";
 import path from "node:path";
-import sortPackageJsonDefault from "sort-package-json";
 import { __dirname, isKebabCase, readFile } from "./utils.js";
 
 const PACKAGE_JSON = "package.json";
@@ -252,12 +251,6 @@ function packageJSONLint(
 
     // We skip checking for peer dependencies, since they are all based on the major version.
     // e.g. "typescript": ">= 5.0.0"
-  }
-
-  const sortedPackageJSONString = sortPackageJsonDefault(packageJSONString);
-  if (packageJSONString !== sortedPackageJSONString) {
-    console.error(`File is not sorted: ${packageJSONPath}`);
-    return false;
   }
 
   return true;
