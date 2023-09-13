@@ -9,6 +9,8 @@ eslint "sort-exports/sort-exports": [
 ],
 */
 
+/* eslint "require-jsdoc": "error" */
+
 /**
  * __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
  *
@@ -506,6 +508,11 @@ export function coins(params: string): void {
   player.AddCoins(numCoins);
 }
 
+/** Alias for the "spawnCollectible" command. */
+export function collectible(params: string): void {
+  spawnCollectible(params);
+}
+
 /** Creates a crawl space next to the player. */
 export function crawlSpace(): void {
   spawnTrapdoorOrCrawlSpace(false);
@@ -745,6 +752,11 @@ export function goldHearts(params: string): void {
 /** Alias for the "goldenKey" command. */
 export function goldKey(): void {
   goldenKey();
+}
+
+/** Alias for the "spawnGoldenTrinket" command. */
+export function goldTrinket(params: string): void {
+  spawnGoldenTrinket(params);
 }
 
 /** Gives the player a golden bomb. */
@@ -1420,10 +1432,23 @@ export function spam(): void {
   printEnabled(v.persistent.spamBloodRights, "spamming Blood Rights");
 }
 
+/**
+ * Spawns a collectible in the center of the room. You must specify the collectible name or the
+ * number corresponding to the collectible type.
+ *
+ * For example, all of the following commands would spawn Spoon Bender:
+ *
+ * ```text
+ * spawnCollectible spoon bender
+ * spawnCollectible spoon
+ * spawnCollectible spo
+ * spawnCollectible 3
+ * ```
+ */
 export function spawnCollectible(params: string): void {
   if (params === "") {
     print(
-      "You must specify the name or number corresponding to the collectible type.",
+      "You must specify the collectible name or the number corresponding to the collectible type.",
     );
     return;
   }
@@ -1447,8 +1472,88 @@ export function spawnCollectible(params: string): void {
   spawnCollectibleUnsafe(collectibleType, centerPos);
 }
 
-/** Spawns a golden version of the specified trinket type. */
+/**
+ * Spawns a collectible at a specific grid tile location. You must specify the number corresponding
+ * to the collectible type and the number corresponding to the grid tile location.
+ *
+ * For example, this would spawn Spoon Bender in the top-left corner of a 1x1 room:
+ *
+ * ```text
+ * spawnCollectibleAt 3 16
+ * ```
+ *
+ * (You can use the "grid" command to toggle displaying the numerical grid indexes corresponding to
+ * a grid tile.)
+ */
+export function spawnCollectibleAt(params: string): void {
+  if (params === "") {
+    print(
+      "You must specify the number corresponding to the collectible type and the number corresponding to the grid tile location.",
+    );
+    return;
+  }
+
+  const args = params.split(" ");
+  if (args.length !== 2) {
+    print(
+      "You must specify the number corresponding to the collectible type and the number corresponding to the grid tile location.",
+    );
+    return;
+  }
+
+  const collectibleTypeNumber = tonumber(args[0]);
+  if (collectibleTypeNumber === undefined || collectibleTypeNumber < 0) {
+    print(`Failed to parse the collectible type of: ${args[0]}`);
+    return;
+  }
+
+  const gridIndex = tonumber(args[1]);
+  if (gridIndex === undefined || gridIndex < 0) {
+    print(`Failed to parse the grid index of: ${args[1]}`);
+    return;
+  }
+
+  const collectibleType = asCollectibleType(collectibleTypeNumber);
+  spawnCollectibleUnsafe(collectibleType, gridIndex);
+}
+
+/** Alias for the `spawnGoldenTrinket` command. */
+export function spawnGoldTrinket(params: string): void {
+  spawnGoldenTrinket(params);
+}
+
+/**
+ * The same thing as the `spawnTrinket` command but spawns a golden version of the specified
+ * trinket.
+ */
 export function spawnGoldenTrinket(params: string): void {
+  spawnTrinket(params, true);
+}
+
+/**
+ * The same thing as the `spawnTrinketAt` command but spawns a golden version of the specified
+ * trinket.
+ */
+export function spawnGoldenTrinketAt(params: string): void {
+  spawnTrinketAt(params, true);
+}
+
+/**
+ * Spawns a trinket in the center of the room. You must specify the trinket name or the number
+ * corresponding to the trinket type.
+ *
+ * For example, all of the following commands would spawn the Wiggle Worm trinket:
+ *
+ * ```text
+ * spawnTrinket wiggle worm
+ * spawnTrinket wiggle
+ * spawnTrinket wig
+ * spawnTrinket 10
+ * ```
+ *
+ * Also see the `spawnGoldenTrinket` command.
+ */
+export function spawnTrinket(params: string, golden = false): void {
   if (params === "") {
     print(
       "You must specify the name or number corresponding to the trinket type.",
@@ -1473,34 +1578,55 @@ export function spawnGoldenTrinket(params: string): void {
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
   const goldenTrinketType = getGoldenTrinketType(trinketType);
-  spawnTrinketFunction(goldenTrinketType, centerPos);
+  const trinketTypeToSpawn = golden ? goldenTrinketType : trinketType;
+  spawnTrinketFunction(trinketTypeToSpawn, centerPos);
 }
 
-export function spawnTrinket(params: string): void {
+/**
+ * Spawns a trinket at a specific grid tile location. You must specify the number corresponding to
+ * the trinket type and the number corresponding to the grid tile location.
+ *
+ * For example, this would spawn Wiggle Worm in the top-left corner of a 1x1 room:
+ *
+ * ```text
+ * spawnTrinketAt 10 16
+ * ```
+ *
+ * (You can use the "grid" command to toggle displaying the numerical grid indexes corresponding to
+ * a grid tile.)
+ */
+export function spawnTrinketAt(params: string, golden = false): void {
   if (params === "") {
     print(
-      "You must specify the name or number corresponding to the trinket type.",
+      "You must specify the number corresponding to the trinket type and the number corresponding to the grid tile location.",
     );
     return;
   }
 
-  const trinketTypeNumber = tonumber(params);
-  let trinketType: TrinketType;
-  if (trinketTypeNumber === undefined) {
-    const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
-    if (match === undefined) {
-      print(`Unknown trinket: ${params}`);
-      return;
-    }
-
-    trinketType = match[1];
-  } else {
-    trinketType = asTrinketType(trinketTypeNumber);
+  const args = params.split(" ");
+  if (args.length !== 2) {
+    print(
+      "You must specify the number corresponding to the trinket type and the number corresponding to the grid tile location.",
+    );
+    return;
   }
 
-  const roomClass = game.GetRoom();
-  const centerPos = roomClass.GetCenterPos();
-  spawnTrinketFunction(trinketType, centerPos);
+  const trinketTypeNumber = tonumber(args[0]);
+  if (trinketTypeNumber === undefined || trinketTypeNumber < 0) {
+    print(`Failed to parse the trinket type of: ${args[0]}`);
+    return;
+  }
+
+  const gridIndex = tonumber(args[1]);
+  if (gridIndex === undefined || gridIndex < 0) {
+    print(`Failed to parse the grid index of: ${args[1]}`);
+    return;
+  }
+
+  const trinketType = asTrinketType(trinketTypeNumber);
+  const goldenTrinketType = getGoldenTrinketType(trinketType);
+  const trinketTypeToSpawn = golden ? goldenTrinketType : trinketType;
+  spawnTrinketFunction(trinketTypeToSpawn, gridIndex);
 }
 
 /**
@@ -1596,6 +1722,11 @@ export function trapdoor(): void {
 /** Warps to the first Treasure Room on the floor. */
 export function treasureRoom(): void {
   warpToRoomType(RoomType.TREASURE);
+}
+
+/** Alias for the "spawnTrinket" command. */
+export function trinket(params: string): void {
+  spawnTrinket(params);
 }
 
 /** Warps to the first Ultra Secret Room on the floor. */

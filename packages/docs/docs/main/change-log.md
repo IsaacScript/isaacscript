@@ -15,7 +15,14 @@ This page lists the changes to the IsaacScript framework.
   - `asFloat`
   - `asInt`
 - Added the following custom commands:
+  - `collectible` (alias for the `spawnCollectible` command)
+  - `goldTrinket` (alias for the `spawnGoldenTrinket` command)
   - `goldenTrinket` (alias for the `spawnGoldenTrinket` command)
+  - `spawnCollectibleAt`
+  - `spawnTrinketAt`
+  - `spawnGoldTrinket` (alias for the `spawnGoldenTrinket` command)
+  - `spawnGoldenTrinketAt`
+  - `trinket` (alias for the `spawnTrinket` command)
 
 ## September 11th, 2023
 
