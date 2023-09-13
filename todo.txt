@@ -1,4 +1,5 @@
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
+- get rid of nx
 
 ----------------------------------------------------------------------------------------------------
 
