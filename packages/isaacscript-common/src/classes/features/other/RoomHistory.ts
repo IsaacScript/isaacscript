@@ -110,8 +110,7 @@ export class RoomHistory extends Feature {
    */
   @Exported
   public getPreviousRoomDescription(): Readonly<RoomDescription> {
-    const previousRoomDescription =
-      v.run.roomHistory[v.run.roomHistory.length - 2];
+    const previousRoomDescription = v.run.roomHistory.at(-2);
     if (previousRoomDescription !== undefined) {
       return previousRoomDescription;
     }

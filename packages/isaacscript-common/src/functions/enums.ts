@@ -105,7 +105,7 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
 export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
-  const lastElement = enumValues[enumValues.length - 1];
+  const lastElement = enumValues.at(-1);
   assertDefined(
     lastElement,
     "Failed to get the last value from an enum since the enum was empty.",
@@ -178,7 +178,7 @@ export function validateEnumContiguous<T>(
   transpiledEnum: T,
 ): void {
   const values = getEnumValues(transpiledEnum);
-  const lastValue = values[values.length - 1];
+  const lastValue = values.at(-1);
   assertDefined(
     lastValue,
     "Failed to validate that an enum was contiguous, since the last value was undefined.",
