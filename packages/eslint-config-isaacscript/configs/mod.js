@@ -185,13 +185,6 @@ const config = {
     /**
      * Defined at: base-unicorn.js
      *
-     * TypeScriptToLua does not support the `Array.at` method.
-     */
-    "unicorn/prefer-at": "off",
-
-    /**
-     * Defined at: base-unicorn.js
-     *
      * IsaacScript mods use Lua bitwise operators, which are safe.
      */
     "unicorn/prefer-math-trunc": "off",
