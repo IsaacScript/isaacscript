@@ -129,7 +129,7 @@ export function getRoomName(roomGridIndex?: int): string {
  * Helper function to get the name of the room as it appears in the STB/XML data.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room name. Returns "Unknown"if the room data was not found.
+ * @returns The room name. Returns "Unknown" if the room data was not found.
  */
 export function getRoomShape(roomGridIndex?: int): RoomShape | undefined {
   const roomData = getRoomData(roomGridIndex);

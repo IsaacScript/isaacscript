@@ -335,6 +335,10 @@ function addCombinations<T>(
  * Helper function to get an array containing the indexes of an array.
  *
  * For example, an array of `["Apple", "Banana"]` would return an array of `[0, 1]`.
+ *
+ * Note that normally, you would use the `Object.keys` method to get the indexes of an array, but
+ * due to implementation details of TypeScriptToLua, this results in an array of 1 through N
+ * (instead of an array of 0 through N -1).
  */
 export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
   return eRange(array.length);
