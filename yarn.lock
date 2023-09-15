@@ -4866,13 +4866,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.5.4":
-  version: 29.5.4
-  resolution: "@types/jest@npm:29.5.4"
+"@types/jest@npm:^29.5.5":
+  version: 29.5.5
+  resolution: "@types/jest@npm:29.5.5"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: 38ed5942f44336452efd0f071eab60aaa57cd8d46530348d0a3aa5a691dcbf1366c4ca8f6ee8364efb45b4413bfefae443e5d4f469246a472a03b21ac11cd4ed
+  checksum: 56e55cde9949bcc0ee2fa34ce5b7c32c2bfb20e53424aa4ff3a210859eeaaa3fdf6f42f81a3f655238039cdaaaf108b054b7a8602f394e6c52b903659338d8c6
   languageName: node
   linkType: hard
 
@@ -11650,7 +11650,7 @@ __metadata:
     "@types/eslint__js": ^8.42.0
     "@types/figlet": ^1.5.6
     "@types/glob": ^8.1.0
-    "@types/jest": ^29.5.4
+    "@types/jest": ^29.5.5
     "@types/klaw-sync": ^6.0.2
     "@types/node": ^20.6.1
     "@types/prompt": ^1.1.5
@@ -11700,7 +11700,7 @@ __metadata:
     markdownlint-cli: ^0.36.0
     moment: ^2.29.4
     node-fetch: ^3.3.2
-    npm-check-updates: ^16.14.2
+    npm-check-updates: ^16.14.3
     nx: 15.5.3
     prettier: ^3.0.3
     prettier-plugin-organize-imports: ^3.2.3
@@ -14366,9 +14366,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.14.2":
-  version: 16.14.2
-  resolution: "npm-check-updates@npm:16.14.2"
+"npm-check-updates@npm:^16.14.3":
+  version: 16.14.3
+  resolution: "npm-check-updates@npm:16.14.3"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
@@ -14405,7 +14405,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: d0bc2c7774598235686ddf9654739a0331f6788815e84b6e2eb0670913d52a286fd66889d8900f13e9e39a13413ef5992255248d30c3362b1c15e5fc1bbaa75e
+  checksum: bcb50ec13c100e53820f778d84b8c0d494604670f575137f01cba1da2c7df0b58df5091c2aff1007ed6077a4e5fbea25774b53c121b9b34816ee462db820e1f0
   languageName: node
   linkType: hard
 
