@@ -70,12 +70,15 @@ export function getRoomDescriptorReadOnly(): Readonly<RoomDescriptor> {
 }
 
 /**
- * Helper function to get the safe grid index of the current room. (The safe grid index is defined
- * as the top-left 1x1 section that the room overlaps with, or the top-right 1x1 section of a
- * `RoomType.SHAPE_LTL` room.)
+ * Helper function to get the grid index of the current room.
  *
- * Under the hood, this function uses the `Level.GetCurrentRoomDesc` method. (In Afterbirth+, this
- * method was bugged for rooms outside of the grid, but it is now fixed.)
+ * - If the current room is inside of the grid, this function will return the `SafeGridIndex` from
+ *   the room descriptor. (The safe grid index is defined as the top-left 1x1 section that the room
+ *   overlaps with, or the top-right 1x1 section of a `RoomType.SHAPE_LTL` room.)
+ * - If the current room is outside of the grid, it will return the index from the
+ *   `Level.GetCurrentRoomIndex` method (since `SafeGridIndex` is bugged for these cases, as
+ *   demonstrated by entering a Genesis room and entering `l
+ *   print(Game():GetLevel():GetCurrentRoomDesc().SafeGridIndex)` into the console).
  *
  * Use this function instead of the `Level.GetCurrentRoomIndex` method directly because the latter
  * will return the specific 1x1 quadrant that the player entered the room at. For most situations,
@@ -85,6 +88,13 @@ export function getRoomDescriptorReadOnly(): Readonly<RoomDescriptor> {
  * `SafeGridIndex`, since the former is unique across different dimensions.
  */
 export function getRoomGridIndex(): int {
+  const level = game.GetLevel();
+  const currentRoomIndex = level.GetCurrentRoomIndex();
+
+  if (currentRoomIndex < 0) {
+    return currentRoomIndex;
+  }
+
   const roomDescriptor = getRoomDescriptorReadOnly();
   return roomDescriptor.SafeGridIndex;
 }
