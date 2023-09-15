@@ -154,12 +154,12 @@ export function getRandomEnumValue<T>(
 }
 
 /** Helper function to validate that a particular value exists inside of an enum. */
-export function isEnumValue(
+export function isEnumValue<T extends Record<string, number | string>>(
   value: number | string,
-  transpiledEnum: Record<string | number, string | number>,
-): boolean {
+  transpiledEnum: T,
+): value is T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
-  return enumValues.includes(value);
+  return enumValues.includes(value as T[keyof T]);
 }
 
 /**

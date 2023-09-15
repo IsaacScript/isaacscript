@@ -25,18 +25,17 @@ export function getJSONRoomDoorSlotFlags(
   jsonRoom: JSONRoom,
 ): BitFlags<DoorSlotFlag> {
   const roomShapeString = jsonRoom.$.shape;
-  const roomShapeNumber = tonumber(roomShapeString);
+  const roomShape = tonumber(roomShapeString);
   assertDefined(
-    roomShapeNumber,
+    roomShape,
     `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
   );
 
-  if (!isEnumValue(roomShapeNumber, RoomShape)) {
+  if (!isEnumValue(roomShape, RoomShape)) {
     error(
-      `Failed to parse the "shape" field of a JSON room since it was an invalid number: ${roomShapeNumber}`,
+      `Failed to parse the "shape" field of a JSON room since it was an invalid number: ${roomShape}`,
     );
   }
-  const roomShape = roomShapeNumber as RoomShape;
 
   let doorSlotFlags = DoorSlotFlagZero;
 
