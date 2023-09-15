@@ -31,15 +31,25 @@ export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
   return allowedDoors;
 }
 
-// We provide an overload because the current room is guaranteed to have data.
+/**
+ * Helper function to get the room data for the current room.
+ *
+ * You can optionally provide a room grid index as an argument to get the data for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
+ */
 export function getRoomData(): RoomConfig;
-export function getRoomData(roomGridIndex?: int): RoomConfig | undefined;
 
 /**
- * Helper function to get the room data for the provided room.
+ * Helper function to get the room data for the current or provided room.
  *
  * @param roomGridIndex Optional. Default is the current room index.
+ * @returns The room data for the room or undefined if the provided room does not have any data.
  */
+export function getRoomData(roomGridIndex?: int): RoomConfig | undefined;
+
 export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
   return roomDescriptor.Data;
@@ -115,53 +125,135 @@ export function getRoomListIndex(roomGridIndex?: int): int {
 }
 
 /**
- * Helper function to get the name of the room as it appears in the STB/XML data.
+ * Helper function to get the name of the current room as it appears in the STB/XML data.
  *
- * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room name. Returns "Unknown" if the room data was not found.
+ * You can optionally provide a room grid index as an argument to get the name for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
  */
-export function getRoomName(roomGridIndex?: int): string {
-  const roomData = getRoomData(roomGridIndex);
-  return roomData === undefined ? "Unknown" : roomData.Name;
-}
+export function getRoomName(): string;
 
 /**
  * Helper function to get the name of the room as it appears in the STB/XML data.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room name. Returns "Unknown" if the room data was not found.
+ * @returns The room name. Returns undefined if the room data was not found.
  */
+export function getRoomName(roomGridIndex?: int): string | undefined;
+
+export function getRoomName(roomGridIndex?: int): string | undefined {
+  const roomData = getRoomData(roomGridIndex);
+  return roomData === undefined ? undefined : roomData.Name;
+}
+
+/**
+ * Helper function to get the shape of the current room as it appears in the STB/XML data.
+ *
+ * You can optionally provide a room grid index as an argument to get the shape for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
+ */
+export function getRoomShape(): RoomShape;
+
+/**
+ * Helper function to get the shape of the room as it appears in the STB/XML data.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
+ * @returns The room shape. Returns undefined if the room data was not found.
+ */
+export function getRoomShape(roomGridIndex?: int): RoomShape | undefined;
+
 export function getRoomShape(roomGridIndex?: int): RoomShape | undefined {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? undefined : roomData.Shape;
 }
 
 /**
- * Helper function to get the stage ID for a room from the XML/STB data. The room stage ID will
- * correspond to the first number in the filename of the XML/STB file. For example, a Depths room
- * would have a stage ID of 7.
+ * Helper function to get the stage ID for the current room as it appears in the STB/XML data.
+ *
+ * The room stage ID will correspond to the first number in the filename of the XML/STB file. For
+ * example, a Depths room would have a stage ID of `StageID.DEPTHS` (7).
+ *
+ * You can optionally provide a room grid index as an argument to get the stage ID for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
+ */
+export function getRoomStageID(): StageID;
+
+/**
+ * Helper function to get the stage ID for a room as it appears in the STB/XML data.
+ *
+ * The room stage ID will correspond to the first number in the filename of the XML/STB file. For
+ * example, a Depths room would have a stage ID of `StageID.DEPTHS` (7).
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room stage ID. Returns -1 if the room data was not found.
+ * @returns The room stage ID. Returns undefined if the room data was not found.
  */
-export function getRoomStageID(roomGridIndex?: int): StageID | -1 {
+export function getRoomStageID(roomGridIndex?: int): StageID | undefined;
+
+export function getRoomStageID(roomGridIndex?: int): StageID | undefined {
   const roomData = getRoomData(roomGridIndex);
-  return roomData === undefined ? -1 : roomData.StageID;
+  return roomData === undefined ? undefined : roomData.StageID;
 }
 
 /**
- * Helper function to get the sub-type for a room from the XML/STB data. The room sub-type will
- * correspond to different things depending on what XML/STB file it draws from. For example, in the
- * "00.special rooms.stb" file, an Angel Room with a sub-type of 0 will correspond to a normal Angel
- * Room and a sub-type of 1 will correspond to an Angel Room shop for The Stairway.
+ * Helper function to get the sub-type for the current room as it appears in the STB/XML data.
+ *
+ * The room sub-type will correspond to different things depending on what XML/STB file it draws
+ * from. For example, in the "00.special rooms.stb" file, an Angel Room with a sub-type of 0 will
+ * correspond to a normal Angel Room and a sub-type of 1 will correspond to an Angel Room shop from
+ * The Stairway.
+ *
+ * You can optionally provide a room grid index as an argument to get the sub-type for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
+ */
+export function getRoomSubType(): int;
+
+/**
+ * Helper function to get the sub-type for a room as it appears in the STB/XML data.
+ *
+ * The room sub-type will correspond to different things depending on what XML/STB file it draws
+ * from. For example, in the "00.special rooms.stb" file, an Angel Room with a sub-type of 0 will
+ * correspond to a normal Angel Room and a sub-type of 1 will correspond to an Angel Room shop from
+ * The Stairway.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room sub-type. Returns -1 if the room data was not found.
+ * @returns The room sub-type. Returns undefined if the room data was not found.
  */
-export function getRoomSubType(roomGridIndex?: int): int {
+export function getRoomSubType(roomGridIndex?: int): int | undefined;
+
+export function getRoomSubType(roomGridIndex?: int): int | undefined {
   const roomData = getRoomData(roomGridIndex);
-  return roomData === undefined ? -1 : roomData.Subtype;
+  return roomData === undefined ? undefined : roomData.Subtype;
 }
+
+/**
+ * Helper function to get the type for the current room as it appears in the STB/XML data.
+ *
+ * You can optionally provide a room grid index as an argument to get the type for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
+ */
+export function getRoomType(): RoomType;
+
+/**
+ * Helper function to get the type for a room as it appears in the STB/XML data.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
+ * @returns The room type. Returns undefined if the room data was not found.
+ */
+export function getRoomType(roomGridIndex?: int): RoomType | undefined;
 
 /**
  * Helper function for getting the type of the room with the given grid index.
@@ -169,19 +261,36 @@ export function getRoomSubType(roomGridIndex?: int): int {
  * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room data type. Returns -1 if the room data was not found.
  */
-export function getRoomType(roomGridIndex?: int): RoomType | -1 {
+export function getRoomType(roomGridIndex?: int): RoomType | undefined {
   const roomData = getRoomData(roomGridIndex);
-  return roomData === undefined ? -1 : roomData.Type;
+  return roomData === undefined ? undefined : roomData.Type;
 }
 
 /**
- * Helper function to get the variant for a room from the XML/STB data. You can think of a room
- * variant as its identifier. For example, to go to Basement room #123, you would use a console
- * command of `goto d.123` while on the Basement.
+ * Helper function to get the variant for the current room as it appears in the STB/XML data.
+ *
+ * You can think of a room variant as its identifier. For example, to go to Basement room #123, you
+ * would use a console command of `goto d.123` while on the Basement.
+ *
+ * You can optionally provide a room grid index as an argument to get the variant for that room
+ * instead.
+ *
+ * (The version of the function without any arguments will not return undefined since the current
+ * room is guaranteed to have data.)
+ */
+export function getRoomVariant(): int;
+
+/**
+ * Helper function to get the variant for a room as it appears in the STB/XML data.
+ *
+ * You can think of a room variant as its identifier. For example, to go to Basement room #123, you
+ * would use a console command of `goto d.123` while on the Basement.
  *
  * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room variant. Returns -1 if the room data was not found.
+ * @returns The room variant. Returns undefined if the room data was not found.
  */
+export function getRoomVariant(roomGridIndex?: int): int | undefined;
+
 export function getRoomVariant(roomGridIndex?: int): int {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? -1 : roomData.Variant;
