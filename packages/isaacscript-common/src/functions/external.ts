@@ -35,15 +35,20 @@ export function rebirthItemTrackerWriteToFile(msg: string): void {
  * this function is not necessary when removing items from players. For example, when you remove a
  * collectible with the `EntityPlayer.RemoveCollectible` method, a proper message is sent to the log
  * the item tracker will automatically remove it.
+ *
+ * This function is variadic, meaning that you can pass as many collectible types as you want to
+ * remove.
  */
 export function removeCollectibleFromItemTracker(
-  collectibleType: CollectibleType,
+  ...collectibleTypes: CollectibleType[]
 ): void {
-  const collectibleName = getCollectibleName(collectibleType);
+  for (const collectibleType of collectibleTypes) {
+    const collectibleName = getCollectibleName(collectibleType);
 
-  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
-  // recognizing the message.
-  Isaac.DebugString(
-    `Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
-  );
+    // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker
+    // from recognizing the message.
+    Isaac.DebugString(
+      `Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
+    );
+  }
 }
