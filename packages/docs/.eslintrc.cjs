@@ -17,10 +17,6 @@ const config = {
     "plugin:@docusaurus/recommended",
   ],
 
-  parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
-  },
-
   env: {
     browser: true,
   },

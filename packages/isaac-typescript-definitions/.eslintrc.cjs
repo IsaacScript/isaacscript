@@ -15,10 +15,6 @@ const config = {
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
   ],
 
-  parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
-  },
-
   plugins: [
     /** See the `sort-exports` rule below. */
     "sort-exports",

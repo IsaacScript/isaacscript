@@ -11,9 +11,10 @@ const config = {
   // We need to add the `tsconfigRootDir` property, but we must also repeat the options from
   // "base-typescript-eslint.js" or they will be deleted.
   parserOptions: {
-    ecmaVersion: "latest",
     sourceType: "module",
+    ecmaVersion: "latest",
     tsconfigRootDir: REPO_ROOT,
+    project: true,
   },
 
   rules: {

@@ -17,10 +17,6 @@ const config = {
 
   ignorePatterns: ["**/file-templates/**"],
 
-  parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
-  },
-
   rules: {
     /**
      * Defined in: "isaacscript/recommended"
