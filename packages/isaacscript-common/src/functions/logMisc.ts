@@ -102,25 +102,25 @@ export function logColor(this: void, color: Color, name?: string): void {
 /** Helper function to log every damage flag that is turned on. Useful when debugging. */
 export function logDamageFlags(
   this: void,
-  flags: DamageFlag | BitFlags<DamageFlag>,
+  damageFlags: DamageFlag | BitFlags<DamageFlag>,
 ): void {
-  logFlags(flags, DamageFlag, "damage");
+  logFlags(damageFlags, DamageFlag, "damage");
 }
 
 /** Helper function to log every display flag that is turned on. Useful when debugging. */
 export function logDisplayFlags(
   this: void,
-  flags: DisplayFlag | BitFlags<DisplayFlag>,
+  displayFlags: DisplayFlag | BitFlags<DisplayFlag>,
 ): void {
-  logFlags(flags, DisplayFlag, "display");
+  logFlags(displayFlags, DisplayFlag, "display");
 }
 
 /** Helper function to log every entity flag that is turned on. Useful when debugging. */
 export function logEntityFlags(
   this: void,
-  flags: EntityFlag | BitFlags<EntityFlag>,
+  entityFlags: EntityFlag | BitFlags<EntityFlag>,
 ): void {
-  logFlags(flags, EntityFlag, "entity");
+  logFlags(entityFlags, EntityFlag, "entity");
 }
 
 export function logEntityID(this: void, entity: Entity): void {
@@ -314,9 +314,9 @@ export function logPlayerHealth(this: void, player: EntityPlayer): void {
 /** Helper function for logging every projectile flag that is turned on. Useful when debugging. */
 export function logProjectileFlags(
   this: void,
-  flags: ProjectileFlag | BitFlags<ProjectileFlag>,
+  projectileFlags: ProjectileFlag | BitFlags<ProjectileFlag>,
 ): void {
-  logFlags(flags, ProjectileFlag, "projectile");
+  logFlags(projectileFlags, ProjectileFlag, "projectile");
 }
 
 /** Helper function for logging information about the current room. */
@@ -566,17 +566,17 @@ export function logTableShallow<K extends AnyNotNil, V>(
 /** Helper function for log every tear flag that is turned on. Useful when debugging. */
 export function logTearFlags(
   this: void,
-  flags: TearFlag | BitFlags<TearFlag>,
+  tearFlags: TearFlag | BitFlags<TearFlag>,
 ): void {
-  logFlags(flags, TearFlag, "tear");
+  logFlags(tearFlags, TearFlag, "tear");
 }
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
 export function logUseFlags(
   this: void,
-  flags: UseFlag | BitFlags<UseFlag>,
+  useFlags: UseFlag | BitFlags<UseFlag>,
 ): void {
-  logFlags(flags, UseFlag, "use");
+  logFlags(useFlags, UseFlag, "use");
 }
 
 /**
