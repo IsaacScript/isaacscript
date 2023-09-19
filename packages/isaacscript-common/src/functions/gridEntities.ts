@@ -27,6 +27,16 @@ import { asNumber, isNumber } from "./types";
 import { assertDefined, eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
+/**
+ * For some specific grid entities, the variant defined in the XML is what is used by the actual
+ * game (which is not the case for e.g. poops).
+ */
+const GRID_ENTITY_TYPES_THAT_KEEP_GRID_ENTITY_XML_VARIANT = new ReadonlySet([
+  GridEntityType.SPIKES_ON_OFF, // 9
+  GridEntityType.PRESSURE_PLATE, // 20
+  GridEntityType.TELEPORTER, // 23
+]);
+
 const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
   new ReadonlySet<GridEntityType>([
     GridEntityType.ROCK, // 2
@@ -63,17 +73,11 @@ export function convertXMLGridEntityType(
   );
 
   const gridEntityType = gridEntityArray[0];
-  let variant = gridEntityArray[1];
-
-  // For some specific grid entities, the variant defined in the XML is what is used by the actual
-  // game (which is not the case for e.g. poops).
-  if (
-    gridEntityType === GridEntityType.SPIKES_ON_OFF || // 9
-    gridEntityType === GridEntityType.PRESSURE_PLATE || // 20
-    gridEntityType === GridEntityType.TELEPORTER // 23
-  ) {
-    variant = gridEntityXMLVariant;
-  }
+  const variant = GRID_ENTITY_TYPES_THAT_KEEP_GRID_ENTITY_XML_VARIANT.has(
+    gridEntityType,
+  )
+    ? gridEntityXMLVariant
+    : gridEntityArray[1];
 
   return [gridEntityType, variant];
 }
