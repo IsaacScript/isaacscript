@@ -933,6 +933,9 @@ export enum ModCallback {
   PRE_SPAWN_CLEAR_AWARD = 70,
 
   /**
+   * You can use the `isGridEntityXMLType` helper function to convert the
+   * `entityTypeOrGridEntityXMLType` argument to an `EntityType` or `GridEntityXMLType`, if needed.
+   *
    * ```ts
    * function preRoomEntitySpawn(
    *   entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,

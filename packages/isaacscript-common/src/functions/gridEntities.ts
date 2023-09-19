@@ -7,6 +7,7 @@ import {
   StatueVariant,
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
+import { GRID_ENTITY_XML_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { DISTANCE_OF_GRID_TILE, VectorOne } from "../core/constants";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
@@ -56,6 +57,8 @@ const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
 
 const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS =
   new ReadonlySet<string>([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
+
+const GRID_ENTITY_XML_TYPES_SET = new ReadonlySet(GRID_ENTITY_XML_TYPE_VALUES);
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
@@ -479,6 +482,14 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
   const gridEntityType = gridEntity.GetType();
   const brokenState = GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP.get(gridEntityType);
   return gridEntity.State === brokenState;
+}
+
+/**
+ * Helper function to see if an arbitrary number is a valid `GridEntityXMLType`. This is useful in
+ * the `PRE_ROOM_ENTITY_SPAWN` callback for narrowing the type of the first argument.
+ */
+export function isGridEntityXMLType(num: number): num is GridEntityXMLType {
+  return GRID_ENTITY_XML_TYPES_SET.has(num); // eslint-disable-line isaacscript/strict-enums
 }
 
 /** Helper function to see if a `GridEntityXMLType` is some kind of poop. */

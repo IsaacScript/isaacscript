@@ -22,21 +22,21 @@ export function convertBinaryToDecimal(bits: int[]): number {
 /**
  * Helper function to convert a number to an array of bits.
  *
- * @param number The number to convert.
+ * @param num The number to convert.
  * @param minLength Optional. Equal to the minimum amount of bits that should be returned. If the
  *                  converted number of bits is below this number, 0's will be padded to the left
  *                  side until the minimum length is met. Default is undefined (which will not cause
  *                  any padding).
  */
-export function convertDecimalToBinary(number: number, minLength?: int): int[] {
+export function convertDecimalToBinary(num: number, minLength?: int): int[] {
   const bits: int[] = [];
 
-  const bitsString = number.toString(2);
+  const bitsString = num.toString(2);
   for (const bitString of bitsString) {
     const bit = tonumber(bitString);
     assertDefined(
       bit,
-      `Failed to convert the following number to binary: ${number}`,
+      `Failed to convert the following number to binary: ${num}`,
     );
 
     bits.push(bit);

@@ -2576,6 +2576,9 @@ export enum ModCallbackCustom {
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
    *
+   * You can use the `isGridEntityXMLType` helper function to convert the
+   * `entityTypeOrGridEntityXMLType` argument to an `EntityType` or `GridEntityXMLType`, if needed.
+   *
    * ```ts
    * function preRoomEntitySpawnFilter(
    *   entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
