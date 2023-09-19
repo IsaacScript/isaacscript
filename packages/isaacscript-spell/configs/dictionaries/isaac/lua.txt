@@ -10,6 +10,7 @@ getmetatable # Global
 getpeername # socket.lua
 getsockname # socket.lua
 gettime # socket.lua
+gmatch # String method
 gsub # String method
 ipairs # Global
 linedefined # Debug library word
