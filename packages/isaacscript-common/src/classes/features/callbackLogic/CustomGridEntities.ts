@@ -15,7 +15,7 @@ import {
 } from "../../../functions/gridEntities";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
-import { isNumber } from "../../../functions/types";
+import { isInteger } from "../../../functions/types";
 import { assertDefined } from "../../../functions/utils";
 import { isVector } from "../../../functions/vector";
 import type { GridEntityCustomData } from "../../../interfaces/GridEntityCustomData";
@@ -386,7 +386,7 @@ export class CustomGridEntities extends Feature {
       return undefined;
     }
 
-    const gridIndex = isNumber(gridEntityOrGridIndex)
+    const gridIndex = isInteger(gridEntityOrGridIndex)
       ? gridEntityOrGridIndex
       : gridEntityOrGridIndex.GetGridIndex();
 

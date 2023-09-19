@@ -4,7 +4,7 @@ import { game } from "../core/cachedClasses";
 import { addFlag } from "./flag";
 import { getRoomDescriptor, getRoomGridIndex } from "./roomData";
 import { getRoomsInsideGrid } from "./rooms";
-import { isNumber } from "./types";
+import { isInteger } from "./types";
 import { assertDefined } from "./utils";
 
 /**
@@ -145,7 +145,7 @@ export function isRoomVisible(
   roomGridIndexOrRoomDescriptor: int | RoomDescriptor,
   minimapAPI = true,
 ): boolean {
-  const roomGridIndex = isNumber(roomGridIndexOrRoomDescriptor)
+  const roomGridIndex = isInteger(roomGridIndexOrRoomDescriptor)
     ? roomGridIndexOrRoomDescriptor
     : roomGridIndexOrRoomDescriptor.SafeGridIndex;
   const roomDisplayFlags = getRoomDisplayFlags(roomGridIndex, minimapAPI);

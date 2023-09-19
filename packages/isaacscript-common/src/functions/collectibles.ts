@@ -33,7 +33,7 @@ import { getEntityID } from "./entities";
 import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { clearSprite, spriteEquals } from "./sprites";
-import { isNumber } from "./types";
+import { isInteger } from "./types";
 import { iRange } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
@@ -754,9 +754,8 @@ function getCollectibleTypeFromArg(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,
   functionName: string,
 ): CollectibleType {
-  if (isNumber(collectibleOrCollectibleType)) {
-    const collectibleType = collectibleOrCollectibleType;
-    return collectibleType;
+  if (isInteger(collectibleOrCollectibleType)) {
+    return collectibleOrCollectibleType;
   }
 
   const collectible = collectibleOrCollectibleType;

@@ -24,7 +24,7 @@ import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
-import { asNumber, isNumber } from "./types";
+import { asNumber, isInteger } from "./types";
 import { assertDefined, eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
@@ -662,7 +662,7 @@ export function removeGridEntity(
 ): void {
   const room = game.GetRoom();
 
-  const gridEntity = isNumber(gridEntityOrGridIndex)
+  const gridEntity = isInteger(gridEntityOrGridIndex)
     ? room.GetGridEntity(gridEntityOrGridIndex)
     : gridEntityOrGridIndex;
   if (gridEntity === undefined) {
@@ -674,7 +674,7 @@ export function removeGridEntity(
   const variant = gridEntity.GetVariant();
   const position = gridEntity.Position;
 
-  const gridIndex = isNumber(gridEntityOrGridIndex)
+  const gridIndex = isInteger(gridEntityOrGridIndex)
     ? gridEntityOrGridIndex
     : gridEntityOrGridIndex.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
