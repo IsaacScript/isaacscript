@@ -478,7 +478,7 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
 }
 
 /** Helper function to see if a `GridEntityXMLType` is some kind of poop. */
-export function isPoopGridEntityType(
+export function isPoopGridEntityXMLType(
   gridEntityXMLType: GridEntityXMLType,
 ): boolean {
   return POOP_GRID_ENTITY_XML_TYPES_SET.has(gridEntityXMLType);

@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 25th, 2023 (Unreleased)
+
+- Renamed the following helper functions:
+  - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`
+
 ## September 18th, 2023
 
 - Added the following helper functions:
