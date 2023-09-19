@@ -244,7 +244,7 @@ export enum ModCallback {
    * function postNewRoom(): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_LEVEL_REORDERED` callback instead,
+   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_ROOM_REORDERED` callback instead,
    *             since it will fire in the correct order and prevent bugs relating to data
    *             structures not being properly initialized.
    */
