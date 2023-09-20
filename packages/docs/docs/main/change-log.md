@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`
 - Added the following helper types:
   - `ERange`
+  - `TupleKeys`
 - Renamed the following helper types:
   - `Range` --> `IRange`
 
