@@ -180,6 +180,7 @@ export * from "./types/StartsWithLowercase";
 export * from "./types/StartsWithUppercase";
 export * from "./types/TSTLClass";
 export * from "./types/Tuple";
+export * from "./types/TupleKeys";
 export * from "./types/TupleToIntersection";
 export * from "./types/TupleToUnion";
 export * from "./types/TupleWithLengthBetween";
