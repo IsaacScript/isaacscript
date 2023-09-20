@@ -12,6 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## September 25th, 2023 (Unreleased)
 
 - Added the following helper functions:
+  - `inRedKeyRoom`
   - `isGridEntityXMLType` (for the `PRE_ROOM_ENTITY_SPAWN` callback)
 - Renamed the following helper functions:
   - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`

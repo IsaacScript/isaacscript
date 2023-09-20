@@ -427,6 +427,16 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
 }
 
 /**
+ * Helper function to detect if the current room was created by the Red Key item.
+ *
+ * Under the hood, this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
+ */
+export function inRedKeyRoom(): boolean {
+  const gridIndex = getRoomGridIndex();
+  return isRedKeyRoom(gridIndex);
+}
+
+/**
  * Helper function to check if the given room grid index is a dead end. Specifically, this is
  * defined as having only one adjacent room that exists.
  *
@@ -480,12 +490,13 @@ export function isDoorSlotValidAtGridIndexForRedRoom(
 }
 
 /**
- * Helper function to detect if the provided room was created by the Red Key item. Under the hood,
- * this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
+ * Helper function to detect if the provided room was created by the Red Key item.
+ *
+ * Under the hood, this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
  *
  * @param roomGridIndex Optional. Default is the current room index.
  */
-export function isRedKeyRoom(roomGridIndex?: int): boolean {
+export function isRedKeyRoom(roomGridIndex: int): boolean {
   const roomDescriptor = getRoomDescriptor(roomGridIndex);
   return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.RED_ROOM);
 }
