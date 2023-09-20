@@ -1,4 +1,4 @@
-import type { Range } from "./Range";
+import type { IRange } from "./IRange";
 
 /**
  * Helper type that validates that a tuple does not have a length greater than N.
@@ -9,7 +9,7 @@ export type TupleWithMaxLength<T, MaxLength extends number> = (
   | T[]
   | readonly T[]
 ) & {
-  length: Range<0, MaxLength>;
+  length: IRange<0, MaxLength>;
 };
 
 // -----

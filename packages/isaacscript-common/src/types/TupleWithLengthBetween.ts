@@ -1,4 +1,4 @@
-import type { Range } from "./Range";
+import type { IRange } from "./IRange";
 
 /**
  * Helper type that validates that a tuple has a length between `MinLength` and `MaxLength`
@@ -11,7 +11,7 @@ export type TupleWithLengthBetween<
   MinLength extends number,
   MaxLength extends number,
 > = (T[] | readonly T[]) & {
-  length: Range<MinLength, MaxLength>;
+  length: IRange<MinLength, MaxLength>;
 };
 
 // -----
