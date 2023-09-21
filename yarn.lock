@@ -9439,9 +9439,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:^46.8.1":
-  version: 46.8.1
-  resolution: "eslint-plugin-jsdoc@npm:46.8.1"
+"eslint-plugin-jsdoc@npm:^46.8.2":
+  version: 46.8.2
+  resolution: "eslint-plugin-jsdoc@npm:46.8.2"
   dependencies:
     "@es-joy/jsdoccomment": ~0.40.1
     are-docs-informative: ^0.0.2
@@ -9454,7 +9454,7 @@ __metadata:
     spdx-expression-parse: ^3.0.1
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0
-  checksum: 481be2d8684892039d1f5165172e8934cb40c595c2af54c91bbfe0c9dab89a19fadc03278631bbb2c30fc7431dca725678dd012b228333f6eecf2677c4e9ec4d
+  checksum: ec2c435246cd45847b7c3ff3c04cc1713c658e3a6023e55577bda25c7ce1547d022aab0bf3b4920c6f792d52ff473c031d61167308e314183c15b57d23ce59c3
   languageName: node
   linkType: hard
 
@@ -12017,12 +12017,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^16.1.2":
-  version: 16.1.2
-  resolution: "isaac-typescript-definitions@npm:16.1.2"
+"isaac-typescript-definitions@npm:^17.0.0":
+  version: 17.0.0
+  resolution: "isaac-typescript-definitions@npm:17.0.0"
   dependencies:
     lua-types: ^2.13.1
-  checksum: 3a44472321746adfc52a7d25a205760ab0e9a566369999c3c9a9d14619d4013265bfdccfeec21061902d17e3995df13f2179d1f52ea2ad3996b1a46e8a9ebbd0
+  checksum: 82181066a59259ac021248720c1c847f021afda3b7f48f3a387d4901443ba0f3cfc877107da4524fae30fb723d7237cffbf97c41f659aa380b0735ba7d95fc47
   languageName: node
   linkType: hard
 
@@ -12087,7 +12087,7 @@ __metadata:
     eslint-plugin-eslint-comments: ^3.2.0
     eslint-plugin-eslint-plugin: ^5.1.1
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
-    eslint-plugin-jsdoc: ^46.8.1
+    eslint-plugin-jsdoc: ^46.8.2
     eslint-plugin-n: ^16.1.0
     eslint-plugin-no-autofix: ^1.2.3
     eslint-plugin-only-warn: ^1.1.0
@@ -12096,7 +12096,7 @@ __metadata:
     extract-comments: ^1.1.0
     figlet: ^1.6.0
     glob: ^10.3.5
-    isaac-typescript-definitions: ^16.1.2
+    isaac-typescript-definitions: ^17.0.0
     jest: ^29.7.0
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
