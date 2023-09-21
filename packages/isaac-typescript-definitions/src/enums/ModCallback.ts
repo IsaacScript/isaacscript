@@ -11,6 +11,8 @@ export enum ModCallback {
   POST_NPC_UPDATE = 0,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postUpdate(): void {}
    * ```
@@ -18,6 +20,8 @@ export enum ModCallback {
   POST_UPDATE = 1,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postRender(): void {}
    * ```
@@ -180,6 +184,8 @@ export enum ModCallback {
   ENTITY_TAKE_DMG = 11,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postCurseEval(curses: BitFlags<LevelCurse>): BitFlags<LevelCurse> | undefined {}
    * ```
@@ -202,6 +208,8 @@ export enum ModCallback {
   INPUT_ACTION = 13,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postGameStarted(isContinued: boolean): void {}
    * ```
@@ -213,6 +221,8 @@ export enum ModCallback {
   POST_GAME_STARTED = 15,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postGameEnd(isGameOver: boolean): void {}
    * ```
@@ -220,6 +230,8 @@ export enum ModCallback {
   POST_GAME_END = 16,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preGameExit(shouldSave: boolean): void {}
    * ```
@@ -228,6 +240,8 @@ export enum ModCallback {
 
   /**
    * Unlike the `POST_GAME_STARTED` callback, this callback does not fire when resuming a saved run.
+   *
+   * You cannot filter this callback.
    *
    * ```ts
    * function postNewLevel(): void {}
@@ -240,6 +254,8 @@ export enum ModCallback {
   POST_NEW_LEVEL = 18,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postNewRoom(): void {}
    * ```
@@ -251,6 +267,8 @@ export enum ModCallback {
   POST_NEW_ROOM = 19,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getCard(
    *   rng: RNG,
@@ -264,6 +282,8 @@ export enum ModCallback {
   GET_CARD = 20,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getShaderParams(shaderName: string): Record<string, unknown> {}
    * ```
@@ -271,6 +291,8 @@ export enum ModCallback {
   GET_SHADER_PARAMS = 21,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function executeCmd(
    *   command: string,
@@ -305,6 +327,8 @@ export enum ModCallback {
    *
    * Sometimes, if you return a type other than the original type (e.g. replacing a pickup with an
    * effect), the game will crash. Thus, you should replace a pickup with a new pickup, and so on.
+   *
+   * You cannot filter this callback.
    *
    * ```ts
    * function preEntitySpawn(
@@ -492,6 +516,8 @@ export enum ModCallback {
   POST_PICKUP_RENDER = 36,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postPickupSelection(
    *   pickup: EntityPickup,
@@ -503,11 +529,11 @@ export enum ModCallback {
   POST_PICKUP_SELECTION = 37,
 
   /**
-   * ```ts
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
+   * ```ts
    * function prePickupCollision(
    *   pickup: EntityPickup,
    *   collider: Entity,
@@ -831,6 +857,8 @@ export enum ModCallback {
   PRE_BOMB_COLLISION = 60,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postFireTear(tear: EntityTear): void {}
    * ```
@@ -838,6 +866,8 @@ export enum ModCallback {
   POST_FIRE_TEAR = 61,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preGetCollectible(
    *   itemPoolType: ItemPoolType,
@@ -849,6 +879,8 @@ export enum ModCallback {
   PRE_GET_COLLECTIBLE = 62,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postGetCollectible(
    *   collectibleType: CollectibleType,
@@ -861,6 +893,8 @@ export enum ModCallback {
   POST_GET_COLLECTIBLE = 63,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getPillColor(seed: Seed): PillColor | undefined {}
    * ```
@@ -868,6 +902,8 @@ export enum ModCallback {
   GET_PILL_COLOR = 64,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getPillEffect(
    *   pillEffect: PillEffect,
@@ -878,6 +914,8 @@ export enum ModCallback {
   GET_PILL_EFFECT = 65,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getTrinket(
    *   trinketType: TrinketType,
@@ -923,6 +961,8 @@ export enum ModCallback {
   /**
    * In vanilla, this is `PRE_SPAWN_CLEAN_AWARD`, which is a typo.
    *
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preSpawnClearAward(
    *   rng: RNG,
@@ -935,6 +975,8 @@ export enum ModCallback {
   /**
    * You can use the `isGridEntityXMLType` helper function to convert the
    * `entityTypeOrGridEntityXMLType` argument to an `EntityType` or `GridEntityXMLType`, if needed.
+   *
+   * You cannot filter this callback.
    *
    * ```ts
    * function preRoomEntitySpawn(
@@ -949,6 +991,8 @@ export enum ModCallback {
   PRE_ROOM_ENTITY_SPAWN = 71,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preEntityDevolve(entity: Entity): boolean | undefined {}
    * ```
@@ -956,6 +1000,8 @@ export enum ModCallback {
   PRE_ENTITY_DEVOLVE = 72,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preModUnload(mod: Mod): void {}
    * ```
