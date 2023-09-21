@@ -198,6 +198,12 @@ export function getVanillaPillEffects(): PillEffect[] {
   return iRange(FIRST_PILL_EFFECT, LAST_VANILLA_PILL_EFFECT);
 }
 
+/** Helper function to see if the given pill color is either a gold pill or a horse gold pill. */
+export function isGoldPill(pillColor: PillColor): boolean {
+  return pillColor === PillColor.GOLD || pillColor === PillColor.HORSE_GOLD;
+}
+
+/** Helper function to see if the given pill color is a horse pill. */
 export function isHorsePill(pillColor: PillColor): boolean {
   return asNumber(pillColor) > HORSE_PILL_ADJUSTMENT;
 }
