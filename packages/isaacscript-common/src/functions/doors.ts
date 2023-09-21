@@ -106,7 +106,7 @@ export function getAngelRoomDoor(): GridEntityDoor | undefined {
 
 /**
  * Helper function to get the door that leads to the off-grid room that contains the hole to the
- * Blue Womb.
+ * Blue Womb. (In vanilla, the door will only appear in the It Lives Boss Room.)
  *
  * Returns undefined if the room has no Blue Womb doors.
  */
@@ -307,6 +307,17 @@ export function getUnusedDoorSlots(): DoorSlot[] {
 }
 
 /**
+ * Helper function to get the door that leads to the off-grid room that contains the portal to The
+ * Void. (In vanilla, the door will only appear in the Hush Boss Room.)
+ *
+ * Returns undefined if the room has no Void doors.
+ */
+export function getVoidDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isVoidDoor(door));
+}
+
+/**
  * Helper function to check if the current room has one or more doors that lead to the given room
  * type.
  *
@@ -334,6 +345,11 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomType === RoomType.ANGEL;
 }
 
+/**
+ * Helper function to check if the provided door is the one that leads to the off-grid room that
+ * contains the hole to the Blue Womb. (In vanilla, the door will only appear in the It Lives Boss
+ * Room.)
+ */
 export function isBlueWombDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomIndex === asNumber(GridRoom.BLUE_WOMB);
 }
@@ -460,6 +476,14 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
 
   // On Windows, this is: "gfx/grid/Door_08_HoleInWall.anm2"
   return fileName.toLowerCase() === "gfx/grid/door_08_holeinwall.anm2"; // cspell:ignore holeinwall
+}
+
+/**
+ * Helper function to check if the provided door is the one that leads to the off-grid room that
+ * contains the portal to The Void. (In vanilla, the door will only appear in the Hush Boss Room.)
+ */
+export function isVoidDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.THE_VOID);
 }
 
 /**
