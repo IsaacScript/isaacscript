@@ -126,22 +126,22 @@ export function isReverseTarotCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.TAROT_REVERSE);
 }
 
-/** Returns true for cards that have `CardType.RUNE`. */
+/** Returns true for cards that have `ItemConfigCardType.RUNE`. */
 export function isRune(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.RUNE);
 }
 
-/** Returns true for cards that have `CardType.SPECIAL`. */
+/** Returns true for cards that have `ItemConfigCardType.SPECIAL`. */
 export function isSpecialCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.SPECIAL);
 }
 
-/** Returns true for cards that have `CardType.SUIT`. */
+/** Returns true for cards that have `ItemConfigCardType.SUIT`. */
 export function isSuitCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.SUIT);
 }
 
-/** Returns true for cards that have `CardType.TAROT`. */
+/** Returns true for cards that have `ItemConfigCardType.TAROT`. */
 export function isTarotCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.TAROT);
 }
