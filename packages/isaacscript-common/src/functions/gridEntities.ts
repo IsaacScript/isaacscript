@@ -509,7 +509,12 @@ export function isPoopGridEntityXMLType(
  */
 export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
   const saveState = gridEntity.GetSaveState();
-  return saveState.VarData === 1;
+
+  return (
+    saveState.Type === GridEntityType.TRAPDOOR &&
+    saveState.Variant === TrapdoorVariant.VOID_PORTAL &&
+    saveState.VarData === 1
+  );
 }
 
 /**
