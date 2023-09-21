@@ -333,7 +333,7 @@ export class ModdedElementSets extends Feature {
     for (const cacheFlag of CACHE_FLAG_VALUES) {
       const trinketsSet = new Set<TrinketType>();
 
-      for (const trinketType of this.moddedElementDetection.getTrinketTypes()) {
+      for (const trinketType of this.getTrinketArray()) {
         if (trinketHasCacheFlag(trinketType, cacheFlag)) {
           trinketsSet.add(trinketType);
         }

@@ -9,7 +9,6 @@ import { itemConfig } from "../../../core/cachedClasses";
 import {
   FIRST_CARD_TYPE,
   FIRST_PILL_EFFECT,
-  FIRST_TRINKET_TYPE,
   LAST_VANILLA_CARD_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
   LAST_VANILLA_PILL_EFFECT,
@@ -101,6 +100,9 @@ export class ModdedElementDetection extends Feature {
    * Equal to `itemConfig.GetCollectibles().Size - 1`. (`Size` includes invalid collectibles, like
    * 666. We subtract one to account for `CollectibleType.NULL`.)
    *
+   * If there are no mods present that add any custom items, this function will return
+   * `CollectibleType.MOMS_RING` (732).
+   *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
@@ -116,7 +118,7 @@ export class ModdedElementDetection extends Feature {
   }
 
   /**
-   * Helper function to get an array that represents the all modded collectible types.
+   * Helper function to get an array that represents every modded collectible type.
    *
    * Returns an empty array if there are no modded collectible types.
    *
@@ -149,6 +151,10 @@ export class ModdedElementDetection extends Feature {
   }
 
   /**
+   * Returns the total number of collectibles in the item config, including both vanilla and modded
+   * items. If you just need the number of vanilla collectible types, use the
+   * `NUM_VANILLA_COLLECTIBLE_TYPES` constant.
+   *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
@@ -209,8 +215,11 @@ export class ModdedElementDetection extends Feature {
   /**
    * Will change depending on how many modded trinkets there are.
    *
-   * This is equal to the number of trinket types, since all trinket types are contiguous (unlike
-   * collectibles).
+   * Equal to `itemConfig.GetTrinkets().Size - 1`. (`Size` includes invalid trinkets, like 47. We
+   * subtract one to account for `TrinketType.NULL`.)
+   *
+   * If there are no mods present that add any custom trinkets, this function will return
+   * `TrinketType.SIGIL_OF_BAPHOMET` (189).
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -222,8 +231,7 @@ export class ModdedElementDetection extends Feature {
   public getLastTrinketType(): TrinketType {
     this.errorIfNoCallbacksFired("trinket");
 
-    const numTrinketTypes = this.getNumTrinketTypes();
-    return asTrinketType(numTrinketTypes);
+    return itemConfig.GetTrinkets().Size - 1;
   }
 
   /**
@@ -231,9 +239,11 @@ export class ModdedElementDetection extends Feature {
    *
    * Returns an empty array if there are no modded trinket types.
    *
-   * This function is only useful when building collectible type objects. For most purposes, you
-   * should use the `getModdedCollectibleArray` or `getModdedCollectibleSet` helper function
-   * instead.
+   * This function is only useful when building trinket type objects. For most purposes, you should
+   * use the `getModdedTrinketArray` or `getModdedTrinketSet` helper function instead.
+   *
+   * (This function is named differently from the `getVanillaTrinketTypeRange` function because all
+   * modded trinket types are contiguous. Thus, each value represents a real `TrinketType`.)
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -255,10 +265,9 @@ export class ModdedElementDetection extends Feature {
   }
 
   /**
-   * Will change depending on how many modded trinkets there are.
-   *
-   * Equal to `itemConfig.GetTrinkets().Size - 1`. (We subtract one to account for
-   * `TrinketType.NULL`.)
+   * Returns the total number of trinkets in the item config, including both vanilla and modded
+   * items. If you just need the number of vanilla trinket types, use the
+   * `NUM_VANILLA_TRINKET_TYPES` constant.
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -270,10 +279,13 @@ export class ModdedElementDetection extends Feature {
   public getNumTrinketTypes(): int {
     this.errorIfNoCallbacksFired("trinket");
 
-    return itemConfig.GetTrinkets().Size - 1;
+    const numModdedTrinketTypes = this.getNumModdedTrinketTypes();
+    return NUM_VANILLA_TRINKET_TYPES + numModdedTrinketTypes;
   }
 
   /**
+   * Unlike vanilla trinket types, modded trinket types are always contiguous.
+   *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
    *
@@ -284,25 +296,8 @@ export class ModdedElementDetection extends Feature {
   public getNumModdedTrinketTypes(): int {
     this.errorIfNoCallbacksFired("trinket");
 
-    const numTrinketTypes = this.getNumTrinketTypes();
-    return numTrinketTypes - NUM_VANILLA_TRINKET_TYPES;
-  }
-
-  /**
-   * Helper function to get an array that contains every trinket type.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getTrinketTypes(): TrinketType[] {
-    this.errorIfNoCallbacksFired("trinket");
-
     const lastTrinketType = this.getLastTrinketType();
-    return iRange(FIRST_TRINKET_TYPE, lastTrinketType);
+    return lastTrinketType - LAST_VANILLA_TRINKET_TYPE;
   }
 
   // -----
