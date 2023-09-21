@@ -16,6 +16,8 @@ This page lists the changes to the IsaacScript framework.
   - `isGridEntityXMLType` (for the `PRE_ROOM_ENTITY_SPAWN` callback)
 - Renamed the following helper functions:
   - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`
+- Added the following constants:
+  - `NUM_VANILLA_CHALLENGES`
 - Added the following helper types:
   - `ERange`
   - `TupleKeys`

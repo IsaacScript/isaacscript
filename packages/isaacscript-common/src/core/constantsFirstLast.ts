@@ -2,6 +2,7 @@
 
 import {
   CardType,
+  Challenge,
   CollectibleType,
   LevelStage,
   PillColor,
@@ -130,3 +131,10 @@ export const LAST_ROOM_TYPE = getHighestEnumValue(RoomType);
 
 export const FIRST_STAGE = LevelStage.BASEMENT_1;
 export const LAST_STAGE = getHighestEnumValue(LevelStage);
+
+// ----------
+// Challenges
+// ----------
+
+/** Calculated from the `Challenge` enum. `Challenge.NULL` is not included. */
+export const NUM_VANILLA_CHALLENGES = getEnumLength(Challenge) - 1;
