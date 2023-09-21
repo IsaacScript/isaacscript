@@ -298,6 +298,11 @@ export function inAngelShop(): boolean {
   return isAngelShop(roomData);
 }
 
+/**
+ * Helper function to check to see if the current room is a boss room for The Beast.
+ *
+ * Under the hood, this checks the room type and sub-type.
+ */
 export function inBeastRoom(): boolean {
   const roomData = getRoomData();
   return isBeastRoom(roomData);
@@ -538,6 +543,11 @@ export function isAngelShop(roomData: RoomConfig): boolean {
   );
 }
 
+/**
+ * Helper function to check to see if the provided room is a boss room for The Beast.
+ *
+ * Under the hood, this checks the room type and sub-type.
+ */
 export function isBeastRoom(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.DUNGEON &&
