@@ -72,6 +72,8 @@ const TRANSFORMATION_TO_TAG_MAP = new ReadonlyMap<PlayerForm, ItemConfigTag>([
 ]);
 
 export class ModdedElementSets extends Feature {
+  private arraysInitialized = false;
+
   private readonly allCollectibleTypesArray: CollectibleType[] = [];
   private readonly allCollectibleTypesSet = new Set<CollectibleType>();
 
@@ -146,11 +148,28 @@ export class ModdedElementSets extends Feature {
     this.moddedElementDetection = moddedElementDetection;
   }
 
-  private lazyInitVanillaCollectibleTypes() {
-    if (this.vanillaCollectibleTypesArray.length > 0) {
+  private lazyInit() {
+    if (this.arraysInitialized) {
       return;
     }
+    this.arraysInitialized = true;
 
+    this.lazyInitVanillaCollectibleTypes();
+    this.lazyInitModdedCollectibleTypes();
+    this.lazyInitVanillaTrinketTypes();
+    this.lazyInitModdedTrinketTypes();
+    this.lazyInitVanillaCardTypes();
+    this.lazyInitModdedCardTypes();
+    this.lazyInitTagToCollectibleTypesMap();
+    this.lazyInitCacheFlagToCollectibleTypesMap();
+    this.lazyInitCacheFlagToTrinketTypesMap();
+    this.lazyInitFlyingCollectibleTypesSet();
+    this.lazyInitFlyingTrinketTypesSet();
+    this.lazyInitEdenCollectibleTypesSet();
+    this.lazyInitCardTypes();
+  }
+
+  private lazyInitVanillaCollectibleTypes() {
     const vanillaCollectibleTypeRange = getVanillaCollectibleTypeRange();
     for (const collectibleType of vanillaCollectibleTypeRange) {
       // Vanilla collectible types are not contiguous, so we must check every value. (There are
@@ -164,12 +183,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitModdedCollectibleTypes() {
-    if (this.moddedCollectibleTypesArray.length > 0) {
-      return;
-    }
-
-    this.lazyInitVanillaCollectibleTypes();
-
     for (const collectibleType of this.vanillaCollectibleTypesArray) {
       this.allCollectibleTypesArray.push(collectibleType);
       this.allCollectibleTypesSet.add(collectibleType);
@@ -191,10 +204,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitVanillaTrinketTypes() {
-    if (this.vanillaTrinketTypesArray.length > 0) {
-      return;
-    }
-
     const vanillaTrinketTypeRange = getVanillaTrinketTypeRange();
     for (const trinketType of vanillaTrinketTypeRange) {
       // Vanilla trinket types are not contiguous, so we must check every value. (The only gap is 47
@@ -208,12 +217,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitModdedTrinketTypes() {
-    if (this.moddedTrinketTypesArray.length > 0) {
-      return;
-    }
-
-    this.lazyInitVanillaTrinketTypes();
-
     for (const trinketType of this.vanillaTrinketTypesArray) {
       this.allTrinketTypesArray.push(trinketType);
       this.allTrinketTypesSet.add(trinketType);
@@ -235,10 +238,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitVanillaCardTypes() {
-    if (this.vanillaCardTypesArray.length > 0) {
-      return;
-    }
-
     const vanillaCardTypes = getVanillaCardTypes();
     for (const cardType of vanillaCardTypes) {
       // Vanilla card types are contiguous, but we check every value just to be safe (and so that
@@ -252,12 +251,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitModdedCardTypes() {
-    if (this.moddedCardTypesArray.length > 0) {
-      return;
-    }
-
-    this.lazyInitVanillaCardTypes();
-
     for (const cardType of this.vanillaCardTypesArray) {
       this.allCardTypesArray.push(cardType);
       this.allCardTypesSet.add(cardType);
@@ -265,7 +258,8 @@ export class ModdedElementSets extends Feature {
 
     const moddedCardTypes = this.moddedElementDetection.getModdedCardTypes();
     for (const cardType of moddedCardTypes) {
-      // Modded card types are contiguous, but we check every value just in case.
+      // Modded card types are contiguous, but we check every value just to be safe (and so that the
+      // code is similar to the collectible and trinket functions above).
       const itemConfigCard = itemConfig.GetCard(cardType);
       if (itemConfigCard !== undefined) {
         this.moddedCardTypesArray.push(cardType);
@@ -278,10 +272,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitTagToCollectibleTypesMap() {
-    if (this.tagToCollectibleTypesMap.size > 0) {
-      return;
-    }
-
     // The tag to collectible types map should be valid for every tag, so we initialize it with
     // empty sets.
     for (const itemConfigTag of ITEM_CONFIG_TAG_VALUES) {
@@ -308,10 +298,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitCacheFlagToCollectibleTypesMap() {
-    if (this.cacheFlagToCollectibleTypesMap.size > 0) {
-      return;
-    }
-
     for (const cacheFlag of CACHE_FLAG_VALUES) {
       const collectiblesSet = new Set<CollectibleType>();
 
@@ -326,10 +312,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitCacheFlagToTrinketTypesMap() {
-    if (this.cacheFlagToTrinketTypesMap.size > 0) {
-      return;
-    }
-
     for (const cacheFlag of CACHE_FLAG_VALUES) {
       const trinketsSet = new Set<TrinketType>();
 
@@ -344,10 +326,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitFlyingCollectibleTypesSet() {
-    if (this.flyingCollectibleTypesSet.size > 0) {
-      return;
-    }
-
     // Instead of manually compiling a list of collectibles that grant flying, we can instead
     // dynamically look for collectibles that have `CacheFlag.FLYING`.
     this.flyingCollectibleTypesSet = copySet(
@@ -379,10 +357,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitFlyingTrinketTypesSet() {
-    if (this.flyingTrinketTypesSet.size > 0) {
-      return;
-    }
-
     // Instead of manually compiling a list of trinkets that grant flying, we can instead
     // dynamically look for collectibles that have `CacheFlag.FLYING`.
     this.flyingTrinketTypesSet = copySet(
@@ -399,10 +373,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitEdenCollectibleTypesSet() {
-    if (this.edenActiveCollectibleTypesSet.size > 0) {
-      return;
-    }
-
     for (const collectibleType of this.getCollectibleArray()) {
       if (
         isHiddenCollectible(collectibleType) ||
@@ -422,10 +392,6 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitCardTypes() {
-    if (this.itemConfigCardTypeToCardTypeMap.size > 0) {
-      return;
-    }
-
     // The card type to cards map should be valid for every card type, so we initialize it with
     // empty sets.
     for (const itemConfigCardType of ITEM_CONFIG_CARD_TYPE_VALUES) {
@@ -471,7 +437,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getCardArray(): readonly CardType[] {
-    this.lazyInitModdedCardTypes();
+    this.lazyInit();
     return this.allCardTypesArray;
   }
 
@@ -488,7 +454,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getCardSet(): ReadonlySet<CardType> {
-    this.lazyInitModdedCardTypes();
+    this.lazyInit();
     return this.allCardTypesSet;
   }
 
@@ -507,9 +473,7 @@ export class ModdedElementSets extends Feature {
   public getCardTypesOfType(
     ...itemConfigCardTypes: ItemConfigCardType[]
   ): Set<CardType> {
-    if (this.itemConfigCardTypeToCardTypeMap.size === 0) {
-      this.lazyInitCardTypes();
-    }
+    this.lazyInit();
 
     const matchingCardTypes = new Set<CardType>();
     for (const itemConfigCardType of itemConfigCardTypes) {
@@ -543,7 +507,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getCollectibleArray(): readonly CollectibleType[] {
-    this.lazyInitModdedCollectibleTypes();
+    this.lazyInit();
     return this.allCollectibleTypesArray;
   }
 
@@ -562,7 +526,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getCollectibleSet(): ReadonlySet<CollectibleType> {
-    this.lazyInitModdedCollectibleTypes();
+    this.lazyInit();
     return this.allCollectibleTypesSet;
   }
 
@@ -613,7 +577,7 @@ export class ModdedElementSets extends Feature {
   public getCollectiblesWithCacheFlag(
     cacheFlag: CacheFlag,
   ): ReadonlySet<CollectibleType> {
-    this.lazyInitCacheFlagToCollectibleTypesMap();
+    this.lazyInit();
 
     const collectiblesSet = this.cacheFlagToCollectibleTypesMap.get(cacheFlag);
     if (collectiblesSet === undefined) {
@@ -643,7 +607,7 @@ export class ModdedElementSets extends Feature {
   public getCollectiblesWithTag(
     itemConfigTag: ItemConfigTag,
   ): ReadonlySet<CollectibleType> {
-    this.lazyInitTagToCollectibleTypesMap();
+    this.lazyInit();
 
     const collectibleTypes = this.tagToCollectibleTypesMap.get(itemConfigTag);
     assertDefined(
@@ -666,7 +630,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getEdenActiveCollectibles(): ReadonlySet<CollectibleType> {
-    this.lazyInitEdenCollectibleTypesSet();
+    this.lazyInit();
     return this.edenActiveCollectibleTypesSet;
   }
 
@@ -682,7 +646,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getEdenPassiveCollectibles(): ReadonlySet<CollectibleType> {
-    this.lazyInitEdenCollectibleTypesSet();
+    this.lazyInit();
     return this.edenPassiveCollectibleTypesSet;
   }
 
@@ -706,7 +670,7 @@ export class ModdedElementSets extends Feature {
   public getFlyingCollectibles(
     includeConditionalItems: boolean,
   ): ReadonlySet<CollectibleType> {
-    this.lazyInitFlyingCollectibleTypesSet();
+    this.lazyInit();
 
     return includeConditionalItems
       ? this.flyingCollectibleTypesSet
@@ -724,7 +688,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getFlyingTrinkets(): ReadonlySet<TrinketType> {
-    this.lazyInitFlyingTrinketTypesSet();
+    this.lazyInit();
 
     return this.flyingTrinketTypesSet;
   }
@@ -742,7 +706,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getModdedCardArray(): readonly CardType[] {
-    this.lazyInitModdedCardTypes();
+    this.lazyInit();
     return this.moddedCardTypesArray;
   }
 
@@ -759,7 +723,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getModdedCardSet(): ReadonlySet<CardType> {
-    this.lazyInitModdedCardTypes();
+    this.lazyInit();
     return this.moddedCardTypesSet;
   }
 
@@ -777,7 +741,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getModdedCollectibleArray(): readonly CollectibleType[] {
-    this.lazyInitModdedCollectibleTypes();
+    this.lazyInit();
     return this.moddedCollectibleTypesArray;
   }
 
@@ -795,7 +759,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getModdedCollectibleSet(): ReadonlySet<CollectibleType> {
-    this.lazyInitModdedCollectibleTypes();
+    this.lazyInit();
     return this.moddedCollectibleTypesSet;
   }
 
@@ -812,7 +776,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getModdedTrinketArray(): readonly TrinketType[] {
-    this.lazyInitModdedTrinketTypes();
+    this.lazyInit();
     return this.moddedTrinketTypesArray;
   }
 
@@ -829,7 +793,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getModdedTrinketSet(): ReadonlySet<TrinketType> {
-    this.lazyInitModdedTrinketTypes();
+    this.lazyInit();
     return this.moddedTrinketTypesSet;
   }
 
@@ -1022,7 +986,7 @@ export class ModdedElementSets extends Feature {
     seedOrRNG: Seed | RNG = getRandomSeed(),
     exceptions: CardType[] = [],
   ): CardType {
-    this.lazyInitCardTypes();
+    this.lazyInit();
     return getRandomSetElement(this.cardSet, seedOrRNG, exceptions);
   }
 
@@ -1085,7 +1049,7 @@ export class ModdedElementSets extends Feature {
     seedOrRNG: Seed | RNG = getRandomSeed(),
     exceptions: CollectibleType[] | readonly CollectibleType[] = [],
   ): CollectibleType {
-    this.lazyInitEdenCollectibleTypesSet();
+    this.lazyInit();
     return getRandomSetElement(
       this.edenPassiveCollectibleTypesSet,
       seedOrRNG,
@@ -1111,7 +1075,7 @@ export class ModdedElementSets extends Feature {
     seedOrRNG: Seed | RNG = getRandomSeed(),
     exceptions: CollectibleType[] | readonly CollectibleType[] = [],
   ): CollectibleType {
-    this.lazyInitEdenCollectibleTypesSet();
+    this.lazyInit();
     return getRandomSetElement(
       this.edenPassiveCollectibleTypesSet,
       seedOrRNG,
@@ -1132,7 +1096,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getTrinketArray(): readonly TrinketType[] {
-    this.lazyInitModdedTrinketTypes();
+    this.lazyInit();
     return this.allTrinketTypesArray;
   }
 
@@ -1149,7 +1113,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getTrinketSet(): ReadonlySet<TrinketType> {
-    this.lazyInitModdedTrinketTypes();
+    this.lazyInit();
     return this.allTrinketTypesSet;
   }
 
@@ -1166,7 +1130,7 @@ export class ModdedElementSets extends Feature {
   public getTrinketsWithCacheFlag(
     cacheFlag: CacheFlag,
   ): ReadonlySet<TrinketType> {
-    this.lazyInitCacheFlagToTrinketTypesMap();
+    this.lazyInit();
 
     const trinketsSet = this.cacheFlagToTrinketTypesMap.get(cacheFlag);
     if (trinketsSet === undefined) {
@@ -1186,7 +1150,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCardArray(): readonly CardType[] {
-    this.lazyInitVanillaCardTypes();
+    this.lazyInit();
     return this.vanillaCardTypesArray;
   }
 
@@ -1200,7 +1164,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCardSet(): ReadonlySet<CardType> {
-    this.lazyInitVanillaCardTypes();
+    this.lazyInit();
     return this.vanillaCardTypesSet;
   }
 
@@ -1214,7 +1178,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCollectibleArray(): readonly CollectibleType[] {
-    this.lazyInitVanillaCollectibleTypes();
+    this.lazyInit();
     return this.vanillaCollectibleTypesArray;
   }
 
@@ -1228,7 +1192,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCollectibleSet(): ReadonlySet<CollectibleType> {
-    this.lazyInitVanillaCollectibleTypes();
+    this.lazyInit();
     return this.vanillaCollectibleTypesSet;
   }
 
@@ -1242,7 +1206,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaTrinketArray(): readonly TrinketType[] {
-    this.lazyInitVanillaTrinketTypes();
+    this.lazyInit();
     return this.vanillaTrinketTypesArray;
   }
 
@@ -1256,7 +1220,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaTrinketSet(): ReadonlySet<TrinketType> {
-    this.lazyInitVanillaTrinketTypes();
+    this.lazyInit();
     return this.vanillaTrinketTypesSet;
   }
 }
