@@ -240,7 +240,7 @@ export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
 
 /**
  * Helper function to get the door that leads to the "secret exit" off-grid room that takes you to
- * the Repentance floor.
+ * the Repentance floor or to the version of Depths 2 that has Dad's Key.
  *
  * Returns undefined if the room has no Repentance doors.
  */
