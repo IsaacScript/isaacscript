@@ -13,13 +13,13 @@ export function capitalizeFirstLetter(string: string): string {
 }
 
 /**
- * Helper function to get the closest value from a map based on partial search text. (It only
- * searches through the values, not the keys.)
+ * Helper function to get the closest key from a map based on partial search text. (It only searches
+ * through the keys, not the values.)
  *
- * Spaces are automatically removed from the search text.
- *
- * For the purposes of this function, both the search text and the strings to search through are
- * converted to lowercase before attempting to find a match.
+ * Note that:
+ * - Spaces are automatically removed from the search text.
+ * - Both the search text and the strings to search through are converted to lowercase before
+ *   attempting to find a match.
  *
  * For example:
  *
@@ -56,13 +56,13 @@ export function getMapPartialMatch<T>(
 }
 
 /**
- * Helper function to get the closest value from an object based on partial search text. (It only
- * searches through the values, not the keys.)
+ * Helper function to get the closest key from an object based on partial search text. (It only
+ * searches through the keys, not the values.)
  *
- * Spaces are automatically removed from the search text.
- *
- * For the purposes of this function, both the search text and the strings to search through are
- * converted to lowercase before attempting to find a match.
+ * Note that:
+ * - Spaces are automatically removed from the search text.
+ * - Both the search text and the strings to search through are converted to lowercase before
+ *   attempting to find a match.
  *
  * For example:
  *
@@ -101,10 +101,10 @@ export function getObjectPartialMatch<T>(
 /**
  * Helper function to get the closest value from an array of strings based on partial search text.
  *
- * Spaces are automatically removed from the search text.
- *
- * For the purposes of this function, both the search text and the strings to search through are
- * converted to lowercase before attempting to find a match.
+ * Note that:
+ * - Spaces are automatically removed from the search text.
+ * - Both the search text and the strings to search through are converted to lowercase before
+ *   attempting to find a match.
  *
  * For example:
  *
