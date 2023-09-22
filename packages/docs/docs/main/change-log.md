@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `getVoidDoor`
   - `inRedKeyRoom`
   - `isGridEntityXMLType` (for the `PRE_ROOM_ENTITY_SPAWN` callback)
+  - `isMainCharacter`
   - `isMegaSatanDoor`
   - `isVoidDoor`
 - Renamed the following helper functions:
