@@ -23,7 +23,7 @@ declare global {
 
     HasProjectileFlags: (
       flags: ProjectileFlag | BitFlags<ProjectileFlag>,
-    ) => void;
+    ) => boolean;
 
     Acceleration: float;
 
