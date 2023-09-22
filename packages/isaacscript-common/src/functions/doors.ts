@@ -234,6 +234,17 @@ export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
   return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
 }
 
+/**
+ * Helper function to get the door that leads to the Mega Satan Boss Room. (In vanilla, the door
+ * will only appear in the starting room of The Chest / Dark Room.)
+ *
+ * Returns undefined if the room has no Mega Satan doors.
+ */
+export function getMegaSatanDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isMegaSatanDoor(door));
+}
+
 export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
   return OPPOSITE_DOOR_SLOTS[doorSlot];
 }
@@ -452,6 +463,14 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
   const animation = sprite.GetAnimation();
 
   return isSecretRoomDoor(door) && animation === "Hidden";
+}
+
+/**
+ * Helper function to check if the provided door is the one that leads to the Mega Satan Boss Room.
+ * (In vanilla, the door will only appear in the starting room of The Chest / Dark Room.)
+ */
+export function isMegaSatanDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.MEGA_SATAN);
 }
 
 /**
