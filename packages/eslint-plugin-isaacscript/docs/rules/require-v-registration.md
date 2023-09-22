@@ -2,7 +2,7 @@
 
 Require variables named "v" to be registered with the save data manager from the "isaacscript-common" library.
 
-This rule is only intended for _[Binding of Isaac: Repentance](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/)_ mods written with TypeScript. Since it is pointless in general TypeScript projects, it is not included in the `recommended` config.
+This rule is only intended for [_Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods written with TypeScript. Since it is pointless in general TypeScript projects, it is not included in the `recommended` config.
 
 ## Rule Details
 

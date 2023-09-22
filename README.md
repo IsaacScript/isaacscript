@@ -6,7 +6,7 @@
 
 [![Discord](https://img.shields.io/discord/843174215287832626?color=blue&label=Discord&logo=Discord&logoColor=white)](https://discord.gg/435qCC6nHt)
 
-IsaacScript is a tool to help you create _[Binding of Isaac: Repentance](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/)_ mods using [TypeScript](https://www.typescriptlang.org/).
+IsaacScript is a tool to help you create [_Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods using [TypeScript](https://www.typescriptlang.org/).
 
 Please visit the [official website](https://isaacscript.github.io/) for more information.
 
