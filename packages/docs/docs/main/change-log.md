@@ -12,6 +12,9 @@ This page lists the changes to the IsaacScript framework.
 ## September 25th, 2023 (Unreleased)
 
 - Added the following helper functions:
+  - `anyPlayerHasCollectibleEffect`
+  - `anyPlayerHasTrinketEffect`
+  - `anyPlayerHasNullEffect`
   - `getObjectPartialMatch`
   - `getMegaSatanDoor`
   - `getVoidDoor`

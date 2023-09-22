@@ -85,6 +85,28 @@ export function anyPlayerHasCollectible(
   );
 }
 
+/** Helper function to check to see if any player has a temporary collectible effect. */
+export function anyPlayerHasCollectibleEffect(
+  collectibleType: CollectibleType,
+): boolean {
+  const players = getAllPlayers();
+
+  return players.some((player) => {
+    const effects = player.GetEffects();
+    return effects.HasCollectibleEffect(collectibleType);
+  });
+}
+
+/** Helper function to check to see if any player has a temporary null effect. */
+export function anyPlayerHasNullEffect(nullItemID: NullItemID): boolean {
+  const players = getAllPlayers();
+
+  return players.some((player) => {
+    const effects = player.GetEffects();
+    return effects.HasNullEffect(nullItemID);
+  });
+}
+
 /**
  * Helper function to check to see if any player has a particular trinket.
  *
@@ -101,6 +123,16 @@ export function anyPlayerHasTrinket(
   return players.some((player) =>
     player.HasTrinket(trinketType, ignoreModifiers),
   );
+}
+
+/** Helper function to check to see if any player has a temporary trinket effect. */
+export function anyPlayerHasTrinketEffect(trinketType: TrinketType): boolean {
+  const players = getAllPlayers();
+
+  return players.some((player) => {
+    const effects = player.GetEffects();
+    return effects.HasTrinketEffect(trinketType);
+  });
 }
 
 /**
