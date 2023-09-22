@@ -75,8 +75,19 @@ export abstract class CustomCallback<
       const { callbackFunc, optionalArgs } = subscription;
 
       if (this.shouldFire(fireArgs, optionalArgs)) {
-        // TypeScript is not smart enough to know that the arguments match the function.
-        const value = (callbackFunc as AnyFunction)(...fireArgs);
+        // - TypeScript is not smart enough to know that the arguments match the function, so we
+        //   must cast it to `AnyFunction`.
+        // - We cannot use `...fireArgs` here because it would fail to pass any arguments that exist
+        //   beyond `nil` elements.
+        const value = (callbackFunc as AnyFunction)(
+          fireArgs[0],
+          fireArgs[1],
+          fireArgs[2],
+          fireArgs[3],
+          fireArgs[4],
+          fireArgs[5],
+          fireArgs[6],
+        );
         if (value !== undefined) {
           return value as ReturnType<AddCallbackParametersCustom[T][0]>;
         }
