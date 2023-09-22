@@ -12,6 +12,7 @@ export function capitalizeFirstLetter(string: string): string {
 
 /**
  * Helper function to get the closest value from an array of strings based on partial search text.
+ *
  * For the purposes of this function, both search text and the array are converted to lowercase
  * before attempting to find a match.
  *

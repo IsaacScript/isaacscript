@@ -44,9 +44,11 @@ export function defaultMapSetHash<V>(
 }
 
 /**
- * Helper function to get the closest value from a map based on partial search text. For the
- * purposes of this function, both search text and map keys are converted to lowercase before
- * attempting to find a match.
+ * Helper function to get the closest value from a map based on partial search text. (It only
+ * searches through the values, not the keys.)
+ *
+ * For the purposes of this function, both search text and map keys are converted to lowercase
+ * before attempting to find a match.
  *
  * For example:
  *
