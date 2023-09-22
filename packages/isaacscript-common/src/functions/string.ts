@@ -1,3 +1,5 @@
+import { assertDefined } from "./utils";
+
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {
     return string;
@@ -11,10 +13,98 @@ export function capitalizeFirstLetter(string: string): string {
 }
 
 /**
+ * Helper function to get the closest value from a map based on partial search text. (It only
+ * searches through the values, not the keys.)
+ *
+ * Spaces are automatically removed from the search text.
+ *
+ * For the purposes of this function, both the search text and the strings to search through are
+ * converted to lowercase before attempting to find a match.
+ *
+ * For example:
+ *
+ * ```ts
+ * const map = new <string, number>Map([
+ *   ["foo", 123],
+ *   ["bar", 456],
+ * ]);
+ * const searchText = "f";
+ * const match = getMapPartialMatch(map, searchText); // match is now equal to ["foo", 123]
+ * ```
+ *
+ * @returns If a match was found, returns a tuple of the map key and value. If a match was not
+ *          found, returns undefined.
+ */
+export function getMapPartialMatch<T>(
+  searchText: string,
+  map: ReadonlyMap<string, T>,
+): [string, T] | undefined {
+  const keys = [...map.keys()];
+
+  const matchingKey = getPartialMatch(searchText, keys);
+  if (matchingKey === undefined) {
+    return undefined;
+  }
+
+  const value = map.get(matchingKey);
+  assertDefined(
+    value,
+    `Failed to get the map value corresponding to the partial match of: ${matchingKey}`,
+  );
+
+  return [matchingKey, value];
+}
+
+/**
+ * Helper function to get the closest value from an object based on partial search text. (It only
+ * searches through the values, not the keys.)
+ *
+ * Spaces are automatically removed from the search text.
+ *
+ * For the purposes of this function, both the search text and the strings to search through are
+ * converted to lowercase before attempting to find a match.
+ *
+ * For example:
+ *
+ * ```ts
+ * const object = {
+ *   foo: 123,
+ *   bar: 456,
+ * };
+ * const searchText = "f";
+ * const match = getObjectPartialMatch(object, searchText); // match is now equal to ["foo", 123]
+ * ```
+ *
+ * @returns If a match was found, returns a tuple of the map key and value. If a match was not
+ *          found, returns undefined.
+ */
+export function getObjectPartialMatch<T>(
+  searchText: string,
+  object: Record<string, T>,
+): [string, T] | undefined {
+  const keys = Object.keys(object);
+
+  const matchingKey = getPartialMatch(searchText, keys);
+  if (matchingKey === undefined) {
+    return undefined;
+  }
+
+  const value = object[matchingKey];
+  assertDefined(
+    value,
+    `Failed to get the object value corresponding to the partial match of: ${matchingKey}`,
+  );
+
+  return [matchingKey, value];
+}
+
+/**
  * Helper function to get the closest value from an array of strings based on partial search text.
  *
- * For the purposes of this function, both search text and the array are converted to lowercase
- * before attempting to find a match.
+ * Spaces are automatically removed from the search text.
+ *
+ * For the purposes of this function, both the search text and the strings to search through are
+ * converted to lowercase before attempting to find a match.
  *
  * For example:
  *

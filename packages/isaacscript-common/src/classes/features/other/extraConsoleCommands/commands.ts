@@ -100,7 +100,6 @@ import {
   logSeedEffects,
   logSounds,
 } from "../../../../functions/logMisc";
-import { getMapPartialMatch } from "../../../../functions/map";
 import { runMergeTests } from "../../../../functions/mergeTests";
 import {
   spawnCard,
@@ -121,6 +120,7 @@ import { changeRoom } from "../../../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
 import { spawnCollectibleUnsafe } from "../../../../functions/spawnCollectible";
 import { setStage } from "../../../../functions/stage";
+import { getMapPartialMatch } from "../../../../functions/string";
 import { getGoldenTrinketType } from "../../../../functions/trinkets";
 import {
   asCardType,
