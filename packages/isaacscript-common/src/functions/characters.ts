@@ -143,8 +143,7 @@ export function getCharacterStartingCollectibles(
   return CHARACTER_STARTING_COLLECTIBLES[character];
 }
 
-export function isFlyingCharacter(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
+export function isFlyingCharacter(character: PlayerType): boolean {
   return FLYING_CHARACTERS_SET.has(character);
 }
 
