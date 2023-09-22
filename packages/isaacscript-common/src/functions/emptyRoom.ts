@@ -64,7 +64,7 @@ function emptyRoomEntities() {
   }
 }
 
-/** Helper function to remove all grid entities from a room except for doors, and walls. */
+/** Helper function to remove all grid entities from a room except for doors and walls. */
 export function emptyRoomGridEntities(): void {
   let removedOneOrMoreGridEntities = false;
   for (const gridEntity of getGridEntities()) {
