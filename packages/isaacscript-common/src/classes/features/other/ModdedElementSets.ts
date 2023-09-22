@@ -170,6 +170,10 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitVanillaCollectibleTypes() {
+    if (this.vanillaCollectibleTypesArray.length > 0) {
+      return;
+    }
+
     const vanillaCollectibleTypeRange = getVanillaCollectibleTypeRange();
     for (const collectibleType of vanillaCollectibleTypeRange) {
       // Vanilla collectible types are not contiguous, so we must check every value. (There are
@@ -204,6 +208,10 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitVanillaTrinketTypes() {
+    if (this.vanillaTrinketTypesArray.length > 0) {
+      return;
+    }
+
     const vanillaTrinketTypeRange = getVanillaTrinketTypeRange();
     for (const trinketType of vanillaTrinketTypeRange) {
       // Vanilla trinket types are not contiguous, so we must check every value. (The only gap is 47
@@ -238,6 +246,10 @@ export class ModdedElementSets extends Feature {
   }
 
   private lazyInitVanillaCardTypes() {
+    if (this.vanillaCardTypesArray.length > 0) {
+      return;
+    }
+
     const vanillaCardTypes = getVanillaCardTypes();
     for (const cardType of vanillaCardTypes) {
       // Vanilla card types are contiguous, but we check every value just to be safe (and so that
@@ -1150,7 +1162,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCardArray(): readonly CardType[] {
-    this.lazyInit();
+    this.lazyInitVanillaCardTypes();
     return this.vanillaCardTypesArray;
   }
 
@@ -1164,7 +1176,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCardSet(): ReadonlySet<CardType> {
-    this.lazyInit();
+    this.lazyInitVanillaCardTypes();
     return this.vanillaCardTypesSet;
   }
 
@@ -1178,7 +1190,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCollectibleArray(): readonly CollectibleType[] {
-    this.lazyInit();
+    this.lazyInitVanillaCollectibleTypes();
     return this.vanillaCollectibleTypesArray;
   }
 
@@ -1192,7 +1204,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaCollectibleSet(): ReadonlySet<CollectibleType> {
-    this.lazyInit();
+    this.lazyInitVanillaCollectibleTypes();
     return this.vanillaCollectibleTypesSet;
   }
 
@@ -1206,7 +1218,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaTrinketArray(): readonly TrinketType[] {
-    this.lazyInit();
+    this.lazyInitVanillaTrinketTypes();
     return this.vanillaTrinketTypesArray;
   }
 
@@ -1220,7 +1232,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getVanillaTrinketSet(): ReadonlySet<TrinketType> {
-    this.lazyInit();
+    this.lazyInitVanillaTrinketTypes();
     return this.vanillaTrinketTypesSet;
   }
 }
