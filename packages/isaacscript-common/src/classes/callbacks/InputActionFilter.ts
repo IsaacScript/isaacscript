@@ -20,7 +20,7 @@ export class InputActionFilter extends CustomCallback<T> {
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ): boolean => {
-    const [_, inputHook, buttonAction] = fireArgs;
+    const [_entity, inputHook, buttonAction] = fireArgs;
     const [callbackInputHook, callbackButtonAction] = optionalArgs;
 
     return (
