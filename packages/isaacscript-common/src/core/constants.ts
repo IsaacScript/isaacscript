@@ -3,6 +3,7 @@ import {
   Dimension,
   DisplayFlag,
   ItemPoolType,
+  PlayerType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { getEnumLength } from "../functions/enums";
@@ -77,11 +78,64 @@ export const EMPTY_PNG_PATH = "gfx/none.png";
 
 export const FIRST_GLITCHED_COLLECTIBLE_TYPE = asCollectibleType((1 << 32) - 1);
 
+/**
+ * An array containing every flying character. This includes non-main characters such as The Soul.
+ */
+export const FLYING_CHARACTERS = [
+  PlayerType.AZAZEL, // 7
+  PlayerType.LOST, // 10
+  PlayerType.SOUL, // 17
+  PlayerType.LOST_B, // 31
+  PlayerType.JACOB_2_B, // 39
+  PlayerType.SOUL_B, // 40
+] as const;
+
 /** Game frames are what is returned by the `Game.GetFrameCount` method. */
 export const GAME_FRAMES_PER_SECOND = 30;
 
 /** Game frames are what is returned by the `Game.GetFrameCount` method. */
 export const GAME_FRAMES_PER_MINUTE = GAME_FRAMES_PER_SECOND * 60;
+
+/**
+ * An array containing every character that is selectable from the main menu (and has achievements
+ * related to completing the various bosses and so on).
+ */
+export const MAIN_CHARACTERS = [
+  PlayerType.ISAAC, // 0
+  PlayerType.MAGDALENE, // 1
+  PlayerType.CAIN, // 2
+  PlayerType.JUDAS, // 3
+  PlayerType.BLUE_BABY, // 4
+  PlayerType.EVE, // 5
+  PlayerType.SAMSON, // 6
+  PlayerType.AZAZEL, // 7
+  PlayerType.LAZARUS, // 8
+  PlayerType.EDEN, // 9
+  PlayerType.LOST, // 10
+  PlayerType.LILITH, // 13
+  PlayerType.KEEPER, // 14
+  PlayerType.APOLLYON, // 15
+  PlayerType.FORGOTTEN, // 16
+  PlayerType.BETHANY, // 18
+  PlayerType.JACOB, // 19
+  PlayerType.ISAAC_B, // 21
+  PlayerType.MAGDALENE_B, // 22
+  PlayerType.CAIN_B, // 23
+  PlayerType.JUDAS_B, // 24
+  PlayerType.BLUE_BABY_B, // 25
+  PlayerType.EVE_B, // 26
+  PlayerType.SAMSON_B, // 27
+  PlayerType.AZAZEL_B, // 28
+  PlayerType.LAZARUS_B, // 29
+  PlayerType.EDEN_B, // 30
+  PlayerType.LOST_B, // 31
+  PlayerType.LILITH_B, // 32
+  PlayerType.KEEPER_B, // 33
+  PlayerType.APOLLYON_B, // 34
+  PlayerType.FORGOTTEN_B, // 35
+  PlayerType.BETHANY_B, // 36
+  PlayerType.JACOB_B, // 37
+] as const;
 
 /** Render frames are what is returned by the `Isaac.GetFrameCount` method. */
 export const RENDER_FRAMES_PER_SECOND = 60;

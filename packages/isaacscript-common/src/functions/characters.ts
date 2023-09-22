@@ -1,5 +1,6 @@
 import type { CollectibleType } from "isaac-typescript-definitions";
 import { PlayerType } from "isaac-typescript-definitions";
+import { FLYING_CHARACTERS, MAIN_CHARACTERS } from "../core/constants";
 import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
@@ -12,51 +13,8 @@ import { CHARACTERS_WITH_NO_SOUL_HEARTS_SET } from "../sets/charactersWithNoSoul
 import { LOST_STYLE_CHARACTERS_SET } from "../sets/lostStyleCharactersSet";
 import { ReadonlySet } from "../types/ReadonlySet";
 
-const FLYING_CHARACTERS_SET = new ReadonlySet<PlayerType>([
-  PlayerType.AZAZEL, // 7
-  PlayerType.LOST, // 10
-  PlayerType.SOUL, // 17
-  PlayerType.LOST_B, // 31
-  PlayerType.JACOB_2_B, // 39
-  PlayerType.SOUL_B, // 40
-]);
-
-const MAIN_CHARACTERS_SET = new ReadonlySet<PlayerType>([
-  PlayerType.ISAAC, // 0
-  PlayerType.MAGDALENE, // 1
-  PlayerType.CAIN, // 2
-  PlayerType.JUDAS, // 3
-  PlayerType.BLUE_BABY, // 4
-  PlayerType.EVE, // 5
-  PlayerType.SAMSON, // 6
-  PlayerType.AZAZEL, // 7
-  PlayerType.LAZARUS, // 8
-  PlayerType.EDEN, // 9
-  PlayerType.LOST, // 10
-  PlayerType.LILITH, // 13
-  PlayerType.KEEPER, // 14
-  PlayerType.APOLLYON, // 15
-  PlayerType.FORGOTTEN, // 16
-  PlayerType.BETHANY, // 18
-  PlayerType.JACOB, // 19
-  PlayerType.ISAAC_B, // 21
-  PlayerType.MAGDALENE_B, // 22
-  PlayerType.CAIN_B, // 23
-  PlayerType.JUDAS_B, // 24
-  PlayerType.BLUE_BABY_B, // 25
-  PlayerType.EVE_B, // 26
-  PlayerType.SAMSON_B, // 27
-  PlayerType.AZAZEL_B, // 28
-  PlayerType.LAZARUS_B, // 29
-  PlayerType.EDEN_B, // 30
-  PlayerType.LOST_B, // 31
-  PlayerType.LILITH_B, // 32
-  PlayerType.KEEPER_B, // 33
-  PlayerType.APOLLYON_B, // 34
-  PlayerType.FORGOTTEN_B, // 35
-  PlayerType.BETHANY_B, // 36
-  PlayerType.JACOB_B, // 37
-]);
+const FLYING_CHARACTERS_SET = new ReadonlySet<PlayerType>(FLYING_CHARACTERS);
+const MAIN_CHARACTERS_SET = new ReadonlySet<PlayerType>(MAIN_CHARACTERS);
 
 /**
  * Helper function to determine if the given character can have red heart containers. Returns true

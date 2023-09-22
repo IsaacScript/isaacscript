@@ -26,6 +26,8 @@ This page lists the changes to the IsaacScript framework.
 - Renamed the following helper functions:
   - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`
 - Added the following constants:
+  - `FLYING_CHARACTERS`
+  - `MAIN_CHARACTERS`
   - `NUM_VANILLA_CHALLENGES`
 - Added the following helper types:
   - `ERange`
