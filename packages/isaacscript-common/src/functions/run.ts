@@ -42,6 +42,9 @@ export function isGreedMode(): boolean {
  * Whether the player is playing on a set seed (i.e. that they entered in a specific seed by
  * pressing tab on the character selection screen). When the player resets the game on a set seed,
  * the game will not switch to a different seed.
+ *
+ * Under the hood, this checks if the current challenge is `Challenge.NULL` and the
+ * `Seeds.IsCustomRun` method.
  */
 export function onSetSeed(): boolean {
   const seeds = game.GetSeeds();
