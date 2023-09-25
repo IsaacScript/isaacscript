@@ -5460,12 +5460,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:^0.5.7":
-  version: 0.5.7
-  resolution: "@types/source-map-support@npm:0.5.7"
+"@types/source-map-support@npm:^0.5.8":
+  version: 0.5.8
+  resolution: "@types/source-map-support@npm:0.5.8"
   dependencies:
     source-map: ^0.6.0
-  checksum: 6da844f0b8333a1789dd27ad7bb33b9bcb41159939a94451738a8f7a1e1fd69169aa6e2dda51ba8f61753c57ead159331330c996b1d672abc2e33d6991b38bf1
+  checksum: 333d77b70fd793de066572aa1c7d988ac351e6591b860db8df05bdb2ad40ee2aa1a31d66c3c0d019137d72fb7b806dfc55c2b47958d1599e775e1d37dc1f736d
   languageName: node
   linkType: hard
 
@@ -12078,7 +12078,7 @@ __metadata:
     "@types/klaw-sync": ^6.0.2
     "@types/node": ^20.6.5
     "@types/prompt": ^1.1.6
-    "@types/source-map-support": ^0.5.7
+    "@types/source-map-support": ^0.5.8
     "@types/touch": ^3.1.3
     "@types/xml2js": ^0.4.12
     "@types/yargs": ^17.0.25
