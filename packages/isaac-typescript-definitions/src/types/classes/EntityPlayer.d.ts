@@ -541,7 +541,7 @@ declare global {
     GetActiveCharge: (activeSlot?: ActiveSlot) => int;
 
     /**
-     * Returns 0 if no item is held.
+     * Returns `CollectibleType.NULL` (0) if no item is held.
      *
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
@@ -594,7 +594,7 @@ declare global {
      */
     GetBrokenHearts: () => int;
 
-    /** Returns 0 if there is no card. */
+    /** Returns `CardType.NULL` (0) if there is no card. */
     GetCard: (pocketItemSlot: PocketItemSlot) => CardType;
 
     GetCardRNG: (cardType: CardType) => RNG;
@@ -770,7 +770,7 @@ declare global {
      */
     GetOtherTwin: () => EntityPlayer | undefined;
 
-    /** Returns 0 if there is no pill. */
+    /** Returns `PillColor.NULL` (0) if there is no pill. */
     GetPill: (pocketItemSlot: PocketItemSlot) => PillColor;
 
     GetPillRNG: (pillEffect: PillEffect) => RNG;
@@ -847,7 +847,7 @@ declare global {
     GetTotalDamageTaken: () => int;
     GetTractorBeam: () => Entity;
 
-    /** Returns 0 if there is no trinket. */
+    /** Returns `TrinketType.NULL` (0) if there is no trinket. */
     GetTrinket: (trinketSlot: TrinketSlot) => TrinketType;
 
     /**

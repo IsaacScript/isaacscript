@@ -156,7 +156,7 @@ declare global {
      * Returns the ID of the current challenge, like `Challenge.PITCH_BLACK` for the "Pitch Black"
      * challenge.
      *
-     * Returns 0 if the current run is not a challenge.
+     * Returns `Challenge.NULL` (0) if the current run is not a challenge.
      */
     function GetChallenge(): Challenge;
 
@@ -222,7 +222,7 @@ declare global {
      * Never use this method to get the entity type of a vanilla entity; use the `EntityType` enum
      * instead.
      *
-     * Returns 0 if no entity with the specified name was found.
+     * Returns `EntityType.NULL` (0) if no entity with the specified name was found.
      */
     function GetEntityTypeByName(name: string): EntityType;
 
