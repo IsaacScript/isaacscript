@@ -34,7 +34,7 @@ export function getCardDescription(cardType: CardType): string {
 }
 
 /**
- * Helper function to get a card name from a Card.
+ * Helper function to get a card name from a `CardType`.
  *
  * For example, `getCardName(Card.FOOL)` would return "0 - The Fool".
  */

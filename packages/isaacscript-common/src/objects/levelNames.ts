@@ -8,7 +8,8 @@ import { LevelStage, StageType } from "isaac-typescript-definitions";
  *
  * Note that this contains "Blue Womb" instead of "???" for stage 9.
  */
-export const ENGLISH_LEVEL_NAMES = {
+export const LEVEL_NAMES = {
+  // 1
   [LevelStage.BASEMENT_1]: {
     [StageType.ORIGINAL]: "Basement 1",
     [StageType.WRATH_OF_THE_LAMB]: "Cellar 1",
@@ -17,6 +18,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Downpour 1",
     [StageType.REPENTANCE_B]: "Dross 1",
   },
+
+  // 2
   [LevelStage.BASEMENT_2]: {
     [StageType.ORIGINAL]: "Basement 2",
     [StageType.WRATH_OF_THE_LAMB]: "Cellar 2",
@@ -25,6 +28,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Downpour 2",
     [StageType.REPENTANCE_B]: "Dross 2",
   },
+
+  // 3
   [LevelStage.CAVES_1]: {
     [StageType.ORIGINAL]: "Caves 1",
     [StageType.WRATH_OF_THE_LAMB]: "Catacombs 1",
@@ -33,6 +38,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Mines 1",
     [StageType.REPENTANCE_B]: "Ashpit 1",
   },
+
+  // 4
   [LevelStage.CAVES_2]: {
     [StageType.ORIGINAL]: "Caves 2",
     [StageType.WRATH_OF_THE_LAMB]: "Catacombs 2",
@@ -41,6 +48,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Mines 2",
     [StageType.REPENTANCE_B]: "Ashpit 2",
   },
+
+  // 5
   [LevelStage.DEPTHS_1]: {
     [StageType.ORIGINAL]: "Depths 1",
     [StageType.WRATH_OF_THE_LAMB]: "Necropolis 1",
@@ -49,6 +58,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Mausoleum 1",
     [StageType.REPENTANCE_B]: "Gehenna 1",
   },
+
+  // 6
   [LevelStage.DEPTHS_2]: {
     [StageType.ORIGINAL]: "Depths 2",
     [StageType.WRATH_OF_THE_LAMB]: "Necropolis 2",
@@ -57,6 +68,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Mausoleum 2",
     [StageType.REPENTANCE_B]: "Gehenna 2",
   },
+
+  // 7
   [LevelStage.WOMB_1]: {
     [StageType.ORIGINAL]: "Womb 1",
     [StageType.WRATH_OF_THE_LAMB]: "Utero 1",
@@ -65,6 +78,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Corpse 1",
     [StageType.REPENTANCE_B]: "Mortis 1",
   },
+
+  // 8
   [LevelStage.WOMB_2]: {
     [StageType.ORIGINAL]: "Womb 2",
     [StageType.WRATH_OF_THE_LAMB]: "Utero 2",
@@ -73,6 +88,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Corpse 2",
     [StageType.REPENTANCE_B]: "Mortis 2",
   },
+
+  // 9
   [LevelStage.BLUE_WOMB]: {
     [StageType.ORIGINAL]: "Blue Womb",
     [StageType.WRATH_OF_THE_LAMB]: "Blue Womb",
@@ -81,6 +98,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Blue Womb",
     [StageType.REPENTANCE_B]: "Blue Womb",
   },
+
+  // 10
   [LevelStage.SHEOL_CATHEDRAL]: {
     [StageType.ORIGINAL]: "Sheol",
     [StageType.WRATH_OF_THE_LAMB]: "Cathedral",
@@ -89,6 +108,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Undefined",
     [StageType.REPENTANCE_B]: "Undefined",
   },
+
+  // 11
   [LevelStage.DARK_ROOM_CHEST]: {
     [StageType.ORIGINAL]: "Dark Room",
     [StageType.WRATH_OF_THE_LAMB]: "The Chest",
@@ -97,6 +118,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "Undefined",
     [StageType.REPENTANCE_B]: "Undefined",
   },
+
+  // 12
   [LevelStage.THE_VOID]: {
     [StageType.ORIGINAL]: "The Void",
     [StageType.WRATH_OF_THE_LAMB]: "The Void",
@@ -105,6 +128,8 @@ export const ENGLISH_LEVEL_NAMES = {
     [StageType.REPENTANCE]: "The Void",
     [StageType.REPENTANCE_B]: "The Void",
   },
+
+  // 13
   [LevelStage.HOME]: {
     [StageType.ORIGINAL]: "Home",
     [StageType.WRATH_OF_THE_LAMB]: "Home",

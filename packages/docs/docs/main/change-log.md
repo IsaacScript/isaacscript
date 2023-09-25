@@ -12,12 +12,20 @@ This page lists the changes to the IsaacScript framework.
 ## October 2nd, 2023 (Unreleased)
 
 - Added the following helper functions:
-  - `getPlayerTrinkets`
   - `getCharacterStartingTrinketType`
+  - `getBatteryName`
+  - `getBombName`
+  - `getChestName`
+  - `getCoinName`
+  - `getHeartName`
+  - `getKeyName`
+  - `getPlayerTrinkets`
+  - `getSackName`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
   - `arrayRemoveIndexInPlace` now returns the removed elements.
 - Renamed the following helper functions:
+  - `getEnglishLevelName` --> `getLevelName`
   - `getPlayerInventory` --> `getPlayerCollectibleTypes`
   - `getPlayerLastPassiveCollectible` --> `getPlayerLastPassiveCollectibleType`
   - `getCharacterStartingCollectibles` --> `getCharacterStartingCollectibleTypes`

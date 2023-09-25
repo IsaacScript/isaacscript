@@ -6,7 +6,7 @@ import {
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { ENGLISH_LEVEL_NAMES } from "../objects/englishLevelNames";
+import { LEVEL_NAMES } from "../objects/levelNames";
 import { ROOM_TYPE_SPECIAL_GOTO_PREFIXES } from "../objects/roomTypeSpecialGotoPrefixes";
 import { STAGE_TO_STAGE_ID } from "../objects/stageToStageID";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
@@ -91,35 +91,6 @@ export function getEffectiveStage(): LevelStage {
 }
 
 /**
- * Helper function to get the English name of the level. For example, "Caves 1".
- *
- * This is useful because the `Level.GetName` method returns a localized version of the level name,
- * which will not display correctly on some fonts.
- *
- * Note that this returns "Blue Womb" instead of "???" for stage 9.
- *
- * @param stage Optional. If not specified, the current stage will be used.
- * @param stageType Optional. If not specified, the current stage type will be used.
- */
-export function getEnglishLevelName(
-  stage?: LevelStage,
-  stageType?: StageType,
-): string {
-  const level = game.GetLevel();
-
-  if (stage === undefined) {
-    stage = level.GetStage();
-  }
-
-  if (stageType === undefined) {
-    stageType = level.GetStageType();
-  }
-
-  const stageNames = ENGLISH_LEVEL_NAMES[stage];
-  return stageNames[stageType];
-}
-
-/**
  * Helper function to get the corresponding "goto" console command that would correspond to the
  * provided room type and room variant.
  *
@@ -140,6 +111,35 @@ export function getGotoCommand(
   const prefix = isNormalRoom ? "d" : `s.${roomTypeSpecialGotoPrefix}`;
 
   return `goto ${prefix}.${roomVariant}`;
+}
+
+/**
+ * Helper function to get the English name of the level. For example, "Caves 1".
+ *
+ * This is useful because the `Level.GetName` method returns a localized version of the level name,
+ * which will not display correctly on some fonts.
+ *
+ * Note that this returns "Blue Womb" instead of "???" for stage 9.
+ *
+ * @param stage Optional. If not specified, the current stage will be used.
+ * @param stageType Optional. If not specified, the current stage type will be used.
+ */
+export function getLevelName(
+  stage?: LevelStage,
+  stageType?: StageType,
+): string {
+  const level = game.GetLevel();
+
+  if (stage === undefined) {
+    stage = level.GetStage();
+  }
+
+  if (stageType === undefined) {
+    stageType = level.GetStageType();
+  }
+
+  const stageNames = LEVEL_NAMES[stage];
+  return stageNames[stageType];
 }
 
 /** Alias for the `Level.GetStage` method. */
