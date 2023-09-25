@@ -11,6 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## October 2nd, 2023 (Unreleased)
 
+- Changed the following helper functions:
+  - `arrayRemoveInPlace` now returns the removed elements.
 - Added the following constants:
   - `CHEST_PICKUP_VARIANTS`
   - `CHEST_PICKUP_VARIANTS_SET`
