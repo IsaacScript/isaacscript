@@ -318,9 +318,9 @@ const SUGGESTIONS = {
 
   "no-new": "error",
   "no-new-func": "error",
-  "no-new-object": "error",
   "no-new-wrappers": "error",
   "no-nonoctal-decimal-escape": "error",
+  "no-object-constructor": "error",
   "no-octal": "error",
   "no-octal-escape": "error",
 
