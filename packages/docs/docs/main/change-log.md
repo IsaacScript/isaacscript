@@ -13,12 +13,14 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `getPlayerTrinkets`
+  - `getCharacterStartingTrinketType`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
   - `arrayRemoveIndexInPlace` now returns the removed elements.
 - Renamed the following helper functions:
   - `getPlayerInventory` --> `getPlayerCollectibleTypes`
   - `getPlayerLastPassiveCollectible` --> `getPlayerLastPassiveCollectibleType`
+  - `getCharacterStartingCollectibles` --> `getCharacterStartingCollectibleTypes`
 - Added the following constants:
   - `CHEST_PICKUP_VARIANTS`
   - `CHEST_PICKUP_VARIANTS_SET`

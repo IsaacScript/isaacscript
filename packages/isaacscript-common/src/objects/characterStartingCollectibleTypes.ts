@@ -1,6 +1,6 @@
 import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
 
-export const CHARACTER_STARTING_COLLECTIBLES = {
+export const CHARACTER_STARTING_COLLECTIBLE_TYPES = {
   // -1
   [PlayerType.POSSESSOR]: [],
 

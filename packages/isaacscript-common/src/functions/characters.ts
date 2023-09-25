@@ -1,10 +1,14 @@
-import type { CollectibleType } from "isaac-typescript-definitions";
+import type {
+  CollectibleType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { PlayerType } from "isaac-typescript-definitions";
 import { FLYING_CHARACTERS, MAIN_CHARACTERS } from "../core/constants";
 import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
-import { CHARACTER_STARTING_COLLECTIBLES } from "../objects/characterStartingCollectibles";
+import { CHARACTER_STARTING_COLLECTIBLE_TYPES } from "../objects/characterStartingCollectibleTypes";
+import { CHARACTER_STARTING_TRINKET_TYPE } from "../objects/characterStartingTrinketTypes";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";
 import { CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET } from "../sets/charactersWithBlackHeartFromEternalHeartSet";
 import { CHARACTERS_WITH_FREE_DEVIL_DEALS_SET } from "../sets/charactersWithFreeDevilDealsSet";
@@ -137,10 +141,22 @@ export function getCharacterName(character: PlayerType): string {
  *
  * Note that this will return an empty array for Eden and Tainted Eden.
  */
-export function getCharacterStartingCollectibles(
+export function getCharacterStartingCollectibleTypes(
   character: PlayerType,
 ): readonly CollectibleType[] {
-  return CHARACTER_STARTING_COLLECTIBLES[character];
+  return CHARACTER_STARTING_COLLECTIBLE_TYPES[character];
+}
+
+/**
+ * Helper function to get the trinket that is granted to a particular character at the beginning of
+ * a run. Returns undefined if the character does not start with a trinket.
+ *
+ * Note that this will return undefined for Eden and Tainted Eden.
+ */
+export function getCharacterStartingTrinketType(
+  character: PlayerType,
+): TrinketType | undefined {
+  return CHARACTER_STARTING_TRINKET_TYPE[character];
 }
 
 export function isFlyingCharacter(character: PlayerType): boolean {
