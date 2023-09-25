@@ -121,9 +121,9 @@ export function getTrinketGfxFilename(trinketType: TrinketType): string {
  * Helper function to get the name of a trinket. Returns "Unknown" if the provided trinket type is
  * not valid.
  *
- * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
- *
  * This function works for both vanilla and modded trinkets.
+ *
+ * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
  */
 export function getTrinketName(trinketType: TrinketType): string {
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map

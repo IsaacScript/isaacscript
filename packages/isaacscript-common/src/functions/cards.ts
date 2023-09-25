@@ -34,7 +34,10 @@ export function getCardDescription(cardType: CardType): string {
 }
 
 /**
- * Helper function to get a card name from a `CardType`.
+ * Helper function to get the name of a card. Returns "Unknown" if the provided card type is not
+ * valid.
+ *
+ * This function works for both vanilla and modded trinkets.
  *
  * For example, `getCardName(Card.FOOL)` would return "0 - The Fool".
  */

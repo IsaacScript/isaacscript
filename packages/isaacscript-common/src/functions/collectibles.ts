@@ -314,9 +314,9 @@ export function getCollectibleMaxCharges(
  * Helper function to get the name of a collectible. Returns "Unknown" if the provided collectible
  * type is not valid.
  *
- * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
- *
  * This function works for both vanilla and modded collectibles.
+ *
+ * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
  */
 export function getCollectibleName(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,

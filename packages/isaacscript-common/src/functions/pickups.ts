@@ -25,8 +25,10 @@ import { isHeart } from "./pickupVariants";
 import { getHearts } from "./pickupsSpecific";
 
 /**
- * Helper function to get a battery name from a `BatterySubType`, as listed in the "entities2.xml"
- * file.
+ * Helper function to get the name of a battery, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided battery sub-type is not valid.
+ *
+ * This function only works for vanilla battery types.
  *
  * For example, `getBatteryName(BatterySubType.MICRO)` would return "Micro Battery".
  */
@@ -37,7 +39,10 @@ export function getBatteryName(batterySubType: BatterySubType): string {
 }
 
 /**
- * Helper function to get a bomb name from a `BombSubType`, as listed in the "entities2.xml" file.
+ * Helper function to get the name of a bomb, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided bomb sub-type is not valid.
+ *
+ * This function only works for vanilla bomb types.
  *
  * For example, `getBombName(BombSubType.DOUBLE_PACK)` would return "Double Bomb".
  */
@@ -48,8 +53,10 @@ export function getBombName(bombSubType: BombSubType): string {
 }
 
 /**
- * Helper function to get a chest name from a `PickupVariant`, as listed in the "entities2.xml"
- * file. Returns "Unknown" if the pickup variant was not a chest.
+ * Helper function to get the name of a chest, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the pickup variant was not a chest.
+ *
+ * This function only works for vanilla chest types.
  *
  * For example, `getChestName(PickupVariant.SPIKED_CHEST)` would return "Spiked Chest".
  */
@@ -59,7 +66,10 @@ export function getChestName(pickupVariant: PickupVariant): string {
 }
 
 /**
- * Helper function to get a coin name from a `CoinSubType`, as listed in the "entities2.xml" file.
+ * Helper function to get the name of a coin, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided coin sub-type is not valid.
+ *
+ * This function only works for vanilla chest types.
  *
  * For example, `getCoinName(CoinSubType.DOUBLE_PACK)` would return "Double Penny".
  */
@@ -81,7 +91,10 @@ export function getCoinValue(coinSubType: CoinSubType): int {
 }
 
 /**
- * Helper function to get a heart name from a `HeartSubType`, as listed in the "entities2.xml" file.
+ * Helper function to get the name of a heart, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided heart sub-type is not valid.
+ *
+ * This function only works for vanilla heart types.
  *
  * For example, `getHeartName(HeartSubType.ETERNAL)` would return "Heart (eternal)".
  */
@@ -92,7 +105,10 @@ export function getHeartName(heartSubType: HeartSubType): string {
 }
 
 /**
- * Helper function to get a key name from a `KeySubType`, as listed in the "entities2.xml" file.
+ * Helper function to get the name of a key, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided key sub-type is not valid.
+ *
+ * This function only works for vanilla key types.
  *
  * For example, `getKeyName(KeySubType.DOUBLE_PACK)` would return "Key Ring".
  */
@@ -109,7 +125,10 @@ export function getRedHearts(): EntityPickupHeart[] {
 }
 
 /**
- * Helper function to get a sack name from a `SackSubType`, as listed in the "entities2.xml" file.
+ * Helper function to get the name of a sack, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided sack sub-type is not valid.
+ *
+ * This function only works for vanilla sack types.
  *
  * For example, `getSackName(SackSubType.NORMAL)` would return "Grab Bag".
  */

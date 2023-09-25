@@ -149,7 +149,10 @@ export function getPillEffectClass(
 }
 
 /**
- * Helper function to get a pill effect name from a PillEffect enum value.
+ * Helper function to get a pill effect name from a `PillEffect`. Returns "Unknown" if the provided
+ * pill effect is not valid.
+ *
+ * This function works for both vanilla and modded pill effects.
  *
  * For example, `getPillEffectName(PillEffect.BAD_GAS)` would return "Bad Gas".
  */
