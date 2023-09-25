@@ -10,8 +10,8 @@ import {
   getCollectibleChargeType,
   getCollectibleMaxCharges,
 } from "./collectibles";
+import { getActiveItemSlots } from "./playerCollectibles";
 import { getPlayers } from "./playerIndex";
-import { getActiveItemSlots } from "./players";
 import { getRoomShapeCharges } from "./roomShape";
 
 /**

@@ -4,7 +4,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import type { TrinketSituation } from "../interfaces/TrinketSituation";
-import { useActiveItemTemp } from "./players";
+import { useActiveItemTemp } from "./playerCollectibles";
 import { getGoldenTrinketType } from "./trinkets";
 import { repeat } from "./utils";
 

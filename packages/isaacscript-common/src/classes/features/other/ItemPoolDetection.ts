@@ -9,15 +9,13 @@ import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { collectibleHasTag } from "../../../functions/collectibleTag";
+import { anyPlayerHasCollectible } from "../../../functions/playerCollectibles";
 import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
 import { getAllPlayers } from "../../../functions/playerIndex";
-import {
-  anyPlayerHasCollectible,
-  getPlayersOfType,
-} from "../../../functions/players";
+import { getPlayersOfType } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
 import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";

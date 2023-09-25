@@ -1,10 +1,5 @@
 import type { CacheFlag } from "isaac-typescript-definitions";
-import {
-  PlayerType,
-  TrinketSlot,
-  TrinketType,
-} from "isaac-typescript-definitions";
-import { TRINKET_SLOT_VALUES } from "../arrays/cachedEnumValues";
+import { TrinketType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../core/constants";
 import { LAST_VANILLA_TRINKET_TYPE } from "../core/constantsFirstLast";
@@ -21,7 +16,6 @@ import { getEntityID } from "./entities";
 import { getEnumLength } from "./enums";
 import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
-import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
 import { asNumber } from "./types";
 
@@ -85,57 +79,6 @@ export function getMysteriousPaperEffectForFrame(
 }
 
 /**
- * Returns the slot number corresponding to where a trinket can be safely inserted.
- *
- * For example:
- *
- * ```ts
- * const player = Isaac.GetPlayer();
- * const trinketSlot = getOpenTrinketSlotNum(player);
- * if (trinketSlot !== undefined) {
- *   // They have one or more open trinket slots
- *   player.AddTrinket(TrinketType.SWALLOWED_PENNY);
- * }
- * ```
- */
-export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
-  const maxTrinkets = player.GetMaxTrinkets();
-  const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
-
-  if (maxTrinkets === 1) {
-    return trinketType1 === TrinketType.NULL ? 0 : undefined;
-  }
-
-  if (maxTrinkets === 2) {
-    if (trinketType1 === TrinketType.NULL) {
-      return 0;
-    }
-
-    return trinketType2 === TrinketType.NULL ? 1 : undefined;
-  }
-
-  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
-}
-
-/**
- * Helper function to get all of the trinkets that the player is currently holding. This will not
- * include any smelted trinkets.
- */
-export function getPlayerTrinkets(player: EntityPlayer): TrinketType[] {
-  const trinketTypes: TrinketType[] = [];
-
-  for (const trinketSlot of TRINKET_SLOT_VALUES) {
-    const trinketType = player.GetTrinket(trinketSlot);
-    if (trinketType !== TrinketType.NULL) {
-      trinketTypes.push(trinketType);
-    }
-  }
-
-  return trinketTypes;
-}
-
-/**
  * Helper function to get the in-game description for a trinket. Returns "Unknown" if the provided
  * trinket type was not valid.
  *
@@ -196,32 +139,6 @@ export function getTrinketName(trinketType: TrinketType): string {
   }
 
   return DEFAULT_TRINKET_NAME;
-}
-
-/** Helper function to check to see if the player is holding one or more trinkets. */
-export function hasAnyTrinket(player: EntityPlayer): boolean {
-  const playerTrinketTypes = TRINKET_SLOT_VALUES.map((trinketSlot) =>
-    player.GetTrinket(trinketSlot),
-  );
-  return playerTrinketTypes.some(
-    (trinketType) => trinketType !== TrinketType.NULL,
-  );
-}
-
-/**
- * Returns whether the player can hold an additional trinket, beyond what they are currently
- * carrying. This takes into account items that modify the max number of trinkets, like Mom's Purse.
- *
- * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
- * items. (Only Tainted Forgotten can pick up items.)
- */
-export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.SOUL_B)) {
-    return false;
-  }
-
-  const openTrinketSlot = getOpenTrinketSlot(player);
-  return openTrinketSlot !== undefined;
 }
 
 export function isGoldenTrinketType(trinketType: TrinketType): boolean {

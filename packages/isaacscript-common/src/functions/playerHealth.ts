@@ -11,12 +11,8 @@ import type { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCharacterMaxHeartContainers } from "./characters";
 import { getTotalCharge } from "./charge";
-import {
-  getActiveItemSlots,
-  isCharacter,
-  isKeeper,
-  setActiveItem,
-} from "./players";
+import { getActiveItemSlots, setActiveItem } from "./playerCollectibles";
+import { isCharacter, isKeeper } from "./players";
 import { repeat } from "./utils";
 
 export function addPlayerHealthType(

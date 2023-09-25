@@ -14,8 +14,8 @@ import {
 } from "../../../functions/entitiesSpecific";
 import { isTear } from "../../../functions/isaacAPIClass";
 import { logError } from "../../../functions/logMisc";
+import { useActiveItemTemp } from "../../../functions/playerCollectibles";
 import { getAllPlayers } from "../../../functions/playerIndex";
-import { useActiveItemTemp } from "../../../functions/players";
 import { getTSTLClassName } from "../../../functions/tstlClass";
 import { assertDefined } from "../../../functions/utils";
 import { ReadonlySet } from "../../../types/ReadonlySet";

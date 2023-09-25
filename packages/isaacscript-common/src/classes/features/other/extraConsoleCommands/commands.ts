@@ -107,13 +107,13 @@ import {
   spawnTrinket as spawnTrinketFunction,
 } from "../../../../functions/pickupsSpecific";
 import { getPillEffectName } from "../../../../functions/pills";
-import { getPlayers } from "../../../../functions/playerIndex";
 import {
   addCollectibleCostume,
-  getPlayerName,
   removeCollectibleCostume,
   useActiveItemTemp,
-} from "../../../../functions/players";
+} from "../../../../functions/playerCollectibles";
+import { getPlayers } from "../../../../functions/playerIndex";
+import { getPlayerName } from "../../../../functions/players";
 import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
 import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
 import { changeRoom } from "../../../../functions/rooms";
