@@ -30,7 +30,7 @@
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "figlet": "^1.6.0",
-    "glob": "^10.3.5",
+    "glob": "^10.3.7",
     "jsonc-parser": "^3.2.0",
     "klaw-sync": "^6.0.0",
     "moment": "^2.29.4",
@@ -39,7 +39,7 @@
     "source-map-support": "^0.5.21",
     "sync-directory": "^6.0.4",
     "tslib": "^2.6.2",
-    "typescript-to-lua": "^1.19.2",
+    "typescript-to-lua": "^1.19.3",
     "xml2js": "^0.6.2",
     "yaml": "^2.3.2",
     "yargs": "^17.7.2"
