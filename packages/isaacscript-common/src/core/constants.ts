@@ -3,6 +3,7 @@ import {
   Dimension,
   DisplayFlag,
   ItemPoolType,
+  PickupVariant,
   PlayerType,
   TrinketSlot,
 } from "isaac-typescript-definitions";
@@ -15,6 +16,7 @@ import {
 } from "../functions/readOnly";
 import { asCollectibleType } from "../functions/types";
 import { eRange } from "../functions/utils";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
@@ -43,6 +45,25 @@ export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
 
 /** Bombs explode when their frame count is equal to this value. */
 export const BOMB_EXPLODE_FRAME = 45;
+
+export const CHEST_PICKUP_VARIANTS = [
+  PickupVariant.CHEST, // 50
+  PickupVariant.BOMB_CHEST, // 51
+  PickupVariant.SPIKED_CHEST, // 52
+  PickupVariant.ETERNAL_CHEST, // 53
+  PickupVariant.MIMIC_CHEST, // 54
+  PickupVariant.OLD_CHEST, // 55
+  PickupVariant.WOODEN_CHEST, // 56
+  PickupVariant.MEGA_CHEST, // 57
+  PickupVariant.HAUNTED_CHEST, // 58
+  PickupVariant.LOCKED_CHEST, // 60
+  PickupVariant.RED_CHEST, // 360
+  PickupVariant.MOMS_CHEST, // 390
+] as const;
+
+export const CHEST_PICKUP_VARIANTS_SET = new ReadonlySet<PickupVariant>(
+  CHEST_PICKUP_VARIANTS,
+);
 
 /** This is the initial value of the `EntityPickup.Wait` field after a collectible is spawned. */
 export const COLLECTIBLE_INITIAL_WAIT = 20;

@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## October 2nd, 2023 (Unreleased)
+
+- Added the following constants:
+  - `CHEST_PICKUP_VARIANTS`
+  - `CHEST_PICKUP_VARIANTS_SET`
+
 ## September 25th, 2023
 
 - Added the following helper functions:

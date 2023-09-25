@@ -3,11 +3,11 @@ import type {
   HeartSubType,
   PickupVariant,
 } from "isaac-typescript-definitions";
+import { CHEST_PICKUP_VARIANTS_SET } from "../core/constants";
 import {
   COIN_SUB_TYPE_TO_VALUE,
   DEFAULT_COIN_VALUE,
 } from "../objects/coinSubTypeToValue";
-import { CHEST_PICKUP_VARIANTS } from "../sets/chestPickupVariantsSet";
 import { RED_HEART_SUB_TYPES_SET } from "../sets/redHeartSubTypesSet";
 import { removeEntities } from "./entities";
 import { isHeart } from "./pickupVariants";
@@ -39,7 +39,7 @@ export function isChest(pickup: EntityPickup): boolean {
  * Helper function to test if the provided pickup variant matches one of the various chest variants.
  */
 export function isChestVariant(pickupVariant: PickupVariant): boolean {
-  return CHEST_PICKUP_VARIANTS.has(pickupVariant);
+  return CHEST_PICKUP_VARIANTS_SET.has(pickupVariant);
 }
 
 /**
