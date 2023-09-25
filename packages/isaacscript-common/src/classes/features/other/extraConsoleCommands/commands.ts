@@ -446,7 +446,7 @@ export function character(params: string): void {
     playerType = match[1];
   } else {
     if (num < FIRST_CHARACTER || num > LAST_VANILLA_CHARACTER) {
-      print(`Invalid player sub-type: ${num}`);
+      print(`Invalid character number: ${num}`);
       return;
     }
 
