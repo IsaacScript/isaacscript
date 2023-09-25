@@ -27,24 +27,31 @@ export function arrayRemove<T>(
 
 /**
  * Removes the specified element(s) from the array. If the specified element(s) are not found in the
- * array, this function will do nothing. Returns whether one or more elements were removed.
+ * array, this function will do nothing.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will only remove the first
+ * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
+ * function instead.
+ *
+ * @returns The removed elements. This will be an empty array if no elements were removed.
  */
 export function arrayRemoveInPlace<T>(
   array: T[],
   ...elementsToRemove: T[]
-): boolean {
-  let removedOneOrMoreElements = false;
+): T[] {
+  const removedElements: T[] = [];
+
   for (const element of elementsToRemove) {
     const index = array.indexOf(element);
     if (index > -1) {
-      removedOneOrMoreElements = true;
-      array.splice(index, 1);
+      const removedElement = array.splice(index, 1);
+      removedElements.push(...removedElement);
     }
   }
 
-  return removedOneOrMoreElements;
+  return removedElements;
 }
 
 /** Helper function to remove all of the elements in an array in-place. */

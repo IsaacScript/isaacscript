@@ -103,22 +103,23 @@ export function arrayRemoveAllInPlace<T>(
  * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
  * function instead.
  *
- * @returns True if one or more elements were removed, false otherwise.
+ * @returns The removed elements. This will be an empty array if no elements were removed.
  */
 export function arrayRemoveInPlace<T>(
   array: T[],
   ...elementsToRemove: T[]
-): boolean {
-  let removedOneOrMoreElements = false;
+): T[] {
+  const removedElements: T[] = [];
+
   for (const element of elementsToRemove) {
     const index = array.indexOf(element);
     if (index > -1) {
-      removedOneOrMoreElements = true;
-      array.splice(index, 1);
+      const removedElement = array.splice(index, 1);
+      removedElements.push(...removedElement);
     }
   }
 
-  return removedOneOrMoreElements;
+  return removedElements;
 }
 
 /**
