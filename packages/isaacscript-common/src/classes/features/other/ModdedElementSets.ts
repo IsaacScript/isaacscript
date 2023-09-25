@@ -29,7 +29,7 @@ import {
   collectibleHasCacheFlag,
   isActiveCollectible,
   isHiddenCollectible,
-  isPassiveCollectible,
+  isPassiveOrFamiliarCollectible,
 } from "../../../functions/collectibles";
 import { getFlagName } from "../../../functions/flag";
 import { getRandomSeed } from "../../../functions/rng";
@@ -413,7 +413,7 @@ export class ModdedElementSets extends Feature {
         this.edenActiveCollectibleTypesSet.add(collectibleType);
       }
 
-      if (isPassiveCollectible(collectibleType)) {
+      if (isPassiveOrFamiliarCollectible(collectibleType)) {
         this.edenPassiveCollectibleTypesSet.add(collectibleType);
       }
     }
@@ -1167,7 +1167,8 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
-   * Returns a random passive collectible type that that is a valid starting item for Eden.
+   * Returns a random passive collectible type that that is a valid starting item for Eden
+   * (including familiars).
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectible types will necessarily be present when a mod first loads (due to mod load

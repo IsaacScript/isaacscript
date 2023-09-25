@@ -99,9 +99,8 @@ function getDefaultModsPath(platform: string): string {
       return DEFAULT_MODS_PATH_LINUX;
     }
 
-    // eslint-disable-next-line isaacscript/require-break
     default: {
-      fatalError(
+      return fatalError(
         `There does not exist a default mod path for the platform of: ${chalk.green(
           platform,
         )}`,

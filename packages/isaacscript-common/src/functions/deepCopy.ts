@@ -740,9 +740,8 @@ function deepCopyUserdata(
       return serializeIsaacAPIClass(value);
     }
 
-    // eslint-disable-next-line isaacscript/require-break
     case SerializationType.DESERIALIZE: {
-      error(
+      return error(
         `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
       );
     }

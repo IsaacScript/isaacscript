@@ -21,6 +21,7 @@ This page lists the changes to the IsaacScript framework.
   - `getPlayerInventory` --> `getPlayerCollectibleTypes`
   - `getPlayerLastPassiveCollectible` --> `getPlayerLastPassiveCollectibleType`
   - `getCharacterStartingCollectibles` --> `getCharacterStartingCollectibleTypes`
+  - `isPassiveCollectible` --> `isPassiveOrFamiliarCollectible`
 - Added the following constants:
   - `CHEST_PICKUP_VARIANTS`
   - `CHEST_PICKUP_VARIANTS_SET`

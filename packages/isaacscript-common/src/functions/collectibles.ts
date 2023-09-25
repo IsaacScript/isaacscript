@@ -477,7 +477,7 @@ export function isModdedCollectibleType(
  * Returns true if the item type in the item config is equal to `ItemType.ITEM_PASSIVE` or
  * `ItemType.ITEM_FAMILIAR`.
  */
-export function isPassiveCollectible(
+export function isPassiveOrFamiliarCollectible(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): boolean {
   const collectibleType = getCollectibleTypeFromArg(
