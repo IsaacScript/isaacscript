@@ -162,7 +162,7 @@ export function getPlayerBlackHearts(player: EntityPlayer): int {
  *
  * This is based on the `REVEL.StoreHealth` function in the Revelations mod.
  */
-export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
+export function getPlayerHealth(player: EntityPlayer): Readonly<PlayerHealth> {
   const character = player.GetPlayerType();
   let maxHearts = player.GetMaxHearts();
   let hearts = getPlayerHearts(player); // We use the helper function to remove rotten hearts
@@ -474,11 +474,17 @@ export function playerConvertBlackHeartsToSoulHearts(
 ): void {
   const playerHealth = getPlayerHealth(player);
   removeAllPlayerHealth(player);
-  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
-    (soulHeartType) =>
-      soulHeartType === HeartSubType.BLACK ? HeartSubType.SOUL : soulHeartType,
+
+  const newSoulHeartTypes = playerHealth.soulHeartTypes.map((soulHeartType) =>
+    soulHeartType === HeartSubType.BLACK ? HeartSubType.SOUL : soulHeartType,
   );
-  setPlayerHealth(player, playerHealth);
+
+  const playerHealthWithSoulHearts = {
+    ...playerHealth,
+    soulHeartTypes: newSoulHeartTypes,
+  };
+
+  setPlayerHealth(player, playerHealthWithSoulHearts);
 }
 
 /**
@@ -490,11 +496,17 @@ export function playerConvertSoulHeartsToBlackHearts(
 ): void {
   const playerHealth = getPlayerHealth(player);
   removeAllPlayerHealth(player);
-  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
-    (soulHeartType) =>
-      soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
+
+  const newSoulHeartTypes = playerHealth.soulHeartTypes.map((soulHeartType) =>
+    soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
   );
-  setPlayerHealth(player, playerHealth);
+
+  const playerHealthWithBlackHearts = {
+    ...playerHealth,
+    soulHeartTypes: newSoulHeartTypes,
+  };
+
+  setPlayerHealth(player, playerHealthWithBlackHearts);
 }
 
 /**

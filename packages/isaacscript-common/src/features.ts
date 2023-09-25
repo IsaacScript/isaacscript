@@ -26,7 +26,7 @@ import { DebugDisplay } from "./classes/features/other/DebugDisplay";
 import { DeployJSONRoom } from "./classes/features/other/DeployJSONRoom";
 import { DisableAllSound } from "./classes/features/other/DisableAllSound";
 import { DisableInputs } from "./classes/features/other/DisableInputs";
-import { EdenStartingStats } from "./classes/features/other/EdenStartingStats";
+import { EdenStartingStatsHealth } from "./classes/features/other/EdenStartingStatsHealth";
 import { ExtraConsoleCommands } from "./classes/features/other/ExtraConsoleCommands";
 import { FadeInRemover } from "./classes/features/other/FadeInRemover";
 import { FastReset } from "./classes/features/other/FastReset";
@@ -92,7 +92,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.DEPLOY_JSON_ROOM]: DeployJSONRoom;
   [ISCFeature.DISABLE_ALL_SOUND]: DisableAllSound;
   [ISCFeature.DISABLE_INPUTS]: DisableInputs;
-  [ISCFeature.EDEN_STARTING_STATS]: EdenStartingStats;
+  [ISCFeature.EDEN_STARTING_STATS_HEALTH]: EdenStartingStatsHealth;
   [ISCFeature.FADE_IN_REMOVER]: FadeInRemover;
   [ISCFeature.FAST_RESET]: FastReset;
   [ISCFeature.FLYING_DETECTION]: FlyingDetection;
@@ -274,7 +274,7 @@ export function getFeatures(
     ),
     [ISCFeature.DISABLE_ALL_SOUND]: disableAllSound,
     [ISCFeature.DISABLE_INPUTS]: disableInputs,
-    [ISCFeature.EDEN_STARTING_STATS]: new EdenStartingStats(),
+    [ISCFeature.EDEN_STARTING_STATS_HEALTH]: new EdenStartingStatsHealth(),
     [ISCFeature.FADE_IN_REMOVER]: new FadeInRemover(),
     [ISCFeature.FAST_RESET]: new FastReset(),
     [ISCFeature.FLYING_DETECTION]: new FlyingDetection(moddedElementSets),
