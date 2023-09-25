@@ -160,17 +160,19 @@ export function arrayRemoveIndexInPlace<T>(
   const legalIndexes = indexesToRemove.filter(
     (i) => i >= 0 && i < array.length,
   );
-  legalIndexes.sort();
 
   if (legalIndexes.length === 0) {
     return [];
   }
 
+  const legalIndexesSet = new ReadonlySet(legalIndexes);
   const removedElements: T[] = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
-    const removedElement = array.splice(i, 1);
-    removedElements.push(...removedElement);
+    if (legalIndexesSet.has(i)) {
+      const removedElement = array.splice(i, 1);
+      removedElements.push(...removedElement);
+    }
   }
 
   return removedElements;
