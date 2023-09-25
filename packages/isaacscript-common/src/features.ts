@@ -39,7 +39,7 @@ import { NoSirenSteal } from "./classes/features/other/NoSirenSteal";
 import { Pause } from "./classes/features/other/Pause";
 import { PersistentEntities } from "./classes/features/other/PersistentEntities";
 import { PickupIndexCreation } from "./classes/features/other/PickupIndexCreation";
-import { PlayerInventory } from "./classes/features/other/PlayerInventory";
+import { PlayerCollectibleTracking } from "./classes/features/other/PlayerCollectibleTracking";
 import { PonyDetection } from "./classes/features/other/PonyDetection";
 import { PressInput } from "./classes/features/other/PressInput";
 import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
@@ -105,7 +105,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.PAUSE]: Pause;
   [ISCFeature.PERSISTENT_ENTITIES]: PersistentEntities;
   [ISCFeature.PICKUP_INDEX_CREATION]: PickupIndexCreation;
-  [ISCFeature.PLAYER_INVENTORY]: PlayerInventory;
+  [ISCFeature.PLAYER_COLLECTIBLE_TRACKING]: PlayerCollectibleTracking;
   [ISCFeature.PONY_DETECTION]: PonyDetection;
   [ISCFeature.PRESS_INPUT]: PressInput;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
@@ -287,7 +287,7 @@ export function getFeatures(
     [ISCFeature.PAUSE]: pause,
     [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),
     [ISCFeature.PICKUP_INDEX_CREATION]: pickupIndexCreation,
-    [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
+    [ISCFeature.PLAYER_COLLECTIBLE_TRACKING]: new PlayerCollectibleTracking(),
     [ISCFeature.PONY_DETECTION]: ponyDetection,
     [ISCFeature.PRESS_INPUT]: pressInput,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),

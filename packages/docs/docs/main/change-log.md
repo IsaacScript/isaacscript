@@ -15,9 +15,14 @@ This page lists the changes to the IsaacScript framework.
   - `getPlayerTrinkets`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
+  - `arrayRemoveIndexInPlace` now returns the removed elements.
+- Renamed the following helper functions:
+  - `-->`
 - Added the following constants:
   - `CHEST_PICKUP_VARIANTS`
   - `CHEST_PICKUP_VARIANTS_SET`
+- Renamed the following features:
+  - `ISCFeature.PLAYER_INVENTORY` --> `ISCFeature.PLAYER_COLLECTIBLE_TRACKING`
 
 ## September 25th, 2023
 
