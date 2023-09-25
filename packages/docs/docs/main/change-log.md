@@ -9,14 +9,18 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## September 25th, 2023 (Unreleased)
+## September 25th, 2023
 
 - Added the following helper functions:
+  - `getPillEffects`
+  - `getPillEffectsSet`
   - `anyPlayerHasCollectibleEffect`
   - `anyPlayerHasTrinketEffect`
   - `anyPlayerHasNullEffect`
   - `getObjectPartialMatch`
   - `getMegaSatanDoor`
+  - `getModdedPillEffects`
+  - `getModdedPillEffectsSet`
   - `getVoidDoor`
   - `inRedKeyRoom`
   - `isGridEntityXMLType` (for the `PRE_ROOM_ENTITY_SPAWN` callback)
@@ -25,10 +29,60 @@ This page lists the changes to the IsaacScript framework.
   - `isVoidDoor`
 - Renamed the following helper functions:
   - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`
+  - `getCardArray` --> `getCardTypes`
+  - `getCardSet` --> `getCardTypesSet`
+  - `getCollectibleArray` --> `getCollectibleTypes`
+  - `getCollectibleSet` --> `getCollectibleTypesSet`
+  - `getCollectiblesForTransformation` --> `getCollectibleTypesForTransformation`
+  - `getCollectiblesWithCacheFlag` --> `getCollectibleTypesWithCacheFlag`
+  - `getCollectiblesWithTag` --> `getCollectibleTypesWithTag`
+  - `getEdenActiveCollectibles` --> `getEdenActiveCollectibleTypes`
+  - `getEdenPassiveCollectibles` --> `getEdenPassiveCollectibleTypes`
+  - `getFlyingCollectibles` --> `getFlyingCollectibleTypes`
+  - `getFlyingTrinkets` --> `getFlyingTrinketTypes`
+  - `getModdedCardArray` --> `getModdedCardTypes`
+  - `getModdedCardSet` --> `getModdedCardTypesSet`
+  - `getModdedCollectibleArray` --> `getModdedCollectibleTypes`
+  - `getModdedCollectibleSet` --> `getModdedCollectibleTypesSet`
+  - `getModdedTrinketArray` --> `getModdedTrinketTypes`
+  - `getModdedTrinketSet` --> `getModdedTrinketTypesSet`
+  - `getRandomEdenActiveCollectible` --> `getRandomEdenActiveCollectibleType`
+  - `getRandomEdenPassiveCollectible` --> `getRandomEdenPassiveCollectibleType`
+  - `getTrinketArray` --> `getTrinketTypes`
+  - `getTrinketSet` --> `getTrinketTypesSet`
+  - `getTrinketsWithCacheFlag` --> `getTrinketsTypesWithCacheFlag`
+- Removed the following helper functions:
+  - `getAllCardTypes` (use `getCardTypes` instead)
+  - `getAllDimensions` (use the `DIMENSIONS` constant instead)
+  - `getAllPillEffects` (use `getPillEffects` instead)
+  - `getVanillaCardArray` (use the `VANILLA_CARD_TYPES` constant instead)
+  - `getVanillaCardSet` (use the `VANILLA_CARD_TYPES_SET` constant instead)
+  - `getVanillaCollectibleArray` (use the `VANILLA_COLLECTIBLE_TYPES` constant instead)
+  - `getVanillaCollectibleTypeRange` (use the `VANILLA_COLLECTIBLE_TYPE_RANGE` constant instead)
+  - `getVanillaCollectibleSet` (use the `VANILLA_COLLECTIBLE_TYPES_SET` constant instead)
+  - `getVanillaPillEffects` (use the `VANILLA_PILL_EFFECTS` constant instead)
+  - `getVanillaTrinketArray` (use the `VANILLA_TRINKET_TYPES` constant instead)
+  - `getVanillaTrinketTypeRange` (use the `VANILLA_TRINKET_TYPE_RANGE` constant instead)
+  - `getVanillaTrinketSet` (use the `VANILLA_TRINKET_TYPES_SET` constant instead)
 - Added the following constants:
+  - `DIMENSIONS`
   - `FLYING_CHARACTERS`
   - `MAIN_CHARACTERS`
   - `NUM_VANILLA_CHALLENGES`
+  - `VANILLA_CARD_TYPE_RANGE`
+  - `VANILLA_CARD_TYPES`
+  - `VANILLA_CARD_TYPES_SET`
+  - `VANILLA_COLLECTIBLE_TYPE_RANGE`
+  - `VANILLA_COLLECTIBLE_TYPES`
+  - `VANILLA_COLLECTIBLE_TYPES_SET`
+  - `VANILLA_PILL_EFFECT_RANGE`
+  - `VANILLA_PILL_EFFECTS`
+  - `VANILLA_PILL_EFFECTS_SET`
+  - `VANILLA_TRINKET_TYPE_RANGE`
+  - `VANILLA_TRINKET_TYPES`
+  - `VANILLA_TRINKET_TYPES_SET`
+- Changed the following constants:
+  - `NUM_PILLS_IN_POOL` --> `NUM_PILL_COLORS_IN_POOL`
 - Added the following helper types:
   - `ERange`
   - `TupleKeys`

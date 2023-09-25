@@ -1,10 +1,7 @@
 import type { CardType } from "isaac-typescript-definitions";
 import { ItemConfigCardType, UseFlag } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
-import {
-  FIRST_CARD_TYPE,
-  LAST_VANILLA_CARD_TYPE,
-} from "../core/constantsFirstLast";
+import { LAST_VANILLA_CARD_TYPE } from "../core/constantsFirstLast";
 import {
   CARD_DESCRIPTIONS,
   DEFAULT_CARD_DESCRIPTION,
@@ -12,7 +9,6 @@ import {
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../sets/itemConfigCardTypesForCardsSet";
 import { addFlag } from "./flag";
-import { iRange } from "./utils";
 
 /**
  * Helper function to get a card description from a Card enum value.
@@ -75,16 +71,6 @@ export function getItemConfigCardType(
   }
 
   return itemConfigCard.CardType;
-}
-
-/**
- * Helper function to get an array with every valid vanilla card sub-type.
- *
- * Note that unlike collectibles and trinkets, there are no gaps in the card types, so this is a
- * simple range from the first card type to the last vanilla card type.
- */
-export function getVanillaCardTypes(): CardType[] {
-  return iRange(FIRST_CARD_TYPE, LAST_VANILLA_CARD_TYPE);
 }
 
 /**

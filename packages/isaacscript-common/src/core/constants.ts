@@ -14,6 +14,7 @@ import {
   newReadonlyVector,
 } from "../functions/readOnly";
 import { asCollectibleType } from "../functions/types";
+import { eRange } from "../functions/utils";
 import { NUM_NORMAL_PILL_COLORS } from "./constantsFirstLast";
 
 /**
@@ -245,7 +246,19 @@ export const NEW_RUN_PLAYER_STARTING_POSITION = newReadonlyVector(320, 380);
 /** Corresponds to the maximum value for `EntityPlayer.SamsonBerserkCharge`. */
 export const MAX_TAINTED_SAMSON_BERSERK_CHARGE = 100_000;
 
-export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dimension.CURRENT"
+/**
+ * The number of dimensions, not including `Dimension.CURRENT`. (This is derived from the
+ * `Dimension` enum.)
+ */
+export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1;
+
+/**
+ * An array containing every valid `Dimension`, not including `Dimension.CURRENT`. (This is derived
+ * from the `NUM_DIMENSIONS` constant.)
+ */
+export const DIMENSIONS: readonly Dimension[] = eRange(
+  NUM_DIMENSIONS,
+) as Dimension[];
 
 /**
  * The pill pool for each run is comprised of one effect for each unique pill color (minus gold and
@@ -253,7 +266,7 @@ export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1; // Account for "Dime
  */
 // TypeDoc will not work properly with the preferred export form.
 // eslint-disable-next-line unicorn/prefer-export-from
-export const NUM_PILLS_IN_POOL = NUM_NORMAL_PILL_COLORS;
+export const NUM_PILL_COLORS_IN_POOL = NUM_NORMAL_PILL_COLORS;
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 

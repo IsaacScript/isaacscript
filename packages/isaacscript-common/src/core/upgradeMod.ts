@@ -62,7 +62,7 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   return mod as ModUpgradedWithFeatures<T>;
 }
 
-/** Initialize every optional feature that the end-user specified. */
+/** Initialize every optional feature that the end-user specified, if any. */
 function initOptionalFeatures(mod: ModUpgraded, features: ISCFeature[]) {
   for (const feature of features) {
     // We intentionally access the private method here, so we use the string index escape hatch:
@@ -74,6 +74,11 @@ function initOptionalFeatures(mod: ModUpgraded, features: ISCFeature[]) {
     // provides a convenient API for end-users.)
     const modRecord = mod as unknown as Record<string, AnyFunction>;
     for (const [funcName, func] of exportedMethodTuples) {
+      if (modRecord[funcName] !== undefined) {
+        error(
+          `Failed to upgrade the mod since two or more features share the name function name of "${funcName}". This should never happen, so report this error to the library authors.`,
+        );
+      }
       modRecord[funcName] = func;
     }
   }

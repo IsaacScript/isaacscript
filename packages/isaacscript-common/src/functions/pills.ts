@@ -9,7 +9,6 @@ import { game, itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
   FIRST_PILL_COLOR,
-  FIRST_PILL_EFFECT,
   LAST_HORSE_PILL_COLOR,
   LAST_NORMAL_PILL_COLOR,
   LAST_VANILLA_PILL_EFFECT,
@@ -191,11 +190,6 @@ export function getPillEffectType(
   // Handle modded pill effects.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return pillEffectClass ?? DEFAULT_PILL_EFFECT_TYPE;
-}
-
-/** Helper function to get an array with every vanilla pill effect. */
-export function getVanillaPillEffects(): PillEffect[] {
-  return iRange(FIRST_PILL_EFFECT, LAST_VANILLA_PILL_EFFECT);
 }
 
 /** Helper function to see if the given pill color is either a gold pill or a horse gold pill. */

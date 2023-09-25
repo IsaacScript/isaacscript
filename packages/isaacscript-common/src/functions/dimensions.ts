@@ -1,15 +1,7 @@
 import { Dimension } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { NUM_DIMENSIONS } from "../core/constants";
+import { DIMENSIONS } from "../core/constants";
 import { getRoomGridIndex } from "./roomData";
-import { eRange } from "./utils";
-
-/**
- * Helper function to get an array with every valid `Dimension` (not including `Dimension.CURRENT`).
- */
-export function getAllDimensions(): Dimension[] {
-  return eRange(NUM_DIMENSIONS);
-}
 
 /**
  * Helper function to get the current dimension. Most of the time, this will be `Dimension.MAIN`,
@@ -21,7 +13,7 @@ export function getDimension(): Dimension {
   const roomDescription = level.GetRoomByIdx(roomGridIndex, Dimension.CURRENT);
   const currentRoomHash = GetPtrHash(roomDescription);
 
-  for (const dimension of getAllDimensions()) {
+  for (const dimension of DIMENSIONS) {
     const dimensionRoomDescription = level.GetRoomByIdx(
       roomGridIndex,
       dimension,

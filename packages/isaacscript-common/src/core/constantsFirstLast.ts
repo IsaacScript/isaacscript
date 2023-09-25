@@ -1,4 +1,8 @@
-// Constants related to modded items can be found in the "firstLast.ts" file.
+/**
+ * Constants relating to the first and last value for various vanilla objects.
+ *
+ * @module
+ */
 
 import {
   CardType,

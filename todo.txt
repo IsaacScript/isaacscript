@@ -1,3 +1,5 @@
+- error --> throw new Error
+  - remember to update gotchas in docs
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
 - get rid of nx
 

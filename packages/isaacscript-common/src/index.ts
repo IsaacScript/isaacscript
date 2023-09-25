@@ -4,6 +4,7 @@ export * from "./classes/ModUpgraded";
 export * from "./core/cachedClasses";
 export * from "./core/constants";
 export * from "./core/constantsFirstLast";
+export * from "./core/constantsVanilla";
 export * from "./core/upgradeMod";
 export * from "./enums/AmbushType";
 export * from "./enums/CornerType";

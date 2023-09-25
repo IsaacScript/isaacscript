@@ -74,6 +74,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   // Core
   ["constants", "Constants (Miscellaneous)"],
   ["constantsFirstLast", "Constants (First & Last)"],
+  ["constantsVanilla", "Constants (Vanilla Collections)"],
   ["upgradeMod", "Upgrading Your Mod"],
 
   // Functions

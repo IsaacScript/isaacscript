@@ -19,11 +19,11 @@ import {
   StageID,
 } from "isaac-typescript-definitions";
 import { game, sfxManager } from "../core/cachedClasses";
-import { MAX_LEVEL_GRID_INDEX } from "../core/constants";
+import { DIMENSIONS, MAX_LEVEL_GRID_INDEX } from "../core/constants";
 import { ROOM_TYPE_NAMES } from "../objects/roomTypeNames";
 import { MINE_SHAFT_ROOM_SUB_TYPE_SET } from "../sets/mineShaftRoomSubTypesSet";
 import { ReadonlySet } from "../types/ReadonlySet";
-import { getAllDimensions, inDimension } from "./dimensions";
+import { inDimension } from "./dimensions";
 import {
   closeAllDoors,
   getDoors,
@@ -223,7 +223,7 @@ export function getRoomsInsideGrid(
   const level = game.GetLevel();
 
   const dimensions = includeExtraDimensionalRooms
-    ? getAllDimensions()
+    ? DIMENSIONS
     : [Dimension.CURRENT];
 
   /** We use a map instead of an array because room shapes occupy more than one room grid index. */

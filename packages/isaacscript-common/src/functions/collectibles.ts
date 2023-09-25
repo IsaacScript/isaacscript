@@ -16,10 +16,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
 import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../core/constants";
-import {
-  FIRST_COLLECTIBLE_TYPE,
-  LAST_VANILLA_COLLECTIBLE_TYPE,
-} from "../core/constantsFirstLast";
+import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../core/constantsFirstLast";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
@@ -34,7 +31,6 @@ import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { clearSprite, spriteEquals } from "./sprites";
 import { isInteger } from "./types";
-import { iRange } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 
@@ -404,19 +400,6 @@ export function getCollectibleTags(
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
-}
-
-/**
- * Helper function to get an array that represents the range from the first collectible type to the
- * last vanilla collectible type. This will include integers that do not represent any valid
- * collectible types.
- *
- * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getVanillaCollectibleArray` or `getVanillaCollectibleSet` helper functions
- * instead (which are part of `ISCFeature.MODDED_ELEMENT_SETS`).
- */
-export function getVanillaCollectibleTypeRange(): CollectibleType[] {
-  return iRange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */

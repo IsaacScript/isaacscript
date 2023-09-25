@@ -7,10 +7,7 @@ import {
 import { TRINKET_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { itemConfig } from "../core/cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../core/constants";
-import {
-  FIRST_TRINKET_TYPE,
-  LAST_VANILLA_TRINKET_TYPE,
-} from "../core/constantsFirstLast";
+import { LAST_VANILLA_TRINKET_TYPE } from "../core/constantsFirstLast";
 import { MysteriousPaperEffect } from "../enums/MysteriousPaperEffect";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
@@ -27,7 +24,6 @@ import { isTrinket } from "./pickupVariants";
 import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
 import { asNumber } from "./types";
-import { iRange } from "./utils";
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.
@@ -183,18 +179,6 @@ export function getTrinketName(trinketType: TrinketType): string {
   }
 
   return DEFAULT_TRINKET_NAME;
-}
-
-/**
- * Helper function to get an array that represents the range from the first trinket type to the last
- * vanilla trinket type. This will include integers that do not represent any valid trinket types.
- *
- * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getVanillaTrinketArray` or `getVanillaTrinketSet` helper functions instead (which
- * are part of `ISCFeature.MODDED_ELEMENT_SETS`).
- */
-export function getVanillaTrinketTypeRange(): TrinketType[] {
-  return iRange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
 }
 
 /** Helper function to check to see if the player is holding one or more trinkets. */
