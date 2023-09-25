@@ -117,7 +117,7 @@ export class PlayerCollectibleTracking extends Feature {
    * `ISCFeature.PLAYER_COLLECTIBLE_TRACKING`.
    */
   @Exported
-  public getPlayerLastPassiveCollectible(
+  public getPlayerLastPassiveCollectibleType(
     player: EntityPlayer,
   ): CollectibleType | undefined {
     const collectibleTypes = this.getPlayerCollectibleTypes(player, false);
