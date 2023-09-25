@@ -147,31 +147,33 @@ export function arrayRemoveIndex<T>(
 
 /**
  * Removes the elements at the specified indexes from the array. If the specified indexes are not
- * found in the array, this function will do nothing. Returns true if one or more elements were
- * removed.
+ * found in the array, this function will do nothing.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  *
- * @returns Whether any array elements were removed.
+ * @returns The removed elements. This will be an empty array if no elements were removed.
  */
 export function arrayRemoveIndexInPlace<T>(
   array: T[],
   ...indexesToRemove: int[]
-): boolean {
+): T[] {
   const legalIndexes = indexesToRemove.filter(
     (i) => i >= 0 && i < array.length,
   );
   legalIndexes.sort();
 
   if (legalIndexes.length === 0) {
-    return false;
+    return [];
   }
+
+  const removedElements: T[] = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
-    array.splice(i, 1);
+    const removedElement = array.splice(i, 1);
+    removedElements.push(...removedElement);
   }
 
-  return true;
+  return removedElements;
 }
 
 export function arrayToString(array: unknown[]): string {
