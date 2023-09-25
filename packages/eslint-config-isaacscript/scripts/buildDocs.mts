@@ -434,7 +434,7 @@ function auditBaseConfigRules(
     const rule = baseRules[fullRuleName];
     assertDefined(
       rule,
-      `Failed to find a rule in the base config: ${fullRuleName}`,
+      `Failed to find a rule in the base config for config "${configName}": ${fullRuleName}`,
     );
   }
 }
