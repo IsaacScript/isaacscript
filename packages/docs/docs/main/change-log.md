@@ -33,6 +33,8 @@ This page lists the changes to the IsaacScript framework.
 - Added the following constants:
   - `CHEST_PICKUP_VARIANTS`
   - `CHEST_PICKUP_VARIANTS_SET`
+  - `COLLECTIBLE_NAME_TO_TYPE_MAP`
+  - `TRINKET_NAME_TO_TYPE_MAP`
 - Renamed the following features:
   - `ISCFeature.PLAYER_INVENTORY` --> `ISCFeature.PLAYER_COLLECTIBLE_TRACKING`
   - `ISCFeature.EDEN_STARTING_STATS` --> `ISCFeature.EDEN_STARTING_STATS_HEALTH`
