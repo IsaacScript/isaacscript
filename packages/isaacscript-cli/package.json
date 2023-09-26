@@ -30,7 +30,7 @@
     "chalk": "4.1.2",
     "command-exists": "^1.2.9",
     "figlet": "^1.6.0",
-    "glob": "^10.3.7",
+    "glob": "^10.3.9",
     "jsonc-parser": "^3.2.0",
     "klaw-sync": "^6.0.0",
     "moment": "^2.29.4",
