@@ -12,6 +12,8 @@ This page lists the changes to the IsaacScript framework.
 ## October 2nd, 2023 (Unreleased)
 
 - Added the following helper functions:
+  - `anyEasterEggEnabled` (alias for `anySeedEffectEnabled`)
+  - `anySeedEffectEnabled`
   - `getCharacterStartingTrinketType`
   - `getBatteryName`
   - `getBombName`

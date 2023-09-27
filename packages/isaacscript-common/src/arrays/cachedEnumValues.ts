@@ -16,6 +16,7 @@ import {
   PlayerForm,
   PocketItemSlot,
   RoomShape,
+  SeedEffect,
   SoundEffect,
   TrinketSlot,
 } from "isaac-typescript-definitions";
@@ -66,6 +67,8 @@ export const POCKET_ITEM_SLOT_VALUES: readonly PocketItemSlot[] =
   getEnumValues(PocketItemSlot);
 
 export const ROOM_SHAPE_VALUES: readonly RoomShape[] = getEnumValues(RoomShape);
+
+export const SEED_EFFECTS: readonly SeedEffect[] = getEnumValues(SeedEffect);
 
 export const SERIALIZATION_BRAND_VALUES: readonly SerializationBrand[] =
   getEnumValues(SerializationBrand);

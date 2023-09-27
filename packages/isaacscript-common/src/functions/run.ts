@@ -2,14 +2,30 @@ import type { PlayerType } from "isaac-typescript-definitions";
 import {
   Challenge,
   Difficulty,
+  SeedEffect,
   SlotVariant,
 } from "isaac-typescript-definitions";
+import { SEED_EFFECTS } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { FIRST_CHARACTER } from "../core/constantsFirstLast";
 import { getCharacterName } from "./characters";
 import { spawnSlot } from "./entitiesSpecific";
 import { log } from "./log";
+
+/** Alias for the `anySeedEffectEnabled` function. */
+export function anyEasterEggEnabled(): boolean {
+  return anySeedEffectEnabled();
+}
+
+export function anySeedEffectEnabled(): boolean {
+  const seeds = game.GetSeeds();
+
+  return SEED_EFFECTS.some(
+    (seedEffect) =>
+      seedEffect !== SeedEffect.NORMAL && seeds.HasSeedEffect(seedEffect),
+  );
+}
 
 /**
  * Helper function to see if the current run can unlock achievements. For example, if playing on a
