@@ -18,18 +18,22 @@ export function anyEasterEggEnabled(): boolean {
   return anySeedEffectEnabled();
 }
 
+/**
+ * Helper function to see if any seed effects (i.e. Easter Eggs) are enabled for the current run.
+ */
 export function anySeedEffectEnabled(): boolean {
   const seeds = game.GetSeeds();
+  const numSeedEffects = seeds.CountSeedEffects();
 
-  return SEED_EFFECTS.some(
-    (seedEffect) =>
-      seedEffect !== SeedEffect.NORMAL && seeds.HasSeedEffect(seedEffect),
-  );
+  return numSeedEffects > 0;
 }
 
 /**
  * Helper function to see if the current run can unlock achievements. For example, if playing on a
  * set seed or in a victory lap, achievements are disabled.
+ *
+ * Under the hood, this is determined by spawning a Greed Donation Machine and then seeing if it
+ * exists before removing it.
  */
 export function canRunUnlockAchievements(): boolean {
   const greedDonationMachine = spawnSlot(
@@ -41,6 +45,18 @@ export function canRunUnlockAchievements(): boolean {
   greedDonationMachine.Remove();
 
   return canUnlockAchievements;
+}
+
+/**
+ * Helper function to get the seed effects (i.e. Easter Eggs) that are enabled for the current run.
+ */
+export function getSeedEffects(): SeedEffect[] {
+  const seeds = game.GetSeeds();
+
+  return SEED_EFFECTS.filter(
+    (seedEffect) =>
+      seedEffect !== SeedEffect.NORMAL && seeds.HasSeedEffect(seedEffect),
+  );
 }
 
 /**
