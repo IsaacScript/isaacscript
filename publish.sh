@@ -86,13 +86,13 @@ git tag "$TAG"
 bash "$PACKAGE_DIR/build.sh"
 
 # Prompt for the OTP code.
-echo "Type in the two-factor OTP code tied to the npm account."
-printf "\a" # Play a beep to alert that we are waiting for new input.
-read -r OTP_CODE
-if [[ -z "${OTP_CODE-}" ]]; then
-  echo "Error: The OTP code provided was blank."
-  exit 1
-fi
+#echo "Type in the two-factor OTP code tied to the npm account."
+#printf "\a" # Play a beep to alert that we are waiting for new input.
+#read -r OTP_CODE
+#if [[ -z "${OTP_CODE-}" ]]; then
+#  echo "Error: The OTP code provided was blank."
+#  exit 1
+#fi
 
 # Upload the package to npm.
 cd "$DIR/dist/packages/$PACKAGE_NAME"
@@ -103,7 +103,7 @@ else
 fi
 # The "--access=public" flag is only technically needed for the first publish, but it is saved here
 # for posterity.
-npm publish --access=public --tag="$NPM_TAG" --otp="$OTP_CODE"
+npm publish --access=public --tag="$NPM_TAG" #--otp="$OTP_CODE"
 
 sleep 1
 bash "$DIR/update.sh"
