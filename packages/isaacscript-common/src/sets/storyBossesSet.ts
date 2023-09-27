@@ -6,7 +6,7 @@ export const STORY_BOSSES_SET = new ReadonlySet<EntityType>([
   EntityType.MOMS_HEART, // 78
   EntityType.SATAN, // 84
   EntityType.ISAAC, // 102
-  EntityType.THE_LAMB, // 273
+  EntityType.LAMB, // 273
   EntityType.MEGA_SATAN, // 274
   EntityType.MEGA_SATAN_2, // 275
   EntityType.ULTRA_GREED, // 406
