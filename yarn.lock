@@ -5268,10 +5268,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.7.0":
-  version: 20.7.0
-  resolution: "@types/node@npm:20.7.0"
-  checksum: 1b2919925c213f4d2039ada7a8354c998e144f7291db8d719ef58ea9924ab636c113690073b0ec3b82ba62907385f7e0f51e9d1583c1a818776daa5156d3a590
+"@types/node@npm:^20.7.1":
+  version: 20.7.1
+  resolution: "@types/node@npm:20.7.1"
+  checksum: 3140bd6c9130f1ed73a78ce7a1765ee43e155c1eea50eea45e18faeb31d11d97a84fffdc5e3a97582101d2f57d2652a50f510ede6c702780267bad74c822d56c
   languageName: node
   linkType: hard
 
@@ -12071,7 +12071,7 @@ __metadata:
     "@types/glob": ^8.1.0
     "@types/jest": ^29.5.5
     "@types/klaw-sync": ^6.0.2
-    "@types/node": ^20.7.0
+    "@types/node": ^20.7.1
     "@types/prompt": ^1.1.6
     "@types/source-map-support": ^0.5.8
     "@types/touch": ^3.1.3
@@ -12113,7 +12113,7 @@ __metadata:
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
-    knip: ^2.29.0
+    knip: ^2.30.0
     lua-types: ^2.13.1
     markdownlint: ^0.31.1
     markdownlint-cli: ^0.37.0
@@ -13176,9 +13176,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.29.0":
-  version: 2.29.0
-  resolution: "knip@npm:2.29.0"
+"knip@npm:^2.30.0":
+  version: 2.30.0
+  resolution: "knip@npm:2.30.0"
   dependencies:
     "@ericcornelissen/bash-parser": ^0.5.2
     "@npmcli/map-workspaces": ^3.0.4
@@ -13199,7 +13199,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: ee9eb74a1c7810afb3901ce45c3fcc0b376543913333c6e405ce590b1245f0d7316258704e295d415a1371748e6efd3a9b0d32107ead734470bb82f9e05ade1d
+  checksum: 423bf77f9f426e496fe6e614ca74133af14cd04fe9b7f47694b0b93c741d62cb7114036de1fe9fbb61e789a44525b66934ccf1d637b699a9817ba6eff2c0ef07
   languageName: node
   linkType: hard
 
