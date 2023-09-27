@@ -116,8 +116,8 @@ export function restart(character?: PlayerType): void {
 /**
  * Helper function to change the run status to that of an unseeded run with a new random seed.
  *
- * This is useful to revert the behavior where playing on a set and restarting the game will not
- * take you to a new seed.
+ * This is useful to revert the behavior where playing on a set seed and restarting the game will
+ * not take you to a new seed.
  *
  * Under the hood, this function calls the `Seeds.Reset` method and the
  * `Seeds.Restart(Challenge.NULL)` method.
