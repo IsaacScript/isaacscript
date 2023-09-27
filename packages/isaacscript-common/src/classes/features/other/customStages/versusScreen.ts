@@ -14,11 +14,13 @@ import { getRoomSubType } from "../../../../functions/roomData";
 import { removeCharactersBefore } from "../../../../functions/string";
 import { getScreenCenterPos } from "../../../../functions/ui";
 import { eRange } from "../../../../functions/utils";
+import {
+  getBossNameFilePath,
+  getBossPortraitFilePath,
+  getCharacterNameFilePath,
+  getCharacterPortraitFilePath,
+} from "../../../../functions/versusScreen";
 import type { CustomStage } from "../../../../interfaces/private/CustomStage";
-import { BOSS_NAME_PNG_FILE_NAMES } from "../../../../objects/bossNamePNGFileNames";
-import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/bossPortraitPNGFileNames";
-import { PLAYER_NAME_PNG_FILE_NAMES } from "../../../../objects/playerNamePNGFileNames";
-import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/playerPortraitPNGFileNames";
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../../../objects/versusScreenBackgroundColors";
 import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../../../objects/versusScreenDirtSpotColors";
 import type { DisableAllSound } from "../DisableAllSound";
@@ -79,15 +81,6 @@ const OTHER_ANM2_LAYERS: readonly int[] = arrayRemove(
   VersusScreenLayer.OVERLAY,
   VersusScreenLayer.PLAYER_PORTRAIT_ALT,
 );
-
-/** Most of the PNG files related to the versus screen are located in this directory. */
-const PNG_PATH_PREFIX = "gfx/ui/boss";
-
-/**
- * Player portraits are not located in the same directory as everything else, since they are re-used
- * from the animation where the player travels to a new stage.
- */
-const PLAYER_PORTRAIT_PNG_PATH_PREFIX = "gfx/ui/stage";
 
 const VANILLA_VERSUS_PLAYBACK_SPEED = 0.5;
 
@@ -239,10 +232,8 @@ function getPlayerPNGPaths(): {
     error("Failed to get the player PNG paths since they are a possessor.");
   }
 
-  const namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
-  const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
-  const portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
-  const portraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${portraitFileName}`;
+  const namePNGPath = getCharacterNameFilePath(character);
+  const portraitPNGPath = getCharacterPortraitFilePath(character);
 
   return { namePNGPath, portraitPNGPath };
 }
@@ -263,21 +254,16 @@ function getBossPNGPaths(customStage: CustomStage): {
   const firstBoss = bosses[0];
   const bossID = firstBoss === undefined ? 0 : firstBoss.GetBossID();
   if (bossID === 0) {
-    const questionMarkSprite = `${PNG_PATH_PREFIX}/${
-      BOSS_NAME_PNG_FILE_NAMES[BossID.BLUE_BABY]
-    }`;
-    const namePNGPath = questionMarkSprite;
-    const portraitPNGPath = questionMarkSprite;
+    const questionMarkPath = getBossNameFilePath(BossID.BLUE_BABY);
+    const namePNGPath = questionMarkPath;
+    const portraitPNGPath = questionMarkPath;
     return { namePNGPath, portraitPNGPath };
   }
 
   // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
   // files.
-  const namePNGFileName = BOSS_NAME_PNG_FILE_NAMES[bossID];
-  const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
-
-  const portraitPNGFileName = BOSS_PORTRAIT_PNG_FILE_NAMES[bossID];
-  const portraitPNGPath = `${PNG_PATH_PREFIX}/${portraitPNGFileName}`;
+  const namePNGPath = getBossNameFilePath(bossID);
+  const portraitPNGPath = getBossPortraitFilePath(bossID);
 
   return { namePNGPath, portraitPNGPath };
 }

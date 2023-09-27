@@ -61,6 +61,7 @@ normaldoor # door_01_normaldoor.png
 Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
+playername # playername_01_isaac.png
 playerportrait # players.xml
 playerportraitbig # players.xml
 pocketitems # pocketitems.xml

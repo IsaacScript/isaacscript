@@ -109,7 +109,7 @@ export const BOSS_PORTRAIT_PNG_FILE_NAMES = {
   [BossID.TURDLET]: "portrait_turdlet.png", // 97
   [BossID.RAGLICH]: "portrait_raglich.png", // 98
   [BossID.DOGMA]: "portrait_dogma.png", // 99
-  // There is no versus-screen for The Beast, so use Dogma instead.
+  // There is no image for The Beast, so use Dogma instead.
   [BossID.BEAST]: "portrait_dogma.png", // 100
   [BossID.HORNY_BOYS]: "portrait_hornyboys.png", // 101
   [BossID.CLUTCH]: "portrait_clutch.png", // 102

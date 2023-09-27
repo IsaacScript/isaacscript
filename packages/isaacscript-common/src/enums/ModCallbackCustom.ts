@@ -806,7 +806,7 @@ export enum ModCallbackCustom {
    * - in the `POST_NEW_ROOM_REORDERED` callback (firing every time a room is entered, even if the
    *   entity was previously there on a previous room entry)
    * - in the `POST_UPDATE` callback (if the entity appeared mid-way through the room, like when the
-   *   trapdoor appears after defeating It Lives!)
+   *   trapdoor appears after defeating It Lives)
    *
    * For grid entities created with `spawnCustomGridEntity`, use the `POST_GRID_ENTITY_CUSTOM_INIT`
    * callback instead.

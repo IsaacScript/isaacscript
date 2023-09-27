@@ -17,7 +17,11 @@ This page lists the changes to the IsaacScript framework.
   - `getCharacterStartingTrinketType`
   - `getBatteryName`
   - `getBombName`
+  - `getBossNameFilePath`
+  - `getBossPortraitFilePath`
   - `getBossRushDoor`
+  - `getCharacterNameFilePath`
+  - `getCharacterPortraitFilePath`
   - `getChestName`
   - `getCoinName`
   - `getEnumNames`
@@ -31,6 +35,9 @@ This page lists the changes to the IsaacScript framework.
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
   - `arrayRemoveIndexInPlace` now returns the removed elements.
+  - `getAllBossesSet` now returns a set of `BossID`.
+  - `getBossSet` now returns a set of `BossID`.
+  - `getCombinedBossSet` now returns a set of `BossID`.
 - Renamed the following helper functions:
   - `getEnglishLevelName` --> `getLevelName`
   - `getPlayerInventory` --> `getPlayerCollectibleTypes`
