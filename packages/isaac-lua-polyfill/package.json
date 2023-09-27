@@ -21,6 +21,6 @@
   "type": "module",
   "main": "dist/index.js",
   "dependencies": {
-    "isaac-typescript-definitions": "^20.0.1"
+    "isaac-typescript-definitions": "^21.0.0"
   }
 }
