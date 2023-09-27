@@ -8,7 +8,7 @@ export const BOSS_NAME_PNG_FILE_NAMES = {
   [BossID.LARRY_JR]: "bossname_19.0_larryjr.png", // 2
   [BossID.CHUB]: "bossname_28.0_chub.png", // 3
   [BossID.GURDY]: "bossname_36.0_gurdy.png", // 4
-  [BossID.MONSTRO_II]: "bossname_43.0_monstro2.png", // 5
+  [BossID.MONSTRO_2]: "bossname_43.0_monstro2.png", // 5
   [BossID.MOM]: "bossname_45.0_mom.png", // 6
   [BossID.SCOLEX]: "bossname_62.1_scolex.png", // 7
   [BossID.MOMS_HEART]: "bossname_78.0_momsheart.png", // 8
