@@ -1,4 +1,5 @@
 import {
+  BeastVariant,
   BigHornVariant,
   ChubVariant,
   DaddyLongLegsVariant,
@@ -30,7 +31,7 @@ import {
   WidowVariant,
 } from "isaac-typescript-definitions";
 import { parseEntityTypeVariantString } from "../functions/entities";
-import { copySet } from "../functions/set";
+import { combineSets, copySet } from "../functions/set";
 import { assertDefined } from "../functions/utils";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
@@ -112,13 +113,13 @@ const DROSS_BOSSES_SET = new ReadonlySet<string>([
 ]);
 
 /** The set of unique bosses for Basement, Cellar, and so on. */
-const ALL_BASEMENT_BOSSES_SET = new ReadonlySet<string>([
-  ...BASEMENT_BOSSES_SET.values(),
-  ...CELLAR_BOSSES_SET.values(),
-  ...BURNING_BASEMENT_BOSSES_SET.values(),
-  ...DOWNPOUR_BOSSES_SET.values(),
-  ...DROSS_BOSSES_SET.values(),
-]);
+const ALL_BASEMENT_BOSSES_SET: ReadonlySet<string> = combineSets(
+  BASEMENT_BOSSES_SET,
+  CELLAR_BOSSES_SET,
+  BURNING_BASEMENT_BOSSES_SET,
+  DOWNPOUR_BOSSES_SET,
+  DROSS_BOSSES_SET,
+);
 
 const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
@@ -209,13 +210,13 @@ const ASHPIT_BOSSES_SET = new ReadonlySet<string>([
 ]);
 
 /** The set of unique bosses for Caves, Catacombs, and so on. */
-const ALL_CAVES_BOSSES_SET = new ReadonlySet<string>([
-  ...CAVES_BOSSES_SET.values(),
-  ...CATACOMBS_BOSSES_SET.values(),
-  ...FLOODED_CAVES_BOSSES_SET.values(),
-  ...MINES_BOSSES_SET.values(),
-  ...ASHPIT_BOSSES_SET.values(),
-]);
+const ALL_CAVES_BOSSES_SET: ReadonlySet<string> = combineSets(
+  CAVES_BOSSES_SET,
+  CATACOMBS_BOSSES_SET,
+  FLOODED_CAVES_BOSSES_SET,
+  MINES_BOSSES_SET,
+  ASHPIT_BOSSES_SET,
+);
 
 const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
@@ -290,13 +291,13 @@ const GEHENNA_BOSSES_SET = new ReadonlySet<string>([
 ]);
 
 /** The set of unique bosses for Depths, Necropolis, and so on. */
-const ALL_DEPTHS_BOSSES_SET = new ReadonlySet<string>([
-  ...DEPTHS_BOSSES_SET.values(),
-  ...NECROPOLIS_BOSSES_SET.values(),
-  ...DANK_DEPTHS_BOSSES_SET.values(),
-  ...MAUSOLEUM_BOSSES_SET.values(),
-  ...GEHENNA_BOSSES_SET.values(),
-]);
+const ALL_DEPTHS_BOSSES_SET: ReadonlySet<string> = combineSets(
+  DEPTHS_BOSSES_SET,
+  NECROPOLIS_BOSSES_SET,
+  DANK_DEPTHS_BOSSES_SET,
+  MAUSOLEUM_BOSSES_SET,
+  GEHENNA_BOSSES_SET,
+);
 
 const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
@@ -366,13 +367,13 @@ const CORPSE_BOSSES_SET = new ReadonlySet<string>([
 ]);
 
 /** The set of unique bosses for Depths, Necropolis, and so on. */
-const ALL_WOMB_BOSSES_SET = new ReadonlySet<string>([
-  ...WOMB_BOSSES_SET.values(),
-  ...UTERO_BOSSES_SET.values(),
-  ...SCARRED_WOMB_BOSSES_SET.values(),
-  ...MAUSOLEUM_BOSSES_SET.values(),
-  ...GEHENNA_BOSSES_SET.values(),
-]);
+const ALL_WOMB_BOSSES_SET: ReadonlySet<string> = combineSets(
+  WOMB_BOSSES_SET,
+  UTERO_BOSSES_SET,
+  SCARRED_WOMB_BOSSES_SET,
+  MAUSOLEUM_BOSSES_SET,
+  GEHENNA_BOSSES_SET,
+);
 
 const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
@@ -400,10 +401,10 @@ const CATHEDRAL_BOSSES_SET = new ReadonlySet<string>([
   `${EntityType.ISAAC}.${IsaacVariant.ISAAC}`, // 102.0
 ]);
 
-const ALL_STAGE_10_BOSSES_SET = new ReadonlySet<string>([
-  ...SHEOL_BOSSES_SET.values(),
-  ...CATHEDRAL_BOSSES_SET.values(),
-]);
+const ALL_STAGE_10_BOSSES_SET: ReadonlySet<string> = combineSets(
+  SHEOL_BOSSES_SET,
+  CATHEDRAL_BOSSES_SET,
+);
 
 const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
@@ -415,16 +416,18 @@ const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
 
 const DARK_ROOM_BOSSES_SET = new ReadonlySet<string>([
   `${EntityType.THE_LAMB}.${LambVariant.LAMB}`, // 273.0
+  `${EntityType.MEGA_SATAN}.0`, // 274.0
 ]);
 
 const CHEST_BOSSES_SET = new ReadonlySet<string>([
   `${EntityType.ISAAC}.${IsaacVariant.BLUE_BABY}`, // 102.1
+  `${EntityType.MEGA_SATAN}.0`, // 274.0
 ]);
 
-const ALL_STAGE_11_BOSSES_SET = new ReadonlySet<string>([
-  ...DARK_ROOM_BOSSES_SET.values(),
-  ...CHEST_BOSSES_SET.values(),
-]);
+const ALL_STAGE_11_BOSSES_SET: ReadonlySet<string> = combineSets(
+  DARK_ROOM_BOSSES_SET,
+  CHEST_BOSSES_SET,
+);
 
 const STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
@@ -433,6 +436,29 @@ const STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   [StageType.ORIGINAL, DARK_ROOM_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, CHEST_BOSSES_SET],
 ]);
+
+const THE_VOID_BOSSES_SET = new ReadonlySet<string>([
+  `${EntityType.DELIRIUM}.0`, // 412.0
+]);
+
+const THE_VOID_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
+  StageType,
+  ReadonlySet<string>
+>([[StageType.ORIGINAL, THE_VOID_BOSSES_SET]]);
+
+const HOME_BOSSES_SET = new ReadonlySet<string>([
+  `${EntityType.DOGMA}.0`, // 950.0
+  `${EntityType.BEAST}.${BeastVariant.BEAST}`, // 951.0
+  `${EntityType.BEAST}.${BeastVariant.ULTRA_FAMINE}`, // 951.10
+  `${EntityType.BEAST}.${BeastVariant.ULTRA_PESTILENCE}`, // 951.20
+  `${EntityType.BEAST}.${BeastVariant.ULTRA_WAR}`, // 951.30
+  `${EntityType.BEAST}.${BeastVariant.ULTRA_DEATH}`, // 951.40
+]);
+
+const HOME_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
+  StageType,
+  ReadonlySet<string>
+>([[StageType.ORIGINAL, HOME_BOSSES_SET]]);
 
 export const STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   int,
@@ -449,6 +475,8 @@ export const STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   [9, BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP],
   [10, STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP],
   [11, STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP],
+  [12, THE_VOID_STAGE_TYPE_TO_BOSS_SET_MAP],
+  [13, HOME_STAGE_TYPE_TO_BOSS_SET_MAP],
 ]);
 
 export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
@@ -466,40 +494,40 @@ export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
   [9, BLUE_WOMB_BOSSES_SET],
   [10, ALL_STAGE_10_BOSSES_SET],
   [11, ALL_STAGE_11_BOSSES_SET],
+  [12, THE_VOID_BOSSES_SET],
+  [13, HOME_BOSSES_SET],
 ]);
 
-export const ALL_BOSSES_SET = new ReadonlySet<string>([
-  ...ALL_BASEMENT_BOSSES_SET.values(),
-  ...ALL_CAVES_BOSSES_SET.values(),
-  ...ALL_DEPTHS_BOSSES_SET.values(),
-  ...ALL_WOMB_BOSSES_SET.values(),
-  ...BLUE_WOMB_BOSSES_SET.values(),
-  ...ALL_STAGE_10_BOSSES_SET.values(),
-  ...ALL_STAGE_11_BOSSES_SET.values(),
-]);
+export const ALL_BOSSES_SET: ReadonlySet<string> = combineSets(
+  ALL_BASEMENT_BOSSES_SET,
+  ALL_CAVES_BOSSES_SET,
+  ALL_DEPTHS_BOSSES_SET,
+  ALL_WOMB_BOSSES_SET,
+  BLUE_WOMB_BOSSES_SET,
+  ALL_STAGE_10_BOSSES_SET,
+  ALL_STAGE_11_BOSSES_SET,
+  THE_VOID_BOSSES_SET,
+  HOME_BOSSES_SET,
+);
 
-export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET =
-  getAllBossesExcludingStoryBossesSet();
+export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET: ReadonlySet<string> =
+  (() => {
+    // Since story bosses are stored by entity type, we copy the existing bosses and filter them (to
+    // avoid having to hard-code story boss variants).
+    const allBossesExcludingStoryBossesSet = copySet(ALL_BOSSES_SET);
+    const allBosses = [...ALL_BOSSES_SET.values()];
+    for (const entityTypeVariantString of allBosses) {
+      const tuple = parseEntityTypeVariantString(entityTypeVariantString);
+      assertDefined(
+        tuple,
+        "Failed to parse a boss tuple when constructing the story boss set.",
+      );
 
-/**
- * Since story bosses are stored by entity type, we copy the existing bosses and filter them (to
- * avoid having to hard-code story boss variants).
- */
-function getAllBossesExcludingStoryBossesSet(): ReadonlySet<string> {
-  const allBossesExcludingStoryBossesSet = copySet(ALL_BOSSES_SET);
-  const allBosses = [...ALL_BOSSES_SET.values()];
-  for (const entityTypeVariantString of allBosses) {
-    const tuple = parseEntityTypeVariantString(entityTypeVariantString);
-    assertDefined(
-      tuple,
-      "Failed to parse a boss tuple when constructing the story boss set.",
-    );
-
-    const [entityType, _variant] = tuple;
-    if (STORY_BOSSES_SET.has(entityType)) {
-      allBossesExcludingStoryBossesSet.delete(entityTypeVariantString);
+      const [entityType, _variant] = tuple;
+      if (STORY_BOSSES_SET.has(entityType)) {
+        allBossesExcludingStoryBossesSet.delete(entityTypeVariantString);
+      }
     }
-  }
 
-  return allBossesExcludingStoryBossesSet;
-}
+    return allBossesExcludingStoryBossesSet;
+  })();
