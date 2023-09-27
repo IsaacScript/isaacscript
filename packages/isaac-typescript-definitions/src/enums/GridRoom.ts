@@ -28,7 +28,7 @@ export enum GridRoom {
   BLUE_WOMB = -8,
 
   /** The room after defeating Hush that leads to The Void. */
-  THE_VOID = -9,
+  VOID = -9,
 
   /**
    * The room that is connected to the Boss Room that leads to the next Repentance floor.

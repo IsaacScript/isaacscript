@@ -45,7 +45,7 @@ export enum LevelStage {
   BLUE_WOMB = 9,
   SHEOL_CATHEDRAL = 10,
   DARK_ROOM_CHEST = 11,
-  THE_VOID = 12,
+  VOID = 12,
   HOME = 13,
 
   /**
