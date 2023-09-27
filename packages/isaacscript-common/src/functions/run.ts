@@ -71,9 +71,9 @@ export function isGreedMode(): boolean {
 }
 
 /**
- * Whether the player is playing on a set seed (i.e. that they entered in a specific seed by
- * pressing tab on the character selection screen). When the player resets the game on a set seed,
- * the game will not switch to a different seed.
+ * Helper function to check whether the player is playing on a set seed (i.e. that they entered in a
+ * specific seed by pressing tab on the character selection screen). When the player resets the game
+ * on a set seed, the game will not switch to a different seed.
  *
  * Under the hood, this checks if the current challenge is `Challenge.NULL` and the
  * `Seeds.IsCustomRun` method.
@@ -84,6 +84,15 @@ export function onSetSeed(): boolean {
   const challenge = Isaac.GetChallenge();
 
   return challenge === Challenge.NULL && customRun;
+}
+
+/**
+ * Helper function to check whether the player is on a Victory Lap (i.e. they answered "yes" to the
+ * popup that happens after defeating The Lamb).
+ */
+export function onVictoryLap(): boolean {
+  const numVictoryLaps = game.GetVictoryLap();
+  return numVictoryLaps > 0;
 }
 
 /**

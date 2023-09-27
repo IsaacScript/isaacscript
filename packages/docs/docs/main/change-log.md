@@ -26,6 +26,7 @@ This page lists the changes to the IsaacScript framework.
   - `getSackName`
   - `getSeedEffects`
   - `isBossRushDoor`
+  - `onVictoryLap`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
   - `arrayRemoveIndexInPlace` now returns the removed elements.
