@@ -115,6 +115,17 @@ export function getBlueWombDoor(): GridEntityDoor | undefined {
   return doors.find((door) => isBlueWombDoor(door));
 }
 
+/**
+ * Helper function to get the door that leads to the Boss Rush. (In vanilla, the door will only
+ * appear in the Boss Room of the sixth floor.)
+ *
+ * Returns undefined if the room has no Boss Rush doors.
+ */
+export function getBossRushDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isBossRushDoor(door));
+}
+
 export function getDevilRoomDoor(): GridEntityDoor | undefined {
   const devilRoomDoors = getDoors(RoomType.DEVIL);
   return devilRoomDoors.length === 0 ? undefined : devilRoomDoors[0];
@@ -363,6 +374,14 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
  */
 export function isBlueWombDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomIndex === asNumber(GridRoom.BLUE_WOMB);
+}
+
+/**
+ * Helper function to check if the provided door is the one that leads to the Boss Rush room. (In
+ * vanilla, the door will only appear in the Boss Room of the sixth floor.)
+ */
+export function isBossRushDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.BOSS_RUSH);
 }
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {

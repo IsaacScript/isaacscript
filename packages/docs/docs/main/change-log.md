@@ -15,12 +15,14 @@ This page lists the changes to the IsaacScript framework.
   - `getCharacterStartingTrinketType`
   - `getBatteryName`
   - `getBombName`
+  - `getBossRushDoor`
   - `getChestName`
   - `getCoinName`
   - `getHeartName`
   - `getKeyName`
   - `getPlayerTrinkets`
   - `getSackName`
+  - `isBossRushDoor`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
   - `arrayRemoveIndexInPlace` now returns the removed elements.
