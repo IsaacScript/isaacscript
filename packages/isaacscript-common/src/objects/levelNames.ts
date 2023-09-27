@@ -120,7 +120,7 @@ export const LEVEL_NAMES = {
   },
 
   // 12
-  [LevelStage.THE_VOID]: {
+  [LevelStage.VOID]: {
     [StageType.ORIGINAL]: "The Void",
     [StageType.WRATH_OF_THE_LAMB]: "The Void",
     [StageType.AFTERBIRTH]: "The Void",

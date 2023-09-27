@@ -199,7 +199,7 @@ export function goToStage(stage: LevelStage, stageType: StageType): void {
 export function isFinalFloor(stage: LevelStage, stageType: StageType): boolean {
   return (
     stage === LevelStage.DARK_ROOM_CHEST ||
-    stage === LevelStage.THE_VOID ||
+    stage === LevelStage.VOID ||
     stage === LevelStage.HOME ||
     (stage === LevelStage.WOMB_2 && isRepentanceStage(stageType)) // Corpse 2
   );
@@ -244,7 +244,7 @@ export function isStageWithNaturalDevilRoom(
  * Rooms will drop random boss collectibles.
  */
 export function isStageWithRandomBossCollectible(stage: LevelStage): boolean {
-  return !isStageWithStoryBoss(stage) || stage === LevelStage.THE_VOID;
+  return !isStageWithStoryBoss(stage) || stage === LevelStage.VOID;
 }
 
 /**

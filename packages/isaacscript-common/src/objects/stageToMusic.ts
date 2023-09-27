@@ -93,6 +93,6 @@ export const STAGE_TO_MUSIC = {
   [LevelStage.BLUE_WOMB]: BLUE_WOMB_TO_MUSIC, // 9
   [LevelStage.SHEOL_CATHEDRAL]: SHEOL_CATHEDRAL_TO_MUSIC, // 10
   [LevelStage.DARK_ROOM_CHEST]: DARK_ROOM_CHEST_TO_MUSIC, // 11
-  [LevelStage.THE_VOID]: VOID_TO_MUSIC, // 12
+  [LevelStage.VOID]: VOID_TO_MUSIC, // 12
   [LevelStage.HOME]: HOME_TO_MUSIC, // 13
 } as const satisfies Record<LevelStage, Record<StageType, Music>>;

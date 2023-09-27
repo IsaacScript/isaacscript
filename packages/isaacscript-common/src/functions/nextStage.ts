@@ -45,8 +45,8 @@ export function getNextStage(): LevelStage {
     }
 
     // -9
-    case GridRoom.THE_VOID: {
-      return LevelStage.THE_VOID;
+    case GridRoom.VOID: {
+      return LevelStage.VOID;
     }
 
     // -10
@@ -103,9 +103,9 @@ export function getNextStage(): LevelStage {
   }
 
   // 12
-  if (stage === LevelStage.THE_VOID) {
+  if (stage === LevelStage.VOID) {
     // The Void goes to The Void.
-    return LevelStage.THE_VOID;
+    return LevelStage.VOID;
   }
 
   // By default, go to the next floor.
@@ -192,7 +192,7 @@ export function getNextStageType(upwards = false): StageType {
   }
 
   // 12
-  if (nextStage === LevelStage.THE_VOID) {
+  if (nextStage === LevelStage.VOID) {
     // The Void does not have any alternate floors.
     return StageType.ORIGINAL;
   }

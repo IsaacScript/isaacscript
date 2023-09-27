@@ -521,7 +521,7 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
  * contains the portal to The Void. (In vanilla, the door will only appear in the Hush Boss Room.)
  */
 export function isVoidDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === asNumber(GridRoom.THE_VOID);
+  return door.TargetRoomIndex === asNumber(GridRoom.VOID);
 }
 
 /**

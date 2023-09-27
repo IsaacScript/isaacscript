@@ -70,7 +70,7 @@ const CELLAR_BOSSES_SET = new ReadonlySet<string>([
   `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
   `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
   `${EntityType.WIDOW}.${WidowVariant.WIDOW}`, // 100.0
-  `${EntityType.THE_HAUNT}.${HauntVariant.HAUNT}`, // 260.0
+  `${EntityType.HAUNT}.${HauntVariant.HAUNT}`, // 260.0
   `${EntityType.LITTLE_HORN}.0`, // 404.0
   `${EntityType.RAG_MAN}.${RagManVariant.RAG_MAN}`, // 405.0
   `${EntityType.BABY_PLUM}.0`, // 908.0
@@ -153,16 +153,16 @@ const CAVES_BOSSES_SET = new ReadonlySet<string>([
 
 /** Contains just the bosses in Catacombs (not e.g. Flooded Caves). */
 const CATACOMBS_BOSSES_SET = new ReadonlySet<string>([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.THE_HOLLOW}`, // 19.1
+  `${EntityType.LARRY_JR}.${LarryJrVariant.HOLLOW}`, // 19.1
   `${EntityType.CHUB}.${ChubVariant.CARRION_QUEEN}`, // 28.2
   `${EntityType.PIN}.${PinVariant.FRAIL}`, // 62.2
   `${EntityType.PESTILENCE}.0`, // 64.0
-  `${EntityType.DUKE_OF_FLIES}.${DukeOfFliesVariant.THE_HUSK}`, // 67.1
+  `${EntityType.DUKE_OF_FLIES}.${DukeOfFliesVariant.HUSK}`, // 67.1
   `${EntityType.PEEP}.${PeepVariant.PEEP}`, // 68.0
   `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
   `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
   `${EntityType.GURDY_JR}.0`, // 99.0
-  `${EntityType.WIDOW}.${WidowVariant.THE_WRETCHED}`, // 100.1
+  `${EntityType.WIDOW}.${WidowVariant.WRETCHED}`, // 100.1
   `${EntityType.DARK_ONE}.0`, // 267.0
   `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.POLYCEPHALUS}`, // 269.0
   `${EntityType.FORSAKEN}.0`, // 403.0
@@ -202,8 +202,8 @@ const MINES_BOSSES_SET = new ReadonlySet<string>([
 
 /** Contains just the bosses in Ashpit (not e.g. Flooded Caves). */
 const ASHPIT_BOSSES_SET = new ReadonlySet<string>([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.THE_SHELL}`, // 19.3
-  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.THE_PILE}`, // 269.1
+  `${EntityType.LARRY_JR}.${LarryJrVariant.SHELL}`, // 19.3
+  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.PILE}`, // 269.1
   `${EntityType.GREAT_GIDEON}.0`, // 907.0
   `${EntityType.SINGE}.0`, // 915.0
   `${EntityType.CLUTCH}.0`, // 921.0
@@ -255,7 +255,7 @@ const NECROPOLIS_BOSSES_SET = new ReadonlySet<string>([
   `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
   `${EntityType.MASK_OF_INFAMY}.0`, // 97.0
   `${EntityType.ADVERSARY}.0`, // 268.0
-  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.THE_PILE}`, // 269.1
+  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.PILE}`, // 269.1
   `${EntityType.BROWNIE}.0`, // 402.0
   `${EntityType.SISTERS_VIS}.0`, // 410.0
 ]);
@@ -415,7 +415,7 @@ const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
 ]);
 
 const DARK_ROOM_BOSSES_SET = new ReadonlySet<string>([
-  `${EntityType.THE_LAMB}.${LambVariant.LAMB}`, // 273.0
+  `${EntityType.LAMB}.${LambVariant.LAMB}`, // 273.0
   `${EntityType.MEGA_SATAN}.0`, // 274.0
 ]);
 
