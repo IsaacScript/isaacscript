@@ -105,7 +105,7 @@ export enum BossID {
   MR_FRED = 53,
   LAMB = 54,
   MEGA_SATAN = 55,
-  GURGLINGS = 56,
+  GURGLING = 56,
   STAIN = 57,
   BROWNIE = 58,
   FORSAKEN = 59,
