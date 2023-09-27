@@ -44,11 +44,7 @@ export enum TreasureRoomSubType {
  * The enum is named `BossID` instead of `BossRoomSubType` in order to match the `Entity.GetBossID`,
  * `Room.GetBossID` and `Room.GetSecondBossID` methods.
  *
- * Note that this enum does not include entries for the following bosses:
- *
- * - Raglich (unfinished; does not have any boss rooms)
- * - Dogma (does not have any dedicated boss rooms)
- * - The Beast (appears in a crawlspace with a specific sub-type)
+ * Also see the `MinibossID` enum.
  */
 export enum BossID {
   MONSTRO = 1,
@@ -185,6 +181,8 @@ export enum BossID {
  *
  * The enum is named `MinibossID` instead of` MinibossRoomSubType` in order to match the `BossID`
  * enum.
+ *
+ * Also see the `BossID` enum.
  */
 export enum MinibossID {
   SLOTH = 0,
