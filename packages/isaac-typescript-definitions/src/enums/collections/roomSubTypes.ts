@@ -49,7 +49,7 @@ export enum BossID {
   LARRY_JR = 2,
   CHUB = 3,
   GURDY = 4,
-  MONSTRO_II = 5,
+  MONSTRO_2 = 5,
   MOM = 6,
   SCOLEX = 7,
   MOMS_HEART = 8,
