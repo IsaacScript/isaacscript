@@ -151,16 +151,28 @@ export enum BossID {
   SHELL = 96,
   TURDLET = 97,
 
-  // Raglich is currently unfinished and there are no boss rooms for it.
-  /// RAGLICH = 98,
+  /**
+   * Raglich is currently unfinished and there are no boss rooms for it. However, the boss ID can be
+   * successfully retrieved from the `Entity.GetBossID` method. This works for all variants of
+   * `EntityType.RAGLICH` (919).
+   */
+  RAGLICH = 98,
 
-  // Dogma does not have its own boss rooms; it appears in a normal room. The `Room.GetBossID`
-  // function returns 0 inside of the Dogma Boss Room.
-  /// DOGMA = 99,
+  /**
+   * Dogma does not have its own boss rooms; it appears in a normal room. The `Room.GetBossID`
+   * function returns 0 inside of the Dogma Boss Room. However, the boss ID can be successfully
+   * retrieved from the `Entity.GetBossID` method. This works for all variants of `EntityType.DOGMA`
+   * (950).
+   */
+  DOGMA = 99,
 
-  // The Beast does not have its own boss rooms; it appears in a crawl space. The `Room.GetBossID`
-  // function returns 0 inside of The Beast Boss Room.
-  /// BEAST = 100,
+  /**
+   * The Beast does not have its own boss rooms; it appears in a crawl space. The `Room.GetBossID`
+   * function returns 0 inside of The Beast Boss Room. However, the boss ID can be successfully
+   * retrieved from the `Entity.GetBossID` method, but only if the variant is `BeastVariant.BEAST`
+   * (0) or `BeastVariant.STALACTITE` (1).
+   */
+  BEAST = 100,
 
   HORNY_BOYS = 101,
   CLUTCH = 102,
