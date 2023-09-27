@@ -5,13 +5,14 @@ import { isNumber, isString } from "./types";
 import { assertDefined, iRange } from "./utils";
 
 /**
- * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
- * when you iterate over them, you will get both the names of the enums and the values of the enums,
- * in a random order. Use this helper function to get the entries of the enum with the reverse
- * mappings filtered out.
+ * TypeScriptToLua will transpile TypeScript number enums to Lua tables that have a double mapping.
+ * Thus, when you iterate over them, you will get both the names of the enums and the values of the
+ * enums, in a random order. Use this helper function to get the entries of the enum with the
+ * reverse mappings filtered out.
  *
  * This function will return the enum values in a sorted order, which may not necessarily be the
- * same order as which they were declared in.
+ * same order as which they were declared in. (It is impossible to get the declaration order at
+ * run-time.)
  *
  * This function will work properly for both number enums and string enums. (Reverse mappings are
  * not created for string enums.)
@@ -45,12 +46,13 @@ export function getEnumEntries<T>(
 }
 
 /**
- * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
- * when you iterate over them, you will get both the names of the enums and the values of the enums,
- * in a random order. If all you need are the keys of an enum, use this helper function.
+ * TypeScriptToLua will transpile TypeScript number enums to Lua tables that have a double mapping.
+ * Thus, when you iterate over them, you will get both the names of the enums and the values of the
+ * enums, in a random order. If all you need are the keys of an enum, use this helper function.
  *
  * This function will return the enum keys in a sorted order, which may not necessarily be the same
- * order as which they were declared in.
+ * order as which they were declared in. (It is impossible to get the declaration order at
+ * run-time.)
  *
  * This function will work properly for both number enums and string enums. (Reverse mappings are
  * not created for string enums.)
@@ -76,12 +78,47 @@ export function getEnumLength(
 }
 
 /**
- * TypeScriptToLua will transpile TypeScript enums to Lua tables that have a double mapping. Thus,
- * when you iterate over them, you will get both the names of the enums and the values of the enums,
- * in a random order. If all you need are the values of an enum, use this helper function.
+ * TypeScriptToLua will transpile TypeScript number enums to Lua tables that have a double mapping.
+ * Thus, when you iterate over them, you will get both the names of the enums and the values of the
+ * enums, in a random order. If all you need are the names of an enum from the reverse mapping, use
+ * this helper function.
+ *
+ * This function will return the enum names in a sorted order, which may not necessarily be the same
+ * order as which they were declared in. (It is impossible to get the declaration order at
+ * run-time.)
+ *
+ * This function will work properly for both number enums and string enums. (Reverse mappings are
+ * not created for string enums, so their names would be equivalent to what would be returned by the
+ * `getEnumKeys` function.)
+ *
+ * For a more in depth explanation, see:
+ * https://isaacscript.github.io/main/gotchas#iterating-over-enums
+ */
+export function getEnumNames(
+  transpiledEnum: Record<string | number, string | number>,
+): string[] {
+  const enumNames: string[] = [];
+
+  for (const [key, _value] of pairs(transpiledEnum)) {
+    if (isString(key)) {
+      enumNames.push(key);
+    }
+  }
+
+  // The enum names will be in a random order (because of "pairs"), so sort them.
+  enumNames.sort();
+
+  return enumNames;
+}
+
+/**
+ * TypeScriptToLua will transpile TypeScript number enums to Lua tables that have a double mapping.
+ * Thus, when you iterate over them, you will get both the names of the enums and the values of the
+ * enums, in a random order. If all you need are the values of an enum, use this helper function.
  *
  * This function will return the enum values in a sorted order, which may not necessarily be the
- * same order as which they were declared in.
+ * same order as which they were declared in. (It is impossible to get the declaration order at
+ * run-time.)
  *
  * This function will work properly for both number enums and string enums. (Reverse mappings are
  * not created for string enums.)
@@ -191,7 +228,7 @@ export function validateCustomEnum(
 }
 
 /**
- * Helper function to validate if every value in an enum is contiguous, starting at 0.
+ * Helper function to validate if every value in a number enum is contiguous, starting at 0.
  *
  * This is useful to automate checking large enums for typos.
  */

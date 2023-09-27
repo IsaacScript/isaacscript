@@ -20,6 +20,7 @@ This page lists the changes to the IsaacScript framework.
   - `getBossRushDoor`
   - `getChestName`
   - `getCoinName`
+  - `getEnumNames`
   - `getHeartName`
   - `getKeyName`
   - `getPlayerTrinkets`
