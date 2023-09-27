@@ -60,7 +60,7 @@ export const BOSS_NAME_PNG_FILE_NAMES = {
   [BossID.MR_FRED]: "bossname_270.0_megafred.png", // 53
   [BossID.LAMB]: "bossname_273.0_thelamb.png", // 54
   [BossID.MEGA_SATAN]: "bossname_274.0_megasatan.png", // 55
-  [BossID.GURGLINGS]: "bossname_276.0_gurglings.png", // 56
+  [BossID.GURGLING]: "bossname_276.0_gurglings.png", // 56
   [BossID.STAIN]: "bossname_401.0_thestain.png", // 57
   [BossID.BROWNIE]: "bossname_402.0_brownie.png", // 58
   [BossID.FORSAKEN]: "bossname_403.0_theforsaken.png", // 59
