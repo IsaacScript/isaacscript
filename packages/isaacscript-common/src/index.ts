@@ -130,6 +130,7 @@ export * from "./functions/types";
 export * from "./functions/ui";
 export * from "./functions/utils";
 export * from "./functions/vector";
+export * from "./functions/versusScreen";
 export * from "./functions/weighted";
 export * from "./interfaces/ChargeBarSprites";
 export * from "./interfaces/Corner";
