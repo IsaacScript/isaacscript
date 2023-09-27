@@ -473,9 +473,9 @@ export enum ShopkeeperVariant {
 /** For `EntityType.LARRY_JR` (19). */
 export enum LarryJrVariant {
   LARRY_JR = 0,
-  THE_HOLLOW = 1,
+  HOLLOW = 1,
   TUFF_TWIN = 2,
-  THE_SHELL = 3,
+  SHELL = 3,
 }
 
 /** For `EntityType.HIVE` (22). */
@@ -766,7 +766,7 @@ export enum DeathVariant {
 /** For `EntityType.DUKE_OF_FLIES` (67). */
 export enum DukeOfFliesVariant {
   DUKE_OF_FLIES = 0,
-  THE_HUSK = 1,
+  HUSK = 1,
 }
 
 /** For `EntityType.PEEP` (68). */
@@ -852,7 +852,7 @@ export enum MaskVariant {
 /** For `EntityType.WIDOW` (100). */
 export enum WidowVariant {
   WIDOW = 0,
-  THE_WRETCHED = 1,
+  WRETCHED = 1,
 }
 
 /** For `EntityType.DADDY_LONG_LEGS` (101). */
@@ -1026,7 +1026,7 @@ export enum ConjoinedFattyVariant {
   BLUE_CONJOINED_FATTY = 1,
 }
 
-/** For `EntityType.THE_HAUNT` (260). */
+/** For `EntityType.HAUNT` (260). */
 export enum HauntVariant {
   HAUNT = 0,
   LIL_HAUNT = 10,
@@ -1048,7 +1048,7 @@ export enum MamaGurdyVariant {
 /** For `EntityType.POLYCEPHALUS` (269). */
 export enum PolycephalusVariant {
   POLYCEPHALUS = 0,
-  THE_PILE = 1,
+  PILE = 1,
 }
 
 /** For `EntityType.URIEL` (271) and `EntityType.GABRIEL` (272). */
@@ -1057,7 +1057,7 @@ export enum AngelVariant {
   FALLEN = 1,
 }
 
-/** For `EntityType.THE_LAMB` (273). */
+/** For `EntityType.LAMB` (273). */
 export enum LambVariant {
   LAMB = 0,
   BODY = 10,

@@ -43,6 +43,12 @@ export enum TreasureRoomSubType {
  *
  * The enum is named `BossID` instead of `BossRoomSubType` in order to match the `Entity.GetBossID`,
  * `Room.GetBossID` and `Room.GetSecondBossID` methods.
+ *
+ * Note that this enum does not include entries for the following bosses:
+ *
+ * - Raglich (unfinished; does not have any boss rooms)
+ * - Dogma (does not have any dedicated boss rooms)
+ * - The Beast (appears in a crawlspace with a specific sub-type)
  */
 export enum BossID {
   MONSTRO = 1,
@@ -67,20 +73,20 @@ export enum BossID {
   STEVEN = 20,
   CHAD = 21,
   HEADLESS_HORSEMAN = 22,
-  THE_FALLEN = 23,
+  FALLEN = 23,
   SATAN = 24,
   IT_LIVES = 25,
-  THE_HOLLOW = 26,
-  THE_CARRION_QUEEN = 27,
+  HOLLOW = 26,
+  CARRION_QUEEN = 27,
   GURDY_JR = 28,
-  THE_HUSK = 29,
-  THE_BLOAT = 30,
+  HUSK = 29,
+  BLOAT = 30,
   LOKII = 31,
-  THE_BLIGHTED_OVUM = 32,
+  BLIGHTED_OVUM = 32,
   TERATOMA = 33,
-  THE_WIDOW = 34,
+  WIDOW = 34,
   MASK_OF_INFAMY = 35,
-  THE_WRETCHED = 36,
+  WRETCHED = 36,
   PIN = 37,
   CONQUEST = 38,
   ISAAC = 39,
@@ -90,48 +96,48 @@ export enum BossID {
 
   DADDY_LONG_LEGS = 41,
   TRIACHNID = 42,
-  THE_HAUNT = 43,
+  HAUNT = 43,
   DINGLE = 44,
   MEGA_MAW = 45,
-  THE_GATE = 46,
+  GATE = 46,
   MEGA_FATTY = 47,
-  THE_CAGE = 48,
+  CAGE = 48,
   MAMA_GURDY = 49,
   DARK_ONE = 50,
-  THE_ADVERSARY = 51,
+  ADVERSARY = 51,
   POLYCEPHALUS = 52,
   MR_FRED = 53,
-  THE_LAMB = 54,
+  LAMB = 54,
   MEGA_SATAN = 55,
   GURGLINGS = 56,
-  THE_STAIN = 57,
+  STAIN = 57,
   BROWNIE = 58,
-  THE_FORSAKEN = 59,
+  FORSAKEN = 59,
   LITTLE_HORN = 60,
   RAG_MAN = 61,
   ULTRA_GREED = 62,
   HUSH = 63,
   DANGLE = 64,
   TURDLING = 65,
-  THE_FRAIL = 66,
+  FRAIL = 66,
   RAG_MEGA = 67,
   SISTERS_VIS = 68,
   BIG_HORN = 69,
   DELIRIUM = 70,
-  THE_MATRIARCH = 72,
-  THE_PILE = 73,
+  MATRIARCH = 72,
+  PILE = 73,
   REAP_CREEP = 74,
   LIL_BLUB = 75,
   WORMWOOD = 76,
   RAINMAKER = 77,
-  THE_VISAGE = 78,
-  THE_SIREN = 79,
+  VISAGE = 78,
+  SIREN = 79,
   TUFF_TWINS = 80,
-  THE_HERETIC = 81,
+  HERETIC = 81,
   HORNFEL = 82,
   GREAT_GIDEON = 83,
   BABY_PLUM = 84,
-  THE_SCOURGE = 85,
+  SCOURGE = 85,
   CHIMERA = 86,
   ROTGUT = 87,
   MOTHER = 88,
@@ -142,17 +148,19 @@ export enum BossID {
   SINGE = 93,
   BUMBINO = 94,
   COLOSTOMIA = 95,
-  THE_SHELL = 96,
+  SHELL = 96,
   TURDLET = 97,
 
-  /** This boss is currently unfinished and there are no boss rooms for it. */
-  RAGLICH = 98,
+  // Raglich is currently unfinished and there are no boss rooms for it.
+  /// RAGLICH = 98,
 
-  /** Dogma does not have its own boss rooms; it appears in a normal room. */
-  DOGMA = 99,
+  // Dogma does not have its own boss rooms; it appears in a normal room. The `Room.GetBossID`
+  // function returns 0 inside of the Dogma Boss Room.
+  /// DOGMA = 99,
 
-  /** The Beast does not have its own boss rooms; it appears in a crawl space. */
-  THE_BEAST = 100,
+  // The Beast does not have its own boss rooms; it appears in a crawl space. The `Room.GetBossID`
+  // function returns 0 inside of The Beast Boss Room.
+  /// BEAST = 100,
 
   HORNY_BOYS = 101,
   CLUTCH = 102,

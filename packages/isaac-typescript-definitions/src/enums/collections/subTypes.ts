@@ -1779,7 +1779,7 @@ export enum DukeOfFliesSubType {
   ORANGE = 2,
 }
 
-/** For `EntityType.DUKE_OF_FLIES` (67), variant `DukeOfFliesVariant.THE_HUSK` (1). */
+/** For `EntityType.DUKE_OF_FLIES` (67), variant `DukeOfFliesVariant.HUSK` (1). */
 export enum HuskSubType {
   /** The non-champion version. */
   NORMAL = 0,
@@ -1919,7 +1919,7 @@ export enum GurglingSubType {
   BLACK = 2,
 }
 
-/** For `EntityType.THE_HAUNT` (260), `HauntVariant.HAUNT` (0). */
+/** For `EntityType.HAUNT` (260), `HauntVariant.HAUNT` (0). */
 export enum HauntSubType {
   /** The non-champion version. */
   NORMAL = 0,

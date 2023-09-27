@@ -176,7 +176,7 @@ export enum EntityType {
   // Rebirth Bosses
   // --------------
 
-  THE_HAUNT = 260,
+  HAUNT = 260,
   DINGLE = 261,
   MEGA_MAW = 262,
   GATE = 263,
@@ -189,7 +189,7 @@ export enum EntityType {
   MR_FRED = 270,
   URIEL = 271,
   GABRIEL = 272,
-  THE_LAMB = 273,
+  LAMB = 273,
   MEGA_SATAN = 274,
   MEGA_SATAN_2 = 275,
 
@@ -225,7 +225,7 @@ export enum EntityType {
   POISON_MIND = 301,
   STONEY = 302,
   BLISTER = 303,
-  THE_THING = 304,
+  THING = 304,
   MINISTRO = 305,
   PORTAL = 306,
 
