@@ -55,7 +55,8 @@ export function getAliveBosses(
  * The set contains strings with the entity type and variant, separated by a period.
  *
  * Note that this set does not include:
- * - bosses that do not appear in Boss Rooms (e.g. Krampus, Uriel, and Gabriel)
+ * - mini-bosses (e.g. Ultra Pride, Krampus)
+ * - bosses that do not appear in Boss Rooms (e.g. Uriel, Gabriel)
  * - the second phase of multi-phase bosses (e.g. Mega Satan 2), with the exception of The Beast
  *   (Ultra Famine, Ultra Pestilence, Ultra War, and Ultra Death are included)
  *
