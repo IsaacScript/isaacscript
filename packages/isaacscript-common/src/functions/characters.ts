@@ -7,6 +7,7 @@ import { FLYING_CHARACTERS, MAIN_CHARACTERS } from "../core/constants";
 import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
+import { CHARACTER_SPRITE_PNG_FILE_NAMES } from "../objects/characterSpritePNGFileNames";
 import { CHARACTER_STARTING_COLLECTIBLE_TYPES } from "../objects/characterStartingCollectibleTypes";
 import { CHARACTER_STARTING_TRINKET_TYPE } from "../objects/characterStartingTrinketTypes";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";
@@ -19,6 +20,8 @@ import { ReadonlySet } from "../types/ReadonlySet";
 
 const FLYING_CHARACTERS_SET = new ReadonlySet<PlayerType>(FLYING_CHARACTERS);
 const MAIN_CHARACTERS_SET = new ReadonlySet<PlayerType>(MAIN_CHARACTERS);
+
+const PNG_PATH_PREFIX = "characters/costumes";
 
 /**
  * Helper function to determine if the given character can have red heart containers. Returns true
@@ -133,6 +136,17 @@ export function getCharacterName(character: PlayerType): string {
   }
 
   return CHARACTER_NAMES[character];
+}
+
+/**
+ * Helper function to get the path to the sprite for a particular character.
+ *
+ * For example, the file path for `PlayerType.ISAAC` is
+ * "characters/costumes/character_001_isaac.png".
+ */
+export function getCharacterSpritePNGFilePath(character: PlayerType): string {
+  const fileName = CHARACTER_SPRITE_PNG_FILE_NAMES[character];
+  return `${PNG_PATH_PREFIX}/${fileName}`;
 }
 
 /**

@@ -15,10 +15,10 @@ import { removeCharactersBefore } from "../../../../functions/string";
 import { getScreenCenterPos } from "../../../../functions/ui";
 import { eRange } from "../../../../functions/utils";
 import {
-  getBossNameFilePath,
-  getBossPortraitFilePath,
-  getCharacterNameFilePath,
-  getCharacterPortraitFilePath,
+  getBossNamePNGFilePath,
+  getBossPortraitPNGFilePath,
+  getCharacterNamePNGFilePath,
+  getCharacterPortraitPNGFilePath,
 } from "../../../../functions/versusScreen";
 import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../../../objects/versusScreenBackgroundColors";
@@ -232,8 +232,8 @@ function getPlayerPNGPaths(): {
     error("Failed to get the player PNG paths since they are a possessor.");
   }
 
-  const namePNGPath = getCharacterNameFilePath(character);
-  const portraitPNGPath = getCharacterPortraitFilePath(character);
+  const namePNGPath = getCharacterNamePNGFilePath(character);
+  const portraitPNGPath = getCharacterPortraitPNGFilePath(character);
 
   return { namePNGPath, portraitPNGPath };
 }
@@ -254,7 +254,7 @@ function getBossPNGPaths(customStage: CustomStage): {
   const firstBoss = bosses[0];
   const bossID = firstBoss === undefined ? 0 : firstBoss.GetBossID();
   if (bossID === 0) {
-    const questionMarkPath = getBossNameFilePath(BossID.BLUE_BABY);
+    const questionMarkPath = getBossNamePNGFilePath(BossID.BLUE_BABY);
     const namePNGPath = questionMarkPath;
     const portraitPNGPath = questionMarkPath;
     return { namePNGPath, portraitPNGPath };
@@ -262,8 +262,8 @@ function getBossPNGPaths(customStage: CustomStage): {
 
   // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
   // files.
-  const namePNGPath = getBossNameFilePath(bossID);
-  const portraitPNGPath = getBossPortraitFilePath(bossID);
+  const namePNGPath = getBossNamePNGFilePath(bossID);
+  const portraitPNGPath = getBossPortraitPNGFilePath(bossID);
 
   return { namePNGPath, portraitPNGPath };
 }
