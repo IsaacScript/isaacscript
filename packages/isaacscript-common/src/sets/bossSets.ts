@@ -517,25 +517,26 @@ export const ALL_BOSSES_SET: ReadonlySet<BossID> = combineSets(
 );
 
 const STORY_BOSS_IDS_SET = new ReadonlySet([
-  BossID.MOM,
-  BossID.MOMS_HEART,
-  BossID.SATAN,
-  BossID.ISAAC,
-  BossID.LAMB,
-  BossID.MEGA_SATAN,
+  BossID.MOM, // 6
+  BossID.MOMS_HEART, // 8
+  BossID.SATAN, // 24
+  BossID.ISAAC, // 39
+  BossID.LAMB, // 54
+  BossID.MEGA_SATAN, // 55
   // Mega Satan 2 does not have a dedicated boss room.
-  BossID.ULTRA_GREED,
-  BossID.HUSH,
-  BossID.DELIRIUM,
-  BossID.MOTHER,
-  BossID.DOGMA,
-  BossID.BEAST,
+  BossID.ULTRA_GREED, // 62
+  BossID.HUSH, // 63
+  BossID.DELIRIUM, // 70
+  BossID.MOTHER, // 88
+  BossID.MAUSOLEUM_MOM, // 89
+  BossID.MAUSOLEUM_MOMS_HEART, // 90
+  BossID.DOGMA, // 99
+  BossID.BEAST, // 100
 ]);
 
-if (STORY_BOSS_IDS_SET.size + 1 !== STORY_BOSSES_SET.size) {
-  error(
-    'The size of "STORY_BOSS_IDS_SET" is not the same as "STORY_BOSSES_SET".',
-  );
+// We add one for Mega Satan 2 and minus 2 for the two Mausoleum bosses.
+if (STORY_BOSS_IDS_SET.size + 1 - 2 !== STORY_BOSSES_SET.size) {
+  error('The "STORY_BOSS_IDS_SET" and the "STORY_BOSSES_SET" do not match.');
 }
 
 export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET: ReadonlySet<BossID> =

@@ -5,6 +5,7 @@ import type {
 } from "isaac-typescript-definitions";
 import { EntityType, LokiVariant } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
+import { BOSS_ID_TO_ENTITY_TYPE_VARIANT } from "../objects/bossIDToEntityTypeVariant";
 import {
   ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
   ALL_BOSSES_SET,
@@ -28,6 +29,21 @@ const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS = new ReadonlySet<EntityType>([
 ]);
 
 const DEFAULT_BOSS_MULTI_SEGMENTS = 4;
+
+const ENTITY_TYPE_VARIANT_TO_BOSS_ID: ReadonlyMap<string, BossID> = (() => {
+  const entityTypeVariantToBossID = new Map<string, BossID>();
+
+  for (const [bossIDRaw, entityTypeVariant] of Object.entries(
+    BOSS_ID_TO_ENTITY_TYPE_VARIANT,
+  )) {
+    const bossID = bossIDRaw as unknown as BossID;
+    const [entityType, variant] = entityTypeVariant;
+    const entityTypeVariantString = `${entityType}.${variant}`;
+    entityTypeVariantToBossID.set(entityTypeVariantString, bossID);
+  }
+
+  return entityTypeVariantToBossID;
+})();
 
 /**
  * Helper function to get all of the non-dead bosses in the room.
@@ -73,6 +89,14 @@ export function getAllBossesSet(
   return includeStoryBosses
     ? ALL_BOSSES_SET
     : ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET;
+}
+
+export function getBossIDFromEntityTypeVariant(
+  entityType: EntityType,
+  variant: int,
+): BossID | undefined {
+  const entityTypeVariant = `${entityType}.${variant}`;
+  return ENTITY_TYPE_VARIANT_TO_BOSS_ID.get(entityTypeVariant);
 }
 
 /**
@@ -127,9 +151,48 @@ export function getCombinedBossSet(
   return STAGE_TO_COMBINED_BOSS_SET_MAP.get(stage);
 }
 
+export function getEntityTypeVariantFromBossID(
+  bossID: BossID,
+): readonly [EntityType, int] {
+  return BOSS_ID_TO_ENTITY_TYPE_VARIANT[bossID];
+}
+
 /** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
 export function isSin(npc: EntityNPC): boolean {
   return SIN_ENTITY_TYPES_SET.has(npc.Type);
+}
+
+function getNumBossSegments(
+  entityType: EntityType,
+  variant: int,
+  numSegments: int | undefined,
+) {
+  if (numSegments !== undefined) {
+    return numSegments;
+  }
+
+  switch (entityType) {
+    // 28
+    case EntityType.CHUB: {
+      // Chub is always composed of 3 segments.
+      return 3;
+    }
+
+    // 69
+    case EntityType.LOKI: {
+      return variant === asNumber(LokiVariant.LOKII) ? 2 : 1;
+    }
+
+    // 237
+    case EntityType.GURGLING: {
+      // Gurglings & Turdlings are always encountered in groups of 2.
+      return 2;
+    }
+
+    default: {
+      return DEFAULT_BOSS_MULTI_SEGMENTS;
+    }
+  }
 }
 
 /**
@@ -184,39 +247,6 @@ export function spawnBoss(
   }
 
   return npc;
-}
-
-function getNumBossSegments(
-  entityType: EntityType,
-  variant: int,
-  numSegments: int | undefined,
-) {
-  if (numSegments !== undefined) {
-    return numSegments;
-  }
-
-  switch (entityType) {
-    // 28
-    case EntityType.CHUB: {
-      // Chub is always composed of 3 segments.
-      return 3;
-    }
-
-    // 69
-    case EntityType.LOKI: {
-      return variant === asNumber(LokiVariant.LOKII) ? 2 : 1;
-    }
-
-    // 237
-    case EntityType.GURGLING: {
-      // Gurglings & Turdlings are always encountered in groups of 2.
-      return 2;
-    }
-
-    default: {
-      return DEFAULT_BOSS_MULTI_SEGMENTS;
-    }
-  }
 }
 
 /**

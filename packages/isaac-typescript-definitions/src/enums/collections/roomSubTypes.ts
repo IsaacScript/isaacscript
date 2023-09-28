@@ -120,7 +120,7 @@ export enum BossID {
   SISTERS_VIS = 68,
   BIG_HORN = 69,
   DELIRIUM = 70,
-  // There is no Boss ID with a value of 71.
+  // There is no boss ID with a value of 71.
   MATRIARCH = 72,
   PILE = 73,
   REAP_CREEP = 74,

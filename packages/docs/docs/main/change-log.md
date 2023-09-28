@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `getCharacterStartingTrinketType`
   - `getBatteryName`
   - `getBombName`
+  - `getBossIDFromEntityTypeVariant`
   - `getBossNamePNGFilePath`
   - `getBossPortraitPNGFilePath`
   - `getBossRushDoor`
@@ -25,6 +26,7 @@ This page lists the changes to the IsaacScript framework.
   - `getCharacterSpritePNGFilePath`
   - `getChestName`
   - `getCoinName`
+  - `getEntityTypeVariantFromBossID`
   - `getEnumNames`
   - `getHeartName`
   - `getKeyName`
