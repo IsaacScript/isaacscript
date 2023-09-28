@@ -66,7 +66,7 @@ export function getAliveBosses(
  * - mini-bosses (e.g. Ultra Pride, Krampus)
  * - bosses that do not appear in Boss Rooms (e.g. Uriel, Gabriel)
  * - the second phase of multi-phase bosses (e.g. Mega Satan 2)
- * - sub-bosses of The Beast Fight (e.g. Ultra Famine, Ultra Pestilence, Ultra War, Ultra Death)
+ * - sub-bosses of The Beast fight (e.g. Ultra Famine, Ultra Pestilence, Ultra War, Ultra Death)
  * - bosses that do not have any Boss Rooms defined due to being unfinished (e.g. Raglich)
  *
  * Also see the `getBossSet` and `getCombinedBossSet` functions.
