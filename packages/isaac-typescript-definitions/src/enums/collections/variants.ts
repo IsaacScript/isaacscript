@@ -393,12 +393,15 @@ export enum LaserVariant {
 
 /** For `EntityType.KNIFE` (8). */
 export enum KnifeVariant {
-  MOMS_KNIFE = 8,
+  MOMS_KNIFE = 0,
   BONE_CLUB = 1,
   BONE_SCYTHE = 2,
   DONKEY_JAWBONE = 3,
   BAG_OF_CRAFTING = 4,
   SUMPTORIUM = 5,
+  // - 6 is unused.
+  // - 7 is unused.
+  // - 8 is unused,
   NOTCHED_AXE = 9,
   SPIRIT_SWORD = 10,
   TECH_SWORD = 11,
