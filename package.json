@@ -57,7 +57,7 @@
     "clsx": "^2.0.0",
     "command-exists": "^1.2.9",
     "confusing-browser-globals": "^1.0.11",
-    "cspell": "^7.3.6",
+    "cspell": "^7.3.7",
     "cspell-check-unused-words": "^1.0.6",
     "docusaurus-plugin-typedoc": "^0.20.2",
     "docusaurus-theme-search-typesense": "^0.12.0",
