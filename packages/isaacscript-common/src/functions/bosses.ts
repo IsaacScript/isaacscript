@@ -13,6 +13,7 @@ import {
   STAGE_TO_COMBINED_BOSS_SET_MAP,
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
 } from "../sets/bossSets";
+import { REPENTANCE_ONLY_BOSS_IDS_SET } from "../sets/repentanceBossIDsSet";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getNPCs, spawnNPC } from "./entitiesSpecific";
@@ -146,6 +147,17 @@ export function getEntityTypeVariantFromBossID(
   bossID: BossID,
 ): readonly [EntityType, int] {
   return BOSS_ID_TO_ENTITY_TYPE_VARIANT[bossID];
+}
+
+/**
+ * Helper function to check if a boss is only found on a Repentance floor such as Dross, Mines, and
+ * so on.
+ *
+ * For example, The Pile is a boss that was added in Repentance, but since it can appear in
+ * Necropolis, it is not considered a Repentance boss for the purposes of this function.
+ */
+export function isRepentanceBoss(bossID: BossID): boolean {
+  return REPENTANCE_ONLY_BOSS_IDS_SET.has(bossID);
 }
 
 /** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */

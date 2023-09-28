@@ -39,6 +39,7 @@ This page lists the changes to the IsaacScript framework.
   - `isBossRushDoor`
   - `inCrawlSpaceWithBlackMarketEntrance`
   - `isCrawlSpaceWithBlackMarketEntrance`
+  - `isRepentanceBoss`
   - `onVictoryLap`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
