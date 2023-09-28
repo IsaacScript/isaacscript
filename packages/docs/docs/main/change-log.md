@@ -30,6 +30,7 @@ This page lists the changes to the IsaacScript framework.
   - `getEnumNames`
   - `getHeartName`
   - `getKeyName`
+  - `getNormalTrinketType`
   - `getPlayerTrinkets`
   - `getSackName`
   - `getSeedEffects`

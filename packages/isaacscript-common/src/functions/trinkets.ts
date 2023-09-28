@@ -36,11 +36,16 @@ const TRINKET_SPRITE_LAYER = 0;
 /**
  * Helper function to get the corresponding golden trinket type from a normal trinket type.
  *
+ * If the provided trinket type is already a golden trinket type, then the trinket type will be
+ * returned unmodified.
+ *
  * For example, passing `TrinketType.SWALLOWED_PENNY` would result in 32769, which is the value that
  * corresponds to the golden trinket sub-type for Swallowed Penny.
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
-  return asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
+  return isGoldenTrinketType(trinketType)
+    ? trinketType
+    : asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
 }
 
 /**
@@ -76,6 +81,18 @@ export function getMysteriousPaperEffectForFrame(
   }
 
   return frameCount % NUM_MYSTERIOUS_PAPER_EFFECTS;
+}
+
+/**
+ * Helper function to get the corresponding normal trinket type from a golden trinket type.
+ *
+ * If the provided trinket type is already a normal trinket type, then the trinket type will be
+ * returned unmodified.
+ */
+export function getNormalTrinketType(trinketType: TrinketType): TrinketType {
+  return isGoldenTrinketType(trinketType)
+    ? asNumber(trinketType) - GOLDEN_TRINKET_ADJUSTMENT
+    : trinketType;
 }
 
 /**
