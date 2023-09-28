@@ -1,4 +1,5 @@
 import { SlotVariant } from "isaac-typescript-definitions";
+import { SLOT_NAMES } from "../objects/slotNames";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { isSlot } from "./entityTypes";
 
@@ -13,6 +14,21 @@ const SLOT_MACHINE_VARIANTS = new ReadonlySet<SlotVariant>([
   SlotVariant.CRANE_GAME, // 16
   SlotVariant.CONFESSIONAL, // 17
 ]);
+
+/**
+ * Helper function to get the name of a slot, as listed in the "entities2.xml" file. Returns
+ * "Unknown" if the provided slot variant is not valid.
+ *
+ * This function only works for vanilla slot variants.
+ *
+ * For example, `getSlotName(SlotVariant.BLOOD_DONATION_MACHINE)` would return "Blood Donation
+ * Machine".
+ */
+export function getSlotName(slotVariant: SlotVariant): string {
+  // Handle modded slots.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return SLOT_NAMES[slotVariant] ?? "Unknown";
+}
 
 /** Returns true for the specific variants of `EntityType.SLOT` that are machines. */
 export function isSlotMachine(entity: Entity): boolean {

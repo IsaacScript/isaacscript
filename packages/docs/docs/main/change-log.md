@@ -33,6 +33,7 @@ This page lists the changes to the IsaacScript framework.
   - `getPlayerTrinkets`
   - `getSackName`
   - `getSeedEffects`
+  - `getSlotName`
   - `getVanillaWallGridIndexSetForRoomShape`
   - `isBossRushDoor`
   - `onVictoryLap`
