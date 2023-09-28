@@ -1,8 +1,8 @@
 import { BossID, LevelStage, StageType } from "isaac-typescript-definitions";
+import { BOSS_IDS } from "../arrays/cachedEnumValues";
 import { combineSets } from "../functions/set";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
-import { STORY_BOSSES_SET } from "./storyBossesSet";
 
 // The "bosspools.xml" file does not actually correspond to the real boss pools, so these sets were
 // determined through experimentation on v1.7.8a.
@@ -398,13 +398,12 @@ const CORPSE_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.MOTHER, // 88
 ]);
 
-/** The set of unique bosses for Depths, Necropolis, and so on. */
+/** The set of unique bosses for Womb, Utero, and so on. */
 const ALL_WOMB_BOSSES_SET: ReadonlySet<BossID> = combineSets(
   WOMB_BOSSES_SET,
   UTERO_BOSSES_SET,
   SCARRED_WOMB_BOSSES_SET,
-  MAUSOLEUM_BOSSES_SET,
-  GEHENNA_BOSSES_SET,
+  CORPSE_BOSSES_SET,
 );
 
 const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
@@ -530,16 +529,8 @@ export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
   [LevelStage.HOME, HOME_BOSSES_SET], // 13
 ]);
 
-export const ALL_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  ALL_BASEMENT_BOSSES_SET,
-  ALL_CAVES_BOSSES_SET,
-  ALL_DEPTHS_BOSSES_SET,
-  ALL_WOMB_BOSSES_SET,
-  BLUE_WOMB_BOSSES_SET,
-  ALL_STAGE_10_BOSSES_SET,
-  ALL_STAGE_11_BOSSES_SET,
-  VOID_BOSSES_SET,
-  HOME_BOSSES_SET,
+export const ALL_BOSSES_SET = new ReadonlySet<BossID>(
+  BOSS_IDS.filter((bossID) => bossID === BossID.RAGLICH),
 );
 
 const STORY_BOSS_IDS_SET = new ReadonlySet([
@@ -549,7 +540,6 @@ const STORY_BOSS_IDS_SET = new ReadonlySet([
   BossID.ISAAC, // 39
   BossID.LAMB, // 54
   BossID.MEGA_SATAN, // 55
-  // Mega Satan 2 does not have a dedicated boss room.
   BossID.ULTRA_GREED, // 62
   BossID.HUSH, // 63
   BossID.DELIRIUM, // 70
@@ -559,11 +549,6 @@ const STORY_BOSS_IDS_SET = new ReadonlySet([
   BossID.DOGMA, // 99
   BossID.BEAST, // 100
 ]);
-
-// We add one for Mega Satan 2 and minus 2 for the two Mausoleum bosses.
-if (STORY_BOSS_IDS_SET.size + 1 - 2 !== STORY_BOSSES_SET.size) {
-  error('The "STORY_BOSS_IDS_SET" and the "STORY_BOSSES_SET" do not match.');
-}
 
 export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET = new ReadonlySet(
   [...ALL_BOSSES_SET].filter((bossID) => !STORY_BOSS_IDS_SET.has(bossID)),

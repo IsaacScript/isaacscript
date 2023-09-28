@@ -2,6 +2,7 @@
 
 import {
   ActiveSlot,
+  BossID,
   CacheFlag,
   ControllerIndex,
   DoorSlot,
@@ -27,6 +28,8 @@ import { getEnumValues } from "../functions/enums";
 
 export const ACTIVE_SLOT_VALUES: readonly ActiveSlot[] =
   getEnumValues(ActiveSlot);
+
+export const BOSS_IDS: readonly BossID[] = getEnumValues(BossID);
 
 export const CACHE_FLAG_VALUES: readonly CacheFlag[] = getEnumValues(CacheFlag);
 

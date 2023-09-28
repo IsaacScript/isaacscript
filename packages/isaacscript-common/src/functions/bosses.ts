@@ -58,11 +58,14 @@ export function getAliveBosses(
 /**
  * Helper function to get the set of every boss in the game.
  *
- * Note that this set does not include:
+ * This includes:
+ * - Ultra Greed
+ *
+ * This does not include:
  * - mini-bosses (e.g. Ultra Pride, Krampus)
  * - bosses that do not appear in Boss Rooms (e.g. Uriel, Gabriel)
- * - the second phase of multi-phase bosses (e.g. Mega Satan 2, Ultra Famine, Ultra Pestilence,
- *   Ultra War, Ultra Death)
+ * - the second phase of multi-phase bosses (e.g. Mega Satan 2)
+ * - sub-bosses of The Beast Fight (e.g. Ultra Famine, Ultra Pestilence, Ultra War, Ultra Death)
  * - bosses that do not have any Boss Rooms defined due to being unfinished (e.g. Raglich)
  *
  * Also see the `getBossSet` and `getCombinedBossSet` functions.
