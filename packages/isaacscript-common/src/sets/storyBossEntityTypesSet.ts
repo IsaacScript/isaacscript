@@ -1,7 +1,7 @@
 import { EntityType } from "isaac-typescript-definitions";
 import { ReadonlySet } from "../types/ReadonlySet";
 
-export const STORY_BOSSES_SET = new ReadonlySet<EntityType>([
+export const STORY_BOSS_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
   EntityType.MOM, // 45
   EntityType.MOMS_HEART, // 78
   EntityType.SATAN, // 84

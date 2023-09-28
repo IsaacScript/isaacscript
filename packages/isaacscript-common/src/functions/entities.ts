@@ -3,7 +3,7 @@ import { EntityFlag } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
-import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
+import { STORY_BOSS_ENTITY_TYPES_SET } from "../sets/storyBossEntityTypesSet";
 import type { AnyEntity } from "../types/AnyEntity";
 import type { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
@@ -367,10 +367,10 @@ export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
 /**
  * Helper function to determine if the specified entity type is an end-game story boss, like Isaac,
  * Blue Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only
- * apply to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
+ * apply to non-story bosses, like Vanishing Twin.
  */
 export function isStoryBoss(entityType: EntityType): boolean {
-  return STORY_BOSSES_SET.has(entityType);
+  return STORY_BOSS_ENTITY_TYPES_SET.has(entityType);
 }
 
 /**
