@@ -1,5 +1,5 @@
 import { BossID, LevelStage, StageType } from "isaac-typescript-definitions";
-import { combineSets, copySet, deleteSetsFromSet } from "../functions/set";
+import { combineSets } from "../functions/set";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { STORY_BOSSES_SET } from "./storyBossesSet";
@@ -565,10 +565,6 @@ if (STORY_BOSS_IDS_SET.size + 1 - 2 !== STORY_BOSSES_SET.size) {
   error('The "STORY_BOSS_IDS_SET" and the "STORY_BOSSES_SET" do not match.');
 }
 
-export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET: ReadonlySet<BossID> =
-  (() => {
-    const allBossesSet = copySet(ALL_BOSSES_SET);
-    deleteSetsFromSet(allBossesSet, STORY_BOSS_IDS_SET);
-
-    return allBossesSet;
-  })();
+export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET = new ReadonlySet(
+  [...ALL_BOSSES_SET].filter((bossID) => !STORY_BOSS_IDS_SET.has(bossID)),
+);
