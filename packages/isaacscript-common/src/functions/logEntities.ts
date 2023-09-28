@@ -1,7 +1,7 @@
-import type { EntityType } from "isaac-typescript-definitions";
 import {
   BombVariant,
   EffectVariant,
+  EntityType,
   FamiliarVariant,
   GridEntityType,
   KnifeVariant,
@@ -158,60 +158,58 @@ function getEntityLogLine(this: void, entity: Entity, num?: int): string {
 
   const bomb = entity.ToBomb();
   if (bomb !== undefined) {
-    msg += ` (bomb - BombVariant.${BombVariant[bomb.Variant]})`;
+    msg += ` (bomb - ${getBombVariantName(bomb)})`;
   }
 
   const effect = entity.ToEffect();
   if (effect !== undefined) {
-    msg += ` (effect - EffectVariant.${
-      EffectVariant[effect.Variant]
-    }) (State: ${effect.State})`;
+    msg += ` (effect - ${getEffectVariantName(effect)}) (State: ${
+      effect.State
+    })`;
   }
 
   const familiar = entity.ToFamiliar();
   if (familiar !== undefined) {
-    msg += ` (familiar - FamiliarVariant.${
-      FamiliarVariant[familiar.Variant]
-    }) (State: ${familiar.State})`;
+    msg += ` (familiar - ${getFamiliarVariantName(familiar)}) (State: ${
+      familiar.State
+    })`;
   }
 
   const knife = entity.ToKnife();
   if (knife !== undefined) {
-    msg += ` (knife - KnifeVariant.${KnifeVariant[knife.Variant]})`;
+    msg += ` (knife - ${getKnifeVariantName(knife)})`;
   }
 
   const laser = entity.ToLaser();
   if (laser !== undefined) {
-    msg += ` (laser - LaserVariant.${LaserVariant[laser.Variant]})`;
+    msg += ` (laser - ${getLaserVariantName(laser)})`;
   }
 
   const npc = entity.ToNPC();
   if (npc !== undefined) {
-    msg += ` (NPC) (State: ${npc.State})`;
+    msg += ` (NPC - ${getEntityTypeName(npc)}) (State: ${npc.State})`;
   }
 
   const pickup = entity.ToPickup();
   if (pickup !== undefined) {
-    msg += ` (pickup - PickupVariant.${
-      PickupVariant[pickup.Variant]
-    }) (State: ${pickup.State})`;
+    msg += ` (pickup - ${getPickupVariantName(pickup)}) (State: ${
+      pickup.State
+    })`;
   }
 
   const player = entity.ToPlayer();
   if (player !== undefined) {
-    msg += ` (player - PlayerVariant.${PlayerVariant[player.Variant]})`;
+    msg += ` (player - ${getPlayerVariantName(player)})`;
   }
 
   const projectile = entity.ToProjectile();
   if (projectile !== undefined) {
-    msg += ` (projectile - ProjectileVariant.${
-      ProjectileVariant[projectile.Variant]
-    }))`;
+    msg += ` (projectile - ${getProjectileVariantName(projectile)})`;
   }
 
   const tear = entity.ToTear();
   if (tear !== undefined) {
-    msg += ` (tear - TearVariant.${TearVariant[tear.Variant]}))`;
+    msg += ` (tear - ${getTearVariantName(tear)})`;
   }
 
   msg += "\n";
@@ -231,6 +229,66 @@ function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   }
 
   return msg;
+}
+
+function getBombVariantName(bomb: EntityBomb) {
+  // Handle modded entities.
+  const enumName = BombVariant[bomb.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `BombVariant.${enumName}`;
+}
+
+function getEffectVariantName(effect: EntityEffect) {
+  // Handle modded entities.
+  const enumName = EffectVariant[effect.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `EffectVariant.${enumName}`;
+}
+
+function getFamiliarVariantName(familiar: EntityFamiliar) {
+  // Handle modded entities.
+  const enumName = FamiliarVariant[familiar.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `FamiliarVariant.${enumName}`;
+}
+
+function getKnifeVariantName(knife: EntityKnife) {
+  // Handle modded entities.
+  const enumName = KnifeVariant[knife.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `KnifeVariant.${enumName}`;
+}
+
+function getLaserVariantName(laser: EntityLaser) {
+  // Handle modded entities.
+  const enumName = LaserVariant[laser.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `LaserVariant.${enumName}`;
+}
+
+function getEntityTypeName(npc: EntityNPC) {
+  // Handle modded entities.
+  const enumName = EntityType[npc.Type] as string | undefined;
+  return enumName === undefined ? "unknown" : `EntityType.${enumName}`;
+}
+
+function getPickupVariantName(pickup: EntityPickup) {
+  // Handle modded entities.
+  const enumName = PickupVariant[pickup.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `PickupVariant.${enumName}`;
+}
+
+function getPlayerVariantName(player: EntityPlayer) {
+  // Handle modded entities.
+  const enumName = PlayerVariant[player.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `PlayerVariant.${enumName}`;
+}
+
+function getProjectileVariantName(projectile: EntityProjectile) {
+  // Handle modded entities.
+  const enumName = ProjectileVariant[projectile.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `ProjectileVariant.${enumName}`;
+}
+
+function getTearVariantName(tear: EntityTear) {
+  // Handle modded entities.
+  const enumName = TearVariant[tear.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `TearVariant.${enumName}`;
 }
 
 /** Helper function for logging an array of specific grid entities. */
