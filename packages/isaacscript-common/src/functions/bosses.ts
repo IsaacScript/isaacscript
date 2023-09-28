@@ -5,6 +5,7 @@ import type {
 } from "isaac-typescript-definitions";
 import { EntityType, LokiVariant } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
+import { ENTITY_TYPE_VARIANT_TO_BOSS_ID } from "../maps/entityTypeVariantToBossID";
 import { BOSS_ID_TO_ENTITY_TYPE_VARIANT } from "../objects/bossIDToEntityTypeVariant";
 import {
   ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
@@ -29,21 +30,6 @@ const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS = new ReadonlySet<EntityType>([
 ]);
 
 const DEFAULT_BOSS_MULTI_SEGMENTS = 4;
-
-const ENTITY_TYPE_VARIANT_TO_BOSS_ID: ReadonlyMap<string, BossID> = (() => {
-  const entityTypeVariantToBossID = new Map<string, BossID>();
-
-  for (const [bossIDRaw, entityTypeVariant] of Object.entries(
-    BOSS_ID_TO_ENTITY_TYPE_VARIANT,
-  )) {
-    const bossID = bossIDRaw as unknown as BossID;
-    const [entityType, variant] = entityTypeVariant;
-    const entityTypeVariantString = `${entityType}.${variant}`;
-    entityTypeVariantToBossID.set(entityTypeVariantString, bossID);
-  }
-
-  return entityTypeVariantToBossID;
-})();
 
 /**
  * Helper function to get all of the non-dead bosses in the room.
