@@ -13,8 +13,8 @@ import {
   LAST_NORMAL_PILL_COLOR,
   LAST_VANILLA_PILL_EFFECT,
 } from "../core/constantsFirstLast";
-import { PHD_PILL_CONVERSIONS } from "../maps/PHDPillConversions";
-import { FALSE_PHD_PILL_CONVERSIONS } from "../maps/falsePHDPillConversions";
+import { PHD_PILL_CONVERSIONS_MAP } from "../maps/PHDPillConversionsMap";
+import { FALSE_PHD_PILL_CONVERSIONS_MAP } from "../maps/falsePHDPillConversionsMap";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,
@@ -52,7 +52,7 @@ export function getAllPillColors(): PillColor[] {
  * is not altered by False PHD, then the same pill effect will be returned.
  */
 export function getFalsePHDPillEffect(pillEffect: PillEffect): PillEffect {
-  const convertedPillEffect = FALSE_PHD_PILL_CONVERSIONS.get(pillEffect);
+  const convertedPillEffect = FALSE_PHD_PILL_CONVERSIONS_MAP.get(pillEffect);
   return convertedPillEffect ?? pillEffect;
 }
 
@@ -96,7 +96,7 @@ export function getNormalPillColors(): PillColor[] {
  * altered by PHD, then the same pill effect will be returned.
  */
 export function getPHDPillEffect(pillEffect: PillEffect): PillEffect {
-  const convertedPillEffect = PHD_PILL_CONVERSIONS.get(pillEffect);
+  const convertedPillEffect = PHD_PILL_CONVERSIONS_MAP.get(pillEffect);
   return convertedPillEffect ?? pillEffect;
 }
 

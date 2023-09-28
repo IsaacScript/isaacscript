@@ -5,7 +5,7 @@ import {
   Keyboard,
 } from "isaac-typescript-definitions";
 import { CONTROLLER_INDEX_VALUES } from "../arrays/cachedEnumValues";
-import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
+import { KEYBOARD_TO_STRING_MAP } from "../maps/keyboardToStringMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { trimPrefix } from "./string";
 
@@ -233,7 +233,7 @@ export function keyboardToString(
   keyboard: Keyboard,
   uppercase: boolean,
 ): string | undefined {
-  const tuple = KEYBOARD_TO_STRING.get(keyboard);
+  const tuple = KEYBOARD_TO_STRING_MAP.get(keyboard);
   if (tuple === undefined) {
     return undefined;
   }

@@ -1,7 +1,7 @@
 import { PillEffect } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
-export const FALSE_PHD_PILL_CONVERSIONS = new ReadonlyMap<
+export const FALSE_PHD_PILL_CONVERSIONS_MAP = new ReadonlyMap<
   PillEffect,
   PillEffect
 >([

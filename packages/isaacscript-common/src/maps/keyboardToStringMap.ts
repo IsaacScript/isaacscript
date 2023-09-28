@@ -2,7 +2,7 @@ import { Keyboard } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
 /** Maps each keyboard enum member to its corresponding lowercase and uppercase characters. */
-export const KEYBOARD_TO_STRING = new ReadonlyMap<
+export const KEYBOARD_TO_STRING_MAP = new ReadonlyMap<
   Keyboard,
   readonly [lowercaseCharacter: string, uppercaseCharacter: string]
 >([

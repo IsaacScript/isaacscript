@@ -5,7 +5,7 @@ import type {
 } from "isaac-typescript-definitions";
 import { EntityType, LokiVariant } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
-import { ENTITY_TYPE_VARIANT_TO_BOSS_ID } from "../maps/entityTypeVariantToBossID";
+import { ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP } from "../maps/entityTypeVariantToBossIDMap";
 import { BOSS_ID_TO_ENTITY_TYPE_VARIANT } from "../objects/bossIDToEntityTypeVariant";
 import {
   ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
@@ -83,7 +83,7 @@ export function getBossIDFromEntityTypeVariant(
   variant: int,
 ): BossID | undefined {
   const entityTypeVariant = `${entityType}.${variant}`;
-  return ENTITY_TYPE_VARIANT_TO_BOSS_ID.get(entityTypeVariant);
+  return ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP.get(entityTypeVariant);
 }
 
 /**
