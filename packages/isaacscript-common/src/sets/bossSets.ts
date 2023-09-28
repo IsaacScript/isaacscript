@@ -530,7 +530,7 @@ export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
 ]);
 
 export const ALL_BOSSES_SET = new ReadonlySet<BossID>(
-  BOSS_IDS.filter((bossID) => bossID === BossID.RAGLICH),
+  BOSS_IDS.filter((bossID) => bossID !== BossID.RAGLICH),
 );
 
 const STORY_BOSS_IDS_SET = new ReadonlySet([

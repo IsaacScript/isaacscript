@@ -56,7 +56,8 @@ export function getAliveBosses(
 }
 
 /**
- * Helper function to get the set of every boss in the game.
+ * Helper function to get the set of every boss in the game (which is derived from the `BossID`
+ * enum).
  *
  * This includes:
  * - Ultra Greed
