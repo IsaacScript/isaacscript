@@ -77,6 +77,7 @@ export function getAliveBosses(
  * - bosses that do not appear in Boss Rooms (e.g. Uriel, Gabriel)
  * - the second phase of multi-phase bosses (e.g. Mega Satan 2, Ultra Famine, Ultra Pestilence,
  *   Ultra War, Ultra Death)
+ * - bosses that do not have any Boss Rooms defined due to being unfinished (e.g. Raglich)
  *
  * Also see the `getBossSet` and `getCombinedBossSet` functions.
  *

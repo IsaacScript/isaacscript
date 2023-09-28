@@ -23,24 +23,26 @@ const BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.DINGLE, // 44
   BossID.GURGLING, // 56
   BossID.LITTLE_HORN, // 60
+  // - `BossID.RAG_MAN` (61) was removed in Repentance.
   BossID.DANGLE, // 64
   BossID.TURDLING, // 65
-  BossID.BABY_PLUM, // 84
+  BossID.BABY_PLUM, // 84 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Cellar (not e.g. Burning Basement). */
 const CELLAR_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.FAMINE, // 9
   BossID.DUKE_OF_FLIES, // 13
-  BossID.GEMINI, // 17
+  // - `BossID.FISTULA` (18) was removed in Repentance.
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
+  BossID.BLIGHTED_OVUM, // 32
   BossID.WIDOW, // 34
   BossID.PIN, // 37
   BossID.HAUNT, // 43
   BossID.LITTLE_HORN, // 60
   BossID.RAG_MAN, // 61
-  BossID.BABY_PLUM, // 84
+  BossID.BABY_PLUM, // 84 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Burning Basement (not e.g. Cellar). */
@@ -49,17 +51,18 @@ const BURNING_BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.LARRY_JR, // 2
   BossID.FAMINE, // 9
   BossID.DUKE_OF_FLIES, // 13
-  BossID.GEMINI, // 17
-  BossID.STEVEN, // 20
+  BossID.GEMINI, // 17 (added in Repentance)
+  BossID.STEVEN, // 20 (added in Repentance)
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
-  BossID.DINGLE, // 44
-  BossID.GURGLING, // 56
+  // - `BossID.HAUNT` (43) was removed in Repentance.
+  BossID.DINGLE, // 44 (added in Repentance)
+  BossID.GURGLING, // 56 (added in Repentance)
   BossID.LITTLE_HORN, // 60
   BossID.RAG_MAN, // 61
-  BossID.DANGLE, // 64
-  BossID.TURDLING, // 65
-  BossID.BABY_PLUM, // 84
+  BossID.DANGLE, // 64 (added in Repentance)
+  BossID.TURDLING, // 65 (added in Repentance)
+  BossID.BABY_PLUM, // 84 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Downpour (not e.g. Burning Basement). */
@@ -105,17 +108,20 @@ const CAVES_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.GURDY, // 4
   BossID.PESTILENCE, // 10
   BossID.PEEP, // 14
-  BossID.FISTULA, // 18
+  BossID.FISTULA, // 18 (added in Repentance)
   BossID.CHAD, // 21
   BossID.HEADLESS_HORSEMAN, // 22
-  BossID.FALLEN, // 23
   BossID.GURDY_JR, // 28
-  BossID.MEGA_MAW, // 45
   BossID.MEGA_FATTY, // 47
+  BossID.MEGA_MAW, // 45
+  // - `BossID.DARK_ONE` (50) was removed in Repentance.
+  BossID.FALLEN, // 23
   BossID.STAIN, // 57
+  // - `BossID.FORSAKEN` (59) was removed in Repentance.
+  // - `BossID.FRAIL` (66) was removed in Repentance.
   BossID.RAG_MEGA, // 67
   BossID.BIG_HORN, // 69
-  BossID.BUMBINO, // 94
+  BossID.BUMBINO, // 94 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Catacombs (not e.g. Flooded Caves). */
@@ -131,11 +137,12 @@ const CATACOMBS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.WRETCHED, // 36
   BossID.DARK_ONE, // 50
   BossID.POLYCEPHALUS, // 52
+  // - `BossID.STAIN` (57) was removed in Repentance.
   BossID.FORSAKEN, // 59
   BossID.FRAIL, // 66
   BossID.RAG_MEGA, // 67
   BossID.BIG_HORN, // 69
-  BossID.BUMBINO, // 94
+  BossID.BUMBINO, // 94 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Flooded Caves (not e.g. Catacombs). */
@@ -144,19 +151,21 @@ const FLOODED_CAVES_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.GURDY, // 4
   BossID.PESTILENCE, // 10
   BossID.PEEP, // 14
-  BossID.FISTULA, // 18
+  BossID.FISTULA, // 18 (added in Repentance)
   BossID.CHAD, // 21
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
   BossID.GURDY_JR, // 28
-  BossID.MEGA_MAW, // 45
-  BossID.MEGA_FATTY, // 47
+  BossID.MEGA_MAW, // 45 (added in Repentance)
+  BossID.MEGA_FATTY, // 47 (added in Repentance)
+  // - `BossID.DARK_ONE` (50) was removed in Repentance.
+  // - `BossID.POLYCEPHALUS` (52) was removed in Repentance.
   BossID.STAIN, // 57
   BossID.FORSAKEN, // 59
   BossID.FRAIL, // 66
   BossID.RAG_MEGA, // 67
   BossID.BIG_HORN, // 69
-  BossID.BUMBINO, // 94
+  BossID.BUMBINO, // 94 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Mines (not e.g. Flooded Caves). */
@@ -211,9 +220,10 @@ const DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.FALLEN, // 23
   BossID.GATE, // 46
   BossID.CAGE, // 48
+  // - `BossID.ADVERSARY` (51) was removed in Repentance.
   BossID.BROWNIE, // 58
   BossID.SISTERS_VIS, // 68
-  BossID.REAP_CREEP, // 74
+  BossID.REAP_CREEP, // 74 (added in Repentance)
 ]);
 
 /**
@@ -229,10 +239,11 @@ const NECROPOLIS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.FALLEN, // 23
   BossID.BLOAT, // 30
   BossID.MASK_OF_INFAMY, // 35
+  // - `BossID.GATE` (46) was removed in Repentance.
   BossID.ADVERSARY, // 51
   BossID.BROWNIE, // 58
   BossID.SISTERS_VIS, // 68
-  BossID.PILE, // 73
+  BossID.PILE, // 73 (added in Repentance)
 ]);
 
 /**
@@ -248,11 +259,12 @@ const DANK_DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.GISH, // 19
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
-  BossID.GATE, // 46
-  BossID.CAGE, // 48
+  BossID.GATE, // 46 (added in Repentance)
+  BossID.CAGE, // 48 (added in Repentance)
+  // - `BossID.ADVERSARY` (51) was removed in Repentance.
   BossID.BROWNIE, // 58
   BossID.SISTERS_VIS, // 68
-  BossID.REAP_CREEP, // 74
+  BossID.REAP_CREEP, // 74 (added in Repentance)
 ]);
 
 /**
@@ -311,10 +323,15 @@ const WOMB_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
   BossID.IT_LIVES, // 25
+  // - `BossID.BLOAT` (30) was removed in Repentance.
   BossID.LOKII, // 31
+  // - `BossID.TERATOMA` (33) was removed in Repentance.
   BossID.CONQUEST, // 38
+  // - `BossID.DADDY_LONG_LEGS` (41) was removed in Repentance.
+  // - `BossID.TRIACHNID` (42) was removed in Repentance.
   BossID.MAMA_GURDY, // 49
   BossID.MR_FRED, // 53
+  // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
   BossID.MATRIARCH, // 72
 ]);
 
@@ -327,6 +344,7 @@ const WOMB_BOSSES_SET = new ReadonlySet<BossID>([
 const UTERO_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.MOMS_HEART, // 8
   BossID.DEATH, // 12
+  // - `BossID.BLASTOCYST` (16) was removed in Repentance.
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
   BossID.IT_LIVES, // 25
@@ -336,6 +354,10 @@ const UTERO_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.CONQUEST, // 38
   BossID.DADDY_LONG_LEGS, // 41
   BossID.TRIACHNID, // 42
+  // - `BossID.MAMA_GURDY` (49) was removed in Repentance.
+  // - `BossID.MR_FRED` (52) was removed in Repentance.
+  // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
+  // - `BossID.MATRIARCH` (72) was removed in Repentance.
 ]);
 
 /**
@@ -352,11 +374,15 @@ const SCARRED_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.HEADLESS_HORSEMAN, // 22
   BossID.FALLEN, // 23
   BossID.IT_LIVES, // 25
-  BossID.LOKII, // 31
+  // - `BossID.BLOAT` (30) was removed in Repentance.
+  BossID.LOKII, // 31 (added in Repentance)
+  // - `BossID.TERATOMA` (33) was removed in Repentance.
   BossID.CONQUEST, // 38
+  // - `BossID.DADDY_LONG_LEGS` (41) was removed in Repentance.
   BossID.TRIACHNID, // 42
   BossID.MAMA_GURDY, // 49
-  BossID.MR_FRED, // 53
+  BossID.MR_FRED, // 53 (added in Repentance)
+  // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
   BossID.MATRIARCH, // 72
 ]);
 
@@ -366,10 +392,10 @@ const SCARRED_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
  * Note that this set includes Mother, even though they are not technically in the boss pool.
  */
 const CORPSE_BOSSES_SET = new ReadonlySet<BossID>([
-  BossID.SCOURGE,
-  BossID.CHIMERA,
-  BossID.ROTGUT,
-  BossID.MOTHER,
+  BossID.SCOURGE, // 85
+  BossID.CHIMERA, // 86
+  BossID.ROTGUT, // 87
+  BossID.MOTHER, // 88
 ]);
 
 /** The set of unique bosses for Depths, Necropolis, and so on. */

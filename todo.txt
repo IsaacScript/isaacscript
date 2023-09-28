@@ -1,3 +1,4 @@
+- investigate array vs set performance
 - error --> throw new Error
   - remember to update gotchas in docs
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551

@@ -10,6 +10,7 @@ import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { isVanillaConsoleCommand } from "../../../functions/console";
 import { addFlag, bitFlags } from "../../../functions/flag";
+import { logError } from "../../../functions/logMisc";
 import { getMapPartialMatch } from "../../../functions/string";
 import { assertDefined } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
@@ -268,15 +269,17 @@ export class ExtraConsoleCommands extends Feature {
     }
 
     if (isVanillaConsoleCommand(commandName)) {
-      error(
+      logError(
         `Failed to add a new console command of "${commandName}" because that name already belongs to a vanilla command. You must pick a non-colliding name.`,
       );
+      return;
     }
 
     if (this.commandFunctionMap.has(commandName)) {
-      error(
+      logError(
         `Failed to add a new console command of "${commandName}" because there is already an existing custom command by that name. If you want to overwrite a command from the standard library, you can use the "removeExtraConsoleCommand" function.`,
       );
+      return;
     }
 
     this.commandFunctionMap.set(commandName, commandFunction);
