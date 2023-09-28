@@ -8,6 +8,7 @@ import {
   AngelRoomSubType,
   Dimension,
   DoorSlot,
+  DoorSlotFlag,
   DownpourRoomSubType,
   DungeonSubType,
   GridRoom,
@@ -328,6 +329,15 @@ export function inCrawlSpace(): boolean {
 }
 
 /**
+ * Helper function for checking whether the current room is a crawl space with a door corresponding
+ * to `DoorSlotFlag.RIGHT_0` (1 << 2).
+ */
+export function inCrawlSpaceWithBlackMarketEntrance(): boolean {
+  const roomData = getRoomData();
+  return isCrawlSpaceWithBlackMarketEntrance(roomData);
+}
+
+/**
  * Helper function to detect if the current room is one of the rooms in the Death Certificate area.
  */
 export function inDeathCertificateArea(): boolean {
@@ -576,6 +586,18 @@ export function isCrawlSpace(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.DUNGEON &&
     roomData.Subtype === asNumber(DungeonSubType.NORMAL)
+  );
+}
+
+/**
+ * Helper function for checking whether the provided room is a crawl space with a door corresponding
+ * to `DoorSlotFlag.RIGHT_0` (1 << 2).
+ */
+export function isCrawlSpaceWithBlackMarketEntrance(
+  roomData: RoomConfig,
+): boolean {
+  return (
+    isCrawlSpace(roomData) && hasFlag(roomData.Doors, DoorSlotFlag.RIGHT_0)
   );
 }
 

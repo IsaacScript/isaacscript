@@ -37,6 +37,8 @@ This page lists the changes to the IsaacScript framework.
   - `getSlotName`
   - `getVanillaWallGridIndexSetForRoomShape`
   - `isBossRushDoor`
+  - `inCrawlSpaceWithBlackMarketEntrance`
+  - `isCrawlSpaceWithBlackMarketEntrance`
   - `onVictoryLap`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
