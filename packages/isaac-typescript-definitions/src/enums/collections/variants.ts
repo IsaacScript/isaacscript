@@ -401,7 +401,7 @@ export enum KnifeVariant {
   SUMPTORIUM = 5,
   // - 6 is unused.
   // - 7 is unused.
-  // - 8 is unused,
+  // - 8 is unused.
   NOTCHED_AXE = 9,
   SPIRIT_SWORD = 10,
   TECH_SWORD = 11,
