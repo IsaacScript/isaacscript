@@ -10,7 +10,7 @@ import type {
 import { CHEST_PICKUP_VARIANTS_SET } from "../core/constants";
 import { BATTERY_NAMES, DEFAULT_BATTERY_NAME } from "../objects/batteryNames";
 import { BOMB_NAMES, DEFAULT_BOMB_NAME } from "../objects/bombNames";
-import { CHEST_NAMES } from "../objects/chestNames";
+import { CHEST_NAMES, DEFAULT_CHEST_NAME } from "../objects/chestNames";
 import { COIN_NAMES, DEFAULT_COIN_NAME } from "../objects/coinNames";
 import {
   COIN_SUB_TYPE_TO_VALUE,
@@ -62,7 +62,7 @@ export function getBombName(bombSubType: BombSubType): string {
  */
 export function getChestName(pickupVariant: PickupVariant): string {
   const chestNames = CHEST_NAMES as Partial<Record<PickupVariant, string>>;
-  return chestNames[pickupVariant] ?? "Unknown";
+  return chestNames[pickupVariant] ?? DEFAULT_CHEST_NAME;
 }
 
 /**

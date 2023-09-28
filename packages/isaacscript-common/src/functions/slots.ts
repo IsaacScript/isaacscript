@@ -1,5 +1,5 @@
 import { SlotVariant } from "isaac-typescript-definitions";
-import { SLOT_NAMES } from "../objects/slotNames";
+import { DEFAULT_SLOT_NAME, SLOT_NAMES } from "../objects/slotNames";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { isSlot } from "./entityTypes";
 
@@ -27,7 +27,7 @@ const SLOT_MACHINE_VARIANTS = new ReadonlySet<SlotVariant>([
 export function getSlotName(slotVariant: SlotVariant): string {
   // Handle modded slots.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return SLOT_NAMES[slotVariant] ?? "Unknown";
+  return SLOT_NAMES[slotVariant] ?? DEFAULT_SLOT_NAME;
 }
 
 /** Returns true for the specific variants of `EntityType.SLOT` that are machines. */

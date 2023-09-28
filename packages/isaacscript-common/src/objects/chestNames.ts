@@ -1,6 +1,8 @@
 import { PickupVariant } from "isaac-typescript-definitions";
 import type { CHEST_PICKUP_VARIANTS } from "../core/constants";
 
+export const DEFAULT_CHEST_NAME = "Unknown";
+
 /** Taken from "entities2.xml". */
 export const CHEST_NAMES = {
   [PickupVariant.CHEST]: "Chest", // 50
