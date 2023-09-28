@@ -1,3 +1,4 @@
+- lint "//Z" trailing comments
 - investigate array vs set performance
 - error --> throw new Error
   - remember to update gotchas in docs
