@@ -364,6 +364,22 @@ export function inDevilsCrownTreasureRoom(): boolean {
 }
 
 /**
+ * Helper function to check to see if the current room is the Boss Room for Dogma.
+ *
+ * Note that the "living room" on the Home floor with the TV at the top of the room is not the Dogma
+ * Boss Room, as the player is teleported to a different room after watching the TV cutscene.
+ *
+ * Under the hood, this checks the stage ID being equal to `StageID.HOME` (35) and the room type
+ * being equal to `RoomType.DEFAULT` (1) and the variant being equal to 1000 (which is the only
+ * Dogma Boss Room that exists in vanilla) and the sub-type being equal to
+ * `HomeRoomSubType.LIVING_ROOM` (3).
+ */
+export function inDogmaRoom(): boolean {
+  const roomData = getRoomData();
+  return isDogmaRoom(roomData);
+}
+
+/**
  * Helper function to detect if the current room is a Double Trouble Boss Room.
  *
  * This is performed by checking for the string "Double Trouble" inside of the room name. The
@@ -462,22 +478,6 @@ export function inRoomType(...roomTypes: RoomType[]): boolean {
 export function inSecretExit(): boolean {
   const roomDescriptor = getRoomDescriptorReadOnly();
   return isSecretExit(roomDescriptor);
-}
-
-/**
- * Helper function to check to see if the current room is the Boss Room for Dogma.
- *
- * Note that the "living room" on the Home floor with the TV at the top of the room is not the Dogma
- * Boss Room, as the player is teleported to a different room after watching the TV cutscene.
- *
- * Under the hood, this checks the stage ID being equal to `StageID.HOME` (35) and the room type
- * being equal to `RoomType.DEFAULT` (1) and the variant being equal to 1000 (which is the only
- * Dogma Boss Room that exists in vanilla) and the sub-type being equal to
- * `HomeRoomSubType.LIVING_ROOM` (3).
- */
-export function inDogmaRoom(): boolean {
-  const roomData = getRoomData();
-  return isDogmaRoom(roomData);
 }
 
 /**
