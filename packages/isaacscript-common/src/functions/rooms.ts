@@ -308,6 +308,8 @@ export function inAngelShop(): boolean {
 /**
  * Helper function to check to see if the current room is the Boss Room for The Beast.
  *
+ * This function is useful because the `Room.GetBossID` method returns 0 for The Beast room.
+ *
  * Under the hood, this checks the room type being equal to `RoomType.DUNGEON` (16) and the sub-type
  * being equal to `DungeonSubType.BEAST_ROOM` (4).
  */
@@ -365,6 +367,8 @@ export function inDevilsCrownTreasureRoom(): boolean {
 
 /**
  * Helper function to check to see if the current room is the Boss Room for Dogma.
+ *
+ * This function is useful because the `Room.GetBossID` method returns 0 for the Dogma room.
  *
  * Note that the "living room" on the Home floor with the TV at the top of the room is not the Dogma
  * Boss Room, as the player is teleported to a different room after watching the TV cutscene.
@@ -585,6 +589,8 @@ export function isAngelShop(roomData: RoomConfig): boolean {
 /**
  * Helper function to check to see if the provided room is the Boss Room for The Beast.
  *
+ * This function is useful because the `Room.GetBossID` method returns 0 for The Beast room.
+ *
  * Under the hood, this checks the room type being equal to `RoomType.DUNGEON` (16) and the sub-type
  * being equal to `DungeonSubType.BEAST_ROOM` (4).
  */
@@ -657,6 +663,8 @@ export function isDevilsCrownTreasureRoom(
 
 /**
  * Helper function to check to see if the provided room is the Boss Room for Dogma.
+ *
+ * This function is useful because the `Room.GetBossID` method returns 0 for the Dogma room.
  *
  * Note that the "living room" on the Home floor with the TV at the top of the room is not the Dogma
  * Boss Room, as the player is teleported to a different room after watching the TV cutscene.
