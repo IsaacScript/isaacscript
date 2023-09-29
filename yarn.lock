@@ -5540,12 +5540,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yargs@npm:^17.0.25":
-  version: 17.0.25
-  resolution: "@types/yargs@npm:17.0.25"
+"@types/yargs@npm:^17.0.26":
+  version: 17.0.26
+  resolution: "@types/yargs@npm:17.0.26"
   dependencies:
     "@types/yargs-parser": "*"
-  checksum: ef57926de514f5eb0a182167a63930bd7d2eb33d89b6041760f690d50b2019d7901b30c33ab7d03b3fa66a5004f0f81e36186d8f9e5e583a27b9ce331d2a5276
+  checksum: 26611969674f4972080c3b22239d4579eaadc5287f95f7802f893c4a9bb292c141467bd70f1e66eb834486c63a23c4f10032618b3d2e7b1ddc05051d08db4078
   languageName: node
   linkType: hard
 
@@ -12076,7 +12076,7 @@ __metadata:
     "@types/source-map-support": ^0.5.8
     "@types/touch": ^3.1.3
     "@types/xml2js": ^0.4.12
-    "@types/yargs": ^17.0.25
+    "@types/yargs": ^17.0.26
     "@typescript-eslint/eslint-plugin": ^6.7.3
     "@typescript-eslint/parser": ^6.7.3
     "@typescript-eslint/rule-tester": ^6.7.3
