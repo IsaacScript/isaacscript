@@ -161,6 +161,7 @@ export * from "./types/AnyClass";
 export * from "./types/AnyEntity";
 export * from "./types/AnyFunction";
 export * from "./types/AnyGridEntity";
+export * from "./types/CompositionTypeSatisfiesEnum";
 export * from "./types/ConversionHeartSubType";
 export * from "./types/Decrement";
 export * from "./types/ERange";

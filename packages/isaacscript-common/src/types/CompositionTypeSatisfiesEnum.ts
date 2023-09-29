@@ -22,7 +22,7 @@
  * }
  *
  * type Objective = FooObjective | BarObjective;
- * type Test = CompositionTypeSatisfiesEnum<Objective, ObjectiveType>;
+ * type _Test = CompositionTypeSatisfiesEnum<Objective, ObjectiveType>;
  * ```
  *
  * In this example, `Test` would be flagged by TypeScript because `Objective` does not contain an
