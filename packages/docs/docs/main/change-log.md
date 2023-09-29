@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `getCharacterStartingTrinketType`
   - `getBatteryName`
   - `getBombName`
+  - `getBossID`
   - `getBossIDFromEntityTypeVariant`
   - `getBossNamePNGFilePath`
   - `getBossPortraitPNGFilePath`
@@ -36,9 +37,11 @@ This page lists the changes to the IsaacScript framework.
   - `getSeedEffects`
   - `getSlotName`
   - `getVanillaWallGridIndexSetForRoomShape`
-  - `isBossRushDoor`
   - `inCrawlSpaceWithBlackMarketEntrance`
+  - `inDogmaRoom`
+  - `isBossRushDoor`
   - `isCrawlSpaceWithBlackMarketEntrance`
+  - `isDogmaRoom`
   - `isRepentanceBoss`
   - `onVictoryLap`
 - Changed the following helper functions:

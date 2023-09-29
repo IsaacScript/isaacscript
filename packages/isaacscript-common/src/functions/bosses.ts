@@ -1,9 +1,6 @@
-import type {
-  BossID,
-  LevelStage,
-  StageType,
-} from "isaac-typescript-definitions";
-import { EntityType, LokiVariant } from "isaac-typescript-definitions";
+import type { LevelStage, StageType } from "isaac-typescript-definitions";
+import { BossID, EntityType, LokiVariant } from "isaac-typescript-definitions";
+import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP } from "../maps/entityTypeVariantToBossIDMap";
 import { BOSS_ID_TO_ENTITY_TYPE_VARIANT } from "../objects/bossIDToEntityTypeVariant";
@@ -19,6 +16,7 @@ import { ReadonlySet } from "../types/ReadonlySet";
 import { getNPCs, spawnNPC } from "./entitiesSpecific";
 import { getAliveNPCs } from "./npcs";
 import { isRNG } from "./rng";
+import { inBeastRoom, inDogmaRoom } from "./rooms";
 import { asNumber } from "./types";
 import { repeat } from "./utils";
 
@@ -81,6 +79,26 @@ export function getAllBossesSet(
   return includeStoryBosses
     ? ALL_BOSSES_SET
     : ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET;
+}
+
+/**
+ * Helper function to get the boss ID corresponding to the current room. Returns 0 if the current
+ * room is not a Boss Room.
+ *
+ * Use this instead of the vanilla `Room.GetBossID` method since it correctly handles Dogma and The
+ * Beast.
+ */
+export function getBossID(): BossID | 0 {
+  if (inDogmaRoom()) {
+    return BossID.DOGMA;
+  }
+
+  if (inBeastRoom()) {
+    return BossID.BEAST;
+  }
+
+  const room = game.GetRoom();
+  return room.GetBossID();
 }
 
 export function getBossIDFromEntityTypeVariant(
@@ -160,11 +178,6 @@ export function isRepentanceBoss(bossID: BossID): boolean {
   return REPENTANCE_ONLY_BOSS_IDS_SET.has(bossID);
 }
 
-/** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
-export function isSin(npc: EntityNPC): boolean {
-  return SIN_ENTITY_TYPES_SET.has(npc.Type);
-}
-
 function getNumBossSegments(
   entityType: EntityType,
   variant: int,
@@ -196,6 +209,11 @@ function getNumBossSegments(
       return DEFAULT_BOSS_MULTI_SEGMENTS;
     }
   }
+}
+
+/** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
+export function isSin(npc: EntityNPC): boolean {
+  return SIN_ENTITY_TYPES_SET.has(npc.Type);
 }
 
 /**

@@ -294,15 +294,22 @@ export function in2x1Room(): boolean {
   return is2x1Room(roomData);
 }
 
+/**
+ * Helper function to check to see if the current room is an angel shop.
+ *
+ * Under the hood, this checks the room type being equal to `RoomType.ANGEL` (15) and the sub-type
+ * being equal to `AngelRoomSubType.SHOP` (1).
+ */
 export function inAngelShop(): boolean {
   const roomData = getRoomData();
   return isAngelShop(roomData);
 }
 
 /**
- * Helper function to check to see if the current room is a boss room for The Beast.
+ * Helper function to check to see if the current room is the Boss Room for The Beast.
  *
- * Under the hood, this checks the room type and sub-type.
+ * Under the hood, this checks the room type being equal to `RoomType.DUNGEON` (16) and the sub-type
+ * being equal to `DungeonSubType.BEAST_ROOM` (4).
  */
 export function inBeastRoom(): boolean {
   const roomData = getRoomData();
@@ -310,8 +317,8 @@ export function inBeastRoom(): boolean {
 }
 
 /**
- * Helper function to check if the current room is a boss room for a particular boss. This will only
- * work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
+ * Helper function to check if the current room is the Boss Room for a particular boss. This will
+ * only work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function inBossRoomOf(bossID: BossID): boolean {
   const roomData = getRoomData();
@@ -458,6 +465,22 @@ export function inSecretExit(): boolean {
 }
 
 /**
+ * Helper function to check to see if the current room is the Boss Room for Dogma.
+ *
+ * Note that the "living room" on the Home floor with the TV at the top of the room is not the Dogma
+ * Boss Room, as the player is teleported to a different room after watching the TV cutscene.
+ *
+ * Under the hood, this checks the stage ID being equal to `StageID.HOME` (35) and the room type
+ * being equal to `RoomType.DEFAULT` (1) and the variant being equal to 1000 (which is the only
+ * Dogma Boss Room that exists in vanilla) and the sub-type being equal to
+ * `HomeRoomSubType.LIVING_ROOM` (3).
+ */
+export function inDogmaRoom(): boolean {
+  const roomData = getRoomData();
+  return isDogmaRoom(roomData);
+}
+
+/**
  * Helper function for checking if the current room is a secret shop (from the Member Card
  * collectible).
  *
@@ -546,6 +569,12 @@ export function isAllRoomsClear(
   return matchingRooms.every((roomDescriptor) => roomDescriptor.Clear);
 }
 
+/**
+ * Helper function to check to see if the current room is an angel shop.
+ *
+ * Under the hood, this checks the room type being equal to `RoomType.ANGEL` (15) and the sub-type
+ * being equal to `AngelRoomSubType.SHOP` (1).
+ */
 export function isAngelShop(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.ANGEL &&
@@ -554,9 +583,10 @@ export function isAngelShop(roomData: RoomConfig): boolean {
 }
 
 /**
- * Helper function to check to see if the provided room is a boss room for The Beast.
+ * Helper function to check to see if the provided room is the Boss Room for The Beast.
  *
- * Under the hood, this checks the room type and sub-type.
+ * Under the hood, this checks the room type being equal to `RoomType.DUNGEON` (16) and the sub-type
+ * being equal to `DungeonSubType.BEAST_ROOM` (4).
  */
 export function isBeastRoom(roomData: RoomConfig): boolean {
   return (
@@ -566,7 +596,7 @@ export function isBeastRoom(roomData: RoomConfig): boolean {
 }
 
 /**
- * Helper function to check if the provided room is a boss room for a particular boss. This will
+ * Helper function to check if the provided room is the Boss Room for a particular boss. This will
  * only work for bosses that have dedicated boss rooms in the "00.special rooms.stb" file.
  */
 export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
@@ -623,6 +653,26 @@ export function isDevilsCrownTreasureRoom(
   roomDescriptor: RoomDescriptor,
 ): boolean {
   return hasFlag(roomDescriptor.Flags, RoomDescriptorFlag.DEVIL_TREASURE);
+}
+
+/**
+ * Helper function to check to see if the provided room is the Boss Room for Dogma.
+ *
+ * Note that the "living room" on the Home floor with the TV at the top of the room is not the Dogma
+ * Boss Room, as the player is teleported to a different room after watching the TV cutscene.
+ *
+ * Under the hood, this checks the stage ID being equal to `StageID.HOME` (35) and the room type
+ * being equal to `RoomType.DEFAULT` (1) and the variant being equal to 1000 (which is the only
+ * Dogma Boss Room that exists in vanilla) and the sub-type being equal to
+ * `HomeRoomSubType.LIVING_ROOM` (3).
+ */
+export function isDogmaRoom(roomData: RoomConfig): boolean {
+  return (
+    roomData.StageID === StageID.HOME &&
+    roomData.Type === RoomType.DEFAULT &&
+    roomData.Variant === 1000 &&
+    roomData.Subtype === asNumber(HomeRoomSubType.LIVING_ROOM)
+  );
 }
 
 /**
