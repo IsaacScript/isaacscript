@@ -360,8 +360,9 @@ export function getCollectiblePedestalType(
 }
 
 /**
- * Helper function to get a collectible's quality. For example, Mom's Knife has a quality of 4.
- * Returns 0 if the provided collectible type was not valid.
+ * Helper function to get a collectible's quality, which ranges from 0 to 4 (inclusive). For
+ * example, Mom's Knife has a quality of 4. Returns 0 if the provided collectible type was not
+ * valid.
  */
 export function getCollectibleQuality(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,

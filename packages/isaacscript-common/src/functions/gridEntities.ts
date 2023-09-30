@@ -16,6 +16,7 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
+import { GRID_ENTITY_TYPE_TO_ANM2_PATH } from "../objects/gridEntityTypeToANM2Path";
 import { POOP_GRID_ENTITY_XML_TYPES_SET } from "../sets/poopGridEntityXMLTypesSet";
 import type { AnyGridEntity } from "../types/AnyGridEntity";
 import type { GridEntityID } from "../types/GridEntityID";
@@ -230,20 +231,6 @@ export function getGridEntities(
   });
 }
 
-function getAllGridEntities(): GridEntity[] {
-  const room = game.GetRoom();
-
-  const gridEntities: GridEntity[] = [];
-  for (const gridIndex of getAllGridIndexes()) {
-    const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity !== undefined) {
-      gridEntities.push(gridEntity);
-    }
-  }
-
-  return gridEntities;
-}
-
 /**
  * Helper function to get every grid entity in the current room except for certain specific types.
  *
@@ -264,6 +251,20 @@ export function getGridEntitiesExcept(
     const gridEntityType = gridEntity.GetType();
     return !gridEntityTypesSet.has(gridEntityType);
   });
+}
+
+function getAllGridEntities(): GridEntity[] {
+  const room = game.GetRoom();
+
+  const gridEntities: GridEntity[] = [];
+  for (const gridIndex of getAllGridIndexes()) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity !== undefined) {
+      gridEntities.push(gridEntity);
+    }
+  }
+
+  return gridEntities;
 }
 
 /** Helper function to get all grid entities in a given radius around a given point. */
@@ -714,6 +715,24 @@ export function removeGridEntity(
 export function setGridEntityInvisible(gridEntity: GridEntity): void {
   const sprite = gridEntity.GetSprite();
   sprite.Reset();
+}
+
+/**
+ * Helper function to change the type of a grid entity to another type. Use this instead of the
+ * `GridEntity.SetType` method since that does not properly handle updating the sprite of the grid
+ * entity after the type is changed.
+ */
+export function setGridEntityType(
+  gridEntity: GridEntity,
+  gridEntityType: GridEntityType,
+): void {
+  gridEntity.SetType(gridEntityType);
+
+  const sprite = gridEntity.GetSprite();
+  const anm2Path = GRID_ENTITY_TYPE_TO_ANM2_PATH[gridEntityType];
+  if (anm2Path !== undefined) {
+    sprite.Load(anm2Path, true);
+  }
 }
 
 /**

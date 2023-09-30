@@ -44,6 +44,7 @@ This page lists the changes to the IsaacScript framework.
   - `isDogmaRoom`
   - `isRepentanceBoss`
   - `onVictoryLap`
+  - `setGridEntityType`
 - Changed the following helper functions:
   - `arrayRemoveInPlace` now returns the removed elements.
   - `arrayRemoveIndexInPlace` now returns the removed elements.

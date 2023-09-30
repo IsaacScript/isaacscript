@@ -40,8 +40,10 @@ declare global {
     /**
      * The item's quality for the Bag of Crafting algorithm. Possible values are -1, 0, 1, 2, 3, and
      * 4. A value of -1 indicates that the item is disabled from being craftable.
+     *
+     * @see https://bindingofisaacrebirth.fandom.com/wiki/Bag_of_Crafting
      */
-    CraftingQuality: int;
+    CraftingQuality: -1 | 0 | 1 | 2 | 3 | 4;
 
     Description: string;
     DevilPrice: int;
@@ -68,7 +70,14 @@ declare global {
     Name: string;
     PassiveCache: boolean;
     PersistentEffect: boolean;
-    Quality: int;
+
+    /**
+     * How good the collectible is considered to be by the game.
+     *
+     * @see https://bindingofisaacrebirth.fandom.com/wiki/Item_Quality
+     */
+    Quality: 0 | 1 | 2 | 3 | 4;
+
     ShopPrice: int;
     Special: boolean;
     Tags: BitFlags<ItemConfigTag>;

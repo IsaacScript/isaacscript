@@ -20,7 +20,13 @@ declare global {
     Init: (seed: Seed) => void;
     PostInit: () => void;
     Render: (offset: Vector) => void;
+
+    /**
+     * Note that changing the type of a grid entity does not update the corresponding sprite. Use
+     * the `setGridEntityType` helper function to work around this.
+     */
     SetType: (gridEntityType: GridEntityType) => void;
+
     SetVariant: (variant: int) => void;
     ToDoor: () => GridEntityDoor | undefined;
     ToPit: () => GridEntityPit | undefined;
