@@ -72,7 +72,8 @@ declare global {
     PersistentEffect: boolean;
 
     /**
-     * How good the collectible is considered to be by the game.
+     * How good the collectible is considered to be by the game. Possible values are 0, 1, 2, 3, and
+     * 4.
      *
      * @see https://bindingofisaacrebirth.fandom.com/wiki/Item_Quality
      */
