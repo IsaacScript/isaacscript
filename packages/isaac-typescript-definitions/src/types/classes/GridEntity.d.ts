@@ -24,6 +24,8 @@ declare global {
     /**
      * Note that changing the type of a grid entity does not update the corresponding sprite. Use
      * the `setGridEntityType` helper function to work around this.
+     *
+     * Setting the new type to `GridEntityType.NULL` (0) will have no effect.
      */
     SetType: (gridEntityType: GridEntityType) => void;
 

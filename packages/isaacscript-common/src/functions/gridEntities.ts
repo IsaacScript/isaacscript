@@ -721,6 +721,8 @@ export function setGridEntityInvisible(gridEntity: GridEntity): void {
  * Helper function to change the type of a grid entity to another type. Use this instead of the
  * `GridEntity.SetType` method since that does not properly handle updating the sprite of the grid
  * entity after the type is changed.
+ *
+ * Setting the new type to `GridEntityType.NULL` (0) will have no effect.
  */
 export function setGridEntityType(
   gridEntity: GridEntity,
@@ -732,6 +734,8 @@ export function setGridEntityType(
   const anm2Path = GRID_ENTITY_TYPE_TO_ANM2_PATH[gridEntityType];
   if (anm2Path !== undefined) {
     sprite.Load(anm2Path, true);
+    const defaultAnimation = sprite.GetDefaultAnimation();
+    sprite.Play(defaultAnimation, true);
   }
 }
 
