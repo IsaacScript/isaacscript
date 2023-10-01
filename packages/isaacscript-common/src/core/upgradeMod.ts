@@ -53,6 +53,14 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
     }
   }
 
+  // Second, validate that all of the features are unique.
+  const featureSet = new Set(features as ISCFeature[]);
+  if (featureSet.size !== features.length) {
+    error(
+      'Failed to upgrade the mod since there are two or more of the same features specified in the "features" array. When you pass the array of features to the "upgradeMod" function, all of the elements should be unique.',
+    );
+  }
+
   patchErrorFunction();
 
   const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
