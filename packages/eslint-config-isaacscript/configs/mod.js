@@ -190,14 +190,6 @@ const config = {
     "unicorn/prefer-math-trunc": "off",
 
     /**
-     * Defined at: base-unicorn.js
-     *
-     * TypeScriptToLua supports `parseInt`, but not `Number.parseInt`:
-     * https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1471
-     */
-    "unicorn/prefer-number-properties": "off",
-
-    /**
      * Defined at: base-eslint.js
      *
      * Isaac API methods use capital letters, so we must make the options for the rule less strict.
