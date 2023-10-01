@@ -4025,9 +4025,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:^7.37.3":
-  version: 7.37.3
-  resolution: "@microsoft/api-extractor@npm:7.37.3"
+"@microsoft/api-extractor@npm:^7.38.0":
+  version: 7.38.0
+  resolution: "@microsoft/api-extractor@npm:7.38.0"
   dependencies:
     "@microsoft/api-extractor-model": 7.28.2
     "@microsoft/tsdoc": 0.14.2
@@ -4043,7 +4043,7 @@ __metadata:
     typescript: ~5.0.4
   bin:
     api-extractor: bin/api-extractor
-  checksum: 6d17df06316508ddbfa0cc2ec6fbba7d63e498cb7d9816be2d993c98507645254ae852d1b536197586e4023777f510242a185f3b1d341d267962c5aad15b2740
+  checksum: 493b12db4d57ac760c5ecd0e8ceed5741334e574ab74415904a7612bcc93e157bd26fdb05c18db1bc9571cd214c553222972d135b079f8b86eb78ad07a1068b0
   languageName: node
   linkType: hard
 
@@ -12056,7 +12056,7 @@ __metadata:
     "@docusaurus/preset-classic": ^2.4.3
     "@eslint/js": ^8.50.0
     "@mdx-js/react": 1.6.22
-    "@microsoft/api-extractor": ^7.37.3
+    "@microsoft/api-extractor": ^7.38.0
     "@nrwl/nx-cloud": latest
     "@prettier/plugin-xml": ^3.2.1
     "@svgr/webpack": ^8.1.0
@@ -12161,7 +12161,7 @@ __metadata:
     typedoc-plugin-markdown: ^3.16.0
     typedoc-plugin-rename: ^1.0.1
     typescript: ^5.2.2
-    typescript-to-lua: ^1.19.3
+    typescript-to-lua: ^1.20.0
     unified: 9.2.2
     xml2js: ^0.6.2
     yaml: ^2.3.2
@@ -20475,9 +20475,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-to-lua@npm:^1.19.3":
-  version: 1.19.3
-  resolution: "typescript-to-lua@npm:1.19.3"
+"typescript-to-lua@npm:^1.20.0":
+  version: 1.20.0
+  resolution: "typescript-to-lua@npm:1.20.0"
   dependencies:
     "@typescript-to-lua/language-extensions": 1.19.0
     enhanced-resolve: ^5.8.2
@@ -20488,7 +20488,7 @@ __metadata:
     typescript: 5.2.2
   bin:
     tstl: dist/tstl.js
-  checksum: 7b093fa2789cb27a76eca9aaba6e204ae15ca5cd0a74e38c96949bd47cf9269126383a17594ce865cff9d425638d49fffd761e43980276796d2c53675475ce70
+  checksum: 2332117db193aa843d5b010a3b1e5d4416f2a253ad505a08c05c44e0f702f43316493557d8371f45a6ed3caa7e28ca86bfe108be32f3514fedc46413341c178a
   languageName: node
   linkType: hard
 
