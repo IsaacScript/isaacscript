@@ -107,6 +107,7 @@
 /// <reference path="unofficial/EntitySubPlayer.d.ts" />
 /// <reference path="unofficial/IsaacAPIClass.d.ts" />
 /// <reference path="unofficial/PtrHash.d.ts" />
+/// <reference path="unofficial/Quality.d.ts" />
 /// <reference path="unofficial/Seed.d.ts" />
 /// <reference path="unofficial/TemporaryCollectibleType.d.ts" />
 /// <reference path="unofficial/ZodiacCollectibleType.d.ts" />
