@@ -77,7 +77,7 @@ declare global {
      *
      * @see https://bindingofisaacrebirth.fandom.com/wiki/Item_Quality
      */
-    Quality: 0 | 1 | 2 | 3 | 4;
+    Quality: Quality;
 
     ShopPrice: int;
     Special: boolean;

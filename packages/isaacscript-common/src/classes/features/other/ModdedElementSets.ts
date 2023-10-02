@@ -88,6 +88,10 @@ const TRANSFORMATION_TO_TAG_MAP = new ReadonlyMap<PlayerForm, ItemConfigTag>([
 export class ModdedElementSets extends Feature {
   private arraysInitialized = false;
 
+  // ----------------
+  // Main collections
+  // ----------------
+
   private readonly allCollectibleTypesArray: CollectibleType[] = [];
   private readonly allCollectibleTypesSet = new Set<CollectibleType>();
 
@@ -111,6 +115,10 @@ export class ModdedElementSets extends Feature {
 
   private readonly moddedPillEffectsArray: PillEffect[] = [];
   private readonly moddedPillEffectsSet = new Set<PillEffect>();
+
+  // -----------------
+  // Other collections
+  // -----------------
 
   private readonly cacheFlagToCollectibleTypesMap = new Map<
     CacheFlag,

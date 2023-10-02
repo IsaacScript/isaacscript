@@ -1,5 +1,5 @@
 - lint "//Z" trailing comments
-- investigate array vs set performance
+- investigate array vs set performance (also search for "O(1)" afterward)
 - error --> throw new Error
   - remember to update gotchas in docs
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
