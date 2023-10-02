@@ -537,7 +537,9 @@ const STORY_BOSS_IDS_SET = new ReadonlySet([
   BossID.MOM, // 6
   BossID.MOMS_HEART, // 8
   BossID.SATAN, // 24
+  BossID.IT_LIVES, // 25
   BossID.ISAAC, // 39
+  BossID.BLUE_BABY, // 40
   BossID.LAMB, // 54
   BossID.MEGA_SATAN, // 55
   BossID.ULTRA_GREED, // 62
