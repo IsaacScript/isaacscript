@@ -15,8 +15,13 @@ import {
   RenderMode,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
-import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../core/constants";
+import {
+  BLIND_ITEM_PNG_PATH,
+  DEFAULT_ITEM_POOL_TYPE,
+  QUALITIES,
+} from "../core/constants";
 import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../core/constantsFirstLast";
+import { VANILLA_COLLECTIBLE_TYPES } from "../core/constantsVanilla";
 import {
   COLLECTIBLE_DESCRIPTION_MAP,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
@@ -31,25 +36,46 @@ import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { clearSprite, spriteEquals } from "./sprites";
 import { isInteger } from "./types";
+import { assertDefined } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 
 const DEFAULT_COLLECTIBLE_PRICE = 15;
 
-// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards.
+/** Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards. */
 const GLITCHED_ITEM_THRESHOLD = 4_000_000_000;
 
-// The `isBlindCollectible` function needs a reference sprite to work properly.
-const questionMarkSprite = initQuestionMarkSprite();
+const QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP: ReadonlyMap<
+  Quality,
+  Set<CollectibleType>
+> = (() => {
+  const qualityToCollectibleTypesMap = new Map<Quality, Set<CollectibleType>>();
 
-function initQuestionMarkSprite() {
+  for (const quality of QUALITIES) {
+    const collectibleTypesSet = new Set<CollectibleType>();
+
+    for (const collectibleType of VANILLA_COLLECTIBLE_TYPES) {
+      const collectibleTypeQuality = getCollectibleQuality(collectibleType);
+      if (collectibleTypeQuality === quality) {
+        collectibleTypesSet.add(collectibleType);
+      }
+    }
+
+    qualityToCollectibleTypesMap.set(quality, collectibleTypesSet);
+  }
+
+  return qualityToCollectibleTypesMap;
+})();
+
+/** The `isBlindCollectible` function needs a reference sprite to work properly. */
+const questionMarkSprite = (() => {
   const sprite = Sprite();
   sprite.Load("gfx/005.100_collectible.anm2", false);
   sprite.ReplaceSpritesheet(1, "gfx/items/collectibles/questionmark.png");
   sprite.LoadGraphics();
 
   return sprite;
-}
+})();
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
   if (!isCollectible(collectible)) {
@@ -401,6 +427,25 @@ export function getCollectibleTags(
 
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
+}
+
+/**
+ * Returns a set containing every vanilla collectible type with the given quality.
+ *
+ * Note that this function will only return vanilla collectible types. To handle modded collectible
+ * types, use the `getCollectibleTypesOfQuality` helper function instead.
+ */
+export function getVanillaCollectibleTypesOfQuality(
+  quality: Quality,
+): ReadonlySet<CollectibleType> {
+  const collectibleTypes =
+    QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP.get(quality);
+  assertDefined(
+    collectibleTypes,
+    `Failed to find the vanilla collectible types corresponding to quality: ${quality}`,
+  );
+
+  return collectibleTypes;
 }
 
 /** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
