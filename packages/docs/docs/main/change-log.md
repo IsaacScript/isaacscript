@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 2nd, 2023 (Unreleased)
+## October 2nd, 2023
 
 - Added the following helper functions:
   - `anyEasterEggEnabled` (alias for `anySeedEffectEnabled`)
