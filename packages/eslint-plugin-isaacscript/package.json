@@ -32,9 +32,9 @@
   "type": "commonjs",
   "main": "src/index.js",
   "dependencies": {
-    "@typescript-eslint/type-utils": "^6.7.3",
-    "@typescript-eslint/types": "^6.7.3",
-    "@typescript-eslint/utils": "^6.7.3"
+    "@typescript-eslint/type-utils": "^6.7.4",
+    "@typescript-eslint/types": "^6.7.4",
+    "@typescript-eslint/utils": "^6.7.4"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 6.0.0",
