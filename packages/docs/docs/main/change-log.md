@@ -27,11 +27,13 @@ This page lists the changes to the IsaacScript framework.
   - `getCharacterSpritePNGFilePath`
   - `getChestName`
   - `getCoinName`
+  - `getCollectibleTypesOfQuality`
   - `getEntityTypeVariantFromBossID`
   - `getEnumNames`
   - `getHeartName`
   - `getKeyName`
   - `getNormalTrinketType`
+  - `getPlayerCollectiblesOfQuality`
   - `getPlayerTrinkets`
   - `getSackName`
   - `getSeedEffects`
@@ -62,6 +64,7 @@ This page lists the changes to the IsaacScript framework.
   - `CHEST_PICKUP_VARIANTS_SET`
   - `COLLECTIBLE_NAME_TO_TYPE_MAP`
   - `TRINKET_NAME_TO_TYPE_MAP`
+  - `QUALITIES`
 - Added the following helper types:
   - `CompositionTypeSatisfiesEnum`
 - Renamed the following features:

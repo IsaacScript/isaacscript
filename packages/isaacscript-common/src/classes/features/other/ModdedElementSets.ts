@@ -14,7 +14,10 @@ import {
   ITEM_CONFIG_TAG_VALUES,
 } from "../../../arrays/cachedEnumValues";
 import { itemConfig } from "../../../core/cachedClasses";
-import { FIRST_GLITCHED_COLLECTIBLE_TYPE } from "../../../core/constants";
+import {
+  FIRST_GLITCHED_COLLECTIBLE_TYPE,
+  QUALITIES,
+} from "../../../core/constants";
 import {
   VANILLA_CARD_TYPES,
   VANILLA_COLLECTIBLE_TYPES,
@@ -27,6 +30,7 @@ import { getItemConfigCardType } from "../../../functions/cards";
 import { collectibleHasTag } from "../../../functions/collectibleTag";
 import {
   collectibleHasCacheFlag,
+  getCollectibleQuality,
   isActiveCollectible,
   isHiddenCollectible,
   isPassiveOrFamiliarCollectible,
@@ -144,6 +148,11 @@ export class ModdedElementSets extends Feature {
   private readonly edenActiveCollectibleTypesSet = new Set<CollectibleType>();
   private readonly edenPassiveCollectibleTypesSet = new Set<CollectibleType>();
 
+  private readonly qualityToCollectibleTypesMap = new Map<
+    Quality,
+    Set<CollectibleType>
+  >();
+
   private readonly itemConfigCardTypeToCardTypeMap = new Map<
     ItemConfigCardType,
     Set<CardType>
@@ -184,6 +193,7 @@ export class ModdedElementSets extends Feature {
     this.lazyInitFlyingCollectibleTypesSet();
     this.lazyInitFlyingTrinketTypesSet();
     this.lazyInitEdenCollectibleTypesSet();
+    this.lazyInitQualityToCollectibleTypesMap();
     this.lazyInitCardTypes();
   }
 
@@ -335,29 +345,29 @@ export class ModdedElementSets extends Feature {
 
   private lazyInitCacheFlagToCollectibleTypesMap() {
     for (const cacheFlag of CACHE_FLAG_VALUES) {
-      const collectiblesSet = new Set<CollectibleType>();
+      const collectibleTypeSet = new Set<CollectibleType>();
 
       for (const collectibleType of this.getCollectibleTypes()) {
         if (collectibleHasCacheFlag(collectibleType, cacheFlag)) {
-          collectiblesSet.add(collectibleType);
+          collectibleTypeSet.add(collectibleType);
         }
       }
 
-      this.cacheFlagToCollectibleTypesMap.set(cacheFlag, collectiblesSet);
+      this.cacheFlagToCollectibleTypesMap.set(cacheFlag, collectibleTypeSet);
     }
   }
 
   private lazyInitCacheFlagToTrinketTypesMap() {
     for (const cacheFlag of CACHE_FLAG_VALUES) {
-      const trinketsSet = new Set<TrinketType>();
+      const trinketTypesSet = new Set<TrinketType>();
 
       for (const trinketType of this.getTrinketTypes()) {
         if (trinketHasCacheFlag(trinketType, cacheFlag)) {
-          trinketsSet.add(trinketType);
+          trinketTypesSet.add(trinketType);
         }
       }
 
-      this.cacheFlagToTrinketTypesMap.set(cacheFlag, trinketsSet);
+      this.cacheFlagToTrinketTypesMap.set(cacheFlag, trinketTypesSet);
     }
   }
 
@@ -424,6 +434,21 @@ export class ModdedElementSets extends Feature {
       if (isPassiveOrFamiliarCollectible(collectibleType)) {
         this.edenPassiveCollectibleTypesSet.add(collectibleType);
       }
+    }
+  }
+
+  private lazyInitQualityToCollectibleTypesMap() {
+    for (const quality of QUALITIES) {
+      const collectibleTypesSet = new Set<CollectibleType>();
+
+      for (const collectibleType of this.getCollectibleTypes()) {
+        const collectibleTypeQuality = getCollectibleQuality(collectibleType);
+        if (collectibleTypeQuality === quality) {
+          collectibleTypesSet.add(collectibleType);
+        }
+      }
+
+      this.qualityToCollectibleTypesMap.set(quality, collectibleTypesSet);
     }
   }
 
@@ -1024,7 +1049,7 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
-   * Returns the number of items that a player has towards a particular transformation.
+   * Returns an array of collectible types that a player has with a particular tag.
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectible types will necessarily be present when a mod first loads (due to mod load
@@ -1082,7 +1107,8 @@ export class ModdedElementSets extends Feature {
   }
 
   /**
-   * Returns the number of items that a player has towards a particular transformation.
+   * Returns an array of collectible types that a player has that count towards a particular
+   * transformation.
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectible types will necessarily be present when a mod first loads (due to mod load
@@ -1199,6 +1225,65 @@ export class ModdedElementSets extends Feature {
       seedOrRNG,
       exceptions,
     );
+  }
+
+  // -------------------
+  // Collectible Quality
+  // -------------------
+
+  /**
+   * Returns a set containing every collectible type with the given quality.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectible types will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getCollectibleTypesOfQuality(
+    quality: Quality,
+  ): ReadonlySet<CollectibleType> {
+    this.lazyInit();
+
+    const collectibleTypes = this.qualityToCollectibleTypesMap.get(quality);
+    assertDefined(
+      collectibleTypes,
+      `The quality of ${quality} is not a valid quality.`,
+    );
+
+    return collectibleTypes;
+  }
+
+  /**
+   * Returns an array of collectible types that a player has that are of a particular quality.
+   *
+   * This function can only be called if at least one callback has been executed. This is because
+   * not all collectible types will necessarily be present when a mod first loads (due to mod load
+   * order).
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   */
+  @Exported
+  public getPlayerCollectiblesOfQuality(
+    player: EntityPlayer,
+    quality: Quality,
+  ): CollectibleType[] {
+    const collectibleTypesOfQuality =
+      this.getCollectibleTypesOfQuality(quality);
+
+    const playerCollectibles: CollectibleType[] = [];
+    for (const collectibleType of getSortedSetValues(
+      collectibleTypesOfQuality,
+    )) {
+      // We specify "true" as the second argument to filter out things like Lilith's Incubus.
+      const numCollectibles = player.GetCollectibleNum(collectibleType, true);
+      repeat(numCollectibles, () => {
+        playerCollectibles.push(collectibleType);
+      });
+    }
+
+    return playerCollectibles;
   }
 
   // ----------------------

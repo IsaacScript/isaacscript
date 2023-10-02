@@ -291,6 +291,13 @@ export const NUM_PILL_COLORS_IN_POOL = NUM_NORMAL_PILL_COLORS;
 
 export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
 
+/**
+ * An array representing every valid collectible type quality. Specifically, this is `[0, 1, 2, 3,
+ * 4]`.
+ */
+// eslint-disable-next-line isaacscript/require-capital-const-assertions
+export const QUALITIES: readonly Quality[] = [0, 1, 2, 3, 4];
+
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 
