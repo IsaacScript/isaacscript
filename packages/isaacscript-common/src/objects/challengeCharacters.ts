@@ -2,6 +2,7 @@ import { Challenge, PlayerType } from "isaac-typescript-definitions";
 
 export const DEFAULT_CHALLENGE_CHARACTER = PlayerType.ISAAC;
 
+/** Taken from the "challenges.xml" file. */
 export const CHALLENGE_CHARACTERS = {
   [Challenge.NULL]: DEFAULT_CHALLENGE_CHARACTER, // 0
   [Challenge.PITCH_BLACK]: DEFAULT_CHALLENGE_CHARACTER, // 1

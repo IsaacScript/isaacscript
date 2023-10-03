@@ -2,6 +2,7 @@ import { Challenge } from "isaac-typescript-definitions";
 
 export const DEFAULT_CHALLENGE_NAME = "Unknown";
 
+/** Taken from the "challenges.xml" file. */
 export const CHALLENGE_NAMES = {
   [Challenge.NULL]: DEFAULT_CHALLENGE_NAME, // 0
   [Challenge.PITCH_BLACK]: "Pitch Black", // 1
