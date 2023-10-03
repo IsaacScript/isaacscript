@@ -22,6 +22,7 @@ const IGNORE_EFFECT_VARIANTS = new ReadonlySet<EffectVariant>([
   EffectVariant.TINY_BUG, // 21
   EffectVariant.TINY_FLY, // 33
   EffectVariant.WATER_DROPLET, // 41
+  EffectVariant.WORM, // 63
   EffectVariant.WALL_BUG, // 68
   EffectVariant.FALLING_EMBER, // 87
   EffectVariant.LIGHT, // 121
