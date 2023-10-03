@@ -701,6 +701,28 @@ function foo() {
   `,
 });
 
+invalid.push({
+  name: "Comment with 1 leading asterisk",
+  code: `
+/** *foo */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/** foo */
+  `,
+});
+
+invalid.push({
+  name: "Comment with 2 leading asterisks",
+  code: `
+/** **foo */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/** foo */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,

@@ -290,8 +290,23 @@ export function repeat(n: number, func: (i: number) => void): void {
   }
 }
 
-/** Helper function to trim a prefix from a string, if it exists. Returns the trimmed string. */
-export function trimPrefix(string: string, prefix: string): string {
+/**
+ * Helper function to trim a prefix from a string, if it exists. Returns the trimmed string.
+ *
+ * @param string The string to trim.
+ * @param prefix The prefix to trim.
+ * @param trimAll Whether to remove multiple instances of the prefix, if they exist.
+ */
+export function trimPrefix(
+  string: string,
+  prefix: string,
+  trimAll = false,
+): string {
+  if (trimAll) {
+    const regExp = new RegExp(`^${prefix}+`, "g");
+    return string.replaceAll(regExp, "");
+  }
+
   if (!string.startsWith(prefix)) {
     return string;
   }

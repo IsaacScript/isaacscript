@@ -1,4 +1,5 @@
 import { formatText } from "../format";
+import { trimPrefix } from "../isaacScriptCommonTS";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
 import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
@@ -69,7 +70,11 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
       const text = getTextFromJSDocComment(comment.value);
       const effectiveMaxLength =
         maxLength - leftWhitespaceLength - " * ".length;
-      const formattedText = formatText(text, effectiveMaxLength);
+      let formattedText = formatText(text, effectiveMaxLength);
+
+      // - Disallow comments like: `/** *foo */`
+      // - We must escape the asterisk to avoid a run-time error.
+      formattedText = trimPrefix(formattedText, "\\*", true);
 
       const canFitOnSingleLine = canFitOnSingleJSDocLine(
         formattedText,
