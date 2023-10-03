@@ -1,5 +1,6 @@
 import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
+  BackdropType,
   EffectVariant,
   GridCollisionClass,
   GridEntityType,
@@ -337,6 +338,121 @@ export function getGridEntitiesMap(
   return gridEntityMap;
 }
 
+/** Helper function to get the ANM2 path for a grid entity type. */
+export function getGridEntityANM2Path(
+  gridEntityType: GridEntityType,
+): string | undefined {
+  switch (gridEntityType) {
+    // 1
+    case GridEntityType.DECORATION: {
+      return getGridEntityANM2PathDecoration();
+    }
+
+    default: {
+      return GRID_ENTITY_TYPE_TO_ANM2_PATH[gridEntityType];
+    }
+  }
+}
+
+/**
+ * Helper function to get the ANM2 path for a decoration. This depends on the current room's
+ * backdrop.
+ */
+export function getGridEntityANM2PathDecoration(): string {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  switch (backdropType) {
+    // 1, 2, 3
+    case BackdropType.BASEMENT:
+    case BackdropType.CELLAR:
+    case BackdropType.BURNT_BASEMENT: {
+      return "gfx/grid/Props_01_Basement.anm2";
+    }
+
+    // 4, 5, 6
+    case BackdropType.CAVES:
+    case BackdropType.CATACOMBS:
+    case BackdropType.FLOODED_CAVES: {
+      return "gfx/grid/Props_03_caves.anm2";
+    }
+
+    // 7, 8, 9
+    case BackdropType.DEPTHS:
+    case BackdropType.NECROPOLIS:
+    case BackdropType.DANK_DEPTHS: {
+      return "gfx/grid/Props_05_depths.anm2";
+    }
+
+    // 10, 12
+    case BackdropType.WOMB:
+    case BackdropType.SCARRED_WOMB: {
+      return "gfx/grid/Props_07_the womb.anm2";
+    }
+
+    // 11
+    case BackdropType.UTERO: {
+      return "gfx/grid/Props_07_utero.anm2";
+    }
+
+    // 13, 27
+    case BackdropType.BLUE_WOMB:
+    case BackdropType.BLUE_WOMB_PASS: {
+      return "gfx/grid/Props_07_the womb_blue.anm2";
+    }
+
+    // 14
+    case BackdropType.SHEOL: {
+      return "gfx/grid/Props_09_sheol.anm2";
+    }
+
+    // 15
+    case BackdropType.CATHEDRAL: {
+      return "gfx/grid/Props_10_cathedral.anm2";
+    }
+
+    // 17
+    case BackdropType.CHEST: {
+      return "gfx/grid/Props_11_the chest.anm2";
+    }
+
+    // 28
+    case BackdropType.GREED_SHOP: {
+      return "gfx/grid/Props_12_greed.anm2";
+    }
+
+    // 31, 36
+    case BackdropType.DOWNPOUR:
+    case BackdropType.DOWNPOUR_ENTRANCE: {
+      return "gfx/grid/Props_01x_downpour.anm2";
+    }
+
+    // 32
+    case BackdropType.MINES: {
+      return "gfx/grid/Props_03x_mines.anm2";
+    }
+
+    // 34
+    case BackdropType.CORPSE: {
+      return "gfx/grid/Props_07_the corpse.anm2";
+    }
+
+    // 45
+    case BackdropType.DROSS: {
+      return "gfx/grid/Props_02x_dross.anm2";
+    }
+
+    // 49
+    case BackdropType.ISAACS_BEDROOM: {
+      return "gfx/grid/Props_0ex_isaacs_bedroom.anm2";
+    }
+
+    default: {
+      return "gfx/grid/Props_01_Basement.anm2";
+    }
+  }
+}
+
 /** Helper function to get the top left and bottom right corners of a given grid entity. */
 export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
   topLeft: Vector;
@@ -386,6 +502,92 @@ export function getMatchingGridEntities(
   return gridEntities.filter(
     (gridEntity) => gridEntity.GetVariant() === variant,
   );
+}
+
+export function getRockPNGPath(): string {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  switch (backdropType) {
+    // 1
+    case BackdropType.BASEMENT: {
+      return "rocks_basement.png";
+    }
+
+    // 2
+    case BackdropType.CELLAR: {
+      return "rocks_cellar.png";
+    }
+
+    // 3
+    case BackdropType.BURNT_BASEMENT: {
+      return "rocks_burningbasement.png"; // cspell:ignore burningbasement
+    }
+
+    // 4
+    case BackdropType.CAVES: {
+      return "rocks_caves.png";
+    }
+
+    // 5
+    case BackdropType.CATACOMBS: {
+      return "rocks_catacombs.png";
+    }
+
+    // 6
+    case BackdropType.FLOODED_CAVES: {
+      return "rocks_drownedcaves.png"; // cspell:ignore drownedcaves
+    }
+
+    // 7, 8, 9
+    case BackdropType.DEPTHS:
+    case BackdropType.NECROPOLIS:
+    case BackdropType.DANK_DEPTHS:
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4:
+    case BackdropType.MAUSOLEUM_ENTRANCE: {
+      return "rocks_depths.png";
+    }
+
+    // 10, 11
+    case BackdropType.WOMB:
+    case BackdropType.UTERO: {
+      return "rocks_womb.png";
+    }
+
+    // 12
+    case BackdropType.SCARRED_WOMB: {
+      return "rocks_scarredwomb.png"; // cspell:ignore scarredwomb
+    }
+
+    // 13
+    case BackdropType.BLUE_WOMB:
+    case BackdropType.BLUE_WOMB_PASS: {
+      return "rocks_bluewomb.png"; // cspell:ignore bluewomb
+    }
+
+    // 14, 16
+    case BackdropType.SHEOL:
+    case BackdropType.DARK_ROOM: {
+      return "rocks_sheol.png";
+    }
+
+    // 15
+    case BackdropType.CATHEDRAL: {
+      return "rocks_cathedral.png";
+    }
+
+    // 23
+    case BackdropType.SECRET: {
+      return "rocks_secretroom.png"; // cspell:ignore secretroom
+    }
+
+    default: {
+      return "rocks_basement.png";
+    }
+  }
 }
 
 /**
@@ -731,12 +933,21 @@ export function setGridEntityType(
   gridEntity.SetType(gridEntityType);
 
   const sprite = gridEntity.GetSprite();
-  const anm2Path = GRID_ENTITY_TYPE_TO_ANM2_PATH[gridEntityType];
-  if (anm2Path !== undefined) {
-    sprite.Load(anm2Path, true);
-    const defaultAnimation = sprite.GetDefaultAnimation();
-    sprite.Play(defaultAnimation, true);
+  const anm2Path = getGridEntityANM2Path(gridEntityType);
+  if (anm2Path === undefined) {
+    return;
   }
+
+  sprite.Load(anm2Path, false);
+
+  if (gridEntityType === GridEntityType.ROCK) {
+    const pngPath = getRockPNGPath();
+    sprite.ReplaceSpritesheet(0, pngPath);
+  }
+
+  sprite.LoadGraphics();
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
 }
 
 /**

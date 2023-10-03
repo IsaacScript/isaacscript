@@ -4,22 +4,8 @@ import { GridEntityType } from "isaac-typescript-definitions";
 
 export const GRID_ENTITY_TYPE_TO_ANM2_PATH = {
   [GridEntityType.NULL]: undefined, // 0
+  // There are more decoration ANM2 files; see the `getGridEntityANM2Path` function.
   [GridEntityType.DECORATION]: "gfx/grid/Props_01_Basement.anm2", // 1
-  // Also there is:
-  // - props_03_caves.anm2
-  // - props_05_depths.anm2
-  // - props_07_the womb.anm2
-  // - props_07_utero.anm2
-  // - props_07_the womb_blue.anm2
-  // - props_09_sheol.anm2
-  // - props_10_cathedral.anm2
-  // - props_11_the chest.anm2
-  // - props_12_greed.anm2
-  // - props_01x_downpour.anm2
-  // - props_02x_dross.anm2
-  // - props_03x_mines.anm2
-  // - props_07_the corpse.anm2
-  // - props_0ex_isaacs_bedroom.anm2
   [GridEntityType.ROCK]: "gfx/grid/grid_rock.anm2", // 2
   [GridEntityType.BLOCK]: "gfx/grid/grid_rock.anm2", // 3
   [GridEntityType.ROCK_TINTED]: "gfx/grid/grid_rock.anm2", // 4
