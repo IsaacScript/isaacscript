@@ -356,95 +356,109 @@ export function getGridEntityANM2Path(
 
 /**
  * Helper function to get the ANM2 path for a decoration. This depends on the current room's
- * backdrop.
+ * backdrop. The values are taken from the "backdrops.xml" file.
  */
 export function getGridEntityANM2PathDecoration(): string {
   const room = game.GetRoom();
   const backdropType = room.GetBackdropType();
 
   switch (backdropType) {
-    // 1, 2, 3
+    // 1, 2, 3, 36, 49, 52
     case BackdropType.BASEMENT:
     case BackdropType.CELLAR:
-    case BackdropType.BURNT_BASEMENT: {
+    case BackdropType.BURNING_BASEMENT:
+    case BackdropType.DOWNPOUR_ENTRANCE:
+    case BackdropType.ISAACS_BEDROOM:
+    case BackdropType.CLOSET: {
       return "gfx/grid/Props_01_Basement.anm2";
     }
 
-    // 4, 5, 6
+    // 4, 5, 6, 37
     case BackdropType.CAVES:
     case BackdropType.CATACOMBS:
-    case BackdropType.FLOODED_CAVES: {
-      return "gfx/grid/Props_03_caves.anm2";
+    case BackdropType.FLOODED_CAVES:
+    case BackdropType.MINES_ENTRANCE: {
+      return "gfx/grid/Props_03_Caves.anm2";
     }
 
-    // 7, 8, 9
+    // 7, 8, 9, 30, 33, 38, 39, 40, 41, 42, 53, 60
     case BackdropType.DEPTHS:
     case BackdropType.NECROPOLIS:
-    case BackdropType.DANK_DEPTHS: {
-      return "gfx/grid/Props_05_depths.anm2";
+    case BackdropType.DANK_DEPTHS:
+    case BackdropType.SACRIFICE:
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_ENTRANCE:
+    case BackdropType.CORPSE_ENTRANCE:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4:
+    case BackdropType.CLOSET_B:
+    case BackdropType.DARK_CLOSET: {
+      return "gfx/grid/Props_05_Depths.anm2";
     }
 
     // 10, 12
     case BackdropType.WOMB:
     case BackdropType.SCARRED_WOMB: {
-      return "gfx/grid/Props_07_the womb.anm2";
+      return "gfx/grid/Props_07_The Womb.anm2";
     }
 
     // 11
     case BackdropType.UTERO: {
-      return "gfx/grid/Props_07_utero.anm2";
+      return "gfx/grid/Props_07_Utero.anm2";
     }
 
     // 13, 27
     case BackdropType.BLUE_WOMB:
     case BackdropType.BLUE_WOMB_PASS: {
-      return "gfx/grid/Props_07_the womb_blue.anm2";
+      return "gfx/grid/Props_07_The Womb_blue.anm2";
     }
 
-    // 14
-    case BackdropType.SHEOL: {
-      return "gfx/grid/Props_09_sheol.anm2";
+    // 14, 47
+    case BackdropType.SHEOL:
+    case BackdropType.GEHENNA: {
+      return "gfx/grid/Props_09_Sheol.anm2";
     }
 
     // 15
     case BackdropType.CATHEDRAL: {
-      return "gfx/grid/Props_10_cathedral.anm2";
+      return "gfx/grid/Props_10_Cathedral.anm2";
     }
 
     // 17
     case BackdropType.CHEST: {
-      return "gfx/grid/Props_11_the chest.anm2";
+      return "gfx/grid/Props_11_The Chest.anm2";
     }
 
     // 28
     case BackdropType.GREED_SHOP: {
-      return "gfx/grid/Props_12_greed.anm2";
+      return "gfx/grid/Props_12_Greed.anm2";
     }
 
-    // 31, 36
-    case BackdropType.DOWNPOUR:
-    case BackdropType.DOWNPOUR_ENTRANCE: {
-      return "gfx/grid/Props_01x_downpour.anm2";
+    // 31
+    case BackdropType.DOWNPOUR: {
+      return "gfx/grid/props_01x_downpour.anm2";
     }
 
-    // 32
-    case BackdropType.MINES: {
-      return "gfx/grid/Props_03x_mines.anm2";
+    // 32, 46, 58, 59
+    case BackdropType.MINES:
+    case BackdropType.ASHPIT:
+    case BackdropType.MINES_SHAFT:
+    case BackdropType.ASHPIT_SHAFT: {
+      return "gfx/grid/props_03x_mines.anm2";
     }
 
-    // 34
-    case BackdropType.CORPSE: {
-      return "gfx/grid/Props_07_the corpse.anm2";
+    // 34, 43, 44, 48
+    case BackdropType.CORPSE:
+    case BackdropType.CORPSE_2:
+    case BackdropType.CORPSE_3:
+    case BackdropType.MORTIS: {
+      return "gfx/grid/props_07_the corpse.anm2";
     }
 
     // 45
     case BackdropType.DROSS: {
-      return "gfx/grid/Props_02x_dross.anm2";
-    }
-
-    // 49
-    case BackdropType.ISAACS_BEDROOM: {
-      return "gfx/grid/Props_0ex_isaacs_bedroom.anm2";
+      return "gfx/grid/props_02x_dross.anm2";
     }
 
     default: {
@@ -520,7 +534,7 @@ export function getRockPNGPath(): string {
     }
 
     // 3
-    case BackdropType.BURNT_BASEMENT: {
+    case BackdropType.BURNING_BASEMENT: {
       return "rocks_burningbasement.png"; // cspell:ignore burningbasement
     }
 

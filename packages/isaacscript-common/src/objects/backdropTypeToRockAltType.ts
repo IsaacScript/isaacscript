@@ -5,7 +5,7 @@ import { RockAltType } from "../enums/RockAltType";
 export const BACKDROP_TYPE_TO_ROCK_ALT_TYPE = {
   [BackdropType.BASEMENT]: RockAltType.URN, // 1
   [BackdropType.CELLAR]: RockAltType.URN, // 2
-  [BackdropType.BURNT_BASEMENT]: RockAltType.URN, // 3
+  [BackdropType.BURNING_BASEMENT]: RockAltType.URN, // 3
   [BackdropType.CAVES]: RockAltType.MUSHROOM, // 4
   [BackdropType.CATACOMBS]: RockAltType.MUSHROOM, // 5
   [BackdropType.FLOODED_CAVES]: RockAltType.MUSHROOM, // 6
