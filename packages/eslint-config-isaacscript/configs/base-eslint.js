@@ -641,6 +641,10 @@ const SUGGESTIONS = {
    */
   "sort-vars": "off",
 
+  /**
+   * Partially superseded by `isaacscript/format-jsdoc-comments` and
+   * `isaacscript/format-line-comments`, but those rules do not handle trailing line comments.
+   */
   "spaced-comment": "error",
 
   /** The `never` option is provided to make the rule stricter. */
