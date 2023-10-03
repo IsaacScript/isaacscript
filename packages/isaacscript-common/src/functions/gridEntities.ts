@@ -518,13 +518,18 @@ export function getMatchingGridEntities(
   );
 }
 
+/**
+ * Helper function to get the PNG path for a rock. This depends on the current room's backdrop. The
+ * values are taken from the "backdrops.xml" file.
+ */
 export function getRockPNGPath(): string {
   const room = game.GetRoom();
   const backdropType = room.GetBackdropType();
 
   switch (backdropType) {
-    // 1
-    case BackdropType.BASEMENT: {
+    // 1, 17
+    case BackdropType.BASEMENT:
+    case BackdropType.CHEST: {
       return "rocks_basement.png";
     }
 
@@ -553,22 +558,23 @@ export function getRockPNGPath(): string {
       return "rocks_drownedcaves.png"; // cspell:ignore drownedcaves
     }
 
-    // 7, 8, 9
+    // 7, 8, 9, 30, 60
     case BackdropType.DEPTHS:
     case BackdropType.NECROPOLIS:
     case BackdropType.DANK_DEPTHS:
-    case BackdropType.MAUSOLEUM:
-    case BackdropType.MAUSOLEUM_2:
-    case BackdropType.MAUSOLEUM_3:
-    case BackdropType.MAUSOLEUM_4:
-    case BackdropType.MAUSOLEUM_ENTRANCE: {
+    case BackdropType.SACRIFICE:
+    case BackdropType.DARK_CLOSET: {
       return "rocks_depths.png";
     }
 
-    // 10, 11
-    case BackdropType.WOMB:
-    case BackdropType.UTERO: {
+    // 10
+    case BackdropType.WOMB: {
       return "rocks_womb.png";
+    }
+
+    // 11
+    case BackdropType.UTERO: {
+      return "rocks_utero.png";
     }
 
     // 12
@@ -576,7 +582,7 @@ export function getRockPNGPath(): string {
       return "rocks_scarredwomb.png"; // cspell:ignore scarredwomb
     }
 
-    // 13
+    // 13, 27
     case BackdropType.BLUE_WOMB:
     case BackdropType.BLUE_WOMB_PASS: {
       return "rocks_bluewomb.png"; // cspell:ignore bluewomb
@@ -588,14 +594,70 @@ export function getRockPNGPath(): string {
       return "rocks_sheol.png";
     }
 
-    // 15
-    case BackdropType.CATHEDRAL: {
+    // 15, 35
+    case BackdropType.CATHEDRAL:
+    case BackdropType.PLANETARIUM: {
       return "rocks_cathedral.png";
     }
 
-    // 23
-    case BackdropType.SECRET: {
+    // 23, 32, 37, 58
+    case BackdropType.SECRET:
+    case BackdropType.MINES:
+    case BackdropType.MINES_ENTRANCE:
+    case BackdropType.MINES_SHAFT: {
       return "rocks_secretroom.png"; // cspell:ignore secretroom
+    }
+
+    // 31, 36
+    case BackdropType.DOWNPOUR:
+    case BackdropType.DOWNPOUR_ENTRANCE: {
+      return "rocks_downpour.png";
+    }
+
+    // 33, 38, 40, 41, 42
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_ENTRANCE:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4: {
+      return "rocks_mausoleum.png";
+    }
+
+    // 34, 48
+    case BackdropType.CORPSE:
+    case BackdropType.MORTIS: {
+      return "rocks_corpse.png";
+    }
+
+    // 39
+    case BackdropType.CORPSE_ENTRANCE: {
+      return "rocks_corpseentrance.png"; // cspell:ignore corpseentrance
+    }
+
+    // 43
+    case BackdropType.CORPSE_2: {
+      return "rocks_corpse2.png";
+    }
+
+    // 44
+    case BackdropType.CORPSE_3: {
+      return "rocks_corpse3.png";
+    }
+
+    // 45
+    case BackdropType.DROSS: {
+      return "rocks_dross.png";
+    }
+
+    // 46, 59
+    case BackdropType.ASHPIT:
+    case BackdropType.ASHPIT_SHAFT: {
+      return "rocks_ashpit.png";
+    }
+
+    // 47
+    case BackdropType.GEHENNA: {
+      return "rocks_gehenna.png";
     }
 
     default: {
