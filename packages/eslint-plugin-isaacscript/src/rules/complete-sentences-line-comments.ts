@@ -97,5 +97,16 @@ export const completeSentencesLineComments = createRule<
 function getFirstWord(text: string): string {
   const words = text.split(" ");
   const firstWord = words[0];
-  return firstWord ?? "";
+  if (firstWord === undefined) {
+    return "";
+  }
+
+  // We want to match e.g. `console.log`.
+  const parts = firstWord.split(".");
+  const firstPart = parts[0];
+  if (firstPart === undefined) {
+    return "";
+  }
+
+  return firstPart;
 }

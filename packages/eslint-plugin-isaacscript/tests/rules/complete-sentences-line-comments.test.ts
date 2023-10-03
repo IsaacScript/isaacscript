@@ -288,6 +288,13 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Commenting out code using console.log",
+  code: `
+// console.log("foo");
+  `,
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,
