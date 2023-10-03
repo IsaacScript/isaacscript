@@ -641,8 +641,7 @@ const SUGGESTIONS = {
    */
   "sort-vars": "off",
 
-  /** Superseded by `isaacscript/format-jsdoc-comments` and `isaacscript/format-line-comments`. */
-  "spaced-comment": "off",
+  "spaced-comment": "error",
 
   /** The `never` option is provided to make the rule stricter. */
   strict: ["error", "never"],
