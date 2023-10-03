@@ -14,7 +14,6 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getVanillaCollectibleTypesOfQuality`
   - `getGridEntityANM2Path`
-  - `getGridEntityANM2PathDecoration`
   - `getRockPNGPath`
 
 ## October 2nd, 2023

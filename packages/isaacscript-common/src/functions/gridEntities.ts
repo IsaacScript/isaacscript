@@ -17,7 +17,7 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
-import { GRID_ENTITY_TYPE_TO_ANM2_PATH } from "../objects/gridEntityTypeToANM2Path";
+import { GRID_ENTITY_TYPE_TO_ANM2_NAME } from "../objects/gridEntityTypeToANM2Name";
 import { POOP_GRID_ENTITY_XML_TYPES_SET } from "../sets/poopGridEntityXMLTypesSet";
 import type { AnyGridEntity } from "../types/AnyGridEntity";
 import type { GridEntityID } from "../types/GridEntityID";
@@ -342,14 +342,21 @@ export function getGridEntitiesMap(
 export function getGridEntityANM2Path(
   gridEntityType: GridEntityType,
 ): string | undefined {
+  const gridEntityANM2Name = getGridEntityANM2Name(gridEntityType);
+  return `gfx/grid/${gridEntityANM2Name}`;
+}
+
+function getGridEntityANM2Name(
+  gridEntityType: GridEntityType,
+): string | undefined {
   switch (gridEntityType) {
     // 1
     case GridEntityType.DECORATION: {
-      return getGridEntityANM2PathDecoration();
+      return getGridEntityANM2NameDecoration();
     }
 
     default: {
-      return GRID_ENTITY_TYPE_TO_ANM2_PATH[gridEntityType];
+      return GRID_ENTITY_TYPE_TO_ANM2_NAME[gridEntityType];
     }
   }
 }
@@ -358,7 +365,7 @@ export function getGridEntityANM2Path(
  * Helper function to get the ANM2 path for a decoration. This depends on the current room's
  * backdrop. The values are taken from the "backdrops.xml" file.
  */
-export function getGridEntityANM2PathDecoration(): string {
+function getGridEntityANM2NameDecoration(): string {
   const room = game.GetRoom();
   const backdropType = room.GetBackdropType();
 
@@ -370,7 +377,7 @@ export function getGridEntityANM2PathDecoration(): string {
     case BackdropType.DOWNPOUR_ENTRANCE:
     case BackdropType.ISAACS_BEDROOM:
     case BackdropType.CLOSET: {
-      return "gfx/grid/Props_01_Basement.anm2";
+      return "Props_01_Basement.anm2";
     }
 
     // 4, 5, 6, 37
@@ -378,7 +385,7 @@ export function getGridEntityANM2PathDecoration(): string {
     case BackdropType.CATACOMBS:
     case BackdropType.FLOODED_CAVES:
     case BackdropType.MINES_ENTRANCE: {
-      return "gfx/grid/Props_03_Caves.anm2";
+      return "Props_03_Caves.anm2";
     }
 
     // 7, 8, 9, 30, 33, 38, 39, 40, 41, 42, 53, 60
@@ -394,50 +401,50 @@ export function getGridEntityANM2PathDecoration(): string {
     case BackdropType.MAUSOLEUM_4:
     case BackdropType.CLOSET_B:
     case BackdropType.DARK_CLOSET: {
-      return "gfx/grid/Props_05_Depths.anm2";
+      return "Props_05_Depths.anm2";
     }
 
     // 10, 12
     case BackdropType.WOMB:
     case BackdropType.SCARRED_WOMB: {
-      return "gfx/grid/Props_07_The Womb.anm2";
+      return "Props_07_The Womb.anm2";
     }
 
     // 11
     case BackdropType.UTERO: {
-      return "gfx/grid/Props_07_Utero.anm2";
+      return "Props_07_Utero.anm2";
     }
 
     // 13, 27
     case BackdropType.BLUE_WOMB:
     case BackdropType.BLUE_WOMB_PASS: {
-      return "gfx/grid/Props_07_The Womb_blue.anm2";
+      return "Props_07_The Womb_blue.anm2";
     }
 
     // 14, 47
     case BackdropType.SHEOL:
     case BackdropType.GEHENNA: {
-      return "gfx/grid/Props_09_Sheol.anm2";
+      return "Props_09_Sheol.anm2";
     }
 
     // 15
     case BackdropType.CATHEDRAL: {
-      return "gfx/grid/Props_10_Cathedral.anm2";
+      return "Props_10_Cathedral.anm2";
     }
 
     // 17
     case BackdropType.CHEST: {
-      return "gfx/grid/Props_11_The Chest.anm2";
+      return "Props_11_The Chest.anm2";
     }
 
     // 28
     case BackdropType.GREED_SHOP: {
-      return "gfx/grid/Props_12_Greed.anm2";
+      return "Props_12_Greed.anm2";
     }
 
     // 31
     case BackdropType.DOWNPOUR: {
-      return "gfx/grid/props_01x_downpour.anm2";
+      return "props_01x_downpour.anm2";
     }
 
     // 32, 46, 58, 59
@@ -445,7 +452,7 @@ export function getGridEntityANM2PathDecoration(): string {
     case BackdropType.ASHPIT:
     case BackdropType.MINES_SHAFT:
     case BackdropType.ASHPIT_SHAFT: {
-      return "gfx/grid/props_03x_mines.anm2";
+      return "props_03x_mines.anm2";
     }
 
     // 34, 43, 44, 48
@@ -453,16 +460,16 @@ export function getGridEntityANM2PathDecoration(): string {
     case BackdropType.CORPSE_2:
     case BackdropType.CORPSE_3:
     case BackdropType.MORTIS: {
-      return "gfx/grid/props_07_the corpse.anm2";
+      return "props_07_the corpse.anm2";
     }
 
     // 45
     case BackdropType.DROSS: {
-      return "gfx/grid/props_02x_dross.anm2";
+      return "props_02x_dross.anm2";
     }
 
     default: {
-      return "gfx/grid/Props_01_Basement.anm2";
+      return "Props_01_Basement.anm2";
     }
   }
 }
@@ -521,8 +528,15 @@ export function getMatchingGridEntities(
 /**
  * Helper function to get the PNG path for a rock. This depends on the current room's backdrop. The
  * values are taken from the "backdrops.xml" file.
+ *
+ * All of the rock PNGs are in the "gfx/grid" directory.
  */
 export function getRockPNGPath(): string {
+  const rockPNGName = getRockPNGName();
+  return `gfx/grid/${rockPNGName}`;
+}
+
+function getRockPNGName(): string {
   const room = game.GetRoom();
   const backdropType = room.GetBackdropType();
 
