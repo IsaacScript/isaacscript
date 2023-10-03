@@ -339,7 +339,7 @@ export enum ModCallback {
    *   velocity: Vector,
    *   spawner: Entity | undefined,
    *   initSeed: Seed,
-   * ): [EntityType, int, int, int] | undefined {}
+   * ): [entityType: EntityType, variant: int, subType: int, seed: int] | undefined {}
    * ```
    */
   PRE_ENTITY_SPAWN = 24,
@@ -985,7 +985,7 @@ export enum ModCallback {
    *   subType: int,
    *   gridIndex: int,
    *   seed: Seed,
-   * ): [EntityType | GridEntityXMLType, int, int] | undefined {}
+   * ): [type: EntityType | GridEntityXMLType, variant: int, subType: int] | undefined {}
    * ```
    */
   PRE_ROOM_ENTITY_SPAWN = 71,

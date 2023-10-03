@@ -19,8 +19,6 @@ function initKeyMap() {
 }
 
 function onKeyDown(event) {
-  // console.log("Key pressed:", e.key);
-
   // Do not do anything if we have any modifier keys pressed down.
   if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
     return;

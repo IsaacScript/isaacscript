@@ -525,7 +525,7 @@ valid.push({
 valid.push({
   name: "Using an eslint-disable-next-line and a ts-ignore comment",
   code: `
-export function isLuaDebugEnabled(): boolean {
+export function foo(): boolean {
   // eslint-disable-next-line
   // @ts-ignore
   return package !== undefined;

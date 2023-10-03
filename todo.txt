@@ -5,7 +5,11 @@
   "do",
 - lint rule: insert line separator on: Disallow comments like: `/** *foo */` (format-jsdoc-comments line 75)
 - lint rule: if return type of function includes undefined in a union, don't allow void return
-- lint "//Z" trailing comments
+- files to update:
+  - plugin/constants.ts
+  - format-jsdoc-comments.ts
+  - variants.ts
+
 - investigate array vs set performance (also search for "O(1)" afterward)
 - error --> throw new Error
   - write plugin to handle table case
