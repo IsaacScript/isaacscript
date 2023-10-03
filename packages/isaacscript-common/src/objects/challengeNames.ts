@@ -8,7 +8,7 @@ export const CHALLENGE_NAMES = {
   [Challenge.HIGH_BROW]: "High Brow", // 2
   [Challenge.HEAD_TRAUMA]: "Head Trauma", // 3
   [Challenge.DARKNESS_FALLS]: "Darkness Falls", // 4
-  [Challenge.THE_TANK]: "The Tank", // 5
+  [Challenge.TANK]: "The Tank", // 5
   [Challenge.SOLAR_SYSTEM]: "Solar System", // 6
   [Challenge.SUICIDE_KING]: "Suicide King", // 7
   [Challenge.CAT_GOT_YOUR_TONGUE]: "Cat Got Your Tongue", // 8
@@ -21,8 +21,8 @@ export const CHALLENGE_NAMES = {
   [Challenge.SLOW_ROLL]: "Slow Roll", // 15
   [Challenge.COMPUTER_SAVY]: "Computer Savvy", // 16
   [Challenge.WAKA_WAKA]: "Waka Waka", // 17
-  [Challenge.THE_HOST]: "The Host", // 18
-  [Challenge.THE_FAMILY_MAN]: "The Family Man", // 19
+  [Challenge.HOST]: "The Host", // 18
+  [Challenge.FAMILY_MAN]: "The Family Man", // 19
   [Challenge.PURIST]: "Purist", // 20
   [Challenge.XXXXXXXXL]: "XXXXXXXXL", // 21
   [Challenge.SPEED]: "SPEED!", // 22
