@@ -1,7 +1,7 @@
 export enum BackdropType {
   BASEMENT = 1,
   CELLAR = 2,
-  BURNT_BASEMENT = 3,
+  BURNING_BASEMENT = 3,
   CAVES = 4,
   CATACOMBS = 5,
   FLOODED_CAVES = 6,
