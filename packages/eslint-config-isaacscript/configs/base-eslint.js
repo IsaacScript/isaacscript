@@ -644,8 +644,16 @@ const SUGGESTIONS = {
   /**
    * Partially superseded by `isaacscript/format-jsdoc-comments` and
    * `isaacscript/format-line-comments`, but those rules do not handle trailing line comments.
+   *
+   * The `markers` option is provided to make this rule ignore lines that start with "///".
    */
-  "spaced-comment": "error",
+  "spaced-comment": [
+    "error",
+    "always",
+    {
+      markers: ["/"],
+    },
+  ],
 
   /** The `never` option is provided to make the rule stricter. */
   strict: ["error", "never"],
