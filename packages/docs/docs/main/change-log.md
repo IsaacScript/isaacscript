@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
   - `getGridEntityANM2Path`
   - `getRockPNGPath`
   - `getVanillaCollectibleTypesOfQuality`
+  - `hasHoming`
 
 ## October 2nd, 2023
 
