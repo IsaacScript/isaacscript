@@ -38,7 +38,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
 
   // ModCallback.PRE_ENTITY_SPAWN (24)
   private readonly preEntitySpawn = ():
-    | [EntityType, int, int, int]
+    | [entityType: EntityType, variant: int, subType: int, initSeed: Seed]
     | undefined => {
     this.checkRoomChanged();
     return undefined;
