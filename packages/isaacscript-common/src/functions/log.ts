@@ -80,3 +80,14 @@ export function logAndPrint(msg: string): void {
   log(msg);
   print(msg);
 }
+
+/**
+ * Helper function to log an error message and also print it to the console for better visibility.
+ *
+ * This is useful in situations where using the `error` function would be dangerous (since it
+ * prevents all of the subsequent code in the callback from running).
+ */
+export function logError(this: void, msg: string): void {
+  const errorMsg = `Error: ${msg}`;
+  logAndPrint(errorMsg);
+}

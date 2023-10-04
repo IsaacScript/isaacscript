@@ -2,6 +2,7 @@ import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
+import { logError } from "./log";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 import { assertDefined } from "./utils";
@@ -155,8 +156,9 @@ export function setAllRNGToStartSeed(object: unknown): void {
 /** Helper function to set a seed to an RNG object using Blade's recommended shift index. */
 export function setSeed(rng: RNG, seed: Seed): void {
   if (seed === 0) {
-    error(
-      "You cannot set an RNG object to a seed of 0, or the game will crash.",
+    seed = getRandomSeed();
+    logError(
+      "Failed to set a RNG object to a seed of 0. Using a random value instead.",
     );
   }
 

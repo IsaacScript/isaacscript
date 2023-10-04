@@ -10,7 +10,7 @@ import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { isVanillaConsoleCommand } from "../../../functions/console";
 import { addFlag, bitFlags } from "../../../functions/flag";
-import { logError } from "../../../functions/logMisc";
+import { logError } from "../../../functions/log";
 import { getMapPartialMatch } from "../../../functions/string";
 import { assertDefined } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";

@@ -13,7 +13,7 @@ import {
   removeAllTears,
 } from "../../../functions/entitiesSpecific";
 import { isTear } from "../../../functions/isaacAPIClass";
-import { logError } from "../../../functions/logMisc";
+import { logError } from "../../../functions/log";
 import { useActiveItemTemp } from "../../../functions/playerCollectibles";
 import { getAllPlayers } from "../../../functions/playerIndex";
 import { getTSTLClassName } from "../../../functions/tstlClass";

@@ -22,7 +22,7 @@ import { getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { log, logAndPrint } from "./log";
+import { log } from "./log";
 import { getPlayerHealth } from "./playerHealth";
 import { getEffectsList, getPlayerName } from "./players";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
@@ -126,17 +126,6 @@ export function logEntityFlags(
 export function logEntityID(this: void, entity: Entity): void {
   const entityID = getEntityID(entity);
   log(`Logging entity: ${entityID}`);
-}
-
-/**
- * Helper function to log an error message and also print it to the console for better visibility.
- *
- * This is useful in situations where using the `error` function would be dangerous (since it
- * prevents all of the subsequent code in the callback from running).
- */
-export function logError(this: void, msg: string): void {
-  const errorMsg = `Error: ${msg}`;
-  logAndPrint(errorMsg);
 }
 
 /** Helper function for logging every flag that is turned on. Useful when debugging. */

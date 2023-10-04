@@ -1,6 +1,6 @@
 import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { logError } from "../../../functions/logMisc";
+import { logError } from "../../../functions/log";
 import { Feature } from "../../private/Feature";
 
 const v = {

@@ -20,7 +20,7 @@ import {
   getDoorSlotsForRoomShape,
 } from "../../../functions/doors";
 import { hasFlag, removeFlag } from "../../../functions/flag";
-import { logError } from "../../../functions/logMisc";
+import { logError } from "../../../functions/log";
 import { newRNG } from "../../../functions/rng";
 import { removeUrnRewards } from "../../../functions/rockAlt";
 import {

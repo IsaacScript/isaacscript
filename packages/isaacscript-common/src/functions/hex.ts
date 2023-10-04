@@ -1,4 +1,4 @@
-import { logError } from "./logMisc";
+import { logError } from "./log";
 
 const HEX_STRING_LENGTH = 6;
 

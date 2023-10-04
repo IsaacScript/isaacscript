@@ -1,6 +1,5 @@
 import { jsonDecode } from "../../../../functions/jsonHelpers";
-import { log } from "../../../../functions/log";
-import { logError } from "../../../../functions/logMisc";
+import { log, logError } from "../../../../functions/log";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
 import { isString, isTable } from "../../../../functions/types";

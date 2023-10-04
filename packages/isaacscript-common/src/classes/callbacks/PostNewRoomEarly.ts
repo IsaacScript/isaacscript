@@ -6,7 +6,7 @@ import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
 } from "../../functions/gridEntities";
-import { logError } from "../../functions/logMisc";
+import { logError } from "../../functions/log";
 import { shouldFireRoom } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
