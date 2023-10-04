@@ -1362,7 +1362,7 @@ export enum TrinketType {
   LUCKY_TOE = 42,
   CURSED_SKULL = 43,
   SAFETY_CAP = 44,
-  ACE_SPADES = 45,
+  ACE_OF_SPADES = 45,
   ISAACS_FORK = 46,
   // 47 is `POLAROID_OBSOLETE`.
   MISSING_PAGE = 48,
@@ -1374,7 +1374,7 @@ export enum TrinketType {
   ISAACS_HEAD = 54,
   MAGGYS_FAITH = 55,
   JUDAS_TONGUE = 56,
-  SOUL = 57,
+  BLUE_BABYS_SOUL = 57,
   SAMSONS_LOCK = 58,
   CAINS_EYE = 59,
   EVES_BIRD_FOOT = 60,
