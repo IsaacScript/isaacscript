@@ -373,6 +373,15 @@ export function hasForm(
   return playerForms.some((playerForm) => player.HasPlayerForm(playerForm));
 }
 
+/**
+ * Helper function to check if a player has homing tears.
+ *
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable for `TearFlag.HOMING` (1 << 2).
+ */
+export function hasHoming(player: EntityPlayer): boolean {
+  return hasFlag(player.TearFlags, TearFlag.HOMING);
+}
+
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
 export function hasLostCurse(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
@@ -382,7 +391,8 @@ export function hasLostCurse(player: EntityPlayer): boolean {
 /**
  * Helper function to check if a player has piercing tears.
  *
- * Under the hood, this checks the `EntityPlayer.TearFlags` variable.
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable for `TearFlag.PIERCING` (1 <<
+ * 1).
  */
 export function hasPiercing(player: EntityPlayer): boolean {
   return hasFlag(player.TearFlags, TearFlag.PIERCING);
@@ -391,7 +401,8 @@ export function hasPiercing(player: EntityPlayer): boolean {
 /**
  * Helper function to check if a player has spectral tears.
  *
- * Under the hood, this checks the `EntityPlayer.TearFlags` variable.
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable for `TearFlag.SPECTRAL` (1 <<
+ * 0).
  */
 export function hasSpectral(player: EntityPlayer): boolean {
   return hasFlag(player.TearFlags, TearFlag.SPECTRAL);
