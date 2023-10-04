@@ -108,3 +108,11 @@ export function getCommentBlocks(
 
   return commentBlocks;
 }
+
+export function allCommentsInBlockAreCommentedOutArrayElements(
+  commentBlock: LeadingLineCommentBlock,
+): boolean {
+  return commentBlock.originalComments.every(
+    (comment) => comment.value.match(/^\s*"[^"]*",\s*$/) !== null,
+  );
+}

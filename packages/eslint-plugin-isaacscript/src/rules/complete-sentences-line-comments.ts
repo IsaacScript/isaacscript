@@ -4,6 +4,7 @@ import { getIncompleteSentences } from "../completeSentence";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";
 import { assertDefined } from "../isaacScriptCommonTS";
 import {
+  allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
@@ -50,6 +51,11 @@ export const completeSentencesLineComments = createRule<
 
       const lastComment = commentBlock.originalComments.at(-1);
       assertDefined(lastComment, "Failed to get the last comment.");
+
+      // Commented out array elements are whitelisted.
+      if (allCommentsInBlockAreCommentedOutArrayElements(commentBlock)) {
+        continue;
+      }
 
       // Comments in-between "separator lines" are whitelisted.
       const previousCommentBlock = commentBlocks[i - 1];

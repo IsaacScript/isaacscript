@@ -1,8 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { formatText } from "../format";
 import { assertDefined } from "../isaacScriptCommonTS";
-import type { LeadingLineCommentBlock } from "../leadingLineComments";
 import {
+  allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
@@ -70,15 +70,16 @@ export const formatLineComments = createRule<Options, MessageIds>({
     const commentBlocks = getCommentBlocks(leadingLineComments);
 
     for (const commentBlock of commentBlocks) {
-      if (allCommentsInBlockAreCommentedOutArrayElements(commentBlock)) {
-        continue;
-      }
-
       const firstComment = commentBlock.originalComments.at(0);
       assertDefined(firstComment, "Failed to get the first comment.");
 
       const lastComment = commentBlock.originalComments.at(-1);
       assertDefined(lastComment, "Failed to get the last comment.");
+
+      // Commented out array elements are whitelisted.
+      if (allCommentsInBlockAreCommentedOutArrayElements(commentBlock)) {
+        continue;
+      }
 
       const leftWhitespaceLength = firstComment.loc.start.column;
       const leftWhitespace = " ".repeat(leftWhitespaceLength);
@@ -135,14 +136,6 @@ export const formatLineComments = createRule<Options, MessageIds>({
     return {};
   },
 });
-
-function allCommentsInBlockAreCommentedOutArrayElements(
-  commentBlock: LeadingLineCommentBlock,
-): boolean {
-  return commentBlock.originalComments.every(
-    (comment) => comment.value.match(/^\s*"[^"]*",\s*$/) !== null,
-  );
-}
 
 /**
  * Given an array of comments, transform the text back into how it would look in the real source

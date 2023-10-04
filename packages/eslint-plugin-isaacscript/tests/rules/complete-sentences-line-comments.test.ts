@@ -295,6 +295,19 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "Commented out array elements",
+  code: `
+const array = [
+  "try",
+  // "typeof",
+  // "var",
+  // "void",
+  // "volatile",
+];
+  `,
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,

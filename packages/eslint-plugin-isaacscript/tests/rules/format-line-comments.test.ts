@@ -617,9 +617,11 @@ valid.push({
   name: "Commented out array elements",
   code: `
 const array = [
-  "foo",
-  // "bar",
-  // "baz",
+  "try",
+  // "typeof",
+  // "var",
+  // "void",
+  // "volatile",
 ];
   `,
 });
