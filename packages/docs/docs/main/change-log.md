@@ -12,6 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## October 9th, 2023 (Unreleased)
 
 - Added the following helper functions:
+  - `getBossName`
   - `getChallengeCharacter`
   - `getGridEntityANM2Path`
   - `getRockPNGPath`

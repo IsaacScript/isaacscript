@@ -11,6 +11,7 @@ BLCK # BLCK CNDL seed
 bossambushroomdoor # door_09_bossambushroomdoor.png
 bossname # bossname_20.0_monstro.png
 bosspools # bosspools.xml
+bossportraits # bossportraits.xml
 bossroomdoor # door_10_bossroomdoor.png
 bossrushdoor # door_15_bossrushdoor.png
 cansacrifice # entities2.xml

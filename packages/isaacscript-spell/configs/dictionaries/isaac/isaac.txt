@@ -1,6 +1,7 @@
 # These are words that apply to Isaac modding in general.
 
 Antibirth
+Beelzeblub
 Begottens
 Bethanys
 Bonies

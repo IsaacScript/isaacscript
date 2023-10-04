@@ -4,6 +4,7 @@ import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP } from "../maps/entityTypeVariantToBossIDMap";
 import { BOSS_ID_TO_ENTITY_TYPE_VARIANT } from "../objects/bossIDToEntityTypeVariant";
+import { BOSS_NAMES, DEFAULT_BOSS_NAME } from "../objects/bossNames";
 import {
   ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
   ALL_BOSSES_SET,
@@ -107,6 +108,16 @@ export function getBossIDFromEntityTypeVariant(
 ): BossID | undefined {
   const entityTypeVariant = `${entityType}.${variant}`;
   return ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP.get(entityTypeVariant);
+}
+
+/**
+ * Helper function to get the proper English name for a boss. For example, the name for
+ * `BossID.WRETCHED` (36) is "The Wretched".
+ */
+export function getBossName(bossID: BossID): string {
+  // Handle modded boss IDs.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return BOSS_NAMES[bossID] ?? DEFAULT_BOSS_NAME;
 }
 
 /**

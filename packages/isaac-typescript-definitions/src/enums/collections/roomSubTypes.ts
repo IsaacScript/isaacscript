@@ -120,7 +120,14 @@ export enum BossID {
   SISTERS_VIS = 68,
   BIG_HORN = 69,
   DELIRIUM = 70,
-  // There is no boss ID with a value of 71.
+
+  /**
+   * Ultra Greedier does not have its own boss room; it appears in the normal Ultra Greed room. The
+   * `Room.GetBossID` function returns `BossID.ULTRA_GREED` (62) when fighting Ultra Greedier, but
+   * the boss ID can be successfully retrieved from the `Entity.GetBossID` method.
+   */
+  ULTRA_GREEDIER = 71,
+
   MATRIARCH = 72,
   PILE = 73,
   REAP_CREEP = 74,
@@ -173,6 +180,14 @@ export enum BossID {
 
   HORNY_BOYS = 101,
   CLUTCH = 102,
+
+  /**
+   * There is an entry for "Cadavra" in the "bossportraits.xml" file, but it is not present in the
+   * game.
+   *
+   * @see https://bindingofisaacrebirth.fandom.com/wiki/Cut_Content
+   */
+  // CADAVRA = 103,
 }
 
 /**
