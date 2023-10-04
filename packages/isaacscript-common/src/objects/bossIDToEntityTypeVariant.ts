@@ -259,7 +259,11 @@ export const BOSS_ID_TO_ENTITY_TYPE_VARIANT = {
   // 70
   [BossID.DELIRIUM]: [EntityType.DELIRIUM, 0],
 
-  // There is no boss ID with a value of 71.
+  // 71
+  [BossID.ULTRA_GREEDIER]: [
+    EntityType.ULTRA_GREED,
+    UltraGreedVariant.ULTRA_GREEDIER,
+  ],
 
   // 72
   [BossID.MATRIARCH]: [EntityType.MATRIARCH, 0],

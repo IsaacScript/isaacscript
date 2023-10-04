@@ -82,7 +82,7 @@ export const BOSS_NAMES = {
   [BossID.SISTERS_VIS]: "Sisters Vis", // 68
   [BossID.BIG_HORN]: "Big Horn", // 69
   [BossID.DELIRIUM]: "Delirium", // 70
-  // There is no `BossID` with a value of 71.
+  [BossID.ULTRA_GREEDIER]: "Ultra Greedier", // 71
   [BossID.MATRIARCH]: "The Matriarch", // 72
   [BossID.PILE]: "The Pile", // 73
   [BossID.REAP_CREEP]: "Reap Creep", // 74
