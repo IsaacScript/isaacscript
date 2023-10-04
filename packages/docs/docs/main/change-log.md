@@ -17,6 +17,9 @@ This page lists the changes to the IsaacScript framework.
   - `getRockPNGPath`
   - `getVanillaCollectibleTypesOfQuality`
   - `hasHoming`
+  - `inBigRoom`
+  - `isBigRoom`
+  - `isBigRoomShape`
 
 ## October 2nd, 2023
 

@@ -45,7 +45,7 @@ import {
   getRoomDescriptorReadOnly,
   getRoomGridIndex,
 } from "./roomData";
-import { isLRoomShape } from "./roomShape";
+import { isBigRoomShape, isLRoomShape } from "./roomShape";
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
 import { asNumber } from "./types";
@@ -316,6 +316,15 @@ export function inAngelShop(): boolean {
 export function inBeastRoom(): boolean {
   const roomData = getRoomData();
   return isBeastRoom(roomData);
+}
+
+/**
+ * Helper function to detect if the current room is big. Specifically, this is all 1x2 rooms, 2x2
+ * rooms, and L rooms.
+ */
+export function inBigRoom(): boolean {
+  const roomData = getRoomData();
+  return isBigRoom(roomData);
 }
 
 /**
@@ -599,6 +608,14 @@ export function isBeastRoom(roomData: RoomConfig): boolean {
     roomData.Type === RoomType.DUNGEON &&
     roomData.Subtype === asNumber(DungeonSubType.BEAST_ROOM)
   );
+}
+
+/**
+ * Helper function to detect if the provided room is big. Specifically, this is all 1x2 rooms, 2x2
+ * rooms, and L rooms.
+ */
+export function isBigRoom(roomData: RoomConfig): boolean {
+  return isBigRoomShape(roomData.Shape);
 }
 
 /**

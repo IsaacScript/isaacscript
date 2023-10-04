@@ -10,6 +10,7 @@ import { ROOM_SHAPE_TO_GRID_WIDTH } from "../objects/roomShapeToGridWidth";
 import { ROOM_SHAPE_TO_TOP_LEFT_POSITION } from "../objects/roomShapeToTopLeftPosition";
 import { ROOM_SHAPE_VOLUMES } from "../objects/roomShapeVolumes";
 import { L_ROOM_SHAPES_SET } from "../sets/LRoomShapesSet";
+import { BIG_ROOM_SHAPES_SET } from "../sets/bigRoomShapesSet";
 import { NARROW_ROOM_SHAPES_SET } from "../sets/narrowRoomShapesSet";
 
 /**
@@ -107,6 +108,14 @@ export function getRoomShapeVolume(roomShape: RoomShape): int {
 
 export function getRoomShapeWidth(roomShape: RoomShape): int {
   return ROOM_SHAPE_TO_GRID_WIDTH[roomShape];
+}
+
+/**
+ * Helper function to detect if the provided room shape is big. Specifically, this is all 1x2 rooms,
+ * 2x2 rooms, and L rooms.
+ */
+export function isBigRoomShape(roomShape: RoomShape): boolean {
+  return BIG_ROOM_SHAPES_SET.has(roomShape);
 }
 
 export function isLRoomShape(roomShape: RoomShape): boolean {
