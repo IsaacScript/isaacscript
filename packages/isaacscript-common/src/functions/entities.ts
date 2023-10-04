@@ -9,7 +9,7 @@ import type { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
 import { newReadonlyColor } from "./readOnly";
-import { isRNG, newRNG } from "./rng";
+import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { isTSTLSet } from "./tstlClass";
 import { isPrimitive } from "./types";
@@ -536,7 +536,8 @@ export function setEntityOpacity(entity: Entity, alpha: float): void {
 }
 
 export function setEntityRandomColor(entity: Entity): void {
-  const rng = newRNG(entity.InitSeed);
+  const seed = entity.InitSeed === 0 ? getRandomSeed() : entity.InitSeed;
+  const rng = newRNG(seed);
 
   const r = getRandom(rng);
   const g = getRandom(rng);
