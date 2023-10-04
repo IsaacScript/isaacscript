@@ -204,7 +204,9 @@ declare global {
         velocity: Vector,
         spawner: Entity | undefined,
         initSeed: Seed,
-      ) => [EntityType, int, int, int] | undefined,
+      ) =>
+        | [entityType: EntityType, variant: int, subType: int, initSeed: Seed]
+        | undefined,
     ];
 
     // 25
@@ -528,8 +530,10 @@ declare global {
         variant: int,
         subType: int,
         gridIndex: int,
-        seed: Seed,
-      ) => [EntityType | GridEntityXMLType, int, int] | undefined,
+        initSeed: Seed,
+      ) =>
+        | [type: EntityType | GridEntityXMLType, variant: int, subType: int]
+        | undefined,
     ];
 
     // 72

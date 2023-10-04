@@ -2402,7 +2402,7 @@ export enum ModCallbackCustom {
    *   velocity: Vector,
    *   spawner: Entity | undefined,
    *   initSeed: Seed,
-   * ): [entityType: EntityType, variant: int, subType: int, seed: int] | undefined {}
+   * ): [entityType: EntityType, variant: int, subType: int, initSeed: Seed] | undefined {}
    * ```
    */
   PRE_ENTITY_SPAWN_FILTER,

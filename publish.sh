@@ -111,7 +111,7 @@ npx syncpack fix-mismatches --types prod,dev
 bash "$DIR/packages/isaacscript-lint/update.sh"
 
 if ! is_git_repo_clean; then
-  git commit --all --message "chore: updating dependencies"
+  git add --all && git commit --message "chore: updating dependencies"
 fi
 
 git push --set-upstream origin main
