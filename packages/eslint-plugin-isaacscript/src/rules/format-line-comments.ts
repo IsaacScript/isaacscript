@@ -1,13 +1,13 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { formatText } from "../format";
 import { assertDefined } from "../isaacScriptCommonTS";
+import type { LeadingLineCommentBlock } from "../leadingLineComments";
 import {
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
 import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
-const RULE_NAME = "format-line-comments";
 const SLASH_SLASH = "//";
 const DEBUG = false as boolean;
 
@@ -20,7 +20,7 @@ export type Options = [
 export type MessageIds = "incorrectlyFormatted";
 
 export const formatLineComments = createRule<Options, MessageIds>({
-  name: RULE_NAME,
+  name: "format-line-comments",
   meta: {
     type: "layout",
     docs: {
@@ -70,6 +70,10 @@ export const formatLineComments = createRule<Options, MessageIds>({
     const commentBlocks = getCommentBlocks(leadingLineComments);
 
     for (const commentBlock of commentBlocks) {
+      if (allCommentsInBlockAreCommentedOutArrayElements(commentBlock)) {
+        continue;
+      }
+
       const firstComment = commentBlock.originalComments.at(0);
       assertDefined(firstComment, "Failed to get the first comment.");
 
@@ -131,6 +135,14 @@ export const formatLineComments = createRule<Options, MessageIds>({
     return {};
   },
 });
+
+function allCommentsInBlockAreCommentedOutArrayElements(
+  commentBlock: LeadingLineCommentBlock,
+): boolean {
+  return commentBlock.originalComments.every(
+    (comment) => comment.value.match(/^\s*"[^"]*",\s*$/) !== null,
+  );
+}
 
 /**
  * Given an array of comments, transform the text back into how it would look in the real source

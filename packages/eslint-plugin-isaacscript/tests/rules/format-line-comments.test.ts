@@ -613,6 +613,17 @@ invalid.push({
   `,
 });
 
+valid.push({
+  name: "Commented out array elements",
+  code: `
+const array = [
+  "foo",
+  // "bar",
+  // "baz",
+];
+  `,
+});
+
 ruleTester.run("format-line-comments", formatLineComments, {
   valid,
   invalid,

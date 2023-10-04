@@ -23,7 +23,7 @@ export function getLeadingLineComments(
  * // The second line of the block.
  * ```
  */
-interface LeadingLineCommentBlock {
+export interface LeadingLineCommentBlock {
   mergedText: string;
   originalComments: TSESTree.Comment[];
 }
