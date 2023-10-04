@@ -8,7 +8,7 @@ import {
 import { sfxManager } from "../../../core/cachedClasses";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { removeCollectibleFromItemTracker } from "../../../functions/external";
+import { rebirthItemTrackerRemoveCollectible } from "../../../functions/external";
 import { log, logError } from "../../../functions/log";
 import {
   getPlayerFromIndex,
@@ -194,7 +194,7 @@ export class CustomRevive extends Feature {
     this.logStateChanged();
 
     player.AddCollectible(CollectibleType.ONE_UP, 0, false);
-    removeCollectibleFromItemTracker(CollectibleType.ONE_UP);
+    rebirthItemTrackerRemoveCollectible(CollectibleType.ONE_UP);
 
     // The player should always be dead one frame from now. If they are not, then something has gone
     // wrong, probably with the `isDamageToPlayerFatal` function. Since end-user code is already

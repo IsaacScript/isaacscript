@@ -21,6 +21,8 @@ This page lists the changes to the IsaacScript framework.
   - `inBigRoom`
   - `isBigRoom`
   - `isBigRoomShape`
+- Renamed the following helper functions:
+  - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
 
 ## October 2nd, 2023
 
