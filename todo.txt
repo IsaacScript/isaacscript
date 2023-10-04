@@ -1,13 +1,3 @@
-- lint: allow array like:
-  "continue",
-  // "debugger",
-  // "default",
-  "do",
-- lint rule: insert line separator on: Disallow comments like: `/** *foo */` (format-jsdoc-comments line 75)
-- files to update:
-  - plugin/constants.ts
-  - format-jsdoc-comments.ts
-  - variants.ts
 - lint rule: if return type of function includes undefined in a union, don't allow void return
 - lint rule: don't allow `return` or `return undefined` when return type of function is void
 
