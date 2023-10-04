@@ -11,9 +11,12 @@ import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../sets/itemConfigCardType
 import { addFlag } from "./flag";
 
 /**
- * Helper function to get a card description from a Card enum value.
+ * Helper function to get a card description from a `CardType` value. Returns "Unknown" if the
+ * provided card type is not valid.
  *
- * For example, `getCardDescription(card)` returns "Where journey begins".
+ * This function works for both vanilla and modded trinkets.
+ *
+ * For example, `getCardDescription(CardType.FOOL)` would return "Where journey begins".
  */
 export function getCardDescription(cardType: CardType): string {
   // "ItemConfigCard.Description" is bugged with vanilla cards on patch v1.7.6, so we use a
@@ -77,11 +80,12 @@ export function getItemConfigCardType(
 }
 
 /**
- * Returns true for cards that have the following card type:
- * - CardType.TAROT
- * - CardType.SUIT
- * - CardType.SPECIAL
- * - CardType.TAROT_REVERSE
+ * Returns true for card types that have the following item config card type:
+ *
+ * - `ItemConfigCardType.TAROT` (0)
+ * - `ItemConfigCardType.SUIT` (1)
+ * - `ItemConfigCardType.SPECIAL` (3)
+ * - `ItemConfigCardType.TAROT_REVERSE` (5)
  */
 export function isCard(cardType: CardType): boolean {
   const itemConfigCardType = getItemConfigCardType(cardType);
@@ -100,42 +104,41 @@ export function isCardType(
   return itemConfigCardType === getItemConfigCardType(cardType);
 }
 
-/** Returns true for any card or rune added by a mod. */
+/** Returns true for any card type added by a mod. */
 export function isModdedCardType(cardType: CardType): boolean {
   return !isVanillaCardType(cardType);
 }
 
-/** Returns true for cards that have `ItemConfigCardType.SPECIAL_OBJECT`. */
+/** Returns true for card types that have `ItemConfigCardType.SPECIAL_OBJECT`. */
 export function isPocketItemObject(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.SPECIAL_OBJECT);
 }
 
-/** Returns true for cards that have `ItemConfigCardType.TAROT_REVERSE`. */
+/** Returns true for card types that have `ItemConfigCardType.TAROT_REVERSE`. */
 export function isReverseTarotCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.TAROT_REVERSE);
 }
 
-/** Returns true for cards that have `ItemConfigCardType.RUNE`. */
+/** Returns true for card types that have `ItemConfigCardType.RUNE`. */
 export function isRune(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.RUNE);
 }
 
-/** Returns true for cards that have `ItemConfigCardType.SPECIAL`. */
+/** Returns true for card types that have `ItemConfigCardType.SPECIAL`. */
 export function isSpecialCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.SPECIAL);
 }
 
-/** Returns true for cards that have `ItemConfigCardType.SUIT`. */
+/** Returns true for card types that have `ItemConfigCardType.SUIT`. */
 export function isSuitCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.SUIT);
 }
 
-/** Returns true for cards that have `ItemConfigCardType.TAROT`. */
+/** Returns true for card types that have `ItemConfigCardType.TAROT`. */
 export function isTarotCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.TAROT);
 }
 
-/** Returns true for any vanilla card or rune. */
 export function isVanillaCardType(cardType: CardType): boolean {
   return cardType <= LAST_VANILLA_CARD_TYPE;
 }
