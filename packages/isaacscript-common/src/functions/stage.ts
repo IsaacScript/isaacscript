@@ -181,7 +181,14 @@ export function getStageType(): StageType {
   return level.GetStageType();
 }
 
-/** Helper function to directly warp to a specific stage using the "stage" console command. */
+/**
+ * Helper function to directly warp to a specific stage using the "stage" console command.
+ *
+ * Note that if you use this function on game frame 0, it will confuse the
+ * `POST_GAME_STARTED_REORDERED`, `POST_NEW_LEVEL_REORDERED`, and `POST_NEW_ROOM_REORDERED` custom
+ * callbacks. If you are using the function in this situation, remember to call the
+ * `reorderedCallbacksSetStage` function.
+ */
 export function goToStage(stage: LevelStage, stageType: StageType): void {
   const stageTypeLetterSuffix = stageTypeToLetter(stageType);
   const command = `stage ${stage}${stageTypeLetterSuffix}`;
