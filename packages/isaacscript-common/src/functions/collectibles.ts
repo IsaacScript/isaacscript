@@ -47,7 +47,7 @@ const GLITCHED_ITEM_THRESHOLD = 4_000_000_000;
 
 const QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP: ReadonlyMap<
   Quality,
-  Set<CollectibleType>
+  ReadonlySet<CollectibleType>
 > = (() => {
   const qualityToCollectibleTypesMap = new Map<Quality, Set<CollectibleType>>();
 
