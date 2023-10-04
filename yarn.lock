@@ -12113,7 +12113,7 @@ __metadata:
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
-    knip: ^2.30.0
+    knip: ^2.30.1
     lua-types: ^2.13.1
     markdownlint: ^0.31.1
     markdownlint-cli: ^0.37.0
@@ -12161,7 +12161,7 @@ __metadata:
     typedoc-plugin-markdown: ^3.16.0
     typedoc-plugin-rename: ^1.0.1
     typescript: ^5.2.2
-    typescript-to-lua: ^1.20.0
+    typescript-to-lua: ^1.20.1
     unified: 9.2.2
     xml2js: ^0.6.2
     yaml: ^2.3.2
@@ -13176,9 +13176,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.30.0":
-  version: 2.30.0
-  resolution: "knip@npm:2.30.0"
+"knip@npm:^2.30.1":
+  version: 2.30.1
+  resolution: "knip@npm:2.30.1"
   dependencies:
     "@ericcornelissen/bash-parser": ^0.5.2
     "@npmcli/map-workspaces": ^3.0.4
@@ -13199,7 +13199,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: 423bf77f9f426e496fe6e614ca74133af14cd04fe9b7f47694b0b93c741d62cb7114036de1fe9fbb61e789a44525b66934ccf1d637b699a9817ba6eff2c0ef07
+  checksum: 1067e63cb07d30a9d429392fee8912ba4308f5fa373065bca7992e7a6479baf6878eb44b4e828b1cdc066f2bd6aacdfba84cb5b4d589009a049fa3bec92e0239
   languageName: node
   linkType: hard
 
@@ -20475,9 +20475,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-to-lua@npm:^1.20.0":
-  version: 1.20.0
-  resolution: "typescript-to-lua@npm:1.20.0"
+"typescript-to-lua@npm:^1.20.1":
+  version: 1.20.1
+  resolution: "typescript-to-lua@npm:1.20.1"
   dependencies:
     "@typescript-to-lua/language-extensions": 1.19.0
     enhanced-resolve: ^5.8.2
@@ -20488,7 +20488,7 @@ __metadata:
     typescript: 5.2.2
   bin:
     tstl: dist/tstl.js
-  checksum: 2332117db193aa843d5b010a3b1e5d4416f2a253ad505a08c05c44e0f702f43316493557d8371f45a6ed3caa7e28ca86bfe108be32f3514fedc46413341c178a
+  checksum: 7fc396964c87b60ea2fd6be74bf54d34fb036093a265857e742cacaa9ad593890d952745ecd855a425f2932bb8b14a758981a246042863821d3da3273f623059
   languageName: node
   linkType: hard
 
