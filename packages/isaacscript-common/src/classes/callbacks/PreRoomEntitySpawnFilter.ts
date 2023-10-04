@@ -45,7 +45,13 @@ export class PreRoomEntitySpawnFilter extends CustomCallback<T> {
     variant: int,
     subType: int,
     gridIndex: int,
-    seed: Seed,
+    initSeed: Seed,
   ) =>
-    this.fire(entityTypeOrGridEntityXMLType, variant, subType, gridIndex, seed);
+    this.fire(
+      entityTypeOrGridEntityXMLType,
+      variant,
+      subType,
+      gridIndex,
+      initSeed,
+    );
 }
