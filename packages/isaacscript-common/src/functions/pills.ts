@@ -23,6 +23,7 @@ import {
   DEFAULT_PILL_EFFECT_NAME,
   PILL_EFFECT_NAMES,
 } from "../objects/pillEffectNames";
+import { PILL_EFFECT_TYPE_TO_PILL_EFFECTS } from "../objects/pillEffectTypeToPillEffects";
 import {
   DEFAULT_PILL_EFFECT_TYPE,
   PILL_EFFECT_TYPES,
@@ -188,11 +189,17 @@ export function getPillEffectType(
 ): ItemConfigPillEffectType {
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
-  const pillEffectClass = PILL_EFFECT_TYPES[pillEffect];
+  const pillEffectType = PILL_EFFECT_TYPES[pillEffect];
 
   // Handle modded pill effects.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return pillEffectClass ?? DEFAULT_PILL_EFFECT_TYPE;
+  return pillEffectType ?? DEFAULT_PILL_EFFECT_TYPE;
+}
+
+export function getVanillaPillEffectsOfType(
+  pillEffectType: ItemConfigPillEffectType,
+): readonly PillEffect[] {
+  return PILL_EFFECT_TYPE_TO_PILL_EFFECTS[pillEffectType];
 }
 
 /** Helper function to see if the given pill color is either a gold pill or a horse gold pill. */
