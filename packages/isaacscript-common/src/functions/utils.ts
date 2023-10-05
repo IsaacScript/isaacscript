@@ -22,6 +22,25 @@ export function assertDefined<T>(
 }
 
 /**
+ * Helper function to throw an error (using the `error` Lua function) if the provided value is equal
+ * to `null`.
+ *
+ * This is useful to have TypeScript narrow a `T | null` value to `T` in a concise way.
+ */
+export function assertNotNull<T>(
+  value: T,
+  ...[msg]: [null] extends [T]
+    ? [string]
+    : [
+        "The assertion is useless because the provided value does not contain null.",
+      ]
+): asserts value is Exclude<T, null> {
+  if (value === null) {
+    error(msg);
+  }
+}
+
+/**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
  * end and exclusive on the high end. (The "e" in the function name stands for exclusive.) Thus,
  * this function works in a similar way as the built-in `range` function from Python.
