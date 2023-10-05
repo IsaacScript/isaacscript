@@ -10,6 +10,8 @@ import {
   ALL_BOSSES_SET,
   STAGE_TO_COMBINED_BOSS_SET_MAP,
   STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
+  STORY_BOSS_ENTITY_TYPES_SET,
+  STORY_BOSS_IDS_SET,
 } from "../sets/bossSets";
 import { REPENTANCE_ONLY_BOSS_IDS_SET } from "../sets/repentanceBossIDsSet";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
@@ -190,6 +192,11 @@ export function isRepentanceBoss(bossID: BossID): boolean {
   return REPENTANCE_ONLY_BOSS_IDS_SET.has(bossID);
 }
 
+/** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
+export function isSin(npc: EntityNPC): boolean {
+  return SIN_ENTITY_TYPES_SET.has(npc.Type);
+}
+
 function getNumBossSegments(
   entityType: EntityType,
   variant: int,
@@ -223,9 +230,22 @@ function getNumBossSegments(
   }
 }
 
-/** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
-export function isSin(npc: EntityNPC): boolean {
-  return SIN_ENTITY_TYPES_SET.has(npc.Type);
+/**
+ * Helper function to determine if the specified entity type is an end-game story boss, like Isaac,
+ * Blue Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only
+ * apply to non-story bosses, like Vanishing Twin.
+ */
+export function isStoryBoss(entityType: EntityType): boolean {
+  return STORY_BOSS_ENTITY_TYPES_SET.has(entityType);
+}
+
+/**
+ * Helper function to determine if the specified boss ID is an end-game story boss, like Isaac, Blue
+ * Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only apply
+ * to non-story bosses, like Vanishing Twin.
+ */
+export function isStoryBossID(bossID: BossID): boolean {
+  return STORY_BOSS_IDS_SET.has(bossID);
 }
 
 /**

@@ -1,4 +1,9 @@
-import { BossID, LevelStage, StageType } from "isaac-typescript-definitions";
+import {
+  BossID,
+  EntityType,
+  LevelStage,
+  StageType,
+} from "isaac-typescript-definitions";
 import { BOSS_IDS } from "../arrays/cachedEnumValues";
 import { combineSets } from "../functions/set";
 import { ReadonlyMap } from "../types/ReadonlyMap";
@@ -533,7 +538,7 @@ export const ALL_BOSSES_SET = new ReadonlySet<BossID>(
   BOSS_IDS.filter((bossID) => bossID !== BossID.RAGLICH),
 );
 
-const STORY_BOSS_IDS_SET = new ReadonlySet([
+export const STORY_BOSS_IDS_SET = new ReadonlySet([
   BossID.MOM, // 6
   BossID.MOMS_HEART, // 8
   BossID.SATAN, // 24
@@ -551,6 +556,22 @@ const STORY_BOSS_IDS_SET = new ReadonlySet([
   BossID.MAUSOLEUM_MOMS_HEART, // 90
   BossID.DOGMA, // 99
   BossID.BEAST, // 100
+]);
+
+export const STORY_BOSS_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
+  EntityType.MOM, // 45
+  EntityType.MOMS_HEART, // 78
+  EntityType.SATAN, // 84
+  EntityType.ISAAC, // 102
+  EntityType.LAMB, // 273
+  EntityType.MEGA_SATAN, // 274
+  EntityType.MEGA_SATAN_2, // 275
+  EntityType.ULTRA_GREED, // 406 (includes Ultra Greedier)
+  EntityType.HUSH, // 407
+  EntityType.DELIRIUM, // 412
+  EntityType.MOTHER, // 912
+  EntityType.DOGMA, // 950
+  EntityType.BEAST, // 951
 ]);
 
 export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET = new ReadonlySet(
