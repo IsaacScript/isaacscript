@@ -82,6 +82,7 @@ teammeatfont # font
 tearcolor # items.xml
 tearsup # items_metadata.xml
 thesadonion # collectibles_001_thesadonion.png
+titlemenu # titlemenu.png
 treasureroomdoor # door_02_treasureroomdoor.png
 uniquefamiliar # items_metadata.xml
 versusscreen # versusscreen.anm2
