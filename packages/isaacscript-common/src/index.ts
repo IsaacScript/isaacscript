@@ -195,4 +195,5 @@ export * from "./types/TupleWithMaxLength";
 export * from "./types/UnionToIntersection";
 export * from "./types/UppercaseKeys";
 export * from "./types/WeightedArray";
+export * from "./types/WidenLiteral";
 export * from "./types/Writable";

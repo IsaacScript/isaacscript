@@ -1,4 +1,5 @@
 import { ReadonlySet } from "../types/ReadonlySet";
+import type { WidenLiteral } from "../types/WidenLiteral";
 import { getRandomInt } from "./random";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { isNumber, isTable } from "./types";
@@ -464,6 +465,20 @@ export function getRandomArrayIndex<T>(
   }
 
   return getRandomInt(0, array.length - 1, seedOrRNG, exceptions);
+}
+
+/**
+ * Similar to the `Array.includes` method, but works on a widened version of the array.
+ *
+ * This is useful when the normal `Array.includes` produces a type error from an array that uses an
+ * `as const` assertion.
+ */
+export function includes<T, S extends WidenLiteral<T>>(
+  haystack: readonly S[],
+  needle: WidenLiteral<T>,
+): needle is S {
+  const _haystack: ReadonlyArray<WidenLiteral<T>> = haystack;
+  return _haystack.includes(needle);
 }
 
 /**

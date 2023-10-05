@@ -58,17 +58,7 @@ export function forEach<T>(
   array.forEach(func); // eslint-disable-line unicorn/no-array-for-each
 }
 
-/**
- * Helper function for non-TypeScript users to check if an element is in an array.
- *
- * Since this takes O(N) time, using this function is usually a mistake, since you can use a `Set`
- * data structure to get O(1) lookups.
- *
- * Internally, this just calls `array.includes`.
- */
-export function includes<T>(array: T[], element: T): boolean {
-  return array.includes(element);
-}
+// `includes` is not included since there is a normal array helper function of that name.
 
 /**
  * Helper function for non-TypeScript users to convert an array to a string with the specified

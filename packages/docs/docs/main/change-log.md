@@ -23,6 +23,8 @@ This page lists the changes to the IsaacScript framework.
   - `isBigRoomShape`
 - Renamed the following helper functions:
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
+- Added the following helper types:
+  - `WidenLiteral`
 
 ## October 2nd, 2023
 
