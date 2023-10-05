@@ -5,7 +5,7 @@ import type {
 } from "isaac-typescript-definitions";
 import {
   CHALLENGE_BOSSES,
-  DEFAULT_CHALLENGE_BOSS,
+  DEFAULT_CHALLENGE_BOSS_ID,
 } from "../objects/challengeBosses";
 import {
   CHALLENGE_CHARACTERS,
@@ -25,10 +25,10 @@ import {
  * but this is not actually the final boss. (There is no final boss for this challenge.)
  */
 export function getChallengeBoss(challenge: Challenge): BossID {
-  const challengeCharacter = CHALLENGE_BOSSES[challenge];
+  const challengeBossID = CHALLENGE_BOSSES[challenge];
   // Handle modded challenges.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return challengeCharacter ?? DEFAULT_CHALLENGE_BOSS;
+  return challengeBossID ?? DEFAULT_CHALLENGE_BOSS_ID;
 }
 
 /**

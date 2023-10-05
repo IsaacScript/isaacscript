@@ -1,6 +1,6 @@
 import { BossID, Challenge } from "isaac-typescript-definitions";
 
-export const DEFAULT_CHALLENGE_BOSS = BossID.MOM;
+export const DEFAULT_CHALLENGE_BOSS_ID = BossID.MOM;
 
 /**
  * Taken from the "challenges.xml" file.
