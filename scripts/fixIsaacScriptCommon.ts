@@ -160,7 +160,7 @@ custom_edit_url: null
 
 # Extra Callbacks
 
-See the [ModCallbackCustom](other/enums/ModCallbackCustom) enum.
+See the [ModCallbackCustom](/isaacscript-common/other/enums/ModCallbackCustom) enum.
   `
     .trim()
     .concat("\n");
