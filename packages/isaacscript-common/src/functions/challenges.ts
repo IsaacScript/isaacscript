@@ -1,4 +1,12 @@
-import type { Challenge, PlayerType } from "isaac-typescript-definitions";
+import type {
+  BossID,
+  Challenge,
+  PlayerType,
+} from "isaac-typescript-definitions";
+import {
+  CHALLENGE_BOSSES,
+  DEFAULT_CHALLENGE_BOSS,
+} from "../objects/challengeBosses";
 import {
   CHALLENGE_CHARACTERS,
   DEFAULT_CHALLENGE_CHARACTER,
@@ -7,6 +15,21 @@ import {
   CHALLENGE_NAMES,
   DEFAULT_CHALLENGE_NAME,
 } from "../objects/challengeNames";
+
+/**
+ * Get the final boss of a challenge. This will only work for vanilla challenges.
+ *
+ * For modded challenges, `BossID.MOM` (6) will be returned.
+ *
+ * Note that for `Challenge.BACKASSWARDS` (31), this function will return `BossID.MEGA_SATAN` (55),
+ * but this is not actually the final boss. (There is no final boss for this challenge.)
+ */
+export function getChallengeBoss(challenge: Challenge): BossID {
+  const challengeCharacter = CHALLENGE_BOSSES[challenge];
+  // Handle modded challenges.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return challengeCharacter ?? DEFAULT_CHALLENGE_BOSS;
+}
 
 /**
  * Get the starting character of a challenge. This will only work for vanilla challenges.
