@@ -24,6 +24,8 @@ This page lists the changes to the IsaacScript framework.
   - `isBigRoomShape`
 - Renamed the following helper functions:
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
+- Added the following constants:
+  - `MAX_QUALITY`
 - Added the following helper types:
   - `WidenLiteral`
 - Added the following custom commands:

@@ -297,6 +297,7 @@ export const ONE_BY_ONE_ROOM_GRID_SIZE = 135;
  */
 // eslint-disable-next-line isaacscript/require-capital-const-assertions
 export const QUALITIES: readonly Quality[] = [0, 1, 2, 3, 4];
+export const MAX_QUALITY: Quality = 4;
 
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
