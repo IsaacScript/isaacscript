@@ -2187,6 +2187,13 @@ export enum HeavenLightDoorSubType {
   MOONLIGHT = 1,
 }
 
+/** For `EntityType.EFFECT` (1000), `EffectVariant.CARPET` (74). */
+export enum CarpetSubType {
+  ISAACS_CARPET = 0,
+  MOMS_CARPET_1 = 1,
+  MOMS_CARPET_2 = 2,
+}
+
 /** For `EntityType.EFFECT` (1000), `EffectVariant.DICE_FLOOR` (76). */
 export enum DiceFloorSubType {
   /** Has the same effect as using a D4. */
