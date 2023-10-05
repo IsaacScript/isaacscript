@@ -1791,3 +1791,8 @@ export function warp(params: string): void {
 
   warpToRoomType(roomType);
 }
+
+/** Alias for the "labyrinth" command. */
+export function xl(): void {
+  labyrinth();
+}

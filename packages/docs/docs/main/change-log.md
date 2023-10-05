@@ -26,6 +26,8 @@ This page lists the changes to the IsaacScript framework.
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
 - Added the following helper types:
   - `WidenLiteral`
+- Added the following custom commands:
+  - `xl` (alias for "labyrinth")
 
 ## October 2nd, 2023
 
