@@ -24,8 +24,8 @@ const REBIRTH_ITEM_TRACKER_WRITE_TO_FILE_COMMAND =
  *
  * Note that calling this function is not normally necessary when removing collectibles from
  * players. For example, when you remove a collectible with the `EntityPlayer.RemoveCollectible`
- * method, a proper message is sent to the log file by the game the item tracker will automatically
- * remove it. However, in some cases, this function can be useful:
+ * method, a message is sent to the log file by the game and the item tracker will automatically
+ * remove it. However, in some cases, manually removing collectibles can be useful:
  *
  * - We may be giving the player a "fake" collectible (e.g. 1-Up for the purposes of an extra life)
  *   and do not want the fake collectible to show up on the tracker.
