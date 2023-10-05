@@ -5,6 +5,7 @@
  */
 
 import type { CollectibleType } from "isaac-typescript-definitions";
+import { getCollectibleName } from "./collectibles";
 
 const REBIRTH_ITEM_TRACKER_REMOVE_COLLECTIBLE_COMMAND =
   "REBIRTH_ITEM_TRACKER_REMOVE_COLLECTIBLE";
@@ -41,8 +42,9 @@ export function rebirthItemTrackerRemoveCollectible(
   for (const collectibleType of collectibleTypes) {
     // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker
     // from recognizing the message.
+    const collectibleName = getCollectibleName(collectibleType);
     Isaac.DebugString(
-      `${REBIRTH_ITEM_TRACKER_REMOVE_COLLECTIBLE_COMMAND} ${collectibleType}`,
+      `${REBIRTH_ITEM_TRACKER_REMOVE_COLLECTIBLE_COMMAND} Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
     );
   }
 }
