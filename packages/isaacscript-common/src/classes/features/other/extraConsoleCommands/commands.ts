@@ -1265,6 +1265,7 @@ export function seedStick(): void {
   const seedsClass = game.GetSeeds();
   const startSeedString = seedsClass.GetStartSeedString();
   Isaac.ExecuteCommand(`seed ${startSeedString}`);
+  print(`Sticking to seed: ${startSeedString}`);
 }
 
 /** Logs all of the current run's seed effects to the "log.txt" file. */
