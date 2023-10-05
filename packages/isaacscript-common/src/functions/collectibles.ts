@@ -392,7 +392,7 @@ export function getCollectiblePedestalType(
  */
 export function getCollectibleQuality(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,
-): int {
+): Quality {
   const collectibleType = getCollectibleTypeFromArg(
     collectibleOrCollectibleType,
     "getCollectibleQuality",
