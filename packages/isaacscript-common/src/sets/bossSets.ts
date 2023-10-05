@@ -545,6 +545,7 @@ const STORY_BOSS_IDS_SET = new ReadonlySet([
   BossID.ULTRA_GREED, // 62
   BossID.HUSH, // 63
   BossID.DELIRIUM, // 70
+  BossID.ULTRA_GREEDIER, // 71
   BossID.MOTHER, // 88
   BossID.MAUSOLEUM_MOM, // 89
   BossID.MAUSOLEUM_MOMS_HEART, // 90

@@ -61,6 +61,7 @@ export function getAliveBosses(
  *
  * This includes:
  * - Ultra Greed
+ * - Ultra Greedier
  *
  * This does not include:
  * - mini-bosses (e.g. Ultra Pride, Krampus)
