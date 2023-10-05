@@ -473,12 +473,12 @@ export function getRandomArrayIndex<T>(
  * This is useful when the normal `Array.includes` produces a type error from an array that uses an
  * `as const` assertion.
  */
-export function includes<T, S extends WidenLiteral<T>>(
-  haystack: readonly S[],
-  needle: WidenLiteral<T>,
-): needle is S {
-  const _haystack: ReadonlyArray<WidenLiteral<T>> = haystack;
-  return _haystack.includes(needle);
+export function includes<T, TupleElement extends WidenLiteral<T>>(
+  array: readonly TupleElement[],
+  searchElement: WidenLiteral<T>,
+): searchElement is TupleElement {
+  const widenedArray: ReadonlyArray<WidenLiteral<T>> = array;
+  return widenedArray.includes(searchElement);
 }
 
 /**
