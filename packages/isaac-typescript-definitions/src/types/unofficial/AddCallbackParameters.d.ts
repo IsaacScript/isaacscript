@@ -126,7 +126,7 @@ declare global {
     [ModCallback.POST_CURSE_EVAL]: [
       callback: (
         curses: BitFlags<LevelCurse>,
-      ) => BitFlags<LevelCurse> | undefined,
+      ) => BitFlags<LevelCurse> | LevelCurse | undefined,
     ];
 
     // 13

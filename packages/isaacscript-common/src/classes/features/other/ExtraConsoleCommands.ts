@@ -152,7 +152,7 @@ export class ExtraConsoleCommands extends Feature {
   // ModCallback.POST_CURSE_EVAL (12)
   private readonly postCurseEval = (
     curses: BitFlags<LevelCurse>,
-  ): BitFlags<LevelCurse> | undefined => {
+  ): BitFlags<LevelCurse> | LevelCurse | undefined => {
     if (v.persistent.disableCurses) {
       return bitFlags(LevelCurse.NONE);
     }

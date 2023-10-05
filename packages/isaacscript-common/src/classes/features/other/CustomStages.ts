@@ -258,7 +258,7 @@ export class CustomStages extends Feature {
   // ModCallback.POST_CURSE_EVAL (12)
   private readonly postCurseEval = (
     curses: BitFlags<LevelCurse>,
-  ): BitFlags<LevelCurse> | undefined => {
+  ): BitFlags<LevelCurse> | LevelCurse | undefined => {
     const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return undefined;
