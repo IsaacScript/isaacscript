@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `assertNotNull`
+  - `clearChallenge`
   - `getBossName`
   - `getChallengeBoss`
   - `getChallengeCharacter`
@@ -28,6 +29,7 @@ This page lists the changes to the IsaacScript framework.
   - `onAnyChallenge`
   - `onChallenge`
   - `runNextRun`
+  - `setChallenge`
 - Renamed the following helper functions:
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
 - Added the following constants:

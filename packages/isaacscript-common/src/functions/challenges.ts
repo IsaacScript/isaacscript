@@ -14,6 +14,20 @@ import {
 } from "../objects/challengeNames";
 
 /**
+ * Helper function to clear the current challenge, which will restart the run on a new random
+ * non-challenge seed with the current character.
+ *
+ * If the player is not in a challenge already, this function will do nothing.
+ *
+ * Under the hood, this function executes the `challenge 0` console command.
+ */
+export function clearChallenge(): void {
+  if (onAnyChallenge()) {
+    Isaac.ExecuteCommand(`challenge ${Challenge.NULL}`);
+  }
+}
+
+/**
  * Get the final boss of a challenge. This will only work for vanilla challenges.
  *
  * For modded challenges, `BossID.MOM` (6) will be returned.
@@ -67,4 +81,17 @@ export function onAnyChallenge(): boolean {
 export function onChallenge(...challenges: Challenge[]): boolean {
   const challenge = Isaac.GetChallenge();
   return challenges.includes(challenge);
+}
+
+/**
+ * Helper function to restart the run on a particular challenge.
+ *
+ * If the player is already in the particular challenge, this function will do nothing.
+ *
+ * Under the hood, this function executes the `challenge 0` console command.
+ */
+export function setChallenge(challenge: Challenge): void {
+  if (!onChallenge(challenge)) {
+    Isaac.ExecuteCommand(`challenge ${challenge}`);
+  }
 }
