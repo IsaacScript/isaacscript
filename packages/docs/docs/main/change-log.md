@@ -25,6 +25,8 @@ This page lists the changes to the IsaacScript framework.
   - `inBigRoom`
   - `isBigRoom`
   - `isBigRoomShape`
+  - `isOnOrPastGameFrame`
+  - `isOnOrPastRenderFrame`
   - `isStoryBossID`
   - `onAnyChallenge`
   - `onChallenge`
