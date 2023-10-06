@@ -1,8 +1,5 @@
-import type {
-  BossID,
-  Challenge,
-  PlayerType,
-} from "isaac-typescript-definitions";
+import type { BossID, PlayerType } from "isaac-typescript-definitions";
+import { Challenge } from "isaac-typescript-definitions";
 import {
   CHALLENGE_BOSSES,
   DEFAULT_CHALLENGE_BOSS_ID,
@@ -53,4 +50,21 @@ export function getChallengeName(challenge: Challenge): string {
   // Handle modded challenges.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return challengeName ?? DEFAULT_CHALLENGE_NAME;
+}
+
+/** Helper function to see if the player is playing any challenge. */
+export function onAnyChallenge(): boolean {
+  const challenge = Isaac.GetChallenge();
+  return challenge !== Challenge.NULL;
+}
+
+/**
+ * Helper function to check to see if the player is playing a particular challenge.
+ *
+ * This function is variadic, meaning that you can specify as many challenges as you want to check
+ * for.
+ */
+export function onChallenge(...challenges: Challenge[]): boolean {
+  const challenge = Isaac.GetChallenge();
+  return challenges.includes(challenge);
 }
