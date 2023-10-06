@@ -172,8 +172,10 @@ export class PostItemDischarge extends CustomCallback<T> {
       v.room.playersBulbLastCollisionFrame,
       player,
     );
+
     const collidedOnThisFrame = gameFrameCount === bulbLastCollisionFrame;
     const collidedOnLastFrame = gameFrameCount - 1 === bulbLastCollisionFrame;
+
     return collidedOnThisFrame || collidedOnLastFrame;
   }
 }

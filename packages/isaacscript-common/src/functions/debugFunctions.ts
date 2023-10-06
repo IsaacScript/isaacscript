@@ -1,6 +1,16 @@
 import { log } from "./log";
 
 /**
+ * Helper function to get the amount of elapsed time for benchmarking / profiling purposes.
+ *
+ * For more information, see the documentation for the `getTime` helper function.
+ */
+export function getElapsedTimeSince(time: int | float): int {
+  const thisTime = getTime();
+  return thisTime - time;
+}
+
+/**
  * Helper function to get the current time for benchmarking / profiling purposes.
  *
  * The return value will either be in seconds or milliseconds, depending on if the "--luadebug" flag
@@ -18,7 +28,7 @@ import { log } from "./log";
  *                             Default is true. If set to false, the `Isaac.GetTime()` method will
  *                             always be used.
  */
-export function getTime(useSocketIfAvailable = true): float {
+export function getTime(useSocketIfAvailable = true): int | float {
   if (useSocketIfAvailable) {
     if (SandboxGetTime !== undefined) {
       return SandboxGetTime();

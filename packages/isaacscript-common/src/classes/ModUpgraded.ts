@@ -5,7 +5,7 @@ import { EXPORTED_METHOD_NAMES_KEY } from "../decorators";
 import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getFeatures } from "../features";
-import { getTime } from "../functions/debugFunctions";
+import { getElapsedTimeSince, getTime } from "../functions/debugFunctions";
 import { getParentFunctionDescription, log } from "../functions/log";
 import {
   getTSTLClassConstructor,
@@ -116,8 +116,7 @@ export class ModUpgraded implements Mod {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, n/no-callback-literal
         const returnValue = callback(...callbackArgs);
 
-        const endTime = getTime();
-        const elapsedTime = endTime - startTime;
+        const elapsedTime = getElapsedTimeSince(startTime);
         if (
           this.timeThreshold === undefined ||
           this.timeThreshold <= elapsedTime

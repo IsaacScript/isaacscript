@@ -1,11 +1,11 @@
 import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../../enums/SaveDataKey";
 import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
+import { isPastGameFrame } from "../../../functions/frames";
 import { log } from "../../../functions/log";
 import { onFirstFloor } from "../../../functions/stage";
 import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
@@ -145,8 +145,7 @@ export class SaveDataManager extends Feature {
     // data that is not tied to an individual run.
     loadFromDisk(this.mod, this.saveDataMap, this.classConstructors);
 
-    const gameFrameCount = game.GetFrameCount();
-    const isContinued = gameFrameCount !== 0;
+    const isContinued = isPastGameFrame(0);
     if (!isContinued) {
       restoreDefaultsForAllFeaturesAndKeys(
         this.saveDataMap,

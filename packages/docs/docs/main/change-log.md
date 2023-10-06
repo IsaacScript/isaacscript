@@ -17,6 +17,10 @@ This page lists the changes to the IsaacScript framework.
   - `getBossName`
   - `getChallengeBoss`
   - `getChallengeCharacter`
+  - `getElapsedGameFramesSince`
+  - `getElapsedRenderFramesSince`
+  - `getElapsedRoomFramesSince`
+  - `getElapsedTimeSince`
   - `getGridEntityANM2Path`
   - `getRockPNGPath`
   - `getVanillaCollectibleTypesOfQuality`
@@ -25,11 +29,18 @@ This page lists the changes to the IsaacScript framework.
   - `inBigRoom`
   - `isBigRoom`
   - `isBigRoomShape`
-  - `isOnOrPastGameFrame`
-  - `isOnOrPastRenderFrame`
   - `isStoryBossID`
   - `onAnyChallenge`
   - `onChallenge`
+  - `onGameFrame`
+  - `onOrPastGameFrame`
+  - `onOrPastRenderFrame`
+  - `onOrPastRoomFrame`
+  - `onRenderFrame`
+  - `onRoomFrame`
+  - `pastGameFrame`
+  - `pastRenderFrame`
+  - `pastRoomFrame`
   - `runNextRun`
   - `setChallenge`
   - `setRunSeed`

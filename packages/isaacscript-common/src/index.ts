@@ -54,6 +54,7 @@ export * from "./functions/enums";
 export * from "./functions/external";
 export * from "./functions/familiars";
 export * from "./functions/flag";
+export * from "./functions/frames";
 export * from "./functions/globals";
 export * from "./functions/gridEntities";
 export * from "./functions/gridEntitiesSpecific";

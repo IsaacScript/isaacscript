@@ -64,7 +64,7 @@
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": "always",
+      "source.fixAll": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -72,7 +72,7 @@
   },
   "[typescript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": "always",
+      "source.fixAll": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -106,7 +106,7 @@
   // @template-customization-start
   "[javascriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": "always",
+      "source.fixAll": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -114,7 +114,7 @@
   },
   "[typescriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": "always",
+      "source.fixAll": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,

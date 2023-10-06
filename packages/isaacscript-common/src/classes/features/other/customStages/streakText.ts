@@ -4,6 +4,10 @@ import { fonts, game } from "../../../../core/cachedClasses";
 import { KColorDefault, VectorOne } from "../../../../core/constants";
 import { UIStreakAnimation } from "../../../../enums/private/UIStreakAnimation";
 import {
+  getElapsedGameFramesSince,
+  getElapsedRenderFramesSince,
+} from "../../../../functions/frames";
+import {
   getScreenBottomCenterPos,
   getScreenTopCenterPos,
 } from "../../../../functions/ui";
@@ -102,9 +106,9 @@ function checkEndTopStreakText() {
     return;
   }
 
-  const renderFrameCount = Isaac.GetFrameCount();
-  const elapsedFrames =
-    renderFrameCount - v.run.topStreakTextStartedRenderFrame;
+  const elapsedFrames = getElapsedRenderFramesSince(
+    v.run.topStreakTextStartedRenderFrame,
+  );
   if (elapsedFrames >= 115) {
     v.run.topStreakText.animation = UIStreakAnimation.TEXT;
     // We adjust by the frame backwards by an arbitrary amount to roughly align with the speed of
@@ -114,8 +118,9 @@ function checkEndTopStreakText() {
 }
 
 function trackMapInputPressed() {
+  const gameFrameCount = game.GetFrameCount();
+
   for (const controllerIndex of CONTROLLER_INDEX_VALUES) {
-    const gameFrameCount = game.GetFrameCount();
     const oldPushedMapFrame =
       v.run.controllerIndexPushingMapRenderFrame.get(controllerIndex);
     const isPushingMap = Input.IsActionPressed(
@@ -153,8 +158,7 @@ function checkStartBottomStreakText() {
   }
 
   const earliestFrame = Math.min(...pushedMapFrames);
-  const gameFrameCount = game.GetFrameCount();
-  const elapsedFrames = gameFrameCount - earliestFrame;
+  const elapsedFrames = getElapsedGameFramesSince(earliestFrame);
   if (elapsedFrames >= NUM_RENDER_FRAMES_MAP_HELD_BEFORE_STREAK_TEXT) {
     v.run.bottomStreakText.animation = UIStreakAnimation.TEXT;
     v.run.bottomStreakText.frame = 0;

@@ -21,6 +21,10 @@ import { GridEntityTypeCustom } from "../../../enums/private/GridEntityTypeCusto
 import { StageTravelState } from "../../../enums/private/StageTravelState";
 import { TrapdoorAnimation } from "../../../enums/private/TrapdoorAnimation";
 import { easeOutSine } from "../../../functions/easing";
+import {
+  isPastRoomFrame,
+  onOrPastRenderFrame,
+} from "../../../functions/frames";
 import { log } from "../../../functions/log";
 import { movePlayersToCenter } from "../../../functions/playerCenter";
 import {
@@ -218,12 +222,9 @@ export class CustomTrapdoors extends Feature {
       return;
     }
 
-    const hud = game.GetHUD();
-    const renderFrameCount = Isaac.GetFrameCount();
-
     const renderFrameScreenBlack =
       v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
-    if (renderFrameCount < renderFrameScreenBlack) {
+    if (!onOrPastRenderFrame(renderFrameScreenBlack)) {
       return;
     }
 
@@ -232,6 +233,7 @@ export class CustomTrapdoors extends Feature {
 
     // Now, we display a black sprite on top of the pixelation effect, to prevent showing the rest
     // of the animation.
+    const hud = game.GetHUD();
     hud.SetVisible(false);
 
     // If the pixelation effect is not fully allowed to complete, the game's internal buffer will
@@ -313,18 +315,16 @@ export class CustomTrapdoors extends Feature {
       return;
     }
 
-    const hud = game.GetHUD();
-    const renderFrameCount = Isaac.GetFrameCount();
-
     const renderFrameScreenBlack =
       v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
-    if (renderFrameCount < renderFrameScreenBlack) {
+    if (!onOrPastRenderFrame(renderFrameScreenBlack)) {
       return;
     }
 
     v.run.state = StageTravelState.PIXELATION_TO_ROOM;
     this.logStateChanged();
 
+    const hud = game.GetHUD();
     hud.SetVisible(true);
 
     this.runNextRoom.runNextRoom(() => {
@@ -439,7 +439,6 @@ export class CustomTrapdoors extends Feature {
   }
 
   private isPlayerCloseAfterBoss(position: Vector) {
-    const gameFrameCount = game.GetFrameCount();
     const room = game.GetRoom();
     const roomType = room.GetType();
     const roomClearGameFrame = this.roomClearFrame.getRoomClearGameFrame();
@@ -449,7 +448,7 @@ export class CustomTrapdoors extends Feature {
     if (
       roomType !== RoomType.BOSS ||
       roomClearGameFrame === undefined ||
-      gameFrameCount >= roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES
+      onOrPastRenderFrame(roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES)
     ) {
       return false;
     }
@@ -627,7 +626,6 @@ export class CustomTrapdoors extends Feature {
     firstSpawn: boolean,
   ): boolean {
     const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
     const roomClear = room.IsClear();
 
     // Trapdoors created after a room has already initialized should spawn closed by default:
@@ -635,7 +633,7 @@ export class CustomTrapdoors extends Feature {
     //   into them.
     // - Trapdoors created by We Need to Go Deeper should spawn closed because the player will be
     //   standing on top of them.
-    if (roomFrameCount > 0) {
+    if (isPastRoomFrame(0)) {
       return false;
     }
 
@@ -762,7 +760,6 @@ export class CustomTrapdoors extends Feature {
     }
 
     const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
     const roomListIndex = getRoomListIndex();
     const gridIndex = isVector(gridIndexOrPosition)
       ? room.GetGridIndex(gridIndexOrPosition)
@@ -776,7 +773,7 @@ export class CustomTrapdoors extends Feature {
       TrapdoorAnimation.OPENED,
     );
 
-    const firstSpawn = roomFrameCount !== 0;
+    const firstSpawn = isPastRoomFrame(0);
     const open =
       spawnOpen ?? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn);
 

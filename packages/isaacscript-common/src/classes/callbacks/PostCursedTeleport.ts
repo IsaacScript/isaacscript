@@ -8,6 +8,7 @@ import {
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { hasFlag } from "../../functions/flag";
+import { onGameFrame } from "../../functions/frames";
 import {
   mapGetPlayer,
   mapSetPlayer,
@@ -146,8 +147,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     lastDamageFrame: int,
   ) {
     // Check to see if this is the frame that we last took damage.
-    const gameFrameCount = game.GetFrameCount();
-    if (gameFrameCount !== lastDamageFrame) {
+    if (!onGameFrame(lastDamageFrame)) {
       return false;
     }
 

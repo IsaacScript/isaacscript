@@ -2,6 +2,7 @@ import type { LevelStage, StageType } from "isaac-typescript-definitions";
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
+import { onGameFrame, onRenderFrame } from "../../../functions/frames";
 import type { PostGameStartedReordered } from "../../callbacks/PostGameStartedReordered";
 import type { PostGameStartedReorderedLast } from "../../callbacks/PostGameStartedReorderedLast";
 import type { PostNewLevelReordered } from "../../callbacks/PostNewLevelReordered";
@@ -123,14 +124,13 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_NEW_LEVEL (18)
   private readonly postNewLevel = (): void => {
-    const gameFrameCount = game.GetFrameCount();
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();
     const room = game.GetRoom();
     const roomType = room.GetType();
 
-    if (gameFrameCount === 0 && !this.forceNewLevel) {
+    if (onGameFrame(0) && !this.forceNewLevel) {
       // Wait for the `POST_GAME_STARTED` callback to fire.
       return;
     }
@@ -143,13 +143,11 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_NEW_ROOM (19)
   private readonly postNewRoom = (): void => {
-    const gameFrameCount = game.GetFrameCount();
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();
     const room = game.GetRoom();
     const roomType = room.GetType();
-    const renderFrameCount = Isaac.GetFrameCount();
 
     if (this.usedGlowingHourGlass) {
       this.usedGlowingHourGlass = false;
@@ -166,8 +164,8 @@ export class GameReorderedCallbacks extends Feature {
     }
 
     if (
-      (gameFrameCount === 0 ||
-        renderFrameCount === this.renderFrameRunStarted ||
+      (onGameFrame(0) ||
+        onRenderFrame(this.renderFrameRunStarted) ||
         this.currentStage !== stage ||
         this.currentStageType !== stageType) &&
       !this.forceNewRoom

@@ -5,13 +5,13 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game } from "../core/cachedClasses";
 import {
   MAX_TAINTED_SAMSON_BERSERK_CHARGE,
   TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE,
 } from "../core/constants";
 import { MysteriousPaperEffect } from "../enums/MysteriousPaperEffect";
 import { getCharacterDeathAnimationName } from "./characters";
+import { onGameFrame } from "./frames";
 import { getPlayerMaxHeartContainers } from "./playerHealth";
 import { getPlayerNumHitsRemaining, hasLostCurse, isKeeper } from "./players";
 import { getLastFrameOfAnimation } from "./sprites";
@@ -28,7 +28,6 @@ export function isDamageToPlayerFatal(
   source: EntityRef,
   lastDamageGameFrame: int | undefined,
 ): boolean {
-  const gameFrameCount = game.GetFrameCount();
   const character = player.GetPlayerType();
   const effects = player.GetEffects();
   const isBerserk = effects.HasCollectibleEffect(CollectibleType.BERSERK);
@@ -91,7 +90,7 @@ export function isDamageToPlayerFatal(
   // damage on the same frame.
   if (
     player.HasCollectible(CollectibleType.BROKEN_GLASS_CANNON) &&
-    gameFrameCount === lastDamageGameFrame
+    onGameFrame(lastDamageGameFrame)
   ) {
     return false;
   }

@@ -1,7 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { getRoomVisitedCount } from "../../functions/roomData";
+import { isPastRoomFrame } from "../../functions/frames";
 import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -26,12 +26,11 @@ export class PostPickupInitFirst extends CustomCallback<ModCallbackCustom.POST_P
   // ModCallback.POST_PICKUP_INIT (34)
   private readonly postPickupInit = (pickup: EntityPickup) => {
     const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-    const roomVisitedCount = getRoomVisitedCount();
+    const isFirstVisit = room.IsFirstVisit();
 
     // The room visited count is not reset when re-entering a Treasure Room or Boss room in the
     // Ascent.
-    if (roomFrameCount > 0 || roomVisitedCount === 0) {
+    if (isPastRoomFrame(0) || isFirstVisit) {
       this.fire(pickup);
     }
   };

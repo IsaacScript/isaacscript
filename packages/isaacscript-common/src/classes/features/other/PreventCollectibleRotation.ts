@@ -11,6 +11,7 @@ import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { setCollectibleSubType } from "../../../functions/collectibles";
 import { getEntityID } from "../../../functions/entities";
+import { onGameFrame } from "../../../functions/frames";
 import { isCollectible } from "../../../functions/pickupVariants";
 import { getCollectibles } from "../../../functions/pickupsSpecific";
 import { asCollectibleType } from "../../../functions/types";
@@ -142,11 +143,9 @@ export class PreventCollectibleRotation extends Feature {
     }
 
     // It can take a frame after the activation of the D6 for the sub-type to change.
-    const gameFrameCount = game.GetFrameCount();
     if (
       v.run.rollGameFrame !== null &&
-      (gameFrameCount === v.run.rollGameFrame ||
-        gameFrameCount === v.run.rollGameFrame + 1)
+      (onGameFrame(v.run.rollGameFrame) || onGameFrame(v.run.rollGameFrame + 1))
     ) {
       v.run.trackedCollectibles.delete(pickupIndex);
       return;
