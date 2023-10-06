@@ -6,8 +6,7 @@ import { log } from "./log";
  * For more information, see the documentation for the `getTime` helper function.
  */
 export function getElapsedTimeSince(time: int | float): int {
-  const thisTime = getTime();
-  return thisTime - time;
+  return getTime() - time;
 }
 
 /**
