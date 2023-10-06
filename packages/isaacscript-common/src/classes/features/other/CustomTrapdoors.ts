@@ -22,6 +22,7 @@ import { StageTravelState } from "../../../enums/private/StageTravelState";
 import { TrapdoorAnimation } from "../../../enums/private/TrapdoorAnimation";
 import { easeOutSine } from "../../../functions/easing";
 import {
+  isBeforeRenderFrame,
   isPastRoomFrame,
   onOrPastRenderFrame,
 } from "../../../functions/frames";
@@ -224,7 +225,7 @@ export class CustomTrapdoors extends Feature {
 
     const renderFrameScreenBlack =
       v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
-    if (!onOrPastRenderFrame(renderFrameScreenBlack)) {
+    if (isBeforeRenderFrame(renderFrameScreenBlack)) {
       return;
     }
 
@@ -317,7 +318,7 @@ export class CustomTrapdoors extends Feature {
 
     const renderFrameScreenBlack =
       v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
-    if (!onOrPastRenderFrame(renderFrameScreenBlack)) {
+    if (isBeforeRenderFrame(renderFrameScreenBlack)) {
       return;
     }
 

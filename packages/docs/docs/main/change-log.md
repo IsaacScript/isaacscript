@@ -27,22 +27,28 @@ This page lists the changes to the IsaacScript framework.
   - `getVanillaCollectibleTypesOfQuality`
   - `getVanillaPillEffectsOfType`
   - `hasHoming`
+  - `isBeforeGameFrame`
+  - `isBeforeRenderFrame`
+  - `isBeforeRoomFrame`
   - `inBigRoom`
   - `isBigRoom`
   - `isBigRoomShape`
   - `isGridIndexAdjacentToDoor`
+  - `isPastGameFrame`
+  - `isPastRenderFrame`
+  - `isPastRoomFrame`
   - `isStoryBossID`
   - `onAnyChallenge`
   - `onChallenge`
   - `onGameFrame`
+  - `onOrBeforeGameFrame`
+  - `onOrBeforeRenderFrame`
+  - `onOrBeforeRoomFrame`
   - `onOrPastGameFrame`
   - `onOrPastRenderFrame`
   - `onOrPastRoomFrame`
   - `onRenderFrame`
   - `onRoomFrame`
-  - `pastGameFrame`
-  - `pastRenderFrame`
-  - `pastRoomFrame`
   - `runNextRun`
   - `setChallenge`
   - `setRunSeed`

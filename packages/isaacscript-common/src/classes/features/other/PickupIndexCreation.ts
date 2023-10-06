@@ -7,7 +7,7 @@ import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { getEntityID } from "../../../functions/entities";
-import { isPastRoomFrame } from "../../../functions/frames";
+import { onOrBeforeRoomFrame } from "../../../functions/frames";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { onAscent } from "../../../functions/stage";
 import { vectorEquals } from "../../../functions/vector";
@@ -97,7 +97,7 @@ export class PickupIndexCreation extends Feature {
     if (
       pickupIndexFromLevelData !== undefined &&
       !isFirstVisit &&
-      !isPastRoomFrame(0)
+      onOrBeforeRoomFrame(0)
     ) {
       v.room.pickupIndexes.set(ptrHash, pickupIndexFromLevelData);
       return;
