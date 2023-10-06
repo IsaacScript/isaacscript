@@ -12,6 +12,7 @@ import { FIRST_CHARACTER } from "../core/constantsFirstLast";
 import { getCharacterName } from "./characters";
 import { spawnSlot } from "./entitiesSpecific";
 import { log } from "./log";
+import { isString } from "./types";
 
 /** Alias for the `anySeedEffectEnabled` function. */
 export function anyEasterEggEnabled(): boolean {
@@ -120,6 +121,22 @@ export function restart(character?: PlayerType): void {
     `Restarting the run as ${characterName} (${character}) with a console command of: ${command}`,
   );
   Isaac.ExecuteCommand(command);
+}
+
+/**
+ * Helper function to restart the run on a particular starting seed.
+ *
+ * Under the hood, this function executes the `seed` console command.
+ *
+ * @param startSeedOrStartSeedString Either the numerical start seed (e.g. 268365970) or the start
+ *                                 seed string (e.g. "AAJ2 8V9C").
+ */
+export function setRunSeed(startSeedOrStartSeedString: Seed | string): void {
+  const startSeedString = isString(startSeedOrStartSeedString)
+    ? startSeedOrStartSeedString
+    : Seeds.Seed2String(startSeedOrStartSeedString);
+
+  Isaac.ExecuteCommand(`seed ${startSeedString}`);
 }
 
 /**

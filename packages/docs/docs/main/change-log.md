@@ -30,6 +30,7 @@ This page lists the changes to the IsaacScript framework.
   - `onChallenge`
   - `runNextRun`
   - `setChallenge`
+  - `setRunSeed`
 - Renamed the following helper functions:
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
 - Added the following constants:
