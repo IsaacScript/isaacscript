@@ -54,8 +54,15 @@ This page lists the changes to the IsaacScript framework.
   - `setRunSeed`
 - Renamed the following helper functions:
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
+  - `getMoveActions` --> `getMoveButtonActions`
+  - `getShootActions` --> `getShootButtonActions`
 - Added the following constants:
   - `MAX_QUALITY`
+- Renamed the following constants:
+  - `MOVEMENT_ACTIONS` --> `MOVEMENT_BUTTON_ACTIONS`
+  - `MOVEMENT_ACTIONS_SET` --> `MOVEMENT_BUTTON_ACTIONS_SET`
+  - `SHOOTING_ACTIONS` --> `SHOOTING_BUTTON_ACTIONS`
+  - `SHOOTING_ACTIONS_SET` --> `SHOOTING_BUTTON_ACTIONS_SET`
 - Added the following enums:
   - `CarpetSubType`
 - Added the following helper types:

@@ -20,26 +20,26 @@ export const MODIFIER_KEYS = [
   Keyboard.RIGHT_SUPER, // 347
 ] as const;
 
-export const MOVEMENT_ACTIONS = [
+export const MOVEMENT_BUTTON_ACTIONS = [
   ButtonAction.LEFT, // 0
   ButtonAction.RIGHT, // 1
   ButtonAction.UP, // 2
   ButtonAction.DOWN, // 3
 ] as const;
 
-export const MOVEMENT_ACTIONS_SET = new ReadonlySet<ButtonAction>(
-  MOVEMENT_ACTIONS,
+export const MOVEMENT_BUTTON_ACTIONS_SET = new ReadonlySet<ButtonAction>(
+  MOVEMENT_BUTTON_ACTIONS,
 );
 
-export const SHOOTING_ACTIONS = [
+export const SHOOTING_BUTTON_ACTIONS = [
   ButtonAction.SHOOT_LEFT, // 4
   ButtonAction.SHOOT_RIGHT, // 5
   ButtonAction.SHOOT_UP, // 6
   ButtonAction.SHOOT_DOWN, // 7
 ] as const;
 
-export const SHOOTING_ACTIONS_SET = new ReadonlySet<ButtonAction>(
-  SHOOTING_ACTIONS,
+export const SHOOTING_BUTTON_ACTIONS_SET = new ReadonlySet<ButtonAction>(
+  SHOOTING_BUTTON_ACTIONS,
 );
 
 /**
@@ -63,10 +63,10 @@ export function controllerToString(controller: Controller): string | undefined {
  * pressing down. This returns an array because a player can be holding down more than one movement
  * key at a time.
  */
-export function getMoveActions(
+export function getMoveButtonActions(
   controllerIndex: ControllerIndex,
 ): ButtonAction[] {
-  return MOVEMENT_ACTIONS.filter((buttonAction) =>
+  return MOVEMENT_BUTTON_ACTIONS.filter((buttonAction) =>
     Input.IsActionPressed(buttonAction, controllerIndex),
   );
 }
@@ -76,10 +76,10 @@ export function getMoveActions(
  * pressing down. This returns an array because a player can be holding down more than one shooting
  * key at a time.
  */
-export function getShootActions(
+export function getShootButtonActions(
   controllerIndex: ControllerIndex,
 ): ButtonAction[] {
-  return SHOOTING_ACTIONS.filter((buttonAction) =>
+  return SHOOTING_BUTTON_ACTIONS.filter((buttonAction) =>
     Input.IsActionPressed(buttonAction, controllerIndex),
   );
 }
@@ -168,15 +168,15 @@ export function isModifierKeyPressed(): boolean {
 }
 
 export function isMoveAction(buttonAction: ButtonAction): boolean {
-  return MOVEMENT_ACTIONS_SET.has(buttonAction);
+  return MOVEMENT_BUTTON_ACTIONS_SET.has(buttonAction);
 }
 
 export function isMoveActionPressed(controllerIndex: ControllerIndex): boolean {
-  return isActionPressed(controllerIndex, ...MOVEMENT_ACTIONS);
+  return isActionPressed(controllerIndex, ...MOVEMENT_BUTTON_ACTIONS);
 }
 
 export function isMoveActionPressedOnAnyInput(): boolean {
-  return MOVEMENT_ACTIONS.some((moveAction) =>
+  return MOVEMENT_BUTTON_ACTIONS.some((moveAction) =>
     isActionPressedOnAnyInput(moveAction),
   );
 }
@@ -184,27 +184,27 @@ export function isMoveActionPressedOnAnyInput(): boolean {
 export function isMoveActionTriggered(
   controllerIndex: ControllerIndex,
 ): boolean {
-  return isActionTriggered(controllerIndex, ...MOVEMENT_ACTIONS);
+  return isActionTriggered(controllerIndex, ...MOVEMENT_BUTTON_ACTIONS);
 }
 
 export function isMoveActionTriggeredOnAnyInput(): boolean {
-  return MOVEMENT_ACTIONS.some((moveAction) =>
+  return MOVEMENT_BUTTON_ACTIONS.some((moveAction) =>
     isActionTriggeredOnAnyInput(moveAction),
   );
 }
 
 export function isShootAction(buttonAction: ButtonAction): boolean {
-  return SHOOTING_ACTIONS_SET.has(buttonAction);
+  return SHOOTING_BUTTON_ACTIONS_SET.has(buttonAction);
 }
 
 export function isShootActionPressed(
   controllerIndex: ControllerIndex,
 ): boolean {
-  return isActionPressed(controllerIndex, ...SHOOTING_ACTIONS);
+  return isActionPressed(controllerIndex, ...SHOOTING_BUTTON_ACTIONS);
 }
 
 export function isShootActionPressedOnAnyInput(): boolean {
-  return SHOOTING_ACTIONS.some((shootAction) =>
+  return SHOOTING_BUTTON_ACTIONS.some((shootAction) =>
     isActionPressedOnAnyInput(shootAction),
   );
 }
@@ -212,11 +212,11 @@ export function isShootActionPressedOnAnyInput(): boolean {
 export function isShootActionTriggered(
   controllerIndex: ControllerIndex,
 ): boolean {
-  return isActionTriggered(controllerIndex, ...SHOOTING_ACTIONS);
+  return isActionTriggered(controllerIndex, ...SHOOTING_BUTTON_ACTIONS);
 }
 
 export function isShootActionTriggeredOnAnyInput(): boolean {
-  return SHOOTING_ACTIONS.some((shootAction) =>
+  return SHOOTING_BUTTON_ACTIONS.some((shootAction) =>
     isActionTriggeredOnAnyInput(shootAction),
   );
 }
