@@ -136,7 +136,9 @@ export function setRunSeed(startSeedOrStartSeedString: Seed | string): void {
     ? startSeedOrStartSeedString
     : Seeds.Seed2String(startSeedOrStartSeedString);
 
-  Isaac.ExecuteCommand(`seed ${startSeedString}`);
+  const command = `seed ${startSeedString}`;
+  log(`Restarting the run to set a seed with a console command of: ${command}`);
+  Isaac.ExecuteCommand(command);
 }
 
 /**

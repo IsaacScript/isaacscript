@@ -12,6 +12,7 @@ import {
   CHALLENGE_NAMES,
   DEFAULT_CHALLENGE_NAME,
 } from "../objects/challengeNames";
+import { log } from "./log";
 
 /**
  * Helper function to clear the current challenge, which will restart the run on a new random
@@ -23,7 +24,11 @@ import {
  */
 export function clearChallenge(): void {
   if (onAnyChallenge()) {
-    Isaac.ExecuteCommand(`challenge ${Challenge.NULL}`);
+    const command = `challenge ${Challenge.NULL}`;
+    log(
+      `Restarting the run to clear the current challenge with a console command of: ${command}`,
+    );
+    Isaac.ExecuteCommand(command);
   }
 }
 
@@ -92,6 +97,10 @@ export function onChallenge(...challenges: Challenge[]): boolean {
  */
 export function setChallenge(challenge: Challenge): void {
   if (!onChallenge(challenge)) {
-    Isaac.ExecuteCommand(`challenge ${challenge}`);
+    const command = `challenge ${challenge}`;
+    log(
+      `Restarting the run to set a challenge with a console command of: ${command}`,
+    );
+    Isaac.ExecuteCommand(command);
   }
 }
