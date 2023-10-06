@@ -22,9 +22,9 @@ import { StageTravelState } from "../../../enums/private/StageTravelState";
 import { TrapdoorAnimation } from "../../../enums/private/TrapdoorAnimation";
 import { easeOutSine } from "../../../functions/easing";
 import {
+  isAfterRoomFrame,
   isBeforeRenderFrame,
-  isPastRoomFrame,
-  onOrPastRenderFrame,
+  onOrAfterRenderFrame,
 } from "../../../functions/frames";
 import { log } from "../../../functions/log";
 import { movePlayersToCenter } from "../../../functions/playerCenter";
@@ -449,7 +449,7 @@ export class CustomTrapdoors extends Feature {
     if (
       roomType !== RoomType.BOSS ||
       roomClearGameFrame === undefined ||
-      onOrPastRenderFrame(roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES)
+      onOrAfterRenderFrame(roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES)
     ) {
       return false;
     }
@@ -634,7 +634,7 @@ export class CustomTrapdoors extends Feature {
     //   into them.
     // - Trapdoors created by We Need to Go Deeper should spawn closed because the player will be
     //   standing on top of them.
-    if (isPastRoomFrame(0)) {
+    if (isAfterRoomFrame(0)) {
       return false;
     }
 
@@ -774,7 +774,7 @@ export class CustomTrapdoors extends Feature {
       TrapdoorAnimation.OPENED,
     );
 
-    const firstSpawn = isPastRoomFrame(0);
+    const firstSpawn = isAfterRoomFrame(0);
     const open =
       spawnOpen ?? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn);
 
