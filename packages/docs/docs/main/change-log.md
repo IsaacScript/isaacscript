@@ -29,6 +29,8 @@ This page lists the changes to the IsaacScript framework.
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
 - Added the following constants:
   - `MAX_QUALITY`
+- Added the following enums:
+  - `CarpetSubType`
 - Added the following helper types:
   - `WidenLiteral`
 - Added the following custom commands:
