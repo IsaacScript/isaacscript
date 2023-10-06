@@ -690,21 +690,9 @@ export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {
   const room = game.GetRoom();
-  const gridWidth = room.GetGridWidth();
   const gridIndex = gridEntity.GetGridIndex();
 
-  const surroundingGridIndexes: int[] = [
-    gridIndex - 1, // Left
-    gridIndex + 1, // Right
-
-    gridIndex - gridWidth - 1, // Top-left
-    gridIndex - gridWidth, // Top
-    gridIndex - gridWidth + 1, // Top-right
-
-    gridIndex + gridWidth - 1, // Bottom-left
-    gridIndex + gridWidth, // Bottom
-    gridIndex + gridWidth + 1, // Bottom-right
-  ];
+  const surroundingGridIndexes = getSurroundingGridIndexes(gridIndex);
 
   const surroundingGridEntities: GridEntity[] = [];
   for (const surroundingGridIndex of surroundingGridIndexes) {
@@ -715,6 +703,42 @@ export function getSurroundingGridEntities(
   }
 
   return surroundingGridEntities;
+}
+
+/**
+ * Helper function to get the grid indexes on the surrounding tiles from the provided grid index.
+ *
+ * There are always 8 grid indexes returned (e.g. top-left + top + top-right + left + right +
+ * bottom-left + bottom + right), even if the computed values would be negative or otherwise
+ * invalid.
+ */
+export function getSurroundingGridIndexes(
+  gridIndex: int,
+): [
+  topLeft: int,
+  top: int,
+  topRight: int,
+  left: int,
+  right: int,
+  bottomLeft: int,
+  bottom: int,
+  bottomRight: int,
+] {
+  const room = game.GetRoom();
+  const gridWidth = room.GetGridWidth();
+
+  return [
+    gridIndex - gridWidth - 1, // Top-left
+    gridIndex - gridWidth, // Top
+    gridIndex - gridWidth + 1, // Top-right
+
+    gridIndex - 1, // Left
+    gridIndex + 1, // Right
+
+    gridIndex + gridWidth - 1, // Bottom-left
+    gridIndex + gridWidth, // Bottom
+    gridIndex + gridWidth + 1, // Bottom-right
+  ];
 }
 
 /**
@@ -783,6 +807,28 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
  */
 export function isGridEntityXMLType(num: number): num is GridEntityXMLType {
   return GRID_ENTITY_XML_TYPES_SET.has(num); // eslint-disable-line isaacscript/strict-enums
+}
+
+/**
+ * Helper function to check if the provided grid index has a door on it or if the surrounding 8 grid
+ * indexes have a door on it.
+ */
+export function isGridIndexAdjacentToDoor(gridIndex: int): boolean {
+  const room = game.GetRoom();
+  const surroundingGridIndexes = getSurroundingGridIndexes(gridIndex);
+  const gridIndexes = [gridIndex, ...surroundingGridIndexes];
+
+  for (const gridIndexToInspect of gridIndexes) {
+    const gridEntity = room.GetGridEntity(gridIndexToInspect);
+    if (gridEntity !== undefined) {
+      const door = gridEntity.ToDoor();
+      if (door !== undefined) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 /** Helper function to see if a `GridEntityXMLType` is some kind of poop. */

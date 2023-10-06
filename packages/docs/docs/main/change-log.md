@@ -23,12 +23,14 @@ This page lists the changes to the IsaacScript framework.
   - `getElapsedTimeSince`
   - `getGridEntityANM2Path`
   - `getRockPNGPath`
+  - `getSurroundingGridIndexes`
   - `getVanillaCollectibleTypesOfQuality`
   - `getVanillaPillEffectsOfType`
   - `hasHoming`
   - `inBigRoom`
   - `isBigRoom`
   - `isBigRoomShape`
+  - `isGridIndexAdjacentToDoor`
   - `isStoryBossID`
   - `onAnyChallenge`
   - `onChallenge`
