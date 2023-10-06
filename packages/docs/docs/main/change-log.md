@@ -25,6 +25,7 @@ This page lists the changes to the IsaacScript framework.
   - `isBigRoom`
   - `isBigRoomShape`
   - `isStoryBossID`
+  - `runNextRun`
 - Renamed the following helper functions:
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
 - Added the following constants:
