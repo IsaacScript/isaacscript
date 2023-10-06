@@ -6,12 +6,9 @@ import { LAST_VANILLA_TRINKET_TYPE } from "../core/constantsFirstLast";
 import { MysteriousPaperEffect } from "../enums/MysteriousPaperEffect";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
-  TRINKET_DESCRIPTION_MAP,
-} from "../maps/trinketDescriptionMap";
-import {
-  DEFAULT_TRINKET_NAME,
-  TRINKET_TYPE_TO_NAME_MAP,
-} from "../maps/trinketTypeToNameMap";
+  TRINKET_DESCRIPTIONS,
+} from "../objects/trinketDescriptions";
+import { DEFAULT_TRINKET_NAME, TRINKET_NAMES } from "../objects/trinketNames";
 import { getEntityID } from "./entities";
 import { getEnumLength } from "./enums";
 import { hasFlag } from "./flag";
@@ -103,8 +100,10 @@ export function getNormalTrinketType(trinketType: TrinketType): TrinketType {
  */
 export function getTrinketDescription(trinketType: TrinketType): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
-  // hard-coded map as a workaround.
-  const trinketDescription = TRINKET_DESCRIPTION_MAP.get(trinketType);
+  // hard-coded object as a workaround.
+  const trinketDescription = TRINKET_DESCRIPTIONS[trinketType] as
+    | string
+    | undefined;
   if (trinketDescription !== undefined) {
     return trinketDescription;
   }
@@ -143,9 +142,9 @@ export function getTrinketGfxFilename(trinketType: TrinketType): string {
  * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
  */
 export function getTrinketName(trinketType: TrinketType): string {
-  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
-  // as a workaround.
-  const trinketName = TRINKET_TYPE_TO_NAME_MAP.get(trinketType);
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded
+  // object as a workaround.
+  const trinketName = TRINKET_NAMES[trinketType] as string | undefined;
   if (trinketName !== undefined) {
     return trinketName;
   }
