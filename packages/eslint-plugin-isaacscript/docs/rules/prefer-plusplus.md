@@ -12,7 +12,13 @@ However, the `++` operator is historically controversial in JavaScript. For exam
 
 > Why? Per the eslint documentation, unary increment and decrement statements are subject to automatic semicolon insertion and can cause silent errors with incrementing or decrementing values within an application. It is also more expressive to mutate your values with statements like `num += 1` instead of `num++` or `num ++`. Disallowing unary increment and decrement statements also prevents you from pre-incrementing/pre-decrementing values unintentionally which can also cause unexpected behavior in your programs.
 
-This justification does not apply if you use the combination of [Prettier](https://prettier.io/) and the [`isaacscript/no-unsafe-plusplus`](no-unsafe-plusplus.md) rule and the [`isaacscript/prefer-postfix-plusplus`](prefer-postfix-plusplus) rule. Together, they heavily restrict the usage of the operator, making the only legal usage equal to that of "+= 1".
+This justification does not apply if you use the combination of:
+
+- The [Prettier](https://prettier.io/) autoformatter (which automatically inserts semicolons for you)
+- The [`isaacscript/no-unsafe-plusplus`](no-unsafe-plusplus.md) rule (which prevents usage of `++i` where swapping it to `i++` would change the functionality of the program)
+- The [`isaacscript/prefer-postfix-plusplus`](prefer-postfix-plusplus) rule (which prevents usage of `++i` in favor of `i++`)
+
+Together, these heavily restrict the usage of the operator, making the only legal usage equal to that of "+= 1".
 
 ```ts
 // Bad
