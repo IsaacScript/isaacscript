@@ -51,6 +51,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.KAMIKAZE]: "Kamikaze!",
   [CollectibleType.MOMS_PAD]: "Mom's Pad",
   [CollectibleType.BOBS_ROTTEN_HEAD]: "Bob's Rotten Head",
+  // There is no `CollectibleType` with a value of 43.
   [CollectibleType.TELEPORT]: "Teleport!",
   [CollectibleType.YUM_HEART]: "Yum Heart",
   [CollectibleType.LUCKY_FOOT]: "Lucky Foot",
@@ -68,6 +69,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.BOOK_OF_SHADOWS]: "Book of Shadows",
   [CollectibleType.BOOK_OF_BELIAL_BIRTHRIGHT]: "The Book of Belial",
   [CollectibleType.LADDER]: "The Ladder",
+  // There is no `CollectibleType` with a value of 61.
   [CollectibleType.CHARM_OF_THE_VAMPIRE]: "Charm of the Vampire",
   [CollectibleType.BATTERY]: "The Battery",
   [CollectibleType.STEAM_SALE]: "Steam Sale",
@@ -241,6 +243,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.STOP_WATCH]: "Stop Watch",
   [CollectibleType.TINY_PLANET]: "Tiny Planet",
   [CollectibleType.INFESTATION_2]: "Infestation 2",
+  // There is no `CollectibleType` with a value of 235.
   [CollectibleType.E_COLI]: "E. Coli",
   [CollectibleType.DEATHS_TOUCH]: "Death's Touch",
   [CollectibleType.KEY_PIECE_1]: "Key Piece 1",
@@ -592,6 +595,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.BOOK_OF_VIRTUES]: "Book of Virtues",
   [CollectibleType.ALABASTER_BOX]: "Alabaster Box",
   [CollectibleType.STAIRWAY]: "The Stairway",
+  // There is no `CollectibleType` with a value of 587.
   [CollectibleType.SOL]: "Sol",
   [CollectibleType.LUNA]: "Luna",
   [CollectibleType.MERCURIUS]: "Mercurius",
@@ -617,12 +621,14 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.BIRD_CAGE]: "Bird Cage",
   [CollectibleType.LARYNX]: "Larynx",
   [CollectibleType.LOST_SOUL]: "Lost Soul",
+  // There is no `CollectibleType` with a value of 613.
   [CollectibleType.BLOOD_BOMBS]: "Blood Bombs",
   [CollectibleType.LIL_DUMPY]: "Lil Dumpy",
   [CollectibleType.BIRDS_EYE]: "Bird's Eye",
   [CollectibleType.LODESTONE]: "Lodestone",
   [CollectibleType.ROTTEN_TOMATO]: "Rotten Tomato",
   [CollectibleType.BIRTHRIGHT]: "Birthright",
+  // There is no `CollectibleType` with a value of 620.
   [CollectibleType.RED_STEW]: "Red Stew",
   [CollectibleType.GENESIS]: "Genesis",
   [CollectibleType.SHARP_KEY]: "Sharp Key",
@@ -632,6 +638,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.KNIFE_PIECE_2]: "Knife Piece 2",
   [CollectibleType.DEATH_CERTIFICATE]: "Death Certificate",
   [CollectibleType.BOT_FLY]: "Bot Fly",
+  // There is no `CollectibleType` with a value of 630.
   [CollectibleType.MEAT_CLEAVER]: "Meat Cleaver",
   [CollectibleType.EVIL_CHARM]: "Evil Charm",
   [CollectibleType.DOGMA]: "Dogma",
@@ -649,6 +656,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.TINYTOMA]: "Tinytoma",
   [CollectibleType.BRIMSTONE_BOMBS]: "Brimstone Bombs",
   [CollectibleType.FOUR_FIVE_VOLT]: "4.5 Volt",
+  // There is no `CollectibleType` with a value of 648.
   [CollectibleType.FRUITY_PLUM]: "Fruity Plum",
   [CollectibleType.PLUM_FLUTE]: "Plum Flute",
   [CollectibleType.STAR_OF_BETHLEHEM]: "Star of Bethlehem",
@@ -656,15 +664,18 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.VADE_RETRO]: "Vade Retro",
   [CollectibleType.FALSE_PHD]: "False PHD",
   [CollectibleType.SPIN_TO_WIN]: "Spin to Win",
+  // There is no `CollectibleType` with a value of 656.
   [CollectibleType.DAMOCLES_PASSIVE]: "Damocles (Passive)",
   [CollectibleType.VASCULITIS]: "Vasculitis",
   [CollectibleType.GIANT_CELL]: "Giant Cell",
   [CollectibleType.TROPICAMIDE]: "Tropicamide",
   [CollectibleType.CARD_READING]: "Card Reading",
   [CollectibleType.QUINTS]: "Quints",
+  // There is no `CollectibleType` with a value of 662.
   [CollectibleType.TOOTH_AND_NAIL]: "Tooth and Nail",
   [CollectibleType.BINGE_EATER]: "Binge Eater",
   [CollectibleType.GUPPYS_EYE]: "Guppy's Eye",
+  // There is no `CollectibleType` with a value of 666.
   [CollectibleType.STRAWMAN]: "Strawman",
   [CollectibleType.DADS_NOTE]: "Dad's Note",
   [CollectibleType.SAUSAGE]: "Sausage",
@@ -716,6 +727,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.HOLD]: "Hold",
   [CollectibleType.KEEPERS_SACK]: "Keeper's Sack",
   [CollectibleType.KEEPERS_KIN]: "Keeper's Kin",
+  // There is no `CollectibleType` with a value of 718.
   [CollectibleType.KEEPERS_BOX]: "Keeper's Box",
   [CollectibleType.EVERYTHING_JAR]: "Everything Jar",
   [CollectibleType.TMTRAINER]: "TMTRAINER",

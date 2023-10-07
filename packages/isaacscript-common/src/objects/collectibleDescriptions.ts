@@ -49,6 +49,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.KAMIKAZE]: "Become the bomb!",
   [CollectibleType.MOMS_PAD]: "Mass fear",
   [CollectibleType.BOBS_ROTTEN_HEAD]: "Reusable ranged bomb",
+  // There is no `CollectibleType` with a value of 43.
   [CollectibleType.TELEPORT]: "Teleport!",
   [CollectibleType.YUM_HEART]: "Reusable regeneration",
   [CollectibleType.LUCKY_FOOT]: "Luck up",
@@ -66,6 +67,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.BOOK_OF_SHADOWS]: "Temporary invincibility",
   [CollectibleType.BOOK_OF_BELIAL_BIRTHRIGHT]: "Temporary DMG up",
   [CollectibleType.LADDER]: "Building bridges",
+  // There is no `CollectibleType` with a value of 61.
   [CollectibleType.CHARM_OF_THE_VAMPIRE]: "Kills heal",
   [CollectibleType.BATTERY]: "Stores energy",
   [CollectibleType.STEAM_SALE]: "50% off",
@@ -239,6 +241,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.STOP_WATCH]: "Let's slow this down a bit...",
   [CollectibleType.TINY_PLANET]: "Orbiting tears + range up",
   [CollectibleType.INFESTATION_2]: "Infestation shot",
+  // There is no `CollectibleType` with a value of 235.
   [CollectibleType.E_COLI]: "Turdy touch",
   [CollectibleType.DEATHS_TOUCH]: "Piercing shots + DMG up",
   [CollectibleType.KEY_PIECE_1]: "???",
@@ -590,6 +593,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.BOOK_OF_VIRTUES]: "Spiritual companionship",
   [CollectibleType.ALABASTER_BOX]: "A sacred offering",
   [CollectibleType.STAIRWAY]: "May you get what you came for",
+  // There is no `CollectibleType` with a value of 587.
   [CollectibleType.SOL]: "Radiant victory",
   [CollectibleType.LUNA]: "The moon's blessing shines upon you",
   [CollectibleType.MERCURIUS]: "Speed up + you feel elusive",
@@ -615,12 +619,14 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.BIRD_CAGE]: "Fat buddy",
   [CollectibleType.LARYNX]: "Hear my pain",
   [CollectibleType.LOST_SOUL]: "Protect him",
+  // There is no `CollectibleType` with a value of 613.
   [CollectibleType.BLOOD_BOMBS]: "Bloody blast + HP up",
   [CollectibleType.LIL_DUMPY]: "Puffy buddy",
   [CollectibleType.BIRDS_EYE]: "It burns",
   [CollectibleType.LODESTONE]: "Magnetizing tears",
   [CollectibleType.ROTTEN_TOMATO]: "Delicious!",
   [CollectibleType.BIRTHRIGHT]: "???",
+  // There is no `CollectibleType` with a value of 620.
   [CollectibleType.RED_STEW]: "Full HP + temporary DMG up",
   [CollectibleType.GENESIS]: "In the beginning",
   [CollectibleType.SHARP_KEY]: "Open your enemies",
@@ -630,6 +636,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.KNIFE_PIECE_2]: "???",
   [CollectibleType.DEATH_CERTIFICATE]: "Where am I?",
   [CollectibleType.BOT_FLY]: "Defense drone",
+  // There is no `CollectibleType` with a value of 630.
   [CollectibleType.MEAT_CLEAVER]: "Slice but no dice",
   [CollectibleType.EVIL_CHARM]: "Luck up + you feel protected",
   [CollectibleType.DOGMA]: "Ascended",
@@ -647,6 +654,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.TINYTOMA]: "Itching for revenge",
   [CollectibleType.BRIMSTONE_BOMBS]: "Demon blast +5 bombs",
   [CollectibleType.FOUR_FIVE_VOLT]: "Beat the juice out of them!",
+  // There is no `CollectibleType` with a value of 648.
   [CollectibleType.FRUITY_PLUM]: "Bouncy friend",
   [CollectibleType.PLUM_FLUTE]: "Play time!",
   [CollectibleType.STAR_OF_BETHLEHEM]: "Follow the light",
@@ -654,15 +662,18 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.VADE_RETRO]: "Begone!",
   [CollectibleType.FALSE_PHD]: "Worse pills + evil up",
   [CollectibleType.SPIN_TO_WIN]: "Let it rip!",
+  // There is no `CollectibleType` with a value of 656.
   [CollectibleType.DAMOCLES_PASSIVE]: "A king's fortune... but at what cost?",
   [CollectibleType.VASCULITIS]: "Clogged enemies",
   [CollectibleType.GIANT_CELL]: "Micro friends",
   [CollectibleType.TROPICAMIDE]: "Tear size + range up",
   [CollectibleType.CARD_READING]: "A link to your future",
   [CollectibleType.QUINTS]: "They lurk inside",
+  // There is no `CollectibleType` with a value of 662.
   [CollectibleType.TOOTH_AND_NAIL]: "You feel prickly",
   [CollectibleType.BINGE_EATER]: "All you can eat",
   [CollectibleType.GUPPYS_EYE]: "An eye for secrets",
+  // There is no `CollectibleType` with a value of 666.
   [CollectibleType.STRAWMAN]: "A helping hand",
   [CollectibleType.DADS_NOTE]: "...",
   [CollectibleType.SAUSAGE]: "All stats up",
@@ -714,6 +725,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.HOLD]: "Saved for later",
   [CollectibleType.KEEPERS_SACK]: "Spending power",
   [CollectibleType.KEEPERS_KIN]: "Under a rock",
+  // There is no `CollectibleType` with a value of 718.
   [CollectibleType.KEEPERS_BOX]: "Portable shop",
   [CollectibleType.EVERYTHING_JAR]: "Anything is possible",
   [CollectibleType.TMTRAINER]:

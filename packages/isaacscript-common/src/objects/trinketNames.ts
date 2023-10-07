@@ -55,7 +55,7 @@ export const TRINKET_NAMES = {
   [TrinketType.SAFETY_CAP]: "Safety Cap",
   [TrinketType.ACE_OF_SPADES]: "Ace of Spades",
   [TrinketType.ISAACS_FORK]: "Isaac's Fork",
-  // There is no trinket for a `TrinketType` of 47.
+  // There is no `TrinketType` with a value of 47.
   [TrinketType.MISSING_PAGE]: "A Missing Page",
   [TrinketType.BLOODY_PENNY]: "Bloody Penny",
   [TrinketType.BURNT_PENNY]: "Burnt Penny",
