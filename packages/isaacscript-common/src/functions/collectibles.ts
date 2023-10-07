@@ -23,13 +23,13 @@ import {
 import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../core/constantsFirstLast";
 import { VANILLA_COLLECTIBLE_TYPES } from "../core/constantsVanilla";
 import {
-  COLLECTIBLE_DESCRIPTION_MAP,
+  COLLECTIBLE_DESCRIPTIONS,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
-} from "../maps/collectibleDescriptionMap";
+} from "../objects/collectibleDescriptions";
 import {
-  COLLECTIBLE_TYPE_TO_NAME_MAP,
+  COLLECTIBLE_NAMES,
   DEFAULT_COLLECTIBLE_NAME,
-} from "../maps/collectibleTypeToNameMap";
+} from "../objects/collectibleNames";
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
 import { getEntityID } from "./entities";
 import { hasFlag } from "./flag";
@@ -170,8 +170,9 @@ export function getCollectibleDescription(
 
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
-  const collectibleDescription =
-    COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
+  const collectibleDescription = COLLECTIBLE_DESCRIPTIONS[collectibleType] as
+    | string
+    | undefined;
   if (collectibleDescription !== undefined) {
     return collectibleDescription;
   }
@@ -354,7 +355,9 @@ export function getCollectibleName(
 
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
-  const collectibleName = COLLECTIBLE_TYPE_TO_NAME_MAP.get(collectibleType);
+  const collectibleName = COLLECTIBLE_NAMES[collectibleType] as
+    | string
+    | undefined;
   if (collectibleName !== undefined) {
     return collectibleName;
   }

@@ -5,7 +5,7 @@ import { TRINKET_NAMES } from "../objects/trinketNames";
 /**
  * Maps trinket names to the values of the `TrinketType` enum.
  *
- * For a mapping of `TrinketType` to name, see `TRINKET_TYPE_TO_NAME_MAP`.
+ * For a mapping of `TrinketType` to name, see the `TRINKET_NAMES` constant.
  */
 export const TRINKET_NAME_TO_TYPE_MAP: ReadonlyMap<string, TrinketType> =
   (() => {

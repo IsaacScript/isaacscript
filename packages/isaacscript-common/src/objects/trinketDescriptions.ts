@@ -53,6 +53,7 @@ export const TRINKET_DESCRIPTIONS = {
   [TrinketType.SAFETY_CAP]: "Don't swallow it",
   [TrinketType.ACE_OF_SPADES]: "Luck of the draw",
   [TrinketType.ISAACS_FORK]: "Consume thy enemy",
+  // There is no trinket for a `TrinketType` of 47.
   [TrinketType.MISSING_PAGE]: "It glows with power",
   [TrinketType.BLOODY_PENNY]: "Wealth of health",
   [TrinketType.BURNT_PENNY]: "Wealth of chaos",
