@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip/schema.json",
   "entry": ["src/index.ts", "tools/createRule.ts", "tools/generate.ts"],
+  "jest": "true",
   "ignore": [
     ".eslintrc.cjs",
     "jest.config.cjs",

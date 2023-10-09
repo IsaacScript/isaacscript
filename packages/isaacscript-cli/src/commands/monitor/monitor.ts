@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { fork, spawn } from "node:child_process";
+import { appendFileSync } from "node:fs";
 import path from "node:path";
 import type { Config } from "../../classes/Config.js";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
@@ -388,13 +389,15 @@ function spawnTSTLWatcher(
       const newMsg = `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
       notifyGame.msg(newMsg);
 
-      // Sometimes, there is a bug where successful compilation of "isaacscript-common" will not
-      // trigger a recompilation in the mod. Work around this by always touching the "main.ts" file
-      // from the mod.
+      // Successful compilation of "isaacscript-common" will not trigger a recompilation in the mod.
+      // Thus, we must arbitrarily change a file to trigger a mod recompilation.
       if (modCWD !== undefined) {
-        const mainTSPath = path.join(modCWD, "src", "main.ts");
-        if (fileExists(mainTSPath, verbose)) {
-          touch(mainTSPath, verbose);
+        const bundleEntryTSPath = path.join(modCWD, "src", "bundleEntry.ts");
+        if (fileExists(bundleEntryTSPath, verbose)) {
+          appendFileSync(
+            bundleEntryTSPath,
+            "// isaacscript-common dev forced recompilation\n",
+          );
         }
       }
     } else {
