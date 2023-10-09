@@ -5,11 +5,6 @@ import { filterMap } from "../functions/array";
 import { PILL_EFFECT_TYPES } from "./pillEffectTypes";
 
 export const PILL_EFFECT_TYPE_TO_PILL_EFFECTS = {
-  // -1
-  [ItemConfigPillEffectType.NULL]: getPillEffectsOfType(
-    ItemConfigPillEffectType.NULL,
-  ),
-
   // 0
   [ItemConfigPillEffectType.POSITIVE]: getPillEffectsOfType(
     ItemConfigPillEffectType.POSITIVE,
