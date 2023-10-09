@@ -17,6 +17,7 @@ fi
 # Old versions:
 # - @mdx-js/react - Stuck until Docusaurus upgrades.
 # - chalk - Stuck until "isaacscript-cli" can be upgraded to ESM; see it's "tsconfig.json".
+# - knip - https://github.com/webpro/knip/issues/286
 # - nx - There is a bug in the latest version: https://github.com/nrwl/nx/issues/18409
 # - prism-react-renderer - Stuck until Docusaurus upgrades.
 # - react - Stuck until Docusaurus upgrades.

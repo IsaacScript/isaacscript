@@ -55,5 +55,8 @@ export class PostRoomClearChanged extends CustomCallback<T> {
     const roomClear = room.IsClear();
 
     v.room.cleared = roomClear;
+    Isaac.DebugString(
+      `GETTING HERE - set v.room.cleared --> ${roomClear} (game frame ${game.GetFrameCount()})`,
+    );
   };
 }

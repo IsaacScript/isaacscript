@@ -240,7 +240,7 @@ export function onOrBeforeRoomFrame(
   const room = game.GetRoom();
 
   const thisGameFrameCount = room.GetFrameCount();
-  return thisGameFrameCount >= roomFrameCount;
+  return thisGameFrameCount <= roomFrameCount;
 }
 
 /**
@@ -257,7 +257,7 @@ export function onRenderFrame(
   }
 
   const thisRenderFrameCount = Isaac.GetFrameCount();
-  return thisRenderFrameCount >= renderFrameCount;
+  return thisRenderFrameCount === renderFrameCount;
 }
 
 /**
