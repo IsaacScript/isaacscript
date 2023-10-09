@@ -3,7 +3,8 @@
   "entry": [
     "src/main.ts",
     "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
-    "src/commands/monitor/saveDatWriter/saveDatWriter.ts"
+    "src/commands/monitor/saveDatWriter/saveDatWriter.ts",
+    "src/commands/check/check.test.ts"
   ],
   "ignore": [
     ".eslintrc.cjs",
