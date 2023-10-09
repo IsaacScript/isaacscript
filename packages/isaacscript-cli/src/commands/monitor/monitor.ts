@@ -28,6 +28,7 @@ import { getJSONC } from "../../json.js";
 import {
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
   getPackageManagerAddCommand,
+  getPackageManagerAddDevCommand,
   getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
@@ -41,8 +42,16 @@ import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles.js";
 
 const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
   "isaac-typescript-definitions",
-  "isaacscript",
   // - "isaacscript-common" is not required.
+] as const;
+
+/**
+ * We want "typescript" and some of the other dependencies to be in "devDependencies" instead of
+ * "dependencies" because it prevents their functions from being placed into the list of
+ * auto-complete functions.
+ */
+const REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES = [
+  "isaacscript",
   // - "isaacscript-lint" is not required.
   // - "isaacscript-spell" is not required.
   // - "isaacscript-tsconfig" is not required.
@@ -160,11 +169,21 @@ export async function monitor(
 
 function validatePackageJSONDependencies(args: Args, verbose: boolean) {
   const packageJSON = getJSONC(PACKAGE_JSON_PATH, verbose);
+  validatePackageJSONNormalDependencies(packageJSON, args, verbose);
+  validatePackageJSONDevDependencies(packageJSON, args, verbose);
+}
 
+function validatePackageJSONNormalDependencies(
+  packageJSON: Record<string, unknown>,
+  args: Args,
+  verbose: boolean,
+) {
   const { dependencies } = packageJSON;
   if (!isRecord(dependencies)) {
     fatalError(
-      `Failed to parse the dependencies of: ${chalk.green(PACKAGE_JSON_PATH)}`,
+      `The "${chalk.green(
+        PACKAGE_JSON_PATH,
+      )}" file does not have a "dependencies" array in it. Please add one so that IsaacScript can scan your dependencies.`,
     );
   }
 
@@ -184,6 +203,41 @@ function validatePackageJSONDependencies(args: Args, verbose: boolean) {
         `${chalk.red(
           `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command:`,
         )} ${chalk.green(addCommand)}`,
+      );
+    }
+  }
+}
+
+function validatePackageJSONDevDependencies(
+  packageJSON: Record<string, unknown>,
+  args: Args,
+  verbose: boolean,
+) {
+  const { devDependencies } = packageJSON;
+  if (!isRecord(devDependencies)) {
+    fatalError(
+      `The "${chalk.green(
+        PACKAGE_JSON_PATH,
+      )}" file does not have a "devDependencies" array in it. Please add one so that IsaacScript can scan your development dependencies.`,
+    );
+  }
+
+  const devDependenciesArray = Object.keys(devDependencies);
+
+  for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
+    if (!devDependenciesArray.includes(devDependency)) {
+      const packageManager = getPackageManagerUsedForExistingProject(
+        args,
+        verbose,
+      );
+      const addDevCommand = getPackageManagerAddDevCommand(
+        packageManager,
+        devDependency,
+      );
+      fatalError(
+        `${chalk.red(
+          `IsaacScript projects require a development dependency of "${devDependency}" in the "package.json" file. You can add it with the following command:`,
+        )} ${chalk.green(addDevCommand)}`,
       );
     }
   }

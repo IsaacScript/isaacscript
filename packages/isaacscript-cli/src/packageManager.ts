@@ -55,6 +55,25 @@ export function getPackageManagerAddCommand(
   }
 }
 
+export function getPackageManagerAddDevCommand(
+  packageManager: PackageManager,
+  dependency: string,
+): string {
+  switch (packageManager) {
+    case PackageManager.npm: {
+      return `npm install ${dependency} --save-dev`;
+    }
+
+    case PackageManager.yarn: {
+      return `yarn add ${dependency} --dev`;
+    }
+
+    case PackageManager.pnpm: {
+      return `pnpm add ${dependency} --save-dev`;
+    }
+  }
+}
+
 export function getPackageManagerInstallCommand(
   packageManager: PackageManager,
 ): string {

@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## October 9th, 2023 (Unreleased)
 
+- IsaacScript now requires that TypeScript and other development-related dependencies are placed in the "devDependencies" array in the "package.json" file (instead of the "dependencies" array). This is to prevent TypeScript-related functions from sneaking into VSCode's auto-complete list.
 - Added the following helper functions:
   - `assertNotNull`
   - `clearChallenge`

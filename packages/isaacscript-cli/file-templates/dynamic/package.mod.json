@@ -7,8 +7,10 @@
   "type": "module",
   "dependencies": {
     "isaac-typescript-definitions": "^0.0.1",
+    "isaacscript-common": "^0.0.1"
+  },
+  "devDependencies": {
     "isaacscript": "^0.0.1",
-    "isaacscript-common": "^0.0.1",
     "isaacscript-lint": "^0.0.1",
     "isaacscript-spell": "^0.0.1",
     "isaacscript-tsconfig": "^0.0.1",
