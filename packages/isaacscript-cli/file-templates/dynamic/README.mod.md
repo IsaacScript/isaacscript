@@ -6,7 +6,7 @@ PROJECT-NAME is a mod for [_The Binding of Isaac: Repentance_](https://store.ste
 
 For normal people, you can play the mod by subscribing to it on [the Steam Workshop](https://steamcommunity.com/app/250900/workshop/). (Subscribing to the mod will automatically download and install it once you launch the game.)
 
-### How To Compile
+## How To Compile
 
 If you are a developer, or if the mod is not yet uploaded to the Steam Workshop, you can play the mod by compiling the TypeScript code into a "main.lua" file. Perform the following steps:
 
