@@ -27,7 +27,7 @@ export enum RoomType {
   BOSS_RUSH = 17,
   CLEAN_BEDROOM = 18,
   DIRTY_BEDROOM = 19,
-  CHEST = 20,
+  VAULT = 20,
   DICE = 21,
   BLACK_MARKET = 22,
   GREED_EXIT = 23,
