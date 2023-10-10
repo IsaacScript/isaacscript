@@ -579,7 +579,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.DIVINE_INTERVENTION]: "Divine Intervention", // 568
   [CollectibleType.BLOOD_OATH]: "Blood Oath", // 569
   [CollectibleType.PLAYDOUGH_COOKIE]: "Playdough Cookie", // 570
-  [CollectibleType.SOCKS]: "Orphan Socks", // 571
+  [CollectibleType.ORPHAN_SOCKS]: "Orphan Socks", // 571
   [CollectibleType.EYE_OF_THE_OCCULT]: "Eye of the Occult", // 572
   [CollectibleType.IMMACULATE_HEART]: "Immaculate Heart", // 573
   [CollectibleType.MONSTRANCE]: "Monstrance", // 574

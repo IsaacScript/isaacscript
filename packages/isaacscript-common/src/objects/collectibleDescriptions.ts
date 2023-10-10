@@ -577,7 +577,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.DIVINE_INTERVENTION]: "Double tap shield", // 568
   [CollectibleType.BLOOD_OATH]: "Bleed me dry", // 569
   [CollectibleType.PLAYDOUGH_COOKIE]: "Tasty rainbow", // 570
-  [CollectibleType.SOCKS]: "Speed up + your feet feel stronger", // 571
+  [CollectibleType.ORPHAN_SOCKS]: "Speed up + your feet feel stronger", // 571
   [CollectibleType.EYE_OF_THE_OCCULT]: "DMG up + range up + controlled tears", // 572
   [CollectibleType.IMMACULATE_HEART]: "Halo of tears", // 573
   [CollectibleType.MONSTRANCE]: "Purifying light", // 574
