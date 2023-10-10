@@ -65,7 +65,7 @@ export class PreventCollectibleRotation extends Feature {
       [
         ModCallback.POST_USE_CARD,
         this.postUseCardSoulOfIsaac,
-        [CardType.SOUL_ISAAC],
+        [CardType.SOUL_OF_ISAAC],
       ],
 
       // 23, 105

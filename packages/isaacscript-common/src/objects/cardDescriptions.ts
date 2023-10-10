@@ -27,10 +27,10 @@ export const CARD_DESCRIPTIONS = {
   [CardType.SUN]: "May the light heal and enlighten you", // 20
   [CardType.JUDGEMENT]: "Judge lest ye be judged", // 21
   [CardType.WORLD]: "Open your eyes and see", // 22
-  [CardType.CLUBS_2]: "Item multiplier", // 23
-  [CardType.DIAMONDS_2]: "Item multiplier", // 24
-  [CardType.SPADES_2]: "Item multiplier", // 25
-  [CardType.HEARTS_2]: "Item multiplier", // 26
+  [CardType.TWO_OF_CLUBS]: "Item multiplier", // 23
+  [CardType.TWO_OF_DIAMONDS]: "Item multiplier", // 24
+  [CardType.TWO_OF_SPADES]: "Item multiplier", // 25
+  [CardType.TWO_OF_HEARTS]: "Item multiplier", // 26
   [CardType.ACE_OF_CLUBS]: "Convert all", // 27
   [CardType.ACE_OF_DIAMONDS]: "Convert all", // 28
   [CardType.ACE_OF_SPADES]: "Convert all", // 29
@@ -85,21 +85,21 @@ export const CARD_DESCRIPTIONS = {
   [CardType.CRACKED_KEY]: "???", // 78
   [CardType.QUEEN_OF_HEARTS]: "<3", // 79
   [CardType.WILD]: "Again", // 80
-  [CardType.SOUL_ISAAC]: "Reroll... or not", // 81
-  [CardType.SOUL_MAGDALENE]: "Give me your love!", // 82
-  [CardType.SOUL_CAIN]: "Opens the unopenable", // 83
-  [CardType.SOUL_JUDAS]: "Right behind you", // 84
-  [CardType.SOUL_BLUE_BABY]: "Chemical warfare", // 85
-  [CardType.SOUL_EVE]: "Your very own murder", // 86
-  [CardType.SOUL_SAMSON]: "Slay a thousand", // 87
-  [CardType.SOUL_AZAZEL]: "Demon rage!", // 88
-  [CardType.SOUL_LAZARUS]: "Life after death", // 89
-  [CardType.SOUL_EDEN]: "Embrace chaos", // 90
-  [CardType.SOUL_LOST]: "Leave your body behind", // 91
-  [CardType.SOUL_LILITH]: "Motherhood", // 92
-  [CardType.SOUL_KEEPER]: "$$$", // 93
-  [CardType.SOUL_APOLLYON]: "Bringer of calamity", // 94
-  [CardType.SOUL_FORGOTTEN]: "Skeletal protector", // 95
-  [CardType.SOUL_BETHANY]: "Friends from beyond", // 96
-  [CardType.SOUL_JACOB]: "Bound by blood", // 97
+  [CardType.SOUL_OF_ISAAC]: "Reroll... or not", // 81
+  [CardType.SOUL_OF_MAGDALENE]: "Give me your love!", // 82
+  [CardType.SOUL_OF_CAIN]: "Opens the unopenable", // 83
+  [CardType.SOUL_OF_JUDAS]: "Right behind you", // 84
+  [CardType.SOUL_OF_BLUE_BABY]: "Chemical warfare", // 85
+  [CardType.SOUL_OF_EVE]: "Your very own murder", // 86
+  [CardType.SOUL_OF_SAMSON]: "Slay a thousand", // 87
+  [CardType.SOUL_OF_AZAZEL]: "Demon rage!", // 88
+  [CardType.SOUL_OF_LAZARUS]: "Life after death", // 89
+  [CardType.SOUL_OF_EDEN]: "Embrace chaos", // 90
+  [CardType.SOUL_OF_LOST]: "Leave your body behind", // 91
+  [CardType.SOUL_OF_LILITH]: "Motherhood", // 92
+  [CardType.SOUL_OF_KEEPER]: "$$$", // 93
+  [CardType.SOUL_OF_APOLLYON]: "Bringer of calamity", // 94
+  [CardType.SOUL_OF_FORGOTTEN]: "Skeletal protector", // 95
+  [CardType.SOUL_OF_BETHANY]: "Friends from beyond", // 96
+  [CardType.SOUL_OF_JACOB]: "Bound by blood", // 97
 } as const satisfies Record<CardType, string>;

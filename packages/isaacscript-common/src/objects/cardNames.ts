@@ -27,10 +27,10 @@ export const CARD_NAMES = {
   [CardType.SUN]: "XIX - The Sun", // 20
   [CardType.JUDGEMENT]: "XX - Judgement", // 21
   [CardType.WORLD]: "XXI - The World", // 22
-  [CardType.CLUBS_2]: "2 of Clubs", // 23
-  [CardType.DIAMONDS_2]: "2 of Diamonds", // 24
-  [CardType.SPADES_2]: "2 of Spades", // 25
-  [CardType.HEARTS_2]: "2 of Hearts", // 26
+  [CardType.TWO_OF_CLUBS]: "2 of Clubs", // 23
+  [CardType.TWO_OF_DIAMONDS]: "2 of Diamonds", // 24
+  [CardType.TWO_OF_SPADES]: "2 of Spades", // 25
+  [CardType.TWO_OF_HEARTS]: "2 of Hearts", // 26
   [CardType.ACE_OF_CLUBS]: "Ace of Clubs", // 27
   [CardType.ACE_OF_DIAMONDS]: "Ace of Diamonds", // 28
   [CardType.ACE_OF_SPADES]: "Ace of Spades", // 29
@@ -85,21 +85,21 @@ export const CARD_NAMES = {
   [CardType.CRACKED_KEY]: "Cracked Key", // 78
   [CardType.QUEEN_OF_HEARTS]: "Queen of Hearts", // 79
   [CardType.WILD]: "Wild Card", // 80
-  [CardType.SOUL_ISAAC]: "Soul of Isaac", // 81
-  [CardType.SOUL_MAGDALENE]: "Soul of Magdalene", // 82
-  [CardType.SOUL_CAIN]: "Soul of Cain", // 83
-  [CardType.SOUL_JUDAS]: "Soul of Judas", // 84
-  [CardType.SOUL_BLUE_BABY]: "Soul of ???", // 85
-  [CardType.SOUL_EVE]: "Soul of Eve", // 86
-  [CardType.SOUL_SAMSON]: "Soul of Samson", // 87
-  [CardType.SOUL_AZAZEL]: "Soul of Azazel", // 88
-  [CardType.SOUL_LAZARUS]: "Soul of Lazarus", // 89
-  [CardType.SOUL_EDEN]: "Soul of Eden", // 90
-  [CardType.SOUL_LOST]: "Soul of the Lost", // 91
-  [CardType.SOUL_LILITH]: "Soul of Lilith", // 92
-  [CardType.SOUL_KEEPER]: "Soul of the Keeper", // 93
-  [CardType.SOUL_APOLLYON]: "Soul of Apollyon", // 94
-  [CardType.SOUL_FORGOTTEN]: "Soul of the Forgotten", // 95
-  [CardType.SOUL_BETHANY]: "Soul of Bethany", // 96
-  [CardType.SOUL_JACOB]: "Soul of Jacob and Esau", // 97
+  [CardType.SOUL_OF_ISAAC]: "Soul of Isaac", // 81
+  [CardType.SOUL_OF_MAGDALENE]: "Soul of Magdalene", // 82
+  [CardType.SOUL_OF_CAIN]: "Soul of Cain", // 83
+  [CardType.SOUL_OF_JUDAS]: "Soul of Judas", // 84
+  [CardType.SOUL_OF_BLUE_BABY]: "Soul of ???", // 85
+  [CardType.SOUL_OF_EVE]: "Soul of Eve", // 86
+  [CardType.SOUL_OF_SAMSON]: "Soul of Samson", // 87
+  [CardType.SOUL_OF_AZAZEL]: "Soul of Azazel", // 88
+  [CardType.SOUL_OF_LAZARUS]: "Soul of Lazarus", // 89
+  [CardType.SOUL_OF_EDEN]: "Soul of Eden", // 90
+  [CardType.SOUL_OF_LOST]: "Soul of the Lost", // 91
+  [CardType.SOUL_OF_LILITH]: "Soul of Lilith", // 92
+  [CardType.SOUL_OF_KEEPER]: "Soul of the Keeper", // 93
+  [CardType.SOUL_OF_APOLLYON]: "Soul of Apollyon", // 94
+  [CardType.SOUL_OF_FORGOTTEN]: "Soul of the Forgotten", // 95
+  [CardType.SOUL_OF_BETHANY]: "Soul of Bethany", // 96
+  [CardType.SOUL_OF_JACOB]: "Soul of Jacob and Esau", // 97
 } as const satisfies Record<CardType, string>;
