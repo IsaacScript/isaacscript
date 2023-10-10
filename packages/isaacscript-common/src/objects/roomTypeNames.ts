@@ -20,7 +20,7 @@ export const ROOM_TYPE_NAMES = {
   [RoomType.BOSS_RUSH]: "Boss Rush", // 17
   [RoomType.CLEAN_BEDROOM]: "Clean Bedroom", // 18
   [RoomType.DIRTY_BEDROOM]: "Dirty Bedroom", // 19
-  [RoomType.CHEST]: "Vault", // 20
+  [RoomType.VAULT]: "Vault", // 20
   [RoomType.DICE]: "Dice Room", // 21
   [RoomType.BLACK_MARKET]: "Black Market", // 22
   [RoomType.GREED_EXIT]: "Greed Exit Room", // 23

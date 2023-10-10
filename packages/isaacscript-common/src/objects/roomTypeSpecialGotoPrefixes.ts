@@ -20,7 +20,7 @@ export const ROOM_TYPE_SPECIAL_GOTO_PREFIXES = {
   [RoomType.BOSS_RUSH]: "bossrush", // 17
   [RoomType.CLEAN_BEDROOM]: "isaacs", // 18
   [RoomType.DIRTY_BEDROOM]: "barren", // 19
-  [RoomType.CHEST]: "chest", // 20
+  [RoomType.VAULT]: "chest", // 20
   [RoomType.DICE]: "dice", // 21
   [RoomType.BLACK_MARKET]: "blackmarket", // 22
   [RoomType.GREED_EXIT]: "greedexit", // 23

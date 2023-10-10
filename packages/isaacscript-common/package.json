@@ -25,6 +25,6 @@
   "main": "dist/src/index",
   "types": "dist/index.rollup.d.ts",
   "dependencies": {
-    "isaac-typescript-definitions": "^30.0.0"
+    "isaac-typescript-definitions": "^31.0.0"
   }
 }
