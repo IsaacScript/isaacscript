@@ -6,7 +6,6 @@ import { ItemPoolType } from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { arrayRemove, getRandomArrayElement } from "./array";
-import { isGreedMode } from "./run";
 
 const NORMAL_MODE_ONLY_ITEM_POOL_TYPES = [
   ItemPoolType.TREASURE, // 0
@@ -48,7 +47,7 @@ const GREED_MODE_ITEM_POOL_TYPES: readonly ItemPoolType[] = arrayRemove(
  * Greed Mode item pools should be excluded if not playing in Greed Mode.
  */
 export function getRandomItemPool(): ItemPoolType {
-  const itemPoolTypes = isGreedMode()
+  const itemPoolTypes = game.IsGreedMode()
     ? GREED_MODE_ITEM_POOL_TYPES
     : NORMAL_MODE_ITEM_POOL_TYPES;
   return getRandomArrayElement(itemPoolTypes);
