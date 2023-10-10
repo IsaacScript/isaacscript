@@ -57,6 +57,8 @@ This page lists the changes to the IsaacScript framework.
   - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
   - `getMoveActions` --> `getMoveButtonActions`
   - `getShootActions` --> `getShootButtonActions`
+- Removed the following helper functions:
+  - `isGreedMode` (use `Game.IsGreedMode` instead)
 - Added the following constants:
   - `MAX_QUALITY`
 - Renamed the following constants:

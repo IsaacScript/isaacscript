@@ -1,7 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { isGreedMode } from "../../functions/run";
 import { CustomCallback } from "../private/CustomCallback";
 
 const v = {
@@ -24,7 +23,7 @@ export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GRE
 
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = (): void => {
-    if (!isGreedMode()) {
+    if (!game.IsGreedMode()) {
       return;
     }
 

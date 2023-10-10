@@ -1,7 +1,6 @@
 import type { PlayerType } from "isaac-typescript-definitions";
 import {
   Challenge,
-  Difficulty,
   SeedEffect,
   SlotVariant,
 } from "isaac-typescript-definitions";
@@ -57,17 +56,6 @@ export function getSeedEffects(): SeedEffect[] {
   return SEED_EFFECTS.filter(
     (seedEffect) =>
       seedEffect !== SeedEffect.NORMAL && seeds.HasSeedEffect(seedEffect),
-  );
-}
-
-/**
- * Helper function to check if the difficulty of the current run is equal to `Difficulty.GREED` or
- * `Difficulty.GREEDIER`.
- */
-export function isGreedMode(): boolean {
-  return (
-    game.Difficulty === Difficulty.GREED ||
-    game.Difficulty === Difficulty.GREEDIER
   );
 }
 
