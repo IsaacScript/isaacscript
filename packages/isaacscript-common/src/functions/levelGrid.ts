@@ -432,8 +432,8 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
  * Under the hood, this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.
  */
 export function inRedKeyRoom(): boolean {
-  const gridIndex = getRoomGridIndex();
-  return isRedKeyRoom(gridIndex);
+  const roomGridIndex = getRoomGridIndex();
+  return isRedKeyRoom(roomGridIndex);
 }
 
 /**
