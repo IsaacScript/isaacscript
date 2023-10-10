@@ -198,13 +198,13 @@ export const CARD_NAME_TO_TYPE_MAP = new ReadonlyMap<string, CardType>([
   ["soulOfBethany", CardType.SOUL_OF_BETHANY], // 96
   ["soulBethany", CardType.SOUL_OF_BETHANY], // 96
   ["bethany", CardType.SOUL_OF_BETHANY], // 96
-  ["soulOfJacobAndEsau", CardType.SOUL_OF_JACOB], // 97
-  ["soulJacobAndEsau", CardType.SOUL_OF_JACOB], // 97
-  ["jacobAndEsau", CardType.SOUL_OF_JACOB], // 97
-  ["soulOfJacob&Esau", CardType.SOUL_OF_JACOB], // 97
-  ["soulJacob&Esau", CardType.SOUL_OF_JACOB], // 97
-  ["jacob&Esau", CardType.SOUL_OF_JACOB], // 97
-  ["soulOfJacob", CardType.SOUL_OF_JACOB], // 97
-  ["soulJacob", CardType.SOUL_OF_JACOB], // 97
-  ["jacob", CardType.SOUL_OF_JACOB], // 97
+  ["soulOfJacobAndEsau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulJacobAndEsau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["jacobAndEsau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulOfJacob&Esau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulJacob&Esau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["jacob&Esau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulOfJacob", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulJacob", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["jacob", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
 ]);
