@@ -1180,7 +1180,7 @@ export enum CollectibleType {
 }
 
 /**
- * For `EntityType.PICKUP` (5), `PickupVariant.TAROT_CARD` (300).
+ * For `EntityType.PICKUP` (5), `PickupVariant.CARD` (300).
  *
  * This is the sub-type of a card.
  *

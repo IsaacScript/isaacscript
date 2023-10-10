@@ -161,10 +161,10 @@ declare global {
     Variant: PickupVariant.COLLECTIBLE;
   }
 
-  /** For `PickupVariant.TAROT_CARD` (300). */
+  /** For `PickupVariant.CARD` (300). */
   interface EntityPickupCard extends EntityPickup {
     SubType: CardType;
-    Variant: PickupVariant.TAROT_CARD;
+    Variant: PickupVariant.CARD;
   }
 
   /** For `PickupVariant.TRINKET` (350). */

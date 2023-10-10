@@ -327,7 +327,7 @@ export enum PickupVariant {
   COLLECTIBLE = 100,
   BROKEN_SHOVEL = 110,
   SHOP_ITEM = 150,
-  TAROT_CARD = 300,
+  CARD = 300,
   BIG_CHEST = 340,
   TRINKET = 350,
   RED_CHEST = 360,

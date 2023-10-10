@@ -69,11 +69,10 @@ export function isCollectible(
   );
 }
 
-/** For `PickupVariant.TAROT_CARD` (300). */
+/** For `PickupVariant.CARD` (300). */
 export function isCardPickup(pickup: EntityPickup): pickup is EntityPickupCard {
   return (
-    pickup.Type === EntityType.PICKUP &&
-    pickup.Variant === PickupVariant.TAROT_CARD
+    pickup.Type === EntityType.PICKUP && pickup.Variant === PickupVariant.CARD
   );
 }
 
