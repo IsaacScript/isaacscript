@@ -1306,7 +1306,7 @@ export enum CardType {
   SOUL_OF_APOLLYON = 94,
   SOUL_OF_FORGOTTEN = 95,
   SOUL_OF_BETHANY = 96,
-  SOUL_OF_JACOB = 97,
+  SOUL_OF_JACOB_AND_ESAU = 97,
 }
 
 /**

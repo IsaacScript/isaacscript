@@ -101,5 +101,5 @@ export const CARD_DESCRIPTIONS = {
   [CardType.SOUL_OF_APOLLYON]: "Bringer of calamity", // 94
   [CardType.SOUL_OF_FORGOTTEN]: "Skeletal protector", // 95
   [CardType.SOUL_OF_BETHANY]: "Friends from beyond", // 96
-  [CardType.SOUL_OF_JACOB]: "Bound by blood", // 97
+  [CardType.SOUL_OF_JACOB_AND_ESAU]: "Bound by blood", // 97
 } as const satisfies Record<CardType, string>;
