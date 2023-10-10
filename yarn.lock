@@ -12325,7 +12325,7 @@ __metadata:
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
-    knip: ^2.33.0
+    knip: ^2.33.1
     lua-types: ^2.13.1
     markdownlint: ^0.31.1
     markdownlint-cli: ^0.37.0
@@ -13395,9 +13395,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.33.0":
-  version: 2.33.0
-  resolution: "knip@npm:2.33.0"
+"knip@npm:^2.33.1":
+  version: 2.33.1
+  resolution: "knip@npm:2.33.1"
   dependencies:
     "@ericcornelissen/bash-parser": ^0.5.2
     "@npmcli/map-workspaces": ^3.0.4
@@ -13421,7 +13421,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: 3123f0edddfed5b4ac4afa7710d77f122f34ed3b3e387a688271fa341c136108b129c6c477c4440860fed0128c65dbc6a7a2d0cb712e099c080c8fb6d4f129be
+  checksum: 6c66ad7ad1201c3860d0360750ca7d3e894df4a47b49b8fa690c788d98ed87d4ae49067b5da7b7654a33fb2003039140f8f4731e374fcc30aa23ab6b8486aacb
   languageName: node
   linkType: hard
 
