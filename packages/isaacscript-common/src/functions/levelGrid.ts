@@ -54,6 +54,8 @@ const ADJACENT_ROOM_GRID_INDEX_DELTAS = [LEFT, UP, RIGHT, DOWN] as const;
  *
  * This is just a filtering of the results of the `getAdjacentExistingRoomGridIndexes` function. See
  * that function for more information.
+ *
+ * @param roomGridIndex Optional. Default is the current room index.
  */
 export function getAdjacentExistingRoomGridIndexes(
   roomGridIndex?: int,
