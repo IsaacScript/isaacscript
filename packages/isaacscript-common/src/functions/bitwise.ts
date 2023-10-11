@@ -55,11 +55,11 @@ export function convertDecimalToBinary(num: number, minLength?: int): int[] {
  * Helper function to count the number of bits that are set to 1 in a binary representation of a
  * number.
  */
-export function countSetBits(n: int): int {
+export function countSetBits(num: int): int {
   let count = 0;
 
-  while (n > 0) {
-    n &= n - 1;
+  while (num > 0) {
+    num &= num - 1;
     count++;
   }
 

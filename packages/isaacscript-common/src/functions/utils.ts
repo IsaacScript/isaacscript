@@ -206,8 +206,8 @@ export function isRepentance(): boolean {
  * });
  * ```
  */
-export function repeat(n: int, func: (i: int) => void): void {
-  for (let i = 0; i < n; i++) {
+export function repeat(num: int, func: (i: int) => void): void {
+  for (let i = 0; i < num; i++) {
     func(i);
   }
 }
