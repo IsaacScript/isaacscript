@@ -68,7 +68,7 @@
     "eslint-plugin-eslint-plugin": "^5.1.1",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-jsdoc": "^46.8.2",
-    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-n": "^16.2.0",
     "eslint-plugin-no-autofix": "^1.2.3",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-sort-exports": "^0.8.0",
