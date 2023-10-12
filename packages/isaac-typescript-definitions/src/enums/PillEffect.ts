@@ -1,3 +1,4 @@
+/** This enum is contiguous. (Every value is satisfied between 0 and 49, inclusive.) */
 export enum PillEffect {
   BAD_GAS = 0,
   BAD_TRIP = 1,

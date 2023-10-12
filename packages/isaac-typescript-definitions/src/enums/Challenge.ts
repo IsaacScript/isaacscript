@@ -1,3 +1,4 @@
+/** This enum is contiguous. (Every value is satisfied between 0 and 45, inclusive.) */
 export enum Challenge {
   NULL = 0,
   PITCH_BLACK = 1,

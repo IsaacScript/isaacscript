@@ -442,6 +442,22 @@ export enum BatterySubType {
  * For `EntityType.PICKUP` (5), `PickupVariant.COLLECTIBLE` (100).
  *
  * This is the sub-type of a collectible.
+ *
+ * This enum is not contiguous. In other words, the enum ranges from `CollectibleType.NULL` (0) to
+ * `CollectibleType.MOMS_RING` (732), but there is no corresponding `CollectibleType` with the
+ * following exceptions:
+ *
+ * 1. 43 (Pills here)
+ * 2. 61 (Tarot Card)
+ * 3. 235
+ * 4. 587 (Menorah)
+ * 5. 613 (Salt Shaker)
+ * 6. 620 (Voodoo Pin)
+ * 7. 630 (Lucky Seven)
+ * 8. 648 (Pill Crusher)
+ * 9. 662
+ * 10. 666
+ * 11. 718
  */
 export enum CollectibleType {
   /** Spawning collectibles with this sub-type will produce a random collectible. */
@@ -492,6 +508,10 @@ export enum CollectibleType {
   KAMIKAZE = 40,
   MOMS_PAD = 41,
   BOBS_ROTTEN_HEAD = 42,
+
+  // - There is no enum member with a value of 43. (This has a placeholder name of "Pills here" in
+  //   the "items.xml" file.)
+
   TELEPORT = 44,
   YUM_HEART = 45,
   LUCKY_FOOT = 46,
@@ -515,6 +535,10 @@ export enum CollectibleType {
   BOOK_OF_BELIAL_BIRTHRIGHT = 59,
 
   LADDER = 60,
+
+  // - There is no enum member with a value of 61. (This has a placeholder name of "Tarot Card" in
+  //   the "items.xml" file.)
+
   CHARM_OF_THE_VAMPIRE = 62,
   BATTERY = 63,
   STEAM_SALE = 64,
@@ -688,6 +712,9 @@ export enum CollectibleType {
   STOP_WATCH = 232,
   TINY_PLANET = 233,
   INFESTATION_2 = 234,
+
+  // - There is no enum member with a value of 235.
+
   E_COLI = 236,
   DEATHS_TOUCH = 237,
   KEY_PIECE_1 = 238,
@@ -1039,6 +1066,10 @@ export enum CollectibleType {
   BOOK_OF_VIRTUES = 584,
   ALABASTER_BOX = 585,
   STAIRWAY = 586,
+
+  // - There is no enum member with a value of 587. (This used to be the ID for Menorah before it
+  //   was cut from Repentance.)
+
   SOL = 588,
   LUNA = 589,
   MERCURIUS = 590,
@@ -1064,12 +1095,20 @@ export enum CollectibleType {
   BIRD_CAGE = 610,
   LARYNX = 611,
   LOST_SOUL = 612,
+
+  // - There is no enum member with a value of 613. (This used to be the ID for Salt Shaker before
+  //   it was cut from Repentance.)
+
   BLOOD_BOMBS = 614,
   LIL_DUMPY = 615,
   BIRDS_EYE = 616,
   LODESTONE = 617,
   ROTTEN_TOMATO = 618,
   BIRTHRIGHT = 619,
+
+  // - There is no enum member with a value of 620. (This used to be the ID for Voodoo Pin before it
+  //   was cut from Repentance.)
+
   RED_STEW = 621,
   GENESIS = 622,
   SHARP_KEY = 623,
@@ -1079,6 +1118,10 @@ export enum CollectibleType {
   KNIFE_PIECE_2 = 627,
   DEATH_CERTIFICATE = 628,
   BOT_FLY = 629,
+
+  // - There is no enum member with a value of 630. (This used to be the ID for Lucky Seven before
+  //   it was cut from Repentance.)
+
   MEAT_CLEAVER = 631,
   EVIL_CHARM = 632,
   DOGMA = 633,
@@ -1096,6 +1139,10 @@ export enum CollectibleType {
   TINYTOMA = 645,
   BRIMSTONE_BOMBS = 646,
   FOUR_FIVE_VOLT = 647,
+
+  // - There is no enum member with a value of 648. (This used to be the ID for Pill Crusher before
+  //   it was cut from Repentance.)
+
   FRUITY_PLUM = 649,
   PLUM_FLUTE = 650,
   STAR_OF_BETHLEHEM = 651,
@@ -1109,9 +1156,15 @@ export enum CollectibleType {
   TROPICAMIDE = 659,
   CARD_READING = 660,
   QUINTS = 661,
+
+  // - There is no enum member with a value of 662.
+
   TOOTH_AND_NAIL = 663,
   BINGE_EATER = 664,
   GUPPYS_EYE = 665,
+
+  // - There is no enum member with a value of 666.
+
   STRAWMAN = 667,
   DADS_NOTE = 668,
   SAUSAGE = 669,
@@ -1163,6 +1216,9 @@ export enum CollectibleType {
   HOLD = 715,
   KEEPERS_SACK = 716,
   KEEPERS_KIN = 717,
+
+  // - There is no enum member with a value of 718.
+
   KEEPERS_BOX = 719,
   EVERYTHING_JAR = 720,
   TMTRAINER = 721,
@@ -1186,6 +1242,8 @@ export enum CollectibleType {
  *
  * This enum was renamed from "Card" to be consistent with the `CollectibleType` and `TrinketType`
  * enums.
+ *
+ * This enum is contiguous. (Every value is satisfied between 0 and 97, inclusive.)
  */
 export enum CardType {
   /**
@@ -1313,6 +1371,10 @@ export enum CardType {
  * For `EntityType.PICKUP` (5), `PickupVariant.TRINKET` (350).
  *
  * This is the sub-type of a trinket.
+ *
+ * This enum is not contiguous. In other words, the enum ranges from `TrinketType.NULL` (0) to
+ * `TrinketType.SIGIL_OF_BAPHOMET` (189), but there is no corresponding `TrinketType` with a value
+ * of 47.
  */
 export enum TrinketType {
   /** Spawning trinkets with this sub-type will produce a random trinket. */
@@ -1364,7 +1426,10 @@ export enum TrinketType {
   SAFETY_CAP = 44,
   ACE_OF_SPADES = 45,
   ISAACS_FORK = 46,
-  // 47 is `POLAROID_OBSOLETE`.
+
+  // - There is no enum member with a value of 47. This was originally the ID for The Polaroid in
+  //   Wrath of the Lamb. In the vanilla enums, this is listed as `POLAROID_OBSOLETE`.
+
   MISSING_PAGE = 48,
   BLOODY_PENNY = 49,
   BURNT_PENNY = 50,
