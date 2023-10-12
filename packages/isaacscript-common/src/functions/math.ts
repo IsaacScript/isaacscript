@@ -156,8 +156,14 @@ export function sign(n: number): int {
  *
  * @param num The number to split into chunks. This must be a positive integer.
  * @param size The size of each chunk. This must be a positive integer.
+ * @param startAtZero Whether to start at 0. Defaults to false. If true, the chunks will start at 0
+ *                    instead of 1.
  */
-export function splitNumber(num: int, size: int): Array<[min: int, max: int]> {
+export function splitNumber(
+  num: int,
+  size: int,
+  startAtZero = false,
+): Array<[min: int, max: int]> {
   if (num <= 0) {
     error(
       `The number to split needs to be a positive number and is instead: ${num}`,
@@ -171,12 +177,12 @@ export function splitNumber(num: int, size: int): Array<[min: int, max: int]> {
   }
 
   const chunks: Array<[number, number]> = [];
-  let min = 1;
+  let start = startAtZero ? 0 : 1;
 
-  while (min <= num) {
-    const max = Math.min(min + size - 1, num);
-    chunks.push([min, max]);
-    min = max + 1;
+  while (start <= num) {
+    const end = Math.min(start + size - 1, num);
+    chunks.push([start, end]);
+    start += size;
   }
 
   return chunks;
