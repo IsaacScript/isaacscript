@@ -12,6 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## October 16th, 2023 (Unreleased)
 
 - Added the following helper functions:
+  - `isFamiliarCollectible`
   - `splitNumber`
 
 ## October 9th, 2023

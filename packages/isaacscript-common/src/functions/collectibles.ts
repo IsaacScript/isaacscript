@@ -451,7 +451,7 @@ export function getVanillaCollectibleTypesOfQuality(
   return collectibleTypes;
 }
 
-/** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
+/** Returns true if the item type in the item config is equal to `ItemType.ACTIVE`. */
 export function isActiveCollectible(collectibleType: CollectibleType): boolean {
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.ACTIVE;
@@ -485,6 +485,14 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
 
   questionMarkSprite.SetFrame(animation, frame);
   return collectibleSpriteEquals(sprite, questionMarkSprite);
+}
+
+/** Returns true if the item type in the item config is equal to `ItemType.FAMILIAR`. */
+export function isFamiliarCollectible(
+  collectibleType: CollectibleType,
+): boolean {
+  const itemType = getCollectibleItemType(collectibleType);
+  return itemType === ItemType.FAMILIAR;
 }
 
 /**
