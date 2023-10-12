@@ -2227,13 +2227,13 @@ export enum TallLadderSubType {
 /** For `EntityType.EFFECT` (1000), `EffectVariant.PORTAL_TELEPORT` (161). */
 export enum PortalTeleportSubType {
   /** Is yellow in color. */
-  TREASURE_ROOM,
+  TREASURE_ROOM = 0,
 
   /** Is red in color. */
-  BOSS_ROOM,
+  BOSS_ROOM = 1,
 
   /** Is blue in color. */
-  SECRET_ROOM,
+  SECRET_ROOM = 2,
 
   /**
    * Is purple in color.
@@ -2244,7 +2244,7 @@ export enum PortalTeleportSubType {
    * example, you would use a sub-type of 1058 for a persistent portal that always goes to the room
    * at grid index 58.
    */
-  RANDOM_ROOM,
+  RANDOM_ROOM = 3,
 }
 
 /** For `EntityType.EFFECT` (1000), `EffectVariant.PURGATORY` (189). */
