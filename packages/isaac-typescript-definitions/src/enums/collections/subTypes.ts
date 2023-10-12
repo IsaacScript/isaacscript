@@ -445,7 +445,7 @@ export enum BatterySubType {
  *
  * This enum is not contiguous. In other words, the enum ranges from `CollectibleType.NULL` (0) to
  * `CollectibleType.MOMS_RING` (732), but there is no corresponding `CollectibleType` with the
- * following exceptions:
+ * following values:
  *
  * 1. 43 (Pills here)
  * 2. 61 (Tarot Card)
