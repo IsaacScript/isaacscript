@@ -47,7 +47,7 @@ declare global {
 
     /**
      * It is recommended to never use the `RNG.SetSeed` method directly and instead use the
-     * `setSeed` helper function, which can help avoid crashes.
+     * `setSeed` helper function from `isaacscript-common`, since it prevent the game from crashing.
      *
      * When setting the seed with this method, it is recommended to use a shift index of 35, which
      * is what most of the game's internal functions use. Document this number as a constant using

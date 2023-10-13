@@ -61,7 +61,13 @@ declare global {
     GetAwardSeed: () => Seed;
     GetBackdropType: () => BackdropType;
 
-    /** Returns 0 if this is not a boss room. */
+    /**
+     * Returns 0 if this is not a boss room.
+     *
+     * @deprecated It is recommended to never use `Room.GetBossID` directly and instead use the
+     *             `getBossID` helper function from `isaacscript-common`, since it has a saner
+     *             return type and correctly handles Dogma, The Beast, and Ultra Greedier.
+     */
     GetBossID: () => BossID | 0;
 
     GetBottomRightPos: () => Vector;

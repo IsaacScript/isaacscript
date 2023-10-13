@@ -17,6 +17,7 @@ import {
 import { game, musicManager, sfxManager } from "../core/cachedClasses";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToString, isArray } from "./array";
+import { getBossID } from "./bosses";
 import { getCollectibleName } from "./collectibles";
 import { getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
@@ -310,8 +311,7 @@ export function logProjectileFlags(
 
 /** Helper function for logging information about the current room. */
 export function logRoom(this: void): void {
-  const room = game.GetRoom();
-  const bossID = room.GetBossID();
+  const bossID = getBossID();
   const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
   const roomData = getRoomData();

@@ -58,9 +58,9 @@ export enum ModCallback {
    * function postPEffectUpdate(player: EntityPlayer): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED` callback
-   *             instead, since it will fire in the correct order and prevent bugs relating to data
-   *             structures not being properly initialized.
+   * @deprecated Consider using the `ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_PEFFECT_UPDATE = 4,
 
@@ -214,9 +214,9 @@ export enum ModCallback {
    * function postGameStarted(isContinued: boolean): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_GAME_STARTED_REORDERED` callback
-   *             instead, since it will fire in the correct order and prevent bugs relating to data
-   *             structures not being properly initialized.
+   * @deprecated Consider using the `ModCallbackCustom.POST_GAME_STARTED_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_GAME_STARTED = 15,
 
@@ -247,9 +247,9 @@ export enum ModCallback {
    * function postNewLevel(): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_LEVEL_REORDERED` callback instead,
-   *             since it will fire in the correct order and prevent bugs relating to data
-   *             structures not being properly initialized.
+   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_LEVEL_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_NEW_LEVEL = 18,
 
@@ -260,9 +260,9 @@ export enum ModCallback {
    * function postNewRoom(): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_ROOM_REORDERED` callback instead,
-   *             since it will fire in the correct order and prevent bugs relating to data
-   *             structures not being properly initialized.
+   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_ROOM_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_NEW_ROOM = 19,
 
@@ -438,9 +438,9 @@ export enum ModCallback {
    * function postPlayerUpdate(player: EntityPlayer): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED` callback
-   *             instead, since it will fire in the correct order and prevent bugs relating to data
-   *             structures not being properly initialized.
+   * @deprecated Consider using the `ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_PLAYER_UPDATE = 31,
 
@@ -453,9 +453,9 @@ export enum ModCallback {
    * function postPlayerRender(player: EntityPlayer, renderOffset: Vector): void {}
    * ```
    *
-   * @deprecated Consider using the `ModCallbackCustom.POST_PLAYER_RENDER_REORDERED` callback
-   *             instead, since it will fire in the correct order and prevent bugs relating to data
-   *             structures not being properly initialized.
+   * @deprecated Consider using the `ModCallbackCustom.POST_PLAYER_RENDER_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_PLAYER_RENDER = 32,
 
