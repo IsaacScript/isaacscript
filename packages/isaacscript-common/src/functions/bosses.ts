@@ -1,5 +1,10 @@
 import type { LevelStage, StageType } from "isaac-typescript-definitions";
-import { BossID, EntityType, LokiVariant } from "isaac-typescript-definitions";
+import {
+  BossID,
+  EntityType,
+  LokiVariant,
+  UltraGreedVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP } from "../maps/entityTypeVariantToBossIDMap";
@@ -16,6 +21,7 @@ import {
 import { REPENTANCE_ONLY_BOSS_IDS_SET } from "../sets/repentanceBossIDsSet";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
 import { ReadonlySet } from "../types/ReadonlySet";
+import { doesEntityExist } from "./entities";
 import { getNPCs, spawnNPC } from "./entitiesSpecific";
 import { getAliveNPCs } from "./npcs";
 import { isRNG } from "./rng";
@@ -86,13 +92,13 @@ export function getAllBossesSet(
 }
 
 /**
- * Helper function to get the boss ID corresponding to the current room. Returns 0 if the current
- * room is not a Boss Room.
+ * Helper function to get the boss ID corresponding to the current room. Returns undefined if the
+ * current room is not a Boss Room.
  *
- * Use this instead of the vanilla `Room.GetBossID` method since it correctly handles Dogma and The
- * Beast.
+ * Use this instead of the vanilla `Room.GetBossID` method since it has a saner return type and it
+ * correctly handles Dogma, The Beast, and Ultra Greedier.
  */
-export function getBossID(): BossID | 0 {
+export function getBossID(): BossID | undefined {
   if (inDogmaRoom()) {
     return BossID.DOGMA;
   }
@@ -102,7 +108,20 @@ export function getBossID(): BossID | 0 {
   }
 
   const room = game.GetRoom();
-  return room.GetBossID();
+  const bossID = room.GetBossID();
+  if (bossID === 0) {
+    return undefined;
+  }
+
+  // The Ultra Greed room holds both Ultra Greed and Ultra Greedier.
+  if (
+    bossID === BossID.ULTRA_GREED &&
+    doesEntityExist(EntityType.ULTRA_GREED, UltraGreedVariant.ULTRA_GREEDIER)
+  ) {
+    return BossID.ULTRA_GREEDIER;
+  }
+
+  return bossID;
 }
 
 export function getBossIDFromEntityTypeVariant(
