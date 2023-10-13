@@ -19,16 +19,8 @@ export function getElapsedRoomFramesSince(roomFrameCount: int): int {
 /**
  * Helper function to check if the current game frame count is higher than a specific game frame
  * count.
- *
- * This returns false if the submitted game frame count is null or undefined.
  */
-export function isAfterGameFrame(
-  gameFrameCount: int | null | undefined,
-): boolean {
-  if (gameFrameCount === null || gameFrameCount === undefined) {
-    return false;
-  }
-
+export function isAfterGameFrame(gameFrameCount: int): boolean {
   const thisGameFrameCount = game.GetFrameCount();
   return thisGameFrameCount > gameFrameCount;
 }
@@ -36,16 +28,8 @@ export function isAfterGameFrame(
 /**
  * Helper function to check if the current render frame count is higher than a specific render frame
  * count.
- *
- * This returns false if the submitted render frame count is null or undefined.
  */
-export function isAfterRenderFrame(
-  renderFrameCount: int | null | undefined,
-): boolean {
-  if (renderFrameCount === null || renderFrameCount === undefined) {
-    return false;
-  }
-
+export function isAfterRenderFrame(renderFrameCount: int): boolean {
   const thisRenderFrameCount = Isaac.GetFrameCount();
   return thisRenderFrameCount > renderFrameCount;
 }
@@ -53,16 +37,8 @@ export function isAfterRenderFrame(
 /**
  * Helper function to check if the current room frame count is higher than a specific room frame
  * count.
- *
- * This returns false if the submitted room frame count is null or undefined.
  */
-export function isAfterRoomFrame(
-  roomFrameCount: int | null | undefined,
-): boolean {
-  if (roomFrameCount === null || roomFrameCount === undefined) {
-    return false;
-  }
-
+export function isAfterRoomFrame(roomFrameCount: int): boolean {
   const room = game.GetRoom();
 
   const thisGameFrameCount = room.GetFrameCount();
@@ -72,16 +48,8 @@ export function isAfterRoomFrame(
 /**
  * Helper function to check if the current game frame count is lower than a specific game frame
  * count.
- *
- * This returns false if the submitted game frame count is null or undefined.
  */
-export function isBeforeGameFrame(
-  gameFrameCount: int | null | undefined,
-): boolean {
-  if (gameFrameCount === null || gameFrameCount === undefined) {
-    return false;
-  }
-
+export function isBeforeGameFrame(gameFrameCount: int): boolean {
   const thisGameFrameCount = game.GetFrameCount();
   return thisGameFrameCount < gameFrameCount;
 }
@@ -89,16 +57,8 @@ export function isBeforeGameFrame(
 /**
  * Helper function to check if the current render frame count is lower than a specific render frame
  * count.
- *
- * This returns false if the submitted render frame count is null or undefined.
  */
-export function isBeforeRenderFrame(
-  renderFrameCount: int | null | undefined,
-): boolean {
-  if (renderFrameCount === null || renderFrameCount === undefined) {
-    return false;
-  }
-
+export function isBeforeRenderFrame(renderFrameCount: int): boolean {
   const thisRenderFrameCount = Isaac.GetFrameCount();
   return thisRenderFrameCount < renderFrameCount;
 }
@@ -106,16 +66,8 @@ export function isBeforeRenderFrame(
 /**
  * Helper function to check if the current room frame count is lower than a specific room frame
  * count.
- *
- * This returns false if the submitted room frame count is null or undefined.
  */
-export function isBeforeRoomFrame(
-  roomFrameCount: int | null | undefined,
-): boolean {
-  if (roomFrameCount === null || roomFrameCount === undefined) {
-    return false;
-  }
-
+export function isBeforeRoomFrame(roomFrameCount: int): boolean {
   const room = game.GetRoom();
 
   const thisGameFrameCount = room.GetFrameCount();
@@ -126,7 +78,7 @@ export function isBeforeRoomFrame(
  * Helper function to check if the current game frame count is exactly equal to a specific game
  * frame count.
  *
- * This returns false if the submitted game frame count is null or undefined.
+ * This returns false if the submitted render frame count is null or undefined.
  */
 export function onGameFrame(gameFrameCount: int | null | undefined): boolean {
   if (gameFrameCount === null || gameFrameCount === undefined) {
@@ -140,16 +92,8 @@ export function onGameFrame(gameFrameCount: int | null | undefined): boolean {
 /**
  * Helper function to check if the current game frame count is equal to or higher than a specific
  * game frame count.
- *
- * This returns false if the submitted game frame count is null or undefined.
  */
-export function onOrAfterGameFrame(
-  gameFrameCount: int | null | undefined,
-): boolean {
-  if (gameFrameCount === null || gameFrameCount === undefined) {
-    return false;
-  }
-
+export function onOrAfterGameFrame(gameFrameCount: int): boolean {
   const thisGameFrameCount = game.GetFrameCount();
   return thisGameFrameCount >= gameFrameCount;
 }
@@ -157,16 +101,8 @@ export function onOrAfterGameFrame(
 /**
  * Helper function to check if the current render frame count is equal to or higher than a specific
  * render frame count.
- *
- * This returns false if the submitted render frame count is null or undefined.
  */
-export function onOrAfterRenderFrame(
-  renderFrameCount: int | null | undefined,
-): boolean {
-  if (renderFrameCount === null || renderFrameCount === undefined) {
-    return false;
-  }
-
+export function onOrAfterRenderFrame(renderFrameCount: int): boolean {
   const thisRenderFrameCount = Isaac.GetFrameCount();
   return thisRenderFrameCount >= renderFrameCount;
 }
@@ -174,16 +110,8 @@ export function onOrAfterRenderFrame(
 /**
  * Helper function to check if the current room frame count is equal to or higher than a specific
  * room frame count.
- *
- * This returns false if the submitted room frame count is null or undefined.
  */
-export function onOrAfterRoomFrame(
-  roomFrameCount: int | null | undefined,
-): boolean {
-  if (roomFrameCount === null || roomFrameCount === undefined) {
-    return false;
-  }
-
+export function onOrAfterRoomFrame(roomFrameCount: int): boolean {
   const room = game.GetRoom();
 
   const thisGameFrameCount = room.GetFrameCount();
@@ -193,16 +121,8 @@ export function onOrAfterRoomFrame(
 /**
  * Helper function to check if the current game frame count is equal to or lower than a specific
  * game frame count.
- *
- * This returns false if the submitted game frame count is null or undefined.
  */
-export function onOrBeforeGameFrame(
-  gameFrameCount: int | null | undefined,
-): boolean {
-  if (gameFrameCount === null || gameFrameCount === undefined) {
-    return false;
-  }
-
+export function onOrBeforeGameFrame(gameFrameCount: int): boolean {
   const thisGameFrameCount = game.GetFrameCount();
   return thisGameFrameCount <= gameFrameCount;
 }
@@ -210,16 +130,8 @@ export function onOrBeforeGameFrame(
 /**
  * Helper function to check if the current render frame count is equal to or lower than a specific
  * render frame count.
- *
- * This returns false if the submitted render frame count is null or undefined.
  */
-export function onOrBeforeRenderFrame(
-  renderFrameCount: int | null | undefined,
-): boolean {
-  if (renderFrameCount === null || renderFrameCount === undefined) {
-    return false;
-  }
-
+export function onOrBeforeRenderFrame(renderFrameCount: int): boolean {
   const thisRenderFrameCount = Isaac.GetFrameCount();
   return thisRenderFrameCount <= renderFrameCount;
 }
@@ -227,16 +139,8 @@ export function onOrBeforeRenderFrame(
 /**
  * Helper function to check if the current room frame count is equal to or lower than a specific
  * room frame count.
- *
- * This returns false if the submitted room frame count is null or undefined.
  */
-export function onOrBeforeRoomFrame(
-  roomFrameCount: int | null | undefined,
-): boolean {
-  if (roomFrameCount === null || roomFrameCount === undefined) {
-    return false;
-  }
-
+export function onOrBeforeRoomFrame(roomFrameCount: int): boolean {
   const room = game.GetRoom();
 
   const thisGameFrameCount = room.GetFrameCount();
