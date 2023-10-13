@@ -35,7 +35,7 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       noConstAssertion:
-        "Variables with capital letters that assign an object must use const assertions.",
+        "Variables with capital letters that assign an object or array must use const assertions.",
     },
     fixable: "code",
   },
