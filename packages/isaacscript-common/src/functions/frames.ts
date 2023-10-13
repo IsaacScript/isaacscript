@@ -81,10 +81,6 @@ export function isBeforeRoomFrame(roomFrameCount: int): boolean {
  * This returns false if the submitted render frame count is null or undefined.
  */
 export function onGameFrame(gameFrameCount: int | null | undefined): boolean {
-  if (gameFrameCount === null || gameFrameCount === undefined) {
-    return false;
-  }
-
   const thisGameFrameCount = game.GetFrameCount();
   return thisGameFrameCount === gameFrameCount;
 }
@@ -156,10 +152,6 @@ export function onOrBeforeRoomFrame(roomFrameCount: int): boolean {
 export function onRenderFrame(
   renderFrameCount: int | null | undefined,
 ): boolean {
-  if (renderFrameCount === null || renderFrameCount === undefined) {
-    return false;
-  }
-
   const thisRenderFrameCount = Isaac.GetFrameCount();
   return thisRenderFrameCount === renderFrameCount;
 }
@@ -171,10 +163,6 @@ export function onRenderFrame(
  * This returns false if the submitted room frame count is null or undefined.
  */
 export function onRoomFrame(roomFrameCount: int | null | undefined): boolean {
-  if (roomFrameCount === null || roomFrameCount === undefined) {
-    return false;
-  }
-
   const room = game.GetRoom();
 
   const thisGameFrameCount = room.GetFrameCount();
