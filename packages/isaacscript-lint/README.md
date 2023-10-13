@@ -195,7 +195,7 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 {
   "[javascript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
@@ -204,7 +204,7 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 
   "[typescript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,

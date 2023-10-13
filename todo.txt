@@ -1,4 +1,3 @@
-- find out why unreachable code is automatically deleted
 - lint rule: if return type of function includes undefined in a union, don't allow void return
 - lint rule: don't allow `return` or `return undefined` when return type of function is void
 
