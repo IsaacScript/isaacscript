@@ -134,6 +134,45 @@ export function getPartialMatch(
   return matchingElements[0];
 }
 
+/**
+ * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
+ * undefined if the submitted string was not a proper Semantic Version string.
+ *
+ * https://semver.org/
+ */
+export function parseSemanticVersion(versionString: string):
+  | {
+      majorVersion: int;
+      minorVersion: int;
+      patchVersion: int;
+    }
+  | undefined {
+  const [majorVersionString, minorVersionString, patchVersionString] =
+    string.match(versionString, "(%d+).(%d+).(%d+)");
+
+  if (
+    majorVersionString === undefined ||
+    minorVersionString === undefined ||
+    patchVersionString === undefined
+  ) {
+    return undefined;
+  }
+
+  const majorVersion = tonumber(majorVersionString);
+  const minorVersion = tonumber(minorVersionString);
+  const patchVersion = tonumber(patchVersionString);
+
+  if (
+    majorVersion === undefined ||
+    minorVersion === undefined ||
+    patchVersion === undefined
+  ) {
+    return undefined;
+  }
+
+  return { majorVersion, minorVersion, patchVersion };
+}
+
 export function removeAllCharacters(string: string, character: string): string {
   return string.replaceAll(character, "");
 }
