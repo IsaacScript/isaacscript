@@ -40,7 +40,7 @@
     "tslib": "^2.6.2",
     "typescript-to-lua": "^1.20.1",
     "xml2js": "^0.6.2",
-    "yaml": "^2.3.2",
+    "yaml": "^2.3.3",
     "yargs": "^17.7.2"
   },
   "peerDependencies": {
