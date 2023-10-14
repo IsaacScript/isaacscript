@@ -189,19 +189,19 @@ export function parseSemanticVersion(versionString: string):
   }
 
   const { major, minor, patch } = match.groups;
-
-  const majorVersion = parseIntSafe(major ?? "");
-  if (majorVersion === undefined) {
+  if (major === undefined || minor === undefined || patch === undefined) {
     return undefined;
   }
 
-  const minorVersion = parseIntSafe(minor ?? "");
-  if (minorVersion === undefined) {
-    return undefined;
-  }
+  const majorVersion = parseIntSafe(major);
+  const minorVersion = parseIntSafe(minor);
+  const patchVersion = parseIntSafe(patch);
 
-  const patchVersion = parseIntSafe(patch ?? "");
-  if (patchVersion === undefined) {
+  if (
+    majorVersion === undefined ||
+    minorVersion === undefined ||
+    patchVersion === undefined
+  ) {
     return undefined;
   }
 
