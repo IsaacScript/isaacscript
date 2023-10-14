@@ -696,6 +696,7 @@ export enum EnvyVariant {
 export enum PrideVariant {
   PRIDE = 0,
   SUPER_PRIDE = 1,
+  ULTRA_PRIDE = 2,
 }
 
 /** For `EntityType.DOPLE` (53). */
