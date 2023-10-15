@@ -28,7 +28,7 @@
     "@nrwl/nx-cloud": "latest",
     "@prettier/plugin-xml": "^3.2.1",
     "@svgr/webpack": "^8.1.0",
-    "@tsconfig/docusaurus": "^2.0.1",
+    "@tsconfig/docusaurus": "^2.0.2",
     "@tsconfig/node-lts": "^18.12.5",
     "@tsconfig/strictest": "^2.0.2",
     "@types/command-exists": "^1.2.1",
