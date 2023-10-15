@@ -11,8 +11,10 @@ import {
   DoorSlotFlag,
   DownpourRoomSubType,
   DungeonSubType,
+  EntityFlag,
   GridRoom,
   HomeRoomSubType,
+  ProjectileFlag,
   RoomDescriptorFlag,
   RoomShape,
   RoomType,
@@ -789,6 +791,49 @@ export function isMirrorRoom(roomData: RoomConfig): boolean {
       roomData.StageID === StageID.DROSS) &&
     roomData.Subtype === asNumber(DownpourRoomSubType.MIRROR)
   );
+}
+
+/**
+ * Helper function to check if the room contains one or more enemies/projectiles that could damage
+ * the player.
+ *
+ * This is useful to check to see if it is safe to pause the game or display some informational
+ * text.
+ */
+export function isRoomDangerous(): boolean {
+  const room = game.GetRoom();
+
+  const isClear = room.IsClear();
+  if (!isClear) {
+    return true;
+  }
+
+  const entities = getEntities();
+
+  if (
+    entities.some(
+      (entity) =>
+        entity.IsActiveEnemy(false) &&
+        !entity.HasEntityFlags(EntityFlag.FRIENDLY),
+    )
+  ) {
+    return true;
+  }
+
+  if (
+    entities.some((entity) => {
+      const projectile = entity.ToProjectile();
+      if (projectile === undefined) {
+        return false;
+      }
+
+      return !projectile.HasProjectileFlags(ProjectileFlag.CANT_HIT_PLAYER);
+    })
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
