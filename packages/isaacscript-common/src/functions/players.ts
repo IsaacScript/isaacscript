@@ -548,7 +548,12 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
 /**
  * Helper function to blindfold the player by using a hack with the challenge variable.
  *
- * The method used in this function was discovered by im_tem.
+ * Note that if the player dies and respawns (from e.g. Dead Cat), the blindfold will have to be
+ * reapplied.
+ *
+ * Under the hood, this function sets the challenge to one with a blindfold, changes the player to
+ * the same character that they currently are, and then changes the challenge back. This method was
+ * discovered by im_tem.
  *
  * @param player The player to apply or remove the blindfold state from.
  * @param enabled Whether to apply or remove the blindfold.
