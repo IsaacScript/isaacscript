@@ -1151,7 +1151,7 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
 }
 
 /**
- * Helper function to spawn a grid entity.
+ * Helper function to spawn a grid entity with a specific type.
  *
  * This function assumes you want to give the grid entity a variant of 0. If you want to specify a
  * variant, use the `spawnGridEntityWithVariant` helper function instead.
@@ -1160,12 +1160,27 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify either the grid index or the position
+ *
+ * @param gridEntityType The `GridEntityType` to use.
+ * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
+ *                            entity at. If a position is specified, the closest grid index will be
+ *                            used.
+ * @param removeExistingGridEntity Optional. Whether to remove the existing grid entity on the same
+ *                                 tile, if it exists. Defaults to true. If false, this function
+ *                                 will do nothing, since spawning a grid entity on top of another
+ *                                 grid entity will not replace it.
  */
 export function spawnGridEntity(
   gridEntityType: GridEntityType,
   gridIndexOrPosition: int | Vector,
+  removeExistingGridEntity = true,
 ): GridEntity | undefined {
-  return spawnGridEntityWithVariant(gridEntityType, 0, gridIndexOrPosition);
+  return spawnGridEntityWithVariant(
+    gridEntityType,
+    0,
+    gridIndexOrPosition,
+    removeExistingGridEntity,
+  );
 }
 
 /**
@@ -1175,11 +1190,22 @@ export function spawnGridEntity(
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify the grid index or the position
+ *
+ * @param gridEntityType The `GridEntityType` to use.
+ * @param variant The variant to use.
+ * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
+ *                            entity at. If a position is specified, the closest grid index will be
+ *                            used.
+ * @param removeExistingGridEntity Optional. Whether to remove the existing grid entity on the same
+ *                                 tile, if it exists. Defaults to true. If false, this function
+ *                                 will do nothing, since spawning a grid entity on top of another
+ *                                 grid entity will not replace it.
  */
 export function spawnGridEntityWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
   gridIndexOrPosition: int | Vector,
+  removeExistingGridEntity = true,
 ): GridEntity | undefined {
   const room = game.GetRoom();
 
@@ -1187,7 +1213,11 @@ export function spawnGridEntityWithVariant(
     ? room.GetGridEntityFromPos(gridIndexOrPosition)
     : room.GetGridEntity(gridIndexOrPosition);
   if (existingGridEntity !== undefined) {
-    removeGridEntity(existingGridEntity, true);
+    if (removeExistingGridEntity) {
+      removeGridEntity(existingGridEntity, true);
+    } else {
+      return;
+    }
   }
 
   const position = isVector(gridIndexOrPosition)
