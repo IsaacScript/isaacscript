@@ -138,6 +138,30 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/non-nullable-type-assertion-style": "error",
   "@typescript-eslint/parameter-properties": "error",
   "@typescript-eslint/prefer-as-const": "error",
+
+  /**
+   * Object destructuring is enforced but array destructuring is not. This matches usage in the
+   * general TypeScript ecosystem.
+   */
+  "@typescript-eslint/prefer-destructuring": [
+    "error",
+    {
+      VariableDeclarator: {
+        array: false,
+        object: true,
+      },
+      AssignmentExpression: {
+        array: false,
+        object: true,
+      },
+    },
+    {
+      // We disable this for renamed properties, this this is a valid use-case.
+      // e.g. `const collectibleUsedToShowFlight = CollectibleType.FATE;`
+      enforceForRenamedProperties: false,
+    },
+  ],
+
   "@typescript-eslint/prefer-enum-initializers": "error",
   "@typescript-eslint/prefer-for-of": "error",
   "@typescript-eslint/prefer-function-type": "error",

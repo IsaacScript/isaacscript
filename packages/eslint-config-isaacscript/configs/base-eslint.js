@@ -561,28 +561,8 @@ const SUGGESTIONS = {
   /** Superseded by the `no-autofix/prefer-const` rule (since the autofix is usually unwanted). */
   "prefer-const": "off",
 
-  /**
-   * Object destructuring is enforced but array destructuring is not. This matches usage in the
-   * general TypeScript ecosystem.
-   */
-  "prefer-destructuring": [
-    "error",
-    {
-      VariableDeclarator: {
-        array: false,
-        object: true,
-      },
-      AssignmentExpression: {
-        array: false,
-        object: true,
-      },
-    },
-    {
-      // We disable this for renamed properties, this this is a valid use-case.
-      // e.g. `const collectibleUsedToShowFlight = CollectibleType.FATE;`
-      enforceForRenamedProperties: false,
-    },
-  ],
+  /** Superseded by the `@typescript-eslint/prefer-destructuring` rule. */
+  "prefer-destructuring": "off",
 
   "prefer-exponentiation-operator": "error",
 
