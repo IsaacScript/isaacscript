@@ -215,7 +215,7 @@ function initDecoratedCallbacks(
       );
     }
 
-    // eslint-disable-next-line prefer-destructuring, @typescript-eslint/dot-notation
+    // eslint-disable-next-line @typescript-eslint/dot-notation, @typescript-eslint/prefer-destructuring
     const mod = modFeature["mod"];
 
     if (init) {
