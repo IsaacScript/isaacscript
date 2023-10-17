@@ -23,13 +23,19 @@ export enum TearVariant {
   BLUE = 0,
   BLOOD = 1,
   TOOTH = 2,
+
+  /** Used by Loadstone. */
   METALLIC = 3,
+
   BOBS_HEAD = 4,
   FIRE_MIND = 5,
   DARK_MATTER = 6,
   MYSTERIOUS = 7,
   SCHYTHE = 8,
+
+  /** This variant has a non-cosmetic property; it grants the instant-kill property of the tear. */
   CHAOS_CARD = 9,
+
   LOST_CONTACT = 10,
   CUPID_BLUE = 11,
   CUPID_BLOOD = 12,
@@ -70,7 +76,12 @@ export enum TearVariant {
   ICE = 41,
   ROCK = 42,
   KEY = 43,
+
+  /**
+   * Used by Sharp Key. Both the graphical effect and the extra damage are granted by this variant.
+   */
   KEY_BLOOD = 44,
+
   ERASER = 45,
   FIRE = 46,
   SWORD_BEAM = 47,
