@@ -23,8 +23,17 @@ export function getCurseIDByName(name: string): LevelCurse {
   return (1 << (curseID - 1)) as LevelCurse;
 }
 
-export function hasCurse(curse: LevelCurse): boolean {
+/**
+ * Helper function to check if the current floor has a particular curse.
+ *
+ * This function is variadic, meaning that you can specify as many curses as you want. The function
+ * will return true if the level has one or more of the curses.
+ *
+ * Under the hood, this function uses the `Level.GetCurses` method.
+ */
+export function hasCurse(...curses: LevelCurse[]): boolean {
   const level = game.GetLevel();
-  const curses = level.GetCurses();
-  return hasFlag(curses, curse);
+  const levelCurses = level.GetCurses();
+
+  return curses.some((curse) => hasFlag(levelCurses, curse));
 }

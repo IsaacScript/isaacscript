@@ -146,8 +146,8 @@ export class DisableInputs extends Feature {
   /**
    * Helper function to disable specific inputs, like opening the console.
    *
-   * This function is variadic, meaning that you can pass as many inputs as you want to disable. (To
-   * disable all inputs, see the `disableAllInputs` function.
+   * This function is variadic, meaning that you can specify as many inputs as you want to disable.
+   * (To disable all inputs, see the `disableAllInputs` function.
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
    *
