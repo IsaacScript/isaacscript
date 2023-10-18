@@ -534,7 +534,7 @@ export function is2x1Room(roomData: RoomConfig): boolean {
 /**
  * Helper function to loop through every room on the floor and see if it has been cleared.
  *
- * This function will only check rooms inside the gird and inside the current dimension.
+ * This function will only check rooms inside the grid and inside the current dimension.
  *
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  *                           the array will be ignored. If not specified, then all rooms will be
