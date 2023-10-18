@@ -16,7 +16,7 @@ export const CHALLENGE_NAMES = {
   [Challenge.DEMO_MAN]: "Demo Man", // 9
   [Challenge.CURSED]: "Cursed!", // 10
   [Challenge.GLASS_CANNON]: "Glass Cannon", // 11
-  [Challenge.WHEN_LIFE_GIVES_LEMONS]: "When Life Gives You Lemons", // 12
+  [Challenge.WHEN_LIFE_GIVES_YOU_LEMONS]: "When Life Gives You Lemons", // 12
   [Challenge.BEANS]: "Beans!", // 13
   [Challenge.ITS_IN_THE_CARDS]: "It's In The Cards", // 14
   [Challenge.SLOW_ROLL]: "Slow Roll", // 15

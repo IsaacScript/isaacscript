@@ -22,7 +22,7 @@ export const CHALLENGE_BOSSES = {
   [Challenge.DEMO_MAN]: BossID.MOMS_HEART, // 9
   [Challenge.CURSED]: BossID.MOM, // 10
   [Challenge.GLASS_CANNON]: BossID.SATAN, // 11
-  [Challenge.WHEN_LIFE_GIVES_LEMONS]: BossID.MOM, // 12
+  [Challenge.WHEN_LIFE_GIVES_YOU_LEMONS]: BossID.MOM, // 12
   [Challenge.BEANS]: BossID.MOM, // 13
   [Challenge.ITS_IN_THE_CARDS]: BossID.MOM, // 14
   [Challenge.SLOW_ROLL]: BossID.MOM, // 15

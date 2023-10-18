@@ -1,4 +1,9 @@
-import type { BossID, PlayerType } from "isaac-typescript-definitions";
+import type {
+  BossID,
+  CollectibleType,
+  PlayerType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { Challenge } from "isaac-typescript-definitions";
 import {
   CHALLENGE_BOSSES,
@@ -8,10 +13,12 @@ import {
   CHALLENGE_CHARACTERS,
   DEFAULT_CHALLENGE_CHARACTER,
 } from "../objects/challengeCharacters";
+import { CHALLENGE_COLLECTIBLES } from "../objects/challengeCollectibles";
 import {
   CHALLENGE_NAMES,
   DEFAULT_CHALLENGE_NAME,
 } from "../objects/challengeNames";
+import { CHALLENGE_TRINKETS } from "../objects/challengeTrinkets";
 import { log } from "./log";
 
 /**
@@ -60,6 +67,17 @@ export function getChallengeCharacter(challenge: Challenge): PlayerType {
 }
 
 /**
+ * Get the extra starting collectibles for a challenge. This will only work for vanilla challenges.
+ *
+ * For modded challenges, an empty array will be returned.
+ */
+export function getChallengeCollectibles(
+  challenge: Challenge,
+): readonly CollectibleType[] {
+  return CHALLENGE_COLLECTIBLES[challenge];
+}
+
+/**
  * Get the proper name for a `Challenge` enum. This will only work for vanilla challenges.
  *
  * For modded challenges, "Unknown" will be returned.
@@ -69,6 +87,19 @@ export function getChallengeName(challenge: Challenge): string {
   // Handle modded challenges.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return challengeName ?? DEFAULT_CHALLENGE_NAME;
+}
+
+/**
+ * Get the extra starting trinket for a challenge. This will only work for vanilla challenges.
+ *
+ * If a challenge does not grant a starting trinket, `undefined` will be returned.
+ *
+ * For modded challenges, `undefined` will be returned.
+ */
+export function getChallengeTrinket(
+  challenge: Challenge,
+): TrinketType | undefined {
+  return CHALLENGE_TRINKETS[challenge];
 }
 
 /** Helper function to see if the player is playing any challenge. */

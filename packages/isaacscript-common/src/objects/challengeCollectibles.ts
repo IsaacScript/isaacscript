@@ -6,7 +6,7 @@ import { Challenge, CollectibleType } from "isaac-typescript-definitions";
  *
  * Taken from the "challenges.xml" file.
  */
-export const CHALLENGE_CHARACTERS = {
+export const CHALLENGE_COLLECTIBLES = {
   // 0
   [Challenge.NULL]: [],
 
@@ -87,7 +87,7 @@ export const CHALLENGE_CHARACTERS = {
   ],
 
   // 12
-  [Challenge.WHEN_LIFE_GIVES_LEMONS]: [
+  [Challenge.WHEN_LIFE_GIVES_YOU_LEMONS]: [
     CollectibleType.LEMON_MISHAP, // 56
     CollectibleType.NINE_VOLT, // 116
     CollectibleType.HABIT, // 156

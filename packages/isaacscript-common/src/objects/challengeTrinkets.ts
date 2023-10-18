@@ -19,7 +19,7 @@ export const CHALLENGE_TRINKETS = {
   [Challenge.DEMO_MAN]: TrinketType.MATCH_STICK, // 9
   [Challenge.CURSED]: TrinketType.CHILDS_HEART, // 10
   [Challenge.GLASS_CANNON]: undefined, // 11
-  [Challenge.WHEN_LIFE_GIVES_LEMONS]: undefined, // 12
+  [Challenge.WHEN_LIFE_GIVES_YOU_LEMONS]: undefined, // 12
   [Challenge.BEANS]: undefined, // 13
   [Challenge.ITS_IN_THE_CARDS]: undefined, // 14
   [Challenge.SLOW_ROLL]: undefined, // 15

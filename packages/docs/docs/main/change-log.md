@@ -9,9 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 16th, 2023 (Unreleased)
+## October 18th, 2023
 
 - Added the following helper functions:
+  - `getChallengeCollectibles`
+  - `getChallengeTrinket`
   - `isFamiliarCollectible`
   - `isRoomDangerous`
   - `parseSemanticVersion`
