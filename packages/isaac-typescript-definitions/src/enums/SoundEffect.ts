@@ -414,7 +414,7 @@ export enum SoundEffect {
   DOG_BARK = 441,
 
   /** Used by Dog Tooth. */
-  DOG_HOWELL = 442,
+  DOG_HOWL = 442,
 
   X_LAX = 443,
   WRONG = 444,
