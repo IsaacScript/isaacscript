@@ -13,12 +13,12 @@ import {
   CHALLENGE_CHARACTERS,
   DEFAULT_CHALLENGE_CHARACTER,
 } from "../objects/challengeCharacters";
-import { CHALLENGE_COLLECTIBLES } from "../objects/challengeCollectibles";
+import { CHALLENGE_COLLECTIBLE_TYPES } from "../objects/challengeCollectibleTypes";
 import {
   CHALLENGE_NAMES,
   DEFAULT_CHALLENGE_NAME,
 } from "../objects/challengeNames";
-import { CHALLENGE_TRINKETS } from "../objects/challengeTrinkets";
+import { CHALLENGE_TRINKET_TYPE } from "../objects/challengeTrinketType";
 import { log } from "./log";
 
 /**
@@ -71,10 +71,10 @@ export function getChallengeCharacter(challenge: Challenge): PlayerType {
  *
  * For modded challenges, an empty array will be returned.
  */
-export function getChallengeCollectibles(
+export function getChallengeCollectibleTypes(
   challenge: Challenge,
 ): readonly CollectibleType[] {
-  return CHALLENGE_COLLECTIBLES[challenge];
+  return CHALLENGE_COLLECTIBLE_TYPES[challenge];
 }
 
 /**
@@ -96,10 +96,10 @@ export function getChallengeName(challenge: Challenge): string {
  *
  * For modded challenges, `undefined` will be returned.
  */
-export function getChallengeTrinket(
+export function getChallengeTrinketType(
   challenge: Challenge,
 ): TrinketType | undefined {
-  return CHALLENGE_TRINKETS[challenge];
+  return CHALLENGE_TRINKET_TYPE[challenge];
 }
 
 /** Helper function to see if the player is playing any challenge. */

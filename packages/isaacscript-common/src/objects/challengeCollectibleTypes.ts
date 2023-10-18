@@ -6,7 +6,7 @@ import { Challenge, CollectibleType } from "isaac-typescript-definitions";
  *
  * Taken from the "challenges.xml" file.
  */
-export const CHALLENGE_COLLECTIBLES = {
+export const CHALLENGE_COLLECTIBLE_TYPES = {
   // 0
   [Challenge.NULL]: [],
 

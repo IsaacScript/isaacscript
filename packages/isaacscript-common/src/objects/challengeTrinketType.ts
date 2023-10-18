@@ -6,7 +6,7 @@ import { Challenge, TrinketType } from "isaac-typescript-definitions";
  *
  * Taken from the "challenges.xml" file.
  */
-export const CHALLENGE_TRINKETS = {
+export const CHALLENGE_TRINKET_TYPE = {
   [Challenge.NULL]: undefined, // 0
   [Challenge.PITCH_BLACK]: undefined, // 1
   [Challenge.HIGH_BROW]: TrinketType.PETRIFIED_POOP, // 2
