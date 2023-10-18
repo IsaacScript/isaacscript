@@ -3,6 +3,8 @@ import { BossID, Challenge } from "isaac-typescript-definitions";
 export const DEFAULT_CHALLENGE_BOSS_ID = BossID.MOM;
 
 /**
+ * Contains the boss goal for each challenge.
+ *
  * Taken from the "challenges.xml" file.
  *
  * @see https://bindingofisaacrebirth.fandom.com/wiki/Challenges
