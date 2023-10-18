@@ -109,6 +109,24 @@ But why would you want to use numeric enums over string enums at all? Note that 
 
 For this reason, we recommend that use you the [`isaacscript/no-number-enums`](no-number-enums.md) rule by default in your TypeScript projects. But in the specific projects where you need number enums, you can disable that rule and rely on the `isaacscript/strict-enums` rule to keep you safe.
 
+## Limitations
+
+### The `satisfies` Operator
+
+The `strict-enums` rule cannot see through the `satisfies` operator. In other words, this rule will not be able to catch the following bug:
+
+```ts
+enum Fruit {
+  Apple,
+  Banana,
+}
+
+const FRUIT_PRICES = {
+  [Fruit.Apple]: 5,
+  [1]: 10,
+} as const satisfies Record<Fruit, number>;
+```
+
 ## Options and Defaults
 
 ```json
