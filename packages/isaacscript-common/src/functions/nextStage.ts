@@ -1,10 +1,12 @@
 import {
   GameStateFlag,
   GridRoom,
+  LevelCurse,
   LevelStage,
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { hasCurse } from "./curses";
 import { getRoomGridIndex } from "./roomData";
 import {
   calculateStageType,
@@ -56,7 +58,10 @@ export function getNextStage(): LevelStage {
         return asNumber(stage) + 1;
       }
 
-      if (stage === LevelStage.DEPTHS_2) {
+      if (
+        stage === LevelStage.DEPTHS_2 ||
+        (stage === LevelStage.DEPTHS_1 && hasCurse(LevelCurse.LABYRINTH))
+      ) {
         // From Depths 2 to Mausoleum 2 through the strange door.
         return LevelStage.DEPTHS_2;
       }
