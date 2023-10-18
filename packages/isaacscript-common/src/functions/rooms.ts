@@ -539,15 +539,17 @@ export function is2x1Room(roomData: RoomConfig): boolean {
  * @param onlyCheckRoomTypes Optional. A whitelist of room types. If specified, room types not in
  *                           the array will be ignored. If not specified, then all rooms will be
  *                           checked. Undefined by default.
- * @param includeSecretAndSuperSecretRoom Optional. Whether to include the Secret Room and the Super
- *                                 Secret Room. Default is false.
+ * @param includeSecretRoom Optional. Whether to include the Secret Room. Default is false.
+ * @param includeSuperSecretRoom Optional. Whether to include the Super Secret Room. Default is
+ *                               false.
  * @param includeUltraSecretRoom Optional. Whether to include the Ultra Secret Room. Default is
  *                               false.
  * @allowEmptyVariadic
  */
 export function isAllRoomsClear(
   onlyCheckRoomTypes?: RoomType[] | readonly RoomType[],
-  includeSecretAndSuperSecretRoom = false,
+  includeSecretRoom = false,
+  includeSuperSecretRoom = false,
   includeUltraSecretRoom = false,
 ): boolean {
   const roomsInsideGrid = getRoomsInsideGrid();
@@ -564,11 +566,18 @@ export function isAllRoomsClear(
     );
   }
 
-  if (!includeSecretAndSuperSecretRoom) {
+  if (!includeSecretRoom) {
     matchingRooms = matchingRooms.filter(
       (roomDescriptor) =>
         roomDescriptor.Data !== undefined &&
-        roomDescriptor.Data.Type !== RoomType.SECRET &&
+        roomDescriptor.Data.Type !== RoomType.SECRET,
+    );
+  }
+
+  if (!includeSuperSecretRoom) {
+    matchingRooms = matchingRooms.filter(
+      (roomDescriptor) =>
+        roomDescriptor.Data !== undefined &&
         roomDescriptor.Data.Type !== RoomType.SUPER_SECRET,
     );
   }
