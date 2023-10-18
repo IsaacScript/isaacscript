@@ -5334,12 +5334,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:^0.5.8":
-  version: 0.5.8
-  resolution: "@types/source-map-support@npm:0.5.8"
+"@types/source-map-support@npm:^0.5.9":
+  version: 0.5.9
+  resolution: "@types/source-map-support@npm:0.5.9"
   dependencies:
     source-map: ^0.6.0
-  checksum: 333d77b70fd793de066572aa1c7d988ac351e6591b860db8df05bdb2ad40ee2aa1a31d66c3c0d019137d72fb7b806dfc55c2b47958d1599e775e1d37dc1f736d
+  checksum: 3a2c7b48aa9b1ee4b2f6efe056ce816e04c24d746ff7b2a864bdc8defd9d6bd96996403017504c144c8708daed21c0b8bff90be6e5fae5d7047134628b69a60d
   languageName: node
   linkType: hard
 
@@ -5364,12 +5364,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/touch@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@types/touch@npm:3.1.3"
+"@types/touch@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "@types/touch@npm:3.1.4"
   dependencies:
     "@types/node": "*"
-  checksum: a42ffcd077c3cde2fed507aaabf2ad766a5c8a179bb990cbc91b062777b194dab4ed3df19842a89c06fe95e97500b62a96d6efb788a78388a61c236c9c299d5c
+  checksum: 98ad03ea1147ba7668815a10da7745097dae3737a1dc07d64cf56d849bce97e03bfc671536220ef84f2460deade3b84e136e8a3626a0b89d63e814e552cf7628
   languageName: node
   linkType: hard
 
@@ -5396,12 +5396,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/xml2js@npm:^0.4.12":
-  version: 0.4.12
-  resolution: "@types/xml2js@npm:0.4.12"
+"@types/xml2js@npm:^0.4.13":
+  version: 0.4.13
+  resolution: "@types/xml2js@npm:0.4.13"
   dependencies:
     "@types/node": "*"
-  checksum: 6197f6d51d70ba7e6d3169ef6d58adacfeddeb2d8cfe4d2bb24eda86223c7dd77c82896c3aa3c636b3b1442cebc6d05959d1e65fa206dac2caeb99aa2c943716
+  checksum: 757355c1867b4bd70a85cacac91ed771d172f269469b92b3bace2c7e91f9848ea3efa2be2901f831e2a632efbf6d128208a4495ec8a5fed9f7c12f2c9ec4d929
   languageName: node
   linkType: hard
 
@@ -5412,12 +5412,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yargs@npm:^17.0.28":
-  version: 17.0.28
-  resolution: "@types/yargs@npm:17.0.28"
+"@types/yargs@npm:^17.0.29":
+  version: 17.0.29
+  resolution: "@types/yargs@npm:17.0.29"
   dependencies:
     "@types/yargs-parser": "*"
-  checksum: f78c5e5c29903933c0557b4ffcd1d0b8564d66859c8ca4aa51da3714e49109ed7c2644334a1918d033df19028f4cecc91fd2e502651bb8e8451f246c371da847
+  checksum: 8bbc0edd573a5a084cb13a9985c124490fd74e73b1ed8a3058861c13124e103b00a19770dc55c53215653a7845d7033e0695917b75153cfe9618d5b2fd3cf86e
   languageName: node
   linkType: hard
 
@@ -11990,12 +11990,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^35.0.0":
-  version: 35.0.0
-  resolution: "isaac-typescript-definitions@npm:35.0.0"
+"isaac-typescript-definitions@npm:^36.0.0":
+  version: 36.0.0
+  resolution: "isaac-typescript-definitions@npm:36.0.0"
   dependencies:
     lua-types: ^2.13.1
-  checksum: e5d4ce989f8e3743943654b450cc9f8dba45f363c2e05eca3e7368f1b9dbe6f6133b9d4baf58c9d1f27886545fc45fef7f2479ec391cc63fbfc688787fd0e0bd
+  checksum: 4321f5e65c036b0993b0d0d4e795e8df845b5e4f7375cb8c646325b609351ddaea1a0c183d38c711f69740703978b99f2e8b4285fd4c35a69fdd626e46a437ac
   languageName: node
   linkType: hard
 
@@ -12034,10 +12034,10 @@ __metadata:
     "@types/klaw-sync": ^6.0.3
     "@types/node": ^20.8.7
     "@types/prompt": ^1.1.7
-    "@types/source-map-support": ^0.5.8
-    "@types/touch": ^3.1.3
-    "@types/xml2js": ^0.4.12
-    "@types/yargs": ^17.0.28
+    "@types/source-map-support": ^0.5.9
+    "@types/touch": ^3.1.4
+    "@types/xml2js": ^0.4.13
+    "@types/yargs": ^17.0.29
     "@typescript-eslint/eslint-plugin": ^6.8.0
     "@typescript-eslint/parser": ^6.8.0
     "@typescript-eslint/rule-tester": ^6.8.0
@@ -12069,12 +12069,12 @@ __metadata:
     extract-comments: ^1.1.0
     figlet: ^1.6.0
     glob: ^10.3.10
-    isaac-typescript-definitions: ^35.0.0
+    isaac-typescript-definitions: ^36.0.0
     jest: ^29.7.0
     jest-summarizing-reporter: ^1.1.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
-    knip: ^2.34.0
+    knip: ^2.35.0
     lua-types: ^2.13.1
     markdownlint: ^0.31.1
     markdownlint-cli: ^0.37.0
@@ -13144,9 +13144,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.34.0":
-  version: 2.34.0
-  resolution: "knip@npm:2.34.0"
+"knip@npm:^2.35.0":
+  version: 2.35.0
+  resolution: "knip@npm:2.35.0"
   dependencies:
     "@ericcornelissen/bash-parser": ^0.5.2
     "@npmcli/map-workspaces": ^3.0.4
@@ -13170,7 +13170,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: a2a730c6891fd02010c236bac987136a67d94eb42d9d2e3b29a6d903789bf0a0762ec60f002d168bb052f8bfda5d937f8d104f42d4be203abe116d3dfaf3cf3c
+  checksum: 97747e2b4f60132722f2c809ce714ce26915f495912b1e6285ab0e9a5ae873eee5b357508fef913671cc539a341c26b798cfb3b7bf1c595451863c7218256bce
   languageName: node
   linkType: hard
 
