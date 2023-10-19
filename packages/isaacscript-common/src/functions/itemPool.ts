@@ -62,17 +62,21 @@ export function getDefaultCollectibleTypesInItemPool(
 export function getDefaultItemPoolsForCollectibleType(
   collectibleType: CollectibleType,
 ): ItemPoolType[] {
-  const itemPoolTypes: ItemPoolType[] = [];
+  const collectibleItemPoolTypes: ItemPoolType[] = [];
 
-  for (const itemPoolType of ITEM_POOL_TYPE_VALUES) {
+  const itemPoolTypes = game.IsGreedMode()
+    ? GREED_MODE_ITEM_POOL_TYPES
+    : NORMAL_MODE_ITEM_POOL_TYPES;
+
+  for (const itemPoolType of itemPoolTypes) {
     const collectibleTypesSet =
       ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET[itemPoolType];
     if (collectibleTypesSet.has(collectibleType)) {
-      itemPoolTypes.push(itemPoolType);
+      collectibleItemPoolTypes.push(itemPoolType);
     }
   }
 
-  return itemPoolTypes;
+  return collectibleItemPoolTypes;
 }
 
 /**
@@ -93,6 +97,7 @@ export function getRandomItemPool(
   const itemPoolTypes = game.IsGreedMode()
     ? GREED_MODE_ITEM_POOL_TYPES
     : NORMAL_MODE_ITEM_POOL_TYPES;
+
   return getRandomArrayElement(itemPoolTypes, seedOrRNG);
 }
 
