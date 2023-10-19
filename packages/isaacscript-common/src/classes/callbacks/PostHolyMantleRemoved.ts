@@ -1,5 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { isAfterRoomFrame } from "../../functions/frames";
 import {
   defaultMapGetPlayer,
   mapSetPlayer,
@@ -45,7 +46,11 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom.POST
     );
     mapSetPlayer(v.run.playersHolyMantleMap, player, newNumHolyMantles);
 
-    if (newNumHolyMantles < oldNumHolyMantles) {
+    // We check for being after room frame 0 to prevent the callback from firing when the player
+    // loses a lost curse from a white fire. (In this case, the player will have a Holy Mantle
+    // effect from the lost curse, and then when losing the curse, they will also lose the Holy
+    // Mantle.)
+    if (newNumHolyMantles < oldNumHolyMantles && isAfterRoomFrame(0)) {
       this.fire(player, oldNumHolyMantles, newNumHolyMantles);
     }
   };
