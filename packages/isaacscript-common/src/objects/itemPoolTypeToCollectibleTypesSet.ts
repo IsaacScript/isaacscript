@@ -3,7 +3,7 @@ import type {
   ItemPoolType,
 } from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
-import itemPoolsJSON from "../data/itempools.json";
+import * as itemPoolsJSON from "../data/itempools.json";
 import { asCollectibleType } from "../functions/types";
 import { ITEM_POOL_TYPE_TO_ITEM_POOL_NAME } from "../maps/itemPoolTypeToItemPoolName";
 
