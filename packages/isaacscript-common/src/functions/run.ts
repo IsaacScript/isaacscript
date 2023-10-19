@@ -14,8 +14,8 @@ import { log } from "./log";
 import { isString } from "./types";
 
 /** Alias for the `anySeedEffectEnabled` function. */
-export function anyEasterEggEnabled(): boolean {
-  return anySeedEffectEnabled();
+export function anyEasterEggEnabled(exceptions?: SeedEffect[]): boolean {
+  return anySeedEffectEnabled(exceptions);
 }
 
 /**
