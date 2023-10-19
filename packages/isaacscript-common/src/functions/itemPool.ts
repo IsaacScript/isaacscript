@@ -97,6 +97,19 @@ export function getRandomItemPool(
 }
 
 /**
+ * Helper function to check if a particular collectibles is in a particular item pool at the
+ * beginning of a vanilla run.
+ */
+export function isCollectibleTypeInDefaultItemPool(
+  collectibleType: CollectibleType,
+  itemPoolType: ItemPoolType,
+): boolean {
+  const collectibleTypesSet =
+    ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET[itemPoolType];
+  return collectibleTypesSet.has(collectibleType);
+}
+
+/**
  * Helper function to remove one or more collectibles from all item pools.
  *
  * This function is variadic, meaning you can pass as many collectible types as you want to remove.

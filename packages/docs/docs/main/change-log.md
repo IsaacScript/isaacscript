@@ -16,6 +16,7 @@ This page lists the changes to the IsaacScript framework.
   - `getDefaultCollectibleTypesInItemPool`
   - `getDefaultItemPoolsForCollectibleType`
   - `inGrid`
+  - `isCollectibleTypeInDefaultItemPool`
 
 ## October 18th, 2023
 
