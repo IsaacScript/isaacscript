@@ -20,12 +20,22 @@ export function anyEasterEggEnabled(): boolean {
 
 /**
  * Helper function to see if any seed effects (i.e. Easter Eggs) are enabled for the current run.
+ *
+ * @param exceptions Optional. An array of seed effects to ignore.
  */
-export function anySeedEffectEnabled(): boolean {
+export function anySeedEffectEnabled(exceptions?: SeedEffect[]): boolean {
   const seeds = game.GetSeeds();
-  const numSeedEffects = seeds.CountSeedEffects();
 
-  return numSeedEffects > 0;
+  if (exceptions === undefined) {
+    const numSeedEffects = seeds.CountSeedEffects();
+    return numSeedEffects > 0;
+  }
+
+  const exceptionsSet = new Set(exceptions);
+  return SEED_EFFECTS.some(
+    (seedEffect) =>
+      seeds.HasSeedEffect(seedEffect) && !exceptionsSet.has(seedEffect),
+  );
 }
 
 /**
