@@ -2,7 +2,7 @@ import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
-import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { isRNG, newRNG } from "./rng";
 import {
   copyUserdataValuesToTable,
   getNumbersFromTable,
@@ -64,14 +64,18 @@ export function deserializeKColor(kColor: SerializedKColor): KColor {
 }
 
 /**
- * Helper function to get a random color.
+ * Helper function to get a random `KColor` object (for use in fonts).
  *
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * If you want to generate an unseeded object, you must explicitly pass `undefined` to the
+ * `seedOrRNG` parameter.
+ *
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param alpha Optional. The alpha value to use. Default is 1.
  */
 export function getRandomKColor(
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   alpha = 1,
 ): Readonly<KColor> {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);

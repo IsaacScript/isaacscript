@@ -24,7 +24,7 @@ import {
 } from "../../../functions/gridEntities";
 import { getRandomJSONEntity } from "../../../functions/jsonRoom";
 import { log } from "../../../functions/log";
-import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
+import { isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
 import { asCollectibleType, asNumber } from "../../../functions/types";
@@ -81,7 +81,7 @@ export class DeployJSONRoom extends Feature {
         `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
       );
 
-      const jsonEntity = getRandomJSONEntity(jsonSpawn.entity);
+      const jsonEntity = getRandomJSONEntity(jsonSpawn.entity, rng);
 
       const entityTypeString = jsonEntity.$.type;
       const entityTypeNumber = tonumber(entityTypeString);
@@ -219,18 +219,22 @@ export class DeployJSONRoom extends Feature {
    * }
    * ```
    *
+   * If you want to deploy an unseeded room, you must explicitly pass `undefined` to the `seedOrRNG`
+   * parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEPLOY_JSON_ROOM`.
    *
    * @param jsonRoom The JSON room to deploy.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
    *                what the function is doing. Default is false.
    */
   @Exported
   public deployJSONRoom(
     jsonRoom: JSONRoom | Readonly<JSONRoom>,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     verbose = false,
   ): void {
     const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);

@@ -6,7 +6,7 @@ import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { angleToDirection } from "./direction";
 import { isIsaacAPIClassOfType, isaacAPIClassEquals } from "./isaacAPIClass";
 import { getRandomFloat } from "./random";
-import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { isRNG, newRNG } from "./rng";
 import {
   copyUserdataValuesToTable,
   getNumbersFromTable,
@@ -109,11 +109,15 @@ export function getClosestVectorTo(
  *
  * Use this over the `RandomVector` function when you need the vector to be seeded.
  *
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * If you want to generate an unseeded vector, you must explicitly pass `undefined` to the
+ * `seedOrRNG` parameter.
+ *
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  */
 export function getRandomVector(
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
 ): Readonly<Vector> {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 

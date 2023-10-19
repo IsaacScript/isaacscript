@@ -1,6 +1,5 @@
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getArrayCombinations, getRandomArrayElement, sumArray } from "./array";
-import { getRandomSeed } from "./rng";
 import { isPrimitive } from "./types";
 
 /**
@@ -68,14 +67,18 @@ export function deleteSetsFromSet<T>(
 /**
  * Helper function to get a random element from the provided set.
  *
+ * If you want to get an unseeded element, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param set The set to get an element from.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomSetElement<T>(
   set: Set<T> | ReadonlySet<T>,
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   exceptions: T[] | readonly T[] = [],
 ): T {
   const array = getSortedSetValues(set);

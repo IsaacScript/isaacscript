@@ -28,7 +28,7 @@ import {
 } from "../../../functions/pickupsSpecific";
 import { fireProjectilesInCircle } from "../../../functions/projectiles";
 import { getRandom } from "../../../functions/random";
-import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
+import { isRNG, newRNG } from "../../../functions/rng";
 import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
 import { repeat } from "../../../functions/utils";
 import { getRandomVector, isVector } from "../../../functions/vector";
@@ -89,22 +89,26 @@ export class SpawnRockAltRewards extends Feature {
    * The logic in this function is based on the rewards listed on the wiki:
    * https://bindingofisaacrebirth.fandom.com/wiki/Rocks
    *
+   * If you want to spawn an unseeded reward, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    *
    * @param positionOrGridIndex The position or grid index to spawn the reward.
    * @param rockAltType The type of reward to spawn. For example, `RockAltType.URN` will have a
    *                    chance at spawning coins and spiders.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`. Normally,
-   *                  you should pass the `InitSeed` of the grid entity that was broken.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. Normally, you should pass the `InitSeed` of
+   *                  the grid entity that was broken. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @returns Whether this function spawned something.
    */
   @Exported
   public spawnRockAltReward(
     positionOrGridIndex: Vector | int,
     rockAltType: RockAltType,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
   ): boolean {
     const room = game.GetRoom();
     const position = isVector(positionOrGridIndex)

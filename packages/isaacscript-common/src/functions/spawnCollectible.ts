@@ -20,10 +20,14 @@ import { getRandomSeed, isRNG } from "./rng";
  * Isaac's rotation mechanic. To handle that, use the `spawnCollectible` helper function instead
  * (which is provided by `ISCFeature.SPAWN_COLLECTIBLE`).
  *
+ * If you want to spawn an unseeded collectible, you must explicitly pass `undefined` to the
+ * `seedOrRNG` parameter.
+ *
  * @param collectibleType The collectible type to spawn.
  * @param positionOrGridIndex The position or grid index to spawn the collectible at.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param options Optional. Set to true to make the collectible a "There's Options" style
  *                collectible. Default is false.
  * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
@@ -33,11 +37,15 @@ import { getRandomSeed, isRNG } from "./rng";
 export function spawnCollectibleUnsafe(
   collectibleType: CollectibleType,
   positionOrGridIndex: Vector | int,
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   options = false,
   forceFreeItem = false,
   spawner?: Entity,
 ): EntityPickupCollectible {
+  if (seedOrRNG === undefined) {
+    seedOrRNG = getRandomSeed();
+  }
+
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   const collectible = spawnPickupWithSeed(
     PickupVariant.COLLECTIBLE,
@@ -82,13 +90,17 @@ export function spawnCollectibleUnsafe(
  * Onion because it is a quest collectible and quest collectibles will prevent Damocles from
  * duplicating the pedestal.)
  *
+ * If you want to spawn an unseeded collectible, you must explicitly pass `undefined` to the
+ * `seedOrRNG` parameter.
+ *
  * @param positionOrGridIndex The position or grid index to spawn the empty collectible at.
  * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  */
 export function spawnEmptyCollectible(
   positionOrGridIndex: Vector | int,
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
 ): EntityPickup {
   const collectible = spawnCollectibleUnsafe(
     CollectibleType.BROKEN_SHOVEL_1,

@@ -1470,7 +1470,7 @@ export function spawnCollectible(params: string): void {
 
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
-  spawnCollectibleUnsafe(collectibleType, centerPos);
+  spawnCollectibleUnsafe(collectibleType, centerPos, undefined);
 }
 
 /**
@@ -1515,7 +1515,7 @@ export function spawnCollectibleAt(params: string): void {
   }
 
   const collectibleType = asCollectibleType(collectibleTypeNumber);
-  spawnCollectibleUnsafe(collectibleType, gridIndex);
+  spawnCollectibleUnsafe(collectibleType, gridIndex, undefined);
 }
 
 /** Alias for the `spawnGoldenTrinket` command. */

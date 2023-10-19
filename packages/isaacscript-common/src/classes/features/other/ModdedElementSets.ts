@@ -36,7 +36,6 @@ import {
   isPassiveOrFamiliarCollectible,
 } from "../../../functions/collectibles";
 import { getFlagName } from "../../../functions/flag";
-import { getRandomSeed } from "../../../functions/rng";
 import {
   copySet,
   deleteSetsFromSet,
@@ -1181,18 +1180,23 @@ export class ModdedElementSets extends Feature {
    * not all collectible types will necessarily be present when a mod first loads (due to mod load
    * order).
    *
+   * If you want to get an unseeded collectible type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param exceptions Optional. An array of runes to not select.
    */
   @Exported
   public getRandomEdenActiveCollectibleType(
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     exceptions: CollectibleType[] | readonly CollectibleType[] = [],
   ): CollectibleType {
     this.lazyInit();
+
     return getRandomSetElement(
       this.edenPassiveCollectibleTypesSet,
       seedOrRNG,
@@ -1208,18 +1212,23 @@ export class ModdedElementSets extends Feature {
    * not all collectible types will necessarily be present when a mod first loads (due to mod load
    * order).
    *
+   * If you want to get an unseeded collectible type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param exceptions Optional. An array of runes to not select.
    */
   @Exported
   public getRandomEdenPassiveCollectibleType(
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     exceptions: CollectibleType[] | readonly CollectibleType[] = [],
   ): CollectibleType {
     this.lazyInit();
+
     return getRandomSetElement(
       this.edenPassiveCollectibleTypesSet,
       seedOrRNG,
@@ -1330,18 +1339,22 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
+   * If you want to get an unseeded card type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
    * @param itemConfigCardType The item config card type that represents the pool of cards to select
    *                           from.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param exceptions Optional. An array of cards to not select.
    */
   @Exported
   public getRandomCardTypeOfType(
     itemConfigCardType: ItemConfigCardType,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     exceptions: CardType[] = [],
   ): CardType {
     const cardTypeSet = this.getCardTypesOfType(itemConfigCardType);
@@ -1358,15 +1371,19 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
+   * If you want to get an unseeded card type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param exceptions Optional. An array of cards to not select.
    */
   @Exported
   public getRandomCard(
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     exceptions: CardType[] = [],
   ): CardType {
     this.lazyInit();
@@ -1380,15 +1397,19 @@ export class ModdedElementSets extends Feature {
    * This function can only be called if at least one callback has been executed. This is because
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
+   * If you want to get an unseeded card type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
    *
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param exceptions Optional. An array of runes to not select.
    */
   @Exported
   public getRandomRune(
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     exceptions: CardType[] = [],
   ): CardType {
     const runesSet = this.getCardTypesOfType(ItemConfigCardType.RUNE);

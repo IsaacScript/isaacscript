@@ -1,6 +1,5 @@
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomArrayElement } from "./array";
-import { getRandomSeed } from "./rng";
 import { isNumber, isString } from "./types";
 import { assertDefined, iRange } from "./utils";
 
@@ -176,14 +175,17 @@ export function getLowestEnumValue<T>(transpiledEnum: T): T[keyof T] {
 /**
  * Helper function to get a random value from the provided enum.
  *
+ * If you want an unseeded value, you must explicitly pass `undefined` to the `seedOrRNG` parameter.
+ *
  * @param transpiledEnum The enum to get the value from.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomEnumValue<T>(
   transpiledEnum: T,
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
 ): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);

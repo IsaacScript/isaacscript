@@ -4,7 +4,6 @@ import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayRemoveIndexInPlace } from "../../../functions/array";
 import { copyMap } from "../../../functions/map";
-import { getRandomSeed } from "../../../functions/rng";
 import { assertDefined } from "../../../functions/utils";
 import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
 import type { WeightedArray } from "../../../types/WeightedArray";
@@ -99,21 +98,25 @@ export class CustomItemPools extends Feature {
    * By default, a collectible will not be removed from the pool once it is selected, unless the
    * `decrease` argument is set to true (similar to how a vanilla item pool works).
    *
+   * If you want to get an unseeded collectible type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_ITEM_POOLS`.
    *
    * @param itemPoolTypeCustom An integer representing the custom item pool to use.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param decrease Optional. Whether to remove the selected collectible from the item pool.
    *                 Default is true.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
    * @param defaultItem Optional. The collectible to return if the item pool is depleted. Default is
    *                    `CollectibleType.NULL`.
    */
   @Exported
   public getCustomItemPoolCollectible(
     itemPoolTypeCustom: ItemPoolType,
+    seedOrRNG: Seed | RNG | undefined,
     decrease = false,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
     defaultItem = CollectibleType.NULL,
   ): CollectibleType {
     const customItemPool = v.run.customItemPools.get(itemPoolTypeCustom);

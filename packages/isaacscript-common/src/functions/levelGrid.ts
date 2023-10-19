@@ -25,7 +25,7 @@ import { getRandomArrayElement } from "./array";
 import { doorSlotToDoorSlotFlag } from "./doors";
 import { addFlag, hasFlag, removeFlag } from "./flag";
 import { copyMap } from "./map";
-import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { isRNG, newRNG } from "./rng";
 import {
   getRoomAllowedDoors,
   getRoomData,
@@ -126,8 +126,12 @@ export function getAllRoomGridIndexes(): readonly int[] {
  * some floors will not have any valid spots. If this is the case, this function will return
  * undefined.
  *
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * If you want to get an unseeded room, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param ensureDeadEnd Optional. Whether to pick a valid dead end attached to a normal room. If
  *                      false, the function will randomly pick from any valid location that would
  *                      have a red door.
@@ -135,7 +139,7 @@ export function getAllRoomGridIndexes(): readonly int[] {
  *          undefined.
  */
 export function getNewRoomCandidate(
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   ensureDeadEnd = true,
 ):
   | {
@@ -521,9 +525,12 @@ export function isRoomInsideGrid(roomGridIndex?: int): boolean {
 /**
  * Helper function to generate a new room on the floor.
  *
+ * If you want to generate an unseeded room, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * Under the hood, this function uses the `Level.MakeRedRoomDoor` method to create the room.
  *
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
  *                  `RNG.Next` method will be called. Default is `Level.GetDungeonPlacementSeed`.
  *                  Note that the RNG is only used to select the random location to put the room on
  *                  the floor; it does not influence the randomly chosen room contents. (That is
@@ -538,7 +545,7 @@ export function isRoomInsideGrid(roomGridIndex?: int): boolean {
  *          place a room.
  */
 export function newRoom(
-  seedOrRNG?: Seed | RNG,
+  seedOrRNG: Seed | RNG | undefined,
   ensureDeadEnd = true,
   customRoomData?: RoomConfig,
 ): int | undefined {

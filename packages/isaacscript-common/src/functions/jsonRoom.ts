@@ -7,7 +7,6 @@ import { isEnumValue } from "./enums";
 import { addFlag } from "./flag";
 import { log } from "./log";
 import { getRandomFloat } from "./random";
-import { getRandomSeed } from "./rng";
 import { assertDefined } from "./utils";
 
 /** This represents either a `JSONRoom` or a `JSONEntity`. */
@@ -141,15 +140,19 @@ export function getJSONRoomsOfSubType(
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
+ * If you want an unseeded entity, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param jsonEntities The array of entities to randomly choose between.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONEntity(
   jsonEntities: JSONEntity[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): JSONEntity {
   const totalWeight = getTotalWeightOfJSONObject(jsonEntities);
@@ -183,15 +186,18 @@ export function getRandomJSONEntity(
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
+ * If you want an unseeded room, you must explicitly pass `undefined` to the `seedOrRNG` parameter.
+ *
  * @param jsonRooms The array of rooms to randomly choose between.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONRoom(
   jsonRooms: JSONRoom[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): JSONRoom {
   const totalWeight = getTotalWeightOfJSONObject(jsonRooms);

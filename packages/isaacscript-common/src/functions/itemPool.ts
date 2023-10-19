@@ -45,12 +45,21 @@ const GREED_MODE_ITEM_POOL_TYPES: readonly ItemPoolType[] = arrayRemove(
  * Helper function to get a random item pool. This is not as simple as getting a random value from
  * the `ItemPoolType` enum, since `ItemPoolType.SHELL_GAME` (7) is not a real item pool and the
  * Greed Mode item pools should be excluded if not playing in Greed Mode.
+ *
+ * If you want to get an unseeded item pool, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  */
-export function getRandomItemPool(): ItemPoolType {
+export function getRandomItemPool(
+  seedOrRNG: Seed | RNG | undefined,
+): ItemPoolType {
   const itemPoolTypes = game.IsGreedMode()
     ? GREED_MODE_ITEM_POOL_TYPES
     : NORMAL_MODE_ITEM_POOL_TYPES;
-  return getRandomArrayElement(itemPoolTypes);
+  return getRandomArrayElement(itemPoolTypes, seedOrRNG);
 }
 
 /**
