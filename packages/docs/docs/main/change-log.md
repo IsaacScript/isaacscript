@@ -13,6 +13,8 @@ This page lists the changes to the IsaacScript framework.
 
 - Helper functions that deal with randomness now require you to explicitly pass the seed. If you want unseeded behavior, then you must explicitly pass `undefined`.
 - Added the following helper functions:
+  - `getDefaultCollectibleTypesInItemPool`
+  - `getDefaultItemPoolsForCollectibleType`
   - `inGrid`
 
 ## October 18th, 2023

@@ -5,6 +5,7 @@ import type {
 import { ItemPoolType } from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
+import { ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET } from "../objects/itemPoolTypeToCollectibleTypesSet";
 import { arrayRemove, getRandomArrayElement } from "./array";
 
 const NORMAL_MODE_ONLY_ITEM_POOL_TYPES = [
@@ -40,6 +41,39 @@ const GREED_MODE_ITEM_POOL_TYPES: readonly ItemPoolType[] = arrayRemove(
   ...NORMAL_MODE_ONLY_ITEM_POOL_TYPES,
   ...FAKE_ITEM_POOL_TYPES,
 );
+
+/**
+ * Helper function to get the collectibles that are in a particular item pool at the beginning of a
+ * vanilla run.
+ */
+export function getDefaultCollectibleTypesInItemPool(
+  itemPoolType: ItemPoolType,
+): Set<CollectibleType> {
+  return ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET[itemPoolType];
+}
+
+/**
+ * Helper function to get the item pools that a particular collectible starts in at the beginning of
+ * a vanilla run.
+ *
+ * This function will automatically account for Greed Mode. In other words, it will not return the
+ * "normal" item pools when playing in Greed Mode.
+ */
+export function getDefaultItemPoolsForCollectibleType(
+  collectibleType: CollectibleType,
+): ItemPoolType[] {
+  const itemPoolTypes: ItemPoolType[] = [];
+
+  for (const itemPoolType of ITEM_POOL_TYPE_VALUES) {
+    const collectibleTypesSet =
+      ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET[itemPoolType];
+    if (collectibleTypesSet.has(collectibleType)) {
+      itemPoolTypes.push(itemPoolType);
+    }
+  }
+
+  return itemPoolTypes;
+}
 
 /**
  * Helper function to get a random item pool. This is not as simple as getting a random value from
