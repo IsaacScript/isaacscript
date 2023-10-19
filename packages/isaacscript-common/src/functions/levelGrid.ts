@@ -433,6 +433,17 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
 }
 
 /**
+ * Helper function to determine if the current room grid index is inside of the normal 13x13 level
+ * grid.
+ *
+ * For example, Devil Rooms and the Mega Satan room are not considered to be inside the grid.
+ */
+export function inGrid(): boolean {
+  const roomGridIndex = getRoomGridIndex();
+  return isRoomInsideGrid(roomGridIndex);
+}
+
+/**
  * Helper function to detect if the current room was created by the Red Key item.
  *
  * Under the hood, this checks for the `RoomDescriptorFlag.FLAG_RED_ROOM` flag.

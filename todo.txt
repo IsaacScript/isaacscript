@@ -1,3 +1,9 @@
+- lint rule: didn't catch this code:
+  const lockedPillEffectsOfType = lockedPillEffects.filter(
+    (thisPillEffect) =>
+      getPillEffectType(thisPillEffect),
+  );
+
 - lint rule: if return type of function includes undefined in a union, don't allow void return
 - lint rule: don't allow `return` or `return undefined` when return type of function is void
 

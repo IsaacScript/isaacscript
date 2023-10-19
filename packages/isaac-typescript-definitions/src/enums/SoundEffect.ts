@@ -28,7 +28,10 @@ export enum SoundEffect {
   CHEST_DROP = 21,
   CHEST_OPEN = 22,
   CHOIR_UNLOCK = 23,
+
+  /** Used by various slot machines. */
   COIN_SLOT = 24,
+
   CUTE_GRUNT = 25,
   DEATH_BURST_BONE = 27,
   DEATH_BURST_LARGE = 28,
@@ -54,7 +57,10 @@ export enum SoundEffect {
   COIN_INSERT = 45,
   METAL_DOOR_CLOSE = 46,
   METAL_DOOR_OPEN = 47,
+
+  /** Used by Monstro. */
   FOREST_BOSS_STOMPS = 48,
+
   SCYTHE_BREAK = 49,
   STONE_WALKER = 50,
   GAS_CAN_POUR = 51,
@@ -63,7 +69,9 @@ export enum SoundEffect {
   /** Used by Holy Water. */
   GLASS_BREAK = 53,
 
+  /** When picking up a soul heart. */
   HOLY = 54,
+
   ISAAC_HURT_GRUNT = 55,
   CHILD_HAPPY_ROAR_SHORT = 56,
   CHILD_ANGRY_ROAR = 57,
@@ -87,7 +95,10 @@ export enum SoundEffect {
   MUSHROOM_POOF_2 = 79,
   BLACK_POOF = 80,
   STATIC = 81,
+
+  /** Used by Clicker. */
   MOM_VOX_DEATH = 82,
+
   MOM_VOX_EVIL_LAUGH = 84,
   MOM_VOX_FILTERED_DEATH_1 = 85,
   MOM_VOX_FILTERED_EVIL_LAUGH = 86,
@@ -167,7 +178,10 @@ export enum SoundEffect {
   BOSS_2_BUBBLES = 185,
   EXPLOSION_DEBRIS = 186,
   BOSS_2_INTRO_ERROR_BUZZ = 187,
+
+  /** When entering a boss room. */
   CASTLE_PORTCULLIS = 190,
+
   CHARACTER_SELECT_LEFT = 194,
   CHARACTER_SELECT_RIGHT = 195,
 
@@ -237,7 +251,10 @@ export enum SoundEffect {
   THUMBS_UP = 268,
 
   FIRE_BURN = 269,
+
+  /** Used by rainbow poop. */
   HAPPY_RAINBOW = 270,
+
   LASER_RING = 271,
   LASER_RING_WEAK = 272,
   LASER_RING_STRONG = 273,
