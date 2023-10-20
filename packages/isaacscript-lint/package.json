@@ -26,7 +26,7 @@
     "@typescript-eslint/parser": "^6.8.0",
     "cspell": "^7.3.8",
     "cspell-check-unused-words": "^1.0.6",
-    "eslint": "^8.51.0",
+    "eslint": "^8.52.0",
     "eslint-config-isaacscript": "^4.7.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-deprecation": "^2.0.0",
