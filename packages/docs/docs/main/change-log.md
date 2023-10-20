@@ -11,7 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## October 25th, 2023 (Unreleased)
 
-- Helper functions that deal with randomness now require you to explicitly pass the seed. If you want unseeded behavior, then you must explicitly pass `undefined`.
+- Helper functions that deal with randomness now require you to pass the seed. If you want unseeded behavior, then you must explicitly pass `undefined`.
 - Added the following helper functions:
   - `crc32`
   - `getDefaultCollectibleTypesInItemPool`
