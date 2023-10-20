@@ -15,6 +15,7 @@ import {
   UseFlag,
 } from "isaac-typescript-definitions";
 import { game, musicManager, sfxManager } from "../core/cachedClasses";
+import type { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToString, isArray } from "./array";
 import { getBossID } from "./bosses";
@@ -67,7 +68,7 @@ export function logArray<T>(
  */
 export function logCollectibleTypes(
   this: void,
-  collectibleTypes: CollectibleType[],
+  collectibleTypes: CollectibleType[] | readonly CollectibleType[],
   name?: string,
 ): void {
   if (name === undefined) {
@@ -221,7 +222,7 @@ export function logLevelStateFlags(this: void): void {
  */
 export function logMap(
   this: void,
-  map: Map<AnyNotNil, unknown>,
+  map: Map<AnyNotNil, unknown> | ReadonlyMap<AnyNotNil, unknown>,
   name?: string,
 ): void {
   if (!isTSTLMap(map) && !isDefaultMap(map)) {
