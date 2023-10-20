@@ -12,6 +12,7 @@ import {
   DownpourRoomSubType,
   DungeonSubType,
   EntityFlag,
+  EntityType,
   GridRoom,
   HomeRoomSubType,
   ProjectileFlag,
@@ -823,7 +824,9 @@ export function isRoomDangerous(): boolean {
     entities.some(
       (entity) =>
         entity.IsActiveEnemy(false) &&
-        !entity.HasEntityFlags(EntityFlag.FRIENDLY),
+        !entity.HasEntityFlags(EntityFlag.FRIENDLY) &&
+        // Grimaces count as being "active" enemies, but they go to sleep when the room is cleared.
+        entity.Type !== EntityType.GRIMACE,
     )
   ) {
     return true;
