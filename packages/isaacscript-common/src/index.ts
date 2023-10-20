@@ -59,6 +59,7 @@ export * from "./functions/globals";
 export * from "./functions/gridEntities";
 export * from "./functions/gridEntitiesSpecific";
 export * from "./functions/gridIndex";
+export * from "./functions/hash";
 export * from "./functions/hex";
 export * from "./functions/input";
 export * from "./functions/isaacAPIClass";
