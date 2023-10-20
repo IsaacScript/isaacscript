@@ -13,7 +13,8 @@
     "sourceMap": true,
 
     // "lib" specifies a set of bundled library declaration files that describe the target run-time
-    // environment.
-    "lib": ["DOM", "ES2017"],
+    // environment. We choose "ES2021" because that is the earliest version that supports the
+    // `String.replaceAll` method.
+    "lib": ["DOM", "ES2021"],
   },
 }
