@@ -9,6 +9,7 @@ import {
   LevelStateFlag,
   Music,
   ProjectileFlag,
+  RoomType,
   SeedEffect,
   SoundEffect,
   TearFlag,
@@ -319,9 +320,9 @@ export function logRoom(this: void): void {
 
   log("Logging room information:");
   log(`- Room stage ID: ${roomData.StageID}`);
-  log(
-    `- Type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
-  );
+  log(`- Room type: ${RoomType[roomData.Type]} (${roomData.Type})`);
+  log(`- Variant: ${roomData.Variant}`);
+  log(`- Sub-type: ${roomData.Subtype}`);
   log(`- Name: ${roomData.Name}`);
 
   const roomGridIndexName = GridRoom[roomGridIndex];
