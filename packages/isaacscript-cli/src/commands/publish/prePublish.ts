@@ -65,7 +65,7 @@ function updateDependencies(
       getPackageManagerInstallCommand(packageManager);
     execShellString(packageManagerInstallCommand, verbose);
     if (!dryRun) {
-      gitCommitAllAndPush("chore: update deps", verbose);
+      gitCommitAllAndPush("chore: update dependencies", verbose);
     }
   }
 }
