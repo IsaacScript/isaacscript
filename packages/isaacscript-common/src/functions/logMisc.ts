@@ -1,4 +1,7 @@
-import type { CollectibleType } from "isaac-typescript-definitions";
+import type {
+  CollectibleType,
+  ItemPoolType,
+} from "isaac-typescript-definitions";
 import {
   DamageFlag,
   DisplayFlag,
@@ -25,6 +28,7 @@ import { getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
+import { getItemPoolName } from "./itemPool";
 import { log } from "./log";
 import { getPlayerHealth } from "./playerHealth";
 import { getEffectsList, getPlayerName } from "./players";
@@ -175,6 +179,31 @@ export function logGameStateFlags(this: void): void {
 
   if (hasNoFlags) {
     log("  n/a (no flags)");
+  }
+}
+
+/**
+ * Helper function to log the names of a item pool type array.
+ *
+ * @param itemPoolTypes The item pool types to log.
+ * @param name Optional. The name of the array, which will be logged before the elements.
+ */
+export function logItemPoolTypes(
+  this: void,
+  itemPoolTypes: ItemPoolType[] | readonly ItemPoolType[],
+  name?: string,
+): void {
+  if (name === undefined) {
+    name = "item pool types";
+  }
+
+  log(`Logging ${name}:`);
+
+  let i = 1;
+  for (const itemPoolType of itemPoolTypes) {
+    const itemPoolName = getItemPoolName(itemPoolType);
+    log(`${i}) ${itemPoolName} (${itemPoolType})`);
+    i++;
   }
 }
 

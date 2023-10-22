@@ -16,8 +16,10 @@ This page lists the changes to the IsaacScript framework.
   - `crc32`
   - `getDefaultCollectibleTypesInItemPool`
   - `getDefaultItemPoolsForCollectibleType`
+  - `getItemPoolName`
   - `inGrid`
   - `isCollectibleTypeInDefaultItemPool`
+  - `logItemPoolTypes`
 
 ## October 18th, 2023
 

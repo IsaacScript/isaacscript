@@ -5,6 +5,7 @@ import type {
 import { ItemPoolType } from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
+import { ITEM_POOL_TYPE_TO_ITEM_POOL_NAME } from "../maps/itemPoolTypeToItemPoolName";
 import { ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET } from "../objects/itemPoolTypeToCollectibleTypesSet";
 import { arrayRemove, getRandomArrayElement } from "./array";
 
@@ -77,6 +78,13 @@ export function getDefaultItemPoolsForCollectibleType(
   }
 
   return collectibleItemPoolTypes;
+}
+
+/**
+ * Helper function to get the name for an item pool type as it appears in the "itempools.xml" file.
+ */
+export function getItemPoolName(itemPoolType: ItemPoolType): string {
+  return ITEM_POOL_TYPE_TO_ITEM_POOL_NAME[itemPoolType];
 }
 
 /**
