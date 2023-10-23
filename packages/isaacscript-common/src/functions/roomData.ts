@@ -132,11 +132,15 @@ export function getRoomListIndex(roomGridIndex?: int): int {
  *
  * (The version of the function without any arguments will not return undefined since the current
  * room is guaranteed to have data.)
+ *
+ * If you want to get the room name for a specific room type, use the `getRoomTypeName` function.
  */
 export function getRoomName(): string;
 
 /**
  * Helper function to get the name of the room as it appears in the STB/XML data.
+ *
+ * If you want to get the room name for a specific room type, use the `getRoomTypeName` function.
  *
  * @param roomGridIndex Optional. Default is the current room index.
  * @returns The room name. Returns undefined if the room data was not found.
