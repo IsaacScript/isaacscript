@@ -3,6 +3,9 @@ import {
   EntityType,
   MotherVariant,
   NPCState,
+  UltraGreedState,
+  UltraGreedVariant,
+  UltraGreedierState,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
@@ -382,8 +385,26 @@ export function isActiveEnemy(entity: Entity): boolean {
       // 406
       case EntityType.ULTRA_GREED: {
         const npc = entity.ToNPC();
-        if (npc !== undefined && npc.State === asNPCState(9001)) {
-          return false;
+        if (npc !== undefined) {
+          const ultraGreedVariant = npc.Variant as UltraGreedVariant;
+
+          switch (ultraGreedVariant) {
+            case UltraGreedVariant.ULTRA_GREED: {
+              if (npc.State === asNPCState(UltraGreedState.GOLD_STATUE)) {
+                return false;
+              }
+
+              break;
+            }
+
+            case UltraGreedVariant.ULTRA_GREEDIER: {
+              if (npc.State === asNPCState(UltraGreedierState.POST_EXPLOSION)) {
+                return false;
+              }
+
+              break;
+            }
+          }
         }
 
         break;
