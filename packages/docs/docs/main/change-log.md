@@ -23,8 +23,13 @@ This page lists the changes to the IsaacScript framework.
   - `isCollectibleTypeInDefaultItemPool`
   - `logItemPoolTypes`
 - Added the following enums:
+  - `ConquestState`
+  - `FamineState`
+  - `PestilenceState`
   - `UltraGreedState`
   - `UltraGreedierState`
+  - `WarState`
+  - `WarWithoutHorseState`
 
 ## October 18th, 2023
 
