@@ -46,6 +46,14 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/explicit-member-accessibility": "off",
 
   "@typescript-eslint/explicit-module-boundary-types": "error",
+
+  /**
+   * Disabled because enforcing an arbitrary parameter number threshold for every function in a
+   * project does not provide much value. (Additionally, using TypeScript reduces the value of such
+   * a check.)
+   */
+  "@typescript-eslint/max-params": "off",
+
   "@typescript-eslint/member-delimiter-style": "off", // eslint-config-prettier
 
   /** Disabled since prescribed class ordering is too project-specific. */

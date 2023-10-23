@@ -209,11 +209,7 @@ const SUGGESTIONS = {
 
   "max-nested-callbacks": "error",
 
-  /**
-   * Disabled because enforcing an arbitrary parameter number threshold for every function in a
-   * project does not provide much value. (Additionally, using TypeScript reduces the value of such
-   * a check.)
-   */
+  /** Superseded by the `@typescript-eslint/max-params` rule. */
   "max-params": "off",
 
   /**
