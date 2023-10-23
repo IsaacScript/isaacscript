@@ -386,6 +386,7 @@ export function isActiveEnemy(entity: Entity): boolean {
     }
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   return entity.IsActiveEnemy(false);
 }
 
