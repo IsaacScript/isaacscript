@@ -1,4 +1,4 @@
-import type { SpikesOnOffState } from "../../enums/collections/gridEntityState";
+import type { SpikesOnOffState } from "../../enums/collections/gridEntityStates";
 
 declare global {
   /**

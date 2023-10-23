@@ -1,4 +1,4 @@
-import type { PitState } from "../../enums/collections/gridEntityState";
+import type { PitState } from "../../enums/collections/gridEntityStates";
 import type { PitVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {

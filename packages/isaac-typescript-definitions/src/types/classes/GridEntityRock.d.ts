@@ -1,4 +1,4 @@
-import type { RockState } from "../../enums/collections/gridEntityState";
+import type { RockState } from "../../enums/collections/gridEntityStates";
 
 declare global {
   /**

@@ -1,4 +1,4 @@
-import type { PoopState } from "../../enums/collections/gridEntityState";
+import type { PoopState } from "../../enums/collections/gridEntityStates";
 import type { PoopGridEntityVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {

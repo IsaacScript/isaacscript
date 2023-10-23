@@ -1,4 +1,4 @@
-import type { DoorState } from "../../enums/collections/gridEntityState";
+import type { DoorState } from "../../enums/collections/gridEntityStates";
 import type { DoorVariant } from "../../enums/collections/gridEntityVariants";
 import type { Direction } from "../../enums/Direction";
 import type { DoorSlot } from "../../enums/DoorSlot";

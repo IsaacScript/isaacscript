@@ -6,14 +6,59 @@ export enum LostSoulState {
   DEAD = 4,
 }
 
+/** For `EntityType.FAMINE` (63). */
+export enum FamineState {
+  MOVE = 4,
+  HORIZONTAL_CHARGE = 8,
+
+  /**
+   * Famine always remains in this phase while in phase 2, regardless of whether he is moving around
+   * or shooting tears.
+   */
+  PHASE_2 = 9,
+
+  /** The non-champion version will summon Pooters. */
+  SUMMON = 13,
+}
+
+/** For `EntityType.PESTILENCE` (64). */
+export enum PestilenceState {
+  MOVE = 4,
+  ATTACK_IPECAC = 8,
+
+  /**
+   * The non-champion version will summon Chargers or Spitties in phase 1 and Attack Flies in phase
+   * 2.
+   */
+  SUMMON = 13,
+}
+
+/** For `EntityType.WAR` (65), `WarVariant.WAR (0). */
+export enum WarState {
+  MOVE = 4,
+  JUMP_AND_SPAWN_TROLL_BOMBS = 6,
+  HORIZONTAL_CHARGE = 9,
+}
+
+/** For `EntityType.WAR` (65), `WarVariant.CONQUEST (1). */
+export enum ConquestState {
+  MOVE = 4,
+  JUMP_AND_SPAWN_BEAMS = 6,
+  TEAR_ATTACK = 8,
+  HORIZONTAL_CHARGE = 9,
+}
+
+/** For `EntityType.WAR` (65), `WarVariant.WAR_WITHOUT_HORSE (2). */
+export enum WarWithoutHorseState {
+  MOVE = 4,
+  SIT = 8,
+}
+
 /** For `EntityType.DEATH` (66). */
 export enum DeathState {
   APPEAR = 1,
   SCYTHE_APPEAR = 3,
-
-  /** Death will wander around in his idle state. */
-  MAIN_IDLE = 4,
-
+  MOVE = 4,
   JUMP_OFF_HORSE = 7,
   SLOW_ATTACK = 8,
   SUMMON_KNIGHTS = 13,

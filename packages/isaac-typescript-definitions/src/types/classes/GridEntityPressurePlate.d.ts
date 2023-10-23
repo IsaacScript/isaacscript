@@ -1,4 +1,4 @@
-import type { PressurePlateState } from "../../enums/collections/gridEntityState";
+import type { PressurePlateState } from "../../enums/collections/gridEntityStates";
 import type { PressurePlateVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
