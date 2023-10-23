@@ -45,6 +45,7 @@ import type {
 } from "isaac-typescript-definitions";
 import {
   ActiveSlot,
+  BossID,
   CacheFlag,
   Challenge,
   CollectibleType,
@@ -114,12 +115,13 @@ import {
 } from "../../../../functions/playerCollectibles";
 import { getPlayers } from "../../../../functions/playerIndex";
 import { getPlayerName } from "../../../../functions/players";
+import { getRoomData } from "../../../../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
 import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
 import { changeRoom } from "../../../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
 import { spawnCollectibleUnsafe } from "../../../../functions/spawnCollectible";
-import { setStage } from "../../../../functions/stage";
+import { onStage, setStage } from "../../../../functions/stage";
 import { getMapPartialMatch } from "../../../../functions/string";
 import { getGoldenTrinketType } from "../../../../functions/trinkets";
 import {
@@ -134,6 +136,7 @@ import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../../../maps/collectibleNameTo
 import { PILL_NAME_TO_EFFECT_MAP } from "../../../../maps/pillNameToEffectMap";
 import { ROOM_NAME_TO_TYPE_MAP } from "../../../../maps/roomNameToTypeMap";
 import { TRINKET_NAME_TO_TYPE_MAP } from "../../../../maps/trinketNameToTypeMap";
+import { ROOM_TYPE_NAMES } from "../../../../objects/roomTypeNames";
 import {
   addHeart,
   devilAngel,
@@ -335,9 +338,29 @@ export function bossNextRoom(): void {
   warpNextToRoomType(RoomType.BOSS);
 }
 
-/** Warps to the first Boss Room on the floor. */
+/** Warps to the first Boss Room on the floor (or the Delirium Boss Room if on The Void). */
 export function bossRoom(): void {
-  warpToRoomType(RoomType.BOSS);
+  // Most of the logic here is copied from the "warpToRoomType" function.
+  const roomType = RoomType.BOSS;
+  const roomGridIndexes = getRoomGridIndexesForType(roomType);
+
+  let roomGridIndex = roomGridIndexes[0];
+
+  if (onStage(LevelStage.VOID)) {
+    roomGridIndex = roomGridIndexes.find(
+      (thisRoomGridIndex) =>
+        getRoomData(thisRoomGridIndex)?.Subtype === BossID.DELIRIUM,
+    );
+  }
+
+  const roomTypeName = ROOM_TYPE_NAMES[RoomType.BOSS];
+  if (roomGridIndex === undefined) {
+    print(`There are no ${roomTypeName}s on this floor.`);
+    return;
+  }
+
+  changeRoom(roomGridIndex);
+  print(`Warped to room type: ${roomTypeName} (${roomType})`);
 }
 
 /** Warps to the Boss Rush for the floor. */
