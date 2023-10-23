@@ -131,7 +131,7 @@ import { iRange } from "../../../../functions/utils";
 import { CARD_NAME_TO_TYPE_MAP } from "../../../../maps/cardNameToTypeMap";
 import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToTypeMap";
 import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../../../maps/collectibleNameToTypeMap";
-import { PILL_NAME_TO_EFFECT_EFFECT_MAP } from "../../../../maps/pillNameToEffectMap";
+import { PILL_NAME_TO_EFFECT_MAP } from "../../../../maps/pillNameToEffectMap";
 import { ROOM_NAME_TO_TYPE_MAP } from "../../../../maps/roomNameToTypeMap";
 import { TRINKET_NAME_TO_TYPE_MAP } from "../../../../maps/trinketNameToTypeMap";
 import {
@@ -1034,7 +1034,7 @@ export function pill(params: string): void {
   let pillEffect: PillEffect;
   const num = tonumber(params) as PillEffect | undefined;
   if (num === undefined) {
-    const match = getMapPartialMatch(params, PILL_NAME_TO_EFFECT_EFFECT_MAP);
+    const match = getMapPartialMatch(params, PILL_NAME_TO_EFFECT_MAP);
     if (match === undefined) {
       print(`Unknown pill effect: ${params}`);
       return;

@@ -2,10 +2,7 @@ import { PillEffect } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 
 /** Maps pill effect names to the values of the `PillEffect` enum. */
-export const PILL_NAME_TO_EFFECT_EFFECT_MAP = new ReadonlyMap<
-  string,
-  PillEffect
->([
+export const PILL_NAME_TO_EFFECT_MAP = new ReadonlyMap<string, PillEffect>([
   ["badGas", PillEffect.BAD_GAS], // 0
   ["gas", PillEffect.BAD_GAS], // 0
   ["badTrip", PillEffect.BAD_TRIP], // 1
