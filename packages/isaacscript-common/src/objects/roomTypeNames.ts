@@ -1,8 +1,8 @@
 import { RoomType } from "isaac-typescript-definitions";
 
 export const ROOM_TYPE_NAMES = {
-  [RoomType.DEFAULT]: "default room", // 1
-  [RoomType.SHOP]: "shop", // 2
+  [RoomType.DEFAULT]: "Default Room", // 1
+  [RoomType.SHOP]: "Shop", // 2
   [RoomType.ERROR]: "I AM ERROR Room", // 3
   [RoomType.TREASURE]: "Treasure Room", // 4
   [RoomType.BOSS]: "Boss Room", // 5
