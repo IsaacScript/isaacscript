@@ -192,7 +192,7 @@ declare global {
 
     /**
      * @deprecated Consider using the `isActiveEnemy` helper function from `isaacscript-common`
-     *             instead, since it will correctly handle friendly entities, Grimaces, Ultra Doors,
+     *             instead, since it will correctly handle friendly entities, Grimaces, Ultra Greed,
      *             and Mother.
      */
     IsActiveEnemy: (includeDead: boolean) => boolean;

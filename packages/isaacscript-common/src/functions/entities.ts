@@ -15,7 +15,7 @@ import { newReadonlyColor } from "./readOnly";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { isTSTLSet } from "./tstlClass";
-import { isPrimitive } from "./types";
+import { asNPCState, isPrimitive } from "./types";
 import { assertDefined } from "./utils";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
@@ -355,7 +355,7 @@ export function hasArmor(entity: Entity): boolean {
 
 /**
  * Helper function to detect if a particular entity is an active enemy. Use this over the
- * `Entity.IsActiveEnemy` method since it is bugged with friendly enemies, Grimaces, Ultra Doors,
+ * `Entity.IsActiveEnemy` method since it is bugged with friendly enemies, Grimaces, Ultra Greed,
  * and Mother.
  */
 export function isActiveEnemy(entity: Entity): boolean {
@@ -367,22 +367,43 @@ export function isActiveEnemy(entity: Entity): boolean {
   const isClear = room.IsClear();
 
   // Some entities count as being "active" enemies, but they deactivate when the room is cleared.
-  if (
-    isClear &&
-    (entity.Type === EntityType.GRIMACE || // 42
-      entity.Type === EntityType.ULTRA_DOOR) // 294
-  ) {
-    return false;
-  }
+  if (isClear) {
+    switch (entity.Type) {
+      // 42
+      case EntityType.GRIMACE: {
+        return false;
+      }
 
-  // The `Entity.IsActiveEnemy` function does not work properly with Mother.
-  if (
-    entity.Type === EntityType.MOTHER &&
-    entity.Variant === MotherVariant.MOTHER_1
-  ) {
-    const npc = entity.ToNPC();
-    if (npc !== undefined && npc.State === NPCState.SPECIAL) {
-      return false;
+      // 294
+      case EntityType.ULTRA_DOOR: {
+        return false;
+      }
+
+      // 406
+      case EntityType.ULTRA_GREED: {
+        const npc = entity.ToNPC();
+        if (npc !== undefined && npc.State === asNPCState(9001)) {
+          return false;
+        }
+
+        break;
+      }
+
+      // 912
+      case EntityType.MOTHER: {
+        if (entity.Variant === MotherVariant.MOTHER_1) {
+          const npc = entity.ToNPC();
+          if (npc !== undefined && npc.State === NPCState.SPECIAL) {
+            return false;
+          }
+        }
+
+        break;
+      }
+
+      default: {
+        break;
+      }
     }
   }
 
