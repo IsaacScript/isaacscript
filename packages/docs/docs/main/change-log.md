@@ -21,6 +21,9 @@ This page lists the changes to the IsaacScript framework.
   - `isActiveEnemy`
   - `isCollectibleTypeInDefaultItemPool`
   - `logItemPoolTypes`
+- Added the following enums:
+  - `UltraGreedState`
+  - `UltraGreedierState`
 
 ## October 18th, 2023
 

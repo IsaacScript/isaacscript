@@ -91,3 +91,43 @@ export enum ColostomiaState {
   FART_ATTACK = 11,
   TRANSITION_TO_PHASE_2 = 16,
 }
+
+/** For `EntityType.ULTRA_GREED` (406), `UltraGreedVariant.ULTRA_GREED` (0). */
+export enum UltraGreedState {
+  HANGING = 2,
+  IDLE = 3,
+  MOVE = 4,
+  GOLD_STATUE_BREAKING_OUT = 16,
+  EYES_SPINNING = 100,
+
+  /** This creates Keepers (i.e. Greed Heads). */
+  STOMPING = 200,
+
+  BLOCKING_WITH_ARMS = 400,
+  SPIN_ATTACK = 510,
+  SHOOT_4_COINS = 600,
+  DYING = 9000,
+
+  /**
+   * He only goes to this state on Greed Mode when the fight is completed. On Greedier Mode, this
+   * state will never be entered, and he will instead go to state
+   * `UltraGreedState.GOLD_STATUE_BREAKING_OUT` (16).
+   */
+  GOLD_STATUE = 9001,
+}
+
+/** For `EntityType.ULTRA_GREED` (406), `UltraGreedVariant.ULTRA_GREEDIER` (1). */
+export enum UltraGreedierState {
+  IDLE = 3,
+  MOVE = 4,
+  JUMP = 6,
+
+  /** This creates bomb coins. */
+  STOMPING = 200,
+
+  SHOOT_4_COINS = 600,
+  FIST_POUND = 700,
+  FIST_POUND_TRIPLE = 710,
+  DYING = 9000,
+  POST_EXPLOSION = 9001,
+}
