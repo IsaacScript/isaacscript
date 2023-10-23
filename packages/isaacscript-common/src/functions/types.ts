@@ -6,6 +6,7 @@ import type {
   PillColor,
   PillEffect,
   PlayerType,
+  RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
 
@@ -106,6 +107,16 @@ export function asPillEffect(num: int): PillEffect {
  * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
  */
 export function asPlayerType(num: int): PlayerType {
+  return num;
+}
+
+/**
+ * Helper function to safely cast an `int` to a `RoomType`. (This is better than using the `as`
+ * TypeScript keyword to do a type assertion, since that can obfuscate compiler errors. )
+ *
+ * This is useful to satisfy the "isaacscript/strict-enums" ESLint rule.
+ */
+export function asRoomType(num: int): RoomType {
   return num;
 }
 
