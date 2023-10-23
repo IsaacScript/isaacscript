@@ -1,5 +1,9 @@
-import type { EntityType } from "isaac-typescript-definitions";
-import { EntityFlag } from "isaac-typescript-definitions";
+import {
+  EntityFlag,
+  EntityType,
+  MotherVariant,
+  NPCState,
+} from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
@@ -347,6 +351,42 @@ export function getFilteredNewEntities<T extends AnyEntity>(
 export function hasArmor(entity: Entity): boolean {
   const typeVariantString = `${entity.Type}.${entity.Variant}`;
   return ENTITIES_WITH_ARMOR_SET.has(typeVariantString);
+}
+
+/**
+ * Helper function to detect if a particular entity is an active enemy. Use this over the
+ * `Entity.IsActiveEnemy` method since it is bugged with friendly enemies, Grimaces, Ultra Doors,
+ * and Mother.
+ */
+export function isActiveEnemy(entity: Entity): boolean {
+  if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
+    return false;
+  }
+
+  const room = game.GetRoom();
+  const isClear = room.IsClear();
+
+  // Some entities count as being "active" enemies, but they deactivate when the room is cleared.
+  if (
+    isClear &&
+    (entity.Type === EntityType.GRIMACE || // 42
+      entity.Type === EntityType.ULTRA_DOOR) // 294
+  ) {
+    return false;
+  }
+
+  // The `Entity.IsActiveEnemy` function does not work properly with Mother.
+  if (
+    entity.Type === EntityType.MOTHER &&
+    entity.Variant === MotherVariant.MOTHER_1
+  ) {
+    const npc = entity.ToNPC();
+    if (npc !== undefined && npc.State === NPCState.SPECIAL) {
+      return false;
+    }
+  }
+
+  return entity.IsActiveEnemy(false);
 }
 
 /**

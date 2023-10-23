@@ -26,6 +26,8 @@ const IGNORE_EFFECT_VARIANTS = new ReadonlySet<EffectVariant>([
   EffectVariant.WALL_BUG, // 68
   EffectVariant.FALLING_EMBER, // 87
   EffectVariant.LIGHT, // 121
+  EffectVariant.MIST, // 138
+  EffectVariant.BACKDROP_DECORATION, // 140
   EffectVariant.TADPOLE, // 158
 ]);
 

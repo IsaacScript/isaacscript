@@ -189,7 +189,14 @@ declare global {
     HasEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => boolean;
     HasFullHealth: () => boolean;
     HasMortalDamage: () => boolean;
+
+    /**
+     * @deprecated Consider using the `isActiveEnemy` helper function from `isaacscript-common`
+     *             instead, since it will correctly handle friendly entities, Grimaces, Ultra Doors,
+     *             and Mother.
+     */
     IsActiveEnemy: (includeDead: boolean) => boolean;
+
     IsBoss: () => boolean;
     IsDead: () => boolean;
     IsEnemy: () => boolean;

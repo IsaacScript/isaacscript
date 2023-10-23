@@ -11,8 +11,6 @@ import {
   DoorSlotFlag,
   DownpourRoomSubType,
   DungeonSubType,
-  EntityFlag,
-  EntityType,
   GridRoom,
   HomeRoomSubType,
   ProjectileFlag,
@@ -34,7 +32,7 @@ import {
   isHiddenSecretRoomDoor,
   openDoorFast,
 } from "./doors";
-import { getEntities } from "./entities";
+import { getEntities, isActiveEnemy } from "./entities";
 import { hasFlag } from "./flag";
 import {
   getEntityPositions,
@@ -820,15 +818,7 @@ export function isRoomDangerous(): boolean {
 
   const entities = getEntities();
 
-  if (
-    entities.some(
-      (entity) =>
-        entity.IsActiveEnemy(false) &&
-        !entity.HasEntityFlags(EntityFlag.FRIENDLY) &&
-        // Grimaces count as being "active" enemies, but they go to sleep when the room is cleared.
-        entity.Type !== EntityType.GRIMACE,
-    )
-  ) {
+  if (entities.some((entity) => isActiveEnemy(entity))) {
     return true;
   }
 

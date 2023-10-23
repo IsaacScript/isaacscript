@@ -18,6 +18,7 @@ This page lists the changes to the IsaacScript framework.
   - `getDefaultItemPoolsForCollectibleType`
   - `getItemPoolName`
   - `inGrid`
+  - `isActiveEnemy`
   - `isCollectibleTypeInDefaultItemPool`
   - `logItemPoolTypes`
 
