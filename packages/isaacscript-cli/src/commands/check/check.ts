@@ -8,6 +8,8 @@ import {
   TEMPLATES_DIR,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
+  YARNRC_TEMPLATE_PATH,
+  YARNRC_YML,
 } from "../../constants.js";
 import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell } from "../../exec.js";
@@ -24,7 +26,10 @@ import {
   getEnumValues,
   trimPrefix,
 } from "../../isaacScriptCommonTS.js";
-import { getAllPackageManagerLockFileNames } from "../../packageManager.js";
+import {
+  getAllPackageManagerLockFileNames,
+  getPackageManagerUsedForExistingProject,
+} from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 
 const URL_PREFIX =
@@ -47,6 +52,7 @@ const PACKAGE_MANAGER_STRINGS = [
 export function check(args: Args, typeScript: boolean): void {
   const ignore = args.ignore ?? "";
   const verbose = args.verbose === true;
+  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
 
   let oneOrMoreErrors = false;
   const ignoreFileNames = ignore.split(",");
@@ -66,7 +72,8 @@ export function check(args: Args, typeScript: boolean): void {
     oneOrMoreErrors = true;
   }
 
-  if (checkIndividualFiles(ignoreFileNamesSet, verbose)) {
+  // Third, check dynamic files that require specific logic.
+  if (checkIndividualFiles(ignoreFileNamesSet, packageManager, verbose)) {
     oneOrMoreErrors = true;
   }
 
@@ -133,12 +140,28 @@ function checkTemplateDirectory(
 
 function checkIndividualFiles(
   ignoreFileNamesSet: ReadonlySet<string>,
+  packageManager: PackageManager,
   verbose: boolean,
 ) {
   let oneOrMoreErrors = false;
 
   if (!ignoreFileNamesSet.has(CI_YML)) {
     const templateFilePath = CI_YML_TEMPLATE_PATH;
+    const relativeTemplateFilePath = path.relative(
+      TEMPLATES_DYNAMIC_DIR,
+      templateFilePath,
+    );
+    const projectFilePath = path.join(CWD, relativeTemplateFilePath);
+    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
+      oneOrMoreErrors = true;
+    }
+  }
+
+  if (
+    packageManager === PackageManager.yarn &&
+    !ignoreFileNamesSet.has(YARNRC_YML)
+  ) {
+    const templateFilePath = YARNRC_TEMPLATE_PATH;
     const relativeTemplateFilePath = path.relative(
       TEMPLATES_DYNAMIC_DIR,
       templateFilePath,
