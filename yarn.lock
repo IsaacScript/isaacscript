@@ -5138,12 +5138,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.8.7":
-  version: 20.8.7
-  resolution: "@types/node@npm:20.8.7"
+"@types/node@npm:^20.8.8":
+  version: 20.8.8
+  resolution: "@types/node@npm:20.8.8"
   dependencies:
     undici-types: "npm:~5.25.1"
-  checksum: a347ac7e6a9748ffff018ca01142ba625e774cb0b53785abb58b16a5a8468cc9b7656686dbe4c39c2f3fc477439994ee8aeae9b80ced86f320598bafaf83f802
+  checksum: 17c8641cd1ac341afae555a0bc9b1cc8cffe3d7e73f44540ae6a4d008551dfb64f9e29f35be3c7ad99c4131108d88966ab0437f5160539992a6f4368c50c224f
   languageName: node
   linkType: hard
 
@@ -11991,12 +11991,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^37.0.0":
-  version: 37.0.0
-  resolution: "isaac-typescript-definitions@npm:37.0.0"
+"isaac-typescript-definitions@npm:^37.0.1":
+  version: 37.0.1
+  resolution: "isaac-typescript-definitions@npm:37.0.1"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: e69af2e988875a869d9cee7118a846be702cbc1946bda83328cad43b9022a7c19672418f8ea9b1fcc2d0ce0d61af65a560d4994c309463b4ac298978ecfe7222
+  checksum: dde2e99b4e562ca2f4669e17497615e48c70625f5b2c5ae10d1ff09ee35e4ec352efa1ccb626b5be00bbd62f93b82e207db4c768797c6539ae26dff518bde959
   languageName: node
   linkType: hard
 
@@ -12033,7 +12033,7 @@ __metadata:
     "@types/glob": "npm:^8.1.0"
     "@types/jest": "npm:^29.5.6"
     "@types/klaw-sync": "npm:^6.0.3"
-    "@types/node": "npm:^20.8.7"
+    "@types/node": "npm:^20.8.8"
     "@types/prompt": "npm:^1.1.7"
     "@types/source-map-support": "npm:^0.5.9"
     "@types/touch": "npm:^3.1.4"
@@ -12070,7 +12070,7 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^37.0.0"
+    isaac-typescript-definitions: "npm:^37.0.1"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
