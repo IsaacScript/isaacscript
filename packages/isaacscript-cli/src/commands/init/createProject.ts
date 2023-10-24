@@ -305,7 +305,7 @@ function upgradeYarn(
     return;
   }
 
-  execShell("yarn", ["set", "version", "berry"], verbose, false, projectPath);
+  execShell("yarn", ["set", "version", "latest"], verbose, false, projectPath);
   execShell(
     "yarn",
     ["config", "set", "nodeLinker", "node-modules"],
