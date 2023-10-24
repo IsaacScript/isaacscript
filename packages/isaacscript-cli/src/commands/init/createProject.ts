@@ -306,6 +306,12 @@ function upgradeYarn(
   }
 
   execShell("yarn", ["set", "version", "latest"], verbose, false, projectPath);
+
+  // https://yarnpkg.com/features/linkers
+  // - `pnp` is the default, but it requires a VSCode extension.
+  // - `pnpm` is fast, but it does not work with a D drive:
+  // https://github.com/yarnpkg/berry/issues/5326
+  // - Thus, we use `node-modules`.
   execShell(
     "yarn",
     ["config", "set", "nodeLinker", "node-modules"],
