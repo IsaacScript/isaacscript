@@ -9,10 +9,6 @@
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
-- error --> throw new Error
-  - write plugin to handle table case
-  - test --luadebug and no --luadebug and racing+ sandbox
-  - remember to update gotchas in docs
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
 - get rid of nx
 
