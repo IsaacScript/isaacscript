@@ -27,6 +27,8 @@
     "lib": ["ESNext"],
     "moduleResolution": "Node",
 
+    "module": "CommonJS",
+
     // We use TypeScript definitions for the Lua standard library:
     // https://github.com/TypeScriptToLua/lua-types
     "types": ["lua-types/5.3"],
@@ -37,7 +39,7 @@
 
     // The "strictest" TSConfig template turns this to true, but we need to set the value to false
     // since it throws errors when using const enums.
-    "isolatedModules": false,
+    "isolatedModules": false
   },
 
   "include": [
