@@ -1,15 +1,13 @@
-import type { Schema } from "ajv";
-import Ajv from "ajv";
 import chalk from "chalk";
+import type { CustomStageTSConfig } from "isaacscript-common";
+import { fatalError, getJSONC } from "isaacscript-common-node";
+import { isObject } from "isaacscript-common-ts";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
   TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
-import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
-import { fatalError, isRecord } from "./isaacScriptCommonTS.js";
-import { getJSONC } from "./json.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
@@ -18,7 +16,7 @@ const ajv = new Ajv();
 const schemaValidate = ajv.compile(isaacScriptSchema);
 
 function getTSConfigJSON(verbose: boolean): Record<string, unknown> {
-  return getJSONC(TSCONFIG_JSON_PATH, verbose);
+  return getJSONC(TSCONFIG_JSON_PATH);
 }
 
 function getIsaacScriptSection(
@@ -30,7 +28,7 @@ function getIsaacScriptSection(
   for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
     const field = tsConfig[fieldName];
     if (field !== undefined) {
-      if (!isRecord(field)) {
+      if (!isObject(field)) {
         fatalError(
           `Your "${chalk.green(
             TSCONFIG_JSON_PATH,

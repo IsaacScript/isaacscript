@@ -39,6 +39,7 @@ information about using TypeScript, see the website: https://isaacscript.github.
 --]]
 
 ---@diagnostic disable
+-- cspell:disable
 
 `;
 

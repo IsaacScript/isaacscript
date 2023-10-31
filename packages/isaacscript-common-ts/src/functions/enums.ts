@@ -1,3 +1,5 @@
+type TranspiledEnum = Record<string, string | number>;
+
 /**
  * Helper function to get the only the values of an enum.
  *
@@ -6,15 +8,24 @@
  *
  * This function will work properly for both number and string enums.
  */
-export function getEnumValues<T>(
-  transpiledEnum: Record<string, string | T>,
-): T[] {
+export function getEnumValues<T extends TranspiledEnum>(
+  transpiledEnum: T,
+): Array<T[keyof T]> {
   const values = Object.values(transpiledEnum);
   const numberValues = values.filter((value) => typeof value === "number");
 
   // If there are no number values, then this must be a string enum, and no filtration is required.
   const valuesToReturn = numberValues.length > 0 ? numberValues : values;
-  return valuesToReturn as T[];
+  return valuesToReturn as Array<T[keyof T]>;
+}
+
+/** Helper function to validate that a particular value exists inside of an enum. */
+export function isEnumValue<T extends TranspiledEnum>(
+  value: number | string,
+  transpiledEnum: T,
+): value is T[keyof T] {
+  const enumValues = getEnumValues(transpiledEnum);
+  return enumValues.includes(value as T[keyof T]);
 }
 
 /**

@@ -1,4 +1,13 @@
 import chalk from "chalk";
+import {
+  deleteFileOrDirectory,
+  getDirectoryList,
+  getPackageJSONVersion,
+  isDirectory,
+  isFile,
+  readFile,
+  writeFile,
+} from "isaacscript-common-node";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {
@@ -10,16 +19,7 @@ import {
   PUBLISH_PRE_COPY_PY_PATH,
 } from "../../constants.js";
 import { execExe, execShell, execShellString } from "../../exec.js";
-import {
-  deleteFileOrDirectory,
-  fileExists,
-  getDirList,
-  isDir,
-  readFile,
-  writeFile,
-} from "../../file.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
-import { getProjectPackageJSONField } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
@@ -31,15 +31,15 @@ export async function publishIsaacScriptMod(
 ): Promise<void> {
   const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
-  const version = getProjectPackageJSONField("version", verbose);
+  const version = getPackageJSONVersion(undefined);
 
-  unsetDevelopmentConstant(verbose);
+  unsetDevelopmentConstant();
   runReleaseScriptPreCopy(verbose);
   await compileAndCopy(MOD_SOURCE_PATH, modTargetPath, packageManager, verbose);
-  purgeRoomXMLs(modTargetPath, verbose);
+  purgeRoomXMLs(modTargetPath);
   runReleaseScriptPostCopy(verbose);
 
   if (dryRun) {
@@ -54,21 +54,21 @@ export async function publishIsaacScriptMod(
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
 }
 
-function unsetDevelopmentConstant(verbose: boolean) {
-  if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
+function unsetDevelopmentConstant() {
+  if (!isFile(CONSTANTS_TS_PATH)) {
     return;
   }
 
-  const constantsTS = readFile(CONSTANTS_TS_PATH, verbose);
+  const constantsTS = readFile(CONSTANTS_TS_PATH);
   const newConstantsTS = constantsTS.replace(
     "const IS_DEV = true",
     "const IS_DEV = false",
   );
-  writeFile(CONSTANTS_TS_PATH, newConstantsTS, verbose);
+  writeFile(CONSTANTS_TS_PATH, newConstantsTS);
 }
 
 function runReleaseScriptPreCopy(verbose: boolean) {
-  if (!fileExists(PUBLISH_PRE_COPY_PY_PATH, verbose)) {
+  if (!isFile(PUBLISH_PRE_COPY_PY_PATH)) {
     return;
   }
 
@@ -80,7 +80,7 @@ function runReleaseScriptPreCopy(verbose: boolean) {
 }
 
 function runReleaseScriptPostCopy(verbose: boolean) {
-  if (!fileExists(PUBLISH_POST_COPY_PY_PATH, verbose)) {
+  if (!isFile(PUBLISH_POST_COPY_PY_PATH)) {
     return;
   }
 
@@ -91,24 +91,24 @@ function runReleaseScriptPostCopy(verbose: boolean) {
   }
 }
 
-function purgeRoomXMLs(modTargetPath: string, verbose: boolean) {
+function purgeRoomXMLs(modTargetPath: string) {
   const roomsPath = path.join(modTargetPath, "resources", "rooms");
-  if (!fileExists(roomsPath, verbose) || !isDir(roomsPath, verbose)) {
+  if (!isDirectory(roomsPath)) {
     return;
   }
 
-  const roomFileList = getDirList(roomsPath, verbose);
+  const roomFileList = getDirectoryList(roomsPath);
   const xmlFiles = roomFileList.filter(
     (fileName) => path.extname(fileName) === ".xml",
   );
   for (const xmlFile of xmlFiles) {
     const roomFilePath = path.join(roomsPath, xmlFile);
-    deleteFileOrDirectory(roomFilePath, verbose);
+    deleteFileOrDirectory(roomFilePath);
   }
 }
 
 function uploadMod(modTargetPath: string, verbose: boolean) {
-  if (hasIsaacSteamWorkshopUploadGitHubAction(verbose)) {
+  if (hasIsaacSteamWorkshopUploadGitHubAction()) {
     // CI will automatically upload the new version to the Steam Workshop, so there is no need to
     // open the mod uploader program.
     return;
@@ -122,13 +122,13 @@ function uploadMod(modTargetPath: string, verbose: boolean) {
   execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
 }
 
-function hasIsaacSteamWorkshopUploadGitHubAction(verbose: boolean): boolean {
+function hasIsaacSteamWorkshopUploadGitHubAction(): boolean {
   const ciYMLPath = path.join(CWD, ".github", "workflows", "ci.yml");
-  if (!fileExists(ciYMLPath, verbose)) {
+  if (!isFile(ciYMLPath)) {
     return false;
   }
 
-  const ciYML = readFile(ciYMLPath, verbose);
+  const ciYML = readFile(ciYMLPath);
   const lines = ciYML.split("\n");
 
   return lines.some(

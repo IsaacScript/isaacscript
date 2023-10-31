@@ -1,5 +1,5 @@
+import { fatalError } from "isaacscript-common-node";
 import { getGitHubUsername } from "../../git.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getInputString } from "../../prompt.js";
 
 export async function getAuthorName(

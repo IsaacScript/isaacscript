@@ -1,12 +1,17 @@
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.node.json",
+    "../isaacscript-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "dist",
+
+    // We have to enable some compiler options because they are used by "isaacscript-common" and we
+    // import code from that package.
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
   },
 
   "include": [

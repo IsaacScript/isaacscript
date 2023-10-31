@@ -35,12 +35,15 @@ async function publishTypeScriptProject(args: Args) {
   } else {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
     gitCommitAllAndPush(releaseGitCommitMessage, verbose);
-    const otpCode = await getInputString(
-      "Type in the two-factor OTP code tied to the npm account. (Just press enter if you do not have 2FA enabled on your npm account.)",
-    );
+
     let command = "npm publish --access=public";
-    if (otpCode !== "") {
-      command += ` --otp=${otpCode}`;
+    if (args.otp === true) {
+      const otpCode = await getInputString(
+        "Type in the two-factor OTP code tied to the npm account. (Just press enter if you do not have 2FA enabled on your npm account.)",
+      );
+      if (otpCode !== "") {
+        command += ` --otp=${otpCode}`;
+      }
     }
     execShellString(command, verbose);
   }

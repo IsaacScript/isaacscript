@@ -1,8 +1,8 @@
 import chalk from "chalk";
+import { fatalError } from "isaacscript-common-node";
 import type { SpawnSyncReturns } from "node:child_process";
 import { execFileSync, execSync, spawnSync } from "node:child_process";
 import { CWD } from "./constants.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
 
 export function execExe(
   path: string,

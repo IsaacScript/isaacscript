@@ -1,12 +1,12 @@
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.node.json",
+    "../isaacscript-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "dist",
   },
 
   // We have a separate "tsconfig.prod.json" that is used for production output.

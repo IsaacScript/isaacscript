@@ -1,11 +1,18 @@
 // Performs various checks on every "package.json" file in the repository.
 
 import { globSync } from "glob";
+import {
+  PACKAGE_JSON,
+  dirName,
+  getPackageJSON,
+  readFile,
+} from "isaacscript-common-node";
+import { isKebabCase } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
-import { __dirname, isKebabCase, readFile } from "./utils.js";
 
-const PACKAGE_JSON = "package.json";
+const __dirname = dirName();
+
 const REPO_ROOT = path.join(__dirname, "..");
 const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
 
@@ -50,8 +57,7 @@ function packageJSONLint(
   const isDocs = packageJSONPath.includes("docs");
   const shouldBePrivate = isRoot || isDocs;
 
-  const packageJSONString = readFile(packageJSONPath);
-  const packageJSON = getPackageJSON(packageJSONString);
+  const packageJSON = getPackageJSON(packageJSONPath);
 
   const { name } = packageJSON;
   if (typeof name !== "string" || name === "") {
@@ -297,12 +303,12 @@ function getVersionForSpecificPackage(packageName: string): string {
   );
   const packageJSONString = readFile(packageJSONPath);
   const packageJSON = getPackageJSON(packageJSONString);
-  const pluginVersion = packageJSON["version"];
-  if (typeof pluginVersion !== "string") {
+  const packageVersion = packageJSON["version"];
+  if (typeof packageVersion !== "string") {
     throw new TypeError(`Failed to parse the version from: ${packageJSONPath}`);
   }
 
-  return pluginVersion;
+  return packageVersion;
 }
 
 function checkDeps(
@@ -383,18 +389,4 @@ function checkRootDepsUpToDate(
       );
     }
   }
-}
-
-/** Parses a JSON string into a record. */
-function getPackageJSON(packageJSONString: string): Record<string, unknown> {
-  const packageJSON = JSON.parse(packageJSONString) as unknown;
-  if (
-    typeof packageJSON !== "object" ||
-    packageJSON === null ||
-    Array.isArray(packageJSON)
-  ) {
-    throw new Error('Failed to parse a "package.json" file.');
-  }
-
-  return packageJSON as Record<string, unknown>;
 }

@@ -42,6 +42,9 @@ export function anySeedEffectEnabled(exceptions?: SeedEffect[]): boolean {
  * Helper function to see if the current run can unlock achievements. For example, if playing on a
  * set seed or in a victory lap, achievements are disabled.
  *
+ * This function can cause problems if called multiple times per frame, since it involves spawning
+ * an entity. It is recommended that you cache the result at the beginning of every run.
+ *
  * Under the hood, this is determined by spawning a Greed Donation Machine and then seeing if it
  * exists before removing it.
  */

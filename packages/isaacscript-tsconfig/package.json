@@ -20,6 +20,15 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "module",
+  "files": [
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "tsconfig.base.json",
+    "tsconfig.browser.json",
+    "tsconfig.mod.json",
+    "tsconfig.node.json"
+  ],
   "dependencies": {
     "@tsconfig/node-lts": "^18.12.5",
     "@tsconfig/strictest": "^2.0.2"

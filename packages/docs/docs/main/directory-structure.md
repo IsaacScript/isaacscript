@@ -125,7 +125,7 @@ This is a helper script to compile the project. (It is also used in CI.)
 
 <br />
 
-### `cspell.json`
+### `cspell.jsonc`
 
 This is the configuration file for [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
 

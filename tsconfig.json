@@ -1,7 +1,7 @@
 // This is a tsconfig.json intended to be used by scripts in this monorepo.
 {
   "extends": [
-    "./packages/isaacscript-tsconfig/configs/tsconfig.node.json",
+    "./packages/isaacscript-tsconfig/tsconfig.node.json",
     "./tsconfig.monorepo.json",
   ],
 
@@ -29,5 +29,5 @@
 
   // Needed to avoid spurious errors in VSCode when having scripts open (due to the
   // "typescript.tsserver.experimental.enableProjectDiagnostics" setting).
-  "exclude": ["dist", "packages"],
+  "exclude": ["packages"],
 }

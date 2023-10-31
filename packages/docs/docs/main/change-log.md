@@ -591,7 +591,7 @@ pnpm add isaacscript-tsconfig
   - `init-ts` will bootstrap a TypeScript project.
   - `publish-ts` will publish a TypeScript project.
   - `check-ts` will check your template files (for an TypeScript project) to see if they are up to date.
-- The `cspell-check-unused-words` tool can now be used to check for unused words in your "cspell.json" file.
+- The `cspell-check-unused-words` tool can now be used to check for unused words in your "cspell.jsonc" file.
 - Removed support for `steamcmd` from the `publish` command.
 - Added the following helper functions:
   - `isFoundSoul`
@@ -1428,7 +1428,7 @@ pnpm add typescript-to-lua
 
 ### Other
 
-- All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
+- All of the IsaacScript packages are now contained in a monorepo. The other various repositories have been deleted.
 - The linting meta-package now uses `eslint-plugin-isaacscript`, which contains a [bunch of new rules](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) that will make your code safer.
 - IsaacScript now supports the [Yarn](https://yarnpkg.com/) package manager. It will use Yarn by default if it detects that you have it installed.
 - IsaacScript now shows how many seconds it took to compile the mod.
@@ -1595,7 +1595,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 
 ### Non-Breaking Changes
 
-- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/_cspell.json) for more information.
+- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/_cspell.jsonc) for more information.
 - Added the following helper constants since the corollary enum values were purged:
   - `NUM_CARDS` / `MAX_CARD` / `NUM_VANILLA_CARDS` / `MAX_VANILLA_CARD`
   - `NUM_COLLECTIBLE_TYPES` / `MAX_COLLECTIBLE_TYPE` / `NUM_VANILLA_COLLECTIBLE_TYPES` / `MAX_VANILLA_COLLECTIBLE_TYPE`

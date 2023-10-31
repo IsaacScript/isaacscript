@@ -1,13 +1,11 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
+import type { PackageManager } from "isaacscript-common-node";
+import { getPackageManagerExecCommand } from "isaacscript-common-node";
 import path from "node:path";
 import { CWD, PROJECT_NAME } from "../../constants.js";
-import type { PackageManager } from "../../enums/PackageManager.js";
 import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
-import {
-  getPackageManagerExecCommand,
-  getPackageManagerUsedForNewProject,
-} from "../../packageManager.js";
+import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
@@ -38,7 +36,7 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
     yes,
     forceName,
   );
-  await checkIfProjectPathExists(projectPath, yes, verbose);
+  await checkIfProjectPathExists(projectPath, yes);
 
   const projectName = path.basename(projectPath);
   const authorName = await getAuthorName(typeScript, verbose);
@@ -50,10 +48,10 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
     verbose,
   );
 
-  const modsDirectory = await getModsDir(args, typeScript, verbose);
+  const modsDirectory = await getModsDir(args, typeScript);
   if (modsDirectory !== undefined) {
     checkModSubdirectory(projectPath, modsDirectory);
-    await checkModTargetDirectory(modsDirectory, projectName, yes, verbose);
+    await checkModTargetDirectory(modsDirectory, projectName, yes);
   }
   const saveSlot = typeScript ? undefined : await promptSaveSlot(args, yes);
 
@@ -119,10 +117,7 @@ function printFinishMessage(
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
   }
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
-  commandsToType += `"${chalk.green(
-    `${packageManagerExecCommand} isaacscript`,
-  )}"`;
+  const command = getPackageManagerExecCommand(packageManager);
+  commandsToType += `"${chalk.green(`${command} isaacscript`)}"`;
   console.log(`Now, start ${PROJECT_NAME} by typing ${commandsToType}.`);
 }

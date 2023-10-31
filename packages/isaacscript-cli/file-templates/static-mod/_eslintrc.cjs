@@ -5,7 +5,7 @@
 const config = {
   extends: [
     // The linter base is the IsaacScript mod config:
-    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/mod.js
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js
     "eslint-config-isaacscript/mod",
   ],
 

@@ -1,15 +1,19 @@
 // See the comment in "fixIsaacScriptCommon.ts".
 
-import fs from "node:fs";
-import path from "node:path";
 import {
-  __dirname,
+  deleteFileOrDirectory,
+  dirName,
+  readFile,
+} from "isaacscript-common-node";
+import {
   assertDefined,
   capitalizeFirstLetter,
-  deleteFileOrDirectory,
-  readFile,
   trimSuffix,
-} from "./utils.js";
+} from "isaacscript-common-ts";
+import fs from "node:fs";
+import path from "node:path";
+
+const __dirname = dirName();
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
 const REPO_ROOT = path.join(__dirname, "..");

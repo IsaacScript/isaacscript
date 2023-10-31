@@ -13,5 +13,6 @@ declare global {
     __kind: CopyableIsaacAPIClassType.K_COLOR;
   }
 
-  // The `KColor` presets are not implemented, since they are unsafe. See the `K_COLORS` constant.
+  // The `KColor` presets are deliberately not implemented, since they are unsafe. See the
+  // `K_COLORS` constant.
 }

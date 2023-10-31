@@ -19,7 +19,17 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx ./scripts/build.ts",
+    "lint": "tsx ./scripts/lint.ts"
+  },
   "dependencies": {
     "isaac-typescript-definitions": "^37.0.1"
   }

@@ -1,9 +1,8 @@
 import chalk from "chalk";
+import { fatalError, isFile } from "isaacscript-common-node";
 import { PACKAGE_JSON, PROJECT_NAME } from "../../constants.js";
 import { execPowershell, execShellString } from "../../exec.js";
-import { fileExists } from "../../file.js";
 import { isGitClean, isGitRepository } from "../../git.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 
 export function validate(
   typeScript: boolean,
@@ -22,7 +21,7 @@ export function validate(
     );
   }
 
-  if (!fileExists(PACKAGE_JSON, verbose)) {
+  if (!isFile(PACKAGE_JSON)) {
     fatalError(
       `Failed to find the "${PACKAGE_JSON}" file in the current working directory.`,
     );

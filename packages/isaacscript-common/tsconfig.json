@@ -1,15 +1,9 @@
 {
-  "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.base.json",
-    "../../tsconfig.monorepo.json",
-  ],
+  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaacscript-common/dist",
-
-    // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
-    "rootDir": ".",
+    "outDir": "dist",
 
     // Needed since this is a library.
     "declaration": true,

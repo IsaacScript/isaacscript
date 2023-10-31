@@ -1,9 +1,9 @@
+import { fatalError } from "isaacscript-common-node";
 import type { ChildProcess } from "node:child_process";
 import { fork } from "node:child_process";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 import type { SaveDatMessage } from "./saveDatWriter/types.js";
 
 let saveDatWriter: ChildProcess | undefined;

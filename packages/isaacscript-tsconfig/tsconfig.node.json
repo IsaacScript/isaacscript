@@ -1,0 +1,20 @@
+// This is a tsconfig.json intended to be used by TypeScript programs targeting Node.js.
+{
+  "extends": [
+    // We extend the base IsaacScript config:
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
+    "./tsconfig.base.json",
+
+    // We also extend the recommended Node config:
+    // https://github.com/tsconfig/bases/blob/main/bases/node-lts.json
+    "@tsconfig/node-lts/tsconfig.json",
+  ],
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // "sourceMap" creates source map files for emitted JavaScript files. By default, it is false.
+    // We want to be able to see the TypeScript line numbers in error messages to help with
+    // debugging.
+    "sourceMap": true,
+  },
+}

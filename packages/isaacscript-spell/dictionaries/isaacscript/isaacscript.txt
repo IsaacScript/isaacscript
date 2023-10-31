@@ -1,0 +1,11 @@
+# These are words contained within IsaacScript template files.
+
+airbnb # settings.json
+autocrlf # .gitattributes
+dbaeumer # extensions.json
+esbenp # extensions.json
+isaacscript
+packagejson # prettier.config.mjs
+sarisia # ci.yml
+technote # ci.yml
+tstl

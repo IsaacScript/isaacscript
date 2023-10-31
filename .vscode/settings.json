@@ -4,7 +4,8 @@
   // Vanilla settings
   // ----------------
 
-  // This matches the Airbnb JavaScript style guide.
+  // This matches the Airbnb JavaScript style guide, which is the most popular JavaScript style
+  // guide in the world.
   "editor.rulers": [100],
   "editor.tabSize": 2,
 
@@ -43,7 +44,7 @@
   // Extension settings
   // ------------------
 
-  // Use Prettier to format "cspell.json".
+  // Use Prettier to format "cspell.jsonc".
   "cSpell.autoFormatConfigFile": true,
 
   // -----------------
@@ -60,7 +61,7 @@
 
   // Show TypeScript errors for files that don't happen to be currently open, which makes TypeScript
   // work similar to other compiled languages like Golang or Rust.
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  // "typescript.tsserver.experimental.enableProjectDiagnostics": true,
 
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {

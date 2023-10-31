@@ -1,4 +1,20 @@
 import chalk from "chalk";
+import {
+  PACKAGE_JSON,
+  PackageManager,
+  deleteFileOrDirectory,
+  dirName,
+  fatalError,
+  getJSONC,
+  getPackageJSONDependencies,
+  getPackageManagerAddCommand,
+  getPackageManagerAddDevCommand,
+  getPackageManagerExecCommand,
+  isDirectory,
+  isFile,
+  isLink,
+  touch,
+} from "isaacscript-common-node";
 import { fork, spawn } from "node:child_process";
 import { appendFileSync } from "node:fs";
 import path from "node:path";
@@ -15,22 +31,9 @@ import {
 } from "../../constants.js";
 import { prepareCustomStages } from "../../customStage.js";
 import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev.js";
-import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import {
-  deleteFileOrDirectory,
-  fileExists,
-  isDir,
-  isLink,
-  touch,
-} from "../../file.js";
-import { fatalError, isRecord } from "../../isaacScriptCommonTS.js";
-import { getJSONC } from "../../json.js";
-import {
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
-  getPackageManagerAddCommand,
-  getPackageManagerAddDevCommand,
-  getPackageManagerExecCommand,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
@@ -68,7 +71,7 @@ export async function monitor(
 ): Promise<void> {
   const verbose = args.verbose === true;
   const skipProjectChecks = args.skipProjectChecks === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
 
   // If they specified some command-line flags, override the values found in the config file.
   if (args.modsDirectory !== undefined) {
@@ -83,7 +86,7 @@ export async function monitor(
 
   // Pre-flight checks
   if (!skipProjectChecks) {
-    validatePackageJSONDependencies(args, verbose);
+    validatePackageJSONDependencies(args);
   }
 
   // Read the "tsconfig.json" file.
@@ -101,7 +104,7 @@ export async function monitor(
   if (config.isaacScriptCommonDev === true) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
   } else {
-    warnIfIsaacScriptCommonLinkExists(CWD, packageManager, verbose);
+    warnIfIsaacScriptCommonLinkExists(CWD, packageManager);
   }
 
   // Prepare the custom stages feature, if necessary.
@@ -109,9 +112,7 @@ export async function monitor(
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.
-  if (fileExists(modTargetPath, verbose)) {
-    deleteFileOrDirectory(modTargetPath, verbose);
-  }
+  deleteFileOrDirectory(modTargetPath);
 
   // Subprocess #1 - The "save#.dat" file writer.
   spawnSaveDatWriter(config);
@@ -120,7 +121,7 @@ export async function monitor(
   spawnModDirectorySyncer(config);
 
   // Subprocess #3 - `tstl --watch` (to automatically convert TypeScript to Lua).
-  spawnTSTLWatcher(config, CWD, packageManager, verbose);
+  spawnTSTLWatcher(config, CWD, packageManager);
 
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
   if (config.isaacScriptCommonDev === true) {
@@ -131,10 +132,7 @@ export async function monitor(
       "packages",
       "isaacscript-common",
     );
-    if (
-      !fileExists(isaacScriptCommonDirectory, verbose) ||
-      !isDir(isaacScriptCommonDirectory, verbose)
-    ) {
+    if (!isDirectory(isaacScriptCommonDirectory)) {
       console.error(
         `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
       );
@@ -143,13 +141,7 @@ export async function monitor(
       );
     }
 
-    spawnTSTLWatcher(
-      config,
-      isaacScriptCommonDirectory,
-      packageManager,
-      verbose,
-      CWD,
-    );
+    spawnTSTLWatcher(config, isaacScriptCommonDirectory, packageManager, CWD);
   }
 
   // Also, start constantly pinging the watcher mod.
@@ -168,41 +160,29 @@ export async function monitor(
   // (The process will now continue indefinitely for as long as the subprocesses exist.)
 }
 
-function validatePackageJSONDependencies(args: Args, verbose: boolean) {
-  const packageJSON = getJSONC(PACKAGE_JSON_PATH, verbose);
-  validatePackageJSONNormalDependencies(packageJSON, args, verbose);
-  validatePackageJSONDevDependencies(packageJSON, args, verbose);
+function validatePackageJSONDependencies(args: Args) {
+  const packageJSON = getJSONC(PACKAGE_JSON_PATH);
+  validatePackageJSONNormalDependencies(packageJSON, args);
+  validatePackageJSONDevDependencies(packageJSON, args);
 }
 
 function validatePackageJSONNormalDependencies(
   packageJSON: Record<string, unknown>,
   args: Args,
-  verbose: boolean,
 ) {
-  const { dependencies } = packageJSON;
-  if (!isRecord(dependencies)) {
-    fatalError(
-      `The "${chalk.green(
-        PACKAGE_JSON_PATH,
-      )}" file does not have a "dependencies" array in it. Please add one so that IsaacScript can scan your dependencies.`,
-    );
-  }
-
+  const dependencies = getPackageJSONDependencies(packageJSON, false) ?? {};
   const dependenciesArray = Object.keys(dependencies);
 
   for (const dependency of REQUIRED_PACKAGE_JSON_DEPENDENCIES) {
     if (!dependenciesArray.includes(dependency)) {
-      const packageManager = getPackageManagerUsedForExistingProject(
-        args,
-        verbose,
-      );
+      const packageManager = getPackageManagerUsedForExistingProject(args);
       const addCommand = getPackageManagerAddCommand(
         packageManager,
         dependency,
       );
       fatalError(
         `${chalk.red(
-          `IsaacScript projects require a dependency of "${dependency}" in the "package.json" file. You can add it with the following command:`,
+          `IsaacScript projects require a dependency of "${dependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
         )} ${chalk.green(addCommand)}`,
       );
     }
@@ -212,32 +192,20 @@ function validatePackageJSONNormalDependencies(
 function validatePackageJSONDevDependencies(
   packageJSON: Record<string, unknown>,
   args: Args,
-  verbose: boolean,
 ) {
-  const { devDependencies } = packageJSON;
-  if (!isRecord(devDependencies)) {
-    fatalError(
-      `The "${chalk.green(
-        PACKAGE_JSON_PATH,
-      )}" file does not have a "devDependencies" array in it. Please add one so that IsaacScript can scan your development dependencies.`,
-    );
-  }
-
+  const devDependencies = getPackageJSONDependencies(packageJSON, true) ?? {};
   const devDependenciesArray = Object.keys(devDependencies);
 
   for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
     if (!devDependenciesArray.includes(devDependency)) {
-      const packageManager = getPackageManagerUsedForExistingProject(
-        args,
-        verbose,
-      );
+      const packageManager = getPackageManagerUsedForExistingProject(args);
       const addDevCommand = getPackageManagerAddDevCommand(
         packageManager,
         devDependency,
       );
       fatalError(
         `${chalk.red(
-          `IsaacScript projects require a development dependency of "${devDependency}" in the "package.json" file. You can add it with the following command:`,
+          `IsaacScript projects require a development dependency of "${devDependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
         )} ${chalk.green(addDevCommand)}`,
       );
     }
@@ -251,7 +219,7 @@ function linkDevelopmentIsaacScriptCommon(
 ) {
   if (packageManager !== PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT) {
     fatalError(
-      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the Yarn package manager instead of: ${packageManager}`,
+      `If you want to use this mod to develop/test "isaacscript-common", then the mod must be set up using the ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} package manager instead of: ${packageManager}`,
     );
   }
 
@@ -277,7 +245,7 @@ function linkDevelopmentIsaacScriptCommon(
     "isaacscript-common",
   );
   const yarnLockPath = path.join(iscDistDirectory, "yarn.lock");
-  touch(yarnLockPath, verbose);
+  touch(yarnLockPath);
   execShellString(
     `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} link ${iscDistDirectory}`,
     verbose,
@@ -289,7 +257,6 @@ function linkDevelopmentIsaacScriptCommon(
 function warnIfIsaacScriptCommonLinkExists(
   projectPath: string,
   packageManager: PackageManager,
-  verbose: boolean,
 ) {
   const isaacScriptCommonPath = path.join(
     projectPath,
@@ -297,16 +264,12 @@ function warnIfIsaacScriptCommonLinkExists(
     "isaacscript-common",
   );
 
-  if (!fileExists(isaacScriptCommonPath, verbose)) {
-    return;
-  }
-
   if (
-    isLink(isaacScriptCommonPath, verbose) &&
+    isLink(isaacScriptCommonPath) &&
     packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     fatalError(
-      'Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link.',
+      `Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link via: ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} unlink isaacscript-common`,
     );
   }
 }
@@ -314,7 +277,7 @@ function warnIfIsaacScriptCommonLinkExists(
 function spawnModDirectorySyncer(config: ValidatedConfig) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
-  const processPath = path.join(__dirname, processName, processName);
+  const processPath = path.join(dirName(), processName, processName);
   const modTargetName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetName);
   const directorySyncer = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
@@ -348,20 +311,14 @@ function spawnTSTLWatcher(
   config: Config,
   cwd: string,
   packageManager: PackageManager,
-  verbose: boolean,
   modCWD?: string,
 ) {
   const processDescription = "tstl";
-  const packageManagerExecCommand =
-    getPackageManagerExecCommand(packageManager);
-  const tstl = spawn(
-    packageManagerExecCommand,
-    ["tstl", "--watch", "--preserveWatchOutput"],
-    {
-      shell: true,
-      cwd,
-    },
-  );
+  const command = getPackageManagerExecCommand(packageManager);
+  const tstl = spawn(command, ["tstl", "--watch", "--preserveWatchOutput"], {
+    shell: true,
+    cwd,
+  });
 
   tstl.stdout.on("data", (data: Buffer[]) => {
     const msg = data.toString().trim();
@@ -393,7 +350,7 @@ function spawnTSTLWatcher(
       // Thus, we must arbitrarily change a file to trigger a mod recompilation.
       if (modCWD !== undefined) {
         const bundleEntryTSPath = path.join(modCWD, "src", "bundleEntry.ts");
-        if (fileExists(bundleEntryTSPath, verbose)) {
+        if (isFile(bundleEntryTSPath)) {
           appendFileSync(
             bundleEntryTSPath,
             "// isaacscript-common dev forced recompilation\n",

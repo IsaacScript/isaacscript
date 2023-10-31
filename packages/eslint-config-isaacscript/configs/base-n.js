@@ -61,15 +61,11 @@ const POSSIBLE_ERRORS = {
 
   "n/process-exit-as-throw": "error",
 
-  /** This rule is configured to work with TypeScript file extensions. */
-  "n/shebang": [
-    "error",
-    {
-      convertPath: {
-        "src/**/*.ts": ["^src/(.+?)\\.ts$", "dist/$1.js"],
-      },
-    },
-  ],
+  /**
+   * Disabled since it does not work very well with TypeScript. (It needs project-specific
+   * configuration depending on where the output directory is located.)
+   */
+  "n/shebang": "off",
 };
 
 /** @type {import("eslint").Linter.RulesRecord} */

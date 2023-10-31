@@ -35,17 +35,6 @@ jobs:
       - name: Lint every package in the monorepo
         run: bash lint.sh
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          ignore_paths: node_modules
-
-      # Uncomment this for SSH debugging of CI actions.
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3
-      #  with:
-      #    limit-access-to-actor: true
-
       - name: Checkout the docs repository
         uses: actions/checkout@v3
         if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'

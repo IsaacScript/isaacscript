@@ -86,16 +86,6 @@ export function* eRange(
 }
 
 /**
- * Helper function to print out an error message and then exit the program.
- *
- * All of the arguments will be directly passed to the `console.error` function.
- */
-export function fatalError(...args: unknown[]): never {
-  console.error(...args);
-  process.exit(1);
-}
-
-/**
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
  * (The "i" in the function name stands for inclusive.)
  *
@@ -134,13 +124,6 @@ export function* iRange(
   const rangeIncreasing = start <= end;
   const exclusiveEnd = rangeIncreasing ? end + 1 : end - 1;
   yield* eRange(start, exclusiveEnd, increment);
-}
-
-/** Helper function to narrow `unknown` to `Record`. */
-export function isRecord(object: unknown): object is Record<string, unknown> {
-  return (
-    typeof object === "object" && object !== null && !Array.isArray(object)
-  );
 }
 
 /**

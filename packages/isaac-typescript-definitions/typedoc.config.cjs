@@ -1,4 +1,4 @@
-const typeDocBase = require("../docs/typedoc.base"); // eslint-disable-line n/no-unpublished-require
+const typeDocBase = require("../docs/typedoc.base");
 
 /** @type {import('typedoc').TypeDocOptions} */
 module.exports = {

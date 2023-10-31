@@ -1,6 +1,7 @@
-import syncDirectory from "sync-directory";
+import syncDirectory from "@zamiell/sync-directory";
+import { getArgs } from "isaacscript-common-node";
+import { assertDefined } from "isaacscript-common-ts";
 import { FILE_SYNCED_MESSAGE } from "../../../constants.js";
-import { assertDefined } from "../../../isaacScriptCommonTS.js";
 
 const SUBPROCESS_NAME = "directory syncer";
 
@@ -10,7 +11,7 @@ let modTargetPath: string;
 init();
 
 function init() {
-  const args = process.argv.slice(2);
+  const args = getArgs();
 
   const firstArg = args[0];
   assertDefined(

@@ -4,9 +4,17 @@ import { log } from "./log";
  * Helper function to get the amount of elapsed time for benchmarking / profiling purposes.
  *
  * For more information, see the documentation for the `getTime` helper function.
+ *
+ * @param time The milliseconds (int) or fractional seconds (float).
+ * @param useSocketIfAvailable Optional. Whether to use the `socket.gettime` method, if available.
+ *                             Default is true. If set to false, the `Isaac.GetTime()` method will
+ *                             always be used.
  */
-export function getElapsedTimeSince(time: int | float): int {
-  return getTime() - time;
+export function getElapsedTimeSince(
+  time: int | float,
+  useSocketIfAvailable = true,
+): int {
+  return getTime(useSocketIfAvailable) - time;
 }
 
 /**

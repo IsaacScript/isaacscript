@@ -1,12 +1,12 @@
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.node.json",
+    "../isaacscript-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "dist",
 
     // We need the Isaac definitions so that we know what `BitSet128` is.
     "types": ["isaac-typescript-definitions"],

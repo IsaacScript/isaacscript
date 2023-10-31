@@ -34,7 +34,7 @@ Each rule has emojis denoting:
 - :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
-<!-- Do not manually modify RULES_TABLE section. Instead, run: yarn run generate:rules-table -->
+<!-- Do not manually modify the RULES_TABLE section. Instead, run: yarn run generate -->
 <!-- RULES_TABLE -->
 
 | Name                                                                                                     | Description                                                                                                 | :white_check_mark: | :wrench: | :thought_balloon: |
@@ -123,8 +123,8 @@ Thanks for helping out with this open-source project!
 If you are adding a new rule, start by using the `create-rule.sh` script to automate a few things:
 
 ```sh
-./create-rule.sh foo "This is a description of the foo rule."
-git status # Show what the script did
+npm run create-rule foo "This is a description of the foo rule."
+git status # Show what the script did.
 ```
 
 Additionally, You can contact me [on Discord](https://discord.gg/KapmKQ2gUD) if you are doing a PR and have questions.

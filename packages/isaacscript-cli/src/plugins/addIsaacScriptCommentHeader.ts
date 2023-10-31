@@ -22,6 +22,7 @@ see the official website: https://isaacscript.github.io/
 --]]
 
 ---@diagnostic disable
+-- cspell:disable
 
 `;
 

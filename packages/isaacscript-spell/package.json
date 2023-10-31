@@ -18,5 +18,15 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "module"
+  "type": "module",
+  "files": [
+    "dictionaries",
+    "cspell-isaacscript.json",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "lint": "bash ./scripts/check-dictionaries.sh"
+  }
 }

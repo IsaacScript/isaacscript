@@ -7,6 +7,7 @@ import type {
 import { SOUND_EFFECT_VALUES } from "../arrays/cachedEnumValues";
 import { game, sfxManager } from "../core/cachedClasses";
 import { STAGE_TO_MUSIC } from "../objects/stageToMusic";
+import type { TranspiledEnum } from "./enums";
 import { getEnumValues } from "./enums";
 
 /**
@@ -42,7 +43,7 @@ export function getMusicForStage(
  * @param soundEffectCustom Optional. The enum that represents all of the custom sound effects for
  *                          your mod.
  */
-export function stopAllSoundEffects(soundEffectCustom?: unknown): void {
+export function stopAllSoundEffects(soundEffectCustom?: TranspiledEnum): void {
   for (const soundEffect of SOUND_EFFECT_VALUES) {
     sfxManager.Stop(soundEffect);
   }

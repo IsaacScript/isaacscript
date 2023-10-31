@@ -24,7 +24,7 @@ rm -rf "$OUT_DIR"
 # Compile the project using TSTL, which will generate ".lua" files and ".d.ts" files.
 npx tstl
 
-# The declaration maps will be bugged due to nx's consolidated "dist" directory, so we use a script
+# The declaration maps will be bugged due to the consolidated "dist" directory, so we use a script
 # to manually rewrite them.
 npx tsx "$REPO_ROOT/scripts/rewriteSourceMapDeclarationMapPaths.ts" "isaacscript-common"
 

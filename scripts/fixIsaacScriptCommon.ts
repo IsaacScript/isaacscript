@@ -38,17 +38,21 @@ custom_edit_url: null
 */
 
 import { globSync } from "glob";
-import fs from "node:fs";
-import path from "node:path";
 import {
-  __dirname,
+  deleteFileOrDirectory,
+  dirName,
+  makeDirectory,
+  readFile,
+} from "isaacscript-common-node";
+import {
   assertDefined,
   capitalizeFirstLetter,
-  deleteFileOrDirectory,
-  makeDir,
-  readFile,
   trimSuffix,
-} from "./utils.js";
+} from "isaacscript-common-ts";
+import fs from "node:fs";
+import path from "node:path";
+
+const __dirname = dirName();
 
 const DEBUG = false as boolean;
 const PACKAGE_NAME = "isaacscript-common";
@@ -134,8 +138,8 @@ function main() {
   createCallbackFile();
   moveModulesFiles();
   deleteFileOrDirectory(MODULES_MD_PATH);
-  makeDir(OTHER_DIR);
-  makeDir(FEATURES_DIR);
+  makeDirectory(OTHER_DIR);
+  makeDirectory(FEATURES_DIR);
   addCategoryFilesAndMarkdownHeaders();
   moveDirsToOther();
   renameSpecialPages();
@@ -194,7 +198,7 @@ function moveModulesFiles() {
       );
 
       const dstDirectory = path.join(PACKAGE_DOCS_DIR, directoryName);
-      makeDir(dstDirectory);
+      makeDirectory(dstDirectory);
       const dstPath = path.join(dstDirectory, newFileName);
       fs.renameSync(markdownFilePath, dstPath);
 
@@ -236,9 +240,9 @@ function addCategoryFilesAndMarkdownHeaders() {
 
 /** Move some specific directories to an "other" directory for better top-level organization. */
 function moveDirsToOther() {
-  for (const dirName of OTHER_DIR_NAMES) {
-    const srcPath = path.join(PACKAGE_DOCS_DIR, dirName);
-    const dstPath = path.join(OTHER_DIR, dirName);
+  for (const otherDirName of OTHER_DIR_NAMES) {
+    const srcPath = path.join(PACKAGE_DOCS_DIR, otherDirName);
+    const dstPath = path.join(OTHER_DIR, otherDirName);
     fs.renameSync(srcPath, dstPath);
   }
 }
@@ -459,11 +463,11 @@ function fixLinks() {
       }
     }
 
-    for (const dirName of ROOT_DIR_NAMES) {
+    for (const rootDirName of ROOT_DIR_NAMES) {
       // cspell:ignore conversionheartsubtype
       // e.g. "(features_characterHealthConversion.md#conversionheartsubtype)" -->
       // "(characterHealthConversion.md#conversionheartsubtype)"
-      const brokenLink = `(${dirName}_`;
+      const brokenLink = `(${rootDirName}_`;
       const fixedLink = "(";
       newFileContents = newFileContents.replaceAll(brokenLink, fixedLink);
     }

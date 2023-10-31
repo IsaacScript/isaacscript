@@ -5,7 +5,6 @@ const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
   REPO_ROOT,
   "packages",
   "eslint-config-isaacscript",
-  "configs",
 );
 
 /** @type {import("eslint").Linter.Config} */

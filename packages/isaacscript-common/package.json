@@ -22,8 +22,8 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "commonjs",
-  "main": "dist/src/index",
-  "types": "dist/index.rollup.d.ts",
+  "main": "./dist/src/index",
+  "types": "./dist/index.rollup.d.ts",
   "dependencies": {
     "isaac-typescript-definitions": "^37.0.1"
   }

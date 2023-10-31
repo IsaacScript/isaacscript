@@ -1,6 +1,6 @@
+import { fatalError } from "isaacscript-common-node";
 import path from "node:path";
 import { fileExists, isDir } from "./file.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,

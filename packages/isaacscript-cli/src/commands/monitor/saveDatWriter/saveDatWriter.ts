@@ -1,21 +1,26 @@
+import {
+  getArgs,
+  isFile,
+  makeDirectory,
+  readFile,
+} from "isaacscript-common-node";
+import { assertDefined } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
+import fs from "node:fs";
 import path from "node:path";
 import { PROJECT_NAME } from "../../../constants.js";
-import { fileExists, makeDir, readFile, writeFileTry } from "../../../file.js";
-import { assertDefined } from "../../../isaacScriptCommonTS.js";
 import type { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
 const MAX_MESSAGES = 100;
-const VERBOSE = false;
 
 let saveDatPath: string;
 let saveDatFileName: string;
 
-init(VERBOSE);
+init();
 
-function init(verbose: boolean) {
-  const args = process.argv.slice(2);
+function init() {
+  const args = getArgs();
 
   const firstArg = args[0];
   assertDefined(
@@ -28,8 +33,8 @@ function init(verbose: boolean) {
 
   // Check to see if the data directory exists.
   const watcherModDataPath = path.dirname(saveDatPath);
-  if (!fileExists(watcherModDataPath, verbose)) {
-    makeDir(watcherModDataPath, verbose);
+  if (!isFile(watcherModDataPath)) {
+    makeDirectory(watcherModDataPath);
   }
 
   // Listen for messages from the parent process.
@@ -39,7 +44,7 @@ function init(verbose: boolean) {
 }
 
 function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
-  const saveDat = readSaveDatFromDisk(VERBOSE);
+  const saveDat = readSaveDatFromDisk();
   if (saveDat.length > MAX_MESSAGES) {
     // If IsaacScript is running and:
     // - the game is not open
@@ -52,13 +57,13 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
     return;
   }
   addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
-  writeSaveDatToDisk(type, data, saveDat, numRetries, VERBOSE);
+  writeSaveDatToDisk(type, data, saveDat, numRetries);
 }
 
-function readSaveDatFromDisk(verbose: boolean) {
+function readSaveDatFromDisk() {
   let saveDat: SaveDatMessage[];
-  if (fileExists(saveDatPath, verbose)) {
-    const saveDatRaw = readFile(saveDatPath, verbose);
+  if (isFile(saveDatPath)) {
+    const saveDatRaw = readFile(saveDatPath);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (error) {
@@ -110,11 +115,10 @@ function writeSaveDatToDisk(
   data: string,
   saveDat: SaveDatMessage[],
   numRetries: number,
-  verbose: boolean,
 ) {
   const saveDatRaw = JSON.stringify(saveDat, undefined, 2);
   try {
-    writeFileTry(saveDatPath, saveDatRaw, verbose);
+    fs.writeFileSync(saveDatPath, saveDatRaw);
   } catch (error) {
     if (numRetries > 4) {
       send(

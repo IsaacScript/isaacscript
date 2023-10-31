@@ -2,6 +2,10 @@
 
 import chalk from "chalk";
 import figlet from "figlet";
+import {
+  fatalError,
+  getPackageManagerInstallCommand,
+} from "isaacscript-common-node";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
@@ -14,11 +18,7 @@ import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
 import { PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
-import {
-  getPackageManagerInstallCommand,
-  getPackageManagerUsedForExistingProject,
-} from "./packageManager.js";
+import { getPackageManagerUsedForExistingProject } from "./packageManager.js";
 import type { Args } from "./parseArgs.js";
 import { parseArgs } from "./parseArgs.js";
 import { promptInit } from "./prompt.js";
@@ -28,9 +28,7 @@ import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js"
 import { validateNodeVersion } from "./validateNodeVersion.js";
 import { getVersionOfThisPackage } from "./version.js";
 
-main().catch((error) => {
-  fatalError(`${PROJECT_NAME} failed:`, error);
-});
+await main();
 
 async function main(): Promise<void> {
   sourceMapSupport.install();
@@ -45,7 +43,7 @@ async function main(): Promise<void> {
   printBanner(command, verbose);
 
   // Pre-flight checks
-  await checkForWindowsTerminalBugs(verbose);
+  await checkForWindowsTerminalBugs();
 
   await handleCommands(command, args);
 
@@ -100,7 +98,7 @@ async function handleCommands(command: Command, args: Args) {
     isIsaacScriptModCommand(command)
   ) {
     if (!skipProjectChecks) {
-      validateInIsaacScriptProject(verbose);
+      validateInIsaacScriptProject();
     }
 
     const shouldDisplayOutput = !command.startsWith("check");
@@ -156,7 +154,7 @@ function ensureDepsAreInstalled(
   shouldDisplayOutput: boolean,
   verbose: boolean,
 ) {
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
   const command = getPackageManagerInstallCommand(packageManager);
 
   if (shouldDisplayOutput) {

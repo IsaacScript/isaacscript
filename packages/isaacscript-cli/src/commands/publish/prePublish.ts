@@ -1,3 +1,8 @@
+import type { PackageManager } from "isaacscript-common-node";
+import {
+  fatalError,
+  getPackageManagerInstallCommand,
+} from "isaacscript-common-node";
 import {
   BUILD_SCRIPT,
   CONSTANTS_TS_PATH,
@@ -7,16 +12,11 @@ import {
   UPDATE_SCRIPT,
   VERSION_TXT_PATH,
 } from "../../constants.js";
-import type { PackageManager } from "../../enums/PackageManager.js";
 import { execShell, execShellString } from "../../exec.js";
 import { fileExists, getHashOfFile, readFile, writeFile } from "../../file.js";
 import { gitCommitAllAndPush } from "../../git.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getProjectPackageJSONField } from "../../json.js";
-import {
-  getPackageManagerInstallCommand,
-  getPackageManagerUsedForExistingProject,
-} from "../../packageManager.js";
+import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 
 /**
@@ -28,7 +28,7 @@ export function prePublish(args: Args, typeScript: boolean): void {
   const skipLint = args.skipLint === true;
   const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
 
   execShellString("git pull --rebase");
   execShellString("git push");
@@ -61,9 +61,8 @@ function updateDependencies(
   const afterHash = getHashOfFile(PACKAGE_JSON);
 
   if (beforeHash !== afterHash) {
-    const packageManagerInstallCommand =
-      getPackageManagerInstallCommand(packageManager);
-    execShellString(packageManagerInstallCommand, verbose);
+    const command = getPackageManagerInstallCommand(packageManager);
+    execShellString(command, verbose);
     if (!dryRun) {
       gitCommitAllAndPush("chore: update dependencies", verbose);
     }

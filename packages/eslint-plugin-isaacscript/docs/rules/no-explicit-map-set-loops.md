@@ -2,7 +2,7 @@
 
 Disallows explicit iteration for maps and sets.
 
-In this case, "explicit iteration" means using the a method like `entries` or `values` in a for loop, where omitting the method would result in equivalent code. Forbidding this can make code easier to read.
+In this case, "explicit iteration" means using a method like `entries` or `values` in a for loop, where omitting the method would result in equivalent code. Forbidding this can make code easier to read.
 
 Also see the [`no-explicit-array-loops`](no-explicit-array-loops.md) rule.
 

@@ -330,7 +330,13 @@ const EXTENSION_RULES = {
 
   "@typescript-eslint/no-shadow": "error",
   "@typescript-eslint/no-throw-literal": "error",
-  "@typescript-eslint/no-unused-expressions": "error",
+
+  "@typescript-eslint/no-unused-expressions": [
+    "error",
+    {
+      allowTaggedTemplates: true,
+    },
+  ],
 
   /**
    * The `args` option is set to `all` make the rule stricter. Additionally, we ignore things that
@@ -389,7 +395,7 @@ const EXTENSION_RULES = {
 const config = {
   // We need to provide some special configuration to ESLint in order for it to parse TypeScript
   // files. From:
-  // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/base.ts
+  // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/base.ts
   parser: "@typescript-eslint/parser",
   parserOptions: {
     sourceType: "module",

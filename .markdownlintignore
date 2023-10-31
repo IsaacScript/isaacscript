@@ -3,5 +3,6 @@
 .remarkignore
 node_modules
 dist
+packages/docs/docs/eslint-config-isaacscript
 packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions

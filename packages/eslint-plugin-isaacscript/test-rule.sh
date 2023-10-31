@@ -17,4 +17,4 @@ if [[ -n ${1-} ]]; then
 fi
 
 echo "Running all tests for rule: $RULE_NAME"
-npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" # --reporters jest-summarizing-reporter
+npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts"

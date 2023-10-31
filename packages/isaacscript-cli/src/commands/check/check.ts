@@ -1,4 +1,15 @@
 import chalk from "chalk";
+import {
+  PACKAGE_MANAGER_LOCK_FILE_NAMES,
+  PackageManager,
+  deleteFileOrDirectory,
+  fatalError,
+  isDirectory,
+  isFile,
+  readFile,
+  writeFile,
+} from "isaacscript-common-node";
+import { ReadonlySet, getEnumValues, trimPrefix } from "isaacscript-common-ts";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {
@@ -11,25 +22,8 @@ import {
   YARNRC_TEMPLATE_PATH,
   YARNRC_YML,
 } from "../../constants.js";
-import { PackageManager } from "../../enums/PackageManager.js";
 import { execShell } from "../../exec.js";
-import {
-  deleteFileOrDirectory,
-  fileExists,
-  isDir,
-  readFile,
-  writeFile,
-} from "../../file.js";
-import {
-  ReadonlySet,
-  fatalError,
-  getEnumValues,
-  trimPrefix,
-} from "../../isaacScriptCommonTS.js";
-import {
-  getAllPackageManagerLockFileNames,
-  getPackageManagerUsedForExistingProject,
-} from "../../packageManager.js";
+import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 
 const URL_PREFIX =
@@ -46,13 +40,13 @@ const PACKAGE_MANAGER_STRINGS = [
   "PACKAGE_MANAGER_INSTALL_COMMAND",
   "PACKAGE_MANAGER_LOCK_FILE_NAME",
   ...getEnumValues(PackageManager),
-  ...getAllPackageManagerLockFileNames(),
+  ...PACKAGE_MANAGER_LOCK_FILE_NAMES,
 ] as const;
 
 export function check(args: Args, typeScript: boolean): void {
   const ignore = args.ignore ?? "";
   const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
 
   let oneOrMoreErrors = false;
   const ignoreFileNames = ignore.split(",");
@@ -92,7 +86,7 @@ function checkTemplateDirectory(
   for (const klawItem of klawSync(templateDirectory)) {
     const templateFilePath = klawItem.path;
 
-    if (isDir(templateFilePath, verbose)) {
+    if (isDirectory(templateFilePath)) {
       continue;
     }
 
@@ -114,8 +108,8 @@ function checkTemplateDirectory(
         break;
       }
 
-      case "_cspell.json": {
-        projectFilePath = path.join(projectFilePath, "..", "cspell.json");
+      case "_cspell.jsonc": {
+        projectFilePath = path.join(projectFilePath, "..", "cspell.jsonc");
         break;
       }
 
@@ -181,7 +175,7 @@ function compareTextFiles(
   templateFilePath: string,
   verbose: boolean,
 ): boolean {
-  if (!fileExists(projectFilePath, verbose)) {
+  if (!isFile(projectFilePath)) {
     console.log(`Failed to find the following file: ${projectFilePath}`);
     printTemplateLocation(templateFilePath);
 
@@ -192,14 +186,12 @@ function compareTextFiles(
     projectFilePath,
     new Set(),
     new Set(),
-    verbose,
   );
 
   const templateFileObject = getTruncatedFileText(
     templateFilePath,
     projectFileObject.ignoreLines,
     projectFileObject.linesBeforeIgnore,
-    verbose,
   );
 
   if (projectFileObject.text === templateFileObject.text) {
@@ -214,8 +206,8 @@ function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    const originalTemplateFile = readFile(templateFilePath, verbose);
-    const originalProjectFile = readFile(projectFilePath, verbose);
+    const originalTemplateFile = readFile(templateFilePath);
+    const originalProjectFile = readFile(projectFilePath);
 
     console.log("--- Original template file: ---\n");
     console.log(originalTemplateFile);
@@ -234,8 +226,8 @@ function compareTextFiles(
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
 
-  writeFile(tempProjectFilePath, projectFileObject.text, verbose);
-  writeFile(tempTemplateFilePath, templateFileObject.text, verbose);
+  writeFile(tempProjectFilePath, projectFileObject.text);
+  writeFile(tempTemplateFilePath, templateFileObject.text);
 
   const { stdout } = execShell(
     "diff",
@@ -246,8 +238,8 @@ function compareTextFiles(
 
   console.log(`${stdout}\n`);
 
-  deleteFileOrDirectory(tempProjectFilePath, verbose);
-  deleteFileOrDirectory(tempTemplateFilePath, verbose);
+  deleteFileOrDirectory(tempProjectFilePath);
+  deleteFileOrDirectory(tempTemplateFilePath);
 
   return false;
 }
@@ -256,10 +248,9 @@ function getTruncatedFileText(
   filePath: string,
   ignoreLines: ReadonlySet<string>,
   linesBeforeIgnore: ReadonlySet<string>,
-  verbose: boolean,
 ) {
   const fileName = path.basename(filePath);
-  const fileContents = readFile(filePath, verbose);
+  const fileContents = readFile(filePath);
   return getTruncatedText(
     fileName,
     fileContents,
@@ -360,7 +351,7 @@ export function getTruncatedText(
     // --------------------
 
     // End-users can have different ignored words.
-    if (fileName === "cspell.json" || fileName === "_cspell.json") {
+    if (fileName === "cspell.jsonc" || fileName === "_cspell.jsonc") {
       if (line.match(/"words": \[.*]/) !== null) {
         continue;
       }

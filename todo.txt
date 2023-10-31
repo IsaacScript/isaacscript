@@ -1,3 +1,65 @@
+dep graph:
+
+isaac-typescript-definitions --> isaacscript-cli (needs plugins)
+isaacscript-common --> isaacscript-cli  (needs plugins)
+isaacscript-common --> isaac-typescript-definitions
+
+
+
+  // Check for unused files, dependencies, and exports.
+  $`npx knip`;
+
+  // Spell check every file using CSpell.
+  // - "--no-progress" and "--no-summary" make it only output errors.
+  $`npx cspell --no-progress --no-summary .`;
+
+  // Use Prettier to check formatting.
+  // - "--log-level=warn" makes it only output errors.
+  $`npx prettier --log-level=warn --ignore-path="$DIR/../../.prettierignore" --check .`;
+
+
+
+
+
+- remove all knip.jsonc
+
+
+
+
+
+
+
+
+
+
+- test spawning new mod and non-mod project with isaacscript-cli to see if spelling lints correctly
+
+
+
+
+
+- scripts/utils.ts - try using isaacscript-common-ts instead
+- remove const enums from ITD, then remove compiler exception in tsconfig.json
+- make PR to schema: "$schema": "https://json.schemastore.org/tsconfig",
+  - https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/tsconfig.json
+  - https://discord.com/channels/1026804805894672454/1167094026609119252
+
+- use stack overflow to remove isaac-typescript-definitions from deps
+  - difficult, do it when I have the courage
+  - make sure that isaacscript-common still works through link in dev
+
+- remove consolidated dist dir
+  - SEARCH FOR: The declaration maps will be bugged due to the consolidated "dist" directory
+
+- convert isaacscript-cli to ESM (remove other CJS deps)
+
+- go through isaacscript/scripts to look for shared functions
+
+- canRunUnlockAchievements convert to feature to remove foot-gun
+- remove exec.ts
+
+----------------------------------------------------------------------------------------------------
+
 - lint rule: didn't catch this code:
   const lockedPillEffectsOfType = lockedPillEffects.filter(
     (thisPillEffect) =>
@@ -10,7 +72,6 @@
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
-- get rid of nx
 
 ----------------------------------------------------------------------------------------------------
 
@@ -22,10 +83,3 @@
   - ESLint does not support "eslint.config.mjs" file format, so it requires either:
     1. changing package.json type
     2. specifying config file location when running, e.g. "--config eslint.config.mjs"
-
-- remove node-fetch
-  - waiting on: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/60924
-
-- use stack overflow to remove isaac-typescript-definitions from deps
-  - difficult, do it when I have the courage
-  - make sure that isaacscript-common still works through link in dev

@@ -1,4 +1,23 @@
 import chalk from "chalk";
+import type {
+  CustomStageLua,
+  CustomStageRoomMetadata,
+  CustomStageTSConfig,
+  JSONRoomsFile,
+} from "isaacscript-common";
+import type { PackageManager } from "isaacscript-common-node";
+import {
+  copyFileOrDirectory,
+  fatalError,
+  getDirectoryList,
+  getPackageManagerAddCommand,
+  isDirectory,
+  isFile,
+  makeDirectory,
+  readFile,
+  writeFile,
+} from "isaacscript-common-node";
+import { parseFloatSafe, parseIntSafe } from "isaacscript-common-ts";
 import path from "node:path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
@@ -10,30 +29,8 @@ import {
   SHADERS_XML_PATH,
   XML_CONVERTER_PATH,
 } from "./constants.js";
-import type { PackageManager } from "./enums/PackageManager.js";
 import { execExe } from "./exec.js";
-import {
-  copyFile,
-  fileExists,
-  getDirList,
-  isDir,
-  makeDir,
-  readFile,
-  writeFile,
-} from "./file.js";
 import type { ShadersXML } from "./interfaces/ShadersXML.js";
-import type {
-  CustomStageLua,
-  CustomStageRoomMetadata,
-  CustomStageTSConfig,
-} from "./interfaces/copied/CustomStageTSConfig.js";
-import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
-import {
-  fatalError,
-  parseFloatSafe,
-  parseIntSafe,
-} from "./isaacScriptCommonTS.js";
-import { getPackageManagerAddCommand } from "./packageManager.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 
 const ISAACSCRIPT_COMMON = "isaacscript-common";
@@ -65,11 +62,11 @@ export async function prepareCustomStages(
     return;
   }
 
-  validateCustomStagePaths(customStagesTSConfig, verbose);
+  validateCustomStagePaths(customStagesTSConfig);
 
-  copyCustomStageFilesToProject(verbose);
-  await insertEmptyShader(verbose);
-  await fillCustomStageMetadata(customStagesTSConfig, packageManager, verbose);
+  copyCustomStageFilesToProject();
+  await insertEmptyShader();
+  await fillCustomStageMetadata(customStagesTSConfig, packageManager);
   combineCustomStageXMLs(customStagesTSConfig, verbose);
 }
 
@@ -77,17 +74,14 @@ export async function prepareCustomStages(
  * Before we proceed with compiling the mod, ensure that all of the file paths that the end-user put
  * in their "tsconfig.json" file map to actual files on the file system.
  */
-function validateCustomStagePaths(
-  customStagesTSConfig: CustomStageTSConfig[],
-  verbose: boolean,
-) {
+function validateCustomStagePaths(customStagesTSConfig: CustomStageTSConfig[]) {
   for (const customStageTSConfig of customStagesTSConfig) {
     if (customStageTSConfig.backdropPNGPaths !== undefined) {
       for (const filePaths of Object.values(
         customStageTSConfig.backdropPNGPaths,
       )) {
         for (const filePath of filePaths) {
-          checkFile(filePath, verbose);
+          checkFile(filePath);
         }
       }
     }
@@ -100,19 +94,19 @@ function validateCustomStagePaths(
       customStageTSConfig.pitsPNGPath,
       customStageTSConfig.pitsANM2Path,
     ]) {
-      checkFile(filePath, verbose);
+      checkFile(filePath);
     }
 
     if (customStageTSConfig.doorPNGPaths !== undefined) {
       for (const filePath of Object.values(customStageTSConfig.doorPNGPaths)) {
-        checkFile(filePath, verbose);
+        checkFile(filePath);
       }
     }
 
     if (customStageTSConfig.shadows !== undefined) {
       for (const stageShadows of Object.values(customStageTSConfig.shadows)) {
         for (const stageShadow of stageShadows) {
-          checkFile(stageShadow.pngPath, verbose);
+          checkFile(stageShadow.pngPath);
         }
       }
     }
@@ -120,15 +114,15 @@ function validateCustomStagePaths(
     if (customStageTSConfig.bossPool !== undefined) {
       for (const bossPoolEntry of Object.values(customStageTSConfig.bossPool)) {
         if (bossPoolEntry.versusScreen !== undefined) {
-          checkFile(bossPoolEntry.versusScreen.namePNGPath, verbose);
-          checkFile(bossPoolEntry.versusScreen.portraitPNGPath, verbose);
+          checkFile(bossPoolEntry.versusScreen.namePNGPath);
+          checkFile(bossPoolEntry.versusScreen.portraitPNGPath);
         }
       }
     }
   }
 }
 
-function checkFile(filePath: string | undefined, verbose: boolean) {
+function checkFile(filePath: string | undefined) {
   if (filePath === undefined) {
     return;
   }
@@ -139,7 +133,7 @@ function checkFile(filePath: string | undefined, verbose: boolean) {
     );
   }
 
-  if (!fileExists(filePath, verbose)) {
+  if (!isFile(filePath)) {
     fatalError(
       `Failed to find the "${filePath}" file. Check your "tsconfig.json" file and then restart IsaacScript.`,
     );
@@ -147,7 +141,7 @@ function checkFile(filePath: string | undefined, verbose: boolean) {
 }
 
 /** The custom stages feature needs some anm2 files in order to work properly. */
-function copyCustomStageFilesToProject(verbose: boolean) {
+function copyCustomStageFilesToProject() {
   const dstDirPath = path.join(
     CWD,
     "mod",
@@ -155,12 +149,12 @@ function copyCustomStageFilesToProject(verbose: boolean) {
     "gfx",
     "isaacscript-custom-stage",
   );
-  makeDir(dstDirPath, verbose);
+  makeDirectory(dstDirPath);
 
-  for (const fileName of getDirList(CUSTOM_STAGE_FILES_DIR, verbose)) {
+  for (const fileName of getDirectoryList(CUSTOM_STAGE_FILES_DIR)) {
     const srcPath = path.join(CUSTOM_STAGE_FILES_DIR, fileName);
     const dstPath = path.join(dstDirPath, fileName);
-    copyFile(srcPath, dstPath, verbose);
+    copyFileOrDirectory(srcPath, dstPath);
   }
 }
 
@@ -168,17 +162,17 @@ function copyCustomStageFilesToProject(verbose: boolean) {
  * The custom stage feature requires an empty shader to be present in order to render sprites on top
  * of the HUD.
  */
-async function insertEmptyShader(verbose: boolean) {
+async function insertEmptyShader() {
   const shadersXMLDstPath = path.join(CWD, "mod", "content", "shaders.xml");
 
-  if (!fileExists(shadersXMLDstPath, verbose)) {
-    copyFile(SHADERS_XML_PATH, shadersXMLDstPath, verbose);
+  if (!isFile(shadersXMLDstPath)) {
+    copyFileOrDirectory(SHADERS_XML_PATH, shadersXMLDstPath);
     return;
   }
 
   // The end-user mod might have their own custom shaders, so we need to merge our empty shader
   // inside the existing "shaders.xml" file.
-  const shadersXMLDstContents = readFile(shadersXMLDstPath, verbose);
+  const shadersXMLDstContents = readFile(shadersXMLDstPath);
   const shadersXMLDst = (await xml2js.parseStringPromise(
     shadersXMLDstContents,
   )) as ShadersXML;
@@ -191,7 +185,7 @@ async function insertEmptyShader(verbose: boolean) {
     return;
   }
 
-  const shadersXMLSrcContents = readFile(SHADERS_XML_PATH, verbose);
+  const shadersXMLSrcContents = readFile(SHADERS_XML_PATH);
   const shadersXMLSrc = (await xml2js.parseStringPromise(
     shadersXMLSrcContents,
   )) as ShadersXML;
@@ -208,7 +202,7 @@ async function insertEmptyShader(verbose: boolean) {
   shadersXMLDst.shaders.shader.push(isaacScriptEmptyShader);
   const xmlBuilder = new xml2js.Builder();
   const newXML = xmlBuilder.buildObject(shadersXMLDst);
-  writeFile(shadersXMLDstPath, newXML, verbose);
+  writeFile(shadersXMLDstPath, newXML);
 }
 
 /**
@@ -220,24 +214,17 @@ async function insertEmptyShader(verbose: boolean) {
 async function fillCustomStageMetadata(
   customStagesTSConfig: CustomStageTSConfig[],
   packageManager: PackageManager,
-  verbose: boolean,
 ): Promise<void> {
-  validateMetadataLuaFileExists(packageManager, verbose);
+  validateMetadataLuaFileExists(packageManager);
 
-  const customStages = await getCustomStagesWithMetadata(
-    customStagesTSConfig,
-    verbose,
-  );
+  const customStages = await getCustomStagesWithMetadata(customStagesTSConfig);
   const customStagesLua = convertCustomStagesToLua(customStages);
-  writeFile(METADATA_LUA_PATH, customStagesLua, verbose);
+  writeFile(METADATA_LUA_PATH, customStagesLua);
   console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH}`);
 }
 
-function validateMetadataLuaFileExists(
-  packageManager: PackageManager,
-  verbose: boolean,
-) {
-  if (!isDir(ISAACSCRIPT_COMMON_PATH, verbose)) {
+function validateMetadataLuaFileExists(packageManager: PackageManager) {
+  if (!isDirectory(ISAACSCRIPT_COMMON_PATH)) {
     const addCommand = getPackageManagerAddCommand(
       packageManager,
       ISAACSCRIPT_COMMON,
@@ -249,11 +236,11 @@ function validateMetadataLuaFileExists(
     );
   }
 
-  if (!fileExists(METADATA_LUA_PATH, verbose)) {
+  if (!isFile(METADATA_LUA_PATH)) {
     fatalError(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
-      )} ${chalk.green(METADATA_LUA_PATH)}`,
+      )} ${chalk.red(METADATA_LUA_PATH)}`,
     );
   }
 }
@@ -264,13 +251,12 @@ function validateMetadataLuaFileExists(
  */
 async function getCustomStagesWithMetadata(
   customStagesTSConfig: CustomStageTSConfig[],
-  verbose: boolean,
 ): Promise<CustomStageLua[]> {
-  if (!fileExists(METADATA_LUA_PATH, verbose)) {
+  if (!isFile(METADATA_LUA_PATH)) {
     fatalError(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
-      )} ${chalk.green(METADATA_LUA_PATH)}`,
+      )} ${chalk.red(METADATA_LUA_PATH)}`,
     );
   }
 
@@ -283,15 +269,15 @@ async function getCustomStagesWithMetadata(
     const { xmlPath } = customStageTSConfig;
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
-    if (!fileExists(resolvedXMLPath, verbose)) {
+    if (!isFile(resolvedXMLPath)) {
       fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
-        )} ${chalk.green(resolvedXMLPath)}`,
+        )} ${chalk.red(resolvedXMLPath)}`,
       );
     }
 
-    const xmlContents = readFile(resolvedXMLPath, verbose);
+    const xmlContents = readFile(resolvedXMLPath);
     // eslint-disable-next-line no-await-in-loop, @typescript-eslint/no-unsafe-assignment
     const jsonRoomsFileAny = await xml2js.parseStringPromise(xmlContents);
     const jsonRoomsFile = jsonRoomsFileAny as JSONRoomsFile;
@@ -400,15 +386,15 @@ function combineCustomStageXMLs(
 
   for (const customStageTSConfig of customStagesTSConfig) {
     const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
-    if (!fileExists(xmlPath, verbose)) {
+    if (!isFile(xmlPath)) {
       fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
-        )} ${chalk.green(xmlPath)}`,
+        )} ${chalk.red(xmlPath)}`,
       );
     }
 
-    const xmlContents = readFile(xmlPath, verbose);
+    const xmlContents = readFile(xmlPath);
 
     // It is easier to work with the XML files as text rather than converting it to JSON and then
     // converting it back to XML.
@@ -471,15 +457,15 @@ ${allRooms}
 </rooms>
   `.trim();
   const contentRoomsDir = path.join(MOD_SOURCE_PATH, "content", "rooms");
-  if (!fileExists(contentRoomsDir, verbose)) {
-    makeDir(contentRoomsDir, verbose);
+  if (!isFile(contentRoomsDir)) {
+    makeDirectory(contentRoomsDir);
   }
 
   const specialRoomsXMLPath = path.join(
     contentRoomsDir,
     "00.special rooms.xml",
   );
-  writeFile(specialRoomsXMLPath, combinedXMLFile, verbose);
+  writeFile(specialRoomsXMLPath, combinedXMLFile);
 
   // Convert the XML file to an STB file, which is the format actually read by the game.
   execExe(XML_CONVERTER_PATH, [specialRoomsXMLPath], verbose, contentRoomsDir);

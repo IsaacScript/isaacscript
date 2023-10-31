@@ -1,6 +1,6 @@
 // A script used to check to see if a rule is being used in a particular linting config.
 
-import fetch from "node-fetch";
+import { getArgs } from "isaacscript-common-node";
 import path from "node:path";
 
 const CONFIG_URLS = [
@@ -33,7 +33,8 @@ const CONFIG_URLS = [
   "https://raw.githubusercontent.com/iamturns/eslint-config-airbnb-typescript/master/lib/shared.js",
 ] as const;
 
-const args = process.argv.slice(2);
+const args = getArgs();
+
 const ruleName = args[0];
 if (ruleName === undefined || ruleName === "") {
   const scriptPath = process.argv[1] ?? "unknown";

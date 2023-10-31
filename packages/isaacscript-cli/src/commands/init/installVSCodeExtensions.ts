@@ -1,7 +1,7 @@
+import { fatalError } from "isaacscript-common-node";
 import path from "node:path";
 import { execShell } from "../../exec.js";
 import { fileExists } from "../../file.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getJSONC } from "../../json.js";
 
 export function installVSCodeExtensions(

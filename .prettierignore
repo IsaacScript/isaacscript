@@ -22,9 +22,6 @@ mod/resources/**/*.anm2
 
 # @template-customization-start
 
-# NX temporary directory
-tmp
-
 # Docusaurus artifacts
 .docusaurus
 .cache-loader

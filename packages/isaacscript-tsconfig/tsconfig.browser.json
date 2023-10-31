@@ -1,0 +1,20 @@
+// This is a tsconfig.json intended to be used by TypeScript programs targeting Node.
+{
+  // We extend the base IsaacScript config:
+  // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
+  "extends": "./tsconfig.base.json",
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // "sourceMap" creates source map files for emitted JavaScript files. By default, it is false.
+    // We want to be able to see the TypeScript line numbers in error messages to help with
+    // debugging. This flag is required for the "source-map-support" library to work properly:
+    // https://github.com/evanw/node-source-map-support
+    "sourceMap": true,
+
+    // "lib" specifies a set of bundled library declaration files that describe the target run-time
+    // environment. We choose "ES2021" because that is the earliest version that supports the
+    // `String.replaceAll` method.
+    "lib": ["DOM", "ES2021"],
+  },
+}
