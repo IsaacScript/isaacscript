@@ -1,8 +1,6 @@
 {
-  "extends": [
-    "../isaacscript-tsconfig/tsconfig.base.json",
-    "../../tsconfig.monorepo.json",
-  ],
+  // We cannot extend from the monorepo TSConfig since TSTL will complain about "paths".
+  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {

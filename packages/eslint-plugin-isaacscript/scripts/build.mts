@@ -14,7 +14,6 @@ await buildScript(async ({ outDir, packageRoot }) => {
     outDir,
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
-  rm(outDir);
 
   await buildTypeScript(packageRoot);
   copyToMonorepoNodeModules(packageRoot, outDir);

@@ -23,7 +23,6 @@ isaacscript-common --> isaac-typescript-definitions
 
 - remove all knip.jsonc
 - look through prePublish.ts
-- search for all "console.log" in scripts --> echo
 
 
 

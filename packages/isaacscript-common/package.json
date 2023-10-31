@@ -21,13 +21,20 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "type": "commonjs",
+  "type": "module",
   "main": "./dist/src/index",
   "types": "./dist/index.rollup.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsx scripts/build.ts",
+    "build": "tsx ./scripts/build.ts",
     "docs": "typedoc",
-    "lint": "tsx scripts/lint.ts"
+    "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
     "isaac-typescript-definitions": "^37.0.1"

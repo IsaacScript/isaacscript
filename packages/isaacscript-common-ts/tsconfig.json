@@ -35,5 +35,5 @@
     "./**/.*.tsx",
   ],
 
-  "exclude": ["dist"],
+  "exclude": ["dist", "scripts"],
 }

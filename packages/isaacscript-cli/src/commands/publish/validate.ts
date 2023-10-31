@@ -3,8 +3,8 @@ import {
   PACKAGE_JSON,
   fatalError,
   isFile,
-  isGitClean,
   isGitRepository,
+  isGitRepositoryClean,
   isLoggedInToNPM,
 } from "isaacscript-common-node";
 import { PROJECT_NAME } from "../../constants.js";
@@ -21,7 +21,7 @@ export function validate(
     );
   }
 
-  if (!isGitClean()) {
+  if (!isGitRepositoryClean()) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
     );

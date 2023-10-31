@@ -1,13 +1,6 @@
-import { $, buildScript, buildTypeScript, rm } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { $, buildScript, buildTypeScript } from "isaacscript-common-node";
 
-await buildScript(async ({ outDir, packageRoot }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-  rm(outDir);
-
+await buildScript(async ({ packageRoot }) => {
   const promises: Array<Promise<unknown>> = [];
 
   promises.push(

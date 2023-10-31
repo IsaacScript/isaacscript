@@ -11,11 +11,7 @@ const GENERATED_DOC_DIRECTORY_NAMES = [
   "eslint-config-isaacscript",
 ] as const;
 
-await buildScript(async ({ packageRoot, outDir }) => {
-  if (outDir === undefined) {
-    outDir = "dist"; // eslint-disable-line no-param-reassign
-  }
-
+await buildScript(async ({ packageRoot }) => {
   const generatedDocPaths = GENERATED_DOC_DIRECTORY_NAMES.map((directoryName) =>
     path.join(packageRoot, "docs", directoryName),
   );

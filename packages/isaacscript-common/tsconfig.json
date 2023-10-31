@@ -1,8 +1,6 @@
 {
-  "extends": [
-    "../isaacscript-tsconfig/tsconfig.base.json",
-    "../../tsconfig.monorepo.json",
-  ],
+  // We cannot extend from the monorepo TSConfig since TSTL will complain about "paths".
+  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
@@ -51,7 +49,7 @@
     "./**/.*.tsx",
   ],
 
-  "exclude": ["dist"],
+  "exclude": ["dist", "scripts"],
 
   // TypeScriptToLua settings
   "tstl": {
@@ -60,7 +58,7 @@
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
       {
-        "name": "../../dist/packages/isaacscript-cli/src/plugins/noExtendedEnums.js",
+        "name": "../isaacscript-cli/dist/plugins/noExtendedEnums.js",
       },
     ],
     "noHeader": true,

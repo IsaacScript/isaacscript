@@ -29,9 +29,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsx scripts/build.ts",
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.ts",
     "docs": "typedoc",
-    "lint": "tsx scripts/lint.ts"
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.ts"
   },
   "dependencies": {
     "lua-types": "^2.13.1"

@@ -1,22 +1,9 @@
-import {
-  $,
-  $s,
-  buildScript,
-  buildTypeScript,
-  rm,
-} from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { $, $s, buildScript, buildTypeScript } from "isaacscript-common-node";
 
 const TSCONFIG_SCHEMA_PATH = "schemas/tsconfig-isaacscript-section-schema.json";
 const ISAACSCRIPT_SCHEMA_PATH = "schemas/isaacscript-schema.json";
 
-await buildScript(async ({ outDir, packageRoot }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-  rm(outDir);
-
+await buildScript(async ({ packageRoot }) => {
   const promises: Array<Promise<unknown>> = [];
 
   promises.push(

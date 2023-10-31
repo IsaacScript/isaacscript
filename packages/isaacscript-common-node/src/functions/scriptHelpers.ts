@@ -2,6 +2,7 @@
 
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
+import { rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { getTSConfigJSONOutDir } from "./tsconfigJSON.js";
 import { getArgs } from "./utils.js";
@@ -15,9 +16,28 @@ interface ScriptCallbackData {
   outDir?: string;
 }
 
-/** See the documentation for the `script` helper function. */
+/**
+ * Removes the "outdir" directory specified in the "tsconfig.json" file (if it exists), then runs
+ * the provided logic.
+ *
+ * For more information, see the documentation for the `script` helper function.
+ */
 export async function buildScript(func: ScriptCallback): Promise<void> {
-  await script(func, "built", 2);
+  await script(
+    async (data) => {
+      const { outDir } = data;
+      if (outDir !== undefined) {
+        rm(outDir);
+      }
+
+      // We do not want to execute the `buildTypeScript` helper function automatically because the
+      // end-user might want to do that in parallel with other tasks.
+
+      await func(data);
+    },
+    "built",
+    2,
+  );
 }
 
 /** See the documentation for the `script` helper function. */

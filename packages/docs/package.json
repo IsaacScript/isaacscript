@@ -16,8 +16,9 @@
   "scripts": {
     "build": "tsx --tsconfig ./scripts/tsconfig.json ./build.mts",
     "clear": "docusaurus clear",
-    "deploy": "docusaurus deploy",
+    "deploy": "tsx --tsconfig ./scripts/tsconfig.json ./deploy.mts",
     "docusaurus": "docusaurus",
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./lint.mts",
     "serve": "docusaurus serve",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
