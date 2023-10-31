@@ -73,7 +73,7 @@ export async function script(
   const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
   const outDir = getTSConfigJSONOutDir(tsConfigJSONPath);
 
-  process.chdir(packageRoot);
+  cd(packageRoot);
 
   const startTime = Date.now();
   const data = { packageRoot, outDir };
@@ -85,4 +85,28 @@ export async function script(
       `Successfully ${verb} ${packageName} in ${elapsedSeconds} seconds.`,
     );
   }
+}
+
+/** An alias for "process.chdir". */
+export function cd(directoryPath: string): void {
+  process.chdir(directoryPath);
+}
+
+/**
+ * An alias for "console.log".
+ *
+ * @allowEmptyVariadic
+ */
+export function echo(...args: unknown[]): void {
+  console.log(...args);
+}
+
+/** An alias for "process.exit". */
+export function exit(code = 0): never {
+  return process.exit(code);
+}
+
+export async function sleep(seconds: number): Promise<unknown> {
+  // eslint-disable-next-line no-promise-executor-return
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }

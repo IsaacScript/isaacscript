@@ -20,17 +20,19 @@ const BASE_OPTIONS = {
  *
  * @param packageRoot The path to the root of the TypeScript project.
  * @param entryPoint Optional. The path to the TypeScript file entry point.
- * @param outdir Optional. The name of the output directory. Defaults to "dist".
+ * @param outDirName Optional. The name of the output directory. Defaults to "dist".
  */
 export async function buildTypeScript(
   packageRoot: string,
   entryPoint?: string,
-  outdir = "dist",
+  outDirName = "dist",
 ): Promise<BuildResult> {
   const tsPath = entryPoint ?? getEntryPoint(packageRoot);
   if (tsPath === undefined) {
     fatalError("Failed to derive the entry point for the TypeScript project.");
   }
+
+  const outDirPath = path.join(packageRoot, outDirName);
 
   // By default, ESBuild will bundle peer dependencies, which is not desired. (The end-user is
   // supposed to control which versions of the peer dependencies are installed.)
@@ -41,7 +43,7 @@ export async function buildTypeScript(
   return esbuild.build({
     ...BASE_OPTIONS,
     entryPoints: [tsPath],
-    outdir,
+    outdir: outDirPath,
     external: peerDependencyNames,
   });
 }

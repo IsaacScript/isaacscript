@@ -331,6 +331,10 @@ const EXTENSION_RULES = {
   "@typescript-eslint/no-shadow": "error",
   "@typescript-eslint/no-throw-literal": "error",
 
+  /**
+   * The `allowTaggedTemplates` option is enabled to allow the rule to work with libraries like
+   * `execa`.
+   */
   "@typescript-eslint/no-unused-expressions": [
     "error",
     {

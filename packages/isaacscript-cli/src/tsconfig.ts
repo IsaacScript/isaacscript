@@ -1,28 +1,25 @@
 import chalk from "chalk";
 import type { CustomStageTSConfig } from "isaacscript-common";
-import { fatalError, getJSONC } from "isaacscript-common-node";
+import { TSCONFIG_JSON, fatalError, getJSONC } from "isaacscript-common-node";
 import { isObject } from "isaacscript-common-ts";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
-  TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
-const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH, false) as Schema;
-const ajv = new Ajv();
-const schemaValidate = ajv.compile(isaacScriptSchema);
+const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH);
+/// const ajv = new Ajv();
+/// const schemaValidate = ajv.compile(isaacScriptSchema);
 
-function getTSConfigJSON(verbose: boolean): Record<string, unknown> {
+function getTSConfigJSON(): Record<string, unknown> {
   return getJSONC(TSCONFIG_JSON_PATH);
 }
 
-function getIsaacScriptSection(
-  verbose: boolean,
-): Record<string, unknown> | undefined {
-  const tsConfig = getTSConfigJSON(verbose);
+function getIsaacScriptSection(): Record<string, unknown> | undefined {
+  const tsConfig = getTSConfigJSON();
 
   // We allow different kinds of casing for the field name.
   for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
@@ -43,8 +40,8 @@ function getIsaacScriptSection(
   return undefined;
 }
 
-export function getFirstTSConfigIncludePath(verbose: boolean): string {
-  const tsConfig = getTSConfigJSON(verbose);
+export function getFirstTSConfigIncludePath(): string {
+  const tsConfig = getTSConfigJSON();
 
   const { include } = tsConfig;
   if (include === undefined) {
@@ -89,10 +86,8 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
  *
  * Most of this function is simply performing input validation.
  */
-export function getCustomStagesFromTSConfig(
-  verbose: boolean,
-): CustomStageTSConfig[] {
-  const isaacScriptSection = getIsaacScriptSection(verbose);
+export function getCustomStagesFromTSConfig(): CustomStageTSConfig[] {
+  const isaacScriptSection = getIsaacScriptSection();
   if (isaacScriptSection === undefined) {
     return [];
   }

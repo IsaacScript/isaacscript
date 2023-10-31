@@ -1,8 +1,11 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 /** @type {import('typedoc').TypeDocOptions} */
-const baseConfig = {
+const config = {
   sort: ["source-order"],
   tsconfig: "tsconfig.json",
   readme: "website-root.md",
@@ -28,7 +31,7 @@ const baseConfig = {
  * @param {string} packageDirectoryPath The path to the package directory.
  * @returns {import('typedoc').TypeDocOptions} A TypeDoc configuration object.
  */
-function getTypeDocConfig(packageDirectoryPath) {
+export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
   const out = path.join(__dirname, "docs", packageName);
 
@@ -44,12 +47,11 @@ function getTypeDocConfig(packageDirectoryPath) {
   );
 
   return {
-    ...baseConfig,
+    ...config,
     out,
     entryPoints,
   };
 }
-exports.getTypeDocConfig = getTypeDocConfig;
 
 /** @param {string} typeScriptFilePath The path to the ".ts" file. */
 function getTypeScriptFileExports(typeScriptFilePath) {

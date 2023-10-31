@@ -1,7 +1,10 @@
+import {
+  getPackageJSONField,
+  getPackageJSONVersion,
+} from "isaacscript-common-node";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { execShellString } from "../../exec.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
-import { getProjectPackageJSONField } from "../../json.js";
 import type { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 import { publishIsaacScriptMod } from "./isaacscriptMod.js";
@@ -17,7 +20,7 @@ export async function publish(
   const verbose = args.verbose === true;
 
   validate(typeScript, setVersion, verbose);
-  prePublish(args, typeScript);
+  await prePublish(args, typeScript);
 
   await (typeScript
     ? publishTypeScriptProject(args)
@@ -27,8 +30,8 @@ export async function publish(
 async function publishTypeScriptProject(args: Args) {
   const dryRun = args.dryRun === true;
   const verbose = args.verbose === true;
-  const projectName = getProjectPackageJSONField("name", verbose);
-  const version = getProjectPackageJSONField("version", verbose);
+  const projectName = getPackageJSONField(undefined, "name");
+  const version = getPackageJSONVersion(undefined);
 
   if (dryRun) {
     execShellString("git reset --hard", verbose); // Revert the version changes.

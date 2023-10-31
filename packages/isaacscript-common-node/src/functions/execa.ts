@@ -1,6 +1,8 @@
 import type {
+  Execa$,
   ExecaReturnBase,
   ExecaSyncError,
+  Options,
   TemplateExpression,
 } from "execa";
 import { $ as dollarSignFunc } from "execa";
@@ -49,6 +51,14 @@ export function $o(
   ...expressions: TemplateExpression[]
 ): string {
   return $ss(templates, ...expressions).stdout;
+}
+
+/**
+ * A wrapper around the `$` function from `execa`. ("op" is short for "options".) This allows you to
+ * get a custom executor function without having to consume "execa" directly.
+ */
+export function $op(options: Options): Execa$ {
+  return dollarSignFunc(options);
 }
 
 /**

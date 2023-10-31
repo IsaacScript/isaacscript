@@ -1,10 +1,6 @@
-import chalk from "chalk";
 import { isObject } from "isaacscript-common-ts";
-import fs from "node:fs";
-import path from "node:path";
-import { isDirectory, isFile } from "./file.js";
+import { getFilePath } from "./file.js";
 import { getJSONC } from "./jsonc.js";
-import { fatalError } from "./utils.js";
 
 export const TSCONFIG_JSON = "tsconfig.json";
 
@@ -19,30 +15,7 @@ export const TSCONFIG_JSON = "tsconfig.json";
 export function getTSConfigJSON(
   filePathOrDirPath: string | undefined,
 ): Record<string, unknown> {
-  if (filePathOrDirPath === undefined) {
-    filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
-  }
-
-  let filePath: string;
-  if (isFile(filePathOrDirPath)) {
-    filePath = filePathOrDirPath;
-  } else if (isDirectory(filePathOrDirPath)) {
-    filePath = path.join(filePathOrDirPath, TSCONFIG_JSON);
-    if (!fs.existsSync(filePath)) {
-      fatalError(
-        `Failed to find a "${chalk.green(
-          TSCONFIG_JSON,
-        )}" file at the following directory: ${chalk.green(filePathOrDirPath)}`,
-      );
-    }
-  } else {
-    fatalError(
-      `Failed to find a "${chalk.green(
-        TSCONFIG_JSON,
-      )}" file at the following path: ${chalk.green(filePathOrDirPath)}`,
-    );
-  }
-
+  const filePath = getFilePath(TSCONFIG_JSON, filePathOrDirPath);
   return getJSONC(filePath);
 }
 

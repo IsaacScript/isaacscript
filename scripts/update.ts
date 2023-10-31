@@ -9,6 +9,7 @@
 import {
   $,
   PACKAGE_JSON,
+  echo,
   fatalError,
   findPackageRoot,
   getPackageJSON,
@@ -31,18 +32,18 @@ const PACKAGES_TO_CHECK_FOR_ISAACSCRIPT_LINT = [
 await updateIsaacScriptMonorepo();
 
 export async function updateIsaacScriptMonorepo(): Promise<void> {
-  await script(async () => {
+  await script(async ({ packageRoot }) => {
     // "isaacscript-lint" deps are independent of the root "package.json" file, so we do those
     // first.
     updateIsaacScriptLintDeps();
 
-    const hasNewDependencies = await updatePackageJSON();
+    const hasNewDependencies = await updatePackageJSON(packageRoot);
     if (hasNewDependencies) {
       // Now that the main dependencies have changed, we might need to update the "package.json"
       // files in the individual packages. However, we don't want to blow away "peerDependencies",
       // since they are in the form of ">= 5.0.0". Thus, we specify "--types prod,dev" to exclude
       // syncing "peerDependencies".
-      await $`npx syncpack fix-mismatches --types "prod,dev"`;
+      await $`syncpack fix-mismatches --types prod,dev`;
     }
   });
 }
@@ -86,7 +87,7 @@ function updateIsaacScriptLintDeps() {
       dependencies[monorepoPackage] = versionWithPrefix;
       const newFileContents = JSON.stringify(packageJSON);
       fs.writeFileSync(isaacScriptLintPackageJSONPath, newFileContents);
-      console.log(
+      echo(
         `Updated the "isaacscript-lint" dependency of "${monorepoPackage}" to: ${version}`,
       );
     }

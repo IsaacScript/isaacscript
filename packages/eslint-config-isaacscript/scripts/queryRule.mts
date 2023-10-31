@@ -1,6 +1,6 @@
 // A script used to check to see if a rule is being used in a particular linting config.
 
-import { getArgs } from "isaacscript-common-node";
+import { echo, exit, getArgs } from "isaacscript-common-node";
 import path from "node:path";
 
 const CONFIG_URLS = [
@@ -39,8 +39,8 @@ const ruleName = args[0];
 if (ruleName === undefined || ruleName === "") {
   const scriptPath = process.argv[1] ?? "unknown";
   const scriptName = path.basename(scriptPath);
-  console.error(`usage: ${scriptName} [rule-name]`);
-  process.exit(1);
+  echo(`usage: ${scriptName} [rule-name]`);
+  exit(1);
 }
 
 const fetchPromises = CONFIG_URLS.map(async (configURL) => fetch(configURL));
@@ -48,8 +48,8 @@ const responses = await Promise.all(fetchPromises);
 
 for (const response of responses) {
   if (!response.ok) {
-    console.error(`Failed to get URL: ${response.url}`);
-    process.exit(1);
+    echo(`Failed to get URL: ${response.url}`);
+    exit(1);
   }
 }
 
@@ -61,10 +61,10 @@ for (const [i, config] of configs.entries()) {
   if (config.includes(ruleName)) {
     found = true;
     const url = CONFIG_URLS[i] ?? "unknown";
-    console.log(`Found rule "${ruleName}": ${url}`);
+    echo(`Found rule "${ruleName}": ${url}`);
   }
 }
 
 if (!found) {
-  console.log(`No results for: ${ruleName}`);
+  echo(`No results for: ${ruleName}`);
 }

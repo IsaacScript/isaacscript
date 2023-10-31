@@ -1,13 +1,16 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
-import { isFile, readFile } from "isaacscript-common-node";
+import {
+  getPackageJSONVersion,
+  isFile,
+  readFile,
+} from "isaacscript-common-node";
 import path from "node:path";
 import yaml from "yaml";
-import { HOME_DIR, PROJECT_NAME } from "./constants.js";
+import { HOME_DIR, PROJECT_NAME, REPO_ROOT } from "./constants.js";
 import { execShell, execShellString } from "./exec.js";
 import type { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
 import { getInputString, getInputYesNo } from "./prompt.js";
-import { getVersionOfThisPackage } from "./version.js";
 
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
@@ -176,8 +179,8 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShellString("git add --all", verbose, false, projectPath);
-    const version = getVersionOfThisPackage(verbose);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${version} template`;
+    const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
+    const commitMessage = `chore: add files from ${PROJECT_NAME} ${isaacScriptCLIVersion} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],
@@ -210,15 +213,6 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
   ).exitStatus;
 
   return nameExitStatus === 0 && emailExitStatus === 0;
-}
-
-export function isGitRepository(verbose: boolean): boolean {
-  const { exitStatus } = execShellString(
-    "git rev-parse --is-inside-work-tree",
-    verbose,
-    true,
-  );
-  return exitStatus === 0;
 }
 
 export function gitCommitAllAndPush(message: string, verbose: boolean): void {

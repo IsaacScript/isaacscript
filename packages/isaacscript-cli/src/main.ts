@@ -4,6 +4,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 import {
   fatalError,
+  getPackageJSONVersion,
   getPackageManagerInstallCommand,
 } from "isaacscript-common-node";
 import sourceMapSupport from "source-map-support";
@@ -16,7 +17,7 @@ import { init } from "./commands/init/init.js";
 import { monitor } from "./commands/monitor/monitor.js";
 import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
-import { PROJECT_NAME } from "./constants.js";
+import { PROJECT_NAME, REPO_ROOT } from "./constants.js";
 import { execShellString } from "./exec.js";
 import { getPackageManagerUsedForExistingProject } from "./packageManager.js";
 import type { Args } from "./parseArgs.js";
@@ -26,7 +27,6 @@ import type { Command } from "./types/Command.js";
 import { DEFAULT_COMMAND, isIsaacScriptModCommand } from "./types/Command.js";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
 import { validateNodeVersion } from "./validateNodeVersion.js";
-import { getVersionOfThisPackage } from "./version.js";
 
 await main();
 
@@ -35,12 +35,11 @@ async function main(): Promise<void> {
   promptInit();
 
   const args = parseArgs();
-  const verbose = args.verbose === true;
   const command = getCommandFromArgs(args);
 
   validateNodeVersion();
 
-  printBanner(command, verbose);
+  printBanner(command);
 
   // Pre-flight checks
   await checkForWindowsTerminalBugs();
@@ -60,7 +59,7 @@ function getCommandFromArgs(args: Args): Command {
     : (firstPositionArg as Command);
 }
 
-function printBanner(command: Command, verbose: boolean) {
+function printBanner(command: Command) {
   // Skip displaying the banner for specific commands.
   if (command.startsWith("check")) {
     return;
@@ -69,8 +68,8 @@ function printBanner(command: Command, verbose: boolean) {
   const banner = figlet.textSync(PROJECT_NAME);
   console.log(chalk.green(banner));
 
-  const version = getVersionOfThisPackage(verbose);
-  const versionString = `v${version}`;
+  const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
+  const versionString = `v${isaacScriptCLIVersion}`;
   const bannerLines = banner.split("\n");
   const firstBannerLine = bannerLines[0];
   if (firstBannerLine === undefined) {

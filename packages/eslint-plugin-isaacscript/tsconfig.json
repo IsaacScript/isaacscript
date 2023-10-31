@@ -9,7 +9,6 @@
     "outDir": "dist",
   },
 
-  // We have a separate "tsconfig.prod.json" that is used for production output.
   "include": [
     "./**/*.js",
     "./**/.*.js",
@@ -28,4 +27,6 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
+
+  "exclude": ["dist", "scripts"],
 }

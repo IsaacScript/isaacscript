@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import { isDirectory, isFile } from "isaacscript-common-node";
+import { PACKAGE_JSON, isDirectory, isFile } from "isaacscript-common-node";
 import path from "node:path";
-import { CWD, PACKAGE_JSON, PROJECT_NAME } from "./constants.js";
+import { CWD, PROJECT_NAME } from "./constants.js";
 
 const FILE_NAMES_TO_CHECK = [PACKAGE_JSON] as const;
 

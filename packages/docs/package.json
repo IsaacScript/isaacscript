@@ -14,7 +14,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "scripts": {
-    "build": "docusaurus build",
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./build.mts",
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",

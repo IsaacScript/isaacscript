@@ -5,6 +5,8 @@ import {
   $s,
   diff,
   dirName,
+  echo,
+  exit,
   lintScript,
   readFile,
 } from "isaacscript-common-node";
@@ -43,11 +45,11 @@ async function checkGitIgnoreUpdates(): Promise<void> {
   const remoteGitIgnore = await response.text();
 
   if (localGitIgnore !== remoteGitIgnore) {
-    console.log('New "Node.gitignore" file:');
+    echo('New "Node.gitignore" file:');
     diff(localGitIgnore, remoteGitIgnore);
-    console.log();
-    console.log(`Get it at: ${chalk.green(GITIGNORE_URL)}`);
+    echo();
+    echo(`Get it at: ${chalk.green(GITIGNORE_URL)}`);
 
-    process.exit(1);
+    exit(1);
   }
 }

@@ -1,8 +1,8 @@
+// This is a tsconfig.json intended to be used by scripts in the IsaacScript monorepo.
 {
   "extends": [
-    "../isaacscript-tsconfig/tsconfig.node.json",
-    // https://github.com/tsconfig/bases/blob/main/bases/docusaurus.json
-    "@tsconfig/docusaurus/tsconfig.json",
+    "../../isaacscript-tsconfig/tsconfig.node.json",
+    "../../../tsconfig.monorepo.json",
   ],
 
   "include": [
@@ -23,6 +23,4 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
-
-  "exclude": ["build", "scripts"],
 }

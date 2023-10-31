@@ -222,6 +222,8 @@ const config = {
         ".remarkrc.js",
         "prettier.config.mjs",
         "prettier.config.js",
+        "typedoc.config.mjs",
+        "typedoc.config.js",
       ],
       rules: {
         "import/no-default-export": "off",

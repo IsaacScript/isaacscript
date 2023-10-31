@@ -57,7 +57,7 @@ export async function prepareCustomStages(
   packageManager: PackageManager,
   verbose: boolean,
 ): Promise<void> {
-  const customStagesTSConfig = getCustomStagesFromTSConfig(verbose);
+  const customStagesTSConfig = getCustomStagesFromTSConfig();
   if (customStagesTSConfig.length === 0) {
     return;
   }

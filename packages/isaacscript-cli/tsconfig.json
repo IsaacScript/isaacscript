@@ -33,7 +33,5 @@
     "./**/.*.tsx",
   ],
 
-  // We cannot include the JavaScript files in the "file-templates" directory, or else they will be
-  // compiled (e.g. a "file-templates/static-ts/src/main.js" file will be created).
-  "exclude": ["file-templates"],
+  "exclude": ["dist", "file-templates"],
 }

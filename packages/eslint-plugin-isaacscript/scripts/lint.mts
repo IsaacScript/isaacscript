@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { $, lintScript, readFile } from "isaacscript-common-node";
+import { $, echo, exit, lintScript, readFile } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
 import { generateAll } from "./generateAll.mjs";
@@ -47,7 +47,7 @@ async function checkGenerateChangedFiles() {
     );
     if (oldFileContents !== newFileContents) {
       changed = true;
-      console.error(
+      echo(
         `The "${chalk.green(
           "generate.ts",
         )}" script changed the following file: ${chalk.green(filePath)}`,
@@ -56,6 +56,6 @@ async function checkGenerateChangedFiles() {
   }
 
   if (changed) {
-    process.exit(1);
+    exit(1);
   }
 }

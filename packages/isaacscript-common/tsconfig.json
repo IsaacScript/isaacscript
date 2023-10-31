@@ -1,5 +1,8 @@
 {
-  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.base.json",
+    "../../tsconfig.monorepo.json",
+  ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
@@ -47,6 +50,8 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
+
+  "exclude": ["dist"],
 
   // TypeScriptToLua settings
   "tstl": {

@@ -1,21 +1,23 @@
 import type { PackageManager } from "isaacscript-common-node";
 import {
+  PACKAGE_JSON,
   fatalError,
+  getPackageJSONVersion,
   getPackageManagerInstallCommand,
+  isFile,
+  readFile,
+  updatePackageJSON,
+  writeFile,
 } from "isaacscript-common-node";
 import {
   BUILD_SCRIPT,
   CONSTANTS_TS_PATH,
   LINT_SCRIPT,
   METADATA_XML_PATH,
-  PACKAGE_JSON,
-  UPDATE_SCRIPT,
   VERSION_TXT_PATH,
 } from "../../constants.js";
 import { execShell, execShellString } from "../../exec.js";
-import { fileExists, getHashOfFile, readFile, writeFile } from "../../file.js";
 import { gitCommitAllAndPush } from "../../git.js";
-import { getProjectPackageJSONField } from "../../json.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 import type { Args } from "../../parseArgs.js";
 
@@ -23,7 +25,10 @@ import type { Args } from "../../parseArgs.js";
  * Before uploading the project, we want to update dependencies, increment the version, and perform
  * some other steps.
  */
-export function prePublish(args: Args, typeScript: boolean): void {
+export async function prePublish(
+  args: Args,
+  typeScript: boolean,
+): Promise<void> {
   const skipUpdate = args.skipUpdate === true;
   const skipLint = args.skipLint === true;
   const dryRun = args.dryRun === true;
@@ -32,7 +37,7 @@ export function prePublish(args: Args, typeScript: boolean): void {
 
   execShellString("git pull --rebase");
   execShellString("git push");
-  updateDependencies(skipUpdate, dryRun, packageManager, verbose);
+  await updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   incrementVersion(args, typeScript);
   tryRunBashScript(BUILD_SCRIPT, verbose);
   if (!skipLint) {
@@ -40,7 +45,7 @@ export function prePublish(args: Args, typeScript: boolean): void {
   }
 }
 
-function updateDependencies(
+async function updateDependencies(
   skipUpdate: boolean,
   dryRun: boolean,
   packageManager: PackageManager,
@@ -50,17 +55,9 @@ function updateDependencies(
     return;
   }
 
-  if (!fileExists(UPDATE_SCRIPT, verbose)) {
-    return;
-  }
-
   console.log(`Updating dependencies in the "${PACKAGE_JSON}" file...`);
-
-  const beforeHash = getHashOfFile(PACKAGE_JSON);
-  execShell("bash", [UPDATE_SCRIPT], verbose);
-  const afterHash = getHashOfFile(PACKAGE_JSON);
-
-  if (beforeHash !== afterHash) {
+  const hasNewDependencies = await updatePackageJSON(undefined);
+  if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);
     execShellString(command, verbose);
     if (!dryRun) {
@@ -87,10 +84,10 @@ function incrementVersion(args: Args, typeScript: boolean) {
   );
 
   if (!typeScript) {
-    const version = getProjectPackageJSONField("version", verbose);
-    writeVersionToConstantsTS(version, verbose);
-    writeVersionToMetadataXML(version, verbose);
-    writeVersionToVersionTXT(version, verbose);
+    const version = getPackageJSONVersion(undefined);
+    writeVersionToConstantsTS(version);
+    writeVersionToMetadataXML(version);
+    writeVersionToVersionTXT(version);
   }
 }
 
@@ -120,43 +117,43 @@ function getVersionCommandArgument(args: Args): string {
   return "patch";
 }
 
-function writeVersionToConstantsTS(version: string, verbose: boolean) {
-  if (!fileExists(CONSTANTS_TS_PATH, verbose)) {
+function writeVersionToConstantsTS(version: string) {
+  if (!isFile(CONSTANTS_TS_PATH)) {
     console.log(
       'Skipping writing the version to "constants.ts" since it was not found.',
     );
     return;
   }
 
-  const constantsTS = readFile(CONSTANTS_TS_PATH, verbose);
+  const constantsTS = readFile(CONSTANTS_TS_PATH);
   const newConstantsTS = constantsTS.replace(
     /const VERSION = ".+"/,
     `const VERSION = "${version}"`,
   );
-  writeFile(CONSTANTS_TS_PATH, newConstantsTS, verbose);
+  writeFile(CONSTANTS_TS_PATH, newConstantsTS);
 
   console.log(`The version of ${version} was written to: ${CONSTANTS_TS_PATH}`);
 }
 
-function writeVersionToMetadataXML(version: string, verbose: boolean) {
-  const metadataXML = readFile(METADATA_XML_PATH, verbose);
+function writeVersionToMetadataXML(version: string) {
+  const metadataXML = readFile(METADATA_XML_PATH);
   const newMetadataXML = metadataXML.replace(
     /<version>.+<\/version>/,
     `<version>${version}</version>`,
   );
-  writeFile(METADATA_XML_PATH, newMetadataXML, verbose);
+  writeFile(METADATA_XML_PATH, newMetadataXML);
 
   console.log(`The version of ${version} was written to: ${METADATA_XML_PATH}`);
 }
 
-function writeVersionToVersionTXT(version: string, verbose: boolean) {
-  writeFile(VERSION_TXT_PATH, version, verbose);
+function writeVersionToVersionTXT(version: string) {
+  writeFile(VERSION_TXT_PATH, version);
 
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
 function tryRunBashScript(scriptName: string, verbose: boolean) {
-  if (!fileExists(scriptName, verbose)) {
+  if (!isFile(scriptName)) {
     fatalError(
       `Failed to find the script "${scriptName}" in the current working directory.`,
     );

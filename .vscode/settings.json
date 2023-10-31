@@ -61,7 +61,7 @@
 
   // Show TypeScript errors for files that don't happen to be currently open, which makes TypeScript
   // work similar to other compiled languages like Golang or Rust.
-  // "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
 
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {

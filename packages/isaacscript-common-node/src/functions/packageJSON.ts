@@ -1,8 +1,6 @@
 import chalk from "chalk";
 import { isObject, setAdd } from "isaacscript-common-ts";
-import fs from "node:fs";
-import path from "node:path";
-import { isDirectory, isFile, readFile } from "./file.js";
+import { getFilePath, readFile } from "./file.js";
 import { fatalError } from "./utils.js";
 
 type PackageJSONDependencyFieldName =
@@ -23,30 +21,7 @@ export const PACKAGE_JSON = "package.json";
 export function getPackageJSON(
   filePathOrDirPath: string | undefined,
 ): Record<string, unknown> {
-  if (filePathOrDirPath === undefined) {
-    filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
-  }
-
-  let filePath: string;
-  if (isFile(filePathOrDirPath)) {
-    filePath = filePathOrDirPath;
-  } else if (isDirectory(filePathOrDirPath)) {
-    filePath = path.join(filePathOrDirPath, PACKAGE_JSON);
-    if (!fs.existsSync(filePath)) {
-      fatalError(
-        `Failed to find a "${chalk.green(
-          PACKAGE_JSON,
-        )}" file at the following directory: ${chalk.green(filePathOrDirPath)}`,
-      );
-    }
-  } else {
-    fatalError(
-      `Failed to find a "${chalk.green(
-        PACKAGE_JSON,
-      )}" file at the following path: ${chalk.green(filePathOrDirPath)}`,
-    );
-  }
-
+  const filePath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageJSONContents = readFile(filePath);
   const packageJSON = JSON.parse(packageJSONContents) as unknown;
   if (!isObject(packageJSON)) {
@@ -71,9 +46,8 @@ export function getPackageJSON(
  *                                 directory which contains a "package.json" file, or a parsed
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
- * @param devDependencies Optional. Whether to get the "devDependencies" instead of the
- *                        "dependencies". Defaults to false.
- * @param dependencyFieldName
+ * @param dependencyFieldName Optional. The specific dependencies field to get. Defaults to
+ *                            "dependencies".
  */
 export function getPackageJSONDependencies(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
@@ -111,6 +85,48 @@ export function getPackageJSONDependencies(
 }
 
 /**
+ * Helper function to get an arbitrary string field from a "package.json" file. If the field does
+ * not exist, `undefined` will be returned. This will print an error message and exit the program if
+ * the "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param fieldName The name of the field to retrieve.
+ */
+export function getPackageJSONField(
+  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
+  fieldName: string,
+): string {
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : getPackageJSON(filePathOrDirPathOrRecord);
+
+  const field = packageJSON[fieldName];
+  if (typeof field !== "string") {
+    if (typeof filePathOrDirPathOrRecord === "string") {
+      fatalError(
+        `Failed to parse the "${chalk.green(
+          fieldName,
+        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
+          filePathOrDirPathOrRecord,
+        )}`,
+      );
+    }
+
+    fatalError(
+      `Failed to parse the "${chalk.green(
+        fieldName,
+      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+    );
+  }
+
+  return field;
+}
+
+/**
  * Helper function to get the "scripts" field from a "package.json" file. If the field does not
  * exist, `undefined` will be returned. This will print an error message and exit the program if the
  * "package.json" file cannot be found or is otherwise invalid.
@@ -122,7 +138,7 @@ export function getPackageJSONDependencies(
  */
 export function getPackageJSONScripts(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
-): Record<string, unknown> | undefined {
+): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
       ? filePathOrDirPathOrRecord
@@ -151,7 +167,17 @@ export function getPackageJSONScripts(
     );
   }
 
-  return scripts;
+  for (const [key, value] of Object.entries(scripts)) {
+    if (typeof value !== "string") {
+      fatalError(
+        `Failed to parse the "${chalk.green(key)}" script in the "${chalk.green(
+          PACKAGE_JSON,
+        )}" file.`,
+      );
+    }
+  }
+
+  return scripts as Record<string, string>;
 }
 
 /**
@@ -166,31 +192,7 @@ export function getPackageJSONScripts(
 export function getPackageJSONVersion(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
 ): string {
-  const packageJSON =
-    typeof filePathOrDirPathOrRecord === "object"
-      ? filePathOrDirPathOrRecord
-      : getPackageJSON(filePathOrDirPathOrRecord);
-
-  const { version } = packageJSON;
-  if (typeof version !== "string") {
-    if (typeof filePathOrDirPathOrRecord === "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(
-          "version",
-        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
-          filePathOrDirPathOrRecord,
-        )}`,
-      );
-    }
-
-    fatalError(
-      `Failed to parse the "${chalk.green(
-        "version",
-      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
-    );
-  }
-
-  return version;
+  return getPackageJSONField(filePathOrDirPathOrRecord, "version");
 }
 
 /**

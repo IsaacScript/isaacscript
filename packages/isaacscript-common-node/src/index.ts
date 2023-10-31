@@ -5,6 +5,7 @@ export * from "./functions/execa.js";
 export * from "./functions/file.js";
 export * from "./functions/git.js";
 export * from "./functions/jsonc.js";
+export * from "./functions/npm.js";
 export * from "./functions/packageJSON.js";
 export * from "./functions/packageManager.js";
 export * from "./functions/scriptHelpers.js";

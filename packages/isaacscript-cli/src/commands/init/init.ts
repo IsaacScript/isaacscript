@@ -39,7 +39,7 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
   await checkIfProjectPathExists(projectPath, yes);
 
   const projectName = path.basename(projectPath);
-  const authorName = await getAuthorName(typeScript, verbose);
+  const authorName = await getAuthorName(typeScript);
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
     noGit,
@@ -56,7 +56,7 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
   const saveSlot = typeScript ? undefined : await promptSaveSlot(args, yes);
 
   // Now that we have asked the user all of the questions we need, we can create the project.
-  createProject(
+  await createProject(
     projectName,
     authorName,
     projectPath,

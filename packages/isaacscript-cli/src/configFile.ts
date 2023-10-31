@@ -18,7 +18,6 @@ export async function getConfigFromFile(
   args: Args,
   typeScript: boolean,
 ): Promise<ValidatedConfig> {
-  const verbose = args.verbose === true;
   const yes = args.yes === true;
   const dev = args.dev === true;
 
@@ -28,7 +27,7 @@ export async function getConfigFromFile(
   }
 
   // No config file exists, so prompt the user for some information and create one.
-  const modsDirectory = await getModsDir(args, typeScript, verbose);
+  const modsDirectory = await getModsDir(args, typeScript);
   const saveSlot = await promptSaveSlot(args, yes);
   const config = new Config(modsDirectory, saveSlot, dev) as ValidatedConfig;
   createConfigFile(CWD, config, typeScript);

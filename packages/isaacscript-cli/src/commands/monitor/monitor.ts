@@ -44,6 +44,8 @@ import * as notifyGame from "./notifyGame.js";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter.js";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles.js";
 
+const __dirname = dirName();
+
 const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
   "isaac-typescript-definitions",
   // - "isaacscript-common" is not required.
@@ -90,14 +92,14 @@ export async function monitor(
   }
 
   // Read the "tsconfig.json" file.
-  const tsConfigInclude = getFirstTSConfigIncludePath(verbose);
+  const tsConfigInclude = getFirstTSConfigIncludePath();
   const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   // Prepare the IsaacScript watcher mod.
-  copyWatcherMod(config, verbose);
-  touchWatcherSaveDatFiles(config, verbose);
+  copyWatcherMod(config);
+  touchWatcherSaveDatFiles(config);
 
   // Perform the steps to link to a development version of "isaacscript-common", if necessary. (This
   // has to be before preparing custom stages.)
@@ -126,7 +128,7 @@ export async function monitor(
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
   if (config.isaacScriptCommonDev === true) {
     const isaacScriptMonorepoDirectory =
-      getAndValidateIsaacScriptMonorepoDirectory(CWD, verbose);
+      getAndValidateIsaacScriptMonorepoDirectory(CWD);
     const isaacScriptCommonDirectory = path.join(
       isaacScriptMonorepoDirectory,
       "packages",
@@ -170,7 +172,8 @@ function validatePackageJSONNormalDependencies(
   packageJSON: Record<string, unknown>,
   args: Args,
 ) {
-  const dependencies = getPackageJSONDependencies(packageJSON, false) ?? {};
+  const dependencies =
+    getPackageJSONDependencies(packageJSON, "dependencies") ?? {};
   const dependenciesArray = Object.keys(dependencies);
 
   for (const dependency of REQUIRED_PACKAGE_JSON_DEPENDENCIES) {
@@ -193,7 +196,8 @@ function validatePackageJSONDevDependencies(
   packageJSON: Record<string, unknown>,
   args: Args,
 ) {
-  const devDependencies = getPackageJSONDependencies(packageJSON, true) ?? {};
+  const devDependencies =
+    getPackageJSONDependencies(packageJSON, "devDependencies") ?? {};
   const devDependenciesArray = Object.keys(devDependencies);
 
   for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
@@ -224,7 +228,7 @@ function linkDevelopmentIsaacScriptCommon(
   }
 
   const isaacScriptMonorepoDirectory =
-    getAndValidateIsaacScriptMonorepoDirectory(projectPath, verbose);
+    getAndValidateIsaacScriptMonorepoDirectory(projectPath);
 
   console.log('Building "isaacscript-common"...');
   const iscBuildScript = path.join(
@@ -277,7 +281,7 @@ function warnIfIsaacScriptCommonLinkExists(
 function spawnModDirectorySyncer(config: ValidatedConfig) {
   const processName = "modDirectorySyncer";
   const processDescription = "Directory syncer";
-  const processPath = path.join(dirName(), processName, processName);
+  const processPath = path.join(__dirname, processName, processName);
   const modTargetName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetName);
   const directorySyncer = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);

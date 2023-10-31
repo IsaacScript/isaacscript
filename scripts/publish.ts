@@ -1,14 +1,18 @@
+import chalk from "chalk";
 import {
   $,
   $o,
   $s,
-  $ss,
+  cd,
+  echo,
+  exit,
   fatalError,
   getArgs,
   getPackageJSONScripts,
   getPackageJSONVersion,
   isDirectory,
-  isGitClean,
+  isGitRepositoryClean,
+  isLoggedInToNPM,
   script,
 } from "isaacscript-common-node";
 import { isEnumValue } from "isaacscript-common-ts";
@@ -26,8 +30,8 @@ await script(async ({ packageRoot }) => {
   // Validate that we are on the correct branch.
   const branch = $o`git branch --show-current`;
   if (branch === "main") {
-    console.log("Error: You must be on the main branch before publishing.");
-    process.exit(1);
+    echo("Error: You must be on the main branch before publishing.");
+    exit(1);
   }
 
   // Validate that we can push and pull to the repository.
@@ -36,41 +40,39 @@ await script(async ({ packageRoot }) => {
   $s`git push --set-upstream origin main --quiet`;
 
   // Validate that we are logged in to npm.
-  try {
-    $ss`npm whoami`;
-  } catch {
-    fatalError("You are not logged into npm. Please run: npm adduser");
+  if (!isLoggedInToNPM()) {
+    fatalError(
+      `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
+    );
   }
 
   // Validate command-line arguments.
   const args = getArgs();
   const packageName = args[0];
   if (packageName === undefined || packageName === "") {
-    console.log("Error: The package name is required as an argument.");
-    process.exit(1);
+    echo("Error: The package name is required as an argument.");
+    exit(1);
   }
 
   const packageDir = path.join(packageRoot, "packages", packageName);
   if (!isDirectory(packageDir)) {
-    console.log('Error: The directory of "$PACKAGE_DIR" does not exist.');
-    process.exit(1);
+    echo(
+      `Error: The directory of "${chalk.green(packageDir)}" does not exist.`,
+    );
+    exit(1);
   }
 
   const versionBump = args[1];
   if (versionBump === undefined || versionBump === "") {
-    console.log(
-      "Error: The version bump description is required as an argument.",
-    );
-    process.exit(1);
+    echo("Error: The version bump description is required as an argument.");
+    exit(1);
   }
   if (!isEnumValue(versionBump, VersionBump)) {
-    console.log(
-      `Error: The following version bump is not valid: ${versionBump}`,
-    );
-    process.exit(1);
+    echo(`Error: The following version bump is not valid: ${versionBump}`);
+    exit(1);
   }
 
-  process.chdir(packageDir);
+  cd(packageDir);
 
   // Before bumping the version, check to see if this package compiles and lints and tests (so that
   // we can avoid unnecessary version bumps).
@@ -121,7 +123,7 @@ await script(async ({ packageRoot }) => {
   // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
   await updateIsaacScriptMonorepo();
 
-  if (!isGitClean()) {
+  if (!isGitRepositoryClean()) {
     const gitCommitMessage = "chore: updating dependencies";
     $s`git add --all`;
     $s`git commit --message ${gitCommitMessage}`;

@@ -1,21 +1,27 @@
 import chalk from "chalk";
-import { fatalError, isFile } from "isaacscript-common-node";
-import { PACKAGE_JSON, PROJECT_NAME } from "../../constants.js";
-import { execPowershell, execShellString } from "../../exec.js";
-import { isGitClean, isGitRepository } from "../../git.js";
+import {
+  PACKAGE_JSON,
+  fatalError,
+  isFile,
+  isGitClean,
+  isGitRepository,
+  isLoggedInToNPM,
+} from "isaacscript-common-node";
+import { PROJECT_NAME } from "../../constants.js";
+import { execPowershell } from "../../exec.js";
 
 export function validate(
   typeScript: boolean,
   setVersion: string | undefined,
   verbose: boolean,
 ): void {
-  if (!isGitRepository(verbose)) {
+  if (!isGitRepository()) {
     fatalError(
       "Failed to publish since the current working directory is not inside of a git repository.",
     );
   }
 
-  if (!isGitClean(verbose)) {
+  if (!isGitClean()) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
     );
@@ -36,23 +42,18 @@ export function validate(
   }
 
   if (typeScript) {
-    validateTypeScriptProject(verbose);
+    validateTypeScriptProject();
   } else {
     validateIsaacScriptMod(verbose);
   }
 }
 
-function validateTypeScriptProject(verbose: boolean) {
-  if (!isLoggedInToNPM(verbose)) {
+function validateTypeScriptProject() {
+  if (!isLoggedInToNPM()) {
     fatalError(
       'Failed to publish since you are not logged in to npm. Try doing "npm login".',
     );
   }
-}
-
-function isLoggedInToNPM(verbose: boolean): boolean {
-  const { exitStatus } = execShellString("npm whoami", verbose, true);
-  return exitStatus === 0;
 }
 
 function validateIsaacScriptMod(verbose: boolean) {

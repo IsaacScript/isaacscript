@@ -31,7 +31,8 @@
     "README.md"
   ],
   "scripts": {
-    "lint": "tsx scripts/lint.mts"
+    "docs": "tsx ./scripts/docs.mts",
+    "lint": "tsx ./scripts/lint.mts"
   },
   "dependencies": {
     "confusing-browser-globals": "^1.0.11"

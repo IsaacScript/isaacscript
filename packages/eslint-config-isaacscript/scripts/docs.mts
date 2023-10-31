@@ -8,9 +8,9 @@ import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
+import { cd, dirName, echo } from "isaacscript-common-node";
 import fs from "node:fs";
 import path from "node:path";
-import url from "node:url";
 
 type ParentConfig =
   | "eslint/recommended"
@@ -28,11 +28,11 @@ type ParentConfig =
   | "unicorn/recommended"
   | "eslint-config-prettier";
 
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const __dirname = dirName();
 
 // The dynamic importing later on in this script will fail if we are running this script from a
 // different directory.
-process.chdir(__dirname);
+cd(__dirname);
 
 const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
@@ -337,7 +337,7 @@ async function main() {
   }
   fs.writeFileSync(README_PATH, markdownOutput);
 
-  console.log(`Successfully created: ${README_PATH}`);
+  echo(`Successfully created: ${README_PATH}`);
 }
 
 function getPluginHeaderTitle(pluginName: string) {

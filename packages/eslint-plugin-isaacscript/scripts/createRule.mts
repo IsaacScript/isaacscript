@@ -1,3 +1,4 @@
+import { echo } from "isaacscript-common-node";
 import { isKebabCase } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
@@ -49,7 +50,7 @@ async function createRule() {
   createTestFile(ruleName, description);
   await generateAll();
 
-  console.log(`Successfully created rule: ${ruleName}`);
+  echo(`Successfully created rule: ${ruleName}`);
 }
 
 function createDocFile(ruleName: string, description: string) {

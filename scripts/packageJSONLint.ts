@@ -3,7 +3,10 @@
 import { globSync } from "glob";
 import {
   PACKAGE_JSON,
+  cd,
   dirName,
+  echo,
+  exit,
   getPackageJSON,
   readFile,
 } from "isaacscript-common-node";
@@ -19,12 +22,12 @@ const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
 main();
 
 function main() {
-  console.log('Checking "package.json" files...');
+  echo('Checking "package.json" files...');
 
-  process.chdir(REPO_ROOT);
+  cd(REPO_ROOT);
 
   if (!packageJSONLint(REPO_ROOT_PACKAGE_JSON_PATH, undefined)) {
-    process.exit(1);
+    exit(1);
   }
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
@@ -42,10 +45,10 @@ function main() {
   }
 
   if (atLeastOneError) {
-    process.exit(1);
+    exit(1);
   }
 
-  console.log('All "package.json" files are valid.');
+  echo('All "package.json" files are valid.');
 }
 
 function packageJSONLint(
@@ -61,42 +64,40 @@ function packageJSONLint(
 
   const { name } = packageJSON;
   if (typeof name !== "string" || name === "") {
-    console.error(`File is missing a "name" field: ${packageJSONPath}`);
+    echo(`File is missing a "name" field: ${packageJSONPath}`);
     return false;
   }
 
   if (!isTemplateFile && !isKebabCase(name)) {
-    console.error(`File has a non-kebab-case "name" field: ${packageJSONPath}`);
+    echo(`File has a non-kebab-case "name" field: ${packageJSONPath}`);
     return false;
   }
 
   const { version } = packageJSON;
   if (!shouldBePrivate && (typeof version !== "string" || version === "")) {
-    console.error(`File is missing a "version" field: ${packageJSONPath}`);
+    echo(`File is missing a "version" field: ${packageJSONPath}`);
     return false;
   }
 
   const privateField = packageJSON["private"];
   if (shouldBePrivate && privateField !== true) {
-    console.error(
-      `File must have a private field equal to true: ${packageJSONPath}`,
-    );
+    echo(`File must have a private field equal to true: ${packageJSONPath}`);
     return false;
   }
 
   if (!shouldBePrivate && privateField !== undefined) {
-    console.error(`File must not have a private field: ${packageJSONPath}`);
+    echo(`File must not have a private field: ${packageJSONPath}`);
     return false;
   }
 
   const { description } = packageJSON;
   if (typeof description !== "string" || description === "") {
-    console.error(`File is missing a "description" field: ${packageJSONPath}`);
+    echo(`File is missing a "description" field: ${packageJSONPath}`);
     return false;
   }
 
   if (!description.endsWith(".")) {
-    console.error(
+    echo(
       `File must have a trailing period in the "description" field: ${packageJSONPath}`,
     );
     return false;
@@ -105,13 +106,11 @@ function packageJSONLint(
   if (!shouldBePrivate) {
     const { keywords } = packageJSON;
     if (typeof keywords !== "object") {
-      console.error(`File is missing a "keywords" field: ${packageJSONPath}`);
+      echo(`File is missing a "keywords" field: ${packageJSONPath}`);
     }
 
     if (!Array.isArray(keywords)) {
-      console.error(
-        `File has an invalid a "keywords" field: ${packageJSONPath}`,
-      );
+      echo(`File has an invalid a "keywords" field: ${packageJSONPath}`);
       return false;
     }
   }
@@ -119,79 +118,71 @@ function packageJSONLint(
   if (!isTemplateFile) {
     const { homepage } = packageJSON;
     if (typeof homepage !== "string" || homepage === "") {
-      console.error(`File is missing a "homepage" field: ${packageJSONPath}`);
+      echo(`File is missing a "homepage" field: ${packageJSONPath}`);
       return false;
     }
 
     if (homepage !== "https://isaacscript.github.io/") {
-      console.error(`File has an invalid "homepage" field: ${packageJSONPath}`);
+      echo(`File has an invalid "homepage" field: ${packageJSONPath}`);
       return false;
     }
 
     const { bugs } = packageJSON;
     if (typeof bugs !== "object") {
-      console.error(`File is missing a "bugs" field: ${packageJSONPath}`);
+      echo(`File is missing a "bugs" field: ${packageJSONPath}`);
       return false;
     }
 
     const bugsURL = (bugs as Record<string, unknown>)["url"];
     if (typeof bugsURL !== "string" || bugsURL === "") {
-      console.error(`File is missing a "bugs.url" field: ${packageJSONPath}`);
+      echo(`File is missing a "bugs.url" field: ${packageJSONPath}`);
       return false;
     }
 
     if (bugsURL !== "https://github.com/IsaacScript/isaacscript/issues") {
-      console.error(`File has an invalid "bugs.url" field: ${packageJSONPath}`);
+      echo(`File has an invalid "bugs.url" field: ${packageJSONPath}`);
       return false;
     }
 
     const { repository } = packageJSON;
     if (typeof repository !== "object") {
-      console.error(`File is missing a "repository" field: ${packageJSONPath}`);
+      echo(`File is missing a "repository" field: ${packageJSONPath}`);
       return false;
     }
 
     const repositoryType = (repository as Record<string, unknown>)["type"];
     if (typeof repositoryType !== "string" || repositoryType === "") {
-      console.error(
-        `File is missing a "repository.type" field: ${packageJSONPath}`,
-      );
+      echo(`File is missing a "repository.type" field: ${packageJSONPath}`);
       return false;
     }
 
     if (repositoryType !== "git") {
-      console.error(
-        `File has an invalid "repository.type" field: ${packageJSONPath}`,
-      );
+      echo(`File has an invalid "repository.type" field: ${packageJSONPath}`);
       return false;
     }
 
     const repositoryURL = (repository as Record<string, unknown>)["url"];
     if (typeof repositoryURL !== "string" || repositoryURL === "") {
-      console.error(
-        `File is missing a "repository.url" field: ${packageJSONPath}`,
-      );
+      echo(`File is missing a "repository.url" field: ${packageJSONPath}`);
       return false;
     }
 
     if (
       repositoryURL !== "git+https://github.com/IsaacScript/isaacscript.git"
     ) {
-      console.error(
-        `File has an invalid "repository.url" field: ${packageJSONPath}`,
-      );
+      echo(`File has an invalid "repository.url" field: ${packageJSONPath}`);
       return false;
     }
   }
 
   const { license } = packageJSON;
   if (typeof license !== "string" || license === "") {
-    console.error(`File is missing a "license" field: ${packageJSONPath}`);
+    echo(`File is missing a "license" field: ${packageJSONPath}`);
     return false;
   }
 
   if (license !== "GPL-3.0" && license !== "MIT") {
-    console.error(`File has an invalid "license" field: ${packageJSONPath}`);
+    echo(`File has an invalid "license" field: ${packageJSONPath}`);
     return false;
   }
 
@@ -199,7 +190,7 @@ function packageJSONLint(
     const packageDirectory = path.dirname(packageJSONPath);
     const licensePath = path.join(packageDirectory, "LICENSE");
     if (!fs.existsSync(licensePath)) {
-      console.error(`File does not exist: ${licensePath}`);
+      echo(`File does not exist: ${licensePath}`);
       return false;
     }
 
@@ -208,22 +199,22 @@ function packageJSONLint(
       license === "GPL-3.0" &&
       !licenseFile.includes("GNU GENERAL PUBLIC LICENSE")
     ) {
-      console.error(`Invalid GPL license file: ${licensePath}`);
+      echo(`Invalid GPL license file: ${licensePath}`);
       return false;
     }
     if (license === "MIT" && !licenseFile.includes("The MIT License (MIT)")) {
-      console.error(`Invalid MIT license file: ${licensePath}`);
+      echo(`Invalid MIT license file: ${licensePath}`);
       return false;
     }
 
     const { author } = packageJSON;
     if (typeof author !== "string" || author === "") {
-      console.error(`File is missing a "author" field: ${packageJSONPath}`);
+      echo(`File is missing a "author" field: ${packageJSONPath}`);
       return false;
     }
 
     if (author !== "Zamiell") {
-      console.error(`File has an invalid "author" field: ${packageJSONPath}`);
+      echo(`File has an invalid "author" field: ${packageJSONPath}`);
       return false;
     }
   }
@@ -233,14 +224,14 @@ function packageJSONLint(
   if (!isDocs) {
     const { type } = packageJSON;
     if (typeof type !== "string" || type === "") {
-      console.error(`File is missing a "type" field: ${packageJSONPath}`);
+      echo(`File is missing a "type" field: ${packageJSONPath}`);
       return false;
     }
   }
 
   const { files } = packageJSON;
   if (files !== undefined) {
-    console.error(`File has a "files" field: ${packageJSONPath}`);
+    echo(`File has a "files" field: ${packageJSONPath}`);
     return false;
   }
 
@@ -347,7 +338,7 @@ function checkDeps(
     }
 
     if (value !== rootDepValue) {
-      console.error(
+      echo(
         `Incorrect dependency: ${packageJSONPath} - ${key}: ${value} --> ${rootDepValue}`,
       );
       atLeastOneError = true;

@@ -1,8 +1,23 @@
 import chalk from "chalk";
-import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fatalError } from "./utils.js";
+
+/**
+ * Helper function to synchronously append data to a file.
+ *
+ * This will print an error message and exit the program if the file cannot be appended to.
+ */
+export function appendFile(filePath: string, data: string): void {
+  try {
+    fs.appendFileSync(filePath, data);
+  } catch (error) {
+    fatalError(
+      `Failed to append to the "${chalk.green(filePath)}" file:`,
+      error,
+    );
+  }
+}
 
 /**
  * Helper function to synchronously copy a file or directory. If a path to a directory is specified,
@@ -36,19 +51,23 @@ export function cp(srcPath: string, dstPath: string): void {
  * will be a no-op.
  *
  * This will print an error message and exit the program if the file cannot be deleted.
+ *
+ * This function is variadic, meaning that you can pass as many file paths as you want to delete.
  */
-export function deleteFileOrDirectory(filePath: string): void {
-  try {
-    if (fs.existsSync(filePath)) {
-      fs.rmSync(filePath, {
-        recursive: true,
-      });
+export function deleteFileOrDirectory(...filePaths: string[]): void {
+  for (const filePath of filePaths) {
+    try {
+      if (fs.existsSync(filePath)) {
+        fs.rmSync(filePath, {
+          recursive: true,
+        });
+      }
+    } catch (error) {
+      fatalError(
+        `Failed to delete file or directory "${chalk.green(filePath)}":`,
+        error,
+      );
     }
-  } catch (error) {
-    fatalError(
-      `Failed to delete file or directory "${chalk.green(filePath)}":`,
-      error,
-    );
   }
 }
 
@@ -70,13 +89,44 @@ export function getDirectoryList(dirPath: string): string[] {
   return fileList;
 }
 
-/** Helper function to synchronously get a SHA256 hash of a file. */
-export function getHashOfFile(filePath: string): string {
-  // We do not use the `readFile` helper function because we want to read it as binary.
-  const fileBuffer = fs.readFileSync(filePath);
-  const hashSum = crypto.createHash("sha256");
-  hashSum.update(fileBuffer);
-  return hashSum.digest("hex");
+/**
+ * Helper function to get the path to file, given either a file path, a directory path, or
+ * `undefined`. This will print an error message and exit the program if the file cannot be found.
+ *
+ * @param fileName The name of the file to find.
+ * @param filePathOrDirPath Either the path to a file or the path to a directory which contains the
+ *                          file. If undefined is passed, the current working directory will be
+ *                          used.
+ */
+export function getFilePath(
+  fileName: string,
+  filePathOrDirPath: string | undefined,
+): string {
+  if (filePathOrDirPath === undefined) {
+    filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
+  }
+
+  let filePath: string;
+  if (isFile(filePathOrDirPath)) {
+    filePath = filePathOrDirPath;
+  } else if (isDirectory(filePathOrDirPath)) {
+    filePath = path.join(filePathOrDirPath, fileName);
+    if (!fs.existsSync(filePath)) {
+      fatalError(
+        `Failed to find a "${chalk.green(
+          fileName,
+        )}" file at the following directory: ${chalk.green(filePathOrDirPath)}`,
+      );
+    }
+  } else {
+    fatalError(
+      `Failed to find a "${chalk.green(
+        fileName,
+      )}" file at the following path: ${chalk.green(filePathOrDirPath)}`,
+    );
+  }
+
+  return filePath;
 }
 
 /** Helper function to synchronously check if the provided path exists and is a directory. */
@@ -129,6 +179,23 @@ export function mkdir(dirPath: string): void {
 }
 
 /**
+ * Helper function to synchronously move a file.
+ *
+ * This will print an error message and exit the program if the file cannot be moved.
+ *
+ * (This is simply an alias for the `renameFile` function, since the Node.js API uses the same thing
+ * for both operations.)
+ */
+export function moveFile(srcPath: string, dstPath: string): void {
+  renameFile(srcPath, dstPath);
+}
+
+/** Alias for the `moveFile` function. Intended to be used in scripts. */
+export function mv(srcPath: string, dstPath: string): void {
+  moveFile(srcPath, dstPath);
+}
+
+/**
  * Helper function to synchronously read a file.
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
@@ -166,8 +233,8 @@ export function renameFile(srcPath: string, dstPath: string): void {
 }
 
 /** Alias for the `deleteFileOrDirectory` function. Intended to be used in scripts. */
-export function rm(filePath: string): void {
-  deleteFileOrDirectory(filePath);
+export function rm(...filePaths: string[]): void {
+  deleteFileOrDirectory(...filePaths);
 }
 
 /**

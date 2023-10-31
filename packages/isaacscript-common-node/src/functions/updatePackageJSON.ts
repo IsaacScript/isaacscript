@@ -1,9 +1,8 @@
 import path from "node:path";
 import ncu from "npm-check-updates";
 import { PackageManager } from "../enums/PackageManager.js";
-import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $s, $ss } from "./execa.js";
-import { readFile } from "./file.js";
+import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
 import {
   getPackageManagerForProject,
@@ -18,13 +17,17 @@ import { diff } from "./utils.js";
  * - Run `npm-check-updates` to update the dependencies in the "package.json" file.
  * - Install the new dependencies with the package manager used in the project.
  *
+ * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
+ *                          which contains a "package.json" file. If undefined is passed, the
+ *                          current working directory will be used.
  * @returns Whether any dependencies were updated.
  */
-export async function updatePackageJSON(): Promise<boolean> {
-  const fromDir = dirOfCaller();
-  const packageRoot = findPackageRoot(fromDir);
+export async function updatePackageJSON(
+  filePathOrDirPath: string | undefined,
+): Promise<boolean> {
+  const packageJSONPath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
+  const packageRoot = path.dirname(packageJSONPath);
   const packageManager = getPackageManagerForProject(packageRoot);
-  const packageJSONPath = path.join(packageRoot, PACKAGE_JSON);
   const oldPackageJSONString = readFile(packageJSONPath);
 
   if (packageManager === PackageManager.yarn) {

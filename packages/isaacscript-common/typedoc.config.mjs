@@ -1,8 +1,10 @@
-const fs = require("node:fs");
-const path = require("node:path");
-const typeDocBase = require("../docs/typedoc.base"); // eslint-disable-line n/no-unpublished-require
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-disable-line import/no-relative-packages,n/no-unpublished-import
 
-const config = typeDocBase.getTypeDocConfig(__dirname);
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+const config = getTypeDocConfig(__dirname);
 
 // Feature classes are not exported directly, but we want to include them in the documentation.
 // Thus, we must manually add them.
@@ -28,7 +30,7 @@ config.entryPoints.push(
 );
 
 /** @type {import('typedoc').TypeDocOptions} */
-module.exports = {
+export default {
   ...config,
   intentionallyNotExported: [
     "_TupleOf",

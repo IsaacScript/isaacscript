@@ -71,7 +71,7 @@ export async function createProject(
     typeScript,
   );
   upgradeYarn(projectPath, packageManager, verbose);
-  await updatePackageJSON();
+  await updatePackageJSON(projectPath);
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
 
