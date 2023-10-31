@@ -1,9 +1,8 @@
 import {
   $,
-  $s,
+  $ss,
   appendFile,
   buildScript,
-  buildTypeScript,
   cp,
   rm,
 } from "isaacscript-common-node";
@@ -26,13 +25,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
 
   const promises: Array<Promise<unknown>> = [];
 
-  promises.push(
-    // We need to create JavaScript files in addition to Lua files because we want this package to
-    // be usable in Jest tests.
-    buildTypeScript(packageRoot),
-    $`tstl`,
-    $`tstl --project tsconfig.bundle.json`,
-  );
+  promises.push($`tstl`, $`tstl --project tsconfig.bundle.json`);
 
   await Promise.all(promises);
 
@@ -51,9 +44,9 @@ await buildScript(async ({ packageRoot, outDir }) => {
   // not work:
   // https://github.com/microsoft/rushstack/issues/1886
   // https://github.com/timocov/dts-bundle-generator/issues/218
-  $s`npx api-extractor run`;
+  $ss`api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
 
-  // API Extractor will make a "dist/tsdoc-metadata.json" file, which we don't need.
+  // API Extractor will make a "tsdoc-metadata.json" file, which we don't need.
   const metadataJSONPath = path.join(
     packageRoot,
     outDir,

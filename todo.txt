@@ -24,7 +24,7 @@ isaacscript-common --> isaac-typescript-definitions
 - remove all knip.jsonc
 - look through prePublish.ts
 - convert all .sh files in repo (use ctrl+p .sh)
-
+- get plugins into MJS form, then compile ITD/ISC
 
 
 

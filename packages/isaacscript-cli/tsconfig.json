@@ -7,11 +7,6 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "dist",
-
-    // We have to enable some compiler options because they are used by "isaacscript-common" and we
-    // import code from that package.
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
   },
 
   "include": [

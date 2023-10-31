@@ -1,10 +1,4 @@
 import chalk from "chalk";
-import type {
-  CustomStageLua,
-  CustomStageRoomMetadata,
-  CustomStageTSConfig,
-  JSONRoomsFile,
-} from "isaacscript-common";
 import type { PackageManager } from "isaacscript-common-node";
 import {
   copyFileOrDirectory,
@@ -31,6 +25,12 @@ import {
 } from "./constants.js";
 import { execExe } from "./exec.js";
 import type { ShadersXML } from "./interfaces/ShadersXML.js";
+import type {
+  CustomStageLua,
+  CustomStageRoomMetadata,
+  CustomStageTSConfig,
+} from "./interfaces/copied/CustomStageTSConfig.js";
+import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
 import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 
 const ISAACSCRIPT_COMMON = "isaacscript-common";

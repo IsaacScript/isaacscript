@@ -19,8 +19,6 @@ const config = {
     "sort-exports",
   ],
 
-  rules: {},
-
   overrides: [
     {
       files: ["./src/functions/**"],

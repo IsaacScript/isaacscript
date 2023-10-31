@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import type { CustomStageTSConfig } from "isaacscript-common";
 import { TSCONFIG_JSON, fatalError, getJSONC } from "isaacscript-common-node";
 import { isObject } from "isaacscript-common-ts";
 import {
@@ -7,6 +6,7 @@ import {
   PROJECT_NAME,
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
+import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
