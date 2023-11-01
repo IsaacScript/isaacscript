@@ -1,4 +1,4 @@
 {
   "$schema": "https://unpkg.com/knip/schema.json",
-  "ignore": [".eslintrc.cjs"]
+  "ignore": [".eslintrc.cjs"],
 }

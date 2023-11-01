@@ -1,5 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip/schema.json",
   "ignore": [".eslintrc.cjs"],
-  "ignoreDependencies": ["isaac-typescript-definitions"]
+  "ignoreDependencies": ["isaac-typescript-definitions"],
 }

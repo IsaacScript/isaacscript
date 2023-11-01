@@ -6,7 +6,7 @@
     ".eslintrc.cjs",
     "src/template.ts",
     "tests/fixtures/file.ts",
-    "tests/template.ts"
+    "tests/template.ts",
   ],
   "ignoreDependencies": [
     // `@typescript-eslint/rule-tester` is a development dependency installed at the root of the
@@ -15,6 +15,6 @@
     // `prettier` is a development dependency installed at the root of the monorepo.
     "prettier",
     // Jest dependencies are installed at the root of the monorepo.
-    "ts-jest"
-  ]
+    "ts-jest",
+  ],
 }

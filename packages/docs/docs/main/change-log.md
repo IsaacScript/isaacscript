@@ -572,7 +572,7 @@ This page lists the changes to the IsaacScript framework.
 
 ### `package.json`
 
-IsaacScript mods now require that `isaacscript-tsconfig` is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
+IsaacScript mods now require that "isaacscript-tsconfig" is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
 
 ```sh
 # If you use npm:
@@ -1415,7 +1415,7 @@ pnpm add isaacscript-tsconfig
 
 ### `package.json`
 
-IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
+IsaacScript mods now require that "typescript-to-lua" is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
 
 ```sh
 # If you use npm:

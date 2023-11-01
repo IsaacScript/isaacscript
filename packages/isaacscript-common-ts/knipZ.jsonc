@@ -5,6 +5,6 @@
   "ignoreDependencies": [
     // Jest dependencies are installed at the root of the monorepo.
     "ts-jest",
-    "ts-jest-resolver"
-  ]
+    "ts-jest-resolver",
+  ],
 }

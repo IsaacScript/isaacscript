@@ -3,7 +3,7 @@
   "ignore": [
     ".eslintrc.cjs",
     "src/classes/features/other/extraConsoleCommands/commands.ts",
-    "typedoc.config.cjs"
+    "typedoc.config.cjs",
   ],
-  "exclude": ["classMembers"]
+  "exclude": ["classMembers"],
 }

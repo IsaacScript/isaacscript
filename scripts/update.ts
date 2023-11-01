@@ -1,10 +1,15 @@
+// Docusaurus-related things are stuck on this:
+// https://github.com/typesense/docusaurus-theme-search-typesense/issues/38
+
 // Old versions:
-// - @mdx-js/react - Stuck until Docusaurus upgrades.
-// - prism-react-renderer - Stuck until Docusaurus upgrades.
-// - react - Stuck until Docusaurus upgrades.
-// - react-dom - Stuck until Docusaurus upgrades.
-// - retext-english - Stuck until Docusaurus is on ESM.
-// - unified - Stuck until Docusaurus is on ESM.
+// - @docusaurus/core - 2.4.3
+// - @docusaurus/module-type-aliases - 2.4.3
+// - @docusaurus/preset-classic - 2.4.3
+// - @docusaurus/tsconfig - 2.4.3
+// - @mdx-js/react - 1.6.22
+// - prism-react-renderer - 1.3.5
+// - react - 17.0.2
+// - react-dom - 17.0.2
 
 import {
   $s,

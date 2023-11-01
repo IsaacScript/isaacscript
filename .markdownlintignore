@@ -1,6 +1,5 @@
 .gitignore
 .markdownlintignore
-.remarkignore
 node_modules
 dist
 packages/docs/docs/eslint-config-isaacscript

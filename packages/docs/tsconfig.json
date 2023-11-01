@@ -1,3 +1,5 @@
+// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
+// by VSCode.
 {
   "extends": [
     "../isaacscript-tsconfig/tsconfig.node.json",

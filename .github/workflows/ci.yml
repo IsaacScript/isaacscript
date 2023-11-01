@@ -9,6 +9,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts build
 
@@ -30,6 +31,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
 
@@ -51,6 +53,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts test
 
@@ -71,7 +74,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
-
       #- name: Check for unused files, dependencies, and exports
       #  run: npx knip
 
@@ -80,31 +82,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
-
-      - name: Check that the entire repository is formatted with Prettier
-        # "--log-level=warn" makes it only output errors.
-        run: npx prettier --log-level=warn --check .
+      - run: npx prettier --log-level=warn --check .
 
   spell-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
-
-      - name: Spell check the entire repository
-        # "--no-progress" and "--no-summary" make it only output errors.
-        run: npx cspell --no-progress --no-summary .
+      - run: npx cspell --no-progress --no-summary .
+      - run: npx cspell-check-unused-words
 
   docs-deploy:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
-        if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
         with:
           ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
           repository: IsaacScript/isaacscript.github.io
@@ -119,11 +116,10 @@ jobs:
       - name: Deploy the documentation website
         id: deploy_documentation_website
         run: bash packages/docs/deploy.sh ${{ github.sha }}
-        if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
 
       - name: Run DocSearch Scraper
         uses: celsiusnarhwal/typesense-scraper@v2
-        if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null' && steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
+        if: steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
         with:
           api-key: ${{ secrets.TYPESENSE_API_KEY }}
           host: ${{ secrets.TYPESENSE_HOST }}
@@ -133,7 +129,7 @@ jobs:
 
   discord:
     name: Discord Failure Notification
-    needs: [lint, unused, format, spell-check, docs-deploy]
+    needs: [build, lint, test, unused, format, spell-check, docs-deploy]
     if: always() # This is needed to always run this job, even if the other jobs fail.
     runs-on: ubuntu-latest
     steps:
