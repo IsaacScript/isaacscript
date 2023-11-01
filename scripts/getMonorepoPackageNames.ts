@@ -36,7 +36,7 @@ function main() {
 
   echo(packageNamesString);
 
-  const gitHubActionsOutput = `${GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME}="${packageNamesString}"\n`;
+  const gitHubActionsOutput = `${GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME}='${packageNamesString}'\n`;
   appendFile(gitHubOutputFile, gitHubActionsOutput);
 }
 
