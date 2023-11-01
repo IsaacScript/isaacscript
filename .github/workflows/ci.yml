@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build-packages:
+  get-build-packages:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -12,13 +12,14 @@ jobs:
       - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts build
+      - run: echo "LOL1 ${{ steps.set-matrix.outputs.matrix }} LOL2"
 
   build:
     needs: build-packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package-name: ${{ fromJson(needs.build-packages.outputs.matrix) }}
+        package-name: ${{ fromJson(needs.get-build-packages.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
