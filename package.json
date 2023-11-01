@@ -23,6 +23,7 @@
     "@algolia/client-search": "^4.20.0",
     "@arktype/fs": "^0.0.1",
     "@docusaurus/core": "2.4.3",
+    "@docusaurus/eslint-plugin": "2.4.3",
     "@docusaurus/module-type-aliases": "2.4.3",
     "@docusaurus/preset-classic": "2.4.3",
     "@eslint/js": "^8.52.0",

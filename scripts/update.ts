@@ -3,6 +3,7 @@
 
 // Old versions:
 // - @docusaurus/core - 2.4.3
+// - @docusaurus/eslint-plugin - 2.4.3
 // - @docusaurus/module-type-aliases - 2.4.3
 // - @docusaurus/preset-classic - 2.4.3
 // - @docusaurus/tsconfig - 2.4.3

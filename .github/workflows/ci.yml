@@ -13,14 +13,6 @@ jobs:
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts build
 
-  build-poop:
-    needs: get-build-packages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/setup
-      - run: echo LOL1 ${{ needs.get-build-packages.outputs.matrix }} LOL2
-
   build:
     needs: get-build-packages
     runs-on: ubuntu-latest
