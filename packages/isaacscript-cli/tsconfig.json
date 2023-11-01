@@ -1,12 +1,13 @@
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.node.json",
+    "../isaacscript-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "dist",
+    "noEmit": true, // The JavaScript is created by `esbuild`, not `tsc`.
   },
 
   "include": [
@@ -28,7 +29,5 @@
     "./**/.*.tsx",
   ],
 
-  // We cannot include the JavaScript files in the "file-templates" directory, or else they will be
-  // compiled (e.g. a "file-templates/static-ts/src/main.js" file will be created).
-  "exclude": ["file-templates"],
+  "exclude": ["dist", "file-templates", "plugins", "scripts"],
 }

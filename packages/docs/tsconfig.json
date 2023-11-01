@@ -1,13 +1,15 @@
+// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
+// by VSCode.
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.node.json",
-    "../../tsconfig.monorepo.json",
+    "../isaacscript-tsconfig/tsconfig.node.json",
+    // https://github.com/tsconfig/bases/blob/main/bases/docusaurus.json
     "@tsconfig/docusaurus/tsconfig.json",
   ],
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/docs",
+    "outDir": "build",
+    "noEmit": true, // The website is created by Babel, not `tsc`.
   },
 
   "include": [
@@ -28,4 +30,6 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
+
+  "exclude": ["build", "scripts"],
 }

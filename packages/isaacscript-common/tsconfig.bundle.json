@@ -6,9 +6,6 @@
     // We want the only output to be the bundled Lua file.
     "declaration": false,
     "declarationMap": false,
-
-    // We want to slightly reduce the file size of the output.
-    "removeComments": true,
   },
 
   // TypeScriptToLua settings
@@ -22,12 +19,12 @@
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file (for
       // `isaacscript-common` specifically).
       {
-        "name": "../../dist/packages/isaacscript-cli/src/plugins/addIsaacScriptCommentHeaderCommon.js",
+        "name": "../isaacscript-cli/plugins/addIsaacScriptCommentHeaderCommon.cjs",
       },
 
       // A plugin to make enums safe from global variables.
       {
-        "name": "../../dist/packages/isaacscript-cli/src/plugins/noExtendedEnums.js",
+        "name": "../isaacscript-cli/plugins/noExtendedEnums.cjs",
       },
     ],
     "noHeader": true,

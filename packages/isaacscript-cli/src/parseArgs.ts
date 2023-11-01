@@ -1,3 +1,21 @@
+// Other potential args libraries:
+// - util.parseArgs
+//   - https://nodejs.org/api/util.html#utilparseargsconfig
+//   - Too bare bones; does not support numbers.
+// - arg (1.2K stars)
+//   - https://github.com/vercel/arg
+//   - Does not support commands (i.e. positional arguments).
+// - cmd-ts (193 stars)
+//   - https://github.com/Schniz/cmd-ts
+//   - ?
+// - clack (4.3K stars)
+//   - https://github.com/natemoo-re/clack
+//   - ?
+// - commander (25.4K stars)
+//   - https://github.com/tj/commander.js
+//   - ?
+
+import { getArgs } from "isaacscript-common-node";
 import yargs from "yargs";
 import { PROJECT_NAME } from "./constants.js";
 
@@ -30,6 +48,7 @@ export interface Args {
   dryRun?: boolean;
   skipUpdate?: boolean;
   skipLint?: boolean;
+  otp?: boolean;
 
   // check
   ignore?: string;
@@ -41,7 +60,8 @@ export interface Args {
 
 /** Parse command-line arguments. */
 export function parseArgs(): Args {
-  const yargsObject = yargs(process.argv.slice(2))
+  const args = getArgs();
+  const yargsObject = yargs(args)
     .strict()
     .usage(`usage: ${PROJECT_NAME.toLowerCase()} <command> [options]`)
     .scriptName(PROJECT_NAME.toLowerCase())
@@ -297,6 +317,11 @@ export function parseArgs(): Args {
             type: "boolean",
             description: "Skip linting before publishing",
           })
+          .option("otp", {
+            type: "boolean",
+            description:
+              "Provide a two-factor OTP code tied to the npm account",
+          })
           .option("verbose", {
             alias: "v",
             type: "boolean",
@@ -339,8 +364,19 @@ export function parseArgs(): Args {
     )
 
     .command(
-      "check-cspell",
-      'Check the "cspell.json" file to see if any unused words exist.',
+      "update",
+      "Update the dependencies in the current project.",
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
+    )
+
+    .command(
+      "nuke",
+      "Delete and reinstall the dependencies in the current project.",
       (builder) =>
         builder.option("verbose", {
           alias: "v",

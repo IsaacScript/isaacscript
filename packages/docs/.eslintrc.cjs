@@ -5,7 +5,6 @@ const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
   REPO_ROOT,
   "packages",
   "eslint-config-isaacscript",
-  "configs",
 );
 
 /** @type {import("eslint").Linter.Config} */
@@ -21,7 +20,7 @@ const config = {
     browser: true,
   },
 
-  ignorePatterns: ["**/docusaurus/**", "!.remarkrc.mjs"],
+  ignorePatterns: ["**/build/**", "**/docusaurus/**"],
 
   rules: {
     "import/no-default-export": "off", // React uses default exports.

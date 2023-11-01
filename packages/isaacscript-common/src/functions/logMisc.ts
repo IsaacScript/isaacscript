@@ -149,7 +149,8 @@ export function logFlags<T extends BitFlag | BitFlag128>(
   // eslint-disable-next-line @typescript-eslint/no-base-to-string
   log(`Logging ${description} values for: ${flags}`);
   let hasNoFlags = true;
-  for (const [key, value] of getEnumEntries(flagEnum)) {
+  const entries = getEnumEntries(flagEnum);
+  for (const [key, value] of entries) {
     if (hasFlag(flags, value)) {
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Has flag: ${key} (${value})`);

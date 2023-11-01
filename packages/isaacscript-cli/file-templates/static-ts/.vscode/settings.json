@@ -34,7 +34,7 @@
   // Extension settings
   // ------------------
 
-  // Use Prettier to format "cspell.json".
+  // Use Prettier to format "cspell.jsonc".
   "cSpell.autoFormatConfigFile": true,
 
   // -----------------

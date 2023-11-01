@@ -1,6 +1,0 @@
-// For "eslint-plugin-isaacscript", we create a separate TypeScript configuration for production so
-// that the "tests" and "tools" directories are not published to npm.
-{
-  "extends": "./tsconfig.json",
-  "include": ["./src/**/*.ts"],
-}

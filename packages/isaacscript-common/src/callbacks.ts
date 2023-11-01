@@ -1,6 +1,6 @@
+import { MOD_CALLBACK_CUSTOM_VALUES } from "./arrays/cachedEnumValues";
 import * as cc from "./callbackClasses";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
-import { getEnumValues } from "./functions/enums";
 import type { AnyClass } from "./types/AnyClass";
 
 const MOD_CALLBACK_CUSTOM_TO_CLASS = {
@@ -174,7 +174,7 @@ export type ModCallbackCustomToClass = {
 export function getCallbacks(): ModCallbackCustomToClass {
   const instantiatedClasses: Record<number, unknown> = {};
 
-  for (const modCallbackCustom of getEnumValues(ModCallbackCustom)) {
+  for (const modCallbackCustom of MOD_CALLBACK_CUSTOM_VALUES) {
     const constructor = MOD_CALLBACK_CUSTOM_TO_CLASS[modCallbackCustom];
     instantiatedClasses[modCallbackCustom] = new constructor();
   }

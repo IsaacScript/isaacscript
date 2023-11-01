@@ -1,8 +1,6 @@
+import { fatalError, getJSONC, isFile } from "isaacscript-common-node";
 import path from "node:path";
 import { execShell } from "../../exec.js";
-import { fileExists } from "../../file.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
-import { getJSONC } from "../../json.js";
 
 export function installVSCodeExtensions(
   projectPath: string,
@@ -16,27 +14,24 @@ export function installVSCodeExtensions(
     return;
   }
 
-  const extensions = getExtensionsFromJSON(projectPath, verbose);
+  const extensions = getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
     execShell(VSCodeCommand, ["--install-extension", extensionName], verbose);
   }
 }
 
-function getExtensionsFromJSON(
-  projectPath: string,
-  verbose: boolean,
-): string[] {
+function getExtensionsFromJSON(projectPath: string): string[] {
   const extensionsJSONPath = path.join(
     projectPath,
     ".vscode",
     "extensions.json",
   );
 
-  if (!fileExists(extensionsJSONPath, verbose)) {
+  if (!isFile(extensionsJSONPath)) {
     return [];
   }
 
-  const extensionsJSON = getJSONC(extensionsJSONPath, verbose);
+  const extensionsJSON = getJSONC(extensionsJSONPath);
 
   const { recommendations } = extensionsJSON;
   if (!Array.isArray(recommendations)) {

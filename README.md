@@ -10,7 +10,7 @@ IsaacScript is a tool to help you create [_Binding of Isaac: Repentance_](https:
 
 Please visit the [official website](https://isaacscript.github.io/) for more information.
 
-This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the various packages in the ecosystem. It is powered by [Nx](https://nx.dev/).
+This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the various packages in the ecosystem.
 
 <br>
 
@@ -26,8 +26,9 @@ Each project in the monorepo is contained within the "packages" directory.
 | [isaac-lua-polyfill](./packages/isaac-lua-polyfill)                     | Polyfills for testing Isaac mods using TypeScript.                         | [![npm version](https://img.shields.io/npm/v/isaac-lua-polyfill.svg)](https://www.npmjs.com/package/isaac-lua-polyfill)                     |
 | [isaac-typescript-definitions](./packages/isaac-typescript-definitions) | TypeScript definitions for the _The Binding of Isaac: Repentance_ API.     | [![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions.svg)](https://www.npmjs.com/package/isaac-typescript-definitions) |
 | [isaacscript-cli](./packages/isaacscript-cli)                           | The command-line tool for managing Isaac mods written in TypeScript.       | [![npm version](https://img.shields.io/npm/v/isaacscript.svg)](https://www.npmjs.com/package/isaacscript)                                   |
-| [isaacscript-common-ts](./packages/isaacscript-common-ts)               | Helper functions for TypeScript projects.                                  | [![npm version](https://img.shields.io/npm/v/isaacscript-common-ts.svg)](https://www.npmjs.com/package/isaacscript-common-ts)               |
 | [isaacscript-common](./packages/isaacscript-common)                     | Helper functions and features for IsaacScript mods.                        | [![npm version](https://img.shields.io/npm/v/isaacscript-common.svg)](https://www.npmjs.com/package/isaacscript-common)                     |
+| [isaacscript-common-node](./packages/isaacscript-common-node)           | Helper functions for Node.js projects.                                     | [![npm version](https://img.shields.io/npm/v/isaacscript-common-node.svg)](https://www.npmjs.com/package/isaacscript-common-node)           |
+| [isaacscript-common-ts](./packages/isaacscript-common-ts)               | Helper functions for TypeScript projects.                                  | [![npm version](https://img.shields.io/npm/v/isaacscript-common-ts.svg)](https://www.npmjs.com/package/isaacscript-common-ts)               |
 | [isaacscript-lint](./packages/isaacscript-lint)                         | A linting dependency meta-package for IsaacScript and TypeScript projects. | [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)                         |
 | [isaacscript-lua](./packages/isaacscript-lua)                           | A tool for managing IsaacScript libraries in Lua projects.                 | [![pypi version](https://img.shields.io/pypi/v/isaacscript-lua.svg)](https://pypi.org/project/isaacscript-lua/)                             |
 | [isaacscript-spell](./packages/isaacscript-spell)                       | Spelling dictionaries for _The Binding of Isaac: Repentance_.              | [![npm version](https://img.shields.io/npm/v/isaacscript-spell.svg)](https://www.npmjs.com/package/isaacscript-spell)                       |

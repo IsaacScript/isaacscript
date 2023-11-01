@@ -1,13 +1,16 @@
 import chalk from "chalk";
 import commandExists from "command-exists";
+import {
+  getPackageJSONVersion,
+  isFile,
+  readFile,
+} from "isaacscript-common-node";
 import path from "node:path";
 import yaml from "yaml";
-import { HOME_DIR, PROJECT_NAME } from "./constants.js";
+import { HOME_DIR, PROJECT_NAME, REPO_ROOT } from "./constants.js";
 import { execShell, execShellString } from "./exec.js";
-import { fileExists, readFile } from "./file.js";
 import type { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
 import { getInputString, getInputYesNo } from "./prompt.js";
-import { getVersionOfThisPackage } from "./version.js";
 
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
@@ -33,7 +36,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
     return undefined;
   }
 
-  const gitHubUsername = getGitHubUsername(verbose);
+  const gitHubUsername = getGitHubUsername();
   if (gitHubUsername !== undefined) {
     const { exitStatus } = execShell(
       "gh",
@@ -105,7 +108,7 @@ If you don't want to initialize a Git repository for this project, press enter t
   return gitRemoteURL === "" ? undefined : gitRemoteURL;
 }
 
-export function getGitHubUsername(verbose: boolean): string | undefined {
+export function getGitHubUsername(): string | undefined {
   // If the GitHub CLI is installed, we can derive the user's GitHub username.
   if (!commandExists.sync("gh")) {
     return undefined;
@@ -116,11 +119,11 @@ export function getGitHubUsername(verbose: boolean): string | undefined {
     return undefined;
   }
 
-  if (!fileExists(githubCLIHostsPath, verbose)) {
+  if (!isFile(githubCLIHostsPath)) {
     return undefined;
   }
 
-  const configYAMLRaw = readFile(githubCLIHostsPath, verbose);
+  const configYAMLRaw = readFile(githubCLIHostsPath);
   const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
 
   const githubCom = configYAML["github.com"];
@@ -176,8 +179,8 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShellString("git add --all", verbose, false, projectPath);
-    const version = getVersionOfThisPackage(verbose);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${version} template`;
+    const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
+    const commitMessage = `chore: add files from ${PROJECT_NAME} ${isaacScriptCLIVersion} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],
@@ -210,20 +213,6 @@ function isGitNameAndEmailConfigured(verbose: boolean) {
   ).exitStatus;
 
   return nameExitStatus === 0 && emailExitStatus === 0;
-}
-
-export function isGitRepository(verbose: boolean): boolean {
-  const { exitStatus } = execShellString(
-    "git rev-parse --is-inside-work-tree",
-    verbose,
-    true,
-  );
-  return exitStatus === 0;
-}
-
-export function isGitClean(verbose: boolean): boolean {
-  const { stdout } = execShellString("git status --porcelain", verbose);
-  return stdout === "";
 }
 
 export function gitCommitAllAndPush(message: string, verbose: boolean): void {

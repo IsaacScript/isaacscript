@@ -1,20 +1,16 @@
+import { fatalError, isDirectory } from "isaacscript-common-node";
 import path from "node:path";
-import { fileExists, isDir } from "./file.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,
-  verbose: boolean,
 ): string {
-  const parentDirectory = path.join(projectPath, "..");
   const isaacScriptMonorepoDirectory = path.join(
-    parentDirectory,
+    projectPath,
+    "..",
     "isaacscript",
   );
-  if (
-    !fileExists(isaacScriptMonorepoDirectory, verbose) ||
-    !isDir(isaacScriptMonorepoDirectory, verbose)
-  ) {
+
+  if (!isDirectory(isaacScriptMonorepoDirectory)) {
     console.error(
       `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,
     );

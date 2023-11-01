@@ -1,15 +1,13 @@
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.base.json",
+    "../isaacscript-tsconfig/tsconfig.base.json",
     "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaac-typescript-definitions/dist",
-
-    // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
-    "rootDir": ".",
+    "outDir": "dist",
+    // We cannot use "noEmit" here since it will prevent TSTL from creating Lua files.
 
     // Needed since this is a library.
     "declaration": true,
@@ -59,6 +57,8 @@
     "./**/.*.tsx",
   ],
 
+  "exclude": ["dist", "scripts"],
+
   // TypeScriptToLua settings
   "tstl": {
     "buildMode": "library",
@@ -66,7 +66,7 @@
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
       {
-        "name": "../../dist/packages/isaacscript-cli/src/plugins/noExtendedEnums.js",
+        "name": "../isaacscript-cli/plugins/noExtendedEnums.cjs",
       },
     ],
     "noHeader": true,

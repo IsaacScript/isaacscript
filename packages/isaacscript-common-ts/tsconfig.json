@@ -1,16 +1,19 @@
 {
   "extends": [
-    "../isaacscript-tsconfig/configs/tsconfig.node.json",
+    "../isaacscript-tsconfig/tsconfig.base.json",
     "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist",
+    "outDir": "dist",
 
     // Needed since this is a library.
     "declaration": true,
     "declarationMap": true,
+
+    // Needed since this library uses the `String.replaceAll` method.
+    "target": "ES2021",
   },
 
   "include": [
@@ -31,4 +34,6 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
+
+  "exclude": ["dist", "scripts"],
 }

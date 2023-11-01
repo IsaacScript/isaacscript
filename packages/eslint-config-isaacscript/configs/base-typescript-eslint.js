@@ -108,7 +108,13 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-explicit-any": "error",
   "@typescript-eslint/no-extra-non-null-assertion": "error",
   "@typescript-eslint/no-extraneous-class": "error",
+
+  /**
+   * The rule is disabled in "*.test.ts" files, since the built-in Node test runner returns a
+   * promise that is not meant to be awaited.
+   */
   "@typescript-eslint/no-floating-promises": "error",
+
   "@typescript-eslint/no-for-in-array": "error",
   "@typescript-eslint/no-import-type-side-effects": "error",
   "@typescript-eslint/no-inferrable-types": "error",
@@ -330,7 +336,17 @@ const EXTENSION_RULES = {
 
   "@typescript-eslint/no-shadow": "error",
   "@typescript-eslint/no-throw-literal": "error",
-  "@typescript-eslint/no-unused-expressions": "error",
+
+  /**
+   * The `allowTaggedTemplates` option is enabled to allow the rule to work with libraries like
+   * `execa`.
+   */
+  "@typescript-eslint/no-unused-expressions": [
+    "error",
+    {
+      allowTaggedTemplates: true,
+    },
+  ],
 
   /**
    * The `args` option is set to `all` make the rule stricter. Additionally, we ignore things that
@@ -389,7 +405,7 @@ const EXTENSION_RULES = {
 const config = {
   // We need to provide some special configuration to ESLint in order for it to parse TypeScript
   // files. From:
-  // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/base.ts
+  // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/base.ts
   parser: "@typescript-eslint/parser",
   parserOptions: {
     sourceType: "module",
@@ -425,6 +441,14 @@ const config = {
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
+      },
+    },
+
+    // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
+    {
+      files: ["*.test.ts"],
+      rules: {
+        "@typescript-eslint/no-floating-promises": "off",
       },
     },
   ],

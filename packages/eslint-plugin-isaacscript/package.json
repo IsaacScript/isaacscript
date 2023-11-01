@@ -30,11 +30,24 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "commonjs",
-  "main": "src/index.js",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx ./scripts/build.mts",
+    "create-rule": "tsx ./scripts/createRule.mts",
+    "generate": "tsx ./scripts/generate.mts",
+    "lint": "tsx ./scripts/lint.mts",
+    "test": "jest"
+  },
   "dependencies": {
-    "@typescript-eslint/type-utils": "^6.9.0",
-    "@typescript-eslint/types": "^6.9.0",
-    "@typescript-eslint/utils": "^6.9.0"
+    "@typescript-eslint/type-utils": "^6.9.1",
+    "@typescript-eslint/types": "^6.9.1",
+    "@typescript-eslint/utils": "^6.9.1"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 6.0.0",

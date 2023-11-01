@@ -1,3 +1,27 @@
+- publish isaacscript-common-node, make it dep of cspell-check-unused-words
+- test spawning new mod and non-mod project with isaacscript-cli to see if spelling lints correctly
+
+----------------------------------------------------------------------------------------------------
+
+- canRunUnlockAchievements convert to feature to remove foot-gun
+
+- remove const enums from ITD, then remove compiler exception in tsconfig.json
+
+- make PR to schema: "$schema": "https://json.schemastore.org/tsconfig",
+  - https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/tsconfig.json
+  - https://discord.com/channels/1026804805894672454/1167094026609119252
+
+- use stack overflow to remove isaac-typescript-definitions from deps
+  - difficult, do it when I have the courage
+  - make sure that isaacscript-common still works through link in dev
+
+----------------------------------------------------------------------------------------------------
+
+- get knip working
+  - https://github.com/webpro/knip/issues/315
+  - remove all knipZ.jsonc
+  - remove comment in ci.yml
+
 - lint rule: didn't catch this code:
   const lockedPillEffectsOfType = lockedPillEffects.filter(
     (thisPillEffect) =>
@@ -9,10 +33,14 @@
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
+
 - use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
-- get rid of nx
 
 ----------------------------------------------------------------------------------------------------
+
+- wait for eslint-plugin-n to fix rule:
+  - https://github.com/eslint-community/eslint-plugin-n/issues/134
+  - if this takes too long, we can make a new ESLint rule to automatically convert 'import *.js";' to '.ts'
 
 - wait for typedoc-plugin-markdown to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
@@ -22,10 +50,3 @@
   - ESLint does not support "eslint.config.mjs" file format, so it requires either:
     1. changing package.json type
     2. specifying config file location when running, e.g. "--config eslint.config.mjs"
-
-- remove node-fetch
-  - waiting on: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/60924
-
-- use stack overflow to remove isaac-typescript-definitions from deps
-  - difficult, do it when I have the courage
-  - make sure that isaacscript-common still works through link in dev

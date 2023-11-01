@@ -1,4 +1,4 @@
-import { fatalError } from "../../isaacScriptCommonTS.js";
+import { fatalError } from "isaacscript-common-node";
 import type { Args } from "../../parseArgs.js";
 import { getInputInt } from "../../prompt.js";
 

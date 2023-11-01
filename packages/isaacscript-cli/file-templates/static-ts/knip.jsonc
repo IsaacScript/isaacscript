@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "eslint": true,
+  "prettier": true,
+  "ignoreDependencies": ["isaacscript", "isaacscript-lint"],
+}

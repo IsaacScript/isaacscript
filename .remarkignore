@@ -1,9 +1,0 @@
-.gitignore
-.markdownlintignore
-.remarkignore
-node_modules
-dist
-packages/docs/docs/main/change-log.md
-packages/docs/docs/isaacscript-common
-packages/docs/docs/isaac-typescript-definitions
-packages/docs/docs/eslint-config-isaacscript

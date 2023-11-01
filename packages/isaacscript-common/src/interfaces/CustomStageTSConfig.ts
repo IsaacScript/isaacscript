@@ -1,17 +1,15 @@
+import type { Immutable } from "../types/Immutable";
+
 /**
  * This is the format of a custom stage in the "isaacscript" section of the "tsconfig.json" file.
  *
  * The contents of this interface are used to create a "tsconfig-isaacscript-section-schema.json"
  * schema with the "ts-json-schema-generator" library.
  *
- * The contents of this interface are validated at run-time against the schema using the Ajv
- * library.
+ * The contents of this interface are validated at run-time against the schema.
  *
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
-
-import type { Immutable } from "../types/Immutable";
-
 export interface CustomStageTSConfig {
   /** Mandatory. The name of the custom stage. */
   name: string;

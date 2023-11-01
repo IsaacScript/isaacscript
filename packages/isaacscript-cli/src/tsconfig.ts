@@ -1,36 +1,35 @@
-import type { Schema } from "ajv";
-import Ajv from "ajv";
+import ajvModule from "ajv";
 import chalk from "chalk";
+import { TSCONFIG_JSON, fatalError, getJSONC } from "isaacscript-common-node";
+import { isObject } from "isaacscript-common-ts";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
-  TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
 import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
-import { fatalError, isRecord } from "./isaacScriptCommonTS.js";
-import { getJSONC } from "./json.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
-const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH, false) as Schema;
+const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH);
+
+// Ajv is messed up: https://github.com/ajv-validator/ajv/issues/2132
+const Ajv = ajvModule.default;
 const ajv = new Ajv();
 const schemaValidate = ajv.compile(isaacScriptSchema);
 
-function getTSConfigJSON(verbose: boolean): Record<string, unknown> {
-  return getJSONC(TSCONFIG_JSON_PATH, verbose);
+function getTSConfigJSON(): Record<string, unknown> {
+  return getJSONC(TSCONFIG_JSON_PATH);
 }
 
-function getIsaacScriptSection(
-  verbose: boolean,
-): Record<string, unknown> | undefined {
-  const tsConfig = getTSConfigJSON(verbose);
+function getIsaacScriptSection(): Record<string, unknown> | undefined {
+  const tsConfig = getTSConfigJSON();
 
   // We allow different kinds of casing for the field name.
   for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
     const field = tsConfig[fieldName];
     if (field !== undefined) {
-      if (!isRecord(field)) {
+      if (!isObject(field)) {
         fatalError(
           `Your "${chalk.green(
             TSCONFIG_JSON_PATH,
@@ -45,8 +44,8 @@ function getIsaacScriptSection(
   return undefined;
 }
 
-export function getFirstTSConfigIncludePath(verbose: boolean): string {
-  const tsConfig = getTSConfigJSON(verbose);
+export function getFirstTSConfigIncludePath(): string {
+  const tsConfig = getTSConfigJSON();
 
   const { include } = tsConfig;
   if (include === undefined) {
@@ -91,10 +90,8 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
  *
  * Most of this function is simply performing input validation.
  */
-export function getCustomStagesFromTSConfig(
-  verbose: boolean,
-): CustomStageTSConfig[] {
-  const isaacScriptSection = getIsaacScriptSection(verbose);
+export function getCustomStagesFromTSConfig(): CustomStageTSConfig[] {
+  const isaacScriptSection = getIsaacScriptSection();
   if (isaacScriptSection === undefined) {
     return [];
   }

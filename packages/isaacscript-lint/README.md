@@ -87,7 +87,7 @@ Create a `.eslintrc.cjs` file in the root of your repository:
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config:
-    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/configs/base.js
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
     "eslint-config-isaacscript/base",
   ],
 
@@ -111,8 +111,6 @@ Note that [the new config format for ESLint that was released in 2023](https://e
 ### Step 3 - `tsconfig.eslint.json`
 
 Create a `tsconfig.eslint.json` file in the root of your repository:
-
-<!-- cspell:ignore Gruntfile -->
 
 ```ts
 // A special TypeScript configuration file, used by ESLint only.
@@ -180,7 +178,7 @@ Additionally, you might also want to install the CSpell extension, which is extr
 
 - [CSpell](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 
-Once installed, these extensions provide the a nice dichotomy:
+Once installed, these extensions provide a nice dichotomy:
 
 - Red squiggly underlines are type-errors from the TypeScript compiler.
 - Yellow squiggly underlines are warnings from ESLint. (Our config uses `eslint-plugin-only-warn` to convert all ESLint errors to warnings.)

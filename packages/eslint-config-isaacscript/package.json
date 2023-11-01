@@ -22,6 +22,17 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "commonjs",
+  "files": [
+    "configs",
+    "base.js",
+    "LICENSE",
+    "mod.js",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "lint": "tsx ./scripts/lint.mts"
+  },
   "dependencies": {
     "confusing-browser-globals": "^1.0.11"
   }

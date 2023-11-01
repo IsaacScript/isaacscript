@@ -22,16 +22,12 @@ mod/resources/**/*.anm2
 
 # @template-customization-start
 
-# NX temporary directory
-tmp
+# Compiled plugins
+packages/isaacscript-cli/plugins/*.cjs
 
 # Docusaurus artifacts
 .docusaurus
 .cache-loader
-
-# "prettier-plugin-organize-imports" is bugged with JSX.
-packages/docs/src/components/HomepageFeatures.js
-packages/docs/src/pages/index.js
 
 # API docs are automatically created by TypeDoc.
 packages/docs/docs/isaacscript-common

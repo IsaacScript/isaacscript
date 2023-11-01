@@ -3,52 +3,105 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build_and_lint:
+  get-build-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts build
+
+  build:
+    needs: get-build-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.get-build-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run build
+
+  get-lint-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
+
+  lint:
+    needs: get-lint-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.get-lint-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run lint
+
+  get-test-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts test
+
+  test:
+    needs: get-test-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.get-test-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run test
+
+  unused:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      #- name: Check for unused files, dependencies, and exports
+      #  run: npx knip
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: yarn
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - run: npx prettier --log-level=warn --check .
 
-      - name: Retrieve the cached "node_modules" directory (if present)
-        uses: actions/cache@v3
-        id: node-cache
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - run: npx cspell --no-progress --no-summary .
+      - run: npx cspell-check-unused-words
 
-      - name: Install dependencies (if the cached directory was not found)
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: yarn install --immutable
-
-      - name: Build every package in the monorepo
-        run: bash build.sh
-
-      - name: Test every package in the monorepo
-        run: bash test.sh
-
-      - name: Lint every package in the monorepo
-        run: bash lint.sh
-
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          ignore_paths: node_modules
-
-      # Uncomment this for SSH debugging of CI actions.
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3
-      #  with:
-      #    limit-access-to-actor: true
+  docs-deploy:
+    needs: [build, lint, test, unused, format, spell-check]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
-        if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
         with:
           ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
           repository: IsaacScript/isaacscript.github.io
@@ -63,11 +116,10 @@ jobs:
       - name: Deploy the documentation website
         id: deploy_documentation_website
         run: bash packages/docs/deploy.sh ${{ github.sha }}
-        if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
 
       - name: Run DocSearch Scraper
         uses: celsiusnarhwal/typesense-scraper@v2
-        if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null' && steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
+        if: steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
         with:
           api-key: ${{ secrets.TYPESENSE_API_KEY }}
           host: ${{ secrets.TYPESENSE_HOST }}
@@ -77,7 +129,7 @@ jobs:
 
   discord:
     name: Discord Failure Notification
-    needs: [build_and_lint]
+    needs: [build, lint, test, unused, format, spell-check, docs-deploy]
     if: always() # This is needed to always run this job, even if the other jobs fail.
     runs-on: ubuntu-latest
     steps:

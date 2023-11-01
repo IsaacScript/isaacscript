@@ -1,27 +1,25 @@
 import chalk from "chalk";
+import { PACKAGE_JSON, isDirectory, isFile } from "isaacscript-common-node";
 import path from "node:path";
-import { CWD, PACKAGE_JSON, PROJECT_NAME } from "./constants.js";
-import { fileExists, isDir, isFile } from "./file.js";
+import { CWD, PROJECT_NAME } from "./constants.js";
+
+const FILE_NAMES_TO_CHECK = [PACKAGE_JSON] as const;
 
 /** We don't check "node_modules" because we might be cloning a fresh IsaacScript project. */
-const SUBDIRECTORIES_TO_CHECK = ["src", "mod"] as const;
+const SUBDIRECTORY_NAMES_TO_CHECK = ["src", "mod"] as const;
 
 // Validate that we are in a directory that looks like an IsaacScript project.
-export function validateInIsaacScriptProject(verbose: boolean): void {
-  const filesToCheck = [PACKAGE_JSON];
-  for (const fileName of filesToCheck) {
+export function validateInIsaacScriptProject(): void {
+  for (const fileName of FILE_NAMES_TO_CHECK) {
     const filePath = path.join(CWD, fileName);
-    if (!fileExists(filePath, verbose) || !isFile(filePath, verbose)) {
+    if (!isFile(filePath)) {
       errorNotExists(fileName, true);
     }
   }
 
-  for (const subdirectoryName of SUBDIRECTORIES_TO_CHECK) {
+  for (const subdirectoryName of SUBDIRECTORY_NAMES_TO_CHECK) {
     const subdirectoryPath = path.join(CWD, subdirectoryName);
-    if (
-      !fileExists(subdirectoryPath, verbose) ||
-      !isDir(subdirectoryPath, verbose)
-    ) {
+    if (!isDirectory(subdirectoryPath)) {
       errorNotExists(subdirectoryName, false);
     }
   }

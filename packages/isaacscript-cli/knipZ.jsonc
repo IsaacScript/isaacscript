@@ -1,0 +1,26 @@
+{
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "entry": [
+    "src/main.ts",
+    "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
+    "src/commands/monitor/saveDatWriter/saveDatWriter.ts",
+  ],
+  "jest": true,
+  "ignore": [
+    ".eslintrc.cjs",
+    "dist/**",
+    "file-templates/**",
+    "src/interfaces/IsaacScriptTSConfig.ts",
+    "src/interfaces/copied/CustomStageTSConfig.ts",
+    "src/interfaces/copied/JSONRoomsFile.ts",
+    "src/plugins/*.ts",
+  ],
+  "ignoreDependencies": [
+    // We want dependant projects to automatically have "npm-check-updates" installed so that they
+    // can run the "update.sh" script faster.
+    "npm-check-updates",
+    // Jest dependencies are installed at the root of the monorepo.
+    "ts-jest",
+    "ts-jest-resolver",
+  ],
+}

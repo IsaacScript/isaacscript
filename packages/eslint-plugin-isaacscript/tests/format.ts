@@ -1,4 +1,4 @@
-import { formatText } from "../src/format";
+import { formatText } from "../src/format"; // eslint-disable-line @typescript-eslint/no-restricted-imports
 
 const FORMAT_TEST_MAX_LENGTH = 100;
 

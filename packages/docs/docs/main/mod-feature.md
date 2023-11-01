@@ -136,27 +136,23 @@ export class GreenCandle extends ModFeature {
 }
 ```
 
-### Manual Instantiation
+### Delayed Initialization
 
 We recommend that you use the `initModFeatures` helper function to instantiate your mod features. That way, the `v` variables will be properly registered with the save data manager.
 
-By default, when a `ModFeature` is instantiated, it will immediately subscribe all of the decorated methods. If you want to defer the callback subscription for some reason, then you can manually instantiate your mod features by passing `false` to the second argument of the constructor like this:
+By default, when a `ModFeature` is instantiated, it will immediately subscribe all of the decorated methods. If you want to defer the callback subscription for some reason, then you can manually instantiate your mod features by passing `false` to the third argument of the constructor like this:
 
 ```ts
-const MOD_FEATURES = [GreenCandle] as const;
+const instantiatedModFeatures = initModFeatures(mod, modFeatures, false);
+```
 
-// At the beginning of your mod, instantiate your features.
-function manuallyInitModFeatures() {
-  for (const constructor of FEATURE_CLASSES) {
-    // - The first argument to the constructor is the upgraded mod object.
-    // - The second argument to the constructor is whether to register the callbacks.
-    const featureClass = new constructor(mod, false);
-    // Next, store the `featureClass` for later, e.g. in a map.
-  }
+Now, `instantiatedModFeatures` will contain an array of the instantiated feature classes, but none of the callbacks will be subscribed and the variables will not be registered with the save data manager. Later on, when you actually need to use a class, you can initialize it with the `init` method:
+
+```ts
+const firstInstantiatedModFeature = instantiatedModFeatures[0];
+if (firstInstantiatedModFeature === undefined) {
+  error("Failed to get the first instantiated mod feature.");
 }
 
-function registerCallbacksOnModFeatures() {
-  // Later on, you can register the callbacks by calling the `init` method:
-  featureClass.init();
-}
+firstInstantiatedModFeature.init();
 ```

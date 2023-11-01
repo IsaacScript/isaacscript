@@ -1,9 +1,7 @@
 import chalk from "chalk";
-import fs from "node:fs";
+import { appendFile, isFile, readFile } from "isaacscript-common-node";
 import path from "node:path";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
-import { fileExists, readFile } from "./file.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
 import { getInputYesNo } from "./prompt.js";
 
 const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
@@ -12,9 +10,7 @@ const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
  * By default, Git Bash for Windows uses MINGW64. This will not work correctly with the prompt
  * library. Try to detect this and warn the end-user.
  */
-export async function checkForWindowsTerminalBugs(
-  verbose: boolean,
-): Promise<void> {
+export async function checkForWindowsTerminalBugs(): Promise<void> {
   if (process.platform !== "win32") {
     return;
   }
@@ -23,10 +19,10 @@ export async function checkForWindowsTerminalBugs(
     return;
   }
 
-  await checkForWindowsBugColor(verbose);
+  await checkForWindowsBugColor();
 }
 
-async function checkForWindowsBugColor(verbose: boolean) {
+async function checkForWindowsBugColor() {
   if (process.env["FORCE_COLOR"] === "true") {
     return;
   }
@@ -49,28 +45,20 @@ async function checkForWindowsBugColor(verbose: boolean) {
     return;
   }
 
-  applyFixesToBashProfile(verbose);
+  applyFixesToBashProfile();
 }
 
-function applyFixesToBashProfile(verbose: boolean) {
+function applyFixesToBashProfile() {
   // Check to see if the Bash profile has data.
-  const bashProfileContents = fileExists(BASH_PROFILE_PATH, verbose)
-    ? readFile(BASH_PROFILE_PATH, verbose)
+  const bashProfileContents = isFile(BASH_PROFILE_PATH)
+    ? readFile(BASH_PROFILE_PATH)
     : "";
 
   const appendText = getBashProfileAppendText(bashProfileContents);
-
-  try {
-    fs.appendFileSync(BASH_PROFILE_PATH, appendText);
-  } catch (error) {
-    fatalError(`Failed to append text to "${BASH_PROFILE_PATH}":`, error);
-  }
+  appendFile(BASH_PROFILE_PATH, appendText);
 
   console.log(
-    chalk.green("Complete!"),
     `The terminal fixes have been added to: ${chalk.green(BASH_PROFILE_PATH)}`,
-  );
-  console.log(
     chalk.red(
       "Please close and re-open your terminal, then run this program again.",
     ),

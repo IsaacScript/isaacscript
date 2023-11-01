@@ -13,7 +13,5 @@ mod/main.lua
 # ------------------------------
 # GitHub Node.gitignore template
 # https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore
-# @template-ts-start
 # cspell:disable
-# @template-ts-end
 # ------------------------------

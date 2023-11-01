@@ -3,10 +3,18 @@
 {
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "rootDir": ".",
+    // TSTL requires the "baseUrl" option when "paths" is specified. (It cannot be in the
+    // project-specific "tsconfig.json" file either.)
     "baseUrl": ".",
 
-    // Performance optimization; see: https://www.npmjs.com/package/tslib
-    "importHelpers": true,
+    "paths": {
+      "isaacscript-common": ["./packages/isaacscript-common/src/index.ts"],
+      "isaacscript-common-node": [
+        "./packages/isaacscript-common-node/src/index.ts",
+      ],
+      "isaacscript-common-ts": [
+        "./packages/isaacscript-common-ts/src/index.ts",
+      ],
+    },
   },
 }

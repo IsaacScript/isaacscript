@@ -1,5 +1,8 @@
+import { PACKAGE_JSON, TSCONFIG_JSON, dirName } from "isaacscript-common-node";
 import os from "node:os";
 import path from "node:path";
+
+const __dirname = dirName();
 
 // Miscellaneous
 export const CWD = process.cwd();
@@ -10,9 +13,6 @@ export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
 export const MOD_UPLOADER_PATH =
   "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
 export const PROJECT_NAME = "IsaacScript";
-export const UPDATE_SCRIPT = "update.sh";
-export const BUILD_SCRIPT = "build.sh";
-export const LINT_SCRIPT = "lint.sh";
 
 // `isaacscript`
 export const REPO_ROOT = path.join(__dirname, "..");
@@ -90,9 +90,7 @@ export const ISAACSCRIPT_SCHEMA_PATH = path.join(
 // `project`
 export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
-export const TSCONFIG_JSON = "tsconfig.json";
 export const TSCONFIG_JSON_PATH = path.join(CWD, TSCONFIG_JSON);
-export const PACKAGE_JSON = "package.json";
 export const PACKAGE_JSON_PATH = path.join(CWD, PACKAGE_JSON);
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 

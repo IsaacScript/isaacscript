@@ -5,6 +5,14 @@
   "keywords": ["isaac", "mod", "rebirth", "afterbirth", "repentance"],
   "license": "GPL-3.0",
   "type": "module",
+  "scripts": {
+    "build": "tstl",
+    "lint": "tsx ./scripts/lint.ts",
+    "nuke": "isaacscript nuke",
+    "start": "isaacscript monitor",
+    "publish": "isaacscript publish",
+    "update": "isaacscript update"
+  },
   "dependencies": {
     "isaac-typescript-definitions": "^0.0.1",
     "isaacscript-common": "^0.0.1"

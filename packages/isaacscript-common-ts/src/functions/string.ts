@@ -34,6 +34,15 @@ export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
 }
 
+export function kebabCaseToCamelCase(text: string): string {
+  return text.replaceAll(/-./g, (match) => {
+    const firstLetterOfWord = match[1];
+    return firstLetterOfWord === undefined
+      ? ""
+      : firstLetterOfWord.toUpperCase();
+  });
+}
+
 /**
  * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
  * undefined if the submitted string was not a proper Semantic Version string.

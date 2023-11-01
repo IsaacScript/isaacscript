@@ -1,25 +1,28 @@
 import chalk from "chalk";
+import {
+  deleteFileOrDirectory,
+  fatalError,
+  isDirectory,
+} from "isaacscript-common-node";
+import fs from "node:fs";
 import path from "node:path";
 import { PROJECT_NAME } from "../../constants.js";
-import { deleteFileOrDirectory, fileExists, isDir } from "../../file.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 import { getInputYesNo } from "../../prompt.js";
 
 export async function checkModTargetDirectory(
   modsDirectory: string,
   projectName: string,
   yes: boolean,
-  verbose: boolean,
 ): Promise<void> {
   const modTargetPath = path.join(modsDirectory, projectName);
-  if (!fileExists(modTargetPath, verbose)) {
+  if (!fs.existsSync(modTargetPath)) {
     return;
   }
 
-  const fileType = isDir(modTargetPath, verbose) ? "directory" : "file";
+  const fileType = isDirectory(modTargetPath) ? "directory" : "file";
 
   if (yes) {
-    deleteFileOrDirectory(modTargetPath, verbose);
+    deleteFileOrDirectory(modTargetPath);
     console.log(`Deleted ${fileType}: ${chalk.green(modTargetPath)}`);
     return;
   }
@@ -38,5 +41,5 @@ export async function checkModTargetDirectory(
     fatalError("Ok then. Goodbye.");
   }
 
-  deleteFileOrDirectory(modTargetPath, verbose);
+  deleteFileOrDirectory(modTargetPath);
 }

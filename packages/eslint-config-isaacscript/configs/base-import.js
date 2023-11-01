@@ -217,7 +217,14 @@ const config = {
 
     // Disable some specific rules in config files.
     {
-      files: [".remarkrc.mjs", "prettier.config.mjs"],
+      files: [
+        ".remarkrc.mjs",
+        ".remarkrc.js",
+        "prettier.config.mjs",
+        "prettier.config.js",
+        "typedoc.config.mjs",
+        "typedoc.config.js",
+      ],
       rules: {
         "import/no-default-export": "off",
       },

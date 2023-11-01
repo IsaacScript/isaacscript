@@ -1,0 +1,28 @@
+{
+  "extends": "../../isaacscript-tsconfig/tsconfig.node.json",
+
+  "compilerOptions": {
+    // Plugins need to be in CJS format so that CJS mods can use them.
+    "module": "CommonJS",
+    "moduleResolution": "Node10",
+  },
+
+  "include": [
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
+}

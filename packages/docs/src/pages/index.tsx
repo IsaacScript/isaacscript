@@ -6,7 +6,7 @@ import Layout from "@theme/Layout";
 import clsx from "clsx";
 import React from "react";
 import HomepageFeatures from "../components/index";
-import styles from "./index.module.css";
+import styles from "./index.module.css"; // eslint-disable-line @typescript-eslint/no-restricted-imports
 
 const CENTER_STYLE = {
   textAlign: "center",

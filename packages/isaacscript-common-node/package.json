@@ -1,0 +1,37 @@
+{
+  "name": "isaacscript-common-node",
+  "version": "1.0.0",
+  "description": "Helper functions for TypeScript projects.",
+  "keywords": [],
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx ./scripts/build.ts",
+    "lint": "tsx ./scripts/lint.ts"
+  },
+  "dependencies": {
+    "@arktype/fs": "^0.0.1",
+    "chalk": "^5.3.0",
+    "esbuild": "^0.19.5",
+    "execa": "^8.0.1",
+    "npm-check-updates": "^16.14.6"
+  }
+}

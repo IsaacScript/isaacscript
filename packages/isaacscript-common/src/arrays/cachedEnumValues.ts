@@ -22,6 +22,7 @@ import {
   TrinketSlot,
 } from "isaac-typescript-definitions";
 import { HealthType } from "../enums/HealthType";
+import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { PlayerStat } from "../enums/PlayerStat";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { getEnumValues } from "../functions/enums";
@@ -46,6 +47,9 @@ export const GRID_ENTITY_TYPE_VALUES: readonly GridEntityType[] =
 
 export const GRID_ENTITY_XML_TYPE_VALUES: readonly GridEntityXMLType[] =
   getEnumValues(GridEntityXMLType);
+
+export const MOD_CALLBACK_CUSTOM_VALUES: readonly ModCallbackCustom[] =
+  getEnumValues(ModCallbackCustom);
 
 export const ITEM_CONFIG_TAG_VALUES: readonly ItemConfigTag[] =
   getEnumValues(ItemConfigTag);

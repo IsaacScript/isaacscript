@@ -1,3 +1,5 @@
+import { strictEqual } from "node:assert";
+import test from "node:test";
 import { getTruncatedText } from "./check.js";
 
 test("no markers", () => {
@@ -8,7 +10,7 @@ line 3
 `.trim();
 
   const { text } = getTruncatedText("test", templateText, new Set(), new Set());
-  expect(text).toBe(templateText);
+  strictEqual(text, templateText);
 });
 
 test("customization marker", () => {
@@ -26,7 +28,7 @@ line 3
   `.trim();
 
   const { text } = getTruncatedText("test", templateText, new Set(), new Set());
-  expect(text).toBe(expectedTemplateText);
+  strictEqual(text, expectedTemplateText);
 });
 
 test("ignore block marker part 1", () => {
@@ -49,9 +51,9 @@ line 3
     new Set(),
     new Set(),
   );
-  expect(text).toBe(parsedTemplateText);
-  expect(ignoreLines.size).toBe(1);
-  expect([...ignoreLines][0]).toBe("line 2");
+  strictEqual(text, parsedTemplateText);
+  strictEqual(ignoreLines.size, 1);
+  strictEqual([...ignoreLines][0], "line 2");
 });
 
 test("ignore block marker part 2", () => {
@@ -72,7 +74,7 @@ line 3
     new Set(["line 2"]),
     new Set(),
   );
-  expect(text).toBe(expectedTemplateText);
+  strictEqual(text, expectedTemplateText);
 });
 
 test("ignore next line part 1", () => {
@@ -94,9 +96,9 @@ line 3
     new Set(),
     new Set(),
   );
-  expect(linesBeforeIgnore.size).toBe(1);
-  expect([...linesBeforeIgnore][0]).toBe("line 1");
-  expect(text).toBe(expectedTemplateText);
+  strictEqual(linesBeforeIgnore.size, 1);
+  strictEqual([...linesBeforeIgnore][0], "line 1");
+  strictEqual(text, expectedTemplateText);
 });
 
 test("ignore next line part 2", () => {
@@ -117,5 +119,5 @@ line 3
     new Set(),
     new Set(["line 1"]),
   );
-  expect(text).toBe(expectedTemplateText);
+  strictEqual(text, expectedTemplateText);
 });

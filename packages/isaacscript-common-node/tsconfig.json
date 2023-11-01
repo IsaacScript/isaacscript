@@ -1,0 +1,36 @@
+{
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.node.json",
+    "../../tsconfig.monorepo.json",
+  ],
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "outDir": "dist",
+
+    // Needed since this is a library.
+    "declaration": true,
+    "declarationMap": true,
+  },
+
+  "include": [
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
+
+  "exclude": ["dist", "scripts"],
+}

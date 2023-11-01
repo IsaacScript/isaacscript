@@ -4,6 +4,15 @@ import { isNumber, isString } from "./types";
 import { assertDefined, iRange } from "./utils";
 
 /**
+ * In Lua, tables can have number keys, but since this is a type only being validated in TypeScript,
+ * we can match the JavaScript definition, meaning that we can omit the number from the keys.
+ */
+export type TranspiledEnum = Record<
+  string,
+  string | number | BitFlag | BitFlag128
+>;
+
+/**
  * TypeScriptToLua will transpile TypeScript number enums to Lua tables that have a double mapping.
  * Thus, when you iterate over them, you will get both the names of the enums and the values of the
  * enums, in a random order. Use this helper function to get the entries of the enum with the
@@ -21,7 +30,7 @@ import { assertDefined, iRange } from "./utils";
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumEntries<T>(
+export function getEnumEntries<T extends TranspiledEnum>(
   transpiledEnum: T,
 ): Array<[key: string, value: T[keyof T]]> {
   // The values cannot simply be type `T` due to the special construction of bit flag enums.
@@ -61,17 +70,13 @@ export function getEnumEntries<T>(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumKeys(
-  transpiledEnum: Record<string | number, string | number>,
-): string[] {
+export function getEnumKeys(transpiledEnum: TranspiledEnum): string[] {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([key, _value]) => key);
 }
 
 /** Helper function to get the amount of entries inside of an enum. */
-export function getEnumLength(
-  transpiledEnum: Record<string | number, string | number>,
-): int {
+export function getEnumLength(transpiledEnum: TranspiledEnum): int {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.length;
 }
@@ -93,9 +98,7 @@ export function getEnumLength(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumNames(
-  transpiledEnum: Record<string | number, string | number>,
-): string[] {
+export function getEnumNames(transpiledEnum: TranspiledEnum): string[] {
   const enumNames: string[] = [];
 
   for (const [key, _value] of pairs(transpiledEnum)) {
@@ -127,7 +130,9 @@ export function getEnumNames(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
+export function getEnumValues<T extends TranspiledEnum>(
+  transpiledEnum: T,
+): Array<T[keyof T]> {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([_key, value]) => value);
 }
@@ -140,7 +145,9 @@ export function getEnumValues<T>(transpiledEnum: T): Array<T[keyof T]> {
  *
  * Throws an error if the provided enum is empty.
  */
-export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
+export function getHighestEnumValue<T extends TranspiledEnum>(
+  transpiledEnum: T,
+): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
   const lastElement = enumValues.at(-1);
@@ -160,7 +167,9 @@ export function getHighestEnumValue<T>(transpiledEnum: T): T[keyof T] {
  *
  * Throws an error if the provided enum is empty.
  */
-export function getLowestEnumValue<T>(transpiledEnum: T): T[keyof T] {
+export function getLowestEnumValue<T extends TranspiledEnum>(
+  transpiledEnum: T,
+): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
 
   const firstElement = enumValues[0];
@@ -183,7 +192,7 @@ export function getLowestEnumValue<T>(transpiledEnum: T): T[keyof T] {
  *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
-export function getRandomEnumValue<T>(
+export function getRandomEnumValue<T extends TranspiledEnum>(
   transpiledEnum: T,
   seedOrRNG: Seed | RNG | undefined,
   exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
@@ -193,8 +202,8 @@ export function getRandomEnumValue<T>(
 }
 
 /** Helper function to validate that a particular value exists inside of an enum. */
-export function isEnumValue<T extends Record<string, number | string>>(
-  value: number | string,
+export function isEnumValue<T extends TranspiledEnum>(
+  value: number | string | BitFlag | BitFlag128,
   transpiledEnum: T,
 ): value is T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
@@ -218,7 +227,7 @@ export function isEnumValue<T extends Record<string, number | string>>(
  */
 export function validateCustomEnum(
   transpiledEnumName: string,
-  transpiledEnum: unknown,
+  transpiledEnum: TranspiledEnum,
 ): void {
   for (const [key, value] of getEnumEntries(transpiledEnum)) {
     if (value === -1) {
@@ -234,7 +243,7 @@ export function validateCustomEnum(
  *
  * This is useful to automate checking large enums for typos.
  */
-export function validateEnumContiguous<T>(
+export function validateEnumContiguous<T extends TranspiledEnum>(
   transpiledEnumName: string,
   transpiledEnum: T,
 ): void {

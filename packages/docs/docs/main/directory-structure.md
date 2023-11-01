@@ -119,13 +119,7 @@ This contains a list of files that should not be automatically formatted. By def
 
 <br />
 
-### `build.sh`
-
-This is a helper script to compile the project. (It is also used in CI.)
-
-<br />
-
-### `cspell.json`
+### `cspell.jsonc`
 
 This is the configuration file for [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
 
@@ -142,18 +136,6 @@ This is the configuration file for `isaacscript`. It contains only per-user sett
 ### `LICENCE`
 
 This is the licence for your project. By default, `isaacscript init` installs [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html). Since the type definitions are licensed as GPLv3, you must use GPLv3 or another compatible license in your IsaacScript project.
-
-<br />
-
-### `lint.sh`
-
-This is a helper script to lint and spell-check the project. (It is also used in CI.)
-
-<br />
-
-### `nuke.sh`
-
-This is a helper script to re-download all dependencies from scratch.
 
 <br />
 
@@ -192,21 +174,9 @@ If you need to modify a specific option of Prettier, you can edit this file.
 
 <br />
 
-### `publish.sh`
-
-This is a helper script to run `npx isaacscript publish`.
-
-<br />
-
 ### `README.md`
 
 This is the README file for your project, which should contain a brief description of your mod. It uses [Markdown](https://guides.github.com/features/mastering-markdown/), which is the standard format for README files.
-
-<br />
-
-### `run.sh`
-
-This is a helper script to run `npx isaacscript` (which is short for `npx isaacscript monitor`).
 
 <br />
 
@@ -215,12 +185,6 @@ This is a helper script to run `npx isaacscript` (which is short for `npx isaacs
 These are the configuration files for the [TypeScript](https://www.typescriptlang.org/) programming language. The main one is `tsconfig.json`. `tsconfig.eslint.json` extends the main one to make ESLint work properly.
 
 Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
-
-<br />
-
-### `update.sh`
-
-This is a helper script to automatically update the project dependencies.
 
 <br />
 

@@ -6,7 +6,9 @@ export type Command =
   | "publish"
   | "publish-ts"
   | "check"
-  | "check-ts";
+  | "check-ts"
+  | "update"
+  | "nuke";
 
 export const DEFAULT_COMMAND = "monitor";
 

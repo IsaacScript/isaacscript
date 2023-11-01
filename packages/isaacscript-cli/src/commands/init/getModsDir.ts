@@ -1,8 +1,7 @@
 import chalk from "chalk";
+import { fatalError, isDirectory } from "isaacscript-common-node";
 import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
-import { fileExists, isDir } from "../../file.js";
-import { fatalError } from "../../isaacScriptCommonTS.js";
 import type { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 
@@ -33,7 +32,6 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 export async function getModsDir(
   args: Args,
   typeScript: boolean,
-  verbose: boolean,
 ): Promise<string | undefined> {
   if (typeScript) {
     return undefined;
@@ -47,7 +45,7 @@ export async function getModsDir(
 
   const defaultModsPath = getDefaultModsPath(process.platform);
 
-  if (fileExists(defaultModsPath, verbose) && isDir(defaultModsPath, verbose)) {
+  if (isDirectory(defaultModsPath)) {
     return defaultModsPath;
   }
 
@@ -62,19 +60,11 @@ export async function getModsDir(
     fatalError("Error: You did not provide a response; exiting.");
   }
 
-  if (!fileExists(modsDir, verbose)) {
+  if (!isDirectory(modsDir)) {
     fatalError(
       `Error: The directory of "${chalk.green(
         modsDir,
       )}" does not exist. Exiting.`,
-    );
-  }
-
-  if (!isDir(modsDir, verbose)) {
-    fatalError(
-      `Error: The path of "${chalk.green(
-        modsDir,
-      )}" is not a directory. Exiting.`,
     );
   }
 

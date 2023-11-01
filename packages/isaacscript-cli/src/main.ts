@@ -2,6 +2,13 @@
 
 import chalk from "chalk";
 import figlet from "figlet";
+import {
+  fatalError,
+  getPackageJSONVersion,
+  getPackageManagerInstallCommand,
+  nukeDependencies,
+  updatePackageJSON,
+} from "isaacscript-common-node";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { Config } from "./classes/Config.js";
@@ -12,13 +19,9 @@ import { init } from "./commands/init/init.js";
 import { monitor } from "./commands/monitor/monitor.js";
 import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
-import { PROJECT_NAME } from "./constants.js";
+import { CWD, PROJECT_NAME, REPO_ROOT } from "./constants.js";
 import { execShellString } from "./exec.js";
-import { fatalError } from "./isaacScriptCommonTS.js";
-import {
-  getPackageManagerInstallCommand,
-  getPackageManagerUsedForExistingProject,
-} from "./packageManager.js";
+import { getPackageManagerUsedForExistingProject } from "./packageManager.js";
 import type { Args } from "./parseArgs.js";
 import { parseArgs } from "./parseArgs.js";
 import { promptInit } from "./prompt.js";
@@ -26,26 +29,22 @@ import type { Command } from "./types/Command.js";
 import { DEFAULT_COMMAND, isIsaacScriptModCommand } from "./types/Command.js";
 import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
 import { validateNodeVersion } from "./validateNodeVersion.js";
-import { getVersionOfThisPackage } from "./version.js";
 
-main().catch((error) => {
-  fatalError(`${PROJECT_NAME} failed:`, error);
-});
+await main();
 
 async function main(): Promise<void> {
   sourceMapSupport.install();
   promptInit();
 
   const args = parseArgs();
-  const verbose = args.verbose === true;
   const command = getCommandFromArgs(args);
 
   validateNodeVersion();
 
-  printBanner(command, verbose);
+  printBanner(command);
 
   // Pre-flight checks
-  await checkForWindowsTerminalBugs(verbose);
+  await checkForWindowsTerminalBugs();
 
   await handleCommands(command, args);
 
@@ -62,7 +61,7 @@ function getCommandFromArgs(args: Args): Command {
     : (firstPositionArg as Command);
 }
 
-function printBanner(command: Command, verbose: boolean) {
+function printBanner(command: Command) {
   // Skip displaying the banner for specific commands.
   if (command.startsWith("check")) {
     return;
@@ -71,8 +70,8 @@ function printBanner(command: Command, verbose: boolean) {
   const banner = figlet.textSync(PROJECT_NAME);
   console.log(chalk.green(banner));
 
-  const version = getVersionOfThisPackage(verbose);
-  const versionString = `v${version}`;
+  const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
+  const versionString = `v${isaacScriptCLIVersion}`;
   const bannerLines = banner.split("\n");
   const firstBannerLine = bannerLines[0];
   if (firstBannerLine === undefined) {
@@ -100,7 +99,7 @@ async function handleCommands(command: Command, args: Args) {
     isIsaacScriptModCommand(command)
   ) {
     if (!skipProjectChecks) {
-      validateInIsaacScriptProject(verbose);
+      validateInIsaacScriptProject();
     }
 
     const shouldDisplayOutput = !command.startsWith("check");
@@ -148,6 +147,21 @@ async function handleCommands(command: Command, args: Args) {
       check(args, true);
       break;
     }
+
+    case "update": {
+      const hasNewDependencies = await updatePackageJSON(CWD);
+      const msg = hasNewDependencies
+        ? "Successfully installed new Node.js dependencies."
+        : "There were no new Node.js dependency updates.";
+      console.log(msg);
+      break;
+    }
+
+    case "nuke": {
+      nukeDependencies(CWD);
+      console.log("Successfully reinstalled Node.js dependencies.");
+      break;
+    }
   }
 }
 
@@ -156,7 +170,7 @@ function ensureDepsAreInstalled(
   shouldDisplayOutput: boolean,
   verbose: boolean,
 ) {
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
   const command = getPackageManagerInstallCommand(packageManager);
 
   if (shouldDisplayOutput) {

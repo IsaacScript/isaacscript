@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "ignore": [
+    ".eslintrc.cjs",
+    "src/classes/features/other/extraConsoleCommands/commands.ts",
+    "typedoc.config.cjs",
+  ],
+  "exclude": ["classMembers"],
+}
