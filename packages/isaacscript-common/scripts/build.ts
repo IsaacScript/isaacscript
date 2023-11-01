@@ -1,4 +1,11 @@
-import { $, appendFile, buildScript, cp, rm } from "isaacscript-common-node";
+import {
+  $,
+  $s,
+  appendFile,
+  buildScript,
+  cp,
+  rm,
+} from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
 
@@ -37,7 +44,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
   // not work:
   // https://github.com/microsoft/rushstack/issues/1886
   // https://github.com/timocov/dts-bundle-generator/issues/218
-  /// $s`api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
+  $s`npx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
 
   // API Extractor will make a "tsdoc-metadata.json" file, which we don't need.
   const metadataJSONPath = path.join(
