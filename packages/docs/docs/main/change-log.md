@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 25th, 2023 (Unreleased)
+## November 1st, 2023 (Unreleased)
 
 - Helper functions that deal with randomness now require you to pass the seed. If you want unseeded behavior, then you must explicitly pass `undefined`.
 - Added the following helper functions:
@@ -30,6 +30,8 @@ This page lists the changes to the IsaacScript framework.
   - `UltraGreedierState`
   - `WarState`
   - `WarWithoutHorseState`
+- Removed the following helper types:
+  - `Expand`
 
 ## October 18th, 2023
 
@@ -440,12 +442,12 @@ This page lists the changes to the IsaacScript framework.
   - `hasDoorType`
 - Changed the following helper functions:
   - `spawnPersistentEntity` - Now returns an object instead of a tuple.
-- Deleted the following helper functions:
+- Removed the following helper functions:
   - `getCollectibleIndex` (use `getPickupIndex` instead)
 - Added the following custom callbacks:
   - `POST_USE_PILL_FILTER` (which also passes the pill color)
   - `POST_GAME_END_FILTER`
-- Deleted the following custom callbacks:
+- Removed the following custom callbacks:
   - `POST_COLLECTIBLE_INIT_FIRST` (use `POST_PICKUP_INIT_FIRST` instead)
 - The `pills` command will now spawn horse pills in addition to normal pills.
 
@@ -570,7 +572,7 @@ This page lists the changes to the IsaacScript framework.
 
 ### `package.json`
 
-IsaacScript mods now require that `isaacscript-tsconfig` is listed as a dependency in your `package.json` file. In other words, type one of the following commands:
+IsaacScript mods now require that `isaacscript-tsconfig` is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
 
 ```sh
 # If you use npm:
@@ -608,7 +610,7 @@ pnpm add isaacscript-tsconfig
   - `newReadonlyColor`
   - `newReadonlyKColor`
   - `getReversedMap`
-- Deleted the following helper types:
+- Removed the following helper types:
   - `HasAllEnumKeys` (use `Record` instead)
 - Added the following helper constructors:
   - `ReadonlyMap`
@@ -635,7 +637,7 @@ pnpm add isaacscript-tsconfig
   - `doesVectorHaveLength`
   - `getNumRoomsVisited`
   - `getMysteriousPaperEffectForFrame`
-- Deleted the following helper functions:
+- Removed the following helper functions:
   - `printConsole` (use `print` instead)
   - `isUserDefinedTSTLClass`
 - Added the following enums:
@@ -805,7 +807,7 @@ pnpm add isaacscript-tsconfig
   - `getCollectibleTypesForTransformation` --> `getCollectiblesForTransformation`
   - `getEdenPassives` --> `getEdenPassiveCollectibles`
   - `getRandomEdenPassive` --> `getRandomEdenPassiveCollectible`
-- Deleted the following helper functions:
+- Removed the following helper functions:
   - `isIsaacScriptCommonClass`
   - `isVanillaTSTLClass`
   - `getPlayerNumCollectiblesWithTag` (use `getPlayerCollectiblesWithTag` instead)
@@ -871,8 +873,8 @@ pnpm add isaacscript-tsconfig
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`
-  - `irange` --> `iRange`
-  - `erange` --> `eRange`
+  - `irange` --> `iRange` <!-- cspell:disable-line -->
+  - `erange` --> `eRange` <!-- cspell:disable-line -->
 - Changed the following helper functions:
   - `iRange` and `eRange` now take an optional `increment` argument.
 - Added the following enums:
@@ -948,7 +950,7 @@ pnpm add isaacscript-tsconfig
   - `maze` (for permanent Curse of the Maze)
   - `blind` (for permanent Curse of the Blind)
   - `giant` (for permanent Curse of the Giant)
-- Deleted the following custom commands:
+- Removed the following custom commands:
   - `eh` (use `eternalHearts` instead)
   - `bh` (use `blackHearts` instead)
 
@@ -1146,7 +1148,7 @@ pnpm add isaacscript-tsconfig
   - `POST_GRID_ENTITY_CUSTOM_RENDER`
   - `POST_GRID_ENTITY_CUSTOM_COLLISION`
   - `POST_GRID_ENTITY_CUSTOM_BROKEN`
-- Deleted the following custom callbacks:
+- Removed the following custom callbacks:
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 - Changed the following custom callbacks:
   - `POST_FLIP` and `POST_FIRST_FLIP` now pass the old player object in addition to the new one.
@@ -1366,7 +1368,7 @@ pnpm add isaacscript-tsconfig
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
   - `iterateTableDeterministically` --> `iterateTableInOrder`
-- Deleted the following helper functions:
+- Removed the following helper functions:
   - `ensureAllCases` - This is no longer needed with the new linting rules. See the above explanation.
 - Added the following constants:
   - `NUM_PILLS_IN_POOL`
@@ -1413,7 +1415,7 @@ pnpm add isaacscript-tsconfig
 
 ### `package.json`
 
-IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your `package.json` file. In other words, type one of the following commands:
+IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
 
 ```sh
 # If you use npm:
@@ -1585,11 +1587,11 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 - All enums are now local instead of global. The global declarations have been removed, which forces you to use the local ones. Doing this has several advantages, at the small cost of having to auto-import more things. See [the docs](https://isaacscript.github.io/main/gotchas#local-enums-and-importing) for more info.
 - Bit flags are now represented as a `BitFlags` type. This means that the Isaac API now has real type safety for all bit flags! See [the docs](https://isaacscript.github.io/main/gotchas#bit-flags) for more info.
 - Renamed the following helper functions:
-  - `range` --> `irange`
+  - `range` --> `irange` <!-- cspell:disable-line -->
 - Renamed the following enums:
   - `PillEffectClass` --> `ItemConfigPillEffectClass`
   - `PillEffectType` --> `ItemConfigPillEffectType`
-- Deleted the following enums:
+- Removed the following enums:
   - `CardType` (since it was almost the same thing as `ItemConfigCardType`)
 - When registering the `POST_PEFFECT_UPDATE_REORDERED` callback, the second argument is now a `PlayerVariant` instead of a `PlayerType`. It now takes a `PlayerType` as a third argument.
 
@@ -1603,7 +1605,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `NUM_TRINKET_TYPES` / `MAX_TRINKET_TYPE` / `NUM_VANILLA_TRINKET_TYPES` / `MAX_VANILLA_TRINKET_TYPE`
 - Added the following helper functions:
   - `doorSlotFlagToDoorSlot`
-  - `erange` (for exclusive ranges)
+  - `erange` (for exclusive ranges) <!-- cspell:disable-line -->
   - `getArrayIndexes`
   - `getEnumEntries`
   - `getGridEntityID`
@@ -3033,8 +3035,8 @@ You can still use `null` in your own variables, but make sure that it is for var
     - `isaacscript-lint` - The linting config.
     - `isaacscript-common` - Optional helper functions that you can use in your mods.
     - `isaac-typescript-definitions` - Provides the types for all the Isaac API classes, like `EntityPlayer` and so forth.
-  - If you are upgrading your existing mod to the latest version of IsaacScript, simply add the 3 extra dependencies to your `package.json` file, and everything should work the way it did before.
-  - Remember that you can use the `update.sh` helper script to update all of your dependencies at once.
+  - If you are upgrading your existing mod to the latest version of IsaacScript, simply add the 3 extra dependencies to your "package.json" file, and everything should work the way it did before.
+  - Remember that you can use `npx isaacscript update` to update all of your dependencies at once.
 - Added Algolia search to the IsaacScript website.
 - Added the following enums:
   - `DogmaVariant`
@@ -3083,6 +3085,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `publish.sh` - helper script to run `npx isaacscript publish`
   - `run.sh` - helper script to run `npx isaacscript`
   - `update.sh` - helper script to automatically update project dependencies
+  - `nuke.sh` - helper script to automatically reinstall project dependencies
 
 ## July 20th, 2021
 

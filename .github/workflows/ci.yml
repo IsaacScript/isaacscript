@@ -3,37 +3,104 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build_and_lint:
+  build-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts build
+
+  build:
+    needs: build-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.build-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run build
+
+  lint-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
+
+  lint:
+    needs: lint-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.lint-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run lint
+
+  test-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts test
+
+  test:
+    needs: test-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.test-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run test
+
+  unused:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: yarn
+      #- name: Check for unused files, dependencies, and exports
+      #  run: npx knip
 
-      - name: Retrieve the cached "node_modules" directory (if present)
-        uses: actions/cache@v3
-        id: node-cache
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
 
-      - name: Install dependencies (if the cached directory was not found)
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+      - name: Check that the entire repository is formatted with Prettier
+        # "--log-level=warn" makes it only output errors.
+        run: npx prettier --log-level=warn --check .
 
-      - name: Build every package in the monorepo
-        run: bash build.sh
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
 
-      - name: Test every package in the monorepo
-        run: bash test.sh
+      - name: Spell check the entire repository
+        # "--no-progress" and "--no-summary" make it only output errors.
+        run: npx cspell --no-progress --no-summary .
 
-      - name: Lint every package in the monorepo
-        run: bash lint.sh
+  docs-deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
@@ -66,7 +133,7 @@ jobs:
 
   discord:
     name: Discord Failure Notification
-    needs: [build_and_lint]
+    needs: [lint, unused, format, spell-check, docs-deploy]
     if: always() # This is needed to always run this job, even if the other jobs fail.
     runs-on: ubuntu-latest
     steps:

@@ -208,7 +208,7 @@ export function getPackageJSONVersion(
  *                          current working directory will be used.
  * @param dependencyNames The name of the dependency to check for.
  */
-export function packageJSONHasDep(
+export function packageJSONHasDependency(
   filePathOrDirPath: string | undefined,
   ...dependencyNames: string[]
 ): boolean {
@@ -232,4 +232,27 @@ export function packageJSONHasDep(
   return dependencyNames.some((dependencyName) =>
     dependencySet.has(dependencyName),
   );
+}
+
+/**
+ * Helper function to check if a "package.json" file has a particular script. This will print an
+ * error message and exit the program if the "package.json" file cannot be found or is otherwise
+ * invalid.
+ *
+ * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
+ *                          which contains a "package.json" file. If undefined is passed, the
+ *                          current working directory will be used.
+ * @param scriptName The name of the script to check for.
+ */
+export function packageJSONHasScript(
+  filePathOrDirPath: string | undefined,
+  scriptName: string,
+): boolean {
+  const scripts = getPackageJSONScripts(filePathOrDirPath);
+  if (scripts === undefined) {
+    return false;
+  }
+
+  const script = scripts[scriptName];
+  return script !== undefined;
 }

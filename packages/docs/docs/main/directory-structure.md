@@ -151,12 +151,6 @@ This is a helper script to lint and spell-check the project. (It is also used in
 
 <br />
 
-### `nuke.sh`
-
-This is a helper script to re-download all dependencies from scratch.
-
-<br />
-
 ### `package.json`
 
 This is the configuration file for [npm](https://www.npmjs.com/), the Node package manager. It contains a description of your project and a list of all of the dependencies.
@@ -215,12 +209,6 @@ This is a helper script to run `npx isaacscript` (which is short for `npx isaacs
 These are the configuration files for the [TypeScript](https://www.typescriptlang.org/) programming language. The main one is `tsconfig.json`. `tsconfig.eslint.json` extends the main one to make ESLint work properly.
 
 Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
-
-<br />
-
-### `update.sh`
-
-This is a helper script to automatically update the project dependencies.
 
 <br />
 

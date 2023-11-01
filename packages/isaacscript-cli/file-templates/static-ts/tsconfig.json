@@ -1,6 +1,6 @@
 // The configuration file for TypeScript.
 {
-  // We extend the standard IsaacScript config:
+  // We extend the IsaacScript config for Node.js:
   // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.node.json
   "extends": "isaacscript-tsconfig/tsconfig.node.json",
 

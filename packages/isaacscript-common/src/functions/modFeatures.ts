@@ -19,19 +19,24 @@ import type { ModUpgraded } from "../classes/ModUpgraded";
  * initModFeatures(mod, MOD_FEATURES);
  * ```
  *
+ * @param mod The upgraded mod to use.
+ * @param modFeatures An array of the feature classes that you have in your mod.
+ * @param init Optional. Whether to automatically add the callbacks on the feature. Defaults to
+ *             true.
  * @returns An array of the instantiated features in the same order that the constructors were
  *          passed in. (In most cases, you probably won't need the returned array.)
  */
 export function initModFeatures<T extends ReadonlyArray<typeof ModFeature>>(
   mod: ModUpgraded,
   modFeatures: T,
+  init = true,
 ): { [K in keyof T]: InstanceType<T[K]> } {
   const instantiatedModFeatures: ModFeature[] = [];
 
   for (const modFeature of modFeatures) {
     // eslint-disable-next-line new-cap
     const instantiatedModFeature = new modFeature(mod, false);
-    instantiatedModFeature.init();
+    instantiatedModFeature.init(init);
 
     instantiatedModFeatures.push(instantiatedModFeature);
   }

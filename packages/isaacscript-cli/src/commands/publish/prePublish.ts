@@ -10,9 +10,7 @@ import {
   writeFile,
 } from "isaacscript-common-node";
 import {
-  BUILD_SCRIPT,
   CONSTANTS_TS_PATH,
-  LINT_SCRIPT,
   METADATA_XML_PATH,
   VERSION_TXT_PATH,
 } from "../../constants.js";
@@ -39,9 +37,10 @@ export async function prePublish(
   execShellString("git push");
   await updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   incrementVersion(args, typeScript);
-  tryRunBashScript(BUILD_SCRIPT, verbose);
+
+  tryRunNPMScript("build", verbose);
   if (!skipLint) {
-    tryRunBashScript(LINT_SCRIPT, verbose);
+    tryRunNPMScript("lint", verbose);
   }
 }
 
@@ -152,15 +151,14 @@ function writeVersionToVersionTXT(version: string) {
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
-function tryRunBashScript(scriptName: string, verbose: boolean) {
-  if (!isFile(scriptName)) {
-    fatalError(
-      `Failed to find the script "${scriptName}" in the current working directory.`,
-    );
-  }
-
+function tryRunNPMScript(scriptName: string, verbose: boolean) {
   console.log(`Running: ${scriptName}`);
-  const { exitStatus, stdout } = execShell("bash", [scriptName], verbose, true);
+  const { exitStatus, stdout } = execShell(
+    "npm",
+    ["run", scriptName],
+    verbose,
+    true,
+  );
 
   if (exitStatus !== 0) {
     execShellString("git reset --hard", verbose); // Revert the version changes.

@@ -4,10 +4,7 @@ import { PackageManager } from "../enums/PackageManager.js";
 import { $s, $sq } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
-import {
-  getPackageManagerForProject,
-  getPackageManagerInstallCommand,
-} from "./packageManager.js";
+import { getPackageManagerForProject } from "./packageManager.js";
 import { diff } from "./utils.js";
 
 /**
@@ -52,8 +49,7 @@ export async function updatePackageJSON(
     diff(oldPackageJSONString, newPackageJSONString);
     console.log();
 
-    const command = getPackageManagerInstallCommand(packageManager);
-    $s`${command}`;
+    $s`${packageManager} install`;
   }
 
   return hasNewDependencies;

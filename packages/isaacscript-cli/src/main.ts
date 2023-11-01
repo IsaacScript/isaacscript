@@ -6,6 +6,8 @@ import {
   fatalError,
   getPackageJSONVersion,
   getPackageManagerInstallCommand,
+  nukeDependencies,
+  updatePackageJSON,
 } from "isaacscript-common-node";
 import sourceMapSupport from "source-map-support";
 import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
@@ -17,7 +19,7 @@ import { init } from "./commands/init/init.js";
 import { monitor } from "./commands/monitor/monitor.js";
 import { publish } from "./commands/publish/publish.js";
 import { getConfigFromFile } from "./configFile.js";
-import { PROJECT_NAME, REPO_ROOT } from "./constants.js";
+import { CWD, PROJECT_NAME, REPO_ROOT } from "./constants.js";
 import { execShellString } from "./exec.js";
 import { getPackageManagerUsedForExistingProject } from "./packageManager.js";
 import type { Args } from "./parseArgs.js";
@@ -143,6 +145,21 @@ async function handleCommands(command: Command, args: Args) {
 
     case "check-ts": {
       check(args, true);
+      break;
+    }
+
+    case "update": {
+      const hasNewDependencies = await updatePackageJSON(CWD);
+      const msg = hasNewDependencies
+        ? "Successfully installed new Node.js dependencies."
+        : "There were no new Node.js dependency updates.";
+      console.log(msg);
+      break;
+    }
+
+    case "nuke": {
+      nukeDependencies(CWD);
+      console.log("Successfully reinstalled Node.js dependencies.");
       break;
     }
   }

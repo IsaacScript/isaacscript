@@ -7,7 +7,6 @@ export * from "./functions/string.js";
 export * from "./functions/types.js";
 export * from "./functions/utils.js";
 export * from "./types/AddSubtract.js";
-export * from "./types/Expand.js";
 export * from "./types/Immutable.js";
 export * from "./types/NaturalNumbersLessThan.js";
 export * from "./types/NaturalNumbersLessThanOrEqualTo.js";

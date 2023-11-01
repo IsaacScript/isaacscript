@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import commandExists from "command-exists";
 import {
   $,
   $s,
+  commandExists,
   diff,
   dirName,
   echo,
@@ -29,8 +29,7 @@ await lintScript(async () => {
 
   promises.push($`tsc`, $`eslint --max-warnings 0 .`, checkGitIgnoreUpdates());
 
-  const pythonExists = commandExists.sync("python");
-  if (pythonExists) {
+  if (commandExists("python")) {
     $s`pip install isaac-xml-validator --upgrade --quiet`;
     promises.push($`isaac-xml-validator --quiet`);
   }

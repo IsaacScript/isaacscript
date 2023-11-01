@@ -17,7 +17,11 @@
   "files": ["dist", "LICENSE", "package.json", "README.md"],
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "PACKAGE_MANAGER run build && node dist/main.js"
+    "lint": "tsx ./scripts/lint.ts",
+    "nuke": "isaacscript nuke",
+    "publish": "isaacscript publish-ts",
+    "start": "PACKAGE_MANAGER run build && node dist/main.js",
+    "update": "isaacscript update"
   },
   "devDependencies": {
     "@types/node": "^0.0.1",

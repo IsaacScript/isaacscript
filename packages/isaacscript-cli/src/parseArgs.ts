@@ -1,3 +1,20 @@
+// Other potential args libraries:
+// - util.parseArgs
+//   - https://nodejs.org/api/util.html#utilparseargsconfig
+//   - Too bare bones; does not support numbers.
+// - arg (1.2K stars)
+//   - https://github.com/vercel/arg
+//   - Does not support commands (i.e. positional arguments).
+// - cmd-ts (193 stars)
+//   - https://github.com/Schniz/cmd-ts
+//   - ?
+// - clack (4.3K stars)
+//   - https://github.com/natemoo-re/clack
+//   - ?
+// - commander (25.4K stars)
+//   - https://github.com/tj/commander.js
+//   - ?
+
 import { getArgs } from "isaacscript-common-node";
 import yargs from "yargs";
 import { PROJECT_NAME } from "./constants.js";
@@ -344,6 +361,28 @@ export function parseArgs(): Args {
             type: "boolean",
             description: "Enable verbose output",
           }),
+    )
+
+    .command(
+      "update",
+      "Update the dependencies in the current project.",
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
+    )
+
+    .command(
+      "nuke",
+      "Delete and reinstall the dependencies in the current project.",
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
     )
 
     .parseSync();

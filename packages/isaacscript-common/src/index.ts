@@ -168,7 +168,6 @@ export * from "./types/ConversionHeartSubType";
 export * from "./types/Decrement";
 export * from "./types/ERange";
 export * from "./types/EntityID";
-export * from "./types/Expand";
 export * from "./types/FunctionTuple";
 export * from "./types/GridEntityID";
 export * from "./types/HasFunction";

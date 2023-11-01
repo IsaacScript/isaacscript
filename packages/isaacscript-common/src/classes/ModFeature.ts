@@ -116,7 +116,7 @@ export class ModFeature {
 
   /**
    * Runs the `Mod.AddCallback` and `ModUpgraded.AddCallbackCustom` methods for all of the decorated
-   * callbacks.
+   * callbacks. Also registers/unregisters the "v" variable on the save data manager.
    *
    * @param init Optional. Whether to initialize or uninitialize. Default is true.
    */

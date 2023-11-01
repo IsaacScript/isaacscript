@@ -9,6 +9,7 @@ import {
   getPackageJSONDependencies,
   getPackageManagerAddCommand,
   getPackageManagerAddDevCommand,
+  getPackageManagerInstallCommand,
   isDirectory,
   isLink,
   touch,
@@ -218,27 +219,28 @@ function linkDevelopmentIsaacScriptCommon(
     getAndValidateIsaacScriptMonorepoDirectory(projectPath);
 
   console.log('Building "isaacscript-common"...');
-  const iscBuildScript = path.join(
+
+  // Run "yarn install" at the root of the monorepo.
+  const installCommand = getPackageManagerInstallCommand(packageManager);
+  execShellString(installCommand, verbose, false, isaacScriptMonorepoDirectory);
+
+  // Build "isaacscript-common".
+  const iscPackagePath = path.join(
     isaacScriptMonorepoDirectory,
     "packages",
     "isaacscript-common",
-    "build.sh",
   );
-  execShell("bash", [iscBuildScript], verbose);
+  const buildCommand = "npm run build";
+  execShellString(buildCommand, verbose, false, iscPackagePath);
 
   console.log(
     'Linking this repository to the development version of "isaacscript-common"...',
   );
-  const iscDistDirectory = path.join(
-    isaacScriptMonorepoDirectory,
-    "dist",
-    "packages",
-    "isaacscript-common",
-  );
-  const yarnLockPath = path.join(iscDistDirectory, "yarn.lock");
+  const yarnLockPath = path.join(iscPackagePath, "yarn.lock");
   touch(yarnLockPath);
-  execShellString(
-    `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} link ${iscDistDirectory}`,
+  execShell(
+    PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
+    ["link", iscPackagePath],
     verbose,
     false,
     projectPath,

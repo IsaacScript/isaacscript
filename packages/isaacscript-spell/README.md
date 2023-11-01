@@ -30,7 +30,6 @@ This package contains two dictionaries. Each dictionary is composed of multiple 
 | Word List         | Description                                                                                    |
 | ----------------- | ---------------------------------------------------------------------------------------------- |
 | isaacscript.txt   | These are words contained within IsaacScript template files and elsewhere within the monorepo. |
-| gitignore.txt     | These are words contained in the `.gitignore` template from GitHub.                            |
 | missing-words.txt | These are general-purpose words that should be in the CSpell base dictionary.                  |
 
 <br>
