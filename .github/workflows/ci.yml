@@ -12,6 +12,7 @@ jobs:
       - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts build
+      - run: echo ${{ steps.set-matrix.outputs.matrix }}
 
   build:
     needs: build-packages
