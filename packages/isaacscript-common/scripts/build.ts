@@ -44,9 +44,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
   // not work:
   // https://github.com/microsoft/rushstack/issues/1886
   // https://github.com/timocov/dts-bundle-generator/issues/218
-  console.log("GETTING HERE 1");
   $sq`api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
-  console.log("GETTING HERE 2");
 
   // API Extractor will make a "tsdoc-metadata.json" file, which we don't need.
   const metadataJSONPath = path.join(
