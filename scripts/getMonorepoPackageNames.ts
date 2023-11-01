@@ -1,7 +1,11 @@
+// This is a script intended to be used inside of a GitHub Actions YAML file.
+
 import {
   PACKAGE_JSON,
+  appendFile,
   dirName,
   echo,
+  fatalError,
   getArgs,
   getFileNamesInDirectory,
   isDirectory,
@@ -14,15 +18,26 @@ const __dirname = dirName();
 
 const REPO_ROOT = path.join(__dirname, "..");
 const PACKAGES_PATH = path.join(REPO_ROOT, "packages");
+const GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME = "matrix";
 
 main();
 
 function main() {
+  // Validate environment variables.
+  const gitHubOutputFile = process.env["GITHUB_OUTPUT"];
+  if (gitHubOutputFile === undefined || gitHubOutputFile === "") {
+    fatalError("Failed to read the environment variable: GITHUB_OUTPUT");
+  }
+
   const args = getArgs();
   const scriptName = args[0];
   const packageNames = getMonorepoPackageNames(scriptName);
   const packageNamesString = JSON.stringify(packageNames);
+
   echo(packageNamesString);
+
+  const gitHubActionsOutput = `${GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME}="${packageNamesString}"\n`;
+  appendFile(gitHubOutputFile, gitHubActionsOutput);
 }
 
 /**

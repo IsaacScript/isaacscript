@@ -6,23 +6,12 @@ jobs:
   build-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.get-package-names.outputs.PACKAGE_NAMES }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
-      - id: get-package-names
-        run: |
-          PACKAGE_NAMES=$(npx tsx ./scripts/getMonorepoPackageNames.ts build)
-          echo "PACKAGE_NAMES=$PACKAGE_NAMES" >> $GITHUB_OUTPUT
-      - run: echo LOL1 ${{ steps.get-package-names.outputs.PACKAGE_NAMES }} LOL2
-
-  build-asdf:
-    needs: build-packages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/setup
-      - run: echo LOL1 ${{ needs.build-packages.outputs.matrix }} LOL2
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts build
 
   build:
     needs: build-packages
