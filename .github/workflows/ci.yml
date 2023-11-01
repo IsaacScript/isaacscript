@@ -93,7 +93,7 @@ jobs:
       - run: npx cspell-check-unused-words
 
   docs-deploy:
-    needs: build
+    needs: [build, lint, test, unused, format, spell-check]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
     steps:
