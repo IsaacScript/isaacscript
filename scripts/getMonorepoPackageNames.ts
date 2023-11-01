@@ -36,7 +36,8 @@ function main() {
 
   echo(packageNamesString);
 
-  const gitHubActionsOutput = `${GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME}='${packageNamesString}'\n`;
+  // Quoting `packageNamesString` is unnecessary and will cause downstream errors.
+  const gitHubActionsOutput = `${GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME}=${packageNamesString}\n`;
   appendFile(gitHubOutputFile, gitHubActionsOutput);
 }
 
