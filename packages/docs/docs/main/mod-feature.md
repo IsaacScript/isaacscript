@@ -98,6 +98,7 @@ Now, we can instantiate our mod feature classes in our "main.ts" file by using t
 ```ts
 // main.ts
 
+import { initModFeatures } from "isaacscript-common";
 import { GreenCandle } from "./features/GreenCandle";
 import { mod } from "./mod";
 
