@@ -14,7 +14,7 @@ const config = {
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
   ],
 
-  ignorePatterns: ["**/dist/**", "**/file-templates/**"],
+  ignorePatterns: ["**/dist/**", "**/file-templates/**", "**/plugins/*.cjs"],
 
   rules: {
     /**
@@ -28,7 +28,7 @@ const config = {
 
   overrides: [
     {
-      files: ["./src/plugins/*.ts"],
+      files: ["./plugins/*.ts"],
       rules: {
         "import/no-default-export": "off",
       },

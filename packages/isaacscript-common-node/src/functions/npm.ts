@@ -1,4 +1,4 @@
-import { $ss } from "./execa.js";
+import { $sq } from "./execa.js";
 
 /**
  * Helper function to check if the npm CLI tool is logged in. This is useful to throw an error
@@ -6,7 +6,7 @@ import { $ss } from "./execa.js";
  */
 export function isLoggedInToNPM(): boolean {
   try {
-    $ss`npm whoami`;
+    $sq`npm whoami`;
   } catch {
     return false;
   }

@@ -15,7 +15,11 @@ await buildScript(async ({ outDir, packageRoot }) => {
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
 
-  await buildTypeScript(packageRoot);
+  await buildTypeScript(packageRoot, {
+    // ESLint does not support ESM yet; only migrate this plugin to ESM once `typescript-eslint` has
+    // moved to ESM.
+    format: "cjs",
+  });
   copyToMonorepoNodeModules(packageRoot, outDir);
 });
 

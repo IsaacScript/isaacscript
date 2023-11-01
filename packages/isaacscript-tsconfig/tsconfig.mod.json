@@ -19,7 +19,8 @@
     // "isolatedModules", which comes from the "strictest" ruleset.
     "isolatedModules": false,
 
-    // We generically enable the ability to read JSON files, since it is used in the "JSON rooms"
+    // We generically enable the ability to read JSON files, since it is useful to import the
+    // version of a mod from the "package.json" file. JSON files are also used in the "JSON rooms"
     // feature of the standard library.
     "resolveJsonModule": true,
 

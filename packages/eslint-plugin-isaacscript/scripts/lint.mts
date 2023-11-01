@@ -20,7 +20,7 @@ await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
 
   promises.push(
-    $`tsc --noEmit`,
+    $`tsc`,
     $`eslint --max-warnings 0 .`,
     checkGenerateChangedFiles(),
   );

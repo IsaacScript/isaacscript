@@ -27,6 +27,6 @@
     "README.md"
   ],
   "scripts": {
-    "lint": "bash ./scripts/check-dictionaries.sh"
+    "lint": "tsx ./scripts/lint.ts"
   }
 }

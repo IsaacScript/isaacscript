@@ -1,7 +1,7 @@
 import path from "node:path";
 import ncu from "npm-check-updates";
 import { PackageManager } from "../enums/PackageManager.js";
-import { $s, $ss } from "./execa.js";
+import { $s, $sq } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
 import {
@@ -31,8 +31,8 @@ export async function updatePackageJSON(
   const oldPackageJSONString = readFile(packageJSONPath);
 
   if (packageManager === PackageManager.yarn) {
-    // Yarn does not have a silent flag, so we use the `$ss` helper function.
-    $ss`yarn set version latest`;
+    // Yarn does not have a silent flag, so we use the `$sq` helper function.
+    $sq`yarn set version latest`;
   }
 
   await ncu.run({

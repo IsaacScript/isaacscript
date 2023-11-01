@@ -1,6 +1,5 @@
 import chalk from "chalk";
-import { fatalError, isFile, readFile } from "isaacscript-common-node";
-import fs from "node:fs";
+import { appendFile, isFile, readFile } from "isaacscript-common-node";
 import path from "node:path";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
 import { getInputYesNo } from "./prompt.js";
@@ -56,12 +55,7 @@ function applyFixesToBashProfile() {
     : "";
 
   const appendText = getBashProfileAppendText(bashProfileContents);
-
-  try {
-    fs.appendFileSync(BASH_PROFILE_PATH, appendText);
-  } catch (error) {
-    fatalError(`Failed to append text to "${BASH_PROFILE_PATH}":`, error);
-  }
+  appendFile(BASH_PROFILE_PATH, appendText);
 
   console.log(
     `The terminal fixes have been added to: ${chalk.green(BASH_PROFILE_PATH)}`,

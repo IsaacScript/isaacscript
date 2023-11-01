@@ -1,6 +1,6 @@
 // Generates the "src/rules.ts" file.
 
-import { getDirectoryList } from "isaacscript-common-node";
+import { getFileNamesInDirectory } from "isaacscript-common-node";
 import fs from "node:fs";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.mjs";
@@ -25,7 +25,7 @@ export async function generateRules(): Promise<void> {
 }
 
 function getRuleNames(): string[] {
-  const fileNames = getDirectoryList(RULES_DIRECTORY_PATH);
+  const fileNames = getFileNamesInDirectory(RULES_DIRECTORY_PATH);
   const ruleNames = fileNames.map((fileName) => fileName.replace(/\.ts$/, ""));
   ruleNames.sort();
 

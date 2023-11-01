@@ -1,5 +1,7 @@
-import type { ModCallback } from "isaac-typescript-definitions";
-import type { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import type {
+  CallbackPriority,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import type { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { isArray } from "../functions/array";
 import {

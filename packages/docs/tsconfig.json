@@ -5,6 +5,11 @@
     "@tsconfig/docusaurus/tsconfig.json",
   ],
 
+  "compilerOptions": {
+    "outDir": "build",
+    "noEmit": true, // The website is created by Babel, not `tsc`.
+  },
+
   "include": [
     "./**/*.js",
     "./**/.*.js",

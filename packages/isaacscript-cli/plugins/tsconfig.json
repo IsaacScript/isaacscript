@@ -1,13 +1,10 @@
 {
-  "extends": [
-    "../isaacscript-tsconfig/tsconfig.node.json",
-    "../../tsconfig.monorepo.json",
-  ],
+  "extends": "../../isaacscript-tsconfig/tsconfig.node.json",
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "dist",
-    "noEmit": true, // The JavaScript is created by `esbuild`, not `tsc`.
+    // Plugins need to be in CJS format so that CJS mods can use them.
+    "module": "CommonJS",
+    "moduleResolution": "Node10",
   },
 
   "include": [
@@ -28,6 +25,4 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
-
-  "exclude": ["dist", "scripts"],
 }

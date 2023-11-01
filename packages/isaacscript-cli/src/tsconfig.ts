@@ -1,3 +1,4 @@
+import ajvModule from "ajv";
 import chalk from "chalk";
 import { TSCONFIG_JSON, fatalError, getJSONC } from "isaacscript-common-node";
 import { isObject } from "isaacscript-common-ts";
@@ -11,8 +12,11 @@ import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfi
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
 const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH);
-/// const ajv = new Ajv();
-/// const schemaValidate = ajv.compile(isaacScriptSchema);
+
+// Ajv is messed up: https://github.com/ajv-validator/ajv/issues/2132
+const Ajv = ajvModule.default;
+const ajv = new Ajv();
+const schemaValidate = ajv.compile(isaacScriptSchema);
 
 function getTSConfigJSON(): Record<string, unknown> {
   return getJSONC(TSCONFIG_JSON_PATH);

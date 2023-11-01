@@ -7,7 +7,7 @@
 // - unified - Stuck until Docusaurus is on ESM.
 
 import {
-  $,
+  $s,
   PACKAGE_JSON,
   echo,
   fatalError,
@@ -43,7 +43,7 @@ export async function updateIsaacScriptMonorepo(): Promise<void> {
       // files in the individual packages. However, we don't want to blow away "peerDependencies",
       // since they are in the form of ">= 5.0.0". Thus, we specify "--types prod,dev" to exclude
       // syncing "peerDependencies".
-      await $`syncpack fix-mismatches --types prod,dev`;
+      $s`syncpack fix-mismatches --types prod,dev`;
     }
   });
 }

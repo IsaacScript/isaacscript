@@ -82,6 +82,7 @@
     },
     "CustomStageTSConfig": {
       "additionalProperties": false,
+      "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"ts-json-schema-generator\" library.\n\nThe contents of this interface are validated at run-time against the schema.\n\nThe `CustomStageLua` interface extends this, adding room metadata.",
       "properties": {
         "backdropPNGPaths": {
           "additionalProperties": false,

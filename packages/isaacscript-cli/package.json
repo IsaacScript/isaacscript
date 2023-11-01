@@ -27,8 +27,10 @@
   },
   "files": [
     "custom-stage",
+    "dist",
     "file-templates",
     "isaacscript-watcher",
+    "plugins",
     "schemas",
     "LICENSE",
     "package.json",

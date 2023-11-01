@@ -19,12 +19,12 @@
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file (for
       // `isaacscript-common` specifically).
       {
-        "name": "../isaacscript-cli/dist/plugins/addIsaacScriptCommentHeaderCommon.cjs",
+        "name": "../isaacscript-cli/plugins/addIsaacScriptCommentHeaderCommon.cjs",
       },
 
       // A plugin to make enums safe from global variables.
       {
-        "name": "../isaacscript-cli/dist/plugins/noExtendedEnums.cjs",
+        "name": "../isaacscript-cli/plugins/noExtendedEnums.cjs",
       },
     ],
     "noHeader": true,

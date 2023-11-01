@@ -3,6 +3,24 @@ import { getRandomInt } from "./random.js";
 import { assertDefined } from "./utils.js";
 
 /**
+ * Helper function for determining if two arrays contain the exact same elements. Note that this
+ * only performs a shallow comparison.
+ */
+export function arrayEquals<T>(
+  array1: T[] | readonly T[],
+  array2: T[] | readonly T[],
+): boolean {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+
+  return array1.every((array1Element, i) => {
+    const array2Element = array2[i];
+    return array1Element === array2Element;
+  });
+}
+
+/**
  * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
  * the specified element(s) are not found in the array, it will simply return a shallow copy of the
  * array.

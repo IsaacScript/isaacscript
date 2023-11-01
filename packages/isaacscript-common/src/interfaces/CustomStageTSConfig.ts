@@ -6,8 +6,7 @@ import type { Immutable } from "../types/Immutable";
  * The contents of this interface are used to create a "tsconfig-isaacscript-section-schema.json"
  * schema with the "ts-json-schema-generator" library.
  *
- * The contents of this interface are validated at run-time against the schema using the Ajv
- * library.
+ * The contents of this interface are validated at run-time against the schema.
  *
  * The `CustomStageLua` interface extends this, adding room metadata.
  */

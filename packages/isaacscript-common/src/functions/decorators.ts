@@ -21,7 +21,7 @@
  */
 
 import type { ModCallback } from "isaac-typescript-definitions";
-import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import { CallbackPriority } from "isaac-typescript-definitions";
 import type { ModFeature } from "../classes/ModFeature";
 import {
   MOD_FEATURE_CALLBACKS_KEY,

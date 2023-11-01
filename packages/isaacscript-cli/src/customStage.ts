@@ -3,7 +3,7 @@ import type { PackageManager } from "isaacscript-common-node";
 import {
   copyFileOrDirectory,
   fatalError,
-  getDirectoryList,
+  getFileNamesInDirectory,
   getPackageManagerAddCommand,
   isDirectory,
   isFile,
@@ -151,7 +151,8 @@ function copyCustomStageFilesToProject() {
   );
   makeDirectory(dstDirPath);
 
-  for (const fileName of getDirectoryList(CUSTOM_STAGE_FILES_DIR)) {
+  const fileNames = getFileNamesInDirectory(CUSTOM_STAGE_FILES_DIR);
+  for (const fileName of fileNames) {
     const srcPath = path.join(CUSTOM_STAGE_FILES_DIR, fileName);
     const dstPath = path.join(dstDirPath, fileName);
     copyFileOrDirectory(srcPath, dstPath);

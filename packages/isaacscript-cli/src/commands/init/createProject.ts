@@ -3,7 +3,7 @@ import {
   PACKAGE_JSON,
   PackageManager,
   copyFileOrDirectory,
-  getDirectoryList,
+  getFileNamesInDirectory,
   getPackageManagerExecCommand,
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
@@ -115,9 +115,8 @@ function copyTemplateDirectoryWithoutOverwriting(
   templateDirPath: string,
   projectPath: string,
 ) {
-  const dirList = getDirectoryList(templateDirPath);
-
-  for (const fileName of dirList) {
+  const fileNames = getFileNamesInDirectory(templateDirPath);
+  for (const fileName of fileNames) {
     const templateFilePath = path.join(templateDirPath, fileName);
     const destinationFilePath = path.join(projectPath, fileName);
     if (!isFile(destinationFilePath)) {

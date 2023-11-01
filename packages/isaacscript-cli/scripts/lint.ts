@@ -27,7 +27,7 @@ const GITIGNORE_URL =
 await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
 
-  promises.push($`npx eslint --max-warnings 0 .`, checkGitIgnoreUpdates());
+  promises.push($`tsc`, $`eslint --max-warnings 0 .`, checkGitIgnoreUpdates());
 
   const pythonExists = commandExists.sync("python");
   if (pythonExists) {

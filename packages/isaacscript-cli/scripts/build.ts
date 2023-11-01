@@ -1,9 +1,12 @@
 import {
   $,
+  $op,
   $s,
   buildScript,
   buildTypeScript,
+  getFileNamesInDirectory,
   mkdir,
+  mv,
   readFile,
   writeFile,
 } from "isaacscript-common-node";
@@ -21,17 +24,36 @@ await buildScript(async ({ packageRoot }) => {
 
   const promises: Array<Promise<unknown>> = [];
 
+  const pluginsDirPath = path.join(packageRoot, "plugins");
+  const $$ = $op({ cwd: pluginsDirPath });
+
   promises.push(
     buildTypeScript(packageRoot),
+
     // Generate the JSON schema for the special "isaacscript" section in "tsconfig.json".
     $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig tsconfig.json --out ${TSCONFIG_SCHEMA_PATH}`,
-    // Generate the JSON schema for the "isaacscript.json" file.
-    $`ts-json-schema-generator --path src/classes/Config.ts --tsconfig $DIR/tsconfig.json --out ${ISAACSCRIPT_SCHEMA_PATH}`,
+
+    // Generate the JSON schema for the "isaacscript.json" file. (The `ts-json-schema-generator`
+    // tool is noisy.)
+    $`ts-json-schema-generator --path src/classes/Config.ts --tsconfig tsconfig.json --out ${ISAACSCRIPT_SCHEMA_PATH}`,
+
+    // Compile the plugins.
+    $$`tsc`,
   );
 
   await Promise.all(promises);
 
-  $s`prettier ${TSCONFIG_SCHEMA_PATH} ${ISAACSCRIPT_SCHEMA_PATH} --write`;
+  $s`prettier ${TSCONFIG_SCHEMA_PATH} ${ISAACSCRIPT_SCHEMA_PATH} --write --log-level=warn`;
+
+  const fileNames = getFileNamesInDirectory(pluginsDirPath);
+  for (const fileName of fileNames) {
+    if (fileName.endsWith(".js")) {
+      const oldFilePath = path.join(pluginsDirPath, fileName);
+      const newFileName = fileName.replace(".js", ".cjs");
+      const newFilePath = path.join(pluginsDirPath, newFileName);
+      mv(oldFilePath, newFilePath);
+    }
+  }
 });
 
 /**

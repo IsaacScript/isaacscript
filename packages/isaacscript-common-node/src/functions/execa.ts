@@ -7,6 +7,15 @@ import type {
 } from "execa";
 import { $ as dollarSignFunc } from "execa";
 
+const EXECA_DEFAULT_OPTIONS = {
+  // The default is "pipe". We want to passes stdout/stderr to the console, making commands work
+  // similar to how they would in a Bash script.
+  // https://nodejs.org/api/child_process.html#child_process_options_stdio
+  stdio: "inherit",
+} as const satisfies Options;
+
+const dollarSignFuncWithOptions = dollarSignFunc(EXECA_DEFAULT_OPTIONS);
+
 /**
  * A wrapper around the `$` function from `execa`.
  *
@@ -29,14 +38,6 @@ export async function $(
   return returnBase;
 }
 
-const EXECA_DEFAULT_OPTIONS = {
-  // This option passes stdout/stderr to the console, making commands work similar to how they would
-  // in a Bash script.
-  stdio: "inherit",
-} as const;
-
-const dollarSignFuncWithOptions = dollarSignFunc(EXECA_DEFAULT_OPTIONS);
-
 /**
  * Helper function to run a command and grab the output. ("o" is short for "output".)
  *
@@ -50,7 +51,7 @@ export function $o(
   templates: TemplateStringsArray,
   ...expressions: TemplateExpression[]
 ): string {
-  return $ss(templates, ...expressions).stdout;
+  return $sq(templates, ...expressions).stdout;
 }
 
 /**
@@ -59,6 +60,22 @@ export function $o(
  */
 export function $op(options: Options): Execa$ {
   return dollarSignFunc(options);
+}
+
+/**
+ * A wrapper around the `$` function from `execa`. ("q" is short for "quiet".) This is the same
+ * thing as the `$` helper function, except the stdout/stderr is not passed through to the console.
+ *
+ * If an error occurs, the full JavaScript stack trace will be printed. Alternatively, if you expect
+ * this command to return a non-zero exit code, you can enclose this function in a try/catch block.
+ */
+export async function $q(
+  templates: TemplateStringsArray,
+  ...expressions: TemplateExpression[]
+): Promise<ExecaReturnBase<string>> {
+  // We want to include the JavaScript stack trace in this instance since this function is used for
+  // commands that should not generally fail.
+  return dollarSignFunc(templates, ...expressions);
 }
 
 /**
@@ -84,18 +101,18 @@ export function $s(
 }
 
 /**
- * A wrapper around the `$.sync` function from `execa`. ("ss" is short for "sync silent".) This is
+ * A wrapper around the `$.sync` function from `execa`. ("sq" is short for "sync quiet".) This is
  * the same thing as the `$s` helper function, except the stdout/stderr is not passed through to the
  * console.
  *
  * If an error occurs, the full JavaScript stack trace will be printed. Alternatively, if you expect
  * this command to return a non-zero exit code, you can enclose this function in a try/catch block.
  */
-export function $ss(
+export function $sq(
   templates: TemplateStringsArray,
   ...expressions: TemplateExpression[]
 ): ExecaReturnBase<string> {
-  // We want to include the JavaScript stack trace in this instance since `$ss` is used for commands
-  // that should not generally fail.
+  // We want to include the JavaScript stack trace in this instance since this function is used for
+  // commands that should not generally fail.
   return dollarSignFunc.sync(templates, ...expressions);
 }

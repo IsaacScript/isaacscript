@@ -1,4 +1,4 @@
-import type { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import type { CallbackPriority } from "isaac-typescript-definitions";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { log } from "../../functions/log";
 import { sortObjectArrayByKey, stableSort } from "../../functions/sort";

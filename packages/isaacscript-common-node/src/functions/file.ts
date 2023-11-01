@@ -75,7 +75,7 @@ export function deleteFileOrDirectory(...filePaths: string[]): void {
  * Helper function to synchronously get the file names inside of a directory. (If the full path is
  * required, you must manually join the file name with the path to the directory.)
  */
-export function getDirectoryList(dirPath: string): string[] {
+export function getFileNamesInDirectory(dirPath: string): string[] {
   let fileList: string[];
   try {
     fileList = fs.readdirSync(dirPath);

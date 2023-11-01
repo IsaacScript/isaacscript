@@ -1,5 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { CallbackPriority } from "isaac-typescript-definitions/dist/src/enums/CallbackPriority";
+import { CallbackPriority, ModCallback } from "isaac-typescript-definitions";
 import { getCallbacks } from "../callbacks";
 import { EXPORTED_METHOD_NAMES_KEY } from "../decorators";
 import { ISCFeature } from "../enums/ISCFeature";

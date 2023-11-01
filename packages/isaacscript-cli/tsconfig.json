@@ -7,6 +7,7 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "dist",
+    "noEmit": true, // The JavaScript is created by `esbuild`, not `tsc`.
   },
 
   "include": [
@@ -28,5 +29,5 @@
     "./**/.*.tsx",
   ],
 
-  "exclude": ["dist", "file-templates"],
+  "exclude": ["dist", "file-templates", "plugins", "scripts"],
 }

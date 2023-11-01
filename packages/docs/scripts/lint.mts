@@ -4,7 +4,7 @@ await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
 
   promises.push(
-    $`tsc --noEmit`,
+    $`tsc`,
     $`eslint --max-warnings 0 .`,
     $`remark --quiet --frail --ignore-pattern docs/isaacscript-common docs`,
   );

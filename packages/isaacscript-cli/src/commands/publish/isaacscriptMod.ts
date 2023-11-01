@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import {
   deleteFileOrDirectory,
-  getDirectoryList,
+  getFileNamesInDirectory,
   getPackageJSONVersion,
   isDirectory,
   isFile,
@@ -97,12 +97,12 @@ function purgeRoomXMLs(modTargetPath: string) {
     return;
   }
 
-  const roomFileList = getDirectoryList(roomsPath);
-  const xmlFiles = roomFileList.filter(
+  const fileNames = getFileNamesInDirectory(roomsPath);
+  const xmlFileNames = fileNames.filter(
     (fileName) => path.extname(fileName) === ".xml",
   );
-  for (const xmlFile of xmlFiles) {
-    const roomFilePath = path.join(roomsPath, xmlFile);
+  for (const xmlFileName of xmlFileNames) {
+    const roomFilePath = path.join(roomsPath, xmlFileName);
     deleteFileOrDirectory(roomFilePath);
   }
 }

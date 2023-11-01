@@ -20,4 +20,8 @@ export async function generateAll(silent = false): Promise<void> {
     echo("Generating readme...");
   }
   await generateReadme();
+
+  if (!silent) {
+    echo("Success!");
+  }
 }
