@@ -86,11 +86,8 @@ describe("assertsNull", () => {
 
 describe("eRange", () => {
   describe("1 arg 0", () => {
-    console.log("GETTING HERE 0");
     test("0", () => {
       const result = [...eRange(0)];
-      console.log("GETTING HERE 1:", result);
-      console.log("GETTING HERE 2:", []);
       deepStrictEqual(result, []);
     });
   });
