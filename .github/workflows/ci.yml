@@ -15,7 +15,7 @@ jobs:
       - run: echo "LOL1 ${{ steps.set-matrix.outputs.matrix }} LOL2"
 
   build:
-    needs: build-packages
+    needs: get-build-packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,7 +26,7 @@ jobs:
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run build
 
-  lint-packages:
+  get-lint-packages:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -37,18 +37,18 @@ jobs:
         run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
 
   lint:
-    needs: lint-packages
+    needs: get-lint-packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package-name: ${{ fromJson(needs.lint-packages.outputs.matrix) }}
+        package-name: ${{ fromJson(needs.get-lint-packages.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run lint
 
-  test-packages:
+  get-test-packages:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -59,11 +59,11 @@ jobs:
         run: npx tsx ./scripts/getMonorepoPackageNames.ts test
 
   test:
-    needs: test-packages
+    needs: get-test-packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package-name: ${{ fromJson(needs.test-packages.outputs.matrix) }}
+        package-name: ${{ fromJson(needs.get-test-packages.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
