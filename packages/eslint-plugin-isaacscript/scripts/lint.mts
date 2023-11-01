@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { $, echo, exit, lintScript, readFile } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
-import { generateAll } from "./generateAll.mjs";
+import { generateAll } from "./generate.mjs";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.mjs";
 import { README_MD_PATH } from "./generateReadme.mjs";
 import { RULES_TS_PATH } from "./generateRules.mjs";

@@ -1,5 +1,6 @@
-import { $op, $s, buildScript, rm } from "isaacscript-common-node";
+import { $, $op, $s, buildScript, rm } from "isaacscript-common-node";
 import path from "node:path";
+import { makeECIDocs } from "./docs.mjs";
 
 const TYPEDOC_PACKAGES = [
   "isaac-typescript-definitions",
@@ -24,7 +25,7 @@ await buildScript(async ({ packageRoot }) => {
   promises.push(
     makeITDDocs(repoRoot),
     makeISCDocs(repoRoot),
-    makeECIDocs(repoRoot),
+    makeECIDocs(true),
   );
 
   await Promise.all(promises);
@@ -46,22 +47,12 @@ async function makeITDDocs(repoRoot: string): Promise<void> {
   );
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  await $$`tsx ../../scripts/fixIsaacTypeScriptDefinitions.ts`;
+  await $`tsx ./scripts/fixIsaacTypeScriptDefinitions.mts`;
 }
 
 async function makeISCDocs(repoRoot: string): Promise<void> {
   const packagePath = path.join(repoRoot, "packages", "isaacscript-common");
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  await $$`tsx ../../scripts/fixIsaacScriptCommon.ts`;
-}
-
-async function makeECIDocs(repoRoot: string): Promise<void> {
-  const packagePath = path.join(
-    repoRoot,
-    "packages",
-    "eslint-config-isaacscript",
-  );
-  const $$ = $op({ cwd: packagePath });
-  await $$`npm run docs`;
+  await $`tsx ./scripts/fixIsaacScriptCommon.mts`;
 }

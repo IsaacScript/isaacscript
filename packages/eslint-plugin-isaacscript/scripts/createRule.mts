@@ -3,7 +3,7 @@ import { isKebabCase } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
 import { PACKAGE_ROOT, PLUGIN_NAME } from "./constants.mjs";
-import { generateAll } from "./generateAll.mjs";
+import { generateAll } from "./generate.mjs";
 import { getCamelCaseRuleName } from "./utils.mjs";
 
 const DOCS_PATH = path.join(PACKAGE_ROOT, "docs");

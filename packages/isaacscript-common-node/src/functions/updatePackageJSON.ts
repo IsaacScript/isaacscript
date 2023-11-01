@@ -31,7 +31,7 @@ export async function updatePackageJSON(
   const oldPackageJSONString = readFile(packageJSONPath);
 
   if (packageManager === PackageManager.yarn) {
-    // Yarn does not have a silent flag, so we use the `$sq` helper function.
+    // Yarn does not have a quiet flag, so we use the `$sq` helper function.
     $sq`yarn set version latest`;
   }
 

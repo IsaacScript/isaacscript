@@ -1,5 +1,3 @@
-/* eslint-disable import/no-default-export */
-
 interface ESLintPlugin {
   readonly configs: {
     readonly recommended: {

@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { diffLines } from "diff";
+import { fileOfCaller } from "./arkType.js";
 
 /**
  * Helper function to print the differences between two strings. Similar to the `diff` Unix program.
@@ -32,4 +33,14 @@ export function fatalError(...args: unknown[]): never {
  */
 export function getArgs(): string[] {
   return process.argv.slice(2);
+}
+
+/**
+ * Helper function to see if the current file is is the JavaScript/TypeScript entry point. Returns
+ * false if the current file was imported from somewhere else.
+ *
+ * This is similar to the `__name__ == "__main__"` pattern from the Python programming language.
+ */
+export function isMain(): boolean {
+  return process.argv[1] === fileOfCaller();
 }

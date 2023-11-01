@@ -58,7 +58,7 @@ const __dirname = dirName();
 
 const DEBUG = false as boolean;
 const PACKAGE_NAME = "isaacscript-common";
-const REPO_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(__dirname, "..", "..", "..");
 const MARKDOWN_DOCS_DIR = path.join(REPO_ROOT, "packages", "docs", "docs");
 const PACKAGE_DOCS_DIR = path.join(MARKDOWN_DOCS_DIR, PACKAGE_NAME);
 const MODULES_DIR = path.join(PACKAGE_DOCS_DIR, "modules");

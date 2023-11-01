@@ -8,7 +8,7 @@ import type {
 import { $ as dollarSignFunc } from "execa";
 
 const EXECA_DEFAULT_OPTIONS = {
-  // The default is "pipe". We want to passes stdout/stderr to the console, making commands work
+  // The default is "pipe". We want to pass stdout/stderr to the console, making commands work
   // similar to how they would in a Bash script.
   // https://nodejs.org/api/child_process.html#child_process_options_stdio
   stdio: "inherit",

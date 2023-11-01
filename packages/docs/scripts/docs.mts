@@ -8,9 +8,19 @@ import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
-import { cd, dirName, echo } from "isaacscript-common-node";
-import fs from "node:fs";
+import {
+  dirName,
+  echo,
+  fatalError,
+  isDirectory,
+  isMain,
+  mkdir,
+  readFile,
+  writeFile,
+} from "isaacscript-common-node";
+import { assertDefined, isObject } from "isaacscript-common-ts";
 import path from "node:path";
+import url from "node:url";
 
 type ParentConfig =
   | "eslint/recommended"
@@ -29,10 +39,6 @@ type ParentConfig =
   | "eslint-config-prettier";
 
 const __dirname = dirName();
-
-// The dynamic importing later on in this script will fail if we are running this script from a
-// different directory.
-cd(__dirname);
 
 const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
@@ -115,6 +121,14 @@ Below, we provide documentation for every rule that is disabled. (We take a blac
 // -------------------------------------------------------------------------------------------------
 
 const REPO_ROOT = path.join(__dirname, "..", "..", "..");
+
+const BASE_CONFIGS_PATH = path.join(
+  REPO_ROOT,
+  "packages",
+  "eslint-config-isaacscript",
+  "configs",
+);
+
 const ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH = path.join(
   REPO_ROOT,
   "packages",
@@ -262,9 +276,11 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/prettier/eslint-config-prettier/blob/main/index.js",
 } as const satisfies Record<ParentConfig, string>;
 
-await main();
+if (isMain()) {
+  await makeECIDocs(false);
+}
 
-async function main() {
+export async function makeECIDocs(quiet: boolean): Promise<void> {
   let markdownOutput = MARKDOWN_HEADER;
 
   markdownOutput += await getMarkdownRuleSection(
@@ -332,12 +348,14 @@ async function main() {
     ESLintPluginUnicorn,
   );
 
-  if (!fs.existsSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
-    fs.mkdirSync(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH);
+  if (!isDirectory(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH)) {
+    mkdir(ESLINT_CONFIG_ISAACSCRIPT_DOCS_PATH);
   }
-  fs.writeFileSync(README_PATH, markdownOutput);
+  writeFile(README_PATH, markdownOutput);
 
-  echo(`Successfully created: ${README_PATH}`);
+  if (!quiet) {
+    echo(`Successfully created: ${README_PATH}`);
+  }
 }
 
 function getPluginHeaderTitle(pluginName: string) {
@@ -354,33 +372,24 @@ async function getMarkdownRuleSection(
   let markdownOutput = getMarkdownHeader(headerTitle, pluginURL);
 
   const baseConfigFileName = `base-${configName}.js`;
-  const baseConfigPath = `../configs/${baseConfigFileName}`;
-  const baseConfig = (await import(baseConfigPath)) as unknown;
+  const baseConfigPath = path.join(BASE_CONFIGS_PATH, baseConfigFileName);
+  const baseConfigURL = url.pathToFileURL(baseConfigPath).toString();
+  const baseConfig = (await import(baseConfigURL)) as unknown;
 
-  if (typeof baseConfig !== "object" || baseConfig === null) {
-    throw new Error(`Failed to parse the base config: ${baseConfigPath}`);
+  if (!isObject(baseConfig)) {
+    fatalError(`Failed to parse the base config: ${baseConfigPath}`);
   }
 
-  if (!("default" in baseConfig)) {
-    throw new Error(
-      `Failed to find the base config default export: ${baseConfigPath}`,
-    );
-  }
-
-  const defaultExport = baseConfig.default;
-  if (typeof defaultExport !== "object" || defaultExport === null) {
-    throw new Error(
+  const defaultExport = baseConfig["default"]; // Can't have "default" as a variable name.
+  if (!isObject(defaultExport)) {
+    fatalError(
       `Failed to parse the base config default export: ${baseConfigPath}`,
     );
   }
 
-  if (!("rules" in defaultExport)) {
-    throw new Error(`Failed to find the base config rules: ${baseConfigPath}`);
-  }
-
   const { rules } = defaultExport;
-  if (typeof rules !== "object" || rules === null) {
-    throw new Error(`Failed to parse the base rules in: ${baseConfigPath}`);
+  if (!isObject(rules)) {
+    fatalError(`Failed to parse the base rules in: ${baseConfigPath}`);
   }
 
   const baseRules = rules as Record<string, Linter.RuleEntry>;
@@ -391,7 +400,7 @@ async function getMarkdownRuleSection(
     const rule = baseRules[ruleName];
     assertDefined(rule, `Failed to find base rule: ${ruleName}`);
 
-    const baseConfigText = fs.readFileSync(baseConfigPath, "utf8");
+    const baseConfigText = readFile(baseConfigPath);
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
@@ -449,18 +458,16 @@ function getAllRulesFromImport(
   }
 
   if (typeof upstreamImport !== "object" || upstreamImport === null) {
-    throw new Error(`Failed to parse the import for: ${configName}`);
+    fatalError(`Failed to parse the import for: ${configName}`);
   }
 
   if (!("rules" in upstreamImport)) {
-    throw new Error(
-      `Failed to find the rules in the import for: ${configName}`,
-    );
+    fatalError(`Failed to find the rules in the import for: ${configName}`);
   }
 
   const { rules } = upstreamImport;
   if (typeof rules !== "object" || rules === null) {
-    throw new Error(`Failed to parse the import rules for: ${configName}`);
+    fatalError(`Failed to parse the import rules for: ${configName}`);
   }
 
   return rules as Record<string, unknown>;
@@ -470,42 +477,26 @@ function getAllRulesFromImportCoreESLint(
   configName: string,
   upstreamImport: unknown,
 ): Record<string, unknown> {
-  if (typeof upstreamImport !== "object" || upstreamImport === null) {
-    throw new Error(`Failed to parse the import for: ${configName}`);
-  }
-
-  if (!("configs" in upstreamImport)) {
-    throw new Error(`Failed to find the configs for: ${configName}`);
+  if (!isObject(upstreamImport)) {
+    fatalError(`Failed to parse the import for: ${configName}`);
   }
 
   const { configs } = upstreamImport;
-  if (typeof configs !== "object" || configs === null) {
-    throw new Error(`Failed to parse the configs for: ${configName}`);
-  }
-
-  if (!("all" in configs)) {
-    throw new Error(`Failed to find the "all" config for: ${configName}`);
+  if (!isObject(configs)) {
+    fatalError(`Failed to parse the configs for: ${configName}`);
   }
 
   const { all } = configs;
-  if (typeof all !== "object" || all === null) {
-    throw new Error(`Failed to parse the "all" configs for: ${configName}`);
-  }
-
-  if (!("rules" in all)) {
-    throw new Error(
-      `Failed to find the rules in the "all" config for: ${configName}`,
-    );
+  if (!isObject(all)) {
+    fatalError(`Failed to parse the "all" configs for: ${configName}`);
   }
 
   const { rules } = all;
-  if (typeof rules !== "object" || rules === null) {
-    throw new Error(
-      `Failed to parse the "all" config rules for: ${configName}`,
-    );
+  if (!isObject(rules)) {
+    fatalError(`Failed to parse the "all" config rules for: ${configName}`);
   }
 
-  return rules as Record<string, unknown>;
+  return rules;
 }
 
 function getMarkdownHeader(headerTitle: string, headerLink: string): string {
@@ -521,9 +512,7 @@ function getRuleEnabled(ruleName: string, rule: Linter.RuleEntry): boolean {
   const severity = getRuleSeverity(ruleName, rule);
 
   if (severity !== "error" && severity !== "off") {
-    throw new Error(
-      `Unknown value of "${severity}" when parsing rule: ${ruleName}`,
-    );
+    fatalError(`Unknown value of "${severity}" when parsing rule: ${ruleName}`);
   }
 
   return severity !== "off";
@@ -545,7 +534,7 @@ function getRuleSeverity(ruleName: string, rule: Linter.RuleEntry): string {
     return firstElement;
   }
 
-  throw new Error(`Failed to parse the type of rule: ${ruleName}`);
+  fatalError(`Failed to parse the type of rule: ${ruleName}`);
 }
 
 function getParentConfigsLinks(ruleName: string): string {
@@ -740,22 +729,4 @@ function trimCharactersUntilLastCharacter(
 ): string {
   const index = string.lastIndexOf(character);
   return index === -1 ? string : string.slice(index + 1);
-}
-
-/**
- * Helper function to throw an error if the provided value is equal to `undefined`.
- *
- * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
- */
-export function assertDefined<T>(
-  value: T,
-  ...[msg]: [undefined] extends [T]
-    ? [string]
-    : [
-        "The assertion is useless because the provided value does not contain undefined.",
-      ]
-): asserts value is Exclude<T, undefined> {
-  if (value === undefined) {
-    throw new TypeError(msg);
-  }
 }

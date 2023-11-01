@@ -5,5 +5,5 @@ interface BlockComment {
 
 declare module "extract-comments" {
   const extractComments: (text: string) => BlockComment[];
-  export default extractComments; // eslint-disable-line import/no-default-export
+  export default extractComments;
 }

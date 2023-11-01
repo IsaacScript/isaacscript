@@ -44,16 +44,7 @@ await buildScript(async ({ packageRoot }) => {
   await Promise.all(promises);
 
   $s`prettier ${TSCONFIG_SCHEMA_PATH} ${ISAACSCRIPT_SCHEMA_PATH} --write --log-level=warn`;
-
-  const fileNames = getFileNamesInDirectory(pluginsDirPath);
-  for (const fileName of fileNames) {
-    if (fileName.endsWith(".js")) {
-      const oldFilePath = path.join(pluginsDirPath, fileName);
-      const newFileName = fileName.replace(".js", ".cjs");
-      const newFilePath = path.join(pluginsDirPath, newFileName);
-      mv(oldFilePath, newFilePath);
-    }
-  }
+  renamePluginJSToCJS(pluginsDirPath);
 });
 
 /**
@@ -95,5 +86,17 @@ function copyIsaacScriptCommonInterfaces(packageRoot: string) {
     );
     const destinationPath = path.join(destinationDirectoryPath, fullFileName);
     writeFile(destinationPath, fileContents);
+  }
+}
+
+function renamePluginJSToCJS(pluginsDirPath: string) {
+  const fileNames = getFileNamesInDirectory(pluginsDirPath);
+  for (const fileName of fileNames) {
+    if (fileName.endsWith(".js")) {
+      const oldFilePath = path.join(pluginsDirPath, fileName);
+      const newFileName = fileName.replace(".js", ".cjs");
+      const newFilePath = path.join(pluginsDirPath, newFileName);
+      mv(oldFilePath, newFilePath);
+    }
   }
 }

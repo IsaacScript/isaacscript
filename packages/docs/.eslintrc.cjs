@@ -20,7 +20,7 @@ const config = {
     browser: true,
   },
 
-  ignorePatterns: ["**/docusaurus/**", "!.remarkrc.mjs"],
+  ignorePatterns: ["**/build/**", "**/docusaurus/**", "!.remarkrc.mjs"],
 
   rules: {
     "import/no-default-export": "off", // React uses default exports.

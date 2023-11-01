@@ -31,7 +31,6 @@
     "README.md"
   ],
   "scripts": {
-    "docs": "tsx ./scripts/docs.mts",
     "lint": "tsx ./scripts/lint.mts"
   },
   "dependencies": {
