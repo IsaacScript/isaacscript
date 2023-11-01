@@ -40,7 +40,7 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "run": "tsx ./src/main.ts",
-    "test": "jest"
+    "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "dependencies": {
     "@zamiell/sync-directory": "^6.0.5",

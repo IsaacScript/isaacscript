@@ -108,7 +108,13 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-explicit-any": "error",
   "@typescript-eslint/no-extra-non-null-assertion": "error",
   "@typescript-eslint/no-extraneous-class": "error",
+
+  /**
+   * The rule is disabled in "*.test.ts" files, since the built-in Node test runner returns a
+   * promise that is not meant to be awaited.
+   */
   "@typescript-eslint/no-floating-promises": "error",
+
   "@typescript-eslint/no-for-in-array": "error",
   "@typescript-eslint/no-import-type-side-effects": "error",
   "@typescript-eslint/no-inferrable-types": "error",
@@ -435,6 +441,14 @@ const config = {
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
+      },
+    },
+
+    // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
+    {
+      files: ["*.test.ts"],
+      rules: {
+        "@typescript-eslint/no-floating-promises": "off",
       },
     },
   ],
