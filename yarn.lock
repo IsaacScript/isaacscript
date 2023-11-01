@@ -3634,16 +3634,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/api-extractor@npm:^7.38.1":
-  version: 7.38.1
-  resolution: "@microsoft/api-extractor@npm:7.38.1"
+"@microsoft/api-extractor@npm:^7.38.2":
+  version: 7.38.2
+  resolution: "@microsoft/api-extractor@npm:7.38.2"
   dependencies:
     "@microsoft/api-extractor-model": "npm:7.28.2"
     "@microsoft/tsdoc": "npm:0.14.2"
     "@microsoft/tsdoc-config": "npm:~0.16.1"
     "@rushstack/node-core-library": "npm:3.61.0"
     "@rushstack/rig-package": "npm:0.5.1"
-    "@rushstack/ts-command-line": "npm:4.17.0"
+    "@rushstack/ts-command-line": "npm:4.17.1"
     colors: "npm:~1.2.1"
     lodash: "npm:~4.17.15"
     resolve: "npm:~1.22.1"
@@ -3652,7 +3652,7 @@ __metadata:
     typescript: "npm:~5.0.4"
   bin:
     api-extractor: bin/api-extractor
-  checksum: e4ad3236d4ba3a95084cdc62a3cbc68d18287dca7c24aa19396508f07a900ae17c597d051867f6f2e326f1939514efcd9c4f27be4d62749b9abc1c362f677c30
+  checksum: 3536cfbd9b497fbc93c5c9e29c9cce8344f8f4f13e19c8a338a4c013ef386336671abc728a2e1ceca9f660c62bf81bd115b475194d7125fd98fef18d02bff7c5
   languageName: node
   linkType: hard
 
@@ -4051,15 +4051,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rushstack/ts-command-line@npm:4.17.0":
-  version: 4.17.0
-  resolution: "@rushstack/ts-command-line@npm:4.17.0"
+"@rushstack/ts-command-line@npm:4.17.1":
+  version: 4.17.1
+  resolution: "@rushstack/ts-command-line@npm:4.17.1"
   dependencies:
     "@types/argparse": "npm:1.0.38"
     argparse: "npm:~1.0.9"
     colors: "npm:~1.2.1"
     string-argv: "npm:~0.3.1"
-  checksum: 57c28a58121e6b0834df74cc7372173ce20698de38d50ebe234abd9c9c11aef37ab7798512ed83b2c2a84743f2d18b4ca773646c717a8a205e5e9e99194fd04d
+  checksum: 4fd27d2450a6e71139e67b33d5ecba7abbf3497e7479ab3a96666cf79f207c5a7d4ad4f8de17f43e09bed65a0f28115160a4c5486c8e64f8b472c7145a31c2d2
   languageName: node
   linkType: hard
 
@@ -11436,7 +11436,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:2.4.3"
     "@eslint/js": "npm:^8.52.0"
     "@mdx-js/react": "npm:1.6.22"
-    "@microsoft/api-extractor": "npm:^7.38.1"
+    "@microsoft/api-extractor": "npm:^7.38.2"
     "@prettier/plugin-xml": "npm:^3.2.2"
     "@svgr/webpack": "npm:^8.1.0"
     "@tsconfig/docusaurus": "npm:^2.0.2"
@@ -11498,7 +11498,7 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^2.38.5"
+    knip: "npm:^2.38.6"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.31.1"
     markdownlint-cli: "npm:^0.37.0"
@@ -12377,9 +12377,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.38.5":
-  version: 2.38.5
-  resolution: "knip@npm:2.38.5"
+"knip@npm:^2.38.6":
+  version: 2.38.6
+  resolution: "knip@npm:2.38.6"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:^0.5.2"
     "@npmcli/map-workspaces": "npm:^3.0.4"
@@ -12403,7 +12403,7 @@ __metadata:
     zod-validation-error: "npm:1.5.0"
   bin:
     knip: dist/cli.js
-  checksum: 6466f43c41a1c9916a901770579edd79293906c5d689f6201d300178066c2225af2103ca6e167aafb4d9ff9be80ae829d01c68a44b5d653734b66e98101c4ca5
+  checksum: bfb7461d9efc23de0c535e0abaedf80e2c36f3c89dcb74f4a1f6f2e2aac077ee2937874314ce55c874d4be0935edf76f1998d7ad9874be5ddd85667c45585121
   languageName: node
   linkType: hard
 
