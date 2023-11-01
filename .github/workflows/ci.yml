@@ -12,7 +12,15 @@ jobs:
       - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts build
-      - run: echo ${{ steps.set-matrix.outputs.matrix }}
+      - run: echo LOL1 ${{ steps.set-matrix.outputs.matrix }} LOL2
+
+  build-asdf:
+    needs: build-packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - run: echo LOL1 ${{ needs.build-packages.outputs.matrix }} LOL2
 
   build:
     needs: build-packages
