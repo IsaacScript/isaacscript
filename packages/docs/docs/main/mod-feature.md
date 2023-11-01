@@ -98,6 +98,7 @@ Now, we can instantiate our mod feature classes in our "main.ts" file by using t
 ```ts
 // main.ts
 
+import { initModFeatures } from "isaacscript-common";
 import { GreenCandle } from "./features/GreenCandle";
 import { mod } from "./mod";
 
@@ -145,7 +146,7 @@ By default, when a `ModFeature` is instantiated, it will immediately subscribe a
 const MOD_FEATURES = [GreenCandle] as const;
 
 // At the beginning of your mod, instantiate your features.
-function initModFeatures() {
+function manuallyInitModFeatures() {
   for (const constructor of FEATURE_CLASSES) {
     // - The first argument to the constructor is the upgraded mod object.
     // - The second argument to the constructor is whether to register the callbacks.
