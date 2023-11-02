@@ -24,6 +24,12 @@ jobs:
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run build
+      - name: Store the docs build directory
+        if: ${{ matrix.package-name }} == 'docs'
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs-build
+          path: ./packages/docs/build
 
   get-lint-packages:
     runs-on: ubuntu-latest
@@ -67,6 +73,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
+        # We specify custom Node.js options in order to increase the memory size, since GitHub
+        # Actions can fail with the following error when doing the `eslint-plugin-isaacscript`
+        # tests:
+        # FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
         run: NODE_OPTIONS='--max-old-space-size=8192' npm run test
 
   unused:
@@ -99,6 +109,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
+
+      - name: Retrieve the docs build directory
+        uses: actions/download-artifact@v3
+        with:
+          name: docs-build
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
