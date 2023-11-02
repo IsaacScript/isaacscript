@@ -115,7 +115,7 @@ jobs:
 
       - name: Deploy the documentation website
         id: deploy_documentation_website
-        run: bash packages/docs/deploy.sh ${{ github.sha }}
+        run: npx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
 
       - name: Run DocSearch Scraper
         uses: celsiusnarhwal/typesense-scraper@v2
