@@ -1,10 +1,9 @@
-import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import {
   $,
+  $sq,
   appendFile,
   buildScript,
   cp,
-  fatalError,
   rm,
 } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
@@ -32,7 +31,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
 
   rm(indexLuaTSPath);
 
-  scrubInternalExports(packageRoot);
+  scrubInternalExports();
 });
 
 /**
@@ -54,26 +53,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
  * not work:
  * https://github.com/microsoft/rushstack/issues/1886
  * https://github.com/timocov/dts-bundle-generator/issues/218
- *
- * Note that we deliberately invoke API extractor from its API. If we try to run it like this:
- *
- * ```ts
- * $s`npx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
- * ```
- *
- * Then it will cause a weird error in CI having to do with a "\r" character.
  */
-function scrubInternalExports(packageRoot: string) {
-  const apiExtractorJSONPath = path.join(packageRoot, "api-extractor.json");
-  const extractorConfig =
-    ExtractorConfig.loadFileAndPrepare(apiExtractorJSONPath);
-  const extractorResult = Extractor.invoke(extractorConfig);
-
-  // There seems to be no way to suppress the following annoying output: "Analysis will use the
-  // bundled TypeScript version x.x.x. The target project appears to use TypeScript x.x.x which is
-  // newer than the bundled compiler engine; consider upgrading API Extractor."
-
-  if (!extractorResult.succeeded) {
-    fatalError("API Extractor failed.");
-  }
+function scrubInternalExports() {
+  $sq`npx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
 }
