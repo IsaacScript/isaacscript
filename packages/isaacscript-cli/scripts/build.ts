@@ -92,11 +92,18 @@ function copyITDEnums(packageRoot: string) {
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
     let fileContents = readFile(sourcePath);
 
-    if (fileName === "RoomShape") {
-      fileContents = fileContents.replaceAll(
-        " // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation",
-        "",
-      );
+    switch (fileName) {
+      case "RoomShape": {
+        fileContents = fileContents.replaceAll(
+          " // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation",
+          "",
+        );
+        break;
+      }
+
+      default: {
+        break;
+      }
     }
 
     const copiedFileHeader = getCopiedFileHeader(sourcePackage);

@@ -1,7 +1,14 @@
 {
   "$schema": "https://unpkg.com/knip@2/schema.json",
   "workspaces": {
-    "packages/isaacscript-cli": {},
+    "packages/isaacscript-cli": {
+      "entry": [
+        "src/main.ts",
+        "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
+        "src/commands/monitor/saveDatWriter/saveDatWriter.ts"
+      ],
+      "ignore": ["**/copied/**"]
+    },
     "packages/isaacscript-common-node": {},
     "packages/isaacscript-common-ts": {}
   }
