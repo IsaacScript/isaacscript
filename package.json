@@ -16,6 +16,7 @@
   "scripts": {
     "cloc": "cloc . --exclude-dir=node_modules --include-lang=TypeScript",
     "postinstall": "tsx ./packages/eslint-plugin-isaacscript/scripts/build.mts",
+    "package-json-lint": "tsx ./scripts/packageJSONLint.ts",
     "publish": "tsx ./scripts/publish.ts",
     "update": "tsx ./scripts/update.ts"
   },

@@ -102,8 +102,15 @@ jobs:
       - run: npx cspell --no-progress --no-summary .
       - run: npx cspell-check-unused-words
 
+  package-json-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - run: npm run package-json-lint .
+
   docs-deploy:
-    needs: [build, lint, test, unused, format, spell-check]
+    needs: [build, lint, test, unused, format, spell-check, package-json-lint]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
     steps:
@@ -145,7 +152,17 @@ jobs:
 
   discord:
     name: Discord Failure Notification
-    needs: [build, lint, test, unused, format, spell-check, docs-deploy]
+    needs:
+      [
+        build,
+        lint,
+        test,
+        unused,
+        format,
+        spell-check,
+        package-json-lint,
+        docs-deploy,
+      ]
     if: always() # This is needed to always run this job, even if the other jobs fail.
     runs-on: ubuntu-latest
     steps:
