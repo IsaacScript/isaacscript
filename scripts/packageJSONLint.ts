@@ -8,6 +8,7 @@ import {
   echo,
   exit,
   getPackageJSON,
+  getPackageJSONDependencies,
   readFile,
 } from "isaacscript-common-node";
 import { isKebabCase } from "isaacscript-common-ts";
@@ -229,12 +230,6 @@ function packageJSONLint(
     }
   }
 
-  const { files } = packageJSON;
-  if (files !== undefined) {
-    echo(`File has a "files" field: ${packageJSONPath}`);
-    return false;
-  }
-
   if (!isTemplateFile && rootDeps !== undefined) {
     const { dependencies } = packageJSON;
     if (!checkDeps(dependencies, rootDeps, packageJSONPath)) {
@@ -255,24 +250,17 @@ function packageJSONLint(
 
 /** Gets the dependencies of the root monorepo "package.json" file. */
 function getDeps(packageJSONPath: string): Record<string, string> {
-  const packageJSONString = readFile(packageJSONPath);
-  const packageJSON = getPackageJSON(packageJSONString);
-
-  let { dependencies, devDependencies, peerDependencies } = packageJSON;
-  if (typeof dependencies !== "object") {
-    dependencies = {};
-  }
-  if (typeof devDependencies !== "object") {
-    devDependencies = {};
-  }
-  if (typeof peerDependencies !== "object") {
-    peerDependencies = {};
-  }
+  const dependencies =
+    getPackageJSONDependencies(packageJSONPath, "dependencies") ?? {};
+  const devDependencies =
+    getPackageJSONDependencies(packageJSONPath, "devDependencies") ?? {};
+  const peerDependencies =
+    getPackageJSONDependencies(packageJSONPath, "peerDependencies") ?? {};
 
   const deps = {
-    ...(dependencies as Record<string, string>),
-    ...(devDependencies as Record<string, string>),
-    ...(peerDependencies as Record<string, string>),
+    ...dependencies,
+    ...devDependencies,
+    ...peerDependencies,
   };
 
   // `eslint-plugin-isaacscript` is not a root dependency of the monorepo, so it has to be
@@ -292,8 +280,7 @@ function getVersionForSpecificPackage(packageName: string): string {
     packageName,
     "package.json",
   );
-  const packageJSONString = readFile(packageJSONPath);
-  const packageJSON = getPackageJSON(packageJSONString);
+  const packageJSON = getPackageJSON(packageJSONPath);
   const packageVersion = packageJSON["version"];
   if (typeof packageVersion !== "string") {
     throw new TypeError(`Failed to parse the version from: ${packageJSONPath}`);
@@ -325,8 +312,7 @@ function checkDeps(
         key,
         PACKAGE_JSON,
       );
-      const depPackageJSONString = readFile(depPackageJSONPath);
-      const depPackageJSON = getPackageJSON(depPackageJSONString);
+      const depPackageJSON = getPackageJSON(depPackageJSONPath);
       const depVersion = depPackageJSON["version"];
       if (typeof depVersion !== "string") {
         throw new TypeError(
@@ -360,8 +346,7 @@ function checkRootDepsUpToDate(
       continue;
     }
 
-    const packageJSONString = readFile(matchingPackageJSONPath);
-    const packageJSON = getPackageJSON(packageJSONString);
+    const packageJSON = getPackageJSON(matchingPackageJSONPath);
 
     const { version } = packageJSON;
     if (typeof version !== "string" || version === "") {

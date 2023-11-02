@@ -36,8 +36,8 @@ export function getPackageJSON(
 }
 
 /**
- * Helper function to get the "dependencies" or "devDependencies" field from a "package.json" file.
- * If the corresponding field does not exist, `undefined` will be returned.
+ * Helper function to get the "dependencies" or "devDependencies" or "peerDependencies" field from a
+ * "package.json" file. If the corresponding field does not exist, `undefined` will be returned.
  *
  * This will print an error message and exit the program if the "package.json" file cannot be found
  * or is otherwise invalid.
@@ -52,7 +52,7 @@ export function getPackageJSON(
 export function getPackageJSONDependencies(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
   dependencyFieldName: PackageJSONDependencyFieldName = "dependencies",
-): Record<string, unknown> | undefined {
+): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
       ? filePathOrDirPathOrRecord
@@ -81,7 +81,19 @@ export function getPackageJSONDependencies(
     );
   }
 
-  return field;
+  for (const [key, value] of Object.entries(field)) {
+    if (typeof value !== "string") {
+      fatalError(
+        `Failed to parse the "${chalk.green(
+          dependencyFieldName,
+        )}" field in a "${chalk.green(
+          PACKAGE_JSON,
+        )}" file since the "${chalk.green(key)}" entry was not a string.`,
+      );
+    }
+  }
+
+  return field as Record<string, string>;
 }
 
 /**
