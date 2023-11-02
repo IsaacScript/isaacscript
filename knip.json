@@ -1,3 +1,8 @@
 {
-  "$schema": "https://unpkg.com/knip@2/schema.json"
+  "$schema": "https://unpkg.com/knip@2/schema.json",
+  "workspaces": {
+    "packages/isaacscript-cli": {},
+    "packages/isaacscript-common-node": {},
+    "packages/isaacscript-common-ts": {}
+  }
 }

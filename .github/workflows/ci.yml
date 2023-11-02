@@ -114,6 +114,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docs-build
+          path: ./packages/docs/build
 
       - name: Checkout the docs repository
         uses: actions/checkout@v3
