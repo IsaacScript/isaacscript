@@ -120,7 +120,7 @@ For a discussion around comments and the motivations for some of the comment rul
 
 Thanks for helping out with this open-source project!
 
-If you are adding a new rule, start by using the `create-rule.sh` script to automate a few things:
+If you are adding a new rule, start by using the `create-rule` script to automate a few things:
 
 ```sh
 npm run create-rule foo "This is a description of the foo rule."

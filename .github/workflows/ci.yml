@@ -67,7 +67,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
-        run: npm run test
+        run: NODE_OPTIONS='--max-old-space-size=8192' npm run test
 
   unused:
     runs-on: ubuntu-latest
@@ -115,7 +115,7 @@ jobs:
 
       - name: Deploy the documentation website
         id: deploy_documentation_website
-        run: npx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
+        run: npx tsx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
 
       - name: Run DocSearch Scraper
         uses: celsiusnarhwal/typesense-scraper@v2

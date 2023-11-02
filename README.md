@@ -8,7 +8,7 @@
 
 IsaacScript is a tool to help you create [_Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/) mods using [TypeScript](https://www.typescriptlang.org/).
 
-Please visit the [official website](https://isaacscript.github.io/) for more information.
+Please visit the [official website](https://isaacscript.github.io/) for more information. You can also [join the Discord server](https://discord.gg/435qCC6nHt).
 
 This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the various packages in the ecosystem.
 
