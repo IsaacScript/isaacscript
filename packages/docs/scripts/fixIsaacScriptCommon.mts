@@ -44,6 +44,8 @@ import {
   echo,
   makeDirectory,
   readFile,
+  renameFile,
+  writeFile,
 } from "isaacscript-common-node";
 import {
   assertDefined,
@@ -169,7 +171,7 @@ See the [ModCallbackCustom](/isaacscript-common/other/enums/ModCallbackCustom) e
   `
     .trim()
     .concat("\n");
-  fs.writeFileSync(filePath, fileContent);
+  writeFile(filePath, fileContent);
 }
 
 /** Move the files in the "modules" directory to proper directories. */
@@ -201,7 +203,7 @@ function moveModulesFiles() {
       const dstDirectory = path.join(PACKAGE_DOCS_DIR, directoryName);
       makeDirectory(dstDirectory);
       const dstPath = path.join(dstDirectory, newFileName);
-      fs.renameSync(markdownFilePath, dstPath);
+      renameFile(markdownFilePath, dstPath);
 
       if (DEBUG) {
         echo(`Moved:\n  ${markdownFilePath}\n  -->\n  ${dstPath}`);
@@ -244,7 +246,7 @@ function moveDirsToOther() {
   for (const otherDirName of OTHER_DIR_NAMES) {
     const srcPath = path.join(PACKAGE_DOCS_DIR, otherDirName);
     const dstPath = path.join(OTHER_DIR, otherDirName);
-    fs.renameSync(srcPath, dstPath);
+    renameFile(srcPath, dstPath);
   }
 }
 
@@ -260,7 +262,7 @@ function addCategoryFile(directoryPath: string) {
   if (position !== undefined) {
     fileContents += `position: ${position}\n`;
   }
-  fs.writeFileSync(categoryFilePath, fileContents);
+  writeFile(categoryFilePath, fileContents);
 }
 
 function addMarkdownHeader(filePath: string, directoryName: string) {
@@ -292,7 +294,7 @@ custom_edit_url: null
   fileContents = lines.join("\n");
 
   const newFileContents = header + fileContents;
-  fs.writeFileSync(filePath, newFileContents);
+  writeFile(filePath, newFileContents);
 }
 
 function getTitle(filePath: string, directoryName: string) {
@@ -345,14 +347,14 @@ function renameSpecialPages() {
     "features_other_extraConsoleCommands_commands.md",
   );
   const newPath = path.join(FEATURES_DIR, "ExtraConsoleCommandsList.md");
-  fs.renameSync(oldPath, newPath);
+  renameFile(oldPath, newPath);
 
   const contents = readFile(newPath);
   const newContents = contents.replace(
     "# features_other_extraConsoleCommands_commands",
     "# Extra Console Commands (List)",
   );
-  fs.writeFileSync(newPath, newContents);
+  writeFile(newPath, newContents);
 }
 
 function deleteDuplicatedPages() {
@@ -412,7 +414,7 @@ function renameDuplicatedPages() {
         properPath = path.join(FEATURES_DIR, properName);
       }
 
-      fs.renameSync(filePath, properPath);
+      renameFile(filePath, properPath);
 
       if (DEBUG) {
         echo(`Renamed:\n  ${filePath}\n  -->\n  ${properPath}`);
@@ -433,7 +435,8 @@ function fixLinks() {
   const markdownFilePaths = globSync("**/*.md", { cwd: PACKAGE_DOCS_DIR });
 
   for (const filePath of markdownFilePaths) {
-    const fileContents = readFile(filePath);
+    const fullFilePath = path.join(PACKAGE_DOCS_DIR, filePath);
+    const fileContents = readFile(fullFilePath);
     let newFileContents = fileContents;
 
     // Start by removing any links with a "modules" prefix, since they are moved to the root.
@@ -472,7 +475,8 @@ function fixLinks() {
       newFileContents = newFileContents.replaceAll(brokenLink, fixedLink);
     }
 
-    const numDirectoriesAwayFromRoot = getNumDirectoriesAwayFromRoot(filePath);
+    const numDirectoriesAwayFromRoot =
+      getNumDirectoriesAwayFromRoot(fullFilePath);
     const linkPrefix = "../".repeat(numDirectoriesAwayFromRoot);
 
     for (const brokenLinkDirName of BROKEN_LINK_DIR_NAMES) {
@@ -496,7 +500,7 @@ function fixLinks() {
     newFileContents = newFileContents.replaceAll(/types_\w+\./gm, "");
 
     if (fileContents !== newFileContents) {
-      fs.writeFileSync(filePath, newFileContents);
+      writeFile(fullFilePath, newFileContents);
     }
   }
 }
