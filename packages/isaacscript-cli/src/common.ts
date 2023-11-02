@@ -2,12 +2,12 @@
 
 import { fatalError } from "isaacscript-common-node";
 import { parseIntSafe } from "isaacscript-common-ts";
-import type { DoorSlot } from "./enums/DoorSlot.js";
-import type { DoorSlotFlag } from "./enums/DoorSlotFlag.js";
-import type { RoomShape } from "./enums/RoomShape.js";
+import type { DoorSlot } from "./enums/copied/DoorSlot.js";
+import type { DoorSlotFlag } from "./enums/copied/DoorSlotFlag.js";
+import type { RoomShape } from "./enums/copied/RoomShape.js";
 import type { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
-import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag.js";
-import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorToSlotCoordinates.js";
+import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/copied/doorSlotToDoorSlotFlag.js";
+import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/copied/roomShapeToDoorSlotCoordinates.js";
 
 /** This is copied from `isaacscript-common`. */
 export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {

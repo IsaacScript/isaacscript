@@ -14,6 +14,11 @@ import path from "node:path";
 
 const INTERFACE_FILE_NAMES = ["CustomStageTSConfig", "JSONRoomsFile"] as const;
 const ENUM_FILE_NAMES = ["DoorSlot", "RoomShape"] as const;
+const ENUM_FLAG_FILE_NAMES = ["DoorSlotFlag"] as const;
+const OBJECT_FILE_NAMES = [
+  "doorSlotToDoorSlotFlag",
+  "roomShapeToDoorSlotCoordinates",
+] as const;
 
 const TSCONFIG_SCHEMA_PATH = "schemas/tsconfig-isaacscript-section-schema.json";
 const ISAACSCRIPT_SCHEMA_PATH = "schemas/isaacscript-schema.json";
@@ -59,43 +64,13 @@ await buildScript(async ({ packageRoot }) => {
  * "isaacscript-common-ts".
  */
 function copyIsaacScriptCommonFiles(packageRoot: string) {
-  copyIsaacScriptCommonInterfaces(packageRoot);
-  copyIsaacScriptCommonEnums(packageRoot);
+  copyITDEnums(packageRoot);
+  copyITDEnumsFlag(packageRoot);
+  copyISCInterfaces(packageRoot);
+  copyISCObjects(packageRoot);
 }
 
-function copyIsaacScriptCommonInterfaces(packageRoot: string) {
-  const sourcePackage = "isaacscript-common";
-  const sourceDirectoryPath = path.join(
-    packageRoot,
-    "..",
-    sourcePackage,
-    "src",
-    "interfaces",
-  );
-  const destinationDirectoryPath = path.join(
-    packageRoot,
-    "src",
-    "interfaces",
-    "copied",
-  );
-  mkdir(destinationDirectoryPath);
-
-  for (const fileName of INTERFACE_FILE_NAMES) {
-    const fullFileName = `${fileName}.ts`;
-    const sourcePath = path.join(sourceDirectoryPath, fullFileName);
-    let fileContents = readFile(sourcePath);
-    const copiedFileHeader = getCopiedFileHeader(sourcePackage);
-    fileContents = copiedFileHeader + fileContents;
-    fileContents = fileContents.replaceAll(
-      '"../types/Immutable"',
-      '"isaacscript-common-ts"',
-    );
-    const destinationPath = path.join(destinationDirectoryPath, fullFileName);
-    writeFile(destinationPath, fileContents);
-  }
-}
-
-function copyIsaacScriptCommonEnums(packageRoot: string) {
+function copyITDEnums(packageRoot: string) {
   const sourcePackage = "isaac-typescript-definitions";
   const sourceDirectoryPath = path.join(
     packageRoot,
@@ -116,15 +91,166 @@ function copyIsaacScriptCommonEnums(packageRoot: string) {
     const fullFileName = `${fileName}.ts`;
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
     let fileContents = readFile(sourcePath);
+
+    if (fileName === "RoomShape") {
+      fileContents = fileContents.replaceAll(
+        " // eslint-disable-line @typescript-eslint/naming-convention,isaacscript/enum-member-number-separation",
+        "",
+      );
+    }
+
     const copiedFileHeader = getCopiedFileHeader(sourcePackage);
     fileContents = copiedFileHeader + fileContents;
+
+    const destinationPath = path.join(destinationDirectoryPath, fullFileName);
+    writeFile(destinationPath, fileContents);
+  }
+}
+
+function copyITDEnumsFlag(packageRoot: string) {
+  const sourcePackage = "isaac-typescript-definitions";
+  const sourceDirectoryPath = path.join(
+    packageRoot,
+    "..",
+    sourcePackage,
+    "src",
+    "enums",
+    "flags",
+  );
+  const destinationDirectoryPath = path.join(
+    packageRoot,
+    "src",
+    "enums",
+    "copied",
+  );
+  mkdir(destinationDirectoryPath);
+
+  for (const fileName of ENUM_FLAG_FILE_NAMES) {
+    const fullFileName = `${fileName}.ts`;
+    const sourcePath = path.join(sourceDirectoryPath, fullFileName);
+    let fileContents = readFile(sourcePath);
+
+    switch (fileName) {
+      case "DoorSlotFlag": {
+        fileContents = `/* eslint-disable no-bitwise */\n\n${fileContents}`;
+        fileContents = fileContents.replace(
+          'import { DoorSlot } from "../DoorSlot";',
+          'import { DoorSlot } from "./DoorSlot.js";',
+        );
+        fileContents +=
+          "\ndeclare type BitFlag = number & { readonly __bitFlagBrand: symbol };\n\ndeclare type BitFlags<T extends BitFlag> = T & {\n  readonly __bitFlagsBrand: T;\n};\n";
+        break;
+      }
+    }
+
+    const copiedFileHeader = getCopiedFileHeader(sourcePackage);
+    fileContents = copiedFileHeader + fileContents;
+
+    const destinationPath = path.join(destinationDirectoryPath, fullFileName);
+    writeFile(destinationPath, fileContents);
+  }
+}
+
+function copyISCInterfaces(packageRoot: string) {
+  const sourcePackage = "isaacscript-common";
+  const sourceDirectoryPath = path.join(
+    packageRoot,
+    "..",
+    sourcePackage,
+    "src",
+    "interfaces",
+  );
+  const destinationDirectoryPath = path.join(
+    packageRoot,
+    "src",
+    "interfaces",
+    "copied",
+  );
+  mkdir(destinationDirectoryPath);
+
+  for (const fileName of INTERFACE_FILE_NAMES) {
+    const fullFileName = `${fileName}.ts`;
+    const sourcePath = path.join(sourceDirectoryPath, fullFileName);
+    let fileContents = readFile(sourcePath);
+
+    switch (fileName) {
+      case "CustomStageTSConfig": {
+        fileContents = fileContents.replace(
+          'import type { Immutable } from "../types/Immutable";',
+          'import type { Immutable } from "isaacscript-common-ts";',
+        );
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
+
+    const copiedFileHeader = getCopiedFileHeader(sourcePackage);
+    fileContents = copiedFileHeader + fileContents;
+
+    const destinationPath = path.join(destinationDirectoryPath, fullFileName);
+    writeFile(destinationPath, fileContents);
+  }
+}
+
+function copyISCObjects(packageRoot: string) {
+  const sourcePackage = "isaacscript-common";
+  const sourceDirectoryPath = path.join(
+    packageRoot,
+    "..",
+    sourcePackage,
+    "src",
+    "objects",
+  );
+  const destinationDirectoryPath = path.join(
+    packageRoot,
+    "src",
+    "objects",
+    "copied",
+  );
+  mkdir(destinationDirectoryPath);
+
+  for (const fileName of OBJECT_FILE_NAMES) {
+    const fullFileName = `${fileName}.ts`;
+    const sourcePath = path.join(sourceDirectoryPath, fullFileName);
+    let fileContents = readFile(sourcePath);
+
+    switch (fileName) {
+      case "doorSlotToDoorSlotFlag": {
+        fileContents = fileContents.replace(
+          'import {\n  DoorSlot,\n  DoorSlotFlag,\n  DoorSlotFlagZero,\n} from "isaac-typescript-definitions";',
+          'import { DoorSlot } from "../../enums/copied/DoorSlot.js";\nimport {\n  DoorSlotFlag,\n  DoorSlotFlagZero,\n} from "../../enums/copied/DoorSlotFlag.js";',
+        );
+        break;
+      }
+
+      case "roomShapeToDoorSlotCoordinates": {
+        fileContents = fileContents.replace(
+          'import { DoorSlot, RoomShape } from "isaac-typescript-definitions";',
+          'import { DoorSlot } from "../../enums/copied/DoorSlot.js";\nimport { RoomShape } from "../../enums/copied/RoomShape.js";',
+        );
+        fileContents = fileContents.replaceAll("int", "number");
+        break;
+      }
+    }
+
+    const copiedFileHeader = getCopiedFileHeader(sourcePackage);
+    fileContents = copiedFileHeader + fileContents;
+
     const destinationPath = path.join(destinationDirectoryPath, fullFileName);
     writeFile(destinationPath, fileContents);
   }
 }
 
 function getCopiedFileHeader(packageName: string): string {
-  return `// THIS FILE IS AUTOMATICALLY GENERATED BY THE "build.ts" SCRIPT.\n// IT IS COPIED FROM THE "${packageName}" package.\n// DO NOT EDIT THIS FILE!\n\n`;
+  return `
+/// THIS FILE IS AUTOMATICALLY GENERATED BY THE "build.ts" SCRIPT.
+/// IT IS COPIED FROM THE "${packageName}" package.
+/// DO NOT EDIT THIS FILE!
+
+`.trimStart();
 }
 
 function renamePluginJSToCJS(pluginsDirPath: string) {
