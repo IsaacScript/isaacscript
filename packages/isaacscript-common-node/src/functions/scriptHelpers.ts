@@ -12,7 +12,10 @@ type ScriptCallback = (
 ) => Promise<void> | void;
 
 interface ScriptCallbackData {
+  /** The full path to the directory where the closest "package.json" is located. */
   packageRoot: string;
+
+  /** Equal to the "outDir" setting in the project's "tsconfig.json", if any. */
   outDir?: string;
 }
 

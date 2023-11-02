@@ -40,13 +40,11 @@ const BASE_OPTIONS = {
  * Helper function to use `esbuild` to bundle a TypeScript project into a single minified JavaScript
  * file for end-user consumption.
  *
- * This assumes that the file should be created in the "dist" directory.
- *
  * @param packageRoot The path to the root of the TypeScript project.
  * @param options Optional. Additional options to use beyond the default options that will be merged
  *                with the default options.
  */
-export async function buildTypeScript(
+export async function bundleTypeScript(
   packageRoot: string,
   options?: BuildOptions,
 ): Promise<BuildResult> {

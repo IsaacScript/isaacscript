@@ -3,9 +3,8 @@
 {
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // TSTL requires the "baseUrl" option when "paths" is specified. (It cannot be in the
-    // project-specific "tsconfig.json" file either.)
-    "baseUrl": ".",
+    // We do not have to put the "baseUrl" option here because the correct value will be
+    // automatically inferred by TypeScript.
 
     "paths": {
       "isaacscript-common": ["./packages/isaacscript-common/src/index.ts"],
