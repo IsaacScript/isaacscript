@@ -29,7 +29,7 @@ enum VersionBump {
 await script(async ({ packageRoot }) => {
   // Validate that we are on the correct branch.
   const branch = $o`git branch --show-current`;
-  if (branch === "main") {
+  if (branch !== "main") {
     echo("Error: You must be on the main branch before publishing.");
     exit(1);
   }
