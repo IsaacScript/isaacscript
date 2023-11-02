@@ -3,7 +3,6 @@
 import { globSync } from "glob";
 import {
   PACKAGE_JSON,
-  cd,
   dirName,
   echo,
   exit,
@@ -25,15 +24,14 @@ main();
 function main() {
   echo('Checking "package.json" files...');
 
-  cd(REPO_ROOT);
-
   if (!packageJSONLint(REPO_ROOT_PACKAGE_JSON_PATH, undefined)) {
     exit(1);
   }
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
   const packageJSONPaths = globSync(`./packages/**/${PACKAGE_JSON}`, {
-    ignore: ["node_modules/**", "dist/**"],
+    ignore: ["**/dist/**", "node_modules/**"],
+    cwd: REPO_ROOT,
   });
 
   checkRootDepsUpToDate(rootDeps, packageJSONPaths);

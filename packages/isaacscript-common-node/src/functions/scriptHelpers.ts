@@ -93,7 +93,7 @@ export async function script(
   const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
   const outDir = getTSConfigJSONOutDir(tsConfigJSONPath);
 
-  cd(packageRoot);
+  process.chdir(packageRoot);
 
   const startTime = Date.now();
   const data = { packageRoot, outDir };
@@ -105,11 +105,6 @@ export async function script(
       `Successfully ${verb} ${packageName} in ${elapsedSeconds} seconds.`,
     );
   }
-}
-
-/** An alias for "process.chdir". */
-export function cd(directoryPath: string): void {
-  process.chdir(directoryPath);
 }
 
 /**

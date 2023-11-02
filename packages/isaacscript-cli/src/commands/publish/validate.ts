@@ -7,7 +7,7 @@ import {
   isGitRepositoryClean,
   isLoggedInToNPM,
 } from "isaacscript-common-node";
-import { PROJECT_NAME } from "../../constants.js";
+import { CWD, PROJECT_NAME } from "../../constants.js";
 import { execPowershell } from "../../exec.js";
 
 export function validate(
@@ -15,13 +15,13 @@ export function validate(
   setVersion: string | undefined,
   verbose: boolean,
 ): void {
-  if (!isGitRepository()) {
+  if (!isGitRepository(CWD)) {
     fatalError(
       "Failed to publish since the current working directory is not inside of a git repository.",
     );
   }
 
-  if (!isGitRepositoryClean()) {
+  if (!isGitRepositoryClean(CWD)) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
     );

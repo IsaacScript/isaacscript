@@ -1,20 +1,27 @@
-import { $o, $s } from "./execa.js";
+import { $op } from "./execa.js";
 
-export function isGitRepository(): boolean {
-  const returnBase = $s`git rev-parse --is-inside-work-tree`;
+export function isGitRepository(gitRepositoryDirectoryPath: string): boolean {
+  const $$ = $op({ cwd: gitRepositoryDirectoryPath });
+  const returnBase = $$.sync`git rev-parse --is-inside-work-tree`;
   return returnBase.exitCode === 0;
 }
 
-export function isGitRepositoryClean(): boolean {
-  const gitStatus = $o`git status --porcelain`;
+export function isGitRepositoryClean(
+  gitRepositoryDirectoryPath: string,
+): boolean {
+  const $$ = $op({ cwd: gitRepositoryDirectoryPath });
+  const gitStatus = $$.sync`git status --porcelain`.stdout;
   return gitStatus === "";
 }
 
-export function isGitRepositoryLatestCommit(): boolean {
-  $s`git fetch`;
+export function isGitRepositoryLatestCommit(
+  gitRepositoryDirectoryPath: string,
+): boolean {
+  const $$ = $op({ cwd: gitRepositoryDirectoryPath });
+  $$.sync`git fetch`;
 
-  const output1 = $o`git rev-parse HEAD`;
-  const output2 = $o`git rev-parse @{u}`;
+  const output1 = $$.sync`git rev-parse HEAD`.stdout;
+  const output2 = $$.sync`git rev-parse @{u}`.stdout;
 
   return output1 === output2;
 }

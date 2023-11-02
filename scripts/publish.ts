@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import {
-  $,
   $o,
+  $op,
   $s,
-  cd,
+  PACKAGE_JSON,
   echo,
   exit,
   fatalError,
@@ -72,7 +72,7 @@ await script(async ({ packageRoot }) => {
     exit(1);
   }
 
-  cd(packageDir);
+  const $$ = $op({ cwd: packageDir });
 
   // Before bumping the version, check to see if this package compiles and lints and tests (so that
   // we can avoid unnecessary version bumps).
@@ -83,7 +83,7 @@ await script(async ({ packageRoot }) => {
     for (const scriptName of ["build", "lint", "test"]) {
       const scriptCommand = scripts[scriptName];
       if (typeof scriptCommand === "string") {
-        promises.push($`npm run ${scriptName}`);
+        promises.push($$`npm run ${scriptName}`);
       }
     }
 
@@ -100,13 +100,14 @@ await script(async ({ packageRoot }) => {
    * Thus, we manually revert to doing a commit ourselves.
    */
   if (versionBump === VersionBump.dev) {
-    $s`npm version prerelease --preid=dev --commit-hooks=false`;
+    $$.sync`npm version prerelease --preid=dev --commit-hooks=false`;
   } else {
-    $s`npm version ${versionBump} --commit-hooks=false`;
+    $$.sync`npm version ${versionBump} --commit-hooks=false`;
   }
 
   // Manually make a Git commit. (See above comment.)
-  $s`git add "${packageDir}/package.json"`;
+  const packageJSONPath = path.join(packageDir, PACKAGE_JSON);
+  $s`git add ${packageJSONPath}`;
   const newVersion = getPackageJSONVersion(packageDir);
   const tag = `${packageName}-${newVersion}`;
   const commitMessage = `chore(release): ${tag}`;
@@ -118,12 +119,12 @@ await script(async ({ packageRoot }) => {
   const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
   // The "--access=public" flag is only technically needed for the first publish, but it is saved
   // here for posterity.
-  $s`npm publish --access=public --tag=${npmTag}`; // --otp=${otpCode}
+  $$.sync`npm publish --access=public --tag=${npmTag}`;
 
   // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
   await updateIsaacScriptMonorepo();
 
-  if (!isGitRepositoryClean()) {
+  if (!isGitRepositoryClean(packageRoot)) {
     const gitCommitMessage = "chore: updating dependencies";
     $s`git add --all`;
     $s`git commit --message ${gitCommitMessage}`;

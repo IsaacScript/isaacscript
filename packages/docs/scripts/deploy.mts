@@ -1,7 +1,6 @@
 import {
-  $s,
+  $op,
   appendFile,
-  cd,
   cp,
   dirName,
   echo,
@@ -50,8 +49,7 @@ rm(DOCS_REPO);
 cp(BUILD_DIRECTORY_PATH, DOCS_REPO);
 mv(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
-cd(DOCS_REPO);
-if (isGitRepositoryClean()) {
+if (isGitRepositoryClean(DOCS_REPO)) {
   echo("There are no documentation website changes to deploy.");
   exit();
 }
@@ -60,8 +58,7 @@ if (isGitRepositoryClean()) {
 // that another commit has been pushed in the meantime, in which case we should do nothing and wait
 // for the CI on that commit to finish.)
 // https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
-cd(REPO_ROOT);
-if (!isGitRepositoryLatestCommit()) {
+if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
   echo(
     "A more recent commit was found in the repository; skipping website deployment.",
   );
@@ -69,23 +66,21 @@ if (!isGitRepositoryLatestCommit()) {
 }
 
 echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
-cd(DOCS_REPO);
-$s`git config --global user.email "github-actions@users.noreply.github.com"`;
-$s`git config --global user.name "github-actions"`;
+const $$ = $op({ cwd: DOCS_REPO });
+$$.sync`git config --global user.email "github-actions@users.noreply.github.com"`;
+$$.sync`git config --global user.name "github-actions"`;
 // We overwrite the previous commit instead of adding a new one in order to keep the size of the
 // repository as small as possible. This speeds up deployment because with thousands of commits, it
 // takes a very long time to clone.
-$s`git add --all`;
-$s`git commit --message deploy --amend`;
-$s`git push --force-with-lease`;
-
-cd(REPO_ROOT);
+$$.sync`git add --all`;
+$$.sync`git commit --message deploy --amend`;
+$$.sync`git push --force-with-lease`;
 
 // Wait for the website to be be live (which usually takes around 5 minutes).
 const shortCommitSHA1 = commitSHA1.slice(0, 7);
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-condition
 while (true) {
-  if (!isGitRepositoryLatestCommit()) {
+  if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
     echo(
       "A more recent commit was found in the repository; skipping website scraping.",
     );
