@@ -1,5 +1,5 @@
 // Import the Isaac API definitions, which are declared as global variables.
-/// <reference path="types/index.d.ts" />
+/// <reference path="./types/index.d.ts" />
 
 export * from "./enums/ActiveSlot";
 export * from "./enums/BackdropType";
