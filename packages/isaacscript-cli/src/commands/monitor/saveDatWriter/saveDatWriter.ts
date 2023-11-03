@@ -118,6 +118,7 @@ function writeSaveDatToDisk(
 ) {
   const saveDatRaw = JSON.stringify(saveDat, undefined, 2);
   try {
+    // We don't use the "writeFile" helper function here, since we want to allow for failure.
     fs.writeFileSync(saveDatPath, saveDatRaw);
   } catch (error) {
     if (numRetries > 4) {

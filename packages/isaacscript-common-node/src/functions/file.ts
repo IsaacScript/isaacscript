@@ -72,6 +72,27 @@ export function deleteFileOrDirectory(...filePaths: string[]): void {
 }
 
 /**
+ * Helper function to synchronously check if a file exists.
+ *
+ * This will print an error message and exit the program if there is an error when checking the file
+ * path.
+ */
+export function fileOrDirectoryExists(filePath: string): boolean {
+  let exists: boolean;
+
+  try {
+    exists = fs.existsSync(filePath);
+  } catch (error) {
+    fatalError(
+      `Failed to check if file or directory "${chalk.green(filePath)}" exists:`,
+      error,
+    );
+  }
+
+  return exists;
+}
+
+/**
  * Helper function to synchronously get the file names inside of a directory. (If the full path is
  * required, you must manually join the file name with the path to the directory.)
  */

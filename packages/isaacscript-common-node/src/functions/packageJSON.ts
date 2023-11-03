@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { isObject, setAdd } from "isaacscript-common-ts";
-import { getFilePath, readFile } from "./file.js";
+import { getFilePath, readFile, writeFile } from "./file.js";
 import { fatalError } from "./utils.js";
 
 type PackageJSONDependencyFieldName =
@@ -51,7 +51,7 @@ export function getPackageJSON(
  */
 export function getPackageJSONDependencies(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
-  dependencyFieldName: PackageJSONDependencyFieldName = "dependencies",
+  dependencyFieldName: PackageJSONDependencyFieldName,
 ): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
@@ -215,18 +215,22 @@ export function getPackageJSONVersion(
  * This function is variadic, meaning that you can pass as many dependency names as you want to
  * check for. This function will return true if one or more dependencies were found.
  *
- * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
- *                          which contains a "package.json" file. If undefined is passed, the
- *                          current working directory will be used.
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
  * @param dependencyNames The name of the dependency to check for.
  */
-export function packageJSONHasDependency(
-  filePathOrDirPath: string | undefined,
+export function isPackageJSONDependency(
+  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
   ...dependencyNames: string[]
 ): boolean {
   const dependencySet = new Set<string>();
 
-  const packageJSON = getPackageJSON(filePathOrDirPath);
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : getPackageJSON(filePathOrDirPathOrRecord);
 
   const dependencies = getPackageJSONDependencies(packageJSON, "dependencies");
   if (dependencies !== undefined) {
@@ -251,20 +255,56 @@ export function packageJSONHasDependency(
  * error message and exit the program if the "package.json" file cannot be found or is otherwise
  * invalid.
  *
- * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
- *                          which contains a "package.json" file. If undefined is passed, the
- *                          current working directory will be used.
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
  * @param scriptName The name of the script to check for.
  */
 export function packageJSONHasScript(
-  filePathOrDirPath: string | undefined,
+  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
   scriptName: string,
 ): boolean {
-  const scripts = getPackageJSONScripts(filePathOrDirPath);
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : getPackageJSON(filePathOrDirPathOrRecord);
+
+  const scripts = getPackageJSONScripts(packageJSON);
   if (scripts === undefined) {
     return false;
   }
 
   const script = scripts[scriptName];
   return script !== undefined;
+}
+
+/**
+ * Helper function to set a dependency in a "package.json" file to a new value. This will print an
+ * error message and exit the program if the "package.json" file cannot be found or is otherwise
+ * invalid.
+ *
+ * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
+ *                          which contains a "package.json" file. If undefined is passed, the
+ *                          current working directory will be used.
+ * @param dependencyName The name of the dependency to update.
+ * @param version The new value for the dependency field. Note that most of the time, the version
+ *                should have a "^" character prefix to indicate that patch updates should
+ *                automatically be downloaded by the package manager.
+ */
+export function setPackageJSONDependency(
+  filePathOrDirPath: string | undefined,
+  dependencyName: string,
+  version: string,
+): void {
+  const filePath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
+  const packageJSON = getPackageJSON(filePath);
+
+  const dependencies =
+    getPackageJSONDependencies(packageJSON, "dependencies") ?? {};
+  dependencies[dependencyName] = version;
+  packageJSON["dependencies"] = dependencies;
+
+  const newFileContents = JSON.stringify(packageJSON);
+  writeFile(filePath, newFileContents);
 }

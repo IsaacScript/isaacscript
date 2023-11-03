@@ -48,7 +48,7 @@ function main() {
  * @param scriptName Optional. If specified, the package names will be filtered to only include
  *                   those that include scripts with the given name.
  */
-function getMonorepoPackageNames(scriptName?: string): string[] {
+export function getMonorepoPackageNames(scriptName?: string): string[] {
   const packageNames: string[] = [];
 
   const fileNames = getFileNamesInDirectory(PACKAGES_PATH);

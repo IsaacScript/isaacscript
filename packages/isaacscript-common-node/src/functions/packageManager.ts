@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import fs from "node:fs";
 import path from "node:path";
 import { PACKAGE_MANAGER_VALUES } from "../cachedEnums.js";
 import { PackageManager } from "../enums/PackageManager.js";
+import { isFile } from "./file.js";
 import { fatalError } from "./utils.js";
 
 const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
@@ -163,7 +163,7 @@ export function getPackageManagersForProject(
   for (const packageManager of PACKAGE_MANAGER_VALUES) {
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const lockFilePath = path.join(packageDir, lockFileName);
-    if (fs.existsSync(lockFilePath)) {
+    if (isFile(lockFilePath)) {
       packageManagersFound.push(packageManager);
     }
   }

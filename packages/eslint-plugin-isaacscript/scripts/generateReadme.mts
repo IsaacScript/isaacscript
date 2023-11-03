@@ -1,7 +1,7 @@
 // Generates the rules table in "README.md".
 
+import { readFile, writeFile } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
-import fs from "node:fs";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.mjs";
 import type { RuleDefinition } from "./utils.mjs";
@@ -99,7 +99,7 @@ async function updateFileContentInsideMark(
   text: string,
   marker: Marker,
 ) {
-  const originalFileText = fs.readFileSync(filePath, "utf8");
+  const originalFileText = readFile(filePath);
   const modifiedFileText = replaceContentInsideMark(
     originalFileText,
     text,
@@ -115,7 +115,7 @@ async function updateFileContentInsideMark(
     return;
   }
 
-  fs.writeFileSync(filePath, formattedModifiedFileText);
+  writeFile(filePath, formattedModifiedFileText);
 }
 
 function replaceContentInsideMark(

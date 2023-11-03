@@ -2,9 +2,9 @@ import chalk from "chalk";
 import {
   deleteFileOrDirectory,
   fatalError,
+  fileOrDirectoryExists,
   isDirectory,
 } from "isaacscript-common-node";
-import fs from "node:fs";
 import path from "node:path";
 import { PROJECT_NAME } from "../../constants.js";
 import { getInputYesNo } from "../../prompt.js";
@@ -15,7 +15,7 @@ export async function checkModTargetDirectory(
   yes: boolean,
 ): Promise<void> {
   const modTargetPath = path.join(modsDirectory, projectName);
-  if (!fs.existsSync(modTargetPath)) {
+  if (!fileOrDirectoryExists(modTargetPath)) {
     return;
   }
 

@@ -1,6 +1,5 @@
-import { echo } from "isaacscript-common-node";
+import { echo, readFile, writeFile } from "isaacscript-common-node";
 import { isKebabCase } from "isaacscript-common-ts";
-import fs from "node:fs";
 import path from "node:path";
 import { PACKAGE_ROOT, PLUGIN_NAME } from "./constants.mjs";
 import { generateAll } from "./generate.mjs";
@@ -54,14 +53,14 @@ async function createRule() {
 }
 
 function createDocFile(ruleName: string, description: string) {
-  const templateMDContent = fs.readFileSync(TEMPLATE_MD_PATH, "utf8");
+  const templateMDContent = readFile(TEMPLATE_MD_PATH);
   const content = replaceTemplateText(templateMDContent, ruleName, description);
   const ruleMDPath = path.join(DOCS_PATH, "rules", `${ruleName}.md`);
-  fs.writeFileSync(ruleMDPath, content);
+  writeFile(ruleMDPath, content);
 }
 
 function createSourceFile(ruleName: string, description: string) {
-  const templateSourceContent = fs.readFileSync(TEMPLATE_SRC_PATH, "utf8");
+  const templateSourceContent = readFile(TEMPLATE_SRC_PATH);
   const content = replaceTemplateText(
     templateSourceContent,
     ruleName,
@@ -69,11 +68,11 @@ function createSourceFile(ruleName: string, description: string) {
   );
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleSourcePath = path.join(SRC_PATH, "rules", `${ruleName}.ts`);
-  fs.writeFileSync(ruleSourcePath, contentWithoutComments);
+  writeFile(ruleSourcePath, contentWithoutComments);
 }
 
 function createTestFile(ruleName: string, description: string) {
-  const templateTestContent = fs.readFileSync(TEMPLATE_TEST_PATH, "utf8");
+  const templateTestContent = readFile(TEMPLATE_TEST_PATH);
   const content = replaceTemplateText(
     templateTestContent,
     ruleName,
@@ -81,7 +80,7 @@ function createTestFile(ruleName: string, description: string) {
   );
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleTestPath = path.join(TESTS_PATH, "rules", `${ruleName}.test.ts`);
-  fs.writeFileSync(ruleTestPath, contentWithoutComments);
+  writeFile(ruleTestPath, contentWithoutComments);
 }
 
 function replaceTemplateText(

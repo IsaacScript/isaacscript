@@ -3,7 +3,7 @@ import {
   $op,
   $s,
   buildScript,
-  buildTypeScript,
+  bundleTypeScript,
   getFileNamesInDirectory,
   mkdir,
   mv,
@@ -32,7 +32,7 @@ await buildScript(async ({ packageRoot }) => {
   const $$ = $op({ cwd: pluginsDirPath });
 
   promises.push(
-    buildTypeScript(packageRoot),
+    bundleTypeScript(packageRoot),
 
     // Generate the JSON schema for the special "isaacscript" section in "tsconfig.json".
     $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig tsconfig.json --out ${TSCONFIG_SCHEMA_PATH}`,

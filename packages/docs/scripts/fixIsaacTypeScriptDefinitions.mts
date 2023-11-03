@@ -4,6 +4,8 @@ import {
   deleteFileOrDirectory,
   dirName,
   readFile,
+  renameFile,
+  writeFile,
 } from "isaacscript-common-node";
 import {
   assertDefined,
@@ -83,7 +85,7 @@ function addCategoryFile(directoryPath: string) {
   if (position !== undefined) {
     fileContents += `position: ${position}\n`;
   }
-  fs.writeFileSync(categoryFilePath, fileContents);
+  writeFile(categoryFilePath, fileContents);
 }
 
 function addMarkdownHeader(filePath: string) {
@@ -112,7 +114,7 @@ custom_edit_url: null
   fileContents = lines.join("\n");
 
   const newFileContents = header + fileContents;
-  fs.writeFileSync(filePath, newFileContents);
+  writeFile(filePath, newFileContents);
 }
 
 function getTitle(filePath: string) {
@@ -164,7 +166,7 @@ function renameEnumFiles() {
     );
 
     const dstPath = path.join(ENUMS_DIR, simplifiedFileName);
-    fs.renameSync(markdownFilePath, dstPath);
+    renameFile(markdownFilePath, dstPath);
   }
 }
 

@@ -1,7 +1,7 @@
 // This generates the files in the "src/configs" directory.
 
 import type { TSESLint } from "@typescript-eslint/utils";
-import fs from "node:fs";
+import { writeFile } from "isaacscript-common-node";
 import path from "node:path";
 import { PACKAGE_ROOT, PLUGIN_NAME } from "./constants.mjs";
 import type { RuleDefinition } from "./utils.mjs";
@@ -66,7 +66,7 @@ async function writeConfig(name: string, config: LinterConfig) {
 
   const fileName = `${name}.ts`;
   const filePath = path.join(CONFIGS_DIRECTORY_PATH, fileName);
-  fs.writeFileSync(filePath, content);
+  writeFile(filePath, content);
 }
 
 /** Reduces records to key/value pairs. */

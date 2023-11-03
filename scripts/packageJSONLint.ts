@@ -8,10 +8,10 @@ import {
   exit,
   getPackageJSON,
   getPackageJSONDependencies,
+  isFile,
   readFile,
 } from "isaacscript-common-node";
 import { isKebabCase } from "isaacscript-common-ts";
-import fs from "node:fs";
 import path from "node:path";
 
 const __dirname = dirName();
@@ -188,22 +188,35 @@ function packageJSONLint(
   if (!isTemplateFile) {
     const packageDirectory = path.dirname(packageJSONPath);
     const licensePath = path.join(packageDirectory, "LICENSE");
-    if (!fs.existsSync(licensePath)) {
+    if (!isFile(licensePath)) {
       echo(`File does not exist: ${licensePath}`);
       return false;
     }
 
     const licenseFile = readFile(licensePath);
-    if (
-      license === "GPL-3.0" &&
-      !licenseFile.includes("GNU GENERAL PUBLIC LICENSE")
-    ) {
-      echo(`Invalid GPL license file: ${licensePath}`);
-      return false;
-    }
-    if (license === "MIT" && !licenseFile.includes("The MIT License (MIT)")) {
-      echo(`Invalid MIT license file: ${licensePath}`);
-      return false;
+    switch (license) {
+      case "GPL-3.0": {
+        if (!licenseFile.includes("GNU GENERAL PUBLIC LICENSE")) {
+          echo(`Invalid GPL license file: ${licensePath}`);
+          return false;
+        }
+
+        break;
+      }
+
+      case "MIT": {
+        if (!licenseFile.includes("The MIT License (MIT)")) {
+          echo(`Invalid MIT license file: ${licensePath}`);
+          return false;
+        }
+
+        break;
+      }
+
+      default: {
+        echo(`Invalid licence: ${license}`);
+        return false;
+      }
     }
 
     const { author } = packageJSON;

@@ -14,34 +14,26 @@
 
 import {
   $s,
-  PACKAGE_JSON,
-  echo,
-  fatalError,
   findPackageRoot,
-  getPackageJSON,
   getPackageJSONDependencies,
   getPackageJSONVersion,
   script,
+  setPackageJSONDependency,
   updatePackageJSON,
 } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
-import fs from "node:fs";
+import { trimPrefix } from "isaacscript-common-ts";
 import path from "node:path";
+import { getMonorepoPackageNames } from "./getMonorepoPackageNames.js";
 
 const REPO_ROOT = findPackageRoot();
-
-const PACKAGES_TO_CHECK_FOR_ISAACSCRIPT_LINT = [
-  "eslint-config-isaacscript",
-  "eslint-plugin-isaacscript",
-] as const;
 
 await updateIsaacScriptMonorepo();
 
 export async function updateIsaacScriptMonorepo(): Promise<void> {
   await script(async ({ packageRoot }) => {
-    // "isaacscript-lint" deps are independent of the root "package.json" file, so we do those
-    // first.
-    updateIsaacScriptLintDeps();
+    // Certain monorepo packages are dependant on other monorepo packages, so check to see if those
+    // are all up to date first. (This is independent of the root "package.json" file.)
+    updateIndividualPackageDeps();
 
     const hasNewDependencies = await updatePackageJSON(packageRoot);
     if (hasNewDependencies) {
@@ -57,45 +49,46 @@ export async function updateIsaacScriptMonorepo(): Promise<void> {
 /**
  * `syncpack` will automatically update most of the dependencies in the individual project
  * "package.json" files, but not the ones that do not exist in the root "package.json".
- * Specifically, "isaacscript-lint" needs to be updated for "eslint-config-isaacscript" and
- * "eslint-plugin-isaacscript". ("isaac-typescript-definitions" is currently a dependency at the
- * root, so we don't have to worry about updating "isaacscript-common".)
  */
-function updateIsaacScriptLintDeps() {
-  for (const monorepoPackage of PACKAGES_TO_CHECK_FOR_ISAACSCRIPT_LINT) {
-    const packagePath = path.join(REPO_ROOT, "packages", monorepoPackage);
-    const version = getPackageJSONVersion(packagePath);
-    const versionWithPrefix = `^${version}`;
-
-    const isaacScriptLintPackageJSONPath = path.join(
+function updateIndividualPackageDeps() {
+  const monorepoPackageNames = getMonorepoPackageNames();
+  for (const monorepoPackageName of monorepoPackageNames) {
+    const monorepoPackagePath = path.join(
       REPO_ROOT,
       "packages",
-      "isaacscript-lint",
-      PACKAGE_JSON,
+      monorepoPackageName,
     );
-    const packageJSON = getPackageJSON(isaacScriptLintPackageJSONPath);
-    const dependencies = getPackageJSONDependencies(
-      isaacScriptLintPackageJSONPath,
-    );
-    assertDefined(
-      dependencies,
-      `Failed to get the dependencies from: ${isaacScriptLintPackageJSONPath}`,
-    );
+    const version = getPackageJSONVersion(monorepoPackagePath);
 
-    const dependency = dependencies[monorepoPackage];
-    if (typeof dependency !== "string") {
-      fatalError(
-        `Failed to parse the following dependency: ${monorepoPackage}`,
+    for (const monorepoPackageName2 of monorepoPackageNames) {
+      const monorepoPackagePath2 = path.join(
+        REPO_ROOT,
+        "packages",
+        monorepoPackageName2,
       );
-    }
+      const dependencies = getPackageJSONDependencies(
+        monorepoPackagePath2,
+        "dependencies",
+      );
+      if (dependencies === undefined) {
+        continue;
+      }
 
-    if (dependency !== versionWithPrefix) {
-      dependencies[monorepoPackage] = versionWithPrefix;
-      const newFileContents = JSON.stringify(packageJSON);
-      fs.writeFileSync(isaacScriptLintPackageJSONPath, newFileContents);
-      echo(
-        `Updated the "isaacscript-lint" dependency of "${monorepoPackage}" to: ${version}`,
-      );
+      const depVersion = dependencies[monorepoPackageName];
+      if (depVersion === undefined) {
+        continue;
+      }
+
+      const depVersionTrimmed = trimPrefix(depVersion, "^");
+
+      if (depVersionTrimmed !== version) {
+        const versionWithPrefix = `^${version}`;
+        setPackageJSONDependency(
+          monorepoPackagePath2,
+          monorepoPackageName,
+          versionWithPrefix,
+        );
+      }
     }
   }
 }

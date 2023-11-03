@@ -1,7 +1,6 @@
 // Generates the "src/rules.ts" file.
 
-import { getFileNamesInDirectory } from "isaacscript-common-node";
-import fs from "node:fs";
+import { getFileNamesInDirectory, writeFile } from "isaacscript-common-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.mjs";
 import {
@@ -21,7 +20,7 @@ export async function generateRules(): Promise<void> {
   const combined = comment + code;
   const content = await formatWithPrettier(combined, "typescript");
 
-  fs.writeFileSync(RULES_TS_PATH, content);
+  writeFile(RULES_TS_PATH, content);
 }
 
 function getRuleNames(): string[] {

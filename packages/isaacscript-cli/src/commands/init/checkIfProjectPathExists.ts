@@ -2,9 +2,9 @@ import chalk from "chalk";
 import {
   deleteFileOrDirectory,
   fatalError,
+  fileOrDirectoryExists,
   isDirectory,
 } from "isaacscript-common-node";
-import fs from "node:fs";
 import { CWD } from "../../constants.js";
 import { getInputYesNo } from "../../prompt.js";
 
@@ -12,7 +12,7 @@ export async function checkIfProjectPathExists(
   projectPath: string,
   yes: boolean,
 ): Promise<void> {
-  if (projectPath === CWD || !fs.existsSync(projectPath)) {
+  if (projectPath === CWD || !fileOrDirectoryExists(projectPath)) {
     return;
   }
 
