@@ -6,6 +6,7 @@
 // - @docusaurus/eslint-plugin - 2.4.3
 // - @docusaurus/module-type-aliases - 2.4.3
 // - @docusaurus/preset-classic - 2.4.3
+// - @docusaurus/theme-common - 2.4.3
 // - @docusaurus/tsconfig - 2.4.3
 // - @mdx-js/react - 1.6.22
 // - prism-react-renderer - 1.3.5
