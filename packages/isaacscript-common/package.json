@@ -21,7 +21,7 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "type": "module",
+  "type": "commonjs",
   "main": "./dist/index",
   "types": "./dist/index.rollup.d.ts",
   "files": [
@@ -37,6 +37,6 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^37.2.0"
+    "isaac-typescript-definitions": "^37.0.1"
   }
 }

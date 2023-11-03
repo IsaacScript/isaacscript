@@ -1,7 +1,5 @@
 // This file handles drawing the walls and floors for custom stages.
 
-// cspell:ignore LTRX,LTLX,LBRX,LBLX
-
 import {
   EffectVariant,
   EntityFlag,
