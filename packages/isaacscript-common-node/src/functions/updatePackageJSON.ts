@@ -43,6 +43,10 @@ export async function updatePackageJSON(
     // is upgradeable).
     upgrade: true,
 
+    // The current working directory may not contain the "package.json" file, so we must explicitly
+    // specify it.
+    packageFile: packageJSONPath,
+
     // If a dependency does not have a "^" prefix, we assume that it should be a "locked" dependency
     // and not upgraded.
     filterVersion: "^*",
