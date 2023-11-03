@@ -1,5 +1,3 @@
-- GET RID OF bundleTypeScript function
-
 - test spawning new mod and non-mod project with isaacscript-cli to see if spelling lints correctly
 
 ----------------------------------------------------------------------------------------------------
