@@ -1,10 +1,4 @@
-- test ITD/ISC package.json "module"
-
-----------------------------------------------------------------------------------------------------
-
 - canRunUnlockAchievements convert to feature to remove foot-gun
-
-- remove const enums from ITD, then remove compiler exception in tsconfig.json
 
 - make PR to schema: "$schema": "https://json.schemastore.org/tsconfig",
   - https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/tsconfig.json

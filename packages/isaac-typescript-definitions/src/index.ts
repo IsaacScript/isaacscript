@@ -89,3 +89,6 @@ export * from "./enums/flags/RoomDescriptorFlag";
 export * from "./enums/flags/TargetFlag";
 export * from "./enums/flags/TearFlag";
 export * from "./enums/flags/UseFlag";
+export * from "./enums/mods/EncyclopediaItemPoolType";
+export * from "./enums/mods/ModConfigMenuOptionType";
+export * from "./enums/mods/StageAPIEnums";

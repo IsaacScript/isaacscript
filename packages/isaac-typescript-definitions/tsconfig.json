@@ -29,10 +29,6 @@
     // statements in the ".d.ts" files resolve properly.
     "skipLibCheck": false,
 
-    // The "strictest" TSConfig template turns this to true, but we need to set the value to false
-    // since it throws errors when using const enums.
-    "isolatedModules": false,
-
     // Force output of CJS. This is necessary because even though we have '"type": "commonjs"' in
     // the "package.json" file, TypeScript will still output ESM for some reason. We cannot convert
     // the package to ESM because of a bug in TSTL:

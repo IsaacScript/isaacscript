@@ -11,7 +11,18 @@ This page lists the changes to the IsaacScript framework.
 
 ## November 9th, 2023 (Unreleased)
 
-- TODO
+- Scripts in new mods no longer use Bash and are now native TypeScript scripts.
+- The `isaacscript-common-node` library is released, which contains helper functions for Bash-like scripts.
+- The following enums are no longer const enums and have to be explicitly imported:
+  - `EncyclopediaItemPoolType`
+  - `ModConfigMenuOptionType`
+  - `StageAPILayoutButtonVariant`
+  - `StageAPILayoutCornyPoopSubtype`
+  - `StageAPILayoutGridType`
+  - `StageAPILayoutPitfallVariant`
+  - `StageAPILayoutPoopSubtype`
+  - `StageAPILayoutRockSubtype`
+  - `StageAPILayoutSpikesOnOffVariant`
 
 ## November 2nd, 2023
 

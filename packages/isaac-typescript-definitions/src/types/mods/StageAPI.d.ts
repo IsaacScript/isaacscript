@@ -8,6 +8,7 @@ import type { RoomShape } from "../../enums/RoomShape";
 import type { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
 import type { RoomType } from "../../enums/RoomType";
 import type { StageType } from "../../enums/StageType";
+import type { StageAPICallback } from "../../enums/mods/StageAPIEnums";
 
 declare global {
   const StageAPI: StageAPIInterface | undefined;

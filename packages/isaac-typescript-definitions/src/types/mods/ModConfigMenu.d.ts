@@ -1,5 +1,6 @@
 import type { Controller } from "../../enums/Controller";
 import type { Keyboard } from "../../enums/Keyboard";
+import type { ModConfigMenuOptionType } from "../../enums/mods/ModConfigMenuOptionType";
 
 declare global {
   const ModConfigMenu: ModConfigMenuInterface | undefined;
@@ -177,17 +178,6 @@ declare global {
     PopupGfx?: string;
     PopupWidth?: int;
     Type: ModConfigMenuOptionType;
-  }
-
-  const enum ModConfigMenuOptionType {
-    TEXT = 1,
-    SPACE = 2,
-    SCROLL = 3,
-    BOOLEAN = 4,
-    NUMBER = 5,
-    KEY_BIND_KEYBOARD = 6,
-    KEY_BIND_CONTROLLER = 7,
-    TITLE = 8,
   }
 
   interface ModConfigMenuCategoryData {
