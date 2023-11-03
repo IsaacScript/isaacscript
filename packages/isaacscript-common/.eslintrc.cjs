@@ -19,6 +19,9 @@ const config = {
     "sort-exports",
   ],
 
+  // When building and linting at the same time, the "indexLua.ts" file can cause a linting error.
+  ignorePatterns: ["**/dist/**", "indexLua.ts"],
+
   rules: {
     /** Not defined in the parent configs. */
     "@typescript-eslint/explicit-member-accessibility": [
