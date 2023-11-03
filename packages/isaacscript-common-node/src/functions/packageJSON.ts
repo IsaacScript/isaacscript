@@ -314,8 +314,6 @@ export function packageJSONHasScript(
  * error message and exit the program if the "package.json" file cannot be found or is otherwise
  * invalid.
  *
- * Note that this
- *
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
@@ -337,6 +335,6 @@ export function setPackageJSONDependency(
   dependencies[dependencyName] = version;
   packageJSON["dependencies"] = dependencies;
 
-  const newFileContents = JSON.stringify(packageJSON, undefined, 2);
+  const newFileContents = JSON.stringify(packageJSON, undefined, 2); // Prettify it.
   writeFile(filePath, newFileContents);
 }
