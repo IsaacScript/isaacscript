@@ -125,17 +125,6 @@ const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
 // for posterity.
 $$.sync`npm publish --access=public --tag=${npmTag}`;
 
-// Finally, check for dependency updates to ensure that we keep the monorepo up to date.
-await updateIsaacScriptMonorepo();
-
-if (!isGitRepositoryClean(REPO_ROOT)) {
-  const gitCommitMessage = "chore: updating dependencies";
-  $s`git add --all`;
-  $s`git commit --message ${gitCommitMessage}`;
-}
-
-$sq`git push --set-upstream origin main`;
-
 const elapsedSeconds = getElapsedSeconds(startTime);
 const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
 const version = getPackageJSONVersion(packagePath);
@@ -144,3 +133,15 @@ console.log(
     packageName,
   )}" version "${chalk.green(version)}" in ${elapsedSeconds} ${secondsText}.`,
 );
+
+// Finally, check for dependency updates to ensure that we keep the monorepo up to date.
+console.log("Checking for monorepo updates...");
+await updateIsaacScriptMonorepo();
+
+if (!isGitRepositoryClean(REPO_ROOT)) {
+  const gitCommitMessage = "chore: updating dependencies";
+  $sq`git add --all`;
+  $sq`git commit --message ${gitCommitMessage}`;
+}
+
+$sq`git push --set-upstream origin main`;
