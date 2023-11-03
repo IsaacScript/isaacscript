@@ -3,13 +3,14 @@ import {
   $op,
   $s,
   buildScript,
-  bundleTypeScript,
+  fixMonorepoPackageDistDirectory,
   getFileNamesInDirectory,
   mkdir,
   mv,
   readFile,
   writeFile,
 } from "isaacscript-common-node";
+import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
 
 const INTERFACE_FILE_NAMES = ["CustomStageTSConfig", "JSONRoomsFile"] as const;
@@ -23,7 +24,12 @@ const OBJECT_FILE_NAMES = [
 const TSCONFIG_SCHEMA_PATH = "schemas/tsconfig-isaacscript-section-schema.json";
 const ISAACSCRIPT_SCHEMA_PATH = "schemas/isaacscript-schema.json";
 
-await buildScript(async ({ packageRoot }) => {
+await buildScript(async ({ packageRoot, outDir }) => {
+  assertDefined(
+    outDir,
+    'Failed to get the "outDir" from the "tsconfig.json" file.',
+  );
+
   copyIsaacScriptCommonFiles(packageRoot);
 
   const promises: Array<Promise<unknown>> = [];
@@ -32,7 +38,7 @@ await buildScript(async ({ packageRoot }) => {
   const $$ = $op({ cwd: pluginsDirPath });
 
   promises.push(
-    bundleTypeScript(packageRoot),
+    $`tsc`,
 
     // Generate the JSON schema for the special "isaacscript" section in "tsconfig.json".
     $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig tsconfig.json --out ${TSCONFIG_SCHEMA_PATH}`,
@@ -47,6 +53,7 @@ await buildScript(async ({ packageRoot }) => {
 
   await Promise.all(promises);
 
+  fixMonorepoPackageDistDirectory(packageRoot, outDir);
   $s`prettier ${TSCONFIG_SCHEMA_PATH} ${ISAACSCRIPT_SCHEMA_PATH} --write --log-level=warn`;
   renamePluginJSToCJS(pluginsDirPath);
 });

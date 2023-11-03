@@ -7,9 +7,8 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "dist",
-    "noEmit": true, // The JavaScript is created by `esbuild`, not `tsc`.
 
-    // This library intentionally does create ".d.ts" files.
+    // This library intentionally does not create ".d.ts" files.
 
     // We need the Isaac definitions so that we know what `BitSet128` is.
     "types": ["isaac-typescript-definitions"],

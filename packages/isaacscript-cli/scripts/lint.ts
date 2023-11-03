@@ -27,7 +27,11 @@ const GITIGNORE_URL =
 await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
 
-  promises.push($`tsc`, $`eslint --max-warnings 0 .`, checkGitIgnoreUpdates());
+  promises.push(
+    $`tsc --noEmit`,
+    $`eslint --max-warnings 0 .`,
+    checkGitIgnoreUpdates(),
+  );
 
   if (commandExists("python")) {
     $s`pip install isaac-xml-validator --upgrade --quiet`;

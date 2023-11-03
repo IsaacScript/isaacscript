@@ -7,7 +7,6 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "dist",
-    "noEmit": true, // There are no TypeScript source files.
     "allowJs": true,
     "checkJs": true,
   },

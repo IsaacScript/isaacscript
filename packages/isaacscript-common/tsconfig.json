@@ -4,7 +4,6 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     "outDir": "dist",
-    // We cannot use "noEmit" here since it will prevent TSTL from creating Lua files.
 
     // Needed since this is a library.
     "declaration": true,

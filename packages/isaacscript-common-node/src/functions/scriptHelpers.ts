@@ -2,7 +2,7 @@
 
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { rm } from "./file.js";
+import { mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { getTSConfigJSONOutDir } from "./tsconfigJSON.js";
 import { getArgs } from "./utils.js";
@@ -123,6 +123,26 @@ export function echo(...args: unknown[]): void {
 /** An alias for "process.exit". */
 export function exit(code = 0): never {
   return process.exit(code);
+}
+
+/**
+ * In a monorepo without project references, `tsc` will compile parent projects and include it in
+ * the build output, making a weird directory structure. Since build output for a single package
+ * should not be include other monorepo dependencies inside of it, all of the output needs to be
+ * deleted except for the actual package output.
+ */
+export function fixMonorepoPackageDistDirectory(
+  packageRoot: string,
+  outDir: string,
+): void {
+  const outPath = path.join(packageRoot, outDir);
+  const projectName = path.basename(packageRoot);
+  const realOutPath = path.join(outPath, projectName, "src");
+  const tempPath = path.join(packageRoot, projectName);
+  rm(tempPath);
+  mv(realOutPath, tempPath);
+  rm(outPath);
+  mv(tempPath, outPath);
 }
 
 export async function sleep(seconds: number): Promise<unknown> {

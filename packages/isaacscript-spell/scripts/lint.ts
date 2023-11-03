@@ -15,7 +15,7 @@ import path from "node:path";
 await lintScript(async ({ packageRoot }) => {
   const promises: Array<Promise<unknown>> = [];
 
-  promises.push($`tsc`, $`eslint --max-warnings 0 .`);
+  promises.push($`tsc --noEmit`, $`eslint --max-warnings 0 .`);
 
   await Promise.all(promises);
 

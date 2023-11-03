@@ -23,7 +23,7 @@
   "author": "Zamiell",
   "type": "module",
   "bin": {
-    "isaacscript": "./dist/isaacscript-cli/src/main.js"
+    "isaacscript": "./dist/main.js"
   },
   "files": [
     "custom-stage",
