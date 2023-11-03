@@ -45,7 +45,7 @@ export async function updateIsaacScriptMonorepo(): Promise<void> {
       // syncing "peerDependencies".
       $s`syncpack fix-mismatches --types prod,dev`;
     }
-  });
+  }, "updated");
 }
 
 /**

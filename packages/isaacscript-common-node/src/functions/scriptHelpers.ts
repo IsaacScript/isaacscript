@@ -103,12 +103,27 @@ export async function script(
   await func(data);
 
   if (!quiet && verb !== undefined) {
-    const elapsedSeconds = getElapsedSeconds(startTime);
-    const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
-    console.log(
-      `Successfully ${verb} ${packageName} in ${elapsedSeconds} ${secondsText}.`,
-    );
+    printSuccess(startTime, verb, packageName);
   }
+}
+
+/**
+ * Helper function to print a success message with the number of elapsed seconds.
+ *
+ * @param startTime The start time in milliseconds (as recorded by the `Date.now` method).
+ * @param verb The verb to print. For example, "built".
+ * @param noun The noun to print. For example, "foo".
+ */
+export function printSuccess(
+  startTime: number,
+  verb: string,
+  noun: string,
+): void {
+  const elapsedSeconds = getElapsedSeconds(startTime);
+  const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
+  console.log(
+    `Successfully ${verb} ${noun} in ${elapsedSeconds} ${secondsText}.`,
+  );
 }
 
 /**
