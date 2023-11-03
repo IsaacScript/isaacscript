@@ -104,8 +104,9 @@ export async function script(
 
   if (!quiet && verb !== undefined) {
     const elapsedSeconds = getElapsedSeconds(startTime);
+    const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
     console.log(
-      `Successfully ${verb} ${packageName} in ${elapsedSeconds} seconds.`,
+      `Successfully ${verb} ${packageName} in ${elapsedSeconds} ${secondsText}.`,
     );
   }
 }

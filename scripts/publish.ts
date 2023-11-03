@@ -4,16 +4,17 @@ import {
   $op,
   $s,
   PACKAGE_JSON,
+  dirName,
   echo,
   exit,
   fatalError,
   getArgs,
+  getElapsedSeconds,
   getPackageJSONScripts,
   getPackageJSONVersion,
   isDirectory,
   isGitRepositoryClean,
   isLoggedInToNPM,
-  script,
 } from "isaacscript-common-node";
 import { isEnumValue } from "isaacscript-common-ts";
 import path from "node:path";
@@ -26,109 +27,118 @@ enum VersionBump {
   dev = "dev",
 }
 
-await script(async ({ packageRoot }) => {
-  // Validate that we are on the correct branch.
-  const branch = $o`git branch --show-current`;
-  if (branch !== "main") {
-    echo("Error: You must be on the main branch before publishing.");
-    exit(1);
-  }
+const __dirname = dirName();
+const REPO_ROOT = path.join(__dirname, "..");
 
-  // Validate that we can push and pull to the repository.
-  $s`git branch --set-upstream-to=origin/main main --quiet`;
-  $s`git pull --rebase --quiet`;
-  $s`git push --set-upstream origin main --quiet`;
+const startTime = Date.now();
 
-  // Validate that we are logged in to npm.
-  if (!isLoggedInToNPM()) {
-    fatalError(
-      `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
-    );
-  }
+// Validate that we are on the correct branch.
+const branch = $o`git branch --show-current`;
+if (branch !== "main") {
+  echo("Error: You must be on the main branch before publishing.");
+  exit(1);
+}
 
-  // Validate command-line arguments.
-  const args = getArgs();
-  const packageName = args[0];
-  if (packageName === undefined || packageName === "") {
-    echo("Error: The package name is required as an argument.");
-    exit(1);
-  }
+// Validate that we can push and pull to the repository.
+$s`git branch --set-upstream-to=origin/main main --quiet`;
+$s`git pull --rebase --quiet`;
+$s`git push --set-upstream origin main --quiet`;
 
-  const packageDir = path.join(packageRoot, "packages", packageName);
-  if (!isDirectory(packageDir)) {
-    echo(
-      `Error: The directory of "${chalk.green(packageDir)}" does not exist.`,
-    );
-    exit(1);
-  }
+// Validate that we are logged in to npm.
+if (!isLoggedInToNPM()) {
+  fatalError(
+    `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
+  );
+}
 
-  const versionBump = args[1];
-  if (versionBump === undefined || versionBump === "") {
-    echo("Error: The version bump description is required as an argument.");
-    exit(1);
-  }
-  if (!isEnumValue(versionBump, VersionBump)) {
-    echo(`Error: The following version bump is not valid: ${versionBump}`);
-    exit(1);
-  }
+// Validate command-line arguments.
+const args = getArgs();
+const packageName = args[0];
+if (packageName === undefined || packageName === "") {
+  echo("Error: The package name is required as an argument.");
+  exit(1);
+}
 
-  const $$ = $op({ cwd: packageDir });
+const packagePath = path.join(REPO_ROOT, "packages", packageName);
+if (!isDirectory(packagePath)) {
+  echo(`Error: The directory of "${chalk.green(packagePath)}" does not exist.`);
+  exit(1);
+}
 
-  // Before bumping the version, check to see if this package compiles and lints and tests (so that
-  // we can avoid unnecessary version bumps).
-  const scripts = getPackageJSONScripts(packageDir);
-  if (scripts !== undefined) {
-    const promises: Array<Promise<unknown>> = [];
+const versionBump = args[1];
+if (versionBump === undefined || versionBump === "") {
+  echo("Error: The version bump description is required as an argument.");
+  exit(1);
+}
+if (!isEnumValue(versionBump, VersionBump)) {
+  echo(`Error: The following version bump is not valid: ${versionBump}`);
+  exit(1);
+}
 
-    for (const scriptName of ["build", "lint", "test"]) {
-      const scriptCommand = scripts[scriptName];
-      if (typeof scriptCommand === "string") {
-        promises.push($$`npm run ${scriptName}`);
-      }
+const $$ = $op({ cwd: packagePath });
+
+// Before bumping the version, check to see if this package compiles and lints and tests (so that we
+// can avoid unnecessary version bumps).
+const scripts = getPackageJSONScripts(packagePath);
+if (scripts !== undefined) {
+  const promises: Array<Promise<unknown>> = [];
+
+  for (const scriptName of ["build", "lint", "test"]) {
+    const scriptCommand = scripts[scriptName];
+    if (typeof scriptCommand === "string") {
+      promises.push($$`npm run ${scriptName}`);
     }
-
-    await Promise.all(promises);
   }
 
-  /**
-   * Normally, the "version" command of the packager manager will automatically make a Git commit
-   * for you. However:
-   *
-   * - The npm version command is bugged with subdirectories: https://github.com/npm/cli/issues/2010
-   * - The yarn version command is bugged with with spaces inside of the --message" flag.
-   *
-   * Thus, we manually revert to doing a commit ourselves.
-   */
-  if (versionBump === VersionBump.dev) {
-    $$.sync`npm version prerelease --preid=dev --commit-hooks=false`;
-  } else {
-    $$.sync`npm version ${versionBump} --commit-hooks=false`;
-  }
+  await Promise.all(promises);
+}
 
-  // Manually make a Git commit. (See above comment.)
-  const packageJSONPath = path.join(packageDir, PACKAGE_JSON);
-  $s`git add ${packageJSONPath}`;
-  const newVersion = getPackageJSONVersion(packageDir);
-  const tag = `${packageName}-${newVersion}`;
-  const commitMessage = `chore(release): ${tag}`;
-  $s`git commit --message ${commitMessage}`;
-  $s`git tag ${tag}`;
-  // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
+/**
+ * Normally, the "version" command of the packager manager will automatically make a Git commit for
+ * you. However:
+ *
+ * - The npm version command is bugged with subdirectories: https://github.com/npm/cli/issues/2010
+ * - The yarn version command is bugged with with spaces inside of the --message" flag.
+ *
+ * Thus, we manually revert to doing a commit ourselves.
+ */
+if (versionBump === VersionBump.dev) {
+  $$.sync`npm version prerelease --preid=dev --commit-hooks=false`;
+} else {
+  $$.sync`npm version ${versionBump} --commit-hooks=false`;
+}
 
-  // Upload the package to npm.
-  const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
-  // The "--access=public" flag is only technically needed for the first publish, but it is saved
-  // here for posterity.
-  $$.sync`npm publish --access=public --tag=${npmTag}`;
+// Manually make a Git commit. (See above comment.)
+const packageJSONPath = path.join(packagePath, PACKAGE_JSON);
+$s`git add ${packageJSONPath}`;
+const newVersion = getPackageJSONVersion(packagePath);
+const tag = `${packageName}-${newVersion}`;
+const commitMessage = `chore(release): ${tag}`;
+$s`git commit --message ${commitMessage}`;
+$s`git tag ${tag}`;
+// (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
-  // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
-  await updateIsaacScriptMonorepo();
+// Upload the package to npm.
+const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
+// The "--access=public" flag is only technically needed for the first publish, but it is saved here
+// for posterity.
+$$.sync`npm publish --access=public --tag=${npmTag}`;
 
-  if (!isGitRepositoryClean(packageRoot)) {
-    const gitCommitMessage = "chore: updating dependencies";
-    $s`git add --all`;
-    $s`git commit --message ${gitCommitMessage}`;
-  }
+// Finally, check for dependency updates to ensure that we keep the monorepo up to date.
+await updateIsaacScriptMonorepo();
 
-  $s`git push --set-upstream origin main`;
-}, "published");
+if (!isGitRepositoryClean(REPO_ROOT)) {
+  const gitCommitMessage = "chore: updating dependencies";
+  $s`git add --all`;
+  $s`git commit --message ${gitCommitMessage}`;
+}
+
+$s`git push --set-upstream origin main`;
+
+const elapsedSeconds = getElapsedSeconds(startTime);
+const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
+echo(
+  `Successfully published ${chalk.green(
+    packageName,
+  )} in ${elapsedSeconds} ${secondsText}.`,
+);

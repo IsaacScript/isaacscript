@@ -1,6 +1,7 @@
+- make matrix on ci template for mod + TS (build + lint)
+
 - GET RID OF bundleTypeScript function
 
-- publish isaacscript-common-node, make it dep of cspell-check-unused-words
 - test spawning new mod and non-mod project with isaacscript-cli to see if spelling lints correctly
 
 ----------------------------------------------------------------------------------------------------
