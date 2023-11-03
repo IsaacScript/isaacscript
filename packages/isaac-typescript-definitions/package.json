@@ -19,7 +19,7 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "module",
-  "main": "./dist/index",
+  "main": "./dist/index.lua",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
