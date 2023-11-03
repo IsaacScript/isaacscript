@@ -32,7 +32,7 @@
     "cspell": "^7.3.8",
     "cspell-check-unused-words": "^1.0.8",
     "eslint": "^8.52.0",
-    "eslint-config-isaacscript": "^4.7.0",
+    "eslint-config-isaacscript": "^4.8.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
