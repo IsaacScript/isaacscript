@@ -91,7 +91,7 @@
     "jest-summarizing-reporter": "^1.1.4",
     "jsonc-parser": "^3.2.0",
     "klaw-sync": "^6.0.0",
-    "knip": "^2.38.6",
+    "knip": "^2.39.0",
     "lua-types": "^2.13.1",
     "markdownlint": "^0.31.1",
     "markdownlint-cli": "^0.37.0",
