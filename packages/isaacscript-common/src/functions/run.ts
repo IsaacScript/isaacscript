@@ -1,15 +1,9 @@
 import type { PlayerType } from "isaac-typescript-definitions";
-import {
-  Challenge,
-  SeedEffect,
-  SlotVariant,
-} from "isaac-typescript-definitions";
+import { Challenge, SeedEffect } from "isaac-typescript-definitions";
 import { SEED_EFFECTS } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
-import { VectorZero } from "../core/constants";
 import { FIRST_CHARACTER } from "../core/constantsFirstLast";
 import { getCharacterName } from "./characters";
-import { spawnSlot } from "./entitiesSpecific";
 import { log } from "./log";
 import { isString } from "./types";
 
@@ -36,28 +30,6 @@ export function anySeedEffectEnabled(exceptions?: SeedEffect[]): boolean {
     (seedEffect) =>
       seeds.HasSeedEffect(seedEffect) && !exceptionsSet.has(seedEffect),
   );
-}
-
-/**
- * Helper function to see if the current run can unlock achievements. For example, if playing on a
- * set seed or in a victory lap, achievements are disabled.
- *
- * This function can cause problems if called multiple times per frame, since it involves spawning
- * an entity. It is recommended that you cache the result at the beginning of every run.
- *
- * Under the hood, this is determined by spawning a Greed Donation Machine and then seeing if it
- * exists before removing it.
- */
-export function canRunUnlockAchievements(): boolean {
-  const greedDonationMachine = spawnSlot(
-    SlotVariant.GREED_DONATION_MACHINE,
-    0,
-    VectorZero,
-  );
-  const canUnlockAchievements = greedDonationMachine.Exists();
-  greedDonationMachine.Remove();
-
-  return canUnlockAchievements;
 }
 
 /**

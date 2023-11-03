@@ -1,5 +1,3 @@
-- canRunUnlockAchievements convert to feature to remove foot-gun
-
 - make PR to schema: "$schema": "https://json.schemastore.org/tsconfig",
   - https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/tsconfig.json
   - https://discord.com/channels/1026804805894672454/1167094026609119252

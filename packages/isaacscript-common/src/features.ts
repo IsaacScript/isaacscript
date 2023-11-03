@@ -56,6 +56,7 @@ import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltReward
 import { StageHistory } from "./classes/features/other/StageHistory";
 import { StartAmbush } from "./classes/features/other/StartAmbush";
 import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPlayers";
+import { UnlockAchievementsDetection } from "./classes/features/other/UnlockAchievementsDetection";
 import type { Feature } from "./classes/private/Feature";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
@@ -123,6 +124,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.STAGE_HISTORY]: StageHistory;
   [ISCFeature.START_AMBUSH]: StartAmbush;
   [ISCFeature.TAINTED_LAZARUS_PLAYERS]: TaintedLazarusPlayers;
+  [ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION]: UnlockAchievementsDetection;
 }
 
 validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
@@ -308,6 +310,8 @@ export function getFeatures(
     [ISCFeature.STAGE_HISTORY]: stageHistory,
     [ISCFeature.START_AMBUSH]: new StartAmbush(runInNFrames),
     [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),
+    [ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION]:
+      new UnlockAchievementsDetection(),
   } as const satisfies Record<ISCFeature, Feature>;
 
   return features;

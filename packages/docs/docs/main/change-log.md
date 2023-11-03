@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - Scripts in new mods no longer use Bash and are now native TypeScript scripts.
 - The `isaacscript-common-node` library is released, which contains helper functions for Bash-like scripts.
+- The `canRunUnlockAchievements` helper function must now be activated with `ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION`.
 - The following enums are no longer const enums and have to be explicitly imported:
   - `EncyclopediaItemPoolType`
   - `ModConfigMenuOptionType`
