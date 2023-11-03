@@ -28,6 +28,10 @@
     "./**/.*.mts",
     "./**/*.tsx",
     "./**/.*.tsx",
+    "./**/*.json",
+    "./**/.*.json",
+    "./**/*.jsonc",
+    "./**/.*.jsonc",
   ],
 
   "exclude": ["build", "scripts"],

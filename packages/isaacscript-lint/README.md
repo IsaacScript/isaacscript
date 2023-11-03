@@ -137,6 +137,10 @@ Create a `tsconfig.eslint.json` file in the root of your repository:
     "./**/.*.mts",
     "./**/*.tsx",
     "./**/.*.tsx"
+    "./**/*.json",
+    "./**/.*.json",
+    "./**/*.jsonc",
+    "./**/.*.jsonc",
   ],
 }
 ```

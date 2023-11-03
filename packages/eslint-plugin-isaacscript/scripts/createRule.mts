@@ -1,5 +1,5 @@
 import { echo, readFile, writeFile } from "isaacscript-common-node";
-import { isKebabCase } from "isaacscript-common-ts";
+import { isKebabCase, trimSuffix } from "isaacscript-common-ts";
 import path from "node:path";
 import { PACKAGE_ROOT, PLUGIN_NAME } from "./constants.mjs";
 import { generateAll } from "./generate.mjs";
@@ -34,12 +34,13 @@ async function createRule() {
   }
 
   const ruleName = firstArg;
-  const description = secondArg;
+  const descriptionRaw = secondArg;
 
   if (!isKebabCase(ruleName)) {
     throw new Error("The rule name must be in kebab-case.");
   }
 
+  const description = trimSuffix(descriptionRaw, ".");
   if (description.endsWith(".")) {
     throw new Error("The rule description cannot end with a period.");
   }

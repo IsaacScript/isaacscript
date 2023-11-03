@@ -13,8 +13,9 @@ const config = {
   parserOptions: {
     sourceType: "module",
     ecmaVersion: "latest",
+
     tsconfigRootDir: REPO_ROOT,
-    project: true,
+    project: true, // https://github.com/typescript-eslint/typescript-eslint/pull/6084
   },
 
   ignorePatterns: ["**/dist/**"],
