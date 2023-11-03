@@ -16,11 +16,11 @@
   "type": "module",
   "files": ["dist", "LICENSE", "package.json", "README.md"],
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "nuke": "isaacscript nuke",
     "publish": "isaacscript publish-ts",
-    "start": "PACKAGE_MANAGER run build && node dist/main.js",
+    "start": "PACKAGE_MANAGER run build && node ./dist/main.js",
     "update": "isaacscript update"
   },
   "devDependencies": {
@@ -28,7 +28,6 @@
     "isaacscript": "^0.0.1",
     "isaacscript-lint": "^0.0.1",
     "isaacscript-tsconfig": "^0.0.1",
-    "rimraf": "^0.0.1",
     "typescript": "^0.0.1"
   }
 }
