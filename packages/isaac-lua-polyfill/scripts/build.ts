@@ -1,5 +1,5 @@
-import { buildScript, bundleTypeScript } from "isaacscript-common-node";
+import { $s, buildScript } from "isaacscript-common-node";
 
-await buildScript(async ({ packageRoot }) => {
-  await bundleTypeScript(packageRoot);
+await buildScript(() => {
+  $s`tsc`;
 });
