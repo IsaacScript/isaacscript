@@ -3,6 +3,7 @@ import {
   $o,
   $op,
   $s,
+  $sq,
   PACKAGE_JSON,
   dirName,
   echo,
@@ -75,7 +76,7 @@ if (!isEnumValue(versionBump, VersionBump)) {
   exit(1);
 }
 
-const $$ = $op({ cwd: packagePath });
+const $$ = $op({ cwd: packagePath, stdio: "inherit" });
 
 // Before bumping the version, check to see if this package compiles and lints and tests (so that we
 // can avoid unnecessary version bumps).
@@ -133,6 +134,6 @@ if (!isGitRepositoryClean(REPO_ROOT)) {
   $s`git commit --message ${gitCommitMessage}`;
 }
 
-$s`git push --set-upstream origin main`;
+$sq`git push --set-upstream origin main`;
 
 printSuccess(startTime, "published", packageName);
