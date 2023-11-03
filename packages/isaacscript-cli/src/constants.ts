@@ -56,6 +56,7 @@ export const ACTION_YML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   ".github",
   "workflows",
+  "setup",
   ACTION_YML,
 );
 
