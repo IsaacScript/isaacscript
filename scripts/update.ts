@@ -19,6 +19,7 @@ import {
   getPackageJSONDependencies,
   getPackageJSONField,
   isFile,
+  isMain,
   script,
   setPackageJSONDependency,
   updatePackageJSON,
@@ -29,7 +30,9 @@ import { getMonorepoPackageNames } from "./getMonorepoPackageNames.js";
 
 const REPO_ROOT = findPackageRoot();
 
-await updateIsaacScriptMonorepo();
+if (isMain()) {
+  await updateIsaacScriptMonorepo();
+}
 
 export async function updateIsaacScriptMonorepo(): Promise<void> {
   await script(async ({ packageRoot }) => {

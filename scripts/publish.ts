@@ -76,7 +76,7 @@ if (!isEnumValue(versionBump, VersionBump)) {
   exit(1);
 }
 
-const $$ = $op({ cwd: packagePath, stdio: "inherit" });
+const $$ = $op({ cwd: packagePath });
 
 // Before bumping the version, check to see if this package compiles and lints and tests (so that we
 // can avoid unnecessary version bumps).
