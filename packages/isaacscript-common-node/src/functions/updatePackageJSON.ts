@@ -4,7 +4,10 @@ import { PackageManager } from "../enums/PackageManager.js";
 import { $s, $sq } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
-import { getPackageManagerForProject } from "./packageManager.js";
+import {
+  getPackageManagerForProject,
+  getPackageManagersForProject,
+} from "./packageManager.js";
 import { diff } from "./utils.js";
 
 /**
@@ -17,17 +20,20 @@ import { diff } from "./utils.js";
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
+ * @param installAfterUpdate Optional. Whether to install the new dependencies afterward, if any.
+ *                           Defaults to true.
  * @returns Whether any dependencies were updated.
  */
 export async function updatePackageJSON(
   filePathOrDirPath: string | undefined,
+  installAfterUpdate = true,
 ): Promise<boolean> {
   const packageJSONPath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
-  const packageManager = getPackageManagerForProject(packageRoot);
+  const packageManagers = getPackageManagersForProject(packageRoot);
   const oldPackageJSONString = readFile(packageJSONPath);
 
-  if (packageManager === PackageManager.yarn) {
+  if (packageManagers.includes(PackageManager.yarn)) {
     // Yarn does not have a quiet flag, so we use the `$sq` helper function.
     $sq`yarn set version latest`;
   }
@@ -49,7 +55,12 @@ export async function updatePackageJSON(
     diff(oldPackageJSONString, newPackageJSONString);
     console.log();
 
-    $s`${packageManager} install`;
+    if (installAfterUpdate) {
+      // Since `getPackageManagerForProject` can cause a fatal error, we only invoke it if we need
+      // to install the new dependencies.
+      const packageManager = getPackageManagerForProject(packageRoot);
+      $s`${packageManager} install`;
+    }
   }
 
   return hasNewDependencies;

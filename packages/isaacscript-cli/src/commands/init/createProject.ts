@@ -71,7 +71,10 @@ export async function createProject(
     typeScript,
   );
   upgradeYarn(projectPath, packageManager, verbose);
-  await updatePackageJSON(projectPath);
+
+  // There is no package manager lock files yet, so we have to pass "false" to this function.
+  await updatePackageJSON(projectPath, false);
+
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
 
