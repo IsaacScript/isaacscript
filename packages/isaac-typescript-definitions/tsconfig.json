@@ -3,7 +3,7 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "dist/src",
+    "outDir": "dist",
 
     // Needed since this is a library.
     "declaration": true,

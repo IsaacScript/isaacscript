@@ -19,8 +19,8 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "commonjs",
-  "main": "./dist/src/index",
-  "types": "./dist/src/index.d.ts",
+  "main": "./dist/index",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "src",
