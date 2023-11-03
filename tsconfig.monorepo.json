@@ -6,8 +6,8 @@
     // We do not have to put the "baseUrl" option here because the correct value will be
     // automatically inferred by TypeScript.
 
+    // We only have to include the packages that are imported by other packages.
     "paths": {
-      "isaacscript-common": ["./packages/isaacscript-common/src/index.ts"],
       "isaacscript-common-node": [
         "./packages/isaacscript-common-node/src/index.ts",
       ],

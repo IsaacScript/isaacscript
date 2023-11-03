@@ -110,13 +110,19 @@ export function getPackageJSONDependencies(
 export function getPackageJSONField(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
   fieldName: string,
-): string {
+): string | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
       ? filePathOrDirPathOrRecord
       : getPackageJSON(filePathOrDirPathOrRecord);
 
   const field = packageJSON[fieldName];
+  if (field === undefined) {
+    return undefined;
+  }
+
+  // Assume that all fields are strings. For objects (like e.g. "dependencies"), other helper
+  // functions should be used.
   if (typeof field !== "string") {
     if (typeof filePathOrDirPathOrRecord === "string") {
       fatalError(
@@ -195,6 +201,10 @@ export function getPackageJSONScripts(
 /**
  * Helper function to get the "version" field from a "package.json" file. This will print an error
  * message and exit the program if the "package.json" file cannot be found or is otherwise invalid.
+ * It will also exit the program if the "version" field does not exist.
+ *
+ * If you want to allow for the "version" field not existing, use the `getPackageJSONField` helper
+ * function instead.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -204,7 +214,27 @@ export function getPackageJSONScripts(
 export function getPackageJSONVersion(
   filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
 ): string {
-  return getPackageJSONField(filePathOrDirPathOrRecord, "version");
+  const version = getPackageJSONField(filePathOrDirPathOrRecord, "version");
+
+  if (version === undefined) {
+    if (typeof filePathOrDirPathOrRecord === "string") {
+      fatalError(
+        `Failed to parse the "${chalk.green(
+          "version",
+        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
+          filePathOrDirPathOrRecord,
+        )}`,
+      );
+    }
+
+    fatalError(
+      `Failed to parse the "${chalk.green(
+        "version",
+      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+    );
+  }
+
+  return version;
 }
 
 /**

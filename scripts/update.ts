@@ -14,9 +14,11 @@
 
 import {
   $s,
+  PACKAGE_JSON,
   findPackageRoot,
   getPackageJSONDependencies,
-  getPackageJSONVersion,
+  getPackageJSONField,
+  isFile,
   script,
   setPackageJSONDependency,
   updatePackageJSON,
@@ -58,7 +60,18 @@ function updateIndividualPackageDeps() {
       "packages",
       monorepoPackageName,
     );
-    const version = getPackageJSONVersion(monorepoPackagePath);
+
+    // Some packages do not have "package.json" files, like "isaacscript-lua".
+    const packageJSONPath = path.join(monorepoPackagePath, PACKAGE_JSON);
+    if (!isFile(packageJSONPath)) {
+      continue;
+    }
+
+    // Some packages do not have version fields, like "docs".
+    const version = getPackageJSONField(packageJSONPath, "version");
+    if (version === undefined) {
+      continue;
+    }
 
     for (const monorepoPackageName2 of monorepoPackageNames) {
       const monorepoPackagePath2 = path.join(

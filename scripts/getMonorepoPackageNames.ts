@@ -10,6 +10,7 @@ import {
   getFileNamesInDirectory,
   isDirectory,
   isFile,
+  isMain,
   packageJSONHasScript,
 } from "isaacscript-common-node";
 import path from "node:path";
@@ -20,7 +21,9 @@ const REPO_ROOT = path.join(__dirname, "..");
 const PACKAGES_PATH = path.join(REPO_ROOT, "packages");
 const GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME = "matrix";
 
-main();
+if (isMain()) {
+  main();
+}
 
 function main() {
   // Validate environment variables.
