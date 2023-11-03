@@ -1,0 +1,24 @@
+{
+  "title": "tsconfig.json",
+  "description": "JSON schema for the TypeScript compiler's configuration file. Unlike the one that is built-in to VSCode, this one does not allow additional properties.",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/TypeScriptToLua/TypeScriptToLua/master/tsconfig-schema.json"
+    }
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "isaacscript": {
+      "allOf": [
+        {
+          "$ref": "./tsconfig-isaacscript-section-schema.json"
+        }
+      ]
+    }
+  },
+  "allowTrailingCommas": true,
+  "unevaluatedProperties": false
+}
