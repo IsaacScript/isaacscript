@@ -51,14 +51,6 @@ const config = {
         ],
       },
     ],
-
-    // This rule has to be told which "package.json" file that the dependencies are located in.
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        packageDir: REPO_ROOT,
-      },
-    ],
   },
 
   overrides: [

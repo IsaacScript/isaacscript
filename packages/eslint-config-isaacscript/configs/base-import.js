@@ -52,7 +52,7 @@ const HELPFUL_WARNINGS = {
         "**/karma.conf.js", // karma config
         "**/.eslintrc.js", // eslint config
 
-        "**/scripts/*.{ts,cts,mts}",
+        "**/scripts/*.{ts,cts,mts}", // TypeScript files inside of a "scripts" directory.
       ],
       optionalDependencies: false,
     },
