@@ -79,6 +79,13 @@ function updateIndividualPackageDeps() {
         "packages",
         monorepoPackageName2,
       );
+
+      // Some packages do not have "package.json" files, like "isaacscript-lua".
+      const packageJSONPath2 = path.join(monorepoPackagePath2, PACKAGE_JSON);
+      if (!isFile(packageJSONPath2)) {
+        continue;
+      }
+
       const dependencies = getPackageJSONDependencies(
         monorepoPackagePath2,
         "dependencies",
