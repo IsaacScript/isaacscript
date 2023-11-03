@@ -17,24 +17,6 @@ jobs:
       - uses: ./.github/workflows/setup
       - run: npm run lint
 
-  # @template-mod-start
-  # To enable publishing in CI, follow the instructions here:
-  # https://github.com/IsaacScript/isaac-steam-workshop-upload
-  # Then delete this comment and uncomment the lines below.
-  #publish:
-  #  needs: [build, lint]
-  #  if: "contains(github.event.head_commit.message, 'chore: release') && needs.pr-check.outputs.number != 'null'"
-  #  steps:
-  #    - uses: actions/checkout@v3
-  #    - uses: ./.github/workflows/setup
-  #    - name: Upload the mod to Steam Workshop (if this is a release commit)
-  #      uses: IsaacScript/isaac-steam-workshop-upload@v2
-  #      with:
-  #        mod_path: mod
-  #      env:
-  #        CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
-  # @template-mod-end
-
   # To enable CI failure notifications over Discord:
   # - Right click on a channel in Discord and select "Edit Channel".
   # - Click on "Integrations" on the left menu.

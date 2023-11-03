@@ -15,8 +15,6 @@ import path from "node:path";
 import {
   ACTION_YML,
   ACTION_YML_TEMPLATE_PATH,
-  CI_YML,
-  CI_YML_TEMPLATE_PATH,
   CWD,
   TEMPLATES_DIR,
   TEMPLATES_DYNAMIC_DIR,
@@ -140,18 +138,6 @@ function checkIndividualFiles(
   verbose: boolean,
 ) {
   let oneOrMoreErrors = false;
-
-  if (!ignoreFileNamesSet.has(CI_YML)) {
-    const templateFilePath = CI_YML_TEMPLATE_PATH;
-    const relativeTemplateFilePath = path.relative(
-      TEMPLATES_DYNAMIC_DIR,
-      templateFilePath,
-    );
-    const projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
-      oneOrMoreErrors = true;
-    }
-  }
 
   if (!ignoreFileNamesSet.has(ACTION_YML)) {
     const templateFilePath = ACTION_YML_TEMPLATE_PATH;

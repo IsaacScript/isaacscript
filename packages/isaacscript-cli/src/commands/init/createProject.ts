@@ -26,8 +26,6 @@ import { createConfigFile } from "../../configFile.js";
 import {
   ACTION_YML,
   ACTION_YML_TEMPLATE_PATH,
-  CI_YML,
-  CI_YML_TEMPLATE_PATH,
   GITIGNORE_TEMPLATE_PATH,
   MAIN_DEV_TS_TEMPLATE_PATH,
   MAIN_TS,
@@ -138,17 +136,6 @@ function copyDynamicFiles(
 ) {
   const workflowsPath = path.join(projectPath, ".github", "workflows");
   makeDirectory(workflowsPath);
-
-  // `.github/workflows/ci.yml`
-  {
-    const fileName = CI_YML;
-    const templatePath = CI_YML_TEMPLATE_PATH;
-    const templateRaw = readFile(templatePath);
-    const template = parseTemplate(templateRaw, typeScript);
-
-    const destinationPath = path.join(workflowsPath, fileName);
-    writeFile(destinationPath, template);
-  }
 
   // `.github/workflows/setup/action.yml`
   {
