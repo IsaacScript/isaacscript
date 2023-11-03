@@ -15,12 +15,12 @@
 import {
   $s,
   PACKAGE_JSON,
-  findPackageRoot,
+  dirName,
+  echo,
   getPackageJSONDependencies,
   getPackageJSONField,
   isFile,
   isMain,
-  script,
   setPackageJSONDependency,
   updatePackageJSON,
 } from "isaacscript-common-node";
@@ -28,34 +28,43 @@ import { trimPrefix } from "isaacscript-common-ts";
 import path from "node:path";
 import { getMonorepoPackageNames } from "./getMonorepoPackageNames.js";
 
-const REPO_ROOT = findPackageRoot();
+const __dirname = dirName();
+const REPO_ROOT = path.join(__dirname, "..");
 
 if (isMain()) {
   await updateIsaacScriptMonorepo();
 }
 
 export async function updateIsaacScriptMonorepo(): Promise<void> {
-  await script(async ({ packageRoot }) => {
-    // Certain monorepo packages are dependant on other monorepo packages, so check to see if those
-    // are all up to date first. (This is independent of the root "package.json" file.)
-    updateIndividualPackageDeps();
+  // Certain monorepo packages are dependant on other monorepo packages, so check to see if those
+  // are all up to date first. (This is independent of the root "package.json" file.)
+  const updatedSomething = updateIndividualPackageDeps();
 
-    const hasNewDependencies = await updatePackageJSON(packageRoot);
-    if (hasNewDependencies) {
-      // Now that the main dependencies have changed, we might need to update the "package.json"
-      // files in the individual packages. However, we don't want to blow away "peerDependencies",
-      // since they are in the form of ">= 5.0.0". Thus, we specify "--types prod,dev" to exclude
-      // syncing "peerDependencies".
-      $s`syncpack fix-mismatches --types prod,dev`;
-    }
-  }, "updated");
+  const hasNewDependencies = await updatePackageJSON(REPO_ROOT);
+  if (hasNewDependencies) {
+    // Now that the main dependencies have changed, we might need to update the "package.json" files
+    // in the individual packages. However, we don't want to blow away "peerDependencies", since
+    // they are in the form of ">= 5.0.0". Thus, we specify "--types prod,dev" to exclude syncing
+    // "peerDependencies".
+    $s`syncpack fix-mismatches --types prod,dev`;
+  }
+
+  if (updatedSomething || hasNewDependencies) {
+    echo("Updated to the latest dependencies.");
+  } else {
+    echo("No new updates.");
+  }
 }
 
 /**
  * `syncpack` will automatically update most of the dependencies in the individual project
  * "package.json" files, but not the ones that do not exist in the root "package.json".
+ *
+ * @returns Whether anything was updated.
  */
-function updateIndividualPackageDeps() {
+function updateIndividualPackageDeps(): boolean {
+  let updatedSomething = false;
+
   const monorepoPackageNames = getMonorepoPackageNames();
   for (const monorepoPackageName of monorepoPackageNames) {
     const monorepoPackagePath = path.join(
@@ -111,7 +120,10 @@ function updateIndividualPackageDeps() {
           monorepoPackageName,
           versionWithPrefix,
         );
+        updatedSomething = true;
       }
     }
   }
+
+  return updatedSomething;
 }

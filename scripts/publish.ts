@@ -111,12 +111,12 @@ if (versionBump === VersionBump.dev) {
 
 // Manually make a Git commit. (See above comment.)
 const packageJSONPath = path.join(packagePath, PACKAGE_JSON);
-$s`git add ${packageJSONPath}`;
+$sq`git add ${packageJSONPath}`;
 const newVersion = getPackageJSONVersion(packagePath);
 const tag = `${packageName}-${newVersion}`;
 const commitMessage = `chore(release): ${tag}`;
-$s`git commit --message ${commitMessage}`;
-$s`git tag ${tag}`;
+$sq`git commit --message ${commitMessage}`;
+$sq`git tag ${tag}`;
 // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
 // Upload the package to npm.
