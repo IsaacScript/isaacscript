@@ -13,5 +13,5 @@ export type Command =
 export const DEFAULT_COMMAND = "monitor";
 
 export function isIsaacScriptModCommand(command: Command): boolean {
-  return !command.endsWith("-ts");
+  return !command.endsWith("-ts") && command !== "update" && command !== "nuke";
 }
