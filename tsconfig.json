@@ -1,5 +1,6 @@
 // A TypeScript configuration file, used by monorepo scripts.
 {
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
   "extends": [
     "./packages/isaacscript-tsconfig/tsconfig.node.json",
     "./tsconfig.monorepo.json",
