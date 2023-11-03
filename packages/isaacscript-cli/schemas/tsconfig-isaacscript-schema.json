@@ -17,5 +17,5 @@
     }
   },
   "allowTrailingCommas": true,
-  "additionalProperties": false
+  "unevaluatedProperties": false
 }
