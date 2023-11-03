@@ -11,6 +11,6 @@ npx tstl
 cp "$DIR/src/types" "$DIR/dist" --recursive
 
 sed -i '1d' "$DIR/dist/index.d.ts"
-sed -i '1i /// <reference path="types/index.d.ts" />' "$DIR/dist/index.d.ts"
+sed -i '1i /// <reference path="./types/index.d.ts" />' "$DIR/dist/index.d.ts"
 
 echo "Successfully built: isaac-typescript-definitions"
