@@ -38,7 +38,7 @@ jobs:
   # - Delete this comment and uncomment the lines below.
   #discord:
   #  name: Discord Failure Notification
-  #  needs: [build_and_lint]
+  #  needs: [build, lint]
   #  if: always() # This is needed to always run this job, even if the other jobs fail.
   #  runs-on: ubuntu-latest
   #  steps:
