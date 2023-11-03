@@ -10,12 +10,12 @@ import {
   exit,
   fatalError,
   getArgs,
+  getElapsedSeconds,
   getPackageJSONScripts,
   getPackageJSONVersion,
   isDirectory,
   isGitRepositoryClean,
   isLoggedInToNPM,
-  printSuccess,
 } from "isaacscript-common-node";
 import { isEnumValue } from "isaacscript-common-ts";
 import path from "node:path";
@@ -136,4 +136,11 @@ if (!isGitRepositoryClean(REPO_ROOT)) {
 
 $sq`git push --set-upstream origin main`;
 
-printSuccess(startTime, "published", packageName);
+const elapsedSeconds = getElapsedSeconds(startTime);
+const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
+const version = getPackageJSONVersion(packagePath);
+console.log(
+  `Successfully published package "${chalk.green(
+    packageName,
+  )}" version "${chalk.green(version)}" in ${elapsedSeconds} ${secondsText}.`,
+);
