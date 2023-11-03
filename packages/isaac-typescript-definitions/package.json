@@ -18,8 +18,8 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "type": "module",
-  "main": "./dist/index.js",
+  "type": "commonjs",
+  "main": "./dist/index",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -29,9 +29,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.ts",
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
     "docs": "typedoc",
-    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.ts"
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {
     "lua-types": "^2.13.1"

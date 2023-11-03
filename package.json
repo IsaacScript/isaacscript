@@ -88,7 +88,7 @@
     "extract-comments": "^1.1.0",
     "figlet": "^1.7.0",
     "glob": "^10.3.10",
-    "isaac-typescript-definitions": "^37.2.1-dev.11",
+    "isaac-typescript-definitions": "^37.2.1-dev.12",
     "jest": "^29.7.0",
     "jest-summarizing-reporter": "^1.1.4",
     "jsonc-parser": "^3.2.0",

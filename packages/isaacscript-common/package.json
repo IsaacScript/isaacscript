@@ -21,7 +21,7 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "type": "module",
+  "type": "commonjs",
   "main": "./dist/index",
   "types": "./dist/index.rollup.d.ts",
   "files": [
@@ -32,9 +32,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.ts",
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
     "docs": "typedoc",
-    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.ts"
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {
     "isaac-typescript-definitions": "^37.2.1-dev.12"
