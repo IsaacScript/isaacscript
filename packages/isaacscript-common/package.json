@@ -37,6 +37,6 @@
     "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.ts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^37.2.1-dev.11"
+    "isaac-typescript-definitions": "^37.2.1-dev.12"
   }
 }
