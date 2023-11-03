@@ -41,7 +41,13 @@ const POSSIBLE_ERRORS = {
   "n/no-process-exit": "off",
 
   "n/no-unpublished-bin": "error",
+
+  /**
+   * An exception is made for files in a "scripts" directory, since those should be allowed to
+   * import from "devDependencies".
+   */
   "n/no-unpublished-import": "error",
+
   "n/no-unpublished-require": "error",
 
   /** Disabled because this rule is deprecated. */
@@ -137,6 +143,16 @@ const config = {
     ...POSSIBLE_ERRORS,
     ...STYLISTIC_ISSUES,
   },
+
+  overrides: [
+    // Imports in a "scripts" directory can use "devDependencies".
+    {
+      files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
+      rules: {
+        "n/no-unpublished-import": "off",
+      },
+    },
+  ],
 };
 
 module.exports = config;

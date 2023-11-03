@@ -23,7 +23,7 @@ const HELPFUL_WARNINGS = {
    * The options are [copied from
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/import.js).
    *
-   * We also add a "scripts" directory entry for "devDependency".
+   * We also add a "scripts" directory entry for "devDependencies".
    */
   "import/no-extraneous-dependencies": [
     "error",
@@ -52,7 +52,7 @@ const HELPFUL_WARNINGS = {
         "**/karma.conf.js", // karma config
         "**/.eslintrc.js", // eslint config
 
-        "**/scripts/*.{ts,cts,mts}", // TypeScript files inside of a "scripts" directory.
+        "**/scripts/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
       ],
       optionalDependencies: false,
     },
