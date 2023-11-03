@@ -1,7 +1,7 @@
 import {
+  $s,
   PACKAGE_JSON,
   buildScript,
-  bundleTypeScript,
   cp,
   mkdir,
   rm,
@@ -9,17 +9,13 @@ import {
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
 
-await buildScript(async ({ outDir, packageRoot }) => {
+await buildScript(({ outDir, packageRoot }) => {
   assertDefined(
     outDir,
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
 
-  await bundleTypeScript(packageRoot, {
-    // ESLint does not support ESM yet; only migrate this plugin to ESM once `typescript-eslint` has
-    // moved to ESM.
-    format: "cjs",
-  });
+  $s`tsc`;
   copyToMonorepoNodeModules(packageRoot, outDir);
 });
 
@@ -41,9 +37,7 @@ function copyToMonorepoNodeModules(packageRoot: string, outDir: string) {
   const newPackageJSONPath = path.join(monorepoPluginDir, PACKAGE_JSON);
   cp(PACKAGE_JSON, newPackageJSONPath);
 
-  const monorepoPluginDistDir = path.join(monorepoPluginDir, "dist");
-  mkdir(monorepoPluginDistDir);
-  const oldIndexJSPath = path.join(packageRoot, outDir, "index.js");
-  const newIndexJSPath = path.join(monorepoPluginDistDir, "index.js");
-  cp(oldIndexJSPath, newIndexJSPath);
+  const outPath = path.join(packageRoot, outDir);
+  const monorepoPluginDistDir = path.join(monorepoPluginDir, outDir);
+  cp(outPath, monorepoPluginDistDir);
 }

@@ -1,13 +1,9 @@
+// This is a tsconfig.json intended to be used by scripts in the IsaacScript monorepo.
 {
   "extends": [
-    "../isaacscript-tsconfig/tsconfig.node.json",
-    "../../tsconfig.monorepo.json",
+    "../../isaacscript-tsconfig/tsconfig.node.json",
+    "../../../tsconfig.monorepo.json",
   ],
-
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    "outDir": "dist",
-  },
 
   "include": [
     "./**/*.js",
@@ -27,6 +23,4 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
-
-  "exclude": ["dist", "scripts", "tests"],
 }

@@ -7,6 +7,11 @@ await buildScript(({ packageRoot, outDir }) => {
   reorganizeDistDirectory(packageRoot, outDir);
 });
 
+/**
+ * Because this is a monorepo and we are not using project references, `tsc` will put the output in
+ * a weird directory structure. We should not be including other monorepo dependencies inside of the
+ * compiled output, so we need to reorganize this.
+ */
 function reorganizeDistDirectory(
   packageRoot: string,
   outDir: string | undefined,
