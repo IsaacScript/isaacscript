@@ -137,9 +137,6 @@ function copyDynamicFiles(
   dev: boolean,
   typeScript: boolean,
 ) {
-  const workflowsPath = path.join(projectPath, ".github", "workflows");
-  makeDirectory(workflowsPath);
-
   // `.github/workflows/setup/action.yml`
   {
     const fileName = ACTION_YML;
@@ -154,7 +151,9 @@ function copyDynamicFiles(
       .replaceAll("PACKAGE_MANAGER_LOCK_FILE_NAME", lockFileName)
       .replaceAll("PACKAGE_MANAGER_INSTALL_COMMAND", installCommand);
 
-    const destinationPath = path.join(workflowsPath, fileName);
+    const setupPath = path.join(projectPath, ".github", "workflows", "setup");
+    makeDirectory(setupPath);
+    const destinationPath = path.join(setupPath, fileName);
     writeFile(destinationPath, actionYML);
   }
 
