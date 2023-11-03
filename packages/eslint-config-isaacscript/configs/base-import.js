@@ -22,6 +22,8 @@ const HELPFUL_WARNINGS = {
   /**
    * The options are [copied from
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/import.js).
+   *
+   * We also add a "scripts" directory entry for "devDependency".
    */
   "import/no-extraneous-dependencies": [
     "error",
@@ -49,6 +51,8 @@ const HELPFUL_WARNINGS = {
         "**/protractor.conf.*.js", // protractor config
         "**/karma.conf.js", // karma config
         "**/.eslintrc.js", // eslint config
+
+        "**/scripts/*.{ts,cts,mts}",
       ],
       optionalDependencies: false,
     },

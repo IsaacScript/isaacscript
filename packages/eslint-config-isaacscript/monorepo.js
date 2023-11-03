@@ -62,10 +62,20 @@ const config = {
   },
 
   overrides: [
+    // Test files need to import across the "src" boundary.
     {
       files: ["*.test.ts"],
       rules: {
         "@typescript-eslint/no-restricted-imports": "off",
+      },
+    },
+
+    // The "isaacscript-common-node" dependency is used in scripts and should never appear in a
+    // "package.json" file (if it is only used in script files).
+    {
+      files: ["**/scripts/*.{ts,cts,mts}"],
+      rules: {
+        "import/no-extraneous-dependencies": "off",
       },
     },
   ],
