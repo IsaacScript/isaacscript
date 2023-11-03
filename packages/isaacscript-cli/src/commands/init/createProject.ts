@@ -24,6 +24,8 @@ import path from "node:path";
 import { Config } from "../../classes/Config.js";
 import { createConfigFile } from "../../configFile.js";
 import {
+  ACTION_YML,
+  ACTION_YML_TEMPLATE_PATH,
   CI_YML,
   CI_YML_TEMPLATE_PATH,
   GITIGNORE_TEMPLATE_PATH,
@@ -144,15 +146,26 @@ function copyDynamicFiles(
     const templateRaw = readFile(templatePath);
     const template = parseTemplate(templateRaw, typeScript);
 
+    const destinationPath = path.join(workflowsPath, fileName);
+    writeFile(destinationPath, template);
+  }
+
+  // `.github/workflows/setup/action.yml`
+  {
+    const fileName = ACTION_YML;
+    const templatePath = ACTION_YML_TEMPLATE_PATH;
+    const templateRaw = readFile(templatePath);
+    const template = parseTemplate(templateRaw, typeScript);
+
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const installCommand = getPackageManagerInstallCICommand(packageManager);
-    const ciYML = template
+    const actionYML = template
       .replaceAll("PACKAGE_MANAGER_NAME", packageManager)
       .replaceAll("PACKAGE_MANAGER_LOCK_FILE_NAME", lockFileName)
       .replaceAll("PACKAGE_MANAGER_INSTALL_COMMAND", installCommand);
 
     const destinationPath = path.join(workflowsPath, fileName);
-    writeFile(destinationPath, ciYML);
+    writeFile(destinationPath, actionYML);
   }
 
   // `.gitignore`

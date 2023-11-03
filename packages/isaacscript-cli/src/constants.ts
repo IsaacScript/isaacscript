@@ -42,12 +42,21 @@ export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
 
 // `isaacscript/file-templates/dynamic`
 export const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
+
 export const CI_YML = "ci.yml";
 export const CI_YML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   ".github",
   "workflows",
   CI_YML,
+);
+
+export const ACTION_YML = "action.yml";
+export const ACTION_YML_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  ".github",
+  "workflows",
+  ACTION_YML,
 );
 
 export const YARNRC_YML = ".yarnrc.yml";
@@ -61,6 +70,7 @@ export const GITIGNORE_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   GITIGNORE,
 );
+
 export const MAIN_TS = "main.ts";
 export const MAIN_TS_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
@@ -72,12 +82,14 @@ export const MAIN_DEV_TS_TEMPLATE_PATH = path.join(
   "src",
   "main-dev.ts",
 );
+
 export const METADATA_XML = "metadata.xml";
 export const METADATA_XML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   "mod",
   METADATA_XML,
 );
+
 export const README_MD = "README.md";
 
 // `isaacscript/schemas`

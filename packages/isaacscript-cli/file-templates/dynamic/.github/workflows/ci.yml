@@ -3,47 +3,37 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build_and_lint:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - run: npm run build
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: PACKAGE_MANAGER_NAME
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/setup
+      - run: npm run lint
 
-      - name: Retrieve the cached "node_modules" directory (if present)
-        uses: actions/cache@v3
-        id: node-cache
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('PACKAGE_MANAGER_LOCK_FILE_NAME') }}
-
-      - name: Install dependencies (if the cached directory was not found)
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: PACKAGE_MANAGER_INSTALL_COMMAND
-
-      - name: Test to see if the project compiles
-        run: bash build.sh
-
-      - name: Perform automated checks
-        run: bash lint.sh
-
-      # @template-mod-start
-      # To enable publishing in CI, follow the instructions here:
-      # https://github.com/IsaacScript/isaac-steam-workshop-upload
-      # Then, uncomment the lines below.
-      #- name: Upload the mod to Steam Workshop (if this is a release commit)
-      #  uses: IsaacScript/isaac-steam-workshop-upload@v2
-      #  if: "contains(github.event.head_commit.message, 'chore: release') && needs.pr-check.outputs.number != 'null'
-      #  with:
-      #    mod_path: mod
-      #  env:
-      #    CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
-      # @template-mod-end
+  # @template-mod-start
+  # To enable publishing in CI, follow the instructions here:
+  # https://github.com/IsaacScript/isaac-steam-workshop-upload
+  # Then delete this comment and uncomment the lines below.
+  #publish:
+  #  needs: [build, lint]
+  #  if: "contains(github.event.head_commit.message, 'chore: release') && needs.pr-check.outputs.number != 'null'"
+  #  steps:
+  #    - uses: actions/checkout@v3
+  #    - uses: ./.github/workflows/setup
+  #    - name: Upload the mod to Steam Workshop (if this is a release commit)
+  #      uses: IsaacScript/isaac-steam-workshop-upload@v2
+  #      with:
+  #        mod_path: mod
+  #      env:
+  #        CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
+  # @template-mod-end
 
   # To enable CI failure notifications over Discord:
   # - Right click on a channel in Discord and select "Edit Channel".
