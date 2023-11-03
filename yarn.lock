@@ -7555,18 +7555,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell-check-unused-words@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "cspell-check-unused-words@npm:1.0.7"
+"cspell-check-unused-words@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "cspell-check-unused-words@npm:1.0.8"
   dependencies:
     chalk: "npm:^5.3.0"
-    isaacscript-common-ts: "npm:^11.3.0"
-    jsonc-parser: "npm:^3.2.0"
+    isaacscript-common-node: "npm:^1.0.5"
+    isaacscript-common-ts: "npm:^11.3.1"
     source-map-support: "npm:^0.5.21"
-    tsx: "npm:^3.14.0"
   bin:
     cspell-check-unused-words: dist/main.js
-  checksum: 90e794756d39901d031590c722b34c1eae09adca23c3ef7c45d833028f05c2424af1c14dedc1049d2d069f6af9cb89b6d53740f810e77be0fa7399e4c711c121
+  checksum: e54dac60aa21889c29e62e43a2c436046fa0f63d9e4e5f4c4f4de7895fe52a061d22b1efa87f5a3dfbbdda84c5226616896f4af70337340b38c5d91e4b344cdf
   languageName: node
   linkType: hard
 
@@ -11417,10 +11416,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common-ts@npm:^11.3.0":
-  version: 11.3.0
-  resolution: "isaacscript-common-ts@npm:11.3.0"
-  checksum: 803939f8a7d7261c1ace32d16d8f980ae353072f26c47a5c0cd3af9e26c7117362789cfed7ff2729bfb78b2d1d98a3a5c52ac6d8c1ddc2b32560372502c704c2
+"isaacscript-common-node@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "isaacscript-common-node@npm:1.0.5"
+  dependencies:
+    "@arktype/fs": "npm:^0.0.1"
+    chalk: "npm:^5.3.0"
+    diff: "npm:^5.1.0"
+    esbuild: "npm:^0.19.5"
+    execa: "npm:^8.0.1"
+    isaacscript-common-ts: "npm:^11.3.1"
+    jsonc-parser: "npm:^3.2.0"
+    npm-check-updates: "npm:^16.14.6"
+  checksum: cf5fe4575ac287883bb23fbf9840db9c50aefdcef1d5d78d549882bcc8faaa232622ef09a48e313967cffa13f9e5148967b40ad24c170c7ef3f8598b7c569022
+  languageName: node
+  linkType: hard
+
+"isaacscript-common-ts@npm:^11.3.1":
+  version: 11.3.1
+  resolution: "isaacscript-common-ts@npm:11.3.1"
+  checksum: 20665865e62359addb7cc758d1cffdaf6ec2f2e274772d3bc55be5deaf85c8d77021a7c6ec984d7efc3ce4d963226a42ef9295d61fe8bef679ea3826dcbdd0ed
   languageName: node
   linkType: hard
 
@@ -11472,7 +11487,7 @@ __metadata:
     command-exists: "npm:^1.2.9"
     confusing-browser-globals: "npm:^1.0.11"
     cspell: "npm:^7.3.8"
-    cspell-check-unused-words: "npm:^1.0.7"
+    cspell-check-unused-words: "npm:^1.0.8"
     diff: "npm:^5.1.0"
     docusaurus-plugin-typedoc: "npm:^0.21.0"
     docusaurus-theme-search-typesense: "npm:^0.13.1"
