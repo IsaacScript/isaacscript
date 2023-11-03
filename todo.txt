@@ -10,7 +10,6 @@
 
 - get knip working
   - https://github.com/webpro/knip/issues/315
-  - remove all knipZ.jsonc
   - remove comment in ci.yml
 
 - lint rule: didn't catch this code:
@@ -25,9 +24,10 @@
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
 
-- use upstream CodePath: https://github.com/typescript-eslint/typescript-eslint/pull/7551
-
 ----------------------------------------------------------------------------------------------------
+
+- wait for CodePath PR to be accepted: https://github.com/typescript-eslint/typescript-eslint/pull/7551
+  - then use upstream CodePath
 
 - wait for eslint-plugin-n to fix rule:
   - https://github.com/eslint-community/eslint-plugin-n/issues/134

@@ -16,5 +16,6 @@
       ]
     }
   },
-  "allowTrailingCommas": true
+  "allowTrailingCommas": true,
+  "additionalProperties": false
 }
