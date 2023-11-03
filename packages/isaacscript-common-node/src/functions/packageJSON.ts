@@ -335,6 +335,6 @@ export function setPackageJSONDependency(
   dependencies[dependencyName] = version;
   packageJSON["dependencies"] = dependencies;
 
-  const newFileContents = JSON.stringify(packageJSON, undefined, 2); // Prettify it.
+  const newFileContents = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
   writeFile(filePath, newFileContents);
 }

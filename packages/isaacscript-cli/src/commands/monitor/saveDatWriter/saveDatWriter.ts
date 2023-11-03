@@ -116,7 +116,7 @@ function writeSaveDatToDisk(
   saveDat: SaveDatMessage[],
   numRetries: number,
 ) {
-  const saveDatRaw = JSON.stringify(saveDat, undefined, 2); // Prettify it for easier debugging.
+  const saveDatRaw = `${JSON.stringify(saveDat, undefined, 2)}\n`; // Prettify it for easier debugging.
   try {
     // We don't use the "writeFile" helper function here, since we want to allow for failure.
     fs.writeFileSync(saveDatPath, saveDatRaw);
