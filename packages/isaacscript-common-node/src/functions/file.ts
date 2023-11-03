@@ -217,6 +217,17 @@ export function mv(srcPath: string, dstPath: string): void {
 }
 
 /**
+ * Helper function to synchronously prepend data to a file.
+ *
+ * This will print an error message and exit the program if the file cannot be prepended to.
+ */
+export function prependFile(filePath: string, data: string): void {
+  const fileContents = readFile(filePath);
+  const newFileContents = data + fileContents;
+  writeFile(filePath, newFileContents);
+}
+
+/**
  * Helper function to synchronously read a file.
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".

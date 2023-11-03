@@ -29,7 +29,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "bash ./build.sh",
+    "build": "tsx ./scripts/build.ts",
     "docs": "typedoc",
     "lint": "tsx ./scripts/lint.ts"
   },
