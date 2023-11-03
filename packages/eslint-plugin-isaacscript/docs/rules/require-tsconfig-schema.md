@@ -1,6 +1,6 @@
 # `require-tsconfig-schema`
 
-Requires that all "tsconfig.json" files have a "@schema" field..
+Requires that all "tsconfig.json" files have a "@schema" field.
 
 ## Rule Details
 
