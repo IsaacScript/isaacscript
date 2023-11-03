@@ -16,7 +16,7 @@ await lintScript(async () => {
     $`eslint --max-warnings 0 .`,
 
     // Check for unused exports.
-    // -"--error" makes it return an error code of 1 if unused exports are found.
+    // - "--error" makes it return an error code of 1 if unused exports are found.
     $`npx ts-prune --error`,
 
     // Spell check every file using CSpell.
