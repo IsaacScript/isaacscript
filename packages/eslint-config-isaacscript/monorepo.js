@@ -20,8 +20,6 @@ const config = {
 
   ignorePatterns: ["**/dist/**"],
 
-  rules: {},
-
   overrides: [
     // The "isaacscript-common-node" dependency is used in scripts and should never appear in a
     // "package.json" file (if it is only used in script files). This has to be a monorepo disable
