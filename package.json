@@ -67,7 +67,7 @@
     "command-exists": "^1.2.9",
     "confusing-browser-globals": "^1.0.11",
     "cspell": "^7.3.8",
-    "cspell-check-unused-words": "^1.0.8",
+    "cspell-check-unused-words": "^1.0.11",
     "diff": "^5.1.0",
     "docusaurus-plugin-typedoc": "^0.21.0",
     "docusaurus-theme-search-typesense": "^0.13.1",
