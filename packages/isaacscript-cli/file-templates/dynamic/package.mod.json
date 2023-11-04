@@ -9,8 +9,8 @@
     "build": "tstl",
     "lint": "tsx ./scripts/lint.ts",
     "nuke": "isaacscript nuke",
-    "start": "isaacscript monitor",
     "publish": "isaacscript publish",
+    "start": "isaacscript monitor",
     "update": "isaacscript update"
   },
   "dependencies": {
