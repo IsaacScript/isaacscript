@@ -173,7 +173,7 @@ function validatePackageJSONNormalDependencies(
       );
       fatalError(
         `${chalk.red(
-          `IsaacScript projects require a dependency of "${dependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
+          `IsaacScript projects require a "dependencies" of "${dependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
         )} ${chalk.green(addCommand)}`,
       );
     }
@@ -197,7 +197,7 @@ function validatePackageJSONDevDependencies(
       );
       fatalError(
         `${chalk.red(
-          `IsaacScript projects require a development dependency of "${devDependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
+          `IsaacScript projects require a "devDependencies" of "${devDependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
         )} ${chalk.green(addDevCommand)}`,
       );
     }

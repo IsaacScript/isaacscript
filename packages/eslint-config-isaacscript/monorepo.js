@@ -20,12 +20,20 @@ const config = {
 
   ignorePatterns: ["**/dist/**"],
 
-  // TODO: try removing this
-  settings: {
-    // https://github.com/import-js/eslint-plugin-import/blob/main/README.md#importinternal-regex
-    // https://github.com/import-js/eslint-plugin-import/issues/2617
-    "import/internal-regex": "isaacscript-common-ts",
-  },
+  rules: {},
+
+  overrides: [
+    // The "isaacscript-common-node" dependency is used in scripts and should never appear in a
+    // "package.json" file (if it is only used in script files). This has to be a monorepo disable
+    // because in a normal project, "isaacscript-common-node" should be required in
+    // "devDependencies".
+    {
+      files: ["**/scripts/*.{ts,cts,mts}"],
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+      },
+    },
+  ],
 };
 
 module.exports = config;
