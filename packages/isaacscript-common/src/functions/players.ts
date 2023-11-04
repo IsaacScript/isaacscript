@@ -1,4 +1,3 @@
-import type { TrinketType } from "isaac-typescript-definitions";
 import {
   Challenge,
   CollectibleType,
@@ -19,38 +18,6 @@ import {
 } from "./playerIndex";
 import { isNumber } from "./types";
 import { assertDefined, repeat } from "./utils";
-
-/** Helper function to check to see if any player has a temporary collectible effect. */
-export function anyPlayerHasCollectibleEffect(
-  collectibleType: CollectibleType,
-): boolean {
-  const players = getAllPlayers();
-
-  return players.some((player) => {
-    const effects = player.GetEffects();
-    return effects.HasCollectibleEffect(collectibleType);
-  });
-}
-
-/** Helper function to check to see if any player has a temporary null effect. */
-export function anyPlayerHasNullEffect(nullItemID: NullItemID): boolean {
-  const players = getAllPlayers();
-
-  return players.some((player) => {
-    const effects = player.GetEffects();
-    return effects.HasNullEffect(nullItemID);
-  });
-}
-
-/** Helper function to check to see if any player has a temporary trinket effect. */
-export function anyPlayerHasTrinketEffect(trinketType: TrinketType): boolean {
-  const players = getAllPlayers();
-
-  return players.some((player) => {
-    const effects = player.GetEffects();
-    return effects.HasTrinketEffect(trinketType);
-  });
-}
 
 /**
  * Helper function to check to see if any player is holding up an item (from e.g. an active item
@@ -101,6 +68,9 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
  * If the player does not have an item currently queued, then this function will be a no-op.
  *
  * Returns whether an item was actually dequeued.
+ *
+ * Under the hood, this clones the `QueuedItemData`, since directly setting the `Item` field to
+ * `undefined` does not work for some reason.
  */
 export function dequeueItem(player: EntityPlayer): boolean {
   if (player.QueuedItem.Item === undefined) {
@@ -157,25 +127,6 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
   assertDefined(closestPlayer, "Failed to find the closest player.");
 
   return closestPlayer;
-}
-
-/**
- * Helper function to get an array of temporary effects for a player. This is helpful so that you
- * don't have to manually create an array from an `EffectsList` object.
- */
-export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
-  const effects = player.GetEffects();
-  const effectsList = effects.GetEffectsList();
-
-  const effectArray: TemporaryEffect[] = [];
-  for (let i = 0; i < effectsList.Size; i++) {
-    const effect = effectsList.Get(i);
-    if (effect !== undefined) {
-      effectArray.push(effect);
-    }
-  }
-
-  return effectArray;
 }
 
 /**
@@ -457,6 +408,7 @@ export function isEden(player: EntityPlayer): boolean {
   return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
 }
 
+/** Not exported since end-users should use the `isTainted` helper function directly. */
 function isTaintedModded(player: EntityPlayer) {
   // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
   // is bugged.

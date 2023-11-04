@@ -71,7 +71,15 @@ export function characterStartsWithActiveItem(character: PlayerType): boolean {
   return CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET.has(character);
 }
 
-/** Helper function to get the numerical damage multiplier for a character. */
+/**
+ * Helper function to get the numerical damage multiplier for a character.
+ *
+ * @param character The character to get.
+ * @param hasWhoreOfBabylon Optional. Whether the character has the Whore of Babylon effect
+ *                          currently active. Defaults to false. This is necessary because Eve's
+ *                          damage multiplier changes from 0.75 to 1 when she has Whore of Babylon
+ *                          active.
+ */
 export function getCharacterDamageMultiplier(
   character: PlayerType,
   hasWhoreOfBabylon = false,
