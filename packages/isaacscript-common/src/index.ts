@@ -90,6 +90,7 @@ export * from "./functions/pills";
 export * from "./functions/playerCenter";
 export * from "./functions/playerCollectibles";
 export * from "./functions/playerDataStructures";
+export * from "./functions/playerEffects";
 export * from "./functions/playerHealth";
 export * from "./functions/playerIndex";
 export * from "./functions/playerTrinkets";
