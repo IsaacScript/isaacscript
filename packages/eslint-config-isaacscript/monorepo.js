@@ -26,7 +26,7 @@ const config = {
     // because in a normal project, "isaacscript-common-node" should be required in
     // "devDependencies".
     {
-      files: ["**/scripts/*.{ts,cts,mts}"],
+      files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
       rules: {
         "import/no-extraneous-dependencies": "off",
       },

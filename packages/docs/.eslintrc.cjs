@@ -38,10 +38,10 @@ const config = {
   },
 
   overrides: [
-    // The "isaacscript-common-node" dependency is used in scripts and should never appear in a
-    // "package.json" file (if it is only used in script files).
+    // Since we modified the "import/no-extraneous-dependencies" rule above, we have to also
+    // copy-paste the override.
     {
-      files: ["**/scripts/*.{ts,cts,mts}"],
+      files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
       rules: {
         "import/no-extraneous-dependencies": "off",
       },
