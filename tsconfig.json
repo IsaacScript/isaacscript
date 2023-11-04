@@ -27,10 +27,6 @@
     "./**/.*.mts",
     "./**/*.tsx",
     "./**/.*.tsx",
-    "./**/*.json",
-    "./**/.*.json",
-    "./**/*.jsonc",
-    "./**/.*.jsonc",
   ],
 
   // Needed to avoid spurious errors in VSCode when having scripts open (due to the

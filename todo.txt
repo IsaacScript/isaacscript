@@ -1,10 +1,6 @@
-- make PR to schema: "$schema": "https://json.schemastore.org/tsconfig",
-  - https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/tsconfig.json
-  - https://discord.com/channels/1026804805894672454/1167094026609119252
+- isaacscript publish goes in infinite loop
 
-- use stack overflow to remove isaac-typescript-definitions from deps
-  - difficult, do it when I have the courage
-  - make sure that isaacscript-common still works through link in dev
+- make ESLint rule for "tsconfig.json" "$schema"
 
 ----------------------------------------------------------------------------------------------------
 
@@ -23,6 +19,10 @@
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
+
+- use stack overflow to remove isaac-typescript-definitions from deps
+  - difficult, do it when I have the courage
+  - make sure that isaacscript-common still works through link in dev
 
 ----------------------------------------------------------------------------------------------------
 

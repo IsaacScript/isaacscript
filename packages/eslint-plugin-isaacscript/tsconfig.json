@@ -26,10 +26,6 @@
     "./**/.*.mts",
     "./**/*.tsx",
     "./**/.*.tsx",
-    "./**/*.json",
-    "./**/.*.json",
-    "./**/*.jsonc",
-    "./**/.*.jsonc",
   ],
 
   "exclude": ["dist", "scripts", "tests"],
