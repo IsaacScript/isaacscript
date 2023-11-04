@@ -25,6 +25,7 @@ This page lists the changes to the IsaacScript framework.
   - `StageAPILayoutPoopSubtype`
   - `StageAPILayoutRockSubtype`
   - `StageAPILayoutSpikesOnOffVariant`
+- CI in new mods now runs build and lint in a separate jobs so that they run faster.
 
 ## November 2nd, 2023
 
