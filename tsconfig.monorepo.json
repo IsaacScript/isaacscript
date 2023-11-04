@@ -1,6 +1,8 @@
 // This is a tsconfig.json intended to be used by packages in this monorepo. It is designed to be
 // extended from in addition to the appropriate environment tsconfig (e.g. Node, browser, etc.).
 {
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
+
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     // We do not have to put the "baseUrl" option here because the correct value will be
