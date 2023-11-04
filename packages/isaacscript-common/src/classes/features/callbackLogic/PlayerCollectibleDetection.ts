@@ -1,14 +1,15 @@
+import type { ActiveSlot } from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   CollectibleType,
   DamageFlag,
-  EntityType,
+  ItemType,
   ModCallback,
   PlayerType,
 } from "isaac-typescript-definitions";
+import { ACTIVE_SLOT_VALUES } from "../../../arrays/cachedEnumValues";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayEquals } from "../../../functions/array";
-import { getEnumValues } from "../../../functions/enums";
 import { hasFlag } from "../../../functions/flag";
 import {
   defaultMapGetPlayer,
@@ -16,33 +17,36 @@ import {
 } from "../../../functions/playerDataStructures";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
-import { PlayerIndex } from "../../../types/PlayerIndex";
-import { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
-import { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
+import type { PickingUpItem } from "../../../types/PickingUpItem";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { DefaultMap } from "../../DefaultMap";
+import type { PostPlayerCollectibleAdded } from "../../callbacks/PostPlayerCollectibleAdded";
+import type { PostPlayerCollectibleRemoved } from "../../callbacks/PostPlayerCollectibleRemoved";
 import { Feature } from "../../private/Feature";
-import { ModdedElementSets } from "../other/ModdedElementSets";
-import { RunInNFrames } from "../other/RunInNFrames";
+import type { ModdedElementSets } from "../other/ModdedElementSets";
+import type { RunInNFrames } from "../other/RunInNFrames";
+
+const v = {
+  run: {
+    playersCollectibleCount: new DefaultMap<PlayerIndex, int>(0),
+    playersCollectibleMap: new DefaultMap<
+      PlayerIndex,
+      Map<CollectibleType, int>
+    >(() => new Map()),
+    playersActiveItemMap: new DefaultMap<
+      PlayerIndex,
+      Map<ActiveSlot, CollectibleType>
+    >(() => new Map()),
+  },
+};
 
 export class PlayerCollectibleDetection extends Feature {
-  public override v = {
-    run: {
-      playersCollectibleCount: new DefaultMap<PlayerIndex, int>(0),
-      playersCollectibleMap: new DefaultMap<
-        PlayerIndex,
-        Map<CollectibleType, int>
-      >(() => new Map()),
-      playersActiveItemMap: new DefaultMap<
-        PlayerIndex,
-        Map<ActiveSlot, CollectibleType>
-      >(() => new Map()),
-    },
-  };
+  public override v = v;
 
-  private postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
-  private postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
-  private moddedElementSets: ModdedElementSets;
-  private runInNFrames: RunInNFrames;
+  private readonly postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
+  private readonly postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
+  private readonly moddedElementSets: ModdedElementSets;
+  private readonly runInNFrames: RunInNFrames;
 
   constructor(
     postPlayerCollectibleAdded: PostPlayerCollectibleAdded,
@@ -58,12 +62,17 @@ export class PlayerCollectibleDetection extends Feature {
     ];
 
     this.callbacksUsed = [
-      [ModCallback.POST_USE_ITEM, [this.useItemD4, CollectibleType.D4]], // 3
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+      // 3
+      [ModCallback.POST_USE_ITEM, this.postUseItemD4, [CollectibleType.D4]],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+      [ModCallbackCustom.POST_ITEM_PICKUP, this.postItemPickup],
       [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
     ];
 
     this.postPlayerCollectibleAdded = postPlayerCollectibleAdded;
@@ -89,12 +98,12 @@ export class PlayerCollectibleDetection extends Feature {
     numCollectiblesChanged: int | undefined,
   ) {
     const oldCollectibleMap = defaultMapGetPlayer(
-      this.v.run.playersCollectibleMap,
+      v.run.playersCollectibleMap,
       player,
     );
     const newCollectibleMap =
       this.moddedElementSets.getPlayerCollectibleMap(player);
-    mapSetPlayer(this.v.run.playersCollectibleMap, player, newCollectibleMap);
+    mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
 
     const collectibleTypesSet = new Set<CollectibleType>([
       ...oldCollectibleMap.keys(),
@@ -102,7 +111,7 @@ export class PlayerCollectibleDetection extends Feature {
     ]);
 
     let numFired = 0;
-    for (const collectibleType of collectibleTypesSet.values()) {
+    for (const collectibleType of collectibleTypesSet) {
       const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
       const newNum = newCollectibleMap.get(collectibleType) ?? 0;
       const difference = newNum - oldNum;
@@ -126,7 +135,7 @@ export class PlayerCollectibleDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.D4 (284)
-  private useItemD4 = (
+  private readonly postUseItemD4 = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -149,18 +158,67 @@ export class PlayerCollectibleDetection extends Feature {
     return undefined;
   };
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer) => {
+  /** We need to handle the case of Tainted Eden taking damage. */
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
+  private readonly entityTakeDmgPlayer = (
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined => {
+    // Tainted Eden's mechanic does not apply if she e.g. uses Dull Razor.
+    if (hasFlag(damageFlags, DamageFlag.FAKE)) {
+      return undefined;
+    }
+
+    const character = player.GetPlayerType();
+    if (character !== PlayerType.EDEN_B) {
+      return undefined;
+    }
+
+    // The items will only be rerolled after the damage is successfully applied.
+    const entityPtr = EntityPtr(player);
+    this.runInNFrames.runNextGameFrame(() => {
+      const futurePlayer = getPlayerFromPtr(entityPtr);
+      if (futurePlayer !== undefined) {
+        this.updateCollectibleMapAndFire(player, undefined);
+      }
+    });
+
+    return undefined;
+  };
+
+  /**
+   * We need to handle TMTRAINER collectibles, since they do not cause the player's collectible
+   * count to change.
+   */
+  // ModCallbackCustom.POST_ITEM_PICKUP
+  private readonly postItemPickup = (
+    player: EntityPlayer,
+    pickingUpItem: PickingUpItem,
+  ) => {
+    if (
+      pickingUpItem.itemType === ItemType.TRINKET ||
+      pickingUpItem.itemType === ItemType.NULL
+    ) {
+      return;
+    }
+
+    const newCollectibleCount = player.GetCollectibleCount();
+    mapSetPlayer(v.run.playersCollectibleCount, player, newCollectibleCount);
+
+    this.updateCollectibleMapAndFire(player, 1);
+  };
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const oldCollectibleCount = defaultMapGetPlayer(
-      this.v.run.playersCollectibleCount,
+      v.run.playersCollectibleCount,
       player,
     );
     const newCollectibleCount = player.GetCollectibleCount();
-    mapSetPlayer(
-      this.v.run.playersCollectibleCount,
-      player,
-      newCollectibleCount,
-    );
+    mapSetPlayer(v.run.playersCollectibleCount, player, newCollectibleCount);
 
     const difference = newCollectibleCount - oldCollectibleCount;
 
@@ -184,14 +242,14 @@ export class PlayerCollectibleDetection extends Feature {
    */
   private checkActiveItemsChanged(player: EntityPlayer) {
     const activeItemMap = defaultMapGetPlayer(
-      this.v.run.playersActiveItemMap,
+      v.run.playersActiveItemMap,
       player,
     );
 
     const oldCollectibleTypes: CollectibleType[] = [];
     const newCollectibleTypes: CollectibleType[] = [];
 
-    for (const activeSlot of getEnumValues(ActiveSlot)) {
+    for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const oldCollectibleType =
         activeItemMap.get(activeSlot) ?? CollectibleType.NULL;
       const newCollectibleType = player.GetActiveItem(activeSlot);
@@ -213,41 +271,4 @@ export class PlayerCollectibleDetection extends Feature {
       this.updateCollectibleMapAndFire(player, undefined);
     }
   }
-
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
-  // We need to handle the case of Tainted Eden taking damage.
-  private entityTakeDmgPlayer = (
-    entity: Entity,
-    _amount: float,
-    damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined => {
-    // Tainted Eden's mechanic does not apply if she e.g. uses Dull Razor.
-    if (hasFlag(damageFlags, DamageFlag.FAKE)) {
-      return undefined;
-    }
-
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
-    }
-
-    const character = player.GetPlayerType();
-    if (character !== PlayerType.EDEN_B) {
-      return undefined;
-    }
-
-    // The items will only be rerolled after the damage is successfully applied.
-    const entityPtr = EntityPtr(player);
-    this.runInNFrames.runNextGameFrame(() => {
-      const futurePlayer = getPlayerFromPtr(entityPtr);
-      if (futurePlayer !== undefined) {
-        this.updateCollectibleMapAndFire(player, undefined);
-      }
-    });
-
-    return undefined;
-  };
 }

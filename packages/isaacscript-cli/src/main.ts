@@ -1,101 +1,110 @@
 #!/usr/bin/env node
 
 import chalk from "chalk";
-import * as dotenv from "dotenv";
 import figlet from "figlet";
-import path from "path";
-import sourceMapSupport from "source-map-support";
-import updateNotifier from "update-notifier";
-import pkg from "../package.json";
-import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs";
-import { Config } from "./classes/Config";
-import { copy } from "./commands/copy/copy";
-import { init } from "./commands/init/init";
-import { monitor } from "./commands/monitor/monitor";
-import { publish } from "./commands/publish/publish";
-import { getConfigFromFile } from "./configFile";
-import { CWD, PROJECT_NAME } from "./constants";
-import { execShell } from "./exec";
 import {
+  fatalError,
+  getPackageJSONVersion,
   getPackageManagerInstallCommand,
-  getPackageManagerUsedForExistingProject,
-} from "./packageManager";
-import { Args, parseArgs } from "./parseArgs";
-import { promptInit } from "./prompt";
-import { Command, DEFAULT_COMMAND } from "./types/Command";
-import { error } from "./utils";
-import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject";
-import { validateNodeVersion } from "./validateNodeVersion";
-import { validateOS } from "./validateOS";
+  nukeDependencies,
+  updatePackageJSON,
+} from "isaacscript-common-node";
+import sourceMapSupport from "source-map-support";
+import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
+import { Config } from "./classes/Config.js";
+import type { ValidatedConfig } from "./classes/ValidatedConfig.js";
+import { check } from "./commands/check/check.js";
+import { copy } from "./commands/copy/copy.js";
+import { init } from "./commands/init/init.js";
+import { monitor } from "./commands/monitor/monitor.js";
+import { publish } from "./commands/publish/publish.js";
+import { getConfigFromFile } from "./configFile.js";
+import { CWD, PROJECT_NAME, REPO_ROOT } from "./constants.js";
+import { execShellString } from "./exec.js";
+import { getPackageManagerUsedForExistingProject } from "./packageManager.js";
+import type { Args } from "./parseArgs.js";
+import { parseArgs } from "./parseArgs.js";
+import { promptInit } from "./prompt.js";
+import type { Command } from "./types/Command.js";
+import { DEFAULT_COMMAND, isIsaacScriptModCommand } from "./types/Command.js";
+import { validateInIsaacScriptProject } from "./validateInIsaacScriptProject.js";
+import { validateNodeVersion } from "./validateNodeVersion.js";
 
-main().catch((err) => {
-  error(`${PROJECT_NAME} failed:`, err);
-});
+await main();
 
 async function main(): Promise<void> {
   sourceMapSupport.install();
   promptInit();
-  validateNodeVersion();
-  validateOS();
-  loadEnvironmentVariables();
 
-  // Get command line arguments.
   const args = parseArgs();
-  const verbose = args.verbose === true;
+  const command = getCommandFromArgs(args);
 
-  printBanner();
+  validateNodeVersion();
 
-  // Check for a new version.
-  updateNotifier({ pkg }).notify();
+  printBanner(command);
 
   // Pre-flight checks
-  await checkForWindowsTerminalBugs(verbose);
+  await checkForWindowsTerminalBugs();
 
-  await handleCommands(args);
+  await handleCommands(command, args);
+
+  if (command !== "monitor") {
+    process.exit(0);
+  }
 }
 
-function loadEnvironmentVariables() {
-  const envFile = path.join(CWD, ".env");
-  dotenv.config({ path: envFile });
+function getCommandFromArgs(args: Args): Command {
+  const positionalArgs = args._;
+  const firstPositionArg = positionalArgs[0];
+  return firstPositionArg === undefined || firstPositionArg === ""
+    ? DEFAULT_COMMAND
+    : (firstPositionArg as Command);
 }
 
-function printBanner() {
+function printBanner(command: Command) {
+  // Skip displaying the banner for specific commands.
+  if (command.startsWith("check")) {
+    return;
+  }
+
   const banner = figlet.textSync(PROJECT_NAME);
   console.log(chalk.green(banner));
 
+  const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
+  const versionString = `v${isaacScriptCLIVersion}`;
   const bannerLines = banner.split("\n");
   const firstBannerLine = bannerLines[0];
   if (firstBannerLine === undefined) {
-    throw new Error("Failed to get the first line of the banner text.");
+    fatalError(
+      firstBannerLine,
+      "Failed to get the first line of the banner text.",
+    );
   }
-  const bannerLineLength = firstBannerLine.length;
-  const version = `v${pkg.version}`;
-  const leftPaddingAmount = Math.floor((bannerLineLength + version.length) / 2);
-  const versionLine = version.padStart(leftPaddingAmount);
-  console.log(versionLine);
-
-  console.log();
+  const bannerHorizontalLength = firstBannerLine.length;
+  const leftPaddingAmount = Math.floor(
+    (bannerHorizontalLength + versionString.length) / 2,
+  );
+  const versionLine = versionString.padStart(leftPaddingAmount);
+  console.log(`${versionLine}\n`);
 }
 
-async function handleCommands(args: Args) {
+async function handleCommands(command: Command, args: Args) {
   const skipProjectChecks = args.skipProjectChecks === true;
   const verbose = args.verbose === true;
 
-  const positionalArgs = args._;
-  const firstPositionArg = positionalArgs[0];
-  const command: Command =
-    firstPositionArg === undefined || firstPositionArg === ""
-      ? DEFAULT_COMMAND
-      : (firstPositionArg as Command);
-
-  let config = new Config();
-  if (command !== "init") {
+  let config = new Config() as ValidatedConfig;
+  if (
+    command !== "init" &&
+    command !== "check" &&
+    isIsaacScriptModCommand(command)
+  ) {
     if (!skipProjectChecks) {
-      validateInIsaacScriptProject(verbose);
+      validateInIsaacScriptProject();
     }
-    config = await getConfigFromFile(args);
 
-    ensureDepsAreInstalled(args, verbose);
+    const shouldDisplayOutput = !command.startsWith("check");
+    ensureDepsAreInstalled(args, shouldDisplayOutput, verbose);
+    config = await getConfigFromFile(args, false);
   }
 
   switch (command) {
@@ -105,7 +114,12 @@ async function handleCommands(args: Args) {
     }
 
     case "init": {
-      await init(args);
+      await init(args, false);
+      break;
+    }
+
+    case "init-ts": {
+      await init(args, true);
       break;
     }
 
@@ -115,27 +129,55 @@ async function handleCommands(args: Args) {
     }
 
     case "publish": {
-      await publish(args, config);
+      await publish(args, config, false);
+      break;
+    }
+
+    case "publish-ts": {
+      await publish(args, config, true);
+      break;
+    }
+
+    case "check": {
+      check(args, false);
+      break;
+    }
+
+    case "check-ts": {
+      check(args, true);
+      break;
+    }
+
+    case "update": {
+      const hasNewDependencies = await updatePackageJSON(CWD);
+      const msg = hasNewDependencies
+        ? "Successfully installed new Node.js dependencies."
+        : "There were no new Node.js dependency updates.";
+      console.log(msg);
+      break;
+    }
+
+    case "nuke": {
+      nukeDependencies(CWD);
+      console.log("Successfully reinstalled Node.js dependencies.");
       break;
     }
   }
-
-  if (command !== "monitor") {
-    process.exit(0);
-  }
 }
 
-/**
- * https://stackoverflow.com/questions/57016579/checking-if-package-json-dependencies-match-the-installed-dependencies
- */
-function ensureDepsAreInstalled(args: Args, verbose: boolean) {
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
-  const [command, commandArgs] =
-    getPackageManagerInstallCommand(packageManager);
-  const argsString = commandArgs.join(" ");
-  const commandString = `${command} ${argsString}`.trim();
-  console.log(
-    `Running "${commandString}" to ensure that the project's dependencies are installed correctly.`,
-  );
-  execShell(command, commandArgs, verbose);
+function ensureDepsAreInstalled(
+  args: Args,
+  shouldDisplayOutput: boolean,
+  verbose: boolean,
+) {
+  const packageManager = getPackageManagerUsedForExistingProject(args);
+  const command = getPackageManagerInstallCommand(packageManager);
+
+  if (shouldDisplayOutput) {
+    console.log(
+      `Running "${command}" to ensure that the project's dependencies are installed correctly.`,
+    );
+  }
+
+  execShellString(command, verbose);
 }

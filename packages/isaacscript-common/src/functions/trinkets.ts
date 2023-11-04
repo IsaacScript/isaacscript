@@ -1,30 +1,20 @@
-import {
-  CacheFlag,
-  PlayerType,
-  TrinketSlot,
-  TrinketType,
-} from "isaac-typescript-definitions";
+import type { CacheFlag } from "isaac-typescript-definitions";
+import { TrinketType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import { BLIND_ITEM_PNG_PATH } from "../core/constants";
-import {
-  FIRST_TRINKET_TYPE,
-  LAST_VANILLA_TRINKET_TYPE,
-} from "../core/constantsFirstLast";
+import { LAST_VANILLA_TRINKET_TYPE } from "../core/constantsFirstLast";
+import { MysteriousPaperEffect } from "../enums/MysteriousPaperEffect";
 import {
   DEFAULT_TRINKET_DESCRIPTION,
-  TRINKET_DESCRIPTION_MAP,
-} from "../maps/trinketDescriptionMap";
-import {
-  DEFAULT_TRINKET_NAME,
-  TRINKET_TYPE_TO_NAME_MAP,
-} from "../maps/trinketTypeToNameMap";
+  TRINKET_DESCRIPTIONS,
+} from "../objects/trinketDescriptions";
+import { DEFAULT_TRINKET_NAME, TRINKET_NAMES } from "../objects/trinketNames";
 import { getEntityID } from "./entities";
+import { getEnumLength } from "./enums";
 import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
-import { isCharacter } from "./players";
 import { clearSprite } from "./sprites";
 import { asNumber } from "./types";
-import { iRange } from "./utils";
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.
@@ -33,7 +23,9 @@ import { iRange } from "./utils";
  *
  * 1 << 15
  */
-const GOLDEN_TRINKET_ADJUSTMENT = 32768;
+const GOLDEN_TRINKET_ADJUSTMENT = 32_768;
+
+const NUM_MYSTERIOUS_PAPER_EFFECTS = getEnumLength(MysteriousPaperEffect);
 
 const TRINKET_ANM2_PATH = "gfx/005.350_trinket.anm2";
 const TRINKET_SPRITE_LAYER = 0;
@@ -41,45 +33,63 @@ const TRINKET_SPRITE_LAYER = 0;
 /**
  * Helper function to get the corresponding golden trinket type from a normal trinket type.
  *
+ * If the provided trinket type is already a golden trinket type, then the trinket type will be
+ * returned unmodified.
+ *
  * For example, passing `TrinketType.SWALLOWED_PENNY` would result in 32769, which is the value that
  * corresponds to the golden trinket sub-type for Swallowed Penny.
  */
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
-  return asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
+  return isGoldenTrinketType(trinketType)
+    ? trinketType
+    : asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
 }
 
 /**
- * Returns the slot number corresponding to where a trinket can be safely inserted.
+ * Helper function to get the current effect that the Mysterious Paper trinket is providing to the
+ * player. Returns undefined if the player does not have the Mysterious Paper trinket.
  *
- * For example:
+ * The Mysterious Paper trinket has four different effects:
  *
- * ```ts
- * const player = Isaac.GetPlayer();
- * const trinketSlot = getOpenTrinketSlotNum(player);
- * if (trinketSlot !== undefined) {
- *   // They have one or more open trinket slots
- *   player.AddTrinket(TrinketType.SWALLOWED_PENNY);
- * }
- * ```
+ * - The Polaroid (collectible)
+ * - The Negative (collectible)
+ * - A Missing Page (trinket)
+ * - Missing Poster (trinket)
+ *
+ * It rotates between these four effects on every frame. Note that Mysterious Paper will cause the
+ * `EntityPlayer.HasCollectible` and `EntityPlayer.HasTrinket` methods to return true for the
+ * respective items on the particular frame, with the exception of the Missing Poster. (The player
+ * will never "have" the Missing Poster, even on the correct corresponding frame.)
+ *
+ * @param player The player to look at.
+ * @param frameCount Optional. The frame count that corresponds to time the effect will be active.
+ *                   Default is the current frame.
  */
-export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
-  const maxTrinkets = player.GetMaxTrinkets();
-  const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
-
-  if (maxTrinkets === 1) {
-    return trinketType1 === TrinketType.NULL ? 0 : undefined;
+export function getMysteriousPaperEffectForFrame(
+  player: EntityPlayer,
+  frameCount?: int,
+): MysteriousPaperEffect | undefined {
+  if (frameCount === undefined) {
+    frameCount = player.FrameCount;
   }
 
-  if (maxTrinkets === 2) {
-    if (trinketType1 === TrinketType.NULL) {
-      return 0;
-    }
-
-    return trinketType2 === TrinketType.NULL ? 1 : undefined;
+  if (!player.HasTrinket(TrinketType.MYSTERIOUS_PAPER)) {
+    return undefined;
   }
 
-  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
+  return frameCount % NUM_MYSTERIOUS_PAPER_EFFECTS;
+}
+
+/**
+ * Helper function to get the corresponding normal trinket type from a golden trinket type.
+ *
+ * If the provided trinket type is already a normal trinket type, then the trinket type will be
+ * returned unmodified.
+ */
+export function getNormalTrinketType(trinketType: TrinketType): TrinketType {
+  return isGoldenTrinketType(trinketType)
+    ? asNumber(trinketType) - GOLDEN_TRINKET_ADJUSTMENT
+    : trinketType;
 }
 
 /**
@@ -90,8 +100,10 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
  */
 export function getTrinketDescription(trinketType: TrinketType): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
-  // hard-coded map as a workaround.
-  const trinketDescription = TRINKET_DESCRIPTION_MAP.get(trinketType);
+  // hard-coded object as a workaround.
+  const trinketDescription = TRINKET_DESCRIPTIONS[trinketType] as
+    | string
+    | undefined;
   if (trinketDescription !== undefined) {
     return trinketDescription;
   }
@@ -125,14 +137,14 @@ export function getTrinketGfxFilename(trinketType: TrinketType): string {
  * Helper function to get the name of a trinket. Returns "Unknown" if the provided trinket type is
  * not valid.
  *
- * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
- *
  * This function works for both vanilla and modded trinkets.
+ *
+ * For example, `getTrinketName(TrinketType.SWALLOWED_PENNY)` would return "Swallowed Penny".
  */
 export function getTrinketName(trinketType: TrinketType): string {
-  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
-  // as a workaround.
-  const trinketName = TRINKET_TYPE_TO_NAME_MAP.get(trinketType);
+  // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded
+  // object as a workaround.
+  const trinketName = TRINKET_NAMES[trinketType] as string | undefined;
   if (trinketName !== undefined) {
     return trinketName;
   }
@@ -143,27 +155,6 @@ export function getTrinketName(trinketType: TrinketType): string {
   }
 
   return DEFAULT_TRINKET_NAME;
-}
-
-/** Helper function to get an array that represents every vanilla trinket type. */
-export function getVanillaTrinketTypes(): TrinketType[] {
-  return iRange(FIRST_TRINKET_TYPE, LAST_VANILLA_TRINKET_TYPE);
-}
-
-/**
- * Returns whether or not the player can hold an additional trinket, beyond what they are currently
- * carrying. This takes into account items that modify the max number of trinkets, like Mom's Purse.
- *
- * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
- * items. (Only Tainted Forgotten can pick up items.)
- */
-export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.SOUL_B)) {
-    return false;
-  }
-
-  const openTrinketSlot = getOpenTrinketSlot(player);
-  return openTrinketSlot !== undefined;
 }
 
 export function isGoldenTrinketType(trinketType: TrinketType): boolean {
@@ -190,6 +181,9 @@ export function newTrinketSprite(trinketType: TrinketType): Sprite {
   sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, gfxFileName);
   sprite.LoadGraphics();
 
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
+
   return sprite;
 }
 
@@ -202,8 +196,8 @@ export function newTrinketSprite(trinketType: TrinketType): Sprite {
  * @param trinket The trinket whose sprite you want to modify.
  * @param pngPath Equal to either the spritesheet path to load (e.g.
  *                "gfx/items/trinkets/trinket_001_swallowedpenny.png") or undefined. If undefined,
- *                the sprite will be removed, making it appear like the collectible has already been
- *                taken by the player.
+ *                the sprite will be removed, making the trinket effectively invisible (except for
+ *                the shadow underneath it).
  */
 export function setTrinketSprite(
   trinket: EntityPickup,
@@ -218,7 +212,9 @@ export function setTrinketSprite(
 
   const sprite = trinket.GetSprite();
   if (pngPath === undefined) {
-    clearSprite(sprite, TRINKET_SPRITE_LAYER);
+    // We use `clearSpriteLayer` instead of `Sprite.Reset` to maintain parity with the
+    // `setCollectibleSprite` function.
+    clearSprite(sprite);
   } else {
     sprite.ReplaceSpritesheet(TRINKET_SPRITE_LAYER, pngPath);
     sprite.LoadGraphics();

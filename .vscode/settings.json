@@ -4,7 +4,8 @@
   // Vanilla settings
   // ----------------
 
-  // This matches the Airbnb JavaScript style guide.
+  // This matches the Airbnb JavaScript style guide, which is the most popular JavaScript style
+  // guide in the world.
   "editor.rulers": [100],
   "editor.tabSize": 2,
 
@@ -13,26 +14,38 @@
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
     ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
 
+    // @template-customization-start
     // API Extractor uses the JSONC parser for its configuration files.
     "api-extractor.json": "jsonc",
-    "gitattributes": "properties",
-    "gitignore": "ignore",
-    "typedoc.json": "jsonc", // TypeDoc uses the JSONC parser for its configuration files.
+    "_gitattributes": "properties",
+    "_gitignore": "ignore",
+    // @template-customization-end
   },
 
   // We want to always use "lf" to be consistent with all platforms.
   "files.eol": "\n",
 
-  // Automatically removing all trailing whitespace when saving a file.
+  // Automatically remove all trailing whitespace when saving a file.
   "files.trimTrailingWhitespace": true,
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
   "search.exclude": {
+    "**/*.mp3": true,
     "**/*.png": true,
+    "**/*.svg": true,
     "**/*.wav": true,
+    "**/.yarn/": true,
     "**/dist/": true,
     "**/node_modules/": true,
+    "LICENSE": true,
   },
+
+  // ------------------
+  // Extension settings
+  // ------------------
+
+  // Use Prettier to format "cspell.jsonc".
+  "cSpell.autoFormatConfigFile": true,
 
   // -----------------
   // Language settings
@@ -46,18 +59,23 @@
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
 
-  // Python-specific settings.
-  "python.formatting.provider": "black",
+  // Show TypeScript errors for files that don't happen to be currently open, which makes TypeScript
+  // work similar to other compiled languages like Golang or Rust.
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
 
   // Automatically run the formatter when certain files are saved.
   "[javascript]": {
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
   "[typescript]": {
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
@@ -82,19 +100,37 @@
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2,
-  },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
   },
+  // @template-customization-start
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+  },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python",
+    "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
     "editor.tabSize": 4,
   },
+  // @template-customization-end
 }

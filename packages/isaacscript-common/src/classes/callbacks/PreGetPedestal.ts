@@ -3,7 +3,7 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -12,17 +12,19 @@ export class PreGetPedestal extends CustomCallback<ModCallbackCustom.PRE_GET_PED
     super();
 
     this.callbacksUsed = [
+      // 38
       [
         ModCallback.PRE_PICKUP_COLLISION,
-        [this.prePickupCollision, PickupVariant.COLLECTIBLE],
-      ], // 38
+        this.prePickupCollision,
+        [PickupVariant.COLLECTIBLE],
+      ],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallback.PRE_PICKUP_COLLISION (35)
-  private prePickupCollision = (
+  private readonly prePickupCollision = (
     pickup: EntityPickup,
     collider: Entity,
     _low: boolean,

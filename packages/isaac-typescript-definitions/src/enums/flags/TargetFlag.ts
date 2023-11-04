@@ -48,11 +48,10 @@ type TargetFlagValue = BitFlag & {
   readonly __targetFlagBrand: symbol;
 };
 type TargetFlagType = {
-  [K in keyof typeof TargetFlagInternal]: TargetFlagValue;
+  readonly [K in keyof typeof TargetFlagInternal]: TargetFlagValue;
 };
 
 export const TargetFlag = TargetFlagInternal as TargetFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type TargetFlag = TargetFlagType[keyof TargetFlagType];
 
 export const TargetFlagZero = 0 as BitFlags<TargetFlag>;

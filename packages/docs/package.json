@@ -1,5 +1,5 @@
 {
-  "name": "isaacscript-github-io",
+  "name": "docs",
   "private": true,
   "description": "The website for the IsaacScript monorepo.",
   "keywords": [],
@@ -13,18 +13,16 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
-  "main": ".eslintrc.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
-    "build": "docusaurus build --out-dir ../../dist/packages/docs",
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
     "clear": "docusaurus clear",
-    "deploy": "docusaurus deploy",
+    "deploy": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/deploy.mts",
     "docusaurus": "docusaurus",
-    "serve": "docusaurus serve --dir ../../dist/packages/docs",
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts",
+    "serve": "docusaurus serve",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
+    "typecheck": "tsc",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
   },
@@ -39,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=16.14"
   }
 }

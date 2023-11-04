@@ -1,29 +1,12 @@
 // This is a tsconfig.json intended to be used by TypeScript programs targeting Node.js.
 {
-  // We extend the base IsaacScript config:
-  // https://github.com/IsaacScript/isaacscript/blog/main/packages/isaacscript-tsconfig/tsconfig.base.json
-  "extends": "./tsconfig.base.json",
+  "extends": [
+    // We extend the base IsaacScript config:
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
+    "./tsconfig.base.json",
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    // We manually implement the options from the recommended tsconfig for Node 16 (because we can
-    // only extend from one config at a time):
-    // https://github.com/tsconfig/bases/blob/main/bases/node16.json
-    "lib": ["ES2021"],
-    "module": "commonjs",
-    "target": "ES2021",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-
-    // We generically enable the ability to read JSON files, since it is common to import the
-    // "package.json" file to see what version the program is.
-    "resolveJsonModule": true,
-
-    // "sourceMap" creates source map files for emitted JavaScript files.
-    // By default, it is false.
-    // We want to be able to see the TypeScript line numbers in error messages to help with
-    // debugging.
-    "sourceMap": true,
-  },
+    // We also extend the recommended Node config:
+    // https://github.com/tsconfig/bases/blob/main/bases/node-lts.json
+    "@tsconfig/node-lts/tsconfig.json",
+  ],
 }

@@ -437,3 +437,21 @@ Foo.
   `;
   testFormatText(text, formattedText);
 });
+
+test("Tab characters removed", () => {
+  const text = `
+Some text.
+
+Some	tab		characters			here.
+
+This is some other normal text.
+  `;
+  const formattedText = `
+Some text.
+
+Some tab characters here.
+
+This is some other normal text.
+  `;
+  testFormatText(text, formattedText);
+});

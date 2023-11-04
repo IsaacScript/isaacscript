@@ -2,19 +2,13 @@
 export enum GameStateFlag {
   FAMINE_SPAWNED = 0,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   PESTILENCE_SPAWNED = 1,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   WAR_SPAWNED = 2,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   DEATH_SPAWNED = 3,
 
   BOSS_POOL_SWITCHED = 4,
@@ -34,38 +28,26 @@ export enum GameStateFlag {
   DONATION_SLOT_JAMMED = 18,
   HEAVEN_PATH = 19,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   REBIRTH_BOSS_SWITCHED = 20,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   HAUNT_SELECTED = 21,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   ADVERSARY_SELECTED = 22,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   MR_FRED_SELECTED = 23,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   MAMA_GURDY_SELECTED = 24,
 
   URIEL_SPAWNED = 25,
   GABRIEL_SPAWNED = 26,
   FALLEN_SPAWNED = 27,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   HEADLESS_HORSEMAN_SPAWNED = 28,
 
   KRAMPUS_SPAWNED = 29,
@@ -75,14 +57,10 @@ export enum GameStateFlag {
   BOSS_RUSH_DONE = 33,
   GREED_SLOT_JAMMED = 34,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   AFTERBIRTH_BOSS_SWITCHED = 35,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   BROWNIE_SELECTED = 36,
 
   SUPER_BUM_APPEARED = 37,
@@ -91,9 +69,7 @@ export enum GameStateFlag {
   BLUE_WOMB_DONE = 40,
   HEART_BOMB_COIN_PICKED = 41,
 
-  /**
-   * @deprecated This only works in Afterbirth+, not Repentance.
-   */
+  /** @deprecated This only works in Afterbirth+, not Repentance. */
   AFTERBIRTH_PLUS_BOSS_SWITCHED = 42,
 
   /** Set when reaching 99 coins. Used to check for the Golden Razor achievement. */

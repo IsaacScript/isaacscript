@@ -1,9 +1,9 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
-  noInvalidDefaultMap,
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   NoInvalidDefaultMapMessageIds,
   Options,
 } from "../../src/rules/no-invalid-default-map";
+import { noInvalidDefaultMap } from "../../src/rules/no-invalid-default-map";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
@@ -78,6 +78,24 @@ invalid.push({
 const defaultMap = new DefaultMap<string, string[]>(new Map());
   `,
   errors: [{ messageId: "invalidType" }],
+});
+
+valid.push({
+  name: "DefaultMap with int",
+  code: `
+declare type int = number & {};
+const defaultValue = 0 as int;
+const defaultMap = new DefaultMap<string, int>(defaultValue);
+  `,
+});
+
+valid.push({
+  name: "DefaultMap with float",
+  code: `
+declare type float = number & {};
+const defaultValue = 0.1 as float;
+const defaultMap = new DefaultMap<string, float>(defaultValue);
+  `,
 });
 
 ruleTester.run("no-invalid-default-map", noInvalidDefaultMap, {

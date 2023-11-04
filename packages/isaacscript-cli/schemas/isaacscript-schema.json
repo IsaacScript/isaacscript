@@ -9,20 +9,8 @@
         "$schema": {
           "type": "string"
         },
-        "modsDirectory": {
-          "description": "The \"mods\" directory that lives next to the \"isaac-ng.exe\" program.",
-          "type": "string"
-        },
-        "saveSlot": {
-          "description": "The save slot that you test your mod on.",
-          "type": "number"
-        },
         "customTargetModDirectoryName": {
           "description": "By default, the target mod directory name will be the same as the project directory name. This setting allows you to customize it.",
-          "type": "string"
-        },
-        "steamCmdPath": {
-          "description": "The path to \"steamcmd.exe\". This is optional and only needed for automating publishing.",
           "type": "string"
         },
         "enableIsaacScriptWatcherAutoRestart": {
@@ -32,6 +20,14 @@
         "isaacScriptCommonDev": {
           "description": "If set to true, the IsaacScript watcher will spawn an additional watcher process for the files in the `isaacscript-common` directory. (It assumes that you have `isaacscript-common` linked to a forked development repository.)",
           "type": "boolean"
+        },
+        "modsDirectory": {
+          "description": "The \"mods\" directory that lives next to the \"isaac-ng.exe\" program.",
+          "type": "string"
+        },
+        "saveSlot": {
+          "description": "The save slot that you test your mod on.",
+          "type": "number"
         }
       },
       "type": "object"

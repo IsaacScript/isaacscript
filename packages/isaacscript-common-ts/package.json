@@ -1,0 +1,31 @@
+{
+  "name": "isaacscript-common-ts",
+  "version": "11.3.1",
+  "description": "Helper functions for TypeScript projects.",
+  "keywords": [],
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx ./scripts/build.ts",
+    "lint": "tsx ./scripts/lint.ts",
+    "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
+  }
+}

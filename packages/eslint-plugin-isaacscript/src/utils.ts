@@ -1,5 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import * as ts from "typescript";
+import type { CodePathSegment } from "./interfaces/CodePath";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
@@ -15,10 +15,10 @@ export function areStringsEqualExcludingTrailingSpaces(
     return false;
   }
 
+  // eslint-disable-next-line unicorn/no-for-loop
   for (let i = 0; i < string1Lines.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line1 = string1Lines[i]!;
-
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const line2 = string2Lines[i]!;
 
@@ -30,28 +30,11 @@ export function areStringsEqualExcludingTrailingSpaces(
   return true;
 }
 
-const urlCreator = (name: string) =>
-  `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/main/docs/rules/${name}.md`;
-export const createRule = ESLintUtils.RuleCreator(urlCreator);
-
-/**
- * Helper function to get the only the values of an enum.
- *
- * (By default, TypeScript will put the keys inside of the values of a number-based enum, so those
- * have to be filtered out.)
- *
- * This function will work properly for both number and string enums.
- */
-export function getEnumValues<T>(
-  transpiledEnum: Record<string, string | T>,
-): T[] {
-  const values = Object.values(transpiledEnum);
-  const numberValues = values.filter((value) => typeof value === "number");
-
-  // If there are no number values, then this must be a string enum, and no filtration is required.
-  const valuesToReturn = numberValues.length > 0 ? numberValues : values;
-  return valuesToReturn as T[];
-}
+// eslint-disable-next-line new-cap
+export const createRule = ESLintUtils.RuleCreator(
+  (ruleName) =>
+    `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${ruleName}.md`,
+);
 
 /**
  * From: https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
@@ -75,9 +58,6 @@ export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
 }
 
-export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
-  // "isFunctionLike" does not seem to work with basic function expressions, so we resort to
-  // checking if any signatures exist.
-  const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);
-  return signatures.length > 0;
+export function isReachable(segment: CodePathSegment): boolean {
+  return segment.reachable;
 }

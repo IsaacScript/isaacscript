@@ -1,5 +1,28 @@
+// This is a tsconfig.json intended to be used by scripts in the IsaacScript monorepo.
 {
-  "extends": "../../../tsconfig.node.json",
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
 
-  "include": [".eslintrc.js", "*.ts"],
+  "extends": [
+    "../../isaacscript-tsconfig/tsconfig.node.json",
+    "../../../tsconfig.monorepo.json",
+  ],
+
+  "include": [
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
 }

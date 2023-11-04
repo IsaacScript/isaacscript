@@ -3,35 +3,34 @@ import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { emptyArray } from "../../../functions/array";
 import { Feature } from "../../private/Feature";
 
-/**
- * Using the "luamod" console command with a mod that has custom shaders can crash the game. A
- * simple fix for this is automatically applied to any upgraded mods. This method was originally
- * discovered by AgentCucco.
- */
+const v = {
+  run: {
+    queuedFunctions: [] as Array<() => void>,
+  },
+};
+
 export class RunNextRoom extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      queuedFunctions: [] as Array<() => void>,
-    },
-  };
+  public override v = v;
+
+  public override vConditionalFunc = (): boolean => false;
 
   /** @internal */
   constructor() {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
   }
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
-    for (const func of this.v.run.queuedFunctions) {
+  private readonly postNewRoomReordered = () => {
+    for (const func of v.run.queuedFunctions) {
       func();
     }
 
-    emptyArray(this.v.run.queuedFunctions);
+    emptyArray(v.run.queuedFunctions);
   };
 
   /**
@@ -45,6 +44,6 @@ export class RunNextRoom extends Feature {
    */
   @Exported
   public runNextRoom(func: () => void): void {
-    this.v.run.queuedFunctions.push(func);
+    v.run.queuedFunctions.push(func);
   }
 }

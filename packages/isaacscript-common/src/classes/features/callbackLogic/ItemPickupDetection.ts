@@ -1,49 +1,54 @@
-import {
+import type {
   CollectibleType,
-  ItemType,
-  ModCallback,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { ItemType } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
 import { asNumber } from "../../../functions/types";
+import type { PickingUpItem } from "../../../types/PickingUpItem";
 import {
   newPickingUpItem,
-  PickingUpItem,
   resetPickingUpItem,
 } from "../../../types/PickingUpItem";
-import { PlayerIndex } from "../../../types/PlayerIndex";
-import { PostItemPickup } from "../../callbacks/PostItemPickup";
-import { PreItemPickup } from "../../callbacks/PreItemPickup";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { DefaultMap } from "../../DefaultMap";
+import type { PostItemPickup } from "../../callbacks/PostItemPickup";
+import type { PreItemPickup } from "../../callbacks/PreItemPickup";
 import { Feature } from "../../private/Feature";
 
-export class ItemPickupDetection extends Feature {
-  public override v = {
-    run: {
-      playersPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
-        newPickingUpItem(),
-      ),
-    },
-  };
+const v = {
+  run: {
+    playersPickingUpItemMap: new DefaultMap<PlayerIndex, PickingUpItem>(() =>
+      newPickingUpItem(),
+    ),
+  },
+};
 
-  private postItemPickup: PostItemPickup;
-  private preItemPickup: PreItemPickup;
+export class ItemPickupDetection extends Feature {
+  public override v = v;
+
+  private readonly postItemPickup: PostItemPickup;
+  private readonly preItemPickup: PreItemPickup;
 
   constructor(postItemPickup: PostItemPickup, preItemPickup: PreItemPickup) {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
     ];
 
     this.postItemPickup = postItemPickup;
     this.preItemPickup = preItemPickup;
   }
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer) => {
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const pickingUpItem = defaultMapGetPlayer(
-      this.v.run.playersPickingUpItemMap,
+      v.run.playersPickingUpItemMap,
       player,
     );
 

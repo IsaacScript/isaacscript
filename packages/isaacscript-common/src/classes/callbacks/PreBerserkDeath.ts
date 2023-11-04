@@ -13,7 +13,7 @@ export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSER
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }
@@ -21,7 +21,9 @@ export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSER
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer): void => {
+  private readonly postPEffectUpdateReordered = (
+    player: EntityPlayer,
+  ): void => {
     // This callback should not trigger for the Strawman Keeper and other players that are "child"
     // players.
     if (isChildPlayer(player)) {

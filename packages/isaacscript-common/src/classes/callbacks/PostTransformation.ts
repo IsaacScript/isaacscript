@@ -1,27 +1,26 @@
-import { PlayerForm } from "isaac-typescript-definitions";
+import type { PlayerForm } from "isaac-typescript-definitions";
+import { PLAYER_FORM_VALUES } from "../../arrays/cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { getEnumValues } from "../../functions/enums";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import {
-  CustomCallback,
-  FireArgs,
-  OptionalArgs,
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_TRANSFORMATION;
 
+const v = {
+  run: {
+    // We cannot use a nested `DefaultMap` here.
+    playersTransformationsMap: new DefaultMap<
+      PlayerIndex,
+      Map<PlayerForm, boolean>
+    >(() => new Map()),
+  },
+};
+
 export class PostTransformation extends CustomCallback<T> {
-  public override v = {
-    run: {
-      // We cannot use a nested `DefaultMap` here.
-      playersTransformationsMap: new DefaultMap<
-        PlayerIndex,
-        Map<PlayerForm, boolean>
-      >(() => new Map()),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
@@ -29,12 +28,11 @@ export class PostTransformation extends CustomCallback<T> {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
@@ -48,13 +46,13 @@ export class PostTransformation extends CustomCallback<T> {
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const playerTransformationsMap = defaultMapGetPlayer(
-      this.v.run.playersTransformationsMap,
+      v.run.playersTransformationsMap,
       player,
     );
 
-    for (const playerForm of getEnumValues(PlayerForm)) {
+    for (const playerForm of PLAYER_FORM_VALUES) {
       const hasForm = player.HasPlayerForm(playerForm);
       let storedForm = playerTransformationsMap.get(playerForm);
       if (storedForm === undefined) {

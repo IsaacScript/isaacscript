@@ -1,21 +1,23 @@
-import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
+import type { GridEntityType } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import {
   getGridEntitiesMap,
   isGridEntityBroken,
 } from "../../../functions/gridEntities";
-import { PostGridEntityBroken } from "../../callbacks/PostGridEntityBroken";
-import { PostGridEntityCustomBroken } from "../../callbacks/PostGridEntityCustomBroken";
-import { PostGridEntityCustomInit } from "../../callbacks/PostGridEntityCustomInit";
-import { PostGridEntityCustomRemove } from "../../callbacks/PostGridEntityCustomRemove";
-import { PostGridEntityCustomStateChanged } from "../../callbacks/PostGridEntityCustomStateChanged";
-import { PostGridEntityCustomUpdate } from "../../callbacks/PostGridEntityCustomUpdate";
-import { PostGridEntityInit } from "../../callbacks/PostGridEntityInit";
-import { PostGridEntityRemove } from "../../callbacks/PostGridEntityRemove";
-import { PostGridEntityStateChanged } from "../../callbacks/PostGridEntityStateChanged";
-import { PostGridEntityUpdate } from "../../callbacks/PostGridEntityUpdate";
+import type { PostGridEntityBroken } from "../../callbacks/PostGridEntityBroken";
+import type { PostGridEntityCustomBroken } from "../../callbacks/PostGridEntityCustomBroken";
+import type { PostGridEntityCustomInit } from "../../callbacks/PostGridEntityCustomInit";
+import type { PostGridEntityCustomRemove } from "../../callbacks/PostGridEntityCustomRemove";
+import type { PostGridEntityCustomStateChanged } from "../../callbacks/PostGridEntityCustomStateChanged";
+import type { PostGridEntityCustomUpdate } from "../../callbacks/PostGridEntityCustomUpdate";
+import type { PostGridEntityInit } from "../../callbacks/PostGridEntityInit";
+import type { PostGridEntityRemove } from "../../callbacks/PostGridEntityRemove";
+import type { PostGridEntityStateChanged } from "../../callbacks/PostGridEntityStateChanged";
+import type { PostGridEntityUpdate } from "../../callbacks/PostGridEntityUpdate";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "./CustomGridEntities";
+import type { CustomGridEntities } from "./CustomGridEntities";
 
 type GridEntityTuple = [
   gridEntityType: GridEntityType,
@@ -23,25 +25,27 @@ type GridEntityTuple = [
   state: int,
 ];
 
-export class GridEntityUpdateDetection extends Feature {
-  public override v = {
-    room: {
-      /** Indexed by grid index. */
-      initializedGridEntities: new Map<int, GridEntityTuple>(),
-    },
-  };
+const v = {
+  room: {
+    /** Indexed by grid index. */
+    initializedGridEntities: new Map<int, GridEntityTuple>(),
+  },
+};
 
-  private postGridEntityInit: PostGridEntityInit;
-  private postGridEntityCustomInit: PostGridEntityCustomInit;
-  private postGridEntityUpdate: PostGridEntityUpdate;
-  private postGridEntityCustomUpdate: PostGridEntityCustomUpdate;
-  private postGridEntityRemove: PostGridEntityRemove;
-  private postGridEntityCustomRemove: PostGridEntityCustomRemove;
-  private postGridEntityStateChanged: PostGridEntityStateChanged;
-  private postGridEntityCustomStateChanged: PostGridEntityCustomStateChanged;
-  private postGridEntityBroken: PostGridEntityBroken;
-  private postGridEntityCustomBroken: PostGridEntityCustomBroken;
-  private customGridEntities: CustomGridEntities;
+export class GridEntityUpdateDetection extends Feature {
+  public override v = v;
+
+  private readonly postGridEntityInit: PostGridEntityInit;
+  private readonly postGridEntityCustomInit: PostGridEntityCustomInit;
+  private readonly postGridEntityUpdate: PostGridEntityUpdate;
+  private readonly postGridEntityCustomUpdate: PostGridEntityCustomUpdate;
+  private readonly postGridEntityRemove: PostGridEntityRemove;
+  private readonly postGridEntityCustomRemove: PostGridEntityCustomRemove;
+  private readonly postGridEntityStateChanged: PostGridEntityStateChanged;
+  private readonly postGridEntityCustomStateChanged: PostGridEntityCustomStateChanged;
+  private readonly postGridEntityBroken: PostGridEntityBroken;
+  private readonly postGridEntityCustomBroken: PostGridEntityCustomBroken;
+  private readonly customGridEntities: CustomGridEntities;
 
   constructor(
     postGridEntityInit: PostGridEntityInit,
@@ -61,8 +65,12 @@ export class GridEntityUpdateDetection extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.postGridEntityInit = postGridEntityInit;
@@ -79,14 +87,14 @@ export class GridEntityUpdateDetection extends Feature {
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
     // We check for removed grid entities first so that grid entities that change type will count as
     // being removed and fire the PostGridEntityRemoved callback.
     this.checkGridEntitiesRemoved(gridEntitiesMap);
 
-    for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
+    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
       this.checkGridEntityStateChanged(gridIndex, gridEntity);
       this.checkNewGridEntity(gridIndex, gridEntity);
 
@@ -103,17 +111,14 @@ export class GridEntityUpdateDetection extends Feature {
   private checkGridEntitiesRemoved(
     gridEntitiesMap: Map<int, GridEntity>,
   ): void {
-    for (const [
-      gridIndex,
-      gridEntityTuple,
-    ] of this.v.room.initializedGridEntities.entries()) {
+    for (const [gridIndex, gridEntityTuple] of v.room.initializedGridEntities) {
       const [storedGridEntityType, storedGridEntityVariant] = gridEntityTuple;
       const gridEntity = gridEntitiesMap.get(gridIndex);
       if (
         gridEntity === undefined ||
         gridEntity.GetType() !== storedGridEntityType
       ) {
-        this.v.room.initializedGridEntities.delete(gridIndex);
+        v.room.initializedGridEntities.delete(gridIndex);
 
         const gridEntityTypeCustom =
           this.customGridEntities.getCustomGridEntityType(gridIndex);
@@ -134,7 +139,7 @@ export class GridEntityUpdateDetection extends Feature {
     gridIndex: int,
     gridEntity: GridEntity,
   ): void {
-    const gridEntityTuple = this.v.room.initializedGridEntities.get(gridIndex);
+    const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
     if (gridEntityTuple === undefined) {
       // This grid entity did not exist a frame ago; we don't want to fire the state changed
       // callback on the first frame that it exists.
@@ -174,7 +179,7 @@ export class GridEntityUpdateDetection extends Feature {
 
   private checkNewGridEntity(gridIndex: int, gridEntity: GridEntity): void {
     const gridEntityType = gridEntity.GetType();
-    const gridEntityTuple = this.v.room.initializedGridEntities.get(gridIndex);
+    const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
 
     if (
       gridEntityTuple === undefined ||
@@ -201,14 +206,14 @@ export class GridEntityUpdateDetection extends Feature {
       variant,
       gridEntity.State,
     ];
-    this.v.room.initializedGridEntities.set(gridIndex, newTuple);
+    v.room.initializedGridEntities.set(gridIndex, newTuple);
   }
 
-  // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = (): void => {
     const gridEntitiesMap = getGridEntitiesMap();
 
-    for (const [gridIndex, gridEntity] of gridEntitiesMap.entries()) {
+    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
       this.checkNewGridEntity(gridIndex, gridEntity);
     }
   };

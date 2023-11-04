@@ -3,7 +3,8 @@ import {
   isSeparatorLine,
   isSpecialComment,
 } from "./comments";
-import { getAdjustedList, List, ListKind, reachedNewList } from "./list";
+import type { List } from "./list";
+import { ListKind, getAdjustedList, reachedNewList } from "./list";
 import { hasURL } from "./utils";
 
 /**
@@ -18,25 +19,27 @@ import { hasURL } from "./utils";
  *
  * @param text One or more lines of text, separated by newlines.
  * @param maxLength The ruler cutoff for the formatted text.
- * @param parseJSDocTags Whether or not to make formatting decisions based on the presence of JSDoc
- *                       tags. True by default. Pass false if working with leading line comments or
- *                       other non-JSDoc text.
+ * @param shouldParseJSDocTags Whether to make formatting decisions based on the presence of JSDoc
+ *                             tags. True by default. Pass false if working with leading line
+ *                             comments or other non-JSDoc text.
  */
 export function formatText(
   text: string,
   maxLength: number,
-  parseJSDocTags = true,
+  shouldParseJSDocTags = true,
 ): string {
+  // First, replace any whitespace that is not a newline or a space with a space (like e.g. tabs).
+  text = text.replaceAll(/[^\S\n ]+/g, " ");
+
   let formattedText = "";
   let formattedLine = "";
   let insideList: List | undefined;
   let insideCodeBlock = false;
+  let insideExampleTagBlock = false;
   let encounteredJSDocTags = false;
 
   const lines = text.split("\n");
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-
+  for (const [i, line] of lines.entries()) {
     // Gather information about this line.
     const lineIsBlank = line.trim() === "";
     const hasCodeBlock = line.includes("```");
@@ -44,11 +47,24 @@ export function formatText(
     if (hasCodeBlock) {
       insideCodeBlock = !insideCodeBlock;
     }
+
+    let hasExampleTag = false;
+    const previousLineInsideExampleTagBlock = insideExampleTagBlock;
+    if (shouldParseJSDocTags) {
+      hasExampleTag = line.includes("@example");
+      if (hasExampleTag) {
+        insideExampleTagBlock = true;
+      } else if (insideExampleTagBlock && line.trimStart().startsWith("@")) {
+        insideExampleTagBlock = false;
+      }
+    }
+
     const lineHasURL = hasURL(line);
     const hasExample = startsWithExample(line);
     const separatorLine = isSeparatorLine(line);
     const specialComment = isSpecialComment(line);
     const enumBlockLabel = isEnumBlockLabel(line);
+    const beginsWithPipe = line.trimStart().startsWith("|");
 
     // Gather information about the previous line.
     const previousLine = lines[i - 1];
@@ -88,18 +104,25 @@ export function formatText(
     }
 
     // Handle code blocks. This case is simple because we need to exactly preserve the text.
-    if (hasCodeBlock || previousLineHasCodeBlock || insideCodeBlock) {
+    if (
+      hasCodeBlock ||
+      previousLineHasCodeBlock ||
+      insideCodeBlock ||
+      insideExampleTagBlock
+    ) {
       // Append the partial line that we were building, if any.
       [formattedLine, formattedText] = appendLineToText(
         formattedLine,
         formattedText,
       );
 
-      // Enforce newlines before the beginning of code blocks.
+      // Enforce newlines before the beginning of code blocks. (But not inside of an example code
+      // block, because there should not be newlines between tags.)
       if (
         hasCodeBlock &&
         !previousLineInsideCodeBlock &&
-        !previousLineWasBlank
+        !previousLineWasBlank &&
+        !insideExampleTagBlock
       ) {
         formattedText += "\n";
       }
@@ -107,10 +130,16 @@ export function formatText(
       // Copy the line exactly.
       formattedLine += line;
 
-      // Enforce newlines after the end of code blocks.
+      // Enforce newlines after the end of code blocks. (But not inside of an example code block,
+      // because there should not be newlines between tags.)
       const nextLine = lines[i + 1];
       const nextLineIsBlank = nextLine === undefined || nextLine.trim() === "";
-      if (hasCodeBlock && previousLineInsideCodeBlock && !nextLineIsBlank) {
+      if (
+        hasCodeBlock &&
+        previousLineInsideCodeBlock &&
+        !nextLineIsBlank &&
+        !insideExampleTagBlock
+      ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(
           formattedLine,
@@ -121,6 +150,21 @@ export function formatText(
       }
 
       insideList = undefined;
+      continue;
+    }
+
+    // Handle lines that begin with a pipe, which indicate a Markdown table. This case is simple
+    // because we need to exactly preserve the text.
+    if (beginsWithPipe) {
+      // Append the partial line that we were building, if any.
+      [formattedLine, formattedText] = appendLineToText(
+        formattedLine,
+        formattedText,
+      );
+
+      // Copy the line exactly.
+      formattedLine += line;
+
       continue;
     }
 
@@ -178,7 +222,7 @@ export function formatText(
     // an "description" or "introductory" section at the top, and then a list of JSDoc tags at the
     // bottom.)
     if (
-      parseJSDocTags &&
+      shouldParseJSDocTags &&
       !encounteredJSDocTags &&
       list !== undefined &&
       list.kind === ListKind.JSDocTag
@@ -189,7 +233,8 @@ export function formatText(
       // tag.
       if (
         !stringContainsOnlyWhitespace(formattedText) &&
-        !previousLineWasBlank
+        !previousLineWasBlank &&
+        !previousLineInsideExampleTagBlock
       ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(
@@ -201,11 +246,9 @@ export function formatText(
       }
     }
 
-    const words = line.split(" ");
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let j = 0; j < words.length; j++) {
-      const word = words[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const words = getWordsFromLine(line);
 
+    for (const word of words) {
       // Words can be blank strings in certain cases. For example: "dog cat"
       if (word === "") {
         continue;
@@ -314,4 +357,15 @@ function startsWithExample(text: string): boolean {
 
 function stringContainsOnlyWhitespace(string: string) {
   return string.trim() === "";
+}
+
+/**
+ * For most cases, we can get the words on a line by splitting on a space.
+ *
+ * However, we don't want to split up a fragment like "{@link foo}" between lines, because it breaks
+ * the parsing inside VSCode. Thus, anything matching this pattern should be considered its own
+ * word, even if it has spaces inside of it.
+ */
+function getWordsFromLine(line: string): string[] {
+  return line.match(/(?:{@link .+?}|\S)+/g) ?? [];
 }

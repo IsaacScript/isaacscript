@@ -1,0 +1,52 @@
+{
+  "$schema": "https://unpkg.com/knip@2/schema.json",
+  "workspaces": {
+    "packages/docs": {
+      "ignore": [
+        "babel.config.js",
+        "docusaurus.config.js",
+        "scripts/**",
+        "sidebars.js",
+        "src/**/index.tsx",
+        "static/js/hotkey.js",
+        "typedoc.config.base.mjs"
+      ]
+    },
+    "packages/eslint-config-isaacscript": {
+      "ignore": ["scripts/**"]
+    },
+    "packages/eslint-plugin-isaacscript": {
+      "ignore": [
+        "src/template.ts",
+        "tests/fixtures/file.ts",
+        "tests/template.ts"
+      ]
+    },
+    "packages/isaac-lua-polyfill": {},
+    "packages/isaac-typescript-definitions": {
+      "ignore": ["typedoc.config.mjs"]
+    },
+    "packages/isaacscript-cli": {
+      "entry": [
+        "src/main.ts",
+        "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
+        "src/commands/monitor/saveDatWriter/saveDatWriter.ts"
+      ],
+      "ignore": [
+        "**/copied/**",
+        "file-templates/**",
+        "plugins/**",
+        "src/interfaces/IsaacScriptTSConfig.ts"
+      ]
+    },
+    "packages/isaacscript-common": {
+      "ignore": [
+        "src/classes/features/other/extraConsoleCommands/commands.ts",
+        "typedoc.config.mjs"
+      ]
+    },
+    "packages/isaacscript-common-node": {},
+    "packages/isaacscript-common-ts": {},
+    "packages/isaacscript-spell": {}
+  }
+}

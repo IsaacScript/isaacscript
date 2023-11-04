@@ -1,12 +1,15 @@
 {
   "name": "isaacscript-common",
-  "version": "15.3.7",
+  "version": "75.0.0",
   "description": "Helper functions and features for IsaacScript mods.",
   "keywords": [
     "isaac",
     "rebirth",
     "afterbirth",
-    "repentance"
+    "repentance",
+    "typescript-to-lua",
+    "lua",
+    "tstl"
   ],
   "homepage": "https://isaacscript.github.io/",
   "bugs": {
@@ -19,9 +22,21 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "commonjs",
-  "main": "dist/src/index",
-  "types": "dist/src/index.d.ts",
+  "main": "./dist/index",
+  "types": "./dist/index.rollup.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
+    "docs": "typedoc",
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
+  },
   "dependencies": {
-    "isaac-typescript-definitions": "^9.0.5"
+    "isaac-typescript-definitions": "^38.0.0"
   }
 }

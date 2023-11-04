@@ -60,11 +60,10 @@ type CacheFlagValue = BitFlag & {
   readonly __cacheFlagBrand: symbol;
 };
 type CacheFlagType = {
-  [K in keyof typeof CacheFlagInternal]: CacheFlagValue;
+  readonly [K in keyof typeof CacheFlagInternal]: CacheFlagValue;
 };
 
 export const CacheFlag = CacheFlagInternal as CacheFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type CacheFlag = CacheFlagType[keyof CacheFlagType];
 
 export const CacheFlagZero = 0 as BitFlags<CacheFlag>;

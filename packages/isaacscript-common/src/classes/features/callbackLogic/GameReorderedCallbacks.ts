@@ -1,15 +1,12 @@
-import {
-  CollectibleType,
-  LevelStage,
-  ModCallback,
-  StageType,
-} from "isaac-typescript-definitions";
+import type { LevelStage, StageType } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
-import { PostGameStartedReordered } from "../../callbacks/PostGameStartedReordered";
-import { PostGameStartedReorderedLast } from "../../callbacks/PostGameStartedReorderedLast";
-import { PostNewLevelReordered } from "../../callbacks/PostNewLevelReordered";
-import { PostNewRoomReordered } from "../../callbacks/PostNewRoomReordered";
+import { onGameFrame, onRenderFrame } from "../../../functions/frames";
+import type { PostGameStartedReordered } from "../../callbacks/PostGameStartedReordered";
+import type { PostGameStartedReorderedLast } from "../../callbacks/PostGameStartedReorderedLast";
+import type { PostNewLevelReordered } from "../../callbacks/PostNewLevelReordered";
+import type { PostNewRoomReordered } from "../../callbacks/PostNewRoomReordered";
 import { Feature } from "../../private/Feature";
 
 /**
@@ -28,16 +25,19 @@ import { Feature } from "../../private/Feature";
  * that you may run into with these callbacks.
  */
 export class GameReorderedCallbacks extends Feature {
+  /** Used to detect a player resuming a saved run. */
+  private renderFrameRunStarted: int | null = null;
+
   private currentStage: int | null = null;
   private currentStageType: int | null = null;
   private usedGlowingHourGlass = false;
   private forceNewLevel = false;
   private forceNewRoom = false;
 
-  private postGameStartedReordered: PostGameStartedReordered;
-  private postNewLevelReordered: PostNewLevelReordered;
-  private postNewRoomReordered: PostNewRoomReordered;
-  private postGameStartedReorderedLast: PostGameStartedReorderedLast;
+  private readonly postGameStartedReordered: PostGameStartedReordered;
+  private readonly postNewLevelReordered: PostNewLevelReordered;
+  private readonly postNewRoomReordered: PostNewRoomReordered;
+  private readonly postGameStartedReorderedLast: PostGameStartedReorderedLast;
 
   /** @internal */
   constructor(
@@ -49,13 +49,30 @@ export class GameReorderedCallbacks extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 3
       [
         ModCallback.POST_USE_ITEM,
-        [this.useItemGlowingHourGlass, CollectibleType.GLOWING_HOUR_GLASS],
-      ], // 3
-      [ModCallback.POST_GAME_STARTED, [this.postGameStarted]], // 15
-      [ModCallback.POST_NEW_LEVEL, [this.postNewLevel]], // 18
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+        this.postUseItemGlowingHourGlass,
+        [CollectibleType.GLOWING_HOUR_GLASS],
+      ],
+
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+
+      // 15
+      // eslint-disable-next-line deprecation/deprecation
+      [ModCallback.POST_GAME_STARTED, this.postGameStarted],
+
+      // 17
+      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
+
+      // 18
+      // eslint-disable-next-line deprecation/deprecation
+      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
+
+      // 19
+      // eslint-disable-next-line deprecation/deprecation
+      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
     ];
 
     this.postGameStartedReordered = postGameStartedReordered;
@@ -66,61 +83,89 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
-  private useItemGlowingHourGlass = (): boolean | undefined => {
-    // If Glowing Hour Glass is used on the first room of a floor, it will send the player to the
+  private readonly postUseItemGlowingHourGlass = (): boolean | undefined => {
+    // If Glowing Hourglass is used on the first room of a floor, it will send the player to the
     // previous floor without triggering the `POST_NEW_LEVEL` callback. Manually check for this.
     this.usedGlowingHourGlass = true;
 
     return undefined;
   };
 
+  // ModCallback.POST_PLAYER_INIT (9)
+  private readonly postPlayerInit = (_player: EntityPlayer): void => {
+    if (this.renderFrameRunStarted === null) {
+      this.renderFrameRunStarted = Isaac.GetFrameCount();
+    }
+  };
+
   // ModCallback.POST_GAME_STARTED (15)
-  private postGameStarted = (isContinued: boolean): void => {
+  private readonly postGameStarted = (isContinued: boolean): void => {
+    const level = game.GetLevel();
+    const stage = level.GetStage();
+    const stageType = level.GetStageType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+
     this.recordCurrentStage();
     this.postGameStartedReordered.fire(isContinued);
-    this.postNewLevelReordered.fire();
-    this.postNewRoomReordered.fire();
     this.postGameStartedReorderedLast.fire(isContinued);
+    if (!isContinued) {
+      // The vanilla `POST_NEW_LEVEL` callback only fires on non-continued runs, which makes sense,
+      // because we do not want to blow away level variables in this case.
+      this.postNewLevelReordered.fire(stage, stageType);
+    }
+    this.postNewRoomReordered.fire(roomType);
+  };
+
+  // ModCallback.PRE_GAME_EXIT (17)
+  private readonly preGameExit = (): void => {
+    this.renderFrameRunStarted = null;
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
-  private postNewLevel = (): void => {
-    const gameFrameCount = game.GetFrameCount();
+  private readonly postNewLevel = (): void => {
+    const level = game.GetLevel();
+    const stage = level.GetStage();
+    const stageType = level.GetStageType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
-    if (gameFrameCount === 0 && !this.forceNewLevel) {
+    if (onGameFrame(0) && !this.forceNewLevel) {
       // Wait for the `POST_GAME_STARTED` callback to fire.
       return;
     }
     this.forceNewLevel = false;
 
     this.recordCurrentStage();
-    this.postNewLevelReordered.fire();
-    this.postNewRoomReordered.fire();
+    this.postNewLevelReordered.fire(stage, stageType);
+    this.postNewRoomReordered.fire(roomType);
   };
 
   // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
-    const gameFrameCount = game.GetFrameCount();
+  private readonly postNewRoom = (): void => {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     if (this.usedGlowingHourGlass) {
       this.usedGlowingHourGlass = false;
 
       if (this.currentStage !== stage || this.currentStageType !== stageType) {
-        // The player has used the Glowing Hour Glass to take them to the previous floor (which does
+        // The player has used the Glowing Hourglass to take them to the previous floor (which does
         // not trigger the `POST_NEW_LEVEL` callback). Emulate what happens in the `POST_NEW_LEVEL`
         // callback.
         this.recordCurrentStage();
-        this.postNewLevelReordered.fire();
-        this.postNewRoomReordered.fire();
+        this.postNewLevelReordered.fire(stage, stageType);
+        this.postNewRoomReordered.fire(roomType);
         return;
       }
     }
 
     if (
-      (gameFrameCount === 0 ||
+      (onGameFrame(0) ||
+        onRenderFrame(this.renderFrameRunStarted) ||
         this.currentStage !== stage ||
         this.currentStageType !== stageType) &&
       !this.forceNewRoom
@@ -129,7 +174,7 @@ export class GameReorderedCallbacks extends Feature {
     }
     this.forceNewRoom = false;
 
-    this.postNewRoomReordered.fire();
+    this.postNewRoomReordered.fire(roomType);
   };
 
   private recordCurrentStage(): void {

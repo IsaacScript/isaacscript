@@ -6,7 +6,7 @@ A common task in Isaac mods is to make new enemies, new familiars, and so on. Al
 
 Additionally, a common task in modding is to make new functionality for vanilla entities. For example, you might want to make a custom collectible that inflicts sleep counters on all NPCs. In this case, you would need to keep track of a sleep counter for every NPC.
 
-Regardless of the specific thing that you need to do, if you need to store data about an entity, then you have a few different options.
+These are just two examples. Regardless of the specific thing that you need to do, if you need to store data about an entity, then you have a few different options.
 
 <br />
 
@@ -176,7 +176,7 @@ const v = {
 };
 ```
 
-For collectibles, use `getCollectibleIndex`. (The corresponding type is `CollectibleIndex`.)
+For pickups, use `getPickupIndex`. (The corresponding type is `PickupIndex`.)
 
 For familiars (and Dark Esau), use the `Entity.InitSeed`. (The corresponding type is `Seed`.)
 

@@ -11,14 +11,14 @@ const LINE_SEPARATOR = "\n";
  * These must be listed in order from how they appear in the traceback from top to bottom, or they
  * won't be properly removed.
  */
-const USELESS_TRACEBACK_MESSAGES: readonly string[] = [
+const USELESS_TRACEBACK_MESSAGES = [
   // The second line of the traceback will always be the "getTraceback" function.
   "in upvalue 'getTraceback'",
   "in function 'sandbox.GetTraceback'",
 
   // The third line of the traceback will always be a line within the "errorWithTraceback" function.
   "in function 'error'",
-];
+] as const;
 
 let vanillaError: ErrorFunction | undefined;
 
@@ -46,17 +46,9 @@ export function patchErrorFunction(): void {
   error = errorWithTraceback;
 }
 
-function errorWithTraceback(
-  this: void,
-  message: string,
-  level?: number,
-): never {
+function errorWithTraceback(this: void, message: string, level = 1): never {
   if (vanillaError === undefined) {
     error(message, level);
-  }
-
-  if (level === undefined) {
-    level = 1;
   }
 
   const tracebackOutput = getTraceback();

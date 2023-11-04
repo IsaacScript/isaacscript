@@ -1,6 +1,7 @@
 import { ModCallbackCustom } from "../../../../enums/ModCallbackCustom";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultGridEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultGridEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayDoor extends Feature {
   public textCallback: (door: GridEntityDoor) => string =
@@ -10,12 +11,12 @@ export class DebugDisplayDoor extends Feature {
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_DOOR_RENDER, [this.postDoorRender]],
+      [ModCallbackCustom.POST_DOOR_RENDER, this.postDoorRender],
     ];
   }
 
   // ModCallbackCustom.POST_DOOR_RENDER
-  private postDoorRender = (door: GridEntityDoor) => {
+  private readonly postDoorRender = (door: GridEntityDoor) => {
     const text = this.textCallback(door);
     renderTextOnEntity(door, text);
   };

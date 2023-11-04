@@ -1,5 +1,7 @@
-import syncDirectory from "sync-directory";
-import { FILE_SYNCED_MESSAGE } from "../../../constants";
+import syncDirectory from "@zamiell/sync-directory";
+import { getArgs } from "isaacscript-common-node";
+import { assertDefined } from "isaacscript-common-ts";
+import { FILE_SYNCED_MESSAGE } from "../../../constants.js";
 
 const SUBPROCESS_NAME = "directory syncer";
 
@@ -9,21 +11,19 @@ let modTargetPath: string;
 init();
 
 function init() {
-  const args = process.argv.slice(2);
+  const args = getArgs();
 
   const firstArg = args[0];
-  if (firstArg === undefined) {
-    throw new Error(
-      `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
-    );
-  }
+  assertDefined(
+    firstArg,
+    `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
+  );
 
   const secondArg = args[1];
-  if (secondArg === undefined) {
-    throw new Error(
-      `The ${SUBPROCESS_NAME} process did not get the right amount of arguments.`,
-    );
-  }
+  assertDefined(
+    secondArg,
+    `The ${SUBPROCESS_NAME} process did not get a valid second argument.`,
+  );
 
   modSourcePath = firstArg;
   modTargetPath = secondArg;

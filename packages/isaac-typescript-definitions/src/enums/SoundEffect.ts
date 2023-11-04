@@ -4,9 +4,16 @@ export enum SoundEffect {
   BIRD_FLAP = 2,
   BLOBBY_WIGGLE = 3,
   INSECT_SWARM_LOOP = 4,
+
+  /** For Brimstone. */
   BLOOD_LASER = 5,
+
+  /** For Brimstone. */
   BLOOD_LASER_SMALL = 6,
+
+  /** For Brimstone. */
   BLOOD_LASER_LARGE = 7,
+
   BOOK_PAGE_TURN_12 = 8,
   BOSS_BUG_HISS = 9,
   BLOOD_LASER_LARGER = 10,
@@ -21,7 +28,10 @@ export enum SoundEffect {
   CHEST_DROP = 21,
   CHEST_OPEN = 22,
   CHOIR_UNLOCK = 23,
+
+  /** Used by various slot machines. */
   COIN_SLOT = 24,
+
   CUTE_GRUNT = 25,
   DEATH_BURST_BONE = 27,
   DEATH_BURST_LARGE = 28,
@@ -29,23 +39,39 @@ export enum SoundEffect {
   DEATH_BURST_SMALL = 30,
   DEATH_CARD = 33,
   DEVIL_CARD = 34,
+
+  /** When entering an uncleared room. */
   DOOR_HEAVY_CLOSE = 35,
+
+  /** When clearing a room. */
   DOOR_HEAVY_OPEN = 36,
+
   FART = 37,
   FETUS_JUMP = 38,
+
+  /** Placing a bomb. */
   FETUS_LAND = 40,
+
   FIRE_DEATH_HISS = 43,
   FLOATY_BABY_ROAR = 44,
   COIN_INSERT = 45,
   METAL_DOOR_CLOSE = 46,
   METAL_DOOR_OPEN = 47,
+
+  /** Used by Monstro. */
   FOREST_BOSS_STOMPS = 48,
+
   SCYTHE_BREAK = 49,
   STONE_WALKER = 50,
   GAS_CAN_POUR = 51,
   HELL_BOSS_GROUND_POUND = 52,
+
+  /** Used by Holy Water. */
   GLASS_BREAK = 53,
+
+  /** When picking up a soul heart. */
   HOLY = 54,
+
   ISAAC_HURT_GRUNT = 55,
   CHILD_HAPPY_ROAR_SHORT = 56,
   CHILD_ANGRY_ROAR = 57,
@@ -54,16 +80,25 @@ export enum SoundEffect {
   BABY_HURT = 60,
   MAGGOT_BURST_OUT = 64,
   MAGGOT_ENTER_GROUND = 66,
+
+  /** Heart pickup drop. */
   MEAT_FEET_SLOW = 68,
+
   MEAT_IMPACTS = 69,
   MEAT_IMPACTS_OLD = 70,
   MEAT_JUMPS = 72,
+
+  /** Used by Backstabber. */
   MEATY_DEATHS = 77,
+
   POT_BREAK_2 = 78,
   MUSHROOM_POOF_2 = 79,
   BLACK_POOF = 80,
   STATIC = 81,
+
+  /** Used by Clicker. */
   MOM_VOX_DEATH = 82,
+
   MOM_VOX_EVIL_LAUGH = 84,
   MOM_VOX_FILTERED_DEATH_1 = 85,
   MOM_VOX_FILTERED_EVIL_LAUGH = 86,
@@ -83,9 +118,16 @@ export enum SoundEffect {
   MONSTER_ROAR_3 = 118,
   MONSTER_YELL_A = 119,
   MONSTER_YELL_B = 122,
+
+  /** When picking up a new collectible. */
   POWER_UP_1 = 128,
+
+  /** When picking up a new collectible. */
   POWER_UP_2 = 129,
+
+  /** When picking up a new collectible. */
   POWER_UP_3 = 130,
+
   POWER_UP_SPEWER = 132,
   RED_LIGHTNING_ZAP = 133,
   RED_LIGHTNING_ZAP_WEAK = 134,
@@ -97,11 +139,14 @@ export enum SoundEffect {
   ROCKET_BLAST_DEATH = 141,
   SMB_LARGE_CHEWS_4 = 142,
   SCARED_WHIMPER = 143,
+
+  /** Used by the Horf enemy. */
   SHAKEY_KID_ROAR = 146,
+
   SINK_DRAIN_GURGLE = 149,
   TEAR_IMPACTS = 150,
   TEARS_FIRE = 153,
-  UNLOCK = 156,
+  UNLOCK_DOOR = 156,
   VAMP_GULP = 157,
   WHEEZY_COUGH = 158,
   SPIDER_COUGH = 159,
@@ -114,27 +159,42 @@ export enum SoundEffect {
   ANGRY_GURGLE = 167,
   BAND_AID_PICK_UP = 169,
   BATTERY_CHARGE = 170,
+
+  /** Used when an active gains a single charge. */
   BEEP = 171,
+
   LIGHT_BOLT = 172,
   LIGHT_BOLT_CHARGE = 173,
   BLOOD_BANK_TOUCHED = 174,
-  BLOOD_BANK_SPAWN = 175,
+  PINKING_SHEARS = 175,
   BLOOD_SHOOT = 178,
   BOIL_HATCH = 181,
+
+  /** When a bomb explodes. */
   BOSS_1_EXPLOSIONS = 182,
+
   EXPLOSION_WEAK = 183,
   EXPLOSION_STRONG = 184,
   BOSS_2_BUBBLES = 185,
   EXPLOSION_DEBRIS = 186,
   BOSS_2_INTRO_ERROR_BUZZ = 187,
+
+  /** When entering a boss room. */
   CASTLE_PORTCULLIS = 190,
+
   CHARACTER_SELECT_LEFT = 194,
   CHARACTER_SELECT_RIGHT = 195,
+
+  /** Used by I Found Pills. */
   DERP = 197,
+
   DIME_DROP = 198,
   DIME_PICKUP = 199,
   LUCKY_PICKUP = 200,
+
+  /** When collecting a bomb pickup. */
   FETUS_FEET = 201,
+
   GOLDEN_KEY = 204,
   GOO_ATTACH = 205,
   GOO_DEATH = 207,
@@ -154,7 +214,10 @@ export enum SoundEffect {
   NICKEL_PICKUP = 232,
   PENNY_DROP = 233,
   PENNY_PICKUP = 234,
+
+  /** Used by Peep when he spawns an eye and by The Peeper. */
   PLOP = 237,
+
   SATAN_APPEAR = 238,
   SATAN_BLAST = 239,
   SATAN_CHARGE_UP = 240,
@@ -164,18 +227,34 @@ export enum SoundEffect {
   SATAN_SPIT = 245,
   SATAN_STOMP = 246,
   SCAMPER = 249,
+
+  /** Also used by Forgotten's bone swing. */
   SHELL_GAME = 252,
+
   SLOT_SPAWN = 255,
   SPLATTER = 258,
+
+  /** When a fireplace is extinguished. */
   STEAM_HALF_SEC = 261,
+
   STONE_SHOOT = 262,
   WEIRD_WORM_SPIT = 263,
   SUMMON_SOUND = 265,
+
+  /** When picking up an eternal heart. */
   SUPER_HOLY = 266,
+
+  /** Used by the `EntityPlayer.AnimateSad` method. */
   THUMBS_DOWN = 267,
+
+  /** Used by the `EntityPlayer.AnimateHappy` method. */
   THUMBS_UP = 268,
+
   FIRE_BURN = 269,
+
+  /** Used by rainbow poop. */
   HAPPY_RAINBOW = 270,
+
   LASER_RING = 271,
   LASER_RING_WEAK = 272,
   LASER_RING_STRONG = 273,
@@ -191,7 +270,10 @@ export enum SoundEffect {
   MENU_NOTE_APPEAR = 283,
   MENU_NOTE_HIDE = 284,
   MENU_CHARACTER_SELECT = 285,
+
+  /** When an enemy spawns, usually connected to the "Appear" animation. */
   SUMMON_POOF = 286,
+
   BOO_MAD = 300,
   FART_GURG = 301,
   FAT_GRUNT = 302,
@@ -225,7 +307,7 @@ export enum SoundEffect {
   BALLS_OF_STEEL = 330,
   BERKANO = 331,
   BOMBS_ARE_KEY = 332,
-  CARD_VS_HUMAN = 333,
+  CARD_AGAINST_HUMANITY = 333,
   CHAOS_CARD = 334,
   CREDIT_CARD = 335,
   DAGAZ = 336,
@@ -263,26 +345,26 @@ export enum SoundEffect {
   TEARS_UP = 368,
   TELEPILLS = 369,
   TEMPERANCE = 370,
-  THE_CHARIOT = 371,
-  THE_DEVIL = 372,
-  THE_EMPEROR = 373,
+  CHARIOT = 371,
+  DEVIL = 372,
+  EMPEROR = 373,
   EMPRESS = 374,
   FOOL = 375,
   HANGED_MAN = 376,
   HERMIT = 377,
   HIEROPHANT = 378,
-  HIGHT_PRIESTESS = 379,
-  THE_LOVERS = 380,
+  HIGH_PRIESTESS = 379,
+  LOVERS = 380,
   MAGICIAN = 381,
   MOON = 382,
   STARS = 383,
   SUN = 384,
   TOWER = 385,
   WORLD = 386,
-  TWO_CLUBS = 387,
-  TWO_DIAMONDS = 388,
-  TWO_HEARTS = 389,
-  TWO_SPADES = 390,
+  TWO_OF_CLUBS = 387,
+  TWO_OF_DIAMONDS = 388,
+  TWO_OF_HEARTS = 389,
+  TWO_OF_SPADES = 390,
   WHEEL_OF_FORTUNE = 391,
   RAGMAN_1 = 392,
   RAGMAN_2 = 393,
@@ -294,24 +376,35 @@ export enum SoundEffect {
   ADDICTED = 399,
   DICE_SHARD = 400,
   EMERGENCY = 401,
-  INFESTED_EXCL = 402,
-  INFESTED_QUEST = 403,
-  JAIL_CARD = 404,
+
+  /** Corresponds to `PillEffect.INFESTED_EXCLAMATION` (34). */
+  INFESTED_EXCLAMATION = 402,
+
+  /** Corresponds to `PillEffect.INFESTED_QUESTION` (35). */
+  INFESTED_QUESTION = 403,
+
+  GET_OUT_OF_JAIL_CARD = 404,
   LARGER = 405,
   PERCS = 406,
   POWER_PILL = 407,
+
+  /** Corresponds to `CardType.QUESTION_MARK` (48). */
   QUESTION_MARK = 408,
+
   RELAX = 409,
   RETRO = 410,
   SMALL = 411,
-  QQQ = 412,
+
+  /** Corresponds to `PillEffect.QUESTION_MARKS` (31). */
+  QUESTION_MARKS = 412,
+
   DANGLE_WHISTLE = 413,
   LITTLE_HORN_COUGH = 414,
   LITTLE_HORN_GRUNT_1 = 415,
   LITTLE_HORN_GRUNT_2 = 416,
-  THE_FORSAKEN_LAUGH = 417,
-  THE_FORSAKEN_SCREAM = 418,
-  THE_STAIN_BURST = 419,
+  FORSAKEN_LAUGH = 417,
+  FORSAKEN_SCREAM = 418,
+  STAIN_BURST = 419,
   BROWNIE_LAUGH = 420,
   HUSH_ROAR = 421,
   HUSH_GROWL = 422,
@@ -333,22 +426,27 @@ export enum SoundEffect {
   ULTRA_GREED_SLOT_WIN_LOOP_END = 438,
   ULTRA_GREED_SLOT_WIN_LOOP = 439,
   ULTRA_GREED_SPINNING = 440,
+
+  /** Used by Dog Tooth. */
   DOG_BARK = 441,
-  DOG_HOWELL = 442,
+
+  /** Used by Dog Tooth. */
+  DOG_HOWL = 442,
+
   X_LAX = 443,
   WRONG = 444,
   VURP = 445,
   SUNSHINE = 446,
-  SPADES = 447,
+  ACE_OF_SPADES = 447,
   HORF = 448,
   HOLY_CARD = 449,
-  HEARTS = 450,
+  ACE_OF_HEARTS = 450,
   GULP = 451,
   FRIENDS = 452,
   EXCITED = 453,
   DROWSY = 454,
-  DIAMONDS = 455,
-  CLUBS = 456,
+  ACE_OF_DIAMONDS = 455,
+  ACE_OF_CLUBS = 456,
   BLACK_RUNE = 457,
   PING_PONG = 458,
   SPEWER = 459,
@@ -360,7 +458,10 @@ export enum SoundEffect {
   GOLD_HEART = 465,
   GOLD_HEART_DROP = 466,
   BONE_DROP = 467,
+
+  /** When picking up a black heart. */
   UNHOLY = 468,
+
   BUTTON_PRESS = 469,
   GOLDEN_BOMB = 470,
   CANDLE_LIGHT = 471,
@@ -385,7 +486,10 @@ export enum SoundEffect {
   MATCHSTICK = 490,
   FORTUNE_COOKIE = 491,
   BULB_FLASH = 492,
+
+  /** When getting hit by a Bulb. */
   BATTERY_DISCHARGE = 493,
+
   WHIP = 494,
   WHIP_HIT = 495,
   FREEZE = 496,
@@ -707,4 +811,20 @@ export enum SoundEffect {
   BEAST_LAVA_BALL_RISE = 814,
   BEAST_GROWL = 815,
   BEAST_GRUMBLE = 816,
+  FAMINE_GRUNT = 817,
+  G_FUEL_1 = 818,
+  G_FUEL_2 = 819,
+  G_FUEL_3 = 820,
+  G_FUEL_4 = 821,
+  G_FUEL_EXPLOSION_SMALL = 822,
+  G_FUEL_EXPLOSION_BIG = 823,
+  G_FUEL_GUNSHOT_MEDIUM = 824,
+  G_FUEL_GUNSHOT_SMALL = 825,
+  G_FUEL_GUNSHOT_LARGE = 826,
+  G_FUEL_GUNSHOT_SPREAD = 827,
+  G_FUEL_AIR_HORN = 828,
+  G_FUEL_ITEM_APPEAR = 829,
+  G_FUEL_GUNSHOT_MINI = 830,
+  G_FUEL_BULLET_RICOCHET = 831,
+  G_FUEL_ROCKET_LAUNCHER = 832,
 }

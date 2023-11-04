@@ -1,6 +1,4 @@
-/* eslint-disable isaacscript/member-ordering */
-
-import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
+import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
   /**

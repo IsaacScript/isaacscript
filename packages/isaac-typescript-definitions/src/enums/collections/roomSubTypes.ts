@@ -43,13 +43,17 @@ export enum TreasureRoomSubType {
  *
  * The enum is named `BossID` instead of `BossRoomSubType` in order to match the `Entity.GetBossID`,
  * `Room.GetBossID` and `Room.GetSecondBossID` methods.
+ *
+ * This enum is contiguous. (Every value is satisfied between 1 and 102, inclusive.)
+ *
+ * Also see the `MinibossID` enum.
  */
 export enum BossID {
   MONSTRO = 1,
   LARRY_JR = 2,
   CHUB = 3,
   GURDY = 4,
-  MONSTRO_II = 5,
+  MONSTRO_2 = 5,
   MOM = 6,
   SCOLEX = 7,
   MOMS_HEART = 8,
@@ -67,20 +71,20 @@ export enum BossID {
   STEVEN = 20,
   CHAD = 21,
   HEADLESS_HORSEMAN = 22,
-  THE_FALLEN = 23,
+  FALLEN = 23,
   SATAN = 24,
   IT_LIVES = 25,
-  THE_HOLLOW = 26,
-  THE_CARRION_QUEEN = 27,
+  HOLLOW = 26,
+  CARRION_QUEEN = 27,
   GURDY_JR = 28,
-  THE_HUSK = 29,
-  THE_BLOAT = 30,
+  HUSK = 29,
+  BLOAT = 30,
   LOKII = 31,
-  THE_BLIGHTED_OVUM = 32,
+  BLIGHTED_OVUM = 32,
   TERATOMA = 33,
-  THE_WIDOW = 34,
+  WIDOW = 34,
   MASK_OF_INFAMY = 35,
-  THE_WRETCHED = 36,
+  WRETCHED = 36,
   PIN = 37,
   CONQUEST = 38,
   ISAAC = 39,
@@ -90,48 +94,56 @@ export enum BossID {
 
   DADDY_LONG_LEGS = 41,
   TRIACHNID = 42,
-  THE_HAUNT = 43,
+  HAUNT = 43,
   DINGLE = 44,
   MEGA_MAW = 45,
-  THE_GATE = 46,
+  GATE = 46,
   MEGA_FATTY = 47,
-  THE_CAGE = 48,
+  CAGE = 48,
   MAMA_GURDY = 49,
   DARK_ONE = 50,
-  THE_ADVERSARY = 51,
+  ADVERSARY = 51,
   POLYCEPHALUS = 52,
   MR_FRED = 53,
-  THE_LAMB = 54,
+  LAMB = 54,
   MEGA_SATAN = 55,
-  GURGLINGS = 56,
-  THE_STAIN = 57,
+  GURGLING = 56,
+  STAIN = 57,
   BROWNIE = 58,
-  THE_FORSAKEN = 59,
+  FORSAKEN = 59,
   LITTLE_HORN = 60,
   RAG_MAN = 61,
   ULTRA_GREED = 62,
   HUSH = 63,
   DANGLE = 64,
   TURDLING = 65,
-  THE_FRAIL = 66,
+  FRAIL = 66,
   RAG_MEGA = 67,
   SISTERS_VIS = 68,
   BIG_HORN = 69,
   DELIRIUM = 70,
-  THE_MATRIARCH = 72,
-  THE_PILE = 73,
+
+  /**
+   * Ultra Greedier does not have its own boss room; it appears in the normal Ultra Greed room. The
+   * `Room.GetBossID` function returns `BossID.ULTRA_GREED` (62) when fighting Ultra Greedier, but
+   * the boss ID can be successfully retrieved from the `Entity.GetBossID` method.
+   */
+  ULTRA_GREEDIER = 71,
+
+  MATRIARCH = 72,
+  PILE = 73,
   REAP_CREEP = 74,
   LIL_BLUB = 75,
   WORMWOOD = 76,
   RAINMAKER = 77,
-  THE_VISAGE = 78,
-  THE_SIREN = 79,
+  VISAGE = 78,
+  SIREN = 79,
   TUFF_TWINS = 80,
-  THE_HERETIC = 81,
+  HERETIC = 81,
   HORNFEL = 82,
   GREAT_GIDEON = 83,
   BABY_PLUM = 84,
-  THE_SCOURGE = 85,
+  SCOURGE = 85,
   CHIMERA = 86,
   ROTGUT = 87,
   MOTHER = 88,
@@ -142,25 +154,42 @@ export enum BossID {
   SINGE = 93,
   BUMBINO = 94,
   COLOSTOMIA = 95,
-  THE_SHELL = 96,
+  SHELL = 96,
   TURDLET = 97,
 
-  /** This boss is currently unfinished and there are no boss rooms for it. */
+  /**
+   * Raglich is currently unfinished and there are no boss rooms for it. However, the boss ID can be
+   * successfully retrieved from the `Entity.GetBossID` method. This works for all variants of
+   * `EntityType.RAGLICH` (919).
+   */
   RAGLICH = 98,
 
-  /** Dogma does not have its own boss rooms; it appears in a normal room. */
+  /**
+   * Dogma does not have its own boss rooms; it appears in a normal room. The `Room.GetBossID`
+   * function returns 0 inside of the Dogma Boss Room. However, the boss ID can be successfully
+   * retrieved from the `Entity.GetBossID` method. This works for all variants of `EntityType.DOGMA`
+   * (950).
+   */
   DOGMA = 99,
 
-  /** The Beast does not have its own boss rooms; it appears in a crawl space. */
+  /**
+   * The Beast does not have its own boss rooms; it appears in a crawl space. The `Room.GetBossID`
+   * function returns 0 inside of The Beast Boss Room. However, the boss ID can be successfully
+   * retrieved from the `Entity.GetBossID` method, but only if the variant is `BeastVariant.BEAST`
+   * (0) or `BeastVariant.STALACTITE` (1).
+   */
   BEAST = 100,
 
   HORNY_BOYS = 101,
+  CLUTCH = 102,
 
   /**
-   * In the "00.special rooms.stb" file, the room names are listed as "The Possessor" instead of
-   * "Clutch".
+   * There is an entry for "Cadavra" in the "bossportraits.xml" file, but it is not present in the
+   * game.
+   *
+   * @see https://bindingofisaacrebirth.fandom.com/wiki/Cut_Content
    */
-  CLUTCH = 102,
+  // CADAVRA = 103,
 }
 
 /**
@@ -170,6 +199,8 @@ export enum BossID {
  *
  * The enum is named `MinibossID` instead of` MinibossRoomSubType` in order to match the `BossID`
  * enum.
+ *
+ * Also see the `BossID` enum.
  */
 export enum MinibossID {
   SLOTH = 0,

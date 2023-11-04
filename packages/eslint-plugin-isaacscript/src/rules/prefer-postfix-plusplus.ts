@@ -6,7 +6,7 @@ export const preferPostfixPlusplus = createRule({
     type: "problem",
     docs: {
       description: 'Require "i++" instead of "++i"',
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

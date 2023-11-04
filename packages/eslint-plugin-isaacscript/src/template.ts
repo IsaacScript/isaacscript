@@ -8,7 +8,7 @@ export const RULE_NAME_CAMEL_CASE = createRule({
     type: "problem",
     docs: {
       description: "RULE_DESCRIPTION",
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

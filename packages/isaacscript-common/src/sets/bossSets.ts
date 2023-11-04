@@ -1,37 +1,13 @@
 import {
-  BigHornVariant,
-  ChubVariant,
-  DaddyLongLegsVariant,
-  DingleVariant,
-  DukeVariant,
+  BossID,
   EntityType,
-  FallenVariant,
-  FistulaVariant,
-  GeminiVariant,
-  GurglingVariant,
-  HauntVariant,
-  IsaacVariant,
-  LambVariant,
-  LarryJrVariant,
-  LittleHornVariant,
-  LokiVariant,
-  MamaGurdyVariant,
-  MomsHeartVariant,
-  MomVariant,
-  Monstro2Variant,
-  PeepVariant,
-  PinVariant,
-  PolycephalusVariant,
-  RagManVariant,
-  RagMegaVariant,
-  SatanVariant,
+  LevelStage,
   StageType,
-  WarVariant,
-  WidowVariant,
 } from "isaac-typescript-definitions";
-import { parseEntityTypeVariantString } from "../functions/entities";
-import { copySet } from "../functions/set";
-import { STORY_BOSSES_SET } from "./storyBossesSet";
+import { BOSS_IDS } from "../arrays/cachedEnumValues";
+import { combineSets } from "../functions/set";
+import { ReadonlyMap } from "../types/ReadonlyMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 
 // The "bosspools.xml" file does not actually correspond to the real boss pools, so these sets were
 // determined through experimentation on v1.7.8a.
@@ -40,87 +16,90 @@ import { STORY_BOSSES_SET } from "./storyBossesSet";
 // not have real tuples. If we store bosses as tuples, then we cannot do a set lookup in O(1).
 
 /** Contains just the bosses in Basement (not e.g. Burning Basement). */
-const BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.LARRY_JR}`, // 19.0
-  `${EntityType.MONSTRO}.0`, // 20.0
-  `${EntityType.FAMINE}.0`, // 63.0
-  `${EntityType.DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
-  `${EntityType.GEMINI}.${GeminiVariant.GEMINI}`, // 79.0
-  `${EntityType.GEMINI}.${GeminiVariant.STEVEN}`, // 79.1
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.GURGLING}.${GurglingVariant.GURGLING_BOSS}`, // 237.1
-  `${EntityType.GURGLING}.${GurglingVariant.TURDLING}`, // 237.2
-  `${EntityType.DINGLE}.${DingleVariant.DINGLE}`, // 261.0
-  `${EntityType.DINGLE}.${DingleVariant.DANGLE}`, // 261.1
-  `${EntityType.LITTLE_HORN}.${LittleHornVariant.LITTLE_HORN}`, // 404.0
-  `${EntityType.BABY_PLUM}.0`, // 908.0
+const BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.MONSTRO, // 1
+  BossID.LARRY_JR, // 2
+  BossID.FAMINE, // 9
+  BossID.DUKE_OF_FLIES, // 13
+  BossID.GEMINI, // 17
+  BossID.STEVEN, // 20
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.DINGLE, // 44
+  BossID.GURGLING, // 56
+  BossID.LITTLE_HORN, // 60
+  // - `BossID.RAG_MAN` (61) was removed in Repentance.
+  BossID.DANGLE, // 64
+  BossID.TURDLING, // 65
+  BossID.BABY_PLUM, // 84 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Cellar (not e.g. Burning Basement). */
-const CELLAR_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.PIN}.${PinVariant.PIN}`, // 62.0
-  `${EntityType.FAMINE}.0`, // 63.0
-  `${EntityType.DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
-  `${EntityType.GEMINI}.${GeminiVariant.BLIGHTED_OVUM}`, // 79.2
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.WIDOW}.${WidowVariant.WIDOW}`, // 100.0
-  `${EntityType.THE_HAUNT}.${HauntVariant.HAUNT}`, // 260.0
-  `${EntityType.LITTLE_HORN}.0`, // 404.0
-  `${EntityType.RAG_MAN}.${RagManVariant.RAG_MAN}`, // 405.0
-  `${EntityType.BABY_PLUM}.0`, // 908.0
+const CELLAR_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.FAMINE, // 9
+  BossID.DUKE_OF_FLIES, // 13
+  // - `BossID.FISTULA` (18) was removed in Repentance.
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.BLIGHTED_OVUM, // 32
+  BossID.WIDOW, // 34
+  BossID.PIN, // 37
+  BossID.HAUNT, // 43
+  BossID.LITTLE_HORN, // 60
+  BossID.RAG_MAN, // 61
+  BossID.BABY_PLUM, // 84 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Burning Basement (not e.g. Cellar). */
-const BURNING_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.LARRY_JR}`, // 19.0
-  `${EntityType.MONSTRO}.0`, // 20.0
-  `${EntityType.FAMINE}.0`, // 63.0
-  `${EntityType.DUKE}.${DukeVariant.DUKE_OF_FLIES}`, // 67.0
-  `${EntityType.GEMINI}.${GeminiVariant.GEMINI}`, // 79.0
-  `${EntityType.GEMINI}.${GeminiVariant.STEVEN}`, // 79.1
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.DINGLE}.${DingleVariant.DINGLE}`, // 261.0
-  `${EntityType.GURGLING}.${GurglingVariant.GURGLING_BOSS}`, // 237.1
-  `${EntityType.GURGLING}.${GurglingVariant.TURDLING}`, // 237.2
-  `${EntityType.DINGLE}.${DingleVariant.DANGLE}`, // 261.1
-  `${EntityType.LITTLE_HORN}.0`, // 404.0
-  `${EntityType.RAG_MAN}.${RagManVariant.RAG_MAN}`, // 405.0
-  `${EntityType.BABY_PLUM}.0`, // 908.0
+const BURNING_BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.MONSTRO, // 1
+  BossID.LARRY_JR, // 2
+  BossID.FAMINE, // 9
+  BossID.DUKE_OF_FLIES, // 13
+  BossID.GEMINI, // 17 (added in Repentance)
+  BossID.STEVEN, // 20 (added in Repentance)
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  // - `BossID.HAUNT` (43) was removed in Repentance.
+  BossID.DINGLE, // 44 (added in Repentance)
+  BossID.GURGLING, // 56 (added in Repentance)
+  BossID.LITTLE_HORN, // 60
+  BossID.RAG_MAN, // 61
+  BossID.DANGLE, // 64 (added in Repentance)
+  BossID.TURDLING, // 65 (added in Repentance)
+  BossID.BABY_PLUM, // 84 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Downpour (not e.g. Burning Basement). */
-const DOWNPOUR_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.PIN}.${PinVariant.WORMWOOD}`, // 62.3
-  `${EntityType.LIL_BLUB}.0`, // 901.0
-  `${EntityType.RAINMAKER}.0`, // 902.0
-  `${EntityType.MIN_MIN}.0`, // 913.0
+const DOWNPOUR_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.LIL_BLUB, // 75
+  BossID.WORMWOOD, // 76
+  BossID.RAINMAKER, // 77
+  BossID.MIN_MIN, // 91
 ]);
 
 /** Contains just the bosses in Dross (not e.g. Burning Basement). */
-const DROSS_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.PIN}.${PinVariant.WORMWOOD}`, // 62.3
-  `${EntityType.LIL_BLUB}.0`, // 901.0
-  `${EntityType.CLOG}.0`, // 914.0
-  `${EntityType.COLOSTOMIA}.0`, // 917.0
-  `${EntityType.TURDLET}.0`, // 918.0
+const DROSS_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.LIL_BLUB, // 75
+  BossID.WORMWOOD, // 76
+  BossID.CLOG, // 92
+  BossID.COLOSTOMIA, // 95
+  BossID.TURDLET, // 97
 ]);
 
 /** The set of unique bosses for Basement, Cellar, and so on. */
-const ALL_BASEMENT_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...BASEMENT_BOSSES_SET.values(),
-  ...CELLAR_BOSSES_SET.values(),
-  ...BURNING_BASEMENT_BOSSES_SET.values(),
-  ...DOWNPOUR_BOSSES_SET.values(),
-  ...DROSS_BOSSES_SET.values(),
-]);
+const ALL_BASEMENT_BOSSES_SET: ReadonlySet<BossID> = combineSets(
+  BASEMENT_BOSSES_SET,
+  CELLAR_BOSSES_SET,
+  BURNING_BASEMENT_BOSSES_SET,
+  DOWNPOUR_BOSSES_SET,
+  DROSS_BOSSES_SET,
+);
 
-const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([
+  ReadonlySet<BossID>
+>([
   [StageType.ORIGINAL, BASEMENT_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, CELLAR_BOSSES_SET],
   [StageType.AFTERBIRTH, BURNING_BASEMENT_BOSSES_SET],
@@ -129,95 +108,101 @@ const BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
 ]);
 
 /** Contains just the bosses in Caves (not e.g. Flooded Caves). */
-const CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.CHUB}.${ChubVariant.CHUB}`, // 28.0
-  `${EntityType.CHUB}.${ChubVariant.CHAD}`, // 28.1
-  `${EntityType.GURDY}.0`, // 36.0
-  `${EntityType.PESTILENCE}.0`, // 64.0
-  `${EntityType.PEEP}.0`, // 68.0
-  `${EntityType.FISTULA_BIG}.${FistulaVariant.FISTULA}`, // 71.0
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.GURDY_JR}.0`, // 99.0
-  `${EntityType.MEGA_MAW}.0`, // 262.0
-  `${EntityType.MEGA_FATTY}.0`, // 264.0
-  `${EntityType.STAIN}.0`, // 401.0
-  `${EntityType.RAG_MEGA}.${RagMegaVariant.RAG_MEGA}`, // 409.0
-  `${EntityType.BIG_HORN}.${BigHornVariant.BIG_HORN}`, // 411.0
-  `${EntityType.BUMBINO}.0`, // 916.0
+const CAVES_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.CHUB, // 3
+  BossID.GURDY, // 4
+  BossID.PESTILENCE, // 10
+  BossID.PEEP, // 14
+  BossID.FISTULA, // 18 (added in Repentance)
+  BossID.CHAD, // 21
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.GURDY_JR, // 28
+  BossID.MEGA_FATTY, // 47
+  BossID.MEGA_MAW, // 45
+  // - `BossID.DARK_ONE` (50) was removed in Repentance.
+  BossID.FALLEN, // 23
+  BossID.STAIN, // 57
+  // - `BossID.FORSAKEN` (59) was removed in Repentance.
+  // - `BossID.FRAIL` (66) was removed in Repentance.
+  BossID.RAG_MEGA, // 67
+  BossID.BIG_HORN, // 69
+  BossID.BUMBINO, // 94 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Catacombs (not e.g. Flooded Caves). */
-const CATACOMBS_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.THE_HOLLOW}`, // 19.1
-  `${EntityType.CHUB}.${ChubVariant.CARRION_QUEEN}`, // 28.2
-  `${EntityType.PIN}.${PinVariant.FRAIL}`, // 62.2
-  `${EntityType.PESTILENCE}.0`, // 64.0
-  `${EntityType.DUKE}.${DukeVariant.THE_HUSK}`, // 67.1
-  `${EntityType.PEEP}.${PeepVariant.PEEP}`, // 68.0
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.GURDY_JR}.0`, // 99.0
-  `${EntityType.WIDOW}.${WidowVariant.THE_WRETCHED}`, // 100.1
-  `${EntityType.DARK_ONE}.0`, // 267.0
-  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.POLYCEPHALUS}`, // 269.0
-  `${EntityType.FORSAKEN}.0`, // 403.0
-  `${EntityType.RAG_MEGA}.${RagMegaVariant.RAG_MEGA}`, // 409.0
-  `${EntityType.BIG_HORN}.${BigHornVariant.BIG_HORN}`, // 411.0
-  `${EntityType.BUMBINO}.0`, // 916.0
+const CATACOMBS_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.PESTILENCE, // 10
+  BossID.PEEP, // 14
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.HOLLOW, // 26
+  BossID.CARRION_QUEEN, // 27
+  BossID.GURDY_JR, // 28
+  BossID.HUSK, // 29
+  BossID.WRETCHED, // 36
+  BossID.DARK_ONE, // 50
+  BossID.POLYCEPHALUS, // 52
+  // - `BossID.STAIN` (57) was removed in Repentance.
+  BossID.FORSAKEN, // 59
+  BossID.FRAIL, // 66
+  BossID.RAG_MEGA, // 67
+  BossID.BIG_HORN, // 69
+  BossID.BUMBINO, // 94 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Flooded Caves (not e.g. Catacombs). */
-const FLOODED_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.CHUB}.${ChubVariant.CHUB}`, // 28.0
-  `${EntityType.CHUB}.${ChubVariant.CHAD}`, // 28.1
-  `${EntityType.GURDY}.0`, // 36.0
-  `${EntityType.PIN}.${PinVariant.FRAIL}`, // 62.2
-  `${EntityType.PESTILENCE}.0`, // 64.0
-  `${EntityType.PEEP}.${PeepVariant.PEEP}`, // 68.0
-  `${EntityType.FISTULA_BIG}.${FistulaVariant.FISTULA}`, // 71.0
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.GURDY_JR}.0`, // 99.0
-  `${EntityType.MEGA_MAW}.0`, // 262.0
-  `${EntityType.MEGA_FATTY}.0`, // 264.0
-  `${EntityType.STAIN}.0`, // 401.0
-  `${EntityType.FORSAKEN}.0`, // 403.0
-  `${EntityType.RAG_MEGA}.${RagMegaVariant.RAG_MEGA}`, // 409.0
-  `${EntityType.BIG_HORN}.${BigHornVariant.BIG_HORN}`, // 411.0
-  `${EntityType.BUMBINO}.0`, // 916.0
+const FLOODED_CAVES_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.CHUB, // 3
+  BossID.GURDY, // 4
+  BossID.PESTILENCE, // 10
+  BossID.PEEP, // 14
+  BossID.FISTULA, // 18 (added in Repentance)
+  BossID.CHAD, // 21
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.GURDY_JR, // 28
+  BossID.MEGA_MAW, // 45 (added in Repentance)
+  BossID.MEGA_FATTY, // 47 (added in Repentance)
+  // - `BossID.DARK_ONE` (50) was removed in Repentance.
+  // - `BossID.POLYCEPHALUS` (52) was removed in Repentance.
+  BossID.STAIN, // 57
+  BossID.FORSAKEN, // 59
+  BossID.FRAIL, // 66
+  BossID.RAG_MEGA, // 67
+  BossID.BIG_HORN, // 69
+  BossID.BUMBINO, // 94 (added in Repentance)
 ]);
 
 /** Contains just the bosses in Mines (not e.g. Flooded Caves). */
-const MINES_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.TUFF_TWIN}`, // 19.2
-  `${EntityType.REAP_CREEP}.0`, // 900.0
-  `${EntityType.HORNFEL}.0`, // 906.0
-  `${EntityType.GREAT_GIDEON}.0`, // 907.0
+const MINES_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.REAP_CREEP, // 74
+  BossID.TUFF_TWINS, // 80
+  BossID.HORNFEL, // 82
+  BossID.GREAT_GIDEON, // 83
 ]);
 
 /** Contains just the bosses in Ashpit (not e.g. Flooded Caves). */
-const ASHPIT_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.LARRY_JR}.${LarryJrVariant.THE_SHELL}`, // 19.3
-  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.THE_PILE}`, // 269.1
-  `${EntityType.GREAT_GIDEON}.0`, // 907.0
-  `${EntityType.SINGE}.0`, // 915.0
-  `${EntityType.CLUTCH}.0`, // 921.0
+const ASHPIT_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.PILE, // 73
+  BossID.GREAT_GIDEON, // 83
+  BossID.SINGE, // 93
+  BossID.SHELL, // 96
+  BossID.CLUTCH, // 102
 ]);
 
 /** The set of unique bosses for Caves, Catacombs, and so on. */
-const ALL_CAVES_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...CAVES_BOSSES_SET.values(),
-  ...CATACOMBS_BOSSES_SET.values(),
-  ...FLOODED_CAVES_BOSSES_SET.values(),
-  ...MINES_BOSSES_SET.values(),
-  ...ASHPIT_BOSSES_SET.values(),
-]);
+const ALL_CAVES_BOSSES_SET: ReadonlySet<BossID> = combineSets(
+  CAVES_BOSSES_SET,
+  CATACOMBS_BOSSES_SET,
+  FLOODED_CAVES_BOSSES_SET,
+  MINES_BOSSES_SET,
+  ASHPIT_BOSSES_SET,
+);
 
-const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([
+  ReadonlySet<BossID>
+>([
   [StageType.ORIGINAL, CAVES_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, CATACOMBS_BOSSES_SET],
   [StageType.AFTERBIRTH, FLOODED_CAVES_BOSSES_SET],
@@ -225,80 +210,103 @@ const CAVES_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   [StageType.REPENTANCE_B, ASHPIT_BOSSES_SET],
 ]);
 
-/** Contains just the bosses in Depths (not e.g. Dank Depths). */
-const DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.MONSTRO_2}.${Monstro2Variant.MONSTRO_2}`, // 43.0
-  `${EntityType.MONSTRO_2}.${Monstro2Variant.GISH}`, // 43.1
-  `${EntityType.MOM}.${MomVariant.MOM}`, // 45.0
-  `${EntityType.WAR}.${WarVariant.WAR}`, // 65.0
-  `${EntityType.LOKI}.${LokiVariant.LOKI}`, // 69.0
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.GATE}.0`, // 263.0
-  `${EntityType.CAGE}.0`, // 265.0
-  `${EntityType.BROWNIE}.0`, // 402.0
-  `${EntityType.SISTERS_VIS}.0`, // 410.0
-  `${EntityType.REAP_CREEP}.0`, // 900.0
+/**
+ * Contains just the bosses in Depths (not e.g. Dank Depths).
+ *
+ * Note that this set includes Mom, even though they are not technically in the boss pool.
+ */
+const DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.MONSTRO_2, // 5
+  BossID.MOM, // 6
+  BossID.WAR, // 11
+  BossID.LOKI, // 15
+  BossID.GISH, // 19
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.GATE, // 46
+  BossID.CAGE, // 48
+  // - `BossID.ADVERSARY` (51) was removed in Repentance.
+  BossID.BROWNIE, // 58
+  BossID.SISTERS_VIS, // 68
+  BossID.REAP_CREEP, // 74 (added in Repentance)
 ]);
 
-/** Contains just the bosses in Necropolis (not e.g. Dank Depths). */
-const NECROPOLIS_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.MOM}.${MomVariant.MOM}`, // 45.0
-  `${EntityType.WAR}.${WarVariant.WAR}`, // 65.0
-  `${EntityType.PEEP}.${PeepVariant.BLOAT}`, // 68.1
-  `${EntityType.LOKI}.${LokiVariant.LOKI}`, // 69.0
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.MASK_OF_INFAMY}.0`, // 97.0
-  `${EntityType.ADVERSARY}.0`, // 268.0
-  `${EntityType.POLYCEPHALUS}.${PolycephalusVariant.THE_PILE}`, // 269.1
-  `${EntityType.BROWNIE}.0`, // 402.0
-  `${EntityType.SISTERS_VIS}.0`, // 410.0
+/**
+ * Contains just the bosses in Necropolis (not e.g. Dank Depths).
+ *
+ * Note that this set includes Mom, even though they are not technically in the boss pool.
+ */
+const NECROPOLIS_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.MOM, // 6
+  BossID.WAR, // 11
+  BossID.LOKI, // 15
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.BLOAT, // 30
+  BossID.MASK_OF_INFAMY, // 35
+  // - `BossID.GATE` (46) was removed in Repentance.
+  BossID.ADVERSARY, // 51
+  BossID.BROWNIE, // 58
+  BossID.SISTERS_VIS, // 68
+  BossID.PILE, // 73 (added in Repentance)
 ]);
 
-/** Contains just the bosses in Dank Depths (not e.g. Necropolis). */
-const DANK_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.MONSTRO_2}.${Monstro2Variant.MONSTRO_2}`, // 43.0
-  `${EntityType.MONSTRO_2}.${Monstro2Variant.GISH}`, // 43.1
-  `${EntityType.MOM}.${MomVariant.MOM}`, // 45.0
-  `${EntityType.WAR}.${WarVariant.WAR}`, // 65.0
-  `${EntityType.LOKI}.${LokiVariant.LOKI}`, // 69.0
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.GATE}.0`, // 263.0
-  `${EntityType.CAGE}.0`, // 265.0
-  `${EntityType.BROWNIE}.0`, // 402.0
-  `${EntityType.SISTERS_VIS}.0`, // 410.0
-  `${EntityType.REAP_CREEP}.0`, // 900.0
+/**
+ * Contains just the bosses in Dank Depths (not e.g. Necropolis).
+ *
+ * Note that this set includes Mom, even though they are not technically in the boss pool.
+ */
+const DANK_DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.MONSTRO_2, // 5
+  BossID.MOM, // 6
+  BossID.WAR, // 11
+  BossID.LOKI, // 15
+  BossID.GISH, // 19
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.GATE, // 46 (added in Repentance)
+  BossID.CAGE, // 48 (added in Repentance)
+  // - `BossID.ADVERSARY` (51) was removed in Repentance.
+  BossID.BROWNIE, // 58
+  BossID.SISTERS_VIS, // 68
+  BossID.REAP_CREEP, // 74 (added in Repentance)
 ]);
 
-/** Contains just the bosses in Mausoleum (not e.g. Dank Depths). */
-const MAUSOLEUM_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.MOM}.${MomVariant.MOM}`, // 45.0
-  `${EntityType.SIREN}.0`, // 904.0
-  `${EntityType.HERETIC}.0`, // 905.0
+/**
+ * Contains just the bosses in Mausoleum (not e.g. Dank Depths).
+ *
+ * Note that this set includes Mausoleum Mom, even though they are not technically in the boss pool.
+ */
+const MAUSOLEUM_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.SIREN, // 79
+  BossID.HERETIC, // 81
+  BossID.MAUSOLEUM_MOM, // 89
 ]);
 
-/** Contains just the bosses in Gehenna (not e.g. Dank Depths). */
-const GEHENNA_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.MOM}.${MomVariant.MOM}`, // 45.0
-  `${EntityType.VISAGE}.0`, // 903.0
-  `${EntityType.HORNY_BOYS}.0`, // 920.0
+/**
+ * Contains just the bosses in Gehenna (not e.g. Dank Depths).
+ *
+ * Note that this set includes Mausoleum Mom, even though they are not technically in the boss pool.
+ */
+const GEHENNA_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.VISAGE, // 78
+  BossID.MAUSOLEUM_MOM, // 89
+  BossID.HORNY_BOYS, // 101
 ]);
 
 /** The set of unique bosses for Depths, Necropolis, and so on. */
-const ALL_DEPTHS_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...DEPTHS_BOSSES_SET.values(),
-  ...NECROPOLIS_BOSSES_SET.values(),
-  ...DANK_DEPTHS_BOSSES_SET.values(),
-  ...MAUSOLEUM_BOSSES_SET.values(),
-  ...GEHENNA_BOSSES_SET.values(),
-]);
+const ALL_DEPTHS_BOSSES_SET: ReadonlySet<BossID> = combineSets(
+  DEPTHS_BOSSES_SET,
+  NECROPOLIS_BOSSES_SET,
+  DANK_DEPTHS_BOSSES_SET,
+  MAUSOLEUM_BOSSES_SET,
+  GEHENNA_BOSSES_SET,
+);
 
-const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([
+  ReadonlySet<BossID>
+>([
   [StageType.ORIGINAL, DEPTHS_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, NECROPOLIS_BOSSES_SET],
   [StageType.AFTERBIRTH, DANK_DEPTHS_BOSSES_SET],
@@ -306,198 +314,266 @@ const DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
   [StageType.REPENTANCE_B, GEHENNA_BOSSES_SET],
 ]);
 
-/** Contains just the bosses in Womb (not e.g. Scarred Womb). */
-const WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.PIN}.${PinVariant.SCOLEX}`, // 62.1
-  `${EntityType.WAR}.${WarVariant.CONQUEST}`, // 65.1
-  `${EntityType.DEATH}.0`, // 66.0
-  `${EntityType.LOKI}.${LokiVariant.LOKII}`, // 69.1
-  `${EntityType.BLASTOCYST_BIG}.0`, // 74.0
-  `${EntityType.MOMS_HEART}.${MomsHeartVariant.MOMS_HEART}`, // 78.0
-  `${EntityType.MOMS_HEART}.${MomsHeartVariant.IT_LIVES}`, // 78.1
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.MAMA_GURDY}.0`, // 266.0
-  `${EntityType.MR_FRED}.0`, // 270.0
-  `${EntityType.MATRIARCH}.0`, // 413.0
+/**
+ * Contains just the bosses in Womb (not e.g. Scarred Womb).
+ *
+ * Note that this set includes Mom's Heart & It Lives, even though they are not technically in the
+ * boss pool.
+ */
+const WOMB_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.SCOLEX, // 7
+  BossID.MOMS_HEART, // 8
+  BossID.DEATH, // 12
+  BossID.BLASTOCYST, // 16
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.IT_LIVES, // 25
+  // - `BossID.BLOAT` (30) was removed in Repentance.
+  BossID.LOKII, // 31
+  // - `BossID.TERATOMA` (33) was removed in Repentance.
+  BossID.CONQUEST, // 38
+  // - `BossID.DADDY_LONG_LEGS` (41) was removed in Repentance.
+  // - `BossID.TRIACHNID` (42) was removed in Repentance.
+  BossID.MAMA_GURDY, // 49
+  BossID.MR_FRED, // 53
+  // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
+  BossID.MATRIARCH, // 72
 ]);
 
-/** Contains just the bosses in Utero (not e.g. Scarred Womb). */
-const UTERO_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.WAR}.${WarVariant.CONQUEST}`, // 65.1
-  `${EntityType.DEATH}.0`, // 66.0
-  `${EntityType.DADDY_LONG_LEGS}.${DaddyLongLegsVariant.DADDY_LONG_LEGS}`, // 101.0
-  `${EntityType.DADDY_LONG_LEGS}.${DaddyLongLegsVariant.TRIACHNID}`, // 101.1
-  `${EntityType.PEEP}.${PeepVariant.BLOAT}`, // 68.1
-  `${EntityType.LOKI}.${LokiVariant.LOKII}`, // 69.1
-  `${EntityType.FISTULA_BIG}.${FistulaVariant.TERATOMA}`, // 71.1
-  `${EntityType.MOMS_HEART}.${MomsHeartVariant.MOMS_HEART}`, // 78.0
-  `${EntityType.MOMS_HEART}.${MomsHeartVariant.IT_LIVES}`, // 78.1
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
+/**
+ * Contains just the bosses in Utero (not e.g. Scarred Womb).
+ *
+ * Note that this set includes Mom's Heart & It Lives, even though they are not technically in the
+ * boss pool.
+ */
+const UTERO_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.MOMS_HEART, // 8
+  BossID.DEATH, // 12
+  // - `BossID.BLASTOCYST` (16) was removed in Repentance.
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.IT_LIVES, // 25
+  BossID.BLOAT, // 30
+  BossID.LOKII, // 31
+  BossID.TERATOMA, // 33
+  BossID.CONQUEST, // 38
+  BossID.DADDY_LONG_LEGS, // 41
+  BossID.TRIACHNID, // 42
+  // - `BossID.MAMA_GURDY` (49) was removed in Repentance.
+  // - `BossID.MR_FRED` (52) was removed in Repentance.
+  // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
+  // - `BossID.MATRIARCH` (72) was removed in Repentance.
 ]);
 
-/** Contains just the bosses in Scarred Womb (not e.g. Utero). */
-const SCARRED_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.PIN}.${PinVariant.SCOLEX}`, // 62.1
-  `${EntityType.WAR}.${WarVariant.CONQUEST}`, // 65.1
-  `${EntityType.DEATH}.0`, // 66.0
-  `${EntityType.LOKI}.${LokiVariant.LOKII}`, // 69.1
-  `${EntityType.BLASTOCYST_BIG}.0`, // 74.0
-  `${EntityType.MOMS_HEART}.${MomsHeartVariant.MOMS_HEART}`, // 78.0
-  `${EntityType.MOMS_HEART}.${MomsHeartVariant.IT_LIVES}`, // 78.1
-  `${EntityType.FALLEN}.${FallenVariant.FALLEN}`, // 81.0
-  `${EntityType.HEADLESS_HORSEMAN}.0`, // 82.0
-  `${EntityType.DADDY_LONG_LEGS}.${DaddyLongLegsVariant.TRIACHNID}`, // 101.1
-  `${EntityType.MAMA_GURDY}.${MamaGurdyVariant.MAMA_GURDY}`, // 266.0
-  `${EntityType.MR_FRED}.0`, // 270.0
-  `${EntityType.MATRIARCH}.0`, // 413.0
+/**
+ * Contains just the bosses in Scarred Womb (not e.g. Utero).
+ *
+ * Note that this set includes Mom's Heart & It Lives, even though they are not technically in the
+ * boss pool.
+ */
+const SCARRED_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.SCOLEX, // 7
+  BossID.MOMS_HEART, // 8
+  BossID.DEATH, // 12
+  BossID.BLASTOCYST, // 16
+  BossID.HEADLESS_HORSEMAN, // 22
+  BossID.FALLEN, // 23
+  BossID.IT_LIVES, // 25
+  // - `BossID.BLOAT` (30) was removed in Repentance.
+  BossID.LOKII, // 31 (added in Repentance)
+  // - `BossID.TERATOMA` (33) was removed in Repentance.
+  BossID.CONQUEST, // 38
+  // - `BossID.DADDY_LONG_LEGS` (41) was removed in Repentance.
+  BossID.TRIACHNID, // 42
+  BossID.MAMA_GURDY, // 49
+  BossID.MR_FRED, // 53 (added in Repentance)
+  // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
+  BossID.MATRIARCH, // 72
 ]);
 
-/** Contains just the bosses in Corpse (not e.g. Scarred Womb). */
-const CORPSE_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.SCOURGE}.0`, // 909.0
-  `${EntityType.CHIMERA}.0`, // 910.0
-  `${EntityType.ROTGUT}.0`, // 911.0
-  `${EntityType.MOTHER}.0`, // 912.0
+/**
+ * Contains just the bosses in Corpse (not e.g. Scarred Womb).
+ *
+ * Note that this set includes Mother, even though they are not technically in the boss pool.
+ */
+const CORPSE_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.SCOURGE, // 85
+  BossID.CHIMERA, // 86
+  BossID.ROTGUT, // 87
+  BossID.MOTHER, // 88
 ]);
 
-/** The set of unique bosses for Depths, Necropolis, and so on. */
-const ALL_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...WOMB_BOSSES_SET.values(),
-  ...UTERO_BOSSES_SET.values(),
-  ...SCARRED_WOMB_BOSSES_SET.values(),
-  ...MAUSOLEUM_BOSSES_SET.values(),
-  ...GEHENNA_BOSSES_SET.values(),
-]);
+/** The set of unique bosses for Womb, Utero, and so on. */
+const ALL_WOMB_BOSSES_SET: ReadonlySet<BossID> = combineSets(
+  WOMB_BOSSES_SET,
+  UTERO_BOSSES_SET,
+  SCARRED_WOMB_BOSSES_SET,
+  CORPSE_BOSSES_SET,
+);
 
-const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const WOMB_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([
+  ReadonlySet<BossID>
+>([
   [StageType.ORIGINAL, WOMB_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, UTERO_BOSSES_SET],
   [StageType.AFTERBIRTH, SCARRED_WOMB_BOSSES_SET],
   [StageType.REPENTANCE, CORPSE_BOSSES_SET],
 ]);
 
-const BLUE_WOMB_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.HUSH}.0`, // 407.0
+const BLUE_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.HUSH, // 63
 ]);
 
-const BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([[StageType.ORIGINAL, BLUE_WOMB_BOSSES_SET]]);
+  ReadonlySet<BossID>
+>([[StageType.ORIGINAL, BLUE_WOMB_BOSSES_SET]]);
 
-const SHEOL_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.SATAN}.${SatanVariant.SATAN}`, // 84.0
+const SHEOL_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.SATAN, // 24
 ]);
-const CATHEDRAL_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.ISAAC}.${IsaacVariant.ISAAC}`, // 102.0
-]);
-
-const ALL_STAGE_10_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...SHEOL_BOSSES_SET.values(),
-  ...CATHEDRAL_BOSSES_SET.values(),
+const CATHEDRAL_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.ISAAC, // 39
 ]);
 
-const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const ALL_STAGE_10_BOSSES_SET: ReadonlySet<BossID> = combineSets(
+  SHEOL_BOSSES_SET,
+  CATHEDRAL_BOSSES_SET,
+);
+
+const STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([
+  ReadonlySet<BossID>
+>([
   [StageType.ORIGINAL, SHEOL_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, CATHEDRAL_BOSSES_SET],
 ]);
 
-const DARK_ROOM_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.THE_LAMB}.${LambVariant.LAMB}`, // 273.0
+/**
+ * Note that this set includes Mega Satan, even though they are not technically in the boss pool.
+ */
+const DARK_ROOM_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.LAMB, // 54
+  BossID.MEGA_SATAN, // 55
 ]);
 
-const CHEST_BOSSES_SET: ReadonlySet<string> = new Set([
-  `${EntityType.ISAAC}.${IsaacVariant.BLUE_BABY}`, // 102.1
+/**
+ * Note that this set includes Mega Satan, even though they are not technically in the boss pool.
+ */
+const CHEST_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.BLUE_BABY, // 40
+  BossID.MEGA_SATAN, // 55
 ]);
 
-const ALL_STAGE_11_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...DARK_ROOM_BOSSES_SET.values(),
-  ...CHEST_BOSSES_SET.values(),
-]);
+const ALL_STAGE_11_BOSSES_SET: ReadonlySet<BossID> = combineSets(
+  DARK_ROOM_BOSSES_SET,
+  CHEST_BOSSES_SET,
+);
 
-const STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
+const STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
   StageType,
-  ReadonlySet<string>
-> = new Map([
+  ReadonlySet<BossID>
+>([
   [StageType.ORIGINAL, DARK_ROOM_BOSSES_SET],
   [StageType.WRATH_OF_THE_LAMB, CHEST_BOSSES_SET],
 ]);
 
-export const STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP: ReadonlyMap<
-  int,
-  ReadonlyMap<int, ReadonlySet<string>>
-> = new Map([
-  [1, BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [2, BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [3, CAVES_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [4, CAVES_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [5, DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [6, DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [7, WOMB_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [8, WOMB_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [9, BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [10, STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP],
-  [11, STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP],
+const VOID_BOSSES_SET = new ReadonlySet<BossID>([
+  BossID.DELIRIUM, // 70
 ]);
 
-export const STAGE_TO_COMBINED_BOSS_SET_MAP: ReadonlyMap<
-  int,
-  ReadonlySet<string>
-> = new Map([
-  [1, ALL_BASEMENT_BOSSES_SET],
-  [2, ALL_BASEMENT_BOSSES_SET],
-  [3, ALL_CAVES_BOSSES_SET],
-  [4, ALL_CAVES_BOSSES_SET],
-  [5, ALL_DEPTHS_BOSSES_SET],
-  [6, ALL_DEPTHS_BOSSES_SET],
-  [7, ALL_WOMB_BOSSES_SET],
-  [8, ALL_WOMB_BOSSES_SET],
-  [9, BLUE_WOMB_BOSSES_SET],
-  [10, ALL_STAGE_10_BOSSES_SET],
-  [11, ALL_STAGE_11_BOSSES_SET],
+const VOID_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
+  StageType,
+  ReadonlySet<BossID>
+>([[StageType.ORIGINAL, VOID_BOSSES_SET]]);
+
+/** Note that this does not include Ultra Famine, Ultra Pestilence, Ultra War, and Ultra Death. */
+const HOME_BOSSES_SET = new ReadonlySet<BossID>([BossID.DOGMA, BossID.BEAST]);
+
+const HOME_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
+  StageType,
+  ReadonlySet<BossID>
+>([[StageType.ORIGINAL, HOME_BOSSES_SET]]);
+
+export const STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP = new ReadonlyMap<
+  LevelStage,
+  ReadonlyMap<int, ReadonlySet<BossID>>
+>([
+  [LevelStage.BASEMENT_1, BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP], // 1
+  [LevelStage.BASEMENT_2, BASEMENT_STAGE_TYPE_TO_BOSS_SET_MAP], // 2
+  [LevelStage.CAVES_1, CAVES_STAGE_TYPE_TO_BOSS_SET_MAP], // 3
+  [LevelStage.CAVES_2, CAVES_STAGE_TYPE_TO_BOSS_SET_MAP], // 4
+  [LevelStage.DEPTHS_1, DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP], // 5
+  [LevelStage.DEPTHS_2, DEPTHS_STAGE_TYPE_TO_BOSS_SET_MAP], // 6
+  [LevelStage.WOMB_1, WOMB_STAGE_TYPE_TO_BOSS_SET_MAP], // 7
+  [LevelStage.WOMB_2, WOMB_STAGE_TYPE_TO_BOSS_SET_MAP], // 8
+  [LevelStage.BLUE_WOMB, BLUE_WOMB_STAGE_TYPE_TO_BOSS_SET_MAP], // 9
+  [LevelStage.SHEOL_CATHEDRAL, STAGE_10_STAGE_TYPE_TO_BOSS_SET_MAP], // 10
+  [LevelStage.DARK_ROOM_CHEST, STAGE_11_STAGE_TYPE_TO_BOSS_SET_MAP], // 11
+  [LevelStage.VOID, VOID_STAGE_TYPE_TO_BOSS_SET_MAP], // 12
+  [LevelStage.HOME, HOME_STAGE_TYPE_TO_BOSS_SET_MAP], // 13
 ]);
 
-export const ALL_BOSSES_SET: ReadonlySet<string> = new Set([
-  ...ALL_BASEMENT_BOSSES_SET.values(),
-  ...ALL_CAVES_BOSSES_SET.values(),
-  ...ALL_DEPTHS_BOSSES_SET.values(),
-  ...ALL_WOMB_BOSSES_SET.values(),
-  ...BLUE_WOMB_BOSSES_SET.values(),
-  ...ALL_STAGE_10_BOSSES_SET.values(),
-  ...ALL_STAGE_11_BOSSES_SET.values(),
+export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
+  LevelStage,
+  ReadonlySet<BossID>
+>([
+  [LevelStage.BASEMENT_1, ALL_BASEMENT_BOSSES_SET], // 1
+  [LevelStage.BASEMENT_2, ALL_BASEMENT_BOSSES_SET], // 2
+  [LevelStage.CAVES_1, ALL_CAVES_BOSSES_SET], // 3
+  [LevelStage.CAVES_2, ALL_CAVES_BOSSES_SET], // 4
+  [LevelStage.DEPTHS_1, ALL_DEPTHS_BOSSES_SET], // 5
+  [LevelStage.DEPTHS_2, ALL_DEPTHS_BOSSES_SET], // 6
+  [LevelStage.WOMB_1, ALL_WOMB_BOSSES_SET], // 7
+  [LevelStage.WOMB_2, ALL_WOMB_BOSSES_SET], // 8
+  [LevelStage.BLUE_WOMB, BLUE_WOMB_BOSSES_SET], // 9
+  [LevelStage.SHEOL_CATHEDRAL, ALL_STAGE_10_BOSSES_SET], // 10
+  [LevelStage.DARK_ROOM_CHEST, ALL_STAGE_11_BOSSES_SET], // 11
+  [LevelStage.VOID, VOID_BOSSES_SET], // 12
+  [LevelStage.HOME, HOME_BOSSES_SET], // 13
 ]);
 
-export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET =
-  getAllBossesExcludingStoryBossesSet();
+export const ALL_BOSSES_SET = new ReadonlySet<BossID>(
+  BOSS_IDS.filter((bossID) => bossID !== BossID.RAGLICH),
+);
 
-/**
- * Since story bosses are stored by entity type, we copy the existing bosses and filter them (to
- * avoid having to hard-code story boss variants).
- */
-function getAllBossesExcludingStoryBossesSet(): ReadonlySet<string> {
-  const allBossesExcludingStoryBossesSet = copySet(ALL_BOSSES_SET);
-  const allBosses = [...ALL_BOSSES_SET.values()];
-  for (const entityTypeVariantString of allBosses) {
-    const tuple = parseEntityTypeVariantString(entityTypeVariantString);
-    if (tuple === undefined) {
-      error(
-        "Failed to parse a boss tuple when constructing the story boss set.",
-      );
-    }
+export const STORY_BOSS_IDS_SET = new ReadonlySet([
+  BossID.MOM, // 6
+  BossID.MOMS_HEART, // 8
+  BossID.SATAN, // 24
+  BossID.IT_LIVES, // 25
+  BossID.ISAAC, // 39
+  BossID.BLUE_BABY, // 40
+  BossID.LAMB, // 54
+  BossID.MEGA_SATAN, // 55
+  BossID.ULTRA_GREED, // 62
+  BossID.HUSH, // 63
+  BossID.DELIRIUM, // 70
+  BossID.ULTRA_GREEDIER, // 71
+  BossID.MOTHER, // 88
+  BossID.MAUSOLEUM_MOM, // 89
+  BossID.MAUSOLEUM_MOMS_HEART, // 90
+  BossID.DOGMA, // 99
+  BossID.BEAST, // 100
+]);
 
-    const [entityType, _variant] = tuple;
-    if (STORY_BOSSES_SET.has(entityType)) {
-      allBossesExcludingStoryBossesSet.delete(entityTypeVariantString);
-    }
-  }
+export const STORY_BOSS_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
+  EntityType.MOM, // 45
+  EntityType.MOMS_HEART, // 78
+  EntityType.SATAN, // 84
+  EntityType.ISAAC, // 102
+  EntityType.LAMB, // 273
+  EntityType.MEGA_SATAN, // 274
+  EntityType.MEGA_SATAN_2, // 275
+  EntityType.ULTRA_GREED, // 406 (includes Ultra Greedier)
+  EntityType.HUSH, // 407
+  EntityType.DELIRIUM, // 412
+  EntityType.MOTHER, // 912
+  EntityType.DOGMA, // 950
+  EntityType.BEAST, // 951
+]);
 
-  return allBossesExcludingStoryBossesSet;
-}
+export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET = new ReadonlySet(
+  [...ALL_BOSSES_SET].filter((bossID) => !STORY_BOSS_IDS_SET.has(bossID)),
+);

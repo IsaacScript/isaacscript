@@ -1,29 +1,39 @@
 {
-  "extends": "../../tsconfig.monorepo.json",
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
+
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.node.json",
+    "../../tsconfig.monorepo.json",
+  ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaac-lua-polyfill/dist",
+    "outDir": "dist",
 
-    // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
-    "rootDir": "./src",
+    // This library intentionally does not create ".d.ts" files.
 
-    // Needed to hide internal functions from the auto-complete of end-users.
-    "stripInternal": true,
-
-    // Recommended as per TypeScriptToLua:
-    // https://typescripttolua.github.io/docs/getting-started/
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "moduleResolution": "Node",
-    "module": "commonjs",
-
-    // We use TypeScript definitions for the Lua standard library:
-    // https://github.com/TypeScriptToLua/lua-types
-    "types": ["lua-types/5.3", "isaac-typescript-definitions"],
+    // We need the Isaac definitions so that we know what `BitSet128` is.
+    "types": ["isaac-typescript-definitions"],
   },
 
-  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
-  // "tsconfig.eslint.json" file.
-  "include": ["./src/**/*.ts", ".eslintrc.js"],
+  "include": [
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
+
+  "exclude": ["dist", "scripts"],
 }

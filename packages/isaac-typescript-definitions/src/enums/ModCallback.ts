@@ -11,6 +11,8 @@ export enum ModCallback {
   POST_NPC_UPDATE = 0,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postUpdate(): void {}
    * ```
@@ -18,6 +20,8 @@ export enum ModCallback {
   POST_UPDATE = 1,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postRender(): void {}
    * ```
@@ -53,6 +57,10 @@ export enum ModCallback {
    * ```ts
    * function postPEffectUpdate(player: EntityPlayer): void {}
    * ```
+   *
+   * @deprecated Consider using the `ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_PEFFECT_UPDATE = 4,
 
@@ -63,7 +71,7 @@ export enum ModCallback {
    *
    * ```ts
    * function postUseCard(
-   *   card: CardType,
+   *   cardType: CardType,
    *   player: EntityPlayer,
    *   useFlags: BitFlags<UseFlag>,
    * ): void {}
@@ -130,7 +138,7 @@ export enum ModCallback {
    *
    * The `isChildPlayer` helper function does not work in this callback (because
    * `EntityPlayer.Parent` is not initialized yet at this point). If you want to exclude non-real
-   * players, use the `POST_PLAYER_INIT_FIRST or the `POST_PLAYER_INIT_LATE` custom callbacks
+   * players, use the `POST_PLAYER_INIT_FIRST` or the `POST_PLAYER_INIT_LATE` custom callbacks
    * instead.
    *
    * When registering this callback with the `Mod.AddCallback` method:
@@ -176,6 +184,8 @@ export enum ModCallback {
   ENTITY_TAKE_DMG = 11,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postCurseEval(curses: BitFlags<LevelCurse>): BitFlags<LevelCurse> | undefined {}
    * ```
@@ -198,13 +208,21 @@ export enum ModCallback {
   INPUT_ACTION = 13,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postGameStarted(isContinued: boolean): void {}
    * ```
+   *
+   * @deprecated Consider using the `ModCallbackCustom.POST_GAME_STARTED_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_GAME_STARTED = 15,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postGameEnd(isGameOver: boolean): void {}
    * ```
@@ -212,6 +230,8 @@ export enum ModCallback {
   POST_GAME_END = 16,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preGameExit(shouldSave: boolean): void {}
    * ```
@@ -221,33 +241,49 @@ export enum ModCallback {
   /**
    * Unlike the `POST_GAME_STARTED` callback, this callback does not fire when resuming a saved run.
    *
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postNewLevel(): void {}
    * ```
+   *
+   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_LEVEL_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_NEW_LEVEL = 18,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postNewRoom(): void {}
    * ```
+   *
+   * @deprecated Consider using the `ModCallbackCustom.POST_NEW_ROOM_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_NEW_ROOM = 19,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getCard(
    *   rng: RNG,
-   *   card: CardType,
+   *   cardType: CardType,
    *   includePlayingCards: boolean,
    *   includeRunes: boolean,
    *   onlyRunes: boolean,
-   * ): Card | undefined {}
+   * ): CardType | undefined {}
    * ```
    */
   GET_CARD = 20,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getShaderParams(shaderName: string): Record<string, unknown> {}
    * ```
@@ -255,6 +291,8 @@ export enum ModCallback {
   GET_SHADER_PARAMS = 21,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function executeCmd(
    *   command: string,
@@ -284,6 +322,14 @@ export enum ModCallback {
   PRE_USE_ITEM = 23,
 
   /**
+   * If you want to prevent an entity from spawning, you cannot return an `EntityType` of 0, since
+   * that will cause the game to crash.
+   *
+   * Sometimes, if you return a type other than the original type (e.g. replacing a pickup with an
+   * effect), the game will crash. Thus, you should replace a pickup with a new pickup, and so on.
+   *
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preEntitySpawn(
    *   entityType: EntityType,
@@ -293,7 +339,7 @@ export enum ModCallback {
    *   velocity: Vector,
    *   spawner: Entity | undefined,
    *   initSeed: Seed,
-   * ): [EntityType, int, int, int] | undefined {}
+   * ): [entityType: EntityType, variant: int, subType: int, initSeed: Seed] | undefined {}
    * ```
    */
   PRE_ENTITY_SPAWN = 24,
@@ -391,6 +437,10 @@ export enum ModCallback {
    * ```ts
    * function postPlayerUpdate(player: EntityPlayer): void {}
    * ```
+   *
+   * @deprecated Consider using the `ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_PLAYER_UPDATE = 31,
 
@@ -402,6 +452,10 @@ export enum ModCallback {
    * ```ts
    * function postPlayerRender(player: EntityPlayer, renderOffset: Vector): void {}
    * ```
+   *
+   * @deprecated Consider using the `ModCallbackCustom.POST_PLAYER_RENDER_REORDERED` callback from
+   *             `isaacscript-common` instead, since it will fire in the correct order and prevent
+   *             bugs relating to data structures not being properly initialized.
    */
   POST_PLAYER_RENDER = 32,
 
@@ -462,6 +516,8 @@ export enum ModCallback {
   POST_PICKUP_RENDER = 36,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postPickupSelection(
    *   pickup: EntityPickup,
@@ -473,11 +529,11 @@ export enum ModCallback {
   POST_PICKUP_SELECTION = 37,
 
   /**
-   * ```ts
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
+   * ```ts
    * function prePickupCollision(
    *   pickup: EntityPickup,
    *   collider: Entity,
@@ -654,7 +710,8 @@ export enum ModCallback {
    *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function postKnifeInit(knife: EntityKnife): void {}
@@ -665,7 +722,8 @@ export enum ModCallback {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function postKnifeUpdate(knife: EntityKnife): void {}
@@ -676,7 +734,8 @@ export enum ModCallback {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function postKnifeRender(knife: EntityKnife, renderOffset: Vector): void {}
@@ -687,7 +746,8 @@ export enum ModCallback {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
+   *   matches the sub-type provided. (This is bugged and is NOT the `KnifeVariant` like you would
+   *   expect!)
    *
    * ```ts
    * function preKnifeCollision(
@@ -797,6 +857,8 @@ export enum ModCallback {
   PRE_BOMB_COLLISION = 60,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postFireTear(tear: EntityTear): void {}
    * ```
@@ -804,6 +866,8 @@ export enum ModCallback {
   POST_FIRE_TEAR = 61,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preGetCollectible(
    *   itemPoolType: ItemPoolType,
@@ -815,6 +879,8 @@ export enum ModCallback {
   PRE_GET_COLLECTIBLE = 62,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function postGetCollectible(
    *   collectibleType: CollectibleType,
@@ -827,6 +893,8 @@ export enum ModCallback {
   POST_GET_COLLECTIBLE = 63,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getPillColor(seed: Seed): PillColor | undefined {}
    * ```
@@ -834,6 +902,8 @@ export enum ModCallback {
   GET_PILL_COLOR = 64,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getPillEffect(
    *   pillEffect: PillEffect,
@@ -844,6 +914,8 @@ export enum ModCallback {
   GET_PILL_EFFECT = 65,
 
   /**
+   * You cannot filter this callback.
+   *
    * ```ts
    * function getTrinket(
    *   trinketType: TrinketType,
@@ -887,6 +959,10 @@ export enum ModCallback {
   PRE_NPC_UPDATE = 69,
 
   /**
+   * In vanilla, this is `PRE_SPAWN_CLEAN_AWARD`, which is a typo.
+   *
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preSpawnClearAward(
    *   rng: RNG,
@@ -894,18 +970,41 @@ export enum ModCallback {
    * ): boolean | undefined {}
    * ```
    */
-  PRE_SPAWN_CLEAN_AWARD = 70,
+  PRE_SPAWN_CLEAR_AWARD = 70,
 
   /**
+   * You can use the `isGridEntityXMLType` helper function to convert the
+   * `entityTypeOrGridEntityXMLType` argument to an `EntityType` or `GridEntityXMLType`, if needed.
+   *
+   * You cannot filter this callback.
+   *
    * ```ts
    * function preRoomEntitySpawn(
    *   entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
    *   variant: int,
    *   subType: int,
    *   gridIndex: int,
-   *   seed: Seed,
-   * ): [EntityType | GridEntityXMLType, int, int] | undefined {}
+   *   initSeed: Seed,
+   * ): [type: EntityType | GridEntityXMLType, variant: int, subType: int] | undefined {}
    * ```
    */
   PRE_ROOM_ENTITY_SPAWN = 71,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function preEntityDevolve(entity: Entity): boolean | undefined {}
+   * ```
+   */
+  PRE_ENTITY_DEVOLVE = 72,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function preModUnload(mod: Mod): void {}
+   * ```
+   */
+  PRE_MOD_UNLOAD = 73,
 }

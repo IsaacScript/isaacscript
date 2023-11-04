@@ -1,5 +1,5 @@
-import { PitState } from "../../enums/collections/gridEntityState";
-import { PitVariant } from "../../enums/collections/gridEntityVariants";
+import type { PitState } from "../../enums/collections/gridEntityStates";
+import type { PitVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
   /**
@@ -7,10 +7,10 @@ declare global {
    * `GridEntity.ToPit` method.
    */
   interface GridEntityPit extends GridEntity {
-    GetVariant(): PitVariant;
-    MakeBridge(bridgeSource?: GridEntity): void;
-    SetLadder(value: boolean): void;
-    UpdateCollision(): void;
+    GetVariant: () => PitVariant;
+    MakeBridge: (bridgeSource?: GridEntity) => void;
+    SetLadder: (value: boolean) => void;
+    UpdateCollision: () => void;
 
     HasLadder: boolean;
     State: PitState;

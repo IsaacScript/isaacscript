@@ -1,6 +1,6 @@
 import { PlayerForm } from "isaac-typescript-definitions";
 
-export const TRANSFORMATION_NAMES: { readonly [key in PlayerForm]: string } = {
+export const TRANSFORMATION_NAMES = {
   [PlayerForm.GUPPY]: "Guppy", // 0
   [PlayerForm.BEELZEBUB]: "Beelzebub", // 1
   [PlayerForm.FUN_GUY]: "Fun Guy", // 2
@@ -15,4 +15,4 @@ export const TRANSFORMATION_NAMES: { readonly [key in PlayerForm]: string } = {
   [PlayerForm.ADULT]: "Adult", // 11
   [PlayerForm.SPIDER_BABY]: "Spider Baby", // 12
   [PlayerForm.STOMPY]: "Stompy", // 13
-} as const;
+} as const satisfies Record<PlayerForm, string>;

@@ -2,16 +2,16 @@ import { NullItemID } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { Feature } from "../../private/Feature";
-import { ModdedElementSets } from "./ModdedElementSets";
+import type { ModdedElementSets } from "./ModdedElementSets";
 
-const FLYING_NULL_ITEMS: readonly NullItemID[] = [
+const FLYING_NULL_ITEMS = [
   NullItemID.REVERSE_SUN, // 66
   NullItemID.SPIRIT_SHACKLES_SOUL, // 10
   NullItemID.LOST_CURSE, // 112
-];
+] as const;
 
 export class FlyingDetection extends Feature {
-  private moddedElementSets: ModdedElementSets;
+  private readonly moddedElementSets: ModdedElementSets;
 
   /** @internal */
   constructor(moddedElementSets: ModdedElementSets) {
@@ -32,18 +32,20 @@ export class FlyingDetection extends Feature {
   public hasFlyingTemporaryEffect(player: EntityPlayer): boolean {
     const effects = player.GetEffects();
 
-    // - Hanged Man card gives a Transcendence temporary effect.
+    // - We specify true to the `getFlyingCollectibles` function since conditional flying
+    //   collectibles will only grant a temporary effect if their condition is activated.
+    // - The Hanged Man card gives a Transcendence temporary effect.
     // - Pinking Shears gives a Transcendence temporary effect.
     const flyingCollectibles =
-      this.moddedElementSets.getFlyingCollectibles(false);
-    for (const collectibleType of flyingCollectibles.values()) {
+      this.moddedElementSets.getFlyingCollectibleTypes(true);
+    for (const collectibleType of flyingCollectibles) {
       if (effects.HasCollectibleEffect(collectibleType)) {
         return true;
       }
     }
 
-    const flyingTrinkets = this.moddedElementSets.getFlyingTrinkets();
-    for (const trinketType of flyingTrinkets.values()) {
+    const flyingTrinkets = this.moddedElementSets.getFlyingTrinketTypes();
+    for (const trinketType of flyingTrinkets) {
       if (effects.HasTrinketEffect(trinketType)) {
         return true;
       }

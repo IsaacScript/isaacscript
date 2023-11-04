@@ -1,19 +1,26 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
 import { removeNonAlphanumericCharacters } from "../functions/string";
-import { COLLECTIBLE_TYPE_TO_NAME_MAP } from "./collectibleTypeToNameMap";
+import { COLLECTIBLE_NAMES } from "../objects/collectibleNames";
+import type { ReadonlyMap } from "../types/ReadonlyMap";
 
 /**
  * Maps collectible names to the values of the `CollectibleType` enum.
  *
- * For a mapping of `CollectibleType` to name, see `COLLECTIBLE_TYPE_TO_NAME_MAP`.
+ * For a mapping of `CollectibleType` to name, see the `COLLECTIBLE_NAMES` constant.
  */
-const collectibleNameToTypeMap = new Map<string, CollectibleType>();
-for (const [collectibleType, name] of COLLECTIBLE_TYPE_TO_NAME_MAP) {
-  const simpleString = removeNonAlphanumericCharacters(name);
-  collectibleNameToTypeMap.set(simpleString, collectibleType);
-}
-
 export const COLLECTIBLE_NAME_TO_TYPE_MAP: ReadonlyMap<
   string,
   CollectibleType
-> = collectibleNameToTypeMap;
+> = (() => {
+  const collectibleNameToTypeMap = new Map<string, CollectibleType>();
+
+  for (const [collectibleTypeString, name] of Object.entries(
+    COLLECTIBLE_NAMES,
+  )) {
+    const collectibleType = collectibleTypeString as unknown as CollectibleType;
+    const simpleString = removeNonAlphanumericCharacters(name);
+    collectibleNameToTypeMap.set(simpleString, collectibleType);
+  }
+
+  return collectibleNameToTypeMap;
+})();

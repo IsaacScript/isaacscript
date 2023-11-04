@@ -1,12 +1,14 @@
+import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
+  BackdropType,
   EffectVariant,
   GridCollisionClass,
   GridEntityType,
-  GridEntityXMLType,
   PoopGridEntityVariant,
   StatueVariant,
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
+import { GRID_ENTITY_XML_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { DISTANCE_OF_GRID_TILE, VectorOne } from "../core/constants";
 import { GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP } from "../maps/gridEntityTypeToBrokenStateMap";
@@ -15,29 +17,39 @@ import {
   DEFAULT_TOP_LEFT_WALL_GRID_INDEX,
   ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP,
 } from "../maps/roomShapeToTopLeftWallGridIndexMap";
-import { AnyGridEntity } from "../types/AnyGridEntity";
-import { GridEntityID } from "../types/GridEntityID";
+import { GRID_ENTITY_TYPE_TO_ANM2_NAME } from "../objects/gridEntityTypeToANM2Name";
+import { POOP_GRID_ENTITY_XML_TYPES_SET } from "../sets/poopGridEntityXMLTypesSet";
+import type { AnyGridEntity } from "../types/AnyGridEntity";
+import type { GridEntityID } from "../types/GridEntityID";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
-import { clearSprite } from "./sprites";
-import { asNumber, isNumber } from "./types";
-import { eRange, iRange } from "./utils";
+import { asNumber, isInteger } from "./types";
+import { assertDefined, eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
-const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
-  new Set([
+/**
+ * For some specific grid entities, the variant defined in the XML is what is used by the actual
+ * game (which is not the case for e.g. poops).
+ */
+const GRID_ENTITY_TYPES_THAT_KEEP_GRID_ENTITY_XML_VARIANT = new ReadonlySet([
+  GridEntityType.SPIKES_ON_OFF, // 9
+  GridEntityType.PRESSURE_PLATE, // 20
+  GridEntityType.TELEPORTER, // 23
+]);
+
+const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS =
+  new ReadonlySet<GridEntityType>([
     GridEntityType.ROCK, // 2
     GridEntityType.ROCK_TINTED, // 4
     GridEntityType.ROCK_BOMB, // 5
     GridEntityType.ROCK_ALT, // 6
     GridEntityType.SPIDER_WEB, // 10
     GridEntityType.TNT, // 12
-
     // GridEntityType.FIREPLACE (13) does not count since it is turned into a non-grid entity upon
     // spawning.
-
     GridEntityType.POOP, // 14
     GridEntityType.ROCK_SUPER_SPECIAL, // 22
     GridEntityType.ROCK_SPIKED, // 25
@@ -45,38 +57,63 @@ const BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS: ReadonlySet<GridEntityType> =
     GridEntityType.ROCK_GOLD, // 27
   ]);
 
-const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS: ReadonlySet<string> =
-  new Set([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
+const BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS =
+  new ReadonlySet<string>([`${GridEntityType.STATUE}.${StatueVariant.ANGEL}`]);
+
+const GRID_ENTITY_XML_TYPES_SET = new ReadonlySet(GRID_ENTITY_XML_TYPE_VALUES);
 
 /**
  * Helper function to convert the grid entity type found in a room XML file to the corresponding
- * grid entity type and variant normally used by the game. For example, a rock is represented as
- * 1000.0 in a room XML file, but `GridEntityType.ROCK` is equal to 2.
+ * grid entity type and variant normally used by the game. For example, `GridEntityXMLType.ROCK` is
+ * 1000 (in a room XML file), but `GridEntityType.ROCK` is equal to 2 (in-game).
  */
 export function convertXMLGridEntityType(
   gridEntityXMLType: GridEntityXMLType,
   gridEntityXMLVariant: int,
 ): [GridEntityType, int] | undefined {
   const gridEntityArray = GRID_ENTITY_XML_MAP.get(gridEntityXMLType);
-  if (gridEntityArray === undefined) {
-    error(
-      `Failed to find an entry in the grid entity map for XML entity type: ${gridEntityXMLType}`,
-    );
-  }
-  const gridEntityType = gridEntityArray[0];
-  let variant = gridEntityArray[1];
+  assertDefined(
+    gridEntityArray,
+    `Failed to find an entry in the grid entity map for XML entity type: ${gridEntityXMLType}`,
+  );
 
-  // For some specific grid entities, the variant defined in the XML is what is used by the actual
-  // game (which is not the case for e.g. poops).
-  if (
-    gridEntityType === GridEntityType.SPIKES_ON_OFF || // 9
-    gridEntityType === GridEntityType.PRESSURE_PLATE || // 20
-    gridEntityType === GridEntityType.TELEPORTER // 23
-  ) {
-    variant = gridEntityXMLVariant;
-  }
+  const gridEntityType = gridEntityArray[0];
+  const variant = GRID_ENTITY_TYPES_THAT_KEEP_GRID_ENTITY_XML_VARIANT.has(
+    gridEntityType,
+  )
+    ? gridEntityXMLVariant
+    : gridEntityArray[1];
 
   return [gridEntityType, variant];
+}
+
+/**
+ * Helper function to check if one or more of a specific kind of grid entity is present in the
+ * current room.
+ *
+ * @param gridEntityType The grid entity type to match.
+ * @param variant Optional. Default is -1, which matches every variant.
+ */
+export function doesGridEntityExist(
+  gridEntityType: GridEntityType,
+  variant = -1,
+): boolean {
+  const room = game.GetRoom();
+  const gridIndexes = getAllGridIndexes();
+
+  return gridIndexes.some((gridIndex) => {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity === undefined) {
+      return false;
+    }
+
+    const thisGridEntityType = gridEntity.GetType();
+    const thisVariant = gridEntity.GetVariant();
+    return (
+      gridEntityType === thisGridEntityType &&
+      (variant === -1 || variant === thisVariant)
+    );
+  });
 }
 
 /**
@@ -95,13 +132,16 @@ export function getAllGridIndexes(): int[] {
  * Gets the entities that have a hitbox that overlaps with any part of the square that the grid
  * entity is on.
  *
- * Note that this function will not work properly in the `POST_NEW_ROOM` callback, since entities do
+ * This function is useful because the vanilla collision callbacks do not work with grid entities.
+ * This is used by `POST_GRID_ENTITY_COLLISION` custom callback.
+ *
+ * Note that this function will not work properly in the `POST_NEW_ROOM` callback since entities do
  * not have collision yet in that callback.
  */
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
 ): Entity[] {
-  const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
+  const { topLeft, bottomRight } = getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
     gridEntity.Position,
@@ -136,18 +176,16 @@ export function getConstituentsFromGridEntityID(
   const [gridEntityTypeString, variantString] = parts;
 
   const gridEntityType = tonumber(gridEntityTypeString);
-  if (gridEntityType === undefined) {
-    error(
-      `Failed to convert the grid entity type to a number: ${gridEntityTypeString}`,
-    );
-  }
+  assertDefined(
+    gridEntityType,
+    `Failed to convert the grid entity type to a number: ${gridEntityTypeString}`,
+  );
 
   const variant = tonumber(variantString);
-  if (variant === undefined) {
-    error(
-      `Failed to convert the grid entity variant to a number: ${variantString}`,
-    );
-  }
+  assertDefined(
+    variant,
+    `Failed to convert the grid entity variant to a number: ${variantString}`,
+  );
 
   return [gridEntityType, variant];
 }
@@ -175,6 +213,8 @@ export function getConstituentsFromGridEntityID(
  *   GridEntityType.ROCK_TINTED,
  * );
  * ```
+ *
+ * @allowEmptyVariadic
  */
 export function getGridEntities(
   ...gridEntityTypes: GridEntityType[]
@@ -185,25 +225,11 @@ export function getGridEntities(
     return gridEntities;
   }
 
-  const gridEntityTypesSet = new Set(gridEntityTypes);
+  const gridEntityTypesSet = new ReadonlySet(gridEntityTypes);
   return gridEntities.filter((gridEntity) => {
     const gridEntityType = gridEntity.GetType();
     return gridEntityTypesSet.has(gridEntityType);
   });
-}
-
-function getAllGridEntities(): GridEntity[] {
-  const room = game.GetRoom();
-
-  const gridEntities: GridEntity[] = [];
-  for (const gridIndex of getAllGridIndexes()) {
-    const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity !== undefined) {
-      gridEntities.push(gridEntity);
-    }
-  }
-
-  return gridEntities;
 }
 
 /**
@@ -221,11 +247,25 @@ export function getGridEntitiesExcept(
     return gridEntities;
   }
 
-  const gridEntityTypesSet = new Set(gridEntityTypes);
+  const gridEntityTypesSet = new ReadonlySet(gridEntityTypes);
   return gridEntities.filter((gridEntity) => {
     const gridEntityType = gridEntity.GetType();
     return !gridEntityTypesSet.has(gridEntityType);
   });
+}
+
+function getAllGridEntities(): GridEntity[] {
+  const room = game.GetRoom();
+
+  const gridEntities: GridEntity[] = [];
+  for (const gridIndex of getAllGridIndexes()) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity !== undefined) {
+      gridEntities.push(gridEntity);
+    }
+  }
+
+  return gridEntities;
 }
 
 /** Helper function to get all grid entities in a given radius around a given point. */
@@ -233,13 +273,13 @@ export function getGridEntitiesInRadius(
   targetPosition: Vector,
   radius: number,
 ): GridEntity[] {
-  radius = math.abs(radius);
+  radius = Math.abs(radius);
   const topLeftOffset = VectorOne.mul(-radius);
   const mostTopLeftPosition = targetPosition.add(topLeftOffset);
   const room = game.GetRoom();
 
   const diameter = radius * 2;
-  const iterations = math.ceil(diameter / DISTANCE_OF_GRID_TILE);
+  const iterations = Math.ceil(diameter / DISTANCE_OF_GRID_TILE);
   const separation = diameter / iterations;
 
   const gridEntities: GridEntity[] = [];
@@ -257,7 +297,7 @@ export function getGridEntitiesInRadius(
       }
 
       registeredGridIndexes.add(gridIndex);
-      const [topLeft, bottomRight] = getGridEntityCollisionPoints(gridEntity);
+      const { topLeft, bottomRight } = getGridEntityCollisionPoints(gridEntity);
 
       if (
         isCircleIntersectingRectangle(
@@ -281,6 +321,8 @@ export function getGridEntitiesInRadius(
  *
  * Use this function with no arguments to get every grid entity, or specify a variadic amount of
  * arguments to match specific grid entity types.
+ *
+ * @allowEmptyVariadic
  */
 export function getGridEntitiesMap(
   ...gridEntityTypes: GridEntityType[]
@@ -296,10 +338,147 @@ export function getGridEntitiesMap(
   return gridEntityMap;
 }
 
+/** Helper function to get the ANM2 path for a grid entity type. */
+export function getGridEntityANM2Path(
+  gridEntityType: GridEntityType,
+): string | undefined {
+  const gridEntityANM2Name = getGridEntityANM2Name(gridEntityType);
+  return `gfx/grid/${gridEntityANM2Name}`;
+}
+
+function getGridEntityANM2Name(
+  gridEntityType: GridEntityType,
+): string | undefined {
+  switch (gridEntityType) {
+    // 1
+    case GridEntityType.DECORATION: {
+      return getGridEntityANM2NameDecoration();
+    }
+
+    default: {
+      return GRID_ENTITY_TYPE_TO_ANM2_NAME[gridEntityType];
+    }
+  }
+}
+
+/**
+ * Helper function to get the ANM2 path for a decoration. This depends on the current room's
+ * backdrop. The values are taken from the "backdrops.xml" file.
+ */
+function getGridEntityANM2NameDecoration(): string {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  switch (backdropType) {
+    // 1, 2, 3, 36, 49, 52
+    case BackdropType.BASEMENT:
+    case BackdropType.CELLAR:
+    case BackdropType.BURNING_BASEMENT:
+    case BackdropType.DOWNPOUR_ENTRANCE:
+    case BackdropType.ISAACS_BEDROOM:
+    case BackdropType.CLOSET: {
+      return "Props_01_Basement.anm2";
+    }
+
+    // 4, 5, 6, 37
+    case BackdropType.CAVES:
+    case BackdropType.CATACOMBS:
+    case BackdropType.FLOODED_CAVES:
+    case BackdropType.MINES_ENTRANCE: {
+      return "Props_03_Caves.anm2";
+    }
+
+    // 7, 8, 9, 30, 33, 38, 39, 40, 41, 42, 53, 60
+    case BackdropType.DEPTHS:
+    case BackdropType.NECROPOLIS:
+    case BackdropType.DANK_DEPTHS:
+    case BackdropType.SACRIFICE:
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_ENTRANCE:
+    case BackdropType.CORPSE_ENTRANCE:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4:
+    case BackdropType.CLOSET_B:
+    case BackdropType.DARK_CLOSET: {
+      return "Props_05_Depths.anm2";
+    }
+
+    // 10, 12
+    case BackdropType.WOMB:
+    case BackdropType.SCARRED_WOMB: {
+      return "Props_07_The Womb.anm2";
+    }
+
+    // 11
+    case BackdropType.UTERO: {
+      return "Props_07_Utero.anm2";
+    }
+
+    // 13, 27
+    case BackdropType.BLUE_WOMB:
+    case BackdropType.BLUE_WOMB_PASS: {
+      return "Props_07_The Womb_blue.anm2";
+    }
+
+    // 14, 47
+    case BackdropType.SHEOL:
+    case BackdropType.GEHENNA: {
+      return "Props_09_Sheol.anm2";
+    }
+
+    // 15
+    case BackdropType.CATHEDRAL: {
+      return "Props_10_Cathedral.anm2";
+    }
+
+    // 17
+    case BackdropType.CHEST: {
+      return "Props_11_The Chest.anm2";
+    }
+
+    // 28
+    case BackdropType.GREED_SHOP: {
+      return "Props_12_Greed.anm2";
+    }
+
+    // 31
+    case BackdropType.DOWNPOUR: {
+      return "props_01x_downpour.anm2";
+    }
+
+    // 32, 46, 58, 59
+    case BackdropType.MINES:
+    case BackdropType.ASHPIT:
+    case BackdropType.MINES_SHAFT:
+    case BackdropType.ASHPIT_SHAFT: {
+      return "props_03x_mines.anm2";
+    }
+
+    // 34, 43, 44, 48
+    case BackdropType.CORPSE:
+    case BackdropType.CORPSE_2:
+    case BackdropType.CORPSE_3:
+    case BackdropType.MORTIS: {
+      return "props_07_the corpse.anm2";
+    }
+
+    // 45
+    case BackdropType.DROSS: {
+      return "props_02x_dross.anm2";
+    }
+
+    default: {
+      return "Props_01_Basement.anm2";
+    }
+  }
+}
+
 /** Helper function to get the top left and bottom right corners of a given grid entity. */
-export function getGridEntityCollisionPoints(
-  gridEntity: GridEntity,
-): [topLeft: Vector, bottomRight: Vector] {
+export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
+  topLeft: Vector;
+  bottomRight: Vector;
+} {
   const topLeft = Vector(
     gridEntity.Position.X - DISTANCE_OF_GRID_TILE / 2,
     gridEntity.Position.Y - DISTANCE_OF_GRID_TILE / 2,
@@ -309,7 +488,7 @@ export function getGridEntityCollisionPoints(
     gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
   );
 
-  return [topLeft, bottomRight];
+  return { topLeft, bottomRight };
 }
 
 /** Helper function to get a string containing the grid entity's type and variant. */
@@ -346,25 +525,174 @@ export function getMatchingGridEntities(
   );
 }
 
+/**
+ * Helper function to get the PNG path for a rock. This depends on the current room's backdrop. The
+ * values are taken from the "backdrops.xml" file.
+ *
+ * All of the rock PNGs are in the "gfx/grid" directory.
+ */
+export function getRockPNGPath(): string {
+  const rockPNGName = getRockPNGName();
+  return `gfx/grid/${rockPNGName}`;
+}
+
+function getRockPNGName(): string {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  switch (backdropType) {
+    // 1, 17
+    case BackdropType.BASEMENT:
+    case BackdropType.CHEST: {
+      return "rocks_basement.png";
+    }
+
+    // 2
+    case BackdropType.CELLAR: {
+      return "rocks_cellar.png";
+    }
+
+    // 3
+    case BackdropType.BURNING_BASEMENT: {
+      return "rocks_burningbasement.png"; // cspell:ignore burningbasement
+    }
+
+    // 4
+    case BackdropType.CAVES: {
+      return "rocks_caves.png";
+    }
+
+    // 5
+    case BackdropType.CATACOMBS: {
+      return "rocks_catacombs.png";
+    }
+
+    // 6
+    case BackdropType.FLOODED_CAVES: {
+      return "rocks_drownedcaves.png"; // cspell:ignore drownedcaves
+    }
+
+    // 7, 8, 9, 30, 60
+    case BackdropType.DEPTHS:
+    case BackdropType.NECROPOLIS:
+    case BackdropType.DANK_DEPTHS:
+    case BackdropType.SACRIFICE:
+    case BackdropType.DARK_CLOSET: {
+      return "rocks_depths.png";
+    }
+
+    // 10
+    case BackdropType.WOMB: {
+      return "rocks_womb.png";
+    }
+
+    // 11
+    case BackdropType.UTERO: {
+      return "rocks_utero.png";
+    }
+
+    // 12
+    case BackdropType.SCARRED_WOMB: {
+      return "rocks_scarredwomb.png"; // cspell:ignore scarredwomb
+    }
+
+    // 13, 27
+    case BackdropType.BLUE_WOMB:
+    case BackdropType.BLUE_WOMB_PASS: {
+      return "rocks_bluewomb.png"; // cspell:ignore bluewomb
+    }
+
+    // 14, 16
+    case BackdropType.SHEOL:
+    case BackdropType.DARK_ROOM: {
+      return "rocks_sheol.png";
+    }
+
+    // 15, 35
+    case BackdropType.CATHEDRAL:
+    case BackdropType.PLANETARIUM: {
+      return "rocks_cathedral.png";
+    }
+
+    // 23, 32, 37, 58
+    case BackdropType.SECRET:
+    case BackdropType.MINES:
+    case BackdropType.MINES_ENTRANCE:
+    case BackdropType.MINES_SHAFT: {
+      return "rocks_secretroom.png"; // cspell:ignore secretroom
+    }
+
+    // 31, 36
+    case BackdropType.DOWNPOUR:
+    case BackdropType.DOWNPOUR_ENTRANCE: {
+      return "rocks_downpour.png";
+    }
+
+    // 33, 38, 40, 41, 42
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_ENTRANCE:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4: {
+      return "rocks_mausoleum.png";
+    }
+
+    // 34, 48
+    case BackdropType.CORPSE:
+    case BackdropType.MORTIS: {
+      return "rocks_corpse.png";
+    }
+
+    // 39
+    case BackdropType.CORPSE_ENTRANCE: {
+      return "rocks_corpseentrance.png"; // cspell:ignore corpseentrance
+    }
+
+    // 43
+    case BackdropType.CORPSE_2: {
+      return "rocks_corpse2.png";
+    }
+
+    // 44
+    case BackdropType.CORPSE_3: {
+      return "rocks_corpse3.png";
+    }
+
+    // 45
+    case BackdropType.DROSS: {
+      return "rocks_dross.png";
+    }
+
+    // 46, 59
+    case BackdropType.ASHPIT:
+    case BackdropType.ASHPIT_SHAFT: {
+      return "rocks_ashpit.png";
+    }
+
+    // 47
+    case BackdropType.GEHENNA: {
+      return "rocks_gehenna.png";
+    }
+
+    default: {
+      return "rocks_basement.png";
+    }
+  }
+}
+
+/**
+ * Helper function to get the grid entities on the surrounding tiles from the provided grid entity.
+ *
+ * For example, if a rock was surrounded by rocks on all sides, this would return an array of 8
+ * rocks (e.g. top-left + top + top-right + left + right + bottom-left + bottom + right).
+ */
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
 ): GridEntity[] {
   const room = game.GetRoom();
-  const gridWidth = room.GetGridWidth();
   const gridIndex = gridEntity.GetGridIndex();
 
-  const surroundingGridIndexes: int[] = [
-    gridIndex - 1, // Left
-    gridIndex + 1, // Right
-
-    gridIndex - gridWidth - 1, // Top-left
-    gridIndex - gridWidth, // Top
-    gridIndex - gridWidth + 1, // Top-right
-
-    gridIndex + gridWidth - 1, // Bottom-left
-    gridIndex + gridWidth, // Bottom
-    gridIndex + gridWidth + 1, // Bottom-right
-  ];
+  const surroundingGridIndexes = getSurroundingGridIndexes(gridIndex);
 
   const surroundingGridEntities: GridEntity[] = [];
   for (const surroundingGridIndex of surroundingGridIndexes) {
@@ -377,6 +705,47 @@ export function getSurroundingGridEntities(
   return surroundingGridEntities;
 }
 
+/**
+ * Helper function to get the grid indexes on the surrounding tiles from the provided grid index.
+ *
+ * There are always 8 grid indexes returned (e.g. top-left + top + top-right + left + right +
+ * bottom-left + bottom + right), even if the computed values would be negative or otherwise
+ * invalid.
+ */
+export function getSurroundingGridIndexes(
+  gridIndex: int,
+): [
+  topLeft: int,
+  top: int,
+  topRight: int,
+  left: int,
+  right: int,
+  bottomLeft: int,
+  bottom: int,
+  bottomRight: int,
+] {
+  const room = game.GetRoom();
+  const gridWidth = room.GetGridWidth();
+
+  return [
+    gridIndex - gridWidth - 1, // Top-left
+    gridIndex - gridWidth, // Top
+    gridIndex - gridWidth + 1, // Top-right
+
+    gridIndex - 1, // Left
+    gridIndex + 1, // Right
+
+    gridIndex + gridWidth - 1, // Bottom-left
+    gridIndex + gridWidth, // Bottom
+    gridIndex + gridWidth + 1, // Bottom-right
+  ];
+}
+
+/**
+ * Helper function to get the top left wall in the current room.
+ *
+ * This function can be useful in certain situations to determine if the room is currently loaded.
+ */
 export function getTopLeftWall(): GridEntity | undefined {
   const room = game.GetRoom();
   const topLeftWallGridIndex = getTopLeftWallGridIndex();
@@ -386,6 +755,8 @@ export function getTopLeftWall(): GridEntity | undefined {
 /**
  * Helper function to get the grid index of the top left wall. (This will depend on what the current
  * room shape is.)
+ *
+ * This function can be useful in certain situations to determine if the room is currently loaded.
  */
 export function getTopLeftWallGridIndex(): int {
   const room = game.GetRoom();
@@ -393,17 +764,14 @@ export function getTopLeftWallGridIndex(): int {
 
   const topLeftWallGridIndex =
     ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP.get(roomShape);
-  return topLeftWallGridIndex === undefined
-    ? DEFAULT_TOP_LEFT_WALL_GRID_INDEX
-    : topLeftWallGridIndex;
+  return topLeftWallGridIndex ?? DEFAULT_TOP_LEFT_WALL_GRID_INDEX;
 }
 
 /**
- * Helper function to see if the provided gridEntity is in its respective broken state. See the
- * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
+ * Helper function to detect if a particular grid entity would "break" if it was touched by an
+ * explosion.
  *
- * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
- * the actual collision for the entity is removed.
+ * For example, rocks and pots are breakable by explosions, but blocks are not.
  */
 export function isGridEntityBreakableByExplosion(
   gridEntity: GridEntity,
@@ -421,9 +789,11 @@ export function isGridEntityBreakableByExplosion(
 }
 
 /**
- * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
- * defeated or is one that naturally spawns in the room after Hush. (This is determined by looking
- * at the VarData of the entity.)
+ * Helper function to see if the provided grid entity is in its respective broken state. See the
+ * `GRID_ENTITY_TYPE_TO_BROKEN_STATE_MAP` constant for more details.
+ *
+ * Note that in the case of `GridEntityType.LOCK` (11), the state will turn to being broken before
+ * the actual collision for the entity is removed.
  */
 export function isGridEntityBroken(gridEntity: GridEntity): boolean {
   const gridEntityType = gridEntity.GetType();
@@ -432,14 +802,58 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
 }
 
 /**
- * Helper function to determine if all of the pressure plates in the current room are pushed.
- * Returns true if there are no pressure plates in the room.
+ * Helper function to see if an arbitrary number is a valid `GridEntityXMLType`. This is useful in
+ * the `PRE_ROOM_ENTITY_SPAWN` callback for narrowing the type of the first argument.
+ */
+export function isGridEntityXMLType(num: number): num is GridEntityXMLType {
+  return GRID_ENTITY_XML_TYPES_SET.has(num); // eslint-disable-line isaacscript/strict-enums
+}
+
+/**
+ * Helper function to check if the provided grid index has a door on it or if the surrounding 8 grid
+ * indexes have a door on it.
+ */
+export function isGridIndexAdjacentToDoor(gridIndex: int): boolean {
+  const room = game.GetRoom();
+  const surroundingGridIndexes = getSurroundingGridIndexes(gridIndex);
+  const gridIndexes = [gridIndex, ...surroundingGridIndexes];
+
+  for (const gridIndexToInspect of gridIndexes) {
+    const gridEntity = room.GetGridEntity(gridIndexToInspect);
+    if (gridEntity !== undefined) {
+      const door = gridEntity.ToDoor();
+      if (door !== undefined) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+/** Helper function to see if a `GridEntityXMLType` is some kind of poop. */
+export function isPoopGridEntityXMLType(
+  gridEntityXMLType: GridEntityXMLType,
+): boolean {
+  return POOP_GRID_ENTITY_XML_TYPES_SET.has(gridEntityXMLType);
+}
+
+/**
+ * Helper function to detect whether a given Void Portal is one that randomly spawns after a boss is
+ * defeated or is one that naturally spawns in the room after Hush.
+ *
+ * Under the hood, this is determined by looking at the `VarData` of the entity:
+ * - The `VarData` of Void Portals that are spawned after bosses will be equal to 1.
+ * - The `VarData` of the Void Portal in the room after Hush is equal to 0.
  */
 export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
-  // - The VarData of Void Portals that are spawned after bosses will be equal to 1.
-  // - The VarData of the Void Portal in the room after Hush is equal to 0.
   const saveState = gridEntity.GetSaveState();
-  return saveState.VarData === 1;
+
+  return (
+    saveState.Type === GridEntityType.TRAPDOOR &&
+    saveState.Variant === TrapdoorVariant.VOID_PORTAL &&
+    saveState.VarData === 1
+  );
 }
 
 /**
@@ -463,7 +877,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
 export function removeAllGridEntitiesExcept(
   ...gridEntityTypes: GridEntityType[]
 ): GridEntity[] {
-  const gridEntityTypeExceptions = new Set(gridEntityTypes);
+  const gridEntityTypeExceptions = new ReadonlySet(gridEntityTypes);
   const gridEntities = getGridEntities();
   const removedGridEntities: GridEntity[] = [];
   for (const gridEntity of gridEntities) {
@@ -539,7 +953,7 @@ export function removeEntitiesSpawnedFromGridEntity(
  * Helper function to remove all of the grid entities in the supplied array.
  *
  * @param gridEntities The array of grid entities to remove.
- * @param updateRoom Whether or not to update the room after the grid entities are removed. This is
+ * @param updateRoom Whether to update the room after the grid entities are removed. This is
  *                   generally a good idea because if the room is not updated, you will be unable to
  *                   spawn another grid entity on the same tile until a frame has passed. However,
  *                   doing this is expensive, since it involves a call to `Isaac.GetRoomEntities`,
@@ -581,11 +995,11 @@ export function removeGridEntities<T extends AnyGridEntity>(
  * (`EffectVariant.DEVIL` (6) or `EffectVariant.ANGEL` (9), respectively.)
  *
  * @param gridEntityOrGridIndex The grid entity or grid index to remove.
- * @param updateRoom Whether or not to update the room after the grid entity is removed. This is
- *                   generally a good idea because if the room is not updated, you will be unable to
- *                   spawn another grid entity on the same tile until a frame has passed. However,
- *                   doing this is expensive, since it involves a call to `Isaac.GetRoomEntities`,
- *                   so set this to false if you need to run this function multiple times.
+ * @param updateRoom Whether to update the room after the grid entity is removed. This is generally
+ *                   a good idea because if the room is not updated, you will be unable to spawn
+ *                   another grid entity on the same tile until a frame has passed. However, doing
+ *                   this is expensive, since it involves a call to `Isaac.GetRoomEntities`, so set
+ *                   this to false if you need to run this function multiple times.
  */
 export function removeGridEntity(
   gridEntityOrGridIndex: GridEntity | int,
@@ -593,7 +1007,7 @@ export function removeGridEntity(
 ): void {
   const room = game.GetRoom();
 
-  const gridEntity = isNumber(gridEntityOrGridIndex)
+  const gridEntity = isInteger(gridEntityOrGridIndex)
     ? room.GetGridEntity(gridEntityOrGridIndex)
     : gridEntityOrGridIndex;
   if (gridEntity === undefined) {
@@ -605,7 +1019,7 @@ export function removeGridEntity(
   const variant = gridEntity.GetVariant();
   const position = gridEntity.Position;
 
-  const gridIndex = isNumber(gridEntityOrGridIndex)
+  const gridIndex = isInteger(gridEntityOrGridIndex)
     ? gridEntityOrGridIndex
     : gridEntityOrGridIndex.GetGridIndex();
   room.RemoveGridEntity(gridIndex, 0, false);
@@ -630,21 +1044,55 @@ export function removeGridEntity(
 }
 
 /**
- * Helper function to make a grid entity invisible. This is accomplished by setting its sprite to an
- * empty/missing PNG file.
+ * Helper function to make a grid entity invisible. This is accomplished by resetting the sprite.
  *
- * For more information, see the documentation for the `clearSprite` helper function.
+ * Note that this function is destructive such that once you make a grid entity invisible, it can no
+ * longer become visible. (This is because the information about the sprite is lost when it is
+ * reset.)
  */
 export function setGridEntityInvisible(gridEntity: GridEntity): void {
   const sprite = gridEntity.GetSprite();
-  clearSprite(sprite);
+  sprite.Reset();
+}
+
+/**
+ * Helper function to change the type of a grid entity to another type. Use this instead of the
+ * `GridEntity.SetType` method since that does not properly handle updating the sprite of the grid
+ * entity after the type is changed.
+ *
+ * Setting the new type to `GridEntityType.NULL` (0) will have no effect.
+ */
+export function setGridEntityType(
+  gridEntity: GridEntity,
+  gridEntityType: GridEntityType,
+): void {
+  gridEntity.SetType(gridEntityType);
+
+  const sprite = gridEntity.GetSprite();
+  const anm2Path = getGridEntityANM2Path(gridEntityType);
+  if (anm2Path === undefined) {
+    return;
+  }
+
+  sprite.Load(anm2Path, false);
+
+  if (gridEntityType === GridEntityType.ROCK) {
+    const pngPath = getRockPNGPath();
+    sprite.ReplaceSpritesheet(0, pngPath);
+  }
+
+  sprite.LoadGraphics();
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
 }
 
 /**
  * Helper function to spawn a giant poop. This is performed by spawning each of the four quadrant
  * grid entities in the appropriate positions.
+ *
+ * @returns Whether spawning the four quadrants was successful.
  */
-export function spawnGiantPoop(topLeftGridIndex: int): void {
+export function spawnGiantPoop(topLeftGridIndex: int): boolean {
   const room = game.GetRoom();
   const gridWidth = room.GetGridWidth();
 
@@ -652,30 +1100,58 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
   const bottomLeftGridIndex = topLeftGridIndex + gridWidth;
   const bottomRightGridIndex = bottomLeftGridIndex + 1;
 
-  spawnGridEntityWithVariant(
+  // First, check to see if all of the tiles are open.
+  for (const gridIndex of [
+    topLeftGridIndex,
+    topRightGridIndex,
+    bottomLeftGridIndex,
+    bottomRightGridIndex,
+  ]) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity !== undefined) {
+      return false;
+    }
+  }
+
+  const topLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_TOP_LEFT,
+    PoopGridEntityVariant.GIANT_TOP_LEFT,
     topLeftGridIndex,
   );
-  spawnGridEntityWithVariant(
+  const topRight = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_TOP_RIGHT,
+    PoopGridEntityVariant.GIANT_TOP_RIGHT,
     topRightGridIndex,
   );
-  spawnGridEntityWithVariant(
+  const bottomLeft = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_BOTTOM_LEFT,
+    PoopGridEntityVariant.GIANT_BOTTOM_LEFT,
     bottomLeftGridIndex,
   );
-  spawnGridEntityWithVariant(
+  const bottomRight = spawnGridEntityWithVariant(
     GridEntityType.POOP,
-    PoopGridEntityVariant.GIGA_BOTTOM_RIGHT,
+    PoopGridEntityVariant.GIANT_BOTTOM_RIGHT,
     bottomRightGridIndex,
+  );
+
+  return (
+    topLeft !== undefined &&
+    topLeft.GetType() === GridEntityType.POOP &&
+    topLeft.GetVariant() === PoopGridEntityVariant.GIANT_TOP_LEFT &&
+    topRight !== undefined &&
+    topRight.GetType() === GridEntityType.POOP &&
+    topRight.GetVariant() === PoopGridEntityVariant.GIANT_TOP_RIGHT &&
+    bottomLeft !== undefined &&
+    bottomLeft.GetType() === GridEntityType.POOP &&
+    bottomLeft.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_LEFT &&
+    bottomRight !== undefined &&
+    bottomRight.GetType() === GridEntityType.POOP &&
+    bottomRight.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_RIGHT
   );
 }
 
 /**
- * Helper function to spawn a grid entity.
+ * Helper function to spawn a grid entity with a specific type.
  *
  * This function assumes you want to give the grid entity a variant of 0. If you want to specify a
  * variant, use the `spawnGridEntityWithVariant` helper function instead.
@@ -684,12 +1160,27 @@ export function spawnGiantPoop(topLeftGridIndex: int): void {
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify either the grid index or the position
+ *
+ * @param gridEntityType The `GridEntityType` to use.
+ * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
+ *                            entity at. If a position is specified, the closest grid index will be
+ *                            used.
+ * @param removeExistingGridEntity Optional. Whether to remove the existing grid entity on the same
+ *                                 tile, if it exists. Defaults to true. If false, this function
+ *                                 will do nothing, since spawning a grid entity on top of another
+ *                                 grid entity will not replace it.
  */
 export function spawnGridEntity(
   gridEntityType: GridEntityType,
   gridIndexOrPosition: int | Vector,
+  removeExistingGridEntity = true,
 ): GridEntity | undefined {
-  return spawnGridEntityWithVariant(gridEntityType, 0, gridIndexOrPosition);
+  return spawnGridEntityWithVariant(
+    gridEntityType,
+    0,
+    gridIndexOrPosition,
+    removeExistingGridEntity,
+  );
 }
 
 /**
@@ -699,11 +1190,22 @@ export function spawnGridEntity(
  * - handles giving pits collision
  * - removes existing grid entities on the same tile, if any
  * - allows you to specify the grid index or the position
+ *
+ * @param gridEntityType The `GridEntityType` to use.
+ * @param variant The variant to use.
+ * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
+ *                            entity at. If a position is specified, the closest grid index will be
+ *                            used.
+ * @param removeExistingGridEntity Optional. Whether to remove the existing grid entity on the same
+ *                                 tile, if it exists. Defaults to true. If false, this function
+ *                                 will do nothing, since spawning a grid entity on top of another
+ *                                 grid entity will not replace it.
  */
 export function spawnGridEntityWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
   gridIndexOrPosition: int | Vector,
+  removeExistingGridEntity = true,
 ): GridEntity | undefined {
   const room = game.GetRoom();
 
@@ -711,7 +1213,11 @@ export function spawnGridEntityWithVariant(
     ? room.GetGridEntityFromPos(gridIndexOrPosition)
     : room.GetGridEntity(gridIndexOrPosition);
   if (existingGridEntity !== undefined) {
-    removeGridEntity(existingGridEntity, true);
+    if (removeExistingGridEntity) {
+      removeGridEntity(existingGridEntity, true);
+    } else {
+      return;
+    }
   }
 
   const position = isVector(gridIndexOrPosition)
@@ -723,14 +1229,14 @@ export function spawnGridEntityWithVariant(
   }
 
   if (gridEntityType === GridEntityType.PIT) {
-    // For some reason, spawned pits start with a collision class of NONE, so we have to manually
+    // For some reason, spawned pits start with a collision class of `NONE`, so we have to manually
     // set it.
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       pit.UpdateCollision();
     }
   } else if (gridEntityType === GridEntityType.WALL) {
-    // For some reason, spawned walls start with a collision class of NONE, so we have to manually
+    // For some reason, spawned walls start with a collision class of `NONE`, so we have to manually
     // set it.
     gridEntity.CollisionClass = GridCollisionClass.WALL;
   }

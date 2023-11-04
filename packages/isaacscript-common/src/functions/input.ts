@@ -4,11 +4,12 @@ import {
   ControllerIndex,
   Keyboard,
 } from "isaac-typescript-definitions";
-import { KEYBOARD_TO_STRING } from "../maps/keyboardToString";
-import { getEnumValues } from "./enums";
+import { CONTROLLER_INDEX_VALUES } from "../arrays/cachedEnumValues";
+import { KEYBOARD_TO_STRING_MAP } from "../maps/keyboardToStringMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { trimPrefix } from "./string";
 
-const MODIFIER_KEYS: readonly Keyboard[] = [
+export const MODIFIER_KEYS = [
   Keyboard.LEFT_SHIFT, // 340
   Keyboard.LEFT_CONTROL, // 341
   Keyboard.LEFT_ALT, // 342
@@ -17,36 +18,39 @@ const MODIFIER_KEYS: readonly Keyboard[] = [
   Keyboard.RIGHT_CONTROL, // 345
   Keyboard.RIGHT_ALT, // 346
   Keyboard.RIGHT_SUPER, // 347
-];
+] as const;
 
-const MOVEMENT_ACTIONS: readonly ButtonAction[] = [
+export const MOVEMENT_BUTTON_ACTIONS = [
   ButtonAction.LEFT, // 0
   ButtonAction.RIGHT, // 1
   ButtonAction.UP, // 2
   ButtonAction.DOWN, // 3
-];
+] as const;
 
-const MOVEMENT_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
-  MOVEMENT_ACTIONS,
+export const MOVEMENT_BUTTON_ACTIONS_SET = new ReadonlySet<ButtonAction>(
+  MOVEMENT_BUTTON_ACTIONS,
 );
 
-const SHOOTING_ACTIONS: readonly ButtonAction[] = [
+export const SHOOTING_BUTTON_ACTIONS = [
   ButtonAction.SHOOT_LEFT, // 4
   ButtonAction.SHOOT_RIGHT, // 5
   ButtonAction.SHOOT_UP, // 6
   ButtonAction.SHOOT_DOWN, // 7
-];
+] as const;
 
-const SHOOTING_ACTIONS_SET: ReadonlySet<ButtonAction> = new Set(
-  SHOOTING_ACTIONS,
+export const SHOOTING_BUTTON_ACTIONS_SET = new ReadonlySet<ButtonAction>(
+  SHOOTING_BUTTON_ACTIONS,
 );
 
 /**
  * Helper function to get the enum name for the specified `Controller` value. Note that this will
  * trim off the "BUTTON_" prefix.
+ *
+ * Returns undefined if the submitted controller value was not valid.
  */
 export function controllerToString(controller: Controller): string | undefined {
   const key = Controller[controller];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (key === undefined) {
     return undefined;
   }
@@ -54,37 +58,96 @@ export function controllerToString(controller: Controller): string | undefined {
   return trimPrefix(key, "BUTTON_");
 }
 
-export function getMoveActions(): ReadonlySet<ButtonAction> {
-  return MOVEMENT_ACTIONS_SET;
-}
-
-export function getShootActions(): ReadonlySet<ButtonAction> {
-  return SHOOTING_ACTIONS_SET;
-}
-
-/** Iterates over all inputs to determine if a particular button is pressed (i.e. held down). */
-export function isActionPressedOnAnyInput(buttonAction: ButtonAction): boolean {
-  const controllerIndexes = getEnumValues(ControllerIndex);
-  return controllerIndexes.some((controllerIndex) =>
+/**
+ * Helper function to get the movement actions that the specified `ControllerIndex` is currently
+ * pressing down. This returns an array because a player can be holding down more than one movement
+ * key at a time.
+ */
+export function getMoveButtonActions(
+  controllerIndex: ControllerIndex,
+): ButtonAction[] {
+  return MOVEMENT_BUTTON_ACTIONS.filter((buttonAction) =>
     Input.IsActionPressed(buttonAction, controllerIndex),
   );
 }
 
 /**
- * Iterates over all inputs to determine if a particular button is triggered (i.e. held down and
- * then released).
+ * Helper function to get the shooting actions that the specified `ControllerIndex` is currently
+ * pressing down. This returns an array because a player can be holding down more than one shooting
+ * key at a time.
  */
-export function isActionTriggeredOnAnyInput(
-  buttonAction: ButtonAction,
+export function getShootButtonActions(
+  controllerIndex: ControllerIndex,
+): ButtonAction[] {
+  return SHOOTING_BUTTON_ACTIONS.filter((buttonAction) =>
+    Input.IsActionPressed(buttonAction, controllerIndex),
+  );
+}
+
+/**
+ * Helper function to check if a player is pressing a specific button (i.e. holding it down).
+ *
+ * This is a variadic version of `Input.IsActionPressed`, meaning that you can pass as many buttons
+ * as you want to check for. This function will return true if any of the buttons are pressed.
+ */
+export function isActionPressed(
+  controllerIndex: ControllerIndex,
+  ...buttonActions: ButtonAction[]
 ): boolean {
-  const controllerIndexes = getEnumValues(ControllerIndex);
-  return controllerIndexes.some((controllerIndex) =>
+  return buttonActions.some((buttonAction) =>
+    Input.IsActionPressed(buttonAction, controllerIndex),
+  );
+}
+
+/**
+ * Helper function to iterate over all inputs to determine if a specific button is pressed (i.e.
+ * being held down).
+ *
+ * This function is variadic, meaning you can pass as many buttons as you want to check for. This
+ * function will return true if any of the buttons are pressed.
+ */
+export function isActionPressedOnAnyInput(
+  ...buttonActions: ButtonAction[]
+): boolean {
+  return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
+    isActionPressed(controllerIndex, ...buttonActions),
+  );
+}
+
+/**
+ * Helper function to check if a player is triggering a specific button (i.e. pressing and releasing
+ * it).
+ *
+ * This is a variadic version of `Input.IsActionTriggered`, meaning that you can pass as many
+ * buttons as you want to check for. This function will return true if any of the buttons are
+ * triggered.
+ */
+export function isActionTriggered(
+  controllerIndex: ControllerIndex,
+  ...buttonActions: ButtonAction[]
+): boolean {
+  return buttonActions.some((buttonAction) =>
     Input.IsActionTriggered(buttonAction, controllerIndex),
   );
 }
 
 /**
- * Helper function to see if a particular keyboard key is being pressed down by the player.
+ * Iterates over all inputs to determine if a specific button is triggered (i.e. held down and then
+ * released).
+ *
+ * This function is variadic, meaning you can pass as many buttons as you want to check for. This
+ * function will return true if any of the buttons are pressed.
+ */
+export function isActionTriggeredOnAnyInput(
+  ...buttonActions: ButtonAction[]
+): boolean {
+  return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
+    isActionTriggered(controllerIndex, ...buttonActions),
+  );
+}
+
+/**
+ * Helper function to see if a specific keyboard key is being held down by the player.
  *
  * This function is variadic, meaning you can pass as many keyboard values as you want to check for.
  * This function will return true if any of the values are pressed.
@@ -105,33 +168,55 @@ export function isModifierKeyPressed(): boolean {
 }
 
 export function isMoveAction(buttonAction: ButtonAction): boolean {
-  return MOVEMENT_ACTIONS_SET.has(buttonAction);
+  return MOVEMENT_BUTTON_ACTIONS_SET.has(buttonAction);
+}
+
+export function isMoveActionPressed(controllerIndex: ControllerIndex): boolean {
+  return isActionPressed(controllerIndex, ...MOVEMENT_BUTTON_ACTIONS);
 }
 
 export function isMoveActionPressedOnAnyInput(): boolean {
-  return MOVEMENT_ACTIONS.some((moveAction) =>
+  return MOVEMENT_BUTTON_ACTIONS.some((moveAction) =>
     isActionPressedOnAnyInput(moveAction),
   );
 }
 
+export function isMoveActionTriggered(
+  controllerIndex: ControllerIndex,
+): boolean {
+  return isActionTriggered(controllerIndex, ...MOVEMENT_BUTTON_ACTIONS);
+}
+
 export function isMoveActionTriggeredOnAnyInput(): boolean {
-  return MOVEMENT_ACTIONS.some((moveAction) =>
+  return MOVEMENT_BUTTON_ACTIONS.some((moveAction) =>
     isActionTriggeredOnAnyInput(moveAction),
   );
 }
 
 export function isShootAction(buttonAction: ButtonAction): boolean {
-  return SHOOTING_ACTIONS_SET.has(buttonAction);
+  return SHOOTING_BUTTON_ACTIONS_SET.has(buttonAction);
+}
+
+export function isShootActionPressed(
+  controllerIndex: ControllerIndex,
+): boolean {
+  return isActionPressed(controllerIndex, ...SHOOTING_BUTTON_ACTIONS);
 }
 
 export function isShootActionPressedOnAnyInput(): boolean {
-  return SHOOTING_ACTIONS.some((shootAction) =>
+  return SHOOTING_BUTTON_ACTIONS.some((shootAction) =>
     isActionPressedOnAnyInput(shootAction),
   );
 }
 
+export function isShootActionTriggered(
+  controllerIndex: ControllerIndex,
+): boolean {
+  return isActionTriggered(controllerIndex, ...SHOOTING_BUTTON_ACTIONS);
+}
+
 export function isShootActionTriggeredOnAnyInput(): boolean {
-  return SHOOTING_ACTIONS.some((shootAction) =>
+  return SHOOTING_BUTTON_ACTIONS.some((shootAction) =>
     isActionTriggeredOnAnyInput(shootAction),
   );
 }
@@ -148,7 +233,7 @@ export function keyboardToString(
   keyboard: Keyboard,
   uppercase: boolean,
 ): string | undefined {
-  const tuple = KEYBOARD_TO_STRING.get(keyboard);
+  const tuple = KEYBOARD_TO_STRING_MAP.get(keyboard);
   if (tuple === undefined) {
     return undefined;
   }

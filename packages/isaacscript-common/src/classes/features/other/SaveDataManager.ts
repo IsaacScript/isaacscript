@@ -1,20 +1,19 @@
-import {
-  ActiveSlot,
-  CollectibleType,
-  ModCallback,
-  UseFlag,
-} from "isaac-typescript-definitions";
-import { game } from "../../../core/cachedClasses";
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { SaveDataKey } from "../../../enums/SaveDataKey";
 import { SerializationType } from "../../../enums/SerializationType";
 import { deepCopy } from "../../../functions/deepCopy";
+import { isAfterGameFrame } from "../../../functions/frames";
+import { log } from "../../../functions/log";
 import { onFirstFloor } from "../../../functions/stage";
-import { getTSTLClassName } from "../../../functions/tstlClass";
+import { getTSTLClassName, isTSTLClass } from "../../../functions/tstlClass";
 import { isString, isTable } from "../../../functions/types";
-import { SaveData } from "../../../interfaces/SaveData";
-import { AnyClass } from "../../../types/AnyClass";
+import { assertDefined } from "../../../functions/utils";
+import type { SaveData } from "../../../interfaces/SaveData";
+import type { AnyClass } from "../../../types/AnyClass";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import {
   makeGlowingHourGlassBackup,
@@ -31,7 +30,7 @@ import { saveToDisk } from "./saveDataManager/saveToDisk";
 /** "g" stands for "globals". */
 declare let g: LuaMap<string, SaveData>; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-const NON_USER_DEFINED_CLASS_NAMES: ReadonlySet<string> = new Set([
+const NON_USER_DEFINED_CLASS_NAMES = new ReadonlySet<string>([
   "Map",
   "Set",
   "DefaultMap",
@@ -42,26 +41,29 @@ export class SaveDataManager extends Feature {
    * We store a local reference to the mod object so that we can access the corresponding methods
    * that read and write to the "save#.dat" file.
    */
-  private mod: Mod;
+  private readonly mod: Mod;
 
   /**
    * The save data map is indexed by subscriber name. We use Lua tables instead of TypeScriptToLua
    * Maps for the master map so that we can access the variables via the in-game console when
    * debugging. (TSTL Maps don't expose the map keys as normal keys.)
    */
-  private saveDataMap = new LuaMap<string, SaveData>();
+  private readonly saveDataMap = new LuaMap<string, SaveData>();
 
   /**
    * When mod feature data is initialized, we copy the initial values into a separate map so that we
    * can restore them later on.
    */
-  private saveDataDefaultsMap = new LuaMap<string, SaveData>();
+  private readonly saveDataDefaultsMap = new LuaMap<string, SaveData>();
 
   /**
-   * Each mod feature can optionally provide a function that can control whether or not the save
-   * data is written to disk.
+   * Each mod feature can optionally provide a function that can control whether the save data is
+   * written to disk.
    */
-  private saveDataConditionalFuncMap = new LuaMap<string, () => boolean>();
+  private readonly saveDataConditionalFuncMap = new LuaMap<
+    string,
+    () => boolean
+  >();
 
   /**
    * We backup some save data keys on every new room for the purposes of restoring it when Glowing
@@ -70,16 +72,16 @@ export class SaveDataManager extends Feature {
    * Note that the save data is backed up in serialized form so that we can use the `merge` function
    * to restore it.
    */
-  private saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
+  private readonly saveDataGlowingHourGlassMap = new LuaMap<string, SaveData>();
 
   /**
    * End-users can register their classes with the save data manager for proper serialization when
    * contained in nested maps, sets, and arrays.
    */
-  private classConstructors = new LuaMap<string, AnyClass>();
+  private readonly classConstructors = new LuaMap<string, AnyClass>();
 
   // Other variables
-  private loadedDataOnThisRun = false;
+  private inARun = false;
   private restoreGlowingHourGlassDataOnNextRoom = false;
 
   /** @internal */
@@ -87,17 +89,27 @@ export class SaveDataManager extends Feature {
     super();
 
     this.callbacksUsed = [
+      // 3
       [
         ModCallback.POST_USE_ITEM,
-        [this.postUseItemGlowingHourGlass, CollectibleType.GLOWING_HOUR_GLASS],
-      ], // 3
-      [ModCallback.POST_PLAYER_INIT, [this.postPlayerInit]], // 9
-      [ModCallback.PRE_GAME_EXIT, [this.preGameExit]], // 17
-      [ModCallback.POST_NEW_LEVEL, [this.postNewLevel]], // 18
+        this.postUseItemGlowingHourGlass,
+        [CollectibleType.GLOWING_HOUR_GLASS],
+      ],
+
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+
+      // 17
+      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
+
+      // 18
+      // We want to avoid a needless dependency on the `GameReorderedCallbacks` feature.
+      // eslint-disable-next-line deprecation/deprecation
+      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_EARLY, [this.postNewRoomEarly]],
+      [ModCallbackCustom.POST_NEW_ROOM_EARLY, this.postNewRoomEarly],
     ];
 
     this.mod = mod;
@@ -105,7 +117,7 @@ export class SaveDataManager extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
-  private postUseItemGlowingHourGlass = (
+  private readonly postUseItemGlowingHourGlass = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     _player: EntityPlayer,
@@ -118,23 +130,22 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallback.POST_PLAYER_INIT (9)
-  private postPlayerInit = (_player: EntityPlayer): void => {
+  private readonly postPlayerInit = (_player: EntityPlayer): void => {
     // We want to only load data once per run to handle the case of a player using Genesis, a second
     // player joining the run, and so on.
-    if (this.loadedDataOnThisRun) {
+    if (this.inARun) {
       return;
     }
-    this.loadedDataOnThisRun = true;
+    this.inARun = true;
 
-    // Handle the race-condition of using the Glowing Hour Glass and then resetting the run.
+    // Handle the race-condition of using the Glowing Hourglass and then resetting the run.
     this.restoreGlowingHourGlassDataOnNextRoom = false;
 
     // We want to unconditionally load save data on every new run since there might be persistent
     // data that is not tied to an individual run.
     loadFromDisk(this.mod, this.saveDataMap, this.classConstructors);
 
-    const gameFrameCount = game.GetFrameCount();
-    const isContinued = gameFrameCount !== 0;
+    const isContinued = isAfterGameFrame(0);
     if (!isContinued) {
       restoreDefaultsForAllFeaturesAndKeys(
         this.saveDataMap,
@@ -147,20 +158,23 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallback.PRE_GAME_EXIT (17)
-  private preGameExit = (): void => {
+  private readonly preGameExit = (): void => {
     // We unconditionally save variables to disk (because regardless of a save & quit or a death,
     // persistent variables should be recorded).
     saveToDisk(this.mod, this.saveDataMap, this.saveDataConditionalFuncMap);
 
-    restoreDefaultsForAllFeaturesAndKeys(
-      this.saveDataMap,
-      this.saveDataDefaultsMap,
-    );
-    this.loadedDataOnThisRun = false;
+    // Mark that we are going to the menu. (Technically, the `POST_ENTITY_REMOVE` callback may fire
+    // before actually going to the menu, but that must be explicitly handled.)
+    this.inARun = false;
+
+    // At this point, we could blow away the existing save data or restore defaults, but it is not
+    // necessary since we will have to do it again in the `POST_PLAYER_INIT` callback. Furthermore,
+    // the `POST_ENTITY_REMOVE` callback may fire after the `PRE_GAME_EXIT` callback, so wiping data
+    // now could result in bugs for features that depend on that (e.g. `PickupIndexCreation`).
   };
 
   // ModCallback.POST_NEW_LEVEL (18)
-  private postNewLevel = (): void => {
+  private readonly postNewLevel = (): void => {
     restoreDefaultsForAllFeaturesKey(
       this.saveDataMap,
       this.saveDataDefaultsMap,
@@ -175,14 +189,14 @@ export class SaveDataManager extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_EARLY
-  private postNewRoomEarly = (): void => {
+  private readonly postNewRoomEarly = (): void => {
     restoreDefaultsForAllFeaturesKey(
       this.saveDataMap,
       this.saveDataDefaultsMap,
       SaveDataKey.ROOM,
     );
 
-    // Handle the Glowing Hour Glass.
+    // Handle the Glowing Hourglass.
     if (this.restoreGlowingHourGlassDataOnNextRoom) {
       this.restoreGlowingHourGlassDataOnNextRoom = false;
       restoreGlowingHourGlassBackup(
@@ -203,24 +217,24 @@ export class SaveDataManager extends Feature {
   /**
    * This is the entry point to the save data manager, a system which provides two major features:
    *
-   * 1. automatic resetting of variables on a new run, on a new level, or on a new room (as desired)
-   * 2. automatic saving and loading of all tracked data to the "save#.dat" file
+   * 1. Automatic resetting of variables on a new run, on a new level, or on a new room (as
+   *    desired).
+   * 2. Automatic saving and loading of all tracked data to the "save#.dat" file.
    *
-   * You feed this function with an object containing your variables, and then it will automatically
-   * manage them for you. (See below for an example.)
+   * You provide this function with an object containing your variables, and then it will
+   * automatically manage them for you. (See below for an example.)
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
    * (Upgrade your mod before registering any of your own callbacks so that the save data manager
    * will run before any of your code does.)
    *
    * The save data manager is meant to be called once for each feature of your mod. In other words,
-   * you should not put all of the data for your mod on the same object. Instead, scope your
+   * you should not put all of the variables for your mod on the same object. Instead, scope your
    * variables locally to a single file that contains a mod feature, and then call this function to
    * register them. For example:
    *
    * ```ts
    * // In file: feature1.ts
-   * import { saveDataManager } from "isaacscript-common";
    *
    * // Declare local variables for this file or feature.
    * const v = {
@@ -244,13 +258,12 @@ export class SaveDataManager extends Feature {
    *     foo4: 0,
    *   },
    * };
-   * // Every child object is optional; only create the ones that you need.
+   * // The child objects of "persistent", "run", "level", and "room are optional; only create the
+   * // ones that you need.
    *
-   * // Register the variables with the save data manager. (We need to provide a string key that
-   * // matches the name of this file.)
-   * function feature1Init() {
-   *   saveDataManager("feature1", v);
-   * }
+   * // Now, give `v` to the save data manager, and it will automatically manage the variables for
+   * // you.
+   * mod.saveDataManager("feature1", v);
    *
    * // Elsewhere in the file, use your variables.
    * function feature1Function() {
@@ -277,15 +290,19 @@ export class SaveDataManager extends Feature {
    * saved to disk on game exit. (For example, if they contain functions or other non-serializable
    * data.) For these cases, set the second argument to `false`.
    *
-   * Note that when the player uses Glowing Hour Glass, the save data manager will automatically
+   * Note that when the player uses Glowing Hourglass, the save data manager will automatically
    * restore any variables on a "run" or "level" object with a backup that was created when the room
-   * was entered. Thus, you should not have to explicitly program support for Glowing Hour Glass
-   * into your mod features that use the save data manager. If this is undesired for your specific
+   * was entered. Thus, you should not have to explicitly program support for Glowing Hourglass into
+   * your mod features that use the save data manager. If this is undesired for your specific
    * use-case, then add a key of `__ignoreGlowingHourGlass: true` to your "run" or "level" object.
+   *
+   * If you want the automatic variable restoring with Glowing Hour Glass functionality to apply to
+   * a "persistent" object, you can add a key of `__rewindWithGlowingHourGlass: true` to the object.
    *
    * @param key The name of the file or feature that is submitting data to be managed by the save
    *            data manager. The save data manager will throw an error if the key is already
-   *            registered.
+   *            registered. Note that you can also pass a TSTL class instead of a string and the
+   *            save data manager will use the name of the class as the key.
    * @param v An object that corresponds to the `SaveData` interface. The object is conventionally
    *          called "v" for brevity. ("v" is short for "local variables").
    * @param conditionalFunc Optional. A function to run to check if this save data should be written
@@ -298,25 +315,37 @@ export class SaveDataManager extends Feature {
    *                        data. (Specifying `false` will allow you to use non-serializable objects
    *                        in your save data, such as `EntityPtr`.
    */
+  // This is the overload for the standard case with serializable data.
   public saveDataManager<Persistent, Run, Level>(
-    key: string, // This is the overload for the standard case with serializable data.
+    key: string | object,
     v: SaveData<Persistent, Run, Level>,
     conditionalFunc?: () => boolean,
   ): void;
+  // This is the overload for the case when saving data is disabled.
   public saveDataManager(
-    key: string, // This is the overload for the case when saving data is disabled.
+    key: string | object,
     v: SaveData,
     conditionalFunc: false,
   ): void;
   @Exported
   public saveDataManager<Persistent, Run, Level>(
-    key: string,
+    key: string | object,
     v: SaveData<Persistent, Run, Level>,
     conditionalFunc?: (() => boolean) | false,
   ): void {
+    if (isTSTLClass(key)) {
+      const className = getTSTLClassName(key);
+      assertDefined(
+        className,
+        'Failed to get the class name for the submitted class (as part of the "key" parameter) when registering new data with the save data manager.',
+      );
+
+      key = className;
+    }
+
     if (!isString(key)) {
       error(
-        `The save data manager requires that keys are strings. You tried to use a key of type: ${typeof key}`,
+        `The save data manager requires that keys are strings or TSTL classes. You tried to use a key of type: ${typeof key}`,
       );
     }
 
@@ -432,12 +461,11 @@ export class SaveDataManager extends Feature {
   public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
     for (const tstlClass of tstlClasses) {
       const { name } = tstlClass;
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (name === undefined) {
-        error(
-          "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
-        );
-      }
+      assertDefined(
+        // Since we are accepting untrusted user input, this might not be a real TSTL class.
+        name as string | undefined,
+        "Failed to register a class with the save data manager due to not being able to derive the name of the class.",
+      );
 
       this.classConstructors.set(name, tstlClass);
     }
@@ -501,11 +529,10 @@ export class SaveDataManager extends Feature {
     }
 
     const saveData = this.saveDataMap.get(key);
-    if (saveData === undefined) {
-      error(
-        `The save data manager is not managing save data for a key of: ${key}`,
-      );
-    }
+    assertDefined(
+      saveData,
+      `The save data manager is not managing save data for a key of: ${key}`,
+    );
 
     restoreDefaultForFeatureKey(
       this.saveDataDefaultsMap,
@@ -513,5 +540,33 @@ export class SaveDataManager extends Feature {
       saveData,
       childObjectKey,
     );
+  }
+
+  /**
+   * Helper function to check to see if the game is in the menu, as far as the save data manager is
+   * concerned. This function will return true when the game is first opened until the
+   * `POST_PLAYER_INIT` callback fires. It will also return true in between the `PRE_GAME_EXIT`
+   * callback firing and the `POST_PLAYER_INIT` callback firing.
+   *
+   * This function is useful because the `POST_ENTITY_REMOVE` callback fires after the
+   * `PRE_GAME_EXIT` callback. Thus, if save data needs to be updated from the `POST_ENTITY_REMOVE`
+   * callback and the player is in the process of saving and quitting, the feature will have to
+   * explicitly call the `saveDataManagerSave` function.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   */
+  @Exported
+  public saveDataManagerInMenu(): boolean {
+    return !this.inARun;
+  }
+
+  @Exported
+  public saveDataManagerLogSubscribers(): void {
+    log("List of save data manager subscribers:");
+    const keys = Object.keys(this.saveDataMap);
+    keys.sort();
+    for (const key of keys) {
+      log(`- ${key}`);
+    }
   }
 }

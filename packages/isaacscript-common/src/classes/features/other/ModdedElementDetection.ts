@@ -1,15 +1,12 @@
-import {
+import type {
   CardType,
   CollectibleType,
-  ModCallback,
   PillEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
 import {
-  FIRST_CARD_TYPE,
-  FIRST_PILL_EFFECT,
-  FIRST_TRINKET_TYPE,
   LAST_VANILLA_CARD_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
   LAST_VANILLA_PILL_EFFECT,
@@ -27,7 +24,6 @@ import {
   asPillEffect,
   asTrinketType,
 } from "../../../functions/types";
-import { iRange } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
 
 /**
@@ -48,12 +44,13 @@ export class ModdedElementDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PLAYER_INIT, [this.postPlayerInit]], // 9
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
     ];
   }
 
   // ModCallback.POST_PLAYER_INIT (9)
-  private postPlayerInit = (_player: EntityPlayer) => {
+  private readonly postPlayerInit = () => {
     this.atLeastOneCallbackFired = true;
   };
 
@@ -89,6 +86,7 @@ export class ModdedElementDetection extends Feature {
     const itemConfigItem = itemConfig.GetCollectible(
       firstModdedCollectibleType,
     );
+
     return itemConfigItem === undefined
       ? undefined
       : firstModdedCollectibleType;
@@ -100,6 +98,9 @@ export class ModdedElementDetection extends Feature {
    * Equal to `itemConfig.GetCollectibles().Size - 1`. (`Size` includes invalid collectibles, like
    * 666. We subtract one to account for `CollectibleType.NULL`.)
    *
+   * If there are no mods present that add any custom items, this function will return
+   * `CollectibleType.MOMS_RING` (732).
+   *
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
@@ -110,44 +111,14 @@ export class ModdedElementDetection extends Feature {
   @Exported
   public getLastCollectibleType(): CollectibleType {
     this.errorIfNoCallbacksFired("collectible");
-
     return itemConfig.GetCollectibles().Size - 1;
   }
 
   /**
-   * Helper function to get an array that represents the all modded collectible types.
+   * Returns the total number of collectibles in the item config, including both vanilla and modded
+   * items. If you just need the number of vanilla collectible types, use the
+   * `NUM_VANILLA_COLLECTIBLE_TYPES` constant.
    *
-   * Returns an empty array if there are no modded collectible types.
-   *
-   * This function is only useful when building collectible type objects. For most purposes, you
-   * should use the `getModdedCollectibleArray` or `getModdedCollectibleSet` helper function
-   * instead.
-   *
-   * (This function is named differently from the `getVanillaCollectibleTypeRange` function because
-   * all modded collectible types are contiguous. Thus, each value represents a real
-   * `CollectibleType`.)
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all collectibles will necessarily be present when a mod first loads (due to mod load
-   * order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getModdedCollectibleTypes(): CollectibleType[] {
-    this.errorIfNoCallbacksFired("collectible");
-
-    const firstModdedCollectibleType = this.getFirstModdedCollectibleType();
-    if (firstModdedCollectibleType === undefined) {
-      return [];
-    }
-
-    const lastCollectibleType = this.getLastCollectibleType();
-    return iRange(firstModdedCollectibleType, lastCollectibleType);
-  }
-
-  /**
    * This function can only be called if at least one callback has been executed. This is because
    * not all collectibles will necessarily be present when a mod first loads (due to mod load
    * order).
@@ -208,8 +179,11 @@ export class ModdedElementDetection extends Feature {
   /**
    * Will change depending on how many modded trinkets there are.
    *
-   * This is equal to the number of trinket types, since all trinket types are contiguous (unlike
-   * collectibles).
+   * Equal to `itemConfig.GetTrinkets().Size - 1`. (`Size` includes invalid trinkets, like 47. We
+   * subtract one to account for `TrinketType.NULL`.)
+   *
+   * If there are no mods present that add any custom trinkets, this function will return
+   * `TrinketType.SIGIL_OF_BAPHOMET` (189).
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -220,44 +194,13 @@ export class ModdedElementDetection extends Feature {
   @Exported
   public getLastTrinketType(): TrinketType {
     this.errorIfNoCallbacksFired("trinket");
-
-    const numTrinketTypes = this.getNumTrinketTypes();
-    return asTrinketType(numTrinketTypes);
+    return itemConfig.GetTrinkets().Size - 1;
   }
 
   /**
-   * Helper function to get an array that represents every modded trinket type.
-   *
-   * Returns an empty array if there are no modded trinket types.
-   *
-   * This function is only useful when building collectible type objects. For most purposes, you
-   * should use the `getModdedCollectibleArray` or `getModdedCollectibleSet` helper function
-   * instead.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getModdedTrinketTypes(): TrinketType[] {
-    this.errorIfNoCallbacksFired("trinket");
-
-    const firstModdedTrinketType = this.getFirstModdedTrinketType();
-    if (firstModdedTrinketType === undefined) {
-      return [];
-    }
-
-    const lastTrinketType = this.getLastTrinketType();
-    return iRange(firstModdedTrinketType, lastTrinketType);
-  }
-
-  /**
-   * Will change depending on how many modded trinkets there are.
-   *
-   * Equal to `itemConfig.GetTrinkets().Size - 1`. (We subtract one to account for
-   * `TrinketType.NULL`.)
+   * Returns the total number of trinkets in the item config, including both vanilla and modded
+   * items. If you just need the number of vanilla trinket types, use the
+   * `NUM_VANILLA_TRINKET_TYPES` constant.
    *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
@@ -269,10 +212,13 @@ export class ModdedElementDetection extends Feature {
   public getNumTrinketTypes(): int {
     this.errorIfNoCallbacksFired("trinket");
 
-    return itemConfig.GetTrinkets().Size - 1;
+    const numModdedTrinketTypes = this.getNumModdedTrinketTypes();
+    return NUM_VANILLA_TRINKET_TYPES + numModdedTrinketTypes;
   }
 
   /**
+   * Unlike vanilla trinket types, modded trinket types are always contiguous.
+   *
    * This function can only be called if at least one callback has been executed. This is because
    * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
    *
@@ -283,47 +229,13 @@ export class ModdedElementDetection extends Feature {
   public getNumModdedTrinketTypes(): int {
     this.errorIfNoCallbacksFired("trinket");
 
-    const numTrinketTypes = this.getNumTrinketTypes();
-    return numTrinketTypes - NUM_VANILLA_TRINKET_TYPES;
-  }
-
-  /**
-   * Helper function to get an array that contains every trinket type.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all trinkets will necessarily be present when a mod first loads (due to mod load order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getTrinketTypes(): TrinketType[] {
-    this.errorIfNoCallbacksFired("trinket");
-
     const lastTrinketType = this.getLastTrinketType();
-    return iRange(FIRST_TRINKET_TYPE, lastTrinketType);
+    return lastTrinketType - LAST_VANILLA_TRINKET_TYPE;
   }
 
   // -----
   // Cards
   // -----
-
-  /**
-   * Helper function to get an array with every valid card sub-type. This includes modded cards.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all cards will necessarily be present when a mod first loads (due to mod load order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getAllCardTypes(): CardType[] {
-    this.errorIfNoCallbacksFired("card");
-
-    const lastCardType = this.getLastCardType();
-    return iRange(FIRST_CARD_TYPE, lastCardType);
-  }
 
   /**
    * Returns the first modded card sub-type, or undefined if there are no modded cards.
@@ -341,6 +253,7 @@ export class ModdedElementDetection extends Feature {
     const firstModdedCardType = asCardType(
       asNumber(LAST_VANILLA_CARD_TYPE) + 1,
     );
+
     const itemConfigCard = itemConfig.GetCard(firstModdedCardType);
     return itemConfigCard === undefined ? undefined : firstModdedCardType;
   }
@@ -366,30 +279,6 @@ export class ModdedElementDetection extends Feature {
   }
 
   /**
-   * Helper function to get an array with every modded card sub-type.
-   *
-   * Returns an empty array if there are no modded cards.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all cards will necessarily be present when a mod first loads (due to mod load order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getModdedCardTypes(): CardType[] {
-    this.errorIfNoCallbacksFired("card");
-
-    const firstModdedCardType = this.getFirstModdedCardType();
-    if (firstModdedCardType === undefined) {
-      return [];
-    }
-
-    const lastCardType = this.getLastCardType();
-    return iRange(firstModdedCardType, lastCardType);
-  }
-
-  /**
    * Will change depending on how many modded cards there are.
    *
    * Equal to `itemConfig.GetCards().Size - 1`. (We subtract one to account for `Card.NULL`.)
@@ -403,7 +292,6 @@ export class ModdedElementDetection extends Feature {
   @Exported
   public getNumCardTypes(): int {
     this.errorIfNoCallbacksFired("card");
-
     return itemConfig.GetCards().Size - 1;
   }
 
@@ -427,25 +315,6 @@ export class ModdedElementDetection extends Feature {
   // ------------
 
   /**
-   * Helper function to get an array with every valid pill effect. This includes modded pill
-   * effects.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all pill effects will necessarily be present when a mod first loads (due to mod load
-   * order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getAllPillEffects(): PillEffect[] {
-    this.errorIfNoCallbacksFired("pill");
-
-    const lastPillEffect = this.getLastPillEffect();
-    return iRange(FIRST_PILL_EFFECT, lastPillEffect);
-  }
-
-  /**
    * Returns the first modded pill effect, or undefined if there are no modded pill effects.
    *
    * This function can only be called if at least one callback has been executed. This is because
@@ -465,6 +334,7 @@ export class ModdedElementDetection extends Feature {
     const itemConfigPillEffect = itemConfig.GetPillEffect(
       firstModdedPillEffect,
     );
+
     return itemConfigPillEffect === undefined
       ? undefined
       : firstModdedPillEffect;
@@ -492,31 +362,6 @@ export class ModdedElementDetection extends Feature {
   }
 
   /**
-   * Helper function to get an array with every modded pill effect.
-   *
-   * Returns an empty array if there are no modded pill effects.
-   *
-   * This function can only be called if at least one callback has been executed. This is because
-   * not all pill effects will necessarily be present when a mod first loads (due to mod load
-   * order).
-   *
-   * In order to use this function, you must upgrade your mod with
-   * `ISCFeature.MODDED_ELEMENT_DETECTION`.
-   */
-  @Exported
-  public getModdedPillEffects(): PillEffect[] {
-    this.errorIfNoCallbacksFired("pill");
-
-    const firstModdedPillEffect = this.getFirstModdedPillEffect();
-    if (firstModdedPillEffect === undefined) {
-      return [];
-    }
-
-    const lastPillEffect = this.getLastPillEffect();
-    return iRange(firstModdedPillEffect, lastPillEffect);
-  }
-
-  /**
    * Will change depending on how many modded pill effects there are.
    *
    * Equal to `itemConfig.GetPillEffects().Size`. (We do not have to subtract one, because the first
@@ -532,7 +377,6 @@ export class ModdedElementDetection extends Feature {
   @Exported
   public getNumPillEffects(): int {
     this.errorIfNoCallbacksFired("pill");
-
     return itemConfig.GetPillEffects().Size;
   }
 

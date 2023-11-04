@@ -1,8 +1,7 @@
 import { sumArray } from "../../../../functions/array";
 import { log } from "../../../../functions/log";
 import { getRandomFloat } from "../../../../functions/random";
-import { getRandomSeed } from "../../../../functions/rng";
-import {
+import type {
   CustomStageBossPoolEntry,
   CustomStageRoomMetadata,
 } from "../../../../interfaces/CustomStageTSConfig";
@@ -16,7 +15,7 @@ import {
  */
 export function getRandomCustomStageRoom(
   roomsMetadata: readonly CustomStageRoomMetadata[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): CustomStageRoomMetadata {
   const totalWeight = getTotalWeightOfCustomStageRooms(roomsMetadata);
@@ -59,7 +58,7 @@ function getCustomStageRoomWithChosenWeight(
 export function getRandomBossRoomFromPool(
   roomsMetadata: readonly CustomStageRoomMetadata[],
   bossPool: readonly CustomStageBossPoolEntry[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): CustomStageRoomMetadata {
   const totalWeight = getTotalWeightOfBossPool(bossPool);

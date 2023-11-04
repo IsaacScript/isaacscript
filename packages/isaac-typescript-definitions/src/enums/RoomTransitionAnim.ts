@@ -71,7 +71,7 @@ export enum RoomTransitionAnim {
   WOMB_TELEPORT = 11,
 
   /**
-   * For the Glowing Hour Glass teleport.
+   * For the Glowing Hourglass teleport.
    *
    * Using this animation will ignore the room index and the direction provided.
    */
@@ -115,7 +115,7 @@ export enum RoomTransitionAnim {
    *
    * Ignores the direction, but using `Direction.NO_DIRECTION` will make the fade shorter.
    *
-   * 	The game is paused during the lying down and getting up animation.
+   * The game is paused during the lying down and getting up animation.
    */
   DEATH_CERTIFICATE = 20,
 }

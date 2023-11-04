@@ -1,10 +1,16 @@
-import { CollectibleType, ItemConfigTag } from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
+import { ItemConfigTag } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
+import { isInteger } from "./types";
 
 export function collectibleHasTag(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickupCollectible | CollectibleType,
   tag: ItemConfigTag,
 ): boolean {
+  const collectibleType = isInteger(collectibleOrCollectibleType)
+    ? collectibleOrCollectibleType
+    : collectibleOrCollectibleType.SubType;
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return false;
@@ -13,6 +19,12 @@ export function collectibleHasTag(
   return itemConfigItem.HasTags(tag);
 }
 
-export function isQuestCollectible(collectibleType: CollectibleType): boolean {
+export function isQuestCollectible(
+  collectibleOrCollectibleType: EntityPickupCollectible | CollectibleType,
+): boolean {
+  const collectibleType = isInteger(collectibleOrCollectibleType)
+    ? collectibleOrCollectibleType
+    : collectibleOrCollectibleType.SubType;
+
   return collectibleHasTag(collectibleType, ItemConfigTag.QUEST);
 }

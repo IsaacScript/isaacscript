@@ -21,7 +21,7 @@ export enum Ending {
   MEGA_SATAN = 19,
   BLUE_WOMB = 20,
   GREED_MODE = 21,
-  THE_VOID = 22,
+  VOID = 22,
   GREEDIER = 23,
   MOTHER = 24,
   DOGMA = 25,

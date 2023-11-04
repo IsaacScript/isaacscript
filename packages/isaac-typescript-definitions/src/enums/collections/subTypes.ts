@@ -442,6 +442,22 @@ export enum BatterySubType {
  * For `EntityType.PICKUP` (5), `PickupVariant.COLLECTIBLE` (100).
  *
  * This is the sub-type of a collectible.
+ *
+ * This enum is not contiguous. In other words, the enum ranges from `CollectibleType.NULL` (0) to
+ * `CollectibleType.MOMS_RING` (732), but there is no corresponding `CollectibleType` with the
+ * following values:
+ *
+ * 1. 43 (Pills here)
+ * 2. 61 (Tarot Card)
+ * 3. 235
+ * 4. 587 (Menorah)
+ * 5. 613 (Salt Shaker)
+ * 6. 620 (Voodoo Pin)
+ * 7. 630 (Lucky Seven)
+ * 8. 648 (Pill Crusher)
+ * 9. 662
+ * 10. 666
+ * 11. 718
  */
 export enum CollectibleType {
   /** Spawning collectibles with this sub-type will produce a random collectible. */
@@ -492,6 +508,10 @@ export enum CollectibleType {
   KAMIKAZE = 40,
   MOMS_PAD = 41,
   BOBS_ROTTEN_HEAD = 42,
+
+  // - There is no enum member with a value of 43. (This has a placeholder name of "Pills here" in
+  //   the "items.xml" file.)
+
   TELEPORT = 44,
   YUM_HEART = 45,
   LUCKY_FOOT = 46,
@@ -515,7 +535,11 @@ export enum CollectibleType {
   BOOK_OF_BELIAL_BIRTHRIGHT = 59,
 
   LADDER = 60,
-  CHARM_VAMPIRE = 62,
+
+  // - There is no enum member with a value of 61. (This has a placeholder name of "Tarot Card" in
+  //   the "items.xml" file.)
+
+  CHARM_OF_THE_VAMPIRE = 62,
   BATTERY = 63,
   STEAM_SALE = 64,
   ANARCHIST_COOKBOOK = 65,
@@ -688,6 +712,9 @@ export enum CollectibleType {
   STOP_WATCH = 232,
   TINY_PLANET = 233,
   INFESTATION_2 = 234,
+
+  // - There is no enum member with a value of 235.
+
   E_COLI = 236,
   DEATHS_TOUCH = 237,
   KEY_PIECE_1 = 238,
@@ -1023,7 +1050,7 @@ export enum CollectibleType {
   DIVINE_INTERVENTION = 568,
   BLOOD_OATH = 569,
   PLAYDOUGH_COOKIE = 570,
-  SOCKS = 571,
+  ORPHAN_SOCKS = 571,
   EYE_OF_THE_OCCULT = 572,
   IMMACULATE_HEART = 573,
   MONSTRANCE = 574,
@@ -1039,6 +1066,10 @@ export enum CollectibleType {
   BOOK_OF_VIRTUES = 584,
   ALABASTER_BOX = 585,
   STAIRWAY = 586,
+
+  // - There is no enum member with a value of 587. (This used to be the ID for Menorah before it
+  //   was cut from Repentance.)
+
   SOL = 588,
   LUNA = 589,
   MERCURIUS = 590,
@@ -1064,12 +1095,20 @@ export enum CollectibleType {
   BIRD_CAGE = 610,
   LARYNX = 611,
   LOST_SOUL = 612,
+
+  // - There is no enum member with a value of 613. (This used to be the ID for Salt Shaker before
+  //   it was cut from Repentance.)
+
   BLOOD_BOMBS = 614,
   LIL_DUMPY = 615,
   BIRDS_EYE = 616,
   LODESTONE = 617,
   ROTTEN_TOMATO = 618,
   BIRTHRIGHT = 619,
+
+  // - There is no enum member with a value of 620. (This used to be the ID for Voodoo Pin before it
+  //   was cut from Repentance.)
+
   RED_STEW = 621,
   GENESIS = 622,
   SHARP_KEY = 623,
@@ -1079,6 +1118,10 @@ export enum CollectibleType {
   KNIFE_PIECE_2 = 627,
   DEATH_CERTIFICATE = 628,
   BOT_FLY = 629,
+
+  // - There is no enum member with a value of 630. (This used to be the ID for Lucky Seven before
+  //   it was cut from Repentance.)
+
   MEAT_CLEAVER = 631,
   EVIL_CHARM = 632,
   DOGMA = 633,
@@ -1096,6 +1139,10 @@ export enum CollectibleType {
   TINYTOMA = 645,
   BRIMSTONE_BOMBS = 646,
   FOUR_FIVE_VOLT = 647,
+
+  // - There is no enum member with a value of 648. (This used to be the ID for Pill Crusher before
+  //   it was cut from Repentance.)
+
   FRUITY_PLUM = 649,
   PLUM_FLUTE = 650,
   STAR_OF_BETHLEHEM = 651,
@@ -1109,9 +1156,15 @@ export enum CollectibleType {
   TROPICAMIDE = 659,
   CARD_READING = 660,
   QUINTS = 661,
+
+  // - There is no enum member with a value of 662.
+
   TOOTH_AND_NAIL = 663,
   BINGE_EATER = 664,
   GUPPYS_EYE = 665,
+
+  // - There is no enum member with a value of 666.
+
   STRAWMAN = 667,
   DADS_NOTE = 668,
   SAUSAGE = 669,
@@ -1163,6 +1216,9 @@ export enum CollectibleType {
   HOLD = 715,
   KEEPERS_SACK = 716,
   KEEPERS_KIN = 717,
+
+  // - There is no enum member with a value of 718.
+
   KEEPERS_BOX = 719,
   EVERYTHING_JAR = 720,
   TMTRAINER = 721,
@@ -1180,12 +1236,14 @@ export enum CollectibleType {
 }
 
 /**
- * For `EntityType.PICKUP` (5), `PickupVariant.TAROT_CARD` (300).
+ * For `EntityType.PICKUP` (5), `PickupVariant.CARD` (300).
  *
  * This is the sub-type of a card.
  *
  * This enum was renamed from "Card" to be consistent with the `CollectibleType` and `TrinketType`
  * enums.
+ *
+ * This enum is contiguous. (Every value is satisfied between 0 and 97, inclusive.)
  */
 export enum CardType {
   /**
@@ -1232,10 +1290,10 @@ export enum CardType {
   SUN = 20,
   JUDGEMENT = 21,
   WORLD = 22,
-  CLUBS_2 = 23,
-  DIAMONDS_2 = 24,
-  SPADES_2 = 25,
-  HEARTS_2 = 26,
+  TWO_OF_CLUBS = 23,
+  TWO_OF_DIAMONDS = 24,
+  TWO_OF_SPADES = 25,
+  TWO_OF_HEARTS = 26,
   ACE_OF_CLUBS = 27,
   ACE_OF_DIAMONDS = 28,
   ACE_OF_SPADES = 29,
@@ -1290,29 +1348,33 @@ export enum CardType {
   CRACKED_KEY = 78,
   QUEEN_OF_HEARTS = 79,
   WILD = 80,
-  SOUL_ISAAC = 81,
-  SOUL_MAGDALENE = 82,
-  SOUL_CAIN = 83,
-  SOUL_JUDAS = 84,
-  SOUL_BLUE_BABY = 85,
-  SOUL_EVE = 86,
-  SOUL_SAMSON = 87,
-  SOUL_AZAZEL = 88,
-  SOUL_LAZARUS = 89,
-  SOUL_EDEN = 90,
-  SOUL_LOST = 91,
-  SOUL_LILITH = 92,
-  SOUL_KEEPER = 93,
-  SOUL_APOLLYON = 94,
-  SOUL_FORGOTTEN = 95,
-  SOUL_BETHANY = 96,
-  SOUL_JACOB = 97,
+  SOUL_OF_ISAAC = 81,
+  SOUL_OF_MAGDALENE = 82,
+  SOUL_OF_CAIN = 83,
+  SOUL_OF_JUDAS = 84,
+  SOUL_OF_BLUE_BABY = 85,
+  SOUL_OF_EVE = 86,
+  SOUL_OF_SAMSON = 87,
+  SOUL_OF_AZAZEL = 88,
+  SOUL_OF_LAZARUS = 89,
+  SOUL_OF_EDEN = 90,
+  SOUL_OF_LOST = 91,
+  SOUL_OF_LILITH = 92,
+  SOUL_OF_KEEPER = 93,
+  SOUL_OF_APOLLYON = 94,
+  SOUL_OF_FORGOTTEN = 95,
+  SOUL_OF_BETHANY = 96,
+  SOUL_OF_JACOB_AND_ESAU = 97,
 }
 
 /**
  * For `EntityType.PICKUP` (5), `PickupVariant.TRINKET` (350).
  *
  * This is the sub-type of a trinket.
+ *
+ * This enum is not contiguous. In other words, the enum ranges from `TrinketType.NULL` (0) to
+ * `TrinketType.SIGIL_OF_BAPHOMET` (189), but there is no corresponding `TrinketType` with a value
+ * of 47.
  */
 export enum TrinketType {
   /** Spawning trinkets with this sub-type will produce a random trinket. */
@@ -1362,9 +1424,12 @@ export enum TrinketType {
   LUCKY_TOE = 42,
   CURSED_SKULL = 43,
   SAFETY_CAP = 44,
-  ACE_SPADES = 45,
+  ACE_OF_SPADES = 45,
   ISAACS_FORK = 46,
-  POLAROID_OBSOLETE = 47,
+
+  // - There is no enum member with a value of 47. This was originally the ID for The Polaroid in
+  //   Wrath of the Lamb. In the vanilla enums, this is listed as `POLAROID_OBSOLETE`.
+
   MISSING_PAGE = 48,
   BLOODY_PENNY = 49,
   BURNT_PENNY = 50,
@@ -1374,7 +1439,7 @@ export enum TrinketType {
   ISAACS_HEAD = 54,
   MAGGYS_FAITH = 55,
   JUDAS_TONGUE = 56,
-  SOUL = 57,
+  BLUE_BABYS_SOUL = 57,
   SAMSONS_LOCK = 58,
   CAINS_EYE = 59,
   EVES_BIRD_FOOT = 60,
@@ -1512,7 +1577,7 @@ export enum TrinketType {
 /** For `EntityType.PICKUP` (5), `PickupVariant.BED` (380). */
 export enum BedSubType {
   ISAAC = 0,
-  MOM = 1,
+  MOM = 10,
 }
 
 /** For `EntityType.LASER` (7). */
@@ -1533,10 +1598,605 @@ export enum LaserSubType {
   NO_IMPACT = 4,
 }
 
+/** For `EntityType.LARRY_JR` (19), `LarryJrVariant.LARRY_JR` (0). */
+export enum LarryJrSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. Will occasionally shoot a projectile in the direction he's facing,
+   * pausing momentarily as he does so.
+   */
+  GREEN = 1,
+
+  /**
+   * The blue champion version. Is 15% larger and has 45% more HP, but moves more slowly and does
+   * not leave poop behind. Has shared health between his body segments, meaning that dealing damage
+   * to one segment will deal a percentage of the damage to the other segments. This version always
+   * drops a Soul Heart when defeated.
+   */
+  BLUE = 2,
+}
+
+/** For `EntityType.LARRY_JR` (19), `LarryJrVariant.HOLLOW` (1). */
+export enum HollowSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. Has a chance for each segment that isn't the head to spawn a
+   * Charger on death. Occasionally stops movement to shoot 3 bullets at wherever it is facing. The
+   * head will spawn a Charger only if killed immediately after spawning.
+   */
+  GREEN = 1,
+
+  /**
+   * The black champion version. 15% larger, has slower movement and 25% more HP. Each segment that
+   * isn't the head spawns a Boom Fly when killed. Does not spawn any poop. The head will spawn a
+   * Boom Fly only if killed immediately after spawning.
+   */
+  BLACK = 2,
+
+  /**
+   * The yellow champion version. 15% larger and has 25% more HP but retains the same movement
+   * speed. Each segment that isn't the head will drop a penny on death. The head will drop a penny
+   * only if killed immediately after spawning.
+   */
+  YELLOW = 3,
+}
+
+/** For `EntityType.MONSTRO` (20), variant 0. */
+export enum MonstroSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. Two 20% smaller Monstros replace the normal Monstro, each with 55%
+   * less HP than the original.
+   */
+  RED = 1,
+
+  /**
+   * The grey champion version. 15% larger and has 25% more HP. Uses projectile volleys much more
+   * often and is unable to jump off-screen.
+   */
+  GREY = 2,
+}
+
 /** For `EntityType.CHARGER` (23), `ChargerVariant.CHARGER` (0). */
 export enum ChargerSubType {
   CHARGER = 0,
   MY_SHADOW = 1,
+}
+
+/** For `EntityType.CHUB` (28), `ChubVariant.CHUB (0)`. */
+export enum ChubSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The blue champion version. 15% larger and slower than normal, with 25% more HP. Spawns orange
+   * Boils instead of Chargers. Despite the different color, they behave exactly like normal Boils.
+   *
+   * Note that this actually looks green in-game, but internally it is labeled as blue. (Yellow
+   * mixes with blue to cause green.)
+   */
+  BLUE = 1,
+
+  /**
+   * The orange champion version. 15% smaller and faster than normal, with 15% less HP. Spawns
+   * Spitties instead of Chargers.
+   */
+  ORANGE = 2,
+}
+
+/** For `EntityType.CHUB` (28), `ChubVariant.CARRION_QUEEN (2)`. */
+export enum CarrionQueenSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The pink champion version. Moves slightly quicker, has 100% more HP and spawns small Mask
+   * Hearts instead of Red Poop. The hearts have 28 HP and killing them deals 40 damage to Carrion
+   * Queen. She does not bounce diagonally around the room when below half health.
+   */
+  PINK = 1,
+}
+
+/** For `EntityType.GURDY` (36), variant 0. */
+export enum GurdySubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. 11% larger and does not use her projectile attack. Instead, she
+   * summons monsters at a faster rate.
+   */
+  GREEN = 1,
+}
+
+/** For `EntityType.MONSTRO_2` (43), `Monstro2Variant.MONSTRO_2` (0). */
+export enum Monstro2SubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. 20% smaller. Moves and attacks much faster, but only spawns 2 Suckers
+   * when landing. Has reduced health.
+   */
+  RED = 1,
+}
+
+/** For `EntityType.MOM` (43), `MomVariant.MOM` (0). */
+export enum MomSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The blue champion version. Has 23% more HP, summons monsters more often, and summons a
+   * different variation of enemies that were added in the Wrath of The Lamb expansion of the
+   * original game.
+   */
+  BLUE = 1,
+
+  /**
+   * The red champion version. Does not summon monsters at all, and instead repeatedly uses her foot
+   * stomp, which has increased speed.
+   */
+  RED = 2,
+}
+
+/** For `EntityType.PIN` (62), `PinVariant.PIN` (0). */
+export enum PinSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The grey champion version. 15% larger with 25% more HP. Fires a radial burst of 6 spiraling
+   * projectiles instead of an explosive projectile and fires 6 projectiles instead of 4 when
+   * jumping.
+   */
+  GREY = 1,
+}
+
+/** For `EntityType.PIN` (62), `PinVariant.FRAIL` (2). */
+export enum FrailSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /** The black champion version. Starts in its second phase, with only 66.6% HP total. */
+  BLACK = 1,
+}
+
+/** For `EntityType.FAMINE` (63), variant 0. */
+export enum FamineSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The blue champion version. Charges more often and veers towards Isaac (similar to the Dark
+   * One). He can do this attack regardless of whether Isaac is to his sides. He will shoot six
+   * bullets in all directions instead of summoning Pooters. In phase 2, he will spit out a cluster
+   * of bullets instead of a triple shot, similar to Monstro's attack, with a lower shot speed than
+   * his non-champion version. Will always drop a Soul Heart upon death.
+   */
+  BLUE = 1,
+}
+
+/** For `EntityType.PESTILENCE` (64), variant 0. */
+export enum PestilenceSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The grey champion version. Leaves a trail of slowing white creep instead of green creep, shoots
+   * 6 projectiles in all directions instead of an Ipecac shot, and spawns Trites instead of
+   * Chargers or Spitties. He cannot spawn more than 3 Trites at once. It spawns spiders instead of
+   * Attack Flies in phase 2.
+   */
+  GREY = 1,
+}
+
+/** For `EntityType.WAR` (65), `WarVariant.WAR` (0). */
+export enum WarSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The grey champion version. 15% larger with 25% more HP. Summons 2 Mega Troll Bombs when he
+   * ascends off-screen and summons a single Troll Bomb behind his path when he charges through the
+   * screen. When transforming into his second phase, he shoots 6 projectiles in all directions, as
+   * well as each time he stops chasing Isaac in this phase.
+   */
+  GREY = 1,
+}
+
+/** For `EntityType.DEATH` (66), variant 0. */
+export enum DeathSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The black champion version. 15% larger with 25% more HP. In his first phase, he summons
+   * Kamikaze Leeches instead of homing Death Scythes and does not use the Hourglass. He spawns Red
+   * Maws rather than Knights after he dismounts from his horse.
+   */
+  BLACK = 1,
+}
+
+/** For `EntityType.DUKE_OF_FLIES` (67), variant `DukeOfFliesVariant.DUKE_OF_FLIES` (0). */
+export enum DukeOfFliesSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. Spawns Moters instead of the large Attack Flies and shoots blood
+   * shots in eight directions when spreading the orbiting flies. He can spread the Attack Flies at
+   * any moment instead of only performing it when having enough of them orbiting him, similar to
+   * The Husk.
+   */
+  GREEN = 1,
+
+  /**
+   * The orange champion version. 15% larger than normal with 25% more HP and spawns Suckers instead
+   * of the large Attack Flies.
+   */
+  ORANGE = 2,
+}
+
+/** For `EntityType.DUKE_OF_FLIES` (67), variant `DukeOfFliesVariant.HUSK` (1). */
+export enum HuskSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The black champion version. 15% larger with 56% more HP. It moves slower and spawns Boom Flies
+   * instead of spiders and Attack Flies. The explosions from the Boom Flies can damage the Husk.
+   * Spawns 1-2 additional Boom Flies upon death.
+   */
+  BLACK = 1,
+
+  /**
+   * The red champion version. 25% smaller and faster. Rather than spawning enemies, it only fires
+   * its ring of eight blood shots. Spawns 1-2 additional Red Boom Flies upon death.
+   */
+  RED = 2,
+}
+
+/** For `EntityType.PEEP` (68), variant `PeepVariant.PEEP` (0). */
+export enum PeepSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The yellow champion version. 15% smaller, moves faster, and leaves a constant trail of yellow
+   * creep.
+   */
+  YELLOW = 1,
+
+  /**
+   * The cyan champion version. Starts the battle with both his eyes popped out, similar to The
+   * Bloat.
+   */
+  CYAN = 2,
+}
+
+/** For `EntityType.PEEP` (68), variant `PeepVariant.BLOAT` (1). */
+export enum BloatSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. Fires Spawns 2 Chargers whenever he creates large puddles of creep.
+   * Creates green creep instead of red creep.
+   */
+  GREEN = 1,
+}
+
+/**
+ * For `EntityType.FISTULA_BIG` (71), `EntityType.FISTULA_MEDIUM` (72), and
+ * `EntityType.FISTULA_SMALL` (73). (All use variant `FistulaVariant.FISTULA` (0).
+ */
+export enum FistulaSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The grey champion version. 15% larger with 25% more HP. Spawns Boom Flies with 15 HP instead of
+   * Chargers. Each piece travels much slower and splits into three medium Fistulas as opposed to
+   * the original's four, similar to Teratoma.
+   */
+  GREY = 1,
+}
+
+/** For `EntityType.GEMINI` (79), variant `GeminiVariant.GEMINI` (0). */
+export enum GeminiSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. They start separated from each other and have no difference in
+   * behavior. However, if Contusion is killed last, it will usually drop a Red Heart or Half Red
+   * Heart, but will rarely drop any other type of Heart instead (Soul, Bone, Gold, etc).
+   */
+  GREEN = 1,
+
+  /**
+   * The blue champion version. Suture shoots homing shots. Contusion will drop a Soul Heart if
+   * killed last.
+   */
+  BLUE = 2,
+}
+
+/** For `EntityType.GURDY_JR` (99), variant 0. */
+export enum GurdyJrSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The blue champion version. Instead of one Gurdy Jr., there will be two 42% smaller ones. This
+   * version has 45% less HP than the original and only uses the charging attack. It drops a Soul
+   * Heart upon death.
+   */
+  BLUE = 1,
+
+  /**
+   * The yellow champion version. 15% larger than the regular, with 25% more HP. She spawns Super
+   * Pooters instead of regular Pooters. Does not shoot projectiles of any sort.
+   */
+  YELLOW = 2,
+}
+
+/** For `EntityType.WIDOW` (100), `WidowVariant.WIDOW` (0). */
+export enum WidowSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The black champion version. Spawns Big Spiders with half health instead of Sacks, black creep
+   * instead of white, and spits out six blood shots instead of spiders.
+   */
+  BLACK = 1,
+
+  /**
+   * The pink champion version. Spawns Boils instead of Sacks and Attack Flies instead of spiders.
+   * Jumps quicker. She is also 25% smaller and has 10% less health.
+   */
+  PINK = 2,
+}
+
+/** For `EntityType.GURGLING` (100), `GurglingVariant.GURGLING_BOSS` (1). */
+export enum GurglingSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The yellow champion version. Three Gurglings will appear instead of two. They are faster but do
+   * not leave any creep. They don't spawn any Attack Flies.
+   */
+  YELLOW = 1,
+
+  /**
+   * The black champion version. Gurglings spawn Troll Bombs at regular intervals instead of red
+   * creep when rushing towards the player. They take only 5 damage from their own bombs. They don't
+   * spawn any Attack Flies.
+   */
+  BLACK = 2,
+}
+
+/** For `EntityType.HAUNT` (260), `HauntVariant.HAUNT` (0). */
+export enum HauntSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The black champion version. Only two Lil' Haunts circle The Haunt in the first phase. In the
+   * second phase, The Haunt spawns 1-2 spiders instead of firing a brimstone laser.
+   */
+  BLACK = 1,
+
+  /**
+   * The pink champion version. Only one Lil' Haunt circles The Haunt in the first phase. In the
+   * second phase, The Haunt has 50% less HP (100). The Haunt's laser is replaced with two diagonal
+   * Brimstone lasers that reflect once off of walls. The Haunt's blood-shot attack is changed to 8
+   * shots and is aimed towards Isaac.
+   */
+  PINK = 2,
+}
+
+/** For `EntityType.DINGLE` (261), `DingleVariant.DINGLE` (0). */
+export enum DingleSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. Dingle summons Red Poop instead of Dips. He also dashes four times
+   * instead of three, though the dashes are shorter and slower. He also fires blood projectiles
+   * instead of poop projectiles, though it is a purely cosmetic effect.
+   */
+  RED = 1,
+
+  /**
+   * The black champion version. Dingle summons spiders instead of Dips and fires eight shots in all
+   * directions instead of spitting three at Isaac. He also dashes much faster, but will only dash
+   * one time instead of three.
+   */
+  BLACK = 2,
+}
+
+/** For `EntityType.MEGA_MAW` (262), variant 0. */
+export enum MegaMawSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. Doesn't shoot any flames or spawn monsters and has a completely
+   * different set of blood-shot attacks.
+   */
+  RED = 1,
+
+  /**
+   * The black champion version. Spits 1-2 spiders instead of Hoppers. The spiders will be tossed
+   * directly towards Isaac instead of landing below Mega Maw. It does not use flame attacks.
+   */
+  BLACK = 2,
+}
+
+/** For `EntityType.GATE` (263), variant 0. */
+export enum GateSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. Does not spawn any enemies and has a completely different set of
+   * attacks.
+   */
+  RED = 1,
+
+  /**
+   * The black champion version. Has 25% more HP and spawns Big Spiders instead of Leapers. The Big
+   * Spiders are tossed directly towards Isaac instead of landing randomly in the room, and can be
+   * damaged by The Gate's blood shots, like the Leapers. It does not perform the Brimstone attack.
+   */
+  BLACK = 2,
+}
+
+/** For `EntityType.MEGA_FATTY` (264), variant 0. */
+export enum MegaFattySubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. 33% smaller and has 10% less HP. Shoots 6 bullets instead of leaving
+   * red creep upon landing. Creates Red Poop instead of Dips. Vomit attack sends out four
+   * projectiles stream attacks in a pattern similar to Mom's Heart.
+   */
+  RED = 1,
+
+  /**
+   * The brown champion version. Has 15% more HP. He will not use his vomit attack and sends out
+   * rock waves instead of leaving red creep upon landing when performing the long-range jump,
+   * similar to The Cage.
+   */
+  BROWN = 2,
+}
+
+/** For `EntityType.CAGE` (265), variant 0. */
+export enum CageSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The green champion version. Periodically leaves puddles of green creep and does not spawn any
+   * Vis.
+   */
+  GREEN = 1,
+
+  /**
+   * The pink champion version. Two Cages replace the normal Cage, each with 50% HP. They never
+   * perform their jump attack. Both Cages are 50% smaller.
+   */
+  PINK = 2,
+}
+
+/** For `EntityType.POLYCEPHALUS` (269), `PolycephalusVariant.POLYCEPHALUS` (0). */
+export enum PolycephalusSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. Summons Para-Bites instead of Round Worms. All projectile attacks are
+   * replaced with a ring of six projectiles.
+   */
+  RED = 1,
+
+  /**
+   * The pink champion version. Two Polycephaluses replace the normal Polycephalus, each with 50%
+   * HP. They do not spawn Round Worms.
+   */
+  PINK = 2,
+}
+
+/** For `EntityType.STAIN` (401), variant 0. */
+export enum StainSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The grey champion version. Continuously spawns 2 Round Worms instead of Chargers, with a
+   * maximum of 3 at any time. Never fires barrages of bullets.
+   */
+  GREY = 1,
+}
+
+/** For `EntityType.BROWNIE` (402), variant 0. */
+export enum BrownieSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The black champion version. Spawns up to 3 Chargers at once instead of Brownie Corns and
+   * creates black creep instead of brown creep. The Corn Mines that he spawns are also black.
+   * Brownie still leaves green creep when poisoned. When at low health, he becomes 2 Dank Squirts
+   * instead of a weakened Dangle.
+   */
+  BLACK = 1,
+}
+
+/** For `EntityType.FORSAKEN` (403), variant 0. */
+export enum ForsakenSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The black champion version. Spawns Black Bonies instead of regular Bonies. The spinning
+   * Brimstone attack is replaced with The Forsaken spawning 4 Dank Death's Heads and resuming
+   * invincibility for 1 second if there are no other Dank Death's Heads alive. It can not spawn any
+   * Dank Death's Heads if there is at least 1 other alive and will instead remain vulnerable for a
+   * duration before spawning another Black Bony.
+   */
+  BLACK = 1,
+}
+
+/** For `EntityType.LITTLE_HORN` (404), variant 0. */
+export enum LittleHornSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The orange champion version. Spits out an orange Troll Bomb instead of a Dark Ball. This Troll
+   * Bomb deals contact damage and leaves a patch of fire similar to Hot Bombs that cannot damage
+   * him. He also throws these special Troll Bombs into Pitfalls instead of normal ones, and spawns
+   * them during the chain teleport attack. He loses 1 HP whenever he spits out a bomb. Does not
+   * attack with Mega Troll Bombs.
+   */
+  ORANGE = 1,
+
+  /**
+   * The black champion version. Does not attack with Pits, Troll Bombs or Mega Troll Bombs, but
+   * fires Dark Balls more frequently. This version can still do the chain teleport attack but does
+   * not spawn any Troll Bombs.
+   */
+  BLACK = 2,
+}
+
+/** For `EntityType.RAG_MAN` (405), variant 0. */
+export enum RagManSubType {
+  /** The non-champion version. */
+  NORMAL = 0,
+
+  /**
+   * The red champion version. Does not fire homing bullets, and instead constantly creates and
+   * revives Raglings. The Raglings spawned by this version have the same red color as Rag Man and
+   * have 34% less than the normal ones.
+   */
+  RED = 1,
+
+  /**
+   * The black champion version. The head roll attack spawns 1-2 spiders instead of a Ragling. He
+   * fires a spray of 3 arcing bullets, instead of a resurrection attack.
+   */
+  BLACK = 2,
 }
 
 /**
@@ -1568,6 +2228,14 @@ export enum BloodExplosionSubType {
   SWIRL = 5,
 }
 
+/** For `EntityType.EFFECT` (1000), `EffectVariant.BLOOD_PARTICLE` (5). */
+export enum GibSubType {
+  BLOOD = 0,
+  BONE = 1,
+  GUT = 2,
+  EYE = 3,
+}
+
 /** For `EntityType.EFFECT` (1000), `EffectVariant.POOF_1` (15). */
 export enum PoofSubType {
   NORMAL = 0,
@@ -1582,6 +2250,13 @@ export enum PoofSubType {
 export enum HeavenLightDoorSubType {
   HEAVEN_DOOR = 0,
   MOONLIGHT = 1,
+}
+
+/** For `EntityType.EFFECT` (1000), `EffectVariant.CARPET` (74). */
+export enum CarpetSubType {
+  ISAACS_CARPET = 0,
+  MOMS_CARPET_1 = 1,
+  MOMS_CARPET_2 = 2,
 }
 
 /** For `EntityType.EFFECT` (1000), `EffectVariant.DICE_FLOOR` (76). */
@@ -1612,6 +2287,29 @@ export enum DiceFloorSubType {
 export enum TallLadderSubType {
   TALL_LADDER = 0,
   STAIRWAY = 1,
+}
+
+/** For `EntityType.EFFECT` (1000), `EffectVariant.PORTAL_TELEPORT` (161). */
+export enum PortalTeleportSubType {
+  /** Is yellow in color. */
+  TREASURE_ROOM = 0,
+
+  /** Is red in color. */
+  BOSS_ROOM = 1,
+
+  /** Is blue in color. */
+  SECRET_ROOM = 2,
+
+  /**
+   * Is purple in color.
+   *
+   * Portals of this type are non-persistent in that they will not respawn if the player leaves the
+   * room, which makes them unlike the portals spawned by the Lil Portal familiar. In order to
+   * generate Lil-Portal-style portals, you add 1000 to the destination room grid index. For
+   * example, you would use a sub-type of 1058 for a persistent portal that always goes to the room
+   * at grid index 58.
+   */
+  RANDOM_ROOM = 3,
 }
 
 /** For `EntityType.EFFECT` (1000), `EffectVariant.PURGATORY` (189). */

@@ -10,21 +10,23 @@ pull.rebase=true
 
 # Specify the file type for some binary files to prevent Git from changing the line endings upon
 # cloning the repository.
+*.mp3 binary
 *.png binary
 *.wav binary
 
 # Specify the file type for some files that GitHub will not automatically characterize properly.
 # https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
-.vscode/extensions.json linguist-language=JSON-with-Comments
-.vscode/settings.json linguist-language=JSON-with-Comments
-tsconfig.*.json linguist-language=JSON-with-Comments
-tsconfig.json linguist-language=JSON-with-Comments
+.vscode/*.json linguist-language=JSON-with-Comments
+tsconfig*.json linguist-language=JSON-with-Comments
+
+# @template-customization-start
 
 # Specify the file type for files specific to this monorepo.
 # https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 api-extractor.json linguist-language=JSON-with-Comments
-gitattributes linguist-language=Git-Attributes
-gitignore linguist-language=Ignore-List
+_gitattributes linguist-language=Git-Attributes
+_gitignore linguist-language=Ignore-List
 packages/isaacscript-cli/file-templates/static/.vscode/extensions.json linguist-language=JSON-with-Comments
 packages/isaacscript-cli/file-templates/static/.vscode/settings.json linguist-language=JSON-with-Comments
-typedoc.json linguist-language=JSON-with-Comments
+
+# @template-customization-end

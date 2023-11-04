@@ -3,14 +3,16 @@ import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  room: {
+    roomClearGameFrame: undefined as int | undefined,
+    roomClearRoomFrame: undefined as int | undefined,
+  },
+};
+
 export class RoomClearFrame extends Feature {
   /** @internal */
-  public override v = {
-    room: {
-      roomClearGameFrame: undefined as int | undefined,
-      roomClearRoomFrame: undefined as int | undefined,
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -19,20 +21,20 @@ export class RoomClearFrame extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_ROOM_CLEAR_CHANGED,
-        [this.postRoomClearChangedTrue],
+        this.postRoomClearChangedTrue,
       ],
     ];
   }
 
   // ModCallbackCustom.POST_ROOM_CLEAR_CHANGED
   // true
-  private postRoomClearChangedTrue = () => {
+  private readonly postRoomClearChangedTrue = () => {
     const gameFrameCount = game.GetFrameCount();
     const room = game.GetRoom();
     const roomFrameCount = room.GetFrameCount();
 
-    this.v.room.roomClearGameFrame = gameFrameCount;
-    this.v.room.roomClearRoomFrame = roomFrameCount;
+    v.room.roomClearGameFrame = gameFrameCount;
+    v.room.roomClearRoomFrame = roomFrameCount;
   };
 
   /**
@@ -43,7 +45,7 @@ export class RoomClearFrame extends Feature {
    */
   @Exported
   public getRoomClearGameFrame(): int | undefined {
-    return this.v.room.roomClearGameFrame;
+    return v.room.roomClearGameFrame;
   }
 
   /**
@@ -54,6 +56,6 @@ export class RoomClearFrame extends Feature {
    */
   @Exported
   public getRoomClearRoomFrame(): int | undefined {
-    return this.v.room.roomClearGameFrame;
+    return v.room.roomClearGameFrame;
   }
 }

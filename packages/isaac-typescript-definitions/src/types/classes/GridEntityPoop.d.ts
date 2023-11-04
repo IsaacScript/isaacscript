@@ -1,5 +1,5 @@
-import { PoopState } from "../../enums/collections/gridEntityState";
-import { PoopGridEntityVariant } from "../../enums/collections/gridEntityVariants";
+import type { PoopState } from "../../enums/collections/gridEntityStates";
+import type { PoopGridEntityVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
   /**
@@ -7,9 +7,9 @@ declare global {
    * `GridEntity.ToPoop` method.
    */
   interface GridEntityPoop extends GridEntity {
-    GetVariant(): PoopGridEntityVariant;
-    ReduceSpawnRate(): void;
-    RespawnRedPoop(): void;
+    GetVariant: () => PoopGridEntityVariant;
+    ReduceSpawnRate: () => void;
+    RespawnRedPoop: () => void;
 
     ReducedSpawnRate: boolean;
     ReviveTimer: int;

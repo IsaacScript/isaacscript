@@ -1,5 +1,5 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getArrayCombinations, getRandomArrayElement, sumArray } from "./array";
-import { getRandomSeed } from "./rng";
 import { isPrimitive } from "./types";
 
 /**
@@ -67,14 +67,18 @@ export function deleteSetsFromSet<T>(
 /**
  * Helper function to get a random element from the provided set.
  *
+ * If you want to get an unseeded element, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param set The set to get an element from.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomSetElement<T>(
   set: Set<T> | ReadonlySet<T>,
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   exceptions: T[] | readonly T[] = [],
 ): T {
   const array = getSortedSetValues(set);
@@ -98,7 +102,7 @@ export function getRandomSetElement<T>(
  * - [1, 2, 3]
  *
  * @param set The set to get the combinations of.
- * @param includeEmptyArray Whether or not to include an empty array in the combinations.
+ * @param includeEmptyArray Whether to include an empty array in the combinations.
  */
 export function getSetCombinations<T>(
   set: Set<T> | ReadonlySet<T>,
@@ -107,7 +111,7 @@ export function getSetCombinations<T>(
   const values = getSortedSetValues(set);
   const combinations = getArrayCombinations(values, includeEmptyArray);
 
-  return combinations.map((array) => new Set(array));
+  return combinations.map((array) => new ReadonlySet(array));
 }
 
 /**
@@ -146,6 +150,20 @@ export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
   for (const element of elements) {
     set.add(element);
   }
+}
+
+/**
+ * Helper function to check for one or more elements in a set at once without having to repeatedly
+ * call the `Set.has` method.
+ *
+ * This function is variadic, meaning that you can pass as many things as you want to check for. It
+ * will return true if one or more elements are found.
+ */
+export function setHas<T>(
+  set: Set<T> | ReadonlySet<T>,
+  ...elements: T[]
+): boolean {
+  return elements.some((element) => set.has(element));
 }
 
 /** Helper function to sum every value in a set together. */

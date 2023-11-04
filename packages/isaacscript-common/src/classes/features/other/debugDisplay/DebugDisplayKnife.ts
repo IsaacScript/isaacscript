@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayKnife extends Feature {
   public textCallback: (knife: EntityKnife) => string =
@@ -10,12 +11,13 @@ export class DebugDisplayKnife extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_KNIFE_RENDER, [this.postKnifeRender]], // 52
+      // 52
+      [ModCallback.POST_KNIFE_RENDER, this.postKnifeRender],
     ];
   }
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  private postKnifeRender = (knife: EntityKnife) => {
+  private readonly postKnifeRender = (knife: EntityKnife) => {
     const text = this.textCallback(knife);
     renderTextOnEntity(knife, text);
   };

@@ -1,8 +1,8 @@
-import {
+import type {
   CollectibleType,
-  EntityType,
   FamiliarVariant,
 } from "isaac-typescript-definitions";
+import { EntityType } from "isaac-typescript-definitions";
 import { itemConfig } from "../core/cachedClasses";
 import { FAMILIARS_THAT_SHOOT_PLAYER_TEARS_SET } from "../sets/familiarsThatShootPlayerTearsSet";
 import { getEntities } from "./entities";

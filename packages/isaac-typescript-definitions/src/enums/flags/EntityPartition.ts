@@ -25,7 +25,14 @@ const EntityPartitionInternal = {
   /** 1 << 5 (32) */
   PLAYER: 1 << 5,
 
-  /** 1 << 6 (64) */
+  /**
+   * 1 << 6 (64)
+   *
+   * @deprecated The `Isaac.FindInRadius` method will only work with entities that have collision.
+   *             Since effects do not have collision, they will never be returned. Thus, this enum
+   *             is useless.
+   */
+  // eslint-disable-next-line deprecation/deprecation
   EFFECT: 1 << 6,
 } as const;
 
@@ -33,11 +40,10 @@ type EntityPartitionValue = BitFlag & {
   readonly __entityPartitionBrand: symbol;
 };
 type EntityPartitionType = {
-  [K in keyof typeof EntityPartitionInternal]: EntityPartitionValue;
+  readonly [K in keyof typeof EntityPartitionInternal]: EntityPartitionValue;
 };
 
 export const EntityPartition = EntityPartitionInternal as EntityPartitionType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type EntityPartition = EntityPartitionType[keyof EntityPartitionType];
 
 export const EntityPartitionZero = 0 as BitFlags<EntityPartition>;

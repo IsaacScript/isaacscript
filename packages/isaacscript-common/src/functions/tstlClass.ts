@@ -1,7 +1,8 @@
-import { DefaultMap } from "../classes/DefaultMap";
-import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
-import { TSTLClass } from "../types/TSTLClass";
+import type { DefaultMap } from "../classes/DefaultMap";
+import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
+import type { TSTLClass } from "../types/TSTLClass";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to get the constructor from an instantiated TypeScriptToLua class, which is
@@ -56,6 +57,12 @@ export function isDefaultMap(
   return className === "DefaultMap";
 }
 
+/** Helper function to check if a given table is a class table created by TypeScriptToLua. */
+export function isTSTLClass(object: unknown): object is TSTLClass {
+  const tstlClassName = getTSTLClassName(object);
+  return tstlClassName !== undefined;
+}
+
 /**
  * Helper function to determine if a given object is a TypeScriptToLua `Map`.
  *
@@ -80,12 +87,6 @@ export function isTSTLSet(object: unknown): object is Set<AnyNotNil> {
   return className === "Set";
 }
 
-/** TypeScriptToLua classes are Lua tables that have a metatable with a certain amount of keys. */
-export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
-  const tstlClassName = getTSTLClassName(object);
-  return tstlClassName !== undefined;
-}
-
 /**
  * Initializes a new TypeScriptToLua class in the situation where you do not know what kind of class
  * it is. This function requires that you provide an instantiated class of the same type, as it will
@@ -94,11 +95,10 @@ export function isUserDefinedTSTLClass(object: unknown): object is TSTLClass {
  */
 export function newTSTLClass(oldClass: TSTLClass): TSTLClass {
   const constructor = getTSTLClassConstructor(oldClass);
-  if (constructor === undefined) {
-    error(
-      "Failed to instantiate a new TypeScriptToLua class since the provided old class does not have a metatable/constructor.",
-    );
-  }
+  assertDefined(
+    constructor,
+    "Failed to instantiate a new TypeScriptToLua class since the provided old class does not have a metatable/constructor.",
+  );
 
   // We re-implement some of the logic from the transpiled "__TS__New" function.
   const newClass = new LuaMap<AnyNotNil, unknown>();
@@ -106,7 +106,7 @@ export function newTSTLClass(oldClass: TSTLClass): TSTLClass {
     newClass,
     constructor.prototype,
   ) as unknown as TSTLClassMetatable;
-  newClassMetatable.____constructor(); // eslint-disable-line no-underscore-dangle
+  newClassMetatable.____constructor();
 
   return newClass as unknown as TSTLClass;
 }

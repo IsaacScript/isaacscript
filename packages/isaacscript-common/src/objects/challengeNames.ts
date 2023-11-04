@@ -2,27 +2,28 @@ import { Challenge } from "isaac-typescript-definitions";
 
 export const DEFAULT_CHALLENGE_NAME = "Unknown";
 
-export const CHALLENGE_NAMES: { readonly [key in Challenge]: string } = {
+/** Taken from the "challenges.xml" file. */
+export const CHALLENGE_NAMES = {
   [Challenge.NULL]: DEFAULT_CHALLENGE_NAME, // 0
   [Challenge.PITCH_BLACK]: "Pitch Black", // 1
   [Challenge.HIGH_BROW]: "High Brow", // 2
   [Challenge.HEAD_TRAUMA]: "Head Trauma", // 3
   [Challenge.DARKNESS_FALLS]: "Darkness Falls", // 4
-  [Challenge.THE_TANK]: "The Tank", // 5
+  [Challenge.TANK]: "The Tank", // 5
   [Challenge.SOLAR_SYSTEM]: "Solar System", // 6
   [Challenge.SUICIDE_KING]: "Suicide King", // 7
   [Challenge.CAT_GOT_YOUR_TONGUE]: "Cat Got Your Tongue", // 8
   [Challenge.DEMO_MAN]: "Demo Man", // 9
   [Challenge.CURSED]: "Cursed!", // 10
   [Challenge.GLASS_CANNON]: "Glass Cannon", // 11
-  [Challenge.WHEN_LIFE_GIVES_LEMONS]: "When Life Gives You Lemons", // 12
+  [Challenge.WHEN_LIFE_GIVES_YOU_LEMONS]: "When Life Gives You Lemons", // 12
   [Challenge.BEANS]: "Beans!", // 13
   [Challenge.ITS_IN_THE_CARDS]: "It's In The Cards", // 14
   [Challenge.SLOW_ROLL]: "Slow Roll", // 15
   [Challenge.COMPUTER_SAVY]: "Computer Savvy", // 16
   [Challenge.WAKA_WAKA]: "Waka Waka", // 17
-  [Challenge.THE_HOST]: "The Host", // 18
-  [Challenge.THE_FAMILY_MAN]: "The Family Man", // 19
+  [Challenge.HOST]: "The Host", // 18
+  [Challenge.FAMILY_MAN]: "The Family Man", // 19
   [Challenge.PURIST]: "Purist", // 20
   [Challenge.XXXXXXXXL]: "XXXXXXXXL", // 21
   [Challenge.SPEED]: "SPEED!", // 22
@@ -49,4 +50,4 @@ export const CHALLENGE_NAMES: { readonly [key in Challenge]: string } = {
   [Challenge.CANTRIPPED]: "Cantripped!", // 43
   [Challenge.RED_REDEMPTION]: "Red Redemption", // 44
   [Challenge.DELETE_THIS]: "DELETE THIS", // 45
-} as const;
+} as const satisfies Record<Challenge, string>;

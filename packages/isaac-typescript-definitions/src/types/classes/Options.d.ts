@@ -1,4 +1,4 @@
-import { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
+import type { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
 
 declare global {
   /**
@@ -7,7 +7,8 @@ declare global {
    * The fields are listed in order of how they appear in the in-game options menu (rather than
    * alphabetically).
    *
-   * `Options` is technically not an Isaac API class; it has a type of `table`.
+   * `Options` is technically not an Isaac API class; it has a type of `table` (instead of
+   * `userdata`).
    */
   namespace Options {
     /**
@@ -56,8 +57,7 @@ declare global {
     let Gamma: float;
 
     /**
-     * Whether or not achievement pop-ups will display (e.g. "A Small Rock has appeared in the
-     * basement").
+     * Whether achievement pop-ups will display (e.g. "A Small Rock has appeared in the basement").
      *
      * This can be changed from the in-game options menu.
      */
@@ -176,14 +176,14 @@ declare global {
     let PauseOnFocusLost: boolean;
 
     /**
-     * Whether or not the rumble feature is enabled for controller players.
+     * Whether the rumble feature is enabled for controller players.
      *
      * This cannot be changed in-game and is only exposed in the "options.ini" file.
      */
     let RumbleEnabled: boolean;
 
     /**
-     * Whether or not the game will save the history of executed debug console commands.
+     * Whether the game will save the history of executed debug console commands.
      *
      * This cannot be changed in-game and is only exposed in the "options.ini" file.
      */

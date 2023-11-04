@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayFamiliar extends Feature {
   public textCallback: (familiar: EntityFamiliar) => string =
@@ -10,12 +11,13 @@ export class DebugDisplayFamiliar extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_FAMILIAR_RENDER, [this.postFamiliarRender]], // 25
+      // 25
+      [ModCallback.POST_FAMILIAR_RENDER, this.postFamiliarRender],
     ];
   }
 
   // ModCallback.POST_FAMILIAR_RENDER (25)
-  private postFamiliarRender = (familiar: EntityFamiliar) => {
+  private readonly postFamiliarRender = (familiar: EntityFamiliar) => {
     const text = this.textCallback(familiar);
     renderTextOnEntity(familiar, text);
   };

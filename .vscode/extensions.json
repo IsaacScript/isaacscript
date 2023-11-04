@@ -7,8 +7,9 @@
     "streetsidesoftware.code-spell-checker", // A spell-checker extension based on CSpell
     "typescript-to-lua.vscode-typescript-to-lua", // The TypeScriptToLua extension
     "redhat.vscode-xml", // The XML language server
+    // @template-customization-start
     "sumneko.lua", // The Lua language server
     "ms-python.python", // The Python language server
-    "nrwl.angular-console", // Monorepo management
+    // @template-customization-end
   ],
 }

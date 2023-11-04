@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/metadata.xsd" ?>
 <metadata>
-  <name>MOD-NAME-TO-REPLACE</name>
-  <directory>MOD-NAME-TO-REPLACE</directory>
-  <description>MOD-NAME-TO-REPLACE is a currently a work in progress.</description>
+  <name>PROJECT_NAME</name>
+  <directory>PROJECT_NAME</directory>
+  <description>PROJECT_NAME is a currently a work in progress.</description>
   <version>1.0</version>
   <visibility />
 </metadata>

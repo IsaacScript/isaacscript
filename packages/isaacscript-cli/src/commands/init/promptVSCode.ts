@@ -1,7 +1,5 @@
-import path from "path";
-import { MAIN_TS } from "../../constants";
-import { execShell } from "../../exec";
-import { getInputYesNo } from "../../prompt";
+import { execShell } from "../../exec.js";
+import { getInputYesNo } from "../../prompt.js";
 
 export async function promptVSCode(
   projectPath: string,
@@ -22,6 +20,11 @@ export async function promptVSCode(
     return;
   }
 
+  // The VSCode command does not work properly inside WSL on Windows.
+  if (process.platform === "linux") {
+    return;
+  }
+
   const shouldOpenVSCode = await getInputYesNo(
     "Do you want to open your new project in VSCode now?",
   );
@@ -35,6 +38,5 @@ function openVSCode(
   VSCodeCommand: string,
   verbose: boolean,
 ) {
-  const MAIN_TS_PATH = path.join(projectPath, "src", MAIN_TS);
-  execShell(VSCodeCommand, [projectPath, MAIN_TS_PATH], verbose);
+  execShell(VSCodeCommand, [projectPath], verbose);
 }

@@ -1,9 +1,10 @@
-import { DefaultMap } from "../classes/DefaultMap";
+import type { DefaultMap } from "../classes/DefaultMap";
 import { sumArray } from "./array";
-import { getPartialMatch } from "./string";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
-export function copyMap<K, V>(oldMap: Map<K, V>): Map<K, V> {
+export function copyMap<K, V>(
+  oldMap: Map<K, V> | ReadonlyMap<K, V>,
+): Map<K, V> {
   const newMap = new Map<K, V>();
   for (const [key, value] of oldMap.entries()) {
     newMap.set(key, value);
@@ -41,43 +42,38 @@ export function defaultMapSetHash<V>(
 }
 
 /**
- * Helper function to get the closest value from a map based on partial search text. For the
- * purposes of this function, both search text and map keys are converted to lowercase before
- * attempting to find a match.
+ * Helper function to get a copy of a map with the keys and the values reversed.
  *
  * For example:
  *
  * ```ts
- * const map = new <string, number>Map([
- *   ["foo", 123],
- *   ["bar", 456],
+ * new Map<string, number>([
+ *   ["foo", 1],
+ *   ["bar", 2],
  * ]);
- * const searchText = "f";
- * const match = getMapPartialMatch(map, searchText); // match is now equal to ["foo", 123]
+ * ```
  *
- * @returns If a match was found, returns a tuple of the map key and value. If a match was not
- * found, returns undefined.
+ * Would be reversed to:
+ *
+ * ```ts
+ * new Map<number, string>([
+ *   [1, "foo"],
+ *   [2, "bar"],
+ * ]);
  * ```
  */
-export function getMapPartialMatch<T>(
-  searchText: string,
-  map: ReadonlyMap<string, T>,
-): [string, T] | undefined {
-  const keys = [...map.keys()];
+export function getReversedMap<K, V>(map: Map<K, V>): Map<V, K>;
+export function getReversedMap<K, V>(map: ReadonlyMap<K, V>): ReadonlyMap<V, K>;
+export function getReversedMap<K, V>(
+  map: Map<K, V> | ReadonlyMap<K, V>,
+): Map<V, K> {
+  const reverseMap = new Map<V, K>();
 
-  const matchingKey = getPartialMatch(searchText, keys);
-  if (matchingKey === undefined) {
-    return undefined;
+  for (const [key, value] of map) {
+    reverseMap.set(value, key);
   }
 
-  const value = map.get(matchingKey);
-  if (value === undefined) {
-    error(
-      `Failed to get the map value corresponding to the partial match of: ${matchingKey}`,
-    );
-  }
-
-  return [matchingKey, value];
+  return reverseMap;
 }
 
 /**

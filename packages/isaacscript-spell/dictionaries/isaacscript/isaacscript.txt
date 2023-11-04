@@ -1,62 +1,11 @@
-# These are words contained within IsaacScript template files and elsewhere within the monorepo.
+# These are words contained within IsaacScript template files.
 
-airbnb # Part of the linting config
-APPDATA # Monorepo word
-autocrlf # gitattributes
-browserslist # Monorepo word
-buildable # Monorepo word
-clsx # Monorepo word
-commitlint # Monorepo word
-contentfolder # metadata.vdf
-conventionalcommits # Monorepo word
-corepack # To install Yarn
+airbnb # settings.json
+autocrlf # .gitattributes
 dbaeumer # extensions.json
-devkit # Monorepo word
-docsearch # Monorepo word
-eqeqeq # For linting
-erange # Standard library function
 esbenp # extensions.json
-IIFE # JavaScript word
-irange # Standard library function
 isaacscript
-jscutlery # For version control
-jsdoc # Monorepo word
-lualib # TSTL word
-markdownlint # Monorepo word
-markdownlintignore # Monorepo word
-nocache # Monorepo word
-nocheck # For @ts-nocheck
-noout # lint.sh
-noreply # Monorepo word
-nrwl # Monorepo word
-nx # Monorepo word
-pathlib # check-api-dictionary.sh
-peaceiris # Monorepo word
-plusplus # Part of the linting config
-preapproved # API Extractor word
-preid # Monorepo word
-prettierignore # check-file-updates.sh
-prettierrc # check-file-updates.sh
-publishedfileid # metadata.vdf
-pypi # The Python package repository
-pyproject # Python package word
-remarkignore # Monorepo word
-remarkrc # Monorepo word
-retext # Monorepo word
-rollup # API Extractor word
+packagejson # prettier.config.mjs
 sarisia # ci.yml
-ssmacro # Monorepo word
-steamcmd # For publishing
-svgr # Monorepo word
-syncer # Monorepo word
-syncpack # Monorepo word
 technote # ci.yml
-tsdoc # Monorepo word
-TSES # For TSESTree
 tstl
-Turnbull # Author of "airbnb-typescript/base"
-typedoc
-typeof # JavaScript word
-workshopitem # metadata.vdf
-Zamiel
-Zamiell

@@ -1,24 +1,25 @@
 #!/bin/bash
 
-set -e # Exit on any errors
+set -euo pipefail # Exit on errors and undefined variables.
 
-# Get the directory of this script
+# Get the directory of this script:
 # https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Subroutines
 function pause() {
-   read -p "$*"
+   read -r -p "$*"
 }
 
 # Read the username and password.
+# shellcheck disable=SC1091
 source .env
-if [[ -z $PYPI_USERNAME ]]; then
+if [[ -z ${PYPI_USERNAME-} ]]; then
   echo "Error: PYPI_USERNAME is not set. Copy \".env_template\" to \".env\" and fill in the values."
   exit 1
 fi
-if [[ -z $PYPI_PASS ]]; then
-  echo "Error: PYPI_PASS is not set. Copy \".env_template\" to \".env\" and fill in the values."
+if [[ -z ${PYPI_PASSWORD-} ]]; then
+  echo "Error: PYPI_PASSWORD is not set. Copy \".env_template\" to \".env\" and fill in the values."
   exit 1
 fi
 
@@ -38,4 +39,4 @@ echo "Using version: $VERSION"
 pause "Press enter to continue..."
 
 # From: https://levelup.gitconnected.com/how-to-publish-a-python-command-line-application-to-pypi-5b97a6d586f1
-poetry publish --username $PYPI_USERNAME --password $PYPI_PASS --build
+poetry publish --username "$PYPI_USERNAME" --password "$PYPI_PASSWORD" --build

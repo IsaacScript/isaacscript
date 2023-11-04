@@ -1,4 +1,5 @@
 import { RoomShape } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 export const DEFAULT_TOP_LEFT_WALL_GRID_INDEX = 0;
 
@@ -6,10 +7,10 @@ export const DEFAULT_TOP_LEFT_WALL_GRID_INDEX = 0;
  * Only used for special room shapes where the top left wall grid index is not equal to
  * `DEFAULT_TOP_LEFT_WALL_GRID_INDEX`.
  */
-export const ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP: ReadonlyMap<
+export const ROOM_SHAPE_TO_TOP_LEFT_WALL_GRID_INDEX_MAP = new ReadonlyMap<
   RoomShape,
   int
-> = new Map([
+>([
   [RoomShape.IH, 30], // 2
   [RoomShape.IV, 4], // 3
   [RoomShape.IIV, 4], // 5

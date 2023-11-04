@@ -12,17 +12,20 @@ import { arrayRemove } from "../../../../functions/array";
 import { getBosses } from "../../../../functions/bosses";
 import { getRoomSubType } from "../../../../functions/roomData";
 import { removeCharactersBefore } from "../../../../functions/string";
+import { getScreenCenterPos } from "../../../../functions/ui";
 import { eRange } from "../../../../functions/utils";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
-import { BOSS_NAME_PNG_FILE_NAMES } from "../../../../objects/bossNamePNGFileNames";
-import { BOSS_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/bossPortraitPNGFileNames";
-import { PLAYER_NAME_PNG_FILE_NAMES } from "../../../../objects/playerNamePNGFileNames";
-import { PLAYER_PORTRAIT_PNG_FILE_NAMES } from "../../../../objects/playerPortraitPNGFileNames";
+import {
+  getBossNamePNGFilePath,
+  getBossPortraitPNGFilePath,
+  getCharacterNamePNGFilePath,
+  getCharacterPortraitPNGFilePath,
+} from "../../../../functions/versusScreen";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
 import { VERSUS_SCREEN_BACKGROUND_COLORS } from "../../../../objects/versusScreenBackgroundColors";
 import { VERSUS_SCREEN_DIRT_SPOT_COLORS } from "../../../../objects/versusScreenDirtSpotColors";
-import { DisableAllSound } from "../DisableAllSound";
-import { Pause } from "../Pause";
-import { RunInNFrames } from "../RunInNFrames";
+import type { DisableAllSound } from "../DisableAllSound";
+import type { Pause } from "../Pause";
+import type { RunInNFrames } from "../RunInNFrames";
 import {
   CUSTOM_FLOOR_STAGE,
   CUSTOM_FLOOR_STAGE_TYPE,
@@ -31,16 +34,9 @@ import {
   DEFAULT_BASE_STAGE_TYPE,
   ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH,
 } from "./constants";
+import { v } from "./v";
 
-interface VersusScreenVars {
-  run: {
-    showingBossVersusScreen: boolean;
-  };
-}
-
-const DEFAULT_CHARACTER = PlayerType.ISAAC;
 const DEFAULT_STAGE_ID = StageID.BASEMENT;
-
 const VERSUS_SCREEN_ANIMATION_NAME = "Scene";
 
 /** The layers range from 0 to 13. */
@@ -86,15 +82,6 @@ const OTHER_ANM2_LAYERS: readonly int[] = arrayRemove(
   VersusScreenLayer.PLAYER_PORTRAIT_ALT,
 );
 
-/** Most of the PNG files related to the versus screen are located in this directory. */
-const PNG_PATH_PREFIX = "gfx/ui/boss";
-
-/**
- * Player portraits are not located in the same directory as everything else, since they are re-used
- * from the animation where the player travels to a new stage.
- */
-const PLAYER_PORTRAIT_PNG_PATH_PREFIX = "gfx/ui/stage";
-
 const VANILLA_VERSUS_PLAYBACK_SPEED = 0.5;
 
 /** We lazy load the sprite when first needed. */
@@ -117,7 +104,6 @@ const versusScreenBackgroundSprite = Sprite();
 const versusScreenDirtSpotSprite = Sprite();
 
 export function playVersusScreenAnimation(
-  v: VersusScreenVars,
   customStage: CustomStage,
   disableAllSound: DisableAllSound,
   pause: Pause,
@@ -242,20 +228,12 @@ function getPlayerPNGPaths(): {
 } {
   const player = Isaac.GetPlayer();
   const character = player.GetPlayerType();
-
-  let namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[character];
-  if (namePNGFileName === undefined) {
-    namePNGFileName = PLAYER_NAME_PNG_FILE_NAMES[DEFAULT_CHARACTER];
+  if (character === PlayerType.POSSESSOR) {
+    error("Failed to get the player PNG paths since they are a possessor.");
   }
 
-  const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
-
-  let portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[character];
-  if (namePNGFileName === undefined) {
-    portraitFileName = PLAYER_PORTRAIT_PNG_FILE_NAMES[DEFAULT_CHARACTER];
-  }
-
-  const portraitPNGPath = `${PLAYER_PORTRAIT_PNG_PATH_PREFIX}/${portraitFileName}`;
+  const namePNGPath = getCharacterNamePNGFilePath(character);
+  const portraitPNGPath = getCharacterPortraitPNGFilePath(character);
 
   return { namePNGPath, portraitPNGPath };
 }
@@ -276,21 +254,16 @@ function getBossPNGPaths(customStage: CustomStage): {
   const firstBoss = bosses[0];
   const bossID = firstBoss === undefined ? 0 : firstBoss.GetBossID();
   if (bossID === 0) {
-    const questionMarkSprite = `${PNG_PATH_PREFIX}/${
-      BOSS_NAME_PNG_FILE_NAMES[BossID.BLUE_BABY]
-    }`;
-    const namePNGPath = questionMarkSprite;
-    const portraitPNGPath = questionMarkSprite;
+    const questionMarkPath = getBossNamePNGFilePath(BossID.BLUE_BABY);
+    const namePNGPath = questionMarkPath;
+    const portraitPNGPath = questionMarkPath;
     return { namePNGPath, portraitPNGPath };
   }
 
   // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
   // files.
-  const namePNGFileName = BOSS_NAME_PNG_FILE_NAMES[bossID];
-  const namePNGPath = `${PNG_PATH_PREFIX}/${namePNGFileName}`;
-
-  const portraitPNGFileName = BOSS_PORTRAIT_PNG_FILE_NAMES[bossID];
-  const portraitPNGPath = `${PNG_PATH_PREFIX}/${portraitPNGFileName}`;
+  const namePNGPath = getBossNamePNGFilePath(bossID);
+  const portraitPNGPath = getBossPortraitPNGFilePath(bossID);
 
   return { namePNGPath, portraitPNGPath };
 }
@@ -314,7 +287,6 @@ function getBossPNGPathsCustom(
 }
 
 function finishVersusScreenAnimation(
-  v: VersusScreenVars,
   pause: Pause,
   disableAllSound: DisableAllSound,
 ) {
@@ -332,7 +304,6 @@ function finishVersusScreenAnimation(
 
 // ModCallback.POST_RENDER (2)
 export function versusScreenPostRender(
-  v: VersusScreenVars,
   pause: Pause,
   disableAllSound: DisableAllSound,
 ): void {
@@ -344,13 +315,11 @@ export function versusScreenPostRender(
   // black screen as soon as the slide animation starts.
 
   if (versusScreenSprite.IsFinished(VERSUS_SCREEN_ANIMATION_NAME)) {
-    finishVersusScreenAnimation(v, pause, disableAllSound);
+    finishVersusScreenAnimation(pause, disableAllSound);
     return;
   }
 
-  const room = game.GetRoom();
-  const centerPos = room.GetCenterPos();
-  const position = Isaac.WorldToRenderPosition(centerPos);
+  const position = getScreenCenterPos();
 
   // First, we render the background.
   versusScreenBackgroundSprite.RenderLayer(

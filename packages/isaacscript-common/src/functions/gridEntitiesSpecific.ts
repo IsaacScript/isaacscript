@@ -1,3 +1,4 @@
+import type { TrapdoorVariant } from "isaac-typescript-definitions";
 import {
   CrawlSpaceVariant,
   DoorVariant,
@@ -6,7 +7,6 @@ import {
   PoopGridEntityVariant,
   PressurePlateVariant,
   RockVariant,
-  TrapdoorVariant,
 } from "isaac-typescript-definitions";
 import {
   getGridEntities,
@@ -15,6 +15,7 @@ import {
   spawnGridEntityWithVariant,
 } from "./gridEntities";
 import { asNumber } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to get all of the grid entities of type `GridEntityType.CRAWL_SPACE` (18) in the
@@ -24,7 +25,7 @@ import { asNumber } from "./types";
  *                          variant. Default is -1, which matches every variant.
  */
 export function getCrawlSpaces(
-  crawlSpaceVariant: CrawlSpaceVariant = -1,
+  crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
 ): GridEntity[] {
   if (asNumber(crawlSpaceVariant) === -1) {
     return getGridEntities(GridEntityType.CRAWL_SPACE);
@@ -42,7 +43,7 @@ export function getCrawlSpaces(
  * @param pitVariant Optional. If specified, will only get the pits that match the variant. Default
  *                   is -1, which matches every variant.
  */
-export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
+export function getPits(pitVariant: PitVariant | -1 = -1): GridEntityPit[] {
   const pits: GridEntityPit[] = [];
   for (const gridEntity of getGridEntities()) {
     const pit = gridEntity.ToPit();
@@ -64,7 +65,7 @@ export function getPits(pitVariant: PitVariant = -1): GridEntityPit[] {
  *                    Default is -1, which matches every variant.
  */
 export function getPoops(
-  poopVariant: PoopGridEntityVariant = -1,
+  poopVariant: PoopGridEntityVariant | -1 = -1,
 ): GridEntityPoop[] {
   const poops: GridEntityPoop[] = [];
   for (const gridEntity of getGridEntities()) {
@@ -87,7 +88,7 @@ export function getPoops(
  *                             the variant. Default is -1, which matches every variant.
  */
 export function getPressurePlates(
-  pressurePlateVariant: PressurePlateVariant = -1,
+  pressurePlateVariant: PressurePlateVariant | -1 = -1,
 ): GridEntityPressurePlate[] {
   const pressurePlates: GridEntityPressurePlate[] = [];
   for (const gridEntity of getGridEntities()) {
@@ -184,7 +185,7 @@ export function getTeleporters(variant = -1): GridEntity[] {
  *                        variant. Default is -1, which matches every variant.
  */
 export function getTrapdoors(
-  trapdoorVariant: TrapdoorVariant = -1,
+  trapdoorVariant: TrapdoorVariant | -1 = -1,
 ): GridEntity[] {
   if (asNumber(trapdoorVariant) === -1) {
     return getGridEntities(GridEntityType.TRAPDOOR);
@@ -198,14 +199,14 @@ export function getTrapdoors(
  *
  * @param crawlSpaceVariant Optional. If specified, will only remove the crawl spaces that match
  *                          this variant. Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the crawl spaces are removed.
+ * @param updateRoom Optional. Whether to update the room after the crawl spaces are removed.
  *                   Default is false. For more information, see the description of the
  *                   `removeGridEntities` helper function.
  * @param cap Optional. If specified, will only remove the given amount of crawl spaces.
  * @returns The crawl spaces that were removed.
  */
 export function removeAllCrawlSpaces(
-  crawlSpaceVariant: CrawlSpaceVariant = -1,
+  crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntity[] {
@@ -221,14 +222,14 @@ export function removeAllCrawlSpaces(
  *
  * @param pitVariant Optional. If specified, will only remove the pits that match this variant.
  *                   Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the pits are removed. Default
- *                   is false. For more information, see the description of the `removeGridEntities`
+ * @param updateRoom Optional. Whether to update the room after the pits are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
  *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of pits.
  * @returns The pits that were removed.
  */
 export function removeAllPits(
-  pitVariant: PitVariant = -1,
+  pitVariant: PitVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntityPit[] {
@@ -244,14 +245,14 @@ export function removeAllPits(
  *
  * @param poopVariant Optional. If specified, will only remove the poops that match this variant.
  *                    Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the poops are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the poops are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of poops.
  * @returns The poops that were removed.
  */
 export function removeAllPoops(
-  poopVariant: PoopGridEntityVariant = -1,
+  poopVariant: PoopGridEntityVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntityPoop[] {
@@ -264,14 +265,14 @@ export function removeAllPoops(
  *
  * @param pressurePlateVariant Optional. If specified, will only remove the pressure plates that
  *                             match this variant. Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the pressure plates are
- *                   removed. Default is false. For more information, see the description of the
+ * @param updateRoom Optional. Whether to update the room after the pressure plates are removed.
+ *                   Default is false. For more information, see the description of the
  *                   `removeGridEntities` helper function.
  * @param cap Optional. If specified, will only remove the given amount of pressure plates.
  * @returns The pressure plates that were removed.
  */
 export function removeAllPressurePlates(
-  pressurePlateVariant: PressurePlateVariant = -1,
+  pressurePlateVariant: PressurePlateVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntityPressurePlate[] {
@@ -286,9 +287,9 @@ export function removeAllPressurePlates(
  *                Default is -1, which matches every variant. Note that this is not the same thing
  *                as the `RockVariant` enum, since that only applies to `GridEntityType.ROCK`, and
  *                other types of grid entities can be the `GridEntityRock` class.
- * @param updateRoom Optional. Whether or not to update the room after the rocks are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the rocks are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of rocks.
  * @returns The rocks that were removed.
  */
@@ -306,9 +307,9 @@ export function removeAllRocks(
  *
  * @param variant Optional. If specified, will only remove the spikes that match this variant.
  *                Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the spikes are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the spikes are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of spikes.
  * @returns The spikes that were removed.
  */
@@ -326,8 +327,8 @@ export function removeAllSpikes(
  *
  * @param variant Optional. If specified, will only remove the TNTs that match this variant. Default
  *                is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the TNTs are removed. Default
- *                   is false. For more information, see the description of the `removeGridEntities`
+ * @param updateRoom Optional. Whether to update the room after the TNTs are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
  *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of TNTs.
  * @returns The TNTs that were removed.
@@ -346,9 +347,9 @@ export function removeAllTNT(
  *
  * @param variant Optional. If specified, will only remove the teleporters that match this variant.
  *                Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the teleporters are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the teleporters are removed. Default
+ *                   is false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of teleporters.
  * @returns The teleporters that were removed.
  */
@@ -366,14 +367,14 @@ export function removeAllTeleporters(
  *
  * @param trapdoorVariant Optional. If specified, will only remove the trapdoors that match this
  *                        variant. Default is -1, which matches every variant.
- * @param updateRoom Optional. Whether or not to update the room after the trapdoors are removed.
- *                   Default is false. For more information, see the description of the
- *                   `removeGridEntities` helper function.
+ * @param updateRoom Optional. Whether to update the room after the trapdoors are removed. Default
+ *                   is false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
  * @param cap Optional. If specified, will only remove the given amount of trapdoors.
  * @returns The trapdoors that were removed.
  */
 export function removeAllTrapdoors(
-  trapdoorVariant: TrapdoorVariant = -1,
+  trapdoorVariant: TrapdoorVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
 ): GridEntity[] {
@@ -421,13 +422,11 @@ export function spawnDoorWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const door = gridEntity.ToDoor();
-  if (door === undefined) {
-    error("Failed to spawn a door.");
-  }
+  assertDefined(door, "Failed to spawn a door.");
 
   return door;
 }
@@ -450,13 +449,11 @@ export function spawnPitWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const pit = gridEntity.ToPit();
-  if (pit === undefined) {
-    error("Failed to spawn a pit.");
-  }
+  assertDefined(pit, "Failed to spawn a pit.");
 
   return pit;
 }
@@ -482,13 +479,11 @@ export function spawnPoopWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const poop = gridEntity.ToPoop();
-  if (poop === undefined) {
-    error("Failed to spawn a poop.");
-  }
+  assertDefined(poop, "Failed to spawn a poop.");
 
   return poop;
 }
@@ -514,13 +509,11 @@ export function spawnPressurePlateWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const pressurePlate = gridEntity.ToPressurePlate();
-  if (pressurePlate === undefined) {
-    error("Failed to spawn a pressure plate.");
-  }
+  assertDefined(pressurePlate, "Failed to spawn a pressure plate.");
 
   return pressurePlate;
 }
@@ -543,13 +536,11 @@ export function spawnRockWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const rock = gridEntity.ToRock();
-  if (rock === undefined) {
-    error("Failed to spawn a rock.");
-  }
+  assertDefined(rock, "Failed to spawn a rock.");
 
   return rock;
 }
@@ -572,13 +563,11 @@ export function spawnSpikesWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const spikes = gridEntity.ToSpikes();
-  if (spikes === undefined) {
-    error("Failed to spawn spikes.");
-  }
+  assertDefined(spikes, "Failed to spawn spikes.");
 
   return spikes;
 }
@@ -601,13 +590,11 @@ export function spawnTNTWithVariant(
     gridIndexOrPosition,
   );
   if (gridEntity === undefined) {
-    return gridEntity;
+    return undefined;
   }
 
   const tnt = gridEntity.ToTNT();
-  if (tnt === undefined) {
-    error("Failed to spawn TNT.");
-  }
+  assertDefined(tnt, "Failed to spawn TNT.");
 
   return tnt;
 }

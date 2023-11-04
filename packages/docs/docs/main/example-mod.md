@@ -108,7 +108,7 @@ Next, open `C:\Repositories\green-candle\src\main.ts` in VSCode, which contains 
 
 The bootstrapper created a skeleton of a mod for us. As you can see, it calls the `Isaac.DebugString()` function when the `POST_GAME_STARTED` callback is fired.
 
-(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the "log.txt" file, which is located at `C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
+(`Isaac` is a global class provided by the game with helpful general-purpose methods on it. `Isaac.DebugString()` simply writes something to the "log.txt" file, which is located at `C:\Users\%USERNAME%\Documents\My Games\Binding of Isaac Repentance\log.txt`.)
 
 First, change the `MOD_NAME` constant to "Green Candle".
 
@@ -148,7 +148,9 @@ mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
 
 As you type the `ModCallback` enum, it should automatically create an import statement for the enum at the top of the file, which will look like this:
 
-```ts
+<!-- We use "js" instead of "ts" to prevent the fixer from deleting the import statement. -->
+
+```js
 import { ModCallback } from "isaac-typescript-definitions";
 ```
 
@@ -194,7 +196,9 @@ function checkApplyGreenCandleEffect() {
 
 By simply typing in `getPlayers`, VSCode should automatically import it, which means that it will add the following line to the top of the file:
 
-```ts
+<!-- We use "js" instead of "ts" to prevent the fixer from deleting the import statement. -->
+
+```js
 import { getPlayers } from "isaacscript-common";
 ```
 
@@ -210,7 +214,7 @@ function checkApplyGreenCandleEffect() {
 }
 
 function applyGreenCandleEffect(player: EntityPlayer) {
-  // TODO
+  // TODO - Fill this in.
 }
 ```
 

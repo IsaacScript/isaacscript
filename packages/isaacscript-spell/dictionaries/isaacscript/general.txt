@@ -1,16 +1,26 @@
 # These are general-purpose words that should be in the CSpell base dictionary.
 
+astar
 autoformat
+backreference
+backstab
 backticks
 bitmask
 bootstrapper
+brainer
 cacheable
+checkmark
+codebases
+cyclomatic
 decompilation
 decrementation
 easings
+gamepad
 grimoire
+incrementation
 interactable
 keyof
+keypresses
 leaderboard
 leaderboards
 licence
@@ -19,9 +29,12 @@ minifier
 minimalistic
 mkdir
 namespacing
+numpad
 outro
 Pastebin
 playstyle
+playthrough
+polyfilling
 probiotic
 pushback
 rebalancing
@@ -34,6 +47,7 @@ rulesets
 sandboxing
 situationally
 subprocesses
+supersets
 synergize
 toggleable
 tracebacks
@@ -45,8 +59,11 @@ unfade
 unfixable
 uninit
 uninitialize
+unintuitively
 unopenable
 unranked
 unserializable
 untrackable
+vararg
+varargs
 vetos

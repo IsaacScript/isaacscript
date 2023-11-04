@@ -1,14 +1,15 @@
-import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { getRandom } from "./random";
-import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { isRNG, newRNG } from "./rng";
 import {
   copyUserdataValuesToTable,
   getNumbersFromTable,
   tableHasKeys,
 } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedColor = LuaMap<string, unknown> & {
   readonly __serializedColorBrand: symbol;
@@ -16,7 +17,7 @@ export type SerializedColor = LuaMap<string, unknown> & {
 };
 
 const OBJECT_NAME = "Color";
-const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"];
+const KEYS = ["R", "G", "B", "A", "RO", "GO", "BO"] as const;
 
 export function colorEquals(color1: Color, color2: Color): boolean {
   return isaacAPIClassEquals(color1, color2, KEYS);
@@ -58,36 +59,37 @@ export function deserializeColor(color: SerializedColor): Color {
     ...KEYS,
   );
 
-  if (r === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: R`,
-    );
-  }
-  if (g === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: G`,
-    );
-  }
-  if (b === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: B`,
-    );
-  }
+  assertDefined(
+    r,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: R`,
+  );
+  assertDefined(
+    g,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: G`,
+  );
+  assertDefined(
+    b,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: B`,
+  );
 
   return Color(r, g, b, a, ro, go, bo);
 }
 
 /**
- * Helper function to get a random color.
+ * Helper function to get a random `Color` object.
  *
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * If you want to generate an unseeded object, you must explicitly pass `undefined` to the
+ * `seedOrRNG` parameter.
+ *
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param alpha Optional. The alpha value to use. Default is 1.
  */
 export function getRandomColor(
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   alpha = 1,
-): Color {
+): Readonly<Color> {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   const r = getRandom(rng);

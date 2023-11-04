@@ -1,17 +1,21 @@
-import path from "path";
-import { Config } from "../../classes/Config";
-import { MOD_SOURCE_PATH } from "../../constants";
-import { prepareCustomStages } from "../../customStage";
-import { PackageManager } from "../../enums/PackageManager";
-import { execShell } from "../../exec";
-import * as file from "../../file";
-import { getPackageManagerUsedForExistingProject } from "../../packageManager";
-import { Args } from "../../parseArgs";
-import { getModTargetDirectoryName } from "../../utils";
+import type { PackageManager } from "isaacscript-common-node";
+import {
+  copyFileOrDirectory,
+  deleteFileOrDirectory,
+  getPackageManagerExecCommand,
+} from "isaacscript-common-node";
+import path from "node:path";
+import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import { MOD_SOURCE_PATH } from "../../constants.js";
+import { prepareCustomStages } from "../../customStage.js";
+import { execShellString } from "../../exec.js";
+import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
+import type { Args } from "../../parseArgs.js";
+import { getModTargetDirectoryName } from "../../utils.js";
 
-export async function copy(args: Args, config: Config): Promise<void> {
+export async function copy(args: Args, config: ValidatedConfig): Promise<void> {
   const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args, verbose);
+  const packageManager = getPackageManagerUsedForExistingProject(args);
 
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
@@ -26,23 +30,18 @@ export async function compileAndCopy(
   verbose: boolean,
 ): Promise<void> {
   await prepareCustomStages(packageManager, verbose);
-  compile(verbose);
-  copyMod(modSourcePath, modTargetPath, verbose);
+  compile(packageManager, verbose);
+  copyMod(modSourcePath, modTargetPath);
 }
 
-function compile(verbose: boolean) {
-  execShell("npx", ["tstl"], verbose);
+function compile(packageManager: PackageManager, verbose: boolean) {
+  const command = getPackageManagerExecCommand(packageManager);
+  execShellString(`${command} tstl`, verbose);
   console.log("Mod compiled successfully.");
 }
 
-function copyMod(
-  modSourcePath: string,
-  modTargetPath: string,
-  verbose: boolean,
-) {
-  if (file.exists(modTargetPath, verbose)) {
-    file.deleteFileOrDirectory(modTargetPath, verbose);
-  }
-  file.copy(modSourcePath, modTargetPath, verbose);
+function copyMod(modSourcePath: string, modTargetPath: string) {
+  deleteFileOrDirectory(modTargetPath);
+  copyFileOrDirectory(modSourcePath, modTargetPath);
   console.log("Mod copied successfully.");
 }

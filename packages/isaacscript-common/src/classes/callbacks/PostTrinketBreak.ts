@@ -1,70 +1,56 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
   EntityType,
-  ModCallback,
   PickupVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
 import { shouldFireTrinketType } from "../../shouldFire";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import { CustomCallback } from "../private/CustomCallback";
 
-const TRINKETS_THAT_CAN_BREAK: readonly TrinketType[] = [
+const TRINKETS_THAT_CAN_BREAK = [
   TrinketType.WISH_BONE,
   TrinketType.WALNUT,
-];
+] as const;
+
+const v = {
+  run: {
+    // We cannot use a nested `DefaultMap` here.
+    playersTrinketMap: new DefaultMap<PlayerIndex, Map<TrinketType, int>>(
+      () => new Map(),
+    ),
+  },
+};
 
 export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRINKET_BREAK> {
-  public override v = {
-    run: {
-      // We cannot use a nested `DefaultMap` here.
-      playersTrinketMap: new DefaultMap<PlayerIndex, Map<TrinketType, int>>(
-        () => new Map(),
-      ),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        [this.entityTakeDmgPlayer, EntityType.PLAYER],
-      ], // 11
-    ];
-
     this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }
 
   protected override shouldFire = shouldFireTrinketType;
 
-  // ModCallback.ENTITY_TAKE_DMG (11)
-  // EntityType.PLAYER (1)
-  private entityTakeDmgPlayer = (
-    entity: Entity,
+  // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
+  private readonly entityTakeDmgPlayer = (
+    player: EntityPlayer,
     _amount: float,
     _damageFlags: BitFlags<DamageFlag>,
     _source: EntityRef,
     _countdownFrames: int,
   ): boolean | undefined => {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
-    }
-
-    const trinketMap = defaultMapGetPlayer(
-      this.v.run.playersTrinketMap,
-      player,
-    );
+    const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
     for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
       const numTrinketsHeld = player.GetTrinketMultiplier(trinketType);
@@ -97,16 +83,17 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
   };
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     // On every frame, keep track of how many trinkets we have.
-    const trinketMap = defaultMapGetPlayer(
-      this.v.run.playersTrinketMap,
-      player,
-    );
+    const trinketMap = defaultMapGetPlayer(v.run.playersTrinketMap, player);
 
     for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
       const numTrinkets = player.GetTrinketMultiplier(trinketType);
-      trinketMap.set(trinketType, numTrinkets);
+      if (numTrinkets === 0) {
+        trinketMap.delete(trinketType);
+      } else {
+        trinketMap.set(trinketType, numTrinkets);
+      }
     }
   };
 }

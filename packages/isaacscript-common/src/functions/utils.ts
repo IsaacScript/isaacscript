@@ -1,28 +1,81 @@
-import { RenderMode } from "isaac-typescript-definitions";
-import { game } from "../core/cachedClasses";
-import { CONSOLE_COMMANDS_SET } from "../sets/consoleCommandsSet";
+import { ReadonlySet } from "../types/ReadonlySet";
+import { getAllPlayers } from "./playerIndex";
+import { isFunction } from "./types";
+
+/**
+ * Helper function to throw an error (using the `error` Lua function) if the provided value is equal
+ * to `undefined`.
+ *
+ * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
+ */
+export function assertDefined<T>(
+  value: T,
+  ...[msg]: [undefined] extends [T]
+    ? [string]
+    : [
+        "The assertion is useless because the provided value does not contain undefined.",
+      ]
+): asserts value is Exclude<T, undefined> {
+  if (value === undefined) {
+    error(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error (using the `error` Lua function) if the provided value is equal
+ * to `null`.
+ *
+ * This is useful to have TypeScript narrow a `T | null` value to `T` in a concise way.
+ */
+export function assertNotNull<T>(
+  value: T,
+  ...[msg]: [null] extends [T]
+    ? [string]
+    : [
+        "The assertion is useless because the provided value does not contain null.",
+      ]
+): asserts value is Exclude<T, null> {
+  if (value === null) {
+    error(msg);
+  }
+}
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on the lower
- * end and exclusive on the high end. (The "e" stands for exclusive.)
+ * end and exclusive on the high end. (The "e" in the function name stands for exclusive.) Thus,
+ * this function works in a similar way as the built-in `range` function from Python.
  *
- * - For example, `eRange(1, 3)` will return `[1, 2]`.
- * - For example, `eRange(2)` will return `[0, 1]`.
+ * If the end is lower than the start, then the range will be reversed.
  *
- * @param start The number to start at.
- * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ * For example:
+ *
+ * - `eRange(2)` returns `[0, 1]`.
+ * - `eRange(3)` returns `[0, 1, 2]`.
+ * - `eRange(-3)` returns `[0, -1, -2]`.
+ * - `eRange(1, 3)` returns `[1, 2]`.
+ * - `eRange(2, 5)` returns `[2, 3, 4]`.
+ * - `eRange(5, 2)` returns `[5, 4, 3]`.
+ *
+ * @param start The integer to start at.
+ * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
  *            first argument will be the end.
  * @param increment Optional. The increment to use. Default is 1.
  */
 export function eRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
-    end = start;
-    start = 0;
+    return eRange(0, start, increment);
   }
 
   const array: int[] = [];
-  for (let i = start; i < end; i += increment) {
-    array.push(i);
+
+  if (start < end) {
+    for (let i = start; i < end; i += increment) {
+      array.push(i);
+    }
+  } else {
+    for (let i = start; i > end; i -= increment) {
+      array.push(i);
+    }
   }
 
   return array;
@@ -47,82 +100,90 @@ export function getTraversalDescription(
 
 /**
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
- * (The "i" stands for inclusive.)
+ * (The "i" in the function name stands for inclusive.)
  *
- * - For example, `iRange(1, 3)` will return `[1, 2, 3]`.
- * - For example, `iRange(2)` will return `[0, 1, 2]`.
+ * If the end is lower than the start, then the range will be reversed.
  *
- * @param start The number to start at.
- * @param end Optional. The number to end at. If not specified, then the start will be 0 and the
+ * For example:
+ *
+ * - `iRange(2)` returns `[0, 1, 2]`.
+ * - `iRange(3)` returns `[0, 1, 2, 3]`.
+ * - `iRange(-3)` returns `[0, -1, -2, -3]`.
+ * - `iRange(1, 3)` returns `[1, 2, 3]`.
+ * - `iRange(2, 5)` returns `[2, 3, 4, 5]`.
+ * - `iRange(5, 2)` returns `[5, 4, 3, 2]`.
+ *
+ * @param start The integer to start at.
+ * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
  *            first argument will be the end.
  * @param increment Optional. The increment to use. Default is 1.
  */
 export function iRange(start: int, end?: int, increment = 1): int[] {
   if (end === undefined) {
-    end = start;
-    start = 0;
+    return iRange(0, start, increment);
   }
 
-  const array: int[] = [];
-  for (let i = start; i <= end; i += increment) {
-    array.push(i);
-  }
-
-  return array;
+  const rangeIncreasing = start <= end;
+  const exclusiveEnd = rangeIncreasing ? end + 1 : end - 1;
+  return eRange(start, exclusiveEnd, increment);
 }
 
 /**
- * Helper function to see if the current render callback is rendering a water reflection.
+ * Helper function to check if a variable is within a certain range, inclusive on both ends.
  *
- * When the player is in a room with water, things will be rendered twice: once for the normal
- * rendering, and once for the reflecting rendering. Thus, any mod code in a render callback will
- * run twice per frame in these situations, which may be unexpected or cause bugs.
+ * - For example, `inRange(1, 1, 3)` will return `true`.
+ * - For example, `inRange(0, 1, 3)` will return `false`.
  *
- * This function is typically used to early return from a render function if it returns true.
+ * @param num The number to check.
+ * @param start The start of the range to check.
+ * @param end The end of the range to check.
  */
-export function isReflectionRender(): boolean {
-  const room = game.GetRoom();
-  const renderMode = room.GetRenderMode();
-  return renderMode === RenderMode.WATER_REFLECT;
+export function inRange(num: int, start: int, end: int): boolean {
+  return num >= start && num <= end;
 }
 
 /**
- * Helper function to see if a particular command is a vanilla console command. This is useful
- * because the `EXECUTE_CMD` callback will not fire for any vanilla commands.
+ * Helper function to detect if there is two or more players currently playing.
+ *
+ * Specifically, this function looks for unique `ControllerIndex` values across all players.
+ *
+ * This function is not safe to use in the `POST_PLAYER_INIT` callback, because the
+ * `ControllerIndex` will not be set properly. As a workaround, you can use it in the
+ * `POST_PLAYER_INIT_FIRST` callback (or some other callback like `POST_UPDATE`).
  */
-export function isVanillaConsoleCommand(commandName: string): boolean {
-  return CONSOLE_COMMANDS_SET.has(commandName);
+export function isMultiplayer(): boolean {
+  const players = getAllPlayers();
+  const controllerIndexes = players.map((player) => player.ControllerIndex);
+  const controllerIndexesSet = new ReadonlySet(controllerIndexes);
+
+  return controllerIndexesSet.size > 1;
 }
 
 /**
- * Helper function for creating objects that represent a mapping of an enum value to some other
- * value in a type-safe way.
+ * Helper function to check if the player is using Afterbirth+ or Repentance.
  *
- * This function will ensure that the provided object has a key for each value in the enum.
+ * This function should always be used over the `REPENTANCE` constant, since the latter is not safe.
  *
- * After the `satisfies` operator is released in TypeScript 4.9, this function should be deleted.
+ * Specifically, this function checks for the `Sprite.GetAnimation` method:
+ * https://bindingofisaacrebirth.fandom.com/wiki/V1.06.J818#Lua_Changes
  */
-export function newObjectWithEnumKeys<
-  Enum extends number | string,
-  T extends Record<Enum, unknown>,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
->(theEnum: Record<string, Enum>, obj: T): T {
-  return obj;
-}
+export function isRepentance(): boolean {
+  const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
+  assertDefined(
+    metatable,
+    "Failed to get the metatable of the Sprite global table.",
+  );
 
-/**
- * Helper function to print something to the in-game console. Use this instead of invoking the
- * `Isaac.ConsoleOutput` method directly because it will automatically insert a newline at the end
- * of the message (which `Isaac.ConsoleOutput` does not do by default).
- */
-export function printConsole(msg: string): void {
-  Isaac.ConsoleOutput(`${msg}\n`);
-}
+  const classTable = metatable.get("__class") as
+    | LuaMap<string, unknown>
+    | undefined;
+  assertDefined(
+    classTable,
+    'Failed to get the "__class" key of the Sprite metatable.',
+  );
 
-/** Helper function to print whether something was enabled or disabled to the in-game console. */
-export function printEnabled(enabled: boolean, description: string): void {
-  const enabledText = enabled ? "Enabled" : "Disabled";
-  printConsole(`${enabledText} ${description}.`);
+  const getAnimation = classTable.get("GetAnimation");
+  return isFunction(getAnimation);
 }
 
 /**
@@ -145,8 +206,8 @@ export function printEnabled(enabled: boolean, description: string): void {
  * });
  * ```
  */
-export function repeat(n: int, func: (i: int) => void): void {
-  for (let i = 0; i < n; i++) {
+export function repeat(num: int, func: (i: int) => void): void {
+  for (let i = 0; i < num; i++) {
     func(i);
   }
 }
@@ -163,75 +224,8 @@ export function repeat(n: int, func: (i: int) => void): void {
  * useful as a means to prevent unused variables.)
  *
  * This function does not actually do anything. (It is an "empty" function.)
+ *
+ * @allowEmptyVariadic
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
 export function todo(...args: unknown[]): void {}
-
-/**
- * Helper function to sort a two-dimensional array by the first element.
- *
- * For example:
- *
- * ```ts
- * const myArray = [[1, 2], [2, 3], [3, 4]];
- * myArray.sort(twoDimensionalSort);
- * ```
- *
- * From:
- * https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
- */
-export function twoDimensionalSort<T>(array1: T[], array2: T[]): -1 | 0 | 1 {
-  const firstElement1 = array1[0];
-  const firstElement2 = array2[0];
-
-  if (firstElement1 === undefined || firstElement1 === null) {
-    error(
-      "Failed to two-dimensional sort since the first element of the first array was undefined.",
-    );
-  }
-
-  if (firstElement2 === undefined || firstElement2 === null) {
-    error(
-      "Failed to two-dimensional sort since the first element of the second array was undefined.",
-    );
-  }
-
-  if (firstElement1 === firstElement2) {
-    return 0;
-  }
-
-  return firstElement1 < firstElement2 ? -1 : 1;
-}
-
-/**
- * Helper function to validate that an interface contains all of the keys of an enum. You must
- * specify both generic parameters in order for this to work properly (i.e. the interface and then
- * the enum).
- *
- * For example:
- *
- * ```ts
- * enum MyEnum {
- *   Value1,
- *   Value2,
- *   Value3,
- * }
- *
- * interface MyEnumToType {
- *   [MyEnum.Value1]: boolean;
- *   [MyEnum.Value2]: number;
- *   [MyEnum.Value3]: string;
- * }
- *
- * validateInterfaceMatchesEnum<MyEnumToType, MyEnum>();
- * ```
- *
- * This function is only meant to be used with interfaces (i.e. types that will not exist at
- * run-time). If you are generating an object that will contain all of the keys of an enum, use the
- * `newObjectWithEnumKeys` helper function instead.
- */
-export function validateInterfaceMatchesEnum<
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  T extends Record<Enum, unknown>,
-  Enum extends string | number,
->(): void {}

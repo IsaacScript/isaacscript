@@ -1,5 +1,5 @@
-import { PressurePlateState } from "../../enums/collections/gridEntityState";
-import { PressurePlateVariant } from "../../enums/collections/gridEntityVariants";
+import type { PressurePlateState } from "../../enums/collections/gridEntityStates";
+import type { PressurePlateVariant } from "../../enums/collections/gridEntityVariants";
 
 declare global {
   /**
@@ -7,8 +7,8 @@ declare global {
    * the `GridEntity.ToPressurePlate` method.
    */
   interface GridEntityPressurePlate extends GridEntity {
-    GetVariant(): PressurePlateVariant;
-    Reward(): void;
+    GetVariant: () => PressurePlateVariant;
+    Reward: () => void;
 
     GreedModeRNG: RNG;
     NextGreedAnimation: string;

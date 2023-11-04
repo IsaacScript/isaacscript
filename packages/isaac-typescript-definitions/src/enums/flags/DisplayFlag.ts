@@ -24,11 +24,10 @@ type DisplayFlagValue = BitFlag & {
   readonly __displayFlagBrand: symbol;
 };
 type DisplayFlagType = {
-  [K in keyof typeof DisplayFlagInternal]: DisplayFlagValue;
+  readonly [K in keyof typeof DisplayFlagInternal]: DisplayFlagValue;
 };
 
 export const DisplayFlag = DisplayFlagInternal as DisplayFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type DisplayFlag = DisplayFlagType[keyof DisplayFlagType];
 
 export const DisplayFlagZero = 0 as BitFlags<DisplayFlag>;

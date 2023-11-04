@@ -1,4 +1,4 @@
-import { TNTState } from "../../enums/collections/gridEntityState";
+import type { TNTState } from "../../enums/collections/gridEntityStates";
 
 declare global {
   /**

@@ -1,10 +1,9 @@
 import chalk from "chalk";
-import path from "path";
-import { HOME_DIR } from "../../constants";
-import * as file from "../../file";
-import { Args } from "../../parseArgs";
-import { getInputString } from "../../prompt";
-import { error } from "../../utils";
+import { fatalError, isDirectory } from "isaacscript-common-node";
+import path from "node:path";
+import { HOME_DIR } from "../../constants.js";
+import type { Args } from "../../parseArgs.js";
+import { getInputString } from "../../prompt.js";
 
 const MODS = "mods";
 
@@ -32,8 +31,12 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
 
 export async function getModsDir(
   args: Args,
-  verbose: boolean,
-): Promise<string> {
+  typeScript: boolean,
+): Promise<string | undefined> {
+  if (typeScript) {
+    return undefined;
+  }
+
   if (args.modsDirectory !== undefined) {
     // They specified the "--mods-directory" command-line flag, so there is no need to prompt the
     // user for it.
@@ -42,10 +45,7 @@ export async function getModsDir(
 
   const defaultModsPath = getDefaultModsPath(process.platform);
 
-  if (
-    file.exists(defaultModsPath, verbose) &&
-    file.isDir(defaultModsPath, verbose)
-  ) {
+  if (isDirectory(defaultModsPath)) {
     return defaultModsPath;
   }
 
@@ -57,27 +57,19 @@ export async function getModsDir(
   );
 
   if (modsDir === "") {
-    error("Error: You did not provide a response; exiting.");
+    fatalError("Error: You did not provide a response; exiting.");
   }
 
-  if (!file.exists(modsDir, verbose)) {
-    error(
+  if (!isDirectory(modsDir)) {
+    fatalError(
       `Error: The directory of "${chalk.green(
         modsDir,
       )}" does not exist. Exiting.`,
     );
   }
 
-  if (!file.isDir(modsDir, verbose)) {
-    error(
-      `Error: The path of "${chalk.green(
-        modsDir,
-      )}" is not a directory. Exiting.`,
-    );
-  }
-
   if (path.basename(modsDir) !== MODS) {
-    error(
+    fatalError(
       `Error: You entered a path of "${chalk.green(
         modsDir,
       )}", but you need to input a directory with a name of "${MODS}" at the end. Exiting.`,
@@ -98,7 +90,7 @@ function getDefaultModsPath(platform: string): string {
     }
 
     default: {
-      error(
+      return fatalError(
         `There does not exist a default mod path for the platform of: ${chalk.green(
           platform,
         )}`,

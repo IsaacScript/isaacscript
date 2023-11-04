@@ -19,12 +19,13 @@ export class FastReset extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     if (!this.enabled) {
       return;
     }

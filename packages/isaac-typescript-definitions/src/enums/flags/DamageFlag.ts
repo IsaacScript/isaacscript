@@ -10,7 +10,11 @@ const DamageFlagInternal = {
   /** 1 << 0 (1) */
   NO_KILL: 1 << 0,
 
-  /** 1 << 1 (2) */
+  /**
+   * e.g. fireplace
+   *
+   * 1 << 1 (2)
+   */
   FIRE: 1 << 1,
 
   /** 1 << 2 (4) */
@@ -79,7 +83,12 @@ const DamageFlagInternal = {
   /** 1 << 23 (8388608) */
   SPAWN_BLACK_HEART: 1 << 23,
 
-  /** 1 << 24 (16777216) */
+  /**
+   * Comes from a strong impact. Can damage Tuff Twins or The Shell (e.g. Mom's foot, shockwaves,
+   * rock tears).
+   *
+   * 1 << 24 (16777216)
+   */
   CRUSH: 1 << 24,
 
   /** 1 << 25 (33554432) */
@@ -111,11 +120,10 @@ type DamageFlagValue = BitFlag & {
   readonly __damageFlagBrand: symbol;
 };
 type DamageFlagType = {
-  [K in keyof typeof DamageFlagInternal]: DamageFlagValue;
+  readonly [K in keyof typeof DamageFlagInternal]: DamageFlagValue;
 };
 
 export const DamageFlag = DamageFlagInternal as DamageFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type DamageFlag = DamageFlagType[keyof DamageFlagType];
 
 export const DamageFlagZero = 0 as BitFlags<DamageFlag>;

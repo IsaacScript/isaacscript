@@ -6,7 +6,7 @@ export enum Music {
   CELLAR = 4,
   CATACOMBS = 5,
   NECROPOLIS = 6,
-  WOMB_UTERO = 7,
+  WOMB = 7,
   GAME_OVER = 8,
   BOSS = 9,
   CATHEDRAL = 10,

@@ -57,7 +57,7 @@ export function isEntity(variable: unknown): variable is Entity {
   return getIsaacAPIClassName(variable) === "Entity";
 }
 
-/** Helper function to detect if a variable is of type `EntityEffect`. */
+/** Helper function to detect if a variable is of type `EntityFamiliar`. */
 export function isFamiliar(variable: unknown): variable is EntityFamiliar {
   return getIsaacAPIClassName(variable) === "EntityEffect";
 }
@@ -162,7 +162,7 @@ export function isTear(variable: unknown): variable is EntityTear {
 export function isaacAPIClassEquals(
   object1: unknown,
   object2: unknown,
-  keys: string[],
+  keys: string[] | readonly string[],
 ): boolean {
   const table1 = object1 as LuaMap<AnyNotNil, unknown>;
   const table2 = object2 as LuaMap<AnyNotNil, unknown>;

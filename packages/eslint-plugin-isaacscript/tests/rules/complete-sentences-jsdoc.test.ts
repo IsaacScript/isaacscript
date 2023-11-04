@@ -1,9 +1,7 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import { CompleteSentenceMessageIds } from "../../src/completeSentence";
-import {
-  completeSentencesJSDoc,
-  Options,
-} from "../../src/rules/complete-sentences-jsdoc";
+import type { TSESLint } from "@typescript-eslint/utils";
+import type { CompleteSentenceMessageIds } from "../../src/completeSentence";
+import type { Options } from "../../src/rules/complete-sentences-jsdoc";
+import { completeSentencesJSDoc } from "../../src/rules/complete-sentences-jsdoc";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
@@ -85,7 +83,7 @@ invalid.push({
 * between two lines
 */
   `,
-  errors: [{ messageId: "missingPeriod" }],
+  errors: [{ messageId: "missingPeriod" }, { messageId: "missingPeriod" }],
 });
 
 valid.push({
@@ -140,7 +138,7 @@ valid.push({
 valid.push({
   name: "Single-line comment with a URL (simple)",
   code: `
-/** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
+/** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js */
   `,
 });
 
@@ -148,7 +146,7 @@ valid.push({
   name: "Multi-line comment with a URL (combined)",
   code: `
 /**
- * Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+ * Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js
  */
   `,
 });
@@ -158,7 +156,7 @@ valid.push({
   code: `
 /**
  * Taken from ESLint:
- * https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js
+ * https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js
  */
   `,
 });
@@ -489,6 +487,116 @@ valid.push({
  * @noSelf
  */
   `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on one line",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello'];
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example
+ * no capital letters here.
+ * just some example text.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc markdown table",
+  code: `
+/**
+ * | API                                                  | Description                                                                  |
+ * | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+ * | {@link getNames getNames()}                          | Provides a list of all peripherals available.                                |
+ * | {@link isPresent isPresent(name)}                    | Determines if a peripheral is present with the given name.                   |
+ * | {@link getType getType(peripheral)}                  | Get the types of a named or wrapped peripheral.                              |
+ * | {@link hasType hasType(peripheral, peripheral_type)} | Check if a peripheral is of a particular type.                               |
+ * | {@link getMethods getMethods(name)}                  | Get all available methods for the peripheral with the given name.            |
+ * | {@link getName getName(peripheral)}                  | Get the name of a peripheral wrapped with \`peripheral.wrap\`.                 |
+ * | {@link call call(name, method, ...)}                 | Call a method on the peripheral with the given name.                         |
+ * | {@link wrap wrap(name)}                              | Get a table containing all functions available on a peripheral.              |
+ * | {@link find find(ty [, filter])}                     | Find all peripherals of a specific type, and return the wrapped peripherals. |
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc link tag",
+  code: `
+/** Get the name of a peripheral wrapped with {@link peripheral.wrap}. */
+  `,
+});
+
+valid.push({
+  name: "Comment with capitalized JSDoc link tag",
+  code: `
+/**
+ * {@link NamepathOrURL} it doesn't allow this.
+ *
+ * [Link text]{@link namepathOrURL} hey, it actually starts with a capital letter.
+ *
+ * {@link namepathOrURL|Link text} what do you mean it doesn't start with a capital letter?
+ *
+ * {@link namepathOrURL Link text (after the first space)} this does indeed start with a capital letter.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc see tag",
+  code: `
+/**
+ * @see peripheral This event is fired whenever a
+ * new peripheral is attached.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc Markdown header at the beginning",
+  code: `
+/**
+ * # This is a header
+ *
+ * This is another comment.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc Markdown header in the middle",
+  code: `
+/**
+ * This is a comment.
+ *
+ * # This is a header
+ *
+ * This is another comment.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc something that looks like a Markdown header",
+  code: `
+/**
+ * Grey. Written as \`7\` in paint files and {@link term.blit}, has a default terminal color of
+ * #4C4C4C.
+ *
+ * @see {@link colors.gray}
+ */  `,
 });
 
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {

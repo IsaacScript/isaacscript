@@ -1,13 +1,13 @@
 import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManager/constants";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { AnyClass } from "../types/AnyClass";
+import { isSerializationBrand } from "../serialization";
+import type { AnyClass } from "../types/AnyClass";
 import { isArray } from "./array";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 import {
   deserializeIsaacAPIClass,
-  isSerializationBrand,
   isSerializedIsaacAPIClass,
 } from "./serialization";
 import { clearTable, iterateTableInOrder } from "./table";
@@ -218,8 +218,8 @@ function mergeSerializedTable(
         let oldValue = oldTable.get(key) as LuaMap<AnyNotNil, unknown>;
         if (!isTable(oldValue)) {
           // The child table does not exist on the old table. However, we still need to copy over
-          // the new table, because we need to handle data types like "Foo | null". Thus, set up a
-          // blank sub-table on the old table, and continue to recursively merge..
+          // the new table, because we need to handle data types like `Foo | null`. Thus, set up a
+          // blank sub-table on the old table, and continue to recursively merge.
           oldValue = new LuaMap();
           oldTable.set(key, oldValue);
         }

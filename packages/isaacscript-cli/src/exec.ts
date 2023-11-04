@@ -1,12 +1,8 @@
 import chalk from "chalk";
-import {
-  execFileSync,
-  execSync,
-  spawnSync,
-  SpawnSyncReturns,
-} from "child_process";
-import { CWD } from "./constants";
-import { error } from "./utils";
+import { fatalError } from "isaacscript-common-node";
+import type { SpawnSyncReturns } from "node:child_process";
+import { execFileSync, execSync, spawnSync } from "node:child_process";
+import { CWD } from "./constants.js";
 
 export function execExe(
   path: string,
@@ -24,8 +20,8 @@ export function execExe(
       cwd,
     });
     stdout = buffer.toString().trim();
-  } catch (err) {
-    error(`Failed to run "${chalk.green(path)}":`, err);
+  } catch (error) {
+    fatalError(`Failed to run "${chalk.green(path)}":`, error);
   }
 
   if (verbose) {
@@ -51,8 +47,11 @@ export function execPowershell(
       cwd,
     });
     stdout = buffer.toString().trim();
-  } catch (err) {
-    error(`Failed to run PowerShell command "${chalk.green(command)}":`, err);
+  } catch (error) {
+    fatalError(
+      `Failed to run PowerShell command "${chalk.green(command)}":`,
+      error,
+    );
   }
 
   if (verbose) {
@@ -60,6 +59,31 @@ export function execPowershell(
   }
 
   return stdout;
+}
+
+/**
+ * Same as `execShell`, but accepts the command as a string instead of an array of arguments.
+ *
+ * @param commandString The command to run.
+ * @param verbose Default is false.
+ * @param allowFailure Default is false.
+ * @param cwd Default is CWD.
+ */
+export function execShellString(
+  commandString: string,
+  verbose = false,
+  allowFailure = false,
+  cwd = CWD,
+): { exitStatus: number; stdout: string } {
+  const args = commandString.split(" ");
+  const command = args.shift();
+  if (command === undefined) {
+    fatalError(
+      `execShellString failed to parse the command of: ${commandString}`,
+    );
+  }
+
+  return execShell(command, args, verbose, allowFailure, cwd);
 }
 
 /**
@@ -77,18 +101,18 @@ export function execShell(
   verbose = false,
   allowFailure = false,
   cwd = CWD,
-): [exitStatus: number, stdout: string] {
+): { exitStatus: number; stdout: string } {
   // On Windows, "spawnSync()" will not account for spaces in arguments. Thus, wrap everything in a
   // double quote. This will cause arguments that naturally have double quotes to fail.
   if (command.includes("''") || command.includes('"')) {
-    error(
+    fatalError(
       "execShell cannot execute commands with single quotes or double quotes in the command.",
     );
   }
 
   const argsHasDoubleQuotes = args.some((arg) => arg.includes('"'));
   if (argsHasDoubleQuotes) {
-    error(
+    fatalError(
       "execShell cannot execute commands with double quotes in the arguments.",
     );
   }
@@ -106,10 +130,10 @@ export function execShell(
       shell: true,
       cwd,
     });
-  } catch (err) {
-    error(
+  } catch (error) {
+    fatalError(
       `Failed to run the "${chalk.green(commandDescription)}" command:`,
-      err,
+      error,
     );
   }
 
@@ -119,14 +143,16 @@ export function execShell(
 
   const exitStatus = spawnSyncReturns.status;
   if (exitStatus === null) {
-    error(`Failed to get the return status of command: ${commandDescription}`);
+    fatalError(
+      `Failed to get the return status of command: ${commandDescription}`,
+    );
   }
 
   const stdout = spawnSyncReturns.output.join("\n").trim();
 
   if (exitStatus !== 0) {
     if (allowFailure) {
-      return [exitStatus, stdout];
+      return { exitStatus, stdout };
     }
 
     console.error(
@@ -139,5 +165,5 @@ export function execShell(
     process.exit(1);
   }
 
-  return [exitStatus, stdout];
+  return { exitStatus, stdout };
 }

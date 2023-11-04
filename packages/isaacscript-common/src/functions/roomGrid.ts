@@ -7,14 +7,14 @@
  * @module
  */
 
-import { RoomShape } from "isaac-typescript-definitions";
+import type { RoomShape } from "isaac-typescript-definitions";
 import { L_ROOM_SHAPE_TO_RECTANGLES } from "../objects/LRoomShapeToRectangles";
 import { inRectangle } from "./math";
 import {
   getRoomShapeBottomRightPosition,
   getRoomShapeTopLeftPosition,
   getRoomShapeWidth,
-  isLRoom,
+  isLRoomShape,
 } from "./roomShape";
 
 /**
@@ -22,7 +22,10 @@ import {
  *
  * For example, the coordinates of (0, 0) are equal to `Vector(80, 160)`.
  */
-export function gridCoordinatesToWorldPosition(x: int, y: int): Vector {
+export function gridCoordinatesToWorldPosition(
+  x: int,
+  y: int,
+): Readonly<Vector> {
   const gridPosition = Vector(x, y);
   return gridPositionToWorldPosition(gridPosition);
 }
@@ -36,7 +39,7 @@ export function gridCoordinatesToWorldPosition(x: int, y: int): Vector {
 export function gridIndexToGridPosition(
   gridIndex: int,
   roomShape: RoomShape,
-): Vector {
+): Readonly<Vector> {
   const gridWidth = getRoomShapeWidth(roomShape);
 
   const x = (gridIndex % gridWidth) - 1;
@@ -49,9 +52,12 @@ export function gridIndexToGridPosition(
  *
  * For example, the coordinates of (0, 0) are equal to `Vector(80, 160)`.
  */
-export function gridPositionToWorldPosition(gridPosition: Vector): Vector {
+export function gridPositionToWorldPosition(
+  gridPosition: Vector,
+): Readonly<Vector> {
   const x = (gridPosition.X + 2) * 40;
   const y = (gridPosition.Y + 4) * 40;
+
   return Vector(x, y);
 }
 
@@ -64,7 +70,7 @@ export function isValidGridPosition(
   gridPosition: Vector,
   roomShape: RoomShape,
 ): boolean {
-  return isLRoom(roomShape)
+  return isLRoomShape(roomShape)
     ? isValidGridPositionLRoom(gridPosition, roomShape)
     : isValidGridPositionNormal(gridPosition, roomShape);
 }
@@ -81,12 +87,12 @@ function isValidGridPositionLRoom(gridPosition: Vector, roomShape: RoomShape) {
     return false;
   }
 
-  const [
+  const {
     verticalTopLeft,
     verticalBottomRight,
     horizontalTopLeft,
     horizontalBottomRight,
-  ] = rectangles;
+  } = rectangles;
   return (
     inRectangle(gridPosition, verticalTopLeft, verticalBottomRight) ||
     inRectangle(gridPosition, horizontalTopLeft, horizontalBottomRight)
@@ -98,7 +104,9 @@ function isValidGridPositionLRoom(gridPosition: Vector, roomShape: RoomShape) {
  *
  * In this context, the grid position of the top-left wall is "Vector(-1, -1)".
  */
-export function worldPositionToGridPosition(worldPos: Vector): Vector {
+export function worldPositionToGridPosition(
+  worldPos: Vector,
+): Readonly<Vector> {
   const x = Math.round(worldPos.X / 40 - 2);
   const y = Math.round(worldPos.Y / 40 - 4);
   return Vector(x, y);
@@ -111,7 +119,9 @@ export function worldPositionToGridPosition(worldPos: Vector): Vector {
  *
  * This is similar to the `worldPositionToGridPosition` function, but the values are not rounded.
  */
-export function worldPositionToGridPositionFast(worldPos: Vector): Vector {
+export function worldPositionToGridPositionFast(
+  worldPos: Vector,
+): Readonly<Vector> {
   const x = worldPos.X / 40 - 2;
   const y = worldPos.Y / 40 - 4;
   return Vector(x, y);

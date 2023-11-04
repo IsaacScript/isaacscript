@@ -1,0 +1,17 @@
+# OS-specific artifacts
+.DS_Store
+thumbs.db
+
+# @template-mod-start
+# Per-user IsaacScript settings
+isaacscript.json
+
+# The transpiled Lua output
+mod/main.lua
+# @template-mod-end
+
+# ------------------------------
+# GitHub Node.gitignore template
+# https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore
+# cspell:disable
+# ------------------------------

@@ -2,21 +2,15 @@
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
 
-`isaacscript-lint` is a helper package to install all of the dependencies necessary for ESLint to work with a typical TypeScript project or a typical IsaacScript mod.
+This is a helper/meta package to install all of the dependencies necessary for [Prettier](https://prettier.io/) & [ESLint](https://eslint.org/) to work with a typical TypeScript project. (Prettier is the best code formatter and ESLint is the best code problem checker.)
 
 <br>
 
-## For Use in a TypeScript / TypeScriptToLua Project
+## Why This Package Is Useful
 
-`isaacscript-lint` is a great starting point for any TypeScript project. It's a pain in the ass to get ESLint working with TypeScript and to get everything working properly. Don't clutter your `package.json` file with 15+ different ESlint-related dependencies; just use `isaacscript-lint`.
+It's a pain to get Prettier & ESLint working with TypeScript. So, `isaacscript-lint` is designed to make it as easy as possible. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies. Don't bother researching which of the hundreds of existing ESLint rules to turn on and turn off. Just use `isaacscript-lint`.
 
-See the [installation instructions](#installation-instructions-for-typescript-projects) below.
-
-<br>
-
-## For Use in an Isaacscript Mod
-
-Use the `isaacscript init` tool to automatically set up a new mod that has `isaacscript-lint` as a dependency and a starting `eslintrc.js` config file.
+If you are ready to start, see the [installation instructions](#installation-instructions-for-typescript-projects) below.
 
 <br>
 
@@ -38,19 +32,25 @@ The root of the problem here is that when people try out a new programming langu
 
 <br>
 
-## TypeScript Code Formatting - ESLint & Prettier
+## Why We Use Prettier & ESLint
 
-In JavaScript and TypeScript land, there isn't a unifying standard like there is in Go, but we can get close.
+### Prettier
 
-Historically, the the most popular style guide is the world is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript). ([Google's Style Guide](https://google.github.io/styleguide/jsguide.html) and [StandardJS](https://standardjs.com/) are also notable, but don't seem quite as popular.) Thus, we chose Airbnb as a base for new JavaScript and TypeScript projects.
+In JavaScript and TypeScript land, there isn't an official code formatting standard like there is in Go, but we can get close.
 
-ESLint is the industry standard tool for linting in JavaScript and TypeScript. Airbnb helpfully provides an ESLint configuration with most of their style recommendations. ESLint can function in a way similar to `gofmt` by configuring your text editor to do `eslint --fix` on save. However, this has a lot of limitations. It can't automatically fix everything and leaves a lot up to the end user to fix.
+[Prettier](https://prettier.io/) is an auto-formatter for JavaScript/TypeScript. First released in 2017, it has become widespread and is probably considered to be the industry standard in 2023. Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make better transformations than other tools.
 
-[Prettier](https://prettier.io/) was released in 2017 and it has quickly become very widespread. (It could _probably_ also be considered to be industry standard in 2022.) Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make much better transformations than pure ESLint can.
+In `isaacscript-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Because of the advantages of Prettier, we use it on top of the Airbnb config, and prefer Prettier's changes if there are any conflicts. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+Prettier handles almost everything, but the `isaacscript-lint` linting config also has a few formatting-related rules turned on, like [`isaacscript/format-jsdoc-comments`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/format-jsdoc-comments.md) (since Prettier does not format comments).
 
-Finally, some specific Airbnb rules are disabled, since they don't make much sense in certain contexts. You can see the specific exclusions in the [base.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js) and [mod.js](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js) files of the [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) repository.
+### ESLint
+
+ESLint is the best tool to lint JavaScript and TypeScript, as it has a massive ecosystem of rules and plugins that can help find errors in your codebase.
+
+With `isaacscript-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-isaacscript`](https://isaacscript.github.io/eslint-config-isaacscript).
+
+### Using Prettier & ESLint Together
 
 In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
 
@@ -65,18 +65,25 @@ It should have a `package.json` file, a `tsconfig.json` file, and so on.
 ### Step 1 - Install the Dependency
 
 ```sh
+# If you use npm:
 npm install isaacscript-lint --save-dev
+
+# If you use yarn:
+yarn install isaacscript-lint --dev
+
+# If you use pnpm:
+pnpm install isaacscript-lint --save-dev
 ```
 
 (It should be a development dependency because it is only used to lint your code pre-production.)
 
-### Step 2 - `eslintrc.js`
+### Step 2 - `.eslintrc.cjs`
 
-Create a `eslintrc.js` file in the root of your repository:
+Create a `.eslintrc.cjs` file in the root of your repository:
 
 ```js
 // This is the configuration file for ESLint, the TypeScript linter:
-// https://eslint.org/docs/latest/user-guide/configuring
+// https://eslint.org/docs/latest/use/configure/
 module.exports = {
   extends: [
     // The linter base is the shared IsaacScript config:
@@ -91,42 +98,62 @@ module.exports = {
     project: "./tsconfig.eslint.json",
   },
 
-  // We modify the linting rules from the base for some specific things.
-  rules: {},
+  rules: {
+    // Insert changed or disabled rules here, if necessary.
+  },
 };
 ```
+
+This file must have a period at the beginning!
+
+Note that [the new config format for ESLint that was released in 2023](https://eslint.org/docs/latest/use/configure/configuration-files-new) is not yet recommended for production use.
 
 ### Step 3 - `tsconfig.eslint.json`
 
 Create a `tsconfig.eslint.json` file in the root of your repository:
 
-<!-- cspell:ignore Gruntfile -->
-
-```jsonc
+```ts
 // A special TypeScript configuration file, used by ESLint only.
 {
   "extends": "./tsconfig.json",
 
-  // A list of the TypeScript files to compile:
+  // We want to lint every file in the repository, regardless of whether it is actually bundled into
+  // the TypeScript output. Two entries for each file extension are needed because TypeScript will
+  // exclude files that begin with a period from an asterisk glob by default.
   "include": [
-    // This must match the "include" setting in the main "tsconfig.json" file.
-    "./src/**/*.ts",
-
-    // These are ESLint-only inclusions. Usually, this includes any files that are outside of your
-    // "src" directory, such as "webpack.config.js", "jest.config.js", "Gruntfile.js", and so forth.
-    "./.eslintrc.js"
-  ]
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx"
+  ],
 }
 ```
+
+### Step 4 - Enabling Auto-Fix on Save
+
+- You will probably want to set up your code editor such that both Prettier and ESLint are automatically run every time the file is saved.
+- If you see VSCode, see [the VSCode section below](#integration-with-vscode).
+- It's also possible to set this up in other editors such as [Webstorm](https://www.jetbrains.com/webstorm/) and [Neovim](https://neovim.io/), but we don't provide detailed instructions for that here.
 
 <br>
 
 ## Adding or Removing Rules
 
-You can add extra rules (or ignore existing rules) by editing the `rules` section of your `eslintrc.js` file. For example:
+You can add extra ESLint rules (or ignore existing ESLint rules) by editing the `rules` section of your `.eslintrc.cjs` file. For example:
 
 ```js
-  // We modify the linting rules from the base for some specific things.
   rules: {
     "@typescript-eslint/no-unused-vars": "off",
   },
@@ -147,26 +174,40 @@ In order for the linter to work inside of VSCode, you will have to install the f
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
+Additionally, you might also want to install the CSpell extension, which is extremely useful to spell check an entire code base:
+
+- [CSpell](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+
+Once installed, these extensions provide a nice dichotomy:
+
+- Red squiggly underlines are type-errors from the TypeScript compiler.
+- Yellow squiggly underlines are warnings from ESLint. (Our config uses `eslint-plugin-only-warn` to convert all ESLint errors to warnings.)
+- Blue squiggly underlines are misspelled words. (You can use "Quick Fix" to find suggestions for the proper spelling. Or, you can right click --> `Spelling` --> `Add Words to CSpell Configuration` to ignore a specific word.)
+
 #### `.vscode/settings.json`
 
 Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a TypeScript file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
 
-```jsonc
+```ts
 // These are Visual Studio Code settings that should apply to this particular repository.
 {
   "[javascript]": {
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
   },
 
   "[typescript]": {
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
-  }
+    "editor.tabSize": 2,
+  },
 }
 ```
 
@@ -178,16 +219,15 @@ You can also commit this file to your project's repository so that this behavior
 
 Optionally, you can also provide a hint to anyone cloning your repository that they should install the required extensions:
 
-```jsonc
+```ts
 // These are Visual Studio Code extensions that are intended to be used with this particular
-// repository
-// https://go.microsoft.com/fwlink/?LinkId=827846
+// repository: https://go.microsoft.com/fwlink/?LinkId=827846
 {
   "recommendations": [
     "esbenp.prettier-vscode", // The TypeScript formatter
     "dbaeumer.vscode-eslint", // The TypeScript linter
-    "streetsidesoftware.code-spell-checker" // A spell-checker extension based on cspell
-  ]
+    "streetsidesoftware.code-spell-checker", // A spell-checker extension based on CSpell
+  ],
 }
 ```
 
@@ -195,24 +235,27 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 
 ## Package Documentation
 
-- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in Isaac mods.
-- [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
-- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser) - Required as a peer dependency for `eslint-config-airbnb-typescript`.
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in some kinds of projects.
+- [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) - Provides ESLint rules relating to TypeScript.
+- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser) - Provides the ability for ESLint to work with TypeScript.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker).
+- [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.
 - [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
-- [`eslint-config-airbnb-base`](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base) - ESLint rules that conform to the Airbnb style guide.
-- [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript) - Enhances the Airbnb rules with TypeScript support.
 - [`eslint-config-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-config-isaacscript) - Contains the master ESLint configuration.
 - [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) - Turns off all rules that conflict with Prettier.
-- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - A plugin that provides a collection of miscellaneous rules that help keep code safe.
-- [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - A plugin that provides rules relating to ESLint comments.
-- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Required as a peer dependency for `eslint-config-airbnb-base`.
-- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - A plugin that provides rules for [JSDoc](https://en.wikipedia.org/wiki/JSDoc).
-- [`eslint-plugin-no-type-assertion`](https://github.com/Dremora/eslint-plugin-no-type-assertion) - A plugin that detects type assertions. (In the standard config, these rules are not turned on automatically, but they are extremely useful in certain specific contexts.)
-- [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - A plugin that turns all errors to warnings.
-- [`eslint-plugin-sort-exports`](https://github.com/jrdrg/eslint-plugin-sort-exports) - A plugin that allows exports to be sorted alphabetically. (In the standard config, these rules are not turned on automatically, but they are extremely useful in certain specific contexts.)
-- [`prettier`](https://github.com/prettier/prettier) - This is the main code formatter, as explained above.
-- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically. (It has no configuration and is automatically applied to Prettier if it is installed.)
-- [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports, which catches bugs that the `import/no-unused-modules` rule cannot find.
+- [`eslint-plugin-deprecation`](https://github.com/gund/eslint-plugin-deprecation) - Provides an ESLint rule that finds deprecated code.
+- [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments) - Provides ESLint rules relating to ESLint comments.
+- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) - Provides ESLint rules relating to importing and exporting. (Note that this uses the [`eslint-plugin-i`](https://github.com/un-es/eslint-plugin-i) fork under the hood.)
+- [`eslint-plugin-isaacscript`](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) - Provides ESLint rules that format comments and other miscellaneous things.
+- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc) - Provides ESLint rules relating to [JSDoc comments](https://en.wikipedia.org/wiki/JSDoc)
+- [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n) - Provides ESLint rules relating to [Node.js](https://nodejs.org/en). (`eslint-plugin-n` is a fork of [`eslint-plugin-node`](https://github.com/mysticatea/eslint-plugin-node).)
+- [`eslint-plugin-no-autofix`](https://github.com/aladdin-add/eslint-plugin/tree/master) - Provides modified ESLint rules that have the auto-fixer disabled.
+- [`eslint-plugin-only-warn`](https://github.com/bfanger/eslint-plugin-only-warn) - Turns all ESLint errors to warnings.
+- [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn) - Provides various miscellaneous ESLint rules.
+- [`knip`](https://github.com/webpro/knip) - A tool to look for unused files, dependencies, and exports.
+- [`prettier`](https://github.com/prettier/prettier) - The main code formatter, as explained above.
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically.
+- [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) - A plugin used because Prettier will not organize "package.json" files automatically.
+- [`ts-prune`](https://github.com/nadeesha/ts-prune) - A tool to look for unused exports. (This is not needed if you use `knip`.)
 
 <br>

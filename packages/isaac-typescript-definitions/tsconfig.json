@@ -1,12 +1,11 @@
 {
-  "extends": "../../tsconfig.monorepo.json",
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
+
+  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/isaac-typescript-definitions/dist",
-
-    // Needed since TSTL does not work properly with the monorepo "rootDir" setting.
-    "rootDir": ".",
+    "outDir": "dist",
 
     // Needed since this is a library.
     "declaration": true,
@@ -27,11 +26,39 @@
     // We use TypeScript definitions for the Lua standard library:
     // https://github.com/TypeScriptToLua/lua-types
     "types": ["lua-types/5.3"],
+
+    // The "strictest" TSConfig template turns this to true, but we need to ensure that the import
+    // statements in the ".d.ts" files resolve properly.
+    "skipLibCheck": false,
+
+    // Force output of CJS. This is necessary because even though we have '"type": "commonjs"' in
+    // the "package.json" file, TypeScript will still output ESM for some reason. We cannot convert
+    // the package to ESM because of a bug in TSTL:
+    // https://github.com/IsaacScript/isaacscript/issues/63
+    // https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1515
+    "module": "CommonJS",
   },
 
-  // Nx will not include ".eslintrc.js" in the build output, so there is no need for a
-  // "tsconfig.eslint.json" file.
-  "include": ["./src/**/*.ts", ".eslintrc.js"],
+  "include": [
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
+
+  "exclude": ["dist", "scripts"],
 
   // TypeScriptToLua settings
   "tstl": {
@@ -40,7 +67,7 @@
     "luaPlugins": [
       // A plugin to make enums safe from global variables.
       {
-        "name": "../isaacscript-cli/src/plugins/noExtendedEnums.ts",
+        "name": "../isaacscript-cli/plugins/noExtendedEnums.cjs",
       },
     ],
     "noHeader": true,

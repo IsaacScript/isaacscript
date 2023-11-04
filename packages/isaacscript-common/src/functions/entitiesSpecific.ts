@@ -1,7 +1,6 @@
-import {
+import type {
   BombVariant,
   EffectVariant,
-  EntityType,
   FamiliarVariant,
   KnifeVariant,
   LaserVariant,
@@ -10,8 +9,10 @@ import {
   SlotVariant,
   TearVariant,
 } from "isaac-typescript-definitions";
+import { EntityType } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { getEntities, removeEntities, spawn } from "./entities";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to get all of the bombs in the room. (Specifically, this refers to the
@@ -32,7 +33,7 @@ import { getEntities, removeEntities, spawn } from "./entities";
  *                is -1, which matches every sub-type.
  */
 export function getBombs(
-  bombVariant: BombVariant = -1,
+  bombVariant: BombVariant | -1 = -1,
   subType = -1,
 ): EntityBomb[] {
   const entities = getEntities(EntityType.BOMB, bombVariant, subType);
@@ -66,7 +67,7 @@ export function getBombs(
  *                is -1, which matches every sub-type.
  */
 export function getEffects(
-  effectVariant: EffectVariant = -1,
+  effectVariant: EffectVariant | -1 = -1,
   subType = -1,
 ): EntityEffect[] {
   const entities = getEntities(EntityType.EFFECT, effectVariant, subType);
@@ -100,7 +101,7 @@ export function getEffects(
  *                Default is -1, which matches every sub-type.
  */
 export function getFamiliars(
-  familiarVariant: FamiliarVariant = -1,
+  familiarVariant: FamiliarVariant | -1 = -1,
   subType = -1,
 ): EntityFamiliar[] {
   const entities = getEntities(EntityType.FAMILIAR, familiarVariant, subType);
@@ -134,7 +135,7 @@ export function getFamiliars(
  *                is -1, which matches every sub-type.
  */
 export function getKnives(
-  knifeVariant: KnifeVariant = -1,
+  knifeVariant: KnifeVariant | -1 = -1,
   subType = -1,
 ): EntityKnife[] {
   const entities = getEntities(EntityType.KNIFE, knifeVariant, subType);
@@ -168,7 +169,7 @@ export function getKnives(
  *                is -1, which matches every sub-type.
  */
 export function getLasers(
-  laserVariant: LaserVariant = -1,
+  laserVariant: LaserVariant | -1 = -1,
   subType = -1,
 ): EntityLaser[] {
   const entities = getEntities(EntityType.LASER, laserVariant, subType);
@@ -198,7 +199,7 @@ export function getLasers(
  *                       `entityType` is specified.
  */
 export function getNPCs(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
@@ -234,7 +235,7 @@ export function getNPCs(
  *                is -1, which matches every sub-type.
  */
 export function getPickups(
-  pickupVariant: PickupVariant = -1,
+  pickupVariant: PickupVariant | -1 = -1,
   subType = -1,
 ): EntityPickup[] {
   const entities = getEntities(EntityType.PICKUP, pickupVariant, subType);
@@ -268,7 +269,7 @@ export function getPickups(
  *                Default is -1, which matches every sub-type.
  */
 export function getProjectiles(
-  projectileVariant: ProjectileVariant = -1,
+  projectileVariant: ProjectileVariant | -1 = -1,
   subType = -1,
 ): EntityProjectile[] {
   const entities = getEntities(
@@ -306,7 +307,7 @@ export function getProjectiles(
  *                is -1, which matches every sub-type.
  */
 export function getSlots(
-  slotVariant: SlotVariant = -1,
+  slotVariant: SlotVariant | -1 = -1,
   subType = -1,
 ): EntitySlot[] {
   const slots = getEntities(EntityType.SLOT, slotVariant, subType);
@@ -332,7 +333,7 @@ export function getSlots(
  *                is -1, which matches every sub-type.
  */
 export function getTears(
-  tearVariant: TearVariant = -1,
+  tearVariant: TearVariant | -1 = -1,
   subType = -1,
 ): EntityTear[] {
   const entities = getEntities(EntityType.TEAR, tearVariant, subType);
@@ -360,7 +361,7 @@ export function getTears(
  * @returns An array of the bombs that were removed.
  */
 export function removeAllBombs(
-  bombVariant: BombVariant = -1,
+  bombVariant: BombVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityBomb[] {
@@ -379,7 +380,7 @@ export function removeAllBombs(
  * @returns An array of the effects that were removed.
  */
 export function removeAllEffects(
-  effectVariant: EffectVariant = -1,
+  effectVariant: EffectVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityEffect[] {
@@ -398,7 +399,7 @@ export function removeAllEffects(
  * @returns An array of the familiars that were removed.
  */
 export function removeAllFamiliars(
-  familiarVariant: FamiliarVariant = -1,
+  familiarVariant: FamiliarVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityFamiliar[] {
@@ -417,7 +418,7 @@ export function removeAllFamiliars(
  * @returns An array of the knives that were removed.
  */
 export function removeAllKnives(
-  knifeVariant: KnifeVariant = -1,
+  knifeVariant: KnifeVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityKnife[] {
@@ -436,7 +437,7 @@ export function removeAllKnives(
  * @returns An array of the lasers that were removed.
  */
 export function removeAllLasers(
-  laserVariant: LaserVariant = -1,
+  laserVariant: LaserVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityLaser[] {
@@ -457,7 +458,7 @@ export function removeAllLasers(
  * @returns An array of the NPCs that were removed.
  */
 export function removeAllNPCs(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   cap?: int,
@@ -477,7 +478,7 @@ export function removeAllNPCs(
  * @returns An array of the pickups that were removed.
  */
 export function removeAllPickups(
-  pickupVariant: PickupVariant = -1,
+  pickupVariant: PickupVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityPickup[] {
@@ -496,7 +497,7 @@ export function removeAllPickups(
  * @returns An array of the projectiles that were removed.
  */
 export function removeAllProjectiles(
-  projectileVariant: ProjectileVariant = -1,
+  projectileVariant: ProjectileVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityProjectile[] {
@@ -515,7 +516,7 @@ export function removeAllProjectiles(
  * @returns An array of the slots that were removed.
  */
 export function removeAllSlots(
-  slotVariant: SlotVariant = -1,
+  slotVariant: SlotVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): Entity[] {
@@ -534,7 +535,7 @@ export function removeAllSlots(
  * @returns An array of the tears that were removed.
  */
 export function removeAllTears(
-  tearVariant: TearVariant = -1,
+  tearVariant: TearVariant | -1 = -1,
   subType = -1,
   cap?: int,
 ): EntityTear[] {
@@ -546,7 +547,7 @@ export function removeAllTears(
 export function spawnBomb(
   bombVariant: BombVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -555,16 +556,14 @@ export function spawnBomb(
     EntityType.BOMB,
     bombVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const bomb = entity.ToBomb();
-  if (bomb === undefined) {
-    error("Failed to spawn a bomb.");
-  }
+  assertDefined(bomb, "Failed to spawn a bomb.");
 
   return bomb;
 }
@@ -573,7 +572,7 @@ export function spawnBomb(
 export function spawnBombWithSeed(
   bombVariant: BombVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -581,7 +580,7 @@ export function spawnBombWithSeed(
   return spawnBomb(
     bombVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -592,7 +591,7 @@ export function spawnBombWithSeed(
 export function spawnEffect(
   effectVariant: EffectVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -601,16 +600,14 @@ export function spawnEffect(
     EntityType.EFFECT,
     effectVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const effect = entity.ToEffect();
-  if (effect === undefined) {
-    error("Failed to spawn an effect.");
-  }
+  assertDefined(effect, "Failed to spawn an effect.");
 
   return effect;
 }
@@ -619,7 +616,7 @@ export function spawnEffect(
 export function spawnEffectWithSeed(
   effectVariant: EffectVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -627,7 +624,7 @@ export function spawnEffectWithSeed(
   return spawnEffect(
     effectVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -643,7 +640,7 @@ export function spawnEffectWithSeed(
 export function spawnFamiliar(
   familiarVariant: FamiliarVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -652,16 +649,14 @@ export function spawnFamiliar(
     EntityType.FAMILIAR,
     familiarVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const familiar = entity.ToFamiliar();
-  if (familiar === undefined) {
-    error("Failed to spawn a familiar.");
-  }
+  assertDefined(familiar, "Failed to spawn a familiar.");
 
   return familiar;
 }
@@ -670,7 +665,7 @@ export function spawnFamiliar(
 export function spawnFamiliarWithSeed(
   familiarVariant: FamiliarVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -678,7 +673,7 @@ export function spawnFamiliarWithSeed(
   return spawnFamiliar(
     familiarVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -689,7 +684,7 @@ export function spawnFamiliarWithSeed(
 export function spawnKnife(
   knifeVariant: KnifeVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -698,16 +693,14 @@ export function spawnKnife(
     EntityType.KNIFE,
     knifeVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const knife = entity.ToKnife();
-  if (knife === undefined) {
-    error("Failed to spawn a knife.");
-  }
+  assertDefined(knife, "Failed to spawn a knife.");
 
   return knife;
 }
@@ -716,7 +709,7 @@ export function spawnKnife(
 export function spawnKnifeWithSeed(
   knifeVariant: KnifeVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -724,7 +717,7 @@ export function spawnKnifeWithSeed(
   return spawnKnife(
     knifeVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -735,7 +728,7 @@ export function spawnKnifeWithSeed(
 export function spawnLaser(
   laserVariant: LaserVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -744,16 +737,14 @@ export function spawnLaser(
     EntityType.LASER,
     laserVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const laser = entity.ToLaser();
-  if (laser === undefined) {
-    error("Failed to spawn a laser.");
-  }
+  assertDefined(laser, "Failed to spawn a laser.");
 
   return laser;
 }
@@ -762,7 +753,7 @@ export function spawnLaser(
 export function spawnLaserWithSeed(
   laserVariant: LaserVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -770,7 +761,7 @@ export function spawnLaserWithSeed(
   return spawnLaser(
     laserVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -787,7 +778,7 @@ export function spawnNPC(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -796,16 +787,14 @@ export function spawnNPC(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const npc = entity.ToNPC();
-  if (npc === undefined) {
-    error("Failed to spawn an NPC.");
-  }
+  assertDefined(npc, "Failed to spawn an NPC.");
 
   return npc;
 }
@@ -820,7 +809,7 @@ export function spawnNPCWithSeed(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -829,7 +818,7 @@ export function spawnNPCWithSeed(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -840,7 +829,7 @@ export function spawnNPCWithSeed(
 export function spawnPickup(
   pickupVariant: PickupVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -849,16 +838,14 @@ export function spawnPickup(
     EntityType.PICKUP,
     pickupVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const pickup = entity.ToPickup();
-  if (pickup === undefined) {
-    error("Failed to spawn a pickup.");
-  }
+  assertDefined(pickup, "Failed to spawn a pickup.");
 
   return pickup;
 }
@@ -867,7 +854,7 @@ export function spawnPickup(
 export function spawnPickupWithSeed(
   pickupVariant: PickupVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -875,7 +862,7 @@ export function spawnPickupWithSeed(
   return spawnPickup(
     pickupVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -886,7 +873,7 @@ export function spawnPickupWithSeed(
 export function spawnProjectile(
   projectileVariant: ProjectileVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -895,16 +882,14 @@ export function spawnProjectile(
     EntityType.PROJECTILE,
     projectileVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const projectile = entity.ToProjectile();
-  if (projectile === undefined) {
-    error("Failed to spawn a projectile.");
-  }
+  assertDefined(projectile, "Failed to spawn a projectile.");
 
   return projectile;
 }
@@ -913,7 +898,7 @@ export function spawnProjectile(
 export function spawnProjectileWithSeed(
   projectileVariant: ProjectileVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -921,7 +906,7 @@ export function spawnProjectileWithSeed(
   return spawnProjectile(
     projectileVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -932,7 +917,7 @@ export function spawnProjectileWithSeed(
 export function spawnSlot(
   slotVariant: SlotVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -941,7 +926,7 @@ export function spawnSlot(
     EntityType.SLOT,
     slotVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -952,7 +937,7 @@ export function spawnSlot(
 export function spawnSlotWithSeed(
   slotVariant: SlotVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -960,7 +945,7 @@ export function spawnSlotWithSeed(
   return spawnSlot(
     slotVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -971,7 +956,7 @@ export function spawnSlotWithSeed(
 export function spawnTear(
   tearVariant: TearVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -980,16 +965,14 @@ export function spawnTear(
     EntityType.TEAR,
     tearVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
   );
 
   const tear = entity.ToTear();
-  if (tear === undefined) {
-    error("Failed to spawn a tear.");
-  }
+  assertDefined(tear, "Failed to spawn a tear.");
 
   return tear;
 }
@@ -998,7 +981,7 @@ export function spawnTear(
 export function spawnTearWithSeed(
   tearVariant: TearVariant,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -1006,7 +989,7 @@ export function spawnTearWithSeed(
   return spawnTear(
     tearVariant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,

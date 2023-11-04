@@ -28,12 +28,12 @@ import {
 } from "../../../functions/pickupsSpecific";
 import { fireProjectilesInCircle } from "../../../functions/projectiles";
 import { getRandom } from "../../../functions/random";
-import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
+import { isRNG, newRNG } from "../../../functions/rng";
 import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
 import { repeat } from "../../../functions/utils";
-import { getRandomVector } from "../../../functions/vector";
+import { getRandomVector, isVector } from "../../../functions/vector";
 import { Feature } from "../../private/Feature";
-import { ItemPoolDetection } from "./ItemPoolDetection";
+import type { ItemPoolDetection } from "./ItemPoolDetection";
 
 const ROCK_ALT_CHANCES = {
   NOTHING: 0.68,
@@ -57,7 +57,7 @@ const POLYP_PROJECTILE_SPEED = 10;
 const POLYP_NUM_PROJECTILES = 6;
 
 export class SpawnRockAltRewards extends Feature {
-  private itemPoolDetection: ItemPoolDetection;
+  private readonly itemPoolDetection: ItemPoolDetection;
 
   /** @internal */
   constructor(itemPoolDetection: ItemPoolDetection) {
@@ -89,23 +89,31 @@ export class SpawnRockAltRewards extends Feature {
    * The logic in this function is based on the rewards listed on the wiki:
    * https://bindingofisaacrebirth.fandom.com/wiki/Rocks
    *
+   * If you want to spawn an unseeded reward, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.SPAWN_ALT_ROCK_REWARDS`.
    *
-   * @param position The place to spawn the reward.
+   * @param positionOrGridIndex The position or grid index to spawn the reward.
    * @param rockAltType The type of reward to spawn. For example, `RockAltType.URN` will have a
    *                    chance at spawning coins and spiders.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`. Normally,
-   *                  you should pass the `InitSeed` of the grid entity that was broken.
-   * @returns Whether or not this function spawned something.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. Normally, you should pass the `InitSeed` of
+   *                  the grid entity that was broken. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
+   * @returns Whether this function spawned something.
    */
   @Exported
   public spawnRockAltReward(
-    position: Vector,
+    positionOrGridIndex: Vector | int,
     rockAltType: RockAltType,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
   ): boolean {
+    const room = game.GetRoom();
+    const position = isVector(positionOrGridIndex)
+      ? positionOrGridIndex
+      : room.GetGridPosition(positionOrGridIndex);
     const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
     switch (rockAltType) {

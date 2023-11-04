@@ -1,0 +1,11 @@
+# Compiled output
+dist
+
+# Package manager lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Minified files
+*.min.js
+*.min.css

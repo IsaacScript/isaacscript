@@ -1,102 +1,43 @@
-- https://wofsauge.github.io/Isaac-XML-Validator/webtool/
+- isaacscript publish goes in infinite loop
 
-- lint no default export
+- make ESLint rule for "tsconfig.json" "$schema"
 
-- isaacscript-cli in lua
-- "jsonRoom" command
+----------------------------------------------------------------------------------------------------
+
+- get knip working
+  - https://github.com/webpro/knip/issues/315
+  - remove comment in ci.yml
+
+- lint rule: didn't catch this code:
+  const lockedPillEffectsOfType = lockedPillEffects.filter(
+    (thisPillEffect) =>
+      getPillEffectType(thisPillEffect),
+  );
+
+- lint rule: if return type of function includes undefined in a union, don't allow void return
+- lint rule: don't allow `return` or `return undefined` when return type of function is void
+
+- investigate array vs set performance (also search for "O(1)" afterward)
+  - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
+
 - use stack overflow to remove isaac-typescript-definitions from deps
+  - difficult, do it when I have the courage
+  - make sure that isaacscript-common still works through link in dev
 
-- TypeScript 4.9 - delete newObjectWithEnumKeys
+----------------------------------------------------------------------------------------------------
 
-- Lint:
-  - add:     "no-unused-expressions": "warn",
-  - lint failure: https://github.com/gajus/eslint-plugin-jsdoc/issues/897
-  - prefer implicit loops for arrays, maps, etc. - not implicit, but "default iterator"?
-  - double period for end of JSDoc comment lint
-  - lint rule: arrays, maps, and sets that start with Capital letter must be read-only
+- wait for CodePath PR to be accepted: https://github.com/typescript-eslint/typescript-eslint/pull/7551
+  - then use upstream CodePath
 
+- wait for eslint-plugin-n to fix rule:
+  - https://github.com/eslint-community/eslint-plugin-n/issues/134
+  - if this takes too long, we can make a new ESLint rule to automatically convert 'import *.js";' to '.ts'
 
+- wait for typedoc-plugin-markdown to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
-
-lint error, missing warning for "verbose" missing:
-
-/**
- * Helper function to warp to a custom stage/level.
- *
- * Custom stages/levels must first be defined in the "tsconfig.json" file. See the documentation for
- * more details: https://isaacscript.github.io/main/custom-stages/
- *
- * @param name The name of the custom stage, corresponding to what is in the "tsconfig.json" file.
- * @param firstFloor Whether to go to the first floor or the second floor. For example, if you have
- *                   a custom stage emulating Caves, then the first floor would be Caves 1, and the
- *                   second floor would be Caves 2.
- */
-export function setCustomStage(
-  name: string,
-  firstFloor = true,
-  verbose = false,
-): void {
-
-
-lint failure, complete sentences:
-
- * Custom grid entities are built on top of real grid entities. You can use any existing grid entity
- * type as a base. For example, if you want to create a custom rock that would be breakable like a
- * normal rock, then you should specify
- *
- * This is an IsaacScript feature because the vanilla game does not support any custom grid
- * entities.
-
-(no trailing period in the middle)
-
-
-lint failure:
-
- * These are helper functions relating to creating custom stages with the built-in standard library.
- * For more information about custom stages, see the [main
- * documentation page](https://isaacscript.github.io/main/custom-stages).
-
-
-lint TODO:
-"Implicit iteration is disallowed" marks error over whole function instead of just the set
-
-
-lint:
-
- * @returns If a match was found, returns a tuple of the map key and value. If a match was not
- * found, returns undefined.
-(should indent)
-
-lint: remove all whitespace in comment (tabs)
-
-
-lint error if arg is removed:
-
-/**
- * Helper function to get a room position that is not overlapping with a grid entity, a heaven door,
- * or a player. The `Room.FindFreePickupSpawnPosition` method will return locations that overlap
- * with heaven doors and partially overlap with players, if the thing being spawned is bigger than a
- * tile (like a Blood Donation Machine). Use this function instead if you want to account for those
- * specific situations.
- *
- * @param startingPosition The position to start searching from. If this position is not overlapping
- *                         with anything, then it will be returned.
- * @param avoidActiveEntities Optional. Default is false.
- * @param minimumDistance Optional. If specified, will ensure that the randomly generated position
- *                        is equal to or greater than the distance provided.
- */
-export function findFreePosition(
-  startingPosition: Vector,
-  avoidActiveEntities = false,
-  minimumDistance?: float,
-): Vector {
-
-
-lint:
-//test
-ctrl+s --> // est
-(maybe fix is to just disable other eslint rule)
-
-lint: add no null (only for non isaacscript projects)
-
-lint: no default export
+- update eslint to new config
+  - wait until ESLint 9 is released so that environment flag is not necessary
+  - wait until @typescript-eslint/plugin is using flat config and has good docs
+  - ESLint does not support "eslint.config.mjs" file format, so it requires either:
+    1. changing package.json type
+    2. specifying config file location when running, e.g. "--config eslint.config.mjs"

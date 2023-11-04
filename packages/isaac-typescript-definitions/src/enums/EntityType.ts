@@ -65,7 +65,7 @@ export enum EntityType {
   PESTILENCE = 64,
   WAR = 65,
   DEATH = 66,
-  DUKE = 67,
+  DUKE_OF_FLIES = 67,
   PEEP = 68,
   LOKI = 69,
   FISTULA_BIG = 71,
@@ -117,8 +117,8 @@ export enum EntityType {
   HALF_SACK = 211,
   DEATHS_HEAD = 212,
   MOMS_HAND = 213,
-  FLY_L2 = 214, // eslint-disable-line isaacscript/enum-member-number-separation
-  SPIDER_L2 = 215, // eslint-disable-line isaacscript/enum-member-number-separation
+  FLY_LVL_2 = 214,
+  SPIDER_LVL_2 = 215,
   SWINGER = 216,
   DIP = 217,
   WALL_HUGGER = 218,
@@ -176,7 +176,7 @@ export enum EntityType {
   // Rebirth Bosses
   // --------------
 
-  THE_HAUNT = 260,
+  HAUNT = 260,
   DINGLE = 261,
   MEGA_MAW = 262,
   GATE = 263,
@@ -189,7 +189,7 @@ export enum EntityType {
   MR_FRED = 270,
   URIEL = 271,
   GABRIEL = 272,
-  THE_LAMB = 273,
+  LAMB = 273,
   MEGA_SATAN = 274,
   MEGA_SATAN_2 = 275,
 
@@ -225,7 +225,7 @@ export enum EntityType {
   POISON_MIND = 301,
   STONEY = 302,
   BLISTER = 303,
-  THE_THING = 304,
+  THING = 304,
   MINISTRO = 305,
   PORTAL = 306,
 
@@ -298,16 +298,16 @@ export enum EntityType {
   PEEPER_FATTY = 835,
   VIS_VERSA = 836,
   HENRY = 837,
-  WILLO_L2 = 838, // eslint-disable-line isaacscript/enum-member-number-separation
+  WILLO_LVL_2 = 838,
   PON = 840,
   REVENANT = 841,
   BOMBGAGGER = 844,
-  GAPER_L2 = 850, // eslint-disable-line isaacscript/enum-member-number-separation
+  GAPER_LVL_2 = 850,
   TWITCHY = 851,
   SPIKEBALL = 852,
   SMALL_MAGGOT = 853,
   ADULT_LEECH = 854,
-  CHARGER_L2 = 855, // eslint-disable-line isaacscript/enum-member-number-separation
+  CHARGER_LVL_2 = 855,
   GASBAG = 856,
   COHORT = 857,
   FLOATING_HOST = 859,

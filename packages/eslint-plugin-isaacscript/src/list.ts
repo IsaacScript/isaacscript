@@ -32,10 +32,10 @@ export interface List {
 }
 
 export enum ListKind {
-  Hyphen,
-  NumberParenthesis,
-  NumberPeriod,
-  JSDocTag,
+  Hyphen = "Hyphen",
+  NumberParenthesis = "NumberParenthesis",
+  NumberPeriod = "NumberPeriod",
+  JSDocTag = "JSDocTag",
 }
 
 /**
@@ -104,7 +104,7 @@ function getList(line: string): List | undefined {
     };
   }
 
-  // e.g. "1. A bullet point can start with a number and a period."
+  /** e.g. "1. A bullet point can start with a number and a period." */
   const numberPeriodMatch = line.match(/^(\d+)\. /);
   if (
     numberPeriodMatch !== null &&
@@ -118,7 +118,7 @@ function getList(line: string): List | undefined {
     };
   }
 
-  // e.g. "1) A bullet point can start with a number and a parenthesis."
+  /** e.g. "1) A bullet point can start with a number and a parenthesis." */
   const numberParenthesisMatch = line.match(/^(\d+)\) /);
   if (
     numberParenthesisMatch !== null &&
@@ -152,19 +152,19 @@ function getList(line: string): List | undefined {
  * For "@param" tags, the returned tag string will include the variable name, if any. For example,
  * "@param foo Foo" would return "@param foo".
  */
-function getJSDocTagName(text: string) {
+function getJSDocTagName(text: string): string | undefined {
   text = text.trimStart();
 
   if (!text.startsWith("@")) {
     return undefined;
   }
 
-  const tagMatch = text.match(/^@(\w+)/);
-  if (tagMatch === null) {
+  const tagMatch = text.match(/^@(?<tagName>\w+)/);
+  if (tagMatch === null || tagMatch.groups === undefined) {
     return undefined;
   }
 
-  const tagName = tagMatch[1];
+  const { tagName } = tagMatch.groups;
   if (tagName === undefined) {
     return undefined;
   }
@@ -172,12 +172,12 @@ function getJSDocTagName(text: string) {
   // Specific JSDoc tags have words after them that should be part of the tag for indenting
   // purposes.
   if (tagName === "param") {
-    const paramMatch = text.match(/^(@\w+ \w+)/);
-    if (paramMatch === null) {
+    const paramMatch = text.match(/^(?<tagWithVariableName>@\w+ \w+)/);
+    if (paramMatch === null || paramMatch.groups === undefined) {
       return "@param";
     }
 
-    const tagWithVariableName = paramMatch[1];
+    const { tagWithVariableName } = paramMatch.groups;
     if (tagWithVariableName === undefined) {
       return "@param";
     }

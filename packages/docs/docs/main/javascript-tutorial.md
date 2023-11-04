@@ -273,6 +273,15 @@ for (let i = 1; i <= 10; i++) {
 }
 ```
 
+Alternatively, you can use the `iRange` helper function provided by the `isaacscript-common` standard library. This allows the code to be a bit more safe & understandable:
+
+```ts
+// TypeScript code
+for (const i of iRange(1, 10)) {
+  // "i" will iterate upwards from 1 to 10.
+}
+```
+
 In Lua, you count downwards like this:
 
 ```lua
@@ -287,9 +296,20 @@ In TypeScript, that would be:
 ```ts
 // TypeScript code
 for (let i = 10; i >= 1; i--) {
-  // "i" will iterate downwards from 1 to 10.
+  // "i" will iterate downwards from 10 to 1.
 }
 ```
+
+Or, with the `iRange` helper function:
+
+```ts
+// TypeScript code
+for (const i of iRange(10, 1)) {
+  // "i" will iterate downwards from 10 to 1.
+}
+```
+
+Note that you can also use the `eRange` helper function for an exclusive range (instead of an inclusive range).
 
 <br />
 
@@ -302,8 +322,8 @@ In Lua, the typical way to iterate over an array is with `ipairs`.
 local gapers = Isaac.FindByType(EntityType.ENTITY_GAPER)
 
 for i, gaper in ipairs(gapers) do
-  print(i)
   gaper:Remove()
+  print("Removed gaper number:", i);
 end
 ```
 
@@ -313,21 +333,22 @@ In TypeScript, you have a few different options.
 // Typescript code
 const gapers = Isaac.FindByType(EntityType.ENTITY_GAPER);
 
-// A "for of" loop is the simplest way to iterate over an array.
+// A "for of" loop is the simplest way to iterate over an array. It provides the array element.
 for (const gaper of gapers) {
   gaper.Remove();
 }
 
-// Or, you can use the "forEach" method.
-gaper.forEach((gaper) => {
-  gaper.Remove();
-});
-
-// If you need the array index, it is passed as the second argument.
-gaper.forEach((gaper, i) => {
+// If you need the array index and the array element, use the `entries` method.
+for (const [i, gaper] of gapers.entries()) {
   gaper.Remove();
   print("Removed gaper number:", i);
-});
+}
+
+// If you just need the array index, use the `keys` method.
+// The keys start at 0, unlike Lua. (In Lua, array keys start at 1.)
+for (const i of gapers.keys()) {
+  print("On gaper index:", i);
+}
 ```
 
 <br />
@@ -423,7 +444,7 @@ numFarts += 1; // numFarts is now equal to 2.
 
 ### Increment and Decrement Operators
 
-Lua does not have increment or decrement operators, because it is a terrible language.
+Lua does not have increment or decrement operators. Handily, TypeScript does.
 
 ```lua
 -- Lua code
@@ -457,7 +478,7 @@ const fartString = "Fart";
 const combinedString = poopString + fartString; // combinedString is now equal to "PoopFart".
 ```
 
-(TypeScript uses the same operator for adding numbers and concatenating strings.)
+(Unlike Lua, TypeScript uses the same operator for adding numbers and concatenating strings.)
 
 <br />
 
@@ -506,6 +527,8 @@ const numPoops = 3;
 const numFarts = 4;
 Isaac.DebugString(`numPoops: ${numPoops}, numFarts: ${numFarts}`);
 ```
+
+You will probably want to get in the habit of using string templates, since they end up making your code more concise and easier to read.
 
 <br />
 
@@ -560,7 +583,7 @@ const myNumber = 123;
 
 Here, TypeScript will infer that `myNumber` is of type `number`, because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred, because it adds useless noise to the code. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
 
-However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain collectible types:
+However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain numbers:
 
 ```ts
 // We will add some numbers types later on, but right now we just need to initialize the array.
@@ -888,7 +911,7 @@ const player = entity.ToPlayer();
 player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
 ```
 
-This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing). To solve this error, we can use _type narrowing_:
+This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing"). To solve this error, we can use _type narrowing_:
 
 ```ts
 const player = entity.ToPlayer();

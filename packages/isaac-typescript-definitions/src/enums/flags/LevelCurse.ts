@@ -73,11 +73,10 @@ type LevelCurseValue = BitFlag & {
   readonly __levelCurseBrand: symbol;
 };
 type LevelCurseType = {
-  [K in keyof typeof LevelCurseInternal]: LevelCurseValue;
+  readonly [K in keyof typeof LevelCurseInternal]: LevelCurseValue;
 };
 
 export const LevelCurse = LevelCurseInternal as LevelCurseType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type LevelCurse = LevelCurseType[keyof LevelCurseType];
 
 export const LevelCurseZero = 0 as BitFlags<LevelCurse>;

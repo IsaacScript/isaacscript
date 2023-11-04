@@ -1,4 +1,4 @@
-import { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "../utils";
 
 export const noUnsafePlusplus = createRule({
@@ -8,7 +8,7 @@ export const noUnsafePlusplus = createRule({
     docs: {
       description:
         'Disallow unsafe and confusing uses of the "++" and "--" operators',
-      recommended: "error",
+      recommended: "recommended",
       requiresTypeChecking: true,
     },
     schema: [],

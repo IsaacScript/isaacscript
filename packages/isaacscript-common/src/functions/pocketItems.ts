@@ -1,14 +1,14 @@
+import type { PocketItemSlot } from "isaac-typescript-definitions";
 import {
   ActiveSlot,
   CardType,
   CollectibleType,
   PillColor,
   PlayerType,
-  PocketItemSlot,
 } from "isaac-typescript-definitions";
+import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { PocketItemType } from "../enums/PocketItemType";
-import { PocketItemDescription } from "../interfaces/PocketItemDescription";
-import { getEnumValues } from "./enums";
+import type { PocketItemDescription } from "../interfaces/PocketItemDescription";
 import { isCharacter } from "./players";
 import { asNumber } from "./types";
 
@@ -29,6 +29,19 @@ export function getActivePocketItemSlot(
   return undefined;
 }
 
+/** Helper item to get the first card that a player is holding in their pocket item slots. */
+export function getFirstCard(
+  player: EntityPlayer,
+): PocketItemDescription | undefined {
+  const pocketItems = getPocketItems(player);
+  return pocketItems.find(
+    (pocketItem) => pocketItem.type === PocketItemType.CARD,
+  );
+}
+
+/**
+ * Helper item to get the first card or pill that a player is holding in their pocket item slots.
+ */
 export function getFirstCardOrPill(
   player: EntityPlayer,
 ): PocketItemDescription | undefined {
@@ -37,6 +50,16 @@ export function getFirstCardOrPill(
     (pocketItem) =>
       pocketItem.type === PocketItemType.CARD ||
       pocketItem.type === PocketItemType.PILL,
+  );
+}
+
+/** Helper item to get the first pill that a player is holding in their pocket item slots. */
+export function getFirstPill(
+  player: EntityPlayer,
+): PocketItemDescription | undefined {
+  const pocketItems = getPocketItems(player);
+  return pocketItems.find(
+    (pocketItem) => pocketItem.type === PocketItemType.PILL,
   );
 }
 
@@ -58,12 +81,11 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
   const hasPocketItem2 = pocketItem2 !== CollectibleType.NULL;
 
   const maxPocketItems = player.GetMaxPocketItems();
-  const pocketItemSlots = getEnumValues(PocketItemSlot);
 
   const pocketItems: PocketItemDescription[] = [];
   let pocketItemIdentified = false;
   let pocketItem2Identified = false;
-  for (const slot of pocketItemSlots) {
+  for (const slot of POCKET_ITEM_SLOT_VALUES) {
     const cardType = player.GetCard(slot);
     const pillColor = player.GetPill(slot);
 
@@ -116,9 +138,9 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
 }
 
 /**
- * Returns whether or not the player can hold an additional pocket item, beyond what they are
- * currently carrying. This takes into account items that modify the max number of pocket items,
- * like Starter Deck.
+ * Returns whether the player can hold an additional pocket item, beyond what they are currently
+ * carrying. This takes into account items that modify the max number of pocket items, like Starter
+ * Deck.
  *
  * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
  * items. (Only Tainted Forgotten can pick up items.)
@@ -135,8 +157,8 @@ export function hasOpenPocketItemSlot(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to determine whether or not the player's "active" pocket item slot is set to
- * their pocket active item.
+ * Helper function to determine whether the player's "active" pocket item slot is set to their
+ * pocket active item.
  */
 export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
   const pocketItems = getPocketItems(player);
@@ -146,4 +168,31 @@ export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
   }
 
   return firstPocketItem.type === PocketItemType.ACTIVE_ITEM;
+}
+
+/** Helper function to see if two sets of pocket item descriptions are identical. */
+export function pocketItemsEquals(
+  pocketItems1: PocketItemDescription[],
+  pocketItems2: PocketItemDescription[],
+): boolean {
+  if (pocketItems1.length !== pocketItems2.length) {
+    return false;
+  }
+
+  // eslint-disable-next-line unicorn/no-for-loop
+  for (let i = 0; i < pocketItems1.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const pocketItem1 = pocketItems1[i]!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const pocketItem2 = pocketItems2[i]!;
+
+    const keys = Object.keys(pocketItem1) as Array<keyof PocketItemDescription>;
+    for (const key of keys) {
+      if (pocketItem1[key] !== pocketItem2[key]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }

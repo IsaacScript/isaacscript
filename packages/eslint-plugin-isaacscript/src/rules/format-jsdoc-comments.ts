@@ -1,8 +1,8 @@
 import { formatText } from "../format";
+import { trimPrefix } from "../isaacScriptCommonTS";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
 import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
 
-const RULE_NAME = "format-jsdoc-comments";
 const EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE = 4;
 const DEBUG = false as boolean;
 
@@ -15,13 +15,13 @@ export type Options = [
 export type MessageIds = "incorrectlyFormatted";
 
 export const formatJSDocComments = createRule<Options, MessageIds>({
-  name: RULE_NAME,
+  name: "format-jsdoc-comments",
   meta: {
     type: "layout",
     docs: {
       description:
         "Disallows `/**` comments longer than N characters and multi-line comments that can be merged together",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [
       {
@@ -61,7 +61,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
     // We only look at `/**` style comments on their own line.
     const jsDocComments = getJSDocComments(comments);
 
-    jsDocComments.forEach((comment) => {
+    for (const comment of jsDocComments) {
       const leftWhitespaceLength = comment.loc.start.column;
       const leftWhitespace = " ".repeat(leftWhitespaceLength);
       const originalComment = `${leftWhitespace}/*${comment.value}*/`;
@@ -69,7 +69,11 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
       const text = getTextFromJSDocComment(comment.value);
       const effectiveMaxLength =
         maxLength - leftWhitespaceLength - " * ".length;
-      const formattedText = formatText(text, effectiveMaxLength);
+      let formattedText = formatText(text, effectiveMaxLength);
+
+      // - Disallow comments like: `/** *foo */`
+      // - We must escape the asterisk to avoid a run-time error.
+      formattedText = trimPrefix(formattedText, "\\*", true);
 
       const canFitOnSingleLine = canFitOnSingleJSDocLine(
         formattedText,
@@ -80,7 +84,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         ? getJSDocCommentSingleLine(formattedText, leftWhitespace)
         : getJSDocCommentMultiLine(formattedText, leftWhitespace);
 
-      if (DEBUG) {
+      if (DEBUG && originalComment !== formattedComment) {
         console.log("originalComment:");
         console.log(originalComment);
         console.log("formattedComment:");
@@ -103,16 +107,13 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
             const [commentStart, commentEnd] = comment.range;
             const commentBeginningOfLine =
               commentStart - comment.loc.start.column;
-            const range: readonly [number, number] = [
-              commentBeginningOfLine,
-              commentEnd,
-            ];
+            const range = [commentBeginningOfLine, commentEnd] as const;
 
             return fixer.replaceTextRange(range, formattedComment);
           },
         });
       }
-    });
+    }
 
     return {};
   },
@@ -130,16 +131,6 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
  * ```
  */
 function canFitOnSingleJSDocLine(text: string, effectiveMaxLength: number) {
-  // As a special case, JSDoc comments that specify parameter documentation should never be moved to
-  // a single line. (But JSDoc tags with no additional information are okay to be in a single line.)
-  const hasJSDocTag = text.startsWith("@");
-  if (hasJSDocTag) {
-    const tagHasSomethingAfterIt = text.includes(" ");
-    if (tagHasSomethingAfterIt) {
-      return false;
-    }
-  }
-
   const textLines = text.split("\n");
   return (
     textLines.length === 1 &&

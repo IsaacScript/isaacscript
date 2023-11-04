@@ -1,4 +1,4 @@
-import { RockState } from "../../enums/collections/gridEntityState";
+import type { RockState } from "../../enums/collections/gridEntityStates";
 
 declare global {
   /**
@@ -17,15 +17,15 @@ declare global {
    * - `GridEntityType.ROCK_GOLD` (27)
    */
   interface GridEntityRock extends GridEntity {
-    GetBigRockFrame(): int;
-    GetRubbleAnim(): string;
+    GetBigRockFrame: () => int;
+    GetRubbleAnim: () => string;
 
     // There is no `GridEntityRock.GetVariant` method because `RockVariant` only applies to
     // `GridEntityType.ROCK`, and grid entity types other than `GridEntityRock.GetVariant` can be
     // converted to the `GridEntityRock` class. See the `GridEntityType` enum for more details.
 
-    SetBigRockFrame(frame: int): void;
-    UpdateAnimFrame(): void;
+    SetBigRockFrame: (frame: int) => void;
+    UpdateAnimFrame: () => void;
 
     Anim: string;
     FrameCnt: int;

@@ -1,4 +1,4 @@
-import {
+import type {
   GridCollisionClass,
   GridEntityType,
 } from "isaac-typescript-definitions";

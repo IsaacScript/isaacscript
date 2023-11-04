@@ -1,42 +1,42 @@
 import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import type { SerializedBitSet128 } from "../functions/bitSet128";
 import {
   copyBitSet128,
   deserializeBitSet128,
   isBitSet128,
   isSerializedBitSet128,
   serializeBitSet128,
-  SerializedBitSet128,
 } from "../functions/bitSet128";
+import type { SerializedColor } from "../functions/color";
 import {
   copyColor,
   deserializeColor,
   isColor,
   isSerializedColor,
   serializeColor,
-  SerializedColor,
 } from "../functions/color";
+import type { SerializedKColor } from "../functions/kColor";
 import {
   copyKColor,
   deserializeKColor,
   isKColor,
   isSerializedKColor,
-  SerializedKColor,
   serializeKColor,
 } from "../functions/kColor";
+import type { SerializedRNG } from "../functions/rng";
 import {
   copyRNG,
   deserializeRNG,
   isRNG,
   isSerializedRNG,
-  SerializedRNG,
   serializeRNG,
 } from "../functions/rng";
+import type { SerializedVector } from "../functions/vector";
 import {
   copyVector,
   deserializeVector,
   isSerializedVector,
   isVector,
-  SerializedVector,
   serializeVector,
 } from "../functions/vector";
 
@@ -80,12 +80,14 @@ export interface IsaacAPIClassTypeFunctions<T, SerializedT> {
   deserialize: (object: SerializedT) => T;
 }
 
-export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS: {
-  readonly [key in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
-    IsaacAPIClassTypeToType[key],
-    IsaacAPIClassTypeToSerializedType[key]
+type IsaacAPIClassTypeToFunctions = {
+  readonly [K in CopyableIsaacAPIClassType]: IsaacAPIClassTypeFunctions<
+    IsaacAPIClassTypeToType[K],
+    IsaacAPIClassTypeToSerializedType[K]
   >;
-} = {
+};
+
+export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS = {
   [CopyableIsaacAPIClassType.BIT_SET_128]: {
     is: isBitSet128,
     isSerialized: isSerializedBitSet128,
@@ -121,4 +123,4 @@ export const ISAAC_API_CLASS_TYPE_TO_FUNCTIONS: {
     serialize: serializeVector,
     deserialize: deserializeVector,
   },
-} as const;
+} as const satisfies IsaacAPIClassTypeToFunctions;

@@ -1,9 +1,10 @@
 import { DefaultMap } from "../classes/DefaultMap";
 import { SAVE_DATA_MANAGER_DEBUG } from "../classes/features/other/saveDataManager/constants";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
-import { AnyClass } from "../types/AnyClass";
-import { TSTLClass } from "../types/TSTLClass";
+import { isSerializationBrand } from "../serialization";
+import type { AnyClass } from "../types/AnyClass";
+import type { TSTLClass } from "../types/TSTLClass";
 import { isArray } from "./array";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { log } from "./log";
@@ -11,10 +12,10 @@ import {
   copyIsaacAPIClass,
   deserializeIsaacAPIClass,
   isCopyableIsaacAPIClass,
-  isSerializationBrand,
   isSerializedIsaacAPIClass,
   serializeIsaacAPIClass,
 } from "./serialization";
+import { sortTwoDimensionalArray } from "./sort";
 import {
   getTSTLClassName,
   isDefaultMap,
@@ -23,7 +24,7 @@ import {
   newTSTLClass,
 } from "./tstlClass";
 import { asString, isNumber, isPrimitive } from "./types";
-import { getTraversalDescription, twoDimensionalSort } from "./utils";
+import { assertDefined, getTraversalDescription } from "./utils";
 
 /**
  * `deepCopy` is a semi-generic deep cloner. It will recursively copy all of the values so that none
@@ -61,8 +62,8 @@ import { getTraversalDescription, twoDimensionalSort } from "./utils";
  *                          user-defined TSTL classes when recursively iterating through the given
  *                          object, it will use this map to instantiate a new class. Default is an
  *                          empty Lua table.
- * @param insideMap Optional. Tracks whether or not the deep copy function is in the process of
- *                  recursively copying a TSTL Map. Default is false.
+ * @param insideMap Optional. Tracks whether the deep copy function is in the process of recursively
+ *                  copying a TSTL Map. Default is false.
  */
 export function deepCopy<T>(
   // An overload describing the trivial case of a normal copy. (T --> T)
@@ -326,7 +327,7 @@ function deepCopyDefaultMap(
 
 /**
  * The new copied default map with either be a TSTL `DefaultMap` class or a Lua table, depending on
- * whether we are serializing or not.
+ * whether we are serializing.
  */
 function getNewDefaultMap(
   defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
@@ -360,11 +361,10 @@ function getNewDefaultMap(
       const defaultMapValue = defaultMap.get(
         SerializationBrand.DEFAULT_MAP_VALUE,
       );
-      if (defaultMapValue === undefined) {
-        error(
-          `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
-        );
-      }
+      assertDefined(
+        defaultMapValue,
+        `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
+      );
 
       // eslint-disable-next-line isaacscript/no-invalid-default-map
       return new DefaultMap(defaultMapValue);
@@ -517,21 +517,21 @@ function deepCopyTSTLClass(
       const tstlClassName = tstlClass.get(SerializationBrand.TSTL_CLASS) as
         | string
         | undefined;
-      if (tstlClassName === undefined) {
-        error(
-          "Failed to deserialize a TSTL class since the brand did not contain the class name.",
-        );
-      }
+      assertDefined(
+        tstlClassName,
+        "Failed to deserialize a TSTL class since the brand did not contain the class name.",
+      );
 
       const classConstructor = classConstructors.get(tstlClassName);
-      if (classConstructor === undefined) {
-        error(
-          `Failed to deserialize a TSTL class since there was no constructor registered for a class name of "${tstlClassName}". If this mod is using the save data manager, it must register the class constructor with the "saveDataManagerRegisterClass" method.`,
-        );
-      }
+      assertDefined(
+        classConstructor,
+        `Failed to deserialize a TSTL class since there was no constructor registered for a class name of "${tstlClassName}". If this mod is using the save data manager, it must register the class constructor with the "saveDataManagerRegisterClass" method.`,
+      );
 
       // eslint-disable-next-line new-cap
       newClass = new classConstructor() as TSTLClass;
+
+      break;
     }
   }
 
@@ -615,6 +615,8 @@ function deepCopyNormalLuaTable(
 /**
  * Recursively clones the object's entries, automatically converting number keys to strings, if
  * necessary.
+ *
+ * This should work on objects/tables, maps, sets, default maps, and classes.
  */
 function getCopiedEntries(
   object: unknown,
@@ -640,7 +642,7 @@ function getCopiedEntries(
   }
 
   if (SAVE_DATA_MANAGER_DEBUG) {
-    entries.sort(twoDimensionalSort);
+    entries.sort(sortTwoDimensionalArray);
   }
 
   // During serialization, we brand some Lua tables with a special identifier to signify that it has
@@ -722,16 +724,10 @@ function deepCopyUserdata(
   serializationType: SerializationType,
   traversalDescription: string,
 ) {
-  const classType = getIsaacAPIClassName(value);
-  if (classType === undefined) {
-    error(
-      `The deep copy function was not able to derive the Isaac API class type for: ${traversalDescription}`,
-    );
-  }
-
   if (!isCopyableIsaacAPIClass(value)) {
+    const className = getIsaacAPIClassName(value) ?? "Unknown";
     error(
-      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${classType}`,
+      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${className}`,
     );
   }
 
@@ -745,7 +741,7 @@ function deepCopyUserdata(
     }
 
     case SerializationType.DESERIALIZE: {
-      error(
+      return error(
         `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
       );
     }

@@ -3,9 +3,7 @@ import { RoomShape } from "isaac-typescript-definitions";
 const ONE_BY_ONE_WIDTH = 15;
 const TWO_BY_ONE_WIDTH = 28;
 
-export const ROOM_SHAPE_TO_GRID_WIDTH: {
-  readonly [key in RoomShape]: int;
-} = {
+export const ROOM_SHAPE_TO_GRID_WIDTH = {
   [RoomShape.SHAPE_1x1]: ONE_BY_ONE_WIDTH, // 1
   [RoomShape.IH]: ONE_BY_ONE_WIDTH, // 2
   [RoomShape.IV]: ONE_BY_ONE_WIDTH, // 3
@@ -18,4 +16,4 @@ export const ROOM_SHAPE_TO_GRID_WIDTH: {
   [RoomShape.LTR]: TWO_BY_ONE_WIDTH, // 10
   [RoomShape.LBL]: TWO_BY_ONE_WIDTH, // 11
   [RoomShape.LBR]: TWO_BY_ONE_WIDTH, // 12
-} as const;
+} as const satisfies Record<RoomShape, int>;

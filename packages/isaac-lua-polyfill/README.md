@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/isaac-lua-polyfill.svg)](https://www.npmjs.com/package/isaac-lua-polyfill)
 
-This package contains JavaScript polyfills for _[The Binding of Isaac: Repentance](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/)_. They are useful for unit testing your mods.
+This package contains JavaScript polyfills for [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/). They are useful for unit testing your mods.
 
 Currently, only `BitSet128` polyfill is provided.
 

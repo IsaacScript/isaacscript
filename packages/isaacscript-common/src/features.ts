@@ -1,4 +1,4 @@
-import { ModCallbackCustomToClass } from "./callbacks";
+import type { ModCallbackCustomToClass } from "./callbacks";
 import { CustomGridEntities } from "./classes/features/callbackLogic/CustomGridEntities";
 import { CustomRevive } from "./classes/features/callbackLogic/CustomRevive";
 import { EsauJrDetection } from "./classes/features/callbackLogic/EsauJrDetection";
@@ -8,8 +8,10 @@ import { GridEntityCollisionDetection } from "./classes/features/callbackLogic/G
 import { GridEntityRenderDetection } from "./classes/features/callbackLogic/GridEntityRenderDetection";
 import { GridEntityUpdateDetection } from "./classes/features/callbackLogic/GridEntityUpdateDetection";
 import { ItemPickupDetection } from "./classes/features/callbackLogic/ItemPickupDetection";
+import { PickupChangeDetection } from "./classes/features/callbackLogic/PickupChangeDetection";
 import { PlayerCollectibleDetection } from "./classes/features/callbackLogic/PlayerCollectibleDetection";
 import { PlayerReorderedCallbacks } from "./classes/features/callbackLogic/PlayerReorderedCallbacks";
+import { SlotDestroyedDetection } from "./classes/features/callbackLogic/SlotDestroyedDetection";
 import { SlotRenderDetection } from "./classes/features/callbackLogic/SlotRenderDetection";
 import { SlotUpdateDetection } from "./classes/features/callbackLogic/SlotUpdateDetection";
 import { CharacterHealthConversion } from "./classes/features/other/CharacterHealthConversion";
@@ -24,6 +26,7 @@ import { DebugDisplay } from "./classes/features/other/DebugDisplay";
 import { DeployJSONRoom } from "./classes/features/other/DeployJSONRoom";
 import { DisableAllSound } from "./classes/features/other/DisableAllSound";
 import { DisableInputs } from "./classes/features/other/DisableInputs";
+import { EdenStartingStatsHealth } from "./classes/features/other/EdenStartingStatsHealth";
 import { ExtraConsoleCommands } from "./classes/features/other/ExtraConsoleCommands";
 import { FadeInRemover } from "./classes/features/other/FadeInRemover";
 import { FastReset } from "./classes/features/other/FastReset";
@@ -36,8 +39,9 @@ import { NoSirenSteal } from "./classes/features/other/NoSirenSteal";
 import { Pause } from "./classes/features/other/Pause";
 import { PersistentEntities } from "./classes/features/other/PersistentEntities";
 import { PickupIndexCreation } from "./classes/features/other/PickupIndexCreation";
-import { PlayerInventory } from "./classes/features/other/PlayerInventory";
+import { PlayerCollectibleTracking } from "./classes/features/other/PlayerCollectibleTracking";
 import { PonyDetection } from "./classes/features/other/PonyDetection";
+import { PressInput } from "./classes/features/other/PressInput";
 import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
 import { PreventCollectibleRotation } from "./classes/features/other/PreventCollectibleRotation";
 import { PreventGridEntityRespawn } from "./classes/features/other/PreventGridEntityRespawn";
@@ -45,19 +49,19 @@ import { RoomClearFrame } from "./classes/features/other/RoomClearFrame";
 import { RoomHistory } from "./classes/features/other/RoomHistory";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { RunNextRoom } from "./classes/features/other/RunNextRoom";
+import { RunNextRun } from "./classes/features/other/RunNextRun";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
 import { SpawnCollectible } from "./classes/features/other/SpawnCollectible";
 import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltRewards";
 import { StageHistory } from "./classes/features/other/StageHistory";
 import { StartAmbush } from "./classes/features/other/StartAmbush";
 import { TaintedLazarusPlayers } from "./classes/features/other/TaintedLazarusPlayers";
+import { UnlockAchievementsDetection } from "./classes/features/other/UnlockAchievementsDetection";
+import type { Feature } from "./classes/private/Feature";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
-import {
-  newObjectWithEnumKeys,
-  validateInterfaceMatchesEnum,
-} from "./functions/utils";
-import { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
+import { validateInterfaceMatchesEnum } from "./functions/enums";
+import type { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
 
 export interface ISCFeatureToClass {
   // Callback logic
@@ -69,8 +73,10 @@ export interface ISCFeatureToClass {
   [ISCFeature.GRID_ENTITY_UPDATE_DETECTION]: GridEntityUpdateDetection;
   [ISCFeature.GAME_REORDERED_CALLBACKS]: GameReorderedCallbacks;
   [ISCFeature.ITEM_PICKUP_DETECTION]: ItemPickupDetection;
+  [ISCFeature.PICKUP_CHANGE_DETECTION]: PickupChangeDetection;
   [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: PlayerCollectibleDetection;
   [ISCFeature.PLAYER_REORDERED_CALLBACKS]: PlayerReorderedCallbacks;
+  [ISCFeature.SLOT_DESTROYED_DETECTION]: SlotDestroyedDetection;
   [ISCFeature.SLOT_RENDER_DETECTION]: SlotRenderDetection;
   [ISCFeature.SLOT_UPDATE_DETECTION]: SlotUpdateDetection;
 
@@ -88,6 +94,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.DEPLOY_JSON_ROOM]: DeployJSONRoom;
   [ISCFeature.DISABLE_ALL_SOUND]: DisableAllSound;
   [ISCFeature.DISABLE_INPUTS]: DisableInputs;
+  [ISCFeature.EDEN_STARTING_STATS_HEALTH]: EdenStartingStatsHealth;
   [ISCFeature.FADE_IN_REMOVER]: FadeInRemover;
   [ISCFeature.FAST_RESET]: FastReset;
   [ISCFeature.FLYING_DETECTION]: FlyingDetection;
@@ -100,8 +107,9 @@ export interface ISCFeatureToClass {
   [ISCFeature.PAUSE]: Pause;
   [ISCFeature.PERSISTENT_ENTITIES]: PersistentEntities;
   [ISCFeature.PICKUP_INDEX_CREATION]: PickupIndexCreation;
-  [ISCFeature.PLAYER_INVENTORY]: PlayerInventory;
+  [ISCFeature.PLAYER_COLLECTIBLE_TRACKING]: PlayerCollectibleTracking;
   [ISCFeature.PONY_DETECTION]: PonyDetection;
+  [ISCFeature.PRESS_INPUT]: PressInput;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
   [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: PreventCollectibleRotation;
   [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: PreventGridEntityRespawn;
@@ -109,12 +117,14 @@ export interface ISCFeatureToClass {
   [ISCFeature.ROOM_HISTORY]: RoomHistory;
   [ISCFeature.RUN_IN_N_FRAMES]: RunInNFrames;
   [ISCFeature.RUN_NEXT_ROOM]: RunNextRoom;
+  [ISCFeature.RUN_NEXT_RUN]: RunNextRun;
   [ISCFeature.SAVE_DATA_MANAGER]: SaveDataManager;
   [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: SpawnRockAltRewards;
   [ISCFeature.SPAWN_COLLECTIBLE]: SpawnCollectible;
   [ISCFeature.STAGE_HISTORY]: StageHistory;
   [ISCFeature.START_AMBUSH]: StartAmbush;
   [ISCFeature.TAINTED_LAZARUS_PLAYERS]: TaintedLazarusPlayers;
+  [ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION]: UnlockAchievementsDetection;
 }
 
 validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
@@ -136,18 +146,27 @@ export function getFeatures(
   const disableInputs = new DisableInputs();
   const moddedElementDetection = new ModdedElementDetection();
   const ponyDetection = new PonyDetection();
-  const preventCollectibleRotation = new PreventCollectibleRotation();
+  const pressInput = new PressInput();
   const roomClearFrame = new RoomClearFrame();
   const roomHistory = new RoomHistory();
-  const runInNFrames = new RunInNFrames();
   const runNextRoom = new RunNextRoom();
+  const saveDataManager = new SaveDataManager(mod);
   const stageHistory = new StageHistory();
+
+  const runInNFrames = new RunInNFrames(roomHistory);
+  const pickupIndexCreation = new PickupIndexCreation(
+    roomHistory,
+    saveDataManager,
+  );
+  const preventCollectibleRotation = new PreventCollectibleRotation(
+    pickupIndexCreation,
+    runInNFrames,
+  );
 
   const customGridEntities = new CustomGridEntities(runInNFrames);
   const moddedElementSets = new ModdedElementSets(moddedElementDetection);
   const itemPoolDetection = new ItemPoolDetection(moddedElementSets);
   const pause = new Pause(disableInputs);
-  const pickupIndexCreation = new PickupIndexCreation(roomHistory);
   const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
   const spawnCollectible = new SpawnCollectible(preventCollectibleRotation);
 
@@ -161,7 +180,7 @@ export function getFeatures(
     stageHistory,
   );
 
-  return newObjectWithEnumKeys(ISCFeature, {
+  const features = {
     // Callback logic
     [ISCFeature.CUSTOM_REVIVE]: new CustomRevive(
       callbacks[ModCallbackCustom.PRE_CUSTOM_REVIVE],
@@ -205,6 +224,10 @@ export function getFeatures(
       callbacks[ModCallbackCustom.POST_ITEM_PICKUP],
       callbacks[ModCallbackCustom.PRE_ITEM_PICKUP],
     ),
+    [ISCFeature.PICKUP_CHANGE_DETECTION]: new PickupChangeDetection(
+      callbacks[ModCallbackCustom.POST_PICKUP_CHANGED],
+      pickupIndexCreation,
+    ),
     [ISCFeature.PLAYER_COLLECTIBLE_DETECTION]: new PlayerCollectibleDetection(
       callbacks[ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED],
       callbacks[ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED],
@@ -215,6 +238,10 @@ export function getFeatures(
       callbacks[ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED],
       callbacks[ModCallbackCustom.POST_PLAYER_RENDER_REORDERED],
       callbacks[ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED],
+    ),
+    [ISCFeature.SLOT_DESTROYED_DETECTION]: new SlotDestroyedDetection(
+      callbacks[ModCallbackCustom.POST_SLOT_DESTROYED],
+      roomHistory,
     ),
     [ISCFeature.SLOT_RENDER_DETECTION]: new SlotRenderDetection(
       callbacks[ModCallbackCustom.POST_SLOT_RENDER],
@@ -251,10 +278,11 @@ export function getFeatures(
     ),
     [ISCFeature.DISABLE_ALL_SOUND]: disableAllSound,
     [ISCFeature.DISABLE_INPUTS]: disableInputs,
+    [ISCFeature.EDEN_STARTING_STATS_HEALTH]: new EdenStartingStatsHealth(),
     [ISCFeature.FADE_IN_REMOVER]: new FadeInRemover(),
     [ISCFeature.FAST_RESET]: new FastReset(),
     [ISCFeature.FLYING_DETECTION]: new FlyingDetection(moddedElementSets),
-    [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(),
+    [ISCFeature.FORGOTTEN_SWITCH]: new ForgottenSwitch(pressInput),
     [ISCFeature.EXTRA_CONSOLE_COMMANDS]: new ExtraConsoleCommands(),
     [ISCFeature.ITEM_POOL_DETECTION]: itemPoolDetection,
     [ISCFeature.MODDED_ELEMENT_DETECTION]: moddedElementDetection,
@@ -263,8 +291,9 @@ export function getFeatures(
     [ISCFeature.PAUSE]: pause,
     [ISCFeature.PERSISTENT_ENTITIES]: new PersistentEntities(roomHistory),
     [ISCFeature.PICKUP_INDEX_CREATION]: pickupIndexCreation,
-    [ISCFeature.PLAYER_INVENTORY]: new PlayerInventory(),
+    [ISCFeature.PLAYER_COLLECTIBLE_TRACKING]: new PlayerCollectibleTracking(),
     [ISCFeature.PONY_DETECTION]: ponyDetection,
+    [ISCFeature.PRESS_INPUT]: pressInput,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
     [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: preventCollectibleRotation,
     [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: preventGridEntityRespawn,
@@ -272,7 +301,8 @@ export function getFeatures(
     [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
     [ISCFeature.RUN_NEXT_ROOM]: runNextRoom,
-    [ISCFeature.SAVE_DATA_MANAGER]: new SaveDataManager(mod),
+    [ISCFeature.RUN_NEXT_RUN]: new RunNextRun(),
+    [ISCFeature.SAVE_DATA_MANAGER]: saveDataManager,
     [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: new SpawnRockAltRewards(
       itemPoolDetection,
     ),
@@ -280,5 +310,9 @@ export function getFeatures(
     [ISCFeature.STAGE_HISTORY]: stageHistory,
     [ISCFeature.START_AMBUSH]: new StartAmbush(runInNFrames),
     [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),
-  } as const);
+    [ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION]:
+      new UnlockAchievementsDetection(),
+  } as const satisfies Record<ISCFeature, Feature>;
+
+  return features;
 }

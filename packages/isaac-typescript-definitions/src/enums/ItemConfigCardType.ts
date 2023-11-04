@@ -55,5 +55,5 @@ export enum ItemConfigCardType {
    * This is not a real `CardType`. Due to limitations in the API, getting the real type of modded
    * cards is not possible, so this value is returned instead.
    */
-  MODDED = 7,
+  MODDED = 6,
 }

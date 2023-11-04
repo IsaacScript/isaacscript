@@ -6,18 +6,16 @@ import {
   ONE_BY_ONE_CONTENTS_WIDTH,
 } from "./roomShapeVolumes";
 
-const TWO_BY_TWO_BOUNDS: [width: int, height: int] = [
+const TWO_BY_TWO_BOUNDS = [
   ONE_BY_ONE_CONTENTS_WIDTH * 2,
   ONE_BY_ONE_CONTENTS_HEIGHT * 2,
-];
+] as const;
 
 /**
  * The size of a room shape's contents. This does not include the tiles that the walls are on. L
  * rooms use the same bounds as a 2x2 room.
  */
-export const ROOM_SHAPE_BOUNDS: {
-  readonly [key in RoomShape]: readonly [width: int, height: int];
-} = {
+export const ROOM_SHAPE_BOUNDS = {
   // 1
   [RoomShape.SHAPE_1x1]: [
     ONE_BY_ONE_CONTENTS_WIDTH,
@@ -62,4 +60,4 @@ export const ROOM_SHAPE_BOUNDS: {
 
   // 12
   [RoomShape.LBR]: TWO_BY_TWO_BOUNDS,
-} as const;
+} as const satisfies Record<RoomShape, readonly [int, int]>;

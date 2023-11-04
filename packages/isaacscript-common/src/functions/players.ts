@@ -1,61 +1,64 @@
+import type { TrinketType } from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   Challenge,
   CollectibleType,
   ControllerIndex,
   NullItemID,
   PlayerForm,
   PlayerType,
-  TrinketSlot,
-  TrinketType,
+  TearFlag,
 } from "isaac-typescript-definitions";
-import { game, itemConfig } from "../core/cachedClasses";
-import { getLastElement, sumArray } from "./array";
+import { game } from "../core/cachedClasses";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getCharacterName, isVanillaCharacter } from "./characters";
-import { getCollectibleMaxCharges } from "./collectibles";
-import { getEnumValues } from "./enums";
+import { hasFlag } from "./flag";
 import {
   getAllPlayers,
   getPlayerIndexVanilla,
   getPlayers,
 } from "./playerIndex";
 import { isNumber } from "./types";
-import { repeat } from "./utils";
+import { assertDefined, repeat } from "./utils";
 
-export function addCollectibleCostume(
-  player: EntityPlayer,
-  collectibleType: CollectibleType,
-): void {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return;
-  }
-
-  player.AddCostume(itemConfigItem, false);
-}
-
-export function addTrinketCostume(
-  player: EntityPlayer,
-  trinketType: TrinketType,
-): void {
-  const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
-  if (itemConfigTrinket === undefined) {
-    return;
-  }
-
-  player.AddCostume(itemConfigTrinket, false);
-}
-
-export function anyPlayerHasCollectible(
+/** Helper function to check to see if any player has a temporary collectible effect. */
+export function anyPlayerHasCollectibleEffect(
   collectibleType: CollectibleType,
 ): boolean {
   const players = getAllPlayers();
-  return players.some((player) => player.HasCollectible(collectibleType));
+
+  return players.some((player) => {
+    const effects = player.GetEffects();
+    return effects.HasCollectibleEffect(collectibleType);
+  });
 }
 
-export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
+/** Helper function to check to see if any player has a temporary null effect. */
+export function anyPlayerHasNullEffect(nullItemID: NullItemID): boolean {
   const players = getAllPlayers();
-  return players.some((player) => player.HasTrinket(trinketType));
+
+  return players.some((player) => {
+    const effects = player.GetEffects();
+    return effects.HasNullEffect(nullItemID);
+  });
+}
+
+/** Helper function to check to see if any player has a temporary trinket effect. */
+export function anyPlayerHasTrinketEffect(trinketType: TrinketType): boolean {
+  const players = getAllPlayers();
+
+  return players.some((player) => {
+    const effects = player.GetEffects();
+    return effects.HasTrinketEffect(trinketType);
+  });
+}
+
+/**
+ * Helper function to check to see if any player is holding up an item (from e.g. an active item
+ * activation, a poop from IBS, etc.).
+ */
+export function anyPlayerHoldingItem(): boolean {
+  const players = getAllPlayers();
+  return players.some((player) => player.IsHoldingItem());
 }
 
 /**
@@ -65,8 +68,9 @@ export function anyPlayerHasTrinket(trinketType: TrinketType): boolean {
  * for. Returns true if any of the characters supplied are present.
  */
 export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
-  const matchingCharacterSet = new Set(matchingCharacters);
+  const matchingCharacterSet = new ReadonlySet(matchingCharacters);
   const characters = getCharacters();
+
   return characters.some((character) => matchingCharacterSet.has(character));
 }
 
@@ -91,18 +95,24 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to find the active slot that the player has the corresponding collectible type
- * in. Returns undefined if the player does not have the collectible in any active slot.
+ * Helper function to remove a collectible or trinket that is currently queued to go into a player's
+ * inventory (i.e. the item is being held over their head).
+ *
+ * If the player does not have an item currently queued, then this function will be a no-op.
+ *
+ * Returns whether an item was actually dequeued.
  */
-export function getActiveItemSlot(
-  player: EntityPlayer,
-  collectibleType: CollectibleType,
-): ActiveSlot | undefined {
-  const activeSlots = getEnumValues(ActiveSlot);
-  return activeSlots.find((activeSlot) => {
-    const activeItem = player.GetActiveItem(activeSlot);
-    return activeItem === collectibleType;
-  });
+export function dequeueItem(player: EntityPlayer): boolean {
+  if (player.QueuedItem.Item === undefined) {
+    return false;
+  }
+
+  // Doing `player.QueuedItem.Item = undefined` does not work for some reason.
+  const queue = player.QueuedItem;
+  queue.Item = undefined;
+  player.QueuedItem = queue;
+
+  return true;
 }
 
 /**
@@ -127,6 +137,11 @@ export function getCharacters(): PlayerType[] {
   return players.map((player) => player.GetPlayerType());
 }
 
+/**
+ * Helper function to get the closest player to a certain position. Note that this will never
+ * include players with a non-undefined parent, since they are not real players (e.g. the Strawman
+ * Keeper).
+ */
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | undefined;
   let closestDistance = math.huge;
@@ -139,9 +154,7 @@ export function getClosestPlayer(position: Vector): EntityPlayer {
     }
   }
 
-  if (closestPlayer === undefined) {
-    error("Failed to find the closest player.");
-  }
+  assertDefined(closestPlayer, "Failed to find the closest player.");
 
   return closestPlayer;
 }
@@ -172,10 +185,11 @@ export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
 export function getFinalPlayer(): EntityPlayer {
   const players = getPlayers();
 
-  const lastPlayer = getLastElement(players);
-  if (lastPlayer === undefined) {
-    error("Failed to get the final player since there were 0 players.");
-  }
+  const lastPlayer = players.at(-1);
+  assertDefined(
+    lastPlayer,
+    "Failed to get the final player since there were 0 players.",
+  );
 
   return lastPlayer;
 }
@@ -186,7 +200,7 @@ export function getFinalPlayer(): EntityPlayer {
  * will be spawned on the same frame.
  */
 export function getNewestPlayer(): EntityPlayer {
-  let newestPlayer: EntityPlayer | null = null;
+  let newestPlayer: EntityPlayer | undefined;
   let lowestFrame = math.huge;
   for (const player of getPlayers()) {
     if (player.FrameCount < lowestFrame) {
@@ -195,9 +209,7 @@ export function getNewestPlayer(): EntityPlayer {
     }
   }
 
-  if (newestPlayer === null) {
-    error("Failed to find the newest player.");
-  }
+  assertDefined(newestPlayer, "Failed to find the newest player.");
 
   return newestPlayer;
 }
@@ -212,30 +224,10 @@ export function getPlayerCloserThan(
   distance: float,
 ): EntityPlayer | undefined {
   const players = getPlayers();
+
   return players.find(
     (player) => player.Position.Distance(position) <= distance,
   );
-}
-
-/**
- * Helper function to return the total amount of collectibles that a player has that match the
- * collectible type(s) provided.
- *
- * This function is variadic, meaning that you can specify N collectible types.
- *
- * Note that this will filter out non-real collectibles like Lilith's Incubus.
- */
-export function getPlayerCollectibleCount(
-  player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
-): int {
-  let numCollectibles = 0;
-  for (const collectibleType of collectibleTypes) {
-    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
-    numCollectibles += player.GetCollectibleNum(collectibleType, true);
-  }
-
-  return numCollectibles;
 }
 
 /**
@@ -328,8 +320,9 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  * for. Returns true if any of the characters supplied are present.
  */
 export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
-  const charactersSet = new Set(characters);
+  const charactersSet = new ReadonlySet(characters);
   const players = getPlayers();
+
   return players.filter((player) => {
     const character = player.GetPlayerType();
     return charactersSet.has(character);
@@ -337,34 +330,18 @@ export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
 }
 
 /**
- * Helper function to get all of the players that match the provided controller index. This function
- * returns an array of players because it is possible that there is more than one player with the
- * same controller index (e.g. Jacob & Esau).
+ * Helper function to get all of the players that are using keyboard (i.e.
+ * `ControllerIndex.KEYBOARD`). This function returns an array of players because it is possible
+ * that there is more than one player with the same controller index (e.g. Jacob & Esau).
  *
  * Note that this function includes players with a non-undefined parent like e.g. the Strawman
  * Keeper.
  */
 export function getPlayersOnKeyboard(): EntityPlayer[] {
   const players = getAllPlayers();
+
   return players.filter(
     (player) => player.ControllerIndex === ControllerIndex.KEYBOARD,
-  );
-}
-
-/**
- * Helper function to get only the players that have a certain collectible.
- *
- * This function is variadic, meaning that you can supply as many collectible types as you want to
- * check for. It only returns the players that have all of the collectibles.
- */
-export function getPlayersWithCollectible(
-  ...collectibleTypes: CollectibleType[]
-): EntityPlayer[] {
-  const players = getPlayers();
-  return players.filter((player) =>
-    collectibleTypes.every((collectibleType) =>
-      player.HasCollectible(collectibleType),
-    ),
   );
 }
 
@@ -384,36 +361,25 @@ export function getPlayersWithControllerIndex(
 }
 
 /**
- * Helper function to get only the players that have a certain trinket.
+ * Helper function to check to see if a player has one or more transformations.
  *
- * This function is variadic, meaning that you can supply as many trinket types as you want to check
- * for. It only returns the players that have all of the trinkets.
+ * This function is variadic, meaning that you can supply as many transformations as you want to
+ * check for. Returns true if the player has any of the supplied transformations.
  */
-export function getPlayersWithTrinket(
-  ...trinketTypes: TrinketType[]
-): EntityPlayer[] {
-  const players = getPlayers();
-  return players.filter((player) =>
-    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
-  );
+export function hasForm(
+  player: EntityPlayer,
+  ...playerForms: PlayerForm[]
+): boolean {
+  return playerForms.some((playerForm) => player.HasPlayerForm(playerForm));
 }
 
 /**
- * Returns the total number of collectibles amongst all players. For example, if player 1 has 1 Sad
- * Onion and player 2 has 2 Sad Onions, then this function would return 3.
+ * Helper function to check if a player has homing tears.
  *
- * Note that this will filter out non-real collectibles like Lilith's Incubus.
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable for `TearFlag.HOMING` (1 << 2).
  */
-export function getTotalPlayerCollectibles(
-  collectibleType: CollectibleType,
-): int {
-  const players = getPlayers();
-  const numCollectiblesArray = players.map((player) =>
-    // We specify "true" as the second argument to filter out things like Lilith's Incubus.
-    player.GetCollectibleNum(collectibleType, true),
-  );
-
-  return sumArray(numCollectiblesArray);
+export function hasHoming(player: EntityPlayer): boolean {
+  return hasFlag(player.TearFlags, TearFlag.HOMING);
 }
 
 /** After touching a white fire, a player will turn into The Lost until they clear a room. */
@@ -423,43 +389,23 @@ export function hasLostCurse(player: EntityPlayer): boolean {
 }
 
 /**
- * Returns whether or not the player can hold an additional active item, beyond what they are
- * currently carrying. This takes the Schoolbag into account.
+ * Helper function to check if a player has piercing tears.
  *
- * If the player is the Tainted Soul, this always returns false, since that character cannot pick up
- * items. (Only Tainted Forgotten can pick up items.)
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable for `TearFlag.PIERCING` (1 <<
+ * 1).
  */
-export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
-  if (isCharacter(player, PlayerType.SOUL_B)) {
-    return false;
-  }
-
-  const activeItemPrimary = player.GetActiveItem(ActiveSlot.PRIMARY);
-  const activeItemSecondary = player.GetActiveItem(ActiveSlot.SECONDARY);
-  const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
-
-  if (hasSchoolbag) {
-    return (
-      activeItemPrimary === CollectibleType.NULL ||
-      activeItemSecondary === CollectibleType.NULL
-    );
-  }
-
-  return activeItemPrimary === CollectibleType.NULL;
+export function hasPiercing(player: EntityPlayer): boolean {
+  return hasFlag(player.TearFlags, TearFlag.PIERCING);
 }
 
 /**
- * Helper function to check if the active slot of a particular player is empty.
+ * Helper function to check if a player has spectral tears.
  *
- * @param player The player to check.
- * @param activeSlot Optional. The active slot to check. Default is `ActiveSlot.PRIMARY`.
+ * Under the hood, this checks the `EntityPlayer.TearFlags` variable for `TearFlag.SPECTRAL` (1 <<
+ * 0).
  */
-export function isActiveSlotEmpty(
-  player: EntityPlayer,
-  activeSlot = ActiveSlot.PRIMARY,
-): boolean {
-  const activeCollectibleType = player.GetActiveItem(activeSlot);
-  return activeCollectibleType === CollectibleType.NULL;
+export function hasSpectral(player: EntityPlayer): boolean {
+  return hasFlag(player.TearFlags, TearFlag.SPECTRAL);
 }
 
 /**
@@ -469,7 +415,6 @@ export function isActiveSlotEmpty(
  */
 export function isBethany(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.BETHANY || character === PlayerType.BETHANY_B;
 }
 
@@ -483,8 +428,9 @@ export function isCharacter(
   player: EntityPlayer,
   ...characters: PlayerType[]
 ): boolean {
-  const characterSet = new Set(characters);
+  const characterSet = new ReadonlySet(characters);
   const character = player.GetPlayerType();
+
   return characterSet.has(character);
 }
 
@@ -508,8 +454,18 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
  */
 export function isEden(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
+}
+
+function isTaintedModded(player: EntityPlayer) {
+  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
+  // is bugged.
+  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
+  const character = player.GetPlayerType();
+  const name = player.GetName();
+  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
+
+  return character === taintedCharacter;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {
@@ -522,7 +478,6 @@ export function isFirstPlayer(player: EntityPlayer): boolean {
  */
 export function isJacobOrEsau(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.JACOB || character === PlayerType.ESAU;
 }
 
@@ -532,14 +487,12 @@ export function isJacobOrEsau(player: EntityPlayer): boolean {
  */
 export function isKeeper(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.KEEPER || character === PlayerType.KEEPER_B;
 }
 
 /** Helper function for detecting when a player is The Lost or Tainted Lost. */
 export function isLost(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
-
   return character === PlayerType.LOST || character === PlayerType.LOST_B;
 }
 
@@ -566,17 +519,6 @@ export function isTainted(player: EntityPlayer): boolean {
     : isTaintedModded(player);
 }
 
-function isTaintedModded(player: EntityPlayer) {
-  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
-  // is bugged.
-  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
-  const character = player.GetPlayerType();
-  const name = player.GetName();
-  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
-
-  return character === taintedCharacter;
-}
-
 /** Helper function for detecting when a player is Tainted Lazarus or Dead Tainted Lazarus. */
 export function isTaintedLazarus(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
@@ -592,92 +534,6 @@ export function isVanillaPlayer(player: EntityPlayer): boolean {
 }
 
 /**
- * Helper function to add one or more collectibles to a player.
- *
- * This function is variadic, meaning that you can supply as many collectible types as you want to
- * add.
- */
-export function playerAddCollectible(
-  player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
-): void {
-  for (const collectibleType of collectibleTypes) {
-    player.AddCollectible(collectibleType);
-  }
-}
-
-/**
- * Helper function to check to see if a player has one or more collectibles.
- *
- * This function is variadic, meaning that you can supply as many collectible types as you want to
- * check for. Returns true if the player has any of the supplied collectible types.
- */
-export function playerHasCollectible(
-  player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
-): boolean {
-  return collectibleTypes.some((collectibleType) =>
-    player.HasCollectible(collectibleType),
-  );
-}
-
-/**
- * Helper function to remove all of the active items from a player. This includes the Schoolbag item
- * and any pocket actives.
- */
-export function removeAllActiveItems(player: EntityPlayer): void {
-  for (const activeSlot of getEnumValues(ActiveSlot)) {
-    const collectibleType = player.GetActiveItem(activeSlot);
-    if (collectibleType === CollectibleType.NULL) {
-      continue;
-    }
-
-    let hasCollectible: boolean;
-    do {
-      player.RemoveCollectible(collectibleType);
-      hasCollectible = player.HasCollectible(collectibleType);
-    } while (hasCollectible);
-  }
-}
-
-/**
- * Helper function to remove all of the held trinkets from a player.
- *
- * This will not remove any smelted trinkets, unless the player happens to be holding a trinket that
- * they also have smelted. (In that case, both the held and the smelted trinket will be removed.)
- */
-export function removeAllPlayerTrinkets(player: EntityPlayer): void {
-  for (const trinketSlot of getEnumValues(TrinketSlot)) {
-    const trinketType = player.GetTrinket(trinketSlot);
-    if (trinketType === TrinketType.NULL) {
-      continue;
-    }
-
-    let hasTrinket: boolean;
-    do {
-      player.TryRemoveTrinket(trinketType);
-      hasTrinket = player.HasTrinket(trinketType);
-    } while (hasTrinket);
-  }
-}
-
-/**
- * Helper function to remove a collectible costume from a player. Use this helper function to avoid
- * having to request the collectible from the item config.
- */
-export function removeCollectibleCostume(
-  player: EntityPlayer,
-  collectibleType: CollectibleType,
-): void {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    return;
-  }
-
-  player.RemoveCostume(itemConfigItem);
-}
-
-/**
  * Helper function to remove the Dead Eye multiplier from a player.
  *
  * Note that each time the `EntityPlayer.ClearDeadEyeCharge` method is called, it only has a chance
@@ -690,113 +546,17 @@ export function removeDeadEyeMultiplier(player: EntityPlayer): void {
 }
 
 /**
- * Helper function to remove a trinket costume from a player. Use this helper function to avoid
- * having to request the trinket from the item config.
- */
-export function removeTrinketCostume(
-  player: EntityPlayer,
-  trinketType: TrinketType,
-): void {
-  const itemConfigTrinket = itemConfig.GetTrinket(trinketType);
-  if (itemConfigTrinket === undefined) {
-    return;
-  }
-
-  player.RemoveCostume(itemConfigTrinket);
-}
-
-/**
- * Helper function to set an active collectible to a particular slot. This has different behavior
- * than calling the `player.AddCollectible` method with the `activeSlot` argument, because this
- * function will not shift existing items into the Schoolbag and it handles
- * `ActiveSlot.SLOT_POCKET2`.
- *
- * Note that if an item is set to `ActiveSlot.SLOT_POCKET2`, it will disappear after being used and
- * will be automatically removed upon entering a new room.
- *
- * @param player The player to give the item to.
- * @param collectibleType The collectible type of the item to give.
- * @param activeSlot Optional. The slot to set. Default is `ActiveSlot.PRIMARY`.
- * @param charge Optional. The argument of charges to set. If not specified, the item will be set
- *               with maximum charges.
- * @param keepInPools Optional. Whether or not to remove the item from pools. Default is false.
- */
-export function setActiveItem(
-  player: EntityPlayer,
-  collectibleType: CollectibleType,
-  activeSlot = ActiveSlot.PRIMARY,
-  charge?: int,
-  keepInPools = false,
-): void {
-  const itemPool = game.GetItemPool();
-  const primaryCollectibleType = player.GetActiveItem(ActiveSlot.PRIMARY);
-  const primaryCharge = player.GetActiveCharge(ActiveSlot.PRIMARY);
-  const secondaryCollectibleType = player.GetActiveItem(ActiveSlot.SECONDARY);
-
-  if (charge === undefined) {
-    charge = getCollectibleMaxCharges(collectibleType);
-  }
-
-  if (!keepInPools) {
-    itemPool.RemoveCollectible(collectibleType);
-  }
-
-  switch (activeSlot) {
-    case ActiveSlot.PRIMARY: {
-      // If there is a Schoolbag item, removing the primary item will shift the Schoolbag item to
-      // the primary slot.
-      if (primaryCollectibleType !== CollectibleType.NULL) {
-        player.RemoveCollectible(primaryCollectibleType);
-      }
-
-      // If there was a Schoolbag item, adding a new primary item will shift it back into the
-      // secondary slot.
-      player.AddCollectible(collectibleType, charge, false);
-
-      break;
-    }
-
-    case ActiveSlot.SECONDARY: {
-      if (primaryCollectibleType !== CollectibleType.NULL) {
-        player.RemoveCollectible(primaryCollectibleType);
-      }
-
-      if (secondaryCollectibleType !== CollectibleType.NULL) {
-        player.RemoveCollectible(secondaryCollectibleType);
-      }
-
-      // Add the new item, which will go to the primary slot.
-      player.AddCollectible(secondaryCollectibleType, charge, false);
-
-      // Add back the original primary item, if any.
-      if (primaryCollectibleType !== CollectibleType.NULL) {
-        player.AddCollectible(primaryCollectibleType, primaryCharge, false);
-      }
-
-      break;
-    }
-
-    case ActiveSlot.POCKET: {
-      player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
-      player.SetActiveCharge(charge, activeSlot);
-
-      break;
-    }
-
-    case ActiveSlot.POCKET_SINGLE_USE: {
-      player.SetPocketActiveItem(collectibleType, activeSlot, keepInPools);
-      break;
-    }
-  }
-}
-
-/**
  * Helper function to blindfold the player by using a hack with the challenge variable.
  *
- * The method used in this function was discovered by im_tem.
+ * Note that if the player dies and respawns (from e.g. Dead Cat), the blindfold will have to be
+ * reapplied.
+ *
+ * Under the hood, this function sets the challenge to one with a blindfold, changes the player to
+ * the same character that they currently are, and then changes the challenge back. This method was
+ * discovered by im_tem.
  *
  * @param player The player to apply or remove the blindfold state from.
- * @param enabled Whether or not to apply or remove the blindfold.
+ * @param enabled Whether to apply or remove the blindfold.
  * @param modifyCostume Optional. Whether to add or remove the blindfold costume. Default is true.
  */
 export function setBlindfold(
@@ -825,15 +585,4 @@ export function setBlindfold(
       player.TryRemoveNullCostume(NullItemID.BLINDFOLD);
     }
   }
-}
-
-/**
- * Helper function to use an active item without showing an animation, keeping the item, or adding
- * any costumes.
- */
-export function useActiveItemTemp(
-  player: EntityPlayer,
-  collectibleType: CollectibleType,
-): void {
-  player.UseActiveItem(collectibleType, false, false, true, false, -1);
 }

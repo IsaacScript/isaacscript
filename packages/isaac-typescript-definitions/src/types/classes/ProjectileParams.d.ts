@@ -1,5 +1,5 @@
-import { ProjectileVariant } from "../../enums/collections/variants";
-import { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
+import type { ProjectileVariant } from "../../enums/collections/variants";
+import type { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
 
 declare global {
   function ProjectileParams(this: void): ProjectileParams;

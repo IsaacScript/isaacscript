@@ -1,7 +1,5 @@
-import {
-  CompleteSentenceMessageIds,
-  getIncompleteSentences,
-} from "../completeSentence";
+import type { CompleteSentenceMessageIds } from "../completeSentence";
+import { getIncompleteSentences } from "../completeSentence";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
 import { createRule } from "../utils";
 
@@ -15,8 +13,8 @@ export const completeSentencesJSDoc = createRule<
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces complete sentences for JSDoc comments",
-      recommended: "error",
+      description: "Requires complete sentences for JSDoc comments",
+      recommended: "recommended",
     },
     schema: [],
     messages: {
@@ -24,6 +22,8 @@ export const completeSentencesJSDoc = createRule<
         "JSDoc comments must contain complete sentences with a capital letter.\n{{ sentence }}",
       missingPeriod:
         "JSDoc comments must contain complete sentences with a trailing period.\n{{ sentence }}",
+      doublePeriod:
+        "JSDoc comments must not end with a double period. Did you make a typo?.\n{{ sentence }}",
     },
   },
   defaultOptions: [],
@@ -40,10 +40,11 @@ export const completeSentencesJSDoc = createRule<
     // We only look at `/**` style comments.
     const jsDocComments = getJSDocComments(comments);
 
-    jsDocComments.forEach((comment) => {
+    for (const comment of jsDocComments) {
       const text = getTextFromJSDocComment(comment.value);
       const incompleteSentences = getIncompleteSentences(text);
-      incompleteSentences.forEach((incompleteSentence) => {
+
+      for (const incompleteSentence of incompleteSentences) {
         context.report({
           loc: {
             start: comment.loc.start,
@@ -54,8 +55,8 @@ export const completeSentencesJSDoc = createRule<
             sentence: incompleteSentence.sentence,
           },
         });
-      });
-    });
+      }
+    }
 
     return {};
   },

@@ -4,7 +4,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { RockAltType } from "../enums/RockAltType";
+import type { RockAltType } from "../enums/RockAltType";
 import { BACKDROP_TYPE_TO_ROCK_ALT_TYPE } from "../objects/backdropTypeToRockAltType";
 import { getNPCs } from "./entitiesSpecific";
 import { removeEntitiesSpawnedFromGridEntity } from "./gridEntities";

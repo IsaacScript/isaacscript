@@ -1,18 +1,15 @@
+import type { Immutable } from "../types/Immutable";
+
 /**
  * This is the format of a custom stage in the "isaacscript" section of the "tsconfig.json" file.
  *
  * The contents of this interface are used to create a "tsconfig-isaacscript-section-schema.json"
  * schema with the "ts-json-schema-generator" library.
  *
- * The contents of this interface are validated at run-time against the schema using the Ajv
- * library.
+ * The contents of this interface are validated at run-time against the schema.
  *
  * The `CustomStageLua` interface extends this, adding room metadata.
  */
-
-import { Immutable } from "../types/Immutable";
-
-// ts-prune-ignore-next
 export interface CustomStageTSConfig {
   /** Mandatory. The name of the custom stage. */
   name: string;
@@ -27,11 +24,12 @@ export interface CustomStageTSConfig {
    * Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this
    * stage.
    *
-   * Make sure the chosen prefix does not conflict with any other mods. You can find a list of
-   * registered room variant prefixes on the IsaacScript website:
+   * Use a value of 100 when testing locally. When publishing to the workshop or otherwise
+   * distributing your mod, make sure that you have chosen a prefix that does not conflict with any
+   * other mods. You can find a list of registered room variant prefixes on the IsaacScript website:
    * https://isaacscript.github.io/main/custom-stages
    *
-   * @minimum 101
+   * @minimum 100
    * @maximum 999
    */
   roomVariantPrefix: number;
@@ -68,6 +66,14 @@ export interface CustomStageTSConfig {
    * @maximum 5
    */
   baseStageType?: number;
+
+  /**
+   * Optional. A string that represents the name of the music track from the "content/music.xml"
+   * file that corresponds to this custom stage. It will be manually played upon entering the stage.
+   *
+   * If not specified, the same music track as the base stage will be used.
+   */
+  music?: string;
 
   /**
    * Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is
@@ -457,7 +463,6 @@ export interface CustomStageTSConfig {
  * A description of a custom stage shadow. (In this context, "shadows" are the outlines from things
  * on the roof. For example, in Basement, a shadow of a sideways V is used, among others.)
  */
-// ts-prune-ignore-next
 export interface CustomStageShadow {
   /**
    * The full path to the shadow overlay PNG file.
@@ -504,7 +509,6 @@ export interface CustomStageShadow {
  * An object that represents a possible boss for a custom stage. This can be for a vanilla boss or a
  * custom boss.
  */
-// ts-prune-ignore-next
 export interface CustomStageBossPoolEntry {
   /**
    * The name of the boss. This should correspond to the entry for the boss in the "entities2.xml"
@@ -539,7 +543,6 @@ export interface CustomStageBossPoolEntry {
 
   /** Optional. A collection of sprites used for the boss on the "versus" screen. */
   versusScreen?: {
-    // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
     /**
      * Mandatory. The full path to the spritesheet that contains the graphics of the name of the
      * boss that will be displayed on the top of the boss "versus" screen.
@@ -548,7 +551,6 @@ export interface CustomStageBossPoolEntry {
      */
     namePNGPath: string;
 
-    // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
     /**
      * Mandatory. The full path to the spritesheet that contains the portrait of the boss that will
      * be displayed on the right side of the boss "versus" screen.
@@ -559,13 +561,7 @@ export interface CustomStageBossPoolEntry {
   };
 }
 
-/**
- * An object that represents a custom stage. The "customStageMetadata.lua" file contains an array of
- * these objects. Besides the room metadata, the data is the same as what is specified inside the
- * "tsconfig.json" file.
- *
- * The `CustomStage` interface extends this, adding more data.
- */
+/** An intermediate type that is never actually used. See `CustomStageLua`. */
 interface CustomStageLuaUnsafe extends CustomStageTSConfig {
   /**
    * This contains metadata about each room in a custom stage, which is used at run-time.
@@ -575,6 +571,13 @@ interface CustomStageLuaUnsafe extends CustomStageTSConfig {
   roomsMetadata: CustomStageRoomMetadata[];
 }
 
+/**
+ * An object that represents a custom stage. The "customStageMetadata.lua" file contains an array of
+ * these objects. Besides the room metadata, the data is the same as what is specified inside the
+ * "tsconfig.json" file.
+ *
+ * The `CustomStage` interface extends this, adding more data.
+ */
 export type CustomStageLua = Immutable<CustomStageLuaUnsafe>;
 
 /**

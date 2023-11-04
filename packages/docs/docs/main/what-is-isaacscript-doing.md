@@ -49,4 +49,6 @@ For example:
 
 For now, just put something in your mod folder and confirm that `isaacscript` copies it over for you.
 
+Remember that if you add non-code assets to your mod, you have to fully restart the game in order for the game to start using them.
+
 <br />

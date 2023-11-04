@@ -1,10 +1,27 @@
 import { log } from "./log";
 
 /**
+ * Helper function to get the amount of elapsed time for benchmarking / profiling purposes.
+ *
+ * For more information, see the documentation for the `getTime` helper function.
+ *
+ * @param time The milliseconds (int) or fractional seconds (float).
+ * @param useSocketIfAvailable Optional. Whether to use the `socket.gettime` method, if available.
+ *                             Default is true. If set to false, the `Isaac.GetTime()` method will
+ *                             always be used.
+ */
+export function getElapsedTimeSince(
+  time: int | float,
+  useSocketIfAvailable = true,
+): int {
+  return getTime(useSocketIfAvailable) - time;
+}
+
+/**
  * Helper function to get the current time for benchmarking / profiling purposes.
  *
  * The return value will either be in seconds or milliseconds, depending on if the "--luadebug" flag
- * is turned on or not.
+ * is turned on.
  *
  * If the "--luadebug" flag is present, then this function will use the `socket.gettime` method,
  * which returns the epoch timestamp in seconds (e.g. "1640320492.5779"). This is preferable over
@@ -18,13 +35,14 @@ import { log } from "./log";
  *                             Default is true. If set to false, the `Isaac.GetTime()` method will
  *                             always be used.
  */
-export function getTime(useSocketIfAvailable = true): float {
+export function getTime(useSocketIfAvailable = true): int | float {
   if (useSocketIfAvailable) {
     if (SandboxGetTime !== undefined) {
       return SandboxGetTime();
     }
 
     if (isLuaDebugEnabled()) {
+      // eslint-disable-next-line unicorn/prefer-module
       const [ok, requiredSocket] = pcall(require, "socket");
       if (ok) {
         const socket = requiredSocket as Socket;
@@ -42,10 +60,10 @@ export function getTime(useSocketIfAvailable = true): float {
 /**
  * Helper function to get a stack trace.
  *
- * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
- * enabled.
+ * This will only work if the `--luadebug` launch option is enabled. If it isn't, then a error
+ * string will be returned.
  */
-export function getTraceback(): string {
+export function getTraceback(this: void): string {
   if (SandboxGetTraceback !== undefined) {
     return SandboxGetTraceback();
   }
@@ -69,7 +87,7 @@ export function getTraceback(): string {
  * documented here: https://wofsauge.github.io/IsaacDocs/rep/Globals.html
  *
  * This function uses the `package` global variable as a proxy to determine if the "--luadebug" flag
- * is enabled or not.
+ * is enabled.
  *
  * Note that this function will return false if the Racing+ sandbox is enabled, even if the
  * "--luadebug" flag is really turned on. If checking for this case is needed, check for the
@@ -82,13 +100,13 @@ export function isLuaDebugEnabled(): boolean {
 }
 
 /**
- * Helper function to print a stack trace to the "log.txt" file, similar to JavaScript's
+ * Helper function to log a stack trace to the "log.txt" file, similar to JavaScript's
  * `console.trace` function.
  *
- * This will only work if the `--luadebug` launch option is enabled or the Racing+ sandbox is
- * enabled.
+ * This will only work if the `--luadebug` launch option is enabled. If it isn't, then a error
+ * string will be logged.
  */
-export function traceback(): void {
+export function traceback(this: void): void {
   const tracebackOutput = getTraceback();
   log(tracebackOutput);
 }

@@ -1,69 +1,87 @@
-import {
-  ButtonAction,
-  InputHook,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { ButtonAction } from "isaac-typescript-definitions";
+import { InputHook, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { getMoveActions, getShootActions } from "../../../functions/input";
+import {
+  MOVEMENT_BUTTON_ACTIONS_SET,
+  SHOOTING_BUTTON_ACTIONS_SET,
+} from "../../../functions/input";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
+
+const v = {
+  run: {
+    /**
+     * Glowing Hour Glass support is disabled by default since it can cause bugs with extra-gameplay
+     * features. (For example, whether the player should be able to move is not something that
+     * should be reset by the Glowing Hour Glass.)
+     */
+    __ignoreGlowingHourGlass: true,
+
+    /** Indexed by the requesting feature key. */
+    disableInputs: new Map<string, ReadonlySet<ButtonAction>>(),
+
+    /** Indexed by the requesting feature key. */
+    enableAllInputsWithBlacklistMap: new Map<
+      string,
+      ReadonlySet<ButtonAction>
+    >(),
+
+    /** Indexed by the requesting feature key. */
+    disableAllInputsWithWhitelistMap: new Map<
+      string,
+      ReadonlySet<ButtonAction>
+    >(),
+  },
+};
 
 export class DisableInputs extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      /** Indexed by the requesting feature key. */
-      disableInputs: new Map<string, ReadonlySet<ButtonAction>>(),
-
-      /** Indexed by the requesting feature key. */
-      enableAllInputsWithBlacklistMap: new Map<
-        string,
-        ReadonlySet<ButtonAction>
-      >(),
-
-      /** Indexed by the requesting feature key. */
-      disableAllInputsWithWhitelistMap: new Map<
-        string,
-        ReadonlySet<ButtonAction>
-      >(),
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
     super();
 
     this.callbacksUsed = [
+      // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.isActionPressed, InputHook.IS_ACTION_PRESSED],
-      ], // 13
+        this.isActionPressed,
+        [InputHook.IS_ACTION_PRESSED], // 0
+      ],
+
+      // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.isActionTriggered, InputHook.IS_ACTION_TRIGGERED],
-      ], // 13
+        this.isActionTriggered,
+        [InputHook.IS_ACTION_TRIGGERED], // 1
+      ],
+
+      // 13
       [
         ModCallback.INPUT_ACTION,
-        [this.getActionValue, InputHook.GET_ACTION_VALUE],
-      ], // 13
+        this.getActionValue,
+        [InputHook.GET_ACTION_VALUE], // 2
+      ],
     ];
   }
 
   // InputHook.IS_ACTION_PRESSED (0)
-  private isActionPressed = (
+  private readonly isActionPressed = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => this.getReturnValue(buttonAction, true);
 
   // InputHook.IS_ACTION_TRIGGERED (1)
-  private isActionTriggered = (
+  private readonly isActionTriggered = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => this.getReturnValue(buttonAction, true);
 
   // InputHook.GET_ACTION_VALUE (2)
-  private getActionValue = (
+  private readonly getActionValue = (
     _entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
@@ -72,19 +90,19 @@ export class DisableInputs extends Feature {
   private getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
     const disableValue = booleanCallback ? false : 0;
 
-    for (const blacklist of this.v.run.disableInputs.values()) {
+    for (const blacklist of v.run.disableInputs.values()) {
       if (blacklist.has(buttonAction)) {
         return disableValue;
       }
     }
 
-    for (const whitelist of this.v.run.disableAllInputsWithWhitelistMap.values()) {
+    for (const whitelist of v.run.disableAllInputsWithWhitelistMap.values()) {
       if (!whitelist.has(buttonAction)) {
         return disableValue;
       }
     }
 
-    for (const blacklist of this.v.run.enableAllInputsWithBlacklistMap.values()) {
+    for (const blacklist of v.run.enableAllInputsWithBlacklistMap.values()) {
       if (blacklist.has(buttonAction)) {
         return disableValue;
       }
@@ -94,38 +112,57 @@ export class DisableInputs extends Feature {
   }
 
   /**
+   * Helper function to check if the `ISCFeature.DISABLE_INPUTS` feature is turned on in some
+   * capacity.
+   *
+   * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   */
+  @Exported
+  public areInputsEnabled(): boolean {
+    return (
+      v.run.disableInputs.size === 0 &&
+      v.run.enableAllInputsWithBlacklistMap.size === 0 &&
+      v.run.disableAllInputsWithWhitelistMap.size === 0
+    );
+  }
+
+  /**
    * Helper function to enable all inputs. Use this function to set things back to normal after
    * having used one of the other helper functions to disable inputs.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public enableAllInputs(key: string): void {
-    this.v.run.disableAllInputsWithWhitelistMap.delete(key);
-    this.v.run.enableAllInputsWithBlacklistMap.delete(key);
+    v.run.disableAllInputsWithWhitelistMap.delete(key);
+    v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
   /**
    * Helper function to disable specific inputs, like opening the console.
    *
-   * This function is variadic, meaning that you can pass as many inputs as you want to disable. (To
-   * disable all inputs, see the `disableAllInputs` function.
+   * This function is variadic, meaning that you can specify as many inputs as you want to disable.
+   * (To disable all inputs, see the `disableAllInputs` function.
    *
    * Use the `enableAllInputs` helper function to set things back to normal.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    * @param buttonActions An array of the actions to action.
    */
   @Exported
   public disableInputs(key: string, ...buttonActions: ButtonAction[]): void {
-    const buttonActionsSet = new Set(buttonActions);
-    this.v.run.disableInputs.set(key, buttonActionsSet);
+    const buttonActionsSet = new ReadonlySet(buttonActions);
+    v.run.disableInputs.set(key, buttonActionsSet);
   }
 
   /**
@@ -136,13 +173,15 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableAllInputs(key: string): void {
-    this.v.run.disableAllInputsWithWhitelistMap.set(key, new Set());
-    this.v.run.enableAllInputsWithBlacklistMap.delete(key);
+    v.run.disableAllInputsWithWhitelistMap.set(key, new ReadonlySet());
+    v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
   /**
@@ -153,8 +192,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    * @param blacklist A set of ButtonActions to disallow.
    */
   @Exported
@@ -162,8 +203,8 @@ export class DisableInputs extends Feature {
     key: string,
     blacklist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
   ): void {
-    this.v.run.disableAllInputsWithWhitelistMap.delete(key);
-    this.v.run.enableAllInputsWithBlacklistMap.set(key, blacklist);
+    v.run.disableAllInputsWithWhitelistMap.delete(key);
+    v.run.enableAllInputsWithBlacklistMap.set(key, blacklist);
   }
 
   /**
@@ -174,8 +215,10 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    * @param whitelist A set of ButtonActions to allow.
    */
   @Exported
@@ -183,8 +226,8 @@ export class DisableInputs extends Feature {
     key: string,
     whitelist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
   ): void {
-    this.v.run.disableAllInputsWithWhitelistMap.set(key, whitelist);
-    this.v.run.enableAllInputsWithBlacklistMap.delete(key);
+    v.run.disableAllInputsWithWhitelistMap.set(key, whitelist);
+    v.run.enableAllInputsWithBlacklistMap.delete(key);
   }
 
   /**
@@ -196,13 +239,14 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableMovementInputs(key: string): void {
-    const moveActions = getMoveActions();
-    this.enableAllInputsExceptFor(key, moveActions);
+    this.enableAllInputsExceptFor(key, MOVEMENT_BUTTON_ACTIONS_SET);
   }
 
   /**
@@ -213,12 +257,13 @@ export class DisableInputs extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
    *
-   * @param key The name of the mod feature that is requesting the enable/disable. This is needed so
-   *            that multiple mod features can work in tandem.
+   * @param key The name of the mod feature that is requesting the enable/disable. For example, if
+   *            this was part of the code for a custom enemy called "Super Gaper", then you could
+   *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
+   *            work in tandem.
    */
   @Exported
   public disableShootingInputs(key: string): void {
-    const shootActions = getShootActions();
-    this.enableAllInputsExceptFor(key, shootActions);
+    this.enableAllInputsExceptFor(key, SHOOTING_BUTTON_ACTIONS_SET);
   }
 }

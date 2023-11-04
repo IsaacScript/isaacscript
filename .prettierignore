@@ -1,17 +1,37 @@
 # Compiled output
 dist
 
-# NX temporary directory
-tmp
+# Package manager lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Minified files
+*.min.js
+*.min.css
+
+# XML files created by Basement Renovator
+mod/content/rooms/**/*.xml
+mod/content/luarooms/**/*.xml
+mod/resources/rooms/**/*.xml
+mod/resources/luarooms/**/*.xml
+customStages/**/*.xml
+
+# XML files created by the animation editor
+mod/resources/**/*.anm2
+
+# @template-customization-start
+
+# Compiled plugins
+packages/isaacscript-cli/plugins/*.cjs
 
 # Docusaurus artifacts
 .docusaurus
 .cache-loader
 
-# "prettier-plugin-organize-imports" is bugged with JSX
-packages/docs/src/components/HomepageFeatures.js
-packages/docs/src/pages/index.js
-
 # API docs are automatically created by TypeDoc.
 packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions
+packages/docs/docs/eslint-config-isaacscript
+
+# @template-customization-end

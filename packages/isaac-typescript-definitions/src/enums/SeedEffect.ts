@@ -68,4 +68,5 @@ export enum SeedEffect {
   AXIS_ALIGNED_CONTROLS = 76,
   SUPER_HOT = 77,
   RETRO_VISION = 78,
+  G_FUEL = 79,
 }

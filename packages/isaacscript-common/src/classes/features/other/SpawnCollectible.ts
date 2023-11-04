@@ -1,15 +1,17 @@
-import { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
+import type {
+  CollectibleType,
+  ItemPoolType,
+} from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { isQuestCollectible } from "../../../functions/collectibleTag";
-import { getRandomSeed } from "../../../functions/rng";
 import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
 import { Feature } from "../../private/Feature";
-import { PreventCollectibleRotation } from "./PreventCollectibleRotation";
+import type { PreventCollectibleRotation } from "./PreventCollectibleRotation";
 
 export class SpawnCollectible extends Feature {
-  private preventCollectibleRotation: PreventCollectibleRotation;
+  private readonly preventCollectibleRotation: PreventCollectibleRotation;
 
   /** @internal */
   constructor(preventCollectibleRotation: PreventCollectibleRotation) {
@@ -31,12 +33,16 @@ export class SpawnCollectible extends Feature {
    * to be a quest item), then you can use the `spawnCollectibleUnsafe` helper function instead
    * (which does not require an upgraded mod).
    *
+   * If you want to spawn an unseeded collectible, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
    *
    * @param collectibleType The collectible type to spawn.
-   * @param position The position to spawn the collectible at.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param positionOrGridIndex The position or grid index to spawn the collectible at.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param options Optional. Set to true to make the collectible a "There's Options" style
    *                collectible. Default is false.
    * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
@@ -46,15 +52,15 @@ export class SpawnCollectible extends Feature {
   @Exported
   public spawnCollectible(
     collectibleType: CollectibleType,
-    position: Vector,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    positionOrGridIndex: Vector | int,
+    seedOrRNG: Seed | RNG | undefined,
     options = false,
     forceFreeItem = false,
     spawner?: Entity,
   ): EntityPickupCollectible {
     const collectible = spawnCollectibleUnsafe(
       collectibleType,
-      position,
+      positionOrGridIndex,
       seedOrRNG,
       options,
       forceFreeItem,
@@ -78,12 +84,16 @@ export class SpawnCollectible extends Feature {
    * collectibles costing coins and preventing quest items from being rotated by Tainted Isaac's
    * rotation mechanic.
    *
+   * If you want to spawn an unseeded collectible, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
    *
    * @param itemPoolType The item pool to draw the collectible type from.
-   * @param position The position to spawn the collectible at.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param positionOrGridIndex The position or grid index to spawn the collectible at.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param options Optional. Set to true to make the collectible a "There's Options" style
    *                collectible. Default is false.
    * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
@@ -93,8 +103,8 @@ export class SpawnCollectible extends Feature {
   @Exported
   public spawnCollectibleFromPool(
     itemPoolType: ItemPoolType,
-    position: Vector,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    positionOrGridIndex: Vector | int,
+    seedOrRNG: Seed | RNG | undefined,
     options = false,
     forceFreeItem = false,
     spawner?: Entity,
@@ -104,7 +114,7 @@ export class SpawnCollectible extends Feature {
 
     return this.spawnCollectible(
       collectibleType,
-      position,
+      positionOrGridIndex,
       seedOrRNG,
       options,
       forceFreeItem,

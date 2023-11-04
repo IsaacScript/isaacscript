@@ -1,4 +1,4 @@
-import { Feature } from "./classes/private/Feature";
+import type { Feature } from "./classes/private/Feature";
 
 export const EXPORTED_METHOD_NAMES_KEY = "__exportedMethodNames";
 
@@ -14,7 +14,7 @@ export function Exported<Class extends Feature>(
 ): void {
   // Since the decorator runs prior to instantiation, we only have access to get and set static
   // properties, which are located on the "constructor" table.
-  const constructor = target.constructor as unknown as LuaTable<
+  const constructor = target.constructor as unknown as LuaMap<
     AnyNotNil,
     unknown
   >;

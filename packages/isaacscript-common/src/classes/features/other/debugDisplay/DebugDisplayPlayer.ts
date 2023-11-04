@@ -1,6 +1,7 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "../../../../enums/ModCallbackCustom";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPlayer extends Feature {
   public textCallback: (player: EntityPlayer) => string =
@@ -9,13 +10,16 @@ export class DebugDisplayPlayer extends Feature {
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PLAYER_RENDER, [this.postPlayerRender]], // 32
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
+        this.postPlayerRenderReordered,
+      ],
     ];
   }
 
-  // ModCallback.POST_PLAYER_RENDER (32)
-  private postPlayerRender = (player: EntityPlayer) => {
+  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
+  private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
     const text = this.textCallback(player);
     renderTextOnEntity(player, text);
   };

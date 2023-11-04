@@ -1,7 +1,7 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
-import * as ts from "typescript";
-import { isTypeFlagSet } from "../typeUtils";
-import { createRule, isFunction } from "../utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import ts from "typescript";
+import { getTypeName, isFunction, isTypeFlagSet } from "../typeUtils";
+import { createRule } from "../utils";
 
 export type Options = [];
 
@@ -16,13 +16,12 @@ export const noInvalidDefaultMap = createRule<
     type: "problem",
     docs: {
       description: "Disallows invalid constructors for the DefaultMap class",
-      recommended: false,
       requiresTypeChecking: true,
     },
     schema: [],
     messages: {
       invalidType:
-        "The only valid types for a default value are `boolean`, `number`, `string`, and `function`.\nIf you want to have a default value of an array, a map, or some other complex data structure, you must return it as part of a factory function. See the `DefaultMap` documentation for more details.",
+        "The only valid types for a default value are `boolean`, `number`/`int`/float`, `string`, and `function`.\nIf you want to have a default value of an array, a map, or some other complex data structure, you must return it as part of a factory function. See the `DefaultMap` documentation for more details.",
     },
   },
   defaultOptions: [],
@@ -33,7 +32,7 @@ export const noInvalidDefaultMap = createRule<
     return {
       NewExpression(node) {
         const { callee } = node;
-        if (!("name" in callee)) {
+        if (callee.type !== AST_NODE_TYPES.Identifier) {
           return;
         }
 
@@ -67,6 +66,13 @@ export const noInvalidDefaultMap = createRule<
 
         const isFunctionLike = isFunction(type, checker);
         if (isFunctionLike) {
+          return;
+        }
+
+        // Handle the special case of `int` and `float`, which do not have the `NumberLike` flag
+        // set.
+        const typeName = getTypeName(type);
+        if (typeName === "int" || typeName === "float") {
           return;
         }
 

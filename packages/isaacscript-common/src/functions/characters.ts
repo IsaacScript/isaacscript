@@ -1,22 +1,27 @@
+import type {
+  CollectibleType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { PlayerType } from "isaac-typescript-definitions";
+import { FLYING_CHARACTERS, MAIN_CHARACTERS } from "../core/constants";
 import { LAST_VANILLA_CHARACTER } from "../core/constantsFirstLast";
 import { CHARACTER_DAMAGE_MULTIPLIERS } from "../objects/characterDamageMultipliers";
 import { CHARACTER_NAMES } from "../objects/characterNames";
+import { CHARACTER_SPRITE_PNG_FILE_NAMES } from "../objects/characterSpritePNGFileNames";
+import { CHARACTER_STARTING_COLLECTIBLE_TYPES } from "../objects/characterStartingCollectibleTypes";
+import { CHARACTER_STARTING_TRINKET_TYPE } from "../objects/characterStartingTrinketTypes";
 import { CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET } from "../sets/charactersThatStartWithAnActiveItemSet";
 import { CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET } from "../sets/charactersWithBlackHeartFromEternalHeartSet";
 import { CHARACTERS_WITH_FREE_DEVIL_DEALS_SET } from "../sets/charactersWithFreeDevilDealsSet";
 import { CHARACTERS_WITH_NO_RED_HEARTS_SET } from "../sets/charactersWithNoRedHeartsSet";
 import { CHARACTERS_WITH_NO_SOUL_HEARTS_SET } from "../sets/charactersWithNoSoulHeartsSet";
 import { LOST_STYLE_CHARACTERS_SET } from "../sets/lostStyleCharactersSet";
+import { ReadonlySet } from "../types/ReadonlySet";
 
-const FLYING_CHARACTERS: ReadonlySet<PlayerType> = new Set([
-  PlayerType.AZAZEL, // 7
-  PlayerType.LOST, // 10
-  PlayerType.SOUL, // 17
-  PlayerType.LOST_B, // 31
-  PlayerType.JACOB_2_B, // 39
-  PlayerType.SOUL_B, // 40
-]);
+const FLYING_CHARACTERS_SET = new ReadonlySet<PlayerType>(FLYING_CHARACTERS);
+const MAIN_CHARACTERS_SET = new ReadonlySet<PlayerType>(MAIN_CHARACTERS);
+
+const PNG_PATH_PREFIX = "characters/costumes";
 
 /**
  * Helper function to determine if the given character can have red heart containers. Returns true
@@ -72,7 +77,7 @@ export function getCharacterDamageMultiplier(
   hasWhoreOfBabylon = false,
 ): float {
   if (character === PlayerType.EVE && hasWhoreOfBabylon) {
-    return 1.0;
+    return 1;
   }
 
   return CHARACTER_DAMAGE_MULTIPLIERS[character];
@@ -133,9 +138,51 @@ export function getCharacterName(character: PlayerType): string {
   return CHARACTER_NAMES[character];
 }
 
-export function isFlyingCharacter(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  return FLYING_CHARACTERS.has(character);
+/**
+ * Helper function to get the path to the sprite for a particular character.
+ *
+ * For example, the file path for `PlayerType.ISAAC` is
+ * "characters/costumes/character_001_isaac.png".
+ */
+export function getCharacterSpritePNGFilePath(character: PlayerType): string {
+  const fileName = CHARACTER_SPRITE_PNG_FILE_NAMES[character];
+  return `${PNG_PATH_PREFIX}/${fileName}`;
+}
+
+/**
+ * Helper function to get the collectibles that are granted to a particular character at the
+ * beginning of a run.
+ *
+ * Note that this will return an empty array for Eden and Tainted Eden.
+ */
+export function getCharacterStartingCollectibleTypes(
+  character: PlayerType,
+): readonly CollectibleType[] {
+  return CHARACTER_STARTING_COLLECTIBLE_TYPES[character];
+}
+
+/**
+ * Helper function to get the trinket that is granted to a particular character at the beginning of
+ * a run. Returns undefined if the character does not start with a trinket.
+ *
+ * Note that this will return undefined for Eden and Tainted Eden.
+ */
+export function getCharacterStartingTrinketType(
+  character: PlayerType,
+): TrinketType | undefined {
+  return CHARACTER_STARTING_TRINKET_TYPE[character];
+}
+
+export function isFlyingCharacter(character: PlayerType): boolean {
+  return FLYING_CHARACTERS_SET.has(character);
+}
+
+/**
+ * Helper function to check if the provided character is one of the characters that are selectable
+ * from the main menu (and have achievements related to completing the various bosses and so on).
+ */
+export function isMainCharacter(character: PlayerType): boolean {
+  return MAIN_CHARACTERS_SET.has(character);
 }
 
 export function isModdedCharacter(character: PlayerType): boolean {

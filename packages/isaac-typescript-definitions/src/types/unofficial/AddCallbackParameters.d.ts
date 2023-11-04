@@ -1,15 +1,15 @@
-/* eslint-disable isaacscript/member-ordering */
+/* eslint-disable deprecation/deprecation */
 
-import { ActiveSlot } from "../../enums/ActiveSlot";
-import { ButtonAction } from "../../enums/ButtonAction";
-import {
+import type { ActiveSlot } from "../../enums/ActiveSlot";
+import type { ButtonAction } from "../../enums/ButtonAction";
+import type {
   CardType,
   CollectibleType,
   PillColor,
   PlayerType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import {
+import type {
   BombVariant,
   EffectVariant,
   FamiliarVariant,
@@ -19,16 +19,16 @@ import {
   ProjectileVariant,
   TearVariant,
 } from "../../enums/collections/variants";
-import { EntityType } from "../../enums/EntityType";
-import { CacheFlag } from "../../enums/flags/CacheFlag";
-import { DamageFlag } from "../../enums/flags/DamageFlag";
-import { LevelCurse } from "../../enums/flags/LevelCurse";
-import { UseFlag } from "../../enums/flags/UseFlag";
-import { GridEntityXMLType } from "../../enums/GridEntityXMLType";
-import { InputHook } from "../../enums/InputHook";
-import { ItemPoolType } from "../../enums/ItemPoolType";
-import { ModCallback } from "../../enums/ModCallback";
-import { PillEffect } from "../../enums/PillEffect";
+import type { EntityType } from "../../enums/EntityType";
+import type { CacheFlag } from "../../enums/flags/CacheFlag";
+import type { DamageFlag } from "../../enums/flags/DamageFlag";
+import type { LevelCurse } from "../../enums/flags/LevelCurse";
+import type { UseFlag } from "../../enums/flags/UseFlag";
+import type { GridEntityXMLType } from "../../enums/GridEntityXMLType";
+import type { InputHook } from "../../enums/InputHook";
+import type { ItemPoolType } from "../../enums/ItemPoolType";
+import type { ModCallback } from "../../enums/ModCallback";
+import type { PillEffect } from "../../enums/PillEffect";
 
 declare global {
   interface AddCallbackParameters {
@@ -126,7 +126,7 @@ declare global {
     [ModCallback.POST_CURSE_EVAL]: [
       callback: (
         curses: BitFlags<LevelCurse>,
-      ) => BitFlags<LevelCurse> | undefined,
+      ) => BitFlags<LevelCurse> | LevelCurse | undefined,
     ];
 
     // 13
@@ -204,7 +204,9 @@ declare global {
         velocity: Vector,
         spawner: Entity | undefined,
         initSeed: Seed,
-      ) => [EntityType, int, int, int] | undefined,
+      ) =>
+        | [entityType: EntityType, variant: int, subType: int, initSeed: Seed]
+        | undefined,
     ];
 
     // 25
@@ -387,19 +389,19 @@ declare global {
     // 50
     [ModCallback.POST_KNIFE_INIT]: [
       callback: (knife: EntityKnife) => void,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 51
     [ModCallback.POST_KNIFE_UPDATE]: [
       callback: (knife: EntityKnife) => void,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 52
     [ModCallback.POST_KNIFE_RENDER]: [
       callback: (knife: EntityKnife, renderOffset: Vector) => void,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 53
@@ -409,7 +411,7 @@ declare global {
         collider: Entity,
         low: boolean,
       ) => boolean | undefined,
-      subType?: int,
+      subType?: int, // The vanilla callback is bugged and uses sub-type instead of `KnifeVariant`.
     ];
 
     // 54
@@ -517,7 +519,7 @@ declare global {
     ];
 
     // 70
-    [ModCallback.PRE_SPAWN_CLEAN_AWARD]: [
+    [ModCallback.PRE_SPAWN_CLEAR_AWARD]: [
       callback: (rng: RNG, spawnPosition: Vector) => boolean | undefined,
     ];
 
@@ -528,8 +530,18 @@ declare global {
         variant: int,
         subType: int,
         gridIndex: int,
-        seed: Seed,
-      ) => [EntityType | GridEntityXMLType, int, int] | undefined,
+        initSeed: Seed,
+      ) =>
+        | [type: EntityType | GridEntityXMLType, variant: int, subType: int]
+        | undefined,
     ];
+
+    // 72
+    [ModCallback.PRE_ENTITY_DEVOLVE]: [
+      callback: (entity: Entity) => boolean | undefined,
+    ];
+
+    // 73
+    [ModCallback.PRE_MOD_UNLOAD]: [callback: (mod: Mod) => void];
   }
 }

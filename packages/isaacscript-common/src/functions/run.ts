@@ -1,46 +1,56 @@
-import {
-  Challenge,
-  Difficulty,
-  PlayerType,
-  SlotVariant,
-} from "isaac-typescript-definitions";
+import type { PlayerType } from "isaac-typescript-definitions";
+import { Challenge, SeedEffect } from "isaac-typescript-definitions";
+import { SEED_EFFECTS } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
-import { VectorZero } from "../core/constants";
 import { FIRST_CHARACTER } from "../core/constantsFirstLast";
-import { spawnSlot } from "./entitiesSpecific";
+import { getCharacterName } from "./characters";
 import { log } from "./log";
+import { isString } from "./types";
 
-/**
- * Helper function to see if the current run can unlock achievements. For example, if playing on a
- * set seed or in a victory lap, achievements are disabled.
- */
-export function canRunUnlockAchievements(): boolean {
-  const greedDonationMachine = spawnSlot(
-    SlotVariant.GREED_DONATION_MACHINE,
-    0,
-    VectorZero,
-  );
-  const canUnlockAchievements = greedDonationMachine.Exists();
-  greedDonationMachine.Remove();
-
-  return canUnlockAchievements;
+/** Alias for the `anySeedEffectEnabled` function. */
+export function anyEasterEggEnabled(exceptions?: SeedEffect[]): boolean {
+  return anySeedEffectEnabled(exceptions);
 }
 
 /**
- * Helper function to check if the difficulty of the current run is equal to `Difficulty.GREED` or
- * `Difficulty.GREEDIER`.
+ * Helper function to see if any seed effects (i.e. Easter Eggs) are enabled for the current run.
+ *
+ * @param exceptions Optional. An array of seed effects to ignore.
  */
-export function isGreedMode(): boolean {
-  return (
-    game.Difficulty === Difficulty.GREED ||
-    game.Difficulty === Difficulty.GREEDIER
+export function anySeedEffectEnabled(exceptions?: SeedEffect[]): boolean {
+  const seeds = game.GetSeeds();
+
+  if (exceptions === undefined) {
+    const numSeedEffects = seeds.CountSeedEffects();
+    return numSeedEffects > 0;
+  }
+
+  const exceptionsSet = new Set(exceptions);
+  return SEED_EFFECTS.some(
+    (seedEffect) =>
+      seeds.HasSeedEffect(seedEffect) && !exceptionsSet.has(seedEffect),
   );
 }
 
 /**
- * Whether or not the player is playing on a set seed (i.e. that they entered in a specific seed by
- * pressing tab on the character selection screen). When the player resets the game on a set seed,
- * the game will not switch to a different seed.
+ * Helper function to get the seed effects (i.e. Easter Eggs) that are enabled for the current run.
+ */
+export function getSeedEffects(): SeedEffect[] {
+  const seeds = game.GetSeeds();
+
+  return SEED_EFFECTS.filter(
+    (seedEffect) =>
+      seedEffect !== SeedEffect.NORMAL && seeds.HasSeedEffect(seedEffect),
+  );
+}
+
+/**
+ * Helper function to check whether the player is playing on a set seed (i.e. that they entered in a
+ * specific seed by pressing tab on the character selection screen). When the player resets the game
+ * on a set seed, the game will not switch to a different seed.
+ *
+ * Under the hood, this checks if the current challenge is `Challenge.NULL` and the
+ * `Seeds.IsCustomRun` method.
  */
 export function onSetSeed(): boolean {
   const seeds = game.GetSeeds();
@@ -48,6 +58,15 @@ export function onSetSeed(): boolean {
   const challenge = Isaac.GetChallenge();
 
   return challenge === Challenge.NULL && customRun;
+}
+
+/**
+ * Helper function to check whether the player is on a Victory Lap (i.e. they answered "yes" to the
+ * popup that happens after defeating The Lamb).
+ */
+export function onVictoryLap(): boolean {
+  const numVictoryLaps = game.GetVictoryLap();
+  return numVictoryLaps > 0;
 }
 
 /**
@@ -70,17 +89,39 @@ export function restart(character?: PlayerType): void {
   }
 
   const command = `restart ${character}`;
+  const characterName = getCharacterName(character);
   log(
-    `Restarting the run as PlayerType.${PlayerType[character]} (${character}) with a console command of: ${command}`,
+    `Restarting the run as ${characterName} (${character}) with a console command of: ${command}`,
   );
+  Isaac.ExecuteCommand(command);
+}
+
+/**
+ * Helper function to restart the run on a particular starting seed.
+ *
+ * Under the hood, this function executes the `seed` console command.
+ *
+ * @param startSeedOrStartSeedString Either the numerical start seed (e.g. 268365970) or the start
+ *                                 seed string (e.g. "AAJ2 8V9C").
+ */
+export function setRunSeed(startSeedOrStartSeedString: Seed | string): void {
+  const startSeedString = isString(startSeedOrStartSeedString)
+    ? startSeedOrStartSeedString
+    : Seeds.Seed2String(startSeedOrStartSeedString);
+
+  const command = `seed ${startSeedString}`;
+  log(`Restarting the run to set a seed with a console command of: ${command}`);
   Isaac.ExecuteCommand(command);
 }
 
 /**
  * Helper function to change the run status to that of an unseeded run with a new random seed.
  *
- * This is useful to revert the behavior where playing on a set and restarting the game will not
- * take you to a new seed.
+ * This is useful to revert the behavior where playing on a set seed and restarting the game will
+ * not take you to a new seed.
+ *
+ * Under the hood, this function calls the `Seeds.Reset` method and the
+ * `Seeds.Restart(Challenge.NULL)` method.
  */
 export function setUnseeded(): void {
   const seeds = game.GetSeeds();

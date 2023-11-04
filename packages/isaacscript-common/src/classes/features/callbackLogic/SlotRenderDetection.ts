@@ -1,25 +1,27 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { getSlots } from "../../../functions/entitiesSpecific";
-import { PostSlotAnimationChanged } from "../../callbacks/PostSlotAnimationChanged";
-import { PostSlotRender } from "../../callbacks/PostSlotRender";
 import { DefaultMap } from "../../DefaultMap";
+import type { PostSlotAnimationChanged } from "../../callbacks/PostSlotAnimationChanged";
+import type { PostSlotRender } from "../../callbacks/PostSlotRender";
 import { Feature } from "../../private/Feature";
 
-export class SlotRenderDetection extends Feature {
-  public override v = {
-    room: {
-      slotAnimations: new DefaultMap<PtrHash, string, [slot: Entity]>(
-        (slot: Entity) => {
-          const sprite = slot.GetSprite();
-          return sprite.GetAnimation();
-        },
-      ),
-      brokenSlots: new Set<PtrHash>(),
-    },
-  };
+const v = {
+  room: {
+    slotAnimations: new DefaultMap<PtrHash, string, [slot: Entity]>(
+      (slot: Entity) => {
+        const sprite = slot.GetSprite();
+        return sprite.GetAnimation();
+      },
+    ),
+    brokenSlots: new Set<PtrHash>(),
+  },
+};
 
-  private postSlotRender: PostSlotRender;
-  private postSlotAnimationChanged: PostSlotAnimationChanged;
+export class SlotRenderDetection extends Feature {
+  public override v = v;
+
+  private readonly postSlotRender: PostSlotRender;
+  private readonly postSlotAnimationChanged: PostSlotAnimationChanged;
 
   constructor(
     postSlotRender: PostSlotRender,
@@ -28,7 +30,8 @@ export class SlotRenderDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
 
     this.postSlotRender = postSlotRender;
@@ -36,7 +39,7 @@ export class SlotRenderDetection extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     for (const slot of getSlots()) {
       this.postSlotRender.fire(slot);
       this.checkSlotAnimationChanged(slot);
@@ -47,11 +50,11 @@ export class SlotRenderDetection extends Feature {
     const sprite = slot.GetSprite();
     const currentAnimation = sprite.GetAnimation();
     const ptrHash = GetPtrHash(slot);
-    const previousAnimation = this.v.room.slotAnimations.getAndSetDefault(
+    const previousAnimation = v.room.slotAnimations.getAndSetDefault(
       ptrHash,
       slot,
     );
-    this.v.room.slotAnimations.set(ptrHash, currentAnimation);
+    v.room.slotAnimations.set(ptrHash, currentAnimation);
 
     if (currentAnimation !== previousAnimation) {
       this.postSlotAnimationChanged.fire(

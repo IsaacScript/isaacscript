@@ -1,4 +1,10 @@
+import { assertDefined } from "./utils";
+
 export function capitalizeFirstLetter(string: string): string {
+  if (string === "") {
+    return string;
+  }
+
   const firstCharacter = string.charAt(0);
   const capitalizedFirstLetter = firstCharacter.toUpperCase();
   const restOfString = string.slice(1);
@@ -7,9 +13,98 @@ export function capitalizeFirstLetter(string: string): string {
 }
 
 /**
+ * Helper function to get the closest key from a map based on partial search text. (It only searches
+ * through the keys, not the values.)
+ *
+ * Note that:
+ * - Spaces are automatically removed from the search text.
+ * - Both the search text and the strings to search through are converted to lowercase before
+ *   attempting to find a match.
+ *
+ * For example:
+ *
+ * ```ts
+ * const map = new <string, number>Map([
+ *   ["foo", 123],
+ *   ["bar", 456],
+ * ]);
+ * const searchText = "f";
+ * const match = getMapPartialMatch(map, searchText); // match is now equal to ["foo", 123]
+ * ```
+ *
+ * @returns If a match was found, returns a tuple of the map key and value. If a match was not
+ *          found, returns undefined.
+ */
+export function getMapPartialMatch<T>(
+  searchText: string,
+  map: ReadonlyMap<string, T>,
+): [string, T] | undefined {
+  const keys = [...map.keys()];
+
+  const matchingKey = getPartialMatch(searchText, keys);
+  if (matchingKey === undefined) {
+    return undefined;
+  }
+
+  const value = map.get(matchingKey);
+  assertDefined(
+    value,
+    `Failed to get the map value corresponding to the partial match of: ${matchingKey}`,
+  );
+
+  return [matchingKey, value];
+}
+
+/**
+ * Helper function to get the closest key from an object based on partial search text. (It only
+ * searches through the keys, not the values.)
+ *
+ * Note that:
+ * - Spaces are automatically removed from the search text.
+ * - Both the search text and the strings to search through are converted to lowercase before
+ *   attempting to find a match.
+ *
+ * For example:
+ *
+ * ```ts
+ * const object = {
+ *   foo: 123,
+ *   bar: 456,
+ * };
+ * const searchText = "f";
+ * const match = getObjectPartialMatch(object, searchText); // match is now equal to ["foo", 123]
+ * ```
+ *
+ * @returns If a match was found, returns a tuple of the map key and value. If a match was not
+ *          found, returns undefined.
+ */
+export function getObjectPartialMatch<T>(
+  searchText: string,
+  object: Record<string, T>,
+): [string, T] | undefined {
+  const keys = Object.keys(object);
+
+  const matchingKey = getPartialMatch(searchText, keys);
+  if (matchingKey === undefined) {
+    return undefined;
+  }
+
+  const value = object[matchingKey];
+  assertDefined(
+    value,
+    `Failed to get the object value corresponding to the partial match of: ${matchingKey}`,
+  );
+
+  return [matchingKey, value];
+}
+
+/**
  * Helper function to get the closest value from an array of strings based on partial search text.
- * For the purposes of this function, both search text and the array are converted to lowercase
- * before attempting to find a match.
+ *
+ * Note that:
+ * - Spaces are automatically removed from the search text.
+ * - Both the search text and the strings to search through are converted to lowercase before
+ *   attempting to find a match.
  *
  * For example:
  *
@@ -37,6 +132,45 @@ export function getPartialMatch(
   matchingElements.sort();
 
   return matchingElements[0];
+}
+
+/**
+ * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
+ * undefined if the submitted string was not a proper Semantic Version string.
+ *
+ * https://semver.org/
+ */
+export function parseSemanticVersion(versionString: string):
+  | {
+      majorVersion: int;
+      minorVersion: int;
+      patchVersion: int;
+    }
+  | undefined {
+  const [majorVersionString, minorVersionString, patchVersionString] =
+    string.match(versionString, "(%d+).(%d+).(%d+)");
+
+  if (
+    majorVersionString === undefined ||
+    minorVersionString === undefined ||
+    patchVersionString === undefined
+  ) {
+    return undefined;
+  }
+
+  const majorVersion = tonumber(majorVersionString);
+  const minorVersion = tonumber(minorVersionString);
+  const patchVersion = tonumber(patchVersionString);
+
+  if (
+    majorVersion === undefined ||
+    minorVersion === undefined ||
+    patchVersion === undefined
+  ) {
+    return undefined;
+  }
+
+  return { majorVersion, minorVersion, patchVersion };
 }
 
 export function removeAllCharacters(string: string, character: string): string {

@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-spell.svg)](https://www.npmjs.com/package/isaacscript-spell)
 
-These are CSpell dictionaries for [The Binding of Isaac: Repentance](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/).
+These are CSpell dictionaries for [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/).
 
 [IsaacScript](https://isaacscript.github.io/) mods are automatically configured to use these dictionaries.
 
@@ -30,7 +30,6 @@ This package contains two dictionaries. Each dictionary is composed of multiple 
 | Word List         | Description                                                                                    |
 | ----------------- | ---------------------------------------------------------------------------------------------- |
 | isaacscript.txt   | These are words contained within IsaacScript template files and elsewhere within the monorepo. |
-| gitignore.txt     | These are words contained in the `.gitignore` template from GitHub.                            |
 | missing-words.txt | These are general-purpose words that should be in the CSpell base dictionary.                  |
 
 <br>

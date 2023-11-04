@@ -1,4 +1,4 @@
-import { LevelStage, StageType } from "isaac-typescript-definitions";
+import type { LevelStage, StageType } from "isaac-typescript-definitions";
 
 export interface CustomTrapdoorDescription {
   destinationName: string | undefined;

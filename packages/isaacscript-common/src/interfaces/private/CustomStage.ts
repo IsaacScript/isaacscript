@@ -1,9 +1,9 @@
-import {
+import type {
   DoorSlotFlag,
   RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
-import {
+import type {
   CustomStageLua,
   CustomStageRoomMetadata,
 } from "../CustomStageTSConfig";

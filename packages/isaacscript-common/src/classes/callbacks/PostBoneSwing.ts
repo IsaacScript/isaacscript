@@ -1,30 +1,34 @@
 import { KnifeVariant, ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { ReadonlySet } from "../../types/ReadonlySet";
 import { CustomCallback } from "../private/CustomCallback";
 
-const BONE_SWING_ANIMATIONS: ReadonlySet<string> = new Set([
+const BONE_SWING_ANIMATIONS = new ReadonlySet<string>([
   "Swing",
   "Swing2",
   "Spin",
 ]);
 
+const v = {
+  room: {
+    boneClubAnimations: new Map<PtrHash, string>(),
+  },
+};
+
 export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SWING> {
-  public override v = {
-    room: {
-      boneClubAnimations: new Map<PtrHash, string>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_KNIFE_RENDER, [this.postKnifeRender]], // 52
+      // 52
+      [ModCallback.POST_KNIFE_RENDER, this.postKnifeRender],
     ];
   }
 
   // ModCallback.POST_KNIFE_RENDER (52)
-  private postKnifeRender = (knife: EntityKnife): void => {
+  private readonly postKnifeRender = (knife: EntityKnife): void => {
     // The tertiary argument of the `POST_KNIFE_RENDER` callback takes sub-types instead of knife
     // variants.
     if (knife.Variant === KnifeVariant.BONE_CLUB) {
@@ -39,8 +43,8 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SW
     const animation = sprite.GetAnimation();
     const ptrHash = GetPtrHash(knife);
 
-    const animationOnLastFrame = this.v.room.boneClubAnimations.get(ptrHash);
-    this.v.room.boneClubAnimations.set(ptrHash, animation);
+    const animationOnLastFrame = v.room.boneClubAnimations.get(ptrHash);
+    v.room.boneClubAnimations.set(ptrHash, animation);
 
     if (
       animationOnLastFrame !== undefined &&

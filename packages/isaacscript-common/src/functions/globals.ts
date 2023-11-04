@@ -1,12 +1,13 @@
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getTraceback, isLuaDebugEnabled, traceback } from "./debugFunctions";
 import * as logExports from "./log";
 import { log } from "./log";
 import * as logEntitiesExports from "./logEntities";
 import * as logMiscExports from "./logMisc";
 import { addSetsToSet, copySet } from "./set";
-import { twoDimensionalSort } from "./utils";
+import { sortTwoDimensionalArray } from "./sort";
 
-const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
+const DEFAULT_GLOBALS = new ReadonlySet<string>([
   "ActionTriggers",
   "ActiveSlot",
   "BabySubType",
@@ -125,7 +126,6 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "SackSubType",
   "SeedEffect",
   "Seeds",
-  "ShockwaveParams",
   "SkinColor",
   "SortingLayer",
   "SoundEffect",
@@ -146,13 +146,11 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "assert",
   "collectgarbage",
   "coroutine",
-  "dofile",
   "error",
   "getmetatable",
   "include",
   "ipairs",
   "load",
-  "loadfile",
   "math",
   "next",
   "pairs",
@@ -174,14 +172,16 @@ const DEFAULT_GLOBALS: ReadonlySet<string> = new Set([
   "xpcall",
 ]);
 
-const LUA_DEBUG_ADDED_GLOBALS: ReadonlySet<string> = new Set([
+const LUA_DEBUG_ADDED_GLOBALS = new ReadonlySet<string>([
   "debug",
+  "dofile",
+  "loadfile",
   "io",
   "os",
   "package",
 ]);
 
-const RACING_PLUS_SANDBOX_ADDED_GLOBALS: ReadonlySet<string> = new Set([
+const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new ReadonlySet<string>([
   "sandboxTraceback",
   "sandboxGetTraceback",
   "getParentFunctionDescription",
@@ -191,7 +191,7 @@ const RACING_PLUS_SANDBOX_ADDED_GLOBALS: ReadonlySet<string> = new Set([
  * Helper function to get a set containing all of the global variable names that are contained
  * within the Isaac environment by default.
  *
- * Returns a slightly different set depending on whether the "--luadebug" flag is enabled or not.
+ * Returns a slightly different set depending on whether the "--luadebug" flag is enabled.
  */
 export function getDefaultGlobals(): ReadonlySet<string> {
   const defaultGlobals = copySet(DEFAULT_GLOBALS);
@@ -226,22 +226,25 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
     }
   }
 
-  newGlobals.sort(twoDimensionalSort);
+  newGlobals.sort(sortTwoDimensionalArray);
 
   return newGlobals;
 }
 
+/** Helper function to log any added global variables in the Isaac Lua environment. */
 export function logNewGlobals(): void {
   const newGlobals = getNewGlobals();
 
   log("List of added global variables in the Isaac environment:");
   if (newGlobals.length === 0) {
     log("- n/a (no extra global variables found)");
+  } else {
+    for (const [i, tuple] of newGlobals.entries()) {
+      const [key, value] = tuple;
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      log(`${i + 1}) ${key} - ${value}`);
+    }
   }
-  newGlobals.forEach(([key, value], i) => {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`${i + 1}) ${key} - ${value}`);
-  });
 }
 
 /**
@@ -260,6 +263,11 @@ export function setLogFunctionsGlobal(): void {
   }
 }
 
+/**
+ * Sets the `traceback` and `getTraceback` functions to be global functions.
+ *
+ * This is useful when editing Lua files when troubleshooting.
+ */
 export function setTracebackFunctionsGlobal(): void {
   const globals = _G as Record<string, unknown>;
 

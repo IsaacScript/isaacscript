@@ -1,6 +1,7 @@
 import { RoomShape } from "isaac-typescript-definitions";
 import { CornerType } from "../enums/CornerType";
-import { Corner } from "../interfaces/Corner";
+import { newReadonlyVector } from "../functions/readOnly";
+import type { Corner } from "../interfaces/Corner";
 
 /**
  * The locations of the corners for each room shape.
@@ -8,30 +9,28 @@ import { Corner } from "../interfaces/Corner";
  * Note that these corner locations are not accurate for the Mother Boss Room and the Home closet
  * rooms. (Those rooms have custom shapes.)
  */
-export const ROOM_SHAPE_CORNERS: {
-  readonly [key in RoomShape]: readonly Corner[];
-} = {
+export const ROOM_SHAPE_CORNERS = {
   // 1
   [RoomShape.SHAPE_1x1]: [
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 14,
-      position: Vector(580, 140),
+      position: newReadonlyVector(580, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 120,
-      position: Vector(60, 420),
+      position: newReadonlyVector(60, 420),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 134,
-      position: Vector(580, 420),
+      position: newReadonlyVector(580, 420),
     },
   ],
 
@@ -40,22 +39,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 30,
-      position: Vector(60, 220),
+      position: newReadonlyVector(60, 220),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 44,
-      position: Vector(580, 220),
+      position: newReadonlyVector(580, 220),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 90,
-      position: Vector(60, 340),
+      position: newReadonlyVector(60, 340),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 104,
-      position: Vector(580, 340),
+      position: newReadonlyVector(580, 340),
     },
   ],
 
@@ -64,22 +63,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 4,
-      position: Vector(220, 140),
+      position: newReadonlyVector(220, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 10,
-      position: Vector(420, 140),
+      position: newReadonlyVector(420, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 124,
-      position: Vector(220, 420),
+      position: newReadonlyVector(220, 420),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 130,
-      position: Vector(420, 420),
+      position: newReadonlyVector(420, 420),
     },
   ],
 
@@ -88,22 +87,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 14,
-      position: Vector(580, 140),
+      position: newReadonlyVector(580, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 225,
-      position: Vector(60, 700),
+      position: newReadonlyVector(60, 700),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 239,
-      position: Vector(580, 700),
+      position: newReadonlyVector(580, 700),
     },
   ],
 
@@ -112,22 +111,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 4,
-      position: Vector(220, 140),
+      position: newReadonlyVector(220, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 10,
-      position: Vector(420, 140),
+      position: newReadonlyVector(420, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 229,
-      position: Vector(220, 700),
+      position: newReadonlyVector(220, 700),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 235,
-      position: Vector(420, 700),
+      position: newReadonlyVector(420, 700),
     },
   ],
 
@@ -136,22 +135,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 27,
-      position: Vector(1100, 140),
+      position: newReadonlyVector(1100, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 224,
-      position: Vector(60, 420),
+      position: newReadonlyVector(60, 420),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 251,
-      position: Vector(1100, 420),
+      position: newReadonlyVector(1100, 420),
     },
   ],
 
@@ -160,22 +159,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 56,
-      position: Vector(60, 220),
+      position: newReadonlyVector(60, 220),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 83,
-      position: Vector(1100, 220),
+      position: newReadonlyVector(1100, 220),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 168,
-      position: Vector(60, 340),
+      position: newReadonlyVector(60, 340),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 195,
-      position: Vector(1100, 340),
+      position: newReadonlyVector(1100, 340),
     },
   ],
 
@@ -184,22 +183,22 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 27,
-      position: Vector(1100, 140),
+      position: newReadonlyVector(1100, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 420,
-      position: Vector(60, 700),
+      position: newReadonlyVector(60, 700),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 447,
-      position: Vector(1100, 700),
+      position: newReadonlyVector(1100, 700),
     },
   ],
 
@@ -208,32 +207,32 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 13,
-      position: Vector(580, 140), // Center
+      position: newReadonlyVector(580, 140), // Center
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 27,
-      position: Vector(1100, 140),
+      position: newReadonlyVector(1100, 140),
     },
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 196,
-      position: Vector(60, 420), // Left
+      position: newReadonlyVector(60, 420), // Left
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 209,
-      position: Vector(580, 420), // Center
+      position: newReadonlyVector(580, 420), // Center
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 420,
-      position: Vector(60, 700),
+      position: newReadonlyVector(60, 700),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 447,
-      position: Vector(1100, 700),
+      position: newReadonlyVector(1100, 700),
     },
   ],
 
@@ -242,32 +241,32 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 14,
-      position: Vector(580, 140), // Center
+      position: newReadonlyVector(580, 140), // Center
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 210,
-      position: Vector(580, 420), // Center
+      position: newReadonlyVector(580, 420), // Center
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 223,
-      position: Vector(1100, 420), // Right
+      position: newReadonlyVector(1100, 420), // Right
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 420,
-      position: Vector(60, 700),
+      position: newReadonlyVector(60, 700),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 447,
-      position: Vector(1100, 700),
+      position: newReadonlyVector(1100, 700),
     },
   ],
 
@@ -276,32 +275,32 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 27,
-      position: Vector(1100, 140),
+      position: newReadonlyVector(1100, 140),
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 224,
-      position: Vector(580, 140), // Left
+      position: newReadonlyVector(580, 140), // Left
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 237,
-      position: Vector(580, 420), // Center
+      position: newReadonlyVector(580, 420), // Center
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 433,
-      position: Vector(580, 700), // Center
+      position: newReadonlyVector(580, 700), // Center
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 447,
-      position: Vector(1100, 700),
+      position: newReadonlyVector(1100, 700),
     },
   ],
 
@@ -310,32 +309,32 @@ export const ROOM_SHAPE_CORNERS: {
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 0,
-      position: Vector(60, 140),
+      position: newReadonlyVector(60, 140),
     },
     {
       type: CornerType.TOP_RIGHT,
       gridIndex: 27,
-      position: Vector(1100, 140),
+      position: newReadonlyVector(1100, 140),
     },
     {
       type: CornerType.TOP_LEFT,
       gridIndex: 238,
-      position: Vector(580, 420), // Center
+      position: newReadonlyVector(580, 420), // Center
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 251,
-      position: Vector(1100, 420), // Right
+      position: newReadonlyVector(1100, 420), // Right
     },
     {
       type: CornerType.BOTTOM_LEFT,
       gridIndex: 420,
-      position: Vector(60, 700),
+      position: newReadonlyVector(60, 700),
     },
     {
       type: CornerType.BOTTOM_RIGHT,
       gridIndex: 434,
-      position: Vector(580, 700), // Right
+      position: newReadonlyVector(580, 700), // Right
     },
   ],
-} as const;
+} as const satisfies Record<RoomShape, readonly Corner[]>;

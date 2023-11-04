@@ -24,6 +24,9 @@
 -- SOFTWARE.
 --
 
+-- The IsaacScript version of this file contains modifications for better error messages, which
+-- assist when debugging.
+
 local json = { _version = "0.1.2" }
 
 -------------------------------------------------------------------------------
@@ -58,9 +61,10 @@ local function encode_nil(val)
 end
 
 
-local function encode_table(val, stack)
+local function encode_table(val, stack, traversalDescription)
   local res = {}
   stack = stack or {}
+  traversalDescription = traversalDescription or ""
 
   -- Circular reference?
   if stack[val] then error("circular reference") end
@@ -72,7 +76,7 @@ local function encode_table(val, stack)
     local n = 0
     for k in pairs(val) do
       if type(k) ~= "number" then
-        error("invalid table: mixed or invalid key types")
+        error("invalid table: mixed or invalid key types for array, excepted number, got: " .. tostring(type(k)))
       end
       n = n + 1
     end
@@ -81,7 +85,8 @@ local function encode_table(val, stack)
     end
     -- Encode
     for i, v in ipairs(val) do
-      table.insert(res, encode(v, stack))
+      local newTraversalDescription = traversalDescription .. tostring(i) .. " - "
+      table.insert(res, encode(v, stack, newTraversalDescription))
     end
     stack[val] = nil
     return "[" .. table.concat(res, ",") .. "]"
@@ -89,10 +94,14 @@ local function encode_table(val, stack)
   else
     -- Treat as an object
     for k, v in pairs(val) do
+      local newTraversalDescription = traversalDescription .. tostring(k) .. " - "
       if type(k) ~= "string" then
-        error("invalid table: mixed or invalid key types")
+        error(
+          "invalid table: mixed or invalid key types for object \"" .. newTraversalDescription .. "\", "
+          .. "excepted string, got: " .. tostring(type(k))
+        )
       end
-      table.insert(res, encode(k, stack) .. ":" .. encode(v, stack))
+      table.insert(res, encode(k, stack, newTraversalDescription) .. ":" .. encode(v, stack, newTraversalDescription))
     end
     stack[val] = nil
     return "{" .. table.concat(res, ",") .. "}"
@@ -123,11 +132,11 @@ local type_func_map = {
 }
 
 
-encode = function(val, stack)
+encode = function(val, stack, traversalDescription)
   local t = type(val)
   local f = type_func_map[t]
   if f then
-    return f(val, stack)
+    return f(val, stack, traversalDescription)
   end
   error("unexpected type '" .. t .. "'")
 end

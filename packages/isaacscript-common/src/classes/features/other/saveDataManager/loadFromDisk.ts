@@ -1,11 +1,10 @@
 import { jsonDecode } from "../../../../functions/jsonHelpers";
-import { log } from "../../../../functions/log";
-import { logError } from "../../../../functions/logMisc";
+import { log, logError } from "../../../../functions/log";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
 import { isString, isTable } from "../../../../functions/types";
-import { SaveData } from "../../../../interfaces/SaveData";
-import { AnyClass } from "../../../../types/AnyClass";
+import type { SaveData } from "../../../../interfaces/SaveData";
+import type { AnyClass } from "../../../../types/AnyClass";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 const DEFAULT_MOD_DATA = "{}";
@@ -67,7 +66,9 @@ export function loadFromDisk(
     SAVE_DATA_MANAGER_DEBUG,
   );
 
-  log('The save data manager loaded data from the "save#.dat" file.');
+  log(
+    `The save data manager loaded data from the "save#.dat" file for mod: ${mod.Name}`,
+  );
 }
 
 function readSaveDatFile(mod: Mod) {

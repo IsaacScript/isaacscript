@@ -1,7 +1,0 @@
-{
-  "extends": "../tsconfig.node.json",
-  "include": ["**/*.ts", ".eslintrc.js"],
-  "compilerOptions": {
-    "target": "ES2015",
-  },
-}

@@ -1,30 +1,33 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    firedSet: new Set<PtrHash>(),
+  },
+};
+
 export class PostKnifeInitLate extends CustomCallback<ModCallbackCustom.POST_KNIFE_INIT_LATE> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_KNIFE_UPDATE, [this.postKnifeUpdate]], // 51
+      // 51
+      [ModCallback.POST_KNIFE_UPDATE, this.postKnifeUpdate],
     ];
   }
 
   protected override shouldFire = shouldFireKnife;
 
   // ModCallback.POST_KNIFE_UPDATE (51)
-  private postKnifeUpdate = (knife: EntityKnife): void => {
+  private readonly postKnifeUpdate = (knife: EntityKnife): void => {
     const ptrHash = GetPtrHash(knife);
-    if (!this.v.room.firedSet.has(ptrHash)) {
-      this.v.room.firedSet.add(ptrHash);
+    if (!v.room.firedSet.has(ptrHash)) {
+      v.room.firedSet.add(ptrHash);
       this.fire(knife);
     }
   };

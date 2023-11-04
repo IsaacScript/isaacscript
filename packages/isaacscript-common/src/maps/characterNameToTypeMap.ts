@@ -1,7 +1,8 @@
 import { PlayerType } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 /** Maps character names to the values of the `PlayerType` enum. */
-export const CHARACTER_NAME_TO_TYPE_MAP = new Map<string, PlayerType>([
+export const CHARACTER_NAME_TO_TYPE_MAP = new ReadonlyMap<string, PlayerType>([
   ["isaac", PlayerType.ISAAC], // 0
   ["magdalene", PlayerType.MAGDALENE], // 1
   ["maggy", PlayerType.MAGDALENE], // 1

@@ -1,24 +1,39 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
+import type {
+  CallbackPriority,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import type { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { isArray } from "../functions/array";
-import { deepCopy } from "../functions/deepCopy";
 import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
-import { isFunction, isNumber, isTable } from "../functions/types";
-import { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
-import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgradedBase } from "./ModUpgradedBase";
+import { isFunction, isInteger, isTable } from "../functions/types";
+import { assertDefined } from "../functions/utils";
+import type { TSTLClassMetatable } from "../interfaces/TSTLClassMetatable";
+import type { AnyFunction } from "../types/AnyFunction";
+import type { ModUpgraded } from "./ModUpgraded";
 
-export const ADD_CALLBACK_ARGS_KEY = "__addCallbackArgs";
-export const ADD_CALLBACK_CUSTOM_ARGS_KEY = "__addCallbackCustomArgs";
+export const MOD_FEATURE_CALLBACKS_KEY = "__callbacks";
+export const MOD_FEATURE_CUSTOM_CALLBACKS_KEY = "__customCallbacks";
 const WRAPPED_CALLBACK_METHODS_KEY = "__wrappedCallbackMethods";
 const WRAPPED_CUSTOM_CALLBACK_METHODS_KEY = "__wrappedCustomCallbacksMethods";
 
 type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
-  [ADD_CALLBACK_ARGS_KEY]: unknown | undefined;
-  [ADD_CALLBACK_CUSTOM_ARGS_KEY]: unknown | undefined;
+  [MOD_FEATURE_CALLBACKS_KEY]:
+    | [
+        modCallback: ModCallback,
+        callbackFunc: AnyFunction,
+        parameters: unknown[],
+      ]
+    | undefined;
+  [MOD_FEATURE_CUSTOM_CALLBACKS_KEY]:
+    | [
+        modCallbackCustom: ModCallbackCustom,
+        callbackFunc: AnyFunction,
+        parameters: unknown[],
+      ]
+    | undefined;
   [WRAPPED_CALLBACK_METHODS_KEY]: Map<ModCallback, AnyFunction> | undefined;
   [WRAPPED_CUSTOM_CALLBACK_METHODS_KEY]:
     | Map<ModCallbackCustom, AnyFunction>
@@ -30,48 +45,68 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * mod features from this class in order to enable the `@Callback` and `@CustomCallback` decorators
  * that automatically subscribe to callbacks.
  *
- * If your feature has variables that are managed by the save data manager, put them as a `v` class
- * member and they will automatically be registered with the save data manager when the class is
- * instantiated.
+ * It is recommended that you use the `initModFeatures` helper function to instantiate all of your
+ * mod classes (instead of instantiating them yourself). This is so that any attached `v` objects
+ * are properly registered with the save data manager; see below.
  *
- * For example:
+ * If you are manually instantiating a mod feature yourself, then:
  *
- * ```ts
- * export class MyFeature extends ModFeature {
- *   v = {
- *     run: {
- *       foo: 123,
- *     }
- *   }
+ * - You must pass your upgraded mod as the first argument to the constructor.
+ * - In almost all cases, you will want the callback functions to be immediately subscribed after
+ *   instantiating the class. However, if this is not the case, you can pass `false` as the optional
+ *   second argument to the constructor.
  *
- *   @Callback(ModCallback.POST_GAME_STARTED)
- *   postGameStarted(isContinued: boolean): void {
- *     Isaac.DebugString(`Callback fired: POST_GAME_STARTED`);
- *   }
- * }
- * ```
- *
- * When instantiating a feature class, you must pass your upgraded mod as the first argument to the
- * constructor.
- *
- * In almost all cases, you will want the callback functions to be immediately subscribed after
- * instantiating the class. However, if this is not the case, you can pass `false` as the optional
- * second argument to the constructor.
+ * If your mod feature has a property called `v`, it will be assumed that these are variables that
+ * should be managed by the save data manager. Unfortunately, due to technical limitations with
+ * classes, this registration will only occur if you initialize the class with the `initModFeatures`
+ * helper function. (This is because the parent class does not have access to the child's properties
+ * upon first construction.)
  */
-
 export class ModFeature {
-  private mod: ModUpgradedBase;
+  private readonly mod: ModUpgraded;
 
   /**
-   * Whether or not the feature has registered its callbacks yet (and submitted its variables to the
-   * save data manager, if any).
+   * An optional method that allows for conditional callback execution. If specified, any class
+   * method that is annotated with a `@Callback` or `@CallbackCustom` decorator will only be fired
+   * if the executed conditional function returns true.
+   *
+   * This property is used to easily turn entire mod features on and off (rather than repeating
+   * conditional logic and early returning at the beginning of every callback function).
+   *
+   * Since the specific information for the firing callback is passed as arguments into the
+   * conditional method, you can also write logic that would only apply to a specific type of
+   * callback.
+   *
+   * By default, this is set to null, which means that all callback methods will fire
+   * unconditionally. Override this property in your class if you need to use it.
+   *
+   * The function has the following signature:
+   *
+   * ```ts
+   * <T extends boolean>(
+   *   vanilla: T, // Whether this is a vanilla or custom callback.
+   *   modCallback: T extends true ? ModCallback : ModCallbackCustom,
+   *   ...callbackArgs: unknown[] // This would be e.g. `pickup: EntityPickup` for the `POST_PICKUP_INIT` callback.
+   * ) => boolean;
+   * ```
+   */
+  protected shouldCallbackMethodsFire:
+    | (<T extends boolean>(
+        vanilla: T,
+        modCallback: T extends true ? ModCallback : ModCallbackCustom,
+        ...callbackArgs: unknown[]
+      ) => boolean)
+    | null = null;
+
+  /**
+   * Whether the feature has registered its callbacks yet.
    *
    * This will almost always be equal to true unless you explicitly passed `false` to the second
    * argument of the constructor.
    */
   public initialized = false;
 
-  constructor(mod: ModUpgradedBase, init = true) {
+  constructor(mod: ModUpgraded, init = true) {
     this.mod = mod;
 
     if (init) {
@@ -81,7 +116,7 @@ export class ModFeature {
 
   /**
    * Runs the `Mod.AddCallback` and `ModUpgraded.AddCallbackCustom` methods for all of the decorated
-   * callbacks. Additionally, subscribes the `v` object to the save data manager, if present.
+   * callbacks. Also registers/unregisters the "v" variable on the save data manager.
    *
    * @param init Optional. Whether to initialize or uninitialize. Default is true.
    */
@@ -92,14 +127,16 @@ export class ModFeature {
     this.initialized = init;
 
     const constructor = getTSTLClassConstructor(this);
-    if (constructor === undefined) {
-      error("Failed to get the TSTL class constructor for a mod feature.");
-    }
+    assertDefined(
+      constructor,
+      "Failed to get the TSTL class constructor for a mod feature.",
+    );
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error("Failed to get the TSTL class name for a mod feature.");
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to get the TSTL class name for a mod feature.",
+    );
 
     initDecoratedCallbacks(this, constructor, tstlClassName, true, init);
     initDecoratedCallbacks(this, constructor, tstlClassName, false, init);
@@ -108,8 +145,7 @@ export class ModFeature {
 
   /**
    * Runs the `Mod.RemoveCallback` and `ModUpgraded.RemoveCallbackCustom` methods for all of the
-   * decorated callbacks. Additionally, unsubscribes the `v` object from the save data manager, if
-   * present.
+   * decorated callbacks.
    *
    * This is just an alias for `ModFeature.init(false)`.
    */
@@ -126,44 +162,62 @@ function initDecoratedCallbacks(
   init: boolean,
 ) {
   const modFeatureConstructor = constructor as ModFeatureConstructor;
-  const argsKey = vanilla
-    ? ADD_CALLBACK_ARGS_KEY
-    : ADD_CALLBACK_CUSTOM_ARGS_KEY;
-  const addCallbackArgs = modFeatureConstructor[argsKey];
-  if (addCallbackArgs === undefined) {
+  const callbackTuplesKey = vanilla
+    ? MOD_FEATURE_CALLBACKS_KEY
+    : MOD_FEATURE_CUSTOM_CALLBACKS_KEY;
+  const callbackTuples = modFeatureConstructor[callbackTuplesKey];
+  if (callbackTuples === undefined) {
     return;
   }
 
-  if (!isArray(addCallbackArgs)) {
+  if (!isArray(callbackTuples)) {
     error(
-      `Failed to initialize/uninitialize the decorated callbacks on a mod feature since the callback arguments on the key of "${argsKey}" was not an array.`,
+      `Failed to initialize/uninitialize the decorated callbacks on a mod feature since the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${type(
+        callbackTuples,
+      )}`,
     );
   }
 
-  for (const args of addCallbackArgs) {
-    if (!isArray(args)) {
+  for (const callbackTuple of callbackTuples) {
+    if (!isArray(callbackTuple)) {
       error(
-        "Failed to initialize/uninitialize the decorated callbacks on a mod feature since one of the callback arguments was not an array.",
+        `Failed to initialize/uninitialize the decorated callbacks on a mod feature since one of the callback arguments on the key of "${callbackTuplesKey}" was not an array and was instead of type: ${type(
+          callbackTuple,
+        )}`,
       );
     }
 
-    const parameters = deepCopy(args);
-
-    const modCallback = parameters.shift();
-    if (!isNumber(modCallback)) {
+    const modCallback = callbackTuple[0];
+    if (!isInteger(modCallback)) {
       error(
-        `Failed to get the callback number from the parameters for class: ${tstlClassName}`,
+        `Failed to get the callback number from the callback tuple for class: ${tstlClassName}`,
       );
     }
 
-    const callback = parameters.shift();
+    const priority = callbackTuple[1];
+    if (!isInteger(priority)) {
+      error(
+        `Failed to get the callback priority from the callback tuple for class: ${tstlClassName}`,
+      );
+    }
+
+    const callback = callbackTuple[2];
     if (!isFunction(callback)) {
       error(
-        `Failed to get the callback function from the parameters for class: ${tstlClassName}`,
+        `Failed to get the callback function from the callback tuple for class: ${tstlClassName}`,
       );
     }
 
-    // eslint-disable-next-line prefer-destructuring, @typescript-eslint/dot-notation
+    const parameters = callbackTuple[3];
+    // We must pass false as the second argument to `isArray` since the callback parameters may not
+    // necessarily be contiguous. (They might be separated by `undefined` values.)
+    if (!isArray(parameters, false)) {
+      error(
+        `Failed to get the callback parameters from the callback tuple for class: ${tstlClassName}`,
+      );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/dot-notation, @typescript-eslint/prefer-destructuring
     const mod = modFeature["mod"];
 
     if (init) {
@@ -171,13 +225,19 @@ function initDecoratedCallbacks(
         modFeature,
         modFeatureConstructor,
         mod,
-        modCallback,
+        modCallback, // eslint-disable-line isaacscript/strict-enums
+        priority,
         callback,
         parameters,
         vanilla,
       );
     } else {
-      removeCallback(modFeatureConstructor, mod, modCallback, vanilla);
+      removeCallback(
+        modFeatureConstructor,
+        mod,
+        modCallback, // eslint-disable-line isaacscript/strict-enums
+        vanilla,
+      );
     }
   }
 }
@@ -185,16 +245,25 @@ function initDecoratedCallbacks(
 function addCallback(
   modFeature: ModFeature,
   modFeatureConstructor: ModFeatureConstructor,
-  mod: ModUpgradedBase,
-  modCallback: unknown,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  callback: Function,
+  mod: ModUpgraded,
+  modCallback: ModCallback | ModCallbackCustom,
+  priority: CallbackPriority | int,
+  callback: Function, // eslint-disable-line @typescript-eslint/ban-types
   parameters: unknown[],
   vanilla: boolean,
 ) {
   // We need to wrap the callback in a new function so that we can explicitly pass the class as the
   // first argument. (Otherwise, the method will not be able to properly access `this`.
   const wrappedCallback = (...callbackArgs: unknown[]) => {
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    const conditionalFunc = modFeature["shouldCallbackMethodsFire"];
+    if (conditionalFunc !== null) {
+      const shouldRun = conditionalFunc(vanilla, modCallback, ...callbackArgs);
+      if (!shouldRun) {
+        return undefined;
+      }
+    }
+
     const castedCallback = callback as (
       this: void,
       ...args: unknown[]
@@ -224,14 +293,16 @@ function addCallback(
   }
 
   if (vanilla) {
-    (mod.AddCallback as AnyFunction)(
+    (mod.AddPriorityCallback as AnyFunction)(
       modCallback,
+      priority,
       wrappedCallback,
       ...parameters,
     );
   } else {
-    (mod.AddCallbackCustom as AnyFunction)(
+    (mod.AddPriorityCallbackCustom as AnyFunction)(
       modCallback,
+      priority,
       wrappedCallback,
       ...parameters,
     );
@@ -240,8 +311,8 @@ function addCallback(
 
 function removeCallback(
   modFeatureConstructor: ModFeatureConstructor,
-  mod: ModUpgradedBase,
-  modCallback: unknown,
+  mod: ModUpgraded,
+  modCallback: ModCallback | ModCallbackCustom,
   vanilla: boolean,
 ) {
   if (vanilla) {
@@ -267,6 +338,10 @@ function removeCallback(
   }
 }
 
+/**
+ * This will only work for end-users who are calling the `ModFeature.init` method explicitly. (See
+ * the discussion in the `ModFeature` comment.)
+ */
 function initSaveDataManager(
   modFeature: ModFeature,
   tstlClassName: string,
@@ -290,12 +365,13 @@ function initSaveDataManager(
   const saveDataManagerMethodName = init
     ? "saveDataManager"
     : "saveDataManagerRemove";
-  const saveDataManagerMethod = mod[saveDataManagerMethodName];
-  if (saveDataManagerMethod === undefined) {
-    error(
-      'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
-    );
-  }
+  const saveDataManagerMethod = mod[saveDataManagerMethodName] as
+    | AnyFunction
+    | undefined;
+  assertDefined(
+    saveDataManagerMethod,
+    'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',
+  );
 
   if (typeof saveDataManagerMethod !== "function") {
     error(

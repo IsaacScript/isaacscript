@@ -6,7 +6,7 @@ Disallow unsafe and confusing uses of the `++` and `--` operators.
 
 This rule heavily restricts the usage of the `++` and `--` operators. Essentially, you are only allowed to use "foo++" in places where swapping it to "++foo" or "foo += 1" would have no functional change in the program.
 
-This rule is meant to be used in conjunction with this [`prefer-plusplus`](./prefer-plusplus.md) and [`prefer-postfix-plusplus`](./prefer-postfix-plusplus) ESLint rules.
+This rule is meant to be used in conjunction with this [`prefer-plusplus`](prefer-plusplus.md) and [`prefer-postfix-plusplus`](prefer-postfix-plusplus.md) ESLint rules.
 
 ```ts
 // Bad

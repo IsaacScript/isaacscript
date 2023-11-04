@@ -1,8 +1,8 @@
+import type { PickupVariant } from "isaac-typescript-definitions";
 import {
   EffectVariant,
   EntityType,
   ModCallback,
-  PickupVariant,
 } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { LadderSubTypeCustom } from "../../../enums/LadderSubTypeCustom";
@@ -32,23 +32,30 @@ const PICKUP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_PICKUP;
 
 export class CustomPickups extends Feature {
   /** Indexed by entity ID. */
-  private customPickupFunctionsMap = new Map<string, CustomPickupFunctions>();
+  private readonly customPickupFunctionsMap = new Map<
+    string,
+    CustomPickupFunctions
+  >();
 
   /** @internal */
   constructor() {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.PRE_PICKUP_COLLISION, [this.prePickupCollision]], // 38
+      // 38
+      [ModCallback.PRE_PICKUP_COLLISION, this.prePickupCollision],
+
+      // 56
       [
         ModCallback.POST_EFFECT_RENDER,
-        [this.postEffectRenderPickupEffect, PICKUP_EFFECT_VARIANT],
-      ], // 56
+        this.postEffectRenderPickupEffect,
+        [PICKUP_EFFECT_VARIANT],
+      ],
     ];
   }
 
   // ModCallback.PRE_PICKUP_COLLISION (38)
-  private prePickupCollision = (
+  private readonly prePickupCollision = (
     pickup: EntityPickup,
     collider: Entity,
   ): boolean | undefined => {
@@ -89,8 +96,7 @@ export class CustomPickups extends Feature {
 
   // ModCallback.POST_EFFECT_RENDER (56)
   // PICKUP_EFFECT_VARIANT
-  // eslint-disable-next-line class-methods-use-this
-  private postEffectRenderPickupEffect = (effect: EntityEffect) => {
+  private readonly postEffectRenderPickupEffect = (effect: EntityEffect) => {
     if (effect.SubType !== asNumber(PICKUP_EFFECT_SUB_TYPE)) {
       return;
     }

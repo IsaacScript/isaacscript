@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-tsconfig",
-  "version": "2.2.0",
+  "version": "5.0.0",
   "description": "A sharable TypeScript config for TypeScript and IsaacScript projects.",
   "keywords": [
     "isaacscript",
@@ -19,5 +19,18 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs"
+  "type": "module",
+  "files": [
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "tsconfig.base.json",
+    "tsconfig.browser.json",
+    "tsconfig.mod.json",
+    "tsconfig.node.json"
+  ],
+  "dependencies": {
+    "@tsconfig/node-lts": "^18.12.5",
+    "@tsconfig/strictest": "^2.0.2"
+  }
 }

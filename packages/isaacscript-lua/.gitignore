@@ -1,8 +1,7 @@
-# cspell:disable
-
 # ------------------------------
-# GitHub Node.gitignore template
+# GitHub Python.gitignore template
 # https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
+# cspell:disable
 # ------------------------------
 
 # Byte-compiled / optimized / DLL files

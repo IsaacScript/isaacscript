@@ -1,22 +1,16 @@
-import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { ISAAC_API_CLASS_TYPE_TO_BRAND } from "../objects/isaacAPIClassTypeToBrand";
-import {
+import type {
   CopyableIsaacAPIClass,
   IsaacAPIClassTypeFunctions,
   IsaacAPIClassTypeToSerializedType,
   IsaacAPIClassTypeToType,
-  ISAAC_API_CLASS_TYPE_TO_FUNCTIONS,
   SerializedIsaacAPIClass,
 } from "../objects/isaacAPIClassTypeToFunctions";
-import { getEnumValues } from "./enums";
+import { ISAAC_API_CLASS_TYPE_TO_FUNCTIONS } from "../objects/isaacAPIClassTypeToFunctions";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
-import { isString, isTable, isUserdata } from "./types";
-
-const SERIALIZATION_BRANDS = getEnumValues(SerializationBrand);
-const SERIALIZATION_BRAND_SET: ReadonlySet<string> = new Set(
-  SERIALIZATION_BRANDS,
-);
+import { isTable, isUserdata } from "./types";
+import { assertDefined } from "./utils";
 
 /**
  * Helper function to generically copy an Isaac API class without knowing what specific type of
@@ -34,11 +28,10 @@ export function copyIsaacAPIClass<T extends CopyableIsaacAPIClass>(
   }
 
   const isaacAPIClassType = getIsaacAPIClassName(isaacAPIClass);
-  if (isaacAPIClassType === undefined) {
-    error(
-      "Failed to copy an Isaac API class since it does not have a class type.",
-    );
-  }
+  assertDefined(
+    isaacAPIClassType,
+    "Failed to copy an Isaac API class since it does not have a class type.",
+  );
 
   const copyableIsaacAPIClassType =
     isaacAPIClassType as CopyableIsaacAPIClassType;
@@ -55,11 +48,10 @@ export function copyIsaacAPIClass<T extends CopyableIsaacAPIClass>(
         ThisSerializedIsaacAPIClassType
       >
     | undefined;
-  if (functions === undefined) {
-    error(
-      `Failed to copy an Isaac API class since the associated functions were not found for Isaac API class type: ${copyableIsaacAPIClassType}`,
-    );
-  }
+  assertDefined(
+    functions,
+    `Failed to copy an Isaac API class since the associated functions were not found for Isaac API class type: ${copyableIsaacAPIClassType}`,
+  );
 
   return functions.copy(isaacAPIClass);
 }
@@ -85,11 +77,10 @@ export function deserializeIsaacAPIClass<
   const copyableIsaacAPIClassType = getSerializedTableType(
     serializedIsaacAPIClass,
   );
-  if (copyableIsaacAPIClassType === undefined) {
-    error(
-      "Failed to deserialize an Isaac API class since a valid class type brand was not found.",
-    );
-  }
+  assertDefined(
+    copyableIsaacAPIClassType,
+    "Failed to deserialize an Isaac API class since a valid class type brand was not found.",
+  );
 
   type ThisIsaacAPIClassType = IsaacAPIClassTypeToType[SerializedT["__kind"]];
   type ThisSerializedIsaacAPIClassType = SerializedT;
@@ -102,11 +93,10 @@ export function deserializeIsaacAPIClass<
         ThisSerializedIsaacAPIClassType
       >
     | undefined;
-  if (functions === undefined) {
-    error(
-      `Failed to deserialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
-    );
-  }
+  assertDefined(
+    functions,
+    `Failed to deserialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
+  );
 
   return functions.deserialize(serializedIsaacAPIClass);
 }
@@ -144,23 +134,6 @@ export function isCopyableIsaacAPIClass(
 }
 
 /**
- * Helper function to check if a key of a table in the "save#.dat" file is a serialization brand
- * inserted by the save data manager (i.e. the `deepCopy` function).
- *
- * This is marked internal because end-users would not normally be iterating through a serialized
- * object directly.
- *
- * @internal
- */
-export function isSerializationBrand(key: unknown): boolean {
-  if (!isString(key)) {
-    return false;
-  }
-
-  return SERIALIZATION_BRAND_SET.has(key);
-}
-
-/**
  * Helper function to generically check if a given Lua table is a serialized Isaac API class. (This
  * is used by the save data manager when reading data from the "save#.dat" file.)
  *
@@ -194,11 +167,10 @@ export function serializeIsaacAPIClass<T extends CopyableIsaacAPIClass>(
   }
 
   const isaacAPIClassType = getIsaacAPIClassName(isaacAPIClass);
-  if (isaacAPIClassType === undefined) {
-    error(
-      "Failed to serialize an Isaac API class since it does not have a class type.",
-    );
-  }
+  assertDefined(
+    isaacAPIClassType,
+    "Failed to serialize an Isaac API class since it does not have a class name.",
+  );
 
   const copyableIsaacAPIClassType =
     isaacAPIClassType as CopyableIsaacAPIClassType;
@@ -215,11 +187,10 @@ export function serializeIsaacAPIClass<T extends CopyableIsaacAPIClass>(
         ThisSerializedIsaacAPIClassType
       >
     | undefined;
-  if (functions === undefined) {
-    error(
-      `Failed to serialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
-    );
-  }
+  assertDefined(
+    functions,
+    `Failed to serialize an Isaac API class since the associated functions were not found for class type: ${copyableIsaacAPIClassType}`,
+  );
 
   return functions.serialize(isaacAPIClass);
 }

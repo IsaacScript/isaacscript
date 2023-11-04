@@ -1,24 +1,35 @@
 // This is a tsconfig.json intended to be used by IsaacScript mods.
 {
   // We extend the base IsaacScript config:
-  // https://github.com/IsaacScript/isaacscript/blog/main/packages/isaacscript-tsconfig/tsconfig.base.json
+  // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
   "extends": "./tsconfig.base.json",
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // Recommended as per TypeScriptToLua:
+    // These options are recommended in the TypeScriptToLua docs:
     // https://typescripttolua.github.io/docs/getting-started/
     "target": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
+
+    // We import the Isaac definitions, which also include the Lua definitions.
     "types": ["isaac-typescript-definitions"],
 
-    // We generically enable the ability to read JSON files, since it is used in the "JSON rooms"
+    // The Isaac definitions include const enums (for external mods), so we must turn off
+    // "isolatedModules", which comes from the "strictest" ruleset.
+    "isolatedModules": false,
+
+    // We generically enable the ability to read JSON files, since it is useful to import the
+    // version of a mod from the "package.json" file. JSON files are also used in the "JSON rooms"
     // feature of the standard library.
     "resolveJsonModule": true,
 
     // We generically enable the ability to use decorators, since some specific ones are offered in
-    // the standard library.
+    // the standard library. (The standard library does not use ECMAScript decorators due to
+    // limitations in TSTL.)
     "experimentalDecorators": true,
   },
+
+  // We cannot add values to the "tstl" object here (for TypeScriptToLua), since the entire object
+  // will be overridden when it is specified in end-user mods.
 }

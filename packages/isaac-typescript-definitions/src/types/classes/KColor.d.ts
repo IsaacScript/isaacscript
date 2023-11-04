@@ -1,4 +1,4 @@
-import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
+import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
   function KColor(this: void, r: float, g: float, b: float, a: float): KColor;
@@ -13,5 +13,6 @@ declare global {
     __kind: CopyableIsaacAPIClassType.K_COLOR;
   }
 
-  // The `KColor` presets are not implemented, since they are unsafe. See the `K_COLORS` constant.
+  // The `KColor` presets are deliberately not implemented, since they are unsafe. See the
+  // `K_COLORS` constant.
 }

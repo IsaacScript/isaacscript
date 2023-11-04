@@ -4,4 +4,5 @@ export enum CollectibleAnimation {
   SHOP_IDLE = "ShopIdle",
   PLAYER_PICKUP = "PlayerPickup",
   PLAYER_PICKUP_SPARKLE = "PlayerPickupSparkle",
+  ALTERNATE = "Alternates",
 }

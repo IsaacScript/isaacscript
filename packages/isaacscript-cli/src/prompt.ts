@@ -2,11 +2,12 @@
 // Bash terminal. Thus, we revert to using the simpler Prompt library.
 
 import chalk from "chalk";
+import { fatalError } from "isaacscript-common-node";
+import { ReadonlySet, parseIntSafe } from "isaacscript-common-ts";
 import prompt from "prompt";
-import { error, parseIntSafe } from "./utils";
 
-const VALID_YES_RESPONSES = new Set(["yes", "ye", "y"]);
-const VALID_NO_RESPONSES = new Set(["no", "n"]);
+const VALID_YES_RESPONSES = new ReadonlySet<string>(["yes", "ye", "y"]);
+const VALID_NO_RESPONSES = new ReadonlySet<string>(["no", "n"]);
 
 export function promptInit(): void {
   // Override some of the prompt library's default values:
@@ -40,7 +41,7 @@ export async function getInputYesNo(
 
   if (typeof response !== "string") {
     console.log(typeof response);
-    error("Failed to get a proper response from the prompt library.");
+    fatalError("Failed to get a proper response from the prompt library.");
   }
 
   const cleanedResponse = response.toLowerCase().trim();
@@ -58,7 +59,7 @@ export async function getInputYesNo(
     return false;
   }
 
-  error('Invalid response; must answer "yes" or "no".');
+  fatalError('Invalid response; must answer "yes" or "no".');
 }
 
 /** Returns trimmed input. */
@@ -83,7 +84,7 @@ export async function getInputString(
   });
 
   if (typeof response !== "string") {
-    error("Failed to get a proper response from the prompt library.");
+    fatalError("Failed to get a proper response from the prompt library.");
   }
 
   if (response === "" && defaultValue !== undefined) {
@@ -101,8 +102,8 @@ export async function getInputInt(
   const string = await getInputString(msg, defaultValueString);
   const int = parseIntSafe(string);
 
-  if (Number.isNaN(int)) {
-    error("Error: You must enter an integer.");
+  if (int === undefined) {
+    fatalError("Error: You must enter an integer.");
   }
 
   return int;

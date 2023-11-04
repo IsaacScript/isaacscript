@@ -1,10 +1,12 @@
 import {
   GameStateFlag,
   GridRoom,
+  LevelCurse,
   LevelStage,
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { hasCurse } from "./curses";
 import { getRoomGridIndex } from "./roomData";
 import {
   calculateStageType,
@@ -33,7 +35,8 @@ export function getNextStage(): LevelStage {
 
   // First, handle the special case of being on the backwards path.
   if (backwardsPath) {
-    return asNumber(stage) - 1;
+    const nextStage = asNumber(stage) - 1;
+    return nextStage === 0 ? LevelStage.HOME : nextStage;
   }
 
   // Second, handle the special case of being in a specific off-grid room.
@@ -44,8 +47,8 @@ export function getNextStage(): LevelStage {
     }
 
     // -9
-    case GridRoom.THE_VOID: {
-      return LevelStage.THE_VOID;
+    case GridRoom.VOID: {
+      return LevelStage.VOID;
     }
 
     // -10
@@ -55,7 +58,10 @@ export function getNextStage(): LevelStage {
         return asNumber(stage) + 1;
       }
 
-      if (stage === LevelStage.DEPTHS_2) {
+      if (
+        stage === LevelStage.DEPTHS_2 ||
+        (stage === LevelStage.DEPTHS_1 && hasCurse(LevelCurse.LABYRINTH))
+      ) {
         // From Depths 2 to Mausoleum 2 through the strange door.
         return LevelStage.DEPTHS_2;
       }
@@ -102,9 +108,9 @@ export function getNextStage(): LevelStage {
   }
 
   // 12
-  if (stage === LevelStage.THE_VOID) {
+  if (stage === LevelStage.VOID) {
     // The Void goes to The Void.
-    return LevelStage.THE_VOID;
+    return LevelStage.VOID;
   }
 
   // By default, go to the next floor.
@@ -119,8 +125,8 @@ export function getNextStage(): LevelStage {
  * `getNextStageTypeUsingHistory` helper function instead (from the stage history feature). Handling
  * this requires stateful tracking as the player progresses through the run.
  *
- * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
- *                2. Default is false.
+ * @param upwards Whether the player should go up to Cathedral in the case of being on Womb 2.
+ *                Default is false.
  */
 export function getNextStageType(upwards = false): StageType {
   const backwardsPath = game.GetStateFlag(GameStateFlag.BACKWARDS_PATH);
@@ -191,7 +197,7 @@ export function getNextStageType(upwards = false): StageType {
   }
 
   // 12
-  if (nextStage === LevelStage.THE_VOID) {
+  if (nextStage === LevelStage.VOID) {
     // The Void does not have any alternate floors.
     return StageType.ORIGINAL;
   }

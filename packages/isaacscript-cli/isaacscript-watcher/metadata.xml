@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/metadata.xsd" ?>
 <metadata>
   <name>IsaacScript Watcher</name>
   <directory>isaacscript-watcher</directory>

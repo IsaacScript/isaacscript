@@ -1,8 +1,6 @@
-import {
-  CompleteSentenceMessageIds,
-  getIncompleteSentences,
-  getSentences,
-} from "../src/completeSentence";
+import type { CompleteSentenceMessageIds } from "../src/completeSentence";
+import { getIncompleteSentences, getSentences } from "../src/completeSentence";
+import { assertDefined } from "../src/isaacScriptCommonTS";
 
 function testSentences(text: string, numSentences: number) {
   const sentences = getSentences(text);
@@ -49,11 +47,12 @@ function testIncompleteSentence(
     return;
   }
 
-  const incompleteSentence = incompleteSentences[0];
-  if (incompleteSentence === undefined) {
-    throw new Error("Failed to get the incomplete sentence.");
-  }
-  expect(incompleteSentence.messageId).toBe(messageId);
+  const firstIncompleteSentence = incompleteSentences[0];
+  assertDefined(
+    firstIncompleteSentence,
+    "Failed to get the first incomplete sentence.",
+  );
+  expect(firstIncompleteSentence.messageId).toBe(messageId);
 }
 
 test("Standard sentences", () => {
@@ -86,14 +85,14 @@ test("Trailing word", () => {
 
 test("Plain URL", () => {
   testIncompleteSentence(
-    "https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js",
+    "https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js",
     undefined,
   );
 });
 
 test("Trailing URL", () => {
   testIncompleteSentence(
-    "Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js",
+    "Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/fake-rule.js",
     undefined,
   );
 });
@@ -233,6 +232,43 @@ This is the sprite for "1st", "2nd", etc.
 test("Short text with a non-word character", () => {
   const text = `
 Racing+ items
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Incomplete sentence at the end of a block", () => {
+  const text = `
+This is a sentence
+
+This is another sentence.
+  `;
+  testIncompleteSentence(text, "missingPeriod");
+});
+
+test("Sentence with a double period", () => {
+  const text = `
+This is a sentence..
+  `;
+  testIncompleteSentence(text, "doublePeriod");
+});
+
+test("Sentence with question marks in single quotation marks", () => {
+  const text = `
+Note that this contains 'Blue Womb' instead of '???' for stage 9.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Sentence with question marks in double quotation marks", () => {
+  const text = `
+Note that this contains "Blue Womb" instead of "???" for stage 9.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Sentence with hard-coded allow words", () => {
+  const text = `
+iPad on iOS 13 detection.
   `;
   testIncompleteSentence(text, undefined);
 });

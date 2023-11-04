@@ -1,14 +1,14 @@
-import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
+import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
   /**
-   * @param r Range is 0-1.
-   * @param g Range is 0-1.
-   * @param b Range is 0-1.
-   * @param a Default is 1. Range is 0-1.
-   * @param ro Default is 0. Range is 0-1.
-   * @param go Default is 0. Range is 0-1.
-   * @param bo Default is 0. Range is 0-1.
+   * @param r Range is from 0-1.
+   * @param g Range is from 0-1.
+   * @param b Range is from 0-1.
+   * @param a Default is 1. Range is from 0-1.
+   * @param ro Default is 0. Range is from 0-1.
+   * @param go Default is 0. Range is from 0-1.
+   * @param bo Default is 0. Range is from 0-1.
    */
   function Color(
     this: void,
@@ -22,35 +22,39 @@ declare global {
   ): Color;
 
   interface Color extends IsaacAPIClass {
-    Reset(): void;
-    SetColorize(red: float, green: float, blue: float, amount: float): void;
-    SetOffset(redOffset: float, greenOffset: float, blueOffset: float): void;
-    SetTint(
+    Reset: () => void;
+    SetColorize: (red: float, green: float, blue: float, amount: float) => void;
+    SetOffset: (
+      redOffset: float,
+      greenOffset: float,
+      blueOffset: float,
+    ) => void;
+    SetTint: (
       redTint: float,
       greenTint: float,
       blueTint: float,
       alphaTint: float,
-    ): void;
+    ) => void;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     A: float;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     B: float;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     BO: float;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     G: float;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     GO: float;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     R: float;
 
-    /** Range is 0-1. */
+    /** Range is from 0-1. */
     RO: float;
 
     /** An identifier that does not exist at run-time. */

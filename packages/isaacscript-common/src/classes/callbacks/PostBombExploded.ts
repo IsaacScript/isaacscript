@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { BOMB_EXPLODE_FRAME } from "../../core/constants";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
@@ -9,14 +9,15 @@ export class PostBombExploded extends CustomCallback<ModCallbackCustom.POST_BOMB
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_BOMB_UPDATE, [this.postBombUpdate]], // 58
+      // 58
+      [ModCallback.POST_BOMB_UPDATE, this.postBombUpdate],
     ];
   }
 
   protected override shouldFire = shouldFireBomb;
 
   // ModCallback.POST_BOMB_UPDATE (58)
-  private postBombUpdate = (bomb: EntityBomb): void => {
+  private readonly postBombUpdate = (bomb: EntityBomb): void => {
     if (bomb.FrameCount === BOMB_EXPLODE_FRAME) {
       this.fire(bomb);
     }

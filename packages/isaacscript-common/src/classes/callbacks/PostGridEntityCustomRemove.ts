@@ -1,10 +1,7 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
-  FireArgs,
-  OptionalArgs,
-} from "../private/CustomCallback";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE;
 
@@ -15,7 +12,6 @@ export class PostGridEntityCustomRemove extends CustomCallback<T> {
     this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,

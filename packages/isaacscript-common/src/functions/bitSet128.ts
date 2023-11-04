@@ -1,5 +1,5 @@
-import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isIsaacAPIClassOfType } from "./isaacAPIClass";
 import {
   copyUserdataValuesToTable,
@@ -7,6 +7,7 @@ import {
   tableHasKeys,
 } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedBitSet128 = LuaMap<string, unknown> & {
   readonly __serializedBitSet128Brand: symbol;
@@ -14,7 +15,7 @@ export type SerializedBitSet128 = LuaMap<string, unknown> & {
 };
 
 const OBJECT_NAME = "BitSet128";
-const KEYS = ["l", "h"];
+const KEYS = ["l", "h"] as const;
 
 /** Helper function to copy a `BitSet128` Isaac API class. */
 export function copyBitSet128(bitSet128: BitSet128): BitSet128 {
@@ -45,16 +46,14 @@ export function deserializeBitSet128(
 
   const [l, h] = getNumbersFromTable(bitSet128, OBJECT_NAME, ...KEYS);
 
-  if (l === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: l`,
-    );
-  }
-  if (h === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: h`,
-    );
-  }
+  assertDefined(
+    l,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: l`,
+  );
+  assertDefined(
+    h,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: h`,
+  );
 
   return BitSet128(l, h);
 }

@@ -1,6 +1,11 @@
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=line-too-long
+
 #!/usr/bin/env python
 
 import argparse
+import json
 import os
 import pathlib
 import re
@@ -20,7 +25,7 @@ VERSION = pkg_resources.get_distribution("isaacscript_lua").version
 DIR = os.getcwd()
 PROJECT_NAME = os.path.basename(DIR)
 FILE_NAMES_TO_CHECK = ["main.lua", "metadata.xml"]
-LIBRARY_NAMES = ["isaacscript-common"]
+LIBRARY_NAME = "isaacscript-common"
 
 
 def main():
@@ -89,31 +94,29 @@ def check_namespace_directory():
             "If you don't have your Lua code in a namespaced directory already, this is probably a bug in your mod. Create the aforementioned directory and then re-run the installer."
         )
 
+    library_file_name = LIBRARY_NAME + ".lua"
     lib_directory_path = os.path.join(namespace_directory_path, "lib")
     if not os.path.isdir(lib_directory_path):
         os.mkdir(lib_directory_path)
+    destination_path = os.path.join(lib_directory_path, library_file_name)
 
-    for library_name in LIBRARY_NAMES:
-        library_file_name = library_name + ".lua"
-
-        url = get_url_for_library(library_name)
-        printf(f'Getting "{library_name}" from: {url}')
-        destination_path = os.path.join(lib_directory_path, library_file_name)
-        urllib.request.urlretrieve(url, destination_path)
-        printf(f"Installed: {destination_path}")
+    version = get_latest_version_of_library()
+    url = get_url_for_library(version)
+    printf(f'Getting "{LIBRARY_NAME}" version "{version}" from: {url}')
+    urllib.request.urlretrieve(url, destination_path)
+    printf(f"Installed: {destination_path}")
 
 
 def command_update():
-    for library_name in LIBRARY_NAMES:
-        library_file_name = library_name + ".lua"
+    library_file_name = LIBRARY_NAME + ".lua"
 
-        foundAtLeastOne = False
-        for file_path in pathlib.Path(DIR).rglob(library_file_name):
-            foundAtLeastOne = True
-            check_if_library_needs_update(file_path)
+    found_at_least_one = False
+    for file_path in pathlib.Path(DIR).rglob(library_file_name):
+        found_at_least_one = True
+        check_if_library_needs_update(file_path)
 
-        if not foundAtLeastOne:
-            printf(f'Did not find any files called "{library_file_name}". Skipping.')
+    if not found_at_least_one:
+        printf(f'Did not find any files called "{library_file_name}". Skipping.')
 
 
 def check_if_library_needs_update(old_file_path: pathlib.Path):
@@ -132,7 +135,7 @@ def check_if_library_needs_update(old_file_path: pathlib.Path):
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
             shutil.copyfileobj(response, tmp_file)
 
-    with open(tmp_file.name) as file_handle:
+    with open(tmp_file.name, encoding="utf8") as file_handle:
         new_file_contents = file_handle.read()
 
     latest_version = get_version_from_lua_contents(library_name, new_file_contents, url)
@@ -160,8 +163,30 @@ def get_version_from_lua_contents(
     return match.group(1)
 
 
-def get_url_for_library(library_name):
-    return f"https://unpkg.com/{library_name}@latest/dist/{library_name}.lua"
+def get_latest_version_of_library():
+    # The API endpoint requires a user agent to be set.
+    version_url = f"https://api.npms.io/v2/package/{LIBRARY_NAME}"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1)"}
+    request = urllib.request.Request(url=version_url, headers=headers)
+    printf(f"Getting the latest version from: {version_url}")
+    with urllib.request.urlopen(request) as response:
+        package_info_string = response.read().decode("utf-8")
+    package_info = json.loads(package_info_string)
+
+    if "collected" not in package_info:
+        error('Failed to find the "collected" field in the package info.')
+    collected = package_info["collected"]
+    if "metadata" not in collected:
+        error('Failed to find the "metadata" field in the package info.')
+    metadata = collected["metadata"]
+    if "version" not in metadata:
+        error('Failed to find the "version" field in the package info.')
+
+    return metadata["version"]
+
+
+def get_url_for_library(version: str):
+    return f"https://unpkg.com/{LIBRARY_NAME}@{version}/dist/{LIBRARY_NAME}.lua"
 
 
 def error(msg: str):

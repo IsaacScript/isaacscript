@@ -1,7 +1,6 @@
+import type { DoorSlotFlag, Music } from "isaac-typescript-definitions";
 import {
-  ControllerIndex,
-  DoorSlot,
-  DoorSlotFlag,
+  CollectibleType,
   GridEntityType,
   LevelCurse,
   LevelStage,
@@ -10,35 +9,44 @@ import {
   RoomType,
   StageType,
 } from "isaac-typescript-definitions";
-import { game } from "../../../core/cachedClasses";
+import { game, musicManager } from "../../../core/cachedClasses";
 import * as metadataJSON from "../../../customStageMetadata.json"; // This will correspond to "customStageMetadata.lua" at run-time.
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { UIStreakAnimation } from "../../../enums/private/UIStreakAnimation";
 import { isArray } from "../../../functions/array";
-import { doorSlotFlagsToDoorSlots } from "../../../functions/doors";
+import {
+  doorSlotsToDoorSlotFlags,
+  getDoorSlotsForRoomShape,
+} from "../../../functions/doors";
 import { hasFlag, removeFlag } from "../../../functions/flag";
-import { logError } from "../../../functions/logMisc";
+import { logError } from "../../../functions/log";
 import { newRNG } from "../../../functions/rng";
 import { removeUrnRewards } from "../../../functions/rockAlt";
 import {
   getRoomDataForTypeVariant,
   getRoomsInsideGrid,
+  inRoomType,
 } from "../../../functions/rooms";
+import { getMusicForStage } from "../../../functions/sound";
 import { setStage } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
-import {
+import { assertDefined } from "../../../functions/utils";
+import type {
   CustomStageLua,
   CustomStageRoomMetadata,
 } from "../../../interfaces/CustomStageTSConfig";
-import {
+import type {
   CustomStage,
   RoomTypeMap,
 } from "../../../interfaces/private/CustomStage";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
-import { GameReorderedCallbacks } from "../callbackLogic/GameReorderedCallbacks";
+import type { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
+import type { GameReorderedCallbacks } from "../callbackLogic/GameReorderedCallbacks";
+import type { CustomTrapdoors } from "./CustomTrapdoors";
+import type { DisableAllSound } from "./DisableAllSound";
+import type { Pause } from "./Pause";
+import type { RunInNFrames } from "./RunInNFrames";
 import { setCustomStageBackdrop } from "./customStages/backdrop";
 import {
   CUSTOM_FLOOR_STAGE,
@@ -63,57 +71,36 @@ import {
   getRandomBossRoomFromPool,
   getRandomCustomStageRoom,
 } from "./customStages/utils";
+import { v } from "./customStages/v";
 import {
   playVersusScreenAnimation,
   versusScreenPostRender,
 } from "./customStages/versusScreen";
-import { CustomTrapdoors } from "./CustomTrapdoors";
-import { DisableAllSound } from "./DisableAllSound";
-import { Pause } from "./Pause";
-import { RunInNFrames } from "./RunInNFrames";
+
+/**
+ * 60 does not work correctly (the music kicking in from stage -1 will mute it), so we use 70 to be
+ * safe.
+ */
+const MUSIC_DELAY_RENDER_FRAMES = 70;
 
 export class CustomStages extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      currentCustomStage: null as CustomStage | null,
-
-      /** Whether we are on e.g. Caves 1 or Caves 2. */
-      firstFloor: true,
-
-      showingBossVersusScreen: false,
-
-      /** Values are the render frame that the controller first pressed the map button. */
-      controllerIndexPushingMapRenderFrame: new Map<ControllerIndex, int>(),
-
-      topStreakTextStartedRenderFrame: null as int | null,
-
-      topStreakText: {
-        animation: UIStreakAnimation.NONE,
-        frame: 0,
-        pauseFrame: false,
-      },
-
-      bottomStreakText: {
-        animation: UIStreakAnimation.NONE,
-        frame: 0,
-        pauseFrame: false,
-      },
-    },
-  };
+  public override v = v;
 
   /** Indexed by custom stage name. */
-  private customStagesMap = new Map<string, CustomStage>();
+  private readonly customStagesMap = new Map<string, CustomStage>();
 
   /** Indexed by room variant. */
-  private customStageCachedRoomData = new Map<int, Readonly<RoomConfig>>();
+  private readonly customStageCachedRoomData = new Map<int, RoomConfig>();
 
-  private customGridEntities: CustomGridEntities;
-  private customTrapdoors: CustomTrapdoors;
-  private disableAllSound: DisableAllSound;
-  private gameReorderedCallbacks: GameReorderedCallbacks;
-  private pause: Pause;
-  private runInNFrames: RunInNFrames;
+  private usingRedKey = false;
+
+  private readonly customGridEntities: CustomGridEntities;
+  private readonly customTrapdoors: CustomTrapdoors;
+  private readonly disableAllSound: DisableAllSound;
+  private readonly gameReorderedCallbacks: GameReorderedCallbacks;
+  private readonly pause: Pause;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(
@@ -136,18 +123,38 @@ export class CustomStages extends Feature {
     ];
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
-      [ModCallback.POST_CURSE_EVAL, [this.postCurseEval]], // 12
-      [ModCallback.GET_SHADER_PARAMS, [this.getShaderParams]], // 21
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+
+      // 3
+      [
+        ModCallback.POST_USE_ITEM,
+        this.postUseItemRedKey,
+        [CollectibleType.RED_KEY],
+      ],
+
+      // 12
+      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
+
+      // 21
+      [ModCallback.GET_SHADER_PARAMS, this.getShaderParams],
+
+      // 23
+      [
+        ModCallback.PRE_USE_ITEM,
+        this.preUseItemRedKey,
+        [CollectibleType.RED_KEY],
+      ],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
-        [this.postGridEntityBrokenRockAlt, GridEntityType.ROCK_ALT],
+        this.postGridEntityBrokenRockAlt,
+        [GridEntityType.ROCK_ALT],
       ],
-      [ModCallbackCustom.POST_GRID_ENTITY_INIT, [this.postGridEntityInit]],
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_GRID_ENTITY_INIT, this.postGridEntityInit],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.customGridEntities = customGridEntities;
@@ -190,30 +197,69 @@ export class CustomStages extends Feature {
     );
   }
 
-  private goToCustomStage = (
+  private readonly goToCustomStage = (
+    destinationName: string | undefined,
     destinationStage: LevelStage,
     _destinationStageType: StageType,
   ) => {
+    assertDefined(
+      destinationName,
+      "Failed to go to a custom stage since the custom trapdoors feature did not pass a destination name to the logic function.",
+    );
+
     const firstFloor = destinationStage === LevelStage.BASEMENT_1;
-    this.setCustomStage("Slaughterhouse", firstFloor);
+    this.setCustomStage(destinationName, firstFloor);
   };
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
-    const customStage = this.v.run.currentCustomStage;
+  private readonly postRender = () => {
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
 
-    streakTextPostRender(this.v);
-    versusScreenPostRender(this.v, this.pause, this.disableAllSound);
+    streakTextPostRender();
+    versusScreenPostRender(this.pause, this.disableAllSound);
+
+    // Fix the bug where the music will stop after loading a new room. (This does not work if placed
+    // in the `POST_NEW_ROOM_REORDERED` callback or the `POST_UPDATE` callback.)
+    if (customStage.music !== undefined) {
+      const currentMusic = musicManager.GetCurrentMusicID();
+      const music = Isaac.GetMusicIdByName(customStage.music);
+      if (currentMusic === music) {
+        musicManager.Resume();
+        musicManager.UpdateVolume();
+      }
+    }
+  };
+
+  /**
+   * Fix the bug where Red Key will not work on custom floors (due to the stage being a bugged
+   * value).
+   */
+  // ModCallback.POST_USE_ITEM (3)
+  private readonly postUseItemRedKey = (): boolean | undefined => {
+    const customStage = v.run.currentCustomStage;
+    if (customStage === null) {
+      return undefined;
+    }
+
+    if (!this.usingRedKey) {
+      return;
+    }
+    this.usingRedKey = false;
+
+    const level = game.GetLevel();
+    level.SetStage(CUSTOM_FLOOR_STAGE, CUSTOM_FLOOR_STAGE_TYPE);
+
+    return undefined;
   };
 
   // ModCallback.POST_CURSE_EVAL (12)
-  private postCurseEval = (
+  private readonly postCurseEval = (
     curses: BitFlags<LevelCurse>,
-  ): BitFlags<LevelCurse> | undefined => {
-    const customStage = this.v.run.currentCustomStage;
+  ): BitFlags<LevelCurse> | LevelCurse | undefined => {
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return undefined;
     }
@@ -227,22 +273,43 @@ export class CustomStages extends Feature {
   };
 
   // ModCallback.GET_SHADER_PARAMS (22)
-  private getShaderParams = (
+  private readonly getShaderParams = (
     shaderName: string,
   ): Record<string, unknown> | undefined => {
-    const customStage = this.v.run.currentCustomStage;
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
 
-    streakTextGetShaderParams(this.v, customStage, shaderName);
+    streakTextGetShaderParams(customStage, shaderName);
+    return undefined;
+  };
+
+  /**
+   * Fix the bug where Red Key will not work on custom floors (due to the stage being a bugged
+   * value).
+   */
+  // ModCallback.PRE_USE_ITEM (23)
+  private readonly preUseItemRedKey = (): boolean | undefined => {
+    const customStage = v.run.currentCustomStage;
+    if (customStage === null) {
+      return undefined;
+    }
+
+    this.usingRedKey = true;
+
+    const level = game.GetLevel();
+    const stage = customStage.baseStage ?? DEFAULT_BASE_STAGE;
+    const stageType = customStage.baseStageType ?? DEFAULT_BASE_STAGE_TYPE;
+    level.SetStage(stage, stageType); // eslint-disable-line isaacscript/strict-enums
+
     return undefined;
   };
 
   // ModCallbackCustom.POST_GRID_ENTITY_BROKEN
   // GridEntityType.ROCK_ALT
-  private postGridEntityBrokenRockAlt = (gridEntity: GridEntity) => {
-    const customStage = this.v.run.currentCustomStage;
+  private readonly postGridEntityBrokenRockAlt = (gridEntity: GridEntity) => {
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -259,8 +326,8 @@ export class CustomStages extends Feature {
   };
 
   // ModCallbackCustom.POST_GRID_ENTITY_INIT
-  private postGridEntityInit = (gridEntity: GridEntity) => {
-    const customStage = this.v.run.currentCustomStage;
+  private readonly postGridEntityInit = (gridEntity: GridEntity) => {
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -277,14 +344,14 @@ export class CustomStages extends Feature {
     convertVanillaTrapdoors(
       customStage,
       gridEntity,
-      this.v.run.firstFloor,
+      v.run.firstFloor,
       this.customTrapdoors,
     );
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
-    const customStage = this.v.run.currentCustomStage;
+  private readonly postNewRoomReordered = () => {
+    const customStage = v.run.currentCustomStage;
     if (customStage === null) {
       return;
     }
@@ -292,12 +359,21 @@ export class CustomStages extends Feature {
     setCustomStageBackdrop(customStage);
     setShadows(customStage);
     playVersusScreenAnimation(
-      this.v,
       customStage,
       this.disableAllSound,
       this.pause,
       this.runInNFrames,
     );
+
+    // Fix the bug where music from special rooms (like the "Boss Over" music) will persist for the
+    // rest of the floor.
+    if (customStage.music !== undefined && inRoomType(RoomType.DEFAULT)) {
+      const music = Isaac.GetMusicIdByName(customStage.music);
+      const currentMusic = musicManager.GetCurrentMusicID();
+      if (currentMusic !== music) {
+        musicManager.Fadein(music);
+      }
+    }
   };
 
   /** Pick a custom room for each vanilla room. */
@@ -342,20 +418,20 @@ export class CustomStages extends Feature {
       }
 
       const doorSlotFlags = room.Data.Doors;
-      const roomsMetadata = roomDoorSlotFlagMap.get(doorSlotFlags);
+      let roomsMetadata = roomDoorSlotFlagMap.get(doorSlotFlags);
       if (roomsMetadata === undefined) {
-        logError(
-          `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) + DoorSlotFlags ${doorSlotFlags} for custom stage: ${customStage.name}`,
-        );
-
-        const header = `For reference, a DoorSlotFlags of ${doorSlotFlags} is equal to the following doors being enabled:\n`;
-        const doorSlots = doorSlotFlagsToDoorSlots(doorSlotFlags);
-        const doorSlotLines = doorSlots.map(
-          (doorSlot) => `- DoorSlot.${DoorSlot[doorSlot]} (${doorSlot})`,
-        );
-        const explanation = header + doorSlotLines.join("\n");
-        logError(explanation);
-        continue;
+        // The custom stage does not have any rooms for the specific room type + room shape + door
+        // slot combination. As a fallback, check to see if the custom stage has one or more rooms
+        // for this specific room type + room shape + all doors.
+        const allDoorSlots = getDoorSlotsForRoomShape(roomShape);
+        const allDoorSlotFlags = doorSlotsToDoorSlotFlags(allDoorSlots);
+        roomsMetadata = roomDoorSlotFlagMap.get(allDoorSlotFlags);
+        if (roomsMetadata === undefined) {
+          logError(
+            `Failed to find any custom rooms for RoomType.${RoomType[roomType]} (${roomType}) + RoomShape.${RoomShape[roomShape]} (${roomShape}) + all doors enabled for custom stage: ${customStage.name}`,
+          );
+          continue;
+        }
       }
 
       let randomRoom: CustomStageRoomMetadata;
@@ -380,7 +456,8 @@ export class CustomStages extends Feature {
         newRoomData = getRoomDataForTypeVariant(
           roomType,
           randomRoom.variant,
-          false,
+          false, // Since we are going to multiple rooms, we cancel the transition.
+          true, // The custom stage rooms are loaded inside of the "00.special rooms.stb" file.
         );
         if (newRoomData === undefined) {
           logError(
@@ -421,11 +498,10 @@ export class CustomStages extends Feature {
     verbose = false,
   ): void {
     const customStage = this.customStagesMap.get(name);
-    if (customStage === undefined) {
-      error(
-        `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
-      );
-    }
+    assertDefined(
+      customStage,
+      `Failed to set the custom stage of "${name}" because it was not found in the custom stages map. (Try restarting IsaacScript / recompiling the mod / restarting the game, and try again. If that does not work, you probably forgot to define it in your "tsconfig.json" file.) See the website for more details on how to set up custom stages.`,
+    );
 
     const level = game.GetLevel();
     const stage = level.GetStage();
@@ -433,8 +509,8 @@ export class CustomStages extends Feature {
     const startSeed = seeds.GetStartSeed();
     const rng = newRNG(startSeed);
 
-    this.v.run.currentCustomStage = customStage;
-    this.v.run.firstFloor = firstFloor;
+    v.run.currentCustomStage = customStage;
+    v.run.firstFloor = firstFloor;
 
     // Before changing the stage, we have to revert the bugged stage, if necessary. This prevents
     // the bug where the backdrop will not spawn.
@@ -442,22 +518,27 @@ export class CustomStages extends Feature {
       level.SetStage(LevelStage.BASEMENT_1, StageType.ORIGINAL);
     }
 
-    let baseStage =
+    let baseStage: LevelStage =
       customStage.baseStage === undefined
         ? DEFAULT_BASE_STAGE
-        : customStage.baseStage;
+        : (customStage.baseStage as LevelStage);
     if (!firstFloor) {
-      baseStage++;
+      baseStage++; // eslint-disable-line isaacscript/strict-enums
     }
 
-    const baseStageType =
+    const baseStageType: StageType =
       customStage.baseStageType === undefined
         ? DEFAULT_BASE_STAGE_TYPE
-        : customStage.baseStageType;
+        : (customStage.baseStageType as StageType);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     const reseed = asNumber(stage) >= baseStage;
 
-    setStage(baseStage as LevelStage, baseStageType as StageType, reseed);
+    setStage(baseStage, baseStageType, reseed);
+
+    // As soon as we warp to the base stage, the base stage music will begin to play. Thus, we
+    // temporarily mute all music.
+    musicManager.Disable();
 
     this.setStageRoomsData(customStage, rng, verbose);
 
@@ -476,9 +557,34 @@ export class CustomStages extends Feature {
     // `POST_RENDER` callback. Thus, we run it on the next game frame as a workaround.
     if (streakText) {
       this.runInNFrames.runNextGameFrame(() => {
-        topStreakTextStart(this.v);
+        topStreakTextStart();
       });
     }
+
+    // The bugged stage will not have any music associated with it, so we must manually start to
+    // play a track. First, prefer the music that is explicitly assigned to this custom floor.
+    let customStageMusic: Music | -1 | undefined;
+    if (customStage.music !== undefined) {
+      customStageMusic = Isaac.GetMusicIdByName(customStage.music) as
+        | Music
+        | -1;
+      if (customStageMusic === -1) {
+        logError(
+          `Failed to get the music ID associated with the name of: ${customStage.music}`,
+        );
+      }
+    }
+
+    const music =
+      customStageMusic === undefined || customStageMusic === -1
+        ? getMusicForStage(baseStage, baseStageType)
+        : customStageMusic;
+
+    this.runInNFrames.runInNRenderFrames(() => {
+      musicManager.Enable();
+      musicManager.Play(music);
+      musicManager.UpdateVolume();
+    }, MUSIC_DELAY_RENDER_FRAMES);
 
     // We must reload the current room in order for the `Level.SetStage` method to take effect.
     // Furthermore, we need to cancel the queued warp to the `GridRoom.DEBUG` room. We can
@@ -495,7 +601,7 @@ export class CustomStages extends Feature {
    */
   @Exported
   public disableCustomStage(): void {
-    this.v.run.currentCustomStage = null;
+    v.run.currentCustomStage = null;
   }
 }
 

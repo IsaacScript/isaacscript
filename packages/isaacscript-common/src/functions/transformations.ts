@@ -1,32 +1,30 @@
-import {
-  CollectibleType,
-  ItemConfigTag,
-  PlayerForm,
-} from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
+import { ItemConfigTag, PlayerForm } from "isaac-typescript-definitions";
+import { PLAYER_FORM_VALUES } from "../arrays/cachedEnumValues";
 import { TRANSFORMATION_NAMES } from "../objects/transformationNames";
+import { ReadonlyMap } from "../types/ReadonlyMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getCollectibleTags } from "./collectibles";
-import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
 
-const TRANSFORMATION_TO_TAG_MAP: ReadonlyMap<PlayerForm, ItemConfigTag> =
-  new Map([
-    [PlayerForm.GUPPY, ItemConfigTag.GUPPY], // 0
-    [PlayerForm.BEELZEBUB, ItemConfigTag.FLY], // 1
-    [PlayerForm.FUN_GUY, ItemConfigTag.MUSHROOM], // 2
-    [PlayerForm.SERAPHIM, ItemConfigTag.ANGEL], // 3
-    [PlayerForm.BOB, ItemConfigTag.BOB], // 4
-    [PlayerForm.SPUN, ItemConfigTag.SYRINGE], // 5
-    [PlayerForm.YES_MOTHER, ItemConfigTag.MOM], // 6
-    [PlayerForm.CONJOINED, ItemConfigTag.BABY], // 7
-    [PlayerForm.LEVIATHAN, ItemConfigTag.DEVIL], // 8
-    [PlayerForm.OH_CRAP, ItemConfigTag.POOP], // 9
-    [PlayerForm.BOOKWORM, ItemConfigTag.BOOK], // 10
-    // PlayerForm.ADULTHOOD (11) is based on pill usage.
-    [PlayerForm.SPIDER_BABY, ItemConfigTag.SPIDER], // 12
-    // PlayerForm.STOMPY (13) is based on size.
-  ]);
+const TRANSFORMATION_TO_TAG_MAP = new ReadonlyMap<PlayerForm, ItemConfigTag>([
+  [PlayerForm.GUPPY, ItemConfigTag.GUPPY], // 0
+  [PlayerForm.BEELZEBUB, ItemConfigTag.FLY], // 1
+  [PlayerForm.FUN_GUY, ItemConfigTag.MUSHROOM], // 2
+  [PlayerForm.SERAPHIM, ItemConfigTag.ANGEL], // 3
+  [PlayerForm.BOB, ItemConfigTag.BOB], // 4
+  [PlayerForm.SPUN, ItemConfigTag.SYRINGE], // 5
+  [PlayerForm.YES_MOTHER, ItemConfigTag.MOM], // 6
+  [PlayerForm.CONJOINED, ItemConfigTag.BABY], // 7
+  [PlayerForm.LEVIATHAN, ItemConfigTag.DEVIL], // 8
+  [PlayerForm.OH_CRAP, ItemConfigTag.POOP], // 9
+  [PlayerForm.BOOKWORM, ItemConfigTag.BOOK], // 10
+  // PlayerForm.ADULTHOOD (11) is based on pill usage.
+  [PlayerForm.SPIDER_BABY, ItemConfigTag.SPIDER], // 12
+  // PlayerForm.STOMPY (13) is based on size.
+]);
 
-const TRANSFORMATIONS_THAT_GRANT_FLYING: ReadonlySet<PlayerForm> = new Set([
+const TRANSFORMATIONS_THAT_GRANT_FLYING = new ReadonlySet<PlayerForm>([
   PlayerForm.GUPPY, // 0
   PlayerForm.BEELZEBUB, // 1
   PlayerForm.SERAPHIM, // 3
@@ -38,7 +36,7 @@ export function getPlayerTransformations(
   player: EntityPlayer,
 ): Set<PlayerForm> {
   const transformations = new Set<PlayerForm>();
-  for (const playerForm of getEnumValues(PlayerForm)) {
+  for (const playerForm of PLAYER_FORM_VALUES) {
     if (player.HasPlayerForm(playerForm)) {
       transformations.add(playerForm);
     }
@@ -70,9 +68,8 @@ export function getTransformationsForCollectibleType(
 ): Set<PlayerForm> {
   const itemConfigTags = getCollectibleTags(collectibleType);
 
-  const playerForms = getEnumValues(PlayerForm);
   const transformationSet = new Set<PlayerForm>();
-  for (const playerForm of playerForms) {
+  for (const playerForm of PLAYER_FORM_VALUES) {
     const itemConfigTag = TRANSFORMATION_TO_TAG_MAP.get(playerForm);
     if (itemConfigTag === undefined) {
       continue;
@@ -87,7 +84,7 @@ export function getTransformationsForCollectibleType(
 }
 
 export function hasFlyingTransformation(player: EntityPlayer): boolean {
-  for (const playerForm of TRANSFORMATIONS_THAT_GRANT_FLYING.values()) {
+  for (const playerForm of TRANSFORMATIONS_THAT_GRANT_FLYING) {
     if (player.HasPlayerForm(playerForm)) {
       return true;
     }

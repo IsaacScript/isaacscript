@@ -1,29 +1,32 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getAmbushType } from "../../functions/ambush";
 import { shouldFireAmbush } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
+const v = {
+  room: {
+    ambushActive: false,
+  },
+};
+
 export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMBUSH_STARTED> {
-  public override v = {
-    room: {
-      ambushActive: false,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
 
   protected override shouldFire = shouldFireAmbush;
 
-  private postUpdate = (): void => {
-    if (this.v.room.ambushActive) {
+  private readonly postUpdate = (): void => {
+    if (v.room.ambushActive) {
       return;
     }
 
@@ -32,7 +35,7 @@ export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMB
     if (!ambushActive) {
       return;
     }
-    this.v.room.ambushActive = true;
+    v.room.ambushActive = true;
 
     const ambushType = getAmbushType();
     if (ambushType !== undefined) {

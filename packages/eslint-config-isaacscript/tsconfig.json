@@ -1,10 +1,34 @@
 {
-  "extends": "../../tsconfig.node.json",
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
 
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.node.json",
+    "../../tsconfig.monorepo.json",
+  ],
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "../../dist/packages/eslint-config-isaacscript",
+    "outDir": "dist",
     "allowJs": true,
+    "checkJs": true,
   },
 
-  "include": ["*.js", ".eslintrc.js"],
+  "include": [
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
+  ],
 }

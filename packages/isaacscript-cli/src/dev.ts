@@ -1,24 +1,20 @@
-import path from "path";
-import * as file from "./file";
-import { error } from "./utils";
+import { fatalError, isDirectory } from "isaacscript-common-node";
+import path from "node:path";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,
-  verbose: boolean,
 ): string {
-  const parentDirectory = path.join(projectPath, "..");
   const isaacScriptMonorepoDirectory = path.join(
-    parentDirectory,
+    projectPath,
+    "..",
     "isaacscript",
   );
-  if (
-    !file.exists(isaacScriptMonorepoDirectory, verbose) ||
-    !file.isDir(isaacScriptMonorepoDirectory, verbose)
-  ) {
+
+  if (!isDirectory(isaacScriptMonorepoDirectory)) {
     console.error(
       `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,
     );
-    error(
+    fatalError(
       "In order to link a development version of IsaacScript common, you must place the repositories side by side. (If you do not already have the IsaacScript repository cloned, then you need to fork the repo and then clone your fork.)",
     );
   }

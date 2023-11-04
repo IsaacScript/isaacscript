@@ -1,18 +1,18 @@
-import { Challenge } from "../../enums/Challenge";
-import { LevelStage } from "../../enums/LevelStage";
-import { SeedEffect } from "../../enums/SeedEffect";
+import type { Challenge } from "../../enums/Challenge";
+import type { LevelStage } from "../../enums/LevelStage";
+import type { SeedEffect } from "../../enums/SeedEffect";
 
 declare global {
   interface Seeds extends IsaacAPIClass {
-    AddSeedEffect(seedEffect: SeedEffect): void;
-    CanAddSeedEffect(seedEffect: SeedEffect): boolean;
-    ClearSeedEffects(): void;
-    ClearStartSeed(): void;
-    CountSeedEffects(): int;
-    ForgetStageSeed(levelStage: LevelStage): void;
-    GetNextSeed(): Seed;
-    GetPlayerInitSeed(): Seed;
-    GetStageSeed(levelStage: LevelStage): Seed;
+    AddSeedEffect: (seedEffect: SeedEffect) => void;
+    CanAddSeedEffect: (seedEffect: SeedEffect) => boolean;
+    ClearSeedEffects: () => void;
+    ClearStartSeed: () => void;
+    CountSeedEffects: () => int;
+    ForgetStageSeed: (levelStage: LevelStage) => void;
+    GetNextSeed: () => Seed;
+    GetPlayerInitSeed: () => Seed;
+    GetStageSeed: (levelStage: LevelStage) => Seed;
 
     /**
      * The "start seed" is a number between 1 and (2^32 - 1) that is used to generate the random
@@ -21,7 +21,7 @@ declare global {
      *
      * This method will return 0 if it is run in the main menu.
      */
-    GetStartSeed(): Seed;
+    GetStartSeed: () => Seed;
 
     // cspell:ignore ABCD EFGH
 
@@ -32,32 +32,32 @@ declare global {
      *
      * This method will return "B911 99JA" if it is run in the main menu.
      */
-    GetStartSeedString(): string;
+    GetStartSeedString: () => string;
 
-    HasSeedEffect(seedEffect: SeedEffect): boolean;
+    HasSeedEffect: (seedEffect: SeedEffect) => boolean;
 
     /** Returns true if the player is in a challenge run or a seeded run. */
-    IsCustomRun(): boolean;
+    IsCustomRun: () => boolean;
 
-    IsInitialized(): boolean;
-    IsSeedComboBanned(
+    IsInitialized: () => boolean;
+    IsSeedComboBanned: (
       seedEffect1: SeedEffect,
       seedEffect2: SeedEffect,
-    ): boolean;
+    ) => boolean;
 
     /** Removes seed effects that are banned in conjunction with the given seed. */
-    RemoveBlockingSeedEffects(seedEffect: SeedEffect): void;
+    RemoveBlockingSeedEffects: (seedEffect: SeedEffect) => void;
 
-    RemoveSeedEffect(seedEffect: SeedEffect): void;
+    RemoveSeedEffect: (seedEffect: SeedEffect) => void;
 
     /** Removes all seed effects. Only takes effect when the run is restarted. */
-    Reset(): void;
+    Reset: () => void;
 
     /** Re-selects a random start seed, but only if the start seed was not custom. */
-    Restart(challenge: Challenge): void;
+    Restart: (challenge: Challenge) => void;
 
     /** Passing an empty string will cause the game to pick a new random seed. */
-    SetStartSeed(startSeed: string): void;
+    SetStartSeed: (startSeed: string) => void;
   }
 
   /** @noSelf */
@@ -75,6 +75,6 @@ declare global {
     function Seed2String(seed: int): string;
 
     /** Converts a seed string into a number. For example, converts "B911 99JA" to 0. */
-    function String2Seed(str: string): int;
+    function String2Seed(str: string): Seed;
   }
 }

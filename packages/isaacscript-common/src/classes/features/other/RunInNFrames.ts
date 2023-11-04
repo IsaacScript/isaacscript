@@ -1,74 +1,97 @@
-import { ModCallback, PlayerType } from "isaac-typescript-definitions";
+import type { PlayerType } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
+import { ISCFeature } from "../../../enums/ISCFeature";
 import { arrayRemoveInPlace } from "../../../functions/array";
 import { restart } from "../../../functions/run";
 import { Feature } from "../../private/Feature";
+import type { RoomHistory } from "./RoomHistory";
 
 /** Used for `runInNFrames` functions. */
-type QueuedFunctionTuple = [frameCountToFire: int, func: () => void];
+interface QueuedFunction {
+  func: () => void;
+  frameCountToFire: int;
+  numRoomsEntered: int;
+  cancelIfRoomChanges: boolean;
+}
 
 /**
  * Used for `setInterval` functions.
  *
- * The return value is whether or not to continue the function from firing.
+ * The return value is whether to continue the function from firing.
  */
-type IntervalFunctionTuple = [
-  frameCountToFire: int,
-  func: () => boolean,
-  numIntervalFrames: int,
-];
+interface IntervalFunction extends QueuedFunction {
+  func: () => boolean;
+  numIntervalFrames: int;
+}
+
+const v = {
+  run: {
+    queuedGameFunctions: [] as QueuedFunction[],
+    queuedRenderFunctions: [] as QueuedFunction[],
+
+    intervalGameFunctions: [] as IntervalFunction[],
+    intervalRenderFunctions: [] as IntervalFunction[],
+  },
+};
 
 export class RunInNFrames extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      queuedGameFunctionTuples: [] as QueuedFunctionTuple[],
-      queuedRenderFunctionTuples: [] as QueuedFunctionTuple[],
+  public override v = v;
 
-      intervalGameFunctionTuples: [] as IntervalFunctionTuple[],
-      intervalRenderFunctionTuples: [] as IntervalFunctionTuple[],
-    },
-  };
-
-  // eslint-disable-next-line class-methods-use-this
   public override vConditionalFunc = (): boolean => false;
 
+  private readonly roomHistory: RoomHistory;
+
   /** @internal */
-  constructor() {
+  constructor(roomHistory: RoomHistory) {
     super();
 
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
+
     this.callbacksUsed = [
-      [ModCallback.POST_UPDATE, [this.postUpdate]], // 1
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
+
+    this.roomHistory = roomHistory;
   }
 
   // ModCallback.POST_UPDATE (1)
-  private postUpdate = (): void => {
+  private readonly postUpdate = (): void => {
     const gameFrameCount = game.GetFrameCount();
+    const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
     checkExecuteQueuedFunctions(
+      v.run.queuedGameFunctions,
       gameFrameCount,
-      this.v.run.queuedGameFunctionTuples,
+      numRoomsEntered,
     );
     checkExecuteIntervalFunctions(
+      v.run.intervalGameFunctions,
       gameFrameCount,
-      this.v.run.intervalGameFunctionTuples,
+      numRoomsEntered,
     );
   };
 
   // ModCallback.POST_RENDER (2)
-  private postRender = (): void => {
+  private readonly postRender = (): void => {
     const renderFrameCount = Isaac.GetFrameCount();
+    const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
 
     checkExecuteQueuedFunctions(
+      v.run.queuedRenderFunctions,
       renderFrameCount,
-      this.v.run.queuedRenderFunctionTuples,
+      numRoomsEntered,
     );
     checkExecuteIntervalFunctions(
+      v.run.intervalRenderFunctions,
       renderFrameCount,
-      this.v.run.intervalRenderFunctionTuples,
+      numRoomsEntered,
     );
   };
 
@@ -99,13 +122,29 @@ export class RunInNFrames extends Feature {
    * deferred functions manually using serializable data.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
+   *
+   * @param func The function to run.
+   * @param numGameFrames The amount of game frames to wait before running the function.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
-  public runInNGameFrames(func: () => void, gameFrames: int): void {
+  public runInNGameFrames(
+    func: () => void,
+    numGameFrames: int,
+    cancelIfRoomChanges = false,
+  ): void {
     const gameFrameCount = game.GetFrameCount();
-    const functionFireFrame = gameFrameCount + gameFrames;
-    const tuple: QueuedFunctionTuple = [functionFireFrame, func];
-    this.v.run.queuedGameFunctionTuples.push(tuple);
+    const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
+
+    const frameCountToFire = gameFrameCount + numGameFrames;
+    const queuedFunction: QueuedFunction = {
+      func,
+      frameCountToFire,
+      numRoomsEntered,
+      cancelIfRoomChanges,
+    };
+    v.run.queuedGameFunctions.push(queuedFunction);
   }
 
   /**
@@ -119,13 +158,29 @@ export class RunInNFrames extends Feature {
    * deferred functions manually using serializable data.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
+   *
+   * @param func The function to run.
+   * @param numRenderFrames The amount of render frames to wait before running the function.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
-  public runInNRenderFrames(func: () => void, renderFrames: int): void {
+  public runInNRenderFrames(
+    func: () => void,
+    numRenderFrames: int,
+    cancelIfRoomChanges = false,
+  ): void {
     const renderFrameCount = Isaac.GetFrameCount();
-    const functionFireFrame = renderFrameCount + renderFrames;
-    const tuple: QueuedFunctionTuple = [functionFireFrame, func];
-    this.v.run.queuedRenderFunctionTuples.push(tuple);
+    const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
+
+    const frameCountToFire = renderFrameCount + numRenderFrames;
+    const queuedFunction: QueuedFunction = {
+      func,
+      frameCountToFire,
+      numRoomsEntered,
+      cancelIfRoomChanges,
+    };
+    v.run.queuedRenderFunctions.push(queuedFunction);
   }
 
   /**
@@ -157,10 +212,14 @@ export class RunInNFrames extends Feature {
    * deferred functions manually using serializable data.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
+   *
+   * @param func The function to run.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
-  public runNextGameFrame(func: () => void): void {
-    this.runInNGameFrames(func, 1);
+  public runNextGameFrame(func: () => void, cancelIfRoomChanges = false): void {
+    this.runInNGameFrames(func, 1, cancelIfRoomChanges);
   }
 
   /**
@@ -172,10 +231,17 @@ export class RunInNFrames extends Feature {
    * Note that this function will not handle saving and quitting.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
+   *
+   * @param func The function to run.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
-  public runNextRenderFrame(func: () => void): void {
-    this.runInNRenderFrames(func, 1);
+  public runNextRenderFrame(
+    func: () => void,
+    cancelIfRoomChanges = false,
+  ): void {
+    this.runInNRenderFrames(func, 1, cancelIfRoomChanges);
   }
 
   /**
@@ -192,24 +258,37 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to repeatedly run on an interval.
-   * @param gameFrames The amount of game frames to wait between each run.
-   * @param runImmediately Whether or not to execute the function right now before waiting for the
+   * @param numGameFrames The amount of game frames to wait between each run.
+   * @param runImmediately Whether to execute the function right now before waiting for the
    *                       interval.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public setIntervalGameFrames(
     func: () => boolean,
-    gameFrames: int,
+    numGameFrames: int,
     runImmediately: boolean,
+    cancelIfRoomChanges = false,
   ): void {
-    const gameFrameCount = game.GetFrameCount();
-    const functionFireFrame = gameFrameCount + gameFrames;
-    const tuple: IntervalFunctionTuple = [functionFireFrame, func, gameFrames];
-    this.v.run.intervalGameFunctionTuples.push(tuple);
-
     if (runImmediately) {
-      func();
+      const returnValue = func();
+      if (!returnValue) {
+        return;
+      }
     }
+
+    const gameFrameCount = game.GetFrameCount();
+    const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
+
+    const intervalFunction: IntervalFunction = {
+      func,
+      frameCountToFire: gameFrameCount + numGameFrames,
+      numRoomsEntered,
+      cancelIfRoomChanges,
+      numIntervalFrames: numGameFrames,
+    };
+    v.run.intervalGameFunctions.push(intervalFunction);
   }
 
   /**
@@ -226,68 +305,90 @@ export class RunInNFrames extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
    *
    * @param func The function to repeatedly run on an interval.
-   * @param renderFrames The amount of game frames to wait between each run.
-   * @param runImmediately Whether or not to execute the function right now before waiting for the
+   * @param numRenderFrames The amount of game frames to wait between each run.
+   * @param runImmediately Whether to execute the function right now before waiting for the
    *                       interval.
+   * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
+   *                            loaded in the interim. Default is false.
    */
   @Exported
   public setIntervalRenderFrames(
     func: () => boolean,
-    renderFrames: int,
+    numRenderFrames: int,
     runImmediately: boolean,
+    cancelIfRoomChanges = false,
   ): void {
-    const renderFrameCount = Isaac.GetFrameCount();
-    const functionFireFrame = renderFrameCount + renderFrames;
-    const tuple: IntervalFunctionTuple = [
-      functionFireFrame,
-      func,
-      renderFrames,
-    ];
-    this.v.run.intervalGameFunctionTuples.push(tuple);
-
     if (runImmediately) {
-      func();
+      const returnValue = func();
+      if (!returnValue) {
+        return;
+      }
     }
+
+    const renderFrameCount = Isaac.GetFrameCount();
+    const numRoomsEntered = this.roomHistory.getNumRoomsEntered();
+
+    const intervalFunction: IntervalFunction = {
+      func,
+      frameCountToFire: renderFrameCount + numRenderFrames,
+      numRoomsEntered,
+      cancelIfRoomChanges,
+      numIntervalFrames: numRenderFrames,
+    };
+    v.run.intervalRenderFunctions.push(intervalFunction);
   }
 }
 
 function checkExecuteQueuedFunctions(
+  queuedFunctions: QueuedFunction[],
   frameCount: int,
-  functionTuples: QueuedFunctionTuple[],
+  newNumRoomsEntered: int,
 ) {
-  const firingFunctions = functionTuples.filter(
-    ([frameCountToFire]) => frameCount >= frameCountToFire,
+  const firingFunctions = queuedFunctions.filter(
+    ({ frameCountToFire }) => frameCount >= frameCountToFire,
   );
 
-  for (const tuple of firingFunctions) {
-    const [_frameCountToFire, func] = tuple;
-    func();
-    arrayRemoveInPlace(functionTuples, tuple);
+  for (const firingFunction of firingFunctions) {
+    const { func, cancelIfRoomChanges, numRoomsEntered } = firingFunction;
+
+    if (!cancelIfRoomChanges || numRoomsEntered === newNumRoomsEntered) {
+      func();
+    }
+
+    arrayRemoveInPlace(queuedFunctions, firingFunction);
   }
 }
 
 function checkExecuteIntervalFunctions(
+  intervalFunctions: IntervalFunction[],
   frameCount: int,
-  functionTuples: IntervalFunctionTuple[],
+  newNumRoomsEntered: int,
 ) {
-  const firingFunctions = functionTuples.filter(
-    ([frameCountToFire]) => frameCount >= frameCountToFire,
+  const firingFunctions = intervalFunctions.filter(
+    ({ frameCountToFire }) => frameCount >= frameCountToFire,
   );
 
-  for (const tuple of firingFunctions) {
-    const [_frameCountToFire, func, numIntervalFrames] = tuple;
-    const returnValue = func();
-    arrayRemoveInPlace(functionTuples, tuple);
+  for (const firingFunction of firingFunctions) {
+    const { func, cancelIfRoomChanges, numRoomsEntered, numIntervalFrames } =
+      firingFunction;
+
+    let returnValue = false;
+    if (!cancelIfRoomChanges || numRoomsEntered === newNumRoomsEntered) {
+      returnValue = func();
+    }
+
+    arrayRemoveInPlace(intervalFunctions, firingFunction);
 
     // Queue the next interval (as long as the function did not return false).
     if (returnValue) {
-      const nextFireFrame = frameCount + numIntervalFrames;
-      const newTuple: IntervalFunctionTuple = [
-        nextFireFrame,
+      const newIntervalFunction: IntervalFunction = {
         func,
+        frameCountToFire: frameCount + numIntervalFrames,
+        numRoomsEntered,
+        cancelIfRoomChanges,
         numIntervalFrames,
-      ];
-      functionTuples.push(newTuple);
+      };
+      intervalFunctions.push(newIntervalFunction);
     }
   }
 }

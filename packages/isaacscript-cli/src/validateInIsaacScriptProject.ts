@@ -1,32 +1,32 @@
 import chalk from "chalk";
-import path from "path";
-import { CWD, PACKAGE_JSON, PROJECT_NAME } from "./constants";
-import * as file from "./file";
+import { PACKAGE_JSON, isDirectory, isFile } from "isaacscript-common-node";
+import path from "node:path";
+import { CWD, PROJECT_NAME } from "./constants.js";
+
+const FILE_NAMES_TO_CHECK = [PACKAGE_JSON] as const;
+
+/** We don't check "node_modules" because we might be cloning a fresh IsaacScript project. */
+const SUBDIRECTORY_NAMES_TO_CHECK = ["src", "mod"] as const;
 
 // Validate that we are in a directory that looks like an IsaacScript project.
-export function validateInIsaacScriptProject(verbose: boolean): void {
-  const filesToCheck = [PACKAGE_JSON];
-  for (const fileName of filesToCheck) {
+export function validateInIsaacScriptProject(): void {
+  for (const fileName of FILE_NAMES_TO_CHECK) {
     const filePath = path.join(CWD, fileName);
-    if (!file.exists(filePath, verbose) || !file.isFile(filePath, verbose)) {
+    if (!isFile(filePath)) {
       errorNotExists(fileName, true);
     }
   }
 
-  const subdirectoriesToCheck = ["src", "mod", "node_modules"];
-  for (const subdirectoryName of subdirectoriesToCheck) {
+  for (const subdirectoryName of SUBDIRECTORY_NAMES_TO_CHECK) {
     const subdirectoryPath = path.join(CWD, subdirectoryName);
-    if (
-      !file.exists(subdirectoryPath, verbose) ||
-      !file.isDir(subdirectoryPath, verbose)
-    ) {
+    if (!isDirectory(subdirectoryPath)) {
       errorNotExists(subdirectoryName, false);
     }
   }
 }
 
-function errorNotExists(dirName: string, isFile: boolean) {
-  const noun = isFile ? "file" : "subdirectory";
+function errorNotExists(dirName: string, file: boolean) {
+  const noun = file ? "file" : "subdirectory";
   console.error(
     chalk.red(
       `It looks like the current working directory is not an ${PROJECT_NAME} project. (There is no "${dirName}" ${noun} here.)`,

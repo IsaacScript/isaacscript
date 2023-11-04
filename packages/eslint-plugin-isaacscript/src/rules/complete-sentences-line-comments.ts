@@ -1,7 +1,10 @@
 import { isSeparatorLine } from "../comments";
+import type { CompleteSentenceMessageIds } from "../completeSentence";
 import { getIncompleteSentences } from "../completeSentence";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";
+import { assertDefined } from "../isaacScriptCommonTS";
 import {
+  allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,
   getLeadingLineComments,
 } from "../leadingLineComments";
@@ -9,16 +12,17 @@ import { createRule } from "../utils";
 
 export type Options = [];
 
-export type MessageIds = "missingCapital" | "missingPeriod";
-
-export const completeSentencesLineComments = createRule<Options, MessageIds>({
+export const completeSentencesLineComments = createRule<
+  Options,
+  CompleteSentenceMessageIds
+>({
   name: "complete-sentences-line-comments",
   meta: {
     type: "problem",
     docs: {
       description:
         "Enforces complete sentences for multi-line leading line comments",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {
@@ -26,6 +30,8 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
         "Leading line comments must contain complete sentences with a capital letter.\n{{ sentence }}",
       missingPeriod:
         "Leading line comments must contain complete sentences with a trailing period.\n{{ sentence }}",
+      doublePeriod:
+        "Leading line comments must not end with a double period. Did you make a typo?\n{{ sentence }}",
     },
   },
   defaultOptions: [],
@@ -39,18 +45,16 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
     // Sort the comments by blocks.
     const commentBlocks = getCommentBlocks(leadingLineComments);
 
-    for (let i = 0; i < commentBlocks.length; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const commentBlock = commentBlocks[i]!;
-
+    for (const [i, commentBlock] of commentBlocks.entries()) {
       const firstComment = commentBlock.originalComments.at(0);
-      if (firstComment === undefined) {
-        throw new Error("Failed to get the first comment.");
-      }
+      assertDefined(firstComment, "Failed to get the first comment.");
 
       const lastComment = commentBlock.originalComments.at(-1);
-      if (lastComment === undefined) {
-        throw new Error("Failed to get the last comment");
+      assertDefined(lastComment, "Failed to get the last comment.");
+
+      // Commented out array elements are whitelisted.
+      if (allCommentsInBlockAreCommentedOutArrayElements(commentBlock)) {
+        continue;
       }
 
       // Comments in-between "separator lines" are whitelisted.
@@ -78,7 +82,7 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
       }
 
       const incompleteSentences = getIncompleteSentences(text);
-      incompleteSentences.forEach((incompleteSentence) => {
+      for (const incompleteSentence of incompleteSentences) {
         context.report({
           loc: {
             start: firstComment.loc.start,
@@ -89,7 +93,7 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
             sentence: incompleteSentence.sentence,
           },
         });
-      });
+      }
     }
 
     return {};
@@ -99,5 +103,16 @@ export const completeSentencesLineComments = createRule<Options, MessageIds>({
 function getFirstWord(text: string): string {
   const words = text.split(" ");
   const firstWord = words[0];
-  return firstWord ?? "";
+  if (firstWord === undefined) {
+    return "";
+  }
+
+  // We want to match e.g. `console.log`.
+  const parts = firstWord.split(".");
+  const firstPart = parts[0];
+  if (firstPart === undefined) {
+    return "";
+  }
+
+  return firstPart;
 }

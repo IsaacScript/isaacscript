@@ -1,35 +1,40 @@
+import {
+  getArgs,
+  isFile,
+  makeDirectory,
+  readFile,
+} from "isaacscript-common-node";
+import { assertDefined } from "isaacscript-common-ts";
 import * as JSONC from "jsonc-parser";
-import path from "path";
-import { PROJECT_NAME } from "../../../constants";
-import * as file from "../../../file";
-import { SaveDatMessage, SaveDatMessageType } from "./types";
+import fs from "node:fs";
+import path from "node:path";
+import { PROJECT_NAME } from "../../../constants.js";
+import type { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
 const MAX_MESSAGES = 100;
-const VERBOSE = false;
 
 let saveDatPath: string;
 let saveDatFileName: string;
 
-init(VERBOSE);
+init();
 
-function init(verbose: boolean) {
-  const args = process.argv.slice(2);
+function init() {
+  const args = getArgs();
 
   const firstArg = args[0];
-  if (firstArg === undefined) {
-    throw new Error(
-      `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
-    );
-  }
+  assertDefined(
+    firstArg,
+    `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
+  );
 
   saveDatPath = firstArg;
   saveDatFileName = path.basename(saveDatPath);
 
   // Check to see if the data directory exists.
   const watcherModDataPath = path.dirname(saveDatPath);
-  if (!file.exists(watcherModDataPath, verbose)) {
-    file.makeDir(watcherModDataPath, verbose);
+  if (!isFile(watcherModDataPath)) {
+    makeDirectory(watcherModDataPath);
   }
 
   // Listen for messages from the parent process.
@@ -39,12 +44,12 @@ function init(verbose: boolean) {
 }
 
 function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
-  const saveDat = readSaveDatFromDisk(VERBOSE);
+  const saveDat = readSaveDatFromDisk();
   if (saveDat.length > MAX_MESSAGES) {
     // If IsaacScript is running and:
     // - the game is not open
     // - or the game is open but the IsaacScript Watcher mod is disabled
-    //
+
     // Then this process will continue to write to the "save#.dat" file, which can cause it to grow
     // arbitrarily large (since there is no-one on the other side removing the messages). If there
     // is N messages already in the queue, assume that no-one is listening and stop adding any more
@@ -52,17 +57,17 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
     return;
   }
   addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
-  writeSaveDatToDisk(type, data, saveDat, numRetries, VERBOSE);
+  writeSaveDatToDisk(type, data, saveDat, numRetries);
 }
 
-function readSaveDatFromDisk(verbose: boolean) {
+function readSaveDatFromDisk() {
   let saveDat: SaveDatMessage[];
-  if (file.exists(saveDatPath, verbose)) {
-    const saveDatRaw = file.read(saveDatPath, verbose);
+  if (isFile(saveDatPath)) {
+    const saveDatRaw = readFile(saveDatPath);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
-    } catch (err) {
-      send(`Failed to parse "${saveDatPath}": ${err}`);
+    } catch (error) {
+      send(`Failed to parse "${saveDatPath}": ${error}`);
       process.exit(1);
     }
   } else {
@@ -110,17 +115,16 @@ function writeSaveDatToDisk(
   data: string,
   saveDat: SaveDatMessage[],
   numRetries: number,
-  verbose: boolean,
 ) {
-  const saveDatRaw = JSON.stringify(saveDat, null, 2);
+  const saveDatRaw = `${JSON.stringify(saveDat, undefined, 2)}\n`; // Prettify it for easier debugging.
   try {
-    file.writeTry(saveDatPath, saveDatRaw, verbose);
-  } catch (err) {
+    // We don't use the "writeFile" helper function here, since we want to allow for failure.
+    fs.writeFileSync(saveDatPath, saveDatRaw);
+  } catch (error) {
     if (numRetries > 4) {
       send(
-        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.`,
+        `Failed to write to the ${saveDatFileName} for 5 times in a row. Maybe the file got locked somehow. ${PROJECT_NAME} will now exit.\nThe writing error is as follows: ${error}`,
       );
-      send(`The writing error is as follows: ${err}`);
       process.exit(1);
     }
 

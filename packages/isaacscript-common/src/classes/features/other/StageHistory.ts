@@ -12,35 +12,35 @@ import {
   onRepentanceStage,
 } from "../../../functions/stage";
 import { asNumber } from "../../../functions/types";
+import type { StageHistoryEntry } from "../../../interfaces/StageHistoryEntry";
 import { Feature } from "../../private/Feature";
+
+const v = {
+  run: {
+    stageHistory: [] as StageHistoryEntry[],
+  },
+};
 
 export class StageHistory extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      stageHistory: [] as Array<[stage: LevelStage, stageType: StageType]>,
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
     super();
 
     this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_NEW_LEVEL_REORDERED,
-        [this.postNewLevelReordered],
-      ],
+      [ModCallbackCustom.POST_NEW_LEVEL_REORDERED, this.postNewLevelReordered],
     ];
   }
 
   // ModCallbackCustom.POST_NEW_LEVEL_REORDERED
-  private postNewLevelReordered = () => {
+  private readonly postNewLevelReordered = () => {
     const level = game.GetLevel();
     const stage = level.GetStage();
     const stageType = level.GetStageType();
 
-    this.v.run.stageHistory.push([stage, stageType]);
+    v.run.stageHistory.push({ stage, stageType });
   };
 
   /**
@@ -53,8 +53,8 @@ export class StageHistory extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
    *
-   * @param upwards Whether or not the player should go up to Cathedral in the case of being on Womb
-   *                2. Default is false.
+   * @param upwards Whether the player should go up to Cathedral in the case of being on Womb 2.
+   *                Default is false.
    */
   @Exported
   public getNextStageTypeWithHistory(upwards = false): StageType {
@@ -297,10 +297,8 @@ export class StageHistory extends Feature {
    * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
    */
   @Exported
-  public getStageHistory(): ReadonlyArray<
-    [stage: LevelStage, stageType: StageType]
-  > {
-    return this.v.run.stageHistory;
+  public getStageHistory(): readonly StageHistoryEntry[] {
+    return v.run.stageHistory;
   }
 
   /**
@@ -316,14 +314,15 @@ export class StageHistory extends Feature {
   @Exported
   public hasVisitedStage(stage: LevelStage, stageType?: StageType): boolean {
     if (stageType === undefined) {
-      return this.v.run.stageHistory.some(
-        ([previousStage]) => previousStage === stage,
+      return v.run.stageHistory.some(
+        (stageHistoryEntry) => stageHistoryEntry.stage === stage,
       );
     }
 
-    return this.v.run.stageHistory.some(
-      ([previousStage, previousStageType]) =>
-        previousStage === stage && previousStageType === stageType,
+    return v.run.stageHistory.some(
+      (stageHistoryEntry) =>
+        stageHistoryEntry.stage === stage &&
+        stageHistoryEntry.stageType === stageType,
     );
   }
 }

@@ -1,6 +1,6 @@
 /*
 eslint sort-exports/sort-exports: [
-  "warn",
+  "error",
   {
     sortDir: "asc",
   },
@@ -14,7 +14,7 @@ eslint sort-exports/sort-exports: [
 // Since multiple callbacks can have the same kinds of filtration, we prevent repetition by
 // abstracting the validation logic into separate functions here.
 
-import {
+import type {
   BombVariant,
   CollectibleType,
   DamageFlag,
@@ -26,6 +26,7 @@ import {
   ItemType,
   KnifeVariant,
   LaserVariant,
+  LevelStage,
   PickupVariant,
   PitVariant,
   PlayerType,
@@ -33,16 +34,18 @@ import {
   PoopGridEntityVariant,
   PressurePlateVariant,
   ProjectileVariant,
+  RoomType,
   SlotVariant,
+  StageType,
   TearVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { AmbushType } from "./enums/AmbushType";
-import { HealthType } from "./enums/HealthType";
-import { SlotDestructionType } from "./enums/SlotDestructionType";
-import { StatType } from "./enums/StatType";
-import { PickingUpItem } from "./types/PickingUpItem";
-import { PossibleStatType } from "./types/PossibleStatType";
+import type { AmbushType } from "./enums/AmbushType";
+import type { HealthType } from "./enums/HealthType";
+import type { PlayerStat } from "./enums/PlayerStat";
+import type { SlotDestructionType } from "./enums/SlotDestructionType";
+import type { PickingUpItem } from "./types/PickingUpItem";
+import type { PossibleStatType } from "./types/PossibleStatType";
 
 export function shouldFireAmbush(
   fireArgs: [ambushType: AmbushType],
@@ -55,7 +58,10 @@ export function shouldFireAmbush(
 }
 
 export function shouldFireBomb(
-  fireArgs: [bomb: EntityBomb],
+  fireArgs:
+    | [bomb: EntityBomb]
+    | [bomb: EntityBomb, renderOffset: Vector]
+    | [bomb: EntityBomb, collider: Entity, low: boolean],
   optionalArgs: [bombVariant?: BombVariant, subType?: int],
 ): boolean {
   const [bomb] = fireArgs;
@@ -68,17 +74,14 @@ export function shouldFireBomb(
   );
 }
 
-export function shouldFireCollectible(
-  fireArgs: [collectible: EntityPickupCollectible],
-  optionalArgs: [collectibleType?: CollectibleType],
+export function shouldFireBoolean(
+  fireArgs: [fireArg: boolean],
+  optionalArgs: [optionalArg?: boolean],
 ): boolean {
-  const [collectible] = fireArgs;
-  const [callbackCollectibleType] = optionalArgs;
+  const [fireArg] = fireArgs;
+  const [optionalArg] = optionalArgs;
 
-  return (
-    callbackCollectibleType === undefined ||
-    callbackCollectibleType === collectible.SubType
-  );
+  return optionalArg === undefined || optionalArg === fireArg;
 }
 
 export function shouldFireCollectibleType(
@@ -111,6 +114,7 @@ export function shouldFireDoor(
 export function shouldFireEffect(
   fireArgs:
     | [effect: EntityEffect]
+    | [effect: EntityEffect, renderOffset: Vector]
     | [effect: EntityEffect, previousState: int, currentState: int],
   optionalArgs: [effectVariant?: EffectVariant, subType?: int],
 ): boolean {
@@ -124,9 +128,33 @@ export function shouldFireEffect(
   );
 }
 
+export function shouldFireEntity(
+  fireArgs:
+    | [entity: Entity]
+    | [
+        entity: Entity,
+        amount: number,
+        damageFlags: BitFlags<DamageFlag>,
+        source: EntityRef,
+        countdownFrames: number,
+      ],
+  optionalArgs: [entityType?: EntityType, variant?: int, subType?: int],
+): boolean {
+  const [entity] = fireArgs;
+  const [callbackEntityType, callbackVariant, callbackSubType] = optionalArgs;
+
+  return (
+    (callbackEntityType === undefined || callbackEntityType === entity.Type) &&
+    (callbackVariant === undefined || callbackVariant === entity.Variant) &&
+    (callbackSubType === undefined || callbackSubType === entity.SubType)
+  );
+}
+
 export function shouldFireFamiliar(
   fireArgs:
     | [familiar: EntityFamiliar]
+    | [familiar: EntityFamiliar, renderOffset: Vector]
+    | [familiar: EntityFamiliar, collider: Entity, low: boolean]
     | [familiar: EntityFamiliar, previousState: int, currentState: int],
   optionalArgs: [familiarVariant?: FamiliarVariant, subType?: int],
 ): boolean {
@@ -189,13 +217,15 @@ export function shouldFireItemPickup(
   return (
     (callbackItemType === undefined ||
       callbackItemType === pickingUpItem.itemType) &&
-    // eslint-disable-next-line isaacscript/strict-enums
     (callbackSubtype === undefined || callbackSubtype === pickingUpItem.subType)
   );
 }
 
 export function shouldFireKnife(
-  fireArgs: [knife: EntityKnife],
+  fireArgs:
+    | [knife: EntityKnife]
+    | [knife: EntityKnife, renderOffset: Vector]
+    | [knife: EntityKnife, collider: Entity, low: boolean],
   optionalArgs: [knifeVariant?: KnifeVariant, subType?: int],
 ): boolean {
   const [knife] = fireArgs;
@@ -209,7 +239,7 @@ export function shouldFireKnife(
 }
 
 export function shouldFireLaser(
-  fireArgs: [laser: EntityLaser],
+  fireArgs: [laser: EntityLaser] | [laser: EntityLaser, renderOffset: Vector],
   optionalArgs: [laserVariant?: LaserVariant, subType?: int],
 ): boolean {
   const [laser] = fireArgs;
@@ -222,10 +252,25 @@ export function shouldFireLaser(
   );
 }
 
+export function shouldFireLevel(
+  fireArgs: [stage: LevelStage, stageType: StageType],
+  optionalArgs: [stage?: LevelStage, stageType?: StageType],
+): boolean {
+  const [stage, stageType] = fireArgs;
+  const [callbackStage, callbackStageType] = optionalArgs;
+
+  return (
+    (callbackStage === undefined || callbackStage === stage) &&
+    (callbackStageType === undefined || callbackStageType === stageType)
+  );
+}
+
 export function shouldFireNPC(
   fireArgs:
     | [npc: EntityNPC]
-    | [npc: EntityNPC, previousState: int, currentState: int],
+    | [npc: EntityNPC, previousState: int, currentState: int]
+    | [npc: EntityNPC, renderOffset: Vector]
+    | [npc: EntityNPC, collider: Entity, low: boolean],
   optionalArgs: [entityType?: EntityType, variant?: int, subType?: int],
 ): boolean {
   const [npc] = fireArgs;
@@ -241,8 +286,16 @@ export function shouldFireNPC(
 export function shouldFirePickup(
   fireArgs:
     | [pickup: EntityPickup]
+    | [pickup: EntityPickup, renderOffset: Vector]
     | [pickup: EntityPickup, player: EntityPlayer]
-    | [pickup: EntityPickup, previousState: int, currentState: int],
+    | [pickup: EntityPickup, previousState: int, currentState: int]
+    | [
+        pickup: EntityPickup,
+        oldVariant: PickupVariant,
+        oldSubType: int,
+        newVariant: PickupVariant,
+        newSubType: int,
+      ],
   optionalArgs: [pickupVariant?: PickupVariant, subType?: int],
 ): boolean {
   const [pickup] = fireArgs;
@@ -271,6 +324,7 @@ export function shouldFirePit(
 export function shouldFirePlayer(
   fireArgs:
     | [player: EntityPlayer]
+    | [player: EntityPlayer, renderOffset: Vector]
     | [player: EntityPlayer, numSacrifices: int]
     | [player: EntityPlayer, collectible: EntityPickupCollectible]
     | [player: EntityPlayer, oldCharacter: PlayerType, newCharacter: PlayerType]
@@ -290,7 +344,7 @@ export function shouldFirePlayer(
       ]
     | [
         player: EntityPlayer,
-        statType: StatType,
+        playerStat: PlayerStat,
         difference: int,
         oldValue: PossibleStatType,
         newValue: PossibleStatType,
@@ -340,7 +394,10 @@ export function shouldFirePressurePlate(
 }
 
 export function shouldFireProjectile(
-  fireArgs: [projectile: EntityProjectile],
+  fireArgs:
+    | [projectile: EntityProjectile]
+    | [projectile: EntityProjectile, renderOffset: Vector]
+    | [projectile: EntityProjectile, collider: Entity, low: boolean],
   optionalArgs: [projectileVariant?: ProjectileVariant, subType?: int],
 ): boolean {
   const [projectile] = fireArgs;
@@ -368,6 +425,16 @@ export function shouldFireRock(
       callbackGridEntity === gridEntityType) &&
     (callbackVariant === undefined || callbackVariant === variant)
   );
+}
+
+export function shouldFireRoom(
+  fireArgs: [roomType: RoomType],
+  optionalArgs: [roomType?: RoomType],
+): boolean {
+  const [roomType] = fireArgs;
+  const [callbackRoomType] = optionalArgs;
+
+  return callbackRoomType === undefined || callbackRoomType === roomType;
 }
 
 export function shouldFireSlot(
@@ -413,7 +480,10 @@ export function shouldFireTNT(
 }
 
 export function shouldFireTear(
-  fireArgs: [tear: EntityTear],
+  fireArgs:
+    | [tear: EntityTear]
+    | [tear: EntityTear, renderOffset: Vector]
+    | [tear: EntityTear, collider: Entity, low: boolean],
   optionalArgs: [tearVariant?: TearVariant, subType?: int],
 ): boolean {
   const [tear] = fireArgs;

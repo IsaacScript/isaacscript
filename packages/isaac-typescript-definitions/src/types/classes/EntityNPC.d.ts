@@ -1,42 +1,42 @@
-import { ChampionColor } from "../../enums/ChampionColor";
-import { EntityType } from "../../enums/EntityType";
-import { NpcState } from "../../enums/NpcState";
-import { ProjectilesMode } from "../../enums/ProjectilesMode";
-import { SoundEffect } from "../../enums/SoundEffect";
+import type { ChampionColor } from "../../enums/ChampionColor";
+import type { EntityType } from "../../enums/EntityType";
+import type { NPCState } from "../../enums/NPCState";
+import type { ProjectilesMode } from "../../enums/ProjectilesMode";
+import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   interface EntityNPC extends Entity {
-    AnimWalkFrame(
+    AnimWalkFrame: (
       horizontalAnim: string,
       verticalAnim: string,
       speedThreshold: float,
-    ): void;
+    ) => void;
 
-    CalcTargetPosition(distanceLimit: float): Vector;
-    CanBeDamagedFromVelocity(velocity: Vector): boolean;
-    CanReroll(): boolean;
+    CalcTargetPosition: (distanceLimit: float) => Vector;
+    CanBeDamagedFromVelocity: (velocity: Vector) => boolean;
+    CanReroll: () => boolean;
 
-    FireBossProjectiles(
+    FireBossProjectiles: (
       numProjectiles: int,
       targetPos: Vector,
       trajectoryModifier: float,
       projectileParams: ProjectileParams,
-    ): EntityProjectile;
+    ) => EntityProjectile;
 
-    FireProjectiles(
+    FireProjectiles: (
       position: Vector,
       velocity: Vector,
       projectilesMode: ProjectilesMode,
       projectileParams: ProjectileParams,
-    ): void;
+    ) => void;
 
-    GetAliveEnemyCount(): int;
-    GetBossColorIdx(): int;
-    GetChampionColorIdx(): ChampionColor;
-    GetPlayerTarget(): Entity;
-    IsBoss(): boolean;
-    IsChampion(): boolean;
-    KillUnique(): void;
+    GetAliveEnemyCount: () => int;
+    GetBossColorIdx: () => int;
+    GetChampionColorIdx: () => ChampionColor;
+    GetPlayerTarget: () => Entity;
+    IsBoss: () => boolean;
+    IsChampion: () => boolean;
+    KillUnique: () => void;
 
     /**
      * @param seed
@@ -45,13 +45,13 @@ declare global {
      * @param init Set to true when called while initializing the enemy, false otherwise. Default is
      *             false.
      */
-    MakeChampion(
+    MakeChampion: (
       seed: Seed,
       championColorIdx?: ChampionColor,
       init?: boolean,
-    ): void;
+    ) => void;
 
-    MakeSplat(size: float): EntityEffect;
+    MakeSplat: (size: float) => EntityEffect;
 
     /**
      * Change the NPC into another one.
@@ -61,31 +61,31 @@ declare global {
      * @param subType
      * @param championColorIdx Pass -1 to morph into a non-champion.
      */
-    Morph(
+    Morph: (
       entityType: EntityType,
       variant: int,
       subType: int,
       championColorIdx: ChampionColor | -1,
-    ): boolean;
+    ) => boolean;
 
-    PlaySound(
+    PlaySound: (
       soundEffect: SoundEffect,
       volume: float,
       frameDelay: int,
       loop: boolean,
       pitch: float,
-    ): void;
+    ) => void;
 
-    QueryNPCsGroup(groupIdx: int): EntityList;
+    QueryNPCsGroup: (groupIdx: int) => EntityList;
 
-    QueryNPCsSpawnerType(
+    QueryNPCsSpawnerType: (
       spawnerType: EntityType,
       entityType: EntityType,
       onlyEnemies: boolean,
-    ): EntityList;
+    ) => EntityList;
 
-    QueryNPCsType(entityType: EntityNPC, variant: int): EntityList;
-    ResetPathFinderTarget(): void;
+    QueryNPCsType: (entityType: EntityNPC, variant: int) => EntityList;
+    ResetPathFinderTarget: () => void;
 
     /**
      * The `EntityNPC.CanShutDoors` field conflicts with the `Entity.CanShutDoors` method, but the
@@ -103,7 +103,7 @@ declare global {
     ProjectileCooldown: int;
     ProjectileDelay: int;
     Scale: float;
-    State: NpcState;
+    State: NPCState;
 
     StateFrame: int;
     V1: Vector;

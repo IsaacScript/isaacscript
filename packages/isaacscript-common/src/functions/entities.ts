@@ -1,22 +1,33 @@
-import { EntityType } from "isaac-typescript-definitions";
+import {
+  EntityFlag,
+  EntityType,
+  MotherVariant,
+  NPCState,
+  UltraGreedState,
+  UltraGreedVariant,
+  UltraGreedierState,
+} from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { ENTITIES_WITH_ARMOR_SET } from "../sets/entitiesWithArmorSet";
-import { STORY_BOSSES_SET } from "../sets/storyBossesSet";
-import { AnyEntity } from "../types/AnyEntity";
-import { EntityID } from "../types/EntityID";
+import type { AnyEntity } from "../types/AnyEntity";
+import type { EntityID } from "../types/EntityID";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
 import { getRandom } from "./random";
-import { isRNG, newRNG } from "./rng";
-import { asNumber, isPrimitive } from "./types";
-import { isVector, vectorToString } from "./vector";
+import { newReadonlyColor } from "./readOnly";
+import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { setSpriteOpacity } from "./sprites";
+import { isTSTLSet } from "./tstlClass";
+import { asNPCState, isPrimitive } from "./types";
+import { assertDefined } from "./utils";
+import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
-const DAMAGE_FLASH_COLOR: Readonly<Color> = Color(
+const DAMAGE_FLASH_COLOR = newReadonlyColor(
   0.5,
   0.5,
   0.5,
-  1.0,
+  1,
   200 / 255,
   0 / 255,
   0 / 255,
@@ -30,14 +41,29 @@ const DAMAGE_FLASH_COLOR: Readonly<Color> = Color(
  * @param entityType Optional. Default is -1, which matches every entity type.
  * @param variant Optional. Default is -1, which matches every variant.
  * @param subType Optional. Default is -1, which matches every sub-type.
- * @param ignoreFriendly Optional. Default is false.
+ * @param ignoreFriendly Optional. Default is false. Will throw a runtime error if set to true and
+ *                       the `entityType` is equal to -1.
  */
 export function countEntities(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
 ): int {
+  if (entityType === -1) {
+    // The `Isaac.CountEntities` method requires an argument of `EntityType`, so we must revert to
+    // using the `Isaac.GetRoomEntities` method, which is slower.
+    const entities = Isaac.GetRoomEntities();
+    if (!ignoreFriendly) {
+      return entities.length;
+    }
+
+    const nonFriendlyEntities = entities.filter(
+      (entity) => !entity.HasEntityFlags(EntityFlag.FRIENDLY),
+    );
+    return nonFriendlyEntities.length;
+  }
+
   if (!ignoreFriendly) {
     return Isaac.CountEntities(undefined, entityType, variant, subType);
   }
@@ -54,6 +80,31 @@ export function countEntities(
 }
 
 /**
+ * Helper function to check if one or more matching entities exist in the current room. It uses the
+ * `doesEntityExist` helper function to determine this.
+ *
+ * @param entityTypes An array or set of the entity types that you want to check for. Will return
+ *                    true if any of the provided entity types exist.
+ * @param ignoreFriendly Optional. Default is false.
+ */
+export function doesAnyEntityExist(
+  entityTypes:
+    | EntityType[]
+    | readonly EntityType[]
+    | Set<EntityType>
+    | ReadonlySet<EntityType>,
+  ignoreFriendly = false,
+): boolean {
+  const entityTypesArray = isTSTLSet(entityTypes)
+    ? [...entityTypes.values()]
+    : (entityTypes as EntityType[]);
+
+  return entityTypesArray.some((entityType) =>
+    doesEntityExist(entityType, -1, -1, ignoreFriendly),
+  );
+}
+
+/**
  * Helper function to check if one or more of a specific kind of entity is present in the current
  * room. It uses the `countEntities` helper function to determine this.
  *
@@ -63,7 +114,7 @@ export function countEntities(
  * @param ignoreFriendly Optional. Default is false.
  */
 export function doesEntityExist(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
@@ -83,17 +134,26 @@ export function doesEntityExist(
  * const gapers = getEntities(EntityType.GAPER);
  * const closestGaper = getClosestEntityTo(player, gapers);
  * ```
+ *
+ * @param referenceEntity The entity that is close by.
+ * @param entities The array of entities to look through.
+ * @param filterFunc Optional. A function to filter for a specific type of entity, like e.g. an
+ *                   enemy with a certain amount of HP left.
  */
 export function getClosestEntityTo<T extends AnyEntity>(
   referenceEntity: Entity,
   entities: T[],
+  filterFunc?: (entity: T) => boolean,
 ): T | undefined {
   let closestEntity: T | undefined;
   let closestDistance = math.huge;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
 
-    if (distance < closestDistance) {
+    if (
+      distance < closestDistance &&
+      (filterFunc === undefined || filterFunc(entity))
+    ) {
       closestEntity = entity;
       closestDistance = distance;
     }
@@ -114,21 +174,22 @@ export function getConstituentsFromEntityID(
   const [entityTypeString, variantString, subTypeString] = parts;
 
   const entityType = tonumber(entityTypeString);
-  if (entityType === undefined) {
-    error(`Failed to convert the entity type to a number: ${entityTypeString}`);
-  }
+  assertDefined(
+    entityType,
+    `Failed to convert the entity type to a number: ${entityTypeString}`,
+  );
 
   const variant = tonumber(variantString);
-  if (variant === undefined) {
-    error(`Failed to convert the entity variant to a number: ${variantString}`);
-  }
+  assertDefined(
+    variant,
+    `Failed to convert the entity variant to a number: ${variantString}`,
+  );
 
   const subType = tonumber(subTypeString);
-  if (subType === undefined) {
-    error(
-      `Failed to convert the entity sub-type to a number: ${subTypeString}`,
-    );
-  }
+  assertDefined(
+    subType,
+    `Failed to convert the entity sub-type to a number: ${subTypeString}`,
+  );
 
   return [entityType, variant, subType];
 }
@@ -161,12 +222,12 @@ export function getConstituentsFromEntityID(
  *                       `entityType` is specified.
  */
 export function getEntities(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
 ): Entity[] {
-  if (asNumber(entityType) === -1) {
+  if (entityType === -1) {
     return Isaac.GetRoomEntities();
   }
 
@@ -188,9 +249,7 @@ export function getEntityFields(
   const metatable = getmetatable(entity) as
     | LuaMap<AnyNotNil, unknown>
     | undefined;
-  if (metatable === undefined) {
-    error("Failed to get the metatable for an entity.");
-  }
+  assertDefined(metatable, "Failed to get the metatable for an entity.");
 
   setPrimitiveEntityFields(entity, metatable, entityFields);
 
@@ -205,9 +264,10 @@ export function getEntityFields(
   const parentTable = metatable.get("__parent") as
     | LuaMap<AnyNotNil, unknown>
     | undefined;
-  if (parentTable === undefined) {
-    error('Failed to get the "__parent" table for an entity.');
-  }
+  assertDefined(
+    parentTable,
+    'Failed to get the "__parent" table for an entity.',
+  );
 
   setPrimitiveEntityFields(entity, parentTable, entityFields);
 
@@ -222,9 +282,10 @@ function setPrimitiveEntityFields(
   const propGetTable = metatable.get("__propget") as
     | LuaMap<AnyNotNil, unknown>
     | undefined;
-  if (propGetTable === undefined) {
-    error('Failed to get the "__propget" table for an entity.');
-  }
+  assertDefined(
+    propGetTable,
+    'Failed to get the "__propget" table for an entity.',
+  );
 
   for (const [key] of propGetTable) {
     // The values of this table are functions. Thus, we use the key to index the original entity.
@@ -296,6 +357,82 @@ export function hasArmor(entity: Entity): boolean {
 }
 
 /**
+ * Helper function to detect if a particular entity is an active enemy. Use this over the
+ * `Entity.IsActiveEnemy` method since it is bugged with friendly enemies, Grimaces, Ultra Greed,
+ * and Mother.
+ */
+export function isActiveEnemy(entity: Entity): boolean {
+  if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
+    return false;
+  }
+
+  const room = game.GetRoom();
+  const isClear = room.IsClear();
+
+  // Some entities count as being "active" enemies, but they deactivate when the room is cleared.
+  if (isClear) {
+    switch (entity.Type) {
+      // 42
+      case EntityType.GRIMACE: {
+        return false;
+      }
+
+      // 294
+      case EntityType.ULTRA_DOOR: {
+        return false;
+      }
+
+      // 406
+      case EntityType.ULTRA_GREED: {
+        const npc = entity.ToNPC();
+        if (npc !== undefined) {
+          const ultraGreedVariant = npc.Variant as UltraGreedVariant;
+
+          switch (ultraGreedVariant) {
+            case UltraGreedVariant.ULTRA_GREED: {
+              if (npc.State === asNPCState(UltraGreedState.GOLD_STATUE)) {
+                return false;
+              }
+
+              break;
+            }
+
+            case UltraGreedVariant.ULTRA_GREEDIER: {
+              if (npc.State === asNPCState(UltraGreedierState.POST_EXPLOSION)) {
+                return false;
+              }
+
+              break;
+            }
+          }
+        }
+
+        break;
+      }
+
+      // 912
+      case EntityType.MOTHER: {
+        if (entity.Variant === MotherVariant.MOTHER_1) {
+          const npc = entity.ToNPC();
+          if (npc !== undefined && npc.State === NPCState.SPECIAL) {
+            return false;
+          }
+        }
+
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
+  }
+
+  // eslint-disable-next-line deprecation/deprecation
+  return entity.IsActiveEnemy(false);
+}
+
+/**
  * Helper function to measure an entity's velocity to see if it is moving.
  *
  * Use this helper function over checking if the velocity length is equal to 0 because entities can
@@ -306,16 +443,7 @@ export function hasArmor(entity: Entity): boolean {
  * @param threshold Optional. The threshold from 0 to consider to be moving. Default is 0.01.
  */
 export function isEntityMoving(entity: Entity, threshold = 0.01): boolean {
-  return entity.Velocity.Length() >= threshold;
-}
-
-/**
- * Helper function to determine if the specified entity type is an end-game story boss, like Isaac,
- * Blue Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only
- * apply to non-story bosses, like Vanishing Twin. Also see the `STORY_BOSSES` constant.
- */
-export function isStoryBoss(entityType: EntityType): boolean {
-  return STORY_BOSSES_SET.has(entityType);
+  return doesVectorHaveLength(entity.Velocity, threshold);
 }
 
 /**
@@ -468,15 +596,28 @@ export function setEntityDamageFlash(entity: Entity): void {
   entity.SetColor(DAMAGE_FLASH_COLOR, 2, 0);
 }
 
+/**
+ * Helper function to keep an entity's color the same values as it already is but set the opacity to
+ * a specific value.
+ *
+ * @param entity The entity to set.
+ * @param alpha A value between 0 and 1 that represents the fade amount.
+ */
+export function setEntityOpacity(entity: Entity, alpha: float): void {
+  const sprite = entity.GetSprite();
+  setSpriteOpacity(sprite, alpha);
+}
+
 export function setEntityRandomColor(entity: Entity): void {
-  const rng = newRNG(entity.InitSeed);
+  const seed = entity.InitSeed === 0 ? getRandomSeed() : entity.InitSeed;
+  const rng = newRNG(seed);
 
   const r = getRandom(rng);
   const g = getRandom(rng);
   const b = getRandom(rng);
 
   const color = Color(r, g, b);
-  entity.SetColor(color, 100000, 100000, false, false);
+  entity.SetColor(color, 100_000, 100_000, false, false);
 }
 
 /**
@@ -488,7 +629,7 @@ export function setEntityRandomColor(entity: Entity): void {
  * @param entityType The `EntityType` of the entity to spawn.
  * @param variant The variant of the entity to spawn.
  * @param subType The sub-type of the entity to spawn.
- * @param position The position of the entity to spawn.
+ * @param positionOrGridIndex The position or grid index of the entity to spawn.
  * @param velocity Optional. The velocity of the entity to spawn. Default is `VectorZero`.
  * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
  * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
@@ -499,26 +640,24 @@ export function spawn(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
 ): Entity {
+  const room = game.GetRoom();
+
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (position === undefined) {
+  if (positionOrGridIndex === undefined) {
     const entityID = getEntityIDFromConstituents(entityType, variant, subType);
     error(
       `Failed to spawn entity ${entityID} since an undefined position was passed to the "spawn" function.`,
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (velocity === undefined) {
-    const entityID = getEntityIDFromConstituents(entityType, variant, subType);
-    error(
-      `Failed to spawn entity ${entityID} since an undefined velocity was passed to the "spawn" function.`,
-    );
-  }
+  const position = isVector(positionOrGridIndex)
+    ? positionOrGridIndex
+    : room.GetGridPosition(positionOrGridIndex);
 
   if (seedOrRNG === undefined) {
     return Isaac.Spawn(
@@ -547,7 +686,7 @@ export function spawn(
  * Helper function to spawn the entity corresponding to an `EntityID`.
  *
  * @param entityID The `EntityID` of the entity to spawn.
- * @param position The position of the entity to spawn.
+ * @param positionOrGridIndex The position or grid index of the entity to spawn.
  * @param velocity Optional. The velocity of the entity to spawn. Default is `VectorZero`.
  * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
  * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
@@ -556,7 +695,7 @@ export function spawn(
  */
 export function spawnEntityID(
   entityID: EntityID,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
   seedOrRNG: Seed | RNG | undefined = undefined,
@@ -566,7 +705,7 @@ export function spawnEntityID(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,
@@ -581,7 +720,7 @@ export function spawnWithSeed(
   entityType: EntityType,
   variant: int,
   subType: int,
-  position: Vector,
+  positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
   spawner: Entity | undefined = undefined,
@@ -590,7 +729,7 @@ export function spawnWithSeed(
     entityType,
     variant,
     subType,
-    position,
+    positionOrGridIndex,
     velocity,
     spawner,
     seedOrRNG,

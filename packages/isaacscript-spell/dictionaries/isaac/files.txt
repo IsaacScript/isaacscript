@@ -1,5 +1,6 @@
 # These are words from files in the "resources" directory, like "entities2.xml".
 
+addcostumeonpickup # items.xml
 altpath # challenges.xml
 ambushroomdoor # door_03_ambushroomdoor.png
 announcerdelay # pocketitems.xml
@@ -10,6 +11,7 @@ BLCK # BLCK CNDL seed
 bossambushroomdoor # door_09_bossambushroomdoor.png
 bossname # bossname_20.0_monstro.png
 bosspools # bosspools.xml
+bossportraits # bossportraits.xml
 bossroomdoor # door_10_bossroomdoor.png
 bossrushdoor # door_15_bossrushdoor.png
 cansacrifice # entities2.xml
@@ -20,11 +22,13 @@ chestroomdoor # door_02b_chestroomdoor.png
 CNDL # BLCK CNDL seed
 combineddoor # door_07_combineddoor.png
 corpsehole # door_11_corpsehole_custom.anm2
+craftquality # items_metadata.xml
 deathanm # items.xml
 devilprice # items.xml
 devilroomdoor # door_07_devilroomdoor.png
 endstage # challenges.xml
 fadecolor # cutscenes.xml
+firedelay # items.xml
 gfxroot # items.xml
 giantbook # giantbook.xml
 greedmode # pocketitems.xml
@@ -34,10 +38,13 @@ hudpickups # hudpickups.png
 Humbleing # items.xml
 itemdungeon # 00.special rooms.xml
 itempools # itempools.xml
+kyuukyuu # 567_baby_kyuukyuu.png
 lazarusshared # items_metadata.xml
 lazarussharedglobal # items_metadata.xml
 lbasementfloor # 01_lbasementfloor.png
 maxcharges # items.xml
+maxhearts # items.xml
+Megatroll # entities2.xml
 mimiccharge # pocketitems.xml
 monstermanual # items_metadata.xml
 nameimage # players.xml
@@ -50,10 +57,12 @@ noeden # items_metadata.xml
 nogreed # items_metadata.xml
 nokeeper # items_metadata.xml
 nolostbr # items_metadata.xml
+nopits # entities2.xml
 normaldoor # door_01_normaldoor.png
 Onan # challenges.xml
 pftempestasevencondensed # font
 pilleffect # pocketitems.xml
+playername # playername_01_isaac.png
 playerportrait # players.xml
 playerportraitbig # players.xml
 pocketitems # pocketitems.xml
@@ -63,13 +72,17 @@ secrettrapdoor # door_20_secrettrapdoor_shop.anm2
 selfsacrificeroomdoor # door_04_selfsacrificeroomdoor.png
 shotspeed # items.xml
 shutdoors # entities2.xml
+soulhearts # items.xml
+statuseffects # statuseffects.anm2
 steamapps # The resources directory
 stringtable # stringtable.sta
 summonable # items_metadata.xml
 swallowedpenny # trinket_001_swallowedpenny.png
 teammeatfont # font
+tearcolor # items.xml
 tearsup # items_metadata.xml
 thesadonion # collectibles_001_thesadonion.png
+titlemenu # titlemenu.png
 treasureroomdoor # door_02_treasureroomdoor.png
 uniquefamiliar # items_metadata.xml
 versusscreen # versusscreen.anm2

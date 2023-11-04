@@ -1,7 +1,28 @@
 import { ModCallback, PlayerType } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
-import { logError } from "../../../functions/logMisc";
+import { logError } from "../../../functions/log";
 import { Feature } from "../../private/Feature";
+
+const v = {
+  run: {
+    queuedTaintedLazarus: [] as EntityPlayer[],
+    queuedDeadTaintedLazarus: [] as EntityPlayer[],
+
+    /**
+     * The `POST_PLAYER_INIT` callback fires for Dead Tainted Lazarus at the beginning of the run.
+     * However, the player index for the Dead Tainted Lazarus player object at that time does not
+     * actually correspond to the player index for the real player once Flip has been used. Thus, we
+     * revert to using PtrHash as an index for our map, which is consistent between the Dead Tainted
+     * Lazarus object in the `POST_PLAYER_INIT` callback and the "real" Dead Tainted Lazarus.
+     *
+     * We use `EntityPlayer` as the value for the map instead of `EntityPtr` because using the
+     * pointer does not work for some reason. (When we unwrap it after one or more flips have been
+     * used, the pointers no longer point to the original objects, even if we manually update the
+     * pointers in the `POST_FLIP` callback.)
+     */
+    subPlayerMap: new Map<PtrHash, EntityPlayer>(),
+  },
+};
 
 /**
  * This feature provides a way for end-users to get the `EntityPlayer` object for the other Tainted
@@ -9,29 +30,8 @@ import { Feature } from "../../private/Feature";
  */
 export class TaintedLazarusPlayers extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      queuedTaintedLazarus: [] as EntityPlayer[],
-      queuedDeadTaintedLazarus: [] as EntityPlayer[],
+  public override v = v;
 
-      /**
-       * The `POST_PLAYER_INIT` callback fires for Dead Tainted Lazarus at the beginning of the run.
-       * However, the player index for the Dead Tainted Lazarus player object at that time does not
-       * actually correspond to the player index for the real player once Flip has been used. Thus,
-       * we revert to using PtrHash as an index for our map, which is consistent between the Dead
-       * Tainted Lazarus object in the `POST_PLAYER_INIT` callback and the "real" Dead Tainted
-       * Lazarus.
-       *
-       * We use `EntityPlayer` as the value for the map instead of `EntityPtr` because using the
-       * pointer does not work for some reason. (When we unwrap it after one or more flips have been
-       * used, the pointers no longer point to the original objects, even if we manually update the
-       * pointers in the `POST_FLIP` callback.)
-       */
-      subPlayerMap: new Map<PtrHash, EntityPlayer>(),
-    },
-  };
-
-  // eslint-disable-next-line class-methods-use-this
   public override vConditionalFunc = (): boolean => false;
 
   /** @internal */
@@ -39,18 +39,19 @@ export class TaintedLazarusPlayers extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PLAYER_INIT, [this.postPlayerInit]], // 9
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
     ];
   }
 
   // ModCallback.POST_PLAYER_INIT (9)
-  private postPlayerInit = (player: EntityPlayer) => {
+  private readonly postPlayerInit = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
 
     if (character === PlayerType.LAZARUS_B) {
-      this.v.run.queuedTaintedLazarus.push(player);
+      v.run.queuedTaintedLazarus.push(player);
     } else if (character === PlayerType.LAZARUS_2_B) {
-      this.v.run.queuedDeadTaintedLazarus.push(player);
+      v.run.queuedDeadTaintedLazarus.push(player);
     } else {
       return;
     }
@@ -69,14 +70,14 @@ export class TaintedLazarusPlayers extends Feature {
    */
   private checkDequeue() {
     if (
-      this.v.run.queuedTaintedLazarus.length === 0 ||
-      this.v.run.queuedDeadTaintedLazarus.length === 0
+      v.run.queuedTaintedLazarus.length === 0 ||
+      v.run.queuedDeadTaintedLazarus.length === 0
     ) {
       return;
     }
 
-    const taintedLazarus = this.v.run.queuedTaintedLazarus.shift();
-    const deadTaintedLazarus = this.v.run.queuedDeadTaintedLazarus.shift();
+    const taintedLazarus = v.run.queuedTaintedLazarus.shift();
+    const deadTaintedLazarus = v.run.queuedDeadTaintedLazarus.shift();
 
     if (taintedLazarus === undefined || deadTaintedLazarus === undefined) {
       return;
@@ -92,8 +93,8 @@ export class TaintedLazarusPlayers extends Feature {
       return;
     }
 
-    this.v.run.subPlayerMap.set(taintedLazarusPtrHash, deadTaintedLazarus);
-    this.v.run.subPlayerMap.set(deadTaintedLazarusPtrHash, taintedLazarus);
+    v.run.subPlayerMap.set(taintedLazarusPtrHash, deadTaintedLazarus);
+    v.run.subPlayerMap.set(deadTaintedLazarusPtrHash, taintedLazarus);
   }
 
   /**
@@ -115,6 +116,6 @@ export class TaintedLazarusPlayers extends Feature {
     player: EntityPlayer,
   ): EntityPlayer | undefined {
     const ptrHash = GetPtrHash(player);
-    return this.v.run.subPlayerMap.get(ptrHash);
+    return v.run.subPlayerMap.get(ptrHash);
   }
 }

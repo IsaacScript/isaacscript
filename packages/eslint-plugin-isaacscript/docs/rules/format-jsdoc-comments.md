@@ -67,7 +67,7 @@ The rule tries to be as smart as possible. For example, it won't complain about 
 
 You can open a GitHub issue if you find a situation where this rule should be smarter.
 
-Non JSDoc-style comments (i.e. lines that begin with `/* `) are ignored, since they are commonly-used to comment-out large blocks of code. <!-- markdownlint-disable MD038 -->
+Non JSDoc-style comments (i.e. lines that begin with `/*` followed by a space) are ignored, since they are commonly-used to comment-out large blocks of code.
 
 For example:
 

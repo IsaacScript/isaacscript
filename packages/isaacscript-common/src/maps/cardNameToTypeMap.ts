@@ -1,9 +1,10 @@
 import { CardType } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 // cspell:ignore hiero
 
 /** Maps card names to the values of the `CardType` enum. */
-export const CARD_NAME_TO_TYPE_MAP: ReadonlyMap<string, CardType> = new Map([
+export const CARD_NAME_TO_TYPE_MAP = new ReadonlyMap<string, CardType>([
   ["fool", CardType.FOOL], // 1
   ["magician", CardType.MAGICIAN], // 2
   ["mag", CardType.MAGICIAN], // 2 - Needed since we have "mag?"
@@ -37,14 +38,14 @@ export const CARD_NAME_TO_TYPE_MAP: ReadonlyMap<string, CardType> = new Map([
   ["judgement", CardType.JUDGEMENT], // 21
   ["judge", CardType.JUDGEMENT], // 21 - Needed since we have "judge?"
   ["world", CardType.WORLD], // 22
-  ["2OfClubs", CardType.CLUBS_2], // 23
-  ["2Clubs", CardType.CLUBS_2], // 23
-  ["2OfDiamonds", CardType.DIAMONDS_2], // 24
-  ["2Diamonds", CardType.DIAMONDS_2], // 24
-  ["2OfSpades", CardType.SPADES_2], // 25
-  ["2Spades", CardType.SPADES_2], // 25
-  ["2OfHearts", CardType.HEARTS_2], // 26
-  ["2Hearts", CardType.HEARTS_2], // 26
+  ["2OfClubs", CardType.TWO_OF_CLUBS], // 23
+  ["2Clubs", CardType.TWO_OF_CLUBS], // 23
+  ["2OfDiamonds", CardType.TWO_OF_DIAMONDS], // 24
+  ["2Diamonds", CardType.TWO_OF_DIAMONDS], // 24
+  ["2OfSpades", CardType.TWO_OF_SPADES], // 25
+  ["2Spades", CardType.TWO_OF_SPADES], // 25
+  ["2OfHearts", CardType.TWO_OF_HEARTS], // 26
+  ["2Hearts", CardType.TWO_OF_HEARTS], // 26
   ["aceOfClubs", CardType.ACE_OF_CLUBS], // 27
   ["aceClubs", CardType.ACE_OF_CLUBS], // 27
   ["aceOfDiamonds", CardType.ACE_OF_DIAMONDS], // 28
@@ -137,73 +138,73 @@ export const CARD_NAME_TO_TYPE_MAP: ReadonlyMap<string, CardType> = new Map([
   ["queenOfHearts", CardType.QUEEN_OF_HEARTS], // 79
   ["queenHearts", CardType.QUEEN_OF_HEARTS], // 79
   ["wildcard", CardType.WILD], // 80
-  ["soulOfIsaac", CardType.SOUL_ISAAC], // 81
-  ["soulIsaac", CardType.SOUL_ISAAC], // 81
-  ["isaac", CardType.SOUL_ISAAC], // 81
-  ["soulOfMagdalene", CardType.SOUL_MAGDALENE], // 82
-  ["soulMagdalene", CardType.SOUL_MAGDALENE], // 82
-  ["magdalene", CardType.SOUL_MAGDALENE], // 82
-  ["soulOfCain", CardType.SOUL_CAIN], // 83
-  ["soulCain", CardType.SOUL_CAIN], // 83
-  ["cain", CardType.SOUL_CAIN], // 83
-  ["soulOfJudas", CardType.SOUL_JUDAS], // 84
-  ["soulJudas", CardType.SOUL_JUDAS], // 84
-  ["judas", CardType.SOUL_JUDAS], // 84
-  ["soulOf???", CardType.SOUL_BLUE_BABY], // 85
-  ["soul???", CardType.SOUL_BLUE_BABY], // 85
-  ["???", CardType.SOUL_BLUE_BABY], // 85
-  ["soulOfBlueBaby", CardType.SOUL_BLUE_BABY], // 85
-  ["soulBlueBaby", CardType.SOUL_BLUE_BABY], // 85
-  ["blueBaby", CardType.SOUL_BLUE_BABY], // 85
-  ["soulOfEve", CardType.SOUL_EVE], // 86
-  ["soulEve", CardType.SOUL_EVE], // 86
-  ["eve", CardType.SOUL_EVE], // 86
-  ["soulOfSamson", CardType.SOUL_SAMSON], // 87
-  ["soulSamson", CardType.SOUL_SAMSON], // 87
-  ["samson", CardType.SOUL_SAMSON], // 87
-  ["soulOfAzazel", CardType.SOUL_AZAZEL], // 88
-  ["soulAzazel", CardType.SOUL_AZAZEL], // 88
-  ["azazel", CardType.SOUL_AZAZEL], // 88
-  ["soulOfLazarus", CardType.SOUL_LAZARUS], // 89
-  ["soulLazarus", CardType.SOUL_LAZARUS], // 89
-  ["lazarus", CardType.SOUL_LAZARUS], // 89
-  ["soulOfEden", CardType.SOUL_EDEN], // 90
-  ["soulEden", CardType.SOUL_EDEN], // 90
-  ["eden", CardType.SOUL_EDEN], // 90
-  ["soulOfTheLost", CardType.SOUL_LOST], // 91
-  ["soulTheLost", CardType.SOUL_LOST], // 91
-  ["theLost", CardType.SOUL_LOST], // 91
-  ["soulOfLost", CardType.SOUL_LOST], // 91
-  ["soulLost", CardType.SOUL_LOST], // 91
-  ["lost", CardType.SOUL_LOST], // 91
-  ["soulOfLilith", CardType.SOUL_LILITH], // 92
-  ["soulLilith", CardType.SOUL_LILITH], // 92
-  ["lilith", CardType.SOUL_LILITH], // 92
-  ["soulOfTheKeeper", CardType.SOUL_KEEPER], // 93
-  ["soulTheKeeper", CardType.SOUL_KEEPER], // 93
-  ["theKeeper", CardType.SOUL_KEEPER], // 93
-  ["soulOfKeeper", CardType.SOUL_KEEPER], // 93
-  ["soulKeeper", CardType.SOUL_KEEPER], // 93
-  ["keeper", CardType.SOUL_KEEPER], // 93
-  ["soulOfApollyon", CardType.SOUL_APOLLYON], // 94
-  ["soulApollyon", CardType.SOUL_APOLLYON], // 94
-  ["apollyon", CardType.SOUL_APOLLYON], // 94
-  ["soulOfTheForgotten", CardType.SOUL_FORGOTTEN], // 95
-  ["soulTheForgotten", CardType.SOUL_FORGOTTEN], // 95
-  ["theForgotten", CardType.SOUL_FORGOTTEN], // 95
-  ["soulOfForgotten", CardType.SOUL_FORGOTTEN], // 95
-  ["soulForgotten", CardType.SOUL_FORGOTTEN], // 95
-  ["forgotten", CardType.SOUL_FORGOTTEN], // 95
-  ["soulOfBethany", CardType.SOUL_BETHANY], // 96
-  ["soulBethany", CardType.SOUL_BETHANY], // 96
-  ["bethany", CardType.SOUL_BETHANY], // 96
-  ["soulOfJacobAndEsau", CardType.SOUL_JACOB], // 97
-  ["soulJacobAndEsau", CardType.SOUL_JACOB], // 97
-  ["jacobAndEsau", CardType.SOUL_JACOB], // 97
-  ["soulOfJacob&Esau", CardType.SOUL_JACOB], // 97
-  ["soulJacob&Esau", CardType.SOUL_JACOB], // 97
-  ["jacob&Esau", CardType.SOUL_JACOB], // 97
-  ["soulOfJacob", CardType.SOUL_JACOB], // 97
-  ["soulJacob", CardType.SOUL_JACOB], // 97
-  ["jacob", CardType.SOUL_JACOB], // 97
+  ["soulOfIsaac", CardType.SOUL_OF_ISAAC], // 81
+  ["soulIsaac", CardType.SOUL_OF_ISAAC], // 81
+  ["isaac", CardType.SOUL_OF_ISAAC], // 81
+  ["soulOfMagdalene", CardType.SOUL_OF_MAGDALENE], // 82
+  ["soulMagdalene", CardType.SOUL_OF_MAGDALENE], // 82
+  ["magdalene", CardType.SOUL_OF_MAGDALENE], // 82
+  ["soulOfCain", CardType.SOUL_OF_CAIN], // 83
+  ["soulCain", CardType.SOUL_OF_CAIN], // 83
+  ["cain", CardType.SOUL_OF_CAIN], // 83
+  ["soulOfJudas", CardType.SOUL_OF_JUDAS], // 84
+  ["soulJudas", CardType.SOUL_OF_JUDAS], // 84
+  ["judas", CardType.SOUL_OF_JUDAS], // 84
+  ["soulOf???", CardType.SOUL_OF_BLUE_BABY], // 85
+  ["soul???", CardType.SOUL_OF_BLUE_BABY], // 85
+  ["???", CardType.SOUL_OF_BLUE_BABY], // 85
+  ["soulOfBlueBaby", CardType.SOUL_OF_BLUE_BABY], // 85
+  ["soulBlueBaby", CardType.SOUL_OF_BLUE_BABY], // 85
+  ["blueBaby", CardType.SOUL_OF_BLUE_BABY], // 85
+  ["soulOfEve", CardType.SOUL_OF_EVE], // 86
+  ["soulEve", CardType.SOUL_OF_EVE], // 86
+  ["eve", CardType.SOUL_OF_EVE], // 86
+  ["soulOfSamson", CardType.SOUL_OF_SAMSON], // 87
+  ["soulSamson", CardType.SOUL_OF_SAMSON], // 87
+  ["samson", CardType.SOUL_OF_SAMSON], // 87
+  ["soulOfAzazel", CardType.SOUL_OF_AZAZEL], // 88
+  ["soulAzazel", CardType.SOUL_OF_AZAZEL], // 88
+  ["azazel", CardType.SOUL_OF_AZAZEL], // 88
+  ["soulOfLazarus", CardType.SOUL_OF_LAZARUS], // 89
+  ["soulLazarus", CardType.SOUL_OF_LAZARUS], // 89
+  ["lazarus", CardType.SOUL_OF_LAZARUS], // 89
+  ["soulOfEden", CardType.SOUL_OF_EDEN], // 90
+  ["soulEden", CardType.SOUL_OF_EDEN], // 90
+  ["eden", CardType.SOUL_OF_EDEN], // 90
+  ["soulOfTheLost", CardType.SOUL_OF_LOST], // 91
+  ["soulTheLost", CardType.SOUL_OF_LOST], // 91
+  ["theLost", CardType.SOUL_OF_LOST], // 91
+  ["soulOfLost", CardType.SOUL_OF_LOST], // 91
+  ["soulLost", CardType.SOUL_OF_LOST], // 91
+  ["lost", CardType.SOUL_OF_LOST], // 91
+  ["soulOfLilith", CardType.SOUL_OF_LILITH], // 92
+  ["soulLilith", CardType.SOUL_OF_LILITH], // 92
+  ["lilith", CardType.SOUL_OF_LILITH], // 92
+  ["soulOfTheKeeper", CardType.SOUL_OF_KEEPER], // 93
+  ["soulTheKeeper", CardType.SOUL_OF_KEEPER], // 93
+  ["theKeeper", CardType.SOUL_OF_KEEPER], // 93
+  ["soulOfKeeper", CardType.SOUL_OF_KEEPER], // 93
+  ["soulKeeper", CardType.SOUL_OF_KEEPER], // 93
+  ["keeper", CardType.SOUL_OF_KEEPER], // 93
+  ["soulOfApollyon", CardType.SOUL_OF_APOLLYON], // 94
+  ["soulApollyon", CardType.SOUL_OF_APOLLYON], // 94
+  ["apollyon", CardType.SOUL_OF_APOLLYON], // 94
+  ["soulOfTheForgotten", CardType.SOUL_OF_FORGOTTEN], // 95
+  ["soulTheForgotten", CardType.SOUL_OF_FORGOTTEN], // 95
+  ["theForgotten", CardType.SOUL_OF_FORGOTTEN], // 95
+  ["soulOfForgotten", CardType.SOUL_OF_FORGOTTEN], // 95
+  ["soulForgotten", CardType.SOUL_OF_FORGOTTEN], // 95
+  ["forgotten", CardType.SOUL_OF_FORGOTTEN], // 95
+  ["soulOfBethany", CardType.SOUL_OF_BETHANY], // 96
+  ["soulBethany", CardType.SOUL_OF_BETHANY], // 96
+  ["bethany", CardType.SOUL_OF_BETHANY], // 96
+  ["soulOfJacobAndEsau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulJacobAndEsau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["jacobAndEsau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulOfJacob&Esau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulJacob&Esau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["jacob&Esau", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulOfJacob", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["soulJacob", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
+  ["jacob", CardType.SOUL_OF_JACOB_AND_ESAU], // 97
 ]);

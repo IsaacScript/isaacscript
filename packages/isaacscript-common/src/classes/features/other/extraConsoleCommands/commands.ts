@@ -2,15 +2,22 @@
 
 /*
 eslint "sort-exports/sort-exports": [
-  "warn",
+  "error",
   {
     sortDir: "asc",
   },
 ],
 */
 
+/* eslint "require-jsdoc": "error" */
+
 /**
- * This is a list of custom console commands that are included with the standard library.
+ * __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
+ *
+ * This is a list of custom console commands that are included with the standard library. By
+ * default, they will not be enabled. You can enable them by upgrading your mod with
+ * `ISCFeature.EXTRA_CONSOLE_COMMANDS`. (Also see the [Extra Console Commands](ExtraConsoleCommands)
+ * feature documentation.)
  *
  * As a quality of life feature, you do not have to match the casing of the command. For example,
  * you can type the "addCharges" command as "addcharges", and it will still work the same.
@@ -22,17 +29,24 @@ eslint "sort-exports/sort-exports": [
  * `ISCFeature.EXTRA_CONSOLE_COMMANDS` when upgrading your mod. (See the "Extra Console Commands
  * (Init)" page for more details.)
  *
- * Each command has a corresponding function of the same name, but these functions are not actually
- * exported for end-user consumption. (This is to cut down on namespace conflicts and because the
- * names of the functions are not very descriptive.)
+ * Each command has a corresponding function of the same name, but these functions are not exported
+ * for end-user consumption. (This is to cut down on namespace conflicts and because the names of
+ * the functions are not very descriptive.)
  *
  * @module
  */
 
+import type {
+  CardType,
+  PillEffect,
+  PlayerType,
+  SoundEffect,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import {
   ActiveSlot,
+  BossID,
   CacheFlag,
-  CardType,
   Challenge,
   CollectibleType,
   Direction,
@@ -42,21 +56,23 @@ import {
   GridRoom,
   LevelStage,
   PillColor,
-  PillEffect,
-  PlayerType,
   RoomType,
-  SoundEffect,
   StageType,
-  TrinketType,
 } from "isaac-typescript-definitions";
+import {
+  ACTIVE_SLOT_VALUES,
+  GRID_ENTITY_TYPE_VALUES,
+} from "../../../../arrays/cachedEnumValues";
 import { game, sfxManager } from "../../../../core/cachedClasses";
 import {
   DOGMA_ROOM_GRID_INDEX,
   MAX_LEVEL_GRID_INDEX,
+  MAX_NUM_FAMILIARS,
 } from "../../../../core/constants";
 import {
   FIRST_CARD_TYPE,
   FIRST_CHARACTER,
+  FIRST_HORSE_PILL_COLOR,
   FIRST_PILL_COLOR,
   FIRST_PILL_EFFECT,
   FIRST_ROOM_TYPE,
@@ -72,19 +88,19 @@ import { getCardName } from "../../../../functions/cards";
 import { getCharacterName } from "../../../../functions/characters";
 import { addCharge, getTotalCharge } from "../../../../functions/charge";
 import { isValidCollectibleType } from "../../../../functions/collectibles";
+import { printEnabled } from "../../../../functions/console";
 import { runDeepCopyTests } from "../../../../functions/deepCopyTests";
 import { getNPCs } from "../../../../functions/entitiesSpecific";
-import { getEnumValues } from "../../../../functions/enums";
 import { addFlag } from "../../../../functions/flag";
 import { spawnGridEntity } from "../../../../functions/gridEntities";
 import { getRoomGridIndexesForType } from "../../../../functions/levelGrid";
 import {
+  logMusic,
   logPlayerEffects,
   logRoom,
   logSeedEffects,
   logSounds,
 } from "../../../../functions/logMisc";
-import { getMapPartialMatch } from "../../../../functions/map";
 import { runMergeTests } from "../../../../functions/mergeTests";
 import {
   spawnCard,
@@ -92,36 +108,35 @@ import {
   spawnTrinket as spawnTrinketFunction,
 } from "../../../../functions/pickupsSpecific";
 import { getPillEffectName } from "../../../../functions/pills";
-import { getPlayers } from "../../../../functions/playerIndex";
 import {
   addCollectibleCostume,
-  getPlayerName,
   removeCollectibleCostume,
   useActiveItemTemp,
-} from "../../../../functions/players";
+} from "../../../../functions/playerCollectibles";
+import { getPlayers } from "../../../../functions/playerIndex";
+import { getPlayerName } from "../../../../functions/players";
+import { getRoomData } from "../../../../functions/roomData";
 import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
-import { changeRoom } from "../../../../functions/rooms";
 import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
+import { changeRoom } from "../../../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
 import { spawnCollectibleUnsafe } from "../../../../functions/spawnCollectible";
-import { setStage } from "../../../../functions/stage";
+import { onStage, setStage } from "../../../../functions/stage";
+import { getMapPartialMatch } from "../../../../functions/string";
 import { getGoldenTrinketType } from "../../../../functions/trinkets";
 import {
   asCardType,
   asCollectibleType,
   asTrinketType,
 } from "../../../../functions/types";
-import {
-  iRange,
-  printConsole,
-  printEnabled,
-} from "../../../../functions/utils";
+import { iRange } from "../../../../functions/utils";
 import { CARD_NAME_TO_TYPE_MAP } from "../../../../maps/cardNameToTypeMap";
 import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToTypeMap";
 import { COLLECTIBLE_NAME_TO_TYPE_MAP } from "../../../../maps/collectibleNameToTypeMap";
 import { PILL_NAME_TO_EFFECT_MAP } from "../../../../maps/pillNameToEffectMap";
 import { ROOM_NAME_TO_TYPE_MAP } from "../../../../maps/roomNameToTypeMap";
 import { TRINKET_NAME_TO_TYPE_MAP } from "../../../../maps/trinketNameToTypeMap";
+import { ROOM_TYPE_NAMES } from "../../../../objects/roomTypeNames";
 import {
   addHeart,
   devilAngel,
@@ -141,7 +156,7 @@ import { v } from "./v";
  */
 export function addCharges(params: string): void {
   if (params === "") {
-    printConsole(
+    print(
       "You must specify a slot number. (Use 0 for the primary slot, 1 for the Schoolbag slot, 2 for the pocket item slot, and 3 for the Dice Bag slot.)",
     );
     return;
@@ -150,7 +165,7 @@ export function addCharges(params: string): void {
   const args = params.split(" ");
 
   if (args.length !== 1 && args.length !== 2) {
-    printConsole("That is an invalid amount of arguments.");
+    print("That is an invalid amount of arguments.");
     return;
   }
 
@@ -158,7 +173,7 @@ export function addCharges(params: string): void {
 
   const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
-    printConsole(`The provided slot number is invalid: ${activeSlotString}`);
+    print(`The provided slot number is invalid: ${activeSlotString}`);
     return;
   }
 
@@ -166,7 +181,7 @@ export function addCharges(params: string): void {
     activeSlot < ActiveSlot.PRIMARY ||
     activeSlot > ActiveSlot.POCKET_SINGLE_USE
   ) {
-    printConsole(`The provided slot number is invalid: ${activeSlot}`);
+    print(`The provided slot number is invalid: ${activeSlot}`);
     return;
   }
 
@@ -174,7 +189,7 @@ export function addCharges(params: string): void {
   if (numChargeString !== undefined) {
     const numChargesAttempt = tonumber(numChargeString);
     if (numChargesAttempt === undefined) {
-      printConsole(`The provided charge amount is invalid: ${numChargeString}`);
+      print(`The provided charge amount is invalid: ${numChargeString}`);
       return;
     }
     numCharges = numChargesAttempt;
@@ -197,7 +212,7 @@ export function ascent(): void {
   game.SetStateFlag(GameStateFlag.BACKWARDS_PATH_INIT, true);
   game.SetStateFlag(GameStateFlag.BACKWARDS_PATH, true);
 
-  printConsole("Set Ascent flags.");
+  print("Set Ascent flags.");
 }
 
 /** Warps to the first Clean Bedroom or Dirty Bedroom on the floor. */
@@ -218,7 +233,7 @@ export function bedroom(): void {
     return;
   }
 
-  printConsole("There are no Clean Bedrooms or Dirty Bedrooms on this floor.");
+  print("There are no Clean Bedrooms or Dirty Bedrooms on this floor.");
 }
 
 /**
@@ -249,7 +264,7 @@ export function bloodCharges(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of charges to add.");
+      print("That is an invalid amount of charges to add.");
       return;
     }
 
@@ -274,7 +289,7 @@ export function bomb(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of bombs to add.");
+      print("That is an invalid amount of bombs to add.");
       return;
     }
 
@@ -294,7 +309,7 @@ export function bombs(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of bombs to add.");
+      print("That is an invalid amount of bombs to add.");
       return;
     }
 
@@ -323,9 +338,29 @@ export function bossNextRoom(): void {
   warpNextToRoomType(RoomType.BOSS);
 }
 
-/** Warps to the first Boss Room on the floor. */
+/** Warps to the first Boss Room on the floor (or the Delirium Boss Room if on The Void). */
 export function bossRoom(): void {
-  warpToRoomType(RoomType.BOSS);
+  // Most of the logic here is copied from the "warpToRoomType" function.
+  const roomType = RoomType.BOSS;
+  const roomGridIndexes = getRoomGridIndexesForType(roomType);
+
+  let roomGridIndex = roomGridIndexes[0];
+
+  if (onStage(LevelStage.VOID)) {
+    roomGridIndex = roomGridIndexes.find(
+      (thisRoomGridIndex) =>
+        getRoomData(thisRoomGridIndex)?.Subtype === BossID.DELIRIUM,
+    );
+  }
+
+  const roomTypeName = ROOM_TYPE_NAMES[RoomType.BOSS];
+  if (roomGridIndex === undefined) {
+    print(`There are no ${roomTypeName}s on this floor.`);
+    return;
+  }
+
+  changeRoom(roomGridIndex);
+  print(`Warped to room type: ${roomTypeName} (${roomType})`);
 }
 
 /** Warps to the Boss Rush for the floor. */
@@ -350,7 +385,7 @@ export function brokenHearts(params: string): void {
  */
 export function card(params: string): void {
   if (params === "") {
-    printConsole("You must specify a card name or number.");
+    print("You must specify a card name or number.");
     return;
   }
 
@@ -359,14 +394,14 @@ export function card(params: string): void {
   if (num === undefined) {
     const match = getMapPartialMatch(params, CARD_NAME_TO_TYPE_MAP);
     if (match === undefined) {
-      printConsole(`Unknown card: ${params}`);
+      print(`Unknown card: ${params}`);
       return;
     }
 
     cardType = match[1];
   } else {
     if (num < FIRST_CARD_TYPE || num > LAST_VANILLA_CARD_TYPE) {
-      printConsole(`Invalid card sub-type: ${num}`);
+      print(`Invalid card sub-type: ${num}`);
       return;
     }
 
@@ -375,7 +410,7 @@ export function card(params: string): void {
 
   const cardName = getCardName(cardType);
   Isaac.ExecuteCommand(`g k${cardType}`);
-  printConsole(`Gave card: ${cardName} (${cardType})`);
+  print(`Gave card: ${cardName} (${cardType})`);
 }
 
 /** Spawns every card on the ground, starting at the top-left-most tile. */
@@ -418,7 +453,7 @@ export function chaosCardTears(): void {
  */
 export function character(params: string): void {
   if (params === "") {
-    printConsole("You must specify a character name or number.");
+    print("You must specify a character name or number.");
     return;
   }
 
@@ -427,14 +462,14 @@ export function character(params: string): void {
   if (num === undefined) {
     const match = getMapPartialMatch(params, CHARACTER_NAME_TO_TYPE_MAP);
     if (match === undefined) {
-      printConsole(`Unknown character: ${params}`);
+      print(`Unknown character: ${params}`);
       return;
     }
 
     playerType = match[1];
   } else {
     if (num < FIRST_CHARACTER || num > LAST_VANILLA_CHARACTER) {
-      printConsole(`Invalid player sub-type: ${num}`);
+      print(`Invalid character number: ${num}`);
       return;
     }
 
@@ -443,7 +478,7 @@ export function character(params: string): void {
 
   const characterName = getCharacterName(playerType);
   restart(playerType);
-  printConsole(`Restarting as character: ${characterName} (${playerType})`);
+  print(`Restarting as character: ${characterName} (${playerType})`);
 }
 
 /** Alias for the "addCharges" command. */
@@ -465,7 +500,7 @@ export function coin(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of coins to add.");
+      print("That is an invalid amount of coins to add.");
       return;
     }
 
@@ -485,7 +520,7 @@ export function coins(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of coins to add.");
+      print("That is an invalid amount of coins to add.");
       return;
     }
 
@@ -494,6 +529,11 @@ export function coins(params: string): void {
 
   const player = Isaac.GetPlayer();
   player.AddCoins(numCoins);
+}
+
+/** Alias for the "spawnCollectible" command. */
+export function collectible(params: string): void {
+  spawnCollectible(params);
 }
 
 /** Creates a crawl space next to the player. */
@@ -534,7 +574,7 @@ export function damage(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole(`The provided damage amount is invalid: ${params}`);
+      print(`The provided damage amount is invalid: ${params}`);
       return;
     }
 
@@ -574,7 +614,7 @@ export function dirtyBedroom(): void {
   warpToRoomType(RoomType.DIRTY_BEDROOM);
 }
 
-/** Toggles whether or not curses can appear. */
+/** Toggles whether curses can appear. */
 export function disableCurses(): void {
   v.persistent.disableCurses = !v.persistent.disableCurses;
   printEnabled(!v.persistent.disableCurses, "curses");
@@ -600,7 +640,7 @@ export function dungeon(): void {
 export function effects(): void {
   const player = Isaac.GetPlayer();
   logPlayerEffects(player);
-  printConsole('Logged the player\'s effects to the "log.txt" file.');
+  print('Logged the player\'s effects to the "log.txt" file.');
 }
 
 /** Alias for the "iAmError" command. */
@@ -614,6 +654,12 @@ export function errorRoom(): void {
  */
 export function eternalHearts(params: string): void {
   addHeart(params, HealthType.ETERNAL);
+}
+
+/** Grants the maximum amount of blue flies to the player. */
+export function flies(): void {
+  const player = Isaac.GetPlayer();
+  player.AddBlueFlies(MAX_NUM_FAMILIARS, player.Position, undefined);
 }
 
 /** Toggles flight for the player. */
@@ -639,7 +685,7 @@ export function flight(params: string): void {
     removeCollectibleCostume(player, collectibleUsedToShowFlight);
   }
 
-  printEnabled(v.persistent.speed, "set speed");
+  printEnabled(v.persistent.flight, "flight");
 }
 
 /** Alias for the "startingRoom" command. */
@@ -652,10 +698,12 @@ export function getChallenge(): void {
   const challenge = Isaac.GetChallenge();
   const challengeName = Challenge[challenge];
   const challengeDescription =
+    // Handle modded challenges.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     challengeName === undefined
       ? `${challenge} (custom)`
       : `Challenge.${challengeName} (${challenge})`;
-  printConsole(`The current challenge is: ${challengeDescription}`);
+  print(`The current challenge is: ${challengeDescription}`);
 }
 
 /** Prints the charge for the specified slot. By default, will use `ActiveSlot.PRIMARY`. */
@@ -664,7 +712,7 @@ export function getCharge(params: string): void {
   if (params !== "") {
     const num = tonumber(params) as ActiveSlot | undefined;
     if (num === undefined) {
-      printConsole(`The provided slot number is invalid: ${params}`);
+      print(`The provided slot number is invalid: ${params}`);
       return;
     }
 
@@ -673,7 +721,7 @@ export function getCharge(params: string): void {
 
   const player = Isaac.GetPlayer();
   const totalCharge = getTotalCharge(player, activeSlot);
-  printConsole(
+  print(
     `Total charge for ActiveSlot.${ActiveSlot[activeSlot]} (${activeSlot}) is: ${totalCharge}`,
   );
 }
@@ -682,7 +730,7 @@ export function getCharge(params: string): void {
 export function getPosition(): void {
   for (const player of getPlayers()) {
     const playerName = getPlayerName(player);
-    printConsole(
+    print(
       `Player position for ${playerName}: (${player.Position.X}, ${player.Position.Y})`,
     );
   }
@@ -703,7 +751,7 @@ export function gigaBomb(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of Giga Bombs to add.");
+      print("That is an invalid amount of Giga Bombs to add.");
       return;
     }
 
@@ -729,6 +777,11 @@ export function goldKey(): void {
   goldenKey();
 }
 
+/** Alias for the "spawnGoldenTrinket" command. */
+export function goldTrinket(params: string): void {
+  spawnGoldenTrinket(params);
+}
+
 /** Gives the player a golden bomb. */
 export function goldenBomb(): void {
   const player = Isaac.GetPlayer();
@@ -747,6 +800,11 @@ export function goldenHearts(params: string): void {
 export function goldenKey(): void {
   const player = Isaac.GetPlayer();
   player.AddGoldenKey();
+}
+
+/** Alias for the "spawnGoldenTrinket" command. */
+export function goldenTrinket(params: string): void {
+  spawnGoldenTrinket(params);
 }
 
 /**
@@ -769,13 +827,11 @@ export function gridCosts(): void {
 
 /** Spawns every grid entity, starting at the top-left-most tile. */
 export function gridEntities(): void {
-  const gridEntityTypes = getEnumValues(GridEntityType);
-
   let gridEntityTypeIndex = -1;
   for (let y = 0; y <= 6; y++) {
     for (let x = 0; x <= 12; x++) {
       gridEntityTypeIndex++;
-      const gridEntityType = gridEntityTypes[gridEntityTypeIndex];
+      const gridEntityType = GRID_ENTITY_TYPE_VALUES[gridEntityTypeIndex];
       if (gridEntityType === undefined) {
         return;
       }
@@ -819,7 +875,7 @@ export function key(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of keys to add.");
+      print("That is an invalid amount of keys to add.");
       return;
     }
 
@@ -839,7 +895,7 @@ export function keys(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of keys to add.");
+      print("That is an invalid amount of keys to add.");
       return;
     }
 
@@ -963,6 +1019,12 @@ export function miniboss(): void {
   warpToRoomType(RoomType.MINI_BOSS);
 }
 
+/** Logs the currently playing music track to the "log.txt" file. */
+export function music(): void {
+  logMusic();
+  print('Logged the currently playing music track to the "log.txt" file.');
+}
+
 /** Alias for the "disableCurses" command. */
 export function noCurses(): void {
   disableCurses();
@@ -974,7 +1036,7 @@ export function oneHP(): void {
     npc.HitPoints = 1;
   }
 
-  printConsole("Set every NPC to 1 HP.");
+  print("Set every NPC to 1 HP.");
 }
 
 /**
@@ -988,7 +1050,7 @@ export function oneHP(): void {
  */
 export function pill(params: string): void {
   if (params === "") {
-    printConsole("You must specify a pill name or number.");
+    print("You must specify a pill name or number.");
     return;
   }
 
@@ -997,14 +1059,14 @@ export function pill(params: string): void {
   if (num === undefined) {
     const match = getMapPartialMatch(params, PILL_NAME_TO_EFFECT_MAP);
     if (match === undefined) {
-      printConsole(`Unknown pill effect: ${params}`);
+      print(`Unknown pill effect: ${params}`);
       return;
     }
 
     pillEffect = match[1];
   } else {
     if (num < FIRST_PILL_EFFECT || num > LAST_VANILLA_PILL_EFFECT) {
-      printConsole(`Invalid pill effect ID: ${num}`);
+      print(`Invalid pill effect ID: ${num}`);
       return;
     }
 
@@ -1013,23 +1075,43 @@ export function pill(params: string): void {
 
   const pillEffectName = getPillEffectName(pillEffect);
   Isaac.ExecuteCommand(`g p${pillEffect}`);
-  printConsole(`Gave pill: ${pillEffectName} (${pillEffect})`);
+  print(`Gave pill: ${pillEffectName} (${pillEffect})`);
 }
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */
 export function pills(): void {
-  let pillColor = FIRST_PILL_COLOR;
-  for (let y = 0; y <= 6; y++) {
-    for (let x = 0; x <= 12; x++) {
-      if (pillColor > PillColor.GOLD) {
-        return;
-      }
+  let y: int;
+  let pillColor: PillColor;
 
-      const worldPosition = gridCoordinatesToWorldPosition(x, y);
-      spawnPill(pillColor, worldPosition);
-      pillColor++; // eslint-disable-line isaacscript/strict-enums
+  y = 1;
+  pillColor = FIRST_PILL_COLOR;
+  for (let x = 0; x <= 12; x++) {
+    if (pillColor >= PillColor.GOLD) {
+      break;
     }
+
+    const worldPosition = gridCoordinatesToWorldPosition(x, y);
+    spawnPill(pillColor, worldPosition);
+    pillColor++; // eslint-disable-line isaacscript/strict-enums
   }
+
+  y = 2;
+  pillColor = FIRST_HORSE_PILL_COLOR;
+  for (let x = 0; x <= 12; x++) {
+    if (pillColor >= PillColor.HORSE_GOLD) {
+      break;
+    }
+
+    const worldPosition = gridCoordinatesToWorldPosition(x, y);
+    spawnPill(pillColor, worldPosition);
+    pillColor++; // eslint-disable-line isaacscript/strict-enums
+  }
+
+  y = 3;
+  const worldPosition1 = gridCoordinatesToWorldPosition(0, y);
+  spawnPill(PillColor.GOLD, worldPosition1);
+  const worldPosition2 = gridCoordinatesToWorldPosition(1, y);
+  spawnPill(PillColor.HORSE_GOLD, worldPosition2);
 }
 
 /** Warps to the first Planetarium on the floor. */
@@ -1045,25 +1127,32 @@ export function playSound(params: string): void {
 /** Sets the player's pocket item to the specified collectible type. */
 export function pocket(params: string): void {
   if (params === "") {
-    printConsole(
-      "You must supply a collectible type to put as the pocket item.",
-    );
+    print("You must supply a collectible type to put as the pocket item.");
     return;
   }
 
   const collectibleType = tonumber(params) as CollectibleType | undefined;
   if (collectibleType === undefined) {
-    printConsole("That is an invalid collectible type.");
+    print("That is an invalid collectible type.");
     return;
   }
 
   if (!isValidCollectibleType(collectibleType)) {
-    printConsole("That is an invalid collectible type.");
+    print("That is an invalid collectible type.");
     return;
   }
 
   const player = Isaac.GetPlayer();
   player.SetPocketActiveItem(collectibleType, ActiveSlot.POCKET);
+}
+
+/** Creates a poop grid entity next to the player. */
+export function poop(): void {
+  const roomClass = game.GetRoom();
+  const player = Isaac.GetPlayer();
+  const tilePosition = roomClass.FindFreeTilePosition(player.Position, 0);
+
+  spawnGridEntity(GridEntityType.POOP, tilePosition);
 }
 
 /**
@@ -1075,7 +1164,7 @@ export function poopMana(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of mana to add.");
+      print("That is an invalid amount of mana to add.");
       return;
     }
 
@@ -1109,7 +1198,7 @@ export function right(params: string): void {
 /** Logs information about the room to the "log.txt" file. */
 export function room(): void {
   logRoom();
-  printConsole('Logged room information to the "log.txt" file.');
+  print('Logged room information to the "log.txt" file.');
 }
 
 /**
@@ -1141,7 +1230,7 @@ export function runTests(): void {
  */
 export function s(params: string): void {
   if (params === "") {
-    printConsole("You must specify a stage number.");
+    print("You must specify a stage number.");
     return;
   }
 
@@ -1155,7 +1244,7 @@ export function s(params: string): void {
     finalCharacter === "d"
   ) {
     // e.g. "s 11a" for going to The Chest
-    stageString = params.slice(0, params.length - 1);
+    stageString = params.slice(0, -1);
     stageTypeLetter = finalCharacter;
   } else {
     // e.g. "s 11" for going to the Dark Room
@@ -1165,12 +1254,12 @@ export function s(params: string): void {
 
   const stage = tonumber(stageString) as LevelStage | undefined;
   if (stage === undefined) {
-    printConsole(`That is an invalid stage number: ${stage}`);
+    print(`That is an invalid stage number: ${stage}`);
     return;
   }
 
   if (stage < FIRST_STAGE || stage > LAST_STAGE) {
-    printConsole(
+    print(
       `Invalid stage number; must be between ${FIRST_STAGE} and ${LAST_STAGE}.`,
     );
     return;
@@ -1189,17 +1278,23 @@ export function secretRoom(): void {
   warpToRoomType(RoomType.SECRET);
 }
 
+/** Warps to the Secret Shop that you would normally get to with a Member Card. */
+export function secretShop(): void {
+  changeRoom(GridRoom.SECRET_SHOP);
+}
+
 /** Changes to a seeded run, using the seed of the current run. */
 export function seedStick(): void {
   const seedsClass = game.GetSeeds();
   const startSeedString = seedsClass.GetStartSeedString();
   Isaac.ExecuteCommand(`seed ${startSeedString}`);
+  print(`Sticking to seed: ${startSeedString}`);
 }
 
 /** Logs all of the current run's seed effects to the "log.txt" file. */
 export function seeds(): void {
   logSeedEffects();
-  printConsole('Logged the seed effects to the "log.txt" file.');
+  print('Logged the seed effects to the "log.txt" file.');
 }
 
 /**
@@ -1208,7 +1303,7 @@ export function seeds(): void {
  */
 export function setCharges(params: string): void {
   if (params === "") {
-    printConsole(
+    print(
       "You must specify a slot number and a charge amount. (Use 0 for the primary slot, 1 for the Schoolbag slot, 2 for the pocket item slot, and 3 for the Dice Bag slot.)",
     );
     return;
@@ -1217,12 +1312,12 @@ export function setCharges(params: string): void {
   const args = params.split(" ");
 
   if (args.length === 1) {
-    printConsole("You must specify the amount of charge to set.");
+    print("You must specify the amount of charge to set.");
     return;
   }
 
   if (args.length !== 2) {
-    printConsole("That is an invalid amount of arguments.");
+    print("That is an invalid amount of arguments.");
     return;
   }
 
@@ -1230,24 +1325,23 @@ export function setCharges(params: string): void {
 
   const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
   if (activeSlot === undefined) {
-    printConsole(`The provided slot number is invalid: ${activeSlotString}`);
+    print(`The provided slot number is invalid: ${activeSlotString}`);
     return;
   }
 
-  const activeSlots = getEnumValues(ActiveSlot);
-  if (!activeSlots.includes(activeSlot)) {
-    printConsole(`The provided slot number is invalid: ${activeSlot}`);
+  if (!ACTIVE_SLOT_VALUES.includes(activeSlot)) {
+    print(`The provided slot number is invalid: ${activeSlot}`);
     return;
   }
 
   const chargeNum = tonumber(chargeString);
   if (chargeNum === undefined) {
-    printConsole(`The provided charge amount is invalid: ${chargeString}`);
+    print(`The provided charge amount is invalid: ${chargeString}`);
     return;
   }
 
   if (chargeNum < 0) {
-    printConsole(`The provided charge amount is invalid: ${chargeNum}`);
+    print(`The provided charge amount is invalid: ${chargeNum}`);
     return;
   }
 
@@ -1263,13 +1357,13 @@ export function setCharges(params: string): void {
  */
 export function setPosition(params: string): void {
   if (params === "") {
-    printConsole('You must specify a position. (e.g. "setPosition 100 50")');
+    print('You must specify a position. (e.g. "setPosition 100 50")');
     return;
   }
 
   const args = params.split(" ");
   if (args.length !== 2) {
-    printConsole('You must specify a position. (e.g. "setPosition 100 50")');
+    print('You must specify a position. (e.g. "setPosition 100 50")');
     return;
   }
 
@@ -1277,13 +1371,13 @@ export function setPosition(params: string): void {
 
   const x = tonumber(xString);
   if (x === undefined) {
-    printConsole(`That is an invalid x value: ${xString}`);
+    print(`That is an invalid x value: ${xString}`);
     return;
   }
 
   const y = tonumber(yString);
   if (y === undefined) {
-    printConsole(`That is an invalid y value: ${yString}`);
+    print(`That is an invalid y value: ${yString}`);
     return;
   }
 
@@ -1312,7 +1406,7 @@ export function soulCharges(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole("That is an invalid amount of charges to add.");
+      print("That is an invalid amount of charges to add.");
       return;
     }
 
@@ -1340,7 +1434,7 @@ export function soulHearts(params: string): void {
 export function sound(params: string): void {
   const soundEffect = tonumber(params) as SoundEffect | undefined;
   if (soundEffect === undefined) {
-    printConsole("That is an invalid sound effect ID.");
+    print("That is an invalid sound effect ID.");
     return;
   }
 
@@ -1350,9 +1444,7 @@ export function sound(params: string): void {
 /** Logs all of the currently playing sound effects to the "log.txt" file. */
 export function sounds(): void {
   logSounds();
-  printConsole(
-    'Logged the currently playing sound effects to the "log.txt" file.',
-  );
+  print('Logged the currently playing sound effects to the "log.txt" file.');
 }
 
 /**
@@ -1364,10 +1456,23 @@ export function spam(): void {
   printEnabled(v.persistent.spamBloodRights, "spamming Blood Rights");
 }
 
+/**
+ * Spawns a collectible in the center of the room. You must specify the collectible name or the
+ * number corresponding to the collectible type.
+ *
+ * For example, all of the following commands would spawn Spoon Bender:
+ *
+ * ```text
+ * spawnCollectible spoon bender
+ * spawnCollectible spoon
+ * spawnCollectible spo
+ * spawnCollectible 3
+ * ```
+ */
 export function spawnCollectible(params: string): void {
   if (params === "") {
-    printConsole(
-      "You must specify the name or number corresponding to the collectible type.",
+    print(
+      "You must specify the collectible name or the number corresponding to the collectible type.",
     );
     return;
   }
@@ -1377,7 +1482,7 @@ export function spawnCollectible(params: string): void {
   if (collectibleTypeNumber === undefined) {
     const match = getMapPartialMatch(params, COLLECTIBLE_NAME_TO_TYPE_MAP);
     if (match === undefined) {
-      printConsole(`Unknown collectible: ${params}`);
+      print(`Unknown collectible: ${params}`);
       return;
     }
 
@@ -1388,13 +1493,93 @@ export function spawnCollectible(params: string): void {
 
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
-  spawnCollectibleUnsafe(collectibleType, centerPos);
+  spawnCollectibleUnsafe(collectibleType, centerPos, undefined);
 }
 
-/** Spawns a golden version of the specified trinket type. */
-export function spawnGoldenTrinket(params: string): void {
+/**
+ * Spawns a collectible at a specific grid tile location. You must specify the number corresponding
+ * to the collectible type and the number corresponding to the grid tile location.
+ *
+ * For example, this would spawn Spoon Bender in the top-left corner of a 1x1 room:
+ *
+ * ```text
+ * spawnCollectibleAt 3 16
+ * ```
+ *
+ * (You can use the "grid" command to toggle displaying the numerical grid indexes corresponding to
+ * a grid tile.)
+ */
+export function spawnCollectibleAt(params: string): void {
   if (params === "") {
-    printConsole(
+    print(
+      "You must specify the number corresponding to the collectible type and the number corresponding to the grid tile location.",
+    );
+    return;
+  }
+
+  const args = params.split(" ");
+  if (args.length !== 2) {
+    print(
+      "You must specify the number corresponding to the collectible type and the number corresponding to the grid tile location.",
+    );
+    return;
+  }
+
+  const collectibleTypeNumber = tonumber(args[0]);
+  if (collectibleTypeNumber === undefined || collectibleTypeNumber < 0) {
+    print(`Failed to parse the collectible type of: ${args[0]}`);
+    return;
+  }
+
+  const gridIndex = tonumber(args[1]);
+  if (gridIndex === undefined || gridIndex < 0) {
+    print(`Failed to parse the grid index of: ${args[1]}`);
+    return;
+  }
+
+  const collectibleType = asCollectibleType(collectibleTypeNumber);
+  spawnCollectibleUnsafe(collectibleType, gridIndex, undefined);
+}
+
+/** Alias for the `spawnGoldenTrinket` command. */
+export function spawnGoldTrinket(params: string): void {
+  spawnGoldenTrinket(params);
+}
+
+/**
+ * The same thing as the `spawnTrinket` command but spawns a golden version of the specified
+ * trinket.
+ */
+export function spawnGoldenTrinket(params: string): void {
+  spawnTrinket(params, true);
+}
+
+/**
+ * The same thing as the `spawnTrinketAt` command but spawns a golden version of the specified
+ * trinket.
+ */
+export function spawnGoldenTrinketAt(params: string): void {
+  spawnTrinketAt(params, true);
+}
+
+/**
+ * Spawns a trinket in the center of the room. You must specify the trinket name or the number
+ * corresponding to the trinket type.
+ *
+ * For example, all of the following commands would spawn the Wiggle Worm trinket:
+ *
+ * ```text
+ * spawnTrinket wiggle worm
+ * spawnTrinket wiggle
+ * spawnTrinket wig
+ * spawnTrinket 10
+ * ```
+ *
+ * Also see the `spawnGoldenTrinket` command.
+ */
+export function spawnTrinket(params: string, golden = false): void {
+  if (params === "") {
+    print(
       "You must specify the name or number corresponding to the trinket type.",
     );
     return;
@@ -1405,7 +1590,7 @@ export function spawnGoldenTrinket(params: string): void {
   if (trinketTypeNumber === undefined) {
     const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
     if (match === undefined) {
-      printConsole(`Unknown trinket: ${params}`);
+      print(`Unknown trinket: ${params}`);
       return;
     }
 
@@ -1417,34 +1602,55 @@ export function spawnGoldenTrinket(params: string): void {
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
   const goldenTrinketType = getGoldenTrinketType(trinketType);
-  spawnTrinketFunction(goldenTrinketType, centerPos);
+  const trinketTypeToSpawn = golden ? goldenTrinketType : trinketType;
+  spawnTrinketFunction(trinketTypeToSpawn, centerPos);
 }
 
-export function spawnTrinket(params: string): void {
+/**
+ * Spawns a trinket at a specific grid tile location. You must specify the number corresponding to
+ * the trinket type and the number corresponding to the grid tile location.
+ *
+ * For example, this would spawn Wiggle Worm in the top-left corner of a 1x1 room:
+ *
+ * ```text
+ * spawnTrinketAt 10 16
+ * ```
+ *
+ * (You can use the "grid" command to toggle displaying the numerical grid indexes corresponding to
+ * a grid tile.)
+ */
+export function spawnTrinketAt(params: string, golden = false): void {
   if (params === "") {
-    printConsole(
-      "You must specify the name or number corresponding to the trinket type.",
+    print(
+      "You must specify the number corresponding to the trinket type and the number corresponding to the grid tile location.",
     );
     return;
   }
 
-  const trinketTypeNumber = tonumber(params);
-  let trinketType: TrinketType;
-  if (trinketTypeNumber === undefined) {
-    const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
-    if (match === undefined) {
-      printConsole(`Unknown trinket: ${params}`);
-      return;
-    }
-
-    trinketType = match[1];
-  } else {
-    trinketType = asTrinketType(trinketTypeNumber);
+  const args = params.split(" ");
+  if (args.length !== 2) {
+    print(
+      "You must specify the number corresponding to the trinket type and the number corresponding to the grid tile location.",
+    );
+    return;
   }
 
-  const roomClass = game.GetRoom();
-  const centerPos = roomClass.GetCenterPos();
-  spawnTrinketFunction(trinketType, centerPos);
+  const trinketTypeNumber = tonumber(args[0]);
+  if (trinketTypeNumber === undefined || trinketTypeNumber < 0) {
+    print(`Failed to parse the trinket type of: ${args[0]}`);
+    return;
+  }
+
+  const gridIndex = tonumber(args[1]);
+  if (gridIndex === undefined || gridIndex < 0) {
+    print(`Failed to parse the grid index of: ${args[1]}`);
+    return;
+  }
+
+  const trinketType = asTrinketType(trinketTypeNumber);
+  const goldenTrinketType = getGoldenTrinketType(trinketType);
+  const trinketTypeToSpawn = golden ? goldenTrinketType : trinketType;
+  spawnTrinketFunction(trinketTypeToSpawn, gridIndex);
 }
 
 /**
@@ -1458,7 +1664,7 @@ export function speed(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole(`The provided speed amount is invalid: ${params}`);
+      print(`The provided speed amount is invalid: ${params}`);
       return;
     }
 
@@ -1473,7 +1679,16 @@ export function speed(params: string): void {
   const value = tostring(v.persistent.speed);
   flight(value);
 
-  printEnabled(v.persistent.speed, "set speed and flight");
+  printEnabled(v.persistent.speed, "set speed");
+}
+
+/** Creates a spikes grid entity next to the player. */
+export function spikes(): void {
+  const roomClass = game.GetRoom();
+  const player = Isaac.GetPlayer();
+  const tilePosition = roomClass.FindFreeTilePosition(player.Position, 0);
+
+  spawnGridEntity(GridEntityType.SPIKES, tilePosition);
 }
 
 /** Alias for the "startingRoom" command. */
@@ -1502,7 +1717,7 @@ export function tears(params: string): void {
   if (params !== "") {
     const num = tonumber(params);
     if (num === undefined) {
-      printConsole(`The provided tear delay amount is invalid: ${params}`);
+      print(`The provided tear delay amount is invalid: ${params}`);
       return;
     }
 
@@ -1533,6 +1748,11 @@ export function treasureRoom(): void {
   warpToRoomType(RoomType.TREASURE);
 }
 
+/** Alias for the "spawnTrinket" command. */
+export function trinket(params: string): void {
+  spawnTrinket(params);
+}
+
 /** Warps to the first Ultra Secret Room on the floor. */
 export function ultraSecretRoom(): void {
   warpToRoomType(RoomType.ULTRA_SECRET);
@@ -1547,7 +1767,7 @@ export function unknown(): void {
 /** If currently on a set seed, changes to an unseeded state and restarts the game. */
 export function unseed(): void {
   if (!onSetSeed()) {
-    printConsole("You are not on a set seed, so you cannot unseed the run.");
+    print("You are not on a set seed, so you cannot unseed the run.");
     return;
   }
 
@@ -1570,7 +1790,7 @@ export function up(params: string): void {
  */
 export function warp(params: string): void {
   if (params === "") {
-    printConsole("You must specify a room type name or number.");
+    print("You must specify a room type name or number.");
     return;
   }
 
@@ -1579,14 +1799,14 @@ export function warp(params: string): void {
   if (num === undefined) {
     const match = getMapPartialMatch(params, ROOM_NAME_TO_TYPE_MAP);
     if (match === undefined) {
-      printConsole(`Unknown room type: ${params}`);
+      print(`Unknown room type: ${params}`);
       return;
     }
 
     roomType = match[1];
   } else {
     if (num < FIRST_ROOM_TYPE || num > LAST_ROOM_TYPE) {
-      printConsole(`Invalid room type: ${num}`);
+      print(`Invalid room type: ${num}`);
       return;
     }
 
@@ -1594,4 +1814,9 @@ export function warp(params: string): void {
   }
 
   warpToRoomType(roomType);
+}
+
+/** Alias for the "labyrinth" command. */
+export function xl(): void {
+  labyrinth();
 }

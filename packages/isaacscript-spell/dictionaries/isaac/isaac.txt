@@ -1,0 +1,93 @@
+# These are words that apply to Isaac modding in general.
+
+Antibirth
+Beelzeblub
+Begottens
+Bethanys
+Bonies
+Chronometrics # Creator of Basement Renovator
+contentfolder # metadata.vdf
+craftable
+Cucco # Job developer
+datagrams
+debuff
+despawn
+despawned
+despawning
+despawns
+Dollys
+Dreamcatcher
+Eggies
+ENCYCLOPEDIARARY # Encyclopedia parameter
+esaus
+Fallens
+Filloax # Revelations developer
+fistuloids
+forgottens
+fsize # Encyclopedia parameter
+Gabriels
+gameplay
+giveitem # Console command
+halign # Encyclopedia parameter
+hitbox
+hitboxes
+hitsphere
+hitspheres
+isaacracing # Website for Racing+
+Kilburn # Repentance developer
+Kinetis
+Losts
+luacheck
+luarooms
+Lytebringr # YouTube tutorial maker
+modders
+Moters
+Mullibooms
+nerfed
+nerfs
+Nicalis
+npcs
+pathing
+piber # Creator of Mod Config Menu
+polties
+Polycephaluses
+pooters
+proc
+procs
+propget # Key of userdata
+propset # Key of userdata
+publishedfileid # metadata.vdf
+Raglings
+respawn
+respawned
+respawning
+respawns
+Sanio # Creator of Character Costume Protector library
+satans
+scolexes
+shockwaves
+shroom
+shrooms
+softlock
+softlocked
+softlocking
+softlocks
+speedrun
+speedrunner
+speedrunners
+speedrunning
+speedruns
+Spitties
+steamcmd # For uploading/publishing
+Stonies
+teleporters
+teleporting
+texel
+texels
+tnts
+trites
+Turdlings
+unseed
+Uriels
+Wofsauge # External Item Descriptions developer
+workshopitem # metadata.vdf

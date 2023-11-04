@@ -1,8 +1,8 @@
 import { RoomType } from "isaac-typescript-definitions";
 
-export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
-  [RoomType.DEFAULT]: "default room", // 1
-  [RoomType.SHOP]: "shop", // 2
+export const ROOM_TYPE_NAMES = {
+  [RoomType.DEFAULT]: "Default Room", // 1
+  [RoomType.SHOP]: "Shop", // 2
   [RoomType.ERROR]: "I AM ERROR Room", // 3
   [RoomType.TREASURE]: "Treasure Room", // 4
   [RoomType.BOSS]: "Boss Room", // 5
@@ -20,7 +20,7 @@ export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.BOSS_RUSH]: "Boss Rush", // 17
   [RoomType.CLEAN_BEDROOM]: "Clean Bedroom", // 18
   [RoomType.DIRTY_BEDROOM]: "Dirty Bedroom", // 19
-  [RoomType.CHEST]: "Chest Room", // 20
+  [RoomType.VAULT]: "Vault", // 20
   [RoomType.DICE]: "Dice Room", // 21
   [RoomType.BLACK_MARKET]: "Black Market", // 22
   [RoomType.GREED_EXIT]: "Greed Exit Room", // 23
@@ -30,4 +30,4 @@ export const ROOM_TYPE_NAMES: { readonly [key in RoomType]: string } = {
   [RoomType.SECRET_EXIT]: "Secret Exit", // 27
   [RoomType.BLUE]: "Blue Room", // 28
   [RoomType.ULTRA_SECRET]: "Ultra Secret Room", // 29
-} as const;
+} as const satisfies Record<RoomType, string>;

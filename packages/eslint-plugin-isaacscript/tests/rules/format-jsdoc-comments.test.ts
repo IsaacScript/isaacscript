@@ -1,9 +1,9 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import {
-  formatJSDocComments,
+import type { TSESLint } from "@typescript-eslint/utils";
+import type {
   MessageIds,
   Options,
 } from "../../src/rules/format-jsdoc-comments";
+import { formatJSDocComments } from "../../src/rules/format-jsdoc-comments";
 import { ruleTester } from "../utils";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
@@ -448,16 +448,14 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a multi-line comment with a short JSDoc tag with text",
+  name: "Using a single-line comment with a JSDoc tag with text",
   code: `
-/**
- * @param foo This is foo.
- */
+/** @param foo This is foo. */
   `,
 });
 
 valid.push({
-  name: "Using a multi-line comment with a short JSDoc tag without text",
+  name: "Using a single-line comment with a short JSDoc tag without text",
   code: `
 /** @foo */
   `,
@@ -534,7 +532,7 @@ invalid.push({
   code: `
 /**
  * This is the description for \`foo\`.
- * @param arg1 Whether or not to bar.
+ * @param arg1 Whether to bar.
  */
 function foo(arg1: boolean) {}
     `,
@@ -543,7 +541,7 @@ function foo(arg1: boolean) {}
 /**
  * This is the description for \`foo\`.
  *
- * @param arg1 Whether or not to bar.
+ * @param arg1 Whether to bar.
  */
 function foo(arg1: boolean) {}
     `,
@@ -558,6 +556,171 @@ valid.push({
   * @param count Default is 1.
   */
     `,
+});
+
+valid.push({
+  name: "Using a comment with only JSDoc param tags",
+  code: `
+ /**
+  * @param nullItemID
+  * @param addCostume
+  * @param count Default is 1.
+  */
+    `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on one line",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello'];
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines and header",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example
+ * type Foo = 123;
+ * type Bar = 456;
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines and no header",
+  code: `
+/**
+ * @example
+ *     // Open the modem on the top of this computer.
+ *     peripheral.call("top", "open", 1);
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc example on multiple lines and another tag afterwards",
+  code: `
+/**
+ * Inference helper for inputs.
+ *
+ * @example
+ * type Foo = 123;
+ * type Bar = 456;
+ *
+ * @param Baz This is baz.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with multiple JSDoc example tags",
+  code: `
+/**
+ * Determines if a peripheral is present with the given name.
+ *
+ * @example
+ *     peripheral.isPresent("top");
+ * @example
+ *     peripheral.isPresent("monitor_0");
+ * @param name The side or network name that you want to check.
+ * @returns If a peripheral is present with the given name.
+ */
+declare function isPresent(name: string): boolean;
+  `,
+});
+
+valid.push({
+  name: "Comment with JSDoc markdown table",
+  code: `
+/**
+ * | API                                                  | Description                                                                  |
+ * | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+ * | {@link getNames getNames()}                          | Provides a list of all peripherals available.                                |
+ * | {@link isPresent isPresent(name)}                    | Determines if a peripheral is present with the given name.                   |
+ * | {@link getType getType(peripheral)}                  | Get the types of a named or wrapped peripheral.                              |
+ * | {@link hasType hasType(peripheral, peripheral_type)} | Check if a peripheral is of a particular type.                               |
+ * | {@link getMethods getMethods(name)}                  | Get all available methods for the peripheral with the given name.            |
+ * | {@link getName getName(peripheral)}                  | Get the name of a peripheral wrapped with \`peripheral.wrap\`.                 |
+ * | {@link call call(name, method, ...)}                 | Call a method on the peripheral with the given name.                         |
+ * | {@link wrap wrap(name)}                              | Get a table containing all functions available on a peripheral.              |
+ * | {@link find find(ty [, filter])}                     | Find all peripherals of a specific type, and return the wrapped peripherals. |
+ */
+  `,
+});
+
+invalid.push({
+  name: "Comment with multiple JSDoc link tag that spills over on a new line",
+  code: `
+/**
+ * Asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd {@link colors}.
+ */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * Asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd asd
+ * {@link colors}.
+ */
+  `,
+});
+
+valid.push({
+  name: "Comment with example JSDoc and code block inside",
+  code: `
+function foo() {
+  function bar() {
+    /**
+     * Get detailed information about the items in the given slot.
+     *
+     * @since 1.64.0
+     * @example
+     *     // Print the current slot, assuming it contains 13 dirt.
+     *     print(text_utils.serialize(turtle.getItemDetail()));
+     *     // \`\`\`lua {
+     *     //  name = "minecraft:dirt",
+     *     //  count = 13,
+     *     // \`\`\`
+     * @param slot The slot to get information about. Defaults to the {@link select selected slot}.
+     * @param detailed Whether to include "detailed" information. When \`true\` the method will
+     *                 contain much more information about the item at the cost of taking longer to
+     *                 run.
+     * @returns Information about the given slot, or \`undefined\` if it is empty.
+     * @throws If the slot is out of range.
+     * @see {@link InventoryPeripheral.getItemDetail} Describes the information returned by a
+     *      detailed query.
+     */
+  }
+}
+  `,
+});
+
+invalid.push({
+  name: "Comment with 1 leading asterisk",
+  code: `
+/** *foo */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/** foo */
+  `,
+});
+
+invalid.push({
+  name: "Comment with 2 leading asterisks",
+  code: `
+/** **foo */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/** foo */
+  `,
 });
 
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {

@@ -152,12 +152,11 @@ type RoomDescriptorFlagValue = BitFlag & {
   readonly __roomDescriptorFlagBrand: symbol;
 };
 type RoomDescriptorFlagType = {
-  [K in keyof typeof RoomDescriptorFlagInternal]: RoomDescriptorFlagValue;
+  readonly [K in keyof typeof RoomDescriptorFlagInternal]: RoomDescriptorFlagValue;
 };
 
 export const RoomDescriptorFlag =
   RoomDescriptorFlagInternal as RoomDescriptorFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type RoomDescriptorFlag =
   RoomDescriptorFlagType[keyof RoomDescriptorFlagType];
 

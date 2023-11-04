@@ -1,25 +1,26 @@
 // The save data manager has a feature where certain variables will automatically be rolled back
-// when the Glowing Hour Glass is used.
+// when the Glowing Hourglass is used.
 
 import { SaveDataKey } from "../../../../enums/SaveDataKey";
 import { SerializationType } from "../../../../enums/SerializationType";
 import { deepCopy } from "../../../../functions/deepCopy";
 import { merge } from "../../../../functions/merge";
 import { iterateTableInOrder } from "../../../../functions/table";
-import { SaveData } from "../../../../interfaces/SaveData";
-import { AnyClass } from "../../../../types/AnyClass";
+import type { SaveData } from "../../../../interfaces/SaveData";
+import type { AnyClass } from "../../../../types/AnyClass";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
 /**
- * When the Glowing Hour Glass is used, certain save data keys will automatically be restored to a
+ * When the Glowing Hourglass is used, certain save data keys will automatically be restored to a
  * backup.
  */
-const GLOWING_HOUR_GLASS_BACKUP_KEYS: readonly SaveDataKey[] = [
+const GLOWING_HOUR_GLASS_BACKUP_KEYS = [
   SaveDataKey.RUN,
   SaveDataKey.LEVEL,
-];
+] as const;
 
 const IGNORE_GLOWING_HOUR_GLASS_KEY = "__ignoreGlowingHourGlass";
+const REWIND_WITH_GLOWING_HOUR_GLASS_KEY = "__rewindWithGlowingHourGlass";
 
 export function makeGlowingHourGlassBackup(
   saveDataMap: LuaMap<string, SaveData>,
@@ -29,7 +30,7 @@ export function makeGlowingHourGlassBackup(
   iterateTableInOrder(
     saveDataMap,
     (subscriberName, saveData) => {
-      // We make the Glowing Hour Glass backup using `SerializationType.SERIALIZE`, which means that
+      // We make the Glowing Hourglass backup using `SerializationType.SERIALIZE`, which means that
       // we cannot operate on unserializable data, such as functions. Save data that utilizes
       // unserializable data will typically be marked using a conditional function that evaluates to
       // false, so we skip all save data that matches this criteria.
@@ -41,7 +42,7 @@ export function makeGlowingHourGlassBackup(
         }
       }
 
-      for (const saveDataKey of GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+      for (const saveDataKey of getKeysToBackup(saveData)) {
         const childTable = saveData[saveDataKey];
         if (childTable === undefined) {
           // This feature does not happen to store any variables on this particular child table.
@@ -86,7 +87,7 @@ export function restoreGlowingHourGlassBackup(
   iterateTableInOrder(
     saveDataMap,
     (subscriberName, saveData) => {
-      // We make the Glowing Hour Glass backup using `SerializationType.SERIALIZE`, which means that
+      // We make the Glowing Hourglass backup using `SerializationType.SERIALIZE`, which means that
       // we cannot operate on unserializable data, such as functions. Save data that utilizes
       // unserializable data will typically be marked using a conditional function that evaluates to
       // false, so we skip all save data that matches this criteria.
@@ -98,7 +99,7 @@ export function restoreGlowingHourGlassBackup(
         }
       }
 
-      for (const saveDataKey of GLOWING_HOUR_GLASS_BACKUP_KEYS) {
+      for (const saveDataKey of getKeysToBackup(saveData)) {
         const childTable = saveData[saveDataKey];
         if (childTable === undefined) {
           // This feature does not happen to store any variables on this particular child table.
@@ -135,4 +136,14 @@ export function restoreGlowingHourGlassBackup(
     },
     SAVE_DATA_MANAGER_DEBUG,
   );
+}
+
+function getKeysToBackup(saveData: SaveData) {
+  const shouldBackupPersistentObject =
+    saveData.persistent !== undefined &&
+    (saveData.persistent as LuaTable).has(REWIND_WITH_GLOWING_HOUR_GLASS_KEY);
+
+  return shouldBackupPersistentObject
+    ? ([...GLOWING_HOUR_GLASS_BACKUP_KEYS, SaveDataKey.PERSISTENT] as const)
+    : GLOWING_HOUR_GLASS_BACKUP_KEYS;
 }

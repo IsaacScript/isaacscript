@@ -1,5 +1,5 @@
+import type { ActiveSlot } from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   CollectibleType,
   HeartSubType,
   PlayerType,
@@ -7,12 +7,12 @@ import {
 } from "isaac-typescript-definitions";
 import { MAX_PLAYER_HEART_CONTAINERS } from "../core/constants";
 import { HealthType } from "../enums/HealthType";
-import { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
+import type { PlayerHealth, SoulHeartType } from "../interfaces/PlayerHealth";
 import { countSetBits, getKBitOfN, getNumBitsOfN } from "./bitwise";
 import { getCharacterMaxHeartContainers } from "./characters";
 import { getTotalCharge } from "./charge";
-import { getEnumValues } from "./enums";
-import { isCharacter, isKeeper, setActiveItem } from "./players";
+import { getActiveItemSlots, setActiveItem } from "./playerCollectibles";
+import { isCharacter, isKeeper } from "./players";
 import { repeat } from "./utils";
 
 export function addPlayerHealthType(
@@ -84,7 +84,7 @@ export function canPickEternalHearts(player: EntityPlayer): boolean {
 }
 
 /**
- * Returns whether or not all of the player's soul-heart-type hearts are black hearts.
+ * Returns whether all of the player's soul-heart-type hearts are black hearts.
  *
  * Note that this function does not consider red heart containers.
  *
@@ -104,7 +104,7 @@ export function doesPlayerHaveAllBlackHearts(player: EntityPlayer): boolean {
 }
 
 /**
- * Returns whether or not all of the player's soul-heart-type hearts are soul hearts.
+ * Returns whether all of the player's soul-heart-type hearts are soul hearts.
  *
  * Note that this function does not consider red heart containers.
  *
@@ -132,7 +132,7 @@ export function getPlayerAvailableHeartSlots(player: EntityPlayer): int {
   const effectiveMaxHearts = player.GetEffectiveMaxHearts();
   const normalAndBoneHeartContainers = effectiveMaxHearts / 2;
   const soulHearts = player.GetSoulHearts();
-  const soulHeartContainers = math.ceil(soulHearts / 2);
+  const soulHeartContainers = Math.ceil(soulHearts / 2);
   const totalHeartContainers =
     normalAndBoneHeartContainers + soulHeartContainers;
   const brokenHearts = player.GetBrokenHearts();
@@ -162,7 +162,7 @@ export function getPlayerBlackHearts(player: EntityPlayer): int {
  *
  * This is based on the `REVEL.StoreHealth` function in the Revelations mod.
  */
-export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
+export function getPlayerHealth(player: EntityPlayer): Readonly<PlayerHealth> {
   const character = player.GetPlayerType();
   let maxHearts = player.GetMaxHearts();
   let hearts = getPlayerHearts(player); // We use the helper function to remove rotten hearts
@@ -193,7 +193,7 @@ export function getPlayerHealth(player: EntityPlayer): PlayerHealth {
   }
 
   // This is the number of individual hearts shown in the HUD, minus heart containers.
-  const extraHearts = math.ceil(soulHearts / 2) + boneHearts;
+  const extraHearts = Math.ceil(soulHearts / 2) + boneHearts;
 
   // Since bone hearts can be inserted anywhere between soul hearts, we need a separate counter to
   // track which soul heart we're currently at.
@@ -435,8 +435,8 @@ export function getPlayerSoulHearts(player: EntityPlayer): int {
  *
  * If Tainted Magdalene has Birthright, she will gained an additional non-temporary heart container.
  *
- * This function does not validate whether or not the provided player is Tainted Magdalene; that
- * should be accomplished before invoking this function.
+ * This function does not validate whether the provided player is Tainted Magdalene; that should be
+ * accomplished before invoking this function.
  */
 export function getTaintedMagdaleneNonTemporaryMaxHearts(
   player: EntityPlayer,
@@ -465,28 +465,48 @@ export function newPlayerHealth(): PlayerHealth {
   };
 }
 
+/**
+ * Helper function to remove all of a player's black hearts and add the corresponding amount of soul
+ * hearts.
+ */
 export function playerConvertBlackHeartsToSoulHearts(
   player: EntityPlayer,
 ): void {
   const playerHealth = getPlayerHealth(player);
   removeAllPlayerHealth(player);
-  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
-    (soulHeartType) =>
-      soulHeartType === HeartSubType.BLACK ? HeartSubType.SOUL : soulHeartType,
+
+  const newSoulHeartTypes = playerHealth.soulHeartTypes.map((soulHeartType) =>
+    soulHeartType === HeartSubType.BLACK ? HeartSubType.SOUL : soulHeartType,
   );
-  setPlayerHealth(player, playerHealth);
+
+  const playerHealthWithSoulHearts = {
+    ...playerHealth,
+    soulHeartTypes: newSoulHeartTypes,
+  };
+
+  setPlayerHealth(player, playerHealthWithSoulHearts);
 }
 
+/**
+ * Helper function to remove all of a player's soul hearts and add the corresponding amount of black
+ * hearts.
+ */
 export function playerConvertSoulHeartsToBlackHearts(
   player: EntityPlayer,
 ): void {
   const playerHealth = getPlayerHealth(player);
   removeAllPlayerHealth(player);
-  playerHealth.soulHeartTypes = playerHealth.soulHeartTypes.map(
-    (soulHeartType) =>
-      soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
+
+  const newSoulHeartTypes = playerHealth.soulHeartTypes.map((soulHeartType) =>
+    soulHeartType === HeartSubType.SOUL ? HeartSubType.BLACK : soulHeartType,
   );
-  setPlayerHealth(player, playerHealth);
+
+  const playerHealthWithBlackHearts = {
+    ...playerHealth,
+    soulHeartTypes: newSoulHeartTypes,
+  };
+
+  setPlayerHealth(player, playerHealthWithBlackHearts);
 }
 
 /**
@@ -543,20 +563,23 @@ export function setPlayerHealth(
   const character = player.GetPlayerType();
   const subPlayer = player.GetSubPlayer();
 
-  removeAllPlayerHealth(player);
-
-  // Before we add any health, we have to take away Alabaster Box, if present.
-  const alabasterBoxes: Array<[slot: ActiveSlot, totalCharge: int]> = [];
-  if (player.HasCollectible(CollectibleType.ALABASTER_BOX)) {
-    for (const activeSlot of getEnumValues(ActiveSlot)) {
-      const activeItem = player.GetActiveItem();
-      if (activeItem === CollectibleType.ALABASTER_BOX) {
-        const totalCharge = getTotalCharge(player, activeSlot);
-        setActiveItem(player, CollectibleType.NULL, activeSlot);
-        alabasterBoxes.push([activeSlot, totalCharge]);
-      }
-    }
+  // Before we add or remove any health, we have to take away Alabaster Box, if present. (Removing
+  // soul hearts from the player will remove Alabaster Box charges.)
+  const alabasterBoxDescriptions: Array<{
+    activeSlot: ActiveSlot;
+    totalCharge: int;
+  }> = [];
+  const alabasterBoxActiveSlots = getActiveItemSlots(
+    player,
+    CollectibleType.ALABASTER_BOX,
+  );
+  for (const activeSlot of alabasterBoxActiveSlots) {
+    const totalCharge = getTotalCharge(player, activeSlot);
+    setActiveItem(player, CollectibleType.NULL, activeSlot);
+    alabasterBoxDescriptions.push({ activeSlot, totalCharge });
   }
+
+  removeAllPlayerHealth(player);
 
   // Add the red heart containers.
   if (character === PlayerType.SOUL && subPlayer !== undefined) {
@@ -571,7 +594,7 @@ export function setPlayerHealth(
 
   // Add the soul / black / bone hearts.
   let soulHeartsRemaining = playerHealth.soulHearts;
-  playerHealth.soulHeartTypes.forEach((soulHeartType, i) => {
+  for (const [i, soulHeartType] of playerHealth.soulHeartTypes.entries()) {
     const isHalf =
       playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
     let addAmount = 2;
@@ -603,19 +626,19 @@ export function setPlayerHealth(
         break;
       }
     }
-  });
+  }
 
   /**
    * Fill in the red heart containers.
    *
-   * (Rotten Hearts must be filled in first in order for this to work properly, since they conflict
-   * with half red hearts.)
+   * Rotten Hearts must be filled in first in order for this to work properly, since they conflict
+   * with half red hearts.
    *
-   * The `EntityPlayer.AddRottenHearts` method is not like actually picking up a rotten heart, since
-   * it will only grant one rotten heart to Tainted Magdalene (whereas picking up a rotten heart
-   * would grant two).
+   * We multiply by two because the `EntityPlayer.GetRottenHearts` function returns the actual
+   * number of rotten hearts, but the `EntityPlayer.AddRottenHearts` works like the other heart
+   * functions in that a value of 1 is equivalent to a half-heart.
    */
-  player.AddRottenHearts(playerHealth.rottenHearts);
+  player.AddRottenHearts(playerHealth.rottenHearts * 2);
 
   if (character === PlayerType.MAGDALENE_B) {
     // Adding 1 heart to Tainted Magdalene will actually add two hearts.
@@ -649,7 +672,7 @@ export function setPlayerHealth(
   }
 
   // Re-add the Alabaster Box, if present.
-  for (const [activeSlot, totalCharge] of alabasterBoxes) {
+  for (const { activeSlot, totalCharge } of alabasterBoxDescriptions) {
     setActiveItem(
       player,
       CollectibleType.ALABASTER_BOX,

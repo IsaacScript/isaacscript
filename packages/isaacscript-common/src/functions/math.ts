@@ -2,13 +2,13 @@ import { Direction } from "isaac-typescript-definitions";
 import { directionToVector } from "./direction";
 
 /**
- * Helper function to normalize an integer.
+ * Helper function to normalize a number, ensuring that it is within a certain range.
  *
- * - If `x` is less than `min`, then it will be clamped to `min`.
- * - If `x` is greater than `max`, then it will be clamped to `max`.
+ * - If `num` is less than `min`, then it will be clamped to `min`.
+ * - If `num` is greater than `max`, then it will be clamped to `max`.
  */
-export function clamp(x: int, min: int, max: int): int {
-  return Math.max(min, Math.min(x, max));
+export function clamp(num: int, min: int, max: int): int {
+  return Math.max(min, Math.min(num, max));
 }
 
 export function getAngleDifference(angle1: float, angle2: float): float {
@@ -119,6 +119,7 @@ export function lerpAngleDegrees(
 
 /**
  * If rounding fails, this function returns 0.
+ *
  * From: http://lua-users.org/wiki/SimpleRound
  *
  * @param num The number to round.
@@ -126,12 +127,10 @@ export function lerpAngleDegrees(
  */
 export function round(num: float, numDecimalPlaces = 0): float {
   const roundedNum = tonumber(string.format(`%.${numDecimalPlaces}f`, num));
-  return roundedNum === undefined ? 0 : roundedNum;
+  return roundedNum ?? 0;
 }
 
-/**
- * @returns 1 if n is positive, -1 if n is negative, or 0 if n is 0.
- */
+/** @returns 1 if n is positive, -1 if n is negative, or 0 if n is 0. */
 export function sign(n: number): int {
   if (n > 0) {
     return 1;
@@ -142,6 +141,51 @@ export function sign(n: number): int {
   }
 
   return 0;
+}
+
+/**
+ * Breaks a number into chunks of a given size. This is similar to the `String.split` method, but
+ * for a number instead of a string.
+ *
+ * For example, `splitNumber(90, 25)` would return an array with four elements:
+ *
+ * - [1, 25]
+ * - [26, 50]
+ * - [51, 75]
+ * - [76, 90]
+ *
+ * @param num The number to split into chunks. This must be a positive integer.
+ * @param size The size of each chunk. This must be a positive integer.
+ * @param startAtZero Whether to start at 0. Defaults to false. If true, the chunks will start at 0
+ *                    instead of 1.
+ */
+export function splitNumber(
+  num: int,
+  size: int,
+  startAtZero = false,
+): Array<[min: int, max: int]> {
+  if (num <= 0) {
+    error(
+      `The number to split needs to be a positive number and is instead: ${num}`,
+    );
+  }
+
+  if (size <= 0) {
+    error(
+      `The size to split needs to be a positive number and is instead: ${num}`,
+    );
+  }
+
+  const chunks: Array<[number, number]> = [];
+  let start = startAtZero ? 0 : 1;
+
+  while (start <= num) {
+    const end = Math.min(start + size - 1, num);
+    chunks.push([start, end]);
+    start += size;
+  }
+
+  return chunks;
 }
 
 export function tanh(x: number): number {

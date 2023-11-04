@@ -1,9 +1,9 @@
-import { ModUpgradedBase } from "../classes/ModUpgradedBase";
-import { ISCFeature } from "../enums/ISCFeature";
+import { ModUpgraded } from "../classes/ModUpgraded";
+import type { ISCFeature } from "../enums/ISCFeature";
 import { patchErrorFunction } from "../patchErrorFunctions";
 import { applyShaderCrashFix } from "../shaderCrashFix";
-import { AnyFunction } from "../types/AnyFunction";
-import { ModUpgraded } from "../types/ModUpgraded";
+import type { AnyFunction } from "../types/AnyFunction";
+import type { ModUpgradedWithFeatures } from "../types/private/ModUpgradedWithFeatures";
 
 type ISCFeatureTuple<T extends readonly ISCFeature[]> =
   ISCFeature extends T["length"]
@@ -42,18 +42,36 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
   features: ISCFeatureTuple<T> = [] as unknown as ISCFeatureTuple<T>,
   debug = false,
   timeThreshold?: float,
-): ModUpgraded<T> {
+): ModUpgradedWithFeatures<T> {
+  // First, validate that all of the features exist (for Lua users who don't have type-safety).
+  for (const feature of features) {
+    const featureType = type(feature);
+    if (featureType !== "number") {
+      error(
+        `Failed to upgrade the mod due to one of the specified features being of type "${featureType}". (All of the features should be numbers represented by the "ISCFeature" enum.)`,
+      );
+    }
+  }
+
+  // Second, validate that all of the features are unique.
+  const featureSet = new Set(features as ISCFeature[]);
+  if (featureSet.size !== features.length) {
+    error(
+      'Failed to upgrade the mod since there are two or more of the same features specified in the "features" array. When you pass the array of features to the "upgradeMod" function, all of the elements should be unique.',
+    );
+  }
+
   patchErrorFunction();
 
-  const mod = new ModUpgradedBase(modVanilla, debug, timeThreshold);
+  const mod = new ModUpgraded(modVanilla, debug, timeThreshold);
   applyShaderCrashFix(mod);
   initOptionalFeatures(mod, features as ISCFeature[]);
 
-  return mod as ModUpgraded<T>;
+  return mod as ModUpgradedWithFeatures<T>;
 }
 
-/** Initialize every optional feature that the end-user specified. */
-function initOptionalFeatures(mod: ModUpgradedBase, features: ISCFeature[]) {
+/** Initialize every optional feature that the end-user specified, if any. */
+function initOptionalFeatures(mod: ModUpgraded, features: ISCFeature[]) {
   for (const feature of features) {
     // We intentionally access the private method here, so we use the string index escape hatch:
     // https://github.com/microsoft/TypeScript/issues/19335
@@ -64,6 +82,11 @@ function initOptionalFeatures(mod: ModUpgradedBase, features: ISCFeature[]) {
     // provides a convenient API for end-users.)
     const modRecord = mod as unknown as Record<string, AnyFunction>;
     for (const [funcName, func] of exportedMethodTuples) {
+      if (modRecord[funcName] !== undefined) {
+        error(
+          `Failed to upgrade the mod since two or more features share the name function name of "${funcName}". This should never happen, so report this error to the library authors.`,
+        );
+      }
       modRecord[funcName] = func;
     }
   }

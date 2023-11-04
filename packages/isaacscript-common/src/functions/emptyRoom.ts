@@ -4,12 +4,13 @@ import {
   GridEntityType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getEntities } from "./entities";
 import { getGridEntities, removeGridEntity } from "./gridEntities";
-import { roomUpdateSafe } from "./rooms";
 import { isVanillaWallGridIndex } from "./roomShapeWalls";
+import { roomUpdateSafe } from "./rooms";
 
-const EMPTY_ROOM_BLACKLIST_ENTITY_SET: ReadonlySet<EntityType> = new Set([
+const EMPTY_ROOM_BLACKLIST_ENTITY_SET = new ReadonlySet<EntityType>([
   EntityType.PLAYER, // 1
   EntityType.TEAR, // 2
   EntityType.FAMILIAR, // 3
@@ -63,7 +64,7 @@ function emptyRoomEntities() {
   }
 }
 
-/** Helper function to remove all grid entities from a room except for doors, and walls. */
+/** Helper function to remove all grid entities from a room except for doors and walls. */
 export function emptyRoomGridEntities(): void {
   let removedOneOrMoreGridEntities = false;
   for (const gridEntity of getGridEntities()) {

@@ -54,17 +54,21 @@ export function findFreePosition(
   startingPosition: Vector,
   avoidActiveEntities = false,
   minimumDistance?: float,
-): Vector {
+): Readonly<Vector> {
   const room = game.GetRoom();
   const heavenDoors = getEffects(
     EffectVariant.HEAVEN_LIGHT_DOOR,
     HeavenLightDoorSubType.HEAVEN_DOOR,
   );
 
-  for (let i = 0; i < MAX_FIND_FREE_POSITION_ATTEMPTS; i++) {
+  for (
+    let initialStep = 0;
+    initialStep < MAX_FIND_FREE_POSITION_ATTEMPTS;
+    initialStep++
+  ) {
     const position = room.FindFreePickupSpawnPosition(
       startingPosition,
-      i,
+      initialStep,
       avoidActiveEntities,
     );
 

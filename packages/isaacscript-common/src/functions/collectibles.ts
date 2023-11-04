@@ -1,67 +1,103 @@
-import {
+import type {
   CacheFlag,
   CollectiblePedestalType,
+  ItemConfigTag,
+} from "isaac-typescript-definitions";
+import {
   CollectibleSpriteLayer,
   CollectibleType,
   EntityType,
   ItemConfigChargeType,
-  ItemConfigTag,
   ItemConfigTagZero,
   ItemType,
   PickupPrice,
   PickupVariant,
   RenderMode,
-  RoomType,
 } from "isaac-typescript-definitions";
 import { game, itemConfig } from "../core/cachedClasses";
-import { BLIND_ITEM_PNG_PATH, DEFAULT_ITEM_POOL_TYPE } from "../core/constants";
 import {
-  FIRST_COLLECTIBLE_TYPE,
-  LAST_VANILLA_COLLECTIBLE_TYPE,
-} from "../core/constantsFirstLast";
+  BLIND_ITEM_PNG_PATH,
+  DEFAULT_ITEM_POOL_TYPE,
+  QUALITIES,
+} from "../core/constants";
+import { LAST_VANILLA_COLLECTIBLE_TYPE } from "../core/constantsFirstLast";
+import { VANILLA_COLLECTIBLE_TYPES } from "../core/constantsVanilla";
 import {
-  COLLECTIBLE_DESCRIPTION_MAP,
+  COLLECTIBLE_DESCRIPTIONS,
   DEFAULT_COLLECTIBLE_DESCRIPTION,
-} from "../maps/collectibleDescriptionMap";
+} from "../objects/collectibleDescriptions";
 import {
-  COLLECTIBLE_TYPE_TO_NAME_MAP,
+  COLLECTIBLE_NAMES,
   DEFAULT_COLLECTIBLE_NAME,
-} from "../maps/collectibleTypeToNameMap";
+} from "../objects/collectibleNames";
 import { SINGLE_USE_ACTIVE_COLLECTIBLE_TYPES_SET } from "../sets/singleUseActiveCollectibleTypesSet";
-import { CollectibleIndex } from "../types/CollectibleIndex";
 import { getEntityID } from "./entities";
 import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
-import { getRoomListIndex } from "./roomData";
 import { clearSprite, spriteEquals } from "./sprites";
-import { iRange } from "./utils";
+import { isInteger } from "./types";
+import { assertDefined } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
 
-// Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards.
-const GLITCHED_ITEM_THRESHOLD = 4000000000;
+const DEFAULT_COLLECTIBLE_PRICE = 15;
 
-// The `isBlindCollectible` function needs a reference sprite to work properly.
-const questionMarkSprite = initQuestionMarkSprite();
+/** Glitched items start at id 4294967295 (the final 32-bit integer) and increment backwards. */
+const GLITCHED_ITEM_THRESHOLD = 4_000_000_000;
 
-function initQuestionMarkSprite() {
+const QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP: ReadonlyMap<
+  Quality,
+  ReadonlySet<CollectibleType>
+> = (() => {
+  const qualityToCollectibleTypesMap = new Map<Quality, Set<CollectibleType>>();
+
+  for (const quality of QUALITIES) {
+    const collectibleTypesSet = new Set<CollectibleType>();
+
+    for (const collectibleType of VANILLA_COLLECTIBLE_TYPES) {
+      const collectibleTypeQuality = getCollectibleQuality(collectibleType);
+      if (collectibleTypeQuality === quality) {
+        collectibleTypesSet.add(collectibleType);
+      }
+    }
+
+    qualityToCollectibleTypesMap.set(quality, collectibleTypesSet);
+  }
+
+  return qualityToCollectibleTypesMap;
+})();
+
+/** The `isBlindCollectible` function needs a reference sprite to work properly. */
+const questionMarkSprite = (() => {
   const sprite = Sprite();
   sprite.Load("gfx/005.100_collectible.anm2", false);
   sprite.ReplaceSpritesheet(1, "gfx/items/collectibles/questionmark.png");
   sprite.LoadGraphics();
 
   return sprite;
-}
+})();
 
 export function clearCollectibleSprite(collectible: EntityPickup): void {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "clearCollectibleSprite" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
   setCollectibleSprite(collectible, undefined);
 }
 
 /** Helper function to check in the item config if a given collectible has a given cache flag. */
 export function collectibleHasCacheFlag(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
   cacheFlag: CacheFlag,
 ): boolean {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "collectibleHasCacheFlag",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return false;
@@ -103,8 +139,13 @@ export function collectibleSpriteEquals(
  * `ItemConfigChargeType.NORMAL` if the provided collectible type was not valid.
  */
 export function getCollectibleChargeType(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): ItemConfigChargeType {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleChargeType",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return ItemConfigChargeType.NORMAL;
@@ -120,12 +161,18 @@ export function getCollectibleChargeType(
  * This function works for both vanilla and modded collectibles.
  */
 export function getCollectibleDescription(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): string {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleDescription",
+  );
+
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
-  const collectibleDescription =
-    COLLECTIBLE_DESCRIPTION_MAP.get(collectibleType);
+  const collectibleDescription = COLLECTIBLE_DESCRIPTIONS[collectibleType] as
+    | string
+    | undefined;
   if (collectibleDescription !== undefined) {
     return collectibleDescription;
   }
@@ -143,19 +190,23 @@ export function getCollectibleDescription(
  * a Devil Room deal. Returns 0 if passed `CollectibleType.NULL`.
  */
 export function getCollectibleDevilCoinPrice(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleDescription",
+  );
+
   if (collectibleType === CollectibleType.NULL) {
     return 0;
   }
 
-  const defaultCollectiblePrice = 15;
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
-    return defaultCollectiblePrice;
+    return DEFAULT_COLLECTIBLE_PRICE;
   }
 
-  return itemConfigItem.DevilPrice * defaultCollectiblePrice;
+  return itemConfigItem.DevilPrice * DEFAULT_COLLECTIBLE_PRICE;
 }
 
 /**
@@ -163,9 +214,13 @@ export function getCollectibleDevilCoinPrice(
  * in a Devil Room deal. Returns 0 if passed `CollectibleType.NULL`.
  */
 export function getCollectibleDevilHeartPrice(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
   player: EntityPlayer,
 ): PickupPrice {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleDevilHeartPrice",
+  );
   const maxHearts = player.GetMaxHearts();
 
   if (collectibleType === CollectibleType.NULL) {
@@ -196,13 +251,24 @@ export function getCollectibleDevilHeartPrice(
  * Helper function to get the path to a collectible PNG file. Returns the path to the question mark
  * sprite (i.e. from Curse of the Blind) if the provided collectible type was not valid.
  *
+ * If you intentionally want the path to the question mark sprite, pass -1 as the collectible type.
+ *
  * Note that this does not return the file name, but the full path to the collectible's PNG file.
  * The function is named "GfxFilename" to correspond to the associated `ItemConfigItem.GfxFileName`
  * field.
  */
 export function getCollectibleGfxFilename(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType | -1,
 ): string {
+  if (collectibleOrCollectibleType === -1) {
+    return BLIND_ITEM_PNG_PATH;
+  }
+
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleGfxFilename",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return BLIND_ITEM_PNG_PATH;
@@ -212,88 +278,17 @@ export function getCollectibleGfxFilename(
 }
 
 /**
- * Mods may have to keep track of data relating to a collectible. Finding an index for these kinds
- * of data structures is difficult, since collectibles are respawned every time a player re-enters a
- * room (like all other pickups), so the `PtrHash` will change.
- *
- * Use this function to get a unique index for a collectible to use in these data structures.
- *
- * If your mod is upgraded, then you should use the `getPickupIndex` function instead, as it is more
- * general purpose and less prone to error (but relies on stateful tracking of pickups as the run
- * progresses).
- *
- * Collectibles are a special case of pickups: they cannot be pushed around. (They actually can be
- * pushed, but usually will stay on the same grid index.) Thus, it is possible to generate a
- * somewhat reliable non-stateful index for collectibles. We use a 4-tuple of the room list index,
- * the grid index of the collectible in the room, the collectible's `SubType`, and the collectible's
- * `InitSeed`.
- *
- * Collectibles that are shifted by Tainted Isaac's mechanic will have unique collectible indexes
- * because the `SubType` is different. (The collectible entities share the same `InitSeed` and
- * `PtrHash`.)
- *
- * Collectibles that are rolled (with e.g. a D6) will have unique collectible indexes because the
- * `SubType` and `InitSeed` are different. If you want to track collectibles independently of any
- * rerolls, then you can use the `PtrHash` as an index instead. (The `PtrHash` will not persist
- * between rooms, however.)
- *
- * Note that:
- * - The grid index is a necessary part of the collectible index because Diplopia and Crooked Penny
- *   can cause two or more collectibles with the same `SubType` and `InitSeed` to exist in the same
- *   room.
- * - This index will fail in the case where the player uses Diplopia or a successful Crooked Penny
- *   seven or more times in the same room, since that will cause two or more collectibles with the
- *   same grid index, `SubType`, and `InitSeed` to exist. (More than seven is required in non-1x1
- *   rooms.)
- * - The `SubType` is a necessary part of the collectible index because Tainted Isaac will
- *   continuously cause collectibles to morph into new sub-types with the same `InitSeed`.
- * - Using a collectible's position as part of the index is problematic, since players can push a
- *   pedestal. (Even using the grid index does not solve this problem, since it is possible in
- *   certain cases for collectibles to be spawned at a position that is not aligned with the grid,
- *   and the pedestal pushed to an adjacent tile, but this case should be extremely rare.)
- * - Mega Chests spawn two collectibles on the exact same position. However, both of them will have
- *   a different `InitSeed`, so this is not a problem for this indexing scheme.
- * - The indexing scheme used is different for collectibles that are inside of a Treasure Room or
- *   Boss Room, in order to handle the case of the player seeing the same collectible again in a
- *   post-Ascent Treasure Room or Boss Room. A 5-tuple of stage, stage type, grid index, `SubType`,
- *   and `InitSeed` is used in this case. (Using the room list index or the room grid index is not
- *   suitable for this purpose, since both of these values can change in the post-Ascent rooms.)
- *   Even though Treasure Rooms and Boss Rooms are grouped together in this scheme, there probably
- *   will not be collectibles with the same grid index, SubType, and InitSeed.
- */
-export function getCollectibleIndex(
-  collectible: EntityPickup,
-): CollectibleIndex {
-  if (!isCollectible(collectible)) {
-    const entityID = getEntityID(collectible);
-    error(
-      `The "getCollectibleIndex" function was given a non-collectible: ${entityID}`,
-    );
-  }
-
-  const level = game.GetLevel();
-  const stage = level.GetStage();
-  const stageType = level.GetStageType();
-  const room = game.GetRoom();
-  const roomType = room.GetType();
-  const gridIndex = room.GetGridIndex(collectible.Position);
-  const roomListIndex = getRoomListIndex();
-
-  // Handle the special case of being in a Treasure Room or Boss Room.
-  if (roomType === RoomType.TREASURE || roomType === RoomType.BOSS) {
-    return `${stage},${stageType},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
-  }
-
-  return `${roomListIndex},${gridIndex},${collectible.SubType},${collectible.InitSeed}` as CollectibleIndex;
-}
-
-/**
  * Helper function to get the initial amount of charges that a collectible has. Returns 0 if the
  * provided collectible type was not valid.
  */
 export function getCollectibleInitCharge(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleInitCharge",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -307,8 +302,13 @@ export function getCollectibleInitCharge(
  * provided collectible type was not valid.
  */
 export function getCollectibleItemType(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): ItemType {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleItemType",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return ItemType.NULL;
@@ -322,8 +322,13 @@ export function getCollectibleItemType(
  * provided collectible type was not valid.
  */
 export function getCollectibleMaxCharges(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): int {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleMaxCharges",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -336,14 +341,23 @@ export function getCollectibleMaxCharges(
  * Helper function to get the name of a collectible. Returns "Unknown" if the provided collectible
  * type is not valid.
  *
- * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
- *
  * This function works for both vanilla and modded collectibles.
+ *
+ * For example, `getCollectibleName(CollectibleType.SAD_ONION)` would return "Sad Onion".
  */
-export function getCollectibleName(collectibleType: CollectibleType): string {
+export function getCollectibleName(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+): string {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleName",
+  );
+
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
-  const collectibleName = COLLECTIBLE_TYPE_TO_NAME_MAP.get(collectibleType);
+  const collectibleName = COLLECTIBLE_NAMES[collectibleType] as
+    | string
+    | undefined;
   if (collectibleName !== undefined) {
     return collectibleName;
   }
@@ -375,10 +389,18 @@ export function getCollectiblePedestalType(
 }
 
 /**
- * Helper function to get a collectible's quality. For example, Mom's Knife has a quality of 4.
- * Returns 0 if the provided collectible type was not valid.
+ * Helper function to get a collectible's quality, which ranges from 0 to 4 (inclusive). For
+ * example, Mom's Knife has a quality of 4. Returns 0 if the provided collectible type was not
+ * valid.
  */
-export function getCollectibleQuality(collectibleType: CollectibleType): int {
+export function getCollectibleQuality(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+): Quality {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleQuality",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   if (itemConfigItem === undefined) {
     return 0;
@@ -399,26 +421,37 @@ export function getCollectibleQuality(collectibleType: CollectibleType): int {
  * ```
  */
 export function getCollectibleTags(
-  collectibleType: CollectibleType,
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): BitFlags<ItemConfigTag> {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "getCollectibleTags",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem === undefined ? ItemConfigTagZero : itemConfigItem.Tags;
 }
 
 /**
- * Helper function to get an array that represents the range from the first collectible type to the
- * last vanilla collectible type. This will include integers that do not represent any valid
- * collectible types.
+ * Returns a set containing every vanilla collectible type with the given quality.
  *
- * This function is only useful when building collectible type objects. For most purposes, you
- * should use the `getVanillaCollectibleArray` or `getVanillaCollectibleSet` helper functions
- * instead.
+ * Note that this function will only return vanilla collectible types. To handle modded collectible
+ * types, use the `getCollectibleTypesOfQuality` helper function instead.
  */
-export function getVanillaCollectibleTypeRange(): CollectibleType[] {
-  return iRange(FIRST_COLLECTIBLE_TYPE, LAST_VANILLA_COLLECTIBLE_TYPE);
+export function getVanillaCollectibleTypesOfQuality(
+  quality: Quality,
+): ReadonlySet<CollectibleType> {
+  const collectibleTypes =
+    QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP.get(quality);
+  assertDefined(
+    collectibleTypes,
+    `Failed to find the vanilla collectible types corresponding to quality: ${quality}`,
+  );
+
+  return collectibleTypes;
 }
 
-/** Returns true if the item type in the item config is equal to `ItemType.ITEM_ACTIVE`. */
+/** Returns true if the item type in the item config is equal to `ItemType.ACTIVE`. */
 export function isActiveCollectible(collectibleType: CollectibleType): boolean {
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.ACTIVE;
@@ -454,15 +487,25 @@ export function isBlindCollectible(collectible: EntityPickup): boolean {
   return collectibleSpriteEquals(sprite, questionMarkSprite);
 }
 
+/** Returns true if the item type in the item config is equal to `ItemType.FAMILIAR`. */
+export function isFamiliarCollectible(
+  collectibleType: CollectibleType,
+): boolean {
+  const itemType = getCollectibleItemType(collectibleType);
+  return itemType === ItemType.FAMILIAR;
+}
+
 /**
- * Returns whether or not the given collectible is a "glitched" item. All items are replaced by
- * glitched items once a player has TMTRAINER. However, glitched items can also "naturally" appear
- * in secret rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
+ * Returns whether the given collectible is a "glitched" item. All items are replaced by glitched
+ * items once a player has TMTRAINER. However, glitched items can also "naturally" appear in secret
+ * rooms and I AM ERROR rooms if the "Corrupted Data" achievement is unlocked.
+ *
+ * Under the hood, this checks if the sub-type of the collectible is greater than 4,000,000,000.
  */
-export function isGlitchedCollectible(pickup: EntityPickup): boolean {
+export function isGlitchedCollectible(collectible: EntityPickup): boolean {
   return (
-    pickup.Variant === PickupVariant.COLLECTIBLE &&
-    pickup.SubType > GLITCHED_ITEM_THRESHOLD
+    collectible.Variant === PickupVariant.COLLECTIBLE &&
+    collectible.SubType > GLITCHED_ITEM_THRESHOLD
   );
 }
 
@@ -471,7 +514,14 @@ export function isGlitchedCollectible(pickup: EntityPickup): boolean {
  *
  * Hidden collectibles will not show up in any pools and Eden will not start with them.
  */
-export function isHiddenCollectible(collectibleType: CollectibleType): boolean {
+export function isHiddenCollectible(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+): boolean {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "isHiddenCollectible",
+  );
+
   const itemConfigItem = itemConfig.GetCollectible(collectibleType);
   return itemConfigItem !== undefined && itemConfigItem.Hidden;
 }
@@ -486,17 +536,31 @@ export function isModdedCollectibleType(
  * Returns true if the item type in the item config is equal to `ItemType.ITEM_PASSIVE` or
  * `ItemType.ITEM_FAMILIAR`.
  */
-export function isPassiveCollectible(
-  collectibleType: CollectibleType,
+export function isPassiveOrFamiliarCollectible(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
 ): boolean {
+  const collectibleType = getCollectibleTypeFromArg(
+    collectibleOrCollectibleType,
+    "isPassiveCollectible",
+  );
+
   const itemType = getCollectibleItemType(collectibleType);
   return itemType === ItemType.PASSIVE || itemType === ItemType.FAMILIAR;
 }
 
+/** Helper function to check if a collectible type is a particular quality. */
+export function isQuality(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+  quality: int,
+): boolean {
+  const actualQuality = getCollectibleQuality(collectibleOrCollectibleType);
+  return quality === actualQuality;
+}
+
 /**
  * Helper function to determine if a particular collectible will disappear from the player's
- * inventory upon use. Note that this will not work will modded items, as there is no way to
- * dynamically know if a modded item will disappear.
+ * inventory upon use. Note that this will not work will modded collectibles, as there is no way to
+ * dynamically know if a modded collectible will disappear.
  */
 export function isSingleUseCollectible(
   collectibleType: CollectibleType,
@@ -520,44 +584,28 @@ export function isVanillaCollectibleType(
 /**
  * Helper function to generate a new sprite based on a collectible. If the provided collectible type
  * is invalid, a sprite with a Curse of the Blind question mark will be returned.
+ *
+ * If you intentionally want a question mark sprite, pass -1 as the collectible type.
  */
-export function newCollectibleSprite(collectibleType: CollectibleType): Sprite {
+export function newCollectibleSprite(
+  collectibleType: CollectibleType | -1,
+): Sprite {
   const sprite = Sprite();
   sprite.Load(COLLECTIBLE_ANM2_PATH, false);
 
   // We want to clear the pedestal layers so that the returned sprite only has the collectible
-  // image.
+  // image. We can't use the `Sprite.Reset` method for this purpose because that would unload the
+  // anm2 file.
   clearSprite(sprite);
 
   const gfxFileName = getCollectibleGfxFilename(collectibleType);
   sprite.ReplaceSpritesheet(CollectibleSpriteLayer.HEAD, gfxFileName);
   sprite.LoadGraphics();
 
+  const defaultAnimation = sprite.GetDefaultAnimation();
+  sprite.Play(defaultAnimation, true);
+
   return sprite;
-}
-
-/**
- * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that it
- * should remove an item.
- *
- * The "item tracker" in this function does not refer to the in-game item tracker, but rather to the
- * Python program located at: https://github.com/Rchardon/RebirthItemTracker
- *
- * This function is useful when you need to add a "fake" collectible to a player. Note that calling
- * this function is not necessary when removing items from players. For example, when you remove a
- * collectible with the `EntityPlayer.RemoveCollectible` method, a proper message is sent to the log
- * the item tracker will automatically remove it.
- */
-export function removeCollectibleFromItemTracker(
-  collectibleType: CollectibleType,
-): void {
-  const collectibleName = getCollectibleName(collectibleType);
-
-  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
-  // recognizing the message.
-  Isaac.DebugString(
-    `Removing collectible ${collectibleType} (${collectibleName}) on player 0 (Player)`,
-  );
 }
 
 /**
@@ -636,6 +684,27 @@ export function setCollectibleGlitched(collectible: EntityPickup): void {
   if (!hasTMTRAINER) {
     player.RemoveCollectible(CollectibleType.TMTRAINER);
   }
+}
+
+/**
+ * Helper function to set the "pedestal type" of a collectible. For example, it might be sitting on
+ * top of a broken Blood Donation Machine and you want to change it to be sitting on top of an
+ * opened Spiked Chest.
+ */
+export function setCollectiblePedestalType(
+  collectible: EntityPickup,
+  collectiblePedestalType: CollectiblePedestalType,
+): void {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "setCollectiblePedestalType" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  const sprite = collectible.GetSprite();
+  const overlayAnimation = sprite.GetOverlayAnimation();
+  sprite.SetOverlayFrame(overlayAnimation, collectiblePedestalType);
 }
 
 /**
@@ -721,4 +790,23 @@ export function setCollectiblesRerolledForItemTracker(): void {
   // recognizing the message. The number here does not matter since the tracker does not check for a
   // specific number.
   Isaac.DebugString("Added 3 Collectibles");
+}
+
+function getCollectibleTypeFromArg(
+  collectibleOrCollectibleType: EntityPickup | CollectibleType,
+  functionName: string,
+): CollectibleType {
+  if (isInteger(collectibleOrCollectibleType)) {
+    return collectibleOrCollectibleType;
+  }
+
+  const collectible = collectibleOrCollectibleType;
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "${functionName}" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  return collectible.SubType;
 }

@@ -27,7 +27,7 @@ In Lua, you can't just start typing a function and have it magically be imported
 
 ### <img src="/img/items/wooden-spoon.png" className="features-icon" /> Bad In-Editor Tooling
 
-Lua has gotten some nifty improvements in the past few years, like [Sumneko's Lua language server](https://github.com/sumneko/lua-language-server). Using the language server brings us some of the in-editor goodies that we are used to from other languages, like variable renaming. But the experience still pales in comparison to other modern programming languages like TypeScript, Python, and Rust.
+Lua has gotten some nifty improvements in the past few years, like [Sumneko's Lua language server](https://github.com/sumneko/lua-language-server). Using the language server brings us some of the in-editor goodies that we are used to from other languages, like variable renaming. But the experience still pales in comparison to other modern programming languages like TypeScript and Rust.
 
 <br />
 
@@ -42,7 +42,7 @@ After five years of programming Isaac mods in Lua, I got frustrated enough to ta
 
 ### <img src="/img/items/marked.png" className="features-icon" /> Mouseover Documentation
 
-- Don't waste time looking up API methods in the docs. Instead, mouseover them to see what they do and what parameters they expect.
+- Don't waste time looking up API methods in the docs. Instead, hover over the classes and functions in your actual code editor to see what they do and what parameters they expect.
 - Many methods have extensive documentation written inside of the mouseover tooltip.
 
 ### <img src="/img/items/clockwork-assembly.png" className="features-icon" /> Automatic Mod Reloading

@@ -1,18 +1,20 @@
 // These are functions copied from `isaacscript-common`.
 
-import { DoorSlot } from "./enums/DoorSlot";
-import { DoorSlotFlag } from "./enums/DoorSlotFlag";
-import { RoomShape } from "./enums/RoomShape";
-import { JSONRoom } from "./interfaces/copied/JSONRoomsFile";
-import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/doorSlotToDoorSlotFlag";
-import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/roomShapeDoorSlotCoordinates";
-import { error, parseIntSafe } from "./utils";
+import { fatalError } from "isaacscript-common-node";
+import { parseIntSafe } from "isaacscript-common-ts";
+import type { DoorSlot } from "./enums/copied/DoorSlot.js";
+import type { DoorSlotFlag } from "./enums/copied/DoorSlotFlag.js";
+import type { RoomShape } from "./enums/copied/RoomShape.js";
+import type { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
+import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/copied/doorSlotToDoorSlotFlag.js";
+import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/copied/roomShapeToDoorSlotCoordinates.js";
 
+/** This is copied from `isaacscript-common`. */
 export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   const roomShapeString = jsonRoom.$.shape;
   const roomShapeNumber = parseIntSafe(roomShapeString);
-  if (Number.isNaN(roomShapeNumber)) {
-    error(
+  if (roomShapeNumber === undefined) {
+    fatalError(
       `Failed to parse the "shape" field of a custom stage room: ${roomShapeString}`,
     );
   }
@@ -23,7 +25,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   for (const door of jsonRoom.door) {
     const existsString = door.$.exists;
     if (existsString !== "True" && existsString !== "False") {
-      error(
+      fatalError(
         `Failed to parse the "exists" field of a custom stage room door: ${existsString}`,
       );
     }
@@ -34,23 +36,23 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
 
     const xString = door.$.x;
     const x = parseIntSafe(xString);
-    if (Number.isNaN(x)) {
-      error(
+    if (x === undefined) {
+      fatalError(
         `Failed to parse the "x" field of a custom stage room door: ${xString}`,
       );
     }
 
     const yString = door.$.y;
     const y = parseIntSafe(yString);
-    if (Number.isNaN(y)) {
-      error(
+    if (y === undefined) {
+      fatalError(
         `Failed to parse the "y" field of a custom stage room door: ${yString}`,
       );
     }
 
     const doorSlot = getRoomShapeDoorSlot(roomShape, x, y);
     if (doorSlot === undefined) {
-      error(
+      fatalError(
         `Failed to retrieve the door slot for a custom stage room door at coordinates: [${x}, ${y}]`,
       );
     }
@@ -62,13 +64,22 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   return doorSlotFlags;
 }
 
+/** This is copied from `isaacscript-common`. */
 function getRoomShapeDoorSlot(
   roomShape: RoomShape,
   x: number,
   y: number,
 ): DoorSlot | undefined {
-  const coordinatesMap = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[roomShape];
-  for (const [doorSlot, [doorX, doorY]] of coordinatesMap.entries()) {
+  // The type assertion is necessary for some reason.
+  const doorSlotCoordinates = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[
+    roomShape
+  ] as Record<DoorSlot, readonly [x: number, y: number]>;
+
+  for (const [doorSlotString, coordinates] of Object.entries(
+    doorSlotCoordinates,
+  )) {
+    const doorSlot = parseIntSafe(doorSlotString) as DoorSlot;
+    const [doorX, doorY] = coordinates;
     if (x === doorX && y === doorY) {
       return doorSlot;
     }
@@ -77,10 +88,12 @@ function getRoomShapeDoorSlot(
   return undefined;
 }
 
+/** This is copied from `isaacscript-common`. */
 function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
   return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
 }
 
+/** This is copied from `isaacscript-common`. */
 function addFlag(flags: number, ...flagsToAdd: number[]): number {
   for (const flagToAdd of flagsToAdd) {
     flags |= flagToAdd; // eslint-disable-line no-bitwise,no-param-reassign

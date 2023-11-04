@@ -2,29 +2,27 @@
 
 Disallows explicit iteration for arrays.
 
-In this case, "explicit iteration" means using `array.values()` in a for loop. Doing this can make code easier to read.
+In this case, "explicit iteration" means using the `values` method (or `Object.values`) in a for loop. Forbidding this can make code easier to read.
 
-Also see the [`no-implicit-map-set-loops`](no-implicit-map-set-loops.md) rule.
+Also see the [`no-explicit-map-set-loops`](no-explicit-map-set-loops.md) rule.
 
 ## Rule Details
 
-Using implicit iteration for arrays is extremely common. For example:
+In JavaScript/TypeScript, you can iterate over array elements implicitly:
 
 ```ts
-for (const value of thing) {
+for (const element of myArray) {
 }
 ```
 
-Most people will read the above for loop and inuit: "Oh, `thing` is an array."
-
-However, you can also explicitly iterate over arrays by invoking `.values()`. For example:
+Or, you can iterate over array elements explicitly:
 
 ```ts
-for (const value of thing.values()) {
+for (const element of thing.values()) {
 }
 ```
 
-This is confusing for people reading the code, because it softly implies that `thing` is either a `Map` or a `Set`. Instead, you should always use implicit iteration for arrays, and [explicit iteration for everything else](no-implicit-map-set-loops.md).
+Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare because it is needlessly verbose. Thus, it is recommended to forbid this pattern in your codebase to prevent confusion and ensure consistency.
 
 ## Options and Defaults
 

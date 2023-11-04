@@ -1,5 +1,5 @@
 import { TSESTree } from "@typescript-eslint/types";
-import { TSESLint } from "@typescript-eslint/utils";
+import type { TSESLint } from "@typescript-eslint/utils";
 import { isCommentOnOwnLine, isSeparatorLine } from "./comments";
 
 export function getLeadingLineComments(
@@ -46,8 +46,10 @@ export function getCommentBlocks(
 ): LeadingLineCommentBlock[] {
   const commentBlocks: LeadingLineCommentBlock[] = [];
 
+  // We cannot use the `comments.entries` method because we mutate `i`.
   for (let i = 0; i < comments.length; i++) {
-    const comment = comments[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const comment = comments[i]!;
 
     /**
      * Remove the initial space that will always live in front of comment line.
@@ -60,7 +62,10 @@ export function getCommentBlocks(
      *
      * Has a comment value of: " Foo."
      */
-    const text = comment.value.slice(1);
+    const firstCharacter = comment.value[0];
+    const firstCharacterIsSpace =
+      firstCharacter !== undefined && firstCharacter === " ";
+    const text = firstCharacterIsSpace ? comment.value.slice(1) : comment.value;
 
     const commentBlock: LeadingLineCommentBlock = {
       mergedText: text,
@@ -102,4 +107,12 @@ export function getCommentBlocks(
   }
 
   return commentBlocks;
+}
+
+export function allCommentsInBlockAreCommentedOutArrayElements(
+  commentBlock: LeadingLineCommentBlock,
+): boolean {
+  return commentBlock.originalComments.every(
+    (comment) => comment.value.match(/^\s*"[^"]*",\s*$/) !== null,
+  );
 }

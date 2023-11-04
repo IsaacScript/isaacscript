@@ -1,10 +1,7 @@
 import { ISCFeature } from "../../enums/ISCFeature";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
-  FireArgs,
-  OptionalArgs,
-} from "../private/CustomCallback";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_CUSTOM_REVIVE;
 
@@ -15,7 +12,6 @@ export class PostCustomRevive extends CustomCallback<ModCallbackCustom.POST_CUST
     this.featuresUsed = [ISCFeature.CUSTOM_REVIVE];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,

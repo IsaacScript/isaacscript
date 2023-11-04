@@ -1,5 +1,5 @@
 import * as jsonLua from "../lib/jsonLua";
-import { logError } from "./logMisc";
+import { logError } from "./log";
 
 function tryDecode(this: void, jsonString: string) {
   return jsonLua.decode(jsonString) as LuaMap<AnyNotNil, unknown>;

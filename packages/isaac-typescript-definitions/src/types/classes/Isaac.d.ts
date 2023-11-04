@@ -1,56 +1,61 @@
-import { Challenge } from "../../enums/Challenge";
-import {
+import type { CallbackPriority } from "../../enums/CallbackPriority";
+import type { Challenge } from "../../enums/Challenge";
+import type {
   CardType,
   CollectibleType,
   PillColor,
   PlayerType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import { EntityType } from "../../enums/EntityType";
-import { EntityPartition } from "../../enums/flags/EntityPartition";
-import { GridEntityType } from "../../enums/GridEntityType";
-import { ModCallback } from "../../enums/ModCallback";
-import { Music } from "../../enums/Music";
-import { NullItemID } from "../../enums/NullItemID";
-import { PillEffect } from "../../enums/PillEffect";
-import { SoundEffect } from "../../enums/SoundEffect";
+import type { EntityType } from "../../enums/EntityType";
+import type { EntityPartition } from "../../enums/flags/EntityPartition";
+import type { GridEntityType } from "../../enums/GridEntityType";
+import type { Music } from "../../enums/Music";
+import type { NullItemID } from "../../enums/NullItemID";
+import type { PillEffect } from "../../enums/PillEffect";
+import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   /**
    * The `Isaac` class contains a collection of miscellaneous general-purpose methods.
    *
-   * `Isaac` is technically not an Isaac API class; it has a type of `table`.
+   * `Isaac` is technically not an Isaac API class; it has a type of `table` (instead of
+   * `userdata`).
    *
    * @noSelf
    */
   namespace Isaac {
-    /**
-     * Your mod can't do much of anything unless you attach some callback functions that can run
-     * code when certain things happen. The different types of callbacks are represented in the
-     * `ModCallback` enum.
-     *
-     * Some callbacks take an optional third argument to specify that you only want it the function
-     * to fire on a specific thing. For example:
-     *
-     * ```ts
-     * mod.AddCallback(
-     *   ModCallback.POST_EFFECT_UPDATE,
-     *   postEffectUpdatePoof1,
-     *   EffectVariant.POOF_1,
-     * )
-     * ```
-     */
-    function AddCallback(
+    /** @deprecated Use the `Mod.AddCallback` method instead. */
+    function AddCallback<T extends keyof AddCallbackParameters | string>(
       mod: Mod,
-      modCallback: ModCallback,
-      callbackFn: () => void,
-      tertiaryArg?: int,
+      modCallback: T,
+      ...args: T extends keyof AddCallbackParameters
+        ? AddCallbackParameters[T]
+        : unknown[]
     ): void;
 
     function AddPillEffectToPool(pillEffect: PillEffect): PillColor;
 
+    /** @deprecated Use the `Mod.AddPriorityCallback` method instead. */
+    function AddPriorityCallback<
+      T extends keyof AddCallbackParameters | string,
+    >(
+      mod: Mod,
+      modCallback: T,
+      priority: CallbackPriority | int,
+      ...args: T extends keyof AddCallbackParameters
+        ? AddCallbackParameters[T]
+        : unknown[]
+    ): void;
+
     /**
      * Puts a string into the debug console. (You can open the debug console with the tilde key.)
+     *
+     * The Lua global function of `print` is mapped to this method, so it is recommended to use
+     * `print` instead of invoking this method directly.
+     *
+     * Note that unlike `print`, if you invoke `Isaac.ConsoleOutput` directly, the displayed message
+     * will not contain a trailing newline.
      */
     function ConsoleOutput(text: string): void;
 
@@ -58,14 +63,16 @@ declare global {
     function CountEnemies(): int;
 
     /**
-     * @param spawner
-     * @param entityType Default is `EntityType.NULL`.
+     * @param spawner Pass undefined if you want to match entities that were not spawned by anything
+     *                in particular.
+     * @param entityType Required. (Specifying 0 or -1 for this parameter will always return a
+     *                   result of 0.)
      * @param variant Specifying -1 will return all variants. Default is -1.
      * @param subType Specifying -1 will return all subtypes. Default is -1.
      */
     function CountEntities(
-      spawner?: Entity,
-      entityType?: EntityType,
+      spawner: Entity | undefined,
+      entityType: EntityType,
       variant?: int,
       subType?: int,
     ): int;
@@ -74,7 +81,7 @@ declare global {
      * Prints a string to the "log.txt" file. By default, the file is located at:
      *
      * ```text
-     * C:\Users\[username]\Documents\My Games\Binding of Isaac Repentance\log.txt
+     * C:\Users\%USERNAME%\Documents\My Games\Binding of Isaac Repentance\log.txt
      * ```
      */
     function DebugString(msg: string): Mod;
@@ -122,6 +129,15 @@ declare global {
       partitions?: BitFlags<EntityPartition> | EntityPartition,
     ): Entity[];
 
+    function GetBuiltInCallbackState(
+      modCallback: keyof AddCallbackParameters | string,
+    ): boolean;
+
+    function GetCallbacks<T extends keyof AddCallbackParameters | string>(
+      modCallback: T,
+      createIfMissing: boolean,
+    ): Array<ModDescription<T>>;
+
     /**
      * This method is meant to be used when creating local enums that represent custom modded cards.
      * (We have to retrieve the sub-type of a custom card at run-time, because it is dynamically
@@ -140,7 +156,7 @@ declare global {
      * Returns the ID of the current challenge, like `Challenge.PITCH_BLACK` for the "Pitch Black"
      * challenge.
      *
-     * Returns 0 if the current run is not a challenge.
+     * Returns `Challenge.NULL` (0) if the current run is not a challenge.
      */
     function GetChallenge(): Challenge;
 
@@ -206,7 +222,7 @@ declare global {
      * Never use this method to get the entity type of a vanilla entity; use the `EntityType` enum
      * instead.
      *
-     * Returns 0 if no entity with the specified name was found.
+     * Returns `EntityType.NULL` (0) if no entity with the specified name was found.
      */
     function GetEntityTypeByName(name: string): EntityType;
 
@@ -229,9 +245,12 @@ declare global {
     /**
      * Returns the amount of render frames that have passed since the game was open.
      *
-     * The counter for this increases even when the game is paused or when you are in the main menu.
-     * Since Isaac frames are equal to render frames, 60 frames equals 1 second. Note that these
-     * frames are different from the frames returned from `game.GetFrameCount` method.
+     * - Render frames will continue to increase when the game is paused and when in the main menu.
+     * - 60 render frames equals 1 second.
+     * - The render frame count is different from the count returned from the `Game.GetFrameCount`
+     *   method; that returns the run frame count.
+     * - Game frames and render frames are synchronized such two render frames will always
+     *   correspond to one game frame, and the first render frame in the pair will always be odd.
      */
     function GetFrameCount(): int;
 
@@ -429,19 +448,13 @@ declare global {
      */
     function LoadModData(mod: Mod): string;
 
-    /**
-     * @deprecated Use the global `RegisterMod` function instead.
-     */
-    function RegisterMod(
-      mod: Mod,
-      name: string,
-      APIVersion: int,
-      fakeArg: never,
-    ): void;
+    /** @deprecated Use the global `RegisterMod` global function instead. */
+    function RegisterMod(mod: Mod, name: string, APIVersion: int): void;
 
+    /** @deprecated Use the `Mod.RemoveCallback` method instead. */
     function RemoveCallback(
       mod: Mod,
-      modCallback: ModCallback,
+      modCallback: keyof AddCallbackParameters | string,
       callbackFn: () => void,
     ): void;
 
@@ -473,6 +486,15 @@ declare global {
       a: float,
     ): void;
 
+    function RunCallback(
+      modCallback: keyof AddCallbackParameters | string,
+    ): void;
+
+    function RunCallbackWithParam(
+      modCallback: keyof AddCallbackParameters | string,
+      ...optionalArgs: unknown[]
+    ): void;
+
     /**
      * Stores a string in a "save#.dat" file for persistent storage across game invocations.
      *
@@ -481,6 +503,11 @@ declare global {
      * folder.
      */
     function SaveModData(mod: Mod, data: string): void;
+
+    function SetBuiltInCallbackState(
+      modCallback: keyof AddCallbackParameters | string,
+      state: boolean,
+    ): void;
 
     function ScreenToWorld(position: Vector): Vector;
     function ScreenToWorldDistance(position: Vector): Vector;
@@ -525,12 +552,18 @@ declare global {
     /**
      * Converts a game Vector (i.e. `entity.Position`) to a render Vector used for drawing sprites
      * and text to the screen at fixed positions.
+     *
+     * For almost all cases, you will want to use the `Isaac.WorldToScreen` method instead, since
+     * this will result in non-standard values for non-1x1 rooms.
      */
     function WorldToRenderPosition(position: Vector): Vector;
 
     /**
      * Converts a game Vector (i.e. `entity.Position`) to a screen Vector used for drawing sprites
      * and text next to an entity.
+     *
+     * For almost all cases, you will want to use this instead of the `Isaac.WorldToRenderPosition`
+     * method since it works properly in non-1x1 rooms.
      */
     function WorldToScreen(position: Vector): Vector;
 

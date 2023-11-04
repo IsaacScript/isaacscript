@@ -11,11 +11,6 @@
       "description": "Words for IsaacScript"
     },
     {
-      "name": "gitignore",
-      "path": "./gitignore.txt",
-      "description": "Words from the gitignore template"
-    },
-    {
       "name": "general",
       "path": "./general.txt",
       "description": "Missing English words"

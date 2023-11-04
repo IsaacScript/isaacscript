@@ -1,13 +1,20 @@
-import {
+import type {
   Direction,
-  DoorSlot,
   DoorSlotFlag,
+  RoomShape,
+} from "isaac-typescript-definitions";
+import {
+  DoorSlot,
   DoorState,
   DoorVariant,
+  GridEntityType,
   GridRoom,
-  RoomShape,
   RoomType,
 } from "isaac-typescript-definitions";
+import {
+  DOOR_SLOT_FLAG_VALUES,
+  DOOR_SLOT_VALUES,
+} from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../core/constants";
 import {
@@ -19,9 +26,9 @@ import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "../objects/doorSlotToDoorSlotFlag";
 import { OPPOSITE_DOOR_SLOTS } from "../objects/oppositeDoorSlots";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "../objects/roomShapeToDoorSlotCoordinates";
 import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
-import { getEnumValues } from "./enums";
 import { hasFlag } from "./flag";
 import { isTSTLSet } from "./tstlClass";
 import { asNumber } from "./types";
@@ -45,7 +52,7 @@ export function closeDoorFast(door: GridEntityDoor): void {
 
 export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
   const doorSlot = DOOR_SLOT_FLAG_TO_DOOR_SLOT[doorSlotFlag];
-  return doorSlot === undefined ? DEFAULT_DOOR_SLOT : doorSlot;
+  return doorSlot ?? DEFAULT_DOOR_SLOT;
 }
 
 export function doorSlotFlagsToDoorSlots(
@@ -53,7 +60,7 @@ export function doorSlotFlagsToDoorSlots(
 ): DoorSlot[] {
   const doorSlots: DoorSlot[] = [];
 
-  for (const doorSlotFlag of getEnumValues(DoorSlotFlag)) {
+  for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
     if (hasFlag(doorSlotFlags, doorSlotFlag)) {
       const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
       doorSlots.push(doorSlot);
@@ -99,13 +106,24 @@ export function getAngelRoomDoor(): GridEntityDoor | undefined {
 
 /**
  * Helper function to get the door that leads to the off-grid room that contains the hole to the
- * Blue Womb.
+ * Blue Womb. (In vanilla, the door will only appear in the It Lives Boss Room.)
  *
  * Returns undefined if the room has no Blue Womb doors.
  */
 export function getBlueWombDoor(): GridEntityDoor | undefined {
   const doors = getDoors();
   return doors.find((door) => isBlueWombDoor(door));
+}
+
+/**
+ * Helper function to get the door that leads to the Boss Rush. (In vanilla, the door will only
+ * appear in the Boss Room of the sixth floor.)
+ *
+ * Returns undefined if the room has no Boss Rush doors.
+ */
+export function getBossRushDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isBossRushDoor(door));
 }
 
 export function getDevilRoomDoor(): GridEntityDoor | undefined {
@@ -178,19 +196,32 @@ export function getDoorSlotsForRoomShape(
 }
 
 /**
- * Helper function to get all of the doors in the room. By default, it will return every door. You
- * can optionally specify one or more room types to return only the doors that match the specified
- * room types.
+ * Helper function to get all of the doors in the room. By default, it will return every door.
+ *
+ * You can optionally specify one or more room types to return only the doors that match the
+ * specified room types.
+ *
+ * @allowEmptyVariadic
  */
 export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
   const room = game.GetRoom();
-  const roomTypesSet = new Set(roomTypes);
+  const roomShape = room.GetRoomShape();
+  const roomTypesSet = new ReadonlySet(roomTypes);
 
-  const doorSlots = getEnumValues(DoorSlot);
+  // We iterate over the possible door slots for this room shape instead of all door slots in order
+  // to prevent crashes from accessing invalid memory.
+  const possibleDoorSlots = getDoorSlotsForRoomShape(roomShape);
+
   const doors: GridEntityDoor[] = [];
-  for (const doorSlot of doorSlots) {
+  for (const doorSlot of possibleDoorSlots) {
     const door = room.GetDoor(doorSlot);
     if (door === undefined) {
+      continue;
+    }
+
+    // In Repentance, sometimes doors won't be doors for some reason.
+    const gridEntityType = door.GetType();
+    if (gridEntityType !== GridEntityType.DOOR) {
       continue;
     }
 
@@ -209,9 +240,20 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
  * that match any of the N room grid indexes.
  */
 export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
-  const roomGridIndexesSet = new Set(roomGridIndex);
+  const roomGridIndexesSet = new ReadonlySet(roomGridIndex);
   const doors = getDoors();
   return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
+}
+
+/**
+ * Helper function to get the door that leads to the Mega Satan Boss Room. (In vanilla, the door
+ * will only appear in the starting room of The Chest / Dark Room.)
+ *
+ * Returns undefined if the room has no Mega Satan doors.
+ */
+export function getMegaSatanDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isMegaSatanDoor(door));
 }
 
 export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
@@ -220,7 +262,7 @@ export function getOppositeDoorSlot(doorSlot: DoorSlot): DoorSlot | undefined {
 
 /**
  * Helper function to get the door that leads to the "secret exit" off-grid room that takes you to
- * the Repentance floor.
+ * the Repentance floor or to the version of Depths 2 that has Dad's Key.
  *
  * Returns undefined if the room has no Repentance doors.
  */
@@ -237,8 +279,16 @@ export function getRoomShapeDoorSlot(
   x: int,
   y: int,
 ): DoorSlot | undefined {
-  const coordinatesMap = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[roomShape];
-  for (const [doorSlot, [doorX, doorY]] of coordinatesMap.entries()) {
+  // The type assertion is necessary for some reason.
+  const doorSlotCoordinates = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[
+    roomShape
+  ] as Record<DoorSlot, readonly [x: int, y: int]>;
+
+  for (const [doorSlotString, coordinates] of Object.entries(
+    doorSlotCoordinates,
+  )) {
+    const doorSlot = tonumber(doorSlotString) as DoorSlot;
+    const [doorX, doorY] = coordinates;
     if (x === doorX && y === doorY) {
       return doorSlot;
     }
@@ -255,8 +305,11 @@ export function getRoomShapeDoorSlotCoordinates(
   roomShape: RoomShape,
   doorSlot: DoorSlot,
 ): readonly [x: int, y: int] | undefined {
-  const coordinatesMap = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[roomShape];
-  return coordinatesMap.get(doorSlot);
+  // The type assertion is necessary for some reason.
+  const doorSlotCoordinates = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[
+    roomShape
+  ] as Record<DoorSlot, readonly [x: int, y: int]>;
+  return doorSlotCoordinates[doorSlot];
 }
 
 /**
@@ -265,14 +318,40 @@ export function getRoomShapeDoorSlotCoordinates(
  */
 export function getUnusedDoorSlots(): DoorSlot[] {
   const room = game.GetRoom();
-  const doorSlots = getEnumValues(DoorSlot);
-  return doorSlots.filter(
+
+  return DOOR_SLOT_VALUES.filter(
     (doorSlot) =>
       // We need to filter out the -1 value to prevent crashes.
       doorSlot !== DoorSlot.NO_DOOR_SLOT &&
       room.IsDoorSlotAllowed(doorSlot) &&
       room.GetDoor(doorSlot) === undefined,
   );
+}
+
+/**
+ * Helper function to get the door that leads to the off-grid room that contains the portal to The
+ * Void. (In vanilla, the door will only appear in the Hush Boss Room.)
+ *
+ * Returns undefined if the room has no Void doors.
+ */
+export function getVoidDoor(): GridEntityDoor | undefined {
+  const doors = getDoors();
+  return doors.find((door) => isVoidDoor(door));
+}
+
+/**
+ * Helper function to check if the current room has one or more doors that lead to the given room
+ * type.
+ *
+ * This function is variadic, meaning that you can supply as many door types as you want to check
+ * for. This function will return true if one or more room types match.
+ */
+export function hasDoorType(...roomTypes: RoomType[]): boolean {
+  const doors = getDoors();
+  const doorsOfThisRoomType = doors.filter((door) =>
+    roomTypes.some((roomType) => door.IsRoomType(roomType)),
+  );
+  return doorsOfThisRoomType.length > 0;
 }
 
 /**
@@ -288,8 +367,21 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomType === RoomType.ANGEL;
 }
 
+/**
+ * Helper function to check if the provided door is the one that leads to the off-grid room that
+ * contains the hole to the Blue Womb. (In vanilla, the door will only appear in the It Lives Boss
+ * Room.)
+ */
 export function isBlueWombDoor(door: GridEntityDoor): boolean {
   return door.TargetRoomIndex === asNumber(GridRoom.BLUE_WOMB);
+}
+
+/**
+ * Helper function to check if the provided door is the one that leads to the Boss Rush room. (In
+ * vanilla, the door will only appear in the Boss Room of the sixth floor.)
+ */
+export function isBossRushDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.BOSS_RUSH);
 }
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {
@@ -393,6 +485,14 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
 }
 
 /**
+ * Helper function to check if the provided door is the one that leads to the Mega Satan Boss Room.
+ * (In vanilla, the door will only appear in the starting room of The Chest / Dark Room.)
+ */
+export function isMegaSatanDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.MEGA_SATAN);
+}
+
+/**
  * Helper function to check if the provided door leads to the "secret exit" off-grid room that takes
  * you to the Repentance floor.
  */
@@ -404,6 +504,9 @@ export function isRepentanceDoor(door: GridEntityDoor): boolean {
  * This refers to the hole in the wall that appears after bombing the entrance to a secret room.
  * Note that the door still exists before it has been bombed open. It has a sprite filename of
  * "gfx/grid/door_08_holeinwall.anm2".
+ *
+ * Note that since Ultra Secret Rooms do not use holes, this function will not detect an Ultra
+ * Secret Room door.
  */
 export function isSecretRoomDoor(door: GridEntityDoor): boolean {
   const sprite = door.GetSprite();
@@ -411,6 +514,14 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
 
   // On Windows, this is: "gfx/grid/Door_08_HoleInWall.anm2"
   return fileName.toLowerCase() === "gfx/grid/door_08_holeinwall.anm2"; // cspell:ignore holeinwall
+}
+
+/**
+ * Helper function to check if the provided door is the one that leads to the off-grid room that
+ * contains the portal to The Void. (In vanilla, the door will only appear in the Hush Boss Room.)
+ */
+export function isVoidDoor(door: GridEntityDoor): boolean {
+  return door.TargetRoomIndex === asNumber(GridRoom.VOID);
 }
 
 /**
@@ -462,6 +573,7 @@ export function openDoorFast(door: GridEntityDoor): void {
  * specified room types.
  *
  * @returns The number of doors removed.
+ * @allowEmptyVariadic
  */
 export function removeAllDoors(...roomTypes: RoomType[]): int {
   const doors = getDoors(...roomTypes);

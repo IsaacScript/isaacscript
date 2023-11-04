@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isSlot } from "../../functions/entityTypes";
 import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
@@ -9,14 +9,15 @@ export class PostSlotCollision extends CustomCallback<ModCallbackCustom.POST_SLO
     super();
 
     this.callbacksUsed = [
-      [ModCallback.PRE_PLAYER_COLLISION, [this.prePlayerCollision]], // 33
+      // 33
+      [ModCallback.PRE_PLAYER_COLLISION, this.prePlayerCollision],
     ];
   }
 
   protected override shouldFire = shouldFireSlot;
 
   // ModCallback.PRE_PLAYER_COLLISION (33)
-  private prePlayerCollision = (
+  private readonly prePlayerCollision = (
     player: EntityPlayer,
     collider: Entity,
   ): boolean | undefined => {

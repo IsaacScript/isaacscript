@@ -1,6 +1,6 @@
 import { PlayerType } from "isaac-typescript-definitions";
 
-export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
+export const CHARACTER_NAMES = {
   [PlayerType.POSSESSOR]: "Possessor", // -1
   [PlayerType.ISAAC]: "Isaac", // 0
   [PlayerType.MAGDALENE]: "Magdalene", // 1
@@ -43,4 +43,4 @@ export const CHARACTER_NAMES: { readonly [key in PlayerType]: string } = {
   [PlayerType.LAZARUS_2_B]: "Dead Tainted Lazarus", // 38
   [PlayerType.JACOB_2_B]: "Dead Tainted Jacob", // 39
   [PlayerType.SOUL_B]: "Tainted Soul", // 40
-} as const;
+} as const satisfies Record<PlayerType, string>;

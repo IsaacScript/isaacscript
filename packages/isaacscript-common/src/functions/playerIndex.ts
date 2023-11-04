@@ -1,10 +1,16 @@
-import { CollectibleType, PlayerType } from "isaac-typescript-definitions";
+import {
+  BabySubType,
+  CollectibleType,
+  PlayerType,
+  PlayerVariant,
+} from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { PlayerIndex } from "../types/PlayerIndex";
+import type { PlayerIndex } from "../types/PlayerIndex";
+import { ReadonlySet } from "../types/ReadonlySet";
 
 const DEFAULT_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
 
-const EXCLUDED_CHARACTERS: ReadonlySet<PlayerType> = new Set([
+const EXCLUDED_CHARACTERS = new ReadonlySet<PlayerType>([
   PlayerType.ESAU, // 20
   PlayerType.SOUL_B, // 40
 ]);
@@ -73,9 +79,9 @@ export function getPlayerFromIndex(
  * (1). This works even if the player does not have any Sad Onions.
  *
  * Note that by default, this returns the same index for both The Forgotten and The Soul. (Even
- * though they are technically different characters, they share the same inventory and InitSeed.) If
- * this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG of
- * Spoon Bender (3) will be used for The Soul.
+ * though they are technically different characters, they share the same inventory and `InitSeed`.)
+ * If this is not desired, pass true for the `differentiateForgottenAndSoul` argument, and the RNG
+ * of Spoon Bender (3) will be used for The Soul.
  *
  * Also note that this index does not work in the `POST_PLAYER_INIT` function for players 2 through
  * 4. With that said, in almost all cases, you should be lazy-initializing your data structures in
@@ -161,9 +167,8 @@ export function getPlayerIndexVanilla(
  *
  * If this is not desired, use the `getAllPlayers` helper function instead.
  *
- * @param performCharacterExclusions Whether or not to exclude characters that are not directly
- *                                 controlled by the player (i.e. Esau & Tainted Soul). Default is
- *                                 false.
+ * @param performCharacterExclusions Whether to exclude characters that are not directly controlled
+ *                                 by the player (i.e. Esau & Tainted Soul). Default is false.
  */
 export function getPlayers(performCharacterExclusions = false): EntityPlayer[] {
   const players = getAllPlayers();
@@ -204,4 +209,16 @@ export function getSubPlayerParent(
  */
 export function isChildPlayer(player: EntityPlayer): boolean {
   return player.Parent !== undefined;
+}
+
+/**
+ * Helper function to detect if a particular player is the Found Soul player provided by the
+ * trinket.
+ */
+export function isFoundSoul(player: EntityPlayer): boolean {
+  return (
+    isChildPlayer(player) &&
+    player.Variant === PlayerVariant.COOP_BABY &&
+    player.SubType === (BabySubType.FOUND_SOUL as int)
+  );
 }

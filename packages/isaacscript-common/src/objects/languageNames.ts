@@ -1,13 +1,11 @@
 import { LanguageAbbreviation } from "isaac-typescript-definitions";
 
-export const LANGUAGE_NAMES: {
-  readonly [key in LanguageAbbreviation]: string;
-} = {
-  [LanguageAbbreviation.ENGLISH]: "English",
-  [LanguageAbbreviation.JAPANESE]: "Japanese",
-  [LanguageAbbreviation.KOREAN]: "Korean",
-  [LanguageAbbreviation.CHINESE_SIMPLE]: "Chinese (Simple)",
-  [LanguageAbbreviation.RUSSIAN]: "Russian",
-  [LanguageAbbreviation.GERMAN]: "German",
-  [LanguageAbbreviation.SPANISH]: "Spanish",
-} as const;
+export const LANGUAGE_NAMES = {
+  [LanguageAbbreviation.ENGLISH]: "English", // "en"
+  [LanguageAbbreviation.JAPANESE]: "Japanese", // "jp"
+  [LanguageAbbreviation.KOREAN]: "Korean", // "kr"
+  [LanguageAbbreviation.CHINESE_SIMPLE]: "Chinese (Simple)", // "zh"
+  [LanguageAbbreviation.RUSSIAN]: "Russian", // "ru"
+  [LanguageAbbreviation.GERMAN]: "German", // "de"
+  [LanguageAbbreviation.SPANISH]: "Spanish", // "es"
+} as const satisfies Record<LanguageAbbreviation, string>;

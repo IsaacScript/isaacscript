@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayLaser extends Feature {
   public textCallback: (laser: EntityLaser) => string =
@@ -10,12 +11,13 @@ export class DebugDisplayLaser extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_LASER_RENDER, [this.postLaserRender]], // 49
+      // 49
+      [ModCallback.POST_LASER_RENDER, this.postLaserRender],
     ];
   }
 
   // ModCallback.POST_LASER_RENDER (49)
-  private postLaserRender = (laser: EntityLaser) => {
+  private readonly postLaserRender = (laser: EntityLaser) => {
     const text = this.textCallback(laser);
     renderTextOnEntity(laser, text);
   };

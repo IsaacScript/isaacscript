@@ -1,15 +1,13 @@
-import {
-  EntityType,
-  GridEntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { EntityType } from "isaac-typescript-definitions";
+import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import {
   getTopLeftWallGridIndex,
   spawnGridEntity,
 } from "../../functions/gridEntities";
-import { logError } from "../../functions/logMisc";
+import { logError } from "../../functions/log";
+import { shouldFireRoom } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_ROOM_EARLY> {
@@ -22,25 +20,36 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
-      [ModCallback.PRE_ENTITY_SPAWN, [this.preEntitySpawn]], // 24
+      // 19
+      // eslint-disable-next-line deprecation/deprecation
+      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
+
+      // 24
+      [ModCallback.PRE_ENTITY_SPAWN, this.preEntitySpawn],
     ];
   }
 
+  protected override shouldFire = shouldFireRoom;
+
   // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
+  private readonly postNewRoom = (): void => {
     this.checkRoomChanged();
   };
 
   // ModCallback.PRE_ENTITY_SPAWN (24)
-  private preEntitySpawn = (): [EntityType, int, int, int] | undefined => {
+  private readonly preEntitySpawn = ():
+    | [entityType: EntityType, variant: int, subType: int, initSeed: Seed]
+    | undefined => {
     this.checkRoomChanged();
     return undefined;
   };
 
   private checkRoomChanged(): void {
     if (this.isNewRoom()) {
-      this.fire();
+      const room = game.GetRoom();
+      const roomType = room.GetType();
+
+      this.fire(roomType);
     }
   }
 
@@ -52,14 +61,14 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
     let topLeftWall = room.GetGridEntity(topLeftWallGridIndex);
     let topLeftWall2 = room.GetGridEntity(rightOfTopWallGridIndex);
 
-    // Sometimes, the PreEntitySpawn callback can fire before any grid entities in the room have
+    // Sometimes, the `PRE_ENTITY_SPAWN` callback can fire before any grid entities in the room have
     // spawned, which means that the top-left wall will not exist. If ths is the case, then simply
     // spawn the top-left wall early.
     if (topLeftWall === undefined) {
       topLeftWall = spawnGridEntity(GridEntityType.WALL, topLeftWallGridIndex);
       if (topLeftWall === undefined) {
         logError(
-          "Failed to spawn a new wall (1) for the POST_NEW_ROOM_EARLY callback.",
+          "Failed to spawn a new wall for the POST_NEW_ROOM_EARLY callback (on the first try).",
         );
         return false;
       }
@@ -74,7 +83,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
       );
       if (topLeftWall2 === undefined) {
         logError(
-          "Failed to spawn a new wall (2) for the POST_NEW_ROOM_EARLY callback.",
+          "Failed to spawn a new wall for the POST_NEW_ROOM_EARLY callback (on the second try).",
         );
         return false;
       }

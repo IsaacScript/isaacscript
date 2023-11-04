@@ -1,13 +1,14 @@
-import { ButtonAction } from "../../enums/ButtonAction";
-import { ControllerIndex } from "../../enums/ControllerIndex";
-import { Keyboard } from "../../enums/Keyboard";
-import { Mouse } from "../../enums/Mouse";
+import type { ButtonAction } from "../../enums/ButtonAction";
+import type { ControllerIndex } from "../../enums/ControllerIndex";
+import type { Keyboard } from "../../enums/Keyboard";
+import type { Mouse } from "../../enums/Mouse";
 
 declare global {
   /**
    * The `Input` class contains a collection of methods having to do with detecting player input.
    *
-   * `Input` is technically not an Isaac API class; it has a type of `table`.
+   * `Input` is technically not an Isaac API class; it has a type of `table` (instead of
+   * `userdata`).
    *
    * @noSelf
    */

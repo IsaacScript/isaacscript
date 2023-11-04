@@ -5,16 +5,18 @@ import {
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { game } from "../core/cachedClasses";
 import {
   MAX_TAINTED_SAMSON_BERSERK_CHARGE,
   TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE,
 } from "../core/constants";
+import { MysteriousPaperEffect } from "../enums/MysteriousPaperEffect";
 import { getCharacterDeathAnimationName } from "./characters";
+import { onGameFrame } from "./frames";
 import { getPlayerMaxHeartContainers } from "./playerHealth";
 import { getPlayerNumHitsRemaining, hasLostCurse, isKeeper } from "./players";
 import { getLastFrameOfAnimation } from "./sprites";
 import { giveTrinketsBack, temporarilyRemoveTrinket } from "./trinketGive";
+import { getMysteriousPaperEffectForFrame } from "./trinkets";
 
 /**
  * Uses the player's current health and other miscellaneous things to determine if incoming damage
@@ -26,7 +28,6 @@ export function isDamageToPlayerFatal(
   source: EntityRef,
   lastDamageGameFrame: int | undefined,
 ): boolean {
-  const gameFrameCount = game.GetFrameCount();
   const character = player.GetPlayerType();
   const effects = player.GetEffects();
   const isBerserk = effects.HasCollectibleEffect(CollectibleType.BERSERK);
@@ -89,7 +90,7 @@ export function isDamageToPlayerFatal(
   // damage on the same frame.
   if (
     player.HasCollectible(CollectibleType.BROKEN_GLASS_CANNON) &&
-    gameFrameCount === lastDamageGameFrame
+    onGameFrame(lastDamageGameFrame)
   ) {
     return false;
   }
@@ -115,15 +116,14 @@ export function isDamageToPlayerFatal(
 }
 
 /**
- * Assuming that we are on the frame of fatal damage, this function returns whether or not
- * Mysterious Paper would rotate to Missing Poster on the frame that the "Game Over" screen would
- * appear (which would subsequently save the player from fatal damage).
+ * Assuming that we are on the frame of fatal damage, this function returns whether Mysterious Paper
+ * would rotate to Missing Poster on the frame that the "Game Over" screen would appear (which would
+ * subsequently save the player from fatal damage).
  *
  * Mysterious Paper rotates between the 4 items on every frame, in order. The formula for whether
  * Mysterious Paper be Missing Power is: `gameFrameCount % 4 === 3`
  */
 export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
-  const gameFrameCount = game.GetFrameCount();
   const sprite = player.GetSprite();
 
   // We want to explicitly check the length of the death animation because we might be playing on a
@@ -131,10 +131,17 @@ export function willMysteriousPaperRevive(player: EntityPlayer): boolean {
   const character = player.GetPlayerType();
   const animation = getCharacterDeathAnimationName(character);
   const deathAnimationFrames = getLastFrameOfAnimation(sprite, animation);
-  const frameOfDeath = gameFrameCount + deathAnimationFrames + 1;
-  // (We add 1 because it takes one frame for the death animation to begin.)
+  const frameOfDeath = player.FrameCount + deathAnimationFrames;
 
-  return frameOfDeath % 4 === 3;
+  const mysteriousPaperEffect = getMysteriousPaperEffectForFrame(
+    player,
+    frameOfDeath,
+  );
+  if (mysteriousPaperEffect === undefined) {
+    return false;
+  }
+
+  return mysteriousPaperEffect === MysteriousPaperEffect.MISSING_POSTER;
 }
 
 /**

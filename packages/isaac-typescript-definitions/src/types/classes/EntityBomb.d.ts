@@ -1,13 +1,13 @@
-import { BombVariant } from "../../enums/collections/variants";
-import { TearFlag } from "../../enums/flags/TearFlag";
+import type { BombVariant } from "../../enums/collections/variants";
+import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityBomb extends Entity {
-    AddTearFlags(flags: TearFlag | BitFlags<TearFlag>): void;
-    ClearTearFlags(flags: TearFlag | BitFlags<TearFlag>): void;
-    HasTearFlags(flags: TearFlag | BitFlags<TearFlag>): boolean;
+    AddTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
+    ClearTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
+    HasTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => boolean;
 
-    SetExplosionCountdown(countdown: int): void;
+    SetExplosionCountdown: (countdown: int) => void;
 
     ExplosionDamage: float;
 

@@ -7,7 +7,7 @@ export const noEmptyJSDoc = createRule({
     type: "problem",
     docs: {
       description: "Disallows empty JSDoc comments",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {
@@ -29,7 +29,7 @@ export const noEmptyJSDoc = createRule({
     // We only look at `/**` style comments on their own line.
     const jsDocComments = getJSDocComments(comments);
 
-    jsDocComments.forEach((comment) => {
+    for (const comment of jsDocComments) {
       const text = comment.value.trim();
       const textWithoutAsterisks = text.replaceAll("*", "");
       const commentBody = textWithoutAsterisks.trim();
@@ -44,7 +44,7 @@ export const noEmptyJSDoc = createRule({
           fix: (fixer) => fixer.replaceTextRange(comment.range, ""),
         });
       }
-    });
+    }
 
     return {};
   },

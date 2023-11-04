@@ -1,4 +1,4 @@
-import { HeartSubType } from "isaac-typescript-definitions";
+import type { HeartSubType } from "isaac-typescript-definitions";
 
 /** This is used by the `getPlayerHealth` and `setPlayerHealth` helper functions. */
 export interface PlayerHealth {

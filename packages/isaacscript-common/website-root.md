@@ -71,7 +71,7 @@ For example:
 
 ```ts
 import { ModCallback } from "isaac-typescript-definitions";
-import { ISCFeature, ModCallbackCustom, modVanilla } from "isaacscript-common";
+import { ISCFeature, upgradeMod } from "isaacscript-common";
 
 const modVanilla = RegisterMod("Foo", 1);
 const features = [ISCFeature.PONY_DETECTION] as const;
@@ -100,15 +100,18 @@ However, now that the `mod` object contains useful methods, the various files in
 #### `mod.ts`
 
 ```ts
+import { ISCFeature, upgradeMod } from "isaacscript-common";
+
 const modVanilla = RegisterMod("Foo", 1);
 const features = [ISCFeature.PONY_DETECTION] as const;
-export const mod = upgradeMod(modVanilla);
+export const mod = upgradeMod(modVanilla, features);
 ```
 
 #### `callbacks/postUpdate.ts`
 
 ```ts
-import { mod } from "./mod";
+import { ModCallback } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 
 export function postUpdateInit(): void {
   mod.AddCallback(ModCallback.POST_UPDATE, main);
@@ -121,4 +124,4 @@ function main() {
 
 This has the downside of importing for side-effects, but it keeps your mod clean of other boilerplate.
 
-(Generally, you don't want to import for side-effects because it can obfuscate when code is being executed and make troubleshooting startup run-time errors more difficult. However, making an exception for this case is reasonable, since invoking `RegisterMod` or `upgradeMod` should not be generating any run-time errors, and `mod` is something that needs to be easily accessible throughout your program.)
+(Generally, we don't want to import for side-effects because it can obfuscate when code is being executed and make troubleshooting startup run-time errors more difficult. However, making an exception for this case is reasonable, since invoking `RegisterMod` or `upgradeMod` should not be generating any run-time errors, and `mod` is something that needs to be easily accessible throughout your program.)

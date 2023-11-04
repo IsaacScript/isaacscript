@@ -21,6 +21,12 @@ import { GridEntityTypeCustom } from "../../../enums/private/GridEntityTypeCusto
 import { StageTravelState } from "../../../enums/private/StageTravelState";
 import { TrapdoorAnimation } from "../../../enums/private/TrapdoorAnimation";
 import { easeOutSine } from "../../../functions/easing";
+import {
+  isAfterRoomFrame,
+  isBeforeRenderFrame,
+  onOrAfterRenderFrame,
+} from "../../../functions/frames";
+import { log } from "../../../functions/log";
 import { movePlayersToCenter } from "../../../functions/playerCenter";
 import {
   getAllPlayers,
@@ -36,17 +42,22 @@ import {
 import { teleport } from "../../../functions/roomTransition";
 import { setStage } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
+import { assertDefined } from "../../../functions/utils";
 import { isVector } from "../../../functions/vector";
-import { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
+import type { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
-import { DisableInputs } from "./DisableInputs";
-import { PonyDetection } from "./PonyDetection";
-import { RoomClearFrame } from "./RoomClearFrame";
-import { RunInNFrames } from "./RunInNFrames";
-import { RunNextRoom } from "./RunNextRoom";
-import { StageHistory } from "./StageHistory";
+import type { CustomGridEntities } from "../callbackLogic/CustomGridEntities";
+import type { DisableInputs } from "./DisableInputs";
+import type { PonyDetection } from "./PonyDetection";
+import type { RoomClearFrame } from "./RoomClearFrame";
+import type { RunInNFrames } from "./RunInNFrames";
+import type { RunNextRoom } from "./RunNextRoom";
+import type { StageHistory } from "./StageHistory";
+import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
+
+const DEBUG = false as boolean;
 
 /** This also applies to crawl spaces. The value was determined through trial and error. */
 const TRAPDOOR_OPEN_DISTANCE = 60;
@@ -56,42 +67,49 @@ const TRAPDOOR_BOSS_REACTION_FRAMES = 30;
 
 const TRAPDOOR_TOUCH_DISTANCE = 16.5;
 
-const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL: ReadonlySet<string> = new Set([
+const ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL = new ReadonlySet<string>([
+  "Death",
   "Happy",
   "Sad",
   "Jump",
 ]);
 
-const PIXELATION_TO_BLACK_FRAMES = 52;
+const PIXELATION_TO_BLACK_FRAMES = 60;
 
 const OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES = 6;
 const OTHER_PLAYER_TRAPDOOR_JUMP_DURATION_GAME_FRAMES = 5;
 
+const v = {
+  run: {
+    state: StageTravelState.NONE,
+
+    /** The render frame that this state was reached. */
+    stateRenderFrame: null as int | null,
+
+    customTrapdoorActivated: null as CustomTrapdoorDescription | null,
+  },
+
+  level: {
+    /** Indexed by room list index and grid index. */
+    trapdoors: new DefaultMap<int, Map<int, CustomTrapdoorDescription>>(
+      () => new Map(),
+    ),
+  },
+};
+
 export class CustomTrapdoors extends Feature {
   /** Indexed by custom trapdoor ID. */
-  private destinationFuncMap = new Map<
+  private readonly destinationFuncMap = new Map<
     string,
-    (destinationStage: LevelStage, destinationStageType: StageType) => void
+    (
+      destinationName: string | undefined,
+      destinationStage: LevelStage,
+      destinationStageType: StageType,
+    ) => void
   >();
 
   /** @internal */
-  public override v = {
-    run: {
-      state: StageTravelState.NONE,
-
-      /** The render frame that this state was reached. */
-      stateRenderFrame: null as int | null,
-
-      customTrapdoorActivated: null as CustomTrapdoorDescription | null,
-    },
-
-    level: {
-      /** Indexed by room list index and grid index. */
-      trapdoors: new DefaultMap<int, Map<int, CustomTrapdoorDescription>>(
-        () => new Map(),
-      ),
-    },
-  };
+  public override v = v;
 
   /**
    * In order to represent a black sprite, we just use the first frame of the boss versus screen
@@ -99,15 +117,15 @@ export class CustomTrapdoors extends Feature {
    * replace the vanilla files. (For some reason, loading the sprites will cause the overwrite to no
    * longer apply on the second and subsequent runs.)
    */
-  private blackSprite = Sprite();
+  private readonly blackSprite = Sprite();
 
-  private customGridEntities: CustomGridEntities;
-  private disableInputs: DisableInputs;
-  private ponyDetection: PonyDetection;
-  private roomClearFrame: RoomClearFrame;
-  private runInNFrames: RunInNFrames;
-  private runNextRoom: RunNextRoom;
-  private stageHistory: StageHistory;
+  private readonly customGridEntities: CustomGridEntities;
+  private readonly disableInputs: DisableInputs;
+  private readonly ponyDetection: PonyDetection;
+  private readonly roomClearFrame: RoomClearFrame;
+  private readonly runInNFrames: RunInNFrames;
+  private readonly runNextRoom: RunNextRoom;
+  private readonly stageHistory: StageHistory;
 
   /** @internal */
   constructor(
@@ -132,20 +150,19 @@ export class CustomTrapdoors extends Feature {
     ];
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE,
-        [
-          this.postGridEntityCustomUpdateTrapdoor,
-          GridEntityTypeCustom.TRAPDOOR_CUSTOM,
-        ],
+        this.postGridEntityCustomUpdateTrapdoor,
+        [GridEntityTypeCustom.TRAPDOOR_CUSTOM],
       ],
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
 
@@ -159,7 +176,7 @@ export class CustomTrapdoors extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     this.checkAllPlayersJumpComplete();
     this.checkPixelationToBlackComplete();
     this.checkSecondPixelationHalfWay();
@@ -168,7 +185,7 @@ export class CustomTrapdoors extends Feature {
   };
 
   private checkAllPlayersJumpComplete() {
-    if (this.v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
       return;
     }
 
@@ -179,8 +196,9 @@ export class CustomTrapdoors extends Feature {
     const renderFrameCount = Isaac.GetFrameCount();
     const roomGridIndex = getRoomGridIndex();
 
-    this.v.run.state = StageTravelState.PIXELATION_TO_BLACK;
-    this.v.run.stateRenderFrame = renderFrameCount;
+    v.run.state = StageTravelState.PIXELATION_TO_BLACK;
+    v.run.stateRenderFrame = renderFrameCount;
+    this.logStateChanged();
 
     // In order to display the pixelation effect that should happen when we go to a new floor, we
     // need to start a room transition. We arbitrarily pick the current room for this purpose. (We
@@ -199,25 +217,24 @@ export class CustomTrapdoors extends Feature {
 
   private checkPixelationToBlackComplete() {
     if (
-      this.v.run.state !== StageTravelState.PIXELATION_TO_BLACK ||
-      this.v.run.stateRenderFrame === null
+      v.run.state !== StageTravelState.PIXELATION_TO_BLACK ||
+      v.run.stateRenderFrame === null
     ) {
       return;
     }
 
-    const hud = game.GetHUD();
-    const renderFrameCount = Isaac.GetFrameCount();
-
     const renderFrameScreenBlack =
-      this.v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
-    if (renderFrameCount < renderFrameScreenBlack) {
+      v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
+    if (isBeforeRenderFrame(renderFrameScreenBlack)) {
       return;
     }
 
-    this.v.run.state = StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END;
+    v.run.state = StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END;
+    this.logStateChanged();
 
     // Now, we display a black sprite on top of the pixelation effect, to prevent showing the rest
     // of the animation.
+    const hud = game.GetHUD();
     hud.SetVisible(false);
 
     // If the pixelation effect is not fully allowed to complete, the game's internal buffer will
@@ -231,9 +248,9 @@ export class CustomTrapdoors extends Feature {
       const startingRoomIndex = level.GetStartingRoomIndex();
       const futureRenderFrameCount = Isaac.GetFrameCount();
 
-      this.v.run.state =
+      v.run.state =
         StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY;
-      this.v.run.stateRenderFrame = futureRenderFrameCount;
+      v.run.stateRenderFrame = futureRenderFrameCount;
 
       this.goToCustomTrapdoorDestination();
 
@@ -248,9 +265,9 @@ export class CustomTrapdoors extends Feature {
   }
 
   private goToCustomTrapdoorDestination() {
-    if (this.v.run.customTrapdoorActivated === null) {
+    if (v.run.customTrapdoorActivated === null) {
       // This should never happen; provide some sane default values.
-      this.v.run.customTrapdoorActivated = {
+      v.run.customTrapdoorActivated = {
         destinationName: undefined,
         destinationStage: LevelStage.BASEMENT_1,
         destinationStageType: StageType.ORIGINAL,
@@ -260,17 +277,22 @@ export class CustomTrapdoors extends Feature {
     }
 
     const destinationFunc = this.getDestinationFunc(
-      this.v.run.customTrapdoorActivated,
+      v.run.customTrapdoorActivated,
     );
     destinationFunc(
-      this.v.run.customTrapdoorActivated.destinationStage,
-      this.v.run.customTrapdoorActivated.destinationStageType,
+      v.run.customTrapdoorActivated.destinationName,
+      v.run.customTrapdoorActivated.destinationStage,
+      v.run.customTrapdoorActivated.destinationStageType,
     );
   }
 
   private getDestinationFunc(
     customTrapdoorDescription: CustomTrapdoorDescription,
-  ): (destinationStage: LevelStage, destinationStageType: StageType) => void {
+  ): (
+    destinationName: string | undefined,
+    destinationStage: LevelStage,
+    destinationStageType: StageType,
+  ) => void {
     if (customTrapdoorDescription.destinationName === undefined) {
       return goToVanillaStage;
     }
@@ -287,28 +309,28 @@ export class CustomTrapdoors extends Feature {
 
   private checkSecondPixelationHalfWay() {
     if (
-      this.v.run.state !==
+      v.run.state !==
         StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY ||
-      this.v.run.stateRenderFrame === null
+      v.run.stateRenderFrame === null
     ) {
       return;
     }
 
-    const hud = game.GetHUD();
-    const renderFrameCount = Isaac.GetFrameCount();
-
     const renderFrameScreenBlack =
-      this.v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
-    if (renderFrameCount < renderFrameScreenBlack) {
+      v.run.stateRenderFrame + PIXELATION_TO_BLACK_FRAMES;
+    if (isBeforeRenderFrame(renderFrameScreenBlack)) {
       return;
     }
 
-    this.v.run.state = StageTravelState.PIXELATION_TO_ROOM;
+    v.run.state = StageTravelState.PIXELATION_TO_ROOM;
+    this.logStateChanged();
 
+    const hud = game.GetHUD();
     hud.SetVisible(true);
 
     this.runNextRoom.runNextRoom(() => {
-      this.v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
+      v.run.state = StageTravelState.PLAYERS_LAYING_DOWN;
+      this.logStateChanged();
 
       // After the room transition, the players will be placed next to a door, but they should be in
       // the center of the room to emulate what happens on a vanilla stage.
@@ -321,11 +343,19 @@ export class CustomTrapdoors extends Feature {
         player.EntityCollisionClass = EntityCollisionClass.ALL;
         player.GridCollisionClass = EntityGridCollisionClass.GROUND;
       }
+
+      const level = game.GetLevel();
+      const stage = level.GetStage();
+      if (stage !== CUSTOM_FLOOR_STAGE) {
+        // The vanilla streak text shows just before the player stands up, which is a few frames
+        // from now. We arbitrarily play it now instead of waiting to avoid the extra complexity.
+        level.ShowName(false);
+      }
     });
   }
 
   private checkAllPlayersLayingDownComplete() {
-    if (this.v.run.state !== StageTravelState.PLAYERS_LAYING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_LAYING_DOWN) {
       return;
     }
 
@@ -333,23 +363,22 @@ export class CustomTrapdoors extends Feature {
       return;
     }
 
-    this.v.run.state = StageTravelState.NONE;
+    v.run.state = StageTravelState.NONE;
+    this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error(
-        "Failed to find get the class name for the custom trapdoor feature.",
-      );
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to find get the class name for the custom trapdoor feature.",
+    );
 
     this.disableInputs.enableAllInputs(tstlClassName);
   }
 
   private drawBlackSprite(): void {
     if (
-      this.v.run.state !==
-        StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END &&
-      this.v.run.state !==
+      v.run.state !== StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END &&
+      v.run.state !==
         StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY
     ) {
       return;
@@ -366,12 +395,13 @@ export class CustomTrapdoors extends Feature {
 
   // ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE
   // GridEntityTypeCustom.TRAPDOOR_CUSTOM
-  private postGridEntityCustomUpdateTrapdoor = (gridEntity: GridEntity) => {
+  private readonly postGridEntityCustomUpdateTrapdoor = (
+    gridEntity: GridEntity,
+  ) => {
     const roomListIndex = getRoomListIndex();
     const gridIndex = gridEntity.GetGridIndex();
 
-    const roomTrapdoorMap =
-      this.v.level.trapdoors.getAndSetDefault(roomListIndex);
+    const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
     const trapdoorDescription = roomTrapdoorMap.get(gridIndex);
     if (trapdoorDescription === undefined) {
       return;
@@ -410,7 +440,6 @@ export class CustomTrapdoors extends Feature {
   }
 
   private isPlayerCloseAfterBoss(position: Vector) {
-    const gameFrameCount = game.GetFrameCount();
     const room = game.GetRoom();
     const roomType = room.GetType();
     const roomClearGameFrame = this.roomClearFrame.getRoomClearGameFrame();
@@ -420,7 +449,7 @@ export class CustomTrapdoors extends Feature {
     if (
       roomType !== RoomType.BOSS ||
       roomClearGameFrame === undefined ||
-      gameFrameCount >= roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES
+      onOrAfterRenderFrame(roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES)
     ) {
       return false;
     }
@@ -432,7 +461,7 @@ export class CustomTrapdoors extends Feature {
     gridEntity: GridEntity,
     trapdoorDescription: CustomTrapdoorDescription,
   ): void {
-    if (this.v.run.state !== StageTravelState.NONE) {
+    if (v.run.state !== StageTravelState.NONE) {
       return;
     }
 
@@ -472,20 +501,20 @@ export class CustomTrapdoors extends Feature {
     trapdoorDescription: CustomTrapdoorDescription,
     player: EntityPlayer,
   ) {
-    this.v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
-    this.v.run.customTrapdoorActivated = trapdoorDescription;
+    v.run.state = StageTravelState.PLAYERS_JUMPING_DOWN;
+    v.run.customTrapdoorActivated = trapdoorDescription;
+    this.logStateChanged();
 
     const tstlClassName = getTSTLClassName(this);
-    if (tstlClassName === undefined) {
-      error(
-        "Failed to find get the class name for the custom trapdoor feature.",
-      );
-    }
+    assertDefined(
+      tstlClassName,
+      "Failed to find get the class name for the custom trapdoor feature.",
+    );
 
     // We don't want to allow pausing, since that will allow render frames to pass without advancing
     // the stage traveling logic. (We track how many render frames have passed to know when to move
     // to the next step.)
-    const whitelist = new Set([ButtonAction.CONSOLE]);
+    const whitelist = new ReadonlySet([ButtonAction.CONSOLE]);
     this.disableInputs.disableAllInputsExceptFor(tstlClassName, whitelist);
     setPlayerAttributes(player, gridEntity.Position);
     dropTaintedForgotten(player);
@@ -493,14 +522,14 @@ export class CustomTrapdoors extends Feature {
     player.PlayExtraAnimation("Trapdoor");
 
     const otherPlayers = getOtherPlayers(player);
-    otherPlayers.forEach((otherPlayer, i) => {
+    for (const [i, otherPlayer] of otherPlayers.entries()) {
       const gameFramesToWaitBeforeJumping =
         OTHER_PLAYER_TRAPDOOR_JUMP_DELAY_GAME_FRAMES * (i + 1);
       const otherPlayerPtr = EntityPtr(otherPlayer);
       this.runInNFrames.runInNGameFrames(() => {
         this.startDelayedJump(otherPlayerPtr, gridEntity.Position);
       }, gameFramesToWaitBeforeJumping);
-    });
+    }
   }
 
   private startDelayedJump(entityPtr: EntityPtr, trapdoorPosition: Vector) {
@@ -528,7 +557,7 @@ export class CustomTrapdoors extends Feature {
     startPos: Vector,
     endPos: Vector,
   ) {
-    if (this.v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
       return;
     }
 
@@ -574,12 +603,12 @@ export class CustomTrapdoors extends Feature {
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     this.checkJumpComplete(player);
   };
 
   private checkJumpComplete(player: EntityPlayer) {
-    if (this.v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
+    if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
       return;
     }
 
@@ -598,7 +627,6 @@ export class CustomTrapdoors extends Feature {
     firstSpawn: boolean,
   ): boolean {
     const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
     const roomClear = room.IsClear();
 
     // Trapdoors created after a room has already initialized should spawn closed by default:
@@ -606,7 +634,7 @@ export class CustomTrapdoors extends Feature {
     //   into them.
     // - Trapdoors created by We Need to Go Deeper should spawn closed because the player will be
     //   standing on top of them.
-    if (roomFrameCount > 0) {
+    if (isAfterRoomFrame(0)) {
       return false;
     }
 
@@ -619,6 +647,16 @@ export class CustomTrapdoors extends Feature {
     // If we just entered a new room that is already cleared, spawn the trapdoor closed if we are
     // standing close to it, and open otherwise.
     return this.shouldTrapdoorOpen(gridEntity, firstSpawn);
+  }
+
+  private logStateChanged(): void {
+    if (DEBUG) {
+      log(
+        `Custom trapdoors state changed: ${StageTravelState[v.run.state]} (${
+          v.run.state
+        })`,
+      );
+    }
   }
 
   /**
@@ -644,6 +682,7 @@ export class CustomTrapdoors extends Feature {
   public registerCustomTrapdoorDestination(
     destinationName: string,
     destinationFunc: (
+      destinationName: string | undefined,
       destinationStage: LevelStage,
       destinationStageType: StageType,
     ) => void,
@@ -692,8 +731,8 @@ export class CustomTrapdoors extends Feature {
    * @param anm2Path Optional. The path to the anm2 file to use. By default, the vanilla trapdoor
    *                 anm2 of "gfx/grid/door_11_trapdoor.anm2" will be used. The specified anm2 file
    *                 must have animations called "Opened", "Closed", and "Open Animation".
-   * @param spawnOpen Optional. Whether or not to spawn the trapdoor in an open state. By default,
-   *                  behavior will be used that emulates a vanilla trapdoor.
+   * @param spawnOpen Optional. Whether to spawn the trapdoor in an open state. By default, behavior
+   *                  will be used that emulates a vanilla trapdoor.
    */
   @Exported
   public spawnCustomTrapdoor(
@@ -709,7 +748,7 @@ export class CustomTrapdoors extends Feature {
       !this.destinationFuncMap.has(destinationName)
     ) {
       error(
-        `Failed to spawn a custom trapdoor with a destination of "${destinationName}" since a destination with that name has not been registered with the "registerCustomTrapdoor" function.`,
+        `Failed to spawn a custom trapdoor with a destination of "${destinationName}" since a destination with that name has not been registered with the "registerCustomTrapdoorDestination" function. (If you are trying to go to a custom stage, the custom stage library should automatically do this for you when your mod first boots.)`,
       );
     }
 
@@ -722,7 +761,6 @@ export class CustomTrapdoors extends Feature {
     }
 
     const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
     const roomListIndex = getRoomListIndex();
     const gridIndex = isVector(gridIndexOrPosition)
       ? room.GetGridIndex(gridIndexOrPosition)
@@ -736,14 +774,11 @@ export class CustomTrapdoors extends Feature {
       TrapdoorAnimation.OPENED,
     );
 
-    const firstSpawn = roomFrameCount !== 0;
+    const firstSpawn = isAfterRoomFrame(0);
     const open =
-      spawnOpen === undefined
-        ? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn)
-        : spawnOpen;
+      spawnOpen ?? this.shouldTrapdoorSpawnOpen(gridEntity, firstSpawn);
 
-    const roomTrapdoorMap =
-      this.v.level.trapdoors.getAndSetDefault(roomListIndex);
+    const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
     const customTrapdoorDescription: CustomTrapdoorDescription = {
       destinationName,
       destinationStage,
@@ -827,6 +862,7 @@ function dropTaintedForgotten(player: EntityPlayer) {
 
 /** The default `destinationFunc` for a custom trapdoor. */
 function goToVanillaStage(
+  _destinationName: string | undefined,
   destinationStage: LevelStage,
   destinationStageType: StageType,
 ) {

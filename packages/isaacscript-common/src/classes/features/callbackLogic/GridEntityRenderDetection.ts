@@ -1,14 +1,14 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { getGridEntities } from "../../../functions/gridEntities";
-import { PostGridEntityCustomRender } from "../../callbacks/PostGridEntityCustomRender";
-import { PostGridEntityRender } from "../../callbacks/PostGridEntityRender";
+import type { PostGridEntityCustomRender } from "../../callbacks/PostGridEntityCustomRender";
+import type { PostGridEntityRender } from "../../callbacks/PostGridEntityRender";
 import { Feature } from "../../private/Feature";
-import { CustomGridEntities } from "./CustomGridEntities";
+import type { CustomGridEntities } from "./CustomGridEntities";
 
 export class GridEntityRenderDetection extends Feature {
-  private postGridEntityRender: PostGridEntityRender;
-  private postGridEntityCustomRender: PostGridEntityCustomRender;
-  private customGridEntities: CustomGridEntities;
+  private readonly postGridEntityRender: PostGridEntityRender;
+  private readonly postGridEntityCustomRender: PostGridEntityCustomRender;
+  private readonly customGridEntities: CustomGridEntities;
 
   constructor(
     postGridEntityRender: PostGridEntityRender,
@@ -18,7 +18,8 @@ export class GridEntityRenderDetection extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
 
     this.postGridEntityRender = postGridEntityRender;
@@ -27,7 +28,7 @@ export class GridEntityRenderDetection extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
+  private readonly postRender = () => {
     for (const gridEntity of getGridEntities()) {
       const gridIndex = gridEntity.GetGridIndex();
       const gridEntityTypeCustom =

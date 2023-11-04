@@ -1,9 +1,10 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { RuleTester } from "@typescript-eslint/rule-tester";
+import path from "node:path";
 
-export const ruleTester = new ESLintUtils.RuleTester({
+export const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "./tsconfig.json",
-    tsconfigRootDir: `${__dirname}/fixtures`,
+    project: true,
+    tsconfigRootDir: path.join(__dirname, "fixtures"),
   },
 });

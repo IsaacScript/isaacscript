@@ -1,4 +1,4 @@
-import { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 /**
  * Returns false for trailing comments like:
@@ -43,13 +43,13 @@ export function isEnumBlockLabel(text: string): boolean {
     // e.g. 1, 2, 3, 4, 5
     /^\d+, \d+$/.test(text) ||
     /^\d+, \d+, \d+$/.test(text) ||
-    /^\d+, \d+, \d+, \d+$/.test(text) ||
-    /^\d+, \d+, \d+, \d+, \d+$/.test(text) ||
+    /^(?:\d+, ){3}\d+$/.test(text) ||
+    /^(?:\d+, ){4}\d+$/.test(text) ||
     // e.g. 1.0, 2.0, 3.0, 4.0, 5.0
     /^\d+\.\d+, \d+\.\d+$/.test(text) ||
-    /^\d+\.\d+, \d+\.\d+, \d+\.\d+$/.test(text) ||
-    /^\d+\.\d+, \d+\.\d+, \d+\.\d+, \d+\.\d+$/.test(text) ||
-    /^\d+\.\d+, \d+\.\d+, \d+\.\d+, \d+\.\d+, \d+\.\d+$/.test(text)
+    /^(?:\d+\.\d+, ){2}\d+\.\d+$/.test(text) ||
+    /^(?:\d+\.\d+, ){3}\d+\.\d+$/.test(text) ||
+    /^(?:\d+\.\d+, ){4}\d+\.\d+$/.test(text)
   );
 }
 
@@ -73,7 +73,7 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("eslint-") ||
     text.startsWith("prettier-") ||
     text.startsWith("cspell:") ||
-    text.startsWith("ts-prune-") ||
+    text.startsWith("ts-prune-") || // e.g. ts-prune-ignore-next
     text.startsWith("@ts-") ||
     text.startsWith("TODO:") ||
     text.startsWith("FIXME:") ||

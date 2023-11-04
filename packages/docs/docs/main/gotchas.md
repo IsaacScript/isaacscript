@@ -307,9 +307,9 @@ const Revelations = RegisterMod("Revelations", 1);
 
 // Define default values for the save data.
 const RevelationsSaveData = {
-  currentHP = 3,
-  currentNumFamiliars = 4,
-  currentCharge = 10,
+  currentHP: 3,
+  currentNumFamiliars: 4,
+  currentCharge: 10,
 };
 
 function saveModData() {
@@ -491,7 +491,7 @@ If you absolutely have to work with functions, then you could move this field to
 
 This error means that you are trying to put an Isaac API class (such as e.g. `Entity` or `RoomConfig`) on one of the fields in your local variables. Doing that doesn't make much sense, because these kinds of objects cannot be written to the "save#.dat" file when the player saves and quits a run. (Even if some of the properties were copied, there would be no way to recreate the object on the other end.)
 
-In most cases, if you are trying to save an Isaac API class, then you are probably doing something wrong, and you should instead use some kind of index. (For example, see the `getPlayerIndex` and `getCollectibleIndex` helper functions.)
+In most cases, if you are trying to save an Isaac API class, then you are probably doing something wrong, and you should instead use some kind of index. (For example, see the `getPlayerIndex` and `getPickupIndex` helper functions.)
 
 If you absolutely have to work with Isaac API classes, then you could move this field to a `room` sub-object, which is never saved to disk. Otherwise, you can pass `false` as the third argument to the `saveDataManager` function to prevent it from writing any part of the variables to disk.
 

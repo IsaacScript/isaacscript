@@ -12,6 +12,8 @@ import { getPressurePlates } from "./gridEntitiesSpecific";
  * order for the room to be cleared. This function ignores other types of pressure plates, such as
  * the ones that you press to get a reward, the ones that you press to start a Greed Mode wave, and
  * so on.
+ *
+ * Returns true if there are no pressure plates in the room.
  */
 export function isAllPressurePlatesPushed(): boolean {
   const room = game.GetRoom();

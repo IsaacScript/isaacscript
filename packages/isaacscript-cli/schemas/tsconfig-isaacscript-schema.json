@@ -8,6 +8,9 @@
     }
   ],
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "isaacscript": {
       "allOf": [
         {
@@ -16,5 +19,6 @@
       ]
     }
   },
-  "allowTrailingCommas": true
+  "allowTrailingCommas": true,
+  "unevaluatedProperties": false
 }

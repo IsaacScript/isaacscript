@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayTear extends Feature {
   public textCallback: (tear: EntityTear) => string =
@@ -10,12 +11,13 @@ export class DebugDisplayTear extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_TEAR_RENDER, [this.postTearRender]], // 41
+      // 41
+      [ModCallback.POST_TEAR_RENDER, this.postTearRender],
     ];
   }
 
   // ModCallback.POST_TEAR_RENDER (41)
-  private postTearRender = (tear: EntityTear) => {
+  private readonly postTearRender = (tear: EntityTear) => {
     const text = this.textCallback(tear);
     renderTextOnEntity(tear, text);
   };

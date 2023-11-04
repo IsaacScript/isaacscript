@@ -1,15 +1,3 @@
-/*
-eslint isaacscript/member-ordering: [
-  "warn",
-  {
-    enums: {
-      memberTypes: ["method", "field"],
-      order: "alphabetically",
-    },
-  },
-]
-*/
-
 /**
  * - The Isaac API offers a lot of callbacks, but a lot of times there isn't one for the specific
  *   thing that you are looking to do. So, `isaacscript-common` adds a bunch of new callbacks that
@@ -19,6 +7,96 @@ eslint isaacscript/member-ordering: [
  * - You must upgrade your mod with the `upgradeMod` helper function before using a custom callback.
  */
 export enum ModCallbackCustom {
+  /**
+   * The exact same thing as the vanilla `ENTITY_TAKE_DMG` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function entityTakeDmgFilter(
+   *   entity: Entity,
+   *   amount: float,
+   *   damageFlags: BitFlags<DamageFlag>,
+   *   source: EntityRef,
+   *   countdownFrames: int,
+   * ): boolean | undefined {}
+   * ```
+   */
+  ENTITY_TAKE_DMG_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `ENTITY_TAKE_DMG` callback, except this callback
+   * automatically filters for `EntityType.ENTITY_PLAYER` and casts the `Entity` object to a
+   * `EntityPlayer`.
+   *
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function entityTakeDmgPlayer(
+   *   player: EntityPlayer,
+   *   amount: float,
+   *   damageFlags: BitFlags<DamageFlag>,
+   *   source: EntityRef,
+   *   countdownFrames: int,
+   * ): boolean | undefined {}
+   * ```
+   */
+  ENTITY_TAKE_DMG_PLAYER,
+
+  /**
+   * The exact same thing as the vanilla `INPUT_ACTION` callback, except this callback allows you to
+   * specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `InputHook` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `ButtonAction` provided.
+   *
+   * ```ts
+   * function inputActionFilter(
+   *   entity: Entity | undefined,
+   *   inputHook: InputHook,
+   *   buttonAction: ButtonAction,
+   * ): boolean | undefined {}
+   * ```
+   */
+  INPUT_ACTION_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `INPUT_ACTION` callback, except this callback automatically
+   * filters for `EntityType.ENTITY_PLAYER` and casts the `Entity` object to a `EntityPlayer`. It
+   * also allows you to specify extra arguments for additional filtration.
+   *
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the `InputHook` provided.
+   * - You can provide an optional sixth argument that will make the callback only fire if it
+   *   matches the `ButtonAction` provided.
+   *
+   * ```ts
+   * function inputActionPlayer(
+   *   player: EntityPlayer,
+   *   inputHook: InputHook,
+   *   buttonAction: ButtonAction,
+   * ): boolean | undefined {}
+   * ```
+   */
+  INPUT_ACTION_PLAYER,
+
   /**
    * Fires from the `POST_UPDATE` callback when a Challenge Room or Boss Rush is started.
    * Specifically, this happens on the first frame that `Room.IsAmbushDone` is true.
@@ -63,6 +141,22 @@ export enum ModCallbackCustom {
   POST_BOMB_EXPLODED,
 
   /**
+   * The exact same thing as the vanilla `POST_BOMB_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postBombInitFilter(bomb: EntityBomb): void {}
+   * ```
+   */
+  POST_BOMB_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_BOMB_UPDATE` frame for each bomb.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -79,6 +173,38 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_BOMB_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_BOMB_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postBombRenderFilter(bomb: EntityBomb, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_BOMB_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_BOMB_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postBombUpdateFilter(bomb: EntityBomb): void {}
+   * ```
+   */
+  POST_BOMB_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_RENDER` callback when one of Forgotten's bone clubs is swung or thrown.
@@ -105,25 +231,6 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_COLLECTIBLE_EMPTY,
-
-  /**
-   * Fires from the `POST_PICKUP_INIT` callback on the first time that a player has seen the
-   * respective collectible on the run. For more details on how this is calculated, see the
-   * documentation for the `getCollectibleIndex` helper function.
-   *
-   * This callback is useful because collectibles will despawn upon leaving the room and respawn
-   * upon re-entering the room. Additionally, when playing as Tainted Isaac, the `POST_PICKUP_INIT`
-   * callback will fire every time the item shifts.
-   *
-   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `CollectibleType` provided.
-   *
-   * ```ts
-   * function postCollectibleInitLate(collectible: EntityPickupCollectible): void {}
-   * ```
-   */
-  POST_COLLECTIBLE_INIT_FIRST,
 
   /**
    * Fires from the `POST_PLAYER_RENDER` callback on the first frame that the "TeleportUp" animation
@@ -205,6 +312,22 @@ export enum ModCallbackCustom {
   POST_DOOR_UPDATE,
 
   /**
+   * The exact same thing as the vanilla `POST_EFFECT_INIT` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EffectVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postEffectInitFilter(effect: EntityEffect): void {}
+   * ```
+   */
+  POST_EFFECT_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_EFFECT_UPDATE` frame for each effect.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -221,6 +344,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_EFFECT_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_EFFECT_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EffectVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postEffectRenderFilter(effect: EntityEffect, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_EFFECT_RENDER_FILTER,
 
   /**
    * Fires from the `POST_EFFECT_UPDATE` callback when an effect's state has changed from what it
@@ -243,6 +382,40 @@ export enum ModCallbackCustom {
   POST_EFFECT_STATE_CHANGED,
 
   /**
+   * The exact same thing as the vanilla `POST_EFFECT_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EffectVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postEffectUpdateFilter(effect: EntityEffect): void {}
+   * ```
+   */
+  POST_EFFECT_UPDATE_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_ENTITY_KILL` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postEntityKillFilter(entity: Entity): void {}
+   * ```
+   */
+  POST_ENTITY_KILL_FILTER,
+
+  /**
    * Fires one `POST_UPDATE` frame after the player has used the Esau Jr. item. (The player is not
    * updated to the new character until a game frame has passed.)
    *
@@ -251,6 +424,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_ESAU_JR,
+
+  /**
+   * The exact same thing as the vanilla `POST_FAMILIAR_INIT` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postFamiliarInitFilter(familiar: EntityFamiliar): void {}
+   * ```
+   */
+  POST_FAMILIAR_INIT_FILTER,
 
   /**
    * Fires on the first `FAMILIAR_UPDATE` frame for each familiar.
@@ -269,6 +458,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_FAMILIAR_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_FAMILIAR_RENDER` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postFamiliarRenderFilter(familiar: EntityFamiliar, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_FAMILIAR_RENDER_FILTER,
 
   /**
    * Fires from the `POST_FAMILIAR_UPDATE` callback when a familiar's state has changed from what it
@@ -290,6 +495,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_FAMILIAR_STATE_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_FAMILIAR_UPDATE` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postFamiliarUpdateFilter(familiar: EntityFamiliar): void {}
+   * ```
+   */
+  POST_FAMILIAR_UPDATE_FILTER,
 
   /**
    * Fires one `POST_UPDATE` frame after the player has first used the Esau Jr. item. (The player is
@@ -333,10 +554,32 @@ export enum ModCallbackCustom {
   POST_FLIP,
 
   /**
+   * The exact same thing as the vanilla `POST_GAME_END` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `isGameOver` value provided.
+   *
+   * ```ts
+   * function postGameEndFilter(isGameOver: boolean): void {}
+   * ```
+   */
+  POST_GAME_END_FILTER,
+
+  /**
    * Similar to the vanilla callback of the same name, but fires in the correct order with respect
    * to the `POST_NEW_LEVEL` and the `POST_NEW_ROOM` callbacks:
    *
    * `POST_GAME_STARTED_REORDERED` --> `POST_NEW_LEVEL_REORDERED` --> `POST_NEW_ROOM_REORDERED`
+   *
+   * - You must provide a third argument:
+   *   - Pass true if you want the callback to only fire if the run is continued.
+   *   - Pass false if you want the callback to only fire when the run is not continued.
+   *   - Pass undefined if you want the callback to fire in both situations.
+   *
+   * (The third argument for this callback is mandatory in order to prevent users from shooting
+   * themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
    *
    * ```ts
    * function postGameStartedReordered(isContinued: boolean): void {}
@@ -349,6 +592,14 @@ export enum ModCallbackCustom {
    * callbacks have finished firing. Thus, you can use this callback to do perform things after a
    * new run has started (or continued), but you can be sure that all new-run-related initialization
    * has been completed.
+   *
+   * - You must provide a third argument:
+   *   - Pass true if you want the callback to only fire if the run is continued.
+   *   - Pass false if you want the callback to only fire when the run is not continued.
+   *   - Pass undefined if you want the callback to fire in both situations.
+   *
+   * (The third argument for this callback is mandatory in order to prevent users from shooting
+   * themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
    *
    * ```ts
    * function postGameStartedReorderedLast(isContinued: boolean): void {}
@@ -555,7 +806,7 @@ export enum ModCallbackCustom {
    * - in the `POST_NEW_ROOM_REORDERED` callback (firing every time a room is entered, even if the
    *   entity was previously there on a previous room entry)
    * - in the `POST_UPDATE` callback (if the entity appeared mid-way through the room, like when the
-   *   trapdoor appears after defeating It Lives!)
+   *   trapdoor appears after defeating It Lives)
    *
    * For grid entities created with `spawnCustomGridEntity`, use the `POST_GRID_ENTITY_CUSTOM_INIT`
    * callback instead.
@@ -728,6 +979,39 @@ export enum ModCallbackCustom {
   POST_ITEM_PICKUP,
 
   /**
+   * Fires on the first `POST_RENDER` frame after a key on the keyboard has been pressed or
+   * released. (In other words, the callback only fires when the "pressed" status is different than
+   * what it was on the previous frame.)
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `Keyboard` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the pressed state provided. (`true` for pressed, `false` for released.)
+   *
+   * ```ts
+   * function postKeyboardChanged(keyboard: Keyboard, pressed: boolean): void {}
+   * ```
+   */
+  POST_KEYBOARD_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_KNIFE_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postKnifeInitFilter(knife: EntityKnife): void {}
+   * ```
+   */
+  POST_KNIFE_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_KNIFE_UPDATE` frame for each knife.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -744,6 +1028,54 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_KNIFE_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_KNIFE_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postKnifeRenderFilter(knife: EntityKnife, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_KNIFE_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_KNIFE_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postKnifeUpdateFilter(knife: EntityKnife): void {}
+   * ```
+   */
+  POST_KNIFE_UPDATE_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_LASER_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postLaserInitFilter(laser: EntityLaser): void {}
+   * ```
+   */
+  POST_LASER_INIT_FILTER,
 
   /**
    * Fires on the first `POST_LASER_UPDATE` frame for each laser.
@@ -764,10 +1096,49 @@ export enum ModCallbackCustom {
   POST_LASER_INIT_LATE,
 
   /**
+   * The exact same thing as the vanilla `POST_LASER_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postLaserRenderFilter(laser: EntityLaser, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_LASER_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_LASER_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postLaserUpdateFilter(laser: EntityLaser): void {}
+   * ```
+   */
+  POST_LASER_UPDATE_FILTER,
+
+  /**
    * The same as the vanilla callback of the same name, but fires in the correct order with respect
    * to the `POST_GAME_STARTED` and the `POST_NEW_ROOM` callbacks:
    *
    * `POST_GAME_STARTED_REORDERED` --> `POST_NEW_LEVEL_REORDERED` --> `POST_NEW_ROOM_REORDERED`
+   *
+   * Additionally, this callback will pass the `LevelStage` as the first callback argument and the
+   * `StageType` as the second callback argument.
+   *
+   * Note that similar to the vanilla `POST_NEW_LEVEL` callback, this callback will not fire when a
+   * player resumes a saved run. (In that case, only the `POST_GAME_STARTED_REORDERED` and the
+   * `POST_NEW_ROOM_REORDERED` callbacks will fire, in that order).
    *
    * If some specific cases, mods can change the current level during run initialization (on the 0th
    * frame). However, due to how the callback reordering works, the custom
@@ -775,8 +1146,14 @@ export enum ModCallbackCustom {
    * the `forceNewLevelCallback()` function before changing levels to temporarily force the callback
    * to fire.
    *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LevelStage` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `StageType` provided.
+   *
    * ```ts
-   * function postNewLevelReordered(): void {}
+   * function postNewLevelReordered(stage: LevelStage, stageType: StageType): void {}
    * ```
    */
   POST_NEW_LEVEL_REORDERED,
@@ -787,8 +1164,14 @@ export enum ModCallbackCustom {
    * in the room have been initialized and updated once, which means that it is possible for
    * entity-related code to run before room-related-initialization has been performed.
    *
+   * Additionally, this callback will pass the `RoomType` as the first callback argument.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `RoomType` provided.
+   *
    * ```ts
-   * function postNewRoomEarly(): void {}
+   * function postNewRoomEarly(roomType: RoomType): void {}
    * ```
    */
   POST_NEW_ROOM_EARLY,
@@ -799,17 +1182,41 @@ export enum ModCallbackCustom {
    *
    * `POST_GAME_STARTED_REORDERED` --> `POST_NEW_LEVEL_REORDERED` --> `POST_NEW_ROOM_REORDERED`
    *
+   * Additionally, this callback will pass the `RoomType` as the first callback argument.
+   *
    * If some specific cases, mods can change the current room during run initialization (on the 0th
    * frame). However, due to how the callback reordering works, the custom `POST_NEW_ROOM_REORDERED`
    * callback will never fire on the 0th frame. To get around this, call the
    * `forceNewRoomCallback()` function before changing levels to temporarily force the callback to
    * fire.
    *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `RoomType` provided.
+   *
    * ```ts
-   * function postNewRoomReordered(): void {}
+   * function postNewRoomReordered(roomType: RoomType): void {}
    * ```
    */
   POST_NEW_ROOM_REORDERED,
+
+  /**
+   * The exact same thing as the vanilla `POST_NPC_DEATH` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCDeathFilter(npc: EntityNPC): void {}
+   * ```
+   */
+  POST_NPC_DEATH_FILTER,
 
   /**
    * The exact same thing as the vanilla `POST_NPC_INIT` callback, except this callback allows you
@@ -822,6 +1229,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCInitFilter(npc: EntityNPC): void {}
+   * ```
    */
   POST_NPC_INIT_FILTER,
 
@@ -844,6 +1255,24 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_NPC_INIT_LATE,
+
+  /**
+   * The exact same thing as the vanilla `POST_NPC_RENDER` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCRenderFilter(npc: EntityNPC, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_NPC_RENDER_FILTER,
 
   /**
    * Fires from the `POST_NPC_UPDATE` callback when an NPC's state has changed from what it was on
@@ -878,6 +1307,10 @@ export enum ModCallbackCustom {
    *   matches the variant provided.
    * - You can provide an optional fifth argument that will make the callback only fire if it
    *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postNPCUpdateFilter(npc: EntityNPC): void {}
+   * ```
    */
   POST_NPC_UPDATE_FILTER,
 
@@ -908,9 +1341,34 @@ export enum ModCallbackCustom {
   POST_PEFFECT_UPDATE_REORDERED,
 
   /**
+   * Fires from the `POST_PICKUP_UPDATE` callback when a pickup has a different variant or sub-type
+   * than what it was on the previous frame.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if the new
+   *   pickup matches the `PickupVariant` provided.
+   * - You can provide an optional third argument that will make the callback only fire if the new
+   *   pickup matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupChanged(
+   *   pickup: EntityPickup,
+   *   oldVariant: PickupVariant,
+   *   oldSubType: int,
+   *   newVariant: PickupVariant,
+   *   newSubType: int,
+   * ): void {}
+   * ```
+   */
+  POST_PICKUP_CHANGED,
+
+  /**
    * Fires on the first `POST_RENDER` frame that a pickup plays the "Collect" animation.
    *
    * Use this callback to know when a pickup is added to the player's inventory or health.
+   *
+   * Note that this will not fire when the player takes a collectible; use either the
+   * `POST_PLAYER_COLLECTIBLE_ADDED` or the `PRE_ITEM_PICKUP` callback for that.
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -923,6 +1381,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_PICKUP_COLLECT,
+
+  /**
+   * The exact same thing as the vanilla `POST_PICKUP_INIT` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupInitFilter(pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PICKUP_INIT_FILTER,
 
   /**
    * Fires from the `POST_PICKUP_INIT` callback on the first time that a player has seen the
@@ -962,6 +1436,42 @@ export enum ModCallbackCustom {
   POST_PICKUP_INIT_LATE,
 
   /**
+   * The exact same thing as the vanilla `POST_PICKUP_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupRenderFilter(pickup: EntityPickup, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_PICKUP_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_PICKUP_SELECTION` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupSelectionFilter(
+   *   pickup: EntityPickup,
+   *   variant: PickupVariant,
+   *   subType: int,
+   * ): [PickupVariant, int] | undefined {}
+   * ```
+   */
+  POST_PICKUP_SELECTION_FILTER,
+
+  /**
    * Fires from the `POST_PICKUP_UPDATE` callback when a pickup's state has changed from what it was
    * on the previous frame. (In this context, "state" refers to the `EntityPickup.State` field.)
    *
@@ -980,6 +1490,22 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_PICKUP_STATE_CHANGED,
+
+  /**
+   * The exact same thing as the vanilla `POST_PICKUP_UPDATE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postPickupUpdateFilter(pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PICKUP_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_RENDER` callback on every frame that a pit exists.
@@ -1204,7 +1730,7 @@ export enum ModCallbackCustom {
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function postPlayerRenderReordered(player: EntityPlayer): void {}
+   * function postPlayerRenderReordered(player: EntityPlayer, renderOffset: Vector): void {}
    * ```
    */
   POST_PLAYER_RENDER_REORDERED,
@@ -1288,6 +1814,22 @@ export enum ModCallbackCustom {
   POST_PRESSURE_PLATE_UPDATE,
 
   /**
+   * The exact same thing as the vanilla `POST_PROJECTILE_INIT` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileInitFilter(projectile: EntityProjectile): void {}
+   * ```
+   */
+  POST_PROJECTILE_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_PROJECTILE_UPDATE` frame for each projectile.
    *
    * This callback is useful because many attributes cannot be set or retrieved properly in the
@@ -1304,6 +1846,53 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_PROJECTILE_INIT_LATE,
+
+  /**
+   * Fires when the provided projectile is removed after colliding with an entity or grid entity.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileKill(projectile: EntityProjectile): void {}
+   * ```
+   */
+  POST_PROJECTILE_KILL,
+
+  /**
+   * The exact same thing as the vanilla `POST_PROJECTILE_RENDER` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileRenderFilter(projectile: EntityProjectile, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_PROJECTILE_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_PROJECTILE_INIT` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postProjectileUpdateFilter(projectile: EntityProjectile): void {}
+   * ```
+   */
+  POST_PROJECTILE_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when a player first picks up a new
@@ -1396,7 +1985,11 @@ export enum ModCallbackCustom {
    *   matches the sub-type provided.
    *
    * ```ts
-   * function postSlotAnimationChanged(slot: Entity): void {}
+   * function postSlotAnimationChanged(
+   *   slot: Entity,
+   *   previousAnimation: string,
+   *   currentAnimation: string,
+   * ): void {}
    * ```
    */
   POST_SLOT_ANIMATION_CHANGED,
@@ -1427,8 +2020,35 @@ export enum ModCallbackCustom {
   POST_SLOT_COLLISION,
 
   /**
-   * Fires from the `POST_RENDER` callback when a slot plays the animation that indicates that it
-   * has broken.
+   * Fires from the `POST_SLOT_UPDATE` or the `POST_ENTITY_REMOVE` callback when a slot machine is
+   * destroyed or a beggar is removed.
+   *
+   * This callback will fire in four different kinds of situations:
+   *
+   * 1. When slot machine entities (e.g. `SlotVariant.SLOT_MACHINE` and
+   *    `SlotVariant.BLOOD_DONATION_MACHINE`) are destroyed with an explosion. When this happens,
+   *    they typically stay in the room and can be pushed around. This state is detected via a
+   *    change in the `GridCollisionClass`.
+   * 2. When slot machine entities pay out with a collectible item. When this happens, they
+   *    immediately despawn without playing any special animation.
+   * 3. When beggar entities (e.g. `SlotVariant.BEGGAR` and `SlotVariant.SHELL_GAME`) are destroyed
+   *    with an explosion. When this happens, they immediately despawn without playing any special
+   *    animation.
+   * 4. When beggar entities pay out with a collectible item. When this happens, they despawn after
+   *    playing the "Teleport" animation. (This is not technically a "destruction" event, but the
+   *    callback will fire for this to remain consistent with the other types of slot entities.)
+   *
+   * Depending on the specific types of slot removal that you need to detect, you can filter using:
+   *
+   * 1. The `isSlotMachine` helper function to differentiate between slot machines and beggars.
+   * 2. The passed callback argument of `SlotDestructionType` to differentiate between bombed slots
+   *    and slots that paid out with a collectible item.
+   *
+   * Note that when a Crane Game explodes after paying out three collectibles, the
+   * `SlotDestructionType` will be equal to `SlotDestructionType.NORMAL` instead of
+   * `SlotDestructionType.COLLECTIBLE_PAYOUT` like you might expect. (This is because it only
+   * explodes after a short delay, and when doing so, it produces rewards in the same way that would
+   * happen if you bombed it.)
    *
    * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -1519,6 +2139,22 @@ export enum ModCallbackCustom {
   POST_SPIKES_UPDATE,
 
   /**
+   * The exact same thing as the vanilla `POST_TEAR_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearInitFilter(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_INIT_FILTER,
+
+  /**
    * Fires on the first `POST_TEAR_UPDATE` frame for each tear (which is when
    * `EntityTear.FrameCount` is equal to 0).
    *
@@ -1554,6 +2190,53 @@ export enum ModCallbackCustom {
    * ```
    */
   POST_TEAR_INIT_VERY_LATE,
+
+  /**
+   * Fires when the provided tear is removed after colliding with an entity or grid entity.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearKill(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_KILL,
+
+  /**
+   * The exact same thing as the vanilla `POST_TEAR_RENDER` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearRenderFilter(tear: EntityTear, renderOffset: Vector): void {}
+   * ```
+   */
+  POST_TEAR_RENDER_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `POST_TEAR_INIT` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postTearUpdateFilter(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_UPDATE_FILTER,
 
   /**
    * Fires from the `POST_RENDER` callback on every frame that a TNT exists.
@@ -1618,6 +2301,30 @@ export enum ModCallbackCustom {
   POST_TRINKET_BREAK,
 
   /**
+   * The same thing as the vanilla `POST_USE_PILL` callback, except this callback passes the
+   * `PillColor` of the used pill as the final argument. It allows you to filter by the `PillColor`.
+   *
+   * In order to accomplish this, this callback tracks the held pills of the player on every frame.
+   * If a matching `PillColor` could not be found, this callback passes `PillColor.NULL` (0).
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillEffect` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function postUsePillFilter(
+   *   pillEffect: PillEffect,
+   *   pillColor: PillColor,
+   *   player: EntityPlayer,
+   *   useFlags: BitFlags<UseFlag>,
+   * ): void {}
+   * ```
+   */
+  POST_USE_PILL_FILTER,
+
+  /**
    * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback on the frame before a Berserk effect
    * ends when the player is predicted to die (e.g. they currently have no health left or they took
    * damage in a "Lost" form).
@@ -1633,6 +2340,26 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_BERSERK_DEATH,
+
+  /**
+   * The exact same thing as the vanilla `PRE_BOMB_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preBombCollisionFilter(
+   *   bomb: EntityBomb,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_BOMB_COLLISION_FILTER,
 
   /**
    * Fires from the `POST_PLAYER_FATAL_DAMAGE` callback when a player is about to die. If you want
@@ -1653,6 +2380,52 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_CUSTOM_REVIVE,
+
+  /**
+   * The exact same thing as the vanilla `PRE_ENTITY_SPAWN` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preEntitySpawnFilter(
+   *   entityType: EntityType,
+   *   variant: int,
+   *   subType: int,
+   *   position: Vector,
+   *   velocity: Vector,
+   *   spawner: Entity | undefined,
+   *   initSeed: Seed,
+   * ): [entityType: EntityType, variant: int, subType: int, initSeed: Seed] | undefined {}
+   * ```
+   */
+  PRE_ENTITY_SPAWN_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_FAMILIAR_COLLISION` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preFamiliarCollisionFilter(
+   *   familiar: EntityFamiliar,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_FAMILIAR_COLLISION_FILTER,
 
   /**
    * Fires from the `PRE_PICKUP_COLLISION` callback when a player touches a collectible pedestal and
@@ -1697,6 +2470,26 @@ export enum ModCallbackCustom {
   PRE_ITEM_PICKUP,
 
   /**
+   * The exact same thing as the vanilla `PRE_KNIFE_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preKnifeCollisionFilter(
+   *   knife: EntityKnife,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_KNIFE_COLLISION_FILTER,
+
+  /**
    * Fires on the `POST_RENDER` frame before the player is taken to a new floor. Only fires when a
    * player jumps into a trapdoor or enters a heaven door (beam of light). Does not fire on the
    * first floor of the run. Does not fire when the player reloads/reseeds the current floor (i.e.
@@ -1710,4 +2503,111 @@ export enum ModCallbackCustom {
    * ```
    */
   PRE_NEW_LEVEL,
+
+  /**
+   * The exact same thing as the vanilla `PRE_NPC_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preNPCCollisionFilter(
+   *   npc: EntityNPC,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_NPC_COLLISION_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_NPC_UPDATE` callback, except this callback allows you
+   * to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preNPCUpdateFilter(entity: Entity): boolean | undefined {}
+   * ```
+   */
+  PRE_NPC_UPDATE_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_PROJECTILE_COLLISION` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preProjectileCollisionFilter(
+   *   tear: EntityTear,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_PROJECTILE_COLLISION_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_ROOM_ENTITY_SPAWN` callback, except this callback
+   * allows you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` or `GridEntityXMLType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * You can use the `isGridEntityXMLType` helper function to convert the
+   * `entityTypeOrGridEntityXMLType` argument to an `EntityType` or `GridEntityXMLType`, if needed.
+   *
+   * ```ts
+   * function preRoomEntitySpawnFilter(
+   *   entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+   *   variant: int,
+   *   subType: int,
+   *   gridIndex: int,
+   *   seed: Seed,
+   * ): [type: EntityType | GridEntityXMLType, variant: int, subType: int] | undefined {}
+   * ```
+   */
+  PRE_ROOM_ENTITY_SPAWN_FILTER,
+
+  /**
+   * The exact same thing as the vanilla `PRE_TEAR_COLLISION` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function preTearCollisionFilter(
+   *   tear: EntityTear,
+   *   collider: Entity,
+   *   low: boolean,
+   * ): void {}
+   * ```
+   */
+  PRE_TEAR_COLLISION_FILTER,
 }

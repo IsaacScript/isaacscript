@@ -62,12 +62,12 @@ EHWAZ
 ELLEECH
 EVIS
 Explosivo
-Explossion
 eyepatch
 Fadein
 FCUK
 FISTULOID
 forceroom # Console command
+FULLSCREEN # ButtonAction
 fxlayers
 GAMEKID
 GELLO

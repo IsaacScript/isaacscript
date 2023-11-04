@@ -1,5 +1,5 @@
-import { PocketItemSlot } from "isaac-typescript-definitions";
-import { PocketItemType } from "../enums/PocketItemType";
+import type { PocketItemSlot } from "isaac-typescript-definitions";
+import type { PocketItemType } from "../enums/PocketItemType";
 
 /** This is used by the `getPocketItems` and related helper functions. */
 export interface PocketItemDescription {

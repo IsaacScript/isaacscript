@@ -1,25 +1,28 @@
-import { CollectibleType, ItemPoolType } from "isaac-typescript-definitions";
+import type { ItemPoolType } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayRemoveIndexInPlace } from "../../../functions/array";
 import { copyMap } from "../../../functions/map";
-import { getRandomSeed } from "../../../functions/rng";
+import { assertDefined } from "../../../functions/utils";
 import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
-import { WeightedArray } from "../../../types/WeightedArray";
+import type { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
+
+const v = {
+  run: {
+    customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),
+  },
+};
+
+const customItemPoolMap = new Map<
+  ItemPoolType,
+  WeightedArray<CollectibleType>
+>();
 
 export class CustomItemPools extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),
-    },
-  };
-
-  private customItemPoolMap = new Map<
-    ItemPoolType,
-    WeightedArray<CollectibleType>
-  >();
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -28,18 +31,16 @@ export class CustomItemPools extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_GAME_STARTED_REORDERED,
-        [this.postGameStartedReordered],
+        this.postGameStartedReorderedFalse,
+        [false],
       ],
     ];
   }
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  private postGameStartedReordered = (isContinued: boolean) => {
-    if (isContinued) {
-      return;
-    }
-
-    this.v.run.customItemPools = copyMap(this.customItemPoolMap);
+  // false
+  private readonly postGameStartedReorderedFalse = () => {
+    v.run.customItemPools = copyMap(customItemPoolMap);
   };
 
   /**
@@ -80,13 +81,13 @@ export class CustomItemPools extends Feature {
     itemPoolTypeCustom: ItemPoolType,
     collectibles: WeightedArray<CollectibleType>,
   ): void {
-    if (this.customItemPoolMap.has(itemPoolTypeCustom)) {
+    if (customItemPoolMap.has(itemPoolTypeCustom)) {
       error(
         `Failed to register a custom item pool since the provided type of ${itemPoolTypeCustom} was already registered.`,
       );
     }
 
-    this.customItemPoolMap.set(itemPoolTypeCustom, collectibles);
+    customItemPoolMap.set(itemPoolTypeCustom, collectibles);
   }
 
   /**
@@ -97,27 +98,32 @@ export class CustomItemPools extends Feature {
    * By default, a collectible will not be removed from the pool once it is selected, unless the
    * `decrease` argument is set to true (similar to how a vanilla item pool works).
    *
+   * If you want to get an unseeded collectible type, you must explicitly pass `undefined` to the
+   * `seedOrRNG` parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_ITEM_POOLS`.
    *
    * @param itemPoolTypeCustom An integer representing the custom item pool to use.
-   * @param decrease Optional. Whether or not to remove the selected collectible from the item pool.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
+   * @param decrease Optional. Whether to remove the selected collectible from the item pool.
    *                 Default is true.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
    * @param defaultItem Optional. The collectible to return if the item pool is depleted. Default is
    *                    `CollectibleType.NULL`.
    */
   @Exported
   public getCustomItemPoolCollectible(
     itemPoolTypeCustom: ItemPoolType,
+    seedOrRNG: Seed | RNG | undefined,
     decrease = false,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
     defaultItem = CollectibleType.NULL,
   ): CollectibleType {
-    const customItemPool = this.v.run.customItemPools.get(itemPoolTypeCustom);
-    if (customItemPool === undefined) {
-      error(`Failed to find the custom item pool of: ${itemPoolTypeCustom}`);
-    }
+    const customItemPool = v.run.customItemPools.get(itemPoolTypeCustom);
+    assertDefined(
+      customItemPool,
+      `Failed to find the custom item pool of: ${itemPoolTypeCustom}`,
+    );
 
     if (customItemPool.length === 0) {
       return defaultItem;
@@ -127,8 +133,11 @@ export class CustomItemPools extends Feature {
       customItemPool,
       seedOrRNG,
     );
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const tuple = customItemPool[randomIndex]!;
+    const tuple = customItemPool[randomIndex];
+    assertDefined(
+      tuple,
+      `Failed to get an element from a custom item pool using a random index of: ${randomIndex}`,
+    );
 
     if (decrease) {
       arrayRemoveIndexInPlace(customItemPool, randomIndex);

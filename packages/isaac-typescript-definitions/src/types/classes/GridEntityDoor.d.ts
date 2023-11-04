@@ -1,8 +1,8 @@
-import { DoorState } from "../../enums/collections/gridEntityState";
-import { DoorVariant } from "../../enums/collections/gridEntityVariants";
-import { Direction } from "../../enums/Direction";
-import { DoorSlot } from "../../enums/DoorSlot";
-import { RoomType } from "../../enums/RoomType";
+import type { DoorState } from "../../enums/collections/gridEntityStates";
+import type { DoorVariant } from "../../enums/collections/gridEntityVariants";
+import type { Direction } from "../../enums/Direction";
+import type { DoorSlot } from "../../enums/DoorSlot";
+import type { RoomType } from "../../enums/RoomType";
 
 declare global {
   /**
@@ -10,23 +10,23 @@ declare global {
    * `GridEntity.ToDoor` method.
    */
   interface GridEntityDoor extends GridEntity {
-    Bar(): void;
-    CanBlowOpen(): boolean;
-    Close(force: boolean): void;
-    GetSpriteOffset(): Readonly<Vector>;
-    GetVariant(): DoorVariant;
-    IsBusted(): boolean;
-    IsKeyFamiliarTarget(): boolean;
-    IsLocked(): boolean;
-    IsOpen(): boolean;
-    IsRoomType(roomType: RoomType): boolean;
-    IsTargetRoomArcade(): boolean;
-    Open(): void;
-    SetLocked(locked: boolean): void;
-    SetRoomTypes(currentRoomType: RoomType, targetRoomType: RoomType): void;
-    SpawnDust(): void;
-    TryBlowOpen(fromExplosion: boolean, source: Entity): boolean;
-    TryUnlock(player: EntityPlayer, force: boolean): boolean;
+    Bar: () => void;
+    CanBlowOpen: () => boolean;
+    Close: (force: boolean) => void;
+    GetSpriteOffset: () => Readonly<Vector>;
+    GetVariant: () => DoorVariant;
+    IsBusted: () => boolean;
+    IsKeyFamiliarTarget: () => boolean;
+    IsLocked: () => boolean;
+    IsOpen: () => boolean;
+    IsRoomType: (roomType: RoomType) => boolean;
+    IsTargetRoomArcade: () => boolean;
+    Open: () => void;
+    SetLocked: (locked: boolean) => void;
+    SetRoomTypes: (currentRoomType: RoomType, targetRoomType: RoomType) => void;
+    SpawnDust: () => void;
+    TryBlowOpen: (fromExplosion: boolean, source: Entity) => boolean;
+    TryUnlock: (player: EntityPlayer, force: boolean) => boolean;
 
     Busted: boolean;
     CloseAnimation: string;

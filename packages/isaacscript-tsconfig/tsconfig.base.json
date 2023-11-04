@@ -1,49 +1,35 @@
-// This is a tsconfig.json intended to be used as a base for all TypeScript projects.
+// This is a tsconfig.json intended to be used as a base for all TypeScript projects. It only
+// contains options that have to do with code checking strictness and omits all options having to do
+// with environment or transpilation.
 {
+  // We extend the strictest base config:
+  // https://github.com/tsconfig/bases/blob/main/bases/strictest.json
+  // Note that two of the options from `strictest` do not have to do with strictness, but we leave
+  // these values unchanged:
+  // https://github.com/tsconfig/bases/issues/156
+  "extends": "@tsconfig/strictest/tsconfig.json",
+
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // We want the compiler to be as strict as possible to catch all the things.
-    // By default, this is false.
-    "strict": true,
+    // The "strictest" config has the "exactOptionalPropertyTypes" flag set to true. However, this
+    // is only needed in rare cases, like when using the `in` operator. Furthermore, it can cause
+    // spurious errors when trying to clear an attribute of an object.
+    "exactOptionalPropertyTypes": false,
 
-    // "allowUnreachableCode" throws a compiler error when it detects unreachable code.
-    // By default, this is true.
-    "allowUnreachableCode": false,
+    // The "strictest" config has the "noFallthroughCasesInSwitch" flag set to true. However, we
+    // prefer the "no-fallthrough" ESLint rule instead, as this does not have to do with types.
+    "noFallthroughCasesInSwitch": false,
 
-    // "forceConsistentCasingInFileNames" forces import casing to match the file name, which is
-    // useful when developing on Windows.
-    // By default, this is false.
-    "forceConsistentCasingInFileNames": true,
+    // The "strictest" config has the "noUnusedLocals" and the "noUnusedParameters" flags set to
+    // true. However, we prefer the "@typescript-eslint/no-unused-vars" ESLint rule instead, since
+    // unused local variables can be useful while debugging. Furthermore, the ESLint rule has the
+    // ability to ignore certain specific variable prefixes, while the TypeScript version does not.
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
 
-    // We prefer the "no-fallthrough" ESLint rule over the "noFallthroughCasesInSwitch" compiler
-    // flags.
-
-    // "noImplicitOverride" forces the "override" modifier when overriding class methods.
-    // By default, this is false.
-    "noImplicitOverride": true,
-
-    // We prefer the "noImplicitReturns" compiler flag over the "consistent-return" ESLint rule,
-    // since it is type-aware:
-    // https://github.com/typescript-eslint/typescript-eslint/issues/5254
-    "noImplicitReturns": true,
-
-    // "noPropertyAccessFromIndexSignature" disallows accessing undefined properties with dot
-    // syntax.
-    // By default, this is false.
-    "noPropertyAccessFromIndexSignature": true,
-
-    // "noUncheckedIndexedAccess" forces type narrowing on types with an index of "string".
-    // By default, this is false.
-    "noUncheckedIndexedAccess": true,
-
-    // We prefer the "@typescript-eslint/no-unused-vars" ESLint rule over the "noUnusedLocals" and
-    // "noUnusedParameters" compiler flags, since unused local variables can be useful while
-    // debugging.
-
-    // "newLine" specifies the end of line sequence.
-    // By default, this is "crlf" on Windows.
-    // We want to always use "lf" to be consistent with all platforms and reduce the file size of
-    // the output.
-    "newLine": "lf",
+    // The "strictest" config has the "checkJs" flag set to true. However, this can cause false
+    // positives with JavaScript config files located in the root of the project directory (like the
+    // ESLint config file). For pure TypeScript projects, having this set to true is unnecessary.
+    "checkJs": false,
   },
 }

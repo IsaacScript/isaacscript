@@ -1,12 +1,13 @@
-import { Controller } from "../../enums/Controller";
-import { Keyboard } from "../../enums/Keyboard";
+import type { Controller } from "../../enums/Controller";
+import type { Keyboard } from "../../enums/Keyboard";
+import type { ModConfigMenuOptionType } from "../../enums/mods/ModConfigMenuOptionType";
 
 declare global {
   const ModConfigMenu: ModConfigMenuInterface | undefined;
 
   /** @noSelf */
   interface ModConfigMenuInterface {
-    AddBooleanSetting(
+    AddBooleanSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -15,9 +16,9 @@ declare global {
       displayValueProxies: LuaMap<boolean, string>,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddControllerSetting(
+    AddControllerSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -26,9 +27,9 @@ declare global {
       displayDevice: boolean,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddKeyboardSetting(
+    AddKeyboardSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -37,9 +38,9 @@ declare global {
       displayDevice: boolean,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddNumberSetting(
+    AddNumberSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -51,9 +52,9 @@ declare global {
       displayValueProxies: LuaMap<number, string>,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddScrollSetting(
+    AddScrollSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -61,50 +62,50 @@ declare global {
       displayText: string,
       info: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    AddSetting(
+    AddSetting: (
       categoryName: string,
       subcategoryName?: string,
       setting?: ModConfigMenuSetting,
-    ): void;
+    ) => void;
 
-    AddSpace(categoryName: string, subcategoryName: string): void;
+    AddSpace: (categoryName: string, subcategoryName: string) => void;
 
-    AddText(
+    AddText: (
       categoryName: string,
       subcategoryName: string,
       text: string | (() => string),
       color?: string,
-    ): void;
+    ) => void;
 
-    AddTitle(
+    AddTitle: (
       categoryName: string,
       subcategoryName: string,
       text: string,
       color?: string,
-    ): void;
+    ) => void;
 
-    GetCategoryIDByName(categoryName: string): int | undefined;
+    GetCategoryIDByName: (categoryName: string) => int | undefined;
 
-    GetSubcategoryIDByName(
+    GetSubcategoryIDByName: (
       category: string | number,
       subcategoryName: string,
-    ): int;
+    ) => int;
 
-    RemoveCategory(categoryName: string): void;
+    RemoveCategory: (categoryName: string) => void;
 
-    RemoveSetting(
+    RemoveSetting: (
       categoryName: string,
       subcategoryString: string,
       settingAttribute: string,
-    ): void;
+    ) => void;
 
-    RemoveSubcategory(categoryName: string, subcategoryName: string): void;
+    RemoveSubcategory: (categoryName: string, subcategoryName: string) => void;
 
-    SetCategoryInfo(categoryName: string, info: string): void;
+    SetCategoryInfo: (categoryName: string, info: string) => void;
 
-    SimpleAddSetting(
+    SimpleAddSetting: (
       settingType: ModConfigMenuOptionType,
       categoryName: string,
       subcategoryName: string,
@@ -119,18 +120,18 @@ declare global {
       info: string,
       color?: string,
       functionName?: string,
-    ): void;
+    ) => void;
 
-    UpdateCategory(
+    UpdateCategory: (
       categoryName: string,
       categoryData: ModConfigMenuCategoryData,
-    ): void;
+    ) => void;
 
-    UpdateSubcategory(
+    UpdateSubcategory: (
       categoryName: string,
       subcategoryName: string,
       subcategoryData: ModConfigMenuSubcategoryData,
-    ): void;
+    ) => void;
 
     Config: {
       General: {
@@ -150,14 +151,12 @@ declare global {
     // cspell:ignore modconfig
 
     PopupGfx: {
-      /* eslint-disable isaacscript/member-ordering */
       THIN_SMALL: "gfx/ui/modconfig/popup_thin_small.png";
       THIN_MEDIUM: "gfx/ui/modconfig/popup_thin_medium.png";
       THIN_LARGE: "gfx/ui/modconfig/popup_thin_large.png";
       WIDE_SMALL: "gfx/ui/modconfig/popup_wide_small.png";
       WIDE_MEDIUM: "gfx/ui/modconfig/popup_wide_medium.png";
       WIDE_LARGE: "gfx/ui/modconfig/popup_wide_large.png";
-      /* eslint-enable isaacscript/member-ordering */
     };
 
     Version: int;
@@ -179,17 +178,6 @@ declare global {
     PopupGfx?: string;
     PopupWidth?: int;
     Type: ModConfigMenuOptionType;
-  }
-
-  const enum ModConfigMenuOptionType {
-    TEXT = 1,
-    SPACE = 2,
-    SCROLL = 3,
-    BOOLEAN = 4,
-    NUMBER = 5,
-    KEY_BIND_KEYBOARD = 6,
-    KEY_BIND_CONTROLLER = 7,
-    TITLE = 8,
   }
 
   interface ModConfigMenuCategoryData {

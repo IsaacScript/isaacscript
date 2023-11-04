@@ -1,30 +1,33 @@
+import type { UseFlag } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   ModCallback,
   PlayerType,
-  UseFlag,
 } from "isaac-typescript-definitions";
 import { getPlayersOfType, isTaintedLazarus } from "../../../functions/players";
-import { PostFirstFlip } from "../../callbacks/PostFirstFlip";
-import { PostFlip } from "../../callbacks/PostFlip";
+import type { PostFirstFlip } from "../../callbacks/PostFirstFlip";
+import type { PostFlip } from "../../callbacks/PostFlip";
 import { Feature } from "../../private/Feature";
 
-export class FlipDetection extends Feature {
-  public override v = {
-    run: {
-      /** We don't consider the case of a multiplayer game with more than one Tainted Lazarus. */
-      usedFlipAtLeastOnce: false,
-    },
-  };
+const v = {
+  run: {
+    /** We don't consider the case of a multiplayer game with more than one Tainted Lazarus. */
+    usedFlipAtLeastOnce: false,
+  },
+};
 
-  private postFlip: PostFlip;
-  private postFirstFlip: PostFirstFlip;
+export class FlipDetection extends Feature {
+  public override v = v;
+
+  private readonly postFlip: PostFlip;
+  private readonly postFirstFlip: PostFirstFlip;
 
   constructor(postFlip: PostFlip, postFirstFlip: PostFirstFlip) {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_USE_ITEM, [this.useItemFlip, CollectibleType.FLIP]], // 3
+      // 3
+      [ModCallback.POST_USE_ITEM, this.postUseItemFlip, [CollectibleType.FLIP]],
     ];
 
     this.postFlip = postFlip;
@@ -33,7 +36,7 @@ export class FlipDetection extends Feature {
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.FLIP (711)
-  private useItemFlip = (
+  private readonly postUseItemFlip = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -52,8 +55,8 @@ export class FlipDetection extends Feature {
       return undefined;
     }
 
-    if (!this.v.run.usedFlipAtLeastOnce) {
-      this.v.run.usedFlipAtLeastOnce = true;
+    if (!v.run.usedFlipAtLeastOnce) {
+      v.run.usedFlipAtLeastOnce = true;
       this.postFirstFlip.fire(newLazarus, player);
     }
 

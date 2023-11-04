@@ -8,22 +8,24 @@ import {
   setHasPlayer,
 } from "../../../functions/playerDataStructures";
 import { getPlayers } from "../../../functions/playerIndex";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
 
-const FLAGS_WHEN_PONY_IS_ACTIVE: readonly EntityFlag[] = [
+const FLAGS_WHEN_PONY_IS_ACTIVE = [
   EntityFlag.NO_KNOCKBACK, // 1 << 26
   EntityFlag.NO_PHYSICS_KNOCKBACK, // 1 << 30
   EntityFlag.NO_DAMAGE_BLINK, // 1 << 36
-];
+] as const;
+
+const v = {
+  run: {
+    playersIsPonyActive: new Set<PlayerIndex>(),
+  },
+};
 
 export class PonyDetection extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      playersIsPonyActive: new Set<PlayerIndex>(),
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
@@ -32,20 +34,20 @@ export class PonyDetection extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const effects = player.GetEffects();
     const entityFlags = player.GetEntityFlags();
     const hasPonyCollectibleEffect =
       effects.HasCollectibleEffect(CollectibleType.PONY) ||
       effects.HasCollectibleEffect(CollectibleType.WHITE_PONY);
     const isPonyActiveOnPreviousFrame = setHasPlayer(
-      this.v.run.playersIsPonyActive,
+      v.run.playersIsPonyActive,
       player,
     );
     const hasPonyFlags = hasFlag(entityFlags, ...FLAGS_WHEN_PONY_IS_ACTIVE);
@@ -53,9 +55,9 @@ export class PonyDetection extends Feature {
     const isPonyActiveNow =
       hasPonyCollectibleEffect || (isPonyActiveOnPreviousFrame && hasPonyFlags);
     if (isPonyActiveNow) {
-      setAddPlayer(this.v.run.playersIsPonyActive, player);
+      setAddPlayer(v.run.playersIsPonyActive, player);
     } else {
-      setDeletePlayer(this.v.run.playersIsPonyActive, player);
+      setDeletePlayer(v.run.playersIsPonyActive, player);
     }
   };
 
@@ -67,7 +69,7 @@ export class PonyDetection extends Feature {
    */
   @Exported
   public isPlayerUsingPony(player: EntityPlayer): boolean {
-    return setHasPlayer(this.v.run.playersIsPonyActive, player);
+    return setHasPlayer(v.run.playersIsPonyActive, player);
   }
 
   /**

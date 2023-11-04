@@ -1,12 +1,11 @@
 import { DefaultMap } from "../classes/DefaultMap";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { SerializationType } from "../enums/SerializationType";
 import { arrayEquals } from "./array";
 import { deepCopy } from "./deepCopy";
 import { log } from "./log";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isNumber, isString, isTable } from "./types";
-import { printConsole } from "./utils";
 
 /**
  * Run the suite of tests that prove that the "deepCopy" helper function works properly.
@@ -41,7 +40,7 @@ export function runDeepCopyTests(): void {
 
   const successText = "All deep copy tests passed!";
   log(successText);
-  printConsole(successText);
+  print(successText);
 }
 
 function copiedObjectIsTable() {
@@ -70,8 +69,7 @@ function copiedObjectHasKeyAndValueString() {
     "copiedObjectHasKeyAndValueString",
   );
 
-  const value = newObject[keyToLookFor];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const value = newObject[keyToLookFor] as string | undefined;
   if (value === undefined) {
     error(`The copied object did not have a key of: ${keyToLookFor}`);
   }
@@ -237,8 +235,9 @@ function copiedObjectHasChildObject() {
     "copiedObjectHasChildObject",
   );
 
-  const childObject = newObject[childObjectIndex];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const childObject = newObject[childObjectIndex] as
+    | (typeof oldObject)["abc"]
+    | undefined;
   if (childObject === undefined) {
     error(`Failed to find the child object at index: ${childObjectIndex}`);
   }
@@ -247,8 +246,7 @@ function copiedObjectHasChildObject() {
     error(`The copied child object had a type of: ${typeof childObject}`);
   }
 
-  const value = childObject[keyToLookFor];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const value = childObject[keyToLookFor] as string | undefined;
   if (value === undefined) {
     error(`The child object did not have a key of: ${keyToLookFor}`);
   }

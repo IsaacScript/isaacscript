@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayEffect extends Feature {
   public textCallback: (effect: EntityEffect) => string =
@@ -10,12 +11,13 @@ export class DebugDisplayEffect extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_EFFECT_RENDER, [this.postEffectRender]], // 56
+      // 56
+      [ModCallback.POST_EFFECT_RENDER, this.postEffectRender],
     ];
   }
 
   // ModCallback.POST_EFFECT_RENDER (56)
-  private postEffectRender = (effect: EntityEffect) => {
+  private readonly postEffectRender = (effect: EntityEffect) => {
     const text = this.textCallback(effect);
     renderTextOnEntity(effect, text);
   };

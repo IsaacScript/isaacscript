@@ -1,20 +1,20 @@
-import {
+import type {
   ItemConfigPillEffectClass,
   ItemConfigPillEffectType,
-  PillColor,
   PillEffect,
 } from "isaac-typescript-definitions";
-import { itemConfig } from "../core/cachedClasses";
+import { PillColor } from "isaac-typescript-definitions";
+import { PILL_COLOR_VALUES } from "../arrays/cachedEnumValues";
+import { game, itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,
   FIRST_PILL_COLOR,
-  FIRST_PILL_EFFECT,
   LAST_HORSE_PILL_COLOR,
   LAST_NORMAL_PILL_COLOR,
   LAST_VANILLA_PILL_EFFECT,
 } from "../core/constantsFirstLast";
-import { FALSE_PHD_PILL_CONVERSIONS } from "../maps/falsePHDPillConversions";
-import { PHD_PILL_CONVERSIONS } from "../maps/PHDPillConversions";
+import { PHD_PILL_CONVERSIONS_MAP } from "../maps/PHDPillConversionsMap";
+import { FALSE_PHD_PILL_CONVERSIONS_MAP } from "../maps/falsePHDPillConversionsMap";
 import {
   DEFAULT_PILL_EFFECT_CLASS,
   PILL_EFFECT_CLASSES,
@@ -23,11 +23,11 @@ import {
   DEFAULT_PILL_EFFECT_NAME,
   PILL_EFFECT_NAMES,
 } from "../objects/pillEffectNames";
+import { PILL_EFFECT_TYPE_TO_PILL_EFFECTS } from "../objects/pillEffectTypeToPillEffects";
 import {
   DEFAULT_PILL_EFFECT_TYPE,
   PILL_EFFECT_TYPES,
 } from "../objects/pillEffectTypes";
-import { getEnumValues } from "./enums";
 import { asNumber, asPillColor } from "./types";
 import { iRange } from "./utils";
 
@@ -45,9 +45,7 @@ const HORSE_PILL_ADJUSTMENT = 2048;
  * all horse colors.
  */
 export function getAllPillColors(): PillColor[] {
-  const pillColors = getEnumValues(PillColor);
-  pillColors.slice(); // Remove `PillColor.NULL`
-  return pillColors;
+  return PILL_COLOR_VALUES.slice(1); // Remove `PillColor.NULL`
 }
 
 /**
@@ -55,8 +53,8 @@ export function getAllPillColors(): PillColor[] {
  * is not altered by False PHD, then the same pill effect will be returned.
  */
 export function getFalsePHDPillEffect(pillEffect: PillEffect): PillEffect {
-  const convertedPillEffect = FALSE_PHD_PILL_CONVERSIONS.get(pillEffect);
-  return convertedPillEffect === undefined ? pillEffect : convertedPillEffect;
+  const convertedPillEffect = FALSE_PHD_PILL_CONVERSIONS_MAP.get(pillEffect);
+  return convertedPillEffect ?? pillEffect;
 }
 
 /**
@@ -99,15 +97,42 @@ export function getNormalPillColors(): PillColor[] {
  * altered by PHD, then the same pill effect will be returned.
  */
 export function getPHDPillEffect(pillEffect: PillEffect): PillEffect {
-  const convertedPillEffect = PHD_PILL_CONVERSIONS.get(pillEffect);
-  return convertedPillEffect === undefined ? pillEffect : convertedPillEffect;
+  const convertedPillEffect = PHD_PILL_CONVERSIONS_MAP.get(pillEffect);
+  return convertedPillEffect ?? pillEffect;
+}
+
+/**
+ * Helper function to get the corresponding pill color from an effect by repeatedly using the
+ * `ItemPool.GetPillEffect` method.
+ *
+ * Note that this will return the corresponding effect even if the passed pill color is not yet
+ * identified by the player.
+ *
+ * Returns `PillColor.NULL` if there is the corresponding pill color cannot be found.
+ *
+ * This function is especially useful in the `POST_USE_PILL` callback, since at that point, the used
+ * pill is already consumed, and the callback only passes the effect. In this specific circumstance,
+ * consider using the `POST_USE_PILL_FILTER` callback instead of the `POST_USE_PILL` callback, since
+ * it correctly passes the color and handles the case of horse pills.
+ */
+export function getPillColorFromEffect(pillEffect: PillEffect): PillColor {
+  const itemPool = game.GetItemPool();
+  const normalPillColors = getNormalPillColors();
+  for (const normalPillColor of normalPillColors) {
+    const normalPillEffect = itemPool.GetPillEffect(normalPillColor);
+    if (normalPillEffect === pillEffect) {
+      return normalPillColor;
+    }
+  }
+
+  return PillColor.NULL;
 }
 
 /**
  * Helper function to get a pill effect class from a PillEffect enum value. In this context, the
  * class is equal to the numerical prefix in the "class" tag in the "pocketitems.xml" file. Use the
- * `getPillEffectType` helper function to determine whether or not the pill effect is positive,
- * negative, or neutral.
+ * `getPillEffectType` helper function to determine whether the pill effect is positive, negative,
+ * or neutral.
  *
  * Due to limitations in the API, this function will not work properly for modded pill effects, and
  * will always return `DEFAULT_PILL_EFFECT_CLASS` in those cases.
@@ -118,15 +143,17 @@ export function getPillEffectClass(
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
   const pillEffectClass = PILL_EFFECT_CLASSES[pillEffect];
+
   // Handle modded pill effects.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return pillEffectClass === undefined
-    ? DEFAULT_PILL_EFFECT_CLASS
-    : pillEffectClass;
+  return pillEffectClass ?? DEFAULT_PILL_EFFECT_CLASS;
 }
 
 /**
- * Helper function to get a pill effect name from a PillEffect enum value.
+ * Helper function to get a pill effect name from a `PillEffect`. Returns "Unknown" if the provided
+ * pill effect is not valid.
+ *
+ * This function works for both vanilla and modded pill effects.
  *
  * For example, `getPillEffectName(PillEffect.BAD_GAS)` would return "Bad Gas".
  */
@@ -149,8 +176,8 @@ export function getPillEffectName(pillEffect: PillEffect): string {
 }
 
 /**
- * Helper function to get a pill effect type from a PillEffect enum value. In this context, the type
- * is equal to positive, negative, or neutral. This is derived from the suffix of the the "class"
+ * Helper function to get a pill effect type from a `PillEffect` enum value. In this context, the
+ * type is equal to positive, negative, or neutral. This is derived from the suffix of the "class"
  * tag in the "pocketitems.xml" file. Use the `getPillEffectClass` helper function to determine the
  * "power" of the pill.
  *
@@ -162,19 +189,25 @@ export function getPillEffectType(
 ): ItemConfigPillEffectType {
   // `ItemConfigPillEffect` does not contain the "class" tag, so we must manually compile a map of
   // pill effect classes. Modded pill effects are not included in the map.
-  const pillEffectClass = PILL_EFFECT_TYPES[pillEffect];
+  const pillEffectType = PILL_EFFECT_TYPES[pillEffect];
+
   // Handle modded pill effects.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return pillEffectClass === undefined
-    ? DEFAULT_PILL_EFFECT_TYPE
-    : pillEffectClass;
+  return pillEffectType ?? DEFAULT_PILL_EFFECT_TYPE;
 }
 
-/** Helper function to get an array with every vanilla pill effect. */
-export function getVanillaPillEffects(): PillEffect[] {
-  return iRange(FIRST_PILL_EFFECT, LAST_VANILLA_PILL_EFFECT);
+export function getVanillaPillEffectsOfType(
+  pillEffectType: ItemConfigPillEffectType,
+): readonly PillEffect[] {
+  return PILL_EFFECT_TYPE_TO_PILL_EFFECTS[pillEffectType];
 }
 
+/** Helper function to see if the given pill color is either a gold pill or a horse gold pill. */
+export function isGoldPill(pillColor: PillColor): boolean {
+  return pillColor === PillColor.GOLD || pillColor === PillColor.HORSE_GOLD;
+}
+
+/** Helper function to see if the given pill color is a horse pill. */
 export function isHorsePill(pillColor: PillColor): boolean {
   return asNumber(pillColor) > HORSE_PILL_ADJUSTMENT;
 }

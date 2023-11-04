@@ -1,9 +1,11 @@
-import { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
+import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { SerializationBrand } from "../enums/SerializationBrand";
+import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
+import { logError } from "./log";
 import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
+import { assertDefined } from "./utils";
 
 export type SerializedRNG = LuaMap<string, unknown> & {
   readonly __serializedRNGBrand: symbol;
@@ -18,7 +20,7 @@ export type SerializedRNG = LuaMap<string, unknown> & {
 const RECOMMENDED_SHIFT_IDX = 35;
 
 const OBJECT_NAME = "RNG";
-const KEYS = ["seed"];
+const KEYS = ["seed"] as const;
 
 /** Helper function to copy an `RNG` Isaac API class. */
 export function copyRNG(rng: RNG): RNG {
@@ -45,11 +47,10 @@ export function deserializeRNG(rng: SerializedRNG): RNG {
 
   const [seed] = getNumbersFromTable(rng, OBJECT_NAME, ...KEYS);
 
-  if (seed === undefined) {
-    error(
-      `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: seed`,
-    );
-  }
+  assertDefined(
+    seed,
+    `Failed to deserialize a ${OBJECT_NAME} object since the provided object did not have a value for: seed`,
+  );
 
   return newRNG(seed as Seed);
 }
@@ -60,7 +61,7 @@ export function deserializeRNG(rng: SerializedRNG): RNG {
  * the game.
  */
 export function getRandomSeed(): Seed {
-  const randomNumber = Random();
+  const randomNumber = Random(); // eslint-disable-line deprecation/deprecation
   const safeRandomNumber = randomNumber === 0 ? 1 : randomNumber;
   return safeRandomNumber as Seed;
 }
@@ -83,9 +84,9 @@ export function isSerializedRNG(object: unknown): object is SerializedRNG {
 }
 
 /**
- * Helper function to initialize an RNG object using Blade's recommended shift index.
+ * Helper function to initialize a new RNG object using Blade's recommended shift index.
  *
- * @param seed The seed to initialize it with. Default is `getRandomSeed()`.
+ * @param seed Optional. The seed to initialize it with. Default is a random seed.
  */
 export function newRNG(seed = getRandomSeed()): RNG {
   const rng = RNG();
@@ -155,11 +156,13 @@ export function setAllRNGToStartSeed(object: unknown): void {
 /** Helper function to set a seed to an RNG object using Blade's recommended shift index. */
 export function setSeed(rng: RNG, seed: Seed): void {
   if (seed === 0) {
-    error(
-      "You cannot set an RNG object to a seed of 0, or the game will crash.",
+    seed = getRandomSeed();
+    logError(
+      "Failed to set a RNG object to a seed of 0. Using a random value instead.",
     );
   }
 
   // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1).
+  // eslint-disable-next-line deprecation/deprecation
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 }

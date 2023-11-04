@@ -1,4 +1,4 @@
-import { CollectibleType } from "../../enums/collections/subTypes";
+import type { CollectibleType } from "../../enums/collections/subTypes";
 
 declare global {
   type ZodiacCollectibleType =

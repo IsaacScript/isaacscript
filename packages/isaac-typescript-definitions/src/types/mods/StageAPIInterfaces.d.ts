@@ -1,10 +1,10 @@
-import { Dimension } from "../../enums/Dimension";
-import { EntityType } from "../../enums/EntityType";
-import { GridEntityType } from "../../enums/GridEntityType";
-import { LevelStage } from "../../enums/LevelStage";
-import { RoomShape } from "../../enums/RoomShape";
-import { RoomType } from "../../enums/RoomType";
-import { StageType } from "../../enums/StageType";
+import type { Dimension } from "../../enums/Dimension";
+import type { EntityType } from "../../enums/EntityType";
+import type { GridEntityType } from "../../enums/GridEntityType";
+import type { LevelStage } from "../../enums/LevelStage";
+import type { RoomShape } from "../../enums/RoomShape";
+import type { RoomType } from "../../enums/RoomType";
+import type { StageType } from "../../enums/StageType";
 
 declare global {
   interface StageAPIBackdrop {
@@ -29,16 +29,16 @@ declare global {
   }
 
   interface StageAPICustomGrid {
-    Spawn(
+    Spawn: (
       grindex: number, // cspell:ignore grindex
       force: boolean,
       reSpawning: boolean,
       initialPersistData: unknown,
-    ): StageAPICustomGridEntity;
+    ) => StageAPICustomGridEntity;
   }
 
   interface StageAPICustomGridEntity {
-    Remove(keepBaseGrid: boolean): void;
+    Remove: (keepBaseGrid: boolean) => void;
     Data: Record<string, unknown>;
     GridConfig: StageAPICustomGrid;
     GridIndex: int;
@@ -54,7 +54,7 @@ declare global {
 
   interface StageAPICustomStage {
     /** Gets the ID of the currently playing music. */
-    GetPlayingMusic(): int;
+    GetPlayingMusic: () => int;
 
     /**
      * Automatically aliases the new stage to the old one, if noSetAlias is not set.
@@ -63,10 +63,10 @@ declare global {
      *
      * STILL NEEDS A UNIQUE NAME.
      */
-    InheritInit(name: string, noSetAlias?: boolean): void;
+    InheritInit: (name: string, noSetAlias?: boolean) => void;
 
     /** If this CustomStage is, in fact, a stage. */
-    IsStage(noAlias: boolean): boolean;
+    IsStage: (noAlias: boolean) => boolean;
 
     /**
      * Indicates that this stage overrides alt rock effects.
@@ -76,40 +76,42 @@ declare global {
      *
      * DOES NOT add any new effects on its own.
      */
-    OverrideRockAltEffects(rooms?: RoomType[]): void;
+    OverrideRockAltEffects: (rooms?: RoomType[]) => void;
 
     /** Sets the boss music used by the stage. */
-    SetBossMusic(
+    SetBossMusic: (
       musicID: int,
       clearedMusicID: int,
       introMusicID: int,
       outroMusicID: int,
-    ): void;
+    ) => void;
 
     /** Sets the available bosses for the stage. */
-    SetBosses(bossIDs: string[]): void;
+    SetBosses: (bossIDs: string[]) => void;
 
     /** Sets the name displayed to the player. */
-    SetDisplayName(name: string): void;
+    SetDisplayName: (name: string) => void;
 
     /** Sets if this is the second half of a stage. */
-    SetIsSecondStage(isSecondStage: boolean): void;
+    SetIsSecondStage: (isSecondStage: boolean) => void;
 
     /** Sets the music used by the stage. */
-    SetMusic(musicID: int, roomType: RoomType): void;
+    SetMusic: (musicID: int, roomType: RoomType) => void;
 
     /**
      * Sets the internal name/id.
      *
      * MUST BE UNIQUE.
      */
-    SetName(name: string): void;
+    SetName: (name: string) => void;
 
     /** Sets the stage after this one. */
-    SetNextStage(nextStage: StageAPICustomStage | StageAPIVanillaStage): void;
+    SetNextStage: (
+      nextStage: StageAPICustomStage | StageAPIVanillaStage,
+    ) => void;
 
     /** Sets the stage this `CustomStage` overrides. */
-    SetReplace(stageOverrideStage: StageAPIStageOverrideStage): void;
+    SetReplace: (stageOverrideStage: StageAPIStageOverrideStage) => void;
 
     /**
      * Sets the RoomGfx used by the stage.
@@ -118,33 +120,33 @@ declare global {
      *
      * Can be a string identifier, a `RoomType`, or an array of either.
      */
-    SetRoomGfx(
+    SetRoomGfx: (
       roomGfx: StageAPIRoomGfx,
       roomTypes: string | RoomType | string[] | RoomType[],
-    ): void;
+    ) => void;
 
     /** Sets the list room layouts used by the stage. */
-    SetRooms(roomsList: StageAPIRoomsList): void;
+    SetRooms: (roomsList: StageAPIRoomsList) => void;
 
     /**
      * Sets the paths to the "spot" graphic, the patch of ground underneath the boss, and player
      * sprites in the pre-boss cutscene.
      */
-    SetSpots(
+    SetSpots: (
       bossSpot?: string,
       playerSpot?: string,
       bgColor?: Color,
       dirtColor?: Color,
-    ): void;
+    ) => void;
 
     /** Sets the stage's music. */
-    SetStageMusic(music: number, types: RoomType[]): void;
+    SetStageMusic: (music: number, types: RoomType[]) => void;
 
     /** Sets the stage's number. */
-    SetStageNumber(num: int): void;
+    SetStageNumber: (num: int) => void;
 
     /** Sets the path to the stage transition icon. */
-    SetTransitionIcon(iconPath: string): void;
+    SetTransitionIcon: (iconPath: string) => void;
   }
 
   interface StageAPIDoorInfo {
@@ -166,23 +168,23 @@ declare global {
 
   interface StageAPIGridGfx {
     /** Sets the path to the gfx sprite sheet of the specified subset of doors. */
-    AddDoors(filename: string, DoorInfo: StageAPIDoorInfo): void;
+    AddDoors: (filename: string, DoorInfo: StageAPIDoorInfo) => void;
 
     /** Sets the path to the bridge gfx sprite sheet. */
-    SetBridges(filename: string): void;
+    SetBridges: (filename: string) => void;
 
     /** Sets the path to the decoration gfx sprite sheet. */
-    SetDecorations(filename: string): void;
+    SetDecorations: (filename: string) => void;
 
     /** Sets the path to the gfx sprite sheet for the specified `GridEntityType`. */
-    SetGrid(
+    SetGrid: (
       filename: string,
       GridEntityType: GridEntityType,
       variant: int,
-    ): void;
+    ) => void;
 
     /** Sets the path to the pay-to-play door gfx sprite sheet. */
-    SetPayToPlayDoor(filename: string): void;
+    SetPayToPlayDoor: (filename: string) => void;
 
     /**
      * Sets the path to the pit gfx sprite sheet.
@@ -192,29 +194,23 @@ declare global {
      * @param hasExtraFrames Controls for situations where the base game would not normally tile
      *                       pits specially.
      */
-    SetPits(
+    SetPits: ((
       filename: string,
       altPitsFilename?: string,
       hasExtraFrames?: boolean,
-    ): void;
-
-    /**
-     * Sets the paths to the pit gfx sprite sheets.
-     *
-     * (Original docs indicate to "see utero override".)
-     */
-    SetPits(
-      filenames: Array<{ File: string; HasExtraFrames?: boolean }>,
-      altPitsFilenames: Array<{ File: string; HasExtraFrames?: boolean }>,
-    ): void;
+    ) => void) &
+      ((
+        filenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
+        altPitsFilenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
+      ) => void);
 
     /** Sets the path to the rock gfx sprite sheet. */
-    SetRocks(filename: string): void;
+    SetRocks: (filename: string) => void;
   }
 
   interface StageAPILevelMap {
-    GetCurrentRoomData(): StageAPIRoomData;
-    GetRoom(roomData: StageAPIRoomData): StageAPILevelRoom;
+    GetCurrentRoomData: () => StageAPIRoomData;
+    GetRoom: (roomData: StageAPIRoomData) => StageAPILevelRoom;
     Map: StageAPIRoomData[];
   }
 
@@ -228,7 +224,7 @@ declare global {
   }
 
   interface StageAPILevelRoom {
-    SetTypeOverride(typeOverride: RoomType): void;
+    SetTypeOverride: (typeOverride: RoomType) => void;
     AvoidSpawning: unknown;
     AwardSeed: Seed;
     ClearCount: int;
@@ -254,9 +250,9 @@ declare global {
   }
 
   interface StageAPIOverlay {
-    Fade(total: int, time: int, step: int): void;
-    Render(noCenterCorrect: boolean): void;
-    SetAlpha(alpha: int, noCancelFade: boolean): void;
+    Fade: (total: int, time: int, step: int) => void;
+    Render: (noCenterCorrect: boolean) => void;
+    SetAlpha: (alpha: int, noCancelFade: boolean) => void;
     Anm2: string;
     Offset?: Vector;
     Size?: Vector;
@@ -296,7 +292,7 @@ declare global {
   }
 
   interface StageAPIRoomsList {
-    AddRooms(roomFiles: string[] | StageAPICustomRoomConfig[]): void;
+    AddRooms: (roomFiles: string[] | StageAPICustomRoomConfig[]) => void;
   }
 
   interface StageAPIStageOverrideStage {

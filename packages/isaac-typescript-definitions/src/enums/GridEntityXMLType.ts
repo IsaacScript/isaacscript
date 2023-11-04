@@ -9,6 +9,9 @@ export enum GridEntityXMLType {
   /** Corresponds to `GridEntityType.DECORATION` (1). */
   DECORATION = 0,
 
+  /** Corresponds to `EntityType.EFFECT` (1000). */
+  EFFECT = 999,
+
   /** Corresponds to `GridEntityType.ROCK` (2). */
   ROCK = 1000,
 
@@ -67,8 +70,8 @@ export enum GridEntityXMLType {
   /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.RAINBOW` (4). */
   POOP_RAINBOW = 1494,
 
-  /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.CORN` (2). */
-  POOP_CORN = 1495,
+  /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.CORNY` (2). */
+  POOP_CORNY = 1495,
 
   /** Corresponds to `GridEntityType.POOP` (14), `PoopGridEntityVariant.GOLDEN` (3). */
   POOP_GOLDEN = 1496,
@@ -147,5 +150,5 @@ export enum GridEntityXMLType {
   CRAWL_SPACE = 9100,
 
   /** Corresponds to `GridEntityType.GRAVITY` (19). */
-  GRAVITY = 10000,
+  GRAVITY = 10_000,
 }

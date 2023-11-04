@@ -82,6 +82,7 @@
     },
     "CustomStageTSConfig": {
       "additionalProperties": false,
+      "description": "This is the format of a custom stage in the \"isaacscript\" section of the \"tsconfig.json\" file.\n\nThe contents of this interface are used to create a \"tsconfig-isaacscript-section-schema.json\" schema with the \"ts-json-schema-generator\" library.\n\nThe contents of this interface are validated at run-time against the schema.\n\nThe `CustomStageLua` interface extends this, adding room metadata.",
       "properties": {
         "backdropPNGPaths": {
           "additionalProperties": false,
@@ -201,6 +202,10 @@
           },
           "type": "object"
         },
+        "music": {
+          "description": "Optional. A string that represents the name of the music track from the \"content/music.xml\" file that corresponds to this custom stage. It will be manually played upon entering the stage.\n\nIf not specified, the same music track as the base stage will be used.",
+          "type": "string"
+        },
         "name": {
           "description": "Mandatory. The name of the custom stage.",
           "type": "string"
@@ -222,9 +227,9 @@
           "type": "string"
         },
         "roomVariantPrefix": {
-          "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nMake sure the chosen prefix does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website: https://isaacscript.github.io/main/custom-stages",
+          "description": "Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this stage.\n\nUse a value of 100 when testing locally. When publishing to the workshop or otherwise distributing your mod, make sure that you have chosen a prefix that does not conflict with any other mods. You can find a list of registered room variant prefixes on the IsaacScript website: https://isaacscript.github.io/main/custom-stages",
           "maximum": 999,
-          "minimum": 101,
+          "minimum": 100,
           "type": "number"
         },
         "shadows": {

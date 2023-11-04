@@ -10,6 +10,7 @@ import {
   getCollectibleChargeType,
   getCollectibleMaxCharges,
 } from "./collectibles";
+import { getActiveItemSlots } from "./playerCollectibles";
 import { getPlayers } from "./playerIndex";
 import { getRoomShapeCharges } from "./roomShape";
 
@@ -239,6 +240,23 @@ export function getTotalCharge(
 }
 
 /**
+ * Helper function to find the active slots that the player has the corresponding collectible type
+ * in and have enough charge to be used. Returns an empty array if the player does not have the
+ * collectible in any active slot or does not have enough charges.
+ */
+export function getUsableActiveItemSlots(
+  player: EntityPlayer,
+  collectibleType: CollectibleType,
+): ActiveSlot[] {
+  const maxCharges = getCollectibleMaxCharges(collectibleType);
+  const activeSlots = getActiveItemSlots(player, collectibleType);
+  return activeSlots.filter((activeSlot) => {
+    const totalCharge = getTotalCharge(player, activeSlot);
+    return totalCharge >= maxCharges;
+  });
+}
+
+/**
  * Helper function to check if a player's active item is "double charged", meaning that it has both
  * a full normal charge and a full charge from The Battery.
  *
@@ -259,7 +277,7 @@ export function isActiveSlotDoubleCharged(
 /**
  * Helper function to play the appropriate sound effect for a player after getting one or more
  * charges on their active item. (There is a different sound depending on whether the item is fully
- * charged or not.)
+ * charged.)
  *
  * @param player The player to play the sound effect for.
  * @param activeSlot Optional. The slot that was just charged. Default is `ActiveSlot.PRIMARY`.

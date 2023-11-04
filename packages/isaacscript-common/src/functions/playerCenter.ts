@@ -8,8 +8,6 @@ import { getPlayerFamiliars } from "./familiars";
 import { getCircleDiscretizedPoints } from "./math";
 import { getAllPlayers } from "./playerIndex";
 
-const CIRCLE_RADIUS_BETWEEN_PLAYERS = 50;
-
 /**
  * Helper function to move all of the players to where they would normally go when arriving at a new
  * floor. (In normal mode, this is the center of the room. In Greed Mode, this is below the top
@@ -18,8 +16,10 @@ const CIRCLE_RADIUS_BETWEEN_PLAYERS = 50;
  * If there is more than one player, they will be distributed around the center in a circle.
  *
  * This function emulates what happens in the vanilla game when you travel to a new floor.
+ *
+ * @param radius Optional. The radius of the circle. Default is 10.
  */
-export function movePlayersToCenter(): void {
+export function movePlayersToCenter(radius: float = 10): void {
   const isGreedMode = game.IsGreedMode();
   const startingPosition = isGreedMode
     ? NEW_FLOOR_STARTING_POSITION_GREED_MODE
@@ -41,18 +41,16 @@ export function movePlayersToCenter(): void {
   // (This is what happens in vanilla.)
   const circlePoints = getCircleDiscretizedPoints(
     startingPosition,
-    CIRCLE_RADIUS_BETWEEN_PLAYERS,
+    radius,
     players.length,
     1,
     1,
     Direction.LEFT,
   );
 
-  for (let i = 0; i < players.length; i++) {
-    const player = players[i];
+  for (const [i, player] of players.entries()) {
     const circlePosition = circlePoints[i];
-
-    if (player !== undefined && circlePosition !== undefined) {
+    if (circlePosition !== undefined) {
       player.Position = circlePosition;
     }
   }

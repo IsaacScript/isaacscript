@@ -1,13 +1,14 @@
+import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
   EntityCollisionClass,
   EntityGridCollisionClass,
   EntityType,
   GridEntityType,
-  GridEntityXMLType,
   PickupVariant,
   PitfallVariant,
   RoomType,
 } from "isaac-typescript-definitions";
+import { GRID_ENTITY_XML_TYPE_VALUES } from "../../../arrays/cachedEnumValues";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
@@ -16,7 +17,6 @@ import {
   getEntityIDFromConstituents,
   spawnWithSeed,
 } from "../../../functions/entities";
-import { getEnumValues } from "../../../functions/enums";
 import {
   convertXMLGridEntityType,
   getGridEntities,
@@ -24,23 +24,24 @@ import {
 } from "../../../functions/gridEntities";
 import { getRandomJSONEntity } from "../../../functions/jsonRoom";
 import { log } from "../../../functions/log";
-import { getRandomSeed, isRNG, newRNG } from "../../../functions/rng";
+import { isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
 import { asCollectibleType, asNumber } from "../../../functions/types";
-import { JSONRoom } from "../../../interfaces/JSONRoomsFile";
+import { assertDefined } from "../../../functions/utils";
+import type { JSONRoom } from "../../../interfaces/JSONRoomsFile";
+import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
-import { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
-import { SpawnCollectible } from "./SpawnCollectible";
+import type { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
+import type { SpawnCollectible } from "./SpawnCollectible";
 
-const gridEntityXMLTypes = getEnumValues(GridEntityXMLType);
-const GRID_ENTITY_XML_TYPE_SET: ReadonlySet<number> = new Set(
-  gridEntityXMLTypes,
+const GRID_ENTITY_XML_TYPE_SET = new ReadonlySet<GridEntityXMLType>(
+  GRID_ENTITY_XML_TYPE_VALUES,
 );
 
 export class DeployJSONRoom extends Feature {
-  private preventGridEntityRespawn: PreventGridEntityRespawn;
-  private spawnCollectible: SpawnCollectible;
+  private readonly preventGridEntityRespawn: PreventGridEntityRespawn;
+  private readonly spawnCollectible: SpawnCollectible;
 
   /** @internal */
   constructor(
@@ -68,43 +69,44 @@ export class DeployJSONRoom extends Feature {
     for (const jsonSpawn of jsonRoom.spawn) {
       const xString = jsonSpawn.$.x;
       const x = tonumber(xString);
-      if (x === undefined) {
-        error(
-          `Failed to convert the following x coordinate to a number (for a spawn): ${xString}`,
-        );
-      }
+      assertDefined(
+        x,
+        `Failed to convert the following x coordinate to a number (for a spawn): ${xString}`,
+      );
 
       const yString = jsonSpawn.$.y;
       const y = tonumber(yString);
-      if (y === undefined) {
-        error(
-          `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
-        );
-      }
+      assertDefined(
+        y,
+        `Failed to convert the following y coordinate to a number (for a spawn): ${yString}`,
+      );
 
-      const jsonEntity = getRandomJSONEntity(jsonSpawn.entity);
+      const jsonEntity = getRandomJSONEntity(jsonSpawn.entity, rng);
 
       const entityTypeString = jsonEntity.$.type;
       const entityTypeNumber = tonumber(entityTypeString);
-      if (entityTypeNumber === undefined) {
-        error(
-          `Failed to convert the entity type to a number: ${entityTypeString}`,
-        );
-      }
+      assertDefined(
+        entityTypeNumber,
+        `Failed to convert the entity type to a number: ${entityTypeString}`,
+      );
 
       const variantString = jsonEntity.$.variant;
       const variant = tonumber(variantString);
-      if (variant === undefined) {
-        error(`Failed to convert the entity variant to a number: ${variant}`);
-      }
+      assertDefined(
+        variant,
+        `Failed to convert the entity variant to a number: ${variant}`,
+      );
 
       const subTypeString = jsonEntity.$.subtype;
       const subType = tonumber(subTypeString);
-      if (subType === undefined) {
-        error(`Failed to convert the entity sub-type to a number: ${subType}`);
-      }
+      assertDefined(
+        subType,
+        `Failed to convert the entity sub-type to a number: ${subType}`,
+      );
 
-      const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(entityTypeNumber);
+      const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(
+        entityTypeNumber as GridEntityXMLType,
+      );
       if (isGridEntity) {
         const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
         if (verbose) {
@@ -196,7 +198,8 @@ export class DeployJSONRoom extends Feature {
   /**
    * Helper function to deconstruct a vanilla room and set up a custom room in its place.
    * Specifically, this will clear the current room of all entities and grid entities, and then
-   * spawn all of the entries and grid entities in the provided JSON room.
+   * spawn all of the entries and grid entities in the provided JSON room. For this reason, you must
+   * be in the actual room in order to use this function.
    *
    * A JSON room is simply an XML file converted to JSON. You can create JSON rooms by using the
    * Basement Renovator room editor to create an XML file, and then convert it to JSON using the
@@ -216,18 +219,22 @@ export class DeployJSONRoom extends Feature {
    * }
    * ```
    *
+   * If you want to deploy an unseeded room, you must explicitly pass `undefined` to the `seedOrRNG`
+   * parameter.
+   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEPLOY_JSON_ROOM`.
    *
    * @param jsonRoom The JSON room to deploy.
-   * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided,
-   *                  the `RNG.Next` method will be called. Default is `getRandomSeed()`.
+   * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+   *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
+   *                  to a random seed.
    * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
    *                what the function is doing. Default is false.
    */
   @Exported
   public deployJSONRoom(
     jsonRoom: JSONRoom | Readonly<JSONRoom>,
-    seedOrRNG: Seed | RNG = getRandomSeed(),
+    seedOrRNG: Seed | RNG | undefined,
     verbose = false,
   ): void {
     const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
@@ -304,7 +311,7 @@ function fixPitGraphics() {
   const gridWidth = room.GetGridWidth();
   const pitMap = getPitMap();
 
-  for (const [gridIndex, gridEntity] of pitMap.entries()) {
+  for (const [gridIndex, gridEntity] of pitMap) {
     const gridIndexLeft = gridIndex - 1;
     const L = pitMap.has(gridIndexLeft);
     const gridIndexRight = gridIndex + 1;

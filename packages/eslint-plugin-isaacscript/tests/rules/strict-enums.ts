@@ -29,12 +29,3 @@ export const vegetableEnumDefinition = `
    Celery = 'celery',
  }
  `;
-
-/** A different string enum. */
-export const vegetable2EnumDefinition = `
-enum Vegetable2 {
-  Lettuce2 = 'lettuce2',
-  Carrot2 = 'carrot2',
-  Celery2 = 'celery2',
-}
-`;

@@ -40,11 +40,10 @@ type DoorSlotFlagValue = BitFlag & {
   readonly __doorSlotFlagBrand: symbol;
 };
 type DoorSlotFlagType = {
-  [K in keyof typeof DoorSlotFlagInternal]: DoorSlotFlagValue;
+  readonly [K in keyof typeof DoorSlotFlagInternal]: DoorSlotFlagValue;
 };
 
 export const DoorSlotFlag = DoorSlotFlagInternal as DoorSlotFlagType;
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type DoorSlotFlag = DoorSlotFlagType[keyof DoorSlotFlagType];
 
 export const DoorSlotFlagZero = 0 as BitFlags<DoorSlotFlag>;

@@ -1,33 +1,38 @@
-import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getLastFrameOfAnimation } from "../../functions/sprites";
 import { getEffectiveStage } from "../../functions/stage";
+import { ReadonlySet } from "../../types/ReadonlySet";
 import { CustomCallback } from "../private/CustomCallback";
 
-const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS: ReadonlySet<string> = new Set([
+const TRAVELING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
   "Trapdoor",
   "LightTravel",
 ]);
 
+const v = {
+  run: {
+    firedOnStage: null as int | null,
+  },
+};
+
 export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL> {
-  public override v = {
-    run: {
-      firedOnStage: null as int | null,
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
 
-    this.callbacksUsed = [
-      [ModCallback.POST_PLAYER_RENDER, [this.postPlayerRender]], // 32
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
+        this.postPlayerRenderReordered,
+      ],
     ];
   }
 
-  // ModCallback.POST_PLAYER_RENDER (32)
-  private postPlayerRender = (player: EntityPlayer) => {
+  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
+  private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
     const effectiveStage = getEffectiveStage();
-    if (effectiveStage === this.v.run.firedOnStage) {
+    if (effectiveStage === v.run.firedOnStage) {
       return;
     }
 
@@ -43,7 +48,7 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
     const frame = sprite.GetFrame();
     const finalFrame = getLastFrameOfAnimation(sprite);
     if (frame === finalFrame) {
-      this.v.run.firedOnStage = effectiveStage;
+      v.run.firedOnStage = effectiveStage;
       this.fire(player);
     }
   };

@@ -1,24 +1,34 @@
-import {
+import type {
   CollectibleType,
+  ItemPoolType,
+} from "isaac-typescript-definitions";
+import {
   DamageFlag,
+  DisplayFlag,
   EntityFlag,
   GameStateFlag,
   GridRoom,
   HeartSubType,
   LevelStateFlag,
+  Music,
   ProjectileFlag,
+  RoomType,
   SeedEffect,
   SoundEffect,
   TearFlag,
   UseFlag,
 } from "isaac-typescript-definitions";
-import { game, sfxManager } from "../core/cachedClasses";
+import { game, musicManager, sfxManager } from "../core/cachedClasses";
+import type { ReadonlyMap } from "../types/ReadonlyMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToString, isArray } from "./array";
+import { getBossID } from "./bosses";
 import { getCollectibleName } from "./collectibles";
 import { getEntityID } from "./entities";
 import { getEnumEntries } from "./enums";
 import { hasFlag } from "./flag";
 import { getIsaacAPIClassName } from "./isaacAPIClass";
+import { getItemPoolName } from "./itemPool";
 import { log } from "./log";
 import { getPlayerHealth } from "./playerHealth";
 import { getEffectsList, getPlayerName } from "./players";
@@ -28,21 +38,49 @@ import { iterateTableInOrder } from "./table";
 import { getTrinketName } from "./trinkets";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
 import { isTable, isUserdata } from "./types";
-import { printConsole } from "./utils";
 import { vectorToString } from "./vector";
 
-export function logArray<T>(array: T[] | readonly T[]): void {
-  if (!isArray(array)) {
+/**
+ * Helper function to log all of the values in an array.
+ *
+ * @param array The array to log.
+ * @param name Optional. The name of the array, which will be logged before the elements.
+ */
+export function logArray<T>(
+  this: void,
+  array: T[] | readonly T[],
+  name?: string,
+): void {
+  // We do not assume the given array has contiguous values in order to be more permissive about the
+  // kinds of arrays that will successfully log without a run-time error.
+  if (!isArray(array, false)) {
     log("Tried to log an array, but the given object was not an array.");
     return;
   }
 
   const arrayString = arrayToString(array);
-  log(`Array: ${arrayString}`);
+  if (name === undefined) {
+    name = "array";
+  }
+  log(`Logging ${name}: ${arrayString}`);
 }
 
-export function logCollectibleTypes(collectibleTypes: CollectibleType[]): void {
-  log("Collectibles:");
+/**
+ * Helper function to log the names of a collectible type array.
+ *
+ * @param collectibleTypes The collectible types to log.
+ * @param name Optional. The name of the array, which will be logged before the elements.
+ */
+export function logCollectibleTypes(
+  this: void,
+  collectibleTypes: CollectibleType[] | readonly CollectibleType[],
+  name?: string,
+): void {
+  if (name === undefined) {
+    name = "collectibles";
+  }
+
+  log(`Logging ${name}:`);
 
   let i = 1;
   for (const collectibleType of collectibleTypes) {
@@ -52,41 +90,54 @@ export function logCollectibleTypes(collectibleTypes: CollectibleType[]): void {
   }
 }
 
-export function logColor(color: Color): void {
+/**
+ * Helper function to log a `Color` object.
+ *
+ * @param color The `Color` object to log.
+ * @param name Optional. The name of the object, which will be logged before the properties.
+ */
+export function logColor(this: void, color: Color, name?: string): void {
+  if (name === undefined) {
+    name = "color";
+  }
+
   log(
-    `Color: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
+    `Logging ${name}: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
   );
 }
 
-/** Helper function for printing out every damage flag that is turned on. Useful when debugging. */
-export function logDamageFlags(flags: DamageFlag | BitFlags<DamageFlag>): void {
-  logFlags(flags, DamageFlag, "damage");
+/** Helper function to log every damage flag that is turned on. Useful when debugging. */
+export function logDamageFlags(
+  this: void,
+  damageFlags: DamageFlag | BitFlags<DamageFlag>,
+): void {
+  logFlags(damageFlags, DamageFlag, "damage");
 }
 
-/** Helper function for printing out every entity flag that is turned on. Useful when debugging. */
-export function logEntityFlags(flags: EntityFlag | BitFlags<EntityFlag>): void {
-  logFlags(flags, EntityFlag, "entity");
+/** Helper function to log every display flag that is turned on. Useful when debugging. */
+export function logDisplayFlags(
+  this: void,
+  displayFlags: DisplayFlag | BitFlags<DisplayFlag>,
+): void {
+  logFlags(displayFlags, DisplayFlag, "display");
 }
 
-export function logEntityID(entity: Entity): void {
+/** Helper function to log every entity flag that is turned on. Useful when debugging. */
+export function logEntityFlags(
+  this: void,
+  entityFlags: EntityFlag | BitFlags<EntityFlag>,
+): void {
+  logFlags(entityFlags, EntityFlag, "entity");
+}
+
+export function logEntityID(this: void, entity: Entity): void {
   const entityID = getEntityID(entity);
-  log(`Entity: ${entityID}`);
+  log(`Logging entity: ${entityID}`);
 }
 
-/**
- * Helper function to log an error message and also print it to the console for better visibility.
- *
- * This is useful in situations where using the `error` function would be dangerous (since it
- * prevents all of the subsequent code in the callback from running).
- */
-export function logError(msg: string): void {
-  const errorMsg = `Error: ${msg}`;
-  log(errorMsg);
-  printConsole(errorMsg);
-}
-
-/** Helper function for printing out every flag that is turned on. Useful when debugging. */
+/** Helper function for logging every flag that is turned on. Useful when debugging. */
 export function logFlags<T extends BitFlag | BitFlag128>(
+  this: void,
   flags: T | BitFlags<T>,
   flagEnum: Record<string, T>,
   description = "",
@@ -98,7 +149,8 @@ export function logFlags<T extends BitFlag | BitFlag128>(
   // eslint-disable-next-line @typescript-eslint/no-base-to-string
   log(`Logging ${description} values for: ${flags}`);
   let hasNoFlags = true;
-  for (const [key, value] of getEnumEntries(flagEnum)) {
+  const entries = getEnumEntries(flagEnum);
+  for (const [key, value] of entries) {
     if (hasFlag(flags, value)) {
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Has flag: ${key} (${value})`);
@@ -111,10 +163,8 @@ export function logFlags<T extends BitFlag | BitFlag128>(
   }
 }
 
-/**
- * Helper function for printing out every game state flag that is turned on. Useful when debugging.
- */
-export function logGameStateFlags(): void {
+/** Helper function for logging every game state flag that is turned on. Useful when debugging. */
+export function logGameStateFlags(this: void): void {
   log("Logging game state flags:");
 
   const gameStateFlagEntries = getEnumEntries(GameStateFlag);
@@ -133,16 +183,49 @@ export function logGameStateFlags(): void {
   }
 }
 
-export function logKColor(kColor: KColor): void {
-  log(
-    `Color: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
-  );
+/**
+ * Helper function to log the names of a item pool type array.
+ *
+ * @param itemPoolTypes The item pool types to log.
+ * @param name Optional. The name of the array, which will be logged before the elements.
+ */
+export function logItemPoolTypes(
+  this: void,
+  itemPoolTypes: ItemPoolType[] | readonly ItemPoolType[],
+  name?: string,
+): void {
+  if (name === undefined) {
+    name = "item pool types";
+  }
+
+  log(`Logging ${name}:`);
+
+  let i = 1;
+  for (const itemPoolType of itemPoolTypes) {
+    const itemPoolName = getItemPoolName(itemPoolType);
+    log(`${i}) ${itemPoolName} (${itemPoolType})`);
+    i++;
+  }
 }
 
 /**
- * Helper function for printing out every level state flag that is turned on. Useful when debugging.
+ * Helper function to log a `KColor` object.
+ *
+ * @param kColor The `KColor` object to log.
+ * @param name Optional. The name of the object, which will be logged before the properties.
  */
-export function logLevelStateFlags(): void {
+export function logKColor(this: void, kColor: KColor, name?: string): void {
+  if (name === undefined) {
+    name = "KColor";
+  }
+
+  log(
+    `Logging ${name}: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
+  );
+}
+
+/** Helper function for logging every level state flag that is turned on. Useful when debugging. */
+export function logLevelStateFlags(this: void): void {
   const level = game.GetLevel();
 
   const levelStateFlagEntries = getEnumEntries(LevelStateFlag);
@@ -162,13 +245,24 @@ export function logLevelStateFlags(): void {
   }
 }
 
-export function logMap(map: Map<AnyNotNil, unknown>): void {
+/**
+ * Helper function to log a TSTL `Map`.
+ *
+ * @param map The TSTL `Map` to log.
+ * @param name Optional. The name of the map, which will be logged before the elements.
+ */
+export function logMap(
+  this: void,
+  map: Map<AnyNotNil, unknown> | ReadonlyMap<AnyNotNil, unknown>,
+  name?: string,
+): void {
   if (!isTSTLMap(map) && !isDefaultMap(map)) {
     log("Tried to log a TSTL map, but the given object was not a TSTL map.");
     return;
   }
 
-  log("Printing out a TSTL map:");
+  const suffix = name === undefined ? "" : ` "${name}"`;
+  log(`Logging a TSTL map${suffix}:`);
 
   const mapKeys = [...map.keys()];
   mapKeys.sort();
@@ -182,7 +276,14 @@ export function logMap(map: Map<AnyNotNil, unknown>): void {
   log(`  The size of the map was: ${map.size}`);
 }
 
-export function logPlayerEffects(player: EntityPlayer): void {
+export function logMusic(this: void): void {
+  const currentMusic = musicManager.GetCurrentMusicID();
+  log(
+    `Currently playing music track: ${Music[currentMusic]} (${currentMusic})`,
+  );
+}
+
+export function logPlayerEffects(this: void, player: EntityPlayer): void {
   const effects = getEffectsList(player);
 
   log("Logging player effects:");
@@ -192,7 +293,7 @@ export function logPlayerEffects(player: EntityPlayer): void {
     return;
   }
 
-  effects.forEach((effect, i) => {
+  for (const [i, effect] of effects.entries()) {
     let effectDescription: string;
     if (effect.Item.IsCollectible()) {
       const collectibleName = getCollectibleName(effect.Item.ID);
@@ -207,10 +308,10 @@ export function logPlayerEffects(player: EntityPlayer): void {
     }
 
     log(`  ${i + 1}) ${effectDescription} (x${effect.Count})`);
-  });
+  }
 }
 
-export function logPlayerHealth(player: EntityPlayer): void {
+export function logPlayerHealth(this: void, player: EntityPlayer): void {
   const playerName = getPlayerName(player);
   const playerHealth = getPlayerHealth(player);
 
@@ -232,33 +333,27 @@ export function logPlayerHealth(player: EntityPlayer): void {
   log("  ]");
 }
 
-/**
- * Helper function for printing out every projectile flag that is turned on. Useful when debugging.
- */
+/** Helper function for logging every projectile flag that is turned on. Useful when debugging. */
 export function logProjectileFlags(
-  flags: ProjectileFlag | BitFlags<ProjectileFlag>,
+  this: void,
+  projectileFlags: ProjectileFlag | BitFlags<ProjectileFlag>,
 ): void {
-  logFlags(flags, ProjectileFlag, "projectile");
+  logFlags(projectileFlags, ProjectileFlag, "projectile");
 }
 
 /** Helper function for logging information about the current room. */
-export function logRoom(): void {
-  const room = game.GetRoom();
-  const bossID = room.GetBossID();
+export function logRoom(this: void): void {
+  const bossID = getBossID();
   const roomGridIndex = getRoomGridIndex();
   const roomListIndex = getRoomListIndex();
   const roomData = getRoomData();
 
-  log("Current room information:");
-  if (roomData === undefined) {
-    log("- Room data is undefined.");
-  } else {
-    log(`- Room stage ID: ${roomData.StageID}`);
-    log(
-      `- Type/variant/sub-type: ${roomData.Type}.${roomData.Variant}.${roomData.Subtype}`,
-    );
-    log(`- Name: ${roomData.Name}`);
-  }
+  log("Logging room information:");
+  log(`- Room stage ID: ${roomData.StageID}`);
+  log(`- Room type: ${RoomType[roomData.Type]} (${roomData.Type})`);
+  log(`- Variant: ${roomData.Variant}`);
+  log(`- Sub-type: ${roomData.Subtype}`);
+  log(`- Name: ${roomData.Name}`);
 
   const roomGridIndexName = GridRoom[roomGridIndex];
   if (roomGridIndexName === undefined) {
@@ -272,10 +367,10 @@ export function logRoom(): void {
 }
 
 /**
- * Helper function for printing out every seed effect (i.e. Easter Egg) that is turned on for the
+ * Helper function for logging every seed effect (i.e. Easter Egg) that is turned on for the
  * particular run.
  */
-export function logSeedEffects(): void {
+export function logSeedEffects(this: void): void {
   const seeds = game.GetSeeds();
 
   const seedEffectEntries = getEnumEntries(SeedEffect);
@@ -294,13 +389,24 @@ export function logSeedEffects(): void {
   }
 }
 
-export function logSet(set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>): void {
+/**
+ * Helper function to log a TSTL `Set`.
+ *
+ * @param set The TSTL `Set` to log.
+ * @param name Optional. The name of the set, which will be logged before the elements.
+ */
+export function logSet(
+  this: void,
+  set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>,
+  name?: string,
+): void {
   if (!isTSTLSet(set)) {
     log("Tried to log a TSTL set, but the given object was not a TSTL set.");
     return;
   }
 
-  log("Printing out a TSTL set:");
+  const suffix = name === undefined ? "" : ` "${name}"`;
+  log(`Logging a TSTL set${suffix}:`);
 
   const setValues = getSortedSetValues(set);
   for (const value of setValues) {
@@ -312,7 +418,7 @@ export function logSet(set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>): void {
 }
 
 /** Helper function for logging every sound effect that is currently playing. */
-export function logSounds(): void {
+export function logSounds(this: void): void {
   const soundEffects = getEnumEntries(SoundEffect);
 
   for (const [key, soundEffect] of soundEffects) {
@@ -324,28 +430,33 @@ export function logSounds(): void {
 
 /**
  * Helper function for logging every key and value of a Lua table. This is a deep log; the function
- * will recursively call itself if it counters a table within a table.
+ * will recursively call itself if it encounters a table within a table.
  *
  * This function will only work on tables that have string keys (because it logs the keys in order,
  * instead of randomly). It will throw a run-time error if it encounters a non-string key.
+ *
+ * In order to prevent infinite recursion, this function will not log a sub-table when there are 10
+ * or more parent tables.
  */
-export function logTable(luaTable: unknown, parentTables = 0): void {
+export function logTable(
+  this: void,
+  luaTable: unknown,
+  parentTables = 0,
+): void {
   if (parentTables === 0) {
-    log("Printing out a Lua table:");
+    log("Logging a Lua table:", false);
+  } else if (parentTables > 10) {
+    return;
   }
 
   const numSpaces = (parentTables + 1) * 2; // 2, 4, 6, etc.
   const indentation = " ".repeat(numSpaces);
 
   if (!isTable(luaTable)) {
-    // Put it in an IIFE so that it will show as "func" instead of "logTable" and align with the
-    // other text. We have to use a non-arrow function to prevent Lua language server errors with
-    // the self argument.
-    (function func() {
-      log(
-        `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
-      );
-    })();
+    log(
+      `${indentation}n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
+      false,
+    );
 
     return;
   }
@@ -353,12 +464,13 @@ export function logTable(luaTable: unknown, parentTables = 0): void {
   let numElements = 0;
   iterateTableInOrder(luaTable, (key, value) => {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`${indentation}${key} --> ${value}`);
+    log(`${indentation}${key} --> ${value}`, false);
 
     if (isTable(value)) {
       if (key === "__class") {
         log(
           `${indentation}  (skipping enumerating this key to avoid infinite recursion)`,
+          false,
         );
       } else {
         logTable(value, parentTables + 1);
@@ -368,49 +480,47 @@ export function logTable(luaTable: unknown, parentTables = 0): void {
     numElements++;
   });
 
-  // Put it in an IIFE so that it will show as "func" instead of "logTable" and align with the other
-  // text. We have to use a non-arrow function to prevent Lua language server errors with the self
-  // argument.
-  (function func() {
-    log(`${indentation}The size of the table was: ${numElements}`);
-  })();
+  log(`${indentation}The size of the table was: ${numElements}`, false);
 }
 
 /**
- * Helper function to print out the differences between the entries of two tables. Note that this
- * will only do a shallow comparison.
+ * Helper function to log the differences between the entries of two tables. Note that this will
+ * only do a shallow comparison.
  */
 export function logTableDifferences<K extends AnyNotNil, V>(
+  this: void,
   table1: LuaMap<K, V>,
   table2: LuaMap<K, V>,
 ): void {
   log("Comparing two Lua tables:");
 
   const table1Keys = Object.keys(table1);
-  const table1KeysSet = new Set(table1Keys);
+  const table1KeysSet = new ReadonlySet(table1Keys);
 
   const table2Keys = Object.keys(table2);
-  const table2KeysSet = new Set(table2Keys);
+  const table2KeysSet = new ReadonlySet(table2Keys);
 
   const keysSet = combineSets(table1KeysSet, table2KeysSet);
   const keys = [...keysSet.values()];
   keys.sort();
 
   for (const key of keys) {
-    if (!table1KeysSet.has(key)) {
+    const value1 = table1.get(key);
+    const value2 = table2.get(key);
+
+    if (value1 === undefined) {
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Table 1 is missing key: ${key}`);
-    } else if (!table2KeysSet.has(key)) {
+    }
+
+    if (value2 === undefined) {
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
       log(`  Table 2 is missing key: ${key}`);
-    } else {
-      const value1 = table1.get(key);
+    }
 
-      const value2 = table2.get(key);
-      if (value1 !== value2) {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        log(`  ${key} --> "${value1}" versus "${value2}"`);
-      }
+    if (value1 !== value2) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      log(`  ${key} --> "${value1}" versus "${value2}"`);
     }
   }
 }
@@ -421,8 +531,8 @@ export function logTableDifferences<K extends AnyNotNil, V>(
  *
  * This function is useful for tables that have recursive references.
  */
-export function logTableKeys(luaTable: unknown): void {
-  log("Printing out the keys of a Lua table:");
+export function logTableKeys(this: void, luaTable: unknown): void {
+  log("Logging the keys of a Lua table:");
 
   if (!isTable(luaTable)) {
     log(
@@ -441,21 +551,60 @@ export function logTableKeys(luaTable: unknown): void {
   log(`  The size of the table was: ${numElements}`);
 }
 
-/** Helper function for printing out every tear flag that is turned on. Useful when debugging. */
-export function logTearFlags(flags: TearFlag | BitFlags<TearFlag>): void {
-  logFlags(flags, TearFlag, "tear");
+/**
+ * Helper function to log every table key and value. This is a shallow log; the function will not
+ * recursively traverse sub-tables.
+ *
+ * This function will only work on tables that have string keys (because it logs the keys in order,
+ * instead of randomly). It will throw a run-time error if it encounters a non-string key.
+ */
+export function logTableShallow<K extends AnyNotNil, V>(
+  this: void,
+  luaTable: LuaMap<K, V>,
+): void {
+  log("Logging a Lua table (shallow):", false);
+
+  if (!isTable(luaTable)) {
+    log(
+      `n/a (encountered a variable of type "${typeof luaTable}" instead of a table)`,
+      false,
+    );
+
+    return;
+  }
+
+  let numElements = 0;
+  const indentation = "  ";
+  iterateTableInOrder(luaTable, (key, value) => {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    log(`${indentation}${key} --> ${value}`, false);
+    numElements++;
+  });
+
+  log(`${indentation}The size of the table was: ${numElements}`, false);
+}
+
+/** Helper function for log every tear flag that is turned on. Useful when debugging. */
+export function logTearFlags(
+  this: void,
+  tearFlags: TearFlag | BitFlags<TearFlag>,
+): void {
+  logFlags(tearFlags, TearFlag, "tear");
 }
 
 /** Helper function for printing out every use flag that is turned on. Useful when debugging. */
-export function logUseFlags(flags: UseFlag | BitFlags<UseFlag>): void {
-  logFlags(flags, UseFlag, "use");
+export function logUseFlags(
+  this: void,
+  useFlags: UseFlag | BitFlags<UseFlag>,
+): void {
+  logFlags(useFlags, UseFlag, "use");
 }
 
 /**
  * Helper function to enumerate all of the properties of a "userdata" object (i.e. an object from
  * the Isaac API).
  */
-export function logUserdata(userdata: unknown): void {
+export function logUserdata(this: void, userdata: unknown): void {
   if (!isUserdata(userdata)) {
     log("Userdata: [not userdata]");
     return;
@@ -477,7 +626,24 @@ export function logUserdata(userdata: unknown): void {
   logTable(metatable);
 }
 
-export function logVector(vector: Vector, round = false): void {
+/**
+ * Helper function to log a `Vector` object.
+ *
+ * @param vector The `Vector` object to log.
+ * @param name Optional. The name of the object, which will be logged before the properties.
+ * @param round Optional. If true, will round the vector values to the nearest integer. Default is
+ *              false.
+ */
+export function logVector(
+  this: void,
+  vector: Vector,
+  name?: string,
+  round = false,
+): void {
+  if (name === undefined) {
+    name = "vector";
+  }
+
   const vectorString = vectorToString(vector, round);
-  log(`Vector: ${vectorString}`);
+  log(`Logging ${name}: ${vectorString}`);
 }

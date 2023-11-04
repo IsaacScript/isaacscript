@@ -1,6 +1,7 @@
 import { ModCallbackCustom } from "../../../../enums/ModCallbackCustom";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultGridEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultGridEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPressurePlate extends Feature {
   public textCallback: (pressurePlate: GridEntityPressurePlate) => string =
@@ -12,13 +13,13 @@ export class DebugDisplayPressurePlate extends Feature {
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PRESSURE_PLATE_RENDER,
-        [this.postPressurePlateRender],
+        this.postPressurePlateRender,
       ],
     ];
   }
 
   // ModCallbackCustom.POST_PRESSURE_PLATE_RENDER
-  private postPressurePlateRender = (
+  private readonly postPressurePlateRender = (
     pressurePlate: GridEntityPressurePlate,
   ) => {
     const text = this.textCallback(pressurePlate);

@@ -4,12 +4,13 @@
 import { SaveDataKey } from "../../../../enums/SaveDataKey";
 import { SerializationType } from "../../../../enums/SerializationType";
 import { deepCopy } from "../../../../functions/deepCopy";
-import { logError } from "../../../../functions/logMisc";
+import { logError } from "../../../../functions/log";
 import { clearTable, iterateTableInOrder } from "../../../../functions/table";
-import { SaveData } from "../../../../interfaces/SaveData";
+import type { SaveData } from "../../../../interfaces/SaveData";
+import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { SAVE_DATA_MANAGER_DEBUG } from "./constants";
 
-const RESETTABLE_SAVE_DATA_KEYS: ReadonlySet<SaveDataKey> = new Set([
+const RESETTABLE_SAVE_DATA_KEYS = new ReadonlySet<SaveDataKey>([
   SaveDataKey.RUN,
   SaveDataKey.LEVEL,
   SaveDataKey.ROOM,
@@ -19,7 +20,7 @@ export function restoreDefaultsForAllFeaturesAndKeys(
   saveDataMap: LuaMap<string, SaveData>,
   saveDataDefaultsMap: LuaMap<string, SaveData>,
 ): void {
-  for (const saveDataKey of RESETTABLE_SAVE_DATA_KEYS.values()) {
+  for (const saveDataKey of RESETTABLE_SAVE_DATA_KEYS) {
     restoreDefaultsForAllFeaturesKey(
       saveDataMap,
       saveDataDefaultsMap,
@@ -79,7 +80,7 @@ export function restoreDefaultForFeatureKey(
   const childTableDefaults = saveDataDefaults[saveDataKey];
   if (childTableDefaults === undefined) {
     logError(
-      `Failed to find the default copy of the child table "${saveDataKey}" for subscriber "${subscriberName}". This error usually means that your save data is out of date. You can try purging all of your save data by deleting the following directory: C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\data`,
+      `Failed to find the default copy of the child table "${saveDataKey}" for subscriber "${subscriberName}". This error usually means that your mod-specific save data is out of date. You can try purging all of your mod-specific save data by deleting the following directory: C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\data`,
     );
     return;
   }

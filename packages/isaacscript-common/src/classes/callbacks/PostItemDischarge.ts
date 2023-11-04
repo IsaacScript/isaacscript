@@ -1,27 +1,23 @@
+import type { ActiveSlot, CollectibleType } from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
-  CollectibleType,
   EntityType,
   ModCallback,
   SuckerVariant,
 } from "isaac-typescript-definitions";
+import { ACTIVE_SLOT_VALUES } from "../../arrays/cachedEnumValues";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getTotalCharge } from "../../functions/charge";
-import { getEnumValues } from "../../functions/enums";
 import {
   defaultMapGetPlayer,
   mapGetPlayer,
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
 import { asNumber } from "../../functions/types";
-import { PlayerIndex } from "../../types/PlayerIndex";
+import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
-import {
-  CustomCallback,
-  FireArgs,
-  OptionalArgs,
-} from "../private/CustomCallback";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_ITEM_DISCHARGE;
 
@@ -30,43 +26,45 @@ type T = ModCallbackCustom.POST_ITEM_DISCHARGE;
 type ActiveSlotToCollectibleTypeMap = Map<ActiveSlot, CollectibleType>;
 type ActiveSlotToChargeMap = Map<ActiveSlot, int>;
 
-export class PostItemDischarge extends CustomCallback<T> {
-  public override v = {
-    run: {
-      playersActiveItemMap: new DefaultMap<
-        PlayerIndex,
-        ActiveSlotToCollectibleTypeMap
-      >(() => new Map()),
-      playersActiveChargeMap: new DefaultMap<
-        PlayerIndex,
-        ActiveSlotToChargeMap
-      >(() => new Map()),
-    },
+const v = {
+  run: {
+    playersActiveItemMap: new DefaultMap<
+      PlayerIndex,
+      ActiveSlotToCollectibleTypeMap
+    >(() => new Map()),
+    playersActiveChargeMap: new DefaultMap<PlayerIndex, ActiveSlotToChargeMap>(
+      () => new Map(),
+    ),
+  },
 
-    room: {
-      playersBulbLastCollisionFrame: new Map<PlayerIndex, int>(),
-    },
-  };
+  room: {
+    playersBulbLastCollisionFrame: new Map<PlayerIndex, int>(),
+  },
+};
+
+export class PostItemDischarge extends CustomCallback<T> {
+  public override v = v;
 
   constructor() {
     super();
 
     this.callbacksUsed = [
+      // 30
       [
         ModCallback.PRE_NPC_COLLISION,
-        [this.preNPCCollisionSucker, EntityType.SUCKER],
-      ], // 30
+        this.preNPCCollisionSucker,
+        [EntityType.SUCKER],
+      ],
     ];
 
     this.customCallbacksUsed = [
       [
         ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        [this.postPEffectUpdateReordered],
+        this.postPEffectUpdateReordered,
       ],
     ];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
@@ -82,7 +80,7 @@ export class PostItemDischarge extends CustomCallback<T> {
 
   // ModCallback.PRE_NPC_COLLISION (30)
   // EntityType.SUCKER (61)
-  private preNPCCollisionSucker = (
+  private readonly preNPCCollisionSucker = (
     npc: EntityNPC,
     collider: Entity,
   ): boolean | undefined => {
@@ -108,7 +106,7 @@ export class PostItemDischarge extends CustomCallback<T> {
    * charge on the previous frame. Thus, when a Bulb zaps a player and drains their charge, this
    * will be a false position, so Bulbs have to be handled.
    *
-   * When Bulbs zap a player, they go to `NpcState.STATE_JUMP` for a frame. However, this only
+   * When Bulbs zap a player, they go to `NPCState.STATE_JUMP` for a frame. However, this only
    * happens on the frame after the player is discharged, which is too late to be of any use.
    *
    * Instead, we track the frames that Bulbs collide with players and assume that a collision means
@@ -121,25 +119,18 @@ export class PostItemDischarge extends CustomCallback<T> {
     }
 
     const gameFrameCount = game.GetFrameCount();
-    mapSetPlayer(
-      this.v.room.playersBulbLastCollisionFrame,
-      player,
-      gameFrameCount,
-    );
+    mapSetPlayer(v.room.playersBulbLastCollisionFrame, player, gameFrameCount);
   }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private postPEffectUpdateReordered = (player: EntityPlayer) => {
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const activeItemMap = defaultMapGetPlayer(
-      this.v.run.playersActiveItemMap,
+      v.run.playersActiveItemMap,
       player,
     );
-    const chargeMap = defaultMapGetPlayer(
-      this.v.run.playersActiveChargeMap,
-      player,
-    );
+    const chargeMap = defaultMapGetPlayer(v.run.playersActiveChargeMap, player);
 
-    for (const activeSlot of getEnumValues(ActiveSlot)) {
+    for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const currentActiveItem = player.GetActiveItem();
       let previousActiveItem = activeItemMap.get(activeSlot);
       if (previousActiveItem === undefined) {
@@ -178,11 +169,13 @@ export class PostItemDischarge extends CustomCallback<T> {
   private playerRecentlyCollidedWithBulb(player: EntityPlayer) {
     const gameFrameCount = game.GetFrameCount();
     const bulbLastCollisionFrame = mapGetPlayer(
-      this.v.room.playersBulbLastCollisionFrame,
+      v.room.playersBulbLastCollisionFrame,
       player,
     );
+
     const collidedOnThisFrame = gameFrameCount === bulbLastCollisionFrame;
     const collidedOnLastFrame = gameFrameCount - 1 === bulbLastCollisionFrame;
+
     return collidedOnThisFrame || collidedOnLastFrame;
   }
 }

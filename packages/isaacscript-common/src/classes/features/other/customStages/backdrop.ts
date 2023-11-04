@@ -1,7 +1,5 @@
 // This file handles drawing the walls and floors for custom stages.
 
-// cspell:ignore LTRX,LTLX,LBRX,LBLX
-
 import {
   EffectVariant,
   EntityFlag,
@@ -14,13 +12,14 @@ import { LadderSubTypeCustom } from "../../../../enums/LadderSubTypeCustom";
 import { getRandomArrayElement } from "../../../../functions/array";
 import { spawnEffectWithSeed } from "../../../../functions/entitiesSpecific";
 import { newRNG } from "../../../../functions/rng";
-import { isLRoom, isNarrowRoom } from "../../../../functions/roomShape";
+import { isLRoomShape, isNarrowRoom } from "../../../../functions/roomShape";
 import {
   removeCharactersBefore,
   trimPrefix,
 } from "../../../../functions/string";
-import { eRange, iRange } from "../../../../functions/utils";
-import { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { assertDefined, eRange, iRange } from "../../../../functions/utils";
+import type { CustomStage } from "../../../../interfaces/private/CustomStage";
+import { ReadonlySet } from "../../../../types/ReadonlySet";
 import { ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH } from "./constants";
 
 enum BackdropKind {
@@ -35,16 +34,14 @@ enum BackdropKind {
 }
 
 /** This is created by the vanilla Basement files. */
-const DEFAULT_BACKDROP: NonNullable<CustomStage["backdropPNGPaths"]> = {
+const DEFAULT_BACKDROP = {
   nFloors: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/nfloor.png`],
   lFloors: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/lfloor.png`], // cspell:ignore lfloor
   walls: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/wall.png`],
   corners: [`${ISAACSCRIPT_CUSTOM_STAGE_GFX_PATH}/backdrop/corner.png`],
-} as const;
+} as const satisfies NonNullable<CustomStage["backdropPNGPaths"]>;
 
-const ROOM_SHAPE_WALL_ANM2_LAYERS: {
-  readonly [key in RoomShape]: int;
-} = {
+const ROOM_SHAPE_WALL_ANM2_LAYERS = {
   [RoomShape.SHAPE_1x1]: 44, // 1
   [RoomShape.IH]: 36, // 2
   [RoomShape.IV]: 28, // 3
@@ -57,26 +54,28 @@ const ROOM_SHAPE_WALL_ANM2_LAYERS: {
   [RoomShape.LTR]: 63, // 10
   [RoomShape.LBL]: 63, // 11
   [RoomShape.LBR]: 63, // 12
-} as const;
+} as const satisfies Record<RoomShape, int>;
 
-const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: {
-  readonly [key in RoomShape]?: int;
-} = {
+// We don't use `as const` since we need the object to be indexable by all `RoomShape`.
+// eslint-disable-next-line isaacscript/require-capital-const-assertions
+const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: Readonly<
+  Partial<Record<RoomShape, int>>
+> = {
   [RoomShape.SHAPE_2x1]: 7, // 6
   [RoomShape.SHAPE_2x2]: 21, // 8
   [RoomShape.LTL]: 19, // 9
   [RoomShape.LTR]: 19, // 10
   [RoomShape.LBL]: 19, // 11
   [RoomShape.LBR]: 19, // 12
-} as const;
+};
 
 const WALL_OFFSET = Vector(-80, -80);
 
 /** Corresponds to "floor-backdrop.anm2". */
-const L_FLOOR_ANM2_LAYERS: readonly int[] = [16, 17];
+const L_FLOOR_ANM2_LAYERS = [16, 17] as const;
 
 /** Corresponds to "floor-backdrop.anm2". */
-const N_FLOOR_ANM2_LAYERS: readonly int[] = [18, 19];
+const N_FLOOR_ANM2_LAYERS = [18, 19] as const;
 
 /**
  * Normally, we would make a custom entity to represent a backdrop effect, but we don't want to
@@ -89,7 +88,7 @@ const N_FLOOR_ANM2_LAYERS: readonly int[] = [18, 19];
 const BACKDROP_EFFECT_VARIANT = EffectVariant.LADDER;
 const BACKDROP_EFFECT_SUB_TYPE = LadderSubTypeCustom.CUSTOM_BACKDROP;
 
-const BACKDROP_ROOM_TYPE_SET: ReadonlySet<RoomType> = new Set([
+const BACKDROP_ROOM_TYPE_SET = new ReadonlySet<RoomType>([
   RoomType.DEFAULT,
   RoomType.BOSS,
   RoomType.MINI_BOSS,
@@ -116,11 +115,7 @@ function getBackdropPNGPath(
   backdropKind: BackdropKind,
   rng: RNG,
 ) {
-  const backdrop =
-    customStage.backdropPNGPaths === undefined
-      ? DEFAULT_BACKDROP
-      : customStage.backdropPNGPaths;
-
+  const backdrop = customStage.backdropPNGPaths ?? DEFAULT_BACKDROP;
   const pathArray = backdrop[backdropKind];
   const randomPath = getRandomArrayElement(pathArray, rng);
   return removeCharactersBefore(randomPath, "gfx/");
@@ -152,13 +147,12 @@ function spawnWallEntity(
     ? ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS
     : ROOM_SHAPE_WALL_ANM2_LAYERS;
   const numWallLayers = wallLayersArray[roomShape];
-  if (numWallLayers === undefined) {
-    error(
-      `Failed to get the layers when creating the backdrop for custom stage: ${customStage.name}`,
-    );
-  }
+  assertDefined(
+    numWallLayers,
+    `Failed to get the layers when creating the backdrop for custom stage: ${customStage.name}`,
+  );
 
-  if (isLRoom(roomShape)) {
+  if (isLRoomShape(roomShape)) {
     const cornerPNGPath = getBackdropPNGPath(
       customStage,
       BackdropKind.CORNER,
@@ -178,8 +172,7 @@ function spawnWallEntity(
   wallEffect.SpriteOffset = modifiedOffset;
 
   sprite.LoadGraphics();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const roomShapeName = RoomShape[roomShape]!;
+  const roomShapeName = RoomShape[roomShape];
   const animation = trimPrefix(roomShapeName, "SHAPE_");
   const modifiedAnimation = isExtraWall ? `${animation}X` : animation;
   sprite.Play(modifiedAnimation, true);
@@ -218,7 +211,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
 
   const numFloorLayers = getNumFloorLayers(roomShape);
   if (numFloorLayers !== undefined) {
-    for (const layerID of eRange(0, numFloorLayers)) {
+    for (const layerID of eRange(numFloorLayers)) {
       // The wall spritesheet is used for the "normal" floors.
       const wallPNGPath = getBackdropPNGPath(
         customStage,
@@ -227,7 +220,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
       );
       sprite.ReplaceSpritesheet(layerID, wallPNGPath);
     }
-  } else if (isLRoom(roomShape)) {
+  } else if (isLRoomShape(roomShape)) {
     for (const layerID of L_FLOOR_ANM2_LAYERS) {
       const LFloorPNGPath = getBackdropPNGPath(
         customStage,
@@ -253,8 +246,7 @@ function spawnFloorEntity(customStage: CustomStage, rng: RNG) {
   floorEffect.SpriteOffset = modifiedOffset;
 
   sprite.LoadGraphics();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const roomShapeName = RoomShape[roomShape]!;
+  const roomShapeName = RoomShape[roomShape];
   const animation = trimPrefix(roomShapeName, "SHAPE_");
   sprite.Play(animation, true);
 }

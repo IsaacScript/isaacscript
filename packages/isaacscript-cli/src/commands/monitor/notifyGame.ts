@@ -1,11 +1,11 @@
 import chalk from "chalk";
-import { getTime } from "../../utils";
-import { COMPILATION_SUCCESSFUL } from "./constants";
-import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter";
+import { COMPILATION_SUCCESSFUL_MESSAGE } from "../../constants.js";
+import { getTime } from "../../utils.js";
+import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter.js";
 
 export function msg(data: string): void {
   const formattedData = data
-    .replace(/\r\n/g, "\n") // Replace Windows newlines with Unix newlines
+    .replaceAll("/\r\n", "\n") // Replace Windows newlines with Unix newlines
     .trim(); // Trim whitespace
 
   for (const line of formattedData.split("\n")) {
@@ -36,7 +36,7 @@ export function msg(data: string): void {
 function printMsgToStandardOut(data: string) {
   let coloredData = data;
 
-  if (data.includes(COMPILATION_SUCCESSFUL)) {
+  if (data.includes(COMPILATION_SUCCESSFUL_MESSAGE)) {
     coloredData = chalk.green(data);
   } else if (data.match(/error/g) !== null) {
     coloredData = chalk.red(data);

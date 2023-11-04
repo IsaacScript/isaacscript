@@ -9,15 +9,16 @@ import {
   StatueVariant,
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 /**
  * This maps the GridEntityXMLType (i.e. the type contained in the room XML/STB file) to the
  * GridEntityType and the variant used by the game.
  */
-export const GRID_ENTITY_XML_MAP: ReadonlyMap<
+export const GRID_ENTITY_XML_MAP = new ReadonlyMap<
   GridEntityXMLType,
   [GridEntityType, int]
-> = new Map([
+>([
   // 0
   [GridEntityXMLType.DECORATION, [GridEntityType.DECORATION, 0]],
 
@@ -69,8 +70,8 @@ export const GRID_ENTITY_XML_MAP: ReadonlyMap<
 
   // 1495
   [
-    GridEntityXMLType.POOP_CORN,
-    [GridEntityType.POOP, PoopGridEntityVariant.CORN],
+    GridEntityXMLType.POOP_CORNY,
+    [GridEntityType.POOP, PoopGridEntityVariant.CORNY],
   ],
 
   // 1496

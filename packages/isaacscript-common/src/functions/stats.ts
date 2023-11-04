@@ -1,8 +1,11 @@
 import { CacheFlag } from "isaac-typescript-definitions";
+import { PlayerStat } from "../enums/PlayerStat";
+import type { PlayerStats } from "../interfaces/PlayerStats";
 import { DEFAULT_PLAYER_STAT_MAP } from "../maps/defaultPlayerStatMap";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { addTearsStat } from "./tears";
 
-const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
+const STAT_CACHE_FLAGS_SET = new ReadonlySet<CacheFlag>([
   CacheFlag.DAMAGE, // 1 << 0
   CacheFlag.FIRE_DELAY, // 1 << 1
   CacheFlag.SHOT_SPEED, // 1 << 2
@@ -26,7 +29,7 @@ const STAT_CACHE_FLAGS_SET: ReadonlySet<CacheFlag> = new Set([
  * - CacheFlag.SPEED (1 << 4)
  * - CacheFlag.LUCK (1 << 10)
  */
-export function addStat(
+export function addPlayerStat(
   player: EntityPlayer,
   cacheFlag: CacheFlag,
   amount: number,
@@ -84,4 +87,32 @@ export function addStat(
  */
 export function getDefaultPlayerStat(cacheFlag: CacheFlag): number | undefined {
   return DEFAULT_PLAYER_STAT_MAP.get(cacheFlag);
+}
+
+/** Helper function to get the stat for a player corresponding to the `StatType`. */
+export function getPlayerStat<T extends PlayerStat>(
+  player: EntityPlayer,
+  playerStat: T,
+): PlayerStats[T] {
+  const playerStats = getPlayerStats(player);
+  return playerStats[playerStat];
+}
+
+/** Helper function to get all of the stat for a player. */
+export function getPlayerStats(player: EntityPlayer): PlayerStats {
+  return {
+    [PlayerStat.DAMAGE]: player.Damage, // 1 << 0
+    [PlayerStat.FIRE_DELAY]: player.MaxFireDelay, // 1 << 1
+    [PlayerStat.SHOT_SPEED]: player.ShotSpeed, // 1 << 2
+    [PlayerStat.TEAR_HEIGHT]: player.TearHeight, // 1 << 3
+    [PlayerStat.TEAR_RANGE]: player.TearRange, // 1 << 3
+    [PlayerStat.TEAR_FALLING_ACCELERATION]: player.TearFallingAcceleration, // 1 << 3
+    [PlayerStat.TEAR_FALLING_SPEED]: player.TearFallingSpeed, // 1 << 3
+    [PlayerStat.MOVE_SPEED]: player.MoveSpeed, // 1 << 4
+    [PlayerStat.TEAR_FLAG]: player.TearFlags, // 1 << 5
+    [PlayerStat.TEAR_COLOR]: player.TearColor, // 1 << 6
+    [PlayerStat.FLYING]: player.CanFly, // 1 << 7
+    [PlayerStat.LUCK]: player.Luck, // 1 << 10
+    [PlayerStat.SIZE]: player.SpriteScale, // 1 << 11
+  };
 }

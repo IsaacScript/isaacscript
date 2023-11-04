@@ -8,20 +8,18 @@ import {
 import { sfxManager } from "../../../core/cachedClasses";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
-import { removeCollectibleFromItemTracker } from "../../../functions/collectibles";
-import { removeAllFamiliars } from "../../../functions/entitiesSpecific";
-import { log } from "../../../functions/log";
-import { logError } from "../../../functions/logMisc";
+import { rebirthItemTrackerRemoveCollectible } from "../../../functions/external";
+import { log, logError } from "../../../functions/log";
 import {
   getPlayerFromIndex,
   getPlayerIndex,
 } from "../../../functions/playerIndex";
 import { isCharacter } from "../../../functions/players";
-import { PlayerIndex } from "../../../types/PlayerIndex";
-import { PostCustomRevive } from "../../callbacks/PostCustomRevive";
-import { PreCustomRevive } from "../../callbacks/PreCustomRevive";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PostCustomRevive } from "../../callbacks/PostCustomRevive";
+import type { PreCustomRevive } from "../../callbacks/PreCustomRevive";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "../other/RunInNFrames";
+import type { RunInNFrames } from "../other/RunInNFrames";
 
 const DEBUG = false as boolean;
 
@@ -37,18 +35,20 @@ enum CustomReviveState {
   WAITING_FOR_ITEM_ANIMATION,
 }
 
-export class CustomRevive extends Feature {
-  public override v = {
-    run: {
-      state: CustomReviveState.DISABLED,
-      revivalType: null as int | null,
-      dyingPlayerIndex: null as PlayerIndex | null,
-    },
-  };
+const v = {
+  run: {
+    state: CustomReviveState.DISABLED,
+    revivalType: null as int | null,
+    dyingPlayerIndex: null as PlayerIndex | null,
+  },
+};
 
-  private preCustomRevive: PreCustomRevive;
-  private postCustomRevive: PostCustomRevive;
-  private runInNFrames: RunInNFrames;
+export class CustomRevive extends Feature {
+  public override v = v;
+
+  private readonly preCustomRevive: PreCustomRevive;
+  private readonly postCustomRevive: PostCustomRevive;
+  private readonly runInNFrames: RunInNFrames;
 
   constructor(
     preCustomRevive: PreCustomRevive,
@@ -60,17 +60,25 @@ export class CustomRevive extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
-      [ModCallback.POST_PEFFECT_UPDATE, [this.postPEffectUpdate]], // 4
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+
+      // 7
+      [
+        ModCallback.POST_FAMILIAR_INIT,
+        this.postFamiliarInitOneUp,
+        [FamiliarVariant.ONE_UP],
+      ],
     ];
 
     this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
       [
-        ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE,
-        [this.postPlayerFatalDamage],
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
       ],
-      [ModCallbackCustom.PRE_BERSERK_DEATH, [this.preBerserkDeath]],
+      [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE, this.postPlayerFatalDamage],
+      [ModCallbackCustom.PRE_BERSERK_DEATH, this.preBerserkDeath],
     ];
 
     this.preCustomRevive = preCustomRevive;
@@ -79,8 +87,8 @@ export class CustomRevive extends Feature {
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = (): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
+  private readonly postRender = (): void => {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
 
@@ -89,22 +97,44 @@ export class CustomRevive extends Feature {
     sfxManager.Stop(SoundEffect.ONE_UP);
   };
 
-  // ModCallback.POST_PEFFECT_UPDATE (4)
-  private postPEffectUpdate = (player: EntityPlayer): void => {
+  // ModCallback.POST_FAMILIAR_INIT (7)
+  // FamiliarVariant.ONE_UP (41)
+  private readonly postFamiliarInitOneUp = (familiar: EntityFamiliar): void => {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+      return;
+    }
+
+    familiar.Remove();
+  };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = (): void => {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
+      return;
+    }
+
+    v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
+    this.logStateChanged();
+  };
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private readonly postPEffectUpdateReordered = (
+    player: EntityPlayer,
+  ): void => {
     this.checkWaitingForItemAnimation(player);
   };
 
   private checkWaitingForItemAnimation(player: EntityPlayer): void {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
+    if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
       return;
     }
 
-    if (this.v.run.dyingPlayerIndex === null) {
+    if (v.run.dyingPlayerIndex === null) {
       return;
     }
 
     const playerIndex = getPlayerIndex(player);
-    if (playerIndex !== this.v.run.dyingPlayerIndex) {
+    if (playerIndex !== v.run.dyingPlayerIndex) {
       return;
     }
 
@@ -125,31 +155,18 @@ export class CustomRevive extends Feature {
     // expected to play a new animation in the PostCustomRevive callback, which will overwrite the
     // 1-Up animation.
 
-    if (this.v.run.revivalType !== null) {
-      this.postCustomRevive.fire(
-        playerToCheckHoldingItem,
-        this.v.run.revivalType,
-      );
+    if (v.run.revivalType !== null) {
+      this.postCustomRevive.fire(playerToCheckHoldingItem, v.run.revivalType);
     }
 
-    this.v.run.state = CustomReviveState.DISABLED;
-    this.v.run.revivalType = null;
-    this.v.run.dyingPlayerIndex = null;
+    v.run.state = CustomReviveState.DISABLED;
+    v.run.revivalType = null;
+    v.run.dyingPlayerIndex = null;
     this.logStateChanged();
   }
 
-  // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
-    if (this.v.run.state !== CustomReviveState.WAITING_FOR_ROOM_TRANSITION) {
-      return;
-    }
-
-    this.v.run.state = CustomReviveState.WAITING_FOR_ITEM_ANIMATION;
-    this.logStateChanged();
-  };
-
   // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
-  private postPlayerFatalDamage = (
+  private readonly postPlayerFatalDamage = (
     player: EntityPlayer,
   ): boolean | undefined => {
     this.playerIsAboutToDie(player);
@@ -157,7 +174,7 @@ export class CustomRevive extends Feature {
   };
 
   // ModCallbackCustom.PRE_BERSERK_DEATH
-  private preBerserkDeath = (player: EntityPlayer): void => {
+  private readonly preBerserkDeath = (player: EntityPlayer): void => {
     this.playerIsAboutToDie(player);
   };
 
@@ -171,14 +188,13 @@ export class CustomRevive extends Feature {
       return;
     }
 
-    this.v.run.state = CustomReviveState.WAITING_FOR_ROOM_TRANSITION;
-    this.v.run.revivalType = revivalType;
-    this.v.run.dyingPlayerIndex = getPlayerIndex(player);
+    v.run.state = CustomReviveState.WAITING_FOR_ROOM_TRANSITION;
+    v.run.revivalType = revivalType;
+    v.run.dyingPlayerIndex = getPlayerIndex(player);
     this.logStateChanged();
 
     player.AddCollectible(CollectibleType.ONE_UP, 0, false);
-    removeAllFamiliars(FamiliarVariant.ONE_UP);
-    removeCollectibleFromItemTracker(CollectibleType.ONE_UP);
+    rebirthItemTrackerRemoveCollectible(CollectibleType.ONE_UP);
 
     // The player should always be dead one frame from now. If they are not, then something has gone
     // wrong, probably with the `isDamageToPlayerFatal` function. Since end-user code is already
@@ -204,8 +220,8 @@ export class CustomRevive extends Feature {
   private logStateChanged(): void {
     if (DEBUG) {
       log(
-        `Custom revive state changed: ${CustomReviveState[this.v.run.state]} (${
-          this.v.run.state
+        `Custom revive state changed: ${CustomReviveState[v.run.state]} (${
+          v.run.state
         })`,
       );
     }

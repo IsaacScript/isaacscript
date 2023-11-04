@@ -4,17 +4,18 @@ import { UI_HEART_WIDTH, VectorZero } from "../core/constants";
 import { copyVector } from "./vector";
 
 /**
- * In the options menu, players have the ability to set a HUD offset. This uses the current HUD
- * offset to generate a vector that should be added to the corresponding position that you want to
- * draw a UI element.
+ * In the options menu, players have the ability to set a HUD offset (which gets written to the
+ * `HudOffset` attribute in the "options.ini" file). This function uses the current HUD offset to
+ * generate a vector that should be added to the corresponding position that you want to draw a UI
+ * element at.
  *
  * For example:
  * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
  * - If the user has a HUD offset of 1.0 configured, this function will return `Vector(20, 12)`.
  */
-export function getHUDOffsetVector(): Vector {
+export function getHUDOffsetVector(): Readonly<Vector> {
   // Convert e.g. 0.4 to 4.
-  const hudOffset = math.floor(Options.HUDOffset * 10);
+  const hudOffset = Math.floor(Options.HUDOffset * 10);
 
   // Expected values are integers between 1 and 10.
   if (hudOffset < 1 || hudOffset > 10) {
@@ -41,8 +42,11 @@ export function getHeartRowLength(player: EntityPlayer): int {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
+  const brokenHearts = player.GetBrokenHearts();
 
-  const combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
+  // There are no half bone hearts or half broken hearts.
+  const combinedHearts =
+    maxHearts + soulHearts + boneHearts * 2 + brokenHearts * 2;
   const heartRowLength = combinedHearts / 2;
 
   // After 6 hearts, the hearts wrap to a second row.
@@ -52,7 +56,7 @@ export function getHeartRowLength(player: EntityPlayer): int {
 /**
  * Helper function to get the width of the first player's hearts on the UI. This is useful for
  * drawing UI elements to the right of where the player's hearts are. Make sure to use this in
- * combination with the the `getHUDOffsetVector` helper function.
+ * combination with the `getHUDOffsetVector` helper function.
  */
 export function getHeartsUIWidth(): int {
   const level = game.GetLevel();
@@ -88,40 +92,50 @@ export function getHeartsUIWidth(): int {
   return width;
 }
 
-export function getScreenBottomCenterPos(): Vector {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(bottomRight.X / 2, bottomRight.Y);
+export function getScreenBottomCenterPos(): Readonly<Vector> {
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(bottomRightPos.X / 2, bottomRightPos.Y);
 }
 
-export function getScreenBottomLeftPos(): Vector {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(0, bottomRight.Y);
+export function getScreenBottomLeftPos(): Readonly<Vector> {
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(0, bottomRightPos.Y);
 }
 
-export function getScreenBottomRightPos(): Vector {
+export function getScreenBottomRightPos(): Readonly<Vector> {
   const screenWidth = Isaac.GetScreenWidth();
   const screenHeight = Isaac.GetScreenHeight();
 
   return Vector(screenWidth, screenHeight);
 }
 
-export function getScreenCenterPos(): Vector {
-  const bottomRight = getScreenBottomRightPos();
-  return bottomRight.div(2);
+export function getScreenBottomY(): float {
+  const bottomRightPos = getScreenBottomRightPos();
+  return bottomRightPos.Y;
 }
 
-export function getScreenTopCenterPos(): Vector {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(bottomRight.X / 2, 0);
+export function getScreenCenterPos(): Readonly<Vector> {
+  const bottomRightPos = getScreenBottomRightPos();
+  return bottomRightPos.div(2);
 }
 
-export function getScreenTopLeftPos(): Vector {
+export function getScreenRightX(): float {
+  const bottomRightPos = getScreenBottomRightPos();
+  return bottomRightPos.X;
+}
+
+export function getScreenTopCenterPos(): Readonly<Vector> {
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(bottomRightPos.X / 2, 0);
+}
+
+export function getScreenTopLeftPos(): Readonly<Vector> {
   return copyVector(VectorZero);
 }
 
-export function getScreenTopRightPos(): Vector {
-  const bottomRight = getScreenBottomRightPos();
-  return Vector(bottomRight.X, 0);
+export function getScreenTopRightPos(): Readonly<Vector> {
+  const bottomRightPos = getScreenBottomRightPos();
+  return Vector(bottomRightPos.X, 0);
 }
 
 /**
@@ -134,9 +148,9 @@ export function getVisibleHearts(player: EntityPlayer): int {
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
 
-  const maxHearts = math.max(effectiveMaxHearts, boneHearts * 2);
+  const maxHearts = Math.max(effectiveMaxHearts, boneHearts * 2);
 
-  let visibleHearts = math.ceil((maxHearts + soulHearts) / 2);
+  let visibleHearts = Math.ceil((maxHearts + soulHearts) / 2);
   if (visibleHearts < 1) {
     visibleHearts = 1;
   }

@@ -7,13 +7,13 @@ import {
   spawnSackWithSeed,
 } from "../../../functions/pickupsSpecific";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "./RunInNFrames";
+import type { RunInNFrames } from "./RunInNFrames";
 
 /** Hard-coding this makes it easier to clean up the pickups afterwards. */
 const SACK_SEED_THAT_SPAWNS_TWO_COINS = 6 as Seed;
 
 export class StartAmbush extends Feature {
-  private runInNFrames: RunInNFrames;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(runInNFrames: RunInNFrames) {

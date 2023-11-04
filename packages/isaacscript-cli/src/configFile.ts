@@ -1,43 +1,49 @@
-import path from "path";
-import { Config } from "./classes/Config";
-import { getModsDir } from "./commands/init/getModsDir";
-import { promptSaveSlot } from "./commands/init/promptSaveSlot";
-import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants";
-import * as file from "./file";
-import { getJSONC } from "./json";
-import { Args } from "./parseArgs";
-import { error } from "./utils";
+import {
+  fatalError,
+  getJSONC,
+  isFile,
+  writeFile,
+} from "isaacscript-common-node";
+import path from "node:path";
+import { Config } from "./classes/Config.js";
+import type { ValidatedConfig } from "./classes/ValidatedConfig.js";
+import { getModsDir } from "./commands/init/getModsDir.js";
+import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
+import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
+import type { Args } from "./parseArgs.js";
 
 const NUM_INDENT_SPACES = 2;
 
-export async function getConfigFromFile(args: Args): Promise<Config> {
-  const verbose = args.verbose === true;
+export async function getConfigFromFile(
+  args: Args,
+  typeScript: boolean,
+): Promise<ValidatedConfig> {
   const yes = args.yes === true;
   const dev = args.dev === true;
 
-  const existingConfig = getExistingConfig(verbose);
+  const existingConfig = getExistingConfig();
   if (existingConfig !== undefined) {
     return existingConfig;
   }
 
   // No config file exists, so prompt the user for some information and create one.
-  const modsDirectory = await getModsDir(args, verbose);
+  const modsDirectory = await getModsDir(args, typeScript);
   const saveSlot = await promptSaveSlot(args, yes);
-  const config = new Config(modsDirectory, saveSlot, dev);
-  createConfigFile(CWD, config, verbose);
+  const config = new Config(modsDirectory, saveSlot, dev) as ValidatedConfig;
+  createConfigFile(CWD, config, typeScript);
 
   return config;
 }
 
-function getExistingConfig(verbose: boolean): Config | undefined {
-  if (!file.exists(CONFIG_FILE_PATH, verbose)) {
+function getExistingConfig(): ValidatedConfig | undefined {
+  if (!isFile(CONFIG_FILE_PATH)) {
     return undefined;
   }
 
-  const config = getJSONC(CONFIG_FILE_PATH, verbose);
+  const config = getJSONC(CONFIG_FILE_PATH);
   validateMandatoryConfigFields(config);
 
-  return config as unknown as Config;
+  return config as unknown as ValidatedConfig;
 }
 
 /**
@@ -60,8 +66,8 @@ function validateMandatoryConfigFields(config: Record<string, unknown>) {
   }
 }
 
-function errorMissing(field: string, description: string) {
-  error(
+function errorMissing(field: string, description: string): never {
+  fatalError(
     `The "${CONFIG_FILE_NAME}" file is missing a "${field}" value. ${description} Please add it.`,
   );
 }
@@ -69,14 +75,17 @@ function errorMissing(field: string, description: string) {
 export function createConfigFile(
   projectPath: string,
   config: Config,
-  verbose: boolean,
+  typeScript: boolean,
 ): void {
+  if (typeScript) {
+    return;
+  }
+
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
+  const configContents = JSON.stringify(config, undefined, NUM_INDENT_SPACES);
 
   // Add a newline at the end to satisfy Prettier.
-  const configContents = JSON.stringify(config, null, NUM_INDENT_SPACES).concat(
-    "\n",
-  );
+  const configContentsWithNewline = `${configContents}\n`;
 
-  file.write(configFilePath, configContents, verbose);
+  writeFile(configFilePath, configContentsWithNewline);
 }

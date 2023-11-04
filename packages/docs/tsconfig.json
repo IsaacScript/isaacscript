@@ -1,20 +1,36 @@
+// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
+// by VSCode.
 {
-  "extends": "../../tsconfig.node.json",
+  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.node.json",
+    // https://github.com/tsconfig/bases/blob/main/bases/docusaurus.json
+    "@tsconfig/docusaurus/tsconfig.json",
+  ],
+
   "compilerOptions": {
-    "outDir": "../../dist/packages/docs",
+    "outDir": "build",
   },
 
   "include": [
-    ".eslintrc.js",
-    ".remarkrc.mjs",
-    "babel.config.js",
-    "docusaurus.config.js",
-    "sidebars.js",
-    "scripts/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.ts",
-    "static/**/*.js",
+    "./**/*.js",
+    "./**/.*.js",
+    "./**/*.cjs",
+    "./**/.*.cjs",
+    "./**/*.mjs",
+    "./**/.*.mjs",
+    "./**/*.jsx",
+    "./**/.*.jsx",
+    "./**/*.ts",
+    "./**/.*.ts",
+    "./**/*.cts",
+    "./**/.*.cts",
+    "./**/*.mts",
+    "./**/.*.mts",
+    "./**/*.tsx",
+    "./**/.*.tsx",
   ],
+
+  "exclude": ["build", "scripts"],
 }

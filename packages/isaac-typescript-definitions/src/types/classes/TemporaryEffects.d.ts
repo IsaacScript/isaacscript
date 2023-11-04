@@ -1,5 +1,8 @@
-import { CollectibleType, TrinketType } from "../../enums/collections/subTypes";
-import { NullItemID } from "../../enums/NullItemID";
+import type {
+  CollectibleType,
+  TrinketType,
+} from "../../enums/collections/subTypes";
+import type { NullItemID } from "../../enums/NullItemID";
 
 declare global {
   interface TemporaryEffects extends IsaacAPIClass {
@@ -10,77 +13,77 @@ declare global {
      * @param addCostume Default is true.
      * @param count Default is 1.
      */
-    AddCollectibleEffect(
+    AddCollectibleEffect: (
       collectibleType: TemporaryCollectibleType,
       addCostume?: boolean,
       count?: int,
-    ): void;
+    ) => void;
 
     /**
      * @param nullItemID
      * @param addCostume
      * @param count Default is 1.
      */
-    AddNullEffect(
+    AddNullEffect: (
       nullItemID: NullItemID,
       addCostume: boolean,
       count?: int,
-    ): void;
+    ) => void;
 
     /**
      * @param trinketType
      * @param addCostume
      * @param count Default is 1.
      */
-    AddTrinketEffect(
+    AddTrinketEffect: (
       trinketType: TrinketType,
       addCostume: boolean,
       count?: int,
-    ): void;
+    ) => void;
 
-    ClearEffects(): void;
+    ClearEffects: () => void;
 
-    GetCollectibleEffect(
+    GetCollectibleEffect: (
       collectibleType: CollectibleType,
-    ): Readonly<TemporaryEffect> | undefined;
+    ) => Readonly<TemporaryEffect> | undefined;
 
-    GetCollectibleEffectNum(collectibleType: CollectibleType): int;
-    GetEffectsList(): Readonly<EffectList>;
+    GetCollectibleEffectNum: (collectibleType: CollectibleType) => int;
+    GetEffectsList: () => Readonly<EffectList>;
 
-    GetNullEffect(
+    GetNullEffect: (
       nullItemID: NullItemID,
-    ): Readonly<TemporaryEffect> | undefined;
+    ) => Readonly<TemporaryEffect> | undefined;
 
-    GetNullEffectNum(nullItemID: NullItemID): int;
+    GetNullEffectNum: (nullItemID: NullItemID) => int;
 
-    GetTrinketEffect(
+    GetTrinketEffect: (
       trinketType: TrinketType,
-    ): Readonly<TemporaryEffect> | undefined;
+    ) => Readonly<TemporaryEffect> | undefined;
 
-    GetTrinketEffectNum(trinketType: TrinketType): int;
-    HasCollectibleEffect(collectibleType: CollectibleType): boolean;
-    HasNullEffect(nullItemID: NullItemID): boolean;
-    HasTrinketEffect(trinketType: TrinketType): boolean;
+    GetTrinketEffectNum: (trinketType: TrinketType) => int;
+    HasCollectibleEffect: (collectibleType: CollectibleType) => boolean;
+    HasNullEffect: (nullItemID: NullItemID) => boolean;
+    HasTrinketEffect: (trinketType: TrinketType) => boolean;
 
     /**
      * @param collectibleType
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    RemoveCollectibleEffect(
+    RemoveCollectibleEffect: (
       collectibleType: CollectibleType,
       count?: int,
-    ): void;
+    ) => void;
 
     /**
      * @param nullItemID
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    RemoveNullEffect(nullItemID: NullItemID, count?: int): void;
+    RemoveNullEffect: (nullItemID: NullItemID, count?: int) => void;
 
     /**
      * @param trinketType
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    RemoveTrinketEffect(trinketType: TrinketType, count?: int): void;
+    RemoveTrinketEffect: (trinketType: TrinketType, count?: int) => void;
   }
 }

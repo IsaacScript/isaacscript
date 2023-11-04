@@ -1,7 +1,7 @@
+import type { ItemPoolType } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   ItemConfigTag,
-  ItemPoolType,
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -9,34 +9,30 @@ import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { collectibleHasTag } from "../../../functions/collectibleTag";
+import { anyPlayerHasCollectible } from "../../../functions/playerCollectibles";
 import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
 import { getAllPlayers } from "../../../functions/playerIndex";
-import {
-  anyPlayerHasCollectible,
-  getPlayersOfType,
-} from "../../../functions/players";
+import { getPlayersOfType } from "../../../functions/players";
 import { repeat } from "../../../functions/utils";
-import { PlayerIndex } from "../../../types/PlayerIndex";
+import type { PlayerIndex } from "../../../types/PlayerIndex";
 import { Feature } from "../../private/Feature";
-import { ModdedElementSets } from "./ModdedElementSets";
+import type { ModdedElementSets } from "./ModdedElementSets";
 
 const COLLECTIBLE_TYPE_THAT_IS_NOT_IN_ANY_POOLS = CollectibleType.KEY_PIECE_1;
 
-const COLLECTIBLES_THAT_AFFECT_ITEM_POOLS: readonly CollectibleType[] = [
+const COLLECTIBLES_THAT_AFFECT_ITEM_POOLS = [
   CollectibleType.CHAOS, // 402
   CollectibleType.SACRED_ORB, // 691
   CollectibleType.TMTRAINER, // 721
-];
+] as const;
 
-const TRINKETS_THAT_AFFECT_ITEM_POOLS: readonly TrinketType[] = [
-  TrinketType.NO,
-];
+const TRINKETS_THAT_AFFECT_ITEM_POOLS = [TrinketType.NO] as const;
 
 export class ItemPoolDetection extends Feature {
-  private moddedElementSets: ModdedElementSets;
+  private readonly moddedElementSets: ModdedElementSets;
 
   /** @internal */
   constructor(moddedElementSets: ModdedElementSets) {
@@ -57,7 +53,7 @@ export class ItemPoolDetection extends Feature {
   public getCollectiblesInItemPool(
     itemPoolType: ItemPoolType,
   ): CollectibleType[] {
-    const collectibleArray = this.moddedElementSets.getCollectibleArray();
+    const collectibleArray = this.moddedElementSets.getCollectibleTypes();
     return collectibleArray.filter((collectibleType) =>
       this.isCollectibleInItemPool(collectibleType, itemPoolType),
     );
@@ -101,13 +97,13 @@ export class ItemPoolDetection extends Feature {
       }
     }
 
-    const [removedItemsMap, removedTrinketsMap] =
+    const { removedItemsMap, removedTrinketsMap } =
       removeItemsAndTrinketsThatAffectItemPools();
 
     // Blacklist every collectible in the game except for the provided collectible.
     const itemPool = game.GetItemPool();
     itemPool.ResetRoomBlacklist();
-    for (const collectibleTypeInSet of this.moddedElementSets.getCollectibleArray()) {
+    for (const collectibleTypeInSet of this.moddedElementSets.getCollectibleTypes()) {
       if (collectibleTypeInSet !== collectibleType) {
         itemPool.AddRoomBlacklist(collectibleTypeInSet);
       }
@@ -175,10 +171,10 @@ export class ItemPoolDetection extends Feature {
  * Before checking the item pools, remove any collectibles or trinkets that would affect the
  * retrieved collectible types.
  */
-function removeItemsAndTrinketsThatAffectItemPools(): [
-  removedItemsMap: Map<PlayerIndex, CollectibleType[]>,
-  removedTrinketsMap: Map<PlayerIndex, TrinketType[]>,
-] {
+function removeItemsAndTrinketsThatAffectItemPools(): {
+  removedItemsMap: Map<PlayerIndex, CollectibleType[]>;
+  removedTrinketsMap: Map<PlayerIndex, TrinketType[]>;
+} {
   const removedItemsMap = new Map<PlayerIndex, CollectibleType[]>();
   const removedTrinketsMap = new Map<PlayerIndex, TrinketType[]>();
   for (const player of getAllPlayers()) {
@@ -209,7 +205,7 @@ function removeItemsAndTrinketsThatAffectItemPools(): [
     mapSetPlayer(removedTrinketsMap, player, removedTrinkets);
   }
 
-  return [removedItemsMap, removedTrinketsMap];
+  return { removedItemsMap, removedTrinketsMap };
 }
 
 function restoreItemsAndTrinketsThatAffectItemPools(

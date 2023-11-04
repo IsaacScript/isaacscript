@@ -9,7 +9,770 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## October 17th, 2022 (Unreleased)
+## November 9th, 2023 (Unreleased)
+
+- Scripts in new mods no longer use Bash and are now native TypeScript scripts.
+- The `isaacscript-common-node` library is released, which contains helper functions for Bash-like scripts.
+- The `canRunUnlockAchievements` helper function must now be activated with `ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION`.
+- The following enums are no longer const enums and have to be explicitly imported:
+  - `EncyclopediaItemPoolType`
+  - `ModConfigMenuOptionType`
+  - `StageAPILayoutButtonVariant`
+  - `StageAPILayoutCornyPoopSubtype`
+  - `StageAPILayoutGridType`
+  - `StageAPILayoutPitfallVariant`
+  - `StageAPILayoutPoopSubtype`
+  - `StageAPILayoutRockSubtype`
+  - `StageAPILayoutSpikesOnOffVariant`
+
+## November 2nd, 2023
+
+- Helper functions that deal with randomness now require you to pass the seed. If you want unseeded behavior, then you must explicitly pass `undefined`.
+- Added the following helper functions:
+  - `asRoomType`
+  - `crc32`
+  - `getDefaultCollectibleTypesInItemPool`
+  - `getDefaultItemPoolsForCollectibleType`
+  - `getItemPoolName`
+  - `inGrid`
+  - `isActiveEnemy`
+  - `isCollectibleTypeInDefaultItemPool`
+  - `logItemPoolTypes`
+- Added the following enums:
+  - `ConquestState`
+  - `FamineState`
+  - `PestilenceState`
+  - `UltraGreedState`
+  - `UltraGreedierState`
+  - `WarState`
+  - `WarWithoutHorseState`
+- Removed the following helper types:
+  - `Expand`
+
+## October 18th, 2023
+
+- Added the following helper functions:
+  - `getChallengeCollectibleTypes`
+  - `getChallengeTrinketType`
+  - `isFamiliarCollectible`
+  - `isRoomDangerous`
+  - `parseSemanticVersion`
+  - `splitNumber`
+
+## October 9th, 2023
+
+- IsaacScript now requires that TypeScript and other development-related dependencies are placed in the "devDependencies" array in the "package.json" file (instead of the "dependencies" array). This is to prevent TypeScript-related functions from sneaking into VSCode's auto-complete list.
+- Added the following helper functions:
+  - `assertNotNull`
+  - `clearChallenge`
+  - `getBossName`
+  - `getChallengeBoss`
+  - `getChallengeCharacter`
+  - `getElapsedGameFramesSince`
+  - `getElapsedRenderFramesSince`
+  - `getElapsedRoomFramesSince`
+  - `getElapsedTimeSince`
+  - `getGridEntityANM2Path`
+  - `getRockPNGPath`
+  - `getSurroundingGridIndexes`
+  - `getVanillaCollectibleTypesOfQuality`
+  - `getVanillaPillEffectsOfType`
+  - `hasHoming`
+  - `inBigRoom`
+  - `isAfterGameFrame`
+  - `isAfterRenderFrame`
+  - `isAfterRoomFrame`
+  - `isBeforeGameFrame`
+  - `isBeforeRenderFrame`
+  - `isBeforeRoomFrame`
+  - `isBigRoom`
+  - `isBigRoomShape`
+  - `isGridIndexAdjacentToDoor`
+  - `isStoryBossID`
+  - `onAnyChallenge`
+  - `onChallenge`
+  - `onGameFrame`
+  - `onOrAfterGameFrame`
+  - `onOrAfterRenderFrame`
+  - `onOrAfterRoomFrame`
+  - `onOrBeforeGameFrame`
+  - `onOrBeforeRenderFrame`
+  - `onOrBeforeRoomFrame`
+  - `onRenderFrame`
+  - `onRoomFrame`
+  - `runNextRun`
+  - `setChallenge`
+  - `setRunSeed`
+- Renamed the following helper functions:
+  - `removeCollectibleFromItemTracker` --> `rebirthItemTrackerRemoveCollectible`
+  - `getMoveActions` --> `getMoveButtonActions`
+  - `getShootActions` --> `getShootButtonActions`
+- Removed the following helper functions:
+  - `isGreedMode` (use `Game.IsGreedMode` instead)
+- Added the following constants:
+  - `MAX_QUALITY`
+- Renamed the following constants:
+  - `MOVEMENT_ACTIONS` --> `MOVEMENT_BUTTON_ACTIONS`
+  - `MOVEMENT_ACTIONS_SET` --> `MOVEMENT_BUTTON_ACTIONS_SET`
+  - `SHOOTING_ACTIONS` --> `SHOOTING_BUTTON_ACTIONS`
+  - `SHOOTING_ACTIONS_SET` --> `SHOOTING_BUTTON_ACTIONS_SET`
+- Added the following enums:
+  - `CarpetSubType`
+- Added the following helper types:
+  - `WidenLiteral`
+- Added the following custom commands:
+  - `xl` (alias for "labyrinth")
+
+## October 2nd, 2023
+
+- Added the following helper functions:
+  - `anyEasterEggEnabled` (alias for `anySeedEffectEnabled`)
+  - `anySeedEffectEnabled`
+  - `getCharacterStartingTrinketType`
+  - `getBatteryName`
+  - `getBombName`
+  - `getBossID`
+  - `getBossIDFromEntityTypeVariant`
+  - `getBossNamePNGFilePath`
+  - `getBossPortraitPNGFilePath`
+  - `getBossRushDoor`
+  - `getCharacterNamePNGFilePath`
+  - `getCharacterPortraitPNGFilePath`
+  - `getCharacterSpritePNGFilePath`
+  - `getChestName`
+  - `getCoinName`
+  - `getCollectibleTypesOfQuality`
+  - `getEntityTypeVariantFromBossID`
+  - `getEnumNames`
+  - `getHeartName`
+  - `getKeyName`
+  - `getNormalTrinketType`
+  - `getPlayerCollectiblesOfQuality`
+  - `getPlayerTrinkets`
+  - `getSackName`
+  - `getSeedEffects`
+  - `getSlotName`
+  - `getVanillaWallGridIndexSetForRoomShape`
+  - `inCrawlSpaceWithBlackMarketEntrance`
+  - `inDogmaRoom`
+  - `isBossRushDoor`
+  - `isCrawlSpaceWithBlackMarketEntrance`
+  - `isDogmaRoom`
+  - `isRepentanceBoss`
+  - `onVictoryLap`
+  - `setGridEntityType`
+- Changed the following helper functions:
+  - `arrayRemoveInPlace` now returns the removed elements.
+  - `arrayRemoveIndexInPlace` now returns the removed elements.
+  - `getAllBossesSet` now returns a set of `BossID` and does not include the four ultra horsemen.
+  - `getBossSet` now returns a set of `BossID` and does not include the four ultra horsemen.
+  - `getCombinedBossSet` now returns a set of `BossID` and does not include the four ultra horsemen.
+- Renamed the following helper functions:
+  - `getEnglishLevelName` --> `getLevelName`
+  - `getPlayerInventory` --> `getPlayerCollectibleTypes`
+  - `getPlayerLastPassiveCollectible` --> `getPlayerLastPassiveCollectibleType`
+  - `getCharacterStartingCollectibles` --> `getCharacterStartingCollectibleTypes`
+  - `isPassiveCollectible` --> `isPassiveOrFamiliarCollectible`
+- Added the following constants:
+  - `CHEST_PICKUP_VARIANTS`
+  - `CHEST_PICKUP_VARIANTS_SET`
+  - `COLLECTIBLE_NAME_TO_TYPE_MAP`
+  - `TRINKET_NAME_TO_TYPE_MAP`
+  - `QUALITIES`
+- Added the following helper types:
+  - `CompositionTypeSatisfiesEnum`
+- Renamed the following features:
+  - `ISCFeature.PLAYER_INVENTORY` --> `ISCFeature.PLAYER_COLLECTIBLE_TRACKING`
+  - `ISCFeature.EDEN_STARTING_STATS` --> `ISCFeature.EDEN_STARTING_STATS_HEALTH`
+
+## September 25th, 2023
+
+- Added the following helper functions:
+  - `getPillEffects`
+  - `getPillEffectsSet`
+  - `anyPlayerHasCollectibleEffect`
+  - `anyPlayerHasTrinketEffect`
+  - `anyPlayerHasNullEffect`
+  - `getObjectPartialMatch`
+  - `getMegaSatanDoor`
+  - `getModdedPillEffects`
+  - `getModdedPillEffectsSet`
+  - `getVoidDoor`
+  - `inRedKeyRoom`
+  - `isGridEntityXMLType` (for the `PRE_ROOM_ENTITY_SPAWN` callback)
+  - `isMainCharacter`
+  - `isMegaSatanDoor`
+  - `isVoidDoor`
+- Renamed the following helper functions:
+  - `isPoopGridEntityType` --> `isPoopGridEntityXMLType`
+  - `getCardArray` --> `getCardTypes`
+  - `getCardSet` --> `getCardTypesSet`
+  - `getCollectibleArray` --> `getCollectibleTypes`
+  - `getCollectibleSet` --> `getCollectibleTypesSet`
+  - `getCollectiblesForTransformation` --> `getCollectibleTypesForTransformation`
+  - `getCollectiblesWithCacheFlag` --> `getCollectibleTypesWithCacheFlag`
+  - `getCollectiblesWithTag` --> `getCollectibleTypesWithTag`
+  - `getEdenActiveCollectibles` --> `getEdenActiveCollectibleTypes`
+  - `getEdenPassiveCollectibles` --> `getEdenPassiveCollectibleTypes`
+  - `getFlyingCollectibles` --> `getFlyingCollectibleTypes`
+  - `getFlyingTrinkets` --> `getFlyingTrinketTypes`
+  - `getModdedCardArray` --> `getModdedCardTypes`
+  - `getModdedCardSet` --> `getModdedCardTypesSet`
+  - `getModdedCollectibleArray` --> `getModdedCollectibleTypes`
+  - `getModdedCollectibleSet` --> `getModdedCollectibleTypesSet`
+  - `getModdedTrinketArray` --> `getModdedTrinketTypes`
+  - `getModdedTrinketSet` --> `getModdedTrinketTypesSet`
+  - `getRandomEdenActiveCollectible` --> `getRandomEdenActiveCollectibleType`
+  - `getRandomEdenPassiveCollectible` --> `getRandomEdenPassiveCollectibleType`
+  - `getTrinketArray` --> `getTrinketTypes`
+  - `getTrinketSet` --> `getTrinketTypesSet`
+  - `getTrinketsWithCacheFlag` --> `getTrinketsTypesWithCacheFlag`
+- Removed the following helper functions:
+  - `getAllCardTypes` (use `getCardTypes` instead)
+  - `getAllDimensions` (use the `DIMENSIONS` constant instead)
+  - `getAllPillEffects` (use `getPillEffects` instead)
+  - `getVanillaCardArray` (use the `VANILLA_CARD_TYPES` constant instead)
+  - `getVanillaCardSet` (use the `VANILLA_CARD_TYPES_SET` constant instead)
+  - `getVanillaCollectibleArray` (use the `VANILLA_COLLECTIBLE_TYPES` constant instead)
+  - `getVanillaCollectibleTypeRange` (use the `VANILLA_COLLECTIBLE_TYPE_RANGE` constant instead)
+  - `getVanillaCollectibleSet` (use the `VANILLA_COLLECTIBLE_TYPES_SET` constant instead)
+  - `getVanillaPillEffects` (use the `VANILLA_PILL_EFFECTS` constant instead)
+  - `getVanillaTrinketArray` (use the `VANILLA_TRINKET_TYPES` constant instead)
+  - `getVanillaTrinketTypeRange` (use the `VANILLA_TRINKET_TYPE_RANGE` constant instead)
+  - `getVanillaTrinketSet` (use the `VANILLA_TRINKET_TYPES_SET` constant instead)
+- Added the following constants:
+  - `DIMENSIONS`
+  - `FLYING_CHARACTERS`
+  - `MAIN_CHARACTERS`
+  - `NUM_VANILLA_CHALLENGES`
+  - `VANILLA_CARD_TYPE_RANGE`
+  - `VANILLA_CARD_TYPES`
+  - `VANILLA_CARD_TYPES_SET`
+  - `VANILLA_COLLECTIBLE_TYPE_RANGE`
+  - `VANILLA_COLLECTIBLE_TYPES`
+  - `VANILLA_COLLECTIBLE_TYPES_SET`
+  - `VANILLA_PILL_EFFECT_RANGE`
+  - `VANILLA_PILL_EFFECTS`
+  - `VANILLA_PILL_EFFECTS_SET`
+  - `VANILLA_TRINKET_TYPE_RANGE`
+  - `VANILLA_TRINKET_TYPES`
+  - `VANILLA_TRINKET_TYPES_SET`
+- Changed the following constants:
+  - `NUM_PILLS_IN_POOL` --> `NUM_PILL_COLORS_IN_POOL`
+- Added the following helper types:
+  - `ERange`
+  - `TupleKeys`
+- Renamed the following helper types:
+  - `Range` --> `IRange`
+
+## September 18th, 2023
+
+- Added the following helper functions:
+  - `asFloat`
+  - `asInt`
+  - `getLowestEnumValue`
+- Removed the following helper functions:
+  - `getLastElement` (TSTL supports the `Array.at` method now)
+- Added the following custom commands:
+  - `collectible` (alias for the `spawnCollectible` command)
+  - `goldTrinket` (alias for the `spawnGoldenTrinket` command)
+  - `goldenTrinket` (alias for the `spawnGoldenTrinket` command)
+  - `spawnCollectibleAt`
+  - `spawnTrinketAt`
+  - `spawnGoldTrinket` (alias for the `spawnGoldenTrinket` command)
+  - `spawnGoldenTrinketAt`
+  - `trinket` (alias for the `spawnTrinket` command)
+
+## September 11th, 2023
+
+- The save data manager now supports rewinding a `persistent` object if `__rewindWithGlowingHourGlass` is specified.
+- The "Extra Console Commands" feature will now work properly if two or more mods have it enabled.
+- Added the following helper functions:
+  - `getHighestArrayElement`
+  - `getLevelBossIDs`
+  - `getLowestArrayElement`
+  - `hasAnyTrinket`
+  - `hasPiercing`
+  - `hasSpectral`
+  - `hasTrinket`
+  - `inRoomShape`
+  - `isMissedTear`
+  - `isPoopGridEntityType`
+  - `isRoomShape`
+  - `levelHasBossID`
+  - `rebirthItemTrackerWriteToFile`
+  - `removeAllConsoleCommands`
+  - `useCardTemp`
+- Renamed the following helper functions:
+  - `addStat` --> `addPlayerStat`
+- Added the following enums:
+  - `DebugCommand`
+  - `PortalTeleportSubType`
+
+## September 4th, 2023
+
+- Added the following helper functions:
+  - `getMoveActions`
+  - `getShootActions`
+  - `isChestVariant`
+  - `isFinalFloor`
+  - `isInteger`
+  - `isRedHeartSubType`
+  - `isStageWithNaturalDevilRoom`
+  - `isStageWithRandomBossCollectible`
+  - `isStageWithSecretExitToDownpour`
+  - `isStageWithSecretExitToMausoleum`
+  - `isStageWithSecretExitToMines`
+  - `isStageWithShovelTrapdoors`
+  - `isStageWithStoryBoss`
+  - `onStageWithStoryBoss`
+- Added the following constants:
+  - `MOVEMENT_ACTIONS_SET`
+  - `SHOOTING_ACTIONS_SET`
+- Renamed the following helper functions:
+  - `onStageWithShovelWorking` --> `onStageWithShovelTrapdoors`
+
+## August 27th, 2023
+
+- Added the following helper function:
+  - `assertDefined` (for more concise type-narrowing)
+  - `isEnumValue`
+  - `renderTextOnEntity`
+  - `renderScaledTextOnEntity`
+- Added the following constants:
+  - `MODIFIER_KEYS`
+  - `MOVEMENT_ACTIONS`
+  - `SHOOTING_ACTIONS`
+
+## August 20th, 2023
+
+- Added the following helper types:
+  - `TupleWithLengthBetween`
+
+## August 10th, 2023
+
+- Added the following helper functions:
+  - `filterMap`
+  - `is2x1Room`
+  - `isBeastRoom`
+  - `isBossRoomOf`
+  - `isCrawlSpace`
+  - `isDeathCertificateArea`
+  - `isDevilsCrownTreasureRoom`
+  - `isDoubleTrouble`
+  - `isGenesisRoom`
+  - `isHomeCloset`
+  - `isLRoom`
+  - `isMegaSatanRoom`
+  - `isMinibossRoomOf`
+  - `isMirrorRoom`
+  - `isRoomType`
+  - `isSecretExit`
+  - `isSecretShop`
+- Renamed the following helper functions:
+  - `initArray` --> `newArray`
+  - `isLRoom` --> `isLRoomShape`
+- Changed the following helper functions:
+  - `newRoom` - Added `ensureDeadEnd` and `customRoomData` optional arguments.
+  - `getNewRoomCandidate` - Added `ensureDeadEnd` optional argument.
+  - `getNewRoomCandidatesForLevel` - Added `ensureDeadEnd` optional argument.
+  - `getNewRoomCandidatesBesideRoom` - Added `ensureDeadEnd` optional argument.
+
+## August 3rd, 2023
+
+- `eslint-config-isaacscript` is rewritten from scratch. It no longer relies on any upstream configs and is now [documented officially on the website](https://isaacscript.github.io/eslint-config-isaacscript).
+
+## June 30th, 2023
+
+- Added the following helper functions:
+  - `defaultMapGetNPC`
+  - `defaultMapSetNPC`
+  - `mapDeleteNPC`
+  - `mapGetNPC`
+  - `mapHasNPC`
+  - `mapSetNPC`
+  - `setAddNPC`
+  - `setDeleteNPC`
+  - `setHasNPC`
+
+## June 5th, 2023
+
+- Added the following helper functions:
+  - `pocketItemsEquals`
+  - `getPillColorFromEffect`
+  - `logTableShallow`
+
+## April 24th, 2023
+
+- Added the following helper functions:
+  - `doesGridEntityExist`
+  - `getPlayerStats`
+  - `getEdenStartingStat`
+  - `getEdenStartingStats`
+- Added the following custom console commands:
+  - `spikes` (spawns a spikes grid entity next to the player)
+
+## March 28th, 2023
+
+- Added the following helper functions:
+  - `areInputsEnabled`
+- Added the following custom console commands:
+  - `poop` (spawns a poop grid entity next to the player)
+
+## March 21st, 2023
+
+- Added the following helper functions:
+  - `newSprite`
+
+## March 13th, 2023
+
+- Added the following helper functions:
+  - `getUsableActiveItemSlots`
+  - `logDisplayFlags`
+  - `getClosestVectorTo`
+  - `vectorToRoomGridIndex`
+- Renamed the following helper functions:
+  - `roomGridIndexToXY` --> `roomGridIndexToVector`
+- Changed the following helper functions:
+  - `getCustomGridEntities` (returns an array of objects instead of tuples)
+  - `getStageHistory` (returns an array of objects instead of tuples)
+  - `getNewRoomCandidatesBesideRoom` (returns an array of objects instead of tuples)
+  - `getNewRoomCandidatesForLevel` (returns an array of objects instead of tuples)
+  - `getNewRoomCandidate` (returns an array of objects instead of tuples)
+  - `anyPlayerHasCollectible` (now takes an optional param of `ignoreModifiers`)
+  - `anyPlayerHasTrinket` (now takes an optional param of `ignoreModifiers`)
+- Added the following custom callbacks:
+  - `POST_TEAR_KILL` (Thanks 4Grabs)
+  - `POST_PROJECTILE_KILL` (Thanks 4Grabs)
+- Added the following constants:
+  - `STARTING_ROOM_GRID_INDEX`
+
+## March 6th, 2023
+
+- Added the following helper functions:
+  - `onStageOrHigher`
+  - `onStageOrLower`
+  - `getFirstCard`
+  - `getFirstPill`
+  - `mapDeletePlayer`
+  - `hasDoorType`
+- Changed the following helper functions:
+  - `spawnPersistentEntity` - Now returns an object instead of a tuple.
+- Removed the following helper functions:
+  - `getCollectibleIndex` (use `getPickupIndex` instead)
+- Added the following custom callbacks:
+  - `POST_USE_PILL_FILTER` (which also passes the pill color)
+  - `POST_GAME_END_FILTER`
+- Removed the following custom callbacks:
+  - `POST_COLLECTIBLE_INIT_FIRST` (use `POST_PICKUP_INIT_FIRST` instead)
+- The `pills` command will now spawn horse pills in addition to normal pills.
+
+## February 24th, 2023
+
+- Added the following helper functions:
+  - `removeCollectible`
+  - `getCharacterStartingCollectibles`
+  - `hasCollectibleInActiveSlot`
+  - `getScreenBottomY`
+  - `getScreenRightX`
+  - `removeCollectibleFromPools`
+  - `removeTrinketFromPools`
+  - `isMultiplayer`
+  - `getRoomDescriptorsForType`
+  - `levelHasRoomType`
+  - `inFirstRoom`
+  - `deleteLastRoomDescription`
+  - `stableSort`
+  - `hideRoomOnMinimap`
+  - `isSecretRoomType`
+  - `onStage`
+  - `onStageType`
+  - `onEffectiveStage`
+  - `onStageWithSecretExitToDownpour`
+  - `onStageWithSecretExitToMines`
+  - `onStageWithSecretExitToMausoleum`
+  - `onStageWithShovelWorking`
+  - `onStageWithRandomBossCollectible`
+  - `setHas`
+- Renamed the following helper functions:
+  - `playerAddCollectible` --> `addCollectible`
+  - `playerHasCollectible` --> `hasCollectible`
+  - `playerHasForm` --> `hasForm`
+  - `getActiveItemSlot` --> `getActiveItemSlots`
+  - `getLastEnumValue` --> `getHighestEnumValue`
+  - `asNpcState` --> `asNPCState`
+- Changed the following helper functions:
+  - `getFlyingCollectibles` - The argument is changed from `pruneConditionalItems` to `includeConditionalItems`.
+- Many logging helper functions now take an optional `name` argument.
+- Renamed the following enums:
+  - `NpcState` --> `NPCState`
+- Added the following constants:
+  - `RESOLUTION_FULL_SCREEN`
+  - `RESOLUTION_1600_900`
+  - `TIME_GAME_OPENED`
+  - `MAPPING_COLLECTIBLES`
+- Added the following custom callbacks:
+  - `POST_ENTITY_KILL_FILTER`
+  - `POST_FAMILIAR_INIT_FILTER`
+  - `POST_FAMILIAR_UPDATE_FILTER`
+  - `POST_FAMILIAR_RENDER_FILTER`
+  - `PRE_FAMILIAR_COLLISION_FILTER`
+  - `POST_EFFECT_INIT_FILTER`
+  - `POST_EFFECT_UPDATE_FILTER`
+  - `POST_EFFECT_RENDER_FILTER`
+  - `POST_LASER_INIT_FILTER`
+  - `POST_LASER_UPDATE_FILTER`
+  - `POST_LASER_RENDER_FILTER`
+  - `POST_KNIFE_INIT_FILTER`
+  - `POST_KNIFE_UPDATE_FILTER`
+  - `POST_KNIFE_RENDER_FILTER`
+  - `PRE_KNIFE_COLLISION_FILTER`
+  - `POST_TEAR_INIT_FILTER`
+  - `POST_TEAR_UPDATE_FILTER`
+  - `POST_TEAR_RENDER_FILTER`
+  - `PRE_TEAR_COLLISION_FILTER`
+  - `POST_PROJECTILE_INIT_FILTER`
+  - `POST_PROJECTILE_UPDATE_FILTER`
+  - `POST_PROJECTILE_RENDER_FILTER`
+  - `PRE_PROJECTILE_COLLISION_FILTER`
+  - `POST_BOMB_INIT_FILTER`
+  - `POST_BOMB_UPDATE_FILTER`
+  - `POST_BOMB_RENDER_FILTER`
+  - `PRE_BOMB_COLLISION_FILTER`
+- Changed the following custom callbacks:
+  - `POST_GAME_STARTED_REORDERED` and `POST_GAME_STARTED_REORDERED_LAST` now require a third argument of `isContinued: boolean | undefined`. (This is mandatory in order to prevent users from shooting themselves in the foot with respect to logic unexpectedly being executed on continued runs.)
+  - `POST_NEW_ROOM_EARLY` - Provides `roomType` as the first argument. Can now filter by `RoomType`.
+  - `POST_NEW_ROOM_REORDERED` - Provides `roomType` as the first argument. Can now filter by `RoomType`.
+  - `POST_NEW_LEVEL_REORDERED` - Provides `stage` as the first argument and `stageType` as the second argument. Can now filter by `LevelStage` and `StageType`.
+- Added the following helper types:
+  - `Range`
+  - `NaturalNumbersLessThan`
+  - `NaturalNumbersEqualToOrLessThan`
+  - `Tuple`
+  - `TupleWithMaxLength`
+  - `Increment`
+  - `Decrement`
+- Added the following custom commands:
+  - `flies` (to get max blue flies)
+- Added the following lint rules for IsaacScript mods:
+  - `require-v-registration` - Checks for `v` constants that are not registered with the save data manager.
+- Disabled the following lint rules for IsaacScript mods:
+  - `class-methods-use-this` (since it is idiomatic to have `v` outside of the class)
+
+## February 17th, 2023
+
+- Functions that return `Vector`, `Color`, and `KColor` will now return read-only versions.
+- The "toggleDisplay" helper functions now accept an optional "force" argument.
+- Added the following helper functions:
+  - `sortObjectArrayByKey`
+  - `getStageID`
+  - `getRandomItemPool`
+  - `setAllDisplayFlags`
+  - `clearRoomDisplayFlags`
+- Renamed the following helper functions:
+  - `twoDimensionalSort` --> `sortTwoDimensionalArray`
+  - `setDisplayFlags` --> `setFloorDisplayFlags`
+- Added the following method to the `ModUpgraded` class:
+  - `AddPriorityCallbackCustom` - Works in the same way that `AddPriorityCallback` does.
+- Renamed the following types:
+  - `ModUpgradedBase` --> `ModUpgraded`
+  - `ModUpgraded` --> `ModUpgradedWithFeatures`
+- Added the following custom callbacks:
+  - `POST_KEYBOARD_PRESSED`
+- The `require-capital-read-only` lint rule will now work with objects.
+- Added the following lint rules:
+  - `@typescript-eslint/no-confusing-void-expression`
+  - `n/file-extension-in-import` (TypeScript projects only)
+
+## February 7th, 2023
+
+### `package.json`
+
+IsaacScript mods now require that "isaacscript-tsconfig" is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
+
+```sh
+# If you use npm:
+npm install --save isaacscript-tsconfig
+
+# If you use Yarn:
+yarn add isaacscript-tsconfig
+
+# If you use pnpm:
+pnpm add isaacscript-tsconfig
+```
+
+### Other
+
+- Added [a GitHub action for uploading mods to the Steam Workshop](https://github.com/IsaacScript/isaac-steam-workshop-upload).
+- `isaacscript` has new commands:
+  - `check` will check your template files (for an IsaacScript mod) to see if they are up to date.
+  - `init-ts` will bootstrap a TypeScript project.
+  - `publish-ts` will publish a TypeScript project.
+  - `check-ts` will check your template files (for an TypeScript project) to see if they are up to date.
+- The `cspell-check-unused-words` tool can now be used to check for unused words in your "cspell.jsonc" file.
+- Removed support for `steamcmd` from the `publish` command.
+- Added the following helper functions:
+  - `isFoundSoul`
+
+## January 31st, 2023
+
+- The custom stages feature now accepts `music` as an option in the `tsconfig.json` file.
+- Collectible helper functions that take an argument of `CollectibleType` now also accept the collectible itself.
+- Added the following helper functions:
+  - `getMusicForStage`
+  - `setCollectiblePedestalType`
+  - `doesAnyEntityExist`
+  - `newReadonlyVector`
+  - `newReadonlyColor`
+  - `newReadonlyKColor`
+  - `getReversedMap`
+- Removed the following helper types:
+  - `HasAllEnumKeys` (use `Record` instead)
+- Added the following helper constructors:
+  - `ReadonlyMap`
+  - `ReadonlySet`
+- Added the following custom console commands:
+  - `music`
+
+## January 22nd, 2023
+
+- The functions from `ISCFeature.RUN_IN_N_FRAMES` now take an optional parameter to cancel the function if a new room is loaded.
+- The `log` functions no longer take a `self` argument, so they can be used more easily while debugging.
+- The `log` function now takes an optional parameter to disable the function prefix.
+- Added the following helper functions:
+  - `isSlotMachine`
+  - `logAndPrint`
+  - `setSpriteOpacity`
+  - `setEntityOpacity`
+  - `isMoveActionPressed`
+  - `isMoveActionTriggered`
+  - `isShootActionPressed`
+  - `isShootActionTriggered`
+  - `isTSTLClass`
+  - `initModFeatures`
+  - `doesVectorHaveLength`
+  - `getNumRoomsVisited`
+  - `getMysteriousPaperEffectForFrame`
+- Removed the following helper functions:
+  - `printConsole` (use `print` instead)
+  - `isUserDefinedTSTLClass`
+- Added the following enums:
+  - `LarryJrSubType`
+  - `HollowSubType`
+  - `MonstroSubType`
+  - `ChubSubType`
+  - `CarrionQueenSubType`
+  - `GurdySubType`
+  - `Monstro2SubType`
+  - `MomSubType`
+  - `PinSubType`
+  - `FrailSubType`
+  - `FamineSubType`
+  - `PestilenceSubType`
+  - `WarSubType`
+  - `DeathSubType`
+  - `DukeOfFliesSubType`
+  - `HuskSubType`
+  - `PeepSubType`
+  - `BloatSubType`
+  - `FistulaSubType`
+  - `GeminiSubType`
+  - `GurdyJrSubType`
+  - `WidowSubType`
+  - `GurglingSubType`
+  - `HauntSubType`
+  - `DingleSubType`
+  - `MegaMawSubType`
+  - `GateSubType`
+  - `MegaFattySubType`
+  - `CageSubType`
+  - `PolycephalusSubType`
+  - `StainSubType`
+  - `BrownieSubType`
+  - `ForsakenSubType`
+  - `LittleHornSubType`
+  - `RagManSubType`
+- Renamed the following enums:
+  - `DukeVariant` --> `DukeOfFliesVariant`
+- Added `isaacscript-common-ts`, a library that has several helper functions and can be consumed by TypeScript projects. (`isaacscript-common` is compiled to Lua, so it cannot be used for this purpose.)
+- Added the following linting rules:
+  - `require-capital-read-only`
+- Some linting rules have been renamed:
+  - `require-const-assertions` --> `require-capital-const-assertions`
+- Some linting rules have been changed:
+  - `require-capital-const-assertions` - Now applies to arrays.
+
+## January 13th, 2023
+
+- Added the following helper functions:
+  - `playerHasForm`
+  - `directionToMoveAction`
+  - `directionToShootAction`
+  - `onStageWithNaturalDevilRoom`
+- Changed the following helper functions:
+  - `getClosestEntityTo` now takes an optional `filterFunc` argument.
+- Added the following constants:
+  - `GAME_FRAMES_PER_MINUTE`
+  - `RENDER_FRAMES_PER_MINUTE`
+- Added the following custom callbacks:
+  - `ENTITY_TAKE_DMG_PLAYER`
+  - `INPUT_ACTION_FILTER`
+  - `INPUT_ACTION_PLAYER`
+  - `POST_PICKUP_INIT_FILTER`
+  - `POST_PICKUP_UPDATE_FILTER`
+  - `POST_PICKUP_RENDER_FILTER`
+  - `POST_PICKUP_SELECTION_FILTER`
+  - `PRE_ENTITY_SPAWN_FILTER`
+  - `PRE_ROOM_ENTITY_SPAWN_FILTER`
+- Added the following lint rules:
+  - `import/no-default-export`
+  - `isaacscript/no-empty-line-comments`
+  - `isaacscript/no-throw`
+  - `jsdoc/require-param` (with specific context)
+- Changed the following lint rules:
+  - `isaacscript/no-implicit-map-set-loops` --> `isaacscript/no-explicit-map-set-loops`
+  - The `complete-sentences-jsdoc` and `complete-sentences-line-comments` lint rules will now catch sentences that end with a double period.
+
+## January 6th, 2023
+
+- The `ModFeature` class now has a `shouldCallbackMethodsFire` property that you can override if you want to have all of your callback methods run conditionally.
+- `spawn` and all of the related helper functions will now accept a grid index in place of a position vector.
+- Added the following helper functions:
+  - `dequeueItem`
+  - `isActionPressed`
+  - `isActionTriggered`
+  - `inRange`
+
+## December 26th, 2022
+
+- Added the following helper functions:
+  - `getEnglishLevelName`
+
+## December 17th, 2022
+
+- Persistent entities will now no longer respawn when they are removed.
+- Added the following custom commands:
+  - `secretShop` (to warp to the Secret Shop)
+
+## December 8th, 2022
+
+- The IsaacScript framework now includes all of the features from the latest vanilla patches.
+- Several card functions have been moved to the `ModdedElementSets` feature, since `ItemConfigCardType` no longer has to be hard-coded.
+- Added the following helper functions:
+  - `isPaused` (part of `Pause`)
+- Added the following constants:
+  - `ITEM_CONFIG_CARD_TYPES_FOR_CARDS`
+
+## November 15th, 2022
+
+- The `upgradeMod` function now takes an optional parameter containing the custom callbacks that you will be subscribing to in the future (for the purposes of early initializing them).
+- Added the following helper functions:
+  - `pressInput`
+  - `removeCollectibleFromAllPlayers`
+- Renamed the following helper functions:
+  - `getVanillaTrinketTypes` --> `getVanillaTrinketTypeRange`
+
+## November 6th, 2022
 
 - Added the following helper functions:
   - `getGridEntitiesInRadius` (Thanks NFrost)
@@ -17,9 +780,15 @@ This page lists the changes to the IsaacScript framework.
   - `getConstituentsFromEntityID`
   - `getConstituentsFromGridEntityID`
   - `spawnEntityID`
+  - `inRoomType`
 - Added the following custom callbacks:
   - `POST_NPC_INIT_FILTER`
   - `POST_NPC_UPDATE_FILTER`
+  - `ENTITY_TAKE_DMG_FILTER` (Thanks 4Grabs)
+  - `PRE_NPC_UPDATE_FILTER` (Thanks 4Grabs)
+  - `POST_NPC_RENDER_FILTER` (Thanks 4Grabs)
+  - `POST_NPC_DEATH_FILTER` (Thanks 4Grabs)
+  - `PRE_NPC_COLLISION_FILTER` (Thanks 4Grabs)
 - Added the following types:
   - `EntityID`
   - `GridEntityID`
@@ -54,7 +823,7 @@ This page lists the changes to the IsaacScript framework.
   - `getCollectibleTypesForTransformation` --> `getCollectiblesForTransformation`
   - `getEdenPassives` --> `getEdenPassiveCollectibles`
   - `getRandomEdenPassive` --> `getRandomEdenPassiveCollectible`
-- Deleted the following helper functions:
+- Removed the following helper functions:
   - `isIsaacScriptCommonClass`
   - `isVanillaTSTLClass`
   - `getPlayerNumCollectiblesWithTag` (use `getPlayerCollectiblesWithTag` instead)
@@ -95,7 +864,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## September 22th, 2022
 
-- The save data manager will now restore any data on a `run` or `level` object when the Glowing Hour Glass is used to what it was when the room was entered.
+- The save data manager will now restore any data on a `run` or `level` object when the Glowing Hourglass is used to what it was when the room was entered.
 - The custom door feature of the standard library is removed. (It may be reimplemented in the future if needed.)
 - Added the following helper functions:
   - `isTearFromPlayer`
@@ -120,8 +889,8 @@ This page lists the changes to the IsaacScript framework.
 - Renamed the following helper functions:
   - `getPlayerFromTear` --> `getPlayerFromEntity`
   - `registerHotkey` --> `setHotkey`
-  - `irange` --> `iRange`
-  - `erange` --> `eRange`
+  - `irange` --> `iRange` <!-- cspell:disable-line -->
+  - `erange` --> `eRange` <!-- cspell:disable-line -->
 - Changed the following helper functions:
   - `iRange` and `eRange` now take an optional `increment` argument.
 - Added the following enums:
@@ -165,7 +934,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## August 25th, 2022
 
-- TSTL plugins are now compiled and located inside of the `isaacscript` package. See the new [`tsconfig.json` template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/tsconfig.json) for more information. This means that you no longer need to have to have a "plugins" directory in your mod or have a dependency of `@types/node` or `ts-node`.
+- TSTL plugins are now compiled and located inside of the `isaacscript` package. See the new [`tsconfig.json` template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/tsconfig.json) for more information. This means that you no longer need to have to have a "plugins" directory in your mod. You can also remove your dependencies of `@types/node` and `ts-node` in the "package.json" file.
 - Added the following helper functions:
   - `logCollectibleTypes`
   - `onFirstFloor`
@@ -197,7 +966,7 @@ This page lists the changes to the IsaacScript framework.
   - `maze` (for permanent Curse of the Maze)
   - `blind` (for permanent Curse of the Blind)
   - `giant` (for permanent Curse of the Giant)
-- Deleted the following custom commands:
+- Removed the following custom commands:
   - `eh` (use `eternalHearts` instead)
   - `bh` (use `blackHearts` instead)
 
@@ -395,7 +1164,7 @@ This page lists the changes to the IsaacScript framework.
   - `POST_GRID_ENTITY_CUSTOM_RENDER`
   - `POST_GRID_ENTITY_CUSTOM_COLLISION`
   - `POST_GRID_ENTITY_CUSTOM_BROKEN`
-- Deleted the following custom callbacks:
+- Removed the following custom callbacks:
   - `POST_PLAYER_INIT_REORDERED` (use `POST_PLAYER_INIT_FIRST` or `POST_GAME_STARTED_REORDERED` instead)
 - Changed the following custom callbacks:
   - `POST_FLIP` and `POST_FIRST_FLIP` now pass the old player object in addition to the new one.
@@ -615,7 +1384,7 @@ This page lists the changes to the IsaacScript framework.
   - `getCurrentRoomDescriptorReadOnly` --> `getRoomDescriptorReadOnly`
   - `getCurrentDimension` --> `getDimension`
   - `iterateTableDeterministically` --> `iterateTableInOrder`
-- Deleted the following helper functions:
+- Removed the following helper functions:
   - `ensureAllCases` - This is no longer needed with the new linting rules. See the above explanation.
 - Added the following constants:
   - `NUM_PILLS_IN_POOL`
@@ -662,7 +1431,7 @@ This page lists the changes to the IsaacScript framework.
 
 ### `package.json`
 
-IsaacScript mods now require that `typescript-to-lua` is listed as a dependency in your `package.json` file. In other words, type one of the following commands:
+IsaacScript mods now require that "typescript-to-lua" is listed as a dependency in your "package.json" file. In other words, type one of the following commands:
 
 ```sh
 # If you use npm:
@@ -670,11 +1439,14 @@ npm install --save typescript-to-lua
 
 # If you use Yarn:
 yarn add typescript-to-lua
+
+# If you use pnpm:
+pnpm add typescript-to-lua
 ```
 
 ### Other
 
-- All of the IsaacScript packages are now contained in a monorepo using Nx. The other various repositories have been deleted.
+- All of the IsaacScript packages are now contained in a monorepo. The other various repositories have been deleted.
 - The linting meta-package now uses `eslint-plugin-isaacscript`, which contains a [bunch of new rules](https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript) that will make your code safer.
 - IsaacScript now supports the [Yarn](https://yarnpkg.com/) package manager. It will use Yarn by default if it detects that you have it installed.
 - IsaacScript now shows how many seconds it took to compile the mod.
@@ -831,17 +1603,17 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
 - All enums are now local instead of global. The global declarations have been removed, which forces you to use the local ones. Doing this has several advantages, at the small cost of having to auto-import more things. See [the docs](https://isaacscript.github.io/main/gotchas#local-enums-and-importing) for more info.
 - Bit flags are now represented as a `BitFlags` type. This means that the Isaac API now has real type safety for all bit flags! See [the docs](https://isaacscript.github.io/main/gotchas#bit-flags) for more info.
 - Renamed the following helper functions:
-  - `range` --> `irange`
+  - `range` --> `irange` <!-- cspell:disable-line -->
 - Renamed the following enums:
   - `PillEffectClass` --> `ItemConfigPillEffectClass`
   - `PillEffectType` --> `ItemConfigPillEffectType`
-- Deleted the following enums:
+- Removed the following enums:
   - `CardType` (since it was almost the same thing as `ItemConfigCardType`)
 - When registering the `POST_PEFFECT_UPDATE_REORDERED` callback, the second argument is now a `PlayerVariant` instead of a `PlayerType`. It now takes a `PlayerType` as a third argument.
 
 ### Non-Breaking Changes
 
-- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/cspell.json.template) for more information.
+- `isaac-typescript-definitions` now ships with an official Isaac word dictionary that can be imported into CSpell. See the [new template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/_cspell.jsonc) for more information.
 - Added the following helper constants since the corollary enum values were purged:
   - `NUM_CARDS` / `MAX_CARD` / `NUM_VANILLA_CARDS` / `MAX_VANILLA_CARD`
   - `NUM_COLLECTIBLE_TYPES` / `MAX_COLLECTIBLE_TYPE` / `NUM_VANILLA_COLLECTIBLE_TYPES` / `MAX_VANILLA_COLLECTIBLE_TYPE`
@@ -849,7 +1621,7 @@ IsaacScript has now reached **version 2**! We've come a long way with many featu
   - `NUM_TRINKET_TYPES` / `MAX_TRINKET_TYPE` / `NUM_VANILLA_TRINKET_TYPES` / `MAX_VANILLA_TRINKET_TYPE`
 - Added the following helper functions:
   - `doorSlotFlagToDoorSlot`
-  - `erange` (for exclusive ranges)
+  - `erange` (for exclusive ranges) <!-- cspell:disable-line -->
   - `getArrayIndexes`
   - `getEnumEntries`
   - `getGridEntityID`
@@ -1128,14 +1900,12 @@ function postPurchase(player: EntityPlayer, pickup: EntityPickup): void {}
 
 - The `Isaac.GetPlayer` method will no longer return undefined. (You can now delete any undefined-related checks.)
 - Added the `EntitySubPlayer` class to prevent bugs with `RNG`. (`EntityPlayer.GetSubPlayer` is defined as returning this.)
-- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/classes/DefaultMap.html) for more information.
+- Added the `DefaultMap` class. Use this instead of a `Map` if you need a data structure that will automatically instantiate default values. See [the documentation](https://isaacscript.github.io/isaacscript-common/other/classes/DefaultMap/) for more information.
 - Added the following helper functions:
   - `checkFamiliar`
   - `checkFamiliarFromCollectibles`
   - `isShootAction`
   - `isMoveAction`
-  - `getMoveActions`
-  - `getShootActions`
   - `removeDoor`
   - `removeDoors`
   - `removeAllDoors`
@@ -1335,8 +2105,8 @@ If you decide to upgrade `isaacscript-lint` in your existing projects, you shoul
 4. Add the following to the `lint.sh` file:
 
 ```bash
-# Step 1 - Use Prettier to check formatting
-npx prettier --check "src/**/*.ts"
+# Use Prettier to check formatting
+npx prettier --log-level=warn --check .
 ```
 
 <!-- markdownlint-enable MD029 -->
@@ -1576,8 +2346,6 @@ npx prettier --check "src/**/*.ts"
   - `BOMB_EXPLODE_FRAME`
   - `UI_HEART_WIDTH`
   - `MAX_NUM_FAMILIARS`
-  - `MOVEMENT_ACTIONS`
-  - `SHOOTING_ACTIONS`
   - `AZAZEL_DEFAULT_BRIMSTONE_DISTANCE`
   - `EGGY_STATE_FRAME_OF_FINAL_SPIDER`
 - Added the following enums:
@@ -2270,7 +3038,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `POST_GRID_ENTITY_REMOVE`
   - `POST_SACRIFICE`
   - `POST_CURSED_TELEPORT`
-- The custom callbacks are documented [here](https://isaacscript.github.io/function-signatures/#custom-callbacks).
+- The custom callbacks are documented [here](https://isaacscript.github.io/isaacscript-common/other/enums/ModCallbackCustom).
 - Added the `GridPath` enums.
 
 ## August 3rd, 2021
@@ -2283,8 +3051,8 @@ You can still use `null` in your own variables, but make sure that it is for var
     - `isaacscript-lint` - The linting config.
     - `isaacscript-common` - Optional helper functions that you can use in your mods.
     - `isaac-typescript-definitions` - Provides the types for all the Isaac API classes, like `EntityPlayer` and so forth.
-  - If you are upgrading your existing mod to the latest version of IsaacScript, simply add the 3 extra dependencies to your `package.json` file, and everything should work the way it did before.
-  - Remember that you can use the `update.sh` helper script to update all of your dependencies at once.
+  - If you are upgrading your existing mod to the latest version of IsaacScript, simply add the 3 extra dependencies to your "package.json" file, and everything should work the way it did before.
+  - Remember that you can use `npx isaacscript update` to update all of your dependencies at once.
 - Added Algolia search to the IsaacScript website.
 - Added the following enums:
   - `DogmaVariant`
@@ -2327,12 +3095,13 @@ You can still use `null` in your own variables, but make sure that it is for var
 - The linter meta-package now includes `cspell` so that you can spell check from command-line and/or CI.
 - `isaacscript init` will now create the following additional files:
   - `ci.yml` - for GitHub Actions
-  - `.prettierrc.js` - to ensure trailing commas and LF line endings
+  - `prettier.config.mjs` - to ensure trailing commas and LF line endings
   - `build.sh` - helper script to compile the project (used in CI)
   - `lint.sh` - helper script to lint and spell check the project (used in CI)
   - `publish.sh` - helper script to run `npx isaacscript publish`
   - `run.sh` - helper script to run `npx isaacscript`
   - `update.sh` - helper script to automatically update project dependencies
+  - `nuke.sh` - helper script to automatically reinstall project dependencies
 
 ## July 20th, 2021
 

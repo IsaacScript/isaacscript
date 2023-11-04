@@ -1,28 +1,37 @@
 import chalk from "chalk";
-import path from "path";
+import type { PackageManager } from "isaacscript-common-node";
+import {
+  copyFileOrDirectory,
+  fatalError,
+  getFileNamesInDirectory,
+  getPackageManagerAddCommand,
+  isDirectory,
+  isFile,
+  makeDirectory,
+  readFile,
+  writeFile,
+} from "isaacscript-common-node";
+import { parseFloatSafe, parseIntSafe } from "isaacscript-common-ts";
+import path from "node:path";
 import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
-import { getJSONRoomDoorSlotFlags } from "./common";
+import { getJSONRoomDoorSlotFlags } from "./common.js";
 import {
   CUSTOM_STAGE_FILES_DIR,
   CWD,
   MOD_SOURCE_PATH,
   SHADERS_XML_PATH,
   XML_CONVERTER_PATH,
-} from "./constants";
-import { PackageManager } from "./enums/PackageManager";
-import { execExe } from "./exec";
-import * as file from "./file";
-import {
+} from "./constants.js";
+import { execExe } from "./exec.js";
+import type { ShadersXML } from "./interfaces/ShadersXML.js";
+import type {
   CustomStageLua,
   CustomStageRoomMetadata,
   CustomStageTSConfig,
-} from "./interfaces/copied/CustomStageTSConfig";
-import { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile";
-import { ShadersXML } from "./interfaces/ShadersXML";
-import { getPackageManagerAddCommand } from "./packageManager";
-import { getCustomStagesFromTSConfig } from "./tsconfig";
-import { error, parseIntSafe } from "./utils";
+} from "./interfaces/copied/CustomStageTSConfig.js";
+import type { JSONRoomsFile } from "./interfaces/copied/JSONRoomsFile.js";
+import { getCustomStagesFromTSConfig } from "./tsconfig.js";
 
 const ISAACSCRIPT_COMMON = "isaacscript-common";
 const ISAACSCRIPT_COMMON_PATH = path.join(
@@ -30,6 +39,7 @@ const ISAACSCRIPT_COMMON_PATH = path.join(
   "node_modules",
   ISAACSCRIPT_COMMON,
   "dist",
+  "src",
 );
 
 const METADATA_LUA_PATH = path.join(
@@ -37,9 +47,9 @@ const METADATA_LUA_PATH = path.join(
   "customStageMetadata.lua",
 );
 
-const ROOM_VARIANT_MULTIPLIER = 10000;
-const VARIANT_REGEX = / variant="(\d+)"/;
-const WEIGHT_REGEX = / weight="(.+?)"/;
+const ROOM_VARIANT_MULTIPLIER = 10_000;
+const VARIANT_REGEX = / variant="(?<variant>\d+)"/;
+const WEIGHT_REGEX = / weight=".+?"/;
 
 const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
 
@@ -47,16 +57,16 @@ export async function prepareCustomStages(
   packageManager: PackageManager,
   verbose: boolean,
 ): Promise<void> {
-  const customStagesTSConfig = getCustomStagesFromTSConfig(verbose);
+  const customStagesTSConfig = getCustomStagesFromTSConfig();
   if (customStagesTSConfig.length === 0) {
     return;
   }
 
-  validateCustomStagePaths(customStagesTSConfig, verbose);
+  validateCustomStagePaths(customStagesTSConfig);
 
-  copyCustomStageFilesToProject(verbose);
-  await insertEmptyShader(verbose);
-  await fillCustomStageMetadata(customStagesTSConfig, packageManager, verbose);
+  copyCustomStageFilesToProject();
+  await insertEmptyShader();
+  await fillCustomStageMetadata(customStagesTSConfig, packageManager);
   combineCustomStageXMLs(customStagesTSConfig, verbose);
 }
 
@@ -64,17 +74,14 @@ export async function prepareCustomStages(
  * Before we proceed with compiling the mod, ensure that all of the file paths that the end-user put
  * in their "tsconfig.json" file map to actual files on the file system.
  */
-function validateCustomStagePaths(
-  customStagesTSConfig: CustomStageTSConfig[],
-  verbose: boolean,
-) {
+function validateCustomStagePaths(customStagesTSConfig: CustomStageTSConfig[]) {
   for (const customStageTSConfig of customStagesTSConfig) {
     if (customStageTSConfig.backdropPNGPaths !== undefined) {
       for (const filePaths of Object.values(
         customStageTSConfig.backdropPNGPaths,
       )) {
         for (const filePath of filePaths) {
-          checkFile(filePath, verbose);
+          checkFile(filePath);
         }
       }
     }
@@ -87,19 +94,19 @@ function validateCustomStagePaths(
       customStageTSConfig.pitsPNGPath,
       customStageTSConfig.pitsANM2Path,
     ]) {
-      checkFile(filePath, verbose);
+      checkFile(filePath);
     }
 
     if (customStageTSConfig.doorPNGPaths !== undefined) {
       for (const filePath of Object.values(customStageTSConfig.doorPNGPaths)) {
-        checkFile(filePath, verbose);
+        checkFile(filePath);
       }
     }
 
     if (customStageTSConfig.shadows !== undefined) {
       for (const stageShadows of Object.values(customStageTSConfig.shadows)) {
         for (const stageShadow of stageShadows) {
-          checkFile(stageShadow.pngPath, verbose);
+          checkFile(stageShadow.pngPath);
         }
       }
     }
@@ -107,34 +114,34 @@ function validateCustomStagePaths(
     if (customStageTSConfig.bossPool !== undefined) {
       for (const bossPoolEntry of Object.values(customStageTSConfig.bossPool)) {
         if (bossPoolEntry.versusScreen !== undefined) {
-          checkFile(bossPoolEntry.versusScreen.namePNGPath, verbose);
-          checkFile(bossPoolEntry.versusScreen.portraitPNGPath, verbose);
+          checkFile(bossPoolEntry.versusScreen.namePNGPath);
+          checkFile(bossPoolEntry.versusScreen.portraitPNGPath);
         }
       }
     }
   }
 }
 
-function checkFile(filePath: string | undefined, verbose: boolean) {
+function checkFile(filePath: string | undefined) {
   if (filePath === undefined) {
     return;
   }
 
   if (!filePath.includes("gfx/")) {
-    error(
-      `Failed to validate the "${filePath}" file: all PNG file paths must be inside of a "gfx" directory. (e.g. "./mod/resources/gfx/backdrop/slaughterhouse/nfloor.png")`,
+    fatalError(
+      `Failed to validate the "${filePath}" file: all PNG file paths must be inside of a "gfx" directory. (e.g. "./mod/resources/gfx/backdrop/foo/nfloor.png")`,
     );
   }
 
-  if (!file.exists(filePath, verbose)) {
-    error(
+  if (!isFile(filePath)) {
+    fatalError(
       `Failed to find the "${filePath}" file. Check your "tsconfig.json" file and then restart IsaacScript.`,
     );
   }
 }
 
 /** The custom stages feature needs some anm2 files in order to work properly. */
-function copyCustomStageFilesToProject(verbose: boolean) {
+function copyCustomStageFilesToProject() {
   const dstDirPath = path.join(
     CWD,
     "mod",
@@ -142,12 +149,13 @@ function copyCustomStageFilesToProject(verbose: boolean) {
     "gfx",
     "isaacscript-custom-stage",
   );
-  file.makeDir(dstDirPath, verbose);
+  makeDirectory(dstDirPath);
 
-  for (const fileName of file.getDirList(CUSTOM_STAGE_FILES_DIR, verbose)) {
+  const fileNames = getFileNamesInDirectory(CUSTOM_STAGE_FILES_DIR);
+  for (const fileName of fileNames) {
     const srcPath = path.join(CUSTOM_STAGE_FILES_DIR, fileName);
     const dstPath = path.join(dstDirPath, fileName);
-    file.copy(srcPath, dstPath, verbose);
+    copyFileOrDirectory(srcPath, dstPath);
   }
 }
 
@@ -155,17 +163,17 @@ function copyCustomStageFilesToProject(verbose: boolean) {
  * The custom stage feature requires an empty shader to be present in order to render sprites on top
  * of the HUD.
  */
-async function insertEmptyShader(verbose: boolean) {
+async function insertEmptyShader() {
   const shadersXMLDstPath = path.join(CWD, "mod", "content", "shaders.xml");
 
-  if (!file.exists(shadersXMLDstPath, verbose)) {
-    file.copy(SHADERS_XML_PATH, shadersXMLDstPath, verbose);
+  if (!isFile(shadersXMLDstPath)) {
+    copyFileOrDirectory(SHADERS_XML_PATH, shadersXMLDstPath);
     return;
   }
 
   // The end-user mod might have their own custom shaders, so we need to merge our empty shader
   // inside the existing "shaders.xml" file.
-  const shadersXMLDstContents = file.read(shadersXMLDstPath, verbose);
+  const shadersXMLDstContents = readFile(shadersXMLDstPath);
   const shadersXMLDst = (await xml2js.parseStringPromise(
     shadersXMLDstContents,
   )) as ShadersXML;
@@ -178,7 +186,7 @@ async function insertEmptyShader(verbose: boolean) {
     return;
   }
 
-  const shadersXMLSrcContents = file.read(SHADERS_XML_PATH, verbose);
+  const shadersXMLSrcContents = readFile(SHADERS_XML_PATH);
   const shadersXMLSrc = (await xml2js.parseStringPromise(
     shadersXMLSrcContents,
   )) as ShadersXML;
@@ -186,7 +194,7 @@ async function insertEmptyShader(verbose: boolean) {
     (shader) => shader.$.name === EMPTY_SHADER_NAME,
   );
   if (isaacScriptEmptyShader === undefined) {
-    error(
+    fatalError(
       `Failed to find the empty shader named "${EMPTY_SHADER_NAME}" in the following file: ${SHADERS_XML_PATH}`,
     );
   }
@@ -195,7 +203,7 @@ async function insertEmptyShader(verbose: boolean) {
   shadersXMLDst.shaders.shader.push(isaacScriptEmptyShader);
   const xmlBuilder = new xml2js.Builder();
   const newXML = xmlBuilder.buildObject(shadersXMLDst);
-  file.write(shadersXMLDstPath, newXML, verbose);
+  writeFile(shadersXMLDstPath, newXML);
 }
 
 /**
@@ -207,39 +215,33 @@ async function insertEmptyShader(verbose: boolean) {
 async function fillCustomStageMetadata(
   customStagesTSConfig: CustomStageTSConfig[],
   packageManager: PackageManager,
-  verbose: boolean,
 ): Promise<void> {
-  validateMetadataLuaFileExists(packageManager, verbose);
+  validateMetadataLuaFileExists(packageManager);
 
-  const customStages = await getCustomStagesWithMetadata(
-    customStagesTSConfig,
-    verbose,
-  );
+  const customStages = await getCustomStagesWithMetadata(customStagesTSConfig);
   const customStagesLua = convertCustomStagesToLua(customStages);
-  file.write(METADATA_LUA_PATH, customStagesLua, verbose);
+  writeFile(METADATA_LUA_PATH, customStagesLua);
+  console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH}`);
 }
 
-function validateMetadataLuaFileExists(
-  packageManager: PackageManager,
-  verbose: boolean,
-) {
-  if (!file.isDir(ISAACSCRIPT_COMMON_PATH, verbose)) {
+function validateMetadataLuaFileExists(packageManager: PackageManager) {
+  if (!isDirectory(ISAACSCRIPT_COMMON_PATH)) {
     const addCommand = getPackageManagerAddCommand(
       packageManager,
       ISAACSCRIPT_COMMON,
     );
-    error(
+    fatalError(
       `${chalk.red(
         `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:`,
       )} ${chalk.green(addCommand)}`,
     );
   }
 
-  if (!file.exists(METADATA_LUA_PATH, verbose)) {
-    error(
+  if (!isFile(METADATA_LUA_PATH)) {
+    fatalError(
       `${chalk.red(
-        "Failed to find the the custom stage metadata file at:",
-      )} ${chalk.green(METADATA_LUA_PATH)}`,
+        "Failed to find the custom stage metadata file at:",
+      )} ${chalk.red(METADATA_LUA_PATH)}`,
     );
   }
 }
@@ -250,13 +252,12 @@ function validateMetadataLuaFileExists(
  */
 async function getCustomStagesWithMetadata(
   customStagesTSConfig: CustomStageTSConfig[],
-  verbose: boolean,
 ): Promise<CustomStageLua[]> {
-  if (!file.exists(METADATA_LUA_PATH, verbose)) {
-    error(
+  if (!isFile(METADATA_LUA_PATH)) {
+    fatalError(
       `${chalk.red(
-        "Failed to find the the custom stage metadata file at:",
-      )} ${chalk.green(METADATA_LUA_PATH)}`,
+        "Failed to find the custom stage metadata file at:",
+      )} ${chalk.red(METADATA_LUA_PATH)}`,
     );
   }
 
@@ -269,19 +270,18 @@ async function getCustomStagesWithMetadata(
     const { xmlPath } = customStageTSConfig;
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
-    if (!file.exists(resolvedXMLPath, verbose)) {
-      error(
+    if (!isFile(resolvedXMLPath)) {
+      fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
-        )} ${chalk.green(resolvedXMLPath)}`,
+        )} ${chalk.red(resolvedXMLPath)}`,
       );
     }
 
-    const xmlContents = file.read(resolvedXMLPath, verbose);
-    // eslint-disable-next-line no-await-in-loop
-    const jsonRoomsFile = (await xml2js.parseStringPromise(
-      xmlContents,
-    )) as JSONRoomsFile;
+    const xmlContents = readFile(resolvedXMLPath);
+    // eslint-disable-next-line no-await-in-loop, @typescript-eslint/no-unsafe-assignment
+    const jsonRoomsFileAny = await xml2js.parseStringPromise(xmlContents);
+    const jsonRoomsFile = jsonRoomsFileAny as JSONRoomsFile;
 
     const roomVariantSet = new Set<number>();
     const customStageRoomsMetadata: CustomStageRoomMetadata[] = [];
@@ -289,22 +289,22 @@ async function getCustomStagesWithMetadata(
     for (const room of jsonRoomsFile.rooms.room) {
       const typeString = room.$.type;
       const type = parseIntSafe(typeString);
-      if (Number.isNaN(type)) {
-        error(
+      if (type === undefined) {
+        fatalError(
           `Failed to parse the type of one of the "${name}" custom stage rooms: ${typeString}`,
         );
       }
 
       const variantString = room.$.variant;
       const baseVariant = parseIntSafe(variantString);
-      if (Number.isNaN(baseVariant)) {
-        error(
+      if (baseVariant === undefined) {
+        fatalError(
           `Failed to parse the variant of one of the "${name}" custom stage rooms: ${variantString}`,
         );
       }
 
       if (roomVariantSet.has(baseVariant)) {
-        error(
+        fatalError(
           chalk.red(
             `There is more than one room with a variant of "${baseVariant}" in the "${resolvedXMLPath}" file. Make sure that each room has a unique variant. (The room variant is also called the "ID" in Basement Renovator.)`,
           ),
@@ -318,16 +318,16 @@ async function getCustomStagesWithMetadata(
 
       const subTypeString = room.$.subtype;
       const subType = parseIntSafe(subTypeString);
-      if (Number.isNaN(subType)) {
-        error(
+      if (subType === undefined) {
+        fatalError(
           `Failed to parse the sub-type of one of the "${name}" custom stage rooms: ${subTypeString}`,
         );
       }
 
       const shapeString = room.$.shape;
       const shape = parseIntSafe(shapeString);
-      if (Number.isNaN(baseVariant)) {
-        error(
+      if (shape === undefined) {
+        fatalError(
           `Failed to parse the shape of one of the "${name}" custom stage rooms: ${shapeString}`,
         );
       }
@@ -335,9 +335,9 @@ async function getCustomStagesWithMetadata(
       const doorSlotFlags = getJSONRoomDoorSlotFlags(room);
 
       const weightString = room.$.weight;
-      const weight = parseFloat(weightString);
-      if (Number.isNaN(baseVariant)) {
-        error(
+      const weight = parseFloatSafe(weightString);
+      if (weight === undefined) {
+        fatalError(
           `Failed to parse the weight of one of the "${name}" custom stage rooms: ${weightString}`,
         );
       }
@@ -370,7 +370,7 @@ function convertCustomStagesToLua(customStages: CustomStageLua[]): string {
     noHeader: true,
   });
   if (result.file === undefined || result.file.lua === undefined) {
-    error(
+    fatalError(
       "Failed to convert the JSON metadata for the custom stages to a Lua file.",
     );
   }
@@ -387,15 +387,15 @@ function combineCustomStageXMLs(
 
   for (const customStageTSConfig of customStagesTSConfig) {
     const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
-    if (!file.exists(xmlPath, verbose)) {
-      error(
+    if (!isFile(xmlPath)) {
+      fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
-        )} ${chalk.green(xmlPath)}`,
+        )} ${chalk.red(xmlPath)}`,
       );
     }
 
-    const xmlContents = file.read(xmlPath, verbose);
+    const xmlContents = readFile(xmlPath);
 
     // It is easier to work with the XML files as text rather than converting it to JSON and then
     // converting it back to XML.
@@ -422,17 +422,17 @@ function combineCustomStageXMLs(
       }
 
       const match = line.match(VARIANT_REGEX);
-      if (match === null) {
+      if (match === null || match.groups === undefined) {
         continue;
       }
 
-      const baseVariantString = match[1];
+      const baseVariantString = match.groups["variant"];
       if (baseVariantString === undefined) {
         continue;
       }
       const baseVariant = parseIntSafe(baseVariantString);
-      if (Number.isNaN(baseVariant)) {
-        error(
+      if (baseVariant === undefined) {
+        fatalError(
           `Failed to parse the variant of one of the custom stage rooms: ${baseVariantString}`,
         );
       }
@@ -458,11 +458,15 @@ ${allRooms}
 </rooms>
   `.trim();
   const contentRoomsDir = path.join(MOD_SOURCE_PATH, "content", "rooms");
+  if (!isFile(contentRoomsDir)) {
+    makeDirectory(contentRoomsDir);
+  }
+
   const specialRoomsXMLPath = path.join(
     contentRoomsDir,
     "00.special rooms.xml",
   );
-  file.write(specialRoomsXMLPath, combinedXMLFile, verbose);
+  writeFile(specialRoomsXMLPath, combinedXMLFile);
 
   // Convert the XML file to an STB file, which is the format actually read by the game.
   execExe(XML_CONVERTER_PATH, [specialRoomsXMLPath], verbose, contentRoomsDir);

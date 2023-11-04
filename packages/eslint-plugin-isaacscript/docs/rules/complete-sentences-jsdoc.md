@@ -1,6 +1,6 @@
 # `complete-sentences-jsdoc`
 
-Enforces complete sentences for JSDoc comments.
+Requires complete sentences for JSDoc comments.
 
 This rule is similar to the [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc#require-description-complete-sentence) rule, but it is smarter in that it will
 generate less false positives. (See the cases outlined below.)

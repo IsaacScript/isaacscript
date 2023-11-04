@@ -1,45 +1,45 @@
-import {
+import type {
   CardType,
   CollectibleType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import { NullItemID } from "../../enums/NullItemID";
-import { PillEffect } from "../../enums/PillEffect";
+import type { NullItemID } from "../../enums/NullItemID";
+import type { PillEffect } from "../../enums/PillEffect";
 
 declare global {
   interface ItemConfig extends IsaacAPIClass {
     /** Returns undefined if the card was not found. */
-    GetCard(cardType: CardType): Readonly<ItemConfigCard> | undefined;
+    GetCard: (cardType: CardType) => Readonly<ItemConfigCard> | undefined;
 
-    GetCards(): Readonly<CardConfigList>;
+    GetCards: () => Readonly<CardConfigList>;
 
     /** Returns undefined if the collectible type was not found. */
-    GetCollectible(
+    GetCollectible: (
       collectibleType: CollectibleType,
-    ): Readonly<ItemConfigItemCollectible> | undefined;
+    ) => Readonly<ItemConfigItemCollectible> | undefined;
 
-    GetCollectibles(): Readonly<ItemConfigList>;
+    GetCollectibles: () => Readonly<ItemConfigList>;
 
     /** Returns undefined if the item was not found. */
-    GetNullItem(
+    GetNullItem: (
       nullItemID: NullItemID,
-    ): Readonly<ItemConfigItemNull> | undefined;
+    ) => Readonly<ItemConfigItemNull> | undefined;
 
-    GetNullItems(): Readonly<ItemConfigList>;
+    GetNullItems: () => Readonly<ItemConfigList>;
 
     /** Returns undefined if the pill effect was not found. */
-    GetPillEffect(
+    GetPillEffect: (
       pillEffect: PillEffect,
-    ): Readonly<ItemConfigPillEffect> | undefined;
+    ) => Readonly<ItemConfigPillEffect> | undefined;
 
-    GetPillEffects(): Readonly<PillConfigList>;
+    GetPillEffects: () => Readonly<PillConfigList>;
 
     /** Returns undefined if the trinket was not found. */
-    GetTrinket(
+    GetTrinket: (
       trinketType: TrinketType,
-    ): Readonly<ItemConfigItemTrinket> | undefined;
+    ) => Readonly<ItemConfigItemTrinket> | undefined;
 
-    GetTrinkets(): Readonly<ItemConfigList>;
+    GetTrinkets: () => Readonly<ItemConfigList>;
 
     /**
      * In the "enums.lua" file, the ItemConfig class is extended with many members:
@@ -54,7 +54,7 @@ declare global {
   }
 
   /**
-   * The static methods in this class can only be called by a global variable.
+   * The static methods in this class can only be called by the global variable.
    *
    * e.g. `ItemConfig.Config.IsValidCollectible(1)`
    */
@@ -63,10 +63,7 @@ declare global {
      * @deprecated This method does not work properly for modded items, so it should never be used.
      *             Use the `isValidCollectibleType` helper function instead.
      */
-    function IsValidCollectible(
-      collectibleType: CollectibleType,
-      fakeArg: never,
-    ): boolean;
+    function IsValidCollectible(collectibleType: CollectibleType): boolean;
 
     function ShouldAddCostumeOnPickup(): boolean;
   }

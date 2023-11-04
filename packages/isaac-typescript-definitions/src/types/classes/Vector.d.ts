@@ -1,15 +1,15 @@
-import { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
+import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
   function Vector(this: void, x: float, y: float): Vector;
 
   interface Vector extends IsaacAPIClass {
-    Clamp(minX: float, minY: float, maxX: float, maxY: float): void;
-    Clamped(minX: float, minY: float, maxX: float, maxY: float): Vector;
-    Cross(secondVector: Vector): float;
-    Distance(secondVector: Vector): float;
-    DistanceSquared(secondVector: Vector): float;
-    Dot(secondVector: Vector): float;
+    Clamp: (minX: float, minY: float, maxX: float, maxY: float) => void;
+    Clamped: (minX: float, minY: float, maxX: float, maxY: float) => Vector;
+    Cross: (secondVector: Vector) => float;
+    Distance: (secondVector: Vector) => float;
+    DistanceSquared: (secondVector: Vector) => float;
+    Dot: (secondVector: Vector) => float;
 
     /**
      * This method returns a value from -180 to 180.
@@ -22,21 +22,24 @@ declare global {
      * - Left: 180
      * - Down: 90
      */
-    GetAngleDegrees(): float;
+    GetAngleDegrees: () => float;
 
-    Length(): float;
-    LengthSquared(): float;
-    Lerp(secondVector: Vector, t: float): Vector;
-    Normalize(): void;
-    Normalized(): Vector;
-    Resize(newLength: float): void;
-    Resized(newLength: float): Vector;
-    Rotated(angleDegrees: float): Vector;
+    Length: () => float;
+    LengthSquared: () => float;
+    Lerp: (secondVector: Vector, t: float) => Vector;
+    Normalize: () => void;
+    Normalized: () => Vector;
+    Resize: (newLength: float) => void;
+    Resized: (newLength: float) => Vector;
+    Rotated: (angleDegrees: float) => Vector;
 
     X: float;
     Y: float;
 
-    // The underscore methods like "__add" are not implemented in favor of having `add` and so on.
+    /** An identifier that does not exist at run-time. */
+    __kind: CopyableIsaacAPIClassType.VECTOR;
+
+    // The underscore methods like `__add` are not implemented in favor of having `add` and so on.
     // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
 
     add: LuaAdditionMethod<Vector, Vector>;
@@ -51,10 +54,6 @@ declare global {
     mul: LuaMultiplicationMethod<number | Vector, Vector>;
 
     sub: LuaSubtractionMethod<Vector, Vector>;
-
-    /** An identifier that does not exist at run-time. */
-    // eslint-disable-next-line isaacscript/member-ordering
-    __kind: CopyableIsaacAPIClassType.VECTOR;
   }
 
   /** @noSelf */

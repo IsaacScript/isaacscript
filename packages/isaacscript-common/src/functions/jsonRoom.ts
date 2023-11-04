@@ -1,15 +1,13 @@
-import {
-  DoorSlotFlag,
-  DoorSlotFlagZero,
-  RoomShape,
-} from "isaac-typescript-definitions";
-import { JSONEntity, JSONRoom } from "../interfaces/JSONRoomsFile";
+import type { DoorSlotFlag } from "isaac-typescript-definitions";
+import { DoorSlotFlagZero, RoomShape } from "isaac-typescript-definitions";
+import type { JSONEntity, JSONRoom } from "../interfaces/JSONRoomsFile";
 import { sumArray } from "./array";
 import { doorSlotToDoorSlotFlag, getRoomShapeDoorSlot } from "./doors";
+import { isEnumValue } from "./enums";
 import { addFlag } from "./flag";
 import { log } from "./log";
 import { getRandomFloat } from "./random";
-import { getRandomSeed } from "./rng";
+import { assertDefined } from "./utils";
 
 /** This represents either a `JSONRoom` or a `JSONEntity`. */
 interface JSONObject {
@@ -26,13 +24,17 @@ export function getJSONRoomDoorSlotFlags(
   jsonRoom: JSONRoom,
 ): BitFlags<DoorSlotFlag> {
   const roomShapeString = jsonRoom.$.shape;
-  const roomShapeNumber = tonumber(roomShapeString);
-  if (roomShapeNumber === undefined) {
+  const roomShape = tonumber(roomShapeString);
+  assertDefined(
+    roomShape,
+    `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
+  );
+
+  if (!isEnumValue(roomShape, RoomShape)) {
     error(
-      `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
+      `Failed to parse the "shape" field of a JSON room since it was an invalid number: ${roomShape}`,
     );
   }
-  const roomShape = roomShapeNumber as RoomShape;
 
   let doorSlotFlags = DoorSlotFlagZero;
 
@@ -50,22 +52,23 @@ export function getJSONRoomDoorSlotFlags(
 
     const xString = door.$.x;
     const x = tonumber(xString);
-    if (x === undefined) {
-      error(`Failed to parse the "x" field of a JSON room door: ${xString}`);
-    }
+    assertDefined(
+      x,
+      `Failed to parse the "x" field of a JSON room door: ${xString}`,
+    );
 
     const yString = door.$.y;
     const y = tonumber(yString);
-    if (y === undefined) {
-      error(`Failed to parse the "y" field of a JSON room door: ${yString}`);
-    }
+    assertDefined(
+      y,
+      `Failed to parse the "y" field of a JSON room door: ${yString}`,
+    );
 
     const doorSlot = getRoomShapeDoorSlot(roomShape, x, y);
-    if (doorSlot === undefined) {
-      error(
-        `Failed to retrieve the door slot for a JSON room door at coordinates: [${x}, ${y}]`,
-      );
-    }
+    assertDefined(
+      doorSlot,
+      `Failed to retrieve the door slot for a JSON room door at coordinates: [${x}, ${y}]`,
+    );
 
     const doorSlotFlag = doorSlotToDoorSlotFlag(doorSlot);
     doorSlotFlags = addFlag(doorSlotFlags, doorSlotFlag);
@@ -137,15 +140,19 @@ export function getJSONRoomsOfSubType(
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
+ * If you want an unseeded entity, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param jsonEntities The array of entities to randomly choose between.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONEntity(
   jsonEntities: JSONEntity[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): JSONEntity {
   const totalWeight = getTotalWeightOfJSONObject(jsonEntities);
@@ -162,9 +169,10 @@ export function getRandomJSONEntity(
     jsonEntities,
     chosenWeight,
   );
-  if (randomJSONEntity === undefined) {
-    error(`Failed to get a JSON entity with chosen weight: ${chosenWeight}`);
-  }
+  assertDefined(
+    randomJSONEntity,
+    `Failed to get a JSON entity with chosen weight: ${chosenWeight}`,
+  );
 
   return randomJSONEntity;
 }
@@ -178,15 +186,18 @@ export function getRandomJSONEntity(
  * properly account for each room weight using the algorithm from:
  * https://stackoverflow.com/questions/1761626/weighted-random-numbers
  *
+ * If you want an unseeded room, you must explicitly pass `undefined` to the `seedOrRNG` parameter.
+ *
  * @param jsonRooms The array of rooms to randomly choose between.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONRoom(
   jsonRooms: JSONRoom[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): JSONRoom {
   const totalWeight = getTotalWeightOfJSONObject(jsonRooms);
@@ -200,9 +211,10 @@ export function getRandomJSONRoom(
   }
 
   const randomJSONRoom = getJSONObjectWithChosenWeight(jsonRooms, chosenWeight);
-  if (randomJSONRoom === undefined) {
-    error(`Failed to get a JSON room with chosen weight: ${chosenWeight}`);
-  }
+  assertDefined(
+    randomJSONRoom,
+    `Failed to get a JSON room with chosen weight: ${chosenWeight}`,
+  );
 
   return randomJSONRoom;
 }
@@ -211,9 +223,10 @@ function getTotalWeightOfJSONObject(jsonOjectArray: JSONObject[]): float {
   const weights = jsonOjectArray.map((jsonObject) => {
     const weightString = jsonObject.$.weight;
     const weight = tonumber(weightString);
-    if (weight === undefined) {
-      error(`Failed to parse the weight of a JSON object: ${weightString}.`);
-    }
+    assertDefined(
+      weight,
+      `Failed to parse the weight of a JSON object: ${weightString}.`,
+    );
 
     return weight;
   });
@@ -230,9 +243,10 @@ function getJSONObjectWithChosenWeight<T extends JSONObject>(
   for (const jsonObject of jsonOjectArray) {
     const weightString = jsonObject.$.weight;
     const weight = tonumber(weightString);
-    if (weight === undefined) {
-      error(`Failed to parse the weight of a JSON object: ${weightString}`);
-    }
+    assertDefined(
+      weight,
+      `Failed to parse the weight of a JSON object: ${weightString}`,
+    );
 
     weightAccumulator += weight;
     if (weightAccumulator >= chosenWeight) {

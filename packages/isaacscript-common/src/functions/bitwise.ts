@@ -1,4 +1,5 @@
 import { addFlag } from "./flag";
+import { assertDefined } from "./utils";
 
 /** Helper function to convert a set of flags to a single `BitFlags` object. */
 export function arrayToBitFlags<T extends BitFlag | BitFlag128>(
@@ -15,27 +16,29 @@ export function arrayToBitFlags<T extends BitFlag | BitFlag128>(
 /** Helper function to convert an array of bits to the resulting decimal number. */
 export function convertBinaryToDecimal(bits: int[]): number {
   const bitsString = bits.join("");
-  return parseInt(bitsString, 2);
+  return Number.parseInt(bitsString, 2);
 }
 
 /**
  * Helper function to convert a number to an array of bits.
  *
- * @param number The number to convert.
+ * @param num The number to convert.
  * @param minLength Optional. Equal to the minimum amount of bits that should be returned. If the
  *                  converted number of bits is below this number, 0's will be padded to the left
  *                  side until the minimum length is met. Default is undefined (which will not cause
  *                  any padding).
  */
-export function convertDecimalToBinary(number: number, minLength?: int): int[] {
+export function convertDecimalToBinary(num: number, minLength?: int): int[] {
   const bits: int[] = [];
 
-  const bitsString = number.toString(2);
+  const bitsString = num.toString(2);
   for (const bitString of bitsString) {
     const bit = tonumber(bitString);
-    if (bit === undefined) {
-      error(`Failed to convert the following number to binary: ${number}`);
-    }
+    assertDefined(
+      bit,
+      `Failed to convert the following number to binary: ${num}`,
+    );
+
     bits.push(bit);
   }
 
@@ -52,11 +55,11 @@ export function convertDecimalToBinary(number: number, minLength?: int): int[] {
  * Helper function to count the number of bits that are set to 1 in a binary representation of a
  * number.
  */
-export function countSetBits(n: int): int {
+export function countSetBits(num: int): int {
   let count = 0;
 
-  while (n > 0) {
-    n &= n - 1;
+  while (num > 0) {
+    num &= num - 1;
     count++;
   }
 

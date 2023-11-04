@@ -1,3 +1,4 @@
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const enumMemberNumberSeparation = createRule({
@@ -6,7 +7,6 @@ export const enumMemberNumberSeparation = createRule({
     type: "problem",
     docs: {
       description: "Disallows numbers next to letters in enum members",
-      recommended: false,
     },
     schema: [],
     messages: {
@@ -18,20 +18,21 @@ export const enumMemberNumberSeparation = createRule({
   create(context) {
     return {
       TSEnumMember(node) {
-        if (!("name" in node.id)) {
+        const { id } = node;
+        if (id.type !== AST_NODE_TYPES.Identifier) {
           return;
         }
 
-        const memberName = node.id.name;
+        const { name } = id;
 
         // Whitelist member names that 4 characters or less.
-        if (memberName.length <= 4) {
+        if (name.length <= 4) {
           return;
         }
 
         // Search through the name for numbers.
-        for (let i = 0; i < memberName.length; i++) {
-          const character = memberName[i];
+        for (let i = 0; i < name.length; i++) {
+          const character = name[i];
           if (character === undefined) {
             continue;
           }
@@ -40,8 +41,8 @@ export const enumMemberNumberSeparation = createRule({
             continue;
           }
 
-          const lastCharacter = memberName[i - 1];
-          const nextCharacter = memberName[i + 1];
+          const lastCharacter = name[i - 1];
+          const nextCharacter = name[i + 1];
           if (
             (lastCharacter !== undefined &&
               !isNumber(lastCharacter) &&
@@ -67,6 +68,6 @@ export const enumMemberNumberSeparation = createRule({
   },
 });
 
-function isNumber(character: string) {
-  return /^[0-9]$/.test(character);
+function isNumber(character: string): boolean {
+  return /^\d$/.test(character);
 }

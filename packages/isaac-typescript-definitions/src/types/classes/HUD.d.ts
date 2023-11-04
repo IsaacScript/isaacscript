@@ -1,4 +1,4 @@
-import { ActiveSlot } from "../../enums/ActiveSlot";
+import type { ActiveSlot } from "../../enums/ActiveSlot";
 
 declare global {
   interface HUD extends IsaacAPIClass {
@@ -9,7 +9,7 @@ declare global {
      * @param player
      * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    FlashChargeBar(player: EntityPlayer, slot?: ActiveSlot): void;
+    FlashChargeBar: (player: EntityPlayer, slot?: ActiveSlot) => void;
 
     /**
      * Forces the specified active item slot to update. This might be useful for functions that
@@ -18,17 +18,19 @@ declare global {
      * @param player
      * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    InvalidateActiveItem(player: EntityPlayer, slot?: ActiveSlot): void;
+    InvalidateActiveItem: (player: EntityPlayer, slot?: ActiveSlot) => void;
 
     /**
      * Forces the crafting output from Bag of Crafting to update.
      *
      * @param player
      */
-    InvalidateCraftingItem(player: EntityPlayer): void;
+    InvalidateCraftingItem: (player: EntityPlayer) => void;
 
-    IsVisible(): boolean;
-    SetVisible(visible: boolean): void;
+    IsVisible: () => boolean;
+    PostUpdate: () => void;
+    Render: () => void;
+    SetVisible: (visible: boolean) => void;
 
     /**
      * Accepts an array of up to 32 strings, where each string is a line of text.
@@ -38,21 +40,15 @@ declare global {
      *
      * @param text
      */
-    ShowFortuneText(...text: string[]): void;
+    ShowFortuneText: (...text: string[]) => void;
 
     /**
      * Shows the pickup text for the specified item as if it was picked up by the specified player.
+     * The overloaded method supports showing custom pickup text.
      */
+    ShowItemText: ((player: EntityPlayer, item: ItemConfigItem) => void) &
+      ((name: string, description?: string, paper?: boolean) => void);
 
-    ShowItemText(player: EntityPlayer, item: ItemConfigItem): void;
-    /**
-     * Shows a custom pickup text.
-     *
-     * @param name
-     * @param description Default is "".
-     * @param paper If set to true, displays the description on a small piece of paper, similar to
-     *              curses. Default is false.
-     */
-    ShowItemText(name: string, description?: string, paper?: boolean): void;
+    Update: () => void;
   }
 }

@@ -1,9 +1,8 @@
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   CollectibleType,
   GridEntityType,
   ModCallback,
-  UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
@@ -21,23 +20,23 @@ import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "./RunInNFrames";
+import type { RunInNFrames } from "./RunInNFrames";
+
+const v = {
+  level: {
+    roomListIndexToDecorationGridIndexes: new DefaultMap<int, int[]>(() => []),
+  },
+
+  room: {
+    manuallyUsingShovel: false,
+  },
+};
 
 export class PreventGridEntityRespawn extends Feature {
   /** @internal */
-  public override v = {
-    level: {
-      roomListIndexToDecorationGridIndexes: new DefaultMap<int, int[]>(
-        () => [],
-      ),
-    },
+  public override v = v;
 
-    room: {
-      manuallyUsingShovel: false,
-    },
-  };
-
-  private runInNFrames: RunInNFrames;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(runInNFrames: RunInNFrames) {
@@ -46,14 +45,16 @@ export class PreventGridEntityRespawn extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
+      // 23
       [
         ModCallback.PRE_USE_ITEM,
-        [this.preUseItemWeNeedToGoDeeper, CollectibleType.WE_NEED_TO_GO_DEEPER],
-      ], // 23
+        this.preUseItemWeNeedToGoDeeper,
+        [CollectibleType.WE_NEED_TO_GO_DEEPER],
+      ],
     ];
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.runInNFrames = runInNFrames;
@@ -61,7 +62,7 @@ export class PreventGridEntityRespawn extends Feature {
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
-  private preUseItemWeNeedToGoDeeper = (
+  private readonly preUseItemWeNeedToGoDeeper = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -69,12 +70,12 @@ export class PreventGridEntityRespawn extends Feature {
     _activeSlot: ActiveSlot,
     _customVarData: int,
   ): boolean | undefined => {
-    if (this.v.room.manuallyUsingShovel) {
+    if (v.room.manuallyUsingShovel) {
       return undefined;
     }
 
     const roomListIndex = getRoomListIndex();
-    if (!this.v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
+    if (!v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
       return;
     }
 
@@ -100,12 +101,12 @@ export class PreventGridEntityRespawn extends Feature {
         return;
       }
 
-      this.v.room.manuallyUsingShovel = true;
+      v.room.manuallyUsingShovel = true;
       futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
-      this.v.room.manuallyUsingShovel = false;
+      v.room.manuallyUsingShovel = false;
 
       const decorationGridIndexes =
-        this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+        v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
           roomListIndex,
         );
       emptyArray(decorationGridIndexes);
@@ -117,7 +118,7 @@ export class PreventGridEntityRespawn extends Feature {
   };
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     this.setDecorationsInvisible();
   };
 
@@ -129,7 +130,7 @@ export class PreventGridEntityRespawn extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
     const decorationGridIndexes =
-      this.v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
+      v.level.roomListIndexToDecorationGridIndexes.get(roomListIndex);
     if (decorationGridIndexes === undefined) {
       return;
     }
@@ -176,7 +177,7 @@ export class PreventGridEntityRespawn extends Feature {
     const roomListIndex = getRoomListIndex();
 
     const decorationGridIndexes =
-      this.v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
+      v.level.roomListIndexToDecorationGridIndexes.getAndSetDefault(
         roomListIndex,
       );
 

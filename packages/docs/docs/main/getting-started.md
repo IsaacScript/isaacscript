@@ -55,7 +55,7 @@ npx isaacscript init
 
 The program will ask you some questions and then populate your current directory with TypeScript and other some other dependencies.
 
-(You might get a warning of `` npm WARN config global `--global\`, `--local` are deprecated. Use `--location=global` instead. `` You can safely ignore this and press enter to proceed, as it is a recent NPM bug with Windows.)
+(You might get a warning of ``npm WARN config global `--global\`, `--local` are deprecated. Use `--location=global` instead.`` You can safely ignore this and press enter to proceed, as it is a recent npm bug with Windows.)
 
 At the end, it will ask you if it should launch VSCode for you. Answer yes.
 

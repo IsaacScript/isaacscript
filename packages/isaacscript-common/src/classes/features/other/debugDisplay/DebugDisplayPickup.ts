@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderTextOnEntity } from "../../../../functions/render";
 import { Feature } from "../../../private/Feature";
-import { defaultEntityDisplayCallback, renderTextOnEntity } from "./utils";
+import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPickup extends Feature {
   public textCallback: (pickup: EntityPickup) => string =
@@ -10,12 +11,13 @@ export class DebugDisplayPickup extends Feature {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_PICKUP_RENDER, [this.postPickupRender]], // 36
+      // 36
+      [ModCallback.POST_PICKUP_RENDER, this.postPickupRender],
     ];
   }
 
   // ModCallback.POST_PICKUP_RENDER (36)
-  private postPickupRender = (pickup: EntityPickup) => {
+  private readonly postPickupRender = (pickup: EntityPickup) => {
     const text = this.textCallback(pickup);
     renderTextOnEntity(pickup, text);
   };

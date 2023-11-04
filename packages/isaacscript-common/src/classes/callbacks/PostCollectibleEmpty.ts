@@ -3,34 +3,34 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import {
-  CustomCallback,
-  FireArgs,
-  OptionalArgs,
-} from "../private/CustomCallback";
+import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
+import { CustomCallback } from "../private/CustomCallback";
 
 type T = ModCallbackCustom.POST_COLLECTIBLE_EMPTY;
 
+const v = {
+  room: {
+    collectibleTypeMap: new Map<PtrHash, CollectibleType>(),
+  },
+};
+
 export class PostCollectibleEmpty extends CustomCallback<T> {
-  public override v = {
-    room: {
-      collectibleTypeMap: new Map<PtrHash, CollectibleType>(),
-    },
-  };
+  public override v = v;
 
   constructor() {
     super();
 
     this.callbacksUsed = [
+      // 35
       [
         ModCallback.POST_PICKUP_UPDATE,
-        [this.postPickupUpdateCollectible, PickupVariant.COLLECTIBLE],
-      ], // 35
+        this.postPickupUpdateCollectible,
+        [PickupVariant.COLLECTIBLE],
+      ],
     ];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
@@ -46,15 +46,17 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   // PickupVariant.COLLECTIBLE (100)
-  private postPickupUpdateCollectible = (pickup: EntityPickup): void => {
+  private readonly postPickupUpdateCollectible = (
+    pickup: EntityPickup,
+  ): void => {
     const collectible = pickup as EntityPickupCollectible;
 
     const ptrHash = GetPtrHash(collectible);
-    let oldCollectibleType = this.v.room.collectibleTypeMap.get(ptrHash);
+    let oldCollectibleType = v.room.collectibleTypeMap.get(ptrHash);
     if (oldCollectibleType === undefined) {
       oldCollectibleType = collectible.SubType;
     }
-    this.v.room.collectibleTypeMap.set(ptrHash, collectible.SubType);
+    v.room.collectibleTypeMap.set(ptrHash, collectible.SubType);
 
     if (oldCollectibleType !== collectible.SubType) {
       this.collectibleTypeChanged(collectible, oldCollectibleType);

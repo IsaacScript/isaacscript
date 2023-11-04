@@ -1,37 +1,37 @@
-import { Dimension } from "../../enums/Dimension";
-import { DoorSlot } from "../../enums/DoorSlot";
-import { LevelCurse } from "../../enums/flags/LevelCurse";
-import { GridRoom } from "../../enums/GridRoom";
-import { LevelStage } from "../../enums/LevelStage";
-import { LevelStateFlag } from "../../enums/LevelStateFlag";
-import { RoomType } from "../../enums/RoomType";
-import { StageType } from "../../enums/StageType";
+import type { Dimension } from "../../enums/Dimension";
+import type { DoorSlot } from "../../enums/DoorSlot";
+import type { LevelCurse } from "../../enums/flags/LevelCurse";
+import type { GridRoom } from "../../enums/GridRoom";
+import type { LevelStage } from "../../enums/LevelStage";
+import type { LevelStateFlag } from "../../enums/LevelStateFlag";
+import type { RoomType } from "../../enums/RoomType";
+import type { StageType } from "../../enums/StageType";
 
 declare global {
   interface Level extends IsaacAPIClass {
-    AddAngelRoomChance(chance: float): void;
+    AddAngelRoomChance: (chance: float) => void;
 
     /**
      * Entries in the "curses.xml" file enumerate from 1 instead of 0. Thus, the `LevelCurse`
      * bitmask for a new curse must be `1 << LevelCurseCustom.FOO - 1`. This value is also the
      * return value of `POST_CURSE_EVAL`.
      */
-    AddCurse(levelCurse: LevelCurse, showName: boolean): void;
+    AddCurse: (levelCurse: LevelCurse, showName: boolean) => void;
 
-    ApplyBlueMapEffect(): void;
-    ApplyCompassEffect(persistent: boolean): void;
-    ApplyMapEffect(): void;
+    ApplyBlueMapEffect: () => void;
+    ApplyCompassEffect: (persistent: boolean) => void;
+    ApplyMapEffect: () => void;
 
     /**
-     * Returns whether or not a Challenge Room door will be open. You must pass this method a valid
-     * grid index on the floor. It does not matter if the grid index is actually attached to the
-     * Challenge Room or not. This method will always return false if an invalid or a negative grid
-     * index is passed.
+     * Returns whether a Challenge Room door will be open. You must pass this method a valid grid
+     * index on the floor. It does not matter if the grid index is actually attached to the
+     * Challenge Room. This method will always return false if an invalid or a negative grid index
+     * is passed.
      */
-    CanOpenChallengeRoom(roomGridIndex: int | GridRoom): boolean;
+    CanOpenChallengeRoom: (roomGridIndex: int | GridRoom) => boolean;
 
-    CanSpawnDevilRoom(): boolean;
-    CanStageHaveCurseOfLabyrinth(levelStage: LevelStage): boolean;
+    CanSpawnDevilRoom: () => boolean;
+    CanStageHaveCurseOfLabyrinth: (levelStage: LevelStage) => boolean;
 
     /**
      * @deprecated This method does not update the "fxlayers" properly. Use the `Game.ChangeRoom`
@@ -39,14 +39,10 @@ declare global {
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    ChangeRoom(
-      fakeArg: never,
-      roomGridIndex: int | GridRoom,
-      dimension?: Dimension,
-    ): void;
+    ChangeRoom: (roomGridIndex: int | GridRoom, dimension?: Dimension) => void;
 
-    DisableDevilRoom(): void;
-    ForceHorsemanBoss(seed: Seed): boolean;
+    DisableDevilRoom: () => void;
+    ForceHorsemanBoss: (seed: Seed) => boolean;
 
     /**
      * In non-Greed Mode, returns the same thing as the `Level.GetStage` method. In Greed Mode,
@@ -57,11 +53,11 @@ declare global {
      * - On Greed Mode Caves, `GetStage` returns 2, and `GetAbsoluteStage` returns 3.
      * - On Greed mode Depths, `GetStage` returns 3, and `GetAbsoluteStage` returns 5.
      */
-    GetAbsoluteStage(): LevelStage;
+    GetAbsoluteStage: () => LevelStage;
 
-    GetAngelRoomChance(): float;
-    GetCanSeeEverything(): boolean;
-    GetCurrentRoom(): Room;
+    GetAngelRoomChance: () => float;
+    GetCanSeeEverything: () => boolean;
+    GetCurrentRoom: () => Room;
 
     /**
      * Note that this returns a read-only copy of the `RoomDescriptor` object and writing to any of
@@ -69,10 +65,10 @@ declare global {
      * `GetRoomByIdx(currentRoomGridIndex)` method or the `getRoomDescriptor` helper function
      * instead.
      */
-    GetCurrentRoomDesc(): Readonly<RoomDescriptor>;
+    GetCurrentRoomDesc: () => Readonly<RoomDescriptor>;
 
     /** Returns the current room's grid index. */
-    GetCurrentRoomIndex(): int;
+    GetCurrentRoomIndex: () => int;
 
     // cspell:ignore Maldición oscuridad
 
@@ -82,14 +78,14 @@ declare global {
      * Note that this will return the localized curse name, like "Maldición de oscuridad" for Curse
      * of Darkness in Spanish.
      */
-    GetCurseName(): string;
+    GetCurseName: () => string;
 
-    GetCurses(): BitFlags<LevelCurse>;
-    GetDevilAngelRoomRNG(): RNG;
-    GetDungeonPlacementSeed(): Seed;
-    GetEnterPosition(): Vector;
-    GetHeartPicked(): boolean;
-    GetLastBossRoomListIndex(): int;
+    GetCurses: () => BitFlags<LevelCurse>;
+    GetDevilAngelRoomRNG: () => RNG;
+    GetDungeonPlacementSeed: () => Seed;
+    GetEnterPosition: () => Vector;
+    GetHeartPicked: () => boolean;
+    GetLastBossRoomListIndex: () => int;
 
     /**
      * Note that this returns a read-only copy of the `RoomDescriptor` object and writing to any of
@@ -97,7 +93,7 @@ declare global {
      * `GetRoomByIdx(currentRoomGridIndex)` method or the `getRoomDescriptor` helper function
      * instead.
      */
-    GetLastRoomDesc(): Readonly<RoomDescriptor>;
+    GetLastRoomDesc: () => Readonly<RoomDescriptor>;
 
     /**
      * @param levelStage Default value is the current stage.
@@ -106,65 +102,71 @@ declare global {
      * @param infiniteLevel Default value is the current infinite level setting.
      * @param dyslexia Default value is the current dyslexia setting.
      */
-    GetName(
+    GetName: (
       levelStage?: LevelStage,
       stageType?: StageType,
       curses?: int,
       infiniteLevel?: int,
       dyslexia?: boolean,
-    ): string;
+    ) => string;
 
     /**
      * Returns the grid index of an unexplored or uncleared room on the floor. Returns -1 if all
      * rooms have been explored and cleared.
      */
-    GetNonCompleteRoomIndex(): int;
+    GetNonCompleteRoomIndex: () => int;
 
     /** Returns the probability of getting a Planetarium (in the 0-1 range). */
-    GetPlanetariumChance(): float;
+    GetPlanetariumChance: () => float;
 
     /** Returns the grid index of the previous room. */
-    GetPreviousRoomIndex(): int;
+    GetPreviousRoomIndex: () => int;
 
     /** Returns a random grid index of the floor. */
-    GetRandomRoomIndex(IAmErrorRoom: boolean, seed: Seed): int;
+    GetRandomRoomIndex: (IAmErrorRoom: boolean, seed: Seed) => int;
 
     /**
      * @param roomGridIndex The grid index of the room to get.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    GetRoomByIdx(
+    GetRoomByIdx: (
       roomGridIndex: int | GridRoom,
       dimension?: Dimension,
-    ): RoomDescriptor;
+    ) => RoomDescriptor;
 
-    GetRoomCount(): int;
-    GetRooms(): RoomList;
-    GetStage(): LevelStage;
-    GetStageType(): StageType;
+    GetRoomCount: () => int;
+    GetRooms: () => RoomList;
+    GetStage: () => LevelStage;
+    GetStageType: () => StageType;
 
     /** Returns the grid index of the starting room on the floor. */
-    GetStartingRoomIndex(): int;
+    GetStartingRoomIndex: () => int;
 
-    GetStateFlag(levelStateFlag: LevelStateFlag): boolean;
-    HasBossChallenge(): boolean;
-    InitializeDevilAngelRoom(forceAngel: boolean, forceDevil: boolean): void;
-    IsAltStage(): boolean;
+    GetStateFlag: (levelStateFlag: LevelStateFlag) => boolean;
+    HasBossChallenge: () => boolean;
+    InitializeDevilAngelRoom: (
+      forceAngel: boolean,
+      forceDevil: boolean,
+    ) => void;
+    IsAltStage: () => boolean;
 
     /** Returns true if the player is in the Ascent. */
-    IsAscent(): boolean;
+    IsAscent: () => boolean;
 
-    IsDevilRoomDisabled(): boolean;
-    IsNextStageAvailable(): boolean;
+    IsDevilRoomDisabled: () => boolean;
+    IsNextStageAvailable: () => boolean;
 
     /** Returns true if the player is in the version of Mausoleum/Gehenna leading to the Ascent. */
-    IsPreAscent(): boolean;
+    IsPreAscent: () => boolean;
 
     /**
      * Attempts to create a red room door in the given room at the given door slot. Returns true on
      * success.
      */
-    MakeRedRoomDoor(roomGridIndex: int | GridRoom, doorSlot: DoorSlot): boolean;
+    MakeRedRoomDoor: (
+      roomGridIndex: int | GridRoom,
+      doorSlot: DoorSlot,
+    ) => boolean;
 
     /**
      * @param roomType
@@ -173,56 +175,56 @@ declare global {
      * @param ignoreGroup If set to true, includes rooms that do not have the same group ID as the
      *                    current room. Default is false.
      */
-    QueryRoomTypeIndex(
+    QueryRoomTypeIndex: (
       roomType: RoomType,
       visited: boolean,
       rng: RNG,
       ignoreGroup?: boolean,
-    ): int;
+    ) => int;
 
-    RemoveCompassEffect(): void;
+    RemoveCompassEffect: () => void;
 
     /**
      * This is currently bugged and maps internally to `Level.RemoveCurse`. The old
      * `Level.RemoveCurses` is not currently accessible.
      */
-    RemoveCurses(levelCurse: LevelCurse): void;
+    RemoveCurses: (levelCurse: LevelCurse) => void;
 
-    SetCanSeeEverything(value: boolean): void;
-    SetHeartPicked(): void;
+    SetCanSeeEverything: (value: boolean) => void;
+    SetHeartPicked: () => void;
 
     /**
      * Puts you in the next stage without applying any of the floor changes. You are meant to call
      * the `Level.StartStageTransition` method after using this function.
      */
-    SetNextStage(): void;
+    SetNextStage: () => void;
 
-    SetRedHeartDamage(): void;
-    SetStage(levelStage: LevelStage, stageType: StageType): void;
-    SetStateFlag(levelStateFlag: LevelStateFlag, value: boolean): void;
+    SetRedHeartDamage: () => void;
+    SetStage: (levelStage: LevelStage, stageType: StageType) => void;
+    SetStateFlag: (levelStateFlag: LevelStateFlag, value: boolean) => void;
 
     /**
      * Reveals the entire map except for the Super Secret Room. (This is the same as the World card
      * or Sun card.)
      */
-    ShowMap(): void;
+    ShowMap: () => void;
 
     /**
      * Displays the streak text near the top of the screen that shows the name of the current level.
      */
-    ShowName(sticky: boolean): void;
+    ShowName: (sticky: boolean) => void;
 
     /**
      * Uncovers the door on both sides by modifying the saved grid entities for neighboring room.
      */
-    UncoverHiddenDoor(currentRoomIdx: int, doorSlot: DoorSlot): void;
+    UncoverHiddenDoor: (currentRoomIdx: int, doorSlot: DoorSlot) => void;
 
-    Update(): void;
+    Update: () => void;
 
     /**
      * Call this method to update the mini-map after changing the `DisplayFlags` field of a room.
      */
-    UpdateVisibility(): void;
+    UpdateVisibility: () => void;
 
     /** The position that the player will return to if they exit a crawl space. */
     DungeonReturnPosition: Vector;

@@ -8,7 +8,7 @@ export const jsdocCodeBlockLanguage = createRule({
     docs: {
       description:
         "Requires a language specification for every JSDoc code block",
-      recommended: "error",
+      recommended: "recommended",
     },
     schema: [],
     messages: {
@@ -29,7 +29,7 @@ export const jsdocCodeBlockLanguage = createRule({
     // We only look at `/**` style comments.
     const jsDocComments = getJSDocComments(comments);
 
-    jsDocComments.forEach((comment) => {
+    for (const comment of jsDocComments) {
       const text = getTextFromJSDocComment(comment.value);
       const lines = text.split("\n");
 
@@ -54,7 +54,7 @@ export const jsdocCodeBlockLanguage = createRule({
           });
         }
       }
-    });
+    }
 
     return {};
   },

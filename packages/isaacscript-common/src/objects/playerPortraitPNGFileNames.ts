@@ -3,9 +3,7 @@
 import { PlayerType } from "isaac-typescript-definitions";
 
 /** Used when rendering the "versusscreen.anm2" sprite. */
-export const PLAYER_PORTRAIT_PNG_FILE_NAMES: {
-  readonly [key in PlayerType]: string | undefined;
-} = {
+export const PLAYER_PORTRAIT_PNG_FILE_NAMES = {
   [PlayerType.POSSESSOR]: undefined, // -1
   [PlayerType.ISAAC]: "playerportrait_isaac.png", // 0
   [PlayerType.MAGDALENE]: "playerportrait_magdalene.png", // 1
@@ -52,4 +50,4 @@ export const PLAYER_PORTRAIT_PNG_FILE_NAMES: {
   [PlayerType.JACOB_2_B]: "playerportrait_jacob_b.png", // 39
   // Tainted The Soul uses the same name as Tainted Forgotten.
   [PlayerType.SOUL_B]: "playerportrait_theforgotten_b.png", // 40
-} as const;
+} as const satisfies Record<PlayerType, string | undefined>;

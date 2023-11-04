@@ -1,44 +1,47 @@
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import {
-  ActiveSlot,
   CollectibleType,
   GridCollisionClass,
   GridEntityType,
   ModCallback,
-  UseFlag,
 } from "isaac-typescript-definitions";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import {
   removeGridEntity,
   spawnGridEntityWithVariant,
 } from "../../../functions/gridEntities";
 import { getPlayerFromPtr } from "../../../functions/players";
 import { getRoomListIndex } from "../../../functions/roomData";
-import { isNumber } from "../../../functions/types";
+import { isInteger } from "../../../functions/types";
+import { assertDefined } from "../../../functions/utils";
 import { isVector } from "../../../functions/vector";
-import { GridEntityCustomData } from "../../../interfaces/GridEntityCustomData";
+import type { GridEntityCustomData } from "../../../interfaces/GridEntityCustomData";
 import { DefaultMap } from "../../DefaultMap";
 import { Feature } from "../../private/Feature";
-import { RunInNFrames } from "../other/RunInNFrames";
+import type { RunInNFrames } from "../other/RunInNFrames";
+
+const v = {
+  level: {
+    /** Indexed by room list index and grid index. */
+    customGridEntities: new DefaultMap<int, Map<int, GridEntityCustomData>>(
+      () => new Map(),
+    ),
+  },
+
+  room: {
+    genericPropPtrHashes: new Set<PtrHash>(),
+    manuallyUsingShovel: false,
+  },
+};
 
 export class CustomGridEntities extends Feature {
   /** @internal */
-  public override v = {
-    level: {
-      /** Indexed by room list index and grid index. */
-      customGridEntities: new DefaultMap<int, Map<int, GridEntityCustomData>>(
-        () => new Map(),
-      ),
-    },
+  public override v = v;
 
-    room: {
-      genericPropPtrHashes: new Set<PtrHash>(),
-      manuallyUsingShovel: false,
-    },
-  };
-
-  private runInNFrames: RunInNFrames;
+  private readonly runInNFrames: RunInNFrames;
 
   /** @internal */
   constructor(runInNFrames: RunInNFrames) {
@@ -47,50 +50,24 @@ export class CustomGridEntities extends Feature {
     this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
 
     this.callbacksUsed = [
-      [ModCallback.POST_NEW_ROOM, [this.postNewRoom]], // 19
+      // 23
       [
         ModCallback.PRE_USE_ITEM,
-        [this.preUseItemWeNeedToGoDeeper, CollectibleType.WE_NEED_TO_GO_DEEPER],
-      ], // 23
+        this.preUseItemWeNeedToGoDeeper,
+        [CollectibleType.WE_NEED_TO_GO_DEEPER],
+      ],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
 
     this.runInNFrames = runInNFrames;
   }
 
-  // ModCallback.POST_NEW_ROOM (19)
-  private postNewRoom = (): void => {
-    // When we re-enter a room, the graphics for any custom entities will be reverted back to that
-    // of a normal decoration. Thus, we must re-apply the anm2.
-    const roomListIndex = getRoomListIndex();
-    const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
-    if (roomCustomGridEntities === undefined) {
-      return;
-    }
-
-    const room = game.GetRoom();
-    for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
-      const decoration = room.GetGridEntity(gridIndex);
-      if (decoration === undefined) {
-        roomCustomGridEntities.delete(gridIndex);
-        continue;
-      }
-
-      if (data.anm2Path !== undefined) {
-        const sprite = decoration.GetSprite();
-        sprite.Load(data.anm2Path, true);
-        const animationToPlay =
-          data.defaultAnimation === undefined
-            ? sprite.GetDefaultAnimation()
-            : data.defaultAnimation;
-        sprite.Play(animationToPlay, true);
-      }
-    }
-  };
-
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
-  private preUseItemWeNeedToGoDeeper = (
+  private readonly preUseItemWeNeedToGoDeeper = (
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -104,7 +81,7 @@ export class CustomGridEntities extends Feature {
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return undefined;
     }
@@ -130,13 +107,42 @@ export class CustomGridEntities extends Feature {
         return;
       }
 
-      this.v.room.manuallyUsingShovel = true;
+      v.room.manuallyUsingShovel = true;
       futurePlayer.UseActiveItem(CollectibleType.WE_NEED_TO_GO_DEEPER);
-      this.v.room.manuallyUsingShovel = false;
+      v.room.manuallyUsingShovel = false;
     });
 
     // Cancel the original effect.
     return true;
+  };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = (): void => {
+    // When we re-enter a room, the graphics for any custom entities will be reverted back to that
+    // of a normal decoration. Thus, we must re-apply the anm2.
+    const roomListIndex = getRoomListIndex();
+    const roomCustomGridEntities =
+      v.level.customGridEntities.get(roomListIndex);
+    if (roomCustomGridEntities === undefined) {
+      return;
+    }
+
+    const room = game.GetRoom();
+    for (const [gridIndex, data] of roomCustomGridEntities) {
+      const decoration = room.GetGridEntity(gridIndex);
+      if (decoration === undefined) {
+        roomCustomGridEntities.delete(gridIndex);
+        continue;
+      }
+
+      if (data.anm2Path !== undefined) {
+        const sprite = decoration.GetSprite();
+        sprite.Load(data.anm2Path, true);
+        const animationToPlay =
+          data.defaultAnimation ?? sprite.GetDefaultAnimation();
+        sprite.Play(animationToPlay, true);
+      }
+    }
   };
 
   /**
@@ -240,9 +246,7 @@ export class CustomGridEntities extends Feature {
       baseGridEntityVariant,
       gridIndexOrPosition,
     );
-    if (customGridEntity === undefined) {
-      error("Failed to spawn a custom grid entity.");
-    }
+    assertDefined(customGridEntity, "Failed to spawn a custom grid entity.");
 
     if (gridCollisionClass !== undefined) {
       customGridEntity.CollisionClass = gridCollisionClass;
@@ -251,10 +255,7 @@ export class CustomGridEntities extends Feature {
     if (anm2Path !== undefined) {
       const sprite = customGridEntity.GetSprite();
       sprite.Load(anm2Path, true);
-      const animationToPlay =
-        defaultAnimation === undefined
-          ? sprite.GetDefaultAnimation()
-          : defaultAnimation;
+      const animationToPlay = defaultAnimation ?? sprite.GetDefaultAnimation();
       sprite.Play(animationToPlay, true);
     }
 
@@ -268,7 +269,7 @@ export class CustomGridEntities extends Feature {
     };
 
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.getAndSetDefault(roomListIndex);
+      v.level.customGridEntities.getAndSetDefault(roomListIndex);
     roomCustomGridEntities.set(gridIndex, customGridEntityData);
 
     return customGridEntity;
@@ -283,7 +284,7 @@ export class CustomGridEntities extends Feature {
    * @param gridIndexOrPositionOrGridEntity You can specify the custom grid entity to remove by
    *                                providing the grid index, the room position, or the grid entity
    *                                itself.
-   * @param updateRoom Optional. Whether or not to update the room after the grid entity is removed.
+   * @param updateRoom Optional. Whether to update the room after the grid entity is removed.
    *                   Default is true. This is generally a good idea because if the room is not
    *                   updated, you will be unable to spawn another grid entity on the same tile
    *                   until a frame has passed. However, doing this is expensive, since it involves
@@ -323,7 +324,7 @@ export class CustomGridEntities extends Feature {
 
     const gridIndex = decoration.GetGridIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.getAndSetDefault(roomListIndex);
+      v.level.customGridEntities.getAndSetDefault(roomListIndex);
     const exists = roomCustomGridEntities.has(gridIndex);
     if (!exists) {
       return undefined;
@@ -343,22 +344,26 @@ export class CustomGridEntities extends Feature {
    * `ISCFeature.CUSTOM_GRID_ENTITIES`.
    */
   @Exported
-  public getCustomGridEntities(): Array<
-    [gridEntity: GridEntity, data: GridEntityCustomData]
-  > {
+  public getCustomGridEntities(): Array<{
+    gridEntity: GridEntity;
+    data: GridEntityCustomData;
+  }> {
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return [];
     }
 
     const room = game.GetRoom();
-    const customGridEntities: Array<[GridEntity, GridEntityCustomData]> = [];
-    for (const [gridIndex, data] of roomCustomGridEntities.entries()) {
+    const customGridEntities: Array<{
+      gridEntity: GridEntity;
+      data: GridEntityCustomData;
+    }> = [];
+    for (const [gridIndex, data] of roomCustomGridEntities) {
       const gridEntity = room.GetGridEntity(gridIndex);
       if (gridEntity !== undefined) {
-        customGridEntities.push([gridEntity, data]);
+        customGridEntities.push({ gridEntity, data });
       }
     }
 
@@ -381,18 +386,18 @@ export class CustomGridEntities extends Feature {
       return undefined;
     }
 
-    const gridIndex = isNumber(gridEntityOrGridIndex)
+    const gridIndex = isInteger(gridEntityOrGridIndex)
       ? gridEntityOrGridIndex
       : gridEntityOrGridIndex.GetGridIndex();
 
     const roomListIndex = getRoomListIndex();
     const roomCustomGridEntities =
-      this.v.level.customGridEntities.get(roomListIndex);
+      v.level.customGridEntities.get(roomListIndex);
     if (roomCustomGridEntities === undefined) {
       return undefined;
     }
 
-    for (const [_gridIndex, data] of roomCustomGridEntities.entries()) {
+    for (const [_gridIndex, data] of roomCustomGridEntities) {
       if (data.gridIndex === gridIndex) {
         return data.gridEntityTypeCustom;
       }

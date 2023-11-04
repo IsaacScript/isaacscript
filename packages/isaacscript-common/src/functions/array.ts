@@ -1,7 +1,9 @@
+import { ReadonlySet } from "../types/ReadonlySet";
+import type { WidenLiteral } from "../types/WidenLiteral";
 import { getRandomInt } from "./random";
-import { getRandomSeed, isRNG, newRNG } from "./rng";
+import { isRNG, newRNG } from "./rng";
 import { isNumber, isTable } from "./types";
-import { eRange } from "./utils";
+import { assertDefined, eRange } from "./utils";
 
 /**
  * Helper function for determining if two arrays contain the exact same elements. Note that this
@@ -102,22 +104,23 @@ export function arrayRemoveAllInPlace<T>(
  * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
  * function instead.
  *
- * @returns True if one or more elements were removed, false otherwise.
+ * @returns The removed elements. This will be an empty array if no elements were removed.
  */
 export function arrayRemoveInPlace<T>(
   array: T[],
   ...elementsToRemove: T[]
-): boolean {
-  let removedOneOrMoreElements = false;
+): T[] {
+  const removedElements: T[] = [];
+
   for (const element of elementsToRemove) {
     const index = array.indexOf(element);
     if (index > -1) {
-      removedOneOrMoreElements = true;
-      array.splice(index, 1);
+      const removedElement = array.splice(index, 1);
+      removedElements.push(...removedElement);
     }
   }
 
-  return removedOneOrMoreElements;
+  return removedElements;
 }
 
 /**
@@ -131,48 +134,52 @@ export function arrayRemoveIndex<T>(
   originalArray: T[] | readonly T[],
   ...indexesToRemove: int[]
 ): T[] {
-  const indexesToRemoveSet = new Set(indexesToRemove);
+  const indexesToRemoveSet = new ReadonlySet(indexesToRemove);
 
   const array: T[] = [];
-  originalArray.forEach((element, i) => {
+  for (const [i, element] of originalArray.entries()) {
     if (!indexesToRemoveSet.has(i)) {
       array.push(element);
     }
-  });
+  }
 
   return array;
 }
 
 /**
  * Removes the elements at the specified indexes from the array. If the specified indexes are not
- * found in the array, this function will do nothing. Returns true if one or more elements were
- * removed.
+ * found in the array, this function will do nothing.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  *
- * @returns Whether or not any array elements were removed.
+ * @returns The removed elements. This will be an empty array if no elements were removed.
  */
 export function arrayRemoveIndexInPlace<T>(
   array: T[],
   ...indexesToRemove: int[]
-): boolean {
+): T[] {
   const legalIndexes = indexesToRemove.filter(
     (i) => i >= 0 && i < array.length,
   );
-  legalIndexes.sort();
 
   if (legalIndexes.length === 0) {
-    return false;
+    return [];
   }
+
+  const legalIndexesSet = new ReadonlySet(legalIndexes);
+  const removedElements: T[] = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
-    array.splice(i, 1);
+    if (legalIndexesSet.has(i)) {
+      const removedElement = array.splice(i, 1);
+      removedElements.push(...removedElement);
+    }
   }
 
-  return true;
+  return removedElements;
 }
 
-export function arrayToString<T>(array: T[] | readonly T[]): string {
+export function arrayToString(array: unknown[]): string {
   if (array.length === 0) {
     return "[]";
   }
@@ -211,24 +218,51 @@ export function copyArray<T>(
   oldArray: T[] | readonly T[],
   numElements?: int,
 ): T[] {
+  // Using the spread operator was benchmarked to be faster than manually creating an array using
+  // the below algorithm.
   if (numElements === undefined) {
-    numElements = oldArray.length;
+    return [...oldArray];
   }
 
-  const newArray: T[] = [];
+  const newArrayWithFirstNElements: T[] = [];
   for (let i = 0; i < numElements; i++) {
-    const oldElement = oldArray[i];
-    if (oldElement !== undefined) {
-      newArray.push(oldElement);
-    }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    newArrayWithFirstNElements.push(oldArray[i]!);
   }
 
-  return newArray;
+  return newArrayWithFirstNElements;
 }
 
 /** Helper function to remove all of the elements in an array in-place. */
 export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
+}
+
+/**
+ * Helper function to perform a map and a filter at the same time. Similar to `Array.map`, provide a
+ * function that transforms a value, but return `undefined` if the value should be skipped. (Thus,
+ * this function cannot be used in situations where `undefined` can be a valid array element.)
+ *
+ * This function is useful because the `Array.map` method will always produce an array with the same
+ * amount of elements as the original array.
+ *
+ * This is named `filterMap` after the Rust function:
+ * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
+ */
+export function filterMap<OldT, NewT>(
+  array: OldT[] | readonly OldT[],
+  func: (element: OldT) => NewT | undefined,
+): NewT[] {
+  const newArray: NewT[] = [];
+
+  for (const element of array) {
+    const newElement = func(element);
+    if (newElement !== undefined) {
+      newArray.push(newElement);
+    }
+  }
+
+  return newArray;
 }
 
 /**
@@ -250,7 +284,7 @@ export function emptyArray<T>(array: T[]): void {
  * From: https://github.com/firstandthird/combinations/blob/master/index.js
  *
  * @param array The array to get the combinations of.
- * @param includeEmptyArray Whether or not to include an empty array in the combinations.
+ * @param includeEmptyArray Whether to include an empty array in the combinations.
  * @param min Optional. The minimum number of elements to include in each combination. Default is 1.
  * @param max Optional. The maximum number of elements to include in each combination. Default is
  *            the length of the array.
@@ -268,26 +302,6 @@ export function getArrayCombinations<T>(
     max = array.length;
   }
 
-  const addCombinations = (
-    n: number,
-    src: T[] | readonly T[],
-    got: T[],
-    all: Array<T[] | readonly T[]>,
-  ) => {
-    if (n === 0) {
-      if (got.length > 0) {
-        all[all.length] = got;
-      }
-
-      return;
-    }
-
-    for (let j = 0; j < src.length; j++) {
-      const value = src[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      addCombinations(n - 1, src.slice(j + 1), got.concat([value]), all);
-    }
-  };
-
   const all: Array<T[] | readonly T[]> = [];
   for (let i = min; i < array.length; i++) {
     addCombinations(i, array, [], all);
@@ -304,35 +318,93 @@ export function getArrayCombinations<T>(
   return all;
 }
 
+function addCombinations<T>(
+  n: number,
+  src: T[] | readonly T[],
+  got: T[],
+  all: Array<T[] | readonly T[]>,
+) {
+  if (n === 0) {
+    if (got.length > 0) {
+      all[all.length] = got;
+    }
+
+    return;
+  }
+
+  for (const [i, element] of src.entries()) {
+    addCombinations(n - 1, src.slice(i + 1), [...got, element], all);
+  }
+}
+
 /**
  * Helper function to get an array containing the indexes of an array.
  *
  * For example, an array of `["Apple", "Banana"]` would return an array of `[0, 1]`.
+ *
+ * Note that normally, you would use the `Object.keys` method to get the indexes of an array, but
+ * due to implementation details of TypeScriptToLua, this results in an array of 1 through N
+ * (instead of an array of 0 through N -1).
  */
 export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
   return eRange(array.length);
 }
 
 /**
- * Helper function to return the last element of an array.
- *
- * If the array is empty, this will return undefined.
+ * Helper function to get the highest value in an array. Returns undefined if there were no elements
+ * in the array.
  */
-export function getLastElement<T>(array: T[]): T | undefined {
-  return array[array.length - 1];
+export function getHighestArrayElement(array: number[]): number | undefined {
+  if (array.length === 0) {
+    return undefined;
+  }
+
+  let highestValue: number | undefined;
+
+  for (const element of array) {
+    if (highestValue === undefined || element > highestValue) {
+      highestValue = element;
+    }
+  }
+
+  return highestValue;
+}
+
+/**
+ * Helper function to get the lowest value in an array. Returns undefined if there were no elements
+ * in the array.
+ */
+export function getLowestArrayElement(array: number[]): number | undefined {
+  if (array.length === 0) {
+    return undefined;
+  }
+
+  let lowestValue: number | undefined;
+
+  for (const element of array) {
+    if (lowestValue === undefined || element < lowestValue) {
+      lowestValue = element;
+    }
+  }
+
+  return lowestValue;
 }
 
 /**
  * Helper function to get a random element from the provided array.
  *
+ * If you want to get an unseeded element, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param array The array to get an element from.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
   array: T[] | readonly T[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   exceptions: T[] | readonly T[] = [],
 ): T {
   if (array.length === 0) {
@@ -341,14 +413,14 @@ export function getRandomArrayElement<T>(
     );
   }
 
-  const arrayWithoutExceptions = arrayRemove(array, ...exceptions);
-  const randomIndex = getRandomArrayIndex(arrayWithoutExceptions, seedOrRNG);
-  const randomElement = arrayWithoutExceptions[randomIndex];
-  if (randomElement === undefined) {
-    error(
-      `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
-    );
-  }
+  const arrayToUse =
+    exceptions.length > 0 ? arrayRemove(array, ...exceptions) : array;
+  const randomIndex = getRandomArrayIndex(arrayToUse, seedOrRNG);
+  const randomElement = arrayToUse[randomIndex];
+  assertDefined(
+    randomElement,
+    `Failed to get a random array element since the random index of ${randomIndex} was not valid.`,
+  );
 
   return randomElement;
 }
@@ -357,14 +429,18 @@ export function getRandomArrayElement<T>(
  * Helper function to get a random element from the provided array. Once the random element is
  * decided, it is then removed from the array (in-place).
  *
+ * If you want to get an unseeded element, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param array The array to get an element from.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElementAndRemove<T>(
   array: T[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   exceptions: T[] | readonly T[] = [],
 ): T {
   const randomArrayElement = getRandomArrayElement(
@@ -379,15 +455,19 @@ export function getRandomArrayElementAndRemove<T>(
 /**
  * Helper function to get a random index from the provided array.
  *
+ * If you want to get an unseeded index, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * @param array The array to get the index from.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  * @param exceptions Optional. An array of indexes that will be skipped over when getting the random
  *                   index. Default is an empty array.
  */
 export function getRandomArrayIndex<T>(
   array: T[] | readonly T[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
   exceptions: int[] | readonly int[] = [],
 ): int {
   if (array.length === 0) {
@@ -400,13 +480,34 @@ export function getRandomArrayIndex<T>(
 }
 
 /**
+ * Similar to the `Array.includes` method, but works on a widened version of the array.
+ *
+ * This is useful when the normal `Array.includes` produces a type error from an array that uses an
+ * `as const` assertion.
+ */
+export function includes<T, TupleElement extends WidenLiteral<T>>(
+  array: readonly TupleElement[],
+  searchElement: WidenLiteral<T>,
+): searchElement is TupleElement {
+  const widenedArray: ReadonlyArray<WidenLiteral<T>> = array;
+  return widenedArray.includes(searchElement);
+}
+
+/**
  * Since Lua uses tables for every non-primitive data structure, it is non-trivial to determine if a
  * particular table is being used as an array. `isArray` returns true if:
  *
  * - the table contains all numerical indexes that are contiguous, starting at 1
  * - the table has no keys (i.e. an "empty" table)
+ *
+ * @param object The object to analyze.
+ * @param ensureContiguousValues Optional. Whether the Lua table has to have all contiguous keys in
+ *                               order to be considered an array. Default is true.
  */
-export function isArray(object: unknown): object is unknown[] {
+export function isArray(
+  object: unknown,
+  ensureContiguousValues = true,
+): object is unknown[] {
   if (!isTable(object)) {
     return false;
   }
@@ -431,10 +532,12 @@ export function isArray(object: unknown): object is unknown[] {
   }
 
   // Fourth, check for non-contiguous elements. (Lua tables start at an index of 1.)
-  for (let i = 1; i <= keys.length; i++) {
-    const element = object.get(i);
-    if (element === undefined) {
-      return false;
+  if (ensureContiguousValues) {
+    for (let i = 1; i <= keys.length; i++) {
+      const element = object.get(i);
+      if (element === undefined) {
+        return false;
+      }
     }
   }
 
@@ -469,18 +572,29 @@ export function isArrayInArray<T>(
   return parentArray.some((element) => arrayEquals(element, arrayToMatch));
 }
 
+/** Helper function to set every element in an array to a specific value. */
+export function setAllArrayElements<T>(array: T[], value: T): void {
+  for (let i = 0; i < array.length; i++) {
+    array[i] = value;
+  }
+}
+
 /**
  * Shallow copies and shuffles the array using the Fisher-Yates algorithm. Returns the copied array.
+ *
+ * If you want an unseeded shuffle, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
  *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  *
  * @param originalArray The array to shuffle.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  */
 export function shuffleArray<T>(
   originalArray: T[] | readonly T[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
 ): T[] {
   const array = copyArray(originalArray);
   shuffleArrayInPlace(array, seedOrRNG);
@@ -491,15 +605,19 @@ export function shuffleArray<T>(
 /**
  * Shuffles the provided array in-place using the Fisher-Yates algorithm.
  *
+ * If you want an unseeded shuffle, you must explicitly pass `undefined` to the `seedOrRNG`
+ * parameter.
+ *
  * From: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  *
  * @param array The array to shuffle.
- * @param seedOrRNG Optional. The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
- *                  `RNG.Next` method will be called. Default is `getRandomSeed()`.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
  */
 export function shuffleArrayInPlace<T>(
   array: T[],
-  seedOrRNG: Seed | RNG = getRandomSeed(),
+  seedOrRNG: Seed | RNG | undefined,
 ): void {
   let currentIndex = array.length;
 
@@ -515,7 +633,7 @@ export function shuffleArrayInPlace<T>(
 
 /** Helper function to sum every value in an array together. */
 export function sumArray(array: number[] | readonly number[]): number {
-  return array.reduce((accumulator, element) => accumulator + element);
+  return array.reduce((accumulator, element) => accumulator + element, 0);
 }
 
 /**

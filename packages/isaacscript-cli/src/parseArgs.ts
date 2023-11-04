@@ -1,5 +1,23 @@
+// Other potential args libraries:
+// - util.parseArgs
+//   - https://nodejs.org/api/util.html#utilparseargsconfig
+//   - Too bare bones; does not support numbers.
+// - arg (1.2K stars)
+//   - https://github.com/vercel/arg
+//   - Does not support commands (i.e. positional arguments).
+// - cmd-ts (193 stars)
+//   - https://github.com/Schniz/cmd-ts
+//   - ?
+// - clack (4.3K stars)
+//   - https://github.com/natemoo-re/clack
+//   - ?
+// - commander (25.4K stars)
+//   - https://github.com/tj/commander.js
+//   - ?
+
+import { getArgs } from "isaacscript-common-node";
 import yargs from "yargs";
-import { PROJECT_NAME } from "./constants";
+import { PROJECT_NAME } from "./constants.js";
 
 export interface Args {
   _: string[];
@@ -22,21 +40,31 @@ export interface Args {
   forceName?: boolean;
 
   // publish
-  skip?: boolean;
+  major?: boolean;
+  minor?: boolean;
+  patch?: boolean;
+  skipIncrement?: boolean;
   setVersion?: string;
   dryRun?: boolean;
-  onlyUpload?: boolean;
+  skipUpdate?: boolean;
+  skipLint?: boolean;
+  otp?: boolean;
+
+  // check
+  ignore?: string;
 
   // shared
   dev?: boolean;
   verbose?: boolean;
 }
 
+/** Parse command-line arguments. */
 export function parseArgs(): Args {
-  const yargsObject = yargs(process.argv.slice(2))
+  const args = getArgs();
+  const yargsObject = yargs(args)
     .strict()
-    .usage("usage: isaacscript <command> [options]")
-    .scriptName("isaacscript")
+    .usage(`usage: ${PROJECT_NAME.toLowerCase()} <command> [options]`)
+    .scriptName(PROJECT_NAME.toLowerCase())
 
     .alias("h", "help") // By default, only "--help" is enabled.
     .alias("V", "version") // By default, only "--version" is enabled.
@@ -80,10 +108,9 @@ export function parseArgs(): Args {
             alias: "y",
             type: "boolean",
             description:
-              'Answer yes to every dialog option, similar to how "npm init --yes" works.',
+              'Answer yes to every dialog option, similar to how "npm init --yes" works',
           })
           .option("use-current-dir", {
-            alias: "u",
             type: "boolean",
             description:
               "Use the current directory as the root for the project",
@@ -100,7 +127,6 @@ export function parseArgs(): Args {
             description: "The in-game save slot that you use",
           })
           .option("vscode", {
-            alias: "c",
             type: "boolean",
             description: "Open the project in VSCode after initialization",
           })
@@ -111,7 +137,7 @@ export function parseArgs(): Args {
           })
           .option("yarn", {
             type: "boolean",
-            description: "Use yarn as the package manager",
+            description: "Use Yarn as the package manager",
           })
           .option("pnpm", {
             alias: "p",
@@ -119,12 +145,10 @@ export function parseArgs(): Args {
             description: "Use pnpm as the package manager",
           })
           .option("no-git", {
-            alias: "g",
             type: "boolean",
             description: "Do not initialize Git",
           })
           .option("skip-install", {
-            alias: "i",
             type: "boolean",
             description:
               "Don't automatically install the dependencies after initializing the project",
@@ -147,6 +171,61 @@ export function parseArgs(): Args {
           }),
     )
 
+    .command(
+      "init-ts [name]",
+      `Initialize a new ${PROJECT_NAME} TypeScript project.`,
+      (builder) =>
+        builder
+          .option("yes", {
+            alias: "y",
+            type: "boolean",
+            description:
+              'Answer yes to every dialog option, similar to how "npm init --yes" works',
+          })
+          .option("use-current-dir", {
+            type: "boolean",
+            description:
+              "Use the current directory as the root for the project",
+          })
+          .option("vscode", {
+            type: "boolean",
+            description: "Open the project in VSCode after initialization",
+          })
+          .option("npm", {
+            alias: "n",
+            type: "boolean",
+            description: "Use npm as the package manager",
+          })
+          .option("yarn", {
+            type: "boolean",
+            description: "Use Yarn as the package manager",
+          })
+          .option("pnpm", {
+            alias: "p",
+            type: "boolean",
+            description: "Use pnpm as the package manager",
+          })
+          .option("no-git", {
+            type: "boolean",
+            description: "Do not initialize Git",
+          })
+          .option("skip-install", {
+            type: "boolean",
+            description:
+              "Don't automatically install the dependencies after initializing the project",
+          })
+          .option("force-name", {
+            alias: "f",
+            type: "boolean",
+            description: "Allow project names that are normally illegal",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
+          }),
+    )
+
     .command("copy", "Only compile & copy the mod.", (builder) =>
       builder.option("verbose", {
         alias: "v",
@@ -157,36 +236,153 @@ export function parseArgs(): Args {
 
     .command(
       "publish",
-      "Bump the version & automatically publish the new files using the steamcmd tool.",
+      "Bump the version & prepare for a new release.",
       (builder) =>
         builder
-          .option("skip", {
-            alias: "s",
+          .option("major", {
             type: "boolean",
-            description: "skip incrementing the version number",
+            description: "Perform a major version bump",
+          })
+          .option("minor", {
+            type: "boolean",
+            description: "Perform a minor version bump",
+          })
+          .option("patch", {
+            type: "boolean",
+            description: "Perform a patch version bump",
+          })
+          .option("skip-increment", {
+            type: "boolean",
+            description: "Skip incrementing the version number",
           })
           .option("set-version", {
-            alias: "t",
             type: "string",
             description:
-              "specify the version number instead of incrementing it",
+              "Specify the version number instead of incrementing it",
           })
           .option("dry-run", {
             alias: "d",
             type: "boolean",
-            description: "skip invoking steamcmd",
-          })
-          .option("only-upload", {
-            alias: "u",
-            type: "boolean",
             description:
-              "only upload the mod to the Steam Workshop (without doing anything else)",
+              "Skip committing/uploading & perform a Git reset afterward",
+          })
+          .option("skip-update", {
+            type: "boolean",
+            description: "Skip updating dependencies",
+          })
+          .option("skip-lint", {
+            type: "boolean",
+            description: "Skip linting before publishing",
           })
           .option("verbose", {
             alias: "v",
             type: "boolean",
             description: "Enable verbose output",
           }),
+    )
+
+    .command(
+      "publish-ts",
+      "Bump the version & publish the project to npm.",
+      (builder) =>
+        builder
+          .option("major", {
+            type: "boolean",
+            description: "Perform a major version bump",
+          })
+          .option("minor", {
+            type: "boolean",
+            description: "Perform a minor version bump",
+          })
+          .option("patch", {
+            type: "boolean",
+            description: "Perform a patch version bump",
+          })
+          .option("skip-increment", {
+            type: "boolean",
+            description: "Skip incrementing the version number",
+          })
+          .option("set-version", {
+            type: "string",
+            description:
+              "Specify the version number instead of incrementing it",
+          })
+          .option("dry-run", {
+            alias: "d",
+            type: "boolean",
+            description:
+              "Skip committing/uploading & perform a Git reset afterward",
+          })
+          .option("skip-lint", {
+            type: "boolean",
+            description: "Skip linting before publishing",
+          })
+          .option("otp", {
+            type: "boolean",
+            description:
+              "Provide a two-factor OTP code tied to the npm account",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
+          }),
+    )
+
+    .command(
+      "check",
+      "Check the template files of the current IsaacScript mod to see if they are up to date.",
+      (builder) =>
+        builder
+          .option("ignore", {
+            alias: "i",
+            type: "string",
+            description: "Comma separated list of file names to ignore",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
+          }),
+    )
+
+    .command(
+      "check-ts",
+      "Check the template files of the current TypeScript project to see if they are up to date.",
+      (builder) =>
+        builder
+          .option("ignore", {
+            alias: "i",
+            type: "string",
+            description: "Comma separated list of file names to ignore",
+          })
+          .option("verbose", {
+            alias: "v",
+            type: "boolean",
+            description: "Enable verbose output",
+          }),
+    )
+
+    .command(
+      "update",
+      "Update the dependencies in the current project.",
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
+    )
+
+    .command(
+      "nuke",
+      "Delete and reinstall the dependencies in the current project.",
+      (builder) =>
+        builder.option("verbose", {
+          alias: "v",
+          type: "boolean",
+          description: "Enable verbose output",
+        }),
     )
 
     .parseSync();

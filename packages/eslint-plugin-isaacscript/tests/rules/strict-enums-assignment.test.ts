@@ -1,5 +1,6 @@
-import { TSESLint } from "@typescript-eslint/utils";
-import { MessageIds, Options, strictEnums } from "../../src/rules/strict-enums";
+import type { TSESLint } from "@typescript-eslint/utils";
+import type { MessageIds, Options } from "../../src/rules/strict-enums";
+import { strictEnums } from "../../src/rules/strict-enums";
 import { ruleTester } from "../utils";
 import { fruit2EnumDefinition, fruitEnumDefinition } from "./strict-enums";
 

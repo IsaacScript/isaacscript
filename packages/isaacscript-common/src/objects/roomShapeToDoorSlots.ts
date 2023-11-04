@@ -1,6 +1,7 @@
 import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
+import { ReadonlySet } from "../types/ReadonlySet";
 
-const ALL_DOOR_SLOTS_SET: ReadonlySet<DoorSlot> = new Set([
+const ALL_DOOR_SLOTS_SET = new ReadonlySet<DoorSlot>([
   DoorSlot.LEFT_0, // 0
   DoorSlot.UP_0, // 1
   DoorSlot.RIGHT_0, // 2
@@ -11,11 +12,9 @@ const ALL_DOOR_SLOTS_SET: ReadonlySet<DoorSlot> = new Set([
   DoorSlot.DOWN_1, // 7
 ]);
 
-export const ROOM_SHAPE_TO_DOOR_SLOTS: {
-  readonly [key in RoomShape]: ReadonlySet<DoorSlot>;
-} = {
+export const ROOM_SHAPE_TO_DOOR_SLOTS = {
   // 1
-  [RoomShape.SHAPE_1x1]: new Set([
+  [RoomShape.SHAPE_1x1]: new ReadonlySet([
     DoorSlot.LEFT_0, // 0
     DoorSlot.UP_0, // 1
     DoorSlot.RIGHT_0, // 2
@@ -23,19 +22,19 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS: {
   ]),
 
   // 2
-  [RoomShape.IH]: new Set([
+  [RoomShape.IH]: new ReadonlySet([
     DoorSlot.LEFT_0, // 0
     DoorSlot.RIGHT_0, // 2
   ]),
 
   // 3
-  [RoomShape.IV]: new Set([
+  [RoomShape.IV]: new ReadonlySet([
     DoorSlot.UP_0, // 1
     DoorSlot.DOWN_0, // 3
   ]),
 
   // 4
-  [RoomShape.SHAPE_1x2]: new Set([
+  [RoomShape.SHAPE_1x2]: new ReadonlySet([
     DoorSlot.LEFT_0, // 0
     DoorSlot.UP_0, // 1
     DoorSlot.RIGHT_0, // 2
@@ -45,13 +44,13 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS: {
   ]),
 
   // 5
-  [RoomShape.IIV]: new Set([
+  [RoomShape.IIV]: new ReadonlySet([
     DoorSlot.UP_0, // 1
     DoorSlot.DOWN_0, // 3
   ]),
 
   // 6
-  [RoomShape.SHAPE_2x1]: new Set([
+  [RoomShape.SHAPE_2x1]: new ReadonlySet([
     DoorSlot.LEFT_0, // 0
     DoorSlot.UP_0, // 1
     DoorSlot.RIGHT_0, // 2
@@ -61,7 +60,7 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS: {
   ]),
 
   // 7
-  [RoomShape.IIH]: new Set([
+  [RoomShape.IIH]: new ReadonlySet([
     DoorSlot.LEFT_0, // 0
     DoorSlot.RIGHT_0, // 2
   ]),
@@ -80,4 +79,4 @@ export const ROOM_SHAPE_TO_DOOR_SLOTS: {
 
   // 12
   [RoomShape.LBR]: ALL_DOOR_SLOTS_SET,
-} as const;
+} as const satisfies Record<RoomShape, ReadonlySet<DoorSlot>>;

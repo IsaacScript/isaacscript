@@ -35,7 +35,7 @@ export function addFlag<T extends BitFlag | BitFlag128>(
     flagsAsInt |= flagToAdd as int;
   }
 
-  return flagsAsInt as BitFlags<T>;
+  return flagsAsInt as unknown as BitFlags<T>;
 }
 
 /**
@@ -66,7 +66,7 @@ export function getFlagName<T extends BitFlag | BitFlag128>(
   flag: BitFlag,
   flagEnum: Record<string, T>,
 ): string | undefined {
-  for (const [key, value] of pairs(flagEnum)) {
+  for (const [key, value] of Object.entries(flagEnum)) {
     if (value === flag) {
       return key;
     }
@@ -161,5 +161,5 @@ export function removeFlag<T extends BitFlag | BitFlag128>(
     flagsAsInt &= ~flagToRemove;
   }
 
-  return flagsAsInt as BitFlags<T>;
+  return flagsAsInt as unknown as BitFlags<T>;
 }

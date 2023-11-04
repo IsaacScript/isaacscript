@@ -1,5 +1,5 @@
-import { DefaultMap } from "../classes/DefaultMap";
-import { PlayerIndex } from "../types/PlayerIndex";
+import type { DefaultMap } from "../classes/DefaultMap";
+import type { PlayerIndex } from "../types/PlayerIndex";
 import { getPlayerIndex } from "./playerIndex";
 
 /**
@@ -19,11 +19,13 @@ import { getPlayerIndex } from "./playerIndex";
  *   player.MoveSpeed = defaultMapGetPlayer(v.run.playersSpeedBoost, player);
  * }
  * ```
+ *
+ * @allowEmptyVariadic
  */
-export function defaultMapGetPlayer<V, A extends unknown[]>(
-  map: DefaultMap<PlayerIndex, V, A>,
+export function defaultMapGetPlayer<V, Args extends unknown[]>(
+  map: DefaultMap<PlayerIndex, V, Args>,
   player: EntityPlayer,
-  ...extraArgs: A
+  ...extraArgs: Args
 ): V {
   const playerIndex = getPlayerIndex(player);
   return map.getAndSetDefault(playerIndex, ...extraArgs);
@@ -42,6 +44,18 @@ export function defaultMapSetPlayer<V>(
   value: V,
 ): void {
   mapSetPlayer(map, player, value);
+}
+
+/**
+ * Helper function to make using maps with an type of `PlayerIndex` easier. Use this instead of the
+ * `Map.delete` method if you have a set of this type.
+ */
+export function mapDeletePlayer(
+  map: Map<PlayerIndex, unknown>,
+  player: EntityPlayer,
+): boolean {
+  const playerIndex = getPlayerIndex(player);
+  return map.delete(playerIndex);
 }
 
 /**

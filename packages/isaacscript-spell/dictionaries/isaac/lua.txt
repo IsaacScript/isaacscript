@@ -1,6 +1,7 @@
 # These are words in the Lua programming language.
 
 Brane # ZeroBrane Studio
+codestyle # sumneko word
 collectgarbage # Global
 dofile # Lua global
 emmylua # Lua language server
@@ -9,13 +10,18 @@ getmetatable # Global
 getpeername # socket.lua
 getsockname # socket.lua
 gettime # socket.lua
+gmatch # String method
 gsub # String method
 ipairs # Global
 linedefined # Debug library word
 loadfile # Global
+luabundle # Library to bundle Lua files
+luabundler # Tool to bundle Lua files
 luarc # Configuration file for the Lua language server
 metatable
 metatables
+modf # Math function
+newfield # sumneko word
 pcall # Global
 rawequal # Global
 rawget # Global
@@ -35,3 +41,4 @@ traceback # Debug library method
 upvalue # Debug library word
 userdata # A type
 xpcall # Global
+yieldable # sumneko word

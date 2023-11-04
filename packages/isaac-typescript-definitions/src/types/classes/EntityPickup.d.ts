@@ -1,4 +1,4 @@
-import {
+import type {
   BatterySubType,
   BombSubType,
   CardType,
@@ -12,16 +12,15 @@ import {
   SackSubType,
   TrinketType,
 } from "../../enums/collections/subTypes";
-import { PickupVariant } from "../../enums/collections/variants";
-import { EntityType } from "../../enums/EntityType";
-import { PickupPrice } from "../../enums/PickupPrice";
+import type { PickupVariant } from "../../enums/collections/variants";
+import type { EntityType } from "../../enums/EntityType";
 
 declare global {
   interface EntityPickup extends Entity {
-    AppearFast(): void;
-    CanReroll(): boolean;
-    GetCoinValue(): int;
-    IsShopItem(): boolean;
+    AppearFast: () => void;
+    CanReroll: () => boolean;
+    GetCoinValue: () => int;
+    IsShopItem: () => boolean;
 
     /**
      * @param entityType
@@ -34,22 +33,20 @@ declare global {
      *                        something other than the specified variant and subtype. Default is
      *                        false.
      */
-    Morph(
+    Morph: (
       entityType: EntityType,
       variant: int,
       subType: int,
       keepPrice?: boolean,
       keepSeed?: boolean,
       ignoreModifiers?: boolean,
-    ): void;
+    ) => void;
 
-    PlayDropSound(): void;
-    PlayPickupSound(): void;
+    PlayDropSound: () => void;
+    PlayPickupSound: () => void;
 
-    /**
-     * @param player Default is undefined.
-     */
-    TryOpenChest(player?: EntityPlayer): boolean;
+    /** @param player Default is undefined. */
+    TryOpenChest: (player?: EntityPlayer) => boolean;
 
     AutoUpdatePrice: boolean;
     Charge: int;
@@ -66,12 +63,29 @@ declare global {
     OptionsPickupIndex: int;
 
     /**
-     * The price can be from 0 to 99. Special kinds of prices (like Devil Deal prices) are
-     * represented by the `PickupPrice` enum.
+     * The price can be from 0 to 99 or a special negative value. Special kinds of prices (like
+     * Devil Deal prices) are represented by the `PickupPrice` enum (which contain negative values).
      */
-    Price: int | PickupPrice;
+    Price: int;
 
+    /**
+     * If in a shop, this value describes which slot the item is for sale in. For example, if the
+     * shop has 6 things for sale, the pickups in the room will have shop item IDs of 0, 1, 2, 3, 4,
+     * and 5.
+     *
+     * When spawning a new collectible item, `ShopItemId` will be 0 by default. This has a side
+     * effect of making the D6 roll the collectible into a red heart. By setting shop item id to -1,
+     * it will fix this behavior such that the collectible will properly roll into another
+     * collectible. However, non-collectible pickups may reroll into collectibles through a D20 or
+     * similar.
+     *
+     * By setting shop item id to -2, automatic prices will be devil deal prices. Otherwise this is
+     * identical to -1.
+     *
+     * Other negative values act identically to -1.
+     */
     ShopItemId: int;
+
     State: int;
     Timeout: int;
     Touched: boolean;
@@ -147,10 +161,10 @@ declare global {
     Variant: PickupVariant.COLLECTIBLE;
   }
 
-  /** For `PickupVariant.TAROT_CARD` (300). */
+  /** For `PickupVariant.CARD` (300). */
   interface EntityPickupCard extends EntityPickup {
     SubType: CardType;
-    Variant: PickupVariant.TAROT_CARD;
+    Variant: PickupVariant.CARD;
   }
 
   /** For `PickupVariant.TRINKET` (350). */

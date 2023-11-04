@@ -1,25 +1,21 @@
-import os from "os";
-import path from "path";
+import { PACKAGE_JSON, TSCONFIG_JSON, dirName } from "isaacscript-common-node";
+import os from "node:os";
+import path from "node:path";
 
-const cwd = process.cwd();
-
-/**
- * From:
- * https://stackoverflow.com/questions/9080085/node-js-find-home-directory-in-platform-agnostic-way
- */
-const homeDir = os.homedir();
+const __dirname = dirName();
 
 // Miscellaneous
-export const CURRENT_DIRECTORY_NAME = path.basename(cwd);
-export const CWD = cwd;
-export const HOME_DIR = homeDir;
+export const CWD = process.cwd();
+export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
+export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
+export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
 export const MOD_UPLOADER_PATH =
   "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
 export const PROJECT_NAME = "IsaacScript";
 
 // `isaacscript`
-const REPO_ROOT = path.join(__dirname, "..");
+export const REPO_ROOT = path.join(__dirname, "..");
 
 // `isaacscript/custom-stage`
 const CUSTOM_STAGE_PATH = path.join(REPO_ROOT, "custom-stage");
@@ -39,13 +35,14 @@ export const WATCHER_MOD_NAME = "isaacscript-watcher";
 export const WATCHER_MOD_SOURCE_PATH = path.join(REPO_ROOT, WATCHER_MOD_NAME);
 
 // `isaacscript/file-templates`
-const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
+export const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 
 // `isaacscript/file-templates/static`
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
 
 // `isaacscript/file-templates/dynamic`
-const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
+export const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
+
 export const CI_YML = "ci.yml";
 export const CI_YML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
@@ -54,11 +51,27 @@ export const CI_YML_TEMPLATE_PATH = path.join(
   CI_YML,
 );
 
-export const GITIGNORE = "gitignore"; // Not named ".gitignore" to prevent npm from deleting it.
+export const ACTION_YML = "action.yml";
+export const ACTION_YML_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  ".github",
+  "workflows",
+  "setup",
+  ACTION_YML,
+);
+
+export const YARNRC_YML = ".yarnrc.yml";
+export const YARNRC_TEMPLATE_PATH = path.join(
+  TEMPLATES_DYNAMIC_DIR,
+  YARNRC_YML,
+);
+
+const GITIGNORE = "_gitignore"; // Not named ".gitignore" to prevent npm from deleting it.
 export const GITIGNORE_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   GITIGNORE,
 );
+
 export const MAIN_TS = "main.ts";
 export const MAIN_TS_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
@@ -70,22 +83,15 @@ export const MAIN_DEV_TS_TEMPLATE_PATH = path.join(
   "src",
   "main-dev.ts",
 );
+
 export const METADATA_XML = "metadata.xml";
 export const METADATA_XML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   "mod",
   METADATA_XML,
 );
-export const PACKAGE_JSON = "package.json";
-export const PACKAGE_JSON_TEMPLATE_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  PACKAGE_JSON,
-);
+
 export const README_MD = "README.md";
-export const README_MD_TEMPLATES_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  README_MD,
-);
 
 // `isaacscript/schemas`
 const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
@@ -97,9 +103,8 @@ export const ISAACSCRIPT_SCHEMA_PATH = path.join(
 // `project`
 export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
-export const TSCONFIG_JSON = "tsconfig.json";
 export const TSCONFIG_JSON_PATH = path.join(CWD, TSCONFIG_JSON);
-export const PACKAGE_JSON_PATH = path.join(CWD, "package.json");
+export const PACKAGE_JSON_PATH = path.join(CWD, PACKAGE_JSON);
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 
 // `project/mod`

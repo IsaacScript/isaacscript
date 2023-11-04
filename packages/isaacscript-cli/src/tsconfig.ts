@@ -1,37 +1,36 @@
-import Ajv, { Schema } from "ajv";
+import ajvModule from "ajv";
 import chalk from "chalk";
+import { TSCONFIG_JSON, fatalError, getJSONC } from "isaacscript-common-node";
+import { isObject } from "isaacscript-common-ts";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
-  TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
-} from "./constants";
-import * as file from "./file";
-import { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig";
-import { getJSONC } from "./json";
-import { error, isRecord } from "./utils";
+} from "./constants.js";
+import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
-const ISAACSCRIPT_SCHEMA_RAW = file.read(ISAACSCRIPT_SCHEMA_PATH, false);
-const ISAACSCRIPT_SCHEMA = JSON.parse(ISAACSCRIPT_SCHEMA_RAW) as Schema;
-const ajv = new Ajv();
-const schemaValidate = ajv.compile(ISAACSCRIPT_SCHEMA);
 
-function getTSConfigJSON(verbose: boolean): Record<string, unknown> {
-  return getJSONC(TSCONFIG_JSON_PATH, verbose);
+const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH);
+
+// Ajv is messed up: https://github.com/ajv-validator/ajv/issues/2132
+const Ajv = ajvModule.default;
+const ajv = new Ajv();
+const schemaValidate = ajv.compile(isaacScriptSchema);
+
+function getTSConfigJSON(): Record<string, unknown> {
+  return getJSONC(TSCONFIG_JSON_PATH);
 }
 
-function getIsaacScriptSection(
-  verbose: boolean,
-): Record<string, unknown> | undefined {
-  const tsConfig = getTSConfigJSON(verbose);
+function getIsaacScriptSection(): Record<string, unknown> | undefined {
+  const tsConfig = getTSConfigJSON();
 
   // We allow different kinds of casing for the field name.
   for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
     const field = tsConfig[fieldName];
     if (field !== undefined) {
-      if (!isRecord(field)) {
-        error(
+      if (!isObject(field)) {
+        fatalError(
           `Your "${chalk.green(
             TSCONFIG_JSON_PATH,
           )}" file has a non-object value for the "${fieldName}" field, which is surely a mistake. ${ADVICE}`,
@@ -45,12 +44,12 @@ function getIsaacScriptSection(
   return undefined;
 }
 
-export function getFirstTSConfigIncludePath(verbose: boolean): string {
-  const tsConfig = getTSConfigJSON(verbose);
+export function getFirstTSConfigIncludePath(): string {
+  const tsConfig = getTSConfigJSON();
 
   const { include } = tsConfig;
   if (include === undefined) {
-    error(
+    fatalError(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
       )}" file does not have an "include" field, which is surely a mistake. ${ADVICE}`,
@@ -58,16 +57,16 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
   }
 
   if (!Array.isArray(include)) {
-    error(
+    fatalError(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
       )}" file has an "include" field that is not an array, which is surely a mistake. ${ADVICE}`,
     );
   }
 
-  const firstInclude = include[0] as unknown | undefined;
+  const firstInclude = include[0] as unknown;
   if (firstInclude === undefined) {
-    error(
+    fatalError(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
       )}" file has an empty "include" field, which is surely a mistake. ${ADVICE}`,
@@ -75,7 +74,7 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
   }
 
   if (typeof firstInclude !== "string") {
-    error(
+    fatalError(
       `Your "${chalk.green(
         TSCONFIG_JSON_PATH,
       )}" file has a non-string "include" value, which is surely a mistake. ${ADVICE}`,
@@ -91,10 +90,8 @@ export function getFirstTSConfigIncludePath(verbose: boolean): string {
  *
  * Most of this function is simply performing input validation.
  */
-export function getCustomStagesFromTSConfig(
-  verbose: boolean,
-): CustomStageTSConfig[] {
-  const isaacScriptSection = getIsaacScriptSection(verbose);
+export function getCustomStagesFromTSConfig(): CustomStageTSConfig[] {
+  const isaacScriptSection = getIsaacScriptSection();
   if (isaacScriptSection === undefined) {
     return [];
   }
@@ -105,7 +102,7 @@ export function getCustomStagesFromTSConfig(
       'Your "isaacscript" section in the "tsconfig.json" file has the following errors:',
     );
     console.error(schemaValidate.errors);
-    error(
+    fatalError(
       "For more information, see the custom stages documentation on the website.",
     );
   }
@@ -118,7 +115,7 @@ export function getCustomStagesFromTSConfig(
 
   // The type of "customStages" should be validated by Ajv, but check again just in case.
   if (!Array.isArray(customStages)) {
-    error(
+    fatalError(
       `Failed to parse the "customStages" field, since it was not an array. ${ADVICE}.`,
     );
   }
@@ -127,7 +124,7 @@ export function getCustomStagesFromTSConfig(
   for (const customStageTSConfig of customStages as CustomStageTSConfig[]) {
     const { name } = customStageTSConfig;
     if (name === "") {
-      error(
+      fatalError(
         chalk.red(
           "One of the custom stages has a blank name, which is not allowed.",
         ),
@@ -136,7 +133,7 @@ export function getCustomStagesFromTSConfig(
 
     const { xmlPath } = customStageTSConfig;
     if (xmlPath === "") {
-      error(
+      fatalError(
         chalk.red(
           `The "${name}" custom stage has a blank "xmlPath" field, which is not allowed.`,
         ),
@@ -144,8 +141,8 @@ export function getCustomStagesFromTSConfig(
     }
 
     const { roomVariantPrefix } = customStageTSConfig;
-    if (roomVariantPrefix < 101 || roomVariantPrefix > 999) {
-      error(
+    if (roomVariantPrefix < 100 || roomVariantPrefix > 999) {
+      fatalError(
         chalk.red(
           `The "${name}" custom stage has an invalid value for the "roomVariantPrefix" field: ${roomVariantPrefix}`,
         ),
@@ -154,7 +151,7 @@ export function getCustomStagesFromTSConfig(
 
     const { baseStage } = customStageTSConfig;
     if (baseStage !== undefined && (baseStage < 2 || baseStage > 13)) {
-      error(
+      fatalError(
         `The "${name}" custom stage has an invalid value for the "baseStage" field: ${baseStage}`,
       );
     }
@@ -164,7 +161,7 @@ export function getCustomStagesFromTSConfig(
       baseStageType !== undefined &&
       (baseStageType < 0 || baseStageType > 5)
     ) {
-      error(
+      fatalError(
         `The "${name}" custom stage has an invalid value for the "baseStageType" field: ${baseStageType}`,
       );
     }

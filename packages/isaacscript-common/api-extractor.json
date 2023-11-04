@@ -15,7 +15,7 @@
    *
    * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
    */
-  "mainEntryPointFilePath": "<projectFolder>/../../dist/packages/isaacscript-common/dist/src/index.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/dist/index.d.ts",
 
   /**
    * Configures how the API report file (*.api.md) will be generated.
@@ -58,7 +58,7 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/dist/<unscopedPackageName>.d.ts"
      */
-    "untrimmedFilePath": "<projectFolder>/../../dist/packages/isaacscript-common/dist/index.d.ts"
+    "untrimmedFilePath": "<projectFolder>/dist/index.rollup.d.ts"
   },
 
   /**
@@ -81,7 +81,7 @@
        */
       "default": {
         /**
-         * Specifies whether the message should be written to the the tool's output log.  Note that
+         * Specifies whether the message should be written to the tool's output log.  Note that
          * the "addToApiReportFile" property may supersede this option.
          *
          * Possible values: "error", "warning", "none"

@@ -11,12 +11,13 @@ import {
   MamaGurdyVariant,
   MotherSubType,
   MotherVariant,
-  NpcState,
+  NPCState,
   PeepVariant,
   RaglingVariant,
   VisVariant,
 } from "isaac-typescript-definitions";
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../core/constants";
+import { ReadonlySet } from "../types/ReadonlySet";
 import { getNPCs } from "./entitiesSpecific";
 import { asNumber } from "./types";
 
@@ -24,7 +25,7 @@ import { asNumber } from "./types";
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
+const NON_ALIVE_NPCS_TYPE_VARIANT = new ReadonlySet<string>([
   `${EntityType.VIS}.${VisVariant.CHUBBER_PROJECTILE}`, // 39.22
   `${EntityType.DEATH}.${DeathVariant.DEATH_SCYTHE}`, // 66.10
   `${EntityType.PEEP}.${PeepVariant.PEEP_EYE}`, // 68.10
@@ -42,7 +43,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT: ReadonlySet<string> = new Set([
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
  * doors open.
  */
-const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE: ReadonlySet<string> = new Set([
+const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE = new ReadonlySet<string>([
   `${EntityType.CHARGER}.${ChargerVariant.CHARGER}.${ChargerSubType.MY_SHADOW}`, // 23.0.1
   `${EntityType.MOTHER}.${MotherVariant.MOTHER_1}.${MotherSubType.PHASE_2}`, // 912
 ]);
@@ -62,7 +63,7 @@ const NON_ALIVE_NPCS_TYPE_VARIANT_SUB_TYPE: ReadonlySet<string> = new Set([
  * @param ignoreFriendly Optional. Default is false.
  */
 export function getAliveNPCs(
-  entityType: EntityType = -1,
+  entityType: EntityType | -1 = -1,
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
@@ -126,27 +127,27 @@ export function isDaddyLongLegsChildStompEntity(npc: EntityNPC): boolean {
 
 /**
  * Helper function to detect the custom death state of a Dump. When Dumps die, they go to
- * `NpcState.SPECIAL`, spit out their head, and then slowly fade away while shooting a burst of
+ * `NPCState.SPECIAL`, spit out their head, and then slowly fade away while shooting a burst of
  * tears.
  */
 export function isDyingDump(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.DUMP &&
     npc.Variant === asNumber(DumpVariant.DUMP) &&
-    npc.State === NpcState.SPECIAL
+    npc.State === NPCState.SPECIAL
   );
 }
 
 /**
  * Helper function to detect the custom death state of an Eggy. Eggies are never actually marked
- * dead by the game. Instead, when Eggies take fatal damage, they go into NpcState.STATE_SUICIDE and
+ * dead by the game. Instead, when Eggies take fatal damage, they go into NPCState.STATE_SUICIDE and
  * spawn 14 Swarm Spiders while their StateFrame ticks upwards.
  */
 export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.HOPPER &&
     npc.Variant === asNumber(HopperVariant.EGGY) &&
-    npc.State === NpcState.SUICIDE &&
+    npc.State === NPCState.SUICIDE &&
     npc.StateFrame >= EGGY_STATE_FRAME_OF_FINAL_SPIDER
   );
 }
@@ -162,6 +163,6 @@ export function isRaglingDeathPatch(npc: EntityNPC): boolean {
     npc.Type === EntityType.RAGLING &&
     npc.Variant === asNumber(RaglingVariant.RAG_MANS_RAGLING) &&
     // They go to `STATE_SPECIAL` when they are patches on the ground.
-    npc.State === NpcState.SPECIAL
+    npc.State === NPCState.SPECIAL
   );
 }

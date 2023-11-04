@@ -23,13 +23,19 @@ export enum TearVariant {
   BLUE = 0,
   BLOOD = 1,
   TOOTH = 2,
+
+  /** Used by Loadstone. */
   METALLIC = 3,
+
   BOBS_HEAD = 4,
   FIRE_MIND = 5,
   DARK_MATTER = 6,
   MYSTERIOUS = 7,
   SCHYTHE = 8,
+
+  /** This variant has a non-cosmetic property; it grants the instant-kill property of the tear. */
   CHAOS_CARD = 9,
+
   LOST_CONTACT = 10,
   CUPID_BLUE = 11,
   CUPID_BLOOD = 12,
@@ -70,12 +76,18 @@ export enum TearVariant {
   ICE = 41,
   ROCK = 42,
   KEY = 43,
+
+  /**
+   * Used by Sharp Key. Both the graphical effect and the extra damage are granted by this variant.
+   */
   KEY_BLOOD = 44,
+
   ERASER = 45,
   FIRE = 46,
   SWORD_BEAM = 47,
   SPORE = 48,
   TECH_SWORD_BEAM = 49,
+  FETUS = 50,
 }
 
 /** For `EntityType.FAMILIAR` (3). */
@@ -239,7 +251,10 @@ export enum FamiliarVariant {
   ITEM_WISP = 237,
   BLOOD_BABY = 238,
   CUBE_BABY = 239,
+
+  /** Produced from the Gello collectible. */
   UMBILICAL_BABY = 240,
+
   BLOOD_PUPPY = 241,
   VANISHING_TWIN = 242,
   DECAP_ATTACK = 243,
@@ -313,14 +328,17 @@ export enum PickupVariant {
   WOODEN_CHEST = 56,
   MEGA_CHEST = 57,
   HAUNTED_CHEST = 58,
+
+  /** The gold chest that requires a key to open. */
   LOCKED_CHEST = 60,
+
   SACK = 69,
   PILL = 70,
   LIL_BATTERY = 90,
   COLLECTIBLE = 100,
   BROKEN_SHOVEL = 110,
   SHOP_ITEM = 150,
-  TAROT_CARD = 300,
+  CARD = 300,
   BIG_CHEST = 340,
   TRINKET = 350,
   RED_CHEST = 360,
@@ -386,12 +404,15 @@ export enum LaserVariant {
 
 /** For `EntityType.KNIFE` (8). */
 export enum KnifeVariant {
-  MOMS_KNIFE = 8,
+  MOMS_KNIFE = 0,
   BONE_CLUB = 1,
   BONE_SCYTHE = 2,
   DONKEY_JAWBONE = 3,
   BAG_OF_CRAFTING = 4,
   SUMPTORIUM = 5,
+  // - 6 is unused.
+  // - 7 is unused.
+  // - 8 is unused.
   NOTCHED_AXE = 9,
   SPIRIT_SWORD = 10,
   TECH_SWORD = 11,
@@ -466,9 +487,9 @@ export enum ShopkeeperVariant {
 /** For `EntityType.LARRY_JR` (19). */
 export enum LarryJrVariant {
   LARRY_JR = 0,
-  THE_HOLLOW = 1,
+  HOLLOW = 1,
   TUFF_TWIN = 2,
-  THE_SHELL = 3,
+  SHELL = 3,
 }
 
 /** For `EntityType.HIVE` (22). */
@@ -686,6 +707,7 @@ export enum EnvyVariant {
 export enum PrideVariant {
   PRIDE = 0,
   SUPER_PRIDE = 1,
+  // Ultra Pride is part of the `SlothVariant` enum.
 }
 
 /** For `EntityType.DOPLE` (53). */
@@ -756,10 +778,10 @@ export enum DeathVariant {
   DEATH_WITHOUT_HORSE = 30,
 }
 
-/** For `EntityType.DUKE` (67). */
-export enum DukeVariant {
+/** For `EntityType.DUKE_OF_FLIES` (67). */
+export enum DukeOfFliesVariant {
   DUKE_OF_FLIES = 0,
-  THE_HUSK = 1,
+  HUSK = 1,
 }
 
 /** For `EntityType.PEEP` (68). */
@@ -845,7 +867,7 @@ export enum MaskVariant {
 /** For `EntityType.WIDOW` (100). */
 export enum WidowVariant {
   WIDOW = 0,
-  THE_WRETCHED = 1,
+  WRETCHED = 1,
 }
 
 /** For `EntityType.DADDY_LONG_LEGS` (101). */
@@ -853,6 +875,7 @@ export enum DaddyLongLegsVariant {
   DADDY_LONG_LEGS = 0,
   TRIACHNID = 1,
 }
+
 /** For `EntityType.ISAAC` (102). */
 export enum IsaacVariant {
   ISAAC = 0,
@@ -889,6 +912,7 @@ export enum FattyVariant {
 /** For `EntityType.DEATHS_HEAD` (212). */
 export enum DeathsHeadVariant {
   DEATHS_HEAD = 0,
+
   /**
    * This is the only Death's Head variant that does not rely on other enemies in the room being
    * alive.
@@ -996,7 +1020,7 @@ export enum PoopEntityVariant {
   BURNING = 13,
   STINKY = 14,
   BLACK = 15,
-  HOLY = 16,
+  WHITE = 16,
 }
 
 /** For `EntityType.RAGLING` (246). */
@@ -1017,7 +1041,7 @@ export enum ConjoinedFattyVariant {
   BLUE_CONJOINED_FATTY = 1,
 }
 
-/** For `EntityType.THE_HAUNT` (260). */
+/** For `EntityType.HAUNT` (260). */
 export enum HauntVariant {
   HAUNT = 0,
   LIL_HAUNT = 10,
@@ -1039,7 +1063,7 @@ export enum MamaGurdyVariant {
 /** For `EntityType.POLYCEPHALUS` (269). */
 export enum PolycephalusVariant {
   POLYCEPHALUS = 0,
-  THE_PILE = 1,
+  PILE = 1,
 }
 
 /** For `EntityType.URIEL` (271) and `EntityType.GABRIEL` (272). */
@@ -1048,7 +1072,7 @@ export enum AngelVariant {
   FALLEN = 1,
 }
 
-/** For `EntityType.THE_LAMB` (273). */
+/** For `EntityType.LAMB` (273). */
 export enum LambVariant {
   LAMB = 0,
   BODY = 10,
@@ -1243,14 +1267,14 @@ export enum CanaryVariant {
   FOREIGNER = 1,
 }
 
-/** For `EntityType.GAPER_L2` (850). */
+/** For `EntityType.GAPER_LVL_2` (850). */
 export enum Gaper2Variant {
   GAPER = 0,
   HORF = 1,
   GUSHER = 2,
 }
 
-/** For `EntityType.CHARGER_L2` (855). */
+/** For `EntityType.CHARGER_LVL_2` (855). */
 export enum Charger2Variant {
   CHARGER = 0,
   ELLEECH = 1,
@@ -1483,7 +1507,7 @@ export enum EffectVariant {
   BRIMSTONE_SWIRL = 71,
   CRACK_WAVE = 72,
   SHOCKWAVE_RANDOM = 73,
-  ISAACS_CARPET = 74,
+  CARPET = 74,
   BAR_PARTICLE = 75,
   DICE_FLOOR = 76,
   LARGE_BLOOD_EXPLOSION = 77,

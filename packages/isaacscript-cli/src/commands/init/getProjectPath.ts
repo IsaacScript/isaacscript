@@ -1,9 +1,10 @@
 import chalk from "chalk";
-import path from "path";
-import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants";
-import { Args } from "../../parseArgs";
-import { getInputString, getInputYesNo } from "../../prompt";
-import { error, hasWhiteSpace, isKebabCase } from "../../utils";
+import { fatalError } from "isaacscript-common-node";
+import { hasWhiteSpace, isKebabCase } from "isaacscript-common-ts";
+import path from "node:path";
+import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants.js";
+import type { Args } from "../../parseArgs.js";
+import { getInputString, getInputYesNo } from "../../prompt.js";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
 const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
@@ -16,7 +17,7 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
   "|",
   "?",
   "*",
-];
+] as const;
 
 export async function getProjectPath(
   args: Args,
@@ -79,13 +80,13 @@ async function getNewProjectName(): Promise<[string, string, boolean]> {
 
 function validateProjectName(projectName: string, forceName: boolean) {
   if (projectName === "") {
-    error("Error: You cannot have a blank project name.");
+    fatalError("Error: You cannot have a blank project name.");
   }
 
   if (process.platform === "win32") {
     for (const character of ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES) {
       if (projectName.includes(character)) {
-        error(
+        fatalError(
           `Error: The "${character}" character is not allowed in a Windows file name.`,
         );
       }
@@ -97,13 +98,13 @@ function validateProjectName(projectName: string, forceName: boolean) {
   }
 
   if (hasWhiteSpace(projectName)) {
-    error(
+    fatalError(
       'Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
     );
   }
 
   if (!isKebabCase(projectName)) {
-    error(
+    fatalError(
       'Error: The project name is not in kebab-case. (Kebab-case is the style of using all lowercase letters, with words separated by hyphens.) Project names must use kebab-case to match GitHub repository standards. If necessary, you can override this check with the "--force-name" flag.',
     );
   }

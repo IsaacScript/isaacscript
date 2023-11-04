@@ -9,15 +9,15 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
     super();
 
     this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, [this.postNewRoomReordered]],
-      [ModCallbackCustom.POST_PLAYER_INIT_LATE, [this.postPlayerInitLate]],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+      [ModCallbackCustom.POST_PLAYER_INIT_LATE, this.postPlayerInitLate],
     ];
   }
 
   protected override shouldFire = shouldFirePlayer;
 
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private postNewRoomReordered = () => {
+  private readonly postNewRoomReordered = () => {
     // When a player uses the Genesis collectible, they will lose all of their collectibles,
     // trinkets, pocket items, and stats, so they will need to be re-initialized like they would be
     // at the beginning of a run. However, in this case, the `POST_PLAYER_INIT_FIRST` callback will
@@ -32,7 +32,7 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
   };
 
   // ModCallbackCustom.POST_PLAYER_INIT_LATE
-  private postPlayerInitLate = (player: EntityPlayer) => {
+  private readonly postPlayerInitLate = (player: EntityPlayer) => {
     // We want to exclude non-real players like the Strawman keeper.
     if (isChildPlayer(player)) {
       return;

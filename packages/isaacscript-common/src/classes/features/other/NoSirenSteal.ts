@@ -1,36 +1,37 @@
-import {
-  EntityType,
-  FamiliarVariant,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { FamiliarVariant } from "isaac-typescript-definitions";
+import { EntityType, ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
+const v = {
+  run: {
+    familiarBlacklist: [] as Array<
+      [variant: FamiliarVariant, subType: int | undefined]
+    >,
+  },
+};
+
 export class NoSirenSteal extends Feature {
   /** @internal */
-  public override v = {
-    run: {
-      familiarBlacklist: [] as Array<
-        [variant: FamiliarVariant, subType: int | undefined]
-      >,
-    },
-  };
+  public override v = v;
 
   /** @internal */
   constructor() {
     super();
 
     this.callbacksUsed = [
+      // 27
       [
         ModCallback.POST_NPC_INIT,
-        [this.postNPCInitSirenHelper, EntityType.SIREN_HELPER],
-      ], // 27
+        this.postNPCInitSirenHelper,
+        [EntityType.SIREN_HELPER],
+      ],
     ];
   }
 
   // ModCallback.POST_NPC_INIT (27)
   // EntityType.SIREN_HELPER (966)
-  private postNPCInitSirenHelper = (npc: EntityNPC) => {
+  private readonly postNPCInitSirenHelper = (npc: EntityNPC) => {
     this.checkReturnFamiliarToPlayer(npc);
   };
 
@@ -54,7 +55,7 @@ export class NoSirenSteal extends Feature {
     incomingFamiliarVariant: FamiliarVariant,
     incomingFamiliarSubType: int | undefined,
   ): boolean {
-    for (const familiarTuple of this.v.run.familiarBlacklist) {
+    for (const familiarTuple of v.run.familiarBlacklist) {
       const [familiarVariant, familiarSubType] = familiarTuple;
 
       if (
@@ -96,6 +97,6 @@ export class NoSirenSteal extends Feature {
       return;
     }
 
-    this.v.run.familiarBlacklist.push([familiarVariant, familiarSubType]);
+    v.run.familiarBlacklist.push([familiarVariant, familiarSubType]);
   }
 }

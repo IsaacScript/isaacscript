@@ -1,5 +1,6 @@
-import { DoorSlot, RoomShape } from "isaac-typescript-definitions";
-import { Corner } from "../interfaces/Corner";
+import type { DoorSlot } from "isaac-typescript-definitions";
+import { RoomShape } from "isaac-typescript-definitions";
+import type { Corner } from "../interfaces/Corner";
 import { ROOM_SHAPE_BOUNDS } from "../objects/roomShapeBounds";
 import { ROOM_SHAPE_CORNERS } from "../objects/roomShapeCorners";
 import { ROOM_SHAPE_LAYOUT_SIZES } from "../objects/roomShapeLayoutSizes";
@@ -9,6 +10,7 @@ import { ROOM_SHAPE_TO_GRID_WIDTH } from "../objects/roomShapeToGridWidth";
 import { ROOM_SHAPE_TO_TOP_LEFT_POSITION } from "../objects/roomShapeToTopLeftPosition";
 import { ROOM_SHAPE_VOLUMES } from "../objects/roomShapeVolumes";
 import { L_ROOM_SHAPES_SET } from "../sets/LRoomShapesSet";
+import { BIG_ROOM_SHAPES_SET } from "../sets/bigRoomShapesSet";
 import { NARROW_ROOM_SHAPES_SET } from "../sets/narrowRoomShapesSet";
 
 /**
@@ -108,7 +110,15 @@ export function getRoomShapeWidth(roomShape: RoomShape): int {
   return ROOM_SHAPE_TO_GRID_WIDTH[roomShape];
 }
 
-export function isLRoom(roomShape: RoomShape): boolean {
+/**
+ * Helper function to detect if the provided room shape is big. Specifically, this is all 1x2 rooms,
+ * 2x2 rooms, and L rooms.
+ */
+export function isBigRoomShape(roomShape: RoomShape): boolean {
+  return BIG_ROOM_SHAPES_SET.has(roomShape);
+}
+
+export function isLRoomShape(roomShape: RoomShape): boolean {
   return L_ROOM_SHAPES_SET.has(roomShape);
 }
 

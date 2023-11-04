@@ -9,41 +9,36 @@ export class CustomHotkeys extends Feature {
    * The keys are the keyboard keys that trigger the hotkey. The values are the functions that
    * contain the arbitrary code to run.
    */
-  private staticHotkeyFunctionMap = new Map<Keyboard, () => void>();
+  private readonly staticHotkeyFunctionMap = new Map<Keyboard, () => void>();
 
   /**
    * The keys are the functions that determine what the hotkey key is. The values are the functions
    * that contain the arbitrary code to run.
    */
-  private dynamicHotkeyFunctionMap = new Map<
+  private readonly dynamicHotkeyFunctionMap = new Map<
     () => Keyboard | undefined,
     () => void
   >();
 
-  private keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
+  private readonly keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
   /** @internal */
   constructor() {
     super();
 
     this.callbacksUsed = [
-      [ModCallback.POST_RENDER, [this.postRender]], // 2
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
     ];
   }
 
   // ModCallback.POST_RENDER (2)
-  private postRender = () => {
-    for (const [
-      keyboard,
-      triggerFunc,
-    ] of this.staticHotkeyFunctionMap.entries()) {
+  private readonly postRender = () => {
+    for (const [keyboard, triggerFunc] of this.staticHotkeyFunctionMap) {
       this.checkIfTriggered(keyboard, triggerFunc);
     }
 
-    for (const [
-      keyboardFunc,
-      triggerFunc,
-    ] of this.dynamicHotkeyFunctionMap.entries()) {
+    for (const [keyboardFunc, triggerFunc] of this.dynamicHotkeyFunctionMap) {
       const keyboard = keyboardFunc();
       if (keyboard !== undefined) {
         this.checkIfTriggered(keyboard, triggerFunc);
@@ -66,6 +61,8 @@ export class CustomHotkeys extends Feature {
    *
    * This can be used to easily set up custom hotkeys to facilitate custom game features or to
    * assist in debugging.
+   *
+   * Inputs are checked for in the `POST_RENDER` callback.
    *
    * This is different from the `setHotkey` function in that the keyboard activation key is not
    * hardcoded and is instead the return value of a provided function. This is useful for situations
@@ -96,6 +93,8 @@ export class CustomHotkeys extends Feature {
    *
    * This can be used to easily set up custom hotkeys to facilitate custom game features or to
    * assist in debugging.
+   *
+   * Inputs are checked for in the `POST_RENDER` callback.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_HOTKEYS`.
    *
