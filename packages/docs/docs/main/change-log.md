@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## November 9th, 2023 (Unreleased)
 
+- The location of the plugins in the "isaacscript" package have changed. See the [new "tsconfig.json" template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/tsconfig.json).
 - Scripts in new mods no longer use Bash and are now native TypeScript scripts.
 - The `isaacscript-common-node` library is released, which contains helper functions for Bash-like scripts.
 - The `canRunUnlockAchievements` helper function must now be activated with `ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION`.
