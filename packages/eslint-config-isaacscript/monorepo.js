@@ -20,39 +20,7 @@ const config = {
 
   ignorePatterns: ["**/dist/**"],
 
-  rules: {
-    /**
-     * Documentation:
-     * https://typescript-eslint.io/rules/no-restricted-imports
-     *
-     * Not defined in the parent configs.
-     */
-    "@typescript-eslint/no-restricted-imports": [
-      "error",
-      {
-        patterns: [
-          {
-            // We don't use a suffix or a prefix since some "src" folders have an "index.ts" file.
-            group: ["*src*"],
-            message:
-              "You cannot import directly from other packages in the monorepo. Instead, import using the package name like you would in a non-monorepo project.",
-          },
-
-          {
-            group: ["*dist*"],
-            message:
-              "You cannot import from compiled output. Instead, import using the package name like you would in a non-monorepo project.",
-          },
-
-          {
-            group: ["*/index*"],
-            message:
-              "You cannot import directly from a package index. Instead, import directly from the file where the code is located.",
-          },
-        ],
-      },
-    ],
-  },
+  rules: {},
 
   overrides: [
     // Test files need to import across the "src" boundary.

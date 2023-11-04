@@ -9,9 +9,7 @@ import {
 
 const MOD_NAME = "test-mod";
 
-main();
-
-function main() {
+export function main() {
   const modVanilla = RegisterMod(MOD_NAME, 1);
   const features = [
     ISCFeature.FADE_IN_REMOVER,

@@ -296,9 +296,7 @@ import { getNPCs, getPlayers, getRandomInt } from "isaacscript-common";
 const MOD_NAME = "Green Candle";
 const GREEN_CANDLE_COLLECTIBLE_TYPE = Isaac.GetItemIdByName("Green Candle");
 
-main();
-
-function main() {
+export function main() {
   const mod = RegisterMod(MOD_NAME, 1);
 
   mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);

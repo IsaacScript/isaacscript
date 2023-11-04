@@ -329,10 +329,58 @@ const EXTENSION_RULES = {
   "@typescript-eslint/no-redeclare": "off",
 
   /**
-   * Disabled since it would only be needed in specific environments (such as forbidding Node.js
-   * imports in a browser environment).
+   * Configured to prevent importing with some common patterns that are almost always a mistake:
+   *
+   * - "src" directories (but allowed in test files that are in a separate "tests" directory)
+   * - "dist" directories
+   * - "index" files
    */
-  "@typescript-eslint/no-restricted-imports": "off",
+  "@typescript-eslint/no-restricted-imports": [
+    "error",
+    {
+      patterns: [
+        // Some "src" directories have an "index.ts" file, which means that importing from the
+        // directory is valid. Thus, we check for the "src" directory with no suffix.
+        {
+          group: ["*/src"],
+          message:
+            'You cannot import from a "src" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
+        },
+
+        {
+          group: ["*/src/*"],
+          message:
+            'You cannot import from a "src" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
+        },
+
+        // Some "dist" directories have an "index.ts" file, which means that importing from the
+        // directory is valid. Thus, we check for the "dist" directory with no suffix.
+        {
+          group: ["*/dist"],
+          message:
+            'You cannot import from a "dist" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
+        },
+
+        {
+          group: ["*/dist/*"],
+          message:
+            'You cannot import from a "dist" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
+        },
+
+        {
+          group: ["*/index"],
+          message:
+            "You cannot import from a package index. Instead, import directly from the file where the code is located.",
+        },
+
+        {
+          group: ["*/index.{js,cjs,mjs,ts,cts,mts}"],
+          message:
+            "You cannot import from a package index. Instead, import directly from the file where the code is located.",
+        },
+      ],
+    },
+  ],
 
   "@typescript-eslint/no-shadow": "error",
   "@typescript-eslint/no-throw-literal": "error",
@@ -446,9 +494,18 @@ const config = {
 
     // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
     {
-      files: ["*.test.ts"],
+      files: ["*.test.{js,cjs,mjs,ts,cts,mts}"],
       rules: {
         "@typescript-eslint/no-floating-promises": "off",
+      },
+    },
+
+    // We want to be allowed to import from the "src" directory in test files that are located in a
+    // separate "tests" directory.
+    {
+      files: ["**/tests/**"],
+      rules: {
+        "@typescript-eslint/no-restricted-imports": "off",
       },
     },
   ],

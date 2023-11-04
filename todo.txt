@@ -1,7 +1,5 @@
 - isaacscript publish goes in infinite loop
 
-- make ESLint rule for "tsconfig.json" "$schema"
-
 ----------------------------------------------------------------------------------------------------
 
 - get knip working
