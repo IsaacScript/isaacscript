@@ -152,14 +152,14 @@ async function handleCommands(command: Command, args: Args) {
       const hasNewDependencies = await updatePackageJSON(CWD);
       const msg = hasNewDependencies
         ? "Successfully installed new Node.js dependencies."
-        : "There were no new Node.js dependency updates.";
+        : "There were no new dependency updates from npm.";
       console.log(msg);
       break;
     }
 
     case "nuke": {
       nukeDependencies(CWD);
-      console.log("Successfully reinstalled Node.js dependencies.");
+      console.log("Successfully reinstalled dependencies from npm.");
       break;
     }
   }
