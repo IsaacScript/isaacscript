@@ -22,11 +22,13 @@ import { diff } from "./utils.js";
  *                          current working directory will be used.
  * @param installAfterUpdate Optional. Whether to install the new dependencies afterward, if any.
  *                           Defaults to true.
+ * @param quiet Optional. Whether to suppress console output. Defaults to false.
  * @returns Whether any dependencies were updated.
  */
 export async function updatePackageJSON(
   filePathOrDirPath: string | undefined,
   installAfterUpdate = true,
+  quiet = false,
 ): Promise<boolean> {
   const packageJSONPath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
@@ -55,9 +57,11 @@ export async function updatePackageJSON(
   const newPackageJSONString = readFile(packageJSONPath);
   const hasNewDependencies = oldPackageJSONString !== newPackageJSONString;
   if (hasNewDependencies) {
-    console.log('New "package.json" file:');
-    diff(oldPackageJSONString, newPackageJSONString);
-    console.log();
+    if (!quiet) {
+      console.log('New "package.json" file:');
+      diff(oldPackageJSONString, newPackageJSONString);
+      console.log();
+    }
 
     if (installAfterUpdate) {
       // Since `getPackageManagerForProject` can cause a fatal error, we only invoke it if we need

@@ -73,7 +73,7 @@ export async function createProject(
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  await updatePackageJSON(projectPath, false);
+  await updatePackageJSON(projectPath, false, true);
 
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
