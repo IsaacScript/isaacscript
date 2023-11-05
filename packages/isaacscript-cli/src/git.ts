@@ -177,6 +177,14 @@ export function initGitRepository(
     projectPath,
   );
 
+  execShell(
+    "git",
+    ["remote", "add", "origin", gitRemoteURL],
+    verbose,
+    false,
+    projectPath,
+  );
+
   if (isGitNameAndEmailConfigured(verbose)) {
     execShellString("git add --all", verbose, false, projectPath);
     const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
@@ -188,15 +196,9 @@ export function initGitRepository(
       false,
       projectPath,
     );
-  }
 
-  execShell(
-    "git",
-    ["remote", "add", "origin", gitRemoteURL],
-    verbose,
-    false,
-    projectPath,
-  );
+    execShellString("git push", verbose, false, projectPath);
+  }
 }
 
 function isGitNameAndEmailConfigured(verbose: boolean) {
