@@ -171,7 +171,7 @@ export function initGitRepository(
   }
 
   execShellString(
-    "git init --initial-branch=main",
+    "git init --initial-branch main",
     verbose,
     false,
     projectPath,
@@ -197,7 +197,12 @@ export function initGitRepository(
       projectPath,
     );
 
-    execShellString("git push", verbose, false, projectPath);
+    execShellString(
+      "git push --set-upstream origin main",
+      verbose,
+      false,
+      projectPath,
+    );
   }
 }
 
