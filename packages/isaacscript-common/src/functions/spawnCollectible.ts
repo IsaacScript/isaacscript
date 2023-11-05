@@ -1,11 +1,16 @@
+import type { ItemPoolType } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   PickupVariant,
   PlayerType,
 } from "isaac-typescript-definitions";
+import { game } from "../core/cachedClasses";
 import { VectorZero } from "../core/constants";
 import { isQuestCollectible } from "./collectibleTag";
-import { setCollectibleEmpty } from "./collectibles";
+import {
+  preventCollectibleRotation,
+  setCollectibleEmpty,
+} from "./collectibles";
 import { spawnPickupWithSeed } from "./entitiesSpecific";
 import { anyPlayerIs } from "./players";
 import { getRandomSeed, isRNG } from "./rng";
@@ -14,11 +19,8 @@ import { getRandomSeed, isRNG } from "./rng";
  * Helper function to spawn a collectible.
  *
  * Use this instead of the `Game.Spawn` method because it handles the cases of Tainted Keeper
- * collectibles costing coins.
- *
- * This function is unsafe because it will not correctly handle quest items being rotated by Tainted
- * Isaac's rotation mechanic. To handle that, use the `spawnCollectible` helper function instead
- * (which is provided by `ISCFeature.SPAWN_COLLECTIBLE`).
+ * collectibles costing coins and prevents quest items from being rotated by Tainted Isaac's
+ * rotation mechanic.
  *
  * If you want to spawn an unseeded collectible, you must explicitly pass `undefined` to the
  * `seedOrRNG` parameter.
@@ -34,7 +36,7 @@ import { getRandomSeed, isRNG } from "./rng";
  *                      Tainted Keeper. Default is false.
  * @param spawner Optional.
  */
-export function spawnCollectibleUnsafe(
+export function spawnCollectible(
   collectibleType: CollectibleType,
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG | undefined,
@@ -55,6 +57,10 @@ export function spawnCollectibleUnsafe(
     VectorZero,
     spawner,
   ) as EntityPickupCollectible;
+
+  if (isQuestCollectible(collectible)) {
+    preventCollectibleRotation(collectible);
+  }
 
   if (options) {
     collectible.OptionsPickupIndex = 1;
@@ -81,6 +87,50 @@ export function spawnCollectibleUnsafe(
 }
 
 /**
+ * Helper function to spawn a collectible from a specific item pool.
+ *
+ * Use this instead of the `Game.Spawn` method because it handles the cases of Tainted Keeper
+ * collectibles costing coins and prevents quest items from being rotated by Tainted Isaac's
+ * rotation mechanic.
+ *
+ * If you want to spawn an unseeded collectible, you must explicitly pass `undefined` to the
+ * `seedOrRNG` parameter.
+ *
+ * In order to use this function, you must upgrade your mod with `ISCFeature.SPAWN_COLLECTIBLE`.
+ *
+ * @param itemPoolType The item pool to draw the collectible type from.
+ * @param positionOrGridIndex The position or grid index to spawn the collectible at.
+ * @param seedOrRNG The `Seed` or `RNG` object to use. If an `RNG` object is provided, the
+ *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
+ *                  a random seed.
+ * @param options Optional. Set to true to make the collectible a "There's Options" style
+ *                collectible. Default is false.
+ * @param forceFreeItem Optional. Set to true to disable the logic that gives the item a price for
+ *                      Tainted Keeper. Default is false.
+ * @param spawner Optional.
+ */
+export function spawnCollectibleFromPool(
+  itemPoolType: ItemPoolType,
+  positionOrGridIndex: Vector | int,
+  seedOrRNG: Seed | RNG | undefined,
+  options = false,
+  forceFreeItem = false,
+  spawner?: Entity,
+): EntityPickupCollectible {
+  const itemPool = game.GetItemPool();
+  const collectibleType = itemPool.GetCollectible(itemPoolType);
+
+  return spawnCollectible(
+    collectibleType,
+    positionOrGridIndex,
+    seedOrRNG,
+    options,
+    forceFreeItem,
+    spawner,
+  );
+}
+
+/**
  * Helper function to spawn an empty collectible. Doing this is tricky since spawning a collectible
  * with `CollectibleType.NULL` will result in spawning a collectible with a random type from the
  * current room's item pool.
@@ -102,7 +152,7 @@ export function spawnEmptyCollectible(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG | undefined,
 ): EntityPickup {
-  const collectible = spawnCollectibleUnsafe(
+  const collectible = spawnCollectible(
     CollectibleType.BROKEN_SHOVEL_1,
     positionOrGridIndex,
     seedOrRNG,

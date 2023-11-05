@@ -27,13 +27,13 @@ import { log } from "../../../functions/log";
 import { isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
+import { spawnCollectible } from "../../../functions/spawnCollectible";
 import { asCollectibleType, asNumber } from "../../../functions/types";
 import { assertDefined } from "../../../functions/utils";
 import type { JSONRoom } from "../../../interfaces/JSONRoomsFile";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import type { PreventGridEntityRespawn } from "./PreventGridEntityRespawn";
-import type { SpawnCollectible } from "./SpawnCollectible";
 
 const GRID_ENTITY_XML_TYPE_SET = new ReadonlySet<GridEntityXMLType>(
   GRID_ENTITY_XML_TYPE_VALUES,
@@ -41,22 +41,14 @@ const GRID_ENTITY_XML_TYPE_SET = new ReadonlySet<GridEntityXMLType>(
 
 export class DeployJSONRoom extends Feature {
   private readonly preventGridEntityRespawn: PreventGridEntityRespawn;
-  private readonly spawnCollectible: SpawnCollectible;
 
   /** @internal */
-  constructor(
-    preventGridEntityRespawn: PreventGridEntityRespawn,
-    spawnCollectible: SpawnCollectible,
-  ) {
+  constructor(preventGridEntityRespawn: PreventGridEntityRespawn) {
     super();
 
-    this.featuresUsed = [
-      ISCFeature.PREVENT_GRID_ENTITY_RESPAWN,
-      ISCFeature.SPAWN_COLLECTIBLE,
-    ];
+    this.featuresUsed = [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN];
 
     this.preventGridEntityRespawn = preventGridEntityRespawn;
-    this.spawnCollectible = spawnCollectible;
   }
 
   private spawnAllEntities(
@@ -173,7 +165,7 @@ export class DeployJSONRoom extends Feature {
       variant === asNumber(PickupVariant.COLLECTIBLE)
     ) {
       const options = roomType === RoomType.ANGEL;
-      entity = this.spawnCollectible.spawnCollectible(
+      entity = spawnCollectible(
         asCollectibleType(subType),
         position,
         seed,

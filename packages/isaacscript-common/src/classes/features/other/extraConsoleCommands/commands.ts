@@ -120,7 +120,7 @@ import { gridCoordinatesToWorldPosition } from "../../../../functions/roomGrid";
 import { reloadRoom as reloadRoomFunction } from "../../../../functions/roomTransition";
 import { changeRoom } from "../../../../functions/rooms";
 import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
-import { spawnCollectibleUnsafe } from "../../../../functions/spawnCollectible";
+import { spawnCollectible as spawnCollectibleFunc } from "../../../../functions/spawnCollectible";
 import { onStage, setStage } from "../../../../functions/stage";
 import { getMapPartialMatch } from "../../../../functions/string";
 import { getGoldenTrinketType } from "../../../../functions/trinkets";
@@ -1493,7 +1493,7 @@ export function spawnCollectible(params: string): void {
 
   const roomClass = game.GetRoom();
   const centerPos = roomClass.GetCenterPos();
-  spawnCollectibleUnsafe(collectibleType, centerPos, undefined);
+  spawnCollectibleFunc(collectibleType, centerPos, undefined);
 }
 
 /**
@@ -1538,7 +1538,7 @@ export function spawnCollectibleAt(params: string): void {
   }
 
   const collectibleType = asCollectibleType(collectibleTypeNumber);
-  spawnCollectibleUnsafe(collectibleType, gridIndex, undefined);
+  spawnCollectibleFunc(collectibleType, gridIndex, undefined);
 }
 
 /** Alias for the `spawnGoldenTrinket` command. */

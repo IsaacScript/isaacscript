@@ -29,7 +29,7 @@ import {
 import { fireProjectilesInCircle } from "../../../functions/projectiles";
 import { getRandom } from "../../../functions/random";
 import { isRNG, newRNG } from "../../../functions/rng";
-import { spawnCollectibleUnsafe } from "../../../functions/spawnCollectible";
+import { spawnCollectible } from "../../../functions/spawnCollectible";
 import { repeat } from "../../../functions/utils";
 import { getRandomVector, isVector } from "../../../functions/vector";
 import { Feature } from "../../private/Feature";
@@ -189,7 +189,7 @@ export class SpawnRockAltRewards extends Feature {
         ItemPoolType.DEVIL,
       );
       if (stillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.QUARTER, position, rng);
+        spawnCollectible(CollectibleType.QUARTER, position, rng);
         return true;
       }
 
@@ -253,7 +253,7 @@ export class SpawnRockAltRewards extends Feature {
             ItemPoolType.SECRET,
           );
           if (stillInPools) {
-            spawnCollectibleUnsafe(CollectibleType.WAVY_CAP, position, rng);
+            spawnCollectible(CollectibleType.WAVY_CAP, position, rng);
             return true;
           }
         }
@@ -275,17 +275,17 @@ export class SpawnRockAltRewards extends Feature {
           collectibleChance < 0.5
             ? CollectibleType.MAGIC_MUSHROOM // 12
             : CollectibleType.MINI_MUSH; // 71
-        spawnCollectibleUnsafe(collectibleType, position, rng);
+        spawnCollectible(collectibleType, position, rng);
         return true;
       }
 
       if (magicMushroomStillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.MINI_MUSH, position, rng);
+        spawnCollectible(CollectibleType.MINI_MUSH, position, rng);
         return true;
       }
 
       if (miniMushStillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.MAGIC_MUSHROOM, position, rng);
+        spawnCollectible(CollectibleType.MAGIC_MUSHROOM, position, rng);
         return true;
       }
 
@@ -347,17 +347,17 @@ export class SpawnRockAltRewards extends Feature {
           collectibleChance < 0.5
             ? CollectibleType.GHOST_BABY // 163
             : CollectibleType.DRY_BABY; // 265
-        spawnCollectibleUnsafe(collectibleType, position, rng);
+        spawnCollectible(collectibleType, position, rng);
         return true;
       }
 
       if (ghostBabyStillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.DRY_BABY, position, rng);
+        spawnCollectible(CollectibleType.DRY_BABY, position, rng);
         return true;
       }
 
       if (dryBabyStillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.GHOST_BABY, position, rng);
+        spawnCollectible(CollectibleType.GHOST_BABY, position, rng);
         return true;
       }
 
@@ -418,17 +418,17 @@ export class SpawnRockAltRewards extends Feature {
           collectibleChance < 0.5
             ? CollectibleType.PLACENTA // 218
             : CollectibleType.BLOOD_CLOT; // 254
-        spawnCollectibleUnsafe(collectibleType, position, rng);
+        spawnCollectible(collectibleType, position, rng);
         return true;
       }
 
       if (placentaStillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.PLACENTA, position, rng);
+        spawnCollectible(CollectibleType.PLACENTA, position, rng);
         return true;
       }
 
       if (bloodClotStillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.BLOOD_CLOT, position, rng);
+        spawnCollectible(CollectibleType.BLOOD_CLOT, position, rng);
         return true;
       }
 
@@ -493,7 +493,7 @@ export class SpawnRockAltRewards extends Feature {
         ItemPoolType.TREASURE,
       );
       if (stillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.LEECH, position, rng);
+        spawnCollectible(CollectibleType.LEECH, position, rng);
         return true;
       }
 
@@ -578,7 +578,7 @@ export class SpawnRockAltRewards extends Feature {
         ItemPoolType.TREASURE,
       );
       if (stillInPools) {
-        spawnCollectibleUnsafe(CollectibleType.POOP, position, rng);
+        spawnCollectible(CollectibleType.POOP, position, rng);
         return true;
       }
 

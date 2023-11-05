@@ -43,7 +43,6 @@ import { PlayerCollectibleTracking } from "./classes/features/other/PlayerCollec
 import { PonyDetection } from "./classes/features/other/PonyDetection";
 import { PressInput } from "./classes/features/other/PressInput";
 import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
-import { PreventCollectibleRotation } from "./classes/features/other/PreventCollectibleRotation";
 import { PreventGridEntityRespawn } from "./classes/features/other/PreventGridEntityRespawn";
 import { RoomClearFrame } from "./classes/features/other/RoomClearFrame";
 import { RoomHistory } from "./classes/features/other/RoomHistory";
@@ -51,7 +50,6 @@ import { RunInNFrames } from "./classes/features/other/RunInNFrames";
 import { RunNextRoom } from "./classes/features/other/RunNextRoom";
 import { RunNextRun } from "./classes/features/other/RunNextRun";
 import { SaveDataManager } from "./classes/features/other/SaveDataManager";
-import { SpawnCollectible } from "./classes/features/other/SpawnCollectible";
 import { SpawnRockAltRewards } from "./classes/features/other/SpawnRockAltRewards";
 import { StageHistory } from "./classes/features/other/StageHistory";
 import { StartAmbush } from "./classes/features/other/StartAmbush";
@@ -111,7 +109,6 @@ export interface ISCFeatureToClass {
   [ISCFeature.PONY_DETECTION]: PonyDetection;
   [ISCFeature.PRESS_INPUT]: PressInput;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
-  [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: PreventCollectibleRotation;
   [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: PreventGridEntityRespawn;
   [ISCFeature.ROOM_CLEAR_FRAME]: RoomClearFrame;
   [ISCFeature.ROOM_HISTORY]: RoomHistory;
@@ -120,7 +117,6 @@ export interface ISCFeatureToClass {
   [ISCFeature.RUN_NEXT_RUN]: RunNextRun;
   [ISCFeature.SAVE_DATA_MANAGER]: SaveDataManager;
   [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: SpawnRockAltRewards;
-  [ISCFeature.SPAWN_COLLECTIBLE]: SpawnCollectible;
   [ISCFeature.STAGE_HISTORY]: StageHistory;
   [ISCFeature.START_AMBUSH]: StartAmbush;
   [ISCFeature.TAINTED_LAZARUS_PLAYERS]: TaintedLazarusPlayers;
@@ -158,17 +154,12 @@ export function getFeatures(
     roomHistory,
     saveDataManager,
   );
-  const preventCollectibleRotation = new PreventCollectibleRotation(
-    pickupIndexCreation,
-    runInNFrames,
-  );
 
   const customGridEntities = new CustomGridEntities(runInNFrames);
   const moddedElementSets = new ModdedElementSets(moddedElementDetection);
   const itemPoolDetection = new ItemPoolDetection(moddedElementSets);
   const pause = new Pause(disableInputs);
   const preventGridEntityRespawn = new PreventGridEntityRespawn(runInNFrames);
-  const spawnCollectible = new SpawnCollectible(preventCollectibleRotation);
 
   const customTrapdoors = new CustomTrapdoors(
     customGridEntities,
@@ -272,10 +263,7 @@ export function getFeatures(
     ),
     [ISCFeature.CUSTOM_TRAPDOORS]: customTrapdoors,
     [ISCFeature.DEBUG_DISPLAY]: new DebugDisplay(mod),
-    [ISCFeature.DEPLOY_JSON_ROOM]: new DeployJSONRoom(
-      preventGridEntityRespawn,
-      spawnCollectible,
-    ),
+    [ISCFeature.DEPLOY_JSON_ROOM]: new DeployJSONRoom(preventGridEntityRespawn),
     [ISCFeature.DISABLE_ALL_SOUND]: disableAllSound,
     [ISCFeature.DISABLE_INPUTS]: disableInputs,
     [ISCFeature.EDEN_STARTING_STATS_HEALTH]: new EdenStartingStatsHealth(),
@@ -295,7 +283,6 @@ export function getFeatures(
     [ISCFeature.PONY_DETECTION]: ponyDetection,
     [ISCFeature.PRESS_INPUT]: pressInput,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
-    [ISCFeature.PREVENT_COLLECTIBLE_ROTATION]: preventCollectibleRotation,
     [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: preventGridEntityRespawn,
     [ISCFeature.ROOM_CLEAR_FRAME]: roomClearFrame,
     [ISCFeature.ROOM_HISTORY]: roomHistory,
@@ -306,7 +293,6 @@ export function getFeatures(
     [ISCFeature.SPAWN_ALT_ROCK_REWARDS]: new SpawnRockAltRewards(
       itemPoolDetection,
     ),
-    [ISCFeature.SPAWN_COLLECTIBLE]: spawnCollectible,
     [ISCFeature.STAGE_HISTORY]: stageHistory,
     [ISCFeature.START_AMBUSH]: new StartAmbush(runInNFrames),
     [ISCFeature.TAINTED_LAZARUS_PLAYERS]: new TaintedLazarusPlayers(),

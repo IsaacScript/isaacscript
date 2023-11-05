@@ -609,6 +609,31 @@ export function newCollectibleSprite(
 }
 
 /**
+ * Helper function to remove the rotation behavior from a collectible. This will happen by default
+ * when collectibles are spawned when playing as Tainted Isaac or when having Binge Eater.
+ *
+ * Under the hood, this is accomplished by morphing the collectible with the `ignoreModifiers`
+ * argument set to true.
+ */
+export function preventCollectibleRotation(collectible: EntityPickup): void {
+  if (!isCollectible(collectible)) {
+    const entityID = getEntityID(collectible);
+    error(
+      `The "preventCollectibleRotation" function was given a non-collectible: ${entityID}`,
+    );
+  }
+
+  collectible.Morph(
+    collectible.Type,
+    collectible.Variant,
+    collectible.SubType,
+    true,
+    true,
+    true,
+  );
+}
+
+/**
  * Helper function to remove all pickup delay on a collectible. By default, collectibles have a 20
  * frame delay before they can be picked up by a player.
  */
