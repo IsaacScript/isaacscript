@@ -219,7 +219,10 @@ function copyDynamicFiles(
 
     // "PROJECT-NAME" must be hyphenated, as using an underscore will break Prettier for some
     // reason.
-    const readmeMD = template.replaceAll("PROJECT-NAME", projectName);
+    const command = getPackageManagerInstallCICommand(packageManager);
+    const readmeMD = template
+      .replaceAll("PROJECT-NAME", projectName)
+      .replaceAll("PACKAGE-MANAGER-INSTALL-COMMAND", command);
     const destinationPath = path.join(projectPath, README_MD);
     writeFile(destinationPath, readmeMD);
   }
