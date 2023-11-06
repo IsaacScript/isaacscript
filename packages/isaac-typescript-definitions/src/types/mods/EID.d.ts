@@ -23,7 +23,7 @@ declare type EIDInlineIcon = [
   Height: int,
   LeftOffset?: int,
   TopOffset?: int,
-  SpriteObject?: Sprite,
+  SpriteObject?: Sprite
 ];
 
 declare type EIDTransformationTargetType =
@@ -42,7 +42,7 @@ declare interface EIDInterface {
     characterId: int,
     description: string,
     playerName?: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /** Adds a description for a card/rune. */
@@ -50,7 +50,7 @@ declare interface EIDInterface {
     id: int,
     description: string,
     itemName?: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /** Adds a description for a collectible. */
@@ -58,7 +58,7 @@ declare interface EIDInterface {
     id: int,
     description: string,
     itemName?: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /**
@@ -73,7 +73,7 @@ declare interface EIDInterface {
   addColor: (
     shortcut: string,
     kColor: KColor,
-    callback?: (color: KColor) => KColor,
+    callback?: (color: KColor) => KColor
   ) => void;
 
   /**
@@ -89,8 +89,8 @@ declare interface EIDInterface {
     condition: (this: void, testDescription: EIDDescriptionObject) => boolean,
     callback: (
       this: void,
-      oldDescription: EIDDescriptionObject,
-    ) => EIDDescriptionObject,
+      oldDescription: EIDDescriptionObject
+    ) => EIDDescriptionObject
   ) => void;
 
   /**
@@ -104,7 +104,7 @@ declare interface EIDInterface {
     subtype: int | undefined,
     entityName: string,
     description: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /**
@@ -130,7 +130,7 @@ declare interface EIDInterface {
     height: int,
     leftOffset: float | undefined,
     topOffset: float | undefined,
-    spriteObject: Sprite,
+    spriteObject: Sprite
   ) => void;
 
   /** Adds a description for a pill effect. */
@@ -138,7 +138,7 @@ declare interface EIDInterface {
     id: int,
     description: string,
     itemName?: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /**
@@ -153,7 +153,7 @@ declare interface EIDInterface {
     id: int,
     description: string,
     itemName?: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /**
@@ -166,7 +166,7 @@ declare interface EIDInterface {
   /** Appends a given string to the description of a given `EIDDescriptionObj`. */
   appendToDescription: (
     descObj: EIDDescriptionObject,
-    appendString: string,
+    appendString: string
   ) => void;
 
   /** Compares two KColors. Returns true if they are equal. */
@@ -183,7 +183,7 @@ declare interface EIDInterface {
   assignTransformation: (
     targetType: EIDTransformationTargetType,
     targetIdentifier: string | int,
-    transformationString: string,
+    transformationString: string
   ) => void;
 
   /** Creates a copy of a `KColor` object. This prevents overwriting existing `KColor` objects. */
@@ -201,7 +201,7 @@ declare interface EIDInterface {
   createTransformation: (
     uniqueName: string,
     displayName: string,
-    language?: string,
+    language?: string
   ) => void;
 
   /**
@@ -219,7 +219,7 @@ declare interface EIDInterface {
    */
   filterColorMarkup: (
     text: string,
-    baseKColor: KColor,
+    baseKColor: KColor
   ) => Array<[string, KColor, int]>;
 
   /**
@@ -231,7 +231,7 @@ declare interface EIDInterface {
   filterIconMarkup: (
     text: string,
     textPosX?: int,
-    textPosY?: int,
+    textPosY?: int
   ) => LuaMultiReturn<[string, Array<[EIDInlineIcon, int]>]>;
 
   /**
@@ -241,7 +241,7 @@ declare interface EIDInterface {
    */
   fitTextToWidth: (
     str: string,
-    textboxWidth: number, // cspell:ignore textbox
+    textboxWidth: number // cspell:ignore textbox
   ) => string[];
 
   /**
@@ -262,7 +262,7 @@ declare interface EIDInterface {
    */
   getColor: (
     str: string,
-    baseKColor: KColor,
+    baseKColor: KColor
   ) => LuaMultiReturn<[KColor, boolean]>;
 
   /**
@@ -274,7 +274,7 @@ declare interface EIDInterface {
   getDescriptionData: (
     Type: int,
     Variant: int,
-    SubType: int,
+    SubType: int
   ) => EIDDescriptionObject;
 
   /**
@@ -284,7 +284,7 @@ declare interface EIDInterface {
    */
   getDescriptionEntry: (
     objTable: string,
-    objID?: string,
+    objID?: string
   ) => EIDDescriptionObject;
 
   /**
@@ -295,7 +295,7 @@ declare interface EIDInterface {
   getDescriptionObj: (
     Type: int,
     Variant: int,
-    SubType: int,
+    SubType: int
   ) => EIDDescriptionObject;
 
   /** Get `KColor` object of "Error" texts. */
@@ -326,7 +326,7 @@ declare interface EIDInterface {
   getLegacyModDescription: (
     Type: int,
     Variant: int,
-    SubType: int,
+    SubType: int
   ) => ["", "", string] | ["", string, string] | undefined;
 
   /** Get `KColor` object of "Entity Name" texts. */
@@ -395,7 +395,7 @@ declare interface EIDInterface {
   interpolateColors: (
     kColor1: KColor,
     kColor2: KColor,
-    fraction: number,
+    fraction: number
   ) => KColor;
 
   /** Returns if EID is displaying text right now. */
@@ -419,7 +419,7 @@ declare interface EIDInterface {
   removeEntryFromString: (
     sourceTable: LuaMap<string | number, string> | string[],
     entryKey: string | number,
-    entryValue: string,
+    entryValue: string
   ) => void;
 
   /**
@@ -440,7 +440,7 @@ declare interface EIDInterface {
   removeTransformation: (
     targetType: EIDTransformationTargetType,
     targetIdentifier: string | int,
-    transformationString: string,
+    transformationString: string
   ) => void;
 
   /** Helper function to render Icons in specific EID settings. */
@@ -452,7 +452,7 @@ declare interface EIDInterface {
   renderInlineIcons: (
     spriteTable: Array<[icon: EIDInlineIcon, width: int]>,
     posX: int,
-    posY: int,
+    posY: int
   ) => void;
 
   /**
@@ -467,7 +467,7 @@ declare interface EIDInterface {
     str: string,
     position: Vector,
     scale: Vector,
-    kColor: KColor,
+    kColor: KColor
   ) => KColor;
 
   /** Replaces shorthand-representations of a character with the internal reference. */
