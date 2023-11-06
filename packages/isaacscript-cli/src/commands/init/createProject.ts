@@ -3,6 +3,7 @@ import {
   PACKAGE_JSON,
   PackageManager,
   copyFileOrDirectory,
+  deleteFileOrDirectory,
   getFileNamesInDirectory,
   getPackageManagerExecCommand,
   getPackageManagerInstallCICommand,
@@ -297,20 +298,29 @@ function upgradeYarn(
     return;
   }
 
-  execShell("yarn", ["set", "version", "latest"], verbose, false, projectPath);
+  // This command will do two things:
+  // - It creates `./.yarn/releases/yarn-#.#.#.cjs`.
+  // - It creates the following string in the "package.json" file: `"packageManager": "yarn@#.#.#"`
+  //   Having the "yarn-#.#.#.cjs" file inside of the repository is now discouraged in Yarn 4+, so
+  //   we can safely delete this directory.
+  execShellString("yarn set version latest", verbose, false, projectPath);
+  const yarnDirectoryPath = path.join(projectPath, ".yarn");
+  deleteFileOrDirectory(yarnDirectoryPath);
 
+  // - The ".yarnrc.yml" file will now look like this: `yarnPath: .yarn/releases/yarn-4.0.1.cjs`
+  // - As mentioned above, we do not need the "yarnPath" setting if the "yarn-#.#.#.cjs" file is not
+  //   inside of the repository, so we need to delete it.
+  // - Additionally, since there is not a setting specified for "nodeLinker", it will use `pnp`,
+  //   which is not desired:
   // https://yarnpkg.com/features/linkers
-  // - `pnp` is the default, but it requires a VSCode extension.
-  // - `pnpm` is fast, but it does not work with a D drive:
+  //   - `pnp` is the default, but it requires a VSCode extension.
+  //   - `pnpm` is fast, but it does not work with a D drive:
   // https://github.com/yarnpkg/berry/issues/5326
-  // - Thus, we use `node-modules`.
-  execShell(
-    "yarn",
-    ["config", "set", "nodeLinker", "node-modules"],
-    verbose,
-    false,
-    projectPath,
-  );
+  // - Thus, we use `node-modules`, which can be set with: `yarn config set nodeLinker node-modules`
+  // - However, in order to fix both of these at the same time, we just overwrite the file, which is
+  //   simpler than running commands or manually editing the file.
+  const yarnConfigPath = path.join(projectPath, ".yarnrc.yml");
+  writeFile(yarnConfigPath, "nodeLinker: node-modules\n");
 }
 
 function installNodeModules(
