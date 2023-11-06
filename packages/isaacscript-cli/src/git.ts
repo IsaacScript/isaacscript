@@ -108,8 +108,11 @@ If you don't want to initialize a Git repository for this project, press enter t
   return gitRemoteURL === "" ? undefined : gitRemoteURL;
 }
 
+/**
+ * If the GitHub CLI is installed, we can derive the user's GitHub username from their YAML
+ * configuration.
+ */
 export function getGitHubUsername(): string | undefined {
-  // If the GitHub CLI is installed, we can derive the user's GitHub username.
   if (!commandExists.sync("gh")) {
     return undefined;
   }
