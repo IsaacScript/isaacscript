@@ -298,13 +298,14 @@ function upgradeYarn(
     return;
   }
 
-  // This command will do two things:
+  // Yarn v3.5.1 is the default in Node.js v20. On this version of node, the command will do two
+  // things:
   // - It creates `./.yarn/releases/yarn-#.#.#.cjs`.
   // - It creates the following string in the "package.json" file: `"packageManager": "yarn@#.#.#"`
+  execShellString("yarn set version latest", verbose, false, projectPath);
 
   // Having the "yarn-#.#.#.cjs" file inside of the repository is now discouraged in Yarn 4+, so we
   // can safely delete this directory.
-  execShellString("yarn set version latest", verbose, false, projectPath);
   const yarnDirectoryPath = path.join(projectPath, ".yarn");
   deleteFileOrDirectory(yarnDirectoryPath);
 
