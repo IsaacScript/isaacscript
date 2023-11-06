@@ -301,8 +301,9 @@ function upgradeYarn(
   // This command will do two things:
   // - It creates `./.yarn/releases/yarn-#.#.#.cjs`.
   // - It creates the following string in the "package.json" file: `"packageManager": "yarn@#.#.#"`
-  //   Having the "yarn-#.#.#.cjs" file inside of the repository is now discouraged in Yarn 4+, so
-  //   we can safely delete this directory.
+
+  // Having the "yarn-#.#.#.cjs" file inside of the repository is now discouraged in Yarn 4+, so we
+  // can safely delete this directory.
   execShellString("yarn set version latest", verbose, false, projectPath);
   const yarnDirectoryPath = path.join(projectPath, ".yarn");
   deleteFileOrDirectory(yarnDirectoryPath);
