@@ -1,18 +1,23 @@
 // Other potential args libraries:
-// - util.parseArgs
+// - util.parseArgs [X]
 //   - https://nodejs.org/api/util.html#utilparseargsconfig
 //   - Too bare bones; does not support numbers.
-// - arg (1.2K stars)
+// - commander (25.4K stars)
+//   - https://github.com/tj/commander.js
+//   - ?
+// - yargs [X] (10.7K stars)
+//   - https://github.com/yargs/yargs
+//   - Sucks in TypeScript.
+//   - `--version` does not work properly. (It displays the CWD "package.json" version instead of
+//     the application version for some reason.)
+// - clack (4.3K stars)
+//   - https://github.com/natemoo-re/clack
+//   - ?
+// - arg [X} (1.2K stars)
 //   - https://github.com/vercel/arg
 //   - Does not support commands (i.e. positional arguments).
 // - cmd-ts (193 stars)
 //   - https://github.com/Schniz/cmd-ts
-//   - ?
-// - clack (4.3K stars)
-//   - https://github.com/natemoo-re/clack
-//   - ?
-// - commander (25.4K stars)
-//   - https://github.com/tj/commander.js
 //   - ?
 
 import { getArgs } from "isaacscript-common-node";
