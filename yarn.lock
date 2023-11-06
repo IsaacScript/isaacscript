@@ -11256,6 +11256,7 @@ __metadata:
     cloc: "npm:^1.98.0-cloc"
     clsx: "npm:^2.0.0"
     command-exists: "npm:^1.2.9"
+    commander: "npm:^11.1.0"
     confusing-browser-globals: "npm:^1.0.11"
     cspell: "npm:^7.3.8"
     cspell-check-unused-words: "npm:^1.0.11"

@@ -65,6 +65,7 @@
     "cloc": "^1.98.0-cloc",
     "clsx": "^2.0.0",
     "command-exists": "^1.2.9",
+    "commander": "^11.1.0",
     "confusing-browser-globals": "^1.0.11",
     "cspell": "^7.3.8",
     "cspell-check-unused-words": "^1.0.11",
