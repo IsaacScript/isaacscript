@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { fatalError, isDirectory } from "isaacscript-common-node";
 import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
-import type { Args } from "../../parseArgs.js";
 import { getInputString } from "../../prompt.js";
 
 const MODS = "mods";
@@ -29,18 +28,11 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
   MODS,
 );
 
-export async function getModsDir(
-  args: Args,
-  typeScript: boolean,
-): Promise<string | undefined> {
-  if (typeScript) {
-    return undefined;
-  }
-
-  if (args.modsDirectory !== undefined) {
-    // They specified the "--mods-directory" command-line flag, so there is no need to prompt the
-    // user for it.
-    return args.modsDirectory;
+export async function getModsDirectory(
+  modsDirectoryOption: string | undefined,
+): Promise<string> {
+  if (modsDirectoryOption !== undefined && modsDirectoryOption !== "") {
+    return modsDirectoryOption;
   }
 
   const defaultModsPath = getDefaultModsPath(process.platform);

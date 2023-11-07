@@ -1,3 +1,4 @@
+import { Command } from "@commander-js/extra-typings";
 import chalk from "chalk";
 import {
   PACKAGE_MANAGER_LOCK_FILE_NAMES,
@@ -24,7 +25,6 @@ import {
 } from "../../constants.js";
 import { execShell } from "../../exec.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
-import type { Args } from "../../parseArgs.js";
 
 const URL_PREFIX =
   "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates";
@@ -43,12 +43,51 @@ const PACKAGE_MANAGER_STRINGS = [
   ...PACKAGE_MANAGER_LOCK_FILE_NAMES,
 ] as const;
 
-export function check(args: Args, typeScript: boolean): void {
-  const ignore = args.ignore ?? "";
-  const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args);
+export const checkCommand = new Command()
+  .command("check")
+  .description(
+    "Check the template files of the current IsaacScript mod to see if they are up to date.",
+  )
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option(
+    "--ignore <ignoreList>",
+    "Comma separated list of file names to ignore.",
+  )
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action((options) => {
+    check(options, false);
+  });
+
+/**
+ * Even though all of the options are identical, we make a "-ts" version of the command to keep the
+ * symmetry with the "init" and "init-ts" commands.
+ */
+export const checkTSCommand = new Command()
+  .command("check-ts")
+  .description(
+    "Check the template files of the current TypeScript project to see if they are up to date.",
+  )
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option(
+    "--ignore <ignoreList>",
+    "Comma separated list of file names to ignore.",
+  )
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action((options) => {
+    check(options, true);
+  });
+
+const checkOptions = checkCommand.opts();
+// The options are identical for both, so we do not create a union.
+type CheckOptions = typeof checkOptions;
+
+export function check(options: CheckOptions, typeScript: boolean): void {
+  const { verbose } = options;
+
+  const packageManager = getPackageManagerUsedForExistingProject();
 
   let oneOrMoreErrors = false;
+  const ignore = options.ignore ?? "";
   const ignoreFileNames = ignore.split(",");
   const ignoreFileNamesSet = new ReadonlySet(ignoreFileNames);
 

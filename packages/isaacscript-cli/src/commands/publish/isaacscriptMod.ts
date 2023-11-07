@@ -9,7 +9,7 @@ import {
   writeFile,
 } from "isaacscript-common-node";
 import path from "node:path";
-import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import { getConfigFromFile } from "../../configFile.js";
 import {
   CONSTANTS_TS_PATH,
   CWD,
@@ -21,17 +21,15 @@ import {
 import { execExe, execShell, execShellString } from "../../exec.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
-import type { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import { compileAndCopy } from "../copy/copy.js";
 
 export async function publishIsaacScriptMod(
-  args: Args,
-  config: ValidatedConfig,
+  dryRun: boolean,
+  verbose: boolean,
 ): Promise<void> {
-  const dryRun = args.dryRun === true;
-  const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args);
+  const packageManager = getPackageManagerUsedForExistingProject();
+  const config = await getConfigFromFile();
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
   const version = getPackageJSONVersion(undefined);

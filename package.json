@@ -23,6 +23,7 @@
   "dependencies": {
     "@algolia/client-search": "^4.20.0",
     "@arktype/fs": "^0.0.1",
+    "@commander-js/extra-typings": "^11.1.0",
     "@docusaurus/core": "2.4.3",
     "@docusaurus/eslint-plugin": "2.4.3",
     "@docusaurus/module-type-aliases": "2.4.3",
@@ -51,7 +52,6 @@
     "@types/source-map-support": "^0.5.9",
     "@types/touch": "^3.1.4",
     "@types/xml2js": "^0.4.13",
-    "@types/yargs": "^17.0.29",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
     "@typescript-eslint/rule-tester": "^6.9.1",
@@ -122,8 +122,7 @@
     "typescript-to-lua": "^1.21.0",
     "unified": "^11.0.4",
     "xml2js": "^0.6.2",
-    "yaml": "^2.3.4",
-    "yargs": "^17.7.2"
+    "yaml": "^2.3.4"
   },
   "packageManager": "yarn@4.0.1"
 }

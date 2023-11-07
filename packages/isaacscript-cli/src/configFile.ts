@@ -7,30 +7,23 @@ import {
 import path from "node:path";
 import { Config } from "./classes/Config.js";
 import type { ValidatedConfig } from "./classes/ValidatedConfig.js";
-import { getModsDir } from "./commands/init/getModsDir.js";
-import { promptSaveSlot } from "./commands/init/promptSaveSlot.js";
+import { getModsDirectory } from "./commands/init/getModsDirectory.js";
+import { getSaveSlot } from "./commands/init/getSaveSlot.js";
 import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
-import type { Args } from "./parseArgs.js";
 
 const NUM_INDENT_SPACES = 2;
 
-export async function getConfigFromFile(
-  args: Args,
-  typeScript: boolean,
-): Promise<ValidatedConfig> {
-  const yes = args.yes === true;
-  const dev = args.dev === true;
-
+export async function getConfigFromFile(): Promise<ValidatedConfig> {
   const existingConfig = getExistingConfig();
   if (existingConfig !== undefined) {
     return existingConfig;
   }
 
   // No config file exists, so prompt the user for some information and create one.
-  const modsDirectory = await getModsDir(args, typeScript);
-  const saveSlot = await promptSaveSlot(args, yes);
-  const config = new Config(modsDirectory, saveSlot, dev) as ValidatedConfig;
-  createConfigFile(CWD, config, typeScript);
+  const modsDirectory = await getModsDirectory(undefined);
+  const saveSlot = await getSaveSlot(undefined, false);
+  const config = new Config(modsDirectory, saveSlot, false) as ValidatedConfig;
+  createConfigFile(CWD, config);
 
   return config;
 }
@@ -72,15 +65,7 @@ function errorMissing(field: string, description: string): never {
   );
 }
 
-export function createConfigFile(
-  projectPath: string,
-  config: Config,
-  typeScript: boolean,
-): void {
-  if (typeScript) {
-    return;
-  }
-
+export function createConfigFile(projectPath: string, config: Config): void {
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
   const configContents = JSON.stringify(config, undefined, NUM_INDENT_SPACES);
 

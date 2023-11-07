@@ -3,7 +3,10 @@ import { fatalError } from "isaacscript-common-node";
 import { parseSemanticVersion } from "isaacscript-common-ts";
 import { PROJECT_NAME } from "./constants.js";
 
-const REQUIRED_NODE_JS_MAJOR_VERSION = 16;
+// The IsaacScript CLI will probably work on versions of Node.js that are past end-of-life, but this
+// is not supported. We prefer failing fast to get the end-user on a modern version of Node.js.
+
+const REQUIRED_NODE_JS_MAJOR_VERSION = 18;
 
 export function validateNodeVersion(): void {
   const { version } = process;

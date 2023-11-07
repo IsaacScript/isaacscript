@@ -7,16 +7,28 @@ import {
   getPackageManagersForProject,
 } from "isaacscript-common-node";
 import { CWD } from "./constants.js";
-import type { Args } from "./parseArgs.js";
 
 export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.yarn;
 
-export function getPackageManagerUsedForNewProject(args: Args): PackageManager {
-  const packageManagerFromArgs = getPackageManagerFromArgs(args);
-  if (packageManagerFromArgs !== undefined) {
-    return packageManagerFromArgs;
+interface PackageManagerOptions {
+  npm: boolean;
+  yarn: boolean;
+  pnpm: boolean;
+  dev?: boolean;
+}
+
+export function getPackageManagerUsedForNewProject(
+  options: PackageManagerOptions,
+): PackageManager {
+  const packageManagerFromOptions = getPackageManagerFromOptions(options);
+  if (packageManagerFromOptions !== undefined) {
+    return packageManagerFromOptions;
   }
 
+  return getDefaultPackageManager();
+}
+
+export function getDefaultPackageManager(): PackageManager {
   if (commandExists.sync("yarn")) {
     return PackageManager.yarn;
   }
@@ -28,9 +40,7 @@ export function getPackageManagerUsedForNewProject(args: Args): PackageManager {
   return PackageManager.npm;
 }
 
-export function getPackageManagerUsedForExistingProject(
-  args: Args,
-): PackageManager {
+export function getPackageManagerUsedForExistingProject(): PackageManager {
   const packageManagers = getPackageManagersForProject(CWD);
   if (packageManagers.length > 1) {
     const packageManagerLockFileNames = packageManagers
@@ -47,18 +57,17 @@ export function getPackageManagerUsedForExistingProject(
     return packageManager;
   }
 
-  return getPackageManagerUsedForNewProject(args);
+  return getDefaultPackageManager();
 }
 
-function getPackageManagerFromArgs(args: Args) {
-  const dev = args.dev === true;
-  if (dev) {
+function getPackageManagerFromOptions(options: PackageManagerOptions) {
+  if (options.dev === true) {
     const packageManagerCommandExists = commandExists.sync(
       PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
     );
     if (!packageManagerCommandExists) {
       fatalError(
-        `You specified the "dev" flag, but "${chalk.green(
+        `You specified the "--dev" option, but "${chalk.green(
           PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
         )}" does not seem to be a valid command. The IsaacScript monorepo uses ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT}, so in order to initiate a linked development mod, you must also have ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} installed. Try running "corepack enable" to install it.`,
       );
@@ -67,8 +76,7 @@ function getPackageManagerFromArgs(args: Args) {
     return PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT;
   }
 
-  const npm = args.npm === true;
-  if (npm) {
+  if (options.npm) {
     const npmExists = commandExists.sync("npm");
     if (!npmExists) {
       fatalError(
@@ -81,8 +89,7 @@ function getPackageManagerFromArgs(args: Args) {
     return PackageManager.npm;
   }
 
-  const yarn = args.yarn === true;
-  if (yarn) {
+  if (options.yarn) {
     const yarnExists = commandExists.sync("yarn");
     if (!yarnExists) {
       fatalError(
@@ -95,8 +102,7 @@ function getPackageManagerFromArgs(args: Args) {
     return PackageManager.yarn;
   }
 
-  const pnpm = args.pnpm === true;
-  if (pnpm) {
+  if (options.pnpm) {
     const pnpmExists = commandExists.sync("pnpm");
     if (!pnpmExists) {
       fatalError(

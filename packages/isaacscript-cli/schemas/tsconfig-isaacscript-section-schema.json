@@ -29,7 +29,10 @@
               "type": "string"
             }
           },
-          "required": ["namePNGPath", "portraitPNGPath"],
+          "required": [
+            "namePNGPath",
+            "portraitPNGPath"
+          ],
           "type": "object"
         },
         "weight": {
@@ -37,7 +40,11 @@
           "type": "number"
         }
       },
-      "required": ["name", "subType", "weight"],
+      "required": [
+        "name",
+        "subType",
+        "weight"
+      ],
       "type": "object"
     },
     "CustomStageShadow": {
@@ -69,7 +76,12 @@
               "type": "number"
             }
           },
-          "required": ["r", "g", "b", "a"],
+          "required": [
+            "r",
+            "g",
+            "b",
+            "a"
+          ],
           "type": "object"
         },
         "pngPath": {
@@ -77,7 +89,9 @@
           "type": "string"
         }
       },
-      "required": ["pngPath"],
+      "required": [
+        "pngPath"
+      ],
       "type": "object"
     },
     "CustomStageTSConfig": {
@@ -117,7 +131,12 @@
               "type": "array"
             }
           },
-          "required": ["nFloors", "lFloors", "walls", "corners"],
+          "required": [
+            "nFloors",
+            "lFloors",
+            "walls",
+            "corners"
+          ],
           "type": "object"
         },
         "baseStage": {
@@ -296,7 +315,12 @@
                   "type": "number"
                 }
               },
-              "required": ["r", "g", "b", "a"],
+              "required": [
+                "r",
+                "g",
+                "b",
+                "a"
+              ],
               "type": "object"
             },
             "dirtSpotColor": {
@@ -324,7 +348,12 @@
                   "type": "number"
                 }
               },
-              "required": ["r", "g", "b", "a"],
+              "required": [
+                "r",
+                "g",
+                "b",
+                "a"
+              ],
               "type": "object"
             }
           },
@@ -335,7 +364,11 @@
           "type": "string"
         }
       },
-      "required": ["name", "xmlPath", "roomVariantPrefix"],
+      "required": [
+        "name",
+        "xmlPath",
+        "roomVariantPrefix"
+      ],
       "type": "object"
     },
     "IsaacScriptTSConfig": {

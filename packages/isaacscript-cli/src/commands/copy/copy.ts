@@ -1,3 +1,4 @@
+import { Command } from "@commander-js/extra-typings";
 import type { PackageManager } from "isaacscript-common-node";
 import {
   copyFileOrDirectory,
@@ -5,18 +6,30 @@ import {
   getPackageManagerExecCommand,
 } from "isaacscript-common-node";
 import path from "node:path";
-import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
+import { getConfigFromFile } from "../../configFile.js";
 import { MOD_SOURCE_PATH } from "../../constants.js";
 import { prepareCustomStages } from "../../customStage.js";
 import { execShellString } from "../../exec.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
-import type { Args } from "../../parseArgs.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 
-export async function copy(args: Args, config: ValidatedConfig): Promise<void> {
-  const verbose = args.verbose === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args);
+export const copyCommand = new Command()
+  .command("copy")
+  .description("Only compile & copy the mod.")
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action(async (options) => {
+    await copy(options);
+  });
 
+const copyOptions = copyCommand.opts();
+type CopyOptions = typeof copyOptions;
+
+export async function copy(options: CopyOptions): Promise<void> {
+  const { verbose } = options;
+
+  const packageManager = getPackageManagerUsedForExistingProject();
+  const config = await getConfigFromFile();
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 

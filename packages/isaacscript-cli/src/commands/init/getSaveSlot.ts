@@ -1,15 +1,18 @@
 import { fatalError } from "isaacscript-common-node";
-import type { Args } from "../../parseArgs.js";
+import { parseIntSafe } from "isaacscript-common-ts";
 import { getInputInt } from "../../prompt.js";
 
-export async function promptSaveSlot(
-  args: Args,
+export async function getSaveSlot(
+  saveSlotOption: string | undefined,
   yes: boolean,
 ): Promise<number> {
-  if (args.saveSlot !== undefined) {
-    // They specified the "--save-slot" command-line flag, so there is no need to prompt the user
-    // for it.
-    return args.saveSlot;
+  if (saveSlotOption !== undefined) {
+    const saveSlot = parseIntSafe(saveSlotOption);
+    if (saveSlot === undefined) {
+      fatalError(`The save slot of "${saveSlotOption}" is not a number.`);
+    }
+
+    return saveSlot;
   }
 
   if (yes) {

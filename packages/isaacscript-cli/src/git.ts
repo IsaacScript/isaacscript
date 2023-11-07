@@ -14,12 +14,12 @@ import { getInputString, getInputYesNo } from "./prompt.js";
 
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
-  noGit: boolean,
   yes: boolean,
+  git: boolean,
   dev: boolean,
   verbose: boolean,
 ): Promise<string | undefined> {
-  if (noGit || dev) {
+  if (!git || dev) {
     return undefined;
   }
 
