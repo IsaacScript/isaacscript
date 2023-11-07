@@ -1,4 +1,5 @@
 # These are words that apply to Isaac modding in general.
+
 Antibirth
 Beelzeblub
 Begottens
@@ -48,6 +49,7 @@ nerfed
 nerfs
 Nicalis
 Nightwatch
+NPCID
 npcs
 pathing
 piber # Creator of Mod Config Menu
@@ -82,8 +84,8 @@ speedrunning
 speedruns
 Spitties
 steamcmd # For uploading/publishing
-Strifer
 Stonies
+Strifer
 teleporters
 teleporting
 texel
