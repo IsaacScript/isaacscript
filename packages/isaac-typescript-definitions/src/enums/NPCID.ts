@@ -743,4 +743,3 @@ export enum NPCID {
   SIREN_HELPER = "966.0.0",
   HORNFEL_DOOR = "967.0.0",
 }
-
