@@ -1,11 +1,14 @@
 # These are words contained within IsaacScript template files.
-
 airbnb # settings.json
 autocrlf # .gitattributes
 dbaeumer # extensions.json
 esbenp # extensions.json
+FLOAST
 isaacscript
+NIGHTWATCH
+NPCID
 packagejson # prettier.config.mjs
 sarisia # ci.yml
+STRIFER
 technote # ci.yml
 tstl
