@@ -23,6 +23,7 @@ esaus
 Fallens
 Filloax # Revelations developer
 fistuloids
+Floast
 forgottens
 fsize # Encyclopedia parameter
 Gabriels
@@ -46,6 +47,7 @@ Mullibooms
 nerfed
 nerfs
 Nicalis
+Nightwatch
 npcs
 pathing
 piber # Creator of Mod Config Menu
@@ -80,6 +82,7 @@ speedrunning
 speedruns
 Spitties
 steamcmd # For uploading/publishing
+Strifer
 Stonies
 teleporters
 teleporting
