@@ -1,9 +1,9 @@
 # These are words that apply to Isaac modding in general.
-
 Antibirth
 Beelzeblub
 Begottens
 Bethanys
+Bloodfly
 Bonies
 Chronometrics # Creator of Basement Renovator
 contentfolder # metadata.vdf
@@ -58,6 +58,7 @@ propget # Key of userdata
 propset # Key of userdata
 publishedfileid # metadata.vdf
 Raglings
+Redskull
 respawn
 respawned
 respawning
