@@ -399,18 +399,6 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
   return indirectPlayer !== undefined;
 }
 
-/** Not exported since end-users should use the `isTainted` helper function directly. */
-function isTaintedModded(player: EntityPlayer) {
-  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
-  // is bugged.
-  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
-  const character = player.GetPlayerType();
-  const name = player.GetName();
-  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
-
-  return character === taintedCharacter;
-}
-
 /**
  * Helper function for detecting when a player is Eden or Tainted Eden. Useful for situations where
  * you want to know if the starting stats were randomized, for example.
@@ -537,4 +525,16 @@ export function setBlindfold(
       player.TryRemoveNullCostume(NullItemID.BLINDFOLD);
     }
   }
+}
+
+/** Not exported since end-users should use the `isTainted` helper function directly. */
+function isTaintedModded(player: EntityPlayer) {
+  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
+  // is bugged.
+  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
+  const character = player.GetPlayerType();
+  const name = player.GetName();
+  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
+
+  return character === taintedCharacter;
 }
