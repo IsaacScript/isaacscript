@@ -63,6 +63,8 @@ export function parseArgs(): void {
   program.addCommand(updateCommand);
 
   program.parse();
+  console.log("GETTING HERE 1");
+  process.exit();
 }
 
 const updateCommand = new Command()

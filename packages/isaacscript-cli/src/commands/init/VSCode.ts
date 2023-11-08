@@ -119,7 +119,5 @@ function openVSCode(
   VSCodeCommand: string,
   verbose: boolean,
 ) {
-  console.log("GETTING HERE 1");
   execShell(VSCodeCommand, [projectPath], verbose);
-  console.log("GETTING HERE 2");
 }

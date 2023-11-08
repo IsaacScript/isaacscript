@@ -168,19 +168,16 @@ export async function init(
   );
 
   await vsCodeInit(projectPath, vscode, yes, verbose);
-  printFinishMessage(projectPath, projectName, packageManager, typeScript);
+  if (!typeScript) {
+    printIsaacScriptMessage(projectPath, projectName, packageManager);
+  }
 }
 
-function printFinishMessage(
+function printIsaacScriptMessage(
   projectPath: string,
   projectName: string,
   packageManager: PackageManager,
-  typeScript: boolean,
 ) {
-  if (typeScript) {
-    return;
-  }
-
   let commandsToType = "";
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;
