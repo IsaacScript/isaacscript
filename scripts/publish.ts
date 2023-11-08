@@ -125,7 +125,7 @@ const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
 //   is a scoped package), but it is saved here for posterity.
 // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"
 //   script in the "package.json" file, causing an infinite loop.
-$$.sync`npm publish --ignore-scripts --access=public --tag=${npmTag}`;
+$$.sync`npm publish --access=public --ignore-scripts --tag=${npmTag}`;
 
 const elapsedSeconds = getElapsedSeconds(startTime);
 const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
