@@ -69,9 +69,21 @@ export async function parseArgs(): Promise<void> {
   process.exit();
 }
 
+const nukeCommand = new Command()
+  .command("nuke")
+  .description("Delete and reinstall the dependencies in the current project.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action(() => {
+    nukeDependencies(CWD);
+    console.log("Successfully reinstalled dependencies from npm.");
+  });
+
 const updateCommand = new Command()
   .command("update")
   .description("Update the npm dependencies in the current project.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .action(async () => {
     const hasNewDependencies = await updatePackageJSON(CWD);
@@ -79,14 +91,4 @@ const updateCommand = new Command()
       ? "Successfully installed new Node.js dependencies."
       : "There were no new dependency updates from npm.";
     console.log(msg);
-  });
-
-const nukeCommand = new Command()
-  .command("nuke")
-  .description("Delete and reinstall the dependencies in the current project.")
-  .helpOption("-h, --help", "Display the list of options for this command.")
-  .option("-v, --verbose", "Enable verbose output.", false)
-  .action(() => {
-    nukeDependencies(CWD);
-    console.log("Successfully reinstalled dependencies from npm.");
   });

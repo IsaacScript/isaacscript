@@ -16,6 +16,7 @@ import { getModTargetDirectoryName } from "../../utils.js";
 export const copyCommand = new Command()
   .command("copy")
   .description("Only compile & copy the mod.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option("-v, --verbose", "Enable verbose output.", false)
   .action(async (options) => {

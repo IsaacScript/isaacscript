@@ -48,6 +48,7 @@ export const checkCommand = new Command()
   .description(
     "Check the template files of the current IsaacScript mod to see if they are up to date.",
   )
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option(
     "--ignore <ignoreList>",
@@ -67,6 +68,7 @@ export const checkTSCommand = new Command()
   .description(
     "Check the template files of the current TypeScript project to see if they are up to date.",
   )
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option(
     "--ignore <ignoreList>",

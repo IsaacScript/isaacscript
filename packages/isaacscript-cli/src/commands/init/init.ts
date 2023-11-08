@@ -20,6 +20,7 @@ import { getSaveSlot } from "./getSaveSlot.js";
 export const initCommand = new Command()
   .command("init [name]")
   .description(`Initialize a new ${PROJECT_NAME} mod.`)
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option(
     "-y, --yes",
@@ -69,6 +70,7 @@ export const initCommand = new Command()
 export const initTSCommand = new Command()
   .command("init-ts [name]")
   .description("Initialize a new TypeScript project.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option(
     "-y, --yes",

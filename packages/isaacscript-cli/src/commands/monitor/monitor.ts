@@ -37,6 +37,7 @@ import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles.js";
 export const monitorCommand = new Command()
   .command("monitor")
   .description("Monitor an IsaacScript mod project for changes.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option(
     "--skip-project-checks",
