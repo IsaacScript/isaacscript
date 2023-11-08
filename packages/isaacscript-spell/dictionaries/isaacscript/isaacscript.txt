@@ -2,6 +2,8 @@
 
 airbnb # settings.json
 autocrlf # .gitattributes
+autofix # Used when disabling a "no-autofix/foo" ESLint rule
+corepack # Used to install yarn
 dbaeumer # extensions.json
 esbenp # extensions.json
 isaacscript
