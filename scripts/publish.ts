@@ -121,9 +121,11 @@ $sq`git tag ${tag}`;
 
 // Upload the package to npm.
 const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
-// The "--access=public" flag is only technically needed for the first publish, but it is saved here
-// for posterity.
-$$.sync`npm publish --access=public --tag=${npmTag}`;
+// - The "--access=public" flag is only technically needed for the first publish (unless the package
+//   is a scoped package), but it is saved here for posterity.
+// - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"
+//   script in the "package.json" file, causing an infinite loop.
+$$.sync`npm publish --ignore-scripts --access=public --tag=${npmTag}`;
 
 const elapsedSeconds = getElapsedSeconds(startTime);
 const secondsText = elapsedSeconds === 1 ? "second" : "seconds";

@@ -246,7 +246,12 @@ function publishTypeScriptProject(dryRun: boolean, verbose: boolean) {
   } else {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
     gitCommitAllAndPush(releaseGitCommitMessage, verbose);
-    execShellString("npm publish --access=public", verbose);
+
+    // - The "--access=public" flag is only technically needed for the first publish (unless the
+    //   package is a scoped package), but it is saved here for posterity.
+    // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the
+    //   "publish" script in the "package.json" file, causing an infinite loop.
+    execShellString("npm publish --access=public --ignore-scripts", verbose);
   }
 
   const dryRunSuffix = dryRun ? " (dry-run)" : "";
