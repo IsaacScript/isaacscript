@@ -62,8 +62,9 @@ export async function parseArgs(): Promise<void> {
 
   // The `parseAsync` method must be used instead of the `parse` method if any of the command
   // handlers are async.
-  await program.parseAsync();
+  const foo = await program.parseAsync();
   console.log("GETTING HERE 1");
+  console.log(foo);
   process.exit();
 }
 

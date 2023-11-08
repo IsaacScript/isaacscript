@@ -13,6 +13,5 @@ async function main(): Promise<void> {
   promptInit();
   validateNodeVersion();
   await checkForWindowsTerminalBugs();
-
-  parseArgs();
+  await parseArgs();
 }
