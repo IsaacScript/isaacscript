@@ -1,5 +1,6 @@
 import type { CardType } from "isaac-typescript-definitions";
 import { ItemConfigCardType, UseFlag } from "isaac-typescript-definitions";
+import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { itemConfig } from "../core/cachedClasses";
 import { LAST_VANILLA_CARD_TYPE } from "../core/constantsFirstLast";
 import {
@@ -77,6 +78,24 @@ export function getItemConfigCardType(
   }
 
   return itemConfigCard.CardType;
+}
+
+/**
+ * Helper function to check if a player is holding a specific card in one of their pocket item
+ * slots.
+ *
+ * This function is variadic, meaning that you can pass as many cards as you want to check for. The
+ * function will return true if the player has any of the cards.
+ */
+export function hasCard(
+  player: EntityPlayer,
+  ...cardTypes: CardType[]
+): boolean {
+  const cardTypesSet = new Set(cardTypes);
+  return POCKET_ITEM_SLOT_VALUES.some((pocketItemSlot) => {
+    const cardType = player.GetCard(pocketItemSlot);
+    return cardTypesSet.has(cardType);
+  });
 }
 
 /**

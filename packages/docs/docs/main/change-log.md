@@ -27,6 +27,7 @@ This page lists the changes to the IsaacScript framework.
   - `StageAPILayoutSpikesOnOffVariant`
 - CI in new mods now runs build and lint in a separate jobs so that they run faster.
 - Added the following helper functions:
+  - `hasCard`
   - `shouldWhoreOfBabylonBeActive`
 - Changed the following helper functions:
   - `spawnCollectible` (is now pure)
