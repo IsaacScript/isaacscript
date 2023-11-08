@@ -8,7 +8,7 @@ Bonies
 Chronometrics # Creator of Basement Renovator
 contentfolder # metadata.vdf
 craftable
-Cucco # Job developer
+Cucco # Creator of Job
 datagrams
 debuff
 despawn
@@ -21,7 +21,7 @@ Eggies
 ENCYCLOPEDIARARY # Encyclopedia parameter
 esaus
 Fallens
-Filloax # Revelations developer
+Filloax # Creator of Revelations
 fistuloids
 forgottens
 fsize # Encyclopedia parameter
@@ -34,7 +34,7 @@ hitboxes
 hitsphere
 hitspheres
 isaacracing # Website for Racing+
-Kilburn # Repentance developer
+Kilburn # Creator of Antibirth / Repentance
 Kinetis
 Losts
 luacheck
@@ -89,5 +89,7 @@ trites
 Turdlings
 unseed
 Uriels
-Wofsauge # External Item Descriptions developer
+Wofsauge # Creator of External Item Descriptions
 workshopitem # metadata.vdf
+Zamiel # Creator of IsaacScript
+Zamiell # Creator of IsaacScript (alternate spelling for GitHub)
