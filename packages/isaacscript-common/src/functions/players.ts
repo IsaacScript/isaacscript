@@ -399,15 +399,6 @@ export function isDamageFromPlayer(damageSource: Entity): boolean {
   return indirectPlayer !== undefined;
 }
 
-/**
- * Helper function for detecting when a player is Eden or Tainted Eden. Useful for situations where
- * you want to know if the starting stats were randomized, for example.
- */
-export function isEden(player: EntityPlayer): boolean {
-  const character = player.GetPlayerType();
-  return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
-}
-
 /** Not exported since end-users should use the `isTainted` helper function directly. */
 function isTaintedModded(player: EntityPlayer) {
   // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
@@ -418,6 +409,15 @@ function isTaintedModded(player: EntityPlayer) {
   const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
 
   return character === taintedCharacter;
+}
+
+/**
+ * Helper function for detecting when a player is Eden or Tainted Eden. Useful for situations where
+ * you want to know if the starting stats were randomized, for example.
+ */
+export function isEden(player: EntityPlayer): boolean {
+  const character = player.GetPlayerType();
+  return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
 }
 
 export function isFirstPlayer(player: EntityPlayer): boolean {
