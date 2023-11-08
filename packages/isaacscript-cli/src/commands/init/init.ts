@@ -99,7 +99,7 @@ export const initTSCommand = new Command()
   )
   .option("-v, --verbose", "Enable verbose output.", false)
   .action(async (name, options) => {
-    await init(name, options, false);
+    await init(name, options, true);
   });
 
 const initOptions = initCommand.opts();
