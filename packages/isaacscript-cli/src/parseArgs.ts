@@ -39,7 +39,7 @@ import { CWD, PROJECT_NAME } from "./constants.js";
 
 const __dirname = dirName();
 
-export function parseArgs(): void {
+export async function parseArgs(): Promise<void> {
   const packageJSONPath = path.join(__dirname, "..", "package.json");
   const version = getPackageJSONVersion(packageJSONPath);
 
@@ -48,21 +48,21 @@ export function parseArgs(): void {
     .description("The CLI for the IsaacScript framework.")
     .version(version, "-V, --version", "Output the version number.")
     .helpOption("-h, --help", "Display the list of commands and options.")
-    .addHelpCommand(false);
+    .addHelpCommand(false)
+    .addCommand(monitorCommand, { isDefault: true })
+    .addCommand(checkCommand)
+    .addCommand(checkTSCommand)
+    .addCommand(copyCommand)
+    .addCommand(initCommand)
+    .addCommand(initTSCommand)
+    .addCommand(nukeCommand)
+    .addCommand(publishCommand)
+    .addCommand(publishTSCommand)
+    .addCommand(updateCommand);
 
-  program.addCommand(monitorCommand, { isDefault: true });
-
-  program.addCommand(checkCommand);
-  program.addCommand(checkTSCommand);
-  program.addCommand(copyCommand);
-  program.addCommand(initCommand);
-  program.addCommand(initTSCommand);
-  program.addCommand(nukeCommand);
-  program.addCommand(publishCommand);
-  program.addCommand(publishTSCommand);
-  program.addCommand(updateCommand);
-
-  program.parse();
+  // The `parseAsync` method must be used instead of the `parse` method if any of the command
+  // handlers are async.
+  await program.parseAsync();
   console.log("GETTING HERE 1");
   process.exit();
 }
