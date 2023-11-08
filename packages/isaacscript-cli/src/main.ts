@@ -13,5 +13,9 @@ async function main(): Promise<void> {
   promptInit();
   validateNodeVersion();
   await checkForWindowsTerminalBugs();
-  await parseArgs();
+
+  const command = await parseArgs();
+  if (command !== "monitor") {
+    process.exit();
+  }
 }
