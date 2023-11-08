@@ -49,6 +49,7 @@ export async function parseArgs(): Promise<void> {
     .version(version, "-V, --version", "Output the version number.")
     .helpOption("-h, --help", "Display the list of commands and options.")
     .addHelpCommand(false)
+    .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
     .addCommand(monitorCommand, { isDefault: true })
     .addCommand(checkCommand)
     .addCommand(checkTSCommand)

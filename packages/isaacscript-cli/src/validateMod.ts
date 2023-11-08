@@ -2,6 +2,7 @@ import chalk from "chalk";
 import {
   PACKAGE_JSON,
   fatalError,
+  getFilePath,
   getPackageJSON,
   getPackageJSONDependencies,
   getPackageManagerAddDevCommand,
@@ -53,9 +54,9 @@ export function validateInIsaacScriptProject(): void {
 function errorNotExists(dirName: string, file: boolean) {
   const noun = file ? "file" : "subdirectory";
   console.error(
-    chalk.red(
-      `It looks like the current working directory is not an ${PROJECT_NAME} project. (There is no "${dirName}" ${noun} here.)`,
-    ),
+    `It looks like the current working directory of "${chalk.green(
+      CWD,
+    )}" is not an ${PROJECT_NAME} project. (There is no "${dirName}" ${noun} here.)`,
   );
   console.error(
     `Did you mean to create a new ${PROJECT_NAME} project with "${chalk.green(
@@ -69,7 +70,8 @@ function errorNotExists(dirName: string, file: boolean) {
 }
 
 export function validatePackageJSONDependencies(): void {
-  const packageJSON = getPackageJSON(CWD);
+  const packageJSONPath = getFilePath(PACKAGE_JSON, CWD);
+  const packageJSON = getPackageJSON(packageJSONPath);
   const dependencies =
     getPackageJSONDependencies(packageJSON, "devDependencies") ?? {};
   const dependenciesArray = Object.keys(dependencies);
@@ -86,9 +88,9 @@ export function validatePackageJSONDependencies(): void {
         devDependency,
       );
       fatalError(
-        `${chalk.red(
-          `The "${devDependency}" dependency is located in the "dependencies" object instead of the "devDependencies" object in the "${PACKAGE_JSON}" file. You can fix this with the following command:`,
-        )} ${chalk.green(addDevCommand)}`,
+        `The "${devDependency}" dependency is located in the "dependencies" object instead of the "devDependencies" object in the "${packageJSONPath}" file. You can fix this with the following command:\n${chalk.green(
+          addDevCommand,
+        )}`,
       );
     }
   }
@@ -101,9 +103,9 @@ export function validatePackageJSONDependencies(): void {
         devDependency,
       );
       fatalError(
-        `${chalk.red(
-          `IsaacScript projects require a "devDependencies" entry of "${devDependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
-        )} ${chalk.green(addDevCommand)}`,
+        `IsaacScript projects require a "devDependencies" entry of "${devDependency}" in the "${packageJSONPath}" file. You can add it with the following command:\n${chalk.green(
+          addDevCommand,
+        )}`,
       );
     }
   }
