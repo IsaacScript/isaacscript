@@ -333,7 +333,8 @@ const EXTENSION_RULES = {
    *
    * - "src" directories (but allowed in test files that are in a separate "tests" directory)
    * - "dist" directories
-   * - "index" files
+   * - "index" files (things in the same package should directly import instead of use the public
+   *   API)
    */
   "@typescript-eslint/no-restricted-imports": [
     "error",
@@ -342,13 +343,13 @@ const EXTENSION_RULES = {
         // Some "src" directories have an "index.ts" file, which means that importing from the
         // directory is valid. Thus, we check for the "src" directory with no suffix.
         {
-          group: ["*/src"],
+          group: ["**/src"],
           message:
             'You cannot import from a "src" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
         },
 
         {
-          group: ["*/src/*"],
+          group: ["**/src/**"],
           message:
             'You cannot import from a "src" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
         },
@@ -356,25 +357,25 @@ const EXTENSION_RULES = {
         // Some "dist" directories have an "index.ts" file, which means that importing from the
         // directory is valid. Thus, we check for the "dist" directory with no suffix.
         {
-          group: ["*/dist"],
+          group: ["**/dist"],
           message:
             'You cannot import from a "dist" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
         },
 
         {
-          group: ["*/dist/*"],
+          group: ["**/dist/**"],
           message:
             'You cannot import from a "dist" directory. If this is a monorepo, import using the package name like you would in a non-monorepo project.',
         },
 
         {
-          group: ["*/index"],
+          group: ["**/index"],
           message:
             "You cannot import from a package index. Instead, import directly from the file where the code is located.",
         },
 
         {
-          group: ["*/index.{js,cjs,mjs,ts,cts,mts}"],
+          group: ["**/index.{js,cjs,mjs,ts,cts,mts}"],
           message:
             "You cannot import from a package index. Instead, import directly from the file where the code is located.",
         },
