@@ -73,7 +73,7 @@ export function validatePackageJSONDependencies(): void {
   const packageJSONPath = getFilePath(PACKAGE_JSON, CWD);
   const packageJSON = getPackageJSON(packageJSONPath);
   const dependencies =
-    getPackageJSONDependencies(packageJSON, "devDependencies") ?? {};
+    getPackageJSONDependencies(packageJSON, "dependencies") ?? {};
   const dependenciesArray = Object.keys(dependencies);
 
   const devDependencies =
