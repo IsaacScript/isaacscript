@@ -46,7 +46,7 @@ export const initCommand = new Command()
   .option("--npm", "Use npm as the package manager.", false)
   .option("--yarn", "Use Yarn as the package manager.", false)
   .option("--pnpm", "Use pnpm as the package manager.", false)
-  .option("--no-git", "Do not initialize Git.", false)
+  .option("--skip-git", "Do not initialize Git.", false) // https://github.com/tj/commander.js/issues/2068
   .option(
     "--skip-install",
     "Do not automatically install the dependencies after initializing the project.",
@@ -86,7 +86,7 @@ export const initTSCommand = new Command()
   .option("--npm", "Use npm as the package manager.", false)
   .option("--yarn", "Use Yarn as the package manager.", false)
   .option("--pnpm", "Use pnpm as the package manager.", false)
-  .option("--no-git", "Do not initialize Git.", false)
+  .option("--skip-git", "Do not initialize Git.", false) // https://github.com/tj/commander.js/issues/2068
   .option(
     "--skip-install",
     "Do not automatically install the dependencies after initializing the project.",
@@ -111,8 +111,15 @@ export async function init(
   options: InitOptions,
   typeScript: boolean,
 ): Promise<void> {
-  const { forceName, git, skipInstall, useCurrentDir, verbose, vscode, yes } =
-    options;
+  const {
+    forceName,
+    skipGit,
+    skipInstall,
+    useCurrentDir,
+    verbose,
+    vscode,
+    yes,
+  } = options;
 
   printBanner();
 
@@ -133,7 +140,7 @@ export async function init(
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
     yes,
-    git,
+    skipGit,
     dev,
     verbose,
   );

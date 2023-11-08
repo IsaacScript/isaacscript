@@ -65,23 +65,23 @@ export async function parseArgs(): Promise<string> {
 
   // The `parseAsync` method must be used instead of the `parse` method if any of the command
   // handlers are async.
-  const runProgram = await program.parseAsync();
+  const executedProgram = await program.parseAsync();
 
-  if (!("_defaultCommandName" in runProgram)) {
+  if (!("_defaultCommandName" in executedProgram)) {
     fatalError(
       'Failed to find the "_defaultCommandName" field from the parsed command.',
     );
   }
-  if (typeof runProgram._defaultCommandName !== "string") {
+  if (typeof executedProgram._defaultCommandName !== "string") {
     fatalError(
-      `Failed to parse the "_defaultCommandName" field since it was of type: ${typeof runProgram._defaultCommandName}`,
+      `Failed to parse the "_defaultCommandName" field since it was of type: ${typeof executedProgram._defaultCommandName}`,
     );
   }
 
-  const firstArg = runProgram.args[0];
+  const firstArg = executedProgram.args[0];
 
   return firstArg === undefined || firstArg === "" || firstArg.startsWith("-")
-    ? runProgram._defaultCommandName
+    ? executedProgram._defaultCommandName
     : firstArg;
 }
 
