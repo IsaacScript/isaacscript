@@ -1,6 +1,5 @@
 import { Command, Option } from "@commander-js/extra-typings";
 import chalk from "chalk";
-import commandExists from "command-exists";
 import type { PackageManager } from "isaacscript-common-node";
 import { getPackageManagerExecCommand } from "isaacscript-common-node";
 import path from "node:path";
@@ -8,6 +7,7 @@ import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
+import { vsCodeInit } from "./VSCode.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
 import { checkModTargetDirectory } from "./checkModTargetDirectory.js";
@@ -16,8 +16,6 @@ import { getAuthorName } from "./getAuthorName.js";
 import { getModsDirectory } from "./getModsDirectory.js";
 import { getProjectPath } from "./getProjectPath.js";
 import { getSaveSlot } from "./getSaveSlot.js";
-import { installVSCodeExtensions } from "./installVSCodeExtensions.js";
-import { promptVSCode } from "./promptVSCode.js";
 
 export const initCommand = new Command()
   .command("init [name]")
@@ -169,36 +167,8 @@ export async function init(
     verbose,
   );
 
-  await openVSCode(projectPath, vscode, yes, verbose);
+  await vsCodeInit(projectPath, vscode, yes, verbose);
   printFinishMessage(projectPath, projectName, packageManager, typeScript);
-}
-
-async function openVSCode(
-  projectPath: string,
-  vscode: boolean,
-  yes: boolean,
-  verbose: boolean,
-) {
-  const VSCodeCommand = getVSCodeCommand();
-  if (VSCodeCommand === undefined) {
-    console.log(
-      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
-    );
-    return;
-  }
-
-  installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
-  await promptVSCode(projectPath, VSCodeCommand, vscode, yes, verbose);
-}
-
-function getVSCodeCommand(): string | undefined {
-  for (const VSCodeCommand of ["code", "codium", "code-oss", "code-insiders"]) {
-    if (commandExists.sync(VSCodeCommand)) {
-      return VSCodeCommand;
-    }
-  }
-
-  return undefined;
 }
 
 function printFinishMessage(
