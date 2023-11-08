@@ -18,17 +18,14 @@ despawns
 Dollys
 Dreamcatcher
 Eggies
-ENCYCLOPEDIARARY # Encyclopedia parameter
 esaus
 Fallens
 Filloax # Creator of Revelations
 fistuloids
 forgottens
-fsize # Encyclopedia parameter
 Gabriels
 gameplay
 giveitem # Console command
-halign # Encyclopedia parameter
 hitbox
 hitboxes
 hitsphere
