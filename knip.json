@@ -48,5 +48,10 @@
     "packages/isaacscript-common-node": {},
     "packages/isaacscript-common-ts": {},
     "packages/isaacscript-spell": {}
-  }
+  },
+  "ignoreDependencies": [
+    "eslint-plugin-isaacscript",
+    "isaacscript-common-node",
+    "isaacscript-common-ts"
+  ]
 }
