@@ -58,7 +58,7 @@ For getting started in building your own mods, see the [website](https://isaacsc
       (replace "[username]" with your GitHub username)
 - Enter the cloned repository:
   - `cd isaacscript`
-- Ensure that [Yarn](https://classic.yarnpkg.com/lang/en/) (v1) is installed:
+- Ensure that [Yarn](https://classic.yarnpkg.com/lang/en/) is installed:
   - `corepack enable`
 - Install dependencies:
   - `yarn install`

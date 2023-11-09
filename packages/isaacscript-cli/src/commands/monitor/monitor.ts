@@ -1,22 +1,18 @@
+import { Command } from "@commander-js/extra-typings";
 import chalk from "chalk";
 import {
-  PACKAGE_JSON,
   PackageManager,
   deleteFileOrDirectory,
-  dirName,
   fatalError,
-  getJSONC,
-  getPackageJSONDependencies,
-  getPackageManagerAddCommand,
-  getPackageManagerAddDevCommand,
   getPackageManagerInstallCommand,
   isDirectory,
   isLink,
   touch,
 } from "isaacscript-common-node";
 import path from "node:path";
-import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
-import { CWD, MOD_SOURCE_PATH, PACKAGE_JSON_PATH } from "../../constants.js";
+import { printBanner } from "../../banner.js";
+import { getConfigFromFile } from "../../configFile.js";
+import { CWD, MOD_SOURCE_PATH } from "../../constants.js";
 import { prepareCustomStages } from "../../customStage.js";
 import { getAndValidateIsaacScriptMonorepoDirectory } from "../../dev.js";
 import { execShell, execShellString } from "../../exec.js";
@@ -24,60 +20,52 @@ import {
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
-import type { Args } from "../../parseArgs.js";
 import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
 import { getModTargetDirectoryName } from "../../utils.js";
+import {
+  validateDepsInstalled,
+  validateInIsaacScriptProject,
+  validatePackageJSONDependencies,
+} from "../../validateMod.js";
 import { copyWatcherMod } from "./copyWatcherMod.js";
-import * as notifyGame from "./notifyGame.js";
+import { notifyGamePing } from "./notifyGame.js";
 import { spawnModDirectorySyncer } from "./spawnModDirectorySyncer.js";
 import { spawnSaveDatWriter } from "./spawnSaveDatWriter.js";
 import { spawnTSTLWatcher } from "./spawnTSTLWatcher.js";
 import { touchWatcherSaveDatFiles } from "./touchWatcherSaveDatFiles.js";
 
-const __dirname = dirName();
+export const monitorCommand = new Command()
+  .command("monitor")
+  .description("Monitor an IsaacScript mod project for changes.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option(
+    "--skip-project-checks",
+    'Skip checking for "package.json" and "node_modules".',
+    false,
+  )
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action(async (options) => {
+    await monitor(options);
+  });
 
-const REQUIRED_PACKAGE_JSON_DEPENDENCIES = [
-  "isaac-typescript-definitions",
-  // - "isaacscript-common" is not required.
-] as const;
+const monitorOptions = monitorCommand.opts();
+type MonitorOptions = typeof monitorOptions;
 
-/**
- * We want "typescript" and some of the other dependencies to be in "devDependencies" instead of
- * "dependencies" because it prevents their functions from being placed into the list of
- * auto-complete functions.
- */
-const REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES = [
-  "isaacscript",
-  // - "isaacscript-lint" is not required.
-  // - "isaacscript-spell" is not required.
-  // - "isaacscript-tsconfig" is not required.
-  "typescript",
-  "typescript-to-lua",
-] as const;
+export async function monitor(options: MonitorOptions): Promise<void> {
+  const { skipProjectChecks, verbose } = options;
 
-export async function monitor(
-  args: Args,
-  config: ValidatedConfig,
-): Promise<void> {
-  const verbose = args.verbose === true;
-  const skipProjectChecks = args.skipProjectChecks === true;
-  const packageManager = getPackageManagerUsedForExistingProject(args);
+  printBanner();
 
-  // If they specified some command-line flags, override the values found in the config file.
-  if (args.modsDirectory !== undefined) {
-    config.modsDirectory = args.modsDirectory; // eslint-disable-line no-param-reassign
-  }
-  if (args.saveSlot !== undefined) {
-    config.saveSlot = args.saveSlot; // eslint-disable-line no-param-reassign
-  }
-  if (args.dev !== undefined) {
-    config.isaacScriptCommonDev = args.dev; // eslint-disable-line no-param-reassign
-  }
+  const packageManager = getPackageManagerUsedForExistingProject();
 
-  // Pre-flight checks
   if (!skipProjectChecks) {
-    validatePackageJSONDependencies(args);
+    validateInIsaacScriptProject();
+    validatePackageJSONDependencies();
+    validateDepsInstalled(verbose);
   }
+
+  const config = await getConfigFromFile();
 
   // Read the "tsconfig.json" file.
   const tsConfigInclude = getFirstTSConfigIncludePath();
@@ -136,7 +124,7 @@ export async function monitor(
 
   // Also, start constantly pinging the watcher mod.
   setInterval(() => {
-    notifyGame.ping();
+    notifyGamePing();
   }, 1000); // Every second
 
   console.log("Automatically monitoring the following for changes:");
@@ -148,60 +136,6 @@ export async function monitor(
   console.log(`Copying files to:            ${chalk.green(modTargetPath)}`);
   console.log("");
   // (The process will now continue indefinitely for as long as the subprocesses exist.)
-}
-
-function validatePackageJSONDependencies(args: Args) {
-  const packageJSON = getJSONC(PACKAGE_JSON_PATH);
-  validatePackageJSONNormalDependencies(packageJSON, args);
-  validatePackageJSONDevDependencies(packageJSON, args);
-}
-
-function validatePackageJSONNormalDependencies(
-  packageJSON: Record<string, unknown>,
-  args: Args,
-) {
-  const dependencies =
-    getPackageJSONDependencies(packageJSON, "dependencies") ?? {};
-  const dependenciesArray = Object.keys(dependencies);
-
-  for (const dependency of REQUIRED_PACKAGE_JSON_DEPENDENCIES) {
-    if (!dependenciesArray.includes(dependency)) {
-      const packageManager = getPackageManagerUsedForExistingProject(args);
-      const addCommand = getPackageManagerAddCommand(
-        packageManager,
-        dependency,
-      );
-      fatalError(
-        `${chalk.red(
-          `IsaacScript projects require a "dependencies" of "${dependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
-        )} ${chalk.green(addCommand)}`,
-      );
-    }
-  }
-}
-
-function validatePackageJSONDevDependencies(
-  packageJSON: Record<string, unknown>,
-  args: Args,
-) {
-  const devDependencies =
-    getPackageJSONDependencies(packageJSON, "devDependencies") ?? {};
-  const devDependenciesArray = Object.keys(devDependencies);
-
-  for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
-    if (!devDependenciesArray.includes(devDependency)) {
-      const packageManager = getPackageManagerUsedForExistingProject(args);
-      const addDevCommand = getPackageManagerAddDevCommand(
-        packageManager,
-        devDependency,
-      );
-      fatalError(
-        `${chalk.red(
-          `IsaacScript projects require a "devDependencies" of "${devDependency}" in the "${PACKAGE_JSON}" file. You can add it with the following command:`,
-        )} ${chalk.green(addDevCommand)}`,
-      );
-    }
-  }
 }
 
 function linkDevelopmentIsaacScriptCommon(

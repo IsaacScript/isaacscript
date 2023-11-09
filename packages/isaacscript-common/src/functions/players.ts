@@ -408,18 +408,6 @@ export function isEden(player: EntityPlayer): boolean {
   return character === PlayerType.EDEN || character === PlayerType.EDEN_B;
 }
 
-/** Not exported since end-users should use the `isTainted` helper function directly. */
-function isTaintedModded(player: EntityPlayer) {
-  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
-  // is bugged.
-  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
-  const character = player.GetPlayerType();
-  const name = player.GetName();
-  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
-
-  return character === taintedCharacter;
-}
-
 export function isFirstPlayer(player: EntityPlayer): boolean {
   return getPlayerIndexVanilla(player) === 0;
 }
@@ -537,4 +525,16 @@ export function setBlindfold(
       player.TryRemoveNullCostume(NullItemID.BLINDFOLD);
     }
   }
+}
+
+/** Not exported since end-users should use the `isTainted` helper function directly. */
+function isTaintedModded(player: EntityPlayer) {
+  // This algorithm only works for modded characters because the `Isaac.GetPlayerTypeByName` method
+  // is bugged.
+  // https://github.com/Meowlala/RepentanceAPIIssueTracker/issues/117
+  const character = player.GetPlayerType();
+  const name = player.GetName();
+  const taintedCharacter = Isaac.GetPlayerTypeByName(name, true);
+
+  return character === taintedCharacter;
 }

@@ -3,7 +3,6 @@ import { fatalError } from "isaacscript-common-node";
 import { hasWhiteSpace, isKebabCase } from "isaacscript-common-ts";
 import path from "node:path";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants.js";
-import type { Args } from "../../parseArgs.js";
 import { getInputString, getInputYesNo } from "../../prompt.js";
 
 // From: https://gist.github.com/doctaphred/d01d05291546186941e1b7ddc02034d3
@@ -20,12 +19,12 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
 ] as const;
 
 export async function getProjectPath(
-  args: Args,
+  name: string | undefined,
   useCurrentDir: boolean,
   yes: boolean,
   forceName: boolean,
 ): Promise<[string, boolean]> {
-  let projectName = getProjectNameFromCommandLineArgument(args);
+  let projectName = name;
   let projectPath: string;
   let createNewDir: boolean;
   if (useCurrentDir) {
@@ -53,11 +52,6 @@ export async function getProjectPath(
 
   console.log(`Using a project name of: ${chalk.green(projectName)}`);
   return [projectPath, createNewDir];
-}
-
-function getProjectNameFromCommandLineArgument(args: Args): string | undefined {
-  const { name } = args;
-  return typeof name === "string" && name !== "" ? name : undefined;
 }
 
 async function getNewProjectName(): Promise<[string, string, boolean]> {

@@ -1,6 +1,6 @@
 {
   "name": "isaacscript",
-  "version": "3.18.5",
+  "version": "3.19.2",
   "description": "A command line tool for managing Isaac mods written in TypeScript.",
   "keywords": [
     "isaac",
@@ -39,14 +39,16 @@
   "scripts": {
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
-    "run": "tsx ./src/main.ts",
+    "start": "tsx ./src/main.ts",
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "dependencies": {
+    "@commander-js/extra-typings": "^11.1.0",
     "@zamiell/sync-directory": "^6.0.5",
     "ajv": "^8.12.0",
     "chalk": "^5.3.0",
     "command-exists": "^1.2.9",
+    "commander": "^11.1.0",
     "figlet": "^1.7.0",
     "isaacscript-common-node": "^1.2.0",
     "isaacscript-common-ts": "^11.3.1",
@@ -57,8 +59,7 @@
     "source-map-support": "^0.5.21",
     "typescript-to-lua": "^1.21.0",
     "xml2js": "^0.6.2",
-    "yaml": "^2.3.4",
-    "yargs": "^17.7.2"
+    "yaml": "^2.3.4"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0"

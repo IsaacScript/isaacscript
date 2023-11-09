@@ -5,7 +5,7 @@ import CodeBlock from "@theme/CodeBlock";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import React from "react";
-import HomepageFeatures from "../components/index";
+import HomepageFeatures from "../components/index"; // eslint-disable-line @typescript-eslint/no-restricted-imports
 import styles from "./index.module.css";
 
 const CENTER_STYLE = {

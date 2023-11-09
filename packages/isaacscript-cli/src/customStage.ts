@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import type { PackageManager } from "isaacscript-common-node";
 import {
+  PACKAGE_JSON,
   copyFileOrDirectory,
   fatalError,
   getFileNamesInDirectory,
@@ -231,9 +232,9 @@ function validateMetadataLuaFileExists(packageManager: PackageManager) {
       ISAACSCRIPT_COMMON,
     );
     fatalError(
-      `${chalk.red(
-        `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:`,
-      )} ${chalk.green(addCommand)}`,
+      `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "${PACKAGE_JSON}" file. You can add it with the following command:\n${chalk.green(
+        addCommand,
+      )}`,
     );
   }
 

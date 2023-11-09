@@ -8,7 +8,7 @@ import {
   MOD_SOURCE_PATH,
 } from "../../constants.js";
 import { getModTargetDirectoryName } from "../../utils.js";
-import * as notifyGame from "./notifyGame.js";
+import { notifyGameCommand, notifyGameMsg } from "./notifyGame.js";
 
 const __dirname = dirName();
 
@@ -22,14 +22,22 @@ export function spawnModDirectorySyncer(config: ValidatedConfig): void {
   const directorySyncer = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);
 
   directorySyncer.on("message", (msg: string) => {
-    notifyGame.msg(msg);
+    // It is possible for a sub-process to send a non-string message.
+    if (typeof msg !== "string") {
+      fatalError(
+        `Received a non-string message from the "${SUBPROCESS_NAME}" subprocess:`,
+        msg,
+      );
+    }
+
+    notifyGameMsg(msg);
 
     // If the "main.lua" file was successfully copied over, we also have to tell isaacscript-watcher
     // to reload the mod. Look for something like: "File synced: \main.lua"
     if (msg === `${FILE_SYNCED_MESSAGE} ${path.sep}${MAIN_LUA}`) {
-      notifyGame.command(`luamod ${modTargetName}`);
-      notifyGame.command("restart");
-      notifyGame.msg("Reloaded the mod.");
+      notifyGameCommand(`luamod ${modTargetName}`);
+      notifyGameCommand("restart");
+      notifyGameMsg("Reloaded the mod.");
     }
   });
 

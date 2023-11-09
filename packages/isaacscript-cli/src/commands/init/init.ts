@@ -1,37 +1,133 @@
+import { Command, Option } from "@commander-js/extra-typings";
 import chalk from "chalk";
-import commandExists from "command-exists";
 import type { PackageManager } from "isaacscript-common-node";
 import { getPackageManagerExecCommand } from "isaacscript-common-node";
 import path from "node:path";
+import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
-import type { Args } from "../../parseArgs.js";
+import { vsCodeInit } from "./VSCode.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
 import { checkModTargetDirectory } from "./checkModTargetDirectory.js";
 import { createProject } from "./createProject.js";
 import { getAuthorName } from "./getAuthorName.js";
-import { getModsDir } from "./getModsDir.js";
+import { getModsDirectory } from "./getModsDirectory.js";
 import { getProjectPath } from "./getProjectPath.js";
-import { installVSCodeExtensions } from "./installVSCodeExtensions.js";
-import { promptSaveSlot } from "./promptSaveSlot.js";
-import { promptVSCode } from "./promptVSCode.js";
+import { getSaveSlot } from "./getSaveSlot.js";
 
-export async function init(args: Args, typeScript: boolean): Promise<void> {
-  const packageManager = getPackageManagerUsedForNewProject(args);
-  const noGit = args.noGit === true;
-  const skipInstall = args.skipInstall === true;
-  const useCurrentDir = args.useCurrentDir === true;
-  const verbose = args.verbose === true;
-  const vscode = args.vscode === true;
-  const yes = args.yes === true;
-  const forceName = args.forceName === true;
-  const dev = args.dev === true;
+export const initCommand = new Command()
+  .command("init [name]")
+  .description(`Initialize a new ${PROJECT_NAME} mod.`)
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option(
+    "-y, --yes",
+    'Answer yes to every dialog option, similar to how "npm init --yes" works.',
+    false,
+  )
+  .option(
+    "--use-current-dir",
+    "Use the current directory as the root for the project.",
+    false,
+  )
+  .option(
+    "-m, --mods-directory <directory>",
+    "The directory where Isaac mods live on your system.",
+  )
+  .addOption(
+    new Option(
+      "-s, --save-slot <slot>",
+      "The in-game save slot that you use to test the mod.",
+    ).choices(["1", "2", "3"]),
+  )
+  .option("--vscode", "Open the project in VSCode after initialization.", false)
+  .option("--npm", "Use npm as the package manager.", false)
+  .option("--yarn", "Use Yarn as the package manager.", false)
+  .option("--pnpm", "Use pnpm as the package manager.", false)
+  .option("--skip-git", "Do not initialize Git.", false) // https://github.com/tj/commander.js/issues/2068
+  .option(
+    "--skip-install",
+    "Do not automatically install the dependencies after initializing the project.",
+    false,
+  )
+  .option(
+    "-f, --force-name",
+    "Allow project names that are normally illegal",
+    false,
+  )
+  .option(
+    "-d, --dev",
+    "Link the resulting mod to the local development version of isaacscript-common.",
+    false,
+  )
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action(async (name, options) => {
+    await init(name, options, false);
+  });
+
+export const initTSCommand = new Command()
+  .command("init-ts [name]")
+  .description("Initialize a new TypeScript project.")
+  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
+  .helpOption("-h, --help", "Display the list of options for this command.")
+  .option(
+    "-y, --yes",
+    'Answer yes to every dialog option, similar to how "npm init --yes" works.',
+    false,
+  )
+  .option(
+    "--use-current-dir",
+    "Use the current directory as the root for the project.",
+    false,
+  )
+  .option("--vscode", "Open the project in VSCode after initialization.", false)
+  .option("--npm", "Use npm as the package manager.", false)
+  .option("--yarn", "Use Yarn as the package manager.", false)
+  .option("--pnpm", "Use pnpm as the package manager.", false)
+  .option("--skip-git", "Do not initialize Git.", false) // https://github.com/tj/commander.js/issues/2068
+  .option(
+    "--skip-install",
+    "Do not automatically install the dependencies after initializing the project.",
+    false,
+  )
+  .option(
+    "-f, --force-name",
+    "Allow project names that are normally illegal",
+    false,
+  )
+  .option("-v, --verbose", "Enable verbose output.", false)
+  .action(async (name, options) => {
+    await init(name, options, true);
+  });
+
+const initOptions = initCommand.opts();
+const initTSOptions = initTSCommand.opts();
+type InitOptions = typeof initOptions | typeof initTSOptions;
+
+export async function init(
+  name: string | undefined,
+  options: InitOptions,
+  typeScript: boolean,
+): Promise<void> {
+  const {
+    forceName,
+    skipGit,
+    skipInstall,
+    useCurrentDir,
+    verbose,
+    vscode,
+    yes,
+  } = options;
+
+  printBanner();
+
+  const packageManager = getPackageManagerUsedForNewProject(options);
 
   // Prompt the end-user for some information (and validate it as we go).
   const [projectPath, createNewDir] = await getProjectPath(
-    args,
+    name,
     useCurrentDir,
     yes,
     forceName,
@@ -40,20 +136,29 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
 
   const projectName = path.basename(projectPath);
   const authorName = await getAuthorName(typeScript);
+  const dev = "dev" in options ? options.dev : false;
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
-    noGit,
     yes,
+    skipGit,
     dev,
     verbose,
   );
 
-  const modsDirectory = await getModsDir(args, typeScript);
+  const modsDirectoryOption =
+    "modsDirectory" in options ? options.modsDirectory : undefined;
+  const modsDirectory = typeScript
+    ? undefined
+    : await getModsDirectory(modsDirectoryOption);
   if (modsDirectory !== undefined) {
     checkModSubdirectory(projectPath, modsDirectory);
     await checkModTargetDirectory(modsDirectory, projectName, yes);
   }
-  const saveSlot = typeScript ? undefined : await promptSaveSlot(args, yes);
+
+  const saveSlotOption = "saveSlot" in options ? options.saveSlot : undefined;
+  const saveSlot = typeScript
+    ? undefined
+    : await getSaveSlot(saveSlotOption, yes);
 
   // Now that we have asked the user all of the questions we need, we can create the project.
   await createProject(
@@ -71,48 +176,17 @@ export async function init(args: Args, typeScript: boolean): Promise<void> {
     verbose,
   );
 
-  await openVSCode(projectPath, vscode, yes, verbose);
-  printFinishMessage(projectPath, projectName, packageManager, typeScript);
-}
-
-async function openVSCode(
-  projectPath: string,
-  vscode: boolean,
-  yes: boolean,
-  verbose: boolean,
-) {
-  const VSCodeCommand = getVSCodeCommand();
-  if (VSCodeCommand === undefined) {
-    console.log(
-      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
-    );
-    return;
+  await vsCodeInit(projectPath, vscode, yes, verbose);
+  if (!typeScript) {
+    printIsaacScriptMessage(projectPath, projectName, packageManager);
   }
-
-  installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
-  await promptVSCode(projectPath, VSCodeCommand, vscode, yes, verbose);
 }
 
-function getVSCodeCommand(): string | undefined {
-  for (const VSCodeCommand of ["code", "codium", "code-oss", "code-insiders"]) {
-    if (commandExists.sync(VSCodeCommand)) {
-      return VSCodeCommand;
-    }
-  }
-
-  return undefined;
-}
-
-function printFinishMessage(
+function printIsaacScriptMessage(
   projectPath: string,
   projectName: string,
   packageManager: PackageManager,
-  typeScript: boolean,
 ) {
-  if (typeScript) {
-    return;
-  }
-
   let commandsToType = "";
   if (projectPath !== CWD) {
     commandsToType += `"${chalk.green(`cd ${projectName}`)}" and `;

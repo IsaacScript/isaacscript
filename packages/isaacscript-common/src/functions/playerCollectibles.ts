@@ -72,6 +72,18 @@ export function getActiveItemSlots(
 }
 
 /**
+ * Helper function to get the adjusted price for a pickup, depending on how many Steam Sales all
+ * players currently have. (For example, if Jacob has one Steam Sale and Esau has one Steam Sale,
+ * the prices for items in the shop would be the same as if Isaac had two Steam Sales.)
+ */
+export function getAdjustedPrice(basePrice: int): int {
+  const numSteamSales = getTotalPlayerCollectibles(CollectibleType.STEAM_SALE);
+  return numSteamSales > 0
+    ? Math.floor(basePrice / (numSteamSales + 1))
+    : basePrice;
+}
+
+/**
  * Helper function to return the total amount of collectibles that a player has that match the
  * collectible type(s) provided.
  *

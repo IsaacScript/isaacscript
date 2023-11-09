@@ -3,7 +3,7 @@ import { COMPILATION_SUCCESSFUL_MESSAGE } from "../../constants.js";
 import { getTime } from "../../utils.js";
 import { sendMsgToSaveDatWriter } from "./spawnSaveDatWriter.js";
 
-export function msg(data: string): void {
+export function notifyGameMsg(data: string): void {
   const formattedData = data
     .replaceAll("/\r\n", "\n") // Replace Windows newlines with Unix newlines
     .trim(); // Trim whitespace
@@ -45,14 +45,14 @@ function printMsgToStandardOut(data: string) {
   console.log(coloredData);
 }
 
-export function command(data: string): void {
+export function notifyGameCommand(data: string): void {
   sendMsgToSaveDatWriter({
     type: "command",
     data,
   });
 }
 
-export function ping(): void {
+export function notifyGamePing(): void {
   sendMsgToSaveDatWriter({
     type: "ping",
     data: "",

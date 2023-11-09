@@ -12,7 +12,7 @@ import {
   COMPILATION_SUCCESSFUL_MESSAGE,
   PROJECT_NAME,
 } from "../../constants.js";
-import * as notifyGame from "./notifyGame.js";
+import { notifyGameMsg } from "./notifyGame.js";
 
 let compilationStartTime = new Date();
 
@@ -35,25 +35,25 @@ export function spawnTSTLWatcher(
 
     if (msg.includes("Starting compilation in watch mode...")) {
       const newMsg1 = `${PROJECT_NAME} is now watching for future changes${suffix}.`;
-      notifyGame.msg(newMsg1);
+      notifyGameMsg(newMsg1);
       const target = suffix.includes("isaacscript-common")
         ? '"isaacscript-common"'
         : "the mod";
       const newMsg2 = `Compiling ${target} for the first time...`;
-      notifyGame.msg(newMsg2);
+      notifyGameMsg(newMsg2);
     } else if (
       msg.includes("File change detected. Starting incremental compilation...")
     ) {
       compilationStartTime = new Date();
       const newMsg = `TypeScript change detected${suffix}. Compiling...`;
-      notifyGame.msg(newMsg);
+      notifyGameMsg(newMsg);
     } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
       const compilationFinishTime = new Date();
       const elapsedTimeMilliseconds =
         compilationFinishTime.getTime() - compilationStartTime.getTime();
       const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
       const newMsg = `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
-      notifyGame.msg(newMsg);
+      notifyGameMsg(newMsg);
 
       // Successful compilation of "isaacscript-common" will not trigger a recompilation in the mod.
       // Thus, we must arbitrarily change a file to trigger a mod recompilation.
@@ -67,7 +67,7 @@ export function spawnTSTLWatcher(
         }
       }
     } else {
-      notifyGame.msg(msg);
+      notifyGameMsg(msg);
     }
   });
 
@@ -77,7 +77,7 @@ export function spawnTSTLWatcher(
       // Hide the line that appears when you cancel the program with `Ctrl + c`.
       return;
     }
-    notifyGame.msg(`Error: ${msg}`);
+    notifyGameMsg(`Error: ${msg}`);
   });
 
   tstl.on("close", (code) => {

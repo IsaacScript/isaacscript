@@ -59,8 +59,10 @@ export async function createProject(
     makeDirectory(projectPath);
   }
 
-  const config = new Config(modsDirectory, saveSlot, dev);
-  createConfigFile(projectPath, config, typeScript);
+  if (!typeScript) {
+    const config = new Config(modsDirectory, saveSlot, dev);
+    createConfigFile(projectPath, config);
+  }
 
   copyStaticFiles(projectPath, typeScript);
   copyDynamicFiles(
