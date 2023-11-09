@@ -7,6 +7,7 @@ corepack # Used to install yarn
 dbaeumer # extensions.json
 esbenp # extensions.json
 isaacscript
+NPCID # Custom enum
 packagejson # prettier.config.mjs
 sarisia # ci.yml
 technote # ci.yml
