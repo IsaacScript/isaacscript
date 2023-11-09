@@ -42,6 +42,8 @@ export class FastReset extends Feature {
    * You can disable the fast-reset feature with the `disableFastReset` function.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.FAST_RESET`.
+   *
+   * @public
    */
   @Exported
   public enableFastReset(): void {
@@ -53,6 +55,8 @@ export class FastReset extends Feature {
    * `enableFastReset` function.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.FAST_RESET`.
+   *
+   * @public
    */
   @Exported
   public disableFastReset(): void {

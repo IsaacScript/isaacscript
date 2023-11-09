@@ -160,6 +160,7 @@ export class PersistentEntities extends Feature {
    * @param removeEntity Optional. True by default. Set to false if you want to stop an entity from
    *                     being persistent but you don't want to actually remove the
    *                     currently-spawned entity from the room.
+   * @public
    */
   @Exported
   public removePersistentEntity(
@@ -199,6 +200,7 @@ export class PersistentEntities extends Feature {
    *
    * @returns An object containing the entity and the persistent entity index. You can use the index
    *          with the `removePersistentEntity` function.
+   * @public
    */
   @Exported
   public spawnPersistentEntity(

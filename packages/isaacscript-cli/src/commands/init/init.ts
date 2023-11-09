@@ -106,7 +106,7 @@ const initOptions = initCommand.opts();
 const initTSOptions = initTSCommand.opts();
 type InitOptions = typeof initOptions | typeof initTSOptions;
 
-export async function init(
+async function init(
   name: string | undefined,
   options: InitOptions,
   typeScript: boolean,

@@ -1,5 +1,3 @@
-----------------------------------------------------------------------------------------------------
-
 - get knip working
   - https://github.com/webpro/knip/issues/315
   - remove comment in ci.yml

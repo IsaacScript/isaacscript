@@ -75,6 +75,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getFirstModdedCollectibleType(): CollectibleType | undefined {
@@ -107,6 +109,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getLastCollectibleType(): CollectibleType {
@@ -125,6 +129,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumCollectibleTypes(): int {
@@ -143,6 +149,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumModdedCollectibleTypes(): int {
@@ -164,6 +172,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getFirstModdedTrinketType(): TrinketType | undefined {
@@ -190,6 +200,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getLastTrinketType(): TrinketType {
@@ -207,6 +219,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumTrinketTypes(): int {
@@ -224,6 +238,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumModdedTrinketTypes(): int {
@@ -245,6 +261,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getFirstModdedCardType(): CardType | undefined {
@@ -269,6 +287,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getLastCardType(): CardType {
@@ -288,6 +308,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumCardTypes(): int {
@@ -301,6 +323,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumModdedCardTypes(): int {
@@ -323,6 +347,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getFirstModdedPillEffect(): PillEffect | undefined {
@@ -352,6 +378,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getLastPillEffect(): PillEffect {
@@ -373,6 +401,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumPillEffects(): int {
@@ -387,6 +417,8 @@ export class ModdedElementDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.MODDED_ELEMENT_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getNumModdedPillEffects(): int {

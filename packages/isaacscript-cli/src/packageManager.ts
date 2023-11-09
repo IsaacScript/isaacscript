@@ -28,7 +28,7 @@ export function getPackageManagerUsedForNewProject(
   return getDefaultPackageManager();
 }
 
-export function getDefaultPackageManager(): PackageManager {
+function getDefaultPackageManager(): PackageManager {
   if (commandExists.sync("yarn")) {
     return PackageManager.yarn;
   }

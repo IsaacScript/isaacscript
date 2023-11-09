@@ -132,6 +132,7 @@ export class CustomPickups extends Feature {
    *                      will always immediately collect the pickup when they collide with it.
    *                      Specify this function if your pickup should only be able to be collected
    *                      under certain conditions.
+   * @public
    */
   @Exported
   public registerCustomPickup(

@@ -13,7 +13,7 @@
       ]
     },
     "packages/eslint-config-isaacscript": {
-      "ignore": ["scripts/**"]
+      "entry": ["base.js", "mod.js"]
     },
     "packages/eslint-plugin-isaacscript": {
       "ignore": [

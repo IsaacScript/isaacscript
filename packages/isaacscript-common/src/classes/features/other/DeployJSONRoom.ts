@@ -222,6 +222,7 @@ export class DeployJSONRoom extends Feature {
    *                  to a random seed.
    * @param verbose Optional. If specified, will write entries to the "log.txt" file that describe
    *                what the function is doing. Default is false.
+   * @public
    */
   @Exported
   public deployJSONRoom(

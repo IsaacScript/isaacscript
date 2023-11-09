@@ -489,6 +489,7 @@ export class CustomStages extends Feature {
    *                   announces the name of the level. Default is true.
    * @param verbose Optional. Whether to log additional information about the rooms that are chosen.
    *                Default is false.
+   * @public
    */
   @Exported
   public setCustomStage(
@@ -598,6 +599,8 @@ export class CustomStages extends Feature {
    * to a vanilla floor.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_STAGES`.
+   *
+   * @public
    */
   @Exported
   public disableCustomStage(): void {

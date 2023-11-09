@@ -83,7 +83,7 @@ const checkOptions = checkCommand.opts();
 // The options are identical for both, so we do not create a union.
 type CheckOptions = typeof checkOptions;
 
-export function check(options: CheckOptions, typeScript: boolean): void {
+function check(options: CheckOptions, typeScript: boolean) {
   const { verbose } = options;
 
   const packageManager = getPackageManagerUsedForExistingProject();

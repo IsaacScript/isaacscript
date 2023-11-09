@@ -37,6 +37,8 @@ export class FadeInRemover extends Feature {
    * You can restore the vanilla behavior with the `restoreFadeIn` function.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.FADE_IN_REMOVER`.
+   *
+   * @public
    */
   @Exported
   public removeFadeIn(): void {
@@ -48,6 +50,8 @@ export class FadeInRemover extends Feature {
    * function.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.FADE_IN_REMOVER`.
+   *
+   * @public
    */
   @Exported
   public restoreFadeIn(): void {

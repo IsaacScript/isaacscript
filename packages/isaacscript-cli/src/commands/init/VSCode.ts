@@ -82,7 +82,7 @@ function getExtensionsFromJSON(projectPath: string): string[] {
   return recommendations as string[];
 }
 
-export async function promptVSCode(
+async function promptVSCode(
   projectPath: string,
   VSCodeCommand: string,
   vscode: boolean,

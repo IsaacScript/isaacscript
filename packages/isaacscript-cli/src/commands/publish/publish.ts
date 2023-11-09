@@ -80,7 +80,7 @@ const publishOptions = publishCommand.opts();
 // The options are identical for both, so we do not create a union.
 type PublishOptions = typeof publishOptions;
 
-export async function publish(
+async function publish(
   options: PublishOptions,
   typeScript: boolean,
 ): Promise<void> {
@@ -100,7 +100,7 @@ export async function publish(
  * Before uploading the project, we want to update dependencies, increment the version, and perform
  * some other steps.
  */
-export async function prePublish(
+async function prePublish(
   options: PublishOptions,
   typeScript: boolean,
 ): Promise<void> {

@@ -86,6 +86,7 @@ export class PlayerCollectibleTracking extends Feature {
    * @param player The player to get the collectible types for.
    * @param includeActiveCollectibles Optional. If true, will include all active collectibles.
    *                                Default is true.
+   * @public
    */
   @Exported
   public getPlayerCollectibleTypes(
@@ -115,6 +116,8 @@ export class PlayerCollectibleTracking extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.PLAYER_COLLECTIBLE_TRACKING`.
+   *
+   * @public
    */
   @Exported
   public getPlayerLastPassiveCollectibleType(

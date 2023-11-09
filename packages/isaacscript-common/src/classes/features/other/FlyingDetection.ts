@@ -27,6 +27,8 @@ export class FlyingDetection extends Feature {
    * Hanged Man, Bat Wing, and so on.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.FLYING_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public hasFlyingTemporaryEffect(player: EntityPlayer): boolean {

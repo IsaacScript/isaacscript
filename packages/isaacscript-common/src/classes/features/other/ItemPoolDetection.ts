@@ -48,6 +48,8 @@ export class ItemPoolDetection extends Feature {
    * expensive, so only use it in situations where the lag is acceptable.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ITEM_POOL_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public getCollectiblesInItemPool(
@@ -70,6 +72,8 @@ export class ItemPoolDetection extends Feature {
    * blacklist every collectible except for the one provided.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ITEM_POOL_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public isCollectibleInItemPool(
@@ -153,6 +157,8 @@ export class ItemPoolDetection extends Feature {
    *   collectibles from item pools).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ITEM_POOL_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public isCollectibleUnlocked(

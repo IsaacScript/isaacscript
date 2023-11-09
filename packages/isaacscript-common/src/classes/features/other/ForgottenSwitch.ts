@@ -28,6 +28,8 @@ export class ForgottenSwitch extends Feature {
    * Forgotten. This takes 1 game frame to take effect.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.FORGOTTEN_SWITCH`.
+   *
+   * @public
    */
   @Exported
   public forgottenSwitch(player: EntityPlayer): void {

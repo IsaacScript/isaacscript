@@ -121,6 +121,12 @@ export class Pause extends Feature {
     return 1;
   };
 
+  /**
+   * Helper function to check if the pause feature from `isaacscript-common` is currently
+   * pseudo-pausing the game.
+   *
+   * @public
+   */
   @Exported
   public isPaused(): boolean {
     return v.run.isPseudoPaused;
@@ -136,6 +142,8 @@ export class Pause extends Feature {
    *   `ButtonAction.CONSOLE`)
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.PAUSE`.
+   *
+   * @public
    */
   @Exported
   public pause(): void {
@@ -199,6 +207,8 @@ export class Pause extends Feature {
    * Helper function to put things back to normal after the `pause` function was used.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.PAUSE`.
+   *
+   * @public
    */
   @Exported
   public unpause(): void {

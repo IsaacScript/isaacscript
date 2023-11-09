@@ -250,6 +250,8 @@ export class ExtraConsoleCommands extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
+   *
+   * @public
    */
   @Exported
   public addConsoleCommand(
@@ -295,6 +297,8 @@ export class ExtraConsoleCommands extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
+   *
+   * @public
    */
   @Exported
   public removeConsoleCommand(commandName: string): void {
@@ -327,6 +331,8 @@ export class ExtraConsoleCommands extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
+   *
+   * @public
    */
   @Exported
   public removeAllConsoleCommands(): void {

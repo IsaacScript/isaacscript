@@ -74,6 +74,8 @@ export class EdenStartingStatsHealth extends Feature {
    * Returns undefined if passed a player that is not Eden.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.EDEN_STARTING_STATS`.
+   *
+   * @public
    */
   @Exported
   public getEdenStartingHealth(
@@ -89,6 +91,8 @@ export class EdenStartingStatsHealth extends Feature {
    * Returns undefined if passed a player that is not Eden.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.EDEN_STARTING_STATS`.
+   *
+   * @public
    */
   @Exported
   public getEdenStartingStat<T extends PlayerStat>(
@@ -110,6 +114,8 @@ export class EdenStartingStatsHealth extends Feature {
    * Returns undefined if passed a player that is not Eden.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.EDEN_STARTING_STATS`.
+   *
+   * @public
    */
   @Exported
   public getEdenStartingStats(

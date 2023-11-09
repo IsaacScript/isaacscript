@@ -52,7 +52,7 @@ export const monitorCommand = new Command()
 const monitorOptions = monitorCommand.opts();
 type MonitorOptions = typeof monitorOptions;
 
-export async function monitor(options: MonitorOptions): Promise<void> {
+async function monitor(options: MonitorOptions): Promise<void> {
   const { skipProjectChecks, verbose } = options;
 
   printBanner();

@@ -116,6 +116,8 @@ export class DisableInputs extends Feature {
    * capacity.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DISABLE_INPUTS`.
+   *
+   * @public
    */
   @Exported
   public areInputsEnabled(): boolean {
@@ -136,6 +138,7 @@ export class DisableInputs extends Feature {
    *            this was part of the code for a custom enemy called "Super Gaper", then you could
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
+   * @public
    */
   @Exported
   public enableAllInputs(key: string): void {
@@ -158,6 +161,7 @@ export class DisableInputs extends Feature {
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
    * @param buttonActions An array of the actions to action.
+   * @public
    */
   @Exported
   public disableInputs(key: string, ...buttonActions: ButtonAction[]): void {
@@ -177,6 +181,7 @@ export class DisableInputs extends Feature {
    *            this was part of the code for a custom enemy called "Super Gaper", then you could
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
+   * @public
    */
   @Exported
   public disableAllInputs(key: string): void {
@@ -197,6 +202,7 @@ export class DisableInputs extends Feature {
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
    * @param blacklist A set of ButtonActions to disallow.
+   * @public
    */
   @Exported
   public enableAllInputsExceptFor(
@@ -220,6 +226,7 @@ export class DisableInputs extends Feature {
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
    * @param whitelist A set of ButtonActions to allow.
+   * @public
    */
   @Exported
   public disableAllInputsExceptFor(
@@ -243,6 +250,7 @@ export class DisableInputs extends Feature {
    *            this was part of the code for a custom enemy called "Super Gaper", then you could
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
+   * @public
    */
   @Exported
   public disableMovementInputs(key: string): void {
@@ -261,6 +269,7 @@ export class DisableInputs extends Feature {
    *            this was part of the code for a custom enemy called "Super Gaper", then you could
    *            use a key of "SuperGaper". The name is necessary so that multiple mod features can
    *            work in tandem.
+   * @public
    */
   @Exported
   public disableShootingInputs(key: string): void {

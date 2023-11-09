@@ -1,4 +1,4 @@
-import { PACKAGE_JSON, TSCONFIG_JSON, dirName } from "isaacscript-common-node";
+import { TSCONFIG_JSON, dirName } from "isaacscript-common-node";
 import os from "node:os";
 import path from "node:path";
 
@@ -42,14 +42,6 @@ export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");
 
 // `isaacscript/file-templates/dynamic`
 export const TEMPLATES_DYNAMIC_DIR = path.join(TEMPLATES_DIR, "dynamic");
-
-export const CI_YML = "ci.yml";
-export const CI_YML_TEMPLATE_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  ".github",
-  "workflows",
-  CI_YML,
-);
 
 export const ACTION_YML = "action.yml";
 export const ACTION_YML_TEMPLATE_PATH = path.join(
@@ -104,7 +96,6 @@ export const ISAACSCRIPT_SCHEMA_PATH = path.join(
 export const CONFIG_FILE_NAME = "isaacscript.json";
 export const CONFIG_FILE_PATH = path.join(CWD, CONFIG_FILE_NAME);
 export const TSCONFIG_JSON_PATH = path.join(CWD, TSCONFIG_JSON);
-export const PACKAGE_JSON_PATH = path.join(CWD, PACKAGE_JSON);
 export const CONSTANTS_TS_PATH = path.join(CWD, "src", "constants.ts");
 
 // `project/mod`
