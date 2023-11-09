@@ -4,6 +4,7 @@ Antibirth
 Beelzeblub
 Begottens
 Bethanys
+Bloodfly
 Bonies
 Chronometrics # Creator of Basement Renovator
 contentfolder # metadata.vdf
@@ -22,6 +23,7 @@ esaus
 Fallens
 Filloax # Creator of Revelations
 fistuloids
+Floast
 forgottens
 Gabriels
 gameplay
@@ -43,6 +45,8 @@ Mullibooms
 nerfed
 nerfs
 Nicalis
+Nightwatch
+NPCID
 npcs
 pathing
 piber # Creator of Mod Config Menu
@@ -55,6 +59,7 @@ propget # Key of userdata
 propset # Key of userdata
 publishedfileid # metadata.vdf
 Raglings
+Redskull
 respawn
 respawned
 respawning
@@ -77,6 +82,7 @@ speedruns
 Spitties
 steamcmd # For uploading/publishing
 Stonies
+Strifer
 teleporters
 teleporting
 texel
