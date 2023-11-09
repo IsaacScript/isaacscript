@@ -22,7 +22,6 @@
 import { Command } from "@commander-js/extra-typings";
 import {
   dirName,
-  fatalError,
   getPackageJSONVersion,
   nukeDependencies,
   updatePackageJSON,
@@ -40,8 +39,7 @@ import { CWD, PROJECT_NAME } from "./constants.js";
 
 const __dirname = dirName();
 
-/** @returns The name of the sub-command that was run. */
-export async function parseArgs(): Promise<string> {
+export async function parseArgs(): Promise<void> {
   const packageJSONPath = path.join(__dirname, "..", "package.json");
   const version = getPackageJSONVersion(packageJSONPath);
 
@@ -61,28 +59,16 @@ export async function parseArgs(): Promise<string> {
     .addCommand(nukeCommand)
     .addCommand(publishCommand)
     .addCommand(publishTSCommand)
-    .addCommand(updateCommand);
+    .addCommand(updateCommand)
+    .hook("postAction", (_thisCommand, actionCommand) => {
+      if (actionCommand.name() !== "monitor") {
+        process.exit();
+      }
+    });
 
   // The `parseAsync` method must be used instead of the `parse` method if any of the command
   // handlers are async.
-  const executedProgram = await program.parseAsync();
-
-  if (!("_defaultCommandName" in executedProgram)) {
-    fatalError(
-      'Failed to find the "_defaultCommandName" field from the parsed command.',
-    );
-  }
-  if (typeof executedProgram._defaultCommandName !== "string") {
-    fatalError(
-      `Failed to parse the "_defaultCommandName" field since it was of type: ${typeof executedProgram._defaultCommandName}`,
-    );
-  }
-
-  const firstArg = executedProgram.args[0];
-
-  return firstArg === undefined || firstArg === "" || firstArg.startsWith("-")
-    ? executedProgram._defaultCommandName
-    : firstArg;
+  await program.parseAsync();
 }
 
 const nukeCommand = new Command()
