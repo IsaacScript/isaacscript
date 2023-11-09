@@ -72,6 +72,8 @@ export class DebugDisplay extends Feature {
    * ```
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setPlayerDisplay(
@@ -89,6 +91,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setTearDisplay(textCallback: (tear: EntityTear) => string): void {
@@ -104,6 +108,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setFamiliarDisplay(
@@ -121,6 +127,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setBombDisplay(textCallback: (bomb: EntityBomb) => string): void {
@@ -136,6 +144,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setPickupDisplay(
@@ -153,6 +163,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setSlotDisplay(textCallback: (slot: Entity) => string): void {
@@ -168,6 +180,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setLaserDisplay(textCallback: (laser: EntityLaser) => string): void {
@@ -183,6 +197,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setKnifeDisplay(textCallback: (knife: EntityKnife) => string): void {
@@ -198,6 +214,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setProjectileDisplay(
@@ -215,6 +233,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setEffectDisplay(
@@ -232,6 +252,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setNPCDisplay(textCallback: (npc: EntityNPC) => string): void {
@@ -247,6 +269,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setRockDisplay(textCallback: (rock: GridEntityRock) => string): void {
@@ -262,6 +286,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setPitDisplay(textCallback: (pit: GridEntityPit) => string): void {
@@ -277,6 +303,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setSpikesDisplay(
@@ -294,6 +322,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setTNTDisplay(textCallback: (tnt: GridEntityTNT) => string): void {
@@ -309,6 +339,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setPoopDisplay(textCallback: (poop: GridEntityPoop) => string): void {
@@ -324,6 +356,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setDoorDisplay(textCallback: (door: GridEntityDoor) => string): void {
@@ -339,6 +373,8 @@ export class DebugDisplay extends Feature {
    * reason, you typically only need to set the function once at the beginning of your mod.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.DEBUG_DISPLAY`.
+   *
+   * @public
    */
   @Exported
   public setPressurePlateDisplay(
@@ -378,6 +414,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public togglePlayerDisplay(force?: boolean): void {
@@ -392,6 +429,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleTearDisplay(force?: boolean): void {
@@ -407,6 +445,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleFamiliarDisplay(force?: boolean): void {
@@ -421,6 +460,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleBombDisplay(force?: boolean): void {
@@ -435,6 +475,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public togglePickupDisplay(force?: boolean): void {
@@ -449,6 +490,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleSlotDisplay(force?: boolean): void {
@@ -463,6 +505,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleLaserDisplay(force?: boolean): void {
@@ -477,6 +520,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleKnifeDisplay(force?: boolean): void {
@@ -492,6 +536,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleProjectileDisplay(force?: boolean): void {
@@ -506,6 +551,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleEffectDisplay(force?: boolean): void {
@@ -520,6 +566,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleNPCDisplay(force?: boolean): void {
@@ -534,6 +581,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleRockDisplay(force?: boolean): void {
@@ -548,6 +596,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public togglePitDisplay(force?: boolean): void {
@@ -562,6 +611,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleSpikesDisplay(force?: boolean): void {
@@ -576,6 +626,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleTNTDisplay(force?: boolean): void {
@@ -590,6 +641,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public togglePoopDisplay(force?: boolean): void {
@@ -604,6 +656,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public toggleDoorDisplay(force?: boolean): void {
@@ -619,6 +672,7 @@ export class DebugDisplay extends Feature {
    * @param force Optional. A boolean that represents the value to force the display to. For
    *              example, you can specify true to always make the display turn on, regardless of
    *              whether it is already on.
+   * @public
    */
   @Exported
   public togglePressurePlateDisplay(force?: boolean): void {

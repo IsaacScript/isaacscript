@@ -110,6 +110,8 @@ export class TaintedLazarusPlayers extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.CHARACTER_HEALTH_CONVERSION`.
+   *
+   * @public
    */
   @Exported
   public getTaintedLazarusSubPlayer(

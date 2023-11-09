@@ -75,6 +75,7 @@ export class CustomItemPools extends Feature {
    *                     you are creating. The first element in he tuple is the `CollectibleType`,
    *                     and the second element in the tuple is the float that represents the weight
    *                     of the collectible.
+   * @public
    */
   @Exported
   public registerCustomItemPool(
@@ -111,6 +112,7 @@ export class CustomItemPools extends Feature {
    *                 Default is true.
    * @param defaultItem Optional. The collectible to return if the item pool is depleted. Default is
    *                    `CollectibleType.NULL`.
+   * @public
    */
   @Exported
   public getCustomItemPoolCollectible(

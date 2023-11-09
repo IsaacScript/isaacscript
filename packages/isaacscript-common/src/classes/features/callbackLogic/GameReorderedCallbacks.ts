@@ -198,6 +198,8 @@ export class GameReorderedCallbacks extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.GAME_REORDERED_CALLBACKS`.
+   *
+   * @public
    */
   @Exported
   public forceNewLevelCallback(): void {
@@ -216,6 +218,8 @@ export class GameReorderedCallbacks extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.GAME_REORDERED_CALLBACKS`.
+   *
+   * @public
    */
   @Exported
   public forceNewRoomCallback(): void {
@@ -231,6 +235,8 @@ export class GameReorderedCallbacks extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.GAME_REORDERED_CALLBACKS`.
+   *
+   * @public
    */
   @Exported
   public reorderedCallbacksSetStage(

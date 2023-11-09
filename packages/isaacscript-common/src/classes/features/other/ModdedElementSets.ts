@@ -496,6 +496,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleTypes(): readonly CollectibleType[] {
@@ -515,6 +517,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleTypeSet(): ReadonlySet<CollectibleType> {
@@ -533,6 +537,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedCollectibleTypes(): readonly CollectibleType[] {
@@ -551,6 +557,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedCollectibleTypesSet(): ReadonlySet<CollectibleType> {
@@ -569,6 +577,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPlayerCollectibleMap(
@@ -624,6 +634,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getTrinketTypes(): readonly TrinketType[] {
@@ -642,6 +654,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getTrinketTypesSet(): ReadonlySet<TrinketType> {
@@ -660,6 +674,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedTrinketTypes(): readonly TrinketType[] {
@@ -678,6 +694,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedTrinketTypesSet(): ReadonlySet<TrinketType> {
@@ -699,6 +717,8 @@ export class ModdedElementSets extends Feature {
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCardTypes(): readonly CardType[] {
@@ -716,6 +736,8 @@ export class ModdedElementSets extends Feature {
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCardTypesSet(): ReadonlySet<CardType> {
@@ -733,6 +755,8 @@ export class ModdedElementSets extends Feature {
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedCardTypes(): readonly CardType[] {
@@ -750,6 +774,8 @@ export class ModdedElementSets extends Feature {
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedCardTypesSet(): ReadonlySet<CardType> {
@@ -772,6 +798,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPillEffects(): readonly PillEffect[] {
@@ -790,6 +818,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPillEffectsSet(): ReadonlySet<PillEffect> {
@@ -808,6 +838,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedPillEffects(): readonly PillEffect[] {
@@ -826,6 +858,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getModdedPillEffectsSet(): ReadonlySet<PillEffect> {
@@ -846,6 +880,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleTypesWithCacheFlag(
@@ -870,6 +906,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getTrinketsTypesWithCacheFlag(
@@ -908,6 +946,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPlayerCollectiblesWithCacheFlag(
@@ -940,6 +980,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPlayerTrinketsWithCacheFlag(
@@ -980,6 +1022,7 @@ export class ModdedElementSets extends Feature {
    *
    * @param includeConditionalItems Whether collectibles that only grant flight conditionally should
    *                                be included in the set (like Empty Vessel).
+   * @public
    */
   @Exported
   public getFlyingCollectibleTypes(
@@ -1005,6 +1048,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getFlyingTrinketTypes(): ReadonlySet<TrinketType> {
@@ -1031,6 +1076,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleTypesWithTag(
@@ -1055,6 +1102,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPlayerCollectiblesWithTag(
@@ -1091,6 +1140,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleTypesForTransformation(
@@ -1114,6 +1165,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPlayerCollectiblesForTransformation(
@@ -1148,6 +1201,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getEdenActiveCollectibleTypes(): ReadonlySet<CollectibleType> {
@@ -1166,6 +1221,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getEdenPassiveCollectibleTypes(): ReadonlySet<CollectibleType> {
@@ -1189,6 +1246,7 @@ export class ModdedElementSets extends Feature {
    *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
    *                  to a random seed.
    * @param exceptions Optional. An array of runes to not select.
+   * @public
    */
   @Exported
   public getRandomEdenActiveCollectibleType(
@@ -1221,6 +1279,7 @@ export class ModdedElementSets extends Feature {
    *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
    *                  to a random seed.
    * @param exceptions Optional. An array of runes to not select.
+   * @public
    */
   @Exported
   public getRandomEdenPassiveCollectibleType(
@@ -1248,6 +1307,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleTypesOfQuality(
@@ -1272,6 +1333,8 @@ export class ModdedElementSets extends Feature {
    * order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getPlayerCollectiblesOfQuality(
@@ -1309,6 +1372,8 @@ export class ModdedElementSets extends Feature {
    * not all card types will necessarily be present when a mod first loads (due to mod load order).
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.MODDED_ELEMENT_SETS`.
+   *
+   * @public
    */
   @Exported
   public getCardTypesOfType(
@@ -1350,6 +1415,7 @@ export class ModdedElementSets extends Feature {
    *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
    *                  to a random seed.
    * @param exceptions Optional. An array of cards to not select.
+   * @public
    */
   @Exported
   public getRandomCardTypeOfType(
@@ -1380,6 +1446,7 @@ export class ModdedElementSets extends Feature {
    *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
    *                  to a random seed.
    * @param exceptions Optional. An array of cards to not select.
+   * @public
    */
   @Exported
   public getRandomCard(
@@ -1406,6 +1473,7 @@ export class ModdedElementSets extends Feature {
    *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
    *                  to a random seed.
    * @param exceptions Optional. An array of runes to not select.
+   * @public
    */
   @Exported
   public getRandomRune(

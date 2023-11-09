@@ -48,6 +48,8 @@ export class UnlockAchievementsDetection extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION`.
+   *
+   * @public
    */
   @Exported
   public canRunUnlockAchievements(): boolean {

@@ -224,6 +224,7 @@ export class CustomGridEntities extends Feature {
    *                           custom grid entity. Default is `GridEntityType.DECORATION`.
    * @param baseGridEntityVariant Optional. The variant of the grid entity to use as a "base" for
    *                              this custom grid entity. Default is 0.
+   * @public
    */
   @Exported
   public spawnCustomGridEntity(
@@ -292,6 +293,7 @@ export class CustomGridEntities extends Feature {
    *                   function multiple times.
    * @returns The grid entity that was removed. Returns undefined if no grid entity was found at the
    *          given location or if the given grid entity was not a custom grid entity.
+   * @public
    */
   @Exported
   public removeCustomGridEntity(
@@ -342,6 +344,8 @@ export class CustomGridEntities extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.CUSTOM_GRID_ENTITIES`.
+   *
+   * @public
    */
   @Exported
   public getCustomGridEntities(): Array<{
@@ -377,6 +381,8 @@ export class CustomGridEntities extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.CUSTOM_GRID_ENTITIES`.
+   *
+   * @public
    */
   @Exported
   public getCustomGridEntityType(
@@ -412,6 +418,8 @@ export class CustomGridEntities extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.CUSTOM_GRID_ENTITIES`.
+   *
+   * @public
    */
   @Exported
   public isCustomGridEntity(gridEntityOrGridIndex: GridEntity | int): boolean {

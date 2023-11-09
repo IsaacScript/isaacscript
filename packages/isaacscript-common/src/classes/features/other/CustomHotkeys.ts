@@ -73,6 +73,7 @@ export class CustomHotkeys extends Feature {
    * @param getKeyFunc The function that returns the key that will trigger the hotkey.
    * @param triggerFunc A function containing the arbitrary code that you want to execute when the
    *                    hotkey is triggered.
+   * @public
    */
   @Exported
   public setConditionalHotkey(
@@ -101,6 +102,7 @@ export class CustomHotkeys extends Feature {
    * @param keyboard The key that you want to trigger the hotkey.
    * @param triggerFunc A function containing the arbitrary code that you want to execute when the
    *                    hotkey is triggered.
+   * @public
    */
   @Exported
   public setHotkey(keyboard: Keyboard, triggerFunc: () => void): void {
@@ -120,6 +122,7 @@ export class CustomHotkeys extends Feature {
    *
    * @param getKeyFunc Equal to the `getKeyFunc` that you passed when initially registering the
    *                   hotkey.
+   * @public
    */
   @Exported
   public unsetConditionalHotkey(getKeyFunc: () => Keyboard | undefined): void {
@@ -139,6 +142,7 @@ export class CustomHotkeys extends Feature {
    *
    * @param keyboard Equal to the keyboard value that you passed when initially registering the
    *                 hotkey.
+   * @public
    */
   @Exported
   public unsetHotkey(keyboard: Keyboard): void {

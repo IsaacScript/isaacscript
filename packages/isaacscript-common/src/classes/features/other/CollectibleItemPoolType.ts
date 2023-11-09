@@ -61,6 +61,8 @@ export class CollectibleItemPoolType extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.COLLECTIBLE_ITEM_POOL_TYPE`.
+   *
+   * @public
    */
   @Exported
   public getCollectibleItemPoolType(collectible: EntityPickup): ItemPoolType {

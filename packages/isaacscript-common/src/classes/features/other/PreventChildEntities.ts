@@ -47,6 +47,8 @@ export class PreventChildEntities extends Feature {
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.PREVENT_CHILD_ENTITIES`.
+   *
+   * @public
    */
   @Exported
   public preventChildEntities(entity: Entity): void {

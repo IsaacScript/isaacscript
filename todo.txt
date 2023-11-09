@@ -1,6 +1,3 @@
-- isaacscript publish goes in infinite loop
-- remove y-args
-
 ----------------------------------------------------------------------------------------------------
 
 - get knip working

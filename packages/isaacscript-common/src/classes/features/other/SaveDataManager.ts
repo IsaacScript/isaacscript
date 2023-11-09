@@ -314,6 +314,7 @@ export class SaveDataManager extends Feature {
    *                        specify `false` to this argument in order to completely disable saving
    *                        data. (Specifying `false` will allow you to use non-serializable objects
    *                        in your save data, such as `EntityPtr`.
+   * @public
    */
   // This is the overload for the standard case with serializable data.
   public saveDataManager<Persistent, Run, Level>(
@@ -414,6 +415,8 @@ export class SaveDataManager extends Feature {
    * result in lost state.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerLoad(): void {
@@ -426,6 +429,8 @@ export class SaveDataManager extends Feature {
    * all of its variables to disk immediately.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerSave(): void {
@@ -439,6 +444,8 @@ export class SaveDataManager extends Feature {
    * e.g. `l print(g.feature1.run.foo)`
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerSetGlobal(): void {
@@ -456,6 +463,8 @@ export class SaveDataManager extends Feature {
    * This function is variadic, which means you can pass as many classes as you want to register.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
@@ -476,6 +485,8 @@ export class SaveDataManager extends Feature {
    * "saveDataManager" method.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerRemove(key: string): void {
@@ -519,6 +530,8 @@ export class SaveDataManager extends Feature {
    * ```
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerReset(key: string, childObjectKey: SaveDataKey): void {
@@ -554,12 +567,20 @@ export class SaveDataManager extends Feature {
    * explicitly call the `saveDataManagerSave` function.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.SAVE_DATA_MANAGER`.
+   *
+   * @public
    */
   @Exported
   public saveDataManagerInMenu(): boolean {
     return !this.inARun;
   }
 
+  /**
+   * Helper function to see all of the mod features that are using the save data manager. Useful for
+   * debugging if a certain mod feature is not getting its data saved correctly.
+   *
+   * @public
+   */
   @Exported
   public saveDataManagerLogSubscribers(): void {
     log("List of save data manager subscribers:");

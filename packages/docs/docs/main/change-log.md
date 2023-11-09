@@ -28,6 +28,7 @@ This page lists the changes to the IsaacScript framework.
 - CI in new mods now runs build and lint in a separate jobs so that they run faster.
 - Added the following helper functions:
   - `getAdjustedPrice`
+  - `getRoomClearRenderFrame`
   - `hasCard`
   - `shouldWhoreOfBabylonBeActive`
 - Changed the following helper functions:
@@ -35,6 +36,8 @@ This page lists the changes to the IsaacScript framework.
   - `preventCollectibleRotation` (is now pure)
 - Removed the following helper functions:
   - `spawnCollectibleUnsafe` (use the `spawnCollectible` function instead)
+- Added the following enums:
+  - `NPCID` (thanks @popjam)
 
 ## November 2nd, 2023
 

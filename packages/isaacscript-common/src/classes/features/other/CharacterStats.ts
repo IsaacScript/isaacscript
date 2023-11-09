@@ -59,6 +59,8 @@ export class CharacterStats extends Feature {
    * not the `MaxFireDelay` format.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CHARACTER_STATS`.
+   *
+   * @public
    */
   @Exported
   public registerCharacterStats(

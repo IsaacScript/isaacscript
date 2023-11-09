@@ -87,6 +87,7 @@ export class NoSirenSteal extends Feature {
    * @param familiarVariant The familiar variant to blacklist.
    * @param familiarSubType The sub-type to blacklist. Optional. The default is to blacklist all
    *                        sub-types of the given variant.
+   * @public
    */
   @Exported
   public setFamiliarNoSirenSteal(

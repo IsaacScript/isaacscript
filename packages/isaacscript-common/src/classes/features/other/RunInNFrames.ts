@@ -100,9 +100,10 @@ export class RunInNFrames extends Feature {
    * the game inside of the `POST_NEW_ROOM`, `POST_NEW_LEVEL`, or `POST_GAME_STARTED` callbacks when
    * a run is first starting.
    *
-   * You can optionally specify a `PlayerType` to restart the game as that character.
-   *
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_IN_N_FRAMES`.
+   *
+   * @param character Optional. If specified, will restart the game as the specified character.
+   * @public
    */
   @Exported
   public restartNextRenderFrame(character?: PlayerType): void {
@@ -127,6 +128,7 @@ export class RunInNFrames extends Feature {
    * @param numGameFrames The amount of game frames to wait before running the function.
    * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
    *                            loaded in the interim. Default is false.
+   * @public
    */
   @Exported
   public runInNGameFrames(
@@ -163,6 +165,7 @@ export class RunInNFrames extends Feature {
    * @param numRenderFrames The amount of render frames to wait before running the function.
    * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
    *                            loaded in the interim. Default is false.
+   * @public
    */
   @Exported
   public runInNRenderFrames(
@@ -216,6 +219,7 @@ export class RunInNFrames extends Feature {
    * @param func The function to run.
    * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
    *                            loaded in the interim. Default is false.
+   * @public
    */
   @Exported
   public runNextGameFrame(func: () => void, cancelIfRoomChanges = false): void {
@@ -235,6 +239,7 @@ export class RunInNFrames extends Feature {
    * @param func The function to run.
    * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
    *                            loaded in the interim. Default is false.
+   * @public
    */
   @Exported
   public runNextRenderFrame(
@@ -263,6 +268,7 @@ export class RunInNFrames extends Feature {
    *                       interval.
    * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
    *                            loaded in the interim. Default is false.
+   * @public
    */
   @Exported
   public setIntervalGameFrames(
@@ -310,6 +316,7 @@ export class RunInNFrames extends Feature {
    *                       interval.
    * @param cancelIfRoomChanges Optional. Whether to cancel running the function if a new room is
    *                            loaded in the interim. Default is false.
+   * @public
    */
   @Exported
   public setIntervalRenderFrames(

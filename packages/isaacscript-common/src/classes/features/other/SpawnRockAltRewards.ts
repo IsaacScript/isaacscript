@@ -103,6 +103,7 @@ export class SpawnRockAltRewards extends Feature {
    *                  `RNG.Next` method will be called. If `undefined` is provided, it will default
    *                  to a random seed.
    * @returns Whether this function spawned something.
+   * @public
    */
   @Exported
   public spawnRockAltReward(

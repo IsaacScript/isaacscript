@@ -46,6 +46,8 @@ export class RunNextRun extends Feature {
    * deferred functions manually using serializable data.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.RUN_NEXT_ROOM`.
+   *
+   * @public
    */
   @Exported
   public runNextRun(func: () => void): void {

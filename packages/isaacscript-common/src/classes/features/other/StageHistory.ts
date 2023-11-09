@@ -55,6 +55,7 @@ export class StageHistory extends Feature {
    *
    * @param upwards Whether the player should go up to Cathedral in the case of being on Womb 2.
    *                Default is false.
+   * @public
    */
   @Exported
   public getNextStageTypeWithHistory(upwards = false): StageType {
@@ -295,6 +296,8 @@ export class StageHistory extends Feature {
    * Helper function to get all of the stages that a player has visited thus far on this run.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.STAGE_HISTORY`.
+   *
+   * @public
    */
   @Exported
   public getStageHistory(): readonly StageHistoryEntry[] {

@@ -72,6 +72,8 @@ export class RoomHistory extends Feature {
    * Helper function to manually delete the last room description from the internal array. This is
    * useful if a mod needs to send the player to a room temporarily and the room should not count as
    * the player having traveled to that room.
+   *
+   * @public
    */
   @Exported
   public deleteLastRoomDescription(): void {
@@ -83,6 +85,8 @@ export class RoomHistory extends Feature {
    * run. (Re-entering the same room will increment the number returned.)
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
+   *
+   * @public
    */
   @Exported
   public getNumRoomsEntered(): int {
@@ -94,6 +98,8 @@ export class RoomHistory extends Feature {
    * this run.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
+   *
+   * @public
    */
   @Exported
   public getRoomHistory(): ReadonlyArray<Readonly<RoomDescription>> {
@@ -107,6 +113,8 @@ export class RoomHistory extends Feature {
    * the run), the starting room will be returned.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
+   *
+   * @public
    */
   @Exported
   public getPreviousRoomDescription(): Readonly<RoomDescription> {
@@ -135,13 +143,19 @@ export class RoomHistory extends Feature {
    * of the run.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
+   *
+   * @public
    */
   @Exported
   public getLatestRoomDescription(): Readonly<RoomDescription> | undefined {
     return v.run.roomHistory.at(-1);
   }
 
-  /** Helper function to detect if the player is on the first room of the room. */
+  /**
+   * Helper function to detect if the player is on the first room of the room.
+   *
+   * @public
+   */
   @Exported
   public inFirstRoom(): boolean {
     return v.run.roomHistory.length === 1;
@@ -157,6 +171,8 @@ export class RoomHistory extends Feature {
    * entity is despawning.
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.ROOM_HISTORY`.
+   *
+   * @public
    */
   @Exported
   public isLeavingRoom(): boolean {

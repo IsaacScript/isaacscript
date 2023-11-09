@@ -1,8 +1,6 @@
 import type { CallbackPriority } from "isaac-typescript-definitions";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
-import { log } from "../../functions/log";
 import { sortObjectArrayByKey, stableSort } from "../../functions/sort";
-import { getTSTLClassName } from "../../functions/tstlClass";
 import type { AddCallbackParametersCustom } from "../../interfaces/private/AddCallbackParametersCustom";
 import type { AllButFirst } from "../../types/AllButFirst";
 import type { AnyFunction } from "../../types/AnyFunction";
@@ -105,17 +103,4 @@ export abstract class CustomCallback<
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ) => boolean = () => true;
-
-  public logSubscriptions(): void {
-    const tstlClassName = getTSTLClassName(this);
-    log(`Logging subscriptions for custom callback: ${tstlClassName}`);
-
-    if (this.subscriptions.length === 0) {
-      log("- n/a (no subscriptions)");
-    } else {
-      for (const [i, subscription] of this.subscriptions.entries()) {
-        log(`- ${i + 1} - priority: ${subscription.priority}`);
-      }
-    }
-  }
 }
