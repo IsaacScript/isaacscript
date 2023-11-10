@@ -76,7 +76,9 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
  * Helper function to get all of the trinkets that the player is currently holding. This will not
  * include any smelted trinkets.
  */
-export function getPlayerTrinkets(player: EntityPlayer): TrinketType[] {
+export function getPlayerTrinkets(
+  player: EntityPlayer,
+): readonly TrinketType[] {
   const trinketTypes: TrinketType[] = [];
 
   for (const trinketSlot of TRINKET_SLOT_VALUES) {

@@ -1,7 +1,5 @@
-- get knip working
-  - https://github.com/webpro/knip/issues/339
-  - https://github.com/webpro/knip/issues/315
-  - remove comment in ci.yml
+- add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
+  - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
 
 - lint rule: didn't catch this code:
   const lockedPillEffectsOfType = lockedPillEffects.filter(
@@ -20,6 +18,14 @@
   - make sure that isaacscript-common still works through link in dev
 
 ----------------------------------------------------------------------------------------------------
+
+- get knip working
+  - https://github.com/webpro/knip/issues/345
+  - https://github.com/webpro/knip/issues/344
+  - https://github.com/webpro/knip/issues/343
+  - https://github.com/webpro/knip/issues/339
+  - https://github.com/webpro/knip/issues/315
+  - remove comment in ci.yml
 
 - wait for CodePath PR to be accepted: https://github.com/typescript-eslint/typescript-eslint/pull/7551
   - then use upstream CodePath

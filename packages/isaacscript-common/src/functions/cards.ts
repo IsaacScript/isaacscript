@@ -8,7 +8,7 @@ import {
   DEFAULT_CARD_DESCRIPTION,
 } from "../objects/cardDescriptions";
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
-import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET } from "../sets/itemConfigCardTypesForCardsSet";
+import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS } from "../sets/itemConfigCardTypesForCards";
 import { addFlag } from "./flag";
 
 /**
@@ -112,7 +112,7 @@ export function isCard(cardType: CardType): boolean {
     return false;
   }
 
-  return ITEM_CONFIG_CARD_TYPES_FOR_CARDS_SET.has(itemConfigCardType);
+  return ITEM_CONFIG_CARD_TYPES_FOR_CARDS.has(itemConfigCardType);
 }
 
 /** Returns whether the given card type matches the specified item config card type. */

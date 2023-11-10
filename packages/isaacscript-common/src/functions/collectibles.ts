@@ -47,21 +47,21 @@ const GLITCHED_ITEM_THRESHOLD = 4_000_000_000;
 
 const QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP: ReadonlyMap<
   Quality,
-  ReadonlySet<CollectibleType>
+  CollectibleType[]
 > = (() => {
-  const qualityToCollectibleTypesMap = new Map<Quality, Set<CollectibleType>>();
+  const qualityToCollectibleTypesMap = new Map<Quality, CollectibleType[]>();
 
   for (const quality of QUALITIES) {
-    const collectibleTypesSet = new Set<CollectibleType>();
+    const collectibleTypes: CollectibleType[] = [];
 
     for (const collectibleType of VANILLA_COLLECTIBLE_TYPES) {
       const collectibleTypeQuality = getCollectibleQuality(collectibleType);
       if (collectibleTypeQuality === quality) {
-        collectibleTypesSet.add(collectibleType);
+        collectibleTypes.push(collectibleType);
       }
     }
 
-    qualityToCollectibleTypesMap.set(quality, collectibleTypesSet);
+    qualityToCollectibleTypesMap.set(quality, collectibleTypes);
   }
 
   return qualityToCollectibleTypesMap;
@@ -433,14 +433,14 @@ export function getCollectibleTags(
 }
 
 /**
- * Returns a set containing every vanilla collectible type with the given quality.
+ * Returns an array containing every vanilla collectible type with the given quality.
  *
  * Note that this function will only return vanilla collectible types. To handle modded collectible
  * types, use the `getCollectibleTypesOfQuality` helper function instead.
  */
 export function getVanillaCollectibleTypesOfQuality(
   quality: Quality,
-): ReadonlySet<CollectibleType> {
+): readonly CollectibleType[] {
   const collectibleTypes =
     QUALITY_TO_VANILLA_COLLECTIBLE_TYPES_MAP.get(quality);
   assertDefined(

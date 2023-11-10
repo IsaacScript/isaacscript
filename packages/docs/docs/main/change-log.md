@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## November 9th, 2023 (Unreleased)
+## November 10th, 2023
 
 - The location of the plugins in the "isaacscript" package have changed. See the [new "tsconfig.json" template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/tsconfig.json).
 - Scripts in new mods no longer use Bash and are now native TypeScript scripts.
@@ -34,6 +34,7 @@ This page lists the changes to the IsaacScript framework.
 - Changed the following helper functions:
   - `spawnCollectible` (is now pure)
   - `preventCollectibleRotation` (is now pure)
+- The quality helper functions now return arrays instead of sets.
 - Removed the following helper functions:
   - `spawnCollectibleUnsafe` (use the `spawnCollectible` function instead)
 - Added the following enums:

@@ -54,7 +54,7 @@ export class ItemPoolDetection extends Feature {
   @Exported
   public getCollectiblesInItemPool(
     itemPoolType: ItemPoolType,
-  ): CollectibleType[] {
+  ): readonly CollectibleType[] {
     const collectibleArray = this.moddedElementSets.getCollectibleTypes();
     return collectibleArray.filter((collectibleType) =>
       this.isCollectibleInItemPool(collectibleType, itemPoolType),

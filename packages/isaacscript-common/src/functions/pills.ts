@@ -44,7 +44,7 @@ const HORSE_PILL_ADJUSTMENT = 2048;
  * Helper function to get an array with every non-null pill color. This includes all gold colors and
  * all horse colors.
  */
-export function getAllPillColors(): PillColor[] {
+export function getAllPillColors(): readonly PillColor[] {
   return PILL_COLOR_VALUES.slice(1); // Remove `PillColor.NULL`
 }
 
@@ -68,7 +68,7 @@ export function getHorsePillColor(pillColor: PillColor): PillColor {
 }
 
 /** Helper function to get an array with every non-gold horse pill color. */
-export function getHorsePillColors(): PillColor[] {
+export function getHorsePillColors(): readonly PillColor[] {
   return iRange(FIRST_HORSE_PILL_COLOR, LAST_HORSE_PILL_COLOR);
 }
 
@@ -88,7 +88,7 @@ export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
 }
 
 /** Helper function to get an array with every non-gold and non-horse pill color. */
-export function getNormalPillColors(): PillColor[] {
+export function getNormalPillColors(): readonly PillColor[] {
   return iRange(FIRST_PILL_COLOR, LAST_NORMAL_PILL_COLOR);
 }
 
