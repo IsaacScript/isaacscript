@@ -34,7 +34,7 @@ This page lists the changes to the IsaacScript framework.
 - Changed the following helper functions:
   - `spawnCollectible` (is now pure)
   - `preventCollectibleRotation` (is now pure)
-- The quality helper functions now return arrays instead of sets.
+- Functions from `ISCFeature.MODDED_ELEMENT_SETS` now return arrays instead of sets.
 - Removed the following helper functions:
   - `spawnCollectibleUnsafe` (use the `spawnCollectible` function instead)
 - Added the following enums:
