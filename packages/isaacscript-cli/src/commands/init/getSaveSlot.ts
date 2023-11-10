@@ -1,18 +1,12 @@
 import { fatalError } from "isaacscript-common-node";
-import { parseIntSafe } from "isaacscript-common-ts";
 import { getInputInt } from "../../prompt.js";
 
 export async function getSaveSlot(
-  saveSlotOption: string | undefined,
+  saveSlotOption: number | undefined,
   yes: boolean,
 ): Promise<number> {
   if (saveSlotOption !== undefined) {
-    const saveSlot = parseIntSafe(saveSlotOption);
-    if (saveSlot === undefined) {
-      fatalError(`The save slot of "${saveSlotOption}" is not a number.`);
-    }
-
-    return saveSlot;
+    return saveSlotOption;
   }
 
   if (yes) {

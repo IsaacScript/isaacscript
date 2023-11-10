@@ -24,9 +24,9 @@ export function arrayEquals<T>(
 }
 
 /**
- * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
- * the specified element(s) are not found in the array, it will simply return a shallow copy of the
- * array.
+ * Builds a new array based on the original array without the specified element(s). Returns the new
+ * array. If the specified element(s) are not found in the array, it will simply return a shallow
+ * copy of the array.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  *
@@ -38,8 +38,15 @@ export function arrayRemove<T>(
   originalArray: T[] | readonly T[],
   ...elementsToRemove: T[]
 ): T[] {
-  const array = copyArray(originalArray);
-  arrayRemoveInPlace(array, ...elementsToRemove);
+  const elementsToRemoveSet = new ReadonlySet(elementsToRemove);
+
+  const array: T[] = [];
+  for (const element of originalArray) {
+    if (!elementsToRemoveSet.has(element)) {
+      array.push(element);
+    }
+  }
+
   return array;
 }
 

@@ -1,7 +1,11 @@
-import { Command, Option } from "@commander-js/extra-typings";
+import {
+  Command,
+  InvalidOptionArgumentError,
+} from "@commander-js/extra-typings";
 import chalk from "chalk";
 import type { PackageManager } from "isaacscript-common-node";
 import { getPackageManagerExecCommand } from "isaacscript-common-node";
+import { parseIntSafe } from "isaacscript-common-ts";
 import path from "node:path";
 import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";
@@ -36,11 +40,11 @@ export const initCommand = new Command()
     "-m, --mods-directory <directory>",
     "The directory where Isaac mods live on your system.",
   )
-  .addOption(
-    new Option(
-      "-s, --save-slot <slot>",
-      "The in-game save slot that you use to test the mod.",
-    ).choices(["1", "2", "3"]),
+  .option(
+    "-s, --save-slot <slot>",
+    "The in-game save slot that you use to test the mod.",
+    validateSaveSlot,
+    1,
   )
   .option("--vscode", "Open the project in VSCode after initialization.", false)
   .option("--npm", "Use npm as the package manager.", false)
@@ -66,6 +70,23 @@ export const initCommand = new Command()
   .action(async (name, options) => {
     await init(name, options, false);
   });
+
+function validateSaveSlot(valueString: string): number {
+  const valueNumber = parseIntSafe(valueString);
+  if (valueNumber === undefined) {
+    throw new InvalidOptionArgumentError(
+      `The save slot of "${valueString}" is not a number.`,
+    );
+  }
+
+  if (valueNumber !== 1 && valueNumber !== 2 && valueNumber !== 3) {
+    throw new InvalidOptionArgumentError(
+      "The save slot must be equal to 1, 2, or 3.",
+    );
+  }
+
+  return valueNumber;
+}
 
 export const initTSCommand = new Command()
   .command("init-ts [name]")

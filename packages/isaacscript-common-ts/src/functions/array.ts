@@ -21,9 +21,9 @@ export function arrayEquals<T>(
 }
 
 /**
- * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
- * the specified element(s) are not found in the array, it will simply return a shallow copy of the
- * array.
+ * Builds a new array based on the original array without the specified element(s). Returns the new
+ * array. If the specified element(s) are not found in the array, it will simply return a shallow
+ * copy of the array.
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
