@@ -53,5 +53,6 @@ export default {
     "ReadonlySetConstructor",
     "Serializable",
     "SerializedIsaacAPIClass",
+    "STORY_BOSS_IDS",
   ],
 };

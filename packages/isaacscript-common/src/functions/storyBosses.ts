@@ -44,6 +44,10 @@ const STORY_BOSS_ENTITY_TYPES_SET = new ReadonlySet([
 
 const STORY_BOSS_IDS_SET = new ReadonlySet<BossID>(STORY_BOSS_IDS);
 
+/**
+ * A helper type that is a union of every story boss. Useful for data structures that must contain
+ * one entry for each story boss.
+ */
 export type StoryBossID = (typeof STORY_BOSS_IDS)[number];
 
 /**
@@ -60,6 +64,6 @@ export function isStoryBoss(entityType: EntityType): boolean {
  * Baby, Mega Satan, The Beast, and so on. This is useful because certain effects should only apply
  * to non-story bosses, like Vanishing Twin.
  */
-export function isStoryBossID(bossID: BossID): boolean {
+export function isStoryBossID(bossID: BossID): bossID is StoryBossID {
   return STORY_BOSS_IDS_SET.has(bossID);
 }
