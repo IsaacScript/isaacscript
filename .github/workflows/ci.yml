@@ -24,10 +24,8 @@ jobs:
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run build
-      - working-directory: ./packages/${{ matrix.package-name }}
-        run: echo LOL${{ matrix.package-name }}LOL
       - name: Store the docs build directory
-        if: ${{ matrix.package-name }} == 'docs'
+        if: matrix.package-name == 'docs'
         uses: actions/upload-artifact@v3
         with:
           name: docs-build
