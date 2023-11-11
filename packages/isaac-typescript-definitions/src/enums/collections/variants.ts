@@ -1373,7 +1373,6 @@ export enum MotherVariant {
   DEAD_ISAAC = 20,
 
   WORM = 30,
-
   BALL = 100,
 }
 
