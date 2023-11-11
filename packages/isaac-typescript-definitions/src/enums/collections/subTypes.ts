@@ -1598,6 +1598,16 @@ export enum LaserSubType {
   NO_IMPACT = 4,
 }
 
+/** For `EntityType.GAPER` (10), `GaperVariant.ROTTEN_GAPER` (3). */
+export enum RottenGaperSubType {
+  V1 = 0,
+  V2 = 1,
+  V3 = 2,
+  V4 = 3,
+  V5 = 4,
+  V6 = 5,
+}
+
 /** For `EntityType.LARRY_JR` (19), `LarryJrVariant.LARRY_JR` (0). */
 export enum LarryJrSubType {
   /** The non-champion version. */
@@ -1669,6 +1679,14 @@ export enum ChargerSubType {
   MY_SHADOW = 1,
 }
 
+export enum DragonFlySubType {
+  /** Upon death, creates lines of fire in the cardinal directions. */
+  NORMAL = 0,
+
+  /** Upon death, creates lines of fire in the ordinal directions. */
+  X = 1,
+}
+
 /** For `EntityType.CHUB` (28), `ChubVariant.CHUB (0)`. */
 export enum ChubSubType {
   /** The non-champion version. */
@@ -1713,6 +1731,12 @@ export enum GurdySubType {
    * summons monsters at a faster rate.
    */
   GREEN = 1,
+}
+
+/** For `EntityType.BABY` (37), variant `BabyVariant.ANGELIC_BABY`. */
+export enum AngelicBabySubType {
+  NORMAL = 0,
+  SMALL = 1,
 }
 
 /** For `EntityType.MONSTRO_2` (43), `Monstro2Variant.MONSTRO_2` (0). */
@@ -1984,6 +2008,19 @@ export enum GurglingSubType {
   BLACK = 2,
 }
 
+/**
+ * For `EntityType.CONSTANT_STONE_SHOOTER` (202),
+ * `ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER` (0).
+ *
+ * This is the same as the `Direction` enum.
+ */
+export enum ConstantStoneShooterSubType {
+  LEFT = 0,
+  UP = 1,
+  RIGHT = 2,
+  DOWN = 3,
+}
+
 /** For `EntityType.HAUNT` (260), `HauntVariant.HAUNT` (0). */
 export enum HauntSubType {
   /** The non-champion version. */
@@ -2117,6 +2154,14 @@ export enum PolycephalusSubType {
   PINK = 2,
 }
 
+/** For `EntityType.LEPER` (310), variant 0. */
+export enum LeperSubType {
+  STAGE_1 = 0,
+  STAGE_2 = 1,
+  STAGE_3 = 2,
+  STAGE_4 = 3,
+}
+
 /** For `EntityType.STAIN` (401), variant 0. */
 export enum StainSubType {
   /** The non-champion version. */
@@ -2200,22 +2245,73 @@ export enum RagManSubType {
 }
 
 /**
- * For `EntityType.CONSTANT_STONE_SHOOTER` (202),
- * `ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER` (0).
+ * For `EntityType.QUAKE_GRIMACE` (804), variant 0.
  *
  * This is the same as the `Direction` enum.
  */
-export enum ConstantStoneShooterSubType {
+export enum QuakeGrimaceSubType {
   LEFT = 0,
   UP = 1,
   RIGHT = 2,
   DOWN = 3,
 }
 
+/** For `EntityType.DEEP_GAPER` (811), variant 0. */
+export enum DeepGaperSubType {
+  V1 = 0,
+  V2 = 1,
+  V3 = 2,
+  V4 = 3,
+  V5 = 4,
+  V6 = 5,
+  V7 = 6,
+}
+
+/** For `EntityType.MORNINGSTAR` (863), variant 0. */
+export enum MorningStarSubType {
+  /** Randomizes between 'Normal' and 'Alternate'. */
+  RANDOM = 0,
+
+  NORMAL = 1,
+
+  /** Visual difference only. */
+  ALTERNATE = 2,
+}
+
+/** For `EntityType.DARK_ESAU` (866), variant 0. */
+export enum DarkEsauSubType {
+  DARK = 0,
+
+  /** After picking up T. Jacob's Birthright. */
+  DARKER = 1,
+}
+
+/** For `EntityType.MAZE_ROAMER` (890), variant 0. */
+export enum MazeRoamerSubType {
+  NORMAL = 0,
+  MIRRORED = 1,
+}
+
 /** For `EntityType.MOTHER` (912), `MotherVariant.MOTHER_1` (0). */
 export enum MotherSubType {
   PHASE_1 = 0,
   PHASE_2 = 1,
+
+  /** Instantly disappears and drops a heart. */
+  LEFT_ARM = 2,
+
+  /** Instantly disappears and drops a heart. */
+  RIGHT_ARM = 3,
+
+  /** Instantly disappears and drops a heart. */
+  DISAPPEAR = 4,
+}
+
+/** For `EntityType.MOTHER` (912), `MotherVariant.BALL` (100). */
+export enum MotherBallSubType {
+  LARGE = 0,
+  MEDIUM = 1,
+  SMALL = 2,
 }
 
 /** For `EntityType.EFFECT` (1000), `EffectVariant.BLOOD_EXPLOSION` (2). */

@@ -1369,6 +1369,11 @@ export enum MotherVariant {
   /** The circular body that moves around in phase 2. */
   MOTHER_2 = 10,
 
+  /** Gaper-like monster that Mother spawns in Phase 1. */
+  DEAD_ISAAC = 20,
+
+  WORM = 30,
+
   BALL = 100,
 }
 
