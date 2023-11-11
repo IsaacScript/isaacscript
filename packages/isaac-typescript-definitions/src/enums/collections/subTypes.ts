@@ -1679,6 +1679,7 @@ export enum ChargerSubType {
   MY_SHADOW = 1,
 }
 
+/** For `EntityType.BOOM_FLY` (25), `BoomFlyVariant.DRAGON_FLY` (3). */
 export enum DragonFlySubType {
   /** Upon death, creates lines of fire in the cardinal directions. */
   NORMAL = 0,
