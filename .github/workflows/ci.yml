@@ -25,7 +25,7 @@ jobs:
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run build
       - name: Store the docs build directory
-        if: matrix.package-name == 'docs'
+        if: ${{ matrix.package-name == 'docs' }}
         uses: actions/upload-artifact@v3
         with:
           name: docs-build
