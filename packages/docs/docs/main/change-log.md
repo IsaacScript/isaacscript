@@ -9,6 +9,13 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## November 17th, 2023
+
+- Added the following enums:
+  - `MomsHeartSubType`
+- Added the following types:
+  - `StoryBossID`
+
 ## November 10th, 2023
 
 - The location of the plugins in the "isaacscript" package have changed. See the [new "tsconfig.json" template](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/tsconfig.json).

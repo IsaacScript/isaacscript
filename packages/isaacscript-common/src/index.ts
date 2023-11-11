@@ -122,6 +122,7 @@ export * from "./functions/spawnCollectible";
 export * from "./functions/sprites";
 export * from "./functions/stage";
 export * from "./functions/stats";
+export * from "./functions/storyBosses";
 export * from "./functions/string";
 export * from "./functions/table";
 export * from "./functions/tears";

@@ -538,7 +538,7 @@ export enum MawVariant {
 export enum HostVariant {
   HOST = 0,
   RED_HOST = 1,
-  HARD_HOST = 2,
+  HARD_HOST = 3,
 }
 
 /** For `EntityType.CHUB` (28). */
@@ -813,7 +813,7 @@ export enum FistulaVariant {
 export enum MomsHeartVariant {
   MOMS_HEART = 0,
   IT_LIVES = 1,
-  MOMS_GUTS = 2,
+  MOMS_GUTS = 10,
 }
 
 /** For `EntityType.GEMINI` (79). */
