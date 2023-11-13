@@ -102,8 +102,8 @@ type SerializableInsideArrayOrMap<T> =
                   : T extends ReadonlySet<infer V>
                     ? SerializableReadonlySet<V>
                     : // Disallow functions.
-                      // (We can only disallow functions when inside of containers, because we want to allow classes
-                      // with methods attached to normal objects.)
+                      // (We can only disallow functions when inside of containers, because we want
+                      // to allow classes with methods attached to normal objects.)
                       T extends Function // eslint-disable-line @typescript-eslint/ban-types
                       ? FunctionIsNotSerializable
                       : // Allow any other object, as long as the values are themselves serializable.
