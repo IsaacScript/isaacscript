@@ -18,7 +18,7 @@ type LinterConfigRules = Record<
   TSESLint.Linter.RuleLevel | TSESLint.Linter.RuleLevelAndOptions
 >;
 
-interface LinterConfig extends TSESLint.Linter.Config {
+interface LinterConfig extends TSESLint.ClassicConfig.Config {
   extends?: string | string[];
   plugins?: string[];
 }

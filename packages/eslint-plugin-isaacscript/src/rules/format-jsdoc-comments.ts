@@ -55,8 +55,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
   create(context, [options]) {
     const { maxLength } = options;
 
-    const sourceCode = context.getSourceCode();
-    const comments = sourceCode.getAllComments();
+    const comments = context.sourceCode.getAllComments();
 
     // We only look at `/**` style comments on their own line.
     const jsDocComments = getJSDocComments(comments);

@@ -20,8 +20,6 @@ export const requireVRegistration = createRule({
   },
   defaultOptions: [],
   create(context) {
-    const sourceCode = context.getSourceCode();
-
     return {
       VariableDeclarator(node) {
         if (node.id.type !== AST_NODE_TYPES.Identifier) {
@@ -32,7 +30,7 @@ export const requireVRegistration = createRule({
           return;
         }
 
-        if (!hasRegistrationLines(sourceCode.text)) {
+        if (!hasRegistrationLines(context.sourceCode.text)) {
           context.report({
             node,
             messageId: "noRegistration",

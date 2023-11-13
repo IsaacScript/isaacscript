@@ -23,8 +23,7 @@ export const jsdocCodeBlockLanguage = createRule({
    * https://stackoverflow.com/questions/47429792/is-it-possible-to-get-comments-as-nodes-in-the-ast-using-the-typescript-compiler
    */
   create(context) {
-    const sourceCode = context.getSourceCode();
-    const comments = sourceCode.getAllComments();
+    const comments = context.sourceCode.getAllComments();
 
     // We only look at `/**` style comments.
     const jsDocComments = getJSDocComments(comments);

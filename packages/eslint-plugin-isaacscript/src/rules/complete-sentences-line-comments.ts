@@ -36,7 +36,7 @@ export const completeSentencesLineComments = createRule<
   },
   defaultOptions: [],
   create(context) {
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
     const comments = sourceCode.getAllComments();
 
     // We only look at `//` style comments on their own line.

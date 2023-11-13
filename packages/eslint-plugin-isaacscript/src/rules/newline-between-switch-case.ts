@@ -23,7 +23,7 @@ export const newlineBetweenSwitchCase = createRule({
   },
   defaultOptions: [],
   create(context) {
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
     let currentCodePath: CodePath | null = null;
 
     return {

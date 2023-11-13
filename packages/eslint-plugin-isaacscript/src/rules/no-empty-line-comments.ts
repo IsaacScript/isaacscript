@@ -23,8 +23,7 @@ export const noEmptyLineComments = createRule({
    * https://stackoverflow.com/questions/47429792/is-it-possible-to-get-comments-as-nodes-in-the-ast-using-the-typescript-compiler
    */
   create(context) {
-    const sourceCode = context.getSourceCode();
-    const comments = sourceCode.getAllComments();
+    const comments = context.sourceCode.getAllComments();
     const emptyLeadingLineComments = comments.filter(
       (comment) =>
         comment.type === TSESTree.AST_TOKEN_TYPES.Line && // i.e. a "//" comment

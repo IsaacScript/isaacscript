@@ -60,7 +60,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
   create(context, [options]) {
     const { maxLength } = options;
 
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
     const comments = sourceCode.getAllComments();
 
     // We only look at `//` style comments on their own line.
