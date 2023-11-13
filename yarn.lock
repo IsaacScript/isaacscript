@@ -13144,13 +13144,13 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^2.40.2"
+    knip: "npm:^2.41.2"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.31.1"
     markdownlint-cli: "npm:^0.37.0"
     moment: "npm:^2.29.4"
     npm-check-updates: "npm:^16.14.6"
-    prettier: "npm:^3.0.3"
+    prettier: "npm:^3.1.0"
     prettier-plugin-organize-imports: "npm:^3.2.4"
     prettier-plugin-packagejson: "npm:^2.4.6"
     prism-react-renderer: "npm:1.3.5"
@@ -13165,7 +13165,7 @@ __metadata:
     ts-json-schema-generator: "npm:^1.4.0"
     ts-prune-2: "npm:^0.10.7"
     tsconfig-paths: "npm:^4.2.0"
-    tsx: "npm:^4.1.0"
+    tsx: "npm:^4.1.1"
     typedoc: "npm:^0.25.3"
     typedoc-plugin-markdown: "npm:^3.17.1"
     typedoc-plugin-rename: "npm:^1.0.1"
@@ -14022,9 +14022,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^2.40.2":
-  version: 2.40.2
-  resolution: "knip@npm:2.40.2"
+"knip@npm:^2.41.2":
+  version: 2.41.2
+  resolution: "knip@npm:2.41.2"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:^0.5.2"
     "@npmcli/map-workspaces": "npm:^3.0.4"
@@ -14048,7 +14048,7 @@ __metadata:
     zod-validation-error: "npm:1.5.0"
   bin:
     knip: dist/cli.js
-  checksum: 05d33914129f61574c8d8f64aca0d7a66045bccc8f5cf389f1ced4a2460321746a577c470f6f81ee153cdd137b917588c2dcc61dcbe74c21754d79b37d4ce908
+  checksum: d7f47666c6962e940ed58aef3c527c2927f4ddda983e57e379696649235e57150a5d1e2e2b136f8ed28d9684f452c3fb2b10b5ff6aae6b4b1fb866316aa42de7
   languageName: node
   linkType: hard
 
@@ -17374,12 +17374,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "prettier@npm:3.0.3"
+"prettier@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "prettier@npm:3.1.0"
   bin:
     prettier: bin/prettier.cjs
-  checksum: f950887bc03c5b970d8c6dd129364acfbbc61e7b46aec5d5ce17f4adf6404e2ef43072c98b51c4786e0eaca949b307d362a773fd47502862d754b5a328fa2b26
+  checksum: a45ea70aa97fde162ea4c4aba3dfc7859aa6a732a1db34458d9535dc3c2c16d3bc3fb5689e6cd76aa835562555303b02d9449fd2e15af3b73c8053557e25c5b6
   languageName: node
   linkType: hard
 
@@ -20147,9 +20147,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "tsx@npm:4.1.0"
+"tsx@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "tsx@npm:4.1.1"
   dependencies:
     esbuild: "npm:~0.18.20"
     fsevents: "npm:~2.3.3"
@@ -20160,7 +20160,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 2e37d261521afd3db9146da7910542ef99b17d4b9368cce78374f3349f7ba160442999db3c7a18baab54b392d205bee1901c423fc5edffb0ab2c01de79e2264f
+  checksum: a409d3316295ec4047be4afab568db331b5eb44940cf5a355469e1d767445acfd0c4e3a2c5e1862586423142511ff1233c25a8b9fc5045406209f61fecc72ccd
   languageName: node
   linkType: hard
 
