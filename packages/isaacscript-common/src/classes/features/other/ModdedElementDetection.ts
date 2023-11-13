@@ -385,7 +385,9 @@ export class ModdedElementDetection extends Feature {
   public getLastPillEffect(): PillEffect {
     this.errorIfNoCallbacksFired("pill");
 
-    const numPillEffects = this.getNumPillEffects();
+    // We need to subtract one because Bad Gas is ID 0. In other words, in vanilla Repentance, there
+    // are 50 pill effects that have IDs from 0 to 49, so the highest pill effect is 49.
+    const numPillEffects = this.getNumPillEffects() - 1;
     return asPillEffect(numPillEffects);
   }
 
