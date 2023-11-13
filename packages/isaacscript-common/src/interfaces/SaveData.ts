@@ -49,28 +49,28 @@ type Serializable<T> =
   T extends SerializablePrimitive
     ? T
     : // Allow a specific subset of Isaac API classes that are copyable / serializable.
-    T extends CopyableIsaacAPIClass
-    ? T
-    : // Disallow all other Isaac API classes.
-    T extends IsaacAPIClass
-    ? ErrorIsaacAPIClassIsNotSerializable
-    : // Allow some specific "container" objects.
-    // These container objects are explicitly handled by the save data manager, but there are
-    // restrictions on the things inside of them.
-    T extends Array<infer U>
-    ? SerializableArray<U>
-    : T extends ReadonlyArray<infer U>
-    ? SerializableReadonlyArray<U>
-    : T extends Map<infer K, infer V>
-    ? SerializableMap<K, V>
-    : T extends ReadonlyMap<infer K, infer V>
-    ? SerializableReadonlyMap<K, V>
-    : T extends Set<infer V>
-    ? SerializableSet<V>
-    : T extends ReadonlySet<infer V>
-    ? SerializableReadonlySet<V>
-    : // Allow any other object, as long as the values are themselves serializable.
-      SerializableObject<T>;
+      T extends CopyableIsaacAPIClass
+      ? T
+      : // Disallow all other Isaac API classes.
+        T extends IsaacAPIClass
+        ? ErrorIsaacAPIClassIsNotSerializable
+        : // Allow some specific "container" objects.
+          // These container objects are explicitly handled by the save data manager, but there are
+          // restrictions on the things inside of them.
+          T extends Array<infer U>
+          ? SerializableArray<U>
+          : T extends ReadonlyArray<infer U>
+            ? SerializableReadonlyArray<U>
+            : T extends Map<infer K, infer V>
+              ? SerializableMap<K, V>
+              : T extends ReadonlyMap<infer K, infer V>
+                ? SerializableReadonlyMap<K, V>
+                : T extends Set<infer V>
+                  ? SerializableSet<V>
+                  : T extends ReadonlySet<infer V>
+                    ? SerializableReadonlySet<V>
+                    : // Allow any other object, as long as the values are themselves serializable.
+                      SerializableObject<T>;
 
 /**
  * This is mostly copied from the `Serializable` type. The difference is that we want to disallow
@@ -81,33 +81,33 @@ type SerializableInsideArrayOrMap<T> =
   T extends SerializablePrimitive
     ? T
     : // Allow a specific subset of Isaac API classes that are copyable / serializable.
-    T extends CopyableIsaacAPIClass
-    ? T
-    : // Disallow all other Isaac API classes.
-    T extends IsaacAPIClass
-    ? ErrorIsaacAPIClassIsNotSerializable
-    : // Allow some specific "container" objects.
-    // These container objects are explicitly handled by the save data manager, but there are
-    // restrictions on the things inside of them.
-    T extends Array<infer U>
-    ? SerializableArray<U>
-    : T extends ReadonlyArray<infer U>
-    ? SerializableReadonlyArray<U>
-    : T extends Map<infer K, infer V>
-    ? SerializableMap<K, V>
-    : T extends ReadonlyMap<infer K, infer V>
-    ? SerializableReadonlyMap<K, V>
-    : T extends Set<infer V>
-    ? SerializableSet<V>
-    : T extends ReadonlySet<infer V>
-    ? SerializableReadonlySet<V>
-    : // Disallow functions.
-    // (We can only disallow functions when inside of containers, because we want to allow classes
-    // with methods attached to normal objects.)
-    T extends Function // eslint-disable-line @typescript-eslint/ban-types
-    ? FunctionIsNotSerializable
-    : // Allow any other object, as long as the values are themselves serializable.
-      SerializableObject<T>;
+      T extends CopyableIsaacAPIClass
+      ? T
+      : // Disallow all other Isaac API classes.
+        T extends IsaacAPIClass
+        ? ErrorIsaacAPIClassIsNotSerializable
+        : // Allow some specific "container" objects.
+          // These container objects are explicitly handled by the save data manager, but there are
+          // restrictions on the things inside of them.
+          T extends Array<infer U>
+          ? SerializableArray<U>
+          : T extends ReadonlyArray<infer U>
+            ? SerializableReadonlyArray<U>
+            : T extends Map<infer K, infer V>
+              ? SerializableMap<K, V>
+              : T extends ReadonlyMap<infer K, infer V>
+                ? SerializableReadonlyMap<K, V>
+                : T extends Set<infer V>
+                  ? SerializableSet<V>
+                  : T extends ReadonlySet<infer V>
+                    ? SerializableReadonlySet<V>
+                    : // Disallow functions.
+                      // (We can only disallow functions when inside of containers, because we want to allow classes
+                      // with methods attached to normal objects.)
+                      T extends Function // eslint-disable-line @typescript-eslint/ban-types
+                      ? FunctionIsNotSerializable
+                      : // Allow any other object, as long as the values are themselves serializable.
+                        SerializableObject<T>;
 
 type SerializablePrimitive = boolean | string | number | undefined | null;
 type SerializableArray<T> = Array<SerializableInsideArrayOrMap<T>>;

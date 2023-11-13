@@ -125,8 +125,8 @@ export function easeInElastic(time: number): number {
   return time === 0
     ? 0
     : time === 1
-    ? 1
-    : -(2 ** (10 * time - 10)) * Math.sin((time * 10 - 10.75) * c4);
+      ? 1
+      : -(2 ** (10 * time - 10)) * Math.sin((time * 10 - 10.75) * c4);
 }
 
 /**
@@ -140,8 +140,8 @@ export function easeOutElastic(time: number): number {
   return time === 0
     ? 0
     : time === 1
-    ? 1
-    : 2 ** (-10 * time) * Math.sin((time * 10 - 0.75) * c4) + 1;
+      ? 1
+      : 2 ** (-10 * time) * Math.sin((time * 10 - 0.75) * c4) + 1;
 }
 
 /**
@@ -155,10 +155,11 @@ export function easeInOutElastic(time: number): number {
   return time === 0
     ? 0
     : time === 1
-    ? 1
-    : time < 0.5
-    ? -(2 ** (20 * time - 10) * Math.sin((20 * time - 11.125) * c5)) / 2
-    : (2 ** (-20 * time + 10) * Math.sin((20 * time - 11.125) * c5)) / 2 + 1;
+      ? 1
+      : time < 0.5
+        ? -(2 ** (20 * time - 10) * Math.sin((20 * time - 11.125) * c5)) / 2
+        : (2 ** (-20 * time + 10) * Math.sin((20 * time - 11.125) * c5)) / 2 +
+          1;
 }
 
 /**
@@ -244,10 +245,10 @@ export function easeInOutExpo(time: number): number {
   return time === 0
     ? 0
     : time === 1
-    ? 1
-    : time < 0.5
-    ? 2 ** (20 * time - 10) / 2
-    : (2 - 2 ** (-20 * time + 10)) / 2;
+      ? 1
+      : time < 0.5
+        ? 2 ** (20 * time - 10) / 2
+        : (2 - 2 ** (-20 * time + 10)) / 2;
 }
 
 /**
