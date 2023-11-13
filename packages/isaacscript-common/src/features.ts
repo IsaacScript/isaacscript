@@ -44,6 +44,7 @@ import { PonyDetection } from "./classes/features/other/PonyDetection";
 import { PressInput } from "./classes/features/other/PressInput";
 import { PreventChildEntities } from "./classes/features/other/PreventChildEntities";
 import { PreventGridEntityRespawn } from "./classes/features/other/PreventGridEntityRespawn";
+import { RerunDetection } from "./classes/features/other/RerunDetection";
 import { RoomClearFrame } from "./classes/features/other/RoomClearFrame";
 import { RoomHistory } from "./classes/features/other/RoomHistory";
 import { RunInNFrames } from "./classes/features/other/RunInNFrames";
@@ -110,6 +111,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.PRESS_INPUT]: PressInput;
   [ISCFeature.PREVENT_CHILD_ENTITIES]: PreventChildEntities;
   [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: PreventGridEntityRespawn;
+  [ISCFeature.RERUN_DETECTION]: RerunDetection;
   [ISCFeature.ROOM_CLEAR_FRAME]: RoomClearFrame;
   [ISCFeature.ROOM_HISTORY]: RoomHistory;
   [ISCFeature.RUN_IN_N_FRAMES]: RunInNFrames;
@@ -284,6 +286,7 @@ export function getFeatures(
     [ISCFeature.PRESS_INPUT]: pressInput,
     [ISCFeature.PREVENT_CHILD_ENTITIES]: new PreventChildEntities(),
     [ISCFeature.PREVENT_GRID_ENTITY_RESPAWN]: preventGridEntityRespawn,
+    [ISCFeature.RERUN_DETECTION]: new RerunDetection(),
     [ISCFeature.ROOM_CLEAR_FRAME]: roomClearFrame,
     [ISCFeature.ROOM_HISTORY]: roomHistory,
     [ISCFeature.RUN_IN_N_FRAMES]: runInNFrames,
