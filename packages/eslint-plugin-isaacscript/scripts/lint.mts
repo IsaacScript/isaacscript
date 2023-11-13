@@ -19,13 +19,13 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
 await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
 
-  promises.push(
-    $`tsc`,
-    $`eslint --max-warnings 0 .`,
-    checkGenerateChangedFiles(),
-  );
+  promises.push($`tsc`, $`eslint --max-warnings 0 .`);
 
   await Promise.all(promises);
+
+  // We cannot do generation at the same time as the other linting because it changes the
+  // compilation output, creating a race condition.
+  await checkGenerateChangedFiles();
 });
 
 async function checkGenerateChangedFiles() {
