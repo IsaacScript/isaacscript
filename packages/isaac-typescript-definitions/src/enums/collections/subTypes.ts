@@ -680,7 +680,7 @@ export enum CollectibleType {
   MOMS_EYESHADOW = 200,
   IRON_BAR = 201,
   MIDAS_TOUCH = 202,
-  HUMBLING_BUNDLE = 203,
+  HUMBLEING_BUNDLE = 203, // Intentionally misspelled to match the in-game spelling.
   FANNY_PACK = 204,
   SHARP_PLUG = 205,
   GUILLOTINE = 206,
