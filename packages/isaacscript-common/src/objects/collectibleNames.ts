@@ -211,7 +211,7 @@ export const COLLECTIBLE_NAMES = {
   [CollectibleType.MOMS_EYESHADOW]: "Mom's Eyeshadow", // 200
   [CollectibleType.IRON_BAR]: "Iron Bar", // 201
   [CollectibleType.MIDAS_TOUCH]: "Midas' Touch", // 202
-  [CollectibleType.HUMBLING_BUNDLE]: "Humbleing Bundle", // 203
+  [CollectibleType.HUMBLEING_BUNDLE]: "Humbleing Bundle", // 203
   [CollectibleType.FANNY_PACK]: "Fanny Pack", // 204
   [CollectibleType.SHARP_PLUG]: "Sharp Plug", // 205
   [CollectibleType.GUILLOTINE]: "Guillotine", // 206

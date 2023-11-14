@@ -209,7 +209,7 @@ export const COLLECTIBLE_DESCRIPTIONS = {
   [CollectibleType.MOMS_EYESHADOW]: "Charm tears", // 200
   [CollectibleType.IRON_BAR]: "DMG up + concussive tears", // 201
   [CollectibleType.MIDAS_TOUCH]: "Golden touch", // 202
-  [CollectibleType.HUMBLING_BUNDLE]: "1+1 free 4Evar", // 203
+  [CollectibleType.HUMBLEING_BUNDLE]: "1+1 free 4Evar", // 203
   [CollectibleType.FANNY_PACK]: "Filled with goodies", // 204
   [CollectibleType.SHARP_PLUG]: "Infinite charge... at a cost", // 205
   [CollectibleType.GUILLOTINE]: "DMG + tears up. An out-of-body experience!", // 206
