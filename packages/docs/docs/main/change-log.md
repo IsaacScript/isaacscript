@@ -22,7 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `MotherBallSubType`
   - `MorningStarSubType`
   - `QuakeGrimaceSubType`
-  - `RottenGaperSubType`
+  - `RottenGaperSubType` (Thanks popjam)
 - Added the following types:
   - `StoryBossID`
 
@@ -55,7 +55,7 @@ This page lists the changes to the IsaacScript framework.
 - Removed the following helper functions:
   - `spawnCollectibleUnsafe` (use the `spawnCollectible` function instead)
 - Added the following enums:
-  - `NPCID` (thanks @popjam)
+  - `NPCID` (Thanks popjam)
 
 ## November 2nd, 2023
 
@@ -938,7 +938,7 @@ pnpm add isaacscript-tsconfig
 ## September 13th, 2022
 
 - Added the following helper functions:
-  - `getWeightedRandom` (thanks popjam)
+  - `getWeightedRandom` (Thanks popjam)
   - `hasUnusedDoorSlot`
 
 ## September 4th, 2022
@@ -958,7 +958,7 @@ pnpm add isaacscript-tsconfig
 - Added the following constants:
   - `K_COLORS` (a collection of pre-defined `KColor` objects)
 - Added the following custom callbacks:
-  - `PRE_PICKUP_COLLISION` (Thanks @popjam)
+  - `PRE_PICKUP_COLLISION` (Thanks popjam)
 - Added the following custom commands:
   - `hush` (to warp to the Blue Womb Boss Room)
   - `spawnCollectible` (to spawn a collectible by name)
@@ -1985,7 +1985,7 @@ function postPlayerChangeType(
 - `isaacscript` now requires a Git version of at least 2.30.
 - `isaacscript` now supports a `--verbose` flag for additional output.
 - Added the following helper functions:
-  - `setCollectiblesRerolledForItemTracker` (thanks Gamonymous)
+  - `setCollectiblesRerolledForItemTracker` (Thanks Gamonymous)
   - `getRandomArrayElementAndRemove`
   - `range`
   - `saveDataManagerLoad`
@@ -2100,9 +2100,9 @@ function postPlayerChangeType(
 - Added the following helper functions:
   - `logAllSeedEffects`
   - `logTemporaryEffects`
-  - `getFilteredEntities` (thanks KatTheFox)
-  - `fireProjectiles` (thanks KatTheFox)
-  - `rerollEnemy` (thanks KatTheFox)
+  - `getFilteredEntities` (Thanks KatTheFox)
+  - `fireProjectiles` (Thanks KatTheFox)
+  - `rerollEnemy` (Thanks KatTheFox)
   - `characterGetsBlackHeartFromEternalHeart`
 - Added the following constants:
   - `CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART`
@@ -2399,8 +2399,8 @@ npx prettier --log-level=warn --check .
 - Added the following helper functions:
   - `getPlayerHealth`
   - `setPlayerHealth`
-  - `setFamiliarNoSirenSteal` (thanks KatTheFox)
-  - `hasSirenStolenFamiliar` (thanks KatTheFox)
+  - `setFamiliarNoSirenSteal` (Thanks KatTheFox)
+  - `hasSirenStolenFamiliar` (Thanks KatTheFox)
   - `getFinalPlayer`
   - `getClosestEntityTo`
   - `getCardName`
@@ -2465,7 +2465,7 @@ see the official website: https://isaacscript.github.io/
   - `spawnGridEntity`
   - `spawnGridEntityWithVariant`
   - `getAliveNPCs`
-  - `directionToVector` (thanks KatTheFox)
+  - `directionToVector` (Thanks KatTheFox)
   - `removeCostumeCollectible`
   - `removeCostumeTrinket`
   - `arrayShuffle`
@@ -2614,10 +2614,10 @@ see the official website: https://isaacscript.github.io/
 - `isaacscript.json` now has two new optional options:
   - `customTargetModDirectoryName` - By default, the target mod directory name will be the same as the project directory name. This setting allows you to customize it.
   - `enableIsaacScriptWatcherAutoRestart` - When your code is recompiled, IsaacScript watcher can restart the game to ensure that any run-related variables are properly reset. This is set to true by default.
-- The StageAPI definitions and the MinimapAPI definitions are now more complete. (Thanks KatTheFox#3098)
+- The StageAPI definitions and the MinimapAPI definitions are now more complete. (Thanks KatTheFox)
 - `CardConfigList.Get` will now cause a compiler error, since it returns useless userdata.
 - Added the following helper functions:
-  - `getLastHeart` (thanks KatTheFox)
+  - `getLastHeart` (Thanks KatTheFox)
   - `getCircleDiscretizedPoints`
 
 ## October 10th, 2021
@@ -2788,7 +2788,7 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `getCollectibleList`
   - `temporarilyRemoveTrinkets`
   - `giveTrinketsBack`
-  - `vectorToDirection` (thanks KatTheFox)
+  - `vectorToDirection` (Thanks KatTheFox)
   - `teleport` (use this instead of `Game.StartRoomTransition` so that you don't forget to set `Level.LeaveDoor`)
   - `forgottenSwitch` (requires an upgraded mod)
   - `getClosestPlayer`
@@ -2823,10 +2823,10 @@ You can still use `null` in your own variables, but make sure that it is for var
   - `TRANSFORMATION_TO_ITEMS_MAP`
   - `ITEM_TO_TRANSFORMATION_MAP`
 - Added the following enums:
-  - `PurgatorySubType` (thanks KatTheFox)
+  - `PurgatorySubType` (Thanks KatTheFox)
   - `DisplayFlag`
   - `HeavenLightDoorSubType`
-  - `IsaacVariant` (thanks KatTheFox)
+  - `IsaacVariant` (Thanks KatTheFox)
 - Added the following custom callbacks:
   - `PRE_CUSTOM_REVIVE`
   - `POST_CUSTOM_REVIVE`
