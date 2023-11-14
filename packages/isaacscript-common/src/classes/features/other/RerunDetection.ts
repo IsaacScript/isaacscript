@@ -5,7 +5,8 @@ import { onFirstFloor } from "../../../functions/stage";
 import { Feature } from "../../private/Feature";
 
 const v = {
-  run: {
+  // We cannot use a "run" object since the variables would be reset when a rerun starts.
+  persistent: {
     pastFirstFloor: false,
     onRerun: false,
   },
@@ -30,21 +31,24 @@ export class RerunDetection extends Feature {
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
   private readonly postGameStartedReordered = (isContinued: boolean) => {
-    if (
-      isContinued &&
-      onFirstFloor() &&
-      inStartingRoom() &&
-      v.run.pastFirstFloor
-    ) {
-      v.run.onRerun = true;
+    Isaac.DebugString(`GETTING HERE 1 - ${isContinued}`);
+    Isaac.DebugString(`GETTING HERE 2 - ${onFirstFloor()}`);
+    Isaac.DebugString(`GETTING HERE 3 - ${inStartingRoom()}`);
+    Isaac.DebugString(`GETTING HERE 4 - ${v.persistent.pastFirstFloor}`);
+    Isaac.DebugString(`GETTING HERE 5 - ${v.persistent.onRerun}`);
+
+    if (isContinued) {
+      if (onFirstFloor() && inStartingRoom() && v.persistent.pastFirstFloor) {
+        v.persistent.onRerun = true;
+      }
+    } else {
+      v.persistent.onRerun = false;
     }
   };
 
   // ModCallbackCustom.POST_NEW_LEVEL_REORDERED
   private readonly postNewLevelReordered = () => {
-    if (!onFirstFloor()) {
-      v.run.pastFirstFloor = true;
-    }
+    v.persistent.pastFirstFloor = !onFirstFloor();
   };
 
   /**
@@ -60,6 +64,6 @@ export class RerunDetection extends Feature {
    */
   @Exported
   public onRerun(): boolean {
-    return v.run.onRerun;
+    return v.persistent.onRerun;
   }
 }

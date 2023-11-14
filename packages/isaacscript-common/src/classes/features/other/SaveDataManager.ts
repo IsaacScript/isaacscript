@@ -288,7 +288,7 @@ export class SaveDataManager extends Feature {
    *
    * Some features may have variables that need to be automatically reset per run/level, but not
    * saved to disk on game exit. (For example, if they contain functions or other non-serializable
-   * data.) For these cases, set the second argument to `false`.
+   * data.) For these cases, set the second argument of this function to `false`.
    *
    * Note that when the player uses Glowing Hourglass, the save data manager will automatically
    * restore any variables on a "run" or "level" object with a backup that was created when the room
@@ -296,8 +296,8 @@ export class SaveDataManager extends Feature {
    * your mod features that use the save data manager. If this is undesired for your specific
    * use-case, then add a key of `__ignoreGlowingHourGlass: true` to your "run" or "level" object.
    *
-   * If you want the automatic variable restoring with Glowing Hour Glass functionality to apply to
-   * a "persistent" object, you can add a key of `__rewindWithGlowingHourGlass: true` to the object.
+   * By default, the Glowing Hour Glass functionality will not apply to "persistent" objects. If
+   * this is undesired, you can add a key of `__rewindWithGlowingHourGlass: true` to the object.
    *
    * @param key The name of the file or feature that is submitting data to be managed by the save
    *            data manager. The save data manager will throw an error if the key is already

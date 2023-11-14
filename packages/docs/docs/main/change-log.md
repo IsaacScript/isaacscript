@@ -11,6 +11,10 @@ This page lists the changes to the IsaacScript framework.
 
 ## November 17th, 2023 (Unreleased)
 
+- Renamed the following helper functions:
+  - `stageTypeToLetter` --> `getStageTypeSuffix`
+- Removed the following helper functions:
+  - `goToStage` (use `setStage` instead)
 - Added the following enums:
   - `AngelicBabySubType` (Thanks popjam)
   - `DarkEsauSubType` (Thanks popjam)

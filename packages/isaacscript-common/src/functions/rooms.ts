@@ -153,6 +153,8 @@ export function getRoomDataForTypeVariant(
     roomVariant,
     useSpecialRoomsForRoomTypeDefault,
   );
+  // We do not want to log the command execution, because this function will potentially be called
+  // many times.
   Isaac.ExecuteCommand(command);
   const newRoomData = getRoomData(GridRoom.DEBUG);
 

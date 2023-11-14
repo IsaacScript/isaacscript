@@ -10,7 +10,7 @@ import { LEVEL_NAMES } from "../objects/levelNames";
 import { ROOM_TYPE_SPECIAL_GOTO_PREFIXES } from "../objects/roomTypeSpecialGotoPrefixes";
 import { STAGE_TO_STAGE_ID } from "../objects/stageToStageID";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
-import { STAGE_TYPE_TO_LETTER } from "../objects/stageTypeToLetter";
+import { log } from "./log";
 import { asLevelStage, asNumber } from "./types";
 import { inRange } from "./utils";
 
@@ -182,17 +182,13 @@ export function getStageType(): StageType {
 }
 
 /**
- * Helper function to directly warp to a specific stage using the "stage" console command.
- *
- * Note that if you use this function on game frame 0, it will confuse the
- * `POST_GAME_STARTED_REORDERED`, `POST_NEW_LEVEL_REORDERED`, and `POST_NEW_ROOM_REORDERED` custom
- * callbacks. If you are using the function in this situation, remember to call the
- * `reorderedCallbacksSetStage` function.
+ * Helper function to convert a numerical `StageType` into the letter suffix supplied to the "stage"
+ * console command. For example, `StageType.REPENTANCE` is the stage type for Downpour, and the
+ * console command to go to Downpour is "stage 1c", so this function converts `StageType.REPENTANCE`
+ * to "c".
  */
-export function goToStage(stage: LevelStage, stageType: StageType): void {
-  const stageTypeLetterSuffix = stageTypeToLetter(stageType);
-  const command = `stage ${stage}${stageTypeLetterSuffix}`;
-  Isaac.ExecuteCommand(command);
+export function getStageTypeSuffix(stageType: StageType): string {
+  return STAGE_TYPE_SUFFIXES[stageType];
 }
 
 /**
@@ -545,10 +541,15 @@ export function onStageWithStoryBoss(): boolean {
 }
 
 /**
- * Helper function to warp to a new stage/level.
+ * Helper function to directly warp to a specific stage using the "stage" console command.
  *
- * Note that this is different from the `Level.SetStage` method, which will change the stage and/or
+ * This is different from the vanilla `Level.SetStage` method, which will change the stage and/or
  * stage type of the current floor without moving the player to a new floor.
+ *
+ * Note that if you use this function on game frame 0, it will confuse the
+ * `POST_GAME_STARTED_REORDERED`, `POST_NEW_LEVEL_REORDERED`, and `POST_NEW_ROOM_REORDERED` custom
+ * callbacks. If you are using the function in this situation, remember to call the
+ * `reorderedCallbacksSetStage` function.
  *
  * @param stage The stage number to warp to.
  * @param stageType The stage type to warp to.
@@ -562,22 +563,14 @@ export function setStage(
   reseed = false,
 ): void {
   // Build the command that will take us to the next floor.
-  const stageTypeSuffix = STAGE_TYPE_SUFFIXES[stageType];
+  const stageTypeSuffix = getStageTypeSuffix(stageType);
   const command = `stage ${stage}${stageTypeSuffix}`;
+  log(`Warping to a stage with a console command of: ${command}`);
   Isaac.ExecuteCommand(command);
 
   if (reseed) {
     // Doing a "reseed" immediately after a "stage" command won't mess anything up.
+    log("Reseeding the floor with a console command of: reseed");
     Isaac.ExecuteCommand("reseed");
   }
-}
-
-/**
- * Helper function to convert a numerical `StageType` into the letter suffix supplied to the "stage"
- * console command. For example, `StageType.REPENTANCE` is the stage type for Downpour, and the
- * console command to go to Downpour is "stage 1c", so this function converts `StageType.REPENTANCE`
- * to "c".
- */
-export function stageTypeToLetter(stageType: StageType): string {
-  return STAGE_TYPE_TO_LETTER[stageType];
 }
