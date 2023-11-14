@@ -13,6 +13,25 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following enums:
   - `MomsHeartSubType`
+  - `RottenGaperSubType`
+  - `DragonFlySubType`
+  - `AngelicBabySubType`
+  - `LeperSubType`
+  - `QuakeGrimaceSubType`
+  - `DeepGaperSubType`
+  - `MorningStarSubType`
+  - `DarkEsauSubType`
+  - `MazeRoamerSubType`
+  - `MotherBallSubType`
+- Updated the following enums:
+  - `MotherSubType`
+  - `MotherVariant`
+- Renamed the following NPCID enum keys:
+  - `BLUE_BABY_ALT` -> `BLUE_BABY_HUSH`
+  - `BLOOD_PUPPY` -> `BLOOD_PUPPY_SMALL`
+  - `BLOOD_PUPPY_2` -> `BLOOD_PUPPY_LARGE`
+  - `MOTHER` -> `MOTHER_PHASE_1`
+  - `MOTHER_BACKDROP` -> `MOTHER_PHASE_2`
 - Added the following types:
   - `StoryBossID`
 
