@@ -12,16 +12,16 @@ This page lists the changes to the IsaacScript framework.
 ## November 17th, 2023 (Unreleased)
 
 - Added the following enums:
-  - `AngelicBabySubType`
-  - `DarkEsauSubType`
-  - `DeepGaperSubType`
-  - `DragonFlySubType`
-  - `LeperSubType`
-  - `MazeRoamerSubType`
-  - `MomsHeartSubType`
-  - `MotherBallSubType`
-  - `MorningStarSubType`
-  - `QuakeGrimaceSubType`
+  - `AngelicBabySubType` (Thanks popjam)
+  - `DarkEsauSubType` (Thanks popjam)
+  - `DeepGaperSubType` (Thanks popjam)
+  - `DragonFlySubType` (Thanks popjam)
+  - `LeperSubType` (Thanks popjam)
+  - `MazeRoamerSubType` (Thanks popjam)
+  - `MomsHeartSubType` (Thanks popjam)
+  - `MotherBallSubType` (Thanks popjam)
+  - `MorningStarSubType` (Thanks popjam)
+  - `QuakeGrimaceSubType` (Thanks popjam)
   - `RottenGaperSubType` (Thanks popjam)
 - Added the following types:
   - `StoryBossID`
