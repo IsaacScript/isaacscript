@@ -31,12 +31,6 @@ export class RerunDetection extends Feature {
 
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
   private readonly postGameStartedReordered = (isContinued: boolean) => {
-    Isaac.DebugString(`GETTING HERE 1 - ${isContinued}`);
-    Isaac.DebugString(`GETTING HERE 2 - ${onFirstFloor()}`);
-    Isaac.DebugString(`GETTING HERE 3 - ${inStartingRoom()}`);
-    Isaac.DebugString(`GETTING HERE 4 - ${v.persistent.pastFirstFloor}`);
-    Isaac.DebugString(`GETTING HERE 5 - ${v.persistent.onRerun}`);
-
     if (isContinued) {
       if (onFirstFloor() && inStartingRoom() && v.persistent.pastFirstFloor) {
         v.persistent.onRerun = true;
