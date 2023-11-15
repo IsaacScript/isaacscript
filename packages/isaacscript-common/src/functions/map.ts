@@ -89,6 +89,29 @@ export function mapSetHash<V>(
   map.set(hash, value);
 }
 
+/**
+ * Helper function to convert an object to a map.
+ *
+ * This is useful when you need to construct a type safe object with the `satisfies` operator, but
+ * then later on you need to query it in a way where you expect the return value to be T or
+ * undefined. In this situation, by converting the object to a map, you can avoid unsafe type
+ * assertions.
+ *
+ * Note that the map values will be inserted in a random order, due to how `pairs` works under the
+ * hood.
+ */
+export function objectToMap<K extends string | number | symbol, V>(
+  object: Record<K, V>,
+): Map<K, V> {
+  const map = new Map<K, V>();
+
+  for (const [key, value] of Object.entries(object)) {
+    map.set(key as K, value as V);
+  }
+
+  return map;
+}
+
 /** Helper function to sum every value in a map together. */
 export function sumMap(
   map: Map<unknown, number> | ReadonlyMap<unknown, number>,

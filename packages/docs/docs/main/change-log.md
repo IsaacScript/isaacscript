@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following helper functions:
   - `is2x1RoomShape`
+  - `objectToMap`
 - Renamed the following helper functions:
   - `stageTypeToLetter` --> `getStageTypeSuffix`
 - Removed the following helper functions:
