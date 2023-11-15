@@ -1,6 +1,7 @@
 import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
+import { traceback } from "./debugFunctions";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { logError } from "./log";
 import { getNumbersFromTable, tableHasKeys } from "./table";
@@ -160,6 +161,7 @@ export function setSeed(rng: RNG, seed: Seed): void {
     logError(
       "Failed to set a RNG object to a seed of 0. Using a random value instead.",
     );
+    traceback();
   }
 
   // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1).
