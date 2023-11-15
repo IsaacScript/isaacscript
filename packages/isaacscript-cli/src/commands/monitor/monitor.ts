@@ -196,7 +196,9 @@ function warnIfIsaacScriptCommonLinkExists(
     packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     fatalError(
-      `Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link via: ${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} unlink isaacscript-common`,
+      `Your "node_modules/isaacscript-common" directory is linked, but you do not have "isaacScriptCommonDev" set to true in your "isaacscript.json" file. You must either set it to true or remove the link via the following command: ${chalk.green(
+        `${PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT} unlink isaacscript-common`,
+      )}`,
     );
   }
 }
