@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `objectToMap`
   - `objectToReadonlyMap`
   - `removeAllChests`
+  - `uncapitalizeFirstLetter`
 - Renamed the following helper functions:
   - `stageTypeToLetter` --> `getStageTypeSuffix`
 - Removed the following helper functions:

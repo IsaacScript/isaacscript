@@ -230,3 +230,15 @@ export function trimSuffix(string: string, prefix: string): string {
   const endCharacter = string.length - prefix.length;
   return string.slice(0, endCharacter);
 }
+
+export function uncapitalizeFirstLetter(string: string): string {
+  if (string === "") {
+    return string;
+  }
+
+  const firstCharacter = string.charAt(0);
+  const uncapitalizedFirstLetter = firstCharacter.toLowerCase();
+  const restOfString = string.slice(1);
+
+  return `${uncapitalizedFirstLetter}${restOfString}`;
+}
