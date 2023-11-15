@@ -11,6 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## November 17th, 2023 (Unreleased)
 
+- Added the following helper functions:
+  - `is2x1RoomShape`
 - Renamed the following helper functions:
   - `stageTypeToLetter` --> `getStageTypeSuffix`
 - Removed the following helper functions:

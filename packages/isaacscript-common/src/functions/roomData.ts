@@ -86,9 +86,10 @@ export function getRoomDescriptorReadOnly(): Readonly<RoomDescriptor> {
  *   the room descriptor. (The safe grid index is defined as the top-left 1x1 section that the room
  *   overlaps with, or the top-right 1x1 section of a `RoomType.SHAPE_LTL` room.)
  * - If the current room is outside of the grid, it will return the index from the
- *   `Level.GetCurrentRoomIndex` method (since `SafeGridIndex` is bugged for these cases, as
+ *   `Level.GetCurrentRoomIndex` method, since `SafeGridIndex` is bugged for these cases, as
  *   demonstrated by entering a Genesis room and entering `l
- *   print(Game():GetLevel():GetCurrentRoomDesc().SafeGridIndex)` into the console).
+ *   print(Game():GetLevel():GetCurrentRoomDesc().SafeGridIndex)` into the console. (It prints -1
+ *   instead of -12.)
  *
  * Use this function instead of the `Level.GetCurrentRoomIndex` method directly because the latter
  * will return the specific 1x1 quadrant that the player entered the room at. For most situations,

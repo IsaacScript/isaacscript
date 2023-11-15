@@ -115,7 +115,12 @@ export function getAdjacentRoomGridIndexes(
   );
 }
 
-/** Helper function to get the room safe grid index for every room on the entire floor. */
+/**
+ * Helper function to get the room safe grid index for every room on the entire floor. This includes
+ * off-grid rooms, such as the Devil Room.
+ *
+ * Rooms without any data are assumed to be non-existent and are not included.
+ */
 export function getAllRoomGridIndexes(): readonly int[] {
   const rooms = getRooms();
   return rooms.map((roomDescriptor) => roomDescriptor.SafeGridIndex);

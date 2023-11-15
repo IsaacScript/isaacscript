@@ -22,12 +22,14 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
     // trinkets, pocket items, and stats, so they will need to be re-initialized like they would be
     // at the beginning of a run. However, in this case, the `POST_PLAYER_INIT_FIRST` callback will
     // not fire, because that only fires once per run. Thus, we explicitly handle this special case.
-    if (!inGenesisRoom()) {
-      return;
-    }
-
-    for (const player of getPlayers()) {
-      this.fire(player);
+    // Note that whichever player uses Genesis, items will be removed from all players (at least in
+    // the case of Jacob & Esau).
+    Isaac.DebugString("GETTING HERE 1");
+    if (inGenesisRoom()) {
+      Isaac.DebugString("GETTING HERE 2");
+      for (const player of getPlayers()) {
+        this.fire(player);
+      }
     }
   };
 

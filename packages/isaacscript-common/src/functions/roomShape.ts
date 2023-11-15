@@ -111,6 +111,14 @@ export function getRoomShapeWidth(roomShape: RoomShape): int {
 }
 
 /**
+ * Helper function to determine if the provided room is equal to `RoomShape.1x2` (4) or
+ * `RoomShape.2x1` (6).
+ */
+export function is2x1RoomShape(roomShape: RoomShape): boolean {
+  return roomShape === RoomShape.SHAPE_1x2 || roomShape === RoomShape.SHAPE_2x1;
+}
+
+/**
  * Helper function to detect if the provided room shape is big. Specifically, this is all 1x2 rooms,
  * 2x2 rooms, and L rooms.
  */
@@ -118,10 +126,18 @@ export function isBigRoomShape(roomShape: RoomShape): boolean {
   return BIG_ROOM_SHAPES_SET.has(roomShape);
 }
 
+/**
+ * Helper function to determine if the provided room is equal to `RoomShape.LTL` (9),
+ * `RoomShape.LTR` (10), `RoomShape.LBL` (11), or `RoomShape.LBR` (12).
+ */
 export function isLRoomShape(roomShape: RoomShape): boolean {
   return L_ROOM_SHAPES_SET.has(roomShape);
 }
 
+/**
+ * Helper function to determine if the provided room is equal to `RoomShape.IH` (2), `RoomShape.IV`
+ * (3), `RoomShape.IIV` (5), or `RoomShape.IIH` (7).
+ */
 export function isNarrowRoom(roomShape: RoomShape): boolean {
   return NARROW_ROOM_SHAPES_SET.has(roomShape);
 }

@@ -34,6 +34,9 @@ declare global {
      *   entered in.)
      * - Data structures that store data per room should use `ListIndex` as a key instead of
      *   `GridIndex`, since the former is unique across different dimensions.
+     * - `GridIndex` is bugged for rooms outside of the grid, as demonstrated by pasting the
+     *   following into `l print(Game():GetLevel():GetCurrentRoomDesc().GridIndex)` into the
+     *   console. (It prints -1 instead of -12.)
      */
     GridIndex: int;
 
@@ -67,8 +70,9 @@ declare global {
      *   entered in.)
      * - Data structures that store data per room should use `ListIndex` as a key instead of
      *   `SafeGridIndex`, since the former is unique across different dimensions.
-     * - Historically, `SafeGridIndex` was bugged for rooms outside of the grid, but it now works
-     *   properly for these cases.
+     * - `SafeGridIndex` is bugged for rooms outside of the grid, as demonstrated by pasting the
+     *   following into `l print(Game():GetLevel():GetCurrentRoomDesc().SafeGridIndex)` into the
+     *   console. (It prints -1 instead of -12.)
      */
     SafeGridIndex: int;
 

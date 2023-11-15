@@ -3,6 +3,7 @@ import type {
   BossID,
   ItemPoolType,
   MinibossID,
+  RoomShape,
 } from "isaac-typescript-definitions";
 import {
   AngelRoomSubType,
@@ -15,7 +16,6 @@ import {
   HomeRoomSubType,
   ProjectileFlag,
   RoomDescriptorFlag,
-  RoomShape,
   RoomType,
   SoundEffect,
   StageID,
@@ -46,7 +46,7 @@ import {
   getRoomDescriptorReadOnly,
   getRoomGridIndex,
 } from "./roomData";
-import { isBigRoomShape, isLRoomShape } from "./roomShape";
+import { is2x1RoomShape, isBigRoomShape, isLRoomShape } from "./roomShape";
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
 import { asNumber } from "./types";
@@ -191,7 +191,7 @@ export function getRoomTypeName(roomType: RoomType): string {
  * Helper function to get the room descriptor for every room on the level. This includes off-grid
  * rooms, such as the Devil Room.
  *
- * Room descriptors without any data are assumed to be non-existent and are not included.
+ * Room without any data are assumed to be non-existent and are not included.
  *
  * - If you want just the rooms inside of the grid, use the `getRoomsInsideGrid` helper function.
  * - If you want just the rooms outside of the grid, use the `getRoomsOutsideGrid` helper function.
@@ -413,8 +413,8 @@ export function inDoubleTrouble(): boolean {
 
 /** Helper function to determine if the current room index is equal to `GridRoom.GENESIS`. */
 export function inGenesisRoom(): boolean {
-  const roomDescriptor = getRoomDescriptorReadOnly();
-  return isGenesisRoom(roomDescriptor);
+  const roomGridIndex = getRoomGridIndex();
+  return isGenesisRoom(roomGridIndex);
 }
 
 /**
@@ -436,8 +436,8 @@ export function inLRoom(): boolean {
 
 /** Helper function to determine if the current room index is equal to `GridRoom.MEGA_SATAN`. */
 export function inMegaSatanRoom(): boolean {
-  const roomDescriptor = getRoomDescriptorReadOnly();
-  return isMegaSatanRoom(roomDescriptor);
+  const roomGridIndex = getRoomGridIndex();
+  return isMegaSatanRoom(roomGridIndex);
 }
 
 /**
@@ -492,8 +492,8 @@ export function inRoomType(...roomTypes: RoomType[]): boolean {
  * floor.
  */
 export function inSecretExit(): boolean {
-  const roomDescriptor = getRoomDescriptorReadOnly();
-  return isSecretExit(roomDescriptor);
+  const roomGridIndex = getRoomGridIndex();
+  return isSecretExit(roomGridIndex);
 }
 
 /**
@@ -505,8 +505,8 @@ export function inSecretExit(): boolean {
  * the only way to detect them is by using the grid index.
  */
 export function inSecretShop(): boolean {
-  const roomDescriptor = getRoomDescriptorReadOnly();
-  return isSecretShop(roomDescriptor);
+  const roomGridIndex = getRoomGridIndex();
+  return isSecretShop(roomGridIndex);
 }
 
 /**
@@ -526,10 +526,7 @@ export function inStartingRoom(): boolean {
  * Helper function to determine if the provided room is equal to `RoomShape.1x2` or `RoomShape.2x1`.
  */
 export function is2x1Room(roomData: RoomConfig): boolean {
-  return (
-    roomData.Shape === RoomShape.SHAPE_1x2 ||
-    roomData.Shape === RoomShape.SHAPE_2x1
-  );
+  return is2x1RoomShape(roomData.Shape);
 }
 
 /**
@@ -732,8 +729,8 @@ export function isDoubleTrouble(roomData: RoomConfig): boolean {
 /**
  * Helper function to determine if the index of the provided room is equal to `GridRoom.GENESIS`.
  */
-export function isGenesisRoom(roomDescriptor: RoomDescriptor): boolean {
-  return roomDescriptor.GridIndex === asNumber(GridRoom.GENESIS);
+export function isGenesisRoom(roomGridIndex: int): boolean {
+  return roomGridIndex === asNumber(GridRoom.GENESIS);
 }
 
 /**
@@ -758,8 +755,8 @@ export function isLRoom(roomData: RoomConfig): boolean {
 /**
  * Helper function to determine if the index of the provided room is equal to `GridRoom.MEGA_SATAN`.
  */
-export function isMegaSatanRoom(roomDescriptor: RoomDescriptor): boolean {
-  return roomDescriptor.GridIndex === asNumber(GridRoom.MEGA_SATAN);
+export function isMegaSatanRoom(roomGridIndex: int): boolean {
+  return roomGridIndex === asNumber(GridRoom.MEGA_SATAN);
 }
 
 /**
@@ -868,8 +865,8 @@ export function isRoomType(
  * Helper function for checking if the provided room is a secret exit that leads to a Repentance
  * floor.
  */
-export function isSecretExit(roomDescriptor: RoomDescriptor): boolean {
-  return roomDescriptor.GridIndex === asNumber(GridRoom.SECRET_EXIT);
+export function isSecretExit(roomGridIndex: int): boolean {
+  return roomGridIndex === asNumber(GridRoom.SECRET_EXIT);
 }
 
 /**
@@ -888,8 +885,8 @@ export function isSecretRoomType(roomType: RoomType): boolean {
  * words, they will have the same room type, room variant, and room sub-type of a normal shop. Thus,
  * the only way to detect them is by using the grid index.
  */
-export function isSecretShop(roomDescriptor: RoomDescriptor): boolean {
-  return roomDescriptor.GridIndex === asNumber(GridRoom.SECRET_SHOP);
+export function isSecretShop(roomGridIndex: int): boolean {
+  return roomGridIndex === asNumber(GridRoom.SECRET_SHOP);
 }
 
 /**
