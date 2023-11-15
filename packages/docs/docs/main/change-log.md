@@ -21,6 +21,7 @@ This page lists the changes to the IsaacScript framework.
   - `stageTypeToLetter` --> `getStageTypeSuffix`
 - Removed the following helper functions:
   - `goToStage` (use `setStage` instead)
+  - `isRoomDangerous` (use `Room.IsClear` instead, since it is more performant)
 - Added the following enums:
   - `AngelicBabySubType` (Thanks popjam)
   - `DarkEsauSubType` (Thanks popjam)

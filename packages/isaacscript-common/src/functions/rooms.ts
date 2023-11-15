@@ -14,7 +14,6 @@ import {
   DungeonSubType,
   GridRoom,
   HomeRoomSubType,
-  ProjectileFlag,
   RoomDescriptorFlag,
   RoomType,
   SoundEffect,
@@ -32,7 +31,7 @@ import {
   isHiddenSecretRoomDoor,
   openDoorFast,
 } from "./doors";
-import { getEntities, isActiveEnemy } from "./entities";
+import { getEntities } from "./entities";
 import { hasFlag } from "./flag";
 import {
   getEntityPositions,
@@ -798,43 +797,6 @@ export function isMirrorRoom(roomData: RoomConfig): boolean {
       roomData.StageID === StageID.DROSS) &&
     roomData.Subtype === asNumber(DownpourRoomSubType.MIRROR)
   );
-}
-
-/**
- * Helper function to check if the room contains one or more enemies/projectiles that could damage
- * the player.
- *
- * This is useful to check to see if it is safe to pause the game or display some informational
- * text.
- */
-export function isRoomDangerous(): boolean {
-  const room = game.GetRoom();
-
-  const isClear = room.IsClear();
-  if (!isClear) {
-    return true;
-  }
-
-  const entities = getEntities();
-
-  if (entities.some((entity) => isActiveEnemy(entity))) {
-    return true;
-  }
-
-  if (
-    entities.some((entity) => {
-      const projectile = entity.ToProjectile();
-      if (projectile === undefined) {
-        return false;
-      }
-
-      return !projectile.HasProjectileFlags(ProjectileFlag.CANT_HIT_PLAYER);
-    })
-  ) {
-    return true;
-  }
-
-  return false;
 }
 
 /**
