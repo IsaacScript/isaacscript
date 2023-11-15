@@ -24,9 +24,7 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
     // not fire, because that only fires once per run. Thus, we explicitly handle this special case.
     // Note that whichever player uses Genesis, items will be removed from all players (at least in
     // the case of Jacob & Esau).
-    Isaac.DebugString("GETTING HERE 1");
     if (inGenesisRoom()) {
-      Isaac.DebugString("GETTING HERE 2");
       for (const player of getPlayers()) {
         this.fire(player);
       }
