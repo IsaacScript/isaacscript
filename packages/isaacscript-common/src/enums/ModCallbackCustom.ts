@@ -1466,7 +1466,7 @@ export enum ModCallbackCustom {
    *   pickup: EntityPickup,
    *   variant: PickupVariant,
    *   subType: int,
-   * ): [PickupVariant, int] | undefined {}
+   * ): [pickupVariant: PickupVariant, subType: int] | undefined {}
    * ```
    */
   POST_PICKUP_SELECTION_FILTER,

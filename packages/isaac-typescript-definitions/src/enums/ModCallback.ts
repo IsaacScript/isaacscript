@@ -523,7 +523,7 @@ export enum ModCallback {
    *   pickup: EntityPickup,
    *   variant: PickupVariant,
    *   subType: int,
-   * ): [PickupVariant, int] | undefined {}
+   * ): [pickupVariant: PickupVariant, subType: int] | undefined {}
    * ```
    */
   POST_PICKUP_SELECTION = 37,

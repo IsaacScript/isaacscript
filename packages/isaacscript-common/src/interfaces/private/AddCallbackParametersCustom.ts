@@ -603,7 +603,7 @@ export interface AddCallbackParametersCustom {
       pickup: EntityPickup,
       variant: PickupVariant,
       subType: int,
-    ) => [PickupVariant, int] | undefined,
+    ) => [pickupVariant: PickupVariant, subType: int] | undefined,
     pickupVariant?: PickupVariant,
     subType?: int,
   ];
