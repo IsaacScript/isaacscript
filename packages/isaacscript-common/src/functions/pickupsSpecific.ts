@@ -11,7 +11,8 @@ import type {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { PickupVariant } from "isaac-typescript-definitions";
-import { VectorZero } from "../core/constants";
+import { CHEST_PICKUP_VARIANTS, VectorZero } from "../core/constants";
+import { removeEntities } from "./entities";
 import { getPickups, removeAllPickups, spawnPickup } from "./entitiesSpecific";
 
 /**
@@ -50,6 +51,24 @@ export function getBombPickups(
  */
 export function getCards(cardType: CardType | -1 = -1): EntityPickupCard[] {
   return getPickups(PickupVariant.CARD, cardType) as EntityPickupCard[];
+}
+
+/**
+ * Helper function to get all of the chest entities in the room. Specifically, this is all of the
+ * pickups with a variant in the `CHEST_PICKUP_VARIANTS` constant.
+ *
+ * @param subType Optional. If specified, will only get the chests that match the sub-type. Default
+ *                is -1, which matches every sub-type.
+ */
+export function getChests(subType = -1): EntityPickup[] {
+  const chests: EntityPickup[] = [];
+
+  for (const pickupVariant of CHEST_PICKUP_VARIANTS) {
+    const pickups = getPickups(pickupVariant, subType);
+    chests.push(...pickups);
+  }
+
+  return chests;
 }
 
 /**
@@ -194,6 +213,20 @@ export function removeAllCards(
     cardType,
     cap,
   ) as EntityPickupCard[];
+}
+
+/**
+ * Helper function to remove all of the chests in the room. Specifically, this is all of the pickups
+ * with a variant in the `CHEST_PICKUP_VARIANTS` constant.
+ *
+ * @param subType Optional. If specified, will only remove chests that match this sub-type. Default
+ *                is -1, which matches every sub-type.
+ * @param cap Optional. If specified, will only remove the given amount of chests.
+ * @returns The chests that were removed.
+ */
+export function removeAllChests(subType = -1, cap?: int): EntityPickup[] {
+  const chests = getChests(subType);
+  return removeEntities(chests, cap);
 }
 
 /**
