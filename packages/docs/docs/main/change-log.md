@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `getChests`
   - `is2x1RoomShape`
   - `objectToMap`
+  - `objectToReadonlyMap`
   - `removeAllChests`
 - Renamed the following helper functions:
   - `stageTypeToLetter` --> `getStageTypeSuffix`
