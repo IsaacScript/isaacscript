@@ -13036,12 +13036,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^39.0.1":
-  version: 39.0.1
-  resolution: "isaac-typescript-definitions@npm:39.0.1"
+"isaac-typescript-definitions@npm:^39.0.2":
+  version: 39.0.2
+  resolution: "isaac-typescript-definitions@npm:39.0.2"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: e5ed62469b62c4f5287ba740b9c64b5c138c88ec5a1ebc7572bdb7f49559a406dc769837082147b9f6f52ab86b76b900608867f90cd09c9673731abb010b3515
+  checksum: b3db1fab85e452907f1b813bd1dc6e85315321ba4d7a9982c1b5d4738e1946dae09e5d2d6f9c3ea7fbdb1ddc2d68f783763c8d648bc03e0158b3d44779ddbb80
   languageName: node
   linkType: hard
 
@@ -13139,14 +13139,14 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^39.0.1"
+    isaac-typescript-definitions: "npm:^39.0.2"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
     knip: "npm:^2.41.2"
     lua-types: "npm:^2.13.1"
-    markdownlint: "npm:^0.32.0"
+    markdownlint: "npm:^0.32.1"
     markdownlint-cli: "npm:^0.37.0"
     moment: "npm:^2.29.4"
     npm-check-updates: "npm:^16.14.6"
@@ -14605,13 +14605,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:^0.32.0":
-  version: 0.32.0
-  resolution: "markdownlint@npm:0.32.0"
+"markdownlint@npm:^0.32.1":
+  version: 0.32.1
+  resolution: "markdownlint@npm:0.32.1"
   dependencies:
     markdown-it: "npm:13.0.2"
     markdownlint-micromark: "npm:0.1.7"
-  checksum: 0561cf53669c937c3b0eb13f3edf69b1b25f8f8d11292b1f35420c6e56045040484cb8dcfc7a06dbdb637dbc296b7ebd37219cb05dfc27380049e141422baa73
+  checksum: be2fbb409daaab8916deefafcc4d4d1a3e7dad6d602c03f4bd14cfb762b41de335da181bae11340a1db57b74844cfbb3bcafe05d92a69c5f809b689d8c1bd4b2
   languageName: node
   linkType: hard
 
