@@ -124,11 +124,7 @@ import { spawnCollectible as spawnCollectibleFunc } from "../../../../functions/
 import { onStage, setStage } from "../../../../functions/stage";
 import { getMapPartialMatch } from "../../../../functions/string";
 import { getGoldenTrinketType } from "../../../../functions/trinkets";
-import {
-  asCardType,
-  asCollectibleType,
-  asTrinketType,
-} from "../../../../functions/types";
+import { asCollectibleType, asTrinketType } from "../../../../functions/types";
 import { iRange } from "../../../../functions/utils";
 import { CARD_NAME_TO_TYPE_MAP } from "../../../../maps/cardNameToTypeMap";
 import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToTypeMap";
@@ -423,7 +419,7 @@ export function cards(): void {
       }
 
       const worldPosition = gridCoordinatesToWorldPosition(x, y);
-      spawnCard(asCardType(cardType), worldPosition);
+      spawnCard(cardType, worldPosition);
       cardType++; // eslint-disable-line isaacscript/strict-enums
     }
   }

@@ -1,3 +1,33 @@
+/**
+ * Consider the following code that uses a number enum:
+ *
+ * ```ts
+ * enum MyEnum {
+ *   Value1,
+ * }
+ *
+ * function asMyEnum(num: number): MyEnum {}
+ *
+ * declare const something: unknown;
+ *
+ * const foo = something as MyEnum; // no error
+ * const bar: MyEnum = something; // error
+ * const baz = asMyEnum(something); // error
+ * ```
+ *
+ * Here, using `as` does not give an error because TypeScript allows you to assert a type to a
+ * supertype or a subtype. Thus, using `as` to perform a type assertion is not as safe as using a
+ * variable declaration or a helper function. However, if we use a variable declaration, then the
+ * `isaacscript/strict-enums` rule is triggered, which requires suppressing the lint rule with a `//
+ * eslint-disable-next-line`. Thus, the safest and more concise way to do a type assertion is to use
+ * a helper function.
+ *
+ * This file contains helper functions for various number enums that might require type assertions.
+ * It also contains helper functions for run-time type checks.
+ *
+ * @module
+ */
+
 import type {
   CardType,
   CollectibleType,

@@ -5,6 +5,8 @@
  *
  * This is the sub-type of a player.
  *
+ * This enum is contiguous. (Every value is satisfied between -1 and 40, inclusive.)
+ *
  * Conventionally, variables that have this type are represented as "character" instead of
  * "playerType", since the former is more descriptive of what this value actually represents.
  */
