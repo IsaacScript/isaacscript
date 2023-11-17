@@ -31,7 +31,6 @@ import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
 import { hasFlag } from "./flag";
 import { isTSTLSet } from "./tstlClass";
-import { asNumber } from "./types";
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -373,7 +372,7 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
  * Room.)
  */
 export function isBlueWombDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === asNumber(GridRoom.BLUE_WOMB);
+  return door.TargetRoomIndex === GridRoom.BLUE_WOMB;
 }
 
 /**
@@ -381,7 +380,7 @@ export function isBlueWombDoor(door: GridEntityDoor): boolean {
  * vanilla, the door will only appear in the Boss Room of the sixth floor.)
  */
 export function isBossRushDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === asNumber(GridRoom.BOSS_RUSH);
+  return door.TargetRoomIndex === GridRoom.BOSS_RUSH;
 }
 
 export function isDevilRoomDoor(door: GridEntityDoor): boolean {
@@ -489,7 +488,7 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
  * (In vanilla, the door will only appear in the starting room of The Chest / Dark Room.)
  */
 export function isMegaSatanDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === asNumber(GridRoom.MEGA_SATAN);
+  return door.TargetRoomIndex === GridRoom.MEGA_SATAN;
 }
 
 /**
@@ -497,7 +496,7 @@ export function isMegaSatanDoor(door: GridEntityDoor): boolean {
  * you to the Repentance floor.
  */
 export function isRepentanceDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === asNumber(GridRoom.SECRET_EXIT);
+  return door.TargetRoomIndex === GridRoom.SECRET_EXIT;
 }
 
 /**
@@ -521,7 +520,7 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
  * contains the portal to The Void. (In vanilla, the door will only appear in the Hush Boss Room.)
  */
 export function isVoidDoor(door: GridEntityDoor): boolean {
-  return door.TargetRoomIndex === asNumber(GridRoom.VOID);
+  return door.TargetRoomIndex === GridRoom.VOID;
 }
 
 /**

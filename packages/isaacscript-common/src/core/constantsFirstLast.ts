@@ -37,14 +37,6 @@ export const LAST_VANILLA_COLLECTIBLE_TYPE =
 /** Calculated from the `CollectibleType` enum. (`CollectibleType.NULL` is not included.) */
 export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;
 
-/**
- * Equal to `LAST_VANILLA_COLLECTIBLE_TYPE + 1`. Obviously, this collectible type may not exist if
- * there are no mods enabled.
- */
-// eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_COLLECTIBLE_TYPE: CollectibleType =
-  LAST_VANILLA_COLLECTIBLE_TYPE + 1;
-
 // --------
 // Trinkets
 // --------
@@ -62,14 +54,6 @@ export const LAST_VANILLA_TRINKET_TYPE = getHighestEnumValue(TrinketType);
 
 /** Calculated from the `TrinketType` enum. (`TrinketType.NULL` is not included.) */
 export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
-
-/**
- * Equal to `LAST_VANILLA_TRINKET_TYPE + 1`. Obviously, this trinket type may not exist if there are
- * no mods enabled.
- */
-// eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_TRINKET_TYPE: TrinketType =
-  LAST_VANILLA_TRINKET_TYPE + 1;
 
 // -----
 // Cards
@@ -89,13 +73,6 @@ export const LAST_VANILLA_CARD_TYPE = getHighestEnumValue(CardType);
 
 /** Calculated from the `Card` enum. `Card.NULL` is not included. */
 export const NUM_VANILLA_CARD_TYPES = getEnumLength(CardType) - 1;
-
-/**
- * Equal to `LAST_VANILLA_CARD_TYPE + 1`. Obviously, this card type may not exist if there are no
- * mods enabled.
- */
-// eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_CARD_TYPE: CardType = LAST_VANILLA_CARD_TYPE + 1;
 
 // ------------
 // Pill Effects
@@ -118,14 +95,6 @@ export const LAST_VANILLA_PILL_EFFECT = getHighestEnumValue(PillEffect);
  * do not have to subtract one here.)
  */
 export const NUM_VANILLA_PILL_EFFECTS = getEnumLength(PillEffect);
-
-/**
- * Equal to `LAST_VANILLA_PILL_EFFECT + 1`. Obviously, this pill effect may not exist if there are
- * no mods enabled.
- */
-// eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_PILL_EFFECT: PillEffect =
-  LAST_VANILLA_PILL_EFFECT + 1;
 
 // -----------
 // Pill Colors

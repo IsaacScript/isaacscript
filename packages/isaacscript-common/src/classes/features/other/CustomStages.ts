@@ -30,7 +30,6 @@ import {
 } from "../../../functions/rooms";
 import { getMusicForStage } from "../../../functions/sound";
 import { setStage } from "../../../functions/stage";
-import { asNumber } from "../../../functions/types";
 import { assertDefined } from "../../../functions/utils";
 import type {
   CustomStageLua,
@@ -532,9 +531,7 @@ export class CustomStages extends Feature {
         ? DEFAULT_BASE_STAGE_TYPE
         : (customStage.baseStageType as StageType);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    const reseed = asNumber(stage) >= baseStage;
-
+    const reseed = stage >= baseStage;
     setStage(baseStage, baseStageType, reseed);
 
     // As soon as we warp to the base stage, the base stage music will begin to play. Thus, we

@@ -8,7 +8,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts build
@@ -20,7 +20,7 @@ jobs:
       matrix:
         package-name: ${{ fromJson(needs.get-build-packages.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run build
@@ -36,7 +36,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
@@ -48,7 +48,7 @@ jobs:
       matrix:
         package-name: ${{ fromJson(needs.get-lint-packages.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run lint
@@ -58,7 +58,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - id: set-matrix
         run: npx tsx ./scripts/getMonorepoPackageNames.ts test
@@ -70,7 +70,7 @@ jobs:
       matrix:
         package-name: ${{ fromJson(needs.get-test-packages.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         # We specify custom Node.js options in order to increase the memory size, since GitHub
@@ -82,7 +82,7 @@ jobs:
   unused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       #- name: Check for unused files, dependencies, and exports
       #  run: npx knip
@@ -90,14 +90,14 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - run: npx prettier --log-level=warn --check .
 
   spell-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - run: npx cspell --no-progress --no-summary .
       - run: npx cspell-check-unused-words
@@ -105,7 +105,7 @@ jobs:
   package-json-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - run: npm run package-json-lint .
 
@@ -114,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
 
       - name: Retrieve the docs build directory
@@ -124,7 +124,7 @@ jobs:
           path: ./packages/docs/build
 
       - name: Checkout the docs repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
           repository: IsaacScript/isaacscript.github.io

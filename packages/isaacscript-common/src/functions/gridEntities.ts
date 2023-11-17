@@ -26,7 +26,7 @@ import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
-import { asNumber, isInteger } from "./types";
+import { isInteger } from "./types";
 import { assertDefined, eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
@@ -1032,7 +1032,7 @@ export function removeGridEntity(
   // corresponding effect.
   if (gridEntityType === GridEntityType.STATUE) {
     const effectVariant =
-      variant === asNumber(StatueVariant.DEVIL)
+      variant === StatueVariant.DEVIL
         ? EffectVariant.DEVIL
         : EffectVariant.ANGEL;
     const effects = getEffects(effectVariant);

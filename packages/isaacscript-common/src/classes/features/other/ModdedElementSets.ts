@@ -40,6 +40,7 @@ import { getFlagName } from "../../../functions/flag";
 import { getRandomSetElement } from "../../../functions/set";
 import { trinketHasCacheFlag } from "../../../functions/trinkets";
 import {
+  asCardType,
   asCollectibleType,
   asPillEffect,
   asTrinketType,
@@ -269,8 +270,7 @@ export class ModdedElementSets extends Feature {
 
     for (const cardTypeInt of moddedCardTypes) {
       // Modded card types are contiguous, but we check every value just in case.
-      // eslint-disable-next-line isaacscript/strict-enums
-      const cardType: CardType = cardTypeInt;
+      const cardType = asCardType(cardTypeInt);
       const itemConfigCard = itemConfig.GetCard(cardType);
       if (itemConfigCard !== undefined) {
         this.moddedCardTypesArray.push(cardType);

@@ -7,11 +7,9 @@ import type {
 import { ModCallback } from "isaac-typescript-definitions";
 import { itemConfig } from "../../../core/cachedClasses";
 import {
-  FIRST_MODDED_CARD_TYPE,
-  FIRST_MODDED_COLLECTIBLE_TYPE,
-  FIRST_MODDED_PILL_EFFECT,
-  FIRST_MODDED_TRINKET_TYPE,
+  LAST_VANILLA_CARD_TYPE,
   LAST_VANILLA_COLLECTIBLE_TYPE,
+  LAST_VANILLA_PILL_EFFECT,
   LAST_VANILLA_TRINKET_TYPE,
   NUM_VANILLA_CARD_TYPES,
   NUM_VANILLA_COLLECTIBLE_TYPES,
@@ -20,6 +18,21 @@ import {
 } from "../../../core/constantsFirstLast";
 import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
+
+// eslint-disable-next-line isaacscript/strict-enums
+export const FIRST_MODDED_COLLECTIBLE_TYPE: CollectibleType =
+  LAST_VANILLA_COLLECTIBLE_TYPE + 1;
+
+// eslint-disable-next-line isaacscript/strict-enums
+export const FIRST_MODDED_TRINKET_TYPE: TrinketType =
+  LAST_VANILLA_TRINKET_TYPE + 1;
+
+// eslint-disable-next-line isaacscript/strict-enums
+export const FIRST_MODDED_CARD_TYPE: CardType = LAST_VANILLA_CARD_TYPE + 1;
+
+// eslint-disable-next-line isaacscript/strict-enums
+export const FIRST_MODDED_PILL_EFFECT: PillEffect =
+  LAST_VANILLA_PILL_EFFECT + 1;
 
 /**
  * Mods can add extra things to the game (e.g. collectibles, trinkets, and so on). Since mods load
@@ -308,7 +321,7 @@ export class ModdedElementDetection extends Feature {
   @Exported
   public getNumModdedCardTypes(): int {
     this.errorIfNoCallbacksFired("card");
-    return this.getLastCardType() - LAST_VANILLA_COLLECTIBLE_TYPE;
+    return this.getLastCardType() - LAST_VANILLA_CARD_TYPE;
   }
 
   // ------------
@@ -398,6 +411,6 @@ export class ModdedElementDetection extends Feature {
   @Exported
   public getNumModdedPillEffects(): int {
     this.errorIfNoCallbacksFired("card");
-    return this.getLastPillEffect() - LAST_VANILLA_COLLECTIBLE_TYPE;
+    return this.getLastPillEffect() - LAST_VANILLA_PILL_EFFECT;
   }
 }

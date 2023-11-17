@@ -19,7 +19,6 @@ import {
 import { EGGY_STATE_FRAME_OF_FINAL_SPIDER } from "../core/constants";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getNPCs } from "./entitiesSpecific";
-import { asNumber } from "./types";
 
 /**
  * Used to filter out certain NPCs when determining of an NPC is "alive" and/or should keep the
@@ -133,7 +132,7 @@ export function isDaddyLongLegsChildStompEntity(npc: EntityNPC): boolean {
 export function isDyingDump(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.DUMP &&
-    npc.Variant === asNumber(DumpVariant.DUMP) &&
+    npc.Variant === DumpVariant.DUMP &&
     npc.State === NPCState.SPECIAL
   );
 }
@@ -146,7 +145,7 @@ export function isDyingDump(npc: EntityNPC): boolean {
 export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.HOPPER &&
-    npc.Variant === asNumber(HopperVariant.EGGY) &&
+    npc.Variant === HopperVariant.EGGY &&
     npc.State === NPCState.SUICIDE &&
     npc.StateFrame >= EGGY_STATE_FRAME_OF_FINAL_SPIDER
   );
@@ -161,7 +160,7 @@ export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
 export function isRaglingDeathPatch(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.RAGLING &&
-    npc.Variant === asNumber(RaglingVariant.RAG_MANS_RAGLING) &&
+    npc.Variant === RaglingVariant.RAG_MANS_RAGLING &&
     // They go to `STATE_SPECIAL` when they are patches on the ground.
     npc.State === NPCState.SPECIAL
   );

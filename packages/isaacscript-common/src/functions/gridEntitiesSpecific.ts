@@ -14,7 +14,6 @@ import {
   removeGridEntities,
   spawnGridEntityWithVariant,
 } from "./gridEntities";
-import { asNumber } from "./types";
 import { assertDefined } from "./utils";
 
 /**
@@ -27,7 +26,7 @@ import { assertDefined } from "./utils";
 export function getCrawlSpaces(
   crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
 ): GridEntity[] {
-  if (asNumber(crawlSpaceVariant) === -1) {
+  if (crawlSpaceVariant === -1) {
     return getGridEntities(GridEntityType.CRAWL_SPACE);
   }
 
@@ -49,7 +48,7 @@ export function getPits(pitVariant: PitVariant | -1 = -1): GridEntityPit[] {
     const pit = gridEntity.ToPit();
     if (pit !== undefined) {
       const thisPitVariant = pit.GetVariant();
-      if (asNumber(pitVariant) === -1 || pitVariant === thisPitVariant) {
+      if (pitVariant === -1 || pitVariant === thisPitVariant) {
         pits.push(pit);
       }
     }
@@ -72,7 +71,7 @@ export function getPoops(
     const poop = gridEntity.ToPoop();
     if (poop !== undefined) {
       const thisPoopVariant = poop.GetVariant();
-      if (asNumber(poopVariant) === -1 || poopVariant === thisPoopVariant) {
+      if (poopVariant === -1 || poopVariant === thisPoopVariant) {
         poops.push(poop);
       }
     }
@@ -96,7 +95,7 @@ export function getPressurePlates(
     if (pressurePlate !== undefined) {
       const thisPressurePlateVariant = pressurePlate.GetVariant();
       if (
-        asNumber(pressurePlateVariant) === -1 ||
+        pressurePlateVariant === -1 ||
         pressurePlateVariant === thisPressurePlateVariant
       ) {
         pressurePlates.push(pressurePlate);
@@ -187,7 +186,7 @@ export function getTeleporters(variant = -1): GridEntity[] {
 export function getTrapdoors(
   trapdoorVariant: TrapdoorVariant | -1 = -1,
 ): GridEntity[] {
-  if (asNumber(trapdoorVariant) === -1) {
+  if (trapdoorVariant === -1) {
     return getGridEntities(GridEntityType.TRAPDOOR);
   }
 

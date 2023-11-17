@@ -48,7 +48,6 @@ import {
 import { is2x1RoomShape, isBigRoomShape, isLRoomShape } from "./roomShape";
 import { reloadRoom } from "./roomTransition";
 import { getGotoCommand } from "./stage";
-import { asNumber } from "./types";
 import { assertDefined, iRange } from "./utils";
 
 const SECRET_ROOM_TYPES = new ReadonlySet([
@@ -599,7 +598,7 @@ export function isAllRoomsClear(
 export function isAngelShop(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.ANGEL &&
-    roomData.Subtype === asNumber(AngelRoomSubType.SHOP)
+    roomData.Subtype === AngelRoomSubType.SHOP
   );
 }
 
@@ -614,7 +613,7 @@ export function isAngelShop(roomData: RoomConfig): boolean {
 export function isBeastRoom(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.DUNGEON &&
-    roomData.Subtype === asNumber(DungeonSubType.BEAST_ROOM)
+    roomData.Subtype === DungeonSubType.BEAST_ROOM
   );
 }
 
@@ -634,7 +633,7 @@ export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
   return (
     roomData.Type === RoomType.BOSS &&
     roomData.StageID === StageID.SPECIAL_ROOMS &&
-    roomData.Subtype === asNumber(bossID)
+    roomData.Subtype === bossID
   );
 }
 
@@ -646,7 +645,7 @@ export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
 export function isCrawlSpace(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.DUNGEON &&
-    roomData.Subtype === asNumber(DungeonSubType.NORMAL)
+    roomData.Subtype === DungeonSubType.NORMAL
   );
 }
 
@@ -668,9 +667,8 @@ export function isCrawlSpaceWithBlackMarketEntrance(
 export function isDeathCertificateArea(roomData: RoomConfig): boolean {
   return (
     roomData.StageID === StageID.HOME &&
-    (roomData.Subtype ===
-      asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE) ||
-      roomData.Subtype === asNumber(HomeRoomSubType.DEATH_CERTIFICATE_ITEMS))
+    (roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
+      roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
   );
 }
 
@@ -704,7 +702,7 @@ export function isDogmaRoom(roomData: RoomConfig): boolean {
     roomData.StageID === StageID.HOME &&
     roomData.Type === RoomType.DEFAULT &&
     roomData.Variant === 1000 &&
-    roomData.Subtype === asNumber(HomeRoomSubType.LIVING_ROOM)
+    roomData.Subtype === HomeRoomSubType.LIVING_ROOM
   );
 }
 
@@ -729,7 +727,7 @@ export function isDoubleTrouble(roomData: RoomConfig): boolean {
  * Helper function to determine if the index of the provided room is equal to `GridRoom.GENESIS`.
  */
 export function isGenesisRoom(roomGridIndex: int): boolean {
-  return roomGridIndex === asNumber(GridRoom.GENESIS);
+  return roomGridIndex === GridRoom.GENESIS;
 }
 
 /**
@@ -741,8 +739,8 @@ export function isGenesisRoom(roomGridIndex: int): boolean {
 export function isHomeCloset(roomData: RoomConfig): boolean {
   return (
     roomData.StageID === StageID.HOME &&
-    (roomData.Subtype === asNumber(HomeRoomSubType.CLOSET_LEFT) ||
-      roomData.Subtype === asNumber(HomeRoomSubType.CLOSET_RIGHT))
+    (roomData.Subtype === HomeRoomSubType.CLOSET_LEFT ||
+      roomData.Subtype === HomeRoomSubType.CLOSET_RIGHT)
   );
 }
 
@@ -755,7 +753,7 @@ export function isLRoom(roomData: RoomConfig): boolean {
  * Helper function to determine if the index of the provided room is equal to `GridRoom.MEGA_SATAN`.
  */
 export function isMegaSatanRoom(roomGridIndex: int): boolean {
-  return roomGridIndex === asNumber(GridRoom.MEGA_SATAN);
+  return roomGridIndex === GridRoom.MEGA_SATAN;
 }
 
 /**
@@ -782,7 +780,7 @@ export function isMinibossRoomOf(
   return (
     roomData.Type === RoomType.MINI_BOSS &&
     roomData.StageID === StageID.SPECIAL_ROOMS &&
-    roomData.Subtype === asNumber(minibossID)
+    roomData.Subtype === minibossID
   );
 }
 
@@ -795,7 +793,7 @@ export function isMirrorRoom(roomData: RoomConfig): boolean {
     roomData.Type === RoomType.DEFAULT &&
     (roomData.StageID === StageID.DOWNPOUR ||
       roomData.StageID === StageID.DROSS) &&
-    roomData.Subtype === asNumber(DownpourRoomSubType.MIRROR)
+    roomData.Subtype === DownpourRoomSubType.MIRROR
   );
 }
 
@@ -828,7 +826,7 @@ export function isRoomType(
  * floor.
  */
 export function isSecretExit(roomGridIndex: int): boolean {
-  return roomGridIndex === asNumber(GridRoom.SECRET_EXIT);
+  return roomGridIndex === GridRoom.SECRET_EXIT;
 }
 
 /**
@@ -848,7 +846,7 @@ export function isSecretRoomType(roomType: RoomType): boolean {
  * the only way to detect them is by using the grid index.
  */
 export function isSecretShop(roomGridIndex: int): boolean {
-  return roomGridIndex === asNumber(GridRoom.SECRET_SHOP);
+  return roomGridIndex === GridRoom.SECRET_SHOP;
 }
 
 /**

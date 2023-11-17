@@ -13,7 +13,6 @@ import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../../functions/playerDataStructures";
-import { asNumber } from "../../functions/types";
 import type { PlayerIndex } from "../../types/PlayerIndex";
 import { DefaultMap } from "../DefaultMap";
 import type { FireArgs, OptionalArgs } from "../private/CustomCallback";
@@ -84,7 +83,7 @@ export class PostItemDischarge extends CustomCallback<T> {
     npc: EntityNPC,
     collider: Entity,
   ): boolean | undefined => {
-    if (npc.Variant === asNumber(SuckerVariant.BULB)) {
+    if (npc.Variant === SuckerVariant.BULB) {
       return this.preNPCCollisionBulb(npc, collider);
     }
 

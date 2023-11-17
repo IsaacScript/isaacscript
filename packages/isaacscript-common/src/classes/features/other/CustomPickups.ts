@@ -11,7 +11,6 @@ import {
   getEntityIDFromConstituents,
 } from "../../../functions/entities";
 import { spawnEffect } from "../../../functions/entitiesSpecific";
-import { asNumber } from "../../../functions/types";
 import { Feature } from "../../private/Feature";
 
 interface CustomPickupFunctions {
@@ -97,7 +96,7 @@ export class CustomPickups extends Feature {
   // ModCallback.POST_EFFECT_RENDER (56)
   // PICKUP_EFFECT_VARIANT
   private readonly postEffectRenderPickupEffect = (effect: EntityEffect) => {
-    if (effect.SubType !== asNumber(PICKUP_EFFECT_SUB_TYPE)) {
+    if (effect.SubType !== PICKUP_EFFECT_SUB_TYPE) {
       return;
     }
 

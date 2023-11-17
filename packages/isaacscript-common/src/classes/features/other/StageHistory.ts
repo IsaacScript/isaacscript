@@ -11,7 +11,6 @@ import {
   calculateStageType,
   onRepentanceStage,
 } from "../../../functions/stage";
-import { asNumber } from "../../../functions/types";
 import type { StageHistoryEntry } from "../../../interfaces/StageHistoryEntry";
 import { Feature } from "../../private/Feature";
 
@@ -289,7 +288,7 @@ export class StageHistory extends Feature {
       return LevelStage.DEPTHS_1;
     }
 
-    return asNumber(stage) - 1;
+    return stage - 1;
   }
 
   /**

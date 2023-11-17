@@ -24,7 +24,6 @@ import { getNPCs, spawnNPC } from "./entitiesSpecific";
 import { getAliveNPCs } from "./npcs";
 import { isRNG } from "./rng";
 import { inBeastRoom, inDogmaRoom } from "./rooms";
-import { asNumber } from "./types";
 import { repeat } from "./utils";
 
 const BOSSES_THAT_REQUIRE_MULTIPLE_SPAWNS = new ReadonlySet<EntityType>([
@@ -234,7 +233,7 @@ function getNumBossSegments(
 
     // 69
     case EntityType.LOKI: {
-      return variant === asNumber(LokiVariant.LOKII) ? 2 : 1;
+      return variant === LokiVariant.LOKII ? 2 : 1;
     }
 
     // 237

@@ -64,7 +64,7 @@ export function getFalsePHDPillEffect(pillEffect: PillEffect): PillEffect {
  * corresponds to the horse pill color for blue/blue.
  */
 export function getHorsePillColor(pillColor: PillColor): PillColor {
-  return asNumber(pillColor) + HORSE_PILL_ADJUSTMENT;
+  return pillColor + HORSE_PILL_ADJUSTMENT;
 }
 
 /** Helper function to get an array with every non-gold horse pill color. */
@@ -80,11 +80,9 @@ export function getHorsePillColors(): readonly PillColor[] {
  * If called with a non-horse pill color, this function will return back the same color.
  */
 export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
-  const normalPillColor = asPillColor(
-    asNumber(pillColor) - HORSE_PILL_ADJUSTMENT,
-  );
-
-  return normalPillColor > PillColor.NULL ? normalPillColor : pillColor;
+  return isHorsePill(pillColor)
+    ? asPillColor(pillColor - HORSE_PILL_ADJUSTMENT)
+    : pillColor;
 }
 
 /** Helper function to get an array with every non-gold and non-horse pill color. */

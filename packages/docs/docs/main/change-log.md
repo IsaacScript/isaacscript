@@ -39,11 +39,6 @@ This page lists the changes to the IsaacScript framework.
   - `MorningStarSubType` (Thanks popjam)
   - `QuakeGrimaceSubType` (Thanks popjam)
   - `RottenGaperSubType` (Thanks popjam)
-- Added the following constants:
-  - `FIRST_MODDED_COLLECTIBLE_TYPE`
-  - `FIRST_MODDED_TRINKET_TYPE`
-  - `FIRST_MODDED_CARD_TYPE`
-  - `FIRST_MODDED_PILL_EFFECT`
 - Added the following types:
   - `StoryBossID`
 

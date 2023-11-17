@@ -42,7 +42,7 @@ const TRINKET_SPRITE_LAYER = 0;
 export function getGoldenTrinketType(trinketType: TrinketType): TrinketType {
   return isGoldenTrinketType(trinketType)
     ? trinketType
-    : asNumber(trinketType) + GOLDEN_TRINKET_ADJUSTMENT;
+    : trinketType + GOLDEN_TRINKET_ADJUSTMENT;
 }
 
 /**
@@ -88,7 +88,7 @@ export function getMysteriousPaperEffectForFrame(
  */
 export function getNormalTrinketType(trinketType: TrinketType): TrinketType {
   return isGoldenTrinketType(trinketType)
-    ? asNumber(trinketType) - GOLDEN_TRINKET_ADJUSTMENT
+    ? trinketType - GOLDEN_TRINKET_ADJUSTMENT
     : trinketType;
 }
 

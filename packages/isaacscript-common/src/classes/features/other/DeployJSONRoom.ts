@@ -28,7 +28,7 @@ import { isRNG, newRNG } from "../../../functions/rng";
 import { gridCoordinatesToWorldPosition } from "../../../functions/roomGrid";
 import { setRoomCleared, setRoomUncleared } from "../../../functions/rooms";
 import { spawnCollectible } from "../../../functions/spawnCollectible";
-import { asCollectibleType, asNumber } from "../../../functions/types";
+import { asCollectibleType } from "../../../functions/types";
 import { assertDefined } from "../../../functions/utils";
 import type { JSONRoom } from "../../../interfaces/JSONRoomsFile";
 import { ReadonlySet } from "../../../types/ReadonlySet";
@@ -162,15 +162,11 @@ export class DeployJSONRoom extends Feature {
     let entity: Entity;
     if (
       entityType === EntityType.PICKUP &&
-      variant === asNumber(PickupVariant.COLLECTIBLE)
+      variant === PickupVariant.COLLECTIBLE
     ) {
+      const collectibleType = asCollectibleType(subType);
       const options = roomType === RoomType.ANGEL;
-      entity = spawnCollectible(
-        asCollectibleType(subType),
-        position,
-        seed,
-        options,
-      );
+      entity = spawnCollectible(collectibleType, position, seed, options);
     } else {
       entity = spawnWithSeed(entityType, variant, subType, position, seed);
     }
@@ -178,7 +174,7 @@ export class DeployJSONRoom extends Feature {
     // For some reason, Pitfalls do not spawn with the correct collision classes.
     if (
       entityType === EntityType.PITFALL &&
-      variant === asNumber(PitfallVariant.PITFALL)
+      variant === PitfallVariant.PITFALL
     ) {
       entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
       entity.GridCollisionClass = EntityGridCollisionClass.WALLS;

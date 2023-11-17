@@ -10,7 +10,6 @@ import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
 import { PocketItemType } from "../enums/PocketItemType";
 import type { PocketItemDescription } from "../interfaces/PocketItemDescription";
 import { isCharacter } from "./players";
-import { asNumber } from "./types";
 
 /**
  * Helper function to get the `PocketItemSlot` that the player's pocket active collectible item is
@@ -129,7 +128,7 @@ export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
       });
     }
 
-    if (asNumber(slot) + 1 === maxPocketItems) {
+    if (slot + 1 === maxPocketItems) {
       break;
     }
   }
