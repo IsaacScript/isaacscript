@@ -13,7 +13,7 @@ export function addSetsToSet<T>(
   ...setsToAdd: Array<Set<T> | ReadonlySet<T>>
 ): void {
   for (const set of setsToAdd) {
-    for (const value of set.values()) {
+    for (const value of set) {
       mainSet.add(value);
     }
   }
@@ -29,7 +29,7 @@ export function combineSets<T>(
 ): Set<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
-    for (const value of set.values()) {
+    for (const value of set) {
       newSet.add(value);
     }
   }
@@ -40,7 +40,7 @@ export function combineSets<T>(
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
 export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
   const newSet = new Set<T>();
-  for (const value of oldSet.values()) {
+  for (const value of oldSet) {
     newSet.add(value);
   }
 
@@ -58,7 +58,7 @@ export function deleteSetsFromSet<T>(
   ...setsToRemove: Array<Set<T> | ReadonlySet<T>>
 ): void {
   for (const set of setsToRemove) {
-    for (const value of set.values()) {
+    for (const value of set) {
       mainSet.delete(value);
     }
   }
@@ -117,15 +117,14 @@ export function getSetCombinations<T>(
 /**
  * Helper function to get a sorted array based on the contents of a set.
  *
- * Normally, set values are returned in a random order, so use this function when the ordering of
+ * Normally, set values are returned in insertion order, so use this function when the ordering of
  * the contents is important.
  */
 export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
-  const values = set.values();
-  const array = [...values];
+  const values = [...set];
 
   // Check for problematic types in order to throw a helpful error message.
-  const firstElement = array[0];
+  const firstElement = values[0];
   if (firstElement !== undefined) {
     const arrayType = type(firstElement);
     if (!isPrimitive(arrayType)) {
@@ -135,9 +134,78 @@ export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
     }
   }
 
-  array.sort();
+  values.sort();
 
-  return array;
+  return values;
+}
+
+/**
+ * Helper function to convert the keys of an object to a read-only set.
+ *
+ * Note that the set values will be inserted in a random order, due to how `pairs` works under the
+ * hood.
+ *
+ * Also see the `objectKeysToSet` function.
+ */
+export function objectKeysToReadonlySet<K extends string | number | symbol, V>(
+  object: Record<K, V>,
+): ReadonlySet<K> {
+  return objectKeysToSet(object);
+}
+
+/**
+ * Helper function to convert the keys of an object to a set.
+ *
+ * Note that the set values will be inserted in a random order, due to how `pairs` works under the
+ * hood.
+ *
+ * Also see the `objectKeysToReadonlySet` function.
+ */
+export function objectKeysToSet<K extends string | number | symbol, V>(
+  object: Record<K, V>,
+): Set<K> {
+  const set = new Set<K>();
+
+  for (const key of Object.keys(object)) {
+    set.add(key as K);
+  }
+
+  return set;
+}
+
+/**
+ * Helper function to convert the values of an object to a read-only set.
+ *
+ * Note that the set values will be inserted in a random order, due to how `pairs` works under the
+ * hood.
+ *
+ * Also see the `objectValuesToSet` function.
+ */
+export function objectValuesToReadonlySet<
+  K extends string | number | symbol,
+  V,
+>(object: Record<K, V>): ReadonlySet<V> {
+  return objectValuesToSet(object);
+}
+
+/**
+ * Helper function to convert the values of an object to a set.
+ *
+ * Note that the set values will be inserted in a random order, due to how `pairs` works under the
+ * hood.
+ *
+ * Also see the `objectValuesToReadonlySet` function.
+ */
+export function objectValuesToSet<K extends string | number | symbol, V>(
+  object: Record<K, V>,
+): Set<V> {
+  const set = new Set<V>();
+
+  for (const key of Object.values(object)) {
+    set.add(key as V);
+  }
+
+  return set;
 }
 
 /**
@@ -168,6 +236,6 @@ export function setHas<T>(
 
 /** Helper function to sum every value in a set together. */
 export function sumSet(set: Set<number> | ReadonlySet<number>): number {
-  const values = [...set.values()];
+  const values = [...set];
   return sumArray(values);
 }

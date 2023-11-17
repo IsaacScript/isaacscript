@@ -9,13 +9,17 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## November 17th, 2023 (Unreleased)
+## November 17th, 2023
 
 - Added the following helper functions:
   - `getChests`
   - `is2x1RoomShape`
+  - `objectKeysToSet`
+  - `objectKeysToReadonlySet`
   - `objectToMap`
   - `objectToReadonlyMap`
+  - `objectValuesToSet`
+  - `objectValuesToReadonlySet`
   - `removeAllChests`
   - `uncapitalizeFirstLetter`
 - Renamed the following helper functions:
