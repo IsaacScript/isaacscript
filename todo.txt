@@ -1,3 +1,5 @@
+- canary
+
 - add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
   - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
 
