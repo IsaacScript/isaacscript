@@ -8,11 +8,9 @@ import {
   CardType,
   Challenge,
   CollectibleType,
-  LevelStage,
   PillColor,
   PillEffect,
   PlayerType,
-  RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
 import { getEnumLength, getHighestEnumValue } from "../functions/enums";
@@ -144,20 +142,6 @@ export const FIRST_CHARACTER = PlayerType.ISAAC;
  * consistent with collectibles and trinkets.
  */
 export const LAST_VANILLA_CHARACTER = getHighestEnumValue(PlayerType);
-
-// ----------
-// Room Types
-// ----------
-
-export const FIRST_ROOM_TYPE = RoomType.DEFAULT;
-export const LAST_ROOM_TYPE = getHighestEnumValue(RoomType);
-
-// ------
-// Stages
-// ------
-
-export const FIRST_STAGE = LevelStage.BASEMENT_1;
-export const LAST_STAGE = getHighestEnumValue(LevelStage);
 
 // ----------
 // Challenges

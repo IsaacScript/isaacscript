@@ -10,6 +10,7 @@ import {
 import { CARD_NAMES, DEFAULT_CARD_NAME } from "../objects/cardNames";
 import { ITEM_CONFIG_CARD_TYPES_FOR_CARDS } from "../sets/itemConfigCardTypesForCards";
 import { addFlag } from "./flag";
+import { asCardType } from "./types";
 
 /**
  * Helper function to get a card description from a `CardType` value. Returns "Unknown" if the
@@ -156,6 +157,12 @@ export function isSuitCard(cardType: CardType): boolean {
 /** Returns true for card types that have `ItemConfigCardType.TAROT`. */
 export function isTarotCard(cardType: CardType): boolean {
   return isCardType(cardType, ItemConfigCardType.TAROT);
+}
+
+export function isValidCardType(cardType: int): cardType is CardType {
+  const potentialCardType = asCardType(cardType);
+  const itemConfigCard = itemConfig.GetCard(potentialCardType);
+  return itemConfigCard !== undefined;
 }
 
 export function isVanillaCardType(cardType: CardType): boolean {

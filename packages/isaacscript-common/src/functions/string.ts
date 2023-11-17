@@ -1,3 +1,4 @@
+import { parseIntSafe } from "./types";
 import { assertDefined } from "./utils";
 
 export function capitalizeFirstLetter(string: string): string {
@@ -158,9 +159,9 @@ export function parseSemanticVersion(versionString: string):
     return undefined;
   }
 
-  const majorVersion = tonumber(majorVersionString);
-  const minorVersion = tonumber(minorVersionString);
-  const patchVersion = tonumber(patchVersionString);
+  const majorVersion = parseIntSafe(majorVersionString);
+  const minorVersion = parseIntSafe(minorVersionString);
+  const patchVersion = parseIntSafe(patchVersionString);
 
   if (
     majorVersion === undefined ||

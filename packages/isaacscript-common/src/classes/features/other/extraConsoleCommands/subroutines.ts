@@ -19,6 +19,7 @@ import {
 import { addPlayerHealthType } from "../../../../functions/playerHealth";
 import { getRoomData, getRoomDescriptor } from "../../../../functions/roomData";
 import { changeRoom } from "../../../../functions/rooms";
+import { parseIntSafe } from "../../../../functions/types";
 import { ROOM_TYPE_NAMES } from "../../../../objects/roomTypeNames";
 
 const DEFAULT_MOVE_UNITS = 0.5;
@@ -26,7 +27,7 @@ const DEFAULT_MOVE_UNITS = 0.5;
 export function addHeart(params: string, healthType: HealthType): void {
   let numHearts = healthType === HealthType.MAX_HEARTS ? 2 : 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
       print("That is an invalid amount of hearts to add.");
       return;
@@ -68,7 +69,7 @@ export function listEntities(
 ): void {
   let entityTypeFilter: EntityType | undefined;
   if (params !== "") {
-    entityTypeFilter = tonumber(params);
+    entityTypeFilter = parseIntSafe(params);
     if (entityTypeFilter === undefined) {
       print("That is an invalid entity type to filter by.");
       return;
@@ -82,7 +83,7 @@ export function listEntities(
 export function listGridEntities(params: string, includeWalls: boolean): void {
   let gridEntityTypeFilter: GridEntityType | undefined;
   if (params !== "") {
-    gridEntityTypeFilter = tonumber(params);
+    gridEntityTypeFilter = parseIntSafe(params);
     if (gridEntityTypeFilter === undefined) {
       print("That is an invalid grid entity type to filter by.");
       return;
@@ -96,7 +97,7 @@ export function listGridEntities(params: string, includeWalls: boolean): void {
 export function movePlayer(params: string, direction: Direction): void {
   let amount = DEFAULT_MOVE_UNITS;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
       print("That is an invalid amount of units to move.");
       return;

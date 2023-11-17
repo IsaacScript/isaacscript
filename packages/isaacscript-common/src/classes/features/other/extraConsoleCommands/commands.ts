@@ -39,8 +39,6 @@ eslint "sort-exports/sort-exports": [
 import type {
   CardType,
   PillEffect,
-  PlayerType,
-  SoundEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
@@ -56,13 +54,12 @@ import {
   GridRoom,
   LevelStage,
   PillColor,
+  PlayerType,
   RoomType,
+  SoundEffect,
   StageType,
 } from "isaac-typescript-definitions";
-import {
-  ACTIVE_SLOT_VALUES,
-  GRID_ENTITY_TYPE_VALUES,
-} from "../../../../arrays/cachedEnumValues";
+import { GRID_ENTITY_TYPE_VALUES } from "../../../../arrays/cachedEnumValues";
 import { game, sfxManager } from "../../../../core/cachedClasses";
 import {
   DOGMA_ROOM_GRID_INDEX,
@@ -71,26 +68,19 @@ import {
 } from "../../../../core/constants";
 import {
   FIRST_CARD_TYPE,
-  FIRST_CHARACTER,
   FIRST_HORSE_PILL_COLOR,
   FIRST_PILL_COLOR,
-  FIRST_PILL_EFFECT,
-  FIRST_ROOM_TYPE,
-  FIRST_STAGE,
-  LAST_ROOM_TYPE,
-  LAST_STAGE,
   LAST_VANILLA_CARD_TYPE,
-  LAST_VANILLA_CHARACTER,
-  LAST_VANILLA_PILL_EFFECT,
 } from "../../../../core/constantsFirstLast";
 import { HealthType } from "../../../../enums/HealthType";
-import { getCardName } from "../../../../functions/cards";
+import { getCardName, isValidCardType } from "../../../../functions/cards";
 import { getCharacterName } from "../../../../functions/characters";
 import { addCharge, getTotalCharge } from "../../../../functions/charge";
 import { isValidCollectibleType } from "../../../../functions/collectibles";
 import { printEnabled } from "../../../../functions/console";
 import { runDeepCopyTests } from "../../../../functions/deepCopyTests";
 import { getNPCs } from "../../../../functions/entitiesSpecific";
+import { isEnumValue } from "../../../../functions/enums";
 import { addFlag } from "../../../../functions/flag";
 import { spawnGridEntity } from "../../../../functions/gridEntities";
 import { getRoomGridIndexesForType } from "../../../../functions/levelGrid";
@@ -107,7 +97,10 @@ import {
   spawnPill,
   spawnTrinket as spawnTrinketFunction,
 } from "../../../../functions/pickupsSpecific";
-import { getPillEffectName } from "../../../../functions/pills";
+import {
+  getPillEffectName,
+  isValidPillEffect,
+} from "../../../../functions/pills";
 import {
   addCollectibleCostume,
   removeCollectibleCostume,
@@ -123,8 +116,11 @@ import { onSetSeed, restart, setUnseeded } from "../../../../functions/run";
 import { spawnCollectible as spawnCollectibleFunc } from "../../../../functions/spawnCollectible";
 import { onStage, setStage } from "../../../../functions/stage";
 import { getMapPartialMatch } from "../../../../functions/string";
-import { getGoldenTrinketType } from "../../../../functions/trinkets";
-import { asCollectibleType, asTrinketType } from "../../../../functions/types";
+import {
+  getGoldenTrinketType,
+  isValidTrinketType,
+} from "../../../../functions/trinkets";
+import { parseIntSafe } from "../../../../functions/types";
 import { iRange } from "../../../../functions/utils";
 import { CARD_NAME_TO_TYPE_MAP } from "../../../../maps/cardNameToTypeMap";
 import { CHARACTER_NAME_TO_TYPE_MAP } from "../../../../maps/characterNameToTypeMap";
@@ -161,31 +157,27 @@ export function addCharges(params: string): void {
   const args = params.split(" ");
 
   if (args.length !== 1 && args.length !== 2) {
-    print("That is an invalid amount of arguments.");
+    print(`Invalid amount of arguments: ${args.length}`);
     return;
   }
 
   const [activeSlotString, numChargeString] = args;
 
-  const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
-  if (activeSlot === undefined) {
-    print(`The provided slot number is invalid: ${activeSlotString}`);
+  if (activeSlotString === undefined) {
     return;
   }
 
-  if (
-    activeSlot < ActiveSlot.PRIMARY ||
-    activeSlot > ActiveSlot.POCKET_SINGLE_USE
-  ) {
-    print(`The provided slot number is invalid: ${activeSlot}`);
+  const activeSlot = parseIntSafe(activeSlotString);
+  if (activeSlot === undefined || !isEnumValue(activeSlot, ActiveSlot)) {
+    print(`Invalid slot number: ${activeSlot}`);
     return;
   }
 
   let numCharges = 1;
   if (numChargeString !== undefined) {
-    const numChargesAttempt = tonumber(numChargeString);
+    const numChargesAttempt = parseIntSafe(numChargeString);
     if (numChargesAttempt === undefined) {
-      print(`The provided charge amount is invalid: ${numChargeString}`);
+      print(`Invalid charge amount: ${numChargeString}`);
       return;
     }
     numCharges = numChargesAttempt;
@@ -258,9 +250,9 @@ export function blind(): void {
 export function bloodCharges(params: string): void {
   let charges = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of charges to add.");
+      print(`Invalid charge amount: ${num}`);
       return;
     }
 
@@ -283,9 +275,9 @@ export function bm(): void {
 export function bomb(params: string): void {
   let numBombs = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of bombs to add.");
+      print(`Invalid bomb amount: ${num}`);
       return;
     }
 
@@ -303,9 +295,9 @@ export function bomb(params: string): void {
 export function bombs(params: string): void {
   let numBombs = 99;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of bombs to add.");
+      print(`Invalid bomb amount: ${num}`);
       return;
     }
 
@@ -373,7 +365,7 @@ export function brokenHearts(params: string): void {
 }
 
 /**
- * Gives the specified card. Accepts either the card sub-type or the partial name of the card.
+ * Gives the specified card. Accepts either the card type or the partial name of the card.
  *
  * For example:
  * - card 5 - Gives The Emperor.
@@ -386,7 +378,7 @@ export function card(params: string): void {
   }
 
   let cardType: CardType;
-  const num = tonumber(params) as CardType | undefined;
+  const num = parseIntSafe(params);
   if (num === undefined) {
     const match = getMapPartialMatch(params, CARD_NAME_TO_TYPE_MAP);
     if (match === undefined) {
@@ -396,8 +388,8 @@ export function card(params: string): void {
 
     cardType = match[1];
   } else {
-    if (num < FIRST_CARD_TYPE || num > LAST_VANILLA_CARD_TYPE) {
-      print(`Invalid card sub-type: ${num}`);
+    if (!isValidCardType(num)) {
+      print(`Invalid card type: ${num}`);
       return;
     }
 
@@ -454,7 +446,7 @@ export function character(params: string): void {
   }
 
   let playerType: PlayerType;
-  const num = tonumber(params) as PlayerType | undefined;
+  const num = parseIntSafe(params);
   if (num === undefined) {
     const match = getMapPartialMatch(params, CHARACTER_NAME_TO_TYPE_MAP);
     if (match === undefined) {
@@ -464,7 +456,7 @@ export function character(params: string): void {
 
     playerType = match[1];
   } else {
-    if (num < FIRST_CHARACTER || num > LAST_VANILLA_CHARACTER) {
+    if (!isEnumValue(num, PlayerType) || num === PlayerType.POSSESSOR) {
       print(`Invalid character number: ${num}`);
       return;
     }
@@ -494,9 +486,9 @@ export function cleanBedroom(): void {
 export function coin(params: string): void {
   let numCoins = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of coins to add.");
+      print(`Invalid coin amount: ${num}`);
       return;
     }
 
@@ -514,9 +506,9 @@ export function coin(params: string): void {
 export function coins(params: string): void {
   let numCoins = 999;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of coins to add.");
+      print(`Invalid coin amount: ${num}`);
       return;
     }
 
@@ -568,9 +560,9 @@ export function dadsNote(): void {
  */
 export function damage(params: string): void {
   if (params !== "") {
-    const num = tonumber(params);
+    const num = tonumber(params); // Can be a float.
     if (num === undefined) {
-      print(`The provided damage amount is invalid: ${params}`);
+      print(`Invalid damage amount: ${params}`);
       return;
     }
 
@@ -706,9 +698,9 @@ export function getChallenge(): void {
 export function getCharge(params: string): void {
   let activeSlot = ActiveSlot.PRIMARY;
   if (params !== "") {
-    const num = tonumber(params) as ActiveSlot | undefined;
-    if (num === undefined) {
-      print(`The provided slot number is invalid: ${params}`);
+    const num = parseIntSafe(params);
+    if (num === undefined || !isEnumValue(num, ActiveSlot)) {
+      print(`Invalid slot number: ${params}`);
       return;
     }
 
@@ -745,9 +737,9 @@ export function giant(): void {
 export function gigaBomb(params: string): void {
   let numBombs = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of Giga Bombs to add.");
+      print(`Invalid Giga Bomb amount: ${num}`);
       return;
     }
 
@@ -869,9 +861,9 @@ export function iAmErrorRoom(): void {
 export function key(params: string): void {
   let numKeys = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of keys to add.");
+      print(`Invalid key amount: ${num}`);
       return;
     }
 
@@ -889,9 +881,9 @@ export function key(params: string): void {
 export function keys(params: string): void {
   let numKeys = 99;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of keys to add.");
+      print(`Invalid key amount: ${num}`);
       return;
     }
 
@@ -1051,7 +1043,7 @@ export function pill(params: string): void {
   }
 
   let pillEffect: PillEffect;
-  const num = tonumber(params) as PillEffect | undefined;
+  const num = parseIntSafe(params);
   if (num === undefined) {
     const match = getMapPartialMatch(params, PILL_NAME_TO_EFFECT_MAP);
     if (match === undefined) {
@@ -1061,7 +1053,7 @@ export function pill(params: string): void {
 
     pillEffect = match[1];
   } else {
-    if (num < FIRST_PILL_EFFECT || num > LAST_VANILLA_PILL_EFFECT) {
+    if (!isValidPillEffect(num)) {
       print(`Invalid pill effect ID: ${num}`);
       return;
     }
@@ -1127,14 +1119,12 @@ export function pocket(params: string): void {
     return;
   }
 
-  const collectibleType = tonumber(params) as CollectibleType | undefined;
-  if (collectibleType === undefined) {
-    print("That is an invalid collectible type.");
-    return;
-  }
-
-  if (!isValidCollectibleType(collectibleType)) {
-    print("That is an invalid collectible type.");
+  const collectibleType = parseIntSafe(params);
+  if (
+    collectibleType === undefined ||
+    !isValidCollectibleType(collectibleType)
+  ) {
+    print(`Invalid collectible type: ${collectibleType}`);
     return;
   }
 
@@ -1158,9 +1148,9 @@ export function poop(): void {
 export function poopMana(params: string): void {
   let charges = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of mana to add.");
+      print(`Invalid mana amount: ${num}`);
       return;
     }
 
@@ -1248,16 +1238,9 @@ export function s(params: string): void {
     stageTypeLetter = "";
   }
 
-  const stage = tonumber(stageString) as LevelStage | undefined;
-  if (stage === undefined) {
-    print(`That is an invalid stage number: ${stage}`);
-    return;
-  }
-
-  if (stage < FIRST_STAGE || stage > LAST_STAGE) {
-    print(
-      `Invalid stage number; must be between ${FIRST_STAGE} and ${LAST_STAGE}.`,
-    );
+  const stage = parseIntSafe(stageString);
+  if (stage === undefined || !isEnumValue(stage, StageType)) {
+    print(`Invalid stage number: ${stage}`);
     return;
   }
 
@@ -1313,31 +1296,30 @@ export function setCharges(params: string): void {
   }
 
   if (args.length !== 2) {
-    print("That is an invalid amount of arguments.");
+    print(`Invalid amount of arguments: ${args.length}`);
     return;
   }
 
   const [activeSlotString, chargeString] = args;
 
-  const activeSlot = tonumber(activeSlotString) as ActiveSlot | undefined;
-  if (activeSlot === undefined) {
-    print(`The provided slot number is invalid: ${activeSlotString}`);
+  if (activeSlotString === undefined || chargeString === undefined) {
     return;
   }
 
-  if (!ACTIVE_SLOT_VALUES.includes(activeSlot)) {
-    print(`The provided slot number is invalid: ${activeSlot}`);
+  const activeSlot = parseIntSafe(activeSlotString);
+  if (activeSlot === undefined || !isEnumValue(activeSlot, ActiveSlot)) {
+    print(`Invalid slot number: ${activeSlotString}`);
     return;
   }
 
-  const chargeNum = tonumber(chargeString);
+  const chargeNum = parseIntSafe(chargeString);
   if (chargeNum === undefined) {
-    print(`The provided charge amount is invalid: ${chargeString}`);
+    print(`Invalid charge amount: ${chargeString}`);
     return;
   }
 
   if (chargeNum < 0) {
-    print(`The provided charge amount is invalid: ${chargeNum}`);
+    print(`Invalid charge amount: ${chargeNum}`);
     return;
   }
 
@@ -1365,15 +1347,19 @@ export function setPosition(params: string): void {
 
   const [xString, yString] = args;
 
-  const x = tonumber(xString);
-  if (x === undefined) {
-    print(`That is an invalid x value: ${xString}`);
+  if (xString === undefined || yString === undefined) {
     return;
   }
 
-  const y = tonumber(yString);
+  const x = parseIntSafe(xString);
+  if (x === undefined) {
+    print(`Invalid x value: ${xString}`);
+    return;
+  }
+
+  const y = parseIntSafe(yString);
   if (y === undefined) {
-    print(`That is an invalid y value: ${yString}`);
+    print(`Invalid y value: ${yString}`);
     return;
   }
 
@@ -1400,9 +1386,9 @@ export function smelt(): void {
 export function soulCharges(params: string): void {
   let charges = 1;
   if (params !== "") {
-    const num = tonumber(params);
+    const num = parseIntSafe(params);
     if (num === undefined) {
-      print("That is an invalid amount of charges to add.");
+      print(`Invalid charges amount: ${num}`);
       return;
     }
 
@@ -1428,9 +1414,9 @@ export function soulHearts(params: string): void {
  * - sound 1 - Plays the 1-Up sound effect.
  */
 export function sound(params: string): void {
-  const soundEffect = tonumber(params) as SoundEffect | undefined;
-  if (soundEffect === undefined) {
-    print("That is an invalid sound effect ID.");
+  const soundEffect = parseIntSafe(params);
+  if (soundEffect === undefined || !isEnumValue(soundEffect, SoundEffect)) {
+    print(`Invalid sound effect ID: ${soundEffect}.`);
     return;
   }
 
@@ -1473,9 +1459,9 @@ export function spawnCollectible(params: string): void {
     return;
   }
 
-  const collectibleTypeNumber = tonumber(params);
+  const num = parseIntSafe(params);
   let collectibleType: CollectibleType;
-  if (collectibleTypeNumber === undefined) {
+  if (num === undefined) {
     const match = getMapPartialMatch(params, COLLECTIBLE_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown collectible: ${params}`);
@@ -1484,7 +1470,10 @@ export function spawnCollectible(params: string): void {
 
     collectibleType = match[1];
   } else {
-    collectibleType = asCollectibleType(collectibleTypeNumber);
+    if (!isValidCollectibleType(num)) {
+      print(`Invalid collectible type: ${num}`);
+    }
+    collectibleType = num;
   }
 
   const roomClass = game.GetRoom();
@@ -1521,19 +1510,27 @@ export function spawnCollectibleAt(params: string): void {
     return;
   }
 
-  const collectibleTypeNumber = tonumber(args[0]);
-  if (collectibleTypeNumber === undefined || collectibleTypeNumber < 0) {
-    print(`Failed to parse the collectible type of: ${args[0]}`);
+  const [collectibleTypeString, gridIndexString] = args;
+
+  if (collectibleTypeString === undefined || gridIndexString === undefined) {
     return;
   }
 
-  const gridIndex = tonumber(args[1]);
+  const collectibleType = parseIntSafe(collectibleTypeString);
+  if (
+    collectibleType === undefined ||
+    !isValidCollectibleType(collectibleType)
+  ) {
+    print(`Invalid collectible type: ${args[0]}`);
+    return;
+  }
+
+  const gridIndex = parseIntSafe(gridIndexString);
   if (gridIndex === undefined || gridIndex < 0) {
     print(`Failed to parse the grid index of: ${args[1]}`);
     return;
   }
 
-  const collectibleType = asCollectibleType(collectibleTypeNumber);
   spawnCollectibleFunc(collectibleType, gridIndex, undefined);
 }
 
@@ -1581,9 +1578,9 @@ export function spawnTrinket(params: string, golden = false): void {
     return;
   }
 
-  const trinketTypeNumber = tonumber(params);
+  const num = parseIntSafe(params);
   let trinketType: TrinketType;
-  if (trinketTypeNumber === undefined) {
+  if (num === undefined) {
     const match = getMapPartialMatch(params, TRINKET_NAME_TO_TYPE_MAP);
     if (match === undefined) {
       print(`Unknown trinket: ${params}`);
@@ -1592,7 +1589,11 @@ export function spawnTrinket(params: string, golden = false): void {
 
     trinketType = match[1];
   } else {
-    trinketType = asTrinketType(trinketTypeNumber);
+    if (!isValidTrinketType(num)) {
+      print(`Invalid trinket type: ${num}`);
+      return;
+    }
+    trinketType = num;
   }
 
   const roomClass = game.GetRoom();
@@ -1631,19 +1632,24 @@ export function spawnTrinketAt(params: string, golden = false): void {
     return;
   }
 
-  const trinketTypeNumber = tonumber(args[0]);
-  if (trinketTypeNumber === undefined || trinketTypeNumber < 0) {
-    print(`Failed to parse the trinket type of: ${args[0]}`);
+  const [trinketTypeString, gridIndexString] = args;
+
+  if (trinketTypeString === undefined || gridIndexString === undefined) {
     return;
   }
 
-  const gridIndex = tonumber(args[1]);
+  const trinketType = parseIntSafe(trinketTypeString);
+  if (trinketType === undefined || !isValidTrinketType(trinketType)) {
+    print(`Invalid trinket type: ${trinketTypeString}`);
+    return;
+  }
+
+  const gridIndex = parseIntSafe(gridIndexString);
   if (gridIndex === undefined || gridIndex < 0) {
     print(`Failed to parse the grid index of: ${args[1]}`);
     return;
   }
 
-  const trinketType = asTrinketType(trinketTypeNumber);
   const goldenTrinketType = getGoldenTrinketType(trinketType);
   const trinketTypeToSpawn = golden ? goldenTrinketType : trinketType;
   spawnTrinketFunction(trinketTypeToSpawn, gridIndex);
@@ -1658,9 +1664,9 @@ export function speed(params: string): void {
   const player = Isaac.GetPlayer();
 
   if (params !== "") {
-    const num = tonumber(params);
+    const num = tonumber(params); // Can be a float.
     if (num === undefined) {
-      print(`The provided speed amount is invalid: ${params}`);
+      print(`Invalid speed amount: ${params}`);
       return;
     }
 
@@ -1711,9 +1717,9 @@ export function superSecretRoom(): void {
  */
 export function tears(params: string): void {
   if (params !== "") {
-    const num = tonumber(params);
+    const num = tonumber(params); // Can be a float.
     if (num === undefined) {
-      print(`The provided tear delay amount is invalid: ${params}`);
+      print(`Invalid tear delay amount: ${params}`);
       return;
     }
 
@@ -1791,7 +1797,7 @@ export function warp(params: string): void {
   }
 
   let roomType: RoomType;
-  const num = tonumber(params) as RoomType | undefined;
+  const num = parseIntSafe(params);
   if (num === undefined) {
     const match = getMapPartialMatch(params, ROOM_NAME_TO_TYPE_MAP);
     if (match === undefined) {
@@ -1801,7 +1807,7 @@ export function warp(params: string): void {
 
     roomType = match[1];
   } else {
-    if (num < FIRST_ROOM_TYPE || num > LAST_ROOM_TYPE) {
+    if (!isEnumValue(num, RoomType)) {
       print(`Invalid room type: ${num}`);
       return;
     }

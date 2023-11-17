@@ -4,7 +4,7 @@ import type {
 } from "isaac-typescript-definitions";
 import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
 import * as itemPoolsJSON from "../data/itempools.json";
-import { asCollectibleType } from "../functions/types";
+import { asCollectibleType, parseIntSafe } from "../functions/types";
 import { ITEM_POOL_TYPE_TO_ITEM_POOL_NAME } from "../maps/itemPoolTypeToItemPoolName";
 
 export const ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET: Readonly<
@@ -22,14 +22,14 @@ export const ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET: Readonly<
       const collectibleTypesSet = new Set<CollectibleType>();
 
       for (const itemPoolJSONElement of itemPoolJSON.Item) {
-        const collectibleTypeNumber = tonumber(itemPoolJSONElement.$.Id);
-        if (collectibleTypeNumber === undefined) {
+        const collectibleTypeInt = parseIntSafe(itemPoolJSONElement.$.Id);
+        if (collectibleTypeInt === undefined) {
           error(
             `Failed to parse a collectible type in the "itempools.json" file: ${itemPoolJSONElement.$.Id}`,
           );
         }
 
-        const collectibleType = asCollectibleType(collectibleTypeNumber);
+        const collectibleType = asCollectibleType(collectibleTypeInt);
         collectibleTypesSet.add(collectibleType);
       }
 

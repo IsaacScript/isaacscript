@@ -216,3 +216,28 @@ export function isTable(
 export function isUserdata(variable: unknown): variable is LuaUserdata {
   return type(variable) === "userdata";
 }
+
+/**
+ * Helper function to convert a string to an integer. Returns undefined if the string is not an
+ * integer.
+ *
+ * Under the hood, this uses the built-in `tonumber` and `math.floor` functions.
+ *
+ * This is named `parseIntSafe` in order to match the helper function in `isaacscript-common-ts`.
+ */
+export function parseIntSafe(string: string): int | undefined {
+  if (!isString(string)) {
+    return undefined;
+  }
+
+  // - The `tonumber` function correctly deals with leading and trailing whitespace.
+  // - The `tonumber` function correctly deals with a mix of numbers and letters. (e.g. `1a` returns
+  //   undefined.)
+  const number = tonumber(string);
+  if (number === undefined) {
+    return undefined;
+  }
+
+  const flooredNumber = math.floor(number);
+  return number === flooredNumber ? flooredNumber : undefined;
+}

@@ -164,8 +164,6 @@ export function parseFloatSafe(string: string): number | undefined {
  *
  * If you have to use a radix other than 10, use the vanilla `Number.parseInt` function instead,
  * because this function ensures that the string contains no letters.
- *
- * @param string A string to convert to an integer.
  */
 export function parseIntSafe(string: string): number | undefined {
   if (typeof string !== "string") {

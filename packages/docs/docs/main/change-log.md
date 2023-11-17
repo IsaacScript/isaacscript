@@ -9,6 +9,19 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## November 24th, 2023 (Unreleased)
+
+- Added the following helper functions:
+  - `isValidCardType`
+  - `isValidPillEffect`
+  - `isValidTrinketType`
+  - `parseIntSafe`
+- Removed the following constants:
+  - `FIRST_ROOM_TYPE`
+  - `FIRST_STAGE`
+  - `LAST_ROOM_TYPE`
+  - `LAST_STAGE`
+
 ## November 17th, 2023
 
 - Added the following helper functions:

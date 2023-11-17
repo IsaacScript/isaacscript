@@ -35,7 +35,7 @@ import { getEntityID } from "./entities";
 import { hasFlag } from "./flag";
 import { isCollectible } from "./pickupVariants";
 import { clearSprite, spriteEquals } from "./sprites";
-import { isInteger } from "./types";
+import { asCollectibleType, isInteger } from "./types";
 import { assertDefined } from "./utils";
 
 const COLLECTIBLE_ANM2_PATH = "gfx/005.100_collectible.anm2";
@@ -569,9 +569,10 @@ export function isSingleUseCollectible(
 }
 
 export function isValidCollectibleType(
-  collectibleType: CollectibleType,
-): boolean {
-  const itemConfigItem = itemConfig.GetCollectible(collectibleType);
+  collectibleType: int,
+): collectibleType is CollectibleType {
+  const potentialCollectibleType = asCollectibleType(collectibleType);
+  const itemConfigItem = itemConfig.GetCollectible(potentialCollectibleType);
   return itemConfigItem !== undefined;
 }
 

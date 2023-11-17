@@ -7,6 +7,7 @@ import { isEnumValue } from "./enums";
 import { addFlag } from "./flag";
 import { log } from "./log";
 import { getRandomFloat } from "./random";
+import { parseIntSafe } from "./types";
 import { assertDefined } from "./utils";
 
 /** This represents either a `JSONRoom` or a `JSONEntity`. */
@@ -24,7 +25,7 @@ export function getJSONRoomDoorSlotFlags(
   jsonRoom: JSONRoom,
 ): BitFlags<DoorSlotFlag> {
   const roomShapeString = jsonRoom.$.shape;
-  const roomShape = tonumber(roomShapeString);
+  const roomShape = parseIntSafe(roomShapeString);
   assertDefined(
     roomShape,
     `Failed to parse the "shape" field of a JSON room: ${roomShapeString}`,
@@ -51,14 +52,14 @@ export function getJSONRoomDoorSlotFlags(
     }
 
     const xString = door.$.x;
-    const x = tonumber(xString);
+    const x = parseIntSafe(xString);
     assertDefined(
       x,
       `Failed to parse the "x" field of a JSON room door: ${xString}`,
     );
 
     const yString = door.$.y;
-    const y = tonumber(yString);
+    const y = parseIntSafe(yString);
     assertDefined(
       y,
       `Failed to parse the "y" field of a JSON room door: ${yString}`,
@@ -92,7 +93,13 @@ export function getJSONRoomOfVariant(
 ): JSONRoom | undefined {
   const jsonRoomsOfVariant = jsonRooms.filter((jsonRoom) => {
     const roomVariantString = jsonRoom.$.variant;
-    const roomVariant = tonumber(roomVariantString);
+    const roomVariant = parseIntSafe(roomVariantString);
+    if (roomVariant === undefined) {
+      error(
+        `Failed to convert a JSON room variant to an integer: ${roomVariantString}`,
+      );
+    }
+
     return roomVariant === variant;
   });
 
@@ -125,7 +132,13 @@ export function getJSONRoomsOfSubType(
 ): JSONRoom[] {
   return jsonRooms.filter((jsonRoom) => {
     const roomSubTypeString = jsonRoom.$.subtype;
-    const roomSubType = tonumber(roomSubTypeString);
+    const roomSubType = parseIntSafe(roomSubTypeString);
+    if (roomSubType === undefined) {
+      error(
+        `Failed to convert a JSON room sub-type to an integer: ${roomSubTypeString}`,
+      );
+    }
+
     return roomSubType === subType;
   });
 }

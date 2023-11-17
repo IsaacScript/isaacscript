@@ -29,8 +29,10 @@ import { ROOM_SHAPE_TO_DOOR_SLOTS } from "../objects/roomShapeToDoorSlots";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToBitFlags } from "./bitwise";
 import { directionToVector } from "./direction";
+import { isEnumValue } from "./enums";
 import { hasFlag } from "./flag";
 import { isTSTLSet } from "./tstlClass";
+import { parseIntSafe } from "./types";
 
 export function closeAllDoors(): void {
   for (const door of getDoors()) {
@@ -278,7 +280,6 @@ export function getRoomShapeDoorSlot(
   x: int,
   y: int,
 ): DoorSlot | undefined {
-  // The type assertion is necessary for some reason.
   const doorSlotCoordinates = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[
     roomShape
   ] as Record<DoorSlot, readonly [x: int, y: int]>;
@@ -286,7 +287,11 @@ export function getRoomShapeDoorSlot(
   for (const [doorSlotString, coordinates] of Object.entries(
     doorSlotCoordinates,
   )) {
-    const doorSlot = tonumber(doorSlotString) as DoorSlot;
+    const doorSlot = parseIntSafe(doorSlotString);
+    if (doorSlot === undefined || !isEnumValue(doorSlot, DoorSlot)) {
+      continue;
+    }
+
     const [doorX, doorY] = coordinates;
     if (x === doorX && y === doorY) {
       return doorSlot;
@@ -304,10 +309,10 @@ export function getRoomShapeDoorSlotCoordinates(
   roomShape: RoomShape,
   doorSlot: DoorSlot,
 ): readonly [x: int, y: int] | undefined {
-  // The type assertion is necessary for some reason.
   const doorSlotCoordinates = ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES[
     roomShape
   ] as Record<DoorSlot, readonly [x: int, y: int]>;
+
   return doorSlotCoordinates[doorSlot];
 }
 

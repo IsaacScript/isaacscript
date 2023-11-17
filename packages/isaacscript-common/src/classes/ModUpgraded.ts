@@ -5,11 +5,13 @@ import { ISCFeature } from "../enums/ISCFeature";
 import { ModCallbackCustom } from "../enums/ModCallbackCustom";
 import { getFeatures } from "../features";
 import { getElapsedTimeSince, getTime } from "../functions/debugFunctions";
+import { isEnumValue } from "../functions/enums";
 import { getParentFunctionDescription, log } from "../functions/log";
 import {
   getTSTLClassConstructor,
   getTSTLClassName,
 } from "../functions/tstlClass";
+import { parseIntSafe } from "../functions/types";
 import { assertDefined } from "../functions/utils";
 import type { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import type { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
@@ -233,11 +235,17 @@ export class ModUpgraded implements Mod {
         continue;
       }
 
-      const modCallbackCustom = tonumber(modCallbackCustomString);
+      const modCallbackCustom = parseIntSafe(modCallbackCustomString);
       assertDefined(
         modCallbackCustom,
-        "Failed to convert an index on the callbacks object to a number.",
+        `Failed to convert the string "${modCallbackCustomString}" representing a "ModCallbackCustom" value to a number.`,
       );
+
+      if (!isEnumValue(modCallbackCustom, ModCallbackCustom)) {
+        error(
+          `Failed to convert the number ${modCallbackCustom} to a "ModCallbackCustom" value.`,
+        );
+      }
 
       log(
         `- ModCallbackCustom.${ModCallbackCustom[modCallbackCustom]} (${modCallbackCustom})`,
@@ -252,11 +260,17 @@ export class ModUpgraded implements Mod {
         continue;
       }
 
-      const iscFeature = tonumber(iscFeatureString);
+      const iscFeature = parseIntSafe(iscFeatureString);
       assertDefined(
         iscFeature,
-        "Failed to convert an index on the features object to a number.",
+        `Failed to convert the string "${iscFeatureString}" representing a "ISCFeature" value to a number.`,
       );
+
+      if (!isEnumValue(iscFeature, ISCFeature)) {
+        error(
+          `Failed to convert the number ${iscFeature} to a "ISCFeature" value.`,
+        );
+      }
 
       log(`- ISCFeature.${ISCFeature[iscFeature]} (${iscFeature})`);
     }

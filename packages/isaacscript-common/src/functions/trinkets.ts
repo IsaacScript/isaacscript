@@ -14,7 +14,7 @@ import { getEnumLength } from "./enums";
 import { hasFlag } from "./flag";
 import { isTrinket } from "./pickupVariants";
 import { clearSprite } from "./sprites";
-import { asNumber } from "./types";
+import { asNumber, asTrinketType } from "./types";
 
 /**
  * Add this to a `TrinketType` to get the corresponding golden trinket type.
@@ -163,6 +163,14 @@ export function isGoldenTrinketType(trinketType: TrinketType): boolean {
 
 export function isModdedTrinketType(trinketType: TrinketType): boolean {
   return !isVanillaTrinketType(trinketType);
+}
+
+export function isValidTrinketType(
+  trinketType: int,
+): trinketType is TrinketType {
+  const potentialTrinketType = asTrinketType(trinketType);
+  const itemConfigItem = itemConfig.GetTrinket(potentialTrinketType);
+  return itemConfigItem !== undefined;
 }
 
 export function isVanillaTrinketType(trinketType: TrinketType): boolean {

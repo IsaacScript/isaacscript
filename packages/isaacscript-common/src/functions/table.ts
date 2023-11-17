@@ -66,8 +66,9 @@ export function getBooleansFromTable(
 }
 
 /**
- * Helper function to safely get number values from specific keys on a Lua table. Will throw an
- * error if the specific value does not exist on the table or if it cannot be converted to a number.
+ * Helper function to safely get number values from specific keys on a Lua table. If the values are
+ * strings, they will be converted to numbers. Will throw an error if the specific value does not
+ * exist on the table or if it cannot be converted to a number.
  *
  * This function is variadic, meaning that you can specify N arguments to get N values.
  */

@@ -18,7 +18,7 @@ import { newReadonlyColor } from "./readOnly";
 import { getRandomSeed, isRNG, newRNG } from "./rng";
 import { setSpriteOpacity } from "./sprites";
 import { isTSTLSet } from "./tstlClass";
-import { asNPCState, isPrimitive } from "./types";
+import { asNPCState, isPrimitive, parseIntSafe } from "./types";
 import { assertDefined } from "./utils";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
@@ -173,22 +173,37 @@ export function getConstituentsFromEntityID(
 
   const [entityTypeString, variantString, subTypeString] = parts;
 
-  const entityType = tonumber(entityTypeString);
+  assertDefined(
+    entityTypeString,
+    `Failed to get the first constituent from an entity ID: ${entityID}`,
+  );
+
+  assertDefined(
+    variantString,
+    `Failed to get the second constituent from an entity ID: ${entityID}`,
+  );
+
+  assertDefined(
+    subTypeString,
+    `Failed to get the third constituent from an entity ID: ${entityID}`,
+  );
+
+  const entityType = parseIntSafe(entityTypeString);
   assertDefined(
     entityType,
-    `Failed to convert the entity type to a number: ${entityTypeString}`,
+    `Failed to convert the entity type to an integer: ${entityTypeString}`,
   );
 
-  const variant = tonumber(variantString);
+  const variant = parseIntSafe(variantString);
   assertDefined(
     variant,
-    `Failed to convert the entity variant to a number: ${variantString}`,
+    `Failed to convert the entity variant to an integer: ${variantString}`,
   );
 
-  const subType = tonumber(subTypeString);
+  const subType = parseIntSafe(subTypeString);
   assertDefined(
     subType,
-    `Failed to convert the entity sub-type to a number: ${subTypeString}`,
+    `Failed to convert the entity sub-type to an integer: ${subTypeString}`,
   );
 
   return [entityType, variant, subType];
@@ -464,18 +479,23 @@ export function parseEntityID(
 
   const [entityTypeString, variantString, subTypeString] = entityIDArray;
 
-  const entityType = tonumber(entityTypeString);
-  if (entityType === undefined) {
+  if (
+    entityTypeString === undefined ||
+    variantString === undefined ||
+    subTypeString === undefined
+  ) {
     return undefined;
   }
 
-  const variant = tonumber(variantString);
-  if (variant === undefined) {
-    return undefined;
-  }
+  const entityType = parseIntSafe(entityTypeString);
+  const variant = parseIntSafe(variantString);
+  const subType = parseIntSafe(subTypeString);
 
-  const subType = tonumber(subTypeString);
-  if (subType === undefined) {
+  if (
+    entityType === undefined ||
+    variant === undefined ||
+    subType === undefined
+  ) {
     return undefined;
   }
 
@@ -500,13 +520,14 @@ export function parseEntityTypeVariantString(
 
   const [entityTypeString, variantString] = entityTypeVariantArray;
 
-  const entityType = tonumber(entityTypeString);
-  if (entityType === undefined) {
+  if (entityTypeString === undefined || variantString === undefined) {
     return undefined;
   }
 
-  const variant = tonumber(variantString);
-  if (variant === undefined) {
+  const entityType = parseIntSafe(entityTypeString);
+  const variant = parseIntSafe(variantString);
+
+  if (entityType === undefined || variant === undefined) {
     return undefined;
   }
 

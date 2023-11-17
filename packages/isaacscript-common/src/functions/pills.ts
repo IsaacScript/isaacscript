@@ -28,7 +28,7 @@ import {
   DEFAULT_PILL_EFFECT_TYPE,
   PILL_EFFECT_TYPES,
 } from "../objects/pillEffectTypes";
-import { asNumber, asPillColor } from "./types";
+import { asNumber, asPillColor, asPillEffect } from "./types";
 import { iRange } from "./utils";
 
 /**
@@ -212,6 +212,12 @@ export function isHorsePill(pillColor: PillColor): boolean {
 
 export function isModdedPillEffect(pillEffect: PillEffect): boolean {
   return !isVanillaPillEffect(pillEffect);
+}
+
+export function isValidPillEffect(pillEffect: int): pillEffect is PillEffect {
+  const potentialPillEffect = asPillEffect(pillEffect);
+  const itemConfigPillEffect = itemConfig.GetPillEffect(potentialPillEffect);
+  return itemConfigPillEffect !== undefined;
 }
 
 export function isVanillaPillEffect(pillEffect: PillEffect): boolean {

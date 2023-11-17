@@ -1,8 +1,10 @@
-import type { PlayerType } from "isaac-typescript-definitions";
-import { Challenge, SeedEffect } from "isaac-typescript-definitions";
+import {
+  Challenge,
+  PlayerType,
+  SeedEffect,
+} from "isaac-typescript-definitions";
 import { SEED_EFFECTS } from "../arrays/cachedEnumValues";
 import { game } from "../core/cachedClasses";
-import { FIRST_CHARACTER } from "../core/constantsFirstLast";
 import { getCharacterName } from "./characters";
 import { log } from "./log";
 import { isString } from "./types";
@@ -84,7 +86,7 @@ export function restart(character?: PlayerType): void {
     return;
   }
 
-  if (character < FIRST_CHARACTER) {
+  if (character < PlayerType.ISAAC) {
     error(`Restarting as a character of ${character} would crash the game.`);
   }
 

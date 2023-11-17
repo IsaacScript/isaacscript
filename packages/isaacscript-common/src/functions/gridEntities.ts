@@ -26,7 +26,7 @@ import { removeEntities } from "./entities";
 import { getEffects } from "./entitiesSpecific";
 import { isCircleIntersectingRectangle } from "./math";
 import { roomUpdateSafe } from "./rooms";
-import { isInteger } from "./types";
+import { isInteger, parseIntSafe } from "./types";
 import { assertDefined, eRange, iRange } from "./utils";
 import { isVector, vectorEquals } from "./vector";
 
@@ -169,22 +169,32 @@ export function getConstituentsFromGridEntityID(
   const parts = gridEntityID.split(".");
   if (parts.length !== 2) {
     error(
-      `Failed to get the constituents from grid entity ID: ${gridEntityID}`,
+      `Failed to get the constituents from a grid entity ID: ${gridEntityID}`,
     );
   }
 
   const [gridEntityTypeString, variantString] = parts;
 
-  const gridEntityType = tonumber(gridEntityTypeString);
+  assertDefined(
+    gridEntityTypeString,
+    `Failed to get the first constituent from a grid entity ID: ${gridEntityID}`,
+  );
+
+  assertDefined(
+    variantString,
+    `Failed to get the second constituent from a grid entity ID: ${gridEntityID}`,
+  );
+
+  const gridEntityType = parseIntSafe(gridEntityTypeString);
   assertDefined(
     gridEntityType,
     `Failed to convert the grid entity type to a number: ${gridEntityTypeString}`,
   );
 
-  const variant = tonumber(variantString);
+  const variant = parseIntSafe(variantString);
   assertDefined(
     variant,
-    `Failed to convert the grid entity variant to a number: ${variantString}`,
+    `Failed to convert the grid entity variant to an integer: ${variantString}`,
   );
 
   return [gridEntityType, variant];
