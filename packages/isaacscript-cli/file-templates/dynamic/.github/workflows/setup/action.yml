@@ -8,14 +8,6 @@ runs:
         node-version: lts/*
         cache: PACKAGE_MANAGER_NAME
 
-    - name: Retrieve the cached "node_modules" directory (if present)
-      uses: actions/cache@v3
-      id: node-modules-cache
-      with:
-        path: node_modules
-        key: node-modules-${{ hashFiles('PACKAGE_MANAGER_LOCK_FILE_NAME') }}
-
-    - name: Install dependencies (if the cached directory was not found)
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+    - name: Install dependencies
       run: PACKAGE_MANAGER_INSTALL_COMMAND
       shell: bash # Composite jobs must specify the shell.
