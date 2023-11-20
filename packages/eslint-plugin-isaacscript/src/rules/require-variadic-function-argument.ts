@@ -74,10 +74,12 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
 
 function isHardCodedException(node: TSESTree.CallExpression): boolean {
   const { callee } = node;
-  return isConsoleFunction(callee) || isTimeoutFunction(callee);
+  return isConsoleOrWindowFunction(callee) || isTimeoutFunction(callee);
 }
 
-function isConsoleFunction(callee: TSESTree.LeftHandSideExpression): boolean {
+function isConsoleOrWindowFunction(
+  callee: TSESTree.LeftHandSideExpression,
+): boolean {
   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
     return false;
   }
@@ -87,7 +89,7 @@ function isConsoleFunction(callee: TSESTree.LeftHandSideExpression): boolean {
     return false;
   }
 
-  return object.name === "console";
+  return object.name === "console" || object.name === "window";
 }
 
 function isTimeoutFunction(callee: TSESTree.LeftHandSideExpression): boolean {

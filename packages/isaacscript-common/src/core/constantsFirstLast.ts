@@ -60,13 +60,7 @@ export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
 /** Equal to `Card.FOOL`. */
 export const FIRST_CARD_TYPE = CardType.FOOL;
 
-/**
- * Calculated from the `CardType` enum.
- *
- * Note that this could be calculated from the length of the enum, because card types are
- * contiguous. However, we instead get the highest enum value to be safer and to make the code more
- * consistent with collectibles and trinkets.
- */
+/** Calculated from the `CardType` enum. */
 export const LAST_VANILLA_CARD_TYPE = getHighestEnumValue(CardType);
 
 /** Calculated from the `Card` enum. `Card.NULL` is not included. */
@@ -79,13 +73,7 @@ export const NUM_VANILLA_CARD_TYPES = getEnumLength(CardType) - 1;
 /** Equal to `PillEffect.BAD_GAS`. */
 export const FIRST_PILL_EFFECT = PillEffect.BAD_GAS;
 
-/**
- * Calculated from the `PillEffect` enum.
- *
- * Note that this could be calculated from the length of the enum, because pill effects are
- * contiguous. However, we instead get the highest enum value to be safer and to make the code more
- * consistent with collectibles and trinkets.
- */
+/** Calculated from the `PillEffect` enum. */
 export const LAST_VANILLA_PILL_EFFECT = getHighestEnumValue(PillEffect);
 
 /**
@@ -134,13 +122,7 @@ export const FIRST_CHARACTER = PlayerType.ISAAC;
 
 // It is not possible to determine "LAST_PLAYER_TYPE", since there is no associated config.
 
-/**
- * Calculated from the `PlayerType` enum.
- *
- * Note that this could be calculated from the length of the enum, because characters are
- * contiguous. However, we instead get the highest enum value to be safer and to make the code more
- * consistent with collectibles and trinkets.
- */
+/** Calculated from the `PlayerType` enum. */
 export const LAST_VANILLA_CHARACTER = getHighestEnumValue(PlayerType);
 
 // ----------

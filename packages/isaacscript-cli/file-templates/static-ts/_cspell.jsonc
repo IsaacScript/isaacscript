@@ -6,7 +6,9 @@
   "enableGlobDot": true,
   "useGitignore": true,
   "ignorePaths": [
+    "*.mp3",
     "*.pyc",
+    "*.svg",
     ".git/**",
     ".yarn/**",
     "dist/**",
