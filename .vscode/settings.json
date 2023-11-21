@@ -59,6 +59,9 @@
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
 
+  // Force VSCode to use type imports, which the standard ESLint configuration will auto-fix to.
+  // "typescript.preferences.preferTypeOnlyAutoImports": true,
+
   // Show TypeScript errors for files that don't happen to be currently open, which makes TypeScript
   // work similar to other compiled languages like Golang or Rust.
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
