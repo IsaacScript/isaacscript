@@ -5978,13 +5978,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.5.8":
-  version: 29.5.8
-  resolution: "@types/jest@npm:29.5.8"
+"@types/jest@npm:^29.5.9":
+  version: 29.5.9
+  resolution: "@types/jest@npm:29.5.9"
   dependencies:
     expect: "npm:^29.0.0"
     pretty-format: "npm:^29.0.0"
-  checksum: a28e7827ea7e1a2aace6a386868fa6b8402c162d6c71570aed2c29d3745ddc22ceef6899a20643071817905d3c57b670a7992fc8760bff65939351fd4dc481cf
+  checksum: 66fe6b9b1c72739d02edaf1c98468aec84c700d841376afab9321b5268cb7b656a00a3561408b6c37f8619fffa7902e2ef29357fbc355e3e641c18b254899e49
   languageName: node
   linkType: hard
 
@@ -6004,12 +6004,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/klaw-sync@npm:^6.0.4":
-  version: 6.0.4
-  resolution: "@types/klaw-sync@npm:6.0.4"
+"@types/klaw-sync@npm:^6.0.5":
+  version: 6.0.5
+  resolution: "@types/klaw-sync@npm:6.0.5"
   dependencies:
     "@types/node": "npm:*"
-  checksum: a560e10bdbfd7efc2a77e571757732822fc5878527a2ad62565004e0a550b0d084fde0c7193702f4a3b2ac6b71d3cd7e03caef690379f01d37b4456c6be983f4
+  checksum: 4a5c1f60d314b0add5a66fb60d3180932e666ff1278639a96144f234a260890aa9a71b2547ccc7c574d298b222f369b49dbbcff60408ce8baaf91ad94f478852
   languageName: node
   linkType: hard
 
@@ -6091,12 +6091,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.9.2":
-  version: 20.9.2
-  resolution: "@types/node@npm:20.9.2"
+"@types/node@npm:^20.9.3":
+  version: 20.9.3
+  resolution: "@types/node@npm:20.9.3"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 891a035a5b7796001f5daaec03b2d84ebb67d731b67abb34c352af1b5b1f53beb4a92f0f6a66f6e0ed97191c3022cc8c830e048f8a5c53806e8ab248873a7c7b
+  checksum: 0f61809f00241d0f1db23f8d938ef287138754819150d026e57d2246fec0330ba4b771781ff0d2ed1ea0dd42953850424b495956ff89d06d0bf3995d53da75b1
   languageName: node
   linkType: hard
 
@@ -13096,9 +13096,9 @@ __metadata:
     "@types/eslint__js": "npm:^8.42.3"
     "@types/figlet": "npm:^1.5.8"
     "@types/glob": "npm:^8.1.0"
-    "@types/jest": "npm:^29.5.8"
-    "@types/klaw-sync": "npm:^6.0.4"
-    "@types/node": "npm:^20.9.2"
+    "@types/jest": "npm:^29.5.9"
+    "@types/klaw-sync": "npm:^6.0.5"
+    "@types/node": "npm:^20.9.3"
     "@types/prompt": "npm:^1.1.8"
     "@types/source-map-support": "npm:^0.5.10"
     "@types/touch": "npm:^3.1.5"
@@ -13165,12 +13165,12 @@ __metadata:
     ts-json-schema-generator: "npm:^1.4.0"
     ts-prune-2: "npm:^0.10.7"
     tsconfig-paths: "npm:^4.2.0"
-    tsx: "npm:^4.1.4"
+    tsx: "npm:^4.2.0"
     typedoc: "npm:^0.25.3"
     typedoc-plugin-markdown: "npm:^3.17.1"
     typedoc-plugin-rename: "npm:^1.0.1"
     typescript: "npm:5.2.2"
-    typescript-to-lua: "npm:^1.21.0"
+    typescript-to-lua: "npm:^1.22.0"
     unified: "npm:^11.0.4"
     xml2js: "npm:^0.6.2"
     yaml: "npm:^2.3.4"
@@ -20215,9 +20215,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.1.4":
-  version: 4.1.4
-  resolution: "tsx@npm:4.1.4"
+"tsx@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "tsx@npm:4.2.0"
   dependencies:
     esbuild: "npm:~0.18.20"
     fsevents: "npm:~2.3.3"
@@ -20228,7 +20228,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 2ec7cf5a8353115082942e67d1d8a7173987872e0f288819ddf796851b399490f9c1752c21c87f1b3e49c6946884fc77e56b1d4668542480fd8a0465fe2f536f
+  checksum: 649321a374b50d5813f63d31fcea477416d3692b301fb7b454c97a85441b9067cda368250cd794cfc4ee5cede58096ad5f6a15d209ef0eadd14ac30bd710ea91
   languageName: node
   linkType: hard
 
@@ -20354,9 +20354,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-to-lua@npm:^1.21.0":
-  version: 1.21.0
-  resolution: "typescript-to-lua@npm:1.21.0"
+"typescript-to-lua@npm:^1.22.0":
+  version: 1.22.0
+  resolution: "typescript-to-lua@npm:1.22.0"
   dependencies:
     "@typescript-to-lua/language-extensions": "npm:1.19.0"
     enhanced-resolve: "npm:^5.8.2"
@@ -20367,7 +20367,7 @@ __metadata:
     typescript: 5.2.2
   bin:
     tstl: dist/tstl.js
-  checksum: 41f640d3e9cfb9198807f7b4832fe88e56ba253dfbe383be097fccc407acac7cafc8ea91587f1e8bec10b963bfde36d81ebb0b835dd5d0a56bab2cfcb28266bc
+  checksum: 32df916b964267bf802f6a53c6a91a2afae9da1ac08f014ffad812bf3ef7625a0a0fe3394f441363169fe0d837d5abce24ff734a44a1ecb2bfdb21f739d0daee
   languageName: node
   linkType: hard
 
