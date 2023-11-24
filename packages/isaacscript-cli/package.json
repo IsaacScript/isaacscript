@@ -63,5 +63,10 @@
   "peerDependencies": {
     "typescript": ">= 5.0.0",
     "typescript-to-lua": ">= 1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript-to-lua": {
+      "optional": true
+    }
   }
 }
