@@ -14,7 +14,6 @@ import {
 } from "isaacscript-common-node";
 import { parseFloatSafe, parseIntSafe } from "isaacscript-common-ts";
 import path from "node:path";
-import * as tstl from "typescript-to-lua";
 import xml2js from "xml2js";
 import { getJSONRoomDoorSlotFlags } from "./common.js";
 import {
@@ -220,7 +219,7 @@ async function fillCustomStageMetadata(
   validateMetadataLuaFileExists(packageManager);
 
   const customStages = await getCustomStagesWithMetadata(customStagesTSConfig);
-  const customStagesLua = convertCustomStagesToLua(customStages);
+  const customStagesLua = await convertCustomStagesToLua(customStages);
   writeFile(METADATA_LUA_PATH, customStagesLua);
   console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH}`);
 }
@@ -364,7 +363,14 @@ async function getCustomStagesWithMetadata(
   return customStagesLua;
 }
 
-function convertCustomStagesToLua(customStages: CustomStageLua[]): string {
+async function convertCustomStagesToLua(
+  customStages: CustomStageLua[],
+): Promise<string> {
+  // We perform a dynamic import to prevent non-TSTL projects from having to have TSTL as a
+  // dependency if they use the IsaacScript CLI. ("typescript-to-lua" is listed as an optional peer
+  // dependency in this project's "package.json".)
+  const tstl = await import("typescript-to-lua");
+
   const customStagesString = JSON.stringify(customStages);
   const fakeTypeScriptFile = `return ${customStagesString}`;
   const result = tstl.transpileString(fakeTypeScriptFile, {
