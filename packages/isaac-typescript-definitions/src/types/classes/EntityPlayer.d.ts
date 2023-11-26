@@ -1077,13 +1077,12 @@ declare global {
      *
      * @param subType
      * @param position
-     * @param target If Vector.Zero, throws the spawned dip in a random direction. Default is
-     *               Vector.Zero.
+     * @param target If Vector.Zero, throws the spawned dip in a random direction.
      */
     ThrowFriendlyDip: (
       subType: DipFamiliarSubType,
       position: Vector,
-      target?: Vector,
+      target: Vector,
     ) => EntityFamiliar;
 
     /**
