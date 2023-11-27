@@ -60,6 +60,7 @@
   "typescript.preferences.importModuleSpecifier": "relative",
 
   // Force VSCode to use type imports, which the standard ESLint configuration will auto-fix to.
+  // TODO: wait for next VSCode release
   // "typescript.preferences.preferTypeOnlyAutoImports": true,
 
   // Show TypeScript errors for files that don't happen to be currently open, which makes TypeScript

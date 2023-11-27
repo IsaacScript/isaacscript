@@ -79,28 +79,38 @@ And when we need to initialize the data, we can simply do: `new FooData()`
 
 ### Local Variables
 
-Next, we need to define a local object to store our variables for the entity:
+First, before we declare our variables, we need to set up the save data manager, which involves upgrading our mod:
 
 ```ts
+// mod.ts
+import { upgradeMod } from "isaacscript-common";
+
+const modVanilla = RegisterMod("my-mod", 1);
+const features = [ISCFeature.SAVE_DATA_MANAGER] as const;
+export const mod = upgradeMod(modVanilla, features);
+```
+
+Now, the `mod` object can be imported by the feature files in our project.
+
+Next, in our "foo.ts" file, we need to define a local object to store our variables for the entity, and then feed it to the save data manager:
+
+```ts
+interface FooData {
+  sleepCounters: int;
+}
+
 const v = {
   room: {
     fooData: new Map<PtrHash, FooData>(),
   },
 };
-```
 
-And then we feed the object to the save data manager:
-
-```ts
-// We call "fooInit() in our "main.ts" file after first initializing our mod.
-export function fooInit(): void {
-  saveDataManager("foo", v);
-}
+mod.saveDataManager("foo", v);
 ```
 
 Let's break this down.
 
-The object name of `v` is conventionally used to denote "variables", or more specifically, "variables that are local to this file or feature only". We would stick every variable that we need for this sleep feature on the `v` object. (And we wouldn't put any other variables on it, to keep the variables scoped properly.)
+The object name of `v` is conventionally used to denote "variables", or more specifically, "variables that are local to this file or feature only". We would stick every variable that we need for this sleep feature on the `v` object. (And we would not put any other variables on it, to keep the variables scoped properly.)
 
 `v` is composed of sub-objects. By specifying a `room` sub-object, that tells the save data manager to automatically wipe the data in that sub-object when a new room is entered. This is what we want, because in this example, enemy NPCs will only exist in the context of the current room, and we don't care about keeping data for NPCs that have already despawned.
 
