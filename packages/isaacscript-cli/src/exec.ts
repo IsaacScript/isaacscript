@@ -62,31 +62,6 @@ export function execPowershell(
 }
 
 /**
- * Same as `execShell`, but accepts the command as a string instead of an array of arguments.
- *
- * @param commandString The command to run.
- * @param verbose Default is false.
- * @param allowFailure Default is false.
- * @param cwd Default is CWD.
- */
-export function execShellString(
-  commandString: string,
-  verbose = false,
-  allowFailure = false,
-  cwd = CWD,
-): { exitStatus: number; stdout: string } {
-  const args = commandString.split(" ");
-  const command = args.shift();
-  if (command === undefined) {
-    fatalError(
-      `execShellString failed to parse the command of: ${commandString}`,
-    );
-  }
-
-  return execShell(command, args, verbose, allowFailure, cwd);
-}
-
-/**
  * Returns a tuple of exit status and stdout. The stdout is trimmed for convenience.
  *
  * @param command The command to run.
@@ -166,4 +141,29 @@ export function execShell(
   }
 
   return { exitStatus, stdout };
+}
+
+/**
+ * Same as `execShell`, but accepts the command as a string instead of an array of arguments.
+ *
+ * @param commandString The command to run.
+ * @param verbose Default is false.
+ * @param allowFailure Default is false.
+ * @param cwd Default is CWD.
+ */
+export function execShellString(
+  commandString: string,
+  verbose = false,
+  allowFailure = false,
+  cwd = CWD,
+): { exitStatus: number; stdout: string } {
+  const args = commandString.split(" ");
+  const command = args.shift();
+  if (command === undefined) {
+    fatalError(
+      `execShellString failed to parse the command of: ${commandString}`,
+    );
+  }
+
+  return execShell(command, args, verbose, allowFailure, cwd);
 }

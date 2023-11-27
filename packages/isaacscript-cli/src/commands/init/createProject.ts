@@ -4,6 +4,7 @@ import {
   PackageManager,
   copyFileOrDirectory,
   deleteFileOrDirectory,
+  fatalError,
   getFileNamesInDirectory,
   getPackageManagerExecCommand,
   getPackageManagerInstallCICommand,
@@ -17,6 +18,7 @@ import {
   writeFile,
 } from "isaacscript-common-node";
 import {
+  parseSemanticVersion,
   removeLinesBetweenMarkers,
   removeLinesMatching,
   repeat,
@@ -300,8 +302,22 @@ function upgradeYarn(
     return;
   }
 
-  // Yarn v3.5.1 is the default in Node.js v20. On this version of node, the command will do two
-  // things:
+  // First, check to see if they have already done "corepack enable". If they have not, then yarn
+  // might still be on version 1. Otherwise it will be version 3.
+  const { stdout } = execShellString("yarn --version", verbose);
+  const yarnVersion = parseSemanticVersion(stdout);
+  if (yarnVersion === undefined) {
+    fatalError(
+      `Failed to parse the Yarn version when running the "yarn --version" command: ${stdout}`,
+    );
+  }
+  if (yarnVersion.majorVersion === 1) {
+    // They have not done a "corepack enable", so let them use Yarn 1 to reduce the complexity.
+    return;
+  }
+
+  // Yarn v3.5.1 is the default in Node.js v20 (once corepack has been enabled). On this version of
+  // node, the command will do two things:
   // - It creates `./.yarn/releases/yarn-#.#.#.cjs`.
   // - It creates the following string in the "package.json" file: `"packageManager": "yarn@#.#.#"`
   execShellString("yarn set version latest", verbose, false, projectPath);
