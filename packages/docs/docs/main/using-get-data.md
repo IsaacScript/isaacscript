@@ -65,9 +65,24 @@ Even for real persistent entities like players and familiars, the table is still
 
 Using the IsaacScript save data manager, it's relatively easy to replace `Entity.GetData` variables with a standard object. Let's use the same example as before: we store sleep counters for every NPC in the room, and once they get enough counters, they fall asleep.
 
+### Save Data Manager Setup
+
+First, before we declare our sleep counter variables, we need to upgrade our mod with the save data manager feature:
+
+```ts
+// mod.ts
+import { upgradeMod } from "isaacscript-common";
+
+const modVanilla = RegisterMod("my-mod", 1);
+const features = [ISCFeature.SAVE_DATA_MANAGER] as const;
+export const mod = upgradeMod(modVanilla, features);
+```
+
+Now, the `mod` object can be imported by the feature files in our project. (If this part is confusing, you might want to first look at [the documentation for `isaacscript-common`](/isaacscript-common).)
+
 ### Data Definition
 
-To start with, we could use the exact same interface as the previous example, and it would work just fine. But here, it makes sense to use a class, because we can leverage the constructor to initialize default values without having to manually write any custom code. (All NPCs should start with 0 counters to begin with.)
+Since we just need to store sleep counters, we could use the exact same interface as the previous example, and it would work just fine. But here, it makes sense to use a class, because we can leverage the constructor to initialize default values without having to manually write any custom code. (All NPCs should start with 0 counters to begin with.)
 
 ```ts
 class FooData {
@@ -79,26 +94,9 @@ And when we need to initialize the data, we can simply do: `new FooData()`
 
 ### Local Variables
 
-First, before we declare our variables, we need to set up the save data manager, which involves upgrading our mod:
+Next, we need to define a local object to store our variables for the entity, and then feed it to the save data manager:
 
 ```ts
-// mod.ts
-import { upgradeMod } from "isaacscript-common";
-
-const modVanilla = RegisterMod("my-mod", 1);
-const features = [ISCFeature.SAVE_DATA_MANAGER] as const;
-export const mod = upgradeMod(modVanilla, features);
-```
-
-Now, the `mod` object can be imported by the feature files in our project.
-
-Next, in our "foo.ts" file, we need to define a local object to store our variables for the entity, and then feed it to the save data manager:
-
-```ts
-interface FooData {
-  sleepCounters: int;
-}
-
 const v = {
   room: {
     fooData: new Map<PtrHash, FooData>(),
@@ -139,7 +137,7 @@ function incrementSleepCounter(npc: EntityNPC) {}
 
 That's about all there is to it. Here, the `FooData` class corresponds to the old `GetData` table. You can add as many variables to the class as you need.
 
-### DefaultMap
+### `DefaultMap`
 
 The previous example is a very common pattern in Isaac modding. The IsaacScript standard library offers a data structure called a `DefaultMap` that can simplify this pattern even further. A `DefaultMap` allows you to specify a default value for things in the map. Subsequently, you don't have to worry about checking for the case where the data doesn't exist yet, because the `DefaultMap` automatically instantiates it for you.
 
@@ -149,11 +147,6 @@ const v = {
     fooData: new DefaultMap<PtrHash, FooData>(() => new FooData()),
   },
 };
-
-// We call "fooInit() in our "main.ts" file after first initializing our mod.
-export function fooInit(): void {
-  saveDataManager("foo", v);
-}
 
 function incrementSleepCounter(npc: EntityNPC) {}
   const ptrHash = GetPtrHash(npc);
@@ -167,6 +160,8 @@ Let's break this down.
 You specify the default value of the map with the first argument of the constructor. The first argument can either be a raw value, like 0. Or, it can be a function that dynamically calculates/creates a value. Here, we pass a very simple function that just instantiates a new class.
 
 In the `incrementSleepCounter` function, we use the `getAndSetDefault` method instead of the `get` method. If the monster already exists in the map, then the `getAndSetDefault` will do the same thing as the `get` method. If the monster does not exist yet in the map, the `DefaultMap` will run the function we provided and give us the new data.
+
+Using the `DefaultMap` data structure allows us to write really compact and easy-to-read code!
 
 <br />
 
