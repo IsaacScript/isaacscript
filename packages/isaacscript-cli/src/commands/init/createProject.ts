@@ -203,8 +203,7 @@ function copyDynamicFiles(
 
     const packageJSON = template
       .replaceAll("PROJECT_NAME", projectName)
-      .replaceAll("AUTHOR_NAME", authorName ?? "unknown")
-      .replaceAll("PACKAGE_MANAGER", packageManager);
+      .replaceAll("AUTHOR_NAME", authorName ?? "unknown");
 
     const destinationPath = path.join(projectPath, PACKAGE_JSON);
     writeFile(destinationPath, packageJSON);

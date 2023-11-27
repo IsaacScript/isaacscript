@@ -20,7 +20,7 @@
     "lint": "tsx ./scripts/lint.ts",
     "nuke": "isaacscript nuke",
     "publish": "isaacscript publish-ts",
-    "start": "PACKAGE_MANAGER run build && node ./dist/main.js",
+    "start": "tsx ./src/main.ts",
     "update": "isaacscript update"
   },
   "devDependencies": {
