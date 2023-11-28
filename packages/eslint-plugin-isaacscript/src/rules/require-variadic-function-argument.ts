@@ -110,6 +110,7 @@ function hasJSDocExceptionTag(
     return false;
   }
   const jsDocTagInfoArray = symbol.getJsDocTags(checker);
+  console.log("LOL:", jsDocTagInfoArray);
   return jsDocTagInfoArray.some(
     (tagInfo) => tagInfo.name === JSDOC_EXCEPTION_TAG,
   );
