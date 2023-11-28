@@ -33,7 +33,7 @@
     "command-exists": "^1.2.9",
     "diff": "^5.1.0",
     "execa": "^8.0.1",
-    "isaacscript-common-ts": "^11.5.0",
+    "isaacscript-common-ts": "^11.6.0",
     "jsonc-parser": "^3.2.0",
     "npm-check-updates": "^16.14.11"
   }
