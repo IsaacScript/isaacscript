@@ -20,19 +20,17 @@ import { Exported } from "../../../decorators";
 import { Feature } from "../../private/Feature";
 
 // eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_COLLECTIBLE_TYPE: CollectibleType =
+const FIRST_MODDED_COLLECTIBLE_TYPE: CollectibleType =
   LAST_VANILLA_COLLECTIBLE_TYPE + 1;
 
 // eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_TRINKET_TYPE: TrinketType =
-  LAST_VANILLA_TRINKET_TYPE + 1;
+const FIRST_MODDED_TRINKET_TYPE: TrinketType = LAST_VANILLA_TRINKET_TYPE + 1;
 
 // eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_CARD_TYPE: CardType = LAST_VANILLA_CARD_TYPE + 1;
+const FIRST_MODDED_CARD_TYPE: CardType = LAST_VANILLA_CARD_TYPE + 1;
 
 // eslint-disable-next-line isaacscript/strict-enums
-export const FIRST_MODDED_PILL_EFFECT: PillEffect =
-  LAST_VANILLA_PILL_EFFECT + 1;
+const FIRST_MODDED_PILL_EFFECT: PillEffect = LAST_VANILLA_PILL_EFFECT + 1;
 
 /**
  * Mods can add extra things to the game (e.g. collectibles, trinkets, and so on). Since mods load
