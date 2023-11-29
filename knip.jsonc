@@ -9,49 +9,49 @@
         "sidebars.js",
         "src/**/index.tsx",
         "static/js/hotkey.js",
-        "typedoc.config.base.mjs"
-      ]
+        "typedoc.config.base.mjs",
+      ],
     },
     "packages/eslint-config-isaacscript": {
-      "entry": ["base.js", "mod.js"]
+      "entry": ["base.js", "mod.js"],
     },
     "packages/eslint-plugin-isaacscript": {
       "ignore": [
         "src/template.ts",
         "tests/fixtures/file.ts",
-        "tests/template.ts"
-      ]
+        "tests/template.ts",
+      ],
     },
     "packages/isaac-lua-polyfill": {},
     "packages/isaac-typescript-definitions": {
-      "ignore": ["typedoc.config.mjs"]
+      "ignore": ["typedoc.config.mjs"],
     },
     "packages/isaacscript-cli": {
       "entry": [
         "src/main.ts",
         "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
-        "src/commands/monitor/saveDatWriter/saveDatWriter.ts"
+        "src/commands/monitor/saveDatWriter/saveDatWriter.ts",
       ],
       "ignore": [
         "**/copied/**",
         "file-templates/**",
         "plugins/**",
-        "src/interfaces/IsaacScriptTSConfig.ts"
-      ]
+        "src/interfaces/IsaacScriptTSConfig.ts",
+      ],
     },
     "packages/isaacscript-common": {
       "ignore": [
         "src/classes/features/other/extraConsoleCommands/commands.ts",
-        "typedoc.config.mjs"
-      ]
+        "typedoc.config.mjs",
+      ],
     },
     "packages/isaacscript-common-node": {},
     "packages/isaacscript-common-ts": {},
-    "packages/isaacscript-spell": {}
+    "packages/isaacscript-spell": {},
   },
   "ignoreDependencies": [
     "eslint-plugin-isaacscript",
     "isaacscript-common-node",
-    "isaacscript-common-ts"
-  ]
+    "isaacscript-common-ts",
+  ],
 }
