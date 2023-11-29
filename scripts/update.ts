@@ -1,5 +1,5 @@
-// The following packages are on old versions:
-// - typescript 5.2.2 - Waiting on TypeScriptToLua:
+// The following dependencies are locked to old versions:
+// - typescript - 5.2.2 - Waiting on TypeScriptToLua:
 // https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1521
 
 import {

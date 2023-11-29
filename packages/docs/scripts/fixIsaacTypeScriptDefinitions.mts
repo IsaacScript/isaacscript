@@ -3,6 +3,7 @@
 import {
   deleteFileOrDirectory,
   dirName,
+  isMain,
   readFile,
   renameFile,
   writeFile,
@@ -47,7 +48,9 @@ const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
   ["Mods", 8],
 ]);
 
-main();
+if (isMain()) {
+  main();
+}
 
 function main() {
   // Since we are only generating enums, there will be nothing in the module directory that we need,

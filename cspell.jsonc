@@ -9,9 +9,11 @@
   "useGitignore": true,
   "ignorePaths": [
     "*.anm2",
+    "*.mp3",
     "*.ogg",
     "*.pyc",
     "*.stb",
+    "*.svg",
     "*.wav",
     ".git/**",
     ".yarn/**",

@@ -9,6 +9,7 @@ import {
   getPackageJSON,
   getPackageJSONDependencies,
   isFile,
+  isMain,
   readFile,
 } from "isaacscript-common-node";
 import { isKebabCase } from "isaacscript-common-ts";
@@ -19,7 +20,9 @@ const __dirname = dirName();
 const REPO_ROOT = path.join(__dirname, "..");
 const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
 
-main();
+if (isMain()) {
+  main();
+}
 
 function main() {
   echo('Checking "package.json" files...');

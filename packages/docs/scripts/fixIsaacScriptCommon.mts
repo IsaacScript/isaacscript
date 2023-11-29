@@ -42,6 +42,7 @@ import {
   deleteFileOrDirectory,
   dirName,
   echo,
+  isMain,
   makeDirectory,
   readFile,
   renameFile,
@@ -135,7 +136,9 @@ const BROKEN_LINK_DIR_NAMES = [
   "types",
 ] as const;
 
-main();
+if (isMain()) {
+  main();
+}
 
 function main() {
   createCallbackFile();

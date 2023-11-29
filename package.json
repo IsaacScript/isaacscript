@@ -16,6 +16,7 @@
   "scripts": {
     "cloc": "cloc . --exclude-dir=node_modules --include-lang=TypeScript",
     "postinstall": "tsx ./packages/eslint-plugin-isaacscript/scripts/build.mts",
+    "lint": "tsx ./scripts/lint.ts",
     "package-json-lint": "tsx ./scripts/packageJSONLint.ts",
     "publish": "tsx ./scripts/publish.ts",
     "update": "tsx ./scripts/update.ts"
@@ -28,6 +29,7 @@
     "@docusaurus/eslint-plugin": "^3.0.0",
     "@docusaurus/module-type-aliases": "^3.0.0",
     "@docusaurus/preset-classic": "^3.0.0",
+    "@docusaurus/theme-classic": "^3.0.0",
     "@docusaurus/theme-common": "^3.0.0",
     "@eslint/eslintrc": "^2.1.3",
     "@eslint/js": "^8.54.0",
@@ -49,6 +51,7 @@
     "@types/klaw-sync": "^6.0.5",
     "@types/node": "^20.10.1",
     "@types/prompt": "^1.1.8",
+    "@types/react": "^18.2.39",
     "@types/source-map-support": "^0.5.10",
     "@types/touch": "^3.1.5",
     "@types/xml2js": "^0.4.14",

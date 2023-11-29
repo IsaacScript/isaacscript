@@ -79,38 +79,15 @@ jobs:
         # FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
         run: NODE_OPTIONS='--max-old-space-size=8192' npm run test
 
-  unused:
+  monorepo-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
-      #- name: Check for unused files, dependencies, and exports
-      #  run: npx knip
-
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
-      - run: npx prettier --log-level=warn --check .
-
-  spell-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
-      - run: npx cspell --no-progress --no-summary .
-      - run: npx cspell-check-unused-words
-
-  package-json-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
-      - run: npm run package-json-lint .
+      - run: npm run lint
 
   docs-deploy:
-    needs: [build, lint, test, unused, format, spell-check, package-json-lint]
+    needs: [build, lint, test, monorepo-lint]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
     steps:
@@ -152,17 +129,7 @@ jobs:
 
   discord:
     name: Discord Failure Notification
-    needs:
-      [
-        build,
-        lint,
-        test,
-        unused,
-        format,
-        spell-check,
-        package-json-lint,
-        docs-deploy,
-      ]
+    needs: [build, lint, test, monorepo-lint, docs-deploy]
     if: always() # This is needed to always run this job, even if the other jobs fail.
     runs-on: ubuntu-latest
     steps:
