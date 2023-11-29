@@ -4,9 +4,9 @@
     "packages/docs": {
       "ignore": [
         "babel.config.js",
-        "docusaurus.config.js",
+        "docusaurus.config.ts",
         "scripts/**",
-        "sidebars.js",
+        "sidebars.ts",
         "src/**/index.tsx",
         "static/js/hotkey.js",
         "typedoc.config.base.mjs",
