@@ -6,7 +6,7 @@ await lintScript(async () => {
   promises.push(
     // Use Prettier to check formatting.
     // - "--log-level=warn" makes it only output errors.
-    $`npx prettier --log-level=warn --check .`,
+    $`prettier --log-level=warn --check .`,
 
     // Type-check the code using the TypeScript compiler.
     $`tsc --noEmit`,
@@ -17,14 +17,14 @@ await lintScript(async () => {
 
     // Check for unused exports.
     // - "--error" makes it return an error code of 1 if unused exports are found.
-    $`npx ts-prune --error`,
+    $`ts-prune --error`,
 
     // Spell check every file using CSpell.
     // - "--no-progress" and "--no-summary" make it only output errors.
-    $`npx cspell --no-progress --no-summary .`,
+    $`cspell --no-progress --no-summary .`,
 
     // Check for unused CSpell words.
-    $`npx cspell-check-unused-words`,
+    $`cspell-check-unused-words`,
   );
 
   if (commandExists("python")) {
