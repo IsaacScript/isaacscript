@@ -1,4 +1,6 @@
+import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import Heading from "@theme/Heading";
 import clsx from "clsx";
 import React from "react";
 import styles from "./styles.module.css";
@@ -30,7 +32,7 @@ const FeatureList = [
       <>
         <li>
           IsaacScript leverages the excellent{" "}
-          <a href="https://typescripttolua.github.io/">TypeScriptToLua</a>{" "}
+          <Link to="https://typescripttolua.github.io/">TypeScriptToLua</Link>{" "}
           library.
         </li>
         <li>
@@ -54,7 +56,9 @@ function Feature({ title, img, description }: FeatureItem) {
         <img src={useBaseUrl(img)} style={imgStyle} alt={title} />
       </div>
       <div className="padding-horiz--md">
-        <h3 className="text--center">{title}</h3>
+        <Heading as="h3" className="text--center">
+          {title}
+        </Heading>
         <p>{description}</p>
       </div>
     </div>

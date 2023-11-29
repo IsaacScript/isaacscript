@@ -3,6 +3,7 @@
   "version": "0.2",
   "language": "en-US",
   "import": [
+    "@cspell/cspell-bundled-dicts",
     "./dictionaries/isaac/cspell-ext.json",
     "./dictionaries/isaacscript/cspell-ext.json"
   ]

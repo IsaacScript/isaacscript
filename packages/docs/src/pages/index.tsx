@@ -2,6 +2,7 @@ import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import CodeBlock from "@theme/CodeBlock";
+import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import React from "react";
@@ -21,7 +22,9 @@ function HomepageHeader(): React.JSX.Element {
           src={useBaseUrl("img/isaacscript-logo.png")}
           className="landing-logo"
         />
-        <h1 className="hero__title">{siteConfig.title}</h1>
+        <Heading as="h1" className="hero__title">
+          {siteConfig.title}
+        </Heading>
         <p className="hero__subtitle">
           Write <em>Binding of Isaac: Repentance</em> mods with TypeScript
         </p>
@@ -78,11 +81,15 @@ export default function Home(): React.JSX.Element {
         <section className="padding-vert--md container">
           <div className="row">
             <div className={`col col--6 ${styles["example"]}`}>
-              <h3 style={CENTER_STYLE}>TypeScript Input</h3>
+              <Heading as="h3" style={CENTER_STYLE}>
+                TypeScript Input
+              </Heading>
               <CodeBlock language="typescript">{exampleSource}</CodeBlock>
             </div>
             <div className={`col col--6 ${styles["example"]}`}>
-              <h3 style={CENTER_STYLE}>Lua Output</h3>
+              <Heading as="h3" style={CENTER_STYLE}>
+                Lua Output
+              </Heading>
               <CodeBlock language="lua">{exampleOutput}</CodeBlock>
             </div>
           </div>

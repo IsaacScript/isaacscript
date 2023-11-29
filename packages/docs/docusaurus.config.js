@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/lines-around-comment */
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
+const lightCodeTheme = require("prism-react-renderer").themes.github;
+const darkCodeTheme = require("prism-react-renderer").themes.vsDark;
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
@@ -126,4 +126,10 @@ module.exports = {
     }),
 
   scripts: ["/js/hotkey.js"],
+
+  // Needed so that the following text works properly: `1 << -1 (0)`
+  // https://github.com/tgreyuk/typedoc-plugin-markdown/issues/502
+  markdown: {
+    format: "detect",
+  },
 };

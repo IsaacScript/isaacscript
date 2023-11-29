@@ -1,6 +1,3 @@
-// Docusaurus-related things are stuck on this:
-// https://github.com/typesense/docusaurus-theme-search-typesense/issues/38
-
 // Old versions:
 // - @docusaurus/core - 2.4.3
 // - @docusaurus/eslint-plugin - 2.4.3
