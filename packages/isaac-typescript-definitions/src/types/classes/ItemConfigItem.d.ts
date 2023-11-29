@@ -64,7 +64,16 @@ declare global {
      */
     ID: CollectibleType | TrinketType | NullItemID;
 
+    /**
+     * The initial amount of charges that an active collectible has. In most cases, when picking up
+     * an active collectible for the first time, it will be fully charged, which corresponds to an
+     * `InitCharge` value of -1. However, in some cases, this may be different. For example, Eden's
+     * Soul starts without any charges, so it has an `InitCharge` value of 0.
+     *
+     * `InitCharge` is always equal to -1 for non-active collectibles.
+     */
     InitCharge: int;
+
     MaxCharges: int;
     MaxCooldown: int;
     Name: string;

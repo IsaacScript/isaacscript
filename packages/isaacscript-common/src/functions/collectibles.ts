@@ -283,7 +283,8 @@ export function getCollectibleGfxFilename(
  * to an `InitCharge` value of -1. However, in some cases, this may be different. For example,
  * Eden's Soul starts without any charges, so it has an `InitCharge` value of 0.
  *
- * This function returns 0 if the provided collectible type was not valid.
+ * This function returns 0 if the provided collectible type was not valid. This function returns -1
+ * if the provided collectible type was not an active collectible.
  */
 export function getCollectibleInitCharge(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,
