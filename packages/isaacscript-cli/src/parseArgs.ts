@@ -4,7 +4,7 @@
 //   - Too bare bones; does not support numbers.
 // - commander (25.4K stars)
 //   - https://github.com/tj/commander.js
-//   - ?
+//   - Has good TypeScript support with "@commander-js/extra-typings".
 // - yargs [X] (10.7K stars)
 //   - https://github.com/yargs/yargs
 //   - Sucks in TypeScript.

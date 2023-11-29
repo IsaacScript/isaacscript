@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import commandExists from "command-exists";
 import {
   PackageManager,
+  commandExists,
   fatalError,
   getPackageManagerLockFileName,
   getPackageManagersForProject,
@@ -29,11 +29,11 @@ export function getPackageManagerUsedForNewProject(
 }
 
 function getDefaultPackageManager(): PackageManager {
-  if (commandExists.sync("yarn")) {
+  if (commandExists("yarn")) {
     return PackageManager.yarn;
   }
 
-  if (commandExists.sync("pnpm")) {
+  if (commandExists("pnpm")) {
     return PackageManager.pnpm;
   }
 
@@ -62,7 +62,7 @@ export function getPackageManagerUsedForExistingProject(): PackageManager {
 
 function getPackageManagerFromOptions(options: PackageManagerOptions) {
   if (options.dev === true) {
-    const packageManagerCommandExists = commandExists.sync(
+    const packageManagerCommandExists = commandExists(
       PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
     );
     if (!packageManagerCommandExists) {
@@ -77,7 +77,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.npm) {
-    const npmExists = commandExists.sync("npm");
+    const npmExists = commandExists("npm");
     if (!npmExists) {
       fatalError(
         `You specified the "--npm" flag, but "${chalk.green(
@@ -90,7 +90,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.yarn) {
-    const yarnExists = commandExists.sync("yarn");
+    const yarnExists = commandExists("yarn");
     if (!yarnExists) {
       fatalError(
         `You specified the "--yarn" flag, but "${chalk.green(
@@ -103,7 +103,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.pnpm) {
-    const pnpmExists = commandExists.sync("pnpm");
+    const pnpmExists = commandExists("pnpm");
     if (!pnpmExists) {
       fatalError(
         `You specified the "--pnpm" flag, but "${chalk.green(

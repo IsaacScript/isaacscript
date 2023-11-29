@@ -1,5 +1,9 @@
-import commandExists from "command-exists";
-import { fatalError, getJSONC, isFile } from "isaacscript-common-node";
+import {
+  commandExists,
+  fatalError,
+  getJSONC,
+  isFile,
+} from "isaacscript-common-node";
 import path from "node:path";
 import { execShell } from "../../exec.js";
 import { getInputYesNo } from "../../prompt.js";
@@ -30,7 +34,7 @@ export async function vsCodeInit(
 }
 
 function getVSCodeCommand(): string | undefined {
-  return VS_CODE_COMMANDS.find((command) => commandExists.sync(command));
+  return VS_CODE_COMMANDS.find((command) => commandExists(command));
 }
 
 function installVSCodeExtensions(

@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import commandExists from "command-exists";
 import {
+  commandExists,
   getPackageJSONVersion,
   isFile,
   readFile,
@@ -29,7 +29,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
   }
 
   // We do not need to prompt the user if they do not have Git installed.
-  if (!commandExists.sync("git")) {
+  if (!commandExists("git")) {
     console.log(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
     );
@@ -113,7 +113,7 @@ If you don't want to initialize a Git repository for this project, press enter t
  * configuration.
  */
 export function getGitHubUsername(): string | undefined {
-  if (!commandExists.sync("gh")) {
+  if (!commandExists("gh")) {
     return undefined;
   }
 
@@ -165,7 +165,7 @@ export function initGitRepository(
   gitRemoteURL: string | undefined,
   verbose: boolean,
 ): void {
-  if (!commandExists.sync("git")) {
+  if (!commandExists("git")) {
     return;
   }
 

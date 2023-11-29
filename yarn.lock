@@ -9814,6 +9814,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.3.1":
+  version: 16.3.1
+  resolution: "dotenv@npm:16.3.1"
+  checksum: b95ff1bbe624ead85a3cd70dbd827e8e06d5f05f716f2d0cbc476532d54c7c9469c3bc4dd93ea519f6ad711cb522c00ac9a62b6eb340d5affae8008facc3fbd7
+  languageName: node
+  linkType: hard
+
 "duplexer3@npm:^0.1.4":
   version: 0.1.5
   resolution: "duplexer3@npm:0.1.5"
@@ -13144,6 +13151,7 @@ __metadata:
     diff: "npm:^5.1.0"
     docusaurus-plugin-typedoc: "npm:^0.21.0"
     docusaurus-theme-search-typesense: "npm:^0.14.0"
+    dotenv: "npm:^16.3.1"
     eslint: "npm:^8.54.0"
     eslint-config-prettier: "npm:^9.0.0"
     eslint-plugin-deprecation: "npm:^2.0.0"
@@ -13195,6 +13203,7 @@ __metadata:
     unified: "npm:^11.0.4"
     xml2js: "npm:^0.6.2"
     yaml: "npm:^2.3.4"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -21827,7 +21836,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.22.4":
+"zod@npm:3.22.4, zod@npm:^3.22.4":
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
