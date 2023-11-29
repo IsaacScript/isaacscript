@@ -278,8 +278,12 @@ export function getCollectibleGfxFilename(
 }
 
 /**
- * Helper function to get the initial amount of charges that a collectible has. Returns 0 if the
- * provided collectible type was not valid.
+ * Helper function to get the initial amount of charges that a collectible has. In most cases, when
+ * picking up an active collectible for the first time, it will be fully charged, which corresponds
+ * to an `InitCharge` value of -1. However, in some cases, this may be different. For example,
+ * Eden's Soul starts without any charges, so it has an `InitCharge` value of 0.
+ *
+ * This function returns 0 if the provided collectible type was not valid.
  */
 export function getCollectibleInitCharge(
   collectibleOrCollectibleType: EntityPickup | CollectibleType,
