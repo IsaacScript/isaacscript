@@ -377,6 +377,11 @@ export function getTruncatedText(
       shouldIgnoreNextLine = true;
 
       // We mark the previous line so that we know the next line to skip in the template.
+      if (previousLine.trim() === "") {
+        fatalError(
+          `You cannot have a "${MARKER_IGNORE_NEXT_LINE}" marker before a blank line in the "${fileName}" file.`,
+        );
+      }
       newLinesBeforeIgnore.add(previousLine);
 
       continue;
