@@ -5,8 +5,8 @@
 
   "extends": [
     "../isaacscript-tsconfig/tsconfig.node.json",
-    // https://github.com/tsconfig/bases/blob/main/bases/docusaurus.json
-    "@tsconfig/docusaurus/tsconfig.json",
+    // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
+    "@docusaurus/tsconfig",
   ],
 
   "compilerOptions": {

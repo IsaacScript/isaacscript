@@ -2,7 +2,6 @@ import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import Heading from "@theme/Heading";
 import clsx from "clsx";
-import React from "react";
 import styles from "./styles.module.css";
 
 interface FeatureItem {

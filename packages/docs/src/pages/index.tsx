@@ -5,7 +5,6 @@ import CodeBlock from "@theme/CodeBlock";
 import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
-import React from "react";
 import HomepageFeatures from "../components/index"; // eslint-disable-line @typescript-eslint/no-restricted-imports
 import styles from "./index.module.css";
 

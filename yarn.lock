@@ -3595,6 +3595,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/tsconfig@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@docusaurus/tsconfig@npm:3.0.0"
+  checksum: 429db512db045cd3708d794eca3c51b97cf756e36bc16ebcc92144bdbcf2bf5e960600871121a8c177a0520c548e60bdfed5eba551c7ae13aafa409d493855ae
+  languageName: node
+  linkType: hard
+
 "@docusaurus/types@npm:3.0.0":
   version: 3.0.0
   resolution: "@docusaurus/types@npm:3.0.0"
@@ -5279,13 +5286,6 @@ __metadata:
     mkdirp: "npm:^1.0.4"
     path-browserify: "npm:^1.0.1"
   checksum: 7922a3e7e183090e2c326578d1ead07427b6cf316d0b390efa25f06e8d7b09085ffb23446b2cc7655dbee48a1b9330370862c1a411313eb1991a0daa9ac5e3da
-  languageName: node
-  linkType: hard
-
-"@tsconfig/docusaurus@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@tsconfig/docusaurus@npm:2.0.2"
-  checksum: af39e4c07f8d74c53162bc8cf756efb5ce1112e776e0c7ab6e85e156a1209179ed3d284378f85ab1d9259f081d89d9d883090021460bcfacf3ae54d908fbd2b1
   languageName: node
   linkType: hard
 
@@ -12253,13 +12253,13 @@ __metadata:
     "@docusaurus/preset-classic": "npm:^3.0.0"
     "@docusaurus/theme-classic": "npm:^3.0.0"
     "@docusaurus/theme-common": "npm:^3.0.0"
+    "@docusaurus/tsconfig": "npm:^3.0.0"
     "@eslint/eslintrc": "npm:^2.1.3"
     "@eslint/js": "npm:^8.54.0"
     "@mdx-js/react": "npm:^3.0.0"
     "@microsoft/api-extractor": "npm:^7.38.3"
     "@prettier/plugin-xml": "npm:^3.2.2"
     "@svgr/webpack": "npm:^8.1.0"
-    "@tsconfig/docusaurus": "npm:^2.0.2"
     "@tsconfig/node-lts": "npm:^18.12.5"
     "@tsconfig/strictest": "npm:^2.0.2"
     "@types/command-exists": "npm:^1.2.3"
