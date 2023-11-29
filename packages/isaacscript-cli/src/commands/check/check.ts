@@ -292,6 +292,7 @@ function getTruncatedFileText(
 ) {
   const fileName = path.basename(filePath);
   const fileContents = readFile(filePath);
+
   return getTruncatedText(
     fileName,
     fileContents,
@@ -305,9 +306,9 @@ function getTruncatedFileText(
  * @param text The text to parse.
  * @param ignoreLines A set of lines to remove from the text.
  * @param linesBeforeIgnore A set of lines that will trigger the subsequent line to be ignored.
- * @returns The tuple containing the text of the file with all text removed between any flagged
- *          markers (and other specific hard-coded exclusions), as well as an array of lines that
- *          had a "ignore-next-line" marker below them.
+ * @returns The text of the file with all text removed between any flagged markers (and other
+ *          specific hard-coded exclusions), as well as an array of lines that had a
+ *          "ignore-next-line" marker below them.
  */
 export function getTruncatedText(
   fileName: string,
@@ -390,6 +391,23 @@ export function getTruncatedText(
     // --------------------
     // Specific file checks
     // --------------------
+
+    // We should ignore imports in JavaScript or TypeScript files.
+    if (fileName.endsWith(".js") || fileName.endsWith(".ts")) {
+      if (line === "import {") {
+        isSkipping = true;
+        continue;
+      }
+
+      if (line.startsWith("} from ")) {
+        isSkipping = false;
+        continue;
+      }
+
+      if (line.startsWith("import ")) {
+        continue;
+      }
+    }
 
     // End-users can have different ignored words.
     if (fileName === "cspell.jsonc" || fileName === "_cspell.jsonc") {
