@@ -18,6 +18,7 @@
     ".git/**",
     ".yarn/**",
     "dist/**",
+    "LICENSE",
     "mod/main.lua",
     "mod/content/rooms/**",
     "mod/resources/rooms/**",
