@@ -20,7 +20,7 @@ const config = {
     browser: true,
   },
 
-  ignorePatterns: ["**/build/**", "**/docusaurus/**"],
+  ignorePatterns: ["**/build/**", "**/.docusaurus/**"],
 
   rules: {
     "import/no-default-export": "off", // React uses default exports.
