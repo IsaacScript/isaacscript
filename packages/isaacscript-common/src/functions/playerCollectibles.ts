@@ -19,7 +19,7 @@ import { isCharacter } from "./players";
  */
 export function addCollectible(
   player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): void {
   for (const collectibleType of collectibleTypes) {
     player.AddCollectible(collectibleType);
@@ -93,7 +93,7 @@ export function getAdjustedPrice(basePrice: int): int {
  */
 export function getPlayerCollectibleCount(
   player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): int {
   let numCollectibles = 0;
   for (const collectibleType of collectibleTypes) {
@@ -111,7 +111,7 @@ export function getPlayerCollectibleCount(
  * check for. It only returns the players that have all of the collectibles.
  */
 export function getPlayersWithCollectible(
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): readonly EntityPlayer[] {
   const players = getPlayers();
 
@@ -150,7 +150,7 @@ export function getTotalPlayerCollectibles(
  */
 export function hasCollectible(
   player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): boolean {
   return collectibleTypes.some((collectibleType) =>
     player.HasCollectible(collectibleType),
@@ -168,7 +168,7 @@ export function hasCollectible(
 export function hasCollectibleInActiveSlot(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-  ...activeSlots: ActiveSlot[]
+  ...activeSlots: readonly ActiveSlot[]
 ): boolean {
   const matchingActiveSlotsSet = new ReadonlySet(activeSlots);
   const activeItemSlots = getActiveItemSlots(player, collectibleType);
@@ -245,7 +245,7 @@ export function removeAllActiveItems(player: EntityPlayer): void {
  */
 export function removeCollectible(
   player: EntityPlayer,
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): void {
   for (const collectibleType of collectibleTypes) {
     player.RemoveCollectible(collectibleType);
@@ -276,7 +276,7 @@ export function removeCollectibleCostume(
  * remove.
  */
 export function removeCollectibleFromAllPlayers(
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): void {
   for (const player of getAllPlayers()) {
     for (const collectibleType of collectibleTypes) {

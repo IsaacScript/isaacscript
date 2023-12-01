@@ -43,7 +43,7 @@ export function copyUserdataValuesToTable(
 export function getBooleansFromTable(
   luaMap: LuaMap<string, unknown>,
   objectName: string,
-  ...keys: string[]
+  ...keys: readonly string[]
 ): readonly boolean[] {
   const booleans: boolean[] = [];
   for (const key of keys) {
@@ -75,7 +75,7 @@ export function getBooleansFromTable(
 export function getNumbersFromTable(
   luaMap: LuaMap<string, unknown>,
   objectName: string,
-  ...keys: string[]
+  ...keys: readonly string[]
 ): readonly number[] {
   const numbers: number[] = [];
   for (const key of keys) {
@@ -114,7 +114,7 @@ export function getNumbersFromTable(
 export function getStringsFromTable(
   luaMap: LuaMap<string, unknown>,
   objectName: string,
-  ...keys: string[]
+  ...keys: readonly string[]
 ): readonly string[] {
   const strings: string[] = [];
   for (const key of keys) {
@@ -204,7 +204,7 @@ export function iterateTableInOrder<K extends AnyNotNil, V>(
  */
 export function tableHasKeys(
   luaMap: LuaMap<AnyNotNil, unknown>,
-  ...keys: string[]
+  ...keys: readonly string[]
 ): boolean {
   return keys.every((key) => luaMap.has(key));
 }

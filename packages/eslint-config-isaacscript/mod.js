@@ -17,6 +17,14 @@ const config = {
     /**
      * Defined at: base-typescript-eslint.js
      *
+     * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
+     * makes it likely that some methods will not use any internal class variables.
+     */
+    "@typescript-eslint/class-methods-use-this": "off",
+
+    /**
+     * Defined at: base-typescript-eslint.js
+     *
      * We expand the original definition to ensure that all enums match the Isaac convention of
      * using UPPER_CASE.
      */
@@ -114,14 +122,6 @@ const config = {
      * coercion-based bugs of the JavaScript implementation. Thus, this lint rule is unnecessary.
      */
     "@typescript-eslint/require-array-sort-compare": "off",
-
-    /**
-     * Defined at: base-typescript-eslint.js
-     *
-     * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
-     * makes it likely that some methods will not use any internal class variables.
-     */
-    "@typescript-eslint/class-methods-use-this": "off",
 
     /**
      * Defined in "isaacscript/recommended".

@@ -29,7 +29,7 @@ export function spawnTSTLWatcher(
     cwd,
   });
 
-  tstl.stdout.on("data", (data: Buffer[]) => {
+  tstl.stdout.on("data", (data: readonly Buffer[]) => {
     const msg = data.toString().trim();
     const suffix = getMonitorMessageSuffix(config, cwd);
 
@@ -71,7 +71,7 @@ export function spawnTSTLWatcher(
     }
   });
 
-  tstl.stderr.on("data", (data: Buffer[]) => {
+  tstl.stderr.on("data", (data: readonly Buffer[]) => {
     const msg = data.toString().trim();
     if (msg === "^C") {
       // Hide the line that appears when you cancel the program with `Ctrl + c`.

@@ -37,7 +37,7 @@ const REBIRTH_ITEM_TRACKER_WRITE_TO_FILE_COMMAND =
  * @see https://github.com/Rchardon/RebirthItemTracker
  */
 export function rebirthItemTrackerRemoveCollectible(
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): void {
   for (const collectibleType of collectibleTypes) {
     // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker

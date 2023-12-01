@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import type { ReadonlyRecord } from "isaacscript-common-ts";
 import { isObject, setAdd } from "isaacscript-common-ts";
 import { getFilePath, readFile, writeFile } from "./file.js";
 import { fatalError } from "./utils.js";
@@ -50,7 +51,10 @@ export function getPackageJSON(
  *                            "dependencies".
  */
 export function getPackageJSONDependencies(
-  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
   dependencyFieldName: PackageJSONDependencyFieldName,
 ): Record<string, string> | undefined {
   const packageJSON =
@@ -108,7 +112,10 @@ export function getPackageJSONDependencies(
  * @param fieldName The name of the field to retrieve.
  */
 export function getPackageJSONField(
-  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
   fieldName: string,
 ): string | undefined {
   const packageJSON =
@@ -155,7 +162,10 @@ export function getPackageJSONField(
  *                                 current working directory will be used.
  */
 export function getPackageJSONScripts(
-  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
 ): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
@@ -212,7 +222,10 @@ export function getPackageJSONScripts(
  *                                 current working directory will be used.
  */
 export function getPackageJSONVersion(
-  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
 ): string {
   const version = getPackageJSONField(filePathOrDirPathOrRecord, "version");
 
@@ -252,8 +265,11 @@ export function getPackageJSONVersion(
  * @param dependencyNames The name of the dependency to check for.
  */
 export function isPackageJSONDependency(
-  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
-  ...dependencyNames: string[]
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  ...dependencyNames: readonly string[]
 ): boolean {
   const dependencySet = new Set<string>();
 
@@ -292,7 +308,10 @@ export function isPackageJSONDependency(
  * @param scriptName The name of the script to check for.
  */
 export function packageJSONHasScript(
-  filePathOrDirPathOrRecord: string | Record<string, unknown> | undefined,
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
   scriptName: string,
 ): boolean {
   const packageJSON =

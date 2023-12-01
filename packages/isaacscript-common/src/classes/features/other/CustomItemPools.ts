@@ -6,12 +6,16 @@ import { arrayRemoveIndexInPlace } from "../../../functions/array";
 import { copyMap } from "../../../functions/map";
 import { assertDefined } from "../../../functions/utils";
 import { getRandomIndexFromWeightedArray } from "../../../functions/weighted";
+import { ReadonlyMap } from "../../../types/ReadonlyMap";
 import type { WeightedArray } from "../../../types/WeightedArray";
 import { Feature } from "../../private/Feature";
 
 const v = {
   run: {
-    customItemPools: new Map<ItemPoolType, WeightedArray<CollectibleType>>(),
+    customItemPools: new ReadonlyMap<
+      ItemPoolType,
+      WeightedArray<CollectibleType>
+    >(),
   },
 };
 
@@ -80,7 +84,7 @@ export class CustomItemPools extends Feature {
   @Exported
   public registerCustomItemPool(
     itemPoolTypeCustom: ItemPoolType,
-    collectibles: WeightedArray<CollectibleType>,
+    collectibles: Readonly<WeightedArray<CollectibleType>>,
   ): void {
     if (customItemPoolMap.has(itemPoolTypeCustom)) {
       error(
@@ -88,7 +92,10 @@ export class CustomItemPools extends Feature {
       );
     }
 
-    customItemPoolMap.set(itemPoolTypeCustom, collectibles);
+    customItemPoolMap.set(
+      itemPoolTypeCustom,
+      collectibles as WeightedArray<CollectibleType>,
+    );
   }
 
   /**

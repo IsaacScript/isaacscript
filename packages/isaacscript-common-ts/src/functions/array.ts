@@ -58,6 +58,7 @@ export function arrayRemove<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-return
 export function arrayRemoveInPlace<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   array: T[],
   ...elementsToRemove: readonly T[]
 ): T[] {
@@ -75,6 +76,7 @@ export function arrayRemoveInPlace<T>(
 }
 
 /** Helper function to remove all of the elements in an array in-place. */
+// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
 export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }

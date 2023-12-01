@@ -33,6 +33,7 @@ export function defaultMapGetHash<V, A extends unknown[]>(
  * `mapSetHash` helper function.
  */
 export function defaultMapSetHash<V>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   map: Map<PtrHash, V>,
   entity: Entity,
   value: V,
@@ -78,6 +79,7 @@ export function getReversedMap<K, V>(
  * the map uses `PtrHash` as an index.
  */
 export function mapSetHash<V>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   map: Map<PtrHash, V>,
   entity: Entity,
   value: V,

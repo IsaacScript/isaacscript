@@ -9,6 +9,7 @@ import { isPrimitive } from "./types";
  * This function is variadic, meaning that you can specify N sets to add to the first set.
  */
 export function addSetsToSet<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   mainSet: Set<T>,
   ...setsToAdd: ReadonlyArray<ReadonlySet<T>>
 ): void {
@@ -54,6 +55,7 @@ export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
  * This function is variadic, meaning that you can specify N sets to remove from the first set.
  */
 export function deleteSetsFromSet<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   mainSet: Set<T>,
   ...setsToRemove: ReadonlyArray<ReadonlySet<T>>
 ): void {
@@ -217,6 +219,7 @@ export function objectValuesToSet<K extends string | number | symbol, V>(
  *
  * This function is variadic, meaning that you can pass as many things as you want to add.
  */
+// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
 export function setAdd<T>(set: Set<T>, ...elements: readonly T[]): void {
   for (const element of elements) {
     set.add(element);

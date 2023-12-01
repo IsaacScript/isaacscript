@@ -13,10 +13,10 @@ type ScriptCallback = (
 
 interface ScriptCallbackData {
   /** The full path to the directory where the closest "package.json" is located. */
-  packageRoot: string;
+  readonly packageRoot: string;
 
   /** Equal to the "outDir" setting in the project's "tsconfig.json", if any. */
-  outDir?: string;
+  readonly outDir?: string;
 }
 
 /**
@@ -131,7 +131,7 @@ export function printSuccess(
  *
  * @allowEmptyVariadic
  */
-export function echo(...args: unknown[]): void {
+export function echo(...args: readonly unknown[]): void {
   console.log(...args);
 }
 

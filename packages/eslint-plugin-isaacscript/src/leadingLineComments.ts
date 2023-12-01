@@ -4,7 +4,7 @@ import { isCommentOnOwnLine, isSeparatorLine } from "./comments";
 
 export function getLeadingLineComments(
   sourceCode: TSESLint.SourceCode,
-  comments: TSESTree.Comment[],
+  comments: readonly TSESTree.Comment[],
 ): readonly TSESTree.Comment[] {
   return comments.filter(
     (comment) =>

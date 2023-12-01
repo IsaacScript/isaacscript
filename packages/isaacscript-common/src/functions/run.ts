@@ -10,7 +10,9 @@ import { log } from "./log";
 import { isString } from "./types";
 
 /** Alias for the `anySeedEffectEnabled` function. */
-export function anyEasterEggEnabled(exceptions?: SeedEffect[]): boolean {
+export function anyEasterEggEnabled(
+  exceptions?: readonly SeedEffect[],
+): boolean {
   return anySeedEffectEnabled(exceptions);
 }
 
@@ -19,7 +21,9 @@ export function anyEasterEggEnabled(exceptions?: SeedEffect[]): boolean {
  *
  * @param exceptions Optional. An array of seed effects to ignore.
  */
-export function anySeedEffectEnabled(exceptions?: SeedEffect[]): boolean {
+export function anySeedEffectEnabled(
+  exceptions?: readonly SeedEffect[],
+): boolean {
   const seeds = game.GetSeeds();
 
   if (exceptions === undefined) {

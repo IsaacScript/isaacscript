@@ -318,7 +318,7 @@ export function getRoomAdjacentGridIndexes(
  * descriptors for N room types.
  */
 export function getRoomDescriptorsForType(
-  ...roomTypes: RoomType[]
+  ...roomTypes: readonly RoomType[]
 ): readonly RoomDescriptor[] {
   const roomTypesSet = new Set<RoomType>(roomTypes);
 
@@ -340,7 +340,7 @@ export function getRoomDescriptorsForType(
  * indexes for N room types.
  */
 export function getRoomGridIndexesForType(
-  ...roomTypes: RoomType[]
+  ...roomTypes: readonly RoomType[]
 ): readonly int[] {
   const roomDescriptors = getRoomDescriptorsForType(...roomTypes);
   return roomDescriptors.map((roomDescriptor) => roomDescriptor.SafeGridIndex);

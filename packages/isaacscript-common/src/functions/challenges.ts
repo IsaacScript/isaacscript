@@ -114,7 +114,7 @@ export function onAnyChallenge(): boolean {
  * This function is variadic, meaning that you can specify as many challenges as you want to check
  * for.
  */
-export function onChallenge(...challenges: Challenge[]): boolean {
+export function onChallenge(...challenges: readonly Challenge[]): boolean {
   const challenge = Isaac.GetChallenge();
   return challenges.includes(challenge);
 }

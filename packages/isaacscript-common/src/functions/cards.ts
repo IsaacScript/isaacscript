@@ -90,7 +90,7 @@ export function getItemConfigCardType(
  */
 export function hasCard(
   player: EntityPlayer,
-  ...cardTypes: CardType[]
+  ...cardTypes: readonly CardType[]
 ): boolean {
   const cardTypesSet = new Set(cardTypes);
   return POCKET_ITEM_SLOT_VALUES.some((pocketItemSlot) => {

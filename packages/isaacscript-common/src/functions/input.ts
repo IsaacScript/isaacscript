@@ -92,7 +92,7 @@ export function getShootButtonActions(
  */
 export function isActionPressed(
   controllerIndex: ControllerIndex,
-  ...buttonActions: ButtonAction[]
+  ...buttonActions: readonly ButtonAction[]
 ): boolean {
   return buttonActions.some((buttonAction) =>
     Input.IsActionPressed(buttonAction, controllerIndex),
@@ -107,7 +107,7 @@ export function isActionPressed(
  * function will return true if any of the buttons are pressed.
  */
 export function isActionPressedOnAnyInput(
-  ...buttonActions: ButtonAction[]
+  ...buttonActions: readonly ButtonAction[]
 ): boolean {
   return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
     isActionPressed(controllerIndex, ...buttonActions),
@@ -124,7 +124,7 @@ export function isActionPressedOnAnyInput(
  */
 export function isActionTriggered(
   controllerIndex: ControllerIndex,
-  ...buttonActions: ButtonAction[]
+  ...buttonActions: readonly ButtonAction[]
 ): boolean {
   return buttonActions.some((buttonAction) =>
     Input.IsActionTriggered(buttonAction, controllerIndex),
@@ -139,7 +139,7 @@ export function isActionTriggered(
  * function will return true if any of the buttons are pressed.
  */
 export function isActionTriggeredOnAnyInput(
-  ...buttonActions: ButtonAction[]
+  ...buttonActions: readonly ButtonAction[]
 ): boolean {
   return CONTROLLER_INDEX_VALUES.some((controllerIndex) =>
     isActionTriggered(controllerIndex, ...buttonActions),
@@ -152,7 +152,7 @@ export function isActionTriggeredOnAnyInput(
  * This function is variadic, meaning you can pass as many keyboard values as you want to check for.
  * This function will return true if any of the values are pressed.
  */
-export function isKeyboardPressed(...keys: Keyboard[]): boolean {
+export function isKeyboardPressed(...keys: readonly Keyboard[]): boolean {
   return keys.some((key) =>
     Input.IsButtonPressed(key, ControllerIndex.KEYBOARD),
   );

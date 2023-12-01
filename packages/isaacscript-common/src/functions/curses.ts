@@ -31,7 +31,7 @@ export function getCurseIDByName(name: string): LevelCurse {
  *
  * Under the hood, this function uses the `Level.GetCurses` method.
  */
-export function hasCurse(...curses: LevelCurse[]): boolean {
+export function hasCurse(...curses: readonly LevelCurse[]): boolean {
   const level = game.GetLevel();
   const levelCurses = level.GetCurses();
 

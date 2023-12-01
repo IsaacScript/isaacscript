@@ -17,7 +17,7 @@ import { assertDefined } from "./utils";
  *                  a random seed.
  */
 export function getRandomFromWeightedArray<T>(
-  weightedArray: WeightedArray<T>,
+  weightedArray: Readonly<WeightedArray<T>>,
   seedOrRNG: Seed | RNG | undefined,
 ): T {
   const randomIndex = getRandomIndexFromWeightedArray(weightedArray, seedOrRNG);
@@ -45,7 +45,7 @@ export function getRandomFromWeightedArray<T>(
  *                  a random seed.
  */
 export function getRandomIndexFromWeightedArray<T>(
-  weightedArray: WeightedArray<T>,
+  weightedArray: Readonly<WeightedArray<T>>,
   seedOrRNG: Seed | RNG | undefined,
 ): int {
   if (weightedArray.length === 0) {

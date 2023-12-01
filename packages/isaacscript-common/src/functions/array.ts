@@ -85,6 +85,7 @@ export function arrayRemoveAll<T>(
  * @returns True if one or more elements were removed, false otherwise.
  */
 export function arrayRemoveAllInPlace<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   array: T[],
   ...elementsToRemove: readonly T[]
 ): boolean {
@@ -117,6 +118,7 @@ export function arrayRemoveAllInPlace<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-return
 export function arrayRemoveInPlace<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   array: T[],
   ...elementsToRemove: readonly T[]
 ): T[] {
@@ -167,8 +169,9 @@ export function arrayRemoveIndex<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-return
 export function arrayRemoveIndexInPlace<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   array: T[],
-  ...indexesToRemove: int[]
+  ...indexesToRemove: readonly int[]
 ): T[] {
   const legalIndexes = indexesToRemove.filter(
     (i) => i >= 0 && i < array.length,
@@ -191,7 +194,7 @@ export function arrayRemoveIndexInPlace<T>(
   return removedElements;
 }
 
-export function arrayToString(array: unknown[]): string {
+export function arrayToString(array: readonly unknown[]): string {
   if (array.length === 0) {
     return "[]";
   }
@@ -245,6 +248,7 @@ export function copyArray<T>(oldArray: readonly T[], numElements?: int): T[] {
 }
 
 /** Helper function to remove all of the elements in an array in-place. */
+// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
 export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }
@@ -335,6 +339,7 @@ function addCombinations<T>(
   n: number,
   src: readonly T[],
   got: readonly T[],
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   all: Array<readonly T[]>,
 ) {
   if (n === 0) {
@@ -367,7 +372,9 @@ export function getArrayIndexes<T>(array: readonly T[]): readonly int[] {
  * Helper function to get the highest value in an array. Returns undefined if there were no elements
  * in the array.
  */
-export function getHighestArrayElement(array: number[]): number | undefined {
+export function getHighestArrayElement(
+  array: readonly number[],
+): number | undefined {
   if (array.length === 0) {
     return undefined;
   }
@@ -387,7 +394,9 @@ export function getHighestArrayElement(array: number[]): number | undefined {
  * Helper function to get the lowest value in an array. Returns undefined if there were no elements
  * in the array.
  */
-export function getLowestArrayElement(array: number[]): number | undefined {
+export function getLowestArrayElement(
+  array: readonly number[],
+): number | undefined {
   if (array.length === 0) {
     return undefined;
   }
@@ -452,6 +461,7 @@ export function getRandomArrayElement<T>(
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElementAndRemove<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   array: T[],
   seedOrRNG: Seed | RNG | undefined,
   exceptions: readonly T[] = [],
@@ -562,7 +572,7 @@ export function isArray(
  *
  * For example, `[2, 3, 4]` would return true, and `[2, 3, 5]` would return false.
  */
-export function isArrayContiguous(array: int[]): boolean {
+export function isArrayContiguous(array: readonly int[]): boolean {
   let lastValue: int | undefined;
   for (const element of array) {
     if (lastValue === undefined) {
@@ -586,6 +596,7 @@ export function isArrayInArray<T>(
 }
 
 /** Helper function to set every element in an array to a specific value. */
+// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
 export function setAllArrayElements<T>(array: T[], value: T): void {
   for (let i = 0; i < array.length; i++) {
     array[i] = value;
@@ -630,6 +641,7 @@ export function shuffleArray<T>(
  *                  a random seed.
  */
 export function shuffleArrayInPlace<T>(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   array: T[],
   seedOrRNG: Seed | RNG | undefined,
 ): void {
@@ -653,6 +665,7 @@ export function sumArray(array: readonly number[]): number {
 /**
  * Helper function to swap two different array elements. (The elements will be swapped in-place.)
  */
+// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
 export function swapArrayElements<T>(array: T[], i: number, j: number): void {
   const value1 = array[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
   const value2 = array[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion

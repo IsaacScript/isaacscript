@@ -366,7 +366,7 @@ async function getCustomStagesWithMetadata(
 }
 
 async function convertCustomStagesToLua(
-  customStages: CustomStageLua[],
+  customStages: readonly CustomStageLua[],
 ): Promise<string> {
   // We perform a dynamic import to prevent non-TSTL projects from having to have TSTL as a
   // dependency if they use the IsaacScript CLI. ("typescript-to-lua" is listed as an optional peer

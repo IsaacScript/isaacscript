@@ -1,7 +1,7 @@
 import { TSESTree } from "@typescript-eslint/types";
 
 export function getJSDocComments(
-  comments: TSESTree.Comment[],
+  comments: readonly TSESTree.Comment[],
 ): readonly TSESTree.Comment[] {
   return comments.filter(
     (comment) =>

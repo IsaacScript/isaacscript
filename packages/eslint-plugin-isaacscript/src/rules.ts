@@ -30,6 +30,7 @@ import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus";
 import { noVoidReturnType } from "./rules/no-void-return-type";
 import { preferPlusplus } from "./rules/prefer-plusplus";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus";
+import { preferReadonlyParameterTypes } from "./rules/prefer-readonly-parameter-types";
 import { requireBreak } from "./rules/require-break";
 import { requireCapitalConstAssertions } from "./rules/require-capital-const-assertions";
 import { requireCapitalReadOnly } from "./rules/require-capital-read-only";
@@ -67,6 +68,7 @@ export const rules = {
   "no-void-return-type": noVoidReturnType,
   "prefer-plusplus": preferPlusplus,
   "prefer-postfix-plusplus": preferPostfixPlusplus,
+  "prefer-readonly-parameter-types": preferReadonlyParameterTypes,
   "require-break": requireBreak,
   "require-capital-const-assertions": requireCapitalConstAssertions,
   "require-capital-read-only": requireCapitalReadOnly,

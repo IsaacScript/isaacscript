@@ -54,7 +54,7 @@ export function cp(srcPath: string, dstPath: string): void {
  *
  * This function is variadic, meaning that you can pass as many file paths as you want to delete.
  */
-export function deleteFileOrDirectory(...filePaths: string[]): void {
+export function deleteFileOrDirectory(...filePaths: readonly string[]): void {
   for (const filePath of filePaths) {
     try {
       if (fs.existsSync(filePath)) {
@@ -265,7 +265,7 @@ export function renameFile(srcPath: string, dstPath: string): void {
 }
 
 /** Alias for the `deleteFileOrDirectory` function. Intended to be used in scripts. */
-export function rm(...filePaths: string[]): void {
+export function rm(...filePaths: readonly string[]): void {
   deleteFileOrDirectory(...filePaths);
 }
 

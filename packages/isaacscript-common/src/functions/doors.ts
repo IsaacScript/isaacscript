@@ -203,7 +203,9 @@ export function getDoorSlotsForRoomShape(
  *
  * @allowEmptyVariadic
  */
-export function getDoors(...roomTypes: RoomType[]): readonly GridEntityDoor[] {
+export function getDoors(
+  ...roomTypes: readonly RoomType[]
+): readonly GridEntityDoor[] {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
   const roomTypesSet = new ReadonlySet(roomTypes);
@@ -240,7 +242,7 @@ export function getDoors(...roomTypes: RoomType[]): readonly GridEntityDoor[] {
  * that match any of the N room grid indexes.
  */
 export function getDoorsToRoomIndex(
-  ...roomGridIndex: int[]
+  ...roomGridIndex: readonly int[]
 ): readonly GridEntityDoor[] {
   const roomGridIndexesSet = new ReadonlySet(roomGridIndex);
   const doors = getDoors();
@@ -351,7 +353,7 @@ export function getVoidDoor(): GridEntityDoor | undefined {
  * This function is variadic, meaning that you can supply as many door types as you want to check
  * for. This function will return true if one or more room types match.
  */
-export function hasDoorType(...roomTypes: RoomType[]): boolean {
+export function hasDoorType(...roomTypes: readonly RoomType[]): boolean {
   const doors = getDoors();
   const doorsOfThisRoomType = doors.filter((door) =>
     roomTypes.some((roomType) => door.IsRoomType(roomType)),
@@ -580,7 +582,7 @@ export function openDoorFast(door: GridEntityDoor): void {
  * @returns The number of doors removed.
  * @allowEmptyVariadic
  */
-export function removeAllDoors(...roomTypes: RoomType[]): int {
+export function removeAllDoors(...roomTypes: readonly RoomType[]): int {
   const doors = getDoors(...roomTypes);
   removeDoors(...doors);
 
@@ -598,7 +600,7 @@ export function removeDoor(door: GridEntityDoor): void {
  *
  * This function is variadic, meaning that you can specify as many doors as you want to remove.
  */
-export function removeDoors(...doors: GridEntityDoor[]): void {
+export function removeDoors(...doors: readonly GridEntityDoor[]): void {
   for (const door of doors) {
     removeDoor(door);
   }

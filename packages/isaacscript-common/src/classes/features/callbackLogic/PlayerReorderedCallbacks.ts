@@ -125,6 +125,7 @@ export class PlayerReorderedCallbacks extends Feature {
 }
 
 function dequeue(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   queue: QueueElement[],
   fireFunc: (player: EntityPlayer, renderOffset: Vector) => void,
 ) {

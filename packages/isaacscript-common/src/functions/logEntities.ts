@@ -142,7 +142,7 @@ export function logAllGridEntities(
 }
 
 /** Helper function for logging an array of specific entities. */
-export function logEntities(this: void, entities: Entity[]): void {
+export function logEntities(this: void, entities: readonly Entity[]): void {
   for (const entity of entities) {
     logEntity(entity);
   }
@@ -295,7 +295,10 @@ function getTearVariantName(tear: EntityTear) {
 }
 
 /** Helper function for logging an array of specific grid entities. */
-export function logGridEntities(this: void, gridEntities: GridEntity[]): void {
+export function logGridEntities(
+  this: void,
+  gridEntities: readonly GridEntity[],
+): void {
   for (const gridEntity of gridEntities) {
     logGridEntity(gridEntity);
   }
@@ -386,7 +389,7 @@ export function logPtrHash(this: void, ptrHash: PtrHash): void {
  * Helper function to log information about the entity that corresponding to one or more pointer
  * hashes. (Only use this when debugging, since retrieving the corresponding entity is expensive.)
  */
-export function logPtrHashes(this: void, ptrHashes: PtrHash[]): void {
+export function logPtrHashes(this: void, ptrHashes: readonly PtrHash[]): void {
   for (const ptrHash of ptrHashes) {
     logPtrHash(ptrHash);
   }

@@ -53,9 +53,9 @@ import { getTraversalDescription } from "./utils";
  */
 export function merge(
   oldObject:
-    | LuaMap<AnyNotNil, unknown>
-    | Map<AnyNotNil, unknown>
-    | Set<AnyNotNil>,
+    | Readonly<LuaMap<AnyNotNil, unknown>>
+    | ReadonlyMap<AnyNotNil, unknown>
+    | ReadonlySet<AnyNotNil>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,
   classConstructors = new LuaMap<string, AnyClass>(),
@@ -131,6 +131,7 @@ function mergeSerializedArray(
 }
 
 function mergeSerializedTSTLObject(
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,

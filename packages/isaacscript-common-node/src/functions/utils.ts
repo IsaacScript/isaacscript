@@ -21,7 +21,7 @@ export function diff(string1: string, string2: string): void {
  *
  * All of the arguments will be passed to the `console.error` function.
  */
-export function fatalError(...args: unknown[]): never {
+export function fatalError(...args: readonly unknown[]): never {
   console.error(...args);
   process.exit(1);
 }

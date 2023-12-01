@@ -6,7 +6,7 @@ import { CWD } from "./constants.js";
 
 export function execExe(
   path: string,
-  args: string[],
+  args: readonly string[],
   verbose: boolean,
   cwd = CWD,
 ): string {
@@ -72,7 +72,7 @@ export function execPowershell(
  */
 export function execShell(
   command: string,
-  args: string[] = [],
+  args: readonly string[] = [],
   verbose = false,
   allowFailure = false,
   cwd = CWD,

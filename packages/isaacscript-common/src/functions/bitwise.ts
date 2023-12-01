@@ -14,7 +14,7 @@ export function arrayToBitFlags<T extends BitFlag | BitFlag128>(
 }
 
 /** Helper function to convert an array of bits to the resulting decimal number. */
-export function convertBinaryToDecimal(bits: int[]): number {
+export function convertBinaryToDecimal(bits: readonly int[]): number {
   const bitsString = bits.join("");
   return Number.parseInt(bitsString, 2);
 }

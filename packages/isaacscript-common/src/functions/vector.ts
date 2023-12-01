@@ -86,7 +86,7 @@ export function doesVectorHaveLength(
  */
 export function getClosestVectorTo(
   referenceVector: Vector,
-  vectors: Vector[],
+  vectors: readonly Vector[],
 ): Vector | undefined {
   let closestVector: Vector | undefined;
   let closestDistance = math.huge;

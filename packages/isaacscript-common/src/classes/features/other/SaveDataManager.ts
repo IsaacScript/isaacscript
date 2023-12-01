@@ -467,7 +467,9 @@ export class SaveDataManager extends Feature {
    * @public
    */
   @Exported
-  public saveDataManagerRegisterClass(...tstlClasses: AnyClass[]): void {
+  public saveDataManagerRegisterClass(
+    ...tstlClasses: readonly AnyClass[]
+  ): void {
     for (const tstlClass of tstlClasses) {
       const { name } = tstlClass;
       assertDefined(

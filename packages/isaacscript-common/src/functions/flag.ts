@@ -27,7 +27,7 @@ import { DamageFlag } from "isaac-typescript-definitions";
  */
 export function addFlag<T extends BitFlag | BitFlag128>(
   flags: T | BitFlags<T>,
-  ...flagsToAdd: T[]
+  ...flagsToAdd: readonly T[]
 ): BitFlags<T> {
   let flagsAsInt = flags as int;
 
@@ -95,7 +95,7 @@ export function getFlagName<T extends BitFlag | BitFlag128>(
  */
 export function hasFlag<T extends BitFlag | BitFlag128>(
   flags: T | BitFlags<T>,
-  ...flagsToCheck: T[]
+  ...flagsToCheck: readonly T[]
 ): boolean {
   const flagsAsInt = flags as int;
 
@@ -153,7 +153,7 @@ export function isSelfDamage(
  */
 export function removeFlag<T extends BitFlag | BitFlag128>(
   flags: T | BitFlags<T>,
-  ...flagsToRemove: T[]
+  ...flagsToRemove: readonly T[]
 ): BitFlags<T> {
   let flagsAsInt = flags as int;
 

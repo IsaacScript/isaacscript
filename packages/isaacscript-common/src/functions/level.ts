@@ -58,7 +58,7 @@ export function getLevelBossIDs(): readonly BossID[] {
  * This function is variadic, meaning that you can pass as many boss IDs as you want to check for.
  * It will return true if one or more of the boss IDs are matched.
  */
-export function levelHasBossID(...bossIDs: BossID[]): boolean {
+export function levelHasBossID(...bossIDs: readonly BossID[]): boolean {
   const levelBossIDs = getLevelBossIDs();
   const levelBossIDsSet = new Set(levelBossIDs);
 
@@ -72,7 +72,7 @@ export function levelHasBossID(...bossIDs: BossID[]): boolean {
  * This function is variadic, meaning that you can pass as many room types as you want to check for.
  * This function will return true if any of the room types are found.
  */
-export function levelHasRoomType(...roomTypes: RoomType[]): boolean {
+export function levelHasRoomType(...roomTypes: readonly RoomType[]): boolean {
   const roomDescriptors = getRoomDescriptorsForType(...roomTypes);
   return roomDescriptors.length > 0;
 }

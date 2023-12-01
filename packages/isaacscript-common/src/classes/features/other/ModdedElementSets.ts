@@ -1362,7 +1362,7 @@ export class ModdedElementSets extends Feature {
    */
   @Exported
   public getCardTypesOfType(
-    ...itemConfigCardTypes: ItemConfigCardType[]
+    ...itemConfigCardTypes: readonly ItemConfigCardType[]
   ): readonly CardType[] {
     this.lazyInit();
 
@@ -1406,7 +1406,7 @@ export class ModdedElementSets extends Feature {
   public getRandomCardTypeOfType(
     itemConfigCardType: ItemConfigCardType,
     seedOrRNG: Seed | RNG | undefined,
-    exceptions: CardType[] = [],
+    exceptions: readonly CardType[] = [],
   ): CardType {
     const cardTypes = this.getCardTypesOfType(itemConfigCardType);
     return getRandomArrayElement(cardTypes, seedOrRNG, exceptions);
@@ -1436,7 +1436,7 @@ export class ModdedElementSets extends Feature {
   @Exported
   public getRandomCard(
     seedOrRNG: Seed | RNG | undefined,
-    exceptions: CardType[] = [],
+    exceptions: readonly CardType[] = [],
   ): CardType {
     this.lazyInit();
     return getRandomArrayElement(this.cardTypeCardArray, seedOrRNG, exceptions);
@@ -1463,10 +1463,10 @@ export class ModdedElementSets extends Feature {
   @Exported
   public getRandomRune(
     seedOrRNG: Seed | RNG | undefined,
-    exceptions: CardType[] = [],
+    exceptions: readonly CardType[] = [],
   ): CardType {
     const runeCardTypes = this.getCardTypesOfType(ItemConfigCardType.RUNE);
-    exceptions.push(CardType.RUNE_SHARD);
-    return getRandomArrayElement(runeCardTypes, seedOrRNG, exceptions);
+    const runeExceptions = [...exceptions, CardType.RUNE_SHARD];
+    return getRandomArrayElement(runeCardTypes, seedOrRNG, runeExceptions);
   }
 }

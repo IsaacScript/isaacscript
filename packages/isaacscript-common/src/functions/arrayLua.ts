@@ -12,11 +12,11 @@
  * Helper function for non-TypeScript users to check if every element in the array is equal to a
  * condition.
  *
- * Internally, this just calls `array.every`.
+ * Internally, this just calls `Array.every`.
  */
 export function every<T>(
-  array: T[],
-  func: (value: T, index: number, array: T[]) => boolean,
+  array: readonly T[],
+  func: (value: T, index: number, array: readonly T[]) => boolean,
 ): boolean {
   return array.every(func);
 }
@@ -25,11 +25,11 @@ export function every<T>(
  * Helper function for non-TypeScript users to filter the elements in an array. Returns the filtered
  * array.
  *
- * Internally, this just calls `array.filter`.
+ * Internally, this just calls `Array.filter`.
  */
 export function filter<T>(
-  array: T[],
-  func: (value: T, index: number, array: T[]) => boolean,
+  array: readonly T[],
+  func: (value: T, index: number, array: readonly T[]) => boolean,
 ): readonly T[] {
   return array.filter(func);
 }
@@ -37,11 +37,11 @@ export function filter<T>(
 /**
  * Helper function for non-TypeScript users to find an element in an array.
  *
- * Internally, this just calls `array.find`.
+ * Internally, this just calls `Array.find`.
  */
 export function find<T>(
-  array: T[],
-  func: (value: T, index: number, array: T[]) => boolean,
+  array: readonly T[],
+  func: (value: T, index: number, array: readonly T[]) => boolean,
 ): T | undefined {
   return array.find(func);
 }
@@ -49,11 +49,11 @@ export function find<T>(
 /**
  * Helper function for non-TypeScript users to iterate over an array.
  *
- * Internally, this just calls `array.forEach`.
+ * Internally, this just calls `Array.forEach`.
  */
 export function forEach<T>(
-  array: T[],
-  func: (value: T, index: number, array: T[]) => void,
+  array: readonly T[],
+  func: (value: T, index: number, array: readonly T[]) => void,
 ): void {
   array.forEach(func); // eslint-disable-line unicorn/no-array-for-each
 }
@@ -64,9 +64,9 @@ export function forEach<T>(
  * Helper function for non-TypeScript users to convert an array to a string with the specified
  * separator.
  *
- * Internally, this just calls `array.join`.
+ * Internally, this just calls `Array.join`.
  */
-export function join<T>(array: T[], separator: string): string {
+export function join<T>(array: readonly T[], separator: string): string {
   return array.join(separator);
 }
 
@@ -74,11 +74,11 @@ export function join<T>(array: T[], separator: string): string {
  * Helper function for non-TypeScript users to convert all of the elements in an array to something
  * else.
  *
- * Internally, this just calls `array.map`.
+ * Internally, this just calls `Array.map`.
  */
 export function map<T, U>(
-  array: T[],
-  func: (value: T, index: number, array: T[]) => U,
+  array: readonly T[],
+  func: (value: T, index: number, array: readonly T[]) => U,
 ): readonly U[] {
   return array.map(func);
 }
@@ -87,11 +87,11 @@ export function map<T, U>(
  * Helper function for non-TypeScript users to check if one or more elements in the array is equal
  * to a condition.
  *
- * Internally, this just calls `array.some`.
+ * Internally, this just calls `Array.some`.
  */
 export function some<T>(
-  array: T[],
-  func: (value: T, index: number, array: T[]) => boolean,
+  array: readonly T[],
+  func: (value: T, index: number, array: readonly T[]) => boolean,
 ): boolean {
   return array.some(func);
 }

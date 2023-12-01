@@ -164,7 +164,7 @@ export function getJSONRoomsOfSubType(
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONEntity(
-  jsonEntities: JSONEntity[],
+  jsonEntities: readonly JSONEntity[],
   seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): JSONEntity {

@@ -94,7 +94,7 @@ export class ModFeature {
     | (<T extends boolean>(
         vanilla: T,
         modCallback: T extends true ? ModCallback : ModCallbackCustom,
-        ...callbackArgs: unknown[]
+        ...callbackArgs: readonly unknown[]
       ) => boolean)
     | null = null;
 
@@ -249,12 +249,12 @@ function addCallback(
   modCallback: ModCallback | ModCallbackCustom,
   priority: CallbackPriority | int,
   callback: Function, // eslint-disable-line @typescript-eslint/ban-types
-  parameters: unknown[],
+  parameters: readonly unknown[],
   vanilla: boolean,
 ) {
   // We need to wrap the callback in a new function so that we can explicitly pass the class as the
   // first argument. (Otherwise, the method will not be able to properly access `this`.
-  const wrappedCallback = (...callbackArgs: unknown[]) => {
+  const wrappedCallback = (...callbackArgs: readonly unknown[]) => {
     // eslint-disable-next-line @typescript-eslint/dot-notation
     const conditionalFunc = modFeature["shouldCallbackMethodsFire"];
     if (conditionalFunc !== null) {
@@ -266,7 +266,7 @@ function addCallback(
 
     const castedCallback = callback as (
       this: void,
-      ...args: unknown[]
+      ...args: readonly unknown[]
     ) => unknown;
     return castedCallback(modFeature, ...callbackArgs);
   };

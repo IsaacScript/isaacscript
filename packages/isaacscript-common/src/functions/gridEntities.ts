@@ -227,7 +227,7 @@ export function getConstituentsFromGridEntityID(
  * @allowEmptyVariadic
  */
 export function getGridEntities(
-  ...gridEntityTypes: GridEntityType[]
+  ...gridEntityTypes: readonly GridEntityType[]
 ): readonly GridEntity[] {
   const gridEntities = getAllGridEntities();
 
@@ -249,7 +249,7 @@ export function getGridEntities(
  * exclude.
  */
 export function getGridEntitiesExcept(
-  ...gridEntityTypes: GridEntityType[]
+  ...gridEntityTypes: readonly GridEntityType[]
 ): readonly GridEntity[] {
   const gridEntities = getAllGridEntities();
 
@@ -335,7 +335,7 @@ export function getGridEntitiesInRadius(
  * @allowEmptyVariadic
  */
 export function getGridEntitiesMap(
-  ...gridEntityTypes: GridEntityType[]
+  ...gridEntityTypes: readonly GridEntityType[]
 ): ReadonlyMap<int, GridEntity> {
   const gridEntities = getGridEntities(...gridEntityTypes);
 
@@ -885,7 +885,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  * @returns The grid entities that were removed.
  */
 export function removeAllGridEntitiesExcept(
-  ...gridEntityTypes: GridEntityType[]
+  ...gridEntityTypes: readonly GridEntityType[]
 ): readonly GridEntity[] {
   const gridEntityTypeExceptions = new ReadonlySet(gridEntityTypes);
   const gridEntities = getGridEntities();
@@ -925,7 +925,7 @@ export function removeAllGridEntitiesExcept(
  * @returns An array of the grid entities removed.
  */
 export function removeAllMatchingGridEntities(
-  ...gridEntityType: GridEntityType[]
+  ...gridEntityType: readonly GridEntityType[]
 ): readonly GridEntity[] {
   const gridEntities = getGridEntities(...gridEntityType);
   if (gridEntities.length === 0) {

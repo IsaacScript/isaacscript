@@ -146,7 +146,7 @@ export const formatLineComments = createRule<Options, MessageIds>({
  * any leading whitespace.
  */
 function getTextFromComments(
-  comments: TSESTree.Comment[],
+  comments: readonly TSESTree.Comment[],
   leftWhitespace: string,
 ): string {
   const lines = comments.map(

@@ -128,7 +128,7 @@ export function isCollectibleTypeInDefaultItemPool(
  * This function is variadic, meaning you can pass as many collectible types as you want to remove.
  */
 export function removeCollectibleFromPools(
-  ...collectibleTypes: CollectibleType[]
+  ...collectibleTypes: readonly CollectibleType[]
 ): void {
   const itemPool = game.GetItemPool();
 
@@ -142,7 +142,9 @@ export function removeCollectibleFromPools(
  *
  * This function is variadic, meaning you can pass as many trinket types as you want to remove.
  */
-export function removeTrinketFromPools(...trinketTypes: TrinketType[]): void {
+export function removeTrinketFromPools(
+  ...trinketTypes: readonly TrinketType[]
+): void {
   const itemPool = game.GetItemPool();
 
   for (const trinketType of trinketTypes) {

@@ -164,7 +164,10 @@ export class DisableInputs extends Feature {
    * @public
    */
   @Exported
-  public disableInputs(key: string, ...buttonActions: ButtonAction[]): void {
+  public disableInputs(
+    key: string,
+    ...buttonActions: readonly ButtonAction[]
+  ): void {
     const buttonActionsSet = new ReadonlySet(buttonActions);
     v.run.disableInputs.set(key, buttonActionsSet);
   }

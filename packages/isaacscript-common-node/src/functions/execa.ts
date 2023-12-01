@@ -24,7 +24,7 @@ const dollarSignFuncWithOptions = dollarSignFunc(EXECA_DEFAULT_OPTIONS);
  */
 export async function $(
   templates: TemplateStringsArray,
-  ...expressions: TemplateExpression[]
+  ...expressions: readonly TemplateExpression[]
 ): Promise<ExecaReturnBase<string>> {
   let returnBase: ExecaReturnBase<string>;
 
@@ -49,7 +49,7 @@ export async function $(
  */
 export function $o(
   templates: TemplateStringsArray,
-  ...expressions: TemplateExpression[]
+  ...expressions: readonly TemplateExpression[]
 ): string {
   return $sq(templates, ...expressions).stdout;
 }
@@ -58,6 +58,7 @@ export function $o(
  * A wrapper around the `$` function from `execa`. ("op" is short for "options".) This allows you to
  * get a custom executor function without having to consume "execa" directly.
  */
+
 export function $op(options: Options): Execa$ {
   return dollarSignFunc(options);
 }
@@ -71,7 +72,7 @@ export function $op(options: Options): Execa$ {
  */
 export async function $q(
   templates: TemplateStringsArray,
-  ...expressions: TemplateExpression[]
+  ...expressions: readonly TemplateExpression[]
 ): Promise<ExecaReturnBase<string>> {
   // We want to include the JavaScript stack trace in this instance since this function is used for
   // commands that should not generally fail.
@@ -86,7 +87,7 @@ export async function $q(
  */
 export function $s(
   templates: TemplateStringsArray,
-  ...expressions: TemplateExpression[]
+  ...expressions: readonly TemplateExpression[]
 ): ExecaReturnBase<string> {
   let returnBase: ExecaReturnBase<string>;
 
@@ -110,7 +111,7 @@ export function $s(
  */
 export function $sq(
   templates: TemplateStringsArray,
-  ...expressions: TemplateExpression[]
+  ...expressions: readonly TemplateExpression[]
 ): ExecaReturnBase<string> {
   // We want to include the JavaScript stack trace in this instance since this function is used for
   // commands that should not generally fail.

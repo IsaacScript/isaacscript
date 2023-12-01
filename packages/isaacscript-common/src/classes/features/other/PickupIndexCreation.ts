@@ -279,7 +279,7 @@ export class PickupIndexCreation extends Feature {
 
 function getStoredPickupIndex(
   pickup: Entity,
-  pickupDescriptions: Map<PickupIndex, PickupDescription>,
+  pickupDescriptions: ReadonlyMap<PickupIndex, PickupDescription>,
 ): PickupIndex | undefined {
   for (const [pickupIndex, pickupDescription] of pickupDescriptions) {
     if (

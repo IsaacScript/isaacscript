@@ -71,7 +71,10 @@ export function upgradeMod<T extends readonly ISCFeature[] = never[]>(
 }
 
 /** Initialize every optional feature that the end-user specified, if any. */
-function initOptionalFeatures(mod: ModUpgraded, features: ISCFeature[]) {
+function initOptionalFeatures(
+  mod: ModUpgraded,
+  features: readonly ISCFeature[],
+) {
   for (const feature of features) {
     // We intentionally access the private method here, so we use the string index escape hatch:
     // https://github.com/microsoft/TypeScript/issues/19335

@@ -49,6 +49,7 @@ import {
   writeFile,
 } from "isaacscript-common-node";
 import {
+  ReadonlyMap,
   assertDefined,
   capitalizeFirstLetter,
   trimSuffix,
@@ -70,7 +71,7 @@ const FEATURES_DIR = path.join(PACKAGE_DOCS_DIR, "features");
 const CATEGORY_FILE_NAME = "_category_.yml";
 
 /** We hard-code the label for some specific directories. */
-const DIRECTORY_NAME_TO_LABEL: ReadonlyMap<string, string> = new Map([
+const DIRECTORY_NAME_TO_LABEL = new ReadonlyMap([
   ["callbacks", "Extra Callbacks"],
   ["features", "Extra Features"],
   ["functions", "Helper Functions by Category"],
@@ -78,7 +79,7 @@ const DIRECTORY_NAME_TO_LABEL: ReadonlyMap<string, string> = new Map([
 ]);
 
 /** We hard-code the title for some specific files. */
-const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
+const FILE_NAME_TO_TITLE = new ReadonlyMap([
   // Core
   ["constants", "Constants (Miscellaneous)"],
   ["constantsFirstLast", "Constants (First & Last)"],
@@ -101,7 +102,7 @@ const FILE_NAME_TO_TITLE: ReadonlyMap<string, string> = new Map([
   ["kColors", "K_COLORS"],
 ]);
 
-const SIDEBAR_POSITIONS: ReadonlyMap<string, number> = new Map([
+const SIDEBAR_POSITIONS = new ReadonlyMap([
   // "Introduction" is hard coded as position 0 in "website-root.md".
   ["Core", 1],
   ["Helper Functions by Category", 2],

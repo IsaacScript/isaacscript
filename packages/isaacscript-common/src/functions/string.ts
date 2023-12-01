@@ -204,7 +204,7 @@ export function removeNonAlphanumericCharacters(str: string): string {
  */
 export function removeSubstring(
   string: string,
-  ...substrings: string[]
+  ...substrings: readonly string[]
 ): string {
   for (const substring of substrings) {
     string = string.replaceAll(substring, "");

@@ -215,8 +215,8 @@ function removeItemsAndTrinketsThatAffectItemPools(): {
 }
 
 function restoreItemsAndTrinketsThatAffectItemPools(
-  removedItemsMap: Map<PlayerIndex, CollectibleType[]>,
-  removedTrinketsMap: Map<PlayerIndex, TrinketType[]>,
+  removedItemsMap: ReadonlyMap<PlayerIndex, CollectibleType[]>,
+  removedTrinketsMap: ReadonlyMap<PlayerIndex, TrinketType[]>,
 ) {
   for (const player of getAllPlayers()) {
     const removedItems = mapGetPlayer(removedItemsMap, player);

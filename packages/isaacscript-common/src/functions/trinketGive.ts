@@ -88,7 +88,7 @@ export function smeltTrinket(
  */
 export function smeltTrinkets(
   player: EntityPlayer,
-  ...trinketTypes: TrinketType[]
+  ...trinketTypes: readonly TrinketType[]
 ): void {
   for (const trinketType of trinketTypes) {
     smeltTrinket(player, trinketType);

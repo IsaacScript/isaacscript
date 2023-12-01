@@ -32,6 +32,7 @@ export const recommended = {
     "isaacscript/no-void-return-type": "error",
     "isaacscript/prefer-plusplus": "error",
     "isaacscript/prefer-postfix-plusplus": "error",
+    "isaacscript/prefer-readonly-parameter-types": "error",
     "isaacscript/require-break": "error",
     "isaacscript/require-capital-const-assertions": "error",
     "isaacscript/require-capital-read-only": "error",

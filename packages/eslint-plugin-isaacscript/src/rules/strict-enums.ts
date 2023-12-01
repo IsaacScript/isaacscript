@@ -532,7 +532,9 @@ function isEnum(type: ts.Type): boolean {
   return isTypeFlagSet(type, ts.TypeFlags.EnumLiteral);
 }
 
-function isNullOrUndefinedOrAnyOrUnknownOrNever(...types: ts.Type[]): boolean {
+function isNullOrUndefinedOrAnyOrUnknownOrNever(
+  ...types: readonly ts.Type[]
+): boolean {
   return types.some((type) =>
     isTypeFlagSet(
       type,

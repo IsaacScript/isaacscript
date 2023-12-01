@@ -1,6 +1,7 @@
 import type { CopyableIsaacAPIClassType } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
+import type { ReadonlyRecord } from "../types/ReadonlyRecord";
 import { traceback } from "./debugFunctions";
 import { isaacAPIClassEquals, isIsaacAPIClassOfType } from "./isaacAPIClass";
 import { logError } from "./log";
@@ -121,7 +122,10 @@ export function serializeRNG(rng: RNG): SerializedRNG {
  * Helper function to iterate over the provided object and set the seed for all of the values that
  * are RNG objects equal to a particular seed.
  */
-export function setAllRNGToSeed(object: unknown, seed: Seed): void {
+export function setAllRNGToSeed(
+  object: ReadonlyRecord<string, RNG>,
+  seed: Seed,
+): void {
   if (!isTable(object)) {
     error(
       `Failed to iterate over the object containing RNG objects since the type of the provided object was: ${typeof object}`,
@@ -147,7 +151,7 @@ export function setAllRNGToSeed(object: unknown, seed: Seed): void {
  * Helper function to iterate over the provided object and set the seed for all of the values that
  * are RNG objects equal to the start seed for the current run.
  */
-export function setAllRNGToStartSeed(object: unknown): void {
+export function setAllRNGToStartSeed(object: Record<string, RNG>): void {
   const seeds = game.GetSeeds();
   const startSeed = seeds.GetStartSeed();
 

@@ -453,7 +453,7 @@ function getExportedMethodsFromFeature(
 
     // In order for "this" to work properly in the method, we have to wrap the method invocation in
     // an arrow function.
-    const wrappedMethod = (...args: unknown[]) =>
+    const wrappedMethod = (...args: readonly unknown[]) =>
       // We use a non-null assertion since we have already validated that the function exists. (See
       // the above comment.)
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

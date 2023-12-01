@@ -362,7 +362,9 @@ export function onDarkRoom(): boolean {
  *
  * This function is variadic, which means you can pass as many stages as you want to match for.
  */
-export function onEffectiveStage(...effectiveStages: LevelStage[]): boolean {
+export function onEffectiveStage(
+  ...effectiveStages: readonly LevelStage[]
+): boolean {
   const thisEffectiveStage = getEffectiveStage();
   return effectiveStages.includes(thisEffectiveStage);
 }
@@ -422,7 +424,7 @@ export function onSheol(): boolean {
  *
  * This function is variadic, which means you can pass as many stages as you want to match for.
  */
-export function onStage(...stages: LevelStage[]): boolean {
+export function onStage(...stages: readonly LevelStage[]): boolean {
   const level = game.GetLevel();
   const thisStage = level.GetStage();
   return stages.includes(thisStage);
@@ -447,7 +449,7 @@ export function onStageOrLower(stage: LevelStage): boolean {
  *
  * This function is variadic, which means you can pass as many room types as you want to match for.
  */
-export function onStageType(...stageTypes: StageType[]): boolean {
+export function onStageType(...stageTypes: readonly StageType[]): boolean {
   const level = game.GetLevel();
   const thisStageType = level.GetStageType();
   return stageTypes.includes(thisStageType);

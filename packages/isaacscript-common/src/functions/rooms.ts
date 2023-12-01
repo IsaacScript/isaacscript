@@ -472,7 +472,7 @@ export function inMirrorRoom(): boolean {
  *
  * This function is variadic, which means you can pass as many room shapes as you want to match for.
  */
-export function inRoomShape(...roomShapes: RoomShape[]): boolean {
+export function inRoomShape(...roomShapes: readonly RoomShape[]): boolean {
   const roomData = getRoomData();
   return isRoomShape(roomData, ...roomShapes);
 }
@@ -482,7 +482,7 @@ export function inRoomShape(...roomShapes: RoomShape[]): boolean {
  *
  * This function is variadic, which means you can pass as many room types as you want to match for.
  */
-export function inRoomType(...roomTypes: RoomType[]): boolean {
+export function inRoomType(...roomTypes: readonly RoomType[]): boolean {
   const roomData = getRoomData();
   return isRoomType(roomData, ...roomTypes);
 }
@@ -806,7 +806,7 @@ export function isMirrorRoom(roomData: RoomConfig): boolean {
  */
 export function isRoomShape(
   roomData: RoomConfig,
-  ...roomShapes: RoomShape[]
+  ...roomShapes: readonly RoomShape[]
 ): boolean {
   return roomShapes.includes(roomData.Shape);
 }
@@ -818,7 +818,7 @@ export function isRoomShape(
  */
 export function isRoomType(
   roomData: RoomConfig,
-  ...roomTypes: RoomType[]
+  ...roomTypes: readonly RoomType[]
 ): boolean {
   return roomTypes.includes(roomData.Type);
 }

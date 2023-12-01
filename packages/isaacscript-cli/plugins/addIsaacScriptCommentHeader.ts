@@ -31,7 +31,7 @@ const plugin: tstl.Plugin = {
     _program: ts.Program,
     _options: tstl.CompilerOptions,
     _emitHost: tstl.EmitHost,
-    result: tstl.EmitFile[],
+    result: readonly tstl.EmitFile[],
   ) {
     for (const file of result) {
       file.code = INFORMATIONAL_HEADER + file.code;

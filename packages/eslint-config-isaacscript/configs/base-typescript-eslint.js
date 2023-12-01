@@ -193,7 +193,7 @@ const SUPPORTED_RULES = {
 
   "@typescript-eslint/prefer-readonly": "error",
 
-  /** Disabled since it is causes too much busy-work. */
+  /** Superseded by the `isaacscript/prefer-readonly-parameter-types` rule. */
   "@typescript-eslint/prefer-readonly-parameter-types": "off",
 
   "@typescript-eslint/prefer-reduce-type-parameter": "error",

@@ -98,7 +98,7 @@ export function getPlayerTrinkets(
  * for. It only returns the players that have all of the trinkets.
  */
 export function getPlayersWithTrinket(
-  ...trinketTypes: TrinketType[]
+  ...trinketTypes: readonly TrinketType[]
 ): readonly EntityPlayer[] {
   const players = getPlayers();
 
@@ -143,7 +143,7 @@ export function hasOpenTrinketSlot(player: EntityPlayer): boolean {
  */
 export function hasTrinket(
   player: EntityPlayer,
-  ...trinketTypes: TrinketType[]
+  ...trinketTypes: readonly TrinketType[]
 ): boolean {
   return trinketTypes.some((trinketType) => player.HasTrinket(trinketType));
 }

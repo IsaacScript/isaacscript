@@ -83,6 +83,7 @@ function readSaveDatFromDisk(): SaveDatMessage[] {
 
 function addMessageToSaveDat(
   type: SaveDatMessageType,
+  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   saveDat: SaveDatMessage[],
   data: string,
 ) {
@@ -114,7 +115,7 @@ function addMessageToSaveDat(
 function writeSaveDatToDisk(
   type: SaveDatMessageType,
   data: string,
-  saveDat: SaveDatMessage[],
+  saveDat: readonly SaveDatMessage[],
   numRetries: number,
 ) {
   const saveDatRaw = `${JSON.stringify(saveDat, undefined, 2)}\n`; // Prettify it for easier debugging.

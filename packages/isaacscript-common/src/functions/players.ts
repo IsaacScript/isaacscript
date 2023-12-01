@@ -34,7 +34,9 @@ export function anyPlayerHoldingItem(): boolean {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function anyPlayerIs(...matchingCharacters: PlayerType[]): boolean {
+export function anyPlayerIs(
+  ...matchingCharacters: readonly PlayerType[]
+): boolean {
   const matchingCharacterSet = new ReadonlySet(matchingCharacters);
   const characters = getCharacters();
 
@@ -271,7 +273,7 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  * for. Returns true if any of the characters supplied are present.
  */
 export function getPlayersOfType(
-  ...characters: PlayerType[]
+  ...characters: readonly PlayerType[]
 ): readonly EntityPlayer[] {
   const charactersSet = new ReadonlySet(characters);
   const players = getPlayers();
@@ -321,7 +323,7 @@ export function getPlayersWithControllerIndex(
  */
 export function hasForm(
   player: EntityPlayer,
-  ...playerForms: PlayerForm[]
+  ...playerForms: readonly PlayerForm[]
 ): boolean {
   return playerForms.some((playerForm) => player.HasPlayerForm(playerForm));
 }
@@ -379,7 +381,7 @@ export function isBethany(player: EntityPlayer): boolean {
  */
 export function isCharacter(
   player: EntityPlayer,
-  ...characters: PlayerType[]
+  ...characters: readonly PlayerType[]
 ): boolean {
   const characterSet = new ReadonlySet(characters);
   const character = player.GetPlayerType();
