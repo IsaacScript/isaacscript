@@ -185,7 +185,7 @@ export function setAllDisplayFlags(displayFlags: BitFlags<DisplayFlag>): void {
  * @param displayFlagsMap A map of the display flags that is indexed by the room's safe grid index.
  */
 export function setFloorDisplayFlags(
-  displayFlagsMap: Map<int, BitFlags<DisplayFlag>>,
+  displayFlagsMap: ReadonlyMap<int, BitFlags<DisplayFlag>>,
 ): void {
   for (const [roomGridIndex, displayFlags] of displayFlagsMap) {
     // We pass false to the `updateVisibility` argument as a small optimization.
