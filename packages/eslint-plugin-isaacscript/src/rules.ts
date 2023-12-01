@@ -19,7 +19,7 @@ import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops";
 import { noForIn } from "./rules/no-for-in";
 import { noInvalidDefaultMap } from "./rules/no-invalid-default-map";
 import { noLetAny } from "./rules/no-let-any";
-import { noMutableArrayReturn } from "./rules/no-mutable-array-return";
+import { noMutableReturn } from "./rules/no-mutable-return";
 import { noNumberEnums } from "./rules/no-number-enums";
 import { noObjectAny } from "./rules/no-object-any";
 import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-set";
@@ -56,7 +56,7 @@ export const rules = {
   "no-for-in": noForIn,
   "no-invalid-default-map": noInvalidDefaultMap,
   "no-let-any": noLetAny,
-  "no-mutable-array-return": noMutableArrayReturn,
+  "no-mutable-return": noMutableReturn,
   "no-number-enums": noNumberEnums,
   "no-object-any": noObjectAny,
   "no-object-methods-with-map-set": noObjectMethodsWithMapSet,

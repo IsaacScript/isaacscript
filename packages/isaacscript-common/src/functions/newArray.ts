@@ -16,7 +16,7 @@ import { repeat } from "./utils";
  * const arrayWithArrays = newArray([0], 20); // Has 20 elements of an array with a 0 in it.
  * ```
  */
-// eslint-disable-next-line isaacscript/no-mutable-array-return
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function newArray<T>(defaultValue: T, size: int): T[] {
   const array: T[] = [];
   repeat(size, () => {

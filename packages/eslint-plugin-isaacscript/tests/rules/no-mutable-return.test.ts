@@ -1,7 +1,7 @@
-import { noMutableArrayReturn } from "../../src/rules/no-mutable-array-return";
+import { noMutableReturn } from "../../src/rules/no-mutable-return";
 import { ruleTester } from "../utils";
 
-ruleTester.run("no-mutable-array-return", noMutableArrayReturn, {
+ruleTester.run("no-mutable-array-return", noMutableReturn, {
   valid: [
     {
       code: `
@@ -21,6 +21,20 @@ function getArray(): readonly number[] | readonly string[] {
       code: `
 function getArray<T>(): ReadonlyArray<T> {
   return [];
+}
+      `,
+    },
+    {
+      code: `
+function getMap(): ReadonlyMap<string, string> {
+  return new Map();
+}
+      `,
+    },
+    {
+      code: `
+function getSet(): ReadonlySet<string> {
+  return new Set();
 }
       `,
     },
@@ -74,6 +88,22 @@ function getArray<T>(): Array<T> {
 }
       `,
       errors: [{ messageId: "mutableArray" }],
+    },
+    {
+      code: `
+function getMap(): Map<string, string> {
+  return new Map();
+}
+      `,
+      errors: [{ messageId: "mutableMap" }],
+    },
+    {
+      code: `
+function getSet(): Set<string> {
+  return new Set();
+}
+      `,
+      errors: [{ messageId: "mutableSet" }],
     },
   ],
 });

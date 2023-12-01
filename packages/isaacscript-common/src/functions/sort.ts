@@ -146,7 +146,7 @@ export function sortTwoDimensionalArray<T>(a: T[], b: T[]): -1 | 0 | 1 {
  *
  * Under the hood, this uses the merge sort algorithm.
  */
-// eslint-disable-next-line isaacscript/no-mutable-array-return
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function stableSort<T>(
   array: T[],
   sortFunc: (a: T, b: T) => -1 | 0 | 1 = sortNormal,

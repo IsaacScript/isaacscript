@@ -22,7 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `FIRST_STAGE`
   - `LAST_ROOM_TYPE`
   - `LAST_STAGE`
-- Added the `no-mutable-array-return` lint rule.
+- Added the `no-mutable-return` lint rule.
 
 ## November 17th, 2023
 

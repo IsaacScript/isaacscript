@@ -27,7 +27,7 @@ export function arrayEquals<T>(
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-// eslint-disable-next-line isaacscript/no-mutable-array-return
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function arrayRemove<T>(
   originalArray: readonly T[],
   ...elementsToRemove: readonly T[]
@@ -56,7 +56,7 @@ export function arrayRemove<T>(
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
-// eslint-disable-next-line isaacscript/no-mutable-array-return
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function arrayRemoveInPlace<T>(
   array: T[],
   ...elementsToRemove: readonly T[]
@@ -131,7 +131,7 @@ export function getRandomArrayIndex<T>(
 }
 
 /** Initializes an array with all elements containing the specified default value. */
-// eslint-disable-next-line isaacscript/no-mutable-array-return
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function newArray<T>(length: number, value: T): T[] {
   return Array.from({ length }, () => value);
 }
