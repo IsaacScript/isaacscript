@@ -83,7 +83,7 @@ export const strictEnums = createRule<Options, MessageIds>({
      * - Fruit.Apple | Vegetable.Lettuce | 123 --> [Fruit, Vegetable]
      * - T extends Fruit --> [Fruit]
      */
-    function getEnumTypes(type: ts.Type): Set<ts.Type> {
+    function getEnumTypes(type: ts.Type): ReadonlySet<ts.Type> {
       /**
        * First, we get all the parts of the union. For non-union types, this will be an array with
        * the type in it. For example:
@@ -500,7 +500,10 @@ export const strictEnums = createRule<Options, MessageIds>({
 });
 
 /** Given a set A and set B, return a set that contains only elements that are in both sets. */
-function getIntersectingSet<T>(a: Set<T>, b: Set<T>): ReadonlySet<T> {
+function getIntersectingSet<T>(
+  a: ReadonlySet<T>,
+  b: ReadonlySet<T>,
+): ReadonlySet<T> {
   const intersectingValues = [...a.values()].filter((value) => b.has(value));
   return new Set(intersectingValues);
 }
@@ -542,7 +545,10 @@ function isNullOrUndefinedOrAnyOrUnknownOrNever(...types: ts.Type[]): boolean {
   );
 }
 
-function setHasAnyElementFromSet<T>(set1: Set<T>, set2: Set<T>): boolean {
+function setHasAnyElementFromSet<T>(
+  set1: ReadonlySet<T>,
+  set2: ReadonlySet<T>,
+): boolean {
   for (const value of set2) {
     if (set1.has(value)) {
       return true;
