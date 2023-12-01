@@ -140,7 +140,7 @@ export function doesEntityExist(
  */
 export function getClosestEntityTo<T extends AnyEntity>(
   referenceEntity: Entity,
-  entities: T[],
+  entities: readonly T[],
   filterFunc?: (entity: T) => boolean,
 ): T | undefined {
   let closestEntity: T | undefined;
