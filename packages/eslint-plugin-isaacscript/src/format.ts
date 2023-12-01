@@ -366,6 +366,6 @@ function stringContainsOnlyWhitespace(string: string) {
  * the parsing inside VSCode. Thus, anything matching this pattern should be considered its own
  * word, even if it has spaces inside of it.
  */
-function getWordsFromLine(line: string): string[] {
+function getWordsFromLine(line: string): readonly string[] {
   return line.match(/(?:{@link .+?}|\S)+/g) ?? [];
 }

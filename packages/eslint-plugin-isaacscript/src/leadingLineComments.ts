@@ -5,7 +5,7 @@ import { isCommentOnOwnLine, isSeparatorLine } from "./comments";
 export function getLeadingLineComments(
   sourceCode: TSESLint.SourceCode,
   comments: TSESTree.Comment[],
-): TSESTree.Comment[] {
+): readonly TSESTree.Comment[] {
   return comments.filter(
     (comment) =>
       comment.type === TSESTree.AST_TOKEN_TYPES.Line && // i.e. a "//" comment
@@ -42,8 +42,8 @@ interface LeadingLineCommentBlock {
  * ```
  */
 export function getCommentBlocks(
-  comments: TSESTree.Comment[],
-): LeadingLineCommentBlock[] {
+  comments: readonly TSESTree.Comment[],
+): readonly LeadingLineCommentBlock[] {
   const commentBlocks: LeadingLineCommentBlock[] = [];
 
   // We cannot use the `comments.entries` method because we mutate `i`.

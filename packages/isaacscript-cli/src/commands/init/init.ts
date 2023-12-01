@@ -11,7 +11,6 @@ import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
-import { vsCodeInit } from "./VSCode.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
 import { checkModTargetDirectory } from "./checkModTargetDirectory.js";
@@ -20,6 +19,7 @@ import { getAuthorName } from "./getAuthorName.js";
 import { getModsDirectory } from "./getModsDirectory.js";
 import { getProjectPath } from "./getProjectPath.js";
 import { getSaveSlot } from "./getSaveSlot.js";
+import { vsCodeInit } from "./vsCode1.js";
 
 export const initCommand = new Command()
   .command("init [name]")

@@ -60,7 +60,8 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
   writeSaveDatToDisk(type, data, saveDat, numRetries);
 }
 
-function readSaveDatFromDisk() {
+// eslint-disable-next-line isaacscript/no-mutable-array-return
+function readSaveDatFromDisk(): SaveDatMessage[] {
   let saveDat: SaveDatMessage[];
   if (isFile(saveDatPath)) {
     const saveDatRaw = readFile(saveDatPath);

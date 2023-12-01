@@ -69,7 +69,7 @@ export const newlineBetweenSwitchCase = createRule({
           node,
           nextToken,
         );
-        const hasBlankLinesBetween = Boolean(tokensWithBlankLinesBetween);
+        const hasBlankLinesBetween = tokensWithBlankLinesBetween !== undefined;
         const isNewlineRequired = !isFallthrough;
 
         if (!hasBlankLinesBetween && isNewlineRequired) {
@@ -91,7 +91,7 @@ function getTokensWithNewlineBetween(
   sourceCode: TSESLint.SourceCode,
   startNode: TSESTree.SwitchCase,
   endNode: TSESTree.Token,
-): TSESTree.Node[] | null {
+): readonly TSESTree.Node[] | undefined {
   const endLine = endNode.loc.start.line;
 
   let next: TSESTree.Node = startNode;
@@ -103,7 +103,7 @@ function getTokensWithNewlineBetween(
       includeComments: true,
     });
     if (tokenAfter === null) {
-      return null;
+      return undefined;
     }
 
     next = tokenAfter as unknown as TSESTree.Node;
@@ -112,5 +112,5 @@ function getTokensWithNewlineBetween(
     }
   } while (next.loc.start.line < endLine);
 
-  return null;
+  return undefined;
 }

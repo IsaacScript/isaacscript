@@ -19,7 +19,7 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
 await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
 
-  promises.push($`tsc`, $`eslint --max-warnings 0 .`);
+  promises.push($`tsc --noEmit`, $`eslint --max-warnings 0 .`);
 
   await Promise.all(promises);
 

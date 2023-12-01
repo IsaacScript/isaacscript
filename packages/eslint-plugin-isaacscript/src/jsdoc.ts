@@ -2,7 +2,7 @@ import { TSESTree } from "@typescript-eslint/types";
 
 export function getJSDocComments(
   comments: TSESTree.Comment[],
-): TSESTree.Comment[] {
+): readonly TSESTree.Comment[] {
   return comments.filter(
     (comment) =>
       comment.type === TSESTree.AST_TOKEN_TYPES.Block && // i.e. a "/*" comment

@@ -23,7 +23,7 @@ export async function generateRules(): Promise<void> {
   writeFile(RULES_TS_PATH, content);
 }
 
-function getRuleNames(): string[] {
+function getRuleNames(): readonly string[] {
   const fileNames = getFileNamesInDirectory(RULES_DIRECTORY_PATH);
   const ruleNames = fileNames.map((fileName) => fileName.replace(/\.ts$/, ""));
   ruleNames.sort();
@@ -31,7 +31,7 @@ function getRuleNames(): string[] {
   return ruleNames;
 }
 
-function getRulesCode(ruleNames: string[]) {
+function getRulesCode(ruleNames: readonly string[]) {
   let text = "";
 
   for (const ruleName of ruleNames) {

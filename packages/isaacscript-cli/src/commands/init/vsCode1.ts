@@ -55,7 +55,7 @@ function installVSCodeExtensions(
   }
 }
 
-function getExtensionsFromJSON(projectPath: string): string[] {
+function getExtensionsFromJSON(projectPath: string): readonly string[] {
   const extensionsJSONPath = path.join(
     projectPath,
     ".vscode",

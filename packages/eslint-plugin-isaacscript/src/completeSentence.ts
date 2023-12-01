@@ -30,7 +30,9 @@ const SENTENCE_SEPARATOR_IDENTIFIER = "___sentence_separator_identifier___";
 const IN_LINE_CODE_IDENTIFIER = "___in_line_code_identifier___";
 const LIST_ELEMENT_IDENTIFIER = "___list_element_identifier___";
 
-export function getIncompleteSentences(text: string): IncompleteSentence[] {
+export function getIncompleteSentences(
+  text: string,
+): readonly IncompleteSentence[] {
   const incompleteSentences: IncompleteSentence[] = [];
 
   const textBlocks = splitOnSpecialText(text);
@@ -69,7 +71,7 @@ export function getIncompleteSentences(text: string): IncompleteSentence[] {
  * Before parsing a multi-line string to get the sentences, we first need to mutate the input to
  * handle some problematic situations.
  */
-function splitOnSpecialText(text: string): string[] {
+function splitOnSpecialText(text: string): readonly string[] {
   // Below, we avoid replacing certain things to an empty string because that can potentially cause
   // subsequent text to be considered to be part of the previous sentence.
 
@@ -199,7 +201,7 @@ function splitOnSpecialText(text: string): string[] {
   return textBlocks.filter((textBlock) => !isEnumBlockLabel(textBlock));
 }
 
-export function getSentences(text: string): string[] {
+export function getSentences(text: string): readonly string[] {
   const match = text.match(SENTENCE_REGEX);
   if (match === null) {
     return [];
