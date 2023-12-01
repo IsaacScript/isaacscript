@@ -192,7 +192,10 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/prefer-optional-chain": "off",
 
   "@typescript-eslint/prefer-readonly": "error",
-  "@typescript-eslint/prefer-readonly-parameter-types": "error",
+
+  /** Disabled since it can obfuscate the intended input types of a function. */
+  "@typescript-eslint/prefer-readonly-parameter-types": "off",
+
   "@typescript-eslint/prefer-reduce-type-parameter": "error",
 
   /** Disabled since using the `String.match` form might make code easier to read. */
