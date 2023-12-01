@@ -27,7 +27,6 @@ const config: Config = {
   presets: [
     [
       "classic",
-
       {
         docs: {
           routeBasePath: "/", // Serve the docs at the site's root.
@@ -41,8 +40,6 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
-  themes: ["docusaurus-theme-search-typesense"],
 
   themeConfig: {
     image: undefined,
@@ -123,13 +120,18 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
 
-  scripts: ["/js/hotkey.js"],
+  // -------------------------
+  // Added fields from vanilla
+  // -------------------------
 
   // Needed so that the following text works properly: `1 << -1 (0)`
   // https://github.com/tgreyuk/typedoc-plugin-markdown/issues/502
   markdown: {
     format: "detect",
   },
+
+  scripts: ["/js/hotkey.js"],
+  themes: ["docusaurus-theme-search-typesense"],
 };
 
 export default config;
