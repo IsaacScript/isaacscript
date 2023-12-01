@@ -120,14 +120,14 @@ export function getObjectPartialMatch<T>(
  */
 export function getPartialMatch(
   searchText: string,
-  array: string[],
+  array: string[] | readonly string[],
 ): string | undefined {
-  array.sort();
+  const sortedArray = array.toSorted();
 
   searchText = searchText.toLowerCase();
   searchText = searchText.replaceAll(" ", "");
 
-  const matchingElements = array.filter((element) =>
+  const matchingElements = sortedArray.filter((element) =>
     element.toLowerCase().startsWith(searchText),
   );
   matchingElements.sort();
