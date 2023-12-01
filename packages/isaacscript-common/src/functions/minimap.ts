@@ -66,7 +66,7 @@ export function clearRoomDisplayFlags(roomGridIndex: int): void {
  */
 export function getFloorDisplayFlags(
   minimapAPI = true,
-): Map<int, BitFlags<DisplayFlag>> {
+): ReadonlyMap<int, BitFlags<DisplayFlag>> {
   const displayFlagsMap = new Map<int, BitFlags<DisplayFlag>>();
 
   for (const roomDescriptor of getRoomsInsideGrid()) {

@@ -49,7 +49,7 @@ const GREED_MODE_ITEM_POOL_TYPES: readonly ItemPoolType[] = arrayRemove(
  */
 export function getDefaultCollectibleTypesInItemPool(
   itemPoolType: ItemPoolType,
-): Set<CollectibleType> {
+): ReadonlySet<CollectibleType> {
   return ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET[itemPoolType];
 }
 

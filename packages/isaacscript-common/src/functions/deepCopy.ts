@@ -245,7 +245,7 @@ function deepCopyDefaultMap(
   traversalDescription: string,
   classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
-) {
+): Readonly<LuaMap<AnyNotNil, unknown>> | ReadonlyMap<AnyNotNil, unknown> {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a DefaultMap.");
   }
@@ -378,7 +378,7 @@ function deepCopyMap(
   traversalDescription: string,
   classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
-) {
+): Readonly<LuaMap<AnyNotNil, unknown>> | ReadonlyMap<AnyNotNil, unknown> {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a Map.");
   }
@@ -432,7 +432,7 @@ function deepCopySet(
   traversalDescription: string,
   classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
-) {
+): Readonly<LuaMap<AnyNotNil, string>> | ReadonlySet<AnyNotNil> {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying a Set.");
   }

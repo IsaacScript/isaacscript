@@ -34,7 +34,7 @@ const TRANSFORMATIONS_THAT_GRANT_FLYING = new ReadonlySet<PlayerForm>([
 /** Returns a set of the player's current transformations. */
 export function getPlayerTransformations(
   player: EntityPlayer,
-): Set<PlayerForm> {
+): ReadonlySet<PlayerForm> {
   const transformations = new Set<PlayerForm>();
   for (const playerForm of PLAYER_FORM_VALUES) {
     if (player.HasPlayerForm(playerForm)) {
@@ -65,7 +65,7 @@ export function getTransformationName(playerForm: PlayerForm): string {
  */
 export function getTransformationsForCollectibleType(
   collectibleType: CollectibleType,
-): Set<PlayerForm> {
+): ReadonlySet<PlayerForm> {
   const itemConfigTags = getCollectibleTags(collectibleType);
 
   const transformationSet = new Set<PlayerForm>();

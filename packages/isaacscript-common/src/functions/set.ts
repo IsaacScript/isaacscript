@@ -24,6 +24,7 @@ export function addSetsToSet<T>(
  *
  * This function is variadic, meaning that you can specify N sets.
  */
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
@@ -36,6 +37,7 @@ export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
   const newSet = new Set<T>();
   for (const value of oldSet) {
@@ -160,6 +162,7 @@ export function objectKeysToReadonlySet<K extends string | number | symbol, V>(
  *
  * Also see the `objectKeysToReadonlySet` function.
  */
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function objectKeysToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
 ): Set<K> {
@@ -195,6 +198,7 @@ export function objectValuesToReadonlySet<
  *
  * Also see the `objectValuesToReadonlySet` function.
  */
+// eslint-disable-next-line isaacscript/no-mutable-return
 export function objectValuesToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
 ): Set<V> {
@@ -213,7 +217,7 @@ export function objectValuesToSet<K extends string | number | symbol, V>(
  *
  * This function is variadic, meaning that you can pass as many things as you want to add.
  */
-export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
+export function setAdd<T>(set: Set<T>, ...elements: readonly T[]): void {
   for (const element of elements) {
     set.add(element);
   }
@@ -226,7 +230,10 @@ export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
  * This function is variadic, meaning that you can pass as many things as you want to check for. It
  * will return true if one or more elements are found.
  */
-export function setHas<T>(set: ReadonlySet<T>, ...elements: T[]): boolean {
+export function setHas<T>(
+  set: ReadonlySet<T>,
+  ...elements: readonly T[]
+): boolean {
   return elements.some((element) => set.has(element));
 }
 

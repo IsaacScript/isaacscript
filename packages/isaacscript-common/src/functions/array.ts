@@ -86,7 +86,7 @@ export function arrayRemoveAll<T>(
  */
 export function arrayRemoveAllInPlace<T>(
   array: T[],
-  ...elementsToRemove: T[]
+  ...elementsToRemove: readonly T[]
 ): boolean {
   let removedOneOrMoreElements = false;
   for (const element of elementsToRemove) {
@@ -118,7 +118,7 @@ export function arrayRemoveAllInPlace<T>(
 // eslint-disable-next-line isaacscript/no-mutable-return
 export function arrayRemoveInPlace<T>(
   array: T[],
-  ...elementsToRemove: T[]
+  ...elementsToRemove: readonly T[]
 ): T[] {
   const removedElements: T[] = [];
 

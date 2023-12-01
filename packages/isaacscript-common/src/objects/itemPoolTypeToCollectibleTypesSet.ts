@@ -8,10 +8,10 @@ import { asCollectibleType, parseIntSafe } from "../functions/types";
 import { ITEM_POOL_TYPE_TO_ITEM_POOL_NAME } from "../maps/itemPoolTypeToItemPoolName";
 
 export const ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET: Readonly<
-  Record<ItemPoolType, Set<CollectibleType>>
+  Record<ItemPoolType, ReadonlySet<CollectibleType>>
 > = (() => {
   const itemPoolTypeToCollectibleTypes: Partial<
-    Record<ItemPoolType, Set<CollectibleType>>
+    Record<ItemPoolType, ReadonlySet<CollectibleType>>
   > = {};
 
   for (const itemPoolType of ITEM_POOL_TYPE_VALUES) {
@@ -39,7 +39,7 @@ export const ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET: Readonly<
 
   return itemPoolTypeToCollectibleTypes as Record<
     ItemPoolType,
-    Set<CollectibleType>
+    ReadonlySet<CollectibleType>
   >;
 })();
 

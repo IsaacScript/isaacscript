@@ -130,9 +130,9 @@ export function mapSetNPC<V>(
  * Helper function to make using sets with an type of `PtrHash` easier. Use this instead of the
  * `Set.add` method if you have a set of this type.
  */
-export function setAddNPC(set: Set<PtrHash>, npc: EntityNPC): Set<PtrHash> {
+export function setAddNPC(set: Set<PtrHash>, npc: EntityNPC): void {
   const ptrHash = GetPtrHash(npc);
-  return set.add(ptrHash);
+  set.add(ptrHash);
 }
 
 /**

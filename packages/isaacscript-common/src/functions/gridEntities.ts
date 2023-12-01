@@ -336,7 +336,7 @@ export function getGridEntitiesInRadius(
  */
 export function getGridEntitiesMap(
   ...gridEntityTypes: GridEntityType[]
-): Map<int, GridEntity> {
+): ReadonlyMap<int, GridEntity> {
   const gridEntities = getGridEntities(...gridEntityTypes);
 
   const gridEntityMap = new Map<int, GridEntity>();

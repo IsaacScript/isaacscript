@@ -3,8 +3,8 @@ import type ts from "typescript";
 import { getTypeName, unionTypeParts } from "../typeUtils";
 import { createRule } from "../utils";
 
-export type Options = [];
-export type MessageIds = "mutableArray" | "mutableMap" | "mutableSet";
+type Options = [];
+type MessageIds = "mutableArray" | "mutableMap" | "mutableSet";
 
 export const noMutableReturn = createRule<Options, MessageIds>({
   name: "no-mutable-return",

@@ -109,7 +109,7 @@ export class GridEntityUpdateDetection extends Feature {
   };
 
   private checkGridEntitiesRemoved(
-    gridEntitiesMap: Map<int, GridEntity>,
+    gridEntitiesMap: ReadonlyMap<int, GridEntity>,
   ): void {
     for (const [gridIndex, gridEntityTuple] of v.room.initializedGridEntities) {
       const [storedGridEntityType, storedGridEntityVariant] = gridEntityTuple;

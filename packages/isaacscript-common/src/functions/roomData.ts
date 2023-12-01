@@ -13,7 +13,9 @@ import { hasFlag } from "./flag";
  * Helper function to get the set of allowed door slots for the room at the supplied grid index.
  * This corresponds to the doors that are enabled in the STB/XML file for the room.
  */
-export function getRoomAllowedDoors(roomGridIndex?: int): Set<DoorSlot> {
+export function getRoomAllowedDoors(
+  roomGridIndex?: int,
+): ReadonlySet<DoorSlot> {
   const allowedDoors = new Set<DoorSlot>();
 
   const roomData = getRoomData(roomGridIndex);

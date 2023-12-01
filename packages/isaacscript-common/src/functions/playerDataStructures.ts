@@ -134,9 +134,9 @@ export function mapSetPlayer<V>(
 export function setAddPlayer(
   set: Set<PlayerIndex>,
   player: EntityPlayer,
-): Set<PlayerIndex> {
+): void {
   const playerIndex = getPlayerIndex(player);
-  return set.add(playerIndex);
+  set.add(playerIndex);
 }
 
 /**

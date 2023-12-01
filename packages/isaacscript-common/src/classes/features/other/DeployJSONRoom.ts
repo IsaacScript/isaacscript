@@ -324,7 +324,7 @@ function fixPitGraphics() {
   }
 }
 
-function getPitMap() {
+function getPitMap(): ReadonlyMap<int, GridEntity> {
   const pitMap = new Map<int, GridEntity>();
   for (const gridEntity of getGridEntities(GridEntityType.PIT)) {
     const gridIndex = gridEntity.GetGridIndex();
