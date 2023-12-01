@@ -13,5 +13,4 @@ export * from "./types/NaturalNumbersLessThan.js";
 export * from "./types/NaturalNumbersLessThanOrEqualTo.js";
 export * from "./types/Range.js";
 export * from "./types/ReadonlyMap.js";
-export * from "./types/ReadonlyRecord.js";
 export * from "./types/ReadonlySet.js";

@@ -193,7 +193,7 @@ const SUPPORTED_RULES = {
 
   "@typescript-eslint/prefer-readonly": "error",
 
-  /** Disabled since it can obfuscate the intended input types of a function. */
+  /** Disabled since it is causes too much busy-work. */
   "@typescript-eslint/prefer-readonly-parameter-types": "off",
 
   "@typescript-eslint/prefer-reduce-type-parameter": "error",
