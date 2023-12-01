@@ -5,6 +5,7 @@
  * From:
  * https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-array-of-string-in-javascript
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function sortCaseInsensitive(array: string[]): string[] {
   const newArray = [...array];
   newArray.sort((a, b) =>

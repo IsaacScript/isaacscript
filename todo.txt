@@ -7,6 +7,13 @@
       getPillEffectType(thisPillEffect),
   );
   https://discord.com/channels/1026804805894672454/1180160373819711588
+  Array.every
+  Array.filter
+  Array.find
+  Array.findIndex
+  Array.findLast
+  Array.findLastIndex
+  Array.some
 
 - lint rule: if return type of function includes undefined in a union, don't allow void return
 - lint rule: don't allow `return` or `return undefined` when return type of function is void
