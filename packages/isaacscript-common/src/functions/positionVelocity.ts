@@ -12,7 +12,7 @@ import { getPlayerCloserThan } from "./players";
 const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
 
 export function anyEntityCloserThan(
-  entities: Entity[],
+  entities: Entity[] | readonly Entity[],
   position: Vector,
   distance: int,
 ): boolean {
@@ -109,7 +109,9 @@ export function findFreePosition(
  *                 this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method
  *                 multiple times.
  */
-export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
+export function getEntityPositions(
+  entities?: Entity[] | readonly Entity[],
+): Map<PtrHash, Vector> {
   if (entities === undefined) {
     entities = getEntities();
   }
@@ -132,7 +134,9 @@ export function getEntityPositions(entities?: Entity[]): Map<PtrHash, Vector> {
  *                 this with cached entities to avoid invoking the `Isaac.GetRoomEntities` method
  *                 multiple times.
  */
-export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
+export function getEntityVelocities(
+  entities?: Entity[] | readonly Entity[],
+): Map<PtrHash, Vector> {
   if (entities === undefined) {
     entities = getEntities();
   }
@@ -161,7 +165,7 @@ export function getEntityVelocities(entities?: Entity[]): Map<PtrHash, Vector> {
  */
 export function setEntityPositions(
   entityPositions: Map<PtrHash, Vector>,
-  entities?: Entity[],
+  entities?: Entity[] | readonly Entity[],
 ): void {
   if (entities === undefined) {
     entities = getEntities();
@@ -191,7 +195,7 @@ export function setEntityPositions(
  */
 export function setEntityVelocities(
   entityVelocities: Map<PtrHash, Vector>,
-  entities?: Entity[],
+  entities?: Entity[] | readonly Entity[],
 ): void {
   if (entities === undefined) {
     entities = getEntities();

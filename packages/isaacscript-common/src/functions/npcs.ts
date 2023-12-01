@@ -66,7 +66,7 @@ export function getAliveNPCs(
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
-): EntityNPC[] {
+): readonly EntityNPC[] {
   const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
   return npcs.filter((npc) => !npc.IsDead() && !isAliveExceptionNPC(npc));
 }

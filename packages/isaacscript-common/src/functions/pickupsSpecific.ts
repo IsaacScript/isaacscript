@@ -23,7 +23,7 @@ import { getPickups, removeAllPickups, spawnPickup } from "./entitiesSpecific";
  */
 export function getBatteries(
   batterySubType: BatterySubType | -1 = -1,
-): EntityPickupBattery[] {
+): readonly EntityPickupBattery[] {
   return getPickups(
     PickupVariant.LIL_BATTERY,
     batterySubType,
@@ -39,7 +39,7 @@ export function getBatteries(
  */
 export function getBombPickups(
   bombSubType: BombSubType | -1 = -1,
-): EntityPickupBomb[] {
+): readonly EntityPickupBomb[] {
   return getPickups(PickupVariant.BOMB, bombSubType) as EntityPickupBomb[];
 }
 
@@ -49,7 +49,9 @@ export function getBombPickups(
  * @param cardType Optional. If specified, will only get the cards that match the sub-type. Default
  *                 is -1, which matches every sub-type.
  */
-export function getCards(cardType: CardType | -1 = -1): EntityPickupCard[] {
+export function getCards(
+  cardType: CardType | -1 = -1,
+): readonly EntityPickupCard[] {
   return getPickups(PickupVariant.CARD, cardType) as EntityPickupCard[];
 }
 
@@ -60,7 +62,7 @@ export function getCards(cardType: CardType | -1 = -1): EntityPickupCard[] {
  * @param subType Optional. If specified, will only get the chests that match the sub-type. Default
  *                is -1, which matches every sub-type.
  */
-export function getChests(subType = -1): EntityPickup[] {
+export function getChests(subType = -1): readonly EntityPickup[] {
   const chests: EntityPickup[] = [];
 
   for (const pickupVariant of CHEST_PICKUP_VARIANTS) {
@@ -79,7 +81,7 @@ export function getChests(subType = -1): EntityPickup[] {
  */
 export function getCoins(
   coinSubType: CoinSubType | -1 = -1,
-): EntityPickupCoin[] {
+): readonly EntityPickupCoin[] {
   return getPickups(PickupVariant.COIN, coinSubType) as EntityPickupCoin[];
 }
 
@@ -91,7 +93,7 @@ export function getCoins(
  */
 export function getCollectibles(
   collectibleType: CollectibleType | -1 = -1,
-): EntityPickupCollectible[] {
+): readonly EntityPickupCollectible[] {
   return getPickups(
     PickupVariant.COLLECTIBLE,
     collectibleType,
@@ -106,7 +108,7 @@ export function getCollectibles(
  */
 export function getHearts(
   heartSubType: HeartSubType | -1 = -1,
-): EntityPickupHeart[] {
+): readonly EntityPickupHeart[] {
   return getPickups(PickupVariant.HEART, heartSubType) as EntityPickupHeart[];
 }
 
@@ -116,7 +118,9 @@ export function getHearts(
  * @param keySubType Optional. If specified, will only get the keys that match the sub-type. Default
  *                   is -1, which matches every sub-type.
  */
-export function getKeys(keySubType: KeySubType | -1 = -1): EntityPickupKey[] {
+export function getKeys(
+  keySubType: KeySubType | -1 = -1,
+): readonly EntityPickupKey[] {
   return getPickups(PickupVariant.KEY, keySubType) as EntityPickupKey[];
 }
 
@@ -126,7 +130,9 @@ export function getKeys(keySubType: KeySubType | -1 = -1): EntityPickupKey[] {
  * @param pillColor Optional. If specified, will only get the pills that match the sub-type. Default
  *                  is -1, which matches every sub-type.
  */
-export function getPills(pillColor: PillColor | -1 = -1): EntityPickupPill[] {
+export function getPills(
+  pillColor: PillColor | -1 = -1,
+): readonly EntityPickupPill[] {
   return getPickups(PickupVariant.PILL, pillColor) as EntityPickupPill[];
 }
 
@@ -138,7 +144,7 @@ export function getPills(pillColor: PillColor | -1 = -1): EntityPickupPill[] {
  */
 export function getSacks(
   sackSubType: SackSubType | -1 = -1,
-): EntityPickupSack[] {
+): readonly EntityPickupSack[] {
   return getPickups(PickupVariant.SACK, sackSubType) as EntityPickupSack[];
 }
 
@@ -150,7 +156,7 @@ export function getSacks(
  */
 export function getTrinkets(
   trinketType: TrinketType | -1 = -1,
-): EntityPickupTrinket[] {
+): readonly EntityPickupTrinket[] {
   return getPickups(
     PickupVariant.TRINKET,
     trinketType,
@@ -168,7 +174,7 @@ export function getTrinkets(
 export function removeAllBatteries(
   batterySubType: BatterySubType | -1 = -1,
   cap?: int,
-): EntityPickupBattery[] {
+): readonly EntityPickupBattery[] {
   return removeAllPickups(
     PickupVariant.LIL_BATTERY,
     batterySubType,
@@ -188,7 +194,7 @@ export function removeAllBatteries(
 export function removeAllBombPickups(
   bombSubType: BombSubType | -1 = -1,
   cap?: int,
-): EntityPickupBomb[] {
+): readonly EntityPickupBomb[] {
   return removeAllPickups(
     PickupVariant.BOMB,
     bombSubType,
@@ -207,7 +213,7 @@ export function removeAllBombPickups(
 export function removeAllCards(
   cardType: CardType | -1 = -1,
   cap?: int,
-): EntityPickupCard[] {
+): readonly EntityPickupCard[] {
   return removeAllPickups(
     PickupVariant.CARD,
     cardType,
@@ -224,7 +230,10 @@ export function removeAllCards(
  * @param cap Optional. If specified, will only remove the given amount of chests.
  * @returns The chests that were removed.
  */
-export function removeAllChests(subType = -1, cap?: int): EntityPickup[] {
+export function removeAllChests(
+  subType = -1,
+  cap?: int,
+): readonly EntityPickup[] {
   const chests = getChests(subType);
   return removeEntities(chests, cap);
 }
@@ -240,7 +249,7 @@ export function removeAllChests(subType = -1, cap?: int): EntityPickup[] {
 export function removeAllCoins(
   coinSubType?: CoinSubType,
   cap?: int,
-): EntityPickupCoin[] {
+): readonly EntityPickupCoin[] {
   return removeAllPickups(
     PickupVariant.COIN,
     coinSubType,
@@ -259,7 +268,7 @@ export function removeAllCoins(
 export function removeAllCollectibles(
   collectibleType?: CollectibleType,
   cap?: int,
-): EntityPickupCollectible[] {
+): readonly EntityPickupCollectible[] {
   return removeAllPickups(
     PickupVariant.COLLECTIBLE,
     collectibleType,
@@ -278,7 +287,7 @@ export function removeAllCollectibles(
 export function removeAllHearts(
   heartSubType?: HeartSubType,
   cap?: int,
-): EntityPickupHeart[] {
+): readonly EntityPickupHeart[] {
   return removeAllPickups(
     PickupVariant.HEART,
     heartSubType,
@@ -297,7 +306,7 @@ export function removeAllHearts(
 export function removeAllKeys(
   keySubType?: KeySubType,
   cap?: int,
-): EntityPickupKey[] {
+): readonly EntityPickupKey[] {
   return removeAllPickups(
     PickupVariant.KEY,
     keySubType,
@@ -316,7 +325,7 @@ export function removeAllKeys(
 export function removeAllPills(
   pillColor?: PillColor,
   cap?: int,
-): EntityPickupPill[] {
+): readonly EntityPickupPill[] {
   return removeAllPickups(
     PickupVariant.PILL,
     pillColor,
@@ -335,7 +344,7 @@ export function removeAllPills(
 export function removeAllSacks(
   sackSubType?: SackSubType,
   cap?: int,
-): EntityPickupSack[] {
+): readonly EntityPickupSack[] {
   return removeAllPickups(
     PickupVariant.SACK,
     sackSubType,
@@ -354,7 +363,7 @@ export function removeAllSacks(
 export function removeAllTrinkets(
   trinketType?: TrinketType,
   cap?: int,
-): EntityPickupTrinket[] {
+): readonly EntityPickupTrinket[] {
   return removeAllPickups(
     PickupVariant.TRINKET,
     trinketType,

@@ -90,7 +90,7 @@ export function getFirstTSConfigIncludePath(): string {
  *
  * Most of this function is simply performing input validation.
  */
-export function getCustomStagesFromTSConfig(): CustomStageTSConfig[] {
+export function getCustomStagesFromTSConfig(): readonly CustomStageTSConfig[] {
   const isaacScriptSection = getIsaacScriptSection();
   if (isaacScriptSection === undefined) {
     return [];

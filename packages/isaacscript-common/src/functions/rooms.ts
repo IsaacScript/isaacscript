@@ -97,7 +97,7 @@ export function getNumRooms(): int {
  * method. This is the best way to see if off-grid rooms have been initialized, since it is possible
  * for mods to insert room data at non-official negative room grid indexes.
  */
-export function getReadOnlyRooms(): Array<Readonly<RoomDescriptor>> {
+export function getReadOnlyRooms(): ReadonlyArray<Readonly<RoomDescriptor>> {
   const level = game.GetLevel();
   const roomList = level.GetRooms();
 
@@ -200,7 +200,7 @@ export function getRoomTypeName(roomType: RoomType): string {
  */
 export function getRooms(
   includeExtraDimensionalRooms = false,
-): RoomDescriptor[] {
+): readonly RoomDescriptor[] {
   // The naive way to get all of the rooms would be to iterate over the `RoomList` from the
   // `Level.GetRooms` method. However, this results in read-only data, and we want to return a
   // writable object. Instead, we let the heavy lifting be handled by other functions.
@@ -221,7 +221,7 @@ export function getRooms(
  */
 export function getRoomsInsideGrid(
   includeExtraDimensionalRooms = false,
-): RoomDescriptor[] {
+): readonly RoomDescriptor[] {
   const level = game.GetLevel();
 
   const dimensions = includeExtraDimensionalRooms
@@ -250,7 +250,9 @@ export function getRoomsInsideGrid(
  *
  * Room descriptors without any data are assumed to be non-existent and are not included.
  */
-export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
+export function getRoomsOfDimension(
+  dimension: Dimension,
+): readonly RoomDescriptor[] {
   const level = game.GetLevel();
 
   /** We use a map instead of an array because room shapes occupy more than one room grid index. */
@@ -273,7 +275,7 @@ export function getRoomsOfDimension(dimension: Dimension): RoomDescriptor[] {
  *
  * Room descriptors without any data are assumed to be non-existent and are not included.
  */
-export function getRoomsOutsideGrid(): RoomDescriptor[] {
+export function getRoomsOutsideGrid(): readonly RoomDescriptor[] {
   // We filter an array of all rooms instead of iterating over the `GridRoom` enum because it is
   // possible for mods to insert data at arbitrary negative room grid indexes.
   const readOnlyRooms = getReadOnlyRooms();
@@ -550,7 +552,7 @@ export function isAllRoomsClear(
 ): boolean {
   const roomsInsideGrid = getRoomsInsideGrid();
 
-  let matchingRooms: RoomDescriptor[];
+  let matchingRooms: readonly RoomDescriptor[];
   if (onlyCheckRoomTypes === undefined) {
     matchingRooms = roomsInsideGrid;
   } else {

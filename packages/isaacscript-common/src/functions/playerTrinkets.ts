@@ -99,7 +99,7 @@ export function getPlayerTrinkets(
  */
 export function getPlayersWithTrinket(
   ...trinketTypes: TrinketType[]
-): EntityPlayer[] {
+): readonly EntityPlayer[] {
   const players = getPlayers();
 
   return players.filter((player) =>

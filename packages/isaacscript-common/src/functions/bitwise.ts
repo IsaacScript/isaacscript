@@ -28,7 +28,10 @@ export function convertBinaryToDecimal(bits: int[]): number {
  *                  side until the minimum length is met. Default is undefined (which will not cause
  *                  any padding).
  */
-export function convertDecimalToBinary(num: number, minLength?: int): int[] {
+export function convertDecimalToBinary(
+  num: number,
+  minLength?: int,
+): readonly int[] {
   const bits: int[] = [];
 
   const bitsString = num.toString(2);

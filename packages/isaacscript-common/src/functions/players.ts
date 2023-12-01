@@ -102,7 +102,7 @@ export function getAzazelBrimstoneDistance(
 }
 
 /** Helper function to get an array containing the characters of all of the current players. */
-export function getCharacters(): PlayerType[] {
+export function getCharacters(): readonly PlayerType[] {
   const players = getPlayers();
   return players.map((player) => player.GetPlayerType());
 }
@@ -270,7 +270,9 @@ export function getPlayerNumHitsRemaining(player: EntityPlayer): int {
  * This function is variadic, meaning that you can supply as many characters as you want to check
  * for. Returns true if any of the characters supplied are present.
  */
-export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
+export function getPlayersOfType(
+  ...characters: PlayerType[]
+): readonly EntityPlayer[] {
   const charactersSet = new ReadonlySet(characters);
   const players = getPlayers();
 
@@ -288,7 +290,7 @@ export function getPlayersOfType(...characters: PlayerType[]): EntityPlayer[] {
  * Note that this function includes players with a non-undefined parent like e.g. the Strawman
  * Keeper.
  */
-export function getPlayersOnKeyboard(): EntityPlayer[] {
+export function getPlayersOnKeyboard(): readonly EntityPlayer[] {
   const players = getAllPlayers();
 
   return players.filter(
@@ -306,7 +308,7 @@ export function getPlayersOnKeyboard(): EntityPlayer[] {
  */
 export function getPlayersWithControllerIndex(
   controllerIndex: ControllerIndex,
-): EntityPlayer[] {
+): readonly EntityPlayer[] {
   const players = getAllPlayers();
   return players.filter((player) => player.ControllerIndex === controllerIndex);
 }

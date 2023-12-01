@@ -43,7 +43,9 @@ export function anyPlayerHasTrinketEffect(trinketType: TrinketType): boolean {
  * Helper function to get an array of temporary effects for a player. This is helpful so that you
  * don't have to manually create an array from an `EffectsList` object.
  */
-export function getEffectsList(player: EntityPlayer): TemporaryEffect[] {
+export function getEffectsList(
+  player: EntityPlayer,
+): readonly TemporaryEffect[] {
   const effects = player.GetEffects();
   const effectsList = effects.GetEffectsList();
 

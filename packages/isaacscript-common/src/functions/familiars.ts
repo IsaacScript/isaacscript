@@ -118,7 +118,9 @@ export function checkFamiliarFromCollectibles(
 }
 
 /** Helper function to get only the familiars that belong to a specific player. */
-export function getPlayerFamiliars(player: EntityPlayer): EntityFamiliar[] {
+export function getPlayerFamiliars(
+  player: EntityPlayer,
+): readonly EntityFamiliar[] {
   const playerPtrHash = GetPtrHash(player);
   const familiars = getFamiliars();
   return familiars.filter((familiar) => {

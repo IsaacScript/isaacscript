@@ -58,7 +58,7 @@ export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
 
 export function doorSlotFlagsToDoorSlots(
   doorSlotFlags: BitFlags<DoorSlotFlag>,
-): DoorSlot[] {
+): readonly DoorSlot[] {
   const doorSlots: DoorSlot[] = [];
 
   for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
@@ -204,7 +204,7 @@ export function getDoorSlotsForRoomShape(
  *
  * @allowEmptyVariadic
  */
-export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
+export function getDoors(...roomTypes: RoomType[]): readonly GridEntityDoor[] {
   const room = game.GetRoom();
   const roomShape = room.GetRoomShape();
   const roomTypesSet = new ReadonlySet(roomTypes);
@@ -240,7 +240,9 @@ export function getDoors(...roomTypes: RoomType[]): GridEntityDoor[] {
  * This function is variadic, meaning that you can specify N arguments to return all of the doors
  * that match any of the N room grid indexes.
  */
-export function getDoorsToRoomIndex(...roomGridIndex: int[]): GridEntityDoor[] {
+export function getDoorsToRoomIndex(
+  ...roomGridIndex: int[]
+): readonly GridEntityDoor[] {
   const roomGridIndexesSet = new ReadonlySet(roomGridIndex);
   const doors = getDoors();
   return doors.filter((door) => roomGridIndexesSet.has(door.TargetRoomIndex));
@@ -320,7 +322,7 @@ export function getRoomShapeDoorSlotCoordinates(
  * Helper function to find unused door slots in the current room that can be used to make custom
  * doors.
  */
-export function getUnusedDoorSlots(): DoorSlot[] {
+export function getUnusedDoorSlots(): readonly DoorSlot[] {
   const room = game.GetRoom();
 
   return DOOR_SLOT_VALUES.filter(

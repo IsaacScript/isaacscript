@@ -35,7 +35,7 @@ import { assertDefined } from "./utils";
 export function getBombs(
   bombVariant: BombVariant | -1 = -1,
   subType = -1,
-): EntityBomb[] {
+): readonly EntityBomb[] {
   const entities = getEntities(EntityType.BOMB, bombVariant, subType);
 
   const bombs: EntityBomb[] = [];
@@ -69,7 +69,7 @@ export function getBombs(
 export function getEffects(
   effectVariant: EffectVariant | -1 = -1,
   subType = -1,
-): EntityEffect[] {
+): readonly EntityEffect[] {
   const entities = getEntities(EntityType.EFFECT, effectVariant, subType);
 
   const effects: EntityEffect[] = [];
@@ -103,7 +103,7 @@ export function getEffects(
 export function getFamiliars(
   familiarVariant: FamiliarVariant | -1 = -1,
   subType = -1,
-): EntityFamiliar[] {
+): readonly EntityFamiliar[] {
   const entities = getEntities(EntityType.FAMILIAR, familiarVariant, subType);
 
   const familiars: EntityFamiliar[] = [];
@@ -137,7 +137,7 @@ export function getFamiliars(
 export function getKnives(
   knifeVariant: KnifeVariant | -1 = -1,
   subType = -1,
-): EntityKnife[] {
+): readonly EntityKnife[] {
   const entities = getEntities(EntityType.KNIFE, knifeVariant, subType);
 
   const knives: EntityKnife[] = [];
@@ -171,7 +171,7 @@ export function getKnives(
 export function getLasers(
   laserVariant: LaserVariant | -1 = -1,
   subType = -1,
-): EntityLaser[] {
+): readonly EntityLaser[] {
   const entities = getEntities(EntityType.LASER, laserVariant, subType);
 
   const lasers: EntityLaser[] = [];
@@ -203,7 +203,7 @@ export function getNPCs(
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
-): EntityNPC[] {
+): readonly EntityNPC[] {
   const entities = getEntities(entityType, variant, subType, ignoreFriendly);
 
   const npcs: EntityNPC[] = [];
@@ -237,7 +237,7 @@ export function getNPCs(
 export function getPickups(
   pickupVariant: PickupVariant | -1 = -1,
   subType = -1,
-): EntityPickup[] {
+): readonly EntityPickup[] {
   const entities = getEntities(EntityType.PICKUP, pickupVariant, subType);
 
   const pickups: EntityPickup[] = [];
@@ -271,7 +271,7 @@ export function getPickups(
 export function getProjectiles(
   projectileVariant: ProjectileVariant | -1 = -1,
   subType = -1,
-): EntityProjectile[] {
+): readonly EntityProjectile[] {
   const entities = getEntities(
     EntityType.PROJECTILE,
     projectileVariant,
@@ -309,7 +309,7 @@ export function getProjectiles(
 export function getSlots(
   slotVariant: SlotVariant | -1 = -1,
   subType = -1,
-): EntitySlot[] {
+): readonly EntitySlot[] {
   const slots = getEntities(EntityType.SLOT, slotVariant, subType);
 
   return slots as EntitySlot[];
@@ -335,7 +335,7 @@ export function getSlots(
 export function getTears(
   tearVariant: TearVariant | -1 = -1,
   subType = -1,
-): EntityTear[] {
+): readonly EntityTear[] {
   const entities = getEntities(EntityType.TEAR, tearVariant, subType);
 
   const tears: EntityTear[] = [];
@@ -364,7 +364,7 @@ export function removeAllBombs(
   bombVariant: BombVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityBomb[] {
+): readonly EntityBomb[] {
   const bombs = getBombs(bombVariant, subType);
   return removeEntities(bombs, cap);
 }
@@ -383,7 +383,7 @@ export function removeAllEffects(
   effectVariant: EffectVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityEffect[] {
+): readonly EntityEffect[] {
   const effects = getEffects(effectVariant, subType);
   return removeEntities(effects, cap);
 }
@@ -402,7 +402,7 @@ export function removeAllFamiliars(
   familiarVariant: FamiliarVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityFamiliar[] {
+): readonly EntityFamiliar[] {
   const familiars = getFamiliars(familiarVariant, subType);
   return removeEntities(familiars, cap);
 }
@@ -421,7 +421,7 @@ export function removeAllKnives(
   knifeVariant: KnifeVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityKnife[] {
+): readonly EntityKnife[] {
   const knives = getKnives(knifeVariant, subType);
   return removeEntities(knives, cap);
 }
@@ -440,7 +440,7 @@ export function removeAllLasers(
   laserVariant: LaserVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityLaser[] {
+): readonly EntityLaser[] {
   const lasers = getLasers(laserVariant, subType);
   return removeEntities(lasers, cap);
 }
@@ -462,7 +462,7 @@ export function removeAllNPCs(
   variant = -1,
   subType = -1,
   cap?: int,
-): EntityNPC[] {
+): readonly EntityNPC[] {
   const npcs = getNPCs(entityType, variant, subType);
   return removeEntities(npcs, cap);
 }
@@ -481,7 +481,7 @@ export function removeAllPickups(
   pickupVariant: PickupVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityPickup[] {
+): readonly EntityPickup[] {
   const pickups = getPickups(pickupVariant, subType);
   return removeEntities(pickups, cap);
 }
@@ -500,7 +500,7 @@ export function removeAllProjectiles(
   projectileVariant: ProjectileVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityProjectile[] {
+): readonly EntityProjectile[] {
   const projectiles = getProjectiles(projectileVariant, subType);
   return removeEntities(projectiles, cap);
 }
@@ -519,7 +519,7 @@ export function removeAllSlots(
   slotVariant: SlotVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): Entity[] {
+): readonly Entity[] {
   const slots = getSlots(slotVariant, subType);
   return removeEntities(slots, cap);
 }
@@ -538,7 +538,7 @@ export function removeAllTears(
   tearVariant: TearVariant | -1 = -1,
   subType = -1,
   cap?: int,
-): EntityTear[] {
+): readonly EntityTear[] {
   const tears = getTears(tearVariant, subType);
   return removeEntities(tears, cap);
 }

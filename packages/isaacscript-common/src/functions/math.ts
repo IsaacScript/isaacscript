@@ -35,7 +35,7 @@ export function getCircleDiscretizedPoints(
   xMultiplier = 1,
   yMultiplier = 1,
   initialDirection = Direction.UP,
-): Vector[] {
+): ReadonlyArray<Readonly<Vector>> {
   const vector = directionToVector(initialDirection);
   const initialPosition = vector.mul(radius);
   const positions: Vector[] = [];
@@ -163,7 +163,7 @@ export function splitNumber(
   num: int,
   size: int,
   startAtZero = false,
-): Array<[min: int, max: int]> {
+): ReadonlyArray<readonly [min: int, max: int]> {
   if (num <= 0) {
     error(
       `The number to split needs to be a positive number and is instead: ${num}`,

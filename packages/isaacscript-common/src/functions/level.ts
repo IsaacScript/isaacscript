@@ -40,7 +40,7 @@ export function fillLevelWithRedRooms(): void {
  * Note that this will only look at Boss Rooms inside of the grid, so e.g. Reverse Emperor card
  * rooms will not count.
  */
-export function getLevelBossIDs(): BossID[] {
+export function getLevelBossIDs(): readonly BossID[] {
   const roomsInsideGrid = getRoomsInsideGrid();
 
   return filterMap(roomsInsideGrid, (roomDescriptor) =>

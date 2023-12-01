@@ -44,7 +44,7 @@ export function getBooleansFromTable(
   luaMap: LuaMap<string, unknown>,
   objectName: string,
   ...keys: string[]
-): boolean[] {
+): readonly boolean[] {
   const booleans: boolean[] = [];
   for (const key of keys) {
     const value = luaMap.get(key);
@@ -76,7 +76,7 @@ export function getNumbersFromTable(
   luaMap: LuaMap<string, unknown>,
   objectName: string,
   ...keys: string[]
-): number[] {
+): readonly number[] {
   const numbers: number[] = [];
   for (const key of keys) {
     const value = luaMap.get(key);
@@ -115,7 +115,7 @@ export function getStringsFromTable(
   luaMap: LuaMap<string, unknown>,
   objectName: string,
   ...keys: string[]
-): string[] {
+): readonly string[] {
   const strings: string[] = [];
   for (const key of keys) {
     const value = luaMap.get(key);

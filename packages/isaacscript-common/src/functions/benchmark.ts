@@ -16,7 +16,7 @@ import { log } from "./log";
 export function benchmark(
   numTrials: int,
   ...functions: Array<() => void>
-): int[] {
+): readonly int[] {
   log(`Benchmarking ${functions.length} function(s) with ${numTrials} trials.`);
 
   const averages: int[] = [];

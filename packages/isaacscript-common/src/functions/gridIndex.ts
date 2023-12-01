@@ -13,7 +13,7 @@ export function getGridIndexesBetween(
   gridIndex1: int,
   gridIndex2: int,
   roomShape: RoomShape,
-): int[] {
+): readonly int[] {
   if (gridIndex1 > gridIndex2) {
     const oldGridIndex1 = gridIndex1;
     const oldGridIndex2 = gridIndex2;

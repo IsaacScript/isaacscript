@@ -23,7 +23,7 @@ import { eRange } from "./utils";
  *
  * @allowEmptyVariadic
  */
-export function clearSprite(sprite: Sprite, ...layerIDs: int[]): void {
+export function clearSprite(sprite: Sprite, ...layerIDs: readonly int[]): void {
   if (layerIDs.length === 0) {
     const numLayers = sprite.GetLayerCount();
     layerIDs = eRange(numLayers);

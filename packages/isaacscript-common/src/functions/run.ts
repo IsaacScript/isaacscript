@@ -37,7 +37,7 @@ export function anySeedEffectEnabled(exceptions?: SeedEffect[]): boolean {
 /**
  * Helper function to get the seed effects (i.e. Easter Eggs) that are enabled for the current run.
  */
-export function getSeedEffects(): SeedEffect[] {
+export function getSeedEffects(): readonly SeedEffect[] {
   const seeds = game.GetSeeds();
 
   return SEED_EFFECTS.filter(

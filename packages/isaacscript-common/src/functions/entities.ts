@@ -241,7 +241,7 @@ export function getEntities(
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
-): Entity[] {
+): readonly Entity[] {
   if (entityType === -1) {
     return Isaac.GetRoomEntities();
   }
@@ -345,9 +345,9 @@ export function getEntityIDFromConstituents(
  * second array but not in the first array.
  */
 export function getFilteredNewEntities<T extends AnyEntity>(
-  oldEntities: T[],
-  newEntities: T[],
-): T[] {
+  oldEntities: T[] | readonly T[],
+  newEntities: T[] | readonly T[],
+): readonly T[] {
   const oldEntitiesSet = new Set<PtrHash>();
   for (const entity of oldEntities) {
     const ptrHash = GetPtrHash(entity);
@@ -549,7 +549,7 @@ export function removeAllMatchingEntities(
   entityVariant = -1,
   entitySubType = -1,
   cap: int | undefined = undefined,
-): Entity[] {
+): readonly Entity[] {
   const entities = getEntities(entityType, entityVariant, entitySubType);
   return removeEntities(entities, cap);
 }
@@ -562,9 +562,9 @@ export function removeAllMatchingEntities(
  * @returns An array of the entities that were removed.
  */
 export function removeEntities<T extends AnyEntity>(
-  entities: T[],
+  entities: T[] | readonly T[],
   cap?: int,
-): T[] {
+): readonly T[] {
   if (entities.length === 0) {
     return [];
   }

@@ -129,7 +129,7 @@ export function getJSONRoomOfVariant(
 export function getJSONRoomsOfSubType(
   jsonRooms: JSONRoom[] | readonly JSONRoom[],
   subType: int,
-): JSONRoom[] {
+): readonly JSONRoom[] {
   return jsonRooms.filter((jsonRoom) => {
     const roomSubTypeString = jsonRoom.$.subtype;
     const roomSubType = parseIntSafe(roomSubTypeString);

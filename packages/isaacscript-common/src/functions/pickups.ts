@@ -119,7 +119,7 @@ export function getKeyName(keySubType: KeySubType): string {
 }
 
 /** Helper function to get all of the red heart pickup entities in the room. */
-export function getRedHearts(): EntityPickupHeart[] {
+export function getRedHearts(): readonly EntityPickupHeart[] {
   const hearts = getHearts();
   return hearts.filter((heart) => RED_HEART_SUB_TYPES_SET.has(heart.SubType));
 }
@@ -171,7 +171,7 @@ export function isRedHeartSubType(heartSubType: HeartSubType): boolean {
  * @param cap Optional. If specified, will only remove the given amount of hearts.
  * @returns The red hearts that were removed.
  */
-export function removeAllRedHearts(cap?: int): EntityPickupHeart[] {
+export function removeAllRedHearts(cap?: int): readonly EntityPickupHeart[] {
   const redHearts = getRedHearts();
   return removeEntities(redHearts, cap);
 }

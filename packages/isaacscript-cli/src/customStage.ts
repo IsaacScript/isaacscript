@@ -74,7 +74,9 @@ export async function prepareCustomStages(
  * Before we proceed with compiling the mod, ensure that all of the file paths that the end-user put
  * in their "tsconfig.json" file map to actual files on the file system.
  */
-function validateCustomStagePaths(customStagesTSConfig: CustomStageTSConfig[]) {
+function validateCustomStagePaths(
+  customStagesTSConfig: readonly CustomStageTSConfig[],
+) {
   for (const customStageTSConfig of customStagesTSConfig) {
     if (customStageTSConfig.backdropPNGPaths !== undefined) {
       for (const filePaths of Object.values(
@@ -213,7 +215,7 @@ async function insertEmptyShader() {
  * compiling the mod.
  */
 async function fillCustomStageMetadata(
-  customStagesTSConfig: CustomStageTSConfig[],
+  customStagesTSConfig: readonly CustomStageTSConfig[],
   packageManager: PackageManager,
 ): Promise<void> {
   validateMetadataLuaFileExists(packageManager);
@@ -251,7 +253,7 @@ function validateMetadataLuaFileExists(packageManager: PackageManager) {
  * (In other words, this creates the full set of `CustomStageLua` objects.)
  */
 async function getCustomStagesWithMetadata(
-  customStagesTSConfig: CustomStageTSConfig[],
+  customStagesTSConfig: readonly CustomStageTSConfig[],
 ): Promise<CustomStageLua[]> {
   if (!isFile(METADATA_LUA_PATH)) {
     fatalError(
@@ -387,7 +389,7 @@ async function convertCustomStagesToLua(
 
 /** We combine all of the custom stages together and add them to "00.special rooms.xml". */
 function combineCustomStageXMLs(
-  customStagesTSConfig: CustomStageTSConfig[],
+  customStagesTSConfig: readonly CustomStageTSConfig[],
   verbose: boolean,
 ) {
   let allRooms = "";

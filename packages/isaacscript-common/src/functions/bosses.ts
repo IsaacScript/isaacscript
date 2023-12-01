@@ -55,7 +55,7 @@ export function getAliveBosses(
   variant = -1,
   subType = -1,
   ignoreFriendly = false,
-): EntityNPC[] {
+): readonly EntityNPC[] {
   const aliveNPCs = getAliveNPCs(entityType, variant, subType, ignoreFriendly);
   return aliveNPCs.filter((aliveNPC) => aliveNPC.IsBoss());
 }
@@ -175,7 +175,7 @@ export function getBosses(
   variant?: int,
   subType?: int,
   ignoreFriendly = false,
-): EntityNPC[] {
+): readonly EntityNPC[] {
   const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
   return npcs.filter((npc) => npc.IsBoss());
 }

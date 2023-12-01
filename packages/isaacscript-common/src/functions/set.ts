@@ -120,6 +120,7 @@ export function getSetCombinations<T>(
  * Normally, set values are returned in insertion order, so use this function when the ordering of
  * the contents is important.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
   const values = [...set];
 

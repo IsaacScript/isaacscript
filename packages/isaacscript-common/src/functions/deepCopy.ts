@@ -560,7 +560,7 @@ function deepCopyArray(
   traversalDescription: string,
   classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
-) {
+): readonly unknown[] {
   if (SAVE_DATA_MANAGER_DEBUG) {
     log("deepCopy is copying an array.");
   }

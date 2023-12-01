@@ -247,7 +247,7 @@ export function getTotalCharge(
 export function getUsableActiveItemSlots(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-): ActiveSlot[] {
+): readonly ActiveSlot[] {
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   const activeSlots = getActiveItemSlots(player, collectibleType);
   return activeSlots.filter((activeSlot) => {

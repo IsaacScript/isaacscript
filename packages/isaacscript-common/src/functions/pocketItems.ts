@@ -72,7 +72,9 @@ export function getFirstPill(
  * cannot determine the identity of a particular slot, it will mark the type of the slot as
  * `PocketItemType.UNDETERMINABLE`.
  */
-export function getPocketItems(player: EntityPlayer): PocketItemDescription[] {
+export function getPocketItems(
+  player: EntityPlayer,
+): readonly PocketItemDescription[] {
   const pocketItem = player.GetActiveItem(ActiveSlot.POCKET);
   const hasPocketItem = pocketItem !== CollectibleType.NULL;
 
@@ -171,8 +173,8 @@ export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
 
 /** Helper function to see if two sets of pocket item descriptions are identical. */
 export function pocketItemsEquals(
-  pocketItems1: PocketItemDescription[],
-  pocketItems2: PocketItemDescription[],
+  pocketItems1: PocketItemDescription[] | readonly PocketItemDescription[],
+  pocketItems2: PocketItemDescription[] | readonly PocketItemDescription[],
 ): boolean {
   if (pocketItems1.length !== pocketItems2.length) {
     return false;

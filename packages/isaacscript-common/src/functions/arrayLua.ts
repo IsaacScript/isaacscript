@@ -30,7 +30,7 @@ export function every<T>(
 export function filter<T>(
   array: T[],
   func: (value: T, index: number, array: T[]) => boolean,
-): T[] {
+): readonly T[] {
   return array.filter(func);
 }
 
@@ -79,7 +79,7 @@ export function join<T>(array: T[], separator: string): string {
 export function map<T, U>(
   array: T[],
   func: (value: T, index: number, array: T[]) => U,
-): U[] {
+): readonly U[] {
   return array.map(func);
 }
 

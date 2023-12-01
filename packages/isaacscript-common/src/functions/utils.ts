@@ -61,7 +61,7 @@ export function assertNotNull<T>(
  *            first argument will be the end.
  * @param increment Optional. The increment to use. Default is 1.
  */
-export function eRange(start: int, end?: int, increment = 1): int[] {
+export function eRange(start: int, end?: int, increment = 1): readonly int[] {
   if (end === undefined) {
     return eRange(0, start, increment);
   }
@@ -118,7 +118,7 @@ export function getTraversalDescription(
  *            first argument will be the end.
  * @param increment Optional. The increment to use. Default is 1.
  */
-export function iRange(start: int, end?: int, increment = 1): int[] {
+export function iRange(start: int, end?: int, increment = 1): readonly int[] {
   if (end === undefined) {
     return iRange(0, start, increment);
   }

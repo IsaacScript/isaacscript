@@ -29,7 +29,7 @@ export function fireProjectiles(
   velocity: Vector,
   projectilesMode: ProjectilesMode = ProjectilesMode.ONE_PROJECTILE,
   projectileParams: ProjectileParams = ProjectileParams(),
-): EntityProjectile[] {
+): readonly EntityProjectile[] {
   const oldProjectiles = getProjectiles(projectileParams.Variant);
 
   let spawnedFly = false;
@@ -67,7 +67,7 @@ export function fireProjectilesInCircle(
   position: Vector,
   speed: float,
   numProjectiles: int,
-): EntityProjectile[] {
+): readonly EntityProjectile[] {
   const velocity = Vector(speed, numProjectiles);
   return fireProjectiles(
     npc,

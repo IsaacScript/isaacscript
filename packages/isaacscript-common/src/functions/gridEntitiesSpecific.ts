@@ -25,7 +25,7 @@ import { assertDefined } from "./utils";
  */
 export function getCrawlSpaces(
   crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
-): GridEntity[] {
+): readonly GridEntity[] {
   if (crawlSpaceVariant === -1) {
     return getGridEntities(GridEntityType.CRAWL_SPACE);
   }
@@ -42,7 +42,9 @@ export function getCrawlSpaces(
  * @param pitVariant Optional. If specified, will only get the pits that match the variant. Default
  *                   is -1, which matches every variant.
  */
-export function getPits(pitVariant: PitVariant | -1 = -1): GridEntityPit[] {
+export function getPits(
+  pitVariant: PitVariant | -1 = -1,
+): readonly GridEntityPit[] {
   const pits: GridEntityPit[] = [];
   for (const gridEntity of getGridEntities()) {
     const pit = gridEntity.ToPit();
@@ -65,7 +67,7 @@ export function getPits(pitVariant: PitVariant | -1 = -1): GridEntityPit[] {
  */
 export function getPoops(
   poopVariant: PoopGridEntityVariant | -1 = -1,
-): GridEntityPoop[] {
+): readonly GridEntityPoop[] {
   const poops: GridEntityPoop[] = [];
   for (const gridEntity of getGridEntities()) {
     const poop = gridEntity.ToPoop();
@@ -88,7 +90,7 @@ export function getPoops(
  */
 export function getPressurePlates(
   pressurePlateVariant: PressurePlateVariant | -1 = -1,
-): GridEntityPressurePlate[] {
+): readonly GridEntityPressurePlate[] {
   const pressurePlates: GridEntityPressurePlate[] = [];
   for (const gridEntity of getGridEntities()) {
     const pressurePlate = gridEntity.ToPressurePlate();
@@ -114,7 +116,7 @@ export function getPressurePlates(
  *                `RockVariant` enum, since that only applies to `GridEntityType.ROCK`, and other
  *                types of grid entities can be the `GridEntityRock` class.
  */
-export function getRocks(variant = -1): GridEntityRock[] {
+export function getRocks(variant = -1): readonly GridEntityRock[] {
   const rocks: GridEntityRock[] = [];
   for (const gridEntity of getGridEntities()) {
     const rock = gridEntity.ToRock();
@@ -130,7 +132,7 @@ export function getRocks(variant = -1): GridEntityRock[] {
 }
 
 /** Helper function to get all of the `GridEntitySpikes` in the room. */
-export function getSpikes(variant = -1): GridEntitySpikes[] {
+export function getSpikes(variant = -1): readonly GridEntitySpikes[] {
   const spikes: GridEntitySpikes[] = [];
   for (const gridEntity of getGridEntities()) {
     const spike = gridEntity.ToSpikes();
@@ -146,7 +148,7 @@ export function getSpikes(variant = -1): GridEntitySpikes[] {
 }
 
 /** Helper function to get all of the `GridEntityTNT` in the room. */
-export function getTNT(variant = -1): GridEntityTNT[] {
+export function getTNT(variant = -1): readonly GridEntityTNT[] {
   const tntArray: GridEntityTNT[] = [];
   for (const gridEntity of getGridEntities()) {
     const tnt = gridEntity.ToTNT();
@@ -168,7 +170,7 @@ export function getTNT(variant = -1): GridEntityTNT[] {
  * @param variant Optional. If specified, will only get the teleporters that match the variant.
  *                Default is -1, which matches every variant.
  */
-export function getTeleporters(variant = -1): GridEntity[] {
+export function getTeleporters(variant = -1): readonly GridEntity[] {
   if (variant === -1) {
     return getGridEntities(GridEntityType.TELEPORTER);
   }
@@ -185,7 +187,7 @@ export function getTeleporters(variant = -1): GridEntity[] {
  */
 export function getTrapdoors(
   trapdoorVariant: TrapdoorVariant | -1 = -1,
-): GridEntity[] {
+): readonly GridEntity[] {
   if (trapdoorVariant === -1) {
     return getGridEntities(GridEntityType.TRAPDOOR);
   }
@@ -208,7 +210,7 @@ export function removeAllCrawlSpaces(
   crawlSpaceVariant: CrawlSpaceVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
-): GridEntity[] {
+): readonly GridEntity[] {
   const crawlSpaces = getCrawlSpaces(crawlSpaceVariant);
   return removeGridEntities(crawlSpaces, updateRoom, cap);
 }
@@ -231,7 +233,7 @@ export function removeAllPits(
   pitVariant: PitVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
-): GridEntityPit[] {
+): readonly GridEntityPit[] {
   const pits = getPits(pitVariant);
   return removeGridEntities(pits, updateRoom, cap);
 }
@@ -254,7 +256,7 @@ export function removeAllPoops(
   poopVariant: PoopGridEntityVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
-): GridEntityPoop[] {
+): readonly GridEntityPoop[] {
   const poops = getPoops(poopVariant);
   return removeGridEntities(poops, updateRoom, cap);
 }
@@ -274,7 +276,7 @@ export function removeAllPressurePlates(
   pressurePlateVariant: PressurePlateVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
-): GridEntityPressurePlate[] {
+): readonly GridEntityPressurePlate[] {
   const pressurePlates = getPressurePlates(pressurePlateVariant);
   return removeGridEntities(pressurePlates, updateRoom, cap);
 }
@@ -296,7 +298,7 @@ export function removeAllRocks(
   variant = -1,
   updateRoom = false,
   cap?: int,
-): GridEntityRock[] {
+): readonly GridEntityRock[] {
   const rocks = getRocks(variant);
   return removeGridEntities(rocks, updateRoom, cap);
 }
@@ -316,7 +318,7 @@ export function removeAllSpikes(
   variant = -1,
   updateRoom = false,
   cap?: int,
-): GridEntitySpikes[] {
+): readonly GridEntitySpikes[] {
   const spikes = getSpikes(variant);
   return removeGridEntities(spikes, updateRoom, cap);
 }
@@ -336,7 +338,7 @@ export function removeAllTNT(
   variant = -1,
   updateRoom = false,
   cap?: int,
-): GridEntityTNT[] {
+): readonly GridEntityTNT[] {
   const tnt = getTNT(variant);
   return removeGridEntities(tnt, updateRoom, cap);
 }
@@ -356,7 +358,7 @@ export function removeAllTeleporters(
   variant = -1,
   updateRoom = false,
   cap?: int,
-): GridEntity[] {
+): readonly GridEntity[] {
   const teleporters = getTeleporters(variant);
   return removeGridEntities(teleporters, updateRoom, cap);
 }
@@ -376,7 +378,7 @@ export function removeAllTrapdoors(
   trapdoorVariant: TrapdoorVariant | -1 = -1,
   updateRoom = false,
   cap?: int,
-): GridEntity[] {
+): readonly GridEntity[] {
   const trapdoors = getTrapdoors(trapdoorVariant);
   return removeGridEntities(trapdoors, updateRoom, cap);
 }

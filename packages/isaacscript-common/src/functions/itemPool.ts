@@ -62,7 +62,7 @@ export function getDefaultCollectibleTypesInItemPool(
  */
 export function getDefaultItemPoolsForCollectibleType(
   collectibleType: CollectibleType,
-): ItemPoolType[] {
+): readonly ItemPoolType[] {
   const collectibleItemPoolTypes: ItemPoolType[] = [];
 
   const itemPoolTypes = game.IsGreedMode()

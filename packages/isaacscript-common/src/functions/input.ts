@@ -65,7 +65,7 @@ export function controllerToString(controller: Controller): string | undefined {
  */
 export function getMoveButtonActions(
   controllerIndex: ControllerIndex,
-): ButtonAction[] {
+): readonly ButtonAction[] {
   return MOVEMENT_BUTTON_ACTIONS.filter((buttonAction) =>
     Input.IsActionPressed(buttonAction, controllerIndex),
   );
@@ -78,7 +78,7 @@ export function getMoveButtonActions(
  */
 export function getShootButtonActions(
   controllerIndex: ControllerIndex,
-): ButtonAction[] {
+): readonly ButtonAction[] {
   return SHOOTING_BUTTON_ACTIONS.filter((buttonAction) =>
     Input.IsActionPressed(buttonAction, controllerIndex),
   );

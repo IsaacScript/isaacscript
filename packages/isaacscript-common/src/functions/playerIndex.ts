@@ -22,7 +22,7 @@ const EXCLUDED_CHARACTERS = new ReadonlySet<PlayerType>([
  * This function is almost never what you want to use. For most purposes, use the `getPlayers`
  * helper function instead to get a filtered list of players.
  */
-export function getAllPlayers(): EntityPlayer[] {
+export function getAllPlayers(): readonly EntityPlayer[] {
   const numPlayers = game.GetNumPlayers();
 
   const players: EntityPlayer[] = [];
@@ -38,7 +38,7 @@ export function getAllPlayers(): EntityPlayer[] {
  * Helper function to get all of the other players in the room besides the one provided. (This
  * includes "child" players.)
  */
-export function getOtherPlayers(player: EntityPlayer): EntityPlayer[] {
+export function getOtherPlayers(player: EntityPlayer): readonly EntityPlayer[] {
   const playerPtrHash = GetPtrHash(player);
   const players = getAllPlayers();
   return players.filter(
@@ -170,7 +170,9 @@ export function getPlayerIndexVanilla(
  * @param performCharacterExclusions Whether to exclude characters that are not directly controlled
  *                                 by the player (i.e. Esau & Tainted Soul). Default is false.
  */
-export function getPlayers(performCharacterExclusions = false): EntityPlayer[] {
+export function getPlayers(
+  performCharacterExclusions = false,
+): readonly EntityPlayer[] {
   const players = getAllPlayers();
   const nonChildPlayers = players.filter((player) => !isChildPlayer(player));
   const nonChildPlayersFiltered = nonChildPlayers.filter((player) => {

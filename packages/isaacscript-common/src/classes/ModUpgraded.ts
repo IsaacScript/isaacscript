@@ -412,7 +412,7 @@ export class ModUpgraded implements Mod {
    * called from the "upgradeMod" function, but we want to mark it as private so that end-users
    * don't have access to it.
    */
-  private initOptionalFeature(feature: ISCFeature): FunctionTuple[] {
+  private initOptionalFeature(feature: ISCFeature): readonly FunctionTuple[] {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);
 
@@ -427,7 +427,9 @@ export class ModUpgraded implements Mod {
  * Exported methods are stored in an internal static array on the class that is created by the
  * decorator.
  */
-function getExportedMethodsFromFeature(featureClass: unknown): FunctionTuple[] {
+function getExportedMethodsFromFeature(
+  featureClass: unknown,
+): readonly FunctionTuple[] {
   const constructor = getTSTLClassConstructor(featureClass) as Record<
     string,
     unknown

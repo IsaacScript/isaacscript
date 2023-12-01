@@ -64,7 +64,7 @@ export function anyPlayerHasCollectible(
 export function getActiveItemSlots(
   player: EntityPlayer,
   collectibleType: CollectibleType,
-): ActiveSlot[] {
+): readonly ActiveSlot[] {
   return ACTIVE_SLOT_VALUES.filter((activeSlot) => {
     const activeItem = player.GetActiveItem(activeSlot);
     return activeItem === collectibleType;
@@ -112,7 +112,7 @@ export function getPlayerCollectibleCount(
  */
 export function getPlayersWithCollectible(
   ...collectibleTypes: CollectibleType[]
-): EntityPlayer[] {
+): readonly EntityPlayer[] {
   const players = getPlayers();
 
   return players.filter((player) =>

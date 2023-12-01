@@ -9,8 +9,9 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## November 24th, 2023 (Unreleased)
+## December 1st, 2023
 
+- Most of the functions from `isaacscript-common` that return arrays now return read-only versions of those arrays.
 - Added the following helper functions:
   - `isValidCardType`
   - `isValidPillEffect`
@@ -21,6 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `FIRST_STAGE`
   - `LAST_ROOM_TYPE`
   - `LAST_STAGE`
+- Added the `no-mutable-array-return` lint rule.
 
 ## November 17th, 2023
 

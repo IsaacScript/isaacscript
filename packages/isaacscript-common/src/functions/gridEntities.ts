@@ -121,7 +121,7 @@ export function doesGridEntityExist(
  *
  * Under the hood, this uses the `Room.GetGridSize` method.
  */
-export function getAllGridIndexes(): int[] {
+export function getAllGridIndexes(): readonly int[] {
   const room = game.GetRoom();
   const gridSize = room.GetGridSize();
 
@@ -140,7 +140,7 @@ export function getAllGridIndexes(): int[] {
  */
 export function getCollidingEntitiesWithGridEntity(
   gridEntity: GridEntity,
-): Entity[] {
+): readonly Entity[] {
   const { topLeft, bottomRight } = getGridEntityCollisionPoints(gridEntity);
 
   const closeEntities = Isaac.FindInRadius(
@@ -228,7 +228,7 @@ export function getConstituentsFromGridEntityID(
  */
 export function getGridEntities(
   ...gridEntityTypes: GridEntityType[]
-): GridEntity[] {
+): readonly GridEntity[] {
   const gridEntities = getAllGridEntities();
 
   if (gridEntityTypes.length === 0) {
@@ -250,7 +250,7 @@ export function getGridEntities(
  */
 export function getGridEntitiesExcept(
   ...gridEntityTypes: GridEntityType[]
-): GridEntity[] {
+): readonly GridEntity[] {
   const gridEntities = getAllGridEntities();
 
   if (gridEntityTypes.length === 0) {
@@ -264,7 +264,7 @@ export function getGridEntitiesExcept(
   });
 }
 
-function getAllGridEntities(): GridEntity[] {
+function getAllGridEntities(): readonly GridEntity[] {
   const room = game.GetRoom();
 
   const gridEntities: GridEntity[] = [];
@@ -282,7 +282,7 @@ function getAllGridEntities(): GridEntity[] {
 export function getGridEntitiesInRadius(
   targetPosition: Vector,
   radius: number,
-): GridEntity[] {
+): readonly GridEntity[] {
   radius = Math.abs(radius);
   const topLeftOffset = VectorOne.mul(-radius);
   const mostTopLeftPosition = targetPosition.add(topLeftOffset);
@@ -528,7 +528,7 @@ export function getGridEntityIDFromConstituents(
 export function getMatchingGridEntities(
   gridEntityType: GridEntityType,
   variant: int,
-): GridEntity[] {
+): readonly GridEntity[] {
   const gridEntities = getGridEntities(gridEntityType);
   return gridEntities.filter(
     (gridEntity) => gridEntity.GetVariant() === variant,
@@ -698,7 +698,7 @@ function getRockPNGName(): string {
  */
 export function getSurroundingGridEntities(
   gridEntity: GridEntity,
-): GridEntity[] {
+): readonly GridEntity[] {
   const room = game.GetRoom();
   const gridIndex = gridEntity.GetGridIndex();
 
@@ -886,7 +886,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
  */
 export function removeAllGridEntitiesExcept(
   ...gridEntityTypes: GridEntityType[]
-): GridEntity[] {
+): readonly GridEntity[] {
   const gridEntityTypeExceptions = new ReadonlySet(gridEntityTypes);
   const gridEntities = getGridEntities();
   const removedGridEntities: GridEntity[] = [];
@@ -926,7 +926,7 @@ export function removeAllGridEntitiesExcept(
  */
 export function removeAllMatchingGridEntities(
   ...gridEntityType: GridEntityType[]
-): GridEntity[] {
+): readonly GridEntity[] {
   const gridEntities = getGridEntities(...gridEntityType);
   if (gridEntities.length === 0) {
     return [];
@@ -948,7 +948,7 @@ export function removeAllMatchingGridEntities(
  * You must specify an array of entities to look through.
  */
 export function removeEntitiesSpawnedFromGridEntity(
-  entities: Entity[],
+  entities: Entity[] | readonly Entity[],
   gridEntity: GridEntity,
 ): void {
   const entitiesFromGridEntity = entities.filter(
@@ -972,10 +972,10 @@ export function removeEntitiesSpawnedFromGridEntity(
  * @returns An array of the entities that were removed.
  */
 export function removeGridEntities<T extends AnyGridEntity>(
-  gridEntities: T[],
+  gridEntities: T[] | readonly T[],
   updateRoom: boolean,
   cap?: int,
-): T[] {
+): readonly T[] {
   if (gridEntities.length === 0) {
     return [];
   }
