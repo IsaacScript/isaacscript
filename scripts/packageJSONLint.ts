@@ -12,7 +12,6 @@ import {
   isMain,
   readFile,
 } from "isaacscript-common-node";
-import type { ReadonlyRecord } from "isaacscript-common-ts";
 import { isKebabCase } from "isaacscript-common-ts";
 import path from "node:path";
 
@@ -61,7 +60,7 @@ export function packageJSONLint(): boolean {
 
 function isPackageJSONValid(
   packageJSONPath: string,
-  rootDeps: ReadonlyRecord<string, string> | undefined,
+  rootDeps: Record<string, string> | undefined,
 ): boolean {
   const isRoot = rootDeps === undefined;
   const isTemplateFile = packageJSONPath.includes("dynamic");
@@ -311,7 +310,7 @@ function getVersionForSpecificPackage(packageName: string): string {
 
 function checkDeps(
   object: unknown,
-  rootDeps: ReadonlyRecord<string, string>,
+  rootDeps: Record<string, string>,
   packageJSONPath: string,
 ): boolean {
   const deps = object as Record<string, string> | undefined | null;
@@ -355,7 +354,7 @@ function checkDeps(
 }
 
 function checkRootDepsUpToDate(
-  rootDeps: ReadonlyRecord<string, string>,
+  rootDeps: Record<string, string>,
   packageJSONPaths: readonly string[],
 ) {
   for (const [rootDepName, rootDepVersion] of Object.entries(rootDeps)) {
