@@ -2,11 +2,9 @@ import type { DefaultMap } from "../classes/DefaultMap";
 import { sumArray } from "./array";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
-export function copyMap<K, V>(
-  oldMap: Map<K, V> | ReadonlyMap<K, V>,
-): Map<K, V> {
+export function copyMap<K, V>(oldMap: ReadonlyMap<K, V>): Map<K, V> {
   const newMap = new Map<K, V>();
-  for (const [key, value] of oldMap.entries()) {
+  for (const [key, value] of oldMap) {
     newMap.set(key, value);
   }
 
@@ -62,11 +60,9 @@ export function defaultMapSetHash<V>(
  * ]);
  * ```
  */
-export function getReversedMap<K, V>(map: Map<K, V>): Map<V, K>;
-export function getReversedMap<K, V>(map: ReadonlyMap<K, V>): ReadonlyMap<V, K>;
 export function getReversedMap<K, V>(
-  map: Map<K, V> | ReadonlyMap<K, V>,
-): Map<V, K> {
+  map: ReadonlyMap<K, V>,
+): ReadonlyMap<V, K> {
   const reverseMap = new Map<V, K>();
 
   for (const [key, value] of map) {
@@ -134,9 +130,7 @@ export function objectToReadonlyMap<K extends string | number | symbol, V>(
 }
 
 /** Helper function to sum every value in a map together. */
-export function sumMap(
-  map: Map<unknown, number> | ReadonlyMap<unknown, number>,
-): number {
+export function sumMap(map: ReadonlyMap<unknown, number>): number {
   const values = [...map.values()];
   return sumArray(values);
 }

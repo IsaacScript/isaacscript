@@ -14,7 +14,7 @@
  * A `PtrHash` object is simply a branded number for better type safety and code clarity.
  */
 declare function GetPtrHash(
-  pointer: Entity | GridEntity | RoomDescriptor | Readonly<RoomDescriptor>,
+  pointer: Entity | GridEntity | Readonly<RoomDescriptor>,
 ): PtrHash;
 
 /**

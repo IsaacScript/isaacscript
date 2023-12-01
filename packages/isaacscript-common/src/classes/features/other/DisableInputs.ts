@@ -207,7 +207,7 @@ export class DisableInputs extends Feature {
   @Exported
   public enableAllInputsExceptFor(
     key: string,
-    blacklist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
+    blacklist: ReadonlySet<ButtonAction>,
   ): void {
     v.run.disableAllInputsWithWhitelistMap.delete(key);
     v.run.enableAllInputsWithBlacklistMap.set(key, blacklist);
@@ -231,7 +231,7 @@ export class DisableInputs extends Feature {
   @Exported
   public disableAllInputsExceptFor(
     key: string,
-    whitelist: Set<ButtonAction> | ReadonlySet<ButtonAction>,
+    whitelist: ReadonlySet<ButtonAction>,
   ): void {
     v.run.disableAllInputsWithWhitelistMap.set(key, whitelist);
     v.run.enableAllInputsWithBlacklistMap.delete(key);

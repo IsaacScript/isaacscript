@@ -77,7 +77,7 @@ export function getRandomInt(
   min: int,
   max: int,
   seedOrRNG: Seed | RNG | undefined,
-  exceptions: int[] | readonly int[] = [],
+  exceptions: readonly int[] = [],
 ): int {
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 

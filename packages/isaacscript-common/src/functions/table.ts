@@ -14,7 +14,7 @@ export function clearTable(luaMap: LuaMap<AnyNotNil, unknown>): void {
 /** Helper function to copy specific values from a userdata object (e.g. `Vector`) to a table. */
 export function copyUserdataValuesToTable(
   object: unknown,
-  keys: string[] | readonly string[],
+  keys: readonly string[],
   luaMap: LuaMap<string, unknown>,
 ): void {
   if (!isUserdata(object)) {

@@ -88,16 +88,14 @@ export function countEntities(
  * @param ignoreFriendly Optional. Default is false.
  */
 export function doesAnyEntityExist(
-  entityTypes:
-    | EntityType[]
-    | readonly EntityType[]
-    | Set<EntityType>
-    | ReadonlySet<EntityType>,
+  entityTypes: readonly EntityType[] | ReadonlySet<EntityType>,
   ignoreFriendly = false,
 ): boolean {
-  const entityTypesArray = isTSTLSet(entityTypes)
-    ? [...entityTypes.values()]
-    : (entityTypes as EntityType[]);
+  const entityTypesMutable = entityTypes as EntityType[] | Set<EntityType>;
+
+  const entityTypesArray: readonly EntityType[] = isTSTLSet(entityTypesMutable)
+    ? [...entityTypesMutable.values()]
+    : entityTypesMutable;
 
   return entityTypesArray.some((entityType) =>
     doesEntityExist(entityType, -1, -1, ignoreFriendly),
@@ -345,8 +343,8 @@ export function getEntityIDFromConstituents(
  * second array but not in the first array.
  */
 export function getFilteredNewEntities<T extends AnyEntity>(
-  oldEntities: T[] | readonly T[],
-  newEntities: T[] | readonly T[],
+  oldEntities: readonly T[],
+  newEntities: readonly T[],
 ): readonly T[] {
   const oldEntitiesSet = new Set<PtrHash>();
   for (const entity of oldEntities) {
@@ -562,7 +560,7 @@ export function removeAllMatchingEntities(
  * @returns An array of the entities that were removed.
  */
 export function removeEntities<T extends AnyEntity>(
-  entities: T[] | readonly T[],
+  entities: readonly T[],
   cap?: int,
 ): readonly T[] {
   if (entities.length === 0) {

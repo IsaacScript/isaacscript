@@ -52,7 +52,7 @@ export class DeployJSONRoom extends Feature {
   }
 
   private spawnAllEntities(
-    jsonRoom: JSONRoom | Readonly<JSONRoom>,
+    jsonRoom: Readonly<JSONRoom>,
     rng: RNG,
     verbose = false,
   ) {
@@ -222,7 +222,7 @@ export class DeployJSONRoom extends Feature {
    */
   @Exported
   public deployJSONRoom(
-    jsonRoom: JSONRoom | Readonly<JSONRoom>,
+    jsonRoom: Readonly<JSONRoom>,
     seedOrRNG: Seed | RNG | undefined,
     verbose = false,
   ): void {

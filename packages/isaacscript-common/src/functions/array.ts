@@ -10,8 +10,8 @@ import { assertDefined, eRange } from "./utils";
  * only performs a shallow comparison.
  */
 export function arrayEquals<T>(
-  array1: T[] | readonly T[],
-  array2: T[] | readonly T[],
+  array1: readonly T[],
+  array2: readonly T[],
 ): boolean {
   if (array1.length !== array2.length) {
     return false;
@@ -36,8 +36,8 @@ export function arrayEquals<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemove<T>(
-  originalArray: T[] | readonly T[],
-  ...elementsToRemove: T[]
+  originalArray: readonly T[],
+  ...elementsToRemove: readonly T[]
 ): T[] {
   const elementsToRemoveSet = new ReadonlySet(elementsToRemove);
 
@@ -64,8 +64,8 @@ export function arrayRemove<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveAll<T>(
-  originalArray: T[] | readonly T[],
-  ...elementsToRemove: T[]
+  originalArray: readonly T[],
+  ...elementsToRemove: readonly T[]
 ): T[] {
   const array = copyArray(originalArray);
   arrayRemoveAllInPlace(array, ...elementsToRemove);
@@ -142,8 +142,8 @@ export function arrayRemoveInPlace<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveIndex<T>(
-  originalArray: T[] | readonly T[],
-  ...indexesToRemove: int[]
+  originalArray: readonly T[],
+  ...indexesToRemove: readonly int[]
 ): T[] {
   const indexesToRemoveSet = new ReadonlySet(indexesToRemove);
 
@@ -209,7 +209,7 @@ export function arrayToString(array: unknown[]): string {
  * that this will only perform a shallow copy of the array elements.
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
-export function combineArrays<T>(...arrays: Array<T[] | readonly T[]>): T[] {
+export function combineArrays<T>(...arrays: ReadonlyArray<readonly T[]>): T[] {
   const elements: T[] = [];
   for (const array of arrays) {
     for (const element of array) {
@@ -228,10 +228,7 @@ export function combineArrays<T>(...arrays: Array<T[] | readonly T[]>): T[] {
  *                    entire array will be copied.
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
-export function copyArray<T>(
-  oldArray: T[] | readonly T[],
-  numElements?: int,
-): T[] {
+export function copyArray<T>(oldArray: readonly T[], numElements?: int): T[] {
   // Using the spread operator was benchmarked to be faster than manually creating an array using
   // the below algorithm.
   if (numElements === undefined) {
@@ -265,7 +262,7 @@ export function emptyArray<T>(array: T[]): void {
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function filterMap<OldT, NewT>(
-  array: OldT[] | readonly OldT[],
+  array: readonly OldT[],
   func: (element: OldT) => NewT | undefined,
 ): NewT[] {
   const newArray: NewT[] = [];
@@ -305,7 +302,7 @@ export function filterMap<OldT, NewT>(
  *            the length of the array.
  */
 export function getArrayCombinations<T>(
-  array: T[] | readonly T[],
+  array: readonly T[],
   includeEmptyArray: boolean,
   min?: int,
   max?: int,
@@ -317,7 +314,7 @@ export function getArrayCombinations<T>(
     max = array.length;
   }
 
-  const all: Array<T[] | readonly T[]> = [];
+  const all: Array<readonly T[]> = [];
   for (let i = min; i < array.length; i++) {
     addCombinations(i, array, [], all);
   }
@@ -333,11 +330,12 @@ export function getArrayCombinations<T>(
   return all;
 }
 
+/** Mutates the `all` array in-place. */
 function addCombinations<T>(
   n: number,
-  src: T[] | readonly T[],
-  got: T[],
-  all: Array<T[] | readonly T[]>,
+  src: readonly T[],
+  got: readonly T[],
+  all: Array<readonly T[]>,
 ) {
   if (n === 0) {
     if (got.length > 0) {
@@ -361,7 +359,7 @@ function addCombinations<T>(
  * due to implementation details of TypeScriptToLua, this results in an array of 1 through N
  * (instead of an array of 0 through N -1).
  */
-export function getArrayIndexes<T>(array: T[] | readonly T[]): readonly int[] {
+export function getArrayIndexes<T>(array: readonly T[]): readonly int[] {
   return eRange(array.length);
 }
 
@@ -418,9 +416,9 @@ export function getLowestArrayElement(array: number[]): number | undefined {
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
-  array: T[] | readonly T[],
+  array: readonly T[],
   seedOrRNG: Seed | RNG | undefined,
-  exceptions: T[] | readonly T[] = [],
+  exceptions: readonly T[] = [],
 ): T {
   if (array.length === 0) {
     error(
@@ -456,7 +454,7 @@ export function getRandomArrayElement<T>(
 export function getRandomArrayElementAndRemove<T>(
   array: T[],
   seedOrRNG: Seed | RNG | undefined,
-  exceptions: T[] | readonly T[] = [],
+  exceptions: readonly T[] = [],
 ): T {
   const randomArrayElement = getRandomArrayElement(
     array,
@@ -481,9 +479,9 @@ export function getRandomArrayElementAndRemove<T>(
  *                   index. Default is an empty array.
  */
 export function getRandomArrayIndex<T>(
-  array: T[] | readonly T[],
+  array: readonly T[],
   seedOrRNG: Seed | RNG | undefined,
-  exceptions: int[] | readonly int[] = [],
+  exceptions: readonly int[] = [],
 ): int {
   if (array.length === 0) {
     error(
@@ -581,8 +579,8 @@ export function isArrayContiguous(array: int[]): boolean {
 
 /** Checks if an array is in the provided 2-dimensional array. */
 export function isArrayInArray<T>(
-  arrayToMatch: T[] | readonly T[],
-  parentArray: Array<T[] | readonly T[]>,
+  arrayToMatch: readonly T[],
+  parentArray: ReadonlyArray<readonly T[]>,
 ): boolean {
   return parentArray.some((element) => arrayEquals(element, arrayToMatch));
 }
@@ -609,7 +607,7 @@ export function setAllArrayElements<T>(array: T[], value: T): void {
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function shuffleArray<T>(
-  originalArray: T[] | readonly T[],
+  originalArray: readonly T[],
   seedOrRNG: Seed | RNG | undefined,
 ): T[] {
   const array = copyArray(originalArray);
@@ -648,7 +646,7 @@ export function shuffleArrayInPlace<T>(
 }
 
 /** Helper function to sum every value in an array together. */
-export function sumArray(array: number[] | readonly number[]): number {
+export function sumArray(array: readonly number[]): number {
   return array.reduce((accumulator, element) => accumulator + element, 0);
 }
 

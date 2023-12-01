@@ -948,7 +948,7 @@ export function removeAllMatchingGridEntities(
  * You must specify an array of entities to look through.
  */
 export function removeEntitiesSpawnedFromGridEntity(
-  entities: Entity[] | readonly Entity[],
+  entities: readonly Entity[],
   gridEntity: GridEntity,
 ): void {
   const entitiesFromGridEntity = entities.filter(
@@ -972,7 +972,7 @@ export function removeEntitiesSpawnedFromGridEntity(
  * @returns An array of the entities that were removed.
  */
 export function removeGridEntities<T extends AnyGridEntity>(
-  gridEntities: T[] | readonly T[],
+  gridEntities: readonly T[],
   updateRoom: boolean,
   cap?: int,
 ): readonly T[] {

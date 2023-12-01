@@ -197,7 +197,7 @@ export function getLowestEnumValue<T extends TranspiledEnum>(
 export function getRandomEnumValue<T extends TranspiledEnum>(
   transpiledEnum: T,
   seedOrRNG: Seed | RNG | undefined,
-  exceptions: Array<T[keyof T]> | ReadonlyArray<T[keyof T]> = [],
+  exceptions: ReadonlyArray<T[keyof T]> = [],
 ): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
   return getRandomArrayElement(enumValues, seedOrRNG, exceptions);

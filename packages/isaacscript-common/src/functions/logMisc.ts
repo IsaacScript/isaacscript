@@ -49,7 +49,7 @@ import { vectorToString } from "./vector";
  */
 export function logArray<T>(
   this: void,
-  array: T[] | readonly T[],
+  array: readonly T[],
   name?: string,
 ): void {
   // We do not assume the given array has contiguous values in order to be more permissive about the
@@ -74,7 +74,7 @@ export function logArray<T>(
  */
 export function logCollectibleTypes(
   this: void,
-  collectibleTypes: CollectibleType[] | readonly CollectibleType[],
+  collectibleTypes: readonly CollectibleType[],
   name?: string,
 ): void {
   if (name === undefined) {
@@ -192,7 +192,7 @@ export function logGameStateFlags(this: void): void {
  */
 export function logItemPoolTypes(
   this: void,
-  itemPoolTypes: ItemPoolType[] | readonly ItemPoolType[],
+  itemPoolTypes: readonly ItemPoolType[],
   name?: string,
 ): void {
   if (name === undefined) {
@@ -254,7 +254,7 @@ export function logLevelStateFlags(this: void): void {
  */
 export function logMap(
   this: void,
-  map: Map<AnyNotNil, unknown> | ReadonlyMap<AnyNotNil, unknown>,
+  map: ReadonlyMap<AnyNotNil, unknown>,
   name?: string,
 ): void {
   if (!isTSTLMap(map) && !isDefaultMap(map)) {
@@ -398,7 +398,7 @@ export function logSeedEffects(this: void): void {
  */
 export function logSet(
   this: void,
-  set: Set<AnyNotNil> | ReadonlySet<AnyNotNil>,
+  set: ReadonlySet<AnyNotNil>,
   name?: string,
 ): void {
   if (!isTSTLSet(set)) {

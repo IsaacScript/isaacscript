@@ -6,7 +6,7 @@
  */
 export function addSetsToSet<T>(
   mainSet: Set<T>,
-  ...setsToAdd: Array<Set<T> | ReadonlySet<T>>
+  ...setsToAdd: ReadonlyArray<ReadonlySet<T>>
 ): void {
   for (const set of setsToAdd) {
     for (const value of set) {
@@ -20,9 +20,7 @@ export function addSetsToSet<T>(
  *
  * This function is variadic, meaning that you can specify N sets.
  */
-export function combineSets<T>(
-  ...sets: Array<Set<T> | ReadonlySet<T>>
-): Set<T> {
+export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
     for (const value of set) {
@@ -34,7 +32,7 @@ export function combineSets<T>(
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
+export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
   const newSet = new Set<T>();
   for (const value of oldSet) {
     newSet.add(value);
@@ -119,9 +117,6 @@ export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
  * This function is variadic, meaning that you can pass as many things as you want to check for. It
  * will return true if one or more elements are found.
  */
-export function setHas<T>(
-  set: Set<T> | ReadonlySet<T>,
-  ...elements: T[]
-): boolean {
+export function setHas<T>(set: ReadonlySet<T>, ...elements: T[]): boolean {
   return elements.some((element) => set.has(element));
 }

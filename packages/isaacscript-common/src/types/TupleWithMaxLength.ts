@@ -5,10 +5,7 @@ import type { IRange } from "./IRange";
  *
  * For example, `TupleWithMaxLength<string, 3>` will allow string tuples of size 0, 1, 2, or 3.
  */
-export type TupleWithMaxLength<T, MaxLength extends number> = (
-  | T[]
-  | readonly T[]
-) & {
+export type TupleWithMaxLength<T, MaxLength extends number> = readonly T[] & {
   length: IRange<0, MaxLength>;
 };
 

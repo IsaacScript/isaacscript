@@ -162,7 +162,7 @@ export function isTear(variable: unknown): variable is EntityTear {
 export function isaacAPIClassEquals(
   object1: unknown,
   object2: unknown,
-  keys: string[] | readonly string[],
+  keys: readonly string[],
 ): boolean {
   const table1 = object1 as LuaMap<AnyNotNil, unknown>;
   const table2 = object2 as LuaMap<AnyNotNil, unknown>;

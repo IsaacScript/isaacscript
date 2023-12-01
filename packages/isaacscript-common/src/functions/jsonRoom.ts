@@ -88,7 +88,7 @@ export function getJSONRoomDoorSlotFlags(
  *                room.)
  */
 export function getJSONRoomOfVariant(
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
+  jsonRooms: readonly JSONRoom[],
   variant: int,
 ): JSONRoom | undefined {
   const jsonRoomsOfVariant = jsonRooms.filter((jsonRoom) => {
@@ -127,7 +127,7 @@ export function getJSONRoomOfVariant(
  * @param subType The sub-type to match.
  */
 export function getJSONRoomsOfSubType(
-  jsonRooms: JSONRoom[] | readonly JSONRoom[],
+  jsonRooms: readonly JSONRoom[],
   subType: int,
 ): readonly JSONRoom[] {
   return jsonRooms.filter((jsonRoom) => {

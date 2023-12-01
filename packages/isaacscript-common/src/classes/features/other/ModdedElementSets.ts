@@ -1238,7 +1238,7 @@ export class ModdedElementSets extends Feature {
   @Exported
   public getRandomEdenActiveCollectibleType(
     seedOrRNG: Seed | RNG | undefined,
-    exceptions: CollectibleType[] | readonly CollectibleType[] = [],
+    exceptions: readonly CollectibleType[] = [],
   ): CollectibleType {
     this.lazyInit();
 
@@ -1271,7 +1271,7 @@ export class ModdedElementSets extends Feature {
   @Exported
   public getRandomEdenPassiveCollectibleType(
     seedOrRNG: Seed | RNG | undefined,
-    exceptions: CollectibleType[] | readonly CollectibleType[] = [],
+    exceptions: readonly CollectibleType[] = [],
   ): CollectibleType {
     this.lazyInit();
 

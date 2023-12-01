@@ -3,7 +3,7 @@ import { assertDefined } from "./utils";
 
 /** Helper function to convert a set of flags to a single `BitFlags` object. */
 export function arrayToBitFlags<T extends BitFlag | BitFlag128>(
-  array: T[] | readonly T[],
+  array: readonly T[],
 ): BitFlags<T> {
   let flags = 0 as BitFlags<T>;
   for (const flag of array) {
@@ -87,10 +87,10 @@ export function getNumBitsOfN(n: int): int {
 
 /** Helper function to convert a set of flags to a single `BitFlags` object. */
 export function setToBitFlags<T extends BitFlag | BitFlag128>(
-  set: Set<T> | ReadonlySet<T>,
+  set: ReadonlySet<T>,
 ): BitFlags<T> {
   let flags = 0 as BitFlags<T>;
-  for (const flag of set.values()) {
+  for (const flag of set) {
     flags = addFlag(flags, flag);
   }
 

@@ -12,7 +12,7 @@ import { getPlayerCloserThan } from "./players";
 const MAX_FIND_FREE_POSITION_ATTEMPTS = 100;
 
 export function anyEntityCloserThan(
-  entities: Entity[] | readonly Entity[],
+  entities: readonly Entity[],
   position: Vector,
   distance: int,
 ): boolean {
@@ -110,7 +110,7 @@ export function findFreePosition(
  *                 multiple times.
  */
 export function getEntityPositions(
-  entities?: Entity[] | readonly Entity[],
+  entities?: readonly Entity[],
 ): Map<PtrHash, Vector> {
   if (entities === undefined) {
     entities = getEntities();
@@ -135,7 +135,7 @@ export function getEntityPositions(
  *                 multiple times.
  */
 export function getEntityVelocities(
-  entities?: Entity[] | readonly Entity[],
+  entities?: readonly Entity[],
 ): Map<PtrHash, Vector> {
   if (entities === undefined) {
     entities = getEntities();
@@ -165,7 +165,7 @@ export function getEntityVelocities(
  */
 export function setEntityPositions(
   entityPositions: Map<PtrHash, Vector>,
-  entities?: Entity[] | readonly Entity[],
+  entities?: readonly Entity[],
 ): void {
   if (entities === undefined) {
     entities = getEntities();
@@ -195,7 +195,7 @@ export function setEntityPositions(
  */
 export function setEntityVelocities(
   entityVelocities: Map<PtrHash, Vector>,
-  entities?: Entity[] | readonly Entity[],
+  entities?: readonly Entity[],
 ): void {
   if (entities === undefined) {
     entities = getEntities();

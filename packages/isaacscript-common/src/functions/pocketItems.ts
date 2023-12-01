@@ -173,8 +173,8 @@ export function isFirstSlotPocketActiveItem(player: EntityPlayer): boolean {
 
 /** Helper function to see if two sets of pocket item descriptions are identical. */
 export function pocketItemsEquals(
-  pocketItems1: PocketItemDescription[] | readonly PocketItemDescription[],
-  pocketItems2: PocketItemDescription[] | readonly PocketItemDescription[],
+  pocketItems1: readonly PocketItemDescription[],
+  pocketItems2: readonly PocketItemDescription[],
 ): boolean {
   if (pocketItems1.length !== pocketItems2.length) {
     return false;

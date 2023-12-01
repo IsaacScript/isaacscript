@@ -84,15 +84,14 @@ export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
  * flag number.
  */
 export function doorSlotsToDoorSlotFlags(
-  doorSlots:
-    | DoorSlot[]
-    | readonly DoorSlot[]
-    | Set<DoorSlot>
-    | ReadonlySet<DoorSlot>,
+  doorSlots: readonly DoorSlot[] | ReadonlySet<DoorSlot>,
 ): BitFlags<DoorSlotFlag> {
-  const doorSlotArray = isTSTLSet(doorSlots)
-    ? [...doorSlots.values()]
-    : (doorSlots as DoorSlot[]);
+  const doorSlotsMutable = doorSlots as DoorSlot[] | Set<DoorSlot>;
+
+  const doorSlotArray: readonly DoorSlot[] = isTSTLSet(doorSlotsMutable)
+    ? [...doorSlotsMutable.values()]
+    : doorSlotsMutable;
+
   const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
     doorSlotToDoorSlotFlag(doorSlot),
   );

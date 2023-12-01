@@ -7,8 +7,8 @@ import { assertDefined } from "./utils.js";
  * only performs a shallow comparison.
  */
 export function arrayEquals<T>(
-  array1: T[] | readonly T[],
-  array2: T[] | readonly T[],
+  array1: readonly T[],
+  array2: readonly T[],
 ): boolean {
   if (array1.length !== array2.length) {
     return false;
@@ -29,8 +29,8 @@ export function arrayEquals<T>(
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemove<T>(
-  originalArray: T[] | readonly T[],
-  ...elementsToRemove: T[]
+  originalArray: readonly T[],
+  ...elementsToRemove: readonly T[]
 ): T[] {
   const elementsToRemoveSet = new ReadonlySet(elementsToRemove);
 
@@ -59,7 +59,7 @@ export function arrayRemove<T>(
 // eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveInPlace<T>(
   array: T[],
-  ...elementsToRemove: T[]
+  ...elementsToRemove: readonly T[]
 ): T[] {
   const removedElements: T[] = [];
 
@@ -89,8 +89,8 @@ export function emptyArray<T>(array: T[]): void {
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomArrayElement<T>(
-  array: T[] | readonly T[],
-  exceptions: T[] | readonly T[] = [],
+  array: readonly T[],
+  exceptions: readonly T[] = [],
 ): T {
   if (array.length === 0) {
     throw new Error(
@@ -118,8 +118,8 @@ export function getRandomArrayElement<T>(
  *                   index. Default is an empty array.
  */
 export function getRandomArrayIndex<T>(
-  array: T[] | readonly T[],
-  exceptions: number[] | readonly number[] = [],
+  array: readonly T[],
+  exceptions: readonly number[] = [],
 ): number {
   if (array.length === 0) {
     throw new Error(

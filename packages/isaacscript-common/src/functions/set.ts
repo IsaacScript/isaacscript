@@ -10,7 +10,7 @@ import { isPrimitive } from "./types";
  */
 export function addSetsToSet<T>(
   mainSet: Set<T>,
-  ...setsToAdd: Array<Set<T> | ReadonlySet<T>>
+  ...setsToAdd: ReadonlyArray<ReadonlySet<T>>
 ): void {
   for (const set of setsToAdd) {
     for (const value of set) {
@@ -24,9 +24,7 @@ export function addSetsToSet<T>(
  *
  * This function is variadic, meaning that you can specify N sets.
  */
-export function combineSets<T>(
-  ...sets: Array<Set<T> | ReadonlySet<T>>
-): Set<T> {
+export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
     for (const value of set) {
@@ -38,7 +36,7 @@ export function combineSets<T>(
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
+export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
   const newSet = new Set<T>();
   for (const value of oldSet) {
     newSet.add(value);
@@ -55,7 +53,7 @@ export function copySet<T>(oldSet: Set<T> | ReadonlySet<T>): Set<T> {
  */
 export function deleteSetsFromSet<T>(
   mainSet: Set<T>,
-  ...setsToRemove: Array<Set<T> | ReadonlySet<T>>
+  ...setsToRemove: ReadonlyArray<ReadonlySet<T>>
 ): void {
   for (const set of setsToRemove) {
     for (const value of set) {
@@ -77,9 +75,9 @@ export function deleteSetsFromSet<T>(
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
 export function getRandomSetElement<T>(
-  set: Set<T> | ReadonlySet<T>,
+  set: ReadonlySet<T>,
   seedOrRNG: Seed | RNG | undefined,
-  exceptions: T[] | readonly T[] = [],
+  exceptions: readonly T[] = [],
 ): T {
   const array = getSortedSetValues(set);
   return getRandomArrayElement(array, seedOrRNG, exceptions);
@@ -105,7 +103,7 @@ export function getRandomSetElement<T>(
  * @param includeEmptyArray Whether to include an empty array in the combinations.
  */
 export function getSetCombinations<T>(
-  set: Set<T> | ReadonlySet<T>,
+  set: ReadonlySet<T>,
   includeEmptyArray: boolean,
 ): ReadonlyArray<ReadonlySet<T>> {
   const values = getSortedSetValues(set);
@@ -121,7 +119,7 @@ export function getSetCombinations<T>(
  * the contents is important.
  */
 // eslint-disable-next-line isaacscript/no-mutable-array-return
-export function getSortedSetValues<T>(set: Set<T> | ReadonlySet<T>): T[] {
+export function getSortedSetValues<T>(set: ReadonlySet<T>): T[] {
   const values = [...set];
 
   // Check for problematic types in order to throw a helpful error message.
@@ -228,15 +226,12 @@ export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
  * This function is variadic, meaning that you can pass as many things as you want to check for. It
  * will return true if one or more elements are found.
  */
-export function setHas<T>(
-  set: Set<T> | ReadonlySet<T>,
-  ...elements: T[]
-): boolean {
+export function setHas<T>(set: ReadonlySet<T>, ...elements: T[]): boolean {
   return elements.some((element) => set.has(element));
 }
 
 /** Helper function to sum every value in a set together. */
-export function sumSet(set: Set<number> | ReadonlySet<number>): number {
+export function sumSet(set: ReadonlySet<number>): number {
   const values = [...set];
   return sumArray(values);
 }

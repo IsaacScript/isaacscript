@@ -120,7 +120,7 @@ export function getObjectPartialMatch<T>(
  */
 export function getPartialMatch(
   searchText: string,
-  array: string[] | readonly string[],
+  array: readonly string[],
 ): string | undefined {
   const sortedArray = array.toSorted();
 

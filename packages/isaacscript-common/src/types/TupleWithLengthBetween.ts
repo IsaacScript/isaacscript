@@ -10,7 +10,7 @@ export type TupleWithLengthBetween<
   T,
   MinLength extends number,
   MaxLength extends number,
-> = (T[] | readonly T[]) & {
+> = readonly T[] & {
   length: IRange<MinLength, MaxLength>;
 };
 

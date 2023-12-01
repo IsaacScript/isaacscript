@@ -4,7 +4,7 @@ import { Exported } from "../../../decorators";
 import { addPlayerStat, getDefaultPlayerStat } from "../../../functions/stats";
 import { Feature } from "../../private/Feature";
 
-type StatMap = Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>;
+type StatMap = ReadonlyMap<CacheFlag, number>;
 
 /** Easily create custom characters that have base stats different from that of Isaac. */
 export class CharacterStats extends Feature {
@@ -65,7 +65,7 @@ export class CharacterStats extends Feature {
   @Exported
   public registerCharacterStats(
     playerType: PlayerType,
-    statMap: Map<CacheFlag, number> | ReadonlyMap<CacheFlag, number>,
+    statMap: ReadonlyMap<CacheFlag, number>,
   ): void {
     this.charactersStatMap.set(playerType, statMap);
   }
