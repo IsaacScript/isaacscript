@@ -209,7 +209,7 @@ export function getRandomJSONEntity(
  *                what the function is doing. Default is false.
  */
 export function getRandomJSONRoom(
-  jsonRooms: JSONRoom[],
+  jsonRooms: readonly JSONRoom[],
   seedOrRNG: Seed | RNG | undefined,
   verbose = false,
 ): JSONRoom {
@@ -232,7 +232,9 @@ export function getRandomJSONRoom(
   return randomJSONRoom;
 }
 
-function getTotalWeightOfJSONObject(jsonOjectArray: JSONObject[]): float {
+function getTotalWeightOfJSONObject(
+  jsonOjectArray: readonly JSONObject[],
+): float {
   const weights = jsonOjectArray.map((jsonObject) => {
     const weightString = jsonObject.$.weight;
     const weight = tonumber(weightString);
@@ -248,7 +250,7 @@ function getTotalWeightOfJSONObject(jsonOjectArray: JSONObject[]): float {
 }
 
 function getJSONObjectWithChosenWeight<T extends JSONObject>(
-  jsonOjectArray: T[],
+  jsonOjectArray: readonly T[],
   chosenWeight: float,
 ): T | undefined {
   let weightAccumulator = 0;
