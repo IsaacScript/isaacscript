@@ -1,8 +1,6 @@
 - add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
   - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
 
-- lint rule: ban function return type of mutable array
-
 - lint rule: didn't catch this code:
   const lockedPillEffectsOfType = lockedPillEffects.filter(
     (thisPillEffect) =>

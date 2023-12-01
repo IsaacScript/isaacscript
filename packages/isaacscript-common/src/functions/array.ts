@@ -34,6 +34,7 @@ export function arrayEquals<T>(
  * matching element. If you want to remove all of the elements, use the `arrayRemoveAll` function
  * instead.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemove<T>(
   originalArray: T[] | readonly T[],
   ...elementsToRemove: T[]
@@ -61,6 +62,7 @@ export function arrayRemove<T>(
  * element. If you want to only remove the first matching element, use the `arrayRemove` function
  * instead.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveAll<T>(
   originalArray: T[] | readonly T[],
   ...elementsToRemove: T[]
@@ -113,6 +115,7 @@ export function arrayRemoveAllInPlace<T>(
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveInPlace<T>(
   array: T[],
   ...elementsToRemove: T[]
@@ -137,6 +140,7 @@ export function arrayRemoveInPlace<T>(
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveIndex<T>(
   originalArray: T[] | readonly T[],
   ...indexesToRemove: int[]
@@ -161,6 +165,7 @@ export function arrayRemoveIndex<T>(
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function arrayRemoveIndexInPlace<T>(
   array: T[],
   ...indexesToRemove: int[]
@@ -203,6 +208,7 @@ export function arrayToString(array: unknown[]): string {
  * This function is variadic, meaning that you can specify N arguments to combine N arrays. Note
  * that this will only perform a shallow copy of the array elements.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function combineArrays<T>(...arrays: Array<T[] | readonly T[]>): T[] {
   const elements: T[] = [];
   for (const array of arrays) {
@@ -221,6 +227,7 @@ export function combineArrays<T>(...arrays: Array<T[] | readonly T[]>): T[] {
  * @param numElements Optional. If specified, will only copy the first N elements. By default, the
  *                    entire array will be copied.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function copyArray<T>(
   oldArray: T[] | readonly T[],
   numElements?: int,
@@ -256,6 +263,7 @@ export function emptyArray<T>(array: T[]): void {
  * This is named `filterMap` after the Rust function:
  * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function filterMap<OldT, NewT>(
   array: OldT[] | readonly OldT[],
   func: (element: OldT) => NewT | undefined,
@@ -353,7 +361,7 @@ function addCombinations<T>(
  * due to implementation details of TypeScriptToLua, this results in an array of 1 through N
  * (instead of an array of 0 through N -1).
  */
-export function getArrayIndexes<T>(array: T[] | readonly T[]): int[] {
+export function getArrayIndexes<T>(array: T[] | readonly T[]): readonly int[] {
   return eRange(array.length);
 }
 
@@ -599,6 +607,7 @@ export function setAllArrayElements<T>(array: T[], value: T): void {
  *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
  *                  a random seed.
  */
+// eslint-disable-next-line isaacscript/no-mutable-array-return
 export function shuffleArray<T>(
   originalArray: T[] | readonly T[],
   seedOrRNG: Seed | RNG | undefined,

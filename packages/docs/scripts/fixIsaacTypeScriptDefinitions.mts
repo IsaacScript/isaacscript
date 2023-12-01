@@ -177,14 +177,14 @@ function renameEnumFiles() {
 // Helper functions
 // ----------------
 
-function getDirectoryNames(directoryPath: string) {
+function getDirectoryNames(directoryPath: string): readonly string[] {
   return fs
     .readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 }
 
-function getMarkdownFileNames(directoryPath: string) {
+function getMarkdownFileNames(directoryPath: string): readonly string[] {
   return fs
     .readdirSync(directoryPath, { withFileTypes: true })
     .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))

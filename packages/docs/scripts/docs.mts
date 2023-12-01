@@ -552,7 +552,7 @@ function getParentConfigsLinks(ruleName: string): string {
   return `<ul><li>${parentConfigLinks.join("</li><li>")}</li></ul>`;
 }
 
-function getParentConfigs(ruleName: string): ParentConfig[] {
+function getParentConfigs(ruleName: string): readonly ParentConfig[] {
   const parentConfigs: ParentConfig[] = [];
 
   if (ESLINT_RECOMMENDED_RULES_SET.has(ruleName)) {

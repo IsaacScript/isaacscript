@@ -53,7 +53,10 @@ export function getTypeDocConfig(packageDirectoryPath) {
   };
 }
 
-/** @param {string} typeScriptFilePath The path to the ".ts" file. */
+/**
+ * @param {string} typeScriptFilePath The path to the ".ts" file.
+ * @returns {readonly string[]} An array of exported file paths.
+ */
 function getTypeScriptFileExports(typeScriptFilePath) {
   const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf8");
   const lines = typeScriptFile.split("\n");
@@ -64,6 +67,11 @@ function getTypeScriptFileExports(typeScriptFilePath) {
       throw new Error(`Failed to parse line: ${line}`);
     }
 
-    return match[1];
+    const insideQuotes = match[1];
+    if (insideQuotes === undefined) {
+      throw new Error(`Failed to parse inside the quotes: ${line}`);
+    }
+
+    return insideQuotes;
   });
 }
