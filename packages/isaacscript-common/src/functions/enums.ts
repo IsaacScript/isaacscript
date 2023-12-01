@@ -32,7 +32,7 @@ export type TranspiledEnum = Record<
  */
 export function getEnumEntries<T extends TranspiledEnum>(
   transpiledEnum: T,
-): Array<[key: string, value: T[keyof T]]> {
+): ReadonlyArray<[key: string, value: T[keyof T]]> {
   // The values cannot simply be type `T` due to the special construction of bit flag enums.
   const enumEntries: Array<[key: string, value: T[keyof T]]> = [];
   for (const [key, value] of pairs(transpiledEnum)) {
@@ -70,7 +70,7 @@ export function getEnumEntries<T extends TranspiledEnum>(
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumKeys(transpiledEnum: TranspiledEnum): string[] {
+export function getEnumKeys(transpiledEnum: TranspiledEnum): readonly string[] {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([key, _value]) => key);
 }
@@ -98,7 +98,9 @@ export function getEnumLength(transpiledEnum: TranspiledEnum): int {
  * For a more in depth explanation, see:
  * https://isaacscript.github.io/main/gotchas#iterating-over-enums
  */
-export function getEnumNames(transpiledEnum: TranspiledEnum): string[] {
+export function getEnumNames(
+  transpiledEnum: TranspiledEnum,
+): readonly string[] {
   const enumNames: string[] = [];
 
   for (const [key, _value] of pairs(transpiledEnum)) {
@@ -132,7 +134,7 @@ export function getEnumNames(transpiledEnum: TranspiledEnum): string[] {
  */
 export function getEnumValues<T extends TranspiledEnum>(
   transpiledEnum: T,
-): Array<T[keyof T]> {
+): ReadonlyArray<T[keyof T]> {
   const enumEntries = getEnumEntries(transpiledEnum);
   return enumEntries.map(([_key, value]) => value);
 }

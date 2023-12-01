@@ -157,7 +157,7 @@ export function getPackageManagerLockFileName(
  */
 export function getPackageManagersForProject(
   packageDir: string,
-): PackageManager[] {
+): readonly PackageManager[] {
   const packageManagersFound: PackageManager[] = [];
 
   for (const packageManager of PACKAGE_MANAGER_VALUES) {

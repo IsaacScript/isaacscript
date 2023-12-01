@@ -31,7 +31,7 @@ export function fatalError(...args: unknown[]): never {
  *
  * This is an alias for: `process.argv.slice(2)`
  */
-export function getArgs(): string[] {
+export function getArgs(): readonly string[] {
   return process.argv.slice(2);
 }
 

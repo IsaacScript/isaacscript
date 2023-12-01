@@ -10,7 +10,7 @@ type TranspiledEnum = Record<string, string | number>;
  */
 export function getEnumValues<T extends TranspiledEnum>(
   transpiledEnum: T,
-): Array<T[keyof T]> {
+): ReadonlyArray<T[keyof T]> {
   const values = Object.values(transpiledEnum);
   const numberValues = values.filter((value) => typeof value === "number");
 

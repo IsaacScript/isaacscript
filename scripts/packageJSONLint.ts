@@ -27,8 +27,17 @@ if (isMain()) {
 function main() {
   echo('Checking "package.json" files...');
 
-  if (!packageJSONLint(REPO_ROOT_PACKAGE_JSON_PATH, undefined)) {
+  if (!packageJSONLint()) {
     exit(1);
+  }
+
+  echo('All "package.json" files are valid.');
+}
+
+/** @returns Whether or not all "package.json" files are valid. */
+export function packageJSONLint(): boolean {
+  if (!isPackageJSONValid(REPO_ROOT_PACKAGE_JSON_PATH, undefined)) {
+    return false;
   }
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
@@ -39,21 +48,17 @@ function main() {
 
   checkRootDepsUpToDate(rootDeps, packageJSONPaths);
 
-  let atLeastOneError = false;
+  let allValid = true;
   for (const packageJSONPath of packageJSONPaths) {
-    if (!packageJSONLint(packageJSONPath, rootDeps)) {
-      atLeastOneError = true;
+    if (!isPackageJSONValid(packageJSONPath, rootDeps)) {
+      allValid = false;
     }
   }
 
-  if (atLeastOneError) {
-    exit(1);
-  }
-
-  echo('All "package.json" files are valid.');
+  return allValid;
 }
 
-function packageJSONLint(
+function isPackageJSONValid(
   packageJSONPath: string,
   rootDeps: Record<string, string> | undefined,
 ): boolean {

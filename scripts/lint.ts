@@ -1,4 +1,5 @@
-import { $, lintScript } from "isaacscript-common-node";
+import { $, exit, lintScript } from "isaacscript-common-node";
+import { packageJSONLint } from "./packageJSONLint.js";
 
 await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [];
@@ -26,12 +27,14 @@ await lintScript(async () => {
     // Check for unused CSpell words.
     $`cspell-check-unused-words`,
 
-    // Check "package.json" files.
-    $`npm run package-json-lint`,
-
     // Check for template updates.
     $`tsx ./packages/isaacscript-cli/src/main.ts check --ignore .eslintrc.cjs,bundleEntry.ts,ci.yml,lint.ts,tsconfig.eslint.json,tsconfig.json`,
   );
 
   await Promise.all(promises);
+
+  // The "packageJSONLint.ts" script uses synchronous APIs, so we must run it separately.
+  if (!packageJSONLint()) {
+    exit(1);
+  }
 });
