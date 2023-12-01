@@ -104,7 +104,7 @@ export function objectValuesToSet<K extends string | number | symbol, V>(
  *
  * This function is variadic, meaning that you can pass as many things as you want to add.
  */
-export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
+export function setAdd<T>(set: Set<T>, ...elements: readonly T[]): void {
   for (const element of elements) {
     set.add(element);
   }
@@ -117,6 +117,9 @@ export function setAdd<T>(set: Set<T>, ...elements: T[]): void {
  * This function is variadic, meaning that you can pass as many things as you want to check for. It
  * will return true if one or more elements are found.
  */
-export function setHas<T>(set: ReadonlySet<T>, ...elements: T[]): boolean {
+export function setHas<T>(
+  set: ReadonlySet<T>,
+  ...elements: readonly T[]
+): boolean {
   return elements.some((element) => set.has(element));
 }

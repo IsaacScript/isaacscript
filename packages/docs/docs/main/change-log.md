@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## December 8th, 2023 (Unreleased)
+
+- Added the following types:
+  - `ReadonlyRecord`
+- Added the `prefer-readonly-parameter-types` lint rule.
+
 ## December 1st, 2023
 
 - Most of the functions from `isaacscript-common` that return arrays now return read-only versions of those arrays.
