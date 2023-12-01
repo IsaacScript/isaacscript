@@ -28,7 +28,7 @@ declare global {
         | LuaMultiReturn<[jingleID: Music, trackID: Music]>
         | number
         | undefined,
-      ...tracks: Music[]
+      ...tracks: readonly Music[]
     ) => void;
 
     /**

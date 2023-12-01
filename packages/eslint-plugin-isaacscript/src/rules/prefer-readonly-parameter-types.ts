@@ -18,7 +18,7 @@ type Options = [
     checkParameterProperties?: boolean;
     ignoreInferredTypes?: boolean;
     treatMethodsAsReadonly?: boolean;
-    onlyArraysMapsSet?: boolean;
+    onlyRecordsArraysMapsSet?: boolean;
   },
 ];
 type MessageIds = "shouldBeReadonly";
@@ -47,7 +47,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           },
           treatMethodsAsReadonly:
             readonlynessOptionsSchema.properties.treatMethodsAsReadonly,
-          onlyArraysMapsSet: {
+          onlyRecordsArraysMapsSet: {
             type: "boolean",
           },
         },
@@ -64,7 +64,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
       ignoreInferredTypes: false,
       treatMethodsAsReadonly:
         readonlynessOptionsDefaults.treatMethodsAsReadonly,
-      onlyArraysMapsSet: true,
+      onlyRecordsArraysMapsSet: true,
     },
   ],
   create(
@@ -75,7 +75,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
         checkParameterProperties,
         ignoreInferredTypes,
         treatMethodsAsReadonly,
-        onlyArraysMapsSet,
+        onlyRecordsArraysMapsSet,
       },
     ],
   ) {
@@ -132,7 +132,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
 
           const type = services.getTypeAtLocation(actualParam);
 
-          if (onlyArraysMapsSet === true) {
+          if (onlyRecordsArraysMapsSet === true) {
             // Handle the case of only checking arrays, maps, and sets.
             for (const t of unionTypeParts(type)) {
               const typeName = getTypeName(t);
@@ -145,6 +145,20 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
                   node: actualParam,
                   messageId: "shouldBeReadonly",
                 });
+              }
+
+              if (typeName === "Record") {
+                const isReadOnly = isTypeReadonly(services.program, type, {
+                  treatMethodsAsReadonly,
+                  allow,
+                });
+
+                if (!isReadOnly) {
+                  context.report({
+                    node: actualParam,
+                    messageId: "shouldBeReadonly",
+                  });
+                }
               }
             }
           } else {

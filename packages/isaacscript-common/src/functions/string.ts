@@ -1,3 +1,4 @@
+import type { ReadonlyRecord } from "../types/ReadonlyRecord";
 import { parseIntSafe } from "./types";
 import { assertDefined } from "./utils";
 
@@ -81,7 +82,7 @@ export function getMapPartialMatch<T>(
  */
 export function getObjectPartialMatch<T>(
   searchText: string,
-  object: Record<string, T>,
+  object: ReadonlyRecord<string, T>,
 ): [string, T] | undefined {
   const keys = Object.keys(object);
 

@@ -417,7 +417,7 @@ declare interface EIDInterface {
    * Example: `"1,2,3"`, removing `2` will return `"1,3"`.
    */
   removeEntryFromString: (
-    sourceTable: LuaMap<string | number, string> | string[],
+    sourceTable: LuaMap<string | number, string> | readonly string[],
     entryKey: string | number,
     entryValue: string,
   ) => void;
@@ -450,7 +450,7 @@ declare interface EIDInterface {
    * Renders a list of given inline sprite objects returned by the `EID.filterIconMarkup` function.
    */
   renderInlineIcons: (
-    spriteTable: Array<[icon: EIDInlineIcon, width: int]>,
+    spriteTable: ReadonlyArray<readonly [icon: EIDInlineIcon, width: int]>,
     posX: int,
     posY: int,
   ) => void;
@@ -483,7 +483,7 @@ declare interface EIDInterface {
    *
    * Prefer `EID.tableToCraftingIconsMerged` due to improved render performance.
    */
-  tableToCraftingIconsFull: (craftTable: int[]) => string;
+  tableToCraftingIconsFull: (craftTable: readonly int[]) => string;
 
   /**
    * Converts a given table into a string containing the crafting icons of the table, which are also
@@ -493,5 +493,5 @@ declare interface EIDInterface {
    *
    * Result: `"3{{Crafting3}}2{{Crafting2}}3{{Crafting1}}"`.
    */
-  tableToCraftingIconsMerged: (craftTable: int[]) => string;
+  tableToCraftingIconsMerged: (craftTable: readonly int[]) => string;
 }

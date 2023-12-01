@@ -227,7 +227,7 @@ declare global {
      * @param suffix Generally the file extension, e.g.: `".png"`
      */
     BackdropHelper: (
-      backdrop: StageAPIBackdrop | StageAPIBackdrop[],
+      backdrop: StageAPIBackdrop | readonly StageAPIBackdrop[],
       prefix: string,
       suffix: string,
     ) => StageAPIBackdrop[];
@@ -380,7 +380,10 @@ declare global {
       shadingPrefix: string,
     ) => StageAPIRoomGfx;
 
-    RoomsList: (name: string, ...layouts: unknown[]) => StageAPIRoomsList;
+    RoomsList: (
+      name: string,
+      ...layouts: readonly unknown[]
+    ) => StageAPIRoomsList;
     SetCurrentRoom: (room: StageAPILevelRoom) => void;
     SetDoorOpen: (open: boolean, door: Entity) => void;
 

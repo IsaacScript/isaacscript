@@ -13,9 +13,12 @@ function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
 }
 
 export function getTypeName(type: ts.Type): string | undefined {
-  // The TypeScript definitions are incorrect here; symbol can be undefined.
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return type.symbol?.escapedName ?? type.aliasSymbol?.getName();
+  const escapedName = type.getSymbol()?.escapedName as string | undefined;
+  if (escapedName !== undefined && escapedName !== "__type") {
+    return escapedName;
+  }
+
+  return type.aliasSymbol?.getName();
 }
 
 /**

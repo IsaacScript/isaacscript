@@ -18,6 +18,7 @@ import {
   readFile,
   writeFile,
 } from "isaacscript-common-node";
+import type { ReadonlyRecord } from "isaacscript-common-ts";
 import { assertDefined, isObject } from "isaacscript-common-ts";
 import path from "node:path";
 import url from "node:url";
@@ -421,7 +422,7 @@ async function getMarkdownRuleSection(
 function auditBaseConfigRules(
   configName: string,
   upstreamImport: unknown,
-  baseRules: Record<string, Linter.RuleEntry>,
+  baseRules: ReadonlyRecord<string, Linter.RuleEntry>,
 ) {
   if (upstreamImport === undefined) {
     return;

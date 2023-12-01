@@ -4,6 +4,7 @@ import {
   isFile,
   writeFile,
 } from "isaacscript-common-node";
+import type { ReadonlyRecord } from "isaacscript-common-ts";
 import path from "node:path";
 import { Config } from "./classes/Config.js";
 import type { ValidatedConfig } from "./classes/ValidatedConfig.js";
@@ -43,7 +44,9 @@ function getExistingConfig(): ValidatedConfig | undefined {
  * Even though some fields are always initialized in the class, it may not be necessarily exist in
  * the JSON file.
  */
-function validateMandatoryConfigFields(config: Record<string, unknown>) {
+function validateMandatoryConfigFields(
+  config: ReadonlyRecord<string, unknown>,
+) {
   if (config["modsDirectory"] === undefined) {
     errorMissing(
       "modsDirectory",

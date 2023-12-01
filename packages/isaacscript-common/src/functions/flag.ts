@@ -1,4 +1,5 @@
 import { DamageFlag } from "isaac-typescript-definitions";
+import type { ReadonlyRecord } from "../types/ReadonlyRecord";
 
 /**
  * Helper function to add a bit flag to an existing set of bit flags.
@@ -64,7 +65,7 @@ export function bitFlags<T extends BitFlag | BitFlag128>(flag: T): BitFlags<T> {
  */
 export function getFlagName<T extends BitFlag | BitFlag128>(
   flag: BitFlag,
-  flagEnum: Record<string, T>,
+  flagEnum: ReadonlyRecord<string, T>,
 ): string | undefined {
   for (const [key, value] of Object.entries(flagEnum)) {
     if (value === flag) {

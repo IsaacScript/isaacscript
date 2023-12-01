@@ -76,7 +76,7 @@ declare global {
      *
      * DOES NOT add any new effects on its own.
      */
-    OverrideRockAltEffects: (rooms?: RoomType[]) => void;
+    OverrideRockAltEffects: (rooms?: readonly RoomType[]) => void;
 
     /** Sets the boss music used by the stage. */
     SetBossMusic: (
@@ -87,7 +87,7 @@ declare global {
     ) => void;
 
     /** Sets the available bosses for the stage. */
-    SetBosses: (bossIDs: string[]) => void;
+    SetBosses: (bossIDs: readonly string[]) => void;
 
     /** Sets the name displayed to the player. */
     SetDisplayName: (name: string) => void;
@@ -122,7 +122,7 @@ declare global {
      */
     SetRoomGfx: (
       roomGfx: StageAPIRoomGfx,
-      roomTypes: string | RoomType | string[] | RoomType[],
+      roomTypes: string | RoomType | readonly string[] | readonly RoomType[],
     ) => void;
 
     /** Sets the list room layouts used by the stage. */
@@ -140,7 +140,7 @@ declare global {
     ) => void;
 
     /** Sets the stage's music. */
-    SetStageMusic: (music: number, types: RoomType[]) => void;
+    SetStageMusic: (music: number, types: readonly RoomType[]) => void;
 
     /** Sets the stage's number. */
     SetStageNumber: (num: int) => void;
@@ -200,8 +200,14 @@ declare global {
       hasExtraFrames?: boolean,
     ) => void) &
       ((
-        filenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
-        altPitsFilenames: Array<{ filename: string; hasExtraFrames?: boolean }>,
+        filenames: ReadonlyArray<{
+          filename: string;
+          hasExtraFrames?: boolean;
+        }>,
+        altPitsFilenames: ReadonlyArray<{
+          filename: string;
+          hasExtraFrames?: boolean;
+        }>,
       ) => void);
 
     /** Sets the path to the rock gfx sprite sheet. */
@@ -292,7 +298,9 @@ declare global {
   }
 
   interface StageAPIRoomsList {
-    AddRooms: (roomFiles: string[] | StageAPICustomRoomConfig[]) => void;
+    AddRooms: (
+      roomFiles: readonly string[] | readonly StageAPICustomRoomConfig[],
+    ) => void;
   }
 
   interface StageAPIStageOverrideStage {

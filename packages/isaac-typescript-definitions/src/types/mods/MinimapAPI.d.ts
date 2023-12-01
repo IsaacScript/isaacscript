@@ -148,13 +148,13 @@ declare global {
       largeAnims: MinimapAPIRoomAnimsTable,
       gridPivot: Vector,
       gridSize: Vector,
-      positions: Vector[],
-      iconPositions: Vector[],
+      positions: readonly Vector[],
+      iconPositions: readonly Vector[],
       iconPositionCenter: Vector,
-      largeIconPositions: Vector[],
-      largeIconPositionCenter: Vector[],
+      largeIconPositions: readonly Vector[],
+      largeIconPositionCenter: readonly Vector[],
       adjacentCoords: Vector,
-      doorSlots?: DoorSlot[],
+      doorSlots?: readonly DoorSlot[],
     ) => void;
 
     GetConfig: (configOption: string) => boolean | number | undefined;

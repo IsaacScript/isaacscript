@@ -20,6 +20,7 @@ import {
 } from "isaac-typescript-definitions";
 import { game, musicManager, sfxManager } from "../core/cachedClasses";
 import type { ReadonlyMap } from "../types/ReadonlyMap";
+import type { ReadonlyRecord } from "../types/ReadonlyRecord";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { arrayToString, isArray } from "./array";
 import { getBossID } from "./bosses";
@@ -140,7 +141,7 @@ export function logEntityID(this: void, entity: Entity): void {
 export function logFlags<T extends BitFlag | BitFlag128>(
   this: void,
   flags: T | BitFlags<T>,
-  flagEnum: Record<string, T>,
+  flagEnum: ReadonlyRecord<string, T>,
   description = "",
 ): void {
   if (description !== "") {

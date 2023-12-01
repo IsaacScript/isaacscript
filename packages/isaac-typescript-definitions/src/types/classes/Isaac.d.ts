@@ -492,7 +492,7 @@ declare global {
 
     function RunCallbackWithParam(
       modCallback: keyof AddCallbackParameters | string,
-      ...optionalArgs: unknown[]
+      ...optionalArgs: readonly unknown[]
     ): void;
 
     /**

@@ -40,7 +40,7 @@ declare global {
      *
      * @param text
      */
-    ShowFortuneText: (...text: string[]) => void;
+    ShowFortuneText: (...text: readonly string[]) => void;
 
     /**
      * Shows the pickup text for the specified item as if it was picked up by the specified player.

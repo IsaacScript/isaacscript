@@ -151,7 +151,9 @@ export function setAllRNGToSeed(
  * Helper function to iterate over the provided object and set the seed for all of the values that
  * are RNG objects equal to the start seed for the current run.
  */
-export function setAllRNGToStartSeed(object: Record<string, RNG>): void {
+export function setAllRNGToStartSeed(
+  object: ReadonlyRecord<string, RNG>,
+): void {
   const seeds = game.GetSeeds();
   const startSeed = seeds.GetStartSeed();
 
