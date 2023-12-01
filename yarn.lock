@@ -232,17 +232,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@arktype/fs@npm:0.0.4":
+  version: 0.0.4
+  resolution: "@arktype/fs@npm:0.0.4"
+  checksum: 02e794d2e72b82505201945ec22612d92c933910f923f171ea74e6128fa98ac7724e12d3b9b93f5347f888f98aaa7805d908b5ee853d115a0c5d6b611b2dd24f
+  languageName: node
+  linkType: hard
+
 "@arktype/fs@npm:^0.0.1":
   version: 0.0.1
   resolution: "@arktype/fs@npm:0.0.1"
   checksum: 6af204b0ab74658fcd6d06a7f48d1f9b073e1c6db6273165bf818284ee92443b17f7f5d35fcea7acdc0ff2f825ec16e9761d0f9029e1af3a7c4694c12c579f11
-  languageName: node
-  linkType: hard
-
-"@arktype/fs@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@arktype/fs@npm:0.0.5"
-  checksum: ec586258709cbf653e710bf850157e2b66fd1eb5253c22e0a742f1b3c6025e310199f8bb9c987f5a8c999beb1f086d53b401522695789584ed5d57b1408c6763
   languageName: node
   linkType: hard
 
@@ -12557,7 +12557,7 @@ __metadata:
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
     "@algolia/client-search": "npm:^4.20.0"
-    "@arktype/fs": "npm:^0.0.5"
+    "@arktype/fs": "npm:0.0.4"
     "@commander-js/extra-typings": "npm:^11.1.0"
     "@docusaurus/core": "npm:^3.0.1"
     "@docusaurus/eslint-plugin": "npm:^3.0.1"
