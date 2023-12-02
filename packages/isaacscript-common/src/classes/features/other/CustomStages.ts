@@ -244,7 +244,7 @@ export class CustomStages extends Feature {
     }
 
     if (!this.usingRedKey) {
-      return;
+      return undefined;
     }
     this.usingRedKey = false;
 
@@ -277,7 +277,7 @@ export class CustomStages extends Feature {
   ): Record<string, unknown> | undefined => {
     const customStage = v.run.currentCustomStage;
     if (customStage === null) {
-      return;
+      return undefined;
     }
 
     streakTextGetShaderParams(customStage, shaderName);

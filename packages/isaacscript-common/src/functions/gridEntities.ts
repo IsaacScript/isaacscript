@@ -1226,7 +1226,7 @@ export function spawnGridEntityWithVariant(
     if (removeExistingGridEntity) {
       removeGridEntity(existingGridEntity, true);
     } else {
-      return;
+      return undefined;
     }
   }
 

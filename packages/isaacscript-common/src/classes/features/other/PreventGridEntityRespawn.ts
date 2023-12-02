@@ -76,7 +76,7 @@ export class PreventGridEntityRespawn extends Feature {
 
     const roomListIndex = getRoomListIndex();
     if (!v.level.roomListIndexToDecorationGridIndexes.has(roomListIndex)) {
-      return;
+      return undefined;
     }
 
     // Since the room was filled with decorations to prevent any grid entities from respawning, if

@@ -108,11 +108,11 @@ export class Pause extends Feature {
     buttonAction: ButtonAction,
   ): boolean | float | undefined => {
     if (buttonAction !== ButtonAction.SHOOT_RIGHT) {
-      return;
+      return undefined;
     }
 
     if (!v.run.shouldUnpause) {
-      return;
+      return undefined;
     }
     v.run.shouldUnpause = false;
 
