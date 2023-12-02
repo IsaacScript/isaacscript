@@ -69,7 +69,9 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
     return trinketType2 === TrinketType.NULL ? 1 : undefined;
   }
 
-  error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
+  return error(
+    `The player has an unknown number of trinket slots: ${maxTrinkets}`,
+  );
 }
 
 /**

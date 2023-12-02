@@ -113,7 +113,7 @@ export function getJSONRoomOfVariant(
     return jsonRoomsOfVariant[0];
   }
 
-  error(
+  return error(
     `Found ${jsonRoomsOfVariant.length} JSON rooms with a variant of ${variant}, when there should only be 1.`,
   );
 }
