@@ -138,6 +138,9 @@ const foo = (): undefined => {
   errors: [{ messageId: "mismatchedReturnType" }],
 });
 
+// This test cannot work as long as "ArrowFunctionExpression:exit" is commented out (which causes
+// other false positives).
+/*
 invalid.push({
   name: "unannotated arrow function with condition returns void",
   code: `
@@ -149,6 +152,16 @@ const foo = (): undefined => {
 };
   `,
   errors: [{ messageId: "mismatchedReturnType" }],
+});
+*/
+
+valid.push({
+  name: "declare interface arrow function with condition returns void",
+  code: `
+declare interface Foo {
+  Get: (id: number) => number | undefined;
+}
+  `,
 });
 
 ruleTester.run("strict-undefined-functions", strictUndefinedFunctions, {

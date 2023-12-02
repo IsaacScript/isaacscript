@@ -20,7 +20,7 @@ export const strictUndefinedFunctions = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       mismatchedReturnType:
-        "You must explicitly return `undefined` in in functions annotated as returning `undefined`.",
+        "You must explicitly return `undefined` in in functions that can return `undefined`.",
     },
   },
   defaultOptions: [],
@@ -99,17 +99,9 @@ export const strictUndefinedFunctions = createRule<Options, MessageIds>({
         }
       },
 
-      // We need one entry for each function node type. (This is copied from the
-      // "@typescript-eslint/prefer-readonly-parameter-types" rule. However, we explicitly omit
-      // "ArrowFunctionExpression:exit", since that will not ever have return statements.)
+      // "ArrowFunctionExpression:exit" is commented out because it causes false positives.
       "FunctionDeclaration:exit": functionExit,
       "FunctionExpression:exit": functionExit,
-      "TSCallSignatureDeclaration:exit": functionExit,
-      "TSConstructSignatureDeclaration:exit": functionExit,
-      "TSDeclareFunction:exit": functionExit,
-      "TSEmptyBodyFunctionExpression:exit": functionExit,
-      "TSFunctionType:exit": functionExit,
-      "TSMethodSignature:exit": functionExit,
     };
   },
 });
