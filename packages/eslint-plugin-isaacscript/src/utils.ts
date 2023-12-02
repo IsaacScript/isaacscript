@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { isFunction } from "@typescript-eslint/utils/ast-utils";
-import type { CodePathSegment } from "./interfaces/CodePath";
+import type { CodePathSegment } from "@typescript-eslint/utils/ts-eslint";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;

@@ -1,7 +1,5 @@
-- add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
-  - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
-
 - lint rule: if return type of function includes undefined in a union, don't allow void return
+  - half done now
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
@@ -12,8 +10,9 @@
 
 ----------------------------------------------------------------------------------------------------
 
-- wait for CodePath PR to be accepted: https://github.com/typescript-eslint/typescript-eslint/pull/7551
-  - then use upstream CodePath
+- add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
+  - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
+  - wait on new release of VSCode
 
 - wait for eslint-plugin-n to fix rule:
   - https://github.com/eslint-community/eslint-plugin-n/issues/134

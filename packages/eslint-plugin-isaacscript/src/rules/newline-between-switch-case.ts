@@ -4,7 +4,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
-import type { CodePath } from "../interfaces/CodePath";
+import type { CodePath } from "@typescript-eslint/utils/ts-eslint";
 import { createRule, isReachable } from "../utils";
 
 export const newlineBetweenSwitchCase = createRule({
@@ -54,6 +54,7 @@ export const newlineBetweenSwitchCase = createRule({
         if (
           node.consequent.length === 0 ||
           (currentCodePath !== null &&
+            // eslint-disable-next-line deprecation/deprecation
             currentCodePath.currentSegments.some(isReachable))
         ) {
           isFallthrough = true;

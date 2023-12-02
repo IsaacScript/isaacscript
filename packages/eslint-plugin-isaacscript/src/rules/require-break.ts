@@ -2,7 +2,7 @@
 // https://github.com/eslint/eslint/blob/main/lib/rules/no-fallthrough.js
 
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { CodePath } from "../interfaces/CodePath";
+import type { CodePath } from "@typescript-eslint/utils/ts-eslint";
 import { createRule, isReachable } from "../utils";
 
 export const requireBreak = createRule({
@@ -45,6 +45,7 @@ export const requireBreak = createRule({
          * And allows empty cases and the last case.
          */
         const thisNodeIsReachable =
+          // eslint-disable-next-line deprecation/deprecation
           currentCodePath.currentSegments.some(isReachable);
         const thisNodeIsFinalCase =
           node.parent.type === AST_NODE_TYPES.SwitchStatement &&
