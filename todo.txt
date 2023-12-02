@@ -1,23 +1,7 @@
 - add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
   - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
 
-- lint rule: didn't catch this code:
-  const lockedPillEffectsOfType = lockedPillEffects.filter(
-    (thisPillEffect) =>
-      getPillEffectType(thisPillEffect),
-  );
-  https://discord.com/channels/1026804805894672454/1180160373819711588
-  https://github.com/typescript-eslint/typescript-eslint/issues/8016
-  Array.every
-  Array.filter
-  Array.find
-  Array.findIndex
-  Array.findLast
-  Array.findLastIndex
-  Array.some
-
 - lint rule: if return type of function includes undefined in a union, don't allow void return
-- lint rule: don't allow `return` or `return undefined` when return type of function is void
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
@@ -27,14 +11,6 @@
   - make sure that isaacscript-common still works through link in dev
 
 ----------------------------------------------------------------------------------------------------
-
-- get knip working
-  - https://github.com/webpro/knip/issues/345
-  - https://github.com/webpro/knip/issues/344
-  - https://github.com/webpro/knip/issues/343
-  - https://github.com/webpro/knip/issues/339
-  - https://github.com/webpro/knip/issues/315
-  - remove comment in ci.yml
 
 - wait for CodePath PR to be accepted: https://github.com/typescript-eslint/typescript-eslint/pull/7551
   - then use upstream CodePath

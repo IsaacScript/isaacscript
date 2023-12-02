@@ -39,6 +39,7 @@ import { requireVRegistration } from "./rules/require-v-registration";
 import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument";
 import { strictArrayMethods } from "./rules/strict-array-methods";
 import { strictEnums } from "./rules/strict-enums";
+import { strictVoidFunctions } from "./rules/strict-void-functions";
 
 export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
@@ -78,4 +79,5 @@ export const rules = {
   "require-variadic-function-argument": requireVariadicFunctionArgument,
   "strict-array-methods": strictArrayMethods,
   "strict-enums": strictEnums,
+  "strict-void-functions": strictVoidFunctions,
 };

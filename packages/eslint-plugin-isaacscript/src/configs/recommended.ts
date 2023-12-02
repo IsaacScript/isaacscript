@@ -40,5 +40,6 @@ export const recommended = {
     "isaacscript/require-variadic-function-argument": "error",
     "isaacscript/strict-array-methods": "error",
     "isaacscript/strict-enums": "error",
+    "isaacscript/strict-void-functions": "error",
   },
 };

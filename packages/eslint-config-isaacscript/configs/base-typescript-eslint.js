@@ -171,8 +171,8 @@ const SUPPORTED_RULES = {
       },
     },
     {
-      // We disable this for renamed properties, this this is a valid use-case.
-      // e.g. `const collectibleUsedToShowFlight = CollectibleType.FATE;`
+      // We disable this for renamed properties, since code like the following should be valid:
+      // `const someSpecificMyEnum = MyEnum.Value1;`
       enforceForRenamedProperties: false,
     },
   ],
