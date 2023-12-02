@@ -1,4 +1,5 @@
 - fix `return error` lint case in deepCopy
+  - https://discord.com/channels/508357248330760243/640177429775777792/1180512718369865828
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.

@@ -243,6 +243,8 @@ const config = {
       files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
       rules: {
         "jsdoc/no-types": "off",
+        "jsdoc/require-param-description": "off",
+        "jsdoc/require-returns-description": "off",
       },
     },
   ],
