@@ -9875,14 +9875,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "eslint-config-prettier@npm:9.0.0"
+"eslint-config-prettier@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "eslint-config-prettier@npm:9.1.0"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: bc1f661915845c631824178942e5d02f858fe6d0ea796f0050d63e0f681927b92696e81139dd04714c08c3e7de580fd079c66162e40070155ba79eaee78ab5d0
+  checksum: 6d332694b36bc9ac6fdb18d3ca2f6ac42afa2ad61f0493e89226950a7091e38981b66bac2b47ba39d15b73fff2cd32c78b850a9cf9eed9ca9a96bfb2f3a2f10d
   languageName: node
   linkType: hard
 
@@ -12610,7 +12610,7 @@ __metadata:
     docusaurus-theme-search-typesense: "npm:^0.14.0"
     dotenv: "npm:^16.3.1"
     eslint: "npm:^8.55.0"
-    eslint-config-prettier: "npm:^9.0.0"
+    eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-deprecation: "npm:^2.0.0"
     eslint-plugin-eslint-comments: "npm:^3.2.0"
     eslint-plugin-eslint-plugin: "npm:^5.1.1"
@@ -12630,7 +12630,7 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^3.3.5"
+    knip: "npm:^3.4.0"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.32.1"
     markdownlint-cli: "npm:^0.37.0"
@@ -12651,7 +12651,7 @@ __metadata:
     ts-json-schema-generator: "npm:^1.4.1"
     ts-prune-2: "npm:^0.10.7"
     tsconfig-paths: "npm:^4.2.0"
-    tsx: "npm:^4.6.1"
+    tsx: "npm:^4.6.2"
     typedoc: "npm:^0.25.4"
     typedoc-plugin-markdown: "npm:^3.17.1"
     typedoc-plugin-rename: "npm:^1.0.1"
@@ -13493,9 +13493,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^3.3.5":
-  version: 3.3.5
-  resolution: "knip@npm:3.3.5"
+"knip@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "knip@npm:3.4.0"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@npmcli/map-workspaces": "npm:3.0.4"
@@ -13517,10 +13517,11 @@ __metadata:
     zod: "npm:3.22.4"
     zod-validation-error: "npm:2.1.0"
   peerDependencies:
+    "@types/node": ">=18"
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 5eb0ce324bd0120aa883ecec1f8bbb4680bf5479c69aa680db4571fce13bc48513f6faf47771b9af276ca3854e5549de43f7fc79a0a7c371e8541f33ec869aea
+  checksum: b88d95001ab5c2f176f0ae3f956dabc4d5d2366808683948cbc436080f641244f0911f0f90d857befccc01ebab5e51ed635d0f97dbec9974934a0ecbe717e66f
   languageName: node
   linkType: hard
 
@@ -19269,9 +19270,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.6.1":
-  version: 4.6.1
-  resolution: "tsx@npm:4.6.1"
+"tsx@npm:^4.6.2":
+  version: 4.6.2
+  resolution: "tsx@npm:4.6.2"
   dependencies:
     esbuild: "npm:~0.18.20"
     fsevents: "npm:~2.3.3"
@@ -19281,7 +19282,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 6c0291d7f3016d40fcd6b7014d77aef07c8051e19b480287381e5c5fb348aaf6dda2fa35b85ec2b9d1e83a45f9f6feb1992b5b630f8c06cc9dbdd8312ce39f41
+  checksum: df47757e1df80bdd425be220636d4ba1da1e512dc14837573576a4d68cf93e36626862f69085ac29b04c127a74e0084939be1f15189a12e26480131176693d61
   languageName: node
   linkType: hard
 
