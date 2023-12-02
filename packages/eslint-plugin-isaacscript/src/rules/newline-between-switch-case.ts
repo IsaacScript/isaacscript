@@ -1,13 +1,14 @@
 // The code here needs to detect the "fall through" switch case. Thus, we borrow heavily from the
 // source code for the "no-fallthrough" rule.
 
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { TSESLint } from "@typescript-eslint/utils";
-import type { CodePath } from "@typescript-eslint/utils/ts-eslint";
-import { createRule, isReachable } from "../utils";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { createRule } from "../utils";
 
-export const newlineBetweenSwitchCase = createRule({
+export type Options = [];
+export type MessageIds = "noNewline";
+
+export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
   name: "newline-between-switch-case",
   meta: {
     type: "layout",
@@ -24,40 +25,26 @@ export const newlineBetweenSwitchCase = createRule({
   defaultOptions: [],
   create(context) {
     const { sourceCode } = context;
-    let currentCodePath: CodePath | null = null;
 
     return {
-      onCodePathStart(codePath) {
-        currentCodePath = codePath;
-      },
-
-      onCodePathEnd() {
-        if (currentCodePath !== null && "upper" in currentCodePath) {
-          currentCodePath = currentCodePath.upper;
-        }
-      },
-
-      "SwitchCase:exit": (node) => {
-        // Ignore the final switch case.
-        if (
-          node.parent.type === AST_NODE_TYPES.SwitchStatement &&
-          node === node.parent.cases.at(-1)
-        ) {
+      SwitchCase(node) {
+        const { parent } = node;
+        if (parent.type !== AST_NODE_TYPES.SwitchStatement) {
           return;
         }
 
-        let isFallthrough = false;
+        // Ignore switch cases without a consequent (i.e. no brackets), as those should not have
+        // newlines after them.
+        if (node.consequent.length === 0) {
+          return;
+        }
 
-        /*
-         * A fallthrough is either if we are empty or if the end of the case is reachable
-         */
-        if (
-          node.consequent.length === 0 ||
-          (currentCodePath !== null &&
-            // eslint-disable-next-line deprecation/deprecation
-            currentCodePath.currentSegments.some(isReachable))
-        ) {
-          isFallthrough = true;
+        // Ignore the final case, as there should not be a newline between the final case and the
+        // end of the switch statement.
+        const finalCase = parent.cases.at(-1);
+        const isFinalCase = node === finalCase;
+        if (isFinalCase) {
+          return;
         }
 
         const nextToken = sourceCode.getTokenAfter(node);
@@ -65,15 +52,7 @@ export const newlineBetweenSwitchCase = createRule({
           return;
         }
 
-        const tokensWithBlankLinesBetween = getTokensWithNewlineBetween(
-          sourceCode,
-          node,
-          nextToken,
-        );
-        const hasBlankLinesBetween = tokensWithBlankLinesBetween !== undefined;
-        const isNewlineRequired = !isFallthrough;
-
-        if (!hasBlankLinesBetween && isNewlineRequired) {
+        if (!hasBlankLinesBetween(node, nextToken)) {
           context.report({
             node,
             fix(fixer) {
@@ -87,31 +66,16 @@ export const newlineBetweenSwitchCase = createRule({
   },
 });
 
-/** Checks if there is a blank line between tokens. */
-function getTokensWithNewlineBetween(
-  sourceCode: TSESLint.SourceCode,
-  startNode: TSESTree.SwitchCase,
-  endNode: TSESTree.Token,
-): readonly TSESTree.Node[] | undefined {
-  const endLine = endNode.loc.start.line;
-
-  let next: TSESTree.Node = startNode;
-  let previous: TSESTree.Node = startNode;
-  do {
-    previous = next;
-
-    const tokenAfter = sourceCode.getTokenAfter(next, {
-      includeComments: true,
-    });
-    if (tokenAfter === null) {
-      return undefined;
-    }
-
-    next = tokenAfter as unknown as TSESTree.Node;
-    if (next.loc.start.line > previous.loc.end.line + 1) {
-      return [previous, next];
-    }
-  } while (next.loc.start.line < endLine);
-
-  return undefined;
+/**
+ * Checks whether a node and a token are separated by blank lines.
+ *
+ * @param node The node to check.
+ * @param token The token to compare against.
+ * @returns `true` if there are blank lines between node and token.
+ */
+function hasBlankLinesBetween(
+  node: TSESTree.Node,
+  token: TSESTree.Token,
+): boolean {
+  return token.loc.start.line > node.loc.end.line + 1;
 }

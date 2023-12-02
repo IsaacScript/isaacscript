@@ -1,49 +1,47 @@
+// @ts-check
+
 const FIRST_DOC_PAGE_TITLES = new Set([
   "Features | IsaacScript",
   "isaac-typescript-definitions | IsaacScript",
   "isaacscript-common | IsaacScript",
 ]);
 
-const keyMap = new Map();
+const KEY_MAP = new Map([
+  ["ArrowLeft", navigateBackward],
+  ["ArrowRight", navigateForward],
+]);
 
-initHotkeys();
+main();
 
-function initHotkeys() {
-  initKeyMap();
-  document.addEventListener("keydown", onKeyDown);
-}
-
-function initKeyMap() {
-  keyMap.set("ArrowLeft", navigateBackward);
-  keyMap.set("ArrowRight", navigateForward);
-}
-
-function onKeyDown(event) {
-  // Do not do anything if we have any modifier keys pressed down.
-  if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
-    return;
-  }
-
-  // Do not do anything if we have the search box focused.
-  if (isSearchBarFocused()) {
-    return;
-  }
-
-  const keyFunction = keyMap.get(event.key);
-  if (keyFunction !== undefined) {
-    keyFunction();
-  }
-}
-
-function isSearchBarFocused() {
-  const searchInputElements = document.querySelectorAll(".DocSearch-Input");
-  for (const searchInputElement of searchInputElements) {
-    if (document.activeElement === searchInputElement) {
-      return true;
+function main() {
+  document.addEventListener("keydown", (event) => {
+    // Do not do anything if we have any modifier keys pressed down.
+    if (event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
+      return;
     }
-  }
 
-  return false;
+    // Do not do anything if we have the search box focused.
+    if (isSearchBarFocused()) {
+      return;
+    }
+
+    const keyFunction = KEY_MAP.get(event.key);
+    if (keyFunction !== undefined) {
+      keyFunction();
+    }
+  });
+}
+
+/** @returns {boolean} */
+function isSearchBarFocused() {
+  // eslint-disable-next-line unicorn/prefer-spread
+  const searchInputElements = Array.from(
+    document.querySelectorAll(".DocSearch-Input"),
+  );
+  return (
+    document.activeElement !== null &&
+    searchInputElements.includes(document.activeElement)
+  );
 }
 
 function navigateBackward() {
@@ -73,31 +71,29 @@ function navigateForward() {
   clickSecondNavButton();
 }
 
-function isOnFirstDocPage() {
-  return FIRST_DOC_PAGE_TITLES.has(document.title);
-}
-
 function isOnLandingPage() {
   const titles = document.querySelectorAll(".hero__title");
   return titles.length > 0;
 }
 
+function isOnFirstDocPage() {
+  return FIRST_DOC_PAGE_TITLES.has(document.title);
+}
+
 function clickOnNavBarTitle() {
-  const navBarTitle = document.querySelectorAll(".navbar__title");
-  const navBarTitleElement = navBarTitle[0];
-  if (navBarTitleElement !== undefined) {
-    navBarTitleElement.click();
+  const navBarTitles = document.querySelectorAll(".navbar__title");
+  const navBarTitle = navBarTitles[0];
+  if (navBarTitle !== undefined && navBarTitle instanceof HTMLElement) {
+    navBarTitle.click();
   }
 }
 
 function clickOnFirstLandingPageButton() {
-  const buttons = document.querySelectorAll(".button--lg");
-  const firstButton = buttons[0];
-  if (firstButton === undefined) {
-    return;
+  const largeButtons = document.querySelectorAll(".button--lg");
+  const largeButton = largeButtons[0];
+  if (largeButton !== undefined && largeButton instanceof HTMLElement) {
+    largeButton.click();
   }
-
-  firstButton.click();
 }
 
 function clickFirstNavButton() {
@@ -108,6 +104,7 @@ function clickSecondNavButton() {
   clickNavButton(1);
 }
 
+/** @param {number} i */
 function clickNavButton(i) {
   const navButtonsCollection = document.querySelectorAll(".pagination-nav");
   const navButtons = navButtonsCollection[0];
@@ -121,9 +118,7 @@ function clickNavButton(i) {
   }
 
   const buttonLink = buttonDiv.children[0];
-  if (buttonLink === undefined) {
-    return;
+  if (buttonLink !== undefined && buttonLink instanceof HTMLElement) {
+    buttonLink.click();
   }
-
-  buttonLink.click();
 }
