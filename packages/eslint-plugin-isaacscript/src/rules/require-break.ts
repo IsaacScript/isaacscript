@@ -2,10 +2,13 @@
 // https://github.com/eslint/eslint/blob/main/lib/rules/no-fallthrough.js
 
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { CodePath } from "@typescript-eslint/utils/ts-eslint";
-import { createRule, isReachable } from "../utils";
+import type { TSESLint } from "@typescript-eslint/utils";
+import { createRule } from "../utils";
 
-export const requireBreak = createRule({
+export type Options = [];
+export type MessageIds = "noBreak";
+
+export const requireBreak = createRule<Options, MessageIds>({
   name: "require-break",
   meta: {
     type: "layout",
@@ -21,32 +24,47 @@ export const requireBreak = createRule({
   },
   defaultOptions: [],
   create(context) {
-    let currentCodePath: CodePath | null = null;
+    const codePathSegments: Array<Set<TSESLint.CodePathSegment>> = [];
+    let currentCodePathSegments = new Set<TSESLint.CodePathSegment>();
 
     return {
-      onCodePathStart(codePath) {
-        currentCodePath = codePath;
+      onCodePathStart() {
+        codePathSegments.push(currentCodePathSegments);
+        currentCodePathSegments = new Set();
       },
 
       onCodePathEnd() {
-        if (currentCodePath !== null && "upper" in currentCodePath) {
-          currentCodePath = currentCodePath.upper;
+        const codePathSegmentsSet = codePathSegments.pop();
+        if (codePathSegmentsSet !== undefined) {
+          currentCodePathSegments = codePathSegmentsSet;
         }
       },
 
-      "SwitchCase:exit"(node) {
-        if (currentCodePath === null) {
-          return;
-        }
+      onUnreachableCodePathSegmentStart(segment) {
+        currentCodePathSegments.add(segment);
+      },
 
+      onUnreachableCodePathSegmentEnd(segment) {
+        currentCodePathSegments.delete(segment);
+      },
+
+      onCodePathSegmentStart(segment) {
+        currentCodePathSegments.add(segment);
+      },
+
+      onCodePathSegmentEnd(segment) {
+        currentCodePathSegments.delete(segment);
+      },
+
+      "SwitchCase:exit"(node) {
         /*
          * `reachable` means fallthrough because statements preceded by
          * `break`, `return`, or `throw` are unreachable.
          * And allows empty cases and the last case.
          */
-        const thisNodeIsReachable =
-          // eslint-disable-next-line deprecation/deprecation
-          currentCodePath.currentSegments.some(isReachable);
+        const thisNodeIsReachable = isAnySegmentReachable(
+          currentCodePathSegments,
+        );
         const thisNodeIsFinalCase =
           node.parent.type === AST_NODE_TYPES.SwitchStatement &&
           node === node.parent.cases.at(-1);
@@ -61,3 +79,21 @@ export const requireBreak = createRule({
     };
   },
 });
+
+/**
+ * Checks all segments in a set and returns true if any are reachable.
+ *
+ * @param segments The segments to check.
+ * @returns True if any segment is reachable; false otherwise.
+ */
+function isAnySegmentReachable(
+  segments: ReadonlySet<TSESLint.CodePathSegment>,
+): boolean {
+  for (const segment of segments) {
+    if (segment.reachable) {
+      return true;
+    }
+  }
+
+  return false;
+}

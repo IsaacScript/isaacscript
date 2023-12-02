@@ -1,4 +1,4 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils, ESLintUtils } from "@typescript-eslint/utils";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
@@ -77,8 +77,4 @@ export function getParentFunction(
 
 export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
-}
-
-export function isReachable(segment: TSESLint.CodePathSegment): boolean {
-  return segment.reachable;
 }
