@@ -3,7 +3,6 @@ import ts from "typescript";
 import { createRule } from "../utils";
 
 export type Options = [];
-
 export type MessageIds = "plusPlus" | "minusMinus";
 
 export const preferPlusplus = createRule<Options, MessageIds>({

@@ -1,7 +1,5 @@
-import type { TSESTree } from "@typescript-eslint/utils";
-import { ESLintUtils } from "@typescript-eslint/utils";
-import { isFunction } from "@typescript-eslint/utils/ast-utils";
-import type { CodePathSegment } from "@typescript-eslint/utils/ts-eslint";
+import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import { ASTUtils, ESLintUtils } from "@typescript-eslint/utils";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
@@ -60,7 +58,8 @@ export function getParentFunction(
   node: TSESTree.Node,
 ):
   | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionDeclaration
+  | TSESTree.FunctionDeclarationWithName
+  | TSESTree.FunctionDeclarationWithOptionalName
   | TSESTree.FunctionExpression
   | undefined {
   let parent: TSESTree.Node | undefined = node;
@@ -68,7 +67,7 @@ export function getParentFunction(
   while (parent !== undefined) {
     parent = parent.parent; // eslint-disable-line @typescript-eslint/prefer-destructuring
 
-    if (isFunction(parent)) {
+    if (ASTUtils.isFunction(parent)) {
       return parent;
     }
   }
@@ -80,6 +79,6 @@ export function hasURL(text: string): boolean {
   return URL_REGEXP.test(text);
 }
 
-export function isReachable(segment: CodePathSegment): boolean {
+export function isReachable(segment: TSESLint.CodePathSegment): boolean {
   return segment.reachable;
 }

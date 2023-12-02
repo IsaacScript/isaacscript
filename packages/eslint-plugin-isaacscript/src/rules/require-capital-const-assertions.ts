@@ -4,7 +4,6 @@ import { isFirstLetterCapitalized } from "../isaacScriptCommonTS";
 import { createRule } from "../utils";
 
 export type Options = [];
-
 export type MessageIds = "noConstAssertion";
 
 const ARRAY_OR_OBJECT_EXPRESSION_TYPES: ReadonlySet<AST_NODE_TYPES> = new Set([

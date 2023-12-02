@@ -5,7 +5,6 @@ import { isTypeArrayTupleTypeOrUnionOfArrayTupleTypes } from "../typeUtils";
 import { createRule } from "../utils";
 
 export type Options = [];
-
 export type MessageIds = "noExplicitArray";
 
 export const noExplicitArrayLoops = createRule<Options, MessageIds>({

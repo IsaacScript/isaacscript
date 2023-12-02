@@ -23,6 +23,7 @@ export function getTypeName(type: ts.Type): string | undefined {
     return aliasSymbolName;
   }
 
+  // The above checks do not work with boolean values.
   if ("intrinsicName" in type) {
     const { intrinsicName } = type;
     if (typeof intrinsicName === "string" && intrinsicName !== "") {

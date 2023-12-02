@@ -4,7 +4,6 @@ import { getTypeName, isFunction, isTypeFlagSet } from "../typeUtils";
 import { createRule } from "../utils";
 
 export type Options = [];
-
 export type NoInvalidDefaultMapMessageIds = "invalidType";
 
 export const noInvalidDefaultMap = createRule<

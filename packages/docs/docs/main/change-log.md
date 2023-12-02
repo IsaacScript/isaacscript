@@ -13,8 +13,10 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following types:
   - `ReadonlyRecord`
-- Added the `prefer-readonly-parameter-types` lint rule.
-- Added the `strict-void-functions` lint rule.
+- Added the following lint rules:
+  - `prefer-readonly-parameter-types`
+  - `strict-void-functions`
+  - `strict-undefined-functions`
 
 ## December 1st, 2023
 
@@ -29,7 +31,8 @@ This page lists the changes to the IsaacScript framework.
   - `FIRST_STAGE`
   - `LAST_ROOM_TYPE`
   - `LAST_STAGE`
-- Added the `no-mutable-return` lint rule.
+- Added the following lint rules:
+  - `no-mutable-return`
 
 ## November 17th, 2023
 
@@ -1489,7 +1492,8 @@ pnpm add isaacscript-tsconfig
   - `angleToDirection`
 - Renamed the following helper functions:
   - `getIsaacAPIClassType` --> `getIsaacAPIClassName`
-- Added the `no-invalid-default-map` ESLint rule that will detect when you have an invalid first argument to a `DefaultMap` constructor.
+- Added the following lint rules:
+  - `no-invalid-default-map`
 - `isaacscript init` no longer creates a `bundleEntry.ts` file. If you use the `noImplicitGlobalVariables` compiler flag, then this is unnecessary. For more information, see the new `tsconfig.json` [template file](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static/tsconfig.json).
 
 ## June 4th, 2022
