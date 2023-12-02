@@ -50,7 +50,6 @@ export enum ListKind {
  * Here, "43. " is incorrectly interpreted as the beginning of a list. In order to work around this
  * problem, use the `getAdjustedList` function instead.
  */
-// eslint-disable-next-line isaacscript/strict-undefined-functions
 export function getAdjustedList(
   line: string,
   previousLineWasBlank: boolean,
