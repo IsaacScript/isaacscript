@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@algolia/client-search": "^4.20.0",
-    "@arktype/fs": "0.0.4",
+    "@arktype/fs": "^0.0.7",
     "@commander-js/extra-typings": "^11.1.0",
     "@docusaurus/core": "^3.0.1",
     "@docusaurus/eslint-plugin": "^3.0.1",

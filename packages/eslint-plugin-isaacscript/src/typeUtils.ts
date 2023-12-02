@@ -18,7 +18,19 @@ export function getTypeName(type: ts.Type): string | undefined {
     return escapedName;
   }
 
-  return type.aliasSymbol?.getName();
+  const aliasSymbolName = type.aliasSymbol?.getName();
+  if (aliasSymbolName !== undefined) {
+    return aliasSymbolName;
+  }
+
+  if ("intrinsicName" in type) {
+    const { intrinsicName } = type;
+    if (typeof intrinsicName === "string" && intrinsicName !== "") {
+      return intrinsicName;
+    }
+  }
+
+  return undefined;
 }
 
 /**

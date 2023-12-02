@@ -38,6 +38,7 @@ export const recommended = {
     "isaacscript/require-capital-read-only": "error",
     "isaacscript/require-unannotated-const-assertions": "error",
     "isaacscript/require-variadic-function-argument": "error",
+    "isaacscript/strict-array-methods": "error",
     "isaacscript/strict-enums": "error",
   },
 };

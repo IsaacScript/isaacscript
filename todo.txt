@@ -7,6 +7,7 @@
       getPillEffectType(thisPillEffect),
   );
   https://discord.com/channels/1026804805894672454/1180160373819711588
+  https://github.com/typescript-eslint/typescript-eslint/issues/8016
   Array.every
   Array.filter
   Array.find

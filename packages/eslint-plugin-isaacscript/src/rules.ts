@@ -37,6 +37,7 @@ import { requireCapitalReadOnly } from "./rules/require-capital-read-only";
 import { requireUnannotatedConstAssertions } from "./rules/require-unannotated-const-assertions";
 import { requireVRegistration } from "./rules/require-v-registration";
 import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument";
+import { strictArrayMethods } from "./rules/strict-array-methods";
 import { strictEnums } from "./rules/strict-enums";
 
 export const rules = {
@@ -75,5 +76,6 @@ export const rules = {
   "require-unannotated-const-assertions": requireUnannotatedConstAssertions,
   "require-v-registration": requireVRegistration,
   "require-variadic-function-argument": requireVariadicFunctionArgument,
+  "strict-array-methods": strictArrayMethods,
   "strict-enums": strictEnums,
 };

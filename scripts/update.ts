@@ -1,6 +1,4 @@
 // The following dependencies are locked to old versions:
-// - "@arktype/fs": "0.0.4",
-//   - Version 0.0.5 is bugged.
 // - "typescript": "5.2.2",
 //   - Waiting on TypeScriptToLua: https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1521
 
