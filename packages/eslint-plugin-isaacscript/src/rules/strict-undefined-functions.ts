@@ -100,8 +100,8 @@ export const strictUndefinedFunctions = createRule<Options, MessageIds>({
       },
 
       // We need one entry for each function node type. (This is copied from the
-      // "@typescript-eslint/prefer-readonly-parameter-types" rule.)
-      "ArrowFunctionExpression:exit": functionExit,
+      // "@typescript-eslint/prefer-readonly-parameter-types" rule. However, we explicitly omit
+      // "ArrowFunctionExpression:exit", since that will not ever have return statements.)
       "FunctionDeclaration:exit": functionExit,
       "FunctionExpression:exit": functionExit,
       "TSCallSignatureDeclaration:exit": functionExit,

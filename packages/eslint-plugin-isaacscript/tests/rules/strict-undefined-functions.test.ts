@@ -10,7 +10,23 @@ const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
-  name: "only number returns 0",
+  name: "void function returns void",
+  code: `
+function foo(): void {
+  return;
+}
+  `,
+});
+
+valid.push({
+  name: "void function returns nothing",
+  code: `
+function foo(): void {}
+  `,
+});
+
+valid.push({
+  name: "only number function returns 0",
   code: `
 function foo(): number {
   return 0;
@@ -19,9 +35,8 @@ function foo(): number {
 });
 
 valid.push({
-  name: "only undefined returns undefined",
+  name: "only undefined function returns undefined",
   code: `
-declare const someCondition: boolean;
 function foo(): undefined {
   return undefined;
 }
@@ -29,7 +44,7 @@ function foo(): undefined {
 });
 
 invalid.push({
-  name: "only undefined returns void",
+  name: "only undefined function returns void",
   code: `
 function foo(): undefined {
   return;
@@ -39,10 +54,58 @@ function foo(): undefined {
 });
 
 invalid.push({
-  name: "only undefined returns nothing",
+  name: "only undefined function returns nothing",
+  code: `
+function foo(): undefined {}
+  `,
+  errors: [{ messageId: "mismatchedReturnType" }],
+});
+
+valid.push({
+  name: "number or undefined function returns undefined",
+  code: `
+function foo(): number | undefined {
+  return undefined;
+}
+  `,
+});
+
+invalid.push({
+  name: "number or undefined function returns void",
+  code: `
+function foo(): number | undefined {
+  return;
+}
+  `,
+  errors: [{ messageId: "mismatchedReturnType" }],
+});
+
+invalid.push({
+  name: "number or undefined function returns nothing",
+  code: `
+function foo(): number | undefined {}
+  `,
+  errors: [{ messageId: "mismatchedReturnType" }],
+});
+
+invalid.push({
+  name: "number or undefined function with condition returns nothing",
   code: `
 declare const someCondition: boolean;
-function foo(): undefined {
+function foo(): number | undefined {
+  if (someCondition) {
+    return undefined;
+  }
+}
+  `,
+  errors: [{ messageId: "mismatchedReturnType" }],
+});
+
+invalid.push({
+  name: "unannotated function with condition returns nothing",
+  code: `
+declare const someCondition: boolean;
+function foo() {
   if (someCondition) {
     return undefined;
   }
@@ -52,28 +115,38 @@ function foo(): undefined {
 });
 
 valid.push({
-  name: "number or undefined returns undefined",
+  name: "unannotated arrow function returns undefined",
   code: `
-function foo(): number | undefined {
-  return undefined;
-}
+const foo = () => undefined;
+  `,
+});
+
+valid.push({
+  name: "undefined arrow function returns undefined",
+  code: `
+const foo = (): undefined => undefined;
   `,
 });
 
 invalid.push({
-  name: "number or undefined returns void",
+  name: "undefined arrow function returns void",
   code: `
-function foo(): number | undefined {
+const foo = (): undefined => {
   return;
-}
+};
   `,
   errors: [{ messageId: "mismatchedReturnType" }],
 });
 
 invalid.push({
-  name: "number or undefined returns nothing",
+  name: "unannotated arrow function with condition returns void",
   code: `
-function foo(): number | undefined {}
+declare const someCondition: boolean;
+const foo = (): undefined => {
+  if (someCondition) {
+    return undefined;
+  }
+};
   `,
   errors: [{ messageId: "mismatchedReturnType" }],
 });
