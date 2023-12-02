@@ -4,7 +4,7 @@ Disallows non-empty return statements in functions annotated as returning void.
 
 ## Rule Details
 
-`void` is different from `undefined` in that `undefined` is a value and `void` is the lack of any value. Thus, it is confusing if someone is explicitly returning `undefined` from a function that is annotated as `void`. In general, this is indication that either the return type of the function should be changed to `undefined` or the predicate of the `return` statement is superfluous.
+`void` is different from `undefined` in that `undefined` is a value and `void` is the lack of any value. Thus, it is confusing if someone is explicitly returning `undefined` from a function that is annotated as returning `void`. In general, this is indication that either the return type of the function should be changed to `undefined` or the predicate of the `return` statement is superfluous.
 
 ```ts
 // Bad

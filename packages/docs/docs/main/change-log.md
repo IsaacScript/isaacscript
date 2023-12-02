@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following types:
   - `ReadonlyRecord`
 - Added the `prefer-readonly-parameter-types` lint rule.
+- Added the `strict-void-functions` lint rule.
 
 ## December 1st, 2023
 

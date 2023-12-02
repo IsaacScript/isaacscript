@@ -39,6 +39,7 @@ import { requireVRegistration } from "./rules/require-v-registration";
 import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument";
 import { strictArrayMethods } from "./rules/strict-array-methods";
 import { strictEnums } from "./rules/strict-enums";
+import { strictUndefinedFunctions } from "./rules/strict-undefined-functions";
 import { strictVoidFunctions } from "./rules/strict-void-functions";
 
 export const rules = {
@@ -79,5 +80,6 @@ export const rules = {
   "require-variadic-function-argument": requireVariadicFunctionArgument,
   "strict-array-methods": strictArrayMethods,
   "strict-enums": strictEnums,
+  "strict-undefined-functions": strictUndefinedFunctions,
   "strict-void-functions": strictVoidFunctions,
 };

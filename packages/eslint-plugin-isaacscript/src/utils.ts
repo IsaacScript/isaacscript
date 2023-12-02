@@ -1,4 +1,6 @@
+import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { isFunction } from "@typescript-eslint/utils/ast-utils";
 import type { CodePathSegment } from "./interfaces/CodePath";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
@@ -52,6 +54,26 @@ export function getOrdinalSuffix(i: number): string {
     return `${i}rd`;
   }
   return `${i}th`;
+}
+
+export function getParentFunction(
+  node: TSESTree.Node,
+):
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionDeclaration
+  | TSESTree.FunctionExpression
+  | undefined {
+  let parent: TSESTree.Node | undefined = node;
+
+  while (parent !== undefined) {
+    parent = parent.parent; // eslint-disable-line @typescript-eslint/prefer-destructuring
+
+    if (isFunction(parent)) {
+      return parent;
+    }
+  }
+
+  return undefined;
 }
 
 export function hasURL(text: string): boolean {

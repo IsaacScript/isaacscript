@@ -76,7 +76,8 @@ Each rule has emojis denoting:
 | [`isaacscript/require-variadic-function-argument`](docs/rules/require-variadic-function-argument.md)     | Requires that variadic functions must be supplied with at least one argument                                | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/strict-array-methods`](docs/rules/strict-array-methods.md)                                 | Requires boolean return types on array method functions                                                     | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/strict-enums`](docs/rules/strict-enums.md)                                                 | Disallows the usage of unsafe enum patterns                                                                 | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/strict-void-functions`](docs/rules/strict-void-functions.md)                               | Disallows non-empty return statements in functions annotated as returning void                              | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/strict-undefined-functions`](docs/rules/strict-undefined-functions.md)                     | Disallows empty return statements in functions annotated as returning undefined                             | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/strict-void-functions`](docs/rules/strict-void-functions.md)                               | Disallows non-empty return statements in functions annotated as returning void                              | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->
 

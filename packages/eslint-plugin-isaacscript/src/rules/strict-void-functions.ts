@@ -1,7 +1,5 @@
-import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { isFunction } from "@typescript-eslint/utils/ast-utils";
-import { createRule } from "../utils";
+import { createRule, getParentFunction } from "../utils";
 
 export const strictVoidFunctions = createRule({
   name: "strict-void-functions",
@@ -49,23 +47,3 @@ export const strictVoidFunctions = createRule({
     };
   },
 });
-
-function getParentFunction(
-  node: TSESTree.Node,
-):
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionDeclaration
-  | TSESTree.FunctionExpression
-  | undefined {
-  let parent: TSESTree.Node | undefined = node;
-
-  while (parent !== undefined) {
-    parent = parent.parent; // eslint-disable-line @typescript-eslint/prefer-destructuring
-
-    if (isFunction(parent)) {
-      return parent;
-    }
-  }
-
-  return undefined;
-}
