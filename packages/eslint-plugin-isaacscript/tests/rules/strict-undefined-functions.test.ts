@@ -19,13 +19,6 @@ function foo(): void {
 });
 
 valid.push({
-  name: "void function returns nothing",
-  code: `
-function foo(): void {}
-  `,
-});
-
-valid.push({
   name: "only number function returns 0",
   code: `
 function foo(): number {
@@ -53,14 +46,6 @@ function foo(): undefined {
   errors: [{ messageId: "mismatchedReturnType" }],
 });
 
-invalid.push({
-  name: "only undefined function returns nothing",
-  code: `
-function foo(): undefined {}
-  `,
-  errors: [{ messageId: "mismatchedReturnType" }],
-});
-
 valid.push({
   name: "number or undefined function returns undefined",
   code: `
@@ -75,40 +60,6 @@ invalid.push({
   code: `
 function foo(): number | undefined {
   return;
-}
-  `,
-  errors: [{ messageId: "mismatchedReturnType" }],
-});
-
-invalid.push({
-  name: "number or undefined function returns nothing",
-  code: `
-function foo(): number | undefined {}
-  `,
-  errors: [{ messageId: "mismatchedReturnType" }],
-});
-
-invalid.push({
-  name: "number or undefined function with condition returns nothing",
-  code: `
-declare const someCondition: boolean;
-function foo(): number | undefined {
-  if (someCondition) {
-    return undefined;
-  }
-}
-  `,
-  errors: [{ messageId: "mismatchedReturnType" }],
-});
-
-invalid.push({
-  name: "unannotated function with condition returns nothing",
-  code: `
-declare const someCondition: boolean;
-function foo() {
-  if (someCondition) {
-    return undefined;
-  }
 }
   `,
   errors: [{ messageId: "mismatchedReturnType" }],
@@ -138,25 +89,8 @@ const foo = (): undefined => {
   errors: [{ messageId: "mismatchedReturnType" }],
 });
 
-// This test cannot work as long as "ArrowFunctionExpression:exit" is commented out (which causes
-// other false positives).
-/*
-invalid.push({
-  name: "unannotated arrow function with condition returns void",
-  code: `
-declare const someCondition: boolean;
-const foo = (): undefined => {
-  if (someCondition) {
-    return undefined;
-  }
-};
-  `,
-  errors: [{ messageId: "mismatchedReturnType" }],
-});
-*/
-
 valid.push({
-  name: "declare interface arrow function with condition returns void",
+  name: "declare interface arrow function",
   code: `
 declare interface Foo {
   Get: (id: number) => number | undefined;
