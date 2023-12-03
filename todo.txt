@@ -1,5 +1,3 @@
-- whitelist read-only return values for both incoming and outgoing rules
-
 - fix `return error` lint case in deepCopy, need to use unreachable TypeScript API
   - wait for reply from #compiler-internals
   - https://discord.com/channels/508357248330760243/640177429775777792/1180512718369865828
