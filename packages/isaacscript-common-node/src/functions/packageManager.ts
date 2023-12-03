@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import path from "node:path";
-import { PACKAGE_MANAGER_VALUES } from "../cachedEnums.js";
+import { PACKAGE_MANAGER_VALUES } from "../cachedEnumValues.js";
 import { PackageManager } from "../enums/PackageManager.js";
 import { isFile } from "./file.js";
 import { fatalError } from "./utils.js";

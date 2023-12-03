@@ -27,64 +27,48 @@ import { PlayerStat } from "../enums/PlayerStat";
 import { SerializationBrand } from "../enums/private/SerializationBrand";
 import { getEnumValues } from "../functions/enums";
 
-export const ACTIVE_SLOT_VALUES: readonly ActiveSlot[] =
-  getEnumValues(ActiveSlot);
+export const ACTIVE_SLOT_VALUES = getEnumValues(ActiveSlot);
 
-export const BOSS_IDS: readonly BossID[] = getEnumValues(BossID);
+export const BOSS_IDS = getEnumValues(BossID);
 
-export const CACHE_FLAG_VALUES: readonly CacheFlag[] = getEnumValues(CacheFlag);
+export const CACHE_FLAG_VALUES = getEnumValues(CacheFlag);
 
-export const CONTROLLER_INDEX_VALUES: readonly ControllerIndex[] =
-  getEnumValues(ControllerIndex);
+export const CONTROLLER_INDEX_VALUES = getEnumValues(ControllerIndex);
 
-export const DOOR_SLOT_FLAG_VALUES: readonly DoorSlotFlag[] =
-  getEnumValues(DoorSlotFlag);
+export const DOOR_SLOT_FLAG_VALUES = getEnumValues(DoorSlotFlag);
 
-export const DOOR_SLOT_VALUES: readonly DoorSlot[] = getEnumValues(DoorSlot);
+export const DOOR_SLOT_VALUES = getEnumValues(DoorSlot);
 
-export const GRID_ENTITY_TYPE_VALUES: readonly GridEntityType[] =
-  getEnumValues(GridEntityType);
+export const GRID_ENTITY_TYPE_VALUES = getEnumValues(GridEntityType);
 
-export const GRID_ENTITY_XML_TYPE_VALUES: readonly GridEntityXMLType[] =
-  getEnumValues(GridEntityXMLType);
+export const GRID_ENTITY_XML_TYPE_VALUES = getEnumValues(GridEntityXMLType);
 
-export const MOD_CALLBACK_CUSTOM_VALUES: readonly ModCallbackCustom[] =
-  getEnumValues(ModCallbackCustom);
+export const MOD_CALLBACK_CUSTOM_VALUES = getEnumValues(ModCallbackCustom);
 
-export const ITEM_CONFIG_TAG_VALUES: readonly ItemConfigTag[] =
-  getEnumValues(ItemConfigTag);
+export const ITEM_CONFIG_TAG_VALUES = getEnumValues(ItemConfigTag);
 
-export const ITEM_CONFIG_CARD_TYPE_VALUES: readonly ItemConfigCardType[] =
-  getEnumValues(ItemConfigCardType);
+export const ITEM_CONFIG_CARD_TYPE_VALUES = getEnumValues(ItemConfigCardType);
 
-export const ITEM_POOL_TYPE_VALUES: readonly ItemPoolType[] =
-  getEnumValues(ItemPoolType);
+export const ITEM_POOL_TYPE_VALUES = getEnumValues(ItemPoolType);
 
-export const KEYBOARD_VALUES: readonly Keyboard[] = getEnumValues(Keyboard);
+export const KEYBOARD_VALUES = getEnumValues(Keyboard);
 
-export const HEALTH_TYPE_VALUES: readonly HealthType[] =
-  getEnumValues(HealthType);
+export const HEALTH_TYPE_VALUES = getEnumValues(HealthType);
 
-export const PILL_COLOR_VALUES: readonly PillColor[] = getEnumValues(PillColor);
+export const PILL_COLOR_VALUES = getEnumValues(PillColor);
 
-export const PLAYER_FORM_VALUES: readonly PlayerForm[] =
-  getEnumValues(PlayerForm);
+export const PLAYER_FORM_VALUES = getEnumValues(PlayerForm);
 
-export const POCKET_ITEM_SLOT_VALUES: readonly PocketItemSlot[] =
-  getEnumValues(PocketItemSlot);
+export const POCKET_ITEM_SLOT_VALUES = getEnumValues(PocketItemSlot);
 
-export const ROOM_SHAPE_VALUES: readonly RoomShape[] = getEnumValues(RoomShape);
+export const ROOM_SHAPE_VALUES = getEnumValues(RoomShape);
 
-export const SEED_EFFECTS: readonly SeedEffect[] = getEnumValues(SeedEffect);
+export const SEED_EFFECTS = getEnumValues(SeedEffect);
 
-export const SERIALIZATION_BRAND_VALUES: readonly SerializationBrand[] =
-  getEnumValues(SerializationBrand);
+export const SERIALIZATION_BRAND_VALUES = getEnumValues(SerializationBrand);
 
-export const SOUND_EFFECT_VALUES: readonly SoundEffect[] =
-  getEnumValues(SoundEffect);
+export const SOUND_EFFECT_VALUES = getEnumValues(SoundEffect);
 
-export const PLAYER_STAT_VALUES: readonly PlayerStat[] =
-  getEnumValues(PlayerStat);
+export const PLAYER_STAT_VALUES = getEnumValues(PlayerStat);
 
-export const TRINKET_SLOT_VALUES: readonly TrinketSlot[] =
-  getEnumValues(TrinketSlot);
+export const TRINKET_SLOT_VALUES = getEnumValues(TrinketSlot);
