@@ -28,6 +28,7 @@ export const recommended = {
     "isaacscript/no-object-methods-with-map-set": "error",
     "isaacscript/no-string-length-0": "error",
     "isaacscript/no-template-curly-in-string-fix": "error",
+    "isaacscript/no-undefined-return-type": "error",
     "isaacscript/no-unsafe-plusplus": "error",
     "isaacscript/no-void-return-type": "error",
     "isaacscript/prefer-plusplus": "error",

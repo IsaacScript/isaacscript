@@ -174,7 +174,7 @@ In order for the linter to work inside of VSCode, you will have to install the f
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-Additionally, you might also want to install the CSpell extension, which is extremely useful to spell check an entire code base:
+Additionally, you might also want to install the CSpell extension, which is extremely useful to spell check an entire codebase:
 
 - [CSpell](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 

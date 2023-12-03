@@ -6,12 +6,13 @@ export const noVoidReturnType = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows void return types on non-exported functions",
+      description: "Disallows `void` return types on non-exported functions",
       recommended: "recommended",
     },
     schema: [],
     messages: {
-      voidReturnType: "Non-exported functions cannot have a void return types.",
+      voidReturnType:
+        "Non-exported functions cannot have a `void` return type. Remove the `void` keyword.",
     },
     fixable: "code",
   },

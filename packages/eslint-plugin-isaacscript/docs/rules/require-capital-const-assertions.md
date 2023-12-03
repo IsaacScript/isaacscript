@@ -18,7 +18,7 @@ Since enums should never be modified, it almost always makes sense to use the [c
 
 Similarly, the same logic applies to objects or arrays that are representing a static, read-only constant - they should also always have a const assertion.
 
-Use this rule to ensure read-only fields on all of the enums and constants throughout your code base to keep things as safe as possible.
+Use this rule to ensure read-only fields on all of the enums and constants throughout your codebase to keep things as safe as possible.
 
 ```ts
 // Bad
