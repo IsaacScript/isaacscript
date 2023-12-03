@@ -37,7 +37,7 @@
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
-    "eslint-plugin-isaacscript": "^3.10.1",
+    "eslint-plugin-isaacscript": "^3.11.0",
     "eslint-plugin-jsdoc": "^46.9.0",
     "eslint-plugin-n": "^16.3.1",
     "eslint-plugin-no-autofix": "^1.2.3",
@@ -46,7 +46,7 @@
     "knip": "^3.4.0",
     "prettier": "^3.1.0",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "prettier-plugin-packagejson": "^2.4.6",
+    "prettier-plugin-packagejson": "^2.4.7",
     "ts-prune-2": "^0.10.7"
   },
   "peerDependencies": {

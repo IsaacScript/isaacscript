@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `prefer-readonly-parameter-types`
   - `strict-void-functions`
   - `strict-undefined-functions`
+  - `no-undefined-return-type`
 
 ## December 1st, 2023
 

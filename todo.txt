@@ -1,4 +1,3 @@
-- rule for `undefined` return value
 - whitelist read-only return values for both incoming and outgoing rules
 
 - fix `return error` lint case in deepCopy, need to use unreachable TypeScript API
