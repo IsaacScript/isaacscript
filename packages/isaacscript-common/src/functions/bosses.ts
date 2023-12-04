@@ -1,4 +1,4 @@
-import type { LevelStage, StageType } from "isaac-typescript-definitions";
+import type { LevelStage, StageID } from "isaac-typescript-definitions";
 import {
   BossID,
   EntityType,
@@ -13,8 +13,9 @@ import { BOSS_NAMES, DEFAULT_BOSS_NAME } from "../objects/bossNames";
 import {
   ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
   ALL_BOSSES_SET,
+  BOSS_ID_TO_STAGE_IDS,
+  STAGE_ID_TO_BOSS_SET_MAP,
   STAGE_TO_COMBINED_BOSS_SET_MAP,
-  STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP,
 } from "../sets/bossSets";
 import { REPENTANCE_ONLY_BOSS_IDS_SET } from "../sets/repentanceBossIDsSet";
 import { SIN_ENTITY_TYPES_SET } from "../sets/sinEntityTypesSet";
@@ -147,16 +148,13 @@ export function getBossName(bossID: BossID): string {
  *
  * Also see the `getAllBossesSet` and `getCombinedBossSet` functions.
  */
-export function getBossSet(
-  stage: LevelStage,
-  stageType: StageType,
-): ReadonlySet<BossID> | undefined {
-  const stageTypeMap = STAGE_TO_STAGE_TYPE_TO_BOSS_SET_MAP.get(stage);
-  if (stageTypeMap === undefined) {
-    return undefined;
-  }
+export function getBossSet(stageID: StageID): ReadonlySet<BossID> | undefined {
+  return STAGE_ID_TO_BOSS_SET_MAP.get(stageID);
+}
 
-  return stageTypeMap.get(stageType);
+/** Helper function to get the set of stage IDs that a particular boss naturally appears in. */
+export function getBossStageIDs(bossID: BossID): ReadonlySet<StageID> {
+  return BOSS_ID_TO_STAGE_IDS[bossID];
 }
 
 /**

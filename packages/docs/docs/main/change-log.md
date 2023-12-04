@@ -11,6 +11,8 @@ This page lists the changes to the IsaacScript framework.
 
 ## December 8th, 2023 (Unreleased)
 
+- Added the following helper functions:
+  - `getBossStageIDs`
 - Added the following types:
   - `ReadonlyRecord`
 - Added the following lint rules:
@@ -18,6 +20,8 @@ This page lists the changes to the IsaacScript framework.
   - `strict-void-functions`
   - `strict-undefined-functions`
   - `no-undefined-return-type`
+- Changed the following helper functions:
+- `getBossSet` - Now takes in a `StageID`.
 
 ## December 1st, 2023
 

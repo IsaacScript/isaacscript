@@ -1,4 +1,9 @@
-/** This matches the filename used in the XML/STB file for the room. */
+/**
+ * Corresponds to the filename used in the XML/STB file for the room.
+ *
+ * This enum is not contiguous. In other words, the enum ranges from `StageID.SPECIAL_ROOMS` (0) to
+ * `StageID.BACKWARDS` (36), but there are no values corresponding to 18 through 25.
+ */
 export enum StageID {
   SPECIAL_ROOMS = 0,
   BASEMENT = 1,

@@ -29,7 +29,7 @@ import { getEnumValues } from "../functions/enums";
 
 export const ACTIVE_SLOT_VALUES = getEnumValues(ActiveSlot);
 
-export const BOSS_IDS = getEnumValues(BossID);
+export const BOSS_ID_VALUES = getEnumValues(BossID);
 
 export const CACHE_FLAG_VALUES = getEnumValues(CacheFlag);
 
