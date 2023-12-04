@@ -1,8 +1,7 @@
 /**
  * Corresponds to the filename used in the XML/STB file for the room.
  *
- * This enum is not contiguous. In other words, the enum ranges from `StageID.SPECIAL_ROOMS` (0) to
- * `StageID.BACKWARDS` (36), but there are no values corresponding to 18 through 25.
+ * This enum is contiguous. (Every value is satisfied between 0 and 36, inclusive.)
  */
 export enum StageID {
   SPECIAL_ROOMS = 0,
@@ -23,6 +22,14 @@ export enum StageID {
   CATHEDRAL = 15,
   DARK_ROOM = 16,
   CHEST = 17,
+  SPECIAL_ROOMS_GREED_MODE = 18,
+  BASEMENT_GREED_MODE = 19,
+  CAVES_GREED_MODE = 20,
+  DEPTHS_GREED_MODE = 21,
+  WOMB_GREED_MODE = 22,
+  SHEOL_GREED_MODE = 23,
+  SHOP_GREED_MODE = 24,
+  ULTRA_GREED_GREED_MODE = 25,
   VOID = 26,
   DOWNPOUR = 27,
   DROSS = 28,

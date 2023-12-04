@@ -3,6 +3,7 @@ import type {
   ItemPoolType,
 } from "isaac-typescript-definitions";
 import {
+  BossID,
   DamageFlag,
   DisplayFlag,
   EntityFlag,
@@ -15,6 +16,7 @@ import {
   RoomType,
   SeedEffect,
   SoundEffect,
+  StageID,
   TearFlag,
   UseFlag,
 } from "isaac-typescript-definitions";
@@ -351,7 +353,7 @@ export function logRoom(this: void): void {
   const roomData = getRoomData();
 
   log("Logging room information:");
-  log(`- Room stage ID: ${roomData.StageID}`);
+  log(`- Room stage ID: ${StageID[roomData.StageID]} (roomData.StageID)`);
   log(`- Room type: ${RoomType[roomData.Type]} (${roomData.Type})`);
   log(`- Variant: ${roomData.Variant}`);
   log(`- Sub-type: ${roomData.Subtype}`);
@@ -361,11 +363,15 @@ export function logRoom(this: void): void {
   if (roomGridIndexName === undefined) {
     log(`- Grid index: ${roomGridIndex}`);
   } else {
-    log(`- Grid index: GridRoom.${roomGridIndexName} (${roomGridIndex})`);
+    log(`- Grid index: ${roomGridIndexName} (${roomGridIndex})`);
   }
 
   log(`- List index: ${roomListIndex}`);
-  log(`- Boss ID: ${bossID}`);
+  if (bossID === undefined) {
+    log("- Boss ID: undefined");
+  } else {
+    log(`- Boss ID: ${BossID[bossID]} (${bossID})`);
+  }
 }
 
 /**

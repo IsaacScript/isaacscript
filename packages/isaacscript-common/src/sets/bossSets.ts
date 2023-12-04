@@ -486,7 +486,7 @@ export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET = new ReadonlySet(
 );
 
 export const BOSS_ID_TO_STAGE_IDS = (() => {
-  const bossIDsToStageIDs: Partial<Record<BossID, Set<StageID>>> = {};
+  const partialBossIDsToStageIDs: Partial<Record<BossID, Set<StageID>>> = {};
 
   for (const bossID of BOSS_ID_VALUES) {
     const stageIDs = new Set<StageID>();
@@ -496,8 +496,22 @@ export const BOSS_ID_TO_STAGE_IDS = (() => {
       }
     }
 
-    bossIDsToStageIDs[bossID] = stageIDs;
+    partialBossIDsToStageIDs[bossID] = stageIDs;
   }
+
+  const bossIDsToStageIDs = partialBossIDsToStageIDs as Record<
+    BossID,
+    Set<StageID>
+  >;
+
+  // In Repentance, the following bosses will have empty sets:
+  // - BossID.ULTRA_GREED (62)
+  // - BossID.ULTRA_GREEDIER (71)
+  // - BossID.MAUSOLEUM_MOMS_HEART (90)
+  // - BossID.RAGLICH (98)
+
+  /// bossIDsToStageIDs[BossID.ULTRA_GREED].add(StageID.ASHPIT)
+  // TODO
 
   return bossIDsToStageIDs as Readonly<Record<BossID, ReadonlySet<StageID>>>;
 })();
