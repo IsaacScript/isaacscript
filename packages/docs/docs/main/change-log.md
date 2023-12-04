@@ -21,7 +21,7 @@ This page lists the changes to the IsaacScript framework.
   - `strict-undefined-functions`
   - `no-undefined-return-type`
 - Changed the following helper functions:
-- `getBossSet` - Now takes in a `StageID`.
+  - `getBossSet` - Now takes in a `StageID`.
 
 ## December 1st, 2023
 
