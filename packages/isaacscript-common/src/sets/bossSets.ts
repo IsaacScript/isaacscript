@@ -510,8 +510,10 @@ export const BOSS_ID_TO_STAGE_IDS = (() => {
   // - BossID.MAUSOLEUM_MOMS_HEART (90)
   // - BossID.RAGLICH (98)
 
-  /// bossIDsToStageIDs[BossID.ULTRA_GREED].add(StageID.ASHPIT)
-  // TODO
+  bossIDsToStageIDs[BossID.ULTRA_GREED].add(StageID.ULTRA_GREED_GREED_MODE); // 62
+  bossIDsToStageIDs[BossID.ULTRA_GREEDIER].add(StageID.ULTRA_GREED_GREED_MODE); // 71
+  bossIDsToStageIDs[BossID.MAUSOLEUM_MOMS_HEART].add(StageID.MAUSOLEUM); // 90
+  bossIDsToStageIDs[BossID.MAUSOLEUM_MOMS_HEART].add(StageID.GEHENNA); // 90
 
   return bossIDsToStageIDs as Readonly<Record<BossID, ReadonlySet<StageID>>>;
 })();
