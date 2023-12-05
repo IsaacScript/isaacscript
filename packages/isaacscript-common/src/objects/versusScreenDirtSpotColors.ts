@@ -30,14 +30,8 @@ export const VERSUS_SCREEN_DIRT_SPOT_COLORS = {
   [StageID.CATHEDRAL]: newReadonlyColor(44 / 255, 100 / 255, 111 / 255), // 15
   [StageID.DARK_ROOM]: newReadonlyColor(80 / 255, 38 / 255, 20 / 255), // 16
   [StageID.CHEST]: newReadonlyColor(175 / 255, 108 / 255, 72 / 255), // 17
-  [StageID.SPECIAL_ROOMS_GREED_MODE]: DEFAULT_COLOR, // 18
-  [StageID.BASEMENT_GREED_MODE]: BASEMENT_COLOR, // 19
-  [StageID.CAVES_GREED_MODE]: CAVES_COLOR, // 20
-  [StageID.DEPTHS_GREED_MODE]: DEPTHS_COLOR, // 21
-  [StageID.WOMB_GREED_MODE]: WOMB_COLOR, // 22
-  [StageID.SHEOL_GREED_MODE]: SHEOL_COLOR, // 23
-  [StageID.SHOP_GREED_MODE]: DEFAULT_COLOR, // 24
-  [StageID.ULTRA_GREED_GREED_MODE]: DEFAULT_COLOR, // 25
+  [StageID.SHOP]: DEFAULT_COLOR, // 24
+  [StageID.ULTRA_GREED]: DEFAULT_COLOR, // 25
   [StageID.VOID]: newReadonlyColor(70 / 255, 5 / 255, 5 / 255), // 26
   [StageID.DOWNPOUR]: newReadonlyColor(149 / 255, 157 / 255, 167 / 255), // 27
   [StageID.DROSS]: newReadonlyColor(179 / 255, 179 / 255, 143 / 255), // 28

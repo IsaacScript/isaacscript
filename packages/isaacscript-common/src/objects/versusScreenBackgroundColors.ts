@@ -30,14 +30,8 @@ export const VERSUS_SCREEN_BACKGROUND_COLORS = {
   [StageID.CATHEDRAL]: newReadonlyColor(6 / 255, 13 / 255, 17 / 255), // 15
   [StageID.DARK_ROOM]: newReadonlyColor(9 / 255, 4 / 255, 3 / 255), // 16
   [StageID.CHEST]: newReadonlyColor(15 / 255, 9 / 255, 6 / 255), // 17
-  [StageID.SPECIAL_ROOMS_GREED_MODE]: DEFAULT_COLOR, // 18
-  [StageID.BASEMENT_GREED_MODE]: BASEMENT_COLOR, // 19
-  [StageID.CAVES_GREED_MODE]: CAVES_COLOR, // 20
-  [StageID.DEPTHS_GREED_MODE]: DEPTHS_COLOR, // 21
-  [StageID.WOMB_GREED_MODE]: WOMB_COLOR, // 22
-  [StageID.SHEOL_GREED_MODE]: SHEOL_COLOR, // 23
-  [StageID.SHOP_GREED_MODE]: DEFAULT_COLOR, // 24
-  [StageID.ULTRA_GREED_GREED_MODE]: DEFAULT_COLOR, // 25
+  [StageID.SHOP]: DEFAULT_COLOR, // 24
+  [StageID.ULTRA_GREED]: DEFAULT_COLOR, // 25
   [StageID.VOID]: newReadonlyColor(0, 0, 0), // 26
   [StageID.DOWNPOUR]: newReadonlyColor(29 / 255, 30 / 255, 32 / 255), // 27
   [StageID.DROSS]: newReadonlyColor(35 / 255, 35 / 255, 29 / 255), // 28

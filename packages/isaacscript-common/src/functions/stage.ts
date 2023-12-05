@@ -1,15 +1,17 @@
-import type { StageID } from "isaac-typescript-definitions";
 import {
   GameStateFlag,
   LevelStage,
   RoomType,
+  StageID,
   StageType,
 } from "isaac-typescript-definitions";
 import { game } from "../core/cachedClasses";
-import { LEVEL_NAMES } from "../objects/levelNames";
 import { ROOM_TYPE_SPECIAL_GOTO_PREFIXES } from "../objects/roomTypeSpecialGotoPrefixes";
 import { STAGE_ID_NAMES } from "../objects/stageIDNames";
-import { STAGE_TO_STAGE_ID } from "../objects/stageToStageID";
+import {
+  STAGE_TO_STAGE_ID,
+  STAGE_TO_STAGE_ID_GREED_MODE,
+} from "../objects/stageToStageID";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { log } from "./log";
 import { asLevelStage } from "./types";
@@ -139,8 +141,34 @@ export function getLevelName(
     stageType = level.GetStageType();
   }
 
-  const stageNames = LEVEL_NAMES[stage];
-  return stageNames[stageType];
+  const stageID = getStageID(stage, stageType);
+  const stageIDName = getStageIDName(stageID);
+
+  let suffix: string;
+  switch (stage) {
+    case LevelStage.BASEMENT_1:
+    case LevelStage.CAVES_1:
+    case LevelStage.DEPTHS_1:
+    case LevelStage.WOMB_1: {
+      suffix = " 1";
+      break;
+    }
+
+    case LevelStage.BASEMENT_2:
+    case LevelStage.CAVES_2:
+    case LevelStage.DEPTHS_2:
+    case LevelStage.WOMB_2: {
+      suffix = " 2";
+      break;
+    }
+
+    default: {
+      suffix = "";
+      break;
+    }
+  }
+
+  return stageIDName + suffix;
 }
 
 /** Alias for the `Level.GetStage` method. */
@@ -151,9 +179,13 @@ export function getStage(): LevelStage {
 }
 
 /**
- * Helper function to get the stage ID that corresponds to a particular floor. It does this by
- * manually converting `LevelStage` and `StageType` into `StageID`. This is useful because
- * `getRoomStageID` will not correctly return the `StageID` if the player is in a special room.
+ * Helper function to get the stage ID that corresponds to a particular stage and stage type.
+ *
+ * This is useful because `getRoomStageID` will not correctly return the `StageID` if the player is
+ * in a special room.
+ *
+ * This correctly handles the case of Greed Mode. In Greed Mode, if an undefined stage and stage
+ * type combination are passed, `StageID.SPECIAL_ROOMS` (0) will be returned.
  *
  * @param stage Optional. If not specified, the stage corresponding to the current floor will be
  *              used.
@@ -169,6 +201,15 @@ export function getStageID(stage?: LevelStage, stageType?: StageType): StageID {
 
   if (stageType === undefined) {
     stageType = level.GetStageType();
+  }
+
+  if (game.IsGreedMode()) {
+    const stageTypeToStageID = STAGE_TO_STAGE_ID_GREED_MODE.get(stage);
+    if (stageTypeToStageID === undefined) {
+      return StageID.SPECIAL_ROOMS;
+    }
+
+    return stageTypeToStageID[stageType];
   }
 
   const stageTypeToStageID = STAGE_TO_STAGE_ID[stage];

@@ -1,4 +1,5 @@
 import { LevelStage, StageID, StageType } from "isaac-typescript-definitions";
+import { ReadonlyMap } from "../types/ReadonlyMap";
 
 const BASEMENT_TO_STAGE_ID = {
   [StageType.ORIGINAL]: StageID.BASEMENT, // 0
@@ -95,4 +96,35 @@ export const STAGE_TO_STAGE_ID = {
   [LevelStage.DARK_ROOM_CHEST]: DARK_ROOM_CHEST_TO_STAGE_ID, // 11
   [LevelStage.VOID]: VOID_TO_STAGE_ID, // 12
   [LevelStage.HOME]: HOME_TO_STAGE_ID, // 13
-} as const satisfies Record<LevelStage, unknown>;
+} as const satisfies Record<LevelStage, Record<StageType, StageID>>;
+
+const SHOP_TO_STAGE_ID = {
+  [StageType.ORIGINAL]: StageID.SHOP, // 0
+  [StageType.WRATH_OF_THE_LAMB]: StageID.SHOP, // 1
+  [StageType.AFTERBIRTH]: StageID.SHOP, // 2
+  [StageType.GREED_MODE]: StageID.SHOP, // 3
+  [StageType.REPENTANCE]: StageID.SHOP, // 4
+  [StageType.REPENTANCE_B]: StageID.SHOP, // 5
+} as const satisfies Record<StageType, StageID>;
+
+const ULTRA_GREED_TO_STAGE_ID = {
+  [StageType.ORIGINAL]: StageID.ULTRA_GREED, // 0
+  [StageType.WRATH_OF_THE_LAMB]: StageID.ULTRA_GREED, // 1
+  [StageType.AFTERBIRTH]: StageID.ULTRA_GREED, // 2
+  [StageType.GREED_MODE]: StageID.ULTRA_GREED, // 3
+  [StageType.REPENTANCE]: StageID.ULTRA_GREED, // 4
+  [StageType.REPENTANCE_B]: StageID.ULTRA_GREED, // 5
+} as const satisfies Record<StageType, StageID>;
+
+export const STAGE_TO_STAGE_ID_GREED_MODE = new ReadonlyMap<
+  LevelStage,
+  Record<StageType, StageID>
+>([
+  [LevelStage.BASEMENT_GREED_MODE, BASEMENT_TO_STAGE_ID], // 1
+  [LevelStage.CAVES_GREED_MODE, CAVES_TO_STAGE_ID], // 2
+  [LevelStage.DEPTHS_GREED_MODE, DEPTHS_TO_STAGE_ID], // 3
+  [LevelStage.WOMB_GREED_MODE, WOMB_TO_STAGE_ID], // 4
+  [LevelStage.SHEOL_GREED_MODE, SHEOL_CATHEDRAL_TO_STAGE_ID], // 5
+  [LevelStage.SHOP_GREED_MODE, SHOP_TO_STAGE_ID], // 6
+  [LevelStage.ULTRA_GREED_GREED_MODE, ULTRA_GREED_TO_STAGE_ID], // 7
+]);
