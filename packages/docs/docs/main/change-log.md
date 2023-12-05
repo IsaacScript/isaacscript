@@ -17,6 +17,7 @@ This page lists the changes to the IsaacScript framework.
   - `getBossIDsForStage`
   - `getBossIDsForStageID`
   - `getBossStageIDs`
+  - `isArrayElementsUnique`
 - Added the following types:
   - `ReadonlyRecord`
 - Added the following lint rules:

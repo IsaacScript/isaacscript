@@ -587,6 +587,16 @@ export function isArrayContiguous(array: readonly int[]): boolean {
   return true;
 }
 
+/**
+ * Helper function to check if all the elements of an array are unique within that array.
+ *
+ * Under the hood, this is performed by converting the array to a set.
+ */
+export function isArrayElementsUnique(array: readonly unknown[]): boolean {
+  const set = new Set(array);
+  return set.size === array.length;
+}
+
 /** Checks if an array is in the provided 2-dimensional array. */
 export function isArrayInArray<T>(
   arrayToMatch: readonly T[],
