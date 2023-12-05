@@ -1,3 +1,4 @@
+/** This enum is contiguous. (Every value is satisfied between 1 and 29, inclusive.) */
 export enum RoomType {
   // The value of "NULL" is removed, since there are no vanilla rooms with this value and it should
   // be impossible to retrieve this value from the API.
