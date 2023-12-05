@@ -11,10 +11,10 @@ import { ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP } from "../maps/entityTypeVariantToB
 import { BOSS_ID_TO_ENTITY_TYPE_VARIANT } from "../objects/bossIDToEntityTypeVariant";
 import { BOSS_NAMES, DEFAULT_BOSS_NAME } from "../objects/bossNames";
 import {
-  ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET,
-  ALL_BOSSES_SET,
+  ALL_BOSSES,
   BOSS_ID_TO_STAGE_IDS,
-  STAGE_ID_TO_BOSS_SET_MAP,
+  NON_STORY_BOSSES,
+  STAGE_ID_TO_BOSS_IDS,
   STAGE_TO_COMBINED_BOSS_SET_MAP,
 } from "../sets/bossSets";
 import { REPENTANCE_ONLY_BOSS_IDS_SET } from "../sets/repentanceBossIDsSet";
@@ -62,8 +62,8 @@ export function getAliveBosses(
 }
 
 /**
- * Helper function to get the set of every boss in the game (which is derived from the `BossID`
- * enum).
+ * Helper function to get an array with every boss in the game. This is derived from the `BossID`
+ * enum.
  *
  * This includes:
  * - Ultra Greed
@@ -76,17 +76,19 @@ export function getAliveBosses(
  * - sub-bosses of The Beast fight (e.g. Ultra Famine, Ultra Pestilence, Ultra War, Ultra Death)
  * - bosses that do not have any Boss Rooms defined due to being unfinished (e.g. Raglich)
  *
- * Also see the `getBossSet` and `getCombinedBossSet` functions.
- *
- * @param includeStoryBosses Optional. Whether to include "story" bosses like Mom and It Lives.
- *                           Default is true.
+ * Also see the `getAllNonStoryBosses` function.
  */
-export function getAllBossesSet(
-  includeStoryBosses = true,
-): ReadonlySet<BossID> {
-  return includeStoryBosses
-    ? ALL_BOSSES_SET
-    : ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET;
+export function getAllBosses(): readonly BossID[] {
+  return ALL_BOSSES;
+}
+
+/**
+ * Helper function to get an array with every boss in the game. This is derived from the `BossID`
+ * enum. This is the same thing as the `getAllBosses` helper function, but with story bosses
+ * filtered out.
+ */
+export function getAllNonStoryBosses(): readonly BossID[] {
+  return NON_STORY_BOSSES;
 }
 
 /**
@@ -133,6 +135,31 @@ export function getBossIDFromEntityTypeVariant(
 }
 
 /**
+ * Helper function to get the set of vanilla bosses for a particular stage across all of the stage
+ * types. For example, specifying `LevelStage.BASEMENT_2` will return a set with all of the bosses
+ * for Basement, Cellar, Burning Basement, Downpour, and Dross.
+ *
+ * Also see the `getAllBossesSet` and `getBossIDsForStageID` functions.
+ */
+export function getBossIDsForStage(
+  stage: LevelStage,
+): ReadonlySet<BossID> | undefined {
+  return STAGE_TO_COMBINED_BOSS_SET_MAP.get(stage);
+}
+
+/**
+ * Helper function to get the set of vanilla bosses that can randomly appear on a particular stage
+ * ID.
+ *
+ * Also see the `getAllBossesSet` and `getBossIDsForStage` functions.
+ */
+export function getBossIDsForStageID(
+  stageID: StageID,
+): readonly BossID[] | undefined {
+  return STAGE_ID_TO_BOSS_IDS.get(stageID);
+}
+
+/**
  * Helper function to get the proper English name for a boss. For example, the name for
  * `BossID.WRETCHED` (36) is "The Wretched".
  */
@@ -140,16 +167,6 @@ export function getBossName(bossID: BossID): string {
   // Handle modded boss IDs.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return BOSS_NAMES[bossID] ?? DEFAULT_BOSS_NAME;
-}
-
-/**
- * Helper function to get the set of vanilla bosses for a particular stage and stage type
- * combination.
- *
- * Also see the `getAllBossesSet` and `getCombinedBossSet` functions.
- */
-export function getBossSet(stageID: StageID): ReadonlySet<BossID> | undefined {
-  return STAGE_ID_TO_BOSS_SET_MAP.get(stageID);
 }
 
 /** Helper function to get the set of stage IDs that a particular boss naturally appears in. */
@@ -176,19 +193,6 @@ export function getBosses(
 ): readonly EntityNPC[] {
   const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
   return npcs.filter((npc) => npc.IsBoss());
-}
-
-/**
- * Helper function to get the set of vanilla bosses for a particular stage across all of the stage
- * types. For example, specifying `LevelStage.BASEMENT_2` will return a set with all of the bosses
- * for Basement, Cellar, Burning Basement, Downpour, and Dross.
- *
- * Also see the `getAllBossesSet` and `getBossSet` functions.
- */
-export function getCombinedBossSet(
-  stage: LevelStage,
-): ReadonlySet<BossID> | undefined {
-  return STAGE_TO_COMBINED_BOSS_SET_MAP.get(stage);
 }
 
 export function getEntityTypeVariantFromBossID(

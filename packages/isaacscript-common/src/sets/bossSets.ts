@@ -1,18 +1,17 @@
 import { BossID, LevelStage, StageID } from "isaac-typescript-definitions";
 import { BOSS_ID_VALUES } from "../arrays/cachedEnumValues";
-import { combineSets } from "../functions/set";
 import { isStoryBossID } from "../functions/storyBosses";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 
-// The "bosspools.xml" file does not actually correspond to the real boss pools, so these sets were
-// determined through experimentation on v1.7.8a.
+// The "bosspools.xml" file does not actually correspond to the real boss pools, so these data
+// structures were determined through experimentation on v1.7.8a.
 
 // We use sets of strings instead of tuples for these data structures because TypeScript/Lua does
 // not have real tuples. If we store bosses as tuples, then we cannot do a set lookup in O(1).
 
 /** For `StageID.BASEMENT` (1). */
-const BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
+const BASEMENT_BOSSES = [
   BossID.MONSTRO, // 1
   BossID.LARRY_JR, // 2
   BossID.FAMINE, // 9
@@ -28,10 +27,10 @@ const BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.DANGLE, // 64
   BossID.TURDLING, // 65
   BossID.BABY_PLUM, // 84 (added in Repentance)
-]);
+] as const;
 
 /** For `StageID.CELLAR` (2). */
-const CELLAR_BOSSES_SET = new ReadonlySet<BossID>([
+const CELLAR_BOSSES = [
   BossID.FAMINE, // 9
   BossID.DUKE_OF_FLIES, // 13
   // - `BossID.FISTULA` (18) was removed in Repentance.
@@ -44,10 +43,10 @@ const CELLAR_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.LITTLE_HORN, // 60
   BossID.RAG_MAN, // 61
   BossID.BABY_PLUM, // 84 (added in Repentance)
-]);
+] as const;
 
 /** For `StageID.BURNING_BASEMENT` (3). */
-const BURNING_BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
+const BURNING_BASEMENT_BOSSES = [
   BossID.MONSTRO, // 1
   BossID.LARRY_JR, // 2
   BossID.FAMINE, // 9
@@ -64,36 +63,36 @@ const BURNING_BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.DANGLE, // 64 (added in Repentance)
   BossID.TURDLING, // 65 (added in Repentance)
   BossID.BABY_PLUM, // 84 (added in Repentance)
-]);
+] as const;
 
 /** For `StageID.DOWNPOUR` (27). */
-const DOWNPOUR_BOSSES_SET = new ReadonlySet<BossID>([
+const DOWNPOUR_BOSSES = [
   BossID.LIL_BLUB, // 75
   BossID.WORMWOOD, // 76
   BossID.RAINMAKER, // 77
   BossID.MIN_MIN, // 91
-]);
+] as const;
 
 /** For `StageID.DROSS` (28). */
-const DROSS_BOSSES_SET = new ReadonlySet<BossID>([
+const DROSS_BOSSES = [
   BossID.LIL_BLUB, // 75
   BossID.WORMWOOD, // 76
   BossID.CLOG, // 92
   BossID.COLOSTOMIA, // 95
   BossID.TURDLET, // 97
-]);
+] as const;
 
 /** The set of unique bosses for Basement, Cellar, Burning Basement, Downpour, and Dross. */
-const ALL_BASEMENT_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  BASEMENT_BOSSES_SET,
-  CELLAR_BOSSES_SET,
-  BURNING_BASEMENT_BOSSES_SET,
-  DOWNPOUR_BOSSES_SET,
-  DROSS_BOSSES_SET,
-);
+const ALL_BASEMENT_BOSSES_SET = new ReadonlySet<BossID>([
+  ...BASEMENT_BOSSES,
+  ...CELLAR_BOSSES,
+  ...BURNING_BASEMENT_BOSSES,
+  ...DOWNPOUR_BOSSES,
+  ...DROSS_BOSSES,
+]);
 
 /** For `StageID.CAVES` (4). */
-const CAVES_BOSSES_SET = new ReadonlySet<BossID>([
+const CAVES_BOSSES = [
   BossID.CHUB, // 3
   BossID.GURDY, // 4
   BossID.PESTILENCE, // 10
@@ -112,10 +111,10 @@ const CAVES_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.RAG_MEGA, // 67
   BossID.BIG_HORN, // 69
   BossID.BUMBINO, // 94 (added in Repentance)
-]);
+] as const;
 
 /** For `StageID.CATACOMBS` (5). */
-const CATACOMBS_BOSSES_SET = new ReadonlySet<BossID>([
+const CATACOMBS_BOSSES = [
   BossID.PESTILENCE, // 10
   BossID.PEEP, // 14
   BossID.HEADLESS_HORSEMAN, // 22
@@ -133,10 +132,10 @@ const CATACOMBS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.RAG_MEGA, // 67
   BossID.BIG_HORN, // 69
   BossID.BUMBINO, // 94 (added in Repentance)
-]);
+] as const;
 
 /** For `StageID.FLOODED_CAVES` (6). */
-const FLOODED_CAVES_BOSSES_SET = new ReadonlySet<BossID>([
+const FLOODED_CAVES_BOSSES = [
   BossID.CHUB, // 3
   BossID.GURDY, // 4
   BossID.PESTILENCE, // 10
@@ -156,40 +155,40 @@ const FLOODED_CAVES_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.RAG_MEGA, // 67
   BossID.BIG_HORN, // 69
   BossID.BUMBINO, // 94 (added in Repentance)
-]);
+] as const;
 
 /** For `StageID.MINES` (29). */
-const MINES_BOSSES_SET = new ReadonlySet<BossID>([
+const MINES_BOSSES = [
   BossID.REAP_CREEP, // 74
   BossID.TUFF_TWINS, // 80
   BossID.HORNFEL, // 82
   BossID.GREAT_GIDEON, // 83
-]);
+] as const;
 
 /** For `StageID.ASHPIT` (30). */
-const ASHPIT_BOSSES_SET = new ReadonlySet<BossID>([
+const ASHPIT_BOSSES = [
   BossID.PILE, // 73
   BossID.GREAT_GIDEON, // 83
   BossID.SINGE, // 93
   BossID.SHELL, // 96
   BossID.CLUTCH, // 102
-]);
+] as const;
 
 /** The set of unique bosses for Caves, Catacombs, Flooded Caves, Mines, and Ashpit. */
-const ALL_CAVES_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  CAVES_BOSSES_SET,
-  CATACOMBS_BOSSES_SET,
-  FLOODED_CAVES_BOSSES_SET,
-  MINES_BOSSES_SET,
-  ASHPIT_BOSSES_SET,
-);
+const ALL_CAVES_BOSSES_SET = new ReadonlySet<BossID>([
+  ...CAVES_BOSSES,
+  ...CATACOMBS_BOSSES,
+  ...FLOODED_CAVES_BOSSES,
+  ...MINES_BOSSES,
+  ...ASHPIT_BOSSES,
+]);
 
 /**
  * For `StageID.DEPTHS` (7).
  *
  * Note that this set includes Mom, even though they are not technically in the boss pool.
  */
-const DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
+const DEPTHS_BOSSES = [
   BossID.MONSTRO_2, // 5
   BossID.MOM, // 6
   BossID.WAR, // 11
@@ -203,14 +202,14 @@ const DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.BROWNIE, // 58
   BossID.SISTERS_VIS, // 68
   BossID.REAP_CREEP, // 74 (added in Repentance)
-]);
+] as const;
 
 /**
  * For `StageID.NECROPOLIS` (8).
  *
  * Note that this set includes Mom, even though they are not technically in the boss pool.
  */
-const NECROPOLIS_BOSSES_SET = new ReadonlySet<BossID>([
+const NECROPOLIS_BOSSES = [
   BossID.MOM, // 6
   BossID.WAR, // 11
   BossID.LOKI, // 15
@@ -223,14 +222,14 @@ const NECROPOLIS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.BROWNIE, // 58
   BossID.SISTERS_VIS, // 68
   BossID.PILE, // 73 (added in Repentance)
-]);
+] as const;
 
 /**
  * For `StageID.DANK_DEPTHS` (9).
  *
  * Note that this set includes Mom, even though they are not technically in the boss pool.
  */
-const DANK_DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
+const DANK_DEPTHS_BOSSES = [
   BossID.MONSTRO_2, // 5
   BossID.MOM, // 6
   BossID.WAR, // 11
@@ -244,38 +243,38 @@ const DANK_DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.BROWNIE, // 58
   BossID.SISTERS_VIS, // 68
   BossID.REAP_CREEP, // 74 (added in Repentance)
-]);
+] as const;
 
 /**
  * For `StageID.MAUSOLEUM` (31).
  *
  * Note that this set includes Mausoleum Mom, even though they are not technically in the boss pool.
  */
-const MAUSOLEUM_BOSSES_SET = new ReadonlySet<BossID>([
+const MAUSOLEUM_BOSSES = [
   BossID.SIREN, // 79
   BossID.HERETIC, // 81
   BossID.MAUSOLEUM_MOM, // 89
-]);
+] as const;
 
 /**
  * For `StageID.GEHENNA` (32).
  *
  * Note that this set includes Mausoleum Mom, even though they are not technically in the boss pool.
  */
-const GEHENNA_BOSSES_SET = new ReadonlySet<BossID>([
+const GEHENNA_BOSSES = [
   BossID.VISAGE, // 78
   BossID.MAUSOLEUM_MOM, // 89
   BossID.HORNY_BOYS, // 101
-]);
+] as const;
 
 /** The set of unique bosses for Depths, Necropolis, Dank Depths, Mausoleum, and Gehenna. */
-const ALL_DEPTHS_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  DEPTHS_BOSSES_SET,
-  NECROPOLIS_BOSSES_SET,
-  DANK_DEPTHS_BOSSES_SET,
-  MAUSOLEUM_BOSSES_SET,
-  GEHENNA_BOSSES_SET,
-);
+const ALL_DEPTHS_BOSSES_SET = new ReadonlySet<BossID>([
+  ...DEPTHS_BOSSES,
+  ...NECROPOLIS_BOSSES,
+  ...DANK_DEPTHS_BOSSES,
+  ...MAUSOLEUM_BOSSES,
+  ...GEHENNA_BOSSES,
+]);
 
 /**
  * For `StageID.WOMB` (10).
@@ -283,7 +282,7 @@ const ALL_DEPTHS_BOSSES_SET: ReadonlySet<BossID> = combineSets(
  * Note that this set includes Mom's Heart & It Lives, even though they are not technically in the
  * boss pool.
  */
-const WOMB_BOSSES_SET = new ReadonlySet<BossID>([
+const WOMB_BOSSES = [
   BossID.SCOLEX, // 7
   BossID.MOMS_HEART, // 8
   BossID.DEATH, // 12
@@ -301,7 +300,7 @@ const WOMB_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.MR_FRED, // 53
   // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
   BossID.MATRIARCH, // 72
-]);
+] as const;
 
 /**
  * For `StageID.UTERO` (11).
@@ -309,7 +308,7 @@ const WOMB_BOSSES_SET = new ReadonlySet<BossID>([
  * Note that this set includes Mom's Heart & It Lives, even though they are not technically in the
  * boss pool.
  */
-const UTERO_BOSSES_SET = new ReadonlySet<BossID>([
+const UTERO_BOSSES = [
   BossID.MOMS_HEART, // 8
   BossID.DEATH, // 12
   // - `BossID.BLASTOCYST` (16) was removed in Repentance.
@@ -326,7 +325,7 @@ const UTERO_BOSSES_SET = new ReadonlySet<BossID>([
   // - `BossID.MR_FRED` (52) was removed in Repentance.
   // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
   // - `BossID.MATRIARCH` (72) was removed in Repentance.
-]);
+] as const;
 
 /**
  * For `StageID.SCARRED_WOMB` (12).
@@ -334,7 +333,7 @@ const UTERO_BOSSES_SET = new ReadonlySet<BossID>([
  * Note that this set includes Mom's Heart & It Lives, even though they are not technically in the
  * boss pool.
  */
-const SCARRED_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
+const SCARRED_WOMB_BOSSES = [
   BossID.SCOLEX, // 7
   BossID.MOMS_HEART, // 8
   BossID.DEATH, // 12
@@ -352,111 +351,119 @@ const SCARRED_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
   BossID.MR_FRED, // 53 (added in Repentance)
   // - `BossID.SISTERS_VIS` (68) was removed in Repentance.
   BossID.MATRIARCH, // 72
-]);
+] as const;
 
 /**
  * For `StageID.CORPSE` (33).
  *
  * Note that this set includes Mother, even though she is not technically in the boss pool.
  */
-const CORPSE_BOSSES_SET = new ReadonlySet<BossID>([
+const CORPSE_BOSSES = [
   BossID.SCOURGE, // 85
   BossID.CHIMERA, // 86
   BossID.ROTGUT, // 87
   BossID.MOTHER, // 88
-]);
+] as const;
 
 /** The set of unique bosses for Womb, Utero, Scarred Womb, and Corpse. */
-const ALL_WOMB_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  WOMB_BOSSES_SET,
-  UTERO_BOSSES_SET,
-  SCARRED_WOMB_BOSSES_SET,
-  CORPSE_BOSSES_SET,
-);
+const ALL_WOMB_BOSSES_SET = new ReadonlySet([
+  ...WOMB_BOSSES,
+  ...UTERO_BOSSES,
+  ...SCARRED_WOMB_BOSSES,
+  ...CORPSE_BOSSES,
+]);
 
-const BLUE_WOMB_BOSSES_SET = new ReadonlySet<BossID>([
+const BLUE_WOMB_BOSSES = [
   BossID.HUSH, // 63
-]);
+] as const;
 
-const SHEOL_BOSSES_SET = new ReadonlySet<BossID>([
+const ALL_BLUE_WOMB_BOSSES_SET = new ReadonlySet<BossID>([...BLUE_WOMB_BOSSES]);
+
+const SHEOL_BOSSES = [
   BossID.SATAN, // 24
-]);
+] as const;
 
-const CATHEDRAL_BOSSES_SET = new ReadonlySet<BossID>([
+const CATHEDRAL_BOSSES = [
   BossID.ISAAC, // 39
-]);
+] as const;
 
-const ALL_STAGE_10_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  SHEOL_BOSSES_SET,
-  CATHEDRAL_BOSSES_SET,
-);
+const ALL_STAGE_10_BOSSES_SET = new ReadonlySet<BossID>([
+  ...SHEOL_BOSSES,
+  ...CATHEDRAL_BOSSES,
+]);
 
 /**
  * Note that this set includes Mega Satan, even though they are not technically in the boss pool.
  */
-const DARK_ROOM_BOSSES_SET = new ReadonlySet<BossID>([
+const DARK_ROOM_BOSSES = [
   BossID.LAMB, // 54
   BossID.MEGA_SATAN, // 55
-]);
+] as const;
 
 /**
  * Note that this set includes Mega Satan, even though they are not technically in the boss pool.
  */
-const CHEST_BOSSES_SET = new ReadonlySet<BossID>([
+const CHEST_BOSSES = [
   BossID.BLUE_BABY, // 40
   BossID.MEGA_SATAN, // 55
+] as const;
+
+const ALL_STAGE_11_BOSSES_SET = new ReadonlySet<BossID>([
+  ...DARK_ROOM_BOSSES,
+  ...CHEST_BOSSES,
 ]);
 
-const ALL_STAGE_11_BOSSES_SET: ReadonlySet<BossID> = combineSets(
-  DARK_ROOM_BOSSES_SET,
-  CHEST_BOSSES_SET,
-);
-
-const VOID_BOSSES_SET = new ReadonlySet<BossID>([
+const VOID_BOSSES = [
   BossID.DELIRIUM, // 70
-]);
+] as const;
+
+const ALL_VOID_BOSSES_SET = new ReadonlySet<BossID>([...VOID_BOSSES]);
 
 /**
  * Includes Dogma and The Beast. Does not include Ultra Famine, Ultra Pestilence, Ultra War, and
  * Ultra Death (since they do not have boss IDs).
  */
-const HOME_BOSSES_SET = new ReadonlySet<BossID>([BossID.DOGMA, BossID.BEAST]);
+const HOME_BOSSES = [
+  BossID.DOGMA, // 99
+  BossID.BEAST, // 100
+] as const;
 
-export const STAGE_ID_TO_BOSS_SET_MAP = new ReadonlyMap<
-  StageID,
-  ReadonlySet<BossID>
->([
-  [StageID.BASEMENT, BASEMENT_BOSSES_SET], // 1
-  [StageID.CELLAR, CELLAR_BOSSES_SET], // 2
-  [StageID.BURNING_BASEMENT, BURNING_BASEMENT_BOSSES_SET], // 3
-  [StageID.DOWNPOUR, DOWNPOUR_BOSSES_SET], // 27
-  [StageID.DROSS, DROSS_BOSSES_SET], // 28
+const ALL_HOME_BOSSES_SET = new ReadonlySet<BossID>([...HOME_BOSSES]);
 
-  [StageID.CAVES, CAVES_BOSSES_SET], // 4
-  [StageID.CATACOMBS, CATACOMBS_BOSSES_SET], // 5
-  [StageID.FLOODED_CAVES, FLOODED_CAVES_BOSSES_SET], // 6
-  [StageID.MINES, MINES_BOSSES_SET], // 29
-  [StageID.ASHPIT, ASHPIT_BOSSES_SET], // 30
+export const STAGE_ID_TO_BOSS_IDS = new ReadonlyMap<StageID, readonly BossID[]>(
+  [
+    [StageID.BASEMENT, BASEMENT_BOSSES], // 1
+    [StageID.CELLAR, CELLAR_BOSSES], // 2
+    [StageID.BURNING_BASEMENT, BURNING_BASEMENT_BOSSES], // 3
+    [StageID.DOWNPOUR, DOWNPOUR_BOSSES], // 27
+    [StageID.DROSS, DROSS_BOSSES], // 28
 
-  [StageID.DEPTHS, DEPTHS_BOSSES_SET], // 7
-  [StageID.NECROPOLIS, NECROPOLIS_BOSSES_SET], // 8
-  [StageID.DANK_DEPTHS, DANK_DEPTHS_BOSSES_SET], // 9
-  [StageID.MAUSOLEUM, MAUSOLEUM_BOSSES_SET], // 31
-  [StageID.GEHENNA, GEHENNA_BOSSES_SET], // 32
+    [StageID.CAVES, CAVES_BOSSES], // 4
+    [StageID.CATACOMBS, CATACOMBS_BOSSES], // 5
+    [StageID.FLOODED_CAVES, FLOODED_CAVES_BOSSES], // 6
+    [StageID.MINES, MINES_BOSSES], // 29
+    [StageID.ASHPIT, ASHPIT_BOSSES], // 30
 
-  [StageID.WOMB, WOMB_BOSSES_SET], // 10
-  [StageID.UTERO, UTERO_BOSSES_SET], // 11
-  [StageID.SCARRED_WOMB, SCARRED_WOMB_BOSSES_SET], // 12
-  [StageID.CORPSE, CORPSE_BOSSES_SET], // 33
+    [StageID.DEPTHS, DEPTHS_BOSSES], // 7
+    [StageID.NECROPOLIS, NECROPOLIS_BOSSES], // 8
+    [StageID.DANK_DEPTHS, DANK_DEPTHS_BOSSES], // 9
+    [StageID.MAUSOLEUM, MAUSOLEUM_BOSSES], // 31
+    [StageID.GEHENNA, GEHENNA_BOSSES], // 32
 
-  [StageID.BLUE_WOMB, BLUE_WOMB_BOSSES_SET], // 13
-  [StageID.SHEOL, SHEOL_BOSSES_SET], // 14
-  [StageID.CATHEDRAL, CATHEDRAL_BOSSES_SET], // 15
-  [StageID.DARK_ROOM, DARK_ROOM_BOSSES_SET], // 16
-  [StageID.CHEST, CHEST_BOSSES_SET], // 17
-  [StageID.VOID, VOID_BOSSES_SET], // 26
-  [StageID.HOME, HOME_BOSSES_SET], // 35
-]);
+    [StageID.WOMB, WOMB_BOSSES], // 10
+    [StageID.UTERO, UTERO_BOSSES], // 11
+    [StageID.SCARRED_WOMB, SCARRED_WOMB_BOSSES], // 12
+    [StageID.CORPSE, CORPSE_BOSSES], // 33
+
+    [StageID.BLUE_WOMB, BLUE_WOMB_BOSSES], // 13
+    [StageID.SHEOL, SHEOL_BOSSES], // 14
+    [StageID.CATHEDRAL, CATHEDRAL_BOSSES], // 15
+    [StageID.DARK_ROOM, DARK_ROOM_BOSSES], // 16
+    [StageID.CHEST, CHEST_BOSSES], // 17
+    [StageID.VOID, VOID_BOSSES], // 26
+    [StageID.HOME, HOME_BOSSES], // 35
+  ],
+);
 
 export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
   LevelStage,
@@ -470,19 +477,19 @@ export const STAGE_TO_COMBINED_BOSS_SET_MAP = new ReadonlyMap<
   [LevelStage.DEPTHS_2, ALL_DEPTHS_BOSSES_SET], // 6
   [LevelStage.WOMB_1, ALL_WOMB_BOSSES_SET], // 7
   [LevelStage.WOMB_2, ALL_WOMB_BOSSES_SET], // 8
-  [LevelStage.BLUE_WOMB, BLUE_WOMB_BOSSES_SET], // 9
+  [LevelStage.BLUE_WOMB, ALL_BLUE_WOMB_BOSSES_SET], // 9
   [LevelStage.SHEOL_CATHEDRAL, ALL_STAGE_10_BOSSES_SET], // 10
   [LevelStage.DARK_ROOM_CHEST, ALL_STAGE_11_BOSSES_SET], // 11
-  [LevelStage.VOID, VOID_BOSSES_SET], // 12
-  [LevelStage.HOME, HOME_BOSSES_SET], // 13
+  [LevelStage.VOID, ALL_VOID_BOSSES_SET], // 12
+  [LevelStage.HOME, ALL_HOME_BOSSES_SET], // 13
 ]);
 
-export const ALL_BOSSES_SET = new ReadonlySet<BossID>(
-  BOSS_ID_VALUES.filter((bossID) => bossID !== BossID.RAGLICH),
+export const ALL_BOSSES: readonly BossID[] = BOSS_ID_VALUES.filter(
+  (bossID) => bossID !== BossID.RAGLICH,
 );
 
-export const ALL_BOSSES_EXCLUDING_STORY_BOSSES_SET = new ReadonlySet(
-  [...ALL_BOSSES_SET].filter((bossID) => !isStoryBossID(bossID)),
+export const NON_STORY_BOSSES: readonly BossID[] = ALL_BOSSES.filter(
+  (bossID) => !isStoryBossID(bossID),
 );
 
 export const BOSS_ID_TO_STAGE_IDS = (() => {
@@ -490,8 +497,8 @@ export const BOSS_ID_TO_STAGE_IDS = (() => {
 
   for (const bossID of BOSS_ID_VALUES) {
     const stageIDs = new Set<StageID>();
-    for (const [stageID, bossSet] of STAGE_ID_TO_BOSS_SET_MAP) {
-      if (bossSet.has(bossID)) {
+    for (const [stageID, bossIDs] of STAGE_ID_TO_BOSS_IDS) {
+      if (bossIDs.includes(bossID)) {
         stageIDs.add(stageID);
       }
     }
