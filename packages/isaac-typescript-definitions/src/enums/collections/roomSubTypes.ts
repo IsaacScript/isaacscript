@@ -44,6 +44,9 @@ export enum TreasureRoomSubType {
  * The enum is named `BossID` instead of `BossRoomSubType` in order to match the `Entity.GetBossID`,
  * `Room.GetBossID` and `Room.GetSecondBossID` methods.
  *
+ * There is no BossID with a value of 0 because this is the default return value for "no boss ID"
+ * when using the `Room.GetBossID` method.
+ *
  * This enum is contiguous. (Every value is satisfied between 1 and 102, inclusive.)
  *
  * Also see the `MinibossID` enum.
