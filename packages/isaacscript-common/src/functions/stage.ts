@@ -8,6 +8,7 @@ import {
 import { game } from "../core/cachedClasses";
 import { LEVEL_NAMES } from "../objects/levelNames";
 import { ROOM_TYPE_SPECIAL_GOTO_PREFIXES } from "../objects/roomTypeSpecialGotoPrefixes";
+import { STAGE_ID_NAMES } from "../objects/stageIDNames";
 import { STAGE_TO_STAGE_ID } from "../objects/stageToStageID";
 import { STAGE_TYPE_SUFFIXES } from "../objects/stageTypeSuffixes";
 import { log } from "./log";
@@ -172,6 +173,18 @@ export function getStageID(stage?: LevelStage, stageType?: StageType): StageID {
 
   const stageTypeToStageID = STAGE_TO_STAGE_ID[stage];
   return stageTypeToStageID[stageType];
+}
+
+/**
+ * Helper function to get the English name corresponding to a stage ID. For example, "Caves".
+ *
+ * This is derived from the data in the "stages.xml" file.
+ *
+ * Note that unlike "stages.xml", Blue Womb is specified with a name of "Blue Womb" instead of
+ * "???".
+ */
+export function getStageIDName(stageID: StageID): string {
+  return STAGE_ID_NAMES[stageID];
 }
 
 /** Alias for the `Level.GetStageType` method. */
