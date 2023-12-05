@@ -356,6 +356,27 @@ function addCombinations<T>(
 }
 
 /**
+ * Helper function to get the duplicate elements in an array. Only one element for each value will
+ * be returned. The elements will be sorted before they are returned.
+ */
+export function getArrayDuplicateElements<T>(
+  array: readonly T[],
+): readonly T[] {
+  const duplicateElements = new Set<T>();
+  const set = new Set<T>();
+
+  for (const element of array) {
+    if (set.has(element)) {
+      duplicateElements.add(element);
+    }
+    set.add(element);
+  }
+
+  const values = [...duplicateElements];
+  return values.sort();
+}
+
+/**
  * Helper function to get an array containing the indexes of an array.
  *
  * For example, an array of `["Apple", "Banana"]` would return an array of `[0, 1]`.

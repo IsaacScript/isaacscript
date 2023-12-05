@@ -14,6 +14,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following helper functions:
   - `getAllBosses`
   - `getAllNonStoryBosses`
+  - `getArrayDuplicateElements`
   - `getBossIDsForStage`
   - `getBossIDsForStageID`
   - `getBossStageIDs`
