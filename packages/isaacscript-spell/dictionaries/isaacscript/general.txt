@@ -42,6 +42,7 @@ redownloaded
 redownloading
 regexes
 reimplement
+reprex
 ruleset
 rulesets
 sandboxing
