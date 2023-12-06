@@ -1,16 +1,14 @@
-import type {
-  ActiveSlot,
-  DamageFlag,
-  UseFlag,
-} from "isaac-typescript-definitions";
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import {
   BossID,
   CollectibleType,
+  DamageFlag,
   DamageFlagZero,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
+import { hasFlag } from "../../functions/flag";
 import {
   mapGetPlayer,
   mapSetPlayer,
@@ -108,6 +106,12 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
       player,
     );
     mapSetPlayer(v.run.playersLastDamageGameFrame, player, gameFrameCount);
+
+    // If the damage has the damage flag of `DamageFlag.NO_KILL` (1 << 0), this will not be fatal
+    // damage. (This is present on things like the Bad Trip pill.)
+    if (hasFlag(damageFlags, DamageFlag.NO_KILL)) {
+      return undefined;
+    }
 
     // If the player has a revival item such as Dead Cat, this will not be fatal damage.
     if (willPlayerRevive(player)) {
