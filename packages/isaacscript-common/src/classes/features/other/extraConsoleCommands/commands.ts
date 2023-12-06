@@ -55,6 +55,7 @@ import {
   LevelStage,
   PillColor,
   PlayerType,
+  PocketItemSlot,
   RoomType,
   SoundEffect,
   StageType,
@@ -98,6 +99,7 @@ import {
   spawnTrinket as spawnTrinketFunction,
 } from "../../../../functions/pickupsSpecific";
 import {
+  getHorsePillColor,
   getPillEffectName,
   isValidPillEffect,
 } from "../../../../functions/pills";
@@ -843,6 +845,11 @@ export function hitboxes(): void {
   Isaac.ExecuteCommand("debug 6");
 }
 
+/** The same thing as the `pill` command, but gives a horse pill instead of a normal pill. */
+export function horse(params: string): void {
+  pill(params, true);
+}
+
 /** Warps to the Blue Womb Boss Room. */
 export function hush(): void {
   setStage(LevelStage.BLUE_WOMB, StageType.ORIGINAL);
@@ -1036,7 +1043,7 @@ export function oneHP(): void {
  * - `pill 5` - Gives a "Full Health" pill.
  * - `pill suns` - Gives a "Feels like I'm walking on sunshine" pill.
  */
-export function pill(params: string): void {
+export function pill(params: string, isHorse = false): void {
   if (params === "") {
     print("You must specify a pill name or number.");
     return;
@@ -1063,7 +1070,19 @@ export function pill(params: string): void {
 
   const pillEffectName = getPillEffectName(pillEffect);
   Isaac.ExecuteCommand(`g p${pillEffect}`);
-  print(`Gave pill: ${pillEffectName} (${pillEffect})`);
+
+  if (isHorse) {
+    const player = Isaac.GetPlayer();
+    const pillColor = player.GetPill(PocketItemSlot.SLOT_1);
+    const horsePillColor = getHorsePillColor(pillColor);
+    player.SetPill(PocketItemSlot.SLOT_1, horsePillColor);
+  }
+
+  if (isHorse) {
+    print(`Gave horse pill: ${pillEffectName} (${pillEffect})`);
+  } else {
+    print(`Gave pill: ${pillEffectName} (${pillEffect})`);
+  }
 }
 
 /** Spawns every pill on the ground, starting at the top-left-most tile. */

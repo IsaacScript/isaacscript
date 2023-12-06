@@ -29,6 +29,8 @@ This page lists the changes to the IsaacScript framework.
 - Deleted the following helper functions:
   - `getBossSet`
   - `getAllBossesSet`
+- Added the following custom commands:
+  - `horse`
 
 ## December 1st, 2023
 

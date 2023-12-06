@@ -38,7 +38,7 @@ import { iRange } from "./utils";
  *
  * 1 << 11
  */
-const HORSE_PILL_ADJUSTMENT = 2048;
+const HORSE_PILL_COLOR_ADJUSTMENT = 2048;
 
 /**
  * Helper function to get an array with every non-null pill color. This includes all gold colors and
@@ -62,9 +62,13 @@ export function getFalsePHDPillEffect(pillEffect: PillEffect): PillEffect {
  *
  * For example, passing `PillColor.BLUE_BLUE` would result in 2049, which is the value that
  * corresponds to the horse pill color for blue/blue.
+ *
+ * If passed a horse pill color, this function will return the unmodified pill color.
  */
 export function getHorsePillColor(pillColor: PillColor): PillColor {
-  return pillColor + HORSE_PILL_ADJUSTMENT;
+  return isHorsePill(pillColor)
+    ? pillColor
+    : pillColor + HORSE_PILL_COLOR_ADJUSTMENT;
 }
 
 /** Helper function to get an array with every non-gold horse pill color. */
@@ -81,7 +85,7 @@ export function getHorsePillColors(): readonly PillColor[] {
  */
 export function getNormalPillColorFromHorse(pillColor: PillColor): PillColor {
   return isHorsePill(pillColor)
-    ? asPillColor(pillColor - HORSE_PILL_ADJUSTMENT)
+    ? asPillColor(pillColor - HORSE_PILL_COLOR_ADJUSTMENT)
     : pillColor;
 }
 
@@ -207,7 +211,7 @@ export function isGoldPill(pillColor: PillColor): boolean {
 
 /** Helper function to see if the given pill color is a horse pill. */
 export function isHorsePill(pillColor: PillColor): boolean {
-  return asNumber(pillColor) > HORSE_PILL_ADJUSTMENT;
+  return asNumber(pillColor) > HORSE_PILL_COLOR_ADJUSTMENT;
 }
 
 export function isModdedPillEffect(pillEffect: PillEffect): boolean {
