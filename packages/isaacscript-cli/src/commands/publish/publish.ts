@@ -112,7 +112,7 @@ async function prePublish(
   execShellString("git push");
   await updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   incrementVersion(options, typeScript);
-  unsetDevelopmentConstant();
+  unsetDevelopmentConstants();
 
   tryRunNPMScript("build", verbose);
   if (!skipLint) {
@@ -223,7 +223,7 @@ function writeVersionToVersionTXT(version: string) {
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
-function unsetDevelopmentConstant() {
+function unsetDevelopmentConstants() {
   if (!isFile(CONSTANTS_TS_PATH)) {
     return;
   }
