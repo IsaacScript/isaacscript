@@ -18,6 +18,9 @@ This page lists the changes to the IsaacScript framework.
   - `getBossIDsForStage`
   - `getBossIDsForStageID`
   - `getBossStageIDs`
+  - `getEdenStartingActiveCollectible`
+  - `getEdenStartingPassiveCollectible`
+  - `getEdenStartingCollectibles`
   - `isArrayElementsUnique`
 - Added the following types:
   - `ReadonlyRecord`

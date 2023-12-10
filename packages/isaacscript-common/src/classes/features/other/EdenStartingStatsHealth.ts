@@ -1,11 +1,15 @@
+import type { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallback } from "isaac-typescript-definitions";
 import { Exported } from "../../../decorators";
+import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import type { PlayerStat } from "../../../enums/PlayerStat";
+import { isActiveCollectible } from "../../../functions/collectibles";
 import {
   mapGetPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
 import { getPlayerHealth } from "../../../functions/playerHealth";
+import { getPlayerIndex } from "../../../functions/playerIndex";
 import { isEden } from "../../../functions/players";
 import { getPlayerStats } from "../../../functions/stats";
 import type { PlayerHealth } from "../../../interfaces/PlayerHealth";
@@ -15,6 +19,8 @@ import { Feature } from "../../private/Feature";
 
 const v = {
   run: {
+    edenActiveCollectibles: new Map<PlayerIndex, CollectibleType>(),
+    edenPassiveCollectibles: new Map<PlayerIndex, CollectibleType>(),
     edenPlayerStats: new Map<PlayerIndex, PlayerStats>(),
     edenPlayerHealth: new Map<PlayerIndex, PlayerHealth>(),
   },
@@ -31,6 +37,13 @@ export class EdenStartingStatsHealth extends Feature {
     this.callbacksUsed = [
       // 9
       [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+    ];
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
+        this.postPlayerCollectibleAdded,
+      ],
     ];
   }
 
@@ -68,6 +81,82 @@ export class EdenStartingStatsHealth extends Feature {
   }
 
   /**
+   * We must use the `POST_PLAYER_COLLECTIBLE_ADDED` callback since the collectibles are not yet
+   * granted in the `POST_PLAYER_INIT` callback.
+   */
+  private readonly postPlayerCollectibleAdded = (
+    player: EntityPlayer,
+    collectibleType: CollectibleType,
+  ): void => {
+    if (!isEden(player)) {
+      return;
+    }
+
+    const playerIndex = getPlayerIndex(player);
+
+    const map = isActiveCollectible(collectibleType)
+      ? v.run.edenActiveCollectibles
+      : v.run.edenPassiveCollectibles;
+
+    if (!map.has(playerIndex)) {
+      map.set(playerIndex, collectibleType);
+    }
+  };
+
+  /**
+   * Helper function to get the active collectible that Eden started with at the beginning of the
+   * run.
+   *
+   * Returns undefined if passed a player that is not Eden or if the starting collectibles are not
+   * yet added. (Eden's starting collectibles are added after the `POST_PLAYER_INIT` callback has
+   * fired.)
+   *
+   * @public
+   */
+  @Exported
+  public getEdenStartingActiveCollectible(
+    player: EntityPlayer,
+  ): CollectibleType | undefined {
+    return mapGetPlayer(v.run.edenActiveCollectibles, player);
+  }
+
+  /**
+   * Helper function to get an array containing the active collectible and the passive collectible
+   * that Eden started with at the beginning of the run. The active collectible will be the first
+   * element and the passive collectible will be the second element.
+   *
+   * Returns an empty array if passed a player that is not Eden or if the starting collectibles are
+   * not yet added. (Eden's starting collectibles are added after the `POST_PLAYER_INIT` callback
+   * has fired.)
+   *
+   * @public
+   */
+  @Exported
+  public getEdenStartingCollectibles(player: EntityPlayer): CollectibleType[] {
+    const collectibleTypes: CollectibleType[] = [];
+
+    const activeCollectibleType = mapGetPlayer(
+      v.run.edenActiveCollectibles,
+      player,
+    );
+
+    if (activeCollectibleType !== undefined) {
+      collectibleTypes.push(activeCollectibleType);
+    }
+
+    const passiveCollectibleType = mapGetPlayer(
+      v.run.edenPassiveCollectibles,
+      player,
+    );
+
+    if (passiveCollectibleType !== undefined) {
+      collectibleTypes.push(passiveCollectibleType);
+    }
+
+    return collectibleTypes;
+  }
+
+  /**
    * Helper function to get the health that Eden started with at the beginning of the run before any
    * of the random collectibles were added.
    *
@@ -82,6 +171,23 @@ export class EdenStartingStatsHealth extends Feature {
     player: EntityPlayer,
   ): Readonly<PlayerHealth> | undefined {
     return mapGetPlayer(v.run.edenPlayerHealth, player);
+  }
+
+  /**
+   * Helper function to get the passive collectible that Eden started with at the beginning of the
+   * run.
+   *
+   * Returns undefined if passed a player that is not Eden or if the starting collectibles are not
+   * yet added. (Eden's starting collectibles are added after the `POST_PLAYER_INIT` callback has
+   * fired.)
+   *
+   * @public
+   */
+  @Exported
+  public getEdenStartingPassiveCollectible(
+    player: EntityPlayer,
+  ): CollectibleType | undefined {
+    return mapGetPlayer(v.run.edenPassiveCollectibles, player);
   }
 
   /**
