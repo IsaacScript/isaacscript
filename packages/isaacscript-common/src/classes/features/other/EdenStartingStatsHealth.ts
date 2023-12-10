@@ -6,10 +6,10 @@ import type { PlayerStat } from "../../../enums/PlayerStat";
 import { isActiveCollectible } from "../../../functions/collectibles";
 import {
   mapGetPlayer,
+  mapHasPlayer,
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
 import { getPlayerHealth } from "../../../functions/playerHealth";
-import { getPlayerIndex } from "../../../functions/playerIndex";
 import { isEden } from "../../../functions/players";
 import { getPlayerStats } from "../../../functions/stats";
 import type { PlayerHealth } from "../../../interfaces/PlayerHealth";
@@ -92,14 +92,12 @@ export class EdenStartingStatsHealth extends Feature {
       return;
     }
 
-    const playerIndex = getPlayerIndex(player);
-
     const map = isActiveCollectible(collectibleType)
       ? v.run.edenActiveCollectibles
       : v.run.edenPassiveCollectibles;
 
-    if (!map.has(playerIndex)) {
-      map.set(playerIndex, collectibleType);
+    if (!mapHasPlayer(map, player)) {
+      mapSetPlayer(map, player, collectibleType);
     }
   };
 
