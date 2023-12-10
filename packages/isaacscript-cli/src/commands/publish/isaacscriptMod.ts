@@ -6,12 +6,10 @@ import {
   isDirectory,
   isFile,
   readFile,
-  writeFile,
 } from "isaacscript-common-node";
 import path from "node:path";
 import { getConfigFromFile } from "../../configFile.js";
 import {
-  CONSTANTS_TS_PATH,
   CWD,
   MOD_SOURCE_PATH,
   MOD_UPLOADER_PATH,
@@ -34,7 +32,6 @@ export async function publishIsaacScriptMod(
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
   const version = getPackageJSONVersion(undefined);
 
-  unsetDevelopmentConstant();
   runReleaseScriptPreCopy(verbose);
   await compileAndCopy(MOD_SOURCE_PATH, modTargetPath, packageManager, verbose);
   purgeRoomXMLs(modTargetPath);
@@ -50,19 +47,6 @@ export async function publishIsaacScriptMod(
 
   const dryRunSuffix = dryRun ? " (dry run)" : "";
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
-}
-
-function unsetDevelopmentConstant() {
-  if (!isFile(CONSTANTS_TS_PATH)) {
-    return;
-  }
-
-  const constantsTS = readFile(CONSTANTS_TS_PATH);
-  const newConstantsTS = constantsTS.replace(
-    "const IS_DEV = true",
-    "const IS_DEV = false",
-  );
-  writeFile(CONSTANTS_TS_PATH, newConstantsTS);
 }
 
 function runReleaseScriptPreCopy(verbose: boolean) {
