@@ -17,6 +17,13 @@
     // We need to read the version of the library from the "package.json" file.
     "resolveJsonModule": true,
 
+    // Force output of CJS. This is necessary because even though we have '"type": "commonjs"' in
+    // the "package.json" file, TypeScript will still output ESM for some reason. We cannot convert
+    // the package to ESM because of a bug in TSTL:
+    // https://github.com/IsaacScript/isaacscript/issues/63
+    // https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1515
+    "module": "CommonJS",
+
     // Recommended as per TypeScriptToLua:
     // https://typescripttolua.github.io/docs/getting-started/
     "target": "ESNext",
@@ -30,13 +37,6 @@
     // The "strictest" TSConfig template turns this to true, but we need to ensure that the import
     // statements in the ".d.ts" files resolve properly.
     "skipLibCheck": false,
-
-    // Force output of CJS. This is necessary because even though we have '"type": "commonjs"' in
-    // the "package.json" file, TypeScript will still output ESM for some reason. We cannot convert
-    // the package to ESM because of a bug in TSTL:
-    // https://github.com/IsaacScript/isaacscript/issues/63
-    // https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1515
-    "module": "CommonJS",
   },
 
   "include": [
