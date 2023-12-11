@@ -42,6 +42,7 @@
     "packages/isaacscript-common": {
       "ignore": [
         "src/classes/features/other/extraConsoleCommands/commands.ts",
+        "src/lib/jsonLua.js",
         "typedoc.config.mjs",
       ],
     },
