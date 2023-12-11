@@ -39,6 +39,12 @@ await buildScript(async ({ packageRoot, outDir }) => {
 
   rm(indexLuaTSPath);
 
+  // Make sure that the transpiled "jsonLua.js" file gets copied over. (TSTL will automatically
+  // transfer "jsonLua.lua", but not "jsonLua.js".)
+  const srcLibPath = path.join(packageRoot, "src", "lib");
+  const dstLibPath = path.join(packageRoot, "dist", "lib");
+  cp(srcLibPath, dstLibPath);
+
   scrubInternalExports();
 });
 
