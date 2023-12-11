@@ -11,6 +11,7 @@ This page lists the changes to the IsaacScript framework.
 
 ## December 17th, 2013 (Unreleased)
 
+- `isaacscript-common` now provides JavaScript files alongside Lua files. (`isaac-typescript-definitions` already does this.)
 - Changed the following helper functions:
   - `eRange` - The reverse functionality has been removed.
   - `iRange` - The reverse functionality has been removed.

@@ -41,7 +41,7 @@ var lua_script = (function () {
       "\r",
       "r",
       "\t",
-      "t"
+      "t",
     );
     var _escape_char_map_inv_1 = lua_newtable([], "/", "/");
     tmp = lua_call(G.str["pairs"], [_escape_char_map_1]);
@@ -65,9 +65,9 @@ var lua_script = (function () {
             return lua_tablegetcall(
               G.str["string"],
               "format",
-              ["u%04x"].concat(lua_mcall(_c, "byte", []))
+              ["u%04x"].concat(lua_mcall(_c, "byte", [])),
             )[0];
-          })
+          }),
         ),
       ];
       return [];
@@ -106,7 +106,7 @@ var lua_script = (function () {
             lua_call(G.str["error"], [
               lua_concat(
                 "invalid table: mixed or invalid key types for array, excepted number, got: ",
-                lua_call(G.str["tostring"], lua_call(G.str["type"], [_k_9]))[0]
+                lua_call(G.str["tostring"], lua_call(G.str["type"], [_k_9]))[0],
               ),
             ]);
           }
@@ -126,14 +126,14 @@ var lua_script = (function () {
           tmp = null;
           var _newTraversalDescription_14 = lua_concat(
             _traversalDescription,
-            lua_concat(lua_call(G.str["tostring"], [_i_13])[0], " - ")
+            lua_concat(lua_call(G.str["tostring"], [_i_13])[0], " - "),
           );
           lua_tablegetcall(
             G.str["table"],
             "insert",
             [_res_6].concat(
-              lua_call(_encode_1, [_v_13, _stack, _newTraversalDescription_14])
-            )
+              lua_call(_encode_1, [_v_13, _stack, _newTraversalDescription_14]),
+            ),
           );
         }
         tmp = null;
@@ -143,8 +143,8 @@ var lua_script = (function () {
             "[",
             lua_concat(
               lua_tablegetcall(G.str["table"], "concat", [_res_6, ","])[0],
-              "]"
-            )
+              "]",
+            ),
           ),
         ];
       } else {
@@ -159,7 +159,7 @@ var lua_script = (function () {
           tmp = null;
           var _newTraversalDescription_17 = lua_concat(
             _traversalDescription,
-            lua_concat(lua_call(G.str["tostring"], [_k_16])[0], " - ")
+            lua_concat(lua_call(G.str["tostring"], [_k_16])[0], " - "),
           );
           if (!lua_eq(lua_call(G.str["type"], [_k_16])[0], "string")) {
             lua_call(G.str["error"], [
@@ -173,11 +173,11 @@ var lua_script = (function () {
                       "excepted string, got: ",
                       lua_call(
                         G.str["tostring"],
-                        lua_call(G.str["type"], [_k_16])
-                      )[0]
-                    )
-                  )
-                )
+                        lua_call(G.str["type"], [_k_16]),
+                      )[0],
+                    ),
+                  ),
+                ),
               ),
             ]);
           }
@@ -195,8 +195,8 @@ var lua_script = (function () {
                   _v_16,
                   _stack,
                   _newTraversalDescription_17,
-                ])[0]
-              )
+                ])[0],
+              ),
             ),
           ]);
         }
@@ -207,8 +207,8 @@ var lua_script = (function () {
             "{",
             lua_concat(
               lua_tablegetcall(G.str["table"], "concat", [_res_6, ","])[0],
-              "}"
-            )
+              "}",
+            ),
           ),
         ];
       }
@@ -221,8 +221,8 @@ var lua_script = (function () {
           '"',
           lua_concat(
             lua_mcall(_val, "gsub", ['[%z\x01-\x19\\"]', _escape_char_1])[0],
-            '"'
-          )
+            '"',
+          ),
         ),
       ];
       return [];
@@ -237,7 +237,7 @@ var lua_script = (function () {
         lua_call(G.str["error"], [
           lua_concat(
             "unexpected number value '",
-            lua_concat(lua_call(G.str["tostring"], [_val])[0], "'")
+            lua_concat(lua_call(G.str["tostring"], [_val])[0], "'"),
           ),
         ]);
       }
@@ -255,7 +255,7 @@ var lua_script = (function () {
       "number",
       _encode_number_1,
       "boolean",
-      G.str["tostring"]
+      G.str["tostring"],
     );
     _encode_1 = function (_val, _stack, _traversalDescription) {
       var tmp;
@@ -281,14 +281,14 @@ var lua_script = (function () {
       var _res_25 = lua_newtable();
       var var_26 = 1,
         stop_26 = lua_assertfloat(
-          lua_call(G.str["select"], ["#"].concat(varargs))[0]
+          lua_call(G.str["select"], ["#"].concat(varargs))[0],
         );
       for (; var_26 <= stop_26; var_26++) {
         var _i_26 = var_26;
         lua_tableset(
           _res_25,
           lua_call(G.str["select"], [_i_26].concat(varargs))[0],
-          true
+          true,
         );
       }
       return [_res_25];
@@ -323,7 +323,7 @@ var lua_script = (function () {
       "false",
       false,
       "null",
-      null
+      null,
     );
     var _next_char_1 = function (_str, _idx, _set, _negate) {
       var tmp;
@@ -334,7 +334,7 @@ var lua_script = (function () {
         if (
           !lua_eq(
             lua_tableget(_set, lua_mcall(_str, "sub", [_i_29, _i_29])[0]),
-            _negate
+            _negate,
           )
         ) {
           return [_i_29];
@@ -364,7 +364,7 @@ var lua_script = (function () {
           _msg,
           _line_count_32,
           _col_count_32,
-        ])
+        ]),
       );
       return [];
     };
@@ -389,7 +389,7 @@ var lua_script = (function () {
           lua_add(lua_call(_f_36, [lua_divide(_n, 262144)])[0], 240),
           lua_add(
             lua_call(_f_36, [lua_divide(lua_mod(_n, 262144), 4096)])[0],
-            128
+            128,
           ),
           lua_add(lua_call(_f_36, [lua_divide(lua_mod(_n, 4096), 64)])[0], 128),
           lua_add(lua_mod(_n, 64), 128),
@@ -400,7 +400,7 @@ var lua_script = (function () {
         lua_tablegetcall(G.str["string"], "format", [
           "invalid unicode codepoint '%x'",
           _n,
-        ])
+        ]),
       );
       return [];
     };
@@ -419,9 +419,9 @@ var lua_script = (function () {
           lua_add(
             lua_add(
               lua_multiply(lua_subtract(_n1_41, 0xd800), 0x400),
-              lua_subtract(_n2_41, 0xdc00)
+              lua_subtract(_n2_41, 0xdc00),
             ),
-            0x10000
+            0x10000,
           ),
         ]);
       } else {
@@ -445,7 +445,7 @@ var lua_script = (function () {
         } else if (lua_eq(_x_45, 92)) {
           _res_44 = lua_concat(
             _res_44,
-            lua_mcall(_str, "sub", [_k_44, lua_subtract(_j_44, 1)])[0]
+            lua_mcall(_str, "sub", [_k_44, lua_subtract(_j_44, 1)])[0],
           );
           _j_44 = lua_add(_j_44, 1);
           var _c_47 = lua_mcall(_str, "sub", [_j_44, _j_44])[0];
@@ -461,7 +461,7 @@ var lua_script = (function () {
                     "^%x%x%x%x",
                     lua_add(_j_44, 1),
                   ])[0];
-                }
+                },
               ),
               function () {
                 return lua_call(_decode_error_1, [
@@ -469,11 +469,11 @@ var lua_script = (function () {
                   lua_subtract(_j_44, 1),
                   "invalid unicode escape in string",
                 ])[0];
-              }
+              },
             );
             _res_44 = lua_concat(
               _res_44,
-              lua_call(_parse_unicode_escape_1, [_hex_48])[0]
+              lua_call(_parse_unicode_escape_1, [_hex_48])[0],
             );
             _j_44 = lua_add(_j_44, lua_len(_hex_48));
           } else {
@@ -483,20 +483,20 @@ var lua_script = (function () {
                 lua_subtract(_j_44, 1),
                 lua_concat(
                   "invalid escape char '",
-                  lua_concat(_c_47, "' in string")
+                  lua_concat(_c_47, "' in string"),
                 ),
               ]);
             }
             _res_44 = lua_concat(
               _res_44,
-              lua_tableget(_escape_char_map_inv_1, _c_47)
+              lua_tableget(_escape_char_map_inv_1, _c_47),
             );
           }
           _k_44 = lua_add(_j_44, 1);
         } else if (lua_eq(_x_45, 34)) {
           _res_44 = lua_concat(
             _res_44,
-            lua_mcall(_str, "sub", [_k_44, lua_subtract(_j_44, 1)])[0]
+            lua_mcall(_str, "sub", [_k_44, lua_subtract(_j_44, 1)])[0],
           );
           return [_res_44, lua_add(_j_44, 1)];
         }
@@ -650,7 +650,7 @@ var lua_script = (function () {
       "[",
       _parse_array_1,
       "{",
-      _parse_object_1
+      _parse_object_1,
     );
     _parse_1 = function (_str, _idx) {
       var tmp;
@@ -672,13 +672,13 @@ var lua_script = (function () {
         lua_call(G.str["error"], [
           lua_concat(
             "expected argument of type string, got ",
-            lua_call(G.str["type"], [_str])[0]
+            lua_call(G.str["type"], [_str])[0],
           ),
         ]);
       }
       tmp = lua_call(
         _parse_1,
-        [_str].concat(lua_call(_next_char_1, [_str, 1, _space_chars_1, true]))
+        [_str].concat(lua_call(_next_char_1, [_str, 1, _space_chars_1, true])),
       );
       var _res_70 = tmp[0];
       var _idx_70 = tmp[1];

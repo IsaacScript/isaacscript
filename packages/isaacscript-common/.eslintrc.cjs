@@ -19,8 +19,13 @@ const config = {
     "sort-exports",
   ],
 
-  // When building and linting at the same time, the "indexLua.ts" file can cause a linting error.
-  ignorePatterns: ["**/dist/**", "indexLua.ts"],
+  ignorePatterns: [
+    "**/dist/**",
+    // When building and linting at the same time, the "indexLua.ts" file can cause a linting error.
+    "indexLua.ts",
+    // Ignore files that were transpiled from Lua to JavaScript.
+    "jsonLua.js",
+  ],
 
   rules: {
     /** Not defined in the parent configs. */
