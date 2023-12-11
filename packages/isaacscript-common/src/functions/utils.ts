@@ -67,7 +67,7 @@ export function eRange(start: int, end?: int, increment = 1): readonly int[] {
 
   const array: int[] = [];
 
-  for (let i: number = start; i < end; i += increment) {
+  for (let i = start; i < end; i += increment) {
     array.push(i);
   }
 
