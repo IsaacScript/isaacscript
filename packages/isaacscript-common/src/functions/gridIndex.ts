@@ -6,6 +6,8 @@ import { iRange } from "./utils";
  * Helper function to get all of the grid indexes between two grid indexes on either a horizontal or
  * vertical line, inclusive on both ends.
  *
+ * If the first grid index is greater than the second grid index, the two will be swapped.
+ *
  * This function will throw a run-time error if the two provided grid indexes are not on the same
  * horizontal or vertical line.
  */

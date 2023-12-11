@@ -14,13 +14,12 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { getEnumLength, getHighestEnumValue } from "../functions/enums";
-import { iRange } from "../functions/utils";
 
 // ------------
 // Collectibles
 // ------------
 
-/** Equal to `CollectibleType.SAD_ONION`. */
+/** Equal to `CollectibleType.SAD_ONION` (1). */
 export const FIRST_COLLECTIBLE_TYPE = CollectibleType.SAD_ONION;
 
 /**
@@ -39,7 +38,7 @@ export const NUM_VANILLA_COLLECTIBLE_TYPES = getEnumLength(CollectibleType) - 1;
 // Trinkets
 // --------
 
-/** Equal to `TrinketType.SWALLOWED_PENNY`. */
+/** Equal to `TrinketType.SWALLOWED_PENNY` (1). */
 export const FIRST_TRINKET_TYPE = TrinketType.SWALLOWED_PENNY;
 
 /**
@@ -57,7 +56,7 @@ export const NUM_VANILLA_TRINKET_TYPES = getEnumLength(TrinketType) - 1;
 // Cards
 // -----
 
-/** Equal to `Card.FOOL`. */
+/** Equal to `Card.FOOL` (1). */
 export const FIRST_CARD_TYPE = CardType.FOOL;
 
 /** Calculated from the `CardType` enum. */
@@ -70,7 +69,7 @@ export const NUM_VANILLA_CARD_TYPES = getEnumLength(CardType) - 1;
 // Pill Effects
 // ------------
 
-/** Equal to `PillEffect.BAD_GAS`. */
+/** Equal to `PillEffect.BAD_GAS` (0). */
 export const FIRST_PILL_EFFECT = PillEffect.BAD_GAS;
 
 /** Calculated from the `PillEffect` enum. */
@@ -86,38 +85,40 @@ export const NUM_VANILLA_PILL_EFFECTS = getEnumLength(PillEffect);
 // Pill Colors
 // -----------
 
-/** Equal to `PillColor.BLUE_BLUE`. */
+/** Equal to `PillColor.BLUE_BLUE` (1). */
 export const FIRST_PILL_COLOR = PillColor.BLUE_BLUE;
 
 /**
- * Equal to `PillColor.WHITE_YELLOW`.
+ * Equal to `PillColor.WHITE_YELLOW` (13).
  *
  * Note that `PillColor.GOLD` is technically higher, but that is not considered for the purposes of
  * this constant.
  */
 export const LAST_NORMAL_PILL_COLOR = PillColor.WHITE_YELLOW;
 
-/** Equal to `PillColor.HORSE_BLUE_BLUE`. */
+/** Equal to `PillColor.HORSE_BLUE_BLUE` (2049). */
 export const FIRST_HORSE_PILL_COLOR = PillColor.HORSE_BLUE_BLUE;
 
 /**
- * Equal to `PillColor.HORSE_WHITE_YELLOW`.
+ * Equal to `PillColor.HORSE_WHITE_YELLOW` (2061).
  *
  * Note that `PillColor.HORSE_GOLD` is technically higher, but that is not considered for the
  * purposes of this constant.
  */
 export const LAST_HORSE_PILL_COLOR = PillColor.HORSE_WHITE_YELLOW;
 
-export const NUM_NORMAL_PILL_COLORS = iRange(
-  FIRST_PILL_COLOR,
-  LAST_NORMAL_PILL_COLOR,
-).length;
+/**
+ * Calculated from the difference between the first pill color and the last pill color. This does
+ * not include Gold Pills. In Repentance, this should be equal to 13.
+ */
+export const NUM_NORMAL_PILL_COLORS =
+  LAST_NORMAL_PILL_COLOR - FIRST_PILL_COLOR + 1;
 
 // -------
 // Players
 // -------
 
-/** Equal to `PlayerType.ISAAC`. */
+/** Equal to `PlayerType.ISAAC` (0). */
 export const FIRST_CHARACTER = PlayerType.ISAAC;
 
 // It is not possible to determine "LAST_PLAYER_TYPE", since there is no associated config.

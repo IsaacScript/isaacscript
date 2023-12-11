@@ -45,7 +45,7 @@ export function assertNotNull<T>(
  * end and exclusive on the high end. (The "e" in the function name stands for exclusive.) Thus,
  * this function works in a similar way as the built-in `range` function from Python.
  *
- * If the end is lower than the start, then the range will be reversed.
+ * If the end is lower than the start, an empty array will be returned.
  *
  * For example:
  *
@@ -54,7 +54,6 @@ export function assertNotNull<T>(
  * - `eRange(-3)` returns `[0, -1, -2]`.
  * - `eRange(1, 3)` returns `[1, 2]`.
  * - `eRange(2, 5)` returns `[2, 3, 4]`.
- * - `eRange(5, 2)` returns `[5, 4, 3]`.
  *
  * @param start The integer to start at.
  * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
@@ -68,14 +67,8 @@ export function eRange(start: int, end?: int, increment = 1): readonly int[] {
 
   const array: int[] = [];
 
-  if (start < end) {
-    for (let i = start; i < end; i += increment) {
-      array.push(i);
-    }
-  } else {
-    for (let i = start; i > end; i -= increment) {
-      array.push(i);
-    }
+  for (let i: number = start; i < end; i += increment) {
+    array.push(i);
   }
 
   return array;
@@ -102,7 +95,7 @@ export function getTraversalDescription(
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
  * (The "i" in the function name stands for inclusive.)
  *
- * If the end is lower than the start, then the range will be reversed.
+ * If the end is lower than the start, an empty array will be returned.
  *
  * For example:
  *
@@ -123,9 +116,7 @@ export function iRange(start: int, end?: int, increment = 1): readonly int[] {
     return iRange(0, start, increment);
   }
 
-  const rangeIncreasing = start <= end;
-  const exclusiveEnd = rangeIncreasing ? end + 1 : end - 1;
-  return eRange(start, exclusiveEnd, increment);
+  return eRange(start, end + 1, increment);
 }
 
 /**

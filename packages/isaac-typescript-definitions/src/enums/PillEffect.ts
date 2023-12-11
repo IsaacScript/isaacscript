@@ -1,5 +1,11 @@
-/** This enum is contiguous. (Every value is satisfied between 0 and 49, inclusive.) */
+/**
+ * This enum is contiguous. (Every value is satisfied between 0 and 49, inclusive.)
+ *
+ * Note that the vanilla enum includes `NULL` (-1). Since it should be impossible to ever retrieve
+ * this value from the API, it is removed from the IsaacScript enum.
+ */
 export enum PillEffect {
+  // NULL = -1 // Intentionally removed.
   BAD_GAS = 0,
   BAD_TRIP = 1,
   BALLS_OF_STEEL = 2,
