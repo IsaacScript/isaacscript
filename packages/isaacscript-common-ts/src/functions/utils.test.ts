@@ -112,17 +112,7 @@ describe("eRange", () => {
   describe("1 arg negative", () => {
     test("-1", () => {
       const result = [...eRange(-1)];
-      deepStrictEqual(result, [0]);
-    });
-
-    test("-2", () => {
-      const result = [...eRange(-2)];
-      deepStrictEqual(result, [0, -1]);
-    });
-
-    test("-3", () => {
-      const result = [...eRange(-3)];
-      deepStrictEqual(result, [0, -1, -2]);
+      deepStrictEqual(result, []);
     });
   });
 
@@ -223,57 +213,12 @@ describe("eRange", () => {
   describe("2 args decreasing", () => {
     test("1, 0", () => {
       const result = [...eRange(1, 0)];
-      deepStrictEqual(result, [1]);
+      deepStrictEqual(result, []);
     });
 
-    test("2, 0", () => {
-      const result = [...eRange(2, 0)];
-      deepStrictEqual(result, [2, 1]);
-    });
-
-    test("3, 0", () => {
-      const result = [...eRange(3, 0)];
-      deepStrictEqual(result, [3, 2, 1]);
-    });
-
-    test("2, 1", () => {
-      const result = [...eRange(2, 1)];
-      deepStrictEqual(result, [2]);
-    });
-
-    test("3, 1", () => {
-      const result = [...eRange(3, 1)];
-      deepStrictEqual(result, [3, 2]);
-    });
-
-    test("4, 1", () => {
-      const result = [...eRange(4, 1)];
-      deepStrictEqual(result, [4, 3, 2]);
-    });
-
-    test("3, 2", () => {
-      const result = [...eRange(3, 2)];
-      deepStrictEqual(result, [3]);
-    });
-
-    test("4, 2", () => {
-      const result = [...eRange(4, 2)];
-      deepStrictEqual(result, [4, 3]);
-    });
-
-    test("5, 2", () => {
-      const result = [...eRange(5, 2)];
-      deepStrictEqual(result, [5, 4, 3]);
-    });
-
-    test("-1, -3", () => {
+    test("-1, -2", () => {
       const result = [...eRange(-1, -3)];
-      deepStrictEqual(result, [-1, -2]);
-    });
-
-    test("3, -3", () => {
-      const result = [...eRange(3, -3)];
-      deepStrictEqual(result, [3, 2, 1, 0, -1, -2]);
+      deepStrictEqual(result, []);
     });
   });
 });
@@ -306,17 +251,7 @@ describe("iRange", () => {
   describe("1 arg negative", () => {
     test("-1", () => {
       const result = [...iRange(-1)];
-      deepStrictEqual(result, [0, -1]);
-    });
-
-    test("-2", () => {
-      const result = [...iRange(-2)];
-      deepStrictEqual(result, [0, -1, -2]);
-    });
-
-    test("-3", () => {
-      const result = [...iRange(-3)];
-      deepStrictEqual(result, [0, -1, -2, -3]);
+      deepStrictEqual(result, []);
     });
   });
 
@@ -417,57 +352,12 @@ describe("iRange", () => {
   describe("2 args decreasing", () => {
     test("1, 0", () => {
       const result = [...iRange(1, 0)];
-      deepStrictEqual(result, [1, 0]);
+      deepStrictEqual(result, []);
     });
 
-    test("2, 0", () => {
-      const result = [...iRange(2, 0)];
-      deepStrictEqual(result, [2, 1, 0]);
-    });
-
-    test("3, 0", () => {
-      const result = [...iRange(3, 0)];
-      deepStrictEqual(result, [3, 2, 1, 0]);
-    });
-
-    test("2, 1", () => {
-      const result = [...iRange(2, 1)];
-      deepStrictEqual(result, [2, 1]);
-    });
-
-    test("3, 1", () => {
-      const result = [...iRange(3, 1)];
-      deepStrictEqual(result, [3, 2, 1]);
-    });
-
-    test("4, 1", () => {
-      const result = [...iRange(4, 1)];
-      deepStrictEqual(result, [4, 3, 2, 1]);
-    });
-
-    test("3, 2", () => {
-      const result = [...iRange(3, 2)];
-      deepStrictEqual(result, [3, 2]);
-    });
-
-    test("4, 2", () => {
-      const result = [...iRange(4, 2)];
-      deepStrictEqual(result, [4, 3, 2]);
-    });
-
-    test("5, 2", () => {
-      const result = [...iRange(5, 2)];
-      deepStrictEqual(result, [5, 4, 3, 2]);
-    });
-
-    test("-1, -3", () => {
+    test("-1, -2", () => {
       const result = [...iRange(-1, -3)];
-      deepStrictEqual(result, [-1, -2, -3]);
-    });
-
-    test("3, -3", () => {
-      const result = [...iRange(3, -3)];
-      deepStrictEqual(result, [3, 2, 1, 0, -1, -2, -3]);
+      deepStrictEqual(result, []);
     });
   });
 });
