@@ -9,6 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## December 17th, 2013 (Unreleased)
+
+- Changed the following helper functions:
+  - `eRange` - The reverse functionality has been removed.
+  - `iRange` - The reverse functionality has been removed.
+
 ## December 10th, 2023
 
 - Added the following helper functions:

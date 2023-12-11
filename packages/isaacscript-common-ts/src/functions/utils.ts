@@ -51,7 +51,7 @@ export function assertNotNull<T>(
  * lower end and exclusive on the high end. (The "e" in the function name stands for exclusive.)
  * Thus, this function works in the same way as the built-in `range` function from Python.
  *
- * If the end is lower than the start, then the range will be reversed.
+ * If the end is lower than the start, then an empty range will be returned.
  *
  * For example:
  *
@@ -60,7 +60,7 @@ export function assertNotNull<T>(
  * - `eRange(-3)` returns `[0, -1, -2]`.
  * - `eRange(1, 3)` returns `[1, 2]`.
  * - `eRange(2, 5)` returns `[2, 3, 4]`.
- * - `eRange(5, 2)` returns `[5, 4, 3]`.
+ * - `eRange(5, 2)` returns `[]`.
  *
  * If you want an array instead of an iterator, use the spread operator like this:
  *
@@ -83,14 +83,8 @@ export function* eRange(
     return;
   }
 
-  if (start < end) {
-    for (let i = start; i < end; i += increment) {
-      yield i;
-    }
-  } else {
-    for (let i = start; i > end; i -= increment) {
-      yield i;
-    }
+  for (let i = start; i < end; i += increment) {
+    yield i;
   }
 }
 
@@ -98,7 +92,7 @@ export function* eRange(
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
  * (The "i" in the function name stands for inclusive.)
  *
- * If the end is lower than the start, then the range will be reversed.
+ * If the end is lower than the start, then an empty range will be returned.
  *
  * For example:
  *
@@ -107,7 +101,7 @@ export function* eRange(
  * - `iRange(-3)` returns `[0, -1, -2, -3]`.
  * - `iRange(1, 3)` returns `[1, 2, 3]`.
  * - `iRange(2, 5)` returns `[2, 3, 4, 5]`.
- * - `iRange(5, 2)` returns `[5, 4, 3, 2]`.
+ * - `iRange(5, 2)` returns `[]`.
  *
  * If you want an array instead of an iterator, use the spread operator like this:
  *
@@ -130,9 +124,7 @@ export function* iRange(
     return;
   }
 
-  const rangeIncreasing = start <= end;
-  const exclusiveEnd = rangeIncreasing ? end + 1 : end - 1;
-  yield* eRange(start, exclusiveEnd, increment);
+  yield* eRange(start, end + 1, increment);
 }
 
 /**
