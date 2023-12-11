@@ -47,9 +47,9 @@ export function assertNotNull<T>(
 }
 
 /**
- * Helper function to return an iterator of integers with the specified range, inclusive on the
- * lower end and exclusive on the high end. (The "e" in the function name stands for exclusive.)
- * Thus, this function works in the same way as the built-in `range` function from Python.
+ * Helper function to get an iterator of integers with the specified range, inclusive on the lower
+ * end and exclusive on the high end. (The "e" in the function name stands for exclusive.) Thus,
+ * this function works in the same way as the built-in `range` function from Python.
  *
  * If the end is lower than the start, then an empty range will be returned.
  *
@@ -61,6 +61,7 @@ export function assertNotNull<T>(
  * - `eRange(1, 3)` returns `[1, 2]`.
  * - `eRange(2, 5)` returns `[2, 3, 4]`.
  * - `eRange(5, 2)` returns `[]`.
+ * - `eRange(3, 3)` returns `[]`.
  *
  * If you want an array instead of an iterator, use the spread operator like this:
  *
@@ -89,7 +90,7 @@ export function* eRange(
 }
 
 /**
- * Helper function to return an array of integers with the specified range, inclusive on both ends.
+ * Helper function to get an array of integers with the specified range, inclusive on both ends.
  * (The "i" in the function name stands for inclusive.)
  *
  * If the end is lower than the start, then an empty range will be returned.
@@ -102,6 +103,7 @@ export function* eRange(
  * - `iRange(1, 3)` returns `[1, 2, 3]`.
  * - `iRange(2, 5)` returns `[2, 3, 4, 5]`.
  * - `iRange(5, 2)` returns `[]`.
+ * - `iRange(3, 3)` returns `[3]`.
  *
  * If you want an array instead of an iterator, use the spread operator like this:
  *
@@ -124,7 +126,8 @@ export function* iRange(
     return;
   }
 
-  yield* eRange(start, end + 1, increment);
+  const exclusiveEnd = end + 1;
+  yield* eRange(start, exclusiveEnd, increment);
 }
 
 /**

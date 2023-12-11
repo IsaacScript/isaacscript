@@ -55,6 +55,7 @@ export function assertNotNull<T>(
  * - `eRange(1, 3)` returns `[1, 2]`.
  * - `eRange(2, 5)` returns `[2, 3, 4]`.
  * - `eRange(5, 2)` returns `[]`.
+ * - `eRange(3, 3)` returns `[]`.
  *
  * @param start The integer to start at.
  * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
@@ -106,6 +107,7 @@ export function getTraversalDescription(
  * - `iRange(1, 3)` returns `[1, 2, 3]`.
  * - `iRange(2, 5)` returns `[2, 3, 4, 5]`.
  * - `iRange(5, 2)` returns `[]`.
+ * - `iRange(3, 3)` returns `[3]`.
  *
  * @param start The integer to start at.
  * @param end Optional. The integer to end at. If not specified, then the start will be 0 and the
@@ -117,7 +119,8 @@ export function iRange(start: int, end?: int, increment = 1): readonly int[] {
     return iRange(0, start, increment);
   }
 
-  return eRange(start, end + 1, increment);
+  const exclusiveEnd = end + 1;
+  return eRange(start, exclusiveEnd, increment);
 }
 
 /**
