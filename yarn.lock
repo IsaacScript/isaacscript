@@ -99,6 +99,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/cache-common@npm:4.21.0":
+  version: 4.21.0
+  resolution: "@algolia/cache-common@npm:4.21.0"
+  checksum: ce7fb2c781a8d30b7947549f25cc5e8a4edff988fbccf5b74b7085c98b92662cb7432179daa1583b3e8c0f4d4b4b472b1d8042c3e9f1aae1b65f312cac650639
+  languageName: node
+  linkType: hard
+
 "@algolia/cache-in-memory@npm:4.20.0":
   version: 4.20.0
   resolution: "@algolia/cache-in-memory@npm:4.20.0"
@@ -141,6 +148,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/client-common@npm:4.21.0":
+  version: 4.21.0
+  resolution: "@algolia/client-common@npm:4.21.0"
+  dependencies:
+    "@algolia/requester-common": "npm:4.21.0"
+    "@algolia/transporter": "npm:4.21.0"
+  checksum: 2476c6ca9ad0e7514cc18ffc94aad406efdddbc44e980228845049d8bd021ec4b583e6c64eba99f3e793346a696bf318e5bcca23f3b03d97dedbac96daa00bfe
+  languageName: node
+  linkType: hard
+
 "@algolia/client-personalization@npm:4.20.0":
   version: 4.20.0
   resolution: "@algolia/client-personalization@npm:4.20.0"
@@ -152,7 +169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-search@npm:4.20.0, @algolia/client-search@npm:^4.20.0":
+"@algolia/client-search@npm:4.20.0":
   version: 4.20.0
   resolution: "@algolia/client-search@npm:4.20.0"
   dependencies:
@@ -160,6 +177,17 @@ __metadata:
     "@algolia/requester-common": "npm:4.20.0"
     "@algolia/transporter": "npm:4.20.0"
   checksum: 79b75fbfddf41bd65d1d028236b249e81672a5a5aea9e84fa5586ee5d1f0d78966dacdc464109e14a46f6c78c8d68d5a8a50ad7b571247ac64fc2d1399072332
+  languageName: node
+  linkType: hard
+
+"@algolia/client-search@npm:^4.21.0":
+  version: 4.21.0
+  resolution: "@algolia/client-search@npm:4.21.0"
+  dependencies:
+    "@algolia/client-common": "npm:4.21.0"
+    "@algolia/requester-common": "npm:4.21.0"
+    "@algolia/transporter": "npm:4.21.0"
+  checksum: 39b01c853e34f740c2fd444743faf4fd0af6bf71843d204edf56fc89724afda13359dec43e5580b6fbd3fd337f3849ad8f916b80939d01cf188cdcfbee3fcfc0
   languageName: node
   linkType: hard
 
@@ -174,6 +202,13 @@ __metadata:
   version: 4.20.0
   resolution: "@algolia/logger-common@npm:4.20.0"
   checksum: 03fffc0e021097836d4588f130fc22b3fd6ca55e286e8fc59f0525330754bc49edcf7c5d2f0016fd1c4aa3ad3432005ba3a17b5c41880c16258e98bcf4746b4d
+  languageName: node
+  linkType: hard
+
+"@algolia/logger-common@npm:4.21.0":
+  version: 4.21.0
+  resolution: "@algolia/logger-common@npm:4.21.0"
+  checksum: ae683881eb802dd14a6318f36be330600d52b6eae3dda0f2c49efc24a566d7e692bd9a0dda60e21e3e3ceebfd8b31d67147624c9d87928723b3882a3a31c2ded
   languageName: node
   linkType: hard
 
@@ -202,6 +237,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/requester-common@npm:4.21.0":
+  version: 4.21.0
+  resolution: "@algolia/requester-common@npm:4.21.0"
+  checksum: 65e83e39a7e6c096a83fac65dfdd6b522b2bdc0100ca0372c21b325d3bbd8bc56c5154de6db0ac493bff4bfda7883a387130ee8d11bf89b0620bf412dae6a71c
+  languageName: node
+  linkType: hard
+
 "@algolia/requester-node-http@npm:4.20.0":
   version: 4.20.0
   resolution: "@algolia/requester-node-http@npm:4.20.0"
@@ -219,6 +261,17 @@ __metadata:
     "@algolia/logger-common": "npm:4.20.0"
     "@algolia/requester-common": "npm:4.20.0"
   checksum: 769c5d61a280283e2dc4c4a49fcd92e6489bc0267a290438f56311dacc213c0ff4979d063fb8dd5b7bcc888d819ec00eef5d24eb2768946696f4297b757ff527
+  languageName: node
+  linkType: hard
+
+"@algolia/transporter@npm:4.21.0":
+  version: 4.21.0
+  resolution: "@algolia/transporter@npm:4.21.0"
+  dependencies:
+    "@algolia/cache-common": "npm:4.21.0"
+    "@algolia/logger-common": "npm:4.21.0"
+    "@algolia/requester-common": "npm:4.21.0"
+  checksum: bbf2dcdd05937bd1dcfe0d3ca69eadb4ad960212fbff466380922c471f7f599f32c8d21504841e312d24ebca9cbc5700c3450d47c11cc976e32d49b8cc8befd8
   languageName: node
   linkType: hard
 
@@ -9915,6 +9968,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-compat-utils@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "eslint-compat-utils@npm:0.1.2"
+  peerDependencies:
+    eslint: ">=6.0.0"
+  checksum: 023fe1422eb5dfebe71e118fe144836f28c06b1f4d55ef4c1c42ec2dbfa3e09f19287b0092881aad307429cf247fec9ade603e050392033106d26bc981d82ee5
+  languageName: node
+  linkType: hard
+
 "eslint-config-prettier@npm:^9.1.0":
   version: 9.1.0
   resolution: "eslint-config-prettier@npm:9.1.0"
@@ -9963,15 +10025,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-es-x@npm:^7.1.0":
-  version: 7.2.0
-  resolution: "eslint-plugin-es-x@npm:7.2.0"
+"eslint-plugin-es-x@npm:^7.5.0":
+  version: 7.5.0
+  resolution: "eslint-plugin-es-x@npm:7.5.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.1.2"
     "@eslint-community/regexpp": "npm:^4.6.0"
+    eslint-compat-utils: "npm:^0.1.2"
   peerDependencies:
     eslint: ">=8"
-  checksum: d8e8eed5e2830025b7dd85347f5ff402c131b238b4670bc2bd6dcee9be2fb1885a719f6e105d64cf3fc2645969dfca027121dcc4241a2c659af28475438bd0c4
+  checksum: e2fa9295f1b05a73f540007139c01b57f58e5f51cb841b80dc7ff7782219d8bff7aff7a54250bb4dd636a483052828492060d4aa1dac566b5289bde89616e1f5
   languageName: node
   linkType: hard
 
@@ -9987,15 +10050,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-eslint-plugin@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "eslint-plugin-eslint-plugin@npm:5.1.1"
+"eslint-plugin-eslint-plugin@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "eslint-plugin-eslint-plugin@npm:5.2.1"
   dependencies:
     eslint-utils: "npm:^3.0.0"
     estraverse: "npm:^5.3.0"
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 83cad7b792d6884ac7c375ed39d9da6d1d39d17dee36291c7f003f4ec2e60ae5e39bc80b2193c0fbb59f3f7763f0ba9e731c9ae9d00dbe0b2a9e26d03078d1ae
+  checksum: 3fdfbc9b34b1fc362b8b8a939f0f24cb6a240660d269c58fa5fec635f5e4d668c0da3d4e703bc25000e76c0bc2950e2d6075d002aa9699ea1650625070f28fa1
   languageName: node
   linkType: hard
 
@@ -10037,13 +10100,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:^16.3.1":
-  version: 16.3.1
-  resolution: "eslint-plugin-n@npm:16.3.1"
+"eslint-plugin-n@npm:^16.4.0":
+  version: 16.4.0
+  resolution: "eslint-plugin-n@npm:16.4.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     builtins: "npm:^5.0.1"
-    eslint-plugin-es-x: "npm:^7.1.0"
+    eslint-plugin-es-x: "npm:^7.5.0"
     get-tsconfig: "npm:^4.7.0"
     ignore: "npm:^5.2.4"
     is-builtin-module: "npm:^3.2.1"
@@ -10053,7 +10116,7 @@ __metadata:
     semver: "npm:^7.5.3"
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 0ec5ed7e78ec0266ee87c5ffb162a385e150762423cc8296b3dfc6b57df3dc31f1d486acf7ce145a9078256d748efbd55e4a7294fa76e2b755b290fc1a1a9509
+  checksum: 1b7a6e90162dfc7dc32d844d5db50862b07158da432967d5f5006afeb49d6f54cb71fd656d1ec5ee1afb293af438ccf7064633504ee44eb4abfc6913a8d1dc5a
   languageName: node
   linkType: hard
 
@@ -12576,12 +12639,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^40.0.1":
-  version: 40.0.1
-  resolution: "isaac-typescript-definitions@npm:40.0.1"
+"isaac-typescript-definitions@npm:^40.0.2":
+  version: 40.0.2
+  resolution: "isaac-typescript-definitions@npm:40.0.2"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: a899f7fcc073bc350209af0062e5452c2c19b2ede4e4c5840b922b3ea01f464203cb2372faf04e47ac623c3e4a158b9c6d6202f335f4b1faf6e8be2a8a606187
+  checksum: 5a64da657021414f89f67daf1b8d61d0469a9daa15dfbda6343b10b224fc9d56e390f5758dc204a6311f23d5f3948f500ddb7ee2a7821e94c54be529e66861e4
   languageName: node
   linkType: hard
 
@@ -12612,7 +12675,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
-    "@algolia/client-search": "npm:^4.20.0"
+    "@algolia/client-search": "npm:^4.21.0"
     "@arktype/fs": "npm:^0.0.8"
     "@commander-js/extra-typings": "npm:^11.1.0"
     "@docusaurus/core": "npm:^3.0.1"
@@ -12670,10 +12733,10 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-deprecation: "npm:^2.0.0"
     eslint-plugin-eslint-comments: "npm:^3.2.0"
-    eslint-plugin-eslint-plugin: "npm:^5.1.1"
+    eslint-plugin-eslint-plugin: "npm:^5.2.1"
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
     eslint-plugin-jsdoc: "npm:^46.9.0"
-    eslint-plugin-n: "npm:^16.3.1"
+    eslint-plugin-n: "npm:^16.4.0"
     eslint-plugin-no-autofix: "npm:^1.2.3"
     eslint-plugin-only-warn: "npm:^1.1.0"
     eslint-plugin-sort-exports: "npm:^0.8.0"
@@ -12682,7 +12745,7 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^40.0.1"
+    isaac-typescript-definitions: "npm:^40.0.2"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
