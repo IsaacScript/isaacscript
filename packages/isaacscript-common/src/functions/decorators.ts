@@ -99,7 +99,7 @@ export function PriorityCallback<T extends ModCallback>(
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
     const constructor = target.constructor as unknown as
-      | LuaMap<AnyNotNil, unknown>
+      | Record<string, unknown>
       | undefined;
 
     if (constructor === undefined) {
@@ -109,13 +109,13 @@ export function PriorityCallback<T extends ModCallback>(
       );
     }
 
-    if (!constructor.has(MOD_FEATURE_CALLBACKS_KEY)) {
-      constructor.set(MOD_FEATURE_CALLBACKS_KEY, []);
+    const key = MOD_FEATURE_CALLBACKS_KEY;
+    let callbackTuples = constructor[key] as unknown[] | undefined;
+    if (callbackTuples === undefined) {
+      callbackTuples = [];
+      constructor[key] = callbackTuples;
     }
 
-    const callbackTuples = constructor.get(
-      MOD_FEATURE_CALLBACKS_KEY,
-    ) as unknown[];
     callbackTuples.push(callbackTuple);
   };
 }
@@ -150,7 +150,7 @@ export function PriorityCallbackCustom<T extends ModCallbackCustom>(
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
     const constructor = target.constructor as unknown as
-      | LuaMap<AnyNotNil, unknown>
+      | Record<string, unknown>
       | undefined;
 
     if (constructor === undefined) {
@@ -160,13 +160,12 @@ export function PriorityCallbackCustom<T extends ModCallbackCustom>(
       );
     }
 
-    if (!constructor.has(MOD_FEATURE_CUSTOM_CALLBACKS_KEY)) {
-      constructor.set(MOD_FEATURE_CUSTOM_CALLBACKS_KEY, []);
+    const key = MOD_FEATURE_CUSTOM_CALLBACKS_KEY;
+    let callbackTuples = constructor[key] as unknown[] | undefined;
+    if (callbackTuples === undefined) {
+      callbackTuples = [];
+      constructor[key] = callbackTuples;
     }
-
-    const callbackTuples = constructor.get(
-      MOD_FEATURE_CUSTOM_CALLBACKS_KEY,
-    ) as unknown[];
     callbackTuples.push(callbackTuple);
   };
 }
