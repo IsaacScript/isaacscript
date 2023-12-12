@@ -17,8 +17,8 @@ export function getEnumEntries<T extends TranspiledEnum>(
   );
 
   // If there are no number values, then this must be a string enum, and no filtration is required.
-  const valuesToReturn = numberEntries.length > 0 ? numberEntries : entries;
-  return valuesToReturn as never;
+  const entriesToReturn = numberEntries.length > 0 ? numberEntries : entries;
+  return entriesToReturn as never;
 }
 
 /**

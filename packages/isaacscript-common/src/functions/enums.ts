@@ -40,16 +40,16 @@ export function getEnumEntries<T extends TranspiledEnum>(
   );
 
   // If there are no number values, then this must be a string enum, and no filtration is required.
-  const valuesToReturn = numberEntries.length > 0 ? numberEntries : entries;
+  const entriesToReturn = numberEntries.length > 0 ? numberEntries : entries;
 
   // The enums will be in a random order (because of "pairs"), so sort them based on the values.
   // https://stackoverflow.com/questions/5199901/how-to-sort-an-associative-array-by-its-values-in-javascript
-  valuesToReturn.sort(
+  entriesToReturn.sort(
     ([_key1, value1], [_key2, value2]) =>
       value1 < value2 ? -1 : value1 > value2 ? 1 : 0, // eslint-disable-line no-nested-ternary
   );
 
-  return valuesToReturn as never;
+  return entriesToReturn as never;
 }
 
 /**
