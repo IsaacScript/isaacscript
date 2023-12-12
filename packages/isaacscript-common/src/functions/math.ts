@@ -126,7 +126,8 @@ export function lerpAngleDegrees(
  * @param numDecimalPlaces Optional. Default is 0.
  */
 export function round(num: float, numDecimalPlaces = 0): float {
-  const roundedNum = tonumber(string.format(`%.${numDecimalPlaces}f`, num));
+  const roundedString = string.format(`%.${numDecimalPlaces}f`, num);
+  const roundedNum = tonumber(roundedString);
   return roundedNum ?? 0;
 }
 
