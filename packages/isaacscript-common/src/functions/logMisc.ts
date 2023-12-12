@@ -38,6 +38,7 @@ import { getPlayerHealth } from "./playerHealth";
 import { getPlayerName } from "./players";
 import { getRoomData, getRoomGridIndex, getRoomListIndex } from "./roomData";
 import { combineSets, getSortedSetValues } from "./set";
+import { sortNormal } from "./sort";
 import { iterateTableInOrder } from "./table";
 import { getTrinketName } from "./trinkets";
 import { isDefaultMap, isTSTLMap, isTSTLSet } from "./tstlClass";
@@ -257,7 +258,7 @@ export function logLevelStateFlags(this: void): void {
  */
 export function logMap(
   this: void,
-  map: ReadonlyMap<AnyNotNil, unknown>,
+  map: ReadonlyMap<number | string, unknown>,
   name?: string,
 ): void {
   if (!isTSTLMap(map) && !isDefaultMap(map)) {
@@ -269,11 +270,10 @@ export function logMap(
   log(`Logging a TSTL map${suffix}:`);
 
   const mapKeys = [...map.keys()];
-  mapKeys.sort();
+  mapKeys.sort(sortNormal);
 
   for (const key of mapKeys) {
     const value = map.get(key);
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`  ${key} --> ${value}`);
   }
 
@@ -405,7 +405,7 @@ export function logSeedEffects(this: void): void {
  */
 export function logSet(
   this: void,
-  set: ReadonlySet<AnyNotNil>,
+  set: ReadonlySet<number | string>,
   name?: string,
 ): void {
   if (!isTSTLSet(set)) {
@@ -418,7 +418,6 @@ export function logSet(
 
   const setValues = getSortedSetValues(set);
   for (const value of setValues) {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`  Value: ${value}`);
   }
 
@@ -510,7 +509,7 @@ export function logTableDifferences<K extends AnyNotNil, V>(
 
   const keysSet = combineSets(table1KeysSet, table2KeysSet);
   const keys = [...keysSet.values()];
-  keys.sort();
+  keys.sort(); // eslint-disable-line @typescript-eslint/require-array-sort-compare
 
   for (const key of keys) {
     const value1 = table1.get(key);

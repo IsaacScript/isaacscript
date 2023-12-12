@@ -1,5 +1,6 @@
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getArrayCombinations, getRandomArrayElement, sumArray } from "./array";
+import { sortNormal } from "./sort";
 import { isPrimitive } from "./types";
 
 /**
@@ -78,7 +79,7 @@ export function deleteSetsFromSet<T>(
  *                  a random seed.
  * @param exceptions Optional. An array of elements to skip over if selected.
  */
-export function getRandomSetElement<T>(
+export function getRandomSetElement<T extends number | string>(
   set: ReadonlySet<T>,
   seedOrRNG: Seed | RNG | undefined,
   exceptions: readonly T[] = [],
@@ -106,7 +107,7 @@ export function getRandomSetElement<T>(
  * @param set The set to get the combinations of.
  * @param includeEmptyArray Whether to include an empty array in the combinations.
  */
-export function getSetCombinations<T>(
+export function getSetCombinations<T extends number | string>(
   set: ReadonlySet<T>,
   includeEmptyArray: boolean,
 ): ReadonlyArray<ReadonlySet<T>> {
@@ -123,7 +124,9 @@ export function getSetCombinations<T>(
  * the contents is important.
  */
 // eslint-disable-next-line isaacscript/no-mutable-return
-export function getSortedSetValues<T>(set: ReadonlySet<T>): T[] {
+export function getSortedSetValues<T extends number | string>(
+  set: ReadonlySet<T>,
+): T[] {
   const values = [...set];
 
   // Check for problematic types in order to throw a helpful error message.
@@ -137,7 +140,7 @@ export function getSortedSetValues<T>(set: ReadonlySet<T>): T[] {
     }
   }
 
-  values.sort();
+  values.sort(sortNormal);
 
   return values;
 }

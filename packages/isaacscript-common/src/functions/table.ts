@@ -186,7 +186,7 @@ export function iterateTableInOrder<K extends AnyNotNil, V>(
     return;
   }
 
-  keys.sort();
+  keys.sort(); // eslint-disable-line @typescript-eslint/require-array-sort-compare
   for (const key of keys) {
     const keyIndex = key as unknown as K;
     const value = luaMap.get(keyIndex);

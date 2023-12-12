@@ -16,6 +16,7 @@ import {
   mapSetPlayer,
 } from "../../../functions/playerDataStructures";
 import { getPlayerFromPtr } from "../../../functions/players";
+import { sortNormal } from "../../../functions/sort";
 import { repeat } from "../../../functions/utils";
 import type { PickingUpItem } from "../../../types/PickingUpItem";
 import type { PlayerIndex } from "../../../types/PlayerIndex";
@@ -262,8 +263,8 @@ export class PlayerCollectibleDetection extends Feature {
     // For example, it is possible for the player to switch Schoolbag items, which will cause the
     // collectibles in the array to be the same, but in a different order. Thus, we sort both arrays
     // before comparing them.
-    oldCollectibleTypes.sort();
-    newCollectibleTypes.sort();
+    oldCollectibleTypes.sort(sortNormal);
+    newCollectibleTypes.sort(sortNormal);
 
     if (!arrayEquals(oldCollectibleTypes, newCollectibleTypes)) {
       // One or more active items have changed (with the player's total collectible count remaining

@@ -2,6 +2,7 @@ import { ReadonlySet } from "../types/ReadonlySet";
 import type { WidenLiteral } from "../types/WidenLiteral";
 import { getRandomInt } from "./random";
 import { isRNG, newRNG } from "./rng";
+import { sortNormal } from "./sort";
 import { isNumber, isTable } from "./types";
 import { assertDefined, eRange } from "./utils";
 
@@ -359,7 +360,7 @@ function addCombinations<T>(
  * Helper function to get the duplicate elements in an array. Only one element for each value will
  * be returned. The elements will be sorted before they are returned.
  */
-export function getArrayDuplicateElements<T>(
+export function getArrayDuplicateElements<T extends number | string>(
   array: readonly T[],
 ): readonly T[] {
   const duplicateElements = new Set<T>();
@@ -373,7 +374,7 @@ export function getArrayDuplicateElements<T>(
   }
 
   const values = [...duplicateElements];
-  return values.sort();
+  return values.sort(sortNormal);
 }
 
 /**

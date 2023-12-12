@@ -171,12 +171,12 @@ export function asTrinketType(num: int): TrinketType {
 }
 
 export function isBoolean(variable: unknown): variable is boolean {
-  return type(variable) === "boolean";
+  return typeof variable === "boolean";
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function isFunction(variable: unknown): variable is Function {
-  return type(variable) === "function";
+  return typeof variable === "function";
 }
 
 export function isInteger(variable: unknown): variable is int {
@@ -188,14 +188,14 @@ export function isInteger(variable: unknown): variable is int {
 }
 
 export function isNumber(variable: unknown): variable is number {
-  return type(variable) === "number";
+  return typeof variable === "number";
 }
 
 /** Helper function to detect if a variable is a boolean, number, or string. */
 export function isPrimitive(
   variable: unknown,
 ): variable is boolean | number | string {
-  const variableType = type(variable);
+  const variableType = typeof variable;
   return (
     variableType === "boolean" ||
     variableType === "number" ||
@@ -204,16 +204,18 @@ export function isPrimitive(
 }
 
 export function isString(variable: unknown): variable is string {
-  return type(variable) === "string";
+  return typeof variable === "string";
 }
 
 export function isTable(
   variable: unknown,
 ): variable is LuaMap<AnyNotNil, unknown> {
+  // We cannot use `typeof` here since "table" is not a JavaScript type.
   return type(variable) === "table";
 }
 
 export function isUserdata(variable: unknown): variable is LuaUserdata {
+  // We cannot use `typeof` here since "userdata" is not a JavaScript type.
   return type(variable) === "userdata";
 }
 

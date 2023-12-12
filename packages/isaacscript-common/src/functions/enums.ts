@@ -1,5 +1,6 @@
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getRandomArrayElement } from "./array";
+import { sortNormal } from "./sort";
 import { isNumber, isString } from "./types";
 import { assertDefined, iRange } from "./utils";
 
@@ -151,8 +152,8 @@ export function getHighestEnumValue<T extends TranspiledEnum>(
   transpiledEnum: T,
 ): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
-
-  const lastElement = enumValues.at(-1);
+  const sortedValues = enumValues.toSorted(sortNormal);
+  const lastElement = sortedValues.at(-1);
   assertDefined(
     lastElement,
     "Failed to get the highest value from an enum since the enum was empty.",
@@ -173,8 +174,8 @@ export function getLowestEnumValue<T extends TranspiledEnum>(
   transpiledEnum: T,
 ): T[keyof T] {
   const enumValues = getEnumValues(transpiledEnum);
-
-  const firstElement = enumValues[0];
+  const sortedValues = enumValues.toSorted(sortNormal);
+  const firstElement = sortedValues[0];
   assertDefined(
     firstElement,
     "Failed to get the lowest value from an enum since the enum was empty.",

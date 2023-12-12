@@ -1,6 +1,6 @@
 import { isNumber, isString, isTable } from "./types";
 
-function sortNormal(a: unknown, b: unknown): -1 | 0 | 1 {
+export function sortNormal(a: unknown, b: unknown): -1 | 0 | 1 {
   if (!isNumber(a) && !isString(a)) {
     error(
       `Failed to normal sort since the first value was not a number or string and was instead: ${type(
@@ -79,7 +79,7 @@ export function sortObjectArrayByKey(key: string) {
  *
  * ```ts
  * const myArray = [[1, 2], [2, 3], [3, 4]];
- * myArray.sort(twoDimensionalSort);
+ * myArray.sort(sortTwoDimensionalArray);
  * ```
  *
  * This function also properly handles when the array elements are strings or numbers (instead of

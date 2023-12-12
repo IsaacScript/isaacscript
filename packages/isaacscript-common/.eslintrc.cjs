@@ -37,6 +37,14 @@ const config = {
         },
       },
     ],
+
+    /**
+     * Defined at: mod.js
+     *
+     * Since we transpile this library to both Lua and JavaScript, we need to re-enable this lint
+     * rule.
+     */
+    "@typescript-eslint/require-array-sort-compare": "error",
   },
 
   overrides: [
