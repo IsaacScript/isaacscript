@@ -1,4 +1,5 @@
 import { addFlag } from "./flag";
+import { parseIntSafe } from "./types";
 import { assertDefined } from "./utils";
 
 /** Helper function to convert a set of flags to a single `BitFlags` object. */
@@ -36,7 +37,7 @@ export function convertDecimalToBinary(
 
   const bitsString = num.toString(2);
   for (const bitString of bitsString) {
-    const bit = tonumber(bitString);
+    const bit = parseIntSafe(bitString);
     assertDefined(
       bit,
       `Failed to convert the following number to binary: ${num}`,
