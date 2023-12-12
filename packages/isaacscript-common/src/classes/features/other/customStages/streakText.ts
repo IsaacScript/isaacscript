@@ -1,5 +1,5 @@
 import { ButtonAction } from "isaac-typescript-definitions";
-import { CONTROLLER_INDEX_VALUES } from "../../../../arrays/cachedEnumValues";
+import { CONTROLLER_INDEX_VALUES } from "../../../../cachedEnumValues";
 import { fonts, game } from "../../../../core/cachedClasses";
 import { KColorDefault, VectorOne } from "../../../../core/constants";
 import { UIStreakAnimation } from "../../../../enums/private/UIStreakAnimation";

@@ -1,6 +1,6 @@
 import type { CollectibleType } from "isaac-typescript-definitions";
 import { ItemConfigTag, PlayerForm } from "isaac-typescript-definitions";
-import { PLAYER_FORM_VALUES } from "../arrays/cachedEnumValues";
+import { PLAYER_FORM_VALUES } from "../cachedEnumValues";
 import { TRANSFORMATION_NAMES } from "../objects/transformationNames";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";

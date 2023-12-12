@@ -11,10 +11,7 @@ import {
   GridRoom,
   RoomType,
 } from "isaac-typescript-definitions";
-import {
-  DOOR_SLOT_FLAG_VALUES,
-  DOOR_SLOT_VALUES,
-} from "../arrays/cachedEnumValues";
+import { DOOR_SLOT_FLAG_VALUES, DOOR_SLOT_VALUES } from "../cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { DISTANCE_OF_GRID_TILE } from "../core/constants";
 import {

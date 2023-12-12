@@ -3,7 +3,7 @@ import type {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { ItemPoolType } from "isaac-typescript-definitions";
-import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
+import { ITEM_POOL_TYPE_VALUES } from "../cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { ITEM_POOL_TYPE_TO_ITEM_POOL_NAME } from "../maps/itemPoolTypeToItemPoolName";
 import { ITEM_POOL_TYPE_TO_COLLECTIBLE_TYPES_SET } from "../objects/itemPoolTypeToCollectibleTypesSet";

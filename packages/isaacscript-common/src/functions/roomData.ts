@@ -4,7 +4,7 @@ import type {
   RoomType,
   StageID,
 } from "isaac-typescript-definitions";
-import { DOOR_SLOT_FLAG_VALUES } from "../arrays/cachedEnumValues";
+import { DOOR_SLOT_FLAG_VALUES } from "../cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { doorSlotFlagToDoorSlot } from "./doors";
 import { hasFlag } from "./flag";

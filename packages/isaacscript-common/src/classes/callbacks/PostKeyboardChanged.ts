@@ -1,6 +1,6 @@
 import type { Keyboard } from "isaac-typescript-definitions";
 import { ModCallback } from "isaac-typescript-definitions";
-import { KEYBOARD_VALUES } from "../../arrays/cachedEnumValues";
+import { KEYBOARD_VALUES } from "../../cachedEnumValues";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { isKeyboardPressed } from "../../functions/input";
 import type { FireArgs, OptionalArgs } from "../private/CustomCallback";

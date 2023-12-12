@@ -60,7 +60,7 @@ import {
   SoundEffect,
   StageType,
 } from "isaac-typescript-definitions";
-import { GRID_ENTITY_TYPE_VALUES } from "../../../../arrays/cachedEnumValues";
+import { GRID_ENTITY_TYPE_VALUES } from "../../../../cachedEnumValues";
 import { game, sfxManager } from "../../../../core/cachedClasses";
 import {
   DOGMA_ROOM_GRID_INDEX,

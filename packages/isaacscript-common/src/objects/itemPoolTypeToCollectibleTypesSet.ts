@@ -2,7 +2,7 @@ import type {
   CollectibleType,
   ItemPoolType,
 } from "isaac-typescript-definitions";
-import { ITEM_POOL_TYPE_VALUES } from "../arrays/cachedEnumValues";
+import { ITEM_POOL_TYPE_VALUES } from "../cachedEnumValues";
 import * as itemPoolsJSON from "../data/itempools.json";
 import { asCollectibleType, parseIntSafe } from "../functions/types";
 import { ITEM_POOL_TYPE_TO_ITEM_POOL_NAME } from "../maps/itemPoolTypeToItemPoolName";

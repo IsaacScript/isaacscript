@@ -1,4 +1,4 @@
-import { PLAYER_STAT_VALUES } from "../../arrays/cachedEnumValues";
+import { PLAYER_STAT_VALUES } from "../../cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import type { PlayerStat } from "../../enums/PlayerStat";
 import { isBitSet128 } from "../../functions/bitSet128";

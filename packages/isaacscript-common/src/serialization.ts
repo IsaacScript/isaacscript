@@ -1,4 +1,4 @@
-import { SERIALIZATION_BRAND_VALUES } from "./arrays/cachedEnumValues";
+import { SERIALIZATION_BRAND_VALUES } from "./cachedEnumValues";
 import { isString } from "./functions/types";
 import { ReadonlySet } from "./types/ReadonlySet";
 

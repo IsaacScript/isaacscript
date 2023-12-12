@@ -6,7 +6,7 @@ import {
   PillColor,
   PlayerType,
 } from "isaac-typescript-definitions";
-import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
+import { POCKET_ITEM_SLOT_VALUES } from "../cachedEnumValues";
 import { PocketItemType } from "../enums/PocketItemType";
 import type { PocketItemDescription } from "../interfaces/PocketItemDescription";
 import { isCharacter } from "./players";

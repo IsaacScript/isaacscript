@@ -1,5 +1,5 @@
 import { BossID, LevelStage, StageID } from "isaac-typescript-definitions";
-import { BOSS_ID_VALUES } from "../arrays/cachedEnumValues";
+import { BOSS_ID_VALUES } from "../cachedEnumValues";
 import { isStoryBossID } from "../functions/storyBosses";
 import { ReadonlyMap } from "../types/ReadonlyMap";
 import { ReadonlySet } from "../types/ReadonlySet";

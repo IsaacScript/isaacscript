@@ -1,6 +1,6 @@
 import type { CardType } from "isaac-typescript-definitions";
 import { ItemConfigCardType, UseFlag } from "isaac-typescript-definitions";
-import { POCKET_ITEM_SLOT_VALUES } from "../arrays/cachedEnumValues";
+import { POCKET_ITEM_SLOT_VALUES } from "../cachedEnumValues";
 import { itemConfig } from "../core/cachedClasses";
 import { LAST_VANILLA_CARD_TYPE } from "../core/constantsFirstLast";
 import {

@@ -4,7 +4,7 @@ import type {
   PillEffect,
 } from "isaac-typescript-definitions";
 import { PillColor } from "isaac-typescript-definitions";
-import { PILL_COLOR_VALUES } from "../arrays/cachedEnumValues";
+import { PILL_COLOR_VALUES } from "../cachedEnumValues";
 import { game, itemConfig } from "../core/cachedClasses";
 import {
   FIRST_HORSE_PILL_COLOR,

@@ -4,7 +4,7 @@ import type {
   SoundEffect,
   StageType,
 } from "isaac-typescript-definitions";
-import { SOUND_EFFECT_VALUES } from "../arrays/cachedEnumValues";
+import { SOUND_EFFECT_VALUES } from "../cachedEnumValues";
 import { game, sfxManager } from "../core/cachedClasses";
 import { STAGE_TO_MUSIC } from "../objects/stageToMusic";
 import type { TranspiledEnum } from "./enums";

@@ -1,4 +1,4 @@
-import { MOD_CALLBACK_CUSTOM_VALUES } from "./arrays/cachedEnumValues";
+import { MOD_CALLBACK_CUSTOM_VALUES } from "./cachedEnumValues";
 import * as cc from "./callbackClasses";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import type { AnyClass } from "./types/AnyClass";

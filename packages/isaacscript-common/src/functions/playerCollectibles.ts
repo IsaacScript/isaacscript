@@ -3,7 +3,7 @@ import {
   CollectibleType,
   PlayerType,
 } from "isaac-typescript-definitions";
-import { ACTIVE_SLOT_VALUES } from "../arrays/cachedEnumValues";
+import { ACTIVE_SLOT_VALUES } from "../cachedEnumValues";
 import { game, itemConfig } from "../core/cachedClasses";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { sumArray } from "./array";

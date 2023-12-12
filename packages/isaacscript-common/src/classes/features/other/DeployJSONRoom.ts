@@ -8,7 +8,7 @@ import {
   PitfallVariant,
   RoomType,
 } from "isaac-typescript-definitions";
-import { GRID_ENTITY_XML_TYPE_VALUES } from "../../../arrays/cachedEnumValues";
+import { GRID_ENTITY_XML_TYPE_VALUES } from "../../../cachedEnumValues";
 import { game } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";

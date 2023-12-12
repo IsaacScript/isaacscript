@@ -3,7 +3,7 @@ import {
   PlayerType,
   SeedEffect,
 } from "isaac-typescript-definitions";
-import { SEED_EFFECTS } from "../arrays/cachedEnumValues";
+import { SEED_EFFECTS } from "../cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { getCharacterName } from "./characters";
 import { log } from "./log";

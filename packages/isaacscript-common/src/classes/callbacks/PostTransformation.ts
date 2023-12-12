@@ -1,5 +1,5 @@
 import type { PlayerForm } from "isaac-typescript-definitions";
-import { PLAYER_FORM_VALUES } from "../../arrays/cachedEnumValues";
+import { PLAYER_FORM_VALUES } from "../../cachedEnumValues";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../functions/playerDataStructures";
 import type { PlayerIndex } from "../../types/PlayerIndex";

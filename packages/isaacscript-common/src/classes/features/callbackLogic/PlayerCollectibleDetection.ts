@@ -6,7 +6,7 @@ import {
   ModCallback,
   PlayerType,
 } from "isaac-typescript-definitions";
-import { ACTIVE_SLOT_VALUES } from "../../../arrays/cachedEnumValues";
+import { ACTIVE_SLOT_VALUES } from "../../../cachedEnumValues";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { arrayEquals } from "../../../functions/array";

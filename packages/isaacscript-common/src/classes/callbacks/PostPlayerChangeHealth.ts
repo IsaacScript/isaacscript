@@ -1,4 +1,4 @@
-import { HEALTH_TYPE_VALUES } from "../../arrays/cachedEnumValues";
+import { HEALTH_TYPE_VALUES } from "../../cachedEnumValues";
 import type { HealthType } from "../../enums/HealthType";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getPlayerHealthType } from "../../functions/playerHealth";

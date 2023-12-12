@@ -21,11 +21,11 @@ import {
   SoundEffect,
   TrinketSlot,
 } from "isaac-typescript-definitions";
-import { HealthType } from "../enums/HealthType";
-import { ModCallbackCustom } from "../enums/ModCallbackCustom";
-import { PlayerStat } from "../enums/PlayerStat";
-import { SerializationBrand } from "../enums/private/SerializationBrand";
-import { getEnumValues } from "../functions/enums";
+import { HealthType } from "./enums/HealthType";
+import { ModCallbackCustom } from "./enums/ModCallbackCustom";
+import { PlayerStat } from "./enums/PlayerStat";
+import { SerializationBrand } from "./enums/private/SerializationBrand";
+import { getEnumValues } from "./functions/enums";
 
 export const ACTIVE_SLOT_VALUES = getEnumValues(ActiveSlot);
 

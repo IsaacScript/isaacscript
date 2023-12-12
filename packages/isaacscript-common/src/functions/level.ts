@@ -1,6 +1,6 @@
 import type { BossID } from "isaac-typescript-definitions";
 import { RoomType, StageID } from "isaac-typescript-definitions";
-import { DOOR_SLOT_VALUES } from "../arrays/cachedEnumValues";
+import { DOOR_SLOT_VALUES } from "../cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { filterMap } from "./array";
 import {

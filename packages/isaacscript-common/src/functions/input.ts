@@ -4,7 +4,7 @@ import {
   ControllerIndex,
   Keyboard,
 } from "isaac-typescript-definitions";
-import { CONTROLLER_INDEX_VALUES } from "../arrays/cachedEnumValues";
+import { CONTROLLER_INDEX_VALUES } from "../cachedEnumValues";
 import { KEYBOARD_TO_STRING_MAP } from "../maps/keyboardToStringMap";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { trimPrefix } from "./string";

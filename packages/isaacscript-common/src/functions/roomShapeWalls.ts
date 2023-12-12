@@ -1,5 +1,5 @@
 import { BossID, RoomShape } from "isaac-typescript-definitions";
-import { ROOM_SHAPE_VALUES } from "../arrays/cachedEnumValues";
+import { ROOM_SHAPE_VALUES } from "../cachedEnumValues";
 import { game } from "../core/cachedClasses";
 import { CornerType } from "../enums/CornerType";
 import type { Corner } from "../interfaces/Corner";

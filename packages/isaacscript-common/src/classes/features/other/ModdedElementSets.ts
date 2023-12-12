@@ -12,7 +12,7 @@ import {
   CACHE_FLAG_VALUES,
   ITEM_CONFIG_CARD_TYPE_VALUES,
   ITEM_CONFIG_TAG_VALUES,
-} from "../../../arrays/cachedEnumValues";
+} from "../../../cachedEnumValues";
 import { itemConfig } from "../../../core/cachedClasses";
 import {
   FIRST_GLITCHED_COLLECTIBLE_TYPE,

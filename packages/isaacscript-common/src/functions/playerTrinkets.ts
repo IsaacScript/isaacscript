@@ -3,7 +3,7 @@ import {
   TrinketSlot,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { TRINKET_SLOT_VALUES } from "../arrays/cachedEnumValues";
+import { TRINKET_SLOT_VALUES } from "../cachedEnumValues";
 import { itemConfig } from "../core/cachedClasses";
 import { getAllPlayers, getPlayers } from "./playerIndex";
 import { isCharacter } from "./players";

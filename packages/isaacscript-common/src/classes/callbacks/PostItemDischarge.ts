@@ -4,7 +4,7 @@ import {
   ModCallback,
   SuckerVariant,
 } from "isaac-typescript-definitions";
-import { ACTIVE_SLOT_VALUES } from "../../arrays/cachedEnumValues";
+import { ACTIVE_SLOT_VALUES } from "../../cachedEnumValues";
 import { game } from "../../core/cachedClasses";
 import { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import { getTotalCharge } from "../../functions/charge";
