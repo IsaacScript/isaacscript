@@ -155,7 +155,7 @@ export function getHighestEnumValue<T extends TranspiledEnum>(
   const lastElement = enumValues.at(-1);
   assertDefined(
     lastElement,
-    "Failed to get the last value from an enum since the enum was empty.",
+    "Failed to get the highest value from an enum since the enum was empty.",
   );
 
   return lastElement;
@@ -177,7 +177,7 @@ export function getLowestEnumValue<T extends TranspiledEnum>(
   const firstElement = enumValues[0];
   assertDefined(
     firstElement,
-    "Failed to get the first value from an enum since the enum was empty.",
+    "Failed to get the lowest value from an enum since the enum was empty.",
   );
 
   return firstElement;
