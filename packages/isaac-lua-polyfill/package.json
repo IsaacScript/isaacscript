@@ -27,8 +27,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
-    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
+    "build": "tsx ./scripts/build.ts",
+    "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
     "isaac-typescript-definitions": "^40.0.2",
