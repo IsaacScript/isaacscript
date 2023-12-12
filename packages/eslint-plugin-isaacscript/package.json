@@ -38,10 +38,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.mts",
-    "create-rule": "tsx ./scripts/createRule.mts",
-    "generate": "tsx ./scripts/generate.mts",
-    "lint": "tsx ./scripts/lint.mts",
+    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
+    "create-rule": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/createRule.mts",
+    "generate": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/generate.mts",
+    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts",
     "test": "jest"
   },
   "dependencies": {
