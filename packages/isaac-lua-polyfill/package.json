@@ -1,6 +1,6 @@
 {
   "name": "isaac-lua-polyfill",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Lua polyfills for The Binding of Isaac: Repentance.",
   "keywords": [
     "isaac",
