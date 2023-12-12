@@ -5742,10 +5742,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node-lts@npm:^18.12.5":
-  version: 18.12.5
-  resolution: "@tsconfig/node-lts@npm:18.12.5"
-  checksum: 90f6499b6114ef044833fa747a5a1a60db535d1a0943b7f62196cf53d83525f84024a4c1dd503a937085c39e796bc6884d1becafbaeaa8bb925e53f68fcd7a47
+"@tsconfig/node-lts@npm:^20.1.0":
+  version: 20.1.0
+  resolution: "@tsconfig/node-lts@npm:20.1.0"
+  checksum: 1e8e16ce95f6fac33db355a382930019162519287dd0cf1b33045aa9715e1b62616c1a35e9f91eff3cac4a0b446cd5226c8c49c380fc95cc6943952cf7480212
   languageName: node
   linkType: hard
 
@@ -12691,7 +12691,7 @@ __metadata:
     "@microsoft/api-extractor": "npm:^7.38.5"
     "@prettier/plugin-xml": "npm:^3.2.2"
     "@svgr/webpack": "npm:^8.1.0"
-    "@tsconfig/node-lts": "npm:^18.12.5"
+    "@tsconfig/node-lts": "npm:^20.1.0"
     "@tsconfig/strictest": "npm:^2.0.2"
     "@types/command-exists": "npm:^1.2.3"
     "@types/confusing-browser-globals": "npm:^1.0.3"

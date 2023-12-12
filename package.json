@@ -39,7 +39,7 @@
     "@microsoft/api-extractor": "^7.38.5",
     "@prettier/plugin-xml": "^3.2.2",
     "@svgr/webpack": "^8.1.0",
-    "@tsconfig/node-lts": "^18.12.5",
+    "@tsconfig/node-lts": "^20.1.0",
     "@tsconfig/strictest": "^2.0.2",
     "@types/command-exists": "^1.2.3",
     "@types/confusing-browser-globals": "^1.0.3",
