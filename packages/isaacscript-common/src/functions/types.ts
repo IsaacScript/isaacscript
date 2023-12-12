@@ -240,6 +240,6 @@ export function parseIntSafe(string: string): int | undefined {
     return undefined;
   }
 
-  const flooredNumber = math.floor(number);
+  const flooredNumber = Math.floor(number);
   return number === flooredNumber ? flooredNumber : undefined;
 }
