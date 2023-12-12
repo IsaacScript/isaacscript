@@ -4,9 +4,7 @@
 
 This package contains JavaScript polyfills for [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/). This is useful when you need to import `isaac-typescript-definitions` or `isaacscript-common` inside of JavaScript/TypeScript environments such as the browser or Node.js. For example, you might want to write unit tests in JavaScript/TypeScript for functions that are used in your mod, and then run them in [CI](https://en.wikipedia.org/wiki/Continuous_integration).
 
-## List of Polyfills
-
-Currently, only `BitSet128` polyfill is provided.
+Not all polyfills are included. However, enough polyfills are included such that you can import basic things in either `isaac-typescript-definitions` or `isaacscript-common` without getting any run-time errors.
 
 ## Usage
 
