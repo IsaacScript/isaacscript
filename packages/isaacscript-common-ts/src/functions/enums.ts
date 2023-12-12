@@ -1,6 +1,40 @@
 type TranspiledEnum = Record<string, string | number>;
 
 /**
+ * Helper function to get the entries of an enum.
+ *
+ * (By default, TypeScript will put the keys inside of the values of a number-based enum, so those
+ * have to be filtered out.)
+ *
+ * This function will work properly for both number and string enums.
+ */
+export function getEnumEntries<T extends TranspiledEnum>(
+  transpiledEnum: T,
+): ReadonlyArray<[key: string, value: T[keyof T]]> {
+  const entries = Object.entries(transpiledEnum);
+  const numberEntries = entries.filter(
+    ([_key, value]) => typeof value === "number",
+  );
+
+  // If there are no number values, then this must be a string enum, and no filtration is required.
+  const valuesToReturn = numberEntries.length > 0 ? numberEntries : entries;
+  return valuesToReturn as never;
+}
+
+/**
+ * Helper function to get the keys of an enum.
+ *
+ * (By default, TypeScript will put the keys inside of the values of a number-based enum, so those
+ * have to be filtered out.)
+ *
+ * This function will work properly for both number and string enums.
+ */
+export function getEnumKeys(transpiledEnum: TranspiledEnum): readonly string[] {
+  const enumEntries = getEnumEntries(transpiledEnum);
+  return enumEntries.map(([key, _value]) => key);
+}
+
+/**
  * Helper function to get the only the values of an enum.
  *
  * (By default, TypeScript will put the keys inside of the values of a number-based enum, so those
@@ -11,12 +45,8 @@ type TranspiledEnum = Record<string, string | number>;
 export function getEnumValues<T extends TranspiledEnum>(
   transpiledEnum: T,
 ): ReadonlyArray<T[keyof T]> {
-  const values = Object.values(transpiledEnum);
-  const numberValues = values.filter((value) => typeof value === "number");
-
-  // If there are no number values, then this must be a string enum, and no filtration is required.
-  const valuesToReturn = numberValues.length > 0 ? numberValues : values;
-  return valuesToReturn as Array<T[keyof T]>;
+  const enumEntries = getEnumEntries(transpiledEnum);
+  return enumEntries.map(([_key, value]) => value);
 }
 
 /** Helper function to validate that a particular value exists inside of an enum. */

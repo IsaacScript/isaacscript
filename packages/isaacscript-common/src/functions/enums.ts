@@ -34,24 +34,22 @@ export type TranspiledEnum = Record<
 export function getEnumEntries<T extends TranspiledEnum>(
   transpiledEnum: T,
 ): ReadonlyArray<[key: string, value: T[keyof T]]> {
-  // The values cannot simply be type `T` due to the special construction of bit flag enums.
-  const enumEntries: Array<[key: string, value: T[keyof T]]> = [];
-  for (const [key, value] of pairs(transpiledEnum)) {
-    // Ignore the reverse mappings created by TypeScriptToLua. Note that reverse mappings are not
-    // created for string enums.
-    if (isString(key)) {
-      enumEntries.push([key, value]);
-    }
-  }
+  const entries = Object.entries(transpiledEnum);
+  const numberEntries = entries.filter(
+    ([_key, value]) => typeof value === "number",
+  );
+
+  // If there are no number values, then this must be a string enum, and no filtration is required.
+  const valuesToReturn = numberEntries.length > 0 ? numberEntries : entries;
 
   // The enums will be in a random order (because of "pairs"), so sort them based on the values.
   // https://stackoverflow.com/questions/5199901/how-to-sort-an-associative-array-by-its-values-in-javascript
-  enumEntries.sort(
+  valuesToReturn.sort(
     ([_key1, value1], [_key2, value2]) =>
       value1 < value2 ? -1 : value1 > value2 ? 1 : 0, // eslint-disable-line no-nested-ternary
   );
 
-  return enumEntries;
+  return valuesToReturn as never;
 }
 
 /**
