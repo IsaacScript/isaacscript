@@ -144,7 +144,7 @@ export function getClosestEntityTo<T extends AnyEntity>(
   filterFunc?: (entity: T) => boolean,
 ): T | undefined {
   let closestEntity: T | undefined;
-  let closestDistance = math.huge;
+  let closestDistance = Number.POSITIVE_INFINITY;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
 
