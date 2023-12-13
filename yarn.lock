@@ -6288,14 +6288,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.43":
-  version: 18.2.43
-  resolution: "@types/react@npm:18.2.43"
+"@types/react@npm:^18.2.45":
+  version: 18.2.45
+  resolution: "@types/react@npm:18.2.45"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10477a50fbd3c0cc5b8a2ade679f442717f68fb27c8460b2aa1d3256cd18c48f742bbe5b9ee37a8c4c5f832ffa37b3a23c09fd96dd880a8e3182d8929c05e803
+  checksum: 4cc650c47ffb88baac29fb7a74e842e4af4a55f437086ef70250fdc75f0a5f2fcf8adc272d05ab2e00b1de6e14613296881271caee037dadf9130fdeb498c59e
   languageName: node
   linkType: hard
 
@@ -12704,7 +12704,7 @@ __metadata:
     "@types/klaw-sync": "npm:^6.0.5"
     "@types/node": "npm:^20.10.4"
     "@types/prompt": "npm:^1.1.8"
-    "@types/react": "npm:^18.2.43"
+    "@types/react": "npm:^18.2.45"
     "@types/source-map-support": "npm:^0.5.10"
     "@types/touch": "npm:^3.1.5"
     "@types/xml2js": "npm:^0.4.14"
@@ -12750,12 +12750,12 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^3.7.0"
+    knip: "npm:^3.8.0"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.32.1"
     markdownlint-cli: "npm:^0.38.0"
     moment: "npm:^2.29.4"
-    npm-check-updates: "npm:^16.14.11"
+    npm-check-updates: "npm:^16.14.12"
     prettier: "npm:^3.1.1"
     prettier-plugin-organize-imports: "npm:^3.2.4"
     prettier-plugin-packagejson: "npm:^2.4.7"
@@ -13613,9 +13613,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^3.7.0":
-  version: 3.7.0
-  resolution: "knip@npm:3.7.0"
+"knip@npm:^3.8.0":
+  version: 3.8.0
+  resolution: "knip@npm:3.8.0"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@npmcli/map-workspaces": "npm:3.0.4"
@@ -13642,7 +13642,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 861ce4f16c7253f72260a831dcdeadc8ea6bc87993e4648e309023ddf9e41c515df4adcae5e4912cf9c38317c9105f05b4fe6bc1fc76c1ff4be0385db3e73ff4
+  checksum: e38a1b8d62e384b645fce87086541f307ec5794792368914d298b7b30fdeeaede1b63fc747681ed664051fe9326b89bdd025cc4241f969d3c6814c917233e6cd
   languageName: node
   linkType: hard
 
@@ -15550,9 +15550,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.14.11":
-  version: 16.14.11
-  resolution: "npm-check-updates@npm:16.14.11"
+"npm-check-updates@npm:^16.14.12":
+  version: 16.14.12
+  resolution: "npm-check-updates@npm:16.14.12"
   dependencies:
     chalk: "npm:^5.3.0"
     cli-table3: "npm:^0.6.3"
@@ -15589,7 +15589,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: bbd2a43e84280d228a357d27a7016dcc8b60aa1361f75b59ad67a61b73a7156ee62be9d44bcaa41c24f65cb9cc436ea85169a0702399842b4f8e16bca1834565
+  checksum: b22660e1fb3bc7bceccd70bf2c20e8873441771c160762d066f71ce2d4f0a6ff58882b5c198be89e433301bdf4e5440b1f46c1cdf3e9d40137b2823b07d6b3d0
   languageName: node
   linkType: hard
 
