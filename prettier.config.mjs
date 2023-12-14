@@ -4,9 +4,9 @@
 /** @type {import("prettier").Config} */
 const config = {
   plugins: [
-    "prettier-plugin-organize-imports",
-    "prettier-plugin-packagejson",
-    "@prettier/plugin-xml",
+    "prettier-plugin-organize-imports", // Prettier does not format imports by default.
+    "prettier-plugin-packagejson", // Prettier does not format "package.json" by default.
+    "@prettier/plugin-xml", // Prettier does not format XML files by default.
   ],
 
   overrides: [
