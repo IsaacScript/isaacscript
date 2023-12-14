@@ -125,6 +125,7 @@
     "typedoc-plugin-rename": "^1.0.1",
     "typescript": "5.2.2",
     "typescript-to-lua": "^1.22.0",
+    "unbuild": "^2.0.0",
     "unified": "^11.0.4",
     "xml2js": "^0.6.2",
     "yaml": "^2.3.4",
