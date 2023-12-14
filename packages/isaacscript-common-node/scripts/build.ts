@@ -1,16 +1,6 @@
-import {
-  $s,
-  buildScript,
-  fixMonorepoPackageDistDirectory,
-} from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { $s, buildScript } from "isaacscript-common-node";
 
-await buildScript(({ packageRoot, outDir }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-
-  $s`tsc`;
-  fixMonorepoPackageDistDirectory(packageRoot, outDir);
+await buildScript(() => {
+  // We use the `unbuild` library to output both ESM and CJS.
+  $s`unbuild`;
 });
