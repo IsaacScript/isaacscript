@@ -12,6 +12,9 @@
 
     // Needed in order to make "source-map-support" work properly.
     "sourceMap": true,
+
+    // Needed to import from "package.json".
+    "resolveJsonModule": true,
   },
 
   "include": [

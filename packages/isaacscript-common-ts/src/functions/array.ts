@@ -132,6 +132,11 @@ export function getRandomArrayIndex<T>(
   return getRandomInt(0, array.length - 1, exceptions);
 }
 
+/** A wrapper around `Array.isArray` that narrows to `unknown[]` instead of `any[]`. */
+export function isArray(arg: unknown): arg is unknown[] {
+  return Array.isArray(arg);
+}
+
 /** Initializes an array with all elements containing the specified default value. */
 // eslint-disable-next-line isaacscript/no-mutable-return
 export function newArray<T>(length: number, value: T): T[] {

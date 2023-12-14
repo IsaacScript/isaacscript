@@ -22,11 +22,10 @@
 import { Command } from "@commander-js/extra-typings";
 import {
   dirName,
-  getPackageJSONVersion,
   nukeDependencies,
   updatePackageJSON,
 } from "isaacscript-common-node";
-import path from "node:path";
+import { description, name, version } from "../package.json";
 import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand, initTSCommand } from "./commands/init/init.js";
@@ -35,17 +34,14 @@ import {
   publishCommand,
   publishTSCommand,
 } from "./commands/publish/publish.js";
-import { CWD, PROJECT_NAME } from "./constants.js";
+import { CWD } from "./constants.js";
 
 const __dirname = dirName();
 
 export async function parseArgs(): Promise<void> {
-  const packageJSONPath = path.join(__dirname, "..", "package.json");
-  const version = getPackageJSONVersion(packageJSONPath);
-
   const program = new Command()
-    .name(PROJECT_NAME.toLowerCase())
-    .description("The CLI for the IsaacScript framework.")
+    .name(name)
+    .description(`${description}.`)
     .version(version, "-V, --version", "Output the version number.")
     .helpOption("-h, --help", "Display the list of commands and options.")
     .addHelpCommand(false)

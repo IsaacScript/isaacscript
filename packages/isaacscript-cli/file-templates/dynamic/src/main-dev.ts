@@ -6,11 +6,10 @@ import {
   setTracebackFunctionsGlobal,
   upgradeMod,
 } from "isaacscript-common";
-
-const MOD_NAME = "test-mod";
+import { name } from "../package.json";
 
 export function main() {
-  const modVanilla = RegisterMod(MOD_NAME, 1);
+  const modVanilla = RegisterMod(name, 1);
   const features = [
     ISCFeature.FADE_IN_REMOVER,
     ISCFeature.FAST_RESET,
@@ -33,7 +32,7 @@ export function main() {
   mod.AddCallback(ModCallback.POST_NEW_LEVEL, postNewLevel); // 18
   mod.AddCallback(ModCallback.POST_NEW_ROOM, postNewRoom); // 19
 
-  log(`${MOD_NAME} initialized.`);
+  log(`${name} initialized.`);
 }
 
 // ModCallback.POST_PLAYER_INIT (9)
