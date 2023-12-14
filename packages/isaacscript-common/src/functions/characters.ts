@@ -195,9 +195,7 @@ export function getCharacterStartingTrinketType(
  *
  * For `PlayerType.POSSESSOR` (-1) and modded characters, the same character will be returned.
  */
-export function getMainCharacter(
-  character: PlayerType,
-): PlayerType | undefined {
+export function getMainCharacter(character: PlayerType): PlayerType {
   if (isMainCharacter(character) || isModdedCharacter(character)) {
     return character;
   }
