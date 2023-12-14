@@ -13,9 +13,17 @@ This page lists the changes to the IsaacScript framework.
 
 - `isaacscript-common` now provides JavaScript files alongside Lua files. (`isaac-typescript-definitions` already does this.)
 - `isaac-lua-polyfills` now provides more polyfills such that you can import `isaacscript-common` in JavaScript code without any run-time errors.
+- Added the following helper functions:
+  - `getMainCharacter`
 - Changed the following helper functions:
   - `eRange` - The reverse functionality has been removed.
   - `iRange` - The reverse functionality has been removed.
+- Renamed the following helper functions:
+  - `characterCanHaveRedHearts` --> `canCharacterHaveRedHearts`
+  - `characterCanHaveSoulHearts` --> `canCharacterHaveSoulHearts`
+  - `characterCanTakeFreeDevilDeals` --> `canCharacterTakeFreeDevilDeals`
+  - `characterGetsBlackHeartFromEternalHeart` --> `canCharacterGetBlackHeartFromEternalHeart`
+  - `characterStartsWithActiveItem` --> `doesCharacterStartWithActiveItem`
 
 ## December 10th, 2023
 

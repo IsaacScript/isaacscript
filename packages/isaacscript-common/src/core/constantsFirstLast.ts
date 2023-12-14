@@ -121,7 +121,7 @@ export const NUM_NORMAL_PILL_COLORS =
 /** Equal to `PlayerType.ISAAC` (0). */
 export const FIRST_CHARACTER = PlayerType.ISAAC;
 
-// It is not possible to determine "LAST_PLAYER_TYPE", since there is no associated config.
+// It is not possible to determine "LAST_CHARACTER", since there is no associated config.
 
 /** Calculated from the `PlayerType` enum. */
 export const LAST_VANILLA_CHARACTER = getHighestEnumValue(PlayerType);

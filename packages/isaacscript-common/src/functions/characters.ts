@@ -18,10 +18,23 @@ import { CHARACTERS_WITH_NO_SOUL_HEARTS_SET } from "../sets/charactersWithNoSoul
 import { LOST_STYLE_CHARACTERS_SET } from "../sets/lostStyleCharactersSet";
 import { ReadonlySet } from "../types/ReadonlySet";
 
+type MainCharacter = (typeof MAIN_CHARACTERS)[number];
+
 const FLYING_CHARACTERS_SET = new ReadonlySet<PlayerType>(FLYING_CHARACTERS);
 const MAIN_CHARACTERS_SET = new ReadonlySet<PlayerType>(MAIN_CHARACTERS);
 
 const PNG_PATH_PREFIX = "characters/costumes";
+
+/**
+ * Normally, characters get a red heart container upon reaching a new floor with an eternal heart,
+ * but some characters grant a black heart instead. Returns true for Dark Judas and Tainted Judas.
+ * Otherwise, returns false.
+ */
+export function canCharacterGetBlackHeartFromEternalHeart(
+  character: PlayerType,
+): boolean {
+  return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET.has(character);
+}
 
 /**
  * Helper function to determine if the given character can have red heart containers. Returns true
@@ -29,7 +42,7 @@ const PNG_PATH_PREFIX = "characters/costumes";
  * though coin containers are not technically the same as red heart containers. Returns false for
  * characters like Blue Baby. Returns false for The Lost and Tainted Lost.
  */
-export function characterCanHaveRedHearts(character: PlayerType): boolean {
+export function canCharacterHaveRedHearts(character: PlayerType): boolean {
   return !CHARACTERS_WITH_NO_RED_HEARTS_SET.has(character);
 }
 
@@ -38,7 +51,7 @@ export function characterCanHaveRedHearts(character: PlayerType): boolean {
  * characters like Isaac, Magdalene, or Cain. Returns false for characters like Bethany. Returns
  * false for The Lost and Tainted Lost.
  */
-export function characterCanHaveSoulHearts(character: PlayerType): boolean {
+export function canCharacterHaveSoulHearts(character: PlayerType): boolean {
   return !CHARACTERS_WITH_NO_SOUL_HEARTS_SET.has(character);
 }
 
@@ -46,19 +59,8 @@ export function characterCanHaveSoulHearts(character: PlayerType): boolean {
  * Helper function for determining whether the given character can take free Devil Deals. (e.g. The
  * Lost, Tainted Lost, etc.)
  */
-export function characterCanTakeFreeDevilDeals(character: PlayerType): boolean {
+export function canCharacterTakeFreeDevilDeals(character: PlayerType): boolean {
   return CHARACTERS_WITH_FREE_DEVIL_DEALS_SET.has(character);
-}
-
-/**
- * Normally, characters get a red heart container upon reaching a new floor with an eternal heart,
- * but some characters grant a black heart instead. Returns true for Dark Judas and Tainted Judas.
- * Otherwise, returns false.
- */
-export function characterGetsBlackHeartFromEternalHeart(
-  character: PlayerType,
-): boolean {
-  return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET.has(character);
 }
 
 /**
@@ -67,7 +69,9 @@ export function characterGetsBlackHeartFromEternalHeart(
  * For the purposes of this function, the save file is considered to be fully unlocked (e.g. Isaac
  * is considered to starts with the D6, but this is not the case on a brand new save file).
  */
-export function characterStartsWithActiveItem(character: PlayerType): boolean {
+export function doesCharacterStartWithActiveItem(
+  character: PlayerType,
+): boolean {
   return CHARACTERS_THAT_START_WITH_AN_ACTIVE_ITEM_SET.has(character);
 }
 
@@ -181,6 +185,66 @@ export function getCharacterStartingTrinketType(
   return CHARACTER_STARTING_TRINKET_TYPE[character];
 }
 
+/**
+ * Helper function to get the "main" version of the character. In other words, this is the character
+ * that selectable from the main menu (and has achievements related to completing the various bosses
+ * and so on).
+ *
+ * For example, the main character for `PlayerType.MAGDALENE` (1) is also `PlayerType.MAGDALENE`
+ * (1), but the main character for `PlayerType.LAZARUS_2` (11) would be `PlayerType.LAZARUS` (8).
+ *
+ * For `PlayerType.POSSESSOR` (-1) and modded characters, the same character will be returned.
+ */
+export function getMainCharacter(
+  character: PlayerType,
+): PlayerType | undefined {
+  if (isMainCharacter(character) || isModdedCharacter(character)) {
+    return character;
+  }
+
+  switch (character) {
+    // -1
+    case PlayerType.POSSESSOR: {
+      return PlayerType.POSSESSOR;
+    }
+
+    // 11
+    case PlayerType.LAZARUS_2: {
+      return PlayerType.LAZARUS;
+    }
+
+    // 12
+    case PlayerType.DARK_JUDAS: {
+      return PlayerType.JUDAS;
+    }
+
+    // 17
+    case PlayerType.SOUL: {
+      return PlayerType.FORGOTTEN;
+    }
+
+    // 20
+    case PlayerType.ESAU: {
+      return PlayerType.JACOB;
+    }
+
+    // 38
+    case PlayerType.LAZARUS_2_B: {
+      return PlayerType.LAZARUS_2;
+    }
+
+    // 39
+    case PlayerType.JACOB_2_B: {
+      return PlayerType.JACOB_B;
+    }
+
+    // 40
+    case PlayerType.SOUL_B: {
+      return PlayerType.FORGOTTEN_B;
+    }
+  }
+}
+
 export function isFlyingCharacter(character: PlayerType): boolean {
   return FLYING_CHARACTERS_SET.has(character);
 }
@@ -189,7 +253,9 @@ export function isFlyingCharacter(character: PlayerType): boolean {
  * Helper function to check if the provided character is one of the characters that are selectable
  * from the main menu (and have achievements related to completing the various bosses and so on).
  */
-export function isMainCharacter(character: PlayerType): boolean {
+export function isMainCharacter(
+  character: PlayerType,
+): character is MainCharacter {
   return MAIN_CHARACTERS_SET.has(character);
 }
 
