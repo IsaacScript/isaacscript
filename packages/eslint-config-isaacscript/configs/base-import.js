@@ -228,6 +228,8 @@ const config = {
         "prettier.config.js",
         "typedoc.config.mjs",
         "typedoc.config.js",
+        "vite.config.js",
+        "vite.config.mjs",
       ],
       rules: {
         "import/no-default-export": "off",
