@@ -285,10 +285,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@arktype/fs@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@arktype/fs@npm:0.0.1"
-  checksum: 6af204b0ab74658fcd6d06a7f48d1f9b073e1c6db6273165bf818284ee92443b17f7f5d35fcea7acdc0ff2f825ec16e9761d0f9029e1af3a7c4694c12c579f11
+"@arktype/fs@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@arktype/fs@npm:0.0.4"
+  checksum: 02e794d2e72b82505201945ec22612d92c933910f923f171ea74e6128fa98ac7724e12d3b9b93f5347f888f98aaa7805d908b5ee853d115a0c5d6b611b2dd24f
   languageName: node
   linkType: hard
 
@@ -8871,17 +8871,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell-check-unused-words@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "cspell-check-unused-words@npm:1.0.11"
+"cspell-check-unused-words@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "cspell-check-unused-words@npm:1.1.0"
   dependencies:
+    "@commander-js/extra-typings": "npm:^11.1.0"
     chalk: "npm:^5.3.0"
-    isaacscript-common-node: "npm:^1.1.1"
-    isaacscript-common-ts: "npm:^11.3.1"
-    source-map-support: "npm:^0.5.21"
+    commander: "npm:^11.1.0"
+    isaacscript-common-node: "npm:^1.4.0"
+    isaacscript-common-ts: "npm:^13.1.0"
   bin:
     cspell-check-unused-words: dist/main.js
-  checksum: 92403f7ce180809e29a88229cdc6b5d43628051a84a4dc045f838e2afbab0ee29df0d4e5bd99bdb0ebde030cfd88b087d1e9f437a417f572c7ace4e6c32ff9ef
+  checksum: 472f3457165df377276aae6eb86cef5e5760ba2935a505e8b1900d020cba074f6342db6230702c0ed8ca8a2b0d49c2f586e766a40a1bbd011ad7a0fb7ec9fb8b
   languageName: node
   linkType: hard
 
@@ -12918,26 +12919,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common-node@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "isaacscript-common-node@npm:1.1.1"
+"isaacscript-common-node@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "isaacscript-common-node@npm:1.4.0"
   dependencies:
-    "@arktype/fs": "npm:^0.0.1"
+    "@arktype/fs": "npm:^0.0.4"
     chalk: "npm:^5.3.0"
     command-exists: "npm:^1.2.9"
     diff: "npm:^5.1.0"
+    dotenv: "npm:^16.3.1"
     execa: "npm:^8.0.1"
-    isaacscript-common-ts: "npm:^11.3.1"
+    isaacscript-common-ts: "npm:^11.6.0"
     jsonc-parser: "npm:^3.2.0"
-    npm-check-updates: "npm:^16.14.6"
-  checksum: 3a310e177188161ddd99ff0fb45c1c96212d3d2887ed960be99b790f71d906405a93bef3897f2befe920046cfda5ac52ac15e7bf72ddd279c08a6af8f9c56b28
+    npm-check-updates: "npm:^16.14.11"
+    zod: "npm:^3.22.4"
+  checksum: 23dae47d9fd97c9eb63ab946306b23151cc47610b2817b9b86d1d896da2ede97b22de4865bbd89884b5aa0cd57ee7abf5f2927c360fe0f4aeec58d6f53cfe82c
   languageName: node
   linkType: hard
 
-"isaacscript-common-ts@npm:^11.3.1":
-  version: 11.3.1
-  resolution: "isaacscript-common-ts@npm:11.3.1"
-  checksum: 20665865e62359addb7cc758d1cffdaf6ec2f2e274772d3bc55be5deaf85c8d77021a7c6ec984d7efc3ce4d963226a42ef9295d61fe8bef679ea3826dcbdd0ed
+"isaacscript-common-ts@npm:^11.6.0":
+  version: 11.6.0
+  resolution: "isaacscript-common-ts@npm:11.6.0"
+  checksum: af63629d548bad441c79af88d1e64c0826294a78ad326a54257b61fa71f7431a7a70b1d4617a2a1d78afd145835bc46453c274a4d27766e7bf7ca6ff7449b4f9
+  languageName: node
+  linkType: hard
+
+"isaacscript-common-ts@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "isaacscript-common-ts@npm:13.1.0"
+  checksum: 66441b12bf36695d7a52739dc021b198c17ad35510906241534f75adfcced05c88442c68499a84a5c4516c459154fe213e4ad4ed3b3f9f502d32cc2257a1df20
   languageName: node
   linkType: hard
 
@@ -12994,7 +13004,7 @@ __metadata:
     commander: "npm:^11.1.0"
     confusing-browser-globals: "npm:^1.0.11"
     cspell: "npm:^8.1.3"
-    cspell-check-unused-words: "npm:^1.0.11"
+    cspell-check-unused-words: "npm:^1.1.0"
     diff: "npm:^5.1.0"
     docusaurus-plugin-typedoc: "npm:^0.21.0"
     docusaurus-theme-search-typesense: "npm:^0.14.1"
@@ -15894,7 +15904,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.14.12":
+"npm-check-updates@npm:^16.14.11, npm-check-updates@npm:^16.14.12":
   version: 16.14.12
   resolution: "npm-check-updates@npm:16.14.12"
   dependencies:
@@ -15934,49 +15944,6 @@ __metadata:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
   checksum: b22660e1fb3bc7bceccd70bf2c20e8873441771c160762d066f71ce2d4f0a6ff58882b5c198be89e433301bdf4e5440b1f46c1cdf3e9d40137b2823b07d6b3d0
-  languageName: node
-  linkType: hard
-
-"npm-check-updates@npm:^16.14.6":
-  version: 16.14.6
-  resolution: "npm-check-updates@npm:16.14.6"
-  dependencies:
-    chalk: "npm:^5.3.0"
-    cli-table3: "npm:^0.6.3"
-    commander: "npm:^10.0.1"
-    fast-memoize: "npm:^2.5.2"
-    find-up: "npm:5.0.0"
-    fp-and-or: "npm:^0.1.4"
-    get-stdin: "npm:^8.0.0"
-    globby: "npm:^11.0.4"
-    hosted-git-info: "npm:^5.1.0"
-    ini: "npm:^4.1.1"
-    js-yaml: "npm:^4.1.0"
-    json-parse-helpfulerror: "npm:^1.0.3"
-    jsonlines: "npm:^0.1.1"
-    lodash: "npm:^4.17.21"
-    make-fetch-happen: "npm:^11.1.1"
-    minimatch: "npm:^9.0.3"
-    p-map: "npm:^4.0.0"
-    pacote: "npm:15.2.0"
-    parse-github-url: "npm:^1.0.2"
-    progress: "npm:^2.0.3"
-    prompts-ncu: "npm:^3.0.0"
-    rc-config-loader: "npm:^4.1.3"
-    remote-git-tags: "npm:^3.0.0"
-    rimraf: "npm:^5.0.5"
-    semver: "npm:^7.5.4"
-    semver-utils: "npm:^1.1.4"
-    source-map-support: "npm:^0.5.21"
-    spawn-please: "npm:^2.0.2"
-    strip-ansi: "npm:^7.1.0"
-    strip-json-comments: "npm:^5.0.1"
-    untildify: "npm:^4.0.0"
-    update-notifier: "npm:^6.0.2"
-  bin:
-    ncu: build/src/bin/cli.js
-    npm-check-updates: build/src/bin/cli.js
-  checksum: c1d141f62aca6745a7425e7bf348c623e9a2107066133ea468b995fb8f4acdf6800cc3e8f9e467482d848720db3f330730e9d04966895f65fcc7d01916a698eb
   languageName: node
   linkType: hard
 
