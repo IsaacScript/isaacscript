@@ -184,6 +184,44 @@ export function getPackageJSONFieldMandatory(
 }
 
 /**
+ * Helper function to get N arbitrary string fields from a "package.json" file. This will print an
+ * error message and exit the program if any of the fields do not exist or if the "package.json"
+ * file cannot be found.
+ *
+ * Also see the `getPackageJSONFieldMandatory` function.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param fieldNames The names of the fields to retrieve.
+ */
+export function getPackageJSONFieldsMandatory<T extends string>(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  ...fieldNames: readonly T[]
+): Record<T, string> {
+  const fields: Partial<Record<T, string>> = {};
+
+  for (const fieldName of fieldNames) {
+    const field = getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
+    if (field === undefined) {
+      fatalError(
+        `Failed to find the "${chalk.green(
+          fieldName,
+        )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+      );
+    }
+
+    fields[fieldName] = field;
+  }
+
+  return fields as Record<T, string>;
+}
+
+/**
  * Helper function to get the "scripts" field from a "package.json" file. If the field does not
  * exist, `undefined` will be returned. This will print an error message and exit the program if the
  * "package.json" file cannot be found or is otherwise invalid.
