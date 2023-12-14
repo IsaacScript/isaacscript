@@ -190,23 +190,21 @@ export function getPackageJSONFieldMandatory(
  *
  * Also see the `getPackageJSONFieldMandatory` function.
  *
- * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
- *                                 directory which contains a "package.json" file, or a parsed
- *                                 JavaScript object from a JSON file. If undefined is passed, the
- *                                 current working directory will be used.
+ * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
+ *                          which contains a "package.json" file. If undefined is passed, the
+ *                          current working directory will be used.
  * @param fieldNames The names of the fields to retrieve.
  */
 export function getPackageJSONFieldsMandatory<T extends string>(
-  filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+  filePathOrDirPath: string | undefined,
   ...fieldNames: readonly T[]
 ): Record<T, string> {
+  const packageJSON = getPackageJSON(filePathOrDirPath);
+
   const fields: Partial<Record<T, string>> = {};
 
   for (const fieldName of fieldNames) {
-    const field = getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
+    const field = getPackageJSONField(packageJSON, fieldName);
     if (field === undefined) {
       fatalError(
         `Failed to find the "${chalk.green(
