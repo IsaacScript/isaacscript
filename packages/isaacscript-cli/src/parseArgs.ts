@@ -21,11 +21,11 @@
 
 import { Command } from "@commander-js/extra-typings";
 import {
-  dirName,
+  findPackageRoot,
+  getPackageJSONFieldsMandatory,
   nukeDependencies,
   updatePackageJSON,
 } from "isaacscript-common-node";
-import { description, name, version } from "../package.json";
 import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand, initTSCommand } from "./commands/init/init.js";
@@ -36,7 +36,13 @@ import {
 } from "./commands/publish/publish.js";
 import { CWD } from "./constants.js";
 
-const __dirname = dirName();
+const packageRoot = findPackageRoot();
+const { name, version, description } = getPackageJSONFieldsMandatory(
+  packageRoot,
+  "name",
+  "version",
+  "description",
+);
 
 export async function parseArgs(): Promise<void> {
   const program = new Command()
