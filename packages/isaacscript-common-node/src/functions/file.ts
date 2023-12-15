@@ -155,6 +155,43 @@ export function getFilePath(
   return filePath;
 }
 
+/**
+ * Helper function to recursively traverse a directory and get the file names that match the
+ * provided logic.
+ *
+ * @param directoryPath The path to the directory to crawl.
+ * @param matchFunc The function that contains the matching logic.
+ */
+export async function getMatchingFilePaths(
+  directoryPath: string,
+  matchFunc: (filePath: string) => boolean,
+): Promise<string[]> {
+  const files = await fs.promises.readdir(directoryPath, {
+    withFileTypes: true,
+  });
+
+  const promises: Array<Promise<string[]>> = [];
+  const filePaths: string[] = [];
+
+  for (const file of files) {
+    const filePath = path.join(directoryPath, file.name);
+
+    if (file.isDirectory()) {
+      const promise = getMatchingFilePaths(filePath, matchFunc);
+      promises.push(promise);
+    } else {
+      const match = matchFunc(filePath);
+      if (match) {
+        filePaths.push(filePath);
+      }
+    }
+  }
+
+  const filePathsInSubdirectories = await Promise.all(promises);
+
+  return [...filePaths, ...filePathsInSubdirectories.flat()];
+}
+
 /** Helper function to synchronously check if the provided path exists and is a directory. */
 export function isDirectory(filePath: string): boolean {
   return fs.existsSync(filePath) && fs.statSync(filePath).isDirectory();
@@ -282,33 +319,23 @@ export async function renameFileExtensions(
   srcFileExtension: string,
   dstFileExtension: string,
 ): Promise<void> {
-  const files = await fs.promises.readdir(directoryPath, {
-    withFileTypes: true,
-  });
+  const srcFileExtensionWithPeriod = `.${srcFileExtension}`;
+  const dstFileExtensionWithPeriod = `.${dstFileExtension}`;
+
+  const matchFunc = (filePath: string) =>
+    filePath.endsWith(srcFileExtensionWithPeriod);
+  const filePaths = await getMatchingFilePaths(directoryPath, matchFunc);
 
   const promises: Array<Promise<unknown>> = [];
 
-  for (const file of files) {
-    if (file.isDirectory()) {
-      const subDirectoryPath = path.join(directoryPath, file.name);
-      const promise = renameFileExtensions(
-        subDirectoryPath,
-        srcFileExtension,
-        dstFileExtension,
-      );
-      promises.push(promise);
-    } else {
-      const fileExtension = path.extname(file.name);
-
-      if (fileExtension === `.${srcFileExtension}`) {
-        const filePath = path.join(directoryPath, file.name);
-        const fileNameWithoutExt = trimSuffix(file.name, fileExtension);
-        const newFileName = `${fileNameWithoutExt}.${dstFileExtension}`;
-        const newFilePath = path.join(directoryPath, newFileName);
-        const promise = fs.promises.rename(filePath, newFilePath);
-        promises.push(promise);
-      }
-    }
+  for (const filePath of filePaths) {
+    const filePathWithoutExtension = trimSuffix(
+      filePath,
+      srcFileExtensionWithPeriod,
+    );
+    const newFilePath = filePathWithoutExtension + dstFileExtensionWithPeriod;
+    const promise = fs.promises.rename(filePath, newFilePath);
+    promises.push(promise);
   }
 
   await Promise.all(promises);

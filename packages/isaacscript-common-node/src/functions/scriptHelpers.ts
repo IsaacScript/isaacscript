@@ -33,9 +33,6 @@ export async function buildScript(func: ScriptCallback): Promise<void> {
         rm(outDir);
       }
 
-      // We do not want to execute the `buildTypeScript` helper function automatically because the
-      // end-user might want to do that in parallel with other tasks.
-
       await func(data);
     },
     "built",

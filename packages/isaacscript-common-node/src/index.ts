@@ -1,6 +1,7 @@
 export * from "./enums/PackageManager.js";
 export * from "./functions/arkType.js";
 export * from "./functions/base64.js";
+export * from "./functions/build.js";
 export * from "./functions/commandExists.js";
 export * from "./functions/env.js";
 export * from "./functions/execa.js";

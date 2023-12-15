@@ -1,9 +1,11 @@
-import { $s, buildScript } from "isaacscript-common-node";
+import { buildCJSAndESM, buildScript } from "isaacscript-common-node";
+import { assertDefined } from "isaacscript-common-ts";
 
-await buildScript(() => {
-  // We use the `unbuild` library to output both ESM and CJS.
-  /// $s`unbuild`;
+await buildScript(async ({ outDir }) => {
+  assertDefined(
+    outDir,
+    'Failed to get the "outDir" from the "tsconfig.json" file.',
+  );
 
-  $s`tsc --project ./tsconfig.cjs.json`;
-  $s`mv dist/**/*.js`;
+  await buildCJSAndESM(outDir);
 });
