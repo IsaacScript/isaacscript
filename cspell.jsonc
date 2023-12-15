@@ -81,6 +81,7 @@
     "syncpack",
     "tsdoc",
     "TSES",
+    "tsup",
     "typecheck",
     "typedoc",
     "typesense",

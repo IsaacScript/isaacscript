@@ -1,11 +1,5 @@
-import { buildCJSAndESM, buildScript } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { $s, buildScript } from "isaacscript-common-node";
 
-await buildScript(async ({ outDir }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-
-  await buildCJSAndESM(outDir);
+await buildScript(() => {
+  $s`tsup ./src/index.ts --format cjs,esm --dts --sourcemap`;
 });
