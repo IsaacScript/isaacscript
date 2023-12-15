@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { trimSuffix } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
 import { fatalError } from "./utils.js";
@@ -96,13 +97,17 @@ export function fileOrDirectoryExists(filePath: string): boolean {
  * Helper function to synchronously get the file names inside of a directory. (If the full path is
  * required, you must manually join the file name with the path to the directory.)
  */
-export function getFileNamesInDirectory(dirPath: string): readonly string[] {
+export function getFileNamesInDirectory(
+  directoryPath: string,
+): readonly string[] {
   let fileList: string[];
   try {
-    fileList = fs.readdirSync(dirPath);
+    fileList = fs.readdirSync(directoryPath);
   } catch (error) {
     fatalError(
-      `Failed to get the files in the "${chalk.green(dirPath)}" directory:`,
+      `Failed to get the files in the "${chalk.green(
+        directoryPath,
+      )}" directory:`,
       error,
     );
   }
@@ -262,6 +267,51 @@ export function renameFile(srcPath: string, dstPath: string): void {
       error,
     );
   }
+}
+
+/**
+ * Helper function to recursively rename all of the files in a directory from one file extension to
+ * another.
+ *
+ * @param directoryPath The path to the directory to crawl.
+ * @param srcFileExtension The file extension to change from. Do not include a period in the string.
+ * @param dstFileExtension The file extension to change to. Do not include a period in the string.
+ */
+export async function renameFileExtensions(
+  directoryPath: string,
+  srcFileExtension: string,
+  dstFileExtension: string,
+): Promise<void> {
+  const files = await fs.promises.readdir(directoryPath, {
+    withFileTypes: true,
+  });
+
+  const promises: Array<Promise<unknown>> = [];
+
+  for (const file of files) {
+    if (file.isDirectory()) {
+      const subDirectoryPath = path.join(directoryPath, file.name);
+      const promise = renameFileExtensions(
+        subDirectoryPath,
+        srcFileExtension,
+        dstFileExtension,
+      );
+      promises.push(promise);
+    } else {
+      const fileExtension = path.extname(file.name);
+
+      if (fileExtension === `.${srcFileExtension}`) {
+        const filePath = path.join(directoryPath, file.name);
+        const fileNameWithoutExt = trimSuffix(file.name, fileExtension);
+        const newFileName = `${fileNameWithoutExt}.${dstFileExtension}`;
+        const newFilePath = path.join(directoryPath, newFileName);
+        const promise = fs.promises.rename(filePath, newFilePath);
+        promises.push(promise);
+      }
+    }
+  }
+
+  await Promise.all(promises);
 }
 
 /** Alias for the `deleteFileOrDirectory` function. Intended to be used in scripts. */

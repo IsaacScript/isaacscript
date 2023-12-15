@@ -11,6 +11,7 @@
     "outDir": "dist",
 
     // Needed since this is a library.
+    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
 
