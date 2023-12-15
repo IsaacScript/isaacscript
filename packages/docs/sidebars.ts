@@ -38,6 +38,7 @@ const sidebars: SidebarsConfig = {
         "main/publishing-to-the-workshop",
         "main/gotchas",
         "main/isaacscript-in-lua",
+        "main/isaacscript-in-typescript",
       ],
     },
     "main/change-log",
