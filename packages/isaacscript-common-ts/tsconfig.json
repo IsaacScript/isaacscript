@@ -12,7 +12,7 @@
 
     // Needed since this is a library.
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "declarationMap": true,
 
     // Needed since this library uses the `String.replaceAll` method.
