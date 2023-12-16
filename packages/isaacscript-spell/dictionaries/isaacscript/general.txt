@@ -17,6 +17,7 @@ decrementation
 easings
 gamepad
 grimoire
+icns # MacOS icons file.
 incrementation
 interactable
 keyof
