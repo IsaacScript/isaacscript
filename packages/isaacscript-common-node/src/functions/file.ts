@@ -354,7 +354,7 @@ export function replaceTextInFile(
   replaceValue: string,
 ): void {
   const fileContents = readFile(filePath);
-  const newFileContents = fileContents.replace(searchValue, replaceValue);
+  const newFileContents = fileContents.replaceAll(searchValue, replaceValue);
   writeFile(filePath, newFileContents);
 }
 
