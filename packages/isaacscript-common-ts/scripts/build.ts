@@ -8,13 +8,12 @@ await buildScript(({ outDir }) => {
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
 
-  $s`unbuild`;
-
+  $s`unbuild`; // We use the `unbuild` library to output both ESM and CJS.
   fixBuggedReadonlyConstructors(outDir);
 });
 
 /**
- * For some reason `tsup` (and `unbuild`) will append a "$1" to the `ReadonlyMap` and `ReadonlySet`
+ * For some reason `unbuild` (and `tsup`) will append a "$1" to the `ReadonlyMap` and `ReadonlySet`
  * constructors. Thus, we must manually fix this.
  */
 function fixBuggedReadonlyConstructors(outDir: string) {
