@@ -9,6 +9,7 @@ export * from "./functions/tuple.js";
 export * from "./functions/types.js";
 export * from "./functions/utils.js";
 export * from "./types/AddSubtract.js";
+export * from "./types/CompositionTypeSatisfiesEnum.js";
 export * from "./types/ERange.js";
 export * from "./types/IRange.js";
 export * from "./types/Immutable.js";
