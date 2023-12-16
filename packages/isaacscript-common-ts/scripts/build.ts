@@ -26,12 +26,8 @@ function removeBuggedTypeSuffix(outDir: string, typeName: string) {
   const searchValue = `Readonly${typeName}$1`;
   const replaceValue = `Readonly${typeName}`;
 
-  const filePath1 = path.join(outDir, "index.d.ts");
-  replaceTextInFile(filePath1, searchValue, replaceValue);
-
-  const filePath2 = path.join(outDir, "index.d.mts");
-  replaceTextInFile(filePath2, searchValue, replaceValue);
-
-  const filePath3 = path.join(outDir, "index.d.cts");
-  replaceTextInFile(filePath3, searchValue, replaceValue);
+  for (const extension of ["ts", "mts", "cts"]) {
+    const filePath1 = path.join(outDir, `index.d.${extension}`);
+    replaceTextInFile(filePath1, searchValue, replaceValue);
+  }
 }
