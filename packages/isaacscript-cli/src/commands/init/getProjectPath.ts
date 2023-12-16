@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { fatalError } from "isaacscript-common-node";
-import { hasWhiteSpace, isKebabCase } from "isaacscript-common-ts";
+import { hasWhitespace, isKebabCase } from "isaacscript-common-ts";
 import path from "node:path";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants.js";
 import { getInputString, getInputYesNo } from "../../prompt.js";
@@ -91,7 +91,7 @@ function validateProjectName(projectName: string, forceName: boolean) {
     return;
   }
 
-  if (hasWhiteSpace(projectName)) {
+  if (hasWhitespace(projectName)) {
     fatalError(
       'Error: The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
     );
