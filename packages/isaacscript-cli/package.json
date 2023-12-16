@@ -50,7 +50,7 @@
     "commander": "^11.1.0",
     "figlet": "^1.7.0",
     "isaacscript-common-node": "^2.0.0",
-    "isaacscript-common-ts": "^13.1.5",
+    "isaacscript-common-ts": "^13.1.6",
     "jsonc-parser": "^3.2.0",
     "klaw-sync": "^6.0.0",
     "moment": "^2.29.4",
