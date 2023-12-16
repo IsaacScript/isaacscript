@@ -1,4 +1,4 @@
-import type { Tuple } from "../types/Tuple";
+import type { Tuple } from "../types/Tuple.js";
 
 type TupleKey<T extends readonly unknown[]> = {
   [L in T["length"]]: Exclude<Partial<Tuple<unknown, L>>["length"], L>;
