@@ -39,7 +39,7 @@
     "diff": "^5.1.0",
     "dotenv": "^16.3.1",
     "execa": "^8.0.1",
-    "isaacscript-common-ts": "^13.3.1",
+    "isaacscript-common-ts": "^13.4.0",
     "jsonc-parser": "^3.2.0",
     "npm-check-updates": "^16.14.12",
     "zod": "^3.22.4"
