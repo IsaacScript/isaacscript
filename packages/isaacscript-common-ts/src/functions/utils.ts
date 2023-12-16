@@ -124,6 +124,14 @@ export function* iRange(
   yield* eRange(start, exclusiveEnd, increment);
 }
 
+/** From: https://stackoverflow.com/questions/61526746 */
+export function isKeyOf<T extends object>(
+  key: PropertyKey,
+  target: T,
+): key is keyof T {
+  return key in target;
+}
+
 /**
  * This is a more reliable version of `Number.parseFloat`:
  *
