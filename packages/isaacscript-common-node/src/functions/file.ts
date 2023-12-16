@@ -341,6 +341,23 @@ export async function renameFileExtensions(
   await Promise.all(promises);
 }
 
+/**
+ * Helper function to synchronously replace text in a file.
+ *
+ * This assumes that the file is a text file and uses an encoding of "utf8".
+ *
+ * This will print an error message and exit the program if the file cannot be read.
+ */
+export function replaceTextInFile(
+  filePath: string,
+  searchValue: string | RegExp,
+  replaceValue: string,
+): void {
+  const fileContents = readFile(filePath);
+  const newFileContents = fileContents.replace(searchValue, replaceValue);
+  writeFile(filePath, newFileContents);
+}
+
 /** Alias for the `deleteFileOrDirectory` function. Intended to be used in scripts. */
 export function rm(...filePaths: readonly string[]): void {
   deleteFileOrDirectory(...filePaths);
