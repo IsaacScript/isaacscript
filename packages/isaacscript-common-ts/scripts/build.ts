@@ -8,7 +8,7 @@ await buildScript(({ outDir }) => {
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
 
-  $s`tsup ./src/index.ts --format cjs,esm --dts --sourcemap`;
+  $s`unbuild`;
 
   fixBuggedReadonlyConstructors(outDir);
 });
@@ -26,8 +26,12 @@ function removeBuggedTypeSuffix(outDir: string, typeName: string) {
   const searchValue = `Readonly${typeName}$1`;
   const replaceValue = `Readonly${typeName}`;
 
-  const file1 = path.join(outDir, "index.d.cts");
-  replaceTextInFile(file1, searchValue, replaceValue);
-  const file2 = path.join(outDir, "index.d.ts");
-  replaceTextInFile(file2, searchValue, replaceValue);
+  const filePath1 = path.join(outDir, "index.d.ts");
+  replaceTextInFile(filePath1, searchValue, replaceValue);
+
+  const filePath2 = path.join(outDir, "index.d.mts");
+  replaceTextInFile(filePath2, searchValue, replaceValue);
+
+  const filePath3 = path.join(outDir, "index.d.cts");
+  replaceTextInFile(filePath3, searchValue, replaceValue);
 }
