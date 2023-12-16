@@ -270,16 +270,16 @@ export function filterMap<OldT, NewT>(
   array: readonly OldT[],
   func: (element: OldT) => NewT | undefined,
 ): NewT[] {
-  const newArray: NewT[] = [];
+  const filteredArray: NewT[] = [];
 
   for (const element of array) {
     const newElement = func(element);
     if (newElement !== undefined) {
-      newArray.push(newElement);
+      filteredArray.push(newElement);
     }
   }
 
-  return newArray;
+  return filteredArray;
 }
 
 /**
