@@ -32,5 +32,8 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
+  },
+  "dependencies": {
+    "unidecode": "^0.1.8"
   }
 }

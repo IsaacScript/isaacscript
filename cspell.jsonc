@@ -87,6 +87,7 @@
     "typecheck",
     "typedoc",
     "typesense",
+    "unidecode",
     "Webstorm",
   ],
 }

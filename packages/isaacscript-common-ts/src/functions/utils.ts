@@ -1,14 +1,8 @@
-/**
- * When the regex is located at the root instead of inside the function, the function is tested to
- * perform 11% faster.
- */
-const INTEGER_REGEX = /^-?\d+$/;
+// When regexes are located at the root instead of inside the function, the functions are tested to
+// perform 11% faster.
 
-/**
- * When the regex is located at the root instead of inside the function, the function is tested to
- * perform 11% faster.
- */
 const FLOAT_REGEX = /^-?\d*\.?\d+$/;
+const INTEGER_REGEX = /^-?\d+$/;
 
 /**
  * Helper function to throw an error if the provided value is equal to `undefined`.

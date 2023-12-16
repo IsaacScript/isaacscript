@@ -1,8 +1,19 @@
+import unidecode from "unidecode";
 import { parseIntSafe } from "./utils.js";
+
+// When regexes are located at the root instead of inside the function, the functions are tested to
+// perform 11% faster.
+
+const DIACRITIC_REGEX = /\p{Diacritic}/u;
+const EMOJI_REGEX = /\p{Extended_Pictographic}/u;
+const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
 const KEBAB_CASE_REGEX =
   /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
+
+const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
+const WHITESPACE_REGEX = /\s/g;
 
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {
@@ -16,9 +27,45 @@ export function capitalizeFirstLetter(string: string): string {
   return `${capitalizedFirstLetter}${restOfString}`;
 }
 
+export function getNumConsecutiveDiacritics(string: string): number {
+  // First, normalize with Normalization Form Canonical Decomposition (NFD) so that diacritics are
+  // separated from other characters:
+  // https://en.wikipedia.org/wiki/Unicode_equivalence
+  const normalizedString = string.normalize("NFD");
+
+  let numConsecutiveDiacritic = 0;
+  let maxConsecutiveDiacritic = 0;
+
+  for (const character of normalizedString) {
+    if (hasDiacritic(character)) {
+      numConsecutiveDiacritic++;
+      if (numConsecutiveDiacritic > maxConsecutiveDiacritic) {
+        maxConsecutiveDiacritic = numConsecutiveDiacritic;
+      }
+    } else {
+      numConsecutiveDiacritic = 0;
+    }
+  }
+
+  return maxConsecutiveDiacritic;
+}
+
+export function hasDiacritic(string: string): boolean {
+  // First, normalize with Normalization Form Canonical Decomposition (NFD) so that diacritics are
+  // separated from other characters:
+  // https://en.wikipedia.org/wiki/Unicode_equivalence
+  const normalizedString = string.normalize("NFD");
+
+  return DIACRITIC_REGEX.test(normalizedString);
+}
+
+export function hasEmoji(string: string): boolean {
+  return EMOJI_REGEX.test(string);
+}
+
 /** From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space */
-export function hasWhiteSpace(s: string): boolean {
-  return /\s/g.test(s);
+export function hasWhitespace(s: string): boolean {
+  return WHITESPACE_REGEX.test(s);
 }
 
 /**
@@ -26,7 +73,7 @@ export function hasWhiteSpace(s: string): boolean {
  * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
  */
 export function isFirstLetterCapitalized(string: string): boolean {
-  return /^\p{Lu}/u.test(string);
+  return FIRST_LETTER_CAPITALIZED_REGEX.test(string);
 }
 
 /** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
@@ -43,6 +90,12 @@ export function kebabCaseToCamelCase(text: string): string {
   });
 }
 
+/** Helper function to transliterate the string to ASCII and lowercase it. */
+export function normalizeString(string: string): string {
+  const ascii = unidecode(string);
+  return ascii.toLowerCase();
+}
+
 /**
  * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
  * undefined if the submitted string was not a proper Semantic Version string.
@@ -56,9 +109,7 @@ export function parseSemanticVersion(versionString: string):
       patchVersion: number;
     }
   | undefined {
-  const match = versionString.match(
-    /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/,
-  );
+  const match = versionString.match(SEMANTIC_VERSION_REGEX);
   if (match === null || match.groups === undefined) {
     return undefined;
   }
@@ -142,7 +193,7 @@ export function removeLinesMatching(string: string, match: string): string {
 
 /** Helper function to remove all whitespace characters from a string. */
 export function removeWhitespace(string: string): string {
-  return string.replaceAll(/\s/g, "");
+  return string.replaceAll(WHITESPACE_REGEX, "");
 }
 
 /**
@@ -150,7 +201,8 @@ export function removeWhitespace(string: string): string {
  *
  * @param string The string to trim.
  * @param prefix The prefix to trim.
- * @param trimAll Whether to remove multiple instances of the prefix, if they exist.
+ * @param trimAll Whether to remove multiple instances of the prefix, if they exist. If this is set
+ *                to true, the prefix must only be a single character.
  */
 export function trimPrefix(
   string: string,
