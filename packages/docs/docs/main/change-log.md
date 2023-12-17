@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## December 17th, 2013 (Unreleased)
+## December 17th, 2013
 
 - `isaacscript-common` now provides JavaScript files alongside Lua files. (`isaac-typescript-definitions` already does this.)
 - `isaac-lua-polyfills` now provides more polyfills such that you can import `isaacscript-common` in JavaScript code without any run-time errors.
