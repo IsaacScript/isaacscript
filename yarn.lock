@@ -292,6 +292,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@arktype/fs@npm:^0.0.9":
+  version: 0.0.9
+  resolution: "@arktype/fs@npm:0.0.9"
+  checksum: 7ca69e938aaffc47444f5bb550e011904a9ad9d3e0712a0459b9f52c0e240da5de588533ffb28a7661e84cbbee99eb757931681d79b6bd7824f599dbd8e10dcd
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.16.0, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.8.3":
   version: 7.22.13
   resolution: "@babel/code-frame@npm:7.22.13"
@@ -12949,7 +12956,7 @@ __metadata:
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
     "@algolia/client-search": "npm:^4.22.0"
-    "@arktype/fs": "npm:^0.0.8"
+    "@arktype/fs": "npm:^0.0.9"
     "@commander-js/extra-typings": "npm:^11.1.0"
     "@docusaurus/core": "npm:^3.0.1"
     "@docusaurus/eslint-plugin": "npm:^3.0.1"
