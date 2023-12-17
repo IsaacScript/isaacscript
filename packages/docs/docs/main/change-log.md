@@ -22,7 +22,7 @@ This page lists the changes to the IsaacScript framework.
   - `characterCanHaveRedHearts` --> `canCharacterHaveRedHearts`
   - `characterCanHaveSoulHearts` --> `canCharacterHaveSoulHearts`
   - `characterCanTakeFreeDevilDeals` --> `canCharacterTakeFreeDevilDeals`
-  - `characterGetsBlackHeartFromEternalHeart` --> `canCharacterGetBlackHeartFromEternalHeart`
+  - `characterGetsBlackHeartFromEternalHeart` --> `doesCharacterGetBlackHeartFromEternalHeart`
   - `characterStartsWithActiveItem` --> `doesCharacterStartWithActiveItem`
 
 ## December 10th, 2023

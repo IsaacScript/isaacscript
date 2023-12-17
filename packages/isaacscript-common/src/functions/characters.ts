@@ -26,17 +26,6 @@ const MAIN_CHARACTERS_SET = new ReadonlySet<PlayerType>(MAIN_CHARACTERS);
 const PNG_PATH_PREFIX = "characters/costumes";
 
 /**
- * Normally, characters get a red heart container upon reaching a new floor with an eternal heart,
- * but some characters grant a black heart instead. Returns true for Dark Judas and Tainted Judas.
- * Otherwise, returns false.
- */
-export function canCharacterGetBlackHeartFromEternalHeart(
-  character: PlayerType,
-): boolean {
-  return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET.has(character);
-}
-
-/**
  * Helper function to determine if the given character can have red heart containers. Returns true
  * for characters like Isaac, Magdalene, or Cain. Returns true for Keeper and Tainted Keeper, even
  * though coin containers are not technically the same as red heart containers. Returns false for
@@ -61,6 +50,17 @@ export function canCharacterHaveSoulHearts(character: PlayerType): boolean {
  */
 export function canCharacterTakeFreeDevilDeals(character: PlayerType): boolean {
   return CHARACTERS_WITH_FREE_DEVIL_DEALS_SET.has(character);
+}
+
+/**
+ * Normally, characters get a red heart container upon reaching a new floor with an eternal heart,
+ * but some characters grant a black heart instead. Returns true for Dark Judas and Tainted Judas.
+ * Otherwise, returns false.
+ */
+export function doesCharacterGetBlackHeartFromEternalHeart(
+  character: PlayerType,
+): boolean {
+  return CHARACTERS_WITH_BLACK_HEART_FROM_ETERNAL_HEART_SET.has(character);
 }
 
 /**
