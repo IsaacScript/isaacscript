@@ -237,7 +237,11 @@ const EntityFlagInternal = {
   /** 1 << 45 */
   NO_PLAYER_CONTROL: 1 << 45,
 
-  /** 1 << 46 */
+  /**
+   * Makes the entity excluded from the results of the `Isaac.FindByType` method.
+   *
+   * 1 << 46
+   */
   NO_QUERY: 1 << 46,
 
   /** 1 << 47 */

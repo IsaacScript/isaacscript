@@ -70,7 +70,7 @@ export async function testScript(func: ScriptCallback): Promise<void> {
  *             `ScriptCallbackData` interface.)
  * @param verb Optional. The verb for when the script completes. For example, "built".
  * @param upStackBy Optional. The number of functions to rewind in the calling stack before
- *                  attempting to file the closest "package.json" file. Defaults to 1.
+ *                  attempting to file the closest "package.json" file. Default is 1.
  */
 export async function script(
   func: ScriptCallback,

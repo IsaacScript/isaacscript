@@ -21,8 +21,8 @@ import { diff } from "./utils.js";
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
  * @param installAfterUpdate Optional. Whether to install the new dependencies afterward, if any.
- *                           Defaults to true.
- * @param quiet Optional. Whether to suppress console output. Defaults to false.
+ *                           Default is true.
+ * @param quiet Optional. Whether to suppress console output. Default is false.
  * @returns Whether any dependencies were updated.
  */
 export async function updatePackageJSON(

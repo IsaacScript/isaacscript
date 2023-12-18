@@ -49,7 +49,7 @@ declare global {
     ): void;
 
     /**
-     * Puts a string into the debug console. (You can open the debug console with the tilde key.)
+     * Prints a string to the debug console. (You can open the debug console with the tilde key.)
      *
      * The Lua global function of `print` is mapped to this method, so it is recommended to use
      * `print` instead of invoking this method directly.
@@ -59,14 +59,19 @@ declare global {
      */
     function ConsoleOutput(text: string): void;
 
+    /** Returns the number of bosses in the current room. */
     function CountBosses(): int;
+
+    /** Returns the number of enemies in the current room. */
     function CountEnemies(): int;
 
     /**
+     * Returns the number of entities in the current room that fulfill the specified requirements.
+     *
      * @param spawner Pass undefined if you want to match entities that were not spawned by anything
      *                in particular.
-     * @param entityType Required. (Specifying 0 or -1 for this parameter will always return a
-     *                   result of 0.)
+     * @param entityType Required. (Specifying 0 or -1 for this parameter will always make this
+     *                   method return 0.)
      * @param variant Specifying -1 will return all variants. Default is -1.
      * @param subType Specifying -1 will return all subtypes. Default is -1.
      */
@@ -89,6 +94,7 @@ declare global {
     /** Executes a command on the debug console. */
     function ExecuteCommand(command: string): string;
 
+    /** Spawns an explosion at the specified location. */
     function Explode(
       position: Vector,
       source: Entity | undefined,
@@ -96,10 +102,18 @@ declare global {
     ): void;
 
     /**
-     * @param entityType
-     * @param variant Default is -1.
-     * @param subType Default is -1.
-     * @param cache Default is false.
+     * Returns entities based on the type, variant, and subtype.
+     *
+     * If an entity has `EntityFlag.FLAG_NO_QUERY` then it will be excluded from the results. If you
+     * need to get an entity with that flag then you should use `Isaac.GetRoomEntities` method
+     * instead.
+     *
+     * @param entityType The entity type to match.
+     * @param variant The variant to match. If -1, then everything is included. Default is -1.
+     * @param subType If sub-type to match. If -1, then everything is included. Default is -1.
+     * @param cache Whether to get fresh results. If you need to call this method with the same
+     *              arguments two or more times on the same frame, then you should use the cache for
+     *              a performance boost. Default is false.
      * @param ignoreFriendly Default is false.
      */
     function FindByType(
@@ -111,6 +125,10 @@ declare global {
     ): Entity[];
 
     /**
+     * Returns the entities that are located in a circle around a specified position. The returned
+     * entities are not sorted based on distance; they are returned in the order that they were
+     * loaded.
+     *
      * Beware:
      * - This function does not work in the `POST_NEW_ROOM` callback.
      * - It excludes effects, even when the effect partition is selected.
@@ -255,6 +273,8 @@ declare global {
     function GetFrameCount(): int;
 
     function GetFreeNearPosition(position: Vector, step: float): Vector;
+
+    /** This is the only way to access the `ItemConfig` class. */
     function GetItemConfig(): ItemConfig;
 
     /**
@@ -464,8 +484,19 @@ declare global {
      */
     function RemoveModData(mod: Mod): void;
 
+    /**
+     * @param text The text to render on the screen.
+     * @param x Between 0 and around 500. (The max depends on the user's screen size.)
+     * @param y Between 0 and around 350. (The max depends on the user's screen size.)
+     * @param scaleX Between 0 and 1.
+     * @param scaleY Between 0 and 1.
+     * @param r Between 0 and 1.
+     * @param g Between 0 and 1.
+     * @param b Between 0 and 1.
+     * @param a Between 0 and 1.
+     */
     function RenderScaledText(
-      str: string,
+      text: string,
       x: float,
       y: float,
       scaleX: float,
@@ -476,8 +507,17 @@ declare global {
       a: float,
     ): void;
 
+    /**
+     * @param text The text to render on the screen.
+     * @param x Between 0 and around 500. (The max depends on the user's screen size.)
+     * @param y Between 0 and around 350. (The max depends on the user's screen size.)
+     * @param r Between 0 and 1.
+     * @param g Between 0 and 1.
+     * @param b Between 0 and 1.
+     * @param a Between 0 and 1.
+     */
     function RenderText(
-      str: string,
+      text: string,
       x: float,
       y: float,
       r: float,
@@ -486,10 +526,12 @@ declare global {
       a: float,
     ): void;
 
+    /** Used to fire a custom callback. This was introduced in Repentance patch v1.7.9b. */
     function RunCallback(
       modCallback: keyof AddCallbackParameters | string,
     ): void;
 
+    /** Used to fire a custom callback. This was introduced in Repentance patch v1.7.9b. */
     function RunCallbackWithParam(
       modCallback: keyof AddCallbackParameters | string,
       ...optionalArgs: readonly unknown[]
@@ -509,7 +551,12 @@ declare global {
       state: boolean,
     ): void;
 
+    /**
+     * Converts screen coordinates (i.e. window coordinates) into world coordinates (i.e. a `Vector`
+     * representing an in-game position in the room).
+     */
     function ScreenToWorld(position: Vector): Vector;
+
     function ScreenToWorldDistance(position: Vector): Vector;
 
     /**

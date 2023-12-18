@@ -13,7 +13,7 @@ export { dirName, findPackageRoot } from "@arktype/fs";
  * This is re-implemented from the "@arktype/fs" package so that we can have an arbitrary
  * `upStackBy` position.
  *
- * @param upStackBy Optional. How far to look up the stack. Defaults to 1.
+ * @param upStackBy Optional. How far to look up the stack. Default is 1.
  * @see https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
  */
 export function dirOfCaller(upStackBy = 1): string {
@@ -29,7 +29,7 @@ export function dirOfCaller(upStackBy = 1): string {
  *
  * We also fix a bug on Windows with an uncapitalized drive letter.
  *
- * @param upStackBy Optional. How far to look up the stack. Defaults to 1.
+ * @param upStackBy Optional. How far to look up the stack. Default is 1.
  * @see https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
  */
 export function fileOfCaller(upStackBy = 1): string {
