@@ -285,17 +285,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@arktype/fs@npm:^0.0.10":
+  version: 0.0.10
+  resolution: "@arktype/fs@npm:0.0.10"
+  checksum: 6b04014bc4c6b8a958a8168c1c692049127cb016316f1ec629ea4155c8cc41f9200565c37dbec60861b7eccc65e0412fe1aa60303dfc356ae3c64f372e2be165
+  languageName: node
+  linkType: hard
+
 "@arktype/fs@npm:^0.0.8":
   version: 0.0.8
   resolution: "@arktype/fs@npm:0.0.8"
   checksum: 15d8df9cd5adb245593e288d274c17b4f0dea798166c421c5674337ea6ee8e1e8c024c4cca6b01b029b76d3df6fc8784be5420d5989bcf7f3e412c0d8992a5fa
-  languageName: node
-  linkType: hard
-
-"@arktype/fs@npm:^0.0.9":
-  version: 0.0.9
-  resolution: "@arktype/fs@npm:0.0.9"
-  checksum: 7ca69e938aaffc47444f5bb550e011904a9ad9d3e0712a0459b9f52c0e240da5de588533ffb28a7661e84cbbee99eb757931681d79b6bd7824f599dbd8e10dcd
   languageName: node
   linkType: hard
 
@@ -6246,12 +6246,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.10.4":
-  version: 20.10.4
-  resolution: "@types/node@npm:20.10.4"
+"@types/node@npm:^20.10.5":
+  version: 20.10.5
+  resolution: "@types/node@npm:20.10.5"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 2c8b70cba731eb2ae3ae046daa74903bfcbb0e7b9196da767e5895054f6d252296ae7a04fb1dbbcb53bb004c4c658c05eaea2731bc9e2dd9e08f7e88d672f563
+  checksum: be30609aae0bfe492097815f166ccc07f465220cb604647fa4e5ec05a1d16c012a41b82b5f11ecfe2485cbb479d4d20384b95b809ca0bcff6d94d5bbafa645bb
   languageName: node
   linkType: hard
 
@@ -12917,12 +12917,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^40.0.2":
-  version: 40.0.2
-  resolution: "isaac-typescript-definitions@npm:40.0.2"
+"isaac-typescript-definitions@npm:^40.0.3":
+  version: 40.0.3
+  resolution: "isaac-typescript-definitions@npm:40.0.3"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: 5a64da657021414f89f67daf1b8d61d0469a9daa15dfbda6343b10b224fc9d56e390f5758dc204a6311f23d5f3948f500ddb7ee2a7821e94c54be529e66861e4
+  checksum: de27d738d1fa40795987b485b5c3d703cfd04fb0fc248b248b78af60f0d30702ed9601fdaf1547799195459b71bb9077933ada42fc9b9f6bbc0a87ba7986f18d
   languageName: node
   linkType: hard
 
@@ -12956,7 +12956,7 @@ __metadata:
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
     "@algolia/client-search": "npm:^4.22.0"
-    "@arktype/fs": "npm:^0.0.9"
+    "@arktype/fs": "npm:^0.0.10"
     "@commander-js/extra-typings": "npm:^11.1.0"
     "@docusaurus/core": "npm:^3.0.1"
     "@docusaurus/eslint-plugin": "npm:^3.0.1"
@@ -12982,7 +12982,7 @@ __metadata:
     "@types/glob": "npm:^8.1.0"
     "@types/jest": "npm:^29.5.11"
     "@types/klaw-sync": "npm:^6.0.5"
-    "@types/node": "npm:^20.10.4"
+    "@types/node": "npm:^20.10.5"
     "@types/prompt": "npm:^1.1.8"
     "@types/react": "npm:^18.2.45"
     "@types/source-map-support": "npm:^0.5.10"
@@ -13026,12 +13026,12 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^40.0.2"
+    isaac-typescript-definitions: "npm:^40.0.3"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^3.8.1"
+    knip: "npm:^3.8.2"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.32.1"
     markdownlint-cli: "npm:^0.38.0"
@@ -13040,7 +13040,7 @@ __metadata:
     prettier: "npm:^3.1.1"
     prettier-plugin-organize-imports: "npm:^3.2.4"
     prettier-plugin-packagejson: "npm:^2.4.7"
-    prism-react-renderer: "npm:^2.3.0"
+    prism-react-renderer: "npm:^2.3.1"
     prompt: "npm:^1.3.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -13896,9 +13896,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^3.8.1":
-  version: 3.8.1
-  resolution: "knip@npm:3.8.1"
+"knip@npm:^3.8.2":
+  version: 3.8.2
+  resolution: "knip@npm:3.8.2"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@npmcli/map-workspaces": "npm:3.0.4"
@@ -13925,7 +13925,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 7a0d4f1ec67c9e4a88d9a0eb5a37a681d92331bc67aeaae5bd95ec5b1626ea5a1138983e18b681b3d28823083271fda805d2c2f72284b3ef6c0083a816c8f56e
+  checksum: d2007ae36f93ed645acb54d09db6336e5e396a57ff2083aecc94b33f487d91e7148433f90430bbee6ad6a41bbd266942bbbd35661c6e0a03cc57b61fdf1999a2
   languageName: node
   linkType: hard
 
@@ -17598,6 +17598,18 @@ __metadata:
   peerDependencies:
     react: ">=16.0.0"
   checksum: aa8fb176e156ebb1f8ca46d82966d37176f46545e03669ddab7d56479f915b41e95b02accc16af9e2e95c7fcd57ce6222d8eac08977c757d9c49c32c7b0e03ff
+  languageName: node
+  linkType: hard
+
+"prism-react-renderer@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "prism-react-renderer@npm:2.3.1"
+  dependencies:
+    "@types/prismjs": "npm:^1.26.0"
+    clsx: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.0.0"
+  checksum: 566932127ca18049a651aa038a8f8c7c1ca15950d21b659c2ce71fd95bd03bef2b5d40c489e7aa3453eaf15d984deef542a609d7842e423e6a13427dd90bd371
   languageName: node
   linkType: hard
 

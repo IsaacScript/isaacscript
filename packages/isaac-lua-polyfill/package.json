@@ -31,7 +31,7 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^40.0.2",
+    "isaac-typescript-definitions": "^40.0.3",
     "isaacscript-common-ts": "^13.5.1"
   }
 }
