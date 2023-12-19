@@ -238,7 +238,8 @@ const EntityFlagInternal = {
   NO_PLAYER_CONTROL: 1 << 45,
 
   /**
-   * Makes the entity excluded from the results of the `Isaac.FindByType` method.
+   * Makes the entity excluded from the results of the `Isaac.FindByType` method. Additionally, the
+   * entity will not fire the `ENTITY_TAKE_DMG` callback.
    *
    * 1 << 46
    */
