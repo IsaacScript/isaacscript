@@ -69,7 +69,7 @@ export async function getInputString(
 ): Promise<string> {
   prompt.start();
 
-  let description = `${chalk.bold(msg)}`;
+  let description = chalk.bold(msg);
   if (defaultValue !== undefined) {
     description += ` ${chalk.gray(`(${defaultValue})`)}`;
   }
