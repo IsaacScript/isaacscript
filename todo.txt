@@ -1,21 +1,14 @@
-- fix `prefer-readonly-parameter-types` for Array<Foo>
+- preferTypeOnlyAutoImports does not work
 
-- fix `return error` lint case in deepCopy, need to use unreachable TypeScript API
-  - wait for reply from #compiler-internals
-  - https://discord.com/channels/508357248330760243/640177429775777792/1180512718369865828
+- fix `prefer-readonly-parameter-types` for Array<Foo>
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
 
-- use stack overflow to remove isaac-typescript-definitions from deps
-  - difficult, do it when I have the courage
-  - make sure that isaacscript-common still works through link in dev
-
 ----------------------------------------------------------------------------------------------------
 
-- add to settings.json template: typescript.preferences.preferTypeOnlyAutoImports
-  - https://devblogs.microsoft.com/typescript/announcing-typescript-5-3-rc/#optimizations-by-skipping-jsdoc-parsing
-  - wait on new release of VSCode
+- change to knip.config.jsonc (potentially, once Knip v4 releases)
+- change to cspell.config.jsonc (if knip is changed)
 
 - wait for eslint-plugin-n to fix rule:
   - https://github.com/eslint-community/eslint-plugin-n/issues/134
@@ -26,9 +19,16 @@
 
 - wait for typedoc-plugin-markdown to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
 
+- import eslint-plugin-plugin
+  - blocked on: https://github.com/eslint-community/eslint-plugin-eslint-plugin/issues/375
+
 - update eslint to new config
   - wait until ESLint 9 is released so that environment flag is not necessary
   - wait until @typescript-eslint/plugin is using flat config and has good docs
   - ESLint does not support "eslint.config.mjs" file format, so it requires either:
     1. changing package.json type
     2. specifying config file location when running, e.g. "--config eslint.config.mjs"
+
+- use stack overflow to remove isaac-typescript-definitions from deps
+  - difficult, do it when I have the courage
+  - make sure that isaacscript-common still works through link in dev

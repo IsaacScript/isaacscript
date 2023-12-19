@@ -9,7 +9,7 @@ eslint "sort-exports/sort-exports": [
 ],
 */
 
-/* eslint "require-jsdoc": "error" */
+/* eslint "jsdoc/require-jsdoc": "error" */
 
 /**
  * __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
