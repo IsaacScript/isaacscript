@@ -26,6 +26,14 @@ function foo(set: ReadonlySet<string>) {}
 function foo(record: Readonly<Record<string, string>>) {}
         `,
       },
+      {
+        code: `
+interface Foo {
+  arg1: boolean;
+}
+function foo(arg: Foo | string[]) {}
+        `,
+      },
     ],
 
     invalid: [

@@ -133,31 +133,54 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           const type = services.getTypeAtLocation(actualParam);
 
           if (onlyRecordsArraysMapsSet === true) {
-            // Handle the case of only checking arrays, maps, and sets.
-            for (const t of unionTypeParts(type)) {
+            const parts = unionTypeParts(type);
+            const hasAllBasicDataStructures = parts.every((t) => {
               const typeName = getTypeName(t);
-              if (
+              return (
                 typeName === "Array" ||
                 typeName === "Map" ||
-                typeName === "Set"
-              ) {
-                context.report({
-                  node: actualParam,
-                  messageId: "shouldBeReadonly",
-                });
-              }
+                typeName === "Set" ||
+                typeName === "Record"
+              );
+            });
 
-              if (typeName === "Record") {
-                const isReadOnly = isTypeReadonly(services.program, type, {
-                  treatMethodsAsReadonly,
-                  allow,
-                });
+            if (!hasAllBasicDataStructures) {
+              return;
+            }
 
-                if (!isReadOnly) {
+            // Handle the case of only checking records, arrays, maps, and sets.
+            for (const t of parts) {
+              const typeName = getTypeName(t);
+
+              switch (typeName) {
+                case "Array":
+                case "Map":
+                case "Set": {
                   context.report({
                     node: actualParam,
                     messageId: "shouldBeReadonly",
                   });
+                  break;
+                }
+
+                case "Record": {
+                  const isReadOnly = isTypeReadonly(services.program, type, {
+                    treatMethodsAsReadonly,
+                    allow,
+                  });
+
+                  if (!isReadOnly) {
+                    context.report({
+                      node: actualParam,
+                      messageId: "shouldBeReadonly",
+                    });
+                  }
+
+                  break;
+                }
+
+                default: {
+                  break;
                 }
               }
             }
