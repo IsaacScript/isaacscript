@@ -1,6 +1,6 @@
 export type SaveDatMessageType = "command" | "msg" | "ping";
 
 export interface SaveDatMessage {
-  type: SaveDatMessageType;
-  data: string;
+  readonly type: SaveDatMessageType;
+  readonly data: string;
 }

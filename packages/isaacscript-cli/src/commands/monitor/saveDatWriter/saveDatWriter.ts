@@ -83,7 +83,6 @@ function readSaveDatFromDisk(): SaveDatMessage[] {
 
 function addMessageToSaveDat(
   type: SaveDatMessageType,
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   saveDat: SaveDatMessage[],
   data: string,
 ) {
