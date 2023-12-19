@@ -12917,12 +12917,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^40.0.3":
-  version: 40.0.3
-  resolution: "isaac-typescript-definitions@npm:40.0.3"
+"isaac-typescript-definitions@npm:^40.0.4":
+  version: 40.0.4
+  resolution: "isaac-typescript-definitions@npm:40.0.4"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: de27d738d1fa40795987b485b5c3d703cfd04fb0fc248b248b78af60f0d30702ed9601fdaf1547799195459b71bb9077933ada42fc9b9f6bbc0a87ba7986f18d
+  checksum: 256fb2cc7cc8f41e4b0e843fa339d034eabd9ce5035669c38f88d3d3ba33b602bd397c1a4099eb96e9fa1577fed2249c083fb1088d46fbee023b637905ed1eda
   languageName: node
   linkType: hard
 
@@ -13026,12 +13026,12 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^40.0.3"
+    isaac-typescript-definitions: "npm:^40.0.4"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^3.8.2"
+    knip: "npm:^3.8.3"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.32.1"
     markdownlint-cli: "npm:^0.38.0"
@@ -13896,9 +13896,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^3.8.2":
-  version: 3.8.2
-  resolution: "knip@npm:3.8.2"
+"knip@npm:^3.8.3":
+  version: 3.8.3
+  resolution: "knip@npm:3.8.3"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@npmcli/map-workspaces": "npm:3.0.4"
@@ -13925,7 +13925,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: d2007ae36f93ed645acb54d09db6336e5e396a57ff2083aecc94b33f487d91e7148433f90430bbee6ad6a41bbd266942bbbd35661c6e0a03cc57b61fdf1999a2
+  checksum: d80fc1c9436b7c9fd1950bbf2b26fdc3eec5eb3955885ab8cff203c3d2d364117b78c6cfd6e048eda8b18ab90604e845e3616fc2c113a00e8a0dad854a04075a
   languageName: node
   linkType: hard
 
