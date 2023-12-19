@@ -340,7 +340,6 @@ function addCombinations<T>(
   n: number,
   src: readonly T[],
   got: readonly T[],
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
   all: Array<readonly T[]>,
 ) {
   if (n === 0) {
