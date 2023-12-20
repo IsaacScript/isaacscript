@@ -89,7 +89,7 @@ jobs:
   docs-deploy:
     needs: [build, lint, test, monorepo-lint]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && needs.pr-check.outputs.number != 'null'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
