@@ -29,7 +29,7 @@
     "@prettier/plugin-xml": "^3.2.2",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
-    "cspell": "^8.2.3",
+    "cspell": "^8.2.4",
     "cspell-check-unused-words": "^1.1.1",
     "eslint": "^8.56.0",
     "eslint-config-isaacscript": "^4.15.0",
