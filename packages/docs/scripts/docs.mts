@@ -1,3 +1,5 @@
+// This script also checks for missing rules from all of the ESLint plugins.
+
 import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
 import type { Linter } from "eslint";
