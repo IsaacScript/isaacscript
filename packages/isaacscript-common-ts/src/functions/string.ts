@@ -64,8 +64,8 @@ export function hasEmoji(string: string): boolean {
 }
 
 /** From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space */
-export function hasWhitespace(s: string): boolean {
-  return WHITESPACE_REGEX.test(s);
+export function hasWhitespace(string: string): boolean {
+  return WHITESPACE_REGEX.test(string);
 }
 
 /**
@@ -81,8 +81,8 @@ export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
 }
 
-export function kebabCaseToCamelCase(text: string): string {
-  return text.replaceAll(/-./g, (match) => {
+export function kebabCaseToCamelCase(string: string): string {
+  return string.replaceAll(/-./g, (match) => {
     const firstLetterOfWord = match[1];
     return firstLetterOfWord === undefined
       ? ""
@@ -197,13 +197,46 @@ export function removeLinesMatching(string: string, match: string): string {
  * @see
  * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
  */
-export function removeNonPrintableCharacters(text: string): string {
-  return text.replaceAll(/\p{C}/gu, "");
+export function removeNonPrintableCharacters(string: string): string {
+  return string.replaceAll(/\p{C}/gu, "");
 }
 
 /** Helper function to remove all whitespace characters from a string. */
 export function removeWhitespace(string: string): string {
   return string.replaceAll(WHITESPACE_REGEX, "");
+}
+
+/**
+ * Helper function to sanitize a string. Specifically, this performs the following steps:
+ *
+ * - Truncates the message (if the optional `maxLength` argument is supplied.)
+ * - Removes any non-printable characters, if any.
+ * - Normalizes all newlines to "\n".
+ * - Normalizes all spaces to " ".
+ * - Removes whitespace from both ends.
+ */
+export function sanitizeString(string: string, maxLength?: number): string {
+  let sanitizedString = string;
+
+  // We truncate first to prevent wasting CPU cycles on sanitizing extremely long messages.
+  if (maxLength !== undefined && sanitizedString.length > maxLength) {
+    sanitizedString = string.slice(0, maxLength - 1);
+  }
+
+  sanitizedString = removeNonPrintableCharacters(sanitizedString);
+
+  // Normalize newlines.
+  sanitizedString = sanitizedString.replaceAll("\n\r", "\n");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zl}/gu, "\n");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zp}/gu, "\n");
+
+  // Normalize spaces.
+  sanitizedString = sanitizedString.replaceAll(/\p{Zs}/gu, " ");
+
+  // Remove whitespace from both ends.
+  sanitizedString = sanitizedString.trim();
+
+  return sanitizedString;
 }
 
 /**
