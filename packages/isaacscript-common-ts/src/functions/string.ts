@@ -197,6 +197,20 @@ export function removeWhitespace(string: string): string {
 }
 
 /**
+ * Helper function to strip all non-printable characters from a string.
+ *
+ * @see
+ * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
+ */
+export function stripNonPrintable(text: string): string {
+  text = text.replaceAll(/\p{Cc}/gu, ""); // eslint-disable-line no-param-reassign
+  text = text.replaceAll(/\p{Co}/gu, ""); // eslint-disable-line no-param-reassign
+  text = text.replaceAll(/\p{Cn}/gu, ""); // eslint-disable-line no-param-reassign
+
+  return text;
+}
+
+/**
  * Helper function to trim a prefix from a string, if it exists. Returns the trimmed string.
  *
  * @param string The string to trim.
