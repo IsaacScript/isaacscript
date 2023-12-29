@@ -8334,6 +8334,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "clsx@npm:2.0.1"
+  checksum: 05441b1254e6a85f8d1d816a188332564509d2af4acd5de6dfd467cbcca567627408c973a85f50427e5871e22151984a681729aba463ee2e628c0ec51bc466ba
+  languageName: node
+  linkType: hard
+
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -12928,7 +12935,7 @@ __metadata:
     ajv: "npm:^8.12.0"
     chalk: "npm:^5.3.0"
     cloc: "npm:^1.98.0-cloc"
-    clsx: "npm:^2.0.0"
+    clsx: "npm:^2.0.1"
     command-exists: "npm:^1.2.9"
     commander: "npm:^11.1.0"
     confusing-browser-globals: "npm:^1.0.11"
