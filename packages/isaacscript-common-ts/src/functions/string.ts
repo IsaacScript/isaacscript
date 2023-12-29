@@ -203,11 +203,7 @@ export function removeWhitespace(string: string): string {
  * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
  */
 export function stripNonPrintable(text: string): string {
-  text = text.replaceAll(/\p{Cc}/gu, ""); // eslint-disable-line no-param-reassign
-  text = text.replaceAll(/\p{Co}/gu, ""); // eslint-disable-line no-param-reassign
-  text = text.replaceAll(/\p{Cn}/gu, ""); // eslint-disable-line no-param-reassign
-
-  return text;
+  return text.replaceAll(/\p{C}/gu, "");
 }
 
 /**
