@@ -10319,14 +10319,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:^16.5.0":
-  version: 16.5.0
-  resolution: "eslint-plugin-n@npm:16.5.0"
+"eslint-plugin-n@npm:^16.6.0":
+  version: 16.6.0
+  resolution: "eslint-plugin-n@npm:16.6.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     builtins: "npm:^5.0.1"
     eslint-plugin-es-x: "npm:^7.5.0"
     get-tsconfig: "npm:^4.7.0"
+    globals: "npm:^13.24.0"
     ignore: "npm:^5.2.4"
     is-builtin-module: "npm:^3.2.1"
     is-core-module: "npm:^2.12.1"
@@ -10335,7 +10336,7 @@ __metadata:
     semver: "npm:^7.5.3"
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 07ff2d63993899ad86cbb7c2ef71932c40ae582442e23c950c46e3136dafabcd8477d2956b15d08ebe2689d37d331ed8ce7a4e2a4e02e42a5cd4dc5b3c7529e0
+  checksum: 8018d653f25e1bb2793a4fba3fe89b33aa384dce6e2ec66ba72aad9843c3ac0263271a7255a600be75079bafec68ac5701570757b51b65e80d440feb5efa8c2e
   languageName: node
   linkType: hard
 
@@ -11562,6 +11563,15 @@ __metadata:
   dependencies:
     type-fest: "npm:^0.20.2"
   checksum: fc05e184b3be59bffa2580f28551a12a758c3a18df4be91444202982c76f13f52821ad54ffaf7d3f2a4d2498fdf54aeaca8d4540fd9e860a9edb09d34ef4c507
+  languageName: node
+  linkType: hard
+
+"globals@npm:^13.24.0":
+  version: 13.24.0
+  resolution: "globals@npm:13.24.0"
+  dependencies:
+    type-fest: "npm:^0.20.2"
+  checksum: d3c11aeea898eb83d5ec7a99508600fbe8f83d2cf00cbb77f873dbf2bcb39428eff1b538e4915c993d8a3b3473fa71eeebfe22c9bb3a3003d1e26b1f2c8a42cd
   languageName: node
   linkType: hard
 
@@ -12935,7 +12945,7 @@ __metadata:
     eslint-plugin-eslint-plugin: "npm:^5.2.1"
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
     eslint-plugin-jsdoc: "npm:^46.9.1"
-    eslint-plugin-n: "npm:^16.5.0"
+    eslint-plugin-n: "npm:^16.6.0"
     eslint-plugin-no-autofix: "npm:^1.2.3"
     eslint-plugin-only-warn: "npm:^1.1.0"
     eslint-plugin-sort-exports: "npm:^0.8.0"
@@ -12964,7 +12974,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     source-map: "npm:^0.7.4"
     source-map-support: "npm:^0.5.21"
-    syncpack: "npm:^12.0.1"
+    syncpack: "npm:^12.1.0"
     ts-jest: "npm:^29.1.1"
     ts-jest-resolver: "npm:^2.0.1"
     ts-json-schema-generator: "npm:^1.5.0"
@@ -19641,9 +19651,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"syncpack@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "syncpack@npm:12.0.1"
+"syncpack@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "syncpack@npm:12.1.0"
   dependencies:
     "@effect/schema": "npm:0.56.0"
     chalk: "npm:4.1.2"
@@ -19672,7 +19682,7 @@ __metadata:
     syncpack-prompt: dist/bin-prompt/index.js
     syncpack-set-semver-ranges: dist/bin-set-semver-ranges/index.js
     syncpack-update: dist/bin-update/index.js
-  checksum: a00fcfe566b7a49216e9d23605a3988a425fa1f1c04d594bba16db8befc6fa858fd4dd6d4e4faa2811474f3cfffc5baf80b675f5abd18b891affe2e1bc3c8f86
+  checksum: a33debb6d4361fcc945b73bc815f1f853ccca39106785df269560cf587f1b38725ddb83432addb1095b62ba30faacd95a0af9bbb2d3e194ce38a806208b6886d
   languageName: node
   linkType: hard
 
