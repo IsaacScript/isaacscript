@@ -90,10 +90,13 @@ export function kebabCaseToCamelCase(string: string): string {
   });
 }
 
-/** Helper function to transliterate the string to ASCII and lowercase it. */
+/**
+ * Helper function to transliterate the string to ASCII, lowercase it, and remove leading/trailing
+ * whitespace.
+ */
 export function normalizeString(string: string): string {
   const ascii = unidecode(string);
-  return ascii.toLowerCase();
+  return ascii.toLowerCase().trim();
 }
 
 /**
@@ -213,7 +216,13 @@ export function removeWhitespace(string: string): string {
  * - Removes any non-printable characters, if any.
  * - Normalizes all newlines to "\n".
  * - Normalizes all spaces to " ".
- * - Removes whitespace from both ends.
+ * - Removes leading/trailing whitespace.
+ *
+ * Even though this function performs normalization, it is different from the `normalizeString`
+ * function such that this will not blow away unicorn characters.
+ *
+ * @see
+ * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
  */
 export function sanitizeString(string: string, maxLength?: number): string {
   let sanitizedString = string;
@@ -233,7 +242,7 @@ export function sanitizeString(string: string, maxLength?: number): string {
   // Normalize spaces.
   sanitizedString = sanitizedString.replaceAll(/\p{Zs}/gu, " ");
 
-  // Remove whitespace from both ends.
+  // Remove leading/trailing whitespace.
   sanitizedString = sanitizedString.trim();
 
   return sanitizedString;
