@@ -191,19 +191,19 @@ export function removeLinesMatching(string: string, match: string): string {
   return newLines.join("\n");
 }
 
-/** Helper function to remove all whitespace characters from a string. */
-export function removeWhitespace(string: string): string {
-  return string.replaceAll(WHITESPACE_REGEX, "");
-}
-
 /**
- * Helper function to strip all non-printable characters from a string.
+ * Helper function to remove all non-printable characters from a string.
  *
  * @see
  * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
  */
-export function stripNonPrintable(text: string): string {
+export function removeNonPrintableCharacters(text: string): string {
   return text.replaceAll(/\p{C}/gu, "");
+}
+
+/** Helper function to remove all whitespace characters from a string. */
+export function removeWhitespace(string: string): string {
+  return string.replaceAll(WHITESPACE_REGEX, "");
 }
 
 /**
