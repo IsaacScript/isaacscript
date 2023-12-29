@@ -80,9 +80,9 @@ Building an ESLint config from scratch takes many, many hours. ESLint has [over 
 Don't bother creating and maintaining a huge ESLint config yourself. We've done the work to:
 
 - Enable every ESLint rule that we can find from trusted sources that provides value.
-- Weed out the rules that don't apply to TypeScript codebases.
-- Weed out the rules covered by [Prettier](https://prettier.io/).
-- Weed out the rules that are noisy (and document them below).
+- Weed out the rules that don't apply to TypeScript codebases (because many ESLint rules were written before TypeScript existed).
+- Weed out the rules covered by [Prettier](https://prettier.io/) (because many ESLint rules were written before Prettier existed).
+- Weed out the rules that are too noisy to provide value (and document them below).
 
 <br />
 
