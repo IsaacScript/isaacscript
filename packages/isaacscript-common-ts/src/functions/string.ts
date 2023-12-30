@@ -27,6 +27,20 @@ export function capitalizeFirstLetter(string: string): string {
   return `${capitalizedFirstLetter}${restOfString}`;
 }
 
+/**
+ * Helper function to replace all of the ampersands, less than signs, greater than signs, double
+ * quotes, and single quotes in a string with the escaped counterparts. For example, "<" will be
+ * replaced with "&lt;".
+ */
+export function escapeHTMLCharacters(string: string): string {
+  return string
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 export function getNumConsecutiveDiacritics(string: string): number {
   // First, normalize with Normalization Form Canonical Decomposition (NFD) so that diacritics are
   // separated from other characters:
