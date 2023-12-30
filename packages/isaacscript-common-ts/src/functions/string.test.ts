@@ -1,6 +1,6 @@
 import { equal } from "node:assert";
 import test, { describe } from "node:test";
-import { hasDiacritic, hasEmoji, normalizeString } from "./string.js";
+import { hasDiacritic, hasEmoji, normalizeUsername } from "./string.js";
 
 describe("hasEmoji", () => {
   test("should return true for string with emoji", () => {
@@ -41,24 +41,24 @@ describe("hasDiacritic", () => {
   });
 });
 
-describe("normalizeString function", () => {
+describe("normalizeUsername function", () => {
   test("it should transliterate and lowercase a string with ASCII characters", () => {
-    const result = normalizeString("Hello World");
+    const result = normalizeUsername("Hello World");
     equal(result, "hello world");
   });
 
   test("it should handle special characters and non-ASCII characters", () => {
-    const result = normalizeString("Thérè àrè spéciål çhàràctèrs"); // cspell:disable-line
+    const result = normalizeUsername("Thérè àrè spéciål çhàràctèrs"); // cspell:disable-line
     equal(result, "there are special characters");
   });
 
   test("it should handle an empty string", () => {
-    const result = normalizeString("");
+    const result = normalizeUsername("");
     equal(result, "");
   });
 
   test("it should handle a string with only non-ASCII characters", () => {
-    const result = normalizeString("こんにちは，世界！");
+    const result = normalizeUsername("こんにちは，世界！");
     console.log(result);
     equal(result, "konnitiha,shi jie !"); // cspell:disable-line
   });

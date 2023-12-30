@@ -91,10 +91,49 @@ export function kebabCaseToCamelCase(string: string): string {
 }
 
 /**
+ * Helper function to normalize a string. Specifically, this performs the following steps:
+ *
+ * - Truncates the message (if the optional `maxLength` argument is supplied.)
+ * - Removes any non-printable characters, if any.
+ * - Normalizes all newlines to "\n".
+ * - Normalizes all spaces to " ".
+ * - Removes leading/trailing whitespace.
+ *
+ * @see
+ * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
+ */
+export function normalizeString(string: string, maxLength?: number): string {
+  let sanitizedString = string;
+
+  // We truncate first to prevent wasting CPU cycles on sanitizing extremely long messages.
+  if (maxLength !== undefined && sanitizedString.length > maxLength) {
+    sanitizedString = string.slice(0, maxLength - 1);
+  }
+
+  sanitizedString = removeNonPrintableCharacters(sanitizedString);
+
+  // Normalize newlines.
+  sanitizedString = sanitizedString.replaceAll("\n\r", "\n");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zl}/gu, "\n");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zp}/gu, "\n");
+
+  // Normalize spaces.
+  sanitizedString = sanitizedString.replaceAll(/\p{Zs}/gu, " ");
+
+  // Remove leading/trailing whitespace.
+  sanitizedString = sanitizedString.trim();
+
+  return sanitizedString;
+}
+
+/**
  * Helper function to transliterate the string to ASCII, lowercase it, and remove leading/trailing
  * whitespace.
+ *
+ * This is useful to ensure that similar usernames cannot be created to impersonate other users
+ * (like e.g. Alice and Alicè).
  */
-export function normalizeString(string: string): string {
+export function normalizeUsername(string: string): string {
   const ascii = unidecode(string);
   return ascii.toLowerCase().trim();
 }
@@ -207,45 +246,6 @@ export function removeNonPrintableCharacters(string: string): string {
 /** Helper function to remove all whitespace characters from a string. */
 export function removeWhitespace(string: string): string {
   return string.replaceAll(WHITESPACE_REGEX, "");
-}
-
-/**
- * Helper function to sanitize a string. Specifically, this performs the following steps:
- *
- * - Truncates the message (if the optional `maxLength` argument is supplied.)
- * - Removes any non-printable characters, if any.
- * - Normalizes all newlines to "\n".
- * - Normalizes all spaces to " ".
- * - Removes leading/trailing whitespace.
- *
- * Even though this function performs normalization, it is different from the `normalizeString`
- * function such that this will not blow away unicorn characters.
- *
- * @see
- * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
- */
-export function sanitizeString(string: string, maxLength?: number): string {
-  let sanitizedString = string;
-
-  // We truncate first to prevent wasting CPU cycles on sanitizing extremely long messages.
-  if (maxLength !== undefined && sanitizedString.length > maxLength) {
-    sanitizedString = string.slice(0, maxLength - 1);
-  }
-
-  sanitizedString = removeNonPrintableCharacters(sanitizedString);
-
-  // Normalize newlines.
-  sanitizedString = sanitizedString.replaceAll("\n\r", "\n");
-  sanitizedString = sanitizedString.replaceAll(/\p{Zl}/gu, "\n");
-  sanitizedString = sanitizedString.replaceAll(/\p{Zp}/gu, "\n");
-
-  // Normalize spaces.
-  sanitizedString = sanitizedString.replaceAll(/\p{Zs}/gu, " ");
-
-  // Remove leading/trailing whitespace.
-  sanitizedString = sanitizedString.trim();
-
-  return sanitizedString;
 }
 
 /**
