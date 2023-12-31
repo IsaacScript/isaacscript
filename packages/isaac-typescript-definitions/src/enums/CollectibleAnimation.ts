@@ -1,3 +1,4 @@
+/** These are the animations in the "005.100_collectible.anm2" file. */
 export enum CollectibleAnimation {
   IDLE = "Idle",
   EMPTY = "Empty",
