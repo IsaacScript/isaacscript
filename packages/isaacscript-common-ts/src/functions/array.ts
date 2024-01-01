@@ -100,7 +100,7 @@ export function emptyArray<T>(array: T[]): void {
 }
 
 /**
- * Helper function to perform a map and a filter at the same time. Similar to `Array.map`, provide a
+ * Helper function to perform a filter and a map at the same time. Similar to `Array.map`, provide a
  * function that transforms a value, but return `undefined` if the value should be skipped. (Thus,
  * this function cannot be used in situations where `undefined` can be a valid array element.)
  *
