@@ -26,6 +26,11 @@ export enum GameStateFlag {
   SUPER_GREED_SPAWNED = 16,
   DONATION_SLOT_BROKEN = 17,
   DONATION_SLOT_JAMMED = 18,
+
+  /**
+   * Is set when the player uses the beam of light on Womb 2 to go to Cathedral. This does not get
+   * unset if Womb 2 is replayed and a trapdoor is taken instead.
+   */
   HEAVEN_PATH = 19,
 
   /** @deprecated This only works in Afterbirth+, not Repentance. */
