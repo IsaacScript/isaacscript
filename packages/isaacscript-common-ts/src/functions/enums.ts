@@ -1,5 +1,3 @@
-import { ReadonlySet } from "../types/ReadonlySet";
-
 type TranspiledEnum = Record<string, string | number>;
 
 /**
@@ -55,16 +53,18 @@ export function getEnumValues<T extends TranspiledEnum>(
  * Helper function to validate that a particular value exists inside of an enum.
  *
  * @param value The value to check.
- * @param transpiledEnum The enum to check against. This can also be a set that contains all of the
- *                       enum values, which should be more performant for enums with around 52 or
- *                       more elements.
+ * @param transpiledEnum The enum to check against.
+ * @param set Optional. A set that contains all of the values of an enum. If provided, this function
+ *            will for existence using the set (instead of the enum itself). Using a set should be
+ *            more performant for enums with around 52 or more elements.
  */
 export function isEnumValue<T extends TranspiledEnum>(
   value: number | string,
-  transpiledEnum: T | ReadonlySet<string | number>,
+  transpiledEnum: T,
+  set?: ReadonlySet<string | number>,
 ): value is T[keyof T] {
-  if (transpiledEnum instanceof Set || transpiledEnum instanceof ReadonlySet) {
-    return transpiledEnum.has(value);
+  if (set !== undefined) {
+    return set.has(value);
   }
 
   const enumValues = getEnumValues(transpiledEnum);
