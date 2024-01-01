@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "isaac-typescript-definitions": "^40.0.4",
-    "isaacscript-common-ts": "^14.2.0"
+    "isaacscript-common-ts": "^14.3.0"
   }
 }
