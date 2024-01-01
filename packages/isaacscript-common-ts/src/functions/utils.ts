@@ -133,6 +133,13 @@ export function isKeyOf<T extends object>(
 }
 
 /**
+ * Helper function to perform a no-op. This can be useful in order to make a trailing return valid
+ * in functions that use the early return pattern.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export function noop(): void {}
+
+/**
  * This is a more reliable version of `Number.parseFloat`:
  *
  * - `undefined` is returned instead of `Number.NaN`, which is helpful in conjunction with
