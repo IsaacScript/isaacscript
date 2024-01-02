@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## January 1st, 2013 (Unreleased)
+
+- Added the following custom commands:
+  - `megaSatan`
+
 ## December 17th, 2013
 
 - `isaacscript-common` now provides JavaScript files alongside Lua files. (`isaac-typescript-definitions` already does this.)

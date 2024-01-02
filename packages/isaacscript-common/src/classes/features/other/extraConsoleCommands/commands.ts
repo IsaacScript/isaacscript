@@ -1009,6 +1009,11 @@ export function maze(): void {
   printEnabled(v.persistent.maze, "permanent Curse of the Maze");
 }
 
+/** Warps to the Mega Satan room on the floor. (Every floor has a Mega Satan room.) */
+export function megaSatan(): void {
+  changeRoom(GridRoom.MEGA_SATAN);
+}
+
 /** Warps to the first Miniboss Room on the floor. */
 export function miniboss(): void {
   warpToRoomType(RoomType.MINI_BOSS);
