@@ -14,7 +14,7 @@ export function objectFilter<K extends string | number | symbol, V>(
 ): V[] {
   const array: V[] = [];
 
-  // eslint-disable-next-line guard-for-in, isaacscript/no-for-in
+  // eslint-disable-next-line isaacscript/no-for-in
   for (const key in object) {
     const value = object[key];
     const match = predicate(value);
