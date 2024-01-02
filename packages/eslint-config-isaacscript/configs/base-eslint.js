@@ -164,7 +164,9 @@ const SUGGESTIONS = {
   "func-style": "off",
 
   "grouped-accessor-pairs": "error",
-  "guard-for-in": "error",
+
+  /** Superseded by the `isaacscript/no-for-in` rule. */
+  "guard-for-in": "off",
 
   /** Disabled since it is expected to be configured with project-specific keywords. */
   "id-denylist": "off",
