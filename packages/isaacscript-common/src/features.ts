@@ -59,7 +59,7 @@ import { UnlockAchievementsDetection } from "./classes/features/other/UnlockAchi
 import type { Feature } from "./classes/private/Feature";
 import { ISCFeature } from "./enums/ISCFeature";
 import { ModCallbackCustom } from "./enums/ModCallbackCustom";
-import { validateInterfaceMatchesEnum } from "./functions/enums";
+import { interfaceSatisfiesEnum } from "./functions/enums";
 import type { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
 
 export interface ISCFeatureToClass {
@@ -125,7 +125,7 @@ export interface ISCFeatureToClass {
   [ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION]: UnlockAchievementsDetection;
 }
 
-validateInterfaceMatchesEnum<ISCFeatureToClass, ISCFeature>();
+interfaceSatisfiesEnum<ISCFeatureToClass, ISCFeature>();
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getFeatures(

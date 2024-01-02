@@ -1,6 +1,6 @@
 import type { TearFlag } from "isaac-typescript-definitions";
 import type { PlayerStat } from "../enums/PlayerStat";
-import { validateInterfaceMatchesEnum } from "../functions/enums";
+import { interfaceSatisfiesEnum } from "../functions/enums";
 
 /**
  * Contains every player stat along with its corresponding data type. For example, `StatType.DAMAGE`
@@ -22,4 +22,4 @@ export interface PlayerStats {
   [PlayerStat.SIZE]: Vector;
 }
 
-validateInterfaceMatchesEnum<PlayerStats, PlayerStat>();
+interfaceSatisfiesEnum<PlayerStats, PlayerStat>();
