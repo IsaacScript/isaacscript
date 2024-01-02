@@ -10326,9 +10326,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:^16.6.0":
-  version: 16.6.0
-  resolution: "eslint-plugin-n@npm:16.6.0"
+"eslint-plugin-n@npm:^16.6.1":
+  version: 16.6.1
+  resolution: "eslint-plugin-n@npm:16.6.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     builtins: "npm:^5.0.1"
@@ -10343,7 +10343,7 @@ __metadata:
     semver: "npm:^7.5.3"
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 8018d653f25e1bb2793a4fba3fe89b33aa384dce6e2ec66ba72aad9843c3ac0263271a7255a600be75079bafec68ac5701570757b51b65e80d440feb5efa8c2e
+  checksum: c971fd07dca7cbd07993c118b1d3cc901a48b0893d41fad294eb994f7076698514a31581a6425412feeebad2ed008ecaf6c9b9a6f96d9cc9d4db1c91dd44e6ee
   languageName: node
   linkType: hard
 
@@ -12952,7 +12952,7 @@ __metadata:
     eslint-plugin-eslint-plugin: "npm:^5.2.1"
     eslint-plugin-import: "npm:eslint-plugin-i@latest"
     eslint-plugin-jsdoc: "npm:^47.0.2"
-    eslint-plugin-n: "npm:^16.6.0"
+    eslint-plugin-n: "npm:^16.6.1"
     eslint-plugin-no-autofix: "npm:^1.2.3"
     eslint-plugin-only-warn: "npm:^1.1.0"
     eslint-plugin-sort-exports: "npm:^0.8.0"
