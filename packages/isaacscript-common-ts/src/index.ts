@@ -3,6 +3,7 @@ export * from "./functions/array.js";
 export * from "./functions/enums.js";
 export * from "./functions/map.js";
 export * from "./functions/math.js";
+export * from "./functions/object.js";
 export * from "./functions/random.js";
 export * from "./functions/set.js";
 export * from "./functions/sort.js";

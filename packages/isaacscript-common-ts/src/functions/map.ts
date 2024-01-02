@@ -2,7 +2,7 @@
  * Helper function to get the values in a `Map` that match an arbitrary condition. Similar to the
  * `Array.map` method, but works for maps.
  *
- * This is efficient such that it avoids converting the entire map into an array.
+ * This is efficient such that it avoids converting the map values into an array.
  *
  * If you want to perform a filter and a map at the same time on an array, use the `filterMap`
  * helper function instead.
@@ -28,7 +28,7 @@ export function mapFilter<K, V>(
  * Helper function to find a value in a `Map`. Similar to the `Array.find` method, but works for
  * maps.
  *
- * This is efficient such that it avoids converting the entire map into an array.
+ * This is efficient such that it avoids converting the map values into an array.
  */
 export function mapFind<K, V>(
   map: ReadonlyMap<K, V>,
