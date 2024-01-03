@@ -59,6 +59,7 @@ propset # Key of userdata
 publishedfileid # metadata.vdf
 Raglings
 Redskull
+REPENTOGON # Mod hack
 respawn
 respawned
 respawning

@@ -640,7 +640,7 @@ export enum ModCallbackRepentogon {
   PRE_ROOM_TRIGGER_CLEAR = 1068,
 
   /**
-   * Fires before a player trigg ers the room clear. Return false to cancel the room clear effects.
+   * Fires before a player triggers the room clear. Return false to cancel the room clear effects.
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -1403,7 +1403,7 @@ export enum ModCallbackRepentogon {
    * TODO: Document me fully!
    *
    * ```ts
-   * function prePlayerAlpplyInnateCollectibleNum(
+   * function prePlayerApplyInnateCollectibleNum(
    *   modCount: int,
    *   player: EntityPlayer,
    *   collectible: CollectibleType,
@@ -1955,7 +1955,7 @@ export enum ModCallbackRepentogon {
 
   /**
    * Fires before the game forcefully ends upon defeating Mega Satan. Return true to prevent the
-   * ending, guranteeing a portal to the Void while retaining the completion marks.
+   * ending, guaranteeing a portal to the Void while retaining the completion marks.
    *
    * ```ts
    * function preMegaSatanEnding(): boolean | undefined {}
@@ -2203,7 +2203,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postddGridEntityDecorationUpdate(decoration: GridEntityDecoration): void {}
+   * function postGridEntityDecorationUpdate(decoration: GridEntityDecoration): void {}
    * ```
    */
   POST_GRID_ENTITY_DECORATION_UPDATE = 1401,
@@ -2261,7 +2261,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function ppostGridEntityFireUpdate(fire: GridEntityFire): void {}
+   * function postGridEntityFireUpdate(fire: GridEntityFire): void {}
    * ```
    */
   POST_GRID_ENTITY_FIRE_UPDATE = 1405,
@@ -2274,7 +2274,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityGravityrUpdate(gravity: GridEntityGravity): boolean | undefined {}
+   * function preGridEntityGravityUpdate(gravity: GridEntityGravity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_GRAVITY_UPDATE = 1406,
@@ -2287,7 +2287,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityGravityrUpdate(gravity: GridEntityGravity): void {}
+   * function postGridEntityGravityUpdate(gravity: GridEntityGravity): void {}
    * ```
    */
   POST_GRID_ENTITY_GRAVITY_UPDATE = 1407,
