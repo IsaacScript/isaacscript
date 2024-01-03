@@ -5,7 +5,10 @@ import { parseIntSafe } from "./utils.js";
 // perform 11% faster.
 
 const DIACRITIC_REGEX = /\p{Diacritic}/u;
-const EMOJI_REGEX = /\p{Extended_Pictographic}/u;
+
+/** This is what the Zod validator library uses. */
+const EMOJI_REGEX = /(\p{Extended_Pictographic}|\p{Emoji_Component})/u;
+
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 
 /** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */

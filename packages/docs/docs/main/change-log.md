@@ -9,10 +9,12 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## January 1st, 2013 (Unreleased)
+## January 1st, 2013
 
 - Added the following custom commands:
   - `megaSatan`
+- Renamed the following helper functions:
+  - `validateInterfaceMatchesEnum` --> `interfaceSatisfiesEnum`
 
 ## December 17th, 2013
 

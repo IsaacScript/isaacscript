@@ -264,7 +264,7 @@ Note that if you really need to, you can restore operator overloading for Vector
 type Vector = number & { readonly __vectorBrand: symbol };
 ```
 
-But this is **not recommended** because vectors won't be type-safe anymore.
+But this is **not recommended** because vectors will not be type-safe anymore.
 
 <br />
 

@@ -39,7 +39,7 @@ import type { HealthType } from "../../enums/HealthType";
 import type { ModCallbackCustom } from "../../enums/ModCallbackCustom";
 import type { PlayerStat } from "../../enums/PlayerStat";
 import type { SlotDestructionType } from "../../enums/SlotDestructionType";
-import { validateInterfaceMatchesEnum } from "../../functions/enums";
+import { interfaceSatisfiesEnum } from "../../functions/enums";
 import type {
   PickingUpItem,
   PickingUpItemCollectible,
@@ -1059,4 +1059,4 @@ export interface AddCallbackParametersCustom {
   ];
 }
 
-validateInterfaceMatchesEnum<AddCallbackParametersCustom, ModCallbackCustom>();
+interfaceSatisfiesEnum<AddCallbackParametersCustom, ModCallbackCustom>();
