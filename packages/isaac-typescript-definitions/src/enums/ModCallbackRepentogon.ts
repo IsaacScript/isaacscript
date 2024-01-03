@@ -1,6 +1,7 @@
 /**
- * - These callbacks are reserved for mods which use REPENTOGON, an exe-mod which greatly expands on
- * the modding API. You can learn more about it here: https://repentogon.com/index.html.
+ * Callbacks for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
  */
 export enum ModCallbackRepentogon {
   /**
