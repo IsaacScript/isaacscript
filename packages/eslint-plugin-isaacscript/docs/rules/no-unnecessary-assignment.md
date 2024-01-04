@@ -8,6 +8,11 @@ Sometimes, refactoring can lead to assignment statements that were once useful b
 
 ```ts
 // Bad
+declare let foo: 1;
+declare let bar: 1;
+foo = bar;
+
+// Bad
 declare let foo: number;
 foo += 0;
 
