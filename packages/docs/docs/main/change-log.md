@@ -13,6 +13,8 @@ This page lists the changes to the IsaacScript framework.
 
 - Added the following enums:
   - `ModCallbackRepentogon` (Thanks 4Grabs)
+- Added the following lint rules:
+  - `isaacscript/no-unnecessary-assignment`
 
 ## January 1st, 2013
 
