@@ -63,7 +63,7 @@ const HELPFUL_WARNINGS = {
 
   /**
    * Disabled because this is [already handled by the TypeScript
-   * compiler](https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js).
+   * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
    */
   "import/no-named-as-default-member": "off",
 
@@ -89,15 +89,24 @@ const MODULE_SYSTEMS = {
 
 /** @type {import("eslint").Linter.RulesRecord} */
 const STATIC_ANALYSIS = {
-  "import/default": "error",
+  /**
+   * Disabled because this is [already handled by the TypeScript
+   * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
+   */
+  "import/default": "off",
 
   /**
    * Disabled because this is [already handled by the TypeScript
-   * compiler](https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js).
+   * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
    */
   "import/named": "off",
 
-  "import/namespace": "error",
+  /**
+   * Disabled because this is [already handled by the TypeScript
+   * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
+   */
+  "import/namespace": "off",
+
   "import/no-absolute-path": "error",
   "import/no-cycle": "error",
   "import/no-dynamic-require": "error",
