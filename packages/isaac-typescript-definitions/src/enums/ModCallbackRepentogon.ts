@@ -389,31 +389,6 @@ export enum ModCallbackRepentogon {
   PRE_LEVEL_INIT = 1060,
 
   /**
-   * Fires when a shop is about to be restocked. Return false to cancel the restock, blocking shop
-   * rerolls from restock machines or restocks from Restock altogether.
-   *
-   * This callback is fired for both `Room.ShopRestockFull` and `Room.ShopRestockPartial`. The
-   * `partial` parameter is true if `Room.ShopRestockPartial` was called, otherwise it's false.
-   *
-   * ```ts
-   * function preRestockShop(partial: boolean): void {}
-   * ```
-   */
-  PRE_RESTOCK_SHOP = 1070,
-
-  /**
-   * Fires after a shop has been restocked.
-   *
-   * This callback is fired for both `Room.ShopRestockFull` and `Room.ShopRestockPartial`. The
-   * `partial` parameter is true if `Room.ShopRestockPartial` was called, otherwise it's false.
-   *
-   * ```ts
-   * function postRestockShop(partial: boolean): void {}
-   * ```
-   */
-  POST_RESTOCK_SHOP = 1071,
-
-  /**
    * Fires when the current room is about to change. Return an array containing a room index and
    * dimension to override where the player ends up.
    *
@@ -455,6 +430,31 @@ export enum ModCallbackRepentogon {
    * ```
    */
   GET_FOLLOWER_PRIORITY = 1063,
+
+  /**
+   * Fires when a shop is about to be restocked. Return false to cancel the restock, blocking shop
+   * rerolls from restock machines or restocks from Restock altogether.
+   *
+   * This callback is fired for both `Room.ShopRestockFull` and `Room.ShopRestockPartial`. The
+   * `partial` parameter is true if `Room.ShopRestockPartial` was called, otherwise it's false.
+   *
+   * ```ts
+   * function preRestockShop(partial: boolean): boolean | undefined {}
+   * ```
+   */
+  PRE_RESTOCK_SHOP = 1070,
+
+  /**
+   * Fires after a shop has been restocked.
+   *
+   * This callback is fired for both `Room.ShopRestockFull` and `Room.ShopRestockPartial`. The
+   * `partial` parameter is true if `Room.ShopRestockPartial` was called, otherwise it's false.
+   *
+   * ```ts
+   * function postRestockShop(partial: boolean): void {}
+   * ```
+   */
+  POST_RESTOCK_SHOP = 1071,
 
   /**
    * Fires when a NPC is about to morph. Return an array of parameters to override what the NPC
@@ -611,7 +611,7 @@ export enum ModCallbackRepentogon {
    *   variant: PickupVariant,
    *   subType: int,
    *   shopItemID: int
-   * ): int {}
+   * ): int | undefined {}
    * ```
    */
   GET_SHOP_ITEM_PRICE = 1066,
