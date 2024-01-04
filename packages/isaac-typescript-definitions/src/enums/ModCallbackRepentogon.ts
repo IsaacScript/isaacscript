@@ -21,7 +21,7 @@ export enum ModCallbackRepentogon {
    *   slot: ActiveSlot,
    *   varData: int,
    *   player: EntityPlayer
-   * ): CollectibleType | [CollectibleType, int, boolean, ActiveSlot, int] | undefined {}
+   * ): CollectibleType | [CollectibleType, int, boolean, ActiveSlot, int, EntityPlayer] | undefined {}
    * ```
    */
   PRE_ADD_COLLECTIBLE = 1004,
