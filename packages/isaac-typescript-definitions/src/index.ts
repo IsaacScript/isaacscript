@@ -98,4 +98,7 @@ export * from "./enums/mods/StageAPIEnums";
 export * from "./enums/mods/repentogon/CompletionMarkType";
 export * from "./enums/mods/repentogon/GiantbookType";
 export * from "./enums/mods/repentogon/HealthType";
-export * from "./enums/mods/repentogon/ImGuiCallbackType";
+export * from "./enums/mods/repentogon/ImGuiCallback";
+export * from "./enums/mods/repentogon/ImGuiColor";
+export * from "./enums/mods/repentogon/ImGuiElement";
+export * from "./enums/mods/repentogon/ImGuiNotificationType";

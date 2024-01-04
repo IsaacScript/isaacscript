@@ -1,5 +1,4 @@
 # These are general-purpose words that should be in the CSpell base dictionary.
-
 astar
 autoformat
 backreference
@@ -11,12 +10,14 @@ brainer
 cacheable
 checkmark
 codebases
+Combobox
 cyclomatic
 decompilation
 decrementation
 easings
 gamepad
 grimoire
+Helpmarker
 icns # MacOS icons file.
 incrementation
 interactable

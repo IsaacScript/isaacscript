@@ -3,7 +3,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-export enum ImGuiCallbackType {
+export enum ImGuiCallback {
   CLICKED = 0,
   HOVERED = 1,
   ACTIVE = 2,
