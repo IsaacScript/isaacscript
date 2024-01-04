@@ -222,6 +222,32 @@ foo = bar;
 });
 
 valid.push({
+  name: "normal assignment with string enum variable",
+  code: `
+enum Foo {
+  Value1 = "Value1",
+  Value2 = "Value2",
+}
+declare let foo: Foo;
+declare let bar: Foo;
+foo = bar;
+    `,
+});
+
+valid.push({
+  name: "normal assignment with number enum variable",
+  code: `
+enum Foo {
+  Value1,
+  Value2,
+}
+declare let foo: Foo;
+declare let bar: Foo;
+foo = bar;
+    `,
+});
+
+valid.push({
   name: "assignment with generic type",
   code: `
 declare let foo: Set<string>;
