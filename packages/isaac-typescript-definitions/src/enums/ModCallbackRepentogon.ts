@@ -367,15 +367,6 @@ export enum ModCallbackRepentogon {
   PRE_ROOM_EXIT = 1043,
 
   /**
-   * Fires when a level is about to be initialized.
-   *
-   * ```ts
-   * function preLevelInit(): void {}
-   * ```
-   */
-  PRE_LEVEL_INIT = 1060,
-
-  /**
    * Fires right before the game over screen appears. Return false to cancel the death and revive
    * the player with half a heart.
    *
@@ -387,6 +378,15 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_TRIGGER_PLAYER_DEATH = 1050,
+
+  /**
+   * Fires when a level is about to be initialized.
+   *
+   * ```ts
+   * function preLevelInit(): void {}
+   * ```
+   */
+  PRE_LEVEL_INIT = 1060,
 
   /**
    * Fires when a shop is about to be restocked. Return false to cancel the restock, blocking shop
@@ -408,7 +408,7 @@ export enum ModCallbackRepentogon {
    * `partial` parameter is true if `Room.ShopRestockPartial` was called, otherwise it's false.
    *
    * ```ts
-   * function postRestockShop(): void {}
+   * function postRestockShop(partial: boolean): void {}
    * ```
    */
   POST_RESTOCK_SHOP = 1071,
