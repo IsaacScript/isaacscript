@@ -32,11 +32,10 @@ import type {
 } from "../../enums/collections/variants";
 import type { DamageFlag } from "../../enums/flags/DamageFlag";
 import type { UseFlag } from "../../enums/flags/UseFlag";
-import type {
-  RepentogonCompletionMarkType,
-  RepentogonGiantbookType,
-  RepentogonHealthType,
-} from "../../enums/mods/RepentogonEnums";
+import type { CompletionMarkType } from "../../enums/mods/repentogon/CompletionMarkType";
+import type { GiantbookType } from "../../enums/mods/repentogon/GiantbookType";
+import type { PlayerHealthType } from "../../enums/mods/repentogon/HealthType";
+
 import type {
   RepentogonEntityWeapon,
   RepentogonGridEntityDecoration,
@@ -260,7 +259,7 @@ declare global {
     // 1047
     [ModCallbackRepentogon.PRE_COMPLETION_MARK_GET]: [
       callback: (
-        completionType: RepentogonCompletionMarkType,
+        completionType: CompletionMarkType,
         playerType: PlayerType,
       ) => boolean | undefined,
       playerType?: PlayerType,
@@ -269,7 +268,7 @@ declare global {
     // 1048
     [ModCallbackRepentogon.POST_COMPLETION_MARK_GET]: [
       callback: (
-        completionType: RepentogonCompletionMarkType,
+        completionType: CompletionMarkType,
         playerType: PlayerType,
       ) => void,
       playerType?: PlayerType,
@@ -277,9 +276,7 @@ declare global {
 
     // 1049
     [ModCallbackRepentogon.PRE_COMPLETION_EVENT]: [
-      callback: (
-        completionType: RepentogonCompletionMarkType,
-      ) => boolean | undefined,
+      callback: (completionType: CompletionMarkType) => boolean | undefined,
     ];
 
     // 1050
@@ -356,7 +353,7 @@ declare global {
 
     // 1067
     [ModCallbackRepentogon.PLAYER_GET_HEALTH_TYPE]: [
-      callback: (player: EntityPlayer) => RepentogonHealthType | undefined,
+      callback: (player: EntityPlayer) => PlayerHealthType | undefined,
     ];
 
     // 1068
@@ -397,17 +394,17 @@ declare global {
     // 1075
     [ModCallbackRepentogon.POST_ITEM_OVERLAY_UPDATE]: [
       callback: () => void,
-      giantbookType?: RepentogonGiantbookType,
+      giantbookType?: GiantbookType,
     ];
 
     // 1076
     [ModCallbackRepentogon.PRE_ITEM_OVERLAY_SHOW]: [
       callback: (
-        giantbookType: RepentogonGiantbookType,
+        giantbookType: GiantbookType,
         delay: int,
         player: EntityPlayer,
-      ) => RepentogonGiantbookType | boolean | undefined,
-      giantbookType?: RepentogonGiantbookType,
+      ) => GiantbookType | boolean | undefined,
+      giantbookType?: GiantbookType,
     ];
 
     // 1077
@@ -768,11 +765,11 @@ declare global {
     // 1134
     [ModCallbackRepentogon.POST_ITEM_OVERLAY_SHOW]: [
       callback: (
-        giantbook: RepentogonGiantbookType,
+        giantbook: GiantbookType,
         delay: int,
         player: EntityPlayer,
       ) => void,
-      giantbookType?: RepentogonGiantbookType,
+      giantbookType?: GiantbookType,
     ];
 
     // 1137

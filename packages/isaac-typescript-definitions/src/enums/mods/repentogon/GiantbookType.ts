@@ -1,20 +1,9 @@
-export enum RepentogonCompletionMarkType {
-  MOMS_HEART = 0,
-  ISAAC = 1,
-  SATAN = 2,
-  BOSS_RUSH = 3,
-  BLUE_BABY = 4,
-  LAMB = 5,
-  MEGA_SATAN = 6,
-  ULTRA_GREED = 7,
-  HUSH = 9,
-  ULTRA_GREEDIER = 11,
-  DELIRIUM = 12,
-  MOTHER = 13,
-  BEAST = 14,
-}
-
-export enum RepentogonGiantbookType {
+/**
+ * This enum is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
+export enum GiantbookType {
   NECRONOMICON = 1,
   MONSTER_MANUAL = 2,
   WHORE_OF_BABYLON = 3,
@@ -60,13 +49,4 @@ export enum RepentogonGiantbookType {
   REVERSE_SUN = 43,
   DOGMA = 44,
   ETERNAL_HEART_BLACK = 46,
-}
-
-/** Represents the type of health corresponding to a player. */
-export enum RepentogonHealthType {
-  RED = 0,
-  SOUL = 1,
-  NO_HEALTH = 2,
-  COIN = 3,
-  BONE = 4,
 }
