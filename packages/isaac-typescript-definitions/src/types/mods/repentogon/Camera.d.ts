@@ -1,4 +1,11 @@
-declare interface RepentogonCamera extends IsaacAPIClass {
+/**
+ * Constructs a new capsule class.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
+declare interface Camera extends IsaacAPIClass {
   /**
    * Sets the camera's current focus position, causing it to shift towards the specified position.
    *

@@ -1,8 +1,12 @@
 /**
+ * Constructs a new capsule class.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
  * @noSelf
- * @customName Ambush
  */
-declare namespace RepentogonAmbush {
+declare namespace Ambush {
   /** Returns the current wave number of the current challenge room or boss rush room. */
   function GetCurrentWave(): int;
 

@@ -1,5 +1,10 @@
-declare interface RepentogonCapsule extends IsaacAPIClass {
-  Collide: (otherCapsule: RepentogonCapsule, point: Vector) => boolean;
+/**
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
+declare interface Capsule extends IsaacAPIClass {
+  Collide: (otherCapsule: Capsule, point: Vector) => boolean;
   GetDirection: () => Vector;
   GetF1: () => number;
   GetF2: () => number;
@@ -8,10 +13,16 @@ declare interface RepentogonCapsule extends IsaacAPIClass {
   GetVec3: () => Vector;
 }
 
-/** @customName Capsule */
+/**
+ * Constructs a new capsule class.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
 export function RepentogonCapsule(
   this: void,
   position: Vector,
   direction: number,
   size: number,
-): RepentogonCapsule;
+): Capsule;

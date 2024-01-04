@@ -18,7 +18,7 @@ declare global {
    * @see https://repentogon.com/index.html
    * @noSelf
    */
-  interface ChallengeParams {
+  interface ChallengeParams extends IsaacAPIClass {
     CanShoot: () => boolean;
     GetAchievementList: () => AchievementType[];
     GetAddDamage: () => number;
