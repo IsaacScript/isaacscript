@@ -134,7 +134,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridHurtDamage(
-   *   gridEntity: GridEntityRock,
+   *   gridEntity: GridEntity,
    *   tookDamage: Entity,
    *   damageAmount: int,
    *   damageFlags: BitFlags<DamageFlag>
