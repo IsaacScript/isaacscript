@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-common",
-  "version": "86.0.0",
+  "version": "86.1.0",
   "description": "Helper functions and features for IsaacScript mods.",
   "keywords": [
     "isaac",
@@ -37,6 +37,6 @@
     "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^40.0.4"
+    "isaac-typescript-definitions": "^40.1.0"
   }
 }

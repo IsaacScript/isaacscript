@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## January 8th, 2013 (Unreleased)
+
+- Added the following enums:
+  - `ModCallbackRepentogon` (Thanks 4Grabs)
+
 ## January 1st, 2013
 
 - Added the following custom commands:

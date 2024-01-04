@@ -23,3 +23,4 @@ export * from "./types/ReadonlyRecord.js";
 export * from "./types/ReadonlySet.js";
 export * from "./types/Tuple.js";
 export * from "./types/WidenLiteral.js";
+export * from "./types/Writeable.js";
