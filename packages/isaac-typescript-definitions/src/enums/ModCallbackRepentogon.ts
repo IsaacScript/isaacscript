@@ -712,7 +712,7 @@ export enum ModCallbackRepentogon {
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GiantbookType` provided.
+   *   matches the `RepentogonGiantbookType` provided.
    *
    * ```ts
    * function postItemOverlayUpdate(): void {}
@@ -726,14 +726,14 @@ export enum ModCallbackRepentogon {
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GiantbookType` provided.
+   *   matches the `RepentogonGiantbookType` provided.
    *
    * ```ts
    * function preItemOverlayShow(
-   *   giantbookType: GiantbookType,
+   *   giantbookType: RepentogonGiantbookType,
    *   delay: int,
    *   player: EntityPlayer
-   * ): GiantbookType | boolean | undefined {}
+   * ): RepentogonGiantbookType | boolean | undefined {}
    * ```
    */
   PRE_ITEM_OVERLAY_SHOW = 1076,
@@ -1977,10 +1977,10 @@ export enum ModCallbackRepentogon {
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GiantBook` provided.
+   *   matches the `RepentogonGiantbookType` provided.
    *
    * ```ts
-   * function postItemOverlayShow(giantBook: GiantBook, delay: int, player: EntityPlayer): void {}
+   * function postItemOverlayShow(giantBook: RepentogonGiantbookType, delay: int, player: EntityPlayer): void {}
    * ```
    */
   POST_ITEM_OVERLAY_SHOW = 1134,
@@ -1992,7 +1992,7 @@ export enum ModCallbackRepentogon {
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GiantBook` provided.
+   *   matches the `RepentogonGiantbookType` provided.
    *
    * ```ts
    * function preLevelPlaceRoom(
