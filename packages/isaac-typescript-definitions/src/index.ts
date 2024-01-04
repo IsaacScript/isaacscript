@@ -22,6 +22,7 @@ export * from "./enums/EntityCollisionClass";
 export * from "./enums/EntityGridCollisionClass";
 export * from "./enums/EntityType";
 export * from "./enums/FadeoutTarget";
+export * from "./enums/FollowerPriority";
 export * from "./enums/GameStateFlag";
 export * from "./enums/GridCollisionClass";
 export * from "./enums/GridEntityType";
