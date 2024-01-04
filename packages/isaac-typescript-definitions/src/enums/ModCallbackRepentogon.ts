@@ -617,15 +617,15 @@ export enum ModCallbackRepentogon {
   GET_SHOP_ITEM_PRICE = 1066,
 
   /**
-   * Fires when the player's health type is being loaded. Return `PlayerHealthType` to override the
-   * player's health type.
+   * Fires when the player's health type is being loaded. Return `RepentogonHealthType` to override
+   * the player's health type.
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function playerGetHealthType(player: EntityPlayer): PlayerHealthType | undefined {}
+   * function playerGetHealthType(player: EntityPlayer): RepentogonHealthType | undefined {}
    * ```
    */
   PLAYER_GET_HEALTH_TYPE = 1067,
@@ -647,10 +647,122 @@ export enum ModCallbackRepentogon {
    *   matches the `PlayerVariant` provided.
    *
    * ```ts
-   * function preRenderPlayerBody(player: EntityPlayer): boolean | undefined {}
+   * function prePlayerTriggerRoomClear(player: EntityPlayer): boolean | undefined {}
    * ```
    */
   PRE_PLAYER_TRIGGER_ROOM_CLEAR = 1069,
+
+  /**
+   * Fires before a collectible belonging to a player has its max charges loaded. Return an integer
+   * to override the item's chargebar.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CollectibleType` provided.
+   *
+   * ```ts
+   * function playerGetActiveMaxCharge(
+   *   collectible: CollectibleType,
+   *   player: EntityPlayer,
+   *   varData: int
+   * ): int | undefined {}
+   * ```
+   */
+  PLAYER_GET_ACTIVE_MAX_CHARGE = 1072,
+
+  /**
+   * Fires before a collectible belonging to a player has its minimum usable charges loaded. If the
+   * item has the minimum amount of charge, it will show the white outline around the chargebar
+   * sprite.
+   *
+   * Return an integer to override the minimum charges.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CollectibleType` provided.
+   *
+   * ```ts
+   * function playerGetActiveMinUsableCharge(slot: ActiveSlot): int | undefined {}
+   * ```
+   */
+  PLAYER_GET_ACTIVE_MIN_USABLE_CHARGE = 1073,
+
+  /**
+   * Fires every frame. Return an integer to override the player's heart limit.
+   *
+   * You can set the limit to any arbitrary amount but the game can only render up to 4 lines of
+   * hearts in the HUD. However, even if they're not visible, the hearts still work properly.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function playerGetHeartLimit(
+   *   player: EntityPlayer,
+   *   heartLimit: int,
+   *   isKeeper: boolean
+   * ): int | undefined {}
+   * ```
+   */
+  PLAYER_GET_HEART_LIMIT = 1074,
+
+  /**
+   * Returns every an item overlay is rendered.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GiantbookType` provided.
+   *
+   * ```ts
+   * function postItemOverlayUpdate(): void {}
+   * ```
+   */
+  POST_ITEM_OVERLAY_UPDATE = 1075,
+
+  /**
+   * Fires before an item overlay is shown. Return `GiantBookType` to override the overlay shown.
+   * Alternatively, return true to cancel the item overlay.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GiantbookType` provided.
+   *
+   * ```ts
+   * function preItemOverlayShow(
+   *   giantbookType: GiantbookType,
+   *   delay: int,
+   *   player: EntityPlayer
+   * ): GiantbookType | boolean | undefined {}
+   * ```
+   */
+  PRE_ITEM_OVERLAY_SHOW = 1076,
+
+  /**
+   * TODO: Document me!
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerNewRoomTempEffects(player: EntityPlayer): void {}
+   * ```
+   */
+  POST_PLAYER_NEW_ROOM_TEMP_EFFECTS = 1077,
+
+  /**
+   * TODO: Document me!
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerNewLevel(player: EntityPlayer): void {}
+   * ```
+   */
+  POST_PLAYER_NEW_LEVEL = 1078,
 
   /**
    * Fires before a familiar renders. Return a Vector to modify the rendered sprite's offset.
@@ -882,118 +994,6 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_GRID_ENTITY_SPAWN = 1101,
-
-  /**
-   * Fires before a collectible belonging to a player has its max charges loaded. Return an integer
-   * to override the item's chargebar.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `CollectibleType` provided.
-   *
-   * ```ts
-   * function playerGetActiveMaxCharge(
-   *   collectible: Collectible,
-   *   player: EntityPlayer,
-   *   varData: int
-   * ): int | undefined {}
-   * ```
-   */
-  PLAYER_GET_ACTIVE_MAX_CHARGE = 1072,
-
-  /**
-   * Fires before a collectible belonging to a player has its minimum usable charges loaded. If the
-   * item has the minimum amount of charge, it will show the white outline around the chargebar
-   * sprite.
-   *
-   * Return an integer to override the minimum charges.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `CollectibleType` provided.
-   *
-   * ```ts
-   * function playerGetActiveMinUsableCharge(slot: ActiveSlot): int | undefined {}
-   * ```
-   */
-  PLAYER_GET_ACTIVE_MIN_USABLE_CHARGE = 1073,
-
-  /**
-   * Fires every frame. Return an integer to override the player's heart limit.
-   *
-   * You can set the limit to any arbitrary amount but the game can only render up to 4 lines of
-   * hearts in the HUD. However, even if they're not visible, the hearts still work properly.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function playerGetHeartLimit(
-   *   player: EntityPlayer,
-   *   heartLimit: int,
-   *   isKeeper: boolean
-   * ): int undefined {}
-   * ```
-   */
-  PLAYER_GET_HEART_LIMIT = 1074,
-
-  /**
-   * Returns every an item overlay is rendered.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GiantbookType` provided.
-   *
-   * ```ts
-   * function postItemOverlayUpdate(): void {}
-   * ```
-   */
-  POST_ITEM_OVERLAY_UPDATE = 1075,
-
-  /**
-   * Fires before an item overlay is shown. Return `GiantBookType` to override the overlay shown.
-   * Alternatively, return true to cancel the item overlay.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GiantbookType` provided.
-   *
-   * ```ts
-   * function preItemOverlayShow(
-   *   giantbookType: GiantbookType,
-   *   delay: int,
-   *   player: EntityPlayer
-   * ): GiantbookType | boolean | undefined {}
-   * ```
-   */
-  PRE_ITEM_OVERLAY_SHOW = 1076,
-
-  /**
-   * TODO: Document me!
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function postPlayerNewRoomTempEffects(player: EntityPlayer): void {}
-   * ```
-   */
-  POST_PLAYER_NEW_ROOM_TEMP_EFFECTS = 1077,
-
-  /**
-   * TODO: Document me!
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function postPlayerNewLevel(player: EntityPlayer): void {}
-   * ```
-   */
-  POST_PLAYER_NEW_LEVEL = 1078,
 
   /**
    * Fires every frame. Return a `MultiShotParams` object to change the properties of the player's
