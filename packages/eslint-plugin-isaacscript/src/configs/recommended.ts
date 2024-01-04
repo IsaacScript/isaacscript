@@ -30,6 +30,7 @@ export const recommended = {
     "isaacscript/no-template-curly-in-string-fix": "error",
     "isaacscript/no-undefined-return-type": "error",
     "isaacscript/no-unsafe-plusplus": "error",
+    "isaacscript/no-unnecessary-assignment": "error",
     "isaacscript/no-void-return-type": "error",
     "isaacscript/prefer-plusplus": "error",
     "isaacscript/prefer-postfix-plusplus": "error",

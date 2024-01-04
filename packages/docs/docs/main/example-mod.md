@@ -27,7 +27,7 @@ For this tutorial, we will be using `C:\Repositories\green-candle` as the direct
 ```batch
 mkdir C:\Repositories\green-candle
 cd C:\Repositories\green-candle
-npx isaacscript init --use-current-dir --save-slot=1 --vscode
+npx isaacscript@latest init --use-current-dir --save-slot=1 --vscode
 ```
 
 At this point, the skeleton for our mod is in place. Now, start IsaacScript and let it run in the background:

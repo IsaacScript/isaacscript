@@ -50,7 +50,7 @@ Note that your project directory should **not** be a subdirectory of the Isaac `
 Run:
 
 ```sh
-npx isaacscript init
+npx isaacscript@latest init
 ```
 
 The program will ask you some questions and then populate your current directory with TypeScript and other some other dependencies.
