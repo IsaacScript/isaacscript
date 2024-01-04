@@ -1,5 +1,4 @@
 # These are words that apply to Isaac modding in general.
-
 Antibirth
 Beelzeblub
 Begottens
@@ -74,6 +73,7 @@ softlock
 softlocked
 softlocking
 softlocks
+SOLOMONS
 speedrun
 speedrunner
 speedrunners
