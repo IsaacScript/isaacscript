@@ -213,7 +213,7 @@ export enum ModCallbackRepentogon {
    *   frameDelay: int,
    *   pitch: number,
    *   pan: number
-   * ): SoundEffect | boolean | [SoundEffect, number, int, number, number] | undefined {}
+   * ): boolean | [SoundEffect, number, int, number, number] | undefined {}
    * ```
    */
   PRE_SFX_PLAY = 1030,
