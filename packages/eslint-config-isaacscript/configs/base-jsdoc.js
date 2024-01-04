@@ -56,6 +56,7 @@ const config = {
           // https://typescripttolua.github.io/docs/advanced/compiler-annotations
           "noResolution",
           "noSelf",
+          "customName",
           "noSelfInFile",
 
           // Ignore tags used in `ts-json-schema-generator`:
