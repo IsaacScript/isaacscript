@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import * as ts from "typescript";
-import { getTypeName, isFlagSet } from "../typeUtils";
+import { isFlagSet } from "../typeUtils";
 import { createRule } from "../utils";
 
 const USELESS_OPERATORS_WITH_ZERO: ReadonlySet<string> = new Set([
@@ -130,17 +130,19 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
     }
 
     function checkEqualSign(node: TSESTree.AssignmentExpression) {
-      // Evaluate the right side first so that we can early return if necessary.
-      const rightTSNode = parserServices.esTreeNodeToTSNodeMap.get(node.right);
-      const rightType = checker.getTypeAtLocation(rightTSNode);
-      if (isPrimitiveWithMultipleValues(rightType)) {
-        return;
-      }
-
       const leftTSNode = parserServices.esTreeNodeToTSNodeMap.get(node.left);
-      const leftType = checker.getTypeAtLocation(leftTSNode);
+      const rightTSNode = parserServices.esTreeNodeToTSNodeMap.get(node.right);
 
-      if (leftType === rightType) {
+      const leftType = checker.getTypeAtLocation(leftTSNode);
+      const rightType = checker.getTypeAtLocation(rightTSNode);
+
+      const leftFlags = leftType.getFlags();
+      const rightFlags = rightType.getFlags();
+
+      const isLeftLiteral = isFlagSet(leftFlags, ts.TypeFlags.Literal);
+      const isRightLiteral = isFlagSet(rightFlags, ts.TypeFlags.Literal);
+
+      if (isLeftLiteral && isRightLiteral && leftType === rightType) {
         context.report({
           loc: node.loc,
           messageId: "unnecessary",
@@ -296,14 +298,3 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
     };
   },
 });
-
-function isPrimitiveWithMultipleValues(type: ts.Type): boolean {
-  const typeName = getTypeName(type);
-  return (
-    typeName === "string" ||
-    typeName === "number" ||
-    typeName === "bigint" ||
-    typeName === "boolean" ||
-    typeName === "symbol"
-  );
-}

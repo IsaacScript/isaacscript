@@ -118,6 +118,119 @@ foo = bar;
 });
 
 valid.push({
+  name: "normal assignment with string enum member literal",
+  code: `
+enum Foo {
+  Value1 = "Value1",
+  Value2 = "Value2",
+}
+declare let foo: Foo.Value1;
+foo = Foo.Value2;
+    `,
+});
+
+invalid.push({
+  name: "invalid assignment with string enum member literal",
+  code: `
+enum Foo {
+  Value1 = "Value1",
+  Value2 = "Value2",
+}
+declare let foo: Foo.Value1;
+foo = Foo.Value1;
+    `,
+  errors: [{ messageId: "unnecessary" }],
+});
+
+valid.push({
+  name: "normal assignment with string enum member variable",
+  code: `
+enum Foo {
+  Value1 = "Value1",
+  Value2 = "Value2",
+}
+declare let foo: Foo.Value1;
+declare let bar: Foo.Value2;
+foo = bar;
+    `,
+});
+
+invalid.push({
+  name: "invalid assignment with string enum member variable",
+  code: `
+enum Foo {
+  Value1 = "Value1",
+  Value2 = "Value2",
+}
+declare let foo: Foo.Value1;
+declare let bar: Foo.Value1;
+foo = bar;
+    `,
+  errors: [{ messageId: "unnecessary" }],
+});
+
+valid.push({
+  name: "normal assignment with number enum member literal",
+  code: `
+enum Foo {
+  Value1,
+  Value2,
+}
+declare let foo: Foo.Value1;
+foo = Foo.Value2;
+    `,
+});
+
+invalid.push({
+  name: "invalid assignment with number enum member literal",
+  code: `
+enum Foo {
+  Value1,
+  Value2,
+}
+declare let foo: Foo.Value1;
+foo = Foo.Value1;
+    `,
+  errors: [{ messageId: "unnecessary" }],
+});
+
+valid.push({
+  name: "normal assignment with number enum member variable",
+  code: `
+enum Foo {
+  Value1,
+  Value2,
+}
+declare let foo: Foo.Value1;
+declare let bar: Foo.Value2;
+foo = bar;
+    `,
+});
+
+invalid.push({
+  name: "invalid assignment with number enum member variable",
+  code: `
+enum Foo {
+  Value1,
+  Value2,
+}
+declare let foo: Foo.Value1;
+declare let bar: Foo.Value1;
+foo = bar;
+    `,
+  errors: [{ messageId: "unnecessary" }],
+});
+
+valid.push({
+  name: "assignment with generic type",
+  code: `
+declare let foo: Set<string>;
+declare let bar: Set<string>;
+foo = bar;
+    `,
+});
+
+valid.push({
   name: "adding 1 with equal and literal",
   code: `
 declare let foo: number;
