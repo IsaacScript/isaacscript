@@ -8,7 +8,8 @@ const USELESS_OPERATORS_WITH_ZERO: ReadonlySet<string> = new Set([
   "+",
   "-",
   "|",
-  "<<",
+  // "<<" is technically a useless operator, but we whitelist it so that bit flag enums will not
+  // cause false positives.
   ">>",
   ">>>",
 ]);

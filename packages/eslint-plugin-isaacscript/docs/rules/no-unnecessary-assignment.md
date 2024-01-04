@@ -37,6 +37,8 @@ declare const foo: string | undefined;
 const bar = foo ?? undefined;
 ```
 
+Note that while "<<" is technically a useless operator when combined with 0, this rule will not report on it so that bit flag enums will not cause false positives.
+
 ## Options and Defaults
 
 ```json
