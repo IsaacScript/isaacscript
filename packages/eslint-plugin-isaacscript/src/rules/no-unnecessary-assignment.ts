@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import * as ts from "typescript";
-import { isFlagSet } from "../typeUtils";
+import { isFlagSet, unionTypeParts } from "../typeUtils";
 import { createRule } from "../utils";
 
 const USELESS_OPERATORS_WITH_ZERO: ReadonlySet<string> = new Set([
@@ -55,10 +55,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
     function nodeHasFlagSet(node: TSESTree.Node, flag: ts.TypeFlags): boolean {
       const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
       const type = checker.getTypeAtLocation(tsNode);
-      const flags = type.getFlags();
 
       // We cannot use `isTypeFlagSet` because we do not want to penetrate unions.
-      return isFlagSet(flags, flag);
+      return isFlagSet(type.flags, flag);
     }
 
     function isBoolean(node: TSESTree.Node): boolean {
@@ -129,6 +128,34 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       return "value" in type && type.value === "";
     }
 
+    function hasNullAndNotUndefined(node: TSESTree.Expression): boolean {
+      if (isNull(node)) {
+        return true;
+      }
+
+      const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+      const type = checker.getTypeAtLocation(tsNode);
+      const types = unionTypeParts(type);
+      return (
+        types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null)) &&
+        !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined))
+      );
+    }
+
+    function hasUndefinedAndNotNull(node: TSESTree.Expression): boolean {
+      if (isUndefined(node)) {
+        return true;
+      }
+
+      const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+      const type = checker.getTypeAtLocation(tsNode);
+      const types = unionTypeParts(type);
+      return (
+        types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined)) &&
+        !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null))
+      );
+    }
+
     function checkEqualSign(node: TSESTree.AssignmentExpression) {
       const leftTSNode = parserServices.esTreeNodeToTSNodeMap.get(node.left);
       const rightTSNode = parserServices.esTreeNodeToTSNodeMap.get(node.right);
@@ -136,11 +163,8 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       const leftType = checker.getTypeAtLocation(leftTSNode);
       const rightType = checker.getTypeAtLocation(rightTSNode);
 
-      const leftFlags = leftType.getFlags();
-      const rightFlags = rightType.getFlags();
-
-      const isLeftLiteral = isFlagSet(leftFlags, ts.TypeFlags.Literal);
-      const isRightLiteral = isFlagSet(rightFlags, ts.TypeFlags.Literal);
+      const isLeftLiteral = isFlagSet(leftType.flags, ts.TypeFlags.Literal);
+      const isRightLiteral = isFlagSet(rightType.flags, ts.TypeFlags.Literal);
 
       if (isLeftLiteral && isRightLiteral && leftType === rightType) {
         context.report({
@@ -271,7 +295,11 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           });
         }
 
-        if (node.operator === "??" && isNull(node.left) && isNull(node.right)) {
+        if (
+          node.operator === "??" &&
+          hasNullAndNotUndefined(node.left) &&
+          isNull(node.right)
+        ) {
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
@@ -283,7 +311,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
 
         if (
           node.operator === "??" &&
-          isUndefined(node.left) &&
+          hasUndefinedAndNotNull(node.left) &&
           isUndefined(node.right)
         ) {
           context.report({

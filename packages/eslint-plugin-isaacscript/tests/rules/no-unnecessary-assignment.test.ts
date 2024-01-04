@@ -563,15 +563,24 @@ const bar = foo || false;
 valid.push({
   name: "normal short-circuit with question-mark-question-mark and literal null",
   code: `
-declare const foo: number | null;
+declare const foo: string | null | undefined;
 const bar = foo ?? null;
     `,
 });
 
 invalid.push({
-  name: "invalid short-circuit with question-mark-question-mark and literal null",
+  name: "invalid short-circuit with question-mark-question-mark and literal null (1)",
   code: `
 declare const foo: null;
+const bar = foo ?? null;
+    `,
+  errors: [{ messageId: "unnecessaryShortCircuit" }],
+});
+
+invalid.push({
+  name: "invalid short-circuit with question-mark-question-mark and literal null (2)",
+  code: `
+declare const foo: string | null;
 const bar = foo ?? null;
     `,
   errors: [{ messageId: "unnecessaryShortCircuit" }],
@@ -580,16 +589,26 @@ const bar = foo ?? null;
 valid.push({
   name: "normal short-circuit with question-mark-question-mark and variable null",
   code: `
-declare const foo: number | null;
+declare const foo: string | null | undefined;
 declare const bar: null;
 const baz = foo ?? bar;
     `,
 });
 
 invalid.push({
-  name: "invalid short-circuit with question-mark-question-mark and variable null",
+  name: "invalid short-circuit with question-mark-question-mark and variable null (1)",
   code: `
 declare const foo: null;
+declare const bar: null;
+const baz = foo ?? bar;
+    `,
+  errors: [{ messageId: "unnecessaryShortCircuit" }],
+});
+
+invalid.push({
+  name: "invalid short-circuit with question-mark-question-mark and variable null (2)",
+  code: `
+declare const foo: string | null;
 declare const bar: null;
 const baz = foo ?? bar;
     `,
@@ -599,13 +618,22 @@ const baz = foo ?? bar;
 valid.push({
   name: "normal short-circuit with question-mark-question-mark and literal undefined",
   code: `
-declare const foo: number | undefined;
+declare const foo: string | null | undefined;
 const bar = foo ?? undefined;
     `,
 });
 
 invalid.push({
-  name: "invalid short-circuit with question-mark-question-mark and literal undefined",
+  name: "invalid short-circuit with question-mark-question-mark and literal undefined (1)",
+  code: `
+declare const foo: string | undefined;
+const bar = foo ?? undefined;
+    `,
+  errors: [{ messageId: "unnecessaryShortCircuit" }],
+});
+
+invalid.push({
+  name: "invalid short-circuit with question-mark-question-mark and literal undefined (2)",
   code: `
 declare const foo: undefined;
 const bar = foo ?? undefined;
@@ -616,14 +644,24 @@ const bar = foo ?? undefined;
 valid.push({
   name: "normal short-circuit with question-mark-question-mark and variable undefined",
   code: `
-declare const foo: number | undefined;
+declare const foo: string | null | undefined;
 declare const bar: undefined;
 const baz = foo ?? bar;
     `,
 });
 
 invalid.push({
-  name: "invalid short-circuit with question-mark-question-mark and variable undefined",
+  name: "invalid short-circuit with question-mark-question-mark and variable undefined (1)",
+  code: `
+declare const foo: string | undefined;
+declare const bar: undefined;
+const baz = foo ?? bar;
+    `,
+  errors: [{ messageId: "unnecessaryShortCircuit" }],
+});
+
+invalid.push({
+  name: "invalid short-circuit with question-mark-question-mark and variable undefined (2)",
   code: `
 declare const foo: undefined;
 declare const bar: undefined;
