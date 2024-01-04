@@ -37,7 +37,7 @@
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
-    "eslint-plugin-isaacscript": "^3.12.0",
+    "eslint-plugin-isaacscript": "^3.12.1",
     "eslint-plugin-jsdoc": "^48.0.2",
     "eslint-plugin-n": "^16.6.1",
     "eslint-plugin-no-autofix": "^1.2.3",
