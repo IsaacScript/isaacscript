@@ -367,6 +367,46 @@ export enum ModCallbackRepentogon {
   PRE_ROOM_EXIT = 1043,
 
   /**
+   * Fires before a player gets a completion mark. Return false to prevent the mark from being
+   * given.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function preCompletionMarkGet(
+   *   completionType: RepentogonCompletionMarkType,
+   *   playerType: PlayerType
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_COMPLETION_MARK_GET = 1047,
+
+  /**
+   * Fires after a player gets a completion mark.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postCompletionMarkGet(completionType: CompletionType, playerType: PlayerType): void {}
+   * ```
+   */
+  POST_COMPLETION_MARK_GET = 1048,
+
+  /**
+   * Fires before a completion event is triggered. Return false to cancel the event, preventing all
+   * marks and completion event related stuff to trigger for all players.
+   *
+   * ```ts
+   * function preCompletionEvent(completionType: CompletionType): boolean | undefined {}
+   * ```
+   */
+  PRE_COMPLETION_EVENT = 1049,
+
+  /**
    * Fires right before the game over screen appears. Return false to cancel the death and revive
    * the player with half a heart.
    *
@@ -455,122 +495,6 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_RESTOCK_SHOP = 1071,
-
-  /**
-   * Fires when a NPC is about to morph. Return an array of parameters to override what the NPC
-   * morphs into. Return false to cancel the morph.
-   *
-   * ```ts
-   * function preNPCMorph(
-   *   entityType: EntityType,
-   *   variant: int,
-   *   subType: int,
-   *   championColor: ChampionColor
-   * ): [EntityType, int, int, ChampionColor] | boolean | undefined {}
-   * ```
-   */
-  PRE_NPC_MORPH = 1212,
-
-  /**
-   * Fires when a pickup is about to morph. Return an array of parameters to override what the
-   * pickup morphs to. Otherwise, return false to cancel the morph.
-   *
-   * ```ts
-   * function prePickupMorph(
-   *   pickup: EntityPickup,
-   *   entityType: int,
-   *   variant: int,
-   *   subType: int,
-   *   keepPrice: boolean,
-   *   keepSeed: boolean,
-   *   ignoreModifiers: boolean
-   * ):
-   *      [EntityType, int, int, boolean, boolean, boolean]
-   *      | [EntityType, int, int]
-   *      | boolean
-   *      | undefined
-   * {}
-   * ```
-   */
-  PRE_PICKUP_MORPH = 1213,
-
-  /**
-   * Fires after a NPC morphs.
-   *
-   * ```ts
-   * function postNPCMorph(
-   *   previousType: EntityType,
-   *   previousVariant: int,
-   *   previousSubType: int
-   * ): void {}
-   * ```
-   */
-  POST_NPC_MORPH = 1214,
-
-  /**
-   * Fires after a pickup has been morphed.
-   *
-   * ```ts
-   * function postPickupMorph(
-   *   pickup: EntityPickup,
-   *   previousType: EntityType,
-   *   previousVariant: int,
-   *   subType: int,
-   *   keptPrice: boolean,
-   *   keptSeed: int,
-   *   ignoredModifiers: boolean
-   * ): void {}
-   * ```
-   */
-  POST_PICKUP_MORPH = 1215,
-
-  /**
-   * Fires before the completion marks paper is rendered. Return false to prevent the sprite from
-   * rendering.
-   *
-   * ```ts
-   * function preCompletionMarksRender(
-   *   completionMarksSprite: Sprite,
-   *   renderPos: Vector,
-   *   renderScale: Vector,
-   *   playerType: PlayerType
-   * ): boolean | undefined {}
-   * ```
-   */
-  PRE_COMPLETION_MARKS_RENDER = 1216,
-
-  /**
-   * Fires after the completion marks paper is rendered.
-   *
-   * ```ts
-   * function preCompletionMarksRender(
-   *   completionMarksSprite: Sprite,
-   *   renderPos: Vector,
-   *   renderScale: Vector,
-   *   playerType: PlayerType
-   * ): void {}
-   * ```
-   */
-  POST_COMPLETION_MARKS_RENDER = 1217,
-
-  /**
-   * Fires before the pause screen renders. Return false to prevent the pause screen from rendering
-   * and darkening the screen.
-   *
-   * ```ts
-   * function prePauseScreenRender(pauseBody: Sprite, pauseStats: Sprite): boolean | undefined {}
-   * ```
-   */
-  PRE_PAUSE_SCREEN_RENDER = 1218,
-
-  /**
-   * Fires after the pause screen renders.
-   *
-   * ```ts
-   * function prePauseScreenRender(pauseBody: Sprite, pauseStats: Sprite): void {}
-   * ```
-   */
-  POST_PAUSE_SCREEN_RENDER = 1219,
 
   /**
    * Fires before a card is used. Return true to cancel the card from being used.
@@ -765,6 +689,20 @@ export enum ModCallbackRepentogon {
   POST_PLAYER_NEW_LEVEL = 1078,
 
   /**
+   * Fires after an active item is rendered on the screen.
+   *
+   * ```ts
+   * function postPlayerHUDRenderActiveItem(
+   *   player: EntityPlayer,
+   *   slot: ActiveSlot,
+   *   offset: Vector,
+   *   alpha: number
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_HUD_RENDER_ACTIVE_ITEM = 1079,
+
+  /**
    * Fires before a familiar renders. Return a Vector to modify the rendered sprite's offset.
    * Alternatively, return false to cancel rendering the familiar.
    *
@@ -954,395 +892,6 @@ export enum ModCallbackRepentogon {
   POST_SLOT_RENDER = 1090,
 
   /**
-   * Fires before a GridEntity is spawned outside of room initialization. Return false to cancel
-   * spawning the grid. Alternatively, return an array of parameters or a GridEntityDesc to override
-   * the GridEntity spawned.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GridEntityType` provided.
-   *
-   * ```ts
-   * function preGridEntitySpawn(
-   *   gridEntityType: GridEntityType,
-   *   variant: int,
-   *   varData: int,
-   *   gridIndex: int,
-   *   spawnSeed: Seed,
-   *   desc: GridEntityDesc
-   * ): [GridEntityType, int, int, Seed] | boolean | undefined {}
-   * ```
-   */
-  PRE_GRID_ENTITY_SPAWN = 1100,
-
-  /**
-   * Fires after a GridEntity is spawned outside of room initialization.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GridEntityType` provided.
-   *
-   * ```ts
-   * function postGridEntitySpawn(
-   *   gridEntityType: GridEntityType,
-   *   variant: int,
-   *   varData: int,
-   *   gridIndex: int,
-   *   spawnSeed: Seed,
-   *   desc: GridEntityDesc
-   * ): void {}
-   * ```
-   */
-  POST_GRID_ENTITY_SPAWN = 1101,
-
-  /**
-   * Fires every frame. Return a `MultiShotParams` object to change the properties of the player's
-   * shooting behavior in regards to the MultiShotParams object.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function postPlayerGetMultiShotParams(player: EntityPlayer): MultiShotParams | undefined {}
-   * ```
-   */
-  POST_PLAYER_GET_MULTI_SHOT_PARAMS = 1251,
-
-  /**
-   * Fires before a spritesheet in a sprite is replaced.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the anm2 file name provided.
-   *
-   * ```ts
-   * function preReplaceSpritesheet(layerId: int, fileName: string): string | undefined {}
-   * ```
-   */
-  PRE_REPLACE_SPRITESHEET = 1116,
-
-  /**
-   * Fires after a spritesheet in a sprite is replaced.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the anm2 file name provided.
-   *
-   * ```ts
-   * function postReplaceSpritesheet(layerId: int, fileName: string): void {}
-   * ```
-   */
-  POST_REPLACE_SPRITESHEET = 1117,
-
-  /**
-   * Fires at the start of planetarium calculation. Before calculating, the game first checks if the
-   * current floor is valid to spawn a planetarium. If the current floor is invalid, all further
-   * calculation (and thus, all further callbacks) will be canceled.
-   *
-   * By default, planetariums cannot spawn past Depths 2, or Womb 2 with Telescope Lens.
-   *
-   * This callback can be used, for example, to add custom planetarium spawn rules on custom floors,
-   * or to add new items like Telescope Lens which can augment the rules.
-   *
-   * Return false to bypass the stage penalty.
-   *
-   * ```ts
-   * function prePlanetariumStagePenalty(): boolean | undefined {}
-   * ```
-   */
-  PRE_PLANETARIUM_APPLY_STAGE_PENALTY = 1110,
-
-  /**
-   * After `ModCallback.PRE_PLANETARIUM_APPLY_STAGE_PENALTY` is fired and the stage is valid for a
-   * planetarium to generate, the callback checks if a planetarium has been entered before. If so,
-   * the chance is locked at 1%, or 10% with Telescope Lens.
-   *
-   * Return false to bypass the planetarium enter penalty.
-   *
-   * This callback can be used, for example, to add custom planetarium spawn rules on custom floors,
-   * or to add new items like Telescope Lens which can augment the rules.
-   *
-   * Return false to bypass the stage penalty.
-   *
-   * ```ts
-   * function prePlanetariumApplyPlanetariumPenalty(): boolean | undefined {}
-   * ```
-   */
-  PRE_PLANETARIUM_APPLY_PLANETARIUM_PENALTY = 1111,
-
-  /**
-   * After ensuring planetariums haven't been entered before, the game then checks how many treasure
-   * rooms entered is greater than or equal to the current stage number, the chance will be locked
-   * at 1%, or 10% with Telescope Lens.
-   *
-   * If you're looking to add an item like Telescope Lens which modifies the base chance, look at
-   * `ModCallback.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS` instead.
-   *
-   * Return false to bypass the planetarium treasure room penalty entirely, meaning the game will
-   * act as if no treasure rooms have been entered. Alternatively, return an integer to modify how
-   * many treasure rooms the game will believe has been entered.
-   *
-   * ```ts
-   * function prePlanetariumApplyTreasurePenalty(
-   *   treasureRoomsEntered: int
-   * ): boolean | int | undefined {}
-   * ```
-   */
-  PRE_PLANETARIUM_APPLY_TREASURE_PENALTY = 1112,
-
-  /**
-   * After checking the amount of treasure rooms entered, the game applies flat item chances. This
-   * is where Crystal Ball, Magic 8 Ball, and Sausage's chances get added, as well as Telescope
-   * Lens' additional 15% chance.
-   *
-   * If you're looking to add an item like Telescope Lens which modifies the base chance, have a
-   * look at `ModCallback.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS` instead.
-   *
-   * Return a number to modify the chance in this step of the calculation.
-   *
-   * ```ts
-   * function prePlanetariumApplyItems(chance: number): number | undefined {}
-   * ```
-   */
-  PRE_PLANETARIUM_APPLY_ITEMS = 1113,
-
-  /**
-   * After all previous planetarium chance calculations callbacks fire, Telescope Lens adds an
-   * additional 9% chance to the base chance, bringing the base generation chance at 10%.
-   *
-   * Return a number to modify the chance in this step of the calculation.
-   *
-   * ```ts
-   * function prePlanetariumApplyTelescopeLens(chance: number): number | undefined {}
-   * ```
-   */
-  PRE_PLANETARIUM_APPLY_TELESCOPE_LENS = 1114,
-
-  /**
-   * This will override all previous calculation values, ultimately dictating the planetarium
-   * chance. Return a number to modify the chance.
-   *
-   * ```ts
-   * function postPlanetariumCalculate(chance: number): number | undefined {}
-   * ```
-   */
-  POST_PLANETARIUM_CALCULATE = 1115,
-
-  /**
-   * Fires after an EntitySlot initializes.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function postSlotUpdate(slot: EntitySlot): void {}
-   * ```
-   */
-  POST_SLOT_INIT = 1121,
-
-  /**
-   * Fires after an EntitySlot updates.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function postSlotUpdate(slot: EntitySlot): void {}
-   * ```
-   */
-  POST_SLOT_UPDATE = 1122,
-
-  /**
-   * Fires before pickups are spawned from blowing up the slot. Return false to prevent the
-   * collectibles from spawning.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function preSlotCreateExplosionDrops(slot: EntitySlot): boolean | undefined {}
-   * ```
-   */
-  PRE_SLOT_CREATE_EXPLOSION_DROPS = 1123,
-
-  /**
-   * Fires after pickups are spawned from blowing up the slot.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function postSlotCreateExplosionDrops(slot: EntitySlot): void {}
-   * ```
-   */
-  POST_SLOT_CREATE_EXPLOSION_DROPS = 1124,
-
-  /**
-   * Fires before the slot's prize collectible is set. This is used by Shell Game and Hell Game.
-   *
-   * Return a CollectibleType to override what the slot will pay out with.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function preSlotSetPrizeCollectible(slot: EntitySlot): Collectible | undefined {}
-   * ```
-   */
-  PRE_SLOT_SET_PRIZE_COLLECTIBLE = 1125,
-
-  /**
-   * Fires after the slot's prize collectible is set. This is used by Shell Game and Hell Game.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function postSlotSetPrizeCollectible(slot: EntitySlot): void {}
-   * ```
-   */
-  POST_SLOT_SET_PRIZE_COLLECTIBLE = 1126,
-
-  /**
-   * Fires when the game starts to tally up vanilla items for devil deal calculation. This is called
-   * before the stage penalty.
-   *
-   * Most items that affect devil deal chances perform their changes here.
-   *
-   * Return a number to modify the chance in this step of calculation.
-   *
-   * ```ts
-   * function preDevilApplyItems(): number {}
-   * ```
-   */
-  PRE_DEVIL_APPLY_ITEMS = 1130,
-
-  /**
-   * Fires after `RepentogonCallback.PRE_DEVIL_APPLY_ITEMS`, where the game calculates the stage
-   * penalty.
-   *
-   * If a deal is spawned anywhere on the previous two floors, the game decays the resulting chance
-   * by 50% or 25% depending on the amount of deals taken.
-   *
-   * Note that even though the game displays a value of ~66% or ~33% for the 50% and 25% chances
-   * respectively, this is because devil chance is not clamped to a value between 0 and 1, and
-   * "100%" without items generally means a value of ~133%.
-   *
-   * Return false to bypass the stage penalty.
-   *
-   * Return a number to modify the chance in this step of calculation.
-   *
-   * ```ts
-   * function preDevilApplyStagePenalty(): boolean {}
-   * ```
-   */
-  PRE_DEVIL_APPLY_STAGE_PENALTY = 1131,
-
-  /**
-   * Fires after `RepentogonCallback.PRE_DEVIL_APPLY_STAGE_PENALTY`, where the game calculates items
-   * which bypass the stage penalty like Goat Head and Eucharist.
-   *
-   * Return a number to modify the chance in this step of the calculation.
-   *
-   * ```ts
-   * function preDevilApplySpecialItems(): int {}
-   * ```
-   */
-  PRE_DEVIL_APPLY_SPECIAL_ITEMS = 1132,
-
-  /**
-   * Fires after `RepentogonCallback.PRE_DEVIL_APPLY_SPECIAL_ITEMS`. This dictates the final devil
-   * deal chance.
-   *
-   * Return a number to modify the chance.
-   *
-   * ```ts
-   * function postDevilCalculate(): int {}
-   * ```
-   */
-  POST_DEVIL_CALCULATE = 1133,
-
-  /**
-   * Fires before a player gets a completion mark. Return false to prevent the mark from being
-   * given.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function preCompletionMarkGet(
-   *   completionType: CompletionType,
-   *   playerType: PlayerType
-   * ): boolean | undefined {}
-   * ```
-   */
-  PRE_COMPLETION_MARK_GET = 1047,
-
-  /**
-   * Fires after a player gets a completion mark.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PlayerType` provided.
-   *
-   * ```ts
-   * function postCompletionMarkGet(completionType: CompletionType, playerType: PlayerType): void {}
-   * ```
-   */
-  POST_COMPLETION_MARK_GET = 1048,
-
-  /**
-   * Fires before a completion event is triggered. Return false to cancel the event, preventing all
-   * marks and completion event related stuff to trigger for all players.
-   *
-   * ```ts
-   * function preCompletionEvent(completionType: CompletionType): boolean | undefined {}
-   * ```
-   */
-  PRE_COMPLETION_EVENT = 1049,
-
-  /**
-   * Behaves the same as `ModCallback.POST_USE_PILL` with the addition of PillColor being passed as
-   * an argument.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `PillEffect` provided.
-   *
-   * ```ts
-   * function postUsePill(
-   *   effect: PillEffect,
-   *   player: EntityPlayer,
-   *   flags: BitFlags<UseFlag>,
-   *   color: PillColor
-   * ): void {}
-   * ```
-   */
-  POST_USE_PILL = 1001,
-
-  /**
-   * Fires after an active item is rendered on the screen.
-   *
-   * ```ts
-   * function postPlayerHUDRenderActiveItem(
-   *   player: EntityPlayer,
-   *   slot: ActiveSlot,
-   *   offset: Vector,
-   *   alpha: number
-   * ): void {}
-   * ```
-   */
-  POST_PLAYER_HUD_RENDER_ACTIVE_ITEM = 1079,
-
-  /**
    * Fires after the health HUD is rendered.
    *
    * ```ts
@@ -1354,50 +903,6 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_PLAYER_HUD_RENDER_HEARTS = 1091,
-
-  /**
-   * Fires every frame. Return a number to modify the lighting's alpha. This is generally between 0
-   * and 1 but you can technically go higher than this.
-   *
-   * ```ts
-   * function preGetLightingAlpha(originalAlpha: number): number | undefined {}
-   * ```
-   */
-  PRE_GET_LIGHTING_ALPHA = 1150,
-
-  /**
-   * TODO: Document me fully! Return a Vector to override the offset. Alternatively, return false to
-   * stop the rendering.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GridEntityType` provided.
-   *
-   * ```ts
-   * function preRenderGridLighting(
-   *   gridEntity: GridEntity,
-   *   offset: Vector
-   * ): Vector | boolean | undefined {}
-   * ```
-   */
-  PRE_RENDER_GRID_LIGHTING = 1151,
-
-  /**
-   * TODO: Document me fully! Return a Vector to override the offset. Alternatively, return false to
-   * stop the rendering.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `EntityType` provided.
-   *
-   * ```ts
-   * function preRenderEntityLighting(
-   *   entity: Entity,
-   *   offset: Vector
-   * ): Vector | boolean | undefined {}
-   * ```
-   */
-  PRE_RENDER_ENTITY_LIGHTING = 1152,
 
   /**
    * TODO: Document me fully!
@@ -1504,6 +1009,67 @@ export enum ModCallbackRepentogon {
   POST_LEVEL_LAYOUT_GENERATED = 1099,
 
   /**
+   * Behaves the same as `ModCallback.POST_USE_PILL` with the addition of PillColor being passed as
+   * an argument.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillEffect` provided.
+   *
+   * ```ts
+   * function postUsePill(
+   *   effect: PillEffect,
+   *   player: EntityPlayer,
+   *   flags: BitFlags<UseFlag>,
+   *   color: PillColor
+   * ): void {}
+   * ```
+   */
+  POST_USE_PILL = 1001,
+
+  /**
+   * Fires before a GridEntity is spawned outside of room initialization. Return false to cancel
+   * spawning the grid. Alternatively, return an array of parameters or a GridEntityDesc to override
+   * the GridEntity spawned.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preGridEntitySpawn(
+   *   gridEntityType: GridEntityType,
+   *   variant: int,
+   *   varData: int,
+   *   gridIndex: int,
+   *   spawnSeed: Seed,
+   *   desc: GridEntityDesc
+   * ): [GridEntityType, int, int, Seed] | boolean | undefined {}
+   * ```
+   */
+  PRE_GRID_ENTITY_SPAWN = 1100,
+
+  /**
+   * Fires after a GridEntity is spawned outside of room initialization.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntitySpawn(
+   *   gridEntityType: GridEntityType,
+   *   variant: int,
+   *   varData: int,
+   *   gridIndex: int,
+   *   spawnSeed: Seed,
+   *   desc: GridEntityDesc
+   * ): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_SPAWN = 1101,
+
+  /**
    * Fires every frame the nightmare scene is rendering.
    *
    * ```ts
@@ -1552,6 +1118,557 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_WEAPON_FIRE = 1105,
+
+  /**
+   * Fires at the start of planetarium calculation. Before calculating, the game first checks if the
+   * current floor is valid to spawn a planetarium. If the current floor is invalid, all further
+   * calculation (and thus, all further callbacks) will be canceled.
+   *
+   * By default, planetariums cannot spawn past Depths 2, or Womb 2 with Telescope Lens.
+   *
+   * This callback can be used, for example, to add custom planetarium spawn rules on custom floors,
+   * or to add new items like Telescope Lens which can augment the rules.
+   *
+   * Return false to bypass the stage penalty.
+   *
+   * ```ts
+   * function prePlanetariumStagePenalty(): boolean | undefined {}
+   * ```
+   */
+  PRE_PLANETARIUM_APPLY_STAGE_PENALTY = 1110,
+
+  /**
+   * After `ModCallback.PRE_PLANETARIUM_APPLY_STAGE_PENALTY` is fired and the stage is valid for a
+   * planetarium to generate, the callback checks if a planetarium has been entered before. If so,
+   * the chance is locked at 1%, or 10% with Telescope Lens.
+   *
+   * Return false to bypass the planetarium enter penalty.
+   *
+   * This callback can be used, for example, to add custom planetarium spawn rules on custom floors,
+   * or to add new items like Telescope Lens which can augment the rules.
+   *
+   * Return false to bypass the stage penalty.
+   *
+   * ```ts
+   * function prePlanetariumApplyPlanetariumPenalty(): boolean | undefined {}
+   * ```
+   */
+  PRE_PLANETARIUM_APPLY_PLANETARIUM_PENALTY = 1111,
+
+  /**
+   * After ensuring planetariums haven't been entered before, the game then checks how many treasure
+   * rooms entered is greater than or equal to the current stage number, the chance will be locked
+   * at 1%, or 10% with Telescope Lens.
+   *
+   * If you're looking to add an item like Telescope Lens which modifies the base chance, look at
+   * `ModCallback.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS` instead.
+   *
+   * Return false to bypass the planetarium treasure room penalty entirely, meaning the game will
+   * act as if no treasure rooms have been entered. Alternatively, return an integer to modify how
+   * many treasure rooms the game will believe has been entered.
+   *
+   * ```ts
+   * function prePlanetariumApplyTreasurePenalty(
+   *   treasureRoomsEntered: int
+   * ): boolean | int | undefined {}
+   * ```
+   */
+  PRE_PLANETARIUM_APPLY_TREASURE_PENALTY = 1112,
+
+  /**
+   * After checking the amount of treasure rooms entered, the game applies flat item chances. This
+   * is where Crystal Ball, Magic 8 Ball, and Sausage's chances get added, as well as Telescope
+   * Lens' additional 15% chance.
+   *
+   * If you're looking to add an item like Telescope Lens which modifies the base chance, have a
+   * look at `ModCallback.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS` instead.
+   *
+   * Return a number to modify the chance in this step of the calculation.
+   *
+   * ```ts
+   * function prePlanetariumApplyItems(chance: number): number | undefined {}
+   * ```
+   */
+  PRE_PLANETARIUM_APPLY_ITEMS = 1113,
+
+  /**
+   * After all previous planetarium chance calculations callbacks fire, Telescope Lens adds an
+   * additional 9% chance to the base chance, bringing the base generation chance at 10%.
+   *
+   * Return a number to modify the chance in this step of the calculation.
+   *
+   * ```ts
+   * function prePlanetariumApplyTelescopeLens(chance: number): number | undefined {}
+   * ```
+   */
+  PRE_PLANETARIUM_APPLY_TELESCOPE_LENS = 1114,
+
+  /**
+   * This will override all previous calculation values, ultimately dictating the planetarium
+   * chance. Return a number to modify the chance.
+   *
+   * ```ts
+   * function postPlanetariumCalculate(chance: number): number | undefined {}
+   * ```
+   */
+  POST_PLANETARIUM_CALCULATE = 1115,
+
+  /**
+   * Fires before a spritesheet in a sprite is replaced.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the anm2 file name provided.
+   *
+   * ```ts
+   * function preReplaceSpritesheet(layerId: int, fileName: string): string | undefined {}
+   * ```
+   */
+  PRE_REPLACE_SPRITESHEET = 1116,
+
+  /**
+   * Fires after a spritesheet in a sprite is replaced.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the anm2 file name provided.
+   *
+   * ```ts
+   * function postReplaceSpritesheet(layerId: int, fileName: string): void {}
+   * ```
+   */
+  POST_REPLACE_SPRITESHEET = 1117,
+
+  /**
+   * Fires every time the console input changes whenever a function with the
+   * `AutocompleteType.CUSTOM` enum is being entered into the console.
+   *
+   * You can return an array which can hold up to two strings, with the first string being the
+   * parameter for the command's autocomplete and the second being a description. The description
+   * can be used in autocomplete as well, however pressing the tab key will properly autocomplete
+   * the ID, not the description (Think the `giveitem` command as an example; `c1` would be The Sad
+   * Onion's "parameter" and "The Sad Onion" would be the description, and both work. Pressing the
+   * tab key would turn the command into `give c1`).
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the string provided.
+   *
+   * ```ts
+   * function consoleAutocomplete(command: string, params: string): [string, string?] {}
+   * ```
+   */
+  CONSOLE_AUTOCOMPLETE = 1120,
+
+  /**
+   * Fires after an EntitySlot initializes.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function postSlotUpdate(slot: EntitySlot): void {}
+   * ```
+   */
+  POST_SLOT_INIT = 1121,
+
+  /**
+   * Fires after an EntitySlot updates.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function postSlotUpdate(slot: EntitySlot): void {}
+   * ```
+   */
+  POST_SLOT_UPDATE = 1122,
+
+  /**
+   * Fires before pickups are spawned from blowing up the slot. Return false to prevent the
+   * collectibles from spawning.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function preSlotCreateExplosionDrops(slot: EntitySlot): boolean | undefined {}
+   * ```
+   */
+  PRE_SLOT_CREATE_EXPLOSION_DROPS = 1123,
+
+  /**
+   * Fires after pickups are spawned from blowing up the slot.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function postSlotCreateExplosionDrops(slot: EntitySlot): void {}
+   * ```
+   */
+  POST_SLOT_CREATE_EXPLOSION_DROPS = 1124,
+
+  /**
+   * Fires before the slot's prize collectible is set. This is used by Shell Game and Hell Game.
+   *
+   * Return a CollectibleType to override what the slot will pay out with.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function preSlotSetPrizeCollectible(slot: EntitySlot): Collectible | undefined {}
+   * ```
+   */
+  PRE_SLOT_SET_PRIZE_COLLECTIBLE = 1125,
+
+  /**
+   * Fires after the slot's prize collectible is set. This is used by Shell Game and Hell Game.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function postSlotSetPrizeCollectible(slot: EntitySlot): void {}
+   * ```
+   */
+  POST_SLOT_SET_PRIZE_COLLECTIBLE = 1126,
+
+  /**
+   * TODO: Document me!
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function playerInitPreLevelInitStates(player: EntityPlayer): void {}
+   * ```
+   */
+  PLAYER_INIT_PRE_LEVEL_INIT_STATS = 1127,
+
+  /**
+   * Fires when the game starts to tally up vanilla items for devil deal calculation. This is called
+   * before the stage penalty.
+   *
+   * Most items that affect devil deal chances perform their changes here.
+   *
+   * Return a number to modify the chance in this step of calculation.
+   *
+   * ```ts
+   * function preDevilApplyItems(): number | undefined {}
+   * ```
+   */
+  PRE_DEVIL_APPLY_ITEMS = 1130,
+
+  /**
+   * Fires after `RepentogonCallback.PRE_DEVIL_APPLY_ITEMS`, where the game calculates the stage
+   * penalty.
+   *
+   * If a deal is spawned anywhere on the previous two floors, the game decays the resulting chance
+   * by 50% or 25% depending on the amount of deals taken.
+   *
+   * Note that even though the game displays a value of ~66% or ~33% for the 50% and 25% chances
+   * respectively, this is because devil chance is not clamped to a value between 0 and 1, and
+   * "100%" without items generally means a value of ~133%.
+   *
+   * Return false to bypass the stage penalty.
+   *
+   * Return a number to modify the chance in this step of calculation.
+   *
+   * ```ts
+   * function preDevilApplyStagePenalty(): boolean | undefined {}
+   * ```
+   */
+  PRE_DEVIL_APPLY_STAGE_PENALTY = 1131,
+
+  /**
+   * Fires after `RepentogonCallback.PRE_DEVIL_APPLY_STAGE_PENALTY`, where the game calculates items
+   * which bypass the stage penalty like Goat Head and Eucharist.
+   *
+   * Return a number to modify the chance in this step of the calculation.
+   *
+   * ```ts
+   * function preDevilApplySpecialItems(): int | undefined {}
+   * ```
+   */
+  PRE_DEVIL_APPLY_SPECIAL_ITEMS = 1132,
+
+  /**
+   * Fires after `RepentogonCallback.PRE_DEVIL_APPLY_SPECIAL_ITEMS`. This dictates the final devil
+   * deal chance.
+   *
+   * Return a number to modify the chance.
+   *
+   * ```ts
+   * function postDevilCalculate(): int | undefined {}
+   * ```
+   */
+  POST_DEVIL_CALCULATE = 1133,
+
+  /**
+   * Fires after an item overlay is shown.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `RepentogonGiantbookType` provided.
+   *
+   * ```ts
+   * function postItemOverlayShow(giantBook: RepentogonGiantbookType, delay: int, player: EntityPlayer): void {}
+   * ```
+   */
+  POST_ITEM_OVERLAY_SHOW = 1134,
+
+  /**
+   * Fires before a room is placed onto the level. Return a room config to replace the room that
+   * will be place. It must have the same shape and the new available door slots must be compatible
+   * with the original room doors.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `RepentogonGiantbookType` provided.
+   *
+   * ```ts
+   * function preLevelPlaceRoom(
+   *   slot: LevelGeneratorRoom,
+   *   roomConfig: RoomConfig,
+   *   seed: Seed
+   * ): void {}
+   * ```
+   */
+  PRE_LEVEL_PLACE_ROOM = 1137,
+
+  /**
+   * Fires every frame. Return a number to modify the lighting's alpha. This is generally between 0
+   * and 1 but you can technically go higher than this.
+   *
+   * ```ts
+   * function preGetLightingAlpha(originalAlpha: number): number | undefined {}
+   * ```
+   */
+  PRE_GET_LIGHTING_ALPHA = 1150,
+
+  /**
+   * TODO: Document me fully! Return a Vector to override the offset. Alternatively, return false to
+   * stop the rendering.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preRenderGridLighting(
+   *   gridEntity: GridEntity,
+   *   offset: Vector
+   * ): Vector | boolean | undefined {}
+   * ```
+   */
+  PRE_RENDER_GRID_LIGHTING = 1151,
+
+  /**
+   * TODO: Document me fully! Return a Vector to override the offset. Alternatively, return false to
+   * stop the rendering.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   *
+   * ```ts
+   * function preRenderEntityLighting(
+   *   entity: Entity,
+   *   offset: Vector
+   * ): Vector | boolean | undefined {}
+   * ```
+   */
+  PRE_RENDER_ENTITY_LIGHTING = 1152,
+
+  /**
+   * Fires before a npc is split, such as when the Meat Cleaver item is used. Return true to prevent
+   * the split. Alternatively, false to allow the split even if the npc is normally blacklisted by
+   * the game.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   *
+   * ```ts
+   * function preNPCSplit(npc: EntityNPC, isBlacklisted: boolean): boolean | undefined {}
+   * ```
+   */
+  PRE_NPC_SPLIT = 1191,
+
+  /**
+   * Fires during room initialization when grid entities from the layout are being spawned.
+   *
+   * Return false to cancel spawning the grid entity. Alternatively, return an array containing the
+   * GridEntityType, variant, var data, and spawn seed to override it.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preRoomGridEntitySpawn(
+   *   gridEntityType: GridEntityType,
+   *   variant: int,
+   *   varData: int,
+   *   gridIndex: int,
+   *   spawnSeed: Seed
+   * ): boolean | [GridEntityType, int, int, int, Seed] | undefined
+   * ```
+   */
+  PRE_ROOM_GRID_ENTITY_SPAWN = 1192,
+
+  /**
+   * Fires before a new room is loaded.
+   *
+   * ```ts
+   * function preNewRoom(room: Room, descriptor: RoomDescriptor): void {}
+   * ```
+   */
+  PRE_NEW_ROOM = 1200,
+
+  /**
+   * Fires before the game forcefully ends upon defeating Mega Satan. Return true to prevent the
+   * ending, guaranteeing a portal to the Void while retaining the completion marks.
+   *
+   * ```ts
+   * function preMegaSatanEnding(): boolean | undefined {}
+   * ```
+   */
+  PRE_MEGA_SATAN_ENDING = 1201,
+
+  /**
+   * Fires after all Lua scripts have been loaded.
+   *
+   * ```ts
+   * function postModsLoaded(): void {}
+   * ```
+   */
+  POST_MODS_LOADED = 1210,
+
+  /**
+   * Fires when a NPC is about to morph. Return an array of parameters to override what the NPC
+   * morphs into. Return false to cancel the morph.
+   *
+   * ```ts
+   * function preNPCMorph(
+   *   entityType: EntityType,
+   *   variant: int,
+   *   subType: int,
+   *   championColor: ChampionColor
+   * ): [EntityType, int, int, ChampionColor] | boolean | undefined {}
+   * ```
+   */
+  PRE_NPC_MORPH = 1212,
+
+  /**
+   * Fires when a pickup is about to morph. Return an array of parameters to override what the
+   * pickup morphs to. Otherwise, return false to cancel the morph.
+   *
+   * ```ts
+   * function prePickupMorph(
+   *   pickup: EntityPickup,
+   *   entityType: int,
+   *   variant: int,
+   *   subType: int,
+   *   keepPrice: boolean,
+   *   keepSeed: boolean,
+   *   ignoreModifiers: boolean
+   * ):
+   *      [EntityType, int, int, boolean, boolean, boolean]
+   *      | [EntityType, int, int]
+   *      | boolean
+   *      | undefined
+   * {}
+   * ```
+   */
+  PRE_PICKUP_MORPH = 1213,
+
+  /**
+   * Fires after a NPC morphs.
+   *
+   * ```ts
+   * function postNPCMorph(
+   *   previousType: EntityType,
+   *   previousVariant: int,
+   *   previousSubType: int
+   * ): void {}
+   * ```
+   */
+  POST_NPC_MORPH = 1214,
+
+  /**
+   * Fires after a pickup has been morphed.
+   *
+   * ```ts
+   * function postPickupMorph(
+   *   pickup: EntityPickup,
+   *   previousType: EntityType,
+   *   previousVariant: int,
+   *   subType: int,
+   *   keptPrice: boolean,
+   *   keptSeed: int,
+   *   ignoredModifiers: boolean
+   * ): void {}
+   * ```
+   */
+  POST_PICKUP_MORPH = 1215,
+
+  /**
+   * Fires before the completion marks paper is rendered. Return false to prevent the sprite from
+   * rendering.
+   *
+   * ```ts
+   * function preCompletionMarksRender(
+   *   completionMarksSprite: Sprite,
+   *   renderPos: Vector,
+   *   renderScale: Vector,
+   *   playerType: PlayerType
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_COMPLETION_MARKS_RENDER = 1216,
+
+  /**
+   * Fires after the completion marks paper is rendered.
+   *
+   * ```ts
+   * function preCompletionMarksRender(
+   *   completionMarksSprite: Sprite,
+   *   renderPos: Vector,
+   *   renderScale: Vector,
+   *   playerType: PlayerType
+   * ): void {}
+   * ```
+   */
+  POST_COMPLETION_MARKS_RENDER = 1217,
+
+  /**
+   * Fires before the pause screen renders. Return false to prevent the pause screen from rendering
+   * and darkening the screen.
+   *
+   * ```ts
+   * function prePauseScreenRender(pauseBody: Sprite, pauseStats: Sprite): boolean | undefined {}
+   * ```
+   */
+  PRE_PAUSE_SCREEN_RENDER = 1218,
+
+  /**
+   * Fires after the pause screen renders.
+   *
+   * ```ts
+   * function prePauseScreenRender(pauseBody: Sprite, pauseStats: Sprite): void {}
+   * ```
+   */
+  POST_PAUSE_SCREEN_RENDER = 1219,
 
   /**
    * Fires before a player uses a bomb. Return false to stop the player from using a bomb.
@@ -1911,135 +2028,18 @@ export enum ModCallbackRepentogon {
   POST_LASER_COLLISION = 1249,
 
   /**
-   * Fires every time the console input changes whenever a function with the
-   * `AutocompleteType.CUSTOM` enum is being entered into the console.
-   *
-   * You can return an array which can hold up to two strings, with the first string being the
-   * parameter for the command's autocomplete and the second being a description. The description
-   * can be used in autocomplete as well, however pressing the tab key will properly autocomplete
-   * the ID, not the description (Think the `giveitem` command as an example; `c1` would be The Sad
-   * Onion's "parameter" and "The Sad Onion" would be the description, and both work. Pressing the
-   * tab key would turn the command into `give c1`).
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the string provided.
-   *
-   * ```ts
-   * function consoleAutocomplete(command: string, params: string): [string, string?] {}
-   * ```
-   */
-  CONSOLE_AUTOCOMPLETE = 1120,
-
-  /**
-   * TODO: Document me!
+   * Fires every frame. Return a `MultiShotParams` object to change the properties of the player's
+   * shooting behavior in regards to the MultiShotParams object.
    *
    * When registering the callback with the `addCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function playerInitPreLevelInitStates(player: EntityPlayer): void {}
+   * function prePlayerGetMultiShotParams(player: EntityPlayer): MultiShotParams | undefined {}
    * ```
    */
-  PLAYER_INIT_PRE_LEVEL_INIT_STATS = 1127,
-
-  /**
-   * Fires before a new room is loaded.
-   *
-   * ```ts
-   * function preNewRoom(room: Room, descriptor: RoomDescriptor): void {}
-   * ```
-   */
-  PRE_NEW_ROOM = 1200,
-
-  /**
-   * Fires before the game forcefully ends upon defeating Mega Satan. Return true to prevent the
-   * ending, guaranteeing a portal to the Void while retaining the completion marks.
-   *
-   * ```ts
-   * function preMegaSatanEnding(): boolean | undefined {}
-   * ```
-   */
-  PRE_MEGA_SATAN_ENDING = 1201,
-
-  /**
-   * Fires after all Lua scripts have been loaded.
-   *
-   * ```ts
-   * function postModsLoaded(): void {}
-   * ```
-   */
-  POST_MODS_LOADED = 1210,
-
-  /**
-   * Fires after an item overlay is shown.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `RepentogonGiantbookType` provided.
-   *
-   * ```ts
-   * function postItemOverlayShow(giantBook: RepentogonGiantbookType, delay: int, player: EntityPlayer): void {}
-   * ```
-   */
-  POST_ITEM_OVERLAY_SHOW = 1134,
-
-  /**
-   * Fires before a room is placed onto the level. Return a room config to replace the room that
-   * will be place. It must have the same shape and the new available door slots must be compatible
-   * with the original room doors.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `RepentogonGiantbookType` provided.
-   *
-   * ```ts
-   * function preLevelPlaceRoom(
-   *   slot: LevelGeneratorRoom,
-   *   roomConfig: RoomConfig,
-   *   seed: Seed
-   * ): void {}
-   * ```
-   */
-  PRE_LEVEL_PLACE_ROOM = 1137,
-
-  /**
-   * Fires before a npc is split, such as when the Meat Cleaver item is used. Return true to prevent
-   * the split. Alternatively, false to allow the split even if the npc is normally blacklisted by
-   * the game.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `EntityType` provided.
-   *
-   * ```ts
-   * function preNPCSplit(npc: EntityNPC, isBlacklisted: boolean): boolean | undefined {}
-   * ```
-   */
-  PRE_NPC_SPLIT = 1191,
-
-  /**
-   * Fires during room initialization when grid entities from the layout are being spawned.
-   *
-   * Return false to cancel spawning the grid entity. Alternatively, return an array containing the
-   * GridEntityType, variant, var data, and spawn seed to override it.
-   *
-   * When registering the callback with the `addCallbackRepentogon` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `GridEntityType` provided.
-   *
-   * ```ts
-   * function preRoomGridEntitySpawn(
-   *   gridEntityType: GridEntityType,
-   *   variant: int,
-   *   varData: int,
-   *   gridIndex: int,
-   *   spawnSeed: Seed
-   * ): boolean | [GridEntityType, int, int, int, Seed] | undefined
-   * ```
-   */
-  PRE_ROOM_GRID_ENTITY_SPAWN = 1192,
+  PRE_PLAYER_GET_MULTI_SHOT_PARAMS = 1251,
 
   /**
    * Fires after a familiar fires a projectile.
