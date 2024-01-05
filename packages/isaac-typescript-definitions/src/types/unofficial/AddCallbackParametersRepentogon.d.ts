@@ -49,7 +49,6 @@ import type {
   RepentogonGridEntityWeb,
   RepentogonLevelGenerator,
   RepentogonLevelGeneratorRoom,
-  RepentogonMultiShotParams,
 } from "../mods/Repentogon";
 
 declare global {
@@ -916,7 +915,7 @@ declare global {
 
     // 1251
     [ModCallbackRepentogon.PRE_PLAYER_GET_MULTI_SHOT_PARAMS]: [
-      callback: (player: EntityPlayer) => RepentogonMultiShotParams | undefined,
+      callback: (player: EntityPlayer) => MultiShotParams | undefined,
     ];
 
     // 1252
