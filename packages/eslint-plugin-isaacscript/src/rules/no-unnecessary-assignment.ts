@@ -106,7 +106,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       node: TSESTree.PrivateIdentifier | TSESTree.Expression,
     ): boolean {
       // Checking for the literal value is fast, so we do that first.
-      if (node.type === AST_NODE_TYPES.Literal && node.value === 0) {
+      if (isLiteralZero(node)) {
         return true;
       }
 
@@ -119,7 +119,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       node: TSESTree.PrivateIdentifier | TSESTree.Expression,
     ): boolean {
       // Checking for the literal value is fast, so we do that first.
-      if (node.type === AST_NODE_TYPES.Literal && node.raw === '""') {
+      if (isLiteralEmptyString(node)) {
         return true;
       }
 
@@ -181,7 +181,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         } else if (
           USELESS_ASSIGNMENT_OPERATORS_WITH_ZERO.has(node.operator) &&
           isNumber(node.left) &&
-          isZero(node.right)
+          isLiteralZero(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -193,7 +193,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         } else if (
           node.operator === "+=" &&
           isString(node.left) &&
-          isEmptyString(node.right)
+          isLiteralEmptyString(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -205,8 +205,8 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       BinaryExpression(node) {
         if (
           USELESS_OPERATORS_WITH_ZERO.has(node.operator) &&
-          ((isNumber(node.left) && isZero(node.right)) ||
-            (isNumber(node.right) && isZero(node.left)))
+          ((isNumber(node.left) && isLiteralZero(node.right)) ||
+            (isNumber(node.right) && isLiteralZero(node.left)))
         ) {
           context.report({
             loc: node.loc,
@@ -220,8 +220,8 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         // Plus is the only operator valid for strings.
         if (
           node.operator === "+" &&
-          ((isString(node.left) && isEmptyString(node.right)) ||
-            (isString(node.right) && isEmptyString(node.left)))
+          ((isString(node.left) && isLiteralEmptyString(node.right)) ||
+            (isString(node.right) && isLiteralEmptyString(node.left)))
         ) {
           context.report({
             loc: node.loc,
@@ -326,3 +326,15 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
     };
   },
 });
+
+function isLiteralZero(
+  node: TSESTree.PrivateIdentifier | TSESTree.Expression,
+): boolean {
+  return node.type === AST_NODE_TYPES.Literal && node.value === 0;
+}
+
+function isLiteralEmptyString(
+  node: TSESTree.PrivateIdentifier | TSESTree.Expression,
+): boolean {
+  return node.type === AST_NODE_TYPES.Literal && node.raw === '""';
+}

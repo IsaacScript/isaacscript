@@ -282,14 +282,13 @@ foo = foo + bar;
     `,
 });
 
-invalid.push({
+valid.push({
   name: "adding 0 with equal and variable",
   code: `
 declare let foo: number;
 declare let bar: 0;
 foo = foo + bar;
     `,
-  errors: [{ messageId: "unnecessaryZero" }],
 });
 
 valid.push({
@@ -318,14 +317,13 @@ foo += bar;
     `,
 });
 
-invalid.push({
+valid.push({
   name: "adding 0 with plus-equal and variable",
   code: `
 declare let foo: number;
 declare let bar: 0;
 foo += bar;
     `,
-  errors: [{ messageId: "unnecessaryZero" }],
 });
 
 valid.push({
@@ -354,14 +352,13 @@ foo = foo + bar;
     `,
 });
 
-invalid.push({
+valid.push({
   name: "adding empty string with equal and variable",
   code: `
 declare let foo: string;
 declare let bar: ""
 foo = foo + bar;
     `,
-  errors: [{ messageId: "unnecessaryEmptyString" }],
 });
 
 valid.push({
@@ -390,14 +387,13 @@ foo += bar;
     `,
 });
 
-invalid.push({
+valid.push({
   name: "adding empty string with plus-equal and variable",
   code: `
 declare let foo: string;
 declare let bar: "";
 foo += bar;
     `,
-  errors: [{ messageId: "unnecessaryEmptyString" }],
 });
 
 valid.push({
