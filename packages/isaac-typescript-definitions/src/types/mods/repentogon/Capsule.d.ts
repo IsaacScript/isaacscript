@@ -20,7 +20,7 @@ declare interface Capsule extends IsaacAPIClass {
  *
  * @see https://repentogon.com/index.html
  */
-export function RepentogonCapsule(
+export function Capsule(
   this: void,
   position: Vector,
   direction: number,
