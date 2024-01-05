@@ -37,5 +37,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../README.md#install--usage)
 - [Rule source](../../src/rules/strict-void-functions.ts)
 - [Test source](../../tests/rules/strict-void-functions.test.ts)

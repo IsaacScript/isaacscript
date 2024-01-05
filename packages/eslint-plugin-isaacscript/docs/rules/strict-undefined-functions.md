@@ -35,5 +35,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../README.md#install--usage)
 - [Rule source](../../src/rules/strict-undefined-functions.ts)
 - [Test source](../../tests/rules/strict-undefined-functions.test.ts)

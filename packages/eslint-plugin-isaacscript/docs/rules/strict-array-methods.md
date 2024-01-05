@@ -44,5 +44,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../README.md#install--usage)
 - [Rule source](../../src/rules/strict-array-methods.ts)
 - [Test source](../../tests/rules/strict-array-methods.test.ts)

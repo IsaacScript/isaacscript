@@ -60,5 +60,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../README.md#install--usage)
 - [Rule source](../../src/rules/consistent-enum-values.ts)
 - [Test source](../../tests/rules/consistent-enum-values.test.ts)

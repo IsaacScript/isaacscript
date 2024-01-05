@@ -53,5 +53,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../README.md#install--usage)
 - [Rule source](../../src/rules/require-break.ts)
 - [Test source](../../tests/rules/require-break.test.ts)
