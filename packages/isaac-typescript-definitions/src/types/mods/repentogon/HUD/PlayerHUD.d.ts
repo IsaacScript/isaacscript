@@ -1,5 +1,4 @@
 import type { ActiveSlot } from "../../../../enums/ActiveSlot";
-import type { PlayerHUDHeart } from "./PlayerHUDHeart";
 
 declare global {
   /**

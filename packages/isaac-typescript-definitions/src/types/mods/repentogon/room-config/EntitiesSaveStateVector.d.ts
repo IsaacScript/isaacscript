@@ -1,4 +1,4 @@
-import { EntityType } from "../../../../enums/EntityType";
+import type { EntityType } from "../../../../enums/EntityType";
 
 declare global {
   /**
@@ -10,11 +10,9 @@ declare global {
     Get: (index: int) => EntitiesSaveState | undefined;
 
     /**
-     *
      * @param entityType
      * @param variant Default is 0.
      * @param subType Default is 0.
-     * @returns
      */
     GetByType: (
       entityType: EntityType,

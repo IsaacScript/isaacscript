@@ -1,4 +1,4 @@
-import { EntityType } from "../../../../enums/EntityType";
+import type { EntityType } from "../../../../enums/EntityType";
 
 declare global {
   /**

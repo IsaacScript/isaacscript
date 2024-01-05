@@ -1,8 +1,8 @@
-import { AnimationRenderFlag } from "../../../../enums/mods/repentogon/flags/AnimationRenderFlag";
+import type { AnimationRenderFlag } from "../../../../enums/mods/repentogon/flags/AnimationRenderFlag";
 
 declare global {
   /**
-   *  This class is for REPENTOGON, an exe-hack which expands the modding API.
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
    */

@@ -1,6 +1,6 @@
 import type { RoomShape } from "../../../../enums/RoomShape";
 import type { RoomType } from "../../../../enums/RoomType";
-import { StbType } from "../../../../enums/mods/repentogon/StbType";
+import type { StbType } from "../../../../enums/mods/repentogon/StbType";
 
 declare global {
   /**

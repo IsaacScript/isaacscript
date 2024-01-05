@@ -36,21 +36,6 @@ import type { CompletionMarkType } from "../../enums/mods/repentogon/CompletionM
 import type { GiantbookType } from "../../enums/mods/repentogon/GiantbookType";
 import type { PlayerHealthType } from "../../enums/mods/repentogon/HealthType";
 
-import type {
-  RepentogonEntityWeapon,
-  RepentogonGridEntityDecoration,
-  RepentogonGridEntityFire,
-  RepentogonGridEntityGravity,
-  RepentogonGridEntityLock,
-  RepentogonGridEntityStaircase,
-  RepentogonGridEntityStatue,
-  RepentogonGridEntityTeleporter,
-  RepentogonGridEntityTrapdoor,
-  RepentogonGridEntityWeb,
-  RepentogonLevelGenerator,
-  RepentogonLevelGeneratorRoom,
-} from "../mods/Repentogon";
-
 declare global {
   interface AddCallbackParametersRepentogon {
     // 1004
@@ -583,7 +568,7 @@ declare global {
 
     // 1099
     [ModCallbackRepentogon.POST_LEVEL_LAYOUT_GENERATED]: [
-      callback: (levelGenerator: RepentogonLevelGenerator) => void,
+      callback: (levelGenerator: LevelGenerator) => void,
     ];
 
     // 1001
@@ -640,7 +625,7 @@ declare global {
     // 1105
     [ModCallbackRepentogon.POST_WEAPON_FIRE]: [
       callback: (
-        weapon: RepentogonEntityWeapon,
+        weapon: Weapon,
         fireDirection: Vector,
         isShooting: boolean,
         isInterpolated: boolean,
@@ -774,7 +759,7 @@ declare global {
     // 1137
     [ModCallbackRepentogon.PRE_LEVEL_PLACE_ROOM]: [
       callback: (
-        slot: RepentogonLevelGeneratorRoom,
+        slot: LevelGeneratorRoom,
         roomConfig: RoomConfig,
         seed: Seed,
       ) => RoomConfig | undefined,

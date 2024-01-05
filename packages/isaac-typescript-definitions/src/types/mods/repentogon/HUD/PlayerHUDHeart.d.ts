@@ -3,7 +3,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-export interface PlayerHUDHeart {
+declare interface PlayerHUDHeart {
   GetFlashType: () => int;
   GetHeartAnim: () => string;
   GetHeartOverlayAnim: () => string;
