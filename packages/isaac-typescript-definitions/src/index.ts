@@ -96,6 +96,7 @@ export * from "./enums/flags/UseFlag";
 export * from "./enums/mods/EncyclopediaItemPoolType";
 export * from "./enums/mods/ModConfigMenuOptionType";
 export * from "./enums/mods/StageAPIEnums";
+export * from "./enums/mods/repentogon/AutocompleteType";
 export * from "./enums/mods/repentogon/CompletionMarkType";
 export * from "./enums/mods/repentogon/GiantbookType";
 export * from "./enums/mods/repentogon/HealthType";
