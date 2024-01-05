@@ -10,6 +10,7 @@ export const recommended = {
     "isaacscript/complete-sentences-jsdoc": "error",
     "isaacscript/complete-sentences-line-comments": "error",
     "isaacscript/consistent-enum-values": "error",
+    "isaacscript/consistent-named-tuples": "error",
     "isaacscript/eqeqeq-fix": "error",
     "isaacscript/format-jsdoc-comments": "error",
     "isaacscript/format-line-comments": "error",

@@ -71,10 +71,7 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
           }
 
           context.report({
-            loc: {
-              start: node.loc.start,
-              end: node.loc.end,
-            },
+            loc: node.loc,
             messageId: "noConstAssertion",
             fix: (fixer) => {
               // If this variable isn't being assigned to anything, then there is nothing we can

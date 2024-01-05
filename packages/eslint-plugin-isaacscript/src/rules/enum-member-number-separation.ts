@@ -52,10 +52,7 @@ export const enumMemberNumberSeparation = createRule({
               nextCharacter !== "_")
           ) {
             context.report({
-              loc: {
-                start: node.loc.start,
-                end: node.loc.end,
-              },
+              loc: node.loc,
               messageId: "notSeparated",
               // There cannot be an auto-fixer because the user must rename the variable with F2 to
               // prevent having to change N enum references in M files.
