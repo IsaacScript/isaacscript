@@ -1,4 +1,4 @@
-import type { Capsule } from "./Capsule";
+import type { Capsule } from "../Capsule";
 
 declare global {
   /**
@@ -6,7 +6,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  interface DebugShape {
+  interface RenderShape {
     GetTimeout: () => int;
     SetTimeout: (timeout: int) => void;
 

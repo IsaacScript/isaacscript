@@ -5,5 +5,5 @@
  * @noSelf
  */
 declare namespace DebugRenderer {
-  function Get(index: int, unknown: boolean): DebugShape;
+  function Get(index: int, unknown: boolean): RenderShape;
 }
