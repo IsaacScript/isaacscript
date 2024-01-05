@@ -3,7 +3,6 @@
  *
  * @see https://repentogon.com/index.html
  */
-
 export enum ProceduralEffectActionType {
   USE_ACTIVE_ITEM = 0,
   ADD_TEMPORARY_EFFECT = 1,
