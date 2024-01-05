@@ -1,14 +1,12 @@
 # eslint-plugin-isaacscript
 
-<img src="https://isaacscript.github.io/img/items/magic-mushroom.png">
+<img src="https://isaacscript.github.io/img/items/magic-mushroom.png" alt="Magic Mushroom">
 
-`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe or more strict.
+`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your TypeScript code more safe or more strict.
 
-This plugin is named after (and used in) the [IsaacScript](https://isaacscript.github.io/) framework. But you don't have to know anything about IsaacScript to use it - you can use these rules with any JavaScript/TypeScript project.
+If you already have ESLint set up in your project, then you can try enabling the [`isaacscript/recommend`](#configs) config to get all of the goodness from this plugin in your project at once. Alternatively, if you want more control, feel free to enable the specific rules that you need.
 
 Alternatively, if you want to get off the ground and running with ESLint + TypeScript in a new project, then you should check out the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-package.
-
-This project is written in [TypeScript](https://www.typescriptlang.org/).
 
 <br>
 
