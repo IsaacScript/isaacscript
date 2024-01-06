@@ -12,7 +12,7 @@ import {
   getTSTLClassName,
 } from "../functions/tstlClass";
 import { parseIntSafe } from "../functions/types";
-import { assertDefined } from "../functions/utils";
+import { assertDefined, isRepentogon } from "../functions/utils";
 import type { AddCallbackParametersCustom } from "../interfaces/private/AddCallbackParametersCustom";
 import type { ModUpgradedInterface } from "../interfaces/private/ModUpgradedInterface";
 import type { AnyFunction } from "../types/AnyFunction";
@@ -186,6 +186,29 @@ export class ModUpgraded implements Mod {
   }
 
   /**
+   * Registers a function to be executed when an in-game event happens.
+   *
+   * This method is specifically for events that are provided by REPENTOGON, an exe-hack which
+   * expands the modding API. Calling this method without REPENTOGON will throw an error.
+   *
+   * @see https://repentogon.com/index.html
+   */
+  public AddCallbackRepentogon<
+    T extends keyof AddCallbackParametersRepentogon | string,
+  >(
+    modCallback: T,
+    ...args: T extends keyof AddCallbackParametersRepentogon
+      ? AddCallbackParametersRepentogon[T]
+      : unknown[]
+  ): void {
+    this.AddPriorityCallback(
+      modCallback as string,
+      CallbackPriority.DEFAULT,
+      ...args,
+    );
+  }
+
+  /**
    * The same as the `ModUpgraded.AddCallbackCustom` method, but allows setting a custom priority.
    * By default, callbacks are added with a priority of 0, so this allows you to add early or late
    * callbacks as necessary. See the `CallbackPriority` enum.
@@ -200,6 +223,29 @@ export class ModUpgraded implements Mod {
     // eslint-disable-next-line isaacscript/require-variadic-function-argument
     callbackClass.addSubscriber(priority, ...args);
     this.initFeature(callbackClass);
+  }
+
+  /**
+   * The same as the `ModUpgraded.AddCallbackRepentogon` method, but allows setting a custom
+   * priority. By default, callbacks are added with a priority of 0, so this allows you to add early
+   * or late callbacks as necessary. See the `CallbackPriority` enum.
+   */
+  public AddPriorityCallbackRepentogon<
+    T extends keyof AddCallbackParametersRepentogon | string,
+  >(
+    modCallback: T,
+    priority: CallbackPriority | int,
+    ...args: T extends keyof AddCallbackParametersRepentogon
+      ? AddCallbackParametersRepentogon[T]
+      : unknown[]
+  ): void {
+    if (!isRepentogon()) {
+      error(
+        "Could not register REPENTOGON callback is REPENTOGON is not enabled.",
+      );
+    }
+
+    this.mod.AddPriorityCallback(modCallback as string, priority, ...args);
   }
 
   /**

@@ -99,6 +99,7 @@
 /// <reference path="./unofficial/primitives.d.ts" />
 
 /// <reference path="./unofficial/AddCallbackParameters.d.ts" />
+/// <reference path="./unofficial/AddCallbackParametersRepentogon.d.ts" />
 /// <reference path="./unofficial/APIVersion.d.ts" />
 /// <reference path="./unofficial/BitFlag.d.ts" />
 /// <reference path="./unofficial/BitFlag128.d.ts" />
