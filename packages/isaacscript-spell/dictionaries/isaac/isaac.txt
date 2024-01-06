@@ -17,6 +17,7 @@ despawning
 despawns
 Dollys
 Dreamcatcher
+Easteregg
 Eggies
 esaus
 Fallens
