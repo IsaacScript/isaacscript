@@ -15,7 +15,8 @@ const config = {
     ecmaVersion: "latest",
 
     tsconfigRootDir: REPO_ROOT,
-    project: true, // https://github.com/typescript-eslint/typescript-eslint/pull/6084
+    /// project: true, // https://github.com/typescript-eslint/typescript-eslint/pull/6084
+    EXPERIMENTAL_useProjectService: true, // https://github.com/typescript-eslint/typescript-eslint/discussions/8030
   },
 
   ignorePatterns: ["**/dist/**"],
