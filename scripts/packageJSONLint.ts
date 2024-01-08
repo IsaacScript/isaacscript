@@ -221,11 +221,6 @@ function isPackageJSONValid(
 
         break;
       }
-
-      default: {
-        echo(`Invalid licence: ${license}`);
-        return false;
-      }
     }
 
     const { author } = packageJSON;
