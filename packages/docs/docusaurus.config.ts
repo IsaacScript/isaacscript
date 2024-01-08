@@ -16,8 +16,10 @@ const config: Config = {
   organizationName: "IsaacScript",
   projectName: "IsaacScript.github.io",
 
+  onBrokenAnchors: "throw",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
+  onDuplicateRoutes: "throw",
 
   i18n: {
     defaultLocale: "en",
