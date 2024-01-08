@@ -244,7 +244,14 @@ const SUPPORTED_RULES = {
     },
   ],
 
-  "@typescript-eslint/switch-exhaustiveness-check": "error",
+  /** The `allowDefaultCaseForExhaustiveSwitch` option is disabled to make the rule stricter. */
+  "@typescript-eslint/switch-exhaustiveness-check": [
+    "error",
+    {
+      allowDefaultCaseForExhaustiveSwitch: false,
+    },
+  ],
+
   "@typescript-eslint/triple-slash-reference": "error",
   "@typescript-eslint/type-annotation-spacing": "off", // eslint-config-prettier
 
