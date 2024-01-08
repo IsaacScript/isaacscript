@@ -104,7 +104,20 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-duplicate-enum-values": "error",
   "@typescript-eslint/no-duplicate-type-constituents": "error",
   "@typescript-eslint/no-dynamic-delete": "error",
-  "@typescript-eslint/no-empty-interface": "error",
+
+  /**
+   * The `allowSingleExtends` option is enabled to allow for the common pattern of using using
+   * interfaces to provide an opaque type. (This can be useful with type-builders such as Zod, since
+   * `z.infer` uses `Expand`, which is sometimes not desired since it can lead to verbose/confusing
+   * mouseover tooltips and TypeScript errors.)
+   */
+  "@typescript-eslint/no-empty-interface": [
+    "error",
+    {
+      allowSingleExtends: true,
+    },
+  ],
+
   "@typescript-eslint/no-explicit-any": "error",
   "@typescript-eslint/no-extra-non-null-assertion": "error",
   "@typescript-eslint/no-extraneous-class": "error",
