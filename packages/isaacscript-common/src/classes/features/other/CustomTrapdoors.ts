@@ -670,10 +670,10 @@ export class CustomTrapdoors extends Feature {
    *
    * In order to use this function, you must upgrade your mod with `ISCFeature.CUSTOM_TRAPDOORS`.
    *
-   * @param destinationName The integer that identifies the type of custom trapdoor. It should
-   *                        correspond to a local `CustomTrapdoorType` enum in your mod. The integer
-   *                        can be any unique value and can safely overlap with values chosen by
-   *                        other mods.
+   * @param destinationName The name that identifies the type of custom trapdoor. It should
+   *                        correspond to a local `CustomTrapdoorType` enum in your mod. It can be
+   *                        any unique value and can safely overlap with values chosen by other
+   *                        mods.
    * @param destinationFunc A function that takes the player to the destination that you want.
    *                        Inside this function, use the `setStage` or `setCustomStage` helper
    *                        functions, or do something completely custom.
