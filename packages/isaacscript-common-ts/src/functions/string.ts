@@ -293,3 +293,15 @@ export function trimSuffix(string: string, prefix: string): string {
   const endCharacter = string.length - prefix.length;
   return string.slice(0, endCharacter);
 }
+
+/**
+ * Helper function to truncate a string to a maximum length. If the length of the string is less
+ * than or equal to the provided maximum length, the string will be returned unmodified.
+ */
+export function truncateString(string: string, maxLength: number): string {
+  if (string.length <= maxLength) {
+    return string;
+  }
+
+  return string.slice(0, maxLength);
+}
