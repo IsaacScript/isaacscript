@@ -12853,12 +12853,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^40.1.0":
-  version: 40.1.0
-  resolution: "isaac-typescript-definitions@npm:40.1.0"
+"isaac-typescript-definitions@npm:^41.0.0":
+  version: 41.0.0
+  resolution: "isaac-typescript-definitions@npm:41.0.0"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: 834302586df8328250edf9ce259b6792ac2b3a0b31af0fdf0218c10d03e4a18cb14d3ef69a8776b2c4307839f296382a748259b414a8e5c2d1e1666775a844dd
+  checksum: 58740f34a605aedc9b9fc22acd9809ad14392d0f4c1697410298da63166c15db19d7c0203a90cb927c953d56b685b9e7229215d1069ec7345dd8dc7314884716
   languageName: node
   linkType: hard
 
@@ -12962,12 +12962,12 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^40.1.0"
+    isaac-typescript-definitions: "npm:^41.0.0"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.0"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^3.13.1"
+    knip: "npm:^3.13.2"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.33.0"
     markdownlint-cli: "npm:^0.38.0"
@@ -13832,9 +13832,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^3.13.1":
-  version: 3.13.1
-  resolution: "knip@npm:3.13.1"
+"knip@npm:^3.13.2":
+  version: 3.13.2
+  resolution: "knip@npm:3.13.2"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@npmcli/map-workspaces": "npm:3.0.4"
@@ -13843,7 +13843,6 @@ __metadata:
     "@pnpm/logger": "npm:5.0.0"
     "@pnpm/workspace.pkgs-graph": "npm:^2.0.13"
     "@snyk/github-codeowners": "npm:1.1.0"
-    chalk: "npm:^5.3.0"
     easy-table: "npm:1.2.0"
     fast-glob: "npm:3.3.2"
     globby: "npm:^14.0.0"
@@ -13851,6 +13850,7 @@ __metadata:
     js-yaml: "npm:4.1.0"
     micromatch: "npm:4.0.5"
     minimist: "npm:1.2.8"
+    picocolors: "npm:1.0.0"
     pretty-ms: "npm:8.0.0"
     strip-json-comments: "npm:5.0.1"
     summary: "npm:2.1.0"
@@ -13861,7 +13861,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 3d953a3c70aeab7c646fe07e156c44e5d40cda246c9c13ea1ac6e667c00c8fbdba1fa9ec78b6a8b9c68341f1ab50c682c303c0f917b473ed04196dea81134144
+  checksum: 9221fa8d863d298ad642fd379e0e8df7f160663e773591e226b46d73219e9a3679528fdc405071b8a3741f7b87491017b496331179db272df2db1945ea91c40d
   languageName: node
   linkType: hard
 
@@ -16644,7 +16644,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^1.0.0":
+"picocolors@npm:1.0.0, picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
   checksum: 20a5b249e331c14479d94ec6817a182fd7a5680debae82705747b2db7ec50009a5f6648d0621c561b0572703f84dbef0858abcbd5856d3c5511426afcb1961f7
