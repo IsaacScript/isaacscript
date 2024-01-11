@@ -1,6 +1,8 @@
 - lint:
+  - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
+  - https://github.com/typescript-eslint/typescript-eslint/issues/4571
 
 - preferTypeOnlyAutoImports does not work
 

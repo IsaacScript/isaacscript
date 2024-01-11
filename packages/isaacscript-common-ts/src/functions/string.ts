@@ -110,7 +110,6 @@ export function kebabCaseToCamelCase(string: string): string {
 /**
  * Helper function to normalize a string. Specifically, this performs the following steps:
  *
- * - Truncates the message (if the optional `maxLength` argument is supplied.)
  * - Removes any non-printable characters, if any.
  * - Normalizes all newlines to "\n".
  * - Normalizes all spaces to " ".
@@ -119,13 +118,8 @@ export function kebabCaseToCamelCase(string: string): string {
  * @see
  * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
  */
-export function normalizeString(string: string, maxLength?: number): string {
+export function normalizeString(string: string): string {
   let sanitizedString = string;
-
-  // We truncate first to prevent wasting CPU cycles on sanitizing extremely long messages.
-  if (maxLength !== undefined && sanitizedString.length > maxLength) {
-    sanitizedString = string.slice(0, maxLength - 1);
-  }
 
   sanitizedString = removeNonPrintableCharacters(sanitizedString);
 
