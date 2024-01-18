@@ -104,6 +104,10 @@ export function setCustomRockGraphics(
 
       break;
     }
+
+    default: {
+      break;
+    }
   }
 }
 
@@ -207,9 +211,11 @@ function getNewDoorPNGPath(
     case "gfx/grid/door_15_bossrushdoor.anm2": {
       return customStage.doorPNGPaths?.bossRush;
     }
-  }
 
-  return undefined;
+    default: {
+      return undefined;
+    }
+  }
 }
 
 export function convertVanillaTrapdoors(
