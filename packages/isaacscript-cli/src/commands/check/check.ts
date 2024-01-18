@@ -158,6 +158,10 @@ function checkTemplateDirectory(
         projectFilePath = path.join(projectFilePath, "..", ".gitattributes");
         break;
       }
+
+      default: {
+        break;
+      }
     }
 
     const projectFileName = path.basename(projectFilePath);

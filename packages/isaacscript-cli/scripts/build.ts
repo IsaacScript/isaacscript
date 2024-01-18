@@ -126,17 +126,15 @@ function copyITDEnumsFlag(packageRoot: string) {
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
     let fileContents = readFile(sourcePath);
 
-    switch (fileName) {
-      case "DoorSlotFlag": {
-        fileContents = `/* eslint-disable no-bitwise */\n\n${fileContents}`;
-        fileContents = fileContents.replace(
-          'import { DoorSlot } from "../DoorSlot";',
-          'import { DoorSlot } from "./DoorSlot.js";',
-        );
-        fileContents +=
-          "\ndeclare type BitFlag = number & { readonly __bitFlagBrand: symbol };\n\ndeclare type BitFlags<T extends BitFlag> = T & {\n  readonly __bitFlagsBrand: T;\n};\n";
-        break;
-      }
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (fileName === "DoorSlotFlag") {
+      fileContents = `/* eslint-disable no-bitwise */\n\n${fileContents}`;
+      fileContents = fileContents.replace(
+        'import { DoorSlot } from "../DoorSlot";',
+        'import { DoorSlot } from "./DoorSlot.js";',
+      );
+      fileContents +=
+        "\ndeclare type BitFlag = number & { readonly __bitFlagBrand: symbol };\n\ndeclare type BitFlags<T extends BitFlag> = T & {\n  readonly __bitFlagsBrand: T;\n};\n";
     }
 
     const copiedFileHeader = getCopiedFileHeader(sourcePackage);
