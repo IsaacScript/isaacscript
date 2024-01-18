@@ -44,8 +44,8 @@ In VSCode, type Ctrl + Shift + P, then type in "Preferences: Open Keyboard Short
   {
     "key": "ctrl+shift+alt+v",
     "command": "ssmacro.macro",
-    "args": { "file": "convert-lua-to-typescript.json" }
-  }
+    "args": { "file": "convert-lua-to-typescript.json" },
+  },
 ]
 ```
 
