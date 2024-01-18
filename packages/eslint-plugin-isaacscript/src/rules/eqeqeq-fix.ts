@@ -26,18 +26,15 @@ export const eqeqeqFix = createRule({
         "Expected '{{expectedOperator}}' and instead saw '{{actualOperator}}'.",
     },
     fixable: "code",
-    defaultOptions: [],
   },
+  defaultOptions: [],
   create(context) {
-    const config = (context.options[0] as string | undefined) || "always";
-    const options =
-      (context.options[1] as Record<string, unknown> | undefined) || {};
+    const config = context.options[0] || "always";
+    const options = context.options[1] || {};
     const sourceCode = context.getSourceCode();
 
     const nullOption =
-      config === "always"
-        ? (options.null as string | undefined) || "always"
-        : "ignore";
+      config === "always" ? options.null || "always" : "ignore";
     const enforceRuleForNull = nullOption === "always";
     const enforceInverseRuleForNull = nullOption === "never";
 
@@ -77,7 +74,7 @@ export const eqeqeqFix = createRule({
      * @returns {boolean} if one of the operands is typeof
      * @private
      */
-    function isTypeOfBinary(node: TSESTree.BinaryExpression) {
+    function isTypeOfBinary(node) {
       return isTypeOf(node.left) || isTypeOf(node.right);
     }
 
