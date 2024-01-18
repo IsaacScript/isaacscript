@@ -26,6 +26,7 @@ export const eqeqeqFix = createRule({
         "Expected '{{expectedOperator}}' and instead saw '{{actualOperator}}'.",
     },
     fixable: "code",
+    defaultOptions: [],
   },
   create(context) {
     const config = (context.options[0] as string | undefined) || "always";
