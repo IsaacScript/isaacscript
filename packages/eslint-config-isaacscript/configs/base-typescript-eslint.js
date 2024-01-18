@@ -318,6 +318,7 @@ const EXTENSION_RULES = {
   ],
 
   "@typescript-eslint/no-array-constructor": "error",
+  "@typescript-eslint/no-array-delete": "error",
 
   /**
    * Disabled since it is superfluous when using TypeScript according to [the ESLint
