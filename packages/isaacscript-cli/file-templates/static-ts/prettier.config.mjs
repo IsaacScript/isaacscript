@@ -9,7 +9,7 @@ const config = {
   ],
 
   overrides: [
-    // Allow proper formatting of JSONC files:
+    // Allow proper formatting of JSONC files that have JSON file extensions:
     // https://github.com/prettier/prettier/issues/5708
     {
       files: ["**/.vscode/*.json", "**/tsconfig.json", "**/tsconfig.*.json"],
