@@ -27,14 +27,16 @@ export const eqeqeqFix = createRule({
     },
     fixable: "code",
   },
-  defaultOptions: [],
   create(context) {
-    const config = context.options[0] || "always";
-    const options = context.options[1] || {};
+    const config = (context.options[0] as string | undefined) || "always";
+    const options =
+      (context.options[1] as Record<string, unknown> | undefined) || {};
     const sourceCode = context.getSourceCode();
 
     const nullOption =
-      config === "always" ? options.null || "always" : "ignore";
+      config === "always"
+        ? (options.null as string | undefined) || "always"
+        : "ignore";
     const enforceRuleForNull = nullOption === "always";
     const enforceInverseRuleForNull = nullOption === "never";
 
@@ -74,7 +76,7 @@ export const eqeqeqFix = createRule({
      * @returns {boolean} if one of the operands is typeof
      * @private
      */
-    function isTypeOfBinary(node) {
+    function isTypeOfBinary(node: TSESTree.BinaryExpression) {
       return isTypeOf(node.left) || isTypeOf(node.right);
     }
 
