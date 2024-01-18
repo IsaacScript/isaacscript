@@ -446,6 +446,14 @@ const EXTENSION_RULES = {
    */
   "@typescript-eslint/padding-line-between-statements": "off",
 
+  /** The `allowEmptyReject` option is enabled since this is a common pattern. */
+  "@typescript-eslint/prefer-promise-reject-errors": [
+    "error",
+    {
+      allowEmptyReject: true,
+    },
+  ],
+
   /**
    * We forbid unnecessary backticks by using the options specified in [the `eslint-config-prettier`
    * documentation](https://github.com/prettier/eslint-config-prettier#enforce-backticks).
