@@ -244,11 +244,15 @@ const SUPPORTED_RULES = {
     },
   ],
 
-  /** The `allowDefaultCaseForExhaustiveSwitch` option is disabled to make the rule stricter. */
+  /**
+   * The `allowDefaultCaseForExhaustiveSwitch` option is disabled and the
+   * `requireDefaultForNonUnion` option is enabled to make the rule stricter.
+   */
   "@typescript-eslint/switch-exhaustiveness-check": [
     "error",
     {
       allowDefaultCaseForExhaustiveSwitch: false,
+      requireDefaultForNonUnion: true,
     },
   ],
 
