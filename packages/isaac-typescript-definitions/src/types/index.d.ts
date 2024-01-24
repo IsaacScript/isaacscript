@@ -185,6 +185,7 @@
 /// <reference path="./mods/repentogon/ColorParams.d.ts"/>
 /// <reference path="./mods/repentogon/Console.d.ts"/>
 /// <reference path="./mods/repentogon/CostumeSpriteDesc.d.ts"/>
+/// <reference path="./mods/repentogon/CostumeLayerInfo.d.ts"/>
 /// <reference path="./mods/repentogon/DailyChallenge.d.ts"/>
 /// <reference path="./mods/repentogon/Debug.d.ts"/>
 /// <reference path="./mods/repentogon/EntityDelirium.d.ts"/>

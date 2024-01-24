@@ -1,5 +1,5 @@
-import { RoomTransitionAnim } from "../../../enums/RoomTransitionAnim";
-import { BossID } from "../../../enums/collections/roomSubTypes";
+import type { RoomTransitionAnim } from "../../../enums/RoomTransitionAnim";
+import type { BossID } from "../../../enums/collections/roomSubTypes";
 
 declare global {
   /**

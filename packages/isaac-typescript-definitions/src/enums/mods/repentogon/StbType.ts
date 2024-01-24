@@ -22,7 +22,6 @@ export enum StbType {
   CATHEDRAL = 15,
   DARK_ROOM = 16,
   CHEST = 17,
-  THE_VOID = 26,
   VOID = 26,
   DOWNPOUR = 27,
   DROSS = 28,

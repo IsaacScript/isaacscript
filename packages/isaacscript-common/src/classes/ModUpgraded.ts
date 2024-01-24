@@ -201,11 +201,7 @@ export class ModUpgraded implements Mod {
       ? AddCallbackParametersRepentogon[T]
       : unknown[]
   ): void {
-    this.AddPriorityCallback(
-      modCallback as string,
-      CallbackPriority.DEFAULT,
-      ...args,
-    );
+    this.mod.AddCallback(modCallback, CallbackPriority.DEFAULT, ...args);
   }
 
   /**
@@ -245,7 +241,7 @@ export class ModUpgraded implements Mod {
       );
     }
 
-    this.mod.AddPriorityCallback(modCallback as string, priority, ...args);
+    this.mod.AddPriorityCallback(modCallback, priority, ...args);
   }
 
   /**

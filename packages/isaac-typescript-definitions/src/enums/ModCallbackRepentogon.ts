@@ -181,13 +181,11 @@ export enum ModCallbackRepentogon {
   HUD_POST_UPDATE = 1021,
 
   /**
-   * Fires every frame the HUD is rendered.
-   *
    * ```ts
-   * function postHUDRender(): void {}
+   * function hudRender(): void {}
    * ```
    */
-  POST_HUD_RENDER = 1022,
+  HUD_RENDER = 1022,
 
   /**
    * Fires every frame the main menu is rendered.
@@ -197,6 +195,13 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_MAIN_MENU_RENDER = 1023,
+
+  /**
+   * ```ts
+   * function postHudRender(): void {}
+   * ```
+   */
+  POST_HUD_RENDER = 1024,
 
   /**
    * Fires when a sound effect is about to play. Return false to prevent the sound from playing.
@@ -1099,7 +1104,7 @@ export enum ModCallbackRepentogon {
    * ): [LevelStage?, StageType?] | undefined {}
    * ```
    */
-  MC_PRE_LEVEL_SELECT = 1104,
+  PRE_LEVEL_SELECT = 1104,
 
   /**
    * TODO: Document me!
@@ -1240,6 +1245,23 @@ export enum ModCallbackRepentogon {
   POST_REPLACE_SPRITESHEET = 1117,
 
   /**
+   * Fires before the player's hearts render in the HUD.
+   *
+   * Return true to prevent the hearts from rendering. Alternatively, false to force the hearts to
+   * render.
+   *
+   * ```ts
+   * function prePlayerHudRenderHearts(
+   *   offset: Vector,
+   *   heartsSprite: Sprite,
+   *   position: Vector,
+   *   unknown: number
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_HUD_RENDER_HEARTS = 1118,
+
+  /**
    * Fires every time the console input changes whenever a function with the
    * `AutocompleteType.CUSTOM` enum is being entered into the console.
    *
@@ -1268,7 +1290,7 @@ export enum ModCallbackRepentogon {
    *   matches the `SlotVariant` provided.
    *
    * ```ts
-   * function postSlotUpdate(slot: EntitySlot): void {}
+   * function postSlotInit(slot: EntitySlot): void {}
    * ```
    */
   POST_SLOT_INIT = 1121,
@@ -1506,6 +1528,9 @@ export enum ModCallbackRepentogon {
 
   /**
    * Fires during room initialization when grid entities from the layout are being spawned.
+   *
+   * This does not fire for random decorations spawned by the game. Use
+   * `ModCallback.PRE_GRID_ENTITY_SPAWN` for these.
    *
    * Return false to cancel spawning the grid entity. Alternatively, return an array containing the
    * GridEntityType, variant, var data, and spawn seed to override it.
@@ -2028,6 +2053,21 @@ export enum ModCallbackRepentogon {
   POST_LASER_COLLISION = 1249,
 
   /**
+   * Fires before the player's amount of coins changes upon picking up a coin.
+   *
+   * Return an integer to modify the amount of coins given.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CoinSubType` provided.
+   *
+   * ```ts
+   * function getPickupCoinValue(pickup: EntityPickup): int | undefined {}
+   * ```
+   */
+  GET_PICKUP_COIN_VALUE = 1250,
+
+  /**
    * Fires every frame. Return a `MultiShotParams` object to change the properties of the player's
    * shooting behavior in regards to the MultiShotParams object.
    *
@@ -2179,6 +2219,23 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_PLAYER_HUD_TRINKET_RENDER = 1264,
+
+  /**
+   * Fires before a custom character is selected on the menu. This callback does not fire for
+   * vanilla characters.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function preRenderCustomCharacterMenu(
+   *   character: PlayerType,
+   *   renderPos: Vector
+   *   defaultSprite: Sprite
+   * ): void {}
+   * ```
+   */
 
   /**
    * Fires before the decoration grid entity updates. Return false to cancel the update.
@@ -2587,6 +2644,36 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_GRID_ENTITY_WEB_UPDATE = 1429,
+
+  /**
+   * Fires before the TNT grid entity renders. Return a Vector to modify the render offset.
+   * Alternatively, return false to cancel the rendering.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preGridEntityTNTRender(
+   *   grid: GridEntityTNT,
+   *   offset: Vector
+   * ): Vector | boolean | undefined {}
+   * ```
+   */
+  PRE_GRID_ENTITY_TNT_UPDATE = 1430,
+
+  /**
+   * Fires after the TNT grid entity renders.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postGridEntityTNTRender(grid: GridEntityTNT): void {}
+   * ```
+   */
+  POST_GRID_ENTITY_TNT_UPDATE = 1431,
 
   /**
    * Fires before the spikes grid entity renders. Return a Vector to modify the render offset.

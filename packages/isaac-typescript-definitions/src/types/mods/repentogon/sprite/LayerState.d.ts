@@ -8,25 +8,51 @@ declare global {
    */
   interface LayerState {
     GetBlendMode: () => RenderBlendMode;
+
     GetColor: () => Color;
+
     GetCropOffset: () => Vector;
+
     GetDefaultSpritesheetPath: () => string;
+
     GetLayerID: () => int;
+
     GetName: () => string;
+
     GetPos: () => Vector;
+
     GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
+
     GetRotation: () => number;
+
+    GetWrapSMode: () => int;
+
+    GetWrapTMode: () => int;
+
     GetSize: () => Vector;
+
     GetSpritesheetPath: () => string;
+
     IsVisible: () => boolean;
+
     SetColor: (color: Color) => void;
+
     SetCropOffset: (offset: Vector) => void;
+
     SetPos: (position: Vector) => void;
+
     SetRenderFlags: (
       flags: AnimationRenderFlag | BitFlags<AnimationRenderFlag>,
     ) => void;
+
     SetRotation: (rotation: number) => void;
+
     SetSize: (size: number) => void;
+
     SetVisible: (visible: boolean) => void;
+
+    SetWrapSMode: (mode: int) => void;
+
+    SetWrapTMode: (mode: int) => void;
   }
 }

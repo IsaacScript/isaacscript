@@ -14,6 +14,7 @@ import type { TrinketSlot } from "../../enums/TrinketSlot";
 import type { WeaponType } from "../../enums/WeaponType";
 import type {
   CardType,
+  CoinSubType,
   CollectibleType,
   PillColor,
   PlayerType,
@@ -142,10 +143,13 @@ declare global {
     [ModCallbackRepentogon.HUD_POST_UPDATE]: [callback: () => void];
 
     // 1022
-    [ModCallbackRepentogon.POST_HUD_RENDER]: [callback: () => void];
+    [ModCallbackRepentogon.HUD_RENDER]: [callback: () => void];
 
     // 1023
     [ModCallbackRepentogon.POST_MAIN_MENU_RENDER]: [callback: () => void];
+
+    // 1024
+    [ModCallbackRepentogon.POST_HUD_RENDER]: [callback: () => void];
 
     // 1030
     [ModCallbackRepentogon.PRE_SFX_PLAY]: [
@@ -615,7 +619,7 @@ declare global {
     [ModCallbackRepentogon.POST_NIGHTMARE_SCENE_SHOW]: [callback: () => void];
 
     // 1104
-    [ModCallbackRepentogon.MC_PRE_LEVEL_SELECT]: [
+    [ModCallbackRepentogon.PRE_LEVEL_SELECT]: [
       callback: (
         level: LevelStage,
         stageType: StageType,
@@ -673,6 +677,16 @@ declare global {
     [ModCallbackRepentogon.POST_REPLACE_SPRITESHEET]: [
       callback: (layerId: int, fileName: string) => void,
       anm2FileName?: string,
+    ];
+
+    // 1118
+    [ModCallbackRepentogon.PRE_PLAYER_HUD_RENDER_HEARTS]: [
+      callback: (
+        offset: Vector,
+        heartsSprite: Sprite,
+        position: Vector,
+        unknown: boolean,
+      ) => boolean | undefined,
     ];
 
     // 1120
@@ -896,6 +910,12 @@ declare global {
     // 1219
     [ModCallbackRepentogon.POST_PAUSE_SCREEN_RENDER]: [
       callback: (pauseBody: Sprite, pauseStats: Sprite) => void,
+    ];
+
+    // 1250
+    [ModCallbackRepentogon.GET_PICKUP_COIN_VALUE]: [
+      callback: (coin: EntityPickup) => int | undefined,
+      coinSubType?: CoinSubType,
     ];
 
     // 1251

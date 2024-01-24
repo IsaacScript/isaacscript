@@ -23,6 +23,8 @@ declare global {
      */
     GenerationIndex: () => int;
 
+    IsDeadEnd: () => boolean;
+
     /** Returns the row of the room slot on the level grid. The index is 0 based. */
     Row: () => int;
 

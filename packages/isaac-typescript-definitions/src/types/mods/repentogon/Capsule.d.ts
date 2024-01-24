@@ -23,6 +23,7 @@ declare interface Capsule extends IsaacAPIClass {
 export function Capsule(
   this: void,
   position: Vector,
-  direction: number,
-  size: number,
+  sizeMultiplierOrTargetPosition: Vector,
+  rotation: number,
+  size?: number,
 ): Capsule;

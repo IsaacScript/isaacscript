@@ -7,21 +7,11 @@ declare global {
    * @see https://repentogon.com/index.html
    */
   interface RenderBeam extends IsaacAPIClass {
-    /**
-     * Adds a point to the beam. Points are stored in order of adding.
-     *
-     * @param height How many pixels the sprite will render vertically. A larger value will upscale
-     *               the sprite. This is interpolated between points.
-     * @param width How many pixels the sprite will render horizontally. A larger value will upscale
-     *              the sprite. This is interpolated between points.
-     */
-    Add: ((position: Vector) => void) &
-      ((
-        position: Vector,
-        height: number,
-        width?: number,
-        color?: Color,
-      ) => void);
+    Add: {
+      (point: RenderPoint): void;
+
+      (position: Vector, spritesheetCoordinate: number, width?: number): void;
+    };
 
     GetLayer: () => int;
 
@@ -35,6 +25,11 @@ declare global {
     SetLayer: (layerIdOrName: int | string) => void;
 
     SetPoints: (points: readonly RenderPoint[]) => void;
+
+    SetSprite: {
+      (sprite: Sprite): void;
+      (sprite: Sprite, layerNameOrId: string | int, useOverlay: boolean): void;
+    };
 
     SetUseOverlay: (useOverlay: boolean) => void;
   }
