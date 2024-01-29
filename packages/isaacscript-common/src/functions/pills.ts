@@ -209,13 +209,27 @@ export function isGoldPill(pillColor: PillColor): boolean {
   return pillColor === PillColor.GOLD || pillColor === PillColor.HORSE_GOLD;
 }
 
-/** Helper function to see if the given pill color is a horse pill. */
+/**
+ * Helper function to see if the given pill color is a horse pill.
+ *
+ * Under the hood, this checks for `pillColor > 2048`.
+ */
 export function isHorsePill(pillColor: PillColor): boolean {
   return asNumber(pillColor) > HORSE_PILL_COLOR_ADJUSTMENT;
 }
 
 export function isModdedPillEffect(pillEffect: PillEffect): boolean {
   return !isVanillaPillEffect(pillEffect);
+}
+
+/**
+ * Helper function to see if the given pill color is not a gold pill and not a horse pill and not
+ * the null value.
+ *
+ * Under the hood, this checks using the `FIRST_PILL_COLOR` and `LAST_NORMAL_PILL_COLOR` constants.
+ */
+export function isNormalPill(pillColor: PillColor): boolean {
+  return pillColor <= FIRST_PILL_COLOR && pillColor <= LAST_NORMAL_PILL_COLOR;
 }
 
 export function isValidPillEffect(pillEffect: int): pillEffect is PillEffect {
