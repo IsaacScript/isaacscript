@@ -12,7 +12,7 @@ This page lists the changes to the IsaacScript framework.
 ## January 8th, 2013 (Unreleased)
 
 - Added the following helper functions:
-  - `isNormalPill`
+  - `isNormalPillColor`
 - Added the following enums:
   - `ModCallbackRepentogon` (Thanks 4Grabs)
 - Added the following custom command:

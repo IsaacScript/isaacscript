@@ -228,7 +228,7 @@ export function isModdedPillEffect(pillEffect: PillEffect): boolean {
  *
  * Under the hood, this checks using the `FIRST_PILL_COLOR` and `LAST_NORMAL_PILL_COLOR` constants.
  */
-export function isNormalPill(pillColor: PillColor): boolean {
+export function isNormalPillColor(pillColor: PillColor): boolean {
   return pillColor <= FIRST_PILL_COLOR && pillColor <= LAST_NORMAL_PILL_COLOR;
 }
 
