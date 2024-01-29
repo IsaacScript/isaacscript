@@ -13,10 +13,13 @@ const config = {
     // Allow proper formatting of JSONC files that have JSON file extensions:
     // https://github.com/prettier/prettier/issues/5708
     {
-      files: ["**/.vscode/*.json", "**/tsconfig.json", "**/tsconfig.*.json"],
+      files: [
+        "**/.vscode/*.json",
+        // "tsconfig.json" is automatically handled.
+        "**/tsconfig.*.json",
+      ],
       options: {
-        parser: "json5",
-        quoteProps: "preserve",
+        parser: "jsonc",
       },
     },
 
