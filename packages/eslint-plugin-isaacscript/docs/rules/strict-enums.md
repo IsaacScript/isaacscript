@@ -123,7 +123,7 @@ enum Fruit {
 
 const FRUIT_PRICES = {
   [Fruit.Apple]: 5,
-  [1]: 10,
+  [1]: 10, // Bug!
 } as const satisfies Record<Fruit, number>;
 ```
 
