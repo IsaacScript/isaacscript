@@ -15,6 +15,8 @@ This page lists the changes to the IsaacScript framework.
   - `isNormalPillColor`
 - Added the following enums:
   - `ModCallbackRepentogon` (Thanks 4Grabs)
+- Added the following helper types:
+  - `ObjectValues`
 - Added the following custom command:
   - `goldenPill`
 - Added the following lint rules:

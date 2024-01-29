@@ -18,6 +18,7 @@ export * from "./types/IRange.js";
 export * from "./types/Immutable.js";
 export * from "./types/NaturalNumbersLessThan.js";
 export * from "./types/NaturalNumbersLessThanOrEqualTo.js";
+export * from "./types/ObjectValues.js";
 export * from "./types/ReadonlyMap.js";
 export * from "./types/ReadonlyRecord.js";
 export * from "./types/ReadonlySet.js";
