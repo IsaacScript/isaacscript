@@ -18,7 +18,7 @@ for (const element of myArray) {
 Or, you can iterate over array elements explicitly:
 
 ```ts
-for (const element of thing.values()) {
+for (const element of myArray.values()) {
 }
 ```
 
