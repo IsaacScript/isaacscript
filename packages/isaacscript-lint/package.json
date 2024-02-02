@@ -27,8 +27,8 @@
   ],
   "dependencies": {
     "@prettier/plugin-xml": "^3.2.2",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "cspell": "^8.3.2",
     "cspell-check-unused-words": "^1.1.1",
     "eslint": "^8.56.0",
@@ -43,10 +43,10 @@
     "eslint-plugin-no-autofix": "^1.2.3",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-unicorn": "^50.0.1",
-    "knip": "^4.2.1",
+    "knip": "^4.3.0",
     "prettier": "^3.2.4",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "prettier-plugin-packagejson": "^2.4.9",
+    "prettier-plugin-packagejson": "^2.4.10",
     "ts-prune-2": "^0.10.7"
   },
   "peerDependencies": {
