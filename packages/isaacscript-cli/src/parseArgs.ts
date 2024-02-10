@@ -30,10 +30,7 @@ import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand, initTSCommand } from "./commands/init/init.js";
 import { monitorCommand } from "./commands/monitor/monitor.js";
-import {
-  publishCommand,
-  publishTSCommand,
-} from "./commands/publish/publish.js";
+import { publishCommand } from "./commands/publish/publish.js";
 import { CWD } from "./constants.js";
 
 const packageRoot = findPackageRoot();
@@ -60,7 +57,6 @@ export async function parseArgs(): Promise<void> {
     .addCommand(initTSCommand)
     .addCommand(nukeCommand)
     .addCommand(publishCommand)
-    .addCommand(publishTSCommand)
     .addCommand(updateCommand)
     .hook("postAction", (_thisCommand, actionCommand) => {
       if (actionCommand.name() !== "monitor") {

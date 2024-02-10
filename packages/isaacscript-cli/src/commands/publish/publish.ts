@@ -13,12 +13,14 @@ import {
 } from "isaacscript-common-node";
 import {
   CONSTANTS_TS_PATH,
+  CWD,
   METADATA_XML_PATH,
   VERSION_TXT_PATH,
 } from "../../constants.js";
 import { execShell, execShellString } from "../../exec.js";
 import { getReleaseGitCommitMessage, gitCommitAllAndPush } from "../../git.js";
 import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
+import { getIsaacScriptModMissingFile } from "../../validateMod.js";
 import { publishIsaacScriptMod } from "./isaacscriptMod.js";
 import { validate } from "./validate.js";
 
@@ -44,47 +46,17 @@ export const publishCommand = new Command()
   .option("--skip-lint", "Skip linting before publishing.", false)
   .option("-v, --verbose", "Enable verbose output.", false)
   .action(async (options) => {
-    await publish(options, false);
-  });
-
-/**
- * Even though all of the options are identical, we make a "-ts" version of the command to keep the
- * symmetry with the "init" and "init-ts" commands.
- */
-export const publishTSCommand = new Command()
-  .command("publish-ts")
-  .description("Bump the version & publish the package on npm.")
-  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
-  .helpOption("-h, --help", "Display the list of options for this command.")
-  .option("--major", "Perform a major version bump.", false)
-  .option("--minor", "Perform a minor version bump.", false)
-  .option("--patch", "Perform a patch version bump.", false)
-  .option("--skip-increment", "Skip incrementing the version number.", false)
-  .option(
-    "--set-version <version>",
-    "Specify the version number instead of incrementing it.",
-  )
-  .option(
-    "--dry-run",
-    "Skip committing/uploading & perform a Git reset afterward.",
-    false,
-  )
-  .option("--skip-update", "Skip updating the npm dependencies.", false)
-  .option("--skip-lint", "Skip linting before publishing.", false)
-  .option("-v, --verbose", "Enable verbose output.", false)
-  .action(async (options) => {
-    await publish(options, true);
+    await publish(options);
   });
 
 const publishOptions = publishCommand.opts();
-// The options are identical for both, so we do not create a union.
 type PublishOptions = typeof publishOptions;
 
-async function publish(
-  options: PublishOptions,
-  typeScript: boolean,
-): Promise<void> {
+async function publish(options: PublishOptions): Promise<void> {
   const { dryRun, setVersion, verbose } = options;
+
+  const isaacScriptModMissingFile = getIsaacScriptModMissingFile(CWD);
+  const typeScript = isaacScriptModMissingFile !== undefined;
 
   validate(typeScript, setVersion, verbose);
   await prePublish(options, typeScript);
