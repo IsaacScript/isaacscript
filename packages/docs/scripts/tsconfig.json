@@ -4,7 +4,7 @@
 
   "extends": [
     "../../isaacscript-tsconfig/tsconfig.node.json",
-    "../../../tsconfig.monorepo.json",
+    "../../../tsconfig.monorepo.json"
   ],
 
   "include": [
@@ -23,6 +23,6 @@
     "./**/*.mts",
     "./**/.*.mts",
     "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+    "./**/.*.tsx"
+  ]
 }
