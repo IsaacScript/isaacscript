@@ -21,7 +21,7 @@ export function getAngleDifference(angle1: float, angle2: float): float {
  * Useful for equally distributing things in a circle pattern.
  *
  * @param centerPos A position that represents the center of the center to get the points from.
- * @param radius The radius of the circle.
+ * @param radius The length of the radius of the circle.
  * @param numPoints The number of points on the circumference of the circle to get.
  * @param xMultiplier An optional multiplier to get the points around an oval. Default is 1.
  * @param yMultiplier An optional multiplier to get the points around an oval. Default is 1.
