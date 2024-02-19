@@ -41,6 +41,6 @@ This rule was originally created by webstrand in the TypeScript Discord. <!-- cs
 
 ## Resources
 
-- [How to use this rule](../README.md#install--usage)
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/no-unsafe-plusplus.ts)
 - [Test source](../../tests/rules/no-unsafe-plusplus.test.ts)

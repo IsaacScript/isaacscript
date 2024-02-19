@@ -30,6 +30,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../README.md#install--usage)
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/no-string-length-0.ts)
 - [Test source](../../tests/rules/no-string-length-0.test.ts)

@@ -68,6 +68,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../README.md#install--usage)
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/no-object-methods-with-map-set.ts)
 - [Test source](../../tests/rules/no-object-methods-with-map-set.test.ts)

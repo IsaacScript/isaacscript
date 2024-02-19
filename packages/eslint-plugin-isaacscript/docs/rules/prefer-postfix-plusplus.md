@@ -34,6 +34,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../README.md#install--usage)
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/prefer-postfix-plusplus.ts)
 - [Test source](../../tests/rules/prefer-postfix-plusplus.test.ts)

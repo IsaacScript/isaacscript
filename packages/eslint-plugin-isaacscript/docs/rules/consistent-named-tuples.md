@@ -26,6 +26,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../README.md#install--usage)
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/consistent-named-tuples.ts)
 - [Test source](../../tests/rules/consistent-named-tuples.test.ts)
