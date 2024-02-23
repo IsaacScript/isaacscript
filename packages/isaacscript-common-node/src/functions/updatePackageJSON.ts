@@ -33,14 +33,15 @@ export function updatePackageJSON(
   const packageRoot = path.dirname(packageJSONPath);
 
   const yarnUpdated = updateYarn(packageJSONPath, packageRoot, quiet);
-  const dependenciesUpdated = updateDependencies(
-    packageJSONPath,
-    packageRoot,
-    installAfterUpdate,
-    quiet,
-  );
+  const dependenciesUpdated = updateDependencies(packageJSONPath, quiet);
 
-  return yarnUpdated || dependenciesUpdated;
+  const packageJSONChanged = yarnUpdated || dependenciesUpdated;
+  if (packageJSONChanged && installAfterUpdate) {
+    const packageManager = getPackageManagerForProject(packageRoot);
+    $s`${packageManager} install`;
+  }
+
+  return packageJSONChanged;
 }
 
 function updateYarn(
@@ -73,12 +74,7 @@ function updateYarn(
   return true;
 }
 
-function updateDependencies(
-  packageJSONPath: string,
-  packageRoot: string,
-  installAfterUpdate: boolean,
-  quiet: boolean,
-): boolean {
+function updateDependencies(packageJSONPath: string, quiet: boolean): boolean {
   const oldPackageJSONString = readFile(packageJSONPath);
 
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
@@ -94,14 +90,5 @@ function updateDependencies(
   }
 
   const newPackageJSONString = readFile(packageJSONPath);
-  if (oldPackageJSONString === newPackageJSONString) {
-    return false;
-  }
-
-  if (installAfterUpdate) {
-    const packageManager = getPackageManagerForProject(packageRoot);
-    $s`${packageManager} install`;
-  }
-
-  return true;
+  return oldPackageJSONString !== newPackageJSONString;
 }
