@@ -53,7 +53,11 @@ export function getPythonCommand(
  * this shortcut from Settings > Manage App Execution Aliases.
  * ```
  */
-function doesCommandWork(command: string) {
-  const output = $o`${command} --version`;
-  return output.includes("was not found");
+function doesCommandWork(command: string): boolean {
+  try {
+    const output = $o`${command} --version`;
+    return output.includes("was not found");
+  } catch {
+    return false;
+  }
 }
