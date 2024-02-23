@@ -27,11 +27,11 @@ export function getPythonCommand(
 export function getPythonCommand(
   fatal: boolean,
 ): "python" | "python3" | undefined {
-  if (commandExistsPackage.sync("python3") && !doesCommandWork("python3")) {
+  if (commandExistsPackage.sync("python3") && doesCommandWork("python3")) {
     return "python3";
   }
 
-  if (commandExistsPackage.sync("python") && !doesCommandWork("python")) {
+  if (commandExistsPackage.sync("python") && doesCommandWork("python")) {
     return "python";
   }
 
