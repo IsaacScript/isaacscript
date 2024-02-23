@@ -14,7 +14,7 @@ await lintScript(async () => {
     $`eslint --max-warnings 0 .`,
 
     // Check for unused files, dependencies, and exports.
-    $`knip`,
+    $`knip --no-progress`,
 
     // Spell check every file using CSpell.
     // - "--no-progress" and "--no-summary" make it only output errors.
