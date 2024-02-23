@@ -85,8 +85,8 @@ const updateCommand = new Command()
   .description("Update the npm dependencies in the current project.")
   .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
-  .action(async () => {
-    const hasNewDependencies = await updatePackageJSON(CWD);
+  .action(() => {
+    const hasNewDependencies = updatePackageJSON(CWD);
     const msg = hasNewDependencies
       ? "Successfully installed new Node.js dependencies."
       : "There were no new dependency updates from npm.";

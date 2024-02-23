@@ -43,7 +43,7 @@ import {
 import { execShell, execShellString } from "../../exec.js";
 import { initGitRepository } from "../../git.js";
 
-export async function createProject(
+export function createProject(
   projectName: string,
   authorName: string | undefined,
   projectPath: string,
@@ -56,7 +56,7 @@ export async function createProject(
   typeScript: boolean,
   dev: boolean,
   verbose: boolean,
-): Promise<void> {
+): void {
   if (createNewDir) {
     makeDirectory(projectPath);
   }
@@ -78,7 +78,7 @@ export async function createProject(
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  await updatePackageJSON(projectPath, false, true);
+  updatePackageJSON(projectPath, false, true);
 
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);

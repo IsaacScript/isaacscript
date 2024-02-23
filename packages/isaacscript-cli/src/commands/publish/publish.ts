@@ -59,7 +59,7 @@ async function publish(options: PublishOptions): Promise<void> {
   const typeScript = isaacScriptModMissingFile !== undefined;
 
   validate(typeScript, setVersion, verbose);
-  await prePublish(options, typeScript);
+  prePublish(options, typeScript);
 
   if (typeScript) {
     publishTypeScriptProject(dryRun, verbose);
@@ -72,17 +72,14 @@ async function publish(options: PublishOptions): Promise<void> {
  * Before uploading the project, we want to update dependencies, increment the version, and perform
  * some other steps.
  */
-async function prePublish(
-  options: PublishOptions,
-  typeScript: boolean,
-): Promise<void> {
+function prePublish(options: PublishOptions, typeScript: boolean) {
   const { dryRun, skipLint, skipUpdate, verbose } = options;
 
   const packageManager = getPackageManagerUsedForExistingProject();
 
   execShellString("git pull --rebase");
   execShellString("git push");
-  await updateDependencies(skipUpdate, dryRun, packageManager, verbose);
+  updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   incrementVersion(options, typeScript);
   unsetDevelopmentConstants();
 
@@ -92,7 +89,7 @@ async function prePublish(
   }
 }
 
-async function updateDependencies(
+function updateDependencies(
   skipUpdate: boolean,
   dryRun: boolean,
   packageManager: PackageManager,
@@ -103,7 +100,7 @@ async function updateDependencies(
   }
 
   console.log(`Updating dependencies in the "${PACKAGE_JSON}" file...`);
-  const hasNewDependencies = await updatePackageJSON(undefined);
+  const hasNewDependencies = updatePackageJSON(undefined);
   if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);
     execShellString(command, verbose);

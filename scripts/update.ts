@@ -18,15 +18,15 @@ const __dirname = dirName();
 const REPO_ROOT = path.join(__dirname, "..");
 
 if (isMain()) {
-  await updateIsaacScriptMonorepo();
+  updateIsaacScriptMonorepo();
 }
 
-export async function updateIsaacScriptMonorepo(): Promise<void> {
+export function updateIsaacScriptMonorepo(): void {
   // Certain monorepo packages are dependant on other monorepo packages, so check to see if those
   // are all up to date first. (This is independent of the root "package.json" file.)
   const updatedSomething = updateIndividualPackageDeps();
 
-  const hasNewDependencies = await updatePackageJSON(REPO_ROOT);
+  const hasNewDependencies = updatePackageJSON(REPO_ROOT);
   if (hasNewDependencies) {
     // Now that the main dependencies have changed, we might need to update the "package.json" files
     // in the individual packages. However, we don't want to blow away "peerDependencies", since
