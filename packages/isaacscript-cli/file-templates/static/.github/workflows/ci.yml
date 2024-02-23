@@ -45,5 +45,5 @@ jobs:
   #    - uses: sarisia/actions-status-discord@v1
   #      with:
   #        webhook: ${{ secrets.DISCORD_WEBHOOK }}
-  #        status: ${{ env.WORKFLOW_CONCLUSION }}
+  #        status: failure
   #        title: ""
