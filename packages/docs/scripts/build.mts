@@ -20,13 +20,11 @@ await buildScript(async ({ packageRoot }) => {
 
   const repoRoot = path.join(packageRoot, "..", "..");
 
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push(
+  const promises = [
     makeITDDocs(repoRoot),
     makeISCDocs(repoRoot),
     makeECIDocs(true),
-  );
+  ];
 
   await Promise.all(promises);
 

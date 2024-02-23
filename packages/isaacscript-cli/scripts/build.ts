@@ -28,14 +28,12 @@ await buildScript(async ({ packageRoot, outDir }) => {
 
   copyIsaacScriptCommonFiles(packageRoot);
 
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push(
+  const promises = [
     compile(packageRoot, outDir),
     generateJSONSchemaForTSConfigJSON(),
     generateJSONSchemaForIsaacScriptJSON(),
     compilePlugins(packageRoot),
-  );
+  ];
 
   await Promise.all(promises);
 });

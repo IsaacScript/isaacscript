@@ -17,10 +17,7 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
 ] as const;
 
 await lintScript(async () => {
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push($`tsc --noEmit`, $`eslint --max-warnings 0 .`);
-
+  const promises = [$`tsc --noEmit`, $`eslint --max-warnings 0 .`];
   await Promise.all(promises);
 
   // We cannot do generation at the same time as the other linting because it changes the
