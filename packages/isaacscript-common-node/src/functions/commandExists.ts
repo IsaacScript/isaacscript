@@ -56,7 +56,7 @@ export function getPythonCommand(
 function doesCommandWork(command: string): boolean {
   try {
     const output = $o`${command} --version`;
-    return output.includes("was not found");
+    return !output.includes("was not found");
   } catch {
     return false;
   }
