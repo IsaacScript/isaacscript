@@ -44,8 +44,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: undefined,
-
     navbar: {
       title: "IsaacScript",
       logo: {
