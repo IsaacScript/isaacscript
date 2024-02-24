@@ -54,13 +54,15 @@ const IMG_STYLE = {
 
 function Feature({ title, img, description }: FeatureItem) {
   return (
-    <div className={clsx("col col--4")}>
+    <div className={clsx("col col--6")}>
       <div className="text--center">
         <img src={useBaseUrl(img)} style={IMG_STYLE} alt={title} />
       </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+      <div className="padding-horiz--md">
+        <Heading as="h3" className="text--center">
+          {title}
+        </Heading>
+        {description}
       </div>
     </div>
   );
