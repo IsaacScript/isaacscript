@@ -4,8 +4,8 @@
 {
   // We extend the strictest base config:
   // https://github.com/tsconfig/bases/blob/main/bases/strictest.json
-  // Note that two of the options from `strictest` do not have to do with strictness, but we leave
-  // these values unchanged:
+  // Note the "esModuleInterop" and "skipLibCheck" options from `strictest` do not have to do with
+  // strictness, but we leave these values unchanged:
   // https://github.com/tsconfig/bases/issues/156
   "extends": "@tsconfig/strictest/tsconfig.json",
 
@@ -30,6 +30,7 @@
     // The "strictest" config has the "checkJs" flag set to true. However, this can cause false
     // positives with JavaScript config files located in the root of the project directory (like the
     // ESLint config file). For pure TypeScript projects, having this set to true is unnecessary.
+    // TODO: remove this block
     "checkJs": false,
   },
 }
