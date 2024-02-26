@@ -10,6 +10,11 @@ declare global {
    * @noSelf
    */
   namespace ScoreSheet {
+    function AddFinishedStage(
+      levelStage: LevelStage,
+      stageType: StageType,
+      time: int,
+    ): void;
     function Calculate(): void;
     function GetBlueBabyBonus(): int;
     function GetDamagePenalty(): int;

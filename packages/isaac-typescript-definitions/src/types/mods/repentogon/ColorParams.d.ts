@@ -16,3 +16,13 @@ export interface ColorParams extends IsaacAPIClass {
   SetLifespan: (duration: int) => void;
   SetPriority: (priority: int) => void;
 }
+
+export function ColorParams(
+  this: void,
+  color: Color,
+  priority: int,
+  duration1: int,
+  duration2: int,
+  fadeout: boolean,
+  shared: boolean,
+): ColorParams;

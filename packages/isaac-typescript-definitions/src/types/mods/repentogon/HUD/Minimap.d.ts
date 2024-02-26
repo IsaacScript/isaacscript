@@ -10,4 +10,19 @@ declare namespace Minimap {
    * `Vector(47,47)`.
    */
   function GetDisplayedSize(): Vector;
+
+  function GetHoldTime(): int;
+
+  function GetItemIconSprite(): Sprite;
+
+  function GetIconsSprite(): Sprite;
+
+  function GetShakeDuration(): int;
+
+  function GetShakeOffset(): Vector;
+
+  /** TODO: Add MinimapState enum. */
+  function GetState(): int;
+
+  function SetShakeOffset(offset: Vector): void;
 }

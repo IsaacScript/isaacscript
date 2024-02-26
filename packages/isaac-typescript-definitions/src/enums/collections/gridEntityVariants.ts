@@ -171,3 +171,14 @@ export enum StatueVariant {
   DEVIL = 0,
   ANGEL = 1,
 }
+
+/** For `GridEntityType.TELEPORTER (23). */
+export enum TeleporterVariant {
+  SQUARE = 0,
+  MOON = 1,
+  DIAMOND = 2,
+  M = 3,
+  PENTAGRAM = 4,
+  CROSS = 5,
+  TRIANGLE = 6,
+}

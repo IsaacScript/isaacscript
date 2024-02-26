@@ -539,7 +539,8 @@ export enum ModCallbackRepentogon {
    * function getShopItemPrice(
    *   variant: PickupVariant,
    *   subType: int,
-   *   shopItemID: int
+   *   shopItemID: int,
+   *   price: int
    * ): int | undefined {}
    * ```
    */
@@ -1255,7 +1256,7 @@ export enum ModCallbackRepentogon {
    *   offset: Vector,
    *   heartsSprite: Sprite,
    *   position: Vector,
-   *   unknown: number
+   *   unknown: number,
    * ): boolean | undefined {}
    * ```
    */
@@ -2221,6 +2222,54 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_HUD_TRINKET_RENDER = 1264,
 
   /**
+   * Fires when a pickup is consumed with the Void collectible or Black Rune.
+   *
+   * Return false to prevent the pickup from being consumed. Return true to force the pickup to be
+   * consumed.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function prePickupVoided(pickup: EntityPickup, isBlackRune: boolean): boolean | undefined {}
+   * ```
+   */
+  PRE_PICKUP_VOIDED = 1265,
+
+  /**
+   * Fires when a pickup is consumed with the Abyss collectible.
+   *
+   * Return false to prevent the pickup from being consumed. Return true to force the pickup to be
+   * consumed.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function prePickupVoided(pickup: EntityPickup): boolean | undefined {}
+   * ```
+   */
+  PRE_PICKUP_VOIDED_ABYSS = 1266,
+
+  /**
+   * Fires when a pickup is consumed with the Compost collectible.
+   *
+   * Return false to prevent the pickup from being consumed. Return true to force the pickup to be
+   * consumed.
+   *
+   * When registering the callback with the `addCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function prePickupComposted(pickup: EntityPickup): boolean | undefined {}
+   * ```
+   */
+  MC_PRE_PICKUP_COMPOSTED = 1267,
+
+  /**
    * Fires before a custom character is selected on the menu. This callback does not fire for
    * vanilla characters.
    *
@@ -2229,13 +2278,14 @@ export enum ModCallbackRepentogon {
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function preRenderCustomCharacterMenu(
+   * function preMenuCustomCharacterSelected(
    *   character: PlayerType,
    *   renderPos: Vector
    *   defaultSprite: Sprite
    * ): void {}
    * ```
    */
+  MENU_CUSTOM_CHARACTER_SELECTED = 1333,
 
   /**
    * Fires before the decoration grid entity updates. Return false to cancel the update.

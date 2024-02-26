@@ -5,10 +5,9 @@
  *
  * @see https://repentogon.com/index.html
  */
-export enum PlayerHealthType {
-  RED = 0,
-  SOUL = 1,
-  NO_HEALTH = 2,
-  COIN = 3,
-  BONE = 4,
+export enum SpecialQuest {
+  DISABLED = -1,
+  DEFAULT = 0,
+  MIRROR = 1,
+  MINESHAFT = 2,
 }

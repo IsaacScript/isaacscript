@@ -1,6 +1,7 @@
 import type { Direction } from "../../../enums/Direction";
 import type { WeaponType } from "../../../enums/WeaponType";
 import type { CollectibleType } from "../../../enums/collections/subTypes";
+import type { WeaponModifier } from "../../../enums/mods/repentogon/flags/WeaponModifier";
 
 declare global {
   /**
@@ -29,5 +30,6 @@ declare global {
     SetCharge: (charge: int) => void;
     SetFireDelay: (fireDelay: int) => void;
     SetHeadLockTime: (lockTime: int) => void;
+    SetModifiers: (modifiers: BitFlags<WeaponModifier>) => void;
   }
 }

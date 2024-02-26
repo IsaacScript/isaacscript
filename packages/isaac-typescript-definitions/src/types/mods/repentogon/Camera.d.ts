@@ -12,8 +12,6 @@ declare interface Camera extends IsaacAPIClass {
    *
    * This function must be called on every game update, otherwise the game will override the
    * camera's position.
-   *
-   *  @param position
    */
   SetFocusPosition: (position: Vector) => void;
 
@@ -25,8 +23,6 @@ declare interface Camera extends IsaacAPIClass {
    *
    * This function must be called on every game update, otherwise the game will override the
    * camera's position. Furthermore, the function will not work if the active cam setting is on.
-   *
-   * @param position
    */
   SnapToPosition: (position: Vector) => void;
 }

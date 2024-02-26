@@ -24,13 +24,28 @@ declare global {
       playerType: PlayerType,
     ): EntityPlayer | undefined;
 
+    /**
+     * @param collectible
+     * @param lazSharedGlobalTag Default is true.
+     */
     function FirstCollectibleOwner(
       collectible: CollectibleType,
-      lazSharedGlobalTag: boolean,
+      lazSharedGlobalTag?: boolean,
     ): EntityPlayer | undefined;
 
     function FirstPlayerByType(
       playerType: PlayerType,
+    ): EntityPlayer | undefined;
+
+    /**
+     * @param trinket
+     * @param rng Default is undefined.
+     * @param lazSharedGlobalTag Default is true.
+     */
+    function FirstTrinketOwner(
+      trinket: TrinketType,
+      rng?: RNG,
+      lazSharedGlobalTag?: boolean,
     ): EntityPlayer | undefined;
 
     /** @param index Default is 0. */

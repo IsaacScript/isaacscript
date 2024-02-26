@@ -23,5 +23,6 @@ export enum AutocompleteType {
   DELIRIOUS = 14,
   PLAYER = 15,
   ACHIEVEMENT = 16,
-  CUSTOM = 17,
+  MOD_FOLDER = 17,
+  CUSTOM = 18,
 }

@@ -35,7 +35,7 @@ import type { DamageFlag } from "../../enums/flags/DamageFlag";
 import type { UseFlag } from "../../enums/flags/UseFlag";
 import type { CompletionMarkType } from "../../enums/mods/repentogon/CompletionMarkType";
 import type { GiantbookType } from "../../enums/mods/repentogon/GiantbookType";
-import type { PlayerHealthType } from "../../enums/mods/repentogon/HealthType";
+import type { RepentogonHealthType } from "../../enums/mods/repentogon/RepentogonHealthType";
 
 declare global {
   interface AddCallbackParametersRepentogon {
@@ -336,12 +336,13 @@ declare global {
         variant: PickupVariant,
         subType: int,
         shopItemID: int,
+        price: int,
       ) => int | undefined,
     ];
 
     // 1067
     [ModCallbackRepentogon.PLAYER_GET_HEALTH_TYPE]: [
-      callback: (player: EntityPlayer) => PlayerHealthType | undefined,
+      callback: (player: EntityPlayer) => RepentogonHealthType | undefined,
     ];
 
     // 1068
@@ -993,6 +994,37 @@ declare global {
         player: EntityPlayer,
       ) => [Vector, number] | boolean | undefined,
       trinketSlot?: TrinketSlot,
+    ];
+
+    // 1265
+    [ModCallbackRepentogon.PRE_PICKUP_VOIDED]: [
+      callback: (
+        pickup: EntityPickup,
+        isBlackRune: boolean,
+      ) => boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1266
+    [ModCallbackRepentogon.PRE_PICKUP_VOIDED_ABYSS]: [
+      callback: (pickup: EntityPickup) => boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1267
+    [ModCallbackRepentogon.MC_PRE_PICKUP_COMPOSTED]: [
+      callback: (pickup: EntityPickup) => boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1333
+    [ModCallbackRepentogon.MENU_CUSTOM_CHARACTER_SELECTED]: [
+      callback: (
+        playerType: PlayerType,
+        renderPosition: Vector,
+        defaultSprite: Sprite,
+      ) => void,
+      playerType?: PlayerType,
     ];
 
     // 1400
