@@ -68,6 +68,10 @@ export function getNextStage(): LevelStage {
       // e.g. From Basement 1 to Downpour 1, from Basement 2 to Downpour 2, etc.
       return stage;
     }
+
+    default: {
+      break;
+    }
   }
 
   // 2

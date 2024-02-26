@@ -104,7 +104,20 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-duplicate-enum-values": "error",
   "@typescript-eslint/no-duplicate-type-constituents": "error",
   "@typescript-eslint/no-dynamic-delete": "error",
-  "@typescript-eslint/no-empty-interface": "error",
+
+  /**
+   * The `allowSingleExtends` option is enabled to allow for the common pattern of using using
+   * interfaces to provide an opaque type. (This can be useful with type-builders such as Zod, since
+   * `z.infer` uses `Expand`, which is sometimes not desired since it can lead to verbose/confusing
+   * mouseover tooltips and TypeScript errors.)
+   */
+  "@typescript-eslint/no-empty-interface": [
+    "error",
+    {
+      allowSingleExtends: true,
+    },
+  ],
+
   "@typescript-eslint/no-explicit-any": "error",
   "@typescript-eslint/no-extra-non-null-assertion": "error",
   "@typescript-eslint/no-extraneous-class": "error",
@@ -179,6 +192,7 @@ const SUPPORTED_RULES = {
   ],
 
   "@typescript-eslint/prefer-enum-initializers": "error",
+  "@typescript-eslint/prefer-find": "error",
   "@typescript-eslint/prefer-for-of": "error",
   "@typescript-eslint/prefer-function-type": "error",
   "@typescript-eslint/prefer-includes": "error",
@@ -231,7 +245,18 @@ const SUPPORTED_RULES = {
     },
   ],
 
-  "@typescript-eslint/switch-exhaustiveness-check": "error",
+  /**
+   * The `allowDefaultCaseForExhaustiveSwitch` option is disabled and the
+   * `requireDefaultForNonUnion` option is enabled to make the rule stricter.
+   */
+  "@typescript-eslint/switch-exhaustiveness-check": [
+    "error",
+    {
+      allowDefaultCaseForExhaustiveSwitch: false,
+      requireDefaultForNonUnion: true,
+    },
+  ],
+
   "@typescript-eslint/triple-slash-reference": "error",
   "@typescript-eslint/type-annotation-spacing": "off", // eslint-config-prettier
 
@@ -298,6 +323,7 @@ const EXTENSION_RULES = {
   ],
 
   "@typescript-eslint/no-array-constructor": "error",
+  "@typescript-eslint/no-array-delete": "error",
 
   /**
    * Disabled since it is superfluous when using TypeScript according to [the ESLint
@@ -424,6 +450,14 @@ const EXTENSION_RULES = {
    * would be project-dependant. (This kind of formatting is not handled by Prettier.)
    */
   "@typescript-eslint/padding-line-between-statements": "off",
+
+  /** The `allowEmptyReject` option is enabled since this is a common pattern. */
+  "@typescript-eslint/prefer-promise-reject-errors": [
+    "error",
+    {
+      allowEmptyReject: true,
+    },
+  ],
 
   /**
    * We forbid unnecessary backticks by using the options specified in [the `eslint-config-prettier`

@@ -138,7 +138,7 @@ console.log(
 
 // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
 console.log("Checking for monorepo updates...");
-await updateIsaacScriptMonorepo();
+updateIsaacScriptMonorepo();
 
 if (!isGitRepositoryClean(REPO_ROOT)) {
   const gitCommitMessage = "chore: updating dependencies";

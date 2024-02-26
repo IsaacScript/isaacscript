@@ -767,6 +767,11 @@ export function goldKey(): void {
   goldenKey();
 }
 
+/** Alias for the "goldenPill" command. */
+export function goldPill(): void {
+  goldenPill();
+}
+
 /** Alias for the "spawnGoldenTrinket" command. */
 export function goldTrinket(params: string): void {
   spawnGoldenTrinket(params);
@@ -790,6 +795,12 @@ export function goldenHearts(params: string): void {
 export function goldenKey(): void {
   const player = Isaac.GetPlayer();
   player.AddGoldenKey();
+}
+
+/** Gives the player a golden pill. */
+export function goldenPill(): void {
+  const player = Isaac.GetPlayer();
+  player.AddPill(PillColor.GOLD);
 }
 
 /** Alias for the "spawnGoldenTrinket" command. */

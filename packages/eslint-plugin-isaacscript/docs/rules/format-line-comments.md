@@ -59,5 +59,6 @@ You can open a GitHub issue if you find a situation where this rule should be sm
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/format-line-comments.ts)
 - [Test source](../../tests/rules/format-line-comments.test.ts)

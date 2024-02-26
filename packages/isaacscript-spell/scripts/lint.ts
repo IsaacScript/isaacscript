@@ -13,10 +13,7 @@ import { sortCaseInsensitive } from "isaacscript-common-ts";
 import path from "node:path";
 
 await lintScript(async ({ packageRoot }) => {
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push($`tsc --noEmit`, $`eslint --max-warnings 0 .`);
-
+  const promises = [$`tsc --noEmit`, $`eslint --max-warnings 0 .`];
   await Promise.all(promises);
 
   checkDictionaries(packageRoot);

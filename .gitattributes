@@ -19,6 +19,11 @@ pull.rebase=true
 .vscode/*.json linguist-language=JSON-with-Comments
 tsconfig*.json linguist-language=JSON-with-Comments
 
+# Suppress displaying changes on certain files to prevent cluttering commit diffs on GitHub.
+package-lock.json linguist-generated=true
+yarn.lock linguist-generated=true
+pnpm-lock.yaml linguist-generated=true
+
 # @template-customization-start
 
 # Specify the file type for files specific to this monorepo.

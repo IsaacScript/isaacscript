@@ -34,5 +34,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/no-void-return-type.ts)
 - [Test source](../../tests/rules/no-void-return-type.test.ts)

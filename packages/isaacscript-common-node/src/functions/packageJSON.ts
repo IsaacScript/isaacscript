@@ -55,7 +55,7 @@ export function getPackageJSONDependencies(
     | string
     | ReadonlyRecord<string, unknown>
     | undefined,
-  dependencyFieldName: PackageJSONDependencyFieldName,
+  dependencyFieldName: PackageJSONDependencyFieldName = "dependencies",
 ): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"

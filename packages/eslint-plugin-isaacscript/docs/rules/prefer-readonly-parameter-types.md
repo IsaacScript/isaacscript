@@ -9,5 +9,6 @@ This is the same thing as the [`@typescript-eslint/prefer-readonly-parameter-typ
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/prefer-readonly-parameter-types.ts)
 - [Test source](../../tests/rules/prefer-readonly-parameter-types.test.ts)

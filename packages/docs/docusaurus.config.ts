@@ -16,8 +16,10 @@ const config: Config = {
   organizationName: "IsaacScript",
   projectName: "IsaacScript.github.io",
 
+  onBrokenAnchors: "ignore", // This has false positives, so we have to ignore it.
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
+  onDuplicateRoutes: "throw",
 
   i18n: {
     defaultLocale: "en",
@@ -42,8 +44,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: undefined,
-
     navbar: {
       title: "IsaacScript",
       logo: {

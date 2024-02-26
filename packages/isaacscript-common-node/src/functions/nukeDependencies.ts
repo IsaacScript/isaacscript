@@ -39,12 +39,20 @@ export function nukeDependencies(packageRoot: string | undefined): void {
   }
 
   const nodeModulesPath = path.join(packageRoot, "node_modules");
+  console.log(`Removing: ${nodeModulesPath}`);
   rm(nodeModulesPath);
+  console.log(`Removed: ${nodeModulesPath}`);
 
   const packageManager = getPackageManagerForProject(packageRoot);
   const packageManagerLockFileName =
     getPackageManagerLockFileName(packageManager);
-  rm(packageManagerLockFileName);
+  const packageManagerLockFilePath = path.join(
+    packageRoot,
+    packageManagerLockFileName,
+  );
+  console.log(`Removing: ${packageManagerLockFilePath}`);
+  rm(packageManagerLockFilePath);
+  console.log(`Removed: ${packageManagerLockFilePath}`);
 
   $s`${packageManager} install`;
 }

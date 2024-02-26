@@ -1,5 +1,4 @@
 import path from "node:path";
-import ncu from "npm-check-updates";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $s, $sq } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
@@ -13,7 +12,7 @@ import { diff } from "./utils.js";
 /**
  * Helper function to:
  *
- * - Upgrade yarn (if it is the package manager used in the project).
+ * - Upgrade Yarn (if it is the package manager used in the project).
  * - Run `npm-check-updates` to update the dependencies in the "package.json" file.
  * - Install the new dependencies with the package manager used in the project.
  *
@@ -23,53 +22,73 @@ import { diff } from "./utils.js";
  * @param installAfterUpdate Optional. Whether to install the new dependencies afterward, if any.
  *                           Default is true.
  * @param quiet Optional. Whether to suppress console output. Default is false.
- * @returns Whether any dependencies were updated.
+ * @returns Whether Yarn or any dependencies were updated.
  */
-export async function updatePackageJSON(
+export function updatePackageJSON(
   filePathOrDirPath: string | undefined,
   installAfterUpdate = true,
   quiet = false,
-): Promise<boolean> {
+): boolean {
   const packageJSONPath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
+
+  const yarnUpdated = updateYarn(packageJSONPath, packageRoot, quiet);
+  const dependenciesUpdated = updateDependencies(packageJSONPath, quiet);
+
+  const packageJSONChanged = yarnUpdated || dependenciesUpdated;
+  if (packageJSONChanged && installAfterUpdate) {
+    const packageManager = getPackageManagerForProject(packageRoot);
+    $s`${packageManager} install`;
+  }
+
+  return packageJSONChanged;
+}
+
+function updateYarn(
+  packageJSONPath: string,
+  packageRoot: string,
+  quiet: boolean,
+): boolean {
   const packageManagers = getPackageManagersForProject(packageRoot);
+
+  if (!packageManagers.includes(PackageManager.yarn)) {
+    return false;
+  }
+
   const oldPackageJSONString = readFile(packageJSONPath);
 
-  if (packageManagers.includes(PackageManager.yarn)) {
-    // Yarn does not have a quiet flag, so we use the `$sq` helper function.
-    $sq`yarn set version latest`;
-  }
-
-  await ncu.run({
-    // This option is necessary because NCU will be a no-op by default (i.e. it only displays what
-    // is upgradeable).
-    upgrade: true,
-
-    // The current working directory may not contain the "package.json" file, so we must explicitly
-    // specify it.
-    packageFile: packageJSONPath,
-
-    // If a dependency does not have a "^" prefix, we assume that it should be a "locked" dependency
-    // and not upgraded.
-    filterVersion: "^*",
-  });
+  // Yarn does not have a quiet flag, so we use the `$sq` helper function.
+  $sq`yarn set version latest`;
 
   const newPackageJSONString = readFile(packageJSONPath);
-  const hasNewDependencies = oldPackageJSONString !== newPackageJSONString;
-  if (hasNewDependencies) {
-    if (!quiet) {
-      console.log('New "package.json" file:');
-      diff(oldPackageJSONString, newPackageJSONString);
-      console.log();
-    }
-
-    if (installAfterUpdate) {
-      // Since `getPackageManagerForProject` can cause a fatal error, we only invoke it if we need
-      // to install the new dependencies.
-      const packageManager = getPackageManagerForProject(packageRoot);
-      $s`${packageManager} install`;
-    }
+  if (oldPackageJSONString === newPackageJSONString) {
+    return false;
   }
 
-  return hasNewDependencies;
+  if (!quiet) {
+    console.log("New version of Yarn:");
+    diff(oldPackageJSONString, newPackageJSONString);
+    console.log();
+  }
+
+  return true;
+}
+
+function updateDependencies(packageJSONPath: string, quiet: boolean): boolean {
+  const oldPackageJSONString = readFile(packageJSONPath);
+
+  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
+  //   displays what is upgradeable).
+  // - "--packageFile" is necessary because the current working directory may not contain the
+  //   "package.json" file, so we must explicitly specify it.
+  // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
+  //   that it should be a "locked" dependency and not upgraded.
+  if (quiet) {
+    $sq`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
+  } else {
+    $s`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
+  }
+
+  const newPackageJSONString = readFile(packageJSONPath);
+  return oldPackageJSONString !== newPackageJSONString;
 }

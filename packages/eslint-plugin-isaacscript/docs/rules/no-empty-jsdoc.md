@@ -44,5 +44,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/no-empty-jsdoc.ts)
 - [Test source](../../tests/rules/no-empty-jsdoc.test.ts)

@@ -123,7 +123,7 @@ enum Fruit {
 
 const FRUIT_PRICES = {
   [Fruit.Apple]: 5,
-  [1]: 10,
+  [1]: 10, // Bug!
 } as const satisfies Record<Fruit, number>;
 ```
 
@@ -141,5 +141,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/strict-enums.ts)
 - [Test source](../../tests/rules/strict-enums.test.ts)

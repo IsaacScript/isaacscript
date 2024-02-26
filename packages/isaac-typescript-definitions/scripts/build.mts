@@ -8,16 +8,14 @@ await buildScript(async ({ packageRoot, outDir }) => {
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
 
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push(
+  const promises = [
     $`tstl`,
 
     // We need to create JavaScript files in addition to Lua files because we want this package to
     // be usable in Jest tests. We disable declarations because running `tstl` will create
     // declarations and we don't want the two processes to stomp on each other.
     $`tsc --declaration false --declarationMap false`,
-  );
+  ];
 
   await Promise.all(promises);
 

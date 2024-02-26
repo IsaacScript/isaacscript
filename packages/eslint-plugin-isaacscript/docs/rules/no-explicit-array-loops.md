@@ -18,7 +18,7 @@ for (const element of myArray) {
 Or, you can iterate over array elements explicitly:
 
 ```ts
-for (const element of thing.values()) {
+for (const element of myArray.values()) {
 }
 ```
 
@@ -38,5 +38,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/no-explicit-array-loops.ts)
 - [Test source](../../tests/rules/no-explicit-array-loops.test.ts)

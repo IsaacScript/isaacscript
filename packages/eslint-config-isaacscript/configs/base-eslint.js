@@ -574,13 +574,8 @@ const SUGGESTIONS = {
   "prefer-object-has-own": "error",
   "prefer-object-spread": "error",
 
-  /** The `allowEmptyReject` option is enabled since this is a common pattern. */
-  "prefer-promise-reject-errors": [
-    "error",
-    {
-      allowEmptyReject: true,
-    },
-  ],
+  /** Superseded by the `@typescript-eslint/prefer-promise-reject-errors` rule. */
+  "prefer-promise-reject-errors": "off",
 
   /** The `disallowRedundantWrapping` option is enabled to make the rule stricter. */
   "prefer-regex-literals": [

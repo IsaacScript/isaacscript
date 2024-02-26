@@ -11,14 +11,9 @@ import {
   isFile,
 } from "isaacscript-common-node";
 import path from "node:path";
-import { CWD, PROJECT_NAME } from "./constants.js";
+import { CWD, METADATA_XML, PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
 import { getPackageManagerUsedForExistingProject } from "./packageManager.js";
-
-const FILE_NAMES_TO_CHECK = [PACKAGE_JSON] as const;
-
-/** We don't check "node_modules" because we might be cloning a fresh IsaacScript project. */
-const SUBDIRECTORY_NAMES_TO_CHECK = ["src", "mod"] as const;
 
 /**
  * We want "typescript" and some of the other dependencies to be in "devDependencies" instead of
@@ -34,29 +29,55 @@ const REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES = [
   "typescript-to-lua",
 ] as const;
 
-// Validate that we are in a directory that looks like an IsaacScript project.
+/** Validate that we are in a directory that looks like an IsaacScript project. */
 export function validateInIsaacScriptProject(): void {
-  for (const fileName of FILE_NAMES_TO_CHECK) {
-    const filePath = path.join(CWD, fileName);
-    if (!isFile(filePath)) {
-      errorNotExists(fileName, true);
-    }
-  }
-
-  for (const subdirectoryName of SUBDIRECTORY_NAMES_TO_CHECK) {
-    const subdirectoryPath = path.join(CWD, subdirectoryName);
-    if (!isDirectory(subdirectoryPath)) {
-      errorNotExists(subdirectoryName, false);
-    }
+  const isaacScriptModMissingFile = getIsaacScriptModMissingFile(CWD);
+  if (isaacScriptModMissingFile !== undefined) {
+    errorNotExists(isaacScriptModMissingFile);
   }
 }
 
-function errorNotExists(dirName: string, file: boolean) {
-  const noun = file ? "file" : "subdirectory";
+/**
+ * Returns the file name missing. If undefined is returned, then the file path is an IsaacScript mod
+ * directory.
+ */
+export function getIsaacScriptModMissingFile(
+  directoryPath: string,
+): string | undefined {
+  // Files
+  for (const fileName of [PACKAGE_JSON]) {
+    const filePath = path.join(directoryPath, fileName);
+    if (!isFile(filePath)) {
+      return filePath;
+    }
+  }
+
+  // Subdirectories
+  for (const subdirectoryName of ["src", "mod"]) {
+    const subdirectoryPath = path.join(directoryPath, subdirectoryName);
+    if (!isDirectory(subdirectoryPath)) {
+      return subdirectoryPath;
+    }
+  }
+
+  // Specific files in subdirectories.
+  {
+    const filePath = path.join(directoryPath, "mod", METADATA_XML);
+    if (!isFile(filePath)) {
+      return filePath;
+    }
+  }
+
+  return undefined;
+}
+
+function errorNotExists(filePath: string) {
+  const directory = isDirectory(filePath);
+  const noun = directory ? "subdirectory" : "file";
   console.error(
     `It looks like the current working directory of "${chalk.green(
       CWD,
-    )}" is not an ${PROJECT_NAME} project. (There is no "${dirName}" ${noun} here.)`,
+    )}" is not an ${PROJECT_NAME} project. ("${filePath}" ${noun} does not exist.)`,
   );
   console.error(
     `Did you mean to create a new ${PROJECT_NAME} project with "${chalk.green(

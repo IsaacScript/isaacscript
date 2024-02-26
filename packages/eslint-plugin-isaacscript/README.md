@@ -1,14 +1,12 @@
 # eslint-plugin-isaacscript
 
-<img src="https://isaacscript.github.io/img/items/magic-mushroom.png">
+<img src="https://isaacscript.github.io/img/items/magic-mushroom.png" alt="Magic Mushroom">
 
-`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your JavaScript/TypeScript code more safe or more strict.
+`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your TypeScript code more safe or more strict.
 
-This plugin is named after (and used in) the [IsaacScript](https://isaacscript.github.io/) framework. But you don't have to know anything about IsaacScript to use it - you can use these rules with any JavaScript/TypeScript project.
+If you already have ESLint set up in your project, then you can try enabling the [`isaacscript/recommend`](#configs) config to get all of the goodness from this plugin in your project at once. Alternatively, if you want more control, feel free to enable the specific rules that you need.
 
 Alternatively, if you want to get off the ground and running with ESLint + TypeScript in a new project, then you should check out the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-package.
-
-This project is written in [TypeScript](https://www.typescriptlang.org/).
 
 <br>
 
@@ -42,6 +40,7 @@ Each rule has emojis denoting:
 | [`isaacscript/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md)                         | Requires complete sentences for JSDoc comments                                                              | :white_check_mark: |          |                   |
 | [`isaacscript/complete-sentences-line-comments`](docs/rules/complete-sentences-line-comments.md)         | Requires complete sentences for multi-line leading line comments                                            | :white_check_mark: |          |                   |
 | [`isaacscript/consistent-enum-values`](docs/rules/consistent-enum-values.md)                             | Requires consistent enum values                                                                             | :white_check_mark: |          |                   |
+| [`isaacscript/consistent-named-tuples`](docs/rules/consistent-named-tuples.md)                           | Requires that if one or more tuple elements are named, all of them are named                                | :white_check_mark: |          |                   |
 | [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)               | Disallows numbers next to letters in enum members                                                           |                    |          |                   |
 | [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                                     | Requires the use of `===` and `!==` (and automatically fixes)                                               | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                               | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together       | :white_check_mark: | :wrench: |                   |
@@ -64,6 +63,7 @@ Each rule has emojis denoting:
 | [`isaacscript/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md)           | Disallows template literal placeholder syntax in regular strings (and automatically fixes)                  | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/no-throw`](docs/rules/no-throw.md)                                                         | Disallows the usage of "throw"                                                                              |                    |          | :thought_balloon: |
 | [`isaacscript/no-undefined-return-type`](docs/rules/no-undefined-return-type.md)                         | Disallows `undefined` return types on functions                                                             | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/no-unnecessary-assignment`](docs/rules/no-unnecessary-assignment.md)                       | Disallows useless assignments                                                                               | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/no-unsafe-plusplus`](docs/rules/no-unsafe-plusplus.md)                                     | Disallow unsafe and confusing uses of the "++" and "--" operators                                           | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                                   | Disallows `void` return types on non-exported functions                                                     | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/prefer-plusplus`](docs/rules/prefer-plusplus.md)                                           | Require "++" or "--" operators instead of assignment operators where applicable                             | :white_check_mark: | :wrench: |                   |
@@ -95,22 +95,14 @@ For example, if you use [VSCode](https://code.visualstudio.com/), and you have t
 ```jsonc
 {
   // Automatically run the formatter when certain files are saved.
-  "[javascript]": {
+  "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
+      "source.fixAll.eslint": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
   },
-  "[typescript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2
-  }
 }
 ```
 

@@ -93,7 +93,7 @@ Thus, _trailing line comments_ are ignored by the rules in this plugin.
 In contrast to _trailing line comments_, _leading line comments_ are usually longer and more detailed. For example, say that we want to document something about the `foo` variable:
 
 ```ts
-// this matches the USS design document, section D
+// matches the USS design document, section D
 const foo = 100;
 ```
 
@@ -102,7 +102,7 @@ This is a good start. But the problem with annotating this information with a li
 To fix this problem, we can annotate the information as a JSDoc comment instead:
 
 ```ts
-/** this matches the USS design document, section D */
+/** matches the USS design document, section D */
 const foo = 100;
 ```
 
@@ -111,7 +111,7 @@ Now, wherever we happen to be in the code, we can always mouse over `foo` to see
 However, one problem remains. You are [supposed to use complete sentences in JSDoc comments](https://jsdoc.app/about-getting-started.html), because it represents official information that will be extracted out and put on a documentation webpage. So we should update the comment to be like this:
 
 ```ts
-/** This matches the USS design document, section D. */
+/** Matches the USS design document, section D. */
 const foo = 100;
 ```
 

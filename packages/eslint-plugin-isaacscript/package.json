@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-isaacscript",
-  "version": "3.11.1",
+  "version": "3.12.2",
   "description": "An ESLint plugin that contains useful rules.",
   "keywords": [
     "eslint",
@@ -45,9 +45,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "^6.17.0",
-    "@typescript-eslint/types": "^6.17.0",
-    "@typescript-eslint/utils": "^6.17.0"
+    "@typescript-eslint/type-utils": "^7.0.2",
+    "@typescript-eslint/types": "^7.0.2",
+    "@typescript-eslint/utils": "^7.0.2"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 6.0.0",

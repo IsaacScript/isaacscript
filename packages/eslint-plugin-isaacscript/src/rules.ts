@@ -5,6 +5,7 @@
 import { completeSentencesJSDoc } from "./rules/complete-sentences-jsdoc";
 import { completeSentencesLineComments } from "./rules/complete-sentences-line-comments";
 import { consistentEnumValues } from "./rules/consistent-enum-values";
+import { consistentNamedTuples } from "./rules/consistent-named-tuples";
 import { enumMemberNumberSeparation } from "./rules/enum-member-number-separation";
 import { eqeqeqFix } from "./rules/eqeqeq-fix";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments";
@@ -27,6 +28,7 @@ import { noStringLength0 } from "./rules/no-string-length-0";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix";
 import { noThrow } from "./rules/no-throw";
 import { noUndefinedReturnType } from "./rules/no-undefined-return-type";
+import { noUnnecessaryAssignment } from "./rules/no-unnecessary-assignment";
 import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus";
 import { noVoidReturnType } from "./rules/no-void-return-type";
 import { preferPlusplus } from "./rules/prefer-plusplus";
@@ -47,6 +49,7 @@ export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
   "complete-sentences-line-comments": completeSentencesLineComments,
   "consistent-enum-values": consistentEnumValues,
+  "consistent-named-tuples": consistentNamedTuples,
   "enum-member-number-separation": enumMemberNumberSeparation,
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,
@@ -69,6 +72,7 @@ export const rules = {
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
   "no-throw": noThrow,
   "no-undefined-return-type": noUndefinedReturnType,
+  "no-unnecessary-assignment": noUnnecessaryAssignment,
   "no-unsafe-plusplus": noUnsafePlusplus,
   "no-void-return-type": noVoidReturnType,
   "prefer-plusplus": preferPlusplus,

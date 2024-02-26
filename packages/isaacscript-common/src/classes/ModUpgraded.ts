@@ -114,7 +114,7 @@ export class ModUpgraded implements Mod {
 
         // @ts-expect-error The compiler is not smart enough to know that the callback args should
         // match the callback.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, n/no-callback-literal
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const returnValue = callback(...callbackArgs);
 
         const elapsedTime = getElapsedTimeSince(startTime);

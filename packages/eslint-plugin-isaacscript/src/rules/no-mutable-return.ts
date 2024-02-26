@@ -42,10 +42,7 @@ export const noMutableReturn = createRule<Options, MessageIds>({
             const messageId = getErrorMessageId(t);
             if (messageId !== undefined) {
               context.report({
-                loc: {
-                  start: node.loc.start,
-                  end: node.loc.end,
-                },
+                loc: node.loc,
                 messageId,
               });
             }

@@ -16,11 +16,13 @@ const FeatureList = [
     img: "img/items/magic-mushroom.png",
     description: (
       <>
-        <li>Code fearlessly without having to worry about making a typo.</li>
-        <li>
-          Mouseover functions to see what they do, saving you from opening the
-          docs.
-        </li>
+        <ul>
+          <li>Code fearlessly without having to worry about making a typo.</li>
+          <li>
+            Mouseover functions to see what they do, saving you from opening the
+            docs.
+          </li>
+        </ul>
       </>
     ),
   },
@@ -29,36 +31,38 @@ const FeatureList = [
     img: "img/typescript-to-lua.png",
     description: (
       <>
-        <li>
-          IsaacScript leverages the excellent{" "}
-          <Link to="https://typescripttolua.github.io/">TypeScriptToLua</Link>{" "}
-          library.
-        </li>
-        <li>
-          All of your favorite TypeScript features will be automatically
-          transpiled to Lua.
-        </li>
+        <ul>
+          <li>
+            IsaacScript leverages the excellent{" "}
+            <Link to="https://typescripttolua.github.io/">TypeScriptToLua</Link>{" "}
+            library.
+          </li>
+          <li>
+            All of your favorite TypeScript features will be automatically
+            transpiled to Lua.
+          </li>
+        </ul>
       </>
     ),
   },
-] as const satisfies readonly FeatureItem[];
+] as const satisfies FeatureItem[];
+
+const IMG_STYLE = {
+  height: "7.5em",
+  width: "7.5em",
+} as const;
 
 function Feature({ title, img, description }: FeatureItem) {
-  const imgStyle = {
-    height: "7.5em",
-    width: "7.5em",
-  };
-
   return (
     <div className={clsx("col col--6")}>
       <div className="text--center">
-        <img src={useBaseUrl(img)} style={imgStyle} alt={title} />
+        <img src={useBaseUrl(img)} style={IMG_STYLE} alt={title} />
       </div>
       <div className="padding-horiz--md">
         <Heading as="h3" className="text--center">
           {title}
         </Heading>
-        <p>{description}</p>
+        {description}
       </div>
     </div>
   );

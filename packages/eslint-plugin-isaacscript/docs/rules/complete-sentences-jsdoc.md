@@ -83,5 +83,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/complete-sentences-jsdoc.ts)
 - [Test source](../../tests/rules/complete-sentences-jsdoc.test.ts)

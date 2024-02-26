@@ -65,10 +65,7 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
           }
 
           context.report({
-            loc: {
-              start: node.loc.start,
-              end: node.loc.end,
-            },
+            loc: node.loc,
             messageId,
           });
         }

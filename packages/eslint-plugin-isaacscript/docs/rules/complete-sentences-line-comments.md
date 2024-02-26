@@ -24,5 +24,6 @@ This rule is not configurable.
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/complete-sentences-line-comments.ts)
 - [Test source](../../tests/rules/complete-sentences-line-comments.test.ts)

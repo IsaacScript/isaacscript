@@ -10,5 +10,4 @@ isaacscript
 NPCID # Custom enum
 packagejson # prettier.config.mjs
 sarisia # ci.yml
-technote # ci.yml
 tstl

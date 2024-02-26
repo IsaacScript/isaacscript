@@ -30,10 +30,7 @@ import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand, initTSCommand } from "./commands/init/init.js";
 import { monitorCommand } from "./commands/monitor/monitor.js";
-import {
-  publishCommand,
-  publishTSCommand,
-} from "./commands/publish/publish.js";
+import { publishCommand } from "./commands/publish/publish.js";
 import { CWD } from "./constants.js";
 
 const packageRoot = findPackageRoot();
@@ -50,7 +47,7 @@ export async function parseArgs(): Promise<void> {
     .description(`${description}.`)
     .version(version, "-V, --version", "Output the version number.")
     .helpOption("-h, --help", "Display the list of commands and options.")
-    .addHelpCommand(false)
+    .helpCommand(false)
     .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
     .addCommand(monitorCommand, { isDefault: true })
     .addCommand(checkCommand)
@@ -60,7 +57,6 @@ export async function parseArgs(): Promise<void> {
     .addCommand(initTSCommand)
     .addCommand(nukeCommand)
     .addCommand(publishCommand)
-    .addCommand(publishTSCommand)
     .addCommand(updateCommand)
     .hook("postAction", (_thisCommand, actionCommand) => {
       if (actionCommand.name() !== "monitor") {
@@ -89,8 +85,8 @@ const updateCommand = new Command()
   .description("Update the npm dependencies in the current project.")
   .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
-  .action(async () => {
-    const hasNewDependencies = await updatePackageJSON(CWD);
+  .action(() => {
+    const hasNewDependencies = updatePackageJSON(CWD);
     const msg = hasNewDependencies
       ? "Successfully installed new Node.js dependencies."
       : "There were no new dependency updates from npm.";

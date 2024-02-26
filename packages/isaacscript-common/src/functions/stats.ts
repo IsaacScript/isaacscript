@@ -76,6 +76,10 @@ export function addPlayerStat(
       player.Luck += amount;
       break;
     }
+
+    default: {
+      break;
+    }
   }
 }
 

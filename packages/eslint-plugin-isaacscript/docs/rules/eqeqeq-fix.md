@@ -52,5 +52,6 @@ This rule is not configurable. (All of the unsafe options from the original have
 
 ## Resources
 
+- [How to use this rule](../../README.md#install--usage)
 - [Rule source](../../src/rules/eqeqeq-fix.ts)
 - [Test source](../../tests/rules/eqeqeq-fix.test.ts)

@@ -14,6 +14,8 @@ const config = {
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
   ],
 
+  ignorePatterns: ["**/dist/**", "eqeqeq-fix.ts"],
+
   rules: {
     /**
      * Defined at: base-n.js

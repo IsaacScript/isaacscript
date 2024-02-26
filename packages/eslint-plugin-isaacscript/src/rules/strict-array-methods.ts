@@ -95,10 +95,7 @@ export const strictArrayMethods = createRule({
           !firstArgumentHasBooleanReturnType(node)
         ) {
           context.report({
-            loc: {
-              start: node.loc.start,
-              end: node.loc.end,
-            },
+            loc: node.loc,
             messageId: "conditionError",
           });
         }

@@ -179,6 +179,7 @@ export * from "./types/Increment";
 export * from "./types/LowercaseKeys";
 export * from "./types/NaturalNumbersLessThan";
 export * from "./types/NaturalNumbersLessThanOrEqualTo";
+export * from "./types/ObjectValues";
 export * from "./types/PickingUpItem";
 export * from "./types/PickupIndex";
 export * from "./types/PlayerIndex";
