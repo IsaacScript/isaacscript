@@ -1,3 +1,4 @@
+import type { AnnouncerVoiceMode } from "../../enums/AnnouncerVoiceMode";
 import type { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
 
 declare global {
@@ -120,10 +121,8 @@ declare global {
      * Whether the announcer voice should play when using items, pills, cards, and runes.
      *
      * This cannot be changed in-game and is only exposed in the "options.ini" file.
-     *
-     * 0: random, 1: always off, 2: always on.
      */
-    let AnnouncerVoiceMode: 0 | 1 | 2;
+    let AnnouncerVoiceMode: AnnouncerVoiceMode;
 
     /**
      * How big the text in the debug console should be.
