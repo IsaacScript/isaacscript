@@ -1,4 +1,7 @@
 import type { AnnouncerVoiceMode } from "../../enums/AnnouncerVoiceMode";
+import type { CameraStyle } from "../../enums/CameraStyle";
+import type { ConsoleFont } from "../../enums/ConsoleFont";
+import type { ExtraHudStyle } from "../../enums/ExtraHudStyle";
 import type { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
 
 declare global {
@@ -77,7 +80,7 @@ declare global {
      *
      * 1: on, 2: off.
      */
-    let CameraStyle: 1 | 2;
+    let CameraStyle: CameraStyle;
 
     /**
      * Sets the style of the Extra HUD (i.e. the in-game item tracker).
@@ -86,7 +89,7 @@ declare global {
      *
      * 0: off, 1: on, 2: mini.
      */
-    let ExtraHUDStyle: 0 | 1 | 2;
+    let ExtraHUDStyle: ExtraHudStyle;
 
     /**
      * This can be changed from the in-game options menu.
@@ -131,7 +134,7 @@ declare global {
      *
      * 0: default, 1: small, 2: tiny.
      */
-    let ConsoleFont: 0 | 1 | 2;
+    let ConsoleFont: ConsoleFont;
 
     /** This cannot be changed in-game and is only exposed in the "options.ini" file. */
     let DebugConsoleEnabled: boolean;
