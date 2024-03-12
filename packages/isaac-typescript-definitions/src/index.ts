@@ -98,3 +98,4 @@ export * from "./enums/flags/UseFlag";
 export * from "./enums/mods/EncyclopediaItemPoolType";
 export * from "./enums/mods/ModConfigMenuOptionType";
 export * from "./enums/mods/StageAPIEnums";
+export * from "./enums/AnnouncerVoiceMode"
