@@ -39,6 +39,12 @@ export default {
     "UseFlagType",
     "UseFlagValue",
 
+    // From: "./src/enum/repentogon"
+    "EntityTagType",
+    "EntityTagValue",
+    "GibFlagType",
+    "GibFlagValue",
+
     // Other
     "BitFlags",
     "__global.BitSet128",
