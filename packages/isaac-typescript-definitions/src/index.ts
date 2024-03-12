@@ -100,3 +100,4 @@ export * from "./enums/mods/ModConfigMenuOptionType";
 export * from "./enums/mods/StageAPIEnums";
 export * from "./enums/repentogon/EntityTag";
 export * from "./enums/repentogon/GibFlag";
+export * from "./enums/repentogon/Achievement";
