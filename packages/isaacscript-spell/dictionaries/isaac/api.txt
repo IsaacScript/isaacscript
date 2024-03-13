@@ -1,5 +1,5 @@
-# fixed in the reimplemented IsaacScript enums.
 # These are words from the Lua API. Words from misspelled enums are not included, since those are
+# fixed in the reimplemented IsaacScript enums.
 addplayer # Console command
 Akeldama
 ALGIZ
