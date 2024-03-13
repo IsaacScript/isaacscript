@@ -45,7 +45,7 @@ declare global {
     GetBestiaryFloorAlt: () => string;
 
     /**
-     * Returns a readonly Vector of the entity's bestiary sprite offset, as defined in
+     * Returns a read-only `Vector` of the entity's bestiary sprite offset, as defined in
      * `entities2.xml`.
      */
     GetBestiaryOffset: () => Readonly<Vector>;
@@ -53,7 +53,7 @@ declare global {
     /** Returns the scale of the entity's bestiary sprite, as defined in `entities2.xml`. */
     GetBestiaryScale: () => number;
 
-    /** Returns the BossID associated with the entity, as defined in `entities2.xml`. */
+    /** Returns the `BossID` associated with the entity, as defined in `entities2.xml`. */
     GetBossID: () => BossID;
 
     /**
@@ -69,7 +69,7 @@ declare global {
     GetCollisionRadius: () => int;
 
     /**
-     * Returns a readonly vector of the entity's collision radius multiplier, , as defined in
+     * Returns a read-only `Vector` of the entity's collision radius multiplier, as defined in
      * `entities2.xml`.
      */
     readonly GetCollisionRadiusMultiplier: () => Vector;
@@ -101,7 +101,7 @@ declare global {
     /** Returns the entity's name, as defined in `entities2.xml`. */
     GetName: () => string;
 
-    /** Returns the entity's portrait id, as defined in `entities2.xml`. */
+    /** Returns the entity's portrait ID, as defined in `entities2.xml`. */
     GetPortraitID: () => int;
 
     /**
@@ -113,10 +113,10 @@ declare global {
     /** Returns the amount of armor the entity has, as defined in `entities2.xml`. */
     GetShieldStrength: () => number;
 
-    /** Returns the entity's Stage HP, as defined in `entities2.xml`. */
+    /** Returns the entity's stage HP, as defined in `entities2.xml`. */
     GetStageHP: () => number;
 
-    /** Returns the entity's EntityType. */
+    /** Returns the entity's `EntityType`. */
     GetType: () => EntityType;
 
     /** Returns the entity's variant. */
