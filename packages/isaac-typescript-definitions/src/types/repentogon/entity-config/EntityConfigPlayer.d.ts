@@ -9,6 +9,11 @@ import type {
 import type { Achievement } from "../../../enums/repentogon/Achievement";
 
 declare global {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   */
   interface EntityConfigPlayer extends IsaacAPIClass {
     /** Returns true if the player can shoot, as defined in `players.xml`. */
     CanShoot: () => boolean;

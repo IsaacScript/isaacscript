@@ -5,7 +5,12 @@ import type {
 } from "../../../enums/collections/subTypes";
 
 declare global {
-  /** @noSelf */
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   * @noSelf
+   */
   namespace EntityConfig {
     /**
      * Returns the EntityConfigBaby from the provided BabySubType.

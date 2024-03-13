@@ -5,6 +5,11 @@ import type { EntityTag } from "../../../enums/repentogon/EntityTag";
 import type { GibFlag } from "../../../enums/repentogon/GibFlag";
 
 declare global {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   */
   interface EntityConfigEntity extends IsaacAPIClass {
     /** Returns true if the entity can be a champion, as defined in `entities2.xml`. */
     CanBeChampion: () => boolean;
