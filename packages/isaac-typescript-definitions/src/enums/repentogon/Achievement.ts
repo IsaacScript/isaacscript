@@ -11,6 +11,7 @@ export enum Achievement {
 
   /** Reserved for characters not locked behind a vanilla achievement. */
   NO_UNLOCK = -1,
+
   MAGDALENE = 1,
   CAIN = 2,
   JUDAS = 3,
