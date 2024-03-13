@@ -1,6 +1,4 @@
-export type TupleToIntersection<T extends unknown[]> = T extends [
-  infer F,
-  ...infer R,
-]
-  ? F & TupleToIntersection<R>
-  : unknown;
+export type TupleToIntersection<T extends readonly unknown[]> =
+  T extends readonly [infer F, ...infer R]
+    ? F & TupleToIntersection<R>
+    : unknown;
