@@ -45,6 +45,7 @@ cooldown
 costumetest # Console command
 CRAFTER
 Crossfade
+customtags
 cutscene
 cutscenes
 CYCLOPIA

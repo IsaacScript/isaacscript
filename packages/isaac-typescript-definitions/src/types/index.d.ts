@@ -126,3 +126,11 @@
 /// <reference path="./mods/StageAPI.d.ts" />
 /// <reference path="./mods/StageAPIInterfaces.d.ts" />
 /// <reference path="./mods/StageAPIUnofficial.d.ts" />
+
+// ----------------------------
+// REPENTOGON
+// ----------------------------
+/// <reference path="./repentogon/entity-config/EntityConfig.d.ts"/>
+/// <reference path="./repentogon/entity-config/EntityConfigBaby.d.ts"/>
+/// <reference path="./repentogon/entity-config/EntityConfigEntity.d.ts"/>
+/// <reference path="./repentogon/entity-config/EntityConfigPlayer.d.ts"/>
