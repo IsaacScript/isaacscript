@@ -1,8 +1,8 @@
-import type { EntityType } from "../../../enums/EntityType";
+import type { EntityType } from "isaac-typescript-definitions/src/enums/EntityType";
 import type {
   BabySubType,
   PlayerType,
-} from "../../../enums/collections/subTypes";
+} from "isaac-typescript-definitions/src/enums/collections/subTypes";
 
 declare global {
   /**

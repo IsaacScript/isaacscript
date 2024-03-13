@@ -32,7 +32,7 @@
 
     // We use TypeScript definitions for the Lua standard library:
     // https://github.com/TypeScriptToLua/lua-types
-    "types": ["lua-types/5.3"],
+    "types": ["lua-types/5.3", "isaac-typescript-definitions"],
 
     // The "strictest" TSConfig template turns this to true, but we need to ensure that the import
     // statements in the ".d.ts" files resolve properly.
