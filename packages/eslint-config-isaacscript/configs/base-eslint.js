@@ -124,7 +124,7 @@ const SUGGESTIONS = {
    */
   complexity: "off",
 
-  /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
+  /** Superseded by the `@typescript-eslint/consistent-return` rule. */
   "consistent-return": "off",
 
   "consistent-this": "error",

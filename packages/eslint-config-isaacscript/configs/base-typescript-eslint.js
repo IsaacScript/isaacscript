@@ -27,6 +27,10 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/class-literal-property-style": "error",
   "@typescript-eslint/consistent-generic-constructors": "error",
   "@typescript-eslint/consistent-indexed-object-style": "error",
+
+  /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
+  "@typescript-eslint/consistent-return": "off",
+
   "@typescript-eslint/consistent-type-assertions": "error",
   "@typescript-eslint/consistent-type-definitions": "error",
   "@typescript-eslint/consistent-type-exports": "error",
