@@ -61,7 +61,7 @@ export function addPlayerStat(
 
     // 1 << 3
     case CacheFlag.RANGE: {
-      player.TearHeight += amount;
+      player.TearRange += amount;
       break;
     }
 
