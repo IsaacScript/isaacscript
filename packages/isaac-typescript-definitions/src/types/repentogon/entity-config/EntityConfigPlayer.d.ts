@@ -9,7 +9,7 @@ import type {
 import type { Achievement } from "../../../enums/repentogon/Achievement";
 
 declare global {
-  interface EntityConfigPlayer {
+  interface EntityConfigPlayer extends IsaacAPIClass {
     /** Returns true if the player can shoot, as defined in `players.xml`. */
     CanShoot: () => boolean;
 

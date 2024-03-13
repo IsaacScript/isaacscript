@@ -5,7 +5,7 @@ import type { EntityTag } from "../../../enums/repentogon/EntityTag";
 import type { GibFlag } from "../../../enums/repentogon/GibFlag";
 
 declare global {
-  interface EntityConfigEntity {
+  interface EntityConfigEntity extends IsaacAPIClass {
     /** Returns true if the entity can be a champion, as defined in `entities2.xml`. */
     CanBeChampion: () => boolean;
 
