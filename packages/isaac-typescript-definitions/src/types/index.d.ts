@@ -130,6 +130,7 @@
 // ----------------------------
 // REPENTOGON
 // ----------------------------
+/// <reference path="./repentogon/Ambush.d.ts"/>
 /// <reference path="./repentogon/entity-config/EntityConfig.d.ts"/>
 /// <reference path="./repentogon/entity-config/EntityConfigBaby.d.ts"/>
 /// <reference path="./repentogon/entity-config/EntityConfigEntity.d.ts"/>
