@@ -8,10 +8,10 @@ declare global {
    * @see https://repentogon.com/index.html
    */
   interface EntityConfigBaby extends IsaacAPIClass {
-    /** Returns the Achievement id tied to the baby's unlock. */
+    /** Returns the `Achievement` tied to the baby's unlock. */
     GetAchievementID: () => Achievement;
 
-    /** Returns the BabySubType of the baby. */
+    /** Returns the `BabySubType` of the baby. */
     GetID: () => BabySubType;
 
     /** Returns the name of the baby. */
