@@ -37,7 +37,7 @@ declare global {
     GetBrokenHearts: () => int;
 
     /**
-     * Returns the CardType the player starts with, as defined in `players.xml`.
+     * Returns the `CardType` the player starts with, as defined in `players.xml`.
      *
      * This does not include starting cards obtained via unlocks or cards added by mods.
      */
@@ -50,7 +50,7 @@ declare global {
     GetCollectibles: () => CollectibleType;
 
     /**
-     * Returns the player's starting costume id, as defined in `players.xml`. If the player has no
+     * Returns the player's starting costume ID, as defined in `players.xml`. If the player has no
      * starting costume, -1 is returned instead.
      */
     GetCostumeID: () => int;
@@ -130,7 +130,7 @@ declare global {
      */
     GetPill: () => PillColor;
 
-    /** Returns the PlayerType of the character. */
+    /** Returns the `PlayerType` of the character. */
     GetPlayerType: () => PlayerType;
 
     /**
@@ -141,8 +141,8 @@ declare global {
     GetPocketActive: () => CollectibleType;
 
     /**
-     * Returns the path to the .png file used for the character's main level transition and boss VS
-     * screen portrait, as defined in `players.xml`.
+     * Returns the path to the .png file used for the character's main level transition and boss
+     * versus screen portrait, as defined in `players.xml`.
      */
     GetPortraitPath: () => string;
 
