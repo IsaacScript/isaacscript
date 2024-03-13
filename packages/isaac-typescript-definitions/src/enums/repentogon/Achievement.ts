@@ -40,7 +40,6 @@ export enum Achievement {
   GAMEKID = 26,
   HALO = 27,
   MR_MEGA = 28,
-
   ISAAC_HOLDS_THE_D6 = 29,
   SCISSORS = 30,
   PARASITE = 31,
@@ -460,7 +459,6 @@ export enum Achievement {
   POUND_OF_FLESH = 445,
   AKELDAMA = 446,
   REDEMPTION = 447,
-
   ETERNAL_D6 = 448,
   MONTEZUMAS_REVENGE = 449,
   BIRD_CAGE = 450,
