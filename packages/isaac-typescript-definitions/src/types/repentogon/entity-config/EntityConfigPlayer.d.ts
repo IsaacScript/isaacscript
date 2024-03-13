@@ -1,7 +1,10 @@
+import type { SkinColor } from "../../../enums/SkinColor";
 import type {
+  CardType,
   CollectibleType,
   PillColor,
   PlayerType,
+  TrinketType,
 } from "../../../enums/collections/subTypes";
 import type { Achievement } from "../../../enums/repentogon/Achievement";
 
@@ -10,7 +13,7 @@ declare global {
     /** Returns true if the player can shoot, as defined in `players.xml`. */
     CanShoot: () => boolean;
 
-    /** Returns the achievement tied to the player's unlock, as defined in `players.xml`.  */
+    /** Returns the achievement tied to the player's unlock, as defined in `players.xml`. */
     GetAchievementID: () => Achievement;
 
     /**
@@ -106,7 +109,7 @@ declare global {
      */
     GetModdedMenuPortraitSprite: () => Sprite | undefined;
 
-    /** Returns the name of the character, as defined in `players.xml` */
+    /** Returns the name of the character, as defined in `players.xml`. */
     GetName: () => string;
 
     /**
@@ -116,7 +119,7 @@ declare global {
     GetNameImagePath: () => string;
 
     /**
-     * Returns the pill the character starts with, as defined in `players.xml`
+     * Returns the pill the character starts with, as defined in `players.xml`.
      *
      * This does not include pills obtained via unlocks.
      */
@@ -134,14 +137,14 @@ declare global {
 
     /**
      * Returns the path to the .png file used for the character's main level transition and boss VS
-     * screen portrait, as defined in `players.xml`
+     * screen portrait, as defined in `players.xml`.
      */
     GetPortraitPath: () => string;
 
-    /** Returns the amount of red hearts the player starts with, as defined in `players.xml` */
+    /** Returns the amount of red hearts the player starts with, as defined in `players.xml`. */
     GetRedHearts: () => int;
 
-    /** Returns the player's skin color, as defined in `players.xml` */
+    /** Returns the player's skin color, as defined in `players.xml`. */
     GetSkinColor: () => SkinColor;
 
     /**
@@ -150,7 +153,7 @@ declare global {
      */
     GetSkinPath: () => string;
 
-    /** Returns the amount of soul hearts the character starts with, as defined in `players.xml` */
+    /** Returns the amount of soul hearts the character starts with, as defined in `players.xml`. */
     GetSoulHearts: () => int;
 
     /**
@@ -176,9 +179,7 @@ declare global {
      */
     IsHidden: () => boolean;
 
-    /**
-     * Returns true if the character is tainted, as defined in `players.xml`
-     */
+    /** Returns true if the character is tainted, as defined in `players.xml`. */
     IsTainted: () => boolean;
   }
 }

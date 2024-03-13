@@ -1,3 +1,4 @@
+import type { EntityType } from "../../../enums/EntityType";
 import type {
   BabySubType,
   PlayerType,
@@ -16,7 +17,8 @@ declare global {
     /**
      * Returns the EntityConfigEntity from the provided EntityType.
      *
-     * Providing the variant and subtype is optional. If a non-existant variant/subtype is requested, the base version of that entity is returned instead.
+     * Providing the variant and subtype is optional. If a non-existent variant/subtype is
+     * requested, the base version of that entity is returned instead.
      *
      * Returns undefined if there is no entity from the provided EntityType.
      *
@@ -27,7 +29,7 @@ declare global {
     function GetEntity(
       entityType: EntityType,
       variant?: int,
-      subType?: int
+      subType?: int,
     ): EntityConfigEntity | undefined;
 
     /** Returns the highest BabySubType currently assigned to a valid co-op baby. */

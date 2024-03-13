@@ -1,4 +1,8 @@
+import type { EntityType } from "../../../enums/EntityType";
 import type { BossID } from "../../../enums/collections/roomSubTypes";
+import type { EntityFlag } from "../../../enums/flags/EntityFlag";
+import type { EntityTag } from "../../../enums/repentogon/EntityTag";
+import type { GibFlag } from "../../../enums/repentogon/GibFlag";
 
 declare global {
   interface EntityConfigEntity {
@@ -12,8 +16,8 @@ declare global {
     CanBeReRolledInto: () => boolean;
 
     /**
-     * Returns true if the entity causes the doors in an uncleared room to close while alive,
-     * as defined in `entities2.xml`.
+     * Returns true if the entity causes the doors in an uncleared room to close while alive, as
+     * defined in `entities2.xml`.
      */
     CanShutDoors: () => boolean;
 
@@ -32,15 +36,14 @@ declare global {
     /**
      * Returns the entity's floor alt to be displayed in the bestiary, as defined in
      * `entities2.xml`.
-     *
      */
     GetBestiaryFloorAlt: () => string;
 
     /**
-     *  Returns a readonly Vector of the entity's bestiary sprite offset, as defined in
+     * Returns a readonly Vector of the entity's bestiary sprite offset, as defined in
      * `entities2.xml`.
      */
-    GetBestiaryOffset: () => readonly Vector;
+    GetBestiaryOffset: () => Readonly<Vector>;
 
     /** Returns the scale of the entity's bestiary sprite, as defined in `entities2.xml`. */
     GetBestiaryScale: () => number;
@@ -54,21 +57,17 @@ declare global {
      */
     GetCollisionDamage: () => number;
 
-    /**
-     * Returns the entity's collision interval, as defined in `entities2.xml`.
-     */
+    /** Returns the entity's collision interval, as defined in `entities2.xml`. */
     GetCollisionInterval: () => int;
 
-    /**
-     * Returns the entity's collision radius, as defined in `entities2.xml`.
-     */
+    /** Returns the entity's collision radius, as defined in `entities2.xml`. */
     GetCollisionRadius: () => int;
 
     /**
      * Returns a readonly vector of the entity's collision radius multiplier, , as defined in
      * `entities2.xml`.
      */
-    GetCollisionRadiusMultiplier: () => readonly Vector;
+    readonly GetCollisionRadiusMultiplier: () => Vector;
 
     /**
      * Returns an array containing all of the tags defined in the entity's `customtags` attribute in
@@ -76,29 +75,19 @@ declare global {
      */
     GetCustomTags: () => string[];
 
-    /**
-     * Returns a bitmask containing the entity's tags, as defined in `entities2.xml`.
-     */
+    /** Returns a bitmask containing the entity's tags, as defined in `entities2.xml`. */
     GetEntityTags: () => BitFlags<EntityFlag>;
 
-    /**
-     * Returns the entity's friction, as defined in `entities2.xml`.
-     */
+    /** Returns the entity's friction, as defined in `entities2.xml`. */
     GetFriction: () => number;
 
-    /**
-     * Returns a bitmask of the entity's gib flags, as defined in `entities2.xml`.
-     */
+    /** Returns a bitmask of the entity's gib flags, as defined in `entities2.xml`. */
     GetGibFlags: () => BitFlags<GibFlag>;
 
-    /**
-     * Returns the amount of gibs the entity leaves, as defined in `entities2.xml`.
-     */
+    /** Returns the amount of gibs the entity leaves, as defined in `entities2.xml`. */
     GetGibAmount: () => int;
 
-    /**
-     * Returns the entity's mass, as defined in `entities2.xml`.
-     */
+    /** Returns the entity's mass, as defined in `entities2.xml`. */
     GetMass: () => number;
 
     /** Returns the name of the mod the entity is from. Returns undefined for vanilla entities. */
@@ -111,14 +100,12 @@ declare global {
     GetPortraitID: () => int;
 
     /**
-     * Returns the entity's shadow size. The value is the "shadowSize" attribute in
-     * `entities2.xml` divided by 100.
+     * Returns the entity's shadow size. The value is the "shadowSize" attribute in `entities2.xml`
+     * divided by 100.
      */
     GetShadowSize: () => number;
 
-    /**
-     * Returns the amount of armor the entity has, as defined in `entities2.xml`.
-     */
+    /** Returns the amount of armor the entity has, as defined in `entities2.xml`. */
     GetShieldStrength: () => number;
 
     /** Returns the entity's Stage HP, as defined in `entities2.xml`. */
@@ -136,9 +123,7 @@ declare global {
      */
     HasCustomTag: (tag: string) => boolean;
 
-    /**
-     * Returns true if the entity has all of the entity tags in the provided bitset.
-     */
+    /** Returns true if the entity has all of the entity tags in the provided bitset. */
     HasEntityTags: (tags: BitFlags<EntityTag>) => boolean;
 
     /** Returns true if the entity is a boss, as defined in `entities2.xml`. */
