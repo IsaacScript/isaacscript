@@ -13,3 +13,4 @@
 /// <reference path="./classes/ColorParams.d.ts" />
 /// <reference path="./classes/Console.d.ts" />
 /// <reference path="./classes/CostumeSpriteDesc.d.ts" />
+/// <reference path="./classes/DailyChallenge.d.ts"/>
