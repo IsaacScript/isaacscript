@@ -22,3 +22,5 @@
 /// <reference path="./classes/rendering/Shape.d.ts"/>
 /// <reference path="./classes/hud/DebugRenderer.d.ts" />
 /// <reference path="./classes/hud/Minimap.d.ts" />
+/// <reference path="./classes/hud/PlayerHUD.d.ts" />
+/// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
