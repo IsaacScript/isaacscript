@@ -1,12 +1,12 @@
-import type { SkinColor } from "../../../enums/SkinColor";
 import type {
+  Achievement,
   CardType,
   CollectibleType,
   PillColor,
   PlayerType,
+  SkinColor,
   TrinketType,
-} from "../../../enums/collections/subTypes";
-import type { Achievement } from "../../../enums/repentogon/Achievement";
+} from "isaac-typescript-definitions";
 
 declare global {
   /**

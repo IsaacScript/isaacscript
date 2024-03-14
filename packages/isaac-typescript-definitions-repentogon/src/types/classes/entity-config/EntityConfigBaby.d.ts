@@ -1,5 +1,4 @@
-import type { BabySubType } from "../../../enums/collections/subTypes";
-import type { Achievement } from "../../../enums/repentogon/Achievement";
+import type { Achievement, BabySubType } from "isaac-typescript-definitions";
 
 declare global {
   /**
