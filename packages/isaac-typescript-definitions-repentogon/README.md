@@ -1,7 +1,11 @@
 # isaac-typescript-definitions
 
-[![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions.svg)](https://www.npmjs.com/package/isaac-typescript-definitions)
+[![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions-repentogon.svg)](https://www.npmjs.com/package/isaac-typescript-definitions-repentogon)
 
 These are TypeScript definitions for [Repentogon](https://repentogon.com/index.html), an exe-hack that the modding API.
 
-[IsaacScript](https://isaacscript.github.io/) mods are automatically configured to use these definitions.
+They are not included by default in [IsaacScript](https://isaacscript.github.io/) mods. To install them, you have to add them as a dependnecy (similar to any other JavaScript/TypeScript dependency):
+
+```sh
+npm install isaac-typescript-definitions-repentogon --save
+```
