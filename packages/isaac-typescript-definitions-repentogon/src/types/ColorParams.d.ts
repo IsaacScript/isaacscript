@@ -35,7 +35,7 @@ export interface ColorParams extends IsaacAPIClass {
   /** Sets the display priority of the color change. */
   SetPriority: (priority: int) => void;
 
-  /** Sets whether the ColorParams is shared with the entity's child. */
+  /** Sets whether the `ColorParams` is shared with the entity's child. */
   SetShared: (shared: boolean) => void;
 }
 
