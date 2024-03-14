@@ -22,7 +22,7 @@ declare global {
     /**
      * Deletes lines from the console's recorded history.
      *
-     * @param amount The amount of entries to remove. Default is 1.
+     * @param amount Optional. The amount of entries to remove. Default is 1.
      */
     function PopHistory(amount?: number): void;
 
