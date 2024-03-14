@@ -1,10 +1,11 @@
-- TS ESLINT: https://github.com/eslint/eslint/pull/18134
+- Upgrade ESLint infra when this PR passes: https://github.com/eslint/eslint/pull/18134
 
 - lint:
   - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - https://github.com/typescript-eslint/typescript-eslint/issues/4571
+  - `T extends Foo[]` --> `T extends readonly Foo[]`
 
 - preferTypeOnlyAutoImports does not work
 

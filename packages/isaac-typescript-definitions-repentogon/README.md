@@ -4,7 +4,7 @@
 
 These are TypeScript definitions for [Repentogon](https://repentogon.com/index.html), an exe-hack that the modding API.
 
-They are not included by default in [IsaacScript](https://isaacscript.github.io/) mods. To install them, you have to add them as a dependnecy (similar to any other JavaScript/TypeScript dependency):
+They are not included by default in [IsaacScript](https://isaacscript.github.io/) mods. To install them, you have to add them as a dependency (similar to any other JavaScript/TypeScript dependency):
 
 ```sh
 npm install isaac-typescript-definitions-repentogon --save
