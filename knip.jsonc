@@ -26,6 +26,9 @@
     "packages/isaac-typescript-definitions": {
       "ignore": ["typedoc.config.mjs"],
     },
+    "packages/isaac-typescript-definitions-repentogon": {
+      "ignore": ["typedoc.config.mjs"],
+    },
     "packages/isaacscript-cli": {
       "entry": [
         "src/main.ts",
