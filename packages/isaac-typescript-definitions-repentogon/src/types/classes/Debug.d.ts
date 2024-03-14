@@ -5,12 +5,16 @@
  * @noSelf
  */
 declare namespace Debug {
-  /** Forcefully unloads a file from the provided file name. */
+  /** Forcibly unloads a specified script from the Lua environment. */
   function ForceUnload(moduleName: string): void;
 
-  /** Returns the signature of a function from the provided address. */
+  /**
+   * Retrieves the function signature from the provided address.
+   *
+   * Passing an invalid address will throw an error.
+   */
   function GetSignature(address: int): string;
 
-  /** Returns an array containing all of the files loaded into the Lua environment. */
+  /** Returns an array of all scripts currently loaded in the Lua environment. */
   function ListLoadedFiles(): string[];
 }
