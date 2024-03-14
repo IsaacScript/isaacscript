@@ -33,7 +33,7 @@ declare global {
     GetCollectibleList: () => CollectibleType[];
 
     /**
-     * Returns an array of the collectibles that the player's twin (i.e., Esau) starts with in the
+     * Returns an array of the collectibles that the player's twin (i.e. Esau) starts with in the
      * challenge.
      */
     GetCollectibleTwinList: () => CollectibleType[];
