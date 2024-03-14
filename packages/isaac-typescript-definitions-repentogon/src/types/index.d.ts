@@ -20,3 +20,4 @@
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
 /// <reference path="./classes/rendering/Shape.d.ts"/>
+/// <reference path="./classes/hud/DebugRenderer.d.ts" />
