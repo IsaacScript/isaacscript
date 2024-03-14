@@ -15,3 +15,4 @@
 /// <reference path="./classes/CostumeSpriteDesc.d.ts" />
 /// <reference path="./classes/DailyChallenge.d.ts"/>
 /// <reference path="./classes/Debug.d.ts"/>
+/// <reference path="./classes/ColorModifier.d.ts"/>
