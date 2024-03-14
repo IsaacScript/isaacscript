@@ -1,3 +1,3 @@
 export * from "./enums/Achievement";
-export * from "./enums/EntityTag";
-export * from "./enums/GibFlag";
+export * from "./enums/flags/EntityTag";
+export * from "./enums/flags/GibFlag";

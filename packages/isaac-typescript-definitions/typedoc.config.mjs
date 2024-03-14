@@ -9,7 +9,7 @@ const config = getTypeDocConfig(__dirname);
 export default {
   ...config,
   intentionallyNotExported: [
-    // From: "./src/enum/flags"
+    // From: "./src/enums/flags"
     "ActionTriggerType",
     "ActionTriggerValue",
     "CacheFlagType",
