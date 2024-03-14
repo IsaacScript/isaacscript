@@ -64,7 +64,7 @@ declare global {
     /** Returns the `PlayerType` the player starts off as in the challenge. */
     GetPlayerType: () => PlayerType;
 
-    /** Returns an array of all of the `RoomType`s that can't be generated during the challenge. */
+    /** Returns an array of the `RoomType` that cannot be generated during the challenge. */
     GetRoomFilter: () => RoomType[];
 
     /** Returns the amount of soul hearts the player starts with in the challenge. */
