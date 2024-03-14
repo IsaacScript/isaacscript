@@ -9,3 +9,4 @@
 /// <reference path="./classes/Ambush.d.ts" />
 /// <reference path="./classes/Camera.d.ts" />
 /// <reference path="./classes/Capsule.d.ts" />
+/// <reference path="./classes/ChallengeParams.d.ts" />
