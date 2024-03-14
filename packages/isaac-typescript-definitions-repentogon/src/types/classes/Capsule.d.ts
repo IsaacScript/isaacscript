@@ -1,5 +1,5 @@
 /**
- * Constructs a new Capsule object.
+ * Constructs a new `Capsule` class.
  *
  * Capsules are used by the game for collision detection. All entities have a collision capsule
  * whose shape is defined by their XML markup. Additionally, you can use a null layer frame's size
@@ -11,6 +11,10 @@
  *
  * You can use `Entity.GetNullCapsule` to generate a capsule of the current frame in a specified
  * null layer.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
  */
 export function Capsule(
   this: void,
@@ -28,16 +32,10 @@ export function Capsule(
 
 declare interface Capsule extends IsaacAPIClass {
   Collide: (capsule: Capsule, point: Vector) => boolean;
-
   GetDirection: () => Vector;
-
   GetF1: () => number;
-
   GetF2: () => number;
-
   GetPosition: () => Vector;
-
   GetVec2: () => Vector;
-
   GetVec3: () => Vector;
 }

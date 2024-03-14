@@ -1,3 +1,18 @@
+export function ColorParams(
+  this: void,
+  color: Color,
+  priority: int,
+  duration1: int,
+  duration2: int,
+  fadeout: boolean,
+  shared: boolean,
+): ColorParams;
+
+/**
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
 export interface ColorParams extends IsaacAPIClass {
   /** Returns the current color. */
   GetColor: () => Color;
@@ -38,13 +53,3 @@ export interface ColorParams extends IsaacAPIClass {
   /** Sets whether the `ColorParams` is shared with the entity's child. */
   SetShared: (shared: boolean) => void;
 }
-
-export function ColorParams(
-  this: void,
-  color: Color,
-  priority: int,
-  duration1: int,
-  duration2: int,
-  fadeout: boolean,
-  shared: boolean,
-): ColorParams;
