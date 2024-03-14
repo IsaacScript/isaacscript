@@ -34,7 +34,6 @@
     "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^41.1.0",
-    "lua-types": "^2.13.1"
+    "isaac-typescript-definitions": "^41.1.0"
   }
 }
