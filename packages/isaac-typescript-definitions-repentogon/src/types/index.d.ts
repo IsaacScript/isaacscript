@@ -17,3 +17,5 @@
 /// <reference path="./classes/Debug.d.ts"/>
 /// <reference path="./classes/ColorModifier.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
+/// <reference path="./classes/history/History.d.ts"/>
+/// <reference path="./classes/history/HistoryItem.d.ts"/>
