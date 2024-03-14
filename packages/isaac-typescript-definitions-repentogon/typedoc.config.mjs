@@ -9,45 +9,10 @@ const config = getTypeDocConfig(__dirname);
 export default {
   ...config,
   intentionallyNotExported: [
-    // From: "./src/enum/flags"
-    "ActionTriggerType",
-    "ActionTriggerValue",
-    "CacheFlagType",
-    "CacheFlagValue",
-    "DamageFlagType",
-    "DamageFlagValue",
-    "DisplayFlagType",
-    "DisplayFlagValue",
-    "DoorSlotFlagType",
-    "DoorSlotFlagValue",
-    "EntityFlagType",
-    "EntityFlagValue",
-    "EntityPartitionType",
-    "EntityPartitionValue",
-    "ItemConfigTagType",
-    "ItemConfigTagValue",
-    "LevelCurseType",
-    "LevelCurseValue",
-    "ProjectileFlagType",
-    "ProjectileFlagValue",
-    "RoomDescriptorFlagType",
-    "RoomDescriptorFlagValue",
-    "TargetFlagType",
-    "TargetFlagValue",
-    "TearFlagType",
-    "TearFlagValue",
-    "UseFlagType",
-    "UseFlagValue",
-
     // From: "./src/enum/repentogon"
     "EntityTagType",
     "EntityTagValue",
     "GibFlagType",
     "GibFlagValue",
-
-    // Other
-    "BitFlags",
-    "__global.BitSet128",
-    "int",
   ],
 };
