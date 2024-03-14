@@ -24,3 +24,4 @@
 /// <reference path="./classes/hud/Minimap.d.ts" />
 /// <reference path="./classes/hud/PlayerHUD.d.ts" />
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
+/// <reference path="./classes/hud/ScoreSheet.d.ts" />
