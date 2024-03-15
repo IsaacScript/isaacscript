@@ -162,6 +162,7 @@ ROUNDY
 SAMSONS
 Saturnus
 SAVY
+Schwag # ScoreSheet.GetSchwagBonus
 SCHYTHE
 secretexit # Goto console command
 SHAKEY
