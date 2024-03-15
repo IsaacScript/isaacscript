@@ -25,6 +25,13 @@
 /// <reference path="./classes/hud/PlayerHUD.d.ts" />
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
 /// <reference path="./classes/hud/ScoreSheet.d.ts" />
+/// <reference path = "./classes/ImGui.d.ts"/>
 /// <reference path="./classes/ItemOverlay.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts" />
+
+// ----------
+// Unofficial
+// ----------
+
+/// <reference path = "./unofficial/AddUpdateParametersImGui.d.ts"/>
