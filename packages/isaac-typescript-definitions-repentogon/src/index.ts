@@ -1,6 +1,7 @@
 export * from "./enums/Achievement";
 export * from "./enums/AutocompleteType";
 export * from "./enums/CharacterMenuType";
+export * from "./enums/EventCounter";
 export * from "./enums/GiantbookType";
 export * from "./enums/MainMenuType";
 export * from "./enums/MinimapState";

@@ -49,6 +49,7 @@
 /// <reference path="./classes/menus/TitleMenu.d.ts" />
 /// <reference path="./classes/MultiShotParams.d.ts" />
 /// <reference path="./classes/NightmareScene.d.ts" />
+/// <reference path="./classes/PersistentGameData.d.ts" />
 
 // ----------
 // Unofficial
