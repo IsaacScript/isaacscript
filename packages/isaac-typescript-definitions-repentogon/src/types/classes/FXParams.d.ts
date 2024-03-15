@@ -8,7 +8,7 @@ import type { ColorModifier } from "./ColorModifier";
 declare interface FXParams {
   /**
    * A modifiable copy of the color correction effect. This stores the values from `fxlayers.xml`,
-   * not raw values (see `game.GetCurrentColorModifier`).
+   * not raw values (see `Game.GetCurrentColorModifier`).
    *
    * Changes made here will require a call to `Room.UpdateColorModifier` to take effect.
    */
