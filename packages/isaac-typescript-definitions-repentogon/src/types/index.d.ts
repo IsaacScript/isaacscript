@@ -50,6 +50,7 @@
 /// <reference path="./classes/MultiShotParams.d.ts" />
 /// <reference path="./classes/NightmareScene.d.ts" />
 /// <reference path="./classes/PersistentGameData.d.ts" />
+/// <reference path="./classes/PlayerManager.d.ts" />
 
 // ----------
 // Unofficial
