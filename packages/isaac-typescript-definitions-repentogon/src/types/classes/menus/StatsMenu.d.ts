@@ -15,21 +15,13 @@ declare namespace StatsMenu {
   function GetSecretsMenuCursorRightSprite(): Sprite;
 
   function GetSecretsMiniSprite1(): Sprite;
-
   function GetSecretsMiniSprite2(): Sprite;
-
   function GetSecretsMiniSprite3(): Sprite;
-
   function GetSecretsMiniSprite4(): Sprite;
-
   function GetSecretsMiniSprite5(): Sprite;
-
   function GetSecretsMiniSprite6(): Sprite;
-
   function GetSecretsMiniSprite7(): Sprite;
-
   function GetSecretsMiniSprite8(): Sprite;
-
   function GetSecretsMiniSprite9(): Sprite;
 
   /** Returns the sprites used by the stats menu. */
