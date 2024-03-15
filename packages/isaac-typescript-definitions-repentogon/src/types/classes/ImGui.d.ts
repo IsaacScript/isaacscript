@@ -1,4 +1,4 @@
-import type { ActionTrigger, Keyboard } from "isaac-typescript-definitions";
+import type { Controller, Keyboard } from "isaac-typescript-definitions";
 import type { ImGuiCallback } from "../../enums/imgui/ImGuiCallback";
 import type { ImGuiColor } from "../../enums/imgui/ImGuiColor";
 import type { ImGuiData } from "../../enums/imgui/ImGuiData";
@@ -14,7 +14,7 @@ declare global {
    */
   namespace ImGui {
     /**
-     * Adds a button element.
+     * Adds a clickable button ImGui element and appends it to a specified parent element.
      *
      * @param parentId
      * @param elementId
@@ -26,13 +26,15 @@ declare global {
       parentId: string,
       elementId: string,
       label?: string,
-      clickCallback?: () => void,
+      clickCallback?: (clickCount: int) => void,
       isSmall?: boolean,
     ): void;
 
     /**
-     * Adds a callback to the ImGui element. An element can only have one callback per
-     * `ImGuiElement`.
+     * Registers a callback function to be executed when a specific event occurs on an ImGui
+     * element.
+     *
+     * Note: An ImGui element can only have one callback per `ImGuiCallback` type.
      *
      * @param elementId
      * @param callbackType
@@ -45,7 +47,7 @@ declare global {
     ): void;
 
     /**
-     * Adds a Checkbox element.
+     * Creates a clickable checkbox element and appends it to a specified parent element.
      *
      * @param parentId
      * @param elementId
@@ -57,35 +59,36 @@ declare global {
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (isChecked: boolean) => void,
       isActive?: boolean,
     ): void;
 
     /**
-     * Adds a Combobox element which represents a single line element that allows you to select a
-     * value from a dropdown menu. These values can be selected by interacting with a slider
-     * element.
+     * Creates a dropdown combobox element and appends it to a specified parent.
+     *
+     * The combobox allows you to select a single value from a list of options.
      *
      * @param parentId
      * @param elementId
      * @param label Optional. Default is an empty string.
      * @param changeCallback Optional. Default is an empty function.
      * @param options Optional. Default is an empty array.
-     * @param selectedIndex Optional. Default is 0.
+     * @param initialSelectedIndex Optional. Default is 0.
      * @param isSlider Optional. Default is false.
      */
     function AddCombobox(
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (index: int, value: string) => void,
       options?: string[],
-      selectedIndex?: int,
+      initialSelectedIndex?: int,
       isSlider?: boolean,
     ): void;
 
     /**
-     * Adds a float dragger element.
+     * Creates a draggable UI element for adjusting a floating point number and appends it to a
+     * specified parent element.
      *
      * @param parentId
      * @param elementId
@@ -95,13 +98,14 @@ declare global {
      * @param speed Optional. Default is 1.
      * @param min Optional. Default is the smallest number that can be stored.
      * @param max Optional. Default is the largest number that can be stored.
-     * @param formatting Optional. Default is "%.3f".
+     * @param formatting Optional. A formatting string used to control how the value is displayed.
+     *                   Default is "%.3f".
      */
     function AddDragFloat(
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newValue: number) => void,
       defaultValue?: number,
       speed?: number,
       min?: number,
@@ -110,7 +114,8 @@ declare global {
     ): void;
 
     /**
-     * Adds a float dragger element.
+     * Creates a draggable UI element for adjusting an integer and appends it to a specified parent
+     * element.
      *
      * @param parentId
      * @param elementId
@@ -120,13 +125,14 @@ declare global {
      * @param speed Optional. Default is 1.
      * @param min Optional. Default is the smallest number that can be stored.
      * @param max Optional. Default is the largest number that can be stored.
-     * @param formatting Optional. Default is "%d%".
+     * @param formatting Optional. A formatting string used to control how the value is displayed.
+     *                   Default is "%.3f".
      */
     function AddDragInteger(
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newValue: int) => void,
       defaultValue?: int,
       speed?: number,
       min?: int,
@@ -135,7 +141,8 @@ declare global {
     ): void;
 
     /**
-     * Adds an element of the given type.
+     * Creates a new UI element of the specified `ImGuiElement` and appends it to a specified parent
+     * element.
      *
      * @param parentId
      * @param elementId Optional. Default is an empty string.
@@ -150,7 +157,8 @@ declare global {
     ): void;
 
     /**
-     * Adds a RGBA color input.
+     * Creates a color picker element for selecting an RGBA color value and appends it to a
+     * specified parent element.
      *
      * @param parentId
      * @param elementId
@@ -159,13 +167,19 @@ declare global {
      * @param r Optional. Default is 0.
      * @param g Optional. Default is 0.
      * @param b Optional. Default is 0.
-     * @param a Optional. Default is 1.
+     * @param a Optional. If undefined, the color picker will only allow you to pick RGB values.
+     *          Default is undefined.
      */
     function AddInputColor(
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (
+        r: number,
+        g: number,
+        b: number,
+        a: number | undefined,
+      ) => void,
       r?: float,
       g?: float,
       b?: float,
@@ -173,24 +187,28 @@ declare global {
     ): void;
 
     /**
-     * Adds a controller input element.
+     * Creates a UI element for receiving input from a game controller and appends it to a specified
+     * parent element.
      *
      * @param parentId
      * @param elementId
      * @param buttonLabel Optional. Default is an empty string.
      * @param changeCallback Optional. Default is an empty function.
-     * @param defaultValue Optional is `ButtonAction.LEFT`.
+     * @param defaultValue Optional is `Controller.D_PAD_LEFT`.
      */
     function AddInputController(
       parentId: string,
       elementId: string,
       buttonLabel?: string,
-      changeCallback?: () => void,
-      defaultValue?: ActionTrigger,
+      changeCallback?: (button: Controller, buttonName: string) => void,
+      defaultValue?: Controller,
     ): void;
 
     /**
-     * Adds a float input element.
+     * Creates a UI element for inputting a floating point number and appends it to a specified
+     * parent element.
+     *
+     * You can type a value or adjust it incrementally using step sizes.
      *
      * @param parentId
      * @param elementId
@@ -204,14 +222,16 @@ declare global {
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newValue: number) => void,
       defaultValue?: number,
       step?: number,
       stepFast?: number,
     ): void;
 
     /**
-     * Adds an integer input element.
+     * Creates a UI element for inputting an integer and appends it to a specified parent element.
+     *
+     * You can type a value or adjust it incrementally using step sizes.
      *
      * @param parentId
      * @param elementId
@@ -225,14 +245,15 @@ declare global {
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newValue: int) => void,
       defaultValue?: int,
       step?: int,
       stepFast?: int,
     ): void;
 
     /**
-     * Adds a Keyboard button input element.
+     * Creates a UI element for receiving input from the keyboard and appends it to a specified
+     * parent element.
      *
      * @param parentId
      * @param elementId
@@ -244,31 +265,34 @@ declare global {
       parentId: string,
       elementId: string,
       buttonLabel?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newKey: Keyboard, keyName: string) => void,
       defaultValue?: Keyboard,
     ): void;
 
     /**
-     * Adds a text input element.
+     * Creates a UI element for typing in text and appends it to a specified parent element.
+     *
+     * The element can only display one line of text at a time. If want it to display multiple lines
+     * of text, use `ImGui.AddInputTextMultiline` instead.
      *
      * @param parentId
      * @param elementId
      * @param description Optional. Default is an empty string.
      * @param changeCallback Optional. Default is an empty function.
      * @param defaultValue Optional. Default is an empty string.
-     * @param hintText Optional. Default is an empty string.
+     * @param placeholderText Optional. Default is an empty string.
      */
     function AddInputText(
       parentId: string,
       elementId: string,
       description?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newText: string) => void,
       defaultValue?: string,
-      hintText?: string,
+      placeholderText?: string,
     ): void;
 
     /**
-     * Adds a multiline text input element.
+     * Creates a UI element for typing in text and appends it to a specified parent element.
      *
      * @param parentId
      * @param elementId
@@ -282,14 +306,15 @@ declare global {
       parentId: string,
       elementId: string,
       description?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newText: string) => void,
       defaultValue?: string,
       hintText?: string,
       displayedLines?: int,
     ): void;
 
     /**
-     * Adds a bar-diagram displaying the given data as vertical bars.
+     * Creates a histogram plot element to visualize the distribution of numbers and appends it to a
+     * specified parent element.
      *
      * @param parentId
      * @param elementId
@@ -312,7 +337,9 @@ declare global {
     ): void;
 
     /**
-     * Adds a line-diagram connecting the given values.
+     * Adds a UI element that visualizes plot lines and appends it to a specified parent element.
+     *
+     * The line plot is used to visualize trends or connections between numbers.
      *
      * @param parentId
      * @param elementId
@@ -333,13 +360,14 @@ declare global {
     ): void;
 
     /**
-     * Adds a progress bar element.
+     * Adds a UI element that visualizes a progress bar and appends it to a specified parent
+     * element.
      *
      * @param parentId
      * @param elementId
      * @param label Optional. Default is an empty string.
-     * @param progress Optional. Determines how much the progress bar is filled. The value must be
-     *                 between 0 and 1. Default is 0.
+     * @param progress Optional. The progress value, represented as a number between 0.0 (empty) and
+     *                 1.0 (full). Default is 0.
      * @param overlayText Optional. Default is "DEFAULT".
      */
     function AddProgressBar(
@@ -351,26 +379,30 @@ declare global {
     ): void;
 
     /**
-     * Adds a Radio Button element.
+     * Creates a UI element that is a set of radio buttons and appends it to a specified parent
+     * element.
+     *
+     * Radio buttons allow you to select a single option from a list.
      *
      * @param parentId
      * @param elementId
      * @param changeCallback Optional. Default is an empty function.
      * @param options Optional. Default is an empty array.
-     * @param selectedIndex Optional. Default is 0.
+     * @param initialSelectedIndex Optional. Default is 0.
      * @param renderSameLine Optional. Default is true.
      */
     function AddRadioButtons(
       parentId: string,
       elementId: string,
-      changeCallback?: () => void,
+      changeCallback?: (selectedIndex: int) => void,
       options?: string[],
-      selectedIndex?: int,
+      initialSelectedIndex?: int,
       renderSameLine?: boolean,
     ): void;
 
     /**
-     * Adds a float slider element.
+     * Creates a UI element that is a slider and appends it to a specified parent. The slider allows
+     * you to adjust a floating-point value within a range.
      *
      * @param parentId
      * @param elementId
@@ -379,13 +411,14 @@ declare global {
      * @param defaultValue Optional. Default is 0.
      * @param min Optional. Default is the smallest number Lua can store.
      * @param max Optional. Default is the largest number Lua can store.
-     * @param formatting Optional. Default is "%.3f".
+     * @param formatting Optional. A formatting string used to control how the value is displayed.
+     *                   Default is "%.3f".
      */
     function AddSliderFloat(
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newValue: number) => void,
       defaultValue?: number,
       min?: number,
       max?: number,
@@ -393,7 +426,8 @@ declare global {
     ): void;
 
     /**
-     * Adds an integer slider element.
+     * Creates a UI element that is a slider and appends it to a specified parent. The slider allows
+     * you to adjust an integer value within a range.
      *
      * @param parentId
      * @param elementId
@@ -402,13 +436,14 @@ declare global {
      * @param defaultValue Optional. Default is 0.
      * @param min Optional. Default is the smallest number Lua can store.
      * @param max Optional. Default is the largest number Lua can store.
-     * @param formatting Optional. Default is "%d%".
+     * @param formatting Optional. A formatting string used to control how the value is displayed.
+     *                   Default is "%d%".
      */
     function AddSliderInteger(
       parentId: string,
       elementId: string,
       label?: string,
-      changeCallback?: () => void,
+      changeCallback?: (newValue: int) => void,
       defaultValue?: int,
       min?: int,
       max?: int,
@@ -416,27 +451,23 @@ declare global {
     ): void;
 
     /**
-     * Adds a tab element.
+     * Adds a UI tab element and appends it to a specified parent. The parent should be a tab bar
+     * element (see `ImGui.AddTabBar` for more information).
      *
-     * A tab is a clickable area that shows another page or area. For it to work, its parent element
-     * must be a tab bar.
+     * Tabs provide a way to switch between different areas.
      */
     function AddTab(parentId: string, elementId: string, label: string): void;
 
-    /**
-     * Adds a tab bar element.
-     *
-     * A tab bar is used to store tab elements.
-     */
+    /** Creates a UI tab bar element to organize and switch between multiple areas. */
     function AddTabBar(parentId: string, elementId: string): void;
 
     /**
-     * Adds a text element.
+     * Creates a UI text element and appends it to a specified parent.
      *
      * @param parentId
      * @param text
-     * @param wrapText Optional. If true, the text will wrap onto the window borders. Otherwise, it
-     *                 will expand the window's content until it fits. Default is false.
+     * @param wrapText Optional. If true, the text will wrap within the available space. If false,
+     *                 the text will extend horizontally as needed. Default is false.
      * @param elementId Optional. Default is an empty string.
      */
     function AddText(
@@ -447,7 +478,7 @@ declare global {
     ): void;
 
     /**
-     * Creates an entry to the main menu bar of Repentogon.
+     * Creates a main menu entry in the menu bar.
      *
      * @param elementId
      * @param label Optional. Default is an empty string.
@@ -455,47 +486,50 @@ declare global {
     function CreateMenu(elementId: string, label?: string): void;
 
     /**
-     * Creates a window. You need to use `ImGui.LinkWindowToElement` or `ImGui.SetVisible` to toggle
-     * the visibility of the window.
+     * Creates an ImGui window.
      *
      * @param elementId
      * @param title Optional. Default is an empty string.
      */
     function CreateWindow(elementId: string, title?: string): void;
 
-    /** Returns whether an element with the given id exists. */
+    /** Returns whether an element with the specified id exists. */
     function ElementExists(elementId: string): boolean;
 
     /**
-     * Returns the position of the mouse in screen coordinates.
+     * Returns the current mouse position in screen coordinates.
      *
-     * Use this over `Input.GetMousePosition` when working with ImGui.
+     * Use this over `Input.GetMousePosition` when working with ImGui, otherwise you will end up
+     * with an inaccurate position.
      */
     function GetMousePosition(): Vector;
 
-    /** Returns whether a window element with the given id is visible or not. */
+    /** Returns whether a window element with the given id is currently visible. */
     function GetVisible(elementId: string): boolean;
 
-    /** Returns whether a window element with the given id is pinned or not. */
+    /** Returns whether a window element with the given id is currently pinned. */
     function GetWindowPinned(windowId: string): boolean;
 
-    /** Closes ImGui. */
+    /** Hides the ImGui interface. */
     function Hide(): void;
 
     /**
-     * Converts ImGui coordinates into World Coordinates.
+     * Converts a position in ImGui coordinates to world coordinates.
      *
      * This function does not work correctly when the game's scale factor exceeds
      * `Options.MaxRenderScale`.
      */
     function ImGuiToWorld(position: Vector): Vector;
 
-    /** Returns whether ImGui is visible. This does not account for pinned windows. */
+    /**
+     * Returns whether the ImGui interface is currently visible. This does not account for pinned
+     * windows.
+     */
     function IsVisible(): boolean;
 
     /**
-     * Links a window or popup element to another element, making said element act as a toggle for
-     * the window.
+     * Links a window (or popup) to another element, making the element act as a toggle for the
+     * window's visibility.
      *
      * **Example**
      *
@@ -509,11 +543,11 @@ declare global {
     function LinkWindowToElement(windowId: string, elementId: string): void;
 
     /**
-     * Displays a notification.
+     * Displays a notification message.
      *
      * @param text
      * @param notificationType Optional. Default is `ImGuiNotificationType.INFO`.
-     * @param lifetime Optional. Default is 5000.
+     * @param lifetime Optional. The duration is measured in milliseconds. Default is 5000.
      */
     function PushNotification(
       text: string,
@@ -521,29 +555,29 @@ declare global {
       lifetime?: int,
     ): void;
 
-    /** Removes the callback of the given type from the element. */
+    /** Removes a previously added callback of the specified `ImGuiCallback` from the element. */
     function RemoveCallback(
       elementId: string,
       callbackType: ImGuiCallback,
     ): void;
 
-    /** Removes a color modifier of the given type from the element. */
+    /** Removes a previously added color modifier of the specified `ImGuiColor` from an element. */
     function RemoveColor(elementId: string, colorType: ImGuiColor): void;
 
-    /** Removes the element. */
+    /** Removes an element. */
     function RemoveElement(elementId: string): void;
 
-    /** Removes the menu. */
+    /** Removes a menu. */
     function RemoveMenu(elementId: string): void;
 
-    /** Removes the window. */
+    /** Removes a window. */
     function RemoveWindow(elementId: string): void;
 
-    /** Removes all custom defined ImGui elements and resets ImGui back to its original state. */
+    /** Resets ImGui back to its default state, removing any custom elements. */
     function Reset(): void;
 
     /**
-     * Adds a color modifier to an element.
+     * Applies a color modifier to an element.
      *
      * @param elementId
      * @param colorType
@@ -562,17 +596,13 @@ declare global {
     ): void;
 
     /**
-     * Adds a helpmarker to an element.
-     *
-     * A helpmarker is a question mark element rendered on the right of an element, which displays a
-     * tooltip when hovered over.
+     * Adds a helpmarker (question mark icon) to an element. Hovering over the help marker will
+     * display a tooltip with the provided text.
      */
     function SetHelpmarker(elementId: string, text: string): void;
 
     /**
-     * Sets the text color of an element.
-     *
-     * Equivalent of `ImGui.SetColor` using `ImGuiElement.TEXT`.
+     * Sets the text color of an ImGui element.
      *
      * @param elementId
      * @param r
@@ -588,47 +618,45 @@ declare global {
       a?: float,
     ): void;
 
-    /** Adds a tooltip to an element. The tooltip is visible when the element is hovered over. */
+    /**
+     * Sets a tooltip to an ImGui element. The tooltip will be displayed when you hover over the
+     * element.
+     */
     function SetTooltip(elementId: string, text: string): void;
 
-    /** Sets the element's visibility. */
+    /** Sets the visibility of an ImGui element. */
     function SetVisible(elementId: string, visible: boolean): void;
 
     /**
-     * Sets whether a window is pinned or not.
-     *
-     * A pinned window is visible even when the ImGui interface is not active.
+     * Sets whether an ImGui window is pinned. Pinned windows remain open even when the main ImGui
+     * interface is not visible.
      */
     function SetWindowPinned(windowId: string, pinned: boolean): void;
 
-    /** Sets the position of a window in screen coordinates. */
+    /** Sets the position of an ImGui window in screen coordinates. */
     function SetWindowPosition(windowId: string, x: number, y: number): void;
 
-    /** Sets the size of the window in pixels. */
+    /** Sets the size of an ImGui window in pixels. */
     function SetWindowSize(
       WindowId: string,
       width: number,
       height: number,
     ): void;
 
-    /** Opens ImGui. */
+    /** Opens the ImGui interface. */
     function Show(): void;
 
-    /** Updates arbitrary data of a given element. */
+    /** Updates arbitrary data associated with an ImGui element. */
     function UpdateData<T extends keyof AddUpdateParametersImGui>(
       elementId: string,
       dataType: ImGuiData,
       newDataValues: AddUpdateParametersImGui[T],
     ): void;
 
-    /** Updates the text or label of an element. This is a shortcut to `ImGui.UpdateData`. */
+    /** Updates the text content or label of an ImGui element. */
     function UpdateText(elementId: string, text: string): void;
 
-    /**
-     * Converts world coordinates into ImGui coordinates.
-     *
-     * @param position
-     */
+    /** Converts world coordinates to ImGui coordinates. */
     function WorldToImGui(position: Vector): Vector;
   }
 }

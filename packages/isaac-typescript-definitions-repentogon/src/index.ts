@@ -2,3 +2,8 @@ export * from "./enums/Achievement";
 export * from "./enums/AutocompleteType";
 export * from "./enums/flags/EntityTag";
 export * from "./enums/flags/GibFlag";
+export * from "./enums/imgui/ImGuiCallback";
+export * from "./enums/imgui/ImGuiColor";
+export * from "./enums/imgui/ImGuiData";
+export * from "./enums/imgui/ImGuiElement";
+export * from "./enums/imgui/ImGuiNotificationType";

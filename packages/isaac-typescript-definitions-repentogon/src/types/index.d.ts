@@ -25,3 +25,10 @@
 /// <reference path="./classes/hud/PlayerHUD.d.ts" />
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
 /// <reference path="./classes/hud/ScoreSheet.d.ts" />
+/// <reference path = "./classes/ImGui.d.ts"/>
+
+// ----------
+// Unofficial
+// ----------
+
+/// <reference path = "./unofficial/AddUpdateParametersImGui.d.ts"/>
