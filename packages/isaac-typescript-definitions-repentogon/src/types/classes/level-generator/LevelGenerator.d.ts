@@ -23,7 +23,7 @@ declare global {
     GetNonDeadEnds: () => LevelGeneratorRoom[];
 
     /**
-     * Places a `LevelGeneratorRoom` onto the grid. Returns the GenerationIndex of the placed room.
+     * Places a `LevelGeneratorRoom` onto the grid. Returns the generation index of the placed room.
      * If placement was not possible, returns undefined.
      *
      * @param column The column index of the room. The value must be between 0 and 12 (inclusive).
