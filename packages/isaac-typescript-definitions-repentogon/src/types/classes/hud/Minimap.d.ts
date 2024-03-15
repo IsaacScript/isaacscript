@@ -1,3 +1,5 @@
+import type { MinimapState } from "../../../enums/MinimapState";
+
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
@@ -26,12 +28,8 @@ declare namespace Minimap {
   /** Returns the current offset of the minimap's screen shake effect. */
   function GetShakeOffset(): Vector;
 
-  /**
-   * Returns the current state of the minimap.
-   *
-   * TODO: Document the states and create an enum for it.
-   */
-  function GetState(): int;
+  /** Returns the current state of the minimap. */
+  function GetState(): MinimapState;
 
   /** Sets the duration (in frames) of the minimap's screen shake effect. */
   function SetShakeDuration(duration: int): void;
@@ -39,10 +37,6 @@ declare namespace Minimap {
   /** Sets the screen shake offset of the minimap. */
   function SetShakeOffset(offset: Vector): void;
 
-  /**
-   * Sets the state of the minimap.
-   *
-   * TODO: Document the states and create an enum for it.
-   */
-  function SetState(state: int): void;
+  /** Sets the state of the minimap. */
+  function SetState(state: MinimapState): void;
 }
