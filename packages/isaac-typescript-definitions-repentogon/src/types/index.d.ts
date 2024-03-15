@@ -37,6 +37,7 @@
 /// <reference path="./classes/menus/ControllerSelectMenu.d.ts" />
 /// <reference path="./classes/menus/CustomChallengeMenu.d.ts" />
 /// <reference path="./classes/menus/CutscenesMenu.d.ts" />
+/// <reference path="./classes/menus/DailyChallengeMenu.d.ts" />
 /// <reference path="./classes/menus/MenuManager.d.ts" />
 
 // ----------
