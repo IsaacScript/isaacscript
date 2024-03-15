@@ -13,7 +13,6 @@ declare global {
     ) => void;
 
     SetColIdx: (room: LevelGeneratorRoom, columnIndex: int) => void;
-
     SetLineIdx: (room: LevelGeneratorRoom, columnIndex: int) => void;
   }
 }
