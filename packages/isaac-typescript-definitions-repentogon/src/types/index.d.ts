@@ -32,6 +32,7 @@
 /// <reference path="./classes/level-generator/LevelGenerator.d.ts" />
 /// <reference path="./classes/menus/BestiaryMenu.d.ts" />
 /// <reference path="./classes/menus/ChallengeMenu.d.ts" />
+/// <reference path="./classes/menus/CharacterMenu.d.ts" />
 /// <reference path="./classes/menus/MenuManager.d.ts" />
 
 // ----------
