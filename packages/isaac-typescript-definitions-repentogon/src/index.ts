@@ -4,6 +4,7 @@ export * from "./enums/CharacterMenuType";
 export * from "./enums/GiantbookType";
 export * from "./enums/MainMenuType";
 export * from "./enums/MinimapState";
+export * from "./enums/PauseMenuState";
 export * from "./enums/flags/EntityTag";
 export * from "./enums/flags/GibFlag";
 export * from "./enums/imgui/ImGuiCallback";
