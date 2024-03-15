@@ -46,7 +46,7 @@ declare global {
     function GetDifficultyOverlaySprite(): Sprite;
 
     /** Returns the sprite used to display the easter eggs widget. */
-    function GetEastereggPageSprite(): Sprite;
+    function GetEastereggPageSprite(): Sprite; // cspell:ignore Easteregg
 
     /** Returns whether the currently selected character is unlocked. */
     function GetIsCharacterUnlocked(): boolean;
