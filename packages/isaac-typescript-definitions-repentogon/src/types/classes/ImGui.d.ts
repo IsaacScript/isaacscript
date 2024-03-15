@@ -64,9 +64,9 @@ declare global {
     ): void;
 
     /**
-     * Creates a dropdown combobox element and appends it to a specified parent.
+     * Creates a dropdown combo box element and appends it to a specified parent.
      *
-     * The combobox allows you to select a single value from a list of options.
+     * The combo box allows you to select a single value from a list of options.
      *
      * @param parentID
      * @param elementID

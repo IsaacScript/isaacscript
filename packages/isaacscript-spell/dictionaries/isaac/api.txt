@@ -45,7 +45,6 @@ cooldown
 costumetest # Console command
 CRAFTER
 Crossfade
-customtags
 cutscene
 cutscenes
 CYCLOPIA
@@ -90,7 +89,6 @@ HORF
 HORNFEL
 HUSHY
 HYPERCOAGULATION
-imgui # Dear ImGui library
 ISAACS
 IWATA
 JERA
@@ -163,7 +161,6 @@ ROUNDY
 SAMSONS
 Saturnus
 SAVY
-Schwag # ScoreSheet.GetSchwagBonus
 SCHYTHE
 secretexit # Goto console command
 SHAKEY

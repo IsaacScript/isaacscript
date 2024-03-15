@@ -7,9 +7,11 @@ Bethanys
 Bloodfly
 Bonies
 Chronometrics # Creator of Basement Renovator
+combobox # ImGui element
 contentfolder # metadata.vdf
 craftable
 Cucco # Creator of Job
+customtags # REPENTOGON API
 datagrams
 debuff
 despawn
@@ -28,10 +30,12 @@ forgottens
 Gabriels
 gameplay
 giveitem # Console command
+helpmarker # ImGui element
 hitbox
 hitboxes
 hitsphere
 hitspheres
+imgui # REPENTOGON library
 isaacracing # Website for Racing+
 Kilburn # Creator of Antibirth / Repentance
 Kinetis
@@ -66,6 +70,7 @@ respawning
 respawns
 Sanio # Creator of Character Costume Protector library
 satans
+schwag # REPENTOGON API
 scolexes
 shockwaves
 shroom

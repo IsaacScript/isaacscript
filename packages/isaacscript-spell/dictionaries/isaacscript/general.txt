@@ -11,14 +11,12 @@ brainer
 cacheable
 checkmark
 codebases
-COMBOBOX
 cyclomatic
 decompilation
 decrementation
 easings
 gamepad
 grimoire
-Helpmarker
 icns # MacOS icons file.
 incrementation
 interactable
