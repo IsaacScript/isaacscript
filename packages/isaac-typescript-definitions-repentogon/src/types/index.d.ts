@@ -26,6 +26,27 @@
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
 /// <reference path="./classes/hud/ScoreSheet.d.ts" />
 /// <reference path = "./classes/ImGui.d.ts"/>
+/// <reference path="./classes/ItemOverlay.d.ts" />
+/// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts" />
+/// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts" />
+/// <reference path="./classes/level-generator/LevelGenerator.d.ts" />
+/// <reference path="./classes/menus/BestiaryMenu.d.ts" />
+/// <reference path="./classes/menus/ChallengeMenu.d.ts" />
+/// <reference path="./classes/menus/CharacterMenu.d.ts" />
+/// <reference path="./classes/menus/CollectionMenu.d.ts" />
+/// <reference path="./classes/menus/ControllerSelectMenu.d.ts" />
+/// <reference path="./classes/menus/CustomChallengeMenu.d.ts" />
+/// <reference path="./classes/menus/CutscenesMenu.d.ts" />
+/// <reference path="./classes/menus/DailyChallengeMenu.d.ts" />
+/// <reference path="./classes/menus/KeyConfigMenu.d.ts" />
+/// <reference path="./classes/menus/MenuManager.d.ts" />
+/// <reference path="./classes/menus/ModsMenu.d.ts" />
+/// <reference path="./classes/menus/OptionsMenu.d.ts" />
+/// <reference path="./classes/menus/PauseMenu.d.ts" />
+/// <reference path="./classes/menus/SaveMenu.d.ts" />
+/// <reference path="./classes/menus/SpecialSeedsMenu.d.ts" />
+/// <reference path="./classes/menus/StatsMenu.d.ts" />
+/// <reference path="./classes/menus/TitleMenu.d.ts" />
 
 // ----------
 // Unofficial
