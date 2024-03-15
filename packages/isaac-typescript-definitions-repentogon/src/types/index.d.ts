@@ -29,6 +29,7 @@
 /// <reference path="./classes/ItemOverlay.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts" />
+/// <reference path="./classes/level-generator/LevelGenerator.d.ts" />
 
 // ----------
 // Unofficial
