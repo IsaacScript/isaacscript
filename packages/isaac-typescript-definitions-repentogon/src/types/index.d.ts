@@ -13,3 +13,15 @@
 /// <reference path="./classes/ColorParams.d.ts" />
 /// <reference path="./classes/Console.d.ts" />
 /// <reference path="./classes/CostumeSpriteDesc.d.ts" />
+/// <reference path="./classes/DailyChallenge.d.ts"/>
+/// <reference path="./classes/Debug.d.ts"/>
+/// <reference path="./classes/ColorModifier.d.ts"/>
+/// <reference path="./classes/FXParams.d.ts"/>
+/// <reference path="./classes/history/History.d.ts"/>
+/// <reference path="./classes/history/HistoryItem.d.ts"/>
+/// <reference path="./classes/rendering/Shape.d.ts"/>
+/// <reference path="./classes/hud/DebugRenderer.d.ts" />
+/// <reference path="./classes/hud/Minimap.d.ts" />
+/// <reference path="./classes/hud/PlayerHUD.d.ts" />
+/// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
+/// <reference path="./classes/hud/ScoreSheet.d.ts" />
