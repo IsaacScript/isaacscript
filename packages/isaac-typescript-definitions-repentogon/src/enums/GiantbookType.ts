@@ -46,4 +46,3 @@ export enum GiantbookType {
   DOGMA_NIGHTMARE = 44,
   ETERNAL_HEART_BLACK = 46,
 }
-
