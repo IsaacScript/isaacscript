@@ -44,6 +44,8 @@
 /// <reference path="./classes/menus/OptionsMenu.d.ts" />
 /// <reference path="./classes/menus/PauseMenu.d.ts" />
 /// <reference path="./classes/menus/SaveMenu.d.ts" />
+/// <reference path="./classes/menus/SpecialSeedsMenu.d.ts" />
+
 // ----------
 // Unofficial
 // ----------
