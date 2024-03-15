@@ -16,19 +16,19 @@ declare namespace ItemOverlay {
 
   function GetMegaMushPlayerSprite(): Sprite;
 
-  /** Returns the `GiantbookType` of the last played Giantbook animation. */
+  /** Returns the `GiantbookType` of the last played giantbook animation. */
   function GetOverlayID(): GiantbookType;
 
   /**
-   * Returns the player that triggered the last played Giantbook animation. Returns undefined if no
+   * Returns the player that triggered the last played giantbook animation. Returns undefined if no
    * player triggered the animation.
    */
   function GetPlayer(): EntityPlayer;
 
-  /** Returns the sprite used for the Giantbook animations. */
+  /** Returns the sprite used for the giantbook animations. */
   function GetSprite(): Sprite;
 
-  /** Displays a Giantbook animation on the screen. */
+  /** Displays a giantbook animation on the screen. */
   function Show(
     giantbookType: GiantbookType,
     delay?: int,
