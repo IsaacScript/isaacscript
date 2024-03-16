@@ -57,6 +57,7 @@
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
 /// <reference path="./classes/RoomTransition.d.ts"/>
+/// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 
 // ----------
 // Unofficial
