@@ -51,6 +51,9 @@
 /// <reference path="./classes/NightmareScene.d.ts" />
 /// <reference path="./classes/PersistentGameData.d.ts" />
 /// <reference path="./classes/PlayerManager.d.ts" />
+/// <reference path="./classes/procedural-items/ProceduralEffect.d.ts"/>
+/// <reference path="./classes/procedural-items/ProceduralItem.d.ts"/>
+/// <reference path="./classes/procedural-items/ProceduralItemManager.d.ts"/>
 
 // ----------
 // Unofficial
