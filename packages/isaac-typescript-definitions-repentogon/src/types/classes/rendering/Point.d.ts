@@ -11,7 +11,7 @@
  * @param widthMultiplier A multiplier for how wide the beam should be. This is interpolated between
  *                        points.
  */
-export function Point(
+declare function Point(
   this: void,
   position: Vector,
   spritesheetCoordinate: number,
@@ -23,7 +23,7 @@ export function Point(
  *
  * @see https://repentogon.com/index.html
  */
-declare interface Point {
+declare interface Point extends IsaacAPIClass {
   /** Returns the vertical position of the point. */
   GetSpritesheetCoordinate: () => number;
 
