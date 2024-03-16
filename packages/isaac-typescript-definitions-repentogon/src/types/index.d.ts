@@ -47,6 +47,7 @@
 /// <reference path="./classes/menus/SpecialSeedsMenu.d.ts" />
 /// <reference path="./classes/menus/StatsMenu.d.ts" />
 /// <reference path="./classes/menus/TitleMenu.d.ts" />
+/// <reference path="./classes/rendering/Point.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
 
 // ----------
