@@ -1,5 +1,7 @@
 export * from "./enums/Achievement";
 export * from "./enums/AutocompleteType";
+export * from "./enums/BlendFactor";
+export * from "./enums/BlendType";
 export * from "./enums/CharacterMenuType";
 export * from "./enums/GiantbookType";
 export * from "./enums/MainMenuType";
