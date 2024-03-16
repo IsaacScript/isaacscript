@@ -50,6 +50,7 @@
 /// <reference path="./classes/rendering/Point.d.ts"/>
 /// <reference path="./classes/rendering/Beam.d.ts"/>
 /// <reference path="./classes/rendering/BlendMode.d.ts"/>
+/// <reference path="./classes/rendering/DestinationQuad.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
 
 // ----------
