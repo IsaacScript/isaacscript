@@ -6,6 +6,7 @@ export * from "./enums/GiantbookType";
 export * from "./enums/MainMenuType";
 export * from "./enums/MinimapState";
 export * from "./enums/PauseMenuState";
+export * from "./enums/PocketItemType";
 export * from "./enums/ProceduralEffectActionType";
 export * from "./enums/ProceduralEffectConditionType";
 export * from "./enums/flags/EntityTag";
