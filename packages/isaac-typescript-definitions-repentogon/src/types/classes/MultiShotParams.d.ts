@@ -8,12 +8,12 @@ declare global {
    */
   interface MultiShotParams {
     /**
-     * Returns the angular offset between each eye for multi-shot effects (e.g., 45 degrees for The
+     * Returns the angular offset between each eye for multi-shot effects (e.g. 45 degrees for The
      * Wiz). If the player only has one active eye, 0 will be returned.
      */
     GetMultiEyeAngle: () => number;
 
-    /** the number of active eyes that shoots simultaneously (e.g., 2 for The Wiz). */
+    /** the number of active eyes that shoots simultaneously (e.g. 2 for The Wiz). */
     GetNumEyesActive: () => int;
 
     /**
