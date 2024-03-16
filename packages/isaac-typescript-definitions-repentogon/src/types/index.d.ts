@@ -52,6 +52,7 @@
 /// <reference path="./classes/rendering/BlendMode.d.ts"/>
 /// <reference path="./classes/rendering/DestinationQuad.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveState.d.ts"/>
+/// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
