@@ -8,7 +8,7 @@ import type { CollectibleType } from "isaac-typescript-definitions";
  */
 declare namespace ProceduralItemManager {
   /**
-   * Creates a new glitch item and returns its negative id.
+   * Creates a new glitch item and returns its negative ID.
    *
    * @param seed
    * @param unknown The exact behavior of this parameter is unknown and undocumented.
