@@ -3,7 +3,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-declare interface PlayerHUDHeart {
+declare interface PlayerHUDHeart extends IsaacAPIClass {
   /** TODO: Document each value and create an enum. */
   GetFlashType: () => int;
 

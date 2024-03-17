@@ -11,7 +11,7 @@ import type {
  *
  * @see https://repentogon.com/index.html
  */
-declare interface HistoryItem {
+declare interface HistoryItem extends IsaacAPIClass {
   /** Returns the `CollectibleType` this history item represents. */
   GetItemID: () => CollectibleType;
 

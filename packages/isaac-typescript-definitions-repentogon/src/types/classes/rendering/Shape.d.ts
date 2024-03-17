@@ -5,7 +5,7 @@ import type { Capsule } from "../Capsule";
  *
  * @see https://repentogon.com/index.html
  */
-interface Shape {
+declare interface Shape extends IsaacAPIClass {
   GetTimeout: () => int;
 
   SetTimeout: (timeout: int) => void;

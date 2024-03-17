@@ -1,5 +1,4 @@
 import type { MainMenuType } from "../../../enums/MainMenuType";
-import type { ColorModifier } from "../ColorModifier";
 
 declare global {
   /**

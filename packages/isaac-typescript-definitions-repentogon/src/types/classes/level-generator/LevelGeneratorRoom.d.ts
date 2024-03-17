@@ -1,12 +1,12 @@
 import type { DoorSlotFlag, RoomShape } from "isaac-typescript-definitions";
 
-/**
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @see https://repentogon.com/index.html
- */
 declare global {
-  interface LevelGeneratorRoom {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   */
+  interface LevelGeneratorRoom extends IsaacAPIClass {
     /** Returns the column position of the room within the level grid (zero-based index). */
     Column: () => int;
 

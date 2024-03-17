@@ -12,7 +12,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-export function ColorModifier(
+declare function ColorModifier(
   r?: float,
   g?: float,
   b?: float,
@@ -21,7 +21,12 @@ export function ColorModifier(
   contrast?: float,
 ): ColorModifier;
 
-declare interface ColorModifier {
+/**
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
+declare interface ColorModifier extends IsaacAPIClass {
   A: float;
   B: float;
   Brightness: float;

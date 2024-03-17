@@ -1,4 +1,4 @@
-export function ColorParams(
+declare function ColorParams(
   this: void,
   color: Color,
   priority: int,
@@ -13,7 +13,7 @@ export function ColorParams(
  *
  * @see https://repentogon.com/index.html
  */
-export interface ColorParams extends IsaacAPIClass {
+declare interface ColorParams extends IsaacAPIClass {
   /** Returns the current color. */
   GetColor: () => Color;
 

@@ -30,6 +30,11 @@ export function Capsule(
   size: number,
 ): Capsule;
 
+/**
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
 declare interface Capsule extends IsaacAPIClass {
   Collide: (capsule: Capsule, point: Vector) => boolean;
   GetDirection: () => Vector;
