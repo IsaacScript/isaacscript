@@ -70,6 +70,7 @@
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
+/// <reference path="./classes/StageTransition.d.ts"/>
 
 // ----------
 // Unofficial
