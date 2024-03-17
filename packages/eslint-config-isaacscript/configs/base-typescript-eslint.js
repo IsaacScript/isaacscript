@@ -127,10 +127,16 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-extraneous-class": "error",
 
   /**
-   * The rule is disabled in "*.test.ts" files, since the built-in Node test runner returns a
-   * promise that is not meant to be awaited.
+   * - The `ignoreVoid` option is disabled to make the rule stricter.
+   * - The rule is disabled in "*.test.ts" files because the built-in Node test runner returns a
+   *   promise that is not meant to be awaited.
    */
-  "@typescript-eslint/no-floating-promises": "error",
+  "@typescript-eslint/no-floating-promises": [
+    "error",
+    {
+      ignoreVoid: false,
+    },
+  ],
 
   "@typescript-eslint/no-for-in-array": "error",
   "@typescript-eslint/no-import-type-side-effects": "error",
@@ -225,7 +231,18 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/prefer-ts-expect-error": "error",
   "@typescript-eslint/promise-function-async": "error",
   "@typescript-eslint/require-array-sort-compare": "error",
-  "@typescript-eslint/restrict-plus-operands": "error",
+
+  /** The various "allow" options are disabled to make the rule stricter. */
+  "@typescript-eslint/restrict-plus-operands": [
+    "error",
+    {
+      allowAny: false,
+      allowBoolean: false,
+      allowNullish: false,
+      allowNumberAndString: false,
+      allowRegExp: false,
+    },
+  ],
 
   /** Disabled since a common use-case of template strings is to coerce everything to a string. */
   "@typescript-eslint/restrict-template-expressions": "off",
