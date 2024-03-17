@@ -7,7 +7,7 @@
  * @see https://repentogon.com/index.html
  * @enum
  * @notExported
- * @rename GibFlag
+ * @rename AnimationRenderFlag
  */
 const AnimationRenderFlagInternal = {
   /** Rapidly distorts the spritesheet position. */
