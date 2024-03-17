@@ -41,7 +41,7 @@
     "execa": "^8.0.1",
     "isaacscript-common-ts": "^16.1.0",
     "jsonc-parser": "^3.2.1",
-    "npm-check-updates": "^16.14.15",
+    "npm-check-updates": "^16.14.17",
     "zod": "^3.22.4"
   }
 }
