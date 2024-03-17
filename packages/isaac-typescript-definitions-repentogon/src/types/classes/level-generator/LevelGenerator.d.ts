@@ -1,12 +1,12 @@
 import type { RoomShape } from "isaac-typescript-definitions";
 
-/**
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @see https://repentogon.com/index.html
- */
 declare global {
-  interface LevelGenerator {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   */
+  interface LevelGenerator extends IsaacAPIClass {
     /** Returns an array containing all the rooms that have been generated for the level. */
     GetAllRooms: () => LevelGeneratorRoom[];
 

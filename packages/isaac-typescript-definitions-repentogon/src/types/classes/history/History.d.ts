@@ -5,7 +5,7 @@ import type { HistoryItem } from "./HistoryItem";
  *
  * @see https://repentogon.com/index.html
  */
-declare interface History {
+declare interface History extends IsaacAPIClass {
   /** Returns an array of the list of `HistoryItem` found in the current run. */
   GetCollectiblesHistory: () => HistoryItem[];
 

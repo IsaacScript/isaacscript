@@ -7,7 +7,7 @@ declare global {
    * @see https://repentogon.com/index.html
    * @noSelf
    */
-  interface CostumeSpriteDesc {
+  interface CostumeSpriteDesc extends IsaacAPIClass {
     /** Returns whether the costume can change the player's color. */
     CanOverwriteColor: () => boolean;
 

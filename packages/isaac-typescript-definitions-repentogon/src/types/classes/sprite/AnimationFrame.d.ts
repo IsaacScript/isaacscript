@@ -3,7 +3,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-declare interface AnimationFrame {
+declare interface AnimationFrame extends IsaacAPIClass {
   /** Returns the frame's color. */
   GetColor: () => Readonly<Color>;
 

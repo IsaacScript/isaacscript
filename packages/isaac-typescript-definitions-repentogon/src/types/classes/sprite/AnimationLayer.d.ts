@@ -3,7 +3,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-declare interface AnimationLayer {
+declare interface AnimationLayer extends IsaacAPIClass {
   /**
    * Returns the `AnimationFrame` from the specified frame number. Returns undefined if none were
    * found.

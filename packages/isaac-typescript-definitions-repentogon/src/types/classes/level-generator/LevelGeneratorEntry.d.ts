@@ -1,12 +1,12 @@
 import type { DoorSlotFlag } from "isaac-typescript-definitions";
 
-/**
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @see https://repentogon.com/index.html
- */
 declare global {
-  interface LevelGeneratorEntry {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   */
+  interface LevelGeneratorEntry extends IsaacAPIClass {
     SetAllowedDoors: (
       room: LevelGeneratorRoom,
       doors: BitFlags<DoorSlotFlag>,

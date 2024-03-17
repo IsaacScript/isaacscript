@@ -5,7 +5,7 @@ import type { AnimationRenderFlag } from "../../../enums/flags/AnimationRenderFl
  *
  * @see https://repentogon.com/index.html
  */
-declare interface LayerState {
+declare interface LayerState extends IsaacAPIClass {
   /** Returns the layer's `BlendMode`. */
   GetBlendMode: () => BlendMode;
 

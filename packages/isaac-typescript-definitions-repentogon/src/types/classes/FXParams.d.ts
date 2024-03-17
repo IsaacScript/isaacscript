@@ -1,11 +1,9 @@
-import type { ColorModifier } from "./ColorModifier";
-
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/index.html
  */
-declare interface FXParams {
+declare interface FXParams extends IsaacAPIClass {
   /**
    * A modifiable copy of the color correction effect. This stores the values from `fxlayers.xml`,
    * not raw values (see `Game.GetCurrentColorModifier`).

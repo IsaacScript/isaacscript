@@ -4,13 +4,13 @@ import type {
   StageType,
 } from "isaac-typescript-definitions";
 
-/**
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @see https://repentogon.com/index.html
- * @noSelf
- */
 declare global {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   * @noSelf
+   */
   namespace ScoreSheet {
     function AddFinishedStage(
       levelStage: LevelStage,

@@ -3,7 +3,7 @@
  *
  * @see https://repentogon.com/index.html
  */
-declare interface AnimationData {
+declare interface AnimationData extends IsaacAPIClass {
   /**
    * Returns an array of all of the animation layers. The array is ordered from bottom to top, not
    * by layer ID.

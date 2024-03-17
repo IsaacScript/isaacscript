@@ -1,6 +1,12 @@
 import type { PauseMenuState } from "../../../enums/PauseMenuState";
 
 declare global {
+  /**
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   * @noSelf
+   */
   namespace PauseMenu {
     /** Returns the sprite used to display the completion marks. */
     function GetCompletionMarksSprite(): Sprite;

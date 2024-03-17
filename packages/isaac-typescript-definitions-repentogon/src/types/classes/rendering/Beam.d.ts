@@ -1,7 +1,9 @@
 /**
  * Constructs a new beam object.
  *
- * *Example**
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
  *
  * @param this
  * @param sprite The sprite used must share the same scope as the beam you are creating, otherwise
@@ -10,7 +12,7 @@
  * @param useOverlay
  * @param unknownBool The behavior of this argument is currently unknown.
  */
-export function Beam(
+declare function Beam(
   this: void,
   sprite: Sprite,
   layerOrLayerName: int | string,
@@ -23,7 +25,7 @@ export function Beam(
  *
  * @see https://repentogon.com/index.html
  */
-declare interface RenderBeam {
+declare interface RenderBeam extends IsaacAPIClass {
   /**
    * Adds a point to the beam.
    *

@@ -3,6 +3,6 @@
  *
  * @see https://repentogon.com/index.html
  */
-declare interface RailManager {
+declare interface RailManager extends IsaacAPIClass {
   GetRailsSprite: () => Sprite;
 }
