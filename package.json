@@ -125,7 +125,7 @@
     "typedoc-plugin-markdown": "^3.17.1",
     "typedoc-plugin-rename": "^1.0.1",
     "typescript": "^5.4.2",
-    "typescript-to-lua": "^1.24.1",
+    "typescript-to-lua": "^1.25.0",
     "unbuild": "^2.0.0",
     "unidecode": "^1.0.1",
     "unified": "^11.0.4",

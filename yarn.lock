@@ -11617,7 +11617,7 @@ __metadata:
     typedoc-plugin-markdown: "npm:^3.17.1"
     typedoc-plugin-rename: "npm:^1.0.1"
     typescript: "npm:^5.4.2"
-    typescript-to-lua: "npm:^1.24.1"
+    typescript-to-lua: "npm:^1.25.0"
     unbuild: "npm:^2.0.0"
     unidecode: "npm:^1.0.1"
     unified: "npm:^11.0.4"
@@ -18843,9 +18843,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-to-lua@npm:^1.24.1":
-  version: 1.24.1
-  resolution: "typescript-to-lua@npm:1.24.1"
+"typescript-to-lua@npm:^1.25.0":
+  version: 1.25.0
+  resolution: "typescript-to-lua@npm:1.25.0"
   dependencies:
     "@typescript-to-lua/language-extensions": "npm:1.19.0"
     enhanced-resolve: "npm:^5.8.2"
@@ -18853,10 +18853,10 @@ __metadata:
     resolve: "npm:^1.15.1"
     source-map: "npm:^0.7.3"
   peerDependencies:
-    typescript: 5.3.3
+    typescript: 5.4.2
   bin:
     tstl: dist/tstl.js
-  checksum: 10c0/ef076ba17224ed7accadfa5c799cd3310f7af61098b07d2d26f114ed75b9ff8f14230b73f8f7d2c01844a6f872a268f9e1584d740f446b5aa2b428b55ca7da74
+  checksum: 10c0/fc1ad0202b1b41042e0e1acdcdc828e9a1fa3eace9a3747daa3fb089ebd40f3ced58d0c47a83a6291b36d16753a7beae0cdcfca658eff1fe76e10ed2fd62d17f
   languageName: node
   linkType: hard
 
