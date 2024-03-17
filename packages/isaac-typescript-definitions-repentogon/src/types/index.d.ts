@@ -60,6 +60,7 @@
 /// <reference path="./classes/sprite/AnimationData.d.ts"/>
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
+/// <reference path="./classes/sprite/LayerState.d.ts"/>
 
 // ----------
 // Unofficial
