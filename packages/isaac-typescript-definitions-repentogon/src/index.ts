@@ -11,7 +11,6 @@ export * from "./enums/PauseMenuState";
 export * from "./enums/PocketItemType";
 export * from "./enums/ProceduralEffectActionType";
 export * from "./enums/ProceduralEffectConditionType";
-export * from "./enums/StbType";
 export * from "./enums/flags/AnimationRenderFlag";
 export * from "./enums/flags/EntityTag";
 export * from "./enums/flags/GibFlag";

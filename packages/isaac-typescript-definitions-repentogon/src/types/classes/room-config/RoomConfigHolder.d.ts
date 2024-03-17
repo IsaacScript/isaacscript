@@ -1,5 +1,8 @@
-import type { RoomShape, RoomType } from "isaac-typescript-definitions";
-import type { StbType } from "../../../enums/StbType";
+import type {
+  RoomShape,
+  RoomType,
+  StageID,
+} from "isaac-typescript-definitions";
 
 declare global {
   /**
@@ -14,7 +17,7 @@ declare global {
      *
      * @param seed
      * @param reduceWeight
-     * @param stage
+     * @param stageID
      * @param roomType
      * @param shape Optional. Default is any `RoomShape`.
      * @param minVariant Optional. Default is 0.
@@ -28,7 +31,7 @@ declare global {
     function GetRandomRoom(
       seed: Seed,
       reduceWeight: boolean,
-      stage: StbType,
+      stageID: StageID,
       roomType: RoomType,
       shape?: RoomShape,
       minVariant?: int,
@@ -42,7 +45,7 @@ declare global {
 
     /** Returns a random `RoomConfig` from the specified parameters. */
     function GetRoomByStageTypeAndVariant(
-      stage: StbType,
+      stageID: StageID,
       roomType: RoomType,
       variant: int,
       difficulty: int,
