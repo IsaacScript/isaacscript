@@ -15,6 +15,7 @@
 /// <reference path="./classes/CostumeSpriteDesc.d.ts" />
 /// <reference path="./classes/DailyChallenge.d.ts"/>
 /// <reference path="./classes/Debug.d.ts"/>
+/// <reference path="./classes/Color.d.ts"/>
 /// <reference path="./classes/ColorModifier.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
@@ -76,3 +77,4 @@
 // ----------
 
 /// <reference path = "./unofficial/AddUpdateParametersImGui.d.ts"/>
+/// <reference path = "./unofficial/RGBValue.d.ts"/>
