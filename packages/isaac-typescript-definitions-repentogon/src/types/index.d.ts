@@ -21,6 +21,7 @@
 /// <reference path="./classes/entity/EntityKnife.d.ts"/>
 /// <reference path="./classes/entity/EntityLaser.d.ts"/>
 /// <reference path="./classes/entity/EntityNPC.d.ts"/>
+/// <reference path="./classes/entity/EntityPickup.d.ts"/>
 /// <reference path="./classes/entity/EntityPlayer.d.ts"/>
 /// <reference path="./classes/entity-config/EntityConfig.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
