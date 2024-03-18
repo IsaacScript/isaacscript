@@ -2,10 +2,6 @@
 // Classes
 // -------
 
-/// <reference path="./classes/entity-config/EntityConfig.d.ts" />
-/// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
-/// <reference path="./classes/entity-config/EntityConfigEntity.d.ts" />
-/// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts" />
 /// <reference path="./classes/Ambush.d.ts" />
 /// <reference path="./classes/Camera.d.ts" />
 /// <reference path="./classes/Capsule.d.ts" />
@@ -18,6 +14,11 @@
 /// <reference path="./classes/Color.d.ts"/>
 /// <reference path="./classes/ColorModifier.d.ts"/>
 /// <reference path="./classes/entity/Entity.d.ts"/>
+/// <reference path="./classes/entity/EntityBomb.d.ts"/>
+/// <reference path="./classes/entity-config/EntityConfig.d.ts" />
+/// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
+/// <reference path="./classes/entity-config/EntityConfigEntity.d.ts" />
+/// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts" />
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
@@ -72,6 +73,7 @@
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
+/// <reference path="./classes/sprite/NullLayer.d.ts"/>
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
 
 // ----------
