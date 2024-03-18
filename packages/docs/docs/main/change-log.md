@@ -9,7 +9,13 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## January 8th, 2013
+## March 18th, 2023
+
+- Added REPENTOGON support. Since this hack changes vanilla classes, you must install a separate package if you want to use it called `isaac-typescript-definitions-repentogon`. Since using REPENTOGON functionality will cause run-time errors on vanilla, you should very carefully gate your mod behind a REPENTOGON check with a clear error message. (Thanks 4Grabs)
+- Added the following helper functions:
+  - `isRepentogon`
+
+## January 8th, 2023
 
 - Added the following helper functions:
   - `isNormalPillColor`
@@ -22,14 +28,14 @@ This page lists the changes to the IsaacScript framework.
 - Added the following lint rules:
   - `isaacscript/no-unnecessary-assignment`
 
-## January 1st, 2013
+## January 1st, 2023
 
 - Added the following custom commands:
   - `megaSatan`
 - Renamed the following helper functions:
   - `validateInterfaceMatchesEnum` --> `interfaceSatisfiesEnum`
 
-## December 17th, 2013
+## December 17th, 2023
 
 - `isaacscript-common` now provides JavaScript files alongside Lua files. (`isaac-typescript-definitions` already does this.)
 - `isaac-lua-polyfills` now provides more polyfills such that you can import `isaacscript-common` in JavaScript code without any run-time errors.
