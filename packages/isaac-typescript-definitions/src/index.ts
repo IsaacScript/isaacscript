@@ -71,7 +71,7 @@ export * from "./enums/SkinColor";
 export * from "./enums/SortingLayer";
 export * from "./enums/SoundEffect";
 export * from "./enums/StageID";
-export * from "./enums/StageTransition";
+export * from "./enums/StageTransitionType";
 export * from "./enums/StageType";
 export * from "./enums/TrinketSlot";
 export * from "./enums/WeaponType";
