@@ -14,6 +14,7 @@ export * from "./enums/ProceduralEffectConditionType";
 export * from "./enums/flags/AnimationRenderFlag";
 export * from "./enums/flags/EntityTag";
 export * from "./enums/flags/GibFlag";
+export * from "./enums/flags/WeaponModifierFlag";
 export * from "./enums/imgui/ImGuiCallback";
 export * from "./enums/imgui/ImGuiColor";
 export * from "./enums/imgui/ImGuiData";
