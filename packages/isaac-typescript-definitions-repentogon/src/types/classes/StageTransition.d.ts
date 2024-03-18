@@ -11,7 +11,6 @@ declare namespace StageTransition {
    */
   function GetSameStage(): boolean;
 
-  // eslint-disable-next-line isaacscript/complete-sentences-jsdoc
   /**
    * Sets whether the stage transition screen will display Isaac's head moving from one stage to the
    * other.
@@ -20,7 +19,7 @@ declare namespace StageTransition {
    * repeat the last stage on the progress bar of the transition screen and have it be less jarring.
    *
    * Calling this method before the current stage transition has called `Level.SetNextStage` will
-   * override the transition itself. his means that instead of merely displaying Isaac's head not
+   * override the transition itself. This means that instead of merely displaying Isaac's head not
    * moving, it will actually change whether the next stage will be a repeat of the current one, or
    * the actual next stage. Ideally, you should use this function in the
    * `ModCallback.PRE_LEVEL_SELECT`callback.
