@@ -25,6 +25,7 @@
 /// <reference path="./classes/entity/EntityPlayer.d.ts"/>
 /// <reference path="./classes/entity/EntityProjectile.d.ts"/>
 /// <reference path="./classes/entity/EntitySlot.d.ts"/>
+/// <reference path="./classes/entity/EntityTear.d.ts"/>
 /// <reference path="./classes/entity-config/EntityConfig.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigEntity.d.ts" />
