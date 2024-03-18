@@ -5,6 +5,7 @@ export * from "./enums/BlendType";
 export * from "./enums/BombCostumeLayer";
 export * from "./enums/CharacterMenuType";
 export * from "./enums/EventCounter";
+export * from "./enums/FollowerPriority";
 export * from "./enums/GiantbookType";
 export * from "./enums/MainMenuType";
 export * from "./enums/MinimapState";
