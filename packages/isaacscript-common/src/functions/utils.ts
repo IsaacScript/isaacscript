@@ -182,10 +182,10 @@ export function isRepentance(): boolean {
 }
 
 /**
- * Helper function to check if the player is using Repentogon, an exe-hack which expands the modding
+ * Helper function to check if the player is using REPENTOGON, an exe-hack which expands the modding
  * API.
  *
- * Although Repentogon has a `REPENTOGON` global to check if it's present, it is not safe to use as
+ * Although REPENTOGON has a `REPENTOGON` global to check if it's present, it is not safe to use as
  * it can be overwritten by other mods.
  *
  * Specifically, this function checks for the `Sprite.Continue` method:
