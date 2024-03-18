@@ -17,6 +17,7 @@
 /// <reference path="./classes/entity/EntityBomb.d.ts"/>
 /// <reference path="./classes/entity/EntityDelirium.d.ts"/>
 /// <reference path="./classes/entity/EntityEffect.d.ts"/>
+/// <reference path="./classes/entity/EntityFamiliar.d.ts"/>
 /// <reference path="./classes/entity-config/EntityConfig.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigEntity.d.ts" />
