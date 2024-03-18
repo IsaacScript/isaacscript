@@ -446,13 +446,6 @@ declare global {
     ) => void;
 
     TeleportToRandomPosition: () => void;
-
-    /**
-     * Casts an `Entity` into an `EntityDelirium`, which has delirium-specific methods and
-     * properties. If the associated entity is not Delirium, then this method will return undefined.
-     */
-    ToDelirium: () => EntityDelirium | undefined;
-
     TryThrow: (
       source: EntityRef,
       throwDirection: Vector,
