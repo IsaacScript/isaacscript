@@ -9,6 +9,7 @@ bigportrait # players.xml
 bigportraitroot # players.xml
 BLCK # BLCK CNDL seed
 bossambushroomdoor # door_09_bossambushroomdoor.png
+bosscolors # bosscolors.xml
 bossname # bossname_20.0_monstro.png
 bosspools # bosspools.xml
 bossportraits # bossportraits.xml
