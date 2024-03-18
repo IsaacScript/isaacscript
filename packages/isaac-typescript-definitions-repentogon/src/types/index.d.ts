@@ -30,6 +30,7 @@
 /// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigEntity.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts" />
+/// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
