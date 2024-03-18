@@ -17,6 +17,7 @@
 /// <reference path="./classes/Debug.d.ts"/>
 /// <reference path="./classes/Color.d.ts"/>
 /// <reference path="./classes/ColorModifier.d.ts"/>
+/// <reference path="./classes/entity/Entity.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
@@ -64,6 +65,7 @@
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
+/// <reference path="./classes/PosVel.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
 /// <reference path="./classes/RoomTransition.d.ts"/>
 /// <reference path="./classes/sprite/AnimationData.d.ts"/>
