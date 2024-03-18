@@ -13,7 +13,7 @@ import type { GameStateFlag } from "../../enums/GameStateFlag";
 import type { GridRoom } from "../../enums/GridRoom";
 import type { LevelStage } from "../../enums/LevelStage";
 import type { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
-import type { StageTransition } from "../../enums/StageTransition";
+import type { StageTransitionType } from "../../enums/StageTransitionType";
 
 declare global {
   function Game(this: void): Game;
@@ -344,7 +344,7 @@ declare global {
     /** If the `player` argument is not provided, the game will crash. */
     StartStageTransition: (
       sameStage: boolean,
-      stageTransition: StageTransition,
+      stageTransitionType: StageTransitionType,
       player: EntityPlayer,
     ) => void;
 
