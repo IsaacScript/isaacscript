@@ -182,6 +182,35 @@ export function isRepentance(): boolean {
 }
 
 /**
+ * Helper function to check if the player is using REPENTOGON, an exe-hack which expands the modding
+ * API.
+ *
+ * Although REPENTOGON has a `REPENTOGON` global to check if it's present, it is not safe to use as
+ * it can be overwritten by other mods.
+ *
+ * Specifically, this function checks for the `Sprite.Continue` method:
+ * https://repentogon.com/Sprite.html#continue
+ */
+export function isRepentogon(): boolean {
+  const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
+  assertDefined(
+    metatable,
+    "Failed to get the metatable of the Sprite global table.",
+  );
+
+  const classTable = metatable.get("__class") as
+    | LuaMap<string, unknown>
+    | undefined;
+  assertDefined(
+    classTable,
+    'Failed to get the "__class" key of the Sprite metatable.',
+  );
+
+  const getAnimation = classTable.get("Continue");
+  return isFunction(getAnimation);
+}
+
+/**
  * Helper function to repeat code N times. This is faster to type and cleaner than using a for loop.
  *
  * For example:
