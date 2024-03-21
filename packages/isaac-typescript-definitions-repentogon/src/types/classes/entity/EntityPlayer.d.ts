@@ -36,7 +36,7 @@ declare global {
     /**
      * Repentogon's modified `EntityPlayer.ClearDeadEyeCharge` method.
      *
-     * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now forcefully reset the
+     * Behaves the same as `EntityPlayer.ClearDeadEyeCharge` except you can now forcefully reset the
      * charge.
      *
      * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
