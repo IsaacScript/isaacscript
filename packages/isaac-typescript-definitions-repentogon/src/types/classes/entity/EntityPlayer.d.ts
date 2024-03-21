@@ -1,0 +1,404 @@
+import type {
+  ActiveSlot,
+  BabySubType,
+  CacheFlag,
+  CollectibleType,
+  FamiliarVariant,
+  PickupVariant,
+  PillEffect,
+  PlayerForm,
+  TrinketType,
+  WeaponType,
+} from "isaac-typescript-definitions";
+import type { BagOfCraftingPickup } from "../../../enums/BagOfCraftingPickup";
+import type { DeathAnimationName } from "../../../enums/DeathAnimationName";
+import type { HealthType } from "../../../enums/HealthType";
+import type { PurityState } from "../../../enums/PurityState";
+import type { History } from "../history/History";
+
+declare global {
+  interface EntityPlayer extends Entity {
+    /**
+     * Repentogon's modified `EntityPlayer.AddCacheFlags` method.
+     *
+     * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now choose to have it
+     * immediately call `EntityPlayer.EvaluateItems` or not.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param evaluateItems Optional. Default is false.
+     * @customName AddCacheFlags
+     */
+    AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
+
+    /**
+     * Repentogon's modified `EntityPlayer.ClearDeadEyeCharge` method.
+     *
+     * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now forcefully reset the
+     * charge.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param force Optional. Default is false.
+     * @customName ClearDeadEyeCharge
+     */
+    ClearDeadEyeChargeEx: (force?: boolean) => void;
+
+    GetMultiShotParams: (weaponType: WeaponType) => MultiShotParams;
+    GetMultiShotPositionVelocity: (
+      loopIndex: int,
+      weaponType: WeaponType,
+      shotDirection: Vector,
+      shotSpeed: number,
+      params: MultiShotParams,
+    ) => PosVel;
+    GetPocketItem: (slotId: ActiveSlot) => PocketItem;
+
+    /**
+     * Adds the specified amount of charges to one of the player's actives. Returns the true amount
+     * of charges added, which may have been capped by the targeted item's max charges.
+     *
+     * @param charge
+     * @param slot
+     * @param flashHUD Optional. This parameter is redundant as the game will flash the HUD
+     *                 regardless. Default is true.
+     * @param overcharge Optional. Whether to allow leftover charges to overcharge the item. Default
+     *                   is false.
+     * @param force Optional. Default is false.
+     */
+    AddActiveCharge: (
+      charge: int,
+      slot: ActiveSlot,
+      flashHUD?: boolean,
+      overCharge?: boolean,
+      force?: boolean,
+    ) => int;
+
+    /** Adds a bone orbital to the player. */
+    AddBoneOrbital: (position: Vector) => void;
+
+    /**
+     * Adds an innate collectible to the player. Innate collectibles grant the effects of a
+     * collectible but the collectible itself is not added to the player's inventory, akin to an
+     * item wisp.
+     *
+     * This method is currently partially bugged as it directly modifies the array returned by
+     * `EntityPlayer.GetWispCollectiblesList`. Furthermore, added innate items are not saved when
+     * exiting a run.
+     *
+     * @param collectible
+     * @param amount Optional. Default is 1.
+     */
+    AddInnateCollectible: (collectible: CollectibleType, amount?: int) => void;
+
+    /** This is capped at a max of three familiars. */
+    AddLeprosy: () => void;
+
+    /** Adds an item locust to the player. */
+    AddLocust: (collectible: CollectibleType, position: Vector) => void;
+
+    /**
+     * Adds a smelted trinket directly to the player's inventory.
+     *
+     * Returns whether the trinket was successfully added.
+     *
+     * @param trinket
+     * @param firstTimePickingUp Optional. Default is true.
+     */
+    AddSmeltedTrinket: (
+      trinket: TrinketType,
+      firstTimePickingUp?: boolean,
+    ) => void;
+
+    /**
+     * Adds charges to the player's Urn of Souls if they are currently holding it.
+     *
+     * @param count Optional. Default is 0.
+     */
+    AddUrnSouls: (count?: number) => void;
+
+    /** Returns whether the collectible can be added to the player's inventory. */
+    CanAddCollectibleToInventory: (collectible: CollectibleType) => boolean;
+
+    /** Returns whether the player can crush rocks and similar grid entities on contact. */
+    CanCrushRocks: () => boolean;
+
+    CanOverrideActiveItem: (collectible: CollectibleType) => boolean;
+    CanUsePill: (pillEffect: PillEffect) => boolean;
+
+    /**
+     * Behaves the same as `EntityPlayer.CheckFamiliar` except it returns an array of all of the
+     * familiars.
+     *
+     * @param familiar
+     * @param targetCount
+     * @param rng
+     * @param sourceItem Optional. Default is undefined.
+     * @param familiarSubType Optional. Default is -1.
+     */
+    CheckFamiliarEx: (
+      familiar: FamiliarVariant,
+      targetCount: int,
+      rng: RNG,
+      sourceItem?: ItemConfigItem,
+      familiarSubType?: int,
+    ) => EntityFamiliar[];
+
+    ClearCollectibleAnim: (collectible: CollectibleType) => void;
+    ClearItemAnimCollectible: (collectible: CollectibleType) => void;
+    ClearItemAnimNullItems: () => void;
+    ClearQueueItem: () => void;
+
+    /**
+     * Removes the collectible from the player's inventory and spawns a pedestal containing the
+     * collectible.
+     *
+     * @param collectible
+     * @param existingPedestal Optional. If defined, the collectible the pedestal contains will be
+     *                         swapped out for the dropped collectible instead of a new pedestal
+     *                         spawning. Default is undefined.
+     * @param removeFromPlayerForm Optional. Default is false.
+     */
+    DropCollectible: (
+      collectible: CollectibleType,
+      existingPedestal?: EntityPickupCollectible,
+      removeFromPlayerForm?: boolean,
+    ) => void;
+
+    /**
+     * Removes the collectible from the player's inventory based on the specified history index and
+     * spawns a pedestal containing the collectible.
+     *
+     * @param index
+     * @param existingPedestal Optional. If defined, the collectible the pedestal contains will be
+     *                         swapped out for the dropped collectible instead of a new pedestal
+     *                         spawning. Default is undefined.
+     */
+    DropCollectibleByHistoryIndex: (
+      index: int,
+      existingPedestal: EntityPickupCollectible,
+    ) => void;
+
+    EnableWeaponType: (weapon: WeaponType, set: boolean) => void;
+
+    /**
+     * Fires a Brimstone ball. If the player has Tech X, the fire will fire a laser as well, with
+     * the brimstone ball as its parent.
+     *
+     * @param position
+     * @param velocity
+     * @param offset Optional. Default is `VectorZero`.
+     */
+    FireBrimstoneBall: (
+      position: Vector,
+      velocity: Vector,
+      offset?: Vector,
+    ) => EntityEffect;
+
+    /** @param slot Optional. Default is `ActiveSlot.PRIMARY`. */
+    GetActiveItemDesc: (slot?: ActiveSlot) => ActiveItemDesc;
+
+    GetActiveItemSlot: (collectible: CollectibleType) => ActiveSlot | undefined;
+    GetActiveMaxCharge: (slot: ActiveSlot) => int;
+    GetActiveMinUsableCharge: (slot: ActiveSlot) => int;
+    GetActiveWeaponNumFired: () => int;
+
+    /** Returns the contents of the player's Bag of Crafting. */
+    GetBagOfCraftingContent: () => BagOfCraftingPickup[];
+
+    /** Returns the player's Bag Of Crafting output. */
+    GetBagOfCraftingOutput: () => int;
+
+    /**
+     * Returns the `BagOfCraftingPickup` in the player's Bag of Crafting from the specified index.
+     */
+    GetBagOfCraftingSlot: (slot: int) => BagOfCraftingPickup;
+
+    GetBladderCharge: () => int;
+
+    /** Returns the direction the player's body is moving. */
+    GetBodyMoveDirection: () => Vector;
+
+    GetCambionConceptionState: () => int;
+    GetCambionPregnancyLevel: () => int;
+
+    /**
+     * Returns a dictionary containing all of the player's collectibles and the amount for each one
+     * being held.
+     */
+    GetCollectiblesList: () => LuaTable<CollectibleType, int>;
+
+    /** Return the player's sprite layer data for costumes. */
+    GetCostumeLayerMap: () => {
+      costumeIndex: int;
+      layerID: int;
+      priority: int;
+      isBodyLayer: boolean;
+    };
+
+    GetCostumeSpriteDescs: () => CostumeSpriteDesc[];
+
+    GetD8DamageModifier: () => int;
+    GetD8FireDelayModifier: () => int;
+    GetD8RangeModifier: () => int;
+    GetD8SpeedModifier: () => int;
+    GetDamageModifier: () => int;
+    GetDeadEyeCharge: () => int;
+    GetDeathAnimName: () => DeathAnimationName;
+
+    /** Returns the offset of the player's damage stat for Eden's random states. */
+    GetEdenDamage: () => number;
+
+    /** Returns the offset of the player's fire delay stat for Eden's random states. */
+    GetEdenFireDelay: () => number;
+
+    /** Returns the offset of the player's luck stat for Eden's random states. */
+    GetEdenLuck: () => number;
+
+    /** Returns the offset of the player's shot speed stat for Eden's random states. */
+    GetEdenShotSpeed: () => number;
+
+    /** Returns the offset of the player's speed stat for Eden's random states. */
+    GetEdenSpeed: () => number;
+
+    GetEnterPosition: () => Vector;
+
+    /** Returns the player's `EntityConfigPlayer`. */
+    GetEntityConfigPlayer: () => EntityConfigPlayer;
+
+    GetEpiphoraCharge: () => int;
+
+    /** Returns the current charge of Tainted Eve's innate Sumptorium ability. */
+    GetEveSumptoriumCharge: () => int;
+
+    GetFireDelayModifier: () => int;
+
+    /**
+     * Returns the player's flipped form. Returns undefined if the player does not have a flipped
+     * form.
+     *
+     * This is only used by Tainted Lazarus.
+     */
+    GetFlippedForm: () => EntityPlayer | undefined;
+
+    /**
+     * Returns the entity used by Active Camera to determine where the camera should focus. This can
+     * either be the Marked target `EntityEffect` or a weapon's entity. Returns undefined if no
+     * entity exists.
+     */
+    GetFocusEntity: () => Entity | undefined;
+
+    GetFootprintColor: (useLeftFootprint: boolean) => Color;
+    GetGlitchBabySubType: () => BabySubType;
+    GetGlyphOfBalanceDrop: (
+      variant: PickupVariant,
+      subType: int,
+    ) => [PickupVariant, int];
+    GetGnawedLeafTimer: () => int;
+    GetGreedsGulletHearts: () => int;
+
+    /**
+     * Returns the number of frames the player's head was forced to stay in a specific direction.
+     * Returns -1 or lower if the direction is not locked.
+     */
+    GetHeadDirectionLockTime: () => int;
+
+    /** Returns the player's health type. */
+    GetHealthType: () => HealthType;
+
+    /**
+     * Returns the entity the player is holding over their head. Returns undefined if no entity is
+     * being held.
+     */
+    GetHeldEntity: () => Entity | undefined;
+
+    /**
+     * Returns the `Sprite` used for when the player is doing an animation that involves holding a
+     * sprite over their head, such as active item usage.
+     */
+    GetHeldSprite: () => Sprite;
+
+    GetHistory: () => History;
+
+    /** Returns how many hearts have been collected with Immaculate Conception. */
+    GetImmaculateConceptionState: () => int;
+
+    /** Returns the number of coins spent while possessing Keeper's Sack. */
+    GetKeepersSackBonus: () => int;
+
+    /** Returns the player's laser color. */
+    GetLaserColor: () => Color;
+
+    GetLuckModifier: () => int;
+
+    /**
+     * Returns how many frames are left until Tainted Magdalene's swing attack can be used again.
+     * Returns 0 if the player is not Tainted Magdalene.
+     */
+    GetMaggySwingCooldown: () => int;
+
+    /** Returns the Marked target effect, if it exists. Otherwise, returns undefined. */
+    GetMarkedTarget: () => EntityEffect | undefined;
+
+    GetMaxBladderCharge: () => int;
+    GetMaxPeeBurstCooldown: () => int;
+    GetMaxPocketItems: () => int;
+
+    /** Returns how many frames until the effects of Mega Blast stop. */
+    GetMegaBlastDuration: () => int;
+
+    GetMetronomeCollectibleID: () => CollectibleType;
+
+    /**
+     * Returns the frame at which the player stops shooting and starts charging the Kidney Stone
+     * collectible.
+     */
+    GetNextUrethraBlockFrame: () => int;
+
+    /** Returns the attack duration of the Kidney Stone item. */
+    GetPeeBurstCooldown: () => int;
+
+    /** Returns the amount of collectibles the player has tied to the specified transformation. */
+    GetPlayerFormCounter: (playerFormID: PlayerForm) => void;
+
+    /**
+     * Returns the amount of frames left until the charging effect from the A Pony or White Pony
+     * item deactivates.
+     */
+    GetPonyCharge: () => int;
+
+    /**
+     * Returns the state in which the Purity item effect currently is. Returns `PurityState.BLUE` if
+     * the player does not have the Purity collectible.
+     */
+    GetPurityState: () => PurityState;
+
+    /**
+     * Sets the duration of the damage bonus given by the Red Stew collectible to the specified
+     * amount of frames. Setting the duration above 0 will activate the effect if it wasn't active
+     * already.
+     */
+    SetRedStewBonusDuration: (duration: int) => void;
+
+    SetShotSpeedModifier: (modifier: int) => void;
+    SetSpeedModifier: (modifier: int) => void;
+    SetTearPoisonDamage: (damage: number) => void;
+    SetTearRangeModifier: (modifier: int) => void;
+
+    /**
+     * Sets whether the tear spam attack from the Kidney Stone collectible is about to activate. If
+     * the player does not have the Kidney Stone collectible, the effect is immediately activated.
+     *
+     * @param blocked This argument does nothing if it is set to false. This is a bug.
+     */
+    SetUrethraBlock: (blocked: boolean) => void;
+
+    SetWeapon: (weapon: Weapon, slot: int) => void;
+
+    BabySkin: BabySubType;
+  }
+}
