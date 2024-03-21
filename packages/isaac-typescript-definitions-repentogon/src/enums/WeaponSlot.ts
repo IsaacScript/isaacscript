@@ -4,11 +4,10 @@
  * @see https://repentogon.com/index.html
  */
 export enum WeaponSlot {
-    /** Used by weapons such as Notched Axe and Urn of Souls. */
-    BACKUP = 0,
-    PRIMARY = 1,
-    ADDITIONAL_1 = 2,
-    ADDITIONAL_2 = 3,
-    ADDITIONAL_3 = 4,
-
+  /** Used by weapons such as Notched Axe and Urn of Souls. */
+  BACKUP = 0,
+  PRIMARY = 1,
+  ADDITIONAL_1 = 2,
+  ADDITIONAL_2 = 3,
+  ADDITIONAL_3 = 4,
 }
