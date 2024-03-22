@@ -21,10 +21,16 @@
 /// <reference path="./classes/entity/EntityKnife.d.ts"/>
 /// <reference path="./classes/entity/EntityLaser.d.ts"/>
 /// <reference path="./classes/entity/EntityNPC.d.ts"/>
+/// <reference path="./classes/entity/EntityPickup.d.ts"/>
+/// <reference path="./classes/entity/EntityPlayer.d.ts"/>
+/// <reference path="./classes/entity/EntityProjectile.d.ts"/>
+/// <reference path="./classes/entity/EntitySlot.d.ts"/>
+/// <reference path="./classes/entity/EntityTear.d.ts"/>
 /// <reference path="./classes/entity-config/EntityConfig.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigBaby.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigEntity.d.ts" />
 /// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts" />
+/// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
@@ -81,6 +87,10 @@
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
+/// <reference path="./classes/StageTransition.d.ts"/>
+/// <reference path="./classes/Weapon.d.ts"/>
+/// <reference path="./classes/WeightedOutcomePicker.d.ts"/>
+/// <reference path="./classes/XMLData.d.ts"/>
 
 // ----------
 // Unofficial

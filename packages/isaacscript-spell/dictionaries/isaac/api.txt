@@ -12,6 +12,9 @@ AZAZELS
 BABYS
 BACKASSWARDS
 BAPHOMET
+basehp # REPENTOGON's parsed `entities2.xml` attribute
+bestiaryanim # REPENTOGON's parsed `entities2.xml` attribute
+bestiaryoverlay # REPENTOGON's parsed `entities2.xml` attribute
 BERKANO
 BFFS
 BINKY
@@ -23,6 +26,7 @@ bnot
 BOGO
 BOMBGAGGER
 Borderless
+bossid # REPENTOGON's parsed `entities2.xml` attribute
 bossrush # Goto console command
 bshl
 bshr
@@ -40,7 +44,14 @@ CHUBBER
 clearcache # Console command
 clearseeds # Console command
 CLICKETY
+collisiondamage # REPENTOGON's parsed `entities2.xml` attribute
+collisioninterval # REPENTOGON's parsed `entities2.xml` attribute
+collisionmass # REPENTOGON's parsed `entities2.xml` attribute
+collisionradius # REPENTOGON's parsed `entities2.xml` attribute
+collisionradiusxmulti # REPENTOGON's parsed `entities2.xml` attribute
+collisionradiusymulti # REPENTOGON's parsed `entities2.xml` attribute
 COLOSTOMIA
+colorblood # REPENTOGON's parsed `entities2.xml` attribute
 cooldown
 costumetest # Console command
 CRAFTER
@@ -52,6 +63,7 @@ DAGAZ
 DATAMINER
 DECAP
 DERP
+Descs
 DINGA
 DONT
 DOPLE
@@ -74,7 +86,10 @@ GELLO
 GIDEONS
 Giga
 GIGANTE
+gibamount # REPENTOGON's parsed `entities2.xml` attribute
+gibflags # REPENTOGON's parsed `entities2.xml` attribute
 greedexit # Goto console command
+gridcollision # REPENTOGON's parsed `entities2.xml` attribute
 gridspawn
 GUPPYS
 GURDY
@@ -83,6 +98,7 @@ GURGLINGS
 HAEMO
 Haemolacria
 HAGALAZ
+hasflooralts # REPENTOGON's parsed `entities2.xml` attribute
 HEMATEMESIS
 HEMOPTYSIS
 HORF
@@ -131,6 +147,7 @@ NEPTUNUS
 netdelay # Console command
 netstart # Console command
 nexting # RNG verb
+numgridcollisionpoints # REPENTOGON's parsed `entities2.xml` attribute
 ONANS
 Ouroboros
 Parasitoid
@@ -165,6 +182,8 @@ SCHYTHE
 secretexit # Goto console command
 SHAKEY
 SHOOP
+shadowsize # REPENTOGON's parsed `entities2.xml` attribute
+shieldstrength # REPENTOGON's parsed `entities2.xml` attribute
 SKINBALL
 SPIDERBABY
 SPIKEBALL
@@ -174,6 +193,7 @@ SPLURT
 spritesheet
 spritesheets
 SQUEEZY
+stagehp # REPENTOGON's parsed `entities2.xml` attribute
 STOMPY
 STRAWMAN
 SUCKY
