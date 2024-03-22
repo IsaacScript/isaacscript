@@ -3,10 +3,10 @@
  *
  * @see https://repentogon.com/index.html
  */
-export enum BombCostumeLayer {
-  BACK = 0,
-  BODY = 1,
-  FRONT = 2,
-  FRONT_2 = 3,
-  OVERLAY = 4,
+export enum HealthType {
+  RED = 0,
+  SOUL = 1,
+  NO_HEALTH = 2,
+  COIN = 3,
+  BONE = 4,
 }

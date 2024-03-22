@@ -3,10 +3,9 @@
  *
  * @see https://repentogon.com/index.html
  */
-export enum BombCostumeLayer {
-  BACK = 0,
-  BODY = 1,
-  FRONT = 2,
-  FRONT_2 = 3,
-  OVERLAY = 4,
+export enum PurityState {
+  RED = 0,
+  BLUE = 1,
+  YELLOW = 2,
+  ORANGE = 3,
 }
