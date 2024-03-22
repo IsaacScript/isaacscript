@@ -41,6 +41,7 @@ Floast
 forgottens
 Gabriels
 gameplay
+giantbooks
 gibamount # REPENTOGON API
 gibflags # REPENTOGON API
 giveitem # Console command
