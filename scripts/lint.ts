@@ -15,7 +15,9 @@ await lintScript(async () => {
     $`eslint --max-warnings 0 scripts *.cjs *.mjs`, // We have to exclude the packages directory.
 
     // Check for unused files, dependencies, and exports.
-    $`knip --exclude dependencies`,
+    // TODO: Re-enable knip
+    // https://github.com/webpro/knip/issues/570
+    /// $`knip --exclude dependencies`,
     // (Knip cannot handle Google-style monorepos, so we have to exclude dependencies.)
 
     // Spell check every file using CSpell.
