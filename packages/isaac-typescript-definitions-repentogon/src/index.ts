@@ -20,6 +20,7 @@ export * from "./enums/ProceduralEffectActionType";
 export * from "./enums/ProceduralEffectConditionType";
 export * from "./enums/PurityState";
 export * from "./enums/SpecialQuest";
+export * from "./enums/StbRailVariant";
 export * from "./enums/TaintedMarksGroup";
 export * from "./enums/WeaponSlot";
 export * from "./enums/flags/AnimationRenderFlag";
