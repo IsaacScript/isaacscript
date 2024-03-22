@@ -90,6 +90,7 @@
 /// <reference path="./classes/StageTransition.d.ts"/>
 /// <reference path="./classes/Weapon.d.ts"/>
 /// <reference path="./classes/WeightedOutcomePicker.d.ts"/>
+/// <reference path="./classes/XMLData.d.ts"/>
 
 // ----------
 // Unofficial

@@ -27,3 +27,5 @@ export * from "./enums/imgui/ImGuiColor";
 export * from "./enums/imgui/ImGuiData";
 export * from "./enums/imgui/ImGuiElement";
 export * from "./enums/imgui/ImGuiNotificationType";
+export * from "./enums/xml/BossColorXMLIndex";
+export * from "./enums/xml/XMLNode";
