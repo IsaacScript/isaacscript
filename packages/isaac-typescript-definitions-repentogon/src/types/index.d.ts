@@ -51,6 +51,7 @@
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts" />
 /// <reference path="./classes/level-generator/LevelGenerator.d.ts" />
+/// <reference path="./classes/Level.d.ts" />
 /// <reference path="./classes/menus/BestiaryMenu.d.ts" />
 /// <reference path="./classes/menus/ChallengeMenu.d.ts" />
 /// <reference path="./classes/menus/CharacterMenu.d.ts" />
