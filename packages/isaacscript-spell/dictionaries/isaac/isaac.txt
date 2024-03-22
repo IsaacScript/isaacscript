@@ -1,12 +1,23 @@
 # These are words that apply to Isaac modding in general.
 
 Antibirth
+basehp # REPENTOGON API
 Beelzeblub
 Begottens
+bestiaryanim # REPENTOGON API
+bestiaryoverlay # REPENTOGON API
 Bethanys
 Bloodfly
 Bonies
+bossid # REPENTOGON API
 Chronometrics # Creator of Basement Renovator
+collisiondamage # REPENTOGON API
+collisioninterval # REPENTOGON API
+collisionmass # REPENTOGON API
+collisionradius # REPENTOGON API
+collisionradiusxmulti # REPENTOGON API
+collisionradiusymulti # REPENTOGON API
+colorblood # REPENTOGON API
 combobox # ImGui element
 contentfolder # metadata.vdf
 craftable
@@ -14,6 +25,7 @@ Cucco # Creator of Job
 customtags # REPENTOGON API
 datagrams
 debuff
+Descs # REPENTOGON API
 despawn
 despawned
 despawning
@@ -29,7 +41,11 @@ Floast
 forgottens
 Gabriels
 gameplay
+gibamount # REPENTOGON API
+gibflags # REPENTOGON API
 giveitem # Console command
+gridcollision # REPENTOGON API
+hasflooralts # REPENTOGON API
 helpmarker # ImGui element
 hitbox
 hitboxes
@@ -51,6 +67,7 @@ nerfs
 Nicalis
 Nightwatch
 npcs
+numgridcollisionpoints # REPENTOGON API
 pathing
 piber # Creator of Mod Config Menu
 polties
@@ -63,6 +80,7 @@ propset # Key of userdata
 publishedfileid # metadata.vdf
 Raglings
 Redskull
+regen # Stem Cell description
 REPENTOGON # Mod hack
 respawn
 respawned
@@ -72,6 +90,8 @@ Sanio # Creator of Character Costume Protector library
 satans
 schwag # REPENTOGON API
 scolexes
+shadowsize # REPENTOGON API
+shieldstrength # REPENTOGON API
 shockwaves
 shroom
 shrooms
@@ -85,6 +105,7 @@ speedrunners
 speedrunning
 speedruns
 Spitties
+stagehp # REPENTOGON API
 steamcmd # For uploading/publishing
 Stonies
 Strifer
