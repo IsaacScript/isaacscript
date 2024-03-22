@@ -108,6 +108,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "entities2.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
