@@ -47,6 +47,7 @@
 /// <reference path="./classes/item-config/ItemConfig.d.ts" />
 /// <reference path="./classes/item-config/ItemConfigPillEffect.d.ts" />
 /// <reference path="./classes/ItemOverlay.d.ts" />
+/// <reference path="./classes/ItemPool.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts" />
 /// <reference path="./classes/level-generator/LevelGenerator.d.ts" />

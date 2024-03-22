@@ -215,6 +215,7 @@ TURDLET
 TURDLING
 ultrasecret # Goto console command
 Unregisters
+Unidentify # ItemPool.UnidentifyPill
 VARDATA
 VASCULITIS
 VURP
