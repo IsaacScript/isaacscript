@@ -1,5 +1,5 @@
 /** Matches the entries in the "cutscenes.xml" file. */
-export enum Ending {
+export enum Cutscene {
   INTRO = 1,
   CREDITS = 2,
   EPILOGUE = 3,
