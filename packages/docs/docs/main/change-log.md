@@ -9,7 +9,7 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## March 18th, 2023
+## March 18th, 2023 (Unreleased)
 
 - Added REPENTOGON support. Since this hack changes vanilla classes, you must install a separate package if you want to use it called `isaac-typescript-definitions-repentogon`. Since using REPENTOGON functionality will cause run-time errors on vanilla, you should very carefully gate your mod behind a REPENTOGON check with a clear error message. (Thanks 4Grabs)
 - Added the following helper functions:
