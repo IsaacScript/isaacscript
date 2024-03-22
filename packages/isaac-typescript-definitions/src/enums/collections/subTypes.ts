@@ -2345,6 +2345,20 @@ export enum PoofSubType {
   LARGE = 3,
 }
 
+/** For `EntityType.EFFECT` (1000), `EffectVariant.POOF_2` (16). */
+export enum Poof2SubType {
+  NORMAL = 0,
+  LARGE_GROUND_POOF = 1,
+  LARGE_GROUND_POOF_FOREGROUND = 2,
+  LARGE_BLOOD_POOF = 3,
+  LARGE_BLOOD_POOF_FOREGROUND = 4,
+  BLOOD_CLOUD = 5,
+  FORGOTTEN_SOUL_POOF = 10,
+  HOLY_MANTLE_POOF = 11,
+  LAVA_SPLASH = 66,
+  LAVA_SPLASH_LARGE = 67,
+}
+
 /** For `EntityType.EFFECT` (1000), `EffectVariant.HEAVEN_LIGHT_DOOR` (39). */
 export enum HeavenLightDoorSubType {
   HEAVEN_DOOR = 0,

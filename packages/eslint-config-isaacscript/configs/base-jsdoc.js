@@ -54,6 +54,7 @@ const config = {
 
           // Ignore tags used in TypeScriptToLua:
           // https://typescripttolua.github.io/docs/advanced/compiler-annotations
+          "customName",
           "noResolution",
           "noSelf",
           "noSelfInFile",
