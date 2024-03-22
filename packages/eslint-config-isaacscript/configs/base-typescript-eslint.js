@@ -27,10 +27,6 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/class-literal-property-style": "error",
   "@typescript-eslint/consistent-generic-constructors": "error",
   "@typescript-eslint/consistent-indexed-object-style": "error",
-
-  /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
-  "@typescript-eslint/consistent-return": "off",
-
   "@typescript-eslint/consistent-type-assertions": "error",
   "@typescript-eslint/consistent-type-definitions": "error",
   "@typescript-eslint/consistent-type-exports": "error",
@@ -289,6 +285,7 @@ const SUPPORTED_RULES = {
 
   "@typescript-eslint/unbound-method": "error",
   "@typescript-eslint/unified-signatures": "error",
+  "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
 };
 
 /** @type {import("eslint").Linter.RulesRecord} */
@@ -298,6 +295,10 @@ const EXTENSION_RULES = {
   "@typescript-eslint/class-methods-use-this": "error",
   "@typescript-eslint/comma-dangle": "off", // eslint-config-prettier
   "@typescript-eslint/comma-spacing": "off", // eslint-config-prettier
+
+  /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
+  "@typescript-eslint/consistent-return": "off",
+
   "@typescript-eslint/default-param-last": "error",
   "@typescript-eslint/dot-notation": "error",
   "@typescript-eslint/func-call-spacing": "off", // eslint-config-prettier
