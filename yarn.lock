@@ -232,10 +232,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@arktype/fs@npm:^0.0.11":
-  version: 0.0.11
-  resolution: "@arktype/fs@npm:0.0.11"
-  checksum: 10c0/8b23fd9e88263e395fa367944ef5273c62f9b4612a4f97480ec4ea87af4a1fb4e6fb46a5124b457cde38cb9d6c754ccdfa071d5749a12c4f84e00178c698f48b
+"@arktype/fs@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@arktype/fs@npm:0.0.12"
+  checksum: 10c0/36a936a8f6af0a71a54442392b51b04ac177534de1c4132056a446d8c551a54edbbae54604ae1381655baf3dc7fe545f2700dc6308f6bb00920be67df0635430
   languageName: node
   linkType: hard
 
@@ -4553,17 +4553,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node-lts@npm:^20.1.1":
-  version: 20.1.1
-  resolution: "@tsconfig/node-lts@npm:20.1.1"
-  checksum: 10c0/cd78a6680be8a4f38e60a3fccc1f940bdc420c1f27563268ebff87e64e425ce59a414272333474ca6b3b85304037b51ade71ae5fd58f6661ceaa3a8daf291838
+"@tsconfig/node-lts@npm:^20.1.2":
+  version: 20.1.2
+  resolution: "@tsconfig/node-lts@npm:20.1.2"
+  checksum: 10c0/73d15a764ac3944ef5aba0ac027e81e31f36e293859ade4c9e0912130bfc3a06d2b47b5002b0fd5b9006289e05012836c9c3c21ab2feccbe6acd573987fa4af3
   languageName: node
   linkType: hard
 
-"@tsconfig/strictest@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@tsconfig/strictest@npm:2.0.3"
-  checksum: 10c0/a26be4aed831c59b6b362608f34c6f0b2427dc08031176d825e46079090b9e48aa5ff71647b762a9a7009cb898af9b6cd24a195d268e9486fffa93de99de08c6
+"@tsconfig/strictest@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@tsconfig/strictest@npm:2.0.4"
+  checksum: 10c0/cb5a3a2e4f081266031270babe74ab1814d6688e179c975514172adb24a66e407291b392043fc0b8301dc3dde511cbff52ac63d47b0ef13ad368d923577b1f31
   languageName: node
   linkType: hard
 
@@ -5095,14 +5095,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.67":
-  version: 18.2.67
-  resolution: "@types/react@npm:18.2.67"
+"@types/react@npm:^18.2.69":
+  version: 18.2.69
+  resolution: "@types/react@npm:18.2.69"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/d8c49476ca8c96cbbcd8b1fd1bf881396dbf548fdadb0b6463d0bb262e5013e0a239994842d09e74f9c21dcaf620555bc1f1485f8578b0498af87bc06291f5a2
+  checksum: 10c0/239b947ed8576a271057a6f571d0967098074b101a2bece244e88093dc8fb2f020872c463b8e78b2049334ba99158f6eef5960e51f73a389f86eee39b835d846
   languageName: node
   linkType: hard
 
@@ -11475,12 +11475,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^41.1.0":
-  version: 41.1.0
-  resolution: "isaac-typescript-definitions@npm:41.1.0"
+"isaac-typescript-definitions@npm:^42.0.0":
+  version: 42.0.0
+  resolution: "isaac-typescript-definitions@npm:42.0.0"
   dependencies:
     lua-types: "npm:^2.13.1"
-  checksum: 10c0/b4af94e8a37b9fa6f4ab6879306917f136a50138624b5d1a6be5f789e6a84a1dc287c172d5c86d4a8528ba1a1ba142a8883d7f7cfcad369542cf4bcf3846b1b0
+  checksum: 10c0/f4eb76e84ca6477d36831d6a357c8564241c1e59e29811ad2907ac81204cf0f4c7d1df3fcc980f0f9b8985e33fad1440efc6c0da2555acbab074e95c597a3c4d
   languageName: node
   linkType: hard
 
@@ -11516,7 +11516,7 @@ __metadata:
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
     "@algolia/client-search": "npm:^4.22.1"
-    "@arktype/fs": "npm:^0.0.11"
+    "@arktype/fs": "npm:^0.0.12"
     "@commander-js/extra-typings": "npm:^12.0.1"
     "@docusaurus/core": "npm:^3.1.1"
     "@docusaurus/eslint-plugin": "npm:^3.1.1"
@@ -11531,8 +11531,8 @@ __metadata:
     "@microsoft/api-extractor": "npm:^7.43.0"
     "@prettier/plugin-xml": "npm:^3.3.1"
     "@svgr/webpack": "npm:^8.1.0"
-    "@tsconfig/node-lts": "npm:^20.1.1"
-    "@tsconfig/strictest": "npm:^2.0.3"
+    "@tsconfig/node-lts": "npm:^20.1.2"
+    "@tsconfig/strictest": "npm:^2.0.4"
     "@types/command-exists": "npm:^1.2.3"
     "@types/confusing-browser-globals": "npm:^1.0.3"
     "@types/diff": "npm:^5.0.9"
@@ -11544,7 +11544,7 @@ __metadata:
     "@types/klaw-sync": "npm:^6.0.5"
     "@types/node": "npm:^20.11.30"
     "@types/prompt": "npm:^1.1.8"
-    "@types/react": "npm:^18.2.67"
+    "@types/react": "npm:^18.2.69"
     "@types/source-map-support": "npm:^0.5.10"
     "@types/touch": "npm:^3.1.5"
     "@types/unidecode": "npm:^0.1.3"
@@ -11586,12 +11586,12 @@ __metadata:
     extract-comments: "npm:^1.1.0"
     figlet: "npm:^1.7.0"
     glob: "npm:^10.3.10"
-    isaac-typescript-definitions: "npm:^41.1.0"
+    isaac-typescript-definitions: "npm:^42.0.0"
     jest: "npm:^29.7.0"
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.1"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^5.2.2"
+    knip: "npm:^5.4.0"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.34.0"
     markdownlint-cli: "npm:^0.39.0"
@@ -12463,9 +12463,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "knip@npm:5.2.2"
+"knip@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "knip@npm:5.4.0"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@nodelib/fs.walk": "npm:2.0.0"
@@ -12494,7 +12494,7 @@ __metadata:
     typescript: ">=5.0.4"
   bin:
     knip: bin/knip.js
-  checksum: 10c0/6d67534029dd70a564f7fa344c1902c1cda88ce3d09edc5af18565d559457e6cc4d3a5613b8fe2a9929ed912339e5951f21b5f70c08fa6ef28ecac061f699948
+  checksum: 10c0/0c5b5ddfd257ecfae5657a21b66925fdba2d78303d45fdd9d7f924fd7791fb5a5a6ba0e1068ee893bc53af4dbcfa5f1dce24d6b6f2da86ad622041ca0e47644d
   languageName: node
   linkType: hard
 
