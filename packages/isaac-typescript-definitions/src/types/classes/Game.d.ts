@@ -1,19 +1,19 @@
 import type { BackdropType } from "../../enums/BackdropType";
 import type { Challenge } from "../../enums/Challenge";
-import type { EffectVariant } from "../../enums/collections/variants";
+import type { Cutscene } from "../../enums/Cutscene";
 import type { Difficulty } from "../../enums/Difficulty";
 import type { Dimension } from "../../enums/Dimension";
 import type { Direction } from "../../enums/Direction";
-import type { Ending } from "../../enums/Ending";
 import type { EntityType } from "../../enums/EntityType";
 import type { FadeoutTarget } from "../../enums/FadeoutTarget";
-import type { DamageFlag } from "../../enums/flags/DamageFlag";
-import type { TearFlag } from "../../enums/flags/TearFlag";
 import type { GameStateFlag } from "../../enums/GameStateFlag";
 import type { GridRoom } from "../../enums/GridRoom";
 import type { LevelStage } from "../../enums/LevelStage";
 import type { RoomTransitionAnim } from "../../enums/RoomTransitionAnim";
 import type { StageTransitionType } from "../../enums/StageTransitionType";
+import type { EffectVariant } from "../../enums/collections/variants";
+import type { DamageFlag } from "../../enums/flags/DamageFlag";
+import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   function Game(this: void): Game;
@@ -127,7 +127,7 @@ declare global {
     Darken: (darkness: float, timeout: int) => void;
     DonateAngel: (donate: int) => void;
     DonateGreed: (donate: int) => void;
-    End: (ending: Ending) => void;
+    End: (ending: Cutscene) => void;
 
     /**
      * @param speed A value between 0 and 1. Using a value of 0 will soft-lock the game. Using a
