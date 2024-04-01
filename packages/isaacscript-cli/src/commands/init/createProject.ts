@@ -312,6 +312,10 @@ function upgradeYarn(
   }
   if (yarnVersion.majorVersion === 1) {
     // They have not done a "corepack enable", so let them use Yarn 1 to reduce the complexity.
+    if (verbose) {
+      console.log('Yarn 1 detected; skipping ".yarnrc.yml" configuration.');
+    }
+
     return;
   }
 
