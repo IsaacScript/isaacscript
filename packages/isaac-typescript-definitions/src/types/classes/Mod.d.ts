@@ -8,8 +8,7 @@ declare global {
   interface Mod {
     /**
      * Registers a function to be executed when an in-game event happens. For example, the
-     * `ModCallback.POST_UPDATE` event corresponds to event of an in-game logic frame being
-     * finished.
+     * `ModCallback.POST_UPDATE` event corresponds to an in-game logic frame being finished.
      *
      * The different types of callbacks are represented in the `ModCallback` enum.
      *
