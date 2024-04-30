@@ -33,15 +33,15 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "@arktype/fs": "^0.0.12",
+    "@arktype/fs": "^0.0.10",
     "chalk": "^5.3.0",
     "command-exists": "^1.2.9",
-    "diff": "^5.2.0",
-    "dotenv": "^16.4.5",
+    "diff": "^5.1.0",
+    "dotenv": "^16.3.1",
     "execa": "^8.0.1",
     "isaacscript-common-ts": "^16.1.0",
-    "jsonc-parser": "^3.2.1",
-    "npm-check-updates": "^16.14.17",
+    "jsonc-parser": "^3.2.0",
+    "npm-check-updates": "^16.14.12",
     "zod": "^3.22.4"
   }
 }
