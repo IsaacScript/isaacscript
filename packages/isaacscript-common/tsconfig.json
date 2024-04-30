@@ -7,6 +7,9 @@
   "compilerOptions": {
     "outDir": "dist",
 
+    // Needed so that the output goes to "./dist/index.lua" instead of "./dist/src/index.lua".
+    "rootDir": "src",
+
     // Needed since this is a library.
     "declaration": true,
     "declarationMap": true,
