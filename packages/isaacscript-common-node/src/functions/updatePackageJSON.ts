@@ -1,13 +1,14 @@
+import { parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
-import { $s, $sq } from "./execa.js";
+import { $op, $s, $sq } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
 import {
   getPackageManagerForProject,
   getPackageManagersForProject,
 } from "./packageManager.js";
-import { diff } from "./utils.js";
+import { diff, fatalError } from "./utils.js";
 
 /**
  * Helper function to:
@@ -44,6 +45,7 @@ export function updatePackageJSON(
   return packageJSONChanged;
 }
 
+/** @returns Whether Yarn was updated. */
 function updateYarn(
   packageJSONPath: string,
   packageRoot: string,
@@ -55,10 +57,24 @@ function updateYarn(
     return false;
   }
 
+  const $$ = $op({ cwd: packageRoot });
+
+  // If Yarn version 1 is being used, assume that we don't need to update it.
+  const { stdout } = $$.sync`yarn --version`;
+  const yarnVersion = parseSemanticVersion(stdout);
+  if (yarnVersion === undefined) {
+    fatalError(
+      `Failed to parse the Yarn version when running the "yarn --version" command: ${stdout}`,
+    );
+  }
+  if (yarnVersion.majorVersion === 1) {
+    return false;
+  }
+
   const oldPackageJSONString = readFile(packageJSONPath);
 
   // Yarn does not have a quiet flag, so we use the `$sq` helper function.
-  $sq`yarn set version latest`;
+  $$.sync`yarn set version latest`;
 
   const newPackageJSONString = readFile(packageJSONPath);
   if (oldPackageJSONString === newPackageJSONString) {

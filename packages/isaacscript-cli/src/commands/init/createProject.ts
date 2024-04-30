@@ -78,7 +78,10 @@ export function createProject(
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  updatePackageJSON(projectPath, false, true);
+  const updated = updatePackageJSON(projectPath, false, true);
+  if (!updated) {
+    fatalError('Failed to update the dependencies in the "package.json" file.');
+  }
 
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
