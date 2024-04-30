@@ -78,7 +78,7 @@
     "docusaurus-plugin-typedoc": "^0.22.0",
     "docusaurus-theme-search-typesense": "^0.18.0",
     "dotenv": "^16.4.5",
-    "eslint": "^9.1.1",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",

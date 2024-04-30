@@ -1,3 +1,5 @@
+// `eslint` is stuck on version 8 until we can migrate to the flat config.
+
 import {
   $s,
   PACKAGE_JSON,
