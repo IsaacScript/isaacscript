@@ -505,6 +505,7 @@ const SUGGESTIONS = {
   "no-unused-expressions": "off",
 
   "no-unused-labels": "error",
+  "no-useless-assignment": "error",
   "no-useless-call": "error",
   "no-useless-catch": "error",
 

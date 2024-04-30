@@ -5,7 +5,7 @@
  * This is efficient such that it avoids converting the object values into an array.
  */
 
-import type { ReadonlyRecord } from "../types/ReadonlyRecord.ts";
+import type { ReadonlyRecord } from "../types/ReadonlyRecord.js";
 
 // eslint-disable-next-line isaacscript/no-mutable-return
 export function objectFilter<K extends string | number | symbol, V>(
