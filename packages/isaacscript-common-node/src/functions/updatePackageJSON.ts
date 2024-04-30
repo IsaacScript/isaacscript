@@ -1,7 +1,7 @@
 import { parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
-import { $op, $s, $sq } from "./execa.js";
+import { $op, $s } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
 import {
@@ -9,6 +9,35 @@ import {
   getPackageManagersForProject,
 } from "./packageManager.js";
 import { diff, fatalError } from "./utils.js";
+
+/** @returns Whether the dependencies were updated. */
+export function updateDependencies(
+  packageJSONPath: string,
+  packageRoot: string,
+  quiet: boolean,
+): boolean {
+  const $$ = $op({
+    cwd: packageRoot,
+    stdio: quiet ? "pipe" : "inherit",
+  });
+
+  const oldPackageJSONString = readFile(packageJSONPath);
+
+  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
+  //   displays what is upgradeable).
+  // - "--packageFile" is necessary because the current working directory may not contain the
+  //   "package.json" file, so we must explicitly specify it.
+  // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
+  //   that it should be a "locked" dependency and not upgraded.
+  if (quiet) {
+    $$.sync`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
+  } else {
+    $$.sync`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
+  }
+
+  const newPackageJSONString = readFile(packageJSONPath);
+  return oldPackageJSONString !== newPackageJSONString;
+}
 
 /**
  * Helper function to:
@@ -34,7 +63,11 @@ export function updatePackageJSON(
   const packageRoot = path.dirname(packageJSONPath);
 
   const yarnUpdated = updateYarn(packageJSONPath, packageRoot, quiet);
-  const dependenciesUpdated = updateDependencies(packageJSONPath, quiet);
+  const dependenciesUpdated = updateDependencies(
+    packageJSONPath,
+    packageRoot,
+    quiet,
+  );
 
   const packageJSONChanged = yarnUpdated || dependenciesUpdated;
   if (packageJSONChanged && installAfterUpdate) {
@@ -46,7 +79,7 @@ export function updatePackageJSON(
 }
 
 /** @returns Whether Yarn was updated. */
-function updateYarn(
+export function updateYarn(
   packageJSONPath: string,
   packageRoot: string,
   quiet: boolean,
@@ -88,23 +121,4 @@ function updateYarn(
   }
 
   return true;
-}
-
-function updateDependencies(packageJSONPath: string, quiet: boolean): boolean {
-  const oldPackageJSONString = readFile(packageJSONPath);
-
-  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
-  //   displays what is upgradeable).
-  // - "--packageFile" is necessary because the current working directory may not contain the
-  //   "package.json" file, so we must explicitly specify it.
-  // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
-  //   that it should be a "locked" dependency and not upgraded.
-  if (quiet) {
-    $sq`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
-  } else {
-    $s`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
-  }
-
-  const newPackageJSONString = readFile(packageJSONPath);
-  return oldPackageJSONString !== newPackageJSONString;
 }
