@@ -17,7 +17,7 @@ import {
   isGitRepositoryClean,
   isLoggedInToNPM,
 } from "isaacscript-common-node";
-import { isEnumValue } from "isaacscript-common-ts";
+import { isEnumValue, isSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 
 enum VersionBump {
@@ -70,7 +70,7 @@ if (versionBump === undefined || versionBump === "") {
   echo("Error: The version bump description is required as an argument.");
   exit(1);
 }
-if (!isEnumValue(versionBump, VersionBump)) {
+if (!isEnumValue(versionBump, VersionBump) && !isSemanticVersion(versionBump)) {
   echo(`Error: The following version bump is not valid: ${versionBump}`);
   exit(1);
 }
@@ -102,7 +102,7 @@ if (scripts !== undefined) {
  *
  * Thus, we manually revert to doing a commit ourselves.
  */
-if (versionBump === VersionBump.dev) {
+if (isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev) {
   $$.sync`npm version prerelease --preid=dev --commit-hooks=false`;
 } else {
   $$.sync`npm version ${versionBump} --commit-hooks=false`;
@@ -119,7 +119,10 @@ $sq`git tag ${tag}`;
 // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
 // Upload the package to npm.
-const npmTag = versionBump === VersionBump.dev ? "next" : "latest";
+const npmTag =
+  isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev
+    ? "next"
+    : "latest";
 // - The "--access=public" flag is only technically needed for the first publish (unless the package
 //   is a scoped package), but it is saved here for posterity.
 // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"

@@ -140,7 +140,7 @@ export function getPartialMatch(
  * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
  * undefined if the submitted string was not a proper Semantic Version string.
  *
- * https://semver.org/
+ * @see https://semver.org/
  */
 export function parseSemanticVersion(versionString: string):
   | {

@@ -98,6 +98,16 @@ export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
 }
 
+/**
+ * Helper function to check if a given string is a valid Semantic Version.
+ *
+ * @see https://semver.org/
+ */
+export function isSemanticVersion(versionString: string): boolean {
+  const match = versionString.match(SEMANTIC_VERSION_REGEX);
+  return match !== null;
+}
+
 export function kebabCaseToCamelCase(string: string): string {
   return string.replaceAll(/-./g, (match) => {
     const firstLetterOfWord = match[1];
@@ -151,9 +161,9 @@ export function normalizeUsername(string: string): string {
 
 /**
  * Helper function to parse a Semantic Versioning string into its individual constituents. Returns
- * undefined if the submitted string was not a proper Semantic Version string.
+ * undefined if the submitted string was not a proper Semantic Version.
  *
- * https://semver.org/
+ * @see https://semver.org/
  */
 export function parseSemanticVersion(versionString: string):
   | {
