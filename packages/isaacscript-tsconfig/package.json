@@ -30,7 +30,7 @@
     "tsconfig.node.json"
   ],
   "dependencies": {
-    "@tsconfig/node-lts": "^20.1.1",
-    "@tsconfig/strictest": "^2.0.2"
+    "@tsconfig/node-lts": "^20.1.3",
+    "@tsconfig/strictest": "^2.0.5"
   }
 }

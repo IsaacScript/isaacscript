@@ -19,6 +19,7 @@ import {
 } from "isaacscript-common-node";
 import { isEnumValue, isSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
+import { updateIsaacScriptMonorepo } from "./update.js";
 
 enum VersionBump {
   major = "major",
@@ -139,8 +140,8 @@ console.log(
 );
 
 // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
-/// console.log("Checking for monorepo updates...");
-/// updateIsaacScriptMonorepo();
+console.log("Checking for monorepo updates...");
+updateIsaacScriptMonorepo();
 
 if (!isGitRepositoryClean(REPO_ROOT)) {
   const gitCommitMessage = "chore: updating dependencies";
