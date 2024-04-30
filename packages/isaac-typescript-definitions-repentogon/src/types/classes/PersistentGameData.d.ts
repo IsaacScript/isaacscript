@@ -1,9 +1,9 @@
 import type {
-  Achievement,
   Challenge,
   CollectibleType,
   EntityType,
 } from "isaac-typescript-definitions";
+import type { Achievement } from "../../enums/Achievement";
 import type { EventCounter } from "../../enums/EventCounter";
 
 /**

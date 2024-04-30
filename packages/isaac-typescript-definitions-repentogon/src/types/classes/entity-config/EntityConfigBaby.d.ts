@@ -1,4 +1,5 @@
-import type { Achievement, BabySubType } from "isaac-typescript-definitions";
+import type { BabySubType } from "isaac-typescript-definitions";
+import type { Achievement } from "../../../enums/Achievement";
 
 declare global {
   /**

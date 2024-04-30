@@ -1,5 +1,4 @@
 import type {
-  Achievement,
   CardType,
   CollectibleType,
   PillColor,
@@ -7,6 +6,7 @@ import type {
   SkinColor,
   TrinketType,
 } from "isaac-typescript-definitions";
+import type { Achievement } from "../../../enums/Achievement";
 
 declare global {
   /**

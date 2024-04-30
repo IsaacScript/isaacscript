@@ -1,8 +1,5 @@
-import type {
-  Ending,
-  LevelStage,
-  StageType,
-} from "isaac-typescript-definitions";
+import type { LevelStage, StageType } from "isaac-typescript-definitions";
+import type { Ending } from "../../../enums/Ending";
 
 declare global {
   /**

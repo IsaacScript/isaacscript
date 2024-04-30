@@ -1,5 +1,4 @@
 import type {
-  Achievement,
   CardType,
   CollectibleType,
   Difficulty,
@@ -10,6 +9,7 @@ import type {
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import type { Achievement } from "../../enums/Achievement";
 
 declare global {
   /**

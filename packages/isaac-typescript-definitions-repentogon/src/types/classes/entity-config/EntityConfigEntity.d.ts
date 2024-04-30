@@ -1,10 +1,10 @@
 import type {
   BossID,
   EntityFlag,
-  EntityTag,
   EntityType,
-  GibFlag,
 } from "isaac-typescript-definitions";
+import type { EntityTag } from "../../../enums/flags/EntityTag";
+import type { GibFlag } from "../../../enums/flags/GibFlag";
 
 declare global {
   /**

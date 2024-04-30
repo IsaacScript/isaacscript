@@ -6,6 +6,7 @@ export * from "./enums/BlendType";
 export * from "./enums/BombCostumeLayer";
 export * from "./enums/CharacterMenuType";
 export * from "./enums/DeathAnimationName";
+export * from "./enums/Ending";
 export * from "./enums/EventCounter";
 export * from "./enums/FollowerPriority";
 export * from "./enums/GiantbookType";
