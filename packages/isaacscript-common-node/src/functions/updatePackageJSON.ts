@@ -1,7 +1,7 @@
 import { parseSemanticVersion } from "isaacscript-common-ts";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
-import { $op, $s } from "./execa.js";
+import { $op } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
 import { PACKAGE_JSON } from "./packageJSON.js";
 import {
@@ -29,11 +29,7 @@ export function updateDependencies(
   //   "package.json" file, so we must explicitly specify it.
   // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
   //   that it should be a "locked" dependency and not upgraded.
-  if (quiet) {
-    $$.sync`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
-  } else {
-    $$.sync`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
-  }
+  $$.sync`npx npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
 
   const newPackageJSONString = readFile(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
@@ -52,7 +48,7 @@ export function updateDependencies(
  * @param installAfterUpdate Optional. Whether to install the new dependencies afterward, if any.
  *                           Default is true.
  * @param quiet Optional. Whether to suppress console output. Default is false.
- * @returns Whether Yarn or any dependencies were updated.
+ * @returns Whether the "package.json" file was updated.
  */
 export function updatePackageJSON(
   filePathOrDirPath: string | undefined,
@@ -72,7 +68,8 @@ export function updatePackageJSON(
   const packageJSONChanged = yarnUpdated || dependenciesUpdated;
   if (packageJSONChanged && installAfterUpdate) {
     const packageManager = getPackageManagerForProject(packageRoot);
-    $s`${packageManager} install`;
+    const $$ = $op({ cwd: packageRoot });
+    $$.sync`${packageManager} install`;
   }
 
   return packageJSONChanged;
@@ -106,7 +103,6 @@ export function updateYarn(
 
   const oldPackageJSONString = readFile(packageJSONPath);
 
-  // Yarn does not have a quiet flag, so we use the `$sq` helper function.
   $$.sync`yarn set version latest`;
 
   const newPackageJSONString = readFile(packageJSONPath);

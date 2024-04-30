@@ -32,9 +32,13 @@ export const initCommand = new Command()
     false,
   )
   .option(
-    "--use-current-dir",
+    "--use-current-directory",
     "Use the current directory as the root for the project.",
     false,
+  )
+  .option(
+    "--custom-directory <directory>",
+    "The directory to create the project in (instead of the current working directory).",
   )
   .option(
     "-m, --mods-directory <directory>",
@@ -99,9 +103,13 @@ export const initTSCommand = new Command()
     false,
   )
   .option(
-    "--use-current-dir",
+    "--use-current-directory",
     "Use the current directory as the root for the project.",
     false,
+  )
+  .option(
+    "--custom-directory <directory>",
+    "The directory to create the project in (instead of the current working directory).",
   )
   .option("--vscode", "Open the project in VSCode after initialization.", false)
   .option("--npm", "Use npm as the package manager.", false)
@@ -136,7 +144,8 @@ async function init(
     forceName,
     skipGit,
     skipInstall,
-    useCurrentDir,
+    useCurrentDirectory,
+    customDirectory,
     verbose,
     vscode,
     yes,
@@ -149,7 +158,8 @@ async function init(
   // Prompt the end-user for some information (and validate it as we go).
   const [projectPath, createNewDir] = await getProjectPath(
     name,
-    useCurrentDir,
+    useCurrentDirectory,
+    customDirectory,
     yes,
     forceName,
   );

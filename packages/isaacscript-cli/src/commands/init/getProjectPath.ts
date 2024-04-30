@@ -20,22 +20,25 @@ const ILLEGAL_CHARACTERS_FOR_WINDOWS_FILENAMES = [
 
 export async function getProjectPath(
   name: string | undefined,
-  useCurrentDir: boolean,
+  useCurrentDirectory: boolean,
+  customDirectory: string | undefined,
   yes: boolean,
   forceName: boolean,
 ): Promise<[string, boolean]> {
   let projectName = name;
   let projectPath: string;
   let createNewDir: boolean;
-  if (useCurrentDir) {
-    // The "--use-current-dir" command-line flag was specified, so there is no need to prompt the
-    // user.
+  if (useCurrentDirectory) {
+    // The "--use-current-directory" command-line flag was specified, so there is no need to prompt
+    // the user.
     projectName = CURRENT_DIRECTORY_NAME;
     projectPath = CWD;
     createNewDir = false;
   } else if (projectName !== undefined) {
     // The project name was specified on the command-line.
-    projectPath = path.join(CWD, projectName);
+    const baseDirectory =
+      customDirectory === undefined ? CWD : path.join(CWD, customDirectory);
+    projectPath = path.join(baseDirectory, projectName);
     createNewDir = true;
   } else if (yes) {
     // The "--yes" command-line flag was specified and the project name was not specified on the
