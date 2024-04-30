@@ -505,7 +505,7 @@ const SUGGESTIONS = {
   "no-unused-expressions": "off",
 
   "no-unused-labels": "error",
-  "no-useless-assignment": "error",
+  // "no-useless-assignment": "error", // Temporarily disabled until we upgrade to ESLint 9.
   "no-useless-call": "error",
   "no-useless-catch": "error",
 

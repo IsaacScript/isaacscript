@@ -30,6 +30,8 @@ const NORMAL_RULES = {
   /** Superseded by the `eslint-comments/no-unlimited-disable` rule. */
   "unicorn/no-abusive-eslint-disable": "off",
 
+  "unicorn/no-anonymous-default-export": "error",
+
   /** Disabled since it is not helpful when using TypeScript. */
   "unicorn/no-array-callback-reference": "off",
 
@@ -38,6 +40,7 @@ const NORMAL_RULES = {
   "unicorn/no-array-push-push": "error",
   "unicorn/no-array-reduce": "error",
   "unicorn/no-await-expression-member": "error",
+  "unicorn/no-await-in-promise-methods": "error",
   "unicorn/no-console-spaces": "error",
   "unicorn/no-document-cookie": "error",
   "unicorn/no-empty-file": "error",
@@ -63,6 +66,7 @@ const NORMAL_RULES = {
    */
   "unicorn/no-process-exit": "off",
 
+  "unicorn/no-single-promise-in-promise-methods": "error",
   "unicorn/no-static-only-class": "error",
   "unicorn/no-thenable": "error",
 

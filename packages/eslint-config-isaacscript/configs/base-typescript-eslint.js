@@ -171,6 +171,7 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/no-useless-template-literals": "error",
   "@typescript-eslint/no-var-requires": "error",
   "@typescript-eslint/non-nullable-type-assertion-style": "error",
+  "@typescript-eslint/only-throw-error": "error",
   "@typescript-eslint/parameter-properties": "error",
   "@typescript-eslint/prefer-as-const": "error",
 
