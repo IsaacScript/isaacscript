@@ -41,6 +41,7 @@ Floast
 forgottens
 Gabriels
 gameplay
+giantbooks
 gibamount # REPENTOGON API
 gibflags # REPENTOGON API
 giveitem # Console command
@@ -116,6 +117,7 @@ texels
 tnts
 trites
 Turdlings
+Unidentify
 unseed
 Uriels
 Wofsauge # Creator of External Item Descriptions
