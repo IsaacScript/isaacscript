@@ -73,6 +73,7 @@
 /// <reference path="./classes/procedural-items/ProceduralItemManager.d.ts"/>
 /// <reference path="./classes/PersistentGameData.d.ts"/>
 /// <reference path="./classes/PlayerManager.d.ts"/>
+/// <reference path="./classes/ProjectileParams.d.ts"/>
 /// <reference path="./classes/PocketItem.d.ts"/>
 /// <reference path="./classes/rendering/Beam.d.ts"/>
 /// <reference path="./classes/rendering/BlendMode.d.ts"/>
