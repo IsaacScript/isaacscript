@@ -18,6 +18,7 @@ export * from "./enums/PocketItemType";
 export * from "./enums/ProceduralEffectActionType";
 export * from "./enums/ProceduralEffectConditionType";
 export * from "./enums/PurityState";
+export * from "./enums/StbRailVariant";
 export * from "./enums/WeaponSlot";
 export * from "./enums/flags/AnimationRenderFlag";
 export * from "./enums/flags/EntityTag";
