@@ -1,5 +1,5 @@
-import type { AnimationRenderFlag } from "../../enums/flags/AnimationRenderFlag";
-import type { LayerState } from "./sprite/LayerState";
+import type { AnimationRenderFlag } from "../../../enums/flags/AnimationRenderFlag";
+import type { LayerState } from "./LayerState";
 
 declare function Sprite(
   this: void,
