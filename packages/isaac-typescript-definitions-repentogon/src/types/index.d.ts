@@ -68,6 +68,7 @@
 /// <reference path="./classes/menus/TitleMenu.d.ts"/>
 /// <reference path="./classes/MultiShotParams.d.ts"/>
 /// <reference path="./classes/NightmareScene.d.ts"/>
+/// <reference path="./classes/Options.d.ts"/>
 /// <reference path="./classes/procedural-items/ProceduralEffect.d.ts"/>
 /// <reference path="./classes/procedural-items/ProceduralItem.d.ts"/>
 /// <reference path="./classes/procedural-items/ProceduralItemManager.d.ts"/>
