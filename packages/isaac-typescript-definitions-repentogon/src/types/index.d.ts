@@ -32,9 +32,9 @@
 /// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts"/>
 /// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
+/// <reference path="./classes/grid-entity/GridEntityDoor.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
-/// <reference path="./classes/rendering/Shape.d.ts"/>
 /// <reference path="./classes/hud/DebugRenderer.d.ts"/>
 /// <reference path="./classes/hud/HUD.d.ts"/>
 /// <reference path="./classes/hud/Minimap.d.ts"/>
@@ -73,10 +73,11 @@
 /// <reference path="./classes/PersistentGameData.d.ts"/>
 /// <reference path="./classes/PlayerManager.d.ts"/>
 /// <reference path="./classes/PocketItem.d.ts"/>
-/// <reference path="./classes/rendering/Point.d.ts"/>
 /// <reference path="./classes/rendering/Beam.d.ts"/>
 /// <reference path="./classes/rendering/BlendMode.d.ts"/>
 /// <reference path="./classes/rendering/DestinationQuad.d.ts"/>
+/// <reference path="./classes/rendering/Point.d.ts"/>`
+/// <reference path="./classes/rendering/Shape.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveState.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
