@@ -2,17 +2,6 @@
 // Classes
 // -------
 
-/// <reference path="./classes/Ambush.d.ts"/>
-/// <reference path="./classes/Camera.d.ts"/>
-/// <reference path="./classes/Capsule.d.ts"/>
-/// <reference path="./classes/ChallengeParams.d.ts"/>
-/// <reference path="./classes/ColorParams.d.ts"/>
-/// <reference path="./classes/Console.d.ts"/>
-/// <reference path="./classes/CostumeSpriteDesc.d.ts"/>
-/// <reference path="./classes/DailyChallenge.d.ts"/>
-/// <reference path="./classes/Debug.d.ts"/>
-/// <reference path="./classes/Color.d.ts"/>
-/// <reference path="./classes/ColorModifier.d.ts"/>
 /// <reference path="./classes/entity/Entity.d.ts"/>
 /// <reference path="./classes/entity/EntityBomb.d.ts"/>
 /// <reference path="./classes/entity/EntityDelirium.d.ts"/>
@@ -30,8 +19,6 @@
 /// <reference path="./classes/entity-config/EntityConfigBaby.d.ts"/>
 /// <reference path="./classes/entity-config/EntityConfigEntity.d.ts"/>
 /// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts"/>
-/// <reference path="./classes/Font.d.ts"/>
-/// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/grid-entity/GridEntity.d.ts"/>
 /// <reference path="./classes/grid-entity/GridEntityDoor.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
@@ -42,10 +29,8 @@
 /// <reference path="./classes/hud/PlayerHUD.d.ts"/>
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts"/>
 /// <reference path="./classes/hud/ScoreSheet.d.ts"/>
-/// <reference path="./classes/ImGui.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfig.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfigPillEffect.d.ts"/>
-/// <reference path="./classes/ItemOverlay.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGenerator.d.ts"/>
@@ -66,17 +51,9 @@
 /// <reference path="./classes/menus/SpecialSeedsMenu.d.ts"/>
 /// <reference path="./classes/menus/StatsMenu.d.ts"/>
 /// <reference path="./classes/menus/TitleMenu.d.ts"/>
-/// <reference path="./classes/MultiShotParams.d.ts"/>
-/// <reference path="./classes/MusicManager.d.ts"/>
-/// <reference path="./classes/NightmareScene.d.ts"/>
-/// <reference path="./classes/Options.d.ts"/>
 /// <reference path="./classes/procedural-items/ProceduralEffect.d.ts"/>
 /// <reference path="./classes/procedural-items/ProceduralItem.d.ts"/>
 /// <reference path="./classes/procedural-items/ProceduralItemManager.d.ts"/>
-/// <reference path="./classes/PersistentGameData.d.ts"/>
-/// <reference path="./classes/PlayerManager.d.ts"/>
-/// <reference path="./classes/ProjectileParams.d.ts"/>
-/// <reference path="./classes/PocketItem.d.ts"/>
 /// <reference path="./classes/rendering/Beam.d.ts"/>
 /// <reference path="./classes/rendering/BlendMode.d.ts"/>
 /// <reference path="./classes/rendering/DestinationQuad.d.ts"/>
@@ -88,25 +65,47 @@
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
 /// <reference path="./classes/room-config/RoomDescriptor.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigRoom.d.ts"/>
-/// <reference path="./classes/Room.d.ts"/>
-/// <reference path="./classes/PosVel.d.ts"/>
-/// <reference path="./classes/RailManager.d.ts"/>
-/// <reference path="./classes/RNG.d.ts"/>
-/// <reference path="./classes/RoomTransition.d.ts"/>
 /// <reference path="./classes/sprite/AnimationData.d.ts"/>
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
-/// <reference path="./classes/sprite/NullLayer.d.ts"/>
 /// <reference path="./classes/sprite/Sprite.d.ts"/>
+/// <reference path="./classes/Ambush.d.ts"/>
+/// <reference path="./classes/Camera.d.ts"/>
+/// <reference path="./classes/Capsule.d.ts"/>
+/// <reference path="./classes/ChallengeParams.d.ts"/>
+/// <reference path="./classes/ColorParams.d.ts"/>
+/// <reference path="./classes/Console.d.ts"/>
+/// <reference path="./classes/CostumeSpriteDesc.d.ts"/>
+/// <reference path="./classes/Color.d.ts"/>
+/// <reference path="./classes/ColorModifier.d.ts"/>
+/// <reference path="./classes/DailyChallenge.d.ts"/>
+/// <reference path="./classes/Debug.d.ts"/>
+/// <reference path="./classes/Font.d.ts"/>
+/// <reference path="./classes/FXParams.d.ts"/>
+/// <reference path="./classes/ImGui.d.ts"/>
+/// <reference path="./classes/Isaac.d.ts"/>
+/// <reference path="./classes/ItemOverlay.d.ts"/>
+/// <reference path="./classes/ItemPool.d.ts"/>
+/// <reference path="./classes/Level.d.ts"/>
+/// <reference path="./classes/MultiShotParams.d.ts"/>
+/// <reference path="./classes/MusicManager.d.ts"/>
+/// <reference path="./classes/NightmareScene.d.ts"/>
+/// <reference path="./classes/Options.d.ts"/>
+/// <reference path="./classes/PersistentGameData.d.ts"/>
+/// <reference path="./classes/PlayerManager.d.ts"/>
+/// <reference path="./classes/PocketItem.d.ts"/>
+/// <reference path="./classes/ProjectileParams.d.ts"/>
+/// <reference path="./classes/PosVel.d.ts"/>
+/// <reference path="./classes/Room.d.ts"/>
+/// <reference path="./classes/RailManager.d.ts"/>
+/// <reference path="./classes/RNG.d.ts"/>
+/// <reference path="./classes/RoomTransition.d.ts"/>
 /// <reference path="./classes/StageTransition.d.ts"/>
 /// <reference path="./classes/Weapon.d.ts"/>
 /// <reference path="./classes/WeightedOutcomePicker.d.ts"/>
 /// <reference path="./classes/XMLData.d.ts"/>
-/// <reference path="./classes/Level.d.ts"/>
-/// <reference path="./classes/Isaac.d.ts"/>
-/// <reference path="./classes/ItemPool.d.ts"/>
 
 // ----------
 // Unofficial
