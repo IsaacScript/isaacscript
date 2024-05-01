@@ -77,7 +77,7 @@
 /// <reference path="./classes/rendering/Beam.d.ts"/>
 /// <reference path="./classes/rendering/BlendMode.d.ts"/>
 /// <reference path="./classes/rendering/DestinationQuad.d.ts"/>
-/// <reference path="./classes/rendering/Point.d.ts"/>`
+/// <reference path="./classes/rendering/Point.d.ts"/>
 /// <reference path="./classes/rendering/Shape.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveState.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
