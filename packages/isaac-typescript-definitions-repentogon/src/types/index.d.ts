@@ -78,6 +78,7 @@
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
+/// <reference path="./classes/room-config/RoomDescriptor.d.ts"/>
 /// <reference path="./classes/PosVel.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
 /// <reference path="./classes/RoomTransition.d.ts"/>
