@@ -41,6 +41,7 @@
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts" />
 /// <reference path="./classes/hud/ScoreSheet.d.ts" />
 /// <reference path= "./classes/ImGui.d.ts"/>
+/// <reference path= "./classes/item-config/ItemConfigPillEffect.d.ts"/>
 /// <reference path="./classes/ItemOverlay.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts" />
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts" />
@@ -79,6 +80,7 @@
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
 /// <reference path="./classes/room-config/RoomDescriptor.d.ts"/>
+/// <reference path="./classes/room-config/RoomConfigRoom.d.ts"/>
 /// <reference path="./classes/PosVel.d.ts"/>
 /// <reference path="./classes/RailManager.d.ts"/>
 /// <reference path="./classes/RoomTransition.d.ts"/>
