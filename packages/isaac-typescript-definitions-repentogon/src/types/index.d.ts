@@ -107,6 +107,7 @@
 /// <reference path="./classes/WeightedOutcomePicker.d.ts"/>
 /// <reference path="./classes/XMLData.d.ts"/>
 /// <reference path="./classes/Level.d.ts"/>
+/// <reference path="./classes/ItemPool.d.ts"/>
 
 // ----------
 // Unofficial
