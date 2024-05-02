@@ -18,6 +18,7 @@ export * from "./enums/GiantbookType";
 export * from "./enums/HealthType";
 export * from "./enums/MainMenuType";
 export * from "./enums/MinimapState";
+export * from "./enums/ModCallbackRepentogon";
 export * from "./enums/PauseMenuState";
 export * from "./enums/PocketItemType";
 export * from "./enums/ProceduralEffectActionType";
