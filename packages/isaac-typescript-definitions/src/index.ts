@@ -46,7 +46,6 @@ export * from "./enums/LevelStage";
 export * from "./enums/LevelStateFlag";
 export * from "./enums/LineCheckMode";
 export * from "./enums/ModCallback";
-export * from "./enums/ModCallbackRepentogon";
 export * from "./enums/Mouse";
 export * from "./enums/Music";
 export * from "./enums/NPCID";
