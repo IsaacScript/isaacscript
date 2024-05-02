@@ -89,6 +89,7 @@
 /// <reference path="./classes/ItemOverlay.d.ts"/>
 /// <reference path="./classes/ItemPool.d.ts"/>
 /// <reference path="./classes/Level.d.ts"/>
+/// <reference path="./classes/Mod.d.ts"/>
 /// <reference path="./classes/MultiShotParams.d.ts"/>
 /// <reference path="./classes/MusicManager.d.ts"/>
 /// <reference path="./classes/NightmareScene.d.ts"/>
