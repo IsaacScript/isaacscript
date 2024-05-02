@@ -1008,5 +1008,3 @@ export enum ModCallback {
    */
   PRE_MOD_UNLOAD = 73,
 }
-
-
