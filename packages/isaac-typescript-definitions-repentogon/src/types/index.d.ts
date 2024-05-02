@@ -112,4 +112,5 @@
 // ----------
 
 /// <reference path = "./unofficial/AddUpdateParametersImGui.d.ts"/>
+/// <reference path = "./unofficial/AddCallbackParametersRepentogon.d.ts"/>
 /// <reference path = "./unofficial/RGBValue.d.ts"/>

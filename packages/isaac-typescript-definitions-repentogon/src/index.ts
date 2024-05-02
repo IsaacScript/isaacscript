@@ -28,6 +28,7 @@ export * from "./enums/SpecialQuest";
 export * from "./enums/StbRailVariant";
 export * from "./enums/TaintedMarksGroup";
 export * from "./enums/WeaponSlot";
+export * from "./enums/flags/AddHealthTypeFlag";
 export * from "./enums/flags/AnimationRenderFlag";
 export * from "./enums/flags/EntityTag";
 export * from "./enums/flags/GibFlag";

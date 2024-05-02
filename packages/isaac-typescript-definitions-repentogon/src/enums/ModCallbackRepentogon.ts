@@ -43,7 +43,7 @@ export enum ModCallbackRepentogon {
    *   | {
    *       Damage?: number;
    *       DamageFlags?: BitFlags<DamageFlag>;
-   *       DamageCountdown?: number;
+   *       DamageCountdown?: int;
    *     }
    *   | undefined {}
    * ```
@@ -224,22 +224,6 @@ export enum ModCallbackRepentogon {
   PRE_ADD_COLLECTIBLE = 1004,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `EntityType` provided.
-   *
-   * ```ts
-   * function postEntityTakeDmg(
-   *   entity: Entity,
-   *   damage: number,
-   *   flags: BitFlags<DamageFlag>
-   *   source: EntityRef,
-   *   damageCountdown: int
-   * ): void {}
-   */
-  POST_ENTITY_TAKE_DMG = 1006,
-
-  /**
    * Use this over Isaacscript-Common's `ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED` callback
    * as this is a lot more optimized.
    *
@@ -263,6 +247,22 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   *
+   * ```ts
+   * function postEntityTakeDmg(
+   *   entity: Entity,
+   *   damage: number,
+   *   flags: BitFlags<DamageFlag>
+   *   source: EntityRef,
+   *   damageCountdown: int
+   * ): void {}
+   */
+  POST_ENTITY_TAKE_DMG = 1006,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
    * ```ts
@@ -280,13 +280,13 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `AddHealthType` provided.
+   *   matches the `AddHealthTypeFlag` provided.
    *
    * ```ts
    * function prePlayerAddHearts(
    *   player: EntityPlayer,
    *   amount: int,
-   *   addHealthType: AddHealthType,
+   *   addHealthTypeFlag: AddHealthTypeFlag,
    *   optionalArg: boolean
    * ): int | undefined {}
    * ```
@@ -296,13 +296,13 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `AddHealthType` provided.
+   *   matches the `AddHealthTypeFlag` provided.
    *
    * ```ts
    * function postPlayerAddHearts(
    *   player: EntityPlayer,
    *   amount: int,
-   *   addHealthType: AddHealthType,
+   *   addHealthTypeFlag: AddHealthTypeFlag,
    *   optionalArg: boolean
    * ): void {}
    * ```
@@ -335,7 +335,7 @@ export enum ModCallbackRepentogon {
    *   entity: Entity,
    *   damageAmount: number,
    *   damageFlags: BitFlags<DamageFlag>,
-   *   unknownFloat: number,
+   *   unknownFloat: float,
    *   unknownBoolean: boolean
    * ): boolean | undefined {}
    * ```
@@ -418,7 +418,7 @@ export enum ModCallbackRepentogon {
    *   loop: boolean,
    *   pitch: number,
    *   pan: number
-   * ): [SoundEffect, number, int, boolean, number, number] | boolean | undefined {}
+   * ): SoundEffect | [SoundEffect, number, int, boolean, number, number] | boolean | undefined {}
    * ```
    */
   PRE_SFX_PLAY = 1030,
@@ -512,14 +512,6 @@ export enum ModCallbackRepentogon {
    * You cannot filter this callback.
    *
    * ```ts
-   * function preRoomExit(player: EntityPlayer, newLevel: boolean): void {}
-   */
-  PRE_ROOM_EXIT = 1043,
-
-  /**
-   * You cannot filter this callback.
-   *
-   * ```ts
    * function postEntityThrow(
    *   throwingPlayer: EntityPlayer,
    *   heldEntity: Entity,
@@ -539,6 +531,15 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_PLAYER_INIT_LEVEL_STATS = 1042,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function preRoomExit(player: EntityPlayer, newLevel: boolean): void {}
+   * ```
+   */
+  PRE_ROOM_EXIT = 1043,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -621,7 +622,7 @@ export enum ModCallbackRepentogon {
    *   matches the `FamiliarVariant` provided.
    *
    * ```ts
-   * function getFollowerPriority(familiar: EntityFamiliar): FollowerPriority | int | undefined {}
+   * function getFollowerPriority(familiar: EntityFamiliar): FollowerPriority | undefined {}
    * ```
    */
   GET_FOLLOWER_PRIORITY = 1063,
@@ -664,7 +665,7 @@ export enum ModCallbackRepentogon {
    *   pickupSubType: int,
    *   shopItemID: int,
    *   price: int
-   *  ): int {}
+   *  ): int | undefined {}
    * ```
    */
   GET_SHOP_ITEM_PRICE = 1066,
@@ -693,7 +694,7 @@ export enum ModCallbackRepentogon {
    * You cannot filter this callback.
    *
    * ```ts
-   * function preRestockShop(partial: boolean): boolean {}
+   * function preRestockShop(partial: boolean): boolean | undefined {}
    * ```
    */
   PRE_RESTOCK_SHOP = 1070,
@@ -1060,7 +1061,7 @@ export enum ModCallbackRepentogon {
    * ):
    *   | GridEntityDesc
    *   | boolean
-   *   | { Type: GridEntityType?; Variant?: int; Vardata?: int; SpawnSeed?: Seed }
+   *   | { Type?: GridEntityType; Variant?: int; Vardata?: int; SpawnSeed?: Seed }
    *   | undefined {}
    * ```
    */
@@ -2035,7 +2036,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityDecorationUpdate(
-   *   decoration: GridEntityDecoration
+   *   decoration: GridEntity
    * ): boolean | undefined {}
    * ```
    */
@@ -2047,7 +2048,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityDecorationUpdate(decoration: GridEntityDecoration): void {}
+   * function postGridEntityDecorationUpdate(decoration: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_DECORATION_UPDATE = 1401,
@@ -2083,7 +2084,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityDoorUpdate(fire: GridEntityFire): boolean | undefined {}
+   * function preGridEntityDoorUpdate(fire: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_FIRE_UPDATE = 1404,
@@ -2097,7 +2098,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityDoorUpdate(fire: GridEntityFire): void {}
+   * function postGridEntityDoorUpdate(fire: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_FIRE_UPDATE = 1405,
@@ -2108,7 +2109,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityGravityUpdate(gravity: GridEntityGravity): boolean | undefined {}
+   * function preGridEntityGravityUpdate(gravity: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_GRAVITY_UPDATE = 1406,
@@ -2119,7 +2120,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityGravityUpdate(gravity: GridEntityGravity): void {}
+   * function postGridEntityGravityUpdate(gravity: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_GRAVITY_UPDATE = 1407,
@@ -2130,7 +2131,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityLockUpdate(lock: GridEntityLock): boolean | undefined {}
+   * function preGridEntityLockUpdate(lock: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_LOCK_UPDATE = 1408,
@@ -2141,7 +2142,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityLockUpdate(lock: GridEntityLock): void {}
+   * function postGridEntityLockUpdate(lock: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_LOCK_UPDATE = 1409,
@@ -2270,7 +2271,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityStaircaseUpdate(staircase: GridEntityStaircase): boolean | undefined {}
+   * function preGridEntityStaircaseUpdate(staircase: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_STAIRCASE_UPDATE = 1420,
@@ -2281,7 +2282,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityStaircaseUpdate(staircase: GridEntityStaircase): viod {}
+   * function postGridEntityStaircaseUpdate(staircase: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_STAIRCASE_UPDATE = 1421,
@@ -2292,7 +2293,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityStatueUpdate(statue: GridEntityStatue): boolean | undefined {}
+   * function preGridEntityStatueUpdate(statue: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_STATUE_UPDATE = 1422,
@@ -2303,7 +2304,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityStatueUpdate(statue: GridEntityStatue): void {}
+   * function postGridEntityStatueUpdate(statue: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_STATUE_UPDATE = 1423,
@@ -2315,7 +2316,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityTeleporterUpdate(
-   *   teleporter: GridEntityTeleporter
+   *   teleporter: GridEntity
    * ): boolean | undefined {}
    * ```
    */
@@ -2327,7 +2328,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityTeleporterUpdate(teleporter: GridEntityTeleporter): void {}
+   * function postGridEntityTeleporterUpdate(teleporter: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_TELEPORTER_UPDATE = 1425,
@@ -2338,7 +2339,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityTrapdoorUpdate(trapdoor: GridEntityTrapdoor): boolean | undefined {}
+   * function preGridEntityTrapdoorUpdate(trapdoor: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_TRAPDOOR_UPDATE = 1426,
@@ -2349,7 +2350,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityTrapdoorUpdate(trapdoor: GridEntityTrapdoor): void {}
+   * function postGridEntityTrapdoorUpdate(trapdoor: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_TRAPDOOR_UPDATE = 1427,
@@ -2360,7 +2361,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function preGridEntityWebUpdate(web: GridEntityWeb): boolean | undefined {}
+   * function preGridEntityWebUpdate(web: GridEntity): boolean | undefined {}
    * ```
    */
   PRE_GRID_ENTITY_WEB_UPDATE = 1428,
@@ -2371,7 +2372,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityWebUpdate(web: GridEntityWeb): void {}
+   * function postGridEntityWebUpdate(web: GridEntity): void {}
    * ```
    */
   POST_GRID_ENTITY_WEB_UPDATE = 1429,
@@ -2430,7 +2431,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityWebRender(
-   *   web: GridEntityWeb,
+   *   web: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2443,7 +2444,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityWebRender(spikes: GridEntityWeb, offset: Vector): void {}
+   * function postGridEntityWebRender(spikes: GridEntity, offset: Vector): void {}
    * ```
    */
   POST_GRID_ENTITY_WEB_RENDER = 1435,
@@ -2480,7 +2481,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityTrapdoorRender(
-   *   trapdoor: GridEntityTrapdoor,
+   *   trapdoor: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2493,7 +2494,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityTrapdoorRender(trapdoor: GridEntityTrapdoor, offset: Vector): void {}
+   * function postGridEntityTrapdoorRender(trapdoor: GridEntity, offset: Vector): void {}
    * ```
    */
   POST_GRID_ENTITY_TRAPDOOR_RENDER = 1439,
@@ -2505,7 +2506,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityStaircaseRender(
-   *   staircase: GridEntityStaircase,
+   *   staircase: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2518,7 +2519,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityStaircaseRender(staircase: GridEntityStaircase, offset: Vector): void {}
+   * function postGridEntityStaircaseRender(staircase: GridEntity, offset: Vector): void {}
    * ```
    */
   POST_GRID_ENTITY_STAIRCASE_RENDER = 1441,
@@ -2530,7 +2531,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityDecorationRender(
-   *   decoration: GridEntityDecoration,
+   *   decoration: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2544,7 +2545,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function postGridEntityDecorationRender(
-   *   decoration: GridEntityDecoration,
+   *   decoration: GridEntity,
    *   offset: Vector
    * ): void {}
    * ```
@@ -2586,7 +2587,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityFireRender(
-   *   fire: GridEntityFire,
+   *   fire: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2602,7 +2603,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityFireRender(fire: GridEntityFire, offset: Vector): void {}
+   * function postGridEntityFireRender(fire: GridEntity, offset: Vector): void {}
    * ```
    */
   POST_GRID_ENTITY_FIRE_RENDER = 1449,
@@ -2614,7 +2615,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityLockRender(
-   *   lock: GridEntityLock,
+   *   lock: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2627,7 +2628,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityLockRender(lock: GridEntityLock, offset: Vector): void {}
+   * function postGridEntityLockRender(lock: GridEntity, offset: Vector): void {}
    * ```
    */
   POST_GRID_ENTITY_LOCK_RENDER = 1451,
@@ -2639,7 +2640,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityTeleporterRender(
-   *   teleporter: GridEntityTeleporter,
+   *   teleporter: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2653,7 +2654,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function postGridEntityTeleporterRender(
-   *   teleporter: GridEntityTeleporter,
+   *   teleporter: GridEntity,
    *   offset: Vector
    * ): void {}
    * ```
@@ -2776,7 +2777,7 @@ export enum ModCallbackRepentogon {
    *
    * ```ts
    * function preGridEntityWallRender(
-   *   wall: GridEntityWall,
+   *   wall: GridEntity,
    *   offset: Vector
    * ): Vector | boolean | undefined {}
    * ```
@@ -2789,7 +2790,7 @@ export enum ModCallbackRepentogon {
    *   matches the `GridEntityType` provided.
    *
    * ```ts
-   * function postGridEntityWallRender(wall: GridEntityWall, offset: Vector): void {}
+   * function postGridEntityWallRender(wall: GridEntity, offset: Vector): void {}
    * ```
    */
   POST_GRID_ENTITY_WALL_RENDER = 1463,
