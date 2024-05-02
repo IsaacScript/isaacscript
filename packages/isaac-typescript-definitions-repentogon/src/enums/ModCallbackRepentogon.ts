@@ -17,8 +17,8 @@ export enum ModCallbackRepentogon {
    *   effect: PillEffect,
    *   player: EntityPlayer,
    *   flags: BitFlags<UseFlag>,
-   *   color: PillColor)
-   * : void {}
+   *   color: PillColor
+   * ): void {}
    * ```
    */
   POST_USE_PILL = 10,
