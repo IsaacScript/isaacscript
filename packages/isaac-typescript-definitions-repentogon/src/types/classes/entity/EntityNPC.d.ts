@@ -44,7 +44,7 @@ declare global {
       position: Vector,
       velocity: Vector,
       mode: ProjectilesMode,
-      params: ProjectilesMode,
+      params: ProjectileParams,
     ) => EntityProjectile[];
 
     /**
