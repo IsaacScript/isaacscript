@@ -42,6 +42,6 @@
     "isaacscript-common-ts": "^16.1.0",
     "jsonc-parser": "^3.2.1",
     "npm-check-updates": "^16.14.20",
-    "zod": "^3.23.5"
+    "zod": "^3.23.6"
   }
 }
