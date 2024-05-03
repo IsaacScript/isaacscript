@@ -202,7 +202,7 @@ declare global {
     /** @param slot Optional. Default is `ActiveSlot.PRIMARY`. */
     GetActiveItemDesc: (slot?: ActiveSlot) => ActiveItemDesc;
 
-    GetActiveItemSlot: (collectible: CollectibleType) => ActiveSlot | undefined;
+    GetActiveItemSlot: (collectible: CollectibleType) => ActiveSlot;
     GetActiveMaxCharge: (slot: ActiveSlot) => int;
     GetActiveMinUsableCharge: (slot: ActiveSlot) => int;
     GetActiveWeaponNumFired: () => int;

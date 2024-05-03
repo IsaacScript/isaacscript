@@ -1,4 +1,11 @@
 export enum ActiveSlot {
+  /**
+   * Used for Repentogon, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/index.html
+   */
+  NONE = -1,
+
   /** The main slot for active items, in the top-left-hand corner. */
   PRIMARY = 0,
 
