@@ -62,7 +62,7 @@ declare global {
      * definitions. However, when the project compiles the method's name will change to what it's
      * supposed to be.
      *
-     * @customName StartStageTransitionEx
+     * @customName StartStageTransition
      */
     StartStageTransitionEx: (
       sameStage: boolean,
