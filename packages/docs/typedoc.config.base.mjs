@@ -24,6 +24,7 @@ const config = {
 
   // "typedoc-plugin-markdown" settings
   hideBreadcrumbs: true,
+  hideInPageTOC: true,
 };
 
 /**
