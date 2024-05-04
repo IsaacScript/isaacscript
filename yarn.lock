@@ -8760,15 +8760,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-typedoc@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "docusaurus-plugin-typedoc@npm:1.0.0"
-  peerDependencies:
-    typedoc-plugin-markdown: ">=4.0.0"
-  checksum: 10c0/55379a22a42b7be2fe91bbde93ab42e94ff7be9505cf10cd89331752aba5ba577130f9c65f1be0a5b23bb0de46f161059ecd1b3bb54e752e91040f1290bd4cdf
-  languageName: node
-  linkType: hard
-
 "docusaurus-theme-search-typesense@npm:^0.18.0":
   version: 0.18.0
   resolution: "docusaurus-theme-search-typesense@npm:0.18.0"
@@ -12063,7 +12054,6 @@ __metadata:
     cspell: "npm:^8.8.0"
     cspell-check-unused-words: "npm:^1.1.1"
     diff: "npm:^5.2.0"
-    docusaurus-plugin-typedoc: "npm:^1.0.0"
     docusaurus-theme-search-typesense: "npm:^0.18.0"
     dotenv: "npm:^16.4.5"
     eslint: "npm:8.57.0"
