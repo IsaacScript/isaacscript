@@ -84,6 +84,7 @@
 /// <reference path="./classes/Debug.d.ts"/>
 /// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
+/// <reference path="./classes/Game.d.ts"/>
 /// <reference path="./classes/ImGui.d.ts"/>
 /// <reference path="./classes/Isaac.d.ts"/>
 /// <reference path="./classes/ItemOverlay.d.ts"/>
