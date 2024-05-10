@@ -8,9 +8,13 @@ bestiaryanim # REPENTOGON API
 bestiaryoverlay # REPENTOGON API
 Bethanys
 Bloodfly
+bonehearts # REPENTOGON API
 Bonies
 bossid # REPENTOGON API
+brokenhearts # REPENTOGON API
+bskinparent # REPENTOGON API
 Chronometrics # Creator of Basement Renovator
+cleareffectsonremove # REPENTOGON API
 collisiondamage # REPENTOGON API
 collisioninterval # REPENTOGON API
 collisionmass # REPENTOGON API
@@ -19,10 +23,16 @@ collisionradiusxmulti # REPENTOGON API
 collisionradiusymulti # REPENTOGON API
 colorblood # REPENTOGON API
 combobox # ImGui element
+completionparent # REPENTOGON API
 contentfolder # metadata.vdf
+corecolor # REPENTOGON API
+coregfx # REPENTOGON API
+costumesuffix # REPENTOGON API
 craftable
 Cucco # Creator of Job
 customtags # REPENTOGON API
+damagemodifier # REPENTOGON API
+damagemultiplier # REPENTOGON API
 datagrams
 debuff
 Descs # REPENTOGON API
@@ -32,61 +42,98 @@ despawning
 despawns
 Dollys
 Dreamcatcher
+effectsgfxroot # REPENTOGON API
 Eggies
 esaus
+eternalheart # REPENTOGON API
+extraportrait # REPENTOGON API
 Fallens
 Filloax # Creator of Revelations
+firedelaymodifier # REPENTOGON API
 fistuloids
+flamecolor # REPENTOGON API
 Floast
+floorvariants # REPENTOGON API
+forcebodycolor # REPENTOGON API
+forceheadcolor # REPENTOGON API
 forgottens
 Gabriels
 gameplay
+gfxback # REPENTOGON API
 giantbooks
 gibamount # REPENTOGON API
 gibflags # REPENTOGON API
+gigabombs # REPENTOGON API
 giveitem # Console command
+goldenhearts # REPENTOGON API
 gridcollision # REPENTOGON API
 hasflooralts # REPENTOGON API
+hasoverlay # REPENTOGON API
+hasskinalt # REPENTOGON API
+healthlimit # REPENTOGON API
+healthtype # REPENTOGON API
+heartcontainers # REPENTOGON API
 helpmarker # ImGui element
 hitbox
 hitboxes
 hitsphere
 hitspheres
 imgui # REPENTOGON library
+initcharge # REPENTOGON API
 isaacracing # Website for Racing+
+isflying # REPENTOGON API
 Kilburn # Creator of Antibirth / Repentance
 Kinetis
+layerfadespeed # REPENTOGON API
+layerintro # REPENTOGON API
+layermode # REPENTOGON API
+layermul # REPENTOGON API
+lfloorgfx # REPENTOGON API
 Losts
 luacheck
 luarooms
+luckmodifier # REPENTOGON API
 Lytebringr # YouTube tutorial maker
+modcostume # REPENTOGON API
 modders
 Moters
 Mullibooms
 nerfed
 nerfs
+nfloorgfx # REPENTOGON API
 Nicalis
 Nightwatch
+nomarks # REPENTOGON API
 npcs
 numgridcollisionpoints # REPENTOGON API
+overwritecolor # REPENTOGON API
+passivecache # REPENTOGON API
 pathing
 piber # Creator of Mod Config Menu
+pocketactive # REPENTOGON API
 polties
 Polycephaluses
 pooters
 proc
+procchance # REPENTOGON API
 procs
 propget # Key of userdata
 propset # Key of userdata
 publishedfileid # metadata.vdf
 Raglings
+rangemodifier # REPENTOGON API
+redhearts # REPENTOGON API
 Redskull
+reftype # REPENTOGON API
 regen # Stem Cell description
+relativeid # REPENTOGON API
 REPENTOGON # Mod hack
 respawn
 respawned
 respawning
 respawns
+reversewatergfx # REPENTOGON API
+rottenhearts # REPENTOGON API
 Sanio # Creator of Character Costume Protector library
 satans
 schwag # REPENTOGON API
@@ -94,12 +141,18 @@ scolexes
 shadowsize # REPENTOGON API
 shieldstrength # REPENTOGON API
 shockwaves
+shopprice # REPENTOGON API
+shotspeedmodifier # REPENTOGON API
 shroom
 shrooms
+skincolor # REPENTOGON API
 softlock
 softlocked
 softlocking
 softlocks
+sourceid # REPENTOGON API
+sourcepath # REPENTOGON API
+speedmodifier # REPENTOGON API
 speedrun
 speedrunner
 speedrunners
@@ -110,6 +163,9 @@ stagehp # REPENTOGON API
 steamcmd # For uploading/publishing
 Stonies
 Strifer
+tearflags # REPENTOGON API
+tearscale # REPENTOGON API
+tearvariant # REPENTOGON API
 teleporters
 teleporting
 texel
@@ -119,7 +175,13 @@ trites
 Turdlings
 Unidentify
 unseed
+untranslatedbirthright # REPENTOGON API
+untranslatedname # REPENTOGON API
 Uriels
+wallvariants # REPENTOGON API
+watergfx # REPENTOGON API
+waterpit # REPENTOGON API
+waterpitsmode # REPENTOGON API
 Wofsauge # Creator of External Item Descriptions
 workshopitem # metadata.vdf
 Zamiel # Creator of IsaacScript
