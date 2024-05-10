@@ -169,6 +169,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "metadata.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -183,6 +186,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "achievements.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -202,6 +208,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "backdrops.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -234,6 +243,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "costumes2.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -256,6 +268,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "curses.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -270,6 +285,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "items.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -323,6 +341,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "music.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -344,6 +365,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "players.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -403,6 +427,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "sounds.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
@@ -418,6 +445,9 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "wisps.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/index.html
