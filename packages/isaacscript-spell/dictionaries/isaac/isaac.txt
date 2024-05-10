@@ -8,9 +8,13 @@ bestiaryanim # REPENTOGON API
 bestiaryoverlay # REPENTOGON API
 Bethanys
 Bloodfly
+bonehearts
 Bonies
 bossid # REPENTOGON API
+brokenhearts
+bskinparent
 Chronometrics # Creator of Basement Renovator
+cleareffectsonremove
 collisiondamage # REPENTOGON API
 collisioninterval # REPENTOGON API
 collisionmass # REPENTOGON API
@@ -19,10 +23,16 @@ collisionradiusxmulti # REPENTOGON API
 collisionradiusymulti # REPENTOGON API
 colorblood # REPENTOGON API
 combobox # ImGui element
+completionparent
 contentfolder # metadata.vdf
+corecolor
+coregfx
+costumesuffix
 craftable
 Cucco # Creator of Job
 customtags # REPENTOGON API
+damagemodifier
+damagemultiplier
 datagrams
 debuff
 Descs # REPENTOGON API
@@ -32,61 +42,98 @@ despawning
 despawns
 Dollys
 Dreamcatcher
+effectsgfxroot
 Eggies
 esaus
+eternalheart
+extraportrait
 Fallens
 Filloax # Creator of Revelations
+firedelaymodifier
 fistuloids
+flamecolor
 Floast
+floorvariants
+forcebodycolor
+forceheadcolor
 forgottens
 Gabriels
 gameplay
+gfxback
 giantbooks
 gibamount # REPENTOGON API
 gibflags # REPENTOGON API
+gigabombs
 giveitem # Console command
+goldenhearts
 gridcollision # REPENTOGON API
 hasflooralts # REPENTOGON API
+hasoverlay
+hasskinalt
+healthlimit
+healthtype
+heartcontainers
 helpmarker # ImGui element
 hitbox
 hitboxes
 hitsphere
 hitspheres
 imgui # REPENTOGON library
+initcharge
 isaacracing # Website for Racing+
+isflying
 Kilburn # Creator of Antibirth / Repentance
 Kinetis
+layerfadespeed
+layerintro
+layermode
+layermul
+lfloorgfx
 Losts
 luacheck
 luarooms
+luckmodifier
 Lytebringr # YouTube tutorial maker
+modcostume
 modders
 Moters
 Mullibooms
 nerfed
 nerfs
+nfloorgfx
 Nicalis
 Nightwatch
+nomarks
 npcs
 numgridcollisionpoints # REPENTOGON API
+overwritecolor
+passivecache
 pathing
 piber # Creator of Mod Config Menu
+pocketactive
 polties
 Polycephaluses
 pooters
 proc
+procchance
 procs
 propget # Key of userdata
 propset # Key of userdata
 publishedfileid # metadata.vdf
 Raglings
+rangemodifier
+redhearts
 Redskull
+reftype
 regen # Stem Cell description
+relativeid
 REPENTOGON # Mod hack
 respawn
 respawned
 respawning
 respawns
+reversewatergfx
+rottenhearts
 Sanio # Creator of Character Costume Protector library
 satans
 schwag # REPENTOGON API
@@ -94,12 +141,18 @@ scolexes
 shadowsize # REPENTOGON API
 shieldstrength # REPENTOGON API
 shockwaves
+shopprice
+shotspeedmodifier
 shroom
 shrooms
+skincolor
 softlock
 softlocked
 softlocking
 softlocks
+sourceid
+sourcepath
+speedmodifier
 speedrun
 speedrunner
 speedrunners
@@ -110,6 +163,9 @@ stagehp # REPENTOGON API
 steamcmd # For uploading/publishing
 Stonies
 Strifer
+tearflags
+tearscale
+tearvariant
 teleporters
 teleporting
 texel
@@ -119,7 +175,13 @@ trites
 Turdlings
 Unidentify
 unseed
+untranslatedbirthright
+untranslatedname
 Uriels
+wallvariants
+watergfx
+waterpit
+waterpitsmode
 Wofsauge # Creator of External Item Descriptions
 workshopitem # metadata.vdf
 Zamiel # Creator of IsaacScript
