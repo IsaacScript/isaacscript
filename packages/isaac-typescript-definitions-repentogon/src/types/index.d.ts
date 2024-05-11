@@ -63,9 +63,10 @@
 /// <reference path="./classes/room-config/EntitiesSaveState.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
+/// <reference path="./classes/room-config/RoomConfig.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
 /// <reference path="./classes/room-config/RoomDescriptor.d.ts"/>
-/// <reference path="./classes/room-config/RoomConfigRoom.d.ts"/>
+/// <reference path="./classes/room-config/RoomConfigStage.d.ts"/>
 /// <reference path="./classes/sprite/AnimationData.d.ts"/>
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
