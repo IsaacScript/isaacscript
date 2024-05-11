@@ -376,6 +376,19 @@ declare global {
     ): DialogReturn;
 
     /**
+     * @param playerType Optional. Default is `PlayerType.Isaac`.
+     * @param challenge Optional. Default is undefined.
+     * @param difficulty Optional. Default is `Difficulty.NORMAL`.
+     * @param seed Optional. Default is a random seed.
+     */
+    function StartNewGame(
+      playerType?: PlayerType,
+      challenge?: Challenge,
+      difficulty?: int,
+      seed?: Seed,
+    ): void;
+
+    /**
      * Simulates a window resize. This is useful to refresh some option changes like
      * `Options.MaxRenderScale`.
      */
