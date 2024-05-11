@@ -1975,8 +1975,9 @@ export enum ModCallbackRepentogon {
    *   slot: TrinketSlot,
    *   position: Vector,
    *   scale: number,
-   *   player: EntityPlayer
-   * ): { Position?: Vector, Scale?: number } | boolean | undefined {}
+   *   player: EntityPlayer,
+   *   cropOffset: Vector
+   * ): { Position?: Vector, Scale?: number, CropOffset?: Vector } | boolean | undefined {}
    * ```
    */
   PRE_PLAYER_HUD_RENDER_TRINKET = 1264,

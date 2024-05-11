@@ -1298,7 +1298,11 @@ declare global {
         position: Vector,
         scale: number,
         player: EntityPlayer,
-      ) => { Position?: Vector; Scale?: number } | boolean | undefined,
+        cropOffset: Vector,
+      ) =>
+        | { Position?: Vector; Scale?: number; CropOffset?: Vector }
+        | boolean
+        | undefined,
     ];
 
     // 1265
