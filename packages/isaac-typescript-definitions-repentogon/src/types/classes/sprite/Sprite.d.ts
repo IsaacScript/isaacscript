@@ -8,6 +8,12 @@ declare function Sprite(
 ): LuaMultiReturn<[sprite: Sprite, loadedSuccessfully: boolean]>;
 
 declare interface Sprite extends IsaacAPIClass {
+  /** Clears the custom shader. */
+  ClearCustomShader: () => void;
+
+  /** Clears the custom shader. */
+  ClearCustomChampionShader: () => void;
+
   /**
    * If the animation is currently stopped, it will start playing again from the current frame.
    *
@@ -63,6 +69,12 @@ declare interface Sprite extends IsaacAPIClass {
   /** Returns a bitmask of the sprite's `AnimationRenderFlag`. */
   GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
 
+  /** Returns whether the shader from the specified path is active. */
+  HasCustomShader: (path: string) => boolean;
+
+  /** Returns whether the shader from the specified path is active. */
+  HasCustomChampionShader: (path: string) => boolean;
+
   /** Returns true if the specified event in the overlay animation is currently being triggered. */
   IsOverlayEventTriggered: (eventName: string) => boolean;
 
@@ -86,6 +98,21 @@ declare interface Sprite extends IsaacAPIClass {
     pngFileName: string,
     loadGraphics?: boolean,
   ) => void;
+
+  /**
+   * Overrides the default color offset shader the sprite uses.
+   *
+   * @param shaderPath A path to the folder containing the shaders. The path starts on the resources
+   *                   folder and expects to find both a `.vs` and `.fs` file.
+   */
+  SetCustomShader: (shaderPath: string) => void;
+
+  /**
+   * @param shaderPath * @param shaderPath A path to the folder containing the shaders. The path
+   *                   starts on the resources folder and expects to find both a `.vs` and `.fs`
+   *                   file.
+   */
+  SetCustomChampionShader: (shaderPath: string) => void;
 
   /**
    * Repentogon's modified `Sprite.SetOverlayFrame` method.
