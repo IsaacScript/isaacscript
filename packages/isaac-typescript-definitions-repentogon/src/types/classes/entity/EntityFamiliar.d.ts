@@ -21,6 +21,8 @@ declare global {
     /** Returns the familiar's follower priority. */
     GetFollowerPriority: () => FollowerPriority;
 
+    GetMoveDelayNum: () => int;
+
     /** Returns the familiar's pathfinder. */
     GetPathFinder: () => PathFinder;
 
@@ -35,6 +37,8 @@ declare global {
 
     /** Removes the familiar from the player. */
     RemoveFromPlayer: () => void;
+
+    SetMoveDelayNum: (delay: int) => void;
 
     TriggerRoomClear: () => void;
 
