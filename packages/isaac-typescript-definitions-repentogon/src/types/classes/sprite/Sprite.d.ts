@@ -108,6 +108,8 @@ declare interface Sprite extends IsaacAPIClass {
   SetCustomShader: (shaderPath: string) => void;
 
   /**
+   * Overrides the champion color offset shader the sprite uses.
+   *
    * @param shaderPath A path to the folder containing the shaders. The path starts on the resources
    *                   folder and expects to find both a `.vs` and `.fs` file.
    */
