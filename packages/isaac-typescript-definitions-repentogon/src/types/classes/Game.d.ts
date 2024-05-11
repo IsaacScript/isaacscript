@@ -45,6 +45,7 @@ declare global {
       lerp?: boolean,
       rate?: number,
     ) => void;
+    SetBloom: (time: number, strength: number) => void;
     SetDizzyAmount: (amount: int) => void;
     SetDonationModAngel: (amount: int) => void;
     SetDonationModGreed: (amount: int) => void;
