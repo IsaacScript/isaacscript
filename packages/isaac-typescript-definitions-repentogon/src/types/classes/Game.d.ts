@@ -13,6 +13,7 @@ declare global {
     GetChallengeParams: () => ChallengeParams;
     GetCurrentColorModifier: () => ColorModifier;
     GetDebugFlags: () => BitFlags<DebugFlag>;
+    GetDizzyAmount: () => int;
     GetLerpColorModifier: () => ColorModifier;
     GetPauseMenuState: () => PauseMenuState;
     GetPlanetariumsVisited: () => int;
@@ -44,7 +45,7 @@ declare global {
       lerp?: boolean,
       rate?: number,
     ) => void;
-
+    SetDizzyAmount: (amount: int) => void;
     SetDonationModAngel: (amount: int) => void;
     SetDonationModGreed: (amount: int) => void;
     ShowGenericLeaderboard: () => void;
