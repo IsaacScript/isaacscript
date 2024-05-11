@@ -953,9 +953,9 @@ declare global {
     [ModCallbackRepentogon.PRE_LEVEL_PLACE_ROOM]: [
       callback: (
         slot: LevelGeneratorRoom,
-        roomConfig: RoomConfigRoom,
+        roomConfig: RoomConfig,
         seed: Seed,
-      ) => RoomConfigRoom | undefined,
+      ) => RoomConfig | undefined,
     ];
 
     // 1141

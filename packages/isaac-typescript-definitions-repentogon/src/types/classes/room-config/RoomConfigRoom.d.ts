@@ -1,3 +1,3 @@
-declare interface RoomConfigRoom extends IsaacAPIClass {
+declare interface RoomConfig extends IsaacAPIClass {
   Mode: int;
 }
