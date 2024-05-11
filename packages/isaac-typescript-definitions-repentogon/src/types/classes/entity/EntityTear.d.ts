@@ -15,4 +15,14 @@ declare interface EntityTear extends Entity {
    * tear.
    */
   MakeMultidimensionalCopy: () => EntityTear;
+
+  GetDeadEyeSprite: () => Sprite;
+  GetTearEffectSprite: () => Sprite;
+  GetTearHaloSprite: () => Sprite;
+
+  /**
+   * @param force Optional. If true, the tear will be forced to re-evaluate which scale animation to
+   *              play. Default is false.
+   */
+  ResetSpriteScale: (force: boolean) => void;
 }
