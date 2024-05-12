@@ -2,6 +2,7 @@ import type {
   ActiveSlot,
   BackdropType,
   BombVariant,
+  BossID,
   ButtonAction,
   CardType,
   Challenge,
@@ -346,6 +347,18 @@ declare global {
       soundEffect?: SoundEffect,
     ];
 
+    // 1032
+    [ModCallbackRepentogon.POST_TEAR_DEATH]: [
+      callback: (tear: EntityTear) => void,
+      tearVariant?: TearVariant,
+    ];
+
+    // 1033
+    [ModCallbackRepentogon.POST_PROJECTILE_DEATH]: [
+      callback: (projectile: EntityProjectile) => void,
+      projectileVariant?: ProjectileVariant,
+    ];
+
     // 1034
     [ModCallbackRepentogon.PRE_MUSIC_PLAY]: [
       callback: (
@@ -438,6 +451,11 @@ declare global {
 
     // 1050
     [ModCallbackRepentogon.PRE_TRIGGER_PLAYER_DEATH]: [
+      callback: (player: EntityPlayer) => boolean | undefined,
+    ];
+
+    // 1051
+    [ModCallbackRepentogon.TRIGGER_PLAYER_DEATH_POST_CHECK_REVIVES]: [
       callback: (player: EntityPlayer) => boolean | undefined,
     ];
 
@@ -862,6 +880,18 @@ declare global {
       ) => boolean | undefined,
     ];
 
+    // 1119
+    [ModCallbackRepentogon.PRE_PLAYER_HUD_RENDER_ACTIVE_ITEM]: [
+      callback: (
+        player: EntityPlayer,
+        slot: ActiveSlot,
+        offset: Vector,
+        alpha: float,
+        scale: number,
+        chargeBarOffset: Vector,
+      ) => boolean | undefined,
+    ];
+
     // 1120
     [ModCallbackRepentogon.CONSOLE_AUTOCOMPLETE]: [
       callback: (
@@ -889,6 +919,12 @@ declare global {
       slotVariant?: SlotVariant,
     ];
 
+    // 1124
+    [ModCallbackRepentogon.POST_SLOT_CREATE_EXPLOSION_DROPS]: [
+      callback: (slot: EntitySlot) => void,
+      slotVariant?: SlotVariant,
+    ];
+
     // 1125
     [ModCallbackRepentogon.PRE_SLOT_SET_PRIZE_COLLECTIBLE]: [
       callback: (
@@ -901,12 +937,6 @@ declare global {
     // 1126
     [ModCallbackRepentogon.POST_SLOT_SET_PRIZE_COLLECTIBLE]: [
       callback: (slot: EntitySlot, collectible: CollectibleType) => void,
-      slotVariant?: SlotVariant,
-    ];
-
-    // 1124
-    [ModCallbackRepentogon.POST_SLOT_CREATE_EXPLOSION_DROPS]: [
-      callback: (slot: EntitySlot) => void,
       slotVariant?: SlotVariant,
     ];
 
@@ -984,6 +1014,206 @@ declare global {
         offset: Vector,
       ) => Vector | boolean | undefined,
       entityType?: EntityType,
+    ];
+
+    // 1160
+    [ModCallbackRepentogon.PRE_PLAYER_UPDATE]: [
+      callback: (player: EntityPlayer) => boolean | undefined,
+      playerVariant?: PlayerVariant,
+    ];
+
+    // 1161
+    [ModCallbackRepentogon.PRE_TEAR_UPDATE]: [
+      callback: (tear: EntityTear) => boolean | undefined,
+      tearVariant?: TearVariant,
+    ];
+
+    // 1162
+    [ModCallbackRepentogon.PRE_FAMILIAR_UPDATE]: [
+      callback: (familiar: EntityFamiliar) => boolean | undefined,
+      familiarVariant?: FamiliarVariant,
+    ];
+
+    // 1163
+    [ModCallbackRepentogon.PRE_BOMB_UPDATE]: [
+      callback: (bomb: EntityBomb) => boolean | undefined,
+      bombVariant?: BombVariant,
+    ];
+
+    // 1164
+    [ModCallbackRepentogon.PRE_KNIFE_UPDATE]: [
+      callback: (knife: EntityKnife) => boolean | undefined,
+      knifeVariant?: KnifeVariant,
+    ];
+
+    // 1165
+    [ModCallbackRepentogon.PRE_PICKUP_UPDATE]: [
+      callback: (pickup: EntityPickup) => boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1166
+    [ModCallbackRepentogon.PRE_PROJECTILE_UPDATE]: [
+      callback: (projectile: EntityProjectile) => boolean | undefined,
+      projectileVariant?: ProjectileVariant,
+    ];
+
+    // 1167
+    [ModCallbackRepentogon.PRE_LASER_UPDATE]: [
+      callback: (laser: EntityLaser) => boolean | undefined,
+      laserVariant?: LaserVariant,
+    ];
+
+    // 1168
+    [ModCallbackRepentogon.PRE_EFFECT_UPDATE]: [
+      callback: (effect: EntityEffect) => boolean | undefined,
+      effectVariant?: EffectVariant,
+    ];
+
+    // 1169
+    [ModCallbackRepentogon.PRE_SLOT_UPDATE]: [
+      callback: (slot: EntitySlot) => boolean | undefined,
+      slotVariant?: SlotVariant,
+    ];
+
+    // 1171
+    [ModCallbackRepentogon.PRE_PLAYER_GRID_COLLISION]: [
+      callback: (
+        player: EntityPlayer,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1172
+    [ModCallbackRepentogon.POST_PLAYER_GRID_COLLISION]: [
+      callback: (
+        player: EntityPlayer,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1173
+    [ModCallbackRepentogon.PRE_TEAR_GRID_COLLISION]: [
+      callback: (
+        tear: EntityTear,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1174
+    [ModCallbackRepentogon.POST_TEAR_GRID_COLLISION]: [
+      callback: (
+        tear: EntityTear,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1175
+    [ModCallbackRepentogon.PRE_FAMILIAR_GRID_COLLISION]: [
+      callback: (
+        familiar: EntityFamiliar,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1176
+    [ModCallbackRepentogon.POST_FAMILIAR_GRID_COLLISION]: [
+      callback: (
+        familiar: EntityFamiliar,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1177
+    [ModCallbackRepentogon.PRE_BOMB_GRID_COLLISION]: [
+      callback: (
+        bomb: EntityBomb,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1178
+    [ModCallbackRepentogon.POST_BOMB_GRID_COLLISION]: [
+      callback: (
+        bomb: EntityBomb,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1179
+    [ModCallbackRepentogon.PRE_PICKUP_GRID_COLLISION]: [
+      callback: (
+        pickup: EntityPickup,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1180
+    [ModCallbackRepentogon.POST_PICKUP_GRID_COLLISION]: [
+      callback: (
+        pickup: EntityPickup,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1181
+    [ModCallbackRepentogon.PRE_PROJECTILE_GRID_COLLISION]: [
+      callback: (
+        projectile: EntityProjectile,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1182
+    [ModCallbackRepentogon.POST_PROJECTILE_GRID_COLLISION]: [
+      callback: (
+        projectile: EntityProjectile,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1183
+    [ModCallbackRepentogon.PRE_NPC_GRID_COLLISION]: [
+      callback: (
+        npc: EntityNPC,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => boolean | undefined,
+      gridEntityType?: GridEntityType,
+    ];
+
+    // 1184
+    [ModCallbackRepentogon.POST_NPC_GRID_COLLISION]: [
+      callback: (
+        npc: EntityNPC,
+        gridIndex: int,
+        gridEntity: GridEntity | undefined,
+      ) => void,
+      gridEntityType?: GridEntityType,
     ];
 
     // 1190
@@ -1326,6 +1556,27 @@ declare global {
       pickupVariant?: PickupVariant,
     ];
 
+    // 1268
+    [ModCallbackRepentogon.POST_PLAYER_TRIGGER_EFFECT_REMOVED]: [
+      callback: (player: EntityPlayer, itemConfigItem: ItemConfigItem) => void,
+    ];
+
+    // 1269
+    [ModCallbackRepentogon.POST_ROOM_TRIGGER_EFFECT_REMOVED]: [
+      callback: (itemConfigItem: ItemConfigItem) => void,
+    ];
+
+    // 1270
+    [ModCallbackRepentogon.POST_BOSS_INTRO_SHOW]: [
+      callback: (boss1: BossID, boss2: BossID) => void,
+    ];
+
+    // 1171
+    [ModCallbackRepentogon.POST_ROOM_TRANSITION_UPDATE]: [callback: () => void];
+
+    // 1172
+    [ModCallbackRepentogon.POST_ROOM_TRANSITION_RENDER]: [callback: () => void];
+
     // 1333
     [ModCallbackRepentogon.PRE_RENDER_CUSTOM_CHARACTER_MENU]: [
       callback: (
@@ -1334,6 +1585,19 @@ declare global {
         defaultSprite: Sprite,
       ) => void,
       playerType?: PlayerType,
+    ];
+
+    // 1334
+    [ModCallbackRepentogon.PRE_PICKUP_GET_LOOT_LIST]: [
+      callback: (
+        pickup: EntityPickup,
+        shouldAdvance: boolean,
+      ) => LootList | undefined,
+    ];
+
+    // 1335
+    [ModCallbackRepentogon.PRE_PICKUP_UPDATE_GHOST_PICKUPS]: [
+      callback: (pickup: EntityPickup) => boolean | undefined,
     ];
 
     // 1400
@@ -1784,6 +2048,18 @@ declare global {
     [ModCallbackRepentogon.POST_CHALLENGE_DONE]: [
       callback: (challenge: Challenge, player: EntityPlayer) => void,
       challenge?: Challenge,
+    ];
+
+    // 1481
+    [ModCallbackRepentogon.PRE_PLAYER_REVIVE]: [
+      callback: (player: EntityPlayer) => boolean | undefined,
+      playerType?: PlayerType,
+    ];
+
+    // 1482
+    [ModCallbackRepentogon.POST_PLAYER_REVIVE]: [
+      callback: (player: EntityPlayer) => void,
+      playerType?: PlayerType,
     ];
   }
 }

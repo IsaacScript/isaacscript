@@ -444,6 +444,28 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   *
+   * ```ts
+   * function postTearDeath(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_DEATH = 1032,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   *
+   * ```ts
+   * function postProjectileDeath(projectile: EntityProjectile): void {}
+   * ```
+   */
+  POST_PROJECTILE_DEATH = 1033,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Music` provided.
    *
    * ```ts
@@ -581,6 +603,15 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_TRIGGER_PLAYER_DEATH = 1050,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function triggerPlayerDeathPostCheckRevives(player: EntityPlayer): boolean | undefined {}
+   * ```
+   */
+  TRIGGER_PLAYER_DEATH_POST_CHECK_REVIVES = 1051,
 
   /**
    * You cannot filter this callback.
@@ -1242,6 +1273,22 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_HUD_RENDER_HEARTS = 1118,
 
   /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function prePlayerHudRenderActiveItem(
+   *   player: EntityPlayer,
+   *   slot: ActiveSlot,
+   *   offset: Vector,
+   *   alpha: float,
+   *   scale: number,
+   *   chargeBarOffset: Vector
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_HUD_RENDER_ACTIVE_ITEM = 1119,
+
+  /**
    * This callback will only fire for commands using `AutocompleteType.CUSTOM`.
    *
    * When registering this callback with the `Mod.AddCallback` method:
@@ -1296,6 +1343,17 @@ export enum ModCallbackRepentogon {
    *   matches the `SlotVariant` provided.
    *
    * ```ts
+   * function postSlotCreateExplosionDrops(slot: EntitySlot): void {}
+   * ```
+   */
+  POST_SLOT_CREATE_EXPLOSION_DROPS = 1124,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
    * function preSlotSetPrizeCollectible(
    *   slot: EntitySlot,
    *   collectible: CollectibleType
@@ -1314,17 +1372,6 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_SLOT_SET_PRIZE_COLLECTIBLE = 1126,
-
-  /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `SlotVariant` provided.
-   *
-   * ```ts
-   * function postSlotCreateExplosionDrops(slot: EntitySlot): void {}
-   * ```
-   */
-  POST_SLOT_CREATE_EXPLOSION_DROPS = 1124,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -1455,6 +1502,326 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_RENDER_ENTITY_LIGHTING = 1152,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerVariant` provided.
+   *
+   * ```ts
+   * function prePlayerUpdate(player: EntityPlayer): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_UPDATE = 1160,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   *
+   * ```ts
+   * function preTearUpdate(tear: EntityTear): boolean | undefined {}
+   * ```
+   */
+  PRE_TEAR_UPDATE = 1161,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   *
+   * ```ts
+   * function preFamiliarVariant(familiar: EntityFamiliar): boolean | undefined {}
+   * ```
+   */
+  PRE_FAMILIAR_UPDATE = 1162,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BombVariant` provided.
+   *
+   * ```ts
+   * function preBombUpdate(bomb: EntityBomb): boolean | undefined {}
+   * ```
+   */
+  PRE_BOMB_UPDATE = 1163,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   *
+   * ```ts
+   * function preKnifeUpdate(knife: EntityKnife): boolean | undefined {}
+   * ```
+   */
+  PRE_KNIFE_UPDATE = 1164,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function prePickupUpdate(pickup: EntityPickup): boolean | undefined {}
+   * ```
+   */
+  PRE_PICKUP_UPDATE = 1165,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `ProjectileVariant` provided.
+   *
+   * ```ts
+   * function preProjectileUpdate(projectile: EntityProjectile): boolean | undefined {}
+   * ```
+   */
+  PRE_PROJECTILE_UPDATE = 1166,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `LaserVariant` provided.
+   *
+   * ```ts
+   * function preLaserUpdate(laser: EntityLaser): boolean | undefined {}
+   * ```
+   */
+  PRE_LASER_UPDATE = 1167,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EffectVariant` provided.
+   *
+   * ```ts
+   * function preEffectUpdate(effect: EntityEffect): boolean | undefined {}
+   * ```
+   */
+  PRE_EFFECT_UPDATE = 1168,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SlotVariant` provided.
+   *
+   * ```ts
+   * function preSlotUpdate(slot: EntitySlot): boolean | undefined {}
+   * ```
+   */
+  PRE_SLOT_UPDATE = 1169,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function prePlayerGridCollision(
+   *   player: EntityPlayer,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_GRID_COLLISION = 1171,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postPlayerGridCollision(
+   *   player: EntityPlayer,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_GRID_COLLISION = 1172,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preTearGridCollision(
+   *   tear: EntityTear,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_TEAR_GRID_COLLISION = 1173,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postTearGridCollision(
+   *   tear: EntityTear,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_TEAR_GRID_COLLISION = 1174,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preFamiliarGridCollision(
+   *   familiar: EntityFamiliar,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_FAMILIAR_GRID_COLLISION = 1175,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postFamiliarGridCollision(
+   *   familiar: EntityFamiliar,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_FAMILIAR_GRID_COLLISION = 1176,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preBombGridCollision(
+   *   bomb: EntityBomb,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_BOMB_GRID_COLLISION = 1177,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postBombGridCollision(
+   *   bomb: EntityBomb,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_BOMB_GRID_COLLISION = 1178,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function prePickupGridCollision(
+   *   pickup: EntityPickup,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PICKUP_GRID_COLLISION = 1179,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postPickupGridCollision(
+   *   pickup: EntityPickup,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_PICKUP_GRID_COLLISION = 1180,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preProjectileGridCollision(
+   *   projectile: EntityProjectile,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PROJECTILE_GRID_COLLISION = 1181,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postProjectileGridCollision(
+   *   projectile: EntityProjectile,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_PROJECTILE_GRID_COLLISION = 1182,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function preNPCGridCollision(
+   *   npc: EntityNPC,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_NPC_GRID_COLLISION = 1183,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `GridEntityType` provided.
+   *
+   * ```ts
+   * function postNPCGridCollision(
+   *   npc: EntityNPC,
+   *   gridIndex: int,
+   *   gridEntity: GridEntity | undefined
+   * ): void {}
+   * ```
+   */
+  POST_NPC_GRID_COLLISION = 1184,
 
   /**
    * You cannot filter this callback.
@@ -2016,6 +2383,54 @@ export enum ModCallbackRepentogon {
   PRE_PICKUP_COMPOSTED = 1267,
 
   /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postPlayerTriggerEffectRemoved(
+   *   player: EntityPlayer,
+   *   itemConfigItem: ItemConfigItem
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_TRIGGER_EFFECT_REMOVED = 1268,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postRoomTriggerEffectRemoved(player: EntityPlayer: void {}
+   * ```
+   */
+  POST_ROOM_TRIGGER_EFFECT_REMOVED = 1269,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postBossIntroShow(boss1: BossID, boss2: BossID): void {}
+   * ```
+   */
+  POST_BOSS_INTRO_SHOW = 1270,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postRoomTransitionUpdate(): void {}
+   * ```
+   */
+  POST_ROOM_TRANSITION_UPDATE = 1271,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postRoomTransitionRender(): void {}
+   * ```
+   */
+  POST_ROOM_TRANSITION_RENDER = 1272,
+
+  /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
@@ -2029,6 +2444,30 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_RENDER_CUSTOM_CHARACTER_MENU = 1333,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function prePickupGetLootList(
+   * pickup: EntityPickup,
+   * shouldAdvance: boolean
+   * ) => LootList | undefined {}
+   * ```
+   */
+  PRE_PICKUP_GET_LOOT_LIST = 1334,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function prePickupGetLootList(
+   * pickup: EntityPickup,
+   * shouldAdvance: boolean
+   * ) => boolean | undefined {}
+   * ```
+   */
+  PRE_PICKUP_UPDATE_GHOST_PICKUPS = 1335,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2840,4 +3279,26 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_CHALLENGE_DONE = 1472,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function prePlayerRevive(player: EntityPlayer): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_REVIVE = 1481,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PlayerType` provided.
+   *
+   * ```ts
+   * function postPlayerRevive(player: EntityPlayer): void {}
+   * ```
+   */
+  POST_PLAYER_REVIVE = 1482,
 }
