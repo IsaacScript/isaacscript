@@ -1614,6 +1614,9 @@ export enum ModCallbackRepentogon {
   PRE_SLOT_UPDATE = 1169,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1629,6 +1632,9 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_GRID_COLLISION = 1171,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1644,6 +1650,9 @@ export enum ModCallbackRepentogon {
   POST_PLAYER_GRID_COLLISION = 1172,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1659,6 +1668,9 @@ export enum ModCallbackRepentogon {
   PRE_TEAR_GRID_COLLISION = 1173,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1674,6 +1686,9 @@ export enum ModCallbackRepentogon {
   POST_TEAR_GRID_COLLISION = 1174,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1689,6 +1704,9 @@ export enum ModCallbackRepentogon {
   PRE_FAMILIAR_GRID_COLLISION = 1175,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1704,6 +1722,9 @@ export enum ModCallbackRepentogon {
   POST_FAMILIAR_GRID_COLLISION = 1176,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1719,6 +1740,9 @@ export enum ModCallbackRepentogon {
   PRE_BOMB_GRID_COLLISION = 1177,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1734,6 +1758,9 @@ export enum ModCallbackRepentogon {
   POST_BOMB_GRID_COLLISION = 1178,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1749,6 +1776,9 @@ export enum ModCallbackRepentogon {
   PRE_PICKUP_GRID_COLLISION = 1179,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1764,6 +1794,9 @@ export enum ModCallbackRepentogon {
   POST_PICKUP_GRID_COLLISION = 1180,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1779,6 +1812,9 @@ export enum ModCallbackRepentogon {
   PRE_PROJECTILE_GRID_COLLISION = 1181,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1794,6 +1830,9 @@ export enum ModCallbackRepentogon {
   POST_PROJECTILE_GRID_COLLISION = 1182,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
@@ -1809,6 +1848,9 @@ export enum ModCallbackRepentogon {
   PRE_NPC_GRID_COLLISION = 1183,
 
   /**
+   * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
+   * this callback offers significantly better performance than the former.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
