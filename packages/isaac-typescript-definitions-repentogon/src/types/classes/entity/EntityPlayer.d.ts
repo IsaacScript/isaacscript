@@ -243,17 +243,26 @@ declare global {
     GetCollectiblesList: () => LuaTable<CollectibleType, int>;
 
     /**
+     * Repentogon's modified `EntityPlayer.GetCollectibleNum` method.
+     *
+     * Behaves the same as `EntityPlayer.GetCollectibleNum` except you can now choose to have it
+     * ignore blocked items.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
      * @param collectibleType
      * @param onlyCountTrueItems If set to true, the function only counts collectibles that the
      *                           player actually owns and ignores things like Lilith's Incubus,
      *                           items granted by 3 Dollar Bill, and so forth.
-     * @param ignoreSpoof Optional. Default is false.
+     * @param ignoreBlocked Optional. Default is false.
      * @customName GetCollectibleNum
      */
     GetCollectibleNumEx: (
       collectibleType: CollectibleType,
       onlyCountTrueItems?: boolean,
-      ignoreSpoof?: boolean,
+      ignoreBlocked?: boolean,
     ) => int;
 
     /** Return the player's sprite layer data for costumes. */
@@ -405,7 +414,7 @@ declare global {
      * Repentogon's modified `EntityPlayer.HasCollectible` method.
      *
      * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now choose to have it ignore
-     * spoofed items.
+     * blocked items.
      *
      * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
      * definitions. However, when the project compiles the method's name will change to what it's
@@ -415,13 +424,13 @@ declare global {
      * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
      *                        ignores effects granted by items like Zodiac, 3 Dollar Bill and
      *                        Lemegeton. Default is false.
-     * @param ignore Optional. Default is false.
+     * @param ignoreBlocked Optional. Default is false.
      * @customName HasCollectible
      */
     HasCollectibleEx: (
       collectibleType: CollectibleType,
       ignoreModifiers?: boolean,
-      ignoreSpoof?: boolean,
+      ignoreBlocked?: boolean,
     ) => boolean;
 
     /**

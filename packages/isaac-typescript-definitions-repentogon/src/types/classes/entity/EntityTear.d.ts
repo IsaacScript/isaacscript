@@ -21,8 +21,14 @@ declare interface EntityTear extends Entity {
   GetTearHaloSprite: () => Sprite;
 
   /**
-   * @param force Optional. If true, the tear will be forced to re-evaluate which scale animation to
-   *              play. Default is false.
+   * Repentogon's modified `EntityTear.ResetSpriteScale` method.
+   *
+   * Behaves the same as `EntityTear.ResetSpriteScale` except you can now choose to have it
+   * re-evaluate which scale animation to play.
+   *
+   * @param force Optional. Default is false.
+   *
+   * @customName ResetSpriteScale
    */
-  ResetSpriteScale: (force: boolean) => void;
+  ResetSpriteScaleEx: (force: boolean) => void;
 }
