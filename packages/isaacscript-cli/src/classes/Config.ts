@@ -9,8 +9,7 @@ export class Config {
     "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/isaacscript-schema.json";
 
   /** The "mods" directory that lives next to the "isaac-ng.exe" program. */
-  modsDirectory?: string =
-    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\mods";
+  modsDirectory?: string = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\mods`;
 
   /** The save slot that you test your mod on. */
   saveSlot?: number = 1;

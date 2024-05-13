@@ -72,7 +72,7 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
 
       // - Disallow comments like: `/** *foo */`
       // - We must escape the asterisk to avoid a run-time error.
-      formattedText = trimPrefix(formattedText, "\\*", true);
+      formattedText = trimPrefix(formattedText, String.raw`\*`, true);
 
       const canFitOnSingleLine = canFitOnSingleJSDocLine(
         formattedText,
