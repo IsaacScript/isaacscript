@@ -33,6 +33,8 @@ declare global {
      */
     AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
 
+    BlockCollectible: (collectible: CollectibleType) => void;
+
     /**
      * Repentogon's modified `EntityPlayer.ClearDeadEyeCharge` method.
      *
@@ -222,8 +224,14 @@ declare global {
 
     GetBladderCharge: () => int;
 
+    GetBloodLustCounter: () => int;
+
     /** Returns the direction the player's body is moving. */
     GetBodyMoveDirection: () => Vector;
+
+    GetBombPlaceDelay: () => int;
+
+    GetHallowedGroundCountdown: () => int;
 
     GetCambionConceptionState: () => int;
     GetCambionPregnancyLevel: () => int;
@@ -233,6 +241,29 @@ declare global {
      * being held.
      */
     GetCollectiblesList: () => LuaTable<CollectibleType, int>;
+
+    /**
+     * Repentogon's modified `EntityPlayer.GetCollectibleNum` method.
+     *
+     * Behaves the same as `EntityPlayer.GetCollectibleNum` except you can now choose to have it
+     * ignore blocked items.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param collectibleType
+     * @param onlyCountTrueItems If set to true, the function only counts collectibles that the
+     *                           player actually owns and ignores things like Lilith's Incubus,
+     *                           items granted by 3 Dollar Bill, and so forth.
+     * @param ignoreBlocked Optional. Default is false.
+     * @customName GetCollectibleNum
+     */
+    GetCollectibleNumEx: (
+      collectibleType: CollectibleType,
+      onlyCountTrueItems?: boolean,
+      ignoreBlocked?: boolean,
+    ) => int;
 
     /** Return the player's sprite layer data for costumes. */
     GetCostumeLayerMap: () => {
@@ -380,6 +411,44 @@ declare global {
     GetPurityState: () => PurityState;
 
     /**
+     * Repentogon's modified `EntityPlayer.HasCollectible` method.
+     *
+     * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now choose to have it ignore
+     * blocked items.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param collectibleType
+     * @param ignoreModifiers If set to true, only counts collectibles the player actually owns and
+     *                        ignores effects granted by items like Zodiac, 3 Dollar Bill and
+     *                        Lemegeton. Default is false.
+     * @param ignoreBlocked Optional. Default is false.
+     * @customName HasCollectible
+     */
+    HasCollectibleEx: (
+      collectibleType: CollectibleType,
+      ignoreModifiers?: boolean,
+      ignoreBlocked?: boolean,
+    ) => boolean;
+
+    /**
+     * Returns whether the player has a question mark as their extra life count indicating a %
+     * chance to revive (i.e. Guppy's Collar).
+     */
+    HasChanceRevive: () => boolean;
+
+    HasGoldenTrinket: (trinket: TrinketType) => boolean;
+
+    IsCollectibleBlocked: (collectible: CollectibleType) => boolean;
+
+    SetBloodLustCounter: (counter: int) => void;
+    SetBombPlaceDelay: (delay: int) => void;
+
+    SetHallowedGroundCountdown: (countdown: int) => void;
+
+    /**
      * Sets the duration of the damage bonus given by the Red Stew collectible to the specified
      * amount of frames. Setting the duration above 0 will activate the effect if it wasn't active
      * already.
@@ -388,6 +457,13 @@ declare global {
 
     SetShotSpeedModifier: (modifier: int) => void;
     SetSpeedModifier: (modifier: int) => void;
+
+    GetSpoofedCollectiblesList: () => Array<{
+      CollectibleID: CollectibleType;
+      AppendedCount: int;
+      IsBlocked: boolean;
+    }>;
+
     SetTearPoisonDamage: (damage: number) => void;
     SetTearRangeModifier: (modifier: int) => void;
 
@@ -489,6 +565,8 @@ declare global {
 
     /** Attempts to remove a smelted trinket from the player. */
     TryRemoveSmeltedTrinket: (trinket: TrinketType) => void;
+
+    UnblockCollectible: (collectible: CollectibleType) => void;
 
     UpdateIsaacPregnancy: (updateCambion: boolean) => void;
 

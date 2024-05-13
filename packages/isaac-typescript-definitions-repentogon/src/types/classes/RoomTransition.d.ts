@@ -8,6 +8,8 @@ declare global {
    * @noSelf
    */
   namespace RoomTransition {
+    function GetPlayerExtraPortraitSprite(): Sprite;
+
     function GetTransitionMode(): int;
 
     /** Returns the sprite used by the boss VS screen. */

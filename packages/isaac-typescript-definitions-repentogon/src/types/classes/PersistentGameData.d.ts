@@ -45,8 +45,10 @@ declare global {
     /**
      * Tries to unlock the provided `Achievement`. Returns whether the achievement was unlocked
      * successfully.
+     *
+     * @param hideNotification Optional. Default is false.
      */
-    TryUnlock: (unlock: Achievement) => boolean;
+    TryUnlock: (unlock: Achievement, hideNotification?: boolean) => boolean;
 
     /** Returns whether the provided `Achievement` is unlocked. */
     Unlocked: (unlock: Achievement) => boolean;

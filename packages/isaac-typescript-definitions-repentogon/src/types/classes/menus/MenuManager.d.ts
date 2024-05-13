@@ -1,4 +1,5 @@
 import type { MainMenuType } from "../../../enums/MainMenuType";
+import type { ButtonActionFlag } from "../../../enums/flags/ButtonActionFlag";
 
 declare global {
   /**
@@ -22,6 +23,8 @@ declare global {
 
     /** Returns the current color modifier of the menu. */
     function GetCurrentColorModifier(): ColorModifier;
+
+    function GetInputMask(): BitFlags<ButtonActionFlag>;
 
     /** Returns the sprite used for the select widget. */
     function GetSelectWidgetSprite(): Sprite;
@@ -47,6 +50,8 @@ declare global {
       lerp?: boolean,
       rate?: number,
     ): void;
+
+    function SetInputMask(mask: BitFlags<ButtonActionFlag>): void;
 
     /** Sets the position of the main menu camera. */
     function SetViewPosition(position: Vector): void;

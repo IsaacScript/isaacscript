@@ -30,6 +30,7 @@
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts"/>
 /// <reference path="./classes/hud/ScoreSheet.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfig.d.ts"/>
+/// <reference path="./classes/item-config/ItemConfigItem.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfigPillEffect.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGeneratorEntry.d.ts"/>
@@ -62,9 +63,10 @@
 /// <reference path="./classes/room-config/EntitiesSaveState.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
+/// <reference path="./classes/room-config/RoomConfig.d.ts"/>
 /// <reference path="./classes/room-config/RoomConfigHolder.d.ts"/>
 /// <reference path="./classes/room-config/RoomDescriptor.d.ts"/>
-/// <reference path="./classes/room-config/RoomConfigRoom.d.ts"/>
+/// <reference path="./classes/room-config/RoomConfigStage.d.ts"/>
 /// <reference path="./classes/sprite/AnimationData.d.ts"/>
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
@@ -86,10 +88,13 @@
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/Game.d.ts"/>
 /// <reference path="./classes/ImGui.d.ts"/>
+/// <reference path="./classes/Input.d.ts"/>
 /// <reference path="./classes/Isaac.d.ts"/>
 /// <reference path="./classes/ItemOverlay.d.ts"/>
 /// <reference path="./classes/ItemPool.d.ts"/>
 /// <reference path="./classes/Level.d.ts"/>
+/// <reference path="./classes/LootList.d.ts"/>
+/// <reference path="./classes/LootListEntry.d.ts"/>
 /// <reference path="./classes/Mod.d.ts"/>
 /// <reference path="./classes/MultiShotParams.d.ts"/>
 /// <reference path="./classes/MusicManager.d.ts"/>
