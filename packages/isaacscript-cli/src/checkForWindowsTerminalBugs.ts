@@ -15,7 +15,9 @@ export async function checkForWindowsTerminalBugs(): Promise<void> {
     return;
   }
 
-  if (process.env["SHELL"] !== "C:\\Program Files\\Git\\usr\\bin\\bash.exe") {
+  if (
+    process.env["SHELL"] !== String.raw`C:\Program Files\Git\usr\bin\bash.exe`
+  ) {
     return;
   }
 

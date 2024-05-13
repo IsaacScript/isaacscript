@@ -10,8 +10,7 @@ export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
 export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
-export const MOD_UPLOADER_PATH =
-  "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe";
+export const MOD_UPLOADER_PATH = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe`;
 export const PROJECT_NAME = "IsaacScript";
 
 // `isaacscript`
