@@ -48,6 +48,7 @@ const NORMAL_RULES = {
   "unicorn/no-for-loop": "error",
   "unicorn/no-hex-escape": "error",
   "unicorn/no-instanceof-array": "error",
+  "unicorn/no-invalid-fetch-options": "error",
   "unicorn/no-invalid-remove-event-listener": "error",
 
   /** Disabled because it is common to prefix variables with "new". */
