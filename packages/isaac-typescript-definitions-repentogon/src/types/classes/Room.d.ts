@@ -30,7 +30,7 @@ declare global {
       seed?: Seed,
       varData?: int,
     ) => void) &
-      ((gridINdex: int, descriptor: GridEntityDesc) => void);
+      ((gridIndex: int, descriptor: GridEntityDesc) => void);
 
     /**
      * Repentogon's modified `Room.TrySpawnSpecialQuestDoor` method.
