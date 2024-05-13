@@ -55,6 +55,7 @@ const NORMAL_RULES = {
   "unicorn/no-keyword-prefix": "off",
 
   "unicorn/no-lonely-if": "error",
+  "unicorn/no-magic-array-flat-depth": "error",
   "unicorn/no-negated-condition": "error",
   "unicorn/no-nested-ternary": "off", // eslint-config-prettier
   "unicorn/no-new-array": "error",
