@@ -30,7 +30,7 @@ export async function $(
 
   try {
     returnBase = await dollarSignFuncWithOptions(templates, ...expressions);
-  } catch (error: unknown) {
+  } catch (error) {
     const execaSyncError = error as ExecaSyncError;
     process.exit(execaSyncError.exitCode);
   }
@@ -93,7 +93,7 @@ export function $s(
 
   try {
     returnBase = dollarSignFuncWithOptions.sync(templates, ...expressions);
-  } catch (error: unknown) {
+  } catch (error) {
     const execaSyncError = error as ExecaSyncError;
     process.exit(execaSyncError.exitCode);
   }
