@@ -21,6 +21,11 @@ declare global {
 
     GetDropDelay: () => int;
 
+    /** @param shouldAdvance Optional. Default is false. */
+    GetLootList: (shouldAdvance?: boolean) => LootList;
+
+    GetPickupGhost: () => EntityEffect | undefined;
+
     /** Returns sprite used by the pickup's price label. */
     GetPriceSprite: () => Sprite;
 
@@ -68,6 +73,8 @@ declare global {
      * already empty or the pickup is not a collectible.
      */
     TryRemoveCollectible: () => boolean;
+
+    UpdatePickupGhosts: () => void;
   }
 
   namespace EntityPickup {

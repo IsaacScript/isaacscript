@@ -32,6 +32,34 @@ declare global {
     function AnyPlayerTypeHasBirthright(playerType: PlayerType): boolean;
 
     /**
+     * Returns whether any player whose type is the provided `PlayerType` currently has the provided
+     * collectible.
+     *
+     * @param playerType
+     * @param collectibleType
+     * @param ignoreModifiers Optional. Default is false.
+     */
+    function AnyPlayerTypeHasCollectible(
+      playerType: PlayerType,
+      collectibleType: CollectibleType,
+      ignoreModifiers?: boolean,
+    ): boolean;
+
+    /**
+     * Returns whether any player whose type is the provided `PlayerType` currently has the provided
+     * trinket.
+     *
+     * @param playerType
+     * @param trinketType
+     * @param ignoreModifiers Optional. Default is false.
+     */
+    function AnyPlayerTypeHasTrinket(
+      playerType: PlayerType,
+      trinketType: TrinketType,
+      ignoreModifiers?: boolean,
+    ): boolean;
+
+    /**
      * Returns the first player who picked up the provided `CollectibleType` for the first time in
      * the current run. Returns undefined if the collectible has not been picked up yet.
      *

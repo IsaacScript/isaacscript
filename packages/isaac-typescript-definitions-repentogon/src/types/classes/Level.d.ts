@@ -16,6 +16,8 @@ declare interface Level extends IsaacAPIClass {
   /** Returns whether the special quest is forced. */
   GetForceSpecialQuest: () => SpecialQuest;
 
+  GetGreedWavesClearedWithoutRedHeartDamage: () => int;
+
   /** Returns whether the floor has the mineshaft room used for the second Knife Piece puzzle. */
   HasAbandonedMineshaft: () => boolean;
 
@@ -45,6 +47,7 @@ declare interface Level extends IsaacAPIClass {
     seed: Seed,
   ) => boolean;
 
+  SetGreedWavesClearedWithoutRedHeartDamage: (waves: int) => void;
   SetForceSpecialQuest: (quest: SpecialQuest) => void;
 
   /** Sets the display name of the level. */

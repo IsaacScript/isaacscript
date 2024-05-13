@@ -14,6 +14,8 @@ declare namespace NightmareScene {
   /** Returns the sprite used by the thought bubble above the player portrait. */
   function GetBubbleSprite(): Sprite;
 
+  function GetPlayerExtraPortraitSprite(): Sprite;
+
   function GetProgressBarMap(): int[];
 
   /** Returns the sprite used by the progress bar. */

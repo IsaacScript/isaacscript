@@ -1,0 +1,33 @@
+/**
+ * This enum is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/index.html
+ */
+export enum DwmWindowAttribute {
+  NC_RENDERING_ENABLED = 1,
+  NC_RENDERING_POLICY = 2,
+  TRANSITIONS_FORCE_DISABLED = 3,
+  ALLOW_NC_PAINT = 4,
+  CAPTION_BUTTON_BOUNDS = 5,
+  NON_CLIENT_RTL_LAYOUT = 6,
+  FORCE_ICONIC_REPRESENTATION = 7,
+  // eslint-disable-next-line isaacscript/enum-member-number-separation
+  FLIP_3D_POLICY = 8,
+  EXTENDED_FRAME_BOUNDS = 9,
+  HAS_ICONIC_BITMAP = 10,
+  DISALLOW_PEEK = 11,
+  EXCLUDED_FROM_PEEK = 12,
+  CLOAK = 13,
+  CLOAKED = 14,
+  FREEZE_REPRESENTATION = 15,
+  PASSIVE_UPDATE_MODE = 16,
+  USE_HOST_BACKDROP_BRUSH = 17,
+  USE_IMMERSIVE_DARK_MODE = 20,
+  WINDOW_CORNER_PREFERENCE = 33,
+  BORDER_COLOR = 34,
+  CAPTION_COLOR = 35,
+  TEXT_COLOR = 36,
+  VISIBLE_FRAME_BORDER_THICKNESS = 37,
+  SYSTEM_BACKDROP_TYPE = 38,
+  LAST = 39,
+}

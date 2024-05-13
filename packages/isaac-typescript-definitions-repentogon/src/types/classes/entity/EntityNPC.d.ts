@@ -65,10 +65,14 @@ declare global {
     /** Returns the NPC's dynamic dirt color. */
     GetDirtColor: () => Color;
 
+    GetFireplaceLoot: () => LootList;
+
     GetHitList: () => int[];
 
     /** Returns the NPC's shield strength/armor. */
     GetShieldStrength: () => number;
+
+    GetShopkeeperLoot: () => LootList;
 
     GetSirenPlayerEntity: () => EntityPlayer | undefined;
     IsBossColor: () => boolean;

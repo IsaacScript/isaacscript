@@ -15,4 +15,20 @@ declare interface EntityTear extends Entity {
    * tear.
    */
   MakeMultidimensionalCopy: () => EntityTear;
+
+  GetDeadEyeSprite: () => Sprite;
+  GetTearEffectSprite: () => Sprite;
+  GetTearHaloSprite: () => Sprite;
+
+  /**
+   * Repentogon's modified `EntityTear.ResetSpriteScale` method.
+   *
+   * Behaves the same as `EntityTear.ResetSpriteScale` except you can now choose to have it
+   * re-evaluate which scale animation to play.
+   *
+   * @param force Optional. Default is false.
+   *
+   * @customName ResetSpriteScale
+   */
+  ResetSpriteScaleEx: (force: boolean) => void;
 }

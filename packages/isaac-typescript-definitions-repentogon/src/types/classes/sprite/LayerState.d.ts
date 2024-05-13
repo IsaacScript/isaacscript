@@ -6,6 +6,12 @@ import type { AnimationRenderFlag } from "../../../enums/flags/AnimationRenderFl
  * @see https://repentogon.com/index.html
  */
 declare interface LayerState extends IsaacAPIClass {
+  /** Clears the custom shader. */
+  ClearCustomShader: () => void;
+
+  /** Clears the custom shader. */
+  ClearCustomChampionShader: () => void;
+
   /** Returns the layer's `BlendMode`. */
   GetBlendMode: () => BlendMode;
 
@@ -42,6 +48,12 @@ declare interface LayerState extends IsaacAPIClass {
   GetWrapSMode: () => int;
   GetWrapTMode: () => int;
 
+  /** Returns whether the shader from the specified path is active. */
+  HasCustomShader: (path: string) => boolean;
+
+  /** Returns whether the shader from the specified path is active. */
+  HasCustomChampionShader: (path: string) => boolean;
+
   /** Returns whether the layer is visible. */
   IsVisible: () => boolean;
 
@@ -50,6 +62,22 @@ declare interface LayerState extends IsaacAPIClass {
 
   /** Sets the layer's crop offset. */
   SetCropOffset: (cropOffset: Vector) => void;
+
+  /**
+   * Overrides the default color offset shader the sprite uses.
+   *
+   * @param shaderPath A path to the folder containing the shaders. The path starts on the resources
+   *                   folder and expects to find both a `.vs` and `.fs` file.
+   */
+  SetCustomShader: (shaderPath: string) => void;
+
+  /**
+   * Overrides the champion color offset shader the sprite uses.
+   *
+   * @param shaderPath A path to the folder containing the shaders. The path starts on the resources
+   *                   folder and expects to find both a `.vs` and `.fs` file.
+   */
+  SetCustomChampionShader: (shaderPath: string) => void;
 
   /** Sets the layer's position. */
   SetPos: (position: Vector) => void;
