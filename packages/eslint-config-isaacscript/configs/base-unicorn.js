@@ -13,6 +13,7 @@ const NORMAL_RULES = {
   /** Disabled because it has too many false positives. */
   "unicorn/consistent-destructuring": "off",
 
+  "unicorn/consistent-empty-array-spread": "error",
   "unicorn/consistent-function-scoping": "error",
   "unicorn/custom-error-definition": "error",
   "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
