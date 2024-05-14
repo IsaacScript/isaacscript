@@ -45,7 +45,7 @@ declare global {
     PlaceRoom: (
       room: LevelGeneratorEntry,
       roomConfig: RoomConfig,
-      seed: Seed
+      seed: Seed,
     ) => boolean;
 
     SetGreedWavesClearedWithoutRedHeartDamage: (waves: int) => void;
