@@ -16,17 +16,11 @@
  *
  * @see https://repentogon.com/index.html
  */
-export function Capsule(
+declare function Capsule(
   this: void,
   position: Vector,
   sizeMultiplier: Vector,
   rotation: number,
-  size: number,
-): Capsule;
-
-export function Capsule(
-  position: Vector,
-  targetPosition: Vector,
   size: number,
 ): Capsule;
 

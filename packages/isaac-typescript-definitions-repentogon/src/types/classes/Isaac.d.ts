@@ -21,7 +21,6 @@ import type { GiantbookType } from "../../enums/GiantbookType";
 import type { MainMenuType } from "../../enums/MainMenuType";
 import type { TaintedMarksGroup } from "../../enums/TaintedMarksGroup";
 import type { WindowIcon } from "../../enums/WindowIcon";
-import type { Capsule } from "./Capsule";
 
 declare global {
   /** @noSelf */

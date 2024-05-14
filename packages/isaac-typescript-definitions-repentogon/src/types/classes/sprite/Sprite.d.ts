@@ -1,5 +1,4 @@
 import type { AnimationRenderFlag } from "../../../enums/flags/AnimationRenderFlag";
-import type { LayerState } from "./LayerState";
 
 declare global {
   /** The constructor for the REPENTOGON `Sprite`. */

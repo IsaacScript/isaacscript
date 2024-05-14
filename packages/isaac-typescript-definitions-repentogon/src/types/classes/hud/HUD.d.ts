@@ -1,5 +1,3 @@
-import type { PlayerHUD } from "./PlayerHUD";
-
 declare interface HUD extends IsaacAPIClass {
   /** Flashes the player's red hearts on their HUD. */
   FlashRedHearts: (player: EntityPlayer) => void;
