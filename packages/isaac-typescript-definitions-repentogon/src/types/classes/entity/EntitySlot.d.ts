@@ -12,8 +12,10 @@ declare global {
 
     GetDonationValue: () => int;
     GetPrizeType: () => int;
+    GetShellGameAnimationIndex: () => int;
     GetState: () => int;
     GetTimeout: () => int;
+    GetTriggerTimerNum: () => int;
 
     /** Returns how many frames a player has been touching the slot. */
     GetTouch: () => int;
@@ -25,8 +27,10 @@ declare global {
     SetPrizeCollectible: (collectible: CollectibleType) => void;
 
     SetPrizeType: (prizeType: int) => void;
+    SetShellGameAnimationIndex: (index: int) => void;
     SetState: (state: int) => void;
     SetTimeout: (timeout: int) => void;
+    SetTriggerTimerNum: (timerNum: int) => void;
 
     /** Sets how many frames a player has been touching the slot. */
     SetTouch: (duration: int) => void;
