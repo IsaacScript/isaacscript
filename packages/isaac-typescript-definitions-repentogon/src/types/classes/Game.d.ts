@@ -9,6 +9,11 @@ declare global {
   interface Game extends IsaacAPIClass {
     AchievementUnlocksDisallowed: () => boolean;
     AddDebugFlags: (flags: BitFlags<DebugFlag>) => void;
+    AddShopVisits: (count: int) => void;
+
+    /** Removes all enemies that were erased by the Eraser item. */
+    ClearErasedEnemies: () => void;
+
     DevolveEnemy: (enemy: Entity) => void;
     GetChallengeParams: () => ChallengeParams;
     GetCurrentColorModifier: () => ColorModifier;
@@ -17,6 +22,7 @@ declare global {
     GetLerpColorModifier: () => ColorModifier;
     GetPauseMenuState: () => PauseMenuState;
     GetPlanetariumsVisited: () => int;
+    GetShopVisits: () => void;
     GetTargetColorModifier: () => ColorModifier;
 
     /**
