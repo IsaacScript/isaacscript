@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@algolia/client-search": "^4.23.3",
-    "@arktype/fs": "^0.0.18",
+    "@arktype/fs": "^0.0.19",
     "@commander-js/extra-typings": "^12.0.1",
     "@docusaurus/core": "^3.3.2",
     "@docusaurus/eslint-plugin": "^3.3.2",
@@ -98,7 +98,7 @@
     "jest-summarizing-reporter": "^1.1.4",
     "jsonc-parser": "^3.2.1",
     "klaw-sync": "^6.0.0",
-    "knip": "^5.15.1",
+    "knip": "^5.16.0",
     "lua-types": "^2.13.1",
     "markdownlint": "^0.34.0",
     "markdownlint-cli": "^0.40.0",

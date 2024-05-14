@@ -285,10 +285,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@arktype/fs@npm:^0.0.18":
-  version: 0.0.18
-  resolution: "@arktype/fs@npm:0.0.18"
-  checksum: 10c0/244968ed645ea7566da1f4100a21bb5a9c01950af5a38c019f1eb6683817edc16896ca663e4c2dfef5a8643e19bf6db0b7863279c05f721b6b300750e9f83249
+"@arktype/fs@npm:^0.0.19":
+  version: 0.0.19
+  resolution: "@arktype/fs@npm:0.0.19"
+  checksum: 10c0/ea54828f29400133d13e893a4681b90da71b98611484945bbc61fcd63b6858da31eb5d2760c3d55bf8d7a98602a293b0a967122b489c6fa75e96de115adcf869
   languageName: node
   linkType: hard
 
@@ -12068,7 +12068,7 @@ __metadata:
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
     "@algolia/client-search": "npm:^4.23.3"
-    "@arktype/fs": "npm:^0.0.18"
+    "@arktype/fs": "npm:^0.0.19"
     "@commander-js/extra-typings": "npm:^12.0.1"
     "@docusaurus/core": "npm:^3.3.2"
     "@docusaurus/eslint-plugin": "npm:^3.3.2"
@@ -12142,7 +12142,7 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.2.1"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^5.15.1"
+    knip: "npm:^5.16.0"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.34.0"
     markdownlint-cli: "npm:^0.40.0"
@@ -13014,9 +13014,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.15.1":
-  version: 5.15.1
-  resolution: "knip@npm:5.15.1"
+"knip@npm:^5.16.0":
+  version: 5.16.0
+  resolution: "knip@npm:5.16.0"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.2"
     "@nodelib/fs.walk": "npm:2.0.0"
@@ -13042,7 +13042,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10c0/3898d3c8087456fb38025342e3a9ad116d91ef5bfa37aeeea4586c8bb6ca8a0c417758c511996c1c3d16154f45498a1ec475454c26153a0e905978f252775c85
+  checksum: 10c0/7c27efcc06bbbfd58d8e06faba6e952e81ebd668840e3615392ce2bf2d3be25aa26328772bfbe3a5679805e9779ced2632ac166d2fb9c1ff2d8fd50f0afee49e
   languageName: node
   linkType: hard
 
