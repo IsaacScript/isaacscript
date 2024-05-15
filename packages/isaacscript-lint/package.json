@@ -38,7 +38,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-isaacscript": "^3.12.2",
-    "eslint-plugin-jsdoc": "^48.2.4",
+    "eslint-plugin-jsdoc": "^48.2.5",
     "eslint-plugin-n": "^17.7.0",
     "eslint-plugin-no-autofix": "^2.0.0",
     "eslint-plugin-only-warn": "^1.1.0",
