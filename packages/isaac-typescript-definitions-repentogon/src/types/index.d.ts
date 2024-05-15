@@ -96,6 +96,7 @@
 /// <reference path="./classes/LootList.d.ts"/>
 /// <reference path="./classes/LootListEntry.d.ts"/>
 /// <reference path="./classes/Mod.d.ts"/>
+/// <reference path="./classes/ModUpgraded.d.ts"/>
 /// <reference path="./classes/MultiShotParams.d.ts"/>
 /// <reference path="./classes/MusicManager.d.ts"/>
 /// <reference path="./classes/NightmareScene.d.ts"/>

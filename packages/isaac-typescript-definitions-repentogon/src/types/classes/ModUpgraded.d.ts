@@ -1,8 +1,8 @@
 import type { CallbackPriority } from "isaac-typescript-definitions";
 import type { ModCallbackRepentogon } from "../../enums/ModCallbackRepentogon";
 
-declare global {
-  interface Mod {
+declare module "isaacscript-common" {
+  interface ModUpgraded {
     /** @customName AddCallback */
     AddCallbackRepentogon: <
       T extends keyof AddCallbackParametersRepentogon | string,
