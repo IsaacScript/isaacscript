@@ -193,7 +193,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface AchievementsXMLData {
+  interface AchievementsXMLData {
     gfx: string;
     gfxback?: string;
     gfxroot: string;
@@ -215,7 +215,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface BackdropsXMLData {
+  interface BackdropsXMLData {
     bridge?: string;
     door?: string;
     effectsgfxroot?: string;
@@ -250,7 +250,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface Costumes2XMLData {
+  interface Costumes2XMLData {
     anm2path?: string;
     forcebodycolor?: string;
     forceheadcolor?: string;
@@ -275,7 +275,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface CursesXMLData {
+  interface CursesXMLData {
     id: string;
     name?: string;
     sourceid: string;
@@ -292,7 +292,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface ItemsXMLData {
+  interface ItemsXMLData {
     achievement?: string;
     addcostumeonpickup?: string;
     blackhearts?: string;
@@ -348,7 +348,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface MusicXMLData {
+  interface MusicXMLData {
     id: string;
     intro?: string;
     layer?: string;
@@ -372,7 +372,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface PlayersXMLData {
+  interface PlayersXMLData {
     achievement?: string;
     armor?: string;
     birthright?: string;
@@ -434,7 +434,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface SoundsXMLData {
+  interface SoundsXMLData {
     name: string;
     root: string;
     sample: Array<{
@@ -452,7 +452,7 @@ declare global {
    *
    * @see https://repentogon.com/index.html
    */
-  export interface WispsXMLData {
+  interface WispsXMLData {
     canshoot?: string;
     corecolor?: string;
     coregfx?: string;

@@ -1,5 +1,3 @@
-import type { Capsule } from "../Capsule";
-
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *

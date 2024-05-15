@@ -14,7 +14,6 @@ import type { BagOfCraftingPickup } from "../../../enums/BagOfCraftingPickup";
 import type { DeathAnimationName } from "../../../enums/DeathAnimationName";
 import type { HealthType } from "../../../enums/HealthType";
 import type { PurityState } from "../../../enums/PurityState";
-import type { History } from "../history/History";
 
 declare global {
   interface EntityPlayer extends Entity {

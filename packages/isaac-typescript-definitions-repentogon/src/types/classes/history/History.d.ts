@@ -1,5 +1,3 @@
-import type { HistoryItem } from "./HistoryItem";
-
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *

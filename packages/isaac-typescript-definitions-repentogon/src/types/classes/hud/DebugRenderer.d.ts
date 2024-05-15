@@ -1,5 +1,3 @@
-import type { Shape } from "../rendering/Shape";
-
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *

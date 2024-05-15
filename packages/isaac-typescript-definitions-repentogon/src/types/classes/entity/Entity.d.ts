@@ -2,8 +2,6 @@ import type {
   BloodExplosionSubType,
   EntityType,
 } from "isaac-typescript-definitions";
-import type { Capsule } from "../Capsule";
-import type { Shape } from "../rendering/Shape";
 
 declare global {
   interface Entity extends IsaacAPIClass {
