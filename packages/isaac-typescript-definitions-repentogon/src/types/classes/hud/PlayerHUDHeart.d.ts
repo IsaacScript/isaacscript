@@ -1,11 +1,12 @@
+import type { HeartFlashType } from "../../../enums/HeartFlashType";
+
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/index.html
  */
 declare interface PlayerHUDHeart extends IsaacAPIClass {
-  /** TODO: Document each value and create an enum. */
-  GetFlashType: () => int;
+  GetFlashType: () => HeartFlashType;
 
   /** Returns the name of the animation currently playing on the heart. */
   GetHeartAnim: () => string;
