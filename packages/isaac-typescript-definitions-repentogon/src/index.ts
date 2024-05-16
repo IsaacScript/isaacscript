@@ -17,6 +17,7 @@ export * from "./enums/EventCounter";
 export * from "./enums/FollowerPriority";
 export * from "./enums/GiantbookType";
 export * from "./enums/HealthType";
+export * from "./enums/HeartFlashType";
 export * from "./enums/MainMenuType";
 export * from "./enums/MinimapState";
 export * from "./enums/ModCallbackRepentogon";
