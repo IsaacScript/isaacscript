@@ -2,9 +2,9 @@ import type {
   EntityType,
   StageTransitionType,
 } from "isaac-typescript-definitions";
+import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { PauseMenuState } from "../../enums/PauseMenuState";
 import type { DebugFlag } from "../../enums/flags/DebugFlag";
-import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 
 declare global {
   interface Game extends IsaacAPIClass {
