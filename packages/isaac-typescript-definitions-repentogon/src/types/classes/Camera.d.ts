@@ -4,6 +4,9 @@
  * @see https://repentogon.com/index.html
  */
 declare interface Camera extends IsaacAPIClass {
+  /** Returns whether the specified position is visible within the camera's current view. */
+  IsPosVisible: (position: Vector) => boolean;
+
   /**
    * Sets the camera's current focus position, causing it to shift towards the specified position.
    * If you want the camera to change its position instantly, use `Camera.SnapToPosition` instead.
