@@ -2050,6 +2050,18 @@ declare global {
       challenge?: Challenge,
     ];
 
+    // 1474
+    [ModCallbackRepentogon.PRE_RECORD_PLAYER_COMPLETION]: [
+      callback: (completionMarkType: CompletionMarkType) => boolean | undefined,
+      completionMarkType?: CompletionMarkType,
+    ];
+
+    // 1475
+    [ModCallbackRepentogon.POST_RECORD_PLAYER_COMPLETION]: [
+      callback: (completionMarkType: CompletionMarkType) => void,
+      completionMarkType?: CompletionMarkType,
+    ];
+
     // 1481
     [ModCallbackRepentogon.PRE_PLAYER_REVIVE]: [
       callback: (player: EntityPlayer) => boolean | undefined,

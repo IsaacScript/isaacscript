@@ -3325,6 +3325,28 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CompletionMarkType` provided.
+   *
+   * ```ts
+   * function preRecordPlayerCompletion(completionMarkType: CompletionMarkType): boolean | undefined {}
+   * ```
+   */
+  PRE_RECORD_PLAYER_COMPLETION = 1474,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CompletionMarkType` provided.
+   *
+   * ```ts
+   * function postRecordPlayerCompletion(completionMarkType: CompletionMarkType): void {}
+   * ```
+   */
+  POST_RECORD_PLAYER_COMPLETION = 1475,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
