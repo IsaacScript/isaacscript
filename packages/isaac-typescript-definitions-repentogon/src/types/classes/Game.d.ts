@@ -4,6 +4,7 @@ import type {
 } from "isaac-typescript-definitions";
 import type { PauseMenuState } from "../../enums/PauseMenuState";
 import type { DebugFlag } from "../../enums/flags/DebugFlag";
+import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 
 declare global {
   interface Game extends IsaacAPIClass {
@@ -40,6 +41,8 @@ declare global {
     IsHardMode: () => boolean;
     IsPauseMenuOpen: () => boolean;
     IsRerun: () => boolean;
+
+    RecordPlayerCompletion: (completionType: CompletionMarkType) => void;
 
     /**
      * @param colorModifier
