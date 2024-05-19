@@ -2,6 +2,7 @@ import type {
   EntityType,
   StageTransitionType,
 } from "isaac-typescript-definitions";
+import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { PauseMenuState } from "../../enums/PauseMenuState";
 import type { DebugFlag } from "../../enums/flags/DebugFlag";
 
@@ -40,6 +41,8 @@ declare global {
     IsHardMode: () => boolean;
     IsPauseMenuOpen: () => boolean;
     IsRerun: () => boolean;
+
+    RecordPlayerCompletion: (completionType: CompletionMarkType) => void;
 
     /**
      * @param colorModifier
