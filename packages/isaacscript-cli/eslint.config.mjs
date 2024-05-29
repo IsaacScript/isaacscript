@@ -1,4 +1,4 @@
-const path = require("node:path");
+import path from "node:path";
 
 const REPO_ROOT = path.join(__dirname, "..", "..");
 const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
@@ -7,8 +7,7 @@ const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
   "eslint-config-isaacscript",
 );
 
-/** @type {import("eslint").Linter.Config} */
-const config = {
+export default {
   extends: [
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "base.js"),
     path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
@@ -35,5 +34,3 @@ const config = {
     },
   ],
 };
-
-module.exports = config;

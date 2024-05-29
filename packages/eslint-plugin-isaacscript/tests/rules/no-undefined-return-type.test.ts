@@ -1,5 +1,5 @@
-import { noUndefinedReturnType } from "../../src/rules/no-undefined-return-type";
-import { ruleTester } from "../utils";
+import { noUndefinedReturnType } from "../../src/rules/no-undefined-return-type.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-undefined-return-type", noUndefinedReturnType, {
   valid: [

@@ -1,11 +1,6 @@
-// This ESLint config only contains rules from `@typescript-eslint/eslint-plugin`:
-// https://typescript-eslint.io/rules/
+import tseslint from "typescript-eslint";
 
-// Rules are separated into categories:
-// 1) Supported Rules
-// 2) Extension Rules
-
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const SUPPORTED_RULES = {
   "@typescript-eslint/adjacent-overload-signatures": "error",
 
@@ -75,12 +70,6 @@ const SUPPORTED_RULES = {
       selector: "variable",
       format: ["camelCase", "PascalCase", "UPPER_CASE"],
       leadingUnderscore: "allow",
-
-      // Polyfilling "__dirname" in ESM files is a common pattern.
-      filter: {
-        regex: "^__dirname$",
-        match: false,
-      },
     },
     // Allow camelCase functions (23.2), and PascalCase functions (23.8).
     {
@@ -289,7 +278,7 @@ const SUPPORTED_RULES = {
   "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const EXTENSION_RULES = {
   "@typescript-eslint/block-spacing": "off", // eslint-config-prettier
   "@typescript-eslint/brace-style": "off", // eslint-config-prettier
@@ -509,66 +498,79 @@ const EXTENSION_RULES = {
   "@typescript-eslint/space-infix-ops": "off", // eslint-config-prettier
 };
 
-/** @type {import("eslint").Linter.Config} */
-const config = {
-  // We need to provide some special configuration to ESLint in order for it to parse TypeScript
-  // files. From:
-  // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/base.ts
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    sourceType: "module",
+/**
+ * This ESLint config only contains rules from `@typescript-eslint/eslint-plugin`:
+ * https://typescript-eslint.io/rules/
+ *
+ * Rules are separated into categories:
+ * 1) Supported Rules
+ * 2) Extension Rules
+ */
+export const baseTypeScriptESLint = tseslint.config(
+  {
+    plugins: {
+      "@typescript-eslint": tseslint.plugin,
+    },
 
-    // Needed for `eslint-plugin-import` to work properly:
-    // https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
-    ecmaVersion: "latest",
+    // We need to provide some special configuration to ESLint in order for it to parse TypeScript
+    // files. From:
+    // https://typescript-eslint.io/packages/typescript-eslint/#advanced-usage
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        sourceType: "module",
+
+        // Recommended as per the official documentation:
+        // https://typescript-eslint.io/getting-started/typed-linting
+        project: true,
+
+        // Needed for `eslint-plugin-import` to work properly:
+        // https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
+        ecmaVersion: "latest",
+      },
+    },
+
+    rules: {
+      ...SUPPORTED_RULES,
+      ...EXTENSION_RULES,
+    },
   },
-  plugins: ["@typescript-eslint"],
 
-  rules: {
-    ...SUPPORTED_RULES,
-    ...EXTENSION_RULES,
+  // Enable linting on TypeScript file extensions.
+  {
+    files: ["*.ts", "*.tsx", "*.mts", "*.cts"],
   },
 
-  overrides: [
-    // We list a "blank" override for the purposes of enabling new file extensions. (ESLint adds any
-    // new extensions included in `overrides` to the list of linted extensions.)
-    {
-      files: ["*.ts", "*.tsx", "*.mts", "*.cts"],
+  // Disable some TypeScript-specific rules in JavaScript files.
+  {
+    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    rules: {
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/strict-boolean-expressions": "off",
     },
+  },
 
-    // Disable some TypeScript-specific rules in JavaScript files.
-    {
-      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
-      rules: {
-        "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-require-imports": "off",
-        "@typescript-eslint/no-unsafe-argument": "off",
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/no-unsafe-call": "off",
-        "@typescript-eslint/no-unsafe-member-access": "off",
-        "@typescript-eslint/no-unsafe-return": "off",
-        "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/strict-boolean-expressions": "off",
-      },
+  // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
+  {
+    files: ["*.test.{js,cjs,mjs,ts,cts,mts}"],
+    rules: {
+      "@typescript-eslint/no-floating-promises": "off",
     },
+  },
 
-    // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
-    {
-      files: ["*.test.{js,cjs,mjs,ts,cts,mts}"],
-      rules: {
-        "@typescript-eslint/no-floating-promises": "off",
-      },
+  // We want to be allowed to import from the "src" directory in test files that are located in a
+  // separate "tests" directory.
+  {
+    files: ["**/tests/**"],
+    rules: {
+      "@typescript-eslint/no-restricted-imports": "off",
     },
-
-    // We want to be allowed to import from the "src" directory in test files that are located in a
-    // separate "tests" directory.
-    {
-      files: ["**/tests/**"],
-      rules: {
-        "@typescript-eslint/no-restricted-imports": "off",
-      },
-    },
-  ],
-};
-
-module.exports = config;
+  },
+);

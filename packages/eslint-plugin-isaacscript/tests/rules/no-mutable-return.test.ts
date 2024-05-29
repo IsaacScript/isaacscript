@@ -1,5 +1,5 @@
-import { noMutableReturn } from "../../src/rules/no-mutable-return";
-import { ruleTester } from "../utils";
+import { noMutableReturn } from "../../src/rules/no-mutable-return.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-mutable-array-return", noMutableReturn, {
   valid: [

@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { createRule, getParentFunction } from "../utils";
+import { createRule, getParentFunction } from "../utils.js";
 
 export const strictVoidFunctions = createRule({
   name: "strict-void-functions",

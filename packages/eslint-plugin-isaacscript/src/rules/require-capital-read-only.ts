@@ -1,8 +1,8 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import { isFirstLetterCapitalized } from "isaacscript-common-ts";
 import ts from "typescript";
-import { isFirstLetterCapitalized } from "../isaacScriptCommonTS";
-import { getTypeName } from "../typeUtils";
-import { createRule } from "../utils";
+import { getTypeName } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 

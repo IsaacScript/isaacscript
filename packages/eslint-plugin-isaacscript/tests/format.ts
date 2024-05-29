@@ -1,4 +1,4 @@
-import { formatText } from "../src/format";
+import { formatText } from "../src/format.js";
 
 const FORMAT_TEST_MAX_LENGTH = 100;
 

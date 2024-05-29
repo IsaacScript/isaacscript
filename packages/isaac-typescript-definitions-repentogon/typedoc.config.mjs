@@ -5,7 +5,7 @@ import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-di
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const config = getTypeDocConfig(__dirname);
 
-/** @type {import('typedoc').TypeDocOptions} */
+/** @type {import("typedoc").TypeDocOptions} */
 export default {
   ...config,
   intentionallyNotExported: [

@@ -1,5 +1,5 @@
-import { noNumberEnums } from "../../src/rules/no-number-enums";
-import { ruleTester } from "../utils";
+import { noNumberEnums } from "../../src/rules/no-number-enums.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-number-enums", noNumberEnums, {
   valid: [

@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { capitalizeFirstLetter, trimPrefix } from "../isaacScriptCommonTS";
-import { getTypeName } from "../typeUtils";
-import { createRule } from "../utils";
+import { capitalizeFirstLetter, trimPrefix } from "isaacscript-common-ts";
+import { getTypeName } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 type Options = [];
 

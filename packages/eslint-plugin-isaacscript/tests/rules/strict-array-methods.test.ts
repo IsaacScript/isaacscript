@@ -1,5 +1,5 @@
-import { strictArrayMethods } from "../../src/rules/strict-array-methods";
-import { ruleTester } from "../utils";
+import { strictArrayMethods } from "../../src/rules/strict-array-methods.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("strict-array-methods", strictArrayMethods, {
   valid: [

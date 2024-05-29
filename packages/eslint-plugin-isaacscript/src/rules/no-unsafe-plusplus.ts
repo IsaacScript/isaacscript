@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/utils";
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export const noUnsafePlusplus = createRule({
   name: "no-unsafe-plusplus",

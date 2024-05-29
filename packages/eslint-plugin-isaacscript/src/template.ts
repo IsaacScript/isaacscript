@@ -1,6 +1,6 @@
 /*
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export const RULE_NAME_CAMEL_CASE = createRule({
   name: "RULE_NAME",

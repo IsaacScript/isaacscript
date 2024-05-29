@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { isAny } from "../typeUtils";
-import { createRule } from "../utils";
+import { isAny } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 export const noLetAny = createRule({
   name: "no-let-any",

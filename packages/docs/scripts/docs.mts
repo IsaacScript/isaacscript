@@ -1,17 +1,16 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
+import ESLintPluginESLintComments from "@eslint-community/eslint-plugin-eslint-comments";
 import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
-import ESLintPluginESLintComments from "eslint-plugin-eslint-comments";
 import ESLintPluginImport from "eslint-plugin-import";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import {
-  dirName,
   echo,
   fatalError,
   isDirectory,
@@ -21,7 +20,7 @@ import {
   writeFile,
 } from "isaacscript-common-node";
 import type { ReadonlyRecord } from "isaacscript-common-ts";
-import { assertDefined, isObject } from "isaacscript-common-ts";
+import { assertDefined, isArray, isObject } from "isaacscript-common-ts";
 import path from "node:path";
 import url from "node:url";
 
@@ -40,8 +39,6 @@ type ParentConfig =
   | "n/recommended"
   | "unicorn/recommended"
   | "eslint-config-prettier";
-
-const __dirname = dirName();
 
 const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
@@ -123,7 +120,7 @@ Below, we provide documentation for every rule that is disabled. (We take a blac
 
 // -------------------------------------------------------------------------------------------------
 
-const REPO_ROOT = path.join(__dirname, "..", "..", "..");
+const REPO_ROOT = path.join(import.meta.dirname, "..", "..", "..");
 
 const BASE_CONFIGS_PATH = path.join(
   REPO_ROOT,
@@ -238,10 +235,18 @@ const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginImport.configs.recommended.rules),
 );
 
+assertDefined(
+  ESLintPluginJSDoc.configs.recommended.rules,
+  "Failed to parse the rules from the following plugin: eslint-plugin-jsdoc",
+);
 const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginJSDoc.configs.recommended.rules),
 );
 
+assertDefined(
+  ESLintPluginN.configs.recommended.rules,
+  "Failed to parse the rules from the following plugin: eslint-plugin-n",
+);
 const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginN.configs.recommended.rules),
 );
@@ -266,7 +271,7 @@ const PARENT_CONFIG_LINKS = {
   "@typescript-eslint/stylistic":
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts",
   "eslint-comments/recommended":
-    "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js",
+    "https://github.com/eslint-community/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js",
   "import/recommended":
     "https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js",
   "jsdoc/recommended":
@@ -314,8 +319,8 @@ export async function makeECIDocs(quiet: boolean): Promise<void> {
   markdownOutput += await getMarkdownRuleSection(
     "eslint-comments",
     getPluginHeaderTitle("eslint-comments"),
-    "https://github.com/mysticatea/eslint-plugin-eslint-comments",
-    "https://github.com/mysticatea/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md",
+    "https://github.com/eslint-community/eslint-plugin-eslint-comments",
+    "https://github.com/eslint-community/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md",
     ESLintPluginESLintComments,
   );
 
@@ -383,14 +388,21 @@ async function getMarkdownRuleSection(
     fatalError(`Failed to parse the base config: ${baseConfigPath}`);
   }
 
-  const defaultExport = baseConfig["default"]; // Can't have "default" as a variable name.
-  if (!isObject(defaultExport)) {
+  const firstExport = Object.values(baseConfig)[0];
+  if (!isArray(firstExport)) {
     fatalError(
-      `Failed to parse the base config default export: ${baseConfigPath}`,
+      `Failed to parse the base config first export: ${baseConfigPath}`,
     );
   }
 
-  const { rules } = defaultExport;
+  const firstConfig = firstExport[0];
+  if (!isObject(firstConfig)) {
+    fatalError(
+      `Failed to parse the base config first config: ${baseConfigPath}`,
+    );
+  }
+
+  const { rules } = firstConfig;
   if (!isObject(rules)) {
     fatalError(`Failed to parse the base rules in: ${baseConfigPath}`);
   }
@@ -434,11 +446,6 @@ function auditBaseConfigRules(
   const allRuleNames = Object.keys(allRules);
 
   for (const ruleName of allRuleNames) {
-    // TODO: Remove when upgraded to ESLint 9.
-    if (ruleName === "no-useless-assignment") {
-      continue;
-    }
-
     let fullRuleName: string;
     if (configName === "eslint") {
       fullRuleName = ruleName;

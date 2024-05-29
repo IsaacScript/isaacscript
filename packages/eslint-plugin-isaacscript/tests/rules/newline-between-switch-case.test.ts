@@ -2,9 +2,9 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import type {
   MessageIds,
   Options,
-} from "../../src/rules/newline-between-switch-case";
-import { newlineBetweenSwitchCase } from "../../src/rules/newline-between-switch-case";
-import { ruleTester } from "../utils";
+} from "../../src/rules/newline-between-switch-case.js";
+import { newlineBetweenSwitchCase } from "../../src/rules/newline-between-switch-case.js";
+import { ruleTester } from "../utils.js";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];

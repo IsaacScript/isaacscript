@@ -1,5 +1,5 @@
-import { noLetAny } from "../../src/rules/no-let-any";
-import { ruleTester } from "../utils";
+import { noLetAny } from "../../src/rules/no-let-any.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-let-any", noLetAny, {
   valid: [

@@ -1,8 +1,8 @@
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { isTypeArrayTupleTypeOrUnionOfArrayTupleTypes } from "../typeUtils";
-import { createRule } from "../utils";
+import { isTypeArrayTupleTypeOrUnionOfArrayTupleTypes } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 export type MessageIds = "noExplicitArray";

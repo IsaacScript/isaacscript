@@ -1,7 +1,10 @@
-import { formatText } from "../format";
-import { trimPrefix } from "../isaacScriptCommonTS";
-import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
-import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
+import { trimPrefix } from "isaacscript-common-ts";
+import { formatText } from "../format.js";
+import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc.js";
+import {
+  areStringsEqualExcludingTrailingSpaces,
+  createRule,
+} from "../utils.js";
 
 const EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE = 4;
 const DEBUG = false as boolean;

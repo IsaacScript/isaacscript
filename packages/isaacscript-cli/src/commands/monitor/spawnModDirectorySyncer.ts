@@ -1,4 +1,4 @@
-import { dirName, fatalError } from "isaacscript-common-node";
+import { fatalError } from "isaacscript-common-node";
 import { fork } from "node:child_process";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
@@ -10,13 +10,15 @@ import {
 import { getModTargetDirectoryName } from "../../utils.js";
 import { notifyGameCommand, notifyGameMsg } from "./notifyGame.js";
 
-const __dirname = dirName();
-
 const SUBPROCESS_NAME = "modDirectorySyncer";
 const SUBPROCESS_DESCRIPTION = "Directory syncer";
 
 export function spawnModDirectorySyncer(config: ValidatedConfig): void {
-  const processPath = path.join(__dirname, SUBPROCESS_NAME, SUBPROCESS_NAME);
+  const processPath = path.join(
+    import.meta.dirname,
+    SUBPROCESS_NAME,
+    SUBPROCESS_NAME,
+  );
   const modTargetName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetName);
   const directorySyncer = fork(processPath, [MOD_SOURCE_PATH, modTargetPath]);

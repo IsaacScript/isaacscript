@@ -1,4 +1,4 @@
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export const consistentEnumValues = createRule({
   name: "consistent-enum-values",

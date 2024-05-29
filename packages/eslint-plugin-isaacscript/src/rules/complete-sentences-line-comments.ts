@@ -1,14 +1,14 @@
-import { isSeparatorLine } from "../comments";
-import type { CompleteSentenceMessageIds } from "../completeSentence";
-import { getIncompleteSentences } from "../completeSentence";
-import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants";
-import { assertDefined } from "../isaacScriptCommonTS";
+import { assertDefined } from "isaacscript-common-ts";
+import { isSeparatorLine } from "../comments.js";
+import type { CompleteSentenceMessageIds } from "../completeSentence.js";
+import { getIncompleteSentences } from "../completeSentence.js";
+import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants.js";
 import {
   allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,
   getLeadingLineComments,
-} from "../leadingLineComments";
-import { createRule } from "../utils";
+} from "../leadingLineComments.js";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 
