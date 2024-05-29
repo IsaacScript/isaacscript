@@ -2,9 +2,9 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import type {
   MessageIds,
   Options,
-} from "../../src/rules/require-variadic-function-argument";
-import { requireVariadicFunctionArgument } from "../../src/rules/require-variadic-function-argument";
-import { ruleTester } from "../utils";
+} from "../../src/rules/require-variadic-function-argument.js";
+import { requireVariadicFunctionArgument } from "../../src/rules/require-variadic-function-argument.js";
+import { ruleTester } from "../utils.js";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];

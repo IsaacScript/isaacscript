@@ -3,7 +3,7 @@
 
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 export type MessageIds = "noBreak";

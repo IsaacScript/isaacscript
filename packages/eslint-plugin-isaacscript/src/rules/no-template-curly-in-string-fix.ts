@@ -3,7 +3,7 @@
  * https://github.com/eslint/eslint/blob/main/lib/rules/no-template-curly-in-string.js
  */
 
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 const ERRONEOUS_TEMPLATE_STRING_REGEX = /\$\{[^}]+\}/u;
 

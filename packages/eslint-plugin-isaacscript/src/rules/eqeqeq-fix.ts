@@ -9,7 +9,7 @@
  * original.
  */
 
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export const eqeqeqFix = createRule({
   name: "eqeqeq-fix",

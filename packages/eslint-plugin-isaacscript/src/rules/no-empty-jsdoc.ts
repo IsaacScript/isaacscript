@@ -1,5 +1,5 @@
-import { getJSDocComments } from "../jsdoc";
-import { createRule } from "../utils";
+import { getJSDocComments } from "../jsdoc.js";
+import { createRule } from "../utils.js";
 
 export const noEmptyJSDoc = createRule({
   name: "no-empty-jsdoc",

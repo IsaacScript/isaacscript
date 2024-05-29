@@ -1,12 +1,15 @@
 import type { TSESTree } from "@typescript-eslint/utils";
-import { formatText } from "../format";
-import { assertDefined } from "../isaacScriptCommonTS";
+import { assertDefined } from "isaacscript-common-ts";
+import { formatText } from "../format.js";
 import {
   allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,
   getLeadingLineComments,
-} from "../leadingLineComments";
-import { areStringsEqualExcludingTrailingSpaces, createRule } from "../utils";
+} from "../leadingLineComments.js";
+import {
+  areStringsEqualExcludingTrailingSpaces,
+  createRule,
+} from "../utils.js";
 
 const SLASH_SLASH = "//";
 const DEBUG = false as boolean;

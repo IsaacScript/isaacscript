@@ -1,14 +1,7 @@
-// This ESLint config only contains built-in rules from ESLint itself:
-// https://eslint.org/docs/latest/rules/
+import confusingBrowserGlobals from "confusing-browser-globals";
+import tseslint from "typescript-eslint";
 
-const confusingBrowserGlobals = require("confusing-browser-globals");
-
-// Rules are separated into categories:
-// 1) Possible Problems
-// 2) Suggestions
-// 3) Layout & Formatting
-
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const POSSIBLE_PROBLEMS = {
   /** The `checkForEach` option is enabled to make the rule stricter. */
   "array-callback-return": [
@@ -97,7 +90,7 @@ const POSSIBLE_PROBLEMS = {
   "valid-typeof": "error",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const SUGGESTIONS = {
   "accessor-pairs": "error",
   "arrow-body-style": "error",
@@ -505,7 +498,7 @@ const SUGGESTIONS = {
   "no-unused-expressions": "off",
 
   "no-unused-labels": "error",
-  // "no-useless-assignment": "error", // Temporarily disabled until we upgrade to ESLint 9.
+  /// "no-useless-assignment": "error", // TODO: Uncomment when ESLint 9 is usable.
   "no-useless-call": "error",
   "no-useless-catch": "error",
 
@@ -637,7 +630,7 @@ const SUGGESTIONS = {
   yoda: "error",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const LAYOUT_AND_FORMATTING = {
   "array-bracket-newline": "off", // eslint-config-prettier
   "array-bracket-spacing": "off", // eslint-config-prettier
@@ -712,13 +705,19 @@ const LAYOUT_AND_FORMATTING = {
   "yield-star-spacing": "off", // eslint-config-prettier
 };
 
-/** @type {import("eslint").Linter.Config} */
-const config = {
+/**
+ * This ESLint config only contains built-in rules from ESLint itself:
+ * https://eslint.org/docs/latest/rules/
+ *
+ * Rules are separated into categories:
+ * 1) Possible Problems
+ * 2) Suggestions
+ * 3) Layout & Formatting
+ */
+export const baseESLint = tseslint.config({
   rules: {
     ...POSSIBLE_PROBLEMS,
     ...SUGGESTIONS,
     ...LAYOUT_AND_FORMATTING,
   },
-};
-
-module.exports = config;
+});

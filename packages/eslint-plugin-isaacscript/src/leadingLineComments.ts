@@ -1,6 +1,6 @@
 import { TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
-import { isCommentOnOwnLine, isSeparatorLine } from "./comments";
+import { isCommentOnOwnLine, isSeparatorLine } from "./comments.js";
 
 export function getLeadingLineComments(
   sourceCode: TSESLint.SourceCode,

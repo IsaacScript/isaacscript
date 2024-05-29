@@ -1,5 +1,5 @@
-import { jsdocCodeBlockLanguage } from "../../src/rules/jsdoc-code-block-language";
-import { ruleTester } from "../utils";
+import { jsdocCodeBlockLanguage } from "../../src/rules/jsdoc-code-block-language.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("jsdoc-code-block-language", jsdocCodeBlockLanguage, {
   valid: [

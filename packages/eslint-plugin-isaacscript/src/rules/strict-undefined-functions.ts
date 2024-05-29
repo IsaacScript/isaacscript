@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { getTypeName, unionTypeParts } from "../typeUtils";
-import { createRule, getParentFunction } from "../utils";
+import { getTypeName, unionTypeParts } from "../typeUtils.js";
+import { createRule, getParentFunction } from "../utils.js";
 
 export type Options = [];
 export type MessageIds = "mismatchedReturnType";

@@ -29,7 +29,7 @@ config.entryPoints.push(
   "./src/classes/features/other/extraConsoleCommands/commands.ts",
 );
 
-/** @type {import('typedoc').TypeDocOptions} */
+/** @type {import("typedoc").TypeDocOptions} */
 export default {
   ...config,
   intentionallyNotExported: [

@@ -1,8 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
-import { isFlagSet } from "../typeUtils";
-import { createRule } from "../utils";
+import { isFlagSet } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 export const noStringLength0 = createRule({
   name: "no-string-length-0",

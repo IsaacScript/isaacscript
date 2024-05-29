@@ -1,37 +1,36 @@
-const path = require("node:path");
+import path from "node:path";
+import tseslint from "typescript-eslint";
 
-const REPO_ROOT = path.join(__dirname, "..", "..");
+const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
 
-/**
- * This config is meant to be used in the IsaacScript monorepo.
- *
- * @type {import("eslint").Linter.Config}
- */
-const config = {
-  // We need to add the `tsconfigRootDir` property, but we must also repeat the options from
-  // "base-typescript-eslint.js" or they will be deleted.
-  parserOptions: {
-    sourceType: "module",
-    ecmaVersion: "latest",
+/** This config is meant to be used in the IsaacScript monorepo. */
+export const monorepo = tseslint.config(
+  {
+    languageOptions: {
+      // We need to add the `tsconfigRootDir` property, but we must also repeat the options from
+      // "base-typescript-eslint.js" or they will be deleted.
+      parserOptions: {
+        sourceType: "module",
+        project: true,
+        ecmaVersion: "latest",
 
-    tsconfigRootDir: REPO_ROOT,
-    project: true, // https://github.com/typescript-eslint/typescript-eslint/pull/6084
+        tsconfigRootDir: REPO_ROOT,
+      },
+    },
   },
 
-  ignorePatterns: ["**/dist/**"],
-
-  overrides: [
+  {
     // The "isaacscript-common-node" dependency is used in scripts and should never appear in a
     // "package.json" file (if it is only used in script files). This has to be a monorepo disable
     // because in a normal project, "isaacscript-common-node" should be required in
     // "devDependencies".
-    {
-      files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
-      rules: {
-        "import/no-extraneous-dependencies": "off",
-      },
+    files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
+    rules: {
+      "import/no-extraneous-dependencies": "off",
     },
-  ],
-};
+  },
 
-module.exports = config;
+  {
+    ignores: ["**/dist/**"],
+  },
+);

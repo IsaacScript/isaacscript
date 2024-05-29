@@ -1,11 +1,6 @@
-// This ESLint config only contains rules from `eslint-plugin-eslint-comments`:
-// https://github.com/mysticatea/eslint-plugin-eslint-comments
+import tseslint from "typescript-eslint";
 
-// Rules are separated into categories:
-// 1) Best Practices
-// 2) Stylistic Issues
-
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const BEST_PRACTICES = {
   /**
    * The `allowWholeFile` option is enabled because it is common practice to use "eslint-disable"
@@ -31,7 +26,7 @@ const BEST_PRACTICES = {
   "eslint-comments/no-unused-enable": "error",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const STYLISTIC_ISSUES = {
   /**
    * Disabled because it is only useful in projects that want to prevent disabling specific ESLint
@@ -46,14 +41,26 @@ const STYLISTIC_ISSUES = {
   "eslint-comments/require-description": "off",
 };
 
-/** @type {import("eslint").Linter.Config} */
-const config = {
-  plugins: ["eslint-comments"],
+/**
+ * This ESLint config only contains rules from `eslint-plugin-eslint-comments`:
+ * https://github.com/mysticatea/eslint-plugin-eslint-comments
+ *
+ * Rules are separated into categories:
+ * 1) Best Practices
+ * 2) Stylistic Issues
+ *
+ * TODO: This plugin does not yet support flat configs.
+ *
+ * @see https://github.com/eslint-community/eslint-plugin-eslint-comments/issues/214
+ * @see https://github.com/eslint-community/eslint-plugin-eslint-comments/issues/215
+ */
+export const baseESLintComments = tseslint.config({
+  plugins: {
+    // "eslint-comments": ESLintPluginESLintComments,
+  },
 
   rules: {
-    ...BEST_PRACTICES,
-    ...STYLISTIC_ISSUES,
+    // ...BEST_PRACTICES,
+    // ...STYLISTIC_ISSUES,
   },
-};
-
-module.exports = config;
+});

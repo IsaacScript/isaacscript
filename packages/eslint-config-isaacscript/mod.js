@@ -1,9 +1,5 @@
-/**
- * This config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua projects).
- *
- * @type {import("eslint").Linter.Config}
- */
-const config = {
+/** This config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua projects). */
+export default {
   extends: [
     /**
      * The IsaacScript mod config extends the base configuration:
@@ -36,12 +32,6 @@ const config = {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         leadingUnderscore: "allow",
-
-        // Polyfilling "__dirname" in ESM files is a common pattern.
-        filter: {
-          regex: "^__dirname$",
-          match: false,
-        },
       },
       // Allow camelCase functions (23.2), and PascalCase functions (23.8).
       {
@@ -225,5 +215,3 @@ const config = {
     "no-restricted-globals": "off",
   },
 };
-
-module.exports = config;

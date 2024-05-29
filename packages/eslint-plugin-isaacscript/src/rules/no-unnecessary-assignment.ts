@@ -1,8 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import * as ts from "typescript";
-import { isFlagSet, unionTypeParts } from "../typeUtils";
-import { createRule } from "../utils";
+import ts from "typescript";
+import { isFlagSet, unionTypeParts } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 const USELESS_OPERATORS_WITH_ZERO: ReadonlySet<string> = new Set([
   "+",

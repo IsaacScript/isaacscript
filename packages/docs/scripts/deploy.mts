@@ -2,7 +2,6 @@ import {
   $op,
   appendFile,
   cp,
-  dirName,
   echo,
   exit,
   fatalError,
@@ -15,13 +14,11 @@ import {
 } from "isaacscript-common-node";
 import path from "node:path";
 
-const __dirname = dirName();
-
 const DOCS_REPO_NAME = "isaacscript.github.io";
 const GITHUB_PAGES_URL = `https://${DOCS_REPO_NAME}/isaacscript-common/core/constants/index.html`;
 const SECONDS_TO_SLEEP = 10;
 
-const PACKAGE_ROOT = path.join(__dirname, "..");
+const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
 const BUILD_DIRECTORY_PATH = path.join(PACKAGE_ROOT, "build");
 const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
 const DOCS_REPO = path.join(REPO_ROOT, DOCS_REPO_NAME);

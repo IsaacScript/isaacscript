@@ -1,13 +1,6 @@
-// This ESLint config only contains rules from `eslint-plugin-import`:
-// https://github.com/import-js/eslint-plugin-import
+import tseslint from "typescript-eslint";
 
-// Rules are separated into categories:
-// 1) Helpful warnings
-// 2) Module systems
-// 3) Static analysis
-// 4) Style guide
-
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const HELPFUL_WARNINGS = {
   "import/export": "error",
 
@@ -74,7 +67,7 @@ const HELPFUL_WARNINGS = {
   "import/no-unused-modules": "off",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const MODULE_SYSTEMS = {
   "import/no-amd": "error",
   "import/no-commonjs": "error",
@@ -87,7 +80,7 @@ const MODULE_SYSTEMS = {
   "import/unambiguous": "off",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const STATIC_ANALYSIS = {
   /**
    * Disabled because this is [already handled by the TypeScript
@@ -136,7 +129,7 @@ const STATIC_ANALYSIS = {
   "import/no-webpack-loader-syntax": "error",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const STYLE_GUIDE = {
   "import/consistent-type-specifier-style": "error",
 
@@ -200,51 +193,65 @@ const STYLE_GUIDE = {
   "import/prefer-default-export": "off",
 };
 
-/*
- * @type {import("eslint").Linter.Config}
+/**
+ * This ESLint config only contains rules from `eslint-plugin-import`:
+ * https://github.com/import-js/eslint-plugin-import
+ *
+ * Rules are separated into categories:
+ * 1) Helpful warnings
+ * 2) Module systems
+ * 3) Static analysis
+ * 4) Style guide
+ *
+ * TODO: This plugin does not yet support flat configs.
+ *
+ * @see https://github.com/import-js/eslint-plugin-import/issues/2948
  */
-const config = {
-  // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
-  // work properly with TypeScript. We extend the upstream TypeScript config to accomplish this:
-  // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
-  // (The necessity of this extra configuration was tested with the `import/no-cycle` rule.)
-  extends: ["plugin:import/typescript"],
+export const baseImport = tseslint
+  .config
+  /*
+  {
+    // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
+    // work properly with TypeScript. We extend the upstream TypeScript config to accomplish this:
+    // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
+    // (The necessity of this extra configuration was tested with the `import/no-cycle` rule.)
+    extends: ["plugin:import/typescript"],
 
-  plugins: ["import"],
+    plugins: {
+      import: ESLintPluginImport,
+    },
 
-  rules: {
-    ...HELPFUL_WARNINGS,
-    ...MODULE_SYSTEMS,
-    ...STATIC_ANALYSIS,
-    ...STYLE_GUIDE,
+    rules: {
+      ...HELPFUL_WARNINGS,
+      ...MODULE_SYSTEMS,
+      ...STATIC_ANALYSIS,
+      ...STYLE_GUIDE,
+    },
   },
 
-  overrides: [
-    // Disable some TypeScript-specific rules in JavaScript files.
-    {
-      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
-      rules: {
-        "import/no-commonjs": "off",
-      },
+  // Disable some TypeScript-specific rules in JavaScript files.
+  {
+    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    rules: {
+      "import/no-commonjs": "off",
     },
+  },
 
-    // Disable some specific rules in config files.
-    {
-      files: [
-        ".remarkrc.mjs",
-        ".remarkrc.js",
-        "prettier.config.mjs",
-        "prettier.config.js",
-        "typedoc.config.mjs",
-        "typedoc.config.js",
-        "vite.config.js",
-        "vite.config.mjs",
-      ],
-      rules: {
-        "import/no-default-export": "off",
-      },
+  // Disable some specific rules in config files.
+  {
+    files: [
+      ".remarkrc.mjs",
+      ".remarkrc.js",
+      "prettier.config.mjs",
+      "prettier.config.js",
+      "typedoc.config.mjs",
+      "typedoc.config.js",
+      "vite.config.js",
+      "vite.config.mjs",
+    ],
+    rules: {
+      "import/no-default-export": "off",
     },
-  ],
-};
-
-module.exports = config;
+  },
+  */
+  ();

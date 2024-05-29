@@ -1,15 +1,32 @@
+- use sort eslint plugin to sort object alphabetically in base-typescript-eslint
+
+- test eslint-plugin-import
+
 - package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
 
 - Upgrade ESLint infra when this PR passes: https://github.com/eslint/eslint/pull/18134
 
-- lint:
+- try removing ESLint parserOptions, since they might not be needed with flat config
+- re-add test script to package.json for plugin when RuleTester is finished for V8
+  - https://github.com/typescript-eslint/typescript-eslint/issues/9017
+
+- waiting on ESLint 9 support:
+  - RuleTester
+  - eslint-plugin-no-autofix
+  - eslint-plugin-eslint-comments
+  - eslint-plugin-import
+  - eslint-plugin-deprecation
+
+- re-enable knip in lint.ts
+- re-enable check-ts in lint.ts
+- see top comment of "update.ts" (and uncomment "no-useless-assignment")
+
+- lint projects:
   - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - https://github.com/typescript-eslint/typescript-eslint/issues/4571
   - `T extends Foo[]` --> `T extends readonly Foo[]`
-
-- preferTypeOnlyAutoImports does not work
 
 - investigate array vs set performance (also search for "O(1)" afterward)
   - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
