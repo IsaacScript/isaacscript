@@ -209,6 +209,7 @@ const STYLE_GUIDE = {
  */
 export const baseImport = tseslint
   .config
+
   /*
   {
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
@@ -231,7 +232,7 @@ export const baseImport = tseslint
 
   // Disable some TypeScript-specific rules in JavaScript files.
   {
-    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    files: ["\*\*\/*.js", "\*\*\/*.cjs", "\*\*\/*.mjs", "\*\*\/*.jsx"],
     rules: {
       "import/no-commonjs": "off",
     },

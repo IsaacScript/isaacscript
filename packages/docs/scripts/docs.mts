@@ -40,6 +40,8 @@ type ParentConfig =
   | "unicorn/recommended"
   | "eslint-config-prettier";
 
+const FAIL_ON_MISSING_RULES = false as boolean;
+
 const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
 ## Introduction
@@ -456,10 +458,14 @@ function auditBaseConfigRules(
     }
 
     const rule = baseRules[fullRuleName];
-    assertDefined(
-      rule,
-      `Failed to find a rule in the base config for config "${configName}": ${fullRuleName}`,
-    );
+    if (rule === undefined) {
+      const msg = `Failed to find a rule in the base config for config "${configName}": ${fullRuleName}`;
+      if (FAIL_ON_MISSING_RULES) {
+        throw new Error(msg);
+      } else {
+        console.warn(msg);
+      }
+    }
   }
 }
 

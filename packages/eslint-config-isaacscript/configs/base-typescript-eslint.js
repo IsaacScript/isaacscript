@@ -529,12 +529,12 @@ export const baseTypeScriptESLint = tseslint.config(
 
   // Enable linting on TypeScript file extensions.
   {
-    files: ["*.ts", "*.tsx", "*.mts", "*.cts"],
+    files: ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
   },
 
   // Disable some TypeScript-specific rules in JavaScript files.
   {
-    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-require-imports": "off",
@@ -550,7 +550,7 @@ export const baseTypeScriptESLint = tseslint.config(
 
   // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
   {
-    files: ["*.test.{js,cjs,mjs,ts,cts,mts}"],
+    files: ["**/*.test.{js,cjs,mjs,ts,cts,mts}"],
     rules: {
       "@typescript-eslint/no-floating-promises": "off",
     },

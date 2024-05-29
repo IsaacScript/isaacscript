@@ -109,7 +109,8 @@ export const baseJSDoc = tseslint.config(
       "jsdoc/newline-after-description": "off",
 
       /**
-       * Disabled because it provides little value; it only detects JSDoc comments with tags in them.
+       * Disabled because it provides little value; it only detects JSDoc comments with tags in
+       * them.
        */
       "jsdoc/no-bad-blocks": "off",
 
@@ -128,7 +129,9 @@ export const baseJSDoc = tseslint.config(
       /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
       "jsdoc/no-multi-asterisks": "off",
 
-      /** Disabled because it is intended for disabling of specific language features per-project. */
+      /**
+       * Disabled because it is intended for disabling of specific language features per-project.
+       */
       "jsdoc/no-restricted-syntax": "off",
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
@@ -236,8 +239,8 @@ export const baseJSDoc = tseslint.config(
       "jsdoc/require-yields-check": "off",
 
       /**
-       * Disabled because it is not very useful. In most cases, a function will only have `@param` and
-       * `@return` tags, making sorting unnecessary.
+       * Disabled because it is not very useful. In most cases, a function will only have `@param`
+       * and `@return` tags, making sorting unnecessary.
        */
       "jsdoc/sort-tags": "off",
 
@@ -257,7 +260,7 @@ export const baseJSDoc = tseslint.config(
 
   // Disable some TypeScript-specific rules in JavaScript files.
   {
-    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
       "jsdoc/no-types": "off",
       "jsdoc/require-param-description": "off",
