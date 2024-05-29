@@ -51,7 +51,7 @@ export const recommended: TSESLint.FlatConfig.ConfigArray = [
     },
   },
   {
-    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
       "isaacscript/no-let-any": "off",
       "isaacscript/no-object-any": "off",

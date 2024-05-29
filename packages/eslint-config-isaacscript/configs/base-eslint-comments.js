@@ -60,7 +60,7 @@ export const baseESLintComments = tseslint.config({
   },
 
   rules: {
-    // ...BEST_PRACTICES,
-    // ...STYLISTIC_ISSUES,
+    /// ...BEST_PRACTICES,
+    /// ...STYLISTIC_ISSUES,
   },
 });

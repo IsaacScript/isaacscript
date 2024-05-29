@@ -5421,7 +5421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:7.11.0, @typescript-eslint/utils@npm:^7.11.0":
+"@typescript-eslint/utils@npm:7.11.0, @typescript-eslint/utils@npm:^7.11.0, @typescript-eslint/utils@npm:^7.4.0":
   version: 7.11.0
   resolution: "@typescript-eslint/utils@npm:7.11.0"
   dependencies:
@@ -8898,18 +8898,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "eslint-module-utils@npm:2.8.0"
-  dependencies:
-    debug: "npm:^3.2.7"
-  peerDependenciesMeta:
-    eslint:
-      optional: true
-  checksum: 10c0/c7a8d1a58d76ec8217a8fea49271ec8132d1b9390965a75f6a4ecbc9e5983d742195b46d2e4378231d2186801439fe1aa5700714b0bfd4eb17aac6e1b65309df
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-deprecation@npm:^2.0.0":
   version: 2.0.0
   resolution: "eslint-plugin-deprecation@npm:2.0.0"
@@ -8949,21 +8937,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:eslint-plugin-i@latest":
-  version: 2.29.1
-  resolution: "eslint-plugin-i@npm:2.29.1"
+"eslint-plugin-import-x@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "eslint-plugin-import-x@npm:0.5.1"
   dependencies:
+    "@typescript-eslint/utils": "npm:^7.4.0"
     debug: "npm:^4.3.4"
     doctrine: "npm:^3.0.0"
     eslint-import-resolver-node: "npm:^0.3.9"
-    eslint-module-utils: "npm:^2.8.0"
-    get-tsconfig: "npm:^4.7.2"
+    get-tsconfig: "npm:^4.7.3"
     is-glob: "npm:^4.0.3"
-    minimatch: "npm:^3.1.2"
-    semver: "npm:^7.5.4"
+    minimatch: "npm:^9.0.3"
+    semver: "npm:^7.6.0"
+    tslib: "npm:^2.6.2"
   peerDependencies:
-    eslint: ^7.2.0 || ^8
-  checksum: 10c0/7bb544b7b2d59de64010b17c19bdcec006620a11d26317fcf92692bfefee686889bf272318fc14499972e2a90041a5dc520b06708716f48a8162416b0cdb410f
+    eslint: ^8.56.0 || ^9.0.0-0
+  checksum: 10c0/3e605970550afd6c8372da774de1ed5a86164d0d69190c532ef9caed4e882d4519f589683130122ba2d353fba15e96e3b49391f893139147c5d48a432eaa9945
   languageName: node
   linkType: hard
 
@@ -10085,7 +10074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:^4.7.0, get-tsconfig@npm:^4.7.2":
+"get-tsconfig@npm:^4.7.0":
   version: 4.7.2
   resolution: "get-tsconfig@npm:4.7.2"
   dependencies:
@@ -10094,7 +10083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:^4.7.5":
+"get-tsconfig@npm:^4.7.3, get-tsconfig@npm:^4.7.5":
   version: 4.7.5
   resolution: "get-tsconfig@npm:4.7.5"
   dependencies:
@@ -11654,7 +11643,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-deprecation: "npm:^2.0.0"
     eslint-plugin-eslint-plugin: "npm:^6.1.0"
-    eslint-plugin-import: "npm:eslint-plugin-i@latest"
+    eslint-plugin-import-x: "npm:^0.5.1"
     eslint-plugin-jsdoc: "npm:^48.2.6"
     eslint-plugin-n: "npm:^17.7.0"
     eslint-plugin-no-autofix: "npm:^2.0.0"

@@ -79,7 +79,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-eslint-plugin": "^6.1.0",
-    "eslint-plugin-import": "npm:eslint-plugin-i@latest",
+    "eslint-plugin-import-x": "^0.5.1",
     "eslint-plugin-jsdoc": "^48.2.6",
     "eslint-plugin-n": "^17.7.0",
     "eslint-plugin-no-autofix": "^2.0.0",

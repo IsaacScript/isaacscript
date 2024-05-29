@@ -238,7 +238,7 @@ export const baseUnicorn = tseslint.config(
 
   // Disable some TypeScript-specific rules in JavaScript files.
   {
-    files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
+    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
       "unicorn/prefer-module": "off",
     },
