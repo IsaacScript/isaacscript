@@ -640,8 +640,8 @@ export function setEntityRandomColor(entity: Entity): void {
 }
 
 /**
- * Helper function to spawn an entity. Use this instead of the `Isaac.Spawn` method if you do not
- * need to specify the velocity or spawner.
+ * Helper function to spawn an entity. Always use this instead of the `Isaac.Spawn` method, since
+ * using that method can crash the game.
  *
  * Also see the `spawnWithSeed` helper function.
  *
@@ -653,7 +653,7 @@ export function setEntityRandomColor(entity: Entity): void {
  * @param spawner Optional. The entity that will be the `SpawnerEntity`. Default is undefined.
  * @param seedOrRNG Optional. The seed or RNG object to use to generate the `InitSeed` of the
  *                  entity. Default is undefined, which will make the entity spawn with a random
- *                  seed using the `Isaac.Spawn` method.
+ *                  seed.
  */
 export function spawn(
   entityType: EntityType,
@@ -666,6 +666,7 @@ export function spawn(
 ): Entity {
   const room = game.GetRoom();
 
+  // We do an explicit check to prevent run-time errors in Lua environments.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (positionOrGridIndex === undefined) {
     const entityID = getEntityIDFromConstituents(entityType, variant, subType);
@@ -679,14 +680,7 @@ export function spawn(
     : room.GetGridPosition(positionOrGridIndex);
 
   if (seedOrRNG === undefined) {
-    return Isaac.Spawn(
-      entityType,
-      variant,
-      subType,
-      position,
-      velocity,
-      spawner,
-    );
+    seedOrRNG = newRNG();
   }
 
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;

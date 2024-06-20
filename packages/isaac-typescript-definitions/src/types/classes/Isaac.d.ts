@@ -560,11 +560,11 @@ declare global {
     function ScreenToWorldDistance(position: Vector): Vector;
 
     /**
-     * Spawns a new entity with a randomly generated seed. For spawning entities using a specific
-     * seed, then the `Game.Spawn` method should be used instead.
+     * Spawns a new entity with a randomly generated seed.
      *
-     * In most cases, you should not be using this method directly, and instead be using the set of
-     * `spawn` functions from the standard library. For example:
+     * This method is bugged and has a chance to crash the game every time it is used. Thus, you
+     * should instead use the `Game.Spawn` method or the set of `spawn` functions from the standard
+     * library. For example:
      *
      * - `spawn` - Will spawn anything with a convenient API.
      * - `spawnWithSeed - Will spawn anything with an API that makes it easy to specify a seed.`
@@ -586,6 +586,7 @@ declare global {
      *                new entity, you can specify what the `SpawnerEntity` will be by using this
      *                argument. Note that this argument is not optional. If you do not want the new
      *                entity to have a spawner, you must explicitly pass undefined.
+     * @deprecated
      */
     function Spawn(
       entityType: EntityType,
