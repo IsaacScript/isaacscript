@@ -1,12 +1,12 @@
 import ESLintPluginIsaacScript from "eslint-plugin-isaacscript";
 import tseslint from "typescript-eslint";
 import { baseDeprecation } from "./configs/base-deprecation.js";
+/// import { baseDisableAutofix } from "./configs/base-disable-autofix.js";
 import { baseESLintComments } from "./configs/base-eslint-comments.js";
 import { baseESLint } from "./configs/base-eslint.js";
-import { baseImport } from "./configs/base-import.js";
+import { baseImportX } from "./configs/base-import-x.js";
 import { baseJSDoc } from "./configs/base-jsdoc.js";
 import { baseN } from "./configs/base-n.js";
-import { baseNoAutoFix } from "./configs/base-no-autofix.js";
 import { baseTypeScriptESLint } from "./configs/base-typescript-eslint.js";
 import { baseUnicorn } from "./configs/base-unicorn.js";
 
@@ -24,10 +24,10 @@ import "eslint-plugin-only-warn"; // https://github.com/bfanger/eslint-plugin-on
  */
 export const base = tseslint.config(
   ...baseESLint,
-  ...baseNoAutoFix,
+  /// ...baseDisableAutofix,
   ...baseTypeScriptESLint,
   ...baseESLintComments,
-  ...baseImport,
+  ...baseImportX,
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.
   ...baseUnicorn,

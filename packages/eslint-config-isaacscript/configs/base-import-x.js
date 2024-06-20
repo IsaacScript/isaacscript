@@ -1,16 +1,17 @@
+import ESLintPluginImportX from "eslint-plugin-import-x";
 import tseslint from "typescript-eslint";
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const HELPFUL_WARNINGS = {
-  "import/export": "error",
+  "import-x/export": "error",
 
   /**
    * Superseded by the `deprecation/deprecation` rule. (That rule is better because it catches
    * deprecated usage that does not come from import statements specifically.)
    */
-  "import/no-deprecated": "off",
+  "import-x/no-deprecated": "off",
 
-  "import/no-empty-named-blocks": "error",
+  "import-x/no-empty-named-blocks": "error",
 
   /**
    * The options are [copied from
@@ -18,7 +19,7 @@ const HELPFUL_WARNINGS = {
    *
    * We also add a "scripts" directory entry for "devDependencies".
    */
-  "import/no-extraneous-dependencies": [
+  "import-x/no-extraneous-dependencies": [
     "error",
     {
       devDependencies: [
@@ -51,33 +52,33 @@ const HELPFUL_WARNINGS = {
     },
   ],
 
-  "import/no-mutable-exports": "error",
-  "import/no-named-as-default": "error",
+  "import-x/no-mutable-exports": "error",
+  "import-x/no-named-as-default": "error",
 
   /**
    * Disabled because this is [already handled by the TypeScript
    * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
    */
-  "import/no-named-as-default-member": "off",
+  "import-x/no-named-as-default-member": "off",
 
   /**
    * Disabled since this check is better performed by the [`knip`](https://github.com/webpro/knip)
    * tool.
    */
-  "import/no-unused-modules": "off",
+  "import-x/no-unused-modules": "off",
 };
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const MODULE_SYSTEMS = {
-  "import/no-amd": "error",
-  "import/no-commonjs": "error",
-  "import/no-import-module-exports": "error",
+  "import-x/no-amd": "error",
+  "import-x/no-commonjs": "error",
+  "import-x/no-import-module-exports": "error",
 
   /** Disabled because it is only used in specific environments (like the browser). */
-  "import/no-nodejs-modules": "off",
+  "import-x/no-nodejs-modules": "off",
 
   /** Disabled because this is already handled by the TypeScript compiler. */
-  "import/unambiguous": "off",
+  "import-x/unambiguous": "off",
 };
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
@@ -86,140 +87,158 @@ const STATIC_ANALYSIS = {
    * Disabled because this is [already handled by the TypeScript
    * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
    */
-  "import/default": "off",
+  "import-x/default": "off",
 
   /**
    * Disabled because this is [already handled by the TypeScript
    * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
    */
-  "import/named": "off",
+  "import-x/named": "off",
 
   /**
    * Disabled because this is [already handled by the TypeScript
    * compiler](https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import).
    */
-  "import/namespace": "off",
+  "import-x/namespace": "off",
 
-  "import/no-absolute-path": "error",
-  "import/no-cycle": "error",
-  "import/no-dynamic-require": "error",
+  "import-x/no-absolute-path": "error",
+  "import-x/no-cycle": "error",
+  "import-x/no-dynamic-require": "error",
 
   /** Disabled since a prescribed import pattern is not generalizable enough across projects. */
-  "import/no-internal-modules": "off",
+  "import-x/no-internal-modules": "off",
 
-  "import/no-relative-packages": "error",
+  "import-x/no-relative-packages": "error",
 
   /**
    * Disabled since a forward import direction pattern is not generalizable enough across projects.
    */
-  "import/no-relative-parent-imports": "off",
+  "import-x/no-relative-parent-imports": "off",
 
   /** Disabled since this rule should only contain a project-specific path restriction. */
-  "import/no-restricted-paths": "off",
+  "import-x/no-restricted-paths": "off",
 
-  "import/no-self-import": "error",
+  "import-x/no-self-import": "error",
 
   /**
    * Disabled because this is [already handled by the TypeScript
    * compiler](https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js).
    */
-  "import/no-unresolved": "off",
+  "import-x/no-unresolved": "off",
 
-  "import/no-useless-path-segments": "error",
-  "import/no-webpack-loader-syntax": "error",
+  "import-x/no-useless-path-segments": "error",
+  "import-x/no-webpack-loader-syntax": "error",
 };
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const STYLE_GUIDE = {
-  "import/consistent-type-specifier-style": "error",
+  "import-x/consistent-type-specifier-style": "error",
 
   /** Disabled because it is only useful in environments that use webpack. */
-  "import/dynamic-import-chunkname": "off",
+  "import-x/dynamic-import-chunkname": "off",
 
   /** Disabled because this style is not generally used. */
-  "import/exports-last": "off",
+  "import-x/exports-last": "off",
 
   /** Disabled because this is already handled by the TypeScript compiler. */
-  "import/extensions": "off",
+  "import-x/extensions": "off",
 
-  "import/first": "error",
+  "import-x/first": "error",
 
   /** Disabled because this style is not generally used. */
-  "import/group-exports": "off",
+  "import-x/group-exports": "off",
 
   /** Disabled because this rule is deprecated. */
-  "import/imports-first": "off",
+  "import-x/imports-first": "off",
 
   /** Disabled since it will trigger false positives in codebases that prefer smaller files. */
-  "import/max-dependencies": "off",
+  "import-x/max-dependencies": "off",
 
-  "import/newline-after-import": "error",
+  "import-x/newline-after-import": "error",
 
   /**
    * Disabled since we disallow default exports elsewhere in this config (in favor of named
    * exports).
    */
-  "import/no-anonymous-default-export": "off",
+  "import-x/no-anonymous-default-export": "off",
 
   /**
    * The case against default exports is [laid out by Basarat Ali
    * Syed](https://basarat.gitbook.io/typescript/main-1/defaultisbad).
    */
-  "import/no-default-export": "error",
+  "import-x/no-default-export": "error",
 
-  "import/no-duplicates": "error",
-  "import/no-named-default": "error",
+  "import-x/no-duplicates": "error",
+  "import-x/no-named-default": "error",
 
   /**
    * Disabled since we disallow default exports elsewhere in this config (in favor of named
    * exports).
    */
-  "import/no-named-export": "off",
+  "import-x/no-named-export": "off",
 
   /**
    * Disabled since it is too prescriptive for a general audience. (Using `import * as` is common.)
    */
-  "import/no-namespace": "off",
+  "import-x/no-namespace": "off",
 
-  "import/no-unassigned-import": "error",
+  "import-x/no-unassigned-import": "error",
 
   /** Disabled because this is automatically handled by `prettier-plugin-organize-imports`. */
-  "import/order": "off",
+  "import-x/order": "off",
 
   /**
    * Disabled because we disallow default exports elsewhere in this config (in favor of named
    * exports).
    */
-  "import/prefer-default-export": "off",
+  "import-x/prefer-default-export": "off",
 };
 
 /**
- * This ESLint config only contains rules from `eslint-plugin-import`:
- * https://github.com/import-js/eslint-plugin-import
+ * Omit `.d.ts` because:
+ * 1. TypeScript compilation already confirms that types are resolved.
+ * 2. It would mask an unresolved `.ts`/`.tsx`/`.js`/`.jsx` implementation.
+ */
+const typeScriptExtensions = [".ts", ".cts", ".mts", ".tsx"];
+
+const allExtensions = [...typeScriptExtensions, ".js", ".cjs", ".mjs", ".jsx"];
+
+/**
+ * This ESLint config only contains rules from `eslint-plugin-import-x`:
+ * https://github.com/un-ts/eslint-plugin-import-x
  *
  * Rules are separated into categories:
  * 1) Helpful warnings
  * 2) Module systems
  * 3) Static analysis
  * 4) Style guide
- *
- * TODO: This plugin does not yet support flat configs.
- *
- * @see https://github.com/import-js/eslint-plugin-import/issues/2948
  */
-export const baseImport = tseslint
-  .config
-
-  /*
+export const baseImportX = tseslint.config(
   {
+    plugins: {
+      "import-x": ESLintPluginImportX,
+    },
+
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
     // work properly with TypeScript. We extend the upstream TypeScript config to accomplish this:
     // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
     // (The necessity of this extra configuration was tested with the `import/no-cycle` rule.)
-    extends: ["plugin:import/typescript"],
-
-    plugins: {
-      import: ESLintPluginImport,
+    // https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2119219537
+    settings: {
+      "import-x/extensions": allExtensions,
+      "import-x/external-module-folders": [
+        "node_modules",
+        "node_modules/@types",
+      ],
+      "import-x/parsers": {
+        "@typescript-eslint/parser": typeScriptExtensions,
+      },
+      "import-x/resolver": {
+        typescript: true,
+        node: {
+          extensions: allExtensions,
+        },
+      },
     },
 
     rules: {
@@ -232,9 +251,9 @@ export const baseImport = tseslint
 
   // Disable some TypeScript-specific rules in JavaScript files.
   {
-    files: ["\*\*\/*.js", "\*\*\/*.cjs", "\*\*\/*.mjs", "\*\*\/*.jsx"],
+    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
-      "import/no-commonjs": "off",
+      "import-x/no-commonjs": "off",
     },
   },
 
@@ -251,8 +270,7 @@ export const baseImport = tseslint
       "vite.config.mjs",
     ],
     rules: {
-      "import/no-default-export": "off",
+      "import-x/no-default-export": "off",
     },
   },
-  */
-  ();
+);

@@ -302,11 +302,11 @@ export async function makeECIDocs(quiet: boolean): Promise<void> {
   );
 
   markdownOutput += await getMarkdownRuleSection(
-    "no-autofix",
-    getPluginHeaderTitle("no-autofix"),
-    "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
+    "disable-autofix",
+    getPluginHeaderTitle("disable-autofix"),
+    "https://github.com/chiefmikey/eslint-plugin-disable-autofix",
     // This plugin does not have individual documentation pages for each rule.
-    "https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix",
+    "https://github.com/chiefmikey/eslint-plugin-disable-autofix",
     undefined,
   );
 

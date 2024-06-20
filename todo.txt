@@ -1,5 +1,10 @@
 - use sort eslint plugin to sort object alphabetically in base-typescript-eslint
 
+- test import no-cycle rule (might need to re-add typescript config from main branch)
+
+- things to consider before merging flat config branch:
+  - vscode extension no longer in alpha/beta: https://github.com/microsoft/vscode-eslint/releases
+
 - test eslint-plugin-import
 
 - package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
@@ -12,7 +17,7 @@
 
 - waiting on ESLint 9 support:
   - RuleTester
-  - eslint-plugin-no-autofix
+  - eslint-plugin-disable-autofix
   - eslint-plugin-eslint-comments
   - eslint-plugin-import
   - eslint-plugin-deprecation
