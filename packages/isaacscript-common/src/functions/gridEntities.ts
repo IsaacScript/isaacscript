@@ -1219,6 +1219,18 @@ export function spawnGridEntityWithVariant(
 ): GridEntity | undefined {
   const room = game.GetRoom();
 
+  // We do an explicit check to prevent run-time errors in Lua environments.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (gridIndexOrPosition === undefined) {
+    const gridEntityID = getGridEntityIDFromConstituents(
+      gridEntityType,
+      variant,
+    );
+    error(
+      `Failed to spawn grid entity ${gridEntityID} since an undefined position was passed to the "spawnGridEntityWithVariant" function.`,
+    );
+  }
+
   const existingGridEntity = isVector(gridIndexOrPosition)
     ? room.GetGridEntityFromPos(gridIndexOrPosition)
     : room.GetGridEntity(gridIndexOrPosition);
