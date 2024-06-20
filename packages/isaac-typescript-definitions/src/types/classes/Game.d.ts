@@ -261,14 +261,17 @@ declare global {
     ShowRule: () => void;
 
     /**
-     * Spawns a new entity with a specified seed. For spawning entities using a random seed, then
-     * the `Isaac.Spawn` method should be used instead.
+     * Spawns a new entity with a specified seed.
+     *
+     * Note that the `Isaac.Spawn` method is similar to this method, but is intended for spawning
+     * with a random seed. However, due to a bug, using it can crash the game, so that method should
+     * never be used.
      *
      * In most cases, you should not be using this method directly, and instead be using the set of
      * `spawn` functions from the standard library. For example:
      *
      * - `spawn` - Will spawn anything with a convenient API.
-     * - `spawnWithSeed - Will spawn anything with an API that makes it easy to specify a seed.`
+     * - `spawnWithSeed - Will spawn anything with an API that makes it easy to specify a seed.
      * - `spawnPickup` - Will spawn a pickup with a convenient API.
      * - `spawnPickupWithSeed - Will spawn a pickup with an API that makes it easy to specify a
      *   seed.`
