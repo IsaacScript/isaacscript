@@ -519,7 +519,7 @@ const SUGGESTIONS = {
   "no-useless-rename": "error",
 
   /**
-   * Superseded by the `no-autofix/no-useless-return` rule (since the autofix is usually unwanted).
+   * Superseded by the `disable-autofix/no-useless-return` rule (since the autofix is usually unwanted).
    */
   "no-useless-return": "off",
 
@@ -550,7 +550,9 @@ const SUGGESTIONS = {
   "operator-assignment": "error",
   "prefer-arrow-callback": "error",
 
-  /** Superseded by the `no-autofix/prefer-const` rule (since the autofix is usually unwanted). */
+  /**
+   * Superseded by the `disable-autofix/prefer-const` rule (since the autofix is usually unwanted).
+   */
   "prefer-const": "off",
 
   /** Superseded by the `@typescript-eslint/prefer-destructuring` rule. */

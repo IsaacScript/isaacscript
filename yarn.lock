@@ -6052,6 +6052,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"app-root-path@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "app-root-path@npm:3.1.0"
+  checksum: 10c0/4a0fd976de1bffcdb18a5e1f8050091f15d0780e0582bca99aaa9d52de71f0e08e5185355fcffc781180bfb898499e787a2f5ed79b9c448b942b31dc947acaa9
+  languageName: node
+  linkType: hard
+
 "aproba@npm:^1.0.3 || ^2.0.0":
   version: 2.0.0
   resolution: "aproba@npm:2.0.0"
@@ -8912,6 +8919,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-disable-autofix@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "eslint-plugin-disable-autofix@npm:5.0.1"
+  dependencies:
+    app-root-path: "npm:^3.1.0"
+    eslint-rule-composer: "npm:^0.3.0"
+    lodash: "npm:^4.17.21"
+  peerDependencies:
+    eslint: ">= 7"
+  checksum: 10c0/6500eed7175fd7d751f5c02ba74a578fcffa6654bd7d81e3a54052961382e3fe83cb96356517d8a72376877268523adef997724169cbd4ef9e3e2725a25b361e
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-es-x@npm:^7.5.0":
   version: 7.5.0
   resolution: "eslint-plugin-es-x@npm:7.5.0"
@@ -8989,18 +9009,6 @@ __metadata:
   peerDependencies:
     eslint: ">=8.23.0"
   checksum: 10c0/f54b7a1a17540e8b4b3eb02aa93908b8ebf2141c5c3962d17788636c7528481be7cb36b102ced7b70ed1c684b4cfef64fa6a991f7479abc0f46d27207894b584
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-no-autofix@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "eslint-plugin-no-autofix@npm:2.0.0"
-  dependencies:
-    eslint-rule-composer: "npm:^0.3.0"
-    find-up: "npm:^5.0.0"
-  peerDependencies:
-    eslint: ">=8"
-  checksum: 10c0/7124014c9933887d741022a51156a286e8f4af9891d62d992a1929d2be8ce62245fa663eec25c5127f88f118e45feb8a36c7a6e755ebbf525839ec7f62941820
   languageName: node
   linkType: hard
 
@@ -11642,11 +11650,11 @@ __metadata:
     eslint: "npm:8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-deprecation: "npm:^2.0.0"
+    eslint-plugin-disable-autofix: "npm:^5.0.1"
     eslint-plugin-eslint-plugin: "npm:^6.1.0"
     eslint-plugin-import-x: "npm:^0.5.1"
     eslint-plugin-jsdoc: "npm:^48.2.6"
     eslint-plugin-n: "npm:^17.7.0"
-    eslint-plugin-no-autofix: "npm:^2.0.0"
     eslint-plugin-only-warn: "npm:^1.1.0"
     eslint-plugin-sort-exports: "npm:^0.9.1"
     eslint-plugin-unicorn: "npm:^53.0.0"

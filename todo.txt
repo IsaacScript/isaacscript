@@ -1,3 +1,5 @@
+- test import no-cycle rule (might need to re-add typescript config from main branch)
+
 - things to consider before merging flat config branch:
   - vscode extension no longer in alpha/beta: https://github.com/microsoft/vscode-eslint/releases
 
@@ -9,7 +11,7 @@
 
 - waiting on ESLint 9 support:
   - RuleTester
-  - eslint-plugin-no-autofix
+  - eslint-plugin-disable-autofix
   - eslint-plugin-eslint-comments
   - eslint-plugin-import
   - eslint-plugin-deprecation

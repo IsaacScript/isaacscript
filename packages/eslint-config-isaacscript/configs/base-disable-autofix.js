@@ -1,19 +1,17 @@
+// @ts-expect-error https://github.com/chiefmikey/eslint-plugin-disable-autofix/issues/53
+import ESLintPluginDisableAutofix from "eslint-plugin-disable-autofix";
 import tseslint from "typescript-eslint";
 
 /**
- * This ESLint config only contains rules from `eslint-plugin-no-autofix`:
- * https://github.com/aladdin-add/eslint-plugin/tree/master/packages/no-autofix
+ * This ESLint config only contains rules from `eslint-plugin-disable-autofix`:
+ * https://github.com/chiefmikey/eslint-plugin-disable-autofix
  *
  * This allows the fixer for specific core ESLint rules to be turned off.
- *
- * TODO: This plugin does not yet support flat configs.
  */
-export const baseNoAutoFix = tseslint.config({
-  /*
+export const baseDisableAutofix = tseslint.config({
   plugins: {
-    "no-autofix": eslintPluginNoAutoFix,
+    "disable-autofix": ESLintPluginDisableAutofix,
   },
-  */
 
   rules: {
     /**
@@ -22,12 +20,13 @@ export const baseNoAutoFix = tseslint.config({
      * auto-fixer is harmful, since it would require us to manually go put the return statement back
      * after uncommenting the code.
      */
-    /// "no-autofix/no-useless-return": "error",
+    "disable-autofix/no-useless-return": "error",
+
     /**
      * It is common during development to comment out code that modifies a `let` variable. In these
      * cases, the auto-fixer is harmful, since it would require us to manually go change the `const`
      * back to a `let` after uncommenting the code.
      */
-    /// "no-autofix/prefer-const": "error",
+    "disable-autofix/prefer-const": "error",
   },
 });
