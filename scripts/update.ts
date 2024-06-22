@@ -3,6 +3,7 @@
 //   complicated build script that reshuffles the file names.
 // - `execa` is stuck until version 9.0.3 is released:
 // https://github.com/sindresorhus/execa/issues/1048
+// - `typescript` is stuck on version 5.4.5 until `@typescript-eslint` works and TSTL works.
 
 import {
   $s,
