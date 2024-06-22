@@ -169,7 +169,7 @@ const STYLE_GUIDE = {
   "import/no-anonymous-default-export": "off",
 
   /**
-   * The case against default exports is [layed out by Basarat Ali
+   * The case against default exports is [laid out by Basarat Ali
    * Syed](https://basarat.gitbook.io/typescript/main-1/defaultisbad).
    */
   "import/no-default-export": "error",

@@ -34,6 +34,6 @@
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "dependencies": {
-    "unidecode": "^1.0.1"
+    "unidecode": "^1.1.0"
   }
 }
