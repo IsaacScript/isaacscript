@@ -77,9 +77,7 @@ function isHardCodedException(node: TSESTree.CallExpression): boolean {
   return isConsoleOrWindowFunction(callee) || isTimeoutFunction(callee);
 }
 
-function isConsoleOrWindowFunction(
-  callee: TSESTree.LeftHandSideExpression,
-): boolean {
+function isConsoleOrWindowFunction(callee: TSESTree.Expression): boolean {
   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
     return false;
   }
@@ -92,7 +90,7 @@ function isConsoleOrWindowFunction(
   return object.name === "console" || object.name === "window";
 }
 
-function isTimeoutFunction(callee: TSESTree.LeftHandSideExpression): boolean {
+function isTimeoutFunction(callee: TSESTree.Expression): boolean {
   if (callee.type !== AST_NODE_TYPES.Identifier) {
     return false;
   }
