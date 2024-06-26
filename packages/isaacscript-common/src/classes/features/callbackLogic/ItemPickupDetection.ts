@@ -5,6 +5,7 @@ import type {
 import { ItemType } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "../../../enums/ModCallbackCustom";
 import { defaultMapGetPlayer } from "../../../functions/playerDataStructures";
+import { dequeueItem } from "../../../functions/players";
 import { asNumber } from "../../../functions/types";
 import type { PickingUpItem } from "../../../types/PickingUpItem";
 import {
@@ -90,7 +91,10 @@ export class ItemPickupDetection extends Feature {
       pickingUpItem.itemType = queuedItem.Type;
       pickingUpItem.subType = queuedItem.ID as CollectibleType | TrinketType;
 
-      this.preItemPickup.fire(player, pickingUpItem);
+      const shouldBeGranted = this.preItemPickup.fire(player, pickingUpItem);
+      if (shouldBeGranted === false) {
+        dequeueItem(player);
+      }
     }
   }
 }

@@ -950,10 +950,10 @@ declare global {
 
     /**
      * When the player touches a collectible item, they are not granted it immediately. Instead, the
-     * item is a queue for the duration of the animation where the player holds the item above their
-     * head. When the animation is finished, the item(s) in the queue will be granted. This method
-     * adds a new item to the item queue. If the player is not currently playing an animation, then
-     * the queued item will simply be awarded instantly.
+     * item is added to a queue for the duration of the animation where the player holds the item
+     * above their head. When the animation is finished, the item(s) in the queue will be granted.
+     * This method adds a new item to the item queue. If the player is not currently playing an
+     * animation, then the queued item will simply be awarded instantly.
      *
      * @param itemConfigItem
      * @param charge Default is 0.

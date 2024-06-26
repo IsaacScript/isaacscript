@@ -975,12 +975,17 @@ export interface AddCallbackParametersCustom {
   ];
 
   [ModCallbackCustom.PRE_ITEM_PICKUP]:
-    | [callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void]
+    | [
+        callback: (
+          player: EntityPlayer,
+          pickingUpItem: PickingUpItem,
+        ) => boolean | undefined,
+      ]
     | [
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItemCollectible,
-        ) => void,
+        ) => boolean | undefined,
         itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
         collectibleType?: CollectibleType,
       ]
@@ -988,7 +993,7 @@ export interface AddCallbackParametersCustom {
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItemTrinket,
-        ) => void,
+        ) => boolean | undefined,
         itemType: ItemType.TRINKET,
         trinketType?: TrinketType,
       ];
