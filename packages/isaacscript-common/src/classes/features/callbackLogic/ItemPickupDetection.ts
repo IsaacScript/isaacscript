@@ -78,7 +78,7 @@ export class ItemPickupDetection extends Feature {
   private queueNotEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     const queuedItem = player.QueuedItem.Item;
     if (queuedItem === undefined || queuedItem.Type === ItemType.NULL) {
-      // This should never happen, since the `EntityPlayer.IsItemQueueEmpty` method returned true.
+      // This should never happen, since the `EntityPlayer.IsItemQueueEmpty` method returned false.
       return;
     }
 
