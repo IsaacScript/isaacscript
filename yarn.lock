@@ -5635,12 +5635,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zamiell/typedoc-plugin-not-exported@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@zamiell/typedoc-plugin-not-exported@npm:0.2.0"
+"@zamiell/typedoc-plugin-not-exported@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@zamiell/typedoc-plugin-not-exported@npm:0.3.0"
   peerDependencies:
-    typedoc: ">=0.22.17"
-  checksum: 10c0/fc9004a78ed8de44eff0ad0fed9d72a993610e611e126a92c9942fa02166d46ee4300bec3b1f03a5cbe4bd0afaccd0762cdc78152b693e7951324f11ee6bbd29
+    typedoc: ">=0.26.2"
+  checksum: 10c0/66229c1abbefa9f16a3c8ac02922c954b2b0b38b752945abdd553f1862566f6b71632ad94fb4698d9b3ed4d8e8239d02eeb2a9326a095225dbc5787a8cdb511e
   languageName: node
   linkType: hard
 
@@ -11575,7 +11575,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.13.1"
     "@typescript-eslint/utils": "npm:^7.13.1"
     "@zamiell/sync-directory": "npm:^6.0.5"
-    "@zamiell/typedoc-plugin-not-exported": "npm:^0.2.0"
+    "@zamiell/typedoc-plugin-not-exported": "npm:^0.3.0"
     ajv: "npm:^8.16.0"
     chalk: "npm:^5.3.0"
     cloc: "npm:^2.0.0-cloc"
@@ -11633,7 +11633,7 @@ __metadata:
     tsx: "npm:^4.15.7"
     typedoc: "npm:^0.26.0"
     typedoc-plugin-markdown: "npm:3.17.1"
-    typedoc-plugin-rename: "npm:^1.0.1"
+    typedoc-plugin-rename: "npm:^1.1.1"
     typescript: "npm:5.4.5"
     typescript-to-lua: "npm:^1.25.2"
     unbuild: "npm:^2.0.0"
@@ -18740,10 +18740,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-rename@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "typedoc-plugin-rename@npm:1.0.1"
-  checksum: 10c0/7ceb331f0c34821982c7a298a89e2461038deaece636d4ad762e6befc24bcf04b295edf8ec495bd4d2f981182e8c125dcb4b1c2d326ba06219ef47b7326e9912
+"typedoc-plugin-rename@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "typedoc-plugin-rename@npm:1.1.1"
+  peerDependencies:
+    typedoc: ">=0.26.2"
+  checksum: 10c0/f8b04583882e27f8712668084e54020eb0dc70475978f96f872121d4978516c16f3c2bd5a56a94876eb381f121b34fd0429e52c1b8d4ee08d7c45d10b7a10252
   languageName: node
   linkType: hard
 
