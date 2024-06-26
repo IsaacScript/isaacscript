@@ -1,3 +1,5 @@
+- package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
+
 - Upgrade ESLint infra when this PR passes: https://github.com/eslint/eslint/pull/18134
 
 - lint:

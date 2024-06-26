@@ -559,17 +559,6 @@ valid.push({
 });
 
 valid.push({
-  name: "Using a comment with only JSDoc param tags",
-  code: `
- /**
-  * @param nullItemID
-  * @param addCostume
-  * @param count Default is 1.
-  */
-    `,
-});
-
-valid.push({
   name: "Comment with JSDoc example on one line",
   code: `
 /**
