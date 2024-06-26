@@ -40,7 +40,7 @@
     "dotenv": "^16.4.5",
     "execa": "8.0.1",
     "isaacscript-common-ts": "^16.1.0",
-    "jsonc-parser": "^3.2.1",
+    "jsonc-parser": "^3.3.1",
     "npm-check-updates": "^16.14.20",
     "zod": "^3.23.8"
   }
