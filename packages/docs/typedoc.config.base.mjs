@@ -11,14 +11,15 @@ const config = {
   readme: "website-root.md",
   treatWarningsAsErrors: true,
   validation: {
-    invalidLink: true,
     notExported: true,
+    invalidLink: true,
+    notDocumented: false, // Not every enum member has a JSDoc comment.
   },
   excludePrivate: true,
   plugin: [
     "typedoc-plugin-markdown",
-    "@zamiell/typedoc-plugin-not-exported",
     "typedoc-plugin-rename",
+    "@zamiell/typedoc-plugin-not-exported",
   ],
   githubPages: false,
 
