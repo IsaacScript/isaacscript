@@ -73,6 +73,8 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
  *
  * Under the hood, this clones the `QueuedItemData`, since directly setting the `Item` field to
  * `undefined` does not work for some reason.
+ *
+ * This method was discovered by im_tem.
  */
 export function dequeueItem(player: EntityPlayer): boolean {
   if (player.QueuedItem.Item === undefined) {

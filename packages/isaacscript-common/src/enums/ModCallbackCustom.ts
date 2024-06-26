@@ -1648,8 +1648,8 @@ export enum ModCallbackCustom {
   POST_PLAYER_COLLECTIBLE_REMOVED,
 
   /**
-   * Fires from the `ENTITY_TAKE_DMG` callback when a player takes fatal damage. Return false to
-   * prevent the fatal damage.
+   * Fires from the `ENTITY_TAKE_DMG` callback when a player takes fatal damage. You can optionally
+   * return false to prevent the fatal damage.
    *
    * Note that this function does properly take into account Guppy's Collar, Broken Ankh, Spirit
    * Shackles, and Mysterious Paper. It also takes into account using The Bible on Satan.
@@ -2450,7 +2450,8 @@ export enum ModCallbackCustom {
 
   /**
    * Fires from the `POST_PEFFECT_UPDATE_REORDERED` callback when an item becomes queued (i.e. when
-   * the player begins to hold the item above their head).
+   * the player begins to hold the item above their head). You can optionally return false if you
+   * want the item to not be granted to the player.
    *
    * Note that this callback will only fire once per Forgotten/Soul pair.
    *
@@ -2464,7 +2465,7 @@ export enum ModCallbackCustom {
    * function preItemPickup(
    *   player: EntityPlayer,
    *   pickingUpItem: PickingUpItem,
-   * ): void {}
+   * ): boolean | undefined {}
    * ```
    */
   PRE_ITEM_PICKUP,
