@@ -444,24 +444,24 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `TearVariant` provided.
-   *
-   * ```ts
-   * function postTearDeath(tear: EntityTear): void {}
-   * ```
-   */
-  POST_TEAR_DEATH = 1032,
-
-  /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
    * ```ts
    * function postProjectileDeath(projectile: EntityProjectile): void {}
    * ```
    */
-  POST_PROJECTILE_DEATH = 1033,
+  POST_PROJECTILE_DEATH = 1032,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   *
+   * ```ts
+   * function postTearDeath(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_DEATH = 1033,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2473,6 +2473,24 @@ export enum ModCallbackRepentogon {
   POST_ROOM_TRANSITION_RENDER = 1272,
 
   /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postGlowingHourglassSave(slot: int): void {}
+   * ```
+   */
+  POST_GLOWING_HOURGLASS_SAVE = 1300,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postGlowingHourglassSave(slot: int): void {}
+   * ```
+   */
+  POST_GLOWING_HOURGLASS_LOAD = 1301,
+
+  /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
@@ -2510,6 +2528,176 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_PICKUP_UPDATE_GHOST_PICKUPS = 1335,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CardType` provided.
+   *
+   * ```ts
+   * function prePlayerAddCard(
+   *   player: EntityPlayer,
+   *   cardType: CardType,
+   *   slot: PillCardSlot
+   * ): boolean | CardType | undefined {}
+   * ```
+   */
+  PRE_PLAYER_ADD_CARD = 1350,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CardType` provided.
+   *
+   * ```ts
+   * function postPlayerAddCard(
+   *   player: EntityPlayer,
+   *   cardType: CardType,
+   *   slot: PillCardSlot
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_ADD_CARD = 1351,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function prePlayerAddPill(
+   *   player: EntityPlayer,
+   *   pillColor: PillColor,
+   *   slot: PillCardSlot
+   * ): boolean | PillColor | undefined {}
+   * ```
+   */
+  PRE_PLAYER_ADD_PILL = 1352,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function postPlayerAddPill(
+   *   player: EntityPlayer,
+   *   pillColor: PillColor,
+   *   slot: PillCardSlot
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_ADD_PILL = 1353,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CardType` provided.
+   *
+   * ```ts
+   * function postPlayerRemoveCard(
+   *   player: EntityPlayer,
+   *   cardType: CardType,
+   *   slot: PillCardSlot
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_REMOVE_CARD = 1354,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function postPlayerRemovePill(
+   *   player: EntityPlayer,
+   *   pillColor: PillColor,
+   *   slot: PillCardSlot
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_REMOVE_PILL = 1355,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CardType` provided.
+   *
+   * ```ts
+   * function prePlayerCollectCard(
+   *   player: EntityPlayer,
+   *   pickup: EntityPickup
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_COLLECT_CARD = 1356,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CardType` provided.
+   *
+   * ```ts
+   * function postPlayerCollectCard(player: EntityPlayer, pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PLAYER_COLLECT_CARD = 1357,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function prePlayerCollectPill(
+   *   player: EntityPlayer,
+   *   pickup: EntityPickup
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_COLLECT_PILL = 1358,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function postPlayerCollectPill(player: EntityPlayer, pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_PLAYER_COLLECT_PILL = 1359,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CardType` provided.
+   *
+   * ```ts
+   * function postPlayerDropCard(
+   *   player: EntityPlayer,
+   *   pickup: EntityPickup,
+   *   slot: PillCardSlot
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_DROP_CARD = 1360,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PillColor` provided.
+   *
+   * ```ts
+   * function postPlayerDropPill(
+   *   player: EntityPlayer,
+   *   pickup: EntityPickup,
+   *   slot: PillCardSlot
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_DROP_PILL = 1361,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -3325,24 +3513,30 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `CompletionMarkType` provided.
+   *   matches the `ConceptionFamiliarFlag` provided.
    *
    * ```ts
-   * function preRecordPlayerCompletion(completionMarkType: CompletionMarkType): boolean | undefined {}
+   * function prePlayerGiveBirthCambion(
+   *   player: EntitYPlayer,
+   *   flag: ConceptionFamiliarFlag
+   * ): boolean | undefined {}
    * ```
    */
-  PRE_RECORD_PLAYER_COMPLETION = 1474,
+  PRE_PLAYER_GIVE_BIRTH_CAMBION = 1474,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `CompletionMarkType` provided.
+   *   matches the `ConceptionFamiliarFlag` provided.
    *
    * ```ts
-   * function postRecordPlayerCompletion(completionMarkType: CompletionMarkType): void {}
+   * function prePlayerGiveBirthImmaculate(
+   *   player: EntitYPlayer,
+   *   flag: ConceptionFamiliarFlag
+   * ): boolean | undefined {}
    * ```
    */
-  POST_RECORD_PLAYER_COMPLETION = 1475,
+  PRE_PLAYER_GIVE_BIRTH_IMMACULATE = 1475,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -3365,4 +3559,27 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_PLAYER_REVIVE = 1482,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function preFortuneDisplay(): boolean | undefined {}
+   * ```
+   */
+  PRE_FORTUNE_DISPLAY = 1483,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function preItemTextDisplay(
+   *   title: string,
+   *   subtitle: string,
+   *   isSticky: boolean,
+   *   isCurseDisplay: boolean
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_ITEM_TEXT_DISPLAY = 1484,
 }

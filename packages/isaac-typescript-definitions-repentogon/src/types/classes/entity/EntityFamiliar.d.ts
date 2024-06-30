@@ -21,6 +21,12 @@ declare global {
     /** Returns the familiar's follower priority. */
     GetFollowerPriority: () => FollowerPriority;
 
+    /**
+     * Returns the `ItemConfigItem` corresponding to the collectible that granted the familiar.
+     * Returns undefined if the familiar was not spawned by a collectible.
+     */
+    GetItemConfig: () => ItemConfigItem | undefined;
+
     GetMoveDelayNum: () => int;
 
     /** Returns the familiar's pathfinder. */
