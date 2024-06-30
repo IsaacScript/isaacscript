@@ -55,7 +55,10 @@ declare global {
       rate?: number,
     ) => void;
     SetBloom: (time: number, strength: number) => void;
-    SetDizzyAmount: (amount: int) => void;
+    SetDizzyAmount: (
+      targetIntensity: number,
+      currentIntensity?: number,
+    ) => void;
     SetDonationModAngel: (amount: int) => void;
     SetDonationModGreed: (amount: int) => void;
     ShowGenericLeaderboard: () => void;
