@@ -115,6 +115,13 @@ declare global {
     /** Returns whether co-op mode is active. */
     function IsCoopPlay(): boolean;
 
+    /**
+     * Safely removes extra player entities such as Strawman.
+     *
+     * It is not recommended to pass the main player entity to this method.
+     */
+    function RemoveCoPlayer(player: EntityPlayer): void;
+
     /** Spawns a second player of the provided `PlayerType`. */
     function SpawnCoPlayer2(playerType: PlayerType): EntityPlayer;
 
