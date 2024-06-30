@@ -7,4 +7,5 @@ export enum DailyChallengeMenuState {
   NOT_LOADED = 0,
   LOADING = 1,
   LOADED = 2,
+  SUBMITTED_SCORE = 3,
 }
