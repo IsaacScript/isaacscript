@@ -14,7 +14,7 @@ import type { BagOfCraftingPickup } from "../../../enums/BagOfCraftingPickup";
 import type { DeathAnimationName } from "../../../enums/DeathAnimationName";
 import type { HealthType } from "../../../enums/HealthType";
 import type { PurityState } from "../../../enums/PurityState";
-import type { CambionFamiliarFlag } from "../../../enums/flags/CambionFamiliarFlag";
+import type { ConceptionFamiliarFlag } from "../../../enums/flags/ConceptionFamiliarFlag";
 
 declare global {
   interface EntityPlayer extends Entity {
@@ -234,7 +234,7 @@ declare global {
     GetHallowedGroundCountdown: () => int;
 
     GetCambionConceptionState: () => int;
-    GetCambionFamiliarFlags: () => BitFlags<CambionFamiliarFlag>;
+    GetCambionFamiliarFlags: () => BitFlags<ConceptionFamiliarFlag>;
     GetCambionPregnancyLevel: () => int;
 
     /**
@@ -449,7 +449,7 @@ declare global {
     SetBlackHeart: (blackHearts: int) => void;
     SetBloodLustCounter: (counter: int) => void;
     SetBombPlaceDelay: (delay: int) => void;
-    SetCambionFamiliarFlags: (flags: BitFlags<CambionFamiliarFlag>) => void;
+    SetCambionFamiliarFlags: (flags: BitFlags<ConceptionFamiliarFlag>) => void;
     SetHallowedGroundCountdown: (countdown: int) => void;
 
     /**
