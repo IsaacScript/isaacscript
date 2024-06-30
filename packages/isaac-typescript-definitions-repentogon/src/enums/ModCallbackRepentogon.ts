@@ -2475,6 +2475,22 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BossID` provided.
+   *
+   * ```ts
+   * function preBossSelect(
+   *   bossID: BossID,
+   *   bossPool: BossPool,
+   *   levelStage: LevelStage,
+   *   stageType: StageType
+   * ): BossID | undefined {}
+   * ```
+   */
+  PRE_BOSS_SELECT = 1280,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
