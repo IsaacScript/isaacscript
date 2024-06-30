@@ -444,24 +444,24 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `TearVariant` provided.
-   *
-   * ```ts
-   * function postTearDeath(tear: EntityTear): void {}
-   * ```
-   */
-  POST_TEAR_DEATH = 1032,
-
-  /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
    * ```ts
    * function postProjectileDeath(projectile: EntityProjectile): void {}
    * ```
    */
-  POST_PROJECTILE_DEATH = 1033,
+  POST_PROJECTILE_DEATH = 1032,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TearVariant` provided.
+   *
+   * ```ts
+   * function postTearDeath(tear: EntityTear): void {}
+   * ```
+   */
+  POST_TEAR_DEATH = 1033,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
