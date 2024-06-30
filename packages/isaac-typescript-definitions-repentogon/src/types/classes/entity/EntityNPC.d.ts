@@ -19,7 +19,7 @@ declare global {
     ) => EntityProjectile[];
 
     /**
-     * ?Fires a grid entity.
+     * Fires a grid entity.
      *
      * @param sprite
      * @param desc
@@ -114,61 +114,64 @@ declare global {
     /**
      * Shoots a maggot projectile in the same way a Level 2 Horf shoot them.
      *
-     * @param position
-     * @param velocity
+     * @param origin
+     * @param target
+     * @param fallingSpeed Optional. Default is -8.
      * @param yOffset Optional. The smaller the yOffset is, the higher the maggot is from the
-     *                ground. Default is -8.
+     *                ground. Default is -24.
      */
     function ShootMaggotProjectile(
-      position: Vector,
-      velocity: Vector,
+      origin: Vector,
+      target: Vector,
+      fallingSpeed?: number,
       yOffset?: number,
     ): EntityNPC;
 
     /**
-     * Throws a leech.
-     *
+     * @param origin
      * @param source
      * @param target
-     * @param yOffset Optional. Default is -10.
+     * @param yPosOffset Optional. Default is -10.
      * @param big Optional. Default is false.
      */
     function ThrowLeech(
+      origin: Vector,
       source: Entity,
       target: Vector,
-      yOffset?: number,
-      big?: boolean,
+      yPosOffset?: number,
+      big?: number,
     ): EntityNPC;
 
     /**
-     * Throws a maggot.
-     *
-     * @param position
-     * @param velocity
-     * @param yOffset Optional. Default is 0.
+     * @param origin
+     * @param target
+     * @param yOffset Optional. Default is -8.
      */
     function ThrowMaggotAtPos(
-      position: Vector,
-      velocity: Vector,
+      origin: Vector,
+      target: Vector,
       yOffset?: number,
     ): EntityNPC;
 
     /**
-     * Throws a rock spider.
-     *
+     * @param position
      * @param source
-     * @param target
+     * @param velocity
      * @param variant Optional. Default is `RockSpiderVariant.ROCK_SPIDER`.
      * @param yPosOffset Optional. Default is -10.
      */
     function ThrowRockSpider(
+      position: Vector,
       source: Entity,
-      target: Vector,
+      velocity: Vector,
       variant?: RockSpiderVariant,
       yPosOffset?: number,
     ): EntityNPC;
 
-    /** Throws a strider. */
-    function ThrowStrider(source: Entity, target: Vector): EntityNPC;
+    function ThrowStrider(
+      position: Vector,
+      source: Entity,
+      target: Vector,
+    ): EntityNPC;
   }
 }
