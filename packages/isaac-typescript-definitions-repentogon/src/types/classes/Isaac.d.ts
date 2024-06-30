@@ -305,8 +305,13 @@ declare global {
     /** Marks the specified challenge incomplete. */
     function MarkChallengeAsNotDone(challenge: Challenge): void;
 
-    /** Plays the specified cutscene. */
-    function PlayCutscene(cutscene: Cutscene): void;
+    /**
+     * Plays the specified cutscene.
+     *
+     * @param cutscene
+     * @param clearGameState Optional. Default is false.
+     */
+    function PlayCutscene(cutscene: Cutscene, clearGameState?: boolean): void;
 
     /**
      * Sets the contents of the clipboard to the specified string. Returns whether the contents were
