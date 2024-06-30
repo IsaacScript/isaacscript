@@ -3333,10 +3333,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:^9.5.0":
-  version: 9.5.0
-  resolution: "@eslint/js@npm:9.5.0"
-  checksum: 10c0/dacf51ec2d5b4c8d1315d21a0ff761235d9e39b2391cb945138c58dc512a6c18949c40b644235f5c4fdf5b637ef8f881214acc496dddf46b718529bf22af42ac
+"@eslint/js@npm:^9.6.0":
+  version: 9.6.0
+  resolution: "@eslint/js@npm:9.6.0"
+  checksum: 10c0/83967a7e59f2e958c9bbb3acd0929cad00d59d927ad786ed8e0d30b07f983c6bea3af6f4ad32da32145db40b7a741a816ba339bdd8960fc7fc8231716d943b7f
   languageName: node
   linkType: hard
 
@@ -8735,7 +8735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:~0.21.4":
+"esbuild@npm:~0.21.5":
   version: 0.21.5
   resolution: "esbuild@npm:0.21.5"
   dependencies:
@@ -11596,7 +11596,7 @@ __metadata:
     "@docusaurus/theme-common": "npm:^3.4.0"
     "@docusaurus/tsconfig": "npm:^3.4.0"
     "@eslint/eslintrc": "npm:^3.1.0"
-    "@eslint/js": "npm:^9.5.0"
+    "@eslint/js": "npm:^9.6.0"
     "@mdx-js/react": "npm:^3.0.1"
     "@microsoft/api-extractor": "npm:^7.47.0"
     "@prettier/plugin-xml": "npm:^3.4.1"
@@ -11660,7 +11660,7 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.3.1"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^5.23.0"
+    knip: "npm:^5.23.2"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.34.0"
     markdownlint-cli: "npm:^0.41.0"
@@ -11681,7 +11681,7 @@ __metadata:
     ts-json-schema-generator: "npm:^2.3.0"
     ts-prune-2: "npm:^0.10.7"
     tsconfig-paths: "npm:^4.2.0"
-    tsx: "npm:^4.15.7"
+    tsx: "npm:^4.16.0"
     typedoc: "npm:0.25.13"
     typedoc-plugin-markdown: "npm:3.17.1"
     typedoc-plugin-rename: "npm:^1.1.1"
@@ -12552,9 +12552,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.23.0":
-  version: 5.23.0
-  resolution: "knip@npm:5.23.0"
+"knip@npm:^5.23.2":
+  version: 5.23.2
+  resolution: "knip@npm:5.23.2"
   dependencies:
     "@ericcornelissen/bash-parser": "npm:0.5.3"
     "@nodelib/fs.walk": "npm:2.0.0"
@@ -12580,7 +12580,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10c0/e0b3f87550ecf9ec4995a3896d5dbd3305d1e2f2771b635a6cf3737e1df070cb893638cb391fad6bed20a3483f8d4e478a2dec7b530e53f8aefabd214a0e9df5
+  checksum: 10c0/92b80a646bd3f65ac3b3aa3b399d8c290e950ab63064310e689f931525ab4d947f0df5f3813510b0c5948048c0117cdfd6240924f43040ee792345913ef66938
   languageName: node
   linkType: hard
 
@@ -18712,11 +18712,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.15.7":
-  version: 4.15.7
-  resolution: "tsx@npm:4.15.7"
+"tsx@npm:^4.16.0":
+  version: 4.16.0
+  resolution: "tsx@npm:4.16.0"
   dependencies:
-    esbuild: "npm:~0.21.4"
+    esbuild: "npm:~0.21.5"
     fsevents: "npm:~2.3.3"
     get-tsconfig: "npm:^4.7.5"
   dependenciesMeta:
@@ -18724,7 +18724,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 10c0/e960f4ee084b48cd3183e65946725fd9b0de4afae32a0fd9cd47416a41259fb2c72838b7aeba26adaecc2d89d70e976add9722e72ea5c876b3b493f137cbbf12
+  checksum: 10c0/b9afc19d40d60d13bab408800be79e3279862ead2b17dc47fadddd41cca06f25be55fcd3a033c6205fa190bb52c8485ed842593a4292246d2501a9ee3d7b0ae3
   languageName: node
   linkType: hard
 
