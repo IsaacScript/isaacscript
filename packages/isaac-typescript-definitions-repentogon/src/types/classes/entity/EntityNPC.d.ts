@@ -144,8 +144,8 @@ declare global {
 
     /**
      * @param origin
-     * @param yOffset
-     * @param target Optional. Default is -8.
+     * @param target
+     * @param yOffset Optional. Default is -8.
      */
     function ThrowMaggotAtPos(
       origin: Vector,
