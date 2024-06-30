@@ -16,7 +16,6 @@ declare global {
     GetHeartOverlayAnim: () => string;
 
     IsEternalHeartOverlayVisible: () => boolean;
-
     IsFadingHeart: () => boolean;
 
     /** Returns whether the golden heart overlay is visible on the heart. */
