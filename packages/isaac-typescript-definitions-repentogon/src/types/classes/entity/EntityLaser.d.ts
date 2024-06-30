@@ -1,4 +1,5 @@
 declare interface EntityLaser extends Entity {
+  GetDamageMultiplier: () => number;
   GetDisableFollowParent: () => boolean;
   GetHitList: () => int[];
   GetOneHit: () => int;
@@ -16,6 +17,8 @@ declare interface EntityLaser extends Entity {
    * @param speed Optional. Default is 8.
    */
   RotateToAngle: (angle: number, speed: number) => void;
+
+  SetDamageMultiplier: (multiplier: number) => void;
 
   /** Sets whether the laser should not follow its parent. */
   SetDisableFollowParent: (followParent: boolean) => void;

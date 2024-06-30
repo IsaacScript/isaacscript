@@ -40,7 +40,9 @@ import type { FollowerPriority } from "../../enums/FollowerPriority";
 import type { GiantbookType } from "../../enums/GiantbookType";
 import type { HealthType } from "../../enums/HealthType";
 import type { ModCallbackRepentogon } from "../../enums/ModCallbackRepentogon";
+import type { PillCardSlot } from "../../enums/PillCardSlot";
 import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
+import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
 
 declare global {
   /**
@@ -348,15 +350,15 @@ declare global {
     ];
 
     // 1032
-    [ModCallbackRepentogon.POST_TEAR_DEATH]: [
-      callback: (tear: EntityTear) => void,
-      tearVariant?: TearVariant,
-    ];
-
-    // 1033
     [ModCallbackRepentogon.POST_PROJECTILE_DEATH]: [
       callback: (projectile: EntityProjectile) => void,
       projectileVariant?: ProjectileVariant,
+    ];
+
+    // 1033
+    [ModCallbackRepentogon.POST_TEAR_DEATH]: [
+      callback: (tear: EntityTear) => void,
+      tearVariant?: TearVariant,
     ];
 
     // 1034
@@ -1577,6 +1579,16 @@ declare global {
     // 1172
     [ModCallbackRepentogon.POST_ROOM_TRANSITION_RENDER]: [callback: () => void];
 
+    // 1300
+    [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_SAVE]: [
+      callback: (slot: int) => void,
+    ];
+
+    // 1301
+    [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_LOAD]: [
+      callback: (slot: int) => void,
+    ];
+
     // 1333
     [ModCallbackRepentogon.PRE_RENDER_CUSTOM_CHARACTER_MENU]: [
       callback: (
@@ -1598,6 +1610,116 @@ declare global {
     // 1335
     [ModCallbackRepentogon.PRE_PICKUP_UPDATE_GHOST_PICKUPS]: [
       callback: (pickup: EntityPickup) => boolean | undefined,
+    ];
+
+    // 1350
+    [ModCallbackRepentogon.PRE_PLAYER_ADD_CARD]: [
+      callback: (
+        player: EntityPlayer,
+        card: CardType,
+        slot: PillCardSlot,
+      ) => boolean | CardType | undefined,
+      cardType?: CardType,
+    ];
+
+    // 1351
+    [ModCallbackRepentogon.POST_PLAYER_ADD_CARD]: [
+      callback: (
+        player: EntityPlayer,
+        card: CardType,
+        slot: PillCardSlot,
+      ) => void,
+      cardType?: CardType,
+    ];
+
+    // 1352
+    [ModCallbackRepentogon.PRE_PLAYER_ADD_PILL]: [
+      callback: (
+        player: EntityPlayer,
+        pill: PillColor,
+        slot: PillCardSlot,
+      ) => boolean | PillColor | undefined,
+      pillColor?: PillCardSlot,
+    ];
+
+    // 1353
+    [ModCallbackRepentogon.POST_PLAYER_ADD_PILL]: [
+      callback: (
+        player: EntityPlayer,
+        pill: PillColor,
+        slot: PillCardSlot,
+      ) => void,
+      pillColor?: PillCardSlot,
+    ];
+
+    // 1354
+    [ModCallbackRepentogon.POST_PLAYER_REMOVE_CARD]: [
+      callback: (
+        player: EntityPlayer,
+        card: CardType,
+        slot: PillCardSlot,
+      ) => void,
+      cardType?: CardType,
+    ];
+
+    // 1355
+    [ModCallbackRepentogon.POST_PLAYER_REMOVE_PILL]: [
+      callback: (
+        player: EntityPlayer,
+        pill: PillColor,
+        slot: PillCardSlot,
+      ) => void,
+      pillColor?: PillCardSlot,
+    ];
+
+    // 1356
+    [ModCallbackRepentogon.PRE_PLAYER_COLLECT_CARD]: [
+      callback: (
+        player: EntityPlayer,
+        pickup: EntityPickup,
+      ) => boolean | undefined,
+      cardType?: CardType,
+    ];
+
+    // 1357
+    [ModCallbackRepentogon.POST_PLAYER_COLLECT_CARD]: [
+      callback: (player: EntityPlayer, pickup: EntityPickup) => void,
+      cardType?: CardType,
+    ];
+
+    // 1358
+    [ModCallbackRepentogon.PRE_PLAYER_COLLECT_PILL]: [
+      callback: (
+        player: EntityPlayer,
+        pickup: EntityPickup,
+      ) => boolean | undefined,
+      pillColor?: PillColor,
+    ];
+
+    // 1359
+    [ModCallbackRepentogon.POST_PLAYER_COLLECT_PILL]: [
+      callback: (player: EntityPlayer, pickup: EntityPickup) => void,
+      pillColor?: CardType,
+    ];
+
+    // 1360
+    [ModCallbackRepentogon.POST_PLAYER_DROP_CARD]: [
+      callback: (
+        player: EntityPlayer,
+        pickup: EntityPickup,
+        slot: PillCardSlot,
+      ) => void,
+      cardType?: CardType,
+    ];
+
+    // 1361
+    [ModCallbackRepentogon.POST_PLAYER_DROP_PILL]: [
+      callback: (
+        player: EntityPlayer,
+        pickup: EntityPickup,
+        slot: PillCardSlot,
+      ) => void,
+      pillColor?: PillColor,
     ];
 
     // 1400
@@ -2051,15 +2173,21 @@ declare global {
     ];
 
     // 1474
-    [ModCallbackRepentogon.PRE_RECORD_PLAYER_COMPLETION]: [
-      callback: (completionMarkType: CompletionMarkType) => boolean | undefined,
-      completionMarkType?: CompletionMarkType,
+    [ModCallbackRepentogon.PRE_PLAYER_GIVE_BIRTH_CAMBION]: [
+      callback: (
+        player: EntityPlayer,
+        flag: ConceptionFamiliarFlag,
+      ) => boolean | undefined,
+      conceptionFamiliarFlag?: ConceptionFamiliarFlag,
     ];
 
     // 1475
-    [ModCallbackRepentogon.POST_RECORD_PLAYER_COMPLETION]: [
-      callback: (completionMarkType: CompletionMarkType) => void,
-      completionMarkType?: CompletionMarkType,
+    [ModCallbackRepentogon.PRE_PLAYER_GIVE_BIRTH_IMMACULATE]: [
+      callback: (
+        player: EntityPlayer,
+        flag: ConceptionFamiliarFlag,
+      ) => boolean | undefined,
+      conceptionFamiliarFlag?: ConceptionFamiliarFlag,
     ];
 
     // 1481
@@ -2072,6 +2200,21 @@ declare global {
     [ModCallbackRepentogon.POST_PLAYER_REVIVE]: [
       callback: (player: EntityPlayer) => void,
       playerType?: PlayerType,
+    ];
+
+    // 1483
+    [ModCallbackRepentogon.PRE_FORTUNE_DISPLAY]: [
+      callback: () => boolean | undefined,
+    ];
+
+    // 1484
+    [ModCallbackRepentogon.PRE_ITEM_TEXT_DISPLAY]: [
+      callback: (
+        title: string,
+        subtitle: string,
+        isSticky: boolean,
+        isCurseDisplay: boolean,
+      ) => boolean | undefined,
     ];
   }
 }
