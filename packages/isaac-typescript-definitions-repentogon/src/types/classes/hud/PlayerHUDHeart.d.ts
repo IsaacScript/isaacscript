@@ -15,6 +15,10 @@ declare global {
     /** Returns the name of the overlay animation currently playing on the heart. */
     GetHeartOverlayAnim: () => string;
 
+    IsEternalHeartOverlayVisible: () => boolean;
+
+    IsFadingHeart: () => boolean;
+
     /** Returns whether the golden heart overlay is visible on the heart. */
     IsGoldenHeartOverlayVisible: () => boolean;
 
