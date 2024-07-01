@@ -1573,11 +1573,22 @@ declare global {
       callback: (boss1: BossID, boss2: BossID) => void,
     ];
 
-    // 1171
+    // 1271
     [ModCallbackRepentogon.POST_ROOM_TRANSITION_UPDATE]: [callback: () => void];
 
-    // 1172
+    // 1272
     [ModCallbackRepentogon.POST_ROOM_TRANSITION_RENDER]: [callback: () => void];
+
+    // 1280
+    [ModCallbackRepentogon.PRE_BOSS_SELECT]: [
+      callback: (
+        bossID: BossID,
+        bossPool: BossPool,
+        levelStage: LevelStage,
+        stageType: StageType,
+      ) => BossID | undefined,
+      bossID?: BossID,
+    ];
 
     // 1300
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_SAVE]: [

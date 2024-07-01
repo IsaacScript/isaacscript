@@ -7,6 +7,7 @@ export * from "./enums/BombCostumeLayer";
 export * from "./enums/CharacterMenuType";
 export * from "./enums/CompletionMarkDifficulty";
 export * from "./enums/CompletionMarkType";
+export * from "./enums/DailyChallengeMenuState";
 export * from "./enums/DeathAnimationName";
 export * from "./enums/DialogButton";
 export * from "./enums/DialogIcon";
