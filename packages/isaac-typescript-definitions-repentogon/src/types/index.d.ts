@@ -2,6 +2,8 @@
 // Classes
 // -------
 
+/// <reference path="./classes/boss-pools/BossPool.d.ts"/>
+/// <reference path="./classes/boss-pools/BossPoolManager.d.ts"/>
 /// <reference path="./classes/entity/Entity.d.ts"/>
 /// <reference path="./classes/entity/EntityBomb.d.ts"/>
 /// <reference path="./classes/entity/EntityDelirium.d.ts"/>
@@ -121,4 +123,5 @@
 
 /// <reference path = "./unofficial/AddUpdateParametersImGui.d.ts"/>
 /// <reference path = "./unofficial/AddCallbackParametersRepentogon.d.ts"/>
+/// <reference path = "./unofficial/BossPoolEntry.d.ts"/>
 /// <reference path = "./unofficial/RGBValue.d.ts"/>
