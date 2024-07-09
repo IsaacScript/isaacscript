@@ -45,9 +45,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "^7.14.1",
-    "@typescript-eslint/types": "^7.14.1",
-    "@typescript-eslint/utils": "^7.14.1"
+    "@typescript-eslint/type-utils": "^7.16.0",
+    "@typescript-eslint/types": "^7.16.0",
+    "@typescript-eslint/utils": "^7.16.0"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": ">= 6.0.0",
