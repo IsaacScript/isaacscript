@@ -6,6 +6,7 @@ declare global {
     GetEntitiesSaveState: () => EntitiesSaveStateVector;
     GetGridEntitiesSaveState: () => GridEntitiesSaveStateVector;
     GetRestrictedGridIndexes: () => int[];
+    InitSeeds: (rng: RNG) => void;
 
     AllowedDoors: BitFlags<DoorSlotFlag>;
     Doors: BitFlags<DoorSlotFlag>;
