@@ -1590,6 +1590,20 @@ declare global {
       bossID?: BossID,
     ];
 
+    // 1281
+    [ModCallbackRepentogon.PRE_PLAYER_ADD_COSTUME]: [
+      callback: (
+        itemConfig: ItemConfigItem,
+        player: EntityPlayer,
+        itemStateOnly: boolean,
+      ) => void,
+    ];
+
+    // 1282
+    [ModCallbackRepentogon.PRE_PLAYER_REMOVE_COSTUME]: [
+      callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
+    ];
+
     // 1300
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_SAVE]: [
       callback: (slot: int) => void,

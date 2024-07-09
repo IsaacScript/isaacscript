@@ -2507,6 +2507,31 @@ export enum ModCallbackRepentogon {
   PRE_BOSS_SELECT = 1280,
 
   /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function prePlayerAddCostume(
+   *   itemConfig: ItemConfigItem,
+   *   player: EntityPlayer,
+   *   itemStateOnly: boolean
+   * ): boolean | ItemConfigItem | undefined {}
+   * ```
+   */
+  PRE_PLAYER_ADD_COSTUME = 1281,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function prePlayerAddCostume(
+   *   itemConfig: ItemConfigItem,
+   *   player: EntityPlayer
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_REMOVE_COSTUME = 1282,
+
+  /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
