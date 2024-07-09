@@ -43,12 +43,19 @@ declare global {
       mode?: int,
     ): RoomConfig | undefined;
 
-    /** Returns a random `RoomConfig` from the specified parameters. */
+    /**
+     * Returns a random `RoomConfig` from the specified parameters.
+     *
+     * @param stageID
+     * @param roomType
+     * @param variant
+     * @param difficulty Optional. Default is -1, allowing any difficulty to be chosen.
+     */
     function GetRoomByStageTypeAndVariant(
       stageID: StageID,
       roomType: RoomType,
       variant: int,
-      difficulty: int,
+      difficulty?: int,
     ): RoomConfig | undefined;
   }
 }
