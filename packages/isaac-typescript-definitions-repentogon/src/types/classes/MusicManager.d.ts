@@ -8,7 +8,7 @@ declare global {
     GetCurrentPitch: () => number;
 
     /** Plays a jingle. */
-    PlayJingle: (jingle: Music) => void;
+    PlayJingle: (jingle: Music, duration: int) => void;
 
     /** Sets the pitch of the music. */
     SetCurrentPitch: (pitch: float) => void;
