@@ -647,10 +647,10 @@ declare global {
     function Show(): void;
 
     /** Updates arbitrary data associated with an ImGui element. */
-    function UpdateData<T extends keyof AddUpdateParametersImGui>(
+    function UpdateData(
       elementID: string,
       dataType: ImGuiData,
-      newDataValues: AddUpdateParametersImGui[T],
+      newDataValues: keyof AddUpdateParametersImGui,
     ): void;
 
     /** Updates the text content or label of an ImGui element. */
