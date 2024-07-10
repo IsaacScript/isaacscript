@@ -1,7 +1,6 @@
 import type { Controller, Keyboard } from "isaac-typescript-definitions";
 import type { ImGuiCallback } from "../../enums/imgui/ImGuiCallback";
 import type { ImGuiColor } from "../../enums/imgui/ImGuiColor";
-import type { ImGuiData } from "../../enums/imgui/ImGuiData";
 import type { ImGuiElement } from "../../enums/imgui/ImGuiElement";
 import type { ImGuiNotificationType } from "../../enums/imgui/ImGuiNotificationType";
 
@@ -647,10 +646,10 @@ declare global {
     function Show(): void;
 
     /** Updates arbitrary data associated with an ImGui element. */
-    function UpdateData(
+    function UpdateData<T extends keyof AddUpdateParametersImGui>(
       elementID: string,
-      dataType: ImGuiData,
-      newDataValues: keyof AddUpdateParametersImGui,
+      dataType: T,
+      newDataValues: AddUpdateParametersImGui[T],
     ): void;
 
     /** Updates the text content or label of an ImGui element. */
