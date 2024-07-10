@@ -230,7 +230,7 @@ export function getRandomEnumValue<T extends TranspiledEnum>(
  * `satisfies` operator with the `Record` type instead.
  */
 export function interfaceSatisfiesEnum<
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-unnecessary-type-parameters
   T extends Record<Enum, unknown>,
   Enum extends string | number,
 >(): void {} // eslint-disable-line @typescript-eslint/no-empty-function
@@ -277,9 +277,9 @@ export function validateCustomEnum(
  *
  * This is useful to automate checking large enums for typos.
  */
-export function validateEnumContiguous<T extends TranspiledEnum>(
+export function validateEnumContiguous(
   transpiledEnumName: string,
-  transpiledEnum: T,
+  transpiledEnum: TranspiledEnum,
 ): void {
   const values = getEnumValues(transpiledEnum);
   const lastValue = values.at(-1);
@@ -296,7 +296,7 @@ export function validateEnumContiguous<T extends TranspiledEnum>(
 
   const valuesSet = new ReadonlySet(values);
   for (const value of iRange(lastValue)) {
-    if (!valuesSet.has(value as unknown as T[keyof T])) {
+    if (!valuesSet.has(value)) {
       error(
         `Failed to find a custom enum value of ${value} for: ${transpiledEnumName}`,
       );

@@ -115,7 +115,7 @@ export function hasFlag<T extends BitFlag | BitFlag128>(
  * (This is equivalent to checking if the flag is equal to 0, but this is not possible without
  * casting the flag to a number.)
  */
-export function isEmptyFlag<T extends BitFlag | BitFlag128>(flag: T): boolean {
+export function isEmptyFlag(flag: BitFlag | BitFlag128): boolean {
   return flag === 0;
 }
 

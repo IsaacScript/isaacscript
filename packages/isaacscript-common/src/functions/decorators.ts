@@ -85,13 +85,13 @@ export function PriorityCallback<T extends ModCallback>(
   priority: CallbackPriority | int,
   ...optionalArgs: AllButFirst<AddCallbackParameters[T]>
 ) {
-  return <Class extends ModFeature, Fn extends AddCallbackParameters[T][0]>(
-    target: Class,
+  return <Fn extends AddCallbackParameters[T][0]>(
+    target: ModFeature,
     propertyKey: string,
     _descriptor: TypedPropertyDescriptor<Fn>,
   ): void => {
     // First, prepare the arguments for the `Mod.AddPriorityCallback` method.
-    const methodName = propertyKey as keyof Class;
+    const methodName = propertyKey as keyof ModFeature;
     const method = target[methodName] as AddCallbackParameters[T][0];
     const callbackTuple = [modCallback, priority, method, optionalArgs];
 
@@ -133,16 +133,13 @@ export function PriorityCallbackCustom<T extends ModCallbackCustom>(
   priority: CallbackPriority | int,
   ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
 ) {
-  return <
-    Class extends ModFeature,
-    Fn extends AddCallbackParametersCustom[T][0],
-  >(
-    target: Class,
+  return <Fn extends AddCallbackParametersCustom[T][0]>(
+    target: ModFeature,
     propertyKey: string,
     _descriptor: TypedPropertyDescriptor<Fn>,
   ): void => {
     // First, prepare the arguments for the `Mod.AddCallbackCustom` method.
-    const methodName = propertyKey as keyof Class;
+    const methodName = propertyKey as keyof ModFeature;
     const method = target[methodName] as AddCallbackParametersCustom[T][0];
     const callbackTuple = [modCallbackCustom, priority, method, optionalArgs];
 

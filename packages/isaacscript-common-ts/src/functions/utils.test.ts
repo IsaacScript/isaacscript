@@ -41,6 +41,7 @@ describe("assertsDefined", () => {
   assertDefined(value as string | undefined | null, "");
   assertDefined(value as Function | undefined | null, ""); // eslint-disable-line @typescript-eslint/ban-types
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   function _genericFunction<T>(_arg: T) {
     const t = undefined as T | undefined;
     assertDefined(t, "");
@@ -78,6 +79,7 @@ describe("assertsNull", () => {
   assertNotNull(value as string | null | undefined, "");
   assertNotNull(value as Function | null | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   function _genericFunction<T>(_arg: T) {
     const t = null as T | null; // eslint-disable-line unicorn/no-null
     assertNotNull(t, "");
