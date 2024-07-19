@@ -27,9 +27,9 @@ function getPackageJSON(): Record<string, unknown> {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  const REPO_ROOT = path.join(__dirname, "..", "..");
+  const PACKAGE_ROOT = path.join(__dirname, "..");
 
-  const packageJSONPath = path.join(REPO_ROOT, "package.json");
+  const packageJSONPath = path.join(PACKAGE_ROOT, "package.json");
   try {
     const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
     return JSON.parse(packageJSONString);
