@@ -219,7 +219,8 @@ const config = {
     /** Disabled because it is overboard for every function to document every return value. */
     "jsdoc/require-returns": "off",
 
-    "jsdoc/require-template": "error",
+    /** Disabled because it is overboard to document every generic type variable. */
+    "jsdoc/require-template": "off",
 
     /** Disabled because it is overboard to document every throw statement. */
     "jsdoc/require-throws": "off",
