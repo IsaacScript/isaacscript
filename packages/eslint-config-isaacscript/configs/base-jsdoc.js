@@ -71,6 +71,8 @@ const config = {
       },
     ],
 
+    "jsdoc/check-template-names": "error",
+
     /** Disabled because it is not needed in TypeScript. */
     "jsdoc/check-types": "off",
 
