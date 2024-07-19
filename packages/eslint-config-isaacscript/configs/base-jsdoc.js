@@ -77,6 +77,13 @@ const config = {
     "jsdoc/check-types": "off",
 
     "jsdoc/check-values": "error",
+
+    /**
+     * Disabled since it is idiomatic in the TypeScript ecosystem to use a mixture of both JSDoc and
+     * non-JSDoc comments.
+     */
+    "jsdoc/convert-to-jsdoc-comments": "off",
+
     "jsdoc/empty-tags": "error",
     "jsdoc/implements-on-classes": "error",
 
