@@ -1,4 +1,5 @@
-- use sort eslint plugin to sort object alphabetically in base-typescript-eslint
+- use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
+  https://eslint.org/docs/latest/rules/sort-keys
 
 - test import no-cycle rule (might need to re-add typescript config from main branch)
 
