@@ -1,6 +1,10 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const REPO_ROOT = path.join(__dirname, "..", "..");
 const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
   REPO_ROOT,
   "packages",

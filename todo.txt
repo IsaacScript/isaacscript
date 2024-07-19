@@ -1,3 +1,5 @@
+- // TODO: Uncomment when TypeScript 5.5 is released.
+
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
 
