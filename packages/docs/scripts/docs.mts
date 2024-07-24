@@ -63,9 +63,9 @@ For installation instructions, see [the \`isaacscript-lint\` page](https://githu
 
 ## Why Do I Need To Use ESLint?
 
-Presumably, you are a TypeScript user who has used the language for a while. At this point, you have already realized that TypeScript saves you an enormous amount of time. The hours spent troubleshooting run-time errors from typos have become a thing of the past. Good riddance!
+If you are reading this page, you are likely a user of [TypeScript](https://www.typescriptlang.org/). As you probably know, TypeScript is great because it saves you an enormous amount of time. The hours spent troubleshooting run-time errors caused from small typos have become a thing of the past. Good riddance!
 
-But there are many other code problems that do not have to do with types. In the same way that you want to use TypeScript to catch as many bugs as possible, you also want to use ESLint with a config that enables as many good linting rules as possible.
+But there are many other code problems that do not have to do with types. In the same way that you want to use TypeScript to catch as many bugs as possible, you also want to use ESLint with a config that enables lots of good linting rules to catch even more bugs.
 
 ESLint rules can help catch bugs, but they can also help to make your codebase more consistent and adhere to best-practices within the TypeScript ecosystem. Remember that [code is read more often than it is written](https://skeptics.stackexchange.com/questions/48560/is-code-read-more-often-than-its-written). If you care about your code being the best that it can possibly be, then using ESLint is a no-brainer!
 
