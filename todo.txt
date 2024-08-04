@@ -18,6 +18,11 @@
 - re-add test script to package.json for plugin when RuleTester is finished for V8
   - https://github.com/typescript-eslint/typescript-eslint/issues/9017
 
+- new TSESLint changes:
+  - https://typescript-eslint.io/blog/announcing-typescript-eslint-v8
+  - change project to projectServices
+  - remove tsconfig.eslint.json
+
 - waiting on ESLint 9 support:
   - RuleTester
   - eslint-plugin-disable-autofix
